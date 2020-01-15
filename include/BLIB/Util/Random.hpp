@@ -9,9 +9,6 @@
 
 namespace bl
 {
-namespace Util
-{
-
 /**
  * Random number generator for integral and floating point numbers
  * 
@@ -44,7 +41,6 @@ private:
     std::mt19937 rng;
 };
 
-}
 }
 
 #endif

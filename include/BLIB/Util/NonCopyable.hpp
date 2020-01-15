@@ -3,9 +3,6 @@
 
 namespace bl
 {
-namespace Util
-{
-
 /**
  * Helper class to make derived classes impossible for user to copy directly
  *
@@ -21,7 +18,6 @@ private:
     NonCopyable& operator=(const NonCopyable&) = delete;
 };
 
-}
 }
 
 #endif
