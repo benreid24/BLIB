@@ -26,7 +26,7 @@ struct Resource {
  */
 template<typename T>
 struct ResourceLoader {
-    Resource<T>::Ref operator() (const string& uri) {
+    typename Resource<T>::Ref operator() (const std::string& uri) {
         return std::make_shared<T>(uri);
     }
 };

@@ -29,7 +29,7 @@ public:
         if (min > max)
             std::swap(min, max);
         const uint32_t range = std::numeric_limits<uint32_t>::max();
-        const T point = get<uint32_t>(0, maxint);
+        const T point = get<uint32_t>(0, range);
         return min + point / static_cast<T>(range) * (max - min);
     }
 

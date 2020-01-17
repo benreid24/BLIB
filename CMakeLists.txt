@@ -31,8 +31,10 @@ add_subdirectory(lib/SFML)
 
 add_subdirectory(include/BLIB)
 add_subdirectory(src)
+include_directories(include)
 
 if (BUILD_TESTS)
+    enable_testing()
     add_subdirectory(lib/gtest)
     add_subdirectory(tests)
 endif()

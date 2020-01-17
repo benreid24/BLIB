@@ -21,7 +21,7 @@ namespace bl
 template<typename T, class TLoader>
 class ResourceManager : private NonCopyable {
 public:
-    typedef Resource<T>::Ref RefType;
+    typedef typename Resource<T>::Ref RefType;
 
     /**
      * Creates a ResourceManager for a given resource type and garbage collection period
@@ -36,11 +36,11 @@ public:
      * 
      * \param uri Some unique string that a ResourceLoader can load the resource with
      */
-    Resource<T>::Ref load(const std::string& uri);
+    typename Resource<T>::Ref load(const std::string& uri);
 
 private:
     TLoader loader;
-    std::unordered_map<std::string, Resource<T>::Ref> resources;
+    std::unordered_map<std::string, typename Resource<T>::Ref> resources;
 
     const unsigned int gcPeriod;
     std::atomic<bool> gcActive;
@@ -55,7 +55,7 @@ private:
 template<typename T, class TLoader>
 ResourceManager<T, TLoader>::ResourceManager(unsigned int gcPeriod)
 : gcPeriod(gcPeriod), gcActive(true)
-, gcThread(&ResourceManager<T. TLoader>::garbageCollector, this) {}
+, gcThread(&ResourceManager<T, TLoader>::garbageCollector, this) {}
 
 template<typename T, class TLoader>
 ResourceManager<T, TLoader>::~ResourceManager() {
@@ -64,7 +64,7 @@ ResourceManager<T, TLoader>::~ResourceManager() {
 }
 
 template<typename T, class TLoader>
-ResourceManager<T, TLoader>::RefType ResourceManager<T, TLoader>::load(const std::string& uri) {
+typename ResourceManager<T, TLoader>::RefType ResourceManager<T, TLoader>::load(const std::string& uri) {
     auto i = resources.find(uri);
     if (i == resources.end()) {
         mapLock.lock();
