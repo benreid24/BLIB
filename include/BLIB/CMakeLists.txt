@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+    Resources.hpp
     Util.hpp
 )
 
