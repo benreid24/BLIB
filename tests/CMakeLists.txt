@@ -1,8 +1,11 @@
 add_executable(BLIB.t
+    FileUtil.t.cpp
     ResourceManager.t.cpp
 )
 
-target_link_libraries(BLIB.t PRIVATE 
+target_link_libraries(BLIB.t PRIVATE
+    BLIB
+
     gtest
     gtest_main
 )
@@ -11,4 +14,4 @@ target_link_libraries(BLIB.t PRIVATE
 target_include_directories(BLIB.t PRIVATE ${PROJECT_SOURCE_DIR}/lib/gtest/googletest/include)
 target_include_directories(BLIB.t PRIVATE ${PROJECT_SOURCE_DIR}/lib/gtest/googlemock/include)
 
-add_test(COMMAND BLIB.T)
+add_test(NAME UnitTests COMMAND BLIB.T)

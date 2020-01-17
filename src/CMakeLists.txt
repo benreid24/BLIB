@@ -1,3 +1,1 @@
-target_sources(BLIB PUBLIC
-    test.cpp
-)
+add_subdirectory(Files)
