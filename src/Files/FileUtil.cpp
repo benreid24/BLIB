@@ -1,7 +1,10 @@
 #include <BLIB/Files/FileUtil.hpp>
 
+#include <BLIB/Util/Random.hpp>
+#include <cstdio>
 #include <dirent.h>
 #include <fstream>
+#include <sstream>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -60,6 +63,20 @@ std::string FileUtil::joinPath(const std::string& l, const std::string& r) {
     return l.substr(0, ls) + "/" + r.substr(rs);
 }
 
+std::string FileUtil::genTempName(const std::string& path, const std::string& ext) {
+    std::string file;
+    do {
+        std::stringstream ss;
+        ss << "TEMP_" << std::hex << Random::get(1000, 10000000);
+        if (!ext.empty()) {
+            if (ext[0] != '.') ss << ".";
+            ss << ext;
+        }
+        file = joinPath(path, ss.str());
+    } while (exists(file));
+    return file;
+}
+
 void FileUtil::copyFile(const std::string& src, const std::string& dest) {
     if (src == dest) return;
 
@@ -113,6 +130,10 @@ std::vector<std::string> FileUtil::listDirectory(
     }
 
     return list;
+}
+
+bool FileUtil::deleteFile(const std::string& file) {
+    return 0 == remove(file.c_str());
 }
 
 } // namespace bl
