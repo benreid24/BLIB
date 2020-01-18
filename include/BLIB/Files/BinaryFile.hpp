@@ -3,7 +3,10 @@
 
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Files/FileUtil.hpp>
+
 #include <fstream>
+#include <cstring>
+#include <type_traits>
 
 namespace bl
 {
@@ -24,12 +27,16 @@ public:
     ~BinaryFile();
 
     template<typename T>
-    bool write(const T& data);
+    typename std::enable_if<std::is_integral_v<T>, bool>::type
+        write(const T& data);
+    bool write(const std::string& data);
 
     template<typename T>
-    bool read(T& output);
+    typename std::enable_if<std::is_integral_v<T>, bool>::type
+        read(T& output);
+    bool read(std::string& output);
 
-    bool good() const;
+    bool good();
 
 private:
     const OpenMode mode;
@@ -50,22 +57,24 @@ BinaryFile::~BinaryFile() {
 }
 
 template<typename T>
-bool BinaryFile::write(const T& data) {
+typename std::enable_if<std::is_integral_v<T>, bool>::type
+BinaryFile::write(const T& data) {
     if (!handle.good() || mode!=Write)
         return false;
 
     const size_t size = sizeof(T);
     char bytes[size];
-    for (unsigned int i = 0; i<size; ++i) {
-        const unsigned int j = FileUtil::isBigEndian() ? i : (size - i - 1);
-        bytes[i] = static_cast<uint8_t>(data >> (j*8));
+    std::memcpy(bytes, &data, size);
+    if (FileUtil::isBigEndian()) {
+        for (unsigned int i = 0; i<size / 2; ++i) {
+            std::swap(bytes[i], bytes[size-i-1]);
+        }
     }
     handle.write(bytes, size);
     return handle.good();
 }
 
-template<>
-bool BinaryFile::write<std::string>(const std::string& data) {
+bool BinaryFile::write(const std::string& data) {
     if (!handle.good() || mode!=Write)
         return false;
     if (!write<uint32_t>(data.size()))
@@ -75,7 +84,8 @@ bool BinaryFile::write<std::string>(const std::string& data) {
 }
 
 template<typename T>
-bool BinaryFile::read(T& output) {
+typename std::enable_if<std::is_integral_v<T>, bool>::type
+BinaryFile::read(T& output) {
     if (!handle.good() || mode!=Read)
         return false;
     
@@ -83,16 +93,17 @@ bool BinaryFile::read(T& output) {
     char bytes[size];
     
     output = 0;
-    handle.read(static_cast<char*>(bytes), size);
-    for (unsigned int i = 0; i<size; ++i) {
-        const unsigned int j = FileUtil::isBigEndian() ? i : (size - i - 1);
-        output |= static_cast<T>(bytes[i] << (j*8));
+    handle.read(bytes, size);
+    if (FileUtil::isBigEndian()) {
+        for (unsigned int i = 0; i<size / 2; ++i) {
+            std::swap(bytes[i], bytes[size-i-1]);
+        }
     }
+    std::memcpy(&output, bytes, size);
     return handle.good();
 }
 
-template<>
-bool BinaryFile::read<std::string>(std::string& output) {
+bool BinaryFile::read(std::string& output) {
     if (!handle.good() || mode != Read)
         return false;
     uint32_t size;
@@ -104,8 +115,9 @@ bool BinaryFile::read<std::string>(std::string& output) {
     return handle.good();
 }
 
-inline bool BinaryFile::good() const {
-    return handle.good();
+inline bool BinaryFile::good() {
+    const bool eof = mode == Read ? handle.peek() == EOF : false;
+    return handle.good() && !eof;
 }
 
 }
