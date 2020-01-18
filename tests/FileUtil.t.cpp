@@ -1,5 +1,7 @@
 #include <BLIB/Files/FileUtil.hpp>
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
+#include <fstream>
 
 namespace bl
 {
@@ -68,6 +70,26 @@ TEST(FileUtil, JoinPath) {
     for (unsigned int i = 0; i<paths.size(); ++i) {
         EXPECT_EQ(FileUtil::joinPath(paths[i].first, paths[i].second), expected[i]);
     }
+}
+
+TEST(FileUtil, Integration) {
+    using ::testing::ContainerEq;
+    ASSERT_TRUE(FileUtil::createDirectory("temp"));
+    
+    const std::string file = FileUtil::genTempName("temp", "tmp");
+    EXPECT_EQ(FileUtil::getExtension(file), "tmp");
+
+    std::ofstream out(file.c_str());
+    out << "testing";
+    out.close();
+    const std::string copy = FileUtil::joinPath("temp", "copy.tmp");
+    FileUtil::copyFile(file, copy);
+
+    const std::vector<std::string> ls = FileUtil::listDirectory("temp");
+    EXPECT_THAT(ls, ContainerEq(std::vector<std::string>({copy, file})));
+
+    EXPECT_TRUE(FileUtil::deleteFile(file));
+    EXPECT_TRUE(FileUtil::deleteFile(copy));
 }
 
 }

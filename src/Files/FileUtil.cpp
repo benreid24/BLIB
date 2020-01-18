@@ -5,6 +5,7 @@
 #include <dirent.h>
 #include <fstream>
 #include <sstream>
+#include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -102,14 +103,18 @@ void FileUtil::copyFile(const std::string& src, const std::string& dest) {
 }
 
 bool FileUtil::createDirectory(const std::string& path) {
+    if (exists(path))
+        return true;
+
     std::string cd;
     cd.reserve(path.size());
     for (unsigned int i = 0; i < path.size(); ++i) {
         if (path[i] == '/' || path[i] == '\\') {
             if (!createDir(cd.c_str())) return false;
         }
+        cd.push_back(path[i]);
     }
-    return true;
+    return createDir(cd);
 }
 
 std::vector<std::string> FileUtil::listDirectory(
@@ -124,7 +129,7 @@ std::vector<std::string> FileUtil::listDirectory(
         folder.push_back('/');
 
     cd = opendir(folder.c_str());
-    while (cd != nullptr) {
+    if (cd != nullptr) {
         while ((cfile = readdir(cd))) {
             std::string file = cfile->d_name;
             if (file.find(".") != std::string::npos) {
