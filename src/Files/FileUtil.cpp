@@ -10,6 +10,18 @@
 
 namespace bl
 {
+
+namespace
+{
+bool createDir(const std::string& path) {
+    #ifdef _WIN32
+    return 0 == mkdir(path.c_str());
+    #else
+    return 0 == mkdir(path.c_str(), 0755);
+    #endif
+}
+}
+
 bool FileUtil::exists(const std::string& file) {
     struct stat buffer;
     return (stat(file.c_str(), &buffer) == 0);
@@ -94,7 +106,7 @@ bool FileUtil::createDirectory(const std::string& path) {
     cd.reserve(path.size());
     for (unsigned int i = 0; i < path.size(); ++i) {
         if (path[i] == '/' || path[i] == '\\') {
-            if (mkdir(cd.c_str(), 0775) != 0) return false;
+            if (!createDir(cd.c_str())) return false;
         }
     }
     return true;
