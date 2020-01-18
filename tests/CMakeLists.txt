@@ -1,4 +1,5 @@
 add_executable(BLIB.t
+    BinaryFile.t.cpp
     FileUtil.t.cpp
     ResourceManager.t.cpp
 )
