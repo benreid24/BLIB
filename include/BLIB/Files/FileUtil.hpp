@@ -7,9 +7,9 @@
 namespace bl
 {
 /**
- * Common utility functions for dealing with files and filenames
+ * @brief Common utility functions for dealing with files and filenames
  *
- * \ingroup Files
+ * @ingroup Files
  */
 struct FileUtil {
     static bool exists(const std::string& file);

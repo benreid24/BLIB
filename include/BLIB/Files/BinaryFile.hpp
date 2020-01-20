@@ -12,9 +12,9 @@ namespace bl
 {
 
 /**
- * Utility class to read and write binary data. Endianness agnostic
+ * @brief Utility class to read and write binary data. Endianness agnostic
  * 
- * \ingroup Files
+ * @ingroup Files
  */
 class BinaryFile : private NonCopyable {
 public:

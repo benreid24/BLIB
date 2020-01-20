@@ -13,10 +13,10 @@
 namespace bl
 {
 /**
- * Single template based resource management class. Meant for storing
- * data exactly once, such as images
+ * @brief Single template based resource management class. Meant for storing
+ * @brief data exactly once, such as images
  *
- * \ingroup Resources
+ * @ingroup Resources
  */
 template<typename T, class TLoader>
 class ResourceManager : private NonCopyable {
@@ -24,17 +24,17 @@ public:
     typedef typename Resource<T>::Ref RefType;
 
     /**
-     * Creates a ResourceManager for a given resource type and garbage collection period
+     * @brief Creates a ResourceManager for a given resource type and garbage collection period
      *
-     * \param gcPeriod Number of seconds between round of freeing memory
+     * @param gcPeriod Number of seconds between round of freeing memory
      */
     ResourceManager(unsigned int gcPeriod);
     ~ResourceManager();
 
     /**
-     * Attempts to find the given resource and return it, loading it if necessary
+     * @brief Attempts to find the given resource and return it, loading it if necessary
      *
-     * \param uri Some unique string that a ResourceLoader can load the resource with
+     * @param uri Some unique string that a ResourceLoader can load the resource with
      */
     typename Resource<T>::Ref load(const std::string& uri);
 

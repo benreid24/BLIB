@@ -4,9 +4,9 @@
 namespace bl
 {
 /**
- * Helper class to make derived classes impossible for user to copy directly
+ * @brief Helper class to make derived classes impossible for user to copy directly
  *
- * \ingroup Util
+ * @ingroup Util
  */
 class NonCopyable {
 protected:

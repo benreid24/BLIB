@@ -1,6 +1,7 @@
 add_executable(BLIB.t
     BinaryFile.t.cpp
     FileUtil.t.cpp
+    JSON.t.cpp
     ResourceManager.t.cpp
 )
 

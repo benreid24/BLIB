@@ -10,9 +10,9 @@
 namespace bl
 {
 /**
- * Random number generator for integral and floating point numbers
+ * @brief Random number generator for integral and floating point numbers
  *
- * \ingroup Util
+ * @ingroup Util
  */
 class Random : private NonCopyable {
 public:

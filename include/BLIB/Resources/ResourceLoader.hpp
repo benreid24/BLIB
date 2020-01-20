@@ -9,7 +9,7 @@
 namespace bl
 {
 /**
- * Convenience typedef for resource references
+ * @brief Convenience typedef for resource references
  */
 template<typename T>
 struct Resource {
@@ -17,11 +17,11 @@ struct Resource {
 };
 
 /**
- * Templatized resource loader for compile time specification.
- * The default behavior is to attempt to call a constructor that takes the resource URI as a string
- * Resources with different behavior will require specialized loaders
+ * @brief Templatized resource loader for compile time specification.
+ * @brief The default behavior is to attempt to call a constructor that takes the resource URI as a string
+ * @brief Resources with different behavior will require specialized loaders
  *
- * \ingroup Resources
+ * @ingroup Resources
  */
 template<typename T>
 struct ResourceLoader {
@@ -31,9 +31,9 @@ struct ResourceLoader {
 };
 
 /**
- * Specialized ResourceLoader for sf::Texture to load from files
+ * @brief Specialized ResourceLoader for sf::Texture to load from files
  *
- * \ingroup Resources
+ * @ingroup Resources
  */
 struct TextureFileLoader {
     Resource<sf::Texture>::Ref operator()(const std::string& uri) {
