@@ -73,7 +73,7 @@ TEST(FileUtil, JoinPath) {
 }
 
 TEST(FileUtil, Integration) {
-    using ::testing::ContainerEq;
+    using ::testing::ElementsAre;
     ASSERT_TRUE(FileUtil::createDirectory("temp"));
     
     const std::string file = FileUtil::genTempName("temp", "tmp");
@@ -86,7 +86,7 @@ TEST(FileUtil, Integration) {
     FileUtil::copyFile(file, copy);
 
     const std::vector<std::string> ls = FileUtil::listDirectory("temp");
-    EXPECT_THAT(ls, ContainerEq(std::vector<std::string>({copy, file})));
+    EXPECT_THAT(ls, ElementsAre(copy, file));
 
     EXPECT_TRUE(FileUtil::deleteFile(file));
     EXPECT_TRUE(FileUtil::deleteFile(copy));

@@ -76,11 +76,11 @@ bool Loader::isNumeric(char c) const {
 Value Loader::loadValue() {
     if (isNumeric(input.peek())) return loadNumeric();
     if (input.peek() == '"') return loadString();
-    if (input.peek() == 't' || input.peek() == 'f') return loadBool();
+    if (input.peek() == 't' || input.peek() == 'f') return Value(loadBool());
     if (input.peek() == '{') return loadGroup();
     if (input.peek() == '[') return loadList();
     error() << "Unexpected character '" << input.peek() << "'\n";
-    return false;
+    return Value(false);
 }
 
 bool Loader::loadBool() {

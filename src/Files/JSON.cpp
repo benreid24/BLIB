@@ -53,7 +53,7 @@ bool Group::hasField(const std::string& name) const {
 
 RValue Group::getField(const std::string& name) const {
     auto i = fields.find(name);
-    if (i != fields.end()) return i->second;
+    if (i != fields.end()) return RValue(i->second);
     return std::nullopt;
 }
 
@@ -103,6 +103,10 @@ Value::Value(const std::string& value) {
     *this = value;
 }
 
+Value::Value(const char* value) {
+    *this = std::string(value);
+}
+
 Value::Value(const Group& value) {
     *this = value;
 }
@@ -132,6 +136,11 @@ Value& Value::operator=(float value) {
 Value& Value::operator=(const std::string& value) {
     type = TString;
     data = value;
+    return *this;
+}
+
+Value& Value::operator=(const char* value) {
+    *this = std::string(value);
     return *this;
 }
 

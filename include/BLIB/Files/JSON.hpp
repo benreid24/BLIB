@@ -9,7 +9,6 @@
 #include <variant>
 #include <vector>
 
-
 /**
  * @defgroup JSON
  * @brief Collection of classes for interacting with JSON data
@@ -93,9 +92,10 @@ public:
     enum Type { TBool, TString, TNumeric, TGroup, TList };
 
     Value(const Value& value);
-    Value(bool value);
+    explicit Value(bool value);
     Value(float value);
     Value(const std::string& value);
+    Value(const char* value);
     Value(const List& value);
     Value(const Group& value);
 
@@ -103,6 +103,7 @@ public:
     Value& operator=(bool value);
     Value& operator=(float value);
     Value& operator=(const std::string& value);
+    Value& operator=(const char* value);
     Value& operator=(const List& value);
     Value& operator=(const Group& value);
 
