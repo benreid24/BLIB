@@ -7,8 +7,8 @@ namespace bl
 {
 namespace json
 {
-
-Loader::Loader(const std::string& filename) : filename(filename) {
+Loader::Loader(const std::string& filename)
+: filename(filename) {
     std::ifstream data(filename.c_str());
     std::string buffer;
 
@@ -21,7 +21,8 @@ Loader::Loader(const std::string& filename) : filename(filename) {
     skipWhitespace();
 }
 
-Loader::Loader(std::istream& stream) : filename("memory") {
+Loader::Loader(std::istream& stream)
+: filename("memory") {
     std::string buffer;
     stream.seekg(0, std::ios::end);
     buffer.reserve(stream.tellg());
@@ -44,8 +45,7 @@ std::ostream& Loader::error() {
 
 void Loader::skipWhitespace() {
     while (isValid() && isWhitespace(input.peek())) {
-        if (input.get() == '\n')
-            currentLine += 1;
+        if (input.get() == '\n') currentLine += 1;
     }
 }
 
@@ -62,28 +62,23 @@ bool Loader::isValid() const {
 }
 
 bool Loader::isWhitespace(char c) const {
-    return c=='\n' || c==' ' || c=='\r' || c=='\t';
+    return c == '\n' || c == ' ' || c == '\r' || c == '\t';
 }
 
 bool Loader::isNumber(char c) const {
-    return c>='0' && c<='9';
+    return c >= '0' && c <= '9';
 }
 
 bool Loader::isNumeric(char c) const {
-    return isNumber(c) || c=='-';
+    return isNumber(c) || c == '-';
 }
 
 Value Loader::loadValue() {
-    if (isNumeric(input.peek()))
-        return loadNumeric();
-    if (input.peek() == '"')
-        return loadString();
-    if (input.peek() == 't' || input.peek() == 'f')
-        return loadBool();
-    if (input.peek() == '{')
-        return loadGroup();
-    if (input.peek() == '[')
-        return loadList();
+    if (isNumeric(input.peek())) return loadNumeric();
+    if (input.peek() == '"') return loadString();
+    if (input.peek() == 't' || input.peek() == 'f') return loadBool();
+    if (input.peek() == '{') return loadGroup();
+    if (input.peek() == '[') return loadList();
     error() << "Unexpected character '" << input.peek() << "'\n";
     return false;
 }
@@ -163,8 +158,7 @@ std::string Loader::loadString() {
             std::string ret;
             input.get();
             while (input.peek() != '"') {
-                if (input.peek() == '\n')
-                    currentLine += 1;
+                if (input.peek() == '\n') currentLine += 1;
 
                 ret.push_back(input.get());
                 if (!input.good()) {
@@ -179,13 +173,13 @@ std::string Loader::loadString() {
         error() << "Unxpected symbol '" << input.peek() << "' expecting '\"'" << std::endl;
         valid = false;
     }
+    return "";
 }
 
 List Loader::loadList() {
     List ret;
-    if (!isValid())
-        return ret;
-    
+    if (!isValid()) return ret;
+
     if (input.peek() != '[') {
         valid = false;
         error() << "Expected '[' got " << input.peek() << std::endl;
@@ -209,8 +203,7 @@ List Loader::loadList() {
 
 Group Loader::loadGroup() {
     Group group;
-    if (!isValid())
-        return group;
+    if (!isValid()) return group;
 
     if (input.peek() != '{') {
         valid = false;
@@ -239,5 +232,5 @@ Group Loader::loadGroup() {
     return group;
 }
 
-}
-}
+} // namespace json
+} // namespace bl

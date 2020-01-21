@@ -1,25 +1,25 @@
 #ifndef BLIB_FILES_JSONTYPES_HPP
 #define BLIB_FILES_JSONTYPES_HPP
 
-#include <optional>
-#include <variant>
-#include <vector>
 #include <map>
+#include <optional>
+#include <ostream>
 #include <set>
 #include <string>
-#include <ostream>
+#include <variant>
+#include <vector>
+
 
 /**
  * @defgroup JSON
  * @brief Collection of classes for interacting with JSON data
- * 
+ *
  */
 
 namespace bl
 {
 namespace json
 {
-
 class Value;
 class Group;
 typedef std::vector<Value> List;
@@ -35,7 +35,7 @@ typedef std::optional<Value> RValue;
  * @brief Holds source location of any json object
  * @ingroup JSON
  * @ingroup Files
- * 
+ *
  */
 struct SourceInfo {
     std::string filename;
@@ -46,7 +46,7 @@ struct SourceInfo {
  * @brief Base class for all json types
  * @ingroup JSON
  * @ingroup Files
- * 
+ *
  */
 class Base {
 public:
@@ -60,7 +60,7 @@ private:
 /**
  * @brief A collection of fields as (std::string, Value) pairs
  * @ingroup JSON
- * 
+ *
  */
 class Group : public Base {
 public:
@@ -86,17 +86,11 @@ private:
  * @brief Represents any value type in JSON
  * @ingroup JSON
  * @ingroup Files
- * 
+ *
  */
 class Value : public Base {
 public:
-    enum Type {
-        TBool,
-        TString,
-        TNumeric,
-        TGroup,
-        TList
-    };
+    enum Type { TBool, TString, TNumeric, TGroup, TList };
 
     Value(const Value& value);
     Value(bool value);
@@ -139,13 +133,13 @@ std::ostream& operator<<(std::ostream& stream, const Group& type);
 std::ostream& operator<<(std::ostream& stream, const Value& type);
 std::ostream& operator<<(std::ostream& stream, const List& list);
 
-}
+} // namespace json
 
 /**
  * @brief Public interface for loading and saving json data
  * @ingroup JSON
  * @ingroup Files
- * 
+ *
  */
 struct JSON {
     static json::Group loadFromStream(std::istream& stream);
@@ -153,6 +147,6 @@ struct JSON {
     static void saveToFile(const std::string& file, const json::Group& data);
 };
 
-}
+} // namespace bl
 
 #endif

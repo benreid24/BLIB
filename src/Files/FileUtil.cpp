@@ -5,23 +5,22 @@
 #include <dirent.h>
 #include <fstream>
 #include <sstream>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 namespace bl
 {
-
 namespace
 {
 bool createDir(const std::string& path) {
-    #ifdef _WIN32
+#ifdef _WIN32
     return 0 == mkdir(path.c_str());
-    #else
+#else
     return 0 == mkdir(path.c_str(), 0755);
-    #endif
+#endif
 }
-}
+} // namespace
 
 bool FileUtil::exists(const std::string& file) {
     struct stat buffer;
@@ -103,8 +102,7 @@ void FileUtil::copyFile(const std::string& src, const std::string& dest) {
 }
 
 bool FileUtil::createDirectory(const std::string& path) {
-    if (exists(path))
-        return true;
+    if (exists(path)) return true;
 
     std::string cd;
     cd.reserve(path.size());
