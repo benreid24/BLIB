@@ -5,6 +5,7 @@
 #include <variant>
 #include <vector>
 #include <map>
+#include <set>
 #include <string>
 #include <ostream>
 
@@ -26,8 +27,9 @@ typedef std::vector<Value> List;
 typedef std::optional<float> Numeric;
 typedef std::optional<std::string> String;
 typedef std::optional<bool> Bool;
-typedef std::optional<Value> RGroup;
+typedef std::optional<Group> RGroup;
 typedef std::optional<List> RList;
+typedef std::optional<Value> RValue;
 
 /**
  * @brief Holds source location of any json object
@@ -63,8 +65,10 @@ private:
  */
 class Group : public Base {
 public:
+    const std::set<std::string>& getFields() const;
     void addField(const std::string& name, const Value& value);
     bool hasField(const std::string& name) const;
+    RValue getField(const std::string& name) const;
 
     Bool getBool(const std::string& name) const;
     Numeric getNumeric(const std::string& name) const;
@@ -75,7 +79,7 @@ public:
     void print(std::ostream& stream, int indentLevel) const;
 
 private:
-    std::vector<std::string> fieldNames;
+    std::set<std::string> fieldNames;
     std::map<std::string, Value> fields;
 };
 
@@ -92,16 +96,22 @@ public:
         TString,
         TNumeric,
         TGroup,
-        TList,
-        TUnknown
+        TList
     };
 
-    Value();
+    Value(const Value& value);
     Value(bool value);
     Value(float value);
     Value(const std::string& value);
     Value(const List& value);
     Value(const Group& value);
+
+    Value& operator=(const Value& rhs);
+    Value& operator=(bool value);
+    Value& operator=(float value);
+    Value& operator=(const std::string& value);
+    Value& operator=(const List& value);
+    Value& operator=(const Group& value);
 
     Type getType() const;
     Bool getAsBool() const;
@@ -120,11 +130,13 @@ public:
     void print(std::ostream& stream, int indentLevel) const;
 
 private:
-    const Type type;
-    const std::variant<bool, std::string, float, Group, List> data;
+    Type type;
+    std::variant<bool, std::string, float, Group, List> data;
 };
 
 std::ostream& operator<<(std::ostream& stream, const Value::Type& type);
+
+std::ostream& operator<<(std::ostream& stream, const List& list);
 
 }
 
