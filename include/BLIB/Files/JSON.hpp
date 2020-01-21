@@ -41,7 +41,6 @@ struct SourceInfo {
     std::string filename;
     int lineNumber;
 };
-std::ostream& operator<<(std::ostream& stream, const SourceInfo& info);
 
 /**
  * @brief Base class for all json types
@@ -134,8 +133,10 @@ private:
     std::variant<bool, std::string, float, Group, List> data;
 };
 
+std::ostream& operator<<(std::ostream& stream, const SourceInfo& info);
 std::ostream& operator<<(std::ostream& stream, const Value::Type& type);
-
+std::ostream& operator<<(std::ostream& stream, const Group& type);
+std::ostream& operator<<(std::ostream& stream, const Value& type);
 std::ostream& operator<<(std::ostream& stream, const List& list);
 
 }
@@ -147,8 +148,9 @@ std::ostream& operator<<(std::ostream& stream, const List& list);
  * 
  */
 struct JSON {
-    static json::Group loadFile(const std::string& file);
-    static void saveFile(const std::string& file, const json::Group& data);
+    static json::Group loadFromStream(std::istream& stream);
+    static json::Group loadFromFile(const std::string& file);
+    static void saveToFile(const std::string& file, const json::Group& data);
 };
 
 }

@@ -1,5 +1,8 @@
 #include <BLIB/Files/JSON.hpp>
 
+#include <Files/JSONLoader.hpp>
+#include <fstream>
+
 namespace bl
 {
 namespace json
@@ -42,7 +45,7 @@ const std::set<std::string>& Group::getFields() const {
 
 void Group::addField(const std::string& name, const Value& value) {
     fieldNames.insert(name);
-    fields[name] = value;
+    fields.insert(std::make_pair(name, value));
 }
 
 bool Group::hasField(const std::string& name) const {
@@ -226,6 +229,7 @@ void Group::print(std::ostream& stream, int ilvl) const {
         stream << "\n";
     for (auto i = fields.begin(); i!=fields.end(); ) {
         stream << std::string(ilvl, ' ');
+        stream << '"' << i->first << "\": ";
         i->second.print(stream, ilvl+4);
         if (++i != fields.end())
             stream << ",\n";
@@ -242,11 +246,96 @@ void Value::print(std::ostream& stream, int ilvl) const {
     case TNumeric:
         stream << getAsNumeric().value();
         break;
+    case TString:
+        stream << '"' << getAsString().value() << '"';
+        break;
+    case TGroup:
+        getAsGroup().value().print(stream, ilvl);
+        break;
+    case TList: {
+        const List& list = getAsList().value();
+        stream << "[";
+        if (!list.empty())
+            stream << "\n";
+        for (unsigned int i = 0; i<list.size(); ++i) {
+            stream << std::string(ilvl, ' ');
+            list[i].print(stream, ilvl+4);
+            if (i < list.size() - 1)
+                stream << ",";
+            stream << "\n";
+        }
+        stream << "]";
+        break;
+    }
     
     default:
         break;
     }
 }
 
+std::ostream& operator<<(std::ostream& stream, const Value::Type& type) {
+    switch (type) {
+        case Value::TBool:
+            stream << "Bool";
+            break;
+        case Value::TString:
+            stream << "String";
+            break;
+        case Value::TNumeric:
+            stream << "Numeric";
+            break;
+        case Value::TList:
+            stream << "List";
+            break;
+        case Value::TGroup:
+            stream << "Group";
+            break;
+        default:
+            stream << "UNKNOWN";
+            break;
+    }
+    return stream;
 }
+
+std::ostream& operator<<(std::ostream& stream, const Value& value) {
+    value.print(stream, 0);
+    return stream;
+}
+
+std::ostream& operator<<(std::ostream& stream, const Group& group) {
+    group.print(stream, 0);
+    return stream;
+}
+
+std::ostream& operator<<(std::ostream& stream, const List& list) {
+    stream << "[";
+    if (!list.empty())
+        stream << "\n";
+    for (unsigned int i = 0; i<list.size(); ++i) {
+        list[i].print(stream, 4);
+        if (i < list.size() - 1)
+            stream << ",";
+        stream << "\n";
+    }
+    stream << "]";
+    return stream;
+}
+
+}
+
+json::Group JSON::loadFromStream(std::istream& stream) {
+    json::Loader loader(stream);
+    return loader.load();
+}
+
+json::Group JSON::loadFromFile(const std::string& file) {
+    json::Loader loader(file);
+    return loader.load();
+}
+
+void JSON::saveToFile(const std::string& file, const json::Group& group) {
+    std::ofstream out(file.c_str());
+    out << group;
+}
+
 }
