@@ -3,22 +3,20 @@
 
 #include <BLIB/Files/JSON.hpp>
 
-#include <string>
-#include <variant>
+#include <memory>
 #include <optional>
 #include <set>
-#include <memory>
+#include <string>
+#include <variant>
 
 namespace bl
 {
 namespace json
 {
-
 class Schema;
 
 namespace schema
 {
-
 class Bool;
 class Numeric;
 class String;
@@ -27,29 +25,32 @@ class List;
 /**
  * @brief Represents a value and type contrained json field value for schema
  * @ingroup JSON
- * 
+ *
  */
 class Value {
 public:
+    Value(const Value& value);
     Value(const Bool& value);
     Value(const Numeric& value);
     Value(const String& value);
     Value(const List& value);
     Value(const Schema& value);
 
+    Value& operator=(const Value& rhs);
+
     bool validate(const json::Value& value, bool strict) const;
 
 private:
     typedef std::variant<Bool, String, Numeric, List, Schema> TData;
 
-    const json::Value::Type type;
+    json::Value::Type type;
     std::shared_ptr<TData> schema;
 };
 
 /**
  * @brief Represents a boolean value required for json schema
  * @ingroup JSON
- * 
+ *
  */
 struct Bool {
     static const Bool Any;
@@ -58,7 +59,7 @@ struct Bool {
 /**
  * @brief Represents constrained numeric values for json schema
  * @ingroup JSON
- * 
+ *
  */
 struct Numeric {
     std::optional<float> min;
@@ -72,7 +73,7 @@ struct Numeric {
 /**
  * @brief Represents a constrained set of string values for json schema
  * @ingroup JSON
- * 
+ *
  */
 struct String {
     std::set<std::string> values;
@@ -83,20 +84,23 @@ struct String {
 /**
  * @brief Represents a constrained list for json schema
  * @ingroup JSON
- * 
+ *
  */
 struct List {
     Value itemType;
-    std::optional<int> minSize;
-    std::optional<int> maxSize;
+    unsigned int minSize;
+    std::optional<unsigned int> maxSize;
+
+    List(const Value& type, unsigned int minSize = 0);
+    List(const Value& type, unsigned int minSize, unsigned int maxSize);
 };
 
-}
+} // namespace schema
 
 /**
  * @brief Represents a nestable schema for JSON objects. Equivilent to json::Group
  * @ingroup JSON
- * 
+ *
  */
 class Schema {
 public:
@@ -122,7 +126,7 @@ private:
     std::vector<Field> choiceFields;
 };
 
-}
-}
+} // namespace json
+} // namespace bl
 
 #endif
