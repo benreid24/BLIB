@@ -16,7 +16,7 @@ RValue getNestedValue(const Group& group, const std::string& name) {
     while (!path.empty()) {
         auto n = path.find_first_of('/');
         if (n != std::string::npos) {
-            const std::string subname = path.substr(n);
+            const std::string subname = path.substr(0, n);
             RValue val                = nestedGroup.value().getField(subname);
             if (!val || !val.value().getAsGroup()) return std::nullopt;
             nestedGroup = val.value().getAsGroup();
@@ -219,12 +219,12 @@ void Group::print(std::ostream& stream, int ilvl) const {
     stream << "{";
     if (!fields.empty()) stream << "\n";
     for (auto i = fields.begin(); i != fields.end();) {
-        stream << std::string(ilvl, ' ');
+        stream << std::string(ilvl + 4, ' ');
         stream << '"' << i->first << "\": ";
         i->second.print(stream, ilvl + 4);
         if (++i != fields.end()) stream << ",\n";
     }
-    stream << std::string(ilvl - 4, ' ') << "}";
+    stream << std::string(ilvl, ' ') << "}";
 }
 
 void Value::print(std::ostream& stream, int ilvl) const {
@@ -246,12 +246,12 @@ void Value::print(std::ostream& stream, int ilvl) const {
         stream << "[";
         if (!list.empty()) stream << "\n";
         for (unsigned int i = 0; i < list.size(); ++i) {
-            stream << std::string(ilvl, ' ');
+            stream << std::string(ilvl + 4, ' ');
             list[i].print(stream, ilvl + 4);
             if (i < list.size() - 1) stream << ",";
             stream << "\n";
         }
-        stream << "]";
+        stream << std::string(ilvl, ' ') << "]";
         break;
     }
 
@@ -311,6 +311,11 @@ std::ostream& operator<<(std::ostream& stream, const List& list) {
 json::Group JSON::loadFromStream(std::istream& stream) {
     json::Loader loader(stream);
     return loader.load();
+}
+
+json::Group JSON::loadFromString(const std::string& data) {
+    std::stringstream stream(data);
+    return loadFromStream(stream);
 }
 
 json::Group JSON::loadFromFile(const std::string& file) {

@@ -145,6 +145,7 @@ std::ostream& operator<<(std::ostream& stream, const List& list);
 struct JSON {
     static json::Group loadFromStream(std::istream& stream);
     static json::Group loadFromFile(const std::string& file);
+    static json::Group loadFromString(const std::string& data);
     static void saveToFile(const std::string& file, const json::Group& data);
 };
 

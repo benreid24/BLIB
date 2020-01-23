@@ -8,7 +8,9 @@ namespace bl
 namespace json
 {
 Loader::Loader(const std::string& filename)
-: filename(filename) {
+: valid(true)
+, filename(filename)
+, currentLine(0) {
     std::ifstream data(filename.c_str());
     std::string buffer;
 
@@ -22,7 +24,9 @@ Loader::Loader(const std::string& filename)
 }
 
 Loader::Loader(std::istream& stream)
-: filename("memory") {
+: valid(true)
+, filename("memory")
+, currentLine(0) {
     std::string buffer;
     stream.seekg(0, std::ios::end);
     buffer.reserve(stream.tellg());
@@ -198,6 +202,7 @@ List Loader::loadList() {
         }
     }
     skipSymbol();
+
     return ret;
 }
 
@@ -220,6 +225,7 @@ Group Loader::loadGroup() {
             return group;
         }
         skipSymbol();
+
         group.addField(name, loadValue());
         if (input.peek() == ',')
             skipSymbol();
@@ -229,6 +235,8 @@ Group Loader::loadGroup() {
             return group;
         }
     }
+    skipSymbol();
+
     return group;
 }
 
