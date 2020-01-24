@@ -29,6 +29,7 @@ class List;
  */
 class Value {
 public:
+    Value() = default;
     Value(const Value& value);
     Value(const Bool& value);
     Value(const Numeric& value);
@@ -114,16 +115,11 @@ public:
     bool validate(const Group& root, bool strict) const;
 
 private:
-    struct Field {
-        const std::string name;
-        const schema::Value value;
-    };
-
     bool overrideStrict;
     bool isStrict;
-    std::vector<Field> requiredFields;
-    std::vector<Field> optionalFields;
-    std::vector<Field> choiceFields;
+    std::map<std::string, schema::Value> requiredFields;
+    std::map<std::string, schema::Value> optionalFields;
+    std::map<std::string, schema::Value> choiceFields;
 };
 
 } // namespace json
