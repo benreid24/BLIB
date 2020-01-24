@@ -35,6 +35,25 @@ List::List(const Value& type, unsigned int minSize, unsigned int maxSize)
 , maxSize(maxSize) {
 }
 
+bool List::validate(const SourceInfo& source, const json::List& list, bool strict) const {
+    bool valid = true;
+    if (list.size() < minSize) {
+        error(source) << "List is too small, min size is " << minSize << std::endl;
+        valid = false;
+    }
+    if (maxSize) {
+        if (list.size() > maxSize.value()) {
+            error(source) << "List size is too large, max size is " << maxSize.value() << std::endl;
+            valid = false;
+        }
+    }
+    for (const json::Value& val : list) {
+        if (!itemType.validate(val, strict))
+            valid = false;
+    }
+    return valid;
+}
+
 Value::Value(const Value& value)
 : type(value.type)
 , schema(value.schema) {
@@ -110,8 +129,7 @@ bool Value::validate(const json::Value& value, bool strict) const {
     case json::Value::TGroup:
         return std::get<Schema>(*schema).validate(value.getAsGroup().value(), strict);
     case json::Value::TList:
-        // TODO - validate length and type
-        return true;
+        return std::get<List>(*schema).validate(value.source(), value.getAsList().value(), strict);
     default:
         error(value.source()) << "Invalid schema type " << type << std::endl;
         return false;

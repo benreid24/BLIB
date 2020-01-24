@@ -94,6 +94,8 @@ struct List {
 
     List(const Value& type, unsigned int minSize = 0);
     List(const Value& type, unsigned int minSize, unsigned int maxSize);
+
+    bool validate(const SourceInfo& source, const json::List& list, bool strict) const;
 };
 
 } // namespace schema
