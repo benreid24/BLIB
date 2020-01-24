@@ -81,7 +81,18 @@ bool Value::validate(const json::Value& value, bool strict) const {
     case json::Value::TBool:
         return true;
     case json::Value::TNumeric:
-        // TODO - bounds check
+        if (std::get<Numeric>(*schema).min) {
+            if (value.getAsNumeric().value() < std::get<Numeric>(*schema).min.value()) {
+                error(value.source()) << "Value is too small, minimum is " << std::get<Numeric>(*schema).min.value() << std::endl;
+                return false;
+            }
+        }
+        if (std::get<Numeric>(*schema).max) {
+            if (value.getAsNumeric().value() > std::get<Numeric>(*schema).max.value()) {
+                error(value.source()) << "Value is too large, maximum is " << std::get<Numeric>(*schema).max.value() << std::endl;
+                return false;
+            }
+        }
         return true;
     case json::Value::TString:
         // TODO - set check
