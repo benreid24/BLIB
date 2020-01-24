@@ -3,6 +3,7 @@ add_executable(BLIB.t
     FileUtil.t.cpp
     JSON.t.cpp
     ResourceManager.t.cpp
+    Schema.t.cpp
 )
 
 target_link_libraries(BLIB.t PRIVATE

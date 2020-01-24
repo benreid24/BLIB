@@ -22,7 +22,7 @@ const Bool Bool::Any;
 const Numeric Numeric::Any = {{}, {}};
 const Numeric Numeric::Positive = {0, {}};
 const Numeric Numeric::Negative = {{}, 0};
-const String String::Any = {};
+const String String::Any({});
 
 List::List(const Value& type, unsigned int minSize)
 : itemType(type)
@@ -171,7 +171,7 @@ bool Schema::validate(const Group& root, bool strict) const {
         reqFlds.push_back(f.first);
     
     for (const std::string& field : root.getFields()) {
-        const Value& val = root.getField(field).value();
+        const Value val = root.getField(field).value();
         auto i = std::find(reqFlds.begin(), reqFlds.end(), field);
         if (i != reqFlds.end()) {
             reqFlds.erase(i);

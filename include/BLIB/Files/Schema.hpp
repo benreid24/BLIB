@@ -78,6 +78,7 @@ struct Numeric {
  */
 struct String {
     std::set<std::string> values;
+    String(const std::set<std::string>& values) : values(values) {}
 
     static const String Any;
 };
