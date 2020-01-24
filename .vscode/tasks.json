@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "cmake clean",
+            "type": "shell",
+            "command": "rm -rf build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "cmake generate",
+            "type": "shell",
+            "command": "cmake -G \"Unix Makefiles\" -S . -B ./build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "cd build && make",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "cmake generate"
+            ]
+        },
+        {
+            "label": "unit test",
+            "type": "shell",
+            "command": "cd build/tests && ./BLIB.t",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "build"
+            ]
+        }
+    ],
+    "problemMatcher": {
+        "base": "$gcc",
+        "fileLocation": [
+            "absolute"
+        ]
+    }
+}

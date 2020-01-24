@@ -4,19 +4,19 @@
 #include <BLIB/Resources/ResourceLoader.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
-#include <unordered_map>
 #include <atomic>
-#include <thread>
-#include <mutex>
 #include <chrono>
+#include <mutex>
+#include <thread>
+#include <unordered_map>
 
 namespace bl
 {
 /**
- * Single template based resource management class. Meant for storing
- * data exactly once, such as images
- * 
- * \ingroup Resources
+ * @brief Single template based resource management class. Meant for storing
+ * @brief data exactly once, such as images
+ *
+ * @ingroup Resources
  */
 template<typename T, class TLoader>
 class ResourceManager : private NonCopyable {
@@ -24,17 +24,17 @@ public:
     typedef typename Resource<T>::Ref RefType;
 
     /**
-     * Creates a ResourceManager for a given resource type and garbage collection period
+     * @brief Creates a ResourceManager for a given resource type and garbage collection period
      *
-     * \param gcPeriod Number of seconds between round of freeing memory
+     * @param gcPeriod Number of seconds between round of freeing memory
      */
     ResourceManager(unsigned int gcPeriod);
     ~ResourceManager();
 
     /**
-     * Attempts to find the given resource and return it, loading it if necessary
-     * 
-     * \param uri Some unique string that a ResourceLoader can load the resource with
+     * @brief Attempts to find the given resource and return it, loading it if necessary
+     *
+     * @param uri Some unique string that a ResourceLoader can load the resource with
      */
     typename Resource<T>::Ref load(const std::string& uri);
 
@@ -54,8 +54,10 @@ private:
 
 template<typename T, class TLoader>
 ResourceManager<T, TLoader>::ResourceManager(unsigned int gcPeriod)
-: gcPeriod(gcPeriod), gcActive(true)
-, gcThread(&ResourceManager<T, TLoader>::garbageCollector, this) {}
+: gcPeriod(gcPeriod)
+, gcActive(true)
+, gcThread(&ResourceManager<T, TLoader>::garbageCollector, this) {
+}
 
 template<typename T, class TLoader>
 ResourceManager<T, TLoader>::~ResourceManager() {
@@ -64,7 +66,8 @@ ResourceManager<T, TLoader>::~ResourceManager() {
 }
 
 template<typename T, class TLoader>
-typename ResourceManager<T, TLoader>::RefType ResourceManager<T, TLoader>::load(const std::string& uri) {
+typename ResourceManager<T, TLoader>::RefType ResourceManager<T, TLoader>::load(
+    const std::string& uri) {
     auto i = resources.find(uri);
     if (i == resources.end()) {
         mapLock.lock();
@@ -77,22 +80,20 @@ typename ResourceManager<T, TLoader>::RefType ResourceManager<T, TLoader>::load(
 template<typename T, class TLoader>
 void ResourceManager<T, TLoader>::garbageCollector() {
     while (gcActive) {
-        for (unsigned int t = 0; t<gcPeriod; ++t) {
+        for (unsigned int t = 0; t < gcPeriod; ++t) {
             std::this_thread::sleep_for(std::chrono::seconds(1));
-            if (!gcActive)
-                return;
+            if (!gcActive) return;
         }
-        
+
         mapLock.lock();
-        for (auto i = resources.begin(); i!=resources.end(); ) {
+        for (auto i = resources.begin(); i != resources.end();) {
             auto j = i++;
-            if (j->second.unique())
-                resources.erase(j);
+            if (j->second.unique()) resources.erase(j);
         }
         mapLock.unlock();
     }
 }
 
-}
+} // namespace bl
 
 #endif

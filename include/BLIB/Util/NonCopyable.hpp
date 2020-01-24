@@ -4,13 +4,13 @@
 namespace bl
 {
 /**
- * Helper class to make derived classes impossible for user to copy directly
+ * @brief Helper class to make derived classes impossible for user to copy directly
  *
- * \ingroup Util
+ * @ingroup Util
  */
 class NonCopyable {
 protected:
-    NonCopyable() = default;
+    NonCopyable()  = default;
     ~NonCopyable() = default;
 
 private:
@@ -18,6 +18,6 @@ private:
     NonCopyable& operator=(const NonCopyable&) = delete;
 };
 
-}
+} // namespace bl
 
 #endif
