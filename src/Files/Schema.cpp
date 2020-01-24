@@ -95,7 +95,17 @@ bool Value::validate(const json::Value& value, bool strict) const {
         }
         return true;
     case json::Value::TString:
-        // TODO - set check
+        if (!std::get<String>(*schema).values.empty()) {
+            const auto& set = std::get<String>(*schema).values;
+            if (std::find(set.begin(), set.end(), value.getAsString().value()) == set.end()) {
+                error(value.source()) << "Invalid value '" << value.getAsString().value() << " must be in [ ";
+                for (const auto& s : set) {
+                    std::cerr << "'" << s << "' ";
+                }
+                std::cerr << "]\n";
+                return false;
+            }
+        }
         return true;
     case json::Value::TGroup:
         return std::get<Schema>(*schema).validate(value.getAsGroup().value(), strict);
