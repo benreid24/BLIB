@@ -78,11 +78,33 @@ bool Loader::isNumeric(char c) const {
 }
 
 Value Loader::loadValue() {
-    if (isNumeric(input.peek())) return loadNumeric();
-    if (input.peek() == '"') return loadString();
-    if (input.peek() == 't' || input.peek() == 'f') return Value(loadBool());
-    if (input.peek() == '{') return loadGroup();
-    if (input.peek() == '[') return loadList();
+    const SourceInfo source = {filename, currentLine};
+
+    if (isNumeric(input.peek())) {
+        Value val = loadNumeric();
+        val.setSource(source);
+        return val;
+    }
+    if (input.peek() == '"') {
+        Value val = loadString();
+        val.setSource(source);
+        return val;
+    }
+    if (input.peek() == 't' || input.peek() == 'f') {
+        Value val = Value(loadBool());
+        val.setSource(source);
+        return val;
+    }
+    if (input.peek() == '{') {
+        Value val = loadGroup();
+        val.setSource(source);
+        return val;
+    }
+    if (input.peek() == '[') {
+        Value val = loadList();
+        val.setSource(source);
+        return val;
+    }
     error() << "Unexpected character '" << input.peek() << "'\n";
     return Value(false);
 }
