@@ -18,6 +18,23 @@ std::ostream& error(const SourceInfo& source) {
 namespace schema
 {
 
+const Bool Bool::Any;
+const Numeric Numeric::Any = {{}, {}};
+const Numeric Numeric::Positive = {0, {}};
+const Numeric Numeric::Negative = {{}, 0};
+const String String::Any = {};
+
+List::List(const Value& type, unsigned int minSize)
+: itemType(type)
+, minSize(minSize) {
+}
+
+List::List(const Value& type, unsigned int minSize, unsigned int maxSize)
+: itemType(type)
+, minSize(minSize)
+, maxSize(maxSize) {
+}
+
 Value::Value(const Value& value)
 : type(value.type)
 , schema(value.schema) {
