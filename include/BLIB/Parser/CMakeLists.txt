@@ -5,4 +5,5 @@ target_sources(BLIB PRIVATE
     Parser.hpp
     Stream.hpp
     Tokenizer.hpp
+    WhitespaceSkipper.hpp
 )
