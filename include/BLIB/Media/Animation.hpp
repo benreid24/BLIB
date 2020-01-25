@@ -5,12 +5,11 @@
 
 namespace bl
 {
-
 /**
  * @brief Represents a renderable animation.
  * AnimationData is to Animation like sf::Texture is to sf::Sprite
  * @ingroup Media
- * 
+ *
  */
 class Animation : public sf::Drawable {
 public:
@@ -23,7 +22,7 @@ public:
     void setPosition(const sf::Vector2f& position);
     void setScale(const sf::Vector2f& scale);
     void setRotation(float rotation);
-    bool setIsLoop(bool loop);
+    void setIsLoop(bool loop);
     void resetIsLoop();
 
     void play();
@@ -36,6 +35,7 @@ private:
     bool isPlaying;
     float startTime;
 
+    bool centerOrigin;
     sf::Vector2f position;
     sf::Vector2f scale;
     float rotation;
@@ -45,6 +45,6 @@ private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
-}
+} // namespace bl
 
 #endif

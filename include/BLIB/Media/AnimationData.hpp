@@ -1,20 +1,20 @@
 #ifndef BLIB_MEDIA_ANIMATIONDATA_HPP
 #define BLIB_MEDIA_ANIMATIONDATA_HPP
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 #include <SFML/Graphics.hpp>
 
 namespace bl
 {
-
 /**
- * @brief Data class for animations. Holds the frame information and is resposnsibl for rendering
+ * @brief Data class for animations. Holds the frame information and is resposnsibl for
+ * rendering
  * @see Animation
  * @ingroup Media
- * 
+ *
  */
 class AnimationData {
 public:
@@ -28,10 +28,9 @@ public:
     sf::Vector2f getFrameSize(unsigned int frameIndex) const;
     sf::Vector2f getMaxSize() const;
 
-    void render(sf::RenderTarget& target, float elapsedTime,
-        const sf::Vector2f& position, const sf::Vector2f& scale,
-        float rotation, bool centerOnOrigin,
-        bool loopOverride = false, bool loop = false) const;
+    void render(sf::RenderTarget& target, float elapsedTime, const sf::Vector2f& position,
+                const sf::Vector2f& scale, float rotation, bool centerOnOrigin,
+                bool loopOverride = false, bool loop = false) const;
 
 private:
     struct Frame;
@@ -42,6 +41,6 @@ private:
     bool loop;
 };
 
-}
+} // namespace bl
 
 #endif
