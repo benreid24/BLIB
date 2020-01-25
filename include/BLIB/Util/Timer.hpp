@@ -1,9 +1,8 @@
-#ifndef TIMER_HPP
-#define TIMER_HPP
+#ifndef BLIB_UTIL_TIMER_HPP
+#define BLIB_UTIL_TIMER_HPP
 
 #include <BLIB/Util/NonCopyable.hpp>
 #include <SFML/System.hpp>
-
 
 namespace bl
 {
@@ -60,4 +59,4 @@ private:
 
 } // namespace bl
 
-#endif // TIMER_HPP
+#endif
