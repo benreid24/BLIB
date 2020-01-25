@@ -4,6 +4,7 @@
 #include <BLIB/Parser/ISkipper.hpp>
 #include <BLIB/Parser/Node.hpp>
 
+#include <list>
 #include <regex>
 #include <vector>
 
@@ -38,14 +39,14 @@ public:
     /**
      * @brief Parses the input stream into a token list
      *
-     * @param input Stream to parse. Check if valid after parsing to see if successful
-     * @return std::vector<Node::Ptr> List of parsed tokens
+     * @param input Stream to parse
+     * @return std::vector<Node::Ptr> List of parsed tokens, empty on error
      */
     std::vector<Node::Ptr> tokenize(Stream& input) const;
 
 private:
     ISkipper::Ptr skipper;
-    std::vector<std::pair<std::regex, Node::Type>> matchers;
+    std::list<std::pair<std::regex, Node::Type>> matchers;
 };
 
 } // namespace parser
