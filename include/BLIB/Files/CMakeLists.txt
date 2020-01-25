@@ -3,5 +3,4 @@ target_sources(BLIB PUBLIC
     FileUtil.hpp
     JSON.hpp
     Schema.hpp
-}
-
+)
