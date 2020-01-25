@@ -37,6 +37,24 @@ public:
     void addTokenType(Node::Type type, const std::string& regex);
 
     /**
+     * @brief Specify a character that disables/enables the skipper when encountered
+     *        Example: '"' for strings
+     *
+     * @param c A character to enable/disable the skipper
+     */
+    void addSkipperToggleChar(char c);
+
+    /**
+     * @brief Adds an escape sequence that replaces matching substrings of the Node.data with c
+     *        Note that this will not affect parsing in the case of something
+     *        like "string \" literal". The token matcher will have to handle that
+     *
+     * @param sequence The sequence to search for in token data
+     * @param c The replacement character
+     */
+    void addEscapeSequence(const std::string& sequence, char c);
+
+    /**
      * @brief Parses the input stream into a token list
      *
      * @param input Stream to parse
@@ -47,6 +65,8 @@ public:
 private:
     ISkipper::Ptr skipper;
     std::list<std::pair<std::regex, Node::Type>> matchers;
+    std::vector<char> togglers;
+    std::vector<std::pair<std::string, char>> escapeSequences;
 };
 
 } // namespace parser
