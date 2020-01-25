@@ -49,7 +49,18 @@ public:
      * @ingroup Parser
      */
     struct Reduction {
+        /**
+         * @brief What the Node::Sequence CAN reduce to. Reduction should only be made
+         *        if reductionsPossible == 1 or reductionsPossible with the next Node == 0
+         *
+         */
         Node::Type result;
+
+        /**
+         * @brief How many reductions can be made with the Sequence.
+         *        Takes into account future additions to the sequence
+         *
+         */
         unsigned int reductionsPossible;
     };
 
