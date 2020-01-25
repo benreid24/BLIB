@@ -19,6 +19,8 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
     std::string current;
     while (input.valid()) {
         skipper->skip(input);
+        if (input.peek() == EOF) break;
+
         current.push_back(input.get());
         for (const auto& matcher : matchers) {
             std::smatch result;
