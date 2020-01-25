@@ -14,6 +14,8 @@ struct AngularVector {
     T magnitude;
     T angle;
 
+    static constexpr StdToSFMLRotationOffset = 90;
+
     AngularVector()
     : magnitude(0)
     , angle(0) {}
@@ -25,10 +27,10 @@ struct AngularVector {
     : magnitude(std::sqrt(cartesianVector.x * cartesianVector.x +
                           cartesianVector.y * cartesianVector.y))
     , angle(std::atan2(cartesianVector.y, cartesianVector.x) * 180 / 3.1415926 +
-            Properties::StdToSFMLRotationOffset) {}
+            StdToSFMLRotationOffset) {}
 
     sf::Vector2<T> toCartesian() const {
-        const T adjAngle = angle - Properties::StdToSFMLRotationOffset;
+        const T adjAngle = angle - StdToSFMLRotationOffset;
         return {magnitude * static_cast<T>(std::cos(adjAngle / 180 * 3.1415926)),
                 magnitude * static_cast<T>(std::sin(adjAngle / 180 * 3.1415926))};
     }
