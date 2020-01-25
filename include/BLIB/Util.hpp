@@ -5,6 +5,8 @@
  * @defgroup Util Miscellaneous set of classes that provide common functionality
  */
 
+#include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/Random.hpp>
+#include <BLIB/Util/Timer.hpp>
 
 #endif
