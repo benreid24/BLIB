@@ -65,18 +65,25 @@ TEST(Grammar, Disambiguate) {
     EXPECT_EQ(r.result, A);
 }
 
-TEST(Grammar, Ambiguous1) {
-    const Node::Type C = 1;
-    const Node::Type B = 2;
-    const Node::Type A = 3;
+TEST(Grammar, Combine) {
+    const Node::Type B = 1;
+    const Node::Type A = 2;
 
     Grammar grammar;
-    grammar.addRule(A, B); // A -> B
-    grammar.addRule(A, C); // A -> C
-    ASSERT_FALSE(grammar.compile());
+    grammar.addRule(A, {A, B}); // A -> A B
+    grammar.addRule(A, B);      // A -> B
+    ASSERT_TRUE(grammar.compile());
+
+    Grammar::Reduction r = grammar.reductionLookup({B});
+    EXPECT_EQ(r.reductionsPossible, 1);
+    EXPECT_EQ(r.result, A);
+
+    r = grammar.reductionLookup({A, B});
+    EXPECT_EQ(r.reductionsPossible, 1);
+    EXPECT_EQ(r.result, A);
 }
 
-TEST(Grammar, Ambiguous2) {
+TEST(Grammar, Ambiguous) {
     const Node::Type C = 1;
     const Node::Type B = 2;
     const Node::Type A = 3;

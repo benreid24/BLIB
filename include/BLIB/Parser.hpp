@@ -13,5 +13,6 @@
 #include <BLIB/Parser/Parser.hpp>
 #include <BLIB/Parser/Stream.hpp>
 #include <BLIB/Parser/Tokenizer.hpp>
+#include <BLIB/Parser/WhitespaceSkipper.hpp>
 
 #endif
