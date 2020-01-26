@@ -30,8 +30,10 @@ public:
     parser::Node::Ptr parse(parser::Stream& input) const;
 
 private:
-    parser::Grammar grammar;
-    parser::Tokenizer tokenizer;
+    const parser::Grammar grammar;
+    const parser::Tokenizer tokenizer;
+
+    bool tryReduction(std::vector<parser::Node::Ptr>& stack) const;
 };
 
 } // namespace bl
