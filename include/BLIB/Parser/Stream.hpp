@@ -38,11 +38,27 @@ public:
     char peek() const;
 
     /**
+     * @brief Reads N characters ahead and returns the stream to it's prior state
+     *
+     * @param n How many characters to peek
+     * @return std::string The result of the peek. May be smaller than n if eof is reached
+     */
+    std::string peekN(unsigned int n);
+
+    /**
      * @brief Returns next character and modifies stream
      *
      * @return char Next character
      */
     char get();
+
+    /**
+     * @brief Reads N characters and returns as string
+     *
+     * @param n How many characters to read
+     * @return std::string The read characters. May be smaller than n if eof is hit
+     */
+    std::string getN(unsigned int n);
 
     /**
      * @brief Marks the stream as invalid

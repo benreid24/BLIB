@@ -44,6 +44,22 @@ TEST(Stream, Location) {
     }
 }
 
+TEST(Stream, SeekN) {
+    const std::string data = "12345";
+    Stream stream(data);
+    EXPECT_TRUE(stream.valid());
+    EXPECT_EQ(stream.peekN(3), "123");
+    EXPECT_EQ(stream.peek(), '1');
+}
+
+TEST(Stream, GetN) {
+    const std::string data = "12345";
+    Stream stream(data);
+    EXPECT_TRUE(stream.valid());
+    EXPECT_EQ(stream.getN(3), "123");
+    EXPECT_EQ(stream.peek(), '4');
+}
+
 } // namespace unittest
 } // namespace parser
 } // namespace bl

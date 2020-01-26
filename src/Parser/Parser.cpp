@@ -87,7 +87,7 @@ Node::Ptr Parser::parse(Stream& input) const {
                     }
                 }
             }
-            errorPrinted:;
+        errorPrinted:;
         }
         else
             error(stack[1]) << "Unexpected symbol '" << stack[1]->data << "'\n";
