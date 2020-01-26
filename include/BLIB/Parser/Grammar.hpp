@@ -38,10 +38,10 @@ public:
     void addRule(Node::Type result, Node::Type rhs);
 
     /**
-     * @brief Builds the reduction table from the list of rules
+     * @brief Builds the reduction table from the list of rules. Returns true if successful
      *
      */
-    void compile();
+    bool compile();
 
     /**
      * @brief Helper struct to represent an entry in the reduction table. A rule sequence maps
@@ -71,6 +71,13 @@ public:
      * @return Reduction The result of the reduction lookup
      */
     Reduction reductionLookup(const Node::Sequence& sequence) const;
+
+    /**
+     * @brief Get the start parse node type (non-terminal)
+     *
+     * @return Node::Type The start non-terminal
+     */
+    Node::Type getStart() const;
 
 private:
     Node::Type start;
