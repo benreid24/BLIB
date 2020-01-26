@@ -42,6 +42,11 @@ Parser::Parser(const Grammar& grammar, const Tokenizer& tokenizer)
 : grammar(grammar)
 , tokenizer(tokenizer) {}
 
+Node::Ptr Parser::parse(const std::string& input) const {
+    Stream stream(input);
+    return parse(stream);
+}
+
 Node::Ptr Parser::parse(Stream& input) const {
     std::vector<Node::Ptr> parsed = tokenizer.tokenize(input);
     if (parsed.empty()) return nullptr;
@@ -52,11 +57,11 @@ Node::Ptr Parser::parse(Stream& input) const {
     tokens.pop_front();
 
     while (!tokens.empty()) {
-        while (tryReduction(stack)) {}
+        while (tryReduction(stack, true)) {}
         stack.push_back(tokens.front());
         tokens.pop_front();
     }
-    while (tryReduction(stack)) {}
+    while (tryReduction(stack, false)) {}
 
     if (stack.size() > 1) {
         error(stack[1]) << "Unexpected symbol '" << stack[1]->data << "'\n";
@@ -76,11 +81,12 @@ Node::Ptr Parser::parse(Stream& input) const {
     return root;
 }
 
-bool Parser::tryReduction(std::vector<Node::Ptr>& stack) const {
-    for (unsigned int len = 1; len <= stack.size(); ++len) {
+bool Parser::tryReduction(std::vector<Node::Ptr>& stack, bool inputRemaining) const {
+    for (unsigned int l = 0; l < stack.size(); ++l) {
+        const unsigned int len = stack.size() - l;
         std::vector<Node::Ptr> substr;
         substr.reserve(len);
-        for (unsigned int s = 0; s < stack.size() - len; ++s) {
+        for (unsigned int s = 0; s <= stack.size() - len; ++s) {
             substr.clear();
             for (unsigned int i = s; i < stack.size() && i < s + len; ++i) {
                 substr.push_back(stack[i]);
@@ -92,15 +98,9 @@ bool Parser::tryReduction(std::vector<Node::Ptr>& stack) const {
                     doReduction(stack, s, len, r.result);
                     return true;
                 }
-                if (s + len <= stack.size() - 1) {
-                    substr.push_back(stack[s + len]);
-                    const Node::Sequence nextKey = genKey(substr);
-                    const Node::Type t           = r.result;
-                    r                            = grammar.reductionLookup(nextKey);
-                    if (r.reductionsPossible == 0) {
-                        doReduction(stack, s, len, t);
-                        return true;
-                    }
+                else if (!inputRemaining && (s + len >= stack.size())) {
+                    doReduction(stack, s, len, r.result);
+                    return true;
                 }
             }
         }

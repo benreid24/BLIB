@@ -7,13 +7,13 @@ namespace parser
 Stream::Stream(const std::string& data)
 : ss(data)
 , stream(ss)
-, curLine(0)
+, curLine(1)
 , curCol(0)
 , isValid(true) {}
 
 Stream::Stream(std::istream& stream)
 : stream(stream)
-, curLine(0)
+, curLine(1)
 , curCol(0)
 , isValid(true) {}
 

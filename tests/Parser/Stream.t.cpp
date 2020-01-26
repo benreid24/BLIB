@@ -33,7 +33,7 @@ TEST(Stream, Content) {
 
 TEST(Stream, Location) {
     const std::string data = "123\n123\n123";
-    const int lines[]      = {0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2};
+    const int lines[]      = {1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3};
     const int cols[]       = {0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2};
     Stream stream(data);
     EXPECT_TRUE(stream.valid());

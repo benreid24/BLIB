@@ -47,8 +47,7 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
             std::smatch result;
             if (std::regex_match(current, result, matcher.first)) {
                 std::string temp = current + input.peek();
-                if (std::regex_match(temp, matcher.first))
-                    continue;
+                if (std::regex_match(temp, matcher.first)) continue;
 
                 Node::Ptr token(new Node());
                 if (result.size() > 1)

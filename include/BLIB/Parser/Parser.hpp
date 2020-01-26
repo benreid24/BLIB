@@ -29,11 +29,20 @@ public:
      */
     parser::Node::Ptr parse(parser::Stream& input) const;
 
+    /**
+     * @brief Convenience method to avoid manually creating a Stream
+     * @see parser::Node::Ptr parse(parser::Stream& input)
+     *
+     * @param input Input to parse into tree
+     * @return parser::Node::Ptr The generated parse tree or nullptr on error
+     */
+    parser::Node::Ptr parse(const std::string& input) const;
+
 private:
     const parser::Grammar grammar;
     const parser::Tokenizer tokenizer;
 
-    bool tryReduction(std::vector<parser::Node::Ptr>& stack) const;
+    bool tryReduction(std::vector<parser::Node::Ptr>& stack, bool inputRemaining) const;
 };
 
 } // namespace bl
