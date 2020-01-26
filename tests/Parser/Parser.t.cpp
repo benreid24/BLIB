@@ -37,7 +37,7 @@ public:
         tokenizer.addTokenType(Op, "[\\+\\-]");
         tokenizer.addTokenType(Num, "[0-9]+");
         tokenizer.addTokenType(Assign, "=");
-        tokenizer.addTokenType(Id, "[a-zA-Z]+[a-ZA-Z0-9]*");
+        tokenizer.addTokenType(Id, "[a-zA-Z]+[a-zA-Z0-9]*");
 
         // Non-terminals
         grammar.addRule(Value, {Value, Op, Value});
