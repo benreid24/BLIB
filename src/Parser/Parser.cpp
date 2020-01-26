@@ -64,7 +64,33 @@ Node::Ptr Parser::parse(Stream& input) const {
     while (tryReduction(stack, false)) {}
 
     if (stack.size() > 1) {
-        error(stack[1]) << "Unexpected symbol '" << stack[1]->data << "'\n";
+        if (stack.size() > 2) {
+            for (unsigned int l = 0; l < stack.size(); ++l) {
+                unsigned int len = stack.size() - l;
+                std::vector<Node::Ptr> substr;
+                substr.reserve(len);
+                for (unsigned int s = 0; s <= stack.size() - len; ++s) {
+                    substr.clear();
+                    for (unsigned int i = s; i < stack.size() && i < s + len; ++i) {
+                        substr.push_back(stack[i]);
+                    }
+                    Node::Sequence key   = genKey(substr);
+                    Grammar::Reduction r = grammar.reductionLookup(key);
+                    if (r.reductionsPossible > 0 && s + len < stack.size()) {
+                        key.push_back(stack[s + len]->type);
+                        r = grammar.reductionLookup(key);
+                        if (r.reductionsPossible == 0) {
+                            error(stack[s + len])
+                                << "Unexpected symbol '" << stack[s + len]->data << "'\n";
+                            goto errorPrinted;
+                        }
+                    }
+                }
+            }
+            errorPrinted:;
+        }
+        else
+            error(stack[1]) << "Unexpected symbol '" << stack[1]->data << "'\n";
         return nullptr;
     }
     if (stack.empty()) {
