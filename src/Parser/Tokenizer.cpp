@@ -54,13 +54,15 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
                 if (a != ambiguous.end()) {
                     bool skip = false;
                     for (const std::string& k : a->second) {
+                        const std::string check =
+                            current + input.peekN(k.size() - current.size());
                         const std::regex& m = matchers.find(k)->second.first;
-                        if (std::regex_match(temp, m)) {
+                        if (std::regex_match(check, m)) {
                             skip = true;
                             break;
                         }
-                        if (skip) continue;
                     }
+                    if (skip) continue;
                 }
 
                 Node::Ptr token(new Node());
