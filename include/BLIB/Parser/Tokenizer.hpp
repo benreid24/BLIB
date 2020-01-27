@@ -64,9 +64,12 @@ public:
 
 private:
     ISkipper::Ptr skipper;
-    std::list<std::pair<std::regex, Node::Type>> matchers;
+    std::map<std::string, std::pair<std::regex, Node::Type>> matchers;
+    std::map<std::string, std::list<std::string>> ambiguous;
     std::vector<char> togglers;
     std::vector<std::pair<std::string, char>> escapeSequences;
+
+    void recomputeAmbiguous();
 };
 
 } // namespace parser
