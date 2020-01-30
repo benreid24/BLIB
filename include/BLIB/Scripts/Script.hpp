@@ -46,28 +46,48 @@ public:
      */
     void run();
 
+protected:
+    /**
+     * @brief Allows specialized subclasses to populate the symbol table with custom functions
+     *        to allow scripts to access whatever they are hooked into
+     *
+     */
+    virtual scripts::SymbolTable generateCustomStartSymbols() const;
+
+    /**
+     * @brief Hook for custom Script classes to run custom code before running
+     *
+     */
+    virtual void onRun() const {}
+
 private:
     parser::Node::Ptr root;
+
+    /**
+     * @brief Calls generateCustomStartSymbols and adds built in methods
+     *
+     */
+    scripts::SymbolTable generateBaseTable() const;
+
+    struct ExecutionContext {
+        typedef std::shared_ptr<ExecutionContext> Ptr;
+        typedef std::weak_ptr<ExecutionContext> WPtr;
+
+        std::thread thread;
+        std::atomic_bool killed;
+
+        ExecutionContext()
+        : killed(false) {}
+        ExecutionContext(Script* scr)
+        : killed(false)
+        , thread(&Script::execute, scr) {}
+    };
 
     /**
      * @brief Actually runs the script
      *
      */
-    void execute();
-
-    struct ExecutionRecord {
-        typedef std::shared_ptr<ExecutionRecord> Ptr;
-        typedef std::weak_ptr<ExecutionRecord> WPtr;
-
-        std::thread thread;
-        std::atomic_bool killed;
-
-        ExecutionRecord()
-        : killed(false) {}
-        ExecutionRecord(Script* scr)
-        : killed(false)
-        , thread(&Script::execute, scr) {}
-    };
+    void execute(ExecutionContext::Ptr context);
 
     friend class ScriptManager;
 };

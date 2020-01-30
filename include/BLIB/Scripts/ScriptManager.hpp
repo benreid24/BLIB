@@ -32,10 +32,10 @@ public:
      *
      * @param record The execution record to utilize
      */
-    void watch(Script::ExecutionRecord::WPtr record);
+    void watch(Script::ExecutionContext::WPtr record);
 
 private:
-    std::list<Script::ExecutionRecord::WPtr> scripts;
+    std::list<Script::ExecutionContext::WPtr> scripts;
 
     ScriptManager() = default;
 };
