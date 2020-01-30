@@ -1,7 +1,10 @@
 #ifndef BLIB_SCRIPTS_FUNCTION_HPP
 #define BLIB_SCRIPTS_FUNCTION_HPP
 
+#include <BLIB/Parser/Node.hpp>
+
 #include <functional>
+#include <variant>
 #include <vector>
 
 namespace bl
@@ -48,6 +51,9 @@ public:
      * @return Value The result of the function
      */
     Value operator()(SymbolTable& table, const std::vector<Value>& args) const;
+
+private:
+    mutable std::variant<CustomCB, parser::Node::Ptr> data;
 };
 
 } // namespace scripts
