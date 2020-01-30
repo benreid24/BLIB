@@ -1,14 +1,15 @@
 #ifndef BLIB_SCRIPTS_FUNCTION_HPP
 #define BLIB_SCRIPTS_FUNCTION_HPP
 
-#include <BLIB/Scripts/Value.hpp>
 #include <functional>
+#include <vector>
 
 namespace bl
 {
 namespace scripts
 {
 class SymbolTable;
+class Value;
 
 /**
  * @brief Utility class for functions defined in scripts themselves
@@ -23,7 +24,7 @@ public:
      *        object on error
      *
      */
-    typedef std::function<Value(SymbolTable&, const Value::Array&)> CustomCB;
+    typedef std::function<Value(SymbolTable&, const std::vector<Value>&)> CustomCB;
 
     /**
      * @brief Construct a new Function from a subset of a valid parse tree
@@ -46,7 +47,7 @@ public:
      * @param args The arguments it was called with
      * @return Value The result of the function
      */
-    Value operator()(SymbolTable& table, const Value::Array& args) const;
+    Value operator()(SymbolTable& table, const std::vector<Value>& args) const;
 };
 
 } // namespace scripts

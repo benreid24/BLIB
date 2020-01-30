@@ -4,6 +4,7 @@
 #include <BLIB/Parser/Node.hpp>
 #include <BLIB/Scripts/Function.hpp>
 
+#include <map>
 #include <memory>
 #include <string>
 #include <variant>
@@ -13,6 +14,7 @@ namespace bl
 {
 namespace scripts
 {
+class Function;
 /**
  * @brief Represents a Value in a script. Can be a temp value or from a SymbolTable
  * @ingroup Scripts
@@ -32,6 +34,8 @@ public:
      *
      */
     Value();
+
+    Value& operator=(const Value&) = default;
 
     /**
      * @brief Makes Numeric type
@@ -67,7 +71,7 @@ public:
      * @brief Returns the current type of this Value
      *
      */
-    Type type() const;
+    Type getType() const;
 
     /**
      * @brief Get the As Numeric value
@@ -83,13 +87,35 @@ public:
      */
     std::string getAsString() const;
 
+    /**
+     * @brief Get the As Array value
+     *
+     * @return Array An Array of Values or empty
+     */
     Array getAsArray() const;
 
-    Ref getAsRef() const;
+    /**
+     * @brief Get the As Ref value
+     *
+     * @return Ref A reference to the Value this references, or nullptr
+     */
+    Ref getAsRef();
+
+    /**
+     * @brief Returns a Ptr to the given property of this value or nullptr if
+     *        it does not exist and is not created
+     *
+     * @param name Name of the property to access
+     * @param create True to create if doesn't exist, false to return nullptr
+     * @return Ptr The requested property or nullptr if none
+     */
+    Ptr getProperty(const std::string& name, bool create = false);
 
 private:
     Type type;
     std::variant<float, std::string, Array, Ref, Function> value;
+
+    std::map<std::string, Ptr> properties;
 };
 
 } // namespace scripts
