@@ -1,6 +1,7 @@
 #ifndef BLIB_SCRIPTS_SYMBOLTABLE_HPP
 #define BLIB_SCRIPTS_SYMBOLTABLE_HPP
 
+#include <BLIB/Scripts/Function.hpp>
 #include <BLIB/Scripts/Value.hpp>
 #include <list>
 #include <string>

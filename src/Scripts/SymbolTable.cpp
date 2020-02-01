@@ -1,6 +1,4 @@
 #include <BLIB/Scripts/SymbolTable.hpp>
-
-#include <BLIB/Scripts/Function.hpp>
 #include <iostream>
 
 namespace bl
