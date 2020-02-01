@@ -9,7 +9,6 @@
 
 #include <BLIB/Scripts/Error.hpp>
 #include <BLIB/Scripts/Function.hpp>
-#include <BLIB/Scripts/Parser.hpp>
 #include <BLIB/Scripts/Script.hpp>
 #include <BLIB/Scripts/ScriptManager.hpp>
 #include <BLIB/Scripts/SymbolTable.hpp>
