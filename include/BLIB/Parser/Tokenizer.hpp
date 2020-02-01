@@ -5,6 +5,7 @@
 #include <BLIB/Parser/Node.hpp>
 
 #include <list>
+#include <map>
 #include <regex>
 #include <vector>
 

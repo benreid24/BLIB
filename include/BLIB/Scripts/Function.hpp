@@ -2,6 +2,7 @@
 #define BLIB_SCRIPTS_FUNCTION_HPP
 
 #include <BLIB/Parser/Node.hpp>
+#include <BLIB/Scripts/Value.hpp>
 
 #include <functional>
 #include <variant>
@@ -12,7 +13,6 @@ namespace bl
 namespace scripts
 {
 class SymbolTable;
-class Value;
 
 /**
  * @brief Utility class for functions defined in scripts themselves
@@ -53,7 +53,7 @@ public:
     Value operator()(SymbolTable& table, const std::vector<Value>& args) const;
 
 private:
-    mutable std::variant<CustomCB, parser::Node::Ptr> data;
+    std::variant<CustomCB, parser::Node::Ptr> data;
 };
 
 } // namespace scripts

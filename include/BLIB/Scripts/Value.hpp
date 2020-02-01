@@ -1,9 +1,6 @@
 #ifndef BLIB_SCRIPTS_VALUE_HPP
 #define BLIB_SCRIPTS_VALUE_HPP
 
-#include <BLIB/Parser/Node.hpp>
-#include <BLIB/Scripts/Function.hpp>
-
 #include <map>
 #include <memory>
 #include <string>
@@ -35,37 +32,43 @@ public:
      */
     Value();
 
-    Value& operator=(const Value&) = default;
+    Value(const Value& cpy);
+    Value& operator=(const Value&);
 
     /**
      * @brief Makes Numeric type
      *
      */
     Value& operator=(float num);
+    Value(float num);
 
     /**
      * @brief Makes String type
      *
      */
     Value& operator=(const std::string& str);
+    Value(const std::string& str);
 
     /**
      * @brief Makes Array type
      *
      */
     Value& operator=(const Array& array);
+    Value(const Array& array);
 
     /**
      * @brief Makes Ref type
      *
      */
     Value& operator=(Ref ref);
+    Value(Ref ref);
 
     /**
      * @brief Make Function type
      *
      */
     Value& operator=(const Function& func);
+    Value(const Function& func);
 
     /**
      * @brief Returns the current type of this Value
@@ -102,20 +105,29 @@ public:
     Ref getAsRef();
 
     /**
-     * @brief Returns a Ptr to the given property of this value or nullptr if
-     *        it does not exist and is not created
+     * @brief Returns the given Property. TVoid if none
      *
      * @param name Name of the property to access
-     * @param create True to create if doesn't exist, false to return nullptr
-     * @return Ptr The requested property or nullptr if none
      */
-    Ptr getProperty(const std::string& name, bool create = false);
+    Value getProperty(const std::string& name) const;
+
+    /**
+     * @brief Assigns a Value to the given property name
+     *
+     * @param name Name of the property to modify
+     * @param value The value to assign it to
+     * @return True if the property could be set, false otherwise
+     */
+    bool setProperty(const std::string& name, const Value& value);
 
 private:
-    Type type;
-    std::variant<float, std::string, Array, Ref, Function> value;
+    typedef std::variant<float, std::string, Array, Ref, Function> TData;
 
-    std::map<std::string, Ptr> properties;
+    Type type;
+    std::unique_ptr<TData> value;
+    std::map<std::string, Value> properties;
+
+    void resetProps();
 };
 
 } // namespace scripts

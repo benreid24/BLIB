@@ -1,4 +1,5 @@
 #include <BLIB/Scripts/Value.hpp>
+#include <BLIB/Scripts/Function.hpp>
 #include <gtest/gtest.h>
 
 namespace bl
@@ -46,6 +47,12 @@ TEST(Value, Array) {
     EXPECT_EQ(val.getAsArray()[1].getAsString(), "world");
     EXPECT_EQ(val.getAsArray()[2].getType(), Value::TNumeric);
     EXPECT_EQ(val.getAsArray()[2].getAsNum(), 1);
+
+    EXPECT_EQ(val.getProperty("length").getAsNum(), 3);
+    EXPECT_FALSE(val.setProperty("length", 13.5f));
+    EXPECT_FALSE(val.setProperty("length", std::string("bad")));
+    EXPECT_TRUE(val.setProperty("length", 4));
+    EXPECT_EQ(val.getAsArray().size(), 4);
 }
 
 TEST(Value, Ref) {
@@ -68,11 +75,15 @@ TEST(Value, Ref) {
 TEST(Value, Properties) {
     Value val;
 
-    EXPECT_EQ(val.getProperty("fake", false).get(), nullptr);
-    EXPECT_NE(val.getProperty("real", true).get(), nullptr);
+    EXPECT_EQ(val.getProperty("fake").getType(), Value::TVoid);
 
-    *val.getProperty("set", true) = "woah";
-    EXPECT_EQ(val.getProperty("set")->getAsString(), "woah");
+    EXPECT_TRUE(val.setProperty("set", std::string("woah")));
+    EXPECT_EQ(val.getProperty("set").getAsString(), "woah");
+
+    Value val2 = val;
+    EXPECT_EQ(val2.getProperty("set").getAsString(), "woah");
+    val2 = 5;
+    EXPECT_EQ(val2.getProperty("set").getType(), Value::TVoid);
 }
 
 }

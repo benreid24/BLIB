@@ -12,14 +12,15 @@ Function::Function(CustomCB cb)
 : data(cb) {}
 
 Value Function::operator()(SymbolTable& table, const std::vector<Value>& args) const {
-    CustomCB* cbp = std::get_if<CustomCB>(&data);
+    const CustomCB* cbp = std::get_if<CustomCB>(&data);
     if (cbp) {
-        CustomCB& cb = *cbp;
+        const CustomCB& cb = *cbp;
         return cb(table, args);
     }
     else {
-        parser::Node::Ptr& root = *std::get_if<parser::Node::Ptr>(&data);
+        const parser::Node::Ptr& root = *std::get_if<parser::Node::Ptr>(&data);
         // TODO - execute nodes
+        return Value();
     }
 }
 
