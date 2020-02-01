@@ -4,6 +4,7 @@
 #include <BLIB/Scripts/Value.hpp>
 #include <list>
 #include <string>
+#include <unordered_map>
 
 namespace bl
 {
@@ -39,9 +40,8 @@ public:
      * @brief Tells whether the given symbol exists or not
      *
      * @param name Name of the symbol to search for
-     * @param searchUp True to go up the stack, false to search current frame only
      */
-    bool exists(const std::string& name, bool searchUp = true) const;
+    bool exists(const std::string& name) const;
 
     /**
      * @brief Returns a Value from the current stack frame or above
