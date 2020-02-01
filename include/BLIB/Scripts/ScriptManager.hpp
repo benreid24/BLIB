@@ -4,6 +4,7 @@
 #include <BLIB/Scripts/Script.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <atomic>
+#include <mutex>
 
 namespace bl
 {
@@ -25,7 +26,7 @@ public:
      * @param timeout Time, in seconds, to wait before force killing threads
      *
      */
-    void terminateAll();
+    void terminateAll(float timeout = 5.0f);
 
     /**
      * @brief Registers a Script to have its execution tracked
@@ -35,6 +36,7 @@ public:
     void watch(Script::ExecutionContext::WPtr record);
 
 private:
+    std::mutex mutex;
     std::list<Script::ExecutionContext::WPtr> scripts;
 
     ScriptManager() = default;

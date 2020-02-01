@@ -1,7 +1,7 @@
 #ifndef BLIB_SCRIPTS_SCRIPT_HPP
 #define BLIB_SCRIPTS_SCRIPT_HPP
 
-#include <BLIB/Scripts/Parser.hpp>
+#include <BLIB/Parser/Node.hpp>
 #include <BLIB/Scripts/SymbolTable.hpp>
 
 #include <atomic>
@@ -69,18 +69,19 @@ private:
      */
     scripts::SymbolTable generateBaseTable() const;
 
-    struct ExecutionContext {
+    struct ExecutionContext : public std::enable_shared_from_this<ExecutionContext> {
         typedef std::shared_ptr<ExecutionContext> Ptr;
         typedef std::weak_ptr<ExecutionContext> WPtr;
 
         std::thread thread;
         std::atomic_bool killed;
+        std::atomic_bool running;
 
         ExecutionContext()
         : killed(false) {}
         ExecutionContext(Script* scr)
         : killed(false)
-        , thread(&Script::execute, scr) {}
+        , thread(&Script::execute, scr, shared_from_this()) {}
     };
 
     /**
