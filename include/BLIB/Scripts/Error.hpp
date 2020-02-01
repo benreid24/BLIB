@@ -45,17 +45,17 @@ public:
      * @brief Returns the contained error message
      *
      */
-    std::string message() const;
+    const std::string& message() const;
 
     /**
      * @brief Returns the full stack trace, formatted
      *
      */
-    std::string stacktrace() const;
+    const std::string& stacktrace() const;
 
 private:
-    const std::string message;
-    std::vector<std::string> stack;
+    const std::string error;
+    const std::string stack;
 };
 
 } // namespace scripts
