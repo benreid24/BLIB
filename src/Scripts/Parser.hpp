@@ -22,7 +22,35 @@ struct Parser {
     parser::Node::Ptr parse(const std::string& input);
 
     enum Grammar : parser::Node::Type {
-        // TODO - node types
+        // Terminals
+        Def,
+        If,
+        While,
+        And,
+        Or,
+        Not,
+        LParen,
+        RParen,
+        LBrkt,
+        RBrkt,
+        LBrc,
+        RBrc,
+        Asign,
+        Eq,
+        Ne,
+        Gt,
+        Ge,
+        Lt,
+        Le,
+        Amp,
+        Plus,
+        Minus,
+        Mult,
+        Div,
+        Id,
+
+        // Non-Terminals
+        // TODO
     };
 };
 
