@@ -13,6 +13,7 @@ add_subdirectory(Files)
 add_subdirectory(Parser)
 add_subdirectory(Scripts)
 
+target_include_directories(BLIB.t PRIVATE ${PROJECT_SOURCE_DIR}/src)
 target_include_directories(BLIB.t PRIVATE ${PROJECT_SOURCE_DIR}/lib/gtest/googletest/include)
 target_include_directories(BLIB.t PRIVATE ${PROJECT_SOURCE_DIR}/lib/gtest/googlemock/include)
 

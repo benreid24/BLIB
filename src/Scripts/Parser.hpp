@@ -31,9 +31,9 @@ struct Parser {
     /**
      * @brief Builds and returns the Grammar for scripts
      *
-     * @return parser::Grammar An uncompiled grammar
+     * @return parser::Grammar An uncompiled grammar w/o root node set
      */
-    static const parser::Grammar& getGrammar();
+    static parser::Grammar getGrammar();
 
     enum Grammar : parser::Node::Type {
         // Terminals
@@ -79,7 +79,7 @@ struct Parser {
         RValue,   // Id. ArrayAcc. Property
 
         // Arithmetic
-        TValue,  // RValue. NumLit. StringLit. Call
+        TValue,  // RValue. NumLit. StringLit. Call. PGroup
         Exp,     // TValue. TValue Hat Value
         Product, // Exp. Product Mult Product. Product Div Product
         Sum,     // Product. Sum Plus Sum. Sum Minus Sum
@@ -91,7 +91,8 @@ struct Parser {
         Negation, // Cmp. Not Negation
         AndGrp,   // Negation. AndGrp And AndGrp
         OrGrp,    // AndGrp. OrGrp Or OrGrp
-        Value,    // OrGrp. LParen Value RParen
+        PGroup,   // LParen Value RParen
+        Value,    // OrGrp
 
         // Assignment
         Ref,        // Amp RValue
@@ -102,10 +103,9 @@ struct Parser {
         Call,      // Id LParen ValueList RParen. Id LParen RParen
 
         // Conditional and Loop
-        Condition,   // LParen Value RParen
-        CondHead,    // If Cond
+        CondHead,    // If PGroup
         Conditional, // CondHead Statement. CondHead StmtBlock
-        LoopHead,    // While Cond
+        LoopHead,    // While PGroup
         Loop,        // LoopHead Statement. LoopHead StmtBlock
 
         // Statements

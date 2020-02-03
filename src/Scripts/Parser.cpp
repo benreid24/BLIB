@@ -67,6 +67,8 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::RValue, G::Property);
 
     // Arithmetic
+    grammar.addRule(G::PGroup, {G::LParen, G::Value, G::RParen});
+    grammar.addRule(G::TValue, G::PGroup);
     grammar.addRule(G::TValue, G::RValue);
     grammar.addRule(G::TValue, G::NumLit);
     grammar.addRule(G::TValue, G::StringLit);
@@ -99,7 +101,6 @@ parser::Grammar buildGrammar() {
 
     // Value
     grammar.addRule(G::Value, G::OrGrp);
-    grammar.addRule(G::Value, {G::LParen, G::Value, G::RParen});
 
     // Assignment
     grammar.addRule(G::Ref, {G::Amp, G::RValue});
@@ -113,11 +114,10 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::Call, {G::Id, G::LParen, G::RParen});
 
     // Conditional and Loop
-    grammar.addRule(G::Condition, {G::LParen, G::Value, G::RParen});
-    grammar.addRule(G::CondHead, {G::If, G::Condition});
+    grammar.addRule(G::CondHead, {G::If, G::PGroup});
     grammar.addRule(G::Conditional, {G::CondHead, G::Statement});
     grammar.addRule(G::Conditional, {G::CondHead, G::StmtBlock});
-    grammar.addRule(G::LoopHead, {G::While, G::Condition});
+    grammar.addRule(G::LoopHead, {G::While, G::PGroup});
     grammar.addRule(G::Loop, {G::LoopHead, G::Statement});
     grammar.addRule(G::Loop, {G::LoopHead, G::StmtBlock});
 
@@ -150,6 +150,7 @@ parser::Grammar buildGrammar() {
 
 bl::Parser buildParser() {
     parser::Grammar grammar = buildGrammar();
+    grammar.setStart(Parser::Grammar::Program);
     assert(grammar.compile());
     return bl::Parser(grammar, Parser::getTokenizer());
 }
@@ -161,7 +162,7 @@ const parser::Tokenizer& Parser::getTokenizer() {
     return tokenizer;
 }
 
-const parser::Grammar& Parser::getGrammar() {
+parser::Grammar Parser::getGrammar() {
     static const parser::Grammar grammar = buildGrammar();
     return grammar;
 }
