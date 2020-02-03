@@ -63,6 +63,12 @@ public:
      */
     std::vector<Node::Ptr> tokenize(Stream& input) const;
 
+    // TODO - fix tokenizer group parsing
+    // TODO - use whitespace or smth to group token strings before checking
+    // wrt to above: need to differntiate krwords from ids. maybe check matchs against others
+    // or change interface from regex only to regex or lit. or provide a mapping step. so parse
+    // id by regex then habve kword list to map ids to kwords
+
 private:
     ISkipper::Ptr skipper;
     std::map<std::string, std::pair<std::regex, Node::Type>> matchers;

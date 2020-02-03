@@ -1,7 +1,7 @@
 #ifndef BLIB_SCRIPTS_PARSER_HPP
 #define BLIB_SCRIPTS_PARSER_HPP
 
-#include <BLIB/Parser/Node.hpp>
+#include <BLIB/Parser.hpp>
 
 namespace bl
 {
@@ -19,7 +19,21 @@ struct Parser {
      * @param input The script to parse
      * @return parser::Node::Ptr The root node, or nullptr on error
      */
-    parser::Node::Ptr parse(const std::string& input);
+    static parser::Node::Ptr parse(const std::string& input);
+
+    /**
+     * @brief Builds and returns the tokenizer for scripts
+     *
+     * @return parser::Tokenizer
+     */
+    static const parser::Tokenizer& getTokenizer();
+
+    /**
+     * @brief Builds and returns the Grammar for scripts
+     *
+     * @return parser::Grammar An uncompiled grammar
+     */
+    static const parser::Grammar& getGrammar();
 
     enum Grammar : parser::Node::Type {
         // Terminals
@@ -38,7 +52,7 @@ struct Parser {
         RBrkt,     // ]
         LBrc,      // {
         RBrc,      // }
-        Asign,     // =
+        Assign,    // =
         Eq,        // ==
         Ne,        // !=
         Gt,        // >
@@ -46,6 +60,7 @@ struct Parser {
         Lt,        // <
         Le,        // >=
         Amp,       // &
+        Dot,       // .
         Plus,      // +
         Minus,     // -
         Mult,      // *
@@ -57,42 +72,53 @@ struct Parser {
 
         // Non-Terminals
 
-        // Arithmetic and Boolean Logic
-        RValue,   // Id. Id LBrkt Value RBrkt
-        TValue,   // RValue. NumLit. StringLit. Call
-        Exp,      // TValue. TValue Hat Value
-        Product,  // Exp. Product Mult Product
-        Sum,      // Product. Sum Plus Sum
-        Negation, // Sum. Not Negation
+        // Writeables
+        ArrayDef, // LBrc RBrc. LRrc ValueList RBrc
+        Property, // Id Dot Id
+        ArrayAcc, // RValue LBrkt Value RBrkt
+        RValue,   // Id. ArrayAcc. Property
+
+        // Arithmetic
+        TValue,  // RValue. NumLit. StringLit. Call
+        Exp,     // TValue. TValue Hat Value
+        Product, // Exp. Product Mult Product. Product Div Product
+        Sum,     // Product. Sum Plus Sum. Sum Minus Sum
+
+        // Comparisons
+        Cmp, // Sum. Cmp [Eq, Ne, Gt, Ge, Le, Lt] Cmp
+
+        // Boolean Logic and top Value
+        Negation, // Cmp. Not Negation
         AndGrp,   // Negation. AndGrp And AndGrp
         OrGrp,    // AndGrp. OrGrp Or OrGrp
         Value,    // OrGrp. LParen Value RParen
 
-        // Asignment
-        Ref,       // Amp RValue
-        Asignment, // RValue Asign Value. RValue Asign Ref
+        // Assignment
+        Ref,        // Amp RValue
+        Assignment, // RValue Assign Value. RValue Assign Ref
 
         // Function Call
         ValueList, // Value. ValueList Comma Value
         Call,      // Id LParen ValueList RParen. Id LParen RParen
 
         // Conditional and Loop
-        Cond,        // LParen Value RParen
+        Condition,   // LParen Value RParen
         CondHead,    // If Cond
         Conditional, // CondHead Statement. CondHead StmtBlock
         LoopHead,    // While Cond
         Loop,        // LoopHead Statement. LoopHead StmtBlock
 
         // Statements
-        Statement, // Call. Conditional. Loop. Asignment Term. FDef
+        Statement, // Return Value Term. Call Term. Conditional. Loop. Assignment Term. FDef
         StmtList,  // Statement. StmtList Statement
         StmtBlock, // LBrc StmtList RBrc
 
         // Function Definition
         Param,     // Comma Id
         ParamList, // Id Param. ParamList Param
-        FHead,     // Id LParen ParamList RParen. Id LParen Id RParen. Id LParen RParen
-        Fdef,      // FHead StmtList
+        FName,     // Def Id
+        FHead, // FName LParen ParamList RParen. FName LParen Id RParen. FName LParen RParen
+        Fdef,  // FHead StmtList
 
         // Program
         Program // StmtList
