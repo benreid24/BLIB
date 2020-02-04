@@ -17,7 +17,7 @@ parser::Tokenizer buildTokenizer() {
     tokenizer.addEscapeSequence("\\n", '\n');
 
     tokenizer.addTokenType(G::NumLit, "[0-9]+[\\.[0-9]+]?");
-    tokenizer.addTokenType(G::StringLit, "\"([^\"\\\\]|\\\\.)*\"");
+    tokenizer.addTokenType(G::StringLit, "\"([^\"]*)\"");
     tokenizer.addTokenType(G::LParen, "\\(");
     tokenizer.addTokenType(G::RParen, "\\)");
     tokenizer.addTokenType(G::LBrkt, "\\[");

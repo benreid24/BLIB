@@ -73,8 +73,6 @@ public:
      */
     std::vector<Node::Ptr> tokenize(Stream& input) const;
 
-    // TODO - fix tokenizer regex group parsing
-
 private:
     ISkipper::Ptr skipper;
     std::map<std::string, std::pair<std::regex, Node::Type>> matchers;
