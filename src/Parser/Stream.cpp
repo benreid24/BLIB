@@ -25,10 +25,12 @@ std::string Stream::peekN(unsigned int n) {
 
     peek.reserve(n);
     while (offset < n && stream.good()) {
-        if (stream.peek() != EOF)
-            peek.push_back(stream.get());
-        else
+        const char c = stream.peek();
+        peek.push_back(c);
+        if (c == EOF)
             break;
+        else
+            stream.get();
         ++offset;
     }
     stream.seekg(-offset, std::ios_base::cur);

@@ -51,8 +51,15 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
         for (const auto& matcher : matchers) {
             std::smatch result;
             if (std::regex_match(current, result, matcher.second.first)) {
-                std::string temp = current + input.peek();
-                if (std::regex_match(temp, matcher.second.first)) continue;
+                bool cont = false;
+                for (int i = 1; i <= 3; ++i) {
+                    const std::string temp = current + input.peekN(i);
+                    if (std::regex_match(temp, matcher.second.first)) {
+                        cont = true;
+                        break;
+                    }
+                }
+                if (cont) continue;
 
                 auto a = ambiguous.find(matcher.first);
                 if (a != ambiguous.end()) {

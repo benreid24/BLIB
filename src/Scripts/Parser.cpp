@@ -16,7 +16,7 @@ parser::Tokenizer buildTokenizer() {
     tokenizer.addSkipperToggleChar('"');
     tokenizer.addEscapeSequence("\\n", '\n');
 
-    tokenizer.addTokenType(G::NumLit, "[0-9]+[\\.[0-9]+]?");
+    tokenizer.addTokenType(G::NumLit, "([0-9]+(\\.[0-9]+)?)");
     tokenizer.addTokenType(G::StringLit, "\"([^\"]*)\"");
     tokenizer.addTokenType(G::LParen, "\\(");
     tokenizer.addTokenType(G::RParen, "\\)");
@@ -73,6 +73,7 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::TValue, G::NumLit);
     grammar.addRule(G::TValue, G::StringLit);
     grammar.addRule(G::TValue, G::Call);
+    grammar.addRule(G::TValue, G::ArrayDef);
     grammar.addRule(G::Exp, G::TValue);
     grammar.addRule(G::Exp, {G::Exp, G::Hat, G::Exp});
     grammar.addRule(G::Product, G::Exp);
