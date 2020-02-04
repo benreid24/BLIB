@@ -19,6 +19,10 @@ void Tokenizer::addEscapeSequence(const std::string& sequence, char c) {
 
 void Tokenizer::addSkipperToggleChar(char c) { togglers.push_back(c); }
 
+void Tokenizer::addKeyword(Node::Type src, Node::Type res, const std::string& kword) {
+    kwords[src].push_back({kword, res});
+}
+
 std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
     std::vector<Node::Ptr> tokens;
     std::string current;
@@ -73,6 +77,17 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
                 token->sourceLine   = input.currentLine();
                 token->sourceColumn = input.currentColumn();
                 token->type         = matcher.second.second;
+
+                auto kiter = kwords.find(token->type);
+                if (kiter != kwords.end()) {
+                    for (const auto& t : kiter->second) {
+                        if (t.first == token->data) {
+                            token->type = t.second;
+                            break;
+                        }
+                    }
+                }
+
                 tokens.push_back(token);
                 current.clear();
                 break;

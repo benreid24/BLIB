@@ -18,19 +18,12 @@ parser::Tokenizer buildTokenizer() {
 
     tokenizer.addTokenType(G::NumLit, "[0-9]+[\\.[0-9]+]?");
     tokenizer.addTokenType(G::StringLit, "\"([^\"\\\\]|\\\\.)*\"");
-    tokenizer.addTokenType(G::Def, "def");
-    tokenizer.addTokenType(G::If, "if");
-    tokenizer.addTokenType(G::While, "while");
-    tokenizer.addTokenType(G::Return, "return");
-    tokenizer.addTokenType(G::And, "and");
-    tokenizer.addTokenType(G::Or, "or");
-    tokenizer.addTokenType(G::Not, "not");
     tokenizer.addTokenType(G::LParen, "\\(");
     tokenizer.addTokenType(G::RParen, "\\)");
     tokenizer.addTokenType(G::LBrkt, "\\[");
     tokenizer.addTokenType(G::RBrkt, "\\]");
-    tokenizer.addTokenType(G::LBrc, "{");
-    tokenizer.addTokenType(G::RBrc, "}");
+    tokenizer.addTokenType(G::LBrc, "\\{");
+    tokenizer.addTokenType(G::RBrc, "\\}");
     tokenizer.addTokenType(G::Assign, "=");
     tokenizer.addTokenType(G::Eq, "==");
     tokenizer.addTokenType(G::Ne, "!=");
@@ -48,6 +41,13 @@ parser::Tokenizer buildTokenizer() {
     tokenizer.addTokenType(G::Comma, ",");
     tokenizer.addTokenType(G::Term, ";");
     tokenizer.addTokenType(G::Id, "[a-zA-Z]+[a-zA-Z0-9]*");
+    tokenizer.addKeyword(G::Id, G::Def, "def");
+    tokenizer.addKeyword(G::Id, G::If, "if");
+    tokenizer.addKeyword(G::Id, G::While, "while");
+    tokenizer.addKeyword(G::Id, G::Return, "return");
+    tokenizer.addKeyword(G::Id, G::And, "and");
+    tokenizer.addKeyword(G::Id, G::Or, "or");
+    tokenizer.addKeyword(G::Id, G::Not, "not");
 
     return tokenizer;
 }
