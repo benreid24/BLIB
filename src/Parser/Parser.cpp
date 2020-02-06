@@ -108,11 +108,14 @@ Node::Ptr Parser::parse(Stream& input) const {
 }
 
 bool Parser::tryReduction(std::vector<Node::Ptr>& stack, bool inputRemaining) const {
+    unsigned int nextStart = 0;
+
     for (unsigned int l = 0; l < stack.size(); ++l) {
         const unsigned int len = stack.size() - l;
         std::vector<Node::Ptr> substr;
         substr.reserve(len);
-        for (unsigned int s = 0; s <= stack.size() - len; ++s) {
+        unsigned int s = nextStart;
+        for (nextStart = 0; s <= stack.size() - len; ++s) {
             substr.clear();
             for (unsigned int i = s; i < stack.size() && i < s + len; ++i) {
                 substr.push_back(stack[i]);
@@ -129,6 +132,8 @@ bool Parser::tryReduction(std::vector<Node::Ptr>& stack, bool inputRemaining) co
                     return true;
                 }
             }
+            else if (r.reductionsPossible == 1)
+                nextStart = s + len;
         }
     }
     return false;

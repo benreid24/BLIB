@@ -5,12 +5,12 @@ namespace bl
 {
 namespace scripts
 {
-TEST(Parser, GrammarCompile) {
+TEST(ScriptParser, GrammarCompile) {
     parser::Grammar grammar = Parser::getGrammar();
     EXPECT_TRUE(grammar.compile());
 }
 
-TEST(Parser, Tokens) {
+TEST(ScriptParser, Tokens) {
     using G = Parser::Grammar;
 
     const std::vector<std::pair<parser::Node::Type, std::string>> tests = {
@@ -53,13 +53,17 @@ TEST(Parser, Tokens) {
     EXPECT_EQ(tks[0]->data, "hello");
 }
 
-TEST(Parser, Value) {
+TEST(ScriptParser, Value) {
     const std::vector<std::string> tests = {
-        "variable",      "5.5",       "smth + 5",    "6-3",         "5^2",
-        "3*3^2",         "5/1",       "5+3^2 * 5",   "3 / (5+3^5)", "function(5, variable)",
-        "&reference",    "array[5]",  "{}",          "{5, 6}",      "\"string\"",
-        "5 == 6",        "6 >= 5",    "0 <= 2",      "10 < 3",      "5 != 89",
-        "this and that", "me or you", "not variable"};
+        "variable",    "5.5",           "17 * 5",
+        "var/9",       "smth + 5",      "6-3",
+        "5^2",         "3*3^2",         "5/1",
+        "5+3^2 * 5",   "3 / (5+3^5)",   "function(5, variable)",
+        "&reference",  "array[5]",      "{}",
+        "{5, 6}",      "\"string\"",    "5 == 6",
+        "6 >= 5",      "0 <= 2",        "10 < 3",
+        "5 != 89",     "this and that", "me or you",
+        "not variable"};
 
     const parser::Tokenizer& t = Parser::getTokenizer();
     parser::Grammar grammar    = Parser::getGrammar();
