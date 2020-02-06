@@ -100,7 +100,7 @@ struct Parser {
 
         // Function Call
         ValueList, // Value. ValueList Comma Value
-        Call,      // Id LParen ValueList RParen. Id LParen RParen
+        Call,      // RValue LParen ValueList RParen. RValue LParen RParen
 
         // Conditional and Loop
         CondHead,    // If PGroup

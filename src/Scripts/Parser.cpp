@@ -111,8 +111,8 @@ parser::Grammar buildGrammar() {
     // Function call
     grammar.addRule(G::ValueList, G::Value);
     grammar.addRule(G::ValueList, {G::ValueList, G::Comma, G::Value});
-    grammar.addRule(G::Call, {G::Id, G::LParen, G::ValueList, G::RParen});
-    grammar.addRule(G::Call, {G::Id, G::LParen, G::RParen});
+    grammar.addRule(G::Call, {G::RValue, G::LParen, G::ValueList, G::RParen});
+    grammar.addRule(G::Call, {G::RValue, G::LParen, G::RParen});
 
     // Conditional and Loop
     grammar.addRule(G::CondHead, {G::If, G::PGroup});
