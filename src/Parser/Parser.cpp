@@ -131,6 +131,18 @@ bool Parser::tryReduction(std::vector<Node::Ptr>& stack, bool inputRemaining) co
                     doReduction(stack, s, len, r.result);
                     return true;
                 }
+                else if (s + len < stack.size()) {
+                    const std::vector<Node::Ptr> next = {stack[s + len]};
+                    substr.push_back(stack[s + len]);
+                    Grammar::Reduction tr = grammar.reductionLookup(genKey(substr));
+                    if (tr.reductionsPossible == 0) {
+                        tr = grammar.reductionLookup(genKey(next));
+                        if (tr.reductionsPossible == 0) {
+                            doReduction(stack, s, len, r.result);
+                            return true;
+                        }
+                    }
+                }
             }
             else if (r.reductionsPossible == 1)
                 nextStart = s + len;
