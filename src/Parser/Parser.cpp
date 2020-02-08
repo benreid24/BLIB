@@ -1,6 +1,63 @@
 #include <BLIB/Parser/Parser.hpp>
 
+#include <Scripts/Parser.hpp>
 #include <iostream>
+
+std::string toStr(bl::parser::Node::Type t) {
+    using T = bl::scripts::Parser::Grammar;
+    switch (t) {
+    case T::NumLit:
+        return "NumLit";
+    case T::TValue:
+        return "TValue";
+    case T::RValue:
+        return "RValue";
+    case T::Exp:
+        return "Exp";
+    case T::Hat:
+        return "Hat";
+    case T::Plus:
+        return "Plus";
+    case T::Minus:
+        return "Minus";
+    case T::Mult:
+        return "Mult";
+    case T::Div:
+        return "Div";
+    case T::LParen:
+        return "LParen";
+    case T::RParen:
+        return "RParen";
+    case T::Id:
+        return "Id";
+    case T::Product:
+        return "Product";
+    case T::Sum:
+        return "Sum";
+    case T::Cmp:
+        return "Cmp";
+    case T::Negation:
+        return "Negation";
+    case T::AndGrp:
+        return "AndGrp";
+    case T::OrGrp:
+        return "OrGrp";
+    case T::PGroup:
+        return "PGroup";
+    case T::Value:
+        return "Value";
+    case T::ValueList:
+        return "ValueList";
+    case T::ArgList:
+        return "ArgList";
+    case T::Call:
+        return "Call";
+    case T::Comma:
+        return "Comma";
+    default:
+        return std::to_string(t);
+    }
+}
 
 namespace bl
 {
@@ -11,6 +68,14 @@ std::ostream& error(Node::Ptr node) {
     std::cerr << "Error: Line " << node->sourceLine << " column " << node->sourceColumn
               << ": ";
     return std::cerr;
+}
+
+std::ostream& operator<<(std::ostream& s, const Node::Sequence& nodes) {
+    s << "[";
+    if (!nodes.empty()) s << toStr(nodes[0]);
+    for (unsigned int i = 1; i < nodes.size(); ++i) { s << ", " << toStr(nodes[i]); }
+    s << "]";
+    return s;
 }
 
 Node::Sequence genKey(const std::vector<Node::Ptr>& nodes) {
@@ -56,12 +121,27 @@ Node::Ptr Parser::parse(Stream& input) const {
     stack.push_back(tokens.front());
     tokens.pop_front();
 
-    while (!tokens.empty()) {
-        while (tryReduction(stack, true)) {}
-        stack.push_back(tokens.front());
-        tokens.pop_front();
+    bool unchanged = false;
+    while (!tokens.empty() || !unchanged) {
+        bool r = false;
+        while (tryReduction(stack, !tokens.empty(), false)) { r = true; }
+        if (!r) {
+            if (unchanged) {
+                tryReduction(stack, true, true);
+                unchanged = false;
+            }
+            else
+                unchanged = true;
+        }
+        else
+            unchanged = false;
+        if (!tokens.empty()) {
+            stack.push_back(tokens.front());
+            tokens.pop_front();
+        }
     }
-    while (tryReduction(stack, false)) {}
+    while (tryReduction(stack, false, false)) {}
+    while (tryReduction(stack, false, true)) {}
 
     if (stack.size() > 1) {
         if (stack.size() > 2) {
@@ -107,8 +187,11 @@ Node::Ptr Parser::parse(Stream& input) const {
     return root;
 }
 
-bool Parser::tryReduction(std::vector<Node::Ptr>& stack, bool inputRemaining) const {
+bool Parser::tryReduction(std::vector<Node::Ptr>& stack, bool inputRemaining,
+                          bool unchanged) const {
     unsigned int nextStart = 0;
+
+    std::cout << "Stack: " << genKey(stack) << std::endl;
 
     for (unsigned int l = 0; l < stack.size(); ++l) {
         const unsigned int len = stack.size() - l;
@@ -124,28 +207,38 @@ bool Parser::tryReduction(std::vector<Node::Ptr>& stack, bool inputRemaining) co
             Grammar::Reduction r     = grammar.reductionLookup(key);
             if (r.result != Node::None) {
                 if (r.reductionsPossible == 1) {
+                    std::cout << "Reducing[#r=1] " << key << " -> " << toStr(r.result)
+                              << std::endl;
+                    doReduction(stack, s, len, r.result);
+                    return true;
+                }
+                else if (unchanged && stack.size() - s - len >= grammar.longestRule()) {
+                    std::cout << "Reducing[sgre] " << key << " -> " << toStr(r.result)
+                              << std::endl;
                     doReduction(stack, s, len, r.result);
                     return true;
                 }
                 else if (!inputRemaining && (s + len >= stack.size())) {
+                    std::cout << "Reducing[endi] " << key << " -> " << toStr(r.result)
+                              << std::endl;
                     doReduction(stack, s, len, r.result);
                     return true;
                 }
                 else if (s + len < stack.size()) {
-                    const std::vector<Node::Ptr> next = {stack[s + len]};
+                    std::vector<Node::Ptr> next = {stack[s + len]};
                     substr.push_back(stack[s + len]);
                     Grammar::Reduction tr = grammar.reductionLookup(genKey(substr));
                     if (tr.reductionsPossible == 0) {
                         tr = grammar.reductionLookup(genKey(next));
                         if (tr.reductionsPossible == 0) {
+                            std::cout << "Reducing[ekey] " << key << " -> " << toStr(r.result)
+                                      << std::endl;
                             doReduction(stack, s, len, r.result);
                             return true;
                         }
                     }
                 }
             }
-            else if (r.reductionsPossible == 1)
-                nextStart = s + len;
         }
     }
     return false;

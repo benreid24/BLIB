@@ -53,17 +53,10 @@ TEST(ScriptParser, Tokens) {
     EXPECT_EQ(tks[0]->data, "hello");
 }
 
-TEST(ScriptParser, Value) {
-    const std::vector<std::string> tests = {
-        "variable",    "5.5",           "17 * 5",
-        "var/9",       "smth + 5",      "6-3",
-        "5^2",         "3*3^2",         "5/1",
-        "5+3^2 * 5",   "3 / (5+3^5)",   "function(5, variable)",
-        "&reference",  "array[5]",      "{}",
-        "{5, 6}",      "\"string\"",    "5 == 6",
-        "6 >= 5",      "0 <= 2",        "10 < 3",
-        "5 != 89",     "this and that", "me or you",
-        "not variable"};
+class ScriptParserValueTest : public ::testing::TestWithParam<std::string> {};
+
+TEST_P(ScriptParserValueTest, Value) {
+    std::vector<std::string> tests = {};
 
     const parser::Tokenizer& t = Parser::getTokenizer();
     parser::Grammar grammar    = Parser::getGrammar();
@@ -72,8 +65,16 @@ TEST(ScriptParser, Value) {
     grammar.setStart(Parser::Grammar::ValueList);
 
     const bl::Parser p(grammar, t);
-    for (const auto& test : tests) { EXPECT_NE(p.parse(test).get(), nullptr) << test; }
+    EXPECT_NE(p.parse(GetParam()).get(), nullptr) << GetParam();
 }
+
+INSTANTIATE_TEST_SUITE_P(ScriptParserValue, ScriptParserValueTest,
+                         ::testing::Values("variable", "5.5", "17 * 5", "var/9", "smth + 5",
+                                           "6-3", "5^2", "3*3^2", "5/1", "5+3^2 * 5",
+                                           "3 / (5+3^5)", "function(5, variable)", "array[5]",
+                                           "{}", "{5, 6}", "\"string\"", "5 == 6", "6 >= 5",
+                                           "0 <= 2", "10 < 3", "5 != 89", "this and that",
+                                           "me or you", "not variable"));
 
 } // namespace scripts
 } // namespace bl

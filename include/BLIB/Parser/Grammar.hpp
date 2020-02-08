@@ -14,6 +14,8 @@ namespace parser
  */
 class Grammar {
 public:
+    Grammar();
+
     /**
      * @brief Set the Start Node type
      *
@@ -79,10 +81,17 @@ public:
      */
     Node::Type getStart() const;
 
+    /**
+     * @brief Returns the length of the longest rule
+     *
+     */
+    unsigned int longestRule() const;
+
 private:
     Node::Type start;
     std::vector<std::pair<Node::Type, Node::Sequence>> rules;
     std::unordered_map<Node::Sequence, Reduction> reductionTable;
+    unsigned int longest;
 };
 
 } // namespace parser

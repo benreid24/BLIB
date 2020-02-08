@@ -21,12 +21,18 @@ std::vector<Node::Sequence> genSubSequences(const Node::Sequence& sequence) {
     return sequences;
 }
 } // namespace
+Grammar::Grammar()
+: longest(0) {}
+
 void Grammar::setStart(Node::Type s) { start = s; }
 
 Node::Type Grammar::getStart() const { return start; }
 
+unsigned int Grammar::longestRule() const { return longest; }
+
 void Grammar::addRule(Node::Type result, const Node::Sequence& sequence) {
     rules.push_back(std::make_pair(result, sequence));
+    if (sequence.size() > longest) longest = sequence.size();
 }
 
 void Grammar::addRule(Node::Type result, Node::Type node) {

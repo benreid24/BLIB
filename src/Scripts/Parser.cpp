@@ -40,6 +40,7 @@ parser::Tokenizer buildTokenizer() {
     tokenizer.addTokenType(G::Hat, "\\^");
     tokenizer.addTokenType(G::Comma, ",");
     tokenizer.addTokenType(G::Term, ";");
+    tokenizer.addTokenType(G::Colon, ":");
     tokenizer.addTokenType(G::Id, "[a-zA-Z]+[a-zA-Z0-9]*");
     tokenizer.addKeyword(G::Id, G::Def, "def");
     tokenizer.addKeyword(G::Id, G::If, "if");
@@ -111,7 +112,8 @@ parser::Grammar buildGrammar() {
     // Function call
     grammar.addRule(G::ValueList, G::Value);
     grammar.addRule(G::ValueList, {G::ValueList, G::Comma, G::Value});
-    grammar.addRule(G::Call, {G::RValue, G::LParen, G::ValueList, G::RParen});
+    grammar.addRule(G::ArgList, {G::LParen, G::ValueList, G::RParen});
+    grammar.addRule(G::Call, {G::RValue, G::ArgList});
     grammar.addRule(G::Call, {G::RValue, G::LParen, G::RParen});
 
     // Conditional and Loop
@@ -134,9 +136,9 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::StmtBlock, {G::LBrc, G::StmtList, G::RBrc});
 
     // Function definition
-    grammar.addRule(G::Param, {G::Comma, G::Id});
-    grammar.addRule(G::ParamList, {G::Id, G::Param});
-    grammar.addRule(G::ParamList, {G::ParamList, G::Param});
+    grammar.addRule(G::Param, {G::Colon, G::Id});
+    grammar.addRule(G::ParamList, G::Param);
+    grammar.addRule(G::ParamList, {G::ParamList, G::Comma, G::Param});
     grammar.addRule(G::FName, {G::Def, G::Id});
     grammar.addRule(G::FHead, {G::FName, G::LParen, G::RParen});
     grammar.addRule(G::FHead, {G::FName, G::LParen, G::Id, G::RParen});

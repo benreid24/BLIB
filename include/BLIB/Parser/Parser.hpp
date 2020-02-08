@@ -42,7 +42,8 @@ private:
     const parser::Grammar grammar;
     const parser::Tokenizer tokenizer;
 
-    bool tryReduction(std::vector<parser::Node::Ptr>& stack, bool inputRemaining) const;
+    bool tryReduction(std::vector<parser::Node::Ptr>& stack, bool inputRemaining,
+                      bool unchanged) const;
 };
 
 } // namespace bl

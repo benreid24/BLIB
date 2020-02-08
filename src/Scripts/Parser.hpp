@@ -68,6 +68,7 @@ struct Parser {
         Hat,       // ^
         Comma,     // ,
         Term,      // ;
+        Colon,     // :
         Id,        // varname
 
         // Non-Terminals
@@ -100,6 +101,7 @@ struct Parser {
 
         // Function Call
         ValueList, // Value. ValueList Comma Value
+        ArgList,   // LParen ValueList RParen
         Call,      // RValue LParen ValueList RParen. RValue LParen RParen
 
         // Conditional and Loop
@@ -114,8 +116,8 @@ struct Parser {
         StmtBlock, // LBrc StmtList RBrc
 
         // Function Definition
-        Param,     // Comma Id
-        ParamList, // Id Param. ParamList Param
+        Param,     // Colon Id
+        ParamList, // Param. ParamList Comma Param
         FName,     // Def Id
         FHead, // FName LParen ParamList RParen. FName LParen Id RParen. FName LParen RParen
         Fdef,  // FHead StmtList
