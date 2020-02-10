@@ -5,15 +5,20 @@ namespace bl
 {
 namespace scripts
 {
+namespace unittest
+{
+using NodeString = std::pair<parser::Node::Type, std::string>;
+using G          = Parser::Grammar;
+
 TEST(ScriptParser, GrammarCompile) {
     parser::Grammar grammar = Parser::getGrammar();
     EXPECT_TRUE(grammar.compile());
 }
 
-TEST(ScriptParser, Tokens) {
-    using G = Parser::Grammar;
+class ScriptParserTokenTest : public ::testing::TestWithParam<NodeString> {};
 
-    const std::vector<std::pair<parser::Node::Type, std::string>> tests = {
+TEST_P(ScriptParserTokenTest, Tokens) {
+    const std::vector<NodeString> tests = {
         std::make_pair(G::NumLit, "16.76"), std::make_pair(G::NumLit, "0.05"),
         std::make_pair(G::NumLit, "16"),    std::make_pair(G::StringLit, "\"hello world\""),
         std::make_pair(G::Def, "def"),      std::make_pair(G::If, "if"),
@@ -36,15 +41,35 @@ TEST(ScriptParser, Tokens) {
         std::make_pair(G::Id, "nameif"),    std::make_pair(G::Id, "pleasewhilework"),
     };
 
-    for (const auto& test : tests) {
-        const parser::Tokenizer& t = Parser::getTokenizer();
-        parser::Stream s(test.second);
-        const std::vector<parser::Node::Ptr> tks = t.tokenize(s);
-        ASSERT_EQ(tks.size(), 1) << "Expect 1 token: " + test.second;
-        EXPECT_EQ(tks[0]->type, test.first)
-            << "Expect " << test.first << " got " << tks[0]->type << ": " << test.second;
-    }
+    const auto& test           = GetParam();
+    const parser::Tokenizer& t = Parser::getTokenizer();
+    parser::Stream s(test.second);
+    const std::vector<parser::Node::Ptr> tks = t.tokenize(s);
+    ASSERT_EQ(tks.size(), 1) << "Expect 1 token: " + test.second;
+    EXPECT_EQ(tks[0]->type, test.first)
+        << "Expect " << test.first << " got " << tks[0]->type << ": " << test.second;
+}
 
+INSTANTIATE_TEST_SUITE_P(
+    ScriptParserTokens, ScriptParserTokenTest,
+    ::testing::Values(
+        NodeString(G::NumLit, "16.76"), NodeString(G::NumLit, "0.05"),
+        NodeString(G::NumLit, "16"), NodeString(G::StringLit, "\"hello world\""),
+        NodeString(G::Def, "def"), NodeString(G::If, "if"), NodeString(G::While, "while"),
+        NodeString(G::Return, "return"), NodeString(G::And, "and"), NodeString(G::Or, "or"),
+        NodeString(G::Not, "not"), NodeString(G::LParen, "("), NodeString(G::RParen, ")"),
+        NodeString(G::LBrkt, "["), NodeString(G::RBrkt, "]"), NodeString(G::LBrc, "{"),
+        NodeString(G::RBrc, "}"), NodeString(G::Assign, "="), NodeString(G::Eq, "=="),
+        NodeString(G::Ne, "!="), NodeString(G::Gt, ">"), NodeString(G::Ge, ">="),
+        NodeString(G::Lt, "<"), NodeString(G::Le, "<="), NodeString(G::Amp, "&"),
+        NodeString(G::Dot, "."), NodeString(G::Plus, "+"), NodeString(G::Minus, "-"),
+        NodeString(G::Mult, "*"), NodeString(G::Div, "/"), NodeString(G::Hat, "^"),
+        NodeString(G::Comma, ","), NodeString(G::Term, ";"), NodeString(G::Id, "varname"),
+        NodeString(G::Id, "varname09"), NodeString(G::Id, "varname5id"),
+        NodeString(G::Id, "Varname"), NodeString(G::Id, "ifName"), NodeString(G::Id, "nameif"),
+        NodeString(G::Id, "pleasewhilework")));
+
+TEST(ScriptParser, StringLiteral) {
     const parser::Tokenizer& t = Parser::getTokenizer();
     parser::Stream slit("\"hello\"");
     std::vector<parser::Node::Ptr> tks = t.tokenize(slit);
@@ -56,8 +81,6 @@ TEST(ScriptParser, Tokens) {
 class ScriptParserValueTest : public ::testing::TestWithParam<std::string> {};
 
 TEST_P(ScriptParserValueTest, Value) {
-    std::vector<std::string> tests = {};
-
     const parser::Tokenizer& t = Parser::getTokenizer();
     parser::Grammar grammar    = Parser::getGrammar();
 
@@ -75,6 +98,6 @@ INSTANTIATE_TEST_SUITE_P(ScriptParserValue, ScriptParserValueTest,
                                            "{}", "{5, 6}", "\"string\"", "5 == 6", "6 >= 5",
                                            "0 <= 2", "10 < 3", "5 != 89", "this and that",
                                            "me or you", "not variable"));
-
+} // namespace unittest
 } // namespace scripts
 } // namespace bl
