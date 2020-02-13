@@ -78,26 +78,48 @@ TEST(ScriptParser, StringLiteral) {
     EXPECT_EQ(tks[0]->data, "hello");
 }
 
-class ScriptParserValueTest : public ::testing::TestWithParam<std::string> {};
+using T = Parser::Grammar;
+struct ParseTest {
+    const Parser::Grammar result;
+    const std::string data;
+    const bool pass;
 
-TEST_P(ScriptParserValueTest, Value) {
+    ParseTest(Parser::Grammar g, const std::string& d, bool p)
+    : result(g)
+    , data(d)
+    , pass(p) {}
+};
+class ScriptParserTest : public ::testing::TestWithParam<ParseTest> {};
+
+TEST_P(ScriptParserTest, Value) {
     const parser::Tokenizer& t = Parser::getTokenizer();
     parser::Grammar grammar    = Parser::getGrammar();
 
     ASSERT_TRUE(grammar.compile());
-    grammar.setStart(Parser::Grammar::ValueList);
+    grammar.setStart(GetParam().result);
 
     const bl::Parser p(grammar, t);
-    EXPECT_NE(p.parse(GetParam()).get(), nullptr) << GetParam();
+    EXPECT_EQ(p.parse(GetParam().data).get() != nullptr, GetParam().pass) << GetParam().data;
 }
 
-INSTANTIATE_TEST_SUITE_P(ScriptParserValue, ScriptParserValueTest,
-                         ::testing::Values("variable", "5.5", "17 * 5", "var/9", "smth + 5",
-                                           "6-3", "5^2", "3*3^2", "5/1", "5+3^2 * 5",
-                                           "3 / (5+3^5)", "function(5, variable)", "array[5]",
-                                           "{}", "{5, 6}", "\"string\"", "5 == 6", "6 >= 5",
-                                           "0 <= 2", "10 < 3", "5 != 89", "this and that",
-                                           "me or you", "not variable"));
+INSTANTIATE_TEST_SUITE_P(
+    ScriptParserValue, ScriptParserTest,
+    ::testing::Values(
+        ParseTest(T::ValueList, "variable", true), ParseTest(T::ValueList, "5.5", true),
+        ParseTest(T::ValueList, "17 * 5", true), ParseTest(T::ValueList, "var/9", true),
+        ParseTest(T::ValueList, "smth + 5", true), ParseTest(T::ValueList, "6-3", true),
+        ParseTest(T::ValueList, "5^2", true), ParseTest(T::ValueList, "3*3^2", true),
+        ParseTest(T::ValueList, "5/1", true), ParseTest(T::ValueList, "5+3^2 * 5", true),
+        ParseTest(T::ValueList, "3 / (5+3^5)", true),
+        ParseTest(T::ValueList, "function(5, variable)", true),
+        ParseTest(T::ValueList, "array[5]", true), ParseTest(T::ValueList, "{}", true),
+        ParseTest(T::ValueList, "{5, 6}", true), ParseTest(T::ValueList, "\"string\"", true),
+        ParseTest(T::ValueList, "5 == 6", true), ParseTest(T::ValueList, "6 >= 5", true),
+        ParseTest(T::ValueList, "0 <= 2", true), ParseTest(T::ValueList, "10 < 3", true),
+        ParseTest(T::ValueList, "5 != 89", true),
+        ParseTest(T::ValueList, "this and that", true),
+        ParseTest(T::ValueList, "me or you", true),
+        ParseTest(T::ValueList, "not variable", true)));
 } // namespace unittest
 } // namespace scripts
 } // namespace bl
