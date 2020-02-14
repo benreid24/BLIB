@@ -119,7 +119,9 @@ INSTANTIATE_TEST_SUITE_P(
         ParseTest(T::ValueList, "5 != 89", true),
         ParseTest(T::ValueList, "this and that", true),
         ParseTest(T::ValueList, "me or you", true),
-        ParseTest(T::ValueList, "not variable", true)));
+        ParseTest(T::ValueList, "not variable", true),
+        ParseTest(T::Program, "var = 5 + 3;", true),
+        ParseTest(T::Program, "return 5^(function(5, \"hello\"));", true)));
 } // namespace unittest
 } // namespace scripts
 } // namespace bl
