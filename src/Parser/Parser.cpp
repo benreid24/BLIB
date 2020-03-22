@@ -2,6 +2,7 @@
 
 #include <Scripts/Parser.hpp>
 #include <iostream>
+#include <numeric>
 
 std::string toStr(bl::parser::Node::Type t) {
     using T = bl::scripts::Parser::Grammar;
@@ -78,13 +79,6 @@ std::ostream& operator<<(std::ostream& s, const Node::Sequence& nodes) {
     return s;
 }
 
-Node::Sequence genKey(const std::vector<Node::Ptr>& nodes) {
-    Node::Sequence key;
-    key.reserve(nodes.size());
-    for (const Node::Ptr& node : nodes) key.push_back(node->type);
-    return key;
-}
-
 void doReduction(std::vector<Node::Ptr>& stack, unsigned int i, unsigned int len,
                  Node::Type type) {
     Node::Ptr node(new Node());
@@ -101,11 +95,18 @@ void doReduction(std::vector<Node::Ptr>& stack, unsigned int i, unsigned int len
     stack.insert(stack.begin() + i, node);
 }
 
+Node::Type getFree(const Grammar& g) {
+    Node::Type t = rand();
+    while (g.terminal(t) || g.nonterminal(t)) { t = rand(); }
+    return t;
+}
+
 } // namespace
 
 Parser::Parser(const Grammar& grammar, const Tokenizer& tokenizer)
 : grammar(grammar)
-, tokenizer(tokenizer) {}
+, tokenizer(tokenizer)
+, Start(getFree(grammar)) {}
 
 Node::Ptr Parser::parse(const std::string& input) const {
     Stream stream(input);
@@ -118,130 +119,79 @@ Node::Ptr Parser::parse(Stream& input) const {
     std::list<Node::Ptr> tokens(parsed.begin(), parsed.end());
 
     std::vector<Node::Ptr> stack;
-    stack.push_back(tokens.front());
-    tokens.pop_front();
-
-    bool unchanged = false;
-    while (!tokens.empty() || !unchanged) {
-        bool r = false;
-        while (tryReduction(stack, !tokens.empty(), false)) { r = true; }
-        if (!r) {
-            if (unchanged) {
-                tryReduction(stack, true, true);
-                unchanged = false;
-            }
-            else
-                unchanged = true;
-        }
-        else
-            unchanged = false;
-        if (!tokens.empty()) {
-            stack.push_back(tokens.front());
-            tokens.pop_front();
-        }
-    }
-    while (tryReduction(stack, false, false)) {}
-    while (tryReduction(stack, false, true)) {}
-
-    if (stack.size() > 1) {
-        if (stack.size() > 2) {
-            for (unsigned int l = 0; l < stack.size(); ++l) {
-                unsigned int len = stack.size() - l;
-                std::vector<Node::Ptr> substr;
-                substr.reserve(len);
-                for (unsigned int s = 0; s <= stack.size() - len; ++s) {
-                    substr.clear();
-                    for (unsigned int i = s; i < stack.size() && i < s + len; ++i) {
-                        substr.push_back(stack[i]);
-                    }
-                    Node::Sequence key   = genKey(substr);
-                    Grammar::Reduction r = grammar.reductionLookup(key);
-                    if (r.reductionsPossible > 0 && s + len < stack.size()) {
-                        key.push_back(stack[s + len]->type);
-                        r = grammar.reductionLookup(key);
-                        if (r.reductionsPossible == 0) {
-                            error(stack[s + len])
-                                << "Unexpected symbol '" << stack[s + len]->data << "'\n";
-                            goto errorPrinted;
-                        }
-                    }
-                }
-            }
-        errorPrinted:;
-        }
-        else
-            error(stack[1]) << "Unexpected symbol '" << stack[1]->data << "'\n";
-        return nullptr;
-    }
-    if (stack.empty()) {
-        std::cerr << "Internal parser error: No tree\n";
-        return nullptr;
-    }
-
-    Node::Ptr root = stack[0];
-    if (root->type != grammar.getStart()) {
-        error(root) << "Input is malformed. Expected start node " << grammar.getStart()
-                    << " got " << root->type << std::endl;
-        return nullptr;
-    }
-    return root;
+    const auto shift = [&stack, &tokens]() {
+        stack.push_back(tokens.front());
+        tokens.pop_front();
+    };
 }
 
-bool Parser::tryReduction(std::vector<Node::Ptr>& stack, bool inputRemaining,
-                          bool unchanged) const {
-    unsigned int nextStart = 0;
+bool Parser::generateTables() {
+    table.clear();
 
-    std::cout << "Stack: " << genKey(stack) << std::endl;
+    Grammar::Production s0 = {Start, Node::Sequence({grammar.getStart()})};
+    Grammar::Item i0(s0);
+    getState(grammar.closure(i0), true);
 
-    for (unsigned int l = 0; l < stack.size(); ++l) {
-        const unsigned int len = stack.size() - l;
-        std::vector<Node::Ptr> substr;
-        substr.reserve(len);
-        unsigned int s = nextStart;
-        for (nextStart = 0; s <= stack.size() - len; ++s) {
-            substr.clear();
-            for (unsigned int i = s; i < stack.size() && i < s + len; ++i) {
-                substr.push_back(stack[i]);
+    for (unsigned int i = 0; i < table.size(); ++i) {
+        for (const Grammar::Item& item : table[i].state.items()) {
+            // Enter goto/shift for items not at end
+            if (!item.final()) {
+                Node::Type t = item.production.set[item.cursor];
+                Grammar::ItemSet gotoSet;
+                gotoSet.add(item.next());
+                for (const Grammar::Item& ot : table[i].state.items()) {
+                    if (!ot.final() && ot.production.set[ot.cursor] == t)
+                        gotoSet.add(ot.next());
+                }
+                gotoSet           = grammar.closure(gotoSet);
+                table[i].gotos[t] = getState(gotoSet, true);
+                // Shift if terminal
+                if (grammar.terminal(t)) table[i].actions[t] = Action::shift();
             }
-            const Node::Sequence key = genKey(substr);
-            Grammar::Reduction r     = grammar.reductionLookup(key);
-            if (r.result != Node::None) {
-                if (r.reductionsPossible == 1) {
-                    std::cout << "Reducing[#r=1] " << key << " -> " << toStr(r.result)
-                              << std::endl;
-                    doReduction(stack, s, len, r.result);
-                    return true;
-                }
-                else if (unchanged && stack.size() - s - len >= grammar.longestRule()) {
-                    std::cout << "Reducing[sgre] " << key << " -> " << toStr(r.result)
-                              << std::endl;
-                    doReduction(stack, s, len, r.result);
-                    return true;
-                }
-                else if (!inputRemaining && (s + len >= stack.size())) {
-                    std::cout << "Reducing[endi] " << key << " -> " << toStr(r.result)
-                              << std::endl;
-                    doReduction(stack, s, len, r.result);
-                    return true;
-                }
-                else if (s + len < stack.size()) {
-                    std::vector<Node::Ptr> next = {stack[s + len]};
-                    substr.push_back(stack[s + len]);
-                    Grammar::Reduction tr = grammar.reductionLookup(genKey(substr));
-                    if (tr.reductionsPossible == 0) {
-                        tr = grammar.reductionLookup(genKey(next));
-                        if (tr.reductionsPossible == 0) {
-                            std::cout << "Reducing[ekey] " << key << " -> " << toStr(r.result)
-                                      << std::endl;
-                            doReduction(stack, s, len, r.result);
-                            return true;
+            // Enter reduce for items at end
+            else {
+                Node::Sequence follow = grammar.followSet(item.production.set.back());
+                for (Node::Type t : follow) {
+                    if (table[i].actions.find(t) != table[i].actions.end()) {
+                        if (table[i].actions[t].type == Action::Shift) {
+                            // TODO - print error
+                            table.clear();
+                            return false;
                         }
                     }
+                    table[i].actions[t] = Action::reduce(item);
                 }
             }
         }
     }
-    return false;
+}
+
+bool Parser::stateExists(unsigned int s) const { return s < table.size(); }
+
+unsigned int Parser::getState(const Grammar::ItemSet& state, bool create) {
+    for (unsigned int i = 0; i < table.size(); ++i) {
+        if (table[i].state == state) return i;
+    }
+    if (create) {
+        Row row;
+        row.state = state;
+        table.push_back(row);
+        return table.size() - 1;
+    }
+    return std::numeric_limits<unsigned int>::max();
+}
+
+Parser::Action Parser::Action::shift() {
+    Action a;
+    a.type = Shift;
+    return a;
+}
+
+Parser::Action Parser::Action::reduce(const Grammar::Item& item) {
+    Action a;
+    a.type      = Reduce;
+    a.reduction = item.production;
+    return a;
 }
 
 } // namespace bl

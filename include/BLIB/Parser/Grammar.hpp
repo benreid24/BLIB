@@ -3,6 +3,7 @@
 
 #include <BLIB/Parser/Tokenizer.hpp>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace bl
 {
@@ -14,8 +15,6 @@ namespace parser
  */
 class Grammar {
 public:
-    Grammar();
-
     /**
      * @brief Set the Start Node type
      *
@@ -23,13 +22,16 @@ public:
      */
     void setStart(Node::Type start);
 
+    void addTerminal(Node::Type terminal);
+    void addNonTerminal(Node::Type nonterminal);
+
     /**
      * @brief Adds a grammar rule
      *
      * @param result The non-terminal Node to create
      * @param elements The list of Nodes that constitute the non-terminal
      */
-    void addRule(Node::Type result, const Node::Sequence& elements);
+    bool addRule(Node::Type result, const Node::Sequence& elements);
 
     /**
      * @brief Convenience rule construction
@@ -37,61 +39,55 @@ public:
      * @param result The non-terminal to generate
      * @param rhs The terminal or non-terminal node to reduce from
      */
-    void addRule(Node::Type result, Node::Type rhs);
+    bool addRule(Node::Type result, Node::Type rhs); // TODO - test add fail
 
-    /**
-     * @brief Builds the reduction table from the list of rules. Returns true if successful
-     *
-     */
-    bool compile();
-
-    /**
-     * @brief Helper struct to represent an entry in the reduction table. A rule sequence maps
-     *        onto a Reduction value
-     * @ingroup Parser
-     */
-    struct Reduction {
-        /**
-         * @brief What the Node::Sequence CAN reduce to. Reduction should only be made
-         *        if reductionsPossible == 1 or reductionsPossible with the next Node == 0
-         *
-         */
-        Node::Type result;
-
-        /**
-         * @brief How many reductions can be made with the Sequence.
-         *        Takes into account future additions to the sequence
-         *
-         */
-        unsigned int reductionsPossible;
-    };
-
-    /**
-     * @brief Performs a lookup in the reductions table
-     *
-     * @param sequence The sequence of nodes to search for
-     * @return Reduction The result of the reduction lookup
-     */
-    Reduction reductionLookup(const Node::Sequence& sequence) const;
-
-    /**
-     * @brief Get the start parse node type (non-terminal)
-     *
-     * @return Node::Type The start non-terminal
-     */
     Node::Type getStart() const;
 
-    /**
-     * @brief Returns the length of the longest rule
-     *
-     */
-    unsigned int longestRule() const;
+    struct Production {
+        Node::Type result;
+        Node::Sequence set;
+
+        bool operator==(const Production& rhs) const;
+    };
+
+    struct Item {
+        const Production& production;
+        unsigned int cursor;
+
+        Item(const Production& copy);
+        Item(const Production& copy, int c);
+
+        bool operator==(const Item& rhs);
+        bool final() const;
+        Item next() const;
+    };
+
+    class ItemSet {
+    public:
+        bool contains(const Item& item) const;
+        void add(const Item& item);
+        const std::list<Item>& items() const;
+        bool operator==(const ItemSet& rhs) const;
+
+    private:
+        std::list<Item> set;
+    };
+
+    bool terminal(Node::Type t) const;
+    bool nonterminal(Node::Type t) const;
+    Node::Sequence followSet(Node::Type t) const;
+
+    std::list<const Production&> producing(Node::Type t) const;
+    ItemSet closure(const Item& item) const;
+    ItemSet closure(const ItemSet& itemSet) const;
 
 private:
     Node::Type start;
-    std::vector<std::pair<Node::Type, Node::Sequence>> rules;
-    std::unordered_map<Node::Sequence, Reduction> reductionTable;
-    unsigned int longest;
+    std::unordered_set<Node::Type> terminals;
+    std::unordered_set<Node::Type> nonterminals;
+    std::vector<Production> productions;
+
+    Node::Sequence deepFollow(Node::Type t) const;
 };
 
 } // namespace parser
