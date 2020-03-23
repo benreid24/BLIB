@@ -79,26 +79,79 @@ std::ostream& operator<<(std::ostream& s, const Node::Sequence& nodes) {
     return s;
 }
 
-void doReduction(std::vector<Node::Ptr>& stack, unsigned int i, unsigned int len,
-                 Node::Type type) {
-    Node::Ptr node(new Node());
-    node->type = type;
-    node->children.reserve(len);
-    for (unsigned int j = i; j < i + len; ++j) {
-        node->children.push_back(stack[j]);
-        node->data += stack[j]->data;
-        stack[j]->parent = node;
-    }
-    node->sourceLine   = stack[i]->sourceLine;
-    node->sourceColumn = stack[i]->sourceColumn;
-    stack.erase(stack.begin() + i, stack.begin() + i + len);
-    stack.insert(stack.begin() + i, node);
-}
-
 Node::Type getFree(const Grammar& g) {
     Node::Type t = rand();
     while (g.terminal(t) || g.nonterminal(t)) { t = rand(); }
     return t;
+}
+
+int nonterminalCount(const Grammar& g, const Grammar::Production& prod) {
+    int c = 0;
+    for (Node::Type t : prod.set) {
+        if (g.nonterminal(t)) ++c;
+    }
+    return c;
+}
+
+int terminalCount(const Grammar& g, const Grammar::Production& prod) {
+    int c = 0;
+    for (Node::Type t : prod.set) {
+        if (g.terminal(t)) ++c;
+    }
+    return c;
+}
+
+bool doReduction(const Grammar& g, std::vector<Node::Ptr>& nonterminals,
+                 std::vector<Node::Ptr>& terminals, std::stack<unsigned int>& states,
+                 const Grammar::Production& prod) {
+    Node::Ptr nt(new Node());
+    nt->type = prod.result;
+    nt->children.resize(prod.set.size());
+
+    const int c = terminalCount(g, prod) + nonterminalCount(g, prod);
+    for (int i = 0; i < c; ++i) {
+        if (!states.empty())
+            states.pop();
+        else {
+            error(terminals.back())
+                << "Internal parser error, not enough states for reduction" << std::endl;
+            return false;
+        }
+    }
+
+    for (unsigned int i = 0; i < prod.set.size(); ++i) {
+        const int pi = prod.set.size() - i - 1;
+        const int si = nt->children.size() - i - 1;
+        if (g.terminal(prod.set[pi])) {
+            nt->children[si] = terminals.back();
+            nt->data.insert(0, terminals.back()->data);
+            terminals.pop_back();
+        }
+        else if (g.nonterminal(prod.set[pi])) {
+            nt->children[si] = nonterminals.back();
+            nt->data.insert(0, nonterminals.back()->data);
+            nonterminals.pop_back();
+        }
+        else {
+            error(terminals.back())
+                << "Internal parser error, grammar production uses undefined symbol"
+                << std::endl;
+            return false;
+        }
+        nt->children[si]->parent = nt;
+        if (nt->children[si]->type != prod.set[pi]) {
+            error(nt->children[si])
+                << "Internal parser error, table specified reduction that does "
+                   "not match the given production"
+                << std::endl;
+            return false;
+        }
+    }
+
+    nt->sourceLine   = nt->children.back()->sourceLine;
+    nt->sourceColumn = nt->children.back()->sourceColumn;
+    nonterminals.push_back(nt);
+    return true;
 }
 
 } // namespace
@@ -122,11 +175,92 @@ Node::Ptr Parser::parse(Stream& input) const {
     if (parsed.empty()) return nullptr;
     std::list<Node::Ptr> tokens(parsed.begin(), parsed.end());
 
-    std::vector<Node::Ptr> stack;
-    const auto shift = [&stack, &tokens]() {
-        stack.push_back(tokens.front());
+    unsigned int state = 0;
+    std::stack<unsigned int> stateHist;
+    stateHist.push(state);
+
+    std::vector<Node::Ptr> terminals;
+    std::vector<Node::Ptr> nonterminals;
+
+    const auto shift = [&terminals, &tokens]() {
+        terminals.push_back(tokens.front());
         tokens.pop_front();
     };
+    const auto reduce =
+        [this, &terminals, &nonterminals, &stateHist](const Grammar::Production& p) -> bool {
+        return doReduction(grammar, nonterminals, terminals, stateHist, p);
+    };
+
+    while (!stateHist.empty()) {
+        Node::Ptr lookahead = tokens.front();
+        if (table[state].actions.find(lookahead->type) != table[state].actions.end()) {
+            const Action& action = table[state].actions.at(lookahead->type);
+            if (action.type == Action::Shift) {
+                shift();
+                if (table[state].gotos.find(lookahead->type) != table[state].gotos.end()) {
+                    state = table[state].gotos.at(lookahead->type);
+                    stateHist.push(state);
+                }
+                else {
+                    error(lookahead) << "Internal parser error, no goto in table" << std::endl;
+                    return nullptr;
+                }
+            }
+            else if (action.type == Action::Reduce) {
+                if (!action.reduction.has_value()) {
+                    error(lookahead)
+                        << "Internal parser error, no production for reduce action"
+                        << std::endl;
+                    return nullptr;
+                }
+                if (!reduce(action.reduction.value())) { return nullptr; }
+                Node::Type t = nonterminals.back()->type;
+                if (table[state].gotos.find(t) != table[state].gotos.end()) {
+                    state = table[state].gotos.at(t);
+                    stateHist.push(state);
+                }
+                else {
+                    error(lookahead) << "Internal parser error, no goto in table" << std::endl;
+                    return nullptr;
+                }
+            }
+            else {
+                error(lookahead) << "Internal parser error, invalid action "
+                                 << table[state].actions.at(lookahead->type).type << std::endl;
+                return nullptr;
+            }
+        }
+        else {
+            error(lookahead) << "Unexpected token '" << lookahead->data << "'" << std::endl;
+            return nullptr;
+        }
+    }
+
+    if (nonterminals.empty()) {
+        if (!terminals.empty()) error(terminals.back());
+        std::cout << "Unable to perform reduction" << std::endl;
+        return nullptr;
+    }
+    if (!terminals.empty()) {
+        error(terminals.back()) << "Unable to process remaining input" << std::endl;
+        return nullptr;
+    }
+    if (nonterminals.size() != 1) {
+        error(nonterminals[0]) << "Unable to reduce parse tree" << std::endl;
+        return nullptr;
+    }
+    if (nonterminals.back()->type != Start) {
+        error(nonterminals.back()) << "Invalid root symbol" << std::endl;
+        return nullptr;
+    }
+    if (nonterminals.back()->children[0]->type != grammar.getStart()) {
+        error(nonterminals.back()) << "Did not reach grammar start symbol" << std::endl;
+        return nullptr;
+    }
+
+    Node::Ptr result = nonterminals.back()->children[0];
+    result->parent   = nullptr;
+    return result;
 }
 
 bool Parser::generateTables() {
