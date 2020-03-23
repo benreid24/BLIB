@@ -29,11 +29,12 @@ bool Grammar::addRule(Node::Type result, const Node::Sequence& sequence) {
         }
     }
     productions.push_back({result, sequence});
+    return true;
 }
 
 bool Grammar::addRule(Node::Type result, Node::Type node) {
     const Node::Sequence sequence(1, node);
-    addRule(result, sequence);
+    return addRule(result, sequence);
 }
 
 Grammar::ItemSet Grammar::closure(const Grammar::Item& item, ItemSet* r) const {

@@ -5,6 +5,74 @@
 
 namespace bl
 {
+namespace parser
+{
+namespace unittest
+{
+class TableReader {
+public:
+    TableReader(const Parser& parser)
+    : parser(parser) {}
+
+    struct Action {
+        enum Type { Shift, Reduce } type;
+        std::optional<parser::Grammar::Production> reduction;
+
+        Action(const Parser::Action& a)
+        : type(static_cast<Type>(a.type))
+        , reduction(a.reduction) {}
+    };
+
+    unsigned int stateCount() const { return parser.table.size(); }
+    std::optional<Grammar::ItemSet> getState(unsigned int s) const {
+        std::optional<Grammar::ItemSet> r;
+        if (s < parser.table.size()) r = parser.table[s].state;
+        return r;
+    }
+    std::optional<std::map<parser::Node::Type, unsigned int>> stateGoto(unsigned int s) const {
+        std::optional<std::map<parser::Node::Type, unsigned int>> r;
+        if (s < parser.table.size()) r = parser.table[s].gotos;
+        return r;
+    }
+    std::optional<Action> getAction(unsigned int state, Node::Type la) const {
+        std::optional<Action> r;
+        if (state < parser.table.size()) {
+            if (parser.table[state].actions.find(la) != parser.table[state].actions.end()) {
+                r = Action(parser.table[state].actions.at(la));
+            }
+        }
+        return r;
+    }
+
+private:
+    const Parser& parser;
+};
+
+TEST(Parser, Table) {
+    const Node::Type S = 1;
+    const Node::Type A = 2;
+    const Node::Type B = 3;
+    const Node::Type x = 4;
+    const Node::Type y = 5;
+
+    Grammar grammar;
+    grammar.addTerminal(x);
+    grammar.addTerminal(y);
+    grammar.addNonTerminal(S);
+    grammar.addNonTerminal(A);
+    grammar.addNonTerminal(B);
+    ASSERT_TRUE(grammar.addRule(S, {A, B}));
+    ASSERT_TRUE(grammar.addRule(A, x));
+    ASSERT_TRUE(grammar.addRule(B, y));
+    grammar.setStart(S);
+
+    Parser parser(grammar, Tokenizer(WhitespaceSkipper::create()));
+    ASSERT_TRUE(parser.valid());
+}
+
+} // namespace unittest
+} // namespace parser
+
 using namespace parser;
 namespace unittest
 {

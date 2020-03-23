@@ -6,6 +6,14 @@
 
 namespace bl
 {
+namespace parser
+{
+namespace unittest
+{
+class TableReader;
+}
+} // namespace parser
+
 /**
  * @brief Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer
  * @ingroup Parser
@@ -41,10 +49,6 @@ public:
     parser::Node::Ptr parse(const std::string& input) const;
 
 private:
-    const parser::Grammar grammar;
-    const parser::Tokenizer tokenizer;
-    const parser::Node::Type Start;
-
     struct Action {
         enum Type { Shift, Reduce } type;
         std::optional<parser::Grammar::Production> reduction;
@@ -59,12 +63,18 @@ private:
         std::map<parser::Node::Type, Action> actions;
     };
 
-    std::vector<Row> table;
-    bool isValid;
-
     bool generateTables();
     bool stateExists(unsigned int s) const;
     unsigned int getState(const parser::Grammar::ItemSet& state, bool create = false);
+
+private:
+    const parser::Grammar grammar;
+    const parser::Tokenizer tokenizer;
+    const parser::Node::Type Start;
+    std::vector<Row> table;
+    bool isValid;
+
+    friend class parser::unittest::TableReader;
 };
 
 } // namespace bl
