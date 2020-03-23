@@ -79,24 +79,30 @@ bool Grammar::nonterminal(Node::Type t) const {
 
 Node::Sequence Grammar::followSet(Node::Type t) const {
     Node::Sequence result;
-    bool incEoi = false;
     for (const Production& p : productions) {
         for (unsigned int i = 0; i < p.set.size(); ++i) {
             if (p.set[i] == t) {
+                // Add follow set of the following symbol
                 if (i < p.set.size() - 1) {
                     Node::Sequence pt = deepFollow(p.set[i + 1]);
-                    for (Node::Type node : pt) {
-                        if (std::find(result.begin(), result.end(), node) == result.end())
-                            result.push_back(node);
-                    }
+                    result.insert(result.begin(), pt.begin(), pt.end());
                 }
-                else
-                    incEoi = true;
+                // Add follow set of the resulting nonterminal
+                else {
+                    Node::Sequence pt = deepFollow(p.result);
+                    result.insert(result.begin(), pt.begin(), pt.end());
+                }
             }
         }
     }
-    if (incEoi) result.push_back(Node::EOI);
-    return result;
+    if (t == start) result.push_back(Node::EOI);
+
+    // dedup
+    Node::Sequence ret;
+    for (Node::Type node : result) {
+        if (std::find(ret.begin(), ret.end(), node) == ret.end()) ret.push_back(node);
+    }
+    return ret;
 }
 
 Node::Sequence Grammar::deepFollow(Node::Type t) const {
