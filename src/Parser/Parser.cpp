@@ -194,4 +194,77 @@ Parser::Action Parser::Action::reduce(const Grammar::Item& item) {
     return a;
 }
 
+/*
+Psuedo code:
+RHS length table
+    Contains the number of symbols in the RHS of each rule;
+    indexed by rule number
+Action look-up table
+    Contains an action, either a shift/goto state, or a reduction rule;
+    indexed by state number and look-ahead symbol
+Goto transition table
+    Contains transition (goto) state numbers;
+    indexed by state numbers and nonterminal symbol
+begin
+    // Initialize
+    stateStack = empty;
+    termStack = empty;
+    nontermStack = empty;
+    laSym = null;
+    state = 0;
+
+    // Main parsing loop
+    mainLoop:
+    while stateStack not empty,
+        // Insure that there is a look-ahead symbol
+        if laSym is null,
+            laSym = read next input symbol (token),
+                (which is $end on end of input);
+
+        // Look up the next parsing action,
+        //  based on the current state and look-ahead symbol
+        action = ACTION[state][laSym];
+
+        if action is SHIFT,
+            // Shift the current look-ahead terminal symbol
+            push laSym onto parser termStack;
+            push state 0 onto stateStack;
+            laSym = null;
+            // Transition (shift) to the next state
+            state = action.goto;
+        else if action is REDUCE,
+            // Perform the parser action for the rule
+            rule = action.rule;
+            tLen = rule.rhsTermLength;
+            nLen = rule.rhsNontermLength;
+            action = rule number;
+            if action is ACCEPT (r0),
+                if laSym is $end,
+                    // Accept
+                    break mainLoop;
+                else
+                    // Unexpected extraneous look-ahead symbol
+                    invoke parser error handler;
+                end if;
+            else
+                invoke parser action for rule,
+                    passing it the top-most tLen symbols on termStack
+                    and the top-most nLen symbols on nontermStack;
+                // Reduce the RHS symbols, replacing them with the LHS symbol
+                pop tLen symbols from termStack;
+                pop nLen symbols from nontermStack;
+                push rule.LHS nonterminal symbol onto nontermStack;
+                pop tLen+nLen states from stateStack;
+                // Do a Goto transition on the nonterminal LHS symbol
+                state = last state popped from stateStack;
+                state = GOTO[state][rule.LHS];
+            end if;
+        else
+            // No action was found for unexpected look-ahead symbol
+            invoke parser error handler;
+            // Begin error recovery
+            push error symbol onto valueStack;
+            look for a transition on 'error' in the current state;
+*/
+
 } // namespace bl
