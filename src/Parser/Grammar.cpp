@@ -36,21 +36,17 @@ bool Grammar::addRule(Node::Type result, Node::Type node) {
     addRule(result, sequence);
 }
 
-Grammar::ItemSet Grammar::closure(const Grammar::Item& item) const {
-    ItemSet result;
-    result.add(item);
-    if (item.cursor >= item.production.set.size()) return result;
+Grammar::ItemSet Grammar::closure(const Grammar::Item& item, ItemSet* r) const {
+    ItemSet tr;
+    ItemSet* result = r != nullptr ? r : &tr;
+    if (!result->add(item)) return *result;
+    if (item.cursor >= item.production.set.size()) return *result;
 
     if (nonterminal(item.production.set[item.cursor])) {
         const std::list<Production> subprods = producing(item.production.set[item.cursor]);
-        for (const Production& prod : subprods) {
-            const ItemSet subclosure = closure(Item(prod));
-            for (const Item& item : subclosure.items()) {
-                if (!result.contains(item)) result.add(item);
-            }
-        }
+        for (const Production& prod : subprods) { closure(Item(prod), result); }
     }
-    return result;
+    return *result;
 }
 
 Grammar::ItemSet Grammar::closure(const Grammar::ItemSet& set) const {
@@ -72,24 +68,36 @@ std::list<Grammar::Production> Grammar::producing(Node::Type t) const {
 
 bool Grammar::terminal(Node::Type t) const { return terminals.find(t) != terminals.end(); }
 
+void Grammar::addTerminal(Node::Type t) { terminals.insert(t); }
+
 bool Grammar::nonterminal(Node::Type t) const {
     return nonterminals.find(t) != nonterminals.end();
 }
 
-Node::Sequence Grammar::followSet(Node::Type t) const {
+void Grammar::addNonTerminal(Node::Type t) { nonterminals.insert(t); }
+
+Node::Sequence Grammar::followSet(Node::Type t, Node::Sequence* rg) const {
+    if (rg) {
+        if (std::find(rg->begin(), rg->end(), t) != rg->end()) return {};
+        rg->push_back(t);
+    }
+
     Node::Sequence result;
     for (const Production& p : productions) {
         for (unsigned int i = 0; i < p.set.size(); ++i) {
             if (p.set[i] == t) {
-                // Add follow set of the following symbol
+                // Add first set of the following symbol
                 if (i < p.set.size() - 1) {
-                    Node::Sequence pt = deepFollow(p.set[i + 1]);
-                    result.insert(result.begin(), pt.begin(), pt.end());
+                    Node::Sequence recurseGuard;
+                    Node::Sequence pt = firstSet(p.set[i + 1], recurseGuard);
+                    if (!pt.empty()) result.insert(result.begin(), pt.begin(), pt.end());
                 }
                 // Add follow set of the resulting nonterminal
                 else {
-                    Node::Sequence pt = deepFollow(p.result);
-                    result.insert(result.begin(), pt.begin(), pt.end());
+                    Node::Sequence recurseGuard = {t};
+                    Node::Sequence* g           = rg != nullptr ? rg : &recurseGuard;
+                    Node::Sequence pt           = followSet(p.result, g);
+                    if (!pt.empty()) result.insert(result.begin(), pt.begin(), pt.end());
                 }
             }
         }
@@ -104,14 +112,17 @@ Node::Sequence Grammar::followSet(Node::Type t) const {
     return ret;
 }
 
-Node::Sequence Grammar::deepFollow(Node::Type t) const {
+Node::Sequence Grammar::firstSet(Node::Type t, Node::Sequence& recurseGuard) const {
+    if (std::find(recurseGuard.begin(), recurseGuard.end(), t) != recurseGuard.end())
+        return {};
+    recurseGuard.push_back(t);
     if (terminal(t)) return {t};
 
     Node::Sequence result;
     for (const Production& p : productions) {
         if (p.result == t) {
-            Node::Sequence s = deepFollow(p.set[0]);
-            result.insert(result.begin(), s.begin(), s.end());
+            Node::Sequence s = firstSet(p.set[0], recurseGuard);
+            if (!s.empty()) result.insert(result.begin(), s.begin(), s.end());
         }
     }
     return result;
@@ -121,8 +132,12 @@ bool Grammar::ItemSet::contains(const Grammar::Item& item) const {
     return std::find(set.begin(), set.end(), item) != set.end();
 }
 
-void Grammar::ItemSet::add(const Grammar::Item& item) {
-    if (!contains(item)) set.push_back(item);
+bool Grammar::ItemSet::add(const Grammar::Item& item) {
+    if (!contains(item)) {
+        set.push_back(item);
+        return true;
+    }
+    return false;
 }
 
 const std::list<Grammar::Item>& Grammar::ItemSet::items() const { return set; }

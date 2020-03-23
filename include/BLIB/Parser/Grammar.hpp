@@ -65,7 +65,7 @@ public:
     class ItemSet {
     public:
         bool contains(const Item& item) const;
-        void add(const Item& item);
+        bool add(const Item& item);
         const std::list<Item>& items() const;
         bool operator==(const ItemSet& rhs) const;
 
@@ -75,10 +75,9 @@ public:
 
     bool terminal(Node::Type t) const;
     bool nonterminal(Node::Type t) const;
-    Node::Sequence followSet(Node::Type t) const;
+    Node::Sequence followSet(Node::Type t, Node::Sequence* recurseGuard = nullptr) const;
 
-    std::list<Production> producing(Node::Type t) const;
-    ItemSet closure(const Item& item) const;
+    ItemSet closure(const Item& item, ItemSet* result = nullptr) const;
     ItemSet closure(const ItemSet& itemSet) const;
 
 private:
@@ -87,7 +86,8 @@ private:
     std::unordered_set<Node::Type> nonterminals;
     std::vector<Production> productions;
 
-    Node::Sequence deepFollow(Node::Type t) const;
+    std::list<Production> producing(Node::Type t) const;
+    Node::Sequence firstSet(Node::Type t, Node::Sequence& recurseGuard) const;
 };
 
 } // namespace parser
