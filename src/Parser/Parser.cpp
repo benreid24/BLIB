@@ -3,6 +3,7 @@
 #include <Scripts/Parser.hpp>
 #include <iostream>
 #include <numeric>
+#include <stack>
 
 std::string toStr(bl::parser::Node::Type t) {
     using T = bl::scripts::Parser::Grammar;
@@ -309,6 +310,8 @@ bool Parser::generateTables() {
             }
         }
     }
+
+    return true;
 }
 
 bool Parser::stateExists(unsigned int s) const { return s < table.size(); }
