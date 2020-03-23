@@ -32,14 +32,22 @@ public:
 
     ParserFixture()
     : tokenizer(WhitespaceSkipper::create()) {
+        grammar.addTerminal(Term);
+        grammar.addTerminal(Op);
+        grammar.addTerminal(Num);
+        grammar.addTerminal(Assign);
+        grammar.addTerminal(Id);
+        grammar.addNonTerminal(Value);
+        grammar.addNonTerminal(Statement);
+        grammar.addNonTerminal(StatementList);
+        grammar.addNonTerminal(S);
+
         // Terminals
         tokenizer.addTokenType(Term, ";");
         tokenizer.addTokenType(Op, "[\\+\\-]");
         tokenizer.addTokenType(Num, "[0-9]+");
         tokenizer.addTokenType(Assign, "=");
         tokenizer.addTokenType(Id, "[a-zA-Z]+[a-zA-Z0-9]*");
-
-        // TODO - add tokens to grammar
 
         // Non-terminals
         grammar.addRule(Value, {Value, Op, Value});
