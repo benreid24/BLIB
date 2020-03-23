@@ -106,7 +106,11 @@ Node::Type getFree(const Grammar& g) {
 Parser::Parser(const Grammar& grammar, const Tokenizer& tokenizer)
 : grammar(grammar)
 , tokenizer(tokenizer)
-, Start(getFree(grammar)) {}
+, Start(getFree(grammar)) {
+    isValid = generateTables();
+}
+
+bool Parser::valid() const { return isValid; }
 
 Node::Ptr Parser::parse(const std::string& input) const {
     Stream stream(input);

@@ -11,8 +11,10 @@ using NodeString = std::pair<parser::Node::Type, std::string>;
 using G          = Parser::Grammar;
 
 TEST(ScriptParser, GrammarCompile) {
-    parser::Grammar grammar = Parser::getGrammar();
-    EXPECT_TRUE(grammar.compile());
+    parser::Grammar grammar     = Parser::getGrammar();
+    parser::Tokenizer tokenizer = Parser::getTokenizer();
+    bl::Parser parser(grammar, tokenizer);
+    EXPECT_TRUE(parser.valid());
 }
 
 class ScriptParserTokenTest : public ::testing::TestWithParam<NodeString> {};
@@ -94,11 +96,10 @@ class ScriptParserTest : public ::testing::TestWithParam<ParseTest> {};
 TEST_P(ScriptParserTest, Value) {
     const parser::Tokenizer& t = Parser::getTokenizer();
     parser::Grammar grammar    = Parser::getGrammar();
-
-    ASSERT_TRUE(grammar.compile());
     grammar.setStart(GetParam().result);
 
     const bl::Parser p(grammar, t);
+    ASSERT_TRUE(p.valid());
     EXPECT_EQ(p.parse(GetParam().data).get() != nullptr, GetParam().pass) << GetParam().data;
 }
 

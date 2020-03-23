@@ -154,7 +154,6 @@ parser::Grammar buildGrammar() {
 bl::Parser buildParser() {
     parser::Grammar grammar = buildGrammar();
     grammar.setStart(Parser::Grammar::Program);
-    assert(grammar.compile());
     return bl::Parser(grammar, Parser::getTokenizer());
 }
 

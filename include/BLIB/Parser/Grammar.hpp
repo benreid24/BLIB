@@ -51,13 +51,13 @@ public:
     };
 
     struct Item {
-        const Production& production;
+        Production production;
         unsigned int cursor;
 
         Item(const Production& copy);
         Item(const Production& copy, int c);
 
-        bool operator==(const Item& rhs);
+        bool operator==(const Item& rhs) const;
         bool final() const;
         Item next() const;
     };
@@ -77,7 +77,7 @@ public:
     bool nonterminal(Node::Type t) const;
     Node::Sequence followSet(Node::Type t) const;
 
-    std::list<const Production&> producing(Node::Type t) const;
+    std::list<Production> producing(Node::Type t) const;
     ItemSet closure(const Item& item) const;
     ItemSet closure(const ItemSet& itemSet) const;
 

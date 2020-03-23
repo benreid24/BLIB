@@ -21,7 +21,7 @@ public:
      */
     Parser(const parser::Grammar& grammar, const parser::Tokenizer& tokenizer);
 
-    bool generateTables();
+    bool valid() const;
 
     /**
      * @brief Parses the input stream into a parse tree of Nodes
@@ -43,26 +43,28 @@ public:
 private:
     const parser::Grammar grammar;
     const parser::Tokenizer tokenizer;
-    const Node::Type Start;
+    const parser::Node::Type Start;
 
     struct Action {
         enum Type { Shift, Reduce } type;
-        std::optional<Grammar::Production> reduction;
+        std::optional<parser::Grammar::Production> reduction;
 
         static Action shift();
-        static Action reduce(const Grammar::Item& item);
+        static Action reduce(const parser::Grammar::Item& item);
     };
 
     struct Row {
-        Grammar::ItemSet state;
-        std::map<Node::Type, unsigned int> gotos;
-        std::map<Node::Type, Action> actions;
+        parser::Grammar::ItemSet state;
+        std::map<parser::Node::Type, unsigned int> gotos;
+        std::map<parser::Node::Type, Action> actions;
     };
 
     std::vector<Row> table;
+    bool isValid;
 
+    bool generateTables();
     bool stateExists(unsigned int s) const;
-    unsigned int getState(const Grammar::ItemSet& state, bool create = false);
+    unsigned int getState(const parser::Grammar::ItemSet& state, bool create = false);
 };
 
 } // namespace bl

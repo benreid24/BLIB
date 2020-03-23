@@ -42,8 +42,7 @@ Grammar::ItemSet Grammar::closure(const Grammar::Item& item) const {
     if (item.cursor >= item.production.set.size()) return result;
 
     if (nonterminal(item.production.set[item.cursor])) {
-        const std::list<const Production&> subprods =
-            producing(item.production.set[item.cursor]);
+        const std::list<Production> subprods = producing(item.production.set[item.cursor]);
         for (const Production& prod : subprods) {
             const ItemSet subclosure = closure(Item(prod));
             for (const Item& item : subclosure.items()) {
@@ -63,8 +62,8 @@ Grammar::ItemSet Grammar::closure(const Grammar::ItemSet& set) const {
     return result;
 }
 
-std::list<const Grammar::Production&> Grammar::producing(Node::Type t) const {
-    std::list<const Production&> result;
+std::list<Grammar::Production> Grammar::producing(Node::Type t) const {
+    std::list<Production> result;
     for (const Production& prod : productions) {
         if (prod.result == t) result.push_back(prod);
     }
@@ -154,7 +153,7 @@ Grammar::Item::Item(const Grammar::Production& prod, int c)
 : production(prod)
 , cursor(c) {}
 
-bool Grammar::Item::operator==(const Item& rhs) {
+bool Grammar::Item::operator==(const Item& rhs) const {
     if (cursor != rhs.cursor) return false;
     return production == rhs.production;
 }

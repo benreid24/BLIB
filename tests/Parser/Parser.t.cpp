@@ -39,6 +39,8 @@ public:
         tokenizer.addTokenType(Assign, "=");
         tokenizer.addTokenType(Id, "[a-zA-Z]+[a-zA-Z0-9]*");
 
+        // TODO - add tokens to grammar
+
         // Non-terminals
         grammar.addRule(Value, {Value, Op, Value});
         grammar.addRule(Value, Num);
@@ -59,24 +61,24 @@ protected:
 };
 
 TEST_F(ParserFixture, BasicParse) {
-    ASSERT_TRUE(grammar.compile());
     Parser parser(grammar, tokenizer);
+    ASSERT_TRUE(parser.valid());
     const std::string data = "var = 3 + 5;";
     Node::Ptr root         = parser.parse(data);
     ASSERT_NE(root.get(), nullptr);
 }
 
 TEST_F(ParserFixture, LongParse) {
-    ASSERT_TRUE(grammar.compile());
     Parser parser(grammar, tokenizer);
+    ASSERT_TRUE(parser.valid());
     const std::string data = "var = 3 + 5; var2= 7+ 5 ;\n\twogh = 6-5;";
     Node::Ptr root         = parser.parse(data);
     ASSERT_NE(root.get(), nullptr);
 }
 
 TEST_F(ParserFixture, ProperTree) {
-    ASSERT_TRUE(grammar.compile());
     Parser parser(grammar, tokenizer);
+    ASSERT_TRUE(parser.valid());
     const std::string data = "var = 3 + 5;";
     Node::Ptr root         = parser.parse(data);
     ASSERT_NE(root.get(), nullptr);
@@ -114,40 +116,40 @@ TEST_F(ParserFixture, ProperTree) {
 }
 
 TEST_F(ParserFixture, SyntaxFail1) {
-    ASSERT_TRUE(grammar.compile());
     Parser parser(grammar, tokenizer);
+    ASSERT_TRUE(parser.valid());
     const std::string data = "var = 3 + + 5;";
     Node::Ptr root         = parser.parse(data);
     ASSERT_EQ(root.get(), nullptr);
 }
 
 TEST_F(ParserFixture, SyntaxFail2) {
-    ASSERT_TRUE(grammar.compile());
     Parser parser(grammar, tokenizer);
+    ASSERT_TRUE(parser.valid());
     const std::string data = "var = 3 = 5;";
     Node::Ptr root         = parser.parse(data);
     ASSERT_EQ(root.get(), nullptr);
 }
 
 TEST_F(ParserFixture, SyntaxFail3) {
-    ASSERT_TRUE(grammar.compile());
     Parser parser(grammar, tokenizer);
+    ASSERT_TRUE(parser.valid());
     const std::string data = "var  3 + 5;";
     Node::Ptr root         = parser.parse(data);
     ASSERT_EQ(root.get(), nullptr);
 }
 
 TEST_F(ParserFixture, SyntaxFail4) {
-    ASSERT_TRUE(grammar.compile());
     Parser parser(grammar, tokenizer);
+    ASSERT_TRUE(parser.valid());
     const std::string data = "var = 3 + 5; 5";
     Node::Ptr root         = parser.parse(data);
     ASSERT_EQ(root.get(), nullptr);
 }
 
 TEST_F(ParserFixture, SyntaxFail5) {
-    ASSERT_TRUE(grammar.compile());
     Parser parser(grammar, tokenizer);
+    ASSERT_TRUE(parser.valid());
     const std::string data = "var = 3 + 5; var";
     Node::Ptr root         = parser.parse(data);
     ASSERT_EQ(root.get(), nullptr);
