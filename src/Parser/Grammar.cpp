@@ -164,7 +164,7 @@ bool Grammar::Production::operator==(const Grammar::Production& rhs) const {
 Grammar::Item::Item(const Grammar::Production& prod)
 : Item(prod, 0) {}
 
-Grammar::Item::Item(const Grammar::Production& prod, int c)
+Grammar::Item::Item(const Grammar::Production& prod, unsigned int c)
 : production(prod)
 , cursor(c) {}
 

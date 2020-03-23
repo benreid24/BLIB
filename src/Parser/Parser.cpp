@@ -137,7 +137,9 @@ bool Parser::generateTables() {
     getState(grammar.closure(i0), true);
 
     for (unsigned int i = 0; i < table.size(); ++i) {
-        for (const Grammar::Item& item : table[i].state.items()) {
+        Grammar::ItemSet state = table[i].state;
+        for (auto j = state.items().begin(); j != state.items().end(); ++j) {
+            const Grammar::Item& item = *j;
             // Enter goto/shift for items not at end
             if (!item.final()) {
                 Node::Type t = item.production.set[item.cursor];
@@ -158,7 +160,12 @@ bool Parser::generateTables() {
                 for (Node::Type t : follow) {
                     if (table[i].actions.find(t) != table[i].actions.end()) {
                         if (table[i].actions[t].type == Action::Shift) {
-                            // TODO - print error
+                            std::cout << "Shift-Reduce error\n";
+                            table.clear();
+                            return false;
+                        }
+                        else {
+                            std::cout << "Reduce-Reduce error\n";
                             table.clear();
                             return false;
                         }

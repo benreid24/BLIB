@@ -55,7 +55,7 @@ public:
         unsigned int cursor;
 
         Item(const Production& copy);
-        Item(const Production& copy, int c);
+        Item(const Production& copy, unsigned int c);
 
         bool operator==(const Item& rhs) const;
         bool final() const;
