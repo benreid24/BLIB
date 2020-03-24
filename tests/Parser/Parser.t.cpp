@@ -1,6 +1,7 @@
 #include <BLIB/Parser/Parser.hpp>
 
 #include <BLIB/Parser.hpp>
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 namespace bl
@@ -23,6 +24,7 @@ public:
         , reduction(a.reduction) {}
     };
 
+    Node::Type getStart() const { return parser.Start; }
     unsigned int stateCount() const { return parser.table.size(); }
     std::optional<Grammar::ItemSet> getState(unsigned int s) const {
         std::optional<Grammar::ItemSet> r;
@@ -49,6 +51,11 @@ private:
 };
 
 TEST(Parser, Table) {
+    using ::testing::ElementsAre;
+    using Production = Grammar::Production;
+    using Item       = Grammar::Item;
+    using ItemSet    = Grammar::ItemSet;
+
     const Node::Type S = 1;
     const Node::Type A = 2;
     const Node::Type B = 3;
@@ -67,7 +74,127 @@ TEST(Parser, Table) {
     grammar.setStart(S);
 
     Parser parser(grammar, Tokenizer(WhitespaceSkipper::create()));
+    TableReader table(parser);
     ASSERT_TRUE(parser.valid());
+
+    std::optional<std::map<parser::Node::Type, unsigned int>> gotos;
+    std::optional<TableReader::Action> action;
+    Production r0 = {table.getStart(), {S}};
+    Production r1 = {S, {A, B}};
+    Production r2 = {A, {x}};
+    Production r3 = {B, {y}};
+    ASSERT_EQ(table.stateCount(), 6);
+
+    // State 0
+    std::optional<ItemSet> s0 = table.getState(0);
+    ASSERT_TRUE(s0.has_value());
+    ASSERT_THAT(s0.value().items(), ElementsAre(Item(r0), Item(r1), Item(r2)));
+
+    gotos = table.stateGoto(0);
+    ASSERT_TRUE(gotos.has_value());
+    ASSERT_TRUE(gotos.value().find(x) != gotos.value().end());
+    ASSERT_TRUE(gotos.value().find(A) != gotos.value().end());
+    ASSERT_TRUE(gotos.value().find(S) != gotos.value().end());
+    EXPECT_TRUE(gotos.value().find(B) == gotos.value().end());
+    EXPECT_TRUE(gotos.value().find(y) == gotos.value().end());
+    EXPECT_EQ(gotos.value().at(x), 3);
+    EXPECT_EQ(gotos.value().at(S), 1);
+    EXPECT_EQ(gotos.value().at(A), 2);
+
+    action = table.getAction(0, x);
+    ASSERT_TRUE(action.has_value());
+    EXPECT_EQ(action.value().type, TableReader::Action::Shift);
+
+    // State 1
+    std::optional<ItemSet> s1 = table.getState(1);
+    ASSERT_TRUE(s1.has_value());
+    ASSERT_THAT(s1.value().items(), ElementsAre(Item(r0, 1)));
+
+    gotos = table.stateGoto(1);
+    ASSERT_TRUE(gotos.has_value());
+    ASSERT_TRUE(gotos.value().find(x) == gotos.value().end());
+    ASSERT_TRUE(gotos.value().find(A) == gotos.value().end());
+    ASSERT_TRUE(gotos.value().find(S) == gotos.value().end());
+    EXPECT_TRUE(gotos.value().find(B) == gotos.value().end());
+    EXPECT_TRUE(gotos.value().find(y) == gotos.value().end());
+
+    action = table.getAction(1, Node::EOI);
+    ASSERT_TRUE(action.has_value());
+    EXPECT_EQ(action.value().type, TableReader::Action::Reduce);
+    EXPECT_EQ(action.value().reduction, r0);
+
+    // State 2
+    std::optional<ItemSet> s2 = table.getState(2);
+    ASSERT_TRUE(s2.has_value());
+    ASSERT_THAT(s2.value().items(), ElementsAre(Item(r1, 1), Item(r3)));
+
+    gotos = table.stateGoto(2);
+    ASSERT_TRUE(gotos.has_value());
+    ASSERT_TRUE(gotos.value().find(x) == gotos.value().end());
+    ASSERT_TRUE(gotos.value().find(A) == gotos.value().end());
+    ASSERT_TRUE(gotos.value().find(S) == gotos.value().end());
+    EXPECT_TRUE(gotos.value().find(B) != gotos.value().end());
+    EXPECT_TRUE(gotos.value().find(y) != gotos.value().end());
+    EXPECT_EQ(gotos.value().at(B), 4);
+    EXPECT_EQ(gotos.value().at(y), 5);
+
+    action = table.getAction(2, y);
+    ASSERT_TRUE(action.has_value());
+    EXPECT_EQ(action.value().type, TableReader::Action::Shift);
+
+    // State 3
+    std::optional<ItemSet> s3 = table.getState(3);
+    ASSERT_TRUE(s3.has_value());
+    ASSERT_THAT(s3.value().items(), ElementsAre(Item(r2, 1)));
+
+    gotos = table.stateGoto(3);
+    ASSERT_TRUE(gotos.has_value());
+    ASSERT_TRUE(gotos.value().find(x) == gotos.value().end());
+    ASSERT_TRUE(gotos.value().find(A) == gotos.value().end());
+    ASSERT_TRUE(gotos.value().find(S) == gotos.value().end());
+    EXPECT_TRUE(gotos.value().find(B) == gotos.value().end());
+    EXPECT_TRUE(gotos.value().find(y) == gotos.value().end());
+
+    action = table.getAction(3, y);
+    ASSERT_TRUE(action.has_value());
+    EXPECT_EQ(action.value().type, TableReader::Action::Reduce);
+    EXPECT_EQ(action.value().reduction, r2);
+
+    // State 4
+    std::optional<ItemSet> s4 = table.getState(4);
+    ASSERT_TRUE(s4.has_value());
+    ASSERT_THAT(s4.value().items(), ElementsAre(Item(r1, 2)));
+
+    gotos = table.stateGoto(4);
+    ASSERT_TRUE(gotos.has_value());
+    ASSERT_TRUE(gotos.value().find(x) == gotos.value().end());
+    ASSERT_TRUE(gotos.value().find(A) == gotos.value().end());
+    ASSERT_TRUE(gotos.value().find(S) == gotos.value().end());
+    EXPECT_TRUE(gotos.value().find(B) == gotos.value().end());
+    EXPECT_TRUE(gotos.value().find(y) == gotos.value().end());
+
+    action = table.getAction(4, Node::EOI);
+    ASSERT_TRUE(action.has_value());
+    EXPECT_EQ(action.value().type, TableReader::Action::Reduce);
+    EXPECT_EQ(action.value().reduction, r1);
+
+    // State 5
+    std::optional<ItemSet> s5 = table.getState(5);
+    ASSERT_TRUE(s5.has_value());
+    ASSERT_THAT(s5.value().items(), ElementsAre(Item(r3, 1)));
+
+    gotos = table.stateGoto(5);
+    ASSERT_TRUE(gotos.has_value());
+    ASSERT_TRUE(gotos.value().find(x) == gotos.value().end());
+    ASSERT_TRUE(gotos.value().find(A) == gotos.value().end());
+    ASSERT_TRUE(gotos.value().find(S) == gotos.value().end());
+    EXPECT_TRUE(gotos.value().find(B) == gotos.value().end());
+    EXPECT_TRUE(gotos.value().find(y) == gotos.value().end());
+
+    action = table.getAction(5, Node::EOI);
+    ASSERT_TRUE(action.has_value());
+    EXPECT_EQ(action.value().type, TableReader::Action::Reduce);
+    EXPECT_EQ(action.value().reduction, r3);
 }
 
 } // namespace unittest
