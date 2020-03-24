@@ -104,7 +104,7 @@ int terminalCount(const Grammar& g, const Grammar::Production& prod) {
 
 bool doReduction(const Grammar& g, std::vector<Node::Ptr>& nonterminals,
                  std::vector<Node::Ptr>& terminals, std::stack<unsigned int>& states,
-                 const Grammar::Production& prod) {
+                 unsigned int& state, const Grammar::Production& prod) {
     Node::Ptr nt(new Node());
     nt->type = prod.result;
     nt->children.resize(prod.set.size());
@@ -119,6 +119,7 @@ bool doReduction(const Grammar& g, std::vector<Node::Ptr>& nonterminals,
             return false;
         }
     }
+    if (!states.empty()) state = states.top();
 
     for (unsigned int i = 0; i < prod.set.size(); ++i) {
         const int pi = prod.set.size() - i - 1;
@@ -176,6 +177,11 @@ Node::Ptr Parser::parse(Stream& input) const {
     if (parsed.empty()) return nullptr;
     std::list<Node::Ptr> tokens(parsed.begin(), parsed.end());
 
+    Node::Ptr eoi(new Node(*tokens.back()));
+    eoi->type = Node::EOI;
+    eoi->data.clear();
+    tokens.push_back(eoi);
+
     unsigned int state = 0;
     std::stack<unsigned int> stateHist;
     stateHist.push(state);
@@ -187,9 +193,9 @@ Node::Ptr Parser::parse(Stream& input) const {
         terminals.push_back(tokens.front());
         tokens.pop_front();
     };
-    const auto reduce =
-        [this, &terminals, &nonterminals, &stateHist](const Grammar::Production& p) -> bool {
-        return doReduction(grammar, nonterminals, terminals, stateHist, p);
+    const auto reduce = [this, &terminals, &nonterminals, &state, &stateHist](
+                            const Grammar::Production& p) -> bool {
+        return doReduction(grammar, nonterminals, terminals, stateHist, state, p);
     };
 
     while (!stateHist.empty()) {
@@ -215,6 +221,7 @@ Node::Ptr Parser::parse(Stream& input) const {
                     return nullptr;
                 }
                 if (!reduce(action.reduction.value())) { return nullptr; }
+                if (stateHist.empty() || nonterminals.back()->type == Start) break;
                 Node::Type t = nonterminals.back()->type;
                 if (table[state].gotos.find(t) != table[state].gotos.end()) {
                     state = table[state].gotos.at(t);
