@@ -75,7 +75,7 @@ struct Parser {
 
         // Writeables
         ArrayDef, // LBrc RBrc. LRrc ValueList RBrc
-        Property, // Id Dot Id
+        Property, // RValue Dot Id
         ArrayAcc, // RValue LBrkt Value RBrkt
         RValue,   // Id. ArrayAcc. Property
 
@@ -116,8 +116,7 @@ struct Parser {
         StmtBlock, // LBrc StmtList RBrc
 
         // Function Definition
-        Param,     // Colon Id
-        ParamList, // Param. ParamList Comma Param
+        ParamList, // Id Comma Id. ParamList Comma Id
         FName,     // Def Id
         FHead, // FName LParen ParamList RParen. FName LParen Id RParen. FName LParen RParen
         Fdef,  // FHead StmtList

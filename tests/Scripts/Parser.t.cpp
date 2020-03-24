@@ -122,7 +122,13 @@ INSTANTIATE_TEST_SUITE_P(
         ParseTest(T::ValueList, "me or you", true),
         ParseTest(T::ValueList, "not variable", true),
         ParseTest(T::Program, "var = 5 + 3;", true),
-        ParseTest(T::Program, "return 5^(function(5, \"hello\"));", true)));
+        ParseTest(T::Program, "return 5^(function(5, \"hello\"));", true),
+        ParseTest(T::Program, "def func(arg1, arg2) { return arg1+arg2; } func(3.5, 7^2);",
+                  true),
+        ParseTest(
+            T::Program,
+            "if (var == 5 or 3*3 > 2^3) { this.array[5^2].nested = func(1, \"2\", 3.5);}",
+            true)));
 } // namespace unittest
 } // namespace scripts
 } // namespace bl

@@ -118,7 +118,6 @@ parser::Grammar buildGrammar() {
     grammar.addNonTerminal(G::Statement);
     grammar.addNonTerminal(G::StmtList);
     grammar.addNonTerminal(G::StmtBlock);
-    grammar.addNonTerminal(G::Param);
     grammar.addNonTerminal(G::ParamList);
     grammar.addNonTerminal(G::FName);
     grammar.addNonTerminal(G::FHead);
@@ -129,7 +128,7 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::ArrayDef, {G::LBrc, G::RBrc});
     grammar.addRule(G::ArrayDef, {G::LBrc, G::ValueList, G::RBrc});
     grammar.addRule(G::ArrayAcc, {G::RValue, G::LBrkt, G::Value, G::RBrkt});
-    grammar.addRule(G::Property, {G::Id, G::Dot, G::Id});
+    grammar.addRule(G::Property, {G::RValue, G::Dot, G::Id});
     grammar.addRule(G::RValue, G::Id);
     grammar.addRule(G::RValue, G::ArrayAcc);
     grammar.addRule(G::RValue, G::Property);
@@ -203,9 +202,8 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::StmtBlock, {G::LBrc, G::StmtList, G::RBrc});
 
     // Function definition
-    grammar.addRule(G::Param, {G::Colon, G::Id});
-    grammar.addRule(G::ParamList, G::Param);
-    grammar.addRule(G::ParamList, {G::ParamList, G::Comma, G::Param});
+    grammar.addRule(G::ParamList, {G::Id, G::Comma, G::Id});
+    grammar.addRule(G::ParamList, {G::ParamList, G::Comma, G::Id});
     grammar.addRule(G::FName, {G::Def, G::Id});
     grammar.addRule(G::FHead, {G::FName, G::LParen, G::RParen});
     grammar.addRule(G::FHead, {G::FName, G::LParen, G::Id, G::RParen});
