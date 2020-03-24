@@ -179,7 +179,7 @@ Node::Ptr Parser::parse(Stream& input) const {
 
     Node::Ptr eoi(new Node(*tokens.back()));
     eoi->type = Node::EOI;
-    eoi->data.clear();
+    eoi->data = "<EOF>";
     tokens.push_back(eoi);
 
     unsigned int state = 0;
