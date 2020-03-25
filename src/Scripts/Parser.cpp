@@ -44,11 +44,15 @@ parser::Tokenizer buildTokenizer() {
     tokenizer.addTokenType(G::Id, "[a-zA-Z]+[a-zA-Z0-9]*");
     tokenizer.addKeyword(G::Id, G::Def, "def");
     tokenizer.addKeyword(G::Id, G::If, "if");
+    tokenizer.addKeyword(G::Id, G::Elif, "elif");
+    tokenizer.addKeyword(G::Id, G::Else, "else");
     tokenizer.addKeyword(G::Id, G::While, "while");
     tokenizer.addKeyword(G::Id, G::Return, "return");
     tokenizer.addKeyword(G::Id, G::And, "and");
     tokenizer.addKeyword(G::Id, G::Or, "or");
     tokenizer.addKeyword(G::Id, G::Not, "not");
+    tokenizer.addKeyword(G::Id, G::True, "true");
+    tokenizer.addKeyword(G::Id, G::False, "false");
 
     return tokenizer;
 }
@@ -60,8 +64,12 @@ parser::Grammar buildGrammar() {
 
     grammar.addTerminal(G::NumLit);
     grammar.addTerminal(G::StringLit);
+    grammar.addTerminal(G::True);
+    grammar.addTerminal(G::False);
     grammar.addTerminal(G::Def);
     grammar.addTerminal(G::If);
+    grammar.addTerminal(G::Elif);
+    grammar.addTerminal(G::Else);
     grammar.addTerminal(G::While);
     grammar.addTerminal(G::Return);
     grammar.addTerminal(G::And);
@@ -111,7 +119,13 @@ parser::Grammar buildGrammar() {
     grammar.addNonTerminal(G::ValueList);
     grammar.addNonTerminal(G::ArgList);
     grammar.addNonTerminal(G::Call);
-    grammar.addNonTerminal(G::CondHead);
+    grammar.addNonTerminal(G::IfHead);
+    grammar.addNonTerminal(G::ElifHead);
+    grammar.addNonTerminal(G::IfBlock);
+    grammar.addNonTerminal(G::ElifBlock);
+    grammar.addNonTerminal(G::ElseBlock);
+    grammar.addNonTerminal(G::ElifChain);
+    grammar.addNonTerminal(G::ElseCond);
     grammar.addNonTerminal(G::Conditional);
     grammar.addNonTerminal(G::LoopHead);
     grammar.addNonTerminal(G::Loop);
@@ -141,6 +155,8 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::TValue, G::StringLit);
     grammar.addRule(G::TValue, G::Call);
     grammar.addRule(G::TValue, G::ArrayDef);
+    grammar.addRule(G::TValue, G::True);
+    grammar.addRule(G::TValue, G::False);
     grammar.addRule(G::Exp, G::TValue);
     grammar.addRule(G::Exp, {G::Exp, G::Hat, G::Exp});
     grammar.addRule(G::Product, G::Exp);
@@ -182,10 +198,22 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::Call, {G::RValue, G::ArgList});
     grammar.addRule(G::Call, {G::RValue, G::LParen, G::RParen});
 
-    // Conditional and Loop
-    grammar.addRule(G::CondHead, {G::If, G::PGroup});
-    grammar.addRule(G::Conditional, {G::CondHead, G::Statement});
-    grammar.addRule(G::Conditional, {G::CondHead, G::StmtBlock});
+    // Conditional
+    grammar.addRule(G::IfHead, {G::If, G::PGroup});
+    grammar.addRule(G::ElifHead, {G::Elif, G::PGroup});
+    grammar.addRule(G::IfBlock, {G::IfHead, G::Statement});
+    grammar.addRule(G::IfBlock, {G::IfHead, G::StmtBlock});
+    grammar.addRule(G::ElifBlock, {G::ElifHead, G::Statement});
+    grammar.addRule(G::ElifBlock, {G::ElifHead, G::StmtBlock});
+    grammar.addRule(G::ElseBlock, {G::Else, G::Statement});
+    grammar.addRule(G::ElseBlock, {G::Else, G::StmtBlock});
+    grammar.addRule(G::ElifChain, G::IfBlock);
+    grammar.addRule(G::ElifChain, {G::ElifChain, G::ElifBlock});
+    grammar.addRule(G::ElseCond, {G::ElifChain, G::ElseBlock});
+    grammar.addRule(G::Conditional, G::ElifChain);
+    grammar.addRule(G::Conditional, G::ElseCond);
+
+    // Loop
     grammar.addRule(G::LoopHead, {G::While, G::PGroup});
     grammar.addRule(G::Loop, {G::LoopHead, G::Statement});
     grammar.addRule(G::Loop, {G::LoopHead, G::StmtBlock});

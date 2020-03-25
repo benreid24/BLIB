@@ -39,8 +39,12 @@ struct Parser {
         // Terminals
         NumLit,    // -123.5
         StringLit, // "String"
+        True,      // true
+        False,     // false
         Def,       // def
         If,        // if
+        Elif,      // elif
+        Else,      // Else
         While,     // while
         Return,    // return
         And,       // and
@@ -80,7 +84,7 @@ struct Parser {
         RValue,   // Id. ArrayAcc. Property
 
         // Arithmetic
-        TValue,  // RValue. NumLit. StringLit. Call. PGroup. ArrayDef
+        TValue,  // RValue. NumLit. StringLit. Call. PGroup. ArrayDef. True. False
         Exp,     // TValue. TValue Hat Value
         Product, // Exp. Product Mult Product. Product Div Product
         Sum,     // Product. Sum Plus Sum. Sum Minus Sum
@@ -104,9 +108,15 @@ struct Parser {
         ArgList,   // LParen ValueList RParen
         Call,      // RValue LParen ValueList RParen. RValue LParen RParen
 
-        // Conditional and Loop
-        CondHead,    // If PGroup
-        Conditional, // CondHead Statement. CondHead StmtBlock
+        // IfBlock and Loop
+        IfHead,      // If PGroup
+        ElifHead,    // Elif PGroup
+        IfBlock,     // IfHead Statement. IfHead StmtBlock
+        ElifBlock,   // ElifHead Statement. ElifHead StmtBlock
+        ElseBlock,   // Else Statement. Else StmtBlock
+        ElifChain,   // IfBlock. ElifChain ElifBlock
+        ElseCond,    // ElifChain ElseBlock
+        Conditional, // ElifChain. ElseCond
         LoopHead,    // While PGroup
         Loop,        // LoopHead Statement. LoopHead StmtBlock
 

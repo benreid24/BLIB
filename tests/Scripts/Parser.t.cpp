@@ -128,7 +128,113 @@ INSTANTIATE_TEST_SUITE_P(
         ParseTest(
             T::Program,
             "if (var == 5 or 3*3 > 2^3) { this.array[5^2].nested = func(1, \"2\", 3.5);}",
-            true)));
+            true),
+        ParseTest(T::Program,
+                  "while (var == 5 or 3*3 > 2^3 and not something) { this.array[5^2].nested = "
+                  "func(1, \"2\", 3.5);}",
+                  true),
+        ParseTest(T::Program,
+                  "if (not true) { exit(1); } elif (1 == 5) { print(\"oh no\");}  else { "
+                  "return 0; }",
+                  true)));
+
+TEST(ScriptParser, FullTree) {
+    using G = Parser::Grammar;
+
+    const std::string script = "if (true) { return 5; }";
+    parser::Node::Ptr root   = Parser::parse(script);
+    ASSERT_NE(root.get(), nullptr);
+
+    ASSERT_EQ(root->type, G::Program);
+    ASSERT_EQ(root->children.size(), 1);
+    ASSERT_EQ(root->children[0]->type, G::StmtList);
+
+    root = root->children[0];
+    ASSERT_EQ(root->children.size(), 1);
+    ASSERT_EQ(root->children[0]->type, G::Statement);
+
+    root = root->children[0];
+    ASSERT_EQ(root->children.size(), 1);
+    ASSERT_EQ(root->children[0]->type, G::Conditional);
+
+    root = root->children[0];
+    ASSERT_EQ(root->children.size(), 1);
+    ASSERT_EQ(root->children[0]->type, G::ElifChain);
+
+    root = root->children[0];
+    ASSERT_EQ(root->children.size(), 1);
+    ASSERT_EQ(root->children[0]->type, G::IfBlock);
+
+    root = root->children[0];
+    ASSERT_EQ(root->children.size(), 2);
+    ASSERT_EQ(root->children[0]->type, G::IfHead);
+    ASSERT_EQ(root->children[1]->type, G::StmtBlock);
+
+    parser::Node::Ptr head = root->children[0];
+    parser::Node::Ptr body = root->children[1];
+
+    ASSERT_EQ(head->children.size(), 2);
+    ASSERT_EQ(head->children[0]->type, G::If);
+    ASSERT_EQ(head->children[1]->type, G::PGroup);
+
+    head = head->children[1];
+    ASSERT_EQ(head->children.size(), 3);
+    ASSERT_EQ(head->children[0]->type, G::LParen);
+    ASSERT_EQ(head->children[1]->type, G::Value);
+    ASSERT_EQ(head->children[2]->type, G::RParen);
+
+    head = head->children[1];
+    ASSERT_EQ(head->children.size(), 1);
+    ASSERT_EQ(head->children[0]->type, G::OrGrp);
+
+    head = head->children[0];
+    ASSERT_EQ(head->children.size(), 1);
+    ASSERT_EQ(head->children[0]->type, G::AndGrp);
+
+    head = head->children[0];
+    ASSERT_EQ(head->children.size(), 1);
+    ASSERT_EQ(head->children[0]->type, G::Negation);
+
+    head = head->children[0];
+    ASSERT_EQ(head->children.size(), 1);
+    ASSERT_EQ(head->children[0]->type, G::Cmp);
+
+    head = head->children[0];
+    ASSERT_EQ(head->children.size(), 1);
+    ASSERT_EQ(head->children[0]->type, G::Sum);
+
+    head = head->children[0];
+    ASSERT_EQ(head->children.size(), 1);
+    ASSERT_EQ(head->children[0]->type, G::Product);
+
+    head = head->children[0];
+    ASSERT_EQ(head->children.size(), 1);
+    ASSERT_EQ(head->children[0]->type, G::Exp);
+
+    head = head->children[0];
+    ASSERT_EQ(head->children.size(), 1);
+    ASSERT_EQ(head->children[0]->type, G::TValue);
+
+    head = head->children[0];
+    ASSERT_EQ(head->children.size(), 1);
+    ASSERT_EQ(head->children[0]->type, G::True);
+
+    ASSERT_EQ(body->children.size(), 3);
+    ASSERT_EQ(body->children[0]->type, G::LBrc);
+    ASSERT_EQ(body->children[1]->type, G::StmtList);
+    ASSERT_EQ(body->children[2]->type, G::RBrc);
+
+    body = body->children[1];
+    ASSERT_EQ(body->children.size(), 1);
+    ASSERT_EQ(body->children[0]->type, G::Statement);
+
+    body = body->children[0];
+    ASSERT_EQ(body->children.size(), 3);
+    ASSERT_EQ(body->children[0]->type, G::Return);
+    ASSERT_EQ(body->children[1]->type, G::Value);
+    ASSERT_EQ(body->children[2]->type, G::Term);
+}
+
 } // namespace unittest
 } // namespace scripts
 } // namespace bl
