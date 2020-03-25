@@ -78,7 +78,7 @@ struct Parser {
         // Non-Terminals
 
         // Writeables
-        ArrayDef, // LBrc RBrc. LRrc ValueList RBrc
+        ArrayDef, // LBrkt RBrkt. LBrkt ValueList RBrkt
         Property, // RValue Dot Id
         ArrayAcc, // RValue LBrkt Value RBrkt
         RValue,   // Id. ArrayAcc. Property

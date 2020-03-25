@@ -5,6 +5,7 @@
 #include <BLIB/Scripts/SymbolTable.hpp>
 
 #include <atomic>
+#include <optional>
 #include <thread>
 
 namespace bl
@@ -35,16 +36,20 @@ public:
     /**
      * @brief Runs the script in the current thread
      *
-     * @param timeout How long to run for before terminating
-     * @return True on no errors, false if error
+     * @param manager ScriptManager to register with, nullptr for none
+     * @param timeout How long to run for before terminating, 0 for unlimited
+     * @return Return value if completed successfully (void if no return) or null on error
+     *
      */
-    bool run(float timeout);
+    std::optional<scripts::Value> run(ScriptManager* manager = nullptr, float timeout = 0);
 
     /**
      * @brief Runs the script in the background
      *
+     * @param manager ScriptManager to register with, nullptr for none
+     *
      */
-    void run();
+    void run(ScriptManager* manager = nullptr);
 
 protected:
     /**
@@ -52,7 +57,7 @@ protected:
      *        to allow scripts to access whatever they are hooked into
      *
      */
-    virtual scripts::SymbolTable generateCustomStartSymbols() const;
+    virtual void addCustomSymbols(scripts::SymbolTable& table) const {}
 
     /**
      * @brief Hook for custom Script classes to run custom code before running

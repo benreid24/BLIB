@@ -139,8 +139,8 @@ parser::Grammar buildGrammar() {
     grammar.addNonTerminal(G::Program);
 
     // Writeables
-    grammar.addRule(G::ArrayDef, {G::LBrc, G::RBrc});
-    grammar.addRule(G::ArrayDef, {G::LBrc, G::ValueList, G::RBrc});
+    grammar.addRule(G::ArrayDef, {G::LBrkt, G::RBrkt});
+    grammar.addRule(G::ArrayDef, {G::LBrkt, G::ValueList, G::RBrkt});
     grammar.addRule(G::ArrayAcc, {G::RValue, G::LBrkt, G::Value, G::RBrkt});
     grammar.addRule(G::Property, {G::RValue, G::Dot, G::Id});
     grammar.addRule(G::RValue, G::Id);

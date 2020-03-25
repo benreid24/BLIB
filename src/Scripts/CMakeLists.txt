@@ -3,6 +3,7 @@ target_sources(BLIB PRIVATE
     Function.cpp
     Parser.hpp
     Parser.cpp
+    Script.cpp
     ScriptManager.cpp
     SymbolTable.cpp
     Value.cpp

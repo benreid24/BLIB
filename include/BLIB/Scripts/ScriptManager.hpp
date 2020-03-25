@@ -9,17 +9,11 @@
 namespace bl
 {
 /**
- * @brief Global singleton to manage conurrently running Scripts
+ * @brief Utility class that can manage sets of concurrently running scripts
  *
  */
 class ScriptManager : private NonCopyable {
 public:
-    /**
-     * @brief Returns the global ScriptManager
-     *
-     */
-    static ScriptManager& get();
-
     /**
      * @brief Terminates all running scripts
      *
@@ -28,6 +22,10 @@ public:
      */
     void terminateAll(float timeout = 5.0f);
 
+private:
+    std::mutex mutex;
+    std::list<Script::ExecutionContext::WPtr> scripts;
+
     /**
      * @brief Registers a Script to have its execution tracked
      *
@@ -35,11 +33,7 @@ public:
      */
     void watch(Script::ExecutionContext::WPtr record);
 
-private:
-    std::mutex mutex;
-    std::list<Script::ExecutionContext::WPtr> scripts;
-
-    ScriptManager() = default;
+    friend class Script;
 };
 
 } // namespace bl
