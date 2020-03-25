@@ -21,6 +21,12 @@ Value& Value::operator=(const Value& rhs) {
     return *this;
 }
 
+void Value::makeBool(bool val) {
+    type = TBool;
+    value.reset(new TData(val));
+    resetProps();
+}
+
 Value& Value::operator=(float num) {
     type = TNumeric;
     value.reset(new TData(num));
@@ -68,6 +74,28 @@ Value::Value(const Function& func) { *this = func; }
 
 Value::Type Value::getType() const { return type; }
 
+bool Value::getAsBool() const {
+    switch (type) {
+    case TVoid:
+        return false;
+    case TBool: {
+        const bool* b = std::get_if<bool>(value.get());
+        return b ? *b : false;
+    }
+    case TNumeric:
+        return getAsNum() != 0;
+    case TString:
+        return !getAsString().empty();
+    case TArray:
+        return !getAsArray().empty();
+    case TRef:
+        if (getAsRef().expired()) return false;
+        return getAsRef().lock()->getAsBool();
+    default:
+        return false;
+    }
+}
+
 float Value::getAsNum() const {
     const float* f = std::get_if<float>(value.get());
     if (f) return *f;
@@ -92,8 +120,19 @@ Value::Ref Value::getAsRef() {
     return {};
 }
 
+Value::CRef Value::getAsRef() const {
+    Ref* r = std::get_if<Ref>(value.get());
+    if (r) return *r;
+    return {};
+}
+
+Function Value::getAsFunction() const {
+    const Function* func = std::get_if<Function>(value.get());
+    return func ? *func : Function();
+}
+
 Value Value::getProperty(const std::string& name) const {
-    if (name == "length" && type == TArray) return getAsArray().size();
+    if (name == "length" && type == TArray) return static_cast<int>(getAsArray().size());
     auto i = properties.find(name);
     if (i != properties.end()) return i->second;
     return {};
@@ -118,9 +157,7 @@ bool Value::setProperty(const std::string& name, const Value& val) {
     return true;
 }
 
-void Value::resetProps() {
-    properties.clear();
-}
+void Value::resetProps() { properties.clear(); }
 
 } // namespace scripts
 } // namespace bl

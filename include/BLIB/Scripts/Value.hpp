@@ -20,11 +20,13 @@ class Function;
 class Value {
 public:
     typedef std::shared_ptr<Value> Ptr;
+    typedef std::shared_ptr<const Value> CPtr;
 
-    enum Type { TVoid, TString, TNumeric, TArray, TFunction, TRef };
+    enum Type { TVoid, TBool, TString, TNumeric, TArray, TFunction, TRef };
 
     typedef std::vector<Value> Array;
     typedef std::weak_ptr<Value> Ref;
+    typedef std::weak_ptr<const Value> CRef;
 
     /**
      * @brief Makes Void type
@@ -34,6 +36,12 @@ public:
 
     Value(const Value& cpy);
     Value& operator=(const Value&);
+
+    /**
+     * @brief Makes Bool type
+     *
+     */
+    void makeBool(bool val);
 
     /**
      * @brief Makes Numeric type
@@ -77,6 +85,13 @@ public:
     Type getType() const;
 
     /**
+     * @brief Get the As Bool type
+     *
+     * @return The value as a boolean
+     */
+    bool getAsBool() const;
+
+    /**
      * @brief Get the As Numeric value
      *
      * @return float The value or 0 if not a String
@@ -105,6 +120,20 @@ public:
     Ref getAsRef();
 
     /**
+     * @brief Get the As CRef value
+     *
+     * @return Ref A reference to the Value this references, or nullptr
+     */
+    CRef getAsRef() const;
+
+    /**
+     * @brief Get the As Function type
+     *
+     * @return Function The Function value
+     */
+    Function getAsFunction() const;
+
+    /**
      * @brief Returns the given Property. TVoid if none
      *
      * @param name Name of the property to access
@@ -121,7 +150,7 @@ public:
     bool setProperty(const std::string& name, const Value& value);
 
 private:
-    typedef std::variant<float, std::string, Array, Ref, Function> TData;
+    typedef std::variant<bool, float, std::string, Array, Ref, Function> TData;
 
     Type type;
     std::unique_ptr<TData> value;

@@ -9,7 +9,8 @@ namespace bl
 {
 using namespace scripts;
 
-Script::Script(const std::string& data) {
+Script::Script(const std::string& data)
+: source(data) {
     std::string input = data;
     if (FileUtil::exists(data)) {
         std::ifstream file(data.c_str());

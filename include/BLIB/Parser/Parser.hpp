@@ -29,6 +29,10 @@ public:
      */
     Parser(const parser::Grammar& grammar, const parser::Tokenizer& tokenizer);
 
+    /**
+     * @brief Returns true if the grammar is supported and parse tables were created
+     *
+     */
     bool valid() const;
 
     /**

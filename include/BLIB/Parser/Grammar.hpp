@@ -22,7 +22,18 @@ public:
      */
     void setStart(Node::Type start);
 
+    /**
+     * @brief Register a new Node type as a terminal
+     *
+     * @param terminal The terminal symbol
+     */
     void addTerminal(Node::Type terminal);
+
+    /**
+     * @brief Register a new Node type as a nonterminal
+     *
+     * @param nonterminal The nonterminal symbol
+     */
     void addNonTerminal(Node::Type nonterminal);
 
     /**
@@ -41,8 +52,16 @@ public:
      */
     bool addRule(Node::Type result, Node::Type rhs); // TODO - test add fail
 
+    /**
+     * @brief Get the start symbol
+     *
+     */
     Node::Type getStart() const;
 
+    /**
+     * @brief Helper struct to represent grammar productions
+     *
+     */
     struct Production {
         Node::Type result;
         Node::Sequence set;
@@ -50,6 +69,10 @@ public:
         bool operator==(const Production& rhs) const;
     };
 
+    /**
+     * @brief A Production with a cursor representing current parser position
+     *
+     */
     struct Item {
         Production production;
         unsigned int cursor;
@@ -62,6 +85,10 @@ public:
         Item next() const;
     };
 
+    /**
+     * @brief A set of unique Items
+     *
+     */
     class ItemSet {
     public:
         bool contains(const Item& item) const;
@@ -73,11 +100,42 @@ public:
         std::list<Item> set;
     };
 
+    /**
+     * @brief Returns true if the symbol is a terminal
+     *
+     */
     bool terminal(Node::Type t) const;
+
+    /**
+     * @brief Returns true if the symbol is a nonterminal
+     *
+     */
     bool nonterminal(Node::Type t) const;
+
+    /**
+     * @brief Returns the follow set of the given symbol
+     *
+     * @param t Symbol to determine follow set of
+     * @param recurseGuard Internal implementation only
+     * @return Node::Sequence The terminal symbols that can follow t
+     */
     Node::Sequence followSet(Node::Type t, Node::Sequence* recurseGuard = nullptr) const;
 
+    /**
+     * @brief Computes the closure of an Item
+     *
+     * @param item Item to take the closure of
+     * @param result Internal implementation only
+     * @return ItemSet The closure
+     */
     ItemSet closure(const Item& item, ItemSet* result = nullptr) const;
+
+    /**
+     * @brief Returns the union of the closures of each Item in the set
+     *
+     * @param itemSet Items to take the closure of
+     * @return ItemSet Union of all closures
+     */
     ItemSet closure(const ItemSet& itemSet) const;
 
 private:

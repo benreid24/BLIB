@@ -67,6 +67,7 @@ protected:
 
 private:
     parser::Node::Ptr root;
+    const std::string source;
 
     /**
      * @brief Calls generateCustomStartSymbols and adds built in methods

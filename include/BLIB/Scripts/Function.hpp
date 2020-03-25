@@ -30,9 +30,15 @@ public:
     typedef std::function<Value(SymbolTable&, const std::vector<Value>&)> CustomCB;
 
     /**
+     * @brief Creates an empty, uncallable function
+     *
+     */
+    Function();
+
+    /**
      * @brief Construct a new Function from a subset of a valid parse tree
      *
-     * @param tree The root node of type FDEF
+     * @param tree The root node of type FDef
      */
     Function(parser::Node::Ptr tree);
 
@@ -42,6 +48,12 @@ public:
      * @param userFunction Callback to a custom function
      */
     Function(CustomCB userFunction);
+
+    /**
+     * @brief Comapres against another function
+     *
+     */
+    bool operator==(const Function& func) const;
 
     /**
      * @brief Calls the function. Error thrown on error

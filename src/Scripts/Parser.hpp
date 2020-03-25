@@ -129,7 +129,7 @@ struct Parser {
         ParamList, // Id Comma Id. ParamList Comma Id
         FName,     // Def Id
         FHead, // FName LParen ParamList RParen. FName LParen Id RParen. FName LParen RParen
-        Fdef,  // FHead StmtList
+        Fdef,  // FHead StmtBlock
 
         // Program
         Program // StmtList

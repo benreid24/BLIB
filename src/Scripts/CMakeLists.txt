@@ -4,6 +4,8 @@ target_sources(BLIB PRIVATE
     Parser.hpp
     Parser.cpp
     Script.cpp
+    ScriptImpl.hpp
+    ScriptImpl.cpp
     ScriptManager.cpp
     SymbolTable.cpp
     Value.cpp
