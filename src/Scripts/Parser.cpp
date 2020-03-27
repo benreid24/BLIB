@@ -158,30 +158,30 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::TValue, G::True);
     grammar.addRule(G::TValue, G::False);
     grammar.addRule(G::Exp, G::TValue);
-    grammar.addRule(G::Exp, {G::Exp, G::Hat, G::Exp});
+    grammar.addRule(G::Exp, {G::Exp, G::Hat, G::TValue});
     grammar.addRule(G::Product, G::Exp);
-    grammar.addRule(G::Product, {G::Product, G::Mult, G::Product});
-    grammar.addRule(G::Product, {G::Product, G::Div, G::Product});
+    grammar.addRule(G::Product, {G::Product, G::Mult, G::Exp});
+    grammar.addRule(G::Product, {G::Product, G::Div, G::Exp});
     grammar.addRule(G::Sum, G::Product);
-    grammar.addRule(G::Sum, {G::Sum, G::Plus, G::Sum});
-    grammar.addRule(G::Sum, {G::Sum, G::Minus, G::Sum});
+    grammar.addRule(G::Sum, {G::Sum, G::Plus, G::Product});
+    grammar.addRule(G::Sum, {G::Sum, G::Minus, G::Product});
 
     // Comparisons
     grammar.addRule(G::Cmp, G::Sum);
-    grammar.addRule(G::Cmp, {G::Cmp, G::Eq, G::Cmp});
-    grammar.addRule(G::Cmp, {G::Cmp, G::Ne, G::Cmp});
-    grammar.addRule(G::Cmp, {G::Cmp, G::Gt, G::Cmp});
-    grammar.addRule(G::Cmp, {G::Cmp, G::Ge, G::Cmp});
-    grammar.addRule(G::Cmp, {G::Cmp, G::Lt, G::Cmp});
-    grammar.addRule(G::Cmp, {G::Cmp, G::Le, G::Cmp});
+    grammar.addRule(G::Cmp, {G::Sum, G::Eq, G::Sum});
+    grammar.addRule(G::Cmp, {G::Sum, G::Ne, G::Sum});
+    grammar.addRule(G::Cmp, {G::Sum, G::Gt, G::Sum});
+    grammar.addRule(G::Cmp, {G::Sum, G::Ge, G::Sum});
+    grammar.addRule(G::Cmp, {G::Sum, G::Lt, G::Sum});
+    grammar.addRule(G::Cmp, {G::Sum, G::Le, G::Sum});
 
     // Boolean Logic
     grammar.addRule(G::Negation, G::Cmp);
     grammar.addRule(G::Negation, {G::Not, G::Negation});
     grammar.addRule(G::AndGrp, G::Negation);
-    grammar.addRule(G::AndGrp, {G::AndGrp, G::And, G::AndGrp});
+    grammar.addRule(G::AndGrp, {G::AndGrp, G::And, G::Negation});
     grammar.addRule(G::OrGrp, G::AndGrp);
-    grammar.addRule(G::OrGrp, {G::OrGrp, G::Or, G::OrGrp});
+    grammar.addRule(G::OrGrp, {G::OrGrp, G::Or, G::AndGrp});
 
     // Value
     grammar.addRule(G::Value, G::OrGrp);

@@ -30,6 +30,7 @@ struct Ops {
 };
 
 Value deref(const Value& ref);
+std::vector<Value> evalList(Symbol node, SymbolTable& table);
 
 Value evalOrGrp(Symbol node, SymbolTable& table);
 Value evalAndGrp(Symbol node, SymbolTable& table);
@@ -53,6 +54,8 @@ Value ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
     return evalOrGrp(node->children[0], table);
 }
 
+Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) { return Value(); }
+
 namespace
 {
 Value evalOrGrp(Symbol node, SymbolTable& table) {
@@ -62,7 +65,7 @@ Value evalOrGrp(Symbol node, SymbolTable& table) {
         return evalAndGrp(node->children[0], table);
     else if (node->children.size() == 3)
         return Ops::Or(evalOrGrp(node->children[0], table),
-                       evalOrGrp(node->children[2], table));
+                       evalAndGrp(node->children[2], table));
     throw Error("Internal error: OrGrp node has invalid child", node);
 }
 
@@ -73,7 +76,7 @@ Value evalAndGrp(Symbol node, SymbolTable& table) {
         return evalNegGrp(node->children[0], table);
     else if (node->children.size() == 3)
         return Ops::And(evalAndGrp(node->children[0], table),
-                        evalAndGrp(node->children[2], table));
+                        evalNegGrp(node->children[2], table));
     throw Error("Internal error: AndGrp node has invalid child", node);
 }
 
@@ -92,8 +95,8 @@ Value evalCmp(Symbol node, SymbolTable& table) {
     if (node->children.size() == 1)
         return evalSum(node->children[0], table);
     else if (node->children.size() == 3) {
-        const Value lhs = evalCmp(node->children[0], table);
-        const Value rhs = evalCmp(node->children[2], table);
+        const Value lhs = evalSum(node->children[0], table);
+        const Value rhs = evalSum(node->children[2], table);
         switch (node->children[1]->type) {
         case G::Eq:
             return Ops::Eq(lhs, rhs);
@@ -120,7 +123,7 @@ Value evalSum(Symbol node, SymbolTable& table) {
         return evalProd(node->children[0], table);
     else if (node->children.size() == 3) {
         const Value lhs = evalSum(node->children[0], table);
-        const Value rhs = evalSum(node->children[2], table);
+        const Value rhs = evalProd(node->children[2], table);
         switch (node->children[1]->type) {
         case G::Plus:
             return Ops::Add(lhs, rhs, node);
@@ -140,7 +143,7 @@ Value evalProd(Symbol node, SymbolTable& table) {
         return evalExp(node->children[0], table);
     else if (node->children.size() == 3) {
         const Value lhs = evalProd(node->children[0], table);
-        const Value rhs = evalProd(node->children[2], table);
+        const Value rhs = evalExp(node->children[2], table);
         switch (node->children[1]->type) {
         case G::Mult:
             return Ops::Mult(lhs, rhs, node);
@@ -159,7 +162,7 @@ Value evalExp(Symbol node, SymbolTable& table) {
         return evalTVal(node->children[0], table);
     else if (node->children.size() == 3) {
         const Value lhs = evalExp(node->children[0], table);
-        const Value rhs = evalExp(node->children[2], table);
+        const Value rhs = evalTVal(node->children[2], table);
         return Ops::Exp(lhs, rhs, node);
     }
     throw Error("Internal error: Exp node has invalid child", node);
@@ -187,16 +190,9 @@ Value evalTVal(Symbol node, SymbolTable& table) {
         return Value(node->data);
     case G::Call:
         return ScriptImpl::runFunction(node, table);
-    case G::ArrayDef: {
-        Value::Array r;
-        if (node->children.size() > 2) {
-            r.reserve(node->children.size() - 2);
-            for (unsigned int i = 1; i < node->children.size() - 1; ++i) {
-                r.push_back(ScriptImpl::computeValue(node->children[i], table));
-            }
-        }
-        return r;
-    }
+    case G::ArrayDef:
+        if (node->children.size() != 3) throw Error("Invalid ArrayDef children", node);
+        return Value(evalList(node->children[1], table));
     case G::True: {
         Value r;
         r.makeBool(true);
@@ -253,6 +249,20 @@ Value evalRVal(Symbol node, SymbolTable& table) {
     default:
         throw Error("Internal error: Invalid RValue child", node);
     }
+}
+
+std::vector<Value> evalList(Symbol node, SymbolTable& table) {
+    if (node->type != G::ValueList)
+        throw Error("Internal error: evalList called on non ValueList");
+
+    if (node->children.size() == 1)
+        return {ScriptImpl::computeValue(node->children[0], table)};
+    else if (node->children.size() == 3) {
+        std::vector<Value> r = evalList(node->children[0], table);
+        r.push_back(ScriptImpl::computeValue(node->children[2], table));
+        return r;
+    }
+    throw Error("Internal error: Invalid ValueList children", node);
 }
 
 Value Ops::Or(const Value& lhs, const Value& rhs) {
@@ -442,6 +452,8 @@ Value Ops::Le(const Value& lhs, const Value& rhs) {
 }
 
 Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
+    std::cout << "Adding: " << lhs.getAsNum() << " + " << rhs.getAsNum() << std::endl;
+
     Value rh = deref(rhs);
     Value lh = deref(lhs);
 
@@ -466,6 +478,8 @@ Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
 }
 
 Value Ops::Sub(const Value& lhs, const Value& rhs, Symbol node) {
+    std::cout << "Subtracting: " << lhs.getAsNum() << " - " << rhs.getAsNum() << std::endl;
+
     Value rh = deref(rhs);
     Value lh = deref(lhs);
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
@@ -474,6 +488,8 @@ Value Ops::Sub(const Value& lhs, const Value& rhs, Symbol node) {
 }
 
 Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
+    std::cout << "Multiplying: " << lhs.getAsNum() << " * " << rhs.getAsNum() << std::endl;
+
     Value rh = deref(rhs);
     Value lh = deref(lhs);
 
@@ -511,6 +527,8 @@ Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
 }
 
 Value Ops::Div(const Value& lhs, const Value& rhs, Symbol node) {
+    std::cout << "Dividing: " << lhs.getAsNum() << " / " << rhs.getAsNum() << std::endl;
+
     Value rh = deref(rhs);
     Value lh = deref(lhs);
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
@@ -519,6 +537,8 @@ Value Ops::Div(const Value& lhs, const Value& rhs, Symbol node) {
 }
 
 Value Ops::Exp(const Value& lhs, const Value& rhs, Symbol node) {
+    std::cout << "Exponenting: " << lhs.getAsNum() << " ^ " << rhs.getAsNum() << std::endl;
+
     Value rh = deref(rhs);
     Value lh = deref(lhs);
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)

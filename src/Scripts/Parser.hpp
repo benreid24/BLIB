@@ -85,17 +85,17 @@ struct Parser {
 
         // Arithmetic
         TValue,  // RValue. NumLit. StringLit. Call. PGroup. ArrayDef. True. False
-        Exp,     // TValue. TValue Hat Value
-        Product, // Exp. Product Mult Product. Product Div Product
-        Sum,     // Product. Sum Plus Sum. Sum Minus Sum
+        Exp,     // TValue. Exp Hat TValue
+        Product, // Exp. Product Mult Exp. Product Div Exp
+        Sum,     // Product. Sum Plus Product. Sum Minus Product
 
         // Comparisons
-        Cmp, // Sum. Cmp [Eq, Ne, Gt, Ge, Le, Lt] Cmp
+        Cmp, // Sum. Sum [Eq, Ne, Gt, Ge, Le, Lt] Sum
 
         // Boolean Logic and top Value
         Negation, // Cmp. Not Negation
-        AndGrp,   // Negation. AndGrp And AndGrp
-        OrGrp,    // AndGrp. OrGrp Or OrGrp
+        AndGrp,   // Negation. AndGrp And Negation
+        OrGrp,    // AndGrp. OrGrp Or AndGrp
         PGroup,   // LParen Value RParen
         Value,    // OrGrp
 

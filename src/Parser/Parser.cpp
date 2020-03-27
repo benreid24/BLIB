@@ -5,62 +5,6 @@
 #include <numeric>
 #include <stack>
 
-std::string toStr(bl::parser::Node::Type t) {
-    using T = bl::scripts::Parser::Grammar;
-    switch (t) {
-    case T::NumLit:
-        return "NumLit";
-    case T::TValue:
-        return "TValue";
-    case T::RValue:
-        return "RValue";
-    case T::Exp:
-        return "Exp";
-    case T::Hat:
-        return "Hat";
-    case T::Plus:
-        return "Plus";
-    case T::Minus:
-        return "Minus";
-    case T::Mult:
-        return "Mult";
-    case T::Div:
-        return "Div";
-    case T::LParen:
-        return "LParen";
-    case T::RParen:
-        return "RParen";
-    case T::Id:
-        return "Id";
-    case T::Product:
-        return "Product";
-    case T::Sum:
-        return "Sum";
-    case T::Cmp:
-        return "Cmp";
-    case T::Negation:
-        return "Negation";
-    case T::AndGrp:
-        return "AndGrp";
-    case T::OrGrp:
-        return "OrGrp";
-    case T::PGroup:
-        return "PGroup";
-    case T::Value:
-        return "Value";
-    case T::ValueList:
-        return "ValueList";
-    case T::ArgList:
-        return "ArgList";
-    case T::Call:
-        return "Call";
-    case T::Comma:
-        return "Comma";
-    default:
-        return std::to_string(t);
-    }
-}
-
 namespace bl
 {
 using namespace parser;
@@ -74,8 +18,8 @@ std::ostream& error(Node::Ptr node) {
 
 std::ostream& operator<<(std::ostream& s, const Node::Sequence& nodes) {
     s << "[";
-    if (!nodes.empty()) s << toStr(nodes[0]);
-    for (unsigned int i = 1; i < nodes.size(); ++i) { s << ", " << toStr(nodes[i]); }
+    if (!nodes.empty()) s << nodes[0];
+    for (unsigned int i = 1; i < nodes.size(); ++i) { s << ", " << nodes[i]; }
     s << "]";
     return s;
 }
@@ -126,10 +70,12 @@ bool doReduction(const Grammar& g, std::vector<Node::Ptr>& nonterminals,
         const int si = nt->children.size() - i - 1;
         if (g.terminal(prod.set[pi])) {
             nt->children[si] = terminals.back();
+            nt->data.insert(0, terminals.back()->data);
             terminals.pop_back();
         }
         else if (g.nonterminal(prod.set[pi])) {
             nt->children[si] = nonterminals.back();
+            nt->data.insert(0, nonterminals.back()->data);
             nonterminals.pop_back();
         }
         else {
