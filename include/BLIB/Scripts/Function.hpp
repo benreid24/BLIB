@@ -5,6 +5,7 @@
 #include <BLIB/Scripts/Value.hpp>
 
 #include <functional>
+#include <optional>
 #include <variant>
 #include <vector>
 
@@ -66,6 +67,7 @@ public:
 
 private:
     std::variant<CustomCB, parser::Node::Ptr> data;
+    std::optional<std::vector<std::string>> params;
 };
 
 } // namespace scripts

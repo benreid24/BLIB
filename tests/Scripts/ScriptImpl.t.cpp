@@ -149,6 +149,19 @@ INSTANTIATE_TEST_SUITE_P(
                       ValueTest("var.prop == 5", boolValue(true),
                                 genProp("var", "prop", Value(), Value(5)))));
 
+struct FunctionTest {
+    const std::string fdef;
+    const std::string call;
+    const Value result;
+};
+
+class ScriptImplFunctionTest : public ::testing::TestWithParam<FunctionTest> {};
+
+TEST_P(ScriptImplFunctionTest, FunctionTest) {
+    const FunctionTest t = GetParam();
+    // TODO - parse fdef and execute statements to populate symbol table
+}
+
 } // namespace unittest
 } // namespace scripts
 } // namespace bl

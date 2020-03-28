@@ -129,13 +129,14 @@ parser::Grammar buildGrammar() {
     grammar.addNonTerminal(G::Conditional);
     grammar.addNonTerminal(G::LoopHead);
     grammar.addNonTerminal(G::Loop);
+    grammar.addNonTerminal(G::Ret);
     grammar.addNonTerminal(G::Statement);
     grammar.addNonTerminal(G::StmtList);
     grammar.addNonTerminal(G::StmtBlock);
     grammar.addNonTerminal(G::ParamList);
     grammar.addNonTerminal(G::FName);
     grammar.addNonTerminal(G::FHead);
-    grammar.addNonTerminal(G::Fdef);
+    grammar.addNonTerminal(G::FDef);
     grammar.addNonTerminal(G::Program);
 
     // Writeables
@@ -188,8 +189,8 @@ parser::Grammar buildGrammar() {
 
     // Assignment
     grammar.addRule(G::Ref, {G::Amp, G::RValue});
-    grammar.addRule(G::Assignment, {G::RValue, G::Assign, G::Value});
-    grammar.addRule(G::Assignment, {G::RValue, G::Assign, G::Ref});
+    grammar.addRule(G::Assignment, {G::RValue, G::Assign, G::Value, G::Term});
+    grammar.addRule(G::Assignment, {G::RValue, G::Assign, G::Ref, G::Term});
 
     // Function call
     grammar.addRule(G::ValueList, G::Value);
@@ -219,12 +220,14 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::Loop, {G::LoopHead, G::StmtBlock});
 
     // Statements
-    grammar.addRule(G::Statement, {G::Return, G::Value, G::Term});
+    grammar.addRule(G::Ret, {G::Return, G::Term});
+    grammar.addRule(G::Ret, {G::Return, G::Value, G::Term});
+    grammar.addRule(G::Statement, G::Ret);
     grammar.addRule(G::Statement, {G::Call, G::Term});
-    grammar.addRule(G::Statement, {G::Assignment, G::Term});
+    grammar.addRule(G::Statement, G::Assignment);
     grammar.addRule(G::Statement, G::Conditional);
     grammar.addRule(G::Statement, G::Loop);
-    grammar.addRule(G::Statement, G::Fdef);
+    grammar.addRule(G::Statement, G::FDef);
     grammar.addRule(G::StmtList, G::Statement);
     grammar.addRule(G::StmtList, {G::StmtList, G::Statement});
     grammar.addRule(G::StmtBlock, {G::LBrc, G::StmtList, G::RBrc});
@@ -236,7 +239,7 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::FHead, {G::FName, G::LParen, G::RParen});
     grammar.addRule(G::FHead, {G::FName, G::LParen, G::Id, G::RParen});
     grammar.addRule(G::FHead, {G::FName, G::LParen, G::ParamList, G::RParen});
-    grammar.addRule(G::Fdef, {G::FHead, G::StmtBlock});
+    grammar.addRule(G::FDef, {G::FHead, G::StmtBlock});
 
     // Program
     grammar.addRule(G::Program, G::StmtList);

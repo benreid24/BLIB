@@ -58,7 +58,7 @@ public:
      * @param name Name of the symbol to set or create
      * @param value The value to store in the table
      */
-    void set(const std::string& name, const Value& value);
+    void set(const std::string& name, const Value& value); // TODO - allow force top
 
 private:
     std::vector<std::unordered_map<std::string, Value::Ptr>> table;

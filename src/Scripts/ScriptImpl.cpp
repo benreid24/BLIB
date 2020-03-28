@@ -31,6 +31,7 @@ struct Ops {
 
 Value deref(const Value& ref);
 std::vector<Value> evalList(Symbol node, SymbolTable& table);
+std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran);
 
 Value evalOrGrp(Symbol node, SymbolTable& table);
 Value evalAndGrp(Symbol node, SymbolTable& table);
@@ -54,10 +55,201 @@ Value ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
     return evalOrGrp(node->children[0], table);
 }
 
-Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) { return Value(); }
+Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
+    if (node->type != G::Call)
+        throw Error("Internal error: funFunction called on non Call", node);
+    if (node->children.size() != 4 && node->children.size() != 3)
+        throw Error("Internal error: Invalid Call children", node);
+
+    std::vector<Value> params;
+    Value func = evalRVal(node->children[0], table);
+    if (func.getType() != Value::TFunction)
+        throw Error("Cannot call non-function type", node->children[0]);
+    if (node->children.size() == 4) params = evalList(node->children[2], table);
+
+    return func.getAsFunction()(table, params);
+}
+
+std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
+    if (node->children.empty()) throw Error("Internal error: Invalid Statement", node);
+
+    switch (node->children[0]->type) {
+    case G::Ret:
+        node = node->children[0];
+        if (node->children.size() == 2)
+            return Value();
+        else if (node->children.size() == 3)
+            return computeValue(node->children[2], table);
+        throw Error("Internal error: Invalid Ret children", node);
+
+    case G::Call:
+        runFunction(node->children[0], table);
+        return {};
+
+    case G::Conditional:
+        return runConditional(node->children[0], table);
+
+    case G::Loop:
+        return runLoop(node->children[0], table);
+
+    case G::Assignment:
+        // TODO
+
+    case G::FDef: {
+        node = node->children[0];
+        if (node->children.size() != 2)
+            throw Error("Internal error: Invalid FDef children", node);
+        Symbol c = node->children[0];
+        if (c->children.size() < 3) throw Error("Internal error: Invalid FHead children", c);
+        c = c->children[0];
+        if (c->children.size() != 2) throw Error("Internal error: Invalid FName children", c);
+        if (c->children[1]->type != G::Id)
+            throw Error("Internal error: Invalid FName children", c->children[1]);
+        table.set(c->children[1]->data, Value(Function(node)));
+        return {};
+    }
+
+    default:
+        throw Error("Internal error: Invalid Statement children", node);
+    }
+}
+
+std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& table) {
+    class ScopeGuard {
+    public:
+        ScopeGuard(Symbol node, SymbolTable& table)
+        : table(table)
+        , pop(node->type == G::StmtBlock) {
+            if (pop) table.pushFrame();
+        }
+
+        ~ScopeGuard() {
+            if (pop) table.popFrame();
+        }
+
+    private:
+        SymbolTable& table;
+        const bool pop;
+    } guard(node, table);
+
+    try {
+        switch (node->type) {
+        case G::StmtBlock:
+            if (node->children.size() != 3)
+                throw Error("Internal error: Invalid StmtBlock children", node);
+            return runStatementList(node->children[1], table);
+
+        case G::Statement:
+            return runStatement(node, table);
+
+        case G::StmtList:
+            if (node->children.size() == 2) {
+                const std::optional<Value> r = runStatementList(node->children[0], table);
+                if (r.has_value()) return r;
+                return runStatement(node->children[1], table);
+            }
+            else if (node->children.size() == 1)
+                return runStatement(node->children[0], table);
+            throw Error("Internal error: Invalid StmtList children", node);
+
+        default:
+            throw Error("Internal error: Expected Statement, StmtBlock, or StmtList", node);
+        }
+    } catch (const Error& err) { throw Error("", node, err); }
+}
+
+std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
+    if (node->type != G::Loop) throw Error("Internal error: Expected Loop", node);
+    if (node->children.size() != 2) throw Error("Internal error: Invalid Loop children", node);
+
+    Symbol head = node->children[0];
+    if (head->type != G::LoopHead) throw Error("Internal error: Expected LoopHead", head);
+    if (head->children.size() != 2)
+        throw Error("Internal error: Invalid LoopHead children", head);
+    head = head->children[1]; // PGroup
+
+    while (evaluateCond(head, table)) {
+        const std::optional<Value> r = runStatementList(node->children[1], table);
+        if (r.has_value()) return r;
+    }
+    return {};
+}
+
+std::optional<Value> ScriptImpl::runConditional(Symbol node, SymbolTable& table) {
+    if (node->type != G::Conditional)
+        throw Error("Internal error: Expected Conditional", node);
+    if (node->children.size() != 1)
+        throw Error("Internal error: Invalid Conditional children", node);
+
+    bool ran = false;
+    std::optional<Value> r;
+    switch (node->children[0]->type) {
+    case G::ElifChain:
+        return runElifChain(node->children[0], table, ran);
+    case G::ElseCond:
+        node = node->children[0];
+        if (node->children.size() != 2)
+            throw Error("Internal error: Invalid ElseCond children", node);
+        r = runElifChain(node->children[0], table, ran);
+        if (ran) return r;
+        if (node->children[1]->type != G::ElseBlock)
+            throw Error("Internal error: Invalid ElseCond children", node);
+        node = node->children[1];
+        if (node->children.size() != 2)
+            throw Error("Internal error: Invalid ElseBlock children", node);
+        return runStatementList(node->children[1], table);
+    default:
+        throw Error("Internal error: Invalid Conditional children", node->children[0]);
+    }
+}
+
+bool ScriptImpl::evaluateCond(Symbol node, SymbolTable& table) {
+    if (node->type != G::PGroup) throw Error("Internal error: Expected PGroup", node);
+    if (node->children.size() != 3)
+        throw Error("Internal error: Invalid PGroup children", node);
+    return ScriptImpl::computeValue(node->children[1], table).getAsBool();
+}
 
 namespace
 {
+std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran) {
+    if (node->type != G::ElifChain) throw Error("Internal error: Expected ElifChain", node);
+
+    auto getCond = [](Symbol block) -> Symbol {
+        if (block->children.size() != 2)
+            throw Error("Internal error: Invalid If/Elif Block children", block);
+        block = block->children[0];
+        if (block->children.size() != 2)
+            throw Error("Internal error: Invalid If/Elif Head children", block);
+        return block->children[1];
+    };
+
+    if (node->children.size() == 1) {
+        node = node->children[0];
+        if (node->type != G::IfBlock)
+            throw Error("Internal error: Invalid ElifChain child", node);
+        if (ScriptImpl::evaluateCond(getCond(node), table)) {
+            ran = true;
+            if (node->children.size() != 2)
+                throw Error("Internal error: Invalid IfBlock children", node);
+            return ScriptImpl::runStatementList(node->children[1], table);
+        }
+    }
+    else if (node->children.size() == 2) {
+        Symbol chain                 = node->children[0];
+        node                         = node->children[1]; // ElifBlock
+        const std::optional<Value> r = runElifChain(chain, table, ran);
+        if (ran) return r;
+        if (ScriptImpl::evaluateCond(getCond(node), table)) {
+            ran = true;
+            if (node->children.size() != 2)
+                throw Error("Internal error: Invalid ElifBlock children", node);
+            return ScriptImpl::runStatementList(node->children[1], table);
+        }
+    }
+    throw Error("Internal error: Invalid ElifChain children", node);
+}
+
 Value evalOrGrp(Symbol node, SymbolTable& table) {
     if (node->type != G::OrGrp)
         throw Error("Internal error: evalOrGrp called on non OrGrp", node);

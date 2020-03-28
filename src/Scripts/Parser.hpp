@@ -101,7 +101,7 @@ struct Parser {
 
         // Assignment
         Ref,        // Amp RValue
-        Assignment, // RValue Assign Value. RValue Assign Ref
+        Assignment, // RValue Assign Value Term. RValue Assign Ref Term
 
         // Function Call
         ValueList, // Value. ValueList Comma Value
@@ -121,7 +121,8 @@ struct Parser {
         Loop,        // LoopHead Statement. LoopHead StmtBlock
 
         // Statements
-        Statement, // Return Value Term. Call Term. Conditional. Loop. Assignment Term. FDef
+        Ret,       // Return Term. Return Value Term
+        Statement, // Ret. Call Term. Conditional. Loop. Assignment. FDef
         StmtList,  // Statement. StmtList Statement
         StmtBlock, // LBrc StmtList RBrc
 
@@ -129,7 +130,7 @@ struct Parser {
         ParamList, // Id Comma Id. ParamList Comma Id
         FName,     // Def Id
         FHead, // FName LParen ParamList RParen. FName LParen Id RParen. FName LParen RParen
-        Fdef,  // FHead StmtBlock
+        FDef,  // FHead StmtBlock
 
         // Program
         Program // StmtList

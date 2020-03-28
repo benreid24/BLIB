@@ -150,6 +150,8 @@ public:
     bool setProperty(const std::string& name, const Value& value);
 
 private:
+    // TODO - change array and proprties to use Ptr for Ref to work. figure out length. Maybe
+    // have properties remember their parent Value
     typedef std::variant<bool, float, std::string, Array, Ref, Function> TData;
 
     Type type;
