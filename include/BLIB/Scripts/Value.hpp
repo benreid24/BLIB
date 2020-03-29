@@ -167,6 +167,10 @@ private:
     void resize(const std::vector<Value>& args);
     void insert(const std::vector<Value>& args);
     void erase(const std::vector<Value>& args);
+
+    // built-ins for properties
+    Value keys(const std::vector<Value>& args);
+    Value at(const std::vector<Value>& args);
 };
 
 } // namespace scripts

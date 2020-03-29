@@ -229,8 +229,13 @@ INSTANTIATE_TEST_CASE_P(
         FunctionTest("def f() { v = 5; r = &v; v = 6; return r; }", "f()", 6),
         FunctionTest("def f() { v = 5; r = &v; r = 6; return v; }", "f()", 6),
         FunctionTest("def f() { v = 5; r = &v; n = &r; v = 6; return n; }", "f()", 6),
-        FunctionTest("def f(a) { s = 0; for (x in a) s = s + x; return s; }", "f([1,2,3])",
-                     6)));
+        FunctionTest("def f(a) { s = 0; for (x in a) s = s + x; return s; }", "f([1,2,3])", 6),
+        FunctionTest("def f(x) { x.a = 5; x.b = 10; s = 0; for (k in x.keys()) { s = s + "
+                     "x.at(k); } return s; }",
+                     "f(5)", 15),
+        FunctionTest("def f() { u.a = 5; return u.a; }", "f()", 5)
+        //
+        ));
 
 } // namespace unittest
 } // namespace scripts

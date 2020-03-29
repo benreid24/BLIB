@@ -187,6 +187,18 @@ Value::Ptr Value::getProperty(const std::string& name, bool create) {
             return Ptr(new Value(cb));
         }
     }
+    if (name == "keys") {
+        Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>& args) -> Value {
+            return this->keys(args);
+        };
+        return Ptr(new Value(cb));
+    }
+    else if (name == "at") {
+        Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>& args) -> Value {
+            return this->at(args);
+        };
+        return Ptr(new Value(cb));
+    }
     auto i = properties.find(name);
     if (i != properties.end()) return i->second;
     if (create) {
@@ -198,7 +210,7 @@ Value::Ptr Value::getProperty(const std::string& name, bool create) {
 
 bool Value::setProperty(const std::string& name, const Value& val) {
     if (name == "length" || name == "resize" || name == "append" || name == "insert" ||
-        name == "clear" || name == "erase")
+        name == "clear" || name == "erase" || name == "keys" || name == "at")
         return false;
     Ptr v = getProperty(name);
     if (!v) {
@@ -283,6 +295,24 @@ void Value::resize(const std::vector<Value>& args) {
             for (unsigned int i = 0; i < s; ++i) { arr->push_back(Ptr(new Value(fill))); }
         }
     }
+}
+
+Value Value::keys(const std::vector<Value>& args) {
+    if (!args.empty()) throw Error("keys() expects 0 arguments");
+    Value::Array keys;
+    keys.reserve(properties.size());
+    for (auto i = properties.begin(); i != properties.end(); ++i) {
+        keys.push_back(Ptr(new Value(i->first)));
+    }
+    return keys;
+}
+
+Value Value::at(const std::vector<Value>& args) {
+    if (args.size() != 1) throw Error("at() takes a single argument");
+    if (args[0].getType() != TString) throw Error("at() expects a String key");
+    Value::Ptr p = getProperty(args[0].getAsString(), false);
+    if (p) return *p;
+    return Value();
 }
 
 } // namespace scripts
