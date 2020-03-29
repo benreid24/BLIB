@@ -3,6 +3,7 @@
 #include <BLIB/Files/FileUtil.hpp>
 #include <Scripts/Parser.hpp>
 #include <Scripts/ScriptImpl.hpp>
+#include <Scripts/ScriptLibrary.hpp>
 #include <fstream>
 #include <iostream>
 #include <streambuf>
@@ -26,10 +27,11 @@ Script::Script(const std::string& data)
 
 bool Script::valid() const { return root.get() != nullptr; }
 
-std::optional<scripts::Value> Script::run() const {
+std::optional<scripts::Value> Script::run(ScriptManager* manager) const {
     if (!valid()) return {};
     ExecutionContext::Ptr ctx(new ExecutionContext());
     ctx->table = generateBaseTable();
+    if (manager) ctx->table.registerManager(manager);
     addCustomSymbols(ctx->table);
     onRun();
     return execute(ctx);
@@ -39,6 +41,7 @@ void Script::runBackground(ScriptManager* manager) const {
     if (!valid()) return;
     ExecutionContext::Ptr ctx(new ExecutionContext());
     ctx->table = generateBaseTable();
+    if (manager) ctx->table.registerManager(manager);
     addCustomSymbols(ctx->table);
     onRun();
     ctx->thread.reset(new std::thread(&Script::execute, this, ctx));
@@ -58,12 +61,13 @@ std::optional<scripts::Value> Script::execute(ExecutionContext::Ptr context) con
         context.reset();
         std::cerr << err.stacktrace() << std::endl;
         return {};
-    }
+    } catch (const Exit&) {}
 }
 
 SymbolTable Script::generateBaseTable() const {
-    // TODO - provide built-in methods
-    return SymbolTable();
+    SymbolTable table;
+    Library::addBuiltIns(table);
+    return table;
 }
 
 } // namespace bl

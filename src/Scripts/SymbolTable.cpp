@@ -1,4 +1,6 @@
 #include <BLIB/Scripts/SymbolTable.hpp>
+
+#include <BLIB/Scripts/ScriptManager.hpp>
 #include <iostream>
 
 namespace bl
@@ -23,7 +25,8 @@ TableKey searchTable(const std::string& name,
 } // namespace
 
 SymbolTable::SymbolTable()
-: stop(false) {
+: mgr(nullptr)
+, stop(false) {
     pushFrame();
 }
 
@@ -67,6 +70,10 @@ void SymbolTable::set(const std::string& name, const Value& val, bool top) {
 void SymbolTable::kill() { stop = true; }
 
 bool SymbolTable::killed() const { return stop; }
+
+void SymbolTable::registerManager(ScriptManager* m) { mgr = m; }
+
+ScriptManager* SymbolTable::manager() { return mgr; }
 
 } // namespace scripts
 } // namespace bl

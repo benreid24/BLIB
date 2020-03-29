@@ -6,6 +6,8 @@ target_sources(BLIB PRIVATE
     Script.cpp
     ScriptImpl.hpp
     ScriptImpl.cpp
+    ScriptLibrary.hpp
+    ScriptLibrary.cpp
     ScriptManager.cpp
     SymbolTable.cpp
     Value.cpp

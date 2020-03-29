@@ -37,10 +37,11 @@ public:
     /**
      * @brief Runs the script in the current thread
      *
+     * @param manager The ScriptManager to use to manage spawned Scripts, if any
      * @return Return value if completed successfully (void if no return) or null on error
      *
      */
-    std::optional<scripts::Value> run() const;
+    std::optional<scripts::Value> run(ScriptManager* manager = nullptr) const;
 
     /**
      * @brief Runs the script in the background

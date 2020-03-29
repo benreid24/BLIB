@@ -58,6 +58,13 @@ private:
     const std::string stack;
 };
 
+/**
+ * @brief Special Exception for Scripts to exit without an Error
+ * @ingroup Scripts
+ *
+ */
+struct Exit {};
+
 } // namespace scripts
 
 } // namespace bl

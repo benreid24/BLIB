@@ -9,6 +9,7 @@
 
 namespace bl
 {
+class ScriptManager;
 namespace scripts
 {
 /**
@@ -74,8 +75,21 @@ public:
      */
     bool killed() const;
 
+    /**
+     * @brief Registers the ScriptManager controlling this context
+     *
+     */
+    void registerManager(ScriptManager* manager);
+
+    /**
+     * @brief Returns the ScriptManager managing this context, nullptr if none
+     *
+     */
+    ScriptManager* manager();
+
 private:
     std::vector<std::unordered_map<std::string, Value::Ptr>> table;
+    ScriptManager* mgr;
     bool stop;
 };
 

@@ -5,6 +5,13 @@ add_executable(BLIB.t
 target_link_libraries(BLIB.t PRIVATE
     BLIB
 
+    sfml-graphics
+    sfml-window
+    sfml-network
+    sfml-audio
+    sfml-system
+    sfml-main
+    
     gtest
     gtest_main
 )
