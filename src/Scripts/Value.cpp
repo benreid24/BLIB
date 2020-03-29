@@ -142,7 +142,7 @@ Function Value::getAsFunction() const {
     return func ? *func : Function();
 }
 
-Value::Ptr Value::getProperty(const std::string& name) {
+Value::Ptr Value::getProperty(const std::string& name, bool create) {
     if (type == TArray) {
         using namespace std::placeholders;
         if (name == "length")
@@ -178,15 +178,27 @@ Value::Ptr Value::getProperty(const std::string& name) {
             };
             return Ptr(new Value(cb));
         }
+        else if (name == "erase") {
+            Function::CustomCB cb = [this](SymbolTable&,
+                                           const std::vector<Value>& args) -> Value {
+                this->erase(args);
+                return Value();
+            };
+            return Ptr(new Value(cb));
+        }
     }
     auto i = properties.find(name);
     if (i != properties.end()) return i->second;
+    if (create) {
+        properties[name] = Ptr(new Value());
+        return properties[name];
+    }
     return {};
 }
 
 bool Value::setProperty(const std::string& name, const Value& val) {
     if (name == "length" || name == "resize" || name == "append" || name == "insert" ||
-        name == "clear")
+        name == "clear" || name == "erase")
         return false;
     Ptr v = getProperty(name);
     if (!v) {
@@ -230,6 +242,22 @@ void Value::insert(const std::vector<Value>& args) {
         ins.reserve(args.size() - 1);
         for (unsigned int j = 1; j < args.size(); ++j) ins.push_back(Ptr(new Value(args[j])));
         arr->insert(arr->begin() + i, ins.begin(), ins.end());
+    }
+}
+
+void Value::erase(const std::vector<Value>& args) {
+    Value::Array* arr = std::get_if<Value::Array>(value.get());
+    if (arr) {
+        if (args.size() != 1) throw Error("erase() requires a position");
+        if (args[0].getType() != TNumeric)
+            throw Error("First argument of erase() must be Numeric");
+        if (std::floor(args[0].getAsNum()) != args[0].getAsNum())
+            throw Error("Position in erase() must be an integer");
+        if (args[0].getAsNum() < 0) throw Error("Position in erase() must be positive");
+
+        const unsigned int i = args[0].getAsNum();
+        if (i >= arr->size()) throw Error("Position in erase() is out of bounds");
+        arr->erase(arr->begin() + i);
     }
 }
 

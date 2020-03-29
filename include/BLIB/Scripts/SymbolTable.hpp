@@ -50,15 +50,17 @@ public:
      * @param name The name of the Value to get
      * @return Value::Ptr The Value or nullptr on error
      */
-    Value::Ptr get(const std::string& name);
+    Value::Ptr get(const std::string& name, bool create = false);
 
     /**
      * @brief Sets a Value in the table in the current frame
      *
      * @param name Name of the symbol to set or create
      * @param value The value to store in the table
+     * @param forceTop If true will create the variable in the current scope even if it exists
+     *                 in higher scope
      */
-    void set(const std::string& name, const Value& value); // TODO - allow force top
+    void set(const std::string& name, const Value& value, bool forceTop = false);
 
 private:
     std::vector<std::unordered_map<std::string, Value::Ptr>> table;

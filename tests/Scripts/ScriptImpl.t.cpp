@@ -155,14 +155,78 @@ struct FunctionTest {
     const std::string fdef;
     const std::string call;
     const Value result;
+
+    FunctionTest(const std::string& fdef, const std::string& call, const Value& result)
+    : fdef(fdef)
+    , call(call)
+    , result(result) {}
 };
 
 class ScriptImplFunctionTest : public ::testing::TestWithParam<FunctionTest> {};
 
 TEST_P(ScriptImplFunctionTest, FunctionTest) {
     const FunctionTest t = GetParam();
-    // TODO - parse fdef and execute statements to populate symbol table
+    ASSERT_EQ(t.result.getType(), Value::TNumeric) << "Test only works with Numeric type";
+
+    parser::Grammar grammar     = Parser::getGrammar();
+    parser::Tokenizer tokenizer = Parser::getTokenizer();
+    grammar.setStart(G::Value);
+    bl::Parser cparser(grammar, tokenizer);
+    ASSERT_TRUE(cparser.valid());
+    grammar.setStart(G::Statement);
+    bl::Parser fparser(grammar, tokenizer);
+    ASSERT_TRUE(fparser.valid());
+
+    parser::Node::Ptr fdef = fparser.parse(t.fdef);
+    ASSERT_NE(fdef.get(), nullptr);
+    parser::Node::Ptr call = cparser.parse(t.call);
+    ASSERT_NE(call.get(), nullptr);
+
+    try {
+        SymbolTable table;
+        ScriptImpl::runStatement(fdef, table);
+        const Value v = ScriptImpl::computeValue(call, table);
+        ASSERT_EQ(v.getType(), Value::TNumeric);
+        ASSERT_EQ(v.getAsNum(), t.result.getAsNum());
+    } catch (const Error& err) {
+        FAIL() << err.stacktrace() << "\n"
+               << err.message() << "\n"
+               << t.fdef << "\n"
+               << t.call;
+    }
 }
+
+const std::string eliftest =
+    "def func(a, b, c) { if (a < b) return a; elif (b < c) return b; else return c;}";
+const std::string whiletest = "def func(a, l) { i = 0; sum = 0; while (i < l) { sum = sum + "
+                              "a; i = i + 1; } return sum;}";
+
+INSTANTIATE_TEST_CASE_P(
+    ScriptImplFunctions, ScriptImplFunctionTest,
+    ::testing::Values(
+        FunctionTest("def func(var) { return var; }", "func(5)", 5),
+        FunctionTest("def func(l,r) { return l-r; }", "func(5, 4)", 1),
+        FunctionTest("def func(l,r) { s = l+r; return s-5; }", "func(5, 4)", 4),
+        FunctionTest("def func(l,r) { s = [l,r]; return s.length; }", "func(5, 4)", 2),
+        FunctionTest("def func(l,r) { s = [l,r]; s.append(l,r); return s.length; }",
+                     "func(5, 4)", 4),
+        FunctionTest("def func(l,r) { s = [l,r]; s.insert(0, l); return s[0]; }", "func(5, 4)",
+                     5),
+        FunctionTest("def func(l,r) { s = [l,r]; s.resize(3, r); return s.length+s[2]; }",
+                     "func(5, 4)", 7),
+        FunctionTest("def func(l,r) { s = [l,r]; s.erase(0); return s[0]; }", "func(5, 4)", 4),
+        FunctionTest("def func(l,r) { s = [l,r]; s.clear(); return s.length; }", "func(5, 4)",
+                     0),
+        FunctionTest(eliftest, "func(1,2,3)", 1), FunctionTest(eliftest, "func(5,2,3)", 2),
+        FunctionTest(eliftest, "func(5,4,3)", 3), FunctionTest(whiletest, "func(5, 2)", 10),
+        FunctionTest(whiletest, "func(5, 0)", 0),
+        FunctionTest("def f() { a = [1,2,3]; a[2] = 5; return a[2];}", "f()", 5),
+        FunctionTest("def f() { v = 5; v.p = 2; v.p.p = 5; return v.p.p;}", "f()", 5),
+        FunctionTest("def f() { v = 5; r = &v; v = 6; return r; }", "f()", 6),
+        FunctionTest("def f() { v = 5; r = &v; r = 6; return v; }", "f()", 6),
+        FunctionTest("def f() { v = 5; r = &v; n = &r; v = 6; return n; }", "f()", 6)
+        //
+        ));
 
 } // namespace unittest
 } // namespace scripts

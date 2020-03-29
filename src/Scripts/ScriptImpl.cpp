@@ -30,6 +30,7 @@ struct Ops {
 };
 
 Value deref(const Value& ref);
+Value::Ptr deref(Value::Ptr val);
 std::vector<Value> evalList(Symbol node, SymbolTable& table);
 std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran);
 
@@ -41,13 +42,15 @@ Value evalSum(Symbol node, SymbolTable& table);
 Value evalProd(Symbol node, SymbolTable& table);
 Value evalExp(Symbol node, SymbolTable& table);
 Value evalTVal(Symbol node, SymbolTable& table);
-Value::Ptr evalRVal(Symbol node, SymbolTable& table);
+Value::Ptr evalRVal(Symbol node, SymbolTable& table, bool create = false);
 
 } // namespace
 
 Value ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
     if (node->type != G::Value)
-        throw Error("Internal error: computeValue called on non Value", node);
+        throw Error("Internal error: computeValue called on non Value: " +
+                        std::to_string(node->type),
+                    node);
     if (node->children.size() != 1)
         throw Error("Internal error: Value node has invalid child", node);
     if (node->children[0]->type != G::OrGrp)
@@ -57,15 +60,19 @@ Value ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
 
 Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
     if (node->type != G::Call)
-        throw Error("Internal error: funFunction called on non Call", node);
-    if (node->children.size() != 4 && node->children.size() != 3)
+        throw Error("Internal error: runFunction called on non Call", node);
+    if (node->children.size() != 2 && node->children.size() != 3)
         throw Error("Internal error: Invalid Call children", node);
 
     std::vector<Value> params;
     Value func = *evalRVal(node->children[0], table);
     if (func.getType() != Value::TFunction)
         throw Error("Cannot call non-function type", node->children[0]);
-    if (node->children.size() == 4) params = evalList(node->children[2], table);
+    if (node->children.size() == 2) {
+        node = node->children[1];
+        if (node->children.size() != 3) throw Error("Internal error: Invalid ArgList", node);
+        params = evalList(node->children[1], table);
+    }
 
     return func.getAsFunction()(table, params);
 }
@@ -79,7 +86,7 @@ std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
         if (node->children.size() == 2)
             return Value();
         else if (node->children.size() == 3)
-            return computeValue(node->children[2], table);
+            return computeValue(node->children[1], table);
         throw Error("Internal error: Invalid Ret children", node);
 
     case G::Call:
@@ -92,8 +99,26 @@ std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
     case G::Loop:
         return runLoop(node->children[0], table);
 
-    case G::Assignment:
-        // TODO
+    case G::Assignment: {
+        node = node->children[0];
+        if (node->children.size() != 4)
+            throw Error("Internal error: Invalid Assignment children", node);
+        Value::Ptr rv = evalRVal(node->children[0], table, true);
+        node          = node->children[2];
+        if (node->type == G::Ref) {
+            if (node->children.size() != 2)
+                throw Error("Internal error: Invalid Ref children", node);
+            Value::Ptr v = evalRVal(node->children[1], table);
+            *rv          = Value::Ref(v);
+        }
+        else if (node->type == G::Value) {
+            rv  = deref(rv);
+            *rv = computeValue(node, table);
+        }
+        else
+            throw Error("Internal error: Invalid Assignment children", node);
+        break;
+    }
 
     case G::FDef: {
         node = node->children[0];
@@ -112,6 +137,8 @@ std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
     default:
         throw Error("Internal error: Invalid Statement children", node);
     }
+
+    return {};
 }
 
 std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& table) {
@@ -155,7 +182,7 @@ std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& tabl
         default:
             throw Error("Internal error: Expected Statement, StmtBlock, or StmtList", node);
         }
-    } catch (const Error& err) { throw Error("", node, err); }
+    } catch (const Error& err) { throw Error("Called from here", node, err); }
 }
 
 std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
@@ -234,6 +261,7 @@ std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran) {
                 throw Error("Internal error: Invalid IfBlock children", node);
             return ScriptImpl::runStatementList(node->children[1], table);
         }
+        return {};
     }
     else if (node->children.size() == 2) {
         Symbol chain                 = node->children[0];
@@ -246,8 +274,9 @@ std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran) {
                 throw Error("Internal error: Invalid ElifBlock children", node);
             return ScriptImpl::runStatementList(node->children[1], table);
         }
+        return {};
     }
-    throw Error("Internal error: Invalid ElifChain children", node);
+    throw Error("Internal error: Invalid ElifChain children ", node);
 }
 
 Value evalOrGrp(Symbol node, SymbolTable& table) {
@@ -367,11 +396,11 @@ Value evalTVal(Symbol node, SymbolTable& table) {
     node = node->children[0];
     switch (node->type) {
     case G::RValue:
-        return *evalRVal(node, table);
+        return deref(*evalRVal(node, table));
     case G::PGroup:
         if (node->children.size() != 3)
             throw Error("Internal error: PGroup has invalid children", node);
-        return ScriptImpl::computeValue(node->children[1], table);
+        return deref(ScriptImpl::computeValue(node->children[1], table));
     case G::NumLit: {
         std::stringstream ss(node->data);
         float f;
@@ -400,22 +429,22 @@ Value evalTVal(Symbol node, SymbolTable& table) {
     }
 }
 
-Value::Ptr evalRVal(Symbol node, SymbolTable& table) {
+Value::Ptr evalRVal(Symbol node, SymbolTable& table, bool create) {
     if (node->type != G::RValue) throw Error("Internal error: evalRVal called on non RValue");
     if (node->children.size() != 1) throw Error("Internal error: RValue has invalid children");
 
     node = node->children[0];
     switch (node->type) {
     case G::Id: {
-        Value::Ptr v = table.get(node->data);
+        Value::Ptr v = table.get(node->data, create);
         if (!v) throw Error("Use of undefined symbol '" + node->data + "'", node);
         return v;
     }
     case G::Property: {
         if (node->children.size() != 3)
             throw Error("Internal error: Invalid Property children", node);
-        Value::Ptr v = evalRVal(node->children[0], table);
-        v            = v->getProperty(node->children[2]->data);
+        Value::Ptr v = evalRVal(node->children[0], table, create);
+        v            = v->getProperty(node->children[2]->data, create);
         if (!v)
             throw Error("Undefined property '" + node->children[2]->data + "'",
                         node->children[2]);
@@ -424,7 +453,7 @@ Value::Ptr evalRVal(Symbol node, SymbolTable& table) {
     case G::ArrayAcc: {
         if (node->children.size() != 4)
             throw Error("Internal error: Invalid ArrayAcc children", node);
-        Value::Ptr v = evalRVal(node->children[0], table);
+        Value::Ptr v = evalRVal(node->children[0], table, create);
         Value i      = ScriptImpl::computeValue(node->children[2], table);
         if (v->getType() != Value::TArray)
             throw Error("Array access on non-array type", node->children[0]);
@@ -644,8 +673,6 @@ Value Ops::Le(const Value& lhs, const Value& rhs) {
 }
 
 Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
-    std::cout << "Adding: " << lhs.getAsNum() << " + " << rhs.getAsNum() << std::endl;
-
     Value rh = deref(rhs);
     Value lh = deref(lhs);
 
@@ -746,6 +773,15 @@ Value deref(const Value& v) {
         return Value();
     }
     return v;
+}
+
+Value::Ptr deref(Value::Ptr val) {
+    if (val->getType() == Value::TRef) {
+        Value::Ptr r = val->getAsRef().lock();
+        if (!r) throw Error("Expired reference");
+        return deref(r);
+    }
+    return val;
 }
 
 } // namespace

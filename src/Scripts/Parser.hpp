@@ -106,7 +106,7 @@ struct Parser {
         // Function Call
         ValueList, // Value. ValueList Comma Value
         ArgList,   // LParen ValueList RParen
-        Call,      // RValue LParen ValueList RParen. RValue LParen RParen
+        Call,      // RValue ArgList. RValue LParen RParen
 
         // IfBlock and Loop
         IfHead,      // If PGroup

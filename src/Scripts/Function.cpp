@@ -70,7 +70,7 @@ Value Function::operator()(SymbolTable& table, const std::vector<Value>& args) c
                         root);
         }
         table.pushFrame();
-        for (unsigned int i = 0; i < args.size(); ++i) { table.set(plist[i], args[i]); }
+        for (unsigned int i = 0; i < args.size(); ++i) { table.set(plist[i], args[i], true); }
         const std::optional<Value> ret =
             ScriptImpl::runStatementList(root->children[1], table);
         table.popFrame();

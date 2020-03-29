@@ -139,8 +139,9 @@ public:
      * @brief Returns the given Property. nullptr if none
      *
      * @param name Name of the property to access
+     * @param create If true, creates the property if it doesn't exist
      */
-    Ptr getProperty(const std::string& name);
+    Ptr getProperty(const std::string& name, bool create = false);
 
     /**
      * @brief Assigns a Value to the given property name
@@ -165,6 +166,7 @@ private:
     void append(const std::vector<Value>& args);
     void resize(const std::vector<Value>& args);
     void insert(const std::vector<Value>& args);
+    void erase(const std::vector<Value>& args);
 };
 
 } // namespace scripts

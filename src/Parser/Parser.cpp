@@ -70,12 +70,10 @@ bool doReduction(const Grammar& g, std::vector<Node::Ptr>& nonterminals,
         const int si = nt->children.size() - i - 1;
         if (g.terminal(prod.set[pi])) {
             nt->children[si] = terminals.back();
-            nt->data.insert(0, terminals.back()->data); // TODO - remove
             terminals.pop_back();
         }
         else if (g.nonterminal(prod.set[pi])) {
             nt->children[si] = nonterminals.back();
-            nt->data.insert(0, nonterminals.back()->data);
             nonterminals.pop_back();
         }
         else {

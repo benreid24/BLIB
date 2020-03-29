@@ -41,7 +41,7 @@ public:
      *
      * @param tree The root node of type FDef
      */
-    Function(parser::Node::Ptr tree);
+    Function(parser::Node::Ptr fdef);
 
     /**
      * @brief Construct a new Function from a user defined function
