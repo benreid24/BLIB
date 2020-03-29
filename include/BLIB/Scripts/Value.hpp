@@ -24,7 +24,7 @@ public:
 
     enum Type { TVoid, TBool, TString, TNumeric, TArray, TFunction, TRef };
 
-    typedef std::vector<Value> Array;
+    typedef std::vector<Ptr> Array;
     typedef std::weak_ptr<Value> Ref;
     typedef std::weak_ptr<const Value> CRef;
 
@@ -63,6 +63,8 @@ public:
      */
     Value& operator=(const Array& array);
     Value(const Array& array);
+    Value& operator=(const std::vector<Value>& array);
+    Value(const std::vector<Value>& array);
 
     /**
      * @brief Makes Ref type
@@ -134,11 +136,11 @@ public:
     Function getAsFunction() const;
 
     /**
-     * @brief Returns the given Property. TVoid if none
+     * @brief Returns the given Property. nullptr if none
      *
      * @param name Name of the property to access
      */
-    Value getProperty(const std::string& name) const;
+    Ptr getProperty(const std::string& name);
 
     /**
      * @brief Assigns a Value to the given property name
@@ -150,15 +152,19 @@ public:
     bool setProperty(const std::string& name, const Value& value);
 
 private:
-    // TODO - change array and proprties to use Ptr for Ref to work. figure out length. Maybe
-    // have properties remember their parent Value
     typedef std::variant<bool, float, std::string, Array, Ref, Function> TData;
 
     Type type;
     std::unique_ptr<TData> value;
-    std::map<std::string, Value> properties;
+    std::map<std::string, Ptr> properties;
 
     void resetProps();
+
+    // built-ins for arrays
+    void clear();
+    void append(const std::vector<Value>& args);
+    void resize(const std::vector<Value>& args);
+    void insert(const std::vector<Value>& args);
 };
 
 } // namespace scripts

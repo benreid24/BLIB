@@ -41,7 +41,7 @@ Value evalSum(Symbol node, SymbolTable& table);
 Value evalProd(Symbol node, SymbolTable& table);
 Value evalExp(Symbol node, SymbolTable& table);
 Value evalTVal(Symbol node, SymbolTable& table);
-Value evalRVal(Symbol node, SymbolTable& table);
+Value::Ptr evalRVal(Symbol node, SymbolTable& table);
 
 } // namespace
 
@@ -62,7 +62,7 @@ Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
         throw Error("Internal error: Invalid Call children", node);
 
     std::vector<Value> params;
-    Value func = evalRVal(node->children[0], table);
+    Value func = *evalRVal(node->children[0], table);
     if (func.getType() != Value::TFunction)
         throw Error("Cannot call non-function type", node->children[0]);
     if (node->children.size() == 4) params = evalList(node->children[2], table);
@@ -367,7 +367,7 @@ Value evalTVal(Symbol node, SymbolTable& table) {
     node = node->children[0];
     switch (node->type) {
     case G::RValue:
-        return evalRVal(node, table);
+        return *evalRVal(node, table);
     case G::PGroup:
         if (node->children.size() != 3)
             throw Error("Internal error: PGroup has invalid children", node);
@@ -400,7 +400,7 @@ Value evalTVal(Symbol node, SymbolTable& table) {
     }
 }
 
-Value evalRVal(Symbol node, SymbolTable& table) {
+Value::Ptr evalRVal(Symbol node, SymbolTable& table) {
     if (node->type != G::RValue) throw Error("Internal error: evalRVal called on non RValue");
     if (node->children.size() != 1) throw Error("Internal error: RValue has invalid children");
 
@@ -409,14 +409,14 @@ Value evalRVal(Symbol node, SymbolTable& table) {
     case G::Id: {
         Value::Ptr v = table.get(node->data);
         if (!v) throw Error("Use of undefined symbol '" + node->data + "'", node);
-        return *v;
+        return v;
     }
     case G::Property: {
         if (node->children.size() != 3)
             throw Error("Internal error: Invalid Property children", node);
-        Value v = evalRVal(node->children[0], table);
-        v       = v.getProperty(node->children[2]->data);
-        if (v.getType() == Value::TVoid)
+        Value::Ptr v = evalRVal(node->children[0], table);
+        v            = v->getProperty(node->children[2]->data);
+        if (!v)
             throw Error("Undefined property '" + node->children[2]->data + "'",
                         node->children[2]);
         return v;
@@ -424,19 +424,19 @@ Value evalRVal(Symbol node, SymbolTable& table) {
     case G::ArrayAcc: {
         if (node->children.size() != 4)
             throw Error("Internal error: Invalid ArrayAcc children", node);
-        Value v = evalRVal(node->children[0], table);
-        Value i = ScriptImpl::computeValue(node->children[2], table);
-        if (v.getType() != Value::TArray)
+        Value::Ptr v = evalRVal(node->children[0], table);
+        Value i      = ScriptImpl::computeValue(node->children[2], table);
+        if (v->getType() != Value::TArray)
             throw Error("Array access on non-array type", node->children[0]);
         if (i.getType() != Value::TNumeric)
             throw Error("Array indices must be Numeric", node->children[2]);
         unsigned int j = static_cast<unsigned int>(i.getAsNum());
         if (i.getAsNum() != j)
             throw Error("Array indices must be positive integers", node->children[2]);
-        if (j >= v.getAsArray().size())
+        if (j >= v->getAsArray().size())
             throw Error("Array index " + std::to_string(j) + " out of bounds",
                         node->children[2]);
-        return v.getAsArray()[j];
+        return v->getAsArray()[j];
     }
     default:
         throw Error("Internal error: Invalid RValue child", node);
@@ -497,7 +497,7 @@ Value Ops::Eq(const Value& lhs, const Value& rhs) {
     case Value::TArray:
         if (rh.getAsArray().size() == lh.getAsArray().size()) {
             for (unsigned int i = 0; i < rh.getAsArray().size(); ++i) {
-                if (!Ops::Eq(rh.getAsArray()[i], lh.getAsArray()[i]).getAsBool()) {
+                if (!Ops::Eq(*rh.getAsArray()[i], *lh.getAsArray()[i]).getAsBool()) {
                     eq = false;
                     break;
                 }
@@ -660,7 +660,7 @@ Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
         throw Error("Only Numeric and String types may be added to Strings", node);
     case Value::TArray: {
         auto a = lh.getAsArray();
-        a.push_back(rhs);
+        a.push_back(Value::Ptr(new Value(rhs)));
         return a;
     }
     default:

@@ -62,7 +62,8 @@ SymbolTable genRef(const std::string& name, const Value& value, const std::strin
 SymbolTable genArray(const std::string& name, const Value& fill, unsigned int len) {
     SymbolTable t;
     Value::Array a;
-    a.resize(len, fill);
+    Value::Ptr f(new Value(fill));
+    a.resize(len, f);
     t.set(name, a);
     return t;
 }
@@ -107,7 +108,8 @@ TEST_P(ScriptImplValueTest, ValueTest) {
     case Value::TArray: {
         ASSERT_EQ(td.result.getAsArray().size(), actual.getAsArray().size()) << td.input;
         for (unsigned int i = 0; i < td.result.getAsArray().size(); ++i) {
-            EXPECT_EQ(td.result.getAsArray()[i].getAsNum(), actual.getAsArray()[i].getAsNum())
+            EXPECT_EQ(td.result.getAsArray()[i]->getAsNum(),
+                      actual.getAsArray()[i]->getAsNum())
                 << td.input;
         }
         break;

@@ -1,7 +1,9 @@
 #include <BLIB/Scripts/Value.hpp>
 
+#include <BLIB/Scripts/Error.hpp>
 #include <BLIB/Scripts/Function.hpp>
 #include <cmath>
+#include <functional>
 #include <iostream>
 
 namespace bl
@@ -53,6 +55,15 @@ Value& Value::operator=(const Array& arr) {
 }
 
 Value::Value(const Array& arr) { *this = arr; }
+
+Value& Value::operator=(const std::vector<Value>& a) {
+    std::vector<Ptr> array;
+    array.reserve(a.size());
+    for (const Value& v : a) array.push_back(Ptr(new Value(v)));
+    *this = array;
+}
+
+Value::Value(const std::vector<Value>& a) { *this = a; }
 
 Value& Value::operator=(Ref ref) {
     type = TRef;
@@ -131,33 +142,120 @@ Function Value::getAsFunction() const {
     return func ? *func : Function();
 }
 
-Value Value::getProperty(const std::string& name) const {
-    if (name == "length" && type == TArray) return static_cast<int>(getAsArray().size());
+Value::Ptr Value::getProperty(const std::string& name) {
+    if (type == TArray) {
+        using namespace std::placeholders;
+        if (name == "length")
+            return Ptr(new Value(static_cast<int>(getAsArray().size())));
+        else if (name == "resize") {
+            Function::CustomCB cb = [this](SymbolTable&,
+                                           const std::vector<Value>& args) -> Value {
+                this->resize(args);
+                return Value();
+            };
+            return Ptr(new Value(cb));
+        }
+        else if (name == "append") {
+            Function::CustomCB cb = [this](SymbolTable&,
+                                           const std::vector<Value>& args) -> Value {
+                this->append(args);
+                return Value();
+            };
+            return Ptr(new Value(cb));
+        }
+        else if (name == "insert") {
+            Function::CustomCB cb = [this](SymbolTable&,
+                                           const std::vector<Value>& args) -> Value {
+                this->insert(args);
+                return Value();
+            };
+            return Ptr(new Value(cb));
+        }
+        else if (name == "clear") {
+            Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>&) -> Value {
+                this->clear();
+                return Value();
+            };
+            return Ptr(new Value(cb));
+        }
+    }
     auto i = properties.find(name);
     if (i != properties.end()) return i->second;
     return {};
 }
 
 bool Value::setProperty(const std::string& name, const Value& val) {
-    if (type == TArray && name == "length") {
-        if (val.getType() != TNumeric) {
-            std::cerr << "Assigning array length to non-numeric type";
-            return false;
-        }
-        const float f = val.getAsNum();
-        if (std::floor(f) != f) {
-            std::cerr << "Array length must be an integer";
-            return false;
-        }
-        Array& a = *std::get_if<Array>(value.get());
-        a.resize(std::floor(f));
+    if (name == "length" || name == "resize" || name == "append" || name == "insert" ||
+        name == "clear")
+        return false;
+    Ptr v = getProperty(name);
+    if (!v) {
+        v                = Ptr(new Value(val));
+        properties[name] = v;
     }
     else
-        properties[name] = val;
+        *v = val;
     return true;
 }
 
 void Value::resetProps() { properties.clear(); }
+
+void Value::clear() {
+    Value::Array* arr = std::get_if<Value::Array>(value.get());
+    if (arr) arr->clear();
+}
+
+void Value::append(const std::vector<Value>& args) {
+    Value::Array* arr = std::get_if<Value::Array>(value.get());
+    if (arr) {
+        for (const Value& v : args) { arr->push_back(Ptr(new Value(v))); }
+    }
+}
+
+void Value::insert(const std::vector<Value>& args) {
+    Value::Array* arr = std::get_if<Value::Array>(value.get());
+    if (arr) {
+        if (args.size() < 2)
+            throw Error("insert() requires a position and a list of elements");
+        if (args[0].getType() != TNumeric)
+            throw Error("First argument of insert() must be Numeric");
+        if (std::floor(args[0].getAsNum()) != args[0].getAsNum())
+            throw Error("Position in insert() must be an integer");
+        if (args[0].getAsNum() < 0) throw Error("Position in insert() must be positive");
+
+        const unsigned int i = args[0].getAsNum();
+        if (i >= arr->size()) throw Error("Position in insert() is out of bounds");
+
+        std::vector<Ptr> ins;
+        ins.reserve(args.size() - 1);
+        for (unsigned int j = 1; j < args.size(); ++j) ins.push_back(Ptr(new Value(args[j])));
+        arr->insert(arr->begin() + i, ins.begin(), ins.end());
+    }
+}
+
+void Value::resize(const std::vector<Value>& args) {
+    Value::Array* arr = std::get_if<Value::Array>(value.get());
+    if (arr) {
+        if (args.size() != 1 && args.size() != 2)
+            throw Error("resize() expects a size and optional fill value");
+        if (args[0].getType() != TNumeric)
+            throw Error("First argument of resize() must be Numeric");
+        if (std::floor(args[0].getAsNum()) != args[0].getAsNum())
+            throw Error("Length in resize() must be an integer");
+        if (args[0].getAsNum() < 0) throw Error("Length in resize() must be positive");
+
+        const unsigned int len = args[0].getAsNum();
+        if (len < arr->size())
+            arr->resize(len);
+        else {
+            arr->reserve(len);
+            Value fill;
+            if (args.size() == 2) fill = args[1];
+            unsigned int s = len - arr->size();
+            for (unsigned int i = 0; i < s; ++i) { arr->push_back(Ptr(new Value(fill))); }
+        }
+    }
+}
 
 } // namespace scripts
 } // namespace bl

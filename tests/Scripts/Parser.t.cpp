@@ -234,6 +234,10 @@ TEST(ScriptParser, FullTree) {
     ASSERT_EQ(body->children[0]->type, G::Statement);
 
     body = body->children[0];
+    ASSERT_EQ(body->children.size(), 1);
+    ASSERT_EQ(body->children[0]->type, G::Ret);
+
+    body = body->children[0];
     ASSERT_EQ(body->children.size(), 3);
     ASSERT_EQ(body->children[0]->type, G::Return);
     ASSERT_EQ(body->children[1]->type, G::Value);
