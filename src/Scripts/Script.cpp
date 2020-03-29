@@ -29,7 +29,7 @@ bool Script::valid() const { return root.get() != nullptr; }
 
 std::optional<scripts::Value> Script::run(ScriptManager* manager) const {
     if (!valid()) return {};
-    ExecutionContext::Ptr ctx(new ExecutionContext());
+    ExecutionContext::Ptr ctx(new ExecutionContext(root));
     ctx->table = generateBaseTable();
     if (manager) ctx->table.registerManager(manager);
     addCustomSymbols(ctx->table);
@@ -39,7 +39,7 @@ std::optional<scripts::Value> Script::run(ScriptManager* manager) const {
 
 void Script::runBackground(ScriptManager* manager) const {
     if (!valid()) return;
-    ExecutionContext::Ptr ctx(new ExecutionContext());
+    ExecutionContext::Ptr ctx(new ExecutionContext(root));
     ctx->table = generateBaseTable();
     if (manager) ctx->table.registerManager(manager);
     addCustomSymbols(ctx->table);
@@ -52,7 +52,7 @@ void Script::runBackground(ScriptManager* manager) const {
 std::optional<scripts::Value> Script::execute(ExecutionContext::Ptr context) const {
     try {
         std::optional<scripts::Value> r =
-            ScriptImpl::runStatementList(root->children[0], context->table);
+            ScriptImpl::runStatementList(context->root->children[0], context->table);
         context->running = false;
         context.reset();
         return r.value_or(Value());
@@ -61,7 +61,7 @@ std::optional<scripts::Value> Script::execute(ExecutionContext::Ptr context) con
         context.reset();
         std::cerr << err.stacktrace() << std::endl;
         return {};
-    } catch (const Exit&) {}
+    } catch (const Exit&) { return {}; }
 }
 
 SymbolTable Script::generateBaseTable() const {

@@ -79,12 +79,14 @@ private:
         typedef std::shared_ptr<ExecutionContext> Ptr;
         typedef std::weak_ptr<ExecutionContext> WPtr;
 
+        parser::Node::Ptr root;
         std::shared_ptr<std::thread> thread;
         scripts::SymbolTable table;
         std::atomic_bool running;
 
-        ExecutionContext()
-        : running(true) {}
+        ExecutionContext(parser::Node::Ptr root)
+        : root(root)
+        , running(true) {}
     };
 
     /**

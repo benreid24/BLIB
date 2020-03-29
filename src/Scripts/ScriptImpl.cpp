@@ -464,6 +464,14 @@ Value evalTVal(Symbol node, SymbolTable& table) {
         r.makeBool(false);
         return r;
     }
+    case G::UNeg: {
+        if (node->children.size() != 2)
+            throw Error("Internal error: Invalid UNeg children", node);
+        const Value v = evalTVal(node->children[1], table);
+        if (v.getType() != Value::TNumeric)
+            throw Error("Right operand of unary '-' must be Numeric", node->children[1]);
+        return Value(-v.getAsNum());
+    }
     default:
         throw Error("Internal error: Invalid TValue child");
     }

@@ -108,6 +108,7 @@ parser::Grammar buildGrammar() {
     grammar.addNonTerminal(G::Property);
     grammar.addNonTerminal(G::ArrayAcc);
     grammar.addNonTerminal(G::RValue);
+    grammar.addNonTerminal(G::UNeg);
     grammar.addNonTerminal(G::TValue);
     grammar.addNonTerminal(G::Exp);
     grammar.addNonTerminal(G::Product);
@@ -156,6 +157,8 @@ parser::Grammar buildGrammar() {
 
     // Arithmetic
     grammar.addRule(G::PGroup, {G::LParen, G::Value, G::RParen});
+    grammar.addRule(G::UNeg, {G::Minus, G::TValue});
+    grammar.addRule(G::TValue, G::UNeg);
     grammar.addRule(G::TValue, G::PGroup);
     grammar.addRule(G::TValue, G::RValue);
     grammar.addRule(G::TValue, G::NumLit);

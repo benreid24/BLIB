@@ -86,7 +86,8 @@ struct Parser {
         RValue,   // Id. ArrayAcc. Property
 
         // Arithmetic
-        TValue,  // RValue. NumLit. StringLit. Call. PGroup. ArrayDef. True. False
+        UNeg,    // Minus TValue
+        TValue,  // RValue. NumLit. StringLit. Call. PGroup. ArrayDef. True. False. UNeg
         Exp,     // TValue. Exp Hat TValue
         Product, // Exp. Product Mult Exp. Product Div Exp
         Sum,     // Product. Sum Plus Product. Sum Minus Product

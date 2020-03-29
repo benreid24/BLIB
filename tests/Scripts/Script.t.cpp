@@ -69,5 +69,17 @@ TEST(Script, Manager) {
     ASSERT_TRUE(manager.terminateAll());
 }
 
+TEST(Script, Shadow) {
+    const std::string input = "x = 5; def f(x) { return x;} return f(10);";
+    const Script script(input);
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    const Value v = r.value();
+    ASSERT_EQ(v.getType(), Value::TNumeric);
+    ASSERT_EQ(v.getAsNum(), 10);
+}
+
 } // namespace unittest
 } // namespace bl

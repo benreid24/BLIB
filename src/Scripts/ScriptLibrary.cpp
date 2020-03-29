@@ -23,9 +23,11 @@ Value exit(SymbolTable&, const std::vector<Value>& args);
 Value error(SymbolTable&, const std::vector<Value>& args);
 Value str(SymbolTable&, const std::vector<Value>& args);
 Value num(SymbolTable&, const std::vector<Value>& args);
-Value pow(SymbolTable&, const std::vector<Value>& args);
 Value sqrt(SymbolTable&, const std::vector<Value>& args);
 Value abs(SymbolTable&, const std::vector<Value>& args);
+Value round(SymbolTable&, const std::vector<Value>& args);
+Value floor(SymbolTable&, const std::vector<Value>& args);
+Value ceil(SymbolTable&, const std::vector<Value>& args);
 Value sin(SymbolTable&, const std::vector<Value>& args);
 Value cos(SymbolTable&, const std::vector<Value>& args);
 Value tan(SymbolTable&, const std::vector<Value>& args);
@@ -41,9 +43,11 @@ const std::vector<builtin> builtins = {builtin("print", print),
                                        builtin("error", error),
                                        builtin("str", str),
                                        builtin("num", num),
-                                       builtin("pow", pow),
                                        builtin("sqrt", sqrt),
                                        builtin("abs", abs),
+                                       builtin("round", round),
+                                       builtin("floor", floor),
+                                       builtin("ceil", ceil),
                                        builtin("sin", sin),
                                        builtin("cos", cos),
                                        builtin("tan", tan),
@@ -136,6 +140,8 @@ Value str(SymbolTable& t, const std::vector<Value>& args) {
         return Value(args[0].getAsString());
     case Value::TArray: {
         std::string result = "[";
+        if (!args[0].getAsArray().empty())
+            result += str(t, {*(args[0].getAsArray()[0])}).getAsString();
         for (unsigned int i = 1; i < args[0].getAsArray().size(); ++i) {
             result += ", " + str(t, {*(args[0].getAsArray()[i])}).getAsString();
         }
@@ -167,13 +173,6 @@ Value num(SymbolTable&, const std::vector<Value>& args) {
     return Value(f);
 }
 
-Value pow(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 2) throw Error("pow() takes 2 arguments");
-    if (args[0].getType() != Value::TNumeric || args[1].getType() != Value::TNumeric)
-        throw Error("pow() only takes Numeric types");
-    return Value(std::pow(args[0].getAsNum(), args[1].getAsNum()));
-}
-
 Value sqrt(SymbolTable&, const std::vector<Value>& args) {
     if (args.size() != 1) throw Error("sqrt() takes 1 argument");
     if (args[0].getType() != Value::TNumeric) throw Error("sqrt() only takes Numeric types");
@@ -185,6 +184,24 @@ Value abs(SymbolTable&, const std::vector<Value>& args) {
     if (args.size() != 1) throw Error("abs() takes 1 argument");
     if (args[0].getType() != Value::TNumeric) throw Error("abs() only takes Numeric types");
     return Value(std::abs(args[0].getAsNum()));
+}
+
+Value round(SymbolTable&, const std::vector<Value>& args) {
+    if (args.size() != 1) throw Error("round() takes 1 argument");
+    if (args[0].getType() != Value::TNumeric) throw Error("round() only takes Numeric types");
+    return Value(std::round(args[0].getAsNum()));
+}
+
+Value floor(SymbolTable&, const std::vector<Value>& args) {
+    if (args.size() != 1) throw Error("floor() takes 1 argument");
+    if (args[0].getType() != Value::TNumeric) throw Error("floor() only takes Numeric types");
+    return Value(std::floor(args[0].getAsNum()));
+}
+
+Value ceil(SymbolTable&, const std::vector<Value>& args) {
+    if (args.size() != 1) throw Error("ceil() takes 1 argument");
+    if (args[0].getType() != Value::TNumeric) throw Error("ceil() only takes Numeric types");
+    return Value(std::ceil(args[0].getAsNum()));
 }
 
 Value sin(SymbolTable&, const std::vector<Value>& args) {
