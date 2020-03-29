@@ -1,4 +1,4 @@
-#include <BLIB/Parser/Tokenizer.hpp>
+ #include <BLIB/Parser/Tokenizer.hpp>
 #include <BLIB/Parser/WhitespaceSkipper.hpp>
 #include <gtest/gtest.h>
 
@@ -99,6 +99,26 @@ TEST(Tokenizer, MultipleTokens) {
     EXPECT_EQ(nodes[1]->data, "+");
     EXPECT_EQ(nodes[2]->type, varId);
     EXPECT_EQ(nodes[2]->data, "variable");
+}
+
+TEST(Tokenizer, Ambiguous) {
+    const std::string data = "== var =";
+    Stream stream(data);
+    Tokenizer tokenizer(WhitespaceSkipper::create());
+
+    const Node::Type Eq = 1;
+    tokenizer.addTokenType(Eq, "==");
+    const Node::Type Assign = 2;
+    tokenizer.addTokenType(Assign, "=");
+    const Node::Type Var = 3;
+    tokenizer.addTokenType(Var, "var");
+
+    const std::vector<Node::Ptr> nodes = tokenizer.tokenize(stream);
+
+    ASSERT_EQ(nodes.size(), 3);
+    EXPECT_EQ(nodes[0]->type, Eq);
+    EXPECT_EQ(nodes[1]->type, Var);
+    EXPECT_EQ(nodes[2]->type, Assign);
 }
 
 } // namespace unittest

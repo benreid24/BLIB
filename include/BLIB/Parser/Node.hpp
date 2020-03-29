@@ -18,6 +18,7 @@ namespace parser
 struct Node {
     typedef int Type;
     static constexpr Type None = -1;
+    static constexpr Type EOI  = -2;
     typedef std::vector<Type> Sequence;
 
     typedef std::shared_ptr<Node> Ptr;

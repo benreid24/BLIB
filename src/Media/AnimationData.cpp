@@ -141,7 +141,7 @@ void AnimationData::render(sf::RenderTarget& target, float elapsedTime,
         while (elapsedTime > totalLength) elapsedTime -= totalLength;
         while (elapsedTime > 0) {
             if (frames[i]->length > elapsedTime) break;
-            elapsedTime - frames[i]->length;
+            elapsedTime -= frames[i]->length;
             if (i >= frames.size() - 1) break;
             i += 1;
         }

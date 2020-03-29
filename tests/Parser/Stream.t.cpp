@@ -44,11 +44,13 @@ TEST(Stream, Location) {
     }
 }
 
-TEST(Stream, SeekN) {
+TEST(Stream, PeekN) {
     const std::string data = "12345";
     Stream stream(data);
     EXPECT_TRUE(stream.valid());
     EXPECT_EQ(stream.peekN(3), "123");
+    EXPECT_EQ(stream.peekN(1), "1");
+    for (int i = 0; i < 10; ++i) { EXPECT_EQ(stream.peekN(1), "1"); }
     EXPECT_EQ(stream.peek(), '1');
 }
 

@@ -9,7 +9,8 @@ Tokenizer::Tokenizer(ISkipper::Ptr skipper)
 : skipper(skipper) {}
 
 void Tokenizer::addTokenType(Node::Type type, const std::string& regex) {
-    matchers.push_front(std::make_pair(std::regex(regex.c_str()), type));
+    matchers[regex] = std::make_pair(std::regex(regex.c_str()), type);
+    recomputeAmbiguous();
 }
 
 void Tokenizer::addEscapeSequence(const std::string& sequence, char c) {
@@ -17,6 +18,10 @@ void Tokenizer::addEscapeSequence(const std::string& sequence, char c) {
 }
 
 void Tokenizer::addSkipperToggleChar(char c) { togglers.push_back(c); }
+
+void Tokenizer::addKeyword(Node::Type src, Node::Type res, const std::string& kword) {
+    kwords[src].push_back({kword, res});
+}
 
 std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
     std::vector<Node::Ptr> tokens;
@@ -45,9 +50,31 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
 
         for (const auto& matcher : matchers) {
             std::smatch result;
-            if (std::regex_match(current, result, matcher.first)) {
-                std::string temp = current + input.peek();
-                if (std::regex_match(temp, matcher.first)) continue;
+            if (std::regex_match(current, result, matcher.second.first)) {
+                bool cont = false;
+                for (int i = 1; i <= 3; ++i) {
+                    const std::string temp = current + input.peekN(i);
+                    if (std::regex_match(temp, matcher.second.first)) {
+                        cont = true;
+                        break;
+                    }
+                }
+                if (cont) continue;
+
+                auto a = ambiguous.find(matcher.first);
+                if (a != ambiguous.end()) {
+                    bool skip = false;
+                    for (const std::string& k : a->second) {
+                        const std::string check =
+                            current + input.peekN(k.size() - current.size());
+                        const std::regex& m = matchers.find(k)->second.first;
+                        if (std::regex_match(check, m)) {
+                            skip = true;
+                            break;
+                        }
+                    }
+                    if (skip) continue;
+                }
 
                 Node::Ptr token(new Node());
                 if (result.size() > 1)
@@ -55,8 +82,19 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
                 else
                     token->data = result[0].str();
                 token->sourceLine   = input.currentLine();
-                token->sourceColumn = input.currentColumn();
-                token->type         = matcher.second;
+                token->sourceColumn = input.currentColumn() - token->data.size();
+                token->type         = matcher.second.second;
+
+                auto kiter = kwords.find(token->type);
+                if (kiter != kwords.end()) {
+                    for (const auto& t : kiter->second) {
+                        if (t.first == token->data) {
+                            token->type = t.second;
+                            break;
+                        }
+                    }
+                }
+
                 tokens.push_back(token);
                 current.clear();
                 break;
@@ -70,6 +108,17 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
         return {};
     }
     return tokens;
+}
+
+void Tokenizer::recomputeAmbiguous() {
+    ambiguous.clear();
+    for (const auto& check : matchers) {
+        for (const auto& sub : matchers) {
+            if (sub.first == check.first) continue;
+            if (check.first.find(sub.first) != std::string::npos)
+                ambiguous[sub.first].push_back(check.first);
+        }
+    }
 }
 
 } // namespace parser

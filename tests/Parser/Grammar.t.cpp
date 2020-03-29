@@ -1,4 +1,5 @@
 #include <BLIB/Parser/Grammar.hpp>
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 namespace bl
@@ -7,91 +8,100 @@ namespace parser
 {
 namespace unittest
 {
-TEST(Grammar, ReductionLookup) {
-    const Node::Type x = 1;
-    const Node::Type y = 2;
-    const Node::Type C = 3;
-    const Node::Type B = 4;
-    const Node::Type A = 5;
+using ::testing::ElementsAre;
+namespace
+{
+const int S = 1;
+const int A = 2;
+const int B = 3;
+const int C = 4;
+const int x = 5;
+const int y = 6;
 
+Grammar get() {
     Grammar grammar;
-    grammar.setStart(A);
-    grammar.addRule(C, x);      // C -> x
-    grammar.addRule(B, y);      // B -> y
-    grammar.addRule(A, {B, C}); // A -> B C
-    ASSERT_TRUE(grammar.compile());
-
-    Grammar::Reduction r = grammar.reductionLookup({x});
-    EXPECT_EQ(r.reductionsPossible, 1);
-    EXPECT_EQ(r.result, C);
-
-    r = grammar.reductionLookup({y});
-    EXPECT_EQ(r.reductionsPossible, 1);
-    EXPECT_EQ(r.result, B);
-
-    r = grammar.reductionLookup({B});
-    EXPECT_EQ(r.reductionsPossible, 1);
-    EXPECT_EQ(r.result, Node::None);
-
-    r = grammar.reductionLookup({C});
-    EXPECT_EQ(r.reductionsPossible, 0);
-    EXPECT_EQ(r.result, Node::None);
-
-    r = grammar.reductionLookup({x, y});
-    EXPECT_EQ(r.reductionsPossible, 0);
-    EXPECT_EQ(r.result, Node::None);
-
-    r = grammar.reductionLookup({B, C});
-    EXPECT_EQ(r.reductionsPossible, 1);
-    EXPECT_EQ(r.result, A);
+    grammar.addTerminal(x);
+    grammar.addTerminal(y);
+    grammar.addNonTerminal(S);
+    grammar.addNonTerminal(A);
+    grammar.addNonTerminal(B);
+    grammar.addNonTerminal(C);
+    return grammar;
 }
 
-TEST(Grammar, Disambiguate) {
-    const Node::Type C = 1;
-    const Node::Type B = 2;
-    const Node::Type A = 3;
-
-    Grammar grammar;
-    grammar.addRule(A, {B, C}); // A -> B C
-    grammar.addRule(A, B);      // A -> B
-    ASSERT_TRUE(grammar.compile());
-
-    Grammar::Reduction r = grammar.reductionLookup({B});
-    EXPECT_EQ(r.reductionsPossible, 2);
-    EXPECT_EQ(r.result, A);
-
-    r = grammar.reductionLookup({B, C});
-    EXPECT_EQ(r.reductionsPossible, 1);
-    EXPECT_EQ(r.result, A);
+void addProd(Grammar& grammar) {
+    grammar.addRule(S, A);
+    grammar.addRule(A, {B, C});
+    grammar.addRule(A, {A, A});
+    grammar.addRule(B, x);
+    grammar.addRule(C, y);
+    grammar.setStart(S);
 }
 
-TEST(Grammar, Combine) {
-    const Node::Type B = 1;
-    const Node::Type A = 2;
+} // namespace
 
-    Grammar grammar;
-    grammar.addRule(A, {A, B}); // A -> A B
-    grammar.addRule(A, B);      // A -> B
-    ASSERT_TRUE(grammar.compile());
+TEST(Grammar, SymbolTypes) {
+    Grammar grammar = get();
 
-    Grammar::Reduction r = grammar.reductionLookup({B});
-    EXPECT_EQ(r.reductionsPossible, 1);
-    EXPECT_EQ(r.result, A);
+    EXPECT_TRUE(grammar.terminal(x));
+    EXPECT_FALSE(grammar.nonterminal(x));
+    EXPECT_TRUE(grammar.terminal(y));
+    EXPECT_FALSE(grammar.nonterminal(y));
 
-    r = grammar.reductionLookup({A, B});
-    EXPECT_EQ(r.reductionsPossible, 1);
-    EXPECT_EQ(r.result, A);
+    EXPECT_TRUE(grammar.nonterminal(A));
+    EXPECT_FALSE(grammar.terminal(A));
+    EXPECT_TRUE(grammar.nonterminal(B));
+    EXPECT_FALSE(grammar.terminal(B));
+    EXPECT_TRUE(grammar.nonterminal(C));
+    EXPECT_FALSE(grammar.terminal(C));
+
+    EXPECT_FALSE(grammar.nonterminal(-1));
+    EXPECT_FALSE(grammar.terminal(-1));
 }
 
-TEST(Grammar, Ambiguous) {
-    const Node::Type C = 1;
-    const Node::Type B = 2;
-    const Node::Type A = 3;
+TEST(Grammar, Productions) {
+    Grammar grammar = get();
 
-    Grammar grammar;
-    grammar.addRule(A, B); // A -> B
-    grammar.addRule(C, B); // C -> B
-    ASSERT_FALSE(grammar.compile());
+    EXPECT_TRUE(grammar.addRule(S, A));
+    EXPECT_TRUE(grammar.addRule(A, {B, C}));
+    EXPECT_TRUE(grammar.addRule(A, {A, A}));
+    EXPECT_TRUE(grammar.addRule(B, x));
+    EXPECT_TRUE(grammar.addRule(C, y));
+
+    EXPECT_FALSE(grammar.addRule(S, -1));
+    EXPECT_FALSE(grammar.addRule(-1, S));
+    EXPECT_FALSE(grammar.addRule(-1, -1));
+}
+
+TEST(Grammar, Follow) {
+    Grammar grammar = get();
+    addProd(grammar);
+
+    EXPECT_THAT(grammar.followSet(S), ElementsAre(Node::EOI));
+    EXPECT_THAT(grammar.followSet(A), ElementsAre(x, Node::EOI));
+    EXPECT_THAT(grammar.followSet(B), ElementsAre(y));
+    EXPECT_THAT(grammar.followSet(C), ElementsAre(x, Node::EOI));
+    EXPECT_THAT(grammar.followSet(x), ElementsAre(y));
+    EXPECT_THAT(grammar.followSet(y), ElementsAre(x, Node::EOI));
+}
+
+TEST(Grammar, Closure) {
+    Grammar grammar = get();
+    addProd(grammar);
+
+    Grammar::Production r0 = {S, {A}};
+    Grammar::Production r1 = {A, {B, C}};
+    Grammar::Production r2 = {A, {A, A}};
+    Grammar::Production r3 = {B, {x}};
+    Grammar::Production r4 = {C, {y}};
+
+    Grammar::Item i0(r0, 0);
+    Grammar::Item i1(r1, 0);
+    Grammar::Item i2(r3, 0);
+    Grammar::Item i3(r2, 0);
+
+    Grammar::ItemSet s0 = grammar.closure(i0);
+    EXPECT_THAT(s0.items(), ElementsAre(i0, i1, i2, i3));
 }
 
 } // namespace unittest

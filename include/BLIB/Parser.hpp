@@ -7,6 +7,7 @@
  *
  */
 
+#include <BLIB/Parser/CommentSkipper.hpp>
 #include <BLIB/Parser/Grammar.hpp>
 #include <BLIB/Parser/ISkipper.hpp>
 #include <BLIB/Parser/Node.hpp>

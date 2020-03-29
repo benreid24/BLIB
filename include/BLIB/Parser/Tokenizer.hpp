@@ -5,6 +5,7 @@
 #include <BLIB/Parser/Node.hpp>
 
 #include <list>
+#include <map>
 #include <regex>
 #include <vector>
 
@@ -55,6 +56,16 @@ public:
     void addEscapeSequence(const std::string& sequence, char c);
 
     /**
+     * @brief Set exact matches of a particular string of one node type to map to another type
+     *        Meant to do transformations from general id tokens to specific keywords
+     *
+     * @param rootType Node type to check exact matchs from
+     * @param kwordType Node type to map to
+     * @param kword Keyword to perform the transformation on
+     */
+    void addKeyword(Node::Type rootType, Node::Type kwordType, const std::string& kword);
+
+    /**
      * @brief Parses the input stream into a token list
      *
      * @param input Stream to parse
@@ -64,9 +75,13 @@ public:
 
 private:
     ISkipper::Ptr skipper;
-    std::list<std::pair<std::regex, Node::Type>> matchers;
+    std::map<std::string, std::pair<std::regex, Node::Type>> matchers;
+    std::map<std::string, std::list<std::string>> ambiguous;
+    std::map<Node::Type, std::vector<std::pair<std::string, Node::Type>>> kwords;
     std::vector<char> togglers;
     std::vector<std::pair<std::string, char>> escapeSequences;
+
+    void recomputeAmbiguous();
 };
 
 } // namespace parser
