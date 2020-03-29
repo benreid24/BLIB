@@ -82,7 +82,7 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
                 else
                     token->data = result[0].str();
                 token->sourceLine   = input.currentLine();
-                token->sourceColumn = input.currentColumn();
+                token->sourceColumn = input.currentColumn() - token->data.size();
                 token->type         = matcher.second.second;
 
                 auto kiter = kwords.find(token->type);

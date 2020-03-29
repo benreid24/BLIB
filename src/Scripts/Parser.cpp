@@ -53,6 +53,8 @@ parser::Tokenizer buildTokenizer() {
     tokenizer.addKeyword(G::Id, G::Not, "not");
     tokenizer.addKeyword(G::Id, G::True, "true");
     tokenizer.addKeyword(G::Id, G::False, "false");
+    tokenizer.addKeyword(G::Id, G::For, "for");
+    tokenizer.addKeyword(G::Id, G::In, "in");
 
     return tokenizer;
 }
@@ -71,6 +73,8 @@ parser::Grammar buildGrammar() {
     grammar.addTerminal(G::Elif);
     grammar.addTerminal(G::Else);
     grammar.addTerminal(G::While);
+    grammar.addTerminal(G::For);
+    grammar.addTerminal(G::In);
     grammar.addTerminal(G::Return);
     grammar.addTerminal(G::And);
     grammar.addTerminal(G::Or);
@@ -129,6 +133,8 @@ parser::Grammar buildGrammar() {
     grammar.addNonTerminal(G::Conditional);
     grammar.addNonTerminal(G::LoopHead);
     grammar.addNonTerminal(G::Loop);
+    grammar.addNonTerminal(G::ForHead);
+    grammar.addNonTerminal(G::ForLoop);
     grammar.addNonTerminal(G::Ret);
     grammar.addNonTerminal(G::Statement);
     grammar.addNonTerminal(G::StmtList);
@@ -218,6 +224,9 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::LoopHead, {G::While, G::PGroup});
     grammar.addRule(G::Loop, {G::LoopHead, G::Statement});
     grammar.addRule(G::Loop, {G::LoopHead, G::StmtBlock});
+    grammar.addRule(G::ForHead, {G::For, G::LParen, G::Id, G::In, G::Value, G::RParen});
+    grammar.addRule(G::ForLoop, {G::ForHead, G::Statement});
+    grammar.addRule(G::ForLoop, {G::ForHead, G::StmtBlock});
 
     // Statements
     grammar.addRule(G::Ret, {G::Return, G::Term});
@@ -227,6 +236,7 @@ parser::Grammar buildGrammar() {
     grammar.addRule(G::Statement, G::Assignment);
     grammar.addRule(G::Statement, G::Conditional);
     grammar.addRule(G::Statement, G::Loop);
+    grammar.addRule(G::Statement, G::ForLoop);
     grammar.addRule(G::Statement, G::FDef);
     grammar.addRule(G::StmtList, G::Statement);
     grammar.addRule(G::StmtList, {G::StmtList, G::Statement});

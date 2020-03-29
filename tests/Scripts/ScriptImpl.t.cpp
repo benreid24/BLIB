@@ -228,9 +228,9 @@ INSTANTIATE_TEST_CASE_P(
         FunctionTest("def f() { v = 5; v.p = 2; v.p.p = 5; return v.p.p;}", "f()", 5),
         FunctionTest("def f() { v = 5; r = &v; v = 6; return r; }", "f()", 6),
         FunctionTest("def f() { v = 5; r = &v; r = 6; return v; }", "f()", 6),
-        FunctionTest("def f() { v = 5; r = &v; n = &r; v = 6; return n; }", "f()", 6)
-        //
-        ));
+        FunctionTest("def f() { v = 5; r = &v; n = &r; v = 6; return n; }", "f()", 6),
+        FunctionTest("def f(a) { s = 0; for (x in a) s = s + x; return s; }", "f([1,2,3])",
+                     6)));
 
 } // namespace unittest
 } // namespace scripts

@@ -104,6 +104,9 @@ std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
     case G::Loop:
         return runLoop(node->children[0], table);
 
+    case G::ForLoop:
+        return runForLoop(node->children[0], table);
+
     case G::Assignment: {
         node = node->children[0];
         if (node->children.size() != 4)
@@ -206,6 +209,33 @@ std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
     while (evaluateCond(head, table)) {
         if (table.killed()) throw Error("Script killed");
         const std::optional<Value> r = runStatementList(node->children[1], table);
+        if (r.has_value()) return r;
+    }
+    return {};
+}
+
+std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
+    if (table.killed()) throw Error("Script killed");
+    if (node->type != G::ForLoop) throw Error("Internal error: Expected ForLoop", node);
+    if (node->children.size() != 2)
+        throw Error("Internal error: Invalid ForLoop children", node);
+
+    Symbol head = node->children[0];
+    if (head->type != G::ForHead) throw Error("Internal error: Invalid ForLoop child", head);
+    if (head->children.size() != 6) throw Error("Invalid ForHead children", head);
+    if (head->children[2]->type != G::Id)
+        throw Error("Invalid ForHead child", head->children[2]);
+
+    const Value arr        = computeValue(head->children[4], table);
+    const std::string iter = head->children[2]->data;
+    if (arr.getType() != Value::TArray)
+        throw Error("For loop can only iterate over Array type", head->children[4]);
+    for (const Value::Ptr v : arr.getAsArray()) {
+        if (table.killed()) throw Error("Script killed");
+        table.pushFrame();
+        table.set(iter, *v, true);
+        std::optional<Value> r = runStatementList(node->children[1], table);
+        table.popFrame();
         if (r.has_value()) return r;
     }
     return {};

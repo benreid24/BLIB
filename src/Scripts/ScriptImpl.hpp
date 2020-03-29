@@ -60,6 +60,13 @@ struct ScriptImpl {
     static std::optional<Value> runLoop(parser::Node::Ptr loop, SymbolTable& table);
 
     /**
+     * @brief Runs a ForLoop
+     *
+     * @return std::optional<Value> Value of any executed Return, null if no return
+     */
+    static std::optional<Value> runForLoop(parser::Node::Ptr loop, SymbolTable& table);
+
+    /**
      * @brief Evaluates a PGroup to true or false
      *
      */

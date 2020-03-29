@@ -46,6 +46,8 @@ struct Parser {
         Elif,      // elif
         Else,      // Else
         While,     // while
+        For,       // for
+        In,        // In
         Return,    // return
         And,       // and
         Or,        // or
@@ -108,7 +110,7 @@ struct Parser {
         ArgList,   // LParen ValueList RParen
         Call,      // RValue ArgList. RValue LParen RParen
 
-        // IfBlock and Loop
+        // Conditional
         IfHead,      // If PGroup
         ElifHead,    // Elif PGroup
         IfBlock,     // IfHead Statement. IfHead StmtBlock
@@ -117,12 +119,16 @@ struct Parser {
         ElifChain,   // IfBlock. ElifChain ElifBlock
         ElseCond,    // ElifChain ElseBlock
         Conditional, // ElifChain. ElseCond
-        LoopHead,    // While PGroup
-        Loop,        // LoopHead Statement. LoopHead StmtBlock
+
+        // Loop
+        LoopHead, // While PGroup
+        Loop,     // LoopHead Statement. LoopHead StmtBlock
+        ForHead,  // For LParen Id In Value RParen
+        ForLoop,  // ForHead Statement. ForHead StmtBlock
 
         // Statements
         Ret,       // Return Term. Return Value Term
-        Statement, // Ret. Call Term. Conditional. Loop. Assignment. FDef
+        Statement, // Ret. Call Term. Conditional. Loop. ForLoop. Assignment. FDef
         StmtList,  // Statement. StmtList Statement
         StmtBlock, // LBrc StmtList RBrc
 

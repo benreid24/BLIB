@@ -92,8 +92,8 @@ bool doReduction(const Grammar& g, std::vector<Node::Ptr>& nonterminals,
         }
     }
 
-    nt->sourceLine   = nt->children.back()->sourceLine;
-    nt->sourceColumn = nt->children.back()->sourceColumn;
+    nt->sourceLine   = nt->children.front()->sourceLine;
+    nt->sourceColumn = nt->children.front()->sourceColumn;
     nonterminals.push_back(nt);
     return true;
 }
