@@ -17,10 +17,10 @@ public:
     /**
      * @brief Terminates all running scripts
      *
-     * @param timeout Time, in seconds, to wait before force killing threads
+     * @param timeout Time, in seconds, to wait reporting status
      *
      */
-    void terminateAll(float timeout = 5.0f);
+    bool terminateAll(float timeout = 5.0f);
 
 private:
     std::mutex mutex;
@@ -32,6 +32,12 @@ private:
      * @param record The execution record to utilize
      */
     void watch(Script::ExecutionContext::WPtr record);
+
+    /**
+     * @brief Removes records of completed scripts
+     *
+     */
+    void clean();
 
     friend class Script;
 };

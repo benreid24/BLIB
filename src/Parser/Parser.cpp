@@ -188,7 +188,7 @@ Node::Ptr Parser::parse(Stream& input) const {
 
     if (nonterminals.empty()) {
         if (!terminals.empty()) error(terminals.back());
-        std::cout << "Unable to perform reduction" << std::endl;
+        std::cerr << "Unable to perform reduction" << std::endl;
         return nullptr;
     }
     if (!terminals.empty()) {
@@ -244,12 +244,12 @@ bool Parser::generateTables() {
                 for (Node::Type t : follow) {
                     if (table[i].actions.find(t) != table[i].actions.end()) {
                         if (table[i].actions[t].type == Action::Shift) {
-                            std::cout << "Shift-Reduce error\n";
+                            std::cerr << "Shift-Reduce error\n";
                             table.clear();
                             return false;
                         }
                         else {
-                            std::cout << "Reduce-Reduce error\n";
+                            std::cerr << "Reduce-Reduce error\n";
                             table.clear();
                             return false;
                         }

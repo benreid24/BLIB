@@ -62,8 +62,21 @@ public:
      */
     void set(const std::string& name, const Value& value, bool forceTop = false);
 
+    /**
+     * @brief Sets the internal kill flag to terminate script execution
+     *
+     */
+    void kill();
+
+    /**
+     * @brief Returns the value of the internal kill flag
+     *
+     */
+    bool killed() const;
+
 private:
     std::vector<std::unordered_map<std::string, Value::Ptr>> table;
+    bool stop;
 };
 
 } // namespace scripts

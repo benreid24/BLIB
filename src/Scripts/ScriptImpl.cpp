@@ -47,6 +47,8 @@ Value::Ptr evalRVal(Symbol node, SymbolTable& table, bool create = false);
 } // namespace
 
 Value ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
+    if (table.killed()) throw Error("Script killed");
+
     if (node->type != G::Value)
         throw Error("Internal error: computeValue called on non Value: " +
                         std::to_string(node->type),
@@ -59,6 +61,8 @@ Value ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
 }
 
 Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
+    if (table.killed()) throw Error("Script killed");
+
     if (node->type != G::Call)
         throw Error("Internal error: runFunction called on non Call", node);
     if (node->children.size() != 2 && node->children.size() != 3)
@@ -78,6 +82,7 @@ Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
 }
 
 std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
+    if (table.killed()) throw Error("Script killed");
     if (node->children.empty()) throw Error("Internal error: Invalid Statement", node);
 
     switch (node->children[0]->type) {
@@ -142,6 +147,8 @@ std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
 }
 
 std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& table) {
+    if (table.killed()) throw Error("Script killed");
+
     class ScopeGuard {
     public:
         ScopeGuard(Symbol node, SymbolTable& table)
@@ -186,6 +193,7 @@ std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& tabl
 }
 
 std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
+    if (table.killed()) throw Error("Script killed");
     if (node->type != G::Loop) throw Error("Internal error: Expected Loop", node);
     if (node->children.size() != 2) throw Error("Internal error: Invalid Loop children", node);
 
@@ -196,6 +204,7 @@ std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
     head = head->children[1]; // PGroup
 
     while (evaluateCond(head, table)) {
+        if (table.killed()) throw Error("Script killed");
         const std::optional<Value> r = runStatementList(node->children[1], table);
         if (r.has_value()) return r;
     }
@@ -203,6 +212,7 @@ std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
 }
 
 std::optional<Value> ScriptImpl::runConditional(Symbol node, SymbolTable& table) {
+    if (table.killed()) throw Error("Script killed");
     if (node->type != G::Conditional)
         throw Error("Internal error: Expected Conditional", node);
     if (node->children.size() != 1)
@@ -682,8 +692,12 @@ Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
         throw Error("Only a Numeric type may be added to a Numeric type", node);
     case Value::TString:
         if (rh.getType() == Value::TString) return lh.getAsString() + rh.getAsString();
-        if (rh.getType() == Value::TNumeric)
-            return lh.getAsString() + std::to_string(rh.getAsNum());
+        if (rh.getType() == Value::TNumeric) {
+            std::string str = std::to_string(rh.getAsNum());
+            if (std::floor(rh.getAsNum()) == rh.getAsNum())
+                str = std::to_string(static_cast<int>(rh.getAsNum()));
+            return lh.getAsString() + str;
+        }
         throw Error("Only Numeric and String types may be added to Strings", node);
     case Value::TArray: {
         auto a = lh.getAsArray();
@@ -697,8 +711,6 @@ Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
 }
 
 Value Ops::Sub(const Value& lhs, const Value& rhs, Symbol node) {
-    std::cout << "Subtracting: " << lhs.getAsNum() << " - " << rhs.getAsNum() << std::endl;
-
     Value rh = deref(rhs);
     Value lh = deref(lhs);
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
@@ -707,8 +719,6 @@ Value Ops::Sub(const Value& lhs, const Value& rhs, Symbol node) {
 }
 
 Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
-    std::cout << "Multiplying: " << lhs.getAsNum() << " * " << rhs.getAsNum() << std::endl;
-
     Value rh = deref(rhs);
     Value lh = deref(lhs);
 
@@ -746,8 +756,6 @@ Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
 }
 
 Value Ops::Div(const Value& lhs, const Value& rhs, Symbol node) {
-    std::cout << "Dividing: " << lhs.getAsNum() << " / " << rhs.getAsNum() << std::endl;
-
     Value rh = deref(rhs);
     Value lh = deref(lhs);
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
@@ -756,8 +764,6 @@ Value Ops::Div(const Value& lhs, const Value& rhs, Symbol node) {
 }
 
 Value Ops::Exp(const Value& lhs, const Value& rhs, Symbol node) {
-    std::cout << "Exponenting: " << lhs.getAsNum() << " ^ " << rhs.getAsNum() << std::endl;
-
     Value rh = deref(rhs);
     Value lh = deref(lhs);
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
@@ -769,7 +775,7 @@ Value deref(const Value& v) {
     if (v.getType() == Value::TRef) {
         Value::CPtr l = v.getAsRef().lock();
         if (l) return deref(*l);
-        std::cout << "Warning: Referenced Value expired";
+        std::cerr << "Warning: Referenced Value expired";
         return Value();
     }
     return v;

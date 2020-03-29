@@ -50,7 +50,7 @@ public:
      * @param result The non-terminal to generate
      * @param rhs The terminal or non-terminal node to reduce from
      */
-    bool addRule(Node::Type result, Node::Type rhs); // TODO - test add fail
+    bool addRule(Node::Type result, Node::Type rhs);
 
     /**
      * @brief Get the start symbol

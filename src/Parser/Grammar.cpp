@@ -9,7 +9,7 @@ namespace parser
 {
 void Grammar::setStart(Node::Type s) {
     if (!nonterminal(s)) {
-        std::cout << "Invalid start symbol " << s << std::endl;
+        std::cerr << "Invalid start symbol " << s << std::endl;
         return;
     }
     start = s;
@@ -19,12 +19,12 @@ Node::Type Grammar::getStart() const { return start; }
 
 bool Grammar::addRule(Node::Type result, const Node::Sequence& sequence) {
     if (!nonterminal(result)) {
-        std::cout << "Tried to add production to non nonterminal " << result << std::endl;
+        std::cerr << "Tried to add production to non nonterminal " << result << std::endl;
         return false;
     }
     for (Node::Type t : sequence) {
         if (!nonterminal(t) && !terminal(t)) {
-            std::cout << "Unrecognized node type in production: " << t << std::endl;
+            std::cerr << "Unrecognized node type in production: " << t << std::endl;
             return false;
         }
     }

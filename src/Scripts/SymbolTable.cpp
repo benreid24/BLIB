@@ -22,7 +22,10 @@ TableKey searchTable(const std::string& name,
 }
 } // namespace
 
-SymbolTable::SymbolTable() { pushFrame(); }
+SymbolTable::SymbolTable()
+: stop(false) {
+    pushFrame();
+}
 
 void SymbolTable::pushFrame() { table.push_back({}); }
 
@@ -60,6 +63,10 @@ void SymbolTable::set(const std::string& name, const Value& val, bool top) {
     }
     *value = val;
 }
+
+void SymbolTable::kill() { stop = true; }
+
+bool SymbolTable::killed() const { return stop; }
 
 } // namespace scripts
 } // namespace bl

@@ -5,6 +5,7 @@
 #include <BLIB/Scripts/SymbolTable.hpp>
 
 #include <atomic>
+#include <mutex>
 #include <optional>
 #include <thread>
 
@@ -36,12 +37,10 @@ public:
     /**
      * @brief Runs the script in the current thread
      *
-     * @param manager ScriptManager to register with, nullptr for none
-     * @param timeout How long to run for before terminating, 0 for unlimited
      * @return Return value if completed successfully (void if no return) or null on error
      *
      */
-    std::optional<scripts::Value> run(ScriptManager* manager = nullptr, float timeout = 0);
+    std::optional<scripts::Value> run() const;
 
     /**
      * @brief Runs the script in the background
@@ -49,7 +48,7 @@ public:
      * @param manager ScriptManager to register with, nullptr for none
      *
      */
-    void run(ScriptManager* manager = nullptr);
+    void runBackground(ScriptManager* manager = nullptr) const;
 
 protected:
     /**
@@ -79,22 +78,19 @@ private:
         typedef std::shared_ptr<ExecutionContext> Ptr;
         typedef std::weak_ptr<ExecutionContext> WPtr;
 
-        std::thread thread;
-        std::atomic_bool killed;
+        std::shared_ptr<std::thread> thread;
+        scripts::SymbolTable table;
         std::atomic_bool running;
 
         ExecutionContext()
-        : killed(false) {}
-        ExecutionContext(Script* scr)
-        : killed(false)
-        , thread(&Script::execute, scr, shared_from_this()) {}
+        : running(true) {}
     };
 
     /**
      * @brief Actually runs the script
      *
      */
-    void execute(ExecutionContext::Ptr context);
+    std::optional<scripts::Value> execute(ExecutionContext::Ptr context) const;
 
     friend class ScriptManager;
 };

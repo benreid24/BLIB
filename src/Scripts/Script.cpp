@@ -2,7 +2,9 @@
 
 #include <BLIB/Files/FileUtil.hpp>
 #include <Scripts/Parser.hpp>
+#include <Scripts/ScriptImpl.hpp>
 #include <fstream>
+#include <iostream>
 #include <streambuf>
 
 namespace bl
@@ -20,6 +22,48 @@ Script::Script(const std::string& data)
         input.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
     }
     root = scripts::Parser::parse(input);
+}
+
+bool Script::valid() const { return root.get() != nullptr; }
+
+std::optional<scripts::Value> Script::run() const {
+    if (!valid()) return {};
+    ExecutionContext::Ptr ctx(new ExecutionContext());
+    ctx->table = generateBaseTable();
+    addCustomSymbols(ctx->table);
+    onRun();
+    return execute(ctx);
+}
+
+void Script::runBackground(ScriptManager* manager) const {
+    if (!valid()) return;
+    ExecutionContext::Ptr ctx(new ExecutionContext());
+    ctx->table = generateBaseTable();
+    addCustomSymbols(ctx->table);
+    onRun();
+    ctx->thread.reset(new std::thread(&Script::execute, this, ctx));
+    ctx->thread->detach();
+    if (manager) manager->watch(ctx);
+}
+
+std::optional<scripts::Value> Script::execute(ExecutionContext::Ptr context) const {
+    try {
+        std::optional<scripts::Value> r =
+            ScriptImpl::runStatementList(root->children[0], context->table);
+        context->running = false;
+        context.reset();
+        return r.value_or(Value());
+    } catch (const Error& err) {
+        context->running = false;
+        context.reset();
+        std::cerr << err.stacktrace() << std::endl;
+        return {};
+    }
+}
+
+SymbolTable Script::generateBaseTable() const {
+    // TODO - provide built-in methods
+    return SymbolTable();
 }
 
 } // namespace bl
