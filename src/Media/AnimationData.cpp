@@ -5,20 +5,11 @@
 
 namespace bl
 {
-struct AnimationData::Frame {
-    struct Shard {
-        sf::IntRect source;
-        sf::Vector2f posOffset;
-        sf::Vector2f scale;
-        float rotation;
-        uint8_t alpha;
-    };
+AnimationData::Ptr AnimationData::create() { return Ptr(new AnimationData()); }
 
-    float length;
-    std::vector<Shard> shards;
-
-    static void applyShard(const Shard& shard, sf::Sprite& sprite);
-};
+AnimationData::Ptr AnimationData::create(const std::string& fname, const std::string& dir) {
+    return Ptr(new AnimationData(fname, dir));
+}
 
 AnimationData::AnimationData()
 : spritesheet()
@@ -55,17 +46,19 @@ bool AnimationData::load(const std::string& filename, const std::string& sprites
     frames.reserve(nFrames);
     for (unsigned int i = 0; i < nFrames; ++i) {
         Frame frame;
-        Frame::Shard shard;
-        uint16_t nShards = 0;
 
-        if (!file.read(nShards)) return false;
         uint32_t length;
-        if (!file.read<uint32_t>(length)) return false;
+        if (!file.read(length)) return false;
         frame.length = static_cast<float>(length) / 1000.0f;
 
+        Frame::Shard shard;
+        uint16_t nShards = 0;
+        if (!file.read(nShards)) return false;
         frame.shards.reserve(nShards);
+
         for (unsigned int j = 0; j < nShards; ++j) {
             uint32_t u32;
+            int32_t s32;
             if (!file.read(u32)) return false;
             shard.source.left = u32;
             if (!file.read(u32)) return false;
@@ -78,16 +71,16 @@ bool AnimationData::load(const std::string& filename, const std::string& sprites
             shard.scale.x = static_cast<float>(u32) / 100.0f;
             if (!file.read(u32)) return false;
             shard.scale.y = static_cast<float>(u32) / 100.0f;
-            if (!file.read(u32)) return false;
-            shard.posOffset.x = u32;
-            if (!file.read(u32)) return false;
-            shard.posOffset.y = u32;
+            if (!file.read(s32)) return false;
+            shard.posOffset.x = s32;
+            if (!file.read(s32)) return false;
+            shard.posOffset.y = s32;
             if (!file.read(u32)) return false;
             shard.rotation = u32;
             if (!file.read(shard.alpha)) return false;
             frame.shards.push_back(shard);
         }
-        frames.push_back(std::shared_ptr<Frame>(new Frame(frame)));
+        frames.push_back(frame);
         totalLength += frame.length;
     }
 
@@ -103,11 +96,11 @@ unsigned int AnimationData::frameCount() const { return frames.size(); }
 sf::Vector2f AnimationData::getFrameSize(unsigned int i) const {
     if (i >= frames.size()) return {0, 0};
 
-    const Frame& frame = *frames[i];
+    const Frame& frame = frames[i];
     sf::FloatRect bounds(0, 0, 0, 0);
     sf::Sprite sprite(spritesheet);
     for (unsigned int j = 0; j < frame.shards.size(); ++j) {
-        Frame::applyShard(frame.shards[j], sprite);
+        frame.shards[j].apply(sprite);
         bounds.left  = std::min(bounds.left, sprite.getGlobalBounds().left);
         bounds.top   = std::min(bounds.top, sprite.getGlobalBounds().top);
         bounds.width = std::max(
@@ -129,9 +122,10 @@ sf::Vector2f AnimationData::getMaxSize() const {
     return max;
 }
 
-void AnimationData::render(sf::RenderTarget& target, float elapsedTime,
-                           const sf::Vector2f& pos, const sf::Vector2f& scale, float rotation,
-                           bool centerOnOrigin, bool loopOverride, bool canLoop) const {
+void AnimationData::render(sf::RenderTarget& target, sf::RenderStates states,
+                           float elapsedTime, const sf::Vector2f& pos,
+                           const sf::Vector2f& scale, float rotation, bool centerOnOrigin,
+                           bool loopOverride, bool canLoop) const {
     if (frames.empty()) return;
 
     const bool isLoop = loopOverride ? canLoop : loop;
@@ -140,8 +134,8 @@ void AnimationData::render(sf::RenderTarget& target, float elapsedTime,
     if (isLoop || elapsedTime <= totalLength) {
         while (elapsedTime > totalLength) elapsedTime -= totalLength;
         while (elapsedTime > 0) {
-            if (frames[i]->length > elapsedTime) break;
-            elapsedTime -= frames[i]->length;
+            if (frames[i].length > elapsedTime) break;
+            elapsedTime -= frames[i].length;
             if (i >= frames.size() - 1) break;
             i += 1;
         }
@@ -149,25 +143,27 @@ void AnimationData::render(sf::RenderTarget& target, float elapsedTime,
     else
         i = frames.size() - 1;
 
-    const Frame& frame = *frames[i];
+    const Frame& frame = frames[i];
     sf::Sprite s(spritesheet);
     for (unsigned int j = 0; j < frame.shards.size(); ++j) {
-        Frame::applyShard(frame.shards[j], s);
+        frame.shards[j].apply(s, scale, rotation, centerOnOrigin);
         s.move(pos);
-        s.rotate(rotation);
-        s.scale(scale);
-        if (centerOnOrigin)
-            s.setOrigin(frame.shards[j].source.width / 2, frame.shards[j].source.height / 2);
-        target.draw(s);
+        target.draw(s, states);
     }
 }
 
-void AnimationData::Frame::applyShard(const Shard& shard, sf::Sprite& s) {
-    s.setTextureRect(shard.source);
-    s.setPosition(shard.posOffset);
-    s.setRotation(shard.rotation);
-    s.setScale(shard.scale);
-    s.setColor(sf::Color(255, 255, 255, shard.alpha));
+void AnimationData::Frame::Shard::apply(sf::Sprite& s, const sf::Vector2f& sc, float rot,
+                                        bool co) const {
+    const sf::Vector2f center(source.width / 2, source.height / 2);
+    s.setRotation(0);
+    s.setTextureRect(source);
+    s.setOrigin(center);
+    s.setPosition(posOffset + center);
+    s.setScale(scale);
+    s.scale(sc);
+    if (co) s.move(-s.getGlobalBounds().width / 2, -s.getGlobalBounds().height / 2);
+    s.setRotation(rotation + rot);
+    s.setColor(sf::Color(255, 255, 255, alpha));
 }
 
 } // namespace bl

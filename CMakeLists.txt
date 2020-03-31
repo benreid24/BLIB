@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 option(STATIC_LINK "On to link statically" On)
 option(BUILD_TESTS "On to build unit tests" On)
+option(BUILD_EXAMPLES "On to build examples" On)
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
@@ -33,6 +34,10 @@ set_target_properties(sfml-audio PROPERTIES CXX_STANDARD 98 CXX_STANDARD_REQUIRE
 add_subdirectory(include/BLIB)
 add_subdirectory(src)
 include_directories(include)
+
+if (BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
 
 if (BUILD_TESTS)
     enable_testing()

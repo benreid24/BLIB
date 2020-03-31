@@ -14,12 +14,13 @@ namespace bl
 class Animation : public sf::Drawable {
 public:
     Animation();
-    Animation(const AnimationData& data, bool centerOrigin = true);
+    Animation(AnimationData::Ptr data);
 
-    void setData(const AnimationData& data, bool centerOrigin = true);
-    const AnimationData* getData() const;
+    void setData(AnimationData::Ptr data);
+    AnimationData::Ptr getData() const;
 
     void setPosition(const sf::Vector2f& position);
+    void setIsCentered(bool center);
     void setScale(const sf::Vector2f& scale);
     void setRotation(float rotation);
     void setIsLoop(bool loop);
@@ -31,7 +32,7 @@ public:
     void stop();
 
 private:
-    const AnimationData* data;
+    AnimationData::Ptr data;
     bool isPlaying;
     float startTime;
 

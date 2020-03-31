@@ -9,6 +9,8 @@
 
 namespace bl
 {
+class Animation;
+
 /**
  * @brief Data class for animations. Holds the frame information and is resposnsibl for
  * rendering
@@ -18,8 +20,10 @@ namespace bl
  */
 class AnimationData {
 public:
-    AnimationData();
-    AnimationData(const std::string& filename, const std::string& spritesheetDir = "");
+    typedef std::shared_ptr<AnimationData> Ptr;
+
+    static Ptr create();
+    static Ptr create(const std::string& filename, const std::string& spritesheetDir = "");
     bool load(const std::string& filename, const std::string& spritesheetDir = "");
 
     bool isLooping() const;
@@ -28,17 +32,36 @@ public:
     sf::Vector2f getFrameSize(unsigned int frameIndex) const;
     sf::Vector2f getMaxSize() const;
 
-    void render(sf::RenderTarget& target, float elapsedTime, const sf::Vector2f& position,
-                const sf::Vector2f& scale, float rotation, bool centerOnOrigin,
-                bool loopOverride = false, bool loop = false) const;
-
 private:
-    struct Frame;
+    struct Frame {
+        struct Shard {
+            sf::IntRect source;
+            sf::Vector2f posOffset;
+            sf::Vector2f scale;
+            float rotation;
+            uint8_t alpha;
+
+            void apply(sf::Sprite& sprite, const sf::Vector2f& scale = {1, 1},
+                       float rotation = 0, bool center = true) const;
+        };
+
+        float length;
+        std::vector<Shard> shards;
+    };
 
     sf::Texture spritesheet;
-    std::vector<std::shared_ptr<Frame>> frames;
+    std::vector<Frame> frames;
     float totalLength;
     bool loop;
+
+    AnimationData();
+    AnimationData(const std::string& filename, const std::string& spritesheetDir = "");
+
+    void render(sf::RenderTarget& target, sf::RenderStates states, float elapsedTime,
+                const sf::Vector2f& position, const sf::Vector2f& scale, float rotation,
+                bool centerOnOrigin, bool loopOverride = false, bool loop = false) const;
+
+    friend class Animation;
 };
 
 } // namespace bl
