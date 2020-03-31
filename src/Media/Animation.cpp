@@ -1,5 +1,7 @@
 #include <BLIB/Media/Animation.hpp>
 
+#include <iostream>
+
 namespace bl
 {
 namespace
@@ -9,6 +11,7 @@ sf::Clock clock;
 
 Animation::Animation()
 : data(nullptr)
+, centerOrigin(true)
 , isPlaying(false)
 , startTime(0)
 , position(0, 0)
@@ -17,17 +20,16 @@ Animation::Animation()
 , loopOverride(false)
 , loop(false) {}
 
-Animation::Animation(const AnimationData& data, bool center)
+Animation::Animation(AnimationData::Ptr data)
 : Animation() {
-    setData(data, center);
+    setData(data);
 }
 
-void Animation::setData(const AnimationData& d, bool center) {
-    data         = &d;
-    centerOrigin = center;
-}
+void Animation::setData(AnimationData::Ptr d) { data = d; }
 
-const AnimationData* Animation::getData() const { return data; }
+AnimationData::Ptr Animation::getData() const { return data; }
+
+void Animation::setIsCentered(bool c) { centerOrigin = c; }
 
 void Animation::setPosition(const sf::Vector2f& pos) { position = pos; }
 
@@ -58,9 +60,10 @@ bool Animation::playing() const {
 void Animation::stop() { isPlaying = false; }
 
 void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    if (data != nullptr) {
+    if (data) {
         const float t = isPlaying ? (clock.getElapsedTime().asSeconds() - startTime) : 0;
-        data->render(target, t, position, scale, rotation, centerOrigin, loopOverride, loop);
+        data->render(
+            target, states, t, position, scale, rotation, centerOrigin, loopOverride, loop);
     }
 }
 
