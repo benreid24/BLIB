@@ -57,7 +57,7 @@ private:
 };
 
 /**
- * @brief A collection of fields as (std::string, Value) pairs
+ * @brief A collection of fields as (std::string, Value) pairs. This is the root data type
  * @ingroup JSON
  *
  */
@@ -147,6 +147,7 @@ struct JSON {
     static json::Group loadFromFile(const std::string& file);
     static json::Group loadFromString(const std::string& data);
     static void saveToFile(const std::string& file, const json::Group& data);
+    static void saveToStream(std::ostream& stream, const json::Group& data);
 };
 
 } // namespace bl

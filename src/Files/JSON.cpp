@@ -30,17 +30,11 @@ RValue getNestedValue(const Group& group, const std::string& name) {
 }
 } // namespace
 
-void Base::setSource(const SourceInfo& source) {
-    info = source;
-}
+void Base::setSource(const SourceInfo& source) { info = source; }
 
-const SourceInfo& Base::source() const {
-    return info;
-}
+const SourceInfo& Base::source() const { return info; }
 
-const std::set<std::string>& Group::getFields() const {
-    return fieldNames;
-}
+const std::set<std::string>& Group::getFields() const { return fieldNames; }
 
 void Group::addField(const std::string& name, const Value& value) {
     fieldNames.insert(name);
@@ -87,33 +81,19 @@ RList Group::getList(const std::string& name) const {
     return std::nullopt;
 }
 
-Value::Value(const Value& value) {
-    *this = value;
-}
+Value::Value(const Value& value) { *this = value; }
 
-Value::Value(bool value) {
-    *this = value;
-}
+Value::Value(bool value) { *this = value; }
 
-Value::Value(float value) {
-    *this = value;
-}
+Value::Value(float value) { *this = value; }
 
-Value::Value(const std::string& value) {
-    *this = value;
-}
+Value::Value(const std::string& value) { *this = value; }
 
-Value::Value(const char* value) {
-    *this = std::string(value);
-}
+Value::Value(const char* value) { *this = std::string(value); }
 
-Value::Value(const Group& value) {
-    *this = value;
-}
+Value::Value(const Group& value) { *this = value; }
 
-Value::Value(const List& value) {
-    *this = value;
-}
+Value::Value(const List& value) { *this = value; }
 
 Value& Value::operator=(const Value& value) {
     type = value.type;
@@ -156,9 +136,7 @@ Value& Value::operator=(const Group& value) {
     return *this;
 }
 
-Value::Type Value::getType() const {
-    return type;
-}
+Value::Type Value::getType() const { return type; }
 
 Bool Value::getAsBool() const {
     if (type == TBool) return std::get<bool>(data);
@@ -327,5 +305,7 @@ void JSON::saveToFile(const std::string& file, const json::Group& group) {
     std::ofstream out(file.c_str());
     out << group;
 }
+
+void JSON::saveToStream(std::ostream& stream, const json::Group& group) { stream << group; }
 
 } // namespace bl

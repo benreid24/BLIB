@@ -39,7 +39,7 @@ private:
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
-BinaryFile::BinaryFile(const std::string& path, OpenMode mode)
+inline BinaryFile::BinaryFile(const std::string& path, OpenMode mode)
 : mode(mode) {
     if (mode == Read)
         handle.open(path.c_str(), std::ios::in | std::ios::binary);
@@ -47,9 +47,7 @@ BinaryFile::BinaryFile(const std::string& path, OpenMode mode)
         handle.open(path.c_str(), std::ios::out | std::ios::binary);
 }
 
-BinaryFile::~BinaryFile() {
-    handle.close();
-}
+inline BinaryFile::~BinaryFile() { handle.close(); }
 
 template<typename T>
 typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::write(const T& data) {
@@ -59,13 +57,15 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::write(con
     char bytes[size];
     std::memcpy(bytes, &data, size);
     if (FileUtil::isBigEndian()) {
-        for (unsigned int i = 0; i < size / 2; ++i) { std::swap(bytes[i], bytes[size - i - 1]); }
+        for (unsigned int i = 0; i < size / 2; ++i) {
+            std::swap(bytes[i], bytes[size - i - 1]);
+        }
     }
     handle.write(bytes, size);
     return handle.good();
 }
 
-bool BinaryFile::write(const std::string& data) {
+inline bool BinaryFile::write(const std::string& data) {
     if (!handle.good() || mode != Write) return false;
     if (!write<uint32_t>(data.size())) return false;
     handle.write(data.c_str(), data.size());
@@ -82,13 +82,15 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::read(T& o
     output = 0;
     handle.read(bytes, size);
     if (FileUtil::isBigEndian()) {
-        for (unsigned int i = 0; i < size / 2; ++i) { std::swap(bytes[i], bytes[size - i - 1]); }
+        for (unsigned int i = 0; i < size / 2; ++i) {
+            std::swap(bytes[i], bytes[size - i - 1]);
+        }
     }
     std::memcpy(&output, bytes, size);
     return handle.good();
 }
 
-bool BinaryFile::read(std::string& output) {
+inline bool BinaryFile::read(std::string& output) {
     if (!handle.good() || mode != Read) return false;
     uint32_t size;
     if (!read<uint32_t>(size)) return false;
