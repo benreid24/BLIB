@@ -4,7 +4,6 @@ target_link_libraries(animation
     BLIB
     sfml-graphics
     sfml-window
-    sfml-main    
 )
 
 set_target_properties(animation

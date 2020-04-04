@@ -12,6 +12,7 @@ int main() {
     anim.setIsCentered(true);
     anim.setPosition(sf::Vector2f(400, 400));
     anim.setIsLoop(true);
+    anim.setRotation(30);
     anim.play();
 
     while (window.isOpen()) {

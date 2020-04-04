@@ -10,7 +10,6 @@ target_link_libraries(BLIB.t PRIVATE
     sfml-network
     sfml-audio
     sfml-system
-    sfml-main
     
     gtest
     gtest_main

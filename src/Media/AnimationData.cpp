@@ -158,7 +158,7 @@ void AnimationData::Frame::Shard::apply(sf::Sprite& s, const sf::Vector2f& sc, f
     s.setRotation(0);
     s.setTextureRect(source);
     s.setOrigin(center);
-    s.setPosition(posOffset + center);
+    s.setPosition(posOffset + center); // TODO - transform the offset by the rotation
     s.setScale(scale);
     s.scale(sc);
     if (co) s.move(-s.getGlobalBounds().width / 2, -s.getGlobalBounds().height / 2);

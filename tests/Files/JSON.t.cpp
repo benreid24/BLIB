@@ -1,8 +1,8 @@
 #include <BLIB/Files/JSON.hpp>
 
 #include <BLIB/Files/FileUtil.hpp>
-#include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 namespace bl
 {
@@ -60,7 +60,7 @@ TEST(JSON, GroupValue) {
 TEST(JSON, BasicGroup) {
     const std::string json = "{ \"num\": 123.45, \"str\": \"hello\", \"b\": true }";
     std::stringstream stream(json);
-    
+
     Group root = JSON::loadFromStream(stream);
     EXPECT_TRUE(root.hasField("num"));
     EXPECT_TRUE(root.hasField("str"));
@@ -74,7 +74,8 @@ TEST(JSON, BasicGroup) {
 }
 
 TEST(JSON, NestedGroup) {
-    const std::string json = "{\"grp\":{\"deep\":{\"wogh\":12},\"list\": [1,2,3]}, \"b\": false}";
+    const std::string json =
+        "{\"grp\":{\"deep\":{\"wogh\":12},\"list\": [1,2,3]}, \"b\": false}";
 
     Group root = JSON::loadFromString(json);
     ASSERT_TRUE(root.getGroup("grp"));
@@ -107,7 +108,8 @@ TEST(JSON, GroupList) {
 }
 
 TEST(JSON, Files) {
-    const std::string json = "{ \"num\": 123.45, \"str\": \"hello\", \"b\": true }";
+    const std::string json =
+        "{ \"num\": 123.45, \"str\": \"hello\", \"b\": true, \"ls\": [1,2,3] }";
     const std::string filename = FileUtil::genTempName("json", "json");
 
     Group goodRoot = JSON::loadFromString(json);
@@ -122,9 +124,11 @@ TEST(JSON, Files) {
     ASSERT_TRUE(root.getString("str"));
     ASSERT_TRUE(root.getNumeric("num"));
     ASSERT_TRUE(root.getBool("b"));
+    ASSERT_TRUE(root.getList("ls"));
     EXPECT_FLOAT_EQ(123.45, root.getNumeric("num").value());
     EXPECT_EQ("hello", root.getString("str").value());
     EXPECT_EQ(true, root.getBool("b").value());
+    EXPECT_EQ(3, root.getList("ls").value().size());
 }
 
 } // namespace unittest
