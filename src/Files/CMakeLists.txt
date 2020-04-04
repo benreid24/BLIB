@@ -1,7 +1,7 @@
 target_sources(BLIB PRIVATE
     FileUtil.cpp
     JSON.cpp
-    JSONloader.hpp
+    JSONLoader.hpp
     JSONLoader.cpp
     Schema.cpp
 )
