@@ -150,7 +150,7 @@ INSTANTIATE_TEST_SUITE_P(
         ValueTest("\"cat\" + 5", Value("cat5"), SymbolTable()),
         ValueTest("5 == var", boolValue(true), genVar("var", Value(5))),
         ValueTest("[\"cat\", \"dog\"] == arr", boolValue(true),
-                  genVar("arr", Value({Value("cat"), Value("dog")}))),
+                  genVar("arr", Value(std::vector<Value>({Value("cat"), Value("dog")})))),
         ValueTest("var == ref", boolValue(true), genRef("var", Value(7), "ref")),
         ValueTest("var.prop == 5", boolValue(true),
                   genProp("var", "prop", Value(), Value(5)))));
@@ -205,7 +205,7 @@ const std::string eliftest =
 const std::string whiletest = "def func(a, l) { i = 0; sum = 0; while (i < l) { sum = sum + "
                               "a; i = i + 1; } return sum;}";
 
-INSTANTIATE_TEST_CASE_P(
+INSTANTIATE_TEST_SUITE_P(
     ScriptImplFunctions, ScriptImplFunctionTest,
     ::testing::Values(
         FunctionTest("def func(var) { return var; }", "func(5)", 5),
