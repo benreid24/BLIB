@@ -12,24 +12,74 @@ namespace bl
 {
 /**
  * @brief Utility class to read and write binary data. Endianness agnostic
+ *        Floating point types are not supported. To store floating point
+ *        values, simply store an integral type and multiply/divide on
+ *        save/load
  *
  * @ingroup Files
  */
 class BinaryFile : private NonCopyable {
 public:
+    /**
+     * @brief Indicates file operation mode
+     *
+     */
     enum OpenMode { Read, Write };
 
+    /**
+     * @brief Creates a handle to the given file in the given mode
+     *
+     */
     BinaryFile(const std::string& path, OpenMode mode = Read);
+
+    /**
+     * @brief Closes the file handle
+     *
+     */
     ~BinaryFile();
 
+    /**
+     * @brief Writes an integral type to the file in it's binary representation
+     *
+     * @tparam T The type to write. It is better to be explicit for code to be cross platform
+     * @param data The value to write
+     * @return bool True if the value could be written
+     */
     template<typename T>
     typename std::enable_if<std::is_integral_v<T>, bool>::type write(const T& data);
+
+    /**
+     * @brief Writes the string to the file. Stores 4 bytes for the length, then the size of
+     * the string
+     *
+     * @param data The string to write
+     * @return bool True if the value could be written
+     */
     bool write(const std::string& data);
 
+    /**
+     * @brief Reads the integral type from the file
+     *
+     * @tparam T The type to read. Be explicit with bit width and sign
+     * @param output Variable to write the read value to
+     * @return bool True if the value could be read
+     */
     template<typename T>
     typename std::enable_if<std::is_integral_v<T>, bool>::type read(T& output);
+
+    /**
+     * @brief Reads a string from the file
+     *
+     * @param output Variable to write the read string to
+     * @return bool True if the string could be read
+     */
     bool read(std::string& output);
 
+    /**
+     * @brief Returns the status of the file handle
+     *
+     * @return bool Returns false if EOF is reached or the file did not exist
+     */
     bool good();
 
 private:
