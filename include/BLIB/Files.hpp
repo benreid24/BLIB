@@ -9,5 +9,6 @@
 #include <BLIB/Files/BinaryFile.hpp>
 #include <BLIB/Files/FileUtil.hpp>
 #include <BLIB/Files/JSON.hpp>
+#include <BLIB/Files/Schema.hpp>
 
 #endif

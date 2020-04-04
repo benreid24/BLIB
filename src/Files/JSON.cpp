@@ -81,7 +81,9 @@ RList Group::getList(const std::string& name) const {
     return std::nullopt;
 }
 
-Value::Value(const Value& value) { *this = value; }
+Value::Value(const Value& value)
+: type(value.type)
+, data(value.data) {}
 
 Value::Value(bool value) { *this = value; }
 
@@ -220,7 +222,7 @@ void Value::print(std::ostream& stream, int ilvl) const {
         getAsGroup().value().print(stream, ilvl);
         break;
     case TList: {
-        const List& list = getAsList().value();
+        const List list = getAsList().value();
         stream << "[";
         if (!list.empty()) stream << "\n";
         for (unsigned int i = 0; i < list.size(); ++i) {
