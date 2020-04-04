@@ -1,4 +1,4 @@
-name: build
+name: linux-build
 
 on:
   push:
@@ -9,18 +9,18 @@ on:
 jobs:
   build:
 
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest, macOS-latest]
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
       with:
         submodules: 'true'
-    - name: clone
-      run: git submodule update --init
+
+    - name: package-install
+      run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev
+      
     - name: configure
       run: cmake -G "Unix Makefiles" -S . -B ./build
+      
     - name: make
       run: cd build && make
