@@ -1,5 +1,5 @@
 target_sources(BLIB PUBLIC
-    Vector2D.hpp
+    Vector2d.hpp
     AngularVector.hpp
     NonCopyable.hpp
     Random.hpp

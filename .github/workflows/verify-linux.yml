@@ -1,4 +1,4 @@
-name: windows-build
+name: linux-verify
 
 on:
   push:
@@ -7,17 +7,23 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  verify:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
       with:
         submodules: 'true'
+
+    - name: package-install
+      run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
       
     - name: configure
       run: cmake -G "Unix Makefiles" -S . -B ./build
       
     - name: make
       run: cd build && make
+
+    - name: test
+      run: build/tests/BLIB.t 

@@ -54,6 +54,15 @@
             "dependsOn": [
                 "build"
             ]
+        },
+        {
+            "label": "build docs",
+            "type": "shell",
+            "command": "rm -rf docs/doxygen && doxygen Doxyfile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ],
     "inputs": [
