@@ -7,15 +7,16 @@ on:
     branches: [ master ]
 
 jobs:
-  verify:
+  build:
 
     runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-lates]
 
     steps:
     - uses: actions/checkout@v2
     - name: configure
       run: cmake -G "Unix Makefiles" -S . -B ./build
     - name: make
-      run: cd build  && make
-    - name: unit test
-      run: cd build/tests && ./BLIB.t
+      run: cd build && make
