@@ -61,6 +61,7 @@ Value& Value::operator=(const std::vector<Value>& a) {
     array.reserve(a.size());
     for (const Value& v : a) array.push_back(Ptr(new Value(v)));
     *this = array;
+    return *this;
 }
 
 Value::Value(const std::vector<Value>& a) { *this = a; }
