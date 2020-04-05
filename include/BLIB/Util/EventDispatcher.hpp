@@ -10,6 +10,7 @@ namespace bl
  * @see EventListener
  *
  * @tparam T The type of event
+ * @ingroup Util
  */
 template<typename T>
 class EventDispatcher {
