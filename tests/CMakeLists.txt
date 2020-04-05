@@ -12,12 +12,14 @@ target_link_libraries(BLIB.t PRIVATE
     sfml-system
     
     gtest
+    gmock
     gtest_main
 )
 
 add_subdirectory(Files)
 add_subdirectory(Parser)
 add_subdirectory(Scripts)
+add_subdirectory(Util)
 
 target_include_directories(BLIB.t PRIVATE ${PROJECT_SOURCE_DIR}/src)
 target_include_directories(BLIB.t PRIVATE ${PROJECT_SOURCE_DIR}/lib/gtest/googletest/include)
