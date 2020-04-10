@@ -38,6 +38,24 @@ public:
      * @param window The window to fill
      */
     GUI(bl::WindowEventDispatcher& dispatcher, const sf::RenderWindow& window);
+
+    /**
+     * @brief Handles and propogates the window event
+     *
+     * @param event Raw window event
+     */
+    virtual void observe(const sf::Event& event) override;
+
+    // TODO - use Box for the region. Have add() method for windows to float. Can windows be
+    // children?
+
+protected:
+    /**
+     * @brief Renders the GUI to the target
+     *
+     * @param target Target to render to
+     */
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 };
 
 } // namespace bl
