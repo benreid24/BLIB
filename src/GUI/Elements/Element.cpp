@@ -102,9 +102,9 @@ bool Element::handleEvent(const sf::Vector2f& mpos, const sf::Event& event) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             if (isLeftPressed) {
                 isLeftPressed = false;
+                processAction(Action(Action::Released, mpos));
                 if (acquisition.contains(
                         sf::Vector2i(event.mouseButton.x, event.mouseButton.y))) {
-                    processAction(Action(Action::Released, mpos));
                     processAction(Action(Action::Clicked, mpos));
                     return true;
                 }

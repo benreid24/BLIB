@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
+    Action.cpp
     GUI.cpp
     Signal.cpp
 )

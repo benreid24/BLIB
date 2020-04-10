@@ -22,17 +22,17 @@ struct Action {
     enum Type {
         MouseEntered, /// Mouse moved over Element
         MouseLeft,    /// Mouse moved away from Element
-        Clicked, /// Element left clicked
+        Clicked,      /// Element left clicked
         RightClicked, /// Element right clicked
-        Pressed, /// Left mouse button pressed on element
-        Dragged, /// Mouse moved while
-        Released,
-        Scrolled,
-        KeyPressed,
-        KeyReleased,
-        TextEntered,
-        NUM_ACTIONS,
-        Unknown
+        Pressed,      /// Left mouse button pressed on element
+        Dragged,      /// Mouse moved while left mouse button pressed on Element
+        Released,     /// Left mouse button released on element
+        Scrolled,     /// Mouse wheel scrolled while over Element
+        KeyPressed,   /// Keyboard key pressed while Element focused
+        KeyReleased,  /// Keyboard key released while Element focused
+        TextEntered,  /// Text typed in while Element focused
+        NUM_ACTIONS,  /// How many valid Action types exist
+        Unknown       /// Invalid Action
     };
 
     /**
@@ -67,10 +67,7 @@ struct Action {
      * @param type The type of Action
      * @param pos The mouse position relative to the containing window
      */
-    Action(Type type, const sf::Vector2f& pos)
-    : type(type)
-    , data(0u)
-    , position(pos) {}
+    Action(Type type, const sf::Vector2f& pos);
 
     /**
      * @brief Creates an action of the given Type and position and sets the extra data
@@ -79,10 +76,7 @@ struct Action {
      * @param c Character to set the extra data to
      * @param pos The mouse position relative to the containing window
      */
-    Action(Type type, uint32_t c, const sf::Vector2f& pos)
-    : type(type)
-    , data(c)
-    , position(pos) {}
+    Action(Type type, uint32_t c, const sf::Vector2f& pos);
 
     /**
      * @brief Creates an action of the given Type and position and sets the extra data
@@ -91,10 +85,7 @@ struct Action {
      * @param s Scroll delta to set the extra data to
      * @param pos The mouse position relative to the containing window
      */
-    Action(Type type, float s, const sf::Vector2f& pos)
-    : type(type)
-    , data(s)
-    , position(pos) {}
+    Action(Type type, float s, const sf::Vector2f& pos);
 
     /**
      * @brief Creates an action of the given Type and position and sets the extra data
@@ -103,10 +94,7 @@ struct Action {
      * @param key Key to set the extra data to
      * @param pos The mouse position relative to the containing window
      */
-    Action(Type type, sf::Event::KeyEvent key, const sf::Vector2f& pos)
-    : type(type)
-    , data(key)
-    , position(pos) {}
+    Action(Type type, sf::Event::KeyEvent key, const sf::Vector2f& pos);
 
     /**
      * @brief Creates an action of the given Type and position and sets the extra data
@@ -115,10 +103,7 @@ struct Action {
      * @param drag Start of the drag
      * @param pos The mouse position relative to the containing window
      */
-    Action(Type type, const sf::Vector2f& drag, const sf::Vector2f& pos)
-    : type(type)
-    , data(drag)
-    , position(pos) {}
+    Action(Type type, const sf::Vector2f& drag, const sf::Vector2f& pos);
 };
 
 } // namespace gui
