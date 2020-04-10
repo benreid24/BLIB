@@ -45,7 +45,8 @@ public:
     const std::string& group() const;
 
     /**
-     * @brief Sets the requisition of the Element. This is the minimum amount of space it needs
+     * @brief Sets the requisition of the Element. This is the minimum amount of space it
+     *        needs. Pass in (0,0) to reset
      *
      * @param box The size to request. Cannot be smaller than minimumRequisition()
      */
@@ -62,7 +63,7 @@ public:
      *        be larger or equal to the requisition. The requisition includes the position
      *
      */
-    sf::IntRect getAcquisition() const;
+    const sf::IntRect& getAcquisition() const;
 
     /**
      * @brief Returns a modifiable reference to the signal for the given trigger. Undefined
@@ -77,7 +78,7 @@ public:
      * @brief Returns if the Element is in focus or not
      *
      */
-    bool inFocus() const;
+    bool hasFocus() const;
 
     /**
      * @brief Attempts to take the focus. Returns true if able to take, false otherwise
@@ -99,7 +100,13 @@ public:
      *        not be able to takeFocus()
      *
      */
-    bool releaseFocus();
+    virtual bool releaseFocus();
+
+    /**
+     * @brief Brings this Element to the top
+     *
+     */
+    void moveToTop() const;
 
     /**
      * @brief Returns if the mouse is currently over this Element
@@ -108,19 +115,33 @@ public:
     bool mouseOver() const;
 
     /**
+     * @brief Returns if the mouse is over the Element and the Left button is pressed
+     *
+     */
+    bool leftPressed() const;
+
+    /**
+     * @brief Returns if the mouse is over the Element and the Right button is pressed
+     *
+     */
+    bool rightPressed() const;
+
+    /**
      * @brief Handles the raw window event. Should be called by parent class
      *
      * @param mousePos Current position of mouse, relative to the window
      * @param event The window event
+     * @return True if the event is consumed and no more Elements should be notified
      */
-    void handleEvent(const sf::Vector2f& mousePos, const sf::Event& event);
+    bool handleEvent(const sf::Vector2f& mousePos, const sf::Event& event);
 
     /**
      * @brief Processes the Action then calls handleAction() if in focus
      *
      * @param action The action to process
+     * @return True if the event is consumed and no more Elements should be notified
      */
-    void processAction(const Action& action);
+    bool processAction(const Action& action);
 
     /**
      * @brief Removes this Element from its parent. Safe to call at any time
@@ -144,7 +165,14 @@ protected:
      *        this size is invalid
      *
      */
-    virtual sf::IntRect minimumRequisition() const = 0;
+    virtual sf::Vector2f minimumRequisition() const = 0;
+
+    /**
+     * @brief Sets the acquisision of the Element. Meant to be called by a Container
+     *
+     * @param acquisition The area the Element is to occupy
+     */
+    void assignAcquisition(const sf::IntRect& acquisition);
 
     /**
      * @brief Set the parent Element. Should only be called by the parent when the child is
@@ -160,7 +188,14 @@ protected:
      *
      * @param child The child to move to the top of the screen (rendered last)
      */
-    virtual void bringToTop(Element* child) {}
+    virtual void bringToTop(const Element* child) {}
+
+    /**
+     * @brief Removes the child Element. Only implemented by Container
+     *
+     * @param child The Element to remove. No effect if not present
+     */
+    virtual void removeChild(const Element* child) = 0;
 
     /**
      * @brief Method for child classes to handle raw SFML events. Not recommended to use.
@@ -168,23 +203,25 @@ protected:
      *        is and if the Element is in focus
      *
      * @param event The raw event
+     * @return True if the event is consumed and no more Elements should be notified
      */
-    virtual void handleRawEvent(const sf::Vector2f& mousePos, const sf::Event& event) {}
+    virtual bool handleRawEvent(const sf::Vector2f& mousePos, const sf::Event& event) {}
 
     /**
      * @brief Method for child classes to handle Actions performed on this Element. This method
      *        is only called if the Element is in focus
      *
      * @param action The action to process
+     * @return True if the event is consumed and no more Elements should be notified
      */
-    virtual void handleAction(const Action& action);
+    virtual void handleAction(const Action& action) {}
 
     /**
      * @brief Performs any custom logic of the Element
      *
      * @param dt Time elapsed, in seconds, since last update
      */
-    virtual void update(float dt);
+    virtual void update(float dt) {}
 
     /**
      * @brief Renders the element using the given renderer. Child classes may call specialized
@@ -202,11 +239,15 @@ private:
     std::optional<sf::Vector2f> requisition;
     Signal signals[Action::NUM_ACTIONS];
 
-    sf::Vector2f acquisition;
+    sf::IntRect acquisition;
     Element::WPtr parent;
 
     bool isFocused;
+    bool focusForced;
     bool isMouseOver;
+    bool isLeftPressed;
+    bool isRightPressed;
+    sf::Vector2f dragStart;
 };
 
 } // namespace gui

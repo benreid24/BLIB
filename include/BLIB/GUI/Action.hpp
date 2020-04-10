@@ -20,18 +20,19 @@ struct Action {
      *
      */
     enum Type {
-        MouseEntered,
-        MouseLeft,
-        Clicked,
-        RightClicked,
-        MiddleClicked,
-        Pressed,
+        MouseEntered, /// Mouse moved over Element
+        MouseLeft,    /// Mouse moved away from Element
+        Clicked, /// Element left clicked
+        RightClicked, /// Element right clicked
+        Pressed, /// Left mouse button pressed on element
+        Dragged, /// Mouse moved while
         Released,
         Scrolled,
         KeyPressed,
         KeyReleased,
         TextEntered,
-        NUM_ACTIONS
+        NUM_ACTIONS,
+        Unknown
     };
 
     /**
@@ -39,14 +40,26 @@ struct Action {
      *
      */
     union TData {
-        uint32_t input;        /// Unicode char for TextEntered
-        float scroll;          /// Mouse wheel delta for Scrolled
-        sf::Keyboard::Key key; /// Key for KeyPressed and KeyReleased
+        uint32_t input;          /// Unicode char for TextEntered
+        float scroll;            /// Mouse wheel delta for Scrolled
+        sf::Event::KeyEvent key; /// Key for KeyPressed and KeyReleased
+        sf::Vector2f dragStart;  /// Position of mouse when drag started
+
+        TData(uint32_t input);
+        TData(float scroll);
+        TData(sf::Event::KeyEvent key);
+        TData(const sf::Vector2f& drag);
     };
 
     const Type type;             /// The type of Action
     const TData data;            /// Extra Action data if required by type
     const sf::Vector2f position; /// The mouse position when the Action triggered
+
+    /**
+     * @brief Helper method to construct an Action from an SFML event
+     *
+     */
+    static Action fromSFML(const sf::Vector2f& mousePos, const sf::Event& event);
 
     /**
      * @brief Creates an action of the given Type and position
@@ -56,43 +69,55 @@ struct Action {
      */
     Action(Type type, const sf::Vector2f& pos)
     : type(type)
-    , data({.input = 0})
+    , data(0u)
     , position(pos) {}
 
     /**
      * @brief Creates an action of the given Type and position and sets the extra data
      *
      * @param type The type of Action
-     * @param data Character to set the extra data to
+     * @param c Character to set the extra data to
      * @param pos The mouse position relative to the containing window
      */
     Action(Type type, uint32_t c, const sf::Vector2f& pos)
     : type(type)
-    , data({.input = c})
+    , data(c)
     , position(pos) {}
 
     /**
      * @brief Creates an action of the given Type and position and sets the extra data
      *
      * @param type The type of Action
-     * @param data Scroll delta to set the extra data to
+     * @param s Scroll delta to set the extra data to
      * @param pos The mouse position relative to the containing window
      */
     Action(Type type, float s, const sf::Vector2f& pos)
     : type(type)
-    , data({.scroll = s})
+    , data(s)
     , position(pos) {}
 
     /**
      * @brief Creates an action of the given Type and position and sets the extra data
      *
      * @param type The type of Action
-     * @param data Key to set the extra data to
+     * @param key Key to set the extra data to
      * @param pos The mouse position relative to the containing window
      */
-    Action(Type type, sf::Keyboard::Key key, const sf::Vector2f& pos)
+    Action(Type type, sf::Event::KeyEvent key, const sf::Vector2f& pos)
     : type(type)
-    , data({.key = key})
+    , data(key)
+    , position(pos) {}
+
+    /**
+     * @brief Creates an action of the given Type and position and sets the extra data
+     *
+     * @param type The type of Action
+     * @param drag Start of the drag
+     * @param pos The mouse position relative to the containing window
+     */
+    Action(Type type, const sf::Vector2f& drag, const sf::Vector2f& pos)
+    : type(type)
+    , data(drag)
     , position(pos) {}
 };
 
