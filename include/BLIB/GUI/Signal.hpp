@@ -23,12 +23,10 @@ class Element;
 class Signal : public bl::NonCopyable {
 public:
     /**
-     * @brief Callback function signature for a Signal. It takes 3 parameters: The Action, the
-     *        Element id, and the Element group, in that order
+     * @brief Callback function signature for a Signal
      *
      */
-    typedef std::function<void(const Action&, const std::string&, const std::string&)>
-        TCallback;
+    typedef std::function<void(const Action&, Element*)> Callback;
 
     /**
      * @brief When triggered, the Signal will set the given flag to the given value
@@ -36,14 +34,14 @@ public:
      * @param var The flag to set
      * @param val The value to set the flag to
      */
-    void willSet(bool& var, bool val);
+    void willSet(bool& var, bool val = true);
 
     /**
      * @brief When triggered, the Signal will call the provided callback
      *
      * @param cb The function to call on trigger
      */
-    void willCall(TCallback cb);
+    void willCall(Callback cb);
 
     /**
      * @brief Clears any set or call action
@@ -54,14 +52,16 @@ public:
     /**
      * @brief Triggers the signal. This may be manually done to simulate input
      *
+     * @param action The action that triggered the Singal
+     * @param id The Element that triggered the Signal
      */
-    void operator()();
+    void operator()(const Action& action, Element* element);
 
 private:
-    Signal();
+    Signal() = default;
 
     std::optional<std::pair<bool*, bool>> setAction;
-    std::optional<TCallback> callbackAction;
+    std::optional<Callback> callbackAction;
 
     friend class Element;
 };

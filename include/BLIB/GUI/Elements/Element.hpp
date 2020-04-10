@@ -122,6 +122,12 @@ public:
      */
     void processAction(const Action& action);
 
+    /**
+     * @brief Removes this Element from its parent. Safe to call at any time
+     *
+     */
+    virtual void remove();
+
 protected:
     /**
      * @brief Builds a new Element. The group and id are optional and are only used to be
