@@ -18,16 +18,16 @@ const std::string& Element::id() const { return _id; }
 
 const std::string& Element::group() const { return _group; }
 
-void Element::setRequisition(const sf::Vector2f& size) {
+void Element::setRequisition(const sf::Vector2i& size) {
     requisition.reset();
     if (size.x > 0 && size.y > 0) {
-        const sf::Vector2f min = minimumRequisition();
+        const sf::Vector2i min = minimumRequisition();
         if (size.x >= min.x && size.y >= min.y) requisition = size;
     }
     makeDirty();
 }
 
-sf::Vector2f Element::getRequisition() const {
+sf::Vector2i Element::getRequisition() const {
     return requisition.value_or(minimumRequisition());
 }
 

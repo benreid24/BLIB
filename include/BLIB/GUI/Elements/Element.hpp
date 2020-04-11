@@ -14,6 +14,8 @@ namespace bl
 {
 namespace gui
 {
+class Packer;
+
 /**
  * @brief Base class for all GUI elements. Provides the common interface used for positioning,
  *        interaction, and rendering
@@ -50,13 +52,13 @@ public:
      *
      * @param box The size to request. Cannot be smaller than minimumRequisition()
      */
-    void setRequisition(const sf::Vector2f& size);
+    void setRequisition(const sf::Vector2i& size);
 
     /**
      * @brief Returns the requisition of the Element
      *
      */
-    sf::Vector2f getRequisition() const;
+    sf::Vector2i getRequisition() const;
 
     /**
      * @brief Returns the acquision of the Element. This is the size allocated to it, and mays
@@ -194,7 +196,7 @@ protected:
      *        this size is invalid
      *
      */
-    virtual sf::Vector2f minimumRequisition() const = 0;
+    virtual sf::Vector2i minimumRequisition() const = 0;
 
     /**
      * @brief Sets the acquisition of the Element. Meant to be called by a Container. Clears
@@ -258,7 +260,7 @@ protected:
 private:
     const std::string _id;
     const std::string _group;
-    std::optional<sf::Vector2f> requisition;
+    std::optional<sf::Vector2i> requisition;
     Signal signals[Action::NUM_ACTIONS];
 
     sf::IntRect acquisition;
@@ -271,6 +273,8 @@ private:
     bool isLeftPressed;
     bool isRightPressed;
     sf::Vector2f dragStart;
+
+    friend class Packer;
 };
 
 } // namespace gui

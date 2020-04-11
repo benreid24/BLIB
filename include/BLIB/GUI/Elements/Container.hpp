@@ -35,6 +35,12 @@ public:
     virtual ~Container() = default;
 
     /**
+     * @brief Update the Packer used. Marks the Element as dirty
+     *
+     */
+    void setPacker(Packer::Ptr packer);
+
+    /**
      * @brief Releases the focus of this Element, parent, and children, if not forced to stay
      *        in focus
      * @see Element::releaseFocus()
@@ -67,9 +73,9 @@ protected:
      * @brief Returns the minimum requisition for the Container. This depends on the child
      *        elements and the Packer
      *
-     * @return sf::Vector2f Minimum size required by the Container
+     * @return sf::Vector2i Minimum size required by the Container
      */
-    virtual sf::Vector2f minimumRequisition() const override;
+    virtual sf::Vector2i minimumRequisition() const override;
 
     /**
      * @brief Repacks elements with the new acquisition

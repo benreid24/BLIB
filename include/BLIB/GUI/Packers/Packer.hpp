@@ -24,9 +24,9 @@ public:
      * @brief Reports the minimum requisition of the element list given
      *
      * @param elements The list of Elements to consider
-     * @return sf::Vector2f The minimum requisition for the list given the packing strategy
+     * @return sf::Vector2i The minimum requisition for the list given the packing strategy
      */
-    virtual sf::Vector2f getRequisition(const std::vector<Element::Ptr>& elements) = 0;
+    virtual sf::Vector2i getRequisition(const std::vector<Element::Ptr>& elements) = 0;
 
     /**
      * @brief Pack the elements into the assigned acquisition
@@ -36,6 +36,17 @@ public:
      */
     virtual void pack(const sf::IntRect& acquisition,
                       const std::vector<Element::Ptr>& elements) = 0;
+
+protected:
+    /**
+     * @brief Help method to set Element acquisition. Exposes the protected member
+     *
+     * @param element The element to set
+     * @param acquisition The size and position to assign
+     */
+    void setAcquisition(Element::Ptr element, const sf::IntRect& acquisition) {
+        element->assignAcquisition(acquisition);
+    }
 };
 
 } // namespace gui

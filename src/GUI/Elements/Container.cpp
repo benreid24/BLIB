@@ -8,6 +8,11 @@ Container::Container(const std::string& group, const std::string& id, Packer::Pt
 : Element(group, id)
 , packer(packer) {}
 
+void Container::setPacker(Packer::Ptr p) {
+    packer = p;
+    makeDirty();
+}
+
 bool Container::releaseFocus() {
     for (Element::Ptr e : children) {
         if (!e->releaseFocus()) return false;
@@ -15,7 +20,7 @@ bool Container::releaseFocus() {
     return Element::releaseFocus();
 }
 
-sf::Vector2f Container::minimumRequisition() const { return packer->getRequisition(children); }
+sf::Vector2i Container::minimumRequisition() const { return packer->getRequisition(children); }
 
 void Container::onAcquisition() { packer->pack(getAcquisition(), children); }
 
