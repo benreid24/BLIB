@@ -2,6 +2,7 @@
 #define BLIB_GUI_ELEMENTS_ELEMENT_HPP
 
 #include <BLIB/GUI/Action.hpp>
+#include <BLIB/GUI/Renderers/RenderSettings.hpp>
 #include <BLIB/GUI/Renderers/Renderer.hpp>
 #include <BLIB/GUI/Signal.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
@@ -181,6 +182,59 @@ public:
      */
     virtual void render(sf::RenderTarget& target, Renderer::Ptr renderer) const;
 
+    /**
+     * @brief Set the character size. Default is 12. Doesn't apply to all Element types
+     *
+     * @param size Point size
+     */
+    void setCharacterSize(unsigned int size);
+
+    /**
+     * @brief Set the text fill and outline color. Doesn't apply to all Element types
+     *
+     * @param fill Fill color of the text
+     * @param outline Outline color of the text
+     *
+     */
+    void setColor(sf::Color fill, sf::Color outline);
+
+    /**
+     * @brief Set the outline thickness of the text, in pixels. Doesn't apply to all Element
+     *        types
+     *
+     * @param thickness Thickness in pixels
+     */
+    void setOutlineThickness(unsigned int thickness);
+
+    /**
+     * @brief Set the style of the text. See sf::Text::Style. Doesn't apply to all Element
+     *        types
+     *
+     * @param style Style to set
+     */
+    void setStyle(sf::Uint32 style);
+
+    /**
+     * @brief Set the horizontal alignment. Doesn't apply to all Element types
+     *
+     * @param align The alignment to use
+     */
+    void setHorizontalAlignment(RenderSettings::Alignment align);
+
+    /**
+     * @brief Set the vertical alignment. Doesn't apply to all Element types
+     *
+     * @param align The alignment to use
+     */
+    void setVerticalAlignment(RenderSettings::Alignment align);
+
+    /**
+     * @brief Returns the render settings for this object
+     *
+     * @return const RenderSettings& The render settings
+     */
+    const RenderSettings& renderSettings() const;
+
 protected:
     /**
      * @brief Builds a new Element. The group and id are optional and are only used to be
@@ -258,14 +312,22 @@ protected:
      */
     virtual void handleAction(const Action& action) {}
 
+    /**
+     * @brief This method is called when any of the RenderSettings change. Child classes may
+     *        need to mark themselves dirty if the new settings cause them to not fit in their
+     *        acquisitions
+     *
+     */
+    virtual void settingsChanged(){};
+
 private:
     const std::string _id;
     const std::string _group;
+    RenderSettings settings;
     std::optional<sf::Vector2i> requisition;
-    Signal signals[Action::NUM_ACTIONS];
-
     sf::IntRect acquisition;
     Element::WPtr parent;
+    Signal signals[Action::NUM_ACTIONS];
 
     bool _dirty;
     bool isFocused;

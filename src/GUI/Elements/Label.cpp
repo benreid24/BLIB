@@ -12,48 +12,21 @@ Label::Label(const std::string& text, const std::string& group, const std::strin
 , font(Font::get()) {
     if (font) renderText.setFont(*font);
     renderText.setCharacterSize(12);
-    refresh();
+    settingsChanged();
 }
 
 void Label::setText(const std::string& t) {
     text = t;
-    refresh();
+    settingsChanged();
 }
 
 void Label::setFont(bl::Resource<sf::Font>::Ref f) {
     font = f;
     if (font) renderText.setFont(*font);
-    refresh();
-}
-
-void Label::setCharacterSize(unsigned int s) {
-    renderText.setCharacterSize(s);
-    settings.characterSize = s;
-    refresh();
-}
-
-void Label::setColor(sf::Color fill, sf::Color outline) {
-    renderText.setFillColor(fill);
-    renderText.setOutlineColor(fill);
-    settings.fillColor    = fill;
-    settings.outlineColor = outline;
-}
-
-void Label::setOutlineThickness(unsigned int t) {
-    renderText.setOutlineThickness(t);
-    settings.outlineThickness = t;
-    refresh();
-}
-
-void Label::setStyle(sf::Uint32 style) {
-    renderText.setStyle(style);
-    settings.style = style;
-    refresh();
+    settingsChanged();
 }
 
 Resource<sf::Font>::Ref Label::getFont() const { return font; }
-
-const RenderSettings& Label::renderSettings() const { return settings; }
 
 void Label::render(sf::RenderTarget& target, Renderer::Ptr renderer) const {
     renderer->renderLabel(target, *this);
@@ -64,8 +37,10 @@ sf::Vector2i Label::minimumRequisition() const {
             static_cast<int>(renderText.getGlobalBounds().height)};
 }
 
-void Label::refresh() {
+void Label::settingsChanged() {
     renderText.setString(text);
+    renderText.setCharacterSize(renderSettings().characterSize.value_or(12));
+    renderText.setStyle(renderSettings().style.value_or(sf::Text::Regular));
     if (renderText.getGlobalBounds().width > getAcquisition().width ||
         renderText.getGlobalBounds().height > getAcquisition().height)
         makeDirty();

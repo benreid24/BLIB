@@ -2,7 +2,6 @@
 #define BLIB_GUI_ELEMENTS_LABEL_HPP
 
 #include <BLIB/GUI/Elements/Element.hpp>
-#include <BLIB/GUI/Renderers/RenderSettings.hpp>
 #include <BLIB/Resources/ResourceLoader.hpp>
 
 namespace bl
@@ -55,36 +54,6 @@ public:
     void setFont(bl::Resource<sf::Font>::Ref font);
 
     /**
-     * @brief Set the character size. Default is 12
-     *
-     * @param size Point size
-     */
-    void setCharacterSize(unsigned int size);
-
-    /**
-     * @brief Set the text fill and outline color
-     *
-     * @param fill Fill color of the text
-     * @param outline Outline color of the text
-     *
-     */
-    void setColor(sf::Color fill, sf::Color outline);
-
-    /**
-     * @brief Set the outline thickness of the text, in pixels
-     *
-     * @param thickness Thickness in pixels
-     */
-    void setOutlineThickness(unsigned int thickness);
-
-    /**
-     * @brief Set the style of the text. See sf::Text::Style
-     *
-     * @param style Style to set
-     */
-    void setStyle(sf::Uint32 style);
-
-    /**
      * @brief Render the Label to the given target
      *
      * @param target The target to render to
@@ -99,17 +68,9 @@ public:
      */
     bl::Resource<sf::Font>::Ref getFont() const;
 
-    /**
-     * @brief Returns the render settings for this object
-     *
-     * @return const RenderSettings& The render settings
-     */
-    const RenderSettings& renderSettings() const;
-
 protected:
     std::string text;
     mutable bl::Resource<sf::Font>::Ref font;
-    RenderSettings settings;
     sf::Text renderText;
 
     /**
@@ -124,7 +85,7 @@ protected:
      *        assigned acquisition
      *
      */
-    void refresh();
+    virtual void settingsChanged() override;
 };
 
 } // namespace gui

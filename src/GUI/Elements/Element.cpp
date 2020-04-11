@@ -179,5 +179,38 @@ void Element::render(sf::RenderTarget& target, Renderer::Ptr renderer) const {
     renderer->renderCustom(target, *this);
 }
 
+const RenderSettings& Element::renderSettings() const { return settings; }
+
+void Element::setCharacterSize(unsigned int s) {
+    settings.characterSize = s;
+    settingsChanged();
+}
+
+void Element::setColor(sf::Color fill, sf::Color outline) {
+    settings.fillColor    = fill;
+    settings.outlineColor = outline;
+    settingsChanged();
+}
+
+void Element::setOutlineThickness(unsigned int t) {
+    settings.outlineThickness = t;
+    settingsChanged();
+}
+
+void Element::setStyle(sf::Uint32 style) {
+    settings.style = style;
+    settingsChanged();
+}
+
+void Element::setHorizontalAlignment(RenderSettings::Alignment align) {
+    settings.horizontalAlignment = align;
+    settingsChanged();
+}
+
+void Element::setVerticalAlignment(RenderSettings::Alignment align) {
+    settings.verticalAlignment = align;
+    settingsChanged();
+}
+
 } // namespace gui
 } // namespace bl

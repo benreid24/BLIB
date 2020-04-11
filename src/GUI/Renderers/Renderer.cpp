@@ -17,12 +17,13 @@ void Renderer::setIdSettings(const std::string& id, const RenderSettings& settin
     idSettings[id] = settings;
 }
 
-RenderSettings Renderer::getSettings(const std::string& group, const std::string& id) const {
+RenderSettings Renderer::getSettings(const Element* element) const {
     RenderSettings result;
-    auto it = groupSettings.find(group);
+    auto it = groupSettings.find(element->group());
     if (it != groupSettings.end()) result.merge(it->second);
-    it = idSettings.find(id);
+    it = idSettings.find(element->id());
     if (it != idSettings.end()) result.merge(it->second);
+    result.merge(element->renderSettings());
     return result;
 }
 
@@ -31,7 +32,7 @@ void Renderer::renderCustom(sf::RenderTarget& target, const Element& element) co
 }
 
 void Renderer::renderContainer(sf::RenderTarget& target, const Container& container) const {
-    const RenderSettings settings = getSettings(container.group(), container.id());
+    const RenderSettings settings = getSettings(&container);
     const sf::FloatRect area      = static_cast<sf::FloatRect>(container.getAcquisition());
     sf::RectangleShape rect({area.width, area.height});
     rect.setPosition(area.left, area.top);
@@ -48,9 +49,8 @@ void Renderer::renderLabel(sf::RenderTarget& target, const Label& label) const {
         return;
     }
 
-    const sf::FloatRect area = static_cast<sf::FloatRect>(label.getAcquisition());
-    RenderSettings settings  = getSettings(label.group(), label.id());
-    settings.merge(label.renderSettings());
+    const sf::FloatRect area      = static_cast<sf::FloatRect>(label.getAcquisition());
+    const RenderSettings settings = getSettings(&label);
 
     sf::Text text;
     text.setFont(*font);

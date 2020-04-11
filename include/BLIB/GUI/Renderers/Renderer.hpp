@@ -85,12 +85,11 @@ protected:
     Renderer() = default;
 
     /**
-     * @brief Returns an aggregated RenderSettings object for the given group and id. Settings
-     *        with no values are left empty. Care must still be taken to respect element level
-     *        overrides
+     * @brief Returns an aggregated RenderSettings object for the given Element. Settings
+     *        with no values are left empty.
      *
      */
-    RenderSettings getSettings(const std::string& group, const std::string& id) const;
+    RenderSettings getSettings(const Element* element) const;
 
 private:
     std::unordered_map<std::string, RenderSettings> groupSettings;
