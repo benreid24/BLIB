@@ -30,6 +30,11 @@ void Container::bringToTop(const Element* child) {
     }
 }
 
+void Container::add(Element::Ptr e) {
+    children.push_back(e);
+    makeDirty();
+}
+
 void Container::removeChild(const Element* child) { toRemove.push_back(child); }
 
 bool Container::handleRawEvent(const sf::Vector2f& mpos, const sf::Event& event) {
@@ -40,6 +45,7 @@ bool Container::handleRawEvent(const sf::Vector2f& mpos, const sf::Event& event)
 }
 
 void Container::update(float dt) {
+    if (!toRemove.empty()) makeDirty();
     for (const Element* e : toRemove) {
         for (unsigned int i = 0; i < children.size(); ++i) {
             if (children[i].get() == e) {

@@ -24,6 +24,7 @@ void Element::setRequisition(const sf::Vector2f& size) {
         const sf::Vector2f min = minimumRequisition();
         if (size.x >= min.x && size.y >= min.y) requisition = size;
     }
+    makeDirty();
 }
 
 sf::Vector2f Element::getRequisition() const {

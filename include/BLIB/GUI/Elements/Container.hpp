@@ -42,6 +42,13 @@ public:
     virtual bool releaseFocus() override;
 
     /**
+     * @brief Adds the Element as a new child. Causes a refresh of acquisitions
+     *
+     * @param child The child to add
+     */
+    void add(Element::Ptr child);
+
+    /**
      * @brief Performs the removal of Elements pending removal. Then updates all children
      *
      */
