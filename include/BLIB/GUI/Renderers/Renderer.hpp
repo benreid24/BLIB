@@ -10,6 +10,7 @@ namespace bl
 namespace gui
 {
 class Element;
+class Container;
 
 /**
  * @brief Utility class to render GUI elements. Derived classes may override whichever
@@ -39,7 +40,13 @@ public:
      */
     virtual void renderCustom(sf::RenderTarget& target, const Element& element) const;
 
-    // TODO - method for each Element type
+    /**
+     * @brief Renders a Container element
+     *
+     * @param target Target to render to
+     * @param container Container to render
+     */
+    virtual void renderContainer(sf::RenderTarget& target, const Container& container) const;
 
 private:
     Renderer() = default;

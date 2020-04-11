@@ -3,6 +3,7 @@
 
 #include <BLIB/GUI/Elements/Element.hpp>
 #include <BLIB/GUI/Packers/Packer.hpp>
+#include <list>
 
 namespace bl
 {
@@ -39,6 +40,20 @@ public:
      * @see Element::releaseFocus()
      */
     virtual bool releaseFocus() override;
+
+    /**
+     * @brief Performs the removal of Elements pending removal. Then updates all children
+     *
+     */
+    virtual void update(float dt) override;
+
+    /**
+     * @brief Renders the container and all of its children in bottom up Z order
+     *
+     * @param target The target to render to
+     * @param renderer The renderer to use
+     */
+    virtual void render(sf::RenderTarget& target, Renderer::Ptr renderer) const override;
 
 protected:
     /**
@@ -79,16 +94,10 @@ protected:
      */
     virtual bool handleRawEvent(const sf::Vector2f& mousePos, const sf::Event& event) override;
 
-    /**
-     * @brief Renders the container and all of its children in bottom up Z order
-     *
-     * @param target The target to render to
-     * @param renderer The renderer to use
-     */
-    virtual void render(sf::RenderTarget& target, Renderer::Ptr renderer) const override;
-
 private:
+    Packer::Ptr packer;
     std::vector<Element::Ptr> children;
+    std::list<const Element*> toRemove;
 };
 
 } // namespace gui

@@ -51,7 +51,10 @@ bool Element::takeFocus() {
     return true;
 }
 
-bool Element::setForceFocus(bool force) { focusForced = force ? takeFocus() : false; }
+bool Element::setForceFocus(bool force) {
+    focusForced = force ? takeFocus() : false;
+    return hasFocus() || !force;
+}
 
 bool Element::releaseFocus() {
     if (focusForced) {
@@ -141,6 +144,8 @@ bool Element::handleEvent(const sf::Vector2f& mpos, const sf::Event& event) {
         return false;
     }
 }
+
+bool Element::handleRawEvent(const sf::Vector2f&, const sf::Event&) { return false; }
 
 bool Element::processAction(const Action& action) {
     if (hasFocus() || (action.type == Action::Scrolled && mouseOver())) {

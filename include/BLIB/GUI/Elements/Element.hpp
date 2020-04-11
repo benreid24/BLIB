@@ -161,6 +161,23 @@ public:
      */
     virtual void remove();
 
+    /**
+     * @brief Performs any custom logic of the Element
+     *
+     * @param dt Time elapsed, in seconds, since last update
+     */
+    virtual void update(float dt) {}
+
+    /**
+     * @brief Renders the element using the given renderer. Child classes may call specialized
+     *        methods in the renderer, or implement their own rendering. The latter is not
+     *        recommended as then appearance is hard coded
+     *
+     * @param target The target to render to
+     * @param renderer The renderer to use
+     */
+    virtual void render(sf::RenderTarget& target, Renderer::Ptr renderer) const;
+
 protected:
     /**
      * @brief Builds a new Element. The group and id are optional and are only used to be
@@ -220,12 +237,14 @@ protected:
     /**
      * @brief Method for child classes to handle raw SFML events. Not recommended to use.
      *        Instead, use handleAction(). This method is called regardless of where the mouse
-     *        is and if the Element is in focus. Used by Container
+     *        is and if the Element is in focus. Used by Container.  Note that if this
+     *        returns true then handleEvent() will return before performing common processing,
+     *        like tracking mouse in/out and clicking
      *
      * @param event The raw event
      * @return True if the event is consumed and no more Elements should be notified
      */
-    virtual bool handleRawEvent(const sf::Vector2f& mousePos, const sf::Event& event) {}
+    virtual bool handleRawEvent(const sf::Vector2f& mousePos, const sf::Event& event);
 
     /**
      * @brief Method for child classes to handle Actions performed on this Element. This method
@@ -235,23 +254,6 @@ protected:
      * @return True if the event is consumed and no more Elements should be notified
      */
     virtual void handleAction(const Action& action) {}
-
-    /**
-     * @brief Performs any custom logic of the Element
-     *
-     * @param dt Time elapsed, in seconds, since last update
-     */
-    virtual void update(float dt) {}
-
-    /**
-     * @brief Renders the element using the given renderer. Child classes may call specialized
-     *        methods in the renderer, or implement their own rendering. The latter is not
-     *        recommended as then appearance is hard coded
-     *
-     * @param target The target to render to
-     * @param renderer The renderer to use
-     */
-    virtual void render(sf::RenderTarget& target, Renderer::Ptr renderer) const;
 
 private:
     const std::string _id;
