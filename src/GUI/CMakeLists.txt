@@ -4,6 +4,7 @@ target_sources(BLIB PRIVATE
     Signal.cpp
 )
 
+add_subdirectory(Data)
 add_subdirectory(Elements)
 add_subdirectory(Packers)
 add_subdirectory(Renderers)

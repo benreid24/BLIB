@@ -11,6 +11,7 @@ namespace gui
 {
 class Element;
 class Container;
+class Label;
 
 /**
  * @brief Utility class to render GUI elements. Derived classes may override whichever
@@ -47,6 +48,14 @@ public:
      * @param container Container to render
      */
     virtual void renderContainer(sf::RenderTarget& target, const Container& container) const;
+
+    /**
+     * @brief Renders a Label element
+     *
+     * @param target The target to render to
+     * @param label Label to render
+     */
+    virtual void renderLabel(sf::RenderTarget& target, const Label& label) const;
 
 private:
     Renderer() = default;

@@ -99,7 +99,8 @@ public:
     /**
      * @brief Releases the focus from this Element. Returns true if element not in focus or if
      *        the element is not forcing itself in focus. On a false return other Elements will
-     *        not be able to takeFocus()
+     *        not be able to takeFocus(). Only Elements with children need to specialize this
+     *        method
      *
      */
     virtual bool releaseFocus();

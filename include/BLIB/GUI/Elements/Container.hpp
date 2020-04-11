@@ -22,11 +22,11 @@ public:
     /**
      * @brief Construct a new Container with the given id, group, and Packer
      *
+     * @param packer The Packer to pack child elements with
      * @param group The group of the Element
      * @param id The id of this Element
-     * @param packer The Packer to pack child elements with
      */
-    Container(const std::string& group, const std::string& id, Packer::Ptr packer);
+    Container(Packer::Ptr packer, const std::string& group = "", const std::string& id = "");
 
     /**
      * @brief Destroy the Container object

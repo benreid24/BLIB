@@ -4,7 +4,7 @@ namespace bl
 {
 namespace gui
 {
-Container::Container(const std::string& group, const std::string& id, Packer::Ptr packer)
+Container::Container(Packer::Ptr packer, const std::string& group, const std::string& id)
 : Element(group, id)
 , packer(packer) {}
 

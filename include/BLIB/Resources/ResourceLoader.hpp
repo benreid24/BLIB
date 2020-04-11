@@ -1,6 +1,7 @@
 #ifndef BLIB_RESOURCES_RESOURCELOADER_HPP
 #define BLIB_RESOURCES_RESOURCELOADER_HPP
 
+#include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
 #include <memory>
@@ -18,7 +19,8 @@ struct Resource {
 
 /**
  * @brief Templatized resource loader for compile time specification.
- * @brief The default behavior is to attempt to call a constructor that takes the resource URI as a string
+ * @brief The default behavior is to attempt to call a constructor that takes the resource URI
+ * as a string
  * @brief Resources with different behavior will require specialized loaders
  *
  * @ingroup Resources
@@ -40,6 +42,20 @@ struct TextureFileLoader {
         Resource<sf::Texture>::Ref txtr = std::make_shared<sf::Texture>();
         txtr->loadFromFile(uri);
         return txtr;
+    }
+};
+
+/**
+ * @brief Specialized ResourceLoader for sf::Font
+ *
+ * @ingroup Resources
+ *
+ */
+struct FontFileLoader {
+    Resource<sf::Font>::Ref operator()(const std::string& uri) {
+        Resource<sf::Font>::Ref font = std::make_shared<sf::Font>();
+        font->loadFromFile(uri);
+        return font;
     }
 };
 
