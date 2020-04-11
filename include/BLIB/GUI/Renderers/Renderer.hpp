@@ -1,9 +1,11 @@
 #ifndef BLIB_GUI_RENDERERS_RENDERER_HPP
 #define BLIB_GUI_RENDERERS_RENDERER_HPP
 
+#include <BLIB/GUI/Renderers/RenderSettings.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <unordered_map>
 
 namespace bl
 {
@@ -27,6 +29,24 @@ public:
      *
      */
     static Ptr create();
+
+    /**
+     * @brief Add or set RenderSettings for the given group. Overriden for Elements with id
+     *        level overrides
+     *
+     * @param group The group to apply the settings to
+     * @param settings The render settings
+     */
+    void setGroupSettings(const std::string& group, const RenderSettings& settings);
+
+    /**
+     * @brief Add or set RenderSettings for the given id. Settings applied in the element
+     *        itself, if any, override these
+     *
+     * @param id Id of the Element to set for
+     * @param settings The render settings
+     */
+    void setIdSettings(const std::string& id, const RenderSettings& settings);
 
     /**
      * @brief Destroy the Renderer object
@@ -57,8 +77,24 @@ public:
      */
     virtual void renderLabel(sf::RenderTarget& target, const Label& label) const;
 
-private:
+protected:
+    /**
+     * @brief Construct a new default renderer
+     *
+     */
     Renderer() = default;
+
+    /**
+     * @brief Returns an aggregated RenderSettings object for the given group and id. Settings
+     *        with no values are left empty. Care must still be taken to respect element level
+     *        overrides
+     *
+     */
+    RenderSettings getSettings(const std::string& group, const std::string& id) const;
+
+private:
+    std::unordered_map<std::string, RenderSettings> groupSettings;
+    std::unordered_map<std::string, RenderSettings> idSettings;
 };
 
 } // namespace gui

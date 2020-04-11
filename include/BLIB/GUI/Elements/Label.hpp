@@ -2,6 +2,7 @@
 #define BLIB_GUI_ELEMENTS_LABEL_HPP
 
 #include <BLIB/GUI/Elements/Element.hpp>
+#include <BLIB/GUI/Renderers/RenderSettings.hpp>
 #include <BLIB/Resources/ResourceLoader.hpp>
 
 namespace bl
@@ -9,7 +10,9 @@ namespace bl
 namespace gui
 {
 /**
- * @brief Display only text element. Used to display text in a GUI
+ * @brief Display only text element. Used to display text in a GUI. Note that any render
+ *        settings changed here will take precedance over any overrides the Renderer has set,
+ *        even id level overrides
  *
  * @ingroup GUI
  *
@@ -36,6 +39,12 @@ public:
      *
      */
     void setText(const std::string& text);
+
+    /**
+     * @brief Returns the currently displayed text
+     *
+     */
+    const std::string& getText() const;
 
     /**
      * @brief Set the font used by the label. Note that a default font is used if this isn't
@@ -84,15 +93,31 @@ public:
     virtual void render(sf::RenderTarget& target, Renderer::Ptr renderer) const override;
 
     /**
-     * @brief Exposes the underlying text object for a Renderer
+     * @brief Returns the font used by the label
      *
+     * @return bl::Resource<sf::Font>::Ref Pointer to the font. May be null
      */
-    const sf::Text& getRenderText() const;
+    bl::Resource<sf::Font>::Ref getFont() const;
 
-private:
+    /**
+     * @brief Returns the render settings for this object
+     *
+     * @return const RenderSettings& The render settings
+     */
+    const RenderSettings& renderSettings() const;
+
+protected:
     std::string text;
-    bl::Resource<sf::Font>::Ref font;
+    mutable bl::Resource<sf::Font>::Ref font;
+    RenderSettings settings;
     sf::Text renderText;
+
+    /**
+     * @brief Returns the minimum space required to render the label
+     *
+     * @return sf::Vector2i Space required
+     */
+    virtual sf::Vector2i minimumRequisition() const override;
 
     /**
      * @brief Puts the text into the renderText and marks dirty if the text exceeds the
