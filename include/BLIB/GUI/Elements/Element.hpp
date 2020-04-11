@@ -144,6 +144,18 @@ public:
     bool processAction(const Action& action);
 
     /**
+     * @brief Marks this Element as requiring a recalculation of acquisition
+     *
+     */
+    virtual void makeDirty();
+
+    /**
+     * @brief Returns true if this Element requires a reacquisition
+     *
+     */
+    bool dirty() const;
+
+    /**
      * @brief Removes this Element from its parent. Safe to call at any time
      *
      */
@@ -168,11 +180,19 @@ protected:
     virtual sf::Vector2f minimumRequisition() const = 0;
 
     /**
-     * @brief Sets the acquisision of the Element. Meant to be called by a Container
+     * @brief Sets the acquisition of the Element. Meant to be called by a Container. Clears
+     *        the dirty state
      *
      * @param acquisition The area the Element is to occupy
      */
     void assignAcquisition(const sf::IntRect& acquisition);
+
+    /**
+     * @brief Special event method called when the Element's acquisition changes. Most elements
+     *        need not do anything, but Containers need to repack
+     *
+     */
+    virtual void onAcquisition() {}
 
     /**
      * @brief Set the parent Element. Should only be called by the parent when the child is
@@ -200,7 +220,7 @@ protected:
     /**
      * @brief Method for child classes to handle raw SFML events. Not recommended to use.
      *        Instead, use handleAction(). This method is called regardless of where the mouse
-     *        is and if the Element is in focus
+     *        is and if the Element is in focus. Used by Container
      *
      * @param event The raw event
      * @return True if the event is consumed and no more Elements should be notified
@@ -242,6 +262,7 @@ private:
     sf::IntRect acquisition;
     Element::WPtr parent;
 
+    bool _dirty;
     bool isFocused;
     bool focusForced;
     bool isMouseOver;

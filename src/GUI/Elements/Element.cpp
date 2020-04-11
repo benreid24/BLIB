@@ -7,6 +7,7 @@ namespace gui
 Element::Element(const std::string& i, const std::string& g)
 : _id(i)
 , _group(g)
+, _dirty(true)
 , isFocused(false)
 , focusForced(false)
 , isMouseOver(false)
@@ -155,7 +156,16 @@ void Element::remove() {
     if (p) p->removeChild(this);
 }
 
-void Element::assignAcquisition(const sf::IntRect& acq) { acquisition = acq; }
+void Element::makeDirty() {
+    _dirty         = true;
+    Element::Ptr p = parent.lock();
+    if (p) p->makeDirty();
+}
+
+void Element::assignAcquisition(const sf::IntRect& acq) {
+    _dirty      = false;
+    acquisition = acq;
+}
 
 void Element::setParent(Element::Ptr p) { parent = p; }
 
