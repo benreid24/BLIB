@@ -1,9 +1,9 @@
 #ifndef BLIB_GUI_GUI_HPP
 #define BLIB_GUI_GUI_HPP
 
+#include <BLIB/GUI/Elements/Container.hpp>
 #include <BLIB/Util/EventDispatcher.hpp>
 #include <BLIB/Util/EventListener.hpp>
-#include <BLIB/Util/NonCopyable.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace bl
@@ -19,8 +19,8 @@ namespace bl
  */
 class GUI
 : public sf::Drawable
-, public bl::NonCopyable
-, public bl::WindowEventListener {
+, public bl::WindowEventListener
+, private gui::Container {
 public:
     /**
      * @brief Create a new GUI that is subscribed to the dispatcher and renders to the given

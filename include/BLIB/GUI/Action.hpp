@@ -2,6 +2,7 @@
 #define BLIB_GUI_ACTION_HPP
 
 #include <SFML/Window.hpp>
+#include <string>
 
 namespace bl
 {
@@ -31,8 +32,21 @@ struct Action {
         KeyPressed,   /// Keyboard key pressed while Element focused
         KeyReleased,  /// Keyboard key released while Element focused
         TextEntered,  /// Text typed in while Element focused
+        Closed,       /// Specific to Window element. Fired when it is closed
+        Custom,       /// Custom type for custom elements to use
         NUM_ACTIONS,  /// How many valid Action types exist
         Unknown       /// Invalid Action
+    };
+
+    /**
+     * @brief Generic struct to pack Action with custom data for Custom types
+     *
+     */
+    struct CustomData {
+        int subtype;
+        int ints[4];
+        float floats[4];
+        char chars[4];
     };
 
     /**
@@ -44,11 +58,13 @@ struct Action {
         float scroll;            /// Mouse wheel delta for Scrolled
         sf::Event::KeyEvent key; /// Key for KeyPressed and KeyReleased
         sf::Vector2f dragStart;  /// Position of mouse when drag started
+        CustomData custom;       /// Generic data for custom actions
 
         TData(uint32_t input);
         TData(float scroll);
         TData(sf::Event::KeyEvent key);
         TData(const sf::Vector2f& drag);
+        TData(const CustomData& data);
     };
 
     const Type type;             /// The type of Action
@@ -104,6 +120,14 @@ struct Action {
      * @param pos The mouse position relative to the containing window
      */
     Action(Type type, const sf::Vector2f& drag, const sf::Vector2f& pos);
+
+    /**
+     * @brief Construct a new custom Action
+     *
+     * @param data Data for the custom action
+     * @param pos The mouse position relative to the containing window
+     */
+    Action(const CustomData& data, const sf::Vector2f& pos);
 };
 
 } // namespace gui

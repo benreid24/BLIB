@@ -153,7 +153,7 @@ public:
      * @brief Marks this Element as requiring a recalculation of acquisition
      *
      */
-    virtual void makeDirty();
+    void makeDirty();
 
     /**
      * @brief Returns true if this Element requires a reacquisition
@@ -165,7 +165,7 @@ public:
      * @brief Removes this Element from its parent. Safe to call at any time
      *
      */
-    virtual void remove();
+    void remove();
 
     /**
      * @brief Show or hide the Element. Making it invisible does not change any other element
@@ -338,6 +338,14 @@ protected:
      * @return True if the event is consumed and no more Elements should be notified
      */
     virtual void handleAction(const Action& action) {}
+
+    /**
+     * @brief Fires the signal that corresponds with the passed Action. This only needs to be
+     *        called for Actions specific to derived Elements
+     *
+     * @param action The action to fire
+     */
+    void fireSignal(const Action& action);
 
     /**
      * @brief This method is called when any of the RenderSettings change. Child classes may

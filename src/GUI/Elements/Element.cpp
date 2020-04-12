@@ -166,11 +166,13 @@ bool Element::handleRawEvent(const sf::Vector2f&, const sf::Event&) { return fal
 bool Element::processAction(const Action& action) {
     if (hasFocus() || (action.type == Action::Scrolled && mouseOver())) {
         handleAction(action);
-        signals[action.type](action, this);
+        fireSignal(action);
         return true;
     }
     return false;
 }
+
+void Element::fireSignal(const Action& action) { signals[action.type](action, this); }
 
 void Element::remove() {
     Element::Ptr p = parent.lock();
@@ -189,7 +191,7 @@ bool Element::visible() const { return _visible; }
 
 void Element::setActive(bool a) { _active = a; }
 
-bool Element::active() const { return _active; }
+bool Element::active() const { return _active && _visible; }
 
 void Element::assignAcquisition(const sf::IntRect& acq) {
     _dirty      = false;

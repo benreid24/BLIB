@@ -13,6 +13,9 @@
 #include <BLIB/GUI/Renderers/Renderer.hpp>
 #include <BLIB/GUI/Signal.hpp>
 
+#include <BLIB/GUI/Packers/LinePacker.hpp>
+#include <BLIB/GUI/Packers/Packer.hpp>
+
 #include <BLIB/GUI/Elements/Container.hpp>
 #include <BLIB/GUI/Elements/Element.hpp>
 #include <BLIB/GUI/Elements/Label.hpp>

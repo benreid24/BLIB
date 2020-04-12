@@ -34,6 +34,9 @@ Action::TData::TData(sf::Event::KeyEvent k)
 Action::TData::TData(const sf::Vector2f& d)
 : dragStart(d) {}
 
+Action::TData::TData(const Action::CustomData& data)
+: custom(data) {}
+
 Action::Action(Type type, const sf::Vector2f& pos)
 : type(type)
 , data(0u)
@@ -57,6 +60,11 @@ Action::Action(Type type, sf::Event::KeyEvent key, const sf::Vector2f& pos)
 Action::Action(Type type, const sf::Vector2f& drag, const sf::Vector2f& pos)
 : type(type)
 , data(drag)
+, position(pos) {}
+
+Action::Action(const Action::CustomData& data, const sf::Vector2f& pos)
+: type(Custom)
+, data(data)
 , position(pos) {}
 
 } // namespace gui
