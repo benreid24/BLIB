@@ -20,8 +20,8 @@ public:
      */
     enum SpaceMode {
         Compact, /// Each element gets it's requisition and no more
-        Fill,    /// Each element has its acquisition expanded to fill all space
-        Uniform  /// Each element gets the same acquisition size, if space permits
+        Fill,    /// Each element gets an equal acquisition such that the total space is filled
+        Uniform  /// Each element gets acquisition of the largest element
     };
 
     /**
