@@ -24,7 +24,9 @@ class Packer;
  * @ingroup GUI
  *
  */
-class Element : public bl::NonCopyable {
+class Element
+: public bl::NonCopyable
+, private std::enable_shared_from_this<Element> {
 public:
     typedef std::shared_ptr<Element> Ptr;
     typedef std::weak_ptr<Element> WPtr;
@@ -294,11 +296,11 @@ protected:
     virtual void onAcquisition() {}
 
     /**
-     * @brief Set the parent Element. Should only be called by the parent when the child is
-     *        added
+     * @brief The's the parent of the child Element to this Element
      *
+     * @param child The child to set the parent to
      */
-    void setParent(Element::Ptr parent);
+    void setChildParent(Element::Ptr child);
 
     /**
      * @brief Bring the given child Element to the top. A child Element calls this on it's
@@ -354,6 +356,13 @@ protected:
      * @param renderer The renderer to use
      */
     virtual void doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const;
+
+    /**
+     * @brief Returns the Ptr to this Element
+     *
+     * @return Element::Ptr Ptr to this Element
+     */
+    Element::Ptr me();
 
 private:
     const std::string _id;

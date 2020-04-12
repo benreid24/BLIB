@@ -37,6 +37,7 @@ void Container::bringToTop(const Element* child) {
 
 void Container::add(Element::Ptr e) {
     children.push_back(e);
+    setChildParent(e);
     makeDirty();
 }
 

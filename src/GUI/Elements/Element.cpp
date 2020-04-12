@@ -196,7 +196,7 @@ void Element::assignAcquisition(const sf::IntRect& acq) {
     acquisition = acq;
 }
 
-void Element::setParent(Element::Ptr p) { parent = p; }
+void Element::setChildParent(Element::Ptr child) { child->parent = me(); }
 
 void Element::render(sf::RenderTarget& target, Renderer::Ptr renderer) const {
     if (visible()) doRender(target, renderer);
@@ -238,6 +238,8 @@ void Element::setVerticalAlignment(RenderSettings::Alignment align) {
     settings.verticalAlignment = align;
     settingsChanged();
 }
+
+Element::Ptr Element::me() { return shared_from_this(); }
 
 } // namespace gui
 } // namespace bl
