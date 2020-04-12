@@ -54,14 +54,6 @@ public:
     void setFont(bl::Resource<sf::Font>::Ref font);
 
     /**
-     * @brief Render the Label to the given target
-     *
-     * @param target The target to render to
-     * @param renderer The renderer to use
-     */
-    virtual void render(sf::RenderTarget& target, Renderer::Ptr renderer) const override;
-
-    /**
      * @brief Returns the font used by the label
      *
      * @return bl::Resource<sf::Font>::Ref Pointer to the font. May be null
@@ -86,6 +78,14 @@ protected:
      *
      */
     virtual void settingsChanged() override;
+
+    /**
+     * @brief Render the Label to the given target
+     *
+     * @param target The target to render to
+     * @param renderer The renderer to use
+     */
+    virtual void doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const override;
 };
 
 } // namespace gui

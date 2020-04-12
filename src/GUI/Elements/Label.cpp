@@ -28,7 +28,7 @@ void Label::setFont(bl::Resource<sf::Font>::Ref f) {
 
 Resource<sf::Font>::Ref Label::getFont() const { return font; }
 
-void Label::render(sf::RenderTarget& target, Renderer::Ptr renderer) const {
+void Label::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
     renderer->renderLabel(target, *this);
 }
 

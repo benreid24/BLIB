@@ -63,7 +63,7 @@ void Container::update(float dt) {
     for (Element::Ptr e : children) { e->update(dt); }
 }
 
-void Container::render(sf::RenderTarget& target, Renderer::Ptr renderer) const {
+void Container::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
     renderer->renderContainer(target, *this);
     for (auto it = children.rbegin(); it != children.rend(); ++it) {
         (*it)->render(target, renderer);

@@ -8,6 +8,8 @@ Element::Element(const std::string& i, const std::string& g)
 : _id(i)
 , _group(g)
 , _dirty(true)
+, _active(true)
+, _visible(true)
 , isFocused(false)
 , focusForced(false)
 , isMouseOver(false)
@@ -88,6 +90,8 @@ bool Element::handleEvent(const sf::Vector2f& mpos, const sf::Event& event) {
 
     case sf::Event::MouseButtonPressed:
         if (acquisition.contains(sf::Vector2i(event.mouseButton.x, event.mouseButton.y))) {
+            if (!active()) return true;
+
             if (takeFocus()) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     dragStart     = mpos;
@@ -104,6 +108,11 @@ bool Element::handleEvent(const sf::Vector2f& mpos, const sf::Event& event) {
         return false;
 
     case sf::Event::MouseButtonReleased:
+        if (!active()) {
+            isLeftPressed = isRightPressed = false;
+            return acquisition.contains(
+                sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+        }
         if (event.mouseButton.button == sf::Mouse::Left) {
             if (isLeftPressed) {
                 isLeftPressed = false;
@@ -128,18 +137,24 @@ bool Element::handleEvent(const sf::Vector2f& mpos, const sf::Event& event) {
         return false;
 
     case sf::Event::MouseMoved:
+        if (!active()) {
+            return acquisition.contains(
+                sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+        }
         if (isLeftPressed)
             return processAction(Action(Action::Dragged, dragStart, mpos));
         else if (acquisition.contains(sf::Vector2i(event.mouseMove.x, event.mouseMove.y))) {
             if (!isMouseOver) {
                 isMouseOver = true;
-                return processAction(Action(Action::MouseEntered, mpos));
+                processAction(Action(Action::MouseEntered, mpos));
             }
+            return true;
         }
         else if (isMouseOver) {
             isMouseOver = false;
-            return processAction(Action(Action::MouseLeft, mpos));
+            processAction(Action(Action::MouseLeft, mpos));
         }
+        return false;
 
     default:
         return false;
@@ -168,6 +183,14 @@ void Element::makeDirty() {
     if (p) p->makeDirty();
 }
 
+void Element::setVisible(bool v) { _visible = v; }
+
+bool Element::visible() const { return _visible; }
+
+void Element::setActive(bool a) { _active = a; }
+
+bool Element::active() const { return _active; }
+
 void Element::assignAcquisition(const sf::IntRect& acq) {
     _dirty      = false;
     acquisition = acq;
@@ -176,6 +199,10 @@ void Element::assignAcquisition(const sf::IntRect& acq) {
 void Element::setParent(Element::Ptr p) { parent = p; }
 
 void Element::render(sf::RenderTarget& target, Renderer::Ptr renderer) const {
+    if (visible()) doRender(target, renderer);
+}
+
+void Element::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
     renderer->renderCustom(target, *this);
 }
 

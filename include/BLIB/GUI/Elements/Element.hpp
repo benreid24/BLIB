@@ -166,6 +166,33 @@ public:
     virtual void remove();
 
     /**
+     * @brief Show or hide the Element. Making it invisible does not change any other element
+     *        acquisitions
+     *
+     * @param visible True to render the Element, false to hide. Default is true
+     */
+    void setVisible(bool visible);
+
+    /**
+     * @brief Returns whether or not the Element is visible
+     *
+     */
+    bool visible() const;
+
+    /**
+     * @brief Set whether or not the Element is active and responds to events
+     *
+     * @param active True to respond to events. Default is true
+     */
+    void setActive(bool active);
+
+    /**
+     * @brief Returns whether or not the Element is active and responds to events
+     *
+     */
+    bool active() const;
+
+    /**
      * @brief Performs any custom logic of the Element
      *
      * @param dt Time elapsed, in seconds, since last update
@@ -173,14 +200,12 @@ public:
     virtual void update(float dt) {}
 
     /**
-     * @brief Renders the element using the given renderer. Child classes may call specialized
-     *        methods in the renderer, or implement their own rendering. The latter is not
-     *        recommended as then appearance is hard coded
+     * @brief Renders the element using the given renderer
      *
      * @param target The target to render to
      * @param renderer The renderer to use
      */
-    virtual void render(sf::RenderTarget& target, Renderer::Ptr renderer) const;
+    void render(sf::RenderTarget& target, Renderer::Ptr renderer) const;
 
     /**
      * @brief Set the character size. Default is 12. Doesn't apply to all Element types
@@ -320,6 +345,16 @@ protected:
      */
     virtual void settingsChanged(){};
 
+    /**
+     * @brief Actually performs the rendering. This is only called if the element is visible.
+     *        Child classes may call specialized methods in the renderer, or implement their
+     *        own rendering. The latter is not recommended as then appearance is hard coded
+     *
+     * @param target The target to render to
+     * @param renderer The renderer to use
+     */
+    virtual void doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const;
+
 private:
     const std::string _id;
     const std::string _group;
@@ -330,6 +365,8 @@ private:
     Signal signals[Action::NUM_ACTIONS];
 
     bool _dirty;
+    bool _active;
+    bool _visible;
     bool isFocused;
     bool focusForced;
     bool isMouseOver;
