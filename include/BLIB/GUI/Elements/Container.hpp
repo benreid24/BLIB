@@ -76,11 +76,12 @@ protected:
     virtual void onAcquisition() override;
 
     /**
-     * @brief Brings the child Element on top
+     * @brief Raises the child Element to the front of the rendering/update queue. Only meant
+     *        to be called by GUI
      *
-     * @param child The element to raise
+     * @param child The child to bring to the top
      */
-    virtual void bringToTop(const Element* child) override;
+    void raiseChild(const Element* child);
 
     /**
      * @brief Removes the given Element from the list of child Elements

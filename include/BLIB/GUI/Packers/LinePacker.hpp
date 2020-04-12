@@ -33,12 +33,23 @@ public:
     enum Direction { Vertical, Horizontal };
 
     /**
+     * @brief Controls if the packing starts on the top/left, or if it is aligned with the
+     *        right/bottom. Leftto-right/top-to-bottom element is preserved
+     *
+     */
+    enum PackStart {
+        TopLeft,    /// Start packing at the left/top
+        BottomRight /// Start packing at the right/bottom
+    };
+
+    /**
      * @brief Allocates a new LinePacker. Defaults to Compact packing
      *
      * @param dir The pack direction
      *
      */
-    Packer::Ptr create(Direction dir, SpaceMode mode = Compact);
+    Packer::Ptr create(Direction dir = Horizontal, SpaceMode mode = Compact,
+                       PackStart start = TopLeft);
 
     /**
      * @brief Reports the minimum requisition of the element list given
@@ -60,8 +71,9 @@ public:
 private:
     const Direction dir;
     const SpaceMode mode;
+    const PackStart start;
 
-    LinePacker(Direction dir, SpaceMode mode);
+    LinePacker(Direction dir, SpaceMode mode, PackStart start);
 };
 
 } // namespace gui

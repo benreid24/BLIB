@@ -61,6 +61,7 @@ protected:
 
 private:
     Container::Ptr titlebar;
+    Container::Ptr leftTitleSide, rightTitleSide;
     Label::Ptr title;
     // TODO - close button
 };

@@ -24,7 +24,7 @@ sf::Vector2i Container::minimumRequisition() const { return packer->getRequisiti
 
 void Container::onAcquisition() { packer->pack(getAcquisition(), children); }
 
-void Container::bringToTop(const Element* child) {
+void Container::raiseChild(const Element* child) {
     for (unsigned int i = 1; i < children.size(); ++i) {
         if (children[i].get() == child) {
             Element::Ptr c = children[i];

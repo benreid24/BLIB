@@ -56,6 +56,13 @@ protected:
      * @param target Target to render to
      */
     virtual void draw(sf::RenderTarget& target, sf::RenderStates) const override;
+
+    /**
+     * @brief Brings the child Element on top
+     *
+     * @param child The element to raise
+     */
+    virtual void bringToTop(const Element* child) override;
 };
 
 } // namespace bl
