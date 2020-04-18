@@ -26,7 +26,8 @@ public:
      * @param group The group of the Element
      * @param id The id of this Element
      */
-    Container(Packer::Ptr packer, const std::string& group = "", const std::string& id = "");
+    static Ptr create(Packer::Ptr packer, const std::string& group = "",
+                      const std::string& id = "");
 
     /**
      * @brief Destroy the Container object
@@ -61,6 +62,15 @@ public:
     virtual void update(float dt) override;
 
 protected:
+    /**
+     * @brief Construct a new Container with the given id, group, and Packer
+     *
+     * @param packer The Packer to pack child elements with
+     * @param group The group of the Element
+     * @param id The id of this Element
+     */
+    Container(Packer::Ptr packer, const std::string& group = "", const std::string& id = "");
+
     /**
      * @brief Returns the minimum requisition for the Container. This depends on the child
      *        elements and the Packer

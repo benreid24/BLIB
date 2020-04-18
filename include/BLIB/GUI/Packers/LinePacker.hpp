@@ -38,8 +38,10 @@ public:
      *
      */
     enum PackStart {
-        TopLeft,    /// Start packing at the left/top
-        BottomRight /// Start packing at the right/bottom
+        LeftAlign,               /// Start packing at the left
+        TopAlign = LeftAlign,    /// Start packing at the top
+        RightAlign,              /// Start packing at the right
+        BottomAlign = RightAlign /// Start packing at the bottom
     };
 
     /**
@@ -48,8 +50,8 @@ public:
      * @param dir The pack direction
      *
      */
-    Packer::Ptr create(Direction dir = Horizontal, SpaceMode mode = Compact,
-                       PackStart start = TopLeft);
+    static Packer::Ptr create(Direction dir = Horizontal, SpaceMode mode = Compact,
+                              PackStart start = LeftAlign);
 
     /**
      * @brief Reports the minimum requisition of the element list given

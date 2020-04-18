@@ -46,7 +46,7 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
 
     sf::Vector2i pos(rect.left, rect.top);
     if (mode == Compact) {
-        if (start == BottomRight) {
+        if (start == RightAlign) {
             if (dir == Horizontal)
                 pos.x = rect.left + rect.width - elems.back()->getRequisition().x;
             else
@@ -61,13 +61,13 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
                              "acquisition\n";
             setAcquisition(e, {pos, size});
             if (dir == Horizontal) {
-                if (start == TopLeft)
+                if (start == LeftAlign)
                     pos.x += e->getRequisition().x;
                 else
                     pos.x -= e->getRequisition().x;
             }
             else {
-                if (start == TopLeft)
+                if (start == LeftAlign)
                     pos.y += e->getRequisition().y;
                 else
                     pos.y -= e->getRequisition().y;
@@ -82,7 +82,7 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
             else
                 size.y = rect.height / elems.size();
         }
-        if (start == BottomRight) {
+        if (start == RightAlign) {
             if (dir == Horizontal)
                 pos.x = rect.left + rect.width - size.x;
             else
@@ -95,13 +95,13 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
         for (Element::Ptr e : elems) {
             setAcquisition(e, {pos, size});
             if (dir == Horizontal) {
-                if (start == TopLeft)
+                if (start == LeftAlign)
                     pos.x += size.x;
                 else
                     pos.x -= size.x;
             }
             else {
-                if (start == TopLeft)
+                if (start == LeftAlign)
                     pos.y += size.y;
                 else
                     pos.y -= size.y;

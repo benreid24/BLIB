@@ -4,6 +4,11 @@ namespace bl
 {
 namespace gui
 {
+Container::Ptr Container::create(Packer::Ptr packer, const std::string& group,
+                                 const std::string& id) {
+    return Ptr(new Container(packer, group, id));
+}
+
 Container::Container(Packer::Ptr packer, const std::string& group, const std::string& id)
 : Element(group, id)
 , packer(packer) {}

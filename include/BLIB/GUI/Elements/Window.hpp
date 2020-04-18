@@ -36,13 +36,13 @@ public:
      *        setSize()
      *
      * @param packer The packer to use on the window's elements
+     * @param title Title of the window. Only has effect if style contains Titlebar
+     * @param style The style to render with
      * @param group Group the window belongs to
      * @param id The id of this window
-     * @param style The style to render with
-     * @param title Title of the window. Only has effect if style contains Titlebar
      */
-    Window(Packer::Ptr packer, const std::string& group = "", const std::string& id = "",
-           Style style = Default, const std::string& title = "");
+    Window(Packer::Ptr packer, const std::string& title = "", Style style = Default,
+           const std::string& group = "", const std::string& id = "");
 
     /**
      * @brief Destroy the Window object
@@ -50,7 +50,22 @@ public:
      */
     virtual ~Window() = default;
 
+    /**
+     * @brief Calls Container::update, handles reassigning acquisitions if moved, and handles
+     *        the close button being clicked
+     *
+     */
+    virtual void update(float dt) override;
+
 protected:
+    /**
+     * @brief Handles drag events
+     *
+     * @param action The action to process
+     * @return True if the event is consumed and no more Elements should be notified
+     */
+    virtual void handleAction(const Action& action) {}
+
     /**
      * @brief Renders the window and children elements to the given target
      *
@@ -64,6 +79,11 @@ private:
     Container::Ptr leftTitleSide, rightTitleSide;
     Label::Ptr title;
     // TODO - close button
+
+    const bool moveable;
+    std::optional<sf::Vector2i> dragAmount;
+
+    void handleDrag(const Action& drag, Element*);
 };
 
 } // namespace gui

@@ -316,7 +316,7 @@ protected:
      *
      * @param child The Element to remove. No effect if not present
      */
-    virtual void removeChild(const Element* child) = 0;
+    virtual void removeChild(const Element* child) {}
 
     /**
      * @brief Method for child classes to handle raw SFML events. Not recommended to use.

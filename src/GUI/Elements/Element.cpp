@@ -196,6 +196,7 @@ bool Element::active() const { return _active && _visible; }
 void Element::assignAcquisition(const sf::IntRect& acq) {
     _dirty      = false;
     acquisition = acq;
+    onAcquisition();
 }
 
 void Element::setChildParent(Element::Ptr child) { child->parent = me(); }

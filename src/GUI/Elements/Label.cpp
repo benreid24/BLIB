@@ -6,6 +6,10 @@ namespace bl
 {
 namespace gui
 {
+Label::Ptr Label::create(const std::string& text, const std::string& group, const std::string& id) {
+    return Ptr(new Label(text, group, id));
+}
+
 Label::Label(const std::string& text, const std::string& group, const std::string& id)
 : Element(group, id)
 , text(text)

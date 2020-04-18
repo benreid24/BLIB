@@ -18,6 +18,8 @@ namespace gui
  */
 class Label : public Element {
 public:
+    typedef std::shared_ptr<Label> Ptr;
+
     /**
      * @brief Construct a new Label
      *
@@ -25,7 +27,8 @@ public:
      * @param group The group the element is in
      * @param id The id of this element
      */
-    Label(const std::string& text, const std::string& group = "", const std::string& id = "");
+    static Ptr create(const std::string& text, const std::string& group = "",
+                      const std::string& id = "");
 
     /**
      * @brief Destroy the Label object
@@ -64,6 +67,15 @@ protected:
     std::string text;
     mutable bl::Resource<sf::Font>::Ref font;
     sf::Text renderText;
+
+    /**
+     * @brief Construct a new Label
+     *
+     * @param text The text to display
+     * @param group The group the element is in
+     * @param id The id of this element
+     */
+    Label(const std::string& text, const std::string& group = "", const std::string& id = "");
 
     /**
      * @brief Returns the minimum space required to render the label
