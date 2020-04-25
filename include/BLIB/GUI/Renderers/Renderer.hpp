@@ -77,6 +77,26 @@ public:
      */
     virtual void renderLabel(sf::RenderTarget& target, const Label& label) const;
 
+    /**
+     * @brief Render a titlebar of a Window
+     *
+     * @param target The target to render to
+     * @param titlebar The Container of the titlebar itself
+     * @param title The title label
+     * @param closeButton The close button, if any
+     */
+    virtual void renderTitlebar(
+        sf::RenderTarget& target, const Container& titlebar, const Label& title,
+        std::optional<const Element*> closeButton) const; // TODO - button
+
+    /**
+     * @brief Render a Window element
+     *
+     * @param target The target to render to
+     * @param window The Window to render. Includes child Elements but not the titlebar
+     */
+    virtual void renderWindow(sf::RenderTarget& target, const Container& window) const;
+
 protected:
     /**
      * @brief Construct a new default renderer

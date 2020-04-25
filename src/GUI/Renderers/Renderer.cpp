@@ -92,5 +92,21 @@ void Renderer::renderLabel(sf::RenderTarget& target, const Label& label) const {
     target.draw(text);
 }
 
+void Renderer::renderTitlebar(sf::RenderTarget& target, const Container& titleBar,
+                              const Label& title,
+                              std::optional<const Element*> closeButton) const {
+    sf::RectangleShape rect({static_cast<float>(titleBar.getAcquisition().width),
+                             static_cast<float>(titleBar.getAcquisition().height)});
+    rect.setFillColor(sf::Color(70, 70, 70));
+    rect.setPosition(titleBar.getAcquisition().left, titleBar.getAcquisition().height);
+    target.draw(rect);
+    renderLabel(target, title);
+    if (closeButton.has_value()) renderCustom(target, *closeButton.value()); // TODO - button
+}
+
+void Renderer::renderWindow(sf::RenderTarget& target, const Container& window) const {
+    renderContainer(target, window);
+}
+
 } // namespace gui
 } // namespace bl

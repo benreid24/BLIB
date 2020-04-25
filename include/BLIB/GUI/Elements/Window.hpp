@@ -57,6 +57,14 @@ public:
      */
     virtual void update(float dt) override;
 
+    /**
+     * @brief Returns if the window has a border or not
+     *
+     */
+    bool borderless() const;
+
+    // TODO - expose title, titlebar, close button for styling
+
 protected:
     /**
      * @brief Handles drag events
@@ -64,7 +72,7 @@ protected:
      * @param action The action to process
      * @return True if the event is consumed and no more Elements should be notified
      */
-    virtual void handleAction(const Action& action) {}
+    virtual void handleAction(const Action& action) override;
 
     /**
      * @brief Renders the window and children elements to the given target
@@ -75,6 +83,7 @@ protected:
     virtual void doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const override;
 
 private:
+    const bool hasBorder;
     Container::Ptr titlebar;
     Container::Ptr leftTitleSide, rightTitleSide;
     Label::Ptr title;
