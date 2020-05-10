@@ -242,6 +242,14 @@ public:
     void setStyle(sf::Uint32 style);
 
     /**
+     * @brief Set the font used by the text. Note that a default font is used if this isn't
+     *        called. The default font may be left out of the build by defining BLIB_NO_FONT
+     *
+     * @param font Resource managed font to use
+     */
+    void setFont(bl::Resource<sf::Font>::Ref font);
+
+    /**
      * @brief Set the horizontal alignment. Doesn't apply to all Element types
      *
      * @param align The alignment to use
@@ -254,13 +262,6 @@ public:
      * @param align The alignment to use
      */
     void setVerticalAlignment(RenderSettings::Alignment align);
-
-    /**
-     * @brief Returns the render settings for this object
-     *
-     * @return const RenderSettings& The render settings
-     */
-    const RenderSettings& renderSettings() const;
 
 protected:
     /**
@@ -356,6 +357,13 @@ protected:
     virtual void settingsChanged(){};
 
     /**
+     * @brief Returns the render settings for this object
+     *
+     * @return const RenderSettings& The render settings
+     */
+    const RenderSettings& renderSettings() const;
+
+    /**
      * @brief Actually performs the rendering. This is only called if the element is visible.
      *        Child classes may call specialized methods in the renderer, or implement their
      *        own rendering. The latter is not recommended as then appearance is hard coded
@@ -392,6 +400,7 @@ private:
     sf::Vector2f dragStart;
 
     friend class Packer;
+    friend class Renderer;
 };
 
 } // namespace gui

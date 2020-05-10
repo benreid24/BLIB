@@ -6,16 +6,14 @@ namespace bl
 {
 namespace gui
 {
-Label::Ptr Label::create(const std::string& text, const std::string& group, const std::string& id) {
+Label::Ptr Label::create(const std::string& text, const std::string& group,
+                         const std::string& id) {
     return Ptr(new Label(text, group, id));
 }
 
 Label::Label(const std::string& text, const std::string& group, const std::string& id)
 : Element(group, id)
-, text(text)
-, font(Font::get()) {
-    if (font) renderText.setFont(*font);
-    renderText.setCharacterSize(12);
+, text(text) {
     settingsChanged();
 }
 
@@ -23,14 +21,6 @@ void Label::setText(const std::string& t) {
     text = t;
     settingsChanged();
 }
-
-void Label::setFont(bl::Resource<sf::Font>::Ref f) {
-    font = f;
-    if (font) renderText.setFont(*font);
-    settingsChanged();
-}
-
-Resource<sf::Font>::Ref Label::getFont() const { return font; }
 
 void Label::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
     renderer->renderLabel(target, *this);
@@ -42,6 +32,8 @@ sf::Vector2i Label::minimumRequisition() const {
 }
 
 void Label::settingsChanged() {
+    bl::Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
+    if (font) renderText.setFont(*font);
     renderText.setString(text);
     renderText.setCharacterSize(renderSettings().characterSize.value_or(12));
     renderText.setStyle(renderSettings().style.value_or(sf::Text::Regular));

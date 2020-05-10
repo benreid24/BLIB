@@ -14,6 +14,7 @@ namespace gui
 class Element;
 class Container;
 class Label;
+class Button;
 
 /**
  * @brief Utility class to render GUI elements. Derived classes may override whichever
@@ -78,6 +79,14 @@ public:
     virtual void renderLabel(sf::RenderTarget& target, const Label& label) const;
 
     /**
+     * @brief Renders a Button element
+     *
+     * @param target The target to render to
+     * @param button Button to render
+     */
+    virtual void renderButton(sf::RenderTarget& target, const Button& button) const;
+
+    /**
      * @brief Render a titlebar of a Window
      *
      * @param target The target to render to
@@ -110,6 +119,17 @@ protected:
      *
      */
     RenderSettings getSettings(const Element* element) const;
+
+    /**
+     * @brief Utility method to render text with the given settings
+     *
+     * @param target Target to render to
+     * @param text The text to render
+     * @param acquisition The area to render inside of
+     * @param settings The settings to apply
+     */
+    void renderText(sf::RenderTarget& target, const std::string& text,
+                    const sf::IntRect& acquisition, const RenderSettings& settings) const;
 
 private:
     std::unordered_map<std::string, RenderSettings> groupSettings;

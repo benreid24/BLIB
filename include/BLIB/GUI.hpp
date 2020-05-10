@@ -18,6 +18,8 @@
 
 #include <BLIB/GUI/Elements/Container.hpp>
 #include <BLIB/GUI/Elements/Element.hpp>
+
+#include <BLIB/GUI/Elements/Button.hpp>
 #include <BLIB/GUI/Elements/Label.hpp>
 
 #endif

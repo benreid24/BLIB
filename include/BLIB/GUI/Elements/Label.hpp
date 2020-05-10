@@ -48,24 +48,8 @@ public:
      */
     const std::string& getText() const;
 
-    /**
-     * @brief Set the font used by the label. Note that a default font is used if this isn't
-     *        called. The default font may be left out of the build by defining BLIB_NO_FONT
-     *
-     * @param font Resource managed font to use
-     */
-    void setFont(bl::Resource<sf::Font>::Ref font);
-
-    /**
-     * @brief Returns the font used by the label
-     *
-     * @return bl::Resource<sf::Font>::Ref Pointer to the font. May be null
-     */
-    bl::Resource<sf::Font>::Ref getFont() const;
-
 protected:
     std::string text;
-    mutable bl::Resource<sf::Font>::Ref font;
     sf::Text renderText;
 
     /**

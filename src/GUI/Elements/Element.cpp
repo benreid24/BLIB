@@ -211,6 +211,11 @@ void Element::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
 
 const RenderSettings& Element::renderSettings() const { return settings; }
 
+void Element::setFont(bl::Resource<sf::Font>::Ref f) {
+    settings.font = f;
+    settingsChanged();
+}
+
 void Element::setCharacterSize(unsigned int s) {
     settings.characterSize = s;
     settingsChanged();
