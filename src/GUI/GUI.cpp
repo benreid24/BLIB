@@ -2,6 +2,34 @@
 
 namespace bl
 {
-// TODO
+GUI::GUI(gui::Packer::Ptr packer, const std::string& group, const std::string& id)
+: Container(packer, group, id)
+, renderer(gui::Renderer::create()) {}
 
+GUI::GUI(gui::Packer::Ptr packer, const sf::IntRect& region, const std::string& group,
+         const std::string& id)
+: GUI(packer, group, id) {
+    assignAcquisition(region);
 }
+
+GUI::GUI(gui::Packer::Ptr packer, const sf::RenderWindow& window, const std::string& group,
+         const std::string& id)
+: GUI(packer, group, id) {
+    assignAcquisition(sf::IntRect(0, 0, window.getSize().x, window.getSize().y));
+}
+
+void GUI::observe(const sf::Event& event) {
+    if (event.type == sf::Event::MouseMoved) {
+        mousePos.x = event.mouseMove.x;
+        mousePos.y = event.mouseMove.y;
+    }
+    Container::handleEvent(mousePos, event);
+}
+
+void GUI::setRenderer(gui::Renderer::Ptr r) { renderer = r; }
+
+void GUI::draw(sf::RenderTarget& target, sf::RenderStates) const {
+    Container::render(target, renderer);
+}
+
+} // namespace bl

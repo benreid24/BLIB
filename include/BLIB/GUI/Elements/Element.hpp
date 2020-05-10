@@ -162,6 +162,13 @@ public:
     bool dirty() const;
 
     /**
+     * @brief Returns true. Signifies that this Element should be packed. Window elements
+     *        should return false
+     *
+     */
+    virtual bool packable() const;
+
+    /**
      * @brief Removes this Element from its parent. Safe to call at any time
      *
      */

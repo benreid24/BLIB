@@ -76,5 +76,7 @@ void Window::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
 
 bool Window::borderless() const { return !hasBorder; }
 
+bool Window::packable() const { return false; }
+
 } // namespace gui
 } // namespace bl

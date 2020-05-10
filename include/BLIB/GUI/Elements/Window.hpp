@@ -63,6 +63,12 @@ public:
      */
     bool borderless() const;
 
+    /**
+     * @brief Returns false. Windows handle their own positioning and do not need to be packed
+     *
+     */
+    virtual bool packable() const override;
+
     // TODO - expose title, titlebar, close button for styling
 
 protected:

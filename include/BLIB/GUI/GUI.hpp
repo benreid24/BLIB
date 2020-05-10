@@ -2,7 +2,6 @@
 #define BLIB_GUI_GUI_HPP
 
 #include <BLIB/GUI/Elements/Container.hpp>
-#include <BLIB/Util/EventDispatcher.hpp>
 #include <BLIB/Util/EventListener.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -20,34 +19,39 @@ namespace bl
 class GUI
 : public sf::Drawable
 , public bl::WindowEventListener
-, private gui::Container {
+, public gui::Container {
 public:
     /**
-     * @brief Create a new GUI that is subscribed to the dispatcher and renders to the given
-     *        region
+     * @brief Create a new GUI that is in the given region
      *
-     * @param dispatcher The dispatcher to subscribe to
      * @param region The position and size of the renderable area
      */
-    GUI(bl::WindowEventDispatcher& dispatcher, const sf::IntRect& region);
+    GUI(gui::Packer::Ptr packer, const sf::IntRect& region, const std::string& group = "",
+        const std::string& id = "");
 
     /**
-     * @brief Create a new GUI that is subscribed to a dispatcher and fills the window
+     * @brief Create a new GUI that fills the window
      *
-     * @param dispatcher The dispatcher to subscribe to
+     * @param packer The Packer to use
      * @param window The window to fill
      */
-    GUI(bl::WindowEventDispatcher& dispatcher, const sf::RenderWindow& window);
+    GUI(gui::Packer::Ptr packer, const sf::RenderWindow& window, const std::string& group = "",
+        const std::string& id = "");
+
+    /**
+     * @brief Sets the renderer to use. Default is gui::Renderer
+     *
+     * @param renderer The renderer to use
+     */
+    void setRenderer(gui::Renderer::Ptr renderer);
 
     /**
      * @brief Handles and propogates the window event
      *
+     * @param Packer The Packer to use
      * @param event Raw window event
      */
     virtual void observe(const sf::Event& event) override;
-
-    // TODO - use Box for the region. Have add() method for windows to float. Can windows be
-    // children?
 
 protected:
     /**
@@ -57,12 +61,11 @@ protected:
      */
     virtual void draw(sf::RenderTarget& target, sf::RenderStates) const override;
 
-    /**
-     * @brief Brings the child Element on top
-     *
-     * @param child The element to raise
-     */
-    virtual void bringToTop(const Element* child) override;
+private:
+    gui::Renderer::Ptr renderer;
+    sf::Vector2f mousePos;
+
+    GUI(gui::Packer::Ptr packer, const std::string& group, const std::string& id);
 };
 
 } // namespace bl

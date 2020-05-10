@@ -86,12 +86,11 @@ protected:
     virtual void onAcquisition() override;
 
     /**
-     * @brief Raises the child Element to the front of the rendering/update queue. Only meant
-     *        to be called by GUI
+     * @brief Raises the child Element to the front of the rendering/update queue
      *
      * @param child The child to bring to the top
      */
-    void raiseChild(const Element* child);
+    virtual void bringToTop(const Element* child) override;
 
     /**
      * @brief Removes the given Element from the list of child Elements
@@ -120,6 +119,8 @@ protected:
 
 private:
     Packer::Ptr packer;
+    std::vector<Element::Ptr> packableChildren;
+    std::vector<Element::Ptr> nonpackableChildren;
     std::vector<Element::Ptr> children;
     std::list<const Element*> toRemove;
 };

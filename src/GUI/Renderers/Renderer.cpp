@@ -77,7 +77,26 @@ void Renderer::renderText(sf::RenderTarget& target, const std::string& text,
     target.draw(sfText);
 }
 
+void Renderer::renderCustom(sf::RenderTarget& target, const Element& element) const {
+    std::cerr << "Error: renderCustom() called on default renderer. Use a custom renderer\n";
+}
+
+void Renderer::renderContainer(sf::RenderTarget& target, const Container& container) const {
+    if (!container.visible()) return;
+
+    const RenderSettings settings = getSettings(&container);
+    const sf::FloatRect area      = static_cast<sf::FloatRect>(container.getAcquisition());
+    sf::RectangleShape rect({area.width, area.height});
+    rect.setPosition(area.left, area.top);
+    rect.setFillColor(settings.fillColor.value_or(sf::Color::Transparent));
+    rect.setOutlineThickness(settings.outlineThickness.value_or(0));
+    rect.setOutlineColor(settings.outlineColor.value_or(sf::Color::Transparent));
+    target.draw(rect);
+}
+
 void Renderer::renderButton(sf::RenderTarget& target, const Button& button) const {
+    if (!button.visible()) return;
+
     sf::RectangleShape rect({static_cast<float>(button.getAcquisition().width),
                              static_cast<float>(button.getAcquisition().height)});
     rect.setPosition(button.getAcquisition().left, button.getAcquisition().top);
@@ -94,22 +113,8 @@ void Renderer::renderButton(sf::RenderTarget& target, const Button& button) cons
     }
 }
 
-void Renderer::renderCustom(sf::RenderTarget& target, const Element& element) const {
-    std::cerr << "Error: renderCustom() called on default renderer. Use a custom renderer\n";
-}
-
-void Renderer::renderContainer(sf::RenderTarget& target, const Container& container) const {
-    const RenderSettings settings = getSettings(&container);
-    const sf::FloatRect area      = static_cast<sf::FloatRect>(container.getAcquisition());
-    sf::RectangleShape rect({area.width, area.height});
-    rect.setPosition(area.left, area.top);
-    rect.setFillColor(settings.fillColor.value_or(sf::Color::Transparent));
-    rect.setOutlineThickness(settings.outlineThickness.value_or(0));
-    rect.setOutlineColor(settings.outlineColor.value_or(sf::Color::Transparent));
-    target.draw(rect);
-}
-
 void Renderer::renderLabel(sf::RenderTarget& target, const Label& label) const {
+    if (!label.visible()) return;
     renderText(target, label.getText(), label.getAcquisition(), label.renderSettings());
 }
 

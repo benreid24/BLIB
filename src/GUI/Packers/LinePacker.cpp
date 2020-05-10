@@ -90,7 +90,8 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
         }
         if (dir == Horizontal && size.x * elems.size() > rect.width ||
             dir == Vertical && size.y * elems.size() > rect.height)
-            std::cout << "Warning: LinePacker: Acquisition for elements is not enough\n";
+            std::cout
+                << "Warning: LinePacker: Element minimum sizes exceed assigned acquisition\n";
 
         for (Element::Ptr e : elems) {
             setAcquisition(e, {pos, size});

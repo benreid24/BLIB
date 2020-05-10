@@ -185,6 +185,8 @@ void Element::makeDirty() {
     if (p) p->makeDirty();
 }
 
+bool Element::packable() const { return true; }
+
 void Element::setVisible(bool v) { _visible = v; }
 
 bool Element::visible() const { return _visible; }

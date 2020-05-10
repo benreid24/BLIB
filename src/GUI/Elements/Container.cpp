@@ -4,6 +4,18 @@ namespace bl
 {
 namespace gui
 {
+namespace
+{
+void deleteElement(std::vector<Element::Ptr>& list, const Element* e) {
+    for (unsigned int i = 0; i < list.size(); ++i) {
+        if (list[i].get() == e) {
+            list.erase(list.begin() + i);
+            --i;
+        }
+    }
+}
+} // namespace
+
 Container::Ptr Container::create(Packer::Ptr packer, const std::string& group,
                                  const std::string& id) {
     return Ptr(new Container(packer, group, id));
@@ -25,11 +37,13 @@ bool Container::releaseFocus() {
     return Element::releaseFocus();
 }
 
-sf::Vector2i Container::minimumRequisition() const { return packer->getRequisition(children); }
+sf::Vector2i Container::minimumRequisition() const {
+    return packer->getRequisition(packableChildren);
+}
 
-void Container::onAcquisition() { packer->pack(getAcquisition(), children); }
+void Container::onAcquisition() { packer->pack(getAcquisition(), packableChildren); }
 
-void Container::raiseChild(const Element* child) {
+void Container::bringToTop(const Element* child) {
     for (unsigned int i = 1; i < children.size(); ++i) {
         if (children[i].get() == child) {
             Element::Ptr c = children[i];
@@ -41,7 +55,11 @@ void Container::raiseChild(const Element* child) {
 }
 
 void Container::add(Element::Ptr e) {
-    children.push_back(e);
+    children.insert(children.begin(), e);
+    if (e->packable())
+        packableChildren.push_back(e);
+    else
+        nonpackableChildren.push_back(e);
     setChildParent(e);
     makeDirty();
 }
@@ -58,12 +76,9 @@ bool Container::handleRawEvent(const sf::Vector2f& mpos, const sf::Event& event)
 void Container::update(float dt) {
     if (!toRemove.empty()) makeDirty();
     for (const Element* e : toRemove) {
-        for (unsigned int i = 0; i < children.size(); ++i) {
-            if (children[i].get() == e) {
-                children.erase(children.begin() + i);
-                break;
-            }
-        }
+        deleteElement(nonpackableChildren, e);
+        deleteElement(packableChildren, e);
+        deleteElement(children, e);
     }
     toRemove.clear();
     for (Element::Ptr e : children) { e->update(dt); }
