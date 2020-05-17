@@ -46,36 +46,48 @@ void Renderer::renderText(sf::RenderTarget& target, const std::string& text,
     sfText.setOutlineThickness(settings.outlineThickness.value_or(0));
     sfText.setStyle(settings.style.value_or(sf::Text::Regular));
 
-    const sf::FloatRect size = sfText.getGlobalBounds();
+    const sf::Vector2f size(sfText.getGlobalBounds().width + sfText.getGlobalBounds().left,
+                            sfText.getGlobalBounds().height + sfText.getGlobalBounds().top);
+    sfText.setPosition(
+        calculatePosition(settings.horizontalAlignment.value_or(RenderSettings::Center),
+                          settings.verticalAlignment.value_or(RenderSettings::Center),
+                          acquisition,
+                          size));
+    target.draw(sfText);
+}
+
+sf::Vector2f Renderer::calculatePosition(RenderSettings::Alignment horizontalAlignment,
+                                         RenderSettings::Alignment verticalAlignment,
+                                         const sf::IntRect& region,
+                                         const sf::Vector2f& size) const {
     sf::Vector2f position;
-    switch (settings.horizontalAlignment.value_or(RenderSettings::Center)) {
+    switch (horizontalAlignment) {
     case RenderSettings::Left:
-        position.x = acquisition.left;
+        position.x = region.left;
         break;
     case RenderSettings::Right:
-        position.x = acquisition.left + acquisition.width - size.width;
+        position.x = region.left + region.width - size.x;
         break;
     case RenderSettings::Center:
     default:
-        position.x = acquisition.left + acquisition.width / 2 - size.width / 2;
-        break;
-    }
-    switch (settings.verticalAlignment.value_or(RenderSettings::Center)) {
-    case RenderSettings::Top:
-        position.y = acquisition.top;
-        break;
-    case RenderSettings::Bottom:
-        position.y = acquisition.top + acquisition.height - size.height;
-        break;
-    case RenderSettings::Center:
-    default:
-        position.y = acquisition.top + acquisition.height / 2 - size.height / 2;
+        position.x = region.left + region.width / 2 - size.x / 2;
         break;
     }
 
-    std::cout << "Rendering (" << position.x << ", " << position.y << ")\n";
-    sfText.setPosition(position);
-    target.draw(sfText);
+    switch (verticalAlignment) {
+    case RenderSettings::Top:
+        position.y = region.top;
+        break;
+    case RenderSettings::Bottom:
+        position.y = region.top + region.height - size.y;
+        break;
+    case RenderSettings::Center:
+    default:
+        position.y = region.top + region.height / 2 - size.y / 2;
+        break;
+    }
+
+    return position;
 }
 
 void Renderer::renderCustom(sf::RenderTarget& target, const Element& element) const {

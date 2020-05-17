@@ -131,6 +131,19 @@ protected:
     void renderText(sf::RenderTarget& target, const std::string& text,
                     const sf::IntRect& acquisition, const RenderSettings& settings) const;
 
+    /**
+     * @brief Calculates the position to render an element at given its alignments and size
+     *
+     * @param horizontalAlignment Horizontal alignment of the element being rendered
+     * @param verticalAlignment Vertical alignment of the element being rendered
+     * @param region Area the element is to be rendered in
+     * @param size The size of the element being rendered
+     * @return sf::Vector2f The position to render the element at to respect alignments
+     */
+    sf::Vector2f calculatePosition(RenderSettings::Alignment horizontalAlignment,
+                                   RenderSettings::Alignment verticalAlignment,
+                                   const sf::IntRect& region, const sf::Vector2f& size) const;
+
 private:
     std::unordered_map<std::string, RenderSettings> groupSettings;
     std::unordered_map<std::string, RenderSettings> idSettings;

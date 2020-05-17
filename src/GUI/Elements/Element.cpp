@@ -1,7 +1,5 @@
 #include <BLIB/GUI/Elements/Element.hpp>
 
-#include <iostream>
-
 namespace bl
 {
 namespace gui
@@ -210,8 +208,6 @@ bool Element::active() const { return _active && _visible; }
 bool Element::dirty() const { return _dirty; }
 
 void Element::assignAcquisition(const sf::IntRect& acq) {
-    std::cout << "Got acquisition: (" << acq.left << ", " << acq.top << ", " << acq.width
-              << ", " << acq.height << ")\n";
     _dirty      = false;
     acquisition = acq;
     onAcquisition();

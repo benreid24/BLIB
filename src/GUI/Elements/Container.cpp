@@ -1,7 +1,5 @@
 #include <BLIB/GUI/Elements/Container.hpp>
 
-#include <iostream>
-
 namespace bl
 {
 namespace gui

@@ -9,6 +9,7 @@
 
 #include <BLIB/GUI/Action.hpp>
 #include <BLIB/GUI/GUI.hpp>
+#include <BLIB/GUI/Renderers/DebugRenderer.hpp>
 #include <BLIB/GUI/Renderers/RenderSettings.hpp>
 #include <BLIB/GUI/Renderers/Renderer.hpp>
 #include <BLIB/GUI/Signal.hpp>

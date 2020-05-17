@@ -29,8 +29,10 @@ void Label::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
 }
 
 sf::Vector2i Label::minimumRequisition() const {
-    return {static_cast<int>(renderText.getGlobalBounds().width),
-            static_cast<int>(renderText.getGlobalBounds().height)};
+    return {static_cast<int>(renderText.getGlobalBounds().width +
+                             renderText.getGlobalBounds().left),
+            static_cast<int>(renderText.getGlobalBounds().height +
+                             renderText.getGlobalBounds().top)};
 }
 
 void Label::settingsChanged() {
