@@ -1,10 +1,12 @@
 #include <BLIB/GUI/Elements/Element.hpp>
 
+#include <iostream>
+
 namespace bl
 {
 namespace gui
 {
-Element::Element(const std::string& i, const std::string& g)
+Element::Element(const std::string& g, const std::string& i)
 : _id(i)
 , _group(g)
 , _dirty(true)
@@ -40,14 +42,16 @@ Signal& Element::getSignal(Action::Type trigger) { return signals[trigger]; }
 bool Element::hasFocus() const { return isFocused; }
 
 bool Element::takeFocus() {
-    Element::Ptr p = parent.lock();
-    if (p) {
-        if (p->releaseFocus()) {
-            isFocused = true;
-            moveToTop();
-            return true;
+    if (!parent.expired()) {
+        Element::Ptr p = parent.lock();
+        if (p) {
+            if (p->releaseFocus()) {
+                isFocused = true;
+                moveToTop();
+                return true;
+            }
+            return false;
         }
-        return false;
     }
     isFocused = true;
     moveToTop();
@@ -68,8 +72,10 @@ bool Element::releaseFocus() {
 }
 
 void Element::moveToTop() const {
-    Element::Ptr p = parent.lock();
-    if (p) p->bringToTop(this);
+    if (!parent.expired()) {
+        Element::Ptr p = parent.lock();
+        if (p) p->bringToTop(this);
+    }
 }
 
 bool Element::mouseOver() const { return isMouseOver; }
@@ -175,15 +181,21 @@ bool Element::processAction(const Action& action) {
 void Element::fireSignal(const Action& action) { signals[action.type](action, this); }
 
 void Element::remove() {
-    Element::Ptr p = parent.lock();
-    if (p) p->removeChild(this);
+    if (!parent.expired()) {
+        Element::Ptr p = parent.lock();
+        if (p) p->removeChild(this);
+    }
 }
 
 void Element::makeDirty() {
-    _dirty         = true;
-    Element::Ptr p = parent.lock();
-    if (p) p->makeDirty();
+    _dirty = true;
+    if (!parent.expired()) {
+        Element::Ptr p = parent.lock();
+        if (p) p->makeDirty();
+    }
 }
+
+void Element::markClean() { _dirty = false; }
 
 bool Element::packable() const { return true; }
 
@@ -195,7 +207,11 @@ void Element::setActive(bool a) { _active = a; }
 
 bool Element::active() const { return _active && _visible; }
 
+bool Element::dirty() const { return _dirty; }
+
 void Element::assignAcquisition(const sf::IntRect& acq) {
+    std::cout << "Got acquisition: (" << acq.left << ", " << acq.top << ", " << acq.width
+              << ", " << acq.height << ")\n";
     _dirty      = false;
     acquisition = acq;
     onAcquisition();

@@ -21,13 +21,15 @@ class GUI
 , public bl::WindowEventListener
 , public gui::Container {
 public:
+    typedef std::shared_ptr<GUI> Ptr;
+
     /**
      * @brief Create a new GUI that is in the given region
      *
      * @param region The position and size of the renderable area
      */
-    GUI(gui::Packer::Ptr packer, const sf::IntRect& region, const std::string& group = "",
-        const std::string& id = "");
+    static Ptr create(gui::Packer::Ptr packer, const sf::IntRect& region,
+                      const std::string& group = "", const std::string& id = "");
 
     /**
      * @brief Create a new GUI that fills the window
@@ -35,8 +37,8 @@ public:
      * @param packer The Packer to use
      * @param window The window to fill
      */
-    GUI(gui::Packer::Ptr packer, const sf::RenderWindow& window, const std::string& group = "",
-        const std::string& id = "");
+    static Ptr create(gui::Packer::Ptr packer, const sf::RenderWindow& window,
+                      const std::string& group = "", const std::string& id = "");
 
     /**
      * @brief Sets the renderer to use. Default is gui::Renderer
@@ -66,6 +68,10 @@ private:
     sf::Vector2f mousePos;
 
     GUI(gui::Packer::Ptr packer, const std::string& group, const std::string& id);
+    GUI(gui::Packer::Ptr packer, const sf::IntRect& region, const std::string& group = "",
+        const std::string& id = "");
+    GUI(gui::Packer::Ptr packer, const sf::RenderWindow& window, const std::string& group = "",
+        const std::string& id = "");
 };
 
 } // namespace bl

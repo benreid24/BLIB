@@ -1,5 +1,7 @@
 #include <BLIB/GUI/Elements/Container.hpp>
 
+#include <iostream>
+
 namespace bl
 {
 namespace gui
@@ -81,6 +83,10 @@ void Container::update(float dt) {
         deleteElement(children, e);
     }
     toRemove.clear();
+    if (dirty()) {
+        packer->pack(getAcquisition(), packableChildren);
+        markClean();
+    }
     for (Element::Ptr e : children) { e->update(dt); }
 }
 

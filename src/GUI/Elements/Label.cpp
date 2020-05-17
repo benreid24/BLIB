@@ -22,6 +22,8 @@ void Label::setText(const std::string& t) {
     settingsChanged();
 }
 
+const std::string& Label::getText() const { return text; }
+
 void Label::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
     renderer->renderLabel(target, *this);
 }
@@ -35,7 +37,7 @@ void Label::settingsChanged() {
     bl::Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
     if (font) renderText.setFont(*font);
     renderText.setString(text);
-    renderText.setCharacterSize(renderSettings().characterSize.value_or(12));
+    renderText.setCharacterSize(renderSettings().characterSize.value_or(DefaultFontSize));
     renderText.setStyle(renderSettings().style.value_or(sf::Text::Regular));
     if (renderText.getGlobalBounds().width > getAcquisition().width ||
         renderText.getGlobalBounds().height > getAcquisition().height)

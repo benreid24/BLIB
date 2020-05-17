@@ -20,6 +20,8 @@ class Label : public Element {
 public:
     typedef std::shared_ptr<Label> Ptr;
 
+    static constexpr int DefaultFontSize = 20;
+
     /**
      * @brief Construct a new Label
      *

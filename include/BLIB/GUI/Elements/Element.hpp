@@ -26,7 +26,7 @@ class Packer;
  */
 class Element
 : public bl::NonCopyable
-, private std::enable_shared_from_this<Element> {
+, public std::enable_shared_from_this<Element> {
 public:
     typedef std::shared_ptr<Element> Ptr;
     typedef std::weak_ptr<Element> WPtr;
@@ -304,6 +304,12 @@ protected:
     virtual void onAcquisition() {}
 
     /**
+     * @brief Marks this element as clean and not needing of re-acquisition
+     *
+     */
+    void markClean();
+
+    /**
      * @brief The's the parent of the child Element to this Element
      *
      * @param child The child to set the parent to
@@ -385,7 +391,7 @@ protected:
      *
      * @return Element::Ptr Ptr to this Element
      */
-    Element::Ptr me();
+    Ptr me();
 
 private:
     const std::string _id;

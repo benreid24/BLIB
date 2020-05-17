@@ -40,7 +40,7 @@ void Renderer::renderText(sf::RenderTarget& target, const std::string& text,
     sf::Text sfText;
     sfText.setFont(*font);
     sfText.setString(text);
-    sfText.setCharacterSize(settings.characterSize.value_or(12));
+    sfText.setCharacterSize(settings.characterSize.value_or(Label::DefaultFontSize));
     sfText.setFillColor(settings.fillColor.value_or(sf::Color::Black));
     sfText.setOutlineColor(settings.outlineColor.value_or(sf::Color(0, 0, 0, 90)));
     sfText.setOutlineThickness(settings.outlineThickness.value_or(0));
@@ -73,6 +73,7 @@ void Renderer::renderText(sf::RenderTarget& target, const std::string& text,
         break;
     }
 
+    std::cout << "Rendering (" << position.x << ", " << position.y << ")\n";
     sfText.setPosition(position);
     target.draw(sfText);
 }
