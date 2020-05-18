@@ -2,6 +2,11 @@
 #include <BLIB/Util/EventDispatcher.hpp>
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
+
+void b1click(const bl::gui::Action&, bl::gui::Element*) {
+    std::cout << "Button b1 was clicked\n";
+}
 
 int main() {
     sf::RenderWindow window(
@@ -19,6 +24,10 @@ int main() {
 
     label = bl::gui::Label::create("This another label", "labels", "l2");
     gui->add(label);
+
+    bl::gui::Button::Ptr button = bl::gui::Button::create("Press Me", "buttons", "b1");
+    button->getSignal(bl::gui::Action::LeftClicked).willCall(b1click);
+    gui->add(button);
 
     bool showBoxes  = false;
     bool showGroups = false;

@@ -1,5 +1,6 @@
 #include <BLIB/GUI/Elements/Button.hpp>
 
+#include <BLIB/GUI/Elements/Label.hpp>
 #include <GUI/Data/Font.hpp>
 
 namespace bl
@@ -27,10 +28,13 @@ sf::Vector2i Button::minimumRequisition() const {
     bl::Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
     if (font) renderText.setFont(*font);
     renderText.setString(text);
-    renderText.setCharacterSize(renderSettings().characterSize.value_or(12));
+    renderText.setCharacterSize(
+        renderSettings().characterSize.value_or(Label::DefaultFontSize));
     renderText.setStyle(renderSettings().style.value_or(sf::Text::Regular));
-    return {static_cast<int>(renderText.getGlobalBounds().width),
-            static_cast<int>(renderText.getGlobalBounds().height)};
+    return {static_cast<int>(renderText.getGlobalBounds().width +
+                             renderText.getGlobalBounds().left * 2),
+            static_cast<int>(renderText.getGlobalBounds().height +
+                             renderText.getGlobalBounds().top * 2)};
 }
 
 void Button::settingsChanged() { makeDirty(); }

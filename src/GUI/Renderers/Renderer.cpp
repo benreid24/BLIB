@@ -2,6 +2,7 @@
 
 #include <BLIB/GUI.hpp>
 #include <GUI/Data/Font.hpp>
+#include <cmath>
 #include <iostream>
 
 namespace bl
@@ -46,8 +47,9 @@ void Renderer::renderText(sf::RenderTarget& target, const std::string& text,
     sfText.setOutlineThickness(settings.outlineThickness.value_or(0));
     sfText.setStyle(settings.style.value_or(sf::Text::Regular));
 
-    const sf::Vector2f size(sfText.getGlobalBounds().width + sfText.getGlobalBounds().left,
-                            sfText.getGlobalBounds().height + sfText.getGlobalBounds().top);
+    const sf::Vector2f size(sfText.getGlobalBounds().width + sfText.getGlobalBounds().left * 2,
+                            sfText.getGlobalBounds().height +
+                                sfText.getGlobalBounds().top * 2);
     sfText.setPosition(
         calculatePosition(settings.horizontalAlignment.value_or(RenderSettings::Center),
                           settings.verticalAlignment.value_or(RenderSettings::Center),
@@ -113,11 +115,15 @@ void Renderer::renderButton(sf::RenderTarget& target, const Button& button) cons
     sf::RectangleShape rect({static_cast<float>(button.getAcquisition().width),
                              static_cast<float>(button.getAcquisition().height)});
     rect.setPosition(button.getAcquisition().left, button.getAcquisition().top);
-    rect.setFillColor(sf::Color(80, 80, 80));
-
+    rect.setFillColor(sf::Color(70, 70, 70));
+    rect.setOutlineColor(sf::Color::Black);
+    rect.setOutlineThickness(2);
     target.draw(rect);
+
     renderText(target, button.getText(), button.getAcquisition(), getSettings(&button));
-    if (button.mouseOver()) {
+
+    if (button.mouseOver() || button.leftPressed()) {
+        rect.setOutlineThickness(0);
         if (button.leftPressed())
             rect.setFillColor(sf::Color(30, 30, 30, 100));
         else

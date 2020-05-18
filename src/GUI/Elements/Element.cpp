@@ -123,7 +123,7 @@ bool Element::handleEvent(const sf::Vector2f& mpos, const sf::Event& event) {
                 processAction(Action(Action::Released, mpos));
                 if (acquisition.contains(
                         sf::Vector2i(event.mouseButton.x, event.mouseButton.y))) {
-                    processAction(Action(Action::Clicked, mpos));
+                    processAction(Action(Action::LeftClicked, mpos));
                     return true;
                 }
             }
@@ -145,8 +145,11 @@ bool Element::handleEvent(const sf::Vector2f& mpos, const sf::Event& event) {
             return acquisition.contains(
                 sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
         }
-        if (isLeftPressed)
+        if (isLeftPressed) {
+            isMouseOver =
+                acquisition.contains(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
             return processAction(Action(Action::Dragged, dragStart, mpos));
+        }
         else if (acquisition.contains(sf::Vector2i(event.mouseMove.x, event.mouseMove.y))) {
             if (!isMouseOver) {
                 isMouseOver = true;
