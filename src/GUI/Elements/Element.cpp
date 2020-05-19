@@ -10,6 +10,8 @@ Element::Element(const std::string& g, const std::string& i)
 , _dirty(true)
 , _active(true)
 , _visible(true)
+, fillX(false)
+, fillY(false)
 , isFocused(false)
 , focusForced(false)
 , isMouseOver(false)
@@ -209,6 +211,20 @@ void Element::setActive(bool a) { _active = a; }
 bool Element::active() const { return _active && _visible; }
 
 bool Element::dirty() const { return _dirty; }
+
+void Element::setExpandsWidth(bool expand) {
+    if (expand != fillX) makeDirty();
+    fillX = expand;
+}
+
+bool Element::expandsWidth() const { return fillX; }
+
+void Element::setExpandsHeight(bool expand) {
+    if (expand != fillY) makeDirty();
+    fillY = expand;
+}
+
+bool Element::expandsHeight() const { return fillY; }
 
 void Element::assignAcquisition(const sf::IntRect& acq) {
     _dirty      = false;

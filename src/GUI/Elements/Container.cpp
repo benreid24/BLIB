@@ -64,6 +64,12 @@ void Container::add(Element::Ptr e) {
     makeDirty();
 }
 
+void Container::add(Element::Ptr e, bool fx, bool fy) {
+    e->setExpandsWidth(fx);
+    e->setExpandsHeight(fy);
+    add(e);
+}
+
 void Container::removeChild(const Element* child) { toRemove.push_back(child); }
 
 bool Container::handleRawEvent(const sf::Vector2f& mpos, const sf::Event& event) {

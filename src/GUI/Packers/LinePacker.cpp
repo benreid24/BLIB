@@ -1,18 +1,19 @@
 #include <BLIB/GUI/Packers/LinePacker.hpp>
 
-#include <iostream>
+#include <cmath>
 
 namespace bl
 {
 namespace gui
 {
-LinePacker::LinePacker(Direction dir, SpaceMode mode, PackStart start)
+LinePacker::LinePacker(Direction dir, int spacing, SpaceMode mode, PackStart start)
 : dir(dir)
 , mode(mode)
-, start(start) {}
+, start(start)
+, spacing(spacing) {}
 
-Packer::Ptr LinePacker::create(Direction dir, SpaceMode mode, PackStart start) {
-    return Packer::Ptr(new LinePacker(dir, mode, start));
+Packer::Ptr LinePacker::create(Direction dir, int spacing, SpaceMode mode, PackStart start) {
+    return Packer::Ptr(new LinePacker(dir, spacing, mode, start));
 }
 
 sf::Vector2i LinePacker::getRequisition(const std::vector<Element::Ptr>& elems) {
@@ -29,6 +30,7 @@ sf::Vector2i LinePacker::getRequisition(const std::vector<Element::Ptr>& elems) 
         }
     }
 
+    md += elems.size() * spacing;
     if (dir == Vertical) return {od, md};
     return {md, od};
 }
@@ -38,79 +40,90 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
 
     sf::Vector2i maxSize;
     sf::Vector2i totalSize;
+    int expanders = 0;
     for (Element::Ptr e : elems) {
         if (e->getRequisition().x > maxSize.x) maxSize.x = e->getRequisition().x;
         if (e->getRequisition().y > maxSize.y) maxSize.y = e->getRequisition().y;
-        totalSize += e->getRequisition();
+        if (e->expandsHeight() && dir == Vertical) ++expanders;
+        if (e->expandsWidth() && dir == Horizontal) ++expanders;
+        totalSize += e->getRequisition() + sf::Vector2i(spacing, spacing);
     }
+    const sf::Vector2i freeSpace = sf::Vector2i(rect.width, rect.height) - totalSize;
+    const int extraSpace = expanders > 0 ? ((dir == Horizontal) ? (freeSpace.x / expanders) :
+                                                                  (freeSpace.y / expanders)) :
+                                           0;
 
     sf::Vector2i pos(rect.left, rect.top);
     if (mode == Compact) {
+        // Compute start position
         if (start == RightAlign) {
             if (dir == Horizontal)
                 pos.x = rect.left + rect.width - elems.back()->getRequisition().x;
             else
                 pos.y = rect.top + rect.height - elems.back()->getRequisition().y;
         }
+
+        // Pack elements
         for (Element::Ptr e : elems) {
+            // Compute size
             sf::Vector2i size(e->getRequisition().x, maxSize.y);
             if (dir == Vertical) size = {maxSize.x, e->getRequisition().y};
-            if (pos.x + size.x > rect.left + rect.width ||
-                pos.y + size.y > rect.top + rect.height)
-                std::cout << "Warning: LinePacker: Element minimum sizes exceed assigned "
-                             "acquisition\n";
-            setAcquisition(e, {pos, size});
+            if (dir == Vertical && e->expandsHeight()) size.y += extraSpace;
+            if (dir == Horizontal && e->expandsWidth()) size.x += extraSpace;
+
+            // Pack
+            packElementIntoSpace(e, {pos, size});
+
+            // Update position
             if (dir == Horizontal) {
                 if (start == LeftAlign)
-                    pos.x += e->getRequisition().x;
+                    pos.x += size.x + spacing;
                 else
-                    pos.x -= e->getRequisition().x;
+                    pos.x -= size.x + spacing;
             }
             else {
                 if (start == LeftAlign)
-                    pos.y += e->getRequisition().y;
+                    pos.y += size.y + spacing;
                 else
-                    pos.y -= e->getRequisition().y;
+                    pos.y -= size.y + spacing;
             }
         }
     }
-    else if (mode == Uniform || mode == Fill) {
-        sf::Vector2i size = maxSize;
-        if (mode == Fill) {
-            if (dir == Horizontal)
-                size.x = rect.width / elems.size();
-            else
-                size.y = rect.height / elems.size();
-        }
+    else if (mode == Uniform) {
+        // Compute size
+        sf::Vector2i size(rect.width, rect.height);
+        if (dir == Horizontal)
+            size.x = rect.width / elems.size() - spacing;
+        else
+            size.y = rect.height / elems.size() - spacing;
+
+        // Compute start position
         if (start == RightAlign) {
             if (dir == Horizontal)
                 pos.x = rect.left + rect.width - size.x;
             else
                 pos.y = rect.top + rect.height - size.y;
         }
-        if (dir == Horizontal && size.x * elems.size() > rect.width ||
-            dir == Vertical && size.y * elems.size() > rect.height)
-            std::cout
-                << "Warning: LinePacker: Element minimum sizes exceed assigned acquisition\n";
 
+        // Pack elements
         for (Element::Ptr e : elems) {
-            setAcquisition(e, {pos, size});
+            packElementIntoSpace(e, {pos, size});
+
+            // Update position
             if (dir == Horizontal) {
                 if (start == LeftAlign)
-                    pos.x += size.x;
+                    pos.x += size.x + spacing;
                 else
-                    pos.x -= size.x;
+                    pos.x -= size.x + spacing;
             }
             else {
                 if (start == LeftAlign)
-                    pos.y += size.y;
+                    pos.y += size.y + spacing;
                 else
-                    pos.y -= size.y;
+                    pos.y -= size.y + spacing;
             }
         }
     }
-    else
-        std::cout << "Error: Packer has invalid mode: " << mode << std::endl;
 }
 
 } // namespace gui

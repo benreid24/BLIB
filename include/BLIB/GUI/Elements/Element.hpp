@@ -270,6 +270,34 @@ public:
      */
     void setVerticalAlignment(RenderSettings::Alignment align);
 
+    /**
+     * @brief True if the widget should expand horizontally to fill available space when
+     *        packing. If false, the widget will only get its requisition for acquisition
+     *
+     */
+    bool expandsWidth() const;
+
+    /**
+     * @brief Set whether or not the widget should expand horizontally when packing
+     *
+     * @param expand True to fill all space, false to use only requisition
+     */
+    void setExpandsWidth(bool expand);
+
+    /**
+     * @brief True if the widget should expand vertically to fill available space when
+     *        packing. If false, the widget will only get its requisition for acquisition
+     *
+     */
+    bool expandsHeight() const;
+
+    /**
+     * @brief Set whether or not the widget should expand vertically when packing
+     *
+     * @param expand True to fill all space, false to use only requisition
+     */
+    void setExpandsHeight(bool expand);
+
 protected:
     /**
      * @brief Builds a new Element. The group and id are optional and are only used to be
@@ -405,6 +433,8 @@ private:
     bool _dirty;
     bool _active;
     bool _visible;
+    bool fillX;
+    bool fillY;
     bool isFocused;
     bool focusForced;
     bool isMouseOver;

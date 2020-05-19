@@ -39,14 +39,12 @@ public:
 
 protected:
     /**
-     * @brief Help method to set Element acquisition. Exposes the protected member
+     * @brief Packs an element into the given space. Obeys Element expand properties
      *
-     * @param element The element to set
-     * @param acquisition The size and position to assign
+     * @param element The element to pack
+     * @param space The space to use as computed by the packer
      */
-    void setAcquisition(Element::Ptr element, const sf::IntRect& acquisition) {
-        element->assignAcquisition(acquisition);
-    }
+    void packElementIntoSpace(Element::Ptr element, const sf::IntRect& space) const;
 };
 
 } // namespace gui

@@ -115,7 +115,7 @@ void Renderer::renderButton(sf::RenderTarget& target, const Button& button) cons
     sf::RectangleShape rect({static_cast<float>(button.getAcquisition().width),
                              static_cast<float>(button.getAcquisition().height)});
     rect.setPosition(button.getAcquisition().left, button.getAcquisition().top);
-    rect.setFillColor(sf::Color(70, 70, 70));
+    rect.setFillColor(sf::Color(70, 70, 70)); // TODO - get from settings
     rect.setOutlineColor(sf::Color::Black);
     rect.setOutlineThickness(2);
     target.draw(rect);

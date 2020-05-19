@@ -19,7 +19,7 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
     using namespace std::placeholders;
 
     if (hasStyle(style, Titlebar)) {
-        titlebar =
+        /*titlebar =
             Container::create(LinePacker::create(LinePacker::Horizontal, LinePacker::Fill),
                               group + "-titlebar",
                               id + "-titlebar");
@@ -31,8 +31,8 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
                                                               LinePacker::RightAlign),
                                            group + "-rightTitlebar",
                                            id + "-rightTitlebar");
-        title          = Label::create(titleText, group + "-title", id + "-title");
-        // TODO - set title text properties?
+        title          = Label::create(titleText, group + "-title", id + "-title");*/
+        // TODO - set title text properties? REDO
 
         const Signal::Callback dragCb = std::bind(&Window::handleDrag, this, _1, _2);
         title->getSignal(Action::Dragged).willCall(dragCb);

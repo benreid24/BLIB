@@ -56,6 +56,16 @@ public:
     void add(Element::Ptr child);
 
     /**
+     * @brief Adds the Element as a new child. Causes a refresh of acquisitions
+     *        Sets the expand properties of the child element
+     *
+     * @param child The child to add and modify
+     * @param expandX Whether or not the element should expand horizontally when packing
+     * @param expandY Whether or not the element should expand vertically when packing
+     */
+    void add(Element::Ptr child, bool expandX, bool expandY);
+
+    /**
      * @brief Performs the removal of Elements pending removal. Then updates all children
      *
      */

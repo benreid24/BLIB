@@ -20,21 +20,18 @@ public:
      */
     enum SpaceMode {
         Compact, /// Each element gets it's requisition and no more
-        Fill,    /// Each element gets an equal acquisition such that the total space is filled
-        Uniform  /// Each element gets acquisition of the largest element
+        Uniform, /// Each element gets an equal acquisition such that the total space is filled
     };
 
     /**
-     * @brief Which direction to pack elements. SpaceMode only applies to the dimension that is
-     *        being packed in. In the other dimension elements are all set to the largest
-     *        elements requisition
+     * @brief Which direction to pack elements
      *
      */
     enum Direction { Vertical, Horizontal };
 
     /**
      * @brief Controls if the packing starts on the top/left, or if it is aligned with the
-     *        right/bottom. Leftto-right/top-to-bottom element is preserved
+     *        right/bottom. Left-to-right/top-to-bottom element order is preserved
      *
      */
     enum PackStart {
@@ -48,10 +45,13 @@ public:
      * @brief Allocates a new LinePacker. Defaults to Compact packing
      *
      * @param dir The pack direction
+     * @param spacing The amount of pixels to put between each element
+     * @param mode The mode to pack with
+     * @param start Which side to pack from
      *
      */
-    static Packer::Ptr create(Direction dir = Horizontal, SpaceMode mode = Compact,
-                              PackStart start = LeftAlign);
+    static Packer::Ptr create(Direction dir = Horizontal, int spacing = 2,
+                              SpaceMode mode = Compact, PackStart start = LeftAlign);
 
     /**
      * @brief Reports the minimum requisition of the element list given
@@ -74,8 +74,9 @@ private:
     const Direction dir;
     const SpaceMode mode;
     const PackStart start;
+    const int spacing;
 
-    LinePacker(Direction dir, SpaceMode mode, PackStart start);
+    LinePacker(Direction dir, int spacing, SpaceMode mode, PackStart start);
 };
 
 } // namespace gui

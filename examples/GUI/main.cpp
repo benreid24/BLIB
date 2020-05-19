@@ -9,25 +9,31 @@ void b1click(const bl::gui::Action&, bl::gui::Element*) {
 }
 
 int main() {
+    using namespace bl;
+
     sf::RenderWindow window(
         sf::VideoMode(800, 600, 32), "BLIB GUI Demo", sf::Style::Close | sf::Style::Titlebar);
 
-    bl::WindowEventDispatcher dispatcher;
-    bl::GUI::Ptr gui = bl::GUI::create(
-        bl::gui::LinePacker::create(bl::gui::LinePacker::Vertical), window, "", "gui");
-    bl::gui::DebugRenderer::Ptr renderer = bl::gui::DebugRenderer::create();
+    WindowEventDispatcher dispatcher;
+    GUI::Ptr gui = GUI::create(
+        gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Uniform),
+        window,
+        "",
+        "gui");
+    gui::DebugRenderer::Ptr renderer = gui::DebugRenderer::create();
     dispatcher.subscribe(gui.get());
     gui->setRenderer(renderer);
 
-    bl::gui::Label::Ptr label = bl::gui::Label::create("This a label", "labels", "l1");
+    gui::Label::Ptr label = gui::Label::create("This a label", "labels", "l1");
+    label->setColor(sf::Color::Red, sf::Color::Transparent);
+    gui->add(label, true, true);
+
+    label = gui::Label::create("This another label", "labels", "l2");
     gui->add(label);
 
-    label = bl::gui::Label::create("This another label", "labels", "l2");
-    gui->add(label);
-
-    bl::gui::Button::Ptr button = bl::gui::Button::create("Press Me", "buttons", "b1");
-    button->getSignal(bl::gui::Action::LeftClicked).willCall(b1click);
-    gui->add(button);
+    gui::Button::Ptr button = gui::Button::create("Press Me", "buttons", "b1");
+    button->getSignal(gui::Action::LeftClicked).willCall(b1click);
+    gui->add(button, true, true);
 
     bool showBoxes  = false;
     bool showGroups = false;
