@@ -112,15 +112,16 @@ void Renderer::renderContainer(sf::RenderTarget& target, const Container& contai
 void Renderer::renderButton(sf::RenderTarget& target, const Button& button) const {
     if (!button.visible()) return;
 
+    const RenderSettings settings = getSettings(&button);
     sf::RectangleShape rect({static_cast<float>(button.getAcquisition().width),
                              static_cast<float>(button.getAcquisition().height)});
     rect.setPosition(button.getAcquisition().left, button.getAcquisition().top);
-    rect.setFillColor(sf::Color(70, 70, 70)); // TODO - get from settings
-    rect.setOutlineColor(sf::Color::Black);
-    rect.setOutlineThickness(2);
+    rect.setFillColor(settings.fillColor.value_or(sf::Color(70, 70, 70)));
+    rect.setOutlineColor(settings.outlineColor.value_or(sf::Color::Black));
+    rect.setOutlineThickness(settings.outlineThickness.value_or(2));
     target.draw(rect);
 
-    renderText(target, button.getText(), button.getAcquisition(), getSettings(&button));
+    renderText(target, button.getText(), button.getAcquisition(), settings);
 
     if (button.mouseOver() || button.leftPressed()) {
         rect.setOutlineThickness(0);
