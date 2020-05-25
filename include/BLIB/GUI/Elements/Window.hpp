@@ -73,14 +73,6 @@ public:
 
 protected:
     /**
-     * @brief Handles drag events
-     *
-     * @param action The action to process
-     * @return True if the event is consumed and no more Elements should be notified
-     */
-    virtual void handleAction(const Action& action) override;
-
-    /**
      * @brief Renders the window and children elements to the given target
      *
      * @param target The target to render to

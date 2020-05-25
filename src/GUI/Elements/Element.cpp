@@ -176,7 +176,6 @@ bool Element::handleRawEvent(const sf::Vector2f&, const sf::Event&) { return fal
 
 bool Element::processAction(const Action& action) {
     if (hasFocus() || (action.type == Action::Scrolled && mouseOver())) {
-        handleAction(action);
         fireSignal(action);
         return true;
     }

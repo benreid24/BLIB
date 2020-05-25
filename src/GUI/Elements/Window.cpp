@@ -35,10 +35,11 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
         // TODO - set title text properties? REDO
 
         const Signal::Callback dragCb = std::bind(&Window::handleDrag, this, _1, _2);
-        title->getSignal(Action::Dragged).willCall(dragCb);
-        leftTitleSide->getSignal(Action::Dragged).willCall(dragCb);
-        rightTitleSide->getSignal(Action::Dragged).willCall(dragCb);
-        titlebar->getSignal(Action::Dragged).willCall(dragCb);
+        getSignal(Action::Dragged).willAlwaysCall(dragCb);
+        title->getSignal(Action::Dragged).willAlwaysCall(dragCb);
+        leftTitleSide->getSignal(Action::Dragged).willAlwaysCall(dragCb);
+        rightTitleSide->getSignal(Action::Dragged).willAlwaysCall(dragCb);
+        titlebar->getSignal(Action::Dragged).willAlwaysCall(dragCb);
 
         leftTitleSide->add(title);
         if (hasStyle(style, CloseButton)) {
@@ -58,10 +59,6 @@ void Window::update(float dt) {
         dragAmount.reset();
     }
     Container::update(dt);
-}
-
-void Window::handleAction(const Action& action) {
-    if (action.type == Action::Dragged) handleDrag(action, nullptr);
 }
 
 void Window::handleDrag(const Action& action, Element*) {

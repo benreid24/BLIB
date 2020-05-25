@@ -355,24 +355,15 @@ protected:
 
     /**
      * @brief Method for child classes to handle raw SFML events. Not recommended to use.
-     *        Instead, use handleAction(). This method is called regardless of where the mouse
-     *        is and if the Element is in focus. Used by Container.  Note that if this
-     *        returns true then handleEvent() will return before performing common processing,
-     *        like tracking mouse in/out and clicking
+     *        Instead, use signals for the Actions you care about. This method is called
+     *        regardless of where the mouse is and if the Element is in focus. Used by
+     *        Container. Note that if this returns true then handleEvent() will return before
+     *        performing common processing, like tracking mouse in/out and clicking
      *
      * @param event The raw event
      * @return True if the event is consumed and no more Elements should be notified
      */
     virtual bool handleRawEvent(const sf::Vector2f& mousePos, const sf::Event& event);
-
-    /**
-     * @brief Method for child classes to handle Actions performed on this Element. This method
-     *        is only called if the Element is in focus
-     *
-     * @param action The action to process
-     * @return True if the event is consumed and no more Elements should be notified
-     */
-    virtual void handleAction(const Action& action) {}
 
     /**
      * @brief Fires the signal that corresponds with the passed Action. This only needs to be
