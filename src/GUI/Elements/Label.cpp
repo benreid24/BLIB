@@ -26,8 +26,9 @@ void Label::setText(const std::string& t) {
 
 const std::string& Label::getText() const { return text; }
 
-void Label::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
-    renderer->renderLabel(target, *this);
+void Label::doRender(sf::RenderTarget& target, sf::RenderStates states,
+                     Renderer::Ptr renderer) const {
+    renderer->renderLabel(target, states, *this);
 }
 
 sf::Vector2i Label::minimumRequisition() const {

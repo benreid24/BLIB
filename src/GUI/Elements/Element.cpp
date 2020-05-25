@@ -230,12 +230,14 @@ void Element::assignAcquisition(const sf::IntRect& acq) {
 
 void Element::setChildParent(Element::Ptr child) { child->parent = me(); }
 
-void Element::render(sf::RenderTarget& target, Renderer::Ptr renderer) const {
-    if (visible()) doRender(target, renderer);
+void Element::render(sf::RenderTarget& target, sf::RenderStates states,
+                     Renderer::Ptr renderer) const {
+    if (visible()) doRender(target, states, renderer);
 }
 
-void Element::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
-    renderer->renderCustom(target, *this);
+void Element::doRender(sf::RenderTarget& target, sf::RenderStates states,
+                       Renderer::Ptr renderer) const {
+    renderer->renderCustom(target, states, *this);
 }
 
 const RenderSettings& Element::renderSettings() const { return settings; }

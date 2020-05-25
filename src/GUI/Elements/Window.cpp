@@ -66,9 +66,10 @@ void Window::handleDrag(const Action& action, Element*) {
         dragAmount = static_cast<sf::Vector2i>(action.data.dragStart - action.position);
 }
 
-void Window::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
-    if (titlebar) renderer->renderContainer(target, *titlebar);
-    renderer->renderContainer(target, *this);
+void Window::doRender(sf::RenderTarget& target, sf::RenderStates states,
+                      Renderer::Ptr renderer) const {
+    if (titlebar) renderer->renderContainer(target, states, *titlebar);
+    renderer->renderContainer(target, states, *this);
 }
 
 bool Window::borderless() const { return !hasBorder; }

@@ -51,20 +51,23 @@ public:
     void showIds(bool show = true);
 
     /// @see Renderer::renderCustom
-    virtual void renderCustom(sf::RenderTarget& target, const Element& element) const override;
+    virtual void renderCustom(sf::RenderTarget& target, sf::RenderStates states,
+                              const Element& element) const override;
 
     /// @see Renderer::renderContainer
-    virtual void renderContainer(sf::RenderTarget& target,
+    virtual void renderContainer(sf::RenderTarget& target, sf::RenderStates states,
                                  const Container& container) const override;
 
     /// @see Renderer::renderLabel
-    virtual void renderLabel(sf::RenderTarget& target, const Label& label) const override;
+    virtual void renderLabel(sf::RenderTarget& target, sf::RenderStates states,
+                             const Label& label) const override;
 
     /// @see Renderer::renderButton
-    virtual void renderButton(sf::RenderTarget& target, const Button& button) const override;
+    virtual void renderButton(sf::RenderTarget& target, sf::RenderStates states,
+                              const Button& button) const override;
 
     /// @see Renderer::renderWindow
-    virtual void renderWindow(sf::RenderTarget& target,
+    virtual void renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                               const Container& window) const override;
 
 private:
@@ -74,8 +77,8 @@ private:
     bool printIds;
 
     DebugRenderer(Renderer::Ptr renderer);
-    void addInfo(sf::RenderTarget& target, const sf::IntRect& region, const std::string& group,
-                 const std::string& id) const;
+    void addInfo(sf::RenderTarget& target, sf::RenderStates states, const sf::IntRect& region,
+                 const std::string& group, const std::string& id) const;
 };
 
 } // namespace gui

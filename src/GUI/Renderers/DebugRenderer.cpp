@@ -23,40 +23,46 @@ void DebugRenderer::showGroups(bool show) { printGroups = show; }
 
 void DebugRenderer::showIds(bool show) { printIds = show; }
 
-void DebugRenderer::renderCustom(sf::RenderTarget& target, const Element& element) const {
-    underlying->renderCustom(target, element);
-    addInfo(target, element.getAcquisition(), element.group(), element.id());
+void DebugRenderer::renderCustom(sf::RenderTarget& target, sf::RenderStates states,
+                                 const Element& element) const {
+    underlying->renderCustom(target, states, element);
+    addInfo(target, states, element.getAcquisition(), element.group(), element.id());
 }
 
-void DebugRenderer::renderLabel(sf::RenderTarget& target, const Label& element) const {
-    underlying->renderLabel(target, element);
-    addInfo(target, element.getAcquisition(), element.group(), element.id());
+void DebugRenderer::renderLabel(sf::RenderTarget& target, sf::RenderStates states,
+                                const Label& element) const {
+    underlying->renderLabel(target, states, element);
+    addInfo(target, states, element.getAcquisition(), element.group(), element.id());
 }
 
-void DebugRenderer::renderContainer(sf::RenderTarget& target, const Container& element) const {
-    underlying->renderContainer(target, element);
-    addInfo(target, element.getAcquisition(), element.group(), element.id());
+void DebugRenderer::renderContainer(sf::RenderTarget& target, sf::RenderStates states,
+                                    const Container& element) const {
+    underlying->renderContainer(target, states, element);
+    addInfo(target, states, element.getAcquisition(), element.group(), element.id());
 }
 
-void DebugRenderer::renderButton(sf::RenderTarget& target, const Button& element) const {
-    underlying->renderButton(target, element);
-    addInfo(target, element.getAcquisition(), element.group(), element.id());
+void DebugRenderer::renderButton(sf::RenderTarget& target, sf::RenderStates states,
+                                 const Button& element) const {
+    underlying->renderButton(target, states, element);
+    addInfo(target, states, element.getAcquisition(), element.group(), element.id());
 }
 
-void DebugRenderer::renderWindow(sf::RenderTarget& target, const Container& element) const {
-    underlying->renderWindow(target, element);
-    addInfo(target, element.getAcquisition(), element.group(), element.id());
+void DebugRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,
+                                 const Container& element) const {
+    underlying->renderWindow(target, states, element);
+    addInfo(target, states, element.getAcquisition(), element.group(), element.id());
 }
 
-void DebugRenderer::addInfo(sf::RenderTarget& target, const sf::IntRect& region,
-                            const std::string& group, const std::string& id) const {
+void DebugRenderer::addInfo(sf::RenderTarget& target, sf::RenderStates states,
+                            const sf::IntRect& region, const std::string& group,
+                            const std::string& id) const {
     if (showBounds) {
         sf::RectangleShape rect(sf::Vector2f(region.width, region.height));
         rect.setPosition(region.left, region.top);
         rect.setOutlineThickness(2);
         rect.setOutlineColor(sf::Color::Red);
         rect.setFillColor(sf::Color::Transparent);
-        target.draw(rect);
+        target.draw(rect, states);
     }
     if (printGroups || printIds) {
         std::stringstream ss;
@@ -71,7 +77,7 @@ void DebugRenderer::addInfo(sf::RenderTarget& target, const sf::IntRect& region,
         text.setOutlineThickness(1.5);
         text.setCharacterSize(12);
         text.setFont(*Font::get());
-        target.draw(text);
+        target.draw(text, states);
     }
 }
 

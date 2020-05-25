@@ -42,8 +42,9 @@ sf::Vector2i Button::minimumRequisition() const {
 
 void Button::settingsChanged() { makeDirty(); }
 
-void Button::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
-    renderer->renderButton(target, *this);
+void Button::doRender(sf::RenderTarget& target, sf::RenderStates states,
+                      Renderer::Ptr renderer) const {
+    renderer->renderButton(target, states, *this);
 }
 
 } // namespace gui

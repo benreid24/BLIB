@@ -29,8 +29,8 @@ RenderSettings Renderer::getSettings(const Element* element) const {
     return result;
 }
 
-void Renderer::renderText(sf::RenderTarget& target, const std::string& text,
-                          const sf::IntRect& acquisition,
+void Renderer::renderText(sf::RenderTarget& target, sf::RenderStates states,
+                          const std::string& text, const sf::IntRect& acquisition,
                           const RenderSettings& settings) const {
     Resource<sf::Font>::Ref font = settings.font.value_or(Font::get());
     if (!font) {
@@ -55,7 +55,7 @@ void Renderer::renderText(sf::RenderTarget& target, const std::string& text,
                           settings.verticalAlignment.value_or(RenderSettings::Center),
                           acquisition,
                           size));
-    target.draw(sfText);
+    target.draw(sfText, states);
 }
 
 sf::Vector2f Renderer::calculatePosition(RenderSettings::Alignment horizontalAlignment,
@@ -92,11 +92,13 @@ sf::Vector2f Renderer::calculatePosition(RenderSettings::Alignment horizontalAli
     return position;
 }
 
-void Renderer::renderCustom(sf::RenderTarget& target, const Element& element) const {
+void Renderer::renderCustom(sf::RenderTarget& target, sf::RenderStates states,
+                            const Element& element) const {
     std::cerr << "Error: renderCustom() called on default renderer. Use a custom renderer\n";
 }
 
-void Renderer::renderContainer(sf::RenderTarget& target, const Container& container) const {
+void Renderer::renderContainer(sf::RenderTarget& target, sf::RenderStates states,
+                               const Container& container) const {
     if (!container.visible()) return;
 
     const RenderSettings settings = getSettings(&container);
@@ -106,10 +108,11 @@ void Renderer::renderContainer(sf::RenderTarget& target, const Container& contai
     rect.setFillColor(settings.fillColor.value_or(sf::Color::Transparent));
     rect.setOutlineThickness(settings.outlineThickness.value_or(0));
     rect.setOutlineColor(settings.outlineColor.value_or(sf::Color::Transparent));
-    target.draw(rect);
+    target.draw(rect, states);
 }
 
-void Renderer::renderButton(sf::RenderTarget& target, const Button& button) const {
+void Renderer::renderButton(sf::RenderTarget& target, sf::RenderStates states,
+                            const Button& button) const {
     if (!button.visible()) return;
 
     const RenderSettings settings = getSettings(&button);
@@ -119,9 +122,9 @@ void Renderer::renderButton(sf::RenderTarget& target, const Button& button) cons
     rect.setFillColor(settings.fillColor.value_or(sf::Color(70, 70, 70)));
     rect.setOutlineColor(settings.outlineColor.value_or(sf::Color::Black));
     rect.setOutlineThickness(settings.outlineThickness.value_or(2));
-    target.draw(rect);
+    target.draw(rect, states);
 
-    renderText(target, button.getText(), button.getAcquisition(), settings);
+    renderText(target, states, button.getText(), button.getAcquisition(), settings);
 
     if (button.mouseOver() || button.leftPressed()) {
         rect.setOutlineThickness(0);
@@ -129,29 +132,21 @@ void Renderer::renderButton(sf::RenderTarget& target, const Button& button) cons
             rect.setFillColor(sf::Color(30, 30, 30, 100));
         else
             rect.setFillColor(sf::Color(255, 255, 255, 100));
-        target.draw(rect);
+        target.draw(rect, states);
     }
 }
 
-void Renderer::renderLabel(sf::RenderTarget& target, const Label& label) const {
+void Renderer::renderLabel(sf::RenderTarget& target, sf::RenderStates states,
+                           const Label& label) const {
     if (!label.visible()) return;
-    renderText(target, label.getText(), label.getAcquisition(), label.renderSettings());
+    renderText(
+        target, states, label.getText(), label.getAcquisition(), label.renderSettings());
 }
 
-void Renderer::renderTitlebar(sf::RenderTarget& target, const Container& titleBar,
-                              const Label& title,
-                              std::optional<const Element*> closeButton) const {
-    sf::RectangleShape rect({static_cast<float>(titleBar.getAcquisition().width),
-                             static_cast<float>(titleBar.getAcquisition().height)});
-    rect.setFillColor(sf::Color(70, 70, 70));
-    rect.setPosition(titleBar.getAcquisition().left, titleBar.getAcquisition().height);
-    target.draw(rect);
-    renderLabel(target, title);
-    if (closeButton.has_value()) renderCustom(target, *closeButton.value()); // TODO - button
-}
-
-void Renderer::renderWindow(sf::RenderTarget& target, const Container& window) const {
-    renderContainer(target, window);
+void Renderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,
+                            const Container& window) const {
+    // TODO - render window
+    renderContainer(target, states, window);
 }
 
 } // namespace gui

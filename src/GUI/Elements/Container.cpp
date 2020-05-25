@@ -99,10 +99,13 @@ void Container::update(float dt) {
     for (Element::Ptr e : children) { e->update(dt); }
 }
 
-void Container::doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const {
-    renderer->renderContainer(target, *this);
+void Container::doRender(sf::RenderTarget& target, sf::RenderStates states,
+                         Renderer::Ptr renderer) const {
+    renderer->renderContainer(target, states, *this);
+    // TODO - draw to texture insead of offseting
+    states.transform.translate(getAcquisition().left, getAcquisition().top);
     for (auto it = children.rbegin(); it != children.rend(); ++it) {
-        (*it)->render(target, renderer);
+        (*it)->render(target, states, renderer);
     }
 }
 

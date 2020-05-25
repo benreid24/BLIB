@@ -60,51 +60,48 @@ public:
      *        determine how to render
      *
      */
-    virtual void renderCustom(sf::RenderTarget& target, const Element& element) const;
+    virtual void renderCustom(sf::RenderTarget& target, sf::RenderStates states,
+                              const Element& element) const;
 
     /**
      * @brief Renders a Container element
      *
      * @param target Target to render to
+     * @param states RenderStates to apply
      * @param container Container to render
      */
-    virtual void renderContainer(sf::RenderTarget& target, const Container& container) const;
+    virtual void renderContainer(sf::RenderTarget& target, sf::RenderStates states,
+                                 const Container& container) const;
 
     /**
      * @brief Renders a Label element
      *
      * @param target The target to render to
+     * @param states RenderStates to apply
      * @param label Label to render
      */
-    virtual void renderLabel(sf::RenderTarget& target, const Label& label) const;
+    virtual void renderLabel(sf::RenderTarget& target, sf::RenderStates states,
+                             const Label& label) const;
 
     /**
      * @brief Renders a Button element
      *
      * @param target The target to render to
+     * @param states RenderStates to apply
      * @param button Button to render
      */
-    virtual void renderButton(sf::RenderTarget& target, const Button& button) const;
-
-    /**
-     * @brief Render a titlebar of a Window
-     *
-     * @param target The target to render to
-     * @param titlebar The Container of the titlebar itself
-     * @param title The title label
-     * @param closeButton The close button, if any
-     */
-    virtual void renderTitlebar(
-        sf::RenderTarget& target, const Container& titlebar, const Label& title,
-        std::optional<const Element*> closeButton) const; // TODO - button
+    virtual void renderButton(sf::RenderTarget& target, sf::RenderStates states,
+                              const Button& button) const;
 
     /**
      * @brief Render a Window element
      *
      * @param target The target to render to
+     * @param states RenderStates to apply
      * @param window The Window to render. Includes child Elements but not the titlebar
      */
-    virtual void renderWindow(sf::RenderTarget& target, const Container& window) const;
+    virtual void renderWindow(sf::RenderTarget& target, sf::RenderStates states,
+                              const Container& window) const;
 
 protected:
     /**
@@ -128,7 +125,7 @@ protected:
      * @param acquisition The area to render inside of
      * @param settings The settings to apply
      */
-    void renderText(sf::RenderTarget& target, const std::string& text,
+    void renderText(sf::RenderTarget& target, sf::RenderStates states, const std::string& text,
                     const sf::IntRect& acquisition, const RenderSettings& settings) const;
 
     /**

@@ -116,9 +116,11 @@ protected:
      * @brief Renders the container and all of its children in bottom up Z order
      *
      * @param target The target to render to
+     * @param states Render states to apply
      * @param renderer The renderer to use
      */
-    virtual void doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const override;
+    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
+                          Renderer::Ptr renderer) const override;
 
 private:
     Packer::Ptr packer;

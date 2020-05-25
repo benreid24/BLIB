@@ -68,7 +68,7 @@ protected:
 private:
     gui::Renderer::Ptr renderer;
     sf::Vector2f mousePos;
-    sf::Transform renderTransform;
+    mutable sf::Transform renderTransform;
 
     GUI(gui::Packer::Ptr packer, const std::string& group, const std::string& id);
     GUI(gui::Packer::Ptr packer, const sf::IntRect& region, const std::string& group = "",

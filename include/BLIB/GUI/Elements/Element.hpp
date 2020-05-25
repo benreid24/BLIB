@@ -205,9 +205,11 @@ public:
      * @brief Renders the element using the given renderer
      *
      * @param target The target to render to
+     * @param states Render states to apply
      * @param renderer The renderer to use
      */
-    void render(sf::RenderTarget& target, Renderer::Ptr renderer) const;
+    void render(sf::RenderTarget& target, sf::RenderStates states,
+                Renderer::Ptr renderer) const;
 
     /**
      * @brief Set the character size. Default is 12. Doesn't apply to all Element types
@@ -371,9 +373,11 @@ protected:
      *        own rendering. The latter is not recommended as then appearance is hard coded
      *
      * @param target The target to render to
+     * @param states Render states to apply
      * @param renderer The renderer to use
      */
-    virtual void doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const;
+    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
+                          Renderer::Ptr renderer) const;
 
     /**
      * @brief Set the acquisition of this element. Meant to be called by a Packer
