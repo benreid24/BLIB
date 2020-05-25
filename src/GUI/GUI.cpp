@@ -33,13 +33,13 @@ void GUI::observe(const sf::Event& event) {
         mousePos.x = event.mouseMove.x;
         mousePos.y = event.mouseMove.y;
     }
-    Container::handleEvent(mousePos, event);
+    Container::handleEvent(gui::RawEvent(event, mousePos, getTransform() * renderTransform));
 }
 
 void GUI::setRenderer(gui::Renderer::Ptr r) { renderer = r; }
 
-void GUI::draw(sf::RenderTarget& target, sf::RenderStates) const {
-    Container::render(target, renderer);
+void GUI::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    Container::render(target, renderer); // TODO - pass states
 }
 
 } // namespace bl

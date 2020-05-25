@@ -75,9 +75,11 @@ void Container::add(Element::Ptr e, bool fx, bool fy) {
 
 void Container::removeChild(const Element* child) { toRemove.push_back(child); }
 
-bool Container::handleRawEvent(const sf::Vector2f& mpos, const sf::Event& event) {
+bool Container::handleRawEvent(const RawEvent& event) {
     for (Element::Ptr e : children) {
-        if (e->handleEvent(mpos, event)) return true;
+        if (e->handleEvent(event.transformToLocal({static_cast<float>(getAcquisition().left),
+                                                   static_cast<float>(getAcquisition().top)})))
+            return true;
     }
     return false; // allows Element::handleEvent to complete for this element now
 }

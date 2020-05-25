@@ -107,11 +107,10 @@ protected:
      * @brief Passes the event to all child elements, in Z order, and returns true on the first
      *        Element that consumes the event, or false if none consume
      *
-     * @param mousePos Position of the mouse when the event fired
      * @param event The event that fired
      * @return True if the event was consumed, false otherwise
      */
-    virtual bool handleRawEvent(const sf::Vector2f& mousePos, const sf::Event& event) override;
+    virtual bool handleRawEvent(const RawEvent& event) override;
 
     /**
      * @brief Renders the container and all of its children in bottom up Z order

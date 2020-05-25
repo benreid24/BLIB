@@ -1,6 +1,7 @@
 target_sources(BLIB PRIVATE
     Action.cpp
     GUI.cpp
+    RawEvent.cpp
     Signal.cpp
 )
 

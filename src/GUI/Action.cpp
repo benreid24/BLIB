@@ -6,19 +6,21 @@ namespace bl
 {
 namespace gui
 {
-Action Action::fromSFML(const sf::Vector2f& mpos, const sf::Event& event) {
-    switch (event.type) {
+Action Action::fromRaw(const RawEvent& event) {
+    switch (event.event.type) {
     case sf::Event::TextEntered:
-        return Action(Action::TextEntered, mpos);
+        return Action(Action::TextEntered, event.localMousePos);
     case sf::Event::KeyPressed:
-        return Action(Action::KeyPressed, event.key, mpos);
+        return Action(Action::KeyPressed, event.event.key, event.localMousePos);
     case sf::Event::KeyReleased:
-        return Action(Action::KeyReleased, event.key, mpos);
+        return Action(Action::KeyReleased, event.event.key, event.localMousePos);
     case sf::Event::MouseWheelScrolled:
-        return Action(Action::Scrolled, event.mouseWheelScroll.delta, mpos);
+        return Action(
+            Action::Scrolled, event.event.mouseWheelScroll.delta, event.localMousePos);
     default:
-        std::cerr << "gui::Action: Unsupported SFML event type: " << event.type << std::endl;
-        return Action(Action::Unknown, mpos);
+        std::cerr << "gui::Action: Unsupported SFML event type: " << event.event.type
+                  << std::endl;
+        return Action(Action::Unknown, event.localMousePos);
     }
 }
 

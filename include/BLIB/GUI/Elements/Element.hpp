@@ -2,6 +2,7 @@
 #define BLIB_GUI_ELEMENTS_ELEMENT_HPP
 
 #include <BLIB/GUI/Action.hpp>
+#include <BLIB/GUI/RawEvent.hpp>
 #include <BLIB/GUI/Renderers/RenderSettings.hpp>
 #include <BLIB/GUI/Renderers/Renderer.hpp>
 #include <BLIB/GUI/Signal.hpp>
@@ -19,7 +20,8 @@ class Packer;
 
 /**
  * @brief Base class for all GUI elements. Provides the common interface used for positioning,
- *        interaction, and rendering
+ *        interaction, and rendering. All coordinates and sizes are in the coordinate system
+ *        of the parent element
  *
  * @ingroup GUI
  *
@@ -135,19 +137,10 @@ public:
     /**
      * @brief Handles the raw window event. Should be called by parent class
      *
-     * @param mousePos Current position of mouse, relative to the window
      * @param event The window event
      * @return True if the event is consumed and no more Elements should be notified
      */
-    bool handleEvent(const sf::Vector2f& mousePos, const sf::Event& event);
-
-    /**
-     * @brief Processes the Action then calls handleAction() if in focus
-     *
-     * @param action The action to process
-     * @return True if the event is consumed and no more Elements should be notified
-     */
-    bool processAction(const Action& action);
+    bool handleEvent(const RawEvent& event);
 
     /**
      * @brief Marks this Element as requiring a recalculation of acquisition
@@ -317,14 +310,6 @@ protected:
     virtual sf::Vector2i minimumRequisition() const = 0;
 
     /**
-     * @brief Sets the acquisition of the Element. Meant to be called by a Container. Clears
-     *        the dirty state
-     *
-     * @param acquisition The area the Element is to occupy
-     */
-    void assignAcquisition(const sf::IntRect& acquisition);
-
-    /**
      * @brief Marks this element as clean and not needing of re-acquisition
      *
      */
@@ -363,7 +348,7 @@ protected:
      * @param event The raw event
      * @return True if the event is consumed and no more Elements should be notified
      */
-    virtual bool handleRawEvent(const sf::Vector2f& mousePos, const sf::Event& event);
+    virtual bool handleRawEvent(const RawEvent& event) { return false; }
 
     /**
      * @brief Fires the signal that corresponds with the passed Action. This only needs to be
@@ -389,6 +374,13 @@ protected:
      * @param renderer The renderer to use
      */
     virtual void doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const;
+
+    /**
+     * @brief Set the acquisition of this element. Meant to be called by a Packer
+     *
+     * @param acquisition The area to occupy, in local parent coordinates
+     */
+    void assignAcquisition(const sf::IntRect& acquisition);
 
     /**
      * @brief Returns the Ptr to this Element
@@ -417,6 +409,8 @@ private:
     bool isLeftPressed;
     bool isRightPressed;
     sf::Vector2f dragStart;
+
+    bool processAction(const Action& action);
 
     friend class Packer;
     friend class Renderer;

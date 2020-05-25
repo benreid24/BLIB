@@ -86,27 +86,27 @@ bool Element::leftPressed() const { return isLeftPressed; }
 
 bool Element::rightPressed() const { return isRightPressed; }
 
-bool Element::handleEvent(const sf::Vector2f& mpos, const sf::Event& event) {
-    if (handleRawEvent(mpos, event)) return true;
+bool Element::handleEvent(const RawEvent& event) {
+    if (handleRawEvent(event)) return true;
 
-    switch (event.type) {
+    switch (event.event.type) {
     case sf::Event::TextEntered:
     case sf::Event::KeyPressed:
     case sf::Event::KeyReleased:
     case sf::Event::MouseWheelScrolled:
-        return processAction(Action::fromSFML(mpos, event));
+        return processAction(Action::fromRaw(event));
 
     case sf::Event::MouseButtonPressed:
-        if (acquisition.contains(sf::Vector2i(event.mouseButton.x, event.mouseButton.y))) {
+        if (acquisition.contains(sf::Vector2i(event.localMousePos.x, event.localMousePos.y))) {
             if (!active()) return true;
 
             if (takeFocus()) {
-                if (event.mouseButton.button == sf::Mouse::Left) {
-                    dragStart     = mpos;
+                if (event.event.mouseButton.button == sf::Mouse::Left) {
+                    dragStart     = event.localMousePos;
                     isLeftPressed = true;
-                    return processAction(Action(Action::Pressed, mpos));
+                    return processAction(Action(Action::Pressed, event.localMousePos));
                 }
-                else if (event.mouseButton.button == sf::Mouse::Right) {
+                else if (event.event.mouseButton.button == sf::Mouse::Right) {
                     isRightPressed = true;
                     return true;
                 }
@@ -119,25 +119,25 @@ bool Element::handleEvent(const sf::Vector2f& mpos, const sf::Event& event) {
         if (!active()) {
             isLeftPressed = isRightPressed = false;
             return acquisition.contains(
-                sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+                sf::Vector2i(event.localMousePos.x, event.localMousePos.y));
         }
-        if (event.mouseButton.button == sf::Mouse::Left) {
+        if (event.event.mouseButton.button == sf::Mouse::Left) {
             if (isLeftPressed) {
                 isLeftPressed = false;
-                processAction(Action(Action::Released, mpos));
+                processAction(Action(Action::Released, event.localMousePos));
                 if (acquisition.contains(
-                        sf::Vector2i(event.mouseButton.x, event.mouseButton.y))) {
-                    processAction(Action(Action::LeftClicked, mpos));
+                        sf::Vector2i(event.localMousePos.x, event.localMousePos.y))) {
+                    processAction(Action(Action::LeftClicked, event.localMousePos));
                     return true;
                 }
             }
         }
-        else if (event.mouseButton.button == sf::Mouse::Right) {
+        else if (event.event.mouseButton.button == sf::Mouse::Right) {
             if (isRightPressed) {
                 isRightPressed = false;
                 if (acquisition.contains(
-                        sf::Vector2i(event.mouseButton.x, event.mouseButton.y))) {
-                    processAction(Action(Action::RightClicked, mpos));
+                        sf::Vector2i(event.localMousePos.x, event.localMousePos.y))) {
+                    processAction(Action(Action::RightClicked, event.localMousePos));
                     return true;
                 }
             }
@@ -147,23 +147,24 @@ bool Element::handleEvent(const sf::Vector2f& mpos, const sf::Event& event) {
     case sf::Event::MouseMoved:
         if (!active()) {
             return acquisition.contains(
-                sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+                sf::Vector2i(event.localMousePos.x, event.localMousePos.y));
         }
         if (isLeftPressed) {
-            isMouseOver =
-                acquisition.contains(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
-            return processAction(Action(Action::Dragged, dragStart, mpos));
+            isMouseOver = acquisition.contains(
+                sf::Vector2i(event.localMousePos.x, event.localMousePos.y));
+            return processAction(Action(Action::Dragged, dragStart, event.localMousePos));
         }
-        else if (acquisition.contains(sf::Vector2i(event.mouseMove.x, event.mouseMove.y))) {
+        else if (acquisition.contains(
+                     sf::Vector2i(event.localMousePos.x, event.localMousePos.y))) {
             if (!isMouseOver) {
                 isMouseOver = true;
-                processAction(Action(Action::MouseEntered, mpos));
+                processAction(Action(Action::MouseEntered, event.localMousePos));
             }
             return true;
         }
         else if (isMouseOver) {
             isMouseOver = false;
-            processAction(Action(Action::MouseLeft, mpos));
+            processAction(Action(Action::MouseLeft, event.localMousePos));
         }
         return false;
 
@@ -172,10 +173,9 @@ bool Element::handleEvent(const sf::Vector2f& mpos, const sf::Event& event) {
     }
 }
 
-bool Element::handleRawEvent(const sf::Vector2f&, const sf::Event&) { return false; }
-
 bool Element::processAction(const Action& action) {
-    if (hasFocus() || (action.type == Action::Scrolled && mouseOver())) {
+    if (hasFocus() ||
+        (action.type == Action::Scrolled && mouseOver())) { // TODO - other exceptions
         fireSignal(action);
         return true;
     }

@@ -1,6 +1,7 @@
 target_sources(BLIB PUBLIC
     Action.hpp
     GUI.hpp
+    RawEvent.hpp
     Signal.hpp
 )
 

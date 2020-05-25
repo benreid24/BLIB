@@ -1,6 +1,7 @@
 #ifndef BLIB_GUI_ACTION_HPP
 #define BLIB_GUI_ACTION_HPP
 
+#include <BLIB/GUI/RawEvent.hpp>
 #include <SFML/Window.hpp>
 #include <string>
 
@@ -73,13 +74,13 @@ struct Action {
 
     const Type type;             /// The type of Action
     const TData data;            /// Extra Action data if required by type
-    const sf::Vector2f position; /// The mouse position when the Action triggered
+    const sf::Vector2f position; /// The mouse position in parent local coords
 
     /**
-     * @brief Helper method to construct an Action from an SFML event
+     * @brief Helper method to construct an Action from a raw event
      *
      */
-    static Action fromSFML(const sf::Vector2f& mousePos, const sf::Event& event);
+    static Action fromRaw(const RawEvent& event);
 
     /**
      * @brief Makes an empty Action of the given type. For types that have no position or data
