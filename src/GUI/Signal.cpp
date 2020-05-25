@@ -8,6 +8,8 @@ void Signal::willSet(bool& var, bool val) { setActions.push_back(std::make_pair(
 
 void Signal::willCall(Callback cb) { userCallbacks.push_back(cb); }
 
+void Signal::willAlwaysCall(Callback cb) { internalCallbacks.push_back(cb); }
+
 void Signal::clear() {
     setActions.clear();
     userCallbacks.clear();

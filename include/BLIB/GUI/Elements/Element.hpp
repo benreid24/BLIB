@@ -325,13 +325,6 @@ protected:
     void assignAcquisition(const sf::IntRect& acquisition);
 
     /**
-     * @brief Special event method called when the Element's acquisition changes. Most elements
-     *        need not do anything, but Containers need to repack
-     *
-     */
-    virtual void onAcquisition() {}
-
-    /**
      * @brief Marks this element as clean and not needing of re-acquisition
      *
      */
@@ -388,14 +381,6 @@ protected:
      * @param action The action to fire
      */
     void fireSignal(const Action& action);
-
-    /**
-     * @brief This method is called when any of the RenderSettings change. Child classes may
-     *        need to mark themselves dirty if the new settings cause them to not fit in their
-     *        acquisitions
-     *
-     */
-    virtual void settingsChanged(){};
 
     /**
      * @brief Returns the render settings for this object

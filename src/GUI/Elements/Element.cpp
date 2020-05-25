@@ -54,6 +54,7 @@ bool Element::takeFocus() {
         }
     }
     isFocused = true;
+    fireSignal(Action(Action::GainedFocus));
     moveToTop();
     return true;
 }
@@ -68,6 +69,7 @@ bool Element::releaseFocus() {
         if (hasFocus()) return false;
     }
     isFocused = false;
+    fireSignal(Action(Action::LostFocus));
     return true;
 }
 
@@ -229,7 +231,7 @@ bool Element::expandsHeight() const { return fillY; }
 void Element::assignAcquisition(const sf::IntRect& acq) {
     _dirty      = false;
     acquisition = acq;
-    onAcquisition();
+    fireSignal(Action(Action::AcquisitionChanged));
 }
 
 void Element::setChildParent(Element::Ptr child) { child->parent = me(); }
@@ -246,38 +248,38 @@ const RenderSettings& Element::renderSettings() const { return settings; }
 
 void Element::setFont(bl::Resource<sf::Font>::Ref f) {
     settings.font = f;
-    settingsChanged();
+    fireSignal(Action(Action::RenderSettingsChanged));
 }
 
 void Element::setCharacterSize(unsigned int s) {
     settings.characterSize = s;
-    settingsChanged();
+    fireSignal(Action(Action::RenderSettingsChanged));
 }
 
 void Element::setColor(sf::Color fill, sf::Color outline) {
     settings.fillColor    = fill;
     settings.outlineColor = outline;
-    settingsChanged();
+    fireSignal(Action(Action::RenderSettingsChanged));
 }
 
 void Element::setOutlineThickness(unsigned int t) {
     settings.outlineThickness = t;
-    settingsChanged();
+    fireSignal(Action(Action::RenderSettingsChanged));
 }
 
 void Element::setStyle(sf::Uint32 style) {
     settings.style = style;
-    settingsChanged();
+    fireSignal(Action(Action::RenderSettingsChanged));
 }
 
 void Element::setHorizontalAlignment(RenderSettings::Alignment align) {
     settings.horizontalAlignment = align;
-    settingsChanged();
+    fireSignal(Action(Action::RenderSettingsChanged));
 }
 
 void Element::setVerticalAlignment(RenderSettings::Alignment align) {
     settings.verticalAlignment = align;
-    settingsChanged();
+    fireSignal(Action(Action::RenderSettingsChanged));
 }
 
 Element::Ptr Element::me() { return shared_from_this(); }

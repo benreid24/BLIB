@@ -23,7 +23,10 @@ Container::Ptr Container::create(Packer::Ptr packer, const std::string& group,
 
 Container::Container(Packer::Ptr packer, const std::string& group, const std::string& id)
 : Element(group, id)
-, packer(packer) {}
+, packer(packer) {
+    getSignal(Action::AcquisitionChanged)
+        .willAlwaysCall(std::bind(Container::onAcquisition, this));
+}
 
 void Container::setPacker(Packer::Ptr p) {
     packer = p;

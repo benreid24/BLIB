@@ -90,12 +90,6 @@ protected:
     virtual sf::Vector2i minimumRequisition() const override;
 
     /**
-     * @brief Repacks elements with the new acquisition
-     *
-     */
-    virtual void onAcquisition() override;
-
-    /**
      * @brief Raises the child Element to the front of the rendering/update queue
      *
      * @param child The child to bring to the top
@@ -133,6 +127,8 @@ private:
     std::vector<Element::Ptr> nonpackableChildren;
     std::vector<Element::Ptr> children;
     std::list<const Element*> toRemove;
+
+    void onAcquisition();
 };
 
 } // namespace gui

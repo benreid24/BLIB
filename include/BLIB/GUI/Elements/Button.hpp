@@ -58,12 +58,6 @@ protected:
     virtual sf::Vector2i minimumRequisition() const override;
 
     /**
-     * @brief Marks the button as dirty
-     *
-     */
-    virtual void settingsChanged() override;
-
-    /**
      * @brief Renders the button and text
      *
      * @param target The target to render to
@@ -73,6 +67,8 @@ protected:
 
 private:
     std::string text;
+
+    void settingsChanged();
 };
 } // namespace gui
 } // namespace bl

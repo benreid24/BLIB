@@ -14,7 +14,10 @@ Button::Ptr Button::create(const std::string& text, const std::string& group,
 
 Button::Button(const std::string& text, const std::string& group, const std::string& id)
 : Element(group, id)
-, text(text) {}
+, text(text) {
+    getSignal(Action::RenderSettingsChanged)
+        .willAlwaysCall(std::bind(Button::settingsChanged, this));
+}
 
 void Button::setText(const std::string& t) {
     text = t;

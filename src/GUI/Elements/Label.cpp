@@ -14,6 +14,8 @@ Label::Ptr Label::create(const std::string& text, const std::string& group,
 Label::Label(const std::string& text, const std::string& group, const std::string& id)
 : Element(group, id)
 , text(text) {
+    getSignal(Action::RenderSettingsChanged)
+        .willAlwaysCall(std::bind(Label::settingsChanged, this));
     settingsChanged();
 }
 

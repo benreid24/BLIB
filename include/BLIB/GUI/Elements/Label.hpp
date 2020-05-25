@@ -51,9 +51,6 @@ public:
     const std::string& getText() const;
 
 protected:
-    std::string text;
-    sf::Text renderText;
-
     /**
      * @brief Construct a new Label
      *
@@ -71,19 +68,18 @@ protected:
     virtual sf::Vector2i minimumRequisition() const override;
 
     /**
-     * @brief Puts the text into the renderText and marks dirty if the text exceeds the
-     *        assigned acquisition
-     *
-     */
-    virtual void settingsChanged() override;
-
-    /**
      * @brief Render the Label to the given target
      *
      * @param target The target to render to
      * @param renderer The renderer to use
      */
     virtual void doRender(sf::RenderTarget& target, Renderer::Ptr renderer) const override;
+
+private:
+    std::string text;
+    sf::Text renderText;
+
+    void settingsChanged();
 };
 
 } // namespace gui
