@@ -61,8 +61,9 @@ protected:
      * @brief Renders the GUI to the target
      *
      * @param target Target to render to
+     * @param states The render states to use
      */
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates) const override;
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
     gui::Renderer::Ptr renderer;
