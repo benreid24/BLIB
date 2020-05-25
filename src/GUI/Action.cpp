@@ -37,6 +37,11 @@ Action::TData::TData(const sf::Vector2f& d)
 Action::TData::TData(const Action::CustomData& data)
 : custom(data) {}
 
+Action::Action(Type type)
+: type(type)
+, data(0u)
+, position() {}
+
 Action::Action(Type type, const sf::Vector2f& pos)
 : type(type)
 , data(0u)

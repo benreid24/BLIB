@@ -21,21 +21,25 @@ struct Action {
      *
      */
     enum Type {
-        MouseEntered, /// Mouse moved over Element
-        MouseLeft,    /// Mouse moved away from Element
-        LeftClicked,  /// Element left clicked
-        RightClicked, /// Element right clicked
-        Pressed,      /// Left mouse button pressed on element
-        Dragged,      /// Mouse moved while left mouse button pressed on Element
-        Released,     /// Left mouse button released on element
-        Scrolled,     /// Mouse wheel scrolled while over Element
-        KeyPressed,   /// Keyboard key pressed while Element focused
-        KeyReleased,  /// Keyboard key released while Element focused
-        TextEntered,  /// Text typed in while Element focused
-        Closed,       /// Specific to Window element. Fired when it is closed
-        Custom,       /// Custom type for custom elements to use
-        NUM_ACTIONS,  /// How many valid Action types exist
-        Unknown       /// Invalid Action
+        MouseEntered,          /// Mouse moved over Element
+        MouseLeft,             /// Mouse moved away from Element
+        LeftClicked,           /// Element left clicked
+        RightClicked,          /// Element right clicked
+        Pressed,               /// Left mouse button pressed on element
+        Dragged,               /// Mouse moved while left mouse button pressed on Element
+        Released,              /// Left mouse button released on element
+        Scrolled,              /// Mouse wheel scrolled while over Element
+        KeyPressed,            /// Keyboard key pressed while Element focused
+        KeyReleased,           /// Keyboard key released while Element focused
+        TextEntered,           /// Text typed in while Element focused
+        Closed,                /// Specific to Window element. Fired when it is closed
+        GainedFocus,           /// Element came into focus
+        LostFocus,             /// Focus was removed from element
+        AcquisitionChanged,    /// Element obtained a new acquisition
+        RenderSettingsChanged, /// One of the element's render settings was updated
+        Custom,                /// Custom type for custom elements to use
+        NUM_ACTIONS,           /// How many valid Action types exist
+        Unknown                /// Invalid Action
     };
 
     /**
@@ -76,6 +80,13 @@ struct Action {
      *
      */
     static Action fromSFML(const sf::Vector2f& mousePos, const sf::Event& event);
+
+    /**
+     * @brief Makes an empty Action of the given type. For types that have no position or data
+     *
+     * @param type The type of action to create
+     */
+    Action(Type type);
 
     /**
      * @brief Creates an action of the given Type and position
