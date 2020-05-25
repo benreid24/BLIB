@@ -44,7 +44,15 @@ public:
     void willCall(Callback cb);
 
     /**
-     * @brief Clears any set or call action
+     * @brief Set up a callback for always being called. Intended to be used by derived classes
+     *        Callbacks set by this are not cleared by clear()
+     * 
+     * @param cb The method to call when the signal is fired
+     */
+    void willAlwaysCall(Callback cb);
+
+    /**
+     * @brief Clears any set or call actions
      *
      */
     void clear();
@@ -60,8 +68,9 @@ public:
 private:
     Signal() = default;
 
-    std::optional<std::pair<bool*, bool>> setAction;
-    std::optional<Callback> callbackAction;
+    std::vector<std::pair<bool*, bool>> setActions;
+    std::vector<Callback> userCallbacks;
+    std::vector<Callback> internalCallbacks;
 
     friend class Element;
 };

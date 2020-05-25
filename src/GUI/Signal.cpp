@@ -4,18 +4,19 @@ namespace bl
 {
 namespace gui
 {
-void Signal::willSet(bool& var, bool val) { setAction = std::make_pair(&var, val); }
+void Signal::willSet(bool& var, bool val) { setActions.push_back(std::make_pair(&var, val)); }
 
-void Signal::willCall(Callback cb) { callbackAction = cb; }
+void Signal::willCall(Callback cb) { userCallbacks.push_back(cb); }
 
 void Signal::clear() {
-    setAction.reset();
-    callbackAction.reset();
+    setActions.clear();
+    userCallbacks.clear();
 }
 
 void Signal::operator()(const Action& action, Element* element) {
-    if (setAction.has_value()) { *setAction.value().first = setAction.value().second; }
-    if (callbackAction.has_value()) { callbackAction.value()(action, element); }
+    for (const auto& set : setActions) { *set.first = set.second; }
+    for (const auto& cb : userCallbacks) { cb(action, element); }
+    for (const auto& cb : internalCallbacks) { cb(action, element); }
 }
 
 } // namespace gui
