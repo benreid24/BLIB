@@ -95,7 +95,8 @@ void Container::update(float dt) {
     }
     toRemove.clear();
     if (dirty()) {
-        packer->pack(getAcquisition(), packableChildren);
+        packer->pack({0, 0, getAcquisition().width, getAcquisition().height},
+                     packableChildren);
         markClean();
     }
     for (Element::Ptr e : children) { e->update(dt); }
