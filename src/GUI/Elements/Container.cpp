@@ -45,6 +45,7 @@ sf::Vector2i Container::minimumRequisition() const {
 }
 
 void Container::onAcquisition() {
+    renderTexture.create(getAcquisition().width, getAcquisition().height);
     packer->pack({0, 0, getAcquisition().width, getAcquisition().height}, packableChildren);
 }
 
@@ -105,11 +106,18 @@ void Container::update(float dt) {
 void Container::doRender(sf::RenderTarget& target, sf::RenderStates states,
                          Renderer::Ptr renderer) const {
     renderer->renderContainer(target, states, *this);
-    // TODO - draw to texture insead of offseting
-    states.transform.translate(getAcquisition().left, getAcquisition().top);
+
+    renderTexture.clear(sf::Color::Transparent);
+    sf::RenderStates childStates = states;
+    childStates.transform        = sf::Transform::Identity;
     for (auto it = children.rbegin(); it != children.rend(); ++it) {
-        (*it)->render(target, states, renderer);
+        (*it)->render(renderTexture, childStates, renderer);
     }
+    renderTexture.display();
+
+    sf::Sprite sprite(renderTexture.getTexture());
+    sprite.setPosition(getAcquisition().left, getAcquisition().top);
+    target.draw(sprite, states);
 }
 
 } // namespace gui

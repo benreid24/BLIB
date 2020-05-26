@@ -123,6 +123,7 @@ protected:
                           Renderer::Ptr renderer) const override;
 
 private:
+    mutable sf::RenderTexture renderTexture;
     Packer::Ptr packer;
     std::vector<Element::Ptr> packableChildren;
     std::vector<Element::Ptr> nonpackableChildren;

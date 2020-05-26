@@ -106,7 +106,7 @@ void Renderer::renderContainer(sf::RenderTarget& target, sf::RenderStates states
     sf::RectangleShape rect({area.width, area.height});
     rect.setPosition(area.left, area.top);
     rect.setFillColor(settings.fillColor.value_or(sf::Color::Transparent));
-    rect.setOutlineThickness(settings.outlineThickness.value_or(0));
+    rect.setOutlineThickness(-settings.outlineThickness.value_or(0));
     rect.setOutlineColor(settings.outlineColor.value_or(sf::Color::Transparent));
     target.draw(rect, states);
 }
@@ -121,7 +121,7 @@ void Renderer::renderButton(sf::RenderTarget& target, sf::RenderStates states,
     rect.setPosition(button.getAcquisition().left, button.getAcquisition().top);
     rect.setFillColor(settings.fillColor.value_or(sf::Color(70, 70, 70)));
     rect.setOutlineColor(settings.outlineColor.value_or(sf::Color::Black));
-    rect.setOutlineThickness(settings.outlineThickness.value_or(2));
+    rect.setOutlineThickness(-settings.outlineThickness.value_or(2));
     target.draw(rect, states);
 
     renderText(target, states, button.getText(), button.getAcquisition(), settings);
