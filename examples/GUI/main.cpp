@@ -17,7 +17,7 @@ int main() {
     WindowEventDispatcher dispatcher;
     GUI::Ptr gui = GUI::create(
         gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Uniform),
-        window,
+        {200, 100, 400, 400},
         "",
         "gui");
     gui::DebugRenderer::Ptr renderer = gui::DebugRenderer::create();

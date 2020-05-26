@@ -33,7 +33,9 @@ void GUI::observe(const sf::Event& event) {
         mousePos.x = event.mouseMove.x;
         mousePos.y = event.mouseMove.y;
     }
-    Container::handleEvent(gui::RawEvent(event, mousePos, getTransform() * renderTransform));
+    sf::Transform tform = getInverseTransform();
+    tform *= renderTransform.getInverse();
+    Container::handleEvent(gui::RawEvent(event, mousePos, tform));
 }
 
 void GUI::setRenderer(gui::Renderer::Ptr r) { renderer = r; }

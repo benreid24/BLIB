@@ -44,7 +44,9 @@ sf::Vector2i Container::minimumRequisition() const {
     return packer->getRequisition(packableChildren);
 }
 
-void Container::onAcquisition() { packer->pack(getAcquisition(), packableChildren); }
+void Container::onAcquisition() {
+    packer->pack({0, 0, getAcquisition().width, getAcquisition().height}, packableChildren);
+}
 
 void Container::bringToTop(const Element* child) {
     for (unsigned int i = 1; i < children.size(); ++i) {

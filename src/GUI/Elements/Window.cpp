@@ -52,7 +52,7 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
 
 void Window::update(float dt) {
     if (dragAmount.has_value() && moveable) {
-        // TODO - implement offset/shifting/scaling in elements
+        // TODO - add position to window and transalte the event/rendering coords for children
         const sf::Vector2i newPos =
             sf::Vector2i(getAcquisition().left, getAcquisition().top) + dragAmount.value();
         assignAcquisition({newPos, minimumRequisition()});
