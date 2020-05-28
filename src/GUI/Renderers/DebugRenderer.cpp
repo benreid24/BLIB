@@ -48,9 +48,9 @@ void DebugRenderer::renderButton(sf::RenderTarget& target, sf::RenderStates stat
 }
 
 void DebugRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,
-                                 const Container& element) const {
-    underlying->renderWindow(target, states, element);
-    addInfo(target, states, element.getAcquisition(), element.group(), element.id());
+                                 const Container* titlebar, const Window& window) const {
+    underlying->renderWindow(target, states, titlebar, window);
+    addInfo(target, states, window.getAcquisition(), window.group(), window.id());
 }
 
 void DebugRenderer::addInfo(sf::RenderTarget& target, sf::RenderStates states,

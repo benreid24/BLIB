@@ -35,6 +35,14 @@ int main() {
     button->getSignal(gui::Action::LeftClicked).willCall(b1click);
     gui->add(button, true, true);
 
+    gui::Window::Ptr testWindow =
+        gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical), "Test Window");
+    label = gui::Label::create("This is a window");
+    testWindow->add(label);
+    testWindow->getSignal(gui::Action::Closed)
+        .willCall(std::bind(&gui::Element::remove, testWindow.get()));
+    gui->add(testWindow);
+
     bool showBoxes  = false;
     bool showGroups = false;
     bool showIds    = false;

@@ -20,6 +20,8 @@ class Packer : public bl::NonCopyable {
 public:
     typedef std::shared_ptr<Packer> Ptr;
 
+    virtual ~Packer() = default;
+
     /**
      * @brief Reports the minimum requisition of the element list given
      *
@@ -37,6 +39,15 @@ public:
     virtual void pack(const sf::IntRect& acquisition,
                       const std::vector<Element::Ptr>& elements) = 0;
 
+    /**
+     * @brief Manually pack the element. Note that the acquisition is relative to the parent
+     *        element and likely does not correspond to screen coordinates
+     *
+     * @param element The element to pack
+     * @param area The atra to pack it into
+     */
+    static void manuallyPackElement(Element::Ptr element, const sf::IntRect& area);
+
 protected:
     /**
      * @brief Packs an element into the given space. Obeys Element expand properties
@@ -44,7 +55,7 @@ protected:
      * @param element The element to pack
      * @param space The space to use as computed by the packer
      */
-    void packElementIntoSpace(Element::Ptr element, const sf::IntRect& space) const;
+    static void packElementIntoSpace(Element::Ptr element, const sf::IntRect& space);
 };
 
 } // namespace gui

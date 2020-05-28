@@ -122,6 +122,17 @@ protected:
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           Renderer::Ptr renderer) const override;
 
+    /**
+     * @brief Utility method to render the child elements. Allows specialized containers to
+     *        implement their own rendering
+     *
+     * @param target The target to render to
+     * @param states Render states to apply
+     * @param renderer The renderer to use
+     */
+    void renderChildren(sf::RenderTarget& target, sf::RenderStates states,
+                        Renderer::Ptr renderer) const;
+
 private:
     mutable sf::RenderTexture renderTexture;
     Packer::Ptr packer;

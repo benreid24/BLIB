@@ -15,6 +15,7 @@ class Element;
 class Container;
 class Label;
 class Button;
+class Window;
 
 /**
  * @brief Utility class to render GUI elements. Derived classes may override whichever
@@ -94,14 +95,16 @@ public:
                               const Button& button) const;
 
     /**
-     * @brief Render a Window element
+     * @brief Render a Window element. The titlebar will have no styling and should use
+     *        the styling options from the window element
      *
      * @param target The target to render to
      * @param states RenderStates to apply
+     * @param titlebar Pointer to the titlebar, nullptr if none
      * @param window The Window to render. Includes child Elements but not the titlebar
      */
     virtual void renderWindow(sf::RenderTarget& target, sf::RenderStates states,
-                              const Container& window) const;
+                              const Container* titlebar, const Window& window) const;
 
 protected:
     /**

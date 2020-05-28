@@ -106,7 +106,11 @@ void Container::update(float dt) {
 void Container::doRender(sf::RenderTarget& target, sf::RenderStates states,
                          Renderer::Ptr renderer) const {
     renderer->renderContainer(target, states, *this);
+    renderChildren(target, states, renderer);
+}
 
+void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states,
+                               Renderer::Ptr renderer) const {
     renderTexture.clear(sf::Color::Transparent);
     sf::RenderStates childStates = states;
     childStates.transform        = sf::Transform::Identity;

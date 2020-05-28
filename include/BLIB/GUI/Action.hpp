@@ -33,6 +33,7 @@ struct Action {
         KeyPressed,            /// Keyboard key pressed while Element focused
         KeyReleased,           /// Keyboard key released while Element focused
         TextEntered,           /// Text typed in while Element focused
+        Moved,                 /// Specific to Window element. Fired when it is moved
         Closed,                /// Specific to Window element. Fired when it is closed
         GainedFocus,           /// Element came into focus
         LostFocus,             /// Focus was removed from element

@@ -144,8 +144,9 @@ void Renderer::renderLabel(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 void Renderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,
-                            const Container& window) const {
+                            const Container* titlebar, const Window& window) const {
     // TODO - render window
+    if (titlebar) renderContainer(target, states, *titlebar);
     renderContainer(target, states, window);
 }
 
