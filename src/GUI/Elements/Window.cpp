@@ -38,7 +38,7 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
                                           id + "-leftTitlebar");
         rightTitleSide = Container::create(
             LinePacker::create(
-                LinePacker::Horizontal, 2, LinePacker::Uniform, LinePacker::RightAlign),
+                LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::RightAlign),
             group + "-rightTitlebar",
             id + "-rightTitlebar");
         rightTitleSide->setRequisition(
@@ -47,9 +47,6 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
         titlebar->add(rightTitleSide);
         titlebar->setExpandsWidth(true);
         titlebar->setExpandsHeight(true);
-
-        titlebar->setColor(sf::Color::Red, sf::Color::Blue);
-        titlebar->setOutlineThickness(2);
 
         // Title text
         title = Label::create(titleText, group + "-title", id + "-title");
@@ -68,14 +65,12 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
         if (hasStyle(style, CloseButton)) {
             closeButton = Button::create("X", group + "-close", id + "-close");
             closeButton->setCharacterSize(16);
+            closeButton->setExpandsWidth(true);
             closeButton->getSignal(Action::LeftClicked)
                 .willAlwaysCall(std::bind(&Window::closed, this, _1, _2));
-            rightTitleSide->add(closeButton, true, true);
+            rightTitleSide->add(closeButton);
         }
     }
-
-    setColor(sf::Color::Red, sf::Color::Blue);
-    setOutlineThickness(2);
 
     getSignal(Action::AcquisitionChanged)
         .willAlwaysCall(std::bind(&Window::onAcquisition, this, _1, _2));
@@ -88,7 +83,8 @@ void Window::handleDrag(const Action& action, Element*) {
             static_cast<sf::Vector2i>(action.data.dragStart - action.position);
         const sf::Vector2i newPos =
             sf::Vector2i(getAcquisition().left, getAcquisition().top) - dragAmount;
-        assignAcquisition({newPos, getRequisition()});
+        assignAcquisition(
+            {newPos, getRequisition()}); // TODO - optimize this with offset, not acquisition
 
         fireSignal(
             Action(Action::Moved, static_cast<sf::Vector2f>(dragAmount), action.position));
@@ -97,10 +93,12 @@ void Window::handleDrag(const Action& action, Element*) {
 
 void Window::onAcquisition(const Action&, Element*) {
     const int h = static_cast<int>(titlebarHeight);
-    rightTitleSide->setRequisition({h, h});
-    Packer::manuallyPackElement(
-        titlebar,
-        {getAcquisition().left, getAcquisition().top - h, getAcquisition().width, h});
+    if (titlebar) {
+        rightTitleSide->setRequisition({h, h});
+        Packer::manuallyPackElement(
+            titlebar,
+            {getAcquisition().left, getAcquisition().top - h, getAcquisition().width, h});
+    }
 }
 
 void Window::closed(const Action&, Element*) { fireSignal(Action(Action::Closed)); }

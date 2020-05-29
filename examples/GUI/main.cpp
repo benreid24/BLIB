@@ -8,6 +8,10 @@ void b1click(const bl::gui::Action&, bl::gui::Element*) {
     std::cout << "Button b1 was clicked\n";
 }
 
+void b2click(const bl::gui::Action&, bl::gui::Element*) {
+    std::cout << "Button b2 was clicked\n";
+}
+
 int main() {
     using namespace bl;
 
@@ -39,6 +43,9 @@ int main() {
         gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical), "Test Window");
     label = gui::Label::create("This is a window");
     testWindow->add(label);
+    button = gui::Button::create("Click me");
+    button->getSignal(gui::Action::LeftClicked).willCall(b2click);
+    testWindow->add(button);
     testWindow->getSignal(gui::Action::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
     gui->add(testWindow);

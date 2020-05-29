@@ -31,6 +31,7 @@ class Element
 , public std::enable_shared_from_this<Element> {
 public:
     typedef std::shared_ptr<Element> Ptr;
+    typedef std::shared_ptr<const Element> CPtr;
     typedef std::weak_ptr<Element> WPtr;
 
     /**
@@ -50,6 +51,12 @@ public:
      *
      */
     const std::string& group() const;
+
+    /**
+     * @brief Returns a const pointer to the parent element. May be null
+     *
+     */
+    CPtr getParent() const;
 
     /**
      * @brief Sets the requisition of the Element. This is the minimum amount of space it

@@ -22,6 +22,8 @@ const std::string& Element::id() const { return _id; }
 
 const std::string& Element::group() const { return _group; }
 
+Element::CPtr Element::getParent() const { return parent.expired() ? nullptr : parent.lock(); }
+
 void Element::setRequisition(const sf::Vector2i& size) {
     requisition.reset();
     if (size.x > 0 && size.y > 0) {

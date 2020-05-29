@@ -55,21 +55,27 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
 
     sf::Vector2i pos(rect.left, rect.top);
     if (mode == Compact) {
+        auto compSize = [this, &maxSize, &extraSpace](Element::Ptr e) -> sf::Vector2i {
+            sf::Vector2i size(e->getRequisition().x, maxSize.y);
+            if (dir == Vertical) size = {maxSize.x, e->getRequisition().y};
+            if (dir == Vertical && e->expandsHeight()) size.y += extraSpace;
+            if (dir == Horizontal && e->expandsWidth()) size.x += extraSpace;
+            return size;
+        };
+
         // Compute start position
         if (start == RightAlign) {
+            const sf::Vector2i size = compSize(elems.back());
             if (dir == Horizontal)
-                pos.x = rect.left + rect.width - elems.back()->getRequisition().x;
+                pos.x = rect.left + rect.width - size.x;
             else
-                pos.y = rect.top + rect.height - elems.back()->getRequisition().y;
+                pos.y = rect.top + rect.height - size.y;
         }
 
         // Pack elements
         for (Element::Ptr e : elems) {
             // Compute size
-            sf::Vector2i size(e->getRequisition().x, maxSize.y);
-            if (dir == Vertical) size = {maxSize.x, e->getRequisition().y};
-            if (dir == Vertical && e->expandsHeight()) size.y += extraSpace;
-            if (dir == Horizontal && e->expandsWidth()) size.x += extraSpace;
+            const sf::Vector2i size = compSize(e);
 
             // Pack
             packElementIntoSpace(e, {pos, size});
