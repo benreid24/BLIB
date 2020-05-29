@@ -230,6 +230,11 @@ void Element::assignAcquisition(const sf::IntRect& acq) {
     fireSignal(Action(Action::AcquisitionChanged));
 }
 
+void Element::setPosition(const sf::Vector2i& pos) {
+    acquisition.left = pos.x;
+    acquisition.top  = pos.y;
+}
+
 void Element::setChildParent(Element::Ptr child) { child->parent = me(); }
 
 void Element::render(sf::RenderTarget& target, sf::RenderStates states,

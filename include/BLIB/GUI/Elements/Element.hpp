@@ -394,6 +394,14 @@ protected:
     void assignAcquisition(const sf::IntRect& acquisition);
 
     /**
+     * @brief Manually set the position of the element. This modifies the acquisition but does
+     *        not trigger any signals or repacking
+     *
+     * @param pos The new position of the element. Relative to the parent element
+     */
+    void setPosition(const sf::Vector2i& pos);
+
+    /**
      * @brief Returns the Ptr to this Element
      *
      * @return Element::Ptr Ptr to this Element

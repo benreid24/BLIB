@@ -83,8 +83,7 @@ void Window::handleDrag(const Action& action, Element*) {
             static_cast<sf::Vector2i>(action.data.dragStart - action.position);
         const sf::Vector2i newPos =
             sf::Vector2i(getAcquisition().left, getAcquisition().top) - dragAmount;
-        assignAcquisition(
-            {newPos, getRequisition()}); // TODO - optimize this with offset, not acquisition
+        setPosition(newPos);
 
         fireSignal(
             Action(Action::Moved, static_cast<sf::Vector2f>(dragAmount), action.position));
