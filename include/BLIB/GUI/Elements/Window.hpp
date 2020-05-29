@@ -78,7 +78,24 @@ public:
      */
     virtual void update(float dt) override;
 
-    // TODO - expose title, titlebar, close button for styling
+    /**
+     * @brief Returns a Ptr to the title label. May be null if there is no titlebar
+     *
+     */
+    Label::Ptr getTitleLabel();
+
+    /**
+     * @brief Returns a Ptr to the titlebar container. May be null if there is no titlebar
+     *
+     */
+    Container::Ptr getTitlebar();
+
+    /**
+     * @brief Returns a Ptr to the close button. May be null if there is no titlebar or close
+     *        button
+     *
+     */
+    Button::Ptr getCloseButton();
 
 protected:
     /**

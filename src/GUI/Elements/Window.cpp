@@ -41,7 +41,6 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
                 LinePacker::Horizontal, 2, LinePacker::Uniform, LinePacker::RightAlign),
             group + "-rightTitlebar",
             id + "-rightTitlebar");
-        // TODO - style titlebar
         rightTitleSide->setRequisition(
             {static_cast<int>(titlebarHeight), static_cast<int>(titlebarHeight)});
         titlebar->add(leftTitleSide, true, true);
@@ -55,7 +54,6 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
         // Title text
         title = Label::create(titleText, group + "-title", id + "-title");
         title->setCharacterSize(18);
-        // TODO - style text
         leftTitleSide->add(title, true, true);
 
         // Setup drag action
@@ -139,6 +137,12 @@ void Window::setTitlebarHeight(unsigned int h) {
 void Window::setPosition(const sf::Vector2i& pos) {
     assignAcquisition({pos, getRequisition()});
 }
+
+Label::Ptr Window::getTitleLabel() { return title; }
+
+Container::Ptr Window::getTitlebar() { return titlebar; }
+
+Button::Ptr Window::getCloseButton() { return closeButton; }
 
 } // namespace gui
 } // namespace bl
