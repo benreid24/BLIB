@@ -91,7 +91,8 @@ protected:
 
     /**
      * @brief If true child elements are packed when the acquisition changes. Set to false to
-     *        manually manage acquisitions and packing from derived classes
+     *        manually manage acquisitions and packing from derived classes. Note that if this
+     *        is false then derived classes must manually repack when marked dirty
      *
      */
     bool& autopack();

@@ -54,12 +54,17 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
         leftTitleSide->add(title, true, true);
 
         // Setup drag action
-        const Signal::Callback dragCb = std::bind(&Window::handleDrag, this, _1, _2);
+        const Signal::Callback dragCb   = std::bind(&Window::handleDrag, this, _1);
+        const Signal::Callback activeCb = std::bind(&Window::titleActive, this);
         getSignal(Action::Dragged).willAlwaysCall(dragCb);
         title->getSignal(Action::Dragged).willAlwaysCall(dragCb);
+        title->getSignal(Action::Pressed).willAlwaysCall(activeCb);
         leftTitleSide->getSignal(Action::Dragged).willAlwaysCall(dragCb);
+        leftTitleSide->getSignal(Action::Pressed).willAlwaysCall(activeCb);
         rightTitleSide->getSignal(Action::Dragged).willAlwaysCall(dragCb);
+        rightTitleSide->getSignal(Action::Pressed).willAlwaysCall(activeCb);
         titlebar->getSignal(Action::Dragged).willAlwaysCall(dragCb);
+        titlebar->getSignal(Action::Pressed).willAlwaysCall(activeCb);
 
         // Close button
         if (hasStyle(style, CloseButton)) {
@@ -67,17 +72,17 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
             closeButton->setCharacterSize(16);
             closeButton->setExpandsWidth(true);
             closeButton->getSignal(Action::LeftClicked)
-                .willAlwaysCall(std::bind(&Window::closed, this, _1, _2));
+                .willAlwaysCall(std::bind(&Window::closed, this));
             rightTitleSide->add(closeButton);
         }
     }
 
     getSignal(Action::AcquisitionChanged)
-        .willAlwaysCall(std::bind(&Window::onAcquisition, this, _1, _2));
+        .willAlwaysCall(std::bind(&Window::onAcquisition, this));
     assignAcquisition({position.x, position.y, 40, 20});
 }
 
-void Window::handleDrag(const Action& action, Element*) {
+void Window::handleDrag(const Action& action) {
     if (action.type == Action::Dragged && moveable) {
         const sf::Vector2i dragAmount =
             static_cast<sf::Vector2i>(action.data.dragStart - action.position);
@@ -90,7 +95,7 @@ void Window::handleDrag(const Action& action, Element*) {
     }
 }
 
-void Window::onAcquisition(const Action&, Element*) {
+void Window::onAcquisition() {
     const int h = static_cast<int>(titlebarHeight);
     if (titlebar) {
         rightTitleSide->setRequisition({h, h});
@@ -100,7 +105,9 @@ void Window::onAcquisition(const Action&, Element*) {
     }
 }
 
-void Window::closed(const Action&, Element*) { fireSignal(Action(Action::Closed)); }
+void Window::closed() { fireSignal(Action(Action::Closed)); }
+
+void Window::titleActive() { moveToTop(); }
 
 void Window::update(float dt) {
     if (dirty()) {

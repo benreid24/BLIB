@@ -14,6 +14,14 @@ void deleteElement(std::vector<Element::Ptr>& list, const Element* e) {
         }
     }
 }
+
+RawEvent makeFakeMove() {
+    sf::Event sfevent;
+    sfevent.type        = sf::Event::MouseMoved;
+    sfevent.mouseMove.x = -100000;
+    sfevent.mouseMove.y = -100000;
+    return RawEvent(sfevent, {-100000, -100000}, sf::Transform::Identity);
+}
 } // namespace
 
 Container::Ptr Container::create(Packer::Ptr packer, const std::string& group,
@@ -57,11 +65,11 @@ void Container::packChildren(const sf::IntRect& acq) {
 }
 
 void Container::bringToTop(const Element* child) {
-    for (unsigned int i = 1; i < children.size(); ++i) {
-        if (children[i].get() == child) {
-            Element::Ptr c = children[i];
-            children.erase(children.begin() + i);
-            children.insert(children.begin(), c);
+    for (unsigned int i = 1; i < nonpackableChildren.size(); ++i) {
+        if (nonpackableChildren[i].get() == child) {
+            Element::Ptr c = nonpackableChildren[i];
+            nonpackableChildren.erase(nonpackableChildren.begin() + i);
+            nonpackableChildren.insert(nonpackableChildren.begin(), c);
             return;
         }
     }
@@ -86,12 +94,26 @@ void Container::add(Element::Ptr e, bool fx, bool fy) {
 void Container::removeChild(const Element* child) { toRemove.push_back(child); }
 
 bool Container::handleRawEvent(const RawEvent& event) {
-    for (Element::Ptr e : children) {
-        if (e->handleEvent(event.transformToLocal({static_cast<float>(getAcquisition().left),
-                                                   static_cast<float>(getAcquisition().top)})))
-            return true;
+    static const RawEvent fakeMove = makeFakeMove();
+    bool sendFakes                 = false;
+    const RawEvent transformed     = event.transformToLocal(
+        {static_cast<float>(getAcquisition().left), static_cast<float>(getAcquisition().top)});
+
+    for (Element::Ptr e : nonpackableChildren) {
+        if (sendFakes)
+            e->handleEvent(fakeMove);
+        else if (e->handleEvent(transformed))
+            sendFakes = true;
     }
-    return false; // allows Element::handleEvent to complete for this element now
+    for (Element::Ptr e : packableChildren) {
+        if (sendFakes)
+            e->handleEvent(fakeMove);
+        else if (e->handleEvent(transformed))
+            sendFakes = true;
+    }
+
+    // allow Element::handleEvent to complete for this element now if sendFakes is false
+    return sendFakes;
 }
 
 void Container::update(float dt) {
@@ -103,8 +125,7 @@ void Container::update(float dt) {
     }
     toRemove.clear();
     if (dirty()) {
-        packer->pack({0, 0, getAcquisition().width, getAcquisition().height},
-                     packableChildren);
+        onAcquisition();
         markClean();
     }
     for (Element::Ptr e : children) { e->update(dt); }
@@ -121,7 +142,10 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
     renderTexture.clear(sf::Color::Transparent);
     sf::RenderStates childStates = states;
     childStates.transform        = sf::Transform::Identity;
-    for (auto it = children.rbegin(); it != children.rend(); ++it) {
+    for (auto it = packableChildren.rbegin(); it != packableChildren.rend(); ++it) {
+        (*it)->render(renderTexture, childStates, renderer);
+    }
+    for (auto it = nonpackableChildren.rbegin(); it != nonpackableChildren.rend(); ++it) {
         (*it)->render(renderTexture, childStates, renderer);
     }
     renderTexture.display();

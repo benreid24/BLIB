@@ -138,9 +138,10 @@ private:
     Label::Ptr title;
     Button::Ptr closeButton;
 
-    void handleDrag(const Action& drag, Element*);
-    void closed(const Action&, Element*);
-    void onAcquisition(const Action&, Element*);
+    void handleDrag(const Action& drag);
+    void closed();
+    void onAcquisition();
+    void titleActive();
 };
 
 } // namespace gui

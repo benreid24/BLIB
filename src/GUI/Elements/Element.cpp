@@ -91,8 +91,8 @@ bool Element::rightPressed() const { return isRightPressed; }
 bool Element::handleEvent(const RawEvent& event) {
     if (handleRawEvent(event)) return true;
 
-    const sf::Vector2f& mpos = packable() ? event.localMousePos : event.globalMousePos;
-    const bool eventOnMe     = acquisition.contains(sf::Vector2i(mpos.x, mpos.y));
+    const bool eventOnMe =
+        acquisition.contains(sf::Vector2i(event.localMousePos.x, event.localMousePos.y));
 
     switch (event.event.type) {
     case sf::Event::TextEntered:
@@ -107,9 +107,9 @@ bool Element::handleEvent(const RawEvent& event) {
 
             if (takeFocus()) {
                 if (event.event.mouseButton.button == sf::Mouse::Left) {
-                    dragStart     = mpos;
+                    dragStart     = event.localMousePos;
                     isLeftPressed = true;
-                    return processAction(Action(Action::Pressed, mpos));
+                    return processAction(Action(Action::Pressed, event.localMousePos));
                 }
                 else if (event.event.mouseButton.button == sf::Mouse::Right) {
                     isRightPressed = true;
@@ -128,9 +128,9 @@ bool Element::handleEvent(const RawEvent& event) {
         if (event.event.mouseButton.button == sf::Mouse::Left) {
             if (isLeftPressed) {
                 isLeftPressed = false;
-                processAction(Action(Action::Released, mpos));
+                processAction(Action(Action::Released, event.localMousePos));
                 if (eventOnMe) {
-                    processAction(Action(Action::LeftClicked, mpos));
+                    processAction(Action(Action::LeftClicked, event.localMousePos));
                     return true;
                 }
             }
@@ -139,7 +139,7 @@ bool Element::handleEvent(const RawEvent& event) {
             if (isRightPressed) {
                 isRightPressed = false;
                 if (eventOnMe) {
-                    processAction(Action(Action::RightClicked, mpos));
+                    processAction(Action(Action::RightClicked, event.localMousePos));
                     return true;
                 }
             }
@@ -150,18 +150,18 @@ bool Element::handleEvent(const RawEvent& event) {
         if (!active()) { return eventOnMe; }
         if (isLeftPressed) {
             isMouseOver = eventOnMe;
-            return processAction(Action(Action::Dragged, dragStart, mpos));
+            return processAction(Action(Action::Dragged, dragStart, event.localMousePos));
         }
         else if (eventOnMe) {
             if (!isMouseOver) {
                 isMouseOver = true;
-                processAction(Action(Action::MouseEntered, mpos));
+                processAction(Action(Action::MouseEntered, event.localMousePos));
             }
             return true;
         }
         else if (isMouseOver) {
             isMouseOver = false;
-            processAction(Action(Action::MouseLeft, mpos));
+            processAction(Action(Action::MouseLeft, event.localMousePos));
         }
         return false;
 
