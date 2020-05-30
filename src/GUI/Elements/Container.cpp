@@ -6,13 +6,16 @@ namespace gui
 {
 namespace
 {
-void deleteElement(std::vector<Element::Ptr>& list, const Element* e) {
+bool deleteElement(std::vector<Element::Ptr>& list, const Element* e) {
+    bool del = false;
     for (unsigned int i = 0; i < list.size(); ++i) {
         if (list[i].get() == e) {
             list.erase(list.begin() + i);
             --i;
+            del = true;
         }
     }
+    return del;
 }
 
 RawEvent makeFakeMove() {
@@ -56,13 +59,21 @@ sf::Vector2i Container::minimumRequisition() const {
 bool& Container::autopack() { return shouldPack; }
 
 void Container::onAcquisition() {
-    if (autopack()) packChildren(getAcquisition());
+    if (renderTexture.getSize().x != getAcquisition().width ||
+        renderTexture.getSize().y != getAcquisition().width)
+        renderTexture.create(getAcquisition().width, getAcquisition().height);
+    if (autopack()) packChildren({0, 0, getAcquisition().width, getAcquisition().height});
 }
 
-void Container::packChildren(const sf::IntRect& acq) {
-    renderTexture.create(acq.width, acq.height);
-    packer->pack({0, 0, acq.width, acq.height}, packableChildren);
+void Container::makeClean() { onAcquisition(); }
+
+void Container::packChildren(const sf::IntRect& acq) { packer->pack(acq, packableChildren); }
+
+void Container::markForManualPack(Element::Ptr e) {
+    if (deleteElement(packableChildren, e.get())) nonpackableChildren.push_back(e);
 }
+
+void Container::markForManualRender(Element::Ptr e) { skipRender.insert(e.get()); }
 
 void Container::bringToTop(const Element* child) {
     for (unsigned int i = 1; i < nonpackableChildren.size(); ++i) {
@@ -125,7 +136,7 @@ void Container::update(float dt) {
     }
     toRemove.clear();
     if (dirty()) {
-        onAcquisition();
+        makeClean();
         markClean();
     }
     for (Element::Ptr e : children) { e->update(dt); }
@@ -143,16 +154,24 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
     sf::RenderStates childStates = states;
     childStates.transform        = sf::Transform::Identity;
     for (auto it = packableChildren.rbegin(); it != packableChildren.rend(); ++it) {
-        (*it)->render(renderTexture, childStates, renderer);
+        if (skipRender.find(it->get()) == skipRender.end())
+            (*it)->render(renderTexture, childStates, renderer);
     }
     for (auto it = nonpackableChildren.rbegin(); it != nonpackableChildren.rend(); ++it) {
-        (*it)->render(renderTexture, childStates, renderer);
+        if (skipRender.find(it->get()) == skipRender.end())
+            (*it)->render(renderTexture, childStates, renderer);
     }
     renderTexture.display();
 
     sf::Sprite sprite(renderTexture.getTexture());
     sprite.setPosition(getAcquisition().left, getAcquisition().top);
     target.draw(sprite, states);
+}
+
+void Container::manuallyRenderChild(Element::Ptr child, sf::RenderTarget& target,
+                                    sf::RenderStates states, Renderer::Ptr renderer) const {
+    states.transform.translate(getAcquisition().left, getAcquisition().top);
+    child->render(target, states, renderer);
 }
 
 } // namespace gui

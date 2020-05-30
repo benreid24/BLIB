@@ -2,8 +2,6 @@
 
 #include <BLIB/GUI/Packers/LinePacker.hpp>
 
-#include <iostream>
-
 namespace bl
 {
 namespace gui
@@ -16,7 +14,9 @@ inline bool hasStyle(Window::Style style, Window::Style check) { return style & 
 Window::Ptr Window::create(Packer::Ptr packer, const std::string& titleText, Style style,
                            const sf::Vector2i& position, const std::string& group,
                            const std::string& id) {
-    return Ptr(new Window(packer, titleText, style, position, group, id));
+    Ptr window(new Window(packer, titleText, style, position, group, id));
+    window->addTitlebar();
+    return window;
 }
 
 Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
@@ -25,6 +25,9 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
 , moveable(hasStyle(style, Moveable))
 , titlebarHeight(22) {
     using namespace std::placeholders;
+
+    // we will pack children into a smaller acquisition under the titlebar
+    autopack() = false;
 
     if (hasStyle(style, Titlebar)) {
         // Create titlebar containers
@@ -82,13 +85,21 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
     assignAcquisition({position.x, position.y, 40, 20});
 }
 
+void Window::addTitlebar() {
+    if (titlebar) {
+        add(titlebar);
+        markForManualPack(titlebar);
+        markForManualRender(titlebar);
+    }
+}
+
 void Window::handleDrag(const Action& action) {
     if (action.type == Action::Dragged && moveable) {
         const sf::Vector2i dragAmount =
             static_cast<sf::Vector2i>(action.data.dragStart - action.position);
         const sf::Vector2i newPos =
             sf::Vector2i(getAcquisition().left, getAcquisition().top) - dragAmount;
-        setPosition(newPos);
+        Element::setPosition(newPos);
 
         fireSignal(
             Action(Action::Moved, static_cast<sf::Vector2f>(dragAmount), action.position));
@@ -99,48 +110,42 @@ void Window::onAcquisition() {
     const int h = static_cast<int>(titlebarHeight);
     if (titlebar) {
         rightTitleSide->setRequisition({h, h});
-        Packer::manuallyPackElement(
-            titlebar,
-            {getAcquisition().left, getAcquisition().top - h, getAcquisition().width, h});
+        Packer::manuallyPackElement(titlebar, {0, 0, getAcquisition().width, h});
     }
+    packChildren({0, h, getAcquisition().width, getAcquisition().height - h});
+}
+
+void Window::makeClean() {
+    assignAcquisition(
+        {getAcquisition().left, getAcquisition().top, getRequisition().x, getRequisition().y});
+}
+
+sf::Vector2i Window::minimumRequisition() const {
+    const sf::Vector2i childMin = Container::minimumRequisition();
+    const int h                 = childMin.y + static_cast<int>(titlebarHeight);
+    return {childMin.x, h > 10 ? h : 10};
 }
 
 void Window::closed() { fireSignal(Action(Action::Closed)); }
 
 void Window::titleActive() { moveToTop(); }
 
-void Window::update(float dt) {
-    if (dirty()) {
-        assignAcquisition({getAcquisition().left,
-                           getAcquisition().top,
-                           getRequisition().x,
-                           getRequisition().y});
-    }
-    Container::update(dt);
-}
-
 void Window::doRender(sf::RenderTarget& target, sf::RenderStates states,
                       Renderer::Ptr renderer) const {
     renderer->renderWindow(target, states, titlebar.get(), *this);
-    if (titlebar) titlebar->render(target, states, renderer); // renders children only
     renderChildren(target, states, renderer);
+    if (titlebar)
+        manuallyRenderChild(titlebar, target, states, renderer); // renders children only
 }
 
 bool Window::packable() const { return false; }
-
-bool Window::handleRawEvent(const RawEvent& event) {
-    if (titlebar && titlebar->handleEvent(event)) return true;
-    return Container::handleRawEvent(event);
-}
 
 void Window::setTitlebarHeight(unsigned int h) {
     titlebarHeight = h;
     assignAcquisition(getAcquisition());
 }
 
-void Window::setPosition(const sf::Vector2i& pos) {
-    assignAcquisition({pos, getRequisition()});
-}
+void Window::setPosition(const sf::Vector2i& pos) { Element::setPosition(pos); }
 
 Label::Ptr Window::getTitleLabel() { return title; }
 

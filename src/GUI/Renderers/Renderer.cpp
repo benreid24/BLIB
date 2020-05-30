@@ -140,16 +140,6 @@ void Renderer::renderLabel(sf::RenderTarget& target, sf::RenderStates states,
 
 void Renderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                             const Container* titlebar, const Window& window) const {
-    if (titlebar) {
-        const RenderSettings settings = getSettings(titlebar);
-        const sf::FloatRect area      = static_cast<sf::FloatRect>(titlebar->getAcquisition());
-        sf::RectangleShape rect({area.width, area.height});
-        rect.setPosition(area.left, area.top);
-        rect.setFillColor(settings.fillColor.value_or(sf::Color(95, 95, 95)));
-        rect.setOutlineThickness(-settings.outlineThickness.value_or(1));
-        rect.setOutlineColor(settings.outlineColor.value_or(sf::Color(20, 20, 20)));
-        target.draw(rect, states);
-    }
     const RenderSettings settings = getSettings(&window);
     const sf::FloatRect area      = static_cast<sf::FloatRect>(window.getAcquisition());
     sf::RectangleShape rect({area.width, area.height});
@@ -158,6 +148,16 @@ void Renderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,
     rect.setOutlineThickness(-settings.outlineThickness.value_or(1));
     rect.setOutlineColor(settings.outlineColor.value_or(sf::Color(20, 20, 20)));
     target.draw(rect, states);
+    if (titlebar) {
+        const RenderSettings settings = getSettings(titlebar);
+        sf::RectangleShape rect({static_cast<float>(titlebar->getAcquisition().width),
+                                 static_cast<float>(titlebar->getAcquisition().height)});
+        rect.setPosition(area.left, area.top);
+        rect.setFillColor(settings.fillColor.value_or(sf::Color(95, 95, 95)));
+        rect.setOutlineThickness(-settings.outlineThickness.value_or(1));
+        rect.setOutlineColor(settings.outlineColor.value_or(sf::Color(20, 20, 20)));
+        target.draw(rect, states);
+    }
 }
 
 } // namespace gui

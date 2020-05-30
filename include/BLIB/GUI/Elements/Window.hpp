@@ -73,12 +73,6 @@ public:
     virtual bool packable() const override;
 
     /**
-     * @brief Packs self if dirty and calls Container::update
-     *
-     */
-    virtual void update(float dt) override;
-
-    /**
      * @brief Returns a Ptr to the title label. May be null if there is no titlebar
      *
      */
@@ -113,6 +107,18 @@ protected:
            const sf::Vector2i& position, const std::string& group, const std::string& id);
 
     /**
+     * @brief Returns size required by children elements plus the titlebar
+     *
+     */
+    virtual sf::Vector2i minimumRequisition() const override;
+
+    /**
+     * @brief Resets the acquisition and repacks all elements
+     *
+     */
+    virtual void makeClean() override;
+
+    /**
      * @brief Renders the window and children elements to the given target
      *
      * @param target The target to render to
@@ -121,14 +127,6 @@ protected:
      */
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           Renderer::Ptr renderer) const override;
-
-    /**
-     * @brief Passes the event to the titlebar then onto the underlying Container
-     *
-     * @param event The event that fired
-     * @return True if the event was consumed, false otherwise
-     */
-    virtual bool handleRawEvent(const RawEvent& event) override;
 
 private:
     const bool moveable;
@@ -142,6 +140,8 @@ private:
     void closed();
     void onAcquisition();
     void titleActive();
+
+    void addTitlebar();
 };
 
 } // namespace gui

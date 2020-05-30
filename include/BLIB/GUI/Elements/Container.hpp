@@ -4,6 +4,7 @@
 #include <BLIB/GUI/Elements/Element.hpp>
 #include <BLIB/GUI/Packers/Packer.hpp>
 #include <list>
+#include <unordered_set>
 
 namespace bl
 {
@@ -92,10 +93,19 @@ protected:
     /**
      * @brief If true child elements are packed when the acquisition changes. Set to false to
      *        manually manage acquisitions and packing from derived classes. Note that if this
-     *        is false then derived classes must manually repack when marked dirty
+     *        is false then derived classes must manually repack when making clean in
+     *        makeClean()
      *
      */
     bool& autopack();
+
+    /**
+     * @brief This is called when the Container is dirty. The default behavior is to repack all
+     *        child elements. Derived classes that manually pack certain elements will need to
+     *        override this to pack the rest of the children into their places
+     *
+     */
+    virtual void makeClean();
 
     /**
      * @brief Packs the child elements into the given acquisition. Must be called from
@@ -104,6 +114,22 @@ protected:
      * @param acquisition The acquisition to pack into, relative to the parent
      */
     void packChildren(const sf::IntRect& acquisition);
+
+    /**
+     * @brief Marks the child to be manually packed. This is meant to be used for special
+     *        elements created by more complex containers. Example: window titlebar
+     *
+     * @param child The child to leave unpacked for manual packing
+     */
+    void markForManualPack(Element::Ptr child);
+
+    /**
+     * @brief Mark the given child to not be rendered by Container. This allows for
+     *        complex derived classes to manage the rendering of their special
+     *        elements
+     *
+     */
+    void markForManualRender(Element::Ptr e);
 
     /**
      * @brief Raises the child Element to the front of the rendering/update queue
@@ -149,6 +175,17 @@ protected:
     void renderChildren(sf::RenderTarget& target, sf::RenderStates states,
                         Renderer::Ptr renderer) const;
 
+    /**
+     * @brief Manually render the given child element. Accounts for the container's offset
+     *
+     * @param child The child to render
+     * @param target The target to render to
+     * @param states Render states to apply
+     * @param renderer The renderer to use
+     */
+    void manuallyRenderChild(Element::Ptr child, sf::RenderTarget& target,
+                             sf::RenderStates states, Renderer::Ptr renderer) const;
+
 private:
     bool shouldPack;
     mutable sf::RenderTexture renderTexture;
@@ -157,6 +194,7 @@ private:
     std::vector<Element::Ptr> nonpackableChildren;
     std::vector<Element::Ptr> children;
     std::list<const Element*> toRemove;
+    std::unordered_set<const Element*> skipRender;
 
     /**
      * @brief Packs children elements into the acquisition assigned. Derived classes may

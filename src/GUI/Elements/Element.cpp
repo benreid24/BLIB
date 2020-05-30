@@ -150,7 +150,10 @@ bool Element::handleEvent(const RawEvent& event) {
         if (!active()) { return eventOnMe; }
         if (isLeftPressed) {
             isMouseOver = eventOnMe;
-            return processAction(Action(Action::Dragged, dragStart, event.localMousePos));
+            const bool r =
+                processAction(Action(Action::Dragged, dragStart, event.localMousePos));
+            // dragStart = event.localMousePos; // update bc position may change while dragged
+            return r;
         }
         else if (eventOnMe) {
             if (!isMouseOver) {
@@ -231,6 +234,9 @@ void Element::assignAcquisition(const sf::IntRect& acq) {
 }
 
 void Element::setPosition(const sf::Vector2i& pos) {
+    const sf::Vector2f diff =
+        static_cast<sf::Vector2f>(pos) - sf::Vector2f(acquisition.left, acquisition.top);
+    dragStart += diff;
     acquisition.left = pos.x;
     acquisition.top  = pos.y;
 }
