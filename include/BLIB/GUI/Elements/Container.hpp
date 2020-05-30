@@ -90,6 +90,21 @@ protected:
     virtual sf::Vector2i minimumRequisition() const override;
 
     /**
+     * @brief If true child elements are packed when the acquisition changes. Set to false to
+     *        manually manage acquisitions and packing from derived classes
+     *
+     */
+    bool& autopack();
+
+    /**
+     * @brief Packs the child elements into the given acquisition. Must be called from
+     *        onAcquisition if it is overriden
+     *
+     * @param acquisition The acquisition to pack into, relative to the parent
+     */
+    void packChildren(const sf::IntRect& acquisition);
+
+    /**
      * @brief Raises the child Element to the front of the rendering/update queue
      *
      * @param child The child to bring to the top
@@ -134,6 +149,7 @@ protected:
                         Renderer::Ptr renderer) const;
 
 private:
+    bool shouldPack;
     mutable sf::RenderTexture renderTexture;
     Packer::Ptr packer;
     std::vector<Element::Ptr> packableChildren;
@@ -141,6 +157,12 @@ private:
     std::vector<Element::Ptr> children;
     std::list<const Element*> toRemove;
 
+    /**
+     * @brief Packs children elements into the acquisition assigned. Derived classes may
+     *        disable autopack() to manage their own acquisitions and packing using
+     *        packChildren()
+     *
+     */
     void onAcquisition();
 };
 

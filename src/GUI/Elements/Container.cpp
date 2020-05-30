@@ -23,6 +23,7 @@ Container::Ptr Container::create(Packer::Ptr packer, const std::string& group,
 
 Container::Container(Packer::Ptr packer, const std::string& group, const std::string& id)
 : Element(group, id)
+, shouldPack(true)
 , packer(packer) {
     getSignal(Action::AcquisitionChanged)
         .willAlwaysCall(std::bind(Container::onAcquisition, this));
@@ -44,9 +45,15 @@ sf::Vector2i Container::minimumRequisition() const {
     return packer->getRequisition(packableChildren);
 }
 
+bool& Container::autopack() { return shouldPack; }
+
 void Container::onAcquisition() {
-    renderTexture.create(getAcquisition().width, getAcquisition().height);
-    packer->pack({0, 0, getAcquisition().width, getAcquisition().height}, packableChildren);
+    if (autopack()) packChildren(getAcquisition());
+}
+
+void Container::packChildren(const sf::IntRect& acq) {
+    renderTexture.create(acq.width, acq.height);
+    packer->pack({0, 0, acq.width, acq.height}, packableChildren);
 }
 
 void Container::bringToTop(const Element* child) {
