@@ -9,6 +9,53 @@ namespace bl
 {
 namespace gui
 {
+namespace
+{
+RenderSettings getWindowDefaults() {
+    RenderSettings settings;
+    settings.fillColor        = sf::Color(75, 75, 75);
+    settings.outlineColor     = sf::Color(20, 20, 20);
+    settings.outlineThickness = 1;
+    return settings;
+}
+
+RenderSettings getTitlebarDefaults() {
+    RenderSettings settings;
+    settings.fillColor        = sf::Color(95, 95, 95);
+    settings.outlineColor     = sf::Color(20, 20, 20);
+    settings.outlineThickness = 1;
+    return settings;
+}
+
+RenderSettings getButtonDefaults() {
+    RenderSettings settings;
+    settings.fillColor        = sf::Color(70, 70, 70);
+    settings.outlineColor     = sf::Color::Black;
+    settings.outlineThickness = 2;
+    return settings;
+}
+
+RenderSettings getContainerDefaults() {
+    RenderSettings settings;
+    settings.fillColor        = sf::Color::Transparent;
+    settings.outlineColor     = sf::Color::Transparent;
+    settings.outlineThickness = 0;
+    return settings;
+}
+
+RenderSettings getLabelDefaults() {
+    RenderSettings settings;
+    settings.characterSize       = Label::DefaultFontSize;
+    settings.fillColor           = sf::Color::Black;
+    settings.outlineColor        = sf::Color(0, 0, 0, 90);
+    settings.outlineThickness    = 0;
+    settings.style               = sf::Text::Regular;
+    settings.horizontalAlignment = RenderSettings::Center;
+    settings.verticalAlignment   = RenderSettings::Center;
+    return settings;
+}
+} // namespace
+
 Renderer::Ptr Renderer::create() { return Ptr(new Renderer()); }
 
 void Renderer::setGroupSettings(const std::string& group, const RenderSettings& settings) {
@@ -31,7 +78,10 @@ RenderSettings Renderer::getSettings(const Element* element) const {
 
 void Renderer::renderText(sf::RenderTarget& target, sf::RenderStates states,
                           const std::string& text, const sf::IntRect& acquisition,
-                          const RenderSettings& settings) const {
+                          const RenderSettings& s, const RenderSettings& defaults) const {
+    RenderSettings settings = defaults;
+    settings.merge(s);
+
     Resource<sf::Font>::Ref font = settings.font.value_or(Font::get());
     if (!font) {
         std::cerr << "Attempting to render text with no sf::Font\n";
@@ -56,6 +106,20 @@ void Renderer::renderText(sf::RenderTarget& target, sf::RenderStates states,
                           acquisition,
                           size));
     target.draw(sfText, states);
+}
+
+void Renderer::renderRectangle(sf::RenderTarget& target, sf::RenderStates states,
+                               const sf::IntRect& area, const RenderSettings& s,
+                               const RenderSettings& defaults) const {
+    RenderSettings settings = defaults;
+    settings.merge(s);
+
+    sf::RectangleShape rect({static_cast<float>(area.width), static_cast<float>(area.height)});
+    rect.setPosition(area.left, area.top);
+    rect.setFillColor(settings.fillColor.value_or(sf::Color(75, 75, 75)));
+    rect.setOutlineThickness(-settings.outlineThickness.value_or(1));
+    rect.setOutlineColor(settings.outlineColor.value_or(sf::Color(20, 20, 20)));
+    target.draw(rect, states);
 }
 
 sf::Vector2f Renderer::calculatePosition(RenderSettings::Alignment horizontalAlignment,
@@ -99,19 +163,17 @@ void Renderer::renderCustom(sf::RenderTarget& target, sf::RenderStates states,
 
 void Renderer::renderContainer(sf::RenderTarget& target, sf::RenderStates states,
                                const Container& container) const {
-    const RenderSettings settings = getSettings(&container);
-    const sf::FloatRect area      = static_cast<sf::FloatRect>(container.getAcquisition());
-    sf::RectangleShape rect({area.width, area.height});
-    rect.setPosition(area.left, area.top);
-    rect.setFillColor(settings.fillColor.value_or(sf::Color::Transparent));
-    rect.setOutlineThickness(-settings.outlineThickness.value_or(0));
-    rect.setOutlineColor(settings.outlineColor.value_or(sf::Color::Transparent));
-    target.draw(rect, states);
+    const RenderSettings settings        = getSettings(&container);
+    static const RenderSettings defaults = getContainerDefaults();
+    renderRectangle(target, states, container.getAcquisition(), settings, defaults);
 }
 
 void Renderer::renderButton(sf::RenderTarget& target, sf::RenderStates states,
                             const Button& button) const {
-    const RenderSettings settings = getSettings(&button);
+    const RenderSettings settings        = getSettings(&button);
+    static const RenderSettings defaults = getButtonDefaults();
+
+    // Not using renderRectangle to reuse the rect
     sf::RectangleShape rect({static_cast<float>(button.getAcquisition().width),
                              static_cast<float>(button.getAcquisition().height)});
     rect.setPosition(button.getAcquisition().left, button.getAcquisition().top);
@@ -134,29 +196,34 @@ void Renderer::renderButton(sf::RenderTarget& target, sf::RenderStates states,
 
 void Renderer::renderLabel(sf::RenderTarget& target, sf::RenderStates states,
                            const Label& label) const {
-    renderText(
-        target, states, label.getText(), label.getAcquisition(), label.renderSettings());
+    static const RenderSettings defaults = getLabelDefaults();
+    renderText(target,
+               states,
+               label.getText(),
+               label.getAcquisition(),
+               getSettings(&label),
+               defaults);
 }
 
 void Renderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                             const Container* titlebar, const Window& window) const {
-    const RenderSettings settings = getSettings(&window);
-    const sf::FloatRect area      = static_cast<sf::FloatRect>(window.getAcquisition());
-    sf::RectangleShape rect({area.width, area.height});
-    rect.setPosition(area.left, area.top);
-    rect.setFillColor(settings.fillColor.value_or(sf::Color(75, 75, 75)));
-    rect.setOutlineThickness(-settings.outlineThickness.value_or(1));
-    rect.setOutlineColor(settings.outlineColor.value_or(sf::Color(20, 20, 20)));
-    target.draw(rect, states);
+    const RenderSettings settings        = getSettings(&window);
+    static const RenderSettings defaults = getWindowDefaults();
+
+    const sf::FloatRect area = static_cast<sf::FloatRect>(window.getAcquisition());
+
+    renderRectangle(target, states, window.getAcquisition(), settings, defaults);
     if (titlebar) {
-        const RenderSettings settings = getSettings(titlebar);
-        sf::RectangleShape rect({static_cast<float>(titlebar->getAcquisition().width),
-                                 static_cast<float>(titlebar->getAcquisition().height)});
-        rect.setPosition(area.left, area.top);
-        rect.setFillColor(settings.fillColor.value_or(sf::Color(95, 95, 95)));
-        rect.setOutlineThickness(-settings.outlineThickness.value_or(1));
-        rect.setOutlineColor(settings.outlineColor.value_or(sf::Color(20, 20, 20)));
-        target.draw(rect, states);
+        const RenderSettings settings        = getSettings(titlebar);
+        static const RenderSettings defaults = getTitlebarDefaults();
+        renderRectangle(target,
+                        states,
+                        {window.getAcquisition().left,
+                         window.getAcquisition().top,
+                         titlebar->getAcquisition().width,
+                         titlebar->getAcquisition().height},
+                        settings,
+                        defaults);
     }
 }
 

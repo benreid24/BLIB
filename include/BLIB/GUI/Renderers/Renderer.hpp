@@ -127,9 +127,24 @@ protected:
      * @param text The text to render
      * @param acquisition The area to render inside of
      * @param settings The settings to apply
+     * @param defaults Default settings to apply if settings is missing a parameter
      */
     void renderText(sf::RenderTarget& target, sf::RenderStates states, const std::string& text,
-                    const sf::IntRect& acquisition, const RenderSettings& settings) const;
+                    const sf::IntRect& acquisition, const RenderSettings& settings,
+                    const RenderSettings& defaults = {}) const;
+
+    /**
+     * @brief Utility method to render a simple rectangle with the given render settings
+     *
+     * @param target The target to render to
+     * @param states The render states to use
+     * @param area The rectangle to render
+     * @param settings The settings to use
+     * @param defaults Default settings to apply if settings is missing a parameter
+     */
+    void renderRectangle(sf::RenderTarget& target, sf::RenderStates states,
+                         const sf::IntRect& area, const RenderSettings& settings,
+                         const RenderSettings& defaults = {}) const;
 
     /**
      * @brief Calculates the position to render an element at given its alignments and size

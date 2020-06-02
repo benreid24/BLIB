@@ -11,7 +11,9 @@ namespace gui
 {
 /**
  * @brief Base class for Element packers. A Packer assigns acquisitions to Elements in a
- *        Container
+ *        Container. Custom packers may be implemented from this interface. Care must be
+ *        taken to avoid packing elements that are marked not visible. They will not be
+ *        rendered but it will result in gaps that may be unwanted
  *
  * @ingroup GUI
  *

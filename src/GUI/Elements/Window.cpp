@@ -34,15 +34,14 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
         titlebar = Container::create(
             LinePacker::create(
                 LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::LeftAlign),
-            group + "-titlebar",
+            group,
             id + "-titlebar");
-        leftTitleSide  = Container::create(LinePacker::create(LinePacker::Horizontal),
-                                          group + "-leftTitlebar",
-                                          id + "-leftTitlebar");
+        leftTitleSide = Container::create(
+            LinePacker::create(LinePacker::Horizontal), group, id + "-leftTitlebar");
         rightTitleSide = Container::create(
             LinePacker::create(
                 LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::RightAlign),
-            group + "-rightTitlebar",
+            group,
             id + "-rightTitlebar");
         rightTitleSide->setRequisition(
             {static_cast<int>(titlebarHeight), static_cast<int>(titlebarHeight)});
@@ -52,7 +51,7 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
         titlebar->setExpandsHeight(true);
 
         // Title text
-        title = Label::create(titleText, group + "-title", id + "-title");
+        title = Label::create(titleText, group, id + "-title");
         title->setCharacterSize(18);
         leftTitleSide->add(title, true, true);
 
@@ -71,7 +70,7 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
 
         // Close button
         if (hasStyle(style, CloseButton)) {
-            closeButton = Button::create("X", group + "-close", id + "-close");
+            closeButton = Button::create("X", group, id + "-close");
             closeButton->setCharacterSize(16);
             closeButton->setExpandsWidth(true);
             closeButton->getSignal(Action::LeftClicked)

@@ -203,7 +203,10 @@ void Element::markClean() { _dirty = false; }
 
 bool Element::packable() const { return true; }
 
-void Element::setVisible(bool v) { _visible = v; }
+void Element::setVisible(bool v) {
+    if (v != _visible) makeDirty();
+    _visible = v;
+}
 
 bool Element::visible() const { return _visible; }
 
@@ -228,7 +231,7 @@ void Element::setExpandsHeight(bool expand) {
 bool Element::expandsHeight() const { return fillY; }
 
 void Element::assignAcquisition(const sf::IntRect& acq) {
-    _dirty      = false;
+    markClean();
     acquisition = acq;
     fireSignal(Action(Action::AcquisitionChanged));
 }
