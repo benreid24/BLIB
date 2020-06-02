@@ -23,6 +23,7 @@
 
 #include <BLIB/GUI/Elements/Button.hpp>
 #include <BLIB/GUI/Elements/Label.hpp>
+#include <BLIB/GUI/Elements/Slider.hpp>
 #include <BLIB/GUI/Elements/Window.hpp>
 
 #endif

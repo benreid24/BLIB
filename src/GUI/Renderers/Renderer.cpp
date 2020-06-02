@@ -35,6 +35,14 @@ RenderSettings getButtonDefaults() {
     return settings;
 }
 
+RenderSettings getSliderDefaults() {
+    RenderSettings settings;
+    settings.fillColor        = sf::Color(120, 120, 120);
+    settings.outlineColor     = sf::Color(85, 85, 85);
+    settings.outlineThickness = 1;
+    return settings;
+}
+
 RenderSettings getContainerDefaults() {
     RenderSettings settings;
     settings.fillColor        = sf::Color::Transparent;
@@ -192,6 +200,13 @@ void Renderer::renderButton(sf::RenderTarget& target, sf::RenderStates states,
             rect.setFillColor(sf::Color(255, 255, 255, 100));
         target.draw(rect, states);
     }
+}
+
+void Renderer::renderSlider(sf::RenderTarget& target, sf::RenderStates states,
+                            const Slider& slider) const {
+    const RenderSettings settings        = getSettings(&slider);
+    static const RenderSettings defaults = getSliderDefaults();
+    renderRectangle(target, states, slider.getAcquisition(), settings, defaults);
 }
 
 void Renderer::renderLabel(sf::RenderTarget& target, sf::RenderStates states,

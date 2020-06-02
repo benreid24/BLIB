@@ -15,6 +15,7 @@ class Element;
 class Container;
 class Label;
 class Button;
+class Slider;
 class Window;
 
 /**
@@ -93,6 +94,16 @@ public:
      */
     virtual void renderButton(sf::RenderTarget& target, sf::RenderStates states,
                               const Button& button) const;
+
+    /**
+     * @brief Render a Slider element. The track only, none of the buttons should be rendered
+     *
+     * @param target The target to render to
+     * @param states RenderStates to apply
+     * @param slider Slider to render
+     */
+    virtual void renderSlider(sf::RenderTarget& target, sf::RenderStates states,
+                              const Slider& slider) const;
 
     /**
      * @brief Render a Window element. The titlebar will have no styling and should use

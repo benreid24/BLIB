@@ -80,7 +80,10 @@ bool Slider::handleRawEvent(const RawEvent& event) {
 
 void Slider::doRender(sf::RenderTarget& target, sf::RenderStates states,
                       Renderer::Ptr renderer) const {
-    // TODO - render
+    renderer->renderSlider(target, states, *this);
+    increaseBut->render(target, states, renderer);
+    decreaseBut->render(target, states, renderer);
+    slider->render(target, states, renderer);
 }
 
 void Slider::increaseClicked() {
