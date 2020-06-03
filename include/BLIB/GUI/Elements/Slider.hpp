@@ -16,7 +16,8 @@ namespace gui
  * @ingroup GUI
  *
  */
-class Slider : public Element {
+class Slider
+: public Element { // TODO - make Slider a Container, events and packing are broken
 public:
     typedef std::shared_ptr<Slider> Ptr;
 

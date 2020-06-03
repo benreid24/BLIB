@@ -24,13 +24,17 @@ int main() {
 
     WindowEventDispatcher dispatcher;
     GUI::Ptr gui = GUI::create(
-        gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Uniform),
+        gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
         {200, 100, 400, 400},
         "",
         "gui");
     gui::DebugRenderer::Ptr renderer = gui::DebugRenderer::create();
     dispatcher.subscribe(gui.get());
     gui->setRenderer(renderer);
+
+    gui::Slider::Ptr slider = gui::Slider::create(gui::Slider::Horizontal);
+    slider->setRequisition({120, 35});
+    gui->add(slider, true, true);
 
     gui::Label::Ptr label = gui::Label::create("This a label", "labels", "l1");
     label->setColor(sf::Color::Red, sf::Color::Transparent);
