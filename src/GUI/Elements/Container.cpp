@@ -25,24 +25,23 @@ RawEvent makeFakeMove() {
     sfevent.mouseMove.y = -100000;
     return RawEvent(sfevent, {-100000, -100000}, sf::Transform::Identity);
 }
+
+template<typename T>
+sf::Rect<T> intersection(const sf::Rect<T>& r, const sf::Rect<T>& l) {
+    const sf::Rect<T> rc(r.left, r.top, r.left + r.width, r.top + r.height);
+    const sf::Rect<T> lc(l.left, l.top, l.left + l.width, l.top + l.height);
+    const sf::Rect<T> c(std::max(rc.left, lc.left),
+                        std::max(rc.top, lc.top),
+                        std::min(rc.width, lc.width),
+                        std::min(rc.height, lc.height));
+    return {c.left, c.top, c.width - c.left, c.height - c.top};
+}
 } // namespace
 
-Container::Ptr Container::create(Packer::Ptr packer, const std::string& group,
-                                 const std::string& id) {
-    return Ptr(new Container(packer, group, id));
-}
-
-Container::Container(Packer::Ptr packer, const std::string& group, const std::string& id)
-: Element(group, id)
-, shouldPack(true)
-, packer(packer) {
+Container::Container(const std::string& group, const std::string& id)
+: Element(group, id) {
     getSignal(Action::AcquisitionChanged)
-        .willAlwaysCall(std::bind(Container::onAcquisition, this));
-}
-
-void Container::setPacker(Packer::Ptr p) {
-    packer = p;
-    makeDirty();
+        .willAlwaysCall(std::bind(Container::acquisitionCb, this));
 }
 
 bool Container::releaseFocus() {
@@ -52,28 +51,7 @@ bool Container::releaseFocus() {
     return Element::releaseFocus();
 }
 
-sf::Vector2i Container::minimumRequisition() const {
-    return packer->getRequisition(packableChildren);
-}
-
-bool& Container::autopack() { return shouldPack; }
-
-void Container::onAcquisition() {
-    if (renderTexture.getSize().x != getAcquisition().width ||
-        renderTexture.getSize().y != getAcquisition().width)
-        renderTexture.create(getAcquisition().width, getAcquisition().height);
-    if (autopack()) packChildren({0, 0, getAcquisition().width, getAcquisition().height});
-}
-
-void Container::makeClean() { onAcquisition(); }
-
-void Container::packChildren(const sf::IntRect& acq) { packer->pack(acq, packableChildren); }
-
-void Container::markForManualPack(Element::Ptr e) {
-    if (deleteElement(packableChildren, e.get())) nonpackableChildren.push_back(e);
-}
-
-void Container::markForManualRender(Element::Ptr e) { skipRender.insert(e.get()); }
+void Container::acquisitionCb() { onAcquisition(); }
 
 void Container::bringToTop(const Element* child) {
     for (unsigned int i = 1; i < nonpackableChildren.size(); ++i) {
@@ -96,10 +74,12 @@ void Container::add(Element::Ptr e) {
     makeDirty();
 }
 
-void Container::add(Element::Ptr e, bool fx, bool fy) {
-    e->setExpandsWidth(fx);
-    e->setExpandsHeight(fy);
-    add(e);
+const std::vector<Element::Ptr>& Container::getPackableChildren() const {
+    return packableChildren;
+}
+
+const std::vector<Element::Ptr>& Container::getNonPackableChildren() const {
+    return nonpackableChildren;
 }
 
 void Container::removeChild(const Element* child) { toRemove.push_back(child); }
@@ -136,42 +116,56 @@ void Container::update(float dt) {
     }
     toRemove.clear();
     if (dirty()) {
-        makeClean();
+        assignAcquisition(getAcquisition());
         markClean();
     }
     for (Element::Ptr e : children) { e->update(dt); }
 }
 
-void Container::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                         Renderer::Ptr renderer) const {
-    renderer->renderContainer(target, states, *this);
-    renderChildren(target, states, renderer);
-}
-
 void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states,
                                Renderer::Ptr renderer) const {
-    renderTexture.clear(sf::Color::Transparent);
-    sf::RenderStates childStates = states;
-    childStates.transform        = sf::Transform::Identity;
+    // Save old view
+    const sf::View oldView = target.getView();
+
+    // Cast
+    const sf::FloatRect acq = static_cast<sf::FloatRect>(getAcquisition());
+    const float w           = static_cast<float>(target.getSize().x);
+    const float h           = static_cast<float>(target.getSize().y);
+
+    // Compute region children will be drawn in and constrain
+    const sf::FloatRect oldRegion(oldView.getCenter() - oldView.getSize() / 2.f,
+                                  oldView.getSize());
+    const sf::FloatRect region = states.transform.transformRect(acq);
+    const sf::FloatRect constrained(intersection(oldRegion, region));
+    sf::View view(constrained);
+
+    // Compute viewport and constrain
+    const sf::FloatRect port(constrained.left / w,
+                             constrained.top / h,
+                             constrained.width / w,
+                             constrained.height / h);
+    view.setViewport(intersection(port, oldView.getViewport()));
+    if (view.getViewport().width < 0 || view.getViewport().height < 0) {
+        // Restore view
+        target.setView(oldView);
+        return;
+    }
+    target.setView(view);
+
+    // Transform children
+    states.transform.translate(static_cast<float>(getAcquisition().left),
+                               static_cast<float>(getAcquisition().top));
+
+    // Draw children
     for (auto it = packableChildren.rbegin(); it != packableChildren.rend(); ++it) {
-        if (skipRender.find(it->get()) == skipRender.end())
-            (*it)->render(renderTexture, childStates, renderer);
+        (*it)->render(target, states, renderer);
     }
     for (auto it = nonpackableChildren.rbegin(); it != nonpackableChildren.rend(); ++it) {
-        if (skipRender.find(it->get()) == skipRender.end())
-            (*it)->render(renderTexture, childStates, renderer);
+        (*it)->render(target, states, renderer);
     }
-    renderTexture.display();
 
-    sf::Sprite sprite(renderTexture.getTexture());
-    sprite.setPosition(getAcquisition().left, getAcquisition().top);
-    target.draw(sprite, states);
-}
-
-void Container::manuallyRenderChild(Element::Ptr child, sf::RenderTarget& target,
-                                    sf::RenderStates states, Renderer::Ptr renderer) const {
-    states.transform.translate(getAcquisition().left, getAcquisition().top);
-    child->render(target, states, renderer);
+    // Restore view
+    target.setView(oldView);
 }
 
 } // namespace gui

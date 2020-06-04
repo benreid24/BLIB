@@ -32,20 +32,20 @@ int main() {
     dispatcher.subscribe(gui.get());
     gui->setRenderer(renderer);
 
-    gui::Slider::Ptr slider = gui::Slider::create(gui::Slider::Horizontal);
-    slider->setRequisition({120, 35});
-    gui->add(slider, true, true);
+    // gui::Slider::Ptr slider = gui::Slider::create(gui::Slider::Horizontal);
+    // slider->setRequisition({120, 35});
+    // gui->add(slider, true, true);
 
     gui::Label::Ptr label = gui::Label::create("This a label", "labels", "l1");
     label->setColor(sf::Color::Red, sf::Color::Transparent);
-    gui->add(label, true, true);
+    gui->pack(label, true, true);
 
     label = gui::Label::create("This another label", "labels", "l2");
-    gui->add(label);
+    gui->pack(label);
 
     gui::Button::Ptr button = gui::Button::create("Press Me", "buttons", "b1");
     button->getSignal(gui::Action::LeftClicked).willCall(b1click);
-    gui->add(button, true, true);
+    gui->pack(button, true, true);
 
     gui::Window::Ptr testWindow =
         gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
@@ -55,13 +55,13 @@ int main() {
                             "",
                             "window1");
     label = gui::Label::create("This is a window");
-    testWindow->add(label);
+    testWindow->pack(label);
     button = gui::Button::create("Click me");
     button->getSignal(gui::Action::LeftClicked).willCall(b2click);
-    testWindow->add(button);
+    testWindow->pack(button);
     testWindow->getSignal(gui::Action::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
-    gui->add(testWindow);
+    gui->pack(testWindow);
 
     testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Test Window",
@@ -70,13 +70,13 @@ int main() {
                                      "",
                                      "window2");
     label      = gui::Label::create("This is also a window");
-    testWindow->add(label);
+    testWindow->pack(label);
     button = gui::Button::create("Click me too");
     button->getSignal(gui::Action::LeftClicked).willCall(b3click);
-    testWindow->add(button);
+    testWindow->pack(button);
     testWindow->getSignal(gui::Action::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
-    gui->add(testWindow);
+    gui->pack(testWindow);
 
     bool showBoxes  = false;
     bool showGroups = false;

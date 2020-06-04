@@ -169,8 +169,8 @@ void Renderer::renderCustom(sf::RenderTarget& target, sf::RenderStates states,
     std::cerr << "Error: renderCustom() called on default renderer. Use a custom renderer\n";
 }
 
-void Renderer::renderContainer(sf::RenderTarget& target, sf::RenderStates states,
-                               const Container& container) const {
+void Renderer::renderBox(sf::RenderTarget& target, sf::RenderStates states,
+                         const Container& container) const {
     const RenderSettings settings        = getSettings(&container);
     static const RenderSettings defaults = getContainerDefaults();
     renderRectangle(target, states, container.getAcquisition(), settings, defaults);

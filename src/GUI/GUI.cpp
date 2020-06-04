@@ -13,7 +13,7 @@ GUI::Ptr GUI::create(gui::Packer::Ptr packer, const sf::RenderWindow& window,
 }
 
 GUI::GUI(gui::Packer::Ptr packer, const std::string& group, const std::string& id)
-: Container(packer, group, id)
+: Box(packer, group, id)
 , renderer(gui::Renderer::create()) {}
 
 GUI::GUI(gui::Packer::Ptr packer, const sf::IntRect& region, const std::string& group,

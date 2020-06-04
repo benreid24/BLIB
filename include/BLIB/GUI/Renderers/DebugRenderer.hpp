@@ -54,9 +54,9 @@ public:
     virtual void renderCustom(sf::RenderTarget& target, sf::RenderStates states,
                               const Element& element) const override;
 
-    /// @see Renderer::renderContainer
-    virtual void renderContainer(sf::RenderTarget& target, sf::RenderStates states,
-                                 const Container& container) const override;
+    /// @see Renderer::renderBox
+    virtual void renderBox(sf::RenderTarget& target, sf::RenderStates states,
+                           const Container& container) const override;
 
     /// @see Renderer::renderLabel
     virtual void renderLabel(sf::RenderTarget& target, sf::RenderStates states,

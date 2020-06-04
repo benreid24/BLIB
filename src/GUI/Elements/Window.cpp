@@ -15,49 +15,48 @@ Window::Ptr Window::create(Packer::Ptr packer, const std::string& titleText, Sty
                            const sf::Vector2i& position, const std::string& group,
                            const std::string& id) {
     Ptr window(new Window(packer, titleText, style, position, group, id));
-    window->addTitlebar();
+    window->addChildren();
     return window;
 }
 
 Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
                const sf::Vector2i& position, const std::string& group, const std::string& id)
-: Container(packer, group, id)
+: Container(group, id)
+, elementArea(Box::create(packer, group, id + "-elementArea"))
 , moveable(hasStyle(style, Moveable))
 , titlebarHeight(22) {
     using namespace std::placeholders;
-
-    // we will pack children into a smaller acquisition under the titlebar
-    autopack() = false;
+    const Signal::Callback dragCb   = std::bind(&Window::handleDrag, this, _1);
+    const Signal::Callback activeCb = std::bind(&Window::titleActive, this);
 
     if (hasStyle(style, Titlebar)) {
         // Create titlebar containers
-        titlebar = Container::create(
+        titlebar = Box::create(
             LinePacker::create(
                 LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::LeftAlign),
             group,
             id + "-titlebar");
-        leftTitleSide = Container::create(
+        leftTitleSide = Box::create(
             LinePacker::create(LinePacker::Horizontal), group, id + "-leftTitlebar");
-        rightTitleSide = Container::create(
+        rightTitleSide = Box::create(
             LinePacker::create(
                 LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::RightAlign),
             group,
             id + "-rightTitlebar");
         rightTitleSide->setRequisition(
             {static_cast<int>(titlebarHeight), static_cast<int>(titlebarHeight)});
-        titlebar->add(leftTitleSide, true, true);
-        titlebar->add(rightTitleSide);
+        titlebar->pack(leftTitleSide, true, true);
+        titlebar->pack(rightTitleSide);
         titlebar->setExpandsWidth(true);
         titlebar->setExpandsHeight(true);
 
         // Title text
         title = Label::create(titleText, group, id + "-title");
         title->setCharacterSize(18);
-        leftTitleSide->add(title, true, true);
+        title->setHorizontalAlignment(RenderSettings::Left);
+        leftTitleSide->pack(title, true, true);
 
         // Setup drag action
-        const Signal::Callback dragCb   = std::bind(&Window::handleDrag, this, _1);
-        const Signal::Callback activeCb = std::bind(&Window::titleActive, this);
         getSignal(Action::Dragged).willAlwaysCall(dragCb);
         title->getSignal(Action::Dragged).willAlwaysCall(dragCb);
         title->getSignal(Action::Pressed).willAlwaysCall(activeCb);
@@ -75,21 +74,12 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
             closeButton->setExpandsWidth(true);
             closeButton->getSignal(Action::LeftClicked)
                 .willAlwaysCall(std::bind(&Window::closed, this));
-            rightTitleSide->add(closeButton);
+            rightTitleSide->pack(closeButton);
         }
     }
 
-    getSignal(Action::AcquisitionChanged)
-        .willAlwaysCall(std::bind(&Window::onAcquisition, this));
+    elementArea->getSignal(Action::Dragged).willAlwaysCall(dragCb);
     assignAcquisition({position.x, position.y, 40, 20});
-}
-
-void Window::addTitlebar() {
-    if (titlebar) {
-        add(titlebar);
-        markForManualPack(titlebar);
-        markForManualRender(titlebar);
-    }
 }
 
 void Window::handleDrag(const Action& action) {
@@ -105,23 +95,23 @@ void Window::handleDrag(const Action& action) {
     }
 }
 
+int Window::computeTitleHeight() const {
+    return titlebar ? static_cast<int>(titlebarHeight) : 0;
+}
+
 void Window::onAcquisition() {
-    const int h = static_cast<int>(titlebarHeight);
+    const int h = computeTitleHeight();
     if (titlebar) {
         rightTitleSide->setRequisition({h, h});
         Packer::manuallyPackElement(titlebar, {0, 0, getAcquisition().width, h});
     }
-    packChildren({0, h, getAcquisition().width, getAcquisition().height - h});
-}
-
-void Window::makeClean() {
-    assignAcquisition(
-        {getAcquisition().left, getAcquisition().top, getRequisition().x, getRequisition().y});
+    Packer::manuallyPackElement(elementArea,
+                                {0, h, getAcquisition().width, getAcquisition().height - h});
 }
 
 sf::Vector2i Window::minimumRequisition() const {
-    const sf::Vector2i childMin = Container::minimumRequisition();
-    const int h                 = childMin.y + static_cast<int>(titlebarHeight);
+    const sf::Vector2i childMin = elementArea->getRequisition();
+    const int h                 = childMin.y + computeTitleHeight();
     return {childMin.x, h > 10 ? h : 10};
 }
 
@@ -133,11 +123,20 @@ void Window::doRender(sf::RenderTarget& target, sf::RenderStates states,
                       Renderer::Ptr renderer) const {
     renderer->renderWindow(target, states, titlebar.get(), *this);
     renderChildren(target, states, renderer);
-    if (titlebar)
-        manuallyRenderChild(titlebar, target, states, renderer); // renders children only
+}
+
+void Window::update(float dt) {
+    if (dirty())
+        assignAcquisition(
+            {sf::Vector2i(getAcquisition().left, getAcquisition().top), getRequisition()});
+    Container::update(dt);
 }
 
 bool Window::packable() const { return false; }
+
+void Window::pack(Element::Ptr e) { elementArea->pack(e); }
+
+void Window::pack(Element::Ptr e, bool fx, bool fy) { elementArea->pack(e, fx, fy); }
 
 void Window::setTitlebarHeight(unsigned int h) {
     titlebarHeight = h;
@@ -146,11 +145,18 @@ void Window::setTitlebarHeight(unsigned int h) {
 
 void Window::setPosition(const sf::Vector2i& pos) { Element::setPosition(pos); }
 
+Box::Ptr Window::getElementArea() { return elementArea; }
+
 Label::Ptr Window::getTitleLabel() { return title; }
 
-Container::Ptr Window::getTitlebar() { return titlebar; }
+Box::Ptr Window::getTitlebar() { return titlebar; }
 
 Button::Ptr Window::getCloseButton() { return closeButton; }
+
+void Window::addChildren() {
+    if (titlebar) add(titlebar);
+    add(elementArea);
+}
 
 } // namespace gui
 } // namespace bl

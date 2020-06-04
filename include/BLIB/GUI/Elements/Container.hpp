@@ -2,7 +2,6 @@
 #define BLIB_GUI_ELEMENTS_CONTAINER_HPP
 
 #include <BLIB/GUI/Elements/Element.hpp>
-#include <BLIB/GUI/Packers/Packer.hpp>
 #include <list>
 #include <unordered_set>
 
@@ -11,36 +10,19 @@ namespace bl
 namespace gui
 {
 /**
- * @brief Case class for container type Elements, such as Box, ScrollArea, or Window
+ * @brief Base class for Elements that have child elements. Provides coordinate transofmation
+ *        for rendering and events, as well as event propogation
  *
  * @ingroup GUI
  *
  */
 class Container : public Element {
 public:
-    typedef std::shared_ptr<Container> Ptr;
-
-    /**
-     * @brief Construct a new Container with the given id, group, and Packer
-     *
-     * @param packer The Packer to pack child elements with
-     * @param group The group of the Element
-     * @param id The id of this Element
-     */
-    static Ptr create(Packer::Ptr packer, const std::string& group = "",
-                      const std::string& id = "");
-
     /**
      * @brief Destroy the Container object
      *
      */
     virtual ~Container() = default;
-
-    /**
-     * @brief Update the Packer used. Marks the Element as dirty
-     *
-     */
-    void setPacker(Packer::Ptr packer);
 
     /**
      * @brief Releases the focus of this Element, parent, and children, if not forced to stay
@@ -50,86 +32,53 @@ public:
     virtual bool releaseFocus() override;
 
     /**
-     * @brief Adds the Element as a new child. Causes a refresh of acquisitions
-     *
-     * @param child The child to add
-     */
-    void add(Element::Ptr child);
-
-    /**
-     * @brief Adds the Element as a new child. Causes a refresh of acquisitions
-     *        Sets the expand properties of the child element
-     *
-     * @param child The child to add and modify
-     * @param expandX Whether or not the element should expand horizontally when packing
-     * @param expandY Whether or not the element should expand vertically when packing
-     */
-    void add(Element::Ptr child, bool expandX, bool expandY);
-
-    /**
-     * @brief Performs the removal of Elements pending removal. Then updates all children
+     * @brief Performs the removal of Elements pending removal. Then updates all children.
+     *        Class overriding this should still call Container::update to update all
+     *        children and to remove pending deleted elements
      *
      */
     virtual void update(float dt) override;
 
 protected:
     /**
-     * @brief Construct a new Container with the given id, group, and Packer
+     * @brief Construct a new Container with the given id and group
      *
-     * @param packer The Packer to pack child elements with
      * @param group The group of the Element
      * @param id The id of this Element
      */
-    Container(Packer::Ptr packer, const std::string& group = "", const std::string& id = "");
+    Container(const std::string& group = "", const std::string& id = "");
 
     /**
-     * @brief Returns the minimum requisition for the Container. This depends on the child
-     *        elements and the Packer
+     * @brief Adds the Element as a new child. Marks dirty. Note that this cannot be called
+     *        from within the constructor of derived classes
      *
-     * @return sf::Vector2i Minimum size required by the Container
+     * @param child The child to add
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    void add(Element::Ptr child);
 
     /**
-     * @brief If true child elements are packed when the acquisition changes. Set to false to
-     *        manually manage acquisitions and packing from derived classes. Note that if this
-     *        is false then derived classes must manually repack when making clean in
-     *        makeClean()
+     * @brief Returns a non mutable list of the child elements that are packable. Each element
+     *        is mutable
      *
+     * @return const std::vector<Element::Ptr>& A creference to the list of packable elements
      */
-    bool& autopack();
+    const std::vector<Element::Ptr>& getPackableChildren() const;
 
     /**
-     * @brief This is called when the Container is dirty. The default behavior is to repack all
-     *        child elements. Derived classes that manually pack certain elements will need to
-     *        override this to pack the rest of the children into their places
+     * @brief Returns a non mutable list of the child elements that are not packable. Each
+     *        element is mutable
      *
+     * @return const std::vector<Element::Ptr>& A list of non packable elements
      */
-    virtual void makeClean();
+    const std::vector<Element::Ptr>& getNonPackableChildren() const;
 
     /**
-     * @brief Packs the child elements into the given acquisition. Must be called from
-     *        onAcquisition if it is overriden
-     *
-     * @param acquisition The acquisition to pack into, relative to the parent
-     */
-    void packChildren(const sf::IntRect& acquisition);
-
-    /**
-     * @brief Marks the child to be manually packed. This is meant to be used for special
-     *        elements created by more complex containers. Example: window titlebar
-     *
-     * @param child The child to leave unpacked for manual packing
-     */
-    void markForManualPack(Element::Ptr child);
-
-    /**
-     * @brief Mark the given child to not be rendered by Container. This allows for
-     *        complex derived classes to manage the rendering of their special
-     *        elements
+     * @brief Called when the acquisition changes. This method is identical to subscribing to
+     *        the AcquisitionChanged signal, but is typically universal for all Containers
+     *        so it is provided here for convenience
      *
      */
-    void markForManualRender(Element::Ptr e);
+    virtual void onAcquisition() = 0;
 
     /**
      * @brief Raises the child Element to the front of the rendering/update queue
@@ -147,22 +96,13 @@ protected:
 
     /**
      * @brief Passes the event to all child elements, in Z order, and returns true on the first
-     *        Element that consumes the event, or false if none consume
+     *        Element that consumes the event, or false if none consume. Note that if derived
+     *        elements override this they should still call it to propogate the event down
      *
      * @param event The event that fired
      * @return True if the event was consumed, false otherwise
      */
     virtual bool handleRawEvent(const RawEvent& event) override;
-
-    /**
-     * @brief Renders the container and all of its children in bottom up Z order
-     *
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer The renderer to use
-     */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          Renderer::Ptr renderer) const override;
 
     /**
      * @brief Utility method to render the child elements. Allows specialized containers to
@@ -175,34 +115,13 @@ protected:
     void renderChildren(sf::RenderTarget& target, sf::RenderStates states,
                         Renderer::Ptr renderer) const;
 
-    /**
-     * @brief Manually render the given child element. Accounts for the container's offset
-     *
-     * @param child The child to render
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer The renderer to use
-     */
-    void manuallyRenderChild(Element::Ptr child, sf::RenderTarget& target,
-                             sf::RenderStates states, Renderer::Ptr renderer) const;
-
 private:
-    bool shouldPack;
-    mutable sf::RenderTexture renderTexture;
-    Packer::Ptr packer;
     std::vector<Element::Ptr> packableChildren;
     std::vector<Element::Ptr> nonpackableChildren;
     std::vector<Element::Ptr> children;
     std::list<const Element*> toRemove;
-    std::unordered_set<const Element*> skipRender;
 
-    /**
-     * @brief Packs children elements into the acquisition assigned. Derived classes may
-     *        disable autopack() to manage their own acquisitions and packing using
-     *        packChildren()
-     *
-     */
-    void onAcquisition();
+    void acquisitionCb();
 };
 
 } // namespace gui

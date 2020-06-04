@@ -35,9 +35,9 @@ void DebugRenderer::renderLabel(sf::RenderTarget& target, sf::RenderStates state
     addInfo(target, states, element.getAcquisition(), element.group(), element.id());
 }
 
-void DebugRenderer::renderContainer(sf::RenderTarget& target, sf::RenderStates states,
-                                    const Container& element) const {
-    underlying->renderContainer(target, states, element);
+void DebugRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates states,
+                              const Container& element) const {
+    underlying->renderBox(target, states, element);
     addInfo(target, states, element.getAcquisition(), element.group(), element.id());
 }
 

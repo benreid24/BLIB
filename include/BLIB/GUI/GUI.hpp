@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_GUI_HPP
 #define BLIB_GUI_GUI_HPP
 
-#include <BLIB/GUI/Elements/Container.hpp>
+#include <BLIB/GUI/Elements/Box.hpp>
 #include <BLIB/Util/EventListener.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -20,7 +20,7 @@ class GUI
 : public sf::Drawable
 , public sf::Transformable
 , public bl::WindowEventListener
-, public gui::Container {
+, public gui::Box {
 public:
     typedef std::shared_ptr<GUI> Ptr;
 

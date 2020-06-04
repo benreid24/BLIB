@@ -72,8 +72,8 @@ public:
      * @param states RenderStates to apply
      * @param container Container to render
      */
-    virtual void renderContainer(sf::RenderTarget& target, sf::RenderStates states,
-                                 const Container& container) const;
+    virtual void renderBox(sf::RenderTarget& target, sf::RenderStates states,
+                           const Container& container) const;
 
     /**
      * @brief Renders a Label element

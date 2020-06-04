@@ -1,6 +1,7 @@
 #ifndef BLIB_GUI_ELEMENTS_WINDOW_HPP
 #define BLIB_GUI_ELEMENTS_WINDOW_HPP
 
+#include <BLIB/GUI/Elements/Box.hpp>
 #include <BLIB/GUI/Elements/Button.hpp>
 #include <BLIB/GUI/Elements/Container.hpp>
 #include <BLIB/GUI/Elements/Label.hpp>
@@ -33,7 +34,7 @@ public:
 
     /**
      * @brief Construct a new window that is sized adaptively. To set a fixed size use
-     *        setSize()
+     *        setRequisition(). Note that the requisition includes the titlebar
      *
      * @param packer The packer to use on the window's elements
      * @param title Title of the window. Only has effect if style contains Titlebar
@@ -67,10 +68,20 @@ public:
     void setPosition(const sf::Vector2i& pos);
 
     /**
-     * @brief Returns false. Windows handle their own positioning and do not need to be packed
+     * @brief Pack the given element into the windows main area
      *
+     * @param e The element to pack
      */
-    virtual bool packable() const override;
+    void pack(Element::Ptr e);
+
+    /**
+     * @brief Pack the given element into the windows main area
+     *
+     * @param e The element to pack
+     * @param fillX True for the element to expand into all available width
+     * @param fillY True for the element to expand into all available height
+     */
+    void pack(Element::Ptr e, bool fillX, bool fillY);
 
     /**
      * @brief Returns a Ptr to the title label. May be null if there is no titlebar
@@ -79,10 +90,17 @@ public:
     Label::Ptr getTitleLabel();
 
     /**
-     * @brief Returns a Ptr to the titlebar container. May be null if there is no titlebar
+     * @brief Returns a Ptr to the titlebar box. May be null if there is no titlebar
      *
      */
-    Container::Ptr getTitlebar();
+    Box::Ptr getTitlebar();
+
+    /**
+     * @brief Return a Ptr to the box that has all of the child elements
+     *
+     * @return Box::Ptr
+     */
+    Box::Ptr getElementArea();
 
     /**
      * @brief Returns a Ptr to the close button. May be null if there is no titlebar or close
@@ -90,6 +108,19 @@ public:
      *
      */
     Button::Ptr getCloseButton();
+
+    /**
+     * @brief Returns false. Windows handle their own positioning and do not need to be packed
+     *
+     */
+    virtual bool packable() const override;
+
+    /**
+     * @brief Assigns its own acquisition and calls Container::update
+     *
+     * @param dt Time elapsed since last update, in seconds
+     */
+    virtual void update(float dt) override;
 
 protected:
     /**
@@ -116,7 +147,7 @@ protected:
      * @brief Resets the acquisition and repacks all elements
      *
      */
-    virtual void makeClean() override;
+    virtual void onAcquisition() override;
 
     /**
      * @brief Renders the window and children elements to the given target
@@ -131,17 +162,18 @@ protected:
 private:
     const bool moveable;
     unsigned int titlebarHeight;
-    Container::Ptr titlebar;
-    Container::Ptr leftTitleSide, rightTitleSide;
+    Box::Ptr titlebar;
+    Box::Ptr leftTitleSide, rightTitleSide;
+    Box::Ptr elementArea;
     Label::Ptr title;
     Button::Ptr closeButton;
 
     void handleDrag(const Action& drag);
     void closed();
-    void onAcquisition();
     void titleActive();
 
-    void addTitlebar();
+    int computeTitleHeight() const;
+    void addChildren();
 };
 
 } // namespace gui
