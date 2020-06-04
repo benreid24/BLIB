@@ -32,10 +32,6 @@ int main() {
     dispatcher.subscribe(gui.get());
     gui->setRenderer(renderer);
 
-    // gui::Slider::Ptr slider = gui::Slider::create(gui::Slider::Horizontal);
-    // slider->setRequisition({120, 35});
-    // gui->add(slider, true, true);
-
     gui::Label::Ptr label = gui::Label::create("This a label", "labels", "l1");
     label->setColor(sf::Color::Red, sf::Color::Transparent);
     gui->pack(label, true, true);
@@ -62,6 +58,10 @@ int main() {
     testWindow->getSignal(gui::Action::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
     gui->pack(testWindow);
+
+    gui::Slider::Ptr slider = gui::Slider::create(gui::Slider::Horizontal);
+    slider->setRequisition({120, 35});
+    testWindow->pack(slider);
 
     testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Test Window",

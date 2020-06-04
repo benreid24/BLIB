@@ -1,8 +1,6 @@
 #ifndef BLIB_GUI_ELEMENTS_SLIDER_HPP
 #define BLIB_GUI_ELEMENTS_SLIDER_HPP
 
-#include <BLIB/GUI/Elements/Element.hpp>
-
 #include <BLIB/GUI/Elements/Button.hpp>
 #include <BLIB/GUI/Elements/Container.hpp>
 
@@ -16,8 +14,7 @@ namespace gui
  * @ingroup GUI
  *
  */
-class Slider
-: public Element { // TODO - make Slider a Container, events and packing are broken
+class Slider : public Container {
 public:
     typedef std::shared_ptr<Slider> Ptr;
 
@@ -103,12 +100,10 @@ protected:
     virtual sf::Vector2i minimumRequisition() const override;
 
     /**
-     * @brief Passes the raw event down to the owned buttons
+     * @brief Packs the slider and increase/decrease buttons
      *
-     * @param event The raw event
-     * @return True if the event is consumed and no more Elements should be notified
      */
-    virtual bool handleRawEvent(const RawEvent& event) override;
+    virtual void onAcquisition() override;
 
     /**
      * @brief Renders the slider and buttons
@@ -133,8 +128,11 @@ private:
     void packElements();
 
     void sliderMoved(const Action& drag);
+    void clicked(const Action& click);
     void decreaseClicked();
     void increaseClicked();
+
+    void addChildren();
 };
 
 } // namespace gui

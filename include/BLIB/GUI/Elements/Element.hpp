@@ -17,6 +17,7 @@ namespace bl
 namespace gui
 {
 class Packer;
+class Slider;
 
 /**
  * @brief Base class for all GUI elements. Provides the common interface used for positioning,
@@ -433,6 +434,7 @@ private:
 
     friend class Packer;
     friend class Renderer;
+    friend class Slider;
 };
 
 } // namespace gui
