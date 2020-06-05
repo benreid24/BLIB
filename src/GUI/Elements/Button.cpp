@@ -16,7 +16,7 @@ Button::Button(const std::string& text, const std::string& group, const std::str
 : Element(group, id)
 , text(text) {
     getSignal(Action::RenderSettingsChanged)
-        .willAlwaysCall(std::bind(Button::settingsChanged, this));
+        .willAlwaysCall(std::bind(&Button::settingsChanged, this));
 }
 
 void Button::setText(const std::string& t) {

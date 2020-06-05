@@ -15,7 +15,7 @@ Label::Label(const std::string& text, const std::string& group, const std::strin
 : Element(group, id)
 , text(text) {
     getSignal(Action::RenderSettingsChanged)
-        .willAlwaysCall(std::bind(Label::settingsChanged, this));
+        .willAlwaysCall(std::bind(&Label::settingsChanged, this));
     settingsChanged();
 }
 

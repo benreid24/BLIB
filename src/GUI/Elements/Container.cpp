@@ -41,7 +41,7 @@ sf::Rect<T> intersection(const sf::Rect<T>& r, const sf::Rect<T>& l) {
 Container::Container(const std::string& group, const std::string& id)
 : Element(group, id) {
     getSignal(Action::AcquisitionChanged)
-        .willAlwaysCall(std::bind(Container::acquisitionCb, this));
+        .willAlwaysCall(std::bind(&Container::acquisitionCb, this));
 }
 
 bool Container::releaseFocus() {

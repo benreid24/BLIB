@@ -8,7 +8,9 @@ namespace gui
 {
 namespace
 {
-inline bool hasStyle(Window::Style style, Window::Style check) { return style & check != 0; }
+inline bool hasStyle(Window::Style style, Window::Style check) {
+    return (style & check) == check;
+}
 } // namespace
 
 Window::Ptr Window::create(Packer::Ptr packer, const std::string& titleText, Style style,
