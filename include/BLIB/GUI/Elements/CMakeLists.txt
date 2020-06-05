@@ -4,6 +4,7 @@ target_sources(BLIB PUBLIC
     Container.hpp
     Element.hpp
     Label.hpp
+    ScrollArea.hpp
     Slider.hpp
     Window.hpp
 )

@@ -126,6 +126,7 @@ private:
 
     unsigned int calculateFreeSize() const;
     void packElements();
+    void fireChanged();
 
     void sliderMoved(const Action& drag);
     void clicked(const Action& click);

@@ -54,6 +54,10 @@ Action::Action(Type type, uint32_t c, const sf::Vector2f& pos)
 , data(c)
 , position(pos) {}
 
+Action::Action(Type type, float v)
+: type(type)
+, data(v) {}
+
 Action::Action(Type type, float s, const sf::Vector2f& pos)
 : type(type)
 , data(s)

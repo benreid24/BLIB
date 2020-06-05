@@ -33,6 +33,7 @@ struct Action {
         KeyPressed,            /// Keyboard key pressed while Element focused
         KeyReleased,           /// Keyboard key released while Element focused
         TextEntered,           /// Text typed in while Element focused
+        ValueChanged,          /// Generic action for non text inputs to fire on change
         Moved,                 /// Specific to Window element. Fired when it is moved
         Closed,                /// Specific to Window element. Fired when it is closed
         GainedFocus,           /// Element came into focus
@@ -62,6 +63,7 @@ struct Action {
     union TData {
         uint32_t input;          /// Unicode char for TextEntered
         float scroll;            /// Mouse wheel delta for Scrolled
+        float value;             /// Float value for inputs such as Slider
         sf::Event::KeyEvent key; /// Key for KeyPressed and KeyReleased
         sf::Vector2f dragStart;  /// Position of mouse when drag started
         CustomData custom;       /// Generic data for custom actions
@@ -115,6 +117,14 @@ struct Action {
      * @param pos The mouse position relative to the containing window
      */
     Action(Type type, float s, const sf::Vector2f& pos);
+
+    /**
+     * @brief Creates an Action of the given Type and float value. No position
+     *
+     * @param type The type of Action
+     * @param v The value to store
+     */
+    Action(Type type, float v);
 
     /**
      * @brief Creates an action of the given Type and position and sets the extra data

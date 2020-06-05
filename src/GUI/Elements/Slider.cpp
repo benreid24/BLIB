@@ -49,6 +49,7 @@ float Slider::getValue() const { return value; }
 
 void Slider::setValue(float v) {
     value = v;
+    fireChanged();
     packElements();
 }
 
@@ -94,14 +95,18 @@ void Slider::doRender(sf::RenderTarget& target, sf::RenderStates states,
     renderChildren(target, states, renderer);
 }
 
+void Slider::fireChanged() { fireSignal(Action(Action::ValueChanged, value)); }
+
 void Slider::increaseClicked() {
     value += increment;
     packElements();
+    fireChanged();
 }
 
 void Slider::decreaseClicked() {
     value -= increment;
     packElements();
+    fireChanged();
 }
 
 void Slider::sliderMoved(const Action& drag) {
@@ -131,6 +136,7 @@ void Slider::sliderMoved(const Action& drag) {
         slider->setPosition({pos + offset, slider->getAcquisition().top});
     else
         slider->setPosition({slider->getAcquisition().left, pos + offset});
+    fireChanged();
 }
 
 void Slider::clicked(const Action& click) {
@@ -157,6 +163,7 @@ void Slider::clicked(const Action& click) {
         slider->setPosition({pos + offset, slider->getAcquisition().top});
     else
         slider->setPosition({slider->getAcquisition().left, pos + offset});
+    fireChanged();
 }
 
 unsigned int Slider::calculateFreeSize() const {
