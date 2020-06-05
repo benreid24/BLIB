@@ -4,6 +4,7 @@ target_sources(BLIB PRIVATE
     Container.cpp
     Element.cpp
     Label.cpp
+    ScrollArea.cpp
     Slider.cpp
     Window.cpp
 )

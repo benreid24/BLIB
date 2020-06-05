@@ -3,6 +3,9 @@
 
 #include <BLIB/GUI/Elements/Container.hpp>
 
+#include <BLIB/GUI/Elements/Slider.hpp>
+#include <BLIB/GUI/Packers/Packer.hpp>
+
 namespace bl
 {
 namespace gui
@@ -20,6 +23,90 @@ public:
     typedef std::shared_ptr<ScrollArea> Ptr;
 
     virtual ~ScrollArea() = default;
+
+    /**
+     * @brief Create a new ScrollArea
+     *
+     * @param packer The packer to use
+     * @param group The group of the ScrollArea
+     * @param id The id of this ScrollArea
+     * @return Ptr The newly created ScrollArea
+     */
+    Ptr create(Packer::Ptr packer, const std::string& group = "", const std::string& id = "");
+
+    /**
+     * @brief Set the maximum size the scroll area can fill before scrolling is enabled. Note
+     *        that if a size is set via setAcquisition() then that will take precedence
+     *
+     * @param size The maximum size. (0,0) to reset
+     */
+    void setMaxSize(const sf::Vector2i& size);
+
+    /**
+     * @brief Set whether or not to always show the vertical scrollbar
+     *
+     * @param show True to always show, false to hide
+     */
+    void setAlwaysShowVerticalScrollbar(bool show);
+
+    /**
+     * @brief Set whether or not to always show the horizontal scrollbar
+     *
+     * @param show True to always show, false to hide
+     */
+    void setAlwaysShowHorizontalScrollbar(bool show);
+
+    /**
+     * @brief Pack the element into the ScrollArea
+     *
+     * @param e The element to pack
+     */
+    void pack(Element::Ptr e);
+
+    /**
+     * @brief Pack the element into the ScrollArea. Also modifies the Element's expand
+     *        properties
+     *
+     * @param e The element to pack
+     * @param fillX True for the element to expand horizontally into all available space
+     * @param fillY True for the element to expand vertically into all available space
+     */
+    void pack(Element::Ptr e, bool fillX, bool fillY);
+
+protected:
+    /**
+     * @brief Create a new ScrollArea
+     *
+     * @param packer The packer to use
+     * @param group The group of the ScrollArea
+     * @param id The id of this ScrollArea
+     * @return Ptr The newly created ScrollArea
+     */
+    ScrollArea(Packer::Ptr packer, const std::string& group, const std::string& id);
+
+    /**
+     * @brief Adjusts the size of the visible window and updates the scrollbars
+     *
+     */
+    virtual void onAcquisition() override;
+
+    /**
+     * @brief Calculates and returns the minimum required space. Takes into account the maximum
+     *        space allowed
+     *
+     * @return sf::Vector2i
+     */
+    virtual sf::Vector2i minimumRequisition() const override;
+
+private:
+    Packer::Ptr packer;
+    Slider::Ptr horScrollbar;
+    Slider::Ptr vertScrollBar;
+    std::optional<sf::Vector2i> maxSize;
+    bool alwaysShowH;
+    bool alwaysShowV;
+
+    void addBars();
 };
 } // namespace gui
 } // namespace bl
