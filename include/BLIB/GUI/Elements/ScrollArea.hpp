@@ -32,7 +32,8 @@ public:
      * @param id The id of this ScrollArea
      * @return Ptr The newly created ScrollArea
      */
-    Ptr create(Packer::Ptr packer, const std::string& group = "", const std::string& id = "");
+    static Ptr create(Packer::Ptr packer, const std::string& group = "",
+                      const std::string& id = "");
 
     /**
      * @brief Set the maximum size the scroll area can fill before scrolling is enabled. Note

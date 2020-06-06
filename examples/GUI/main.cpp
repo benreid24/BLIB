@@ -78,6 +78,21 @@ int main() {
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
     gui->pack(testWindow);
 
+    testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
+                                     "Scroll Window",
+                                     gui::Window::Default,
+                                     {200, 300},
+                                     "",
+                                     "window3");
+    gui::ScrollArea::Ptr scroll =
+        gui::ScrollArea::create(gui::LinePacker::create(gui::LinePacker::Vertical, 5));
+    scroll->setMaxSize({75, 50});
+    scroll->pack(gui::Label::create("This can be scrolled"));
+    scroll->pack(gui::Label::create("Try scrolling me around"));
+    scroll->pack(gui::Button::create("No Action"));
+    testWindow->pack(scroll, true, true);
+    gui->pack(testWindow);
+
     bool showBoxes  = false;
     bool showGroups = false;
     bool showIds    = false;

@@ -22,10 +22,10 @@ ScrollArea::ScrollArea(Packer::Ptr packer, const std::string& g, const std::stri
 , horScrollbar(Slider::create(Slider::Horizontal, g, i + "-hscroll"))
 , vertScrollbar(Slider::create(Slider::Vertical, g, i + "vscroll")) {
     using namespace std::placeholders;
-    horScrollbar->getSignal(Action::ValueChanged)
+    /*horScrollbar->getSignal(Action::ValueChanged)
         .willAlwaysCall(std::bind(&ScrollArea::scrolled, this, _1, _2));
     vertScrollbar->getSignal(Action::ValueChanged)
-        .willAlwaysCall(std::bind(&ScrollArea::scrolled, this, _1, _2));
+        .willAlwaysCall(std::bind(&ScrollArea::scrolled, this, _1, _2));*/
 
     horScrollbar->skipPacking(true);
     vertScrollbar->skipPacking(true);
@@ -39,9 +39,25 @@ void ScrollArea::addBars() {
     add(horScrollbar);
 }
 
+void ScrollArea::pack(Element::Ptr e) { add(e); }
+
+void ScrollArea::pack(Element::Ptr e, bool fx, bool fy) {
+    e->setExpandsWidth(fx);
+    e->setExpandsHeight(fy);
+    pack(e);
+}
+
 void ScrollArea::setAlwaysShowHorizontalScrollbar(bool s) { alwaysShowH = s; }
 
 void ScrollArea::setAlwaysShowVerticalScrollbar(bool s) { alwaysShowV = s; }
+
+void ScrollArea::setMaxSize(const sf::Vector2i& s) {
+    if (s.x <= 0 || s.y <= 0)
+        maxSize.reset();
+    else
+        maxSize = s;
+    makeDirty();
+}
 
 void ScrollArea::refreshSize() const {
     totalSize = packer->getRequisition(getPackableChildren());
