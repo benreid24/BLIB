@@ -163,11 +163,11 @@ public:
     bool dirty() const;
 
     /**
-     * @brief Returns true. Signifies that this Element should be packed. Window elements
-     *        should return false
+     * @brief Signifies that this Element should be packed. Takes into account the element
+     *        type, visibilty, and pack override
      *
      */
-    virtual bool packable() const;
+    bool packable() const;
 
     /**
      * @brief Removes this Element from its parent. Safe to call at any time
@@ -182,6 +182,14 @@ public:
      * @param visible True to render the Element, false to hide. Default is true
      */
     void setVisible(bool visible);
+
+    /**
+     * @brief Signal to Packers that this element should not be packed. Intended to be used by
+     *        advanced Containers that manually pack certain elements
+     *
+     * @param skip True to skip packing, false to pack normally
+     */
+    void skipPacking(bool skip);
 
     /**
      * @brief Returns whether or not the Element is visible
@@ -320,6 +328,14 @@ protected:
     virtual sf::Vector2i minimumRequisition() const = 0;
 
     /**
+     * @brief Returns true. Elements such as window should return false
+     *
+     * @return true
+     * @return false
+     */
+    virtual bool shouldPack() const;
+
+    /**
      * @brief Marks this element as clean and not needing of re-acquisition
      *
      */
@@ -421,6 +437,7 @@ private:
     bool _dirty;
     bool _active;
     bool _visible;
+    bool skipPack;
     bool fillX;
     bool fillY;
     bool isFocused;

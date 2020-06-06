@@ -110,12 +110,6 @@ public:
     Button::Ptr getCloseButton();
 
     /**
-     * @brief Returns false. Windows handle their own positioning and do not need to be packed
-     *
-     */
-    virtual bool packable() const override;
-
-    /**
      * @brief Assigns its own acquisition and calls Container::update
      *
      * @param dt Time elapsed since last update, in seconds
@@ -142,6 +136,12 @@ protected:
      *
      */
     virtual sf::Vector2i minimumRequisition() const override;
+
+    /**
+     * @brief Returns false. Windows handle their own positioning and do not need to be packed
+     *
+     */
+    virtual bool shouldPack() const override;
 
     /**
      * @brief Resets the acquisition and repacks all elements

@@ -127,24 +127,8 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
     // Save old view
     const sf::View oldView = target.getView();
 
-    // Cast
-    const sf::FloatRect acq = static_cast<sf::FloatRect>(getAcquisition());
-    const float w           = static_cast<float>(target.getSize().x);
-    const float h           = static_cast<float>(target.getSize().y);
-
-    // Compute region children will be drawn in and constrain
-    const sf::FloatRect oldRegion(oldView.getCenter() - oldView.getSize() / 2.f,
-                                  oldView.getSize());
-    const sf::FloatRect region = states.transform.transformRect(acq);
-    const sf::FloatRect constrained(intersection(oldRegion, region));
-    sf::View view(constrained);
-
-    // Compute viewport and constrain
-    const sf::FloatRect port(constrained.left / w,
-                             constrained.top / h,
-                             constrained.width / w,
-                             constrained.height / h);
-    view.setViewport(intersection(port, oldView.getViewport()));
+    // Compute new view
+    const sf::View view = computeView(target, states.transform);
     if (view.getViewport().width < 0 || view.getViewport().height < 0) {
         // Restore view
         target.setView(oldView);
@@ -166,6 +150,43 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
 
     // Restore view
     target.setView(oldView);
+}
+
+void Container::renderChildrenRawFiltered(
+    sf::RenderTarget& target, sf::RenderStates states, Renderer::Ptr renderer,
+    const std::unordered_set<const Element*>& filter) const {
+    for (auto it = packableChildren.rbegin(); it != packableChildren.rend(); ++it) {
+        if (filter.find(it->get()) == filter.end()) (*it)->render(target, states, renderer);
+    }
+    for (auto it = nonpackableChildren.rbegin(); it != nonpackableChildren.rend(); ++it) {
+        if (filter.find(it->get()) == filter.end()) (*it)->render(target, states, renderer);
+    }
+}
+
+sf::View Container::computeView(sf::RenderTarget& target,
+                                const sf::Transform& transform) const {
+    const sf::View oldView = target.getView();
+
+    // Cast
+    const sf::FloatRect acq = static_cast<sf::FloatRect>(getAcquisition());
+    const float w           = static_cast<float>(target.getSize().x);
+    const float h           = static_cast<float>(target.getSize().y);
+
+    // Compute region children will be drawn in and constrain
+    const sf::FloatRect oldRegion(oldView.getCenter() - oldView.getSize() / 2.f,
+                                  oldView.getSize());
+    const sf::FloatRect region = transform.transformRect(acq);
+    const sf::FloatRect constrained(intersection(oldRegion, region));
+    sf::View view(constrained);
+
+    // Compute viewport and constrain
+    const sf::FloatRect port(constrained.left / w,
+                             constrained.top / h,
+                             constrained.width / w,
+                             constrained.height / h);
+    view.setViewport(intersection(port, oldView.getViewport()));
+
+    return view;
 }
 
 } // namespace gui

@@ -98,15 +98,29 @@ protected:
      */
     virtual sf::Vector2i minimumRequisition() const override;
 
+    /**
+     * @brief Renders the scroll area, scrollbars if visible, and the child elements
+     *
+     * @param target  The target to render to
+     * @param states States to apply
+     * @param renderer The renderer to use
+     */
+    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
+                          Renderer::Ptr renderer) const override;
+
 private:
     Packer::Ptr packer;
     Slider::Ptr horScrollbar;
-    Slider::Ptr vertScrollBar;
+    Slider::Ptr vertScrollbar;
+    std::unordered_set<const Element*> filter;
     std::optional<sf::Vector2i> maxSize;
+    mutable sf::Vector2i totalSize;
     bool alwaysShowH;
     bool alwaysShowV;
 
     void addBars();
+    void refreshSize() const;
+    void scrolled(const Action& action, const Element* bar);
 };
 } // namespace gui
 } // namespace bl

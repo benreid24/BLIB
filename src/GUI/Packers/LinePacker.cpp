@@ -42,7 +42,7 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
     sf::Vector2i totalSize;
     int expanders = 0;
     for (Element::Ptr e : elems) {
-        if (!e->visible()) continue;
+        if (!e->packable()) continue;
 
         if (e->getRequisition().x > maxSize.x) maxSize.x = e->getRequisition().x;
         if (e->getRequisition().y > maxSize.y) maxSize.y = e->getRequisition().y;
@@ -76,7 +76,7 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
 
         // Pack elements
         for (Element::Ptr e : elems) {
-            if (!e->visible()) continue;
+            if (!e->packable()) continue;
 
             // Compute size
             const sf::Vector2i size = compSize(e);
@@ -117,7 +117,7 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
 
         // Pack elements
         for (Element::Ptr e : elems) {
-            if (!e->visible()) continue;
+            if (!e->packable()) continue;
 
             packElementIntoSpace(e, {pos, size});
 

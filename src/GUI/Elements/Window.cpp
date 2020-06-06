@@ -134,7 +134,7 @@ void Window::update(float dt) {
     Container::update(dt);
 }
 
-bool Window::packable() const { return false; }
+bool Window::shouldPack() const { return false; }
 
 void Window::pack(Element::Ptr e) { elementArea->pack(e); }
 

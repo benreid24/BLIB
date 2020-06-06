@@ -10,6 +10,7 @@ Element::Element(const std::string& g, const std::string& i)
 , _dirty(true)
 , _active(true)
 , _visible(true)
+, skipPack(false)
 , fillX(false)
 , fillY(false)
 , isFocused(false)
@@ -152,7 +153,6 @@ bool Element::handleEvent(const RawEvent& event) {
             isMouseOver = eventOnMe;
             const bool r =
                 processAction(Action(Action::Dragged, dragStart, event.localMousePos));
-            // dragStart = event.localMousePos; // update bc position may change while dragged
             return r;
         }
         else if (eventOnMe) {
@@ -201,12 +201,19 @@ void Element::makeDirty() {
 
 void Element::markClean() { _dirty = false; }
 
-bool Element::packable() const { return true; }
-
 void Element::setVisible(bool v) {
     if (v != _visible) makeDirty();
     _visible = v;
 }
+
+bool Element::packable() const {
+    if (!visible() || skipPack) return false;
+    return shouldPack();
+}
+
+void Element::skipPacking(bool s) { skipPack = s; }
+
+bool Element::shouldPack() const { return true; }
 
 bool Element::visible() const { return _visible; }
 

@@ -105,8 +105,11 @@ protected:
     virtual bool handleRawEvent(const RawEvent& event) override;
 
     /**
-     * @brief Utility method to render the child elements. Allows specialized containers to
-     *        implement their own rendering
+     * @brief Utility method to render the child elements. This will call computeView to
+     *        constrain rendering and will offset the child elements by the Containers
+     *        position. Containers that need to manually render elements should apply the view
+     *        from computeView() then use renderChildrenRawFiltered() to filter out those they
+     *        need to manually render
      *
      * @param target The target to render to
      * @param states Render states to apply
@@ -114,6 +117,29 @@ protected:
      */
     void renderChildren(sf::RenderTarget& target, sf::RenderStates states,
                         Renderer::Ptr renderer) const;
+
+    /**
+     * @brief Renders the children of this Container excluding those in filter. Does not apply
+     *       any additional translations or apply any view. That must be done manually
+     *
+     * @param target Target to render to. View should be set to computeView()
+     * @param states Render states to use. Transform must include translation to global coords
+     * @param renderer The renderer to use
+     * @param filter Set of elements to skip while rendering
+     */
+    void renderChildrenRawFiltered(sf::RenderTarget& target, sf::RenderStates states,
+                                   Renderer::Ptr renderer,
+                                   const std::unordered_set<const Element*>& filter) const;
+
+    /**
+     * @brief Computes a View that can be used for constrained rendering of child elements into
+     *        the acquisition with no spill over
+     *
+     * @param target The target being rendered to
+     * @param transform The transform to apply that was passed down into render()
+     * @return sf::View A View that can be applied to the target to constrain rendering
+     */
+    sf::View computeView(sf::RenderTarget& target, const sf::Transform& transform) const;
 
 private:
     std::vector<Element::Ptr> packableChildren;
