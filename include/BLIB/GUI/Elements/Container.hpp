@@ -105,6 +105,17 @@ protected:
     virtual bool handleRawEvent(const RawEvent& event) override;
 
     /**
+     * @brief This is for sophisticated containers to transform the position of events to local
+     *        coordinates for elements that have additional offsets applied beyond only the
+     *        position of the Container. ScrollArea uses this for its elements. The default
+     *        behavior is to return pos unaltered
+     *
+     * @param e The element that is receiving the event
+     * @return sf::Vector2i The offset to apply to RawEvents
+     */
+    virtual sf::Vector2f getElementOffset(const Element* e) const;
+
+    /**
      * @brief Utility method to render the child elements. This will call computeView to
      *        constrain rendering and will offset the child elements by the Containers
      *        position. Containers that need to manually render elements should apply the view
@@ -137,9 +148,11 @@ protected:
      *
      * @param target The target being rendered to
      * @param transform The transform to apply that was passed down into render()
+     * @param region The region to render into. Defaults to the acquisition
      * @return sf::View A View that can be applied to the target to constrain rendering
      */
-    sf::View computeView(sf::RenderTarget& target, const sf::Transform& transform) const;
+    sf::View computeView(sf::RenderTarget& target, const sf::Transform& transform,
+                         sf::IntRect region = {}) const;
 
 private:
     std::vector<Element::Ptr> packableChildren;

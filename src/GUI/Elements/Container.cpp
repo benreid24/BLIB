@@ -93,19 +93,21 @@ bool Container::handleRawEvent(const RawEvent& event) {
     for (Element::Ptr e : nonpackableChildren) {
         if (sendFakes)
             e->handleEvent(fakeMove);
-        else if (e->handleEvent(transformed))
+        else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get()))))
             sendFakes = true;
     }
     for (Element::Ptr e : packableChildren) {
         if (sendFakes)
             e->handleEvent(fakeMove);
-        else if (e->handleEvent(transformed))
+        else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get()))))
             sendFakes = true;
     }
 
     // allow Element::handleEvent to complete for this element now if sendFakes is false
     return sendFakes;
 }
+
+sf::Vector2f Container::getElementOffset(const Element* e) const { return {0, 0}; }
 
 void Container::update(float dt) {
     if (!toRemove.empty()) makeDirty();
@@ -163,12 +165,15 @@ void Container::renderChildrenRawFiltered(
     }
 }
 
-sf::View Container::computeView(sf::RenderTarget& target,
-                                const sf::Transform& transform) const {
+sf::View Container::computeView(sf::RenderTarget& target, const sf::Transform& transform,
+                                sf::IntRect area) const {
+    if (area.left == 0 && area.top == 0 && area.height == 0 && area.width == 0)
+        area = getAcquisition();
+
     const sf::View oldView = target.getView();
 
     // Cast
-    const sf::FloatRect acq = static_cast<sf::FloatRect>(getAcquisition());
+    const sf::FloatRect acq = static_cast<sf::FloatRect>(area);
     const float w           = static_cast<float>(target.getSize().x);
     const float h           = static_cast<float>(target.getSize().y);
 

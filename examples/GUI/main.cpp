@@ -86,11 +86,12 @@ int main() {
                                      "window3");
     gui::ScrollArea::Ptr scroll =
         gui::ScrollArea::create(gui::LinePacker::create(gui::LinePacker::Vertical, 5));
-    scroll->setMaxSize({75, 50});
+    scroll->setMaxSize({150, 100});
     scroll->pack(gui::Label::create("This can be scrolled"));
     scroll->pack(gui::Label::create("Try scrolling me around"));
     scroll->pack(gui::Button::create("No Action"));
     testWindow->pack(scroll, true, true);
+    // testWindow->pack(gui::Label::create("fuck"));
     gui->pack(testWindow);
 
     bool showBoxes  = false;

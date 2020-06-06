@@ -100,6 +100,14 @@ protected:
     virtual sf::Vector2i minimumRequisition() const override;
 
     /**
+     * @brief Returns the scroll offset if e is not one of the scrollbars
+     *
+     * @param e The element to get the offset for
+     * @return The offset to apply to events to the element
+     */
+    virtual sf::Vector2f getElementOffset(const Element* e) const override;
+
+    /**
      * @brief Renders the scroll area, scrollbars if visible, and the child elements
      *
      * @param target  The target to render to
@@ -116,12 +124,14 @@ private:
     std::unordered_set<const Element*> filter;
     std::optional<sf::Vector2i> maxSize;
     mutable sf::Vector2i totalSize;
+    mutable sf::Vector2i availableSize;
+    sf::Vector2f offset;
     bool alwaysShowH;
     bool alwaysShowV;
 
     void addBars();
     void refreshSize() const;
-    void scrolled(const Action& action, const Element* bar);
+    void scrolled();
 };
 } // namespace gui
 } // namespace bl
