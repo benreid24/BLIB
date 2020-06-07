@@ -31,7 +31,7 @@ RenderSettings getButtonDefaults() {
     RenderSettings settings;
     settings.fillColor        = sf::Color(70, 70, 70);
     settings.outlineColor     = sf::Color::Black;
-    settings.outlineThickness = 2;
+    settings.outlineThickness = Button::DefaultOutlineThickness;
     return settings;
 }
 
@@ -188,21 +188,17 @@ void Renderer::renderButton(sf::RenderTarget& target, sf::RenderStates states,
                             const Button& button) const {
     const RenderSettings settings        = getSettings(&button);
     static const RenderSettings defaults = getButtonDefaults();
+    renderRectangle(target, states, button.getAcquisition(), settings, defaults);
+}
 
-    // Not using renderRectangle to reuse the rect
-    sf::RectangleShape rect({static_cast<float>(button.getAcquisition().width),
-                             static_cast<float>(button.getAcquisition().height)});
-    rect.setPosition(button.getAcquisition().left, button.getAcquisition().top);
-    rect.setFillColor(settings.fillColor.value_or(sf::Color(70, 70, 70)));
-    rect.setOutlineColor(settings.outlineColor.value_or(sf::Color::Black));
-    rect.setOutlineThickness(-settings.outlineThickness.value_or(2));
-    target.draw(rect, states);
-
-    renderText(target, states, button.getText(), button.getAcquisition(), settings);
-
-    if (button.mouseOver() || button.leftPressed()) {
+void Renderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
+                                      const Element* element) const {
+    sf::RectangleShape rect({static_cast<float>(element->getAcquisition().width),
+                             static_cast<float>(element->getAcquisition().height)});
+    rect.setPosition(element->getAcquisition().left, element->getAcquisition().top);
+    if (element->mouseOver() || element->leftPressed()) {
         rect.setOutlineThickness(0);
-        if (button.leftPressed())
+        if (element->leftPressed())
             rect.setFillColor(sf::Color(30, 30, 30, 100));
         else
             rect.setFillColor(sf::Color(255, 255, 255, 100));

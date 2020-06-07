@@ -1,24 +1,26 @@
 #ifndef BLIB_GUI_ELEMENTS_HPP
 #define BLIB_GUI_ELEMENTS_HPP
 
-#include <BLIB/GUI/Elements/Element.hpp>
+#include <BLIB/GUI/Elements/Container.hpp>
 
 namespace bl
 {
 namespace gui
 {
 /**
- * @brief A clickable button with a text label
+ * @brief A clickable button with a single child element, typically a Label
  *
  * @ingroup GUI
  *
  */
-class Button : public Element {
+class Button : public Container {
 public:
     typedef std::shared_ptr<Button> Ptr;
 
+    static constexpr int DefaultOutlineThickness = 2;
+
     /**
-     * @brief Create a new Button
+     * @brief Create a new Button with a label inside of it
      *
      * @param text The text to display inside the button
      * @param group The group of the Button
@@ -29,33 +31,53 @@ public:
                       const std::string& id = "");
 
     /**
-     * @brief Returns the current text in the button
+     * @brief Create a new Button with any element inside. Typically used for images
      *
+     * @param child The child element to put inside the button
+     * @param group The group of the Button
+     * @param id The id of this button
+     * @return Ptr Pointer to the new Button
      */
-    const std::string& getText() const;
+    static Ptr create(Element::Ptr child, const std::string& group = "",
+                      const std::string& id = "");
 
     /**
-     * @brief Set the text in the button
+     * @brief Get the child element of the Button. Typically this is a Label but may be
+     *        anything
      *
-     * @param text The text to render inside the button
+     * @return Element::Ptr The child element that renders inside the button
      */
-    void setText(const std::string& text);
+    Element::Ptr getChild();
 
 protected:
     /**
      * @brief Create a new Button
      *
-     * @param text The text to display inside the button
+     * @param c The element to put inside the button
      * @param group The group of the Button
      * @param id The id of this button
      */
-    Button(const std::string& text, const std::string& group, const std::string& id);
+    Button(Element::Ptr c, const std::string& group, const std::string& id);
+
+    /**
+     * @brief Passes the event to the child then returns false always
+     *
+     * @param event The event that fired
+     * @return False so that the button always generates events
+     */
+    virtual bool handleRawEvent(const RawEvent& event) override;
 
     /**
      * @brief Returns the size required to display the full button text
      *
      */
     virtual sf::Vector2i minimumRequisition() const override;
+
+    /**
+     * @brief Sets the acquisition of the child element to its own acquisition
+     *
+     */
+    virtual void onAcquisition() override;
 
     /**
      * @brief Renders the button and text
@@ -68,9 +90,9 @@ protected:
                           Renderer::Ptr renderer) const override;
 
 private:
-    std::string text;
+    Element::Ptr child;
 
-    void settingsChanged();
+    void addChild();
 };
 } // namespace gui
 } // namespace bl

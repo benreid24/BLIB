@@ -107,6 +107,16 @@ public:
                               const Button& button) const;
 
     /**
+     * @brief Render a highlight or dark overlay over an element based on it's current state
+     *
+     * @param target The target to render to
+     * @param states RenderStates to apply
+     * @param element The element who's state and acquisition should be used
+     */
+    virtual void renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
+                                        const Element* element) const;
+
+    /**
      * @brief Render a Slider element. The track only, none of the buttons should be rendered
      *
      * @param target The target to render to
