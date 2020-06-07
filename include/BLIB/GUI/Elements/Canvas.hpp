@@ -45,10 +45,9 @@ public:
      * @brief Override the target size the canvas renders to. The default is the size of the
      *        canvas. This is the size that the Canvas will request for its acquisition
      *
-     * @param w The width to render to
-     * @param h The height to render to
+     * @param size The size to render to
      */
-    void scaleToSize(float w, float h);
+    void scaleToSize(const sf::Vector2f& size);
 
     /**
      * @brief Set whether or not the rendering should fill the assigned acquisition. This will
@@ -64,19 +63,11 @@ public:
 
     /**
      * @brief Returns a mutable reference to the underlying texture. This may be rendered to
+     *        Note that display() must be called on this object after rendering is complete
      *
      * @return sf::RenderTexture& Reference to the underlying texture
      */
     sf::RenderTexture& getTexture();
-
-    /**
-     * @brief Returns a nonmutable reference to the sprite to use for rendering. The sprite
-     *        contains the correct scale for rendering to the desired area. This method should
-     *        be used by Renderers. Only the position should be changed
-     *
-     * @return sf::Sprite&
-     */
-    const sf::Sprite& getSprite() const;
 
 protected:
     /**
@@ -111,6 +102,8 @@ private:
     std::optional<sf::Vector2f> size;
     bool fillAcq;
     bool maintainAR;
+
+    void setScale();
 };
 
 } // namespace gui
