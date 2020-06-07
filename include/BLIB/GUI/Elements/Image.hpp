@@ -35,10 +35,9 @@ public:
      * @brief Override the target size the image renders to. The default is the size of the
      *        image. This is the size that the Image will request for its acquisition
      *
-     * @param w The width to render to
-     * @param h The height to render to
+     * @param size The size to render to
      */
-    void scaleToSize(float w, float h);
+    void scaleToSize(const sf::Vector2f& size);
 
     /**
      * @brief Set whether or not the rendering should fill the assigned acquisition. This will
@@ -51,15 +50,6 @@ public:
      * @param maintainAR Whether the image should keep its aspect ratio or be stretched to fill
      */
     void setFillAcquisition(bool fill, bool maintainAR = true);
-
-    /**
-     * @brief Returns a nonmutable reference to the sprite to use for rendering. The sprite
-     *        contains the correct scale for rendering to the desired area. This method should
-     *        be used by Renderers. Only the position should be changed
-     *
-     * @return sf::Sprite&
-     */
-    const sf::Sprite& getSprite() const;
 
 protected:
     /**
@@ -76,7 +66,7 @@ protected:
      * @brief Returns the size the image is set to render to. Default is the image size
      *
      */
-    virtual sf::Vector2i minimumRequisition() const = 0;
+    virtual sf::Vector2i minimumRequisition() const override;
 
     /**
      * @brief Renders the texture to the acquisition area
@@ -86,7 +76,7 @@ protected:
      * @param renderer The renderer to use
      */
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          Renderer::Ptr renderer) const;
+                          Renderer::Ptr renderer) const override;
 
 private:
     Resource<sf::Texture>::Ref texture;
@@ -94,6 +84,8 @@ private:
     std::optional<sf::Vector2f> size;
     bool fillAcq;
     bool maintainAR;
+
+    void setScale();
 };
 
 } // namespace gui

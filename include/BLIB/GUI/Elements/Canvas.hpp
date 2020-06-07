@@ -93,7 +93,7 @@ protected:
      * @brief Returns the size the canvas is set to render to. Default is the canvas size
      *
      */
-    virtual sf::Vector2i minimumRequisition() const = 0;
+    virtual sf::Vector2i minimumRequisition() const override;
 
     /**
      * @brief Renders the texture to the acquisition area
@@ -103,7 +103,7 @@ protected:
      * @param renderer The renderer to use
      */
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          Renderer::Ptr renderer) const;
+                          Renderer::Ptr renderer) const override;
 
 private:
     sf::RenderTexture texture;
