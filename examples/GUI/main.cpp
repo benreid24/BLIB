@@ -1,4 +1,5 @@
 #include <BLIB/GUI.hpp>
+#include <BLIB/Resources.hpp>
 #include <BLIB/Util/EventDispatcher.hpp>
 
 #include <SFML/Graphics.hpp>
@@ -22,6 +23,8 @@ int main() {
     sf::RenderWindow window(
         sf::VideoMode(800, 600, 32), "BLIB GUI Demo", sf::Style::Close | sf::Style::Titlebar);
 
+    TextureResourceManager textureManager;
+
     WindowEventDispatcher dispatcher;
     GUI::Ptr gui = GUI::create(
         gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
@@ -31,6 +34,10 @@ int main() {
     gui::DebugRenderer::Ptr renderer = gui::DebugRenderer::create();
     dispatcher.subscribe(gui.get());
     gui->setRenderer(renderer);
+
+    gui::Image::Ptr image = gui::Image::create(textureManager.load("image.png"));
+    image->setFillAcquisition(true, true);
+    gui->pack(image, true, true);
 
     gui::Label::Ptr label = gui::Label::create("This a label", "labels", "l1");
     label->setColor(sf::Color::Red, sf::Color::Transparent);
@@ -91,7 +98,6 @@ int main() {
     scroll->pack(gui::Label::create("Try scrolling me around"));
     scroll->pack(gui::Button::create("No Action"));
     testWindow->pack(scroll, true, true);
-    // testWindow->pack(gui::Label::create("fuck"));
     gui->pack(testWindow);
 
     bool showBoxes  = false;

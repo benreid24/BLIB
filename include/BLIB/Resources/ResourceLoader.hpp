@@ -37,7 +37,7 @@ struct ResourceLoader {
  *
  * @ingroup Resources
  */
-struct TextureFileLoader {
+struct TextureResourceLoader {
     Resource<sf::Texture>::Ref operator()(const std::string& uri) {
         Resource<sf::Texture>::Ref txtr = std::make_shared<sf::Texture>();
         txtr->loadFromFile(uri);
@@ -51,7 +51,7 @@ struct TextureFileLoader {
  * @ingroup Resources
  *
  */
-struct FontFileLoader {
+struct FontResourceLoader {
     Resource<sf::Font>::Ref operator()(const std::string& uri) {
         Resource<sf::Font>::Ref font = std::make_shared<sf::Font>();
         font->loadFromFile(uri);

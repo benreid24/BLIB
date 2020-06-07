@@ -33,8 +33,8 @@ void Image::setFillAcquisition(bool fill, bool mar) {
 }
 
 sf::Vector2i Image::minimumRequisition() const {
-    return {static_cast<int>(sprite.getGlobalBounds().width),
-            static_cast<int>(sprite.getGlobalBounds().height)};
+    return static_cast<sf::Vector2i>(
+        size.value_or(sf::Vector2f(texture->getSize().x, texture->getSize().y)));
 }
 
 void Image::doRender(sf::RenderTarget& target, sf::RenderStates states,
