@@ -51,6 +51,14 @@ RenderSettings getContainerDefaults() {
     return settings;
 }
 
+RenderSettings getImageDefaults() {
+    RenderSettings settings;
+    settings.fillColor        = sf::Color::Transparent;
+    settings.outlineColor     = sf::Color::Transparent;
+    settings.outlineThickness = 0;
+    return settings;
+}
+
 RenderSettings getLabelDefaults() {
     RenderSettings settings;
     settings.characterSize       = Label::DefaultFontSize;
@@ -240,6 +248,24 @@ void Renderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                         settings,
                         defaults);
     }
+}
+
+void Renderer::renderImage(sf::RenderTarget& target, sf::RenderStates states, const Element* e,
+                           const sf::Sprite& image) const {
+    const RenderSettings settings        = getSettings(e);
+    static const RenderSettings defaults = getImageDefaults();
+
+    const sf::Vector2f size(image.getGlobalBounds().width, image.getGlobalBounds().height);
+    const sf::Vector2f pos =
+        calculatePosition(settings.horizontalAlignment.value_or(RenderSettings::Center),
+                          settings.verticalAlignment.value_or(RenderSettings::Center),
+                          e->getAcquisition(),
+                          size);
+    const sf::IntRect region(static_cast<sf::Vector2i>(pos), static_cast<sf::Vector2i>(size));
+
+    renderRectangle(target, states, region, settings, defaults);
+    states.transform.translate(pos);
+    target.draw(image, states);
 }
 
 } // namespace gui

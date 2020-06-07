@@ -76,6 +76,17 @@ public:
                            const Container& container) const;
 
     /**
+     * @brief Renders an image. This is used by both Canvas and Image
+     *
+     * @param target The target to render to
+     * @param states RenderStates to apply
+     * @param element The element to render. Gives access to acquisition and render settings
+     * @param image The image to render. Only position should be changed, scale is set
+     */
+    virtual void renderImage(sf::RenderTarget& target, sf::RenderStates states,
+                             const Element* element, const sf::Sprite& image) const;
+
+    /**
      * @brief Renders a Label element
      *
      * @param target The target to render to
