@@ -3,6 +3,7 @@
 #include <BLIB/Util/EventDispatcher.hpp>
 
 #include <SFML/Graphics.hpp>
+#include <cmath>
 #include <iostream>
 
 void b1click(const bl::gui::Action&, bl::gui::Element*) {
@@ -15,6 +16,38 @@ void b2click(const bl::gui::Action&, bl::gui::Element*) {
 
 void b3click(const bl::gui::Action&, bl::gui::Element*) {
     std::cout << "Button b3 was clicked\n";
+}
+
+void renderStuff(sf::RenderTexture& target) {
+    sf::RectangleShape rect(static_cast<sf::Vector2f>(target.getSize()));
+    rect.setFillColor(sf::Color::Blue);
+    rect.setOutlineColor(sf::Color::Green);
+    rect.setOutlineThickness(-3);
+    target.draw(rect);
+
+    const sf::Vector2f center(static_cast<sf::Vector2f>(target.getSize()) * 0.5f);
+    const float r = static_cast<float>(std::min(target.getSize().x, target.getSize().y)) * 0.4;
+    sf::CircleShape circle(r);
+    circle.setPosition(center);
+    circle.setOrigin(r, r);
+    circle.setFillColor(sf::Color(170, 60, 60));
+    circle.setOutlineColor(sf::Color::Black);
+    circle.setOutlineThickness(1);
+    target.draw(circle);
+
+    const float r2 = r * 0.8;
+    circle.setOutlineThickness(0);
+    circle.setRadius(3);
+    circle.setOrigin(3, 3);
+    for (int i = 0; i < 360; ++i) {
+        const float a = i;
+        const int c   = a / 360.f * 255.f;
+        circle.setFillColor(sf::Color(c, c, c));
+        circle.setPosition(center + sf::Vector2f(r2 * std::cos(a / 180 * 3.1415),
+                                                 r2 * std::sin(a / 180 * 3.1415)));
+        target.draw(circle);
+    }
+    target.display();
 }
 
 int main() {
@@ -84,6 +117,10 @@ int main() {
     testWindow->getSignal(gui::Action::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
     gui->pack(testWindow);
+
+    gui::Canvas::Ptr canvas = gui::Canvas::create(100, 75);
+    renderStuff(canvas->getTexture());
+    testWindow->pack(canvas);
 
     testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Scroll Window",
