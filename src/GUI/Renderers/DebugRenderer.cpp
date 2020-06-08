@@ -41,10 +41,27 @@ void DebugRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates states,
     addInfo(target, states, element.getAcquisition(), element.group(), element.id());
 }
 
+void DebugRenderer::renderImage(sf::RenderTarget& target, sf::RenderStates states,
+                                const Element* element, const sf::Sprite& image) const {
+    underlying->renderImage(target, states, element, image);
+    addInfo(target, states, element->getAcquisition(), element->group(), element->id());
+}
+
 void DebugRenderer::renderButton(sf::RenderTarget& target, sf::RenderStates states,
                                  const Button& element) const {
     underlying->renderButton(target, states, element);
     addInfo(target, states, element.getAcquisition(), element.group(), element.id());
+}
+
+void DebugRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
+                                           const Element* element) const {
+    underlying->renderMouseoverOverlay(target, states, element);
+}
+
+void DebugRenderer::renderSlider(sf::RenderTarget& target, sf::RenderStates states,
+                                 const Slider& slider) const {
+    underlying->renderSlider(target, states, slider);
+    addInfo(target, states, slider.getAcquisition(), slider.group(), slider.id());
 }
 
 void DebugRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,

@@ -1,5 +1,7 @@
 #include <BLIB/GUI.hpp>
 
+#include <BLIB/GUI/Renderers/DefaultRenderer.hpp>
+
 namespace bl
 {
 GUI::Ptr GUI::create(gui::Packer::Ptr packer, const sf::IntRect& region,
@@ -14,7 +16,7 @@ GUI::Ptr GUI::create(gui::Packer::Ptr packer, const sf::RenderWindow& window,
 
 GUI::GUI(gui::Packer::Ptr packer, const std::string& group, const std::string& id)
 : Box(packer, group, id)
-, renderer(gui::Renderer::create()) {}
+, renderer(gui::DefaultRenderer::create()) {}
 
 GUI::GUI(gui::Packer::Ptr packer, const sf::IntRect& region, const std::string& group,
          const std::string& id)

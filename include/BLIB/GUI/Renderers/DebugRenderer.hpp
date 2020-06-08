@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_RENDERERS_DEBUGRENDERER_HPP
 #define BLIB_GUI_RENDERERS_DEBUGRENDERER_HPP
 
-#include <BLIB/GUI/Renderers/Renderer.hpp>
+#include <BLIB/GUI/Renderers/DefaultRenderer.hpp>
 
 namespace bl
 {
@@ -21,7 +21,7 @@ public:
      *
      * @param renderer The renderer to use to render elements
      */
-    static Ptr create(Renderer::Ptr renderer = Renderer::create());
+    static Ptr create(Renderer::Ptr renderer = DefaultRenderer::create());
 
     /**
      * @brief Destroy the DebugRenderer
@@ -58,6 +58,10 @@ public:
     virtual void renderBox(sf::RenderTarget& target, sf::RenderStates states,
                            const Container& container) const override;
 
+    /// @see Renderer::renderImage
+    virtual void renderImage(sf::RenderTarget& target, sf::RenderStates states,
+                             const Element* element, const sf::Sprite& image) const override;
+
     /// @see Renderer::renderLabel
     virtual void renderLabel(sf::RenderTarget& target, sf::RenderStates states,
                              const Label& label) const override;
@@ -65,6 +69,14 @@ public:
     /// @see Renderer::renderButton
     virtual void renderButton(sf::RenderTarget& target, sf::RenderStates states,
                               const Button& button) const override;
+
+    /// @see Renderer::renderMouseoverOverlay
+    virtual void renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
+                                        const Element* element) const override;
+
+    /// @see Renderer::renderSlider
+    virtual void renderSlider(sf::RenderTarget& target, sf::RenderStates states,
+                              const Slider& slider) const override;
 
     /// @see Renderer::renderWindow
     virtual void renderWindow(sf::RenderTarget& target, sf::RenderStates states,

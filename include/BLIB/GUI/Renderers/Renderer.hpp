@@ -19,19 +19,15 @@ class Slider;
 class Window;
 
 /**
- * @brief Utility class to render GUI elements. Derived classes may override whichever
- *        rendering methods they need to create custom themes
+ * @brief Interface for renderers for GUIs. Derived classes may elect to inherit from
+ *        DefaultRenderer and only override what they need. Provides some common functionality
+ *
+ * @ingroup GUI
  *
  */
 class Renderer : public bl::NonCopyable {
 public:
     typedef std::shared_ptr<Renderer> Ptr;
-
-    /**
-     * @brief Create the default renderer
-     *
-     */
-    static Ptr create();
 
     /**
      * @brief Add or set RenderSettings for the given group. Overriden for Elements with id
@@ -63,17 +59,17 @@ public:
      *
      */
     virtual void renderCustom(sf::RenderTarget& target, sf::RenderStates states,
-                              const Element& element) const;
+                              const Element& element) const = 0;
 
     /**
-     * @brief Renders a Container element
+     * @brief Renders a Box element
      *
      * @param target Target to render to
      * @param states RenderStates to apply
      * @param container Container to render
      */
     virtual void renderBox(sf::RenderTarget& target, sf::RenderStates states,
-                           const Container& container) const;
+                           const Container& container) const = 0;
 
     /**
      * @brief Renders an image. This is used by both Canvas and Image
@@ -84,7 +80,7 @@ public:
      * @param image The image to render. Only position should be changed, scale is set
      */
     virtual void renderImage(sf::RenderTarget& target, sf::RenderStates states,
-                             const Element* element, const sf::Sprite& image) const;
+                             const Element* element, const sf::Sprite& image) const = 0;
 
     /**
      * @brief Renders a Label element
@@ -94,7 +90,7 @@ public:
      * @param label Label to render
      */
     virtual void renderLabel(sf::RenderTarget& target, sf::RenderStates states,
-                             const Label& label) const;
+                             const Label& label) const = 0;
 
     /**
      * @brief Renders a Button element
@@ -104,7 +100,7 @@ public:
      * @param button Button to render
      */
     virtual void renderButton(sf::RenderTarget& target, sf::RenderStates states,
-                              const Button& button) const;
+                              const Button& button) const = 0;
 
     /**
      * @brief Render a highlight or dark overlay over an element based on it's current state
@@ -114,7 +110,7 @@ public:
      * @param element The element who's state and acquisition should be used
      */
     virtual void renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
-                                        const Element* element) const;
+                                        const Element* element) const = 0;
 
     /**
      * @brief Render a Slider element. The track only, none of the buttons should be rendered
@@ -124,7 +120,7 @@ public:
      * @param slider Slider to render
      */
     virtual void renderSlider(sf::RenderTarget& target, sf::RenderStates states,
-                              const Slider& slider) const;
+                              const Slider& slider) const = 0;
 
     /**
      * @brief Render a Window element. The titlebar will have no styling and should use
@@ -136,24 +132,11 @@ public:
      * @param window The Window to render. Includes child Elements but not the titlebar
      */
     virtual void renderWindow(sf::RenderTarget& target, sf::RenderStates states,
-                              const Container* titlebar, const Window& window) const;
-
-protected:
-    /**
-     * @brief Construct a new default renderer
-     *
-     */
-    Renderer() = default;
+                              const Container* titlebar, const Window& window) const = 0;
 
     /**
-     * @brief Returns an aggregated RenderSettings object for the given Element. Settings
-     *        with no values are left empty.
-     *
-     */
-    RenderSettings getSettings(const Element* element) const;
-
-    /**
-     * @brief Utility method to render text with the given settings
+     * @brief Utility method to render text with the given settings. Custom Elements may use
+     *        this to implement rendering
      *
      * @param target Target to render to
      * @param text The text to render
@@ -166,7 +149,8 @@ protected:
                     const RenderSettings& defaults = {}) const;
 
     /**
-     * @brief Utility method to render a simple rectangle with the given render settings
+     * @brief Utility method to render a simple rectangle with the given render settings.
+     *        Custom elements may use this to implement rendering
      *
      * @param target The target to render to
      * @param states The render states to use
@@ -179,6 +163,13 @@ protected:
                          const RenderSettings& defaults = {}) const;
 
     /**
+     * @brief Returns an aggregated RenderSettings object for the given Element. Settings
+     *        with no values are left empty.
+     *
+     */
+    RenderSettings getSettings(const Element* element) const;
+
+    /**
      * @brief Calculates the position to render an element at given its alignments and size
      *
      * @param horizontalAlignment Horizontal alignment of the element being rendered
@@ -187,9 +178,16 @@ protected:
      * @param size The size of the element being rendered
      * @return sf::Vector2f The position to render the element at to respect alignments
      */
-    sf::Vector2f calculatePosition(RenderSettings::Alignment horizontalAlignment,
-                                   RenderSettings::Alignment verticalAlignment,
-                                   const sf::IntRect& region, const sf::Vector2f& size) const;
+    static sf::Vector2f calculatePosition(RenderSettings::Alignment horizontalAlignment,
+                                          RenderSettings::Alignment verticalAlignment,
+                                          const sf::IntRect& region, const sf::Vector2f& size);
+
+protected:
+    /**
+     * @brief Construct a new default renderer
+     *
+     */
+    Renderer() = default;
 
 private:
     std::unordered_map<std::string, RenderSettings> groupSettings;
