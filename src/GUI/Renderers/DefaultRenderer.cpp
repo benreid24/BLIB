@@ -115,6 +115,45 @@ void DefaultRenderer::renderSlider(sf::RenderTarget& target, sf::RenderStates st
     renderRectangle(target, states, slider.getAcquisition(), settings, defaults);
 }
 
+void DefaultRenderer::renderSliderButton(sf::RenderTexture& texture, bool hor,
+                                         bool increasing) const {
+    texture.clear(sf::Color::Transparent);
+
+    const float cosRatio      = cos(45.f / 180.f * 3.1415f);
+    const sf::Vector2f center = static_cast<sf::Vector2f>(texture.getSize()) / 2.f;
+    const float halfWidth     = static_cast<float>(texture.getSize().x) * 0.20f;
+    const float rectWidth     = halfWidth / cosRatio;
+    const float rectHeight    = static_cast<float>(texture.getSize().y) * 0.08f;
+
+    sf::RenderTexture subtexture;
+    subtexture.create(texture.getSize().x, texture.getSize().y);
+
+    sf::RectangleShape rect({rectWidth, rectHeight});
+    rect.setOrigin(rectWidth / 2, rectHeight / 2);
+    rect.setFillColor(sf::Color::Black);
+    rect.setRotation(45);
+    rect.setPosition(center.x + halfWidth / 2 * cosRatio, center.y * 1.1);
+    subtexture.draw(rect);
+    rect.setRotation(-45);
+    rect.setPosition(center.x - halfWidth / 2 * cosRatio, center.y * 1.1);
+    subtexture.draw(rect);
+
+    sf::Sprite sprite(subtexture.getTexture());
+    sprite.setOrigin(center);
+    sprite.setPosition(center);
+    if (hor) {
+        if (!increasing)
+            sprite.setRotation(90); // right
+        else
+            sprite.setRotation(270); // left
+    }
+    else if (!increasing)
+        sprite.setRotation(180); // down
+
+    texture.draw(sprite);
+    texture.display();
+}
+
 void DefaultRenderer::renderLabel(sf::RenderTarget& target, sf::RenderStates states,
                                   const Label& label) const {
     static const RenderSettings defaults = getLabelDefaults();

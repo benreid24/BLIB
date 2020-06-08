@@ -38,84 +38,39 @@ public:
      */
     virtual ~DefaultRenderer() = default;
 
-    /**
-     * @brief Render a user defined GUI Element. User code may use group() and id() to
-     *        determine how to render
-     *
-     */
+    /// @see Renderer::renderCustom
     virtual void renderCustom(sf::RenderTarget& target, sf::RenderStates states,
                               const Element& element) const override;
 
-    /**
-     * @brief Renders a Container element
-     *
-     * @param target Target to render to
-     * @param states RenderStates to apply
-     * @param container Container to render
-     */
+    /// @see Renderer::renderBox
     virtual void renderBox(sf::RenderTarget& target, sf::RenderStates states,
                            const Container& container) const override;
 
-    /**
-     * @brief Renders an image. This is used by both Canvas and Image
-     *
-     * @param target The target to render to
-     * @param states RenderStates to apply
-     * @param element The element to render. Gives access to acquisition and render settings
-     * @param image The image to render. Only position should be changed, scale is set
-     */
+    /// @see Renderer::renderImage
     virtual void renderImage(sf::RenderTarget& target, sf::RenderStates states,
                              const Element* element, const sf::Sprite& image) const override;
 
-    /**
-     * @brief Renders a Label element
-     *
-     * @param target The target to render to
-     * @param states RenderStates to apply
-     * @param label Label to render
-     */
+    /// @see Renderer::renderLabel
     virtual void renderLabel(sf::RenderTarget& target, sf::RenderStates states,
                              const Label& label) const override;
 
-    /**
-     * @brief Renders a Button element
-     *
-     * @param target The target to render to
-     * @param states RenderStates to apply
-     * @param button Button to render
-     */
+    /// @see Renderer::renderButton
     virtual void renderButton(sf::RenderTarget& target, sf::RenderStates states,
                               const Button& button) const override;
 
-    /**
-     * @brief Render a highlight or dark overlay over an element based on it's current state
-     *
-     * @param target The target to render to
-     * @param states RenderStates to apply
-     * @param element The element who's state and acquisition should be used
-     */
+    /// @see Renderer::renderMouseoverOverlay
     virtual void renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
                                         const Element* element) const override;
 
-    /**
-     * @brief Render a Slider element. The track only, none of the buttons should be rendered
-     *
-     * @param target The target to render to
-     * @param states RenderStates to apply
-     * @param slider Slider to render
-     */
+    /// @see Renderer::renderSlider
     virtual void renderSlider(sf::RenderTarget& target, sf::RenderStates states,
                               const Slider& slider) const override;
 
-    /**
-     * @brief Render a Window element. The titlebar will have no styling and should use
-     *        the styling options from the window element
-     *
-     * @param target The target to render to
-     * @param states RenderStates to apply
-     * @param titlebar Pointer to the titlebar, nullptr if none
-     * @param window The Window to render. Includes child Elements but not the titlebar
-     */
+    /// @see Renderer::renderSliderButton
+    virtual void renderSliderButton(sf::RenderTexture& texture, bool horizontal,
+                                    bool increasing) const override;
+
+    /// @see Renderer::renderWindow
     virtual void renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                               const Container* titlebar, const Window& window) const override;
 };

@@ -78,6 +78,10 @@ public:
     virtual void renderSlider(sf::RenderTarget& target, sf::RenderStates states,
                               const Slider& slider) const override;
 
+    /// @see Renderer::renderSliderButton
+    virtual void renderSliderButton(sf::RenderTexture& texture, bool horizontal,
+                                    bool increasing) const override;
+
     /// @see Renderer::renderWindow
     virtual void renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                               const Container* titlebar, const Window& window) const override;

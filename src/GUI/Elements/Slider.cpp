@@ -17,17 +17,23 @@ Slider::Slider(Direction d, const std::string& g, const std::string& i)
 : Container(g, i)
 , dir(d)
 , slider(Button::create("", g, i + "-slider"))
-, increaseBut(Button::create("I", g, i + "-increase"))
-, decreaseBut(Button::create("D", g, i + "-decrease"))
+, increaseImg(Canvas::create(64, 64, g, i + "-increaseArrow"))
+, increaseBut(Button::create(increaseImg, g, i + "-increase"))
+, decreaseImg(Canvas::create(64, 64, g, i + "-decreaseArrow"))
+, decreaseBut(Button::create(decreaseImg, g, i + "-decrease"))
 , buttonSize(0.2)
 , increment(0.1)
-, value(0) {
+, value(0)
+, renderedButs(false) {
     increaseBut->setExpandsHeight(true);
     increaseBut->setExpandsWidth(true);
     decreaseBut->setExpandsHeight(true);
     decreaseBut->setExpandsWidth(true);
     slider->setExpandsHeight(true);
     slider->setExpandsWidth(true);
+
+    increaseImg->setFillAcquisition(true, false);
+    decreaseImg->setFillAcquisition(true, false);
 
     using namespace std::placeholders;
     getSignal(Action::LeftClicked).willAlwaysCall(std::bind(&Slider::clicked, this, _1));
@@ -91,6 +97,11 @@ void Slider::onAcquisition() { packElements(); }
 
 void Slider::doRender(sf::RenderTarget& target, sf::RenderStates states,
                       Renderer::Ptr renderer) const {
+    if (!renderedButs) {
+        renderedButs = true;
+        renderer->renderSliderButton(increaseImg->getTexture(), dir == Horizontal, true);
+        renderer->renderSliderButton(decreaseImg->getTexture(), dir == Horizontal, false);
+    }
     renderer->renderSlider(target, states, *this);
     renderChildren(target, states, renderer);
 }

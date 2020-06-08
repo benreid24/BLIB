@@ -64,6 +64,11 @@ void DebugRenderer::renderSlider(sf::RenderTarget& target, sf::RenderStates stat
     addInfo(target, states, slider.getAcquisition(), slider.group(), slider.id());
 }
 
+void DebugRenderer::renderSliderButton(sf::RenderTexture& texture, bool hor,
+                                       bool increasing) const {
+    underlying->renderSliderButton(texture, hor, increasing);
+}
+
 void DebugRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                                  const Container* titlebar, const Window& window) const {
     underlying->renderWindow(target, states, titlebar, window);

@@ -123,6 +123,17 @@ public:
                               const Slider& slider) const = 0;
 
     /**
+     * @brief Render to the rendertexture of a sliders increase or decrease button. This is
+     *        typically called only once per button and the result is reused
+     *
+     * @param texture The rendertexture to render to
+     * @param horizontal True if the slider is horizontal, false if vertical
+     * @param increasing True if the button represents an increasing value, false otherwise
+     */
+    virtual void renderSliderButton(sf::RenderTexture& texture, bool horizontal,
+                                    bool increasing) const = 0;
+
+    /**
      * @brief Render a Window element. The titlebar will have no styling and should use
      *        the styling options from the window element
      *

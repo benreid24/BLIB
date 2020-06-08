@@ -1,8 +1,10 @@
 #ifndef BLIB_GUI_ELEMENTS_SLIDER_HPP
 #define BLIB_GUI_ELEMENTS_SLIDER_HPP
 
-#include <BLIB/GUI/Elements/Button.hpp>
 #include <BLIB/GUI/Elements/Container.hpp>
+
+#include <BLIB/GUI/Elements/Button.hpp>
+#include <BLIB/GUI/Elements/Canvas.hpp>
 
 namespace bl
 {
@@ -120,9 +122,12 @@ private:
     float buttonSize;
     float value;
     float increment;
-    Button::Ptr increaseBut; // TODO - switch to image buttton or smth
+    Canvas::Ptr increaseImg;
+    Button::Ptr increaseBut;
+    Canvas::Ptr decreaseImg;
     Button::Ptr decreaseBut;
     Button::Ptr slider;
+    mutable bool renderedButs;
 
     unsigned int calculateFreeSize() const;
     void packElements();
