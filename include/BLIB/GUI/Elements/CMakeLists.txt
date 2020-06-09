@@ -7,6 +7,7 @@ target_sources(BLIB PUBLIC
     Image.hpp
     Label.hpp
     ScrollArea.hpp
+    Separator.hpp
     Slider.hpp
     Window.hpp
 )

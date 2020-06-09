@@ -58,6 +58,12 @@ void DebugRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderS
     underlying->renderMouseoverOverlay(target, states, element);
 }
 
+void DebugRenderer::renderSeparator(sf::RenderTarget& target, sf::RenderStates states,
+                                    const Separator& sep) const {
+    underlying->renderSeparator(target, states, sep);
+    addInfo(target, states, sep.getAcquisition(), sep.group(), sep.id());
+}
+
 void DebugRenderer::renderSlider(sf::RenderTarget& target, sf::RenderStates states,
                                  const Slider& slider) const {
     underlying->renderSlider(target, states, slider);

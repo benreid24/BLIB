@@ -15,6 +15,7 @@ class Element;
 class Container;
 class Label;
 class Button;
+class Separator;
 class Slider;
 class Window;
 
@@ -111,6 +112,17 @@ public:
      */
     virtual void renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
                                         const Element* element) const = 0;
+
+    /**
+     * @brief Renders a Separator element. Note that the outline thickness should be used for
+     *        line thickness
+     *
+     * @param target The target to render to
+     * @param states RenderStates to apply
+     * @param separator The separator to render
+     */
+    virtual void renderSeparator(sf::RenderTarget& target, sf::RenderStates states,
+                                 const Separator& separator) const = 0;
 
     /**
      * @brief Render a Slider element. The track only, none of the buttons should be rendered

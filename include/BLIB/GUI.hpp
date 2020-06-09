@@ -26,6 +26,7 @@
 #include <BLIB/GUI/Elements/Image.hpp>
 #include <BLIB/GUI/Elements/Label.hpp>
 #include <BLIB/GUI/Elements/ScrollArea.hpp>
+#include <BLIB/GUI/Elements/Separator.hpp>
 #include <BLIB/GUI/Elements/Slider.hpp>
 #include <BLIB/GUI/Elements/Window.hpp>
 

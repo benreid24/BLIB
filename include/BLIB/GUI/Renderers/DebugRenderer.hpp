@@ -74,6 +74,10 @@ public:
     virtual void renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
                                         const Element* element) const override;
 
+    /// @see Renderer::renderSeparator
+    virtual void renderSeparator(sf::RenderTarget& target, sf::RenderStates states,
+                                 const Separator& separator) const override;
+
     /// @see Renderer::renderSlider
     virtual void renderSlider(sf::RenderTarget& target, sf::RenderStates states,
                               const Slider& slider) const override;

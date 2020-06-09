@@ -7,6 +7,7 @@ target_sources(BLIB PRIVATE
     Image.cpp
     Label.cpp
     ScrollArea.cpp
+    Separator.cpp
     Slider.cpp
     Window.cpp
 )

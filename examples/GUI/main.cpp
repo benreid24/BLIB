@@ -72,9 +72,13 @@ int main() {
     image->setFillAcquisition(true, true);
     gui->pack(image, true, true);
 
+    gui->pack(gui::Separator::create(gui::Separator::Horizontal));
+
     gui::Label::Ptr label = gui::Label::create("This a label", "labels", "l1");
     label->setColor(sf::Color::Red, sf::Color::Transparent);
     gui->pack(label, true, true);
+
+    gui->pack(gui::Separator::create(gui::Separator::Horizontal));
 
     label = gui::Label::create("This another label", "labels", "l2");
     gui->pack(label);

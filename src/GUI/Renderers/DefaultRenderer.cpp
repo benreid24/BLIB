@@ -108,6 +108,25 @@ void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::Rende
     }
 }
 
+void DefaultRenderer::renderSeparator(sf::RenderTarget& target, sf::RenderStates states,
+                                      const Separator& sep) const {
+    const RenderSettings settings = getSettings(&sep);
+    const float thickness = settings.outlineThickness.value_or(Separator::DefaultThickness);
+    sf::Vector2f lineSize = {static_cast<float>(sep.getAcquisition().width), thickness};
+    if (sep.getDirection() == Separator::Vertical)
+        lineSize = {thickness, static_cast<float>(sep.getAcquisition().height)};
+    const sf::Vector2f pos =
+        calculatePosition(settings.horizontalAlignment.value_or(RenderSettings::Center),
+                          settings.verticalAlignment.value_or(RenderSettings::Center),
+                          sep.getAcquisition(),
+                          lineSize);
+
+    sf::RectangleShape rect(lineSize);
+    rect.setPosition(pos);
+    rect.setFillColor(settings.fillColor.value_or(sf::Color::Black));
+    target.draw(rect, states);
+}
+
 void DefaultRenderer::renderSlider(sf::RenderTarget& target, sf::RenderStates states,
                                    const Slider& slider) const {
     const RenderSettings settings        = getSettings(&slider);
