@@ -10,10 +10,13 @@
 #include <BLIB/GUI/Action.hpp>
 #include <BLIB/GUI/GUI.hpp>
 #include <BLIB/GUI/RawEvent.hpp>
+#include <BLIB/GUI/Signal.hpp>
+
 #include <BLIB/GUI/Renderers/DebugRenderer.hpp>
+#include <BLIB/GUI/Renderers/DefaultRenderer.hpp>
 #include <BLIB/GUI/Renderers/RenderSettings.hpp>
 #include <BLIB/GUI/Renderers/Renderer.hpp>
-#include <BLIB/GUI/Signal.hpp>
+#include <BLIB/GUI/Renderers/RendererUtil.hpp>
 
 #include <BLIB/GUI/Packers/LinePacker.hpp>
 #include <BLIB/GUI/Packers/Packer.hpp>

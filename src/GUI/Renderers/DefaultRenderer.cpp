@@ -120,14 +120,15 @@ void DefaultRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates state
                                 const Container& container) const {
     const RenderSettings settings        = getSettings(&container);
     static const RenderSettings defaults = getContainerDefaults();
-    renderRectangle(target, states, container.getAcquisition(), settings, defaults);
+    RendererUtil::renderRectangle(
+        target, states, container.getAcquisition(), settings, defaults);
 }
 
 void DefaultRenderer::renderButton(sf::RenderTarget& target, sf::RenderStates states,
                                    const Button& button) const {
     const RenderSettings settings        = getSettings(&button);
     static const RenderSettings defaults = getButtonDefaults();
-    renderRectangle(target, states, button.getAcquisition(), settings, defaults);
+    RendererUtil::renderRectangle(target, states, button.getAcquisition(), settings, defaults);
 }
 
 void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
@@ -152,7 +153,7 @@ void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStat
     static const RenderSettings sdefaults = getProgressBarSecondaryDefaults();
 
     sf::IntRect rect = bar.getAcquisition();
-    renderRectangle(target, states, rect, settings, defaults);
+    RendererUtil::renderRectangle(target, states, rect, settings, defaults);
     const float xs = static_cast<float>(rect.width) * bar.getProgress();
     const float ys = static_cast<float>(rect.height) * bar.getProgress();
     if (bar.getFillDirection() == ProgressBar::LeftToRight)
@@ -174,7 +175,7 @@ void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStat
     rect.width -= spacing * 2;
     rect.height -= spacing * 2;
     settings.promoteSecondaries();
-    renderRectangle(target, states, rect, settings, sdefaults);
+    RendererUtil::renderRectangle(target, states, rect, settings, sdefaults);
 }
 
 void DefaultRenderer::renderSeparator(sf::RenderTarget& target, sf::RenderStates states,
@@ -184,11 +185,11 @@ void DefaultRenderer::renderSeparator(sf::RenderTarget& target, sf::RenderStates
     sf::Vector2f lineSize = {static_cast<float>(sep.getAcquisition().width), thickness};
     if (sep.getDirection() == Separator::Vertical)
         lineSize = {thickness, static_cast<float>(sep.getAcquisition().height)};
-    const sf::Vector2f pos =
-        calculatePosition(settings.horizontalAlignment.value_or(RenderSettings::Center),
-                          settings.verticalAlignment.value_or(RenderSettings::Center),
-                          sep.getAcquisition(),
-                          lineSize);
+    const sf::Vector2f pos = RendererUtil::calculatePosition(
+        settings.horizontalAlignment.value_or(RenderSettings::Center),
+        settings.verticalAlignment.value_or(RenderSettings::Center),
+        sep.getAcquisition(),
+        lineSize);
 
     sf::RectangleShape rect(lineSize);
     rect.setPosition(pos);
@@ -200,7 +201,7 @@ void DefaultRenderer::renderSlider(sf::RenderTarget& target, sf::RenderStates st
                                    const Slider& slider) const {
     const RenderSettings settings        = getSettings(&slider);
     static const RenderSettings defaults = getSliderDefaults();
-    renderRectangle(target, states, slider.getAcquisition(), settings, defaults);
+    RendererUtil::renderRectangle(target, states, slider.getAcquisition(), settings, defaults);
 }
 
 void DefaultRenderer::renderSliderButton(sf::RenderTexture& texture, bool hor,
@@ -245,7 +246,7 @@ void DefaultRenderer::renderSliderButton(sf::RenderTexture& texture, bool hor,
 void DefaultRenderer::renderLabel(sf::RenderTarget& target, sf::RenderStates states,
                                   const Label& label) const {
     static const RenderSettings defaults = getLabelDefaults();
-    target.draw(buildRenderText(
+    target.draw(RendererUtil::buildRenderText(
                     label.getText(), label.getAcquisition(), getSettings(&label), defaults),
                 states);
 }
@@ -256,7 +257,8 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
     static const RenderSettings boxDefaults  = getTextEntryBoxDefaults();
     static const RenderSettings textDefaults = getTextEntryTextDefaults();
 
-    renderRectangle(target, states, entry.getAcquisition(), settings, boxDefaults);
+    RendererUtil::renderRectangle(
+        target, states, entry.getAcquisition(), settings, boxDefaults);
 
     sf::IntRect textArea = entry.getAcquisition();
     const int thickness  = settings.outlineThickness.value_or(2);
@@ -265,8 +267,8 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
     textArea.width -= thickness * 2;
     textArea.height -= thickness * 2;
     settings.promoteSecondaries();
-    sf::Text text =
-        buildRenderText(entry.getInput().toAnsiString(), textArea, settings, textDefaults);
+    sf::Text text = RendererUtil::buildRenderText(
+        entry.getInput().toAnsiString(), textArea, settings, textDefaults);
     target.draw(text, states);
 
     if (entry.cursorVisible()) {
@@ -284,18 +286,18 @@ void DefaultRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates st
 
     const sf::FloatRect area = static_cast<sf::FloatRect>(window.getAcquisition());
 
-    renderRectangle(target, states, window.getAcquisition(), settings, defaults);
+    RendererUtil::renderRectangle(target, states, window.getAcquisition(), settings, defaults);
     if (titlebar) {
         const RenderSettings settings        = getSettings(titlebar);
         static const RenderSettings defaults = getTitlebarDefaults();
-        renderRectangle(target,
-                        states,
-                        {window.getAcquisition().left,
-                         window.getAcquisition().top,
-                         titlebar->getAcquisition().width,
-                         titlebar->getAcquisition().height},
-                        settings,
-                        defaults);
+        RendererUtil::renderRectangle(target,
+                                      states,
+                                      {window.getAcquisition().left,
+                                       window.getAcquisition().top,
+                                       titlebar->getAcquisition().width,
+                                       titlebar->getAcquisition().height},
+                                      settings,
+                                      defaults);
     }
 }
 
@@ -305,14 +307,14 @@ void DefaultRenderer::renderImage(sf::RenderTarget& target, sf::RenderStates sta
     static const RenderSettings defaults = getImageDefaults();
 
     const sf::Vector2f size(image.getGlobalBounds().width, image.getGlobalBounds().height);
-    const sf::Vector2f pos =
-        calculatePosition(settings.horizontalAlignment.value_or(RenderSettings::Center),
-                          settings.verticalAlignment.value_or(RenderSettings::Center),
-                          e->getAcquisition(),
-                          size);
+    const sf::Vector2f pos = RendererUtil::calculatePosition(
+        settings.horizontalAlignment.value_or(RenderSettings::Center),
+        settings.verticalAlignment.value_or(RenderSettings::Center),
+        e->getAcquisition(),
+        size);
     const sf::IntRect region(static_cast<sf::Vector2i>(pos), static_cast<sf::Vector2i>(size));
 
-    renderRectangle(target, states, region, settings, defaults);
+    RendererUtil::renderRectangle(target, states, region, settings, defaults);
     states.transform.translate(pos);
     target.draw(image, states);
 }

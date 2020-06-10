@@ -180,51 +180,11 @@ public:
                               const Container* titlebar, const Window& window) const = 0;
 
     /**
-     * @brief Utility method to generate an sf::Text object that takes into account all
-     *        settings and defaults
-     *
-     * @param text The text to render
-     * @param acquisition The area to render inside of
-     * @param settings The settings to apply
-     * @param defaults Default settings to apply if settings is missing a parameter
-     */
-    sf::Text buildRenderText(const std::string& text, const sf::IntRect& acquisition,
-                             const RenderSettings& settings,
-                             const RenderSettings& defaults = {}) const;
-
-    /**
-     * @brief Utility method to render a simple rectangle with the given render settings.
-     *        Custom elements may use this to implement rendering
-     *
-     * @param target The target to render to
-     * @param states The render states to use
-     * @param area The rectangle to render
-     * @param settings The settings to use
-     * @param defaults Default settings to apply if settings is missing a parameter
-     */
-    void renderRectangle(sf::RenderTarget& target, sf::RenderStates states,
-                         const sf::IntRect& area, const RenderSettings& settings,
-                         const RenderSettings& defaults = {}) const;
-
-    /**
      * @brief Returns an aggregated RenderSettings object for the given Element. Settings
      *        with no values are left empty.
      *
      */
     RenderSettings getSettings(const Element* element) const;
-
-    /**
-     * @brief Calculates the position to render an element at given its alignments and size
-     *
-     * @param horizontalAlignment Horizontal alignment of the element being rendered
-     * @param verticalAlignment Vertical alignment of the element being rendered
-     * @param region Area the element is to be rendered in
-     * @param size The size of the element being rendered
-     * @return sf::Vector2f The position to render the element at to respect alignments
-     */
-    static sf::Vector2f calculatePosition(RenderSettings::Alignment horizontalAlignment,
-                                          RenderSettings::Alignment verticalAlignment,
-                                          const sf::IntRect& region, const sf::Vector2f& size);
 
 protected:
     /**
