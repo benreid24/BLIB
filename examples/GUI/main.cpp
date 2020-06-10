@@ -80,6 +80,11 @@ int main() {
 
     gui->pack(gui::Separator::create(gui::Separator::Horizontal));
 
+    const float ProgressPerSecond     = 0.1;
+    gui::ProgressBar::Ptr progressBar = gui::ProgressBar::create();
+    progressBar->setRequisition({10, 20});
+    gui->pack(progressBar, true, false);
+
     label = gui::Label::create("This another label", "labels", "l2");
     gui->pack(label);
 
@@ -170,6 +175,8 @@ int main() {
             dispatcher.dispatch(event);
         }
 
+        progressBar->setProgress(progressBar->getProgress() +
+                                 timer.getElapsedTime().asSeconds() * ProgressPerSecond);
         gui->update(timer.restart().asSeconds());
 
         window.clear(sf::Color(90, 90, 90));

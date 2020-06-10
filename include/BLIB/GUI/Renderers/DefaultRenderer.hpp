@@ -61,6 +61,10 @@ public:
     /// @see Renderer::renderMouseoverOverlay
     virtual void renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
                                         const Element* element) const override;
+
+    /// @see Renderer::renderProgressBar
+    virtual void renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,
+                                   const ProgressBar& progressBar) const override;
     /// @see Renderer::renderSeparator
     virtual void renderSeparator(sf::RenderTarget& target, sf::RenderStates states,
                                  const Separator& separator) const override;

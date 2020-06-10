@@ -58,6 +58,12 @@ void DebugRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderS
     underlying->renderMouseoverOverlay(target, states, element);
 }
 
+void DebugRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,
+                                      const ProgressBar& bar) const {
+    underlying->renderProgressBar(target, states, bar);
+    addInfo(target, states, bar.getAcquisition(), bar.group(), bar.id());
+}
+
 void DebugRenderer::renderSeparator(sf::RenderTarget& target, sf::RenderStates states,
                                     const Separator& sep) const {
     underlying->renderSeparator(target, states, sep);

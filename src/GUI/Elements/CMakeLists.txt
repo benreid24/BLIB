@@ -6,6 +6,7 @@ target_sources(BLIB PRIVATE
     Element.cpp
     Image.cpp
     Label.cpp
+    ProgressBar.cpp
     ScrollArea.cpp
     Separator.cpp
     Slider.cpp

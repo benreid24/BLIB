@@ -70,6 +70,23 @@ RenderSettings getLabelDefaults() {
     settings.verticalAlignment   = RenderSettings::Center;
     return settings;
 }
+
+RenderSettings getProgressBarDefaults() {
+    RenderSettings settings;
+    settings.fillColor        = sf::Color(120, 120, 120);
+    settings.outlineColor     = sf::Color(20, 20, 20);
+    settings.outlineThickness = 1;
+    return settings;
+}
+
+RenderSettings getProgressBarSecondaryDefaults() {
+    RenderSettings settings;
+    settings.fillColor        = sf::Color(114, 219, 72);
+    settings.outlineColor     = sf::Color::Transparent;
+    settings.outlineThickness = 0;
+    return settings;
+}
+
 } // namespace
 
 DefaultRenderer::Ptr DefaultRenderer::create() { return Ptr(new DefaultRenderer()); }
@@ -106,6 +123,40 @@ void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::Rende
             rect.setFillColor(sf::Color(255, 255, 255, 100));
         target.draw(rect, states);
     }
+}
+
+void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,
+                                        const ProgressBar& bar) const {
+    RenderSettings settings               = getSettings(&bar);
+    static const RenderSettings defaults  = getProgressBarDefaults();
+    static const RenderSettings sdefaults = getProgressBarSecondaryDefaults();
+
+    sf::IntRect rect = bar.getAcquisition();
+    renderRectangle(target, states, rect, settings, defaults);
+    const float xs = static_cast<float>(rect.width) * bar.getProgress();
+    const float ys = static_cast<float>(rect.height) * bar.getProgress();
+    if (bar.getFillDirection() == ProgressBar::LeftToRight)
+        rect.width = xs;
+    else if (bar.getFillDirection() == ProgressBar::TopToBottom)
+        rect.height = ys;
+    else if (bar.getFillDirection() == ProgressBar::LeftToRight) {
+        rect.left += rect.width - xs;
+        rect.width = xs;
+    }
+    else {
+        rect.top += rect.height - ys;
+        rect.height = ys;
+    }
+    const int spacing =
+        settings.secondaryOutlineThickness.value_or(1) + settings.outlineThickness.value_or(1);
+    rect.left += spacing;
+    rect.top += spacing;
+    rect.width -= spacing * 2;
+    rect.height -= spacing * 2;
+    settings.fillColor        = settings.secondaryFillColor;
+    settings.outlineColor     = settings.secondaryOutlineColor;
+    settings.outlineThickness = settings.secondaryOutlineThickness;
+    renderRectangle(target, states, rect, settings, sdefaults);
 }
 
 void DefaultRenderer::renderSeparator(sf::RenderTarget& target, sf::RenderStates states,

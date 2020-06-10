@@ -15,6 +15,7 @@ class Element;
 class Container;
 class Label;
 class Button;
+class ProgressBar;
 class Separator;
 class Slider;
 class Window;
@@ -112,6 +113,16 @@ public:
      */
     virtual void renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
                                         const Element* element) const = 0;
+
+    /**
+     * @brief Renders a ProgressBar element
+     *
+     * @param target The target to render to
+     * @param states RenderStates to apply
+     * @param progressBar ProgressBar to render
+     */
+    virtual void renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,
+                                   const ProgressBar& progressBar) const = 0;
 
     /**
      * @brief Renders a Separator element. Note that the outline thickness should be used for

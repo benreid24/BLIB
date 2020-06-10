@@ -25,6 +25,7 @@
 #include <BLIB/GUI/Elements/Canvas.hpp>
 #include <BLIB/GUI/Elements/Image.hpp>
 #include <BLIB/GUI/Elements/Label.hpp>
+#include <BLIB/GUI/Elements/ProgressBar.hpp>
 #include <BLIB/GUI/Elements/ScrollArea.hpp>
 #include <BLIB/GUI/Elements/Separator.hpp>
 #include <BLIB/GUI/Elements/Slider.hpp>

@@ -37,6 +37,10 @@ struct RenderSettings {
     std::optional<sf::Color> outlineColor;
     std::optional<int> outlineThickness;
 
+    std::optional<sf::Color> secondaryFillColor;
+    std::optional<sf::Color> secondaryOutlineColor;
+    std::optional<int> secondaryOutlineThickness;
+
     std::optional<bl::Resource<sf::Font>::Ref> font;
     std::optional<sf::Uint32> style;
     std::optional<unsigned int> characterSize;
