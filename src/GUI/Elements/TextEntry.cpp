@@ -20,35 +20,51 @@ int getCharacterHeight(const RenderSettings& settings) {
     return settings.characterSize.value_or(TextEntry::DefaultCharacterSize);
 }
 
-std::list<unsigned int>::const_iterator selectLine(const std::list<unsigned int>& newlines,
-                                                   unsigned int line) {
-    unsigned int i = 0;
+int selectLine(const std::list<unsigned int>& newlines, unsigned int line) {
+    if (line == 0) return 0;
+
+    int i = 0;
     for (auto iter = newlines.begin(); iter != newlines.end(); ++iter) {
-        if (i == line) return iter;
+        if (i + 1 == line) {
+            std::cout << "found line " << i << std::endl;
+            return *iter;
+        }
+        ++i;
     }
-    return newlines.end();
+    return -1;
 }
 
 unsigned int getNewlinePos(const std::list<unsigned int>& newlines, unsigned int cursorPos,
                            unsigned int curLine, unsigned int newLine, unsigned int totalLen) {
+    std::cout << "going from line " << curLine << " to " << newLine << std::endl;
+
     // Find lines
-    const auto curLineIter = selectLine(newlines, curLine);
-    const auto newLineIter = selectLine(newlines, newLine);
-    if (curLineIter == newlines.end() || newLineIter == newlines.end()) return cursorPos;
+    const int curLineStart = selectLine(newlines, curLine);
+    const int newLineStart = selectLine(newlines, newLine);
+    if (curLineStart < 0 || newLineStart < 0) return cursorPos;
 
     // Get dest line length
-    auto nextLineIter = newLineIter;
-    ++nextLineIter;
+    const int nextLineStart = selectLine(newlines, newLine + 1);
+
+    std::cout << "current line: " << curLineStart << std::endl;
+    std::cout << "new line: " << newLineStart << std::endl;
+    std::cout << "next line: " << nextLineStart << std::endl;
+
     unsigned int lineLen = 0;
-    if (nextLineIter != newlines.end())
-        lineLen = *nextLineIter - *newLineIter;
+    if (nextLineStart >= 0)
+        lineLen = nextLineStart - newLineStart;
     else
-        lineLen = totalLen - *newLineIter;
+        lineLen = totalLen - newLineStart;
+
+    std::cout << "new line len: " << lineLen << std::endl;
 
     // Compute new pos
-    int offset = cursorPos - *curLineIter;
+    int offset = cursorPos - curLineStart;
+    std::cout << "offset: " << offset << std::endl;
     if (offset > lineLen) offset = lineLen;
-    return *newLineIter + offset;
+    std::cout << "adjusted: " << offset << std::endl;
+    std::cout << "cursor: " << cursorPos << " -> " << (newLineStart + offset) << std::endl;
+    return newLineStart + offset;
 }
 
 } // namespace
@@ -120,11 +136,10 @@ void TextEntry::recalcNewlines() {
     newlines.clear();
     currentLine = 0;
 
-    unsigned int curLineLen = 0;
-    const std::string s     = input.toAnsiString();
+    const std::string s = input.toAnsiString();
     for (unsigned int i = 0; i < s.size(); ++i) {
-        if (s[i] == '\n') newlines.push_back(i);
         if (i == cursorPos) currentLine = newlines.size();
+        if (s[i] == '\n') newlines.push_back(i);
     }
 }
 
@@ -155,29 +170,21 @@ void TextEntry::onKeypress(const Action& action) {
     if (action.type != Action::KeyPressed) return;
 
     if (action.data.key.code == sf::Keyboard::Right) {
-        if (cursorPos < input.getSize()) {
-            if (input[cursorPos] == '\n') ++currentLine;
-            ++cursorPos;
-        }
+        if (cursorPos < input.getSize()) ++cursorPos;
     }
     else if (action.data.key.code == sf::Keyboard::Left) {
-        if (cursorPos > 0) {
-            if (input[cursorPos - 1] == '\n') --currentLine;
-            --cursorPos;
-        }
+        if (cursorPos > 0) --cursorPos;
     }
     else if (action.data.key.code == sf::Keyboard::Up) { // TODO - up/down not working
         if (currentLine > 0) {
             cursorPos = getNewlinePos(
                 newlines, cursorPos, currentLine, currentLine - 1, input.getSize());
-            --currentLine;
         }
     }
     else if (action.data.key.code == sf::Keyboard::Down) {
         if (currentLine < newlines.size()) {
             cursorPos = getNewlinePos(
                 newlines, cursorPos, currentLine, currentLine + 1, input.getSize());
-            ++currentLine;
         }
     }
     else if (action.data.key.code == sf::Keyboard::Delete) {
@@ -191,6 +198,8 @@ void TextEntry::onKeypress(const Action& action) {
                 input = input + '\n'; // TODO - doesn't get added to end
         }
     }
+
+    recalcNewlines();
 }
 
 void TextEntry::onClicked(const Action& action) {
