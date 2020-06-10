@@ -10,5 +10,6 @@ target_sources(BLIB PRIVATE
     ScrollArea.cpp
     Separator.cpp
     Slider.cpp
+    TextEntry.cpp
     Window.cpp
 )

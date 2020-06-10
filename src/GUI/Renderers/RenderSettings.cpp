@@ -21,5 +21,11 @@ void RenderSettings::merge(const RenderSettings& settings) {
     if (settings.characterSize.has_value()) characterSize = settings.characterSize;
 }
 
+void RenderSettings::promoteSecondaries() {
+    fillColor        = secondaryFillColor;
+    outlineColor     = secondaryOutlineColor;
+    outlineThickness = secondaryOutlineThickness;
+}
+
 } // namespace gui
 } // namespace bl

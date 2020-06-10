@@ -29,6 +29,7 @@
 #include <BLIB/GUI/Elements/ScrollArea.hpp>
 #include <BLIB/GUI/Elements/Separator.hpp>
 #include <BLIB/GUI/Elements/Slider.hpp>
+#include <BLIB/GUI/Elements/TextEntry.hpp>
 #include <BLIB/GUI/Elements/Window.hpp>
 
 #endif

@@ -87,6 +87,26 @@ RenderSettings getProgressBarSecondaryDefaults() {
     return settings;
 }
 
+RenderSettings getTextEntryBoxDefaults() {
+    RenderSettings settings;
+    settings.fillColor        = sf::Color::White;
+    settings.outlineColor     = sf::Color::Black;
+    settings.outlineThickness = 1;
+    return settings;
+}
+
+RenderSettings getTextEntryTextDefaults() {
+    RenderSettings settings;
+    settings.fillColor           = sf::Color::Black;
+    settings.outlineColor        = sf::Color::Transparent;
+    settings.outlineThickness    = 0;
+    settings.style               = sf::Text::Regular;
+    settings.horizontalAlignment = RenderSettings::Left;
+    settings.verticalAlignment   = RenderSettings::Top;
+    settings.font                = Font::get();
+    return settings;
+}
+
 } // namespace
 
 DefaultRenderer::Ptr DefaultRenderer::create() { return Ptr(new DefaultRenderer()); }
@@ -153,9 +173,7 @@ void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStat
     rect.top += spacing;
     rect.width -= spacing * 2;
     rect.height -= spacing * 2;
-    settings.fillColor        = settings.secondaryFillColor;
-    settings.outlineColor     = settings.secondaryOutlineColor;
-    settings.outlineThickness = settings.secondaryOutlineThickness;
+    settings.promoteSecondaries();
     renderRectangle(target, states, rect, settings, sdefaults);
 }
 
@@ -227,12 +245,36 @@ void DefaultRenderer::renderSliderButton(sf::RenderTexture& texture, bool hor,
 void DefaultRenderer::renderLabel(sf::RenderTarget& target, sf::RenderStates states,
                                   const Label& label) const {
     static const RenderSettings defaults = getLabelDefaults();
-    renderText(target,
-               states,
-               label.getText(),
-               label.getAcquisition(),
-               getSettings(&label),
-               defaults);
+    target.draw(buildRenderText(
+                    label.getText(), label.getAcquisition(), getSettings(&label), defaults),
+                states);
+}
+
+void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates states,
+                                      const TextEntry& entry) const {
+    RenderSettings settings                  = getSettings(&entry);
+    static const RenderSettings boxDefaults  = getTextEntryBoxDefaults();
+    static const RenderSettings textDefaults = getTextEntryTextDefaults();
+
+    renderRectangle(target, states, entry.getAcquisition(), settings, boxDefaults);
+
+    sf::IntRect textArea = entry.getAcquisition();
+    const int thickness  = settings.outlineThickness.value_or(2);
+    textArea.left += thickness;
+    textArea.top += thickness;
+    textArea.width -= thickness * 2;
+    textArea.height -= thickness * 2;
+    settings.promoteSecondaries();
+    sf::Text text =
+        buildRenderText(entry.getInput().toAnsiString(), textArea, settings, textDefaults);
+    target.draw(text, states);
+
+    if (entry.cursorVisible()) {
+        const sf::Vector2f pos = text.findCharacterPos(entry.getCursorPosition());
+        sf::RectangleShape carat({1.5, text.getLineSpacing() + 2});
+        carat.setPosition(pos.x, pos.y - 1);
+        target.draw(carat, states);
+    }
 }
 
 void DefaultRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,

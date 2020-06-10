@@ -77,7 +77,8 @@ struct Action {
 
     const Type type;             /// The type of Action
     const TData data;            /// Extra Action data if required by type
-    const sf::Vector2f position; /// The mouse position in parent local coords
+    const sf::Vector2f position; /// The mouse position in parent local coords. Same reference
+                                 /// as the acquisition
 
     /**
      * @brief Helper method to construct an Action from a raw event

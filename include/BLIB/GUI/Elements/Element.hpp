@@ -235,13 +235,30 @@ public:
     void setCharacterSize(unsigned int size);
 
     /**
-     * @brief Set the text fill and outline color. Doesn't apply to all Element types
+     * @brief Set the fill and outline color. Doesn't apply to all Element types
      *
-     * @param fill Fill color of the text
-     * @param outline Outline color of the text
+     * @param fill Fill color of the element
+     * @param outline Outline color of the element
      *
      */
     void setColor(sf::Color fill, sf::Color outline);
+
+    /**
+     * @brief Set the outline thickness of the element, in pixels. Doesn't apply to all Element
+     *        types
+     *
+     * @param thickness Thickness in pixels
+     */
+    void setOutlineThickness(unsigned int thickness);
+
+    /**
+     * @brief Set secondary colors of the Element. Doesn't apply to all element types
+     *
+     * @param fill Secondary fill color of the element
+     * @param outline Secondary outline color of the text
+     *
+     */
+    void setSecondaryColor(sf::Color fill, sf::Color outline);
 
     /**
      * @brief Set the outline thickness of the text, in pixels. Doesn't apply to all Element
@@ -249,7 +266,7 @@ public:
      *
      * @param thickness Thickness in pixels
      */
-    void setOutlineThickness(unsigned int thickness);
+    void setSecondaryOutlineThickness(unsigned int thickness);
 
     /**
      * @brief Set the style of the text. See sf::Text::Style. Doesn't apply to all Element

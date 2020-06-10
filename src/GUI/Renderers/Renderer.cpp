@@ -27,16 +27,16 @@ RenderSettings Renderer::getSettings(const Element* element) const {
     return result;
 }
 
-void Renderer::renderText(sf::RenderTarget& target, sf::RenderStates states,
-                          const std::string& text, const sf::IntRect& acquisition,
-                          const RenderSettings& s, const RenderSettings& defaults) const {
+sf::Text Renderer::buildRenderText(const std::string& text, const sf::IntRect& acquisition,
+                                   const RenderSettings& s,
+                                   const RenderSettings& defaults) const {
     RenderSettings settings = defaults;
     settings.merge(s);
 
     Resource<sf::Font>::Ref font = settings.font.value_or(Font::get());
     if (!font) {
         std::cerr << "Attempting to render text with no sf::Font\n";
-        return;
+        return {};
     }
 
     sf::Text sfText;
@@ -56,7 +56,7 @@ void Renderer::renderText(sf::RenderTarget& target, sf::RenderStates states,
                           settings.verticalAlignment.value_or(RenderSettings::Center),
                           acquisition,
                           size));
-    target.draw(sfText, states);
+    return sfText;
 }
 
 void Renderer::renderRectangle(sf::RenderTarget& target, sf::RenderStates states,

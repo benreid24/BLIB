@@ -288,6 +288,17 @@ void Element::setOutlineThickness(unsigned int t) {
     fireSignal(Action(Action::RenderSettingsChanged));
 }
 
+void Element::setSecondaryColor(sf::Color fill, sf::Color outline) {
+    settings.secondaryFillColor    = fill;
+    settings.secondaryOutlineColor = outline;
+    fireSignal(Action(Action::RenderSettingsChanged));
+}
+
+void Element::setSecondaryOutlineThickness(unsigned int t) {
+    settings.secondaryOutlineThickness = t;
+    fireSignal(Action(Action::RenderSettingsChanged));
+}
+
 void Element::setStyle(sf::Uint32 style) {
     settings.style = style;
     fireSignal(Action(Action::RenderSettingsChanged));

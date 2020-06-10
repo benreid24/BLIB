@@ -18,6 +18,7 @@ class Button;
 class ProgressBar;
 class Separator;
 class Slider;
+class TextEntry;
 class Window;
 
 /**
@@ -157,6 +158,16 @@ public:
                                     bool increasing) const = 0;
 
     /**
+     * @brief Renders a TextEntry element
+     *
+     * @param target The target to render to
+     * @param states RenderStates to apply
+     * @param entry TextEntry to render
+     */
+    virtual void renderTextEntry(sf::RenderTarget& target, sf::RenderStates states,
+                                 const TextEntry& entry) const = 0;
+
+    /**
      * @brief Render a Window element. The titlebar will have no styling and should use
      *        the styling options from the window element
      *
@@ -169,18 +180,17 @@ public:
                               const Container* titlebar, const Window& window) const = 0;
 
     /**
-     * @brief Utility method to render text with the given settings. Custom Elements may use
-     *        this to implement rendering
+     * @brief Utility method to generate an sf::Text object that takes into account all
+     *        settings and defaults
      *
-     * @param target Target to render to
      * @param text The text to render
      * @param acquisition The area to render inside of
      * @param settings The settings to apply
      * @param defaults Default settings to apply if settings is missing a parameter
      */
-    void renderText(sf::RenderTarget& target, sf::RenderStates states, const std::string& text,
-                    const sf::IntRect& acquisition, const RenderSettings& settings,
-                    const RenderSettings& defaults = {}) const;
+    sf::Text buildRenderText(const std::string& text, const sf::IntRect& acquisition,
+                             const RenderSettings& settings,
+                             const RenderSettings& defaults = {}) const;
 
     /**
      * @brief Utility method to render a simple rectangle with the given render settings.

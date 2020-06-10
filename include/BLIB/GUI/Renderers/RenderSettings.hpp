@@ -51,6 +51,12 @@ struct RenderSettings {
      * @param settings The settings to merge onto this object
      */
     void merge(const RenderSettings& settings);
+
+    /**
+     * @brief Copies the secondary colors and outline thickness to the primary spots
+     *
+     */
+    void promoteSecondaries();
 };
 
 } // namespace gui
