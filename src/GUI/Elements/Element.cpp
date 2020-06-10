@@ -28,16 +28,16 @@ Element::CPtr Element::getParent() const { return parent.expired() ? nullptr : p
 void Element::setRequisition(const sf::Vector2i& size) {
     requisition.reset();
     if (size.x > 0 && size.y > 0) {
-        const sf::Vector2i min = minimumRequisition();
-        if (size.x >= min.x && size.y >= min.y) {
-            requisition = size;
-            makeDirty();
-        }
+        requisition = size;
+        makeDirty();
     }
 }
 
 sf::Vector2i Element::getRequisition() const {
-    return requisition.value_or(minimumRequisition());
+    const sf::Vector2i mr = minimumRequisition();
+    if (requisition.has_value())
+        return {std::max(requisition.value().x, mr.x), std::max(requisition.value().y, mr.y)};
+    return mr;
 }
 
 const sf::IntRect& Element::getAcquisition() const { return acquisition; }

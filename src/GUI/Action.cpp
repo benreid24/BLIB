@@ -9,7 +9,7 @@ namespace gui
 Action Action::fromRaw(const RawEvent& event) {
     switch (event.event.type) {
     case sf::Event::TextEntered:
-        return Action(Action::TextEntered, event.localMousePos);
+        return Action(Action::TextEntered, event.event.text.unicode, event.localMousePos);
     case sf::Event::KeyPressed:
         return Action(Action::KeyPressed, event.event.key, event.localMousePos);
     case sf::Event::KeyReleased:

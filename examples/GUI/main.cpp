@@ -146,6 +146,17 @@ int main() {
     testWindow->pack(scroll, true, true);
     gui->pack(testWindow);
 
+    testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
+                                     "Text Window",
+                                     gui::Window::Default,
+                                     {150, 200},
+                                     "",
+                                     "window4");
+    gui::TextEntry::Ptr entry = gui::TextEntry::create(3, "", "text");
+    entry->setRequisition({100, 20});
+    testWindow->pack(entry, true, true);
+    gui->pack(testWindow);
+
     bool showBoxes  = false;
     bool showGroups = false;
     bool showIds    = false;

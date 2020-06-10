@@ -1,7 +1,10 @@
 #include <BLIB/GUI/Elements/TextEntry.hpp>
 
+#include <BLIB/GUI/Renderers/RendererUtil.hpp>
 #include <GUI/Data/Font.hpp>
 #include <cmath>
+
+#include <iostream>
 
 namespace bl
 {
@@ -108,11 +111,9 @@ void TextEntry::doRender(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 void TextEntry::recalcText() {
-    bl::Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
-    if (font) renderText.setFont(*font);
-    renderText.setString(input);
-    renderText.setCharacterSize(renderSettings().characterSize.value_or(DefaultCharacterSize));
-    renderText.setStyle(renderSettings().style.value_or(sf::Text::Regular));
+    renderText = RendererUtil::buildRenderText(
+        input.toAnsiString(), getAcquisition(), renderSettings());
+    renderText.setPosition(0, 0);
 }
 
 void TextEntry::recalcNewlines() {
@@ -131,17 +132,20 @@ void TextEntry::onInput(const Action& action) {
     if (action.type != Action::TextEntered) return;
 
     const uint32_t c = action.data.input;
-    if (c == 127) { // del
-        if (cursorPos < input.getSize() - 1) input.erase(cursorPos);
-    }
-    else if (c == 8) { // backspace
-        if (cursorPos > 0) input.erase(cursorPos - 1);
-    }
-    else if (c >= ' ' || c == '\n') {
-        if (!maxInputLen.has_value() || input.getSize() < maxInputLen.value()) {
-            if (c != '\n' || newlines.size() + 1 < lineCount) input.insert(cursorPos + 1, c);
+    if (c == 8) { // backspace
+        if (cursorPos > 0) {
+            input.erase(cursorPos - 1);
+            --cursorPos;
         }
     }
+    else if (c >= ' ') {
+        if (!maxInputLen.has_value() || input.getSize() < maxInputLen.value()) {
+            input.insert(cursorPos, c);
+            ++cursorPos;
+        }
+    }
+
+    std::cout << "typed: " << c << " input: " << input.toAnsiString() << std::endl;
 
     renderText.setString(input);
     recalcNewlines();
@@ -162,7 +166,7 @@ void TextEntry::onKeypress(const Action& action) {
             --cursorPos;
         }
     }
-    else if (action.data.key.code == sf::Keyboard::Up) {
+    else if (action.data.key.code == sf::Keyboard::Up) { // TODO - up/down not working
         if (currentLine > 0) {
             cursorPos = getNewlinePos(
                 newlines, cursorPos, currentLine, currentLine - 1, input.getSize());
@@ -174,6 +178,17 @@ void TextEntry::onKeypress(const Action& action) {
             cursorPos = getNewlinePos(
                 newlines, cursorPos, currentLine, currentLine + 1, input.getSize());
             ++currentLine;
+        }
+    }
+    else if (action.data.key.code == sf::Keyboard::Delete) {
+        if (cursorPos < input.getSize()) input.erase(cursorPos);
+    }
+    else if (action.data.key.code == sf::Keyboard::Return) {
+        if (newlines.size() + 1 < lineCount) {
+            if (cursorPos < input.getSize())
+                input.insert(cursorPos, '\n');
+            else
+                input = input + '\n'; // TODO - doesn't get added to end
         }
     }
 }

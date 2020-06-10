@@ -269,12 +269,15 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
     settings.promoteSecondaries();
     sf::Text text = RendererUtil::buildRenderText(
         entry.getInput().toAnsiString(), textArea, settings, textDefaults);
+    text.setPosition(text.getPosition().x, text.getPosition().y - text.getLocalBounds().top);
     target.draw(text, states);
 
     if (entry.cursorVisible()) {
         const sf::Vector2f pos = text.findCharacterPos(entry.getCursorPosition());
-        sf::RectangleShape carat({1.5, text.getLineSpacing() + 2});
-        carat.setPosition(pos.x, pos.y - 1);
+        sf::RectangleShape carat(
+            {1.5, text.getFont()->getLineSpacing(text.getCharacterSize())});
+        carat.setPosition(pos);
+        carat.setFillColor(sf::Color::Black);
         target.draw(carat, states);
     }
 }
