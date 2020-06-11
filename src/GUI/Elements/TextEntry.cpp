@@ -10,65 +10,6 @@ namespace bl
 {
 namespace gui
 {
-namespace
-{
-int getCharacterHeight(const RenderSettings& settings) {
-    Resource<sf::Font>::Ref font = settings.font.value_or(Font::get());
-    if (font)
-        return std::ceil(font->getLineSpacing(
-            settings.characterSize.value_or(TextEntry::DefaultCharacterSize)));
-    return settings.characterSize.value_or(TextEntry::DefaultCharacterSize);
-}
-
-int selectLine(const std::list<unsigned int>& newlines, unsigned int line) {
-    if (line == 0) return 0;
-
-    int i = 0;
-    for (auto iter = newlines.begin(); iter != newlines.end(); ++iter) {
-        if (i + 1 == line) {
-            std::cout << "found line " << i << std::endl;
-            return *iter;
-        }
-        ++i;
-    }
-    return -1;
-}
-
-unsigned int getNewlinePos(const std::list<unsigned int>& newlines, unsigned int cursorPos,
-                           unsigned int curLine, unsigned int newLine, unsigned int totalLen) {
-    std::cout << "going from line " << curLine << " to " << newLine << std::endl;
-
-    // Find lines
-    const int curLineStart = selectLine(newlines, curLine);
-    const int newLineStart = selectLine(newlines, newLine);
-    if (curLineStart < 0 || newLineStart < 0) return cursorPos;
-
-    // Get dest line length
-    const int nextLineStart = selectLine(newlines, newLine + 1);
-
-    std::cout << "current line: " << curLineStart << std::endl;
-    std::cout << "new line: " << newLineStart << std::endl;
-    std::cout << "next line: " << nextLineStart << std::endl;
-
-    unsigned int lineLen = 0;
-    if (nextLineStart >= 0)
-        lineLen = nextLineStart - newLineStart;
-    else
-        lineLen = totalLen - newLineStart;
-
-    std::cout << "new line len: " << lineLen << std::endl;
-
-    // Compute new pos
-    int offset = cursorPos - curLineStart;
-    std::cout << "offset: " << offset << std::endl;
-    if (offset > lineLen) offset = lineLen;
-    std::cout << "adjusted: " << offset << std::endl;
-    std::cout << "cursor: " << cursorPos << " -> " << (newLineStart + offset) << std::endl;
-    return newLineStart + offset;
-}
-
-} // namespace
-
 TextEntry::Ptr TextEntry::create(unsigned int lc, const std::string& g, const std::string& i) {
     return Ptr(new TextEntry(lc, g, i));
 }
@@ -86,16 +27,18 @@ TextEntry::TextEntry(unsigned int lc, const std::string& g, const std::string& i
     getSignal(Action::LeftClicked).willAlwaysCall(std::bind(&TextEntry::onClicked, this, _1));
     getSignal(Action::RenderSettingsChanged)
         .willAlwaysCall(std::bind(&TextEntry::recalcText, this));
+
+    newlines.reserve(lineCount + 1);
     recalcText();
 }
 
 void TextEntry::setMaxInputLength(unsigned int ml) { maxInputLen = ml; }
 
-const sf::String& TextEntry::getInput() const { return input; }
+const std::string& TextEntry::getInput() const { return input; }
 
-void TextEntry::setInput(const sf::String& s) {
+void TextEntry::setInput(const std::string& s) {
     input = s;
-    if (cursorPos > input.getSize()) cursorPos = input.getSize();
+    if (cursorPos > input.size()) cursorPos = input.size();
     recalcNewlines();
 }
 
@@ -118,7 +61,10 @@ void TextEntry::update(float dt) {
 }
 
 sf::Vector2i TextEntry::minimumRequisition() const {
-    return {10, getCharacterHeight(renderSettings()) * static_cast<int>(lineCount)};
+    Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
+    const int csize = renderSettings().characterSize.value_or(TextEntry::DefaultCharacterSize);
+    const int spacing = font ? std::ceil(font->getLineSpacing(csize)) : csize;
+    return {10, csize + spacing * static_cast<int>(lineCount)};
 }
 
 void TextEntry::doRender(sf::RenderTarget& target, sf::RenderStates states,
@@ -127,8 +73,7 @@ void TextEntry::doRender(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 void TextEntry::recalcText() {
-    renderText = RendererUtil::buildRenderText(
-        input.toAnsiString(), getAcquisition(), renderSettings());
+    renderText = RendererUtil::buildRenderText(input, getAcquisition(), renderSettings());
     renderText.setPosition(0, 0);
 }
 
@@ -136,11 +81,12 @@ void TextEntry::recalcNewlines() {
     newlines.clear();
     currentLine = 0;
 
-    const std::string s = input.toAnsiString();
-    for (unsigned int i = 0; i < s.size(); ++i) {
-        if (i == cursorPos) currentLine = newlines.size();
-        if (s[i] == '\n') newlines.push_back(i);
+    newlines.push_back(0);
+    for (unsigned int i = 0; i < input.size(); ++i) {
+        if (i == cursorPos) currentLine = newlines.size() - 1;
+        if (input[i] == '\n') newlines.push_back(i);
     }
+    if (cursorPos == input.size()) currentLine = newlines.size() - 1;
 }
 
 void TextEntry::onInput(const Action& action) {
@@ -154,13 +100,13 @@ void TextEntry::onInput(const Action& action) {
         }
     }
     else if (c >= ' ') {
-        if (!maxInputLen.has_value() || input.getSize() < maxInputLen.value()) {
-            input.insert(cursorPos, c);
+        if (!maxInputLen.has_value() || input.size() < maxInputLen.value()) {
+            input.insert(cursorPos, 1, c);
             ++cursorPos;
         }
     }
 
-    std::cout << "typed: " << c << " input: " << input.toAnsiString() << std::endl;
+    std::cout << "typed: " << c << " input: " << input << std::endl;
 
     renderText.setString(input);
     recalcNewlines();
@@ -170,32 +116,26 @@ void TextEntry::onKeypress(const Action& action) {
     if (action.type != Action::KeyPressed) return;
 
     if (action.data.key.code == sf::Keyboard::Right) {
-        if (cursorPos < input.getSize()) ++cursorPos;
+        if (cursorPos < input.size()) ++cursorPos;
     }
     else if (action.data.key.code == sf::Keyboard::Left) {
         if (cursorPos > 0) --cursorPos;
     }
-    else if (action.data.key.code == sf::Keyboard::Up) { // TODO - up/down not working
-        if (currentLine > 0) {
-            cursorPos = getNewlinePos(
-                newlines, cursorPos, currentLine, currentLine - 1, input.getSize());
-        }
+    else if (action.data.key.code == sf::Keyboard::Up) {
+        if (currentLine > 0) cursorUp();
     }
     else if (action.data.key.code == sf::Keyboard::Down) {
-        if (currentLine < newlines.size()) {
-            cursorPos = getNewlinePos(
-                newlines, cursorPos, currentLine, currentLine + 1, input.getSize());
-        }
+        if (currentLine < newlines.size()) cursorDown();
     }
     else if (action.data.key.code == sf::Keyboard::Delete) {
-        if (cursorPos < input.getSize()) input.erase(cursorPos);
+        if (cursorPos < input.size()) input.erase(cursorPos);
     }
     else if (action.data.key.code == sf::Keyboard::Return) {
         if (newlines.size() + 1 < lineCount) {
-            if (cursorPos < input.getSize())
-                input.insert(cursorPos, '\n');
+            if (cursorPos < input.size())
+                input.insert(cursorPos, 1, '\n');
             else
-                input = input + '\n'; // TODO - doesn't get added to end
+                input.push_back('\n'); // TODO - doesn't get added to end
         }
     }
 
@@ -210,7 +150,7 @@ void TextEntry::onClicked(const Action& action) {
 
     float minDist   = 10000000;
     unsigned int mi = 0;
-    for (unsigned int i = 0; i < input.getSize(); ++i) {
+    for (unsigned int i = 0; i < input.size(); ++i) {
         const sf::Vector2f cpos = renderText.findCharacterPos(i);
         const sf::Vector2f diff = cpos - mpos;
         const float d           = diff.x * diff.x + diff.y * diff.y;
@@ -222,6 +162,18 @@ void TextEntry::onClicked(const Action& action) {
 
     cursorPos = mi;
     recalcNewlines();
+}
+
+void TextEntry::cursorUp() {
+    const int cpos = cursorPos - newlines[currentLine] - 1;
+    cursorPos      = newlines[currentLine - 1] + cpos;
+    currentLine -= 1;
+}
+
+void TextEntry::cursorDown() {
+    const int cpos = cursorPos - newlines[currentLine] + 1;
+    cursorPos      = newlines[currentLine + 1] + cpos;
+    currentLine += 1;
 }
 
 } // namespace gui

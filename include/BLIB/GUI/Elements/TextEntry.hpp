@@ -44,14 +44,14 @@ public:
      * @brief Returns the current input
      *
      */
-    const sf::String& getInput() const;
+    const std::string& getInput() const;
 
     /**
      * @brief Set the text in the entry
      *
      * @param input The text to set
      */
-    void setInput(const sf::String& input);
+    void setInput(const std::string& input);
 
     /**
      * @brief Returns whether or not the cursor is visible
@@ -105,18 +105,22 @@ protected:
 private:
     const unsigned lineCount;
     std::optional<unsigned int> maxInputLen;
-    sf::String input;
+    std::string input;
     sf::Text renderText;
 
     unsigned int cursorPos;
     bool cursorShowing;
     float cursorTime;
 
-    std::list<unsigned int> newlines;
+    std::vector<unsigned int> newlines;
     unsigned int currentLine;
 
     void recalcText();
     void recalcNewlines();
+
+    void cursorUp();
+    void cursorDown();
+
     void onInput(const Action& action);
     void onKeypress(const Action& action);
     void onClicked(const Action& action);

@@ -267,8 +267,8 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
     textArea.width -= thickness * 2;
     textArea.height -= thickness * 2;
     settings.promoteSecondaries();
-    sf::Text text = RendererUtil::buildRenderText(
-        entry.getInput().toAnsiString(), textArea, settings, textDefaults);
+    sf::Text text =
+        RendererUtil::buildRenderText(entry.getInput(), textArea, settings, textDefaults);
     text.setPosition(text.getPosition().x, text.getPosition().y - text.getLocalBounds().top);
     target.draw(text, states);
 

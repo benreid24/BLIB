@@ -152,7 +152,7 @@ int main() {
                                      {150, 200},
                                      "",
                                      "window4");
-    gui::TextEntry::Ptr entry = gui::TextEntry::create(3, "", "text");
+    gui::TextEntry::Ptr entry = gui::TextEntry::create(4, "", "text");
     entry->setRequisition({100, 20});
     testWindow->pack(entry, true, true);
     gui->pack(testWindow);
