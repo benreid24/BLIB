@@ -4,8 +4,6 @@
 #include <GUI/Data/Font.hpp>
 #include <cmath>
 
-#include <iostream>
-
 namespace bl
 {
 namespace gui
@@ -63,8 +61,9 @@ void TextEntry::update(float dt) {
 sf::Vector2i TextEntry::minimumRequisition() const {
     Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
     const int csize = renderSettings().characterSize.value_or(TextEntry::DefaultCharacterSize);
-    const int spacing = font ? std::ceil(font->getLineSpacing(csize)) : csize;
-    return {10, csize + spacing * static_cast<int>(lineCount)};
+    const float spacing     = font ? std::ceil(font->getLineSpacing(csize)) : csize;
+    const int paddedSpacing = spacing * 1.2f;
+    return {10, csize + paddedSpacing * static_cast<int>(lineCount)};
 }
 
 void TextEntry::doRender(sf::RenderTarget& target, sf::RenderStates states,
@@ -108,8 +107,6 @@ void TextEntry::onInput(const Action& action) {
         }
     }
 
-    std::cout << "typed: " << c << " input: " << input << std::endl;
-
     renderText.setString(input);
     recalcNewlines();
 }
@@ -143,7 +140,8 @@ void TextEntry::onKeypress(const Action& action) {
             if (cursorPos < input.size())
                 input.insert(cursorPos, 1, '\n');
             else
-                input.push_back('\n'); // TODO - doesn't get added to end
+                input.push_back('\n');
+            ++cursorPos;
         }
     }
 

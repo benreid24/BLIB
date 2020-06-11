@@ -62,6 +62,7 @@ void Container::bringToTop(const Element* child) {
             return;
         }
     }
+    moveToTop();
 }
 
 void Container::add(Element::Ptr e) {

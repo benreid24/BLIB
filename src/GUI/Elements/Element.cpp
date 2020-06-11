@@ -47,17 +47,8 @@ Signal& Element::getSignal(Action::Type trigger) { return signals[trigger]; }
 bool Element::hasFocus() const { return isFocused; }
 
 bool Element::takeFocus() {
-    if (!parent.expired()) {
-        Element::Ptr p = parent.lock();
-        if (p) {
-            if (p->releaseFocus()) {
-                isFocused = true;
-                moveToTop();
-                return true;
-            }
-            return false;
-        }
-    }
+    if (isFocused) return true;
+    if (!clearFocus()) return false;
     isFocused = true;
     fireSignal(Action(Action::GainedFocus));
     moveToTop();
@@ -69,12 +60,31 @@ bool Element::setForceFocus(bool force) {
     return hasFocus() || !force;
 }
 
+bool Element::clearFocus() {
+    WPtr top = parent;
+    while (!top.expired()) {
+        Ptr t = top.lock();
+        if (t) {
+            if (t->parent.expired()) break;
+            top = t->parent;
+        }
+        else
+            break;
+    }
+    if (!top.expired()) {
+        Ptr t = top.lock();
+        if (t) return t->releaseFocus();
+    }
+    return releaseFocus();
+}
+
 bool Element::releaseFocus() {
     if (focusForced) {
         if (hasFocus()) return false;
     }
-    isFocused = false;
-    fireSignal(Action(Action::LostFocus));
+    bool wasFocused = isFocused;
+    isFocused       = false;
+    if (wasFocused) fireSignal(Action(Action::LostFocus));
     return true;
 }
 
