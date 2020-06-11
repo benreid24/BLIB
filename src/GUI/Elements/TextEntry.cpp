@@ -28,7 +28,7 @@ TextEntry::TextEntry(unsigned int lc, const std::string& g, const std::string& i
     getSignal(Action::RenderSettingsChanged)
         .willAlwaysCall(std::bind(&TextEntry::recalcText, this));
 
-    newlines.reserve(lineCount + 1);
+    newlines.reserve(lineCount + 2);
     recalcText();
 }
 
@@ -80,13 +80,15 @@ void TextEntry::recalcText() {
 void TextEntry::recalcNewlines() {
     newlines.clear();
     currentLine = 0;
+    if (cursorPos > input.size()) cursorPos = input.size();
 
-    newlines.push_back(0);
+    newlines.push_back(-1);
     for (unsigned int i = 0; i < input.size(); ++i) {
         if (i == cursorPos) currentLine = newlines.size() - 1;
         if (input[i] == '\n') newlines.push_back(i);
     }
     if (cursorPos == input.size()) currentLine = newlines.size() - 1;
+    newlines.push_back(input.size());
 }
 
 void TextEntry::onInput(const Action& action) {
@@ -95,7 +97,7 @@ void TextEntry::onInput(const Action& action) {
     const uint32_t c = action.data.input;
     if (c == 8) { // backspace
         if (cursorPos > 0) {
-            input.erase(cursorPos - 1);
+            input.erase(cursorPos - 1, 1);
             --cursorPos;
         }
     }
@@ -125,13 +127,19 @@ void TextEntry::onKeypress(const Action& action) {
         if (currentLine > 0) cursorUp();
     }
     else if (action.data.key.code == sf::Keyboard::Down) {
-        if (currentLine < newlines.size()) cursorDown();
+        if (currentLine < newlines.size() - 2) cursorDown();
+    }
+    else if (action.data.key.code == sf::Keyboard::Home) {
+        cursorPos = newlines[currentLine] + 1;
+    }
+    else if (action.data.key.code == sf::Keyboard::End) {
+        cursorPos = newlines[currentLine + 1];
     }
     else if (action.data.key.code == sf::Keyboard::Delete) {
-        if (cursorPos < input.size()) input.erase(cursorPos);
+        if (cursorPos < input.size()) input.erase(cursorPos, 1);
     }
     else if (action.data.key.code == sf::Keyboard::Return) {
-        if (newlines.size() + 1 < lineCount) {
+        if (newlines.size() - 1 < lineCount) {
             if (cursorPos < input.size())
                 input.insert(cursorPos, 1, '\n');
             else
@@ -165,14 +173,18 @@ void TextEntry::onClicked(const Action& action) {
 }
 
 void TextEntry::cursorUp() {
-    const int cpos = cursorPos - newlines[currentLine] - 1;
-    cursorPos      = newlines[currentLine - 1] + cpos;
+    const int cpos    = cursorPos - newlines[currentLine];
+    const int lineLen = newlines[currentLine] - newlines[currentLine - 1];
+    const int npos    = std::min(cpos, lineLen);
+    cursorPos         = newlines[currentLine - 1] + npos;
     currentLine -= 1;
 }
 
 void TextEntry::cursorDown() {
-    const int cpos = cursorPos - newlines[currentLine] + 1;
-    cursorPos      = newlines[currentLine + 1] + cpos;
+    const int cpos    = cursorPos - newlines[currentLine];
+    const int lineLen = newlines[currentLine + 2] - newlines[currentLine + 1];
+    const int npos    = std::min(cpos, lineLen);
+    cursorPos         = newlines[currentLine + 1] + npos;
     currentLine += 1;
 }
 

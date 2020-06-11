@@ -112,7 +112,7 @@ private:
     bool cursorShowing;
     float cursorTime;
 
-    std::vector<unsigned int> newlines;
+    std::vector<int> newlines;
     unsigned int currentLine;
 
     void recalcText();
