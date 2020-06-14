@@ -188,7 +188,7 @@ bool Element::handleEvent(const RawEvent& event) {
 }
 
 bool Element::processAction(const Action& action) {
-    if (mouseOver()) {
+    if (hasFocus() || (action.type == Action::Scrolled && mouseOver())) {
         fireSignal(action);
         return true;
     }
