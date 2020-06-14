@@ -35,6 +35,15 @@ RenderSettings getButtonDefaults() {
     return settings;
 }
 
+RenderSettings getComboDefaults() {
+    RenderSettings settings;
+    settings.fillColor          = sf::Color(100, 100, 100);
+    settings.outlineColor       = sf::Color::Black;
+    settings.outlineThickness   = 1;
+    settings.secondaryFillColor = sf::Color(10, 10, 220);
+    return settings;
+}
+
 RenderSettings getSliderDefaults() {
     RenderSettings settings;
     settings.fillColor        = sf::Color(120, 120, 120);
@@ -151,11 +160,37 @@ void DefaultRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates 
                                      const ComboBox& box, const sf::Vector2i& optionSize,
                                      unsigned int optionCount,
                                      unsigned int mousedOption) const {
-    // TODO
+    static const RenderSettings defaults = getComboDefaults();
+    const RenderSettings settings        = getSettings(&box);
+
+    RendererUtil::renderRectangle(target, states, box.getAcquisition(), settings, defaults);
+
+    sf::Vector2i pos(0, box.getAcquisition().height);
+    for (unsigned int i = 0; i < optionCount; ++i) {
+        RenderSettings s = settings;
+        if (i == mousedOption) {
+            s.promoteSecondaries();
+            if (!s.fillColor.has_value()) s.fillColor = defaults.secondaryFillColor;
+            RendererUtil::renderRectangle(target, states, {pos, optionSize}, s, defaults);
+            pos.y += optionSize.y;
+        }
+    }
 }
 
 void DefaultRenderer::renderComboBoxDropdown(sf::RenderTexture& texture) const {
-    // TODO
+    sf::VertexArray points(sf::PrimitiveType::Triangles, 3);
+    const sf::Vector2f size = static_cast<sf::Vector2f>(texture.getSize());
+
+    points[0].color    = sf::Color::Black;
+    points[0].position = {size.x * 0.1f, size.y * 0.1f};
+    points[1].color    = sf::Color::Black;
+    points[1].position = {size.x * 0.9f, size.y * 0.1f};
+    points[2].color    = sf::Color(30, 30, 30);
+    points[2].position = {size.x * 0.5f, size.y * 0.9f};
+
+    texture.clear(sf::Color(90, 90, 90));
+    texture.draw(points);
+    texture.display();
 }
 
 void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
