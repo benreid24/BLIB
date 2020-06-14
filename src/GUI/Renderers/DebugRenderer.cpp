@@ -58,6 +58,12 @@ void DebugRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderS
     underlying->renderMouseoverOverlay(target, states, element);
 }
 
+void DebugRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates states,
+                                   const Notebook& nb) const {
+    underlying->renderNotebook(target, states, nb);
+    addInfo(target, states, nb.getAcquisition(), nb.group(), nb.id());
+}
+
 void DebugRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,
                                       const ProgressBar& bar) const {
     underlying->renderProgressBar(target, states, bar);

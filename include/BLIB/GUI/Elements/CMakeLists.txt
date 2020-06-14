@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
     Element.hpp
     Image.hpp
     Label.hpp
+    Notebook.hpp
     ProgressBar.hpp
     ScrollArea.hpp
     Separator.hpp

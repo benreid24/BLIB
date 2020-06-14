@@ -146,6 +146,11 @@ void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::Rende
     }
 }
 
+void DefaultRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates states,
+                                     const Notebook& nb) const {
+    // TODO - render the notebook
+}
+
 void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,
                                         const ProgressBar& bar) const {
     RenderSettings settings               = getSettings(&bar);

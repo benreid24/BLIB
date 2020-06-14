@@ -15,6 +15,7 @@ class Element;
 class Container;
 class Label;
 class Button;
+class Notebook;
 class ProgressBar;
 class Separator;
 class Slider;
@@ -114,6 +115,16 @@ public:
      */
     virtual void renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
                                         const Element* element) const = 0;
+
+    /**
+     * @brief Renders a Notebook element. Must also render the tabs and active content using getPages()
+     * 
+     * @param target The target to render to
+     * @param states RenderStates to apply
+     * @param notebook Notebook to render
+     */
+    virtual void renderNotebook(sf::RenderTarget& target, sf::RenderStates states,
+                                const Notebook& notebook) const = 0;
 
     /**
      * @brief Renders a ProgressBar element
