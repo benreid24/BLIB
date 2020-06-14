@@ -17,6 +17,7 @@ namespace gui
  *
  */
 class ToggleButton : public Button {
+public:
     virtual ~ToggleButton() = default;
 
     /**
