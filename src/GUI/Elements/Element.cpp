@@ -102,6 +102,8 @@ bool Element::leftPressed() const { return isLeftPressed; }
 bool Element::rightPressed() const { return isRightPressed; }
 
 bool Element::handleEvent(const RawEvent& event) {
+    if (!visible()) return false;
+
     if (handleRawEvent(event)) return true;
 
     const bool eventOnMe =

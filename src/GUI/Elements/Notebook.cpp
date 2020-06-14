@@ -35,7 +35,10 @@ void Notebook::addPage(const std::string& name, const std::string& title,
             new Page(name, Label::create(title, group(), id() + "-tab-" + name), content));
         pageMap[name] = std::make_pair(pages.size() - 1, pages.back());
 
-        tabArea->pack(pages.back()->label);
+        pages.back()->content->skipPacking(true);
+        pages.back()->content->setVisible(false);
+        add(pages.back()->content);
+        tabArea->pack(pages.back()->label, true, true);
         pages.back()
             ->label->getSignal(Action::LeftClicked)
             .willAlwaysCall(std::bind(&Notebook::pageClicked, this, pages.back()));
@@ -124,10 +127,11 @@ void Notebook::pageClicked(Page* page) {
 
 void Notebook::makePageActive(unsigned int i) {
     if (i < pages.size()) {
-        if (activePage < pages.size()) pages[activePage]->content->remove();
-        add(pages[i]->content);
-        Packer::manuallyPackElement(pages[i]->content, contentArea);
+        if (activePage < pages.size()) pages[activePage]->content->setVisible(false);
         activePage = i;
+        pages[i]->content->setVisible(true);
+        pages[i]->content->moveToTop();
+        Packer::manuallyPackElement(pages[i]->content, contentArea);
     }
 }
 

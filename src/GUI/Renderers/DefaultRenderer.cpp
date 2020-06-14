@@ -161,12 +161,17 @@ void DefaultRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates 
 
     RendererUtil::renderRectangle(target, states, nb.getAcquisition(), settings, defaults);
     for (unsigned int i = 0; i < nb.getPages().size(); ++i) {
-        Notebook::Page* page = nb.getPages()[i];
-        RendererUtil::renderRectangle(target,
-                                      states,
-                                      page->label->getAcquisition(),
-                                      getSettings(page->label.get()),
-                                      defaults);
+        Notebook::Page* page       = nb.getPages()[i];
+        RenderSettings tabSettings = settings;
+        if (i == nb.getActivePageIndex()) {
+            sf::Color base = tabSettings.fillColor.value_or(sf::Color(90, 90, 90));
+            base.r -= 12;
+            base.g -= 12;
+            base.b -= 12;
+            tabSettings.fillColor = base;
+        }
+        RendererUtil::renderRectangle(
+            target, states, page->label->getAcquisition(), tabSettings, defaults);
         page->label->render(target, states, *this);
         renderMouseoverOverlay(target, states, page->label.get());
     }

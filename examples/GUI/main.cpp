@@ -18,6 +18,8 @@ void b3click(const bl::gui::Action&, bl::gui::Element*) {
     std::cout << "Button b3 was clicked\n";
 }
 
+void notebookCb() { std::cout << "Button inside of notebook was clicked\n"; }
+
 void renderStuff(sf::RenderTexture& target) {
     sf::RectangleShape rect(static_cast<sf::Vector2f>(target.getSize()));
     rect.setFillColor(sf::Color::Blue);
@@ -155,6 +157,23 @@ int main() {
     gui::TextEntry::Ptr entry = gui::TextEntry::create(4, "", "text");
     entry->setRequisition({100, 20});
     testWindow->pack(entry, true, true);
+    gui->pack(testWindow);
+
+    testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
+                                     "Notebook Window",
+                                     gui::Window::Default,
+                                     {10, 200},
+                                     "",
+                                     "window5");
+    gui::Notebook::Ptr nb = gui::Notebook::create();
+    nb->addPage("page1", "Page 1", gui::Label::create("Content goes here"));
+    gui::Box::Ptr box = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Vertical));
+    button            = gui::Button::create("Content", "nbb");
+    button->getSignal(gui::Action::LeftClicked).willCall(std::bind(&notebookCb));
+    box->pack(button);
+    box->pack(gui::Label::create("This is a notebook"));
+    nb->addPage("page2", "More Stuff", box);
+    testWindow->pack(nb, true, true);
     gui->pack(testWindow);
 
     bool showBoxes  = false;
