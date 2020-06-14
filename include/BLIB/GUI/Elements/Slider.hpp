@@ -52,6 +52,12 @@ public:
     void setValue(float value);
 
     /**
+     * @brief Increase or decrease the value by the given number of increments
+     *
+     */
+    void incrementValue(float increments);
+
+    /**
      * @brief Set the size of the slider button relative to the full size of the area it moves
      *        in. A value of 0 is undefined. A value of 1 allows for no movement
      *
@@ -136,8 +142,6 @@ private:
     void mouseScrolled(const Action& scroll);
     void sliderMoved(const Action& drag);
     void clicked(const Action& click);
-    void decreaseClicked();
-    void increaseClicked();
 
     void addChildren();
 };

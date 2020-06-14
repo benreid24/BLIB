@@ -40,9 +40,9 @@ Slider::Slider(Direction d, const std::string& g, const std::string& i)
     slider->getSignal(Action::Dragged)
         .willAlwaysCall(std::bind(&Slider::sliderMoved, this, _1));
     increaseBut->getSignal(Action::LeftClicked)
-        .willAlwaysCall(std::bind(&Slider::increaseClicked, this));
+        .willAlwaysCall(std::bind(&Slider::incrementValue, this, 1));
     decreaseBut->getSignal(Action::LeftClicked)
-        .willAlwaysCall(std::bind(&Slider::decreaseClicked, this));
+        .willAlwaysCall(std::bind(&Slider::incrementValue, this, -1));
 
     const auto scrollCb = std::bind(&Slider::mouseScrolled, this, _1);
     getSignal(Action::Scrolled).willAlwaysCall(scrollCb);
@@ -114,22 +114,13 @@ void Slider::doRender(sf::RenderTarget& target, sf::RenderStates states,
 
 void Slider::fireChanged() { fireSignal(Action(Action::ValueChanged, value)); }
 
-void Slider::increaseClicked() {
-    value += increment;
-    packElements();
-    fireChanged();
-}
-
-void Slider::decreaseClicked() {
-    value -= increment;
-    packElements();
-    fireChanged();
-}
-
 void Slider::mouseScrolled(const Action& scroll) {
     if (scroll.type != Action::Scrolled) return;
+    incrementValue(-scroll.data.scroll);
+}
 
-    value += -scroll.data.scroll * increment;
+void Slider::incrementValue(float incs) {
+    value += incs * increment;
     packElements();
     fireChanged();
 }
