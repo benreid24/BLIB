@@ -340,7 +340,7 @@ void DefaultRenderer::renderToggleCheckButton(sf::RenderTexture& texture, bool a
     box.setOutlineThickness(-1.f);
     texture.draw(box);
     if (active) {
-        box.setFillColor(sf::Color(100, 100, 100));
+        box.setFillColor(sf::Color(80, 80, 80));
         box.setOutlineThickness(0);
         box.setPosition(size * 0.2f);
         box.setSize(size * 0.6f);
@@ -350,7 +350,23 @@ void DefaultRenderer::renderToggleCheckButton(sf::RenderTexture& texture, bool a
 }
 
 void DefaultRenderer::renderToggleRadioButton(sf::RenderTexture& texture, bool active) const {
-    // TODO
+    const sf::Vector2f size = static_cast<sf::Vector2f>(texture.getSize());
+    const float radius      = std::min(size.x, size.y) * 0.4;
+    sf::CircleShape circle(radius);
+    circle.setPosition(size.x / 2, size.y / 2);
+    circle.setOrigin(radius, radius);
+    circle.setFillColor(sf::Color::White);
+    circle.setOutlineColor(sf::Color::Black);
+    circle.setOutlineThickness(-1.f);
+    texture.draw(circle);
+    if (active) {
+        circle.setFillColor(sf::Color(80, 80, 80));
+        circle.setOutlineThickness(0);
+        circle.setRadius(radius * 0.55f);
+        circle.setOrigin(radius * 0.55f, radius * 0.55f);
+        texture.draw(circle);
+    }
+    texture.display();
 }
 
 void DefaultRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,

@@ -181,6 +181,12 @@ int main() {
     box->pack(gui::CheckButton::create("Or me"));
     box->pack(gui::CheckButton::create("Maybe me"));
     nb->addPage("page3", "Checkboxes", box);
+    box = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Vertical));
+    gui::RadioButton::Ptr radio = gui::RadioButton::create("Check me");
+    box->pack(radio);
+    box->pack(gui::RadioButton::create("Or me", radio->getRadioGroup()));
+    box->pack(gui::RadioButton::create("Could be me", radio->getRadioGroup()));
+    nb->addPage("page4", "Radio buttons", box);
     testWindow->pack(nb, true, true);
     gui->pack(testWindow);
 
