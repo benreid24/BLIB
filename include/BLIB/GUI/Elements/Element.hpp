@@ -230,7 +230,7 @@ public:
      * @param renderer The renderer to use
      */
     void render(sf::RenderTarget& target, sf::RenderStates states,
-                Renderer::Ptr renderer) const;
+                const Renderer& renderer) const;
 
     /**
      * @brief Set the character size. Default is 12. Doesn't apply to all Element types
@@ -423,7 +423,7 @@ protected:
      * @param renderer The renderer to use
      */
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          Renderer::Ptr renderer) const;
+                          const Renderer& renderer) const;
 
     /**
      * @brief Set the acquisition of this element. Meant to be called by a Packer

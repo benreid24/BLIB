@@ -85,7 +85,7 @@ protected:
      * @param renderer The renderer to use
      */
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          Renderer::Ptr renderer) const override;
+                          const Renderer& renderer) const override;
 
     /**
      * @brief Packs packable children into the assigned acquisition

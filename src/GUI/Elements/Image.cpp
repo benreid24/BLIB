@@ -38,8 +38,8 @@ sf::Vector2i Image::minimumRequisition() const {
 }
 
 void Image::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                     Renderer::Ptr renderer) const {
-    renderer->renderImage(target, states, this, sprite);
+                     const Renderer& renderer) const {
+    renderer.renderImage(target, states, this, sprite);
 }
 
 void Image::setScale() {

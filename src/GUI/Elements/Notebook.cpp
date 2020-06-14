@@ -107,10 +107,10 @@ void Notebook::onAcquisition() {
 }
 
 void Notebook::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                        Renderer::Ptr renderer) const {
+                        const Renderer& renderer) const {
     const sf::View oldView = target.getView();
     target.setView(computeView(target, states.transform));
-    renderer->renderNotebook(target, states, *this);
+    renderer.renderNotebook(target, states, *this);
     target.setView(oldView);
 }
 

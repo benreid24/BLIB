@@ -96,13 +96,13 @@ sf::Vector2i Slider::minimumRequisition() const {
 void Slider::onAcquisition() { packElements(); }
 
 void Slider::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                      Renderer::Ptr renderer) const {
+                      const Renderer& renderer) const {
     if (!renderedButs) {
         renderedButs = true;
-        renderer->renderSliderButton(increaseImg->getTexture(), dir == Horizontal, true);
-        renderer->renderSliderButton(decreaseImg->getTexture(), dir == Horizontal, false);
+        renderer.renderSliderButton(increaseImg->getTexture(), dir == Horizontal, true);
+        renderer.renderSliderButton(decreaseImg->getTexture(), dir == Horizontal, false);
     }
-    renderer->renderSlider(target, states, *this);
+    renderer.renderSlider(target, states, *this);
     renderChildren(target, states, renderer);
 }
 

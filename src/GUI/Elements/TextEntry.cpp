@@ -67,8 +67,8 @@ sf::Vector2i TextEntry::minimumRequisition() const {
 }
 
 void TextEntry::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                         Renderer::Ptr renderer) const {
-    renderer->renderTextEntry(target, states, *this);
+                         const Renderer& renderer) const {
+    renderer.renderTextEntry(target, states, *this);
 }
 
 void TextEntry::recalcText() {

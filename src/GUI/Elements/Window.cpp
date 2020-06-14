@@ -122,8 +122,8 @@ void Window::closed() { fireSignal(Action(Action::Closed)); }
 void Window::titleActive() { moveToTop(); }
 
 void Window::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                      Renderer::Ptr renderer) const {
-    renderer->renderWindow(target, states, titlebar.get(), *this);
+                      const Renderer& renderer) const {
+    renderer.renderWindow(target, states, titlebar.get(), *this);
     renderChildren(target, states, renderer);
 }
 

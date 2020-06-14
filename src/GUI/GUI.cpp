@@ -45,7 +45,7 @@ void GUI::setRenderer(gui::Renderer::Ptr r) { renderer = r; }
 void GUI::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     renderTransform = states.transform;
     states.transform.combine(getTransform());
-    Container::render(target, states, renderer);
+    Container::render(target, states, *renderer);
 }
 
 } // namespace bl

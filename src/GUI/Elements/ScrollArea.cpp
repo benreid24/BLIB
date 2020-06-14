@@ -139,7 +139,7 @@ sf::Vector2f ScrollArea::getElementOffset(const Element* e) const {
 }
 
 void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          Renderer::Ptr renderer) const {
+                          const Renderer& renderer) const {
     // Preserve old view and compute new
     const sf::View oldView = target.getView();
     sf::View view          = computeView(

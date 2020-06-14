@@ -25,8 +25,8 @@ sf::Vector2i Separator::minimumRequisition() const {
 }
 
 void Separator::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                         Renderer::Ptr renderer) const {
-    renderer->renderSeparator(target, states, *this);
+                         const Renderer& renderer) const {
+    renderer.renderSeparator(target, states, *this);
 }
 
 } // namespace gui

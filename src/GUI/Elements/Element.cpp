@@ -266,13 +266,13 @@ void Element::setPosition(const sf::Vector2i& pos) {
 void Element::setChildParent(Element::Ptr child) { child->parent = me(); }
 
 void Element::render(sf::RenderTarget& target, sf::RenderStates states,
-                     Renderer::Ptr renderer) const {
+                     const Renderer& renderer) const {
     if (visible()) doRender(target, states, renderer);
 }
 
 void Element::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                       Renderer::Ptr renderer) const {
-    renderer->renderCustom(target, states, *this);
+                       const Renderer& renderer) const {
+    renderer.renderCustom(target, states, *this);
 }
 
 const RenderSettings& Element::renderSettings() const { return settings; }

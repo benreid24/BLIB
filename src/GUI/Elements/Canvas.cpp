@@ -47,8 +47,8 @@ sf::Vector2i Canvas::minimumRequisition() const {
 }
 
 void Canvas::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                      Renderer::Ptr renderer) const {
-    renderer->renderImage(target, states, this, sprite);
+                      const Renderer& renderer) const {
+    renderer.renderImage(target, states, this, sprite);
 }
 
 void Canvas::setScale() {

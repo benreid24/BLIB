@@ -35,8 +35,8 @@ void Box::pack(Element::Ptr e, bool fx, bool fy) {
 }
 
 void Box::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                   Renderer::Ptr renderer) const {
-    renderer->renderBox(target, states, *this);
+                   const Renderer& renderer) const {
+    renderer.renderBox(target, states, *this);
     renderChildren(target, states, renderer);
 }
 

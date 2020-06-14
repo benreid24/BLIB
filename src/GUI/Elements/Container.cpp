@@ -126,7 +126,7 @@ void Container::update(float dt) {
 }
 
 void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states,
-                               Renderer::Ptr renderer) const {
+                               const Renderer& renderer) const {
     // Save old view
     const sf::View oldView = target.getView();
 
@@ -156,7 +156,7 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
 }
 
 void Container::renderChildrenRawFiltered(
-    sf::RenderTarget& target, sf::RenderStates states, Renderer::Ptr renderer,
+    sf::RenderTarget& target, sf::RenderStates states, const Renderer& renderer,
     const std::unordered_set<const Element*>& filter) const {
     for (auto it = packableChildren.rbegin(); it != packableChildren.rend(); ++it) {
         if (filter.find(it->get()) == filter.end()) (*it)->render(target, states, renderer);

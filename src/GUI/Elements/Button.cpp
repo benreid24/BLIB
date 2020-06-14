@@ -48,10 +48,10 @@ bool Button::handleRawEvent(const RawEvent& event) {
 }
 
 void Button::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                      Renderer::Ptr renderer) const {
-    renderer->renderButton(target, states, *this);
+                      const Renderer& renderer) const {
+    renderer.renderButton(target, states, *this);
     renderChildren(target, states, renderer);
-    renderer->renderMouseoverOverlay(target, states, this);
+    renderer.renderMouseoverOverlay(target, states, this);
 }
 
 } // namespace gui

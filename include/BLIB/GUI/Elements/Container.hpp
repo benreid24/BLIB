@@ -127,7 +127,7 @@ protected:
      * @param renderer The renderer to use
      */
     void renderChildren(sf::RenderTarget& target, sf::RenderStates states,
-                        Renderer::Ptr renderer) const;
+                        const Renderer& renderer) const;
 
     /**
      * @brief Renders the children of this Container excluding those in filter. Does not apply
@@ -139,7 +139,7 @@ protected:
      * @param filter Set of elements to skip while rendering
      */
     void renderChildrenRawFiltered(sf::RenderTarget& target, sf::RenderStates states,
-                                   Renderer::Ptr renderer,
+                                   const Renderer& renderer,
                                    const std::unordered_set<const Element*>& filter) const;
 
     /**

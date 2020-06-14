@@ -27,8 +27,8 @@ ProgressBar::FillDirection ProgressBar::getFillDirection() const { return direct
 sf::Vector2i ProgressBar::minimumRequisition() const { return {5, 5}; }
 
 void ProgressBar::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                           Renderer::Ptr renderer) const {
-    renderer->renderProgressBar(target, states, *this);
+                           const Renderer& renderer) const {
+    renderer.renderProgressBar(target, states, *this);
 }
 
 } // namespace gui
