@@ -3,6 +3,7 @@ target_sources(BLIB PUBLIC
     Button.hpp
     Canvas.hpp
     CheckButton.hpp
+    ComboBox.hpp
     Container.hpp
     Element.hpp
     Image.hpp

@@ -27,6 +27,7 @@
 #include <BLIB/GUI/Elements/Button.hpp>
 #include <BLIB/GUI/Elements/Canvas.hpp>
 #include <BLIB/GUI/Elements/CheckButton.hpp>
+#include <BLIB/GUI/Elements/ComboBox.hpp>
 #include <BLIB/GUI/Elements/Image.hpp>
 #include <BLIB/GUI/Elements/Label.hpp>
 #include <BLIB/GUI/Elements/Notebook.hpp>

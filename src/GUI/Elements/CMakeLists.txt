@@ -3,6 +3,7 @@ target_sources(BLIB PRIVATE
     Button.cpp
     Canvas.cpp
     CheckButton.cpp
+    ComboBox.cpp
     Container.cpp
     Element.cpp
     Image.cpp
