@@ -117,6 +117,9 @@ protected:
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const override;
 
+    /// @brief True
+    virtual bool consumesScrolls() const override { return true; }
+
 private:
     Packer::Ptr packer;
     Slider::Ptr horScrollbar;

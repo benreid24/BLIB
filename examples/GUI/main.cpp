@@ -145,6 +145,9 @@ int main() {
     scroll->pack(gui::Label::create("This can be scrolled"));
     scroll->pack(gui::Label::create("Try scrolling me around"));
     scroll->pack(gui::Button::create("No Action"));
+    slider = gui::Slider::create(gui::Slider::Horizontal);
+    slider->setRequisition({120, 35});
+    scroll->pack(slider);
     testWindow->pack(scroll, true, true);
     gui->pack(testWindow);
 

@@ -104,7 +104,8 @@ bool Container::handleRawEvent(const RawEvent& event) {
     for (Element::Ptr e : packableChildren) {
         if (sendFakes)
             e->handleEvent(fakeMove);
-        else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get()))))
+        else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get()))) &&
+                 (event.event.type != sf::Event::MouseWheelScrolled || e->consumesScrolls()))
             sendFakes = true;
     }
 

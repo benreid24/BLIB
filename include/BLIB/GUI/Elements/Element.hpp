@@ -217,6 +217,13 @@ public:
     bool active() const;
 
     /**
+     * @brief Whether or not this Element type consumes mouse scroll events. Default is false.
+     *        Sliders and ScrollAreas return true, as should any scrollable element
+     *
+     */
+    virtual bool consumesScrolls() const { return false; }
+
+    /**
      * @brief Performs any custom logic of the Element
      *
      * @param dt Time elapsed, in seconds, since last update
@@ -353,8 +360,6 @@ protected:
     /**
      * @brief Returns true. Elements such as window should return false
      *
-     * @return true
-     * @return false
      */
     virtual bool shouldPack() const;
 
