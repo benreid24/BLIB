@@ -15,9 +15,7 @@ Notebook::Ptr Notebook::create(const std::string& group, const std::string& id) 
 Notebook::Notebook(const std::string& group, const std::string& id)
 : Container(group, id)
 , tabArea(Box::create(LinePacker::create(), group, id + "-tabarea"))
-, activePage(0) {
-    // todo ?
-}
+, activePage(0) {}
 
 void Notebook::addChildren() { add(tabArea); }
 
@@ -45,7 +43,12 @@ void Notebook::addPage(const std::string& name, const std::string& title,
     }
 }
 
-unsigned int Notebook::getActivePage() const { return activePage; }
+Notebook::Page* Notebook::getActivePage() const {
+    if (activePage < pages.size()) return pages[activePage];
+    return nullptr;
+}
+
+unsigned int Notebook::getActivePageIndex() const { return activePage; }
 
 unsigned int Notebook::pageCount() const { return pages.size(); }
 

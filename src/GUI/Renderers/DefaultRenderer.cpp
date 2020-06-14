@@ -71,6 +71,14 @@ RenderSettings getLabelDefaults() {
     return settings;
 }
 
+RenderSettings getNotebookDefaults() {
+    RenderSettings settings;
+    settings.fillColor        = sf::Color(120, 120, 120);
+    settings.outlineColor     = sf::Color::Black;
+    settings.outlineThickness = 1;
+    return settings;
+}
+
 RenderSettings getProgressBarDefaults() {
     RenderSettings settings;
     settings.fillColor        = sf::Color(120, 120, 120);
@@ -148,7 +156,22 @@ void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::Rende
 
 void DefaultRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates states,
                                      const Notebook& nb) const {
-    // TODO - render the notebook
+    static const RenderSettings defaults = getNotebookDefaults();
+    const RenderSettings settings        = getSettings(&nb);
+
+    RendererUtil::renderRectangle(target, states, nb.getAcquisition(), settings, defaults);
+    for (unsigned int i = 0; i < nb.getPages().size(); ++i) {
+        Notebook::Page* page = nb.getPages()[i];
+        RendererUtil::renderRectangle(target,
+                                      states,
+                                      page->label->getAcquisition(),
+                                      getSettings(page->label.get()),
+                                      defaults);
+        page->label->render(target, states, *this);
+        renderMouseoverOverlay(target, states, page->label.get());
+    }
+    Notebook::Page* active = nb.getActivePage();
+    if (active) active->content->render(target, states, *this);
 }
 
 void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,

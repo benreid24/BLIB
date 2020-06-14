@@ -57,10 +57,16 @@ public:
     void addPage(const std::string& name, const std::string& title, Element::Ptr content);
 
     /**
+     * @brief Returns the active page itself
+     *
+     */
+    Page* getActivePage() const;
+
+    /**
      * @brief Returns the index of the active page
      *
      */
-    unsigned int getActivePage() const;
+    unsigned int getActivePageIndex() const;
 
     /**
      * @brief Returns the number of pages in the Notebook
