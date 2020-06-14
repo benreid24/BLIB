@@ -11,7 +11,8 @@ namespace bl
 namespace gui
 {
 /**
- * @brief A dropdown option selector
+ * @brief A dropdown option selector. Note that fillColor is the background and
+ *        secondaryFillColor is the mouseover background when opened
  *
  * @ingroup GUI
  *
@@ -28,6 +29,12 @@ public:
      * @return Ptr
      */
     static Ptr create(const std::string& group = "", const std::string& id = "");
+
+    /**
+     * @brief Set the color of the text labels
+     *
+     */
+    void setLabelColor(const sf::Color& color);
 
     /**
      * @brief Adds the option to the dropdown
@@ -116,6 +123,7 @@ private:
     std::vector<std::string> options;
     std::vector<Label::Ptr> labels;
     sf::Vector2i labelSize;
+    std::optional<sf::Color> labelColor;
     int selected; // -1 means none
     bool opened;
 

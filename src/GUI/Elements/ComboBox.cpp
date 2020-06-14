@@ -24,6 +24,11 @@ ComboBox::ComboBox(const std::string& group, const std::string& id)
 
 void ComboBox::addChildren() { add(arrow); }
 
+void ComboBox::setLabelColor(const sf::Color& c) {
+    labelColor = c;
+    onSettings();
+}
+
 void ComboBox::addOption(const std::string& text) {
     options.push_back(text);
     labels.push_back(Label::create(text, group(), id() + "-" + text));
@@ -101,11 +106,8 @@ void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
 
 void ComboBox::onSettings() {
     for (Label::Ptr label : labels) {
-        if (renderSettings().fillColor.has_value())
-            label->setColor(renderSettings().fillColor.value(), sf::Color::Transparent);
-        if (renderSettings().secondaryFillColor.has_value())
-            label->setSecondaryColor(renderSettings().secondaryFillColor.value(),
-                                     sf::Color::Transparent);
+        if (labelColor.has_value())
+            label->setColor(labelColor.value(), sf::Color::Transparent);
         if (renderSettings().font.has_value()) label->setFont(renderSettings().font.value());
         if (renderSettings().style.has_value())
             label->setStyle(renderSettings().style.value());
