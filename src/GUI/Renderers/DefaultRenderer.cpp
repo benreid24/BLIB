@@ -103,6 +103,14 @@ RenderSettings getTextEntryBoxDefaults() {
     return settings;
 }
 
+RenderSettings getToggleButtonDefaults() {
+    RenderSettings settings;
+    settings.fillColor        = sf::Color::Transparent;
+    settings.outlineColor     = sf::Color::Transparent;
+    settings.outlineThickness = 0;
+    return settings;
+}
+
 RenderSettings getTextEntryTextDefaults() {
     RenderSettings settings;
     settings.fillColor           = sf::Color::Black;
@@ -317,11 +325,26 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
 
 void DefaultRenderer::renderToggleButton(sf::RenderTarget& target, sf::RenderStates states,
                                          const ToggleButton& button) const {
-    // TODO
+    static const RenderSettings defaults = getToggleButtonDefaults();
+    const RenderSettings settings        = getSettings(&button);
+    RendererUtil::renderRectangle(target, states, button.getAcquisition(), settings, defaults);
 }
 
 void DefaultRenderer::renderToggleCheckButton(sf::RenderTexture& texture, bool active) const {
-    // TODO
+    const sf::Vector2f size = static_cast<sf::Vector2f>(texture.getSize());
+    sf::RectangleShape box(size);
+    box.setFillColor(sf::Color::White);
+    box.setOutlineColor(sf::Color::Black);
+    box.setOutlineThickness(-1.5f);
+    texture.draw(box);
+    if (active) {
+        box.setFillColor(sf::Color(100, 100, 100));
+        box.setOutlineThickness(0);
+        box.setPosition(size * 0.15f);
+        box.setSize(size * 0.7f);
+        texture.draw(box);
+    }
+    texture.display();
 }
 
 void DefaultRenderer::renderToggleRadioButton(sf::RenderTexture& texture, bool active) const {
