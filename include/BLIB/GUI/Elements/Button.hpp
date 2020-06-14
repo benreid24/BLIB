@@ -47,7 +47,7 @@ public:
      *
      * @return Element::Ptr The child element that renders inside the button
      */
-    Element::Ptr getChild();
+    Element::Ptr getChild() const;
 
 protected:
     /**
@@ -80,7 +80,7 @@ protected:
     virtual void onAcquisition() override;
 
     /**
-     * @brief Renders the button and text
+     * @brief Renders the button and text/child
      *
      * @param target The target to render to
      * @param states Render states to use
@@ -89,10 +89,15 @@ protected:
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const override;
 
+    /**
+     * @brief Calls add() on the child method. Should be called in create() for any derived
+     *        classes. add() cannot be called until the object is fully constructed
+     *
+     */
+    void addChild();
+
 private:
     Element::Ptr child;
-
-    void addChild();
 };
 } // namespace gui
 } // namespace bl

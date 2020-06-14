@@ -26,14 +26,17 @@
 
 #include <BLIB/GUI/Elements/Button.hpp>
 #include <BLIB/GUI/Elements/Canvas.hpp>
+#include <BLIB/GUI/Elements/CheckButton.hpp>
 #include <BLIB/GUI/Elements/Image.hpp>
 #include <BLIB/GUI/Elements/Label.hpp>
 #include <BLIB/GUI/Elements/Notebook.hpp>
 #include <BLIB/GUI/Elements/ProgressBar.hpp>
+#include <BLIB/GUI/Elements/RadioButton.hpp>
 #include <BLIB/GUI/Elements/ScrollArea.hpp>
 #include <BLIB/GUI/Elements/Separator.hpp>
 #include <BLIB/GUI/Elements/Slider.hpp>
 #include <BLIB/GUI/Elements/TextEntry.hpp>
+#include <BLIB/GUI/Elements/ToggleButton.hpp>
 #include <BLIB/GUI/Elements/Window.hpp>
 
 #endif

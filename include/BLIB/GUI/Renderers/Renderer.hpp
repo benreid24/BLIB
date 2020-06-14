@@ -20,6 +20,7 @@ class ProgressBar;
 class Separator;
 class Slider;
 class TextEntry;
+class ToggleButton;
 class Window;
 
 /**
@@ -117,8 +118,9 @@ public:
                                         const Element* element) const = 0;
 
     /**
-     * @brief Renders a Notebook element. Must also render the tabs and active content using getPages()
-     * 
+     * @brief Renders a Notebook element. Must also render the tabs and active content using
+     * getPages()
+     *
      * @param target The target to render to
      * @param states RenderStates to apply
      * @param notebook Notebook to render
@@ -177,6 +179,32 @@ public:
      */
     virtual void renderTextEntry(sf::RenderTarget& target, sf::RenderStates states,
                                  const TextEntry& entry) const = 0;
+
+    /**
+     * @brief Renders a ToggleButton element. Can be either CheckBox or RadioButton
+     *
+     * @param target The target to render to
+     * @param states RenderStates to apply
+     * @param button ToggleButton to render
+     */
+    virtual void renderToggleButton(sf::RenderTarget& target, sf::RenderStates states,
+                                    const ToggleButton& button) const = 0;
+
+    /**
+     * @brief Render a check button to an internal texture
+     *
+     * @param texture The canvas texture to render to
+     * @param active True if the button should be rendered as active, false for inactive
+     */
+    virtual void renderToggleCheckButton(sf::RenderTexture& texture, bool active) const = 0;
+
+    /**
+     * @brief Render a radio button to an internal texture
+     *
+     * @param texture The canvas texture to render to
+     * @param active True if the button should be rendered as active, false for inactive
+     */
+    virtual void renderToggleRadioButton(sf::RenderTexture& texture, bool active) const = 0;
 
     /**
      * @brief Render a Window element. The titlebar will have no styling and should use

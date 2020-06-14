@@ -30,6 +30,9 @@ Action::TData::TData(uint32_t i)
 Action::TData::TData(float s)
 : scroll(s) {}
 
+Action::TData::TData(bool v)
+: bvalue(v) {}
+
 Action::TData::TData(sf::Event::KeyEvent k)
 : key(k) {}
 
@@ -55,6 +58,10 @@ Action::Action(Type type, uint32_t c, const sf::Vector2f& pos)
 , position(pos) {}
 
 Action::Action(Type type, float v)
+: type(type)
+, data(v) {}
+
+Action::Action(Type type, bool v)
 : type(type)
 , data(v) {}
 

@@ -2,14 +2,18 @@ target_sources(BLIB PUBLIC
     Box.hpp
     Button.hpp
     Canvas.hpp
+    CheckButton.hpp
     Container.hpp
     Element.hpp
     Image.hpp
     Label.hpp
     Notebook.hpp
+    RadioButton.hpp
     ProgressBar.hpp
     ScrollArea.hpp
     Separator.hpp
     Slider.hpp
+    TextEntry.hpp
+    ToggleButton.hpp
     Window.hpp
 )

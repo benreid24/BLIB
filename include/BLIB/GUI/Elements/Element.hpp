@@ -185,8 +185,9 @@ public:
      *        acquisitions
      *
      * @param visible True to render the Element, false to hide. Default is true
+     * @param markDirty Marks this element dirty if the visibilty changed
      */
-    void setVisible(bool visible);
+    void setVisible(bool visible, bool markDirty = true);
 
     /**
      * @brief Signal to Packers that this element should not be packed. Intended to be used by

@@ -25,7 +25,7 @@ Button::Button(Element::Ptr child, const std::string& group, const std::string& 
 : Container(group, id)
 , child(child) {}
 
-Element::Ptr Button::getChild() { return child; }
+Element::Ptr Button::getChild() const { return child; }
 
 void Button::addChild() { add(child); }
 
@@ -43,7 +43,7 @@ void Button::onAcquisition() {
 }
 
 bool Button::handleRawEvent(const RawEvent& event) {
-    child->handleEvent(event);
+    child->handleEvent(transformEvent(event));
     return false; // so the button can have proper mouseover and click events
 }
 

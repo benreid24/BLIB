@@ -85,11 +85,15 @@ const std::vector<Element::Ptr>& Container::getNonPackableChildren() const {
 
 void Container::removeChild(const Element* child) { toRemove.push_back(child); }
 
+RawEvent Container::transformEvent(const RawEvent& e) const {
+    return e.transformToLocal(
+        {static_cast<float>(getAcquisition().left), static_cast<float>(getAcquisition().top)});
+}
+
 bool Container::handleRawEvent(const RawEvent& event) {
     static const RawEvent fakeMove = makeFakeMove();
     bool sendFakes                 = false;
-    const RawEvent transformed     = event.transformToLocal(
-        {static_cast<float>(getAcquisition().left), static_cast<float>(getAcquisition().top)});
+    const RawEvent transformed     = transformEvent(event);
 
     for (Element::Ptr e : nonpackableChildren) {
         if (sendFakes)

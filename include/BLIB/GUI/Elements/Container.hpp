@@ -154,6 +154,14 @@ protected:
     sf::View computeView(sf::RenderTarget& target, const sf::Transform& transform,
                          sf::IntRect region = {}) const;
 
+    /**
+     * @brief Transforms the event into container local coordinates for child elements
+     *
+     * @param event The event to transform
+     * @return RawEvent A new event with transformed local coordinates
+     */
+    RawEvent transformEvent(const RawEvent& event) const;
+
 private:
     std::vector<Element::Ptr> packableChildren;
     std::vector<Element::Ptr> nonpackableChildren;

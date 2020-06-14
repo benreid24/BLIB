@@ -221,8 +221,8 @@ void Element::makeDirty() {
 
 void Element::markClean() { _dirty = false; }
 
-void Element::setVisible(bool v) {
-    if (v != _visible) makeDirty();
+void Element::setVisible(bool v, bool md) {
+    if (v != _visible && md) makeDirty();
     _visible = v;
 }
 

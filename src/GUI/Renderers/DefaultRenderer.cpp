@@ -315,6 +315,19 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
     }
 }
 
+void DefaultRenderer::renderToggleButton(sf::RenderTarget& target, sf::RenderStates states,
+                                         const ToggleButton& button) const {
+    // TODO
+}
+
+void DefaultRenderer::renderToggleCheckButton(sf::RenderTexture& texture, bool active) const {
+    // TODO
+}
+
+void DefaultRenderer::renderToggleRadioButton(sf::RenderTexture& texture, bool active) const {
+    // TODO
+}
+
 void DefaultRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                                    const Container* titlebar, const Window& window) const {
     const RenderSettings settings        = getSettings(&window);

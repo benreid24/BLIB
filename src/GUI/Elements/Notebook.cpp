@@ -127,9 +127,9 @@ void Notebook::pageClicked(Page* page) {
 
 void Notebook::makePageActive(unsigned int i) {
     if (i < pages.size()) {
-        if (activePage < pages.size()) pages[activePage]->content->setVisible(false);
+        if (activePage < pages.size()) pages[activePage]->content->setVisible(false, false);
         activePage = i;
-        pages[i]->content->setVisible(true);
+        pages[i]->content->setVisible(true, false);
         pages[i]->content->moveToTop();
         Packer::manuallyPackElement(pages[i]->content, contentArea);
     }

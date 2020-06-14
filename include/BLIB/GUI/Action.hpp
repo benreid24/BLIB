@@ -63,13 +63,15 @@ struct Action {
     union TData {
         uint32_t input;          /// Unicode char for TextEntered
         float scroll;            /// Mouse wheel delta for Scrolled
-        float value;             /// Float value for inputs such as Slider
+        float fvalue;            /// Float value for inputs such as Slider
+        bool bvalue;             /// Bool value for ToggleButton and derived
         sf::Event::KeyEvent key; /// Key for KeyPressed and KeyReleased
         sf::Vector2f dragStart;  /// Position of mouse when drag started
         CustomData custom;       /// Generic data for custom actions
 
         TData(uint32_t input);
         TData(float scroll);
+        TData(bool value);
         TData(sf::Event::KeyEvent key);
         TData(const sf::Vector2f& drag);
         TData(const CustomData& data);
@@ -126,6 +128,14 @@ struct Action {
      * @param v The value to store
      */
     Action(Type type, float v);
+
+    /**
+     * @brief Creates an Action of the given Type and bool value. No position
+     *
+     * @param type The type of Action
+     * @param v The value to store
+     */
+    Action(Type type, bool v);
 
     /**
      * @brief Creates an action of the given Type and position and sets the extra data
