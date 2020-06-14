@@ -132,6 +132,7 @@ private:
     void addBars();
     void refreshSize() const;
     void scrolled();
+    void mouseScroll(const Action& scroll);
 };
 } // namespace gui
 } // namespace bl

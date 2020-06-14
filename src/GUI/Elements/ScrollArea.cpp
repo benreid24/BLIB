@@ -51,6 +51,9 @@ ScrollArea::ScrollArea(Packer::Ptr packer, const std::string& g, const std::stri
 
     filter.insert(horScrollbar.get());
     filter.insert(vertScrollbar.get());
+
+    using namespace std::placeholders;
+    getSignal(Action::Scrolled).willAlwaysCall(std::bind(&ScrollArea::mouseScroll, this, _1));
 }
 
 void ScrollArea::addBars() {
@@ -131,6 +134,14 @@ void ScrollArea::scrolled() {
         const float freeSpace = totalSize.y - availableSize.y;
         offset.y              = -freeSpace * vertScrollbar->getValue();
     }
+}
+
+void ScrollArea::mouseScroll(const Action& scroll) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
+        horScrollbar->incrementValue(-scroll.data.scroll);
+    else
+        vertScrollbar->incrementValue(-scroll.data.scroll);
 }
 
 sf::Vector2f ScrollArea::getElementOffset(const Element* e) const {
