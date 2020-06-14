@@ -133,6 +133,7 @@ private:
     void packElements();
     void fireChanged();
 
+    void mouseScrolled(const Action& scroll);
     void sliderMoved(const Action& drag);
     void clicked(const Action& click);
     void decreaseClicked();

@@ -43,6 +43,12 @@ Slider::Slider(Direction d, const std::string& g, const std::string& i)
         .willAlwaysCall(std::bind(&Slider::increaseClicked, this));
     decreaseBut->getSignal(Action::LeftClicked)
         .willAlwaysCall(std::bind(&Slider::decreaseClicked, this));
+
+    const auto scrollCb = std::bind(&Slider::mouseScrolled, this, _1);
+    getSignal(Action::Scrolled).willAlwaysCall(scrollCb);
+    slider->getSignal(Action::Scrolled).willAlwaysCall(scrollCb);
+    increaseBut->getSignal(Action::Scrolled).willAlwaysCall(scrollCb);
+    decreaseBut->getSignal(Action::Scrolled).willAlwaysCall(scrollCb);
 }
 
 void Slider::addChildren() {
@@ -116,6 +122,14 @@ void Slider::increaseClicked() {
 
 void Slider::decreaseClicked() {
     value -= increment;
+    packElements();
+    fireChanged();
+}
+
+void Slider::mouseScrolled(const Action& scroll) {
+    if (scroll.type != Action::Scrolled) return;
+
+    value += -scroll.data.scroll * increment;
     packElements();
     fireChanged();
 }
