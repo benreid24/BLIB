@@ -173,6 +173,7 @@ private:
     void titleActive();
 
     int computeTitleHeight() const;
+    int computeTitleWidth() const;
     void addChildren();
 };
 

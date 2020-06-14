@@ -80,6 +80,8 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
         }
     }
 
+    elementArea->setExpandsWidth(true);
+    elementArea->setExpandsHeight(true);
     elementArea->getSignal(Action::Dragged).willAlwaysCall(dragCb);
     assignAcquisition({position.x, position.y, 40, 20});
 }
@@ -98,8 +100,12 @@ void Window::handleDrag(const Action& action) {
 }
 
 int Window::computeTitleHeight() const {
-    return titlebar ? static_cast<int>(titlebarHeight) : 0;
+    return titlebar ?
+               std::max(static_cast<int>(titlebarHeight), titlebar->getRequisition().y) :
+               0;
 }
+
+int Window::computeTitleWidth() const { return titlebar ? titlebar->getRequisition().x : 0; }
 
 void Window::onAcquisition() {
     const int h = computeTitleHeight();
@@ -113,8 +119,9 @@ void Window::onAcquisition() {
 
 sf::Vector2i Window::minimumRequisition() const {
     const sf::Vector2i childMin = elementArea->getRequisition();
+    const int titleWidth        = computeTitleWidth();
     const int h                 = childMin.y + computeTitleHeight();
-    return {childMin.x, h > 10 ? h : 10};
+    return {std::max(childMin.x, titleWidth), h > 10 ? h : 10};
 }
 
 void Window::closed() { fireSignal(Action(Action::Closed)); }
