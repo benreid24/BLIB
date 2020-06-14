@@ -171,13 +171,15 @@ void DefaultRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates 
     for (unsigned int i = 0; i < nb.getPages().size(); ++i) {
         Notebook::Page* page       = nb.getPages()[i];
         RenderSettings tabSettings = settings;
-        if (i == nb.getActivePageIndex()) {
-            sf::Color base = tabSettings.fillColor.value_or(sf::Color(90, 90, 90));
-            base.r -= 12;
-            base.g -= 12;
-            base.b -= 12;
+        if (i != nb.getActivePageIndex()) {
+            sf::Color base = tabSettings.fillColor.value_or(defaults.fillColor.value());
+            base.r -= 25;
+            base.g -= 25;
+            base.b -= 25;
             tabSettings.fillColor = base;
         }
+        else
+            tabSettings.outlineThickness = 0;
         RendererUtil::renderRectangle(
             target, states, page->label->getAcquisition(), tabSettings, defaults);
         page->label->render(target, states, *this);
