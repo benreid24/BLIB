@@ -144,6 +144,14 @@ void TextEntry::onKeypress(const Action& action) {
             ++cursorPos;
         }
     }
+    else if (action.data.key.control && action.data.key.code == sf::Keyboard::V) {
+        const std::string c = sf::Clipboard::getString().toAnsiString();
+        if (cursorPos < input.size())
+            input.insert(cursorPos, c);
+        else
+            input += c;
+        cursorPos += c.size();
+    }
 
     recalcNewlines();
 }
