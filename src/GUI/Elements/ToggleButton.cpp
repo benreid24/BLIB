@@ -9,9 +9,14 @@ namespace gui
 ToggleButton::ToggleButton(Element::Ptr c, const std::string& g, const std::string& i)
 : Button(c, g, i)
 , butsRendered(false)
+, activeButton(Canvas::create(10, 10, g, i + "-checked"))
+, inactiveButton(Canvas::create(10, 10, g, i + "-unchecked"))
 , value(false) {
-    setToggleButtonSize({10, 10});
     updateButtons();
+    setHorizontalAlignment(RenderSettings::Left);
+    setExpandsWidth(true);
+    getChild()->setHorizontalAlignment(RenderSettings::Left);
+    getChild()->setExpandsWidth(true);
     getSignal(Action::LeftClicked).willAlwaysCall(std::bind(&ToggleButton::onClick, this));
     getSignal(Action::ValueChanged)
         .willAlwaysCall(std::bind(&ToggleButton::updateButtons, this));
@@ -23,9 +28,13 @@ void ToggleButton::finishCreate() {
     add(inactiveButton);
 }
 
-Canvas::Ptr ToggleButton::getVisibleButton() { return value ? activeButton : inactiveButton; }
+Canvas::Ptr ToggleButton::getVisibleButton() const {
+    return value ? activeButton : inactiveButton;
+}
 
-Canvas::Ptr ToggleButton::getHiddenButton() { return value ? inactiveButton : activeButton; }
+Canvas::Ptr ToggleButton::getHiddenButton() const {
+    return value ? inactiveButton : activeButton;
+}
 
 bool ToggleButton::getValue() const { return value; }
 
@@ -54,7 +63,7 @@ bool ToggleButton::handleRawEvent(const RawEvent& event) {
 sf::Vector2i ToggleButton::minimumRequisition() const {
     const sf::Vector2i butReq   = activeButton->getRequisition();
     const sf::Vector2i childReq = getChild()->getRequisition();
-    return {butReq.x + childReq.x, std::max(butReq.y, childReq.y)};
+    return {butReq.x + childReq.x + 2, std::max(butReq.y, childReq.y)};
 }
 
 void ToggleButton::onAcquisition() {
@@ -63,9 +72,9 @@ void ToggleButton::onAcquisition() {
     Packer::manuallyPackElement(
         inactiveButton, {0, 0, activeButton->getRequisition().x, getAcquisition().height});
     Packer::manuallyPackElement(getChild(),
-                                {activeButton->getRequisition().x,
+                                {activeButton->getRequisition().x + 2,
                                  0,
-                                 getAcquisition().width - activeButton->getRequisition().x,
+                                 getAcquisition().width - activeButton->getRequisition().x - 2,
                                  getAcquisition().height});
 }
 
@@ -77,6 +86,11 @@ void ToggleButton::doRender(sf::RenderTarget& target, sf::RenderStates states,
     }
     renderer.renderToggleButton(target, states, *this);
     renderChildren(target, states, renderer);
+
+    const sf::View oldView = target.getView();
+    target.setView(computeView(target, states.transform));
+    // TODO - render mouse overlay
+    target.setView(oldView);
 }
 
 void ToggleButton::onClick() {

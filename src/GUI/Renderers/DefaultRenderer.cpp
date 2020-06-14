@@ -335,13 +335,13 @@ void DefaultRenderer::renderToggleCheckButton(sf::RenderTexture& texture, bool a
     sf::RectangleShape box(size);
     box.setFillColor(sf::Color::White);
     box.setOutlineColor(sf::Color::Black);
-    box.setOutlineThickness(-1.5f);
+    box.setOutlineThickness(-1.f);
     texture.draw(box);
     if (active) {
         box.setFillColor(sf::Color(100, 100, 100));
         box.setOutlineThickness(0);
-        box.setPosition(size * 0.15f);
-        box.setSize(size * 0.7f);
+        box.setPosition(size * 0.2f);
+        box.setSize(size * 0.6f);
         texture.draw(box);
     }
     texture.display();

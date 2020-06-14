@@ -182,7 +182,7 @@ public:
 
     /**
      * @brief Renders a ToggleButton element. Can be either CheckBox or RadioButton. The
-     *        buttons and text are rendered separately
+     *        buttons and text should be rendered by this as well
      *
      * @param target The target to render to
      * @param states RenderStates to apply

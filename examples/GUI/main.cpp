@@ -176,6 +176,11 @@ int main() {
     box->pack(button);
     box->pack(gui::Label::create("This is a notebook"));
     nb->addPage("page2", "More Stuff", box);
+    box = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Vertical));
+    box->pack(gui::CheckButton::create("Check me"));
+    box->pack(gui::CheckButton::create("Or me"));
+    box->pack(gui::CheckButton::create("Maybe me"));
+    nb->addPage("page3", "Checkboxes", box);
     testWindow->pack(nb, true, true);
     gui->pack(testWindow);
 

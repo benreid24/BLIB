@@ -24,13 +24,13 @@ public:
      * @brief Returns the canvas that should be rendered for the current button state
      *
      */
-    Canvas::Ptr getVisibleButton();
+    Canvas::Ptr getVisibleButton() const;
 
     /**
      * @brief Returns the canvas that should be not rendered
      *
      */
-    Canvas::Ptr getHiddenButton();
+    Canvas::Ptr getHiddenButton() const;
 
     /**
      * @brief Returns the current state of the toggle
