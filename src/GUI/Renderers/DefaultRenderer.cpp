@@ -147,6 +147,17 @@ void DefaultRenderer::renderButton(sf::RenderTarget& target, sf::RenderStates st
     RendererUtil::renderRectangle(target, states, button.getAcquisition(), settings, defaults);
 }
 
+void DefaultRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates states,
+                                     const ComboBox& box, const sf::Vector2i& optionSize,
+                                     unsigned int optionCount,
+                                     unsigned int mousedOption) const {
+    // TODO
+}
+
+void DefaultRenderer::renderComboBoxDropdown(sf::RenderTexture& texture) const {
+    // TODO
+}
+
 void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
                                              const Element* element) const {
     sf::RectangleShape rect({static_cast<float>(element->getAcquisition().width),

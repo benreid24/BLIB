@@ -145,8 +145,7 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
     target.setView(view);
 
     // Transform children
-    states.transform.translate(static_cast<float>(getAcquisition().left),
-                               static_cast<float>(getAcquisition().top));
+    transformStates(states);
 
     // Draw children
     for (auto it = packableChildren.rbegin(); it != packableChildren.rend(); ++it) {
@@ -198,6 +197,11 @@ sf::View Container::computeView(sf::RenderTarget& target, const sf::Transform& t
     view.setViewport(intersection(port, oldView.getViewport()));
 
     return view;
+}
+
+void Container::transformStates(sf::RenderStates& states) const {
+    states.transform.translate(static_cast<float>(getAcquisition().left),
+                               static_cast<float>(getAcquisition().top));
 }
 
 } // namespace gui

@@ -126,6 +126,7 @@ private:
     std::optional<sf::Color> labelColor;
     int selected; // -1 means none
     bool opened;
+    mutable bool arrowRendered;
 
     void onSettings(); // update label settings
     void optionClicked(std::string text);

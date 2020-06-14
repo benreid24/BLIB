@@ -14,9 +14,10 @@ ComboBox::Ptr ComboBox::create(const std::string& group, const std::string& id) 
 
 ComboBox::ComboBox(const std::string& group, const std::string& id)
 : Container(group, id)
-, arrow(Canvas::create(16, 16, group, id + "-dropdown"))
+, arrow(Canvas::create(32, 32, group, id + "-dropdown"))
 , selected(-1)
-, opened(false) {
+, opened(false)
+, arrowRendered(false) {
     getSignal(Action::RenderSettingsChanged)
         .willAlwaysCall(std::bind(&ComboBox::onSettings, this));
     getSignal(Action::LeftClicked).willAlwaysCall(std::bind(&ComboBox::clicked, this));
@@ -86,6 +87,8 @@ sf::Vector2i ComboBox::minimumRequisition() const {
 
 void ComboBox::onAcquisition() {
     labelSize = {getAcquisition().width - getAcquisition().height, getAcquisition().height};
+    arrow->scaleToSize({static_cast<float>(getAcquisition().height),
+                        static_cast<float>(getAcquisition().height)});
     Packer::manuallyPackElement(
         arrow, {labelSize.x, 0, getAcquisition().height, getAcquisition().height});
     if (opened)
@@ -101,7 +104,26 @@ bool ComboBox::handleRawEvent(const RawEvent& event) {
 
 void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
                         const Renderer& renderer) const {
-    // TODO
+    unsigned int moused = options.size();
+    for (unsigned int i = 0; i < labels.size(); ++i) {
+        if (labels[i]->mouseOver()) {
+            moused = i;
+            break;
+        }
+    }
+
+    if (!arrowRendered) {
+        arrowRendered = true;
+        renderer.renderComboBoxDropdown(arrow->getTexture());
+    }
+
+    const sf::View oldView = target.getView();
+    target.setView(sf::View());
+    renderer.renderComboBox(
+        target, states, *this, labelSize, opened ? options.size() : 0, moused);
+    transformStates(states);
+    renderChildrenRawFiltered(target, states, renderer, {});
+    target.setView(oldView);
 }
 
 void ComboBox::onSettings() {

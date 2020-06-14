@@ -162,6 +162,12 @@ protected:
      */
     RawEvent transformEvent(const RawEvent& event) const;
 
+    /**
+     * @brief Transforms the render states so that child elements may use local coordinates
+     *
+     */
+    void transformStates(sf::RenderStates& states) const;
+
 private:
     std::vector<Element::Ptr> packableChildren;
     std::vector<Element::Ptr> nonpackableChildren;

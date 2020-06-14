@@ -13,8 +13,10 @@ namespace gui
 {
 class Element;
 class Container;
-class Label;
+
 class Button;
+class ComboBox;
+class Label;
 class Notebook;
 class ProgressBar;
 class Separator;
@@ -75,6 +77,28 @@ public:
      */
     virtual void renderBox(sf::RenderTarget& target, sf::RenderStates states,
                            const Container& container) const = 0;
+
+    /**
+     * @brief Render a ComboBox
+     *
+     * @param target The target to render to
+     * @param states RenderStates to apply
+     * @param box The box to render
+     * @param optionSize The size of the option panels to render (background only)
+     * @param optionCount The number of option panels to render
+     * @param mousedOption Which option should get the alternate background color for mouse
+     *                     over. None are moused over if mousedOption >= optioncount
+     */
+    virtual void renderComboBox(sf::RenderTarget& target, sf::RenderStates states,
+                                const ComboBox& box, const sf::Vector2i& optionSize,
+                                unsigned int optionCount, unsigned int mousedOption) const = 0;
+
+    /**
+     * @brief Render the dropdown arrow to be used by ComboBox's
+     *
+     * @param texture The texture to render to
+     */
+    virtual void renderComboBoxDropdown(sf::RenderTexture& texture) const = 0;
 
     /**
      * @brief Renders an image. This is used by both Canvas and Image
