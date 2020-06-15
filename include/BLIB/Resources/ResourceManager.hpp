@@ -28,7 +28,7 @@ public:
      *
      * @param gcPeriod Number of seconds between round of freeing memory
      */
-    ResourceManager(unsigned int gcPeriod);
+    ResourceManager(unsigned int gcPeriod = 300);
     ~ResourceManager();
 
     /**
@@ -56,8 +56,7 @@ template<typename T, class TLoader>
 ResourceManager<T, TLoader>::ResourceManager(unsigned int gcPeriod)
 : gcPeriod(gcPeriod)
 , gcActive(true)
-, gcThread(&ResourceManager<T, TLoader>::garbageCollector, this) {
-}
+, gcThread(&ResourceManager<T, TLoader>::garbageCollector, this) {}
 
 template<typename T, class TLoader>
 ResourceManager<T, TLoader>::~ResourceManager() {
@@ -93,6 +92,12 @@ void ResourceManager<T, TLoader>::garbageCollector() {
         mapLock.unlock();
     }
 }
+
+/// Specialized ResourceManager for sf::Texture objects
+typedef ResourceManager<sf::Texture, TextureResourceLoader> TextureResourceManager;
+
+// Specialized ResourceManager for sf::Font objects
+typedef ResourceManager<sf::Font, FontResourceLoader> FontResourceManager;
 
 } // namespace bl
 

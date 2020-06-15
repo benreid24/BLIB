@@ -1,0 +1,20 @@
+target_sources(BLIB PRIVATE
+    Box.cpp
+    Button.cpp
+    Canvas.cpp
+    CheckButton.cpp
+    ComboBox.cpp
+    Container.cpp
+    Element.cpp
+    Image.cpp
+    Label.cpp
+    Notebook.cpp
+    ProgressBar.cpp
+    RadioButton.cpp
+    ScrollArea.cpp
+    Separator.cpp
+    Slider.cpp
+    TextEntry.cpp
+    ToggleButton.cpp
+    Window.cpp
+)
