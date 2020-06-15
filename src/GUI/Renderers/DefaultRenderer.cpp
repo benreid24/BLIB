@@ -40,7 +40,7 @@ RenderSettings getComboDefaults() {
     settings.fillColor          = sf::Color(100, 100, 100);
     settings.outlineColor       = sf::Color::Black;
     settings.outlineThickness   = 1;
-    settings.secondaryFillColor = sf::Color(10, 10, 220);
+    settings.secondaryFillColor = sf::Color(80, 80, 250);
     return settings;
 }
 
@@ -165,15 +165,16 @@ void DefaultRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates 
 
     RendererUtil::renderRectangle(target, states, box.getAcquisition(), settings, defaults);
 
-    sf::Vector2i pos(0, box.getAcquisition().height);
+    sf::Vector2i pos(box.getAcquisition().left,
+                     box.getAcquisition().top + box.getAcquisition().height);
     for (unsigned int i = 0; i < optionCount; ++i) {
         RenderSettings s = settings;
         if (i == mousedOption) {
             s.promoteSecondaries();
             if (!s.fillColor.has_value()) s.fillColor = defaults.secondaryFillColor;
-            RendererUtil::renderRectangle(target, states, {pos, optionSize}, s, defaults);
-            pos.y += optionSize.y;
         }
+        RendererUtil::renderRectangle(target, states, {pos, optionSize}, s, defaults);
+        pos.y += optionSize.y;
     }
 }
 

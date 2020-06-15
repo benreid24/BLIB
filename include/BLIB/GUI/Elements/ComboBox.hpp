@@ -21,6 +21,8 @@ class ComboBox : public Container {
 public:
     typedef std::shared_ptr<ComboBox> Ptr;
 
+    static constexpr int OptionPadding = 2;
+
     /**
      * @brief Create a new ComboBox
      *

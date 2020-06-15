@@ -38,6 +38,7 @@ void ComboBox::addOption(const std::string& text) {
     labels.back()
         ->getSignal(Action::LeftClicked)
         .willAlwaysCall(std::bind(&ComboBox::optionClicked, this, options.back()));
+    add(labels.back());
     onSettings();
 }
 
@@ -79,16 +80,18 @@ sf::Vector2i ComboBox::minimumRequisition() const {
     sf::Vector2i lreq(0, 0);
     for (Label::Ptr label : labels) {
         const sf::Vector2i req = label->getRequisition();
-        lreq.x                 = std::max(req.x, lreq.x);
-        lreq.y                 = std::max(req.y, lreq.y);
+        lreq.x                 = std::max(req.x + 4, lreq.x);
+        lreq.y                 = std::max(req.y + 4, lreq.y);
     }
     return {lreq.x + lreq.y, lreq.y};
 }
 
 void ComboBox::onAcquisition() {
-    labelSize = {getAcquisition().width - getAcquisition().height, getAcquisition().height};
+    labelSize = {getAcquisition().width - getAcquisition().height + OptionPadding,
+                 getAcquisition().height + OptionPadding};
     arrow->scaleToSize({static_cast<float>(getAcquisition().height),
-                        static_cast<float>(getAcquisition().height)});
+                        static_cast<float>(getAcquisition().height)},
+                       false);
     Packer::manuallyPackElement(
         arrow, {labelSize.x, 0, getAcquisition().height, getAcquisition().height});
     if (opened)
@@ -98,8 +101,8 @@ void ComboBox::onAcquisition() {
 }
 
 bool ComboBox::handleRawEvent(const RawEvent& event) {
-    Container::handleRawEvent(event);
-    return false;
+    const bool childResult = Container::handleRawEvent(event);
+    return childResult && opened;
 }
 
 void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
@@ -118,7 +121,9 @@ void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
     }
 
     const sf::View oldView = target.getView();
-    target.setView(sf::View());
+    sf::IntRect region     = getAcquisition();
+    region.height += options.size() * labelSize.y;
+    target.setView(computeView(target, states.transform, region, false));
     renderer.renderComboBox(
         target, states, *this, labelSize, opened ? options.size() : 0, moused);
     transformStates(states);
@@ -151,7 +156,7 @@ void ComboBox::clicked() {
 }
 
 void ComboBox::packOpened() {
-    sf::Vector2i pos(0, labelSize.y);
+    sf::Vector2i pos(OptionPadding, labelSize.y + OptionPadding);
     for (Label::Ptr label : labels) {
         label->setVisible(true, false);
         Packer::manuallyPackElement(label, {pos, labelSize});
@@ -163,7 +168,8 @@ void ComboBox::packClosed() {
     const unsigned sel = selected >= 0 ? selected : options.size();
     for (unsigned int i = 0; i < labels.size(); ++i) {
         if (i == sel) {
-            Packer::manuallyPackElement(labels[i], {0, 0, labelSize.x, labelSize.y});
+            Packer::manuallyPackElement(
+                labels[i], {OptionPadding, OptionPadding, labelSize.x, labelSize.y});
             labels[i]->setVisible(true, false);
         }
         else

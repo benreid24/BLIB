@@ -46,8 +46,9 @@ public:
      *        canvas. This is the size that the Canvas will request for its acquisition
      *
      * @param size The size to render to
+     * @param markDirty True to mark the Canvas dirty after scaling
      */
-    void scaleToSize(const sf::Vector2f& size);
+    void scaleToSize(const sf::Vector2f& size, bool markDirty = true);
 
     /**
      * @brief Set whether or not the rendering should fill the assigned acquisition. This will

@@ -171,7 +171,7 @@ void Container::renderChildrenRawFiltered(
 }
 
 sf::View Container::computeView(sf::RenderTarget& target, const sf::Transform& transform,
-                                sf::IntRect area) const {
+                                sf::IntRect area, bool constrain) const {
     if (area.left == 0 && area.top == 0 && area.height == 0 && area.width == 0)
         area = getAcquisition();
 
@@ -185,8 +185,8 @@ sf::View Container::computeView(sf::RenderTarget& target, const sf::Transform& t
     // Compute region children will be drawn in and constrain
     const sf::FloatRect oldRegion(oldView.getCenter() - oldView.getSize() / 2.f,
                                   oldView.getSize());
-    const sf::FloatRect region = transform.transformRect(acq);
-    const sf::FloatRect constrained(intersection(oldRegion, region));
+    const sf::FloatRect region      = transform.transformRect(acq);
+    const sf::FloatRect constrained = constrain ? intersection(oldRegion, region) : region;
     sf::View view(constrained);
 
     // Compute viewport and constrain
@@ -194,7 +194,7 @@ sf::View Container::computeView(sf::RenderTarget& target, const sf::Transform& t
                              constrained.top / h,
                              constrained.width / w,
                              constrained.height / h);
-    view.setViewport(intersection(port, oldView.getViewport()));
+    view.setViewport(constrain ? intersection(port, oldView.getViewport()) : port);
 
     return view;
 }

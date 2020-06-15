@@ -28,10 +28,10 @@ void Canvas::resize(unsigned int w, unsigned int h, bool resetScale) {
     makeDirty();
 }
 
-void Canvas::scaleToSize(const sf::Vector2f& s) {
+void Canvas::scaleToSize(const sf::Vector2f& s, bool md) {
     size = s;
     setScale();
-    makeDirty();
+    if (md) makeDirty();
 }
 
 void Canvas::setFillAcquisition(bool fill, bool mar) {

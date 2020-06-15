@@ -149,10 +149,11 @@ protected:
      * @param target The target being rendered to
      * @param transform The transform to apply that was passed down into render()
      * @param region The region to render into. Defaults to the acquisition
+     * @param constrain True to constrain rendering to the intersection of the old view and new
      * @return sf::View A View that can be applied to the target to constrain rendering
      */
     sf::View computeView(sf::RenderTarget& target, const sf::Transform& transform,
-                         sf::IntRect region = {}) const;
+                         sf::IntRect region = {}, bool constrain = true) const;
 
     /**
      * @brief Transforms the event into container local coordinates for child elements

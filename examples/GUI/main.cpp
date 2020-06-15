@@ -82,6 +82,14 @@ int main() {
 
     gui->pack(gui::Separator::create(gui::Separator::Horizontal));
 
+    gui::ComboBox::Ptr combo = gui::ComboBox::create();
+    combo->addOption("Option 1");
+    combo->addOption("Option 2");
+    combo->addOption("Option 3");
+    combo->addOption("Option 4");
+    combo->addOption("Option 5");
+    gui->pack(combo);
+
     const float ProgressPerSecond     = 0.1;
     gui::ProgressBar::Ptr progressBar = gui::ProgressBar::create();
     progressBar->setRequisition({10, 20});
