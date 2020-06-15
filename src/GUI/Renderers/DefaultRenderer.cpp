@@ -305,6 +305,7 @@ void DefaultRenderer::renderSliderButton(sf::RenderTexture& texture, bool hor,
 
     sf::RenderTexture subtexture;
     subtexture.create(texture.getSize().x, texture.getSize().y);
+    subtexture.clear(sf::Color::Transparent);
 
     sf::RectangleShape rect({rectWidth, rectHeight});
     rect.setOrigin(rectWidth / 2, rectHeight / 2);

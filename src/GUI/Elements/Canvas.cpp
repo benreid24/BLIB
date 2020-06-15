@@ -14,12 +14,14 @@ Canvas::Canvas(unsigned int w, unsigned int h, const std::string& group, const s
 , fillAcq(false)
 , maintainAR(true) {
     texture.create(w, h);
+    texture.clear(sf::Color::Transparent);
     sprite.setTexture(texture.getTexture());
     getSignal(Action::AcquisitionChanged).willAlwaysCall(std::bind(&Canvas::setScale, this));
 }
 
 void Canvas::resize(unsigned int w, unsigned int h, bool resetScale) {
     texture.create(w, h);
+    texture.clear(sf::Color::Transparent);
     sprite.setTexture(texture.getTexture());
     if (resetScale) size.reset();
     setScale();
