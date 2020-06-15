@@ -125,6 +125,7 @@ private:
     std::vector<std::string> options;
     std::vector<Label::Ptr> labels;
     sf::Vector2i labelSize;
+    sf::IntRect labelRegion;
     std::optional<sf::Color> labelColor;
     int selected; // -1 means none
     bool opened;

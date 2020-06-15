@@ -87,8 +87,12 @@ sf::Vector2i ComboBox::minimumRequisition() const {
 }
 
 void ComboBox::onAcquisition() {
-    labelSize = {getAcquisition().width - getAcquisition().height + OptionPadding,
+    labelSize   = {getAcquisition().width - getAcquisition().height + OptionPadding,
                  getAcquisition().height + OptionPadding};
+    labelRegion = {0,
+                   getAcquisition().height,
+                   labelSize.x,
+                   labelSize.y * static_cast<int>(options.size())};
     arrow->scaleToSize({static_cast<float>(getAcquisition().height),
                         static_cast<float>(getAcquisition().height)},
                        false);
@@ -101,8 +105,10 @@ void ComboBox::onAcquisition() {
 }
 
 bool ComboBox::handleRawEvent(const RawEvent& event) {
-    const bool childResult = Container::handleRawEvent(event);
-    return childResult && opened;
+    Container::handleRawEvent(event);
+    return labelRegion.contains(
+               static_cast<sf::Vector2i>(transformEvent(event).localMousePos)) &&
+           opened;
 }
 
 void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,

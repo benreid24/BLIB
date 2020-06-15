@@ -183,13 +183,21 @@ void DefaultRenderer::renderComboBoxDropdown(sf::RenderTexture& texture) const {
     const sf::Vector2f size = static_cast<sf::Vector2f>(texture.getSize());
 
     points[0].color    = sf::Color::Black;
-    points[0].position = {size.x * 0.1f, size.y * 0.1f};
+    points[0].position = {size.x * 0.3f, size.y * 0.3f};
     points[1].color    = sf::Color::Black;
-    points[1].position = {size.x * 0.9f, size.y * 0.1f};
-    points[2].color    = sf::Color(30, 30, 30);
-    points[2].position = {size.x * 0.5f, size.y * 0.9f};
+    points[1].position = {size.x * 0.7f, size.y * 0.3f};
+    points[2].color    = sf::Color(70, 70, 70);
+    points[2].position = {size.x * 0.5f, size.y * 0.7f};
 
-    texture.clear(sf::Color(90, 90, 90));
+    sf::RectangleShape rect(
+        size - sf::Vector2f(ComboBox::OptionPadding * 2, ComboBox::OptionPadding * 2));
+    rect.setPosition(ComboBox::OptionPadding, ComboBox::OptionPadding);
+    rect.setFillColor(sf::Color(90, 90, 90));
+    rect.setOutlineColor(sf::Color(45, 45, 45));
+    rect.setOutlineThickness(-1);
+
+    texture.clear(sf::Color::Transparent);
+    texture.draw(rect);
     texture.draw(points);
     texture.display();
 }
