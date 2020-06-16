@@ -1,5 +1,5 @@
 target_sources(BLIB PRIVATE
-    Elipse.cpp
+    Ellipse.cpp
     GradientCircle.cpp
     Triangle.cpp
 )

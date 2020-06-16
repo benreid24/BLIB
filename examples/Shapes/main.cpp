@@ -13,6 +13,12 @@ int main() {
     triangle.setPosition(100, 100);
     triangle.setScale(10, 10);
 
+    bl::Ellipse ellipse(120, 60);
+    ellipse.setPosition(500, 300);
+    ellipse.setFillColor(sf::Color::Yellow);
+    ellipse.setOutlineThickness(2);
+    ellipse.setOutlineColor(sf::Color::Red);
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -23,9 +29,11 @@ int main() {
         }
 
         triangle.rotate(1);
+        ellipse.rotate(-2);
 
         window.clear(sf::Color::Cyan);
         window.draw(triangle);
+        window.draw(ellipse);
         window.display();
 
         sf::sleep(sf::milliseconds(16));

@@ -1,5 +1,5 @@
 target_sources(BLIB PUBLIC
-    Elipse.hpp
+    Ellipse.hpp
     GradientCircle.hpp
     Triangle.hpp
 )

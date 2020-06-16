@@ -7,7 +7,8 @@
  *
  */
 
+#include <BLIB/Shapes/Ellipse.hpp>
+#include <BLIB/Shapes/GradientCircle.hpp>
 #include <BLIB/Shapes/Triangle.hpp>
-// TODO - rest
 
 #endif
