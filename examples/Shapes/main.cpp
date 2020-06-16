@@ -19,6 +19,11 @@ int main() {
     ellipse.setOutlineThickness(2);
     ellipse.setOutlineColor(sf::Color::Red);
 
+    bl::GradientCircle circle(50);
+    circle.setCenterColor(sf::Color::Black);
+    circle.setOuterColor(sf::Color::Red);
+    circle.setPosition(100, 400);
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -34,6 +39,7 @@ int main() {
         window.clear(sf::Color::Cyan);
         window.draw(triangle);
         window.draw(ellipse);
+        window.draw(circle);
         window.display();
 
         sf::sleep(sf::milliseconds(16));
