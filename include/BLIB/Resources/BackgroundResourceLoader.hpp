@@ -47,7 +47,7 @@ public:
      *        until all loading is complete
      *
      */
-    void doLoad();
+    void load();
 
 private:
     std::atomic<bool> loadingActive;
@@ -91,7 +91,7 @@ void BackgroundResourceLoader<T>::addResourceToQueue(const std::string& uri, flo
 }
 
 template<typename T>
-void BackgroundResourceLoader<T>::doLoad() {
+void BackgroundResourceLoader<T>::load() {
     loadingActive = true;
     monitorThread = std::thread(&BackgroundResourceLoader<T>::monitor, this);
 
@@ -112,7 +112,7 @@ void BackgroundResourceLoader<T>::monitor() {
     const int usSleep = callbackPeriod * 1000000;
     while (loadingActive) {
         std::this_thread::sleep_for(std::chrono::microseconds(usSleep));
-        callback(completed + inProgress * currentItem);
+        callback((completed + inProgress * currentItem) / totalWork);
     }
 }
 
