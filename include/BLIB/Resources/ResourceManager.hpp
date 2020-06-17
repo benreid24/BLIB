@@ -18,29 +18,43 @@ namespace bl
  *
  * @ingroup Resources
  */
-template<typename T, class TLoader>
+template<typename TResourceType>
 class ResourceManager : private NonCopyable {
 public:
-    typedef typename Resource<T>::Ref RefType;
-
     /**
      * @brief Creates a ResourceManager for a given resource type and garbage collection period
      *
+     * @param loader ResourceLoader to use. Must remain valid for the lifetime of the manager
      * @param gcPeriod Number of seconds between round of freeing memory
      */
-    ResourceManager(unsigned int gcPeriod = 300);
+    ResourceManager(ResourceLoader<TResourceType>& loader, unsigned int gcPeriod = 300);
+
+    /**
+     * @brief Exits the garbage collection thread. Resources still held are not freed
+     *
+     */
     ~ResourceManager();
 
     /**
      * @brief Attempts to find the given resource and return it, loading it if necessary
      *
      * @param uri Some unique string that a ResourceLoader can load the resource with
+     * @return The requested resource
      */
-    typename Resource<T>::Ref load(const std::string& uri);
+    Resource<TResourceType> load(const std::string& uri);
+
+    /**
+     * @brief Returns a pointer to the resource for modification (such as forcing it to stay in
+     *        cache). Will load the resource if it is not in cache
+     *
+     * @param uri Some unique string that a ResourceLoader can load the resource with
+     * @return Pointer to the requested resource
+     */
+    Resource<TResourceType>* loadMutable(const std::string& uri);
 
 private:
-    TLoader loader;
-    std::unordered_map<std::string, typename Resource<T>::Ref> resources;
+    ResourceLoader<TResourceType>& loader;
+    std::unordered_map<std::string, Resource<TResourceType>> resources;
 
     const unsigned int gcPeriod;
     std::atomic<bool> gcActive;
@@ -52,32 +66,37 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-template<typename T, class TLoader>
-ResourceManager<T, TLoader>::ResourceManager(unsigned int gcPeriod)
-: gcPeriod(gcPeriod)
+template<typename T>
+ResourceManager<T>::ResourceManager(ResourceLoader<T>& loader, unsigned int gcPeriod)
+: loader(loader)
+, gcPeriod(gcPeriod)
 , gcActive(true)
-, gcThread(&ResourceManager<T, TLoader>::garbageCollector, this) {}
+, gcThread(&ResourceManager<T>::garbageCollector, this) {}
 
-template<typename T, class TLoader>
-ResourceManager<T, TLoader>::~ResourceManager() {
+template<typename T>
+ResourceManager<T>::~ResourceManager() {
     gcActive = false;
     gcThread.join();
 }
 
-template<typename T, class TLoader>
-typename ResourceManager<T, TLoader>::RefType ResourceManager<T, TLoader>::load(
-    const std::string& uri) {
+template<typename T>
+Resource<T> ResourceManager<T>::load(const std::string& uri) {
+    return *loadMutable(uri);
+}
+
+template<typename T>
+Resource<T>* ResourceManager<T>::loadMutable(const std::string& uri) {
     auto i = resources.find(uri);
     if (i == resources.end()) {
         mapLock.lock();
-        i = resources.insert(std::make_pair(uri, loader(uri))).first;
+        i = resources.insert(std::make_pair(uri, loader.load(uri))).first;
         mapLock.unlock();
     }
-    return i->second;
+    return &i->second;
 }
 
-template<typename T, class TLoader>
-void ResourceManager<T, TLoader>::garbageCollector() {
+template<typename T>
+void ResourceManager<T>::garbageCollector() {
     while (gcActive) {
         for (unsigned int t = 0; t < gcPeriod; ++t) {
             std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -87,17 +106,11 @@ void ResourceManager<T, TLoader>::garbageCollector() {
         mapLock.lock();
         for (auto i = resources.begin(); i != resources.end();) {
             auto j = i++;
-            if (j->second.unique()) resources.erase(j);
+            if (j->second.data.unique() && !j->second.forceInCache) resources.erase(j);
         }
         mapLock.unlock();
     }
 }
-
-/// Specialized ResourceManager for sf::Texture objects
-typedef ResourceManager<sf::Texture, TextureResourceLoader> TextureResourceManager;
-
-// Specialized ResourceManager for sf::Font objects
-typedef ResourceManager<sf::Font, FontResourceLoader> FontResourceManager;
 
 } // namespace bl
 
