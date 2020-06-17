@@ -1,4 +1,4 @@
-#include <BLIB/Resources/ResourceManager.hpp>
+#include <BLIB/Resources.hpp>
 
 #include <BLIB/Util/Random.hpp>
 #include <gtest/gtest.h>

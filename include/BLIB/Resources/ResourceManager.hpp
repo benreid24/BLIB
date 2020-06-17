@@ -36,6 +36,14 @@ public:
     ~ResourceManager();
 
     /**
+     * @brief Add an already loaded resource to the manager. Overwrites existing if present
+     *
+     * @param uri The identifier of the resource
+     * @param data The resource to add
+     */
+    void add(const std::string& uri, typename Resource<TResourceType>::Ref data);
+
+    /**
      * @brief Attempts to find the given resource and return it, loading it if necessary
      *
      * @param uri Some unique string that a ResourceLoader can load the resource with
@@ -77,6 +85,13 @@ template<typename T>
 ResourceManager<T>::~ResourceManager() {
     gcActive = false;
     gcThread.join();
+}
+
+template<typename T>
+void ResourceManager<T>::add(const std::string& uri, typename Resource<T>::Ref resource) {
+    mapLock.lock();
+    resources[uri] = Resource<T>(resource);
+    mapLock.unlock();
 }
 
 template<typename T>
