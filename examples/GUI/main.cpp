@@ -58,7 +58,8 @@ int main() {
     sf::RenderWindow window(
         sf::VideoMode(800, 600, 32), "BLIB GUI Demo", sf::Style::Close | sf::Style::Titlebar);
 
-    TextureResourceManager textureManager;
+    TextureResourceLoader textureLoader;
+    TextureResourceManager textureManager(textureLoader);
 
     WindowEventDispatcher dispatcher;
     GUI::Ptr gui = GUI::create(
@@ -70,7 +71,7 @@ int main() {
     dispatcher.subscribe(gui.get());
     gui->setRenderer(renderer);
 
-    gui::Image::Ptr image = gui::Image::create(textureManager.load("image.png"));
+    gui::Image::Ptr image = gui::Image::create(textureManager.load("image.png").data);
     image->setFillAcquisition(true, true);
     gui->pack(image, true, true);
 
