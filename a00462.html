@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::json::Schema Class Reference</title>
+<title>BLIB: bl::json::schema::Numeric Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,265 +63,158 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00386.html">bl</a></li><li class="navelem"><a class="el" href="a00387.html">json</a></li><li class="navelem"><a class="el" href="a00462.html">Schema</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00398.html">bl</a></li><li class="navelem"><a class="el" href="a00399.html">json</a></li><li class="navelem"><a class="el" href="a00400.html">schema</a></li><li class="navelem"><a class="el" href="a00462.html">Numeric</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00459.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::json::Schema Class Reference<div class="ingroups"><a class="el" href="a00377.html">JSON</a></div></div>  </div>
+<div class="title">bl::json::schema::Numeric Struct Reference<div class="ingroups"><a class="el" href="a00389.html">JSON</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a nestable schema for <a class="el" href="a00438.html" title="Top level interface for loading and saving json data. ">JSON</a> objects. Equivilent to <a class="el" href="a00430.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> <a class="el" href="a00462.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> can be used to define a data format for json, allowing for fields to be expected and constraining their types and values. Creating a <a class="el" href="a00462.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> for loading data can elimate the need for verbose error checking/handling in the code that reads the json data.  
+<p>Represents a constrained numeric value for a <a class="el" href="a00446.html" title="Represents any value type in JSON. ">json::Value</a>. Can optionally supply a minimum and/or maximum value.  
  <a href="a00462.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="a00014_source.html">Schema.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a436ff37ef13e80febe5ed41802899a44"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00462.html#a436ff37ef13e80febe5ed41802899a44">Schema</a> ()</td></tr>
-<tr class="memdesc:a436ff37ef13e80febe5ed41802899a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an empty <a class="el" href="a00430.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a>.  <a href="#a436ff37ef13e80febe5ed41802899a44">More...</a><br /></td></tr>
-<tr class="separator:a436ff37ef13e80febe5ed41802899a44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4a5892e646935f4fd95f0a1a791ac94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00462.html#ab4a5892e646935f4fd95f0a1a791ac94">overrideStrictValidation</a> (bool strict)</td></tr>
-<tr class="memdesc:ab4a5892e646935f4fd95f0a1a791ac94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows this group to override the strict validation setting. This setting is useful for when you want strict validation on data but want to exclude a nested group from strict validation.  <a href="#ab4a5892e646935f4fd95f0a1a791ac94">More...</a><br /></td></tr>
-<tr class="separator:ab4a5892e646935f4fd95f0a1a791ac94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71321cbc449fb03b169f0461a02c783c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00462.html#a71321cbc449fb03b169f0461a02c783c">addRequiredField</a> (const std::string name, const <a class="el" href="a00442.html">schema::Value</a> &amp;value)</td></tr>
-<tr class="memdesc:a71321cbc449fb03b169f0461a02c783c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a required field to the data expectation. Validation fails if the field is not present.  <a href="#a71321cbc449fb03b169f0461a02c783c">More...</a><br /></td></tr>
-<tr class="separator:a71321cbc449fb03b169f0461a02c783c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4381fbf9fa9a3b079a83be5ee36d1c6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00462.html#a4381fbf9fa9a3b079a83be5ee36d1c6c">addOptionalField</a> (const std::string name, const <a class="el" href="a00442.html">schema::Value</a> &amp;value)</td></tr>
-<tr class="memdesc:a4381fbf9fa9a3b079a83be5ee36d1c6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an optional field that may be present, but does not fail validation if missing. Type check still required.  <a href="#a4381fbf9fa9a3b079a83be5ee36d1c6c">More...</a><br /></td></tr>
-<tr class="separator:a4381fbf9fa9a3b079a83be5ee36d1c6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93764ff1d263a3ba8a57b371b979b06b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00462.html#a93764ff1d263a3ba8a57b371b979b06b">addChoiceField</a> (const std::string name, const <a class="el" href="a00442.html">schema::Value</a> &amp;value)</td></tr>
-<tr class="memdesc:a93764ff1d263a3ba8a57b371b979b06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an option for an enum type <a class="el" href="a00430.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a>. Allows a group to expect exactly one field from a list of possible fields.  <a href="#a93764ff1d263a3ba8a57b371b979b06b">More...</a><br /></td></tr>
-<tr class="separator:a93764ff1d263a3ba8a57b371b979b06b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90b405ec977beddca35025f07f560df3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00462.html#a90b405ec977beddca35025f07f560df3">validate</a> (const <a class="el" href="a00430.html">Group</a> &amp;root, bool strict) const</td></tr>
-<tr class="memdesc:a90b405ec977beddca35025f07f560df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the given <a class="el" href="a00430.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> against the set expectations.  <a href="#a90b405ec977beddca35025f07f560df3">More...</a><br /></td></tr>
-<tr class="separator:a90b405ec977beddca35025f07f560df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a856268fd825b4c828329442eb398be8d"><td class="memItemLeft" align="right" valign="top">std::optional&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00462.html#a856268fd825b4c828329442eb398be8d">min</a></td></tr>
+<tr class="separator:a856268fd825b4c828329442eb398be8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae14e6d9b6e55e8d0122e7346a9f9512e"><td class="memItemLeft" align="right" valign="top">std::optional&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00462.html#ae14e6d9b6e55e8d0122e7346a9f9512e">max</a></td></tr>
+<tr class="separator:ae14e6d9b6e55e8d0122e7346a9f9512e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a83c41e7621190f22723d873453787bb1"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="a00462.html">Numeric</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00462.html#a83c41e7621190f22723d873453787bb1">Any</a> = {{}, {}}</td></tr>
+<tr class="separator:a83c41e7621190f22723d873453787bb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94f7a70f9353dc66b5df5e9f4fe42186"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="a00462.html">Numeric</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00462.html#a94f7a70f9353dc66b5df5e9f4fe42186">Positive</a> = {0, {}}</td></tr>
+<tr class="separator:a94f7a70f9353dc66b5df5e9f4fe42186"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd446e85ad7a3f260337cc4168b2e5b9"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="a00462.html">Numeric</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00462.html#acd446e85ad7a3f260337cc4168b2e5b9">Negative</a> = {{}, 0}</td></tr>
+<tr class="separator:acd446e85ad7a3f260337cc4168b2e5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a nestable schema for <a class="el" href="a00438.html" title="Top level interface for loading and saving json data. ">JSON</a> objects. Equivilent to <a class="el" href="a00430.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> <a class="el" href="a00462.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> can be used to define a data format for json, allowing for fields to be expected and constraining their types and values. Creating a <a class="el" href="a00462.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> for loading data can elimate the need for verbose error checking/handling in the code that reads the json data. </p>
+<div class="textblock"><p>Represents a constrained numeric value for a <a class="el" href="a00446.html" title="Represents any value type in JSON. ">json::Value</a>. Can optionally supply a minimum and/or maximum value. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00183">183</a> of file <a class="el" href="a00014_source.html">Schema.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a436ff37ef13e80febe5ed41802899a44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a436ff37ef13e80febe5ed41802899a44">&#9670;&nbsp;</a></span>Schema()</h2>
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00107">107</a> of file <a class="el" href="a00014_source.html">Schema.hpp</a>.</p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a83c41e7621190f22723d873453787bb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83c41e7621190f22723d873453787bb1">&#9670;&nbsp;</a></span>Any</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a00462.html">Numeric</a> bl::json::schema::Numeric::Any = {{}, {}}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00111">111</a> of file <a class="el" href="a00014_source.html">Schema.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae14e6d9b6e55e8d0122e7346a9f9512e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae14e6d9b6e55e8d0122e7346a9f9512e">&#9670;&nbsp;</a></span>max</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::json::Schema::Schema </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">std::optional&lt;float&gt; bl::json::schema::Numeric::max</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Represents an empty <a class="el" href="a00430.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a>. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00218_source.html#l00140">140</a> of file <a class="el" href="a00218_source.html">Schema.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00109">109</a> of file <a class="el" href="a00014_source.html">Schema.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a93764ff1d263a3ba8a57b371b979b06b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93764ff1d263a3ba8a57b371b979b06b">&#9670;&nbsp;</a></span>addChoiceField()</h2>
+<a id="a856268fd825b4c828329442eb398be8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a856268fd825b4c828329442eb398be8d">&#9670;&nbsp;</a></span>min</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::json::Schema::addChoiceField </td>
-          <td>(</td>
-          <td class="paramtype">const std::string&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00442.html">schema::Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">std::optional&lt;float&gt; bl::json::schema::Numeric::min</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Adds an option for an enum type <a class="el" href="a00430.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a>. Allows a group to expect exactly one field from a list of possible fields. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of one of the possible fields </td></tr>
-    <tr><td class="paramname">value</td><td>The <a class="el" href="a00434.html" title="Represents any value type in JSON. ">Value</a> to validate the field of that name </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00218_source.html#l00158">158</a> of file <a class="el" href="a00218_source.html">Schema.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00108">108</a> of file <a class="el" href="a00014_source.html">Schema.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4381fbf9fa9a3b079a83be5ee36d1c6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4381fbf9fa9a3b079a83be5ee36d1c6c">&#9670;&nbsp;</a></span>addOptionalField()</h2>
+<a id="acd446e85ad7a3f260337cc4168b2e5b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd446e85ad7a3f260337cc4168b2e5b9">&#9670;&nbsp;</a></span>Negative</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::json::Schema::addOptionalField </td>
-          <td>(</td>
-          <td class="paramtype">const std::string&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00442.html">schema::Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">const <a class="el" href="a00462.html">Numeric</a> bl::json::schema::Numeric::Negative = {{}, 0}</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Adds an optional field that may be present, but does not fail validation if missing. Type check still required. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the field that may be present </td></tr>
-    <tr><td class="paramname">value</td><td>The <a class="el" href="a00434.html" title="Represents any value type in JSON. ">Value</a> to validate the field with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00218_source.html#l00154">154</a> of file <a class="el" href="a00218_source.html">Schema.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00113">113</a> of file <a class="el" href="a00014_source.html">Schema.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a71321cbc449fb03b169f0461a02c783c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71321cbc449fb03b169f0461a02c783c">&#9670;&nbsp;</a></span>addRequiredField()</h2>
+<a id="a94f7a70f9353dc66b5df5e9f4fe42186"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94f7a70f9353dc66b5df5e9f4fe42186">&#9670;&nbsp;</a></span>Positive</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::json::Schema::addRequiredField </td>
-          <td>(</td>
-          <td class="paramtype">const std::string&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00442.html">schema::Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">const <a class="el" href="a00462.html">Numeric</a> bl::json::schema::Numeric::Positive = {0, {}}</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Adds a required field to the data expectation. Validation fails if the field is not present. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the field to expect </td></tr>
-    <tr><td class="paramname">value</td><td>The <a class="el" href="a00434.html" title="Represents any value type in JSON. ">Value</a> to validate the field with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00218_source.html#l00150">150</a> of file <a class="el" href="a00218_source.html">Schema.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00112">112</a> of file <a class="el" href="a00014_source.html">Schema.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ab4a5892e646935f4fd95f0a1a791ac94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4a5892e646935f4fd95f0a1a791ac94">&#9670;&nbsp;</a></span>overrideStrictValidation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::json::Schema::overrideStrictValidation </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>strict</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Allows this group to override the strict validation setting. This setting is useful for when you want strict validation on data but want to exclude a nested group from strict validation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">strict</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00218_source.html#l00145">145</a> of file <a class="el" href="a00218_source.html">Schema.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a90b405ec977beddca35025f07f560df3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90b405ec977beddca35025f07f560df3">&#9670;&nbsp;</a></span>validate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::json::Schema::validate </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00430.html">Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>root</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>strict</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Validates the given <a class="el" href="a00430.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> against the set expectations. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">root</td><td>The <a class="el" href="a00430.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to validate </td></tr>
-    <tr><td class="paramname">strict</td><td>Strict checking will fail if fields are present that were not expected </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the <a class="el" href="a00430.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a> meets the set data expectations, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00218_source.html#l00162">162</a> of file <a class="el" href="a00218_source.html">Schema.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this struct was generated from the following files:<ul>
 <li>include/BLIB/Files/<a class="el" href="a00014_source.html">Schema.hpp</a></li>
-<li>src/Files/<a class="el" href="a00218_source.html">Schema.cpp</a></li>
+<li>src/Files/<a class="el" href="a00230_source.html">Schema.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2020 02:51:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 17 2020 04:43:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

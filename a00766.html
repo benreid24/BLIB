@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gui::Font Struct Reference</title>
+<title>BLIB: bl::NonCopyable Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,36 +63,56 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00386.html">bl</a></li><li class="navelem"><a class="el" href="a00389.html">gui</a></li><li class="navelem"><a class="el" href="a00766.html">Font</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00398.html">bl</a></li><li class="navelem"><a class="el" href="a00766.html">NonCopyable</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a00763.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gui::Font Struct Reference<div class="ingroups"><a class="el" href="a00379.html">GUI</a></div></div>  </div>
+<div class="title">bl::NonCopyable Class Reference<div class="ingroups"><a class="el" href="a00397.html">Util</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Data struct that provides access to the built in font. The font may be left out of the build by defining BLIB_NO_FONT.  
+<p>Helper class to make derived classes impossible for user to copy directly.  
  <a href="a00766.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00227_source.html">Font.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00203_source.html">NonCopyable.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::NonCopyable:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00766.png" usemap="#bl::NonCopyable_map" alt=""/>
+  <map id="bl::NonCopyable_map" name="bl::NonCopyable_map">
+<area href="a00426.html" title="Utility class to read and write binary data. Endianness agnostic Floating point types are not support..." alt="bl::BinaryFile" shape="rect" coords="256,56,502,80"/>
+<area href="a00514.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. " alt="bl::gui::Element" shape="rect" coords="256,112,502,136"/>
+<area href="a00578.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container. Custom packers may be implemented from this interface. Care must be taken to avoid packing elements that are marked not packable. " alt="bl::gui::Packer" shape="rect" coords="256,168,502,192"/>
+<area href="a00594.html" title="Interface for renderers for GUIs. Derived classes may elect to inherit from DefaultRenderer and only ..." alt="bl::gui::Renderer" shape="rect" coords="256,224,502,248"/>
+<area href="a00606.html" title="Utility class to represent a signal on a gui Element. Each Element has a Signal for each Element::Act..." alt="bl::gui::Signal" shape="rect" coords="256,280,502,304"/>
+<area href="a00770.html" title="Random number generator for integral and floating point numbers. " alt="bl::Random" shape="rect" coords="256,336,502,360"/>
+<area href="a00698.html" title="Single template based resource management class. Meant for storing. " alt="bl::ResourceManager&lt; TResourceType &gt;" shape="rect" coords="256,392,502,416"/>
+<area href="a00730.html" title="Utility class that can manage sets of concurrently running scripts. " alt="bl::ScriptManager" shape="rect" coords="256,448,502,472"/>
+<area href="a00774.html" title="Global class for tracking time. Implemented over the top of sf::Clock to allow for pausing..." alt="bl::Timer" shape="rect" coords="256,504,502,528"/>
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a71d05b3b9cf69ee5528fda2b7c277b1b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00670.html">Resource</a>&lt; sf::Font &gt;::Ref&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00766.html#a71d05b3b9cf69ee5528fda2b7c277b1b">get</a> ()</td></tr>
-<tr class="memdesc:a71d05b3b9cf69ee5528fda2b7c277b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a loaded sf::Font resource from the built in font.  <a href="#a71d05b3b9cf69ee5528fda2b7c277b1b">More...</a><br /></td></tr>
-<tr class="separator:a71d05b3b9cf69ee5528fda2b7c277b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ae237ed816fc07a089e64552b55e9bc74"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00766.html#ae237ed816fc07a089e64552b55e9bc74">NonCopyable</a> ()=default</td></tr>
+<tr class="separator:ae237ed816fc07a089e64552b55e9bc74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a023ca02b9fb446d5b5cf9ac4f7007d26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00766.html#a023ca02b9fb446d5b5cf9ac4f7007d26">~NonCopyable</a> ()=default</td></tr>
+<tr class="separator:a023ca02b9fb446d5b5cf9ac4f7007d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Data struct that provides access to the built in font. The font may be left out of the build by defining BLIB_NO_FONT. </p>
+<div class="textblock"><p>Helper class to make derived classes impossible for user to copy directly. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00017">17</a> of file <a class="el" href="a00227_source.html">Font.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a71d05b3b9cf69ee5528fda2b7c277b1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71d05b3b9cf69ee5528fda2b7c277b1b">&#9670;&nbsp;</a></span>get()</h2>
+<p class="definition">Definition at line <a class="el" href="a00203_source.html#l00011">11</a> of file <a class="el" href="a00203_source.html">NonCopyable.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae237ed816fc07a089e64552b55e9bc74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae237ed816fc07a089e64552b55e9bc74">&#9670;&nbsp;</a></span>NonCopyable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -101,7 +121,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00670.html">Resource</a>&lt; sf::Font &gt;::Ref bl::gui::Font::get </td>
+          <td class="memname">bl::NonCopyable::NonCopyable </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -109,26 +129,46 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a loaded sf::Font resource from the built in font. </p>
+</div>
+</div>
+<a id="a023ca02b9fb446d5b5cf9ac4f7007d26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a023ca02b9fb446d5b5cf9ac4f7007d26">&#9670;&nbsp;</a></span>~NonCopyable()</h2>
 
-<p class="definition">Definition at line <a class="el" href="a00224_source.html#l04356">4356</a> of file <a class="el" href="a00224_source.html">Font.cpp</a>.</p>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::NonCopyable::~NonCopyable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>src/GUI/Data/<a class="el" href="a00227_source.html">Font.hpp</a></li>
-<li>src/GUI/Data/<a class="el" href="a00224_source.html">Font.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Util/<a class="el" href="a00203_source.html">NonCopyable.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2020 02:51:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 17 2020 04:43:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

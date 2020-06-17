@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::scripts::ScriptImpl Struct Reference</title>
+<title>BLIB: bl::Vector2D&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,75 +63,102 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00386.html">bl</a></li><li class="navelem"><a class="el" href="a00393.html">scripts</a></li><li class="navelem"><a class="el" href="a00778.html">ScriptImpl</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00398.html">bl</a></li><li class="navelem"><a class="el" href="a00778.html">Vector2D</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00775.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::scripts::ScriptImpl Struct Reference</div>  </div>
+<div class="title">bl::Vector2D&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00397.html">Util</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of testable utility methods for executing components of scripts.  
+<p>Utility class that wraps std::vector, making it indexable in two dimensions.  
  <a href="a00778.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00347_source.html">ScriptImpl.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00212_source.html">Vector2d.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aac8a457e6f304a605ec661e58589c567"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00718.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#aac8a457e6f304a605ec661e58589c567">computeValue</a> (<a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> value, <a class="el" href="a00714.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:aac8a457e6f304a605ec661e58589c567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a <a class="el" href="a00718.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> Node and computes the actual <a class="el" href="a00718.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a>.  <a href="#aac8a457e6f304a605ec661e58589c567">More...</a><br /></td></tr>
-<tr class="separator:aac8a457e6f304a605ec661e58589c567"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8aef835481336f20a4bf90684222d1da"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00718.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#a8aef835481336f20a4bf90684222d1da">runFunction</a> (<a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> call, <a class="el" href="a00714.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:a8aef835481336f20a4bf90684222d1da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a function call. Evaluates arguments, updates <a class="el" href="a00714.html" title="Stack aware symbol table for managing functions and variables Each Script holds a single instance...">SymbolTable</a>, and runs statements.  <a href="#a8aef835481336f20a4bf90684222d1da">More...</a><br /></td></tr>
-<tr class="separator:a8aef835481336f20a4bf90684222d1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3406ecf1198ef7c8ed1c4b164f879862"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a00718.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#a3406ecf1198ef7c8ed1c4b164f879862">runStatementList</a> (<a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> statement, <a class="el" href="a00714.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:a3406ecf1198ef7c8ed1c4b164f879862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a list of statements. Can take Statement, StmtList, or StmtBlock.  <a href="#a3406ecf1198ef7c8ed1c4b164f879862">More...</a><br /></td></tr>
-<tr class="separator:a3406ecf1198ef7c8ed1c4b164f879862"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c32e4250b72bfdfba5ad6e1671760ec"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a00718.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#a2c32e4250b72bfdfba5ad6e1671760ec">runStatement</a> (<a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> statement, <a class="el" href="a00714.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:a2c32e4250b72bfdfba5ad6e1671760ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a statement.  <a href="#a2c32e4250b72bfdfba5ad6e1671760ec">More...</a><br /></td></tr>
-<tr class="separator:a2c32e4250b72bfdfba5ad6e1671760ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc0494b93b7582d97b56b7cc8245af3a"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a00718.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#adc0494b93b7582d97b56b7cc8245af3a">runConditional</a> (<a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> conditional, <a class="el" href="a00714.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:adc0494b93b7582d97b56b7cc8245af3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a Conditional.  <a href="#adc0494b93b7582d97b56b7cc8245af3a">More...</a><br /></td></tr>
-<tr class="separator:adc0494b93b7582d97b56b7cc8245af3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0916b56916665174e585c9327c905bd"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a00718.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#ae0916b56916665174e585c9327c905bd">runLoop</a> (<a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> loop, <a class="el" href="a00714.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:ae0916b56916665174e585c9327c905bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a Loop.  <a href="#ae0916b56916665174e585c9327c905bd">More...</a><br /></td></tr>
-<tr class="separator:ae0916b56916665174e585c9327c905bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64c3ff423f943c051069bad43c02eac9"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a00718.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#a64c3ff423f943c051069bad43c02eac9">runForLoop</a> (<a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> loop, <a class="el" href="a00714.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:a64c3ff423f943c051069bad43c02eac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a ForLoop.  <a href="#a64c3ff423f943c051069bad43c02eac9">More...</a><br /></td></tr>
-<tr class="separator:a64c3ff423f943c051069bad43c02eac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8f745531e12ae297844527483765e4f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#ad8f745531e12ae297844527483765e4f">evaluateCond</a> (<a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> pgroup, <a class="el" href="a00714.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:ad8f745531e12ae297844527483765e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a PGroup to true or false.  <a href="#ad8f745531e12ae297844527483765e4f">More...</a><br /></td></tr>
-<tr class="separator:ad8f745531e12ae297844527483765e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a2c7af9ed2373aeedeb799f3371630d11"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#a2c7af9ed2373aeedeb799f3371630d11">Vector2D</a> ()=default</td></tr>
+<tr class="separator:a2c7af9ed2373aeedeb799f3371630d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a620a212f565691d1194547d338de0dcf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#a620a212f565691d1194547d338de0dcf">Vector2D</a> (int w, int h)</td></tr>
+<tr class="separator:a620a212f565691d1194547d338de0dcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49ca73c13bf2a0fb41b6f1a0328cd5f2"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#a49ca73c13bf2a0fb41b6f1a0328cd5f2">operator()</a> (int x, int y)</td></tr>
+<tr class="memdesc:a49ca73c13bf2a0fb41b6f1a0328cd5f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the element at the given position.  <a href="#a49ca73c13bf2a0fb41b6f1a0328cd5f2">More...</a><br /></td></tr>
+<tr class="separator:a49ca73c13bf2a0fb41b6f1a0328cd5f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a747ee1db6926b6ef6d74d18a36979e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#a0a747ee1db6926b6ef6d74d18a36979e">setSize</a> (int x, int y, const T &amp;val={})</td></tr>
+<tr class="memdesc:a0a747ee1db6926b6ef6d74d18a36979e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes the vector to the given size.  <a href="#a0a747ee1db6926b6ef6d74d18a36979e">More...</a><br /></td></tr>
+<tr class="separator:a0a747ee1db6926b6ef6d74d18a36979e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75fc40ca26c0161f69d70a3fd5d7b3e9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#a75fc40ca26c0161f69d70a3fd5d7b3e9">getWidth</a> () const</td></tr>
+<tr class="memdesc:a75fc40ca26c0161f69d70a3fd5d7b3e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the width of the vector.  <a href="#a75fc40ca26c0161f69d70a3fd5d7b3e9">More...</a><br /></td></tr>
+<tr class="separator:a75fc40ca26c0161f69d70a3fd5d7b3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bcb726d8653fce373acf557557a784c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#a6bcb726d8653fce373acf557557a784c">getHeight</a> () const</td></tr>
+<tr class="memdesc:a6bcb726d8653fce373acf557557a784c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the height of the vector.  <a href="#a6bcb726d8653fce373acf557557a784c">More...</a><br /></td></tr>
+<tr class="separator:a6bcb726d8653fce373acf557557a784c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af105d14b68244db31713fed9176bc264"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00778.html#af105d14b68244db31713fed9176bc264">clear</a> ()</td></tr>
+<tr class="memdesc:af105d14b68244db31713fed9176bc264"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all memory used by the vector, erasing all elements.  <a href="#af105d14b68244db31713fed9176bc264">More...</a><br /></td></tr>
+<tr class="separator:af105d14b68244db31713fed9176bc264"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of testable utility methods for executing components of scripts. </p>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::Vector2D&lt; T &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00347_source.html#l00015">15</a> of file <a class="el" href="a00347_source.html">ScriptImpl.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aac8a457e6f304a605ec661e58589c567"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac8a457e6f304a605ec661e58589c567">&#9670;&nbsp;</a></span>computeValue()</h2>
+<p>Utility class that wraps std::vector, making it indexable in two dimensions. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00212_source.html#l00014">14</a> of file <a class="el" href="a00212_source.html">Vector2d.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2c7af9ed2373aeedeb799f3371630d11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c7af9ed2373aeedeb799f3371630d11">&#9670;&nbsp;</a></span>Vector2D() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00718.html">Value</a> bl::scripts::ScriptImpl::computeValue </td>
+          <td class="memname"><a class="el" href="a00778.html">bl::Vector2D</a>&lt; T &gt;::<a class="el" href="a00778.html">Vector2D</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a620a212f565691d1194547d338de0dcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a620a212f565691d1194547d338de0dcf">&#9670;&nbsp;</a></span>Vector2D() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00778.html">bl::Vector2D</a>&lt; T &gt;::<a class="el" href="a00778.html">Vector2D</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00714.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -141,38 +168,131 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Takes a <a class="el" href="a00718.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> Node and computes the actual <a class="el" href="a00718.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00718.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> The resulting <a class="el" href="a00718.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00344_source.html#l00049">49</a> of file <a class="el" href="a00344_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00212_source.html#l00017">17</a> of file <a class="el" href="a00212_source.html">Vector2d.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad8f745531e12ae297844527483765e4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8f745531e12ae297844527483765e4f">&#9670;&nbsp;</a></span>evaluateCond()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af105d14b68244db31713fed9176bc264"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af105d14b68244db31713fed9176bc264">&#9670;&nbsp;</a></span>clear()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::scripts::ScriptImpl::evaluateCond </td>
+          <td class="memname">void <a class="el" href="a00778.html">bl::Vector2D</a>&lt; T &gt;::clear </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>pgroup</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clears all memory used by the vector, erasing all elements. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00212_source.html#l00053">53</a> of file <a class="el" href="a00212_source.html">Vector2d.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6bcb726d8653fce373acf557557a784c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bcb726d8653fce373acf557557a784c">&#9670;&nbsp;</a></span>getHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="a00778.html">bl::Vector2D</a>&lt; T &gt;::getHeight </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the height of the vector. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00212_source.html#l00048">48</a> of file <a class="el" href="a00212_source.html">Vector2d.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a75fc40ca26c0161f69d70a3fd5d7b3e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75fc40ca26c0161f69d70a3fd5d7b3e9">&#9670;&nbsp;</a></span>getWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="a00778.html">bl::Vector2D</a>&lt; T &gt;::getWidth </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the width of the vector. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00212_source.html#l00043">43</a> of file <a class="el" href="a00212_source.html">Vector2d.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a49ca73c13bf2a0fb41b6f1a0328cd5f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49ca73c13bf2a0fb41b6f1a0328cd5f2">&#9670;&nbsp;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T&amp; <a class="el" href="a00778.html">bl::Vector2D</a>&lt; T &gt;::operator() </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00714.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -182,37 +302,53 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Evaluates a PGroup to true or false. </p>
+<p>Returns a reference to the element at the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The x coordinate of the element to access </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate of the element to access </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the element at the given indices </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00344_source.html#l00273">273</a> of file <a class="el" href="a00344_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00212_source.html#l00026">26</a> of file <a class="el" href="a00212_source.html">Vector2d.hpp</a>.</p>
 
 </div>
 </div>
-<a id="adc0494b93b7582d97b56b7cc8245af3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc0494b93b7582d97b56b7cc8245af3a">&#9670;&nbsp;</a></span>runConditional()</h2>
+<a id="a0a747ee1db6926b6ef6d74d18a36979e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a747ee1db6926b6ef6d74d18a36979e">&#9670;&nbsp;</a></span>setSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a00718.html">Value</a> &gt; bl::scripts::ScriptImpl::runConditional </td>
+          <td class="memname">void <a class="el" href="a00778.html">bl::Vector2D</a>&lt; T &gt;::setSize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>conditional</em>, </td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00714.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -222,232 +358,32 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Runs a Conditional. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; <a class="el" href="a00718.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> of any executed Return, null if no return </dd></dl>
+<p>Resizes the vector to the given size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The new width </td></tr>
+    <tr><td class="paramname">y</td><td>The new height </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00344_source.html#l00244">244</a> of file <a class="el" href="a00344_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a64c3ff423f943c051069bad43c02eac9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64c3ff423f943c051069bad43c02eac9">&#9670;&nbsp;</a></span>runForLoop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a00718.html">Value</a> &gt; bl::scripts::ScriptImpl::runForLoop </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>loop</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00714.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Runs a ForLoop. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; <a class="el" href="a00718.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> of any executed Return, null if no return </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00344_source.html#l00217">217</a> of file <a class="el" href="a00344_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00212_source.html#l00034">34</a> of file <a class="el" href="a00212_source.html">Vector2d.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a8aef835481336f20a4bf90684222d1da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8aef835481336f20a4bf90684222d1da">&#9670;&nbsp;</a></span>runFunction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00718.html">Value</a> bl::scripts::ScriptImpl::runFunction </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>call</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00714.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Performs a function call. Evaluates arguments, updates <a class="el" href="a00714.html" title="Stack aware symbol table for managing functions and variables Each Script holds a single instance...">SymbolTable</a>, and runs statements. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00718.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> Result of the function called </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00344_source.html#l00063">63</a> of file <a class="el" href="a00344_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae0916b56916665174e585c9327c905bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0916b56916665174e585c9327c905bd">&#9670;&nbsp;</a></span>runLoop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a00718.html">Value</a> &gt; bl::scripts::ScriptImpl::runLoop </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>loop</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00714.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Runs a Loop. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; <a class="el" href="a00718.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> of any executed Return, null if no return </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00344_source.html#l00198">198</a> of file <a class="el" href="a00344_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2c32e4250b72bfdfba5ad6e1671760ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c32e4250b72bfdfba5ad6e1671760ec">&#9670;&nbsp;</a></span>runStatement()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a00718.html">Value</a> &gt; bl::scripts::ScriptImpl::runStatement </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>statement</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00714.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Executes a statement. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; Result of a return if present, or null if no return </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00344_source.html#l00084">84</a> of file <a class="el" href="a00344_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3406ecf1198ef7c8ed1c4b164f879862"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3406ecf1198ef7c8ed1c4b164f879862">&#9670;&nbsp;</a></span>runStatementList()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a00718.html">Value</a> &gt; bl::scripts::ScriptImpl::runStatementList </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>statement</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00714.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Executes a list of statements. Can take Statement, StmtList, or StmtBlock. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; Result of a return if present, or null if no return </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00344_source.html#l00152">152</a> of file <a class="el" href="a00344_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>src/Scripts/<a class="el" href="a00347_source.html">ScriptImpl.hpp</a></li>
-<li>src/Scripts/<a class="el" href="a00344_source.html">ScriptImpl.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Util/<a class="el" href="a00212_source.html">Vector2d.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2020 02:51:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 17 2020 04:43:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

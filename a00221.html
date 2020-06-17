@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/GUI/Action.cpp File Reference</title>
+<title>BLIB: src/Files/JSON.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,33 +63,48 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4e4e2e75df7fa6971448b424c011c8b5.html">GUI</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_d9d945326b48e34f691cb10a881118b0.html">Files</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Action.cpp File Reference</div>  </div>
+<div class="title">JSON.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00020_source.html">BLIB/GUI/Action.hpp</a>&gt;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00011_source.html">BLIB/Files/JSON.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00227_source.html">Files/JSONLoader.hpp</a>&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
 </div>
 <p><a href="a00221_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00386"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00386.html">bl</a></td></tr>
+<tr class="memitem:a00398"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00398.html">bl</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00389"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00389.html">bl::gui</a></td></tr>
+<tr class="memitem:a00399"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00399.html">bl::json</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a9a9aadc3e79c1c1cda60999133547031"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00399.html#a9a9aadc3e79c1c1cda60999133547031">bl::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const SourceInfo &amp;info)</td></tr>
+<tr class="separator:a9a9aadc3e79c1c1cda60999133547031"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae872d24a637910627213290f3427d726"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00399.html#ae872d24a637910627213290f3427d726">bl::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const Value::Type &amp;type)</td></tr>
+<tr class="separator:ae872d24a637910627213290f3427d726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b618867946b4c8afc422de997cf48c5"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00399.html#a4b618867946b4c8afc422de997cf48c5">bl::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const Value &amp;type)</td></tr>
+<tr class="separator:a4b618867946b4c8afc422de997cf48c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0b6f96e957e4bae07ededb3e2a63a1a"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00399.html#ad0b6f96e957e4bae07ededb3e2a63a1a">bl::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const Group &amp;type)</td></tr>
+<tr class="separator:ad0b6f96e957e4bae07ededb3e2a63a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20b326492a97195f9760bcc65eec1378"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00399.html#a20b326492a97195f9760bcc65eec1378">bl::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const List &amp;list)</td></tr>
+<tr class="separator:a20b326492a97195f9760bcc65eec1378"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2020 02:51:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 17 2020 04:43:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

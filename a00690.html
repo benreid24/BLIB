@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::scripts::Error Class Reference</title>
+<title>BLIB: bl::Resource&lt; TResourceType &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,211 +63,156 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00386.html">bl</a></li><li class="navelem"><a class="el" href="a00393.html">scripts</a></li><li class="navelem"><a class="el" href="a00690.html">Error</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00398.html">bl</a></li><li class="navelem"><a class="el" href="a00690.html">Resource</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a00687.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::scripts::Error Class Reference<div class="ingroups"><a class="el" href="a00383.html">Scripts</a></div></div>  </div>
+<div class="title">bl::Resource&lt; TResourceType &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a00394.html">Resources</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a00702.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> utility class to represent an error. Can be used to build a call stack for script errors.  
+<p>Base level struct representing a resource that can be loaded and managed by the resource system.  
  <a href="a00690.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00149_source.html">Error.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00146_source.html">Resource.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ac9d3d3d8b9f303419859770272ba91ee"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; TResourceType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00690.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a></td></tr>
+<tr class="separator:ac9d3d3d8b9f303419859770272ba91ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a09e6eeebe43b9cbbac8762bb3106ce17"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00690.html#a09e6eeebe43b9cbbac8762bb3106ce17">Error</a> (const std::string &amp;error)</td></tr>
-<tr class="memdesc:a09e6eeebe43b9cbbac8762bb3106ce17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a root <a class="el" href="a00690.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> with an empty call stack.  <a href="#a09e6eeebe43b9cbbac8762bb3106ce17">More...</a><br /></td></tr>
-<tr class="separator:a09e6eeebe43b9cbbac8762bb3106ce17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2f32593f82007c5ee4cd26bd884f771"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00690.html#aa2f32593f82007c5ee4cd26bd884f771">Error</a> (const std::string &amp;error, <a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> location)</td></tr>
-<tr class="memdesc:aa2f32593f82007c5ee4cd26bd884f771"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a00690.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> object with the given message and source location.  <a href="#aa2f32593f82007c5ee4cd26bd884f771">More...</a><br /></td></tr>
-<tr class="separator:aa2f32593f82007c5ee4cd26bd884f771"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5565dc5b2836dc80215e8495d6c8850f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00690.html#a5565dc5b2836dc80215e8495d6c8850f">Error</a> (const std::string &amp;error, <a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> location, const <a class="el" href="a00690.html">Error</a> &amp;stack)</td></tr>
-<tr class="memdesc:a5565dc5b2836dc80215e8495d6c8850f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a00690.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> object from a message, current location, and existing <a class="el" href="a00690.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> stack.  <a href="#a5565dc5b2836dc80215e8495d6c8850f">More...</a><br /></td></tr>
-<tr class="separator:a5565dc5b2836dc80215e8495d6c8850f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a143a01346b8cf0e133789860d9434741"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00690.html#a143a01346b8cf0e133789860d9434741">message</a> () const</td></tr>
-<tr class="memdesc:a143a01346b8cf0e133789860d9434741"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained error message.  <a href="#a143a01346b8cf0e133789860d9434741">More...</a><br /></td></tr>
-<tr class="separator:a143a01346b8cf0e133789860d9434741"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0a40005de23a87599a4c355286b17e0"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00690.html#ad0a40005de23a87599a4c355286b17e0">stacktrace</a> () const</td></tr>
-<tr class="memdesc:ad0a40005de23a87599a4c355286b17e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the full stack trace, formatted.  <a href="#ad0a40005de23a87599a4c355286b17e0">More...</a><br /></td></tr>
-<tr class="separator:ad0a40005de23a87599a4c355286b17e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7a8d6ec786b8fb53e02160fd7c34659"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00690.html#ab7a8d6ec786b8fb53e02160fd7c34659">Resource</a> (<a class="el" href="a00690.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a> <a class="el" href="a00690.html#adfbbeca88074a9891f5bba3ea35d7d00">data</a>)</td></tr>
+<tr class="memdesc:ab7a8d6ec786b8fb53e02160fd7c34659"><td class="mdescLeft">&#160;</td><td class="mdescRight">True to keep in cache even if no references remain.  <a href="#ab7a8d6ec786b8fb53e02160fd7c34659">More...</a><br /></td></tr>
+<tr class="separator:ab7a8d6ec786b8fb53e02160fd7c34659"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:adfbbeca88074a9891f5bba3ea35d7d00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00690.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00690.html#adfbbeca88074a9891f5bba3ea35d7d00">data</a></td></tr>
+<tr class="separator:adfbbeca88074a9891f5bba3ea35d7d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac369adcf5f2ac9d59a110b5f0fd1475b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00690.html#ac369adcf5f2ac9d59a110b5f0fd1475b">forceInCache</a></td></tr>
+<tr class="memdesc:ac369adcf5f2ac9d59a110b5f0fd1475b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The resource itself. May not be null.  <a href="#ac369adcf5f2ac9d59a110b5f0fd1475b">More...</a><br /></td></tr>
+<tr class="separator:ac369adcf5f2ac9d59a110b5f0fd1475b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a00702.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> utility class to represent an error. Can be used to build a call stack for script errors. </p>
+<div class="textblock"><h3>template&lt;typename TResourceType&gt;<br />
+struct bl::Resource&lt; TResourceType &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00149_source.html#l00017">17</a> of file <a class="el" href="a00149_source.html">Error.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a09e6eeebe43b9cbbac8762bb3106ce17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09e6eeebe43b9cbbac8762bb3106ce17">&#9670;&nbsp;</a></span>Error() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::scripts::Error::Error </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>error</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructs a root <a class="el" href="a00690.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> with an empty call stack. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">error</td><td><a class="el" href="a00690.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> message </td></tr>
+<p>Base level struct representing a resource that can be loaded and managed by the resource system. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TResourceType</td><td>the type </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00335_source.html#l00033">33</a> of file <a class="el" href="a00335_source.html">Error.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa2f32593f82007c5ee4cd26bd884f771"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2f32593f82007c5ee4cd26bd884f771">&#9670;&nbsp;</a></span>Error() <span class="overload">[2/3]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a00146_source.html#l00016">16</a> of file <a class="el" href="a00146_source.html">Resource.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ac9d3d3d8b9f303419859770272ba91ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d3d3d8b9f303419859770272ba91ee">&#9670;&nbsp;</a></span>Ref</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::scripts::Error::Error </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>error</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>location</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">typedef std::shared_ptr&lt;TResourceType&gt; <a class="el" href="a00690.html">bl::Resource</a>&lt; TResourceType &gt;::<a class="el" href="a00690.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a00690.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> object with the given message and source location. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">error</td><td><a class="el" href="a00690.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> message </td></tr>
-    <tr><td class="paramname">location</td><td>Node where the error occured </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00335_source.html#l00037">37</a> of file <a class="el" href="a00335_source.html">Error.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00146_source.html#l00017">17</a> of file <a class="el" href="a00146_source.html">Resource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a5565dc5b2836dc80215e8495d6c8850f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5565dc5b2836dc80215e8495d6c8850f">&#9670;&nbsp;</a></span>Error() <span class="overload">[3/3]</span></h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab7a8d6ec786b8fb53e02160fd7c34659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7a8d6ec786b8fb53e02160fd7c34659">&#9670;&nbsp;</a></span>Resource()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::scripts::Error::Error </td>
+          <td class="memname"><a class="el" href="a00690.html">bl::Resource</a>&lt; TResourceType &gt;::<a class="el" href="a00690.html">Resource</a> </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>error</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a00690.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a>&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00638.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>location</em>, </td>
         </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>True to keep in cache even if no references remain. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00146_source.html#l00022">22</a> of file <a class="el" href="a00146_source.html">Resource.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="adfbbeca88074a9891f5bba3ea35d7d00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfbbeca88074a9891f5bba3ea35d7d00">&#9670;&nbsp;</a></span>data</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
+      <table class="memname">
         <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00690.html">Error</a> &amp;&#160;</td>
-          <td class="paramname"><em>stack</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="a00690.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a> <a class="el" href="a00690.html">bl::Resource</a>&lt; TResourceType &gt;::data</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a00690.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> object from a message, current location, and existing <a class="el" href="a00690.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> stack. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">error</td><td><a class="el" href="a00690.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> message </td></tr>
-    <tr><td class="paramname">location</td><td>Where the error occured </td></tr>
-    <tr><td class="paramname">stack</td><td>An <a class="el" href="a00690.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> object containing the stack levels below this </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00335_source.html#l00041">41</a> of file <a class="el" href="a00335_source.html">Error.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00146_source.html#l00019">19</a> of file <a class="el" href="a00146_source.html">Resource.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a143a01346b8cf0e133789860d9434741"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a143a01346b8cf0e133789860d9434741">&#9670;&nbsp;</a></span>message()</h2>
+<a id="ac369adcf5f2ac9d59a110b5f0fd1475b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac369adcf5f2ac9d59a110b5f0fd1475b">&#9670;&nbsp;</a></span>forceInCache</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">const std::string &amp; bl::scripts::Error::message </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">bool <a class="el" href="a00690.html">bl::Resource</a>&lt; TResourceType &gt;::forceInCache</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the contained error message. </p>
+<p>The resource itself. May not be null. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00335_source.html#l00045">45</a> of file <a class="el" href="a00335_source.html">Error.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad0a40005de23a87599a4c355286b17e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0a40005de23a87599a4c355286b17e0">&#9670;&nbsp;</a></span>stacktrace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string &amp; bl::scripts::Error::stacktrace </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the full stack trace, formatted. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00335_source.html#l00047">47</a> of file <a class="el" href="a00335_source.html">Error.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00146_source.html#l00020">20</a> of file <a class="el" href="a00146_source.html">Resource.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Scripts/<a class="el" href="a00149_source.html">Error.hpp</a></li>
-<li>src/Scripts/<a class="el" href="a00335_source.html">Error.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Resources/<a class="el" href="a00146_source.html">Resource.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 16 2020 02:51:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 17 2020 04:43:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
