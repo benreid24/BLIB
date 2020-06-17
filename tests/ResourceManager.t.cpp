@@ -31,5 +31,14 @@ TEST(ResourceManager, NoTimeout) {
     EXPECT_EQ(*first, *second);
 }
 
+TEST(ResourceManager, ForceInCache) {
+    MockLoader loader;
+    ResourceManager<int> manager(loader, 1);
+    const int value                          = *manager.load("uri").data;
+    manager.loadMutable("uri")->forceInCache = true;
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    EXPECT_EQ(value, *manager.load("uri").data);
+}
+
 } // namespace unittest
 } // namespace bl
