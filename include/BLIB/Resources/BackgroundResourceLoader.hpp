@@ -40,7 +40,15 @@ public:
      * @param uri The resource identifier
      * @param estimate Estimated work. Arbitrary value, relative to others passed in
      */
-    void addResourceToQueue(const std::string& uri, float estimate = 1);
+    void addResourceToQueue(const std::string& uri, float estimate);
+
+    /**
+     * @brief Add a new uri to be loaded and use the AsyncResourceLoader to determine the
+     *        estimate
+     *
+     * @param uri The resource identifier
+     */
+    void addResourceToQueue(const std::string& uri);
 
     /**
      * @brief Performs the actual loading. Starts the monitoring thread and does not return
@@ -86,6 +94,13 @@ BackgroundResourceLoader<T>::BackgroundResourceLoader(ResourceManager<T>& manage
 
 template<typename T>
 void BackgroundResourceLoader<T>::addResourceToQueue(const std::string& uri, float estimate) {
+    uris.push_back(std::make_pair(uri, estimate));
+    totalWork += estimate;
+}
+
+template<typename T>
+void BackgroundResourceLoader<T>::addResourceToQueue(const std::string& uri) {
+    const float estimate = loader.estimateWork(uri);
     uris.push_back(std::make_pair(uri, estimate));
     totalWork += estimate;
 }

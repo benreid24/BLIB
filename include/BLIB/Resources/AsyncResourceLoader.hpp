@@ -2,6 +2,7 @@
 #define BLIB_RESOURCES_ASYNCRESOURCELOADER_HPP
 
 #include <BLIB/Resources/ResourceManager.hpp>
+#include <fstream>
 
 namespace bl
 {
@@ -26,6 +27,17 @@ struct AsyncResourceLoader {
      */
     virtual void load(ResourceManager<TResourceType>& manager, const std::string& uri,
                       float& progress);
+
+    /**
+     * @brief Estimate the relative amount of work required for the given resource. The number
+     *        itself is arbitary and the value does not matter. It must simply be on the same
+     *        scale as the other numbers returned by this method for different resources. The
+     *        default behavior returns the file size, in bytes, divided by 10,000
+     *
+     * @param uri The resource identifier to estimate the work load for
+     * @return float Relative estimate of the work required to load it
+     */
+    virtual float estimateWork(const std::string& uri);
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -35,6 +47,12 @@ void AsyncResourceLoader<T>::load(ResourceManager<T>& manager, const std::string
                                   float& progress) {
     manager.load(uri);
     progress = 1;
+}
+
+template<typename T>
+float AsyncResourceLoader<T>::estimateWork(const std::string& uri) {
+    std::ifstream in(uri, std::ifstream::ate | std::ifstream::binary);
+    return static_cast<float>(in.tellg()) / 10000.f;
 }
 
 } // namespace bl
