@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::scripts::Exit Struct Reference</title>
+<title>BLIB: bl::Resource&lt; TResourceType &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,31 +63,156 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00398.html">bl</a></li><li class="navelem"><a class="el" href="a00405.html">scripts</a></li><li class="navelem"><a class="el" href="a00714.html">Exit</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00414.html">bl</a></li><li class="navelem"><a class="el" href="a00714.html">Resource</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a00711.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::scripts::Exit Struct Reference<div class="ingroups"><a class="el" href="a00395.html">Scripts</a></div></div>  </div>
+<div class="title">bl::Resource&lt; TResourceType &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a00410.html">Resources</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Special Exception for Scripts to exit without an <a class="el" href="a00710.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a>.  
+<p>Base level struct representing a resource that can be loaded and managed by the resource system.  
  <a href="a00714.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00161_source.html">Error.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00155_source.html">Resource.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ac9d3d3d8b9f303419859770272ba91ee"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; TResourceType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00714.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a></td></tr>
+<tr class="separator:ac9d3d3d8b9f303419859770272ba91ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ab7a8d6ec786b8fb53e02160fd7c34659"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00714.html#ab7a8d6ec786b8fb53e02160fd7c34659">Resource</a> (<a class="el" href="a00714.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a> <a class="el" href="a00714.html#adfbbeca88074a9891f5bba3ea35d7d00">data</a>)</td></tr>
+<tr class="memdesc:ab7a8d6ec786b8fb53e02160fd7c34659"><td class="mdescLeft">&#160;</td><td class="mdescRight">True to keep in cache even if no references remain.  <a href="#ab7a8d6ec786b8fb53e02160fd7c34659">More...</a><br /></td></tr>
+<tr class="separator:ab7a8d6ec786b8fb53e02160fd7c34659"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:adfbbeca88074a9891f5bba3ea35d7d00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00714.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00714.html#adfbbeca88074a9891f5bba3ea35d7d00">data</a></td></tr>
+<tr class="separator:adfbbeca88074a9891f5bba3ea35d7d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac369adcf5f2ac9d59a110b5f0fd1475b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00714.html#ac369adcf5f2ac9d59a110b5f0fd1475b">forceInCache</a></td></tr>
+<tr class="memdesc:ac369adcf5f2ac9d59a110b5f0fd1475b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The resource itself. May not be null.  <a href="#ac369adcf5f2ac9d59a110b5f0fd1475b">More...</a><br /></td></tr>
+<tr class="separator:ac369adcf5f2ac9d59a110b5f0fd1475b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Special Exception for Scripts to exit without an <a class="el" href="a00710.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a>. </p>
+<div class="textblock"><h3>template&lt;typename TResourceType&gt;<br />
+struct bl::Resource&lt; TResourceType &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00066">66</a> of file <a class="el" href="a00161_source.html">Error.hpp</a>.</p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Scripts/<a class="el" href="a00161_source.html">Error.hpp</a></li>
+<p>Base level struct representing a resource that can be loaded and managed by the resource system. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TResourceType</td><td>the type </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00155_source.html#l00016">16</a> of file <a class="el" href="a00155_source.html">Resource.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ac9d3d3d8b9f303419859770272ba91ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d3d3d8b9f303419859770272ba91ee">&#9670;&nbsp;</a></span>Ref</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;TResourceType&gt; <a class="el" href="a00714.html">bl::Resource</a>&lt; TResourceType &gt;::<a class="el" href="a00714.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00155_source.html#l00017">17</a> of file <a class="el" href="a00155_source.html">Resource.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab7a8d6ec786b8fb53e02160fd7c34659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7a8d6ec786b8fb53e02160fd7c34659">&#9670;&nbsp;</a></span>Resource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00714.html">bl::Resource</a>&lt; TResourceType &gt;::<a class="el" href="a00714.html">Resource</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00714.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a>&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>True to keep in cache even if no references remain. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00155_source.html#l00022">22</a> of file <a class="el" href="a00155_source.html">Resource.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="adfbbeca88074a9891f5bba3ea35d7d00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfbbeca88074a9891f5bba3ea35d7d00">&#9670;&nbsp;</a></span>data</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00714.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a> <a class="el" href="a00714.html">bl::Resource</a>&lt; TResourceType &gt;::data</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00155_source.html#l00019">19</a> of file <a class="el" href="a00155_source.html">Resource.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac369adcf5f2ac9d59a110b5f0fd1475b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac369adcf5f2ac9d59a110b5f0fd1475b">&#9670;&nbsp;</a></span>forceInCache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00714.html">bl::Resource</a>&lt; TResourceType &gt;::forceInCache</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The resource itself. May not be null. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00155_source.html#l00020">20</a> of file <a class="el" href="a00155_source.html">Resource.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Resources/<a class="el" href="a00155_source.html">Resource.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 17 2020 04:43:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 18 2020 02:08:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

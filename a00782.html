@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::json::Loader Class Reference</title>
+<title>BLIB: bl::EventDispatcher&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00398.html">bl</a></li><li class="navelem"><a class="el" href="a00399.html">json</a></li><li class="navelem"><a class="el" href="a00782.html">Loader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00414.html">bl</a></li><li class="navelem"><a class="el" href="a00782.html">EventDispatcher</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,98 +71,140 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00779.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::json::Loader Class Reference<div class="ingroups"><a class="el" href="a00389.html">JSON</a> &#124; <a class="el" href="a00390.html">Files</a></div></div>  </div>
+<div class="title">bl::EventDispatcher&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00413.html">Util</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Utility class to load <a class="el" href="a00450.html" title="Top level interface for loading and saving json data. ">JSON</a> objects from input streams or files.  
+<p>Utility class to dispatch events to a set of listeners.  
  <a href="a00782.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00227_source.html">JSONLoader.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00206_source.html">EventDispatcher.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5f58ca38621b3d696ceac0306a369506"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00782.html#a5f58ca38621b3d696ceac0306a369506">Loader</a> (const std::string &amp;filename)</td></tr>
-<tr class="separator:a5f58ca38621b3d696ceac0306a369506"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c6515e81669f35bbcfbf98ad0f1a40b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00782.html#a7c6515e81669f35bbcfbf98ad0f1a40b">Loader</a> (std::istream &amp;stream)</td></tr>
-<tr class="separator:a7c6515e81669f35bbcfbf98ad0f1a40b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd23db751a3e84eb60146f4569285889"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00442.html">Group</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00782.html#acd23db751a3e84eb60146f4569285889">load</a> ()</td></tr>
-<tr class="separator:acd23db751a3e84eb60146f4569285889"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8160b5b9a7c74c01f3b9963875dd3bc6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00782.html#a8160b5b9a7c74c01f3b9963875dd3bc6">subscribe</a> (<a class="el" href="a00786.html">EventListener</a>&lt; T &gt; *listener)</td></tr>
+<tr class="memdesc:a8160b5b9a7c74c01f3b9963875dd3bc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe the given listener to recieve events. Listener must not go out of scope.  <a href="#a8160b5b9a7c74c01f3b9963875dd3bc6">More...</a><br /></td></tr>
+<tr class="separator:a8160b5b9a7c74c01f3b9963875dd3bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e201c514b4cb9d5ad2148133fb647a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00782.html#a5e201c514b4cb9d5ad2148133fb647a8">remove</a> (<a class="el" href="a00786.html">EventListener</a>&lt; T &gt; *listener)</td></tr>
+<tr class="memdesc:a5e201c514b4cb9d5ad2148133fb647a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given listener from the dispatcher queue. No effect if not present.  <a href="#a5e201c514b4cb9d5ad2148133fb647a8">More...</a><br /></td></tr>
+<tr class="separator:a5e201c514b4cb9d5ad2148133fb647a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a559f9ec1704810ef02a7f87e10b11498"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00782.html#a559f9ec1704810ef02a7f87e10b11498">dispatch</a> (const T &amp;event)</td></tr>
+<tr class="memdesc:a559f9ec1704810ef02a7f87e10b11498"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispatches the event to the queue of listeners.  <a href="#a559f9ec1704810ef02a7f87e10b11498">More...</a><br /></td></tr>
+<tr class="separator:a559f9ec1704810ef02a7f87e10b11498"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Utility class to load <a class="el" href="a00450.html" title="Top level interface for loading and saving json data. ">JSON</a> objects from input streams or files. </p>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::EventDispatcher&lt; T &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00018">18</a> of file <a class="el" href="a00227_source.html">JSONLoader.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5f58ca38621b3d696ceac0306a369506"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f58ca38621b3d696ceac0306a369506">&#9670;&nbsp;</a></span>Loader() <span class="overload">[1/2]</span></h2>
+<p>Utility class to dispatch events to a set of listeners. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00786.html" title="Templatized utility class for setting up an event dispatcher and listener system. ...">EventListener</a></dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of event </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00016">16</a> of file <a class="el" href="a00206_source.html">EventDispatcher.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a559f9ec1704810ef02a7f87e10b11498"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a559f9ec1704810ef02a7f87e10b11498">&#9670;&nbsp;</a></span>dispatch()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::json::Loader::Loader </td>
+          <td class="memname">void <a class="el" href="a00782.html">bl::EventDispatcher</a>&lt; T &gt;::dispatch </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00224_source.html#l00010">10</a> of file <a class="el" href="a00224_source.html">JSONLoader.cpp</a>.</p>
+<p>Dispatches the event to the queue of listeners. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event to dispatch </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00054">54</a> of file <a class="el" href="a00206_source.html">EventDispatcher.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a7c6515e81669f35bbcfbf98ad0f1a40b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c6515e81669f35bbcfbf98ad0f1a40b">&#9670;&nbsp;</a></span>Loader() <span class="overload">[2/2]</span></h2>
+<a id="a5e201c514b4cb9d5ad2148133fb647a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e201c514b4cb9d5ad2148133fb647a8">&#9670;&nbsp;</a></span>remove()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::json::Loader::Loader </td>
+          <td class="memname">void <a class="el" href="a00782.html">bl::EventDispatcher</a>&lt; T &gt;::remove </td>
           <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a00786.html">EventListener</a>&lt; T &gt; *&#160;</td>
+          <td class="paramname"><em>listener</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00224_source.html#l00026">26</a> of file <a class="el" href="a00224_source.html">JSONLoader.cpp</a>.</p>
+<p>Removes the given listener from the dispatcher queue. No effect if not present. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">listener</td><td>The listener to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00059">59</a> of file <a class="el" href="a00206_source.html">EventDispatcher.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="acd23db751a3e84eb60146f4569285889"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd23db751a3e84eb60146f4569285889">&#9670;&nbsp;</a></span>load()</h2>
+<a id="a8160b5b9a7c74c01f3b9963875dd3bc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8160b5b9a7c74c01f3b9963875dd3bc6">&#9670;&nbsp;</a></span>subscribe()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00442.html">Group</a> bl::json::Loader::load </td>
+          <td class="memname">void <a class="el" href="a00782.html">bl::EventDispatcher</a>&lt; T &gt;::subscribe </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a00786.html">EventListener</a>&lt; T &gt; *&#160;</td>
+          <td class="paramname"><em>listener</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00224_source.html#l00040">40</a> of file <a class="el" href="a00224_source.html">JSONLoader.cpp</a>.</p>
+<p>Subscribe the given listener to recieve events. Listener must not go out of scope. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">listener</td><td>The listener to start notifying </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00206_source.html#l00049">49</a> of file <a class="el" href="a00206_source.html">EventDispatcher.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/Files/<a class="el" href="a00227_source.html">JSONLoader.hpp</a></li>
-<li>src/Files/<a class="el" href="a00224_source.html">JSONLoader.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Util/<a class="el" href="a00206_source.html">EventDispatcher.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 17 2020 04:43:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 18 2020 02:08:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

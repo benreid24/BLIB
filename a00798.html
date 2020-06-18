@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::scripts::ScriptImpl Struct Reference</title>
+<title>BLIB: bl::Timer Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,57 +63,69 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00398.html">bl</a></li><li class="navelem"><a class="el" href="a00405.html">scripts</a></li><li class="navelem"><a class="el" href="a00798.html">ScriptImpl</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00414.html">bl</a></li><li class="navelem"><a class="el" href="a00798.html">Timer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a00795.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::scripts::ScriptImpl Struct Reference</div>  </div>
+<div class="title">bl::Timer Class Reference<div class="ingroups"><a class="el" href="a00413.html">Util</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of testable utility methods for executing components of scripts.  
+<p>Global class for tracking time. Implemented over the top of sf::Clock to allow for pausing.  
  <a href="a00798.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00359_source.html">ScriptImpl.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00218_source.html">Timer.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::Timer:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00798.png" usemap="#bl::Timer_map" alt=""/>
+  <map id="bl::Timer_map" name="bl::Timer_map">
+<area href="a00790.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::NonCopyable" shape="rect" coords="0,0,105,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a4a7c4d995705485485ecad5c5b46848e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#a4a7c4d995705485485ecad5c5b46848e">timeElapsedSeconds</a> () const</td></tr>
+<tr class="memdesc:a4a7c4d995705485485ecad5c5b46848e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the time elapsed in seconds.  <a href="#a4a7c4d995705485485ecad5c5b46848e">More...</a><br /></td></tr>
+<tr class="separator:a4a7c4d995705485485ecad5c5b46848e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f35a5d2ba9382d206411b945fe158b"><td class="memItemLeft" align="right" valign="top">unsigned long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#a25f35a5d2ba9382d206411b945fe158b">timeElapsedMilliseconds</a> () const</td></tr>
+<tr class="memdesc:a25f35a5d2ba9382d206411b945fe158b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the time elapsed in milliseconds.  <a href="#a25f35a5d2ba9382d206411b945fe158b">More...</a><br /></td></tr>
+<tr class="separator:a25f35a5d2ba9382d206411b945fe158b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeea451446bb6c26530cd545c1a026f24"><td class="memItemLeft" align="right" valign="top">sf::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#aeea451446bb6c26530cd545c1a026f24">timeElapsed</a> () const</td></tr>
+<tr class="memdesc:aeea451446bb6c26530cd545c1a026f24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the elapsed time.  <a href="#aeea451446bb6c26530cd545c1a026f24">More...</a><br /></td></tr>
+<tr class="separator:aeea451446bb6c26530cd545c1a026f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a038fd47f3109daa74c03ac1c1cdeac63"><td class="memItemLeft" align="right" valign="top">sf::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#a038fd47f3109daa74c03ac1c1cdeac63">timeElapsedRaw</a> () const</td></tr>
+<tr class="memdesc:a038fd47f3109daa74c03ac1c1cdeac63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the raw elapsed time. Does not compensate for pausing.  <a href="#a038fd47f3109daa74c03ac1c1cdeac63">More...</a><br /></td></tr>
+<tr class="separator:a038fd47f3109daa74c03ac1c1cdeac63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f1afe6062ca128896ca0ada17dca6c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#a5f1afe6062ca128896ca0ada17dca6c4">pause</a> ()</td></tr>
+<tr class="memdesc:a5f1afe6062ca128896ca0ada17dca6c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pauses the timer.  <a href="#a5f1afe6062ca128896ca0ada17dca6c4">More...</a><br /></td></tr>
+<tr class="separator:a5f1afe6062ca128896ca0ada17dca6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7e2a1c6f4d480cad8ea589ef0406e97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#ab7e2a1c6f4d480cad8ea589ef0406e97">resume</a> ()</td></tr>
+<tr class="memdesc:ab7e2a1c6f4d480cad8ea589ef0406e97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes the timer.  <a href="#ab7e2a1c6f4d480cad8ea589ef0406e97">More...</a><br /></td></tr>
+<tr class="separator:ab7e2a1c6f4d480cad8ea589ef0406e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aac8a457e6f304a605ec661e58589c567"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00738.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#aac8a457e6f304a605ec661e58589c567">computeValue</a> (<a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> value, <a class="el" href="a00734.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:aac8a457e6f304a605ec661e58589c567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a <a class="el" href="a00738.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> Node and computes the actual <a class="el" href="a00738.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a>.  <a href="#aac8a457e6f304a605ec661e58589c567">More...</a><br /></td></tr>
-<tr class="separator:aac8a457e6f304a605ec661e58589c567"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8aef835481336f20a4bf90684222d1da"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00738.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#a8aef835481336f20a4bf90684222d1da">runFunction</a> (<a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> call, <a class="el" href="a00734.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:a8aef835481336f20a4bf90684222d1da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a function call. Evaluates arguments, updates <a class="el" href="a00734.html" title="Stack aware symbol table for managing functions and variables Each Script holds a single instance...">SymbolTable</a>, and runs statements.  <a href="#a8aef835481336f20a4bf90684222d1da">More...</a><br /></td></tr>
-<tr class="separator:a8aef835481336f20a4bf90684222d1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3406ecf1198ef7c8ed1c4b164f879862"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a00738.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#a3406ecf1198ef7c8ed1c4b164f879862">runStatementList</a> (<a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> statement, <a class="el" href="a00734.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:a3406ecf1198ef7c8ed1c4b164f879862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a list of statements. Can take Statement, StmtList, or StmtBlock.  <a href="#a3406ecf1198ef7c8ed1c4b164f879862">More...</a><br /></td></tr>
-<tr class="separator:a3406ecf1198ef7c8ed1c4b164f879862"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c32e4250b72bfdfba5ad6e1671760ec"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a00738.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#a2c32e4250b72bfdfba5ad6e1671760ec">runStatement</a> (<a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> statement, <a class="el" href="a00734.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:a2c32e4250b72bfdfba5ad6e1671760ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a statement.  <a href="#a2c32e4250b72bfdfba5ad6e1671760ec">More...</a><br /></td></tr>
-<tr class="separator:a2c32e4250b72bfdfba5ad6e1671760ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc0494b93b7582d97b56b7cc8245af3a"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a00738.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#adc0494b93b7582d97b56b7cc8245af3a">runConditional</a> (<a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> conditional, <a class="el" href="a00734.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:adc0494b93b7582d97b56b7cc8245af3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a Conditional.  <a href="#adc0494b93b7582d97b56b7cc8245af3a">More...</a><br /></td></tr>
-<tr class="separator:adc0494b93b7582d97b56b7cc8245af3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0916b56916665174e585c9327c905bd"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a00738.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#ae0916b56916665174e585c9327c905bd">runLoop</a> (<a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> loop, <a class="el" href="a00734.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:ae0916b56916665174e585c9327c905bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a Loop.  <a href="#ae0916b56916665174e585c9327c905bd">More...</a><br /></td></tr>
-<tr class="separator:ae0916b56916665174e585c9327c905bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64c3ff423f943c051069bad43c02eac9"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a00738.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#a64c3ff423f943c051069bad43c02eac9">runForLoop</a> (<a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> loop, <a class="el" href="a00734.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:a64c3ff423f943c051069bad43c02eac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a ForLoop.  <a href="#a64c3ff423f943c051069bad43c02eac9">More...</a><br /></td></tr>
-<tr class="separator:a64c3ff423f943c051069bad43c02eac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8f745531e12ae297844527483765e4f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#ad8f745531e12ae297844527483765e4f">evaluateCond</a> (<a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> pgroup, <a class="el" href="a00734.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:ad8f745531e12ae297844527483765e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a PGroup to true or false.  <a href="#ad8f745531e12ae297844527483765e4f">More...</a><br /></td></tr>
-<tr class="separator:ad8f745531e12ae297844527483765e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab48ed25249ffd28ff73a39cb015b37b3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00798.html">Timer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html#ab48ed25249ffd28ff73a39cb015b37b3">get</a> ()</td></tr>
+<tr class="memdesc:ab48ed25249ffd28ff73a39cb015b37b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the global timer object.  <a href="#ab48ed25249ffd28ff73a39cb015b37b3">More...</a><br /></td></tr>
+<tr class="separator:ab48ed25249ffd28ff73a39cb015b37b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of testable utility methods for executing components of scripts. </p>
+<div class="textblock"><p>Global class for tracking time. Implemented over the top of sf::Clock to allow for pausing. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00359_source.html#l00015">15</a> of file <a class="el" href="a00359_source.html">ScriptImpl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00218_source.html#l00015">15</a> of file <a class="el" href="a00218_source.html">Timer.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aac8a457e6f304a605ec661e58589c567"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac8a457e6f304a605ec661e58589c567">&#9670;&nbsp;</a></span>computeValue()</h2>
+<a id="ab48ed25249ffd28ff73a39cb015b37b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab48ed25249ffd28ff73a39cb015b37b3">&#9670;&nbsp;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -122,21 +134,10 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00738.html">Value</a> bl::scripts::ScriptImpl::computeValue </td>
+          <td class="memname"><a class="el" href="a00798.html">Timer</a> &amp; bl::Timer::get </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00734.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -146,308 +147,147 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Takes a <a class="el" href="a00738.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> Node and computes the actual <a class="el" href="a00738.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00738.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> The resulting <a class="el" href="a00738.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> </dd></dl>
+<p>Returns the global timer object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00049">49</a> of file <a class="el" href="a00356_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00008">8</a> of file <a class="el" href="a00401_source.html">Timer.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad8f745531e12ae297844527483765e4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8f745531e12ae297844527483765e4f">&#9670;&nbsp;</a></span>evaluateCond()</h2>
+<a id="a5f1afe6062ca128896ca0ada17dca6c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f1afe6062ca128896ca0ada17dca6c4">&#9670;&nbsp;</a></span>pause()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::scripts::ScriptImpl::evaluateCond </td>
+          <td class="memname">void bl::Timer::pause </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>pgroup</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00734.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Evaluates a PGroup to true or false. </p>
+<p>Pauses the timer. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00273">273</a> of file <a class="el" href="a00356_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00027">27</a> of file <a class="el" href="a00401_source.html">Timer.cpp</a>.</p>
 
 </div>
 </div>
-<a id="adc0494b93b7582d97b56b7cc8245af3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc0494b93b7582d97b56b7cc8245af3a">&#9670;&nbsp;</a></span>runConditional()</h2>
+<a id="ab7e2a1c6f4d480cad8ea589ef0406e97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7e2a1c6f4d480cad8ea589ef0406e97">&#9670;&nbsp;</a></span>resume()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a00738.html">Value</a> &gt; bl::scripts::ScriptImpl::runConditional </td>
+          <td class="memname">void bl::Timer::resume </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>conditional</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00734.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Runs a Conditional. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; <a class="el" href="a00738.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> of any executed Return, null if no return </dd></dl>
+<p>Resumes the timer. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00244">244</a> of file <a class="el" href="a00356_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00032">32</a> of file <a class="el" href="a00401_source.html">Timer.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a64c3ff423f943c051069bad43c02eac9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64c3ff423f943c051069bad43c02eac9">&#9670;&nbsp;</a></span>runForLoop()</h2>
+<a id="aeea451446bb6c26530cd545c1a026f24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeea451446bb6c26530cd545c1a026f24">&#9670;&nbsp;</a></span>timeElapsed()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a00738.html">Value</a> &gt; bl::scripts::ScriptImpl::runForLoop </td>
+          <td class="memname">sf::Time bl::Timer::timeElapsed </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>loop</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00734.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Runs a ForLoop. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; <a class="el" href="a00738.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> of any executed Return, null if no return </dd></dl>
+<p>Returns the elapsed time. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00217">217</a> of file <a class="el" href="a00356_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00015">15</a> of file <a class="el" href="a00401_source.html">Timer.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8aef835481336f20a4bf90684222d1da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8aef835481336f20a4bf90684222d1da">&#9670;&nbsp;</a></span>runFunction()</h2>
+<a id="a25f35a5d2ba9382d206411b945fe158b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25f35a5d2ba9382d206411b945fe158b">&#9670;&nbsp;</a></span>timeElapsedMilliseconds()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00738.html">Value</a> bl::scripts::ScriptImpl::runFunction </td>
+          <td class="memname">unsigned long int bl::Timer::timeElapsedMilliseconds </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>call</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00734.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Performs a function call. Evaluates arguments, updates <a class="el" href="a00734.html" title="Stack aware symbol table for managing functions and variables Each Script holds a single instance...">SymbolTable</a>, and runs statements. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00738.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> Result of the function called </dd></dl>
+<p>Returns the time elapsed in milliseconds. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00063">63</a> of file <a class="el" href="a00356_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00023">23</a> of file <a class="el" href="a00401_source.html">Timer.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae0916b56916665174e585c9327c905bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0916b56916665174e585c9327c905bd">&#9670;&nbsp;</a></span>runLoop()</h2>
+<a id="a038fd47f3109daa74c03ac1c1cdeac63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a038fd47f3109daa74c03ac1c1cdeac63">&#9670;&nbsp;</a></span>timeElapsedRaw()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a00738.html">Value</a> &gt; bl::scripts::ScriptImpl::runLoop </td>
+          <td class="memname">sf::Time bl::Timer::timeElapsedRaw </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>loop</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00734.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Runs a Loop. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; <a class="el" href="a00738.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> of any executed Return, null if no return </dd></dl>
+<p>Returns the raw elapsed time. Does not compensate for pausing. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00198">198</a> of file <a class="el" href="a00356_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00013">13</a> of file <a class="el" href="a00401_source.html">Timer.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a2c32e4250b72bfdfba5ad6e1671760ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c32e4250b72bfdfba5ad6e1671760ec">&#9670;&nbsp;</a></span>runStatement()</h2>
+<a id="a4a7c4d995705485485ecad5c5b46848e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a7c4d995705485485ecad5c5b46848e">&#9670;&nbsp;</a></span>timeElapsedSeconds()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a00738.html">Value</a> &gt; bl::scripts::ScriptImpl::runStatement </td>
+          <td class="memname">float bl::Timer::timeElapsedSeconds </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>statement</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00734.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Executes a statement. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; Result of a return if present, or null if no return </dd></dl>
+<p>Returns the time elapsed in seconds. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00084">84</a> of file <a class="el" href="a00356_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3406ecf1198ef7c8ed1c4b164f879862"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3406ecf1198ef7c8ed1c4b164f879862">&#9670;&nbsp;</a></span>runStatementList()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a00738.html">Value</a> &gt; bl::scripts::ScriptImpl::runStatementList </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00650.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>statement</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00734.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Executes a list of statements. Can take Statement, StmtList, or StmtBlock. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; Result of a return if present, or null if no return </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00152">152</a> of file <a class="el" href="a00356_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00021">21</a> of file <a class="el" href="a00401_source.html">Timer.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>src/Scripts/<a class="el" href="a00359_source.html">ScriptImpl.hpp</a></li>
-<li>src/Scripts/<a class="el" href="a00356_source.html">ScriptImpl.cpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Util/<a class="el" href="a00218_source.html">Timer.hpp</a></li>
+<li>src/Util/<a class="el" href="a00401_source.html">Timer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 17 2020 04:43:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 18 2020 02:08:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

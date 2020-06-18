@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::FontResourceLoader Struct Reference</title>
+<title>BLIB: bl::AsyncResourceLoader&lt; TResourceType &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00398.html">bl</a></li><li class="navelem"><a class="el" href="a00706.html">FontResourceLoader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00414.html">bl</a></li><li class="navelem"><a class="el" href="a00706.html">AsyncResourceLoader</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,48 +71,46 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00703.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::FontResourceLoader Struct Reference<div class="ingroups"><a class="el" href="a00394.html">Resources</a></div></div>  </div>
+<div class="title">bl::AsyncResourceLoader&lt; TResourceType &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a00410.html">Resources</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Specialized <a class="el" href="a00694.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">ResourceLoader</a> for sf::Font.  
+<p>Specialized loader meant for loading resources into a <a class="el" href="a00722.html" title="Single template based resource management class. Meant for storing. ">ResourceManager</a> in the background. Default implementation simply calls <a class="el" href="a00706.html#a07e629a44265620e294d9871a22d7f53" title="Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their ...">load()</a> on the manager, but custom background loaders can be built for large resources and should leverage <a class="el" href="a00722.html#a98991ac0e044185003df775caed4eca4" title="Add an already loaded resource to the manager. Overwrites existing if present. ">ResourceManager::add()</a> to insert constructed resources.  
  <a href="a00706.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00155_source.html">SpecializedLoaders.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::FontResourceLoader:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a00706.png" usemap="#bl::FontResourceLoader_map" alt=""/>
-  <map id="bl::FontResourceLoader_map" name="bl::FontResourceLoader_map">
-<area href="a00694.html" alt="bl::ResourceLoader&lt; sf::Font &gt;" shape="rect" coords="0,0,187,24"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00149_source.html">AsyncResourceLoader.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae13776ad723bf0f6c42792d55cc419c5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a00690.html">Resource</a>&lt; sf::Font &gt;::Ref&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00706.html#ae13776ad723bf0f6c42792d55cc419c5">load</a> (const std::string &amp;uri) override</td></tr>
-<tr class="memdesc:ae13776ad723bf0f6c42792d55cc419c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the resource as identified by the uri.  <a href="#ae13776ad723bf0f6c42792d55cc419c5">More...</a><br /></td></tr>
-<tr class="separator:ae13776ad723bf0f6c42792d55cc419c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07e629a44265620e294d9871a22d7f53"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00706.html#a07e629a44265620e294d9871a22d7f53">load</a> (<a class="el" href="a00722.html">ResourceManager</a>&lt; TResourceType &gt; &amp;manager, const std::string &amp;uri, float &amp;progress)</td></tr>
+<tr class="memdesc:a07e629a44265620e294d9871a22d7f53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their loading and progress reporting here.  <a href="#a07e629a44265620e294d9871a22d7f53">More...</a><br /></td></tr>
+<tr class="separator:a07e629a44265620e294d9871a22d7f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fe8701d664fd85fdb42dcfe698f1f92"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00706.html#a9fe8701d664fd85fdb42dcfe698f1f92">estimateWork</a> (const std::string &amp;uri)</td></tr>
+<tr class="memdesc:a9fe8701d664fd85fdb42dcfe698f1f92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimate the relative amount of work required for the given resource. The number itself is arbitary and the value does not matter. It must simply be on the same scale as the other numbers returned by this method for different resources. The default behavior returns the file size, in bytes, divided by 10,000.  <a href="#a9fe8701d664fd85fdb42dcfe698f1f92">More...</a><br /></td></tr>
+<tr class="separator:a9fe8701d664fd85fdb42dcfe698f1f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Specialized <a class="el" href="a00694.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">ResourceLoader</a> for sf::Font. </p>
+<div class="textblock"><h3>template&lt;typename TResourceType&gt;<br />
+struct bl::AsyncResourceLoader&lt; TResourceType &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00155_source.html#l00031">31</a> of file <a class="el" href="a00155_source.html">SpecializedLoaders.hpp</a>.</p>
+<p>Specialized loader meant for loading resources into a <a class="el" href="a00722.html" title="Single template based resource management class. Meant for storing. ">ResourceManager</a> in the background. Default implementation simply calls <a class="el" href="a00706.html#a07e629a44265620e294d9871a22d7f53" title="Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their ...">load()</a> on the manager, but custom background loaders can be built for large resources and should leverage <a class="el" href="a00722.html#a98991ac0e044185003df775caed4eca4" title="Add an already loaded resource to the manager. Overwrites existing if present. ">ResourceManager::add()</a> to insert constructed resources. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00710.html" title="Utility class for loading resources in the background while monitoring the progress. Resource loading is done from the calling thread, and monitoring is done on a second thread. This is to eliminate any context issues with loading SFML resources. ">BackgroundResourceLoader</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00149_source.html#l00019">19</a> of file <a class="el" href="a00149_source.html">AsyncResourceLoader.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae13776ad723bf0f6c42792d55cc419c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae13776ad723bf0f6c42792d55cc419c5">&#9670;&nbsp;</a></span>load()</h2>
+<a id="a9fe8701d664fd85fdb42dcfe698f1f92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fe8701d664fd85fdb42dcfe698f1f92">&#9670;&nbsp;</a></span>estimateWork()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="a00690.html">Resource</a>&lt;sf::Font&gt;::Ref bl::FontResourceLoader::load </td>
+          <td class="memname">float <a class="el" href="a00706.html">bl::AsyncResourceLoader</a>&lt; T &gt;::estimateWork </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>uri</em></td><td>)</td>
@@ -121,34 +119,88 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Load the resource as identified by the uri. </p>
+<p>Estimate the relative amount of work required for the given resource. The number itself is arbitary and the value does not matter. It must simply be on the same scale as the other numbers returned by this method for different resources. The default behavior returns the file size, in bytes, divided by 10,000. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">uri</td><td>The resource identifier </td></tr>
+    <tr><td class="paramname">uri</td><td>The resource identifier to estimate the work load for </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00690.html#ac9d3d3d8b9f303419859770272ba91ee">Resource&lt;TResourceType&gt;::Ref</a> The loaded resource </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>float Relative estimate of the work required to load it </dd></dl>
 
-<p>Implements <a class="el" href="a00694.html#af18f0b6f4739bd3027aba0592ee0aa7c">bl::ResourceLoader&lt; sf::Font &gt;</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00149_source.html#l00053">53</a> of file <a class="el" href="a00149_source.html">AsyncResourceLoader.hpp</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a00155_source.html#l00032">32</a> of file <a class="el" href="a00155_source.html">SpecializedLoaders.hpp</a>.</p>
+</div>
+</div>
+<a id="a07e629a44265620e294d9871a22d7f53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07e629a44265620e294d9871a22d7f53">&#9670;&nbsp;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00706.html">bl::AsyncResourceLoader</a>&lt; T &gt;::load </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00722.html">ResourceManager</a>&lt; TResourceType &gt; &amp;&#160;</td>
+          <td class="paramname"><em>manager</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>progress</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their loading and progress reporting here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">manager</td><td>The resource manager to load into </td></tr>
+    <tr><td class="paramname">uri</td><td>The resource identifier to load and add </td></tr>
+    <tr><td class="paramname">progress</td><td>Optionally update the progress (in range [0,1]) as loading is done </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00149_source.html#l00046">46</a> of file <a class="el" href="a00149_source.html">AsyncResourceLoader.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Resources/<a class="el" href="a00155_source.html">SpecializedLoaders.hpp</a></li>
+<li>include/BLIB/Resources/<a class="el" href="a00149_source.html">AsyncResourceLoader.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 17 2020 04:43:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 18 2020 02:08:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
