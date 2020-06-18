@@ -1,6 +1,6 @@
 #include <BLIB/GUI/Action.hpp>
 
-#include <iostream>
+#include <BLIB/Logging.hpp>
 
 namespace bl
 {
@@ -18,8 +18,7 @@ Action Action::fromRaw(const RawEvent& event) {
         return Action(
             Action::Scrolled, event.event.mouseWheelScroll.delta, event.localMousePos);
     default:
-        std::cerr << "gui::Action: Unsupported SFML event type: " << event.event.type
-                  << std::endl;
+        BL_LOG_ERROR << "gui::Action: Unsupported SFML event type: " << event.event.type;
         return Action(Action::Unknown, event.localMousePos);
     }
 }

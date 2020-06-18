@@ -1,6 +1,6 @@
 #include <BLIB/Parser/Grammar.hpp>
 
-#include <iostream>
+#include <BLIB/Logging.hpp>
 #include <map>
 
 namespace bl
@@ -9,7 +9,7 @@ namespace parser
 {
 void Grammar::setStart(Node::Type s) {
     if (!nonterminal(s)) {
-        std::cerr << "Invalid start symbol " << s << std::endl;
+        BL_LOG_ERROR << "Invalid start symbol " << s;
         return;
     }
     start = s;
@@ -19,12 +19,12 @@ Node::Type Grammar::getStart() const { return start; }
 
 bool Grammar::addRule(Node::Type result, const Node::Sequence& sequence) {
     if (!nonterminal(result)) {
-        std::cerr << "Tried to add production to non nonterminal " << result << std::endl;
+        BL_LOG_ERROR << "Tried to add production to non nonterminal " << result;
         return false;
     }
     for (Node::Type t : sequence) {
         if (!nonterminal(t) && !terminal(t)) {
-            std::cerr << "Unrecognized node type in production: " << t << std::endl;
+            BL_LOG_ERROR << "Unrecognized node type in production: " << t;
             return false;
         }
     }

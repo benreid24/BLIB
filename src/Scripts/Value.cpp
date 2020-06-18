@@ -4,7 +4,6 @@
 #include <BLIB/Scripts/Function.hpp>
 #include <cmath>
 #include <functional>
-#include <iostream>
 
 namespace bl
 {

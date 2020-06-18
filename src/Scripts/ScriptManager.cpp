@@ -1,7 +1,7 @@
 #include <BLIB/Scripts/ScriptManager.hpp>
 
+#include <BLIB/Logging.hpp>
 #include <chrono>
-#include <iostream>
 
 namespace bl
 {
@@ -33,8 +33,8 @@ bool ScriptManager::terminateAll(float timeout) {
     }
 
     if (!scripts.empty()) {
-        std::cerr << scripts.size() << "scripts still running after " << timeout
-                  << "s  timeout" << std::endl;
+        BL_LOG_WARN << scripts.size() << "scripts still running after " << timeout
+                    << "s  timeout";
         return false;
     }
     return true;

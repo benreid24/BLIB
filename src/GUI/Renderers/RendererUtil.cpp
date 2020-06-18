@@ -1,8 +1,8 @@
 #include <BLIB/GUI/Renderers/RendererUtil.hpp>
 
 #include <BLIB/GUI.hpp>
+#include <BLIB/Logging.hpp>
 #include <GUI/Data/Font.hpp>
-#include <iostream>
 
 namespace bl
 {
@@ -16,7 +16,7 @@ sf::Text RendererUtil::buildRenderText(const std::string& text, const sf::IntRec
 
     Resource<sf::Font>::Ref font = settings.font.value_or(Font::get());
     if (!font) {
-        std::cerr << "Attempting to render text with no sf::Font\n";
+        BL_LOG_ERROR << "Attempting to render text with no sf::Font";
         return {};
     }
 

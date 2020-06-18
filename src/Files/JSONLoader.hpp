@@ -45,7 +45,7 @@ private:
     List loadList();
     Group loadGroup();
 
-    std::ostream& error();
+    std::string error();
 };
 
 }

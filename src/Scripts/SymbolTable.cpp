@@ -1,7 +1,7 @@
 #include <BLIB/Scripts/SymbolTable.hpp>
 
+#include <BLIB/Logging.hpp>
 #include <BLIB/Scripts/ScriptManager.hpp>
-#include <iostream>
 
 namespace bl
 {
@@ -36,7 +36,7 @@ void SymbolTable::popFrame() {
     if (table.size() > 1)
         table.pop_back();
     else
-        std::cerr << "Error: Attempted to pop global frame from SymbolTable" << std::endl;
+        BL_LOG_WARN << "Attempted to pop global frame from SymbolTable";
 }
 
 bool SymbolTable::exists(const std::string& name) const {

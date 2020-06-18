@@ -1,7 +1,5 @@
 #include <BLIB/Media/Animation.hpp>
 
-#include <iostream>
-
 namespace bl
 {
 namespace

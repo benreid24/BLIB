@@ -1,5 +1,6 @@
 #include <Scripts/ScriptLibrary.hpp>
 
+#include <BLIB/Logging.hpp>
 #include <BLIB/Scripts.hpp>
 #include <BLIB/Util.hpp>
 #include <chrono>
@@ -15,6 +16,9 @@ namespace scripts
 namespace
 {
 Value print(SymbolTable&, const std::vector<Value>& args);
+Value loginfo(SymbolTable&, const std::vector<Value>& args);
+Value logerror(SymbolTable&, const std::vector<Value>& args);
+Value logdebug(SymbolTable&, const std::vector<Value>& args);
 Value random(SymbolTable&, const std::vector<Value>& args);
 Value sleep(SymbolTable&, const std::vector<Value>& args);
 Value time(SymbolTable&, const std::vector<Value>& args);
@@ -34,24 +38,14 @@ Value tan(SymbolTable&, const std::vector<Value>& args);
 Value atan2(SymbolTable&, const std::vector<Value>& args);
 
 typedef std::pair<std::string, Function::CustomCB> builtin;
-const std::vector<builtin> builtins = {builtin("print", print),
-                                       builtin("random", random),
-                                       builtin("sleep", sleep),
-                                       builtin("time", time),
-                                       builtin("run", run),
-                                       builtin("exit", exit),
-                                       builtin("error", error),
-                                       builtin("str", str),
-                                       builtin("num", num),
-                                       builtin("sqrt", sqrt),
-                                       builtin("abs", abs),
-                                       builtin("round", round),
-                                       builtin("floor", floor),
-                                       builtin("ceil", ceil),
-                                       builtin("sin", sin),
-                                       builtin("cos", cos),
-                                       builtin("tan", tan),
-                                       builtin("atan2", atan2)};
+const std::vector<builtin> builtins = {
+    builtin("print", print),       builtin("loginfo", loginfo), builtin("logdebug", logdebug),
+    builtin("logerror", logerror), builtin("random", random),   builtin("sleep", sleep),
+    builtin("time", time),         builtin("run", run),         builtin("exit", exit),
+    builtin("error", error),       builtin("str", str),         builtin("num", num),
+    builtin("sqrt", sqrt),         builtin("abs", abs),         builtin("round", round),
+    builtin("floor", floor),       builtin("ceil", ceil),       builtin("sin", sin),
+    builtin("cos", cos),           builtin("tan", tan),         builtin("atan2", atan2)};
 
 } // namespace
 
@@ -61,8 +55,29 @@ void Library::addBuiltIns(SymbolTable& table) {
 
 namespace
 {
+std::string argsToStr(SymbolTable& t, const std::vector<Value>& args) {
+    std::stringstream ss;
+    for (const Value& v : args) { ss << str(t, {v}).getAsString(); }
+    return ss.str();
+}
+
 Value print(SymbolTable& t, const std::vector<Value>& args) {
-    for (const Value& v : args) { std::cout << str(t, {v}).getAsString(); }
+    std::cout << argsToStr(t, args) << std::endl;
+    return Value();
+}
+
+Value loginfo(SymbolTable& t, const std::vector<Value>& args) {
+    bl::Logger::info() << argsToStr(t, args);
+    return Value();
+}
+
+Value logerror(SymbolTable& t, const std::vector<Value>& args) {
+    bl::Logger::error() << argsToStr(t, args);
+    return Value();
+}
+
+Value logdebug(SymbolTable& t, const std::vector<Value>& args) {
+    bl::Logger::debug() << argsToStr(t, args);
     return Value();
 }
 

@@ -3,7 +3,6 @@
 #include <BLIB/GUI.hpp>
 #include <GUI/Data/Font.hpp>
 #include <cmath>
-#include <iostream>
 
 namespace bl
 {

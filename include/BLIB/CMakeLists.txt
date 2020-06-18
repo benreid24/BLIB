@@ -1,6 +1,7 @@
 target_sources(BLIB PUBLIC
     Files.hpp
     GUI.hpp
+    Logging.hpp
     Media.hpp
     Parser.hpp
     Resources.hpp
@@ -11,6 +12,7 @@ target_sources(BLIB PUBLIC
 
 add_subdirectory(Files)
 add_subdirectory(GUI)
+add_subdirectory(Logging)
 add_subdirectory(Media)
 add_subdirectory(Parser)
 add_subdirectory(Scripts)
