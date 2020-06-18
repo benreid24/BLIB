@@ -1,8 +1,8 @@
 #include <Scripts/ScriptImpl.hpp>
 
+#include <BLIB/Logging.hpp>
 #include <Scripts/Parser.hpp>
 #include <cmath>
-#include <iostream>
 
 namespace bl
 {
@@ -813,7 +813,7 @@ Value deref(const Value& v) {
     if (v.getType() == Value::TRef) {
         Value::CPtr l = v.getAsRef().lock();
         if (l) return deref(*l);
-        std::cerr << "Warning: Referenced Value expired";
+        BL_LOG_WARN << "Referenced Value expired";
         return Value();
     }
     return v;

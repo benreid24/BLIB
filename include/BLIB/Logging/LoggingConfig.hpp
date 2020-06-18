@@ -33,7 +33,8 @@ public:
 
     /**
      * @brief Add or modify an output stream to the config. Can be called multiple times on the
-     *        same stream to change the log level
+     *        same stream to change the log level. If no output is configured before the first
+     *        item logged the default is to log to std::cout at Info level
      *
      * @param output The stream to log to. Must remain valid
      * @param logLevel The level at which to send logs. Lower level logs omitted

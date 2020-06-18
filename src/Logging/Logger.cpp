@@ -1,7 +1,5 @@
 #include <BLIB/Logging.hpp>
 
-#include <iostream>
-
 namespace bl
 {
 Logger Logger::critical() { return Logger(LoggingConfig::get(), LoggingConfig::Critical); }

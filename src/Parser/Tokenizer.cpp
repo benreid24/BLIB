@@ -1,5 +1,6 @@
 #include <BLIB/Parser/Tokenizer.hpp>
-#include <iostream>
+
+#include <BLIB/Logging.hpp>
 
 namespace bl
 {
@@ -103,8 +104,8 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
     }
 
     if (!current.empty()) {
-        std::cerr << "Unexpected character '" << current[0] << "' on line " << fLine
-                  << " at position " << fCol << std::endl;
+        BL_LOG_ERROR << "Unexpected character '" << current[0] << "' on line " << fLine
+                     << " at position " << fCol;
         return {};
     }
     return tokens;

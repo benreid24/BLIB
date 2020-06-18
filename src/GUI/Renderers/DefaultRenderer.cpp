@@ -1,9 +1,9 @@
 #include <BLIB/GUI/Renderers/DefaultRenderer.hpp>
 
 #include <BLIB/GUI.hpp>
+#include <BLIB/Logging.hpp>
 #include <GUI/Data/Font.hpp>
 #include <cmath>
-#include <iostream>
 
 namespace bl
 {
@@ -138,7 +138,7 @@ DefaultRenderer::Ptr DefaultRenderer::create() { return Ptr(new DefaultRenderer(
 
 void DefaultRenderer::renderCustom(sf::RenderTarget& target, sf::RenderStates states,
                                    const Element& element) const {
-    std::cerr << "Error: renderCustom() called on default renderer. Use a custom renderer\n";
+    BL_LOG_ERROR << "renderCustom() called on default renderer. Use a custom renderer";
 }
 
 void DefaultRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates states,

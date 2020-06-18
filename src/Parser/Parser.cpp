@@ -1,29 +1,18 @@
 #include <BLIB/Parser/Parser.hpp>
 
+#include <BLIB/Logging.hpp>
 #include <Scripts/Parser.hpp>
-#include <iostream>
 #include <numeric>
 #include <stack>
+
+#define PARSER_ERROR(node) \
+    BL_LOG_ERROR << "Line " << node->sourceLine << " column " << node->sourceColumn << ": "
 
 namespace bl
 {
 using namespace parser;
 namespace
 {
-std::ostream& error(Node::Ptr node) {
-    std::cerr << "Error: Line " << node->sourceLine << " column " << node->sourceColumn
-              << ": ";
-    return std::cerr;
-}
-
-std::ostream& operator<<(std::ostream& s, const Node::Sequence& nodes) {
-    s << "[";
-    if (!nodes.empty()) s << nodes[0];
-    for (unsigned int i = 1; i < nodes.size(); ++i) { s << ", " << nodes[i]; }
-    s << "]";
-    return s;
-}
-
 Node::Type getFree(const Grammar& g) {
     Node::Type t = rand();
     while (g.terminal(t) || g.nonterminal(t)) { t = rand(); }
@@ -58,8 +47,8 @@ bool doReduction(const Grammar& g, std::vector<Node::Ptr>& nonterminals,
         if (!states.empty())
             states.pop();
         else {
-            error(terminals.back())
-                << "Internal parser error, not enough states for reduction" << std::endl;
+            PARSER_ERROR(terminals.back())
+                << "Internal parser error, not enough states for reduction";
             return false;
         }
     }
@@ -77,17 +66,15 @@ bool doReduction(const Grammar& g, std::vector<Node::Ptr>& nonterminals,
             nonterminals.pop_back();
         }
         else {
-            error(terminals.back())
-                << "Internal parser error, grammar production uses undefined symbol"
-                << std::endl;
+            PARSER_ERROR(terminals.back())
+                << "Internal parser error, grammar production uses undefined symbol";
             return false;
         }
         nt->children[si]->parent = nt;
         if (nt->children[si]->type != prod.set[pi]) {
-            error(nt->children[si])
+            PARSER_ERROR(nt->children[si])
                 << "Internal parser error, table specified reduction that does "
-                   "not match the given production"
-                << std::endl;
+                   "not match the given production";
             return false;
         }
     }
@@ -151,15 +138,14 @@ Node::Ptr Parser::parse(Stream& input) const {
                     stateHist.push(state);
                 }
                 else {
-                    error(lookahead) << "Internal parser error, no goto in table" << std::endl;
+                    PARSER_ERROR(lookahead) << "Internal parser error, no goto in table";
                     return nullptr;
                 }
             }
             else if (action.type == Action::Reduce) {
                 if (!action.reduction.has_value()) {
-                    error(lookahead)
-                        << "Internal parser error, no production for reduce action"
-                        << std::endl;
+                    PARSER_ERROR(lookahead)
+                        << "Internal parser error, no production for reduce action";
                     return nullptr;
                 }
                 if (!reduce(action.reduction.value())) { return nullptr; }
@@ -170,41 +156,43 @@ Node::Ptr Parser::parse(Stream& input) const {
                     stateHist.push(state);
                 }
                 else {
-                    error(lookahead) << "Internal parser error, no goto in table" << std::endl;
+                    PARSER_ERROR(lookahead) << "Internal parser error, no goto in table";
                     return nullptr;
                 }
             }
             else {
-                error(lookahead) << "Internal parser error, invalid action "
-                                 << table[state].actions.at(lookahead->type).type << std::endl;
+                PARSER_ERROR(lookahead) << "Internal parser error, invalid action "
+                                        << table[state].actions.at(lookahead->type).type;
                 return nullptr;
             }
         }
         else {
-            error(lookahead) << "Unexpected token '" << lookahead->data << "'" << std::endl;
+            PARSER_ERROR(lookahead) << "Unexpected token '" << lookahead->data << "'";
             return nullptr;
         }
     }
 
     if (nonterminals.empty()) {
-        if (!terminals.empty()) error(terminals.back());
-        std::cerr << "Unable to perform reduction" << std::endl;
+        if (!terminals.empty())
+            PARSER_ERROR(terminals.back()) << "Unable to perform reduction";
+        else
+            BL_LOG_ERROR << "Unable to perform reduction";
         return nullptr;
     }
     if (!terminals.empty()) {
-        error(terminals.back()) << "Unable to process remaining input" << std::endl;
+        PARSER_ERROR(terminals.back()) << "Unable to process remaining input";
         return nullptr;
     }
     if (nonterminals.size() != 1) {
-        error(nonterminals[0]) << "Unable to reduce parse tree" << std::endl;
+        PARSER_ERROR(nonterminals[0]) << "Unable to reduce parse tree";
         return nullptr;
     }
     if (nonterminals.back()->type != Start) {
-        error(nonterminals.back()) << "Invalid root symbol" << std::endl;
+        PARSER_ERROR(nonterminals.back()) << "Invalid root symbol";
         return nullptr;
     }
     if (nonterminals.back()->children[0]->type != grammar.getStart()) {
-        error(nonterminals.back()) << "Did not reach grammar start symbol" << std::endl;
+        PARSER_ERROR(nonterminals.back()) << "Did not reach grammar start symbol";
         return nullptr;
     }
 
@@ -244,12 +232,12 @@ bool Parser::generateTables() {
                 for (Node::Type t : follow) {
                     if (table[i].actions.find(t) != table[i].actions.end()) {
                         if (table[i].actions[t].type == Action::Shift) {
-                            std::cerr << "Shift-Reduce error\n";
+                            BL_LOG_ERROR << "Shift-Reduce error";
                             table.clear();
                             return false;
                         }
                         else {
-                            std::cerr << "Reduce-Reduce error\n";
+                            BL_LOG_ERROR << "Reduce-Reduce error";
                             table.clear();
                             return false;
                         }

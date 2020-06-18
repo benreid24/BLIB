@@ -1,11 +1,11 @@
 #include <BLIB/Scripts.hpp>
 
 #include <BLIB/Files/FileUtil.hpp>
+#include <BLIB/Logging.hpp>
 #include <Scripts/Parser.hpp>
 #include <Scripts/ScriptImpl.hpp>
 #include <Scripts/ScriptLibrary.hpp>
 #include <fstream>
-#include <iostream>
 #include <streambuf>
 
 namespace bl
@@ -59,7 +59,7 @@ std::optional<scripts::Value> Script::execute(ExecutionContext::Ptr context) con
     } catch (const Error& err) {
         context->running = false;
         context.reset();
-        std::cerr << err.stacktrace() << std::endl;
+        BL_LOG_ERROR << err.stacktrace();
         return {};
     } catch (const Exit&) { return {}; }
 }
