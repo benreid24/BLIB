@@ -2,7 +2,6 @@ target_sources(BLIB PRIVATE
     Action.cpp
     GUI.cpp
     RawEvent.cpp
-    Signal.cpp
 )
 
 add_subdirectory(Data)
