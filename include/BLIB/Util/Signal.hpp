@@ -82,7 +82,7 @@ void Signal<CallbackArgs...>::willCall(Callback cb) {
 
 template<typename... CallbackArgs>
 void Signal<CallbackArgs...>::willAlwaysCall(Callback cb) {
-    userCallbacks.push_back(cb);
+    internalCallbacks.push_back(cb);
 }
 
 template<typename... CallbackArgs>
