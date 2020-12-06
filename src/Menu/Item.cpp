@@ -40,12 +40,15 @@ bool Item::isSelected() const { return selected; }
 
 Signal<>& Item::getSignal(EventType e) { return signals[e]; }
 
+const RenderItem& Item::getRenderItem() const { return renderItem; }
+
 bool Item::attach(Ptr item, AttachPoint point) {
     if (attachments[point]) return false;
     if (item->isAttached()) return false;
 
     attachments[point] = item;
     item->attachPoint  = oppositeSide(point);
+    return true;
 }
 
 } // namespace menu

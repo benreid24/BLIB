@@ -72,6 +72,12 @@ public:
     Signal<>& getSignal(EventType event);
 
     /**
+     * @brief Get the RenderItem for this Item
+     *
+     */
+    const RenderItem& getRenderItem() const;
+
+    /**
      * @brief Attach the given item to this item at the attach point. Fails if the given item
      *        is already attached to another or if the given attach point is used.
      *
@@ -82,7 +88,7 @@ public:
     bool attach(Ptr item, AttachPoint attachPoint);
 
 private:
-    const RenderItem& renderItem;
+    RenderItem renderItem;
     Ptr attachments[_NUM_ATTACHPOINTS];
     AttachPoint attachPoint;
     Signal<> signals[_NUM_EVENTS];

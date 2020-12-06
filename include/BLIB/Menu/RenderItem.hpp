@@ -11,30 +11,30 @@ namespace menu
 {
 /**
  * @brief Abstract base class for any Item that can be rendered by a Menu
- * 
+ *
  * @ingroup Menu
  * @see TextRenderItem
  * @see SpriteRenderItem
- * 
+ *
  */
 class RenderItem {
 public:
     /**
      * @brief Return the untransformed size of the object
-     * 
+     *
      * @return sf::Vector2f Size the object will take
      */
-    virtual sf::Vector2f getSize() const                    = 0;
+    virtual sf::Vector2f getSize() const;
 
     /**
      * @brief Render the item to the given target
-     * 
+     *
      * @param target The target to render to
      * @param states RenderStates to apply
      * @param position Position to render at
      */
     virtual void render(sf::RenderTarget& target, sf::RenderStates states,
-                        const sf::Vector2f& position) const = 0;
+                        const sf::Vector2f& position) const;
 };
 
 } // namespace menu
