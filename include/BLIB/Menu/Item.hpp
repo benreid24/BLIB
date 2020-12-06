@@ -4,6 +4,8 @@
 #include <BLIB/Menu/RenderItem.hpp>
 #include <BLIB/Util/Signal.hpp>
 
+#include <functional>
+#include <list>
 #include <memory>
 
 namespace bl
@@ -11,6 +13,7 @@ namespace bl
 namespace menu
 {
 class Menu;
+class Renderer;
 
 /**
  * @brief Item for a mouseless menu. Can be 'attached' to other items in a Menu,
@@ -19,9 +22,10 @@ class Menu;
  * @ingroup Menu
  *
  */
-class Item {
+class Item : public std::enable_shared_from_this<Item> {
 public:
     typedef std::shared_ptr<Item> Ptr;
+    typedef std::function<void(const Item&, int, int)> Visitor;
     enum AttachPoint { Top, Right, Bottom, Left, _NUM_ATTACHPOINTS };
     enum EventType { Selected, Deselected, Activated, _NUM_EVENTS };
 
@@ -57,10 +61,19 @@ public:
     bool isSelectable() const;
 
     /**
-     * @brief Returns whether or not the Item is currently selected
+     * @brief Set whether or not the selection is allowed to move through this item if this
+     *        item is not selectable itself
+     *
+     * @param allow True to allow item on the other side to be selected, false to block
+     */
+    void setAllowSelectionCrossing(bool allow);
+
+    /**
+     * @brief Returns whether or not the selection may move through this item is it is not
+     *        selectable itself
      *
      */
-    bool isSelected() const;
+    bool allowsSelectionCrossing() const;
 
     /**
      * @brief Returns a modifiable reference to the Signal object for the corresponding
@@ -87,15 +100,25 @@ public:
      */
     bool attach(Ptr item, AttachPoint attachPoint);
 
+    /**
+     * @brief Invokes the visitor with this Item and all attached Items. Visitor is called
+     *        recursively to traverse the entire tree. Visitor arguments are (item, x, y),
+     *        where x and y are relative to this root item
+     *
+     * @param visitor The visitor to invoke all attached items on
+     */
+    void visit(Visitor visitor) const;
+
 private:
     RenderItem renderItem;
     Ptr attachments[_NUM_ATTACHPOINTS];
-    AttachPoint attachPoint;
     Signal<> signals[_NUM_EVENTS];
     bool canBeSelected;
-    bool selected;
+    bool allowSelectionCross;
+    bool attached;
 
     Item(const RenderItem& renderItem);
+    void visit(Visitor visitor, int x, int y, std::list<std::pair<int, int>>& visited) const;
 
     friend class Menu;
 };

@@ -19,6 +19,8 @@ namespace menu
  */
 class RenderItem {
 public:
+    virtual ~RenderItem() = default;
+
     /**
      * @brief Return the untransformed size of the object
      *

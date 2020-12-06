@@ -7,6 +7,8 @@
  *
  */
 
-// TODO - include
+#include <BLIB/Menu/Item.hpp>
+#include <BLIB/Menu/Menu.hpp>
+#include <BLIB/Menu/RenderItem.hpp>
 
 #endif
