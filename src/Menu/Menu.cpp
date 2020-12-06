@@ -7,7 +7,9 @@ namespace menu
 {
 Menu::Menu(Item::Ptr root)
 : rootItem(root)
-, selectedItem(root) {}
+, selectedItem(root) {
+    refresh();
+}
 
 void Menu::refresh() {
     const auto itemVisitor = [this](const Item& item, int x, int y) {

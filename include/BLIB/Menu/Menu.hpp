@@ -23,11 +23,30 @@ class Menu {
 public:
     Menu(Item::Ptr root);
 
+    /**
+     * @brief Render the menu to the given target using the given renderer at the given
+     *        position with the given states.
+     *
+     * @param renderer The renderer to use
+     * @param target The target to render to
+     * @param position The position to render the root element at
+     * @param renderStates Render states to use
+     */
     void render(const Renderer& renderer, sf::RenderTarget& target,
                 const sf::Vector2f& position, sf::RenderStates renderStates = {});
 
+    /**
+     * @brief Processes the event and updates the Menu state
+     *
+     * @param event The event to process
+     */
     void processEvent(const Event& event);
 
+    /**
+     * @brief Refreshes the calculated sizes of each item. Needs to be called if items
+     *        are added or updated after the Menu is constructed
+     *
+     */
     void refresh();
 
 private:
