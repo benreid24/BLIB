@@ -5,6 +5,7 @@
 #include <functional>
 #include <optional>
 #include <variant>
+#include <vector>
 
 namespace bl
 {
