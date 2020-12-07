@@ -5,3 +5,5 @@ target_sources(BLIB PRIVATE
 )
 
 add_subdirectory(Renderers)
+add_subdirectory(RenderItems)
+add_subdirectory(Selectors)

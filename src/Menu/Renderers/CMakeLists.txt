@@ -1,3 +1,3 @@
-target_sources(BLIB PUBLIC
+target_sources(BLIB PRIVATE
     BasicRenderer.cpp
 )
