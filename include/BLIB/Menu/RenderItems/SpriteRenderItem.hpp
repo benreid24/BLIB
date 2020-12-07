@@ -44,7 +44,7 @@ public:
                         const sf::Vector2f& position) const override;
 
 private:
-    sf::Sprite sprite;
+    mutable sf::Sprite sprite;
 
     SpriteRenderItem(const sf::Sprite& sprite);
 };

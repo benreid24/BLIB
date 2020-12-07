@@ -44,7 +44,7 @@ public:
                         const sf::Vector2f& position) const override;
 
 private:
-    sf::Text text;
+    mutable sf::Text text;
 
     TextRenderItem(const sf::Text& text);
 };

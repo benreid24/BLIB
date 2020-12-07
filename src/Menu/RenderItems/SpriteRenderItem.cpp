@@ -19,7 +19,7 @@ sf::Vector2f SpriteRenderItem::getSize() const {
 
 void SpriteRenderItem::render(sf::RenderTarget& target, sf::RenderStates states,
                               const sf::Vector2f& position) const {
-    states.transform.translate(position);
+    sprite.setPosition(position);
     target.draw(sprite, states);
 }
 

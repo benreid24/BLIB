@@ -19,7 +19,7 @@ sf::Vector2f TextRenderItem::getSize() const {
 
 void TextRenderItem::render(sf::RenderTarget& target, sf::RenderStates states,
                             const sf::Vector2f& position) const {
-    states.transform.translate(position);
+    text.setPosition(position);
     target.draw(text, states);
 }
 
