@@ -4,6 +4,7 @@ target_sources(BLIB PUBLIC
     Menu.hpp
     Renderer.hpp
     RenderItem.hpp
+    Selector.hpp
 )
 
 add_subdirectory(Renderers)

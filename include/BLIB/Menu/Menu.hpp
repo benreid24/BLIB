@@ -4,6 +4,7 @@
 #include <BLIB/Menu/Event.hpp>
 #include <BLIB/Menu/Item.hpp>
 #include <BLIB/Menu/Renderer.hpp>
+#include <BLIB/Menu/Selector.hpp>
 #include <BLIB/Util/PairHash.hpp>
 
 #include <list>
@@ -21,7 +22,11 @@ namespace menu
  */
 class Menu {
 public:
-    Menu(Item::Ptr root);
+    /**
+     * @brief Create a new Menu with the base Item and selection indicator
+     *
+     */
+    Menu(Item::Ptr root, Selector::Ptr selector);
 
     /**
      * @brief Render the menu to the given target using the given renderer at the given
@@ -50,6 +55,7 @@ public:
     void refresh();
 
 private:
+    Selector::Ptr selector;
     Item::Ptr rootItem;
     Item::Ptr selectedItem;
     std::unordered_map<int, float> columnWidths;

@@ -5,8 +5,9 @@ namespace bl
 {
 namespace menu
 {
-Menu::Menu(Item::Ptr root)
+Menu::Menu(Item::Ptr root, Selector::Ptr selector)
 : rootItem(root)
+, selector(selector)
 , selectedItem(root) {
     refresh();
 }
@@ -52,7 +53,7 @@ void Menu::renderItem(const Renderer& renderer, sf::RenderTarget& target, Item::
         target, renderStates, *item, position, columnWidth, rowHeight, x, y);
     itemAreas.push_back(std::make_pair(sf::FloatRect(position, size), item));
     if (item.get() == selectedItem.get()) {
-        // TODO - render current item
+        selector->render(target, renderStates, {position, size});
     }
 
     if (item->attachments[Item::Top]) {
