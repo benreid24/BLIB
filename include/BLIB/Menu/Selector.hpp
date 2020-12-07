@@ -28,7 +28,7 @@ public:
      * @param itemArea Area the item is in which needs to be indicated
      */
     virtual void render(sf::RenderTarget& target, sf::RenderStates states,
-                        sf::FloatRect itemArea) = 0;
+                        sf::FloatRect itemArea) const = 0;
 };
 
 } // namespace menu
