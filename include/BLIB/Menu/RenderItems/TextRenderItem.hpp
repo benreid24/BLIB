@@ -11,6 +11,8 @@ namespace menu
 /**
  * @brief RenderItem to display text
  *
+ * @ingroup Menu
+ *
  */
 class TextRenderItem : public RenderItem {
 public:
