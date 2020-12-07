@@ -6,9 +6,9 @@ namespace bl
 {
 namespace menu
 {
-Item::Ptr Item::create(const RenderItem& renderItem) { return Ptr(new Item(renderItem)); }
+Item::Ptr Item::create(RenderItem::Ptr renderItem) { return Ptr(new Item(renderItem)); }
 
-Item::Item(const RenderItem& renderItem)
+Item::Item(RenderItem::Ptr renderItem)
 : renderItem(renderItem)
 , attached(false)
 , canBeSelected(true)
@@ -41,7 +41,7 @@ bool Item::allowsSelectionCrossing() const { return allowSelectionCross; }
 
 Signal<>& Item::getSignal(EventType e) { return signals[e]; }
 
-const RenderItem& Item::getRenderItem() const { return renderItem; }
+const RenderItem& Item::getRenderItem() const { return *renderItem; }
 
 bool Item::attach(Ptr item, AttachPoint point) {
     if (attachments[point]) return false;

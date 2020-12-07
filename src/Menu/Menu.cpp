@@ -48,8 +48,8 @@ void Menu::renderItem(const Renderer& renderer, sf::RenderTarget& target, Item::
     it = rowHeights.find(y);
     if (it != rowHeights.end()) rowHeight = rowHeights[y];
 
-    const sf::Vector2f size =
-        renderer.renderItem(*item, position, columnWidth, rowHeight, x, y);
+    const sf::Vector2f size = renderer.renderItem(
+        target, renderStates, *item, position, columnWidth, rowHeight, x, y);
     itemAreas.push_back(std::make_pair(sf::FloatRect(position, size), item));
     if (item.get() == selectedItem.get()) {
         // TODO - render current item

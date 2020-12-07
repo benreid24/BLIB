@@ -4,6 +4,7 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <memory>
 
 namespace bl
 {
@@ -19,6 +20,8 @@ namespace menu
  */
 class RenderItem {
 public:
+    typedef std::shared_ptr<RenderItem> Ptr;
+
     virtual ~RenderItem() = default;
 
     /**
@@ -36,7 +39,7 @@ public:
      * @param position Position to render at
      */
     virtual void render(sf::RenderTarget& target, sf::RenderStates states,
-                        const sf::Vector2f& position) const;
+                        const sf::Vector2f& position) const = 0;
 };
 
 } // namespace menu

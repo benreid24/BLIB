@@ -22,6 +22,8 @@ public:
     /**
      * @brief Render the given item with the given guides
      *
+     * @param target The target to render to
+     * @param renderStates The render states to use
      * @param item The item to render
      * @param position The position of the area to render the item in
      * @param columnWidth The maximum width of any item in this column
@@ -30,7 +32,8 @@ public:
      * @param y The column of the item
      * @return sf::Vector2f The size of the region the item was rendered to
      */
-    virtual sf::Vector2f renderItem(const Item& item, const sf::Vector2f& position,
+    virtual sf::Vector2f renderItem(sf::RenderTarget& target, sf::RenderStates renderStates,
+                                    const Item& item, const sf::Vector2f& position,
                                     float columnWidth, float rowHeight, int x,
                                     int y) const = 0;
 };

@@ -40,7 +40,7 @@ public:
      *
      * @param renderItem The renderable entity for this item
      */
-    static Ptr create(const RenderItem& renderItem);
+    static Ptr create(RenderItem::Ptr renderItem);
 
     /**
      * @brief Returns true if the item has been attached to another
@@ -110,14 +110,14 @@ public:
     void visit(Visitor visitor) const;
 
 private:
-    RenderItem renderItem;
+    RenderItem::Ptr renderItem;
     Ptr attachments[_NUM_ATTACHPOINTS];
     Signal<> signals[_NUM_EVENTS];
     bool canBeSelected;
     bool allowSelectionCross;
     bool attached;
 
-    Item(const RenderItem& renderItem);
+    Item(RenderItem::Ptr renderItem);
     void visit(Visitor visitor, int x, int y, std::list<std::pair<int, int>>& visited) const;
 
     friend class Menu;

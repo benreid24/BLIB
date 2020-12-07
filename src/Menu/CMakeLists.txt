@@ -3,3 +3,5 @@ target_sources(BLIB PRIVATE
     Item.cpp
     Menu.cpp
 )
+
+add_subdirectory(Renderers)
