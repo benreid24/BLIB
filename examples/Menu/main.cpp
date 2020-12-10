@@ -1,5 +1,7 @@
 #include <BLIB/Menu.hpp>
+#include <BLIB/Util/EventDispatcher.hpp>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 int main() {
     sf::Font font;
@@ -16,9 +18,15 @@ int main() {
 
     bl::menu::Item::Ptr newGame =
         bl::menu::Item::create(bl::menu::TextRenderItem::create(sf::Text("New Game", font)));
+    newGame->getSignal(bl::menu::Item::Activated).willCall([]() {
+        std::cout << "New Game\n";
+    });
 
     bl::menu::Item::Ptr loadGame =
         bl::menu::Item::create(bl::menu::TextRenderItem::create(sf::Text("Load Game", font)));
+    loadGame->getSignal(bl::menu::Item::Activated).willCall([]() {
+        std::cout << "Load Game\n";
+    });
 
     bl::menu::Item::Ptr quit =
         bl::menu::Item::create(bl::menu::TextRenderItem::create(sf::Text("Quit", font)));
@@ -27,10 +35,16 @@ int main() {
     title->setSelectable(false);
     newGame->attach(loadGame, bl::menu::Item::Bottom);
     loadGame->attach(quit, bl::menu::Item::Bottom);
+
     bl::menu::Menu menu(newGame, selector);
+    bl::menu::KeyboardEventGenerator eventGenerator(menu);
+    bl::WindowEventDispatcher eventDispatcher;
+    eventDispatcher.subscribe(&eventGenerator);
 
     sf::RenderWindow window(
         sf::VideoMode(800, 600, 32), "Menu Demo", sf::Style::Close | sf::Style::Titlebar);
+
+    quit->getSignal(bl::menu::Item::Activated).willCall([&window]() { window.close(); });
 
     while (window.isOpen()) {
         sf::Event event;
@@ -39,14 +53,8 @@ int main() {
                 window.close();
                 break;
             }
+            eventDispatcher.dispatch(event);
         }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-            menu.processEvent(
-                bl::menu::Event(bl::menu::Event::MoveEvent(bl::menu::Item::Top)));
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            menu.processEvent(
-                bl::menu::Event(bl::menu::Event::MoveEvent(bl::menu::Item::Bottom)));
 
         window.clear();
         menu.render(renderer, window, {350, 150});

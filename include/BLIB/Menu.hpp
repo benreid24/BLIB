@@ -8,6 +8,8 @@
  */
 
 #include <BLIB/Menu/Event.hpp>
+#include <BLIB/Menu/EventGenerators/KeyboardEventGenerator.hpp>
+#include <BLIB/Menu/EventGenerators/MouseEventGenerator.hpp>
 #include <BLIB/Menu/Item.hpp>
 #include <BLIB/Menu/Menu.hpp>
 #include <BLIB/Menu/RenderItem.hpp>
