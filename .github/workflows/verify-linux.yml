@@ -15,6 +15,9 @@ jobs:
       with:
         submodules: 'true'
 
+    - name: update apt
+      run: sudo apt-get update
+
     - name: package-install
       run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
       
