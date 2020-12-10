@@ -37,9 +37,12 @@ int main() {
     loadGame->attach(quit, bl::menu::Item::Bottom);
 
     bl::menu::Menu menu(newGame, selector);
-    bl::menu::KeyboardEventGenerator eventGenerator(menu);
+    bl::menu::KeyboardEventGenerator keyboardEventGenerator(menu);
+    bl::menu::MouseEventGenerator mouseEventGenerator(menu);
+
     bl::WindowEventDispatcher eventDispatcher;
-    eventDispatcher.subscribe(&eventGenerator);
+    eventDispatcher.subscribe(&keyboardEventGenerator);
+    eventDispatcher.subscribe(&mouseEventGenerator);
 
     sf::RenderWindow window(
         sf::VideoMode(800, 600, 32), "Menu Demo", sf::Style::Close | sf::Style::Titlebar);
