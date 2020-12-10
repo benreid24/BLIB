@@ -1,0 +1,59 @@
+#include <BLIB/Menu.hpp>
+#include <SFML/Graphics.hpp>
+
+int main() {
+    sf::Font font;
+    font.loadFromFile("font.ttf");
+
+    sf::Texture texture;
+    texture.loadFromFile("title.png");
+
+    bl::menu::BasicRenderer renderer;
+    bl::menu::ArrowSelector::Ptr selector = bl::menu::ArrowSelector::create(12);
+
+    bl::menu::Item::Ptr title =
+        bl::menu::Item::create(bl::menu::SpriteRenderItem::create(sf::Sprite(texture)));
+
+    bl::menu::Item::Ptr newGame =
+        bl::menu::Item::create(bl::menu::TextRenderItem::create(sf::Text("New Game", font)));
+
+    bl::menu::Item::Ptr loadGame =
+        bl::menu::Item::create(bl::menu::TextRenderItem::create(sf::Text("Load Game", font)));
+
+    bl::menu::Item::Ptr quit =
+        bl::menu::Item::create(bl::menu::TextRenderItem::create(sf::Text("Quit", font)));
+
+    title->attach(newGame, bl::menu::Item::Bottom);
+    title->setSelectable(false);
+    newGame->attach(loadGame, bl::menu::Item::Bottom);
+    loadGame->attach(quit, bl::menu::Item::Bottom);
+    bl::menu::Menu menu(newGame, selector);
+
+    sf::RenderWindow window(
+        sf::VideoMode(800, 600, 32), "Menu Demo", sf::Style::Close | sf::Style::Titlebar);
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+                break;
+            }
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            menu.processEvent(
+                bl::menu::Event(bl::menu::Event::MoveEvent(bl::menu::Item::Top)));
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            menu.processEvent(
+                bl::menu::Event(bl::menu::Event::MoveEvent(bl::menu::Item::Bottom)));
+
+        window.clear();
+        menu.render(renderer, window, {350, 150});
+        window.display();
+
+        sf::sleep(sf::milliseconds(20));
+    }
+
+    return 0;
+}

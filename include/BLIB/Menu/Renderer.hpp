@@ -36,6 +36,14 @@ public:
                                     const Item& item, const sf::Vector2f& position,
                                     float columnWidth, float rowHeight, int x,
                                     int y) const = 0;
+
+    /**
+     * @brief Returns the estimated total render area required by the given item
+     *
+     * @param item The item to estimate size for
+     * @return sf::Vector2f The amount of space the item will take
+     */
+    virtual sf::Vector2f estimateItemSize(const Item& item) const = 0;
 };
 
 } // namespace menu

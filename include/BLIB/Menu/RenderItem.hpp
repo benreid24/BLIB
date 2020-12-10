@@ -29,7 +29,7 @@ public:
      *
      * @return sf::Vector2f Size the object will take
      */
-    virtual sf::Vector2f getSize() const;
+    virtual sf::Vector2f getSize() const = 0;
 
     /**
      * @brief Render the item to the given target

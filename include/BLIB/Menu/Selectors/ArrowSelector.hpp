@@ -22,7 +22,7 @@ public:
      * @brief Create a new ArrowSelector with the given width
      *
      */
-    Ptr create(float width);
+    static Ptr create(float width);
 
     /**
      * @see Selector::render

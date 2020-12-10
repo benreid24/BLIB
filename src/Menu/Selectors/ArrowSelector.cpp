@@ -9,7 +9,7 @@ namespace
 const float HeightRatio = 0.5;
 
 bl::Triangle makeTriangle(float w) {
-    return bl::Triangle({0, 0}, {w, w * HeightRatio}, {0, w * HeightRatio});
+    return bl::Triangle({0, 0}, {w, w * HeightRatio}, {0, 2.f * w * HeightRatio});
 }
 } // namespace
 
@@ -21,8 +21,8 @@ ArrowSelector::ArrowSelector(float w)
 
 void ArrowSelector::render(sf::RenderTarget& target, sf::RenderStates states,
                            sf::FloatRect itemArea) const {
-    triangle.setPosition({itemArea.left - width - 2.f,
-                          itemArea.top + itemArea.height / 2.f - width * HeightRatio / 2.f});
+    triangle.setPosition(
+        {itemArea.left - width - 2.f, itemArea.top + itemArea.height - width * HeightRatio});
     target.draw(triangle, states);
 }
 

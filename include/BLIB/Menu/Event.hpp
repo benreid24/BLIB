@@ -26,6 +26,10 @@ struct Event {
      */
     struct MoveEvent {
         Item::AttachPoint direction;
+
+        MoveEvent() = default;
+        MoveEvent(const Item::AttachPoint& ap)
+        : direction(ap) {}
     };
 
     /**
@@ -40,6 +44,10 @@ struct Event {
      */
     struct LocationEvent {
         sf::Vector2f position;
+
+        LocationEvent() = default;
+        LocationEvent(const sf::Vector2f& pos)
+        : position(pos) {}
     };
 
     const Type type;

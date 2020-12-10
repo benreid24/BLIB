@@ -7,8 +7,15 @@
  *
  */
 
+#include <BLIB/Menu/Event.hpp>
 #include <BLIB/Menu/Item.hpp>
 #include <BLIB/Menu/Menu.hpp>
 #include <BLIB/Menu/RenderItem.hpp>
+#include <BLIB/Menu/RenderItems/SpriteRenderItem.hpp>
+#include <BLIB/Menu/RenderItems/TextRenderItem.hpp>
+#include <BLIB/Menu/Renderer.hpp>
+#include <BLIB/Menu/Renderers/BasicRenderer.hpp>
+#include <BLIB/Menu/Selector.hpp>
+#include <BLIB/Menu/Selectors/ArrowSelector.hpp>
 
 #endif

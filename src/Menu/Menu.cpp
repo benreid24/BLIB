@@ -57,10 +57,12 @@ void Menu::renderItem(const Renderer& renderer, sf::RenderTarget& target, Item::
     }
 
     if (item->attachments[Item::Top]) {
+        // TODO - add method to renderer to est size, use that when mod pos
+        const sf::Vector2f esize = renderer.estimateItemSize(*item->attachments[Item::Top]);
         renderItem(renderer,
                    target,
                    item->attachments[Item::Top],
-                   {position.x, position.y - size.y},
+                   {position.x, position.y - esize.y},
                    renderStates,
                    x,
                    y - 1,
@@ -87,10 +89,11 @@ void Menu::renderItem(const Renderer& renderer, sf::RenderTarget& target, Item::
                    rendered);
     }
     if (item->attachments[Item::Left]) {
+        const sf::Vector2f esize = renderer.estimateItemSize(*item->attachments[Item::Top]);
         renderItem(renderer,
                    target,
                    item->attachments[Item::Left],
-                   {position.x - size.x, position.y},
+                   {position.x - esize.x, position.y},
                    renderStates,
                    x - 1,
                    y,

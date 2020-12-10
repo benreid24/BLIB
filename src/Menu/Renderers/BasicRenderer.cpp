@@ -35,5 +35,9 @@ sf::Vector2f BasicRenderer::renderItem(sf::RenderTarget& target, sf::RenderState
     return pos + padding + item.getRenderItem().getSize() - position;
 }
 
+sf::Vector2f BasicRenderer::estimateItemSize(const Item& item) const {
+    return item.getRenderItem().getSize() + 2.f * padding;
+}
+
 } // namespace menu
 } // namespace bl

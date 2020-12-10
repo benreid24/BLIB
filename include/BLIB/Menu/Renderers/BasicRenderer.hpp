@@ -57,12 +57,17 @@ public:
     void setVerticalAlignment(Alignment align);
 
     /**
-     * @see Renderer::RenderItem
+     * @see Renderer::renderItem
      */
     virtual sf::Vector2f renderItem(sf::RenderTarget& target, sf::RenderStates renderStates,
                                     const Item& item, const sf::Vector2f& position,
                                     float columnWidth, float rowHeight, int x,
                                     int y) const override;
+
+    /**
+     * @see Renderer::estimateItemSize
+     */
+    virtual sf::Vector2f estimateItemSize(const Item& item) const override;
 
 private:
     Alignment horizontalAlignment;
