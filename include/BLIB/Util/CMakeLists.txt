@@ -7,4 +7,5 @@ target_sources(BLIB PUBLIC
     Timer.hpp
     EventListener.hpp
     EventDispatcher.hpp
+    EventDispatcherScopeGuard.hpp
 )
