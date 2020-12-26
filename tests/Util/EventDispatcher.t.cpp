@@ -1,4 +1,5 @@
 #include <BLIB/Util/EventDispatcher.hpp>
+#include <BLIB/Util/EventDispatcherScopeGuard.hpp>
 #include <gmock/gmock.h>
 
 namespace bl
@@ -24,6 +25,32 @@ TEST(EventDispatcher, Dispatch) {
     EXPECT_CALL(listener1, observe(-1)).Times(0);
     EXPECT_CALL(listener2, observe(-1));
     dispatcher.dispatch(-1);
+}
+
+TEST(EventDispatcher, ScopeGuard) {
+    MockListener listener1;
+    MockListener listener2;
+    EventDispatcher<int> dispatcher;
+
+    EventDispatcherScopeGuard<int> outerGuard(dispatcher);
+    outerGuard.subscribe(&listener1);
+
+    EXPECT_CALL(listener1, observe(5));
+    EXPECT_CALL(listener2, observe(5)).Times(0);
+    dispatcher.dispatch(5);
+
+    {
+        EventDispatcherScopeGuard<int> innerGuard(dispatcher);
+        innerGuard.subscribe(&listener2);
+
+        EXPECT_CALL(listener1, observe(5));
+        EXPECT_CALL(listener2, observe(5));
+        dispatcher.dispatch(5);
+    }
+
+    EXPECT_CALL(listener1, observe(5));
+    EXPECT_CALL(listener2, observe(5)).Times(0);
+    dispatcher.dispatch(5);
 }
 
 } // namespace unittest

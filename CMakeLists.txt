@@ -1,9 +1,14 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(BLIB C CXX)
-
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Fix behavior of CMAKE_CXX_STANDARD when targeting macOS.
+if (POLICY CMP0025)
+  cmake_policy(SET CMP0025 NEW)
+endif()
+
+project(BLIB C CXX)
 
 option(STATIC_LINK "On to link statically" On)
 option(BUILD_TESTS "On to build unit tests" On)
