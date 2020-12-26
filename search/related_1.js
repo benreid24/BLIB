@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['element',['Element',['../a00622.html#a016b821f88c7c0a2de1451c175cefbf9',1,'bl::gui::Signal']]]
+  ['group',['Group',['../a00620.html#a2697825715974a353728f0d4d5658112',1,'bl::gui::RadioButton']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['openmode',['OpenMode',['../a00442.html#a39c1dbe2fdbf07ea019a389f15141066',1,'bl::BinaryFile']]]
+  ['grammar',['Grammar',['../a00952.html#a3cbc50643e49faadde618f0c2b11ed4c',1,'bl::scripts::Parser']]]
 ];

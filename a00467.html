@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: JSON</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,6 +47,7 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,33 +62,63 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a00414.html">bl</a></li><li class="navelem"><a class="el" href="a00415.html">json</a></li><li class="navelem"><a class="el" href="a00416.html">schema</a></li><li class="navelem"><a class="el" href="a00470.html">Value</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::json::schema::Value Member List</div>  </div>
+<div class="title">JSON</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00470.html">bl::json::schema::Value</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00470.html#a285578dfe6fd9fd4e8c674417d2a3d34">operator=</a>(const Value &amp;rhs)</td><td class="entry"><a class="el" href="a00470.html">bl::json::schema::Value</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00470.html#a2ea2562beefc4a9cebe4e9747b15dacd">validate</a>(const json::Value &amp;value, bool strict) const</td><td class="entry"><a class="el" href="a00470.html">bl::json::schema::Value</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00470.html#a7ed5c79bb58c3651f81c38e788bb2978">Value</a>()=default</td><td class="entry"><a class="el" href="a00470.html">bl::json::schema::Value</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00470.html#a944edb22145e7dd4c9a1b417fca92ff1">Value</a>(const Value &amp;value)</td><td class="entry"><a class="el" href="a00470.html">bl::json::schema::Value</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00470.html#a60b42566778871125ab5089a62c43406">Value</a>(const Bool &amp;value)</td><td class="entry"><a class="el" href="a00470.html">bl::json::schema::Value</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00470.html#a23c537f20ee982c7ce8368e58b779946">Value</a>(const Numeric &amp;value)</td><td class="entry"><a class="el" href="a00470.html">bl::json::schema::Value</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00470.html#ae35242c0684fa9bcdedfa4f25ff70536">Value</a>(const String &amp;value)</td><td class="entry"><a class="el" href="a00470.html">bl::json::schema::Value</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00470.html#a307c36e1eca36ac0b83f2e65e0686ebd">Value</a>(const List &amp;value)</td><td class="entry"><a class="el" href="a00470.html">bl::json::schema::Value</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00470.html#aa74b1ab2f41104162eba9250e6af12ee">Value</a>(const Schema &amp;value)</td><td class="entry"><a class="el" href="a00470.html">bl::json::schema::Value</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Collection of classes for interacting with JSON data.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00516.html">bl::json::SourceInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds source location of any json object.  <a href="a00516.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00520.html">bl::json::Base</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a00520.html" title="Base class for all json types. ">Base</a> class for all json types.  <a href="a00520.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00524.html">bl::json::Group</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A collection of fields as (std::string, <a class="el" href="a00528.html" title="Represents any value type in JSON. ">Value</a>) pairs. This is the top level data type that should be used.  <a href="a00524.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00528.html">bl::json::Value</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents any value type in <a class="el" href="a00532.html" title="Top level interface for loading and saving json data. ">JSON</a>.  <a href="a00528.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00532.html">bl::JSON</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level interface for loading and saving json data.  <a href="a00532.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00536.html">bl::json::schema::Value</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a constraint on the type and value of a <a class="el" href="a00528.html" title="Represents any value type in JSON. ">json::Value</a>.  <a href="a00536.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00540.html">bl::json::schema::Bool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a boolean value required for <a class="el" href="a00528.html" title="Represents any value type in JSON. ">json::Value</a>.  <a href="a00540.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00544.html">bl::json::schema::Numeric</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a constrained numeric value for a <a class="el" href="a00528.html" title="Represents any value type in JSON. ">json::Value</a>. Can optionally supply a minimum and/or maximum value.  <a href="a00544.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00548.html">bl::json::schema::String</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a constrained string value for <a class="el" href="a00528.html" title="Represents any value type in JSON. ">json::Value</a>. Can optionally supply a set of strings that the value must be.  <a href="a00548.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00552.html">bl::json::schema::List</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a constrained list for <a class="el" href="a00528.html" title="Represents any value type in JSON. ">json::Value</a>. Can supply optional limits on min and max size, as well as supply a <a class="el" href="a00536.html" title="Represents a constraint on the type and value of a json::Value. ">Value</a> to validate the contained items.  <a href="a00552.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00556.html">bl::json::Schema</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a nestable schema for <a class="el" href="a00532.html" title="Top level interface for loading and saving json data. ">JSON</a> objects. Equivilent to <a class="el" href="a00524.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> <a class="el" href="a00556.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> can be used to define a data format for json, allowing for fields to be expected and constraining their types and values. Creating a <a class="el" href="a00556.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> for loading data can elimate the need for verbose error checking/handling in the code that reads the json data.  <a href="a00556.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00944.html">bl::json::Loader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to load <a class="el" href="a00532.html" title="Top level interface for loading and saving json data. ">JSON</a> objects from input streams or files.  <a href="a00944.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Collection of classes for interacting with JSON data. </p>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 18 2020 02:08:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 26 2020 00:44:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

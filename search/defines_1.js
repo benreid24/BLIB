@@ -6,5 +6,5 @@ var searchData=
   ['bl_5flog_5finfo',['BL_LOG_INFO',['../a00107.html#a459f7ea96e34815206480bf681ee2a2f',1,'Logger.hpp']]],
   ['bl_5flog_5ftrace',['BL_LOG_TRACE',['../a00107.html#a16aada998c9d444cc2e38cbc9c15511f',1,'Logger.hpp']]],
   ['bl_5flog_5fwarn',['BL_LOG_WARN',['../a00107.html#af954e63cd52a20dcd7087a8c569f373f',1,'Logger.hpp']]],
-  ['blib_5futilangularvector_5fhpp',['BLIB_UTILANGULARVECTOR_HPP',['../a00203.html#a0115a9074d10189dc2d0a0554ae41b91',1,'AngularVector.hpp']]]
+  ['blib_5futilangularvector_5fhpp',['BLIB_UTILANGULARVECTOR_HPP',['../a00236.html#a0115a9074d10189dc2d0a0554ae41b91',1,'AngularVector.hpp']]]
 ];

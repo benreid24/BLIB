@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Resources/SpecializedLoaders.hpp File Reference</title>
+<title>BLIB: include/BLIB/Parser/ISkipper.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,52 +63,40 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_68e8475672e907ae2e4c385fdd89fef9.html">Parser</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">SpecializedLoaders.hpp File Reference</div>  </div>
+<div class="title">ISkipper.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00158_source.html">BLIB/Resources/ResourceLoader.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00161_source.html">BLIB/Resources/ResourceManager.hpp</a>&gt;</code><br />
-<code>#include &lt;SFML/Graphics/Font.hpp&gt;</code><br />
-<code>#include &lt;SFML/Graphics/Texture.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00173_source.html">BLIB/Parser/Stream.hpp</a>&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div>
 <p><a href="a00164_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00726.html">bl::TextureResourceLoader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a00718.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">ResourceLoader</a> for sf::Texture.  <a href="a00726.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00730.html">bl::FontResourceLoader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a00718.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">ResourceLoader</a> for sf::Font.  <a href="a00730.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00796.html">bl::parser::ISkipper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.  <a href="a00796.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00414"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html">bl</a></td></tr>
+<tr class="memitem:a00478"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00478.html">bl</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:af7b301b6c14854898b2fba8b31e9f037"><td class="memItemLeft" align="right" valign="top">typedef ResourceManager&lt; sf::Texture &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html#af7b301b6c14854898b2fba8b31e9f037">bl::TextureResourceManager</a></td></tr>
-<tr class="memdesc:af7b301b6c14854898b2fba8b31e9f037"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a00722.html" title="Single template based resource management class. Meant for storing. ">ResourceManager</a> for sf::Texture objects.  <a href="a00414.html#af7b301b6c14854898b2fba8b31e9f037">More...</a><br /></td></tr>
-<tr class="separator:af7b301b6c14854898b2fba8b31e9f037"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af70db8674e6095114faba90a9f9468b7"><td class="memItemLeft" align="right" valign="top">typedef ResourceManager&lt; sf::Font &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html#af70db8674e6095114faba90a9f9468b7">bl::FontResourceManager</a></td></tr>
-<tr class="separator:af70db8674e6095114faba90a9f9468b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00483"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00483.html">bl::parser</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 18 2020 02:08:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 26 2020 00:44:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
