@@ -8,4 +8,5 @@ target_sources(BLIB PUBLIC
     EventListener.hpp
     EventDispatcher.hpp
     EventDispatcherScopeGuard.hpp
+    Cache.hpp
 )
