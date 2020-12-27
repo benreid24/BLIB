@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::json Namespace Reference</title>
+<title>BLIB: Parser</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,6 +47,7 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,347 +62,42 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a00478.html">bl</a></li><li class="navelem"><a class="el" href="a00479.html">json</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::json Namespace Reference</div>  </div>
+<div class="title">Parser</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Collection of classes implementing a generic LR0 parser.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a00480"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00480.html">schema</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00520.html">Base</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a00520.html" title="Base class for all json types. ">Base</a> class for all json types.  <a href="a00520.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00802.html">bl::parser::ISkipper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.  <a href="a00802.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00524.html">Group</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A collection of fields as (std::string, <a class="el" href="a00528.html" title="Represents any value type in JSON. ">Value</a>) pairs. This is the top level data type that should be used.  <a href="a00524.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00806.html">bl::parser::Node</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.  <a href="a00806.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00944.html">Loader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to load <a class="el" href="a00532.html" title="Top level interface for loading and saving json data. ">JSON</a> objects from input streams or files.  <a href="a00944.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00814.html">bl::Parser</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level <a class="el" href="a00814.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> class. Implements a basic LR0 parser from a Grammar and Tokenizer.  <a href="a00814.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00556.html">Schema</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a nestable schema for <a class="el" href="a00532.html" title="Top level interface for loading and saving json data. ">JSON</a> objects. Equivilent to <a class="el" href="a00524.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> <a class="el" href="a00556.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> can be used to define a data format for json, allowing for fields to be expected and constraining their types and values. Creating a <a class="el" href="a00556.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> for loading data can elimate the need for verbose error checking/handling in the code that reads the json data.  <a href="a00556.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00826.html">bl::parser::Stream</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.  <a href="a00826.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00516.html">SourceInfo</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds source location of any json object.  <a href="a00516.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html">bl::parser::Tokenizer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for a <a class="el" href="a00814.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> to break down an input string into tokens.  <a href="a00830.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00528.html">Value</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents any value type in <a class="el" href="a00532.html" title="Top level interface for loading and saving json data. ">JSON</a>.  <a href="a00528.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a1eec1fc7122306053fe4a1f20e217339"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; <a class="el" href="a00528.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00479.html#a1eec1fc7122306053fe4a1f20e217339">List</a></td></tr>
-<tr class="separator:a1eec1fc7122306053fe4a1f20e217339"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc1a856156f2aac759783730f9dcb3e0"><td class="memItemLeft" align="right" valign="top">typedef std::optional&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00479.html#abc1a856156f2aac759783730f9dcb3e0">Numeric</a></td></tr>
-<tr class="separator:abc1a856156f2aac759783730f9dcb3e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a040a5616a5bc09b1aa4a9b6ab12b832c"><td class="memItemLeft" align="right" valign="top">typedef std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00479.html#a040a5616a5bc09b1aa4a9b6ab12b832c">String</a></td></tr>
-<tr class="separator:a040a5616a5bc09b1aa4a9b6ab12b832c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fa3346ec46524abde42a02235213891"><td class="memItemLeft" align="right" valign="top">typedef std::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00479.html#a4fa3346ec46524abde42a02235213891">Bool</a></td></tr>
-<tr class="separator:a4fa3346ec46524abde42a02235213891"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a996c4987cf7892971376ffbc1745f7d5"><td class="memItemLeft" align="right" valign="top">typedef std::optional&lt; <a class="el" href="a00524.html">Group</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00479.html#a996c4987cf7892971376ffbc1745f7d5">RGroup</a></td></tr>
-<tr class="separator:a996c4987cf7892971376ffbc1745f7d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c915735c38ea6f5e15f79822d25b48c"><td class="memItemLeft" align="right" valign="top">typedef std::optional&lt; <a class="el" href="a00479.html#a1eec1fc7122306053fe4a1f20e217339">List</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00479.html#a3c915735c38ea6f5e15f79822d25b48c">RList</a></td></tr>
-<tr class="separator:a3c915735c38ea6f5e15f79822d25b48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41d40c074e24dc786c1f42589178aeb4"><td class="memItemLeft" align="right" valign="top">typedef std::optional&lt; <a class="el" href="a00528.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00479.html#a41d40c074e24dc786c1f42589178aeb4">RValue</a></td></tr>
-<tr class="separator:a41d40c074e24dc786c1f42589178aeb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a9a9aadc3e79c1c1cda60999133547031"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00479.html#a9a9aadc3e79c1c1cda60999133547031">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a00516.html">SourceInfo</a> &amp;info)</td></tr>
-<tr class="separator:a9a9aadc3e79c1c1cda60999133547031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae872d24a637910627213290f3427d726"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00479.html#ae872d24a637910627213290f3427d726">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a00528.html#a25e98a4148fb797a72ccbd0136f5d507">Value::Type</a> &amp;type)</td></tr>
-<tr class="separator:ae872d24a637910627213290f3427d726"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0b6f96e957e4bae07ededb3e2a63a1a"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00479.html#ad0b6f96e957e4bae07ededb3e2a63a1a">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a00524.html">Group</a> &amp;type)</td></tr>
-<tr class="separator:ad0b6f96e957e4bae07ededb3e2a63a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b618867946b4c8afc422de997cf48c5"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00479.html#a4b618867946b4c8afc422de997cf48c5">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a00528.html">Value</a> &amp;type)</td></tr>
-<tr class="separator:a4b618867946b4c8afc422de997cf48c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20b326492a97195f9760bcc65eec1378"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00479.html#a20b326492a97195f9760bcc65eec1378">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a00479.html#a1eec1fc7122306053fe4a1f20e217339">List</a> &amp;list)</td></tr>
-<tr class="separator:a20b326492a97195f9760bcc65eec1378"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="a4fa3346ec46524abde42a02235213891"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fa3346ec46524abde42a02235213891">&#9670;&nbsp;</a></span>Bool</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::optional&lt;bool&gt; <a class="el" href="a00479.html#a4fa3346ec46524abde42a02235213891">bl::json::Bool</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00028">28</a> of file <a class="el" href="a00011_source.html">JSON.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a1eec1fc7122306053fe4a1f20e217339"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1eec1fc7122306053fe4a1f20e217339">&#9670;&nbsp;</a></span>List</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::vector&lt;<a class="el" href="a00528.html">Value</a>&gt; <a class="el" href="a00479.html#a1eec1fc7122306053fe4a1f20e217339">bl::json::List</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00023">23</a> of file <a class="el" href="a00011_source.html">JSON.hpp</a>.</p>
-
-</div>
-</div>
-<a id="abc1a856156f2aac759783730f9dcb3e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc1a856156f2aac759783730f9dcb3e0">&#9670;&nbsp;</a></span>Numeric</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::optional&lt;float&gt; <a class="el" href="a00479.html#abc1a856156f2aac759783730f9dcb3e0">bl::json::Numeric</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00026">26</a> of file <a class="el" href="a00011_source.html">JSON.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a996c4987cf7892971376ffbc1745f7d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a996c4987cf7892971376ffbc1745f7d5">&#9670;&nbsp;</a></span>RGroup</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::optional&lt;<a class="el" href="a00524.html">Group</a>&gt; <a class="el" href="a00479.html#a996c4987cf7892971376ffbc1745f7d5">bl::json::RGroup</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00029">29</a> of file <a class="el" href="a00011_source.html">JSON.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3c915735c38ea6f5e15f79822d25b48c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c915735c38ea6f5e15f79822d25b48c">&#9670;&nbsp;</a></span>RList</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::optional&lt;<a class="el" href="a00479.html#a1eec1fc7122306053fe4a1f20e217339">List</a>&gt; <a class="el" href="a00479.html#a3c915735c38ea6f5e15f79822d25b48c">bl::json::RList</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00030">30</a> of file <a class="el" href="a00011_source.html">JSON.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a41d40c074e24dc786c1f42589178aeb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41d40c074e24dc786c1f42589178aeb4">&#9670;&nbsp;</a></span>RValue</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::optional&lt;<a class="el" href="a00528.html">Value</a>&gt; <a class="el" href="a00479.html#a41d40c074e24dc786c1f42589178aeb4">bl::json::RValue</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00031">31</a> of file <a class="el" href="a00011_source.html">JSON.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a040a5616a5bc09b1aa4a9b6ab12b832c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a040a5616a5bc09b1aa4a9b6ab12b832c">&#9670;&nbsp;</a></span>String</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::optional&lt;std::string&gt; <a class="el" href="a00479.html#a040a5616a5bc09b1aa4a9b6ab12b832c">bl::json::String</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00027">27</a> of file <a class="el" href="a00011_source.html">JSON.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a9a9aadc3e79c1c1cda60999133547031"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a9aadc3e79c1c1cda60999133547031">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[1/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream &amp; bl::json::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00516.html">SourceInfo</a> &amp;&#160;</td>
-          <td class="paramname"><em>info</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00193">193</a> of file <a class="el" href="a00269_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae872d24a637910627213290f3427d726"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae872d24a637910627213290f3427d726">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[2/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream &amp; bl::json::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00528.html#a25e98a4148fb797a72ccbd0136f5d507">Value::Type</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00243">243</a> of file <a class="el" href="a00269_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad0b6f96e957e4bae07ededb3e2a63a1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0b6f96e957e4bae07ededb3e2a63a1a">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[3/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream &amp; bl::json::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00524.html">Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00272">272</a> of file <a class="el" href="a00269_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4b618867946b4c8afc422de997cf48c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b618867946b4c8afc422de997cf48c5">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[4/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream &amp; bl::json::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00528.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00267">267</a> of file <a class="el" href="a00269_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a20b326492a97195f9760bcc65eec1378"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20b326492a97195f9760bcc65eec1378">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[5/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream &amp; bl::json::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00479.html#a1eec1fc7122306053fe4a1f20e217339">List</a> &amp;&#160;</td>
-          <td class="paramname"><em>list</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00277">277</a> of file <a class="el" href="a00269_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Collection of classes implementing a generic LR0 parser. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 26 2020 00:44:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 27 2020 23:20:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

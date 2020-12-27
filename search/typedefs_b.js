@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['visitor',['Visitor',['../a00740.html#a384c475127c4552bc9a4b27f9e121aa7',1,'bl::menu::Item']]]
+  ['textureresourcemanager',['TextureResourceManager',['../a00484.html#af7b301b6c14854898b2fba8b31e9f037',1,'bl']]],
+  ['type',['Type',['../a00806.html#a7aead111e234327c018e49a75c20f702',1,'bl::parser::Node']]]
 ];
