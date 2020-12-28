@@ -1,6 +1,6 @@
-#include <BLIB/Media/Animation.hpp>
+#include <BENG/Media/Animation.hpp>
 
-namespace bl
+namespace bg
 {
 namespace
 {
@@ -65,4 +65,4 @@ void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     }
 }
 
-} // namespace bl
+} // namespace bg

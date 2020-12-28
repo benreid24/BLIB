@@ -1,7 +1,7 @@
-#include <BLIB/Scripts/Error.hpp>
+#include <BENG/Scripts/Error.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -48,4 +48,4 @@ TEST(Error, Stack) {
 
 } // namespace unittest
 } // namespace scripts
-} // namespace bl
+} // namespace bg

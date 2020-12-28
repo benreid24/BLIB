@@ -1,8 +1,8 @@
-#include <BLIB/Scripts/Function.hpp>
-#include <BLIB/Scripts/Value.hpp>
+#include <BENG/Scripts/Function.hpp>
+#include <BENG/Scripts/Value.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -88,4 +88,4 @@ TEST(Value, Properties) {
 
 } // namespace unittest
 } // namespace scripts
-} // namespace bl
+} // namespace bg

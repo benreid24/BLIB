@@ -1,6 +1,6 @@
-#include <BLIB/GUI/Elements/Image.hpp>
+#include <BENG/GUI/Elements/Image.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -59,4 +59,4 @@ void Image::setScale() {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

@@ -1,6 +1,6 @@
-#include <BLIB/GUI/Renderers/RenderSettings.hpp>
+#include <BENG/GUI/Renderers/RenderSettings.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -28,4 +28,4 @@ void RenderSettings::promoteSecondaries() {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

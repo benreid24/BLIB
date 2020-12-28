@@ -1,9 +1,9 @@
-#include <BLIB/Shapes/GradientCircle.hpp>
+#include <BENG/Shapes/GradientCircle.hpp>
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <cmath>
 
-namespace bl
+namespace bg
 {
 GradientCircle::GradientCircle(float r, bool co, unsigned int pc)
 : points(sf::PrimitiveType::TrianglesFan, std::max(pc + 2, 10u)) {
@@ -47,4 +47,4 @@ void GradientCircle::updatePoints() {
     points[points.getVertexCount() - 1].position = points[1].position;
 }
 
-} // namespace bl
+} // namespace bg

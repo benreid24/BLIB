@@ -1,6 +1,6 @@
-#include <BLIB/GUI/Elements/Box.hpp>
+#include <BENG/GUI/Elements/Box.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -41,4 +41,4 @@ void Box::doRender(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

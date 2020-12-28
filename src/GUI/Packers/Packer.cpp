@@ -1,6 +1,6 @@
-#include <BLIB/GUI/Packers/Packer.hpp>
+#include <BENG/GUI/Packers/Packer.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -17,4 +17,4 @@ void Packer::manuallyPackElement(Element::Ptr e, const sf::IntRect& area) {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

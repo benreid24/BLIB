@@ -1,11 +1,11 @@
-#include <BLIB/Logging.hpp>
+#include <BENG/Logging.hpp>
 
 #include <ctime>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
 
-namespace bl
+namespace bg
 {
 namespace
 {
@@ -67,4 +67,4 @@ void LoggingConfig::lock() const { mutex.lock(); }
 
 void LoggingConfig::unlock() const { mutex.unlock(); }
 
-} // namespace bl
+} // namespace bg

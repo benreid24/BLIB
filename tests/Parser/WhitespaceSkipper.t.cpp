@@ -1,7 +1,7 @@
-#include <BLIB/Parser/WhitespaceSkipper.hpp>
+#include <BENG/Parser/WhitespaceSkipper.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace parser
 {
@@ -37,4 +37,4 @@ TEST(WhitespaceSkipper, MultipleSkip) {
 
 } // namespace unittest
 } // namespace parser
-} // namespace bl
+} // namespace bg

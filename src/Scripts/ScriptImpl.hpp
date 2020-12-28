@@ -1,10 +1,10 @@
 #ifndef BLIB_SCRIPTS_SCRIPTIMPL_HPP
 #define BLIB_SCRIPTS_SCRIPTIMPL_HPP
 
-#include <BLIB/Scripts.hpp>
+#include <BENG/Scripts.hpp>
 #include <optional>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -74,6 +74,6 @@ struct ScriptImpl {
 };
 
 } // namespace scripts
-} // namespace bl
+} // namespace bg
 
 #endif

@@ -1,7 +1,7 @@
-#include <BLIB/Parser/CommentSkipper.hpp>
+#include <BENG/Parser/CommentSkipper.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace parser
 {
@@ -49,4 +49,4 @@ TEST(CommentSkipper, Both) {
 
 } // namespace unittest
 } // namespace parser
-} // namespace bl
+} // namespace bg

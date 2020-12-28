@@ -1,4 +1,4 @@
-target_sources(BLIB.t PUBLIC
+target_sources(BENG.t PUBLIC
     Error.t.cpp
     Parser.t.cpp
     Script.t.cpp

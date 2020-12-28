@@ -1,6 +1,6 @@
-#include <BLIB/Menu/RenderItems/SpriteRenderItem.hpp>
+#include <BENG/Menu/RenderItems/SpriteRenderItem.hpp>
 
-namespace bl
+namespace bg
 {
 namespace menu
 {
@@ -24,4 +24,4 @@ void SpriteRenderItem::render(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 } // namespace menu
-} // namespace bl
+} // namespace bg

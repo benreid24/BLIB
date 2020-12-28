@@ -1,8 +1,8 @@
-#include <BLIB/GUI/Elements/Label.hpp>
+#include <BENG/GUI/Elements/Label.hpp>
 
 #include <GUI/Data/Font.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -39,7 +39,7 @@ sf::Vector2i Label::minimumRequisition() const {
 }
 
 void Label::settingsChanged() {
-    bl::Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
+    bg::Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
     if (font) renderText.setFont(*font);
     renderText.setString(text);
     renderText.setCharacterSize(renderSettings().characterSize.value_or(DefaultFontSize));
@@ -50,4 +50,4 @@ void Label::settingsChanged() {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

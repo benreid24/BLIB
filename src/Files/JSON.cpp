@@ -1,9 +1,9 @@
-#include <BLIB/Files/JSON.hpp>
+#include <BENG/Files/JSON.hpp>
 
 #include <Files/JSONLoader.hpp>
 #include <fstream>
 
-namespace bl
+namespace bg
 {
 namespace json
 {
@@ -310,4 +310,4 @@ void JSON::saveToFile(const std::string& file, const json::Group& group) {
 
 void JSON::saveToStream(std::ostream& stream, const json::Group& group) { stream << group; }
 
-} // namespace bl
+} // namespace bg

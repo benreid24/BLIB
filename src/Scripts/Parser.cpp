@@ -1,7 +1,7 @@
 #include <Scripts/Parser.hpp>
 #include <cassert>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -260,10 +260,10 @@ parser::Grammar buildGrammar() {
     return grammar;
 }
 
-bl::Parser buildParser() {
+bg::Parser buildParser() {
     parser::Grammar grammar = buildGrammar();
     grammar.setStart(Parser::Grammar::Program);
-    return bl::Parser(grammar, Parser::getTokenizer());
+    return bg::Parser(grammar, Parser::getTokenizer());
 }
 
 } // namespace
@@ -279,9 +279,9 @@ parser::Grammar Parser::getGrammar() {
 }
 
 parser::Node::Ptr Parser::parse(const std::string& input) {
-    static const bl::Parser parser = buildParser();
+    static const bg::Parser parser = buildParser();
     return parser.parse(input);
 }
 
 } // namespace scripts
-} // namespace bl
+} // namespace bg

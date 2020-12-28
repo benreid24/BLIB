@@ -1,7 +1,7 @@
 add_executable(resources main.cpp)
 
 target_link_libraries(resources
-    BLIB
+    BENG
     sfml-graphics
     sfml-window
 )

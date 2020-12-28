@@ -1,9 +1,9 @@
-#include <BLIB/Files/FileUtil.hpp>
+#include <BENG/Files/FileUtil.hpp>
 #include <fstream>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace unittest
 {
@@ -62,4 +62,4 @@ TEST(FileUtil, JoinPath) {
 }
 
 } // namespace unittest
-} // namespace bl
+} // namespace bg

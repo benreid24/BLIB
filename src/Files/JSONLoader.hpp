@@ -1,10 +1,10 @@
 #ifndef BLIB_FILES_JSONLOADER_HPP
 #define BLIB_FILES_JSONLOADER_HPP
 
-#include <BLIB/Files/JSON.hpp>
+#include <BENG/Files/JSON.hpp>
 #include <sstream>
 
-namespace bl
+namespace bg
 {
 namespace json
 {

@@ -1,10 +1,10 @@
-#include <BLIB/GUI/Renderers/Renderer.hpp>
+#include <BENG/GUI/Renderers/Renderer.hpp>
 
-#include <BLIB/GUI.hpp>
+#include <BENG/GUI.hpp>
 #include <GUI/Data/Font.hpp>
 #include <cmath>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -27,4 +27,4 @@ RenderSettings Renderer::getSettings(const Element* element) const {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

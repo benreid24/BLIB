@@ -1,12 +1,12 @@
-#include <BLIB/Logging.hpp>
+#include <BENG/Logging.hpp>
 #include <iostream>
 
 int main() {
-    bl::LoggingConfig::addFileOutput("example.log", bl::LoggingConfig::Trace);
-    bl::LoggingConfig::configureOutput(std::cout, bl::LoggingConfig::Info);
+    bg::LoggingConfig::addFileOutput("example.log", bg::LoggingConfig::Trace);
+    bg::LoggingConfig::configureOutput(std::cout, bg::LoggingConfig::Info);
 
     // Can use the logger directly
-    bl::Logger::info() << "This is a log number: " << 5;
+    bg::Logger::info() << "This is a log number: " << 5;
 
     // Or use macros which add file, function, and line
     BL_LOG_INFO << "This will have file info";

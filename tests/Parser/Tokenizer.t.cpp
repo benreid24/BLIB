@@ -1,8 +1,8 @@
- #include <BLIB/Parser/Tokenizer.hpp>
-#include <BLIB/Parser/WhitespaceSkipper.hpp>
+ #include <BENG/Parser/Tokenizer.hpp>
+#include <BENG/Parser/WhitespaceSkipper.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace parser
 {
@@ -125,4 +125,4 @@ TEST(Tokenizer, Ambiguous) {
 
 } // namespace parser
 
-} // namespace bl
+} // namespace bg

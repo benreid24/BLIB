@@ -1,10 +1,10 @@
 #include <Scripts/ScriptImpl.hpp>
 
-#include <BLIB/Logging.hpp>
+#include <BENG/Logging.hpp>
 #include <Scripts/Parser.hpp>
 #include <cmath>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -831,4 +831,4 @@ Value::Ptr deref(Value::Ptr val) {
 } // namespace
 
 } // namespace scripts
-} // namespace bl
+} // namespace bg

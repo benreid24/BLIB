@@ -1,8 +1,8 @@
-#include <BLIB/GUI/Action.hpp>
+#include <BENG/GUI/Action.hpp>
 
-#include <BLIB/Logging.hpp>
+#include <BENG/Logging.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -85,4 +85,4 @@ Action::Action(const Action::CustomData& data, const sf::Vector2f& pos)
 , position(pos) {}
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

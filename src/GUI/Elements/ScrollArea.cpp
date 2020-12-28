@@ -1,6 +1,6 @@
-#include <BLIB/GUI/Elements/ScrollArea.hpp>
+#include <BENG/GUI/Elements/ScrollArea.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -186,4 +186,4 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

@@ -1,8 +1,8 @@
-#include <BLIB/GUI.hpp>
+#include <BENG/GUI.hpp>
 
-#include <BLIB/GUI/Renderers/DefaultRenderer.hpp>
+#include <BENG/GUI/Renderers/DefaultRenderer.hpp>
 
-namespace bl
+namespace bg
 {
 GUI::Ptr GUI::create(gui::Packer::Ptr packer, const sf::IntRect& region,
                      const std::string& group, const std::string& id) {
@@ -48,4 +48,4 @@ void GUI::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     Container::render(target, states, *renderer);
 }
 
-} // namespace bl
+} // namespace bg

@@ -1,25 +1,25 @@
-#include <BLIB/Shapes.hpp>
+#include <BENG/Shapes.hpp>
 #include <SFML/Graphics.hpp>
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600, 32),
-                            "BLIB Shapes Demo",
+                            "BENG Shapes Demo",
                             sf::Style::Close | sf::Style::Titlebar);
 
-    bl::Triangle triangle({0, 5}, {-5, 0}, {5, 0});
+    bg::Triangle triangle({0, 5}, {-5, 0}, {5, 0});
     triangle.setFillColor(sf::Color::Green);
     triangle.setOutlineColor(sf::Color::Red);
     triangle.setOutlineThickness(1);
     triangle.setPosition(100, 100);
     triangle.setScale(10, 10);
 
-    bl::Ellipse ellipse(120, 60);
+    bg::Ellipse ellipse(120, 60);
     ellipse.setPosition(500, 300);
     ellipse.setFillColor(sf::Color::Yellow);
     ellipse.setOutlineThickness(2);
     ellipse.setOutlineColor(sf::Color::Red);
 
-    bl::GradientCircle circle(50);
+    bg::GradientCircle circle(50);
     circle.setCenterColor(sf::Color::Black);
     circle.setOuterColor(sf::Color::Red);
     circle.setPosition(100, 400);

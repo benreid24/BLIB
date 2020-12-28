@@ -1,9 +1,9 @@
-#include <BLIB/GUI.hpp>
+#include <BENG/GUI.hpp>
 
 #include <GUI/Data/Font.hpp>
 #include <sstream>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -153,4 +153,4 @@ void DebugRenderer::addInfo(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

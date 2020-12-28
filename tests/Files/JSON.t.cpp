@@ -1,10 +1,10 @@
-#include <BLIB/Files/JSON.hpp>
+#include <BENG/Files/JSON.hpp>
 
-#include <BLIB/Files/FileUtil.hpp>
+#include <BENG/Files/FileUtil.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace json
 {
@@ -133,4 +133,4 @@ TEST(JSON, Files) {
 
 } // namespace unittest
 } // namespace json
-} // namespace bl
+} // namespace bg

@@ -1,6 +1,6 @@
-#include <BLIB/Menu/Renderers/BasicRenderer.hpp>
+#include <BENG/Menu/Renderers/BasicRenderer.hpp>
 
-namespace bl
+namespace bg
 {
 namespace menu
 {
@@ -40,4 +40,4 @@ sf::Vector2f BasicRenderer::estimateItemSize(const Item& item) const {
 }
 
 } // namespace menu
-} // namespace bl
+} // namespace bg

@@ -1,10 +1,10 @@
 #ifndef BLIB_GUI_DATA_FONT_HPP
 #define BLIB_GUI_DATA_FONT_HPP
 
-#include <BLIB/Resources/ResourceLoader.hpp>
+#include <BENG/Resources/ResourceLoader.hpp>
 #include <SFML/Graphics/Font.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -24,6 +24,6 @@ struct Font {
 };
 
 } // namespace gui
-} // namespace bl
+} // namespace bg
 
 #endif

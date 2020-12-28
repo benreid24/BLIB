@@ -1,6 +1,6 @@
-#include <BLIB/GUI/Elements/Canvas.hpp>
+#include <BENG/GUI/Elements/Canvas.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -70,4 +70,4 @@ void Canvas::setScale() {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

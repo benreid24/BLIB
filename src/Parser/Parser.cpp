@@ -1,6 +1,6 @@
-#include <BLIB/Parser/Parser.hpp>
+#include <BENG/Parser/Parser.hpp>
 
-#include <BLIB/Logging.hpp>
+#include <BENG/Logging.hpp>
 #include <Scripts/Parser.hpp>
 #include <numeric>
 #include <stack>
@@ -8,7 +8,7 @@
 #define PARSER_ERROR(node) \
     BL_LOG_ERROR << "Line " << node->sourceLine << " column " << node->sourceColumn << ": "
 
-namespace bl
+namespace bg
 {
 using namespace parser;
 namespace
@@ -279,4 +279,4 @@ Parser::Action Parser::Action::reduce(const Grammar::Item& item) {
     return a;
 }
 
-} // namespace bl
+} // namespace bg

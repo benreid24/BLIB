@@ -1,6 +1,6 @@
 #include <GUI/Data/Font.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {

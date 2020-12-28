@@ -1,13 +1,13 @@
-#include <BLIB/Files/Schema.hpp>
+#include <BENG/Files/Schema.hpp>
 
-#include <BLIB/Logging.hpp>
+#include <BENG/Logging.hpp>
 #include <algorithm>
 
 #define SCHEMA_ERROR(source)                                       \
     BL_LOG_ERROR << "VALIDATION FAILED: File '" << source.filename \
                  << "':" << source.lineNumber << ": "
 
-namespace bl
+namespace bg
 {
 namespace json
 {
@@ -203,4 +203,4 @@ bool Schema::validate(const Group& root, bool strict) const {
 
 } // namespace json
 
-} // namespace bl
+} // namespace bg

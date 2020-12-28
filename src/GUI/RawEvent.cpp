@@ -1,7 +1,7 @@
-#include <BLIB/GUI/RawEvent.hpp>
+#include <BENG/GUI/RawEvent.hpp>
 #include <optional>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -38,4 +38,4 @@ RawEvent RawEvent::transformToLocal(const sf::Vector2f& parentPos) const {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

@@ -4,7 +4,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -16,7 +16,7 @@ TEST(ScriptImpl, ValueTree) {
     parser::Grammar grammar     = Parser::getGrammar();
     parser::Tokenizer tokenizer = Parser::getTokenizer();
     grammar.setStart(G::Value);
-    bl::Parser parser(grammar, tokenizer);
+    bg::Parser parser(grammar, tokenizer);
     ASSERT_TRUE(parser.valid());
 
     const std::string script = "5 + 6^(7*12-2*dog) >= wogh";
@@ -81,7 +81,7 @@ TEST_P(ScriptImplValueTest, ValueTest) {
     parser::Grammar grammar     = Parser::getGrammar();
     parser::Tokenizer tokenizer = Parser::getTokenizer();
     grammar.setStart(G::Value);
-    bl::Parser parser(grammar, tokenizer);
+    bg::Parser parser(grammar, tokenizer);
     ASSERT_TRUE(parser.valid());
 
     ValueTest td           = GetParam();
@@ -175,10 +175,10 @@ TEST_P(ScriptImplFunctionTest, FunctionTest) {
     parser::Grammar grammar     = Parser::getGrammar();
     parser::Tokenizer tokenizer = Parser::getTokenizer();
     grammar.setStart(G::Value);
-    bl::Parser cparser(grammar, tokenizer);
+    bg::Parser cparser(grammar, tokenizer);
     ASSERT_TRUE(cparser.valid());
     grammar.setStart(G::Statement);
-    bl::Parser fparser(grammar, tokenizer);
+    bg::Parser fparser(grammar, tokenizer);
     ASSERT_TRUE(fparser.valid());
 
     parser::Node::Ptr fdef = fparser.parse(t.fdef);
@@ -239,4 +239,4 @@ INSTANTIATE_TEST_SUITE_P(
 
 } // namespace unittest
 } // namespace scripts
-} // namespace bl
+} // namespace bg

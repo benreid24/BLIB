@@ -1,6 +1,6 @@
-#include <BLIB/Logging.hpp>
+#include <BENG/Logging.hpp>
 
-namespace bl
+namespace bg
 {
 Logger Logger::critical() { return Logger(LoggingConfig::get(), LoggingConfig::Critical); }
 
@@ -26,4 +26,4 @@ Logger::~Logger() {
     config.unlock();
 }
 
-} // namespace bl
+} // namespace bg

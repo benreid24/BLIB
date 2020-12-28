@@ -1,7 +1,7 @@
 add_executable(logging main.cpp)
 
 target_link_libraries(logging
-    BLIB
+    BENG
     sfml-graphics
     sfml-window
 )

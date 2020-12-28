@@ -1,9 +1,9 @@
 #ifndef BLIB_SCRIPTS_PARSER_HPP
 #define BLIB_SCRIPTS_PARSER_HPP
 
-#include <BLIB/Parser.hpp>
+#include <BENG/Parser.hpp>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -145,6 +145,6 @@ struct Parser {
 };
 
 } // namespace scripts
-} // namespace bl
+} // namespace bg
 
 #endif

@@ -1,6 +1,6 @@
-#include <BLIB/Menu/RenderItems/TextRenderItem.hpp>
+#include <BENG/Menu/RenderItems/TextRenderItem.hpp>
 
-namespace bl
+namespace bg
 {
 namespace menu
 {
@@ -24,4 +24,4 @@ void TextRenderItem::render(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 } // namespace menu
-} // namespace bl
+} // namespace bg

@@ -1,10 +1,10 @@
-#include <BLIB/Parser/Parser.hpp>
+#include <BENG/Parser/Parser.hpp>
 
-#include <BLIB/Parser.hpp>
+#include <BENG/Parser.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace parser
 {
@@ -359,4 +359,4 @@ TEST_F(ParserFixture, SyntaxFail5) {
 }
 
 } // namespace unittest
-} // namespace bl
+} // namespace bg

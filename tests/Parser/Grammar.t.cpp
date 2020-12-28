@@ -1,8 +1,8 @@
-#include <BLIB/Parser/Grammar.hpp>
+#include <BENG/Parser/Grammar.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace parser
 {
@@ -106,4 +106,4 @@ TEST(Grammar, Closure) {
 
 } // namespace unittest
 } // namespace parser
-} // namespace bl
+} // namespace bg

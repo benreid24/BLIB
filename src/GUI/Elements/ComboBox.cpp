@@ -1,8 +1,8 @@
-#include <BLIB/GUI/Elements/ComboBox.hpp>
+#include <BENG/GUI/Elements/ComboBox.hpp>
 
-#include <BLIB/GUI/Packers/Packer.hpp>
+#include <BENG/GUI/Packers/Packer.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -184,4 +184,4 @@ void ComboBox::packClosed() {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

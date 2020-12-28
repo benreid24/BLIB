@@ -1,9 +1,9 @@
-#include <BLIB/GUI/Elements/Slider.hpp>
+#include <BENG/GUI/Elements/Slider.hpp>
 
-#include <BLIB/GUI/Packers/Packer.hpp>
+#include <BENG/GUI/Packers/Packer.hpp>
 #include <cmath>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -228,4 +228,4 @@ void Slider::packElements() {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

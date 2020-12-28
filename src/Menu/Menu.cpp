@@ -1,7 +1,7 @@
-#include <BLIB/Logging.hpp>
-#include <BLIB/Menu/Menu.hpp>
+#include <BENG/Logging.hpp>
+#include <BENG/Menu/Menu.hpp>
 
-namespace bl
+namespace bg
 {
 namespace menu
 {
@@ -139,4 +139,4 @@ void Menu::processEvent(const Event& event) {
 }
 
 } // namespace menu
-} // namespace bl
+} // namespace bg

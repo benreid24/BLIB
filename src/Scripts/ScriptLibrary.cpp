@@ -1,15 +1,15 @@
 #include <Scripts/ScriptLibrary.hpp>
 
-#include <BLIB/Logging.hpp>
-#include <BLIB/Scripts.hpp>
-#include <BLIB/Util.hpp>
+#include <BENG/Logging.hpp>
+#include <BENG/Scripts.hpp>
+#include <BENG/Util.hpp>
 #include <chrono>
 #include <cmath>
 #include <iostream>
 #include <sstream>
 #include <thread>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -67,17 +67,17 @@ Value print(SymbolTable& t, const std::vector<Value>& args) {
 }
 
 Value loginfo(SymbolTable& t, const std::vector<Value>& args) {
-    bl::Logger::info() << argsToStr(t, args);
+    bg::Logger::info() << argsToStr(t, args);
     return Value();
 }
 
 Value logerror(SymbolTable& t, const std::vector<Value>& args) {
-    bl::Logger::error() << argsToStr(t, args);
+    bg::Logger::error() << argsToStr(t, args);
     return Value();
 }
 
 Value logdebug(SymbolTable& t, const std::vector<Value>& args) {
-    bl::Logger::debug() << argsToStr(t, args);
+    bg::Logger::debug() << argsToStr(t, args);
     return Value();
 }
 
@@ -247,4 +247,4 @@ Value atan2(SymbolTable&, const std::vector<Value>& args) {
 } // namespace
 
 } // namespace scripts
-} // namespace bl
+} // namespace bg

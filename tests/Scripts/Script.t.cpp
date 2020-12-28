@@ -1,9 +1,9 @@
-#include <BLIB/Scripts.hpp>
+#include <BENG/Scripts.hpp>
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 using namespace scripts;
 
@@ -82,4 +82,4 @@ TEST(Script, Shadow) {
 }
 
 } // namespace unittest
-} // namespace bl
+} // namespace bg

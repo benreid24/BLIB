@@ -1,6 +1,6 @@
-#include <BLIB/Util/Timer.hpp>
+#include <BENG/Util/Timer.hpp>
 
-namespace bl
+namespace bg
 {
 Timer::Timer()
 : paused(false) {}
@@ -34,4 +34,4 @@ void Timer::resume() {
     offset += clock.getElapsedTime() - timePaused;
 }
 
-} // namespace bl
+} // namespace bg

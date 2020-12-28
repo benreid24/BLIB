@@ -1,9 +1,9 @@
-#include <BLIB/Parser/Grammar.hpp>
+#include <BENG/Parser/Grammar.hpp>
 
-#include <BLIB/Logging.hpp>
+#include <BENG/Logging.hpp>
 #include <map>
 
-namespace bl
+namespace bg
 {
 namespace parser
 {
@@ -180,4 +180,4 @@ Grammar::Item Grammar::Item::next() const { return Item(production, cursor + 1);
 
 } // namespace parser
 
-} // namespace bl
+} // namespace bg

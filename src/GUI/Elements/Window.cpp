@@ -1,8 +1,8 @@
-#include <BLIB/GUI/Elements/Window.hpp>
+#include <BENG/GUI/Elements/Window.hpp>
 
-#include <BLIB/GUI/Packers/LinePacker.hpp>
+#include <BENG/GUI/Packers/LinePacker.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -168,4 +168,4 @@ void Window::addChildren() {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

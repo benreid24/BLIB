@@ -1,8 +1,8 @@
-#include <BLIB/GUI/Elements/CheckButton.hpp>
+#include <BENG/GUI/Elements/CheckButton.hpp>
 
-#include <BLIB/GUI/Elements/Label.hpp>
+#include <BENG/GUI/Elements/Label.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -28,4 +28,4 @@ void CheckButton::renderToggles(Canvas& activeBut, Canvas& inactiveBut,
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

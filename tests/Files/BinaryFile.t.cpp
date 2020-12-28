@@ -1,8 +1,8 @@
-#include <BLIB/Files/BinaryFile.hpp>
-#include <BLIB/Files/FileUtil.hpp>
+#include <BENG/Files/BinaryFile.hpp>
+#include <BENG/Files/FileUtil.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 
 namespace unittest

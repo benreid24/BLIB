@@ -1,6 +1,6 @@
-#include <BLIB/Shapes/Triangle.hpp>
+#include <BENG/Shapes/Triangle.hpp>
 
-namespace bl
+namespace bg
 {
 Triangle::Triangle(const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Vector2f& p3,
                    bool co) {
@@ -20,4 +20,4 @@ std::size_t Triangle::getPointCount() const { return 3; }
 
 sf::Vector2f Triangle::getPoint(size_t index) const { return points[index]; }
 
-} // namespace bl
+} // namespace bg

@@ -1,6 +1,6 @@
-#include <BLIB/GUI/Elements/Element.hpp>
+#include <BENG/GUI/Elements/Element.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -285,7 +285,7 @@ void Element::doRender(sf::RenderTarget& target, sf::RenderStates states,
 
 const RenderSettings& Element::renderSettings() const { return settings; }
 
-void Element::setFont(bl::Resource<sf::Font>::Ref f) {
+void Element::setFont(bg::Resource<sf::Font>::Ref f) {
     settings.font = f;
     fireSignal(Action(Action::RenderSettingsChanged));
 }
@@ -335,4 +335,4 @@ void Element::setVerticalAlignment(RenderSettings::Alignment align) {
 Element::Ptr Element::me() { return shared_from_this(); }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

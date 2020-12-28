@@ -1,8 +1,8 @@
-#include <BLIB/Util/EventDispatcher.hpp>
-#include <BLIB/Util/EventDispatcherScopeGuard.hpp>
+#include <BENG/Util/EventDispatcher.hpp>
+#include <BENG/Util/EventDispatcherScopeGuard.hpp>
 #include <gmock/gmock.h>
 
-namespace bl
+namespace bg
 {
 namespace unittest
 {
@@ -54,4 +54,4 @@ TEST(EventDispatcher, ScopeGuard) {
 }
 
 } // namespace unittest
-} // namespace bl
+} // namespace bg

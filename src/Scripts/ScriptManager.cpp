@@ -1,9 +1,9 @@
-#include <BLIB/Scripts/ScriptManager.hpp>
+#include <BENG/Scripts/ScriptManager.hpp>
 
-#include <BLIB/Logging.hpp>
+#include <BENG/Logging.hpp>
 #include <chrono>
 
-namespace bl
+namespace bg
 {
 using namespace scripts;
 
@@ -51,4 +51,4 @@ void ScriptManager::clean() {
     }
 }
 
-} // namespace bl
+} // namespace bg

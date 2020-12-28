@@ -1,7 +1,7 @@
-#include <BLIB/Util/Cache.hpp>
+#include <BENG/Util/Cache.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace unittest
 {
@@ -60,4 +60,4 @@ TEST(Cache, WriteEviction) {
 }
 
 } // namespace unittest
-} // namespace bl
+} // namespace bg

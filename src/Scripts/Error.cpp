@@ -1,7 +1,7 @@
-#include <BLIB/Scripts/Error.hpp>
+#include <BENG/Scripts/Error.hpp>
 #include <sstream>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -47,4 +47,4 @@ const std::string& Error::message() const { return error; }
 const std::string& Error::stacktrace() const { return stack; }
 
 } // namespace scripts
-} // namespace bl
+} // namespace bg

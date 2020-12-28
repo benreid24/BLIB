@@ -1,11 +1,11 @@
-#include <BLIB/GUI/Renderers/DefaultRenderer.hpp>
+#include <BENG/GUI/Renderers/DefaultRenderer.hpp>
 
-#include <BLIB/GUI.hpp>
-#include <BLIB/Logging.hpp>
+#include <BENG/GUI.hpp>
+#include <BENG/Logging.hpp>
 #include <GUI/Data/Font.hpp>
 #include <cmath>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -466,4 +466,4 @@ void DefaultRenderer::renderImage(sf::RenderTarget& target, sf::RenderStates sta
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

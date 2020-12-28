@@ -1,20 +1,20 @@
-#include <BLIB/GUI.hpp>
-#include <BLIB/Resources.hpp>
-#include <BLIB/Util/EventDispatcher.hpp>
+#include <BENG/GUI.hpp>
+#include <BENG/Resources.hpp>
+#include <BENG/Util/EventDispatcher.hpp>
 
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
 
-void b1click(const bl::gui::Action&, bl::gui::Element*) {
+void b1click(const bg::gui::Action&, bg::gui::Element*) {
     std::cout << "Button b1 was clicked\n";
 }
 
-void b2click(const bl::gui::Action&, bl::gui::Element*) {
+void b2click(const bg::gui::Action&, bg::gui::Element*) {
     std::cout << "Button b2 was clicked\n";
 }
 
-void b3click(const bl::gui::Action&, bl::gui::Element*) {
+void b3click(const bg::gui::Action&, bg::gui::Element*) {
     std::cout << "Button b3 was clicked\n";
 }
 
@@ -53,10 +53,10 @@ void renderStuff(sf::RenderTexture& target) {
 }
 
 int main() {
-    using namespace bl;
+    using namespace bg;
 
     sf::RenderWindow window(
-        sf::VideoMode(800, 600, 32), "BLIB GUI Demo", sf::Style::Close | sf::Style::Titlebar);
+        sf::VideoMode(800, 600, 32), "BENG GUI Demo", sf::Style::Close | sf::Style::Titlebar);
 
     TextureResourceLoader textureLoader;
     TextureResourceManager textureManager(textureLoader);

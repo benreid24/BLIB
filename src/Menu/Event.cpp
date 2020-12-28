@@ -1,6 +1,6 @@
-#include <BLIB/Menu/Event.hpp>
+#include <BENG/Menu/Event.hpp>
 
-namespace bl
+namespace bg
 {
 namespace menu
 {
@@ -17,4 +17,4 @@ Event::Event(const LocationEvent& locationEvent)
 , locationEvent(locationEvent) {}
 
 } // namespace menu
-} // namespace bl
+} // namespace bg

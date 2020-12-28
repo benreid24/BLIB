@@ -1,12 +1,12 @@
-#include <BLIB/Scripts/Function.hpp>
+#include <BENG/Scripts/Function.hpp>
 
-#include <BLIB/Scripts/Error.hpp>
-#include <BLIB/Scripts/SymbolTable.hpp>
-#include <BLIB/Scripts/Value.hpp>
+#include <BENG/Scripts/Error.hpp>
+#include <BENG/Scripts/SymbolTable.hpp>
+#include <BENG/Scripts/Value.hpp>
 #include <Scripts/Parser.hpp>
 #include <Scripts/ScriptImpl.hpp>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -114,4 +114,4 @@ std::vector<std::string> parseParams(parser::Node::Ptr fhead) {
 } // namespace
 
 } // namespace scripts
-} // namespace bl
+} // namespace bg

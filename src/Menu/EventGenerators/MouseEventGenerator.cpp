@@ -1,6 +1,6 @@
-#include <BLIB/Menu/EventGenerators/MouseEventGenerator.hpp>
+#include <BENG/Menu/EventGenerators/MouseEventGenerator.hpp>
 
-namespace bl
+namespace bg
 {
 namespace menu
 {
@@ -28,4 +28,4 @@ void MouseEventGenerator::observe(const sf::Event& event) {
 }
 
 } // namespace menu
-} // namespace bl
+} // namespace bg

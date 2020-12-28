@@ -1,8 +1,8 @@
-#include <BLIB/GUI/Elements/ToggleButton.hpp>
+#include <BENG/GUI/Elements/ToggleButton.hpp>
 
-#include <BLIB/GUI/Packers/Packer.hpp>
+#include <BENG/GUI/Packers/Packer.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -104,4 +104,4 @@ void ToggleButton::updateButtons() {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

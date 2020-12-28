@@ -1,9 +1,9 @@
-#include <BLIB/Resources.hpp>
+#include <BENG/Resources.hpp>
 
-#include <BLIB/Util/Random.hpp>
+#include <BENG/Util/Random.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace unittest
 {
@@ -41,4 +41,4 @@ TEST(ResourceManager, ForceInCache) {
 }
 
 } // namespace unittest
-} // namespace bl
+} // namespace bg

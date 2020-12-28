@@ -1,5 +1,5 @@
-#include <BLIB/Menu.hpp>
-#include <BLIB/Util/EventDispatcher.hpp>
+#include <BENG/Menu.hpp>
+#include <BENG/Util/EventDispatcher.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -10,44 +10,44 @@ int main() {
     sf::Texture texture;
     texture.loadFromFile("title.png");
 
-    bl::menu::BasicRenderer renderer;
-    bl::menu::ArrowSelector::Ptr selector = bl::menu::ArrowSelector::create(12);
+    bg::menu::BasicRenderer renderer;
+    bg::menu::ArrowSelector::Ptr selector = bg::menu::ArrowSelector::create(12);
 
-    bl::menu::Item::Ptr title =
-        bl::menu::Item::create(bl::menu::SpriteRenderItem::create(sf::Sprite(texture)));
+    bg::menu::Item::Ptr title =
+        bg::menu::Item::create(bg::menu::SpriteRenderItem::create(sf::Sprite(texture)));
 
-    bl::menu::Item::Ptr newGame =
-        bl::menu::Item::create(bl::menu::TextRenderItem::create(sf::Text("New Game", font)));
-    newGame->getSignal(bl::menu::Item::Activated).willCall([]() {
+    bg::menu::Item::Ptr newGame =
+        bg::menu::Item::create(bg::menu::TextRenderItem::create(sf::Text("New Game", font)));
+    newGame->getSignal(bg::menu::Item::Activated).willCall([]() {
         std::cout << "New Game\n";
     });
 
-    bl::menu::Item::Ptr loadGame =
-        bl::menu::Item::create(bl::menu::TextRenderItem::create(sf::Text("Load Game", font)));
-    loadGame->getSignal(bl::menu::Item::Activated).willCall([]() {
+    bg::menu::Item::Ptr loadGame =
+        bg::menu::Item::create(bg::menu::TextRenderItem::create(sf::Text("Load Game", font)));
+    loadGame->getSignal(bg::menu::Item::Activated).willCall([]() {
         std::cout << "Load Game\n";
     });
 
-    bl::menu::Item::Ptr quit =
-        bl::menu::Item::create(bl::menu::TextRenderItem::create(sf::Text("Quit", font)));
+    bg::menu::Item::Ptr quit =
+        bg::menu::Item::create(bg::menu::TextRenderItem::create(sf::Text("Quit", font)));
 
-    title->attach(newGame, bl::menu::Item::Bottom);
+    title->attach(newGame, bg::menu::Item::Bottom);
     title->setSelectable(false);
-    newGame->attach(loadGame, bl::menu::Item::Bottom);
-    loadGame->attach(quit, bl::menu::Item::Bottom);
+    newGame->attach(loadGame, bg::menu::Item::Bottom);
+    loadGame->attach(quit, bg::menu::Item::Bottom);
 
-    bl::menu::Menu menu(newGame, selector);
-    bl::menu::KeyboardEventGenerator keyboardEventGenerator(menu);
-    bl::menu::MouseEventGenerator mouseEventGenerator(menu);
+    bg::menu::Menu menu(newGame, selector);
+    bg::menu::KeyboardEventGenerator keyboardEventGenerator(menu);
+    bg::menu::MouseEventGenerator mouseEventGenerator(menu);
 
-    bl::WindowEventDispatcher eventDispatcher;
+    bg::WindowEventDispatcher eventDispatcher;
     eventDispatcher.subscribe(&keyboardEventGenerator);
     eventDispatcher.subscribe(&mouseEventGenerator);
 
     sf::RenderWindow window(
         sf::VideoMode(800, 600, 32), "Menu Demo", sf::Style::Close | sf::Style::Titlebar);
 
-    quit->getSignal(bl::menu::Item::Activated).willCall([&window]() { window.close(); });
+    quit->getSignal(bg::menu::Item::Activated).willCall([&window]() { window.close(); });
 
     while (window.isOpen()) {
         sf::Event event;

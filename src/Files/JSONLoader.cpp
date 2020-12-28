@@ -1,9 +1,9 @@
 #include <Files/JSONLoader.hpp>
 
-#include <BLIB/Logging.hpp>
+#include <BENG/Logging.hpp>
 #include <fstream>
 
-namespace bl
+namespace bg
 {
 namespace json
 {
@@ -257,4 +257,4 @@ Group Loader::loadGroup() {
 }
 
 } // namespace json
-} // namespace bl
+} // namespace bg

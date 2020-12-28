@@ -1,6 +1,6 @@
-#include <BLIB/Menu/EventGenerators/KeyboardEventGenerator.hpp>
+#include <BENG/Menu/EventGenerators/KeyboardEventGenerator.hpp>
 
-namespace bl
+namespace bg
 {
 namespace menu
 {
@@ -42,4 +42,4 @@ void KeyboardEventGenerator::observe(const sf::Event& event) {
 }
 
 } // namespace menu
-} // namespace bl
+} // namespace bg

@@ -1,6 +1,6 @@
-#include <BLIB/GUI/Elements/Container.hpp>
+#include <BENG/GUI/Elements/Container.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -205,4 +205,4 @@ void Container::transformStates(sf::RenderStates& states) const {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

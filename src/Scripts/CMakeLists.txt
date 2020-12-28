@@ -1,4 +1,4 @@
-target_sources(BLIB PRIVATE
+target_sources(BENG PRIVATE
     Error.cpp
     Function.cpp
     Parser.hpp

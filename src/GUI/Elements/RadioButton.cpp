@@ -1,8 +1,8 @@
-#include <BLIB/GUI/Elements/RadioButton.hpp>
+#include <BENG/GUI/Elements/RadioButton.hpp>
 
-#include <BLIB/GUI/Elements/Label.hpp>
+#include <BENG/GUI/Elements/Label.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -78,4 +78,4 @@ void RadioButton::Group::removeButton(RadioButton* but) {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

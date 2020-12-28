@@ -1,8 +1,8 @@
-#include <BLIB/Parser/Tokenizer.hpp>
+#include <BENG/Parser/Tokenizer.hpp>
 
-#include <BLIB/Logging.hpp>
+#include <BENG/Logging.hpp>
 
-namespace bl
+namespace bg
 {
 namespace parser
 {
@@ -123,4 +123,4 @@ void Tokenizer::recomputeAmbiguous() {
 }
 
 } // namespace parser
-} // namespace bl
+} // namespace bg

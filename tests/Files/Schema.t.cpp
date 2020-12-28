@@ -1,7 +1,7 @@
-#include <BLIB/Files/Schema.hpp>
+#include <BENG/Files/Schema.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace json
 {

@@ -1,6 +1,6 @@
-#include <BLIB/Parser/Stream.hpp>
+#include <BENG/Parser/Stream.hpp>
 
-namespace bl
+namespace bg
 {
 namespace parser
 {
@@ -68,4 +68,4 @@ int Stream::currentColumn() const { return curCol; }
 
 } // namespace parser
 
-} // namespace bl
+} // namespace bg

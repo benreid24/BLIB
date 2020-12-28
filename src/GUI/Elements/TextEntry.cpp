@@ -1,10 +1,10 @@
-#include <BLIB/GUI/Elements/TextEntry.hpp>
+#include <BENG/GUI/Elements/TextEntry.hpp>
 
-#include <BLIB/GUI/Renderers/RendererUtil.hpp>
+#include <BENG/GUI/Renderers/RendererUtil.hpp>
 #include <GUI/Data/Font.hpp>
 #include <cmath>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -195,4 +195,4 @@ void TextEntry::cursorDown() {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

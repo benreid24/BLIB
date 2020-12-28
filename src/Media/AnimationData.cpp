@@ -1,9 +1,9 @@
-#include <BLIB/Media/AnimationData.hpp>
+#include <BENG/Media/AnimationData.hpp>
 
-#include <BLIB/Files/BinaryFile.hpp>
-#include <BLIB/Files/FileUtil.hpp>
+#include <BENG/Files/BinaryFile.hpp>
+#include <BENG/Files/FileUtil.hpp>
 
-namespace bl
+namespace bg
 {
 AnimationData::Ptr AnimationData::create() { return Ptr(new AnimationData()); }
 
@@ -166,4 +166,4 @@ void AnimationData::Frame::Shard::apply(sf::Sprite& s, const sf::Vector2f& sc, f
     s.setColor(sf::Color(255, 255, 255, alpha));
 }
 
-} // namespace bl
+} // namespace bg

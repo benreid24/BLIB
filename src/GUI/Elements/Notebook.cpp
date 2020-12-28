@@ -1,8 +1,8 @@
-#include <BLIB/GUI/Elements/Notebook.hpp>
+#include <BENG/GUI/Elements/Notebook.hpp>
 
-#include <BLIB/GUI/Packers/LinePacker.hpp>
+#include <BENG/GUI/Packers/LinePacker.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -136,4 +136,4 @@ void Notebook::makePageActive(unsigned int i) {
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

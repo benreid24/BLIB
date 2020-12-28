@@ -1,7 +1,7 @@
 add_executable(shapes main.cpp)
 
 target_link_libraries(shapes
-    BLIB
+    BENG
     sfml-graphics
     sfml-window
 )

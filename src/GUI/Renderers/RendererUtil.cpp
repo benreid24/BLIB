@@ -1,10 +1,10 @@
-#include <BLIB/GUI/Renderers/RendererUtil.hpp>
+#include <BENG/GUI/Renderers/RendererUtil.hpp>
 
-#include <BLIB/GUI.hpp>
-#include <BLIB/Logging.hpp>
+#include <BENG/GUI.hpp>
+#include <BENG/Logging.hpp>
 #include <GUI/Data/Font.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -89,4 +89,4 @@ sf::Vector2f RendererUtil::calculatePosition(RenderSettings::Alignment horizonta
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

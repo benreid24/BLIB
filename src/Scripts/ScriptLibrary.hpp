@@ -1,9 +1,9 @@
 #ifndef BLIB_SCRIPT_LIBRARY_HPP
 #define BLIB_SCRIPT_LIBRARY_HPP
 
-#include <BLIB/Scripts/SymbolTable.hpp>
+#include <BENG/Scripts/SymbolTable.hpp>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -16,6 +16,6 @@ struct Library {
 };
 
 } // namespace scripts
-} // namespace bl
+} // namespace bg
 
 #endif

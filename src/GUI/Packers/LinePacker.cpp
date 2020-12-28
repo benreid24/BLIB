@@ -1,8 +1,8 @@
-#include <BLIB/GUI/Packers/LinePacker.hpp>
+#include <BENG/GUI/Packers/LinePacker.hpp>
 
 #include <cmath>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -139,4 +139,4 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

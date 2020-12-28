@@ -1,6 +1,6 @@
-#include <BLIB/Parser/CommentSkipper.hpp>
+#include <BENG/Parser/CommentSkipper.hpp>
 
-namespace bl
+namespace bg
 {
 namespace parser
 {
@@ -43,4 +43,4 @@ void CommentSkipper::skip(Stream& input) const {
 }
 
 } // namespace parser
-} // namespace bl
+} // namespace bg

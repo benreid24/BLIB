@@ -8,7 +8,7 @@ if (POLICY CMP0025)
   cmake_policy(SET CMP0025 NEW)
 endif()
 
-project(BLIB C CXX)
+project(BENG C CXX)
 
 option(STATIC_LINK "On to link statically" On)
 option(BUILD_TESTS "On to build unit tests" On)
@@ -21,9 +21,9 @@ endif()
 set(CMAKE_INSTALL_PREFIX .)
 
 if (STATIC_LINK)
-    add_library(BLIB STATIC)
+    add_library(BENG STATIC)
 else()
-    add_library(BLIB SHARED)
+    add_library(BENG SHARED)
 endif()
 
 if (STATIC_LINK)
@@ -36,7 +36,7 @@ include_directories(lib/SFML/include)
 add_subdirectory(lib/SFML)
 set_target_properties(sfml-audio PROPERTIES CXX_STANDARD 98 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
 
-add_subdirectory(include/BLIB)
+add_subdirectory(include/BENG)
 add_subdirectory(src)
 include_directories(include)
 

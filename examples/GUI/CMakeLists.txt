@@ -1,7 +1,7 @@
 add_executable(gui main.cpp)
 
 target_link_libraries(gui
-    BLIB
+    BENG
     sfml-graphics
     sfml-window
 )

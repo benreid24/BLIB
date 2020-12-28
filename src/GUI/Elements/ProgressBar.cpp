@@ -1,6 +1,6 @@
-#include <BLIB/GUI/Elements/ProgressBar.hpp>
+#include <BENG/GUI/Elements/ProgressBar.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -32,4 +32,4 @@ void ProgressBar::doRender(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

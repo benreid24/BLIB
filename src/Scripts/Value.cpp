@@ -1,11 +1,11 @@
-#include <BLIB/Scripts/Value.hpp>
+#include <BENG/Scripts/Value.hpp>
 
-#include <BLIB/Scripts/Error.hpp>
-#include <BLIB/Scripts/Function.hpp>
+#include <BENG/Scripts/Error.hpp>
+#include <BENG/Scripts/Function.hpp>
 #include <cmath>
 #include <functional>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -316,4 +316,4 @@ Value Value::at(const std::vector<Value>& args) {
 }
 
 } // namespace scripts
-} // namespace bl
+} // namespace bg

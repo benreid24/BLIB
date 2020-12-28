@@ -1,7 +1,7 @@
-#include <BLIB/Parser/Stream.hpp>
+#include <BENG/Parser/Stream.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace parser
 {
@@ -64,4 +64,4 @@ TEST(Stream, GetN) {
 
 } // namespace unittest
 } // namespace parser
-} // namespace bl
+} // namespace bg

@@ -1,7 +1,7 @@
 #include <Scripts/Parser.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -13,7 +13,7 @@ using G          = Parser::Grammar;
 TEST(ScriptParser, GrammarCompile) {
     parser::Grammar grammar     = Parser::getGrammar();
     parser::Tokenizer tokenizer = Parser::getTokenizer();
-    bl::Parser parser(grammar, tokenizer);
+    bg::Parser parser(grammar, tokenizer);
     EXPECT_TRUE(parser.valid());
 }
 
@@ -98,7 +98,7 @@ TEST_P(ScriptParserTest, Value) {
     parser::Grammar grammar    = Parser::getGrammar();
     grammar.setStart(GetParam().result);
 
-    const bl::Parser p(grammar, t);
+    const bg::Parser p(grammar, t);
     ASSERT_TRUE(p.valid());
     EXPECT_EQ(p.parse(GetParam().data).get() != nullptr, GetParam().pass) << GetParam().data;
 }
@@ -246,4 +246,4 @@ TEST(ScriptParser, FullTree) {
 
 } // namespace unittest
 } // namespace scripts
-} // namespace bl
+} // namespace bg

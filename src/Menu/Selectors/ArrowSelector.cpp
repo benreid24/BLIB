@@ -1,6 +1,6 @@
-#include <BLIB/Menu/Selectors/ArrowSelector.hpp>
+#include <BENG/Menu/Selectors/ArrowSelector.hpp>
 
-namespace bl
+namespace bg
 {
 namespace menu
 {
@@ -8,8 +8,8 @@ namespace
 {
 const float HeightRatio = 0.5;
 
-bl::Triangle makeTriangle(float w) {
-    return bl::Triangle({0, 0}, {w, w * HeightRatio}, {0, 2.f * w * HeightRatio});
+bg::Triangle makeTriangle(float w) {
+    return bg::Triangle({0, 0}, {w, w * HeightRatio}, {0, 2.f * w * HeightRatio});
 }
 } // namespace
 
@@ -27,4 +27,4 @@ void ArrowSelector::render(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 } // namespace menu
-} // namespace bl
+} // namespace bg

@@ -1,8 +1,8 @@
-#include <BLIB/Shapes/Ellipse.hpp>
+#include <BENG/Shapes/Ellipse.hpp>
 
 #include <cmath>
 
-namespace bl
+namespace bg
 {
 Ellipse::Ellipse(float major, float minor, bool co, unsigned int pc)
 : nPoints(pc) {
@@ -34,4 +34,4 @@ sf::Vector2f Ellipse::getPoint(std::size_t index) const {
     return {x + majorRadius, y + minorRadius};
 }
 
-} // namespace bl
+} // namespace bg

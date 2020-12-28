@@ -1,10 +1,10 @@
-#include <BLIB/GUI/Elements/Button.hpp>
+#include <BENG/GUI/Elements/Button.hpp>
 
-#include <BLIB/GUI/Elements/Label.hpp>
-#include <BLIB/GUI/Packers/Packer.hpp>
+#include <BENG/GUI/Elements/Label.hpp>
+#include <BENG/GUI/Packers/Packer.hpp>
 #include <GUI/Data/Font.hpp>
 
-namespace bl
+namespace bg
 {
 namespace gui
 {
@@ -55,4 +55,4 @@ void Button::doRender(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 } // namespace gui
-} // namespace bl
+} // namespace bg

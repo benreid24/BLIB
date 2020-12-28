@@ -1,14 +1,14 @@
-#include <BLIB/Scripts.hpp>
+#include <BENG/Scripts.hpp>
 
-#include <BLIB/Files/FileUtil.hpp>
-#include <BLIB/Logging.hpp>
+#include <BENG/Files/FileUtil.hpp>
+#include <BENG/Logging.hpp>
 #include <Scripts/Parser.hpp>
 #include <Scripts/ScriptImpl.hpp>
 #include <Scripts/ScriptLibrary.hpp>
 #include <fstream>
 #include <streambuf>
 
-namespace bl
+namespace bg
 {
 using namespace scripts;
 
@@ -70,4 +70,4 @@ SymbolTable Script::generateBaseTable() const {
     return table;
 }
 
-} // namespace bl
+} // namespace bg

@@ -1,4 +1,4 @@
-target_sources(BLIB.t PUBLIC
+target_sources(BENG.t PUBLIC
     CommentSkipper.t.cpp
     Grammar.t.cpp
     Parser.t.cpp

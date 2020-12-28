@@ -1,3 +1,3 @@
-target_sources(BLIB PRIVATE
+target_sources(BENG PRIVATE
     Timer.cpp
 )

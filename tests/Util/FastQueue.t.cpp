@@ -1,7 +1,7 @@
-#include <BLIB/Util/FastQueue.hpp>
+#include <BENG/Util/FastQueue.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace unittest
 {
@@ -59,4 +59,4 @@ TEST(FastQueue, NewElementPromote) {
 }
 
 } // namespace unittest
-} // namespace bl
+} // namespace bg

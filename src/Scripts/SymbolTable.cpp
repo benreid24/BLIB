@@ -1,9 +1,9 @@
-#include <BLIB/Scripts/SymbolTable.hpp>
+#include <BENG/Scripts/SymbolTable.hpp>
 
-#include <BLIB/Logging.hpp>
-#include <BLIB/Scripts/ScriptManager.hpp>
+#include <BENG/Logging.hpp>
+#include <BENG/Scripts/ScriptManager.hpp>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -76,4 +76,4 @@ void SymbolTable::registerManager(ScriptManager* m) { mgr = m; }
 ScriptManager* SymbolTable::manager() { return mgr; }
 
 } // namespace scripts
-} // namespace bl
+} // namespace bg

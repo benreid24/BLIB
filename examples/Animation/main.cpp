@@ -1,4 +1,4 @@
-#include <BLIB/Media/Animation.hpp>
+#include <BENG/Media/Animation.hpp>
 #include <SFML/Window.hpp>
 
 int main() {
@@ -6,8 +6,8 @@ int main() {
                             "Animation Example",
                             sf::Style::Titlebar | sf::Style::Close);
 
-    bl::AnimationData::Ptr src = bl::AnimationData::create("resources/animation.anim");
-    bl::Animation anim(src);
+    bg::AnimationData::Ptr src = bg::AnimationData::create("resources/animation.anim");
+    bg::Animation anim(src);
 
     anim.setIsCentered(true);
     anim.setPosition(sf::Vector2f(400, 400));

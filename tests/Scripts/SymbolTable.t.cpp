@@ -1,7 +1,7 @@
-#include <BLIB/Scripts/SymbolTable.hpp>
+#include <BENG/Scripts/SymbolTable.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace scripts
 {
@@ -88,4 +88,4 @@ TEST(SymbolTable, ExtraPop) {
 
 } // namespace unittest
 } // namespace scripts
-} // namespace bl
+} // namespace bg

@@ -1,7 +1,7 @@
 add_executable(animation main.cpp)
 
 target_link_libraries(animation
-    BLIB
+    BENG
     sfml-graphics
     sfml-window
 )

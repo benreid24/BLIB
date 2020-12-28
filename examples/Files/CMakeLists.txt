@@ -4,7 +4,7 @@ add_executable(files
 )
 
 target_link_libraries(files
-    BLIB 
+    BENG 
 )
 
 set_target_properties(files

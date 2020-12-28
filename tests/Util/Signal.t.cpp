@@ -1,7 +1,7 @@
-#include <BLIB/Util/Signal.hpp>
+#include <BENG/Util/Signal.hpp>
 #include <gtest/gtest.h>
 
-namespace bl
+namespace bg
 {
 namespace unittest
 {
@@ -53,4 +53,4 @@ TEST(Signal, Clear) {
 }
 
 } // namespace unittest
-} // namespace bl
+} // namespace bg

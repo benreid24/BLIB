@@ -1,8 +1,8 @@
-#include <BLIB/Menu/Item.hpp>
+#include <BENG/Menu/Item.hpp>
 
 #include <algorithm>
 
-namespace bl
+namespace bg
 {
 namespace menu
 {
@@ -73,4 +73,4 @@ void Item::visit(Visitor visitor, int x, int y,
 
 } // namespace menu
 
-} // namespace bl
+} // namespace bg

@@ -1,6 +1,6 @@
-#include <BLIB/Files/FileUtil.hpp>
+#include <BENG/Files/FileUtil.hpp>
 
-#include <BLIB/Util/Random.hpp>
+#include <BENG/Util/Random.hpp>
 #include <cstdio>
 #include <dirent.h>
 #include <fstream>
@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-namespace bl
+namespace bg
 {
 namespace
 {
@@ -151,4 +151,4 @@ bool FileUtil::deleteFile(const std::string& file) {
     return 0 == remove(file.c_str());
 }
 
-} // namespace bl
+} // namespace bg
