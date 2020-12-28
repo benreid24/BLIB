@@ -44,13 +44,6 @@ int Engine::run(EngineState::Ptr initialState) {
             BL_LOG_WARN << "Can't catch up, running " << behind << " seconds behind";
         }
     };
-    auto adjustTimestepInfo = [&followupLog](float oldTs, float newTs) {
-        if (followupLog) {
-            followupLog = false;
-            BL_LOG_INFO << "Adjusting update timestep from " << oldTs << "s to " << newTs
-                        << "s";
-        }
-    };
     auto skipUpdatesInfo = [&followupLog](int frameCount) {
         if (followupLog) {
             followupLog = false;
@@ -94,7 +87,8 @@ int Engine::run(EngineState::Ptr initialState) {
                 fallBehindWarning(startingLag - updateTimer.getElapsedTime().asSeconds());
                 if (engineSettings.allowVariableTimestep()) {
                     const float newTs = averageUpdateTime * 1.05f;
-                    adjustTimestepInfo(updateTimestep, newTs);
+                    BL_LOG_INFO << "Adjusting update timestep from " << updateTimestep
+                                << "s to " << newTs << "s";
                     updateTimestep = newTs;
                 }
                 else {
@@ -102,6 +96,16 @@ int Engine::run(EngineState::Ptr initialState) {
                     lag = 0.f;
                 }
             }
+        }
+        if (updateTimer.getElapsedTime().asSeconds() < startingLag * 0.9f &&
+            updateTimestep > engineSettings.updateTimestep()) {
+            float newTs = (1 - updateTimer.getElapsedTime().asSeconds() / startingLag) / 2.f *
+                          updateTimestep;
+            if (newTs < engineSettings.updateTimestep())
+                newTs = engineSettings.updateTimestep();
+            BL_LOG_INFO << "Performance improved, adjusting timestep from " << updateTimestep
+                        << "s to " << newTs << "s";
+            updateTimestep = newTs;
         }
         states.top()->render(*this, lag);
 
