@@ -2,8 +2,11 @@
 #define BLIB_ENGINE_ENGINE_HPP
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <stack>
 
 #include <BLIB/Engine/EngineEvent.hpp>
+#include <BLIB/Engine/EngineFlags.hpp>
+#include <BLIB/Engine/EngineSettings.hpp>
 #include <BLIB/Engine/EngineState.hpp>
 #include <BLIB/Util/EventDispatcher.hpp>
 
@@ -21,10 +24,9 @@ public:
      * @brief Creates the game engine with the given window and target frame rates
      *
      * @param window The window to manage and render to
-     * @param targetRenderFps How many times to render per second
-     * @param targetUpdateFps How many logic updates to process per second
+     * @param settings Settings for the engine to use
      */
-    Engine(sf::RenderWindow& window, float targetRenderFps = 60, float targetUpdateFps = 120);
+    Engine(sf::RenderWindow& window, const EngineSettings& settings);
 
     /**
      * @brief Returns a reference to the engine event dispatcher
@@ -37,6 +39,18 @@ public:
      *
      */
     WindowEventDispatcher& windowEventDispatcher();
+
+    /**
+     * @brief Returns the settings the engine is using
+     *
+     */
+    const EngineSettings& settings() const;
+
+    /**
+     * @brief Returns the flags that can be set to control Engine behavior
+     *
+     */
+    EngineFlags& flags();
 
     /**
      * @brief Returns a reference to the window being managed
@@ -52,14 +66,28 @@ public:
      * @param initialState The starting engine state
      * @return int Return code of the program
      */
-    int run(EngineState& initialState);
+    int run(EngineState::Ptr initialState);
+
+    /**
+     * @brief Sets the next state for the following engine update loop. May be called at any
+     *        time, the next state will not be transitioned to until the start of main loop. If
+     *        the Popstate flag is set, that will be evaluated before the new state is pushed
+     *
+     * @param next Next state to enter on the following main loop run
+     */
+    void nextState(EngineState::Ptr next);
 
 private:
-    const float targetRenderFps;
-    const float targetUpdateFps;
+    const EngineSettings engineSettings;
+    EngineFlags engineFlags;
+    std::stack<EngineState::Ptr> states;
+    EngineState::Ptr newState;
+
     sf::RenderWindow& renderWindow;
     EngineEventDispatcher engineEventBus;
     WindowEventDispatcher windowEventBus;
+
+    bool awaitFocus();
 };
 
 } // namespace bl

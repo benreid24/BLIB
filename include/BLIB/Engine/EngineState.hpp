@@ -1,6 +1,8 @@
 #ifndef BLIB_ENGINE_ENGINESTATE_HPP
 #define BLIB_ENGINE_ENGINESTATE_HPP
 
+#include <memory>
+
 namespace bl
 {
 class Engine;
@@ -15,7 +17,27 @@ class Engine;
  */
 class EngineState {
 public:
+    using Ptr = std::shared_ptr<EngineState>;
+
     virtual ~EngineState() = default;
+
+    /**
+     * @brief This is called each time the state becomes the active engine state
+     *
+     */
+    virtual void makeActive(Engine& engine) = 0;
+
+    /**
+     * @brief This is called each time this state is pushed down by a new state
+     *
+     */
+    virtual void onPushedDown(Engine& engine) = 0;
+
+    /**
+     * @brief This is called when this state is popped off the state stack entirely
+     *
+     */
+    virtual void onPoppedOff(Engine& engine) = 0;
 
     /**
      * @brief Perform logic updates
@@ -29,9 +51,10 @@ public:
      * @brief Render the application to the window owned by the Engine
      *
      * @param engine The main Engine managing the window to render to
-     * @param dt Time elapsed since last render
+     * @param residualLag Residual elapsed time between calls to update(). May be used for
+     *                    graphical interpolation
      */
-    virtual void render(Engine& engine, float dt) = 0;
+    virtual void render(Engine& engine, float residualLag) = 0;
 };
 
 } // namespace bl
