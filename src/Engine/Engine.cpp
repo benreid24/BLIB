@@ -65,7 +65,10 @@ int Engine::run(EngineState::Ptr initialState) {
                 return 0;
             }
             else if (event.type == sf::Event::LostFocus) {
-                if (!awaitFocus()) return 0;
+                if (!awaitFocus()) {
+                    renderWindow.close();
+                    return 0;
+                }
             }
             // more events?
         }
@@ -140,6 +143,15 @@ int Engine::run(EngineState::Ptr initialState) {
             lastLoopTime = timer.getElapsedTime().asSeconds();
         }
     }
+}
+
+bool Engine::awaitFocus() {
+    sf::Event event;
+    while (renderWindow.waitEvent(event)) {
+        if (event.type == sf::Event::Closed) return false;
+        if (event.type == sf::Event::GainedFocus) return true;
+    }
+    return false;
 }
 
 } // namespace bl

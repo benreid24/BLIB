@@ -22,7 +22,8 @@ public:
      */
     enum Flag {
         Terminate = 0, /// Terminates the Engine's run() method
-        PopState       /// Returns to the previous state. Terminates if no previous state
+        PopState,      /// Returns to the previous state. Terminates if no previous state
+        _NUM_FLAGS
     };
 
     /**
