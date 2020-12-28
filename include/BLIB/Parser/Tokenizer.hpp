@@ -20,6 +20,15 @@ namespace parser
  */
 class Tokenizer {
 public:
+    enum MatchGroup : unsigned int {
+        EntireMatch = 0,
+        Group1      = 1,
+        Group2      = 2,
+        Group3      = 3,
+        Group4      = 4,
+        Group5      = 5
+    };
+
     /**
      * @brief Construct a new Tokenizer object
      *
@@ -34,8 +43,10 @@ public:
      * @param type Id of the token to create if a match is found
      * @param regex Regex to match the token. Token data will be whole match, or first group if
      *              present
+     * @param matchGroup Which match group to use for the token data. Defaults to entire match
      */
-    void addTokenType(Node::Type type, const std::string& regex);
+    void addTokenType(Node::Type type, const std::string& regex,
+                      MatchGroup matchGroup = EntireMatch);
 
     /**
      * @brief Specify a character that disables/enables the skipper when encountered
@@ -76,6 +87,7 @@ public:
 private:
     ISkipper::Ptr skipper;
     std::map<std::string, std::pair<std::regex, Node::Type>> matchers;
+    std::map<std::string, int> matchGroups;
     std::map<std::string, std::list<std::string>> ambiguous;
     std::map<Node::Type, std::vector<std::pair<std::string, Node::Type>>> kwords;
     std::vector<char> togglers;

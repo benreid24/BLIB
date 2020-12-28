@@ -16,8 +16,8 @@ parser::Tokenizer buildTokenizer() {
     tokenizer.addSkipperToggleChar('"');
     tokenizer.addEscapeSequence("\\n", '\n');
 
-    tokenizer.addTokenType(G::NumLit, "([0-9]+(\\.[0-9]+)?)");
-    tokenizer.addTokenType(G::StringLit, "\"([^\"]*)\"");
+    tokenizer.addTokenType(G::NumLit, "[0-9]+(\\.[0-9]+)?", parser::Tokenizer::EntireMatch);
+    tokenizer.addTokenType(G::StringLit, "\"([^\"]*)\"", parser::Tokenizer::Group1);
     tokenizer.addTokenType(G::LParen, "\\(");
     tokenizer.addTokenType(G::RParen, "\\)");
     tokenizer.addTokenType(G::LBrkt, "\\[");
