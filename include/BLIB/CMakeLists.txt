@@ -11,6 +11,7 @@ target_sources(BLIB PUBLIC
     Util.hpp
 )
 
+add_subdirectory(Engine)
 add_subdirectory(Files)
 add_subdirectory(GUI)
 add_subdirectory(Logging)
