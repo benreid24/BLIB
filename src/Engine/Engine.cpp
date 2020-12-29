@@ -9,7 +9,7 @@ Engine::Engine(const EngineSettings& settings)
 : renderWindow(nullptr)
 , engineSettings(settings) {}
 
-void Engine::useWindow(sf::RenderWindow* w) { renderWindow = w; }
+void Engine::useWindow(sf::RenderWindow& w) { renderWindow = &w; }
 
 EngineEventDispatcher& Engine::engineEventDispatcher() { return engineEventBus; }
 

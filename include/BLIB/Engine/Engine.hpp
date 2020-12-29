@@ -30,9 +30,9 @@ public:
     /**
      * @brief Sets the window for the Engine to render to and process events for
      *
-     * @param window Pointer to the window to use. Does not take ownership
+     * @param window Reference to the window to use, must remain valid
      */
-    void useWindow(sf::RenderWindow* window);
+    void useWindow(sf::RenderWindow& window);
 
     /**
      * @brief Returns a reference to the engine event dispatcher
