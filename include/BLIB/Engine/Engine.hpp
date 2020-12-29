@@ -21,12 +21,18 @@ namespace bl
 class Engine {
 public:
     /**
-     * @brief Creates the game engine with the given window and target frame rates
+     * @brief Creates the game engine from the given settings
      *
-     * @param window The window to manage and render to
      * @param settings Settings for the engine to use
      */
-    Engine(sf::RenderWindow& window, const EngineSettings& settings);
+    Engine(const EngineSettings& settings);
+
+    /**
+     * @brief Sets the window for the Engine to render to and process events for
+     *
+     * @param window Pointer to the window to use. Does not take ownership
+     */
+    void useWindow(sf::RenderWindow* window);
 
     /**
      * @brief Returns a reference to the engine event dispatcher
@@ -53,7 +59,7 @@ public:
     EngineFlags& flags();
 
     /**
-     * @brief Returns a reference to the window being managed
+     * @brief Returns a reference to the window being managed. Undefined behavior if no window
      *
      */
     sf::RenderWindow& window();
@@ -83,7 +89,7 @@ private:
     std::stack<EngineState::Ptr> states;
     EngineState::Ptr newState;
 
-    sf::RenderWindow& renderWindow;
+    sf::RenderWindow* renderWindow;
     EngineEventDispatcher engineEventBus;
     WindowEventDispatcher windowEventBus;
 

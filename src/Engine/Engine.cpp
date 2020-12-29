@@ -5,9 +5,11 @@
 
 namespace bl
 {
-Engine::Engine(sf::RenderWindow& window, const EngineSettings& settings)
-: renderWindow(window)
+Engine::Engine(const EngineSettings& settings)
+: renderWindow(nullptr)
 , engineSettings(settings) {}
+
+void Engine::useWindow(sf::RenderWindow* w) { renderWindow = w; }
 
 EngineEventDispatcher& Engine::engineEventDispatcher() { return engineEventBus; }
 
@@ -17,7 +19,7 @@ const EngineSettings& Engine::settings() const { return engineSettings; }
 
 EngineFlags& Engine::flags() { return engineFlags; }
 
-sf::RenderWindow& Engine::window() { return renderWindow; }
+sf::RenderWindow& Engine::window() { return *renderWindow; }
 
 void Engine::nextState(EngineState::Ptr next) { newState = next; }
 
@@ -56,21 +58,23 @@ int Engine::run(EngineState::Ptr initialState) {
         engineFlags.clear();
 
         // Process window events
-        sf::Event event;
-        while (renderWindow.pollEvent(event)) {
-            windowEventBus.dispatch(event);
+        if (renderWindow) {
+            sf::Event event;
+            while (renderWindow->pollEvent(event)) {
+                windowEventBus.dispatch(event);
 
-            if (event.type == sf::Event::Closed) {
-                renderWindow.close();
-                return 0;
-            }
-            else if (event.type == sf::Event::LostFocus) {
-                if (!awaitFocus()) {
-                    renderWindow.close();
+                if (event.type == sf::Event::Closed) {
+                    renderWindow->close();
                     return 0;
                 }
+                else if (event.type == sf::Event::LostFocus) {
+                    if (!awaitFocus()) {
+                        renderWindow->close();
+                        return 0;
+                    }
+                }
+                // more events?
             }
-            // more events?
         }
 
         // Update and render
@@ -114,14 +118,14 @@ int Engine::run(EngineState::Ptr initialState) {
 
         // Process flags
         if (engineFlags.flagSet(EngineFlags::Terminate)) {
-            renderWindow.close();
+            if (renderWindow) renderWindow->close();
             return 1;
         }
         else if (engineFlags.flagSet(EngineFlags::PopState)) {
             states.top()->onPoppedOff(*this);
             states.pop();
             if (states.empty()) {
-                renderWindow.close();
+                if (renderWindow) renderWindow->close();
                 return 0;
             }
             states.top()->makeActive(*this);
@@ -147,7 +151,7 @@ int Engine::run(EngineState::Ptr initialState) {
 
 bool Engine::awaitFocus() {
     sf::Event event;
-    while (renderWindow.waitEvent(event)) {
+    while (renderWindow->waitEvent(event)) {
         if (event.type == sf::Event::Closed) return false;
         if (event.type == sf::Event::GainedFocus) return true;
     }

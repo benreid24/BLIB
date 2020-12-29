@@ -24,8 +24,7 @@ private:
 };
 
 TEST(Engine, Terminate) {
-    sf::RenderWindow window;
-    Engine engine(window, EngineSettings());
+    Engine engine({});
 
     TerminateState* state = new TerminateState();
     EngineState::Ptr ptr(state);
