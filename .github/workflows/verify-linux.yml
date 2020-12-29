@@ -27,8 +27,11 @@ jobs:
     - name: make
       run: cd build && make
 
+    - name: start X server
+      run: sudo X
+      
+    - name: configure X server
+      run: export DISPLAY=:0 firefox
+      
     - name: test
-      run: 
-        sudo X
-        export DISPLAY=:0 firefox
-        build/tests/BLIB.t 
+      run: build/tests/BLIB.t 
