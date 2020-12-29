@@ -25,7 +25,7 @@ jobs:
       run: cmake -G "Unix Makefiles" -S . -B ./build
       
     - name: make
-      run: cd build && "Unix Makefiles"
+      run: cd build && make
 
     - name: test
       run: build/tests/BLIB.t 
