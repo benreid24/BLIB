@@ -19,7 +19,7 @@ jobs:
       run: sudo apt-get update
 
     - name: package-install
-      run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
+      run: sudo apt-get install libx11-dev xorg-dev xorg openbox freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
       
     - name: configure
       run: cmake -G "Unix Makefiles" -S . -B ./build
