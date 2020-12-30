@@ -37,7 +37,7 @@ int Engine::run(EngineState::Ptr initialState) {
     float updateTimestep    = engineSettings.updateTimestep();
     float averageUpdateTime = engineSettings.updateTimestep();
 
-    float lastWarnTime     = updateTimer.getElapsedTime().asSeconds();
+    float lastWarnTime     = -6.f; // always log first warning
     bool followupLog       = false;
     auto fallBehindWarning = [&lastWarnTime, &updateTimer, &followupLog](float behind) {
         if (updateTimer.getElapsedTime().asSeconds() - lastWarnTime >= 5.f) {
@@ -91,7 +91,7 @@ int Engine::run(EngineState::Ptr initialState) {
                 0.8f * averageUpdateTime +
                 0.2f * (updateTimer.getElapsedTime().asSeconds() - updateStart);
             if (updateTimer.getElapsedTime().asSeconds() > startingLag * 1.1f) {
-                fallBehindWarning(startingLag - updateTimer.getElapsedTime().asSeconds());
+                fallBehindWarning(updateTimer.getElapsedTime().asSeconds() - startingLag);
                 if (engineSettings.allowVariableTimestep()) {
                     const float newTs = averageUpdateTime * 1.05f;
                     BL_LOG_INFO << "Adjusting update timestep from " << updateTimestep
@@ -104,10 +104,9 @@ int Engine::run(EngineState::Ptr initialState) {
                 }
             }
         }
-        if (updateTimer.getElapsedTime().asSeconds() < startingLag * 0.9f &&
+        if (averageUpdateTime < startingLag * 0.9f &&
             updateTimestep > engineSettings.updateTimestep()) {
-            float newTs = (1 - updateTimer.getElapsedTime().asSeconds() / startingLag) / 2.f *
-                          updateTimestep;
+            float newTs = (1 - averageUpdateTime / startingLag) / 2.f * updateTimestep;
             if (newTs < engineSettings.updateTimestep())
                 newTs = engineSettings.updateTimestep();
             BL_LOG_INFO << "Performance improved, adjusting timestep from " << updateTimestep

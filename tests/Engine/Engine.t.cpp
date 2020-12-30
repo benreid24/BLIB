@@ -1,17 +1,19 @@
 #include <BLIB/Engine.hpp>
 #include <gtest/gtest.h>
+#include <vector>
 
 namespace bl
 {
 namespace unittest
 {
-class TerminateState : public EngineState {
+class FlagTestState : public EngineState {
 public:
-    TerminateState()
-    : callCount(0) {}
+    FlagTestState(EngineFlags::Flag flag)
+    : callCount(0)
+    , flag(flag) {}
 
     virtual void update(Engine& engine, float dt) {
-        engine.flags().setFlag(EngineFlags::Terminate);
+        engine.flags().setFlag(flag);
         ++callCount;
     }
 
@@ -20,16 +22,142 @@ public:
     int timesUpdated() const { return callCount; }
 
 private:
+    const EngineFlags::Flag flag;
     int callCount;
 };
 
 TEST(Engine, Terminate) {
     Engine engine({});
 
-    TerminateState* state = new TerminateState();
+    FlagTestState* state = new FlagTestState(EngineFlags::Terminate);
     EngineState::Ptr ptr(state);
     EXPECT_EQ(engine.run(ptr), 1);
     EXPECT_EQ(state->timesUpdated(), 1);
+    EXPECT_EQ(ptr.use_count(), 2);
+}
+
+TEST(Engine, PopState) {
+    Engine engine({});
+
+    FlagTestState* state = new FlagTestState(EngineFlags::PopState);
+    EngineState::Ptr ptr(state);
+    EXPECT_EQ(engine.run(ptr), 0);
+    EXPECT_EQ(state->timesUpdated(), 1);
+    EXPECT_EQ(ptr.use_count(), 1);
+}
+
+TEST(Engine, MultipleStates) {
+    Engine engine({});
+
+    FlagTestState* first = new FlagTestState(EngineFlags::PopState);
+    EngineState::Ptr firstPtr(first);
+    FlagTestState* second = new FlagTestState(EngineFlags::PopState);
+    EngineState::Ptr secondPtr(second);
+
+    // update -> pop -> next state -> update -> pop -> end
+    engine.nextState(secondPtr);
+    EXPECT_EQ(engine.run(firstPtr), 0);
+    EXPECT_EQ(first->timesUpdated(), 1);
+    EXPECT_EQ(second->timesUpdated(), 1);
+}
+
+class VariableTimeTestState : public EngineState {
+public:
+    VariableTimeTestState()
+    : state(Constant)
+    , counter(0) {
+        times.reserve(6);
+    }
+
+    virtual void update(Engine& engine, float dt) {
+        times.push_back(dt);
+        switch (state) {
+        case Constant:
+            if (counter >= 1) {
+                counter = 0;
+                state   = Increasing;
+                sf::sleep(sf::seconds(dt * 1.15f));
+            }
+            else {
+                sf::sleep(sf::seconds(dt));
+                ++counter;
+            }
+            break;
+
+        case Increasing:
+            if (counter >= 1) {
+                counter = 0;
+                state   = Decreasing;
+                sf::sleep(sf::seconds(dt / 1.15f));
+            }
+            else {
+                ++counter;
+                sf::sleep(sf::seconds(dt * 1.15f));
+            }
+            break;
+
+        case Decreasing:
+            if (counter >= 1) { engine.flags().setFlag(EngineFlags::Terminate); }
+            else {
+                ++counter;
+                sf::sleep(sf::seconds(dt / 1.15f));
+            }
+            break;
+        default:
+            break;
+        }
+    }
+
+    virtual void render(Engine& engine, float rd) {}
+
+    const std::vector<float>& getTimes() const { return times; }
+
+private:
+    std::vector<float> times;
+    enum State { Constant, Increasing, Decreasing } state;
+    int counter;
+};
+
+TEST(Engine, VariableTimestep) {
+    Engine engine(EngineSettings().withAllowVariableTimestep(true));
+
+    VariableTimeTestState* state = new VariableTimeTestState();
+    EngineState::Ptr ptr(state);
+    EXPECT_EQ(engine.run(ptr), 1);
+
+    ASSERT_LE(state->getTimes().size(), 6);
+    EXPECT_EQ(state->getTimes().at(0), state->getTimes().at(1));
+    EXPECT_LE(state->getTimes().at(1), state->getTimes().at(2));
+    EXPECT_GE(state->getTimes().at(2), state->getTimes().at(3));
+    EXPECT_GE(state->getTimes().at(3), state->getTimes().at(4));
+    EXPECT_GE(state->getTimes().at(4), state->getTimes().at(5));
+}
+
+class FixedTimestepTestState : public EngineState {
+public:
+    virtual void update(Engine& engine, float dt) {
+        times.push_back(dt);
+        if (times.size() >= 10) engine.flags().setFlag(EngineFlags::Terminate);
+    }
+
+    virtual void render(Engine& engine, float rd) {}
+
+    const std::vector<float>& getTimes() const { return times; }
+
+private:
+    std::vector<float> times;
+};
+
+TEST(Engine, FixedTimestep) {
+    Engine engine(EngineSettings().withAllowVariableTimestep(false));
+
+    FixedTimestepTestState* state = new FixedTimestepTestState();
+    EngineState::Ptr ptr(state);
+    EXPECT_EQ(engine.run(ptr), 1);
+
+    for (unsigned int i = 0; i < state->getTimes().size() - 1; ++i) {
+        EXPECT_EQ(state->getTimes().at(i), state->getTimes().at(i + 1));
+    }
 }
 
 } // namespace unittest
