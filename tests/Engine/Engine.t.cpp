@@ -125,7 +125,7 @@ TEST(Engine, VariableTimestep) {
     engine::State::Ptr ptr(state);
     EXPECT_EQ(engine.run(ptr), 1);
 
-    ASSERT_LE(state->getTimes().size(), 6);
+    ASSERT_GE(state->getTimes().size(), 6);
     EXPECT_EQ(state->getTimes().at(0), state->getTimes().at(1));
     EXPECT_LE(state->getTimes().at(1), state->getTimes().at(2));
     EXPECT_GE(state->getTimes().at(2), state->getTimes().at(3));
