@@ -93,10 +93,11 @@ int Engine::run(engine::State::Ptr initialState) {
             if (updateTimer.getElapsedTime().asSeconds() > startingLag * 1.1f) {
                 fallBehindWarning(updateTimer.getElapsedTime().asSeconds() - startingLag);
                 if (engineSettings.allowVariableTimestep()) {
-                    const float newTs = averageUpdateTime * 1.05f;
+                    const float newTs = updateTimestep * 1.05f;
                     BL_LOG_INFO << "Adjusting update timestep from " << updateTimestep
                                 << "s to " << newTs << "s";
-                    updateTimestep = newTs;
+                    updateTimestep    = newTs;
+                    averageUpdateTime = updateTimestep;
                 }
                 else {
                     skipUpdatesInfo(std::ceil(lag / updateTimestep));
@@ -104,9 +105,9 @@ int Engine::run(engine::State::Ptr initialState) {
                 }
             }
         }
-        if (averageUpdateTime < startingLag * 0.9f &&
+        if (averageUpdateTime < updateTimestep * 0.9f &&
             updateTimestep > engineSettings.updateTimestep()) {
-            float newTs = (1 - averageUpdateTime / startingLag) / 2.f * updateTimestep;
+            float newTs = (1 - averageUpdateTime / updateTimestep) / 2.f * updateTimestep;
             if (newTs < engineSettings.updateTimestep())
                 newTs = engineSettings.updateTimestep();
             BL_LOG_INFO << "Performance improved, adjusting timestep from " << updateTimestep

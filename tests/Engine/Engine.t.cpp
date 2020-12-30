@@ -76,7 +76,7 @@ public:
             if (counter >= 1) {
                 counter = 0;
                 state   = Increasing;
-                sf::sleep(sf::seconds(dt * 1.15f));
+                sf::sleep(sf::seconds(dt * 1.5f));
             }
             else {
                 sf::sleep(sf::seconds(dt));
@@ -88,11 +88,11 @@ public:
             if (counter >= 1) {
                 counter = 0;
                 state   = Decreasing;
-                sf::sleep(sf::seconds(dt / 1.15f));
+                sf::sleep(sf::seconds(dt / 1.5f));
             }
             else {
                 ++counter;
-                sf::sleep(sf::seconds(dt * 1.15f));
+                sf::sleep(sf::seconds(dt * 1.5f));
             }
             break;
 
@@ -100,7 +100,7 @@ public:
             if (counter >= 1) { engine.flags().set(engine::Flags::Terminate); }
             else {
                 ++counter;
-                sf::sleep(sf::seconds(dt / 1.15f));
+                sf::sleep(sf::seconds(dt / 1.5f));
             }
             break;
         default:
@@ -119,7 +119,7 @@ private:
 };
 
 TEST(Engine, VariableTimestep) {
-    Engine engine(engine::Settings().withAllowVariableTimestep(true));
+    Engine engine(engine::Settings().withAllowVariableTimestep(true).withUpdateInterval(0.1f));
 
     VariableTimeTestState* state = new VariableTimeTestState();
     engine::State::Ptr ptr(state);
