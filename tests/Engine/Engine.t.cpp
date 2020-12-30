@@ -79,7 +79,7 @@ public:
                 sf::sleep(sf::seconds(dt * 1.5f));
             }
             else {
-                sf::sleep(sf::seconds(dt));
+                sf::sleep(sf::seconds(dt * 0.95f));
                 ++counter;
             }
             break;
