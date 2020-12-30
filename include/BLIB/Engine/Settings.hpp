@@ -1,7 +1,9 @@
-#ifndef BLIB_ENGINE_ENGINESETTINGS_HPP
-#define BLIB_ENGINE_ENGINESETTINGS_HPP
+#ifndef BLIB_ENGINE_SETTINGS_HPP
+#define BLIB_ENGINE_SETTINGS_HPP
 
 namespace bl
+{
+namespace engine
 {
 /**
  * @brief Collection of settings to create an Engine with, organized as a builder
@@ -9,7 +11,7 @@ namespace bl
  * @ingroup Engine
  *
  */
-class EngineSettings {
+class Settings {
 public:
     static constexpr float DefaultUpdateInterval       = 1.f / 120.f;
     static constexpr float DefaultMaximumFramerate     = 0.f;
@@ -19,23 +21,23 @@ public:
      * @brief Creates a new settings object with all default settings
      *
      */
-    EngineSettings();
+    Settings();
 
     /**
      * @brief Sets the update interval to use for fixed physics updates
      *
      * @param interval Fixed timestep interval, in seconds
-     * @return EngineSettings& Reference to this object
+     * @return Settings& Reference to this object
      */
-    EngineSettings& withUpdateInterval(float interval);
+    Settings& withUpdateInterval(float interval);
 
     /**
      * @brief Sets the maximum framerate in fps. Pass 0 for no cap
      *
      * @param maxFps Maximum framerate in fps
-     * @return EngineSettings& Reference to this object
+     * @return Settings& Reference to this object
      */
-    EngineSettings& withMaxFramerate(float maxFps);
+    Settings& withMaxFramerate(float maxFps);
 
     /**
      * @brief Sets whether or not the engine may vary the update interval to catchup if the
@@ -45,9 +47,9 @@ public:
      *        not allowed then updates will be skipped in order to catchup to real time.
      *
      * @param allow True to allow a variable timestep, false to skip frames to catchup
-     * @return EngineSettings& A reference to this object
+     * @return Settings& A reference to this object
      */
-    EngineSettings& withAllowVariableTimestep(bool allow);
+    Settings& withAllowVariableTimestep(bool allow);
 
     /**
      * @brief Returns the fixed physics update interval, in seconds
@@ -73,6 +75,7 @@ private:
     bool allowVariableInterval;
 };
 
+} // namespace engine
 } // namespace bl
 
 #endif

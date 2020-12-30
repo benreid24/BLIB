@@ -1,5 +1,5 @@
-#ifndef BLIB_ENGINE_ENGINESTATE_HPP
-#define BLIB_ENGINE_ENGINESTATE_HPP
+#ifndef BLIB_ENGINE_STATE_HPP
+#define BLIB_ENGINE_STATE_HPP
 
 #include <memory>
 
@@ -7,6 +7,8 @@ namespace bl
 {
 class Engine;
 
+namespace engine
+{
 /**
  * @brief Base interface for all engine states. The Engine class manages the main game loop,
  *        application logic should be implemented in a set of EngineState classes which can be
@@ -15,11 +17,11 @@ class Engine;
  * @ingroup Engine
  *
  */
-class EngineState {
+class State {
 public:
-    using Ptr = std::shared_ptr<EngineState>;
+    using Ptr = std::shared_ptr<State>;
 
-    virtual ~EngineState() = default;
+    virtual ~State() = default;
 
     /**
      * @brief This is called each time the state becomes the active engine state
@@ -57,6 +59,7 @@ public:
     virtual void render(Engine& engine, float residualLag) = 0;
 };
 
+} // namespace engine
 } // namespace bl
 
 #endif

@@ -4,10 +4,10 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <stack>
 
-#include <BLIB/Engine/EngineEvent.hpp>
-#include <BLIB/Engine/EngineFlags.hpp>
-#include <BLIB/Engine/EngineSettings.hpp>
-#include <BLIB/Engine/EngineState.hpp>
+#include <BLIB/Engine/Event.hpp>
+#include <BLIB/Engine/Flags.hpp>
+#include <BLIB/Engine/Settings.hpp>
+#include <BLIB/Engine/State.hpp>
 #include <BLIB/Util/EventDispatcher.hpp>
 
 namespace bl
@@ -25,7 +25,7 @@ public:
      *
      * @param settings Settings for the engine to use
      */
-    Engine(const EngineSettings& settings);
+    Engine(const engine::Settings& settings);
 
     /**
      * @brief Sets the window for the Engine to render to and process events for
@@ -38,7 +38,7 @@ public:
      * @brief Returns a reference to the engine event dispatcher
      *
      */
-    EngineEventDispatcher& engineEventDispatcher();
+    engine::EventDispatcher& engineEventDispatcher();
 
     /**
      * @brief Returns a reference to the window event dispatcher
@@ -50,13 +50,13 @@ public:
      * @brief Returns the settings the engine is using
      *
      */
-    const EngineSettings& settings() const;
+    const engine::Settings& settings() const;
 
     /**
      * @brief Returns the flags that can be set to control Engine behavior
      *
      */
-    EngineFlags& flags();
+    engine::Flags& flags();
 
     /**
      * @brief Returns a reference to the window being managed. Undefined behavior if no window
@@ -72,7 +72,7 @@ public:
      * @param initialState The starting engine state
      * @return int Return code of the program
      */
-    int run(EngineState::Ptr initialState);
+    int run(engine::State::Ptr initialState);
 
     /**
      * @brief Sets the next state for the following engine update loop. May be called at any
@@ -81,16 +81,16 @@ public:
      *
      * @param next Next state to enter on the following main loop run
      */
-    void nextState(EngineState::Ptr next);
+    void nextState(engine::State::Ptr next);
 
 private:
-    const EngineSettings engineSettings;
-    EngineFlags engineFlags;
-    std::stack<EngineState::Ptr> states;
-    EngineState::Ptr newState;
+    const engine::Settings engineSettings;
+    engine::Flags engineFlags;
+    std::stack<engine::State::Ptr> states;
+    engine::State::Ptr newState;
 
     sf::RenderWindow* renderWindow;
-    EngineEventDispatcher engineEventBus;
+    engine::EventDispatcher engineEventBus;
     WindowEventDispatcher windowEventBus;
 
     bool awaitFocus();

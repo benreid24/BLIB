@@ -1,12 +1,14 @@
-#ifndef BLIB_ENGINE_ENGINEFLAGS_HPP
-#define BLIB_ENGINE_ENGINEFLAGS_HPP
+#ifndef BLIB_ENGINE_FLAGS_HPP
+#define BLIB_ENGINE_FLAGS_HPP
 
 #include <cstdint>
 
 namespace bl
 {
-class Enginel;
+class Engine;
 
+namespace engine
+{
 /**
  * @brief Collection of flags that can be set to modify or control the behavior of the Engine.
  *        All flags are read by the engine at the end of each update loop
@@ -14,7 +16,7 @@ class Enginel;
  * @ingroup Engine
  *
  */
-class EngineFlags {
+class Flags {
 public:
     /**
      * @brief The flags that may be used to control the Engine
@@ -31,23 +33,24 @@ public:
      *
      * @param flag The flag to set
      */
-    void setFlag(Flag flag);
+    void set(Flag flag);
 
     /**
      * @brief Returns the state of the given flag
      *
      */
-    bool flagSet(Flag flag);
+    bool active(Flag flag);
 
 private:
     uint64_t flags;
 
-    EngineFlags();
+    Flags();
     void clear();
 
-    friend class Engine;
+    friend class bl::Engine;
 };
 
+} // namespace engine
 } // namespace bl
 
 #endif

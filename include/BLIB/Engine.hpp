@@ -8,9 +8,9 @@
  */
 
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Engine/EngineEvent.hpp>
-#include <BLIB/Engine/EngineFlags.hpp>
-#include <BLIB/Engine/EngineSettings.hpp>
-#include <BLIB/Engine/EngineState.hpp>
+#include <BLIB/Engine/Event.hpp>
+#include <BLIB/Engine/Flags.hpp>
+#include <BLIB/Engine/Settings.hpp>
+#include <BLIB/Engine/State.hpp>
 
 #endif

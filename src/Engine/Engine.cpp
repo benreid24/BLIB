@@ -5,25 +5,25 @@
 
 namespace bl
 {
-Engine::Engine(const EngineSettings& settings)
+Engine::Engine(const engine::Settings& settings)
 : renderWindow(nullptr)
 , engineSettings(settings) {}
 
 void Engine::useWindow(sf::RenderWindow& w) { renderWindow = &w; }
 
-EngineEventDispatcher& Engine::engineEventDispatcher() { return engineEventBus; }
+engine::EventDispatcher& Engine::engineEventDispatcher() { return engineEventBus; }
 
 WindowEventDispatcher& Engine::windowEventDispatcher() { return windowEventBus; }
 
-const EngineSettings& Engine::settings() const { return engineSettings; }
+const engine::Settings& Engine::settings() const { return engineSettings; }
 
-EngineFlags& Engine::flags() { return engineFlags; }
+engine::Flags& Engine::flags() { return engineFlags; }
 
 sf::RenderWindow& Engine::window() { return *renderWindow; }
 
-void Engine::nextState(EngineState::Ptr next) { newState = next; }
+void Engine::nextState(engine::State::Ptr next) { newState = next; }
 
-int Engine::run(EngineState::Ptr initialState) {
+int Engine::run(engine::State::Ptr initialState) {
     states.push(initialState);
 
     sf::Clock timer;
@@ -116,11 +116,11 @@ int Engine::run(EngineState::Ptr initialState) {
         states.top()->render(*this, lag);
 
         // Process flags
-        if (engineFlags.flagSet(EngineFlags::Terminate)) {
+        if (engineFlags.active(engine::Flags::Terminate)) {
             if (renderWindow) renderWindow->close();
             return 1;
         }
-        else if (engineFlags.flagSet(EngineFlags::PopState)) {
+        else if (engineFlags.active(engine::Flags::PopState)) {
             states.top()->onPoppedOff(*this);
             states.pop();
             if (states.empty()) {
