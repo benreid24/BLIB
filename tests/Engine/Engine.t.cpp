@@ -110,7 +110,9 @@ public:
         }
     }
 
-    virtual void render(Engine& engine, float rd) {}
+    virtual void render(Engine& engine, float rd) {
+        BL_LOG_INFO << "render() called with residual lag: " << rd << "s";
+    }
 
     const std::vector<float>& getTimes() const { return times; }
 
