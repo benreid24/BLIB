@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logger',['Logger',['../a00698.html#aff02b76416d2846736b7ecd798921a0a',1,'bl::LoggingConfig']]]
+  ['group',['Group',['../a00669.html#a2697825715974a353728f0d4d5658112',1,'bl::gui::RadioButton']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['warn',['Warn',['../a00698.html#a2bd803d89d826b743b5f7880e0df9811',1,'bl::LoggingConfig']]]
+  ['warn',['Warn',['../a00741.html#a2bd803d89d826b743b5f7880e0df9811',1,'bl::LoggingConfig']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['notebook',['Notebook',['../a00618.html#ac88a240760ee62b48b5cb735f7a961e4',1,'bl::gui::Notebook::Page']]]
+  ['menu',['Menu',['../a00789.html#a834cec0fab7efabab3cd53540e4d466d',1,'bl::menu::Item']]]
 ];

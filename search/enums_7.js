@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['spacemode',['SpaceMode',['../a00662.html#a7be24b6df8ddd6710ecab4193c7ab781',1,'bl::gui::LinePacker']]],
-  ['style',['Style',['../a00654.html#ab5ed19ef2dc0fba1a8b63b0d469eca88',1,'bl::gui::Window']]]
+  ['packstart',['PackStart',['../a00705.html#aa93923af9a1d910c135d79afc9dd80e1',1,'bl::gui::LinePacker']]]
 ];
