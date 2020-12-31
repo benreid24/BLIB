@@ -111,6 +111,7 @@ public:
     }
 
     virtual void render(Engine& engine, float rd) {
+        sf::sleep(sf::seconds(0.05));
         BL_LOG_INFO << "render() called with residual lag: " << rd << "s";
     }
 
