@@ -90,8 +90,7 @@ int Engine::run(engine::State::Ptr initialState) {
             averageUpdateTime =
                 0.8f * averageUpdateTime +
                 0.2f * (updateTimer.getElapsedTime().asSeconds() - updateStart);
-            if (updateTimer.getElapsedTime().asSeconds() > startingLag * 1.1f &&
-                startingLag > 0.f) {
+            if (updateTimer.getElapsedTime().asSeconds() > startingLag * 1.1f) {
                 fallBehindWarning(updateTimer.getElapsedTime().asSeconds() - startingLag);
                 if (engineSettings.allowVariableTimestep()) {
                     const float newTs = updateTimestep * 1.05f;

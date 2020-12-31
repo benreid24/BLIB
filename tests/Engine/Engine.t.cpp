@@ -1,4 +1,5 @@
 #include <BLIB/Engine.hpp>
+#include <BLIB/Logging.hpp>
 #include <gtest/gtest.h>
 #include <vector>
 
@@ -70,6 +71,7 @@ public:
     }
 
     virtual void update(Engine& engine, float dt) {
+        BL_LOG_INFO << "update() called with timestep: " << dt << "s";
         times.push_back(dt);
         switch (state) {
         case Constant:
@@ -88,11 +90,11 @@ public:
             if (counter >= 1) {
                 counter = 0;
                 state   = Decreasing;
-                sf::sleep(sf::seconds(dt / 1.5f));
+                sf::sleep(sf::seconds(dt / 3.f));
             }
             else {
                 ++counter;
-                sf::sleep(sf::seconds(dt * 1.5f));
+                sf::sleep(sf::seconds(dt * 2.f));
             }
             break;
 
@@ -128,7 +130,7 @@ TEST(Engine, VariableTimestep) {
 
     EXPECT_EQ(state->getTimes().at(0), state->getTimes().at(1));
     EXPECT_LE(state->getTimes().at(1), state->getTimes().at(2));
-    EXPECT_GE(state->getTimes().at(2), state->getTimes().at(3));
+    EXPECT_LE(state->getTimes().at(2), state->getTimes().at(3));
     EXPECT_GE(state->getTimes().at(3), state->getTimes().at(4));
     EXPECT_GE(state->getTimes().at(4), state->getTimes().at(5));
 }
