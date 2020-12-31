@@ -1,4 +1,4 @@
- #include <BLIB/Parser/Tokenizer.hpp>
+#include <BLIB/Parser/Tokenizer.hpp>
 #include <BLIB/Parser/WhitespaceSkipper.hpp>
 #include <gtest/gtest.h>
 
@@ -45,7 +45,7 @@ TEST(Tokenizer, RegexSubgroup) {
 
     const std::string regex = "\"(.*)\"";
     Tokenizer tokenizer(WhitespaceSkipper::create());
-    tokenizer.addTokenType(id, regex);
+    tokenizer.addTokenType(id, regex, Tokenizer::Group1);
     tokenizer.addSkipperToggleChar('"');
     const std::vector<Node::Ptr> nodes = tokenizer.tokenize(stream);
 
@@ -79,16 +79,16 @@ TEST(Tokenizer, MultipleTokens) {
     Stream stream(data);
     Tokenizer tokenizer(WhitespaceSkipper::create());
 
-    const std::string numRegex = "[0-9]+[\\.[0-9]*]?";
+    const std::string numRegex = "[0-9]+(\\.[0-9]*)?";
     const Node::Type numId     = 1;
-    tokenizer.addTokenType(numId, numRegex);
+    EXPECT_NO_THROW(tokenizer.addTokenType(numId, numRegex));
 
     const Node::Type opId = 2;
-    tokenizer.addTokenType(opId, "\\+");
+    EXPECT_NO_THROW(tokenizer.addTokenType(opId, "\\+"));
 
     const Node::Type varId     = 3;
     const std::string varRegex = "[a-zA-Z]+[a-zA-Z0-9]*";
-    tokenizer.addTokenType(varId, varRegex);
+    EXPECT_NO_THROW(tokenizer.addTokenType(varId, varRegex));
 
     const std::vector<Node::Ptr> nodes = tokenizer.tokenize(stream);
 

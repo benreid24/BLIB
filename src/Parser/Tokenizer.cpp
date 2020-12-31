@@ -9,8 +9,10 @@ namespace parser
 Tokenizer::Tokenizer(ISkipper::Ptr skipper)
 : skipper(skipper) {}
 
-void Tokenizer::addTokenType(Node::Type type, const std::string& regex) {
-    matchers[regex] = std::make_pair(std::regex(regex.c_str()), type);
+void Tokenizer::addTokenType(Node::Type type, const std::string& regex,
+                             MatchGroup matchGroup) {
+    matchers[regex]    = std::make_pair(std::regex(regex.c_str()), type);
+    matchGroups[regex] = matchGroup;
     recomputeAmbiguous();
 }
 
@@ -78,10 +80,10 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
                 }
 
                 Node::Ptr token(new Node());
-                if (result.size() > 1)
-                    token->data = result[1].str();
-                else
-                    token->data = result[0].str();
+                const unsigned int matchGroup = matchGroups.at(matcher.first) < result.size() ?
+                                                    matchGroups.at(matcher.first) :
+                                                    0;
+                token->data         = result[matchGroup].str();
                 token->sourceLine   = input.currentLine();
                 token->sourceColumn = input.currentColumn() - token->data.size();
                 token->type         = matcher.second.second;
