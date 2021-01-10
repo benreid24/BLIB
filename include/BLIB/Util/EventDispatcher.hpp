@@ -16,7 +16,7 @@ template<typename T>
 class EventDispatcher {
 public:
     /**
-     * @brief Subscribe the given listener to recieve events. Listener must not go out of scope
+     * @brief Subscribe the given listener to receive events. Listener must not go out of scope
      *
      * @param listener The listener to start notifying
      */
