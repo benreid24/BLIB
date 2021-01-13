@@ -1,5 +1,4 @@
 target_sources(BLIB PUBLIC
-    Vector2d.hpp
     AngularVector.hpp
     NonCopyable.hpp
     Random.hpp
@@ -8,5 +7,4 @@ target_sources(BLIB PUBLIC
     EventListener.hpp
     EventDispatcher.hpp
     EventDispatcherScopeGuard.hpp
-    Cache.hpp
 )

@@ -1,8 +1,8 @@
-#ifndef BLIB_UTIL_CACHE_HPP
-#define BLIB_UTIL_CACHE_HPP
+#ifndef BLIB_CONTAINERS_CACHE_HPP
+#define BLIB_CONTAINERS_CACHE_HPP
 
+#include <BLIB/Containers/FastQueue.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Util/FastQueue.hpp>
 
 #include <forward_list>
 #include <memory>

@@ -1,5 +1,5 @@
-#ifndef BLIB_UTIL_FASTQUEUE_HPP
-#define BLIB_UTIL_FASTQUEUE_HPP
+#ifndef BLIB_CONTAINERS_FASTQUEUE_HPP
+#define BLIB_CONTAINERS_FASTQUEUE_HPP
 
 #include <list>
 #include <memory>
