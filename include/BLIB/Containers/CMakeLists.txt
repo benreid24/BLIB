@@ -4,4 +4,5 @@ target_sources(BLIB PUBLIC
     Any.hpp
     FastQueue.hpp
     RingBuffer.hpp
+    FastEraseVector.hpp
 )

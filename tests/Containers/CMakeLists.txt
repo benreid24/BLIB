@@ -3,4 +3,5 @@ target_sources(BLIB.t PUBLIC
     Cache.t.cpp
     FastQueue.t.cpp
     RingBuffer.t.cpp
+    FastEraseVector.t.cpp
 )
