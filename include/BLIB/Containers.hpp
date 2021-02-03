@@ -9,6 +9,7 @@
 #include <BLIB/Containers/Any.hpp>
 #include <BLIB/Containers/Cache.hpp>
 #include <BLIB/Containers/FastQueue.hpp>
+#include <BLIB/Containers/RingBuffer.hpp>
 #include <BLIB/Containers/Vector2d.hpp>
 
 #endif

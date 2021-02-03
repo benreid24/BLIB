@@ -3,4 +3,5 @@ target_sources(BLIB PUBLIC
     Cache.hpp
     Any.hpp
     FastQueue.hpp
+    RingBuffer.hpp
 )
