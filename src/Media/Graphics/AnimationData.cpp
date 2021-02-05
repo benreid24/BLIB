@@ -1,4 +1,4 @@
-#include <BLIB/Media/AnimationData.hpp>
+#include <BLIB/Media/Graphics/AnimationData.hpp>
 
 #include <BLIB/Files/BinaryFile.hpp>
 #include <BLIB/Files/FileUtil.hpp>

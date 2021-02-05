@@ -1,4 +1,4 @@
-#include <BLIB/Shapes/Ellipse.hpp>
+#include <BLIB/Media/Shapes/Ellipse.hpp>
 
 #include <cmath>
 

@@ -10,7 +10,6 @@ target_sources(BLIB PUBLIC
     Parser.hpp
     Resources.hpp
     Scripts.hpp
-    Shapes.hpp
     Util.hpp
 )
 
@@ -24,5 +23,4 @@ add_subdirectory(Media)
 add_subdirectory(Menu)
 add_subdirectory(Parser)
 add_subdirectory(Scripts)
-add_subdirectory(Shapes)
 add_subdirectory(Util)

@@ -1,10 +1,10 @@
-#include <BLIB/Media/Animation.hpp>
+#include <BLIB/Media/Graphics/Animation.hpp>
 
 namespace bl
 {
 namespace
 {
-sf::Clock clock;
+sf::Clock clock; // TODO - pass in elapsed time?
 }
 
 Animation::Animation()

@@ -1,4 +1,2 @@
-target_sources(BLIB PRIVATE
-    AnimationData.cpp
-    Animation.cpp
-)
+add_subdirectory(Graphics)
+add_subdirectory(Shapes)

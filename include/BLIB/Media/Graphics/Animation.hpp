@@ -1,7 +1,7 @@
 #ifndef BLIB_MEDIA_ANIMATION_HPP
 #define BLIB_MEDIA_ANIMATION_HPP
 
-#include <BLIB/Media/AnimationData.hpp>
+#include <BLIB/Media/Graphics/AnimationData.hpp>
 
 namespace bl
 {

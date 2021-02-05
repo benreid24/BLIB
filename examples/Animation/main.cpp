@@ -1,4 +1,4 @@
-#include <BLIB/Media/Animation.hpp>
+#include <BLIB/Media/Graphics/Animation.hpp>
 #include <SFML/Window.hpp>
 
 int main() {
