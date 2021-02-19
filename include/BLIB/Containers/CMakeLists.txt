@@ -5,4 +5,5 @@ target_sources(BLIB PUBLIC
     FastQueue.hpp
     RingBuffer.hpp
     FastEraseVector.hpp
+    DynamicObjectPool.hpp
 )

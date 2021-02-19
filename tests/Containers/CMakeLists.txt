@@ -4,4 +4,5 @@ target_sources(BLIB.t PUBLIC
     FastQueue.t.cpp
     RingBuffer.t.cpp
     FastEraseVector.t.cpp
+    DynamicObjectPool.t.cpp
 )

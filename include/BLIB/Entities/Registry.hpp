@@ -21,7 +21,7 @@ public:
 
 private:
     // TODO- views
-    std::vector<Entity> entities;
+    std::vector<Entity> entities; // unordered set? main data access is components
     std::unordered_map<Component::IdType, std::vector<std::pair<Entity, std::any>>>
         componentPools;
     std::unordered_map<Entity, std::unordered_map<Component::IdType, Component::IdType>>
