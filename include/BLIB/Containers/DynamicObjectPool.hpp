@@ -92,7 +92,7 @@ public:
      *
      * @param obj Object to add
      */
-    void add(const T& obj);
+    Iterator add(const T& obj);
 
     /**
      * @brief Removes the given iterator from the pool and marks the object slot for resuse. All
@@ -169,15 +169,18 @@ DynamicObjectPool<T>::DynamicObjectPool()
 , next(-1) {}
 
 template<typename T>
-void DynamicObjectPool<T>::add(const T& obj) {
+typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::add(const T& obj) {
     ++trackedSize;
     if (next >= 0) {
         pool[next].alive = true;
         pool[next].data  = obj;
+        const auto it = next;
         next             = pool[next].next;
+        return {pool, it};
     }
     else {
         pool.push_back({obj});
+        return {pool, pool.size() - 1};
     }
 }
 

@@ -10,6 +10,16 @@ TEST(DynamicObjectPool, Empty) {
     EXPECT_TRUE(pool.empty());
 }
 
+TEST(DynamicObjectPool, AddIterator) {
+    DynamicObjectPool<int> pool;
+    auto it1 = pool.add(1);
+    auto it2 = pool.add(2);
+    auto it3 = pool.add(3);
+    EXPECT_EQ(*it1, 1);
+    EXPECT_EQ(*it2, 2);
+    EXPECT_EQ(*it3, 3);
+}
+
 TEST(DynamicObjectPool, SizeTracking) {
     DynamicObjectPool<int> pool;
 
