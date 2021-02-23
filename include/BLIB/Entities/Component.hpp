@@ -12,22 +12,23 @@ class Component {
 public:
     using IdType = std::size_t;
 
-    Component(Entity owner);
+    template<typename TComponent>
+    static IdType getId();
+};
 
-    virtual ~Component() = default;
-
-    Entity getOwner() const;
-
-private:
-    const Entity owner;
+template<typename TComponent>
+class EntityComponent {
+public:
+    const Entity& entity;
+    TComponent* component;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline Component::Component(Entity e)
-: owner(e) {}
-
-inline Entity Component::getOwner() const { return owner; }
+template<typename TComponent>
+Component::IdType Component::getId() {
+    return TComponent::ComponentId;
+}
 
 } // namespace entity
 } // namespace bl

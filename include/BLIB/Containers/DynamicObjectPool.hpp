@@ -33,6 +33,12 @@ public:
         EType& operator*();
 
         /**
+         * @brief Returns a reference to the underlying object. Undefined behavior if invalid
+         *
+         */
+        EType* operator->();
+
+        /**
          * @brief Modifies this iterator to point to the next object in the pool
          *
          */
@@ -174,13 +180,13 @@ typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::add(const T& obj) 
     if (next >= 0) {
         pool[next].alive = true;
         pool[next].data  = obj;
-        const auto it = next;
+        const auto it    = next;
         next             = pool[next].next;
         return {pool, it};
     }
     else {
         pool.push_back({obj});
-        return {pool, pool.size() - 1};
+        return {pool, static_cast<long long int>(pool.size() - 1)};
     }
 }
 
@@ -239,6 +245,12 @@ template<typename T>
 template<typename ET>
 ET& DynamicObjectPool<T>::IteratorType<ET>::operator*() {
     return pool[i].data;
+}
+
+template<typename T>
+template<typename ET>
+ET* DynamicObjectPool<T>::IteratorType<ET>::operator->() {
+    return &pool[i].data;
 }
 
 template<typename T>
