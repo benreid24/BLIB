@@ -35,7 +35,7 @@ public:
     EntityComponent<TComponent> getComponent(Entity entity);
 
     template<typename TComponent>
-    void removeComponent(Entity entity);
+    bool removeComponent(Entity entity);
 
 private:
     using ComponentStorage = Any<32>; // TODO - benchmark this
@@ -92,10 +92,27 @@ EntityComponent<T> Registry::getComponent(Entity entity) {
 
     auto indexIter = entityComponentIterators.find(entity);
     if (indexIter == entityComponentIterators.end()) return {entity, nullptr};
-    
+
     auto poolIndexIter = indexIter->second.find(id);
     if (poolIndexIter == indexIter->second.end()) return {entity, nullptr};
     return {entity, &poolIndexIter->second->second.get<T>()};
+}
+
+template<typename T>
+bool Registry::removeComponent(Entity entity) {
+    const Component::IdType& id = Component::getId<T>();
+
+    auto indexIter = entityComponentIterators.find(entity);
+    if (indexIter == entityComponentIterators.end()) return false;
+
+    auto it = indexIter->second.find(id);
+    if (it == indexIter->second.end()) return false;
+
+    auto poolIter = componentPools.find(id);
+    if (poolIter == componentPools.end()) return false;
+
+    poolIter->second.erase(it->second);
+    return true;
 }
 
 } // namespace entity

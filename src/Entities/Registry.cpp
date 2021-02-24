@@ -40,6 +40,7 @@ void temp() {
     registry.addComponent(e, trash());
     registry.hasComponent<trash>(e);
     registry.getComponent<trash>(e);
+    registry.removeComponent<trash>(e);
 }
 
 } // namespace entity
