@@ -16,13 +16,6 @@ public:
     static IdType getId();
 };
 
-template<typename TComponent>
-class EntityComponent {
-public:
-    const Entity& entity;
-    TComponent* component;
-};
-
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TComponent>
