@@ -11,6 +11,15 @@ Entity Registry::createEntity() {
     return e;
 }
 
+bool Registry::createEntity(Entity e) {
+    std::unique_lock lock(entityMutex);
+    if (entities.find(e) == entities.end()) {
+        entities.insert(e);
+        return true;
+    }
+    return false;
+}
+
 bool Registry::entityExists(Entity e) const { return entities.find(e) != entities.end(); }
 
 void Registry::destroyEntity(Entity e) {

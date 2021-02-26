@@ -20,6 +20,14 @@ namespace bl
 {
 namespace entity
 {
+/**
+ * @brief Core class of the entity component system. This class stores and manages all entities and
+ *        components. It is threadsafe and provides views that stay up to date as the registry
+ *        evolves
+ *
+ * @ingroup Entities
+ *
+ */
 class Registry {
     class ViewBase {
     public:
@@ -49,32 +57,106 @@ public:
     using EntityIterator      = std::unordered_set<Entity>::iterator;
     using ConstEntityIterator = std::unordered_set<Entity>::const_iterator;
 
+    /**
+     * @brief Create a new Entity
+     *
+     * @return Entity The new Entity
+     */
     Entity createEntity();
 
+    /**
+     * @brief Create a new Entity using the given identifier
+     *
+     * @param entity The id to use
+     * @return True if the entity was created, false if already exists
+     */
+    bool createEntity(Entity entity);
+
+    /**
+     * @brief Returns whether or not the given entity exists
+     *
+     */
     bool entityExists(Entity entity) const;
 
+    /**
+     * @brief Destroys the given entity and all of its components
+     *
+     * @param entity The entity to destroy. No effect if it does not exist
+     */
     void destroyEntity(Entity entity);
 
+    /**
+     * @brief Returns an iterator to the first Entity
+     *
+     */
     EntityIterator begin();
 
+    /**
+     * @brief Returns an iterator to the first Entity
+     *
+     */
     ConstEntityIterator begin() const;
 
+    /**
+     * @brief Returns an iterator to the last Entity
+     *
+     */
     EntityIterator end();
 
+    /**
+     * @brief Returns an iterator to the last Entity
+     *
+     */
     ConstEntityIterator end() const;
 
+    /**
+     * @brief Adds a component to the given entity if the entity exists and does not already have
+     *        the component
+     *
+     * @tparam TComponent Type of component to add
+     * @param entity The entity to add the component to
+     * @param component The component to add
+     * @return True if the component was added, false otherwise
+     */
     template<typename TComponent>
     bool addComponent(Entity entity, const TComponent& component);
 
+    /**
+     * @brief Returns whether or not an entity has the given component
+     *
+     * @tparam TComponent The type of component to check for
+     * @param entity The entity to check
+     * @return True if the entity has the given component, false otherwise
+     */
     template<typename TComponent>
     bool hasComponent(Entity entity) const;
 
+    /**
+     * @brief Returns a pointer to the given entity component
+     *
+     * @tparam TComponent The component type to access
+     * @param entity The entity to get the component for
+     * @return TComponent* Pointer to component or nullptr if not present or invalid entity
+     */
     template<typename TComponent>
     TComponent* getComponent(Entity entity);
 
+    /**
+     * @brief Removes the given component from the given entity
+     *
+     * @tparam TComponent The type of component to remove
+     * @param entity The entity to remove it from
+     * @return True if the component was removed, false if not present or invalid entity
+     */
     template<typename TComponent>
     bool removeComponent(Entity entity);
 
+    /**
+     * @brief An iterable view of entities with the given components. The view gets updated when the
+     *        underlying registry is modified. Updates are lazily applied when results() is called
+     *
+     * @tparam TComponents The types of components in the result set
+     */
     template<typename... TComponents>
     class View : private ViewBase {
     public:
@@ -82,7 +164,23 @@ public:
 
         virtual ~View() = default;
 
+        /**
+         * @brief Returns the set of results
+         *
+         */
         const std::vector<ComponentSet<TComponents...>>& results();
+
+        /**
+         * @brief Returns the beginning of the result set
+         *
+         */
+        typename std::vector<ComponentSet<TComponents...>>::iterator begin();
+
+        /**
+         * @brief Returns the end of the result set
+         *
+         */
+        typename std::vector<ComponentSet<TComponents...>>::iterator end();
 
     private:
         std::vector<ComponentSet<TComponents...>> entities;
@@ -93,9 +191,22 @@ public:
         friend class Registry;
     };
 
+    /**
+     * @brief Generates and returns a View containing the entities with the given set of components
+     *
+     * @tparam TComponents The types of components entities must have to be included
+     * @return View<TComponents...>::Ptr A View containing the matching entities
+     */
     template<typename... TComponents>
     typename View<TComponents...>::Ptr getEntitiesWithComponents();
 
+    /**
+     * @brief Returns a set of components for the given entity. Missing components will be nullptr
+     *
+     * @tparam TComponents The types of components to pull
+     * @param e The entity to get the components from
+     * @return ComponentSet<TComponents...> The set of components. Some may be nullptr
+     */
     template<typename... TComponents>
     ComponentSet<TComponents...> getEntityComponents(Entity e);
 
@@ -274,6 +385,19 @@ template<typename... TComponents>
 const std::vector<ComponentSet<TComponents...>>& Registry::View<TComponents...>::results() {
     if (isDirty()) refresh();
     return entities;
+}
+
+template<typename... TComponents>
+typename std::vector<ComponentSet<TComponents...>>::iterator
+Registry::View<TComponents...>::begin() {
+    if (isDirty()) refresh();
+    return entities.begin();
+}
+
+template<typename... TComponents>
+typename std::vector<ComponentSet<TComponents...>>::iterator Registry::View<TComponents...>::end() {
+    if (isDirty()) refresh();
+    return entities.end();
 }
 
 template<typename... TComponents>

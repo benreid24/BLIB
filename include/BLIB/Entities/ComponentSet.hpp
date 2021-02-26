@@ -9,6 +9,11 @@ namespace entity
 {
 class Registry;
 
+/**
+ * @brief Helper base class for tuple like functionality
+ *
+ * @ingroup Entities
+ */
 template<typename TComponent>
 struct ComponentSetMember {
     TComponent* component;
@@ -16,16 +21,42 @@ struct ComponentSetMember {
     ComponentSetMember();
 };
 
+/**
+ * @brief Tuple like class that stores a set of components by pointer value
+ *
+ * @tparam TComponents The set of components contained
+ */
 template<typename... TComponents>
 class ComponentSet : private ComponentSetMember<TComponents>... {
 public:
+    /**
+     * @brief Create the ComponentSet with the given owner
+     *
+     * @param owner The Entity that owns the stored components
+     */
     ComponentSet(Entity owner);
 
+    /**
+     * @brief Returns the owner of the components in the set
+     *
+     */
     Entity getOwner() const;
 
+    /**
+     * @brief Returns a pointer to the component of the given type. May be nullptr
+     *
+     * @tparam TComponent The type of component to access. Must be contained in set
+     * @return TComponent* Pointer to the component. May be nullptr if entity does not have it
+     */
     template<typename TComponent>
     TComponent* get();
 
+    /**
+     * @brief Returns a pointer to the component of the given type. May be nullptr
+     *
+     * @tparam TComponent The type of component to access. Must be contained in set
+     * @return TComponent* Pointer to the component. May be nullptr if entity does not have it
+     */
     template<typename TComponent>
     const TComponent* get() const;
 

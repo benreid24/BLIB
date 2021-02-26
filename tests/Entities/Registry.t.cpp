@@ -192,6 +192,26 @@ TEST(Registry, ViewUpdate) {
     EXPECT_EQ(view->results().size(), 0);
 }
 
+TEST(Registry, ViewIterate) {
+    Registry registry;
+    Entity e1 = registry.createEntity();
+    Entity e2 = registry.createEntity();
+    ASSERT_TRUE(registry.addComponent<Component1>(e1, {5}));
+    ASSERT_TRUE(registry.addComponent<Component1>(e2, {5}));
+
+    auto view = registry.getEntitiesWithComponents<Component1>();
+    int s     = 0;
+    for (auto& set : *view) { s += set.get<Component1>()->value; }
+    EXPECT_EQ(s, 10);
+}
+
+TEST(Registry, PredefinedEntity) {
+    Registry registry;
+    Entity e1 = registry.createEntity();
+    EXPECT_FALSE(registry.createEntity(e1));
+    EXPECT_TRUE(registry.createEntity(e1+1));
+}
+
 } // namespace unittest
 } // namespace entity
 } // namespace bl

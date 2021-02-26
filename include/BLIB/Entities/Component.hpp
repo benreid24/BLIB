@@ -8,10 +8,23 @@ namespace bl
 {
 namespace entity
 {
+/**
+ * @brief Helper class for components in the entity component system. Component classes must define
+ *        a unique numeric id in the manner below:
+ *
+ *     static constexpr Component::IdType ComponentId = <unique-id>;
+ *
+ * @ingroup Entities
+ *
+ */
 class Component {
 public:
     using IdType = std::size_t;
 
+    /**
+     * @brief Returns `TComponent::ComponentId` which must be defined
+     *
+     */
     template<typename TComponent>
     static IdType getId();
 };
