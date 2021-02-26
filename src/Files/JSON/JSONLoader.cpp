@@ -1,4 +1,4 @@
-#include <Files/JSONLoader.hpp>
+#include <Files/JSON/JSONLoader.hpp>
 
 #include <BLIB/Logging.hpp>
 #include <fstream>
@@ -62,9 +62,7 @@ void Loader::skipSymbol() {
 
 bool Loader::isValid() const { return input.good() && valid; }
 
-bool Loader::isWhitespace(char c) const {
-    return c == '\n' || c == ' ' || c == '\r' || c == '\t';
-}
+bool Loader::isWhitespace(char c) const { return c == '\n' || c == ' ' || c == '\r' || c == '\t'; }
 
 bool Loader::isNumber(char c) const { return c >= '0' && c <= '9'; }
 

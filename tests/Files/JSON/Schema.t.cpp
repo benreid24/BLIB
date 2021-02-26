@@ -1,4 +1,4 @@
-#include <BLIB/Files/Schema.hpp>
+#include <BLIB/Files/JSON/Schema.hpp>
 #include <gtest/gtest.h>
 
 namespace bl
@@ -9,12 +9,11 @@ namespace schema
 {
 namespace unittest
 {
-
 TEST(Schema, BasicTypesPass) {
     const std::string json = "{"
-        "\"str\": \"word\","
-        "\"num\": 15,"
-        "\"b\": true }";
+                             "\"str\": \"word\","
+                             "\"num\": 15,"
+                             "\"b\": true }";
     json::Group root = JSON::loadFromString(json);
 
     Schema schema;
@@ -67,7 +66,7 @@ TEST(Schema, ChoiceGroup) {
     schema.addChoiceField("one", Numeric::Any);
     schema.addChoiceField("two", Numeric::Any);
     schema.addChoiceField("three", Numeric::Any);
-    
+
     json::Group root;
     root.addField("one", 15);
     EXPECT_TRUE(schema.validate(root, true));
@@ -147,7 +146,7 @@ TEST(Schema, TypeMismatches) {
     EXPECT_TRUE(Value(String::Any).validate("hello", true));
 }
 
-}
-}
-}
-}
+} // namespace unittest
+} // namespace schema
+} // namespace json
+} // namespace bl

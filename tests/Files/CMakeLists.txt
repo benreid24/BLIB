@@ -1,6 +1,6 @@
 target_sources(BLIB.t PUBLIC
-    BinaryFile.t.cpp
     FileUtil.t.cpp
-    JSON.t.cpp
-    Schema.t.cpp
 )
+
+add_subdirectory(Binary)
+add_subdirectory(JSON)

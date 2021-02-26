@@ -1,5 +1,5 @@
-#ifndef BLIB_FILES_BINARYFILE_HPP
-#define BLIB_FILES_BINARYFILE_HPP
+#ifndef BLIB_FILES_BINARY_BINARYFILE_HPP
+#define BLIB_FILES_BINARY_BINARYFILE_HPP
 
 #include <BLIB/Files/FileUtil.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
@@ -107,9 +107,7 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::write(con
     char bytes[size];
     std::memcpy(bytes, &data, size);
     if (FileUtil::isBigEndian()) {
-        for (unsigned int i = 0; i < size / 2; ++i) {
-            std::swap(bytes[i], bytes[size - i - 1]);
-        }
+        for (unsigned int i = 0; i < size / 2; ++i) { std::swap(bytes[i], bytes[size - i - 1]); }
     }
     handle.write(bytes, size);
     return handle.good();
@@ -132,9 +130,7 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::read(T& o
     output = 0;
     handle.read(bytes, size);
     if (FileUtil::isBigEndian()) {
-        for (unsigned int i = 0; i < size / 2; ++i) {
-            std::swap(bytes[i], bytes[size - i - 1]);
-        }
+        for (unsigned int i = 0; i < size / 2; ++i) { std::swap(bytes[i], bytes[size - i - 1]); }
     }
     std::memcpy(&output, bytes, size);
     return handle.good();
