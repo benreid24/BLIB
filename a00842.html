@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::Logger Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,24 +63,307 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00506.html">bl</a></li><li class="navelem"><a class="el" href="a00512.html">parser</a></li><li class="navelem"><a class="el" href="a00845.html">ISkipper</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00542.html">bl</a></li><li class="navelem"><a class="el" href="a00842.html">Logger</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a00839.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::parser::ISkipper Member List</div>  </div>
+<div class="title">bl::Logger Struct Reference<div class="ingroups"><a class="el" href="a00533.html">Logging</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00845.html">bl::parser::ISkipper</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00845.html#ac94262dbc4b796277c22a958aa727323">Ptr</a> typedef</td><td class="entry"><a class="el" href="a00845.html">bl::parser::ISkipper</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00845.html#a044cd5fba80d2ab990c25d9b92bbc5b4">skip</a>(Stream &amp;stream) const =0</td><td class="entry"><a class="el" href="a00845.html">bl::parser::ISkipper</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Actual logging class. Provides several static methods to begin log output. Instances of <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> only live long enough to build the log line and flush it via the LoggerConfig singleton instance.  
+ <a href="a00842.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00161_source.html">Logger.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::Logger:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00842.png" usemap="#bl::Logger_map" alt=""/>
+  <map id="bl::Logger_map" name="bl::Logger_map">
+<area href="a01074.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::NonCopyable" shape="rect" coords="0,0,105,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aee07bb237b7a056e01168608299445c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00842.html#aee07bb237b7a056e01168608299445c7">~Logger</a> ()</td></tr>
+<tr class="memdesc:aee07bb237b7a056e01168608299445c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes the generated log line.  <a href="#aee07bb237b7a056e01168608299445c7">More...</a><br /></td></tr>
+<tr class="separator:aee07bb237b7a056e01168608299445c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0446d4164dea6c3735e00f6c8deb4ed4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a0446d4164dea6c3735e00f6c8deb4ed4"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="a00842.html">Logger</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00842.html#a0446d4164dea6c3735e00f6c8deb4ed4">operator&lt;&lt;</a> (const T &amp;data) const</td></tr>
+<tr class="memdesc:a0446d4164dea6c3735e00f6c8deb4ed4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic output operator. <a class="el" href="a00574.html" title="Fixed size equivalent of std::any. Specified size is for in place storage. Stored objects smaller tha...">Any</a> data type T that can be outputted to a std::ostream can be outputted here.  <a href="#a0446d4164dea6c3735e00f6c8deb4ed4">More...</a><br /></td></tr>
+<tr class="separator:a0446d4164dea6c3735e00f6c8deb4ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a66f077ef24fa6cd44bb3946f82e94b36"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00842.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00842.html#a66f077ef24fa6cd44bb3946f82e94b36">critical</a> ()</td></tr>
+<tr class="memdesc:a66f077ef24fa6cd44bb3946f82e94b36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> for logging a critical error.  <a href="#a66f077ef24fa6cd44bb3946f82e94b36">More...</a><br /></td></tr>
+<tr class="separator:a66f077ef24fa6cd44bb3946f82e94b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7893f54ef1a6c51c93bf70b49942c9a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00842.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00842.html#ad7893f54ef1a6c51c93bf70b49942c9a">error</a> ()</td></tr>
+<tr class="memdesc:ad7893f54ef1a6c51c93bf70b49942c9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> for logging an error.  <a href="#ad7893f54ef1a6c51c93bf70b49942c9a">More...</a><br /></td></tr>
+<tr class="separator:ad7893f54ef1a6c51c93bf70b49942c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbfdf9dc3b43ac1bf944eaafab82b295"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00842.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00842.html#adbfdf9dc3b43ac1bf944eaafab82b295">warn</a> ()</td></tr>
+<tr class="memdesc:adbfdf9dc3b43ac1bf944eaafab82b295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> for logging a warning.  <a href="#adbfdf9dc3b43ac1bf944eaafab82b295">More...</a><br /></td></tr>
+<tr class="separator:adbfdf9dc3b43ac1bf944eaafab82b295"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae58305142edda31aa8e334c32e3db406"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00842.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00842.html#ae58305142edda31aa8e334c32e3db406">info</a> ()</td></tr>
+<tr class="memdesc:ae58305142edda31aa8e334c32e3db406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> for logging a piece of info.  <a href="#ae58305142edda31aa8e334c32e3db406">More...</a><br /></td></tr>
+<tr class="separator:ae58305142edda31aa8e334c32e3db406"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade3f7ae9950f08470fc15fb79f91d0d8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00842.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00842.html#ade3f7ae9950f08470fc15fb79f91d0d8">debug</a> ()</td></tr>
+<tr class="memdesc:ade3f7ae9950f08470fc15fb79f91d0d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> for logging low level debug info.  <a href="#ade3f7ae9950f08470fc15fb79f91d0d8">More...</a><br /></td></tr>
+<tr class="separator:ade3f7ae9950f08470fc15fb79f91d0d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeaa105eb1cc813e494404df737d37a4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00842.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00842.html#aaeaa105eb1cc813e494404df737d37a4">trace</a> ()</td></tr>
+<tr class="memdesc:aaeaa105eb1cc813e494404df737d37a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> for logging high volume low level info.  <a href="#aaeaa105eb1cc813e494404df737d37a4">More...</a><br /></td></tr>
+<tr class="separator:aaeaa105eb1cc813e494404df737d37a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Actual logging class. Provides several static methods to begin log output. Instances of <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> only live long enough to build the log line and flush it via the LoggerConfig singleton instance. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00019">19</a> of file <a class="el" href="a00161_source.html">Logger.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aee07bb237b7a056e01168608299445c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee07bb237b7a056e01168608299445c7">&#9670;&nbsp;</a></span>~Logger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::Logger::~Logger </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flushes the generated log line. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00431_source.html#l00023">23</a> of file <a class="el" href="a00431_source.html">Logger.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a66f077ef24fa6cd44bb3946f82e94b36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66f077ef24fa6cd44bb3946f82e94b36">&#9670;&nbsp;</a></span>critical()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00842.html">Logger</a> bl::Logger::critical </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> for logging a critical error. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00431_source.html#l00005">5</a> of file <a class="el" href="a00431_source.html">Logger.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ade3f7ae9950f08470fc15fb79f91d0d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade3f7ae9950f08470fc15fb79f91d0d8">&#9670;&nbsp;</a></span>debug()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00842.html">Logger</a> bl::Logger::debug </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> for logging low level debug info. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00431_source.html#l00013">13</a> of file <a class="el" href="a00431_source.html">Logger.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad7893f54ef1a6c51c93bf70b49942c9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7893f54ef1a6c51c93bf70b49942c9a">&#9670;&nbsp;</a></span>error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00842.html">Logger</a> bl::Logger::error </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> for logging an error. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00431_source.html#l00007">7</a> of file <a class="el" href="a00431_source.html">Logger.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae58305142edda31aa8e334c32e3db406"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae58305142edda31aa8e334c32e3db406">&#9670;&nbsp;</a></span>info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00842.html">Logger</a> bl::Logger::info </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> for logging a piece of info. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00431_source.html#l00011">11</a> of file <a class="el" href="a00431_source.html">Logger.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0446d4164dea6c3735e00f6c8deb4ed4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0446d4164dea6c3735e00f6c8deb4ed4">&#9670;&nbsp;</a></span>operator<<()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a00842.html">Logger</a> &amp; bl::Logger::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic output operator. <a class="el" href="a00574.html" title="Fixed size equivalent of std::any. Specified size is for in place storage. Stored objects smaller tha...">Any</a> data type T that can be outputted to a std::ostream can be outputted here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>The object to log </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>const <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a>&amp; This logger </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00082">82</a> of file <a class="el" href="a00161_source.html">Logger.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aaeaa105eb1cc813e494404df737d37a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeaa105eb1cc813e494404df737d37a4">&#9670;&nbsp;</a></span>trace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00842.html">Logger</a> bl::Logger::trace </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> for logging high volume low level info. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00431_source.html#l00015">15</a> of file <a class="el" href="a00431_source.html">Logger.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adbfdf9dc3b43ac1bf944eaafab82b295"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbfdf9dc3b43ac1bf944eaafab82b295">&#9670;&nbsp;</a></span>warn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00842.html">Logger</a> bl::Logger::warn </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new <a class="el" href="a00842.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> for logging a warning. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00431_source.html#l00009">9</a> of file <a class="el" href="a00431_source.html">Logger.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/Logging/<a class="el" href="a00161_source.html">Logger.hpp</a></li>
+<li>src/Logging/<a class="el" href="a00431_source.html">Logger.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 10 2021 06:00:44 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Feb 26 2021 06:18:13 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

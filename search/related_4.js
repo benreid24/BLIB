@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['menu',['Menu',['../a00789.html#a834cec0fab7efabab3cd53540e4d466d',1,'bl::menu::Item']]]
+  ['logger',['Logger',['../a00846.html#aff02b76416d2846736b7ecd798921a0a',1,'bl::LoggingConfig']]]
 ];

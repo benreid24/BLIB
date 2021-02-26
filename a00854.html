@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::AnimationData Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,27 +63,354 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00506.html">bl</a></li><li class="navelem"><a class="el" href="a00857.html">Parser</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00542.html">bl</a></li><li class="navelem"><a class="el" href="a00854.html">AnimationData</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a00851.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::Parser Member List</div>  </div>
+<div class="title">bl::AnimationData Class Reference<div class="ingroups"><a class="el" href="a00534.html">Media</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00857.html">bl::Parser</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00857.html#a7b8360fc5086a674c7d0bbf081b2501d">parse</a>(parser::Stream &amp;input) const</td><td class="entry"><a class="el" href="a00857.html">bl::Parser</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00857.html#a06c1404d4e0276c9119460ccdf80eade">parse</a>(const std::string &amp;input) const</td><td class="entry"><a class="el" href="a00857.html">bl::Parser</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00857.html#a28f2cd9fed6e56d61d2dda7e501b8e21">Parser</a>(const parser::Grammar &amp;grammar, const parser::Tokenizer &amp;tokenizer)</td><td class="entry"><a class="el" href="a00857.html">bl::Parser</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00857.html#a14010ec614ea08d573fabfb9d00a9ca7">parser::unittest::TableReader</a> class</td><td class="entry"><a class="el" href="a00857.html">bl::Parser</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00857.html#a514519ce362818dff13219e5ab915874">valid</a>() const</td><td class="entry"><a class="el" href="a00857.html">bl::Parser</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Data class for animations. Holds the frame information and is resposnsible for rendering.  
+ <a href="a00854.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00173_source.html">AnimationData.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ae3fc9044fce7fae221971fc43918dd2e"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a00854.html">AnimationData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#ae3fc9044fce7fae221971fc43918dd2e">Ptr</a></td></tr>
+<tr class="separator:ae3fc9044fce7fae221971fc43918dd2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aea15935ee24fafd6506a6c4f455746c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#aea15935ee24fafd6506a6c4f455746c0">load</a> (const std::string &amp;filename, const std::string &amp;spritesheetDir=&quot;&quot;)</td></tr>
+<tr class="memdesc:aea15935ee24fafd6506a6c4f455746c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the animation from the given file, overwriting internal data Spritesheets are searched for in the same directory as the file.  <a href="#aea15935ee24fafd6506a6c4f455746c0">More...</a><br /></td></tr>
+<tr class="separator:aea15935ee24fafd6506a6c4f455746c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedd54513891f118e1fad00daf0cb8cd0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#aedd54513891f118e1fad00daf0cb8cd0">isLooping</a> () const</td></tr>
+<tr class="memdesc:aedd54513891f118e1fad00daf0cb8cd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if the animation is set to loop on end. Can be overriden in <a class="el" href="a00850.html" title="Represents a renderable animation. AnimationData is to Animation like sf::Texture is to sf::Sprite...">Animation</a>.  <a href="#aedd54513891f118e1fad00daf0cb8cd0">More...</a><br /></td></tr>
+<tr class="separator:aedd54513891f118e1fad00daf0cb8cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f1bb74fb276ccbc0df9e800b1657c94"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a8f1bb74fb276ccbc0df9e800b1657c94">getLength</a> () const</td></tr>
+<tr class="memdesc:a8f1bb74fb276ccbc0df9e800b1657c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total length of the animation in seconds.  <a href="#a8f1bb74fb276ccbc0df9e800b1657c94">More...</a><br /></td></tr>
+<tr class="separator:a8f1bb74fb276ccbc0df9e800b1657c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65e67ad43ad604af3f23b979f6bad7a6"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a65e67ad43ad604af3f23b979f6bad7a6">frameCount</a> () const</td></tr>
+<tr class="memdesc:a65e67ad43ad604af3f23b979f6bad7a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of frames in the animation.  <a href="#a65e67ad43ad604af3f23b979f6bad7a6">More...</a><br /></td></tr>
+<tr class="separator:a65e67ad43ad604af3f23b979f6bad7a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57bf31f93994fdb698a9e16e6ffef4a8"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a57bf31f93994fdb698a9e16e6ffef4a8">getFrameSize</a> (unsigned int frameIndex) const</td></tr>
+<tr class="memdesc:a57bf31f93994fdb698a9e16e6ffef4a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the width and height of the given frame.  <a href="#a57bf31f93994fdb698a9e16e6ffef4a8">More...</a><br /></td></tr>
+<tr class="separator:a57bf31f93994fdb698a9e16e6ffef4a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a254dbfcb2f0e8dda5dea9cb94cacb585"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a254dbfcb2f0e8dda5dea9cb94cacb585">getMaxSize</a> () const</td></tr>
+<tr class="memdesc:a254dbfcb2f0e8dda5dea9cb94cacb585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the largest frame.  <a href="#a254dbfcb2f0e8dda5dea9cb94cacb585">More...</a><br /></td></tr>
+<tr class="separator:a254dbfcb2f0e8dda5dea9cb94cacb585"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a31f2b4e6f0c6dcbd9c80be625807b115"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00854.html#ae3fc9044fce7fae221971fc43918dd2e">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a31f2b4e6f0c6dcbd9c80be625807b115">create</a> ()</td></tr>
+<tr class="memdesc:a31f2b4e6f0c6dcbd9c80be625807b115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create empty <a class="el" href="a00854.html" title="Data class for animations. Holds the frame information and is resposnsible for rendering. ">AnimationData</a> to be loaded later.  <a href="#a31f2b4e6f0c6dcbd9c80be625807b115">More...</a><br /></td></tr>
+<tr class="separator:a31f2b4e6f0c6dcbd9c80be625807b115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd8e2e3bd24c22e25ba2ac3eecb69162"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00854.html#ae3fc9044fce7fae221971fc43918dd2e">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#abd8e2e3bd24c22e25ba2ac3eecb69162">create</a> (const std::string &amp;filename, const std::string &amp;spritesheetDir=&quot;&quot;)</td></tr>
+<tr class="memdesc:abd8e2e3bd24c22e25ba2ac3eecb69162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the <a class="el" href="a00854.html" title="Data class for animations. Holds the frame information and is resposnsible for rendering. ">AnimationData</a> from the given file. Spritesheets are searched for in the same directory as the animation file.  <a href="#abd8e2e3bd24c22e25ba2ac3eecb69162">More...</a><br /></td></tr>
+<tr class="separator:abd8e2e3bd24c22e25ba2ac3eecb69162"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:af47625f50036c466946f960db7320bcf"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#af47625f50036c466946f960db7320bcf">Animation</a></td></tr>
+<tr class="separator:af47625f50036c466946f960db7320bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Data class for animations. Holds the frame information and is resposnsible for rendering. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00850.html" title="Represents a renderable animation. AnimationData is to Animation like sf::Texture is to sf::Sprite...">Animation</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00173_source.html#l00021">21</a> of file <a class="el" href="a00173_source.html">AnimationData.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ae3fc9044fce7fae221971fc43918dd2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3fc9044fce7fae221971fc43918dd2e">&#9670;&nbsp;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a00854.html">AnimationData</a>&gt; <a class="el" href="a00854.html#ae3fc9044fce7fae221971fc43918dd2e">bl::AnimationData::Ptr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00173_source.html#l00023">23</a> of file <a class="el" href="a00173_source.html">AnimationData.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a31f2b4e6f0c6dcbd9c80be625807b115"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31f2b4e6f0c6dcbd9c80be625807b115">&#9670;&nbsp;</a></span>create() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00854.html#ae3fc9044fce7fae221971fc43918dd2e">AnimationData::Ptr</a> bl::AnimationData::create </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create empty <a class="el" href="a00854.html" title="Data class for animations. Holds the frame information and is resposnsible for rendering. ">AnimationData</a> to be loaded later. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00440_source.html#l00008">8</a> of file <a class="el" href="a00440_source.html">AnimationData.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abd8e2e3bd24c22e25ba2ac3eecb69162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd8e2e3bd24c22e25ba2ac3eecb69162">&#9670;&nbsp;</a></span>create() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00854.html#ae3fc9044fce7fae221971fc43918dd2e">AnimationData::Ptr</a> bl::AnimationData::create </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>spritesheetDir</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads the <a class="el" href="a00854.html" title="Data class for animations. Holds the frame information and is resposnsible for rendering. ">AnimationData</a> from the given file. Spritesheets are searched for in the same directory as the animation file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>File to laod from </td></tr>
+    <tr><td class="paramname">spritesheetDir</td><td>Optional additional directory to search for spritesheets </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Ptr the <a class="el" href="a00854.html" title="Data class for animations. Holds the frame information and is resposnsible for rendering. ">AnimationData</a>, or null if could not be loaded </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00440_source.html#l00010">10</a> of file <a class="el" href="a00440_source.html">AnimationData.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a65e67ad43ad604af3f23b979f6bad7a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65e67ad43ad604af3f23b979f6bad7a6">&#9670;&nbsp;</a></span>frameCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int bl::AnimationData::frameCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the number of frames in the animation. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00440_source.html#l00094">94</a> of file <a class="el" href="a00440_source.html">AnimationData.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a57bf31f93994fdb698a9e16e6ffef4a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57bf31f93994fdb698a9e16e6ffef4a8">&#9670;&nbsp;</a></span>getFrameSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2f bl::AnimationData::getFrameSize </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>frameIndex</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the width and height of the given frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">frameIndex</td><td>Index of the frame to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>sf::Vector2f Size of the frame </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00440_source.html#l00096">96</a> of file <a class="el" href="a00440_source.html">AnimationData.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8f1bb74fb276ccbc0df9e800b1657c94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f1bb74fb276ccbc0df9e800b1657c94">&#9670;&nbsp;</a></span>getLength()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::AnimationData::getLength </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the total length of the animation in seconds. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00440_source.html#l00092">92</a> of file <a class="el" href="a00440_source.html">AnimationData.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a254dbfcb2f0e8dda5dea9cb94cacb585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a254dbfcb2f0e8dda5dea9cb94cacb585">&#9670;&nbsp;</a></span>getMaxSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2f bl::AnimationData::getMaxSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the size of the largest frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00440_source.html#l00115">115</a> of file <a class="el" href="a00440_source.html">AnimationData.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aedd54513891f118e1fad00daf0cb8cd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedd54513891f118e1fad00daf0cb8cd0">&#9670;&nbsp;</a></span>isLooping()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::AnimationData::isLooping </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns if the animation is set to loop on end. Can be overriden in <a class="el" href="a00850.html" title="Represents a renderable animation. AnimationData is to Animation like sf::Texture is to sf::Sprite...">Animation</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00440_source.html#l00090">90</a> of file <a class="el" href="a00440_source.html">AnimationData.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aea15935ee24fafd6506a6c4f455746c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea15935ee24fafd6506a6c4f455746c0">&#9670;&nbsp;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::AnimationData::load </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>spritesheetDir</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads the animation from the given file, overwriting internal data Spritesheets are searched for in the same directory as the file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>The file to laod from </td></tr>
+    <tr><td class="paramname">spritesheetDir</td><td>Optional additional directory to search for spritesheets </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the animation could be loaded, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00440_source.html#l00024">24</a> of file <a class="el" href="a00440_source.html">AnimationData.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="af47625f50036c466946f960db7320bcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af47625f50036c466946f960db7320bcf">&#9670;&nbsp;</a></span>Animation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a00850.html">Animation</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00173_source.html#l00112">112</a> of file <a class="el" href="a00173_source.html">AnimationData.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Media/Graphics/<a class="el" href="a00173_source.html">AnimationData.hpp</a></li>
+<li>src/Media/Graphics/<a class="el" href="a00440_source.html">AnimationData.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 10 2021 06:00:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Feb 26 2021 06:18:13 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

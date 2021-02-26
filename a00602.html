@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::RingBuffer&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,28 +63,418 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00506.html">bl</a></li><li class="navelem"><a class="el" href="a00508.html">json</a></li><li class="navelem"><a class="el" href="a00605.html">Schema</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00542.html">bl</a></li><li class="navelem"><a class="el" href="a00602.html">RingBuffer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a00599.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::json::Schema Member List</div>  </div>
+<div class="title">bl::RingBuffer&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00527.html">Containers</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00605.html">bl::json::Schema</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00605.html#a93764ff1d263a3ba8a57b371b979b06b">addChoiceField</a>(const std::string name, const schema::Value &amp;value)</td><td class="entry"><a class="el" href="a00605.html">bl::json::Schema</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00605.html#a4381fbf9fa9a3b079a83be5ee36d1c6c">addOptionalField</a>(const std::string name, const schema::Value &amp;value)</td><td class="entry"><a class="el" href="a00605.html">bl::json::Schema</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00605.html#a71321cbc449fb03b169f0461a02c783c">addRequiredField</a>(const std::string name, const schema::Value &amp;value)</td><td class="entry"><a class="el" href="a00605.html">bl::json::Schema</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00605.html#ab4a5892e646935f4fd95f0a1a791ac94">overrideStrictValidation</a>(bool strict)</td><td class="entry"><a class="el" href="a00605.html">bl::json::Schema</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00605.html#a436ff37ef13e80febe5ed41802899a44">Schema</a>()</td><td class="entry"><a class="el" href="a00605.html">bl::json::Schema</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00605.html#a90b405ec977beddca35025f07f560df3">validate</a>(const Group &amp;root, bool strict) const</td><td class="entry"><a class="el" href="a00605.html">bl::json::Schema</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Simple circular buffer implementation for small objects. Underlying storage is a std::vector. Objects may not be destructed until they are rolled over.  
+ <a href="a00602.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00020_source.html">RingBuffer.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a2bd71c5da80581cfd3a0d1f0cacf29a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#a2bd71c5da80581cfd3a0d1f0cacf29a0">RingBuffer</a> (std::size_t <a class="el" href="a00602.html#aa66e1a34344ce15fad3e7a25a058fde1">capacity</a>)</td></tr>
+<tr class="memdesc:a2bd71c5da80581cfd3a0d1f0cacf29a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Ring Buffer with the given capacity.  <a href="#a2bd71c5da80581cfd3a0d1f0cacf29a0">More...</a><br /></td></tr>
+<tr class="separator:a2bd71c5da80581cfd3a0d1f0cacf29a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45866fc329ff3edb41fab191b771e29c"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#a45866fc329ff3edb41fab191b771e29c">operator[]</a> (std::size_t i)</td></tr>
+<tr class="memdesc:a45866fc329ff3edb41fab191b771e29c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the element at the given position.  <a href="#a45866fc329ff3edb41fab191b771e29c">More...</a><br /></td></tr>
+<tr class="separator:a45866fc329ff3edb41fab191b771e29c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7d870ae9b76e4536f38e6b0df41b922"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#ae7d870ae9b76e4536f38e6b0df41b922">operator[]</a> (std::size_t i) const</td></tr>
+<tr class="memdesc:ae7d870ae9b76e4536f38e6b0df41b922"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the element at the given position.  <a href="#ae7d870ae9b76e4536f38e6b0df41b922">More...</a><br /></td></tr>
+<tr class="separator:ae7d870ae9b76e4536f38e6b0df41b922"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0b95f4289ad291332cadd36cc5d1f12"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#ae0b95f4289ad291332cadd36cc5d1f12">front</a> ()</td></tr>
+<tr class="memdesc:ae0b95f4289ad291332cadd36cc5d1f12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the front object.  <a href="#ae0b95f4289ad291332cadd36cc5d1f12">More...</a><br /></td></tr>
+<tr class="separator:ae0b95f4289ad291332cadd36cc5d1f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adedd17a794a1c01deaffc61969494255"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#adedd17a794a1c01deaffc61969494255">front</a> () const</td></tr>
+<tr class="memdesc:adedd17a794a1c01deaffc61969494255"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the front object.  <a href="#adedd17a794a1c01deaffc61969494255">More...</a><br /></td></tr>
+<tr class="separator:adedd17a794a1c01deaffc61969494255"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f499b7e437994f45acb3c0743e331b7"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#a5f499b7e437994f45acb3c0743e331b7">back</a> ()</td></tr>
+<tr class="memdesc:a5f499b7e437994f45acb3c0743e331b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the back object.  <a href="#a5f499b7e437994f45acb3c0743e331b7">More...</a><br /></td></tr>
+<tr class="separator:a5f499b7e437994f45acb3c0743e331b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeff936f4966cbcbf1627fe01948932eb"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#aeff936f4966cbcbf1627fe01948932eb">back</a> () const</td></tr>
+<tr class="memdesc:aeff936f4966cbcbf1627fe01948932eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the back object.  <a href="#aeff936f4966cbcbf1627fe01948932eb">More...</a><br /></td></tr>
+<tr class="separator:aeff936f4966cbcbf1627fe01948932eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa66e1a34344ce15fad3e7a25a058fde1"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#aa66e1a34344ce15fad3e7a25a058fde1">capacity</a> () const</td></tr>
+<tr class="memdesc:aa66e1a34344ce15fad3e7a25a058fde1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the capacity of the buffer.  <a href="#aa66e1a34344ce15fad3e7a25a058fde1">More...</a><br /></td></tr>
+<tr class="separator:aa66e1a34344ce15fad3e7a25a058fde1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace4579eba4a484864ea3b75be835bf2c"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#ace4579eba4a484864ea3b75be835bf2c">size</a> () const</td></tr>
+<tr class="memdesc:ace4579eba4a484864ea3b75be835bf2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of elements currently stored.  <a href="#ace4579eba4a484864ea3b75be835bf2c">More...</a><br /></td></tr>
+<tr class="separator:ace4579eba4a484864ea3b75be835bf2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48de7e1e125695f67c5b987cd8fb690c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#a48de7e1e125695f67c5b987cd8fb690c">empty</a> () const</td></tr>
+<tr class="memdesc:a48de7e1e125695f67c5b987cd8fb690c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the buffer is empty.  <a href="#a48de7e1e125695f67c5b987cd8fb690c">More...</a><br /></td></tr>
+<tr class="separator:a48de7e1e125695f67c5b987cd8fb690c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87a72be1f3cb5973dcfb6d7b87ce9882"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#a87a72be1f3cb5973dcfb6d7b87ce9882">full</a> () const</td></tr>
+<tr class="memdesc:a87a72be1f3cb5973dcfb6d7b87ce9882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the buffer is full. Adding more elements to a full buffer will result in the first elements getting popped off implicitly.  <a href="#a87a72be1f3cb5973dcfb6d7b87ce9882">More...</a><br /></td></tr>
+<tr class="separator:a87a72be1f3cb5973dcfb6d7b87ce9882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa29e854328ee3efd1e8c2ad0e3aa8002"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#aa29e854328ee3efd1e8c2ad0e3aa8002">push_back</a> (const T &amp;obj)</td></tr>
+<tr class="memdesc:aa29e854328ee3efd1e8c2ad0e3aa8002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a new element to the back of the buffer.  <a href="#aa29e854328ee3efd1e8c2ad0e3aa8002">More...</a><br /></td></tr>
+<tr class="separator:aa29e854328ee3efd1e8c2ad0e3aa8002"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ac636c14e1680a2b1ac787cc0c304d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00602.html#a7ac636c14e1680a2b1ac787cc0c304d4">pop_front</a> ()</td></tr>
+<tr class="memdesc:a7ac636c14e1680a2b1ac787cc0c304d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the element from the front of the buffer. Destructor may not be called immediately.  <a href="#a7ac636c14e1680a2b1ac787cc0c304d4">More...</a><br /></td></tr>
+<tr class="separator:a7ac636c14e1680a2b1ac787cc0c304d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::RingBuffer&lt; T &gt;</h3>
+
+<p>Simple circular buffer implementation for small objects. Underlying storage is a std::vector. Objects may not be destructed until they are rolled over. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type of object to store </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00016">16</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2bd71c5da80581cfd3a0d1f0cacf29a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bd71c5da80581cfd3a0d1f0cacf29a0">&#9670;&nbsp;</a></span>RingBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::<a class="el" href="a00602.html">RingBuffer</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>capacity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Ring Buffer with the given capacity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">capacity</td><td>Maximum buffer size </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00116">116</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5f499b7e437994f45acb3c0743e331b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f499b7e437994f45acb3c0743e331b7">&#9670;&nbsp;</a></span>back() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; <a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::back </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the back object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00143">143</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aeff936f4966cbcbf1627fe01948932eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeff936f4966cbcbf1627fe01948932eb">&#9670;&nbsp;</a></span>back() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; <a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::back </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the back object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00148">148</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa66e1a34344ce15fad3e7a25a058fde1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa66e1a34344ce15fad3e7a25a058fde1">&#9670;&nbsp;</a></span>capacity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::capacity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the capacity of the buffer. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::size_t The maximum number of elements that may be stored </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00163">163</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a48de7e1e125695f67c5b987cd8fb690c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48de7e1e125695f67c5b987cd8fb690c">&#9670;&nbsp;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::empty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the buffer is empty. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00158">158</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae0b95f4289ad291332cadd36cc5d1f12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0b95f4289ad291332cadd36cc5d1f12">&#9670;&nbsp;</a></span>front() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; <a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::front </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the front object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00133">133</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adedd17a794a1c01deaffc61969494255"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adedd17a794a1c01deaffc61969494255">&#9670;&nbsp;</a></span>front() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; <a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::front </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the front object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00138">138</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a87a72be1f3cb5973dcfb6d7b87ce9882"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87a72be1f3cb5973dcfb6d7b87ce9882">&#9670;&nbsp;</a></span>full()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::full </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if the buffer is full. Adding more elements to a full buffer will result in the first elements getting popped off implicitly. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00168">168</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a45866fc329ff3edb41fab191b771e29c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45866fc329ff3edb41fab191b771e29c">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; <a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Access the element at the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>Position to access </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T&amp; Reference to the element to retrieve. Always valid even if out of bounds </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00123">123</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae7d870ae9b76e4536f38e6b0df41b922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7d870ae9b76e4536f38e6b0df41b922">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; <a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Access the element at the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>Position to access </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T&amp; Const reference to the element to retrieve. Always valid even if out of bounds </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00128">128</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7ac636c14e1680a2b1ac787cc0c304d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ac636c14e1680a2b1ac787cc0c304d4">&#9670;&nbsp;</a></span>pop_front()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::pop_front </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the element from the front of the buffer. Destructor may not be called immediately. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00184">184</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa29e854328ee3efd1e8c2ad0e3aa8002"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa29e854328ee3efd1e8c2ad0e3aa8002">&#9670;&nbsp;</a></span>push_back()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::push_back </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends a new element to the back of the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>Element to add </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00173">173</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ace4579eba4a484864ea3b75be835bf2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace4579eba4a484864ea3b75be835bf2c">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="a00602.html">bl::RingBuffer</a>&lt; T &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the number of elements currently stored. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00153">153</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Containers/<a class="el" href="a00020_source.html">RingBuffer.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 10 2021 06:00:44 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Feb 26 2021 06:18:13 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
