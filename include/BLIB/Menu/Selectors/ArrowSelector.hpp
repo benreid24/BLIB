@@ -1,8 +1,8 @@
 #ifndef BLIB_MENU_SELECTORS_ARROWSELECTOR_HPP
 #define BLIB_MENU_SELECTORS_ARROWSELECTOR_HPP
 
+#include <BLIB/Media/Shapes/Triangle.hpp>
 #include <BLIB/Menu/Selector.hpp>
-#include <BLIB/Shapes/Triangle.hpp>
 
 namespace bl
 {

@@ -1,6 +1,7 @@
 target_include_directories(BLIB PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(Engine)
+add_subdirectory(Entities)
 add_subdirectory(Files)
 add_subdirectory(GUI)
 add_subdirectory(Logging)
@@ -8,5 +9,4 @@ add_subdirectory(Media)
 add_subdirectory(Menu)
 add_subdirectory(Parser)
 add_subdirectory(Scripts)
-add_subdirectory(Shapes)
 add_subdirectory(Util)

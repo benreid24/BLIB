@@ -1,4 +1,4 @@
-#include <BLIB/Shapes/GradientCircle.hpp>
+#include <BLIB/Media/Shapes/GradientCircle.hpp>
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <cmath>

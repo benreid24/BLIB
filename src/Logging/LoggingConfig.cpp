@@ -46,12 +46,12 @@ std::string LoggingConfig::genPrefix(int level) const {
     std::stringstream ss;
     const std::time_t now = std::time(nullptr);
     const auto time       = utc ? *std::gmtime(&now) : *std::localtime(&now);
-    ss << std::setfill('0') << std::setw(4) << (time.tm_year + 1900) << "-"
-       << std::setfill('0') << std::setw(2) << time.tm_mon << "-" << std::setfill('0')
-       << std::setw(2) << time.tm_mday << "T";
+    ss << std::setfill('0') << std::setw(4) << (time.tm_year + 1900) << "-" << std::setfill('0')
+       << std::setw(2) << (time.tm_mon + 1) << "-" << std::setfill('0') << std::setw(2)
+       << time.tm_mday << "T";
     ss << std::setfill('0') << std::setw(2) << time.tm_hour << ":" << std::setfill('0')
-       << std::setw(2) << time.tm_min << ":" << std::setfill('0') << std::setw(2)
-       << time.tm_sec << " ";
+       << std::setw(2) << time.tm_min << ":" << std::setfill('0') << std::setw(2) << time.tm_sec
+       << " ";
 
     ss << levels[level] << " ";
     return ss.str();

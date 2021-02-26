@@ -1,4 +1,4 @@
-#include <BLIB/Shapes.hpp>
+#include <BLIB/Media.hpp>
 #include <SFML/Graphics.hpp>
 
 int main() {

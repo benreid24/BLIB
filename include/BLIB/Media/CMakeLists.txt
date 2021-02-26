@@ -1,4 +1,2 @@
-target_sources(BLIB PUBLIC
-    AnimationData.hpp
-    Animation.hpp
-)
+add_subdirectory(Graphics)
+add_subdirectory(Shapes)

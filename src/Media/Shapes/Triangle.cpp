@@ -1,4 +1,4 @@
-#include <BLIB/Shapes/Triangle.hpp>
+#include <BLIB/Media/Shapes/Triangle.hpp>
 
 namespace bl
 {
