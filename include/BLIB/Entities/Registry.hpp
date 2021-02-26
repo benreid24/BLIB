@@ -23,19 +23,23 @@ namespace entity
 class Registry {
     class ViewBase {
     public:
-        ViewBase(Registry& registry);
+        template<typename... TComponents>
+        struct DeductionDummy {};
+
+        template<typename... Ts>
+        ViewBase(Registry& registry, DeductionDummy<Ts...> _);
+
         virtual ~ViewBase();
 
         void makeDirty(Component::IdType cid);
 
     protected:
-        std::unordered_set<Component::IdType> componentTypes;
-
         bool isDirty() const;
         void makeClean();
 
     private:
         Registry& registry;
+        const std::unordered_set<Component::IdType> componentTypes;
         bool dirty;
 
         friend class Registry;
@@ -148,7 +152,7 @@ bool Registry::addComponent(Entity entity, const T& component) {
     if (indexIter->second.find(id) != indexIter->second.end()) return false;
 
     // add and track component
-    auto it = poolIter->second.add(std::make_pair(entity, ComponentStorage(component)));
+    auto it = poolIter->second.add(component);
     indexIter->second.emplace(id, it);
     linkIter->second.insert(entity);
 
@@ -196,6 +200,7 @@ bool Registry::removeComponent(Entity entity) {
     auto linkIter = componentEntities.find(id);
     linkIter->second.erase(entity);
     poolIter->second.erase(it->second);
+    indexIter->second.erase(id);
 
     invalidateViews(id);
     return true;
@@ -252,6 +257,18 @@ bool Registry::populateComponent(Entity e, ComponentSet<TComponents...>& set) {
     set.set(&it->second->get<TComponent>());
     return true;
 }
+
+template<typename... Ts>
+Registry::ViewBase::ViewBase(Registry& r, DeductionDummy<Ts...> _)
+: registry(r)
+, dirty(false)
+, componentTypes({Component::getId<Ts>()...}) {
+    registry.addView(this);
+}
+
+template<typename... TComponents>
+Registry::View<TComponents...>::View(Registry& r)
+: ViewBase(r, ViewBase::DeductionDummy<TComponents...>()) {}
 
 template<typename... TComponents>
 const std::vector<ComponentSet<TComponents...>>& Registry::View<TComponents...>::results() {

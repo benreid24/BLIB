@@ -19,7 +19,14 @@ void Registry::destroyEntity(Entity e) {
     auto it = entityComponentIterators.find(e);
     if (it != entityComponentIterators.end()) {
         for (const auto& component : it->second) {
+            // invalidate views with this component type
             invalidateViews(component.first);
+
+            // remove component -> entity relation
+            auto cit = componentEntities.find(component.first);
+            if (cit != componentEntities.end()) { cit->second.erase(e); }
+
+            // destroy component
             auto pool = componentPools.find(component.first);
             if (pool != componentPools.end()) {
                 pool->second.erase(component.second); // erase from storage
@@ -49,14 +56,7 @@ void Registry::removeView(ViewBase* v) {
 }
 
 void Registry::invalidateViews(Component::IdType cid) {
-    std::shared_lock lock(viewMutex);
     for (ViewBase* view : activeViews) { view->makeDirty(cid); }
-}
-
-Registry::ViewBase::ViewBase(Registry& r)
-: registry(r)
-, dirty(false) {
-    registry.addView(this);
 }
 
 Registry::ViewBase::~ViewBase() { registry.removeView(this); }
@@ -68,25 +68,6 @@ void Registry::ViewBase::makeDirty(Component::IdType cid) {
 bool Registry::ViewBase::isDirty() const { return dirty; }
 
 void Registry::ViewBase::makeClean() { dirty = false; }
-
-struct trash {
-    static constexpr Component::IdType ComponentId = 1;
-
-    int data[4];
-    bool isTrash;
-};
-
-void temp() {
-    Registry registry;
-    Entity e = registry.createEntity();
-    registry.addComponent(e, trash());
-    registry.hasComponent<trash>(e);
-    registry.getComponent<trash>(e);
-    registry.removeComponent<trash>(e);
-    Registry::View<trash>::Ptr view = registry.getEntitiesWithComponents<trash>();
-    view->results();
-    ComponentSet<trash> set = registry.getEntityComponents<trash>(e);
-}
 
 } // namespace entity
 } // namespace bl

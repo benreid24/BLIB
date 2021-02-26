@@ -32,9 +32,9 @@ TEST(Any, OneType) {
 }
 
 TEST(Any, DifferentTypes) {
-    Any<8> any = std::string("hello");
+    Any<8> any = std::string("hello world");
     ASSERT_TRUE(any.hasValue());
-    EXPECT_EQ(any.get<std::string>(), "hello");
+    EXPECT_EQ(any.get<std::string>(), "hello world");
 
     any = 42;
     EXPECT_EQ(any.get<int>(), 42);

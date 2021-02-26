@@ -5,8 +5,6 @@
 #include <cstdint>
 #include <cstdlib>
 
-#include <iostream>
-
 namespace bl
 {
 /**
@@ -50,6 +48,13 @@ public:
      * @param copy The object to copy
      */
     Any(const Any<Size>& copy);
+
+    /**
+     * @brief Takes ownership of the data in copy
+     *
+     * @param copy The object to copy
+     */
+    Any(Any&& copy);
 
     /**
      * @brief Copies from another Any object and inherits type and value
@@ -151,6 +156,26 @@ Any<Size>::Any(const Any<Size>& copy)
 }
 
 template<unsigned int Size>
+Any<Size>::Any(Any<Size>&& copy)
+: object(copy.object)
+, heap(copy.heap)
+, ctype(copy.ctype) {
+    if (!heap) {
+        std::memcpy(inplace, copy.inplace, Size);
+        object = inplace;
+    }
+    copy.heap = false; // ensure copy does not free this memory
+}
+
+template<unsigned int Size>
+Any<Size>& Any<Size>::operator=(const Any<Size>& c) {
+    heap  = c.heap;
+    ctype = c.ctype;
+    ctype(*this, &c);
+    return *this;
+}
+
+template<unsigned int Size>
 template<typename T>
 Any<Size>& Any<Size>::operator=(const T& value) {
     if (ctype == &Any<Size>::operate<T>) {
@@ -159,7 +184,7 @@ Any<Size>& Any<Size>::operator=(const T& value) {
     }
 
     clear();
-    if constexpr (sizeof(T) <= Size) {
+    if constexpr (sizeof(T) < Size) {
         object                   = inplace;
         *static_cast<T*>(object) = value;
         heap                     = false;

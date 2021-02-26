@@ -18,6 +18,7 @@ target_link_libraries(BLIB.t PRIVATE
 
 add_subdirectory(Containers)
 add_subdirectory(Engine)
+add_subdirectory(Entities)
 add_subdirectory(Files)
 add_subdirectory(Parser)
 add_subdirectory(Scripts)
