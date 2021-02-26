@@ -255,7 +255,8 @@ ET* DynamicObjectPool<T>::IteratorType<ET>::operator->() {
 
 template<typename T>
 template<typename ET>
-DynamicObjectPool<T>::IteratorType<ET>& DynamicObjectPool<T>::IteratorType<ET>::operator++() {
+typename DynamicObjectPool<T>::template IteratorType<ET>&
+DynamicObjectPool<T>::IteratorType<ET>::operator++() {
     ++i;
     while (i < pool.size() && !pool[i].alive) { ++i; }
     if (i == pool.size() - 1 && !pool[i].alive) ++i;
@@ -264,7 +265,8 @@ DynamicObjectPool<T>::IteratorType<ET>& DynamicObjectPool<T>::IteratorType<ET>::
 
 template<typename T>
 template<typename ET>
-DynamicObjectPool<T>::IteratorType<ET>& DynamicObjectPool<T>::IteratorType<ET>::operator--() {
+typename DynamicObjectPool<T>::template IteratorType<ET>&
+DynamicObjectPool<T>::IteratorType<ET>::operator--() {
     --i;
     while (i > 0 && !pool[i].alive) { --i; }
     return *this;
@@ -272,8 +274,8 @@ DynamicObjectPool<T>::IteratorType<ET>& DynamicObjectPool<T>::IteratorType<ET>::
 
 template<typename T>
 template<typename ET>
-DynamicObjectPool<T>::IteratorType<ET> DynamicObjectPool<T>::IteratorType<ET>::operator+(
-    int d) const {
+typename DynamicObjectPool<T>::template IteratorType<ET>
+DynamicObjectPool<T>::IteratorType<ET>::operator+(int d) const {
     IteratorType<ET> it = *this;
     for (int j = 0; j < d; ++j) { ++it; }
     return it;
@@ -281,8 +283,8 @@ DynamicObjectPool<T>::IteratorType<ET> DynamicObjectPool<T>::IteratorType<ET>::o
 
 template<typename T>
 template<typename ET>
-DynamicObjectPool<T>::IteratorType<ET> DynamicObjectPool<T>::IteratorType<ET>::operator-(
-    int d) const {
+typename DynamicObjectPool<T>::template IteratorType<ET>
+DynamicObjectPool<T>::IteratorType<ET>::operator-(int d) const {
     IteratorType<ET> it = *this;
     for (int j = 0; j < d; ++j) { --it; }
     return it;
