@@ -3,5 +3,8 @@
 
 #include <BLIB/Files/JSON/JSON.hpp>
 #include <BLIB/Files/JSON/Schema.hpp>
+#include <BLIB/Files/JSON/SerializableField.hpp>
+#include <BLIB/Files/JSON/SerializableObject.hpp>
+#include <BLIB/Files/JSON/Serializer.hpp>
 
 #endif
