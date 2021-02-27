@@ -49,12 +49,12 @@ SerializableField<T>::SerializableField(const std::string& name, SerializableObj
 
 template<typename T>
 bool SerializableField<T>::deserialize(const Value& v) {
-    return Serializer::deserialize(value, v);
+    return Serializer<T>::deserialize(value, v);
 }
 
 template<typename T>
 Value SerializableField<T>::serialize() const {
-    return Serializer::serialize(value);
+    return Serializer<T>::serialize(value);
 }
 
 template<typename T>

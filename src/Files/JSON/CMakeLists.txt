@@ -3,7 +3,6 @@ target_sources(BLIB PRIVATE
     JSONLoader.hpp
     JSONLoader.cpp
     Schema.cpp
-    Serializer.cpp
     SerializableField.cpp
     SerializableObject.cpp
 )
