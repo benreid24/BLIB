@@ -9,6 +9,12 @@ namespace bl
 {
 namespace json
 {
+/**
+ * @brief Base class for SerializableField objects. Not to be used directly
+ *
+ * @ingroup JSON
+ *
+ */
 class SerializableFieldBase {
 public:
     virtual bool deserialize(const Value& json) = 0;
@@ -24,17 +30,52 @@ private:
     const std::string name;
 };
 
+/**
+ * @brief Represents a field in a class that can be serialized. Serializable objects should inherit
+ *        from SerializableObject and make their data fields of type Serializable field.
+ *        Serialization is builtin for primitive json types, vectors, maps, and nested
+ *        SerializableObject members. Specializations of Serializer may be created to support other
+ *        types which are not easily represented as Serializable objects
+ *
+ * @tparam T The underlying type of the field
+ * @ingroup JSON
+ */
 template<typename T>
 class SerializableField : public SerializableFieldBase {
 public:
+    /**
+     * @brief Assigns the field a name to be used in JSON and registers itself
+     *
+     * @param name Name to use when serializing and deserializing
+     * @param owner The parent Serializable object to register with
+     */
     SerializableField(const std::string& name, SerializableObject& owner);
 
+    /**
+     * @brief Updates the value of this field from the json data
+     *
+     * @param json JSON value to deserialize from
+     * @return True if successfully deserialized, false on error
+     */
     virtual bool deserialize(const Value& json) override;
 
+    /**
+     * @brief Serializes the held value of this field to JSON
+     *
+     * @return Value JSON value of this field
+     */
     virtual Value serialize() const override;
 
+    /**
+     * @brief Update the value of this field
+     *
+     */
     void setValue(const T& value);
 
+    /**
+     * @brief Returns the value of this object
+     *
+     */
     const T& getValue() const;
 
 private:

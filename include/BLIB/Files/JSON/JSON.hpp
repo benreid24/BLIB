@@ -9,12 +9,6 @@
 #include <variant>
 #include <vector>
 
-/**
- * @defgroup JSON
- * @brief Collection of classes for interacting with JSON data
- *
- */
-
 namespace bl
 {
 namespace json
