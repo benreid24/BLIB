@@ -202,7 +202,7 @@ void Group::print(std::ostream& stream, int ilvl) const {
         i->second.print(stream, ilvl + 4);
         if (++i != fields.end()) stream << ",\n";
     }
-    stream << std::string(ilvl, ' ') << "}";
+    stream << "\n" << std::string(ilvl, ' ') << "}";
 }
 
 void Value::print(std::ostream& stream, int ilvl) const {

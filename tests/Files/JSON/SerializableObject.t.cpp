@@ -20,10 +20,9 @@ struct Nested : public SerializableObject {
         floatValue.setValue(fval);
     }
 
-    Nested& operator=(const Nested& copy) {
+    Nested(const Nested& copy) : Nested() {
         boolValue.setValue(copy.boolValue.getValue());
         floatValue.setValue(copy.floatValue.getValue());
-        return *this;
     }
 
     SerializableField<bool> boolValue;
@@ -31,7 +30,7 @@ struct Nested : public SerializableObject {
 };
 
 struct Data : public SerializableObject {
-    Data(int ival, const std::string sval, const Nested& nval)
+    Data(int ival, const std::string sval, const std::vector<Nested>& nval)
     : intValue("int", *this)
     , stringValue("string", *this)
     , nestedValue("nested", *this) {
@@ -42,7 +41,7 @@ struct Data : public SerializableObject {
 
     SerializableField<int> intValue;
     SerializableField<std::string> stringValue;
-    SerializableField<Nested> nestedValue;
+    SerializableField<std::vector<Nested>> nestedValue;
 };
 
 } // namespace
@@ -58,15 +57,17 @@ TEST(SerializableObject, SingleLevel) {
 }
 
 TEST(SerializableObject, Nested) {
-    Data data(42, "string", Nested(true, 37.5));
+    Data data(42, "string", {Nested(true, 37.5), Nested(false, 11)});
     const Group encoded = data.serialize();
 
-    Data unpacked(343, "notstring", Nested(false, 101));
+    Data unpacked(343, "notstring", {Nested(false, 101)});
     ASSERT_TRUE(unpacked.deserialize(encoded));
     EXPECT_EQ(unpacked.intValue.getValue(), 42);
     EXPECT_EQ(unpacked.stringValue.getValue(), "string");
-    EXPECT_EQ(unpacked.nestedValue.getValue().boolValue.getValue(), true);
-    EXPECT_NEAR(unpacked.nestedValue.getValue().floatValue.getValue(), 37.5, 0.1);
+    EXPECT_EQ(unpacked.nestedValue.getValue()[0].boolValue.getValue(), true);
+    EXPECT_NEAR(unpacked.nestedValue.getValue()[0].floatValue.getValue(), 37.5, 0.1);
+    EXPECT_EQ(unpacked.nestedValue.getValue()[1].boolValue.getValue(), false);
+    EXPECT_NEAR(unpacked.nestedValue.getValue()[1].floatValue.getValue(), 11, 0.1);
 }
 
 } // namespace unittest

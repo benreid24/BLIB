@@ -25,5 +25,13 @@ Group SerializableObject::serialize() const {
 
 void SerializableObject::addField(SerializableFieldBase* field) { fields.push_back(field); }
 
+SerializableObject& SerializableObject::operator=(const SerializableObject& copy) {
+    return *this;
+}
+
+SerializableObject::SerializableObject(const SerializableObject&) {}
+
+SerializableObject::SerializableObject(SerializableObject&&) {}
+
 } // namespace json
 } // namespace bl

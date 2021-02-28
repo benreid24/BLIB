@@ -23,6 +23,10 @@ public:
 
     const std::string& getName() const;
 
+    SerializableFieldBase(const SerializableFieldBase& copy) = delete;
+
+    SerializableFieldBase(SerializableFieldBase&& copy) = delete;
+
 protected:
     SerializableFieldBase(const std::string& name, SerializableObject& owner);
 
@@ -32,7 +36,7 @@ private:
 
 /**
  * @brief Represents a field in a class that can be serialized. Serializable objects should inherit
- *        from SerializableObject and make their data fields of type Serializable field.
+ *        from SerializableObject and make their data fields of type SerializableField.
  *        Serialization is builtin for primitive json types, vectors, maps, and nested
  *        SerializableObject members. Specializations of Serializer may be created to support other
  *        types which are not easily represented as Serializable objects
@@ -50,6 +54,24 @@ public:
      * @param owner The parent Serializable object to register with
      */
     SerializableField(const std::string& name, SerializableObject& owner);
+
+    /**
+     * @brief Deleted. Fields must be constructed with owner information available
+     *
+     */
+    SerializableField(const SerializableField& copy) = delete;
+
+    /**
+     * @brief Deleted. Fields must be constructed with owner information available
+     *
+     */
+    SerializableField(SerializableField&& copy) = delete;
+
+    /**
+     * @brief Assigns the value of this field to the value contained in the copy
+     *
+     */
+    SerializableField& operator=(const SerializableField& copy);
 
     /**
      * @brief Updates the value of this field from the json data
@@ -73,6 +95,14 @@ public:
     void setValue(const T& value);
 
     /**
+     * @brief Calls setValue with the given value
+     *
+     * @param value Value to set this field to
+     * @return SerializableField& Reference to this field
+     */
+    SerializableField& operator=(const T& value);
+
+    /**
      * @brief Returns the value of this object
      *
      */
@@ -89,6 +119,12 @@ SerializableField<T>::SerializableField(const std::string& name, SerializableObj
 : SerializableFieldBase(name, owner) {}
 
 template<typename T>
+SerializableField<T>& SerializableField<T>::operator=(const SerializableField& copy) {
+    value = copy.value;
+    return *this;
+}
+
+template<typename T>
 bool SerializableField<T>::deserialize(const Value& v) {
     return Serializer<T>::deserialize(value, v);
 }
@@ -101,6 +137,12 @@ Value SerializableField<T>::serialize() const {
 template<typename T>
 void SerializableField<T>::setValue(const T& v) {
     value = v;
+}
+
+template<typename T>
+SerializableField<T>& SerializableField<T>::operator=(const T& v) {
+    value = v;
+    return *this;
 }
 
 template<typename T>

@@ -13,10 +13,9 @@ namespace json
 class SerializableObject;
 
 /**
- * @brief Helper class for SerializableField. The default implementation works for any object that
- *        implements the serialize/deserialize interface of SerializableObject. Specializations are
- *        provided for json native types, vector, and unordered_map. User defined types should
- *        either implement SerializableObject or provide a specialization of this class
+ * @brief Helper class for SerializableField. Specializations are provided for json native types,
+ *        vector, and unordered_map. User defined types should either implement SerializableObject
+ *        or provide a specialization of this class
  *
  * @tparam T The type to serialize
  * @ingroup JSON
