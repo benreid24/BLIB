@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::json::schema Namespace Reference</title>
+<title>BLIB: Engine</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,6 +47,7 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,42 +62,42 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a00542.html">bl</a></li><li class="navelem"><a class="el" href="a00545.html">json</a></li><li class="navelem"><a class="el" href="a00546.html">schema</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::json::schema Namespace Reference</div>  </div>
+<div class="title">Engine</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Core classes for the game engine, centered around the Engine class.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00694.html">Bool</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a boolean value required for <a class="el" href="a00682.html" title="Represents any value type in JSON. ">json::Value</a>.  <a href="a00694.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html">bl::Engine</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core engine class that owns engine resources and the main game loop.  <a href="a00628.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00706.html">List</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a constrained list for <a class="el" href="a00682.html" title="Represents any value type in JSON. ">json::Value</a>. Can supply optional limits on min and max size, as well as supply a <a class="el" href="a00690.html" title="Represents a constraint on the type and value of a json::Value. ">Value</a> to validate the contained items.  <a href="a00706.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00632.html">bl::engine::Event</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic event class for engine related events.  <a href="a00632.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00698.html">Numeric</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a constrained numeric value for a <a class="el" href="a00682.html" title="Represents any value type in JSON. ">json::Value</a>. Can optionally supply a minimum and/or maximum value.  <a href="a00698.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00636.html">bl::engine::Flags</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of flags that can be set to modify or control the behavior of the <a class="el" href="a00628.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a>. All flags are read by the engine at the end of each update loop.  <a href="a00636.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00702.html">String</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a constrained string value for <a class="el" href="a00682.html" title="Represents any value type in JSON. ">json::Value</a>. Can optionally supply a set of strings that the value must be.  <a href="a00702.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00640.html">bl::engine::Settings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of settings to create an <a class="el" href="a00628.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> with, organized as a builder.  <a href="a00640.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00690.html">Value</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a constraint on the type and value of a <a class="el" href="a00682.html" title="Represents any value type in JSON. ">json::Value</a>.  <a href="a00690.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00644.html">bl::engine::State</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base interface for all engine states. The <a class="el" href="a00628.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> class manages the main game loop, application logic should be implemented in a set of EngineState classes which can be plugged into the <a class="el" href="a00628.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a>.  <a href="a00644.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Core classes for the game engine, centered around the Engine class. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 26 2021 06:18:13 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Feb 28 2021 21:31:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

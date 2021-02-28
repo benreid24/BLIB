@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bvalue',['bvalue',['../a00722.html#a07603af51b5fc6ff057519ca22a35bd1',1,'bl::gui::Action::TData']]]
+  ['bvalue',['bvalue',['../a00780.html#a07603af51b5fc6ff057519ca22a35bd1',1,'bl::gui::Action::TData']]]
 ];
