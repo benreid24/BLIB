@@ -46,7 +46,7 @@ struct Data : public SerializableObject {
 
 } // namespace
 
-TEST(SerializableObject, SingleLevel) {
+TEST(JsonSerializableObject, SingleLevel) {
     Nested orig(true, 37.5);
     const Group encoded = orig.serialize();
 
@@ -56,7 +56,7 @@ TEST(SerializableObject, SingleLevel) {
     EXPECT_NEAR(unpacked.floatValue.getValue(), 37.5, 0.1);
 }
 
-TEST(SerializableObject, Nested) {
+TEST(JsonSerializableObject, Nested) {
     Data data(42, "string", {Nested(true, 37.5), Nested(false, 11)});
     const Group encoded = data.serialize();
 

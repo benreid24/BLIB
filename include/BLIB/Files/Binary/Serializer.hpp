@@ -10,28 +10,28 @@ namespace bf
 {
 template<typename T>
 struct Serializer {
-    static bool write(BinaryFile& output, const T& value);
+    static bool serialize(BinaryFile& output, const T& value);
 
-    static bool read(BinaryFile& input, T& result);
+    static bool deserialize(BinaryFile& input, T& result);
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
 template<typename T>
-bool Serializer<T>::write(BinaryFile& output, const T& value) {
+bool Serializer<T>::serialize(BinaryFile& output, const T& value) {
     return output.write<T>(value);
 }
 
 template<typename T>
-bool Serializer<T>::read(BinaryFile& input, T& result) {
+bool Serializer<T>::deserialize(BinaryFile& input, T& result) {
     return input.read<T>(result);
 }
 
 template<>
 struct Serializer<std::string> {
-    static bool write(BinaryFile& output, const std::string& value) { return output.write(value); }
+    static bool serialize(BinaryFile& output, const std::string& value) { return output.write(value); }
 
-    static bool read(BinaryFile& input, std::string& result) { return input.read(result); }
+    static bool deserialize(BinaryFile& input, std::string& result) { return input.read(result); }
 };
 
 template<typename U>
@@ -39,7 +39,7 @@ struct Serializer<std::vector<U>> {
     static bool serialize(BinaryFile& output, const std::vector<U>& value) {
         if (!output.write<std::uint32_t>(value.size())) return false;
         for (const U& v : value) {
-            if (!Serializer<U>::write(output, v)) return false;
+            if (!Serializer<U>::serialize(output, v)) return false;
         }
         return true;
     }
@@ -50,7 +50,7 @@ struct Serializer<std::vector<U>> {
         if (!input.read<std::uint32_t>(size)) return false;
         value.resize(size);
         for (unsigned int i = 0; i < size; ++i) {
-            if (!Serializer<U>::read(input, value[i])) return false;
+            if (!Serializer<U>::deserialize(input, value[i])) return false;
         }
         return true;
     }

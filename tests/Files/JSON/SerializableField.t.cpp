@@ -7,7 +7,7 @@ namespace json
 {
 namespace unittest
 {
-TEST(SerializableField, Bool) {
+TEST(JsonSerializableField, Bool) {
     SerializableObject owner;
     SerializableField<bool> field("field", owner);
 
@@ -22,7 +22,7 @@ TEST(SerializableField, Bool) {
     EXPECT_EQ(field.getValue(), false);
 }
 
-TEST(SerializableField, Int) {
+TEST(JsonSerializableField, Int) {
     SerializableObject owner;
     SerializableField<int> field("field", owner);
 
@@ -32,7 +32,7 @@ TEST(SerializableField, Int) {
     EXPECT_EQ(field.getValue(), 42);
 }
 
-TEST(SerializableField, Float) {
+TEST(JsonSerializableField, Float) {
     SerializableObject owner;
     SerializableField<float> field("field", owner);
 
@@ -42,7 +42,7 @@ TEST(SerializableField, Float) {
     EXPECT_NEAR(field.getValue(), 69.42, 0.01);
 }
 
-TEST(SerializableField, String) {
+TEST(JsonSerializableField, String) {
     SerializableObject owner;
     SerializableField<std::string> field("field", owner);
 
@@ -52,7 +52,7 @@ TEST(SerializableField, String) {
     EXPECT_EQ(field.getValue(), "hello");
 }
 
-TEST(SerializableField, Vector) {
+TEST(JsonSerializableField, Vector) {
     SerializableObject owner;
     SerializableField<std::vector<int>> field("field", owner);
 
@@ -63,7 +63,7 @@ TEST(SerializableField, Vector) {
     EXPECT_EQ(field.getValue()[1], 10);
 }
 
-TEST(SerializableField, Map) {
+TEST(JsonSerializableField, Map) {
     SerializableObject owner;
     SerializableField<std::unordered_map<std::string, int>> field("field", owner);
 
