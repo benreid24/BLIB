@@ -4,11 +4,13 @@
 #include <BLIB/Files/Binary/BinaryFile.hpp>
 #include <BLIB/Files/Binary/SerializableObject.hpp>
 
+#include <type_traits>
+
 namespace bl
 {
 namespace bf
 {
-template<typename T>
+template<typename T, bool = std::is_integral<T>::value>
 struct Serializer {
     static bool serialize(BinaryFile& output, const T& value);
 
@@ -18,24 +20,30 @@ struct Serializer {
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
 template<typename T>
-bool Serializer<T>::serialize(BinaryFile& output, const T& value) {
-    return output.write<T>(value);
-}
+struct Serializer<T, false> {
+    static bool serialize(BinaryFile& output, const T& value) { return value.serialize(output); }
+
+    static bool deserialize(BinaryFile& input, T& result) { return result.deserialize(input); }
+};
 
 template<typename T>
-bool Serializer<T>::deserialize(BinaryFile& input, T& result) {
-    return input.read<T>(result);
-}
+struct Serializer<T, true> {
+    static bool serialize(BinaryFile& output, const T& value) { return output.write<T>(value); }
+
+    static bool deserialize(BinaryFile& input, T& result) { return input.read<T>(result); }
+};
 
 template<>
 struct Serializer<std::string> {
-    static bool serialize(BinaryFile& output, const std::string& value) { return output.write(value); }
+    static bool serialize(BinaryFile& output, const std::string& value) {
+        return output.write(value);
+    }
 
     static bool deserialize(BinaryFile& input, std::string& result) { return input.read(result); }
 };
 
 template<typename U>
-struct Serializer<std::vector<U>> {
+struct Serializer<std::vector<U>, false> {
     static bool serialize(BinaryFile& output, const std::vector<U>& value) {
         if (!output.write<std::uint32_t>(value.size())) return false;
         for (const U& v : value) {
@@ -53,17 +61,6 @@ struct Serializer<std::vector<U>> {
             if (!Serializer<U>::deserialize(input, value[i])) return false;
         }
         return true;
-    }
-};
-
-template<>
-struct Serializer<SerializableObject> {
-    static bool serialize(BinaryFile& output, const SerializableObject& value) {
-        return value.serialize(output);
-    }
-
-    static bool deserialize(BinaryFile& input, SerializableObject& value) {
-        return value.deserialize(input);
     }
 };
 
