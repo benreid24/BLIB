@@ -1,6 +1,6 @@
 #include <BLIB/Media/Graphics/AnimationData.hpp>
 
-#include <BLIB/Files/BinaryFile.hpp>
+#include <BLIB/Files/Binary/BinaryFile.hpp>
 #include <BLIB/Files/FileUtil.hpp>
 
 namespace bl
@@ -101,12 +101,12 @@ sf::Vector2f AnimationData::getFrameSize(unsigned int i) const {
     sf::Sprite sprite(spritesheet);
     for (unsigned int j = 0; j < frame.shards.size(); ++j) {
         frame.shards[j].apply(sprite);
-        bounds.left  = std::min(bounds.left, sprite.getGlobalBounds().left);
-        bounds.top   = std::min(bounds.top, sprite.getGlobalBounds().top);
-        bounds.width = std::max(
-            bounds.width, sprite.getGlobalBounds().left + sprite.getGlobalBounds().width);
-        bounds.height = std::max(
-            bounds.height, sprite.getGlobalBounds().top + sprite.getGlobalBounds().height);
+        bounds.left = std::min(bounds.left, sprite.getGlobalBounds().left);
+        bounds.top  = std::min(bounds.top, sprite.getGlobalBounds().top);
+        bounds.width =
+            std::max(bounds.width, sprite.getGlobalBounds().left + sprite.getGlobalBounds().width);
+        bounds.height =
+            std::max(bounds.height, sprite.getGlobalBounds().top + sprite.getGlobalBounds().height);
     }
 
     return {bounds.width - bounds.left, bounds.height - bounds.top};
@@ -122,10 +122,9 @@ sf::Vector2f AnimationData::getMaxSize() const {
     return max;
 }
 
-void AnimationData::render(sf::RenderTarget& target, sf::RenderStates states,
-                           float elapsedTime, const sf::Vector2f& pos,
-                           const sf::Vector2f& scale, float rotation, bool centerOnOrigin,
-                           bool loopOverride, bool canLoop) const {
+void AnimationData::render(sf::RenderTarget& target, sf::RenderStates states, float elapsedTime,
+                           const sf::Vector2f& pos, const sf::Vector2f& scale, float rotation,
+                           bool centerOnOrigin, bool loopOverride, bool canLoop) const {
     if (frames.empty()) return;
 
     const bool isLoop = loopOverride ? canLoop : loop;

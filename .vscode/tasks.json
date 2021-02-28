@@ -34,7 +34,7 @@
         {
             "label": "unit test",
             "type": "shell",
-            "command": "cd build/tests && ./BLIB.t",
+            "command": "cd build/tests && ./BLIB.t --gtest_color=no",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -46,7 +46,7 @@
         {
             "label": "filtered tests",
             "type": "shell",
-            "command": "cd build/tests && ./BLIB.t --gtest_filter=${input:tfilter} -v",
+            "command": "cd build/tests && ./BLIB.t --gtest_filter=${input:tfilter} -v --gtest_color=no",
             "group": {
                 "kind": "build",
                 "isDefault": true

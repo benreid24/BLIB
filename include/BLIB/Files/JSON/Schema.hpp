@@ -1,7 +1,7 @@
-#ifndef BLIB_FILES_SCHEMA_HPP
-#define BLIB_FILES_SCHEMA_HPP
+#ifndef BLIB_FILES_JSON_SCHEMA_HPP
+#define BLIB_FILES_JSON_SCHEMA_HPP
 
-#include <BLIB/Files/JSON.hpp>
+#include <BLIB/Files/JSON/JSON.hpp>
 
 #include <memory>
 #include <optional>

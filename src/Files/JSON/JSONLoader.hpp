@@ -1,7 +1,7 @@
 #ifndef BLIB_FILES_JSONLOADER_HPP
 #define BLIB_FILES_JSONLOADER_HPP
 
-#include <BLIB/Files/JSON.hpp>
+#include <BLIB/Files/JSON/JSON.hpp>
 #include <sstream>
 
 namespace bl

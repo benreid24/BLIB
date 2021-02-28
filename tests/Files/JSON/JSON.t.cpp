@@ -1,4 +1,4 @@
-#include <BLIB/Files/JSON.hpp>
+#include <BLIB/Files/JSON/JSON.hpp>
 
 #include <BLIB/Files/FileUtil.hpp>
 #include <gmock/gmock.h>
