@@ -25,7 +25,7 @@ bool AnimationData::load(const std::string& filename, const std::string& sprites
     frames.clear();
     totalLength = 0;
 
-    BinaryFile file(filename, BinaryFile::Read);
+    bf::BinaryFile file(filename, bf::BinaryFile::Read);
     const std::string path = FileUtil::getPath(filename);
 
     std::string sheet;

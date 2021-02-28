@@ -10,13 +10,15 @@
 
 namespace bl
 {
+namespace bf
+{
 /**
  * @brief Utility class to read and write binary data. Endianness agnostic
  *        Floating point types are not supported. To store floating point
  *        values, simply store an integral type and multiply/divide on
  *        save/load
  *
- * @ingroup Files
+ * @ingroup BinaryFiles
  */
 class BinaryFile : private NonCopyable {
 public:
@@ -151,6 +153,7 @@ inline bool BinaryFile::good() {
     return handle.good() && !eof;
 }
 
+} // namespace bf
 } // namespace bl
 
 #endif
