@@ -108,6 +108,12 @@ public:
      */
     const T& getValue() const;
 
+    /**
+     * @brief Implicit conversion to the underlying type
+     *
+     */
+    operator T() const;
+
 private:
     T value;
 };
@@ -147,6 +153,11 @@ SerializableField<T>& SerializableField<T>::operator=(const T& v) {
 
 template<typename T>
 const T& SerializableField<T>::getValue() const {
+    return value;
+}
+
+template<typename T>
+SerializableField<T>::operator T() const {
     return value;
 }
 

@@ -35,6 +35,8 @@ public:
 
     SerializableField& operator=(const T& v);
 
+    operator T() const;
+
     SerializableField(const SerializableField&) = delete;
 
 private:
@@ -71,6 +73,11 @@ template<typename T>
 SerializableField<T>& SerializableField<T>::operator=(const T& v) {
     value = v;
     return *this;
+}
+
+template<typename T>
+SerializableField<T>::operator T() const {
+    return value;
 }
 
 } // namespace bf

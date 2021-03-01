@@ -70,6 +70,16 @@ public:
     typename std::enable_if<std::is_integral_v<T>, bool>::type read(T& output);
 
     /**
+     * @brief Peeks the integral type from the file without moving the cursor
+     *
+     * @tparam T The type to read. Be explicit with bit width and sign
+     * @param output Variable to write the read value to
+     * @return bool True if the value could be read
+     */
+    template<typename T>
+    typename std::enable_if<std::is_integral_v<T>, bool>::type peek(T& output);
+
+    /**
      * @brief Reads a string from the file
      *
      * @param output Variable to write the read string to
@@ -105,7 +115,7 @@ template<typename T>
 typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::write(const T& data) {
     if (!handle.good() || mode != Write) return false;
 
-    const size_t size = sizeof(T);
+    const std::size_t size = sizeof(T);
     char bytes[size];
     std::memcpy(bytes, &data, size);
     if (FileUtil::isBigEndian()) {
@@ -126,7 +136,7 @@ template<typename T>
 typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::read(T& output) {
     if (!handle.good() || mode != Read) return false;
 
-    const size_t size = sizeof(output);
+    const std::size_t size = sizeof(output);
     char bytes[size];
 
     output = 0;
@@ -136,6 +146,14 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::read(T& o
     }
     std::memcpy(&output, bytes, size);
     return handle.good();
+}
+
+template<typename T>
+typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::peek(T& output) {
+    const std::size_t s = sizeof(T);
+    const bool r        = read<T>(output);
+    handle.seekg(handle.tellg() - s);
+    return r;
 }
 
 inline bool BinaryFile::read(std::string& output) {
