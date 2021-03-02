@@ -8,6 +8,39 @@ namespace bf
 {
 namespace unittest
 {
+TEST(BinaryFile, Peek) {
+    ASSERT_TRUE(FileUtil::createDirectory("temp"));
+    const std::string filename = FileUtil::genTempName("temp", "bin");
+
+    // test write
+    {
+        BinaryFile file(filename, BinaryFile::Write);
+        ASSERT_TRUE(file.good());
+        ASSERT_TRUE(file.write<uint32_t>(100));
+        ASSERT_TRUE(file.good());
+    }
+
+    // test read
+    {
+        BinaryFile file(filename, BinaryFile::Read);
+        ASSERT_TRUE(file.good());
+
+        uint32_t u32 = 0;
+        ASSERT_TRUE(file.peek<uint32_t>(u32));
+        EXPECT_EQ(u32, 100);
+
+        ASSERT_TRUE(file.good());
+
+        u32 = 0;
+        ASSERT_TRUE(file.read<uint32_t>(u32));
+        EXPECT_EQ(u32, 100);
+
+        EXPECT_FALSE(file.good());
+    }
+
+    ASSERT_TRUE(FileUtil::deleteFile(filename));
+}
+
 TEST(BinaryFile, Integers) {
     ASSERT_TRUE(FileUtil::createDirectory("temp"));
     const std::string filename = FileUtil::genTempName("temp", "bin");
