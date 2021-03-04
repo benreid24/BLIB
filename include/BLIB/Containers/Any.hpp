@@ -185,9 +185,9 @@ Any<Size>& Any<Size>::operator=(const T& value) {
 
     clear();
     if constexpr (sizeof(T) < Size) {
-        object                   = inplace;
-        *static_cast<T*>(object) = value;
-        heap                     = false;
+        object = inplace;
+        new (static_cast<T*>(object)) T(value);
+        heap = false;
     }
     else {
         object = new T(value);
@@ -253,7 +253,7 @@ void Any<Size>::operate(Any<Size>& obj, const Any<Size>* copy) {
         if (obj.heap) { obj.object = new T(*static_cast<T*>(copy->object)); }
         else {
             obj.object                   = obj.inplace;
-            *static_cast<T*>(obj.object) = *static_cast<T*>(copy->object);
+            new (static_cast<T*>(obj.object)) T(*static_cast<T*>(copy->object));
         }
     }
     else {
