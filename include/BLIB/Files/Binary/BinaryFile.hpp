@@ -152,7 +152,7 @@ template<typename T>
 typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::peek(T& output) {
     const std::size_t s = sizeof(T);
     const bool r        = read<T>(output);
-    handle.seekg(handle.tellg() - s);
+    handle.seekg(handle.tellg() - std::streamoff(s));
     return r;
 }
 
