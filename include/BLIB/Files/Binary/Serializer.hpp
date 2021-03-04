@@ -10,6 +10,15 @@ namespace bl
 {
 namespace bf
 {
+/**
+ * @brief Helper struct for serializing types into binary files. Integral types, strings, vector,
+ *        and SerializableObjects are supported out of the box. Specializations may be provided for
+ *        user defined types
+ *
+ * @tparam T The type to serialize
+ * @tparam bool Helper for integral specialization. Can be ignored
+ * @ingroup BinaryFiles
+ */
 template<typename T, bool = std::is_integral<T>::value>
 struct Serializer {
     static bool serialize(BinaryFile& output, const T& value);

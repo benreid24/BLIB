@@ -66,9 +66,9 @@ TEST(VersionedBinaryFile, DefaultLoader) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedBinaryFile<Payload, DefaultLoader> file("vbin_default.bin");
-    ASSERT_TRUE(file.write(orig));
-    ASSERT_TRUE(file.read(loaded));
+    VersionedBinaryFile<Payload, DefaultLoader> file;
+    ASSERT_TRUE(file.write("vbin_default.bin", orig));
+    ASSERT_TRUE(file.read("vbin_default.bin", loaded));
 
     EXPECT_EQ(loaded.ogField, 42);
     EXPECT_EQ(loaded.ogString, "hello");
@@ -80,10 +80,9 @@ TEST(VersionedBinaryFile, MultipleVersions) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1, Version2> file(
-        "vbin_default.bin");
-    ASSERT_TRUE(file.write(orig));
-    ASSERT_TRUE(file.read(loaded));
+    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1, Version2> file;
+    ASSERT_TRUE(file.write("vbin_default.bin", orig));
+    ASSERT_TRUE(file.read("vbin_default.bin", loaded));
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
     EXPECT_EQ(loaded.ogString, orig.ogString);
@@ -95,11 +94,10 @@ TEST(VersionedBinaryFile, LoadOldVersion) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1> oldfile("vbin_default.bin");
-    ASSERT_TRUE(oldfile.write(orig));
-    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile(
-        "vbin_default.bin");
-    ASSERT_TRUE(newfile.read(loaded));
+    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1> oldfile;
+    ASSERT_TRUE(oldfile.write("vbin_default.bin", orig));
+    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
+    ASSERT_TRUE(newfile.read("vbin_default.bin", loaded));
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
     EXPECT_EQ(loaded.ogString, orig.ogString);
@@ -111,11 +109,10 @@ TEST(VersionedBinaryFile, LoadNoVersion) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedBinaryFile<Payload, DefaultLoader> oldfile("vbin_default.bin");
-    ASSERT_TRUE(oldfile.write(orig));
-    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile(
-        "vbin_default.bin");
-    ASSERT_TRUE(newfile.read(loaded));
+    VersionedBinaryFile<Payload, DefaultLoader> oldfile;
+    ASSERT_TRUE(oldfile.write("vbin_default.bin", orig));
+    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
+    ASSERT_TRUE(newfile.read("vbin_default.bin", loaded));
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
     EXPECT_EQ(loaded.ogString, orig.ogString);
@@ -127,12 +124,11 @@ TEST(VersionedBinaryFile, BadVersion) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedBinaryFile<Payload, DefaultLoader, Version0> oldfile("vbin_default.bin");
-    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile(
-        "vbin_default.bin");
+    VersionedBinaryFile<Payload, DefaultLoader, Version0> oldfile;
+    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
 
-    ASSERT_TRUE(newfile.write(orig));
-    ASSERT_FALSE(oldfile.read(loaded));
+    ASSERT_TRUE(newfile.write("vbin_default.bin", orig));
+    ASSERT_FALSE(oldfile.read("vbin_default.bin", loaded));
 }
 
 } // namespace unittest
