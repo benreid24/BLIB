@@ -3,7 +3,7 @@
 
 #include <BLIB/Files/Binary/BinaryFile.hpp>
 
-#include <vector>
+#include <unordered_map>
 
 namespace bl
 {
@@ -62,10 +62,17 @@ public:
      */
     bool deserialize(BinaryFile& input);
 
-private:
-    std::vector<SerializableFieldBase*> fields;
+    /**
+     * @brief Returns the total size of this object when serialized, in bytes
+     *
+     * @return std::uint32_t Size of the serialized object, not including metadata
+     */
+    std::uint32_t size() const;
 
-    void addField(SerializableFieldBase* field);
+private:
+    std::unordered_map<std::uint16_t, SerializableFieldBase*> fields;
+
+    void addField(SerializableFieldBase* field, std::uint16_t id);
 
     friend class SerializableFieldBase;
 };

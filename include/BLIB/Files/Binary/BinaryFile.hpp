@@ -93,6 +93,14 @@ public:
     bool read(std::string& output);
 
     /**
+     * @brief Skips the given number of bytes if in Read mode
+     *
+     * @param bytes The number of bytes to skip
+     * @return True if the underlying stream is still valid, false otherwise
+     */
+    bool skip(std::size_t bytes);
+
+    /**
      * @brief Returns the status of the file handle
      *
      * @return bool Returns false if EOF is reached or the file did not exist
@@ -118,7 +126,7 @@ inline BinaryFile::BinaryFile(const std::string& path, OpenMode mode)
 
 inline BinaryFile::BinaryFile(std::iostream& s, OpenMode mode)
 : mode(mode)
-, stream(stream) {}
+, stream(s) {}
 
 template<typename T>
 typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::write(const T& data) {
@@ -172,6 +180,11 @@ inline bool BinaryFile::read(std::string& output) {
     char* buf = new char[size];
     stream.read(buf, size);
     output = std::string(buf, size);
+    return stream.good();
+}
+
+inline bool BinaryFile::skip(std::size_t bytes) {
+    stream.seekg(stream.tellg() + std::streamoff(bytes));
     return stream.good();
 }
 

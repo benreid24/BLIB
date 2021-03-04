@@ -22,8 +22,12 @@ public:
 
     virtual bool deserialize(BinaryFile& input) = 0;
 
+    virtual std::uint32_t size() const = 0;
+
+    virtual std::uint16_t id() const = 0;
+
 protected:
-    SerializableFieldBase(SerializableObject& owner);
+    SerializableFieldBase(SerializableObject& owner, std::uint16_t id);
 };
 
 /**
@@ -31,10 +35,11 @@ protected:
  *        integral types are supported out of the box, as well as SerializableObjects. User
  *        defined types must either implement SerializableObject or a custom version of Serializer
  *
+ * @tparam Id The id of this field. Must be unique within a SerializableObject
  * @tparam T The type of the field to be serialized
  * @ingroup BinaryFiles
  */
-template<typename T>
+template<std::uint16_t Id, typename T>
 class SerializableField : public SerializableFieldBase {
 public:
     /**
@@ -59,6 +64,20 @@ public:
      * @return True if read successfully, false if file is in bad state
      */
     virtual bool deserialize(BinaryFile& input) override;
+
+    /**
+     * @brief Returns the id of this field
+     *
+     * @return std::uint16_t The id of this field
+     */
+    virtual std::uint16_t id() const override;
+
+    /**
+     * @brief Returns the serialized size of this field
+     *
+     * @return std::uint32_t The number of bytes this field serializes to
+     */
+    virtual std::uint32_t size() const override;
 
     /**
      * @brief Explicit accessor for the field value
@@ -95,38 +114,48 @@ private:
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
-template<typename T>
-SerializableField<T>::SerializableField(SerializableObject& owner)
-: SerializableFieldBase(owner) {}
+template<std::uint16_t Id, typename T>
+SerializableField<Id, T>::SerializableField(SerializableObject& owner)
+: SerializableFieldBase(owner, Id) {}
 
-template<typename T>
-bool SerializableField<T>::serialize(BinaryFile& output) const {
+template<std::uint16_t Id, typename T>
+bool SerializableField<Id, T>::serialize(BinaryFile& output) const {
     return Serializer<T>::serialize(output, value);
 }
 
-template<typename T>
-bool SerializableField<T>::deserialize(BinaryFile& input) {
+template<std::uint16_t Id, typename T>
+bool SerializableField<Id, T>::deserialize(BinaryFile& input) {
     return Serializer<T>::deserialize(input, value);
 }
 
-template<typename T>
-const T& SerializableField<T>::getValue() const {
+template<std::uint16_t Id, typename T>
+std::uint16_t SerializableField<Id, T>::id() const {
+    return Id;
+}
+
+template<std::uint16_t Id, typename T>
+std::uint32_t SerializableField<Id, T>::size() const {
+    return Serializer<T>::size(value);
+}
+
+template<std::uint16_t Id, typename T>
+const T& SerializableField<Id, T>::getValue() const {
     return value;
 }
 
-template<typename T>
-void SerializableField<T>::setValue(const T& v) {
+template<std::uint16_t Id, typename T>
+void SerializableField<Id, T>::setValue(const T& v) {
     value = v;
 }
 
-template<typename T>
-SerializableField<T>& SerializableField<T>::operator=(const T& v) {
+template<std::uint16_t Id, typename T>
+SerializableField<Id, T>& SerializableField<Id, T>::operator=(const T& v) {
     value = v;
     return *this;
 }
 
-template<typename T>
-SerializableField<T>::operator T() const {
+template<std::uint16_t Id, typename T>
+SerializableField<Id, T>::operator T() const {
     return value;
 }
 
