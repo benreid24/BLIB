@@ -40,7 +40,7 @@ std::ostream& operator<<(std::ostream& os, const Data& data) {
 }
 
 void Data::saveToBin(const std::string& file) const {
-    bl::BinaryFile output(file, bl::BinaryFile::Write);
+    bl::bf::BinaryFile output(file, bl::bf::BinaryFile::Write);
 
     output.write(name);
     output.write<uint32_t>(points.size());
@@ -48,7 +48,7 @@ void Data::saveToBin(const std::string& file) const {
 }
 
 bool Data::loadFromBin(const std::string& file) {
-    bl::BinaryFile input(file, bl::BinaryFile::Read);
+    bl::bf::BinaryFile input(file, bl::bf::BinaryFile::Read);
     if (!input.good()) return false;
 
     if (!input.read(name)) return false;
