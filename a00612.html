@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::FastEraseVector&lt; T, Alloc &gt; Class Template Reference</title>
+<title>BLIB: bl::DynamicObjectPool&lt; T &gt;::IteratorType&lt; EType &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,150 +63,312 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00560.html">bl</a></li><li class="navelem"><a class="el" href="a00612.html">FastEraseVector</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00608.html">DynamicObjectPool</a></li><li class="navelem"><a class="el" href="a00612.html">IteratorType</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a00609.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::FastEraseVector&lt; T, Alloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00545.html">Containers</a></div></div>  </div>
+<div class="title">bl::DynamicObjectPool&lt; T &gt;::IteratorType&lt; EType &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a00612.html#ae195fd1b98fdb4ff789c2f3cc668a81d" title="Erase a single element using an iterator. ">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy.  
+<p>Iterator for traversing the object pool. Use Iterator or ConstIterator.  
  <a href="a00612.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00014_source.html">FastEraseVector.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::FastEraseVector&lt; T, Alloc &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a00612.png" usemap="#bl::FastEraseVector_3C_20T_2C_20Alloc_20_3E_map" alt=""/>
-  <map id="bl::FastEraseVector_3C_20T_2C_20Alloc_20_3E_map" name="bl::FastEraseVector_3C_20T_2C_20Alloc_20_3E_map">
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a35283a9452b799039ec8d5ca67973184"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html#a35283a9452b799039ec8d5ca67973184">iterator</a> = typename std::vector&lt; T, Alloc &gt;::<a class="el" href="a00612.html#a35283a9452b799039ec8d5ca67973184">iterator</a></td></tr>
-<tr class="separator:a35283a9452b799039ec8d5ca67973184"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae195fd1b98fdb4ff789c2f3cc668a81d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html#ae195fd1b98fdb4ff789c2f3cc668a81d">erase</a> (<a class="el" href="a00612.html#a35283a9452b799039ec8d5ca67973184">iterator</a> position)</td></tr>
-<tr class="memdesc:ae195fd1b98fdb4ff789c2f3cc668a81d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase a single element using an iterator.  <a href="#ae195fd1b98fdb4ff789c2f3cc668a81d">More...</a><br /></td></tr>
-<tr class="separator:ae195fd1b98fdb4ff789c2f3cc668a81d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11f13c4577e2d61f07e1a406ee45f902"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html#a11f13c4577e2d61f07e1a406ee45f902">erase</a> (std::size_t index)</td></tr>
-<tr class="memdesc:a11f13c4577e2d61f07e1a406ee45f902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase a single element using an index.  <a href="#a11f13c4577e2d61f07e1a406ee45f902">More...</a><br /></td></tr>
-<tr class="separator:a11f13c4577e2d61f07e1a406ee45f902"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeeabbc3ce1f8bee808c4ad4b74280479"><td class="memItemLeft" align="right" valign="top">EType &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html#aeeabbc3ce1f8bee808c4ad4b74280479">operator*</a> ()</td></tr>
+<tr class="memdesc:aeeabbc3ce1f8bee808c4ad4b74280479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the underlying object. Undefined behavior if invalid.  <a href="#aeeabbc3ce1f8bee808c4ad4b74280479">More...</a><br /></td></tr>
+<tr class="separator:aeeabbc3ce1f8bee808c4ad4b74280479"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a204fac6f4ce220f79b57d0585f36059e"><td class="memItemLeft" align="right" valign="top">EType *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html#a204fac6f4ce220f79b57d0585f36059e">operator-&gt;</a> ()</td></tr>
+<tr class="memdesc:a204fac6f4ce220f79b57d0585f36059e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the underlying object. Undefined behavior if invalid.  <a href="#a204fac6f4ce220f79b57d0585f36059e">More...</a><br /></td></tr>
+<tr class="separator:a204fac6f4ce220f79b57d0585f36059e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cf3eecc57de85a0d5356d7b6d3f5ff5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00612.html">IteratorType</a>&lt; EType &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html#a3cf3eecc57de85a0d5356d7b6d3f5ff5">operator++</a> ()</td></tr>
+<tr class="memdesc:a3cf3eecc57de85a0d5356d7b6d3f5ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies this iterator to point to the next object in the pool.  <a href="#a3cf3eecc57de85a0d5356d7b6d3f5ff5">More...</a><br /></td></tr>
+<tr class="separator:a3cf3eecc57de85a0d5356d7b6d3f5ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3efa5cd288ac11b147eb98508f4dc697"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00612.html">IteratorType</a>&lt; EType &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html#a3efa5cd288ac11b147eb98508f4dc697">operator--</a> ()</td></tr>
+<tr class="memdesc:a3efa5cd288ac11b147eb98508f4dc697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies this iterator to point to the previous object in the pool.  <a href="#a3efa5cd288ac11b147eb98508f4dc697">More...</a><br /></td></tr>
+<tr class="separator:a3efa5cd288ac11b147eb98508f4dc697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc0c326e56df48bb9977c00f16a185b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00612.html">IteratorType</a>&lt; EType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html#abc0c326e56df48bb9977c00f16a185b0">operator+</a> (int d) const</td></tr>
+<tr class="memdesc:abc0c326e56df48bb9977c00f16a185b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic addition operator. This operation is linear with respect to d.  <a href="#abc0c326e56df48bb9977c00f16a185b0">More...</a><br /></td></tr>
+<tr class="separator:abc0c326e56df48bb9977c00f16a185b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9e3b53a7b5e8c62e626d68cbc3a0247"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00612.html">IteratorType</a>&lt; EType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html#ab9e3b53a7b5e8c62e626d68cbc3a0247">operator-</a> (int d) const</td></tr>
+<tr class="memdesc:ab9e3b53a7b5e8c62e626d68cbc3a0247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic subtraction operator. This operation is linear with respect to d.  <a href="#ab9e3b53a7b5e8c62e626d68cbc3a0247">More...</a><br /></td></tr>
+<tr class="separator:ab9e3b53a7b5e8c62e626d68cbc3a0247"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c081d408b9931263e78a8cc37b0aead"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html#a0c081d408b9931263e78a8cc37b0aead">operator==</a> (const <a class="el" href="a00612.html">IteratorType</a>&lt; EType &gt; &amp;iterator) const</td></tr>
+<tr class="memdesc:a0c081d408b9931263e78a8cc37b0aead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares whether two iterators are equal.  <a href="#a0c081d408b9931263e78a8cc37b0aead">More...</a><br /></td></tr>
+<tr class="separator:a0c081d408b9931263e78a8cc37b0aead"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b9a668e74ef5ca9328e2be0874e3390"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html#a5b9a668e74ef5ca9328e2be0874e3390">operator!=</a> (const <a class="el" href="a00612.html">IteratorType</a>&lt; EType &gt; &amp;iterator) const</td></tr>
+<tr class="memdesc:a5b9a668e74ef5ca9328e2be0874e3390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares whether two iterators are not equal.  <a href="#a5b9a668e74ef5ca9328e2be0874e3390">More...</a><br /></td></tr>
+<tr class="separator:a5b9a668e74ef5ca9328e2be0874e3390"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a160fce7459a78c991f2c66f1bfd56fec"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html#a160fce7459a78c991f2c66f1bfd56fec">DynamicObjectPool</a></td></tr>
+<tr class="separator:a160fce7459a78c991f2c66f1bfd56fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class T, class Alloc = std::allocator&lt;T&gt;&gt;<br />
-class bl::FastEraseVector&lt; T, Alloc &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+template&lt;typename EType&gt;<br />
+struct bl::DynamicObjectPool&lt; T &gt;::IteratorType&lt; EType &gt;</h3>
 
-<p>A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a00612.html#ae195fd1b98fdb4ff789c2f3cc668a81d" title="Erase a single element using an iterator. ">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy. </p>
+<p>Iterator for traversing the object pool. Use Iterator or ConstIterator. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Type of object to store </td></tr>
-    <tr><td class="paramname">Alloc</td><td>Allocator type to use, defaults to std::allocator&lt;T&gt; </td></tr>
+    <tr><td class="paramname">EType</td><td>Either T or const T </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00019">19</a> of file <a class="el" href="a00014_source.html">FastEraseVector.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a35283a9452b799039ec8d5ca67973184"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35283a9452b799039ec8d5ca67973184">&#9670;&nbsp;</a></span>iterator</h2>
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00028">28</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5b9a668e74ef5ca9328e2be0874e3390"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b9a668e74ef5ca9328e2be0874e3390">&#9670;&nbsp;</a></span>operator!=()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T , class Alloc  = std::allocator&lt;T&gt;&gt; </div>
+template&lt;typename T&gt; </div>
+<div class="memtemplate">
+template&lt;typename EType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00612.html">bl::FastEraseVector</a>&lt; T, Alloc &gt;::<a class="el" href="a00612.html#a35283a9452b799039ec8d5ca67973184">iterator</a> =  typename std::vector&lt;T, Alloc&gt;::<a class="el" href="a00612.html#a35283a9452b799039ec8d5ca67973184">iterator</a></td>
+          <td class="memname">bool <a class="el" href="a00608.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00612.html">IteratorType</a>&lt; ET &gt;::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00612.html">IteratorType</a>&lt; EType &gt; &amp;&#160;</td>
+          <td class="paramname"><em>iterator</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00021">21</a> of file <a class="el" href="a00014_source.html">FastEraseVector.hpp</a>.</p>
+<p>Compares whether two iterators are not equal. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00301">301</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae195fd1b98fdb4ff789c2f3cc668a81d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae195fd1b98fdb4ff789c2f3cc668a81d">&#9670;&nbsp;</a></span>erase() <span class="overload">[1/2]</span></h2>
+<a id="aeeabbc3ce1f8bee808c4ad4b74280479"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeeabbc3ce1f8bee808c4ad4b74280479">&#9670;&nbsp;</a></span>operator*()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T , class Alloc &gt; </div>
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename ET &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a00612.html">bl::FastEraseVector</a>&lt; T, Alloc &gt;::erase </td>
+          <td class="memname">ET &amp; <a class="el" href="a00608.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00612.html">IteratorType</a>&lt; ET &gt;::operator* </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00612.html#a35283a9452b799039ec8d5ca67973184">iterator</a>&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Erase a single element using an iterator. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>Element to erase </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Returns a reference to the underlying object. Undefined behavior if invalid. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00041">41</a> of file <a class="el" href="a00014_source.html">FastEraseVector.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00246">246</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a11f13c4577e2d61f07e1a406ee45f902"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11f13c4577e2d61f07e1a406ee45f902">&#9670;&nbsp;</a></span>erase() <span class="overload">[2/2]</span></h2>
+<a id="abc0c326e56df48bb9977c00f16a185b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc0c326e56df48bb9977c00f16a185b0">&#9670;&nbsp;</a></span>operator+()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T , class Alloc &gt; </div>
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename ET &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a00612.html">bl::FastEraseVector</a>&lt; T, Alloc &gt;::erase </td>
+          <td class="memname"><a class="el" href="a00608.html">DynamicObjectPool</a>&lt; T &gt;::template <a class="el" href="a00612.html">IteratorType</a>&lt; ET &gt; <a class="el" href="a00608.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00612.html">IteratorType</a>&lt; ET &gt;::operator+ </td>
           <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>index</em></td><td>)</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>d</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Basic addition operator. This operation is linear with respect to d. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00278">278</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3cf3eecc57de85a0d5356d7b6d3f5ff5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cf3eecc57de85a0d5356d7b6d3f5ff5">&#9670;&nbsp;</a></span>operator++()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename ET &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00608.html">DynamicObjectPool</a>&lt; T &gt;::template <a class="el" href="a00612.html">IteratorType</a>&lt; ET &gt; &amp; <a class="el" href="a00608.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00612.html">IteratorType</a>&lt; ET &gt;::operator++ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Erase a single element using an index. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>Element to erase </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Modifies this iterator to point to the next object in the pool. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00047">47</a> of file <a class="el" href="a00014_source.html">FastEraseVector.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00259">259</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Containers/<a class="el" href="a00014_source.html">FastEraseVector.hpp</a></li>
+<a id="ab9e3b53a7b5e8c62e626d68cbc3a0247"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9e3b53a7b5e8c62e626d68cbc3a0247">&#9670;&nbsp;</a></span>operator-()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename ET &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00608.html">DynamicObjectPool</a>&lt; T &gt;::template <a class="el" href="a00612.html">IteratorType</a>&lt; ET &gt; <a class="el" href="a00608.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00612.html">IteratorType</a>&lt; ET &gt;::operator- </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>d</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Basic subtraction operator. This operation is linear with respect to d. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00287">287</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3efa5cd288ac11b147eb98508f4dc697"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3efa5cd288ac11b147eb98508f4dc697">&#9670;&nbsp;</a></span>operator--()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename ET &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00608.html">DynamicObjectPool</a>&lt; T &gt;::template <a class="el" href="a00612.html">IteratorType</a>&lt; ET &gt; &amp; <a class="el" href="a00608.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00612.html">IteratorType</a>&lt; ET &gt;::operator-- </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Modifies this iterator to point to the previous object in the pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00269">269</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a204fac6f4ce220f79b57d0585f36059e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a204fac6f4ce220f79b57d0585f36059e">&#9670;&nbsp;</a></span>operator->()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename ET &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">ET * <a class="el" href="a00608.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00612.html">IteratorType</a>&lt; ET &gt;::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the underlying object. Undefined behavior if invalid. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00252">252</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0c081d408b9931263e78a8cc37b0aead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c081d408b9931263e78a8cc37b0aead">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<div class="memtemplate">
+template&lt;typename EType&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00608.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00612.html">IteratorType</a>&lt; ET &gt;::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00612.html">IteratorType</a>&lt; EType &gt; &amp;&#160;</td>
+          <td class="paramname"><em>iterator</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compares whether two iterators are equal. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00295">295</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a160fce7459a78c991f2c66f1bfd56fec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a160fce7459a78c991f2c66f1bfd56fec">&#9670;&nbsp;</a></span>DynamicObjectPool</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<div class="memtemplate">
+template&lt;typename EType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a00608.html">DynamicObjectPool</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00083">83</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Containers/<a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 28 2021 21:31:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 4 2021 05:25:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

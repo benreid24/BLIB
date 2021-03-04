@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['label',['Label',['../a00816.html',1,'bl::gui']]],
-  ['library',['Library',['../a01172.html',1,'bl::scripts']]],
-  ['linepacker',['LinePacker',['../a00868.html',1,'bl::gui']]],
-  ['list',['List',['../a00724.html',1,'bl::json::schema']]],
-  ['loader',['Loader',['../a01152.html',1,'bl::json']]],
-  ['locationevent',['LocationEvent',['../a00948.html',1,'bl::menu::Event']]],
-  ['logger',['Logger',['../a00900.html',1,'bl']]],
-  ['loggingconfig',['LoggingConfig',['../a00904.html',1,'bl']]]
+  ['label',['Label',['../a00864.html',1,'bl::gui']]],
+  ['lastvariadic',['LastVariadic',['../a01180.html',1,'bl']]],
+  ['library',['Library',['../a01228.html',1,'bl::scripts']]],
+  ['linepacker',['LinePacker',['../a00916.html',1,'bl::gui']]],
+  ['list',['List',['../a00772.html',1,'bl::json::schema']]],
+  ['loader',['Loader',['../a01208.html',1,'bl::json']]],
+  ['locationevent',['LocationEvent',['../a00996.html',1,'bl::menu::Event']]],
+  ['logger',['Logger',['../a00948.html',1,'bl']]],
+  ['loggingconfig',['LoggingConfig',['../a00952.html',1,'bl']]]
 ];

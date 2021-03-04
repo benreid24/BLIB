@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::Engine Class Reference</title>
+<title>BLIB: bl::RingBuffer&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00560.html">bl</a></li><li class="navelem"><a class="el" href="a00628.html">Engine</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00628.html">RingBuffer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,87 +71,112 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00625.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::Engine Class Reference<div class="ingroups"><a class="el" href="a00546.html">Engine</a></div></div>  </div>
+<div class="title">bl::RingBuffer&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00551.html">Containers</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Core engine class that owns engine resources and the main game loop.  
+<p>Simple circular buffer implementation for small objects. Underlying storage is a std::vector. Objects may not be destructed until they are rolled over.  
  <a href="a00628.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01367_source.html">Engine.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00020_source.html">RingBuffer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af30571d658388782ed57de2f5a606640"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#af30571d658388782ed57de2f5a606640">Engine</a> (const <a class="el" href="a00640.html">engine::Settings</a> &amp;<a class="el" href="a00628.html#a2612d7a75c4047f8d87caa2473e84b82">settings</a>)</td></tr>
-<tr class="memdesc:af30571d658388782ed57de2f5a606640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the game engine from the given settings.  <a href="#af30571d658388782ed57de2f5a606640">More...</a><br /></td></tr>
-<tr class="separator:af30571d658388782ed57de2f5a606640"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3907896c4da998afc7c914ed643366d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a3907896c4da998afc7c914ed643366d0">useWindow</a> (sf::RenderWindow &amp;<a class="el" href="a00628.html#a1a8d0a905c8c2acb2629169cb7e2c664">window</a>)</td></tr>
-<tr class="memdesc:a3907896c4da998afc7c914ed643366d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the window for the <a class="el" href="a00628.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> to render to and process events for.  <a href="#a3907896c4da998afc7c914ed643366d0">More...</a><br /></td></tr>
-<tr class="separator:a3907896c4da998afc7c914ed643366d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb2ab4ea3262809326dc0b46beac99eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00561.html#aa7ca1c925706d2a33dd2d821a945ceca">engine::EventDispatcher</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#abb2ab4ea3262809326dc0b46beac99eb">engineEventDispatcher</a> ()</td></tr>
-<tr class="memdesc:abb2ab4ea3262809326dc0b46beac99eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the engine event dispatcher.  <a href="#abb2ab4ea3262809326dc0b46beac99eb">More...</a><br /></td></tr>
-<tr class="separator:abb2ab4ea3262809326dc0b46beac99eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0106d0e85f6bbba47dac2274b0480d0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00560.html#a71469c99c37bba2898231806ffbf43f8">WindowEventDispatcher</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a0106d0e85f6bbba47dac2274b0480d0a">windowEventDispatcher</a> ()</td></tr>
-<tr class="memdesc:a0106d0e85f6bbba47dac2274b0480d0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the window event dispatcher.  <a href="#a0106d0e85f6bbba47dac2274b0480d0a">More...</a><br /></td></tr>
-<tr class="separator:a0106d0e85f6bbba47dac2274b0480d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2612d7a75c4047f8d87caa2473e84b82"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00640.html">engine::Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a2612d7a75c4047f8d87caa2473e84b82">settings</a> () const</td></tr>
-<tr class="memdesc:a2612d7a75c4047f8d87caa2473e84b82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the settings the engine is using.  <a href="#a2612d7a75c4047f8d87caa2473e84b82">More...</a><br /></td></tr>
-<tr class="separator:a2612d7a75c4047f8d87caa2473e84b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97ebe46cdae29abec923fe0929ecd12e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00636.html">engine::Flags</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a97ebe46cdae29abec923fe0929ecd12e">flags</a> ()</td></tr>
-<tr class="memdesc:a97ebe46cdae29abec923fe0929ecd12e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the flags that can be set to control <a class="el" href="a00628.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> behavior.  <a href="#a97ebe46cdae29abec923fe0929ecd12e">More...</a><br /></td></tr>
-<tr class="separator:a97ebe46cdae29abec923fe0929ecd12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a8d0a905c8c2acb2629169cb7e2c664"><td class="memItemLeft" align="right" valign="top">sf::RenderWindow &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a1a8d0a905c8c2acb2629169cb7e2c664">window</a> ()</td></tr>
-<tr class="memdesc:a1a8d0a905c8c2acb2629169cb7e2c664"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the window being managed. Undefined behavior if no window.  <a href="#a1a8d0a905c8c2acb2629169cb7e2c664">More...</a><br /></td></tr>
-<tr class="separator:a1a8d0a905c8c2acb2629169cb7e2c664"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98259aa7a3297ded0aecade98d0c89ac"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a98259aa7a3297ded0aecade98d0c89ac">run</a> (<a class="el" href="a00644.html#af13f7b9dd4d6e317dbc378896ddcf6d5">engine::State::Ptr</a> initialState)</td></tr>
-<tr class="memdesc:a98259aa7a3297ded0aecade98d0c89ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the main game loop starting in the given initial state. This is the main application loop and runs for the duration of the program. All setup should be performed prior to calling this.  <a href="#a98259aa7a3297ded0aecade98d0c89ac">More...</a><br /></td></tr>
-<tr class="separator:a98259aa7a3297ded0aecade98d0c89ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8db41e61bd20ab8793d227463e3b53b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a8db41e61bd20ab8793d227463e3b53b0">nextState</a> (<a class="el" href="a00644.html#af13f7b9dd4d6e317dbc378896ddcf6d5">engine::State::Ptr</a> next)</td></tr>
-<tr class="memdesc:a8db41e61bd20ab8793d227463e3b53b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the next state for the following engine update loop. May be called at any time, the next state will not be transitioned to until the start of main loop. If the Popstate flag is set, that will be evaluated before the new state is pushed.  <a href="#a8db41e61bd20ab8793d227463e3b53b0">More...</a><br /></td></tr>
-<tr class="separator:a8db41e61bd20ab8793d227463e3b53b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bd71c5da80581cfd3a0d1f0cacf29a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a2bd71c5da80581cfd3a0d1f0cacf29a0">RingBuffer</a> (std::size_t <a class="el" href="a00628.html#aa66e1a34344ce15fad3e7a25a058fde1">capacity</a>)</td></tr>
+<tr class="memdesc:a2bd71c5da80581cfd3a0d1f0cacf29a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Ring Buffer with the given capacity.  <a href="#a2bd71c5da80581cfd3a0d1f0cacf29a0">More...</a><br /></td></tr>
+<tr class="separator:a2bd71c5da80581cfd3a0d1f0cacf29a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45866fc329ff3edb41fab191b771e29c"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a45866fc329ff3edb41fab191b771e29c">operator[]</a> (std::size_t i)</td></tr>
+<tr class="memdesc:a45866fc329ff3edb41fab191b771e29c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the element at the given position.  <a href="#a45866fc329ff3edb41fab191b771e29c">More...</a><br /></td></tr>
+<tr class="separator:a45866fc329ff3edb41fab191b771e29c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7d870ae9b76e4536f38e6b0df41b922"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#ae7d870ae9b76e4536f38e6b0df41b922">operator[]</a> (std::size_t i) const</td></tr>
+<tr class="memdesc:ae7d870ae9b76e4536f38e6b0df41b922"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the element at the given position.  <a href="#ae7d870ae9b76e4536f38e6b0df41b922">More...</a><br /></td></tr>
+<tr class="separator:ae7d870ae9b76e4536f38e6b0df41b922"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0b95f4289ad291332cadd36cc5d1f12"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#ae0b95f4289ad291332cadd36cc5d1f12">front</a> ()</td></tr>
+<tr class="memdesc:ae0b95f4289ad291332cadd36cc5d1f12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the front object.  <a href="#ae0b95f4289ad291332cadd36cc5d1f12">More...</a><br /></td></tr>
+<tr class="separator:ae0b95f4289ad291332cadd36cc5d1f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adedd17a794a1c01deaffc61969494255"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#adedd17a794a1c01deaffc61969494255">front</a> () const</td></tr>
+<tr class="memdesc:adedd17a794a1c01deaffc61969494255"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the front object.  <a href="#adedd17a794a1c01deaffc61969494255">More...</a><br /></td></tr>
+<tr class="separator:adedd17a794a1c01deaffc61969494255"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f499b7e437994f45acb3c0743e331b7"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a5f499b7e437994f45acb3c0743e331b7">back</a> ()</td></tr>
+<tr class="memdesc:a5f499b7e437994f45acb3c0743e331b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the back object.  <a href="#a5f499b7e437994f45acb3c0743e331b7">More...</a><br /></td></tr>
+<tr class="separator:a5f499b7e437994f45acb3c0743e331b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeff936f4966cbcbf1627fe01948932eb"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#aeff936f4966cbcbf1627fe01948932eb">back</a> () const</td></tr>
+<tr class="memdesc:aeff936f4966cbcbf1627fe01948932eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the back object.  <a href="#aeff936f4966cbcbf1627fe01948932eb">More...</a><br /></td></tr>
+<tr class="separator:aeff936f4966cbcbf1627fe01948932eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa66e1a34344ce15fad3e7a25a058fde1"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#aa66e1a34344ce15fad3e7a25a058fde1">capacity</a> () const</td></tr>
+<tr class="memdesc:aa66e1a34344ce15fad3e7a25a058fde1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the capacity of the buffer.  <a href="#aa66e1a34344ce15fad3e7a25a058fde1">More...</a><br /></td></tr>
+<tr class="separator:aa66e1a34344ce15fad3e7a25a058fde1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace4579eba4a484864ea3b75be835bf2c"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#ace4579eba4a484864ea3b75be835bf2c">size</a> () const</td></tr>
+<tr class="memdesc:ace4579eba4a484864ea3b75be835bf2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of elements currently stored.  <a href="#ace4579eba4a484864ea3b75be835bf2c">More...</a><br /></td></tr>
+<tr class="separator:ace4579eba4a484864ea3b75be835bf2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48de7e1e125695f67c5b987cd8fb690c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a48de7e1e125695f67c5b987cd8fb690c">empty</a> () const</td></tr>
+<tr class="memdesc:a48de7e1e125695f67c5b987cd8fb690c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the buffer is empty.  <a href="#a48de7e1e125695f67c5b987cd8fb690c">More...</a><br /></td></tr>
+<tr class="separator:a48de7e1e125695f67c5b987cd8fb690c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87a72be1f3cb5973dcfb6d7b87ce9882"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a87a72be1f3cb5973dcfb6d7b87ce9882">full</a> () const</td></tr>
+<tr class="memdesc:a87a72be1f3cb5973dcfb6d7b87ce9882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the buffer is full. Adding more elements to a full buffer will result in the first elements getting popped off implicitly.  <a href="#a87a72be1f3cb5973dcfb6d7b87ce9882">More...</a><br /></td></tr>
+<tr class="separator:a87a72be1f3cb5973dcfb6d7b87ce9882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa29e854328ee3efd1e8c2ad0e3aa8002"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#aa29e854328ee3efd1e8c2ad0e3aa8002">push_back</a> (const T &amp;obj)</td></tr>
+<tr class="memdesc:aa29e854328ee3efd1e8c2ad0e3aa8002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a new element to the back of the buffer.  <a href="#aa29e854328ee3efd1e8c2ad0e3aa8002">More...</a><br /></td></tr>
+<tr class="separator:aa29e854328ee3efd1e8c2ad0e3aa8002"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ac636c14e1680a2b1ac787cc0c304d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00628.html#a7ac636c14e1680a2b1ac787cc0c304d4">pop_front</a> ()</td></tr>
+<tr class="memdesc:a7ac636c14e1680a2b1ac787cc0c304d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the element from the front of the buffer. Destructor may not be called immediately.  <a href="#a7ac636c14e1680a2b1ac787cc0c304d4">More...</a><br /></td></tr>
+<tr class="separator:a7ac636c14e1680a2b1ac787cc0c304d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Core engine class that owns engine resources and the main game loop. </p>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::RingBuffer&lt; T &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a01367_source.html#l00021">21</a> of file <a class="el" href="a01367_source.html">Engine.hpp</a>.</p>
+<p>Simple circular buffer implementation for small objects. Underlying storage is a std::vector. Objects may not be destructed until they are rolled over. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type of object to store </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00016">16</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af30571d658388782ed57de2f5a606640"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af30571d658388782ed57de2f5a606640">&#9670;&nbsp;</a></span>Engine()</h2>
+<a id="a2bd71c5da80581cfd3a0d1f0cacf29a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bd71c5da80581cfd3a0d1f0cacf29a0">&#9670;&nbsp;</a></span>RingBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::Engine::Engine </td>
+          <td class="memname"><a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::<a class="el" href="a00628.html">RingBuffer</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00640.html">engine::Settings</a> &amp;&#160;</td>
-          <td class="paramname"><em>settings</em></td><td>)</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>capacity</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates the game engine from the given settings. </p>
+<p>Construct a new Ring Buffer with the given capacity. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">settings</td><td>Settings for the engine to use </td></tr>
+    <tr><td class="paramname">capacity</td><td>Maximum buffer size </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00008">8</a> of file <a class="el" href="a00323_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00116">116</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="abb2ab4ea3262809326dc0b46beac99eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb2ab4ea3262809326dc0b46beac99eb">&#9670;&nbsp;</a></span>engineEventDispatcher()</h2>
+<a id="a5f499b7e437994f45acb3c0743e331b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f499b7e437994f45acb3c0743e331b7">&#9670;&nbsp;</a></span>back() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00561.html#aa7ca1c925706d2a33dd2d821a945ceca">engine::EventDispatcher</a> &amp; bl::Engine::engineEventDispatcher </td>
+          <td class="memname">T &amp; <a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::back </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -159,98 +184,22 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the engine event dispatcher. </p>
+<p>Returns a reference to the back object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00014">14</a> of file <a class="el" href="a00323_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00143">143</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a97ebe46cdae29abec923fe0929ecd12e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97ebe46cdae29abec923fe0929ecd12e">&#9670;&nbsp;</a></span>flags()</h2>
+<a id="aeff936f4966cbcbf1627fe01948932eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeff936f4966cbcbf1627fe01948932eb">&#9670;&nbsp;</a></span>back() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00636.html">engine::Flags</a> &amp; bl::Engine::flags </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the flags that can be set to control <a class="el" href="a00628.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> behavior. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00020">20</a> of file <a class="el" href="a00323_source.html">Engine.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8db41e61bd20ab8793d227463e3b53b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8db41e61bd20ab8793d227463e3b53b0">&#9670;&nbsp;</a></span>nextState()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::Engine::nextState </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00644.html#af13f7b9dd4d6e317dbc378896ddcf6d5">engine::State::Ptr</a>&#160;</td>
-          <td class="paramname"><em>next</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the next state for the following engine update loop. May be called at any time, the next state will not be transitioned to until the start of main loop. If the Popstate flag is set, that will be evaluated before the new state is pushed. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">next</td><td>Next state to enter on the following main loop run </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00024">24</a> of file <a class="el" href="a00323_source.html">Engine.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a98259aa7a3297ded0aecade98d0c89ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98259aa7a3297ded0aecade98d0c89ac">&#9670;&nbsp;</a></span>run()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int bl::Engine::run </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00644.html#af13f7b9dd4d6e317dbc378896ddcf6d5">engine::State::Ptr</a>&#160;</td>
-          <td class="paramname"><em>initialState</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Runs the main game loop starting in the given initial state. This is the main application loop and runs for the duration of the program. All setup should be performed prior to calling this. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">initialState</td><td>The starting engine state </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>int Return code of the program </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00026">26</a> of file <a class="el" href="a00323_source.html">Engine.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2612d7a75c4047f8d87caa2473e84b82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2612d7a75c4047f8d87caa2473e84b82">&#9670;&nbsp;</a></span>settings()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a00640.html">engine::Settings</a> &amp; bl::Engine::settings </td>
+          <td class="memname">const T &amp; <a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::back </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -258,91 +207,274 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the settings the engine is using. </p>
+<p>Returns a reference to the back object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00018">18</a> of file <a class="el" href="a00323_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00148">148</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3907896c4da998afc7c914ed643366d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3907896c4da998afc7c914ed643366d0">&#9670;&nbsp;</a></span>useWindow()</h2>
+<a id="aa66e1a34344ce15fad3e7a25a058fde1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa66e1a34344ce15fad3e7a25a058fde1">&#9670;&nbsp;</a></span>capacity()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void bl::Engine::useWindow </td>
+          <td class="memname">std::size_t <a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::capacity </td>
           <td>(</td>
-          <td class="paramtype">sf::RenderWindow &amp;&#160;</td>
-          <td class="paramname"><em>window</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the capacity of the buffer. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::size_t The maximum number of elements that may be stored </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00163">163</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a48de7e1e125695f67c5b987cd8fb690c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48de7e1e125695f67c5b987cd8fb690c">&#9670;&nbsp;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::empty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the buffer is empty. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00158">158</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae0b95f4289ad291332cadd36cc5d1f12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0b95f4289ad291332cadd36cc5d1f12">&#9670;&nbsp;</a></span>front() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; <a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::front </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the window for the <a class="el" href="a00628.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> to render to and process events for. </p>
+<p>Returns a reference to the front object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00133">133</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adedd17a794a1c01deaffc61969494255"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adedd17a794a1c01deaffc61969494255">&#9670;&nbsp;</a></span>front() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; <a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::front </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the front object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00138">138</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a87a72be1f3cb5973dcfb6d7b87ce9882"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87a72be1f3cb5973dcfb6d7b87ce9882">&#9670;&nbsp;</a></span>full()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::full </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if the buffer is full. Adding more elements to a full buffer will result in the first elements getting popped off implicitly. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00168">168</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a45866fc329ff3edb41fab191b771e29c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45866fc329ff3edb41fab191b771e29c">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; <a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Access the element at the given position. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">window</td><td>Reference to the window to use, must remain valid </td></tr>
+    <tr><td class="paramname">i</td><td>Position to access </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T&amp; Reference to the element to retrieve. Always valid even if out of bounds </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00123">123</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae7d870ae9b76e4536f38e6b0df41b922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7d870ae9b76e4536f38e6b0df41b922">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; <a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Access the element at the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>Position to access </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T&amp; Const reference to the element to retrieve. Always valid even if out of bounds </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00128">128</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7ac636c14e1680a2b1ac787cc0c304d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ac636c14e1680a2b1ac787cc0c304d4">&#9670;&nbsp;</a></span>pop_front()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::pop_front </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the element from the front of the buffer. Destructor may not be called immediately. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00184">184</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa29e854328ee3efd1e8c2ad0e3aa8002"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa29e854328ee3efd1e8c2ad0e3aa8002">&#9670;&nbsp;</a></span>push_back()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::push_back </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends a new element to the back of the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>Element to add </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00012">12</a> of file <a class="el" href="a00323_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00173">173</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a1a8d0a905c8c2acb2629169cb7e2c664"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a8d0a905c8c2acb2629169cb7e2c664">&#9670;&nbsp;</a></span>window()</h2>
+<a id="ace4579eba4a484864ea3b75be835bf2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace4579eba4a484864ea3b75be835bf2c">&#9670;&nbsp;</a></span>size()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">sf::RenderWindow &amp; bl::Engine::window </td>
+          <td class="memname">std::size_t <a class="el" href="a00628.html">bl::RingBuffer</a>&lt; T &gt;::size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the window being managed. Undefined behavior if no window. </p>
+<p>Returns the number of elements currently stored. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00022">22</a> of file <a class="el" href="a00323_source.html">Engine.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0106d0e85f6bbba47dac2274b0480d0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0106d0e85f6bbba47dac2274b0480d0a">&#9670;&nbsp;</a></span>windowEventDispatcher()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00560.html#a71469c99c37bba2898231806ffbf43f8">WindowEventDispatcher</a> &amp; bl::Engine::windowEventDispatcher </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the window event dispatcher. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00016">16</a> of file <a class="el" href="a00323_source.html">Engine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00153">153</a> of file <a class="el" href="a00020_source.html">RingBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Engine/<a class="el" href="a01367_source.html">Engine.hpp</a></li>
-<li>src/Engine/<a class="el" href="a00323_source.html">Engine.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Containers/<a class="el" href="a00020_source.html">RingBuffer.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 28 2021 21:31:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 4 2021 05:25:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

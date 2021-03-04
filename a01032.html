@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::Parser Class Reference</title>
+<title>BLIB: bl::menu::SpriteRenderItem Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,173 +63,81 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00560.html">bl</a></li><li class="navelem"><a class="el" href="a01032.html">Parser</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00574.html">menu</a></li><li class="navelem"><a class="el" href="a01032.html">SpriteRenderItem</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a01029.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::Parser Class Reference<div class="ingroups"><a class="el" href="a00554.html">Parser</a></div></div>  </div>
+<div class="title">bl::menu::SpriteRenderItem Class Reference<div class="ingroups"><a class="el" href="a00560.html">Menu</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Top level <a class="el" href="a01032.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> class. Implements a basic LR0 parser from a Grammar and Tokenizer.  
+<p><a class="el" href="a01028.html" title="Abstract base class for any Item that can be rendered by a Menu. ">RenderItem</a> for displaying sprites in a <a class="el" href="a01016.html" title="Primary class for mouseless menus. ">Menu</a>.  
  <a href="a01032.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01397_source.html">Parser.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00221_source.html">SpriteRenderItem.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::menu::SpriteRenderItem:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01032.png" usemap="#bl::menu::SpriteRenderItem_map" alt=""/>
+  <map id="bl::menu::SpriteRenderItem_map" name="bl::menu::SpriteRenderItem_map">
+<area href="a01028.html" title="Abstract base class for any Item that can be rendered by a Menu. " alt="bl::menu::RenderItem" shape="rect" coords="0,0,160,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ab36d2f8eebeaee69c459403529eb5af4"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a01032.html">SpriteRenderItem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html#ab36d2f8eebeaee69c459403529eb5af4">Ptr</a></td></tr>
+<tr class="separator:ab36d2f8eebeaee69c459403529eb5af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a28f2cd9fed6e56d61d2dda7e501b8e21"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html#a28f2cd9fed6e56d61d2dda7e501b8e21">Parser</a> (const <a class="el" href="a01004.html">parser::Grammar</a> &amp;grammar, const <a class="el" href="a01048.html">parser::Tokenizer</a> &amp;tokenizer)</td></tr>
-<tr class="memdesc:a28f2cd9fed6e56d61d2dda7e501b8e21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01032.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> object.  <a href="#a28f2cd9fed6e56d61d2dda7e501b8e21">More...</a><br /></td></tr>
-<tr class="separator:a28f2cd9fed6e56d61d2dda7e501b8e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a514519ce362818dff13219e5ab915874"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html#a514519ce362818dff13219e5ab915874">valid</a> () const</td></tr>
-<tr class="memdesc:a514519ce362818dff13219e5ab915874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the grammar is supported and parse tables were created.  <a href="#a514519ce362818dff13219e5ab915874">More...</a><br /></td></tr>
-<tr class="separator:a514519ce362818dff13219e5ab915874"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b8360fc5086a674c7d0bbf081b2501d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html#a7b8360fc5086a674c7d0bbf081b2501d">parse</a> (<a class="el" href="a01044.html">parser::Stream</a> &amp;input) const</td></tr>
-<tr class="memdesc:a7b8360fc5086a674c7d0bbf081b2501d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the input stream into a parse tree of Nodes.  <a href="#a7b8360fc5086a674c7d0bbf081b2501d">More...</a><br /></td></tr>
-<tr class="separator:a7b8360fc5086a674c7d0bbf081b2501d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06c1404d4e0276c9119460ccdf80eade"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html#a06c1404d4e0276c9119460ccdf80eade">parse</a> (const std::string &amp;input) const</td></tr>
-<tr class="memdesc:a06c1404d4e0276c9119460ccdf80eade"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience method to avoid manually creating a Stream.  <a href="#a06c1404d4e0276c9119460ccdf80eade">More...</a><br /></td></tr>
-<tr class="separator:a06c1404d4e0276c9119460ccdf80eade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2bff856eb015f520c886a2250b0db2b"><td class="memItemLeft" align="right" valign="top">sf::Sprite &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html#af2bff856eb015f520c886a2250b0db2b">getSprite</a> ()</td></tr>
+<tr class="memdesc:af2bff856eb015f520c886a2250b0db2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a modifiable reference to the contained sprite.  <a href="#af2bff856eb015f520c886a2250b0db2b">More...</a><br /></td></tr>
+<tr class="separator:af2bff856eb015f520c886a2250b0db2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7c1a105c2fa2a5c933dad05c651d69d"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html#aa7c1a105c2fa2a5c933dad05c651d69d">getSize</a> () const override</td></tr>
+<tr class="separator:aa7c1a105c2fa2a5c933dad05c651d69d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a756922dd6ff66f5e2b24450b53f854d6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html#a756922dd6ff66f5e2b24450b53f854d6">render</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const sf::Vector2f &amp;position) const override</td></tr>
+<tr class="separator:a756922dd6ff66f5e2b24450b53f854d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a14010ec614ea08d573fabfb9d00a9ca7"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html#a14010ec614ea08d573fabfb9d00a9ca7">parser::unittest::TableReader</a></td></tr>
-<tr class="separator:a14010ec614ea08d573fabfb9d00a9ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a86c28aa8ebfe738c0263bd8da26fab3b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01028.html#a6f1ae2f79b2d4437421e69201da2b08e">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html#a86c28aa8ebfe738c0263bd8da26fab3b">create</a> (const sf::Sprite &amp;sprite)</td></tr>
+<tr class="memdesc:a86c28aa8ebfe738c0263bd8da26fab3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create the render item from a sprite.  <a href="#a86c28aa8ebfe738c0263bd8da26fab3b">More...</a><br /></td></tr>
+<tr class="separator:a86c28aa8ebfe738c0263bd8da26fab3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Top level <a class="el" href="a01032.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> class. Implements a basic LR0 parser from a Grammar and Tokenizer. </p>
+<div class="textblock"><p><a class="el" href="a01028.html" title="Abstract base class for any Item that can be rendered by a Menu. ">RenderItem</a> for displaying sprites in a <a class="el" href="a01016.html" title="Primary class for mouseless menus. ">Menu</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01397_source.html#l00022">22</a> of file <a class="el" href="a01397_source.html">Parser.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a28f2cd9fed6e56d61d2dda7e501b8e21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28f2cd9fed6e56d61d2dda7e501b8e21">&#9670;&nbsp;</a></span>Parser()</h2>
+<p class="definition">Definition at line <a class="el" href="a00221_source.html#l00017">17</a> of file <a class="el" href="a00221_source.html">SpriteRenderItem.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ab36d2f8eebeaee69c459403529eb5af4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab36d2f8eebeaee69c459403529eb5af4">&#9670;&nbsp;</a></span>Ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::Parser::Parser </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01004.html">parser::Grammar</a> &amp;&#160;</td>
-          <td class="paramname"><em>grammar</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01048.html">parser::Tokenizer</a> &amp;&#160;</td>
-          <td class="paramname"><em>tokenizer</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a01032.html">SpriteRenderItem</a>&gt; <a class="el" href="a01032.html#ab36d2f8eebeaee69c459403529eb5af4">bl::menu::SpriteRenderItem::Ptr</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a01032.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> object. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">grammar</td><td>The Grammar to use </td></tr>
-    <tr><td class="paramname">tokenizer</td><td>The Tokenizer to use </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01406_source.html#l00090">90</a> of file <a class="el" href="a01406_source.html">Parser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00221_source.html#l00019">19</a> of file <a class="el" href="a00221_source.html">SpriteRenderItem.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7b8360fc5086a674c7d0bbf081b2501d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b8360fc5086a674c7d0bbf081b2501d">&#9670;&nbsp;</a></span>parse() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">Node::Ptr</a> bl::Parser::parse </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01044.html">parser::Stream</a> &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Parses the input stream into a parse tree of Nodes. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">input</td><td>The stream to tokenize and parse </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> The root of the tree, or nullptr if error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01406_source.html#l00104">104</a> of file <a class="el" href="a01406_source.html">Parser.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a06c1404d4e0276c9119460ccdf80eade"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06c1404d4e0276c9119460ccdf80eade">&#9670;&nbsp;</a></span>parse() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">Node::Ptr</a> bl::Parser::parse </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Convenience method to avoid manually creating a Stream. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> parse(parser::Stream&amp; input)</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">input</td><td>Input to parse into tree </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> The generated parse tree or nullptr on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01406_source.html#l00099">99</a> of file <a class="el" href="a01406_source.html">Parser.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a514519ce362818dff13219e5ab915874"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a514519ce362818dff13219e5ab915874">&#9670;&nbsp;</a></span>valid()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::Parser::valid </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns true if the grammar is supported and parse tables were created. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01406_source.html#l00097">97</a> of file <a class="el" href="a01406_source.html">Parser.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a14010ec614ea08d573fabfb9d00a9ca7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14010ec614ea08d573fabfb9d00a9ca7">&#9670;&nbsp;</a></span>parser::unittest::TableReader</h2>
+<a id="a86c28aa8ebfe738c0263bd8da26fab3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86c28aa8ebfe738c0263bd8da26fab3b">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,29 +146,133 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class parser::unittest::TableReader</td>
+          <td class="memname"><a class="el" href="a01032.html#ab36d2f8eebeaee69c459403529eb5af4">SpriteRenderItem::Ptr</a> bl::menu::SpriteRenderItem::create </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Sprite &amp;&#160;</td>
+          <td class="paramname"><em>sprite</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01397_source.html#l00081">81</a> of file <a class="el" href="a01397_source.html">Parser.hpp</a>.</p>
+<p>Create the render item from a sprite. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00494_source.html#l00007">7</a> of file <a class="el" href="a00494_source.html">SpriteRenderItem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa7c1a105c2fa2a5c933dad05c651d69d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7c1a105c2fa2a5c933dad05c651d69d">&#9670;&nbsp;</a></span>getSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2f bl::menu::SpriteRenderItem::getSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01028.html#aecfc85f5f33435428070ec4c3f000750" title="Return the untransformed size of the object. ">RenderItem::getSize</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01028.html#aecfc85f5f33435428070ec4c3f000750">bl::menu::RenderItem</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00494_source.html#l00016">16</a> of file <a class="el" href="a00494_source.html">SpriteRenderItem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af2bff856eb015f520c886a2250b0db2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2bff856eb015f520c886a2250b0db2b">&#9670;&nbsp;</a></span>getSprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Sprite &amp; bl::menu::SpriteRenderItem::getSprite </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a modifiable reference to the contained sprite. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00494_source.html#l00014">14</a> of file <a class="el" href="a00494_source.html">SpriteRenderItem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a756922dd6ff66f5e2b24450b53f854d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a756922dd6ff66f5e2b24450b53f854d6">&#9670;&nbsp;</a></span>render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::menu::SpriteRenderItem::render </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>position</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01028.html#aa4b753af65febaa1a41a146a010d7373" title="Render the item to the given target. ">RenderItem::render</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01028.html#aa4b753af65febaa1a41a146a010d7373">bl::menu::RenderItem</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00494_source.html#l00020">20</a> of file <a class="el" href="a00494_source.html">SpriteRenderItem.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Parser/<a class="el" href="a01397_source.html">Parser.hpp</a></li>
-<li>src/Parser/<a class="el" href="a01406_source.html">Parser.cpp</a></li>
+<li>include/BLIB/Menu/RenderItems/<a class="el" href="a00221_source.html">SpriteRenderItem.hpp</a></li>
+<li>src/Menu/RenderItems/<a class="el" href="a00494_source.html">SpriteRenderItem.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 28 2021 21:31:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 4 2021 05:25:53 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

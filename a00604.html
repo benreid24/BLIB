@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::DynamicObjectPool&lt; T &gt;::IteratorType&lt; EType &gt; Struct Template Reference</title>
+<title>BLIB: bl::Cache&lt; TKey, TPayload &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,312 +63,491 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00560.html">bl</a></li><li class="navelem"><a class="el" href="a00600.html">DynamicObjectPool</a></li><li class="navelem"><a class="el" href="a00604.html">IteratorType</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00604.html">Cache</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a00601.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::DynamicObjectPool&lt; T &gt;::IteratorType&lt; EType &gt; Struct Template Reference</div>  </div>
+<div class="title">bl::Cache&lt; TKey, TPayload &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00564.html">Util</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Iterator for traversing the object pool. Use Iterator or ConstIterator.  
+<p>Auto-evicting cache with several policy options and programmable watermarks.  
  <a href="a00604.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00008_source.html">Cache.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ac80fb4c1367dd7491949102cfd182183"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#ac80fb4c1367dd7491949102cfd182183">EvictionPolicy</a> { <a class="el" href="a00604.html#ac80fb4c1367dd7491949102cfd182183af4d62b1dc4db03c785cf29d39eed5b9b">LeastRecentlyAccessed</a>, 
+<a class="el" href="a00604.html#ac80fb4c1367dd7491949102cfd182183ae5a393865651b36f1baaa8cdc0f6c4b6">LeastRecentlyModified</a>, 
+<a class="el" href="a00604.html#ac80fb4c1367dd7491949102cfd182183aa1fca12c5506e44a8f964f2477028d5b">FirstInFirstOut</a>
+ }<tr class="memdesc:ac80fb4c1367dd7491949102cfd182183"><td class="mdescLeft">&#160;</td><td class="mdescRight">Policy that dictates which items are removed when the high watermark is reached.  <a href="a00604.html#ac80fb4c1367dd7491949102cfd182183">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ac80fb4c1367dd7491949102cfd182183"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e7b54dcc6da60129c773b2d8ed57e0d"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; TPayload &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a2e7b54dcc6da60129c773b2d8ed57e0d">Item</a></td></tr>
+<tr class="separator:a2e7b54dcc6da60129c773b2d8ed57e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aeeabbc3ce1f8bee808c4ad4b74280479"><td class="memItemLeft" align="right" valign="top">EType &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#aeeabbc3ce1f8bee808c4ad4b74280479">operator*</a> ()</td></tr>
-<tr class="memdesc:aeeabbc3ce1f8bee808c4ad4b74280479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the underlying object. Undefined behavior if invalid.  <a href="#aeeabbc3ce1f8bee808c4ad4b74280479">More...</a><br /></td></tr>
-<tr class="separator:aeeabbc3ce1f8bee808c4ad4b74280479"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a204fac6f4ce220f79b57d0585f36059e"><td class="memItemLeft" align="right" valign="top">EType *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a204fac6f4ce220f79b57d0585f36059e">operator-&gt;</a> ()</td></tr>
-<tr class="memdesc:a204fac6f4ce220f79b57d0585f36059e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the underlying object. Undefined behavior if invalid.  <a href="#a204fac6f4ce220f79b57d0585f36059e">More...</a><br /></td></tr>
-<tr class="separator:a204fac6f4ce220f79b57d0585f36059e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cf3eecc57de85a0d5356d7b6d3f5ff5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00604.html">IteratorType</a>&lt; EType &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a3cf3eecc57de85a0d5356d7b6d3f5ff5">operator++</a> ()</td></tr>
-<tr class="memdesc:a3cf3eecc57de85a0d5356d7b6d3f5ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies this iterator to point to the next object in the pool.  <a href="#a3cf3eecc57de85a0d5356d7b6d3f5ff5">More...</a><br /></td></tr>
-<tr class="separator:a3cf3eecc57de85a0d5356d7b6d3f5ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3efa5cd288ac11b147eb98508f4dc697"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00604.html">IteratorType</a>&lt; EType &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a3efa5cd288ac11b147eb98508f4dc697">operator--</a> ()</td></tr>
-<tr class="memdesc:a3efa5cd288ac11b147eb98508f4dc697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies this iterator to point to the previous object in the pool.  <a href="#a3efa5cd288ac11b147eb98508f4dc697">More...</a><br /></td></tr>
-<tr class="separator:a3efa5cd288ac11b147eb98508f4dc697"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc0c326e56df48bb9977c00f16a185b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00604.html">IteratorType</a>&lt; EType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#abc0c326e56df48bb9977c00f16a185b0">operator+</a> (int d) const</td></tr>
-<tr class="memdesc:abc0c326e56df48bb9977c00f16a185b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic addition operator. This operation is linear with respect to d.  <a href="#abc0c326e56df48bb9977c00f16a185b0">More...</a><br /></td></tr>
-<tr class="separator:abc0c326e56df48bb9977c00f16a185b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9e3b53a7b5e8c62e626d68cbc3a0247"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00604.html">IteratorType</a>&lt; EType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#ab9e3b53a7b5e8c62e626d68cbc3a0247">operator-</a> (int d) const</td></tr>
-<tr class="memdesc:ab9e3b53a7b5e8c62e626d68cbc3a0247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic subtraction operator. This operation is linear with respect to d.  <a href="#ab9e3b53a7b5e8c62e626d68cbc3a0247">More...</a><br /></td></tr>
-<tr class="separator:ab9e3b53a7b5e8c62e626d68cbc3a0247"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c081d408b9931263e78a8cc37b0aead"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a0c081d408b9931263e78a8cc37b0aead">operator==</a> (const <a class="el" href="a00604.html">IteratorType</a>&lt; EType &gt; &amp;iterator) const</td></tr>
-<tr class="memdesc:a0c081d408b9931263e78a8cc37b0aead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares whether two iterators are equal.  <a href="#a0c081d408b9931263e78a8cc37b0aead">More...</a><br /></td></tr>
-<tr class="separator:a0c081d408b9931263e78a8cc37b0aead"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b9a668e74ef5ca9328e2be0874e3390"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a5b9a668e74ef5ca9328e2be0874e3390">operator!=</a> (const <a class="el" href="a00604.html">IteratorType</a>&lt; EType &gt; &amp;iterator) const</td></tr>
-<tr class="memdesc:a5b9a668e74ef5ca9328e2be0874e3390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares whether two iterators are not equal.  <a href="#a5b9a668e74ef5ca9328e2be0874e3390">More...</a><br /></td></tr>
-<tr class="separator:a5b9a668e74ef5ca9328e2be0874e3390"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a160fce7459a78c991f2c66f1bfd56fec"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a160fce7459a78c991f2c66f1bfd56fec">DynamicObjectPool</a></td></tr>
-<tr class="separator:a160fce7459a78c991f2c66f1bfd56fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afae4d5d86d5f8e537aa6f0cd3df7deb2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#afae4d5d86d5f8e537aa6f0cd3df7deb2">Cache</a> (<a class="el" href="a00604.html#ac80fb4c1367dd7491949102cfd182183">EvictionPolicy</a> policy=<a class="el" href="a00604.html#ac80fb4c1367dd7491949102cfd182183af4d62b1dc4db03c785cf29d39eed5b9b">LeastRecentlyAccessed</a>, unsigned int lowWatermark=1000, unsigned int highWatermark=2000)</td></tr>
+<tr class="memdesc:afae4d5d86d5f8e537aa6f0cd3df7deb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new cache with the given eviction policy and watermarks.  <a href="#afae4d5d86d5f8e537aa6f0cd3df7deb2">More...</a><br /></td></tr>
+<tr class="separator:afae4d5d86d5f8e537aa6f0cd3df7deb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a211a33267c1bbe9647a7662399b3d891"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a211a33267c1bbe9647a7662399b3d891">add</a> (const TKey &amp;key, const <a class="el" href="a00604.html#a2e7b54dcc6da60129c773b2d8ed57e0d">Item</a> &amp;item)</td></tr>
+<tr class="memdesc:a211a33267c1bbe9647a7662399b3d891"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an item to the cache. Will fail if the key is already in use.  <a href="#a211a33267c1bbe9647a7662399b3d891">More...</a><br /></td></tr>
+<tr class="separator:a211a33267c1bbe9647a7662399b3d891"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6e2c01a2556b7553d0d112bd961649f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#af6e2c01a2556b7553d0d112bd961649f">add</a> (const TKey &amp;key, const TPayload &amp;item)</td></tr>
+<tr class="memdesc:af6e2c01a2556b7553d0d112bd961649f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an item to the cache. Will fail if the key is already in use.  <a href="#af6e2c01a2556b7553d0d112bd961649f">More...</a><br /></td></tr>
+<tr class="separator:af6e2c01a2556b7553d0d112bd961649f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9d6837b5f9b3c751e493319809499f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00604.html#a2e7b54dcc6da60129c773b2d8ed57e0d">Item</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#ac9d6837b5f9b3c751e493319809499f9">getForOwn</a> (const TKey &amp;key)</td></tr>
+<tr class="memdesc:ac9d6837b5f9b3c751e493319809499f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the storage object to allow calling code to take ownership of the stored item, if found.  <a href="#ac9d6837b5f9b3c751e493319809499f9">More...</a><br /></td></tr>
+<tr class="separator:ac9d6837b5f9b3c751e493319809499f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65f9ba0212928cc1f801ae2f559154f6"><td class="memItemLeft" align="right" valign="top">TPayload *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a65f9ba0212928cc1f801ae2f559154f6">getForWrite</a> (const TKey &amp;key)</td></tr>
+<tr class="memdesc:a65f9ba0212928cc1f801ae2f559154f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the given item to be modified, if found.  <a href="#a65f9ba0212928cc1f801ae2f559154f6">More...</a><br /></td></tr>
+<tr class="separator:a65f9ba0212928cc1f801ae2f559154f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfb52c0a3dfff1858598fb347ada2820"><td class="memItemLeft" align="right" valign="top">const TPayload *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#abfb52c0a3dfff1858598fb347ada2820">getForRead</a> (const TKey &amp;key) const</td></tr>
+<tr class="memdesc:abfb52c0a3dfff1858598fb347ada2820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an immutible item for reading, if found.  <a href="#abfb52c0a3dfff1858598fb347ada2820">More...</a><br /></td></tr>
+<tr class="separator:abfb52c0a3dfff1858598fb347ada2820"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5223d042888b11ebf85b997a0d938cdb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a5223d042888b11ebf85b997a0d938cdb">erase</a> (const TKey &amp;key)</td></tr>
+<tr class="memdesc:a5223d042888b11ebf85b997a0d938cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the item from the cache and reports if successful.  <a href="#a5223d042888b11ebf85b997a0d938cdb">More...</a><br /></td></tr>
+<tr class="separator:a5223d042888b11ebf85b997a0d938cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c0dc838a4cbe0f7fb97b5cc05bf12ac"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a4c0dc838a4cbe0f7fb97b5cc05bf12ac">empty</a> () const</td></tr>
+<tr class="memdesc:a4c0dc838a4cbe0f7fb97b5cc05bf12ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the cache is empty.  <a href="#a4c0dc838a4cbe0f7fb97b5cc05bf12ac">More...</a><br /></td></tr>
+<tr class="separator:a4c0dc838a4cbe0f7fb97b5cc05bf12ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e1eead256b72df3dd87c97e4c574c70"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a9e1eead256b72df3dd87c97e4c574c70">size</a> () const</td></tr>
+<tr class="memdesc:a9e1eead256b72df3dd87c97e4c574c70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns how many elements are currently contained.  <a href="#a9e1eead256b72df3dd87c97e4c574c70">More...</a><br /></td></tr>
+<tr class="separator:a9e1eead256b72df3dd87c97e4c574c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dbdbe914308d9b0ab28283c7b8ac5f3"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; TKey, TPayload &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a1dbdbe914308d9b0ab28283c7b8ac5f3">begin</a> ()</td></tr>
+<tr class="memdesc:a1dbdbe914308d9b0ab28283c7b8ac5f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the first element in the cache.  <a href="#a1dbdbe914308d9b0ab28283c7b8ac5f3">More...</a><br /></td></tr>
+<tr class="separator:a1dbdbe914308d9b0ab28283c7b8ac5f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a290a7125aeaddf218287982f1793874d"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; TKey, TPayload &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00604.html#a290a7125aeaddf218287982f1793874d">end</a> ()</td></tr>
+<tr class="memdesc:a290a7125aeaddf218287982f1793874d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the last element in the cache.  <a href="#a290a7125aeaddf218287982f1793874d">More...</a><br /></td></tr>
+<tr class="separator:a290a7125aeaddf218287982f1793874d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-template&lt;typename EType&gt;<br />
-struct bl::DynamicObjectPool&lt; T &gt;::IteratorType&lt; EType &gt;</h3>
+<div class="textblock"><h3>template&lt;typename TKey, typename TPayload&gt;<br />
+class bl::Cache&lt; TKey, TPayload &gt;</h3>
 
-<p>Iterator for traversing the object pool. Use Iterator or ConstIterator. </p>
+<p>Auto-evicting cache with several policy options and programmable watermarks. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">EType</td><td>Either T or const T </td></tr>
+    <tr><td class="paramname">TKey</td><td>Key type for the cache </td></tr>
+    <tr><td class="paramname">TPayload</td><td>The type of data to store in the cache </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00028">28</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5b9a668e74ef5ca9328e2be0874e3390"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b9a668e74ef5ca9328e2be0874e3390">&#9670;&nbsp;</a></span>operator!=()</h2>
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00021">21</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a2e7b54dcc6da60129c773b2d8ed57e0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e7b54dcc6da60129c773b2d8ed57e0d">&#9670;&nbsp;</a></span>Item</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
-<div class="memtemplate">
-template&lt;typename EType&gt; </div>
+template&lt;typename TKey, typename TPayload&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="a00600.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00604.html">IteratorType</a>&lt; ET &gt;::operator!= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00604.html">IteratorType</a>&lt; EType &gt; &amp;&#160;</td>
-          <td class="paramname"><em>iterator</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname">typedef std::shared_ptr&lt;TPayload&gt; <a class="el" href="a00604.html">bl::Cache</a>&lt; TKey, TPayload &gt;::<a class="el" href="a00604.html#a2e7b54dcc6da60129c773b2d8ed57e0d">Item</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Compares whether two iterators are not equal. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00301">301</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00023">23</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aeeabbc3ce1f8bee808c4ad4b74280479"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeeabbc3ce1f8bee808c4ad4b74280479">&#9670;&nbsp;</a></span>operator*()</h2>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="ac80fb4c1367dd7491949102cfd182183"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac80fb4c1367dd7491949102cfd182183">&#9670;&nbsp;</a></span>EvictionPolicy</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename ET &gt; </div>
+template&lt;typename TKey, typename TPayload&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">ET &amp; <a class="el" href="a00600.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00604.html">IteratorType</a>&lt; ET &gt;::operator* </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">enum <a class="el" href="a00604.html#ac80fb4c1367dd7491949102cfd182183">bl::Cache::EvictionPolicy</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the underlying object. Undefined behavior if invalid. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00246">246</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="abc0c326e56df48bb9977c00f16a185b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc0c326e56df48bb9977c00f16a185b0">&#9670;&nbsp;</a></span>operator+()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename ET &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00600.html">DynamicObjectPool</a>&lt; T &gt;::template <a class="el" href="a00604.html">IteratorType</a>&lt; ET &gt; <a class="el" href="a00600.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00604.html">IteratorType</a>&lt; ET &gt;::operator+ </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>d</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Basic addition operator. This operation is linear with respect to d. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00278">278</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3cf3eecc57de85a0d5356d7b6d3f5ff5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cf3eecc57de85a0d5356d7b6d3f5ff5">&#9670;&nbsp;</a></span>operator++()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename ET &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00600.html">DynamicObjectPool</a>&lt; T &gt;::template <a class="el" href="a00604.html">IteratorType</a>&lt; ET &gt; &amp; <a class="el" href="a00600.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00604.html">IteratorType</a>&lt; ET &gt;::operator++ </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Modifies this iterator to point to the next object in the pool. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00259">259</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab9e3b53a7b5e8c62e626d68cbc3a0247"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9e3b53a7b5e8c62e626d68cbc3a0247">&#9670;&nbsp;</a></span>operator-()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename ET &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00600.html">DynamicObjectPool</a>&lt; T &gt;::template <a class="el" href="a00604.html">IteratorType</a>&lt; ET &gt; <a class="el" href="a00600.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00604.html">IteratorType</a>&lt; ET &gt;::operator- </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>d</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Basic subtraction operator. This operation is linear with respect to d. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00287">287</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3efa5cd288ac11b147eb98508f4dc697"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3efa5cd288ac11b147eb98508f4dc697">&#9670;&nbsp;</a></span>operator--()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename ET &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00600.html">DynamicObjectPool</a>&lt; T &gt;::template <a class="el" href="a00604.html">IteratorType</a>&lt; ET &gt; &amp; <a class="el" href="a00600.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00604.html">IteratorType</a>&lt; ET &gt;::operator-- </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Modifies this iterator to point to the previous object in the pool. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00269">269</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a204fac6f4ce220f79b57d0585f36059e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a204fac6f4ce220f79b57d0585f36059e">&#9670;&nbsp;</a></span>operator->()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename ET &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">ET * <a class="el" href="a00600.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00604.html">IteratorType</a>&lt; ET &gt;::operator-&gt; </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the underlying object. Undefined behavior if invalid. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00252">252</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0c081d408b9931263e78a8cc37b0aead"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c081d408b9931263e78a8cc37b0aead">&#9670;&nbsp;</a></span>operator==()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-<div class="memtemplate">
-template&lt;typename EType&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a00600.html">bl::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00604.html">IteratorType</a>&lt; ET &gt;::operator== </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00604.html">IteratorType</a>&lt; EType &gt; &amp;&#160;</td>
-          <td class="paramname"><em>iterator</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Compares whether two iterators are equal. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00295">295</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a160fce7459a78c991f2c66f1bfd56fec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a160fce7459a78c991f2c66f1bfd56fec">&#9670;&nbsp;</a></span>DynamicObjectPool</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-<div class="memtemplate">
-template&lt;typename EType&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="a00600.html">DynamicObjectPool</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
+<p>Policy that dictates which items are removed when the high watermark is reached. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac80fb4c1367dd7491949102cfd182183af4d62b1dc4db03c785cf29d39eed5b9b"></a>LeastRecentlyAccessed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac80fb4c1367dd7491949102cfd182183ae5a393865651b36f1baaa8cdc0f6c4b6"></a>LeastRecentlyModified&#160;</td><td class="fielddoc"><p>Items that were not read or written recently are purged. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac80fb4c1367dd7491949102cfd182183aa1fca12c5506e44a8f964f2477028d5b"></a>FirstInFirstOut&#160;</td><td class="fielddoc"><p>Items that were not written recently are purged. </p>
+<p>Items are purged in the same order they were added in </p>
+</td></tr>
 </table>
+
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00029">29</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="afae4d5d86d5f8e537aa6f0cd3df7deb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afae4d5d86d5f8e537aa6f0cd3df7deb2">&#9670;&nbsp;</a></span>Cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00604.html">bl::Cache</a>&lt; TKey, TPayload &gt;::<a class="el" href="a00604.html">Cache</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00604.html#ac80fb4c1367dd7491949102cfd182183">EvictionPolicy</a>&#160;</td>
+          <td class="paramname"><em>policy</em> = <code><a class="el" href="a00604.html#ac80fb4c1367dd7491949102cfd182183af4d62b1dc4db03c785cf29d39eed5b9b">LeastRecentlyAccessed</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>lowWatermark</em> = <code>1000</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>highWatermark</em> = <code>2000</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00083">83</a> of file <a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a>.</p>
+<p>Creates a new cache with the given eviction policy and watermarks. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">policy</td><td>Eviction policy to use </td></tr>
+    <tr><td class="paramname">lowWatermark</td><td><a class="el" href="a00604.html" title="Auto-evicting cache with several policy options and programmable watermarks. ">Cache</a> size is reduced to lowWatermark when a purge is triggered </td></tr>
+    <tr><td class="paramname">highWatermark</td><td><a class="el" href="a00604.html" title="Auto-evicting cache with several policy options and programmable watermarks. ">Cache</a> is purged when this many items are stored </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00135">135</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Containers/<a class="el" href="a00011_source.html">DynamicObjectPool.hpp</a></li>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a211a33267c1bbe9647a7662399b3d891"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a211a33267c1bbe9647a7662399b3d891">&#9670;&nbsp;</a></span>add() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey, typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00604.html">bl::Cache</a>&lt; TKey, TPayload &gt;::add </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00604.html#a2e7b54dcc6da60129c773b2d8ed57e0d">Item</a> &amp;&#160;</td>
+          <td class="paramname"><em>item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add an item to the cache. Will fail if the key is already in use. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key of the item to store </td></tr>
+    <tr><td class="paramname">item</td><td>The item to store </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the item was added, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00147">147</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af6e2c01a2556b7553d0d112bd961649f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6e2c01a2556b7553d0d112bd961649f">&#9670;&nbsp;</a></span>add() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey, typename TPayload&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00604.html">bl::Cache</a>&lt; TKey, TPayload &gt;::add </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TPayload &amp;&#160;</td>
+          <td class="paramname"><em>item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add an item to the cache. Will fail if the key is already in use. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key of the item to store </td></tr>
+    <tr><td class="paramname">item</td><td>The item to store </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the item was added, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00142">142</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1dbdbe914308d9b0ab28283c7b8ac5f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dbdbe914308d9b0ab28283c7b8ac5f3">&#9670;&nbsp;</a></span>begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt; TKey, TPayload &gt;::iterator <a class="el" href="a00604.html">bl::Cache</a>&lt; TKey, TPayload &gt;::begin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns an iterator to the first element in the cache. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00204">204</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4c0dc838a4cbe0f7fb97b5cc05bf12ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c0dc838a4cbe0f7fb97b5cc05bf12ac">&#9670;&nbsp;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00604.html">bl::Cache</a>&lt; TKey, TPayload &gt;::empty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the cache is empty. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00214">214</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a290a7125aeaddf218287982f1793874d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a290a7125aeaddf218287982f1793874d">&#9670;&nbsp;</a></span>end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt; TKey, TPayload &gt;::iterator <a class="el" href="a00604.html">bl::Cache</a>&lt; TKey, TPayload &gt;::end </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns an iterator to the last element in the cache. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00209">209</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5223d042888b11ebf85b997a0d938cdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5223d042888b11ebf85b997a0d938cdb">&#9670;&nbsp;</a></span>erase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey, typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00604.html">bl::Cache</a>&lt; TKey, TPayload &gt;::erase </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the item from the cache and reports if successful. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key of the item to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the item was removed, false if not contained </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00191">191</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac9d6837b5f9b3c751e493319809499f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d6837b5f9b3c751e493319809499f9">&#9670;&nbsp;</a></span>getForOwn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey, typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00604.html">Cache</a>&lt; TKey, TPayload &gt;::<a class="el" href="a00604.html#a2e7b54dcc6da60129c773b2d8ed57e0d">Item</a> <a class="el" href="a00604.html">bl::Cache</a>&lt; TKey, TPayload &gt;::getForOwn </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the storage object to allow calling code to take ownership of the stored item, if found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key of the item to retrieve </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Item The item with the given key, or nullptr if not found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00160">160</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abfb52c0a3dfff1858598fb347ada2820"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfb52c0a3dfff1858598fb347ada2820">&#9670;&nbsp;</a></span>getForRead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey, typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const TPayload * <a class="el" href="a00604.html">bl::Cache</a>&lt; TKey, TPayload &gt;::getForRead </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns an immutible item for reading, if found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key of the item to read </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>const TPayload* Pointer to the item to read, nullptr if not found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00170">170</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a65f9ba0212928cc1f801ae2f559154f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65f9ba0212928cc1f801ae2f559154f6">&#9670;&nbsp;</a></span>getForWrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey, typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">TPayload * <a class="el" href="a00604.html">bl::Cache</a>&lt; TKey, TPayload &gt;::getForWrite </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a pointer to the given item to be modified, if found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key of the item to modify </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>TPayload* Pointer to the given item, nullptr if not found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00180">180</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9e1eead256b72df3dd87c97e4c574c70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e1eead256b72df3dd87c97e4c574c70">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="a00604.html">bl::Cache</a>&lt; TKey, TPayload &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns how many elements are currently contained. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00219">219</a> of file <a class="el" href="a00008_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Containers/<a class="el" href="a00008_source.html">Cache.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 28 2021 21:31:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 4 2021 05:25:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

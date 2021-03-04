@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::json::Schema Class Reference</title>
+<title>BLIB: bl::bf::VersionedBinaryFile&lt; Payload, DefaultLoader, Versions &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,57 +63,100 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00560.html">bl</a></li><li class="navelem"><a class="el" href="a00563.html">json</a></li><li class="navelem"><a class="el" href="a00728.html">Schema</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00570.html">bf</a></li><li class="navelem"><a class="el" href="a00728.html">VersionedBinaryFile</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00725.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::json::Schema Class Reference<div class="ingroups"><a class="el" href="a00548.html">JSON</a></div></div>  </div>
+<div class="title">bl::bf::VersionedBinaryFile&lt; Payload, DefaultLoader, Versions &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00554.html">BinaryFiles</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a nestable schema for <a class="el" href="a00704.html" title="Top level interface for loading and saving json data. ">JSON</a> objects. Equivilent to <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> <a class="el" href="a00728.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> can be used to define a data format for json, allowing for fields to be expected and constraining their types and values. Creating a <a class="el" href="a00728.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> for loading data can elimate the need for verbose error checking/handling in the code that reads the json data.  
+<p>Helper class to facilitate the versioning of binary files. Versions are represented by the provided loaders. Version numbers are derived from the template ordering so care must be taken to keep it consistent. A special header value is written to versioned files in order to detect versioned from non-versioned files.  
  <a href="a00728.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00071_source.html">Schema.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::bf::VersionedBinaryFile&lt; Payload, DefaultLoader, Versions &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00728.png" usemap="#bl::bf::VersionedBinaryFile_3C_20Payload_2C_20DefaultLoader_2C_20Versions_20_3E_map" alt=""/>
+  <map id="bl::bf::VersionedBinaryFile_3C_20Payload_2C_20DefaultLoader_2C_20Versions_20_3E_map" name="bl::bf::VersionedBinaryFile_3C_20Payload_2C_20DefaultLoader_2C_20Versions_20_3E_map">
+<area href="a01188.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::NonCopyable" shape="rect" coords="0,0,379,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a7bcf5a63cf15be31c69e61280ef5b922"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html#a7bcf5a63cf15be31c69e61280ef5b922">Loader</a> = <a class="el" href="a00724.html">VersionedPayloadLoader</a>&lt; Payload &gt;</td></tr>
+<tr class="separator:a7bcf5a63cf15be31c69e61280ef5b922"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a436ff37ef13e80febe5ed41802899a44"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html#a436ff37ef13e80febe5ed41802899a44">Schema</a> ()</td></tr>
-<tr class="memdesc:a436ff37ef13e80febe5ed41802899a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an empty <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a>.  <a href="#a436ff37ef13e80febe5ed41802899a44">More...</a><br /></td></tr>
-<tr class="separator:a436ff37ef13e80febe5ed41802899a44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4a5892e646935f4fd95f0a1a791ac94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html#ab4a5892e646935f4fd95f0a1a791ac94">overrideStrictValidation</a> (bool strict)</td></tr>
-<tr class="memdesc:ab4a5892e646935f4fd95f0a1a791ac94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows this group to override the strict validation setting. This setting is useful for when you want strict validation on data but want to exclude a nested group from strict validation.  <a href="#ab4a5892e646935f4fd95f0a1a791ac94">More...</a><br /></td></tr>
-<tr class="separator:ab4a5892e646935f4fd95f0a1a791ac94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71321cbc449fb03b169f0461a02c783c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html#a71321cbc449fb03b169f0461a02c783c">addRequiredField</a> (const std::string name, const <a class="el" href="a00708.html">schema::Value</a> &amp;value)</td></tr>
-<tr class="memdesc:a71321cbc449fb03b169f0461a02c783c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a required field to the data expectation. Validation fails if the field is not present.  <a href="#a71321cbc449fb03b169f0461a02c783c">More...</a><br /></td></tr>
-<tr class="separator:a71321cbc449fb03b169f0461a02c783c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4381fbf9fa9a3b079a83be5ee36d1c6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html#a4381fbf9fa9a3b079a83be5ee36d1c6c">addOptionalField</a> (const std::string name, const <a class="el" href="a00708.html">schema::Value</a> &amp;value)</td></tr>
-<tr class="memdesc:a4381fbf9fa9a3b079a83be5ee36d1c6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an optional field that may be present, but does not fail validation if missing. Type check still required.  <a href="#a4381fbf9fa9a3b079a83be5ee36d1c6c">More...</a><br /></td></tr>
-<tr class="separator:a4381fbf9fa9a3b079a83be5ee36d1c6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93764ff1d263a3ba8a57b371b979b06b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html#a93764ff1d263a3ba8a57b371b979b06b">addChoiceField</a> (const std::string name, const <a class="el" href="a00708.html">schema::Value</a> &amp;value)</td></tr>
-<tr class="memdesc:a93764ff1d263a3ba8a57b371b979b06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an option for an enum type <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a>. Allows a group to expect exactly one field from a list of possible fields.  <a href="#a93764ff1d263a3ba8a57b371b979b06b">More...</a><br /></td></tr>
-<tr class="separator:a93764ff1d263a3ba8a57b371b979b06b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90b405ec977beddca35025f07f560df3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html#a90b405ec977beddca35025f07f560df3">validate</a> (const <a class="el" href="a00696.html">Group</a> &amp;root, bool strict) const</td></tr>
-<tr class="memdesc:a90b405ec977beddca35025f07f560df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the given <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> against the set expectations.  <a href="#a90b405ec977beddca35025f07f560df3">More...</a><br /></td></tr>
-<tr class="separator:a90b405ec977beddca35025f07f560df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af26a6823334d48ae6185ca04261ef97c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html#af26a6823334d48ae6185ca04261ef97c">VersionedBinaryFile</a> ()</td></tr>
+<tr class="memdesc:af26a6823334d48ae6185ca04261ef97c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates instances of each loader type.  <a href="#af26a6823334d48ae6185ca04261ef97c">More...</a><br /></td></tr>
+<tr class="separator:af26a6823334d48ae6185ca04261ef97c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fcdaef5755b8b7869fd05cb90a875a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html#a1fcdaef5755b8b7869fd05cb90a875a8">~VersionedBinaryFile</a> ()</td></tr>
+<tr class="memdesc:a1fcdaef5755b8b7869fd05cb90a875a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys each created version loader.  <a href="#a1fcdaef5755b8b7869fd05cb90a875a8">More...</a><br /></td></tr>
+<tr class="separator:a1fcdaef5755b8b7869fd05cb90a875a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ab5de7e6ec42645c136e91ee6d39d35"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html#a0ab5de7e6ec42645c136e91ee6d39d35">write</a> (const std::string &amp;path, const Payload &amp;payload) const</td></tr>
+<tr class="memdesc:a0ab5de7e6ec42645c136e91ee6d39d35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given object to the given file.  <a href="#a0ab5de7e6ec42645c136e91ee6d39d35">More...</a><br /></td></tr>
+<tr class="separator:a0ab5de7e6ec42645c136e91ee6d39d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a626f456bb437b40af072780a5c6b0160"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html#a626f456bb437b40af072780a5c6b0160">read</a> (const std::string &amp;path, Payload &amp;payload) const</td></tr>
+<tr class="memdesc:a626f456bb437b40af072780a5c6b0160"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the given object from the given file.  <a href="#a626f456bb437b40af072780a5c6b0160">More...</a><br /></td></tr>
+<tr class="separator:a626f456bb437b40af072780a5c6b0160"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a nestable schema for <a class="el" href="a00704.html" title="Top level interface for loading and saving json data. ">JSON</a> objects. Equivilent to <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> <a class="el" href="a00728.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> can be used to define a data format for json, allowing for fields to be expected and constraining their types and values. Creating a <a class="el" href="a00728.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> for loading data can elimate the need for verbose error checking/handling in the code that reads the json data. </p>
+<div class="textblock"><h3>template&lt;typename Payload, typename DefaultLoader, typename... Versions&gt;<br />
+class bl::bf::VersionedBinaryFile&lt; Payload, DefaultLoader, Versions &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00183">183</a> of file <a class="el" href="a00071_source.html">Schema.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a436ff37ef13e80febe5ed41802899a44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a436ff37ef13e80febe5ed41802899a44">&#9670;&nbsp;</a></span>Schema()</h2>
+<p>Helper class to facilitate the versioning of binary files. Versions are represented by the provided loaders. Version numbers are derived from the template ordering so care must be taken to keep it consistent. A special header value is written to versioned files in order to detect versioned from non-versioned files. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Payload</td><td>The type of object to read and write </td></tr>
+    <tr><td class="paramname">DefaultLoader</td><td>The <a class="el" href="a00724.html" title="Base interface for payload loaders. File version loaders should implement this interface. ">VersionedPayloadLoader</a> to use if version information is missing </td></tr>
+    <tr><td class="paramname">Versions</td><td>A list of <a class="el" href="a00724.html" title="Base interface for payload loaders. File version loaders should implement this interface. ">VersionedPayloadLoader</a> for all the versions of the object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00055">55</a> of file <a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a7bcf5a63cf15be31c69e61280ef5b922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bcf5a63cf15be31c69e61280ef5b922">&#9670;&nbsp;</a></span>Loader</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::json::Schema::Schema </td>
+          <td class="memname">using <a class="el" href="a00728.html">bl::bf::VersionedBinaryFile</a>&lt; Payload, DefaultLoader, Versions &gt;::<a class="el" href="a00728.html#a7bcf5a63cf15be31c69e61280ef5b922">Loader</a> =  <a class="el" href="a00724.html">VersionedPayloadLoader</a>&lt;Payload&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00057">57</a> of file <a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af26a6823334d48ae6185ca04261ef97c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af26a6823334d48ae6185ca04261ef97c">&#9670;&nbsp;</a></span>VersionedBinaryFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00728.html">bl::bf::VersionedBinaryFile</a>&lt; Payload, DefaultLoader, Versions &gt;::<a class="el" href="a00728.html">VersionedBinaryFile</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -121,175 +164,55 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Represents an empty <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a>. </p>
+<p>Creates instances of each loader type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00350_source.html#l00129">129</a> of file <a class="el" href="a00350_source.html">Schema.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00099">99</a> of file <a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1fcdaef5755b8b7869fd05cb90a875a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fcdaef5755b8b7869fd05cb90a875a8">&#9670;&nbsp;</a></span>~VersionedBinaryFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00728.html">bl::bf::VersionedBinaryFile</a>&lt; Payload, DefaultLoader, Versions &gt;::~<a class="el" href="a00728.html">VersionedBinaryFile</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroys each created version loader. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00104">104</a> of file <a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a93764ff1d263a3ba8a57b371b979b06b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93764ff1d263a3ba8a57b371b979b06b">&#9670;&nbsp;</a></span>addChoiceField()</h2>
+<a id="a626f456bb437b40af072780a5c6b0160"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a626f456bb437b40af072780a5c6b0160">&#9670;&nbsp;</a></span>read()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void bl::json::Schema::addChoiceField </td>
+          <td class="memname">bool <a class="el" href="a00728.html">bl::bf::VersionedBinaryFile</a>&lt; Payload, DefaultLoader, Versions &gt;::read </td>
           <td>(</td>
-          <td class="paramtype">const std::string&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a00708.html">schema::Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds an option for an enum type <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a>. Allows a group to expect exactly one field from a list of possible fields. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of one of the possible fields </td></tr>
-    <tr><td class="paramname">value</td><td>The <a class="el" href="a00700.html" title="Represents any value type in JSON. ">Value</a> to validate the field of that name </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00350_source.html#l00146">146</a> of file <a class="el" href="a00350_source.html">Schema.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4381fbf9fa9a3b079a83be5ee36d1c6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4381fbf9fa9a3b079a83be5ee36d1c6c">&#9670;&nbsp;</a></span>addOptionalField()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::json::Schema::addOptionalField </td>
-          <td>(</td>
-          <td class="paramtype">const std::string&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00708.html">schema::Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds an optional field that may be present, but does not fail validation if missing. Type check still required. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the field that may be present </td></tr>
-    <tr><td class="paramname">value</td><td>The <a class="el" href="a00700.html" title="Represents any value type in JSON. ">Value</a> to validate the field with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00350_source.html#l00142">142</a> of file <a class="el" href="a00350_source.html">Schema.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a71321cbc449fb03b169f0461a02c783c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71321cbc449fb03b169f0461a02c783c">&#9670;&nbsp;</a></span>addRequiredField()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::json::Schema::addRequiredField </td>
-          <td>(</td>
-          <td class="paramtype">const std::string&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00708.html">schema::Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds a required field to the data expectation. Validation fails if the field is not present. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the field to expect </td></tr>
-    <tr><td class="paramname">value</td><td>The <a class="el" href="a00700.html" title="Represents any value type in JSON. ">Value</a> to validate the field with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00350_source.html#l00138">138</a> of file <a class="el" href="a00350_source.html">Schema.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab4a5892e646935f4fd95f0a1a791ac94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4a5892e646935f4fd95f0a1a791ac94">&#9670;&nbsp;</a></span>overrideStrictValidation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::json::Schema::overrideStrictValidation </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>strict</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Allows this group to override the strict validation setting. This setting is useful for when you want strict validation on data but want to exclude a nested group from strict validation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">strict</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00350_source.html#l00133">133</a> of file <a class="el" href="a00350_source.html">Schema.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a90b405ec977beddca35025f07f560df3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90b405ec977beddca35025f07f560df3">&#9670;&nbsp;</a></span>validate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::json::Schema::validate </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00696.html">Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>root</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>strict</em>&#160;</td>
+          <td class="paramtype">Payload &amp;&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -299,29 +222,70 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Validates the given <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> against the set expectations. </p>
+<p>Reads the given object from the given file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">root</td><td>The <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to validate </td></tr>
-    <tr><td class="paramname">strict</td><td>Strict checking will fail if fields are present that were not expected </td></tr>
+    <tr><td class="paramname">path</td><td>The file to read from </td></tr>
+    <tr><td class="paramname">payload</td><td>The payload to read into </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a> meets the set data expectations, false otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the payload was read, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00350_source.html#l00150">150</a> of file <a class="el" href="a00350_source.html">Schema.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00123">123</a> of file <a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Files/JSON/<a class="el" href="a00071_source.html">Schema.hpp</a></li>
-<li>src/Files/JSON/<a class="el" href="a00350_source.html">Schema.cpp</a></li>
+<a id="a0ab5de7e6ec42645c136e91ee6d39d35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ab5de7e6ec42645c136e91ee6d39d35">&#9670;&nbsp;</a></span>write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00728.html">bl::bf::VersionedBinaryFile</a>&lt; Payload, DefaultLoader, Versions &gt;::write </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Payload &amp;&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Writes the given object to the given file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The file to write to </td></tr>
+    <tr><td class="paramname">payload</td><td>The payload to write </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the payload was written, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00110">110</a> of file <a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Files/Binary/<a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 28 2021 21:31:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 4 2021 05:25:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

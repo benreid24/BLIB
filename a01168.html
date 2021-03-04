@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::scripts::ScriptImpl Struct Reference</title>
+<title>BLIB: bl::EventDispatcher&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,391 +63,148 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00560.html">bl</a></li><li class="navelem"><a class="el" href="a00570.html">scripts</a></li><li class="navelem"><a class="el" href="a01168.html">ScriptImpl</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a01168.html">EventDispatcher</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01165.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::scripts::ScriptImpl Struct Reference</div>  </div>
+<div class="title">bl::EventDispatcher&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00564.html">Util</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of testable utility methods for executing components of scripts.  
+<p>Utility class to dispatch events to a set of listeners.  
  <a href="a01168.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00524_source.html">ScriptImpl.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00302_source.html">EventDispatcher.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aac8a457e6f304a605ec661e58589c567"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01112.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#aac8a457e6f304a605ec661e58589c567">computeValue</a> (<a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> value, <a class="el" href="a01108.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:aac8a457e6f304a605ec661e58589c567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a <a class="el" href="a01112.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> Node and computes the actual <a class="el" href="a01112.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a>.  <a href="#aac8a457e6f304a605ec661e58589c567">More...</a><br /></td></tr>
-<tr class="separator:aac8a457e6f304a605ec661e58589c567"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8aef835481336f20a4bf90684222d1da"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01112.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#a8aef835481336f20a4bf90684222d1da">runFunction</a> (<a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> call, <a class="el" href="a01108.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:a8aef835481336f20a4bf90684222d1da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a function call. Evaluates arguments, updates <a class="el" href="a01108.html" title="Stack aware symbol table for managing functions and variables Each Script holds a single instance...">SymbolTable</a>, and runs statements.  <a href="#a8aef835481336f20a4bf90684222d1da">More...</a><br /></td></tr>
-<tr class="separator:a8aef835481336f20a4bf90684222d1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3406ecf1198ef7c8ed1c4b164f879862"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a01112.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#a3406ecf1198ef7c8ed1c4b164f879862">runStatementList</a> (<a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> statement, <a class="el" href="a01108.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:a3406ecf1198ef7c8ed1c4b164f879862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a list of statements. Can take Statement, StmtList, or StmtBlock.  <a href="#a3406ecf1198ef7c8ed1c4b164f879862">More...</a><br /></td></tr>
-<tr class="separator:a3406ecf1198ef7c8ed1c4b164f879862"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c32e4250b72bfdfba5ad6e1671760ec"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a01112.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#a2c32e4250b72bfdfba5ad6e1671760ec">runStatement</a> (<a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> statement, <a class="el" href="a01108.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:a2c32e4250b72bfdfba5ad6e1671760ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a statement.  <a href="#a2c32e4250b72bfdfba5ad6e1671760ec">More...</a><br /></td></tr>
-<tr class="separator:a2c32e4250b72bfdfba5ad6e1671760ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc0494b93b7582d97b56b7cc8245af3a"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a01112.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#adc0494b93b7582d97b56b7cc8245af3a">runConditional</a> (<a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> conditional, <a class="el" href="a01108.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:adc0494b93b7582d97b56b7cc8245af3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a Conditional.  <a href="#adc0494b93b7582d97b56b7cc8245af3a">More...</a><br /></td></tr>
-<tr class="separator:adc0494b93b7582d97b56b7cc8245af3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0916b56916665174e585c9327c905bd"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a01112.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#ae0916b56916665174e585c9327c905bd">runLoop</a> (<a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> loop, <a class="el" href="a01108.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:ae0916b56916665174e585c9327c905bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a Loop.  <a href="#ae0916b56916665174e585c9327c905bd">More...</a><br /></td></tr>
-<tr class="separator:ae0916b56916665174e585c9327c905bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64c3ff423f943c051069bad43c02eac9"><td class="memItemLeft" align="right" valign="top">static std::optional&lt; <a class="el" href="a01112.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#a64c3ff423f943c051069bad43c02eac9">runForLoop</a> (<a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> loop, <a class="el" href="a01108.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:a64c3ff423f943c051069bad43c02eac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a ForLoop.  <a href="#a64c3ff423f943c051069bad43c02eac9">More...</a><br /></td></tr>
-<tr class="separator:a64c3ff423f943c051069bad43c02eac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8f745531e12ae297844527483765e4f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#ad8f745531e12ae297844527483765e4f">evaluateCond</a> (<a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> pgroup, <a class="el" href="a01108.html">SymbolTable</a> &amp;table)</td></tr>
-<tr class="memdesc:ad8f745531e12ae297844527483765e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a PGroup to true or false.  <a href="#ad8f745531e12ae297844527483765e4f">More...</a><br /></td></tr>
-<tr class="separator:ad8f745531e12ae297844527483765e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8160b5b9a7c74c01f3b9963875dd3bc6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#a8160b5b9a7c74c01f3b9963875dd3bc6">subscribe</a> (<a class="el" href="a01176.html">EventListener</a>&lt; T &gt; *listener)</td></tr>
+<tr class="memdesc:a8160b5b9a7c74c01f3b9963875dd3bc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe the given listener to receive events. Listener must not go out of scope.  <a href="#a8160b5b9a7c74c01f3b9963875dd3bc6">More...</a><br /></td></tr>
+<tr class="separator:a8160b5b9a7c74c01f3b9963875dd3bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e201c514b4cb9d5ad2148133fb647a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#a5e201c514b4cb9d5ad2148133fb647a8">remove</a> (<a class="el" href="a01176.html">EventListener</a>&lt; T &gt; *listener)</td></tr>
+<tr class="memdesc:a5e201c514b4cb9d5ad2148133fb647a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given listener from the dispatcher queue. No effect if not present.  <a href="#a5e201c514b4cb9d5ad2148133fb647a8">More...</a><br /></td></tr>
+<tr class="separator:a5e201c514b4cb9d5ad2148133fb647a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a559f9ec1704810ef02a7f87e10b11498"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#a559f9ec1704810ef02a7f87e10b11498">dispatch</a> (const T &amp;event)</td></tr>
+<tr class="memdesc:a559f9ec1704810ef02a7f87e10b11498"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispatches the event to the queue of listeners.  <a href="#a559f9ec1704810ef02a7f87e10b11498">More...</a><br /></td></tr>
+<tr class="separator:a559f9ec1704810ef02a7f87e10b11498"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of testable utility methods for executing components of scripts. </p>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::EventDispatcher&lt; T &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00015">15</a> of file <a class="el" href="a00524_source.html">ScriptImpl.hpp</a>.</p>
+<p>Utility class to dispatch events to a set of listeners. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01176.html" title="Templatized utility class for setting up an event dispatcher and listener system. ...">EventListener</a></dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of event </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00302_source.html#l00016">16</a> of file <a class="el" href="a00302_source.html">EventDispatcher.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aac8a457e6f304a605ec661e58589c567"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac8a457e6f304a605ec661e58589c567">&#9670;&nbsp;</a></span>computeValue()</h2>
+<a id="a559f9ec1704810ef02a7f87e10b11498"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a559f9ec1704810ef02a7f87e10b11498">&#9670;&nbsp;</a></span>dispatch()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01112.html">Value</a> bl::scripts::ScriptImpl::computeValue </td>
+          <td class="memname">void <a class="el" href="a01168.html">bl::EventDispatcher</a>&lt; T &gt;::dispatch </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01108.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Takes a <a class="el" href="a01112.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> Node and computes the actual <a class="el" href="a01112.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01112.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> The resulting <a class="el" href="a01112.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> </dd></dl>
+<p>Dispatches the event to the queue of listeners. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event to dispatch </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00049">49</a> of file <a class="el" href="a00521_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00302_source.html#l00054">54</a> of file <a class="el" href="a00302_source.html">EventDispatcher.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad8f745531e12ae297844527483765e4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8f745531e12ae297844527483765e4f">&#9670;&nbsp;</a></span>evaluateCond()</h2>
+<a id="a5e201c514b4cb9d5ad2148133fb647a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e201c514b4cb9d5ad2148133fb647a8">&#9670;&nbsp;</a></span>remove()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::scripts::ScriptImpl::evaluateCond </td>
+          <td class="memname">void <a class="el" href="a01168.html">bl::EventDispatcher</a>&lt; T &gt;::remove </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>pgroup</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a01176.html">EventListener</a>&lt; T &gt; *&#160;</td>
+          <td class="paramname"><em>listener</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01108.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Evaluates a PGroup to true or false. </p>
+<p>Removes the given listener from the dispatcher queue. No effect if not present. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">listener</td><td>The listener to remove </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00273">273</a> of file <a class="el" href="a00521_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00302_source.html#l00059">59</a> of file <a class="el" href="a00302_source.html">EventDispatcher.hpp</a>.</p>
 
 </div>
 </div>
-<a id="adc0494b93b7582d97b56b7cc8245af3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc0494b93b7582d97b56b7cc8245af3a">&#9670;&nbsp;</a></span>runConditional()</h2>
+<a id="a8160b5b9a7c74c01f3b9963875dd3bc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8160b5b9a7c74c01f3b9963875dd3bc6">&#9670;&nbsp;</a></span>subscribe()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a01112.html">Value</a> &gt; bl::scripts::ScriptImpl::runConditional </td>
+          <td class="memname">void <a class="el" href="a01168.html">bl::EventDispatcher</a>&lt; T &gt;::subscribe </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>conditional</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a01176.html">EventListener</a>&lt; T &gt; *&#160;</td>
+          <td class="paramname"><em>listener</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01108.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Runs a Conditional. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; <a class="el" href="a01112.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> of any executed Return, null if no return </dd></dl>
+<p>Subscribe the given listener to receive events. Listener must not go out of scope. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">listener</td><td>The listener to start notifying </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00244">244</a> of file <a class="el" href="a00521_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a64c3ff423f943c051069bad43c02eac9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64c3ff423f943c051069bad43c02eac9">&#9670;&nbsp;</a></span>runForLoop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a01112.html">Value</a> &gt; bl::scripts::ScriptImpl::runForLoop </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>loop</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01108.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Runs a ForLoop. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; <a class="el" href="a01112.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> of any executed Return, null if no return </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00217">217</a> of file <a class="el" href="a00521_source.html">ScriptImpl.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00302_source.html#l00049">49</a> of file <a class="el" href="a00302_source.html">EventDispatcher.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a8aef835481336f20a4bf90684222d1da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8aef835481336f20a4bf90684222d1da">&#9670;&nbsp;</a></span>runFunction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01112.html">Value</a> bl::scripts::ScriptImpl::runFunction </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>call</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01108.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Performs a function call. Evaluates arguments, updates <a class="el" href="a01108.html" title="Stack aware symbol table for managing functions and variables Each Script holds a single instance...">SymbolTable</a>, and runs statements. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01112.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> Result of the function called </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00063">63</a> of file <a class="el" href="a00521_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae0916b56916665174e585c9327c905bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0916b56916665174e585c9327c905bd">&#9670;&nbsp;</a></span>runLoop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a01112.html">Value</a> &gt; bl::scripts::ScriptImpl::runLoop </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>loop</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01108.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Runs a Loop. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; <a class="el" href="a01112.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> of any executed Return, null if no return </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00198">198</a> of file <a class="el" href="a00521_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2c32e4250b72bfdfba5ad6e1671760ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c32e4250b72bfdfba5ad6e1671760ec">&#9670;&nbsp;</a></span>runStatement()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a01112.html">Value</a> &gt; bl::scripts::ScriptImpl::runStatement </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>statement</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01108.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Executes a statement. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; Result of a return if present, or null if no return </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00084">84</a> of file <a class="el" href="a00521_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3406ecf1198ef7c8ed1c4b164f879862"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3406ecf1198ef7c8ed1c4b164f879862">&#9670;&nbsp;</a></span>runStatementList()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a01112.html">Value</a> &gt; bl::scripts::ScriptImpl::runStatementList </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01024.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
-          <td class="paramname"><em>statement</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01108.html">SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Executes a list of statements. Can take Statement, StmtList, or StmtBlock. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::optional&lt;Value&gt; Result of a return if present, or null if no return </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00152">152</a> of file <a class="el" href="a00521_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>src/Scripts/<a class="el" href="a00524_source.html">ScriptImpl.hpp</a></li>
-<li>src/Scripts/<a class="el" href="a00521_source.html">ScriptImpl.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Util/<a class="el" href="a00302_source.html">EventDispatcher.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 28 2021 21:31:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 4 2021 05:25:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

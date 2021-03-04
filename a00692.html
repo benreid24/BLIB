@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::json::Base Class Reference</title>
+<title>BLIB: bl::bf::SerializableFieldBase Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,95 +63,146 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00560.html">bl</a></li><li class="navelem"><a class="el" href="a00563.html">json</a></li><li class="navelem"><a class="el" href="a00692.html">Base</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00570.html">bf</a></li><li class="navelem"><a class="el" href="a00692.html">SerializableFieldBase</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a00689.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::json::Base Class Reference<div class="ingroups"><a class="el" href="a00548.html">JSON</a> &#124; <a class="el" href="a00549.html">Files</a></div></div>  </div>
+<div class="title">bl::bf::SerializableFieldBase Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00554.html">BinaryFiles</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a00692.html" title="Base class for all json types. ">Base</a> class for all json types.  
+<p>Base class for binary serializable fields. Do not use.  
  <a href="a00692.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01376_source.html">JSON.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01435_source.html">SerializableField.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::json::Base:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::bf::SerializableFieldBase:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a00692.png" usemap="#bl::json::Base_map" alt=""/>
-  <map id="bl::json::Base_map" name="bl::json::Base_map">
-<area href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ..." alt="bl::json::Group" shape="rect" coords="0,56,92,80"/>
-<area href="a00700.html" title="Represents any value type in JSON. " alt="bl::json::Value" shape="rect" coords="102,56,194,80"/>
+  <img src="a00692.png" usemap="#bl::bf::SerializableFieldBase_map" alt=""/>
+  <map id="bl::bf::SerializableFieldBase_map" name="bl::bf::SerializableFieldBase_map">
+<area href="a00696.html" title="Template class that represents a serializable field for BinaryFile use. Strings and integral types ar..." alt="bl::bf::SerializableField&lt; T &gt;" shape="rect" coords="0,56,170,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a27c3a1bcc27ee76cc1d9b3b237b2101c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00692.html#a27c3a1bcc27ee76cc1d9b3b237b2101c">setSource</a> (const <a class="el" href="a00688.html">SourceInfo</a> &amp;<a class="el" href="a00692.html#a873eb887fb58c2e3c79cef8af2077336">source</a>)</td></tr>
-<tr class="separator:a27c3a1bcc27ee76cc1d9b3b237b2101c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a873eb887fb58c2e3c79cef8af2077336"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00688.html">SourceInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00692.html#a873eb887fb58c2e3c79cef8af2077336">source</a> () const</td></tr>
-<tr class="separator:a873eb887fb58c2e3c79cef8af2077336"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a809cf9549d45c1110ac83adaa979dfa1"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00692.html#a809cf9549d45c1110ac83adaa979dfa1">serialize</a> (<a class="el" href="a00688.html">BinaryFile</a> &amp;output) const =0</td></tr>
+<tr class="separator:a809cf9549d45c1110ac83adaa979dfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9a9bb3249af3891f93d29ca4cfcda41"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00692.html#ac9a9bb3249af3891f93d29ca4cfcda41">deserialize</a> (<a class="el" href="a00688.html">BinaryFile</a> &amp;input)=0</td></tr>
+<tr class="separator:ac9a9bb3249af3891f93d29ca4cfcda41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:aad90f32f19b9844b1396ae551714e225"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00692.html#aad90f32f19b9844b1396ae551714e225">SerializableFieldBase</a> (<a class="el" href="a00700.html">SerializableObject</a> &amp;owner)</td></tr>
+<tr class="separator:aad90f32f19b9844b1396ae551714e225"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a00692.html" title="Base class for all json types. ">Base</a> class for all json types. </p>
+<div class="textblock"><p>Base class for binary serializable fields. Do not use. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01376_source.html#l00044">44</a> of file <a class="el" href="a01376_source.html">JSON.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a27c3a1bcc27ee76cc1d9b3b237b2101c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27c3a1bcc27ee76cc1d9b3b237b2101c">&#9670;&nbsp;</a></span>setSource()</h2>
+<p class="definition">Definition at line <a class="el" href="a01435_source.html#l00019">19</a> of file <a class="el" href="a01435_source.html">SerializableField.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aad90f32f19b9844b1396ae551714e225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad90f32f19b9844b1396ae551714e225">&#9670;&nbsp;</a></span>SerializableFieldBase()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::json::Base::setSource </td>
+          <td class="memname">bl::bf::SerializableFieldBase::SerializableFieldBase </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00688.html">SourceInfo</a> &amp;&#160;</td>
-          <td class="paramname"><em>source</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a00700.html">SerializableObject</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00033">33</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01483_source.html#l00008">8</a> of file <a class="el" href="a01483_source.html">SerializableField.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a873eb887fb58c2e3c79cef8af2077336"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a873eb887fb58c2e3c79cef8af2077336">&#9670;&nbsp;</a></span>source()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac9a9bb3249af3891f93d29ca4cfcda41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9a9bb3249af3891f93d29ca4cfcda41">&#9670;&nbsp;</a></span>deserialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a00688.html">SourceInfo</a> &amp; bl::json::Base::source </td>
+          <td class="memname">virtual bool bl::bf::SerializableFieldBase::deserialize </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a00688.html">BinaryFile</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="a00696.html#a3ae28a6ab297f2568c30f528fb29f603">bl::bf::SerializableField&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a809cf9549d45c1110ac83adaa979dfa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a809cf9549d45c1110ac83adaa979dfa1">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool bl::bf::SerializableFieldBase::serialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00688.html">BinaryFile</a> &amp;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00035">35</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a00696.html#a5223a4ec479e4408567113046dc1ddd5">bl::bf::SerializableField&lt; T &gt;</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Files/JSON/<a class="el" href="a01376_source.html">JSON.hpp</a></li>
-<li>src/Files/JSON/<a class="el" href="a00341_source.html">JSON.cpp</a></li>
+<li>include/BLIB/Files/Binary/<a class="el" href="a01435_source.html">SerializableField.hpp</a></li>
+<li>src/Files/Binary/<a class="el" href="a01483_source.html">SerializableField.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 28 2021 21:31:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 4 2021 05:25:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::json::SerializableObject Class Reference</title>
+<title>BLIB: bl::json::Base Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,183 +63,75 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00560.html">bl</a></li><li class="navelem"><a class="el" href="a00563.html">json</a></li><li class="navelem"><a class="el" href="a00740.html">SerializableObject</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00571.html">json</a></li><li class="navelem"><a class="el" href="a00740.html">Base</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a00737.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::json::SerializableObject Class Reference<div class="ingroups"><a class="el" href="a00548.html">JSON</a></div></div>  </div>
+<div class="title">bl::json::Base Class Reference<div class="ingroups"><a class="el" href="a00555.html">JSON</a> &#124; <a class="el" href="a00556.html">Files</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a00692.html" title="Base class for all json types. ">Base</a> class for user defined classes meant to be serialized to and from <a class="el" href="a00704.html" title="Top level interface for loading and saving json data. ">JSON</a>. Data members of serializable objects should be of type <a class="el" href="a00736.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. <a class="el" href="a00704.html" title="Top level interface for loading and saving json data. ">JSON</a> native types, vector, unordered_map, and nested <a class="el" href="a00740.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members are supported out of the box. For user defined types as fields they must either extend <a class="el" href="a00740.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> themselves, or a specialization of <a class="el" href="a00744.html" title="Helper class for SerializableField. Specializations are provided for json native types, vector, and unordered_map. User defined types should either implement SerializableObject or provide a specialization of this class. ">Serializer</a> must be provided for the desired type. SerializableObjects that will be nested must provide a copy constructor that registers each contained field.  
+<p><a class="el" href="a00740.html" title="Base class for all json types. ">Base</a> class for all json types.  
  <a href="a00740.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00077_source.html">SerializableObject.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01453_source.html">JSON.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::json::Base:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00740.png" usemap="#bl::json::Base_map" alt=""/>
+  <map id="bl::json::Base_map" name="bl::json::Base_map">
+<area href="a00744.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ..." alt="bl::json::Group" shape="rect" coords="0,56,92,80"/>
+<area href="a00748.html" title="Represents any value type in JSON. " alt="bl::json::Value" shape="rect" coords="102,56,194,80"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a38b7838d748220ff9d36e010cf7e0aa9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00740.html#a38b7838d748220ff9d36e010cf7e0aa9">deserialize</a> (const <a class="el" href="a00696.html">Group</a> &amp;value)</td></tr>
-<tr class="memdesc:a38b7838d748220ff9d36e010cf7e0aa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes the given json into the fields of this object.  <a href="#a38b7838d748220ff9d36e010cf7e0aa9">More...</a><br /></td></tr>
-<tr class="separator:a38b7838d748220ff9d36e010cf7e0aa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1bf6ba1fd4a4d660021e036ba7d01a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00696.html">Group</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00740.html#ae1bf6ba1fd4a4d660021e036ba7d01a8">serialize</a> () const</td></tr>
-<tr class="memdesc:ae1bf6ba1fd4a4d660021e036ba7d01a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes this object and its fields into the returned json data.  <a href="#ae1bf6ba1fd4a4d660021e036ba7d01a8">More...</a><br /></td></tr>
-<tr class="separator:ae1bf6ba1fd4a4d660021e036ba7d01a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac888ec47bcf450976d3b476d59b38580"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00740.html">SerializableObject</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00740.html#ac888ec47bcf450976d3b476d59b38580">operator=</a> (const <a class="el" href="a00740.html">SerializableObject</a> &amp;copy)</td></tr>
-<tr class="memdesc:ac888ec47bcf450976d3b476d59b38580"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provided so that user defined types may use the default assignment operator.  <a href="#ac888ec47bcf450976d3b476d59b38580">More...</a><br /></td></tr>
-<tr class="separator:ac888ec47bcf450976d3b476d59b38580"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a715428e94064631b0bac9de7cf05a0af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00740.html#a715428e94064631b0bac9de7cf05a0af">SerializableObject</a> (const <a class="el" href="a00740.html">SerializableObject</a> &amp;copy)</td></tr>
-<tr class="memdesc:a715428e94064631b0bac9de7cf05a0af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provided so that user defined types may use the default copy constructor.  <a href="#a715428e94064631b0bac9de7cf05a0af">More...</a><br /></td></tr>
-<tr class="separator:a715428e94064631b0bac9de7cf05a0af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b00c01a6e83a31b66b4dd80acdae51f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00740.html#a8b00c01a6e83a31b66b4dd80acdae51f">SerializableObject</a> (<a class="el" href="a00740.html">SerializableObject</a> &amp;&amp;copy)</td></tr>
-<tr class="memdesc:a8b00c01a6e83a31b66b4dd80acdae51f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provided so that user defined types may use the default move constructor.  <a href="#a8b00c01a6e83a31b66b4dd80acdae51f">More...</a><br /></td></tr>
-<tr class="separator:a8b00c01a6e83a31b66b4dd80acdae51f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e6859b695f8a30c0dce5767b596f237"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00740.html#a8e6859b695f8a30c0dce5767b596f237">SerializableObject</a> ()=default</td></tr>
-<tr class="separator:a8e6859b695f8a30c0dce5767b596f237"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:ade1750e4bbdaed679daf2d8fe82235d2"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00740.html#ade1750e4bbdaed679daf2d8fe82235d2">SerializableFieldBase</a></td></tr>
-<tr class="separator:ade1750e4bbdaed679daf2d8fe82235d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27c3a1bcc27ee76cc1d9b3b237b2101c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00740.html#a27c3a1bcc27ee76cc1d9b3b237b2101c">setSource</a> (const <a class="el" href="a00736.html">SourceInfo</a> &amp;<a class="el" href="a00740.html#a873eb887fb58c2e3c79cef8af2077336">source</a>)</td></tr>
+<tr class="separator:a27c3a1bcc27ee76cc1d9b3b237b2101c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a873eb887fb58c2e3c79cef8af2077336"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00736.html">SourceInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00740.html#a873eb887fb58c2e3c79cef8af2077336">source</a> () const</td></tr>
+<tr class="separator:a873eb887fb58c2e3c79cef8af2077336"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a00692.html" title="Base class for all json types. ">Base</a> class for user defined classes meant to be serialized to and from <a class="el" href="a00704.html" title="Top level interface for loading and saving json data. ">JSON</a>. Data members of serializable objects should be of type <a class="el" href="a00736.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. <a class="el" href="a00704.html" title="Top level interface for loading and saving json data. ">JSON</a> native types, vector, unordered_map, and nested <a class="el" href="a00740.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members are supported out of the box. For user defined types as fields they must either extend <a class="el" href="a00740.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> themselves, or a specialization of <a class="el" href="a00744.html" title="Helper class for SerializableField. Specializations are provided for json native types, vector, and unordered_map. User defined types should either implement SerializableObject or provide a specialization of this class. ">Serializer</a> must be provided for the desired type. SerializableObjects that will be nested must provide a copy constructor that registers each contained field. </p>
+<div class="textblock"><p><a class="el" href="a00740.html" title="Base class for all json types. ">Base</a> class for all json types. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00077_source.html#l00024">24</a> of file <a class="el" href="a00077_source.html">SerializableObject.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a715428e94064631b0bac9de7cf05a0af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a715428e94064631b0bac9de7cf05a0af">&#9670;&nbsp;</a></span>SerializableObject() <span class="overload">[1/3]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a01453_source.html#l00044">44</a> of file <a class="el" href="a01453_source.html">JSON.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a27c3a1bcc27ee76cc1d9b3b237b2101c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27c3a1bcc27ee76cc1d9b3b237b2101c">&#9670;&nbsp;</a></span>setSource()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::json::SerializableObject::SerializableObject </td>
+          <td class="memname">void bl::json::Base::setSource </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00740.html">SerializableObject</a> &amp;&#160;</td>
-          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a00736.html">SourceInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>source</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Provided so that user defined types may use the default copy constructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00032">32</a> of file <a class="el" href="a00356_source.html">SerializableObject.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00353_source.html#l00033">33</a> of file <a class="el" href="a00353_source.html">JSON.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8b00c01a6e83a31b66b4dd80acdae51f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b00c01a6e83a31b66b4dd80acdae51f">&#9670;&nbsp;</a></span>SerializableObject() <span class="overload">[2/3]</span></h2>
+<a id="a873eb887fb58c2e3c79cef8af2077336"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a873eb887fb58c2e3c79cef8af2077336">&#9670;&nbsp;</a></span>source()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::json::SerializableObject::SerializableObject </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00740.html">SerializableObject</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>copy</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Provided so that user defined types may use the default move constructor. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00034">34</a> of file <a class="el" href="a00356_source.html">SerializableObject.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8e6859b695f8a30c0dce5767b596f237"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e6859b695f8a30c0dce5767b596f237">&#9670;&nbsp;</a></span>SerializableObject() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::json::SerializableObject::SerializableObject </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a38b7838d748220ff9d36e010cf7e0aa9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38b7838d748220ff9d36e010cf7e0aa9">&#9670;&nbsp;</a></span>deserialize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::json::SerializableObject::deserialize </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00696.html">Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Deserializes the given json into the fields of this object. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">value</td><td>The json data to populate fields with </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00008">8</a> of file <a class="el" href="a00356_source.html">SerializableObject.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac888ec47bcf450976d3b476d59b38580"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac888ec47bcf450976d3b476d59b38580">&#9670;&nbsp;</a></span>operator=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00740.html">SerializableObject</a> &amp; bl::json::SerializableObject::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00740.html">SerializableObject</a> &amp;&#160;</td>
-          <td class="paramname"><em>copy</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Provided so that user defined types may use the default assignment operator. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00028">28</a> of file <a class="el" href="a00356_source.html">SerializableObject.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae1bf6ba1fd4a4d660021e036ba7d01a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1bf6ba1fd4a4d660021e036ba7d01a8">&#9670;&nbsp;</a></span>serialize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00696.html">Group</a> bl::json::SerializableObject::serialize </td>
+          <td class="memname">const <a class="el" href="a00736.html">SourceInfo</a> &amp; bl::json::Base::source </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -247,47 +139,19 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Serializes this object and its fields into the returned json data. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a> json data containing this object and its fields </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00016">16</a> of file <a class="el" href="a00356_source.html">SerializableObject.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="ade1750e4bbdaed679daf2d8fe82235d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade1750e4bbdaed679daf2d8fe82235d2">&#9670;&nbsp;</a></span>SerializableFieldBase</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="a00732.html">SerializableFieldBase</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00077_source.html#l00066">66</a> of file <a class="el" href="a00077_source.html">SerializableObject.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00353_source.html#l00035">35</a> of file <a class="el" href="a00353_source.html">JSON.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Files/JSON/<a class="el" href="a00077_source.html">SerializableObject.hpp</a></li>
-<li>src/Files/JSON/<a class="el" href="a00356_source.html">SerializableObject.cpp</a></li>
+<li>include/BLIB/Files/JSON/<a class="el" href="a01453_source.html">JSON.hpp</a></li>
+<li>src/Files/JSON/<a class="el" href="a00353_source.html">JSON.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 28 2021 21:31:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 4 2021 05:25:53 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

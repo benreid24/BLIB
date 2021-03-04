@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::menu::RenderItem Class Reference</title>
+<title>BLIB: bl::Triangle Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,105 +63,109 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00560.html">bl</a></li><li class="navelem"><a class="el" href="a00566.html">menu</a></li><li class="navelem"><a class="el" href="a00980.html">RenderItem</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00980.html">Triangle</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00977.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::menu::RenderItem Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00553.html">Menu</a></div></div>  </div>
+<div class="title">bl::Triangle Class Reference<div class="ingroups"><a class="el" href="a00559.html">Media</a> &raquo; <a class="el" href="a00566.html">Shapes</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Abstract base class for any <a class="el" href="a00964.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> that can be rendered by a <a class="el" href="a00968.html" title="Primary class for mouseless menus. ">Menu</a>.  
+<p>Basic triangle comprised of 3 points (which must not be colinear)  
  <a href="a00980.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00215_source.html">RenderItem.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00197_source.html">Triangle.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::menu::RenderItem:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::Triangle:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a00980.png" usemap="#bl::menu::RenderItem_map" alt=""/>
-  <map id="bl::menu::RenderItem_map" name="bl::menu::RenderItem_map">
-<area href="a00984.html" title="RenderItem for displaying sprites in a Menu. " alt="bl::menu::SpriteRenderItem" shape="rect" coords="0,56,160,80"/>
-<area href="a00988.html" title="RenderItem to display text. " alt="bl::menu::TextRenderItem" shape="rect" coords="170,56,330,80"/>
+  <img src="a00980.png" usemap="#bl::Triangle_map" alt=""/>
+  <map id="bl::Triangle_map" name="bl::Triangle_map">
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a6f1ae2f79b2d4437421e69201da2b08e"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a00980.html">RenderItem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#a6f1ae2f79b2d4437421e69201da2b08e">Ptr</a></td></tr>
-<tr class="separator:a6f1ae2f79b2d4437421e69201da2b08e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a726798fed3bdd9607fc326a39802e1c7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#a726798fed3bdd9607fc326a39802e1c7">~RenderItem</a> ()=default</td></tr>
-<tr class="separator:a726798fed3bdd9607fc326a39802e1c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecfc85f5f33435428070ec4c3f000750"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#aecfc85f5f33435428070ec4c3f000750">getSize</a> () const =0</td></tr>
-<tr class="memdesc:aecfc85f5f33435428070ec4c3f000750"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the untransformed size of the object.  <a href="#aecfc85f5f33435428070ec4c3f000750">More...</a><br /></td></tr>
-<tr class="separator:aecfc85f5f33435428070ec4c3f000750"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4b753af65febaa1a41a146a010d7373"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#aa4b753af65febaa1a41a146a010d7373">render</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const sf::Vector2f &amp;position) const =0</td></tr>
-<tr class="memdesc:aa4b753af65febaa1a41a146a010d7373"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render the item to the given target.  <a href="#aa4b753af65febaa1a41a146a010d7373">More...</a><br /></td></tr>
-<tr class="separator:aa4b753af65febaa1a41a146a010d7373"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c66eca5744ec7379b57b0438ab50ec0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#a3c66eca5744ec7379b57b0438ab50ec0">Triangle</a> (const sf::Vector2f &amp;p1, const sf::Vector2f &amp;p2, const sf::Vector2f &amp;p3, bool centerOrigin=true)</td></tr>
+<tr class="memdesc:a3c66eca5744ec7379b57b0438ab50ec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a00980.html" title="Basic triangle comprised of 3 points (which must not be colinear) ">Triangle</a> object from 3 points.  <a href="#a3c66eca5744ec7379b57b0438ab50ec0">More...</a><br /></td></tr>
+<tr class="separator:a3c66eca5744ec7379b57b0438ab50ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f2fe4262760fd41c3e3ad527fd1fe11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#a1f2fe4262760fd41c3e3ad527fd1fe11">setPoints</a> (const sf::Vector2f &amp;p1, const sf::Vector2f &amp;p2, const sf::Vector2f &amp;p3, bool centerOrigin=true)</td></tr>
+<tr class="memdesc:a1f2fe4262760fd41c3e3ad527fd1fe11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the points the triangle is made of.  <a href="#a1f2fe4262760fd41c3e3ad527fd1fe11">More...</a><br /></td></tr>
+<tr class="separator:a1f2fe4262760fd41c3e3ad527fd1fe11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdb7490452656a73a81602512ed20840"><td class="memItemLeft" align="right" valign="top">virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#afdb7490452656a73a81602512ed20840">getPointCount</a> () const override</td></tr>
+<tr class="memdesc:afdb7490452656a73a81602512ed20840"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns 3.  <a href="#afdb7490452656a73a81602512ed20840">More...</a><br /></td></tr>
+<tr class="separator:afdb7490452656a73a81602512ed20840"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14f66de4dbc76d34861c388d9f1946e2"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#a14f66de4dbc76d34861c388d9f1946e2">getPoint</a> (std::size_t index) const override</td></tr>
+<tr class="memdesc:a14f66de4dbc76d34861c388d9f1946e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the point at the given index. No bounds check is performed.  <a href="#a14f66de4dbc76d34861c388d9f1946e2">More...</a><br /></td></tr>
+<tr class="separator:a14f66de4dbc76d34861c388d9f1946e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract base class for any <a class="el" href="a00964.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> that can be rendered by a <a class="el" href="a00968.html" title="Primary class for mouseless menus. ">Menu</a>. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a00988.html" title="RenderItem to display text. ">TextRenderItem</a> </dd>
-<dd>
-<a class="el" href="a00984.html" title="RenderItem for displaying sprites in a Menu. ">SpriteRenderItem</a> </dd></dl>
+<div class="textblock"><p>Basic triangle comprised of 3 points (which must not be colinear) </p>
 
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00021">21</a> of file <a class="el" href="a00215_source.html">RenderItem.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a6f1ae2f79b2d4437421e69201da2b08e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f1ae2f79b2d4437421e69201da2b08e">&#9670;&nbsp;</a></span>Ptr</h2>
+<p class="definition">Definition at line <a class="el" href="a00197_source.html#l00014">14</a> of file <a class="el" href="a00197_source.html">Triangle.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3c66eca5744ec7379b57b0438ab50ec0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c66eca5744ec7379b57b0438ab50ec0">&#9670;&nbsp;</a></span>Triangle()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a00980.html">RenderItem</a>&gt; <a class="el" href="a00980.html#a6f1ae2f79b2d4437421e69201da2b08e">bl::menu::RenderItem::Ptr</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00023">23</a> of file <a class="el" href="a00215_source.html">RenderItem.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a726798fed3bdd9607fc326a39802e1c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a726798fed3bdd9607fc326a39802e1c7">&#9670;&nbsp;</a></span>~RenderItem()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bl::menu::RenderItem::~RenderItem </td>
+          <td class="memname">bl::Triangle::Triangle </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>p3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>centerOrigin</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a00980.html" title="Basic triangle comprised of 3 points (which must not be colinear) ">Triangle</a> object from 3 points. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p1</td><td>First point </td></tr>
+    <tr><td class="paramname">p2</td><td>Second point </td></tr>
+    <tr><td class="paramname">p3</td><td>Third point </td></tr>
+    <tr><td class="paramname">centerOrigin</td><td>True to set the origin to the center of the triangle </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00473_source.html#l00005">5</a> of file <a class="el" href="a00473_source.html">Triangle.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aecfc85f5f33435428070ec4c3f000750"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecfc85f5f33435428070ec4c3f000750">&#9670;&nbsp;</a></span>getSize()</h2>
+<a id="a14f66de4dbc76d34861c388d9f1946e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14f66de4dbc76d34861c388d9f1946e2">&#9670;&nbsp;</a></span>getPoint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -170,7 +174,37 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual sf::Vector2f bl::menu::RenderItem::getSize </td>
+          <td class="memname">sf::Vector2f bl::Triangle::getPoint </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the point at the given index. No bounds check is performed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00473_source.html#l00021">21</a> of file <a class="el" href="a00473_source.html">Triangle.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afdb7490452656a73a81602512ed20840"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdb7490452656a73a81602512ed20840">&#9670;&nbsp;</a></span>getPointCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t bl::Triangle::getPointCount </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -178,80 +212,79 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Return the untransformed size of the object. </p>
-<dl class="section return"><dt>Returns</dt><dd>sf::Vector2f Size the object will take </dd></dl>
+<p>Returns 3. </p>
 
-<p>Implemented in <a class="el" href="a00984.html#aa7c1a105c2fa2a5c933dad05c651d69d">bl::menu::SpriteRenderItem</a>, and <a class="el" href="a00988.html#a46804afccb84f81bdb3e3e846dbfab92">bl::menu::TextRenderItem</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00473_source.html#l00019">19</a> of file <a class="el" href="a00473_source.html">Triangle.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa4b753af65febaa1a41a146a010d7373"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4b753af65febaa1a41a146a010d7373">&#9670;&nbsp;</a></span>render()</h2>
+<a id="a1f2fe4262760fd41c3e3ad527fd1fe11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f2fe4262760fd41c3e3ad527fd1fe11">&#9670;&nbsp;</a></span>setPoints()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void bl::menu::RenderItem::render </td>
+          <td class="memname">void bl::Triangle::setPoints </td>
           <td>(</td>
-          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">sf::RenderStates&#160;</td>
-          <td class="paramname"><em>states</em>, </td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
-          <td class="paramname"><em>position</em>&#160;</td>
+          <td class="paramname"><em>p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>p3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>centerOrigin</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Render the item to the given target. </p>
+<p>Update the points the triangle is made of. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">target</td><td>The target to render to </td></tr>
-    <tr><td class="paramname">states</td><td>RenderStates to apply </td></tr>
-    <tr><td class="paramname">position</td><td>Position to render at </td></tr>
+    <tr><td class="paramname">p1</td><td>First point </td></tr>
+    <tr><td class="paramname">p2</td><td>Second point </td></tr>
+    <tr><td class="paramname">p3</td><td>Third point </td></tr>
+    <tr><td class="paramname">centerOrigin</td><td>True to set the origin to the center of the triangle </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="a00984.html#a756922dd6ff66f5e2b24450b53f854d6">bl::menu::SpriteRenderItem</a>, and <a class="el" href="a00988.html#ab7eb72d5fbaac81332dd677a59a988b5">bl::menu::TextRenderItem</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00473_source.html#l00010">10</a> of file <a class="el" href="a00473_source.html">Triangle.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Menu/<a class="el" href="a00215_source.html">RenderItem.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Media/Shapes/<a class="el" href="a00197_source.html">Triangle.hpp</a></li>
+<li>src/Media/Shapes/<a class="el" href="a00473_source.html">Triangle.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 28 2021 21:31:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 4 2021 05:25:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

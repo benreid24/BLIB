@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::json::Group Class Reference</title>
+<title>BLIB: bl::bf::SerializableField&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00560.html">bl</a></li><li class="navelem"><a class="el" href="a00563.html">json</a></li><li class="navelem"><a class="el" href="a00696.html">Group</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00570.html">bf</a></li><li class="navelem"><a class="el" href="a00696.html">SerializableField</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,173 +71,176 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00693.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::json::Group Class Reference<div class="ingroups"><a class="el" href="a00548.html">JSON</a></div></div>  </div>
+<div class="title">bl::bf::SerializableField&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00554.html">BinaryFiles</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A collection of fields as (std::string, <a class="el" href="a00700.html" title="Represents any value type in JSON. ">Value</a>) pairs. This is the top level data type that should be used.  
+<p>Template class that represents a serializable field for <a class="el" href="a00688.html" title="Utility class to read and write binary data. Endianness agnostic Floating point types are not support...">BinaryFile</a> use. Strings and integral types are supported out of the box, as well as SerializableObjects. User defined types must either implement <a class="el" href="a00700.html" title="Base class for user defined objects that can be serialized in binary files. Data fields to be seriali...">SerializableObject</a> or a custom version of <a class="el" href="a00704.html" title="Helper struct for serializing types into binary files. Integral types, strings, vector, and SerializableObjects are supported out of the box. Specializations may be provided for user defined types. ">Serializer</a>.  
  <a href="a00696.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01376_source.html">JSON.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01435_source.html">SerializableField.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::json::Group:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::bf::SerializableField&lt; T &gt;:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a00696.png" usemap="#bl::json::Group_map" alt=""/>
-  <map id="bl::json::Group_map" name="bl::json::Group_map">
-<area href="a00692.html" title="Base class for all json types. " alt="bl::json::Base" shape="rect" coords="0,0,92,24"/>
+  <img src="a00696.png" usemap="#bl::bf::SerializableField_3C_20T_20_3E_map" alt=""/>
+  <map id="bl::bf::SerializableField_3C_20T_20_3E_map" name="bl::bf::SerializableField_3C_20T_20_3E_map">
+<area href="a00692.html" title="Base class for binary serializable fields. Do not use. " alt="bl::bf::SerializableFieldBase" shape="rect" coords="0,0,170,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6658f32f653e62aa16b874a245321284"><td class="memItemLeft" align="right" valign="top">const std::set&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#a6658f32f653e62aa16b874a245321284">getFields</a> () const</td></tr>
-<tr class="memdesc:a6658f32f653e62aa16b874a245321284"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the list of field names that exist in the <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a>.  <a href="#a6658f32f653e62aa16b874a245321284">More...</a><br /></td></tr>
-<tr class="separator:a6658f32f653e62aa16b874a245321284"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc5f2db9959719fa49966719940b9775"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#acc5f2db9959719fa49966719940b9775">addField</a> (const std::string &amp;name, const <a class="el" href="a00700.html">Value</a> &amp;value)</td></tr>
-<tr class="memdesc:acc5f2db9959719fa49966719940b9775"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds or overwrites the given field.  <a href="#acc5f2db9959719fa49966719940b9775">More...</a><br /></td></tr>
-<tr class="separator:acc5f2db9959719fa49966719940b9775"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a083097e1b27d0523b4a822058943992d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#a083097e1b27d0523b4a822058943992d">hasField</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a083097e1b27d0523b4a822058943992d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests for the presence of the given field.  <a href="#a083097e1b27d0523b4a822058943992d">More...</a><br /></td></tr>
-<tr class="separator:a083097e1b27d0523b4a822058943992d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2dce776e79e92fa7d65c40681325331"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00563.html#a41d40c074e24dc786c1f42589178aeb4">RValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#ab2dce776e79e92fa7d65c40681325331">getField</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:ab2dce776e79e92fa7d65c40681325331"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the field with the given name, if any.  <a href="#ab2dce776e79e92fa7d65c40681325331">More...</a><br /></td></tr>
-<tr class="separator:ab2dce776e79e92fa7d65c40681325331"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cec0a5aed1eb65a3849790975b61608"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00563.html#a4fa3346ec46524abde42a02235213891">Bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#a1cec0a5aed1eb65a3849790975b61608">getBool</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a1cec0a5aed1eb65a3849790975b61608"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shortcut method to retrieve a Bool type field The field name can be nested, ex "subgroup/fieldname".  <a href="#a1cec0a5aed1eb65a3849790975b61608">More...</a><br /></td></tr>
-<tr class="separator:a1cec0a5aed1eb65a3849790975b61608"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf89bb978bc4dc19ea29bde9f684dc8c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00563.html#abc1a856156f2aac759783730f9dcb3e0">Numeric</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#aaf89bb978bc4dc19ea29bde9f684dc8c">getNumeric</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:aaf89bb978bc4dc19ea29bde9f684dc8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shortcut method to retrieve a Numeric type field The field name can be nested, ex "subgroup/fieldname".  <a href="#aaf89bb978bc4dc19ea29bde9f684dc8c">More...</a><br /></td></tr>
-<tr class="separator:aaf89bb978bc4dc19ea29bde9f684dc8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5b83f81688576cb0ce1cf1cb53d4ab3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00563.html#a040a5616a5bc09b1aa4a9b6ab12b832c">String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#ac5b83f81688576cb0ce1cf1cb53d4ab3">getString</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:ac5b83f81688576cb0ce1cf1cb53d4ab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shortcut method to retrieve a String type field The field name can be nested, ex "subgroup/fieldname".  <a href="#ac5b83f81688576cb0ce1cf1cb53d4ab3">More...</a><br /></td></tr>
-<tr class="separator:ac5b83f81688576cb0ce1cf1cb53d4ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fddf5ab52d6a4701e35f6dc0404df22"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00563.html#a996c4987cf7892971376ffbc1745f7d5">RGroup</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#a4fddf5ab52d6a4701e35f6dc0404df22">getGroup</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a4fddf5ab52d6a4701e35f6dc0404df22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shortcut method to retrieve a <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a> type field The field name can be nested, ex "subgroup/fieldname".  <a href="#a4fddf5ab52d6a4701e35f6dc0404df22">More...</a><br /></td></tr>
-<tr class="separator:a4fddf5ab52d6a4701e35f6dc0404df22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5edde76c4713272a969b16e8f68495d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00563.html#a3c915735c38ea6f5e15f79822d25b48c">RList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#a5edde76c4713272a969b16e8f68495d5">getList</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a5edde76c4713272a969b16e8f68495d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shortcut method to retrieve a List type field The field name can be nested, ex "subgroup/fieldname".  <a href="#a5edde76c4713272a969b16e8f68495d5">More...</a><br /></td></tr>
-<tr class="separator:a5edde76c4713272a969b16e8f68495d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe36be9ebecb675dfa67a0d7153a22d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#abe36be9ebecb675dfa67a0d7153a22d2">print</a> (std::ostream &amp;stream, int indentLevel) const</td></tr>
-<tr class="memdesc:abe36be9ebecb675dfa67a0d7153a22d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the json group to the given stream. This prints valid json that can be parsed.  <a href="#abe36be9ebecb675dfa67a0d7153a22d2">More...</a><br /></td></tr>
-<tr class="separator:abe36be9ebecb675dfa67a0d7153a22d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27c3a1bcc27ee76cc1d9b3b237b2101c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00692.html#a27c3a1bcc27ee76cc1d9b3b237b2101c">setSource</a> (const <a class="el" href="a00688.html">SourceInfo</a> &amp;<a class="el" href="a00692.html#a873eb887fb58c2e3c79cef8af2077336">source</a>)</td></tr>
-<tr class="separator:a27c3a1bcc27ee76cc1d9b3b237b2101c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a873eb887fb58c2e3c79cef8af2077336"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00688.html">SourceInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00692.html#a873eb887fb58c2e3c79cef8af2077336">source</a> () const</td></tr>
-<tr class="separator:a873eb887fb58c2e3c79cef8af2077336"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a497a3fea26084453a25c3885cb5a3c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#a9a497a3fea26084453a25c3885cb5a3c">SerializableField</a> (<a class="el" href="a00700.html">SerializableObject</a> &amp;owner)</td></tr>
+<tr class="memdesc:a9a497a3fea26084453a25c3885cb5a3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the new field and links it to its owning object.  <a href="#a9a497a3fea26084453a25c3885cb5a3c">More...</a><br /></td></tr>
+<tr class="separator:a9a497a3fea26084453a25c3885cb5a3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5223a4ec479e4408567113046dc1ddd5"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#a5223a4ec479e4408567113046dc1ddd5">serialize</a> (<a class="el" href="a00688.html">BinaryFile</a> &amp;output) const override</td></tr>
+<tr class="memdesc:a5223a4ec479e4408567113046dc1ddd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the value of this field to the given file.  <a href="#a5223a4ec479e4408567113046dc1ddd5">More...</a><br /></td></tr>
+<tr class="separator:a5223a4ec479e4408567113046dc1ddd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ae28a6ab297f2568c30f528fb29f603"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#a3ae28a6ab297f2568c30f528fb29f603">deserialize</a> (<a class="el" href="a00688.html">BinaryFile</a> &amp;input) override</td></tr>
+<tr class="memdesc:a3ae28a6ab297f2568c30f528fb29f603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates this field value with data read from the given file.  <a href="#a3ae28a6ab297f2568c30f528fb29f603">More...</a><br /></td></tr>
+<tr class="separator:a3ae28a6ab297f2568c30f528fb29f603"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a329a85e342c39ab6dd985aa3d002dcb0"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#a329a85e342c39ab6dd985aa3d002dcb0">getValue</a> () const</td></tr>
+<tr class="memdesc:a329a85e342c39ab6dd985aa3d002dcb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit accessor for the field value.  <a href="#a329a85e342c39ab6dd985aa3d002dcb0">More...</a><br /></td></tr>
+<tr class="separator:a329a85e342c39ab6dd985aa3d002dcb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85eca08cb8cc74c117131f74a447fa15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#a85eca08cb8cc74c117131f74a447fa15">setValue</a> (const T &amp;v)</td></tr>
+<tr class="memdesc:a85eca08cb8cc74c117131f74a447fa15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit setter for the field value.  <a href="#a85eca08cb8cc74c117131f74a447fa15">More...</a><br /></td></tr>
+<tr class="separator:a85eca08cb8cc74c117131f74a447fa15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a676fbd626a1326457220b0ab9ce5edf9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00696.html">SerializableField</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#a676fbd626a1326457220b0ab9ce5edf9">operator=</a> (const T &amp;v)</td></tr>
+<tr class="memdesc:a676fbd626a1326457220b0ab9ce5edf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a new value to this field.  <a href="#a676fbd626a1326457220b0ab9ce5edf9">More...</a><br /></td></tr>
+<tr class="separator:a676fbd626a1326457220b0ab9ce5edf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba321445e520ab1406da3a329a707059"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#aba321445e520ab1406da3a329a707059">operator T</a> () const</td></tr>
+<tr class="memdesc:aba321445e520ab1406da3a329a707059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implicit conversion operator for convenience.  <a href="#aba321445e520ab1406da3a329a707059">More...</a><br /></td></tr>
+<tr class="separator:aba321445e520ab1406da3a329a707059"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76ad2f62b6dbc1b1a473df87cf92648d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00696.html#a76ad2f62b6dbc1b1a473df87cf92648d">SerializableField</a> (const <a class="el" href="a00696.html">SerializableField</a> &amp;)=delete</td></tr>
+<tr class="separator:a76ad2f62b6dbc1b1a473df87cf92648d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A collection of fields as (std::string, <a class="el" href="a00700.html" title="Represents any value type in JSON. ">Value</a>) pairs. This is the top level data type that should be used. </p>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::bf::SerializableField&lt; T &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a01376_source.html#l00059">59</a> of file <a class="el" href="a01376_source.html">JSON.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="acc5f2db9959719fa49966719940b9775"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc5f2db9959719fa49966719940b9775">&#9670;&nbsp;</a></span>addField()</h2>
+<p>Template class that represents a serializable field for <a class="el" href="a00688.html" title="Utility class to read and write binary data. Endianness agnostic Floating point types are not support...">BinaryFile</a> use. Strings and integral types are supported out of the box, as well as SerializableObjects. User defined types must either implement <a class="el" href="a00700.html" title="Base class for user defined objects that can be serialized in binary files. Data fields to be seriali...">SerializableObject</a> or a custom version of <a class="el" href="a00704.html" title="Helper struct for serializing types into binary files. Integral types, strings, vector, and SerializableObjects are supported out of the box. Specializations may be provided for user defined types. ">Serializer</a>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of the field to be serialized </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01435_source.html#l00038">38</a> of file <a class="el" href="a01435_source.html">SerializableField.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9a497a3fea26084453a25c3885cb5a3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a497a3fea26084453a25c3885cb5a3c">&#9670;&nbsp;</a></span>SerializableField() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void bl::json::Group::addField </td>
+          <td class="memname"><a class="el" href="a00696.html">bl::bf::SerializableField</a>&lt; T &gt;::<a class="el" href="a00696.html">SerializableField</a> </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a00700.html">SerializableObject</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a00700.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
         </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the new field and links it to its owning object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">owner</td><td>The owner of this field </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01435_source.html#l00099">99</a> of file <a class="el" href="a01435_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a76ad2f62b6dbc1b1a473df87cf92648d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76ad2f62b6dbc1b1a473df87cf92648d">&#9670;&nbsp;</a></span>SerializableField() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
         <tr>
+          <td class="memname"><a class="el" href="a00696.html">bl::bf::SerializableField</a>&lt; T &gt;::<a class="el" href="a00696.html">SerializableField</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00696.html">SerializableField</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Adds or overwrites the given field. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the field to add </td></tr>
-    <tr><td class="paramname">value</td><td>The <a class="el" href="a00700.html" title="Represents any value type in JSON. ">Value</a> of the field </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00039">39</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a1cec0a5aed1eb65a3849790975b61608"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1cec0a5aed1eb65a3849790975b61608">&#9670;&nbsp;</a></span>getBool()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3ae28a6ab297f2568c30f528fb29f603"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ae28a6ab297f2568c30f528fb29f603">&#9670;&nbsp;</a></span>deserialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00563.html#a4fa3346ec46524abde42a02235213891">Bool</a> bl::json::Group::getBool </td>
+          <td class="memname">bool <a class="el" href="a00696.html">bl::bf::SerializableField</a>&lt; T &gt;::deserialize </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="a00688.html">BinaryFile</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Shortcut method to retrieve a Bool type field The field name can be nested, ex "subgroup/fieldname". </p>
+<p>Populates this field value with data read from the given file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the field, can contain multiple levels of groups </td></tr>
+    <tr><td class="paramname">input</td><td>File to read from </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Bool std::optional with the <a class="el" href="a00700.html" title="Represents any value type in JSON. ">Value</a>, or null if not present </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True if read successfully, false if file is in bad state </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00052">52</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
+<p>Implements <a class="el" href="a00692.html#ac9a9bb3249af3891f93d29ca4cfcda41">bl::bf::SerializableFieldBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01435_source.html#l00108">108</a> of file <a class="el" href="a01435_source.html">SerializableField.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ab2dce776e79e92fa7d65c40681325331"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2dce776e79e92fa7d65c40681325331">&#9670;&nbsp;</a></span>getField()</h2>
+<a id="a329a85e342c39ab6dd985aa3d002dcb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a329a85e342c39ab6dd985aa3d002dcb0">&#9670;&nbsp;</a></span>getValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00563.html#a41d40c074e24dc786c1f42589178aeb4">RValue</a> bl::json::Group::getField </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the field with the given name, if any. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the field to retrieve </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>RValue std::optional containing the <a class="el" href="a00700.html" title="Represents any value type in JSON. ">Value</a> of the field, or null if not present </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00046">46</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6658f32f653e62aa16b874a245321284"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6658f32f653e62aa16b874a245321284">&#9670;&nbsp;</a></span>getFields()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::set&lt; std::string &gt; &amp; bl::json::Group::getFields </td>
+          <td class="memname">const T &amp; <a class="el" href="a00696.html">bl::bf::SerializableField</a>&lt; T &gt;::getValue </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -245,260 +248,145 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the list of field names that exist in the <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a>. </p>
+<p>Explicit accessor for the field value. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00037">37</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01435_source.html#l00113">113</a> of file <a class="el" href="a01435_source.html">SerializableField.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4fddf5ab52d6a4701e35f6dc0404df22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fddf5ab52d6a4701e35f6dc0404df22">&#9670;&nbsp;</a></span>getGroup()</h2>
+<a id="aba321445e520ab1406da3a329a707059"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba321445e520ab1406da3a329a707059">&#9670;&nbsp;</a></span>operator T()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00563.html#a996c4987cf7892971376ffbc1745f7d5">RGroup</a> bl::json::Group::getGroup </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Shortcut method to retrieve a <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a> type field The field name can be nested, ex "subgroup/fieldname". </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the field, can contain multiple levels of groups </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>RGroup std::optional with the <a class="el" href="a00700.html" title="Represents any value type in JSON. ">Value</a>, or null if not present </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00070">70</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5edde76c4713272a969b16e8f68495d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5edde76c4713272a969b16e8f68495d5">&#9670;&nbsp;</a></span>getList()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00563.html#a3c915735c38ea6f5e15f79822d25b48c">RList</a> bl::json::Group::getList </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Shortcut method to retrieve a List type field The field name can be nested, ex "subgroup/fieldname". </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the field, can contain multiple levels of groups </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>RList std::optional with the <a class="el" href="a00700.html" title="Represents any value type in JSON. ">Value</a>, or null if not present </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00076">76</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aaf89bb978bc4dc19ea29bde9f684dc8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf89bb978bc4dc19ea29bde9f684dc8c">&#9670;&nbsp;</a></span>getNumeric()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00563.html#abc1a856156f2aac759783730f9dcb3e0">Numeric</a> bl::json::Group::getNumeric </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Shortcut method to retrieve a Numeric type field The field name can be nested, ex "subgroup/fieldname". </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the field, can contain multiple levels of groups </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Numeric std::optional with the <a class="el" href="a00700.html" title="Represents any value type in JSON. ">Value</a>, or null if not present </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00058">58</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac5b83f81688576cb0ce1cf1cb53d4ab3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5b83f81688576cb0ce1cf1cb53d4ab3">&#9670;&nbsp;</a></span>getString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00563.html#a040a5616a5bc09b1aa4a9b6ab12b832c">String</a> bl::json::Group::getString </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Shortcut method to retrieve a String type field The field name can be nested, ex "subgroup/fieldname". </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the field, can contain multiple levels of groups </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>String std::optional with the <a class="el" href="a00700.html" title="Represents any value type in JSON. ">Value</a>, or null if not present </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00064">64</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a083097e1b27d0523b4a822058943992d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a083097e1b27d0523b4a822058943992d">&#9670;&nbsp;</a></span>hasField()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::json::Group::hasField </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Tests for the presence of the given field. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Field to check for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the field exists in the <a class="el" href="a00696.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a> </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00044">44</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abe36be9ebecb675dfa67a0d7153a22d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe36be9ebecb675dfa67a0d7153a22d2">&#9670;&nbsp;</a></span>print()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::json::Group::print </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>indentLevel</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Prints the json group to the given stream. This prints valid json that can be parsed. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>Stream to output to </td></tr>
-    <tr><td class="paramname">indentLevel</td><td>Current indent level. Used for pretty printing and indenting subgroups </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00196">196</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a27c3a1bcc27ee76cc1d9b3b237b2101c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27c3a1bcc27ee76cc1d9b3b237b2101c">&#9670;&nbsp;</a></span>setSource()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::json::Base::setSource </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00688.html">SourceInfo</a> &amp;&#160;</td>
-          <td class="paramname"><em>source</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00033">33</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a873eb887fb58c2e3c79cef8af2077336"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a873eb887fb58c2e3c79cef8af2077336">&#9670;&nbsp;</a></span>source()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a00688.html">SourceInfo</a> &amp; bl::json::Base::source </td>
+          <td class="memname"><a class="el" href="a00696.html">bl::bf::SerializableField</a>&lt; T &gt;::operator T </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+<p>Implicit conversion operator for convenience. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01435_source.html#l00129">129</a> of file <a class="el" href="a01435_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a676fbd626a1326457220b0ab9ce5edf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a676fbd626a1326457220b0ab9ce5edf9">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00696.html">SerializableField</a>&lt; T &gt; &amp; <a class="el" href="a00696.html">bl::bf::SerializableField</a>&lt; T &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assigns a new value to this field. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>The value to assign to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00696.html" title="Template class that represents a serializable field for BinaryFile use. Strings and integral types ar...">SerializableField</a>&amp; A reference to this field </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01435_source.html#l00123">123</a> of file <a class="el" href="a01435_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5223a4ec479e4408567113046dc1ddd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5223a4ec479e4408567113046dc1ddd5">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00696.html">bl::bf::SerializableField</a>&lt; T &gt;::serialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00688.html">BinaryFile</a> &amp;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00035">35</a> of file <a class="el" href="a00341_source.html">JSON.cpp</a>.</p>
+<p>Writes the value of this field to the given file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">output</td><td>The file to write to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false if the file is in a bad state </dd></dl>
+
+<p>Implements <a class="el" href="a00692.html#a809cf9549d45c1110ac83adaa979dfa1">bl::bf::SerializableFieldBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01435_source.html#l00103">103</a> of file <a class="el" href="a01435_source.html">SerializableField.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Files/JSON/<a class="el" href="a01376_source.html">JSON.hpp</a></li>
-<li>src/Files/JSON/<a class="el" href="a00341_source.html">JSON.cpp</a></li>
+<a id="a85eca08cb8cc74c117131f74a447fa15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85eca08cb8cc74c117131f74a447fa15">&#9670;&nbsp;</a></span>setValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00696.html">bl::bf::SerializableField</a>&lt; T &gt;::setValue </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Explicit setter for the field value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>The new value to set to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01435_source.html#l00118">118</a> of file <a class="el" href="a01435_source.html">SerializableField.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Files/Binary/<a class="el" href="a01435_source.html">SerializableField.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 28 2021 21:31:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 4 2021 05:25:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
