@@ -1,7 +1,7 @@
-#ifndef BLIB_UTIL_EVENTDISPATCHER_HPP
-#define BLIB_UTIL_EVENTDISPATCHER_HPP
+#ifndef BLIB_EVENTS_EVENTDISPATCHER_HPP
+#define BLIB_EVENTS_EVENTDISPATCHER_HPP
 
-#include <BLIB/Util/EventListener.hpp>
+#include <BLIB/Events/EventListener.hpp>
 
 namespace bl
 {
@@ -10,7 +10,7 @@ namespace bl
  * @see EventListener
  *
  * @tparam T The type of event
- * @ingroup Util
+ * @ingroup Events
  */
 template<typename T>
 class EventDispatcher {

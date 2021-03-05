@@ -4,7 +4,4 @@ target_sources(BLIB PUBLIC
     Random.hpp
     Signal.hpp
     Timer.hpp
-    EventListener.hpp
-    EventDispatcher.hpp
-    EventDispatcherScopeGuard.hpp
 )

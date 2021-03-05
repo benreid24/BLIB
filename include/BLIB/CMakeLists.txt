@@ -2,6 +2,7 @@ target_sources(BLIB PUBLIC
     Containers.hpp
     Engine.hpp
     Entities.hpp
+    Events.hpp
     Files.hpp
     GUI.hpp
     Logging.hpp
@@ -16,6 +17,7 @@ target_sources(BLIB PUBLIC
 add_subdirectory(Containers)
 add_subdirectory(Engine)
 add_subdirectory(Entities)
+add_subdirectory(Events)
 add_subdirectory(Files)
 add_subdirectory(GUI)
 add_subdirectory(Logging)

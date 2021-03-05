@@ -1,7 +1,7 @@
 #ifndef BLIB_ENGINE_EVENT_HPP
 #define BLIB_ENGINE_EVENT_HPP
 
-#include <BLIB/Util/EventDispatcher.hpp>
+#include <BLIB/Events/EventDispatcher.hpp>
 
 namespace bl
 {

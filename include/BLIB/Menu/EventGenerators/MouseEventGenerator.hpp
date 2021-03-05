@@ -1,9 +1,9 @@
 #ifndef BLIB_MENU_EVENTGENERATORS_MOUSEEVENTGENERATOR_HPP
 #define BLIB_MENU_EVENTGENERATORS_MOUSEEVENTGENERATOR_HPP
 
+#include <BLIB/Events/EventListener.hpp>
 #include <BLIB/Menu/Item.hpp>
 #include <BLIB/Menu/Menu.hpp>
-#include <BLIB/Util/EventListener.hpp>
 #include <SFML/Window/Mouse.hpp>
 
 namespace bl

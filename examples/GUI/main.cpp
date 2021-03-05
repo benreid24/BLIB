@@ -1,6 +1,6 @@
 #include <BLIB/GUI.hpp>
 #include <BLIB/Resources.hpp>
-#include <BLIB/Util/EventDispatcher.hpp>
+#include <BLIB/Events/EventDispatcher.hpp>
 
 #include <SFML/Graphics.hpp>
 #include <cmath>

@@ -1,8 +1,8 @@
-#ifndef BLIB_UTIL_EVENTDISPATCHERSCOPEGUARD_HPP
-#define BLIB_UTIL_EVENTDISPATCHERSCOPEGUARD_HPP
+#ifndef BLIB_EVENTS_EVENTDISPATCHERSCOPEGUARD_HPP
+#define BLIB_EVENTS_EVENTDISPATCHERSCOPEGUARD_HPP
 
-#include <BLIB/Util/EventDispatcher.hpp>
-#include <BLIB/Util/EventListener.hpp>
+#include <BLIB/Events/EventDispatcher.hpp>
+#include <BLIB/Events/EventListener.hpp>
 
 namespace bl
 {
@@ -12,7 +12,7 @@ namespace bl
  *        dispatcher when the guard goes out of scope
  *
  * @tparam T Type of event to handle
- * @ingroup Util
+ * @ingroup Events
  */
 template<typename T>
 class EventDispatcherScopeGuard {
