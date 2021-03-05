@@ -5,7 +5,7 @@ namespace bl
 {
 namespace bf
 {
-SerializableFieldBase::SerializableFieldBase(SerializableObject& owner) { owner.addField(this); }
+SerializableFieldBase::SerializableFieldBase(SerializableObject& owner, std::uint16_t id) { owner.addField(this, id); }
 
 } // namespace bf
 } // namespace bl

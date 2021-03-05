@@ -9,10 +9,10 @@ namespace bl
 {
 /**
  * @brief Fixed size equivalent of std::any. Specified size is for in place storage. Stored
- * objects smaller than that size will be stored in place, which allows sequential storage for
- * cache locality optimization. Larger objects will require allocations. In place storage size
- * is always used, even for types requiring allocation. Care must be taken to balance trying to
- * fit many types inplace while minimizing waste for unused inplace storage
+ *        objects smaller than that size will be stored in place, which allows sequential storage
+ *        for cache locality optimization. Larger objects will require allocations. In place storage
+ *        size is always used, even for types requiring allocation. Care must be taken to balance
+ *        trying to fit many types inplace while minimizing waste for unused inplace storage
  *
  * @tparam Size Number of bytes to use for in place storage
  * @ingroup Util
@@ -47,7 +47,7 @@ public:
      *
      * @param copy The object to copy
      */
-    Any(const Any<Size>& copy);
+    Any(const Any& copy);
 
     /**
      * @brief Takes ownership of the data in copy
@@ -61,7 +61,7 @@ public:
      *
      * @param copy The object to copy
      */
-    Any& operator=(const Any<Size>& copy);
+    Any& operator=(const Any& copy);
 
     /**
      * @brief Constructs a new value in place
@@ -75,7 +75,7 @@ public:
 
     /**
      * @brief Copy assigns a new type and value into the Any. Copies are optimized if the type
-     * is unchanged
+     *        is unchanged
      *
      * @tparam T Type of value to become
      * @param value The value to store
@@ -86,7 +86,7 @@ public:
 
     /**
      * @brief Attempts to return the contained value as the given type. The program is aborted
-     * if the type is incorrect
+     *        if the type is incorrect
      *
      * @tparam T Type to retrieve
      * @return T& Reference to the contained value
@@ -96,7 +96,7 @@ public:
 
     /**
      * @brief Attempts to return the contained value as the given type. The program is aborted
-     * if the type is incorrect
+     *        if the type is incorrect
      *
      * @tparam T Type to retrieve
      * @return T& Reference to the contained value
@@ -160,15 +160,16 @@ Any<Size>::Any(Any<Size>&& copy)
 : object(copy.object)
 , heap(copy.heap)
 , ctype(copy.ctype) {
+    copy.heap  = false; // ensure copy does not free this memory
+    copy.ctype = nullptr;
     if (!heap) {
-        std::memcpy(inplace, copy.inplace, Size);
-        object = inplace;
+        ctype(*this, &copy);
+        object = static_cast<void*>(inplace);
     }
-    copy.heap = false; // ensure copy does not free this memory
 }
 
 template<unsigned int Size>
-Any<Size>& Any<Size>::operator=(const Any<Size>& c) {
+Any<Size>& Any<Size>::operator=(const Any& c) {
     heap  = c.heap;
     ctype = c.ctype;
     ctype(*this, &c);
@@ -185,12 +186,12 @@ Any<Size>& Any<Size>::operator=(const T& value) {
 
     clear();
     if constexpr (sizeof(T) < Size) {
-        object                   = inplace;
-        *static_cast<T*>(object) = value;
-        heap                     = false;
+        object = static_cast<void*>(inplace);
+        new (static_cast<T*>(object)) T(value);
+        heap = false;
     }
     else {
-        object = new T(value);
+        object = static_cast<void*>(new T(value));
         heap   = true;
     }
     ctype = &Any<Size>::operate<T>;
@@ -202,12 +203,12 @@ template<typename T, typename... TArgs>
 void Any<Size>::emplace(TArgs... args) {
     clear();
     if constexpr (sizeof(T) <= Size) {
-        object = inplace;
+        object = static_cast<void*>(inplace);
         heap   = false;
-        object = new (object) T(args...);
+        new (object) T(args...);
     }
     else {
-        object = new T(args...);
+        object = static_cast<void*>(new T(args...));
         heap   = true;
     }
     ctype = &Any<Size>::operate<T>;
@@ -220,6 +221,8 @@ T& Any<Size>::get() {
         BL_LOG_ERROR << "Bad Any cast";
         abort();
     }
+    auto addr = &inplace;
+    T temp    = *static_cast<T*>(object);
     return *static_cast<T*>(object);
 }
 
@@ -252,8 +255,8 @@ void Any<Size>::operate(Any<Size>& obj, const Any<Size>* copy) {
     if (copy) {
         if (obj.heap) { obj.object = new T(*static_cast<T*>(copy->object)); }
         else {
-            obj.object                   = obj.inplace;
-            *static_cast<T*>(obj.object) = *static_cast<T*>(copy->object);
+            obj.object = obj.inplace;
+            new (static_cast<T*>(obj.object)) T(std::move(*static_cast<T*>(copy->object)));
         }
     }
     else {

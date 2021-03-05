@@ -9,9 +9,9 @@ namespace unittest
 {
 TEST(BinarySerializableField, IntegralTypes) {
     SerializableObject owner;
-    SerializableField<std::uint32_t> f1(owner);
-    SerializableField<std::int16_t> f2(owner);
-    SerializableField<bool> f3(owner);
+    SerializableField<1, std::uint32_t> f1(owner);
+    SerializableField<2, std::int16_t> f2(owner);
+    SerializableField<3, bool> f3(owner);
 
     f1.setValue(346345);
     f2.setValue(-1234);
@@ -24,9 +24,9 @@ TEST(BinarySerializableField, IntegralTypes) {
         ASSERT_TRUE(f3.serialize(output));
     }
 
-    SerializableField<std::uint32_t> r1(owner);
-    SerializableField<std::int16_t> r2(owner);
-    SerializableField<bool> r3(owner);
+    SerializableField<1, std::uint32_t> r1(owner);
+    SerializableField<2, std::int16_t> r2(owner);
+    SerializableField<3, bool> r3(owner);
 
     {
         BinaryFile input("inttypes.bin", BinaryFile::Read);
@@ -42,7 +42,7 @@ TEST(BinarySerializableField, IntegralTypes) {
 
 TEST(BinarySerializableField, String) {
     SerializableObject owner;
-    SerializableField<std::string> field(owner);
+    SerializableField<1, std::string> field(owner);
     field.setValue("hello world");
 
     {
@@ -50,7 +50,7 @@ TEST(BinarySerializableField, String) {
         ASSERT_TRUE(field.serialize(output));
     }
 
-    SerializableField<std::string> loaded(owner);
+    SerializableField<1, std::string> loaded(owner);
     {
         BinaryFile input("stringtest.bin", BinaryFile::Read);
         ASSERT_TRUE(loaded.deserialize(input));
@@ -61,7 +61,7 @@ TEST(BinarySerializableField, String) {
 
 TEST(BinarySerializableField, IntVector) {
     SerializableObject owner;
-    SerializableField<std::vector<std::int16_t>> field(owner);
+    SerializableField<1, std::vector<std::int16_t>> field(owner);
     field.setValue({5, 3, 6, 435});
 
     {
@@ -69,7 +69,7 @@ TEST(BinarySerializableField, IntVector) {
         ASSERT_TRUE(field.serialize(output));
     }
 
-    SerializableField<std::vector<std::int16_t>> loaded(owner);
+    SerializableField<1, std::vector<std::int16_t>> loaded(owner);
     {
         BinaryFile input("stringtest.bin", BinaryFile::Read);
         ASSERT_TRUE(loaded.deserialize(input));
@@ -83,7 +83,7 @@ TEST(BinarySerializableField, IntVector) {
 
 TEST(BinarySerializableField, StringVector) {
     SerializableObject owner;
-    SerializableField<std::vector<std::string>> field(owner);
+    SerializableField<1, std::vector<std::string>> field(owner);
     field.setValue({"hello", "everyone"});
 
     {
@@ -91,7 +91,7 @@ TEST(BinarySerializableField, StringVector) {
         ASSERT_TRUE(field.serialize(output));
     }
 
-    SerializableField<std::vector<std::string>> loaded(owner);
+    SerializableField<1, std::vector<std::string>> loaded(owner);
     {
         BinaryFile input("stringtest.bin", BinaryFile::Read);
         ASSERT_TRUE(loaded.deserialize(input));

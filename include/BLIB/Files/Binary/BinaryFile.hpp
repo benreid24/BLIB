@@ -31,14 +31,19 @@ public:
     /**
      * @brief Creates a handle to the given file in the given mode
      *
+     * @param path The file to read or write
+     * @param mode The mode to operate in
+     *
      */
     BinaryFile(const std::string& path, OpenMode mode = Read);
 
     /**
-     * @brief Closes the file handle
+     * @brief Creates the binary file and writes to the given stream
      *
+     * @param stream The stream to write to
+     * @param mode The mode to operate in
      */
-    ~BinaryFile();
+    BinaryFile(std::iostream& stream, OpenMode mode = Read);
 
     /**
      * @brief Writes an integral type to the file in it's binary representation
@@ -88,6 +93,14 @@ public:
     bool read(std::string& output);
 
     /**
+     * @brief Skips the given number of bytes if in Read mode
+     *
+     * @param bytes The number of bytes to skip
+     * @return True if the underlying stream is still valid, false otherwise
+     */
+    bool skip(std::size_t bytes);
+
+    /**
      * @brief Returns the status of the file handle
      *
      * @return bool Returns false if EOF is reached or the file did not exist
@@ -96,24 +109,28 @@ public:
 
 private:
     const OpenMode mode;
+    std::iostream& stream;
     std::fstream handle;
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
 inline BinaryFile::BinaryFile(const std::string& path, OpenMode mode)
-: mode(mode) {
+: mode(mode)
+, stream(handle) {
     if (mode == Read)
         handle.open(path.c_str(), std::ios::in | std::ios::binary);
     else
         handle.open(path.c_str(), std::ios::out | std::ios::binary);
 }
 
-inline BinaryFile::~BinaryFile() { handle.close(); }
+inline BinaryFile::BinaryFile(std::iostream& s, OpenMode mode)
+: mode(mode)
+, stream(s) {}
 
 template<typename T>
 typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::write(const T& data) {
-    if (!handle.good() || mode != Write) return false;
+    if (!stream.good() || mode != Write) return false;
 
     const std::size_t size = sizeof(T);
     char bytes[size];
@@ -121,54 +138,59 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::write(con
     if (FileUtil::isBigEndian()) {
         for (unsigned int i = 0; i < size / 2; ++i) { std::swap(bytes[i], bytes[size - i - 1]); }
     }
-    handle.write(bytes, size);
-    return handle.good();
+    stream.write(bytes, size);
+    return stream.good();
 }
 
 inline bool BinaryFile::write(const std::string& data) {
-    if (!handle.good() || mode != Write) return false;
+    if (!stream.good() || mode != Write) return false;
     if (!write<uint32_t>(data.size())) return false;
-    handle.write(data.c_str(), data.size());
-    return handle.good();
+    stream.write(data.c_str(), data.size());
+    return stream.good();
 }
 
 template<typename T>
 typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::read(T& output) {
-    if (!handle.good() || mode != Read) return false;
+    if (!stream.good() || mode != Read) return false;
 
     const std::size_t size = sizeof(output);
     char bytes[size];
 
     output = 0;
-    handle.read(bytes, size);
+    stream.read(bytes, size);
     if (FileUtil::isBigEndian()) {
         for (unsigned int i = 0; i < size / 2; ++i) { std::swap(bytes[i], bytes[size - i - 1]); }
     }
     std::memcpy(&output, bytes, size);
-    return handle.good();
+    return stream.good();
 }
 
 template<typename T>
 typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryFile::peek(T& output) {
     const std::size_t s = sizeof(T);
     const bool r        = read<T>(output);
-    handle.seekg(handle.tellg() - std::streamoff(s));
+    stream.seekg(stream.tellg() - std::streamoff(s));
     return r;
 }
 
 inline bool BinaryFile::read(std::string& output) {
-    if (!handle.good() || mode != Read) return false;
+    if (!stream.good() || mode != Read) return false;
     uint32_t size;
     if (!read<uint32_t>(size)) return false;
     char* buf = new char[size];
-    handle.read(buf, size);
+    stream.read(buf, size);
     output = std::string(buf, size);
-    return handle.good();
+    return stream.good();
+}
+
+inline bool BinaryFile::skip(std::size_t bytes) {
+    stream.seekg(stream.tellg() + std::streamoff(bytes));
+    return stream.good();
 }
 
 inline bool BinaryFile::good() {
-    const bool eof = mode == Read ? handle.peek() == EOF : false;
-    return handle.good() && !eof;
+    const bool eof = mode == Read ? stream.peek() == EOF : false;
+    return stream.good() && !eof;
 }
 
 } // namespace bf
