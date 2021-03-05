@@ -209,7 +209,7 @@ TEST(Registry, PredefinedEntity) {
     Registry registry;
     Entity e1 = registry.createEntity();
     EXPECT_FALSE(registry.createEntity(e1));
-    EXPECT_TRUE(registry.createEntity(e1+1));
+    EXPECT_TRUE(registry.createEntity(e1 + 1));
 }
 
 } // namespace unittest

@@ -212,8 +212,7 @@ private:
 
         Entry(Entry&& copy)
         : _alive(copy._alive) {
-            if (_alive)
-                std::memcpy(slot.buf, copy.slot.buf, std::max(sizeof(long long int), sizeof(T)));
+            if (_alive) { new (slot.buf) T(std::move(*copy.cast())); }
             copy._alive = false;
         }
 

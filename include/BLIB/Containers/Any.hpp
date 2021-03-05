@@ -160,11 +160,12 @@ Any<Size>::Any(Any<Size>&& copy)
 : object(copy.object)
 , heap(copy.heap)
 , ctype(copy.ctype) {
+    copy.heap  = false; // ensure copy does not free this memory
+    copy.ctype = nullptr;
     if (!heap) {
-        std::memcpy(inplace, copy.inplace, Size);
+        ctype(*this, &copy);
         object = static_cast<void*>(inplace);
     }
-    copy.heap = false; // ensure copy does not free this memory
 }
 
 template<unsigned int Size>
@@ -221,7 +222,7 @@ T& Any<Size>::get() {
         abort();
     }
     auto addr = &inplace;
-    T temp = *static_cast<T*>(object);
+    T temp    = *static_cast<T*>(object);
     return *static_cast<T*>(object);
 }
 
@@ -255,7 +256,7 @@ void Any<Size>::operate(Any<Size>& obj, const Any<Size>* copy) {
         if (obj.heap) { obj.object = new T(*static_cast<T*>(copy->object)); }
         else {
             obj.object = obj.inplace;
-            new (static_cast<T*>(obj.object)) T(*static_cast<T*>(copy->object)); // TODO - reinterpret cast?
+            new (static_cast<T*>(obj.object)) T(std::move(*static_cast<T*>(copy->object)));
         }
     }
     else {
