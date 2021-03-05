@@ -1,4 +1,5 @@
 #include <BLIB/Containers/DynamicObjectPool.hpp>
+#include <BLIB/Containers/Any.hpp>
 #include <gtest/gtest.h>
 
 namespace bl
@@ -27,6 +28,14 @@ struct Dummy {
 
     bool* d;
 };
+
+struct Data {
+    int value;
+
+    Data() = default;
+    Data(int i) : value(i) {}
+};
+
 } // namespace
 
 TEST(DynamicObjectPool, Empty) {
@@ -208,6 +217,30 @@ TEST(DynamicObjectPool, EmplaceAndMove) {
     pool.clear();
     EXPECT_TRUE(dcalls[0]);
     EXPECT_TRUE(dcalls[1]);
+}
+
+TEST(DynamicObjectPool, MultipleObjects) {
+    DynamicObjectPool<Data> pool;
+
+    pool.emplace(5);
+    pool.emplace(10);
+    pool.add({15});
+
+    EXPECT_EQ(pool.begin()->value, 5);
+    EXPECT_EQ((pool.begin()+1)->value, 10);
+    EXPECT_EQ((pool.begin()+2)->value, 15);
+}
+
+TEST(DynamicObjectPool, Any) {
+    DynamicObjectPool<Any<32>> pool;
+
+    pool.add(Data(5));
+    pool.add(Data(10));
+
+    Any<32>& temp = *pool.begin();
+    auto val = temp.get<Data>();
+    EXPECT_EQ(pool.begin()->get<Data>().value, 5);
+    EXPECT_EQ((pool.begin()+1)->get<Data>().value, 10);
 }
 
 } // namespace unittest

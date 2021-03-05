@@ -37,15 +37,6 @@ public:
     Any(const T& value);
 
     /**
-     * @brief Move constructs with the given value
-     *
-     * @tparam T Type of object to become
-     * @param value Value to store
-     */
-    template<typename T>
-    Any(T&& value);
-
-    /**
      * @brief Cleans up and destroys any contained object
      *
      */
@@ -153,13 +144,6 @@ Any<Size>::Any(const T& value)
 }
 
 template<unsigned int Size>
-template<typename T>
-Any<Size>::Any(T&& value)
-: Any() {
-    *this = std::forward<T>(value);
-}
-
-template<unsigned int Size>
 Any<Size>::~Any() {
     clear();
 }
@@ -178,7 +162,7 @@ Any<Size>::Any(Any<Size>&& copy)
 , ctype(copy.ctype) {
     if (!heap) {
         std::memcpy(inplace, copy.inplace, Size);
-        object = inplace;
+        object = static_cast<void*>(inplace);
     }
     copy.heap = false; // ensure copy does not free this memory
 }
@@ -201,12 +185,12 @@ Any<Size>& Any<Size>::operator=(const T& value) {
 
     clear();
     if constexpr (sizeof(T) < Size) {
-        object = inplace;
+        object = static_cast<void*>(inplace);
         new (static_cast<T*>(object)) T(value);
         heap = false;
     }
     else {
-        object = new T(value);
+        object = static_cast<void*>(new T(value));
         heap   = true;
     }
     ctype = &Any<Size>::operate<T>;
@@ -218,12 +202,12 @@ template<typename T, typename... TArgs>
 void Any<Size>::emplace(TArgs... args) {
     clear();
     if constexpr (sizeof(T) <= Size) {
-        object = inplace;
+        object = static_cast<void*>(inplace);
         heap   = false;
-        object = new (object) T(args...);
+        new (object) T(args...);
     }
     else {
-        object = new T(args...);
+        object = static_cast<void*>(new T(args...));
         heap   = true;
     }
     ctype = &Any<Size>::operate<T>;
@@ -236,6 +220,8 @@ T& Any<Size>::get() {
         BL_LOG_ERROR << "Bad Any cast";
         abort();
     }
+    auto addr = &inplace;
+    T temp = *static_cast<T*>(object);
     return *static_cast<T*>(object);
 }
 
@@ -269,7 +255,7 @@ void Any<Size>::operate(Any<Size>& obj, const Any<Size>* copy) {
         if (obj.heap) { obj.object = new T(*static_cast<T*>(copy->object)); }
         else {
             obj.object = obj.inplace;
-            new (static_cast<T*>(obj.object)) T(*static_cast<T*>(copy->object));
+            new (static_cast<T*>(obj.object)) T(*static_cast<T*>(copy->object)); // TODO - reinterpret cast?
         }
     }
     else {
