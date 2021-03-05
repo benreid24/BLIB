@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gui::Font Struct Reference</title>
+<title>BLIB: bl::Timer Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,36 +63,69 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00573.html">gui</a></li><li class="navelem"><a class="el" href="a01212.html">Font</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a01212.html">Timer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a01209.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gui::Font Struct Reference<div class="ingroups"><a class="el" href="a00557.html">GUI</a></div></div>  </div>
+<div class="title">bl::Timer Class Reference<div class="ingroups"><a class="el" href="a00564.html">Util</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Data struct that provides access to the built in font. The font may be left out of the build by defining BLIB_NO_FONT.  
+<p>Global class for tracking time. Implemented over the top of sf::Clock to allow for pausing.  
  <a href="a01212.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00371_source.html">Font.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00323_source.html">Timer.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::Timer:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01212.png" usemap="#bl::Timer_map" alt=""/>
+  <map id="bl::Timer_map" name="bl::Timer_map">
+<area href="a01196.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::NonCopyable" shape="rect" coords="0,0,105,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a4a7c4d995705485485ecad5c5b46848e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01212.html#a4a7c4d995705485485ecad5c5b46848e">timeElapsedSeconds</a> () const</td></tr>
+<tr class="memdesc:a4a7c4d995705485485ecad5c5b46848e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the time elapsed in seconds.  <a href="#a4a7c4d995705485485ecad5c5b46848e">More...</a><br /></td></tr>
+<tr class="separator:a4a7c4d995705485485ecad5c5b46848e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f35a5d2ba9382d206411b945fe158b"><td class="memItemLeft" align="right" valign="top">unsigned long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01212.html#a25f35a5d2ba9382d206411b945fe158b">timeElapsedMilliseconds</a> () const</td></tr>
+<tr class="memdesc:a25f35a5d2ba9382d206411b945fe158b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the time elapsed in milliseconds.  <a href="#a25f35a5d2ba9382d206411b945fe158b">More...</a><br /></td></tr>
+<tr class="separator:a25f35a5d2ba9382d206411b945fe158b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeea451446bb6c26530cd545c1a026f24"><td class="memItemLeft" align="right" valign="top">sf::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01212.html#aeea451446bb6c26530cd545c1a026f24">timeElapsed</a> () const</td></tr>
+<tr class="memdesc:aeea451446bb6c26530cd545c1a026f24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the elapsed time.  <a href="#aeea451446bb6c26530cd545c1a026f24">More...</a><br /></td></tr>
+<tr class="separator:aeea451446bb6c26530cd545c1a026f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a038fd47f3109daa74c03ac1c1cdeac63"><td class="memItemLeft" align="right" valign="top">sf::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01212.html#a038fd47f3109daa74c03ac1c1cdeac63">timeElapsedRaw</a> () const</td></tr>
+<tr class="memdesc:a038fd47f3109daa74c03ac1c1cdeac63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the raw elapsed time. Does not compensate for pausing.  <a href="#a038fd47f3109daa74c03ac1c1cdeac63">More...</a><br /></td></tr>
+<tr class="separator:a038fd47f3109daa74c03ac1c1cdeac63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f1afe6062ca128896ca0ada17dca6c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01212.html#a5f1afe6062ca128896ca0ada17dca6c4">pause</a> ()</td></tr>
+<tr class="memdesc:a5f1afe6062ca128896ca0ada17dca6c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pauses the timer.  <a href="#a5f1afe6062ca128896ca0ada17dca6c4">More...</a><br /></td></tr>
+<tr class="separator:a5f1afe6062ca128896ca0ada17dca6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7e2a1c6f4d480cad8ea589ef0406e97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01212.html#ab7e2a1c6f4d480cad8ea589ef0406e97">resume</a> ()</td></tr>
+<tr class="memdesc:ab7e2a1c6f4d480cad8ea589ef0406e97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes the timer.  <a href="#ab7e2a1c6f4d480cad8ea589ef0406e97">More...</a><br /></td></tr>
+<tr class="separator:ab7e2a1c6f4d480cad8ea589ef0406e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a71d05b3b9cf69ee5528fda2b7c277b1b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01112.html">Resource</a>&lt; sf::Font &gt;::Ref&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01212.html#a71d05b3b9cf69ee5528fda2b7c277b1b">get</a> ()</td></tr>
-<tr class="memdesc:a71d05b3b9cf69ee5528fda2b7c277b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a loaded sf::Font resource from the built in font.  <a href="#a71d05b3b9cf69ee5528fda2b7c277b1b">More...</a><br /></td></tr>
-<tr class="separator:a71d05b3b9cf69ee5528fda2b7c277b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab48ed25249ffd28ff73a39cb015b37b3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01212.html">Timer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01212.html#ab48ed25249ffd28ff73a39cb015b37b3">get</a> ()</td></tr>
+<tr class="memdesc:ab48ed25249ffd28ff73a39cb015b37b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the global timer object.  <a href="#ab48ed25249ffd28ff73a39cb015b37b3">More...</a><br /></td></tr>
+<tr class="separator:ab48ed25249ffd28ff73a39cb015b37b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Data struct that provides access to the built in font. The font may be left out of the build by defining BLIB_NO_FONT. </p>
+<div class="textblock"><p>Global class for tracking time. Implemented over the top of sf::Clock to allow for pausing. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00371_source.html#l00018">18</a> of file <a class="el" href="a00371_source.html">Font.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00015">15</a> of file <a class="el" href="a00323_source.html">Timer.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a71d05b3b9cf69ee5528fda2b7c277b1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71d05b3b9cf69ee5528fda2b7c277b1b">&#9670;&nbsp;</a></span>get()</h2>
+<a id="ab48ed25249ffd28ff73a39cb015b37b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab48ed25249ffd28ff73a39cb015b37b3">&#9670;&nbsp;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -101,7 +134,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01112.html">Resource</a>&lt; sf::Font &gt;::Ref bl::gui::Font::get </td>
+          <td class="memname"><a class="el" href="a01212.html">Timer</a> &amp; bl::Timer::get </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -114,21 +147,147 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a loaded sf::Font resource from the built in font. </p>
+<p>Returns the global timer object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l04356">4356</a> of file <a class="el" href="a00368_source.html">Font.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00008">8</a> of file <a class="el" href="a00548_source.html">Timer.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>src/GUI/Data/<a class="el" href="a00371_source.html">Font.hpp</a></li>
-<li>src/GUI/Data/<a class="el" href="a00368_source.html">Font.cpp</a></li>
+<a id="a5f1afe6062ca128896ca0ada17dca6c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f1afe6062ca128896ca0ada17dca6c4">&#9670;&nbsp;</a></span>pause()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::Timer::pause </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pauses the timer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00027">27</a> of file <a class="el" href="a00548_source.html">Timer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab7e2a1c6f4d480cad8ea589ef0406e97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7e2a1c6f4d480cad8ea589ef0406e97">&#9670;&nbsp;</a></span>resume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::Timer::resume </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resumes the timer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00032">32</a> of file <a class="el" href="a00548_source.html">Timer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aeea451446bb6c26530cd545c1a026f24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeea451446bb6c26530cd545c1a026f24">&#9670;&nbsp;</a></span>timeElapsed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Time bl::Timer::timeElapsed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the elapsed time. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00015">15</a> of file <a class="el" href="a00548_source.html">Timer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a25f35a5d2ba9382d206411b945fe158b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25f35a5d2ba9382d206411b945fe158b">&#9670;&nbsp;</a></span>timeElapsedMilliseconds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long int bl::Timer::timeElapsedMilliseconds </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the time elapsed in milliseconds. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00023">23</a> of file <a class="el" href="a00548_source.html">Timer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a038fd47f3109daa74c03ac1c1cdeac63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a038fd47f3109daa74c03ac1c1cdeac63">&#9670;&nbsp;</a></span>timeElapsedRaw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Time bl::Timer::timeElapsedRaw </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the raw elapsed time. Does not compensate for pausing. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00013">13</a> of file <a class="el" href="a00548_source.html">Timer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4a7c4d995705485485ecad5c5b46848e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a7c4d995705485485ecad5c5b46848e">&#9670;&nbsp;</a></span>timeElapsedSeconds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::Timer::timeElapsedSeconds </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the time elapsed in seconds. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00021">21</a> of file <a class="el" href="a00548_source.html">Timer.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Util/<a class="el" href="a00323_source.html">Timer.hpp</a></li>
+<li>src/Util/<a class="el" href="a00548_source.html">Timer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 4 2021 05:25:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Mar 5 2021 15:03:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

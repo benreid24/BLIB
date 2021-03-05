@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: std::hash&lt; bl::parser::Node::Sequence &gt; Struct Template Reference</title>
+<title>BLIB: bl::parser::ISkipper Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,34 +63,71 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00576.html">std</a></li><li class="navelem"><a class="el" href="a01076.html">hash&lt; bl::parser::Node::Sequence &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00575.html">parser</a></li><li class="navelem"><a class="el" href="a01076.html">ISkipper</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01073.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">std::hash&lt; bl::parser::Node::Sequence &gt; Struct Template Reference</div>  </div>
+<div class="title">bl::parser::ISkipper Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00561.html">Parser</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a00242_source.html">Node.hpp</a>&gt;</code></p>
+<p>Interface for custom parsers to skip past unwanted characters such as whitespace or comments.  
+ <a href="a01076.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00239_source.html">ISkipper.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::parser::ISkipper:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01076.png" usemap="#bl::parser::ISkipper_map" alt=""/>
+  <map id="bl::parser::ISkipper_map" name="bl::parser::ISkipper_map">
+<area href="a01108.html" title="Default skipper that skips over all whitespace beginning with the next token Note that this will not ..." alt="bl::parser::WhitespaceSkipper" shape="rect" coords="0,56,179,80"/>
+<area href="a01056.html" title="Basic comment and whitespace skipper for more common use cases. " alt="bl::parser::CommentSkipper" shape="rect" coords="0,112,179,136"/>
+</map>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ac94262dbc4b796277c22a958aa727323"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a01076.html">ISkipper</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01076.html#ac94262dbc4b796277c22a958aa727323">Ptr</a></td></tr>
+<tr class="separator:ac94262dbc4b796277c22a958aa727323"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a308c2dedbef2f11c42e6a3824898f655"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01076.html#a308c2dedbef2f11c42e6a3824898f655">operator()</a> (const <a class="el" href="a01072.html#afa29f085be0b57c51abc6f33d9619af2">bl::parser::Node::Sequence</a> &amp;key) const</td></tr>
-<tr class="separator:a308c2dedbef2f11c42e6a3824898f655"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a044cd5fba80d2ab990c25d9b92bbc5b4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01076.html#a044cd5fba80d2ab990c25d9b92bbc5b4">skip</a> (<a class="el" href="a01100.html">Stream</a> &amp;stream) const =0</td></tr>
+<tr class="memdesc:a044cd5fba80d2ab990c25d9b92bbc5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip past unwanted characters in the stream.  <a href="#a044cd5fba80d2ab990c25d9b92bbc5b4">More...</a><br /></td></tr>
+<tr class="separator:a044cd5fba80d2ab990c25d9b92bbc5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;&gt;<br />
-struct std::hash&lt; bl::parser::Node::Sequence &gt;</h3>
+<div class="textblock"><p>Interface for custom parsers to skip past unwanted characters such as whitespace or comments. </p>
 
+<p class="definition">Definition at line <a class="el" href="a00239_source.html#l00017">17</a> of file <a class="el" href="a00239_source.html">ISkipper.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ac94262dbc4b796277c22a958aa727323"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac94262dbc4b796277c22a958aa727323">&#9670;&nbsp;</a></span>Ptr</h2>
 
-<p class="definition">Definition at line <a class="el" href="a00242_source.html#l00041">41</a> of file <a class="el" href="a00242_source.html">Node.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a308c2dedbef2f11c42e6a3824898f655"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a308c2dedbef2f11c42e6a3824898f655">&#9670;&nbsp;</a></span>operator()()</h2>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a01076.html">ISkipper</a>&gt; <a class="el" href="a01076.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00239_source.html#l00019">19</a> of file <a class="el" href="a00239_source.html">ISkipper.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a044cd5fba80d2ab990c25d9b92bbc5b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a044cd5fba80d2ab990c25d9b92bbc5b4">&#9670;&nbsp;</a></span>skip()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -99,32 +136,40 @@ struct std::hash&lt; bl::parser::Node::Sequence &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">size_t std::hash&lt; <a class="el" href="a01072.html#afa29f085be0b57c51abc6f33d9619af2">bl::parser::Node::Sequence</a> &gt;::operator() </td>
+          <td class="memname">virtual void bl::parser::ISkipper::skip </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01072.html#afa29f085be0b57c51abc6f33d9619af2">bl::parser::Node::Sequence</a> &amp;&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a01100.html">Stream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00242_source.html#l00042">42</a> of file <a class="el" href="a00242_source.html">Node.hpp</a>.</p>
+<p>Skip past unwanted characters in the stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to perform skip operations on </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a01056.html#ad8a968db6095fab17e8b637c550671fd">bl::parser::CommentSkipper</a>, and <a class="el" href="a01108.html#a77fb74e134d21e95a59ef5bb4686dc74">bl::parser::WhitespaceSkipper</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Parser/<a class="el" href="a00242_source.html">Node.hpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Parser/<a class="el" href="a00239_source.html">ISkipper.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 4 2021 05:25:53 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Mar 5 2021 15:03:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

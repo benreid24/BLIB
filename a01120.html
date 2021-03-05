@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ResourceManager&lt; TResourceType &gt; Class Template Reference</title>
+<title>BLIB: bl::Resource&lt; TResourceType &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,63 +63,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a01120.html">ResourceManager</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a01120.html">Resource</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01117.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::ResourceManager&lt; TResourceType &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00562.html">Resources</a></div></div>  </div>
+<div class="title">bl::Resource&lt; TResourceType &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a00562.html">Resources</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Single template based resource management class. Meant for storing.  
+<p>Base level struct representing a resource that can be loaded and managed by the resource system.  
  <a href="a01120.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00269_source.html">ResourceManager.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::ResourceManager&lt; TResourceType &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01120.png" usemap="#bl::ResourceManager_3C_20TResourceType_20_3E_map" alt=""/>
-  <map id="bl::ResourceManager_3C_20TResourceType_20_3E_map" name="bl::ResourceManager_3C_20TResourceType_20_3E_map">
-<area href="a01188.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::NonCopyable" shape="rect" coords="0,0,246,24"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00263_source.html">Resource.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ac9d3d3d8b9f303419859770272ba91ee"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; TResourceType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01120.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a></td></tr>
+<tr class="separator:ac9d3d3d8b9f303419859770272ba91ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad5abf7b9fdf96d8d99a81fe0801fa95c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01120.html#ad5abf7b9fdf96d8d99a81fe0801fa95c">ResourceManager</a> (<a class="el" href="a01116.html">ResourceLoader</a>&lt; TResourceType &gt; &amp;loader, unsigned int gcPeriod=300)</td></tr>
-<tr class="memdesc:ad5abf7b9fdf96d8d99a81fe0801fa95c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="a01120.html" title="Single template based resource management class. Meant for storing. ">ResourceManager</a> for a given resource type and garbage collection period.  <a href="#ad5abf7b9fdf96d8d99a81fe0801fa95c">More...</a><br /></td></tr>
-<tr class="separator:ad5abf7b9fdf96d8d99a81fe0801fa95c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a2494098cd5de4e334548baa0504c1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01120.html#a6a2494098cd5de4e334548baa0504c1e">~ResourceManager</a> ()</td></tr>
-<tr class="memdesc:a6a2494098cd5de4e334548baa0504c1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exits the garbage collection thread. Resources still held are not freed.  <a href="#a6a2494098cd5de4e334548baa0504c1e">More...</a><br /></td></tr>
-<tr class="separator:a6a2494098cd5de4e334548baa0504c1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98991ac0e044185003df775caed4eca4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01120.html#a98991ac0e044185003df775caed4eca4">add</a> (const std::string &amp;uri, typename <a class="el" href="a01112.html">Resource</a>&lt; TResourceType &gt;::Ref data)</td></tr>
-<tr class="memdesc:a98991ac0e044185003df775caed4eca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an already loaded resource to the manager. Overwrites existing if present.  <a href="#a98991ac0e044185003df775caed4eca4">More...</a><br /></td></tr>
-<tr class="separator:a98991ac0e044185003df775caed4eca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad52f08fca637c60d9f7464f8502ce182"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01112.html">Resource</a>&lt; TResourceType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01120.html#ad52f08fca637c60d9f7464f8502ce182">load</a> (const std::string &amp;uri)</td></tr>
-<tr class="memdesc:ad52f08fca637c60d9f7464f8502ce182"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to find the given resource and return it, loading it if necessary.  <a href="#ad52f08fca637c60d9f7464f8502ce182">More...</a><br /></td></tr>
-<tr class="separator:ad52f08fca637c60d9f7464f8502ce182"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab22f10531b26ca5df5b7a9f413a13ab5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01112.html">Resource</a>&lt; TResourceType &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01120.html#ab22f10531b26ca5df5b7a9f413a13ab5">loadMutable</a> (const std::string &amp;uri)</td></tr>
-<tr class="memdesc:ab22f10531b26ca5df5b7a9f413a13ab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the resource for modification (such as forcing it to stay in cache). Will load the resource if it is not in cache.  <a href="#ab22f10531b26ca5df5b7a9f413a13ab5">More...</a><br /></td></tr>
-<tr class="separator:ab22f10531b26ca5df5b7a9f413a13ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7a8d6ec786b8fb53e02160fd7c34659"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01120.html#ab7a8d6ec786b8fb53e02160fd7c34659">Resource</a> (<a class="el" href="a01120.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a> <a class="el" href="a01120.html#adfbbeca88074a9891f5bba3ea35d7d00">data</a>)</td></tr>
+<tr class="memdesc:ab7a8d6ec786b8fb53e02160fd7c34659"><td class="mdescLeft">&#160;</td><td class="mdescRight">True to keep in cache even if no references remain.  <a href="#ab7a8d6ec786b8fb53e02160fd7c34659">More...</a><br /></td></tr>
+<tr class="separator:ab7a8d6ec786b8fb53e02160fd7c34659"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:adfbbeca88074a9891f5bba3ea35d7d00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01120.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01120.html#adfbbeca88074a9891f5bba3ea35d7d00">data</a></td></tr>
+<tr class="separator:adfbbeca88074a9891f5bba3ea35d7d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac369adcf5f2ac9d59a110b5f0fd1475b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01120.html#ac369adcf5f2ac9d59a110b5f0fd1475b">forceInCache</a></td></tr>
+<tr class="memdesc:ac369adcf5f2ac9d59a110b5f0fd1475b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The resource itself. May not be null.  <a href="#ac369adcf5f2ac9d59a110b5f0fd1475b">More...</a><br /></td></tr>
+<tr class="separator:ac369adcf5f2ac9d59a110b5f0fd1475b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename TResourceType&gt;<br />
-class bl::ResourceManager&lt; TResourceType &gt;</h3>
+struct bl::Resource&lt; TResourceType &gt;</h3>
 
-<p>Single template based resource management class. Meant for storing. </p>
-<p>data exactly once, such as images </p>
+<p>Base level struct representing a resource that can be loaded and managed by the resource system. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TResourceType</td><td>the type </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00022">22</a> of file <a class="el" href="a00269_source.html">ResourceManager.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad5abf7b9fdf96d8d99a81fe0801fa95c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5abf7b9fdf96d8d99a81fe0801fa95c">&#9670;&nbsp;</a></span>ResourceManager()</h2>
+<p class="definition">Definition at line <a class="el" href="a00263_source.html#l00016">16</a> of file <a class="el" href="a00263_source.html">Resource.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ac9d3d3d8b9f303419859770272ba91ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d3d3d8b9f303419859770272ba91ee">&#9670;&nbsp;</a></span>Ref</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -127,64 +124,51 @@ class bl::ResourceManager&lt; TResourceType &gt;</h3>
 template&lt;typename TResourceType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01120.html">bl::ResourceManager</a>&lt; T &gt;::<a class="el" href="a01120.html">ResourceManager</a> </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01116.html">ResourceLoader</a>&lt; TResourceType &gt; &amp;&#160;</td>
-          <td class="paramname"><em>loader</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>gcPeriod</em> = <code>300</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">typedef std::shared_ptr&lt;TResourceType&gt; <a class="el" href="a01120.html">bl::Resource</a>&lt; TResourceType &gt;::<a class="el" href="a01120.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a <a class="el" href="a01120.html" title="Single template based resource management class. Meant for storing. ">ResourceManager</a> for a given resource type and garbage collection period. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">loader</td><td><a class="el" href="a01116.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">ResourceLoader</a> to use. Must remain valid for the lifetime of the manager </td></tr>
-    <tr><td class="paramname">gcPeriod</td><td>Number of seconds between round of freeing memory </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00078">78</a> of file <a class="el" href="a00269_source.html">ResourceManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00263_source.html#l00017">17</a> of file <a class="el" href="a00263_source.html">Resource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a6a2494098cd5de4e334548baa0504c1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a2494098cd5de4e334548baa0504c1e">&#9670;&nbsp;</a></span>~ResourceManager()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab7a8d6ec786b8fb53e02160fd7c34659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7a8d6ec786b8fb53e02160fd7c34659">&#9670;&nbsp;</a></span>Resource()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename TResourceType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01120.html">bl::ResourceManager</a>&lt; T &gt;::~<a class="el" href="a01120.html">ResourceManager</a> </td>
+          <td class="memname"><a class="el" href="a01120.html">bl::Resource</a>&lt; TResourceType &gt;::<a class="el" href="a01120.html">Resource</a> </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a01120.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a>&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Exits the garbage collection thread. Resources still held are not freed. </p>
+<p>True to keep in cache even if no references remain. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00085">85</a> of file <a class="el" href="a00269_source.html">ResourceManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00263_source.html#l00022">22</a> of file <a class="el" href="a00263_source.html">Resource.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a98991ac0e044185003df775caed4eca4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98991ac0e044185003df775caed4eca4">&#9670;&nbsp;</a></span>add()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="adfbbeca88074a9891f5bba3ea35d7d00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfbbeca88074a9891f5bba3ea35d7d00">&#9670;&nbsp;</a></span>data</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,108 +176,43 @@ template&lt;typename T &gt; </div>
 template&lt;typename TResourceType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a01120.html">bl::ResourceManager</a>&lt; T &gt;::add </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>uri</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">typename <a class="el" href="a01112.html">Resource</a>&lt; TResourceType &gt;::Ref&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="a01120.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a> <a class="el" href="a01120.html">bl::Resource</a>&lt; TResourceType &gt;::data</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Add an already loaded resource to the manager. Overwrites existing if present. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">uri</td><td>The identifier of the resource </td></tr>
-    <tr><td class="paramname">data</td><td>The resource to add </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00091">91</a> of file <a class="el" href="a00269_source.html">ResourceManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00263_source.html#l00019">19</a> of file <a class="el" href="a00263_source.html">Resource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad52f08fca637c60d9f7464f8502ce182"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad52f08fca637c60d9f7464f8502ce182">&#9670;&nbsp;</a></span>load()</h2>
+<a id="ac369adcf5f2ac9d59a110b5f0fd1475b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac369adcf5f2ac9d59a110b5f0fd1475b">&#9670;&nbsp;</a></span>forceInCache</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename TResourceType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01112.html">Resource</a>&lt; T &gt; <a class="el" href="a01120.html">bl::ResourceManager</a>&lt; T &gt;::load </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>uri</em></td><td>)</td>
-          <td></td>
+          <td class="memname">bool <a class="el" href="a01120.html">bl::Resource</a>&lt; TResourceType &gt;::forceInCache</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Attempts to find the given resource and return it, loading it if necessary. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">uri</td><td>Some unique string that a <a class="el" href="a01116.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">ResourceLoader</a> can load the resource with </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The requested resource </dd></dl>
+<p>The resource itself. May not be null. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00098">98</a> of file <a class="el" href="a00269_source.html">ResourceManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00263_source.html#l00020">20</a> of file <a class="el" href="a00263_source.html">Resource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ab22f10531b26ca5df5b7a9f413a13ab5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab22f10531b26ca5df5b7a9f413a13ab5">&#9670;&nbsp;</a></span>loadMutable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01112.html">Resource</a>&lt; T &gt; * <a class="el" href="a01120.html">bl::ResourceManager</a>&lt; T &gt;::loadMutable </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>uri</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a pointer to the resource for modification (such as forcing it to stay in cache). Will load the resource if it is not in cache. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">uri</td><td>Some unique string that a <a class="el" href="a01116.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">ResourceLoader</a> can load the resource with </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to the requested resource </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00103">103</a> of file <a class="el" href="a00269_source.html">ResourceManager.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Resources/<a class="el" href="a00269_source.html">ResourceManager.hpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Resources/<a class="el" href="a00263_source.html">Resource.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 4 2021 05:25:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Mar 5 2021 15:03:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

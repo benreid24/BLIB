@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::bf::SerializableObject Class Reference</title>
+<title>BLIB: bl::bf::SerializableFieldBase Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,57 +63,58 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00570.html">bf</a></li><li class="navelem"><a class="el" href="a00700.html">SerializableObject</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00570.html">bf</a></li><li class="navelem"><a class="el" href="a00700.html">SerializableFieldBase</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a00697.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::bf::SerializableObject Class Reference<div class="ingroups"><a class="el" href="a00554.html">BinaryFiles</a></div></div>  </div>
+<div class="title">bl::bf::SerializableFieldBase Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00554.html">BinaryFiles</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for user defined objects that can be serialized in binary files. Data fields to be serialized should be stored as <a class="el" href="a00696.html" title="Template class that represents a serializable field for BinaryFile use. Strings and integral types ar...">SerializableField</a> objects.  
+<p>Base class for binary serializable fields. Do not use.  
  <a href="a00700.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01441_source.html">SerializableObject.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01443_source.html">SerializableField.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::bf::SerializableFieldBase:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00700.png" usemap="#bl::bf::SerializableFieldBase_map" alt=""/>
+  <map id="bl::bf::SerializableFieldBase_map" name="bl::bf::SerializableFieldBase_map">
+<area href="a00704.html" title="Template class that represents a serializable field for BinaryFile use. Strings and integral types ar..." alt="bl::bf::SerializableField&lt; Id, T &gt;" shape="rect" coords="0,56,189,80"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6e880f4672874e691e77758440cd8666"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#a6e880f4672874e691e77758440cd8666">SerializableObject</a> ()=default</td></tr>
-<tr class="memdesc:a6e880f4672874e691e77758440cd8666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a6e880f4672874e691e77758440cd8666">More...</a><br /></td></tr>
-<tr class="separator:a6e880f4672874e691e77758440cd8666"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa83f6b19b5ef48854bd05571fe8d44fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#aa83f6b19b5ef48854bd05571fe8d44fd">SerializableObject</a> (const <a class="el" href="a00700.html">SerializableObject</a> &amp;copy)</td></tr>
-<tr class="memdesc:aa83f6b19b5ef48854bd05571fe8d44fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does not copy over any fields. Care must be taken to properly construct member fields in user defined classes.  <a href="#aa83f6b19b5ef48854bd05571fe8d44fd">More...</a><br /></td></tr>
-<tr class="separator:aa83f6b19b5ef48854bd05571fe8d44fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aada96187622ad3a9e63047345143d41e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#aada96187622ad3a9e63047345143d41e">SerializableObject</a> (<a class="el" href="a00700.html">SerializableObject</a> &amp;&amp;copy)</td></tr>
-<tr class="memdesc:aada96187622ad3a9e63047345143d41e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does not copy over any fields. Care must be taken to properly construct member fields in user defined classes.  <a href="#aada96187622ad3a9e63047345143d41e">More...</a><br /></td></tr>
-<tr class="separator:aada96187622ad3a9e63047345143d41e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7918949790d20dce44485d6093cb8e03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00700.html">SerializableObject</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#a7918949790d20dce44485d6093cb8e03">operator=</a> (const <a class="el" href="a00700.html">SerializableObject</a> &amp;copy)</td></tr>
-<tr class="memdesc:a7918949790d20dce44485d6093cb8e03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does not copy over any fields. Care must be taken to properly construct member fields in user defined classes.  <a href="#a7918949790d20dce44485d6093cb8e03">More...</a><br /></td></tr>
-<tr class="separator:a7918949790d20dce44485d6093cb8e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f7ea8bb592ccd3e3b1372cf5f9c53f3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#a5f7ea8bb592ccd3e3b1372cf5f9c53f3">serialize</a> (<a class="el" href="a00688.html">BinaryFile</a> &amp;output) const</td></tr>
-<tr class="memdesc:a5f7ea8bb592ccd3e3b1372cf5f9c53f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes this object and its contained fields to the given file.  <a href="#a5f7ea8bb592ccd3e3b1372cf5f9c53f3">More...</a><br /></td></tr>
-<tr class="separator:a5f7ea8bb592ccd3e3b1372cf5f9c53f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf61552a5f369358e380cac4f6284cba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#abf61552a5f369358e380cac4f6284cba">deserialize</a> (<a class="el" href="a00688.html">BinaryFile</a> &amp;input)</td></tr>
-<tr class="memdesc:abf61552a5f369358e380cac4f6284cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the fields of this object from the given file.  <a href="#abf61552a5f369358e380cac4f6284cba">More...</a><br /></td></tr>
-<tr class="separator:abf61552a5f369358e380cac4f6284cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a809cf9549d45c1110ac83adaa979dfa1"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#a809cf9549d45c1110ac83adaa979dfa1">serialize</a> (<a class="el" href="a00696.html">BinaryFile</a> &amp;output) const =0</td></tr>
+<tr class="separator:a809cf9549d45c1110ac83adaa979dfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9a9bb3249af3891f93d29ca4cfcda41"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#ac9a9bb3249af3891f93d29ca4cfcda41">deserialize</a> (<a class="el" href="a00696.html">BinaryFile</a> &amp;input)=0</td></tr>
+<tr class="separator:ac9a9bb3249af3891f93d29ca4cfcda41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a616a44b6790bd1e398e29999be878e27"><td class="memItemLeft" align="right" valign="top">virtual std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#a616a44b6790bd1e398e29999be878e27">size</a> () const =0</td></tr>
+<tr class="separator:a616a44b6790bd1e398e29999be878e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf9064e8a689ea6a23cccd6a933aed9d"><td class="memItemLeft" align="right" valign="top">virtual std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#adf9064e8a689ea6a23cccd6a933aed9d">id</a> () const =0</td></tr>
+<tr class="separator:adf9064e8a689ea6a23cccd6a933aed9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:ade1750e4bbdaed679daf2d8fe82235d2"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#ade1750e4bbdaed679daf2d8fe82235d2">SerializableFieldBase</a></td></tr>
-<tr class="separator:ade1750e4bbdaed679daf2d8fe82235d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a39c56168e9a3367ecf3bc6a54525bd20"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#a39c56168e9a3367ecf3bc6a54525bd20">SerializableFieldBase</a> (<a class="el" href="a00708.html">SerializableObject</a> &amp;owner, std::uint16_t <a class="el" href="a00700.html#adf9064e8a689ea6a23cccd6a933aed9d">id</a>)</td></tr>
+<tr class="separator:a39c56168e9a3367ecf3bc6a54525bd20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for user defined objects that can be serialized in binary files. Data fields to be serialized should be stored as <a class="el" href="a00696.html" title="Template class that represents a serializable field for BinaryFile use. Strings and integral types ar...">SerializableField</a> objects. </p>
+<div class="textblock"><p>Base class for binary serializable fields. Do not use. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01441_source.html#l00020">20</a> of file <a class="el" href="a01441_source.html">SerializableObject.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01443_source.html#l00019">19</a> of file <a class="el" href="a01443_source.html">SerializableField.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6e880f4672874e691e77758440cd8666"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e880f4672874e691e77758440cd8666">&#9670;&nbsp;</a></span>SerializableObject() <span class="overload">[1/3]</span></h2>
+<a id="a39c56168e9a3367ecf3bc6a54525bd20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39c56168e9a3367ecf3bc6a54525bd20">&#9670;&nbsp;</a></span>SerializableFieldBase()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -122,151 +123,37 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::bf::SerializableObject::SerializableObject </td>
+          <td class="memname">bl::bf::SerializableFieldBase::SerializableFieldBase </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a00708.html">SerializableObject</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::uint16_t&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Default constructor. </p>
-
-</div>
-</div>
-<a id="aa83f6b19b5ef48854bd05571fe8d44fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa83f6b19b5ef48854bd05571fe8d44fd">&#9670;&nbsp;</a></span>SerializableObject() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::bf::SerializableObject::SerializableObject </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00700.html">SerializableObject</a> &amp;&#160;</td>
-          <td class="paramname"><em>copy</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Does not copy over any fields. Care must be taken to properly construct member fields in user defined classes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00008">8</a> of file <a class="el" href="a01489_source.html">SerializableObject.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aada96187622ad3a9e63047345143d41e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aada96187622ad3a9e63047345143d41e">&#9670;&nbsp;</a></span>SerializableObject() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::bf::SerializableObject::SerializableObject </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00700.html">SerializableObject</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>copy</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Does not copy over any fields. Care must be taken to properly construct member fields in user defined classes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00010">10</a> of file <a class="el" href="a01489_source.html">SerializableObject.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01491_source.html#l00008">8</a> of file <a class="el" href="a01491_source.html">SerializableField.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="abf61552a5f369358e380cac4f6284cba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf61552a5f369358e380cac4f6284cba">&#9670;&nbsp;</a></span>deserialize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::bf::SerializableObject::deserialize </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00688.html">BinaryFile</a> &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads the fields of this object from the given file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">input</td><td>The file to read from </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false if not all fields could be read </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00021">21</a> of file <a class="el" href="a01489_source.html">SerializableObject.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7918949790d20dce44485d6093cb8e03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7918949790d20dce44485d6093cb8e03">&#9670;&nbsp;</a></span>operator=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00700.html">SerializableObject</a> &amp; bl::bf::SerializableObject::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00700.html">SerializableObject</a> &amp;&#160;</td>
-          <td class="paramname"><em>copy</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Does not copy over any fields. Care must be taken to properly construct member fields in user defined classes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00012">12</a> of file <a class="el" href="a01489_source.html">SerializableObject.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5f7ea8bb592ccd3e3b1372cf5f9c53f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f7ea8bb592ccd3e3b1372cf5f9c53f3">&#9670;&nbsp;</a></span>serialize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::bf::SerializableObject::serialize </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00688.html">BinaryFile</a> &amp;&#160;</td>
-          <td class="paramname"><em>output</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Serializes this object and its contained fields to the given file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">output</td><td>The file to write to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false if data could not be written </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00014">14</a> of file <a class="el" href="a01489_source.html">SerializableObject.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="ade1750e4bbdaed679daf2d8fe82235d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade1750e4bbdaed679daf2d8fe82235d2">&#9670;&nbsp;</a></span>SerializableFieldBase</h2>
+<a id="ac9a9bb3249af3891f93d29ca4cfcda41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9a9bb3249af3891f93d29ca4cfcda41">&#9670;&nbsp;</a></span>deserialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,29 +162,115 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a00692.html">SerializableFieldBase</a></td>
+          <td class="memname">virtual bool bl::bf::SerializableFieldBase::deserialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00696.html">BinaryFile</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01441_source.html#l00070">70</a> of file <a class="el" href="a01441_source.html">SerializableObject.hpp</a>.</p>
+<p>Implemented in <a class="el" href="a00704.html#a10f27d46b39453249152b5e850240265">bl::bf::SerializableField&lt; Id, T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="adf9064e8a689ea6a23cccd6a933aed9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf9064e8a689ea6a23cccd6a933aed9d">&#9670;&nbsp;</a></span>id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::uint16_t bl::bf::SerializableFieldBase::id </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="a00704.html#af99d8f12cb9aa77814c970a03d8f84bb">bl::bf::SerializableField&lt; Id, T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a809cf9549d45c1110ac83adaa979dfa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a809cf9549d45c1110ac83adaa979dfa1">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool bl::bf::SerializableFieldBase::serialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00696.html">BinaryFile</a> &amp;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="a00704.html#a8c6934b89d273b19f34f2239518a5774">bl::bf::SerializableField&lt; Id, T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a616a44b6790bd1e398e29999be878e27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a616a44b6790bd1e398e29999be878e27">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::uint32_t bl::bf::SerializableFieldBase::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="a00704.html#aba0d965e0dfae06e1b025a4deae837fa">bl::bf::SerializableField&lt; Id, T &gt;</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Files/Binary/<a class="el" href="a01441_source.html">SerializableObject.hpp</a></li>
-<li>src/Files/Binary/<a class="el" href="a01489_source.html">SerializableObject.cpp</a></li>
+<li>include/BLIB/Files/Binary/<a class="el" href="a01443_source.html">SerializableField.hpp</a></li>
+<li>src/Files/Binary/<a class="el" href="a01491_source.html">SerializableField.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 4 2021 05:25:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Mar 5 2021 15:03:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

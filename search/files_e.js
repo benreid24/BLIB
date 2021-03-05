@@ -8,7 +8,7 @@ var searchData=
   ['registry_2ecpp',['Registry.cpp',['../a00341.html',1,'']]],
   ['registry_2ehpp',['Registry.hpp',['../a00053.html',1,'']]],
   ['renderer_2ecpp',['Renderer.cpp',['../a00446.html',1,'']]],
-  ['renderer_2ehpp',['Renderer.hpp',['../a01459.html',1,'(Global Namespace)'],['../a01462.html',1,'(Global Namespace)']]],
+  ['renderer_2ehpp',['Renderer.hpp',['../a01467.html',1,'(Global Namespace)'],['../a01470.html',1,'(Global Namespace)']]],
   ['rendererutil_2ecpp',['RendererUtil.cpp',['../a00449.html',1,'']]],
   ['rendererutil_2ehpp',['RendererUtil.hpp',['../a00167.html',1,'']]],
   ['renderitem_2ehpp',['RenderItem.hpp',['../a00218.html',1,'']]],

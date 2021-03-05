@@ -63,27 +63,42 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00573.html">gui</a></li><li class="navelem"><a class="el" href="a00924.html">RawEvent</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00573.html">gui</a></li><li class="navelem"><a class="el" href="a00924.html">LinePacker</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">bl::gui::RawEvent Member List</div>  </div>
+<div class="title">bl::gui::LinePacker Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00924.html">bl::gui::RawEvent</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00924.html">bl::gui::LinePacker</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00924.html#a1b3f45851c272a98a26188f140e10adc">event</a></td><td class="entry"><a class="el" href="a00924.html">bl::gui::RawEvent</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00924.html#a177b4ba9f3bf03b3a3244c77515691ad">globalMousePos</a></td><td class="entry"><a class="el" href="a00924.html">bl::gui::RawEvent</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00924.html#af27256ed6e4095aa97467deab065e428">localMousePos</a></td><td class="entry"><a class="el" href="a00924.html">bl::gui::RawEvent</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00924.html#ae24971c3e1c4c04724646444f681348e">RawEvent</a>(const sf::Event &amp;event, const sf::Vector2f &amp;mousePos, const sf::Transform &amp;transform)</td><td class="entry"><a class="el" href="a00924.html">bl::gui::RawEvent</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00924.html#a7fc9aaaef25287dfac827a4f2e7f2064">transformToLocal</a>(const sf::Vector2f &amp;parentRenderOffset) const</td><td class="entry"><a class="el" href="a00924.html">bl::gui::RawEvent</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00924.html#aa93923af9a1d910c135d79afc9dd80e1a606d0175ef3006364c99eea2105db1cc">BottomAlign</a> enum value</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00924.html#a7be24b6df8ddd6710ecab4193c7ab781ab1dba893ab881063cd2477f3c24d2bed">Compact</a> enum value</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00924.html#a4d286ec6b253e6ffc54ee16f343cac2f">create</a>(Direction dir=Horizontal, int spacing=2, SpaceMode mode=Compact, PackStart start=LeftAlign)</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00924.html#a17617096f908d715eaa906cd4f104755">Direction</a> enum name</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00924.html#a25871e1c1480a1f67d7dca0fc1c533d8">getRequisition</a>(const std::vector&lt; Element::Ptr &gt; &amp;elements) override</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00924.html#a17617096f908d715eaa906cd4f104755a4b07d1e3f437eda1fcc2aaa0a9e32818">Horizontal</a> enum value</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00924.html#aa93923af9a1d910c135d79afc9dd80e1a4cce1984dc2e3fc606b9e6359334fabe">LeftAlign</a> enum value</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00928.html#aefc892f71754fe2c98c90d3b0b757b57">manuallyPackElement</a>(Element::Ptr element, const sf::IntRect &amp;area)</td><td class="entry"><a class="el" href="a00928.html">bl::gui::Packer</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01196.html#ae237ed816fc07a089e64552b55e9bc74">NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a01196.html">bl::NonCopyable</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00924.html#aead13127a2659a57fcc85daac2af8eff">pack</a>(const sf::IntRect &amp;acquisition, const std::vector&lt; Element::Ptr &gt; &amp;elements) override</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00928.html#ae3842989a2d0a6abf63e46c04f81e427">packElementIntoSpace</a>(Element::Ptr element, const sf::IntRect &amp;space)</td><td class="entry"><a class="el" href="a00928.html">bl::gui::Packer</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00924.html#aa93923af9a1d910c135d79afc9dd80e1">PackStart</a> enum name</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00928.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">Ptr</a> typedef</td><td class="entry"><a class="el" href="a00928.html">bl::gui::Packer</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00924.html#aa93923af9a1d910c135d79afc9dd80e1ad0ed4b9ff17a16811edb8f7b03fcb65c">RightAlign</a> enum value</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00924.html#a7be24b6df8ddd6710ecab4193c7ab781">SpaceMode</a> enum name</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00924.html#aa93923af9a1d910c135d79afc9dd80e1acceb2aa4ded4b7d117e3c17102932479">TopAlign</a> enum value</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00924.html#a7be24b6df8ddd6710ecab4193c7ab781ae65b1ee6cd4b679275fbc6efdf13750d">Uniform</a> enum value</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00924.html#a17617096f908d715eaa906cd4f104755af2d1e1fece1ed1df899f3c58af05e7d2">Vertical</a> enum value</td><td class="entry"><a class="el" href="a00924.html">bl::gui::LinePacker</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01196.html#a023ca02b9fb446d5b5cf9ac4f7007d26">~NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a01196.html">bl::NonCopyable</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00928.html#a87c464eb5ce463ac799ed74231a77295">~Packer</a>()=default</td><td class="entry"><a class="el" href="a00928.html">bl::gui::Packer</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 4 2021 05:25:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Mar 5 2021 15:03:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
