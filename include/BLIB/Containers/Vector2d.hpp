@@ -8,7 +8,7 @@ namespace bl
 /**
  * @brief Utility class that wraps std::vector, making it indexable in two dimensions
  *
- * @ingroup Util
+ * @ingroup Containers
  */
 template<typename T>
 class Vector2D {

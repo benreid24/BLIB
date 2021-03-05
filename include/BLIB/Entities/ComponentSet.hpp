@@ -25,6 +25,7 @@ struct ComponentSetMember {
  * @brief Tuple like class that stores a set of components by pointer value
  *
  * @tparam TComponents The set of components contained
+ * @ingroup Entities
  */
 template<typename... TComponents>
 class ComponentSet : private ComponentSetMember<TComponents>... {
