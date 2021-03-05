@@ -99,8 +99,28 @@ public:
      *        pool if no empty slots. All iterators remain valid
      *
      * @param obj Object to add
+     * @return Iterator Iterator to the newly created object
      */
     Iterator add(const T& obj);
+
+    /**
+     * @brief Adds the given object to the pool. Either reuses an empty object slot or expands the
+     *        pool if no empty slots. All iterators remain valid
+     *
+     * @param obj Object to add
+     * @return Iterator Iterator to the newly created object
+     */
+    Iterator add(T&& obj);
+
+    /**
+     * @brief Constructs a new object inplace in the pool
+     *
+     * @tparam TArgs The types of arguments
+     * @param args The arguments to construct the new object with
+     * @return Iterator Iterator to the newly created object
+     */
+    template<typename... TArgs>
+    Iterator emplace(TArgs... args);
 
     /**
      * @brief Removes the given iterator from the pool and marks the object slot for resuse. All
@@ -179,6 +199,17 @@ private:
             assign(data);
         }
 
+        Entry(T&& data)
+        : _alive(true) {
+            move(std::forward<T>(data));
+        }
+
+        template<typename... TArgs>
+        Entry(TArgs... args)
+        : _alive(true) {
+            emplace(args...);
+        }
+
         Entry(Entry&& copy)
         : _alive(copy._alive) {
             if (_alive)
@@ -193,6 +224,17 @@ private:
         void assign(const T& v) {
             _alive = true;
             new (cast()) T(v);
+        }
+
+        void move(T&& v) {
+            _alive = true;
+            new (cast()) T(std::forward<T>(v));
+        }
+
+        template<typename... TArgs>
+        void emplace(TArgs... args) {
+            _alive = true;
+            new (cast()) T(args...);
         }
 
         void destroy() {
@@ -237,6 +279,37 @@ typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::add(const T& obj) 
     }
     else {
         pool.emplace_back(obj);
+        return {pool, static_cast<long long int>(pool.size() - 1)};
+    }
+}
+
+template<typename T>
+typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::add(T&& obj) {
+    ++trackedSize;
+    if (next >= 0) {
+        const auto it = next;
+        next          = pool[next].next();
+        pool[it].move(std::forward<T>(obj));
+        return {pool, it};
+    }
+    else {
+        pool.emplace_back(std::forward<T>(obj));
+        return {pool, static_cast<long long int>(pool.size() - 1)};
+    }
+}
+
+template<typename T>
+template<typename... TArgs>
+typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::emplace(TArgs... args) {
+    ++trackedSize;
+    if (next >= 0) {
+        const auto it = next;
+        next          = pool[next].next();
+        pool[it].emplace(args...);
+        return {pool, it};
+    }
+    else {
+        pool.emplace_back(args...);
         return {pool, static_cast<long long int>(pool.size() - 1)};
     }
 }

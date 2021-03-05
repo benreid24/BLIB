@@ -11,6 +11,14 @@ struct Dummy {
     Dummy()
     : d(nullptr) {}
 
+    Dummy(bool* d)
+    : d(d) {}
+
+    Dummy(Dummy&& c)
+    : d(c.d) {
+        c.d = nullptr;
+    }
+
     ~Dummy() {
         if (d) *d = true;
     }
@@ -184,6 +192,22 @@ TEST(DynamicObjectPool, ShrinkDestructor) {
     ASSERT_FALSE(dcalls[0]);
     ASSERT_TRUE(dcalls[1]);
     ASSERT_FALSE(dcalls[2]);
+}
+
+TEST(DynamicObjectPool, EmplaceAndMove) {
+    DynamicObjectPool<Dummy> pool;
+    bool dcalls[] = {false, false};
+
+    Dummy d(&dcalls[0]);
+    pool.add(std::move(d));
+    pool.emplace(&dcalls[1]);
+
+    ASSERT_FALSE(dcalls[0]);
+    ASSERT_FALSE(dcalls[1]);
+
+    pool.clear();
+    EXPECT_TRUE(dcalls[0]);
+    EXPECT_TRUE(dcalls[1]);
 }
 
 } // namespace unittest
