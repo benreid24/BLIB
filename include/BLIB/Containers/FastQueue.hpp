@@ -77,6 +77,12 @@ public:
      */
     size_t size() const;
 
+    /**
+     * @brief Clears the queue
+     *
+     */
+    void clear();
+
 private:
     std::unordered_map<T, typename std::list<T>::iterator> containedValues;
     std::list<T> queue;
@@ -156,6 +162,12 @@ bool FastQueue<T>::empty() const {
 template<typename T>
 size_t FastQueue<T>::size() const {
     return queue.size();
+}
+
+template<typename T>
+void FastQueue<T>::clear() {
+    queue.clear();
+    containedValues.clear();
 }
 
 } // namespace bl

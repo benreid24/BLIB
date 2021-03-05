@@ -7,7 +7,8 @@ namespace bl
 {
 /**
  * @brief Simple circular buffer implementation for small objects. Underlying storage is a
- *        std::vector. Objects may not be destructed until they are rolled over
+ *        std::vector of buffers. Objects are constructed with placement new and destructors
+ *        are called when erased, cleared, or overwritten
  *
  * @tparam T Type of object to store
  * @ingroup Containers
@@ -97,17 +98,61 @@ public:
     void push_back(const T& obj);
 
     /**
+     * @brief Appends a new element to the back of the buffer
+     *
+     * @param obj Element to add
+     */
+    void push_back(T&& obj);
+
+    /**
+     * @brief Construct a new element in place at the end of the buffer
+     *
+     * @tparam TArgs The types of arguments
+     * @param args The arguments to construct with
+     */
+    template<typename... TArgs>
+    void emplace_back(TArgs... args);
+
+    /**
      * @brief Removes the element from the front of the buffer. Destructor may not be called
      *        immediately
      *
      */
     void pop_front();
 
+    /**
+     * @brief Clears all elements in the buffer
+     *
+     */
+    void clear();
+
 private:
-    std::vector<T> buffer;
+    class Entry {
+    public:
+        void assign(const T& v) { new (cast()) T(v); }
+
+        void move(T&& v) { new (cast()) T(std::forward<T>(v)); }
+
+        template<typename... TArgs>
+        void emplace(TArgs... args) {
+            new (cast()) T(args...);
+        }
+
+        void destroy() { cast()->~T(); }
+
+        T* cast() { return static_cast<T*>(static_cast<void*>(buf)); }
+
+    private:
+        char buf[sizeof(T)];
+    };
+
+    std::vector<Entry> buffer;
     std::size_t head;
     std::size_t tail;
     std::size_t sz;
+
+    void increaseSize();
+    void checkHead();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -121,32 +166,32 @@ RingBuffer<T>::RingBuffer(std::size_t cap)
 
 template<typename T>
 T& RingBuffer<T>::operator[](std::size_t i) {
-    return buffer[(head + i) % buffer.size()];
+    return *buffer[(head + i) % buffer.size()].cast();
 }
 
 template<typename T>
 const T& RingBuffer<T>::operator[](std::size_t i) const {
-    return buffer[(head + i) % buffer.size()];
+    return *buffer[(head + i) % buffer.size()].cast();
 }
 
 template<typename T>
 T& RingBuffer<T>::front() {
-    return buffer[head];
+    return *buffer[head].cast();
 }
 
 template<typename T>
 const T& RingBuffer<T>::front() const {
-    return buffer[head];
+    return *buffer[head].cast();
 }
 
 template<typename T>
 T& RingBuffer<T>::back() {
-    return buffer[(head + sz - 1) % buffer.size()];
+    return *buffer[(head + sz - 1) % buffer.size()].cast();
 }
 
 template<typename T>
 const T& RingBuffer<T>::back() const {
-    return buffer[(head + sz - 1) % buffer.size()];
+    return *buffer[(head + sz - 1) % buffer.size()].cast();
 }
 
 template<typename T>
@@ -171,9 +216,37 @@ bool RingBuffer<T>::full() const {
 
 template<typename T>
 void RingBuffer<T>::push_back(const T& obj) {
-    buffer[tail] = obj;
-    tail         = (tail + 1) % buffer.size();
+    checkHead();
+    buffer[tail].assign(obj);
+    increaseSize();
+}
 
+template<typename T>
+void RingBuffer<T>::push_back(T&& obj) {
+    checkHead();
+    buffer[tail].move(std::forward<T>(obj));
+    increaseSize();
+}
+
+template<typename T>
+template<typename... TArgs>
+void RingBuffer<T>::emplace_back(TArgs... args) {
+    checkHead();
+    buffer[tail].emplace(args...);
+    increaseSize();
+}
+
+template<typename T>
+void RingBuffer<T>::clear() {
+    for (unsigned int i = 0; i < size(); ++i) { buffer[(head + i) % buffer.size()].destroy(); }
+    head = 0;
+    tail = 0;
+    sz   = 0;
+}
+
+template<typename T>
+void RingBuffer<T>::increaseSize() {
+    tail = (tail + 1) % buffer.size();
     if (full()) { head = (head + 1) % buffer.size(); }
     else {
         ++sz;
@@ -181,8 +254,14 @@ void RingBuffer<T>::push_back(const T& obj) {
 }
 
 template<typename T>
+void RingBuffer<T>::checkHead() {
+    if (head == tail) buffer[head].destroy();
+}
+
+template<typename T>
 void RingBuffer<T>::pop_front() {
     if (!empty()) {
+        buffer[head].destroy();
         head = (head + 1) % buffer.size();
         --sz;
     }
