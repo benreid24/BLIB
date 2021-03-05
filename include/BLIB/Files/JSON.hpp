@@ -2,8 +2,9 @@
 #define BLIB_FILES_JSON_HPP
 
 /**
- * @defgroup JSON
+ * @addtogroup JSON
  * @brief Collection of classes for interacting with JSON data
+ * @ingroup Files
  *
  */
 

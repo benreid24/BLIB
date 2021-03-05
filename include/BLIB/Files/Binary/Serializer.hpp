@@ -17,7 +17,7 @@ namespace bf
  *
  * @tparam T The type to serialize
  * @tparam bool Helper for integral specialization. Can be ignored
- * @ingroup BinaryFiles
+ * @ingroup Binary
  */
 template<typename T, bool = std::is_integral<T>::value>
 struct Serializer {
