@@ -13,14 +13,42 @@ namespace bl
 {
 class MultiEventDispatcherScopeGuard;
 
+/**
+ * @brief Event dispatcher capable of handling events of many different types. The dispatcher is
+ *        threadsafe. If events are dispatched by multiple threads care should be taken to keep
+ *        the listeners threadsafe as well. Care must also be taken to not subscribe the same
+ *        listener more than once or it will get notified more than once per event
+ * @see MultiEventListener
+ *
+ * @ingroup Events
+ *
+ */
 class MultiEventDispatcher : private NonCopyable {
 public:
+    /**
+     * @brief Subscribe the given listener to the event stream for the event types given
+     *
+     * @tparam TEvents The types of events to subscribe to
+     * @param listener The listener to receive events as they are dispatched
+     */
     template<typename... TEvents>
     void subscribe(MultiEventListener<TEvents...>* listener);
 
+    /**
+     * @brief Removes the given listener and prevents it from receiving any more events
+     *
+     * @tparam TEvents The types of events the listener is subscribed to
+     * @param listener The listener to remove
+     */
     template<typename... TEvents>
     void unsubscribe(MultiEventListener<TEvents...>* listener);
 
+    /**
+     * @brief Dispatches the given event to each listener that is subscribed to that type of event
+     *
+     * @tparam T The type of event to dispatch
+     * @param event The event to dispatch
+     */
     template<typename T>
     void dispatch(const T& event) const;
 

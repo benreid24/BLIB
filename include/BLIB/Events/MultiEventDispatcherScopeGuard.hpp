@@ -11,15 +11,43 @@
 
 namespace bl
 {
+/**
+ * @brief Scope guard for MultiEventDispatcher. Listeners that are subscribed through the guard will
+ *        be unsubscribed when it goes out of scope
+ *
+ * @ingroup Events
+ *
+ */
 class MultiEventDispatcherScopeGuard : private NonCopyable {
 public:
+    /**
+     * @brief Create the guard around the given dispatcher
+     *
+     * @param dispatcher The dispatcher to guard
+     */
     MultiEventDispatcherScopeGuard(MultiEventDispatcher& dispatcher);
 
+    /**
+     * @brief Unsubscribed any listeners that were subscribed through this guard
+     *
+     */
     ~MultiEventDispatcherScopeGuard();
 
+    /**
+     * @brief Subscribe the given listener to the event stream for the event types given
+     *
+     * @tparam TEvents The types of events to subscribe to
+     * @param listener The listener to receive events as they are dispatched
+     */
     template<typename... TEvents>
     void subscribe(MultiEventListener<TEvents...>* listener);
 
+    /**
+     * @brief Removes the given listener and prevents it from receiving any more events
+     *
+     * @tparam TEvents The types of events the listener is subscribed to
+     * @param listener The listener to remove
+     */
     template<typename... TEvents>
     void unsubscribe(MultiEventListener<TEvents...>* listener);
 
