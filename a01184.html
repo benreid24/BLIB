@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::EventListener&lt; T &gt; Class Template Reference</title>
+<title>BLIB: bl::Resource&lt; TResourceType &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,131 +63,156 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a01184.html">EventListener</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00591.html">bl</a></li><li class="navelem"><a class="el" href="a01184.html">Resource</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01181.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::EventListener&lt; T &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00564.html">Util</a></div></div>  </div>
+<div class="title">bl::Resource&lt; TResourceType &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a00584.html">Resources</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Templatized utility class for setting up an event dispatcher and listener system.  
+<p>Base level struct representing a resource that can be loaded and managed by the resource system.  
  <a href="a01184.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00308_source.html">EventListener.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::EventListener&lt; T &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01184.png" usemap="#bl::EventListener_3C_20T_20_3E_map" alt=""/>
-  <map id="bl::EventListener_3C_20T_20_3E_map" name="bl::EventListener_3C_20T_20_3E_map">
-<area href="a00920.html" title="Top level class for creating a graphical user interface. " alt="bl::GUI" shape="rect" coords="0,56,208,80"/>
-<area href="a01012.html" title="Basic helper class to map keyboard input to menu events. " alt="bl::menu::KeyboardEventGenerator" shape="rect" coords="218,56,426,80"/>
-<area href="a01016.html" title="Basic helper class to map mouse input to menu events. " alt="bl::menu::MouseEventGenerator" shape="rect" coords="436,56,644,80"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00287_source.html">Resource.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ac9d3d3d8b9f303419859770272ba91ee"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; TResourceType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01184.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a></td></tr>
+<tr class="separator:ac9d3d3d8b9f303419859770272ba91ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a892eb59ed1465f3e23a15f5a07fe6536"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01184.html#a892eb59ed1465f3e23a15f5a07fe6536">~EventListener</a> ()=default</td></tr>
-<tr class="separator:a892eb59ed1465f3e23a15f5a07fe6536"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9194233707424e37c35928193502056d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01184.html#a9194233707424e37c35928193502056d">observe</a> (const T &amp;event)=0</td></tr>
-<tr class="memdesc:a9194233707424e37c35928193502056d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notification method for the listener to recieve events from the dispatcher.  <a href="#a9194233707424e37c35928193502056d">More...</a><br /></td></tr>
-<tr class="separator:a9194233707424e37c35928193502056d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7a8d6ec786b8fb53e02160fd7c34659"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01184.html#ab7a8d6ec786b8fb53e02160fd7c34659">Resource</a> (<a class="el" href="a01184.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a> <a class="el" href="a01184.html#adfbbeca88074a9891f5bba3ea35d7d00">data</a>)</td></tr>
+<tr class="memdesc:ab7a8d6ec786b8fb53e02160fd7c34659"><td class="mdescLeft">&#160;</td><td class="mdescRight">True to keep in cache even if no references remain.  <a href="#ab7a8d6ec786b8fb53e02160fd7c34659">More...</a><br /></td></tr>
+<tr class="separator:ab7a8d6ec786b8fb53e02160fd7c34659"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:adfbbeca88074a9891f5bba3ea35d7d00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01184.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01184.html#adfbbeca88074a9891f5bba3ea35d7d00">data</a></td></tr>
+<tr class="separator:adfbbeca88074a9891f5bba3ea35d7d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac369adcf5f2ac9d59a110b5f0fd1475b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01184.html#ac369adcf5f2ac9d59a110b5f0fd1475b">forceInCache</a></td></tr>
+<tr class="memdesc:ac369adcf5f2ac9d59a110b5f0fd1475b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The resource itself. May not be null.  <a href="#ac369adcf5f2ac9d59a110b5f0fd1475b">More...</a><br /></td></tr>
+<tr class="separator:ac369adcf5f2ac9d59a110b5f0fd1475b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-class bl::EventListener&lt; T &gt;</h3>
+<div class="textblock"><h3>template&lt;typename TResourceType&gt;<br />
+struct bl::Resource&lt; TResourceType &gt;</h3>
 
-<p>Templatized utility class for setting up an event dispatcher and listener system. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01176.html" title="Utility class to dispatch events to a set of listeners. ">EventDispatcher</a></dd></dl>
+<p>Base level struct representing a resource that can be loaded and managed by the resource system. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of event </td></tr>
+    <tr><td class="paramname">TResourceType</td><td>the type </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00016">16</a> of file <a class="el" href="a00308_source.html">EventListener.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a892eb59ed1465f3e23a15f5a07fe6536"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a892eb59ed1465f3e23a15f5a07fe6536">&#9670;&nbsp;</a></span>~EventListener()</h2>
+<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00016">16</a> of file <a class="el" href="a00287_source.html">Resource.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ac9d3d3d8b9f303419859770272ba91ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d3d3d8b9f303419859770272ba91ee">&#9670;&nbsp;</a></span>Ref</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
+template&lt;typename TResourceType&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;TResourceType&gt; <a class="el" href="a01184.html">bl::Resource</a>&lt; TResourceType &gt;::<a class="el" href="a01184.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00017">17</a> of file <a class="el" href="a00287_source.html">Resource.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab7a8d6ec786b8fb53e02160fd7c34659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7a8d6ec786b8fb53e02160fd7c34659">&#9670;&nbsp;</a></span>Resource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="a01184.html">bl::EventListener</a>&lt; T &gt;::~<a class="el" href="a01184.html">EventListener</a> </td>
+          <td class="memname"><a class="el" href="a01184.html">bl::Resource</a>&lt; TResourceType &gt;::<a class="el" href="a01184.html">Resource</a> </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a01184.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a>&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>True to keep in cache even if no references remain. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00022">22</a> of file <a class="el" href="a00287_source.html">Resource.hpp</a>.</p>
+
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9194233707424e37c35928193502056d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9194233707424e37c35928193502056d">&#9670;&nbsp;</a></span>observe()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="adfbbeca88074a9891f5bba3ea35d7d00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfbbeca88074a9891f5bba3ea35d7d00">&#9670;&nbsp;</a></span>data</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+template&lt;typename TResourceType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="a01184.html">bl::EventListener</a>&lt; T &gt;::observe </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>event</em></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="a01184.html#ac9d3d3d8b9f303419859770272ba91ee">Ref</a> <a class="el" href="a01184.html">bl::Resource</a>&lt; TResourceType &gt;::data</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Notification method for the listener to recieve events from the dispatcher. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">event</td><td>The event being dispatched </td></tr>
-  </table>
-  </dd>
-</dl>
+<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00019">19</a> of file <a class="el" href="a00287_source.html">Resource.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Util/<a class="el" href="a00308_source.html">EventListener.hpp</a></li>
+<a id="ac369adcf5f2ac9d59a110b5f0fd1475b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac369adcf5f2ac9d59a110b5f0fd1475b">&#9670;&nbsp;</a></span>forceInCache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a01184.html">bl::Resource</a>&lt; TResourceType &gt;::forceInCache</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The resource itself. May not be null. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00020">20</a> of file <a class="el" href="a00287_source.html">Resource.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Resources/<a class="el" href="a00287_source.html">Resource.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 5 2021 15:03:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 6 2021 03:58:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

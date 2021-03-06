@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::bf::Serializer&lt; T, true &gt; Struct Template Reference</title>
+<title>BLIB: bl::DelayedEventDispatcher Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,58 +63,62 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00570.html">bf</a></li><li class="navelem"><a class="el" href="a00720.html">Serializer&lt; T, true &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00591.html">bl</a></li><li class="navelem"><a class="el" href="a00720.html">DelayedEventDispatcher</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00717.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::bf::Serializer&lt; T, true &gt; Struct Template Reference</div>  </div>
+<div class="title">bl::DelayedEventDispatcher Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a01455_source.html">Serializer.hpp</a>&gt;</code></p>
+<p>A wrapper around <a class="el" href="a00744.html" title="Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe...">MultiEventDispatcher</a> for delayed event dispatches. Events are queued up as dispatch is called. The queue may then be drained manually or using a builtin background thread.  
+ <a href="a00720.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00059_source.html">DelayedEventDispatcher.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:af5fb3e21a26d34155249f76703af34b8"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00720.html#af5fb3e21a26d34155249f76703af34b8">serialize</a> (<a class="el" href="a00696.html">BinaryFile</a> &amp;output, const T &amp;value)</td></tr>
-<tr class="separator:af5fb3e21a26d34155249f76703af34b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac0c67d8a1097f67b67af459dc300293"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00720.html#aac0c67d8a1097f67b67af459dc300293">deserialize</a> (<a class="el" href="a00696.html">BinaryFile</a> &amp;input, T &amp;result)</td></tr>
-<tr class="separator:aac0c67d8a1097f67b67af459dc300293"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b0394adc01230a8e8937fdd3c4e8325"><td class="memItemLeft" align="right" valign="top">static std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00720.html#a6b0394adc01230a8e8937fdd3c4e8325">size</a> (const T &amp;)</td></tr>
-<tr class="separator:a6b0394adc01230a8e8937fdd3c4e8325"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae52bc307479ee1f55e25de190d951970"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00720.html#ae52bc307479ee1f55e25de190d951970">DelayedEventDispatcher</a> (<a class="el" href="a00744.html">MultiEventDispatcher</a> &amp;dispatcher, bool multithread=true)</td></tr>
+<tr class="memdesc:ae52bc307479ee1f55e25de190d951970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new delayed dispatcher with the given underlying. If multithread is true then a background thread is started which drains the event queue each time an event comes in with at least 15 milliseconds in between drains. If not multithreaded then <a class="el" href="a00720.html#a5f25e1dfa922b0cc130b602f77c7c7e3" title="Drains the queue of events by dispatching them through the underlying dispatcher. While threadsafe...">drain()</a> must be manually called.  <a href="#ae52bc307479ee1f55e25de190d951970">More...</a><br /></td></tr>
+<tr class="separator:ae52bc307479ee1f55e25de190d951970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97e689d69e95e6051b7554cc91a9abcb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00720.html#a97e689d69e95e6051b7554cc91a9abcb">~DelayedEventDispatcher</a> ()</td></tr>
+<tr class="memdesc:a97e689d69e95e6051b7554cc91a9abcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the background thread if running and drains the queue one last time.  <a href="#a97e689d69e95e6051b7554cc91a9abcb">More...</a><br /></td></tr>
+<tr class="separator:a97e689d69e95e6051b7554cc91a9abcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3a96a97036c0e46329ab68d0a0c6606"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad3a96a97036c0e46329ab68d0a0c6606"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00720.html#ad3a96a97036c0e46329ab68d0a0c6606">dispatch</a> (const T &amp;event)</td></tr>
+<tr class="memdesc:ad3a96a97036c0e46329ab68d0a0c6606"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispatches the given event to each listener that is subscribed to that type of event.  <a href="#ad3a96a97036c0e46329ab68d0a0c6606">More...</a><br /></td></tr>
+<tr class="separator:ad3a96a97036c0e46329ab68d0a0c6606"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f25e1dfa922b0cc130b602f77c7c7e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00720.html#a5f25e1dfa922b0cc130b602f77c7c7e3">drain</a> ()</td></tr>
+<tr class="memdesc:a5f25e1dfa922b0cc130b602f77c7c7e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drains the queue of events by dispatching them through the underlying dispatcher. While threadsafe, this only needs to be called when not running with the background thread.  <a href="#a5f25e1dfa922b0cc130b602f77c7c7e3">More...</a><br /></td></tr>
+<tr class="separator:a5f25e1dfa922b0cc130b602f77c7c7e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-struct bl::bf::Serializer&lt; T, true &gt;</h3>
+<div class="textblock"><p>A wrapper around <a class="el" href="a00744.html" title="Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe...">MultiEventDispatcher</a> for delayed event dispatches. Events are queued up as dispatch is called. The queue may then be drained manually or using a builtin background thread. </p>
 
-
-<p class="definition">Definition at line <a class="el" href="a01455_source.html#l00063">63</a> of file <a class="el" href="a01455_source.html">Serializer.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aac0c67d8a1097f67b67af459dc300293"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac0c67d8a1097f67b67af459dc300293">&#9670;&nbsp;</a></span>deserialize()</h2>
+<p class="definition">Definition at line <a class="el" href="a00059_source.html#l00023">23</a> of file <a class="el" href="a00059_source.html">DelayedEventDispatcher.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae52bc307479ee1f55e25de190d951970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae52bc307479ee1f55e25de190d951970">&#9670;&nbsp;</a></span>DelayedEventDispatcher()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a00712.html">bl::bf::Serializer</a>&lt; T, true &gt;::deserialize </td>
+          <td class="memname">bl::DelayedEventDispatcher::DelayedEventDispatcher </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00696.html">BinaryFile</a> &amp;&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
+          <td class="paramtype"><a class="el" href="a00744.html">MultiEventDispatcher</a> &amp;&#160;</td>
+          <td class="paramname"><em>dispatcher</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>multithread</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -122,95 +126,109 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01455_source.html#l00066">66</a> of file <a class="el" href="a01455_source.html">Serializer.hpp</a>.</p>
+<p>Creates a new delayed dispatcher with the given underlying. If multithread is true then a background thread is started which drains the event queue each time an event comes in with at least 15 milliseconds in between drains. If not multithreaded then <a class="el" href="a00720.html#a5f25e1dfa922b0cc130b602f77c7c7e3" title="Drains the queue of events by dispatching them through the underlying dispatcher. While threadsafe...">drain()</a> must be manually called. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dispatcher</td><td>The underlying dispatcher to send events into </td></tr>
+    <tr><td class="paramname">multithread</td><td>True to drain in the background, false for manual draining </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00359_source.html#l00007">7</a> of file <a class="el" href="a00359_source.html">DelayedEventDispatcher.cpp</a>.</p>
 
 </div>
 </div>
-<a id="af5fb3e21a26d34155249f76703af34b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5fb3e21a26d34155249f76703af34b8">&#9670;&nbsp;</a></span>serialize()</h2>
+<a id="a97e689d69e95e6051b7554cc91a9abcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97e689d69e95e6051b7554cc91a9abcb">&#9670;&nbsp;</a></span>~DelayedEventDispatcher()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a00712.html">bl::bf::Serializer</a>&lt; T, true &gt;::serialize </td>
+          <td class="memname">bl::DelayedEventDispatcher::~DelayedEventDispatcher </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00696.html">BinaryFile</a> &amp;&#160;</td>
-          <td class="paramname"><em>output</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01455_source.html#l00064">64</a> of file <a class="el" href="a01455_source.html">Serializer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6b0394adc01230a8e8937fdd3c4e8325"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b0394adc01230a8e8937fdd3c4e8325">&#9670;&nbsp;</a></span>size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::uint32_t <a class="el" href="a00712.html">bl::bf::Serializer</a>&lt; T, true &gt;::size </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01455_source.html#l00068">68</a> of file <a class="el" href="a01455_source.html">Serializer.hpp</a>.</p>
+<p>Stops the background thread if running and drains the queue one last time. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00359_source.html#l00012">12</a> of file <a class="el" href="a00359_source.html">DelayedEventDispatcher.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Files/Binary/<a class="el" href="a01455_source.html">Serializer.hpp</a></li>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad3a96a97036c0e46329ab68d0a0c6606"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3a96a97036c0e46329ab68d0a0c6606">&#9670;&nbsp;</a></span>dispatch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::DelayedEventDispatcher::dispatch </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dispatches the given event to each listener that is subscribed to that type of event. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of event to dispatch </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event to dispatch </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00059_source.html#l00091">91</a> of file <a class="el" href="a00059_source.html">DelayedEventDispatcher.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5f25e1dfa922b0cc130b602f77c7c7e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f25e1dfa922b0cc130b602f77c7c7e3">&#9670;&nbsp;</a></span>drain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::DelayedEventDispatcher::drain </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Drains the queue of events by dispatching them through the underlying dispatcher. While threadsafe, this only needs to be called when not running with the background thread. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00359_source.html#l00030">30</a> of file <a class="el" href="a00359_source.html">DelayedEventDispatcher.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Events/<a class="el" href="a00059_source.html">DelayedEventDispatcher.hpp</a></li>
+<li>src/Events/<a class="el" href="a00359_source.html">DelayedEventDispatcher.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 5 2021 15:03:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 6 2021 03:58:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

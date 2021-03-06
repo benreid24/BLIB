@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::bf::VersionedBinaryFile&lt; Payload, DefaultLoader, Versions &gt; Class Template Reference</title>
+<title>BLIB: bl::EventDispatcherScopeGuard&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,100 +63,86 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00570.html">bf</a></li><li class="navelem"><a class="el" href="a00736.html">VersionedBinaryFile</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00591.html">bl</a></li><li class="navelem"><a class="el" href="a00736.html">EventDispatcherScopeGuard</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00733.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::bf::VersionedBinaryFile&lt; Payload, DefaultLoader, Versions &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00554.html">BinaryFiles</a></div></div>  </div>
+<div class="title">bl::EventDispatcherScopeGuard&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Helper class to facilitate the versioning of binary files. Versions are represented by the provided loaders. Version numbers are derived from the template ordering so care must be taken to keep it consistent. A special header value is written to versioned files in order to detect versioned from non-versioned files.  
+<p>Scope guard for <a class="el" href="a00740.html" title="Templatized utility class for setting up an event dispatcher and listener system. ...">EventListener</a> objects to subscribe to an <a class="el" href="a00732.html" title="Utility class to dispatch events of a single type to a set of listeners. ">EventDispatcher</a> if they are limited by scope. All listeners subscribed through the guard are removed from the dispatcher when the guard goes out of scope.  
  <a href="a00736.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::bf::VersionedBinaryFile&lt; Payload, DefaultLoader, Versions &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a00736.png" usemap="#bl::bf::VersionedBinaryFile_3C_20Payload_2C_20DefaultLoader_2C_20Versions_20_3E_map" alt=""/>
-  <map id="bl::bf::VersionedBinaryFile_3C_20Payload_2C_20DefaultLoader_2C_20Versions_20_3E_map" name="bl::bf::VersionedBinaryFile_3C_20Payload_2C_20DefaultLoader_2C_20Versions_20_3E_map">
-<area href="a01196.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::NonCopyable" shape="rect" coords="0,0,379,24"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00065_source.html">EventDispatcherScopeGuard.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a7bcf5a63cf15be31c69e61280ef5b922"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00736.html#a7bcf5a63cf15be31c69e61280ef5b922">Loader</a> = <a class="el" href="a00732.html">VersionedPayloadLoader</a>&lt; Payload &gt;</td></tr>
-<tr class="separator:a7bcf5a63cf15be31c69e61280ef5b922"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af26a6823334d48ae6185ca04261ef97c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00736.html#af26a6823334d48ae6185ca04261ef97c">VersionedBinaryFile</a> ()</td></tr>
-<tr class="memdesc:af26a6823334d48ae6185ca04261ef97c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates instances of each loader type.  <a href="#af26a6823334d48ae6185ca04261ef97c">More...</a><br /></td></tr>
-<tr class="separator:af26a6823334d48ae6185ca04261ef97c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fcdaef5755b8b7869fd05cb90a875a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00736.html#a1fcdaef5755b8b7869fd05cb90a875a8">~VersionedBinaryFile</a> ()</td></tr>
-<tr class="memdesc:a1fcdaef5755b8b7869fd05cb90a875a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys each created version loader.  <a href="#a1fcdaef5755b8b7869fd05cb90a875a8">More...</a><br /></td></tr>
-<tr class="separator:a1fcdaef5755b8b7869fd05cb90a875a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ab5de7e6ec42645c136e91ee6d39d35"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00736.html#a0ab5de7e6ec42645c136e91ee6d39d35">write</a> (const std::string &amp;path, const Payload &amp;payload) const</td></tr>
-<tr class="memdesc:a0ab5de7e6ec42645c136e91ee6d39d35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given object to the given file.  <a href="#a0ab5de7e6ec42645c136e91ee6d39d35">More...</a><br /></td></tr>
-<tr class="separator:a0ab5de7e6ec42645c136e91ee6d39d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a626f456bb437b40af072780a5c6b0160"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00736.html#a626f456bb437b40af072780a5c6b0160">read</a> (const std::string &amp;path, Payload &amp;payload) const</td></tr>
-<tr class="memdesc:a626f456bb437b40af072780a5c6b0160"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the given object from the given file.  <a href="#a626f456bb437b40af072780a5c6b0160">More...</a><br /></td></tr>
-<tr class="separator:a626f456bb437b40af072780a5c6b0160"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad06d7de5e9fe232da8b2ebd392848ed0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00736.html#ad06d7de5e9fe232da8b2ebd392848ed0">EventDispatcherScopeGuard</a> (<a class="el" href="a00732.html">EventDispatcher</a>&lt; T &gt; &amp;dispatcher)</td></tr>
+<tr class="memdesc:ad06d7de5e9fe232da8b2ebd392848ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new scope guard for the given dispatcher.  <a href="#ad06d7de5e9fe232da8b2ebd392848ed0">More...</a><br /></td></tr>
+<tr class="separator:ad06d7de5e9fe232da8b2ebd392848ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e3e91008cfab91ff82d4f631759caed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00736.html#a6e3e91008cfab91ff82d4f631759caed">~EventDispatcherScopeGuard</a> ()</td></tr>
+<tr class="memdesc:a6e3e91008cfab91ff82d4f631759caed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all added listeners from the dispatcher.  <a href="#a6e3e91008cfab91ff82d4f631759caed">More...</a><br /></td></tr>
+<tr class="separator:a6e3e91008cfab91ff82d4f631759caed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad653f961848fce3d0f8fc97cea1e8e14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00736.html#ad653f961848fce3d0f8fc97cea1e8e14">subscribe</a> (<a class="el" href="a00740.html">EventListener</a>&lt; T &gt; *listener)</td></tr>
+<tr class="memdesc:ad653f961848fce3d0f8fc97cea1e8e14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe the given scoped listener object.  <a href="#ad653f961848fce3d0f8fc97cea1e8e14">More...</a><br /></td></tr>
+<tr class="separator:ad653f961848fce3d0f8fc97cea1e8e14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd437b4dd99e8e8d92ab314837562b87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00736.html#acd437b4dd99e8e8d92ab314837562b87">remove</a> (<a class="el" href="a00740.html">EventListener</a>&lt; T &gt; *listener)</td></tr>
+<tr class="memdesc:acd437b4dd99e8e8d92ab314837562b87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the given listener.  <a href="#acd437b4dd99e8e8d92ab314837562b87">More...</a><br /></td></tr>
+<tr class="separator:acd437b4dd99e8e8d92ab314837562b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename Payload, typename DefaultLoader, typename... Versions&gt;<br />
-class bl::bf::VersionedBinaryFile&lt; Payload, DefaultLoader, Versions &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::EventDispatcherScopeGuard&lt; T &gt;</h3>
 
-<p>Helper class to facilitate the versioning of binary files. Versions are represented by the provided loaders. Version numbers are derived from the template ordering so care must be taken to keep it consistent. A special header value is written to versioned files in order to detect versioned from non-versioned files. </p>
+<p>Scope guard for <a class="el" href="a00740.html" title="Templatized utility class for setting up an event dispatcher and listener system. ...">EventListener</a> objects to subscribe to an <a class="el" href="a00732.html" title="Utility class to dispatch events of a single type to a set of listeners. ">EventDispatcher</a> if they are limited by scope. All listeners subscribed through the guard are removed from the dispatcher when the guard goes out of scope. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Payload</td><td>The type of object to read and write </td></tr>
-    <tr><td class="paramname">DefaultLoader</td><td>The <a class="el" href="a00732.html" title="Base interface for payload loaders. File version loaders should implement this interface. ">VersionedPayloadLoader</a> to use if version information is missing </td></tr>
-    <tr><td class="paramname">Versions</td><td>A list of <a class="el" href="a00732.html" title="Base interface for payload loaders. File version loaders should implement this interface. ">VersionedPayloadLoader</a> for all the versions of the object </td></tr>
+    <tr><td class="paramname">T</td><td>Type of event to handle </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00055">55</a> of file <a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a7bcf5a63cf15be31c69e61280ef5b922"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bcf5a63cf15be31c69e61280ef5b922">&#9670;&nbsp;</a></span>Loader</h2>
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00018">18</a> of file <a class="el" href="a00065_source.html">EventDispatcherScopeGuard.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad06d7de5e9fe232da8b2ebd392848ed0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad06d7de5e9fe232da8b2ebd392848ed0">&#9670;&nbsp;</a></span>EventDispatcherScopeGuard()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt; </div>
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00736.html">bl::bf::VersionedBinaryFile</a>&lt; Payload, DefaultLoader, Versions &gt;::<a class="el" href="a00736.html#a7bcf5a63cf15be31c69e61280ef5b922">Loader</a> =  <a class="el" href="a00732.html">VersionedPayloadLoader</a>&lt;Payload&gt;</td>
+          <td class="memname"><a class="el" href="a00736.html">bl::EventDispatcherScopeGuard</a>&lt; T &gt;::<a class="el" href="a00736.html">EventDispatcherScopeGuard</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00732.html">EventDispatcher</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>dispatcher</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00057">57</a> of file <a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>.</p>
+<p>Create a new scope guard for the given dispatcher. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00054">54</a> of file <a class="el" href="a00065_source.html">EventDispatcherScopeGuard.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af26a6823334d48ae6185ca04261ef97c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af26a6823334d48ae6185ca04261ef97c">&#9670;&nbsp;</a></span>VersionedBinaryFile()</h2>
+<a id="a6e3e91008cfab91ff82d4f631759caed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e3e91008cfab91ff82d4f631759caed">&#9670;&nbsp;</a></span>~EventDispatcherScopeGuard()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt; </div>
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00736.html">bl::bf::VersionedBinaryFile</a>&lt; Payload, DefaultLoader, Versions &gt;::<a class="el" href="a00736.html">VersionedBinaryFile</a> </td>
+          <td class="memname"><a class="el" href="a00736.html">bl::EventDispatcherScopeGuard</a>&lt; T &gt;::~<a class="el" href="a00736.html">EventDispatcherScopeGuard</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -164,128 +150,69 @@ template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt;
       </table>
 </div><div class="memdoc">
 
-<p>Creates instances of each loader type. </p>
+<p>Removes all added listeners from the dispatcher. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00099">99</a> of file <a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a1fcdaef5755b8b7869fd05cb90a875a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fcdaef5755b8b7869fd05cb90a875a8">&#9670;&nbsp;</a></span>~VersionedBinaryFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00736.html">bl::bf::VersionedBinaryFile</a>&lt; Payload, DefaultLoader, Versions &gt;::~<a class="el" href="a00736.html">VersionedBinaryFile</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Destroys each created version loader. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00104">104</a> of file <a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00058">58</a> of file <a class="el" href="a00065_source.html">EventDispatcherScopeGuard.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a626f456bb437b40af072780a5c6b0160"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a626f456bb437b40af072780a5c6b0160">&#9670;&nbsp;</a></span>read()</h2>
+<a id="acd437b4dd99e8e8d92ab314837562b87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd437b4dd99e8e8d92ab314837562b87">&#9670;&nbsp;</a></span>remove()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt; </div>
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="a00736.html">bl::bf::VersionedBinaryFile</a>&lt; Payload, DefaultLoader, Versions &gt;::read </td>
+          <td class="memname">void <a class="el" href="a00736.html">bl::EventDispatcherScopeGuard</a>&lt; T &gt;::remove </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a00740.html">EventListener</a>&lt; T &gt; *&#160;</td>
+          <td class="paramname"><em>listener</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">Payload &amp;&#160;</td>
-          <td class="paramname"><em>payload</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Reads the given object from the given file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>The file to read from </td></tr>
-    <tr><td class="paramname">payload</td><td>The payload to read into </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the payload was read, false on error </dd></dl>
+<p>Remove the given listener. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00123">123</a> of file <a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00069">69</a> of file <a class="el" href="a00065_source.html">EventDispatcherScopeGuard.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a0ab5de7e6ec42645c136e91ee6d39d35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ab5de7e6ec42645c136e91ee6d39d35">&#9670;&nbsp;</a></span>write()</h2>
+<a id="ad653f961848fce3d0f8fc97cea1e8e14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad653f961848fce3d0f8fc97cea1e8e14">&#9670;&nbsp;</a></span>subscribe()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt; </div>
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="a00736.html">bl::bf::VersionedBinaryFile</a>&lt; Payload, DefaultLoader, Versions &gt;::write </td>
+          <td class="memname">void <a class="el" href="a00736.html">bl::EventDispatcherScopeGuard</a>&lt; T &gt;::subscribe </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a00740.html">EventListener</a>&lt; T &gt; *&#160;</td>
+          <td class="paramname"><em>listener</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const Payload &amp;&#160;</td>
-          <td class="paramname"><em>payload</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Writes the given object to the given file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>The file to write to </td></tr>
-    <tr><td class="paramname">payload</td><td>The payload to write </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the payload was written, false on error </dd></dl>
+<p>Subscribe the given scoped listener object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00110">110</a> of file <a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00063">63</a> of file <a class="el" href="a00065_source.html">EventDispatcherScopeGuard.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Files/Binary/<a class="el" href="a00071_source.html">VersionedBinaryFile.hpp</a></li>
+<li>include/BLIB/Events/<a class="el" href="a00065_source.html">EventDispatcherScopeGuard.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 5 2021 15:03:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 6 2021 03:58:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

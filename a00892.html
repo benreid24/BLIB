@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gui::RadioButton::Group Class Reference</title>
+<title>BLIB: bl::gui::Action Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,95 +63,556 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00573.html">gui</a></li><li class="navelem"><a class="el" href="a00888.html">RadioButton</a></li><li class="navelem"><a class="el" href="a00892.html">Group</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00591.html">bl</a></li><li class="navelem"><a class="el" href="a00597.html">gui</a></li><li class="navelem"><a class="el" href="a00892.html">Action</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a00889.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gui::RadioButton::Group Class Reference<div class="ingroups"><a class="el" href="a00557.html">GUI</a></div></div>  </div>
+<div class="title">bl::gui::Action Struct Reference<div class="ingroups"><a class="el" href="a00579.html">GUI</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A group of radio buttons. Used to disable buttons.  
+<p><a class="el" href="a00984.html" title="Top level class for creating a graphical user interface. ">GUI</a> analog of sf::Event. Represents user actions that can propogate through the <a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> tree.  
  <a href="a00892.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00125_source.html">RadioButton.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00113_source.html">Action.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00896.html">CustomData</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic struct to pack <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> with custom data for Custom types.  <a href="a00896.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00900.html">TData</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Union containing event data, if any extra data is required.  <a href="a00900.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a306cfe617542093b22a782469b68592c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a> { <br />
+&#160;&#160;<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca0c3349181d2e4072cddffaa7dc0e6716">MouseEntered</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592cafc1fab0debde670f087383480aba9aa1">MouseLeft</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592cad73bacb25b367e3fafd05f7e44b7c61a">LeftClicked</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca06138e2faee03af18613c4d68f82bf57">RightClicked</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592caee8dd3eefcaccc1c9dcc63da30e8a9b6">Pressed</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592caec0c5db6225aa3b93bcc88f62f74db94">Dragged</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca05fcc9728349ee7aa604e8c3551b2fde">Released</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592cab5dd3a0d8458e6ce4331a30e9d798f14">Scrolled</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca12290e42f686476d2ea5e32321259395">KeyPressed</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca249f171299ef12ce6319e23994a451a8">KeyReleased</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592caa5d82988a35edfc8a6ab4ffadb4e9fbd">TextEntered</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca9688a29d88ef0913c124296fe66d5c33">ValueChanged</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca486bd941ac0e5d49b107ef257f0d482f">Moved</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca31888aafa1dca20ab4b9dce07d6289db">Closed</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592caad9d11c76156d6f6e1158b0ed6ccdad9">GainedFocus</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca4306a06c098f44e9d99e3804303be3a8">LostFocus</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca25f817c28b469b6c0337c477b3aa658b">AcquisitionChanged</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592caac3cbb3110ee516a36408cfd47b95d26">RenderSettingsChanged</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca8124d164df166c8770d8689ea7d83b53">Custom</a>, 
+<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca5e0418327a4e188299a1876c2bc3593b">NUM_ACTIONS</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592ca716081c32233e23121708b6a506941f2">Unknown</a>
+<br />
+ }<tr class="memdesc:a306cfe617542093b22a782469b68592c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> that occured.  <a href="a00892.html#a306cfe617542093b22a782469b68592c">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a306cfe617542093b22a782469b68592c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8c76591ff3b665c54341e26fcbab3903"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00888.html">RadioButton</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a8c76591ff3b665c54341e26fcbab3903">getActiveButton</a> ()</td></tr>
-<tr class="memdesc:a8c76591ff3b665c54341e26fcbab3903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the currently selected radio button. May be null.  <a href="#a8c76591ff3b665c54341e26fcbab3903">More...</a><br /></td></tr>
-<tr class="separator:a8c76591ff3b665c54341e26fcbab3903"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a68a7a035376150a6d6fd2cf1e16251"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a6a68a7a035376150a6d6fd2cf1e16251">setActiveButton</a> (<a class="el" href="a00888.html">RadioButton</a> *button)</td></tr>
-<tr class="memdesc:a6a68a7a035376150a6d6fd2cf1e16251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the currently active button. Deactivates the rest.  <a href="#a6a68a7a035376150a6d6fd2cf1e16251">More...</a><br /></td></tr>
-<tr class="separator:a6a68a7a035376150a6d6fd2cf1e16251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a431be94faf75cb10c907aabb5c06f924"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a431be94faf75cb10c907aabb5c06f924">Action</a> (<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a> <a class="el" href="a00892.html#aa53ea192eef191bf3ba44abceb0f5fc8">type</a>)</td></tr>
+<tr class="memdesc:a431be94faf75cb10c907aabb5c06f924"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes an empty <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> of the given type. For types that have no position or data.  <a href="#a431be94faf75cb10c907aabb5c06f924">More...</a><br /></td></tr>
+<tr class="separator:a431be94faf75cb10c907aabb5c06f924"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d1f52ec018bab4fe37decfea3cb28ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a1d1f52ec018bab4fe37decfea3cb28ec">Action</a> (<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a> <a class="el" href="a00892.html#aa53ea192eef191bf3ba44abceb0f5fc8">type</a>, const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:a1d1f52ec018bab4fe37decfea3cb28ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an action of the given Type and position.  <a href="#a1d1f52ec018bab4fe37decfea3cb28ec">More...</a><br /></td></tr>
+<tr class="separator:a1d1f52ec018bab4fe37decfea3cb28ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45daa5a3aba09f5d993e927d4f1ab07b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a45daa5a3aba09f5d993e927d4f1ab07b">Action</a> (<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a> <a class="el" href="a00892.html#aa53ea192eef191bf3ba44abceb0f5fc8">type</a>, uint32_t c, const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:a45daa5a3aba09f5d993e927d4f1ab07b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an action of the given Type and position and sets the extra data.  <a href="#a45daa5a3aba09f5d993e927d4f1ab07b">More...</a><br /></td></tr>
+<tr class="separator:a45daa5a3aba09f5d993e927d4f1ab07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae615220909fb0d45739511cdbe483d4d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#ae615220909fb0d45739511cdbe483d4d">Action</a> (<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a> <a class="el" href="a00892.html#aa53ea192eef191bf3ba44abceb0f5fc8">type</a>, float s, const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:ae615220909fb0d45739511cdbe483d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an action of the given Type and position and sets the extra data.  <a href="#ae615220909fb0d45739511cdbe483d4d">More...</a><br /></td></tr>
+<tr class="separator:ae615220909fb0d45739511cdbe483d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a715328b318129bc5f320c48d6488e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a0a715328b318129bc5f320c48d6488e3">Action</a> (<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a> <a class="el" href="a00892.html#aa53ea192eef191bf3ba44abceb0f5fc8">type</a>, float v)</td></tr>
+<tr class="memdesc:a0a715328b318129bc5f320c48d6488e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> of the given Type and float value. No position.  <a href="#a0a715328b318129bc5f320c48d6488e3">More...</a><br /></td></tr>
+<tr class="separator:a0a715328b318129bc5f320c48d6488e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c9039ce94db9f289573794a5761f700"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a6c9039ce94db9f289573794a5761f700">Action</a> (<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a> <a class="el" href="a00892.html#aa53ea192eef191bf3ba44abceb0f5fc8">type</a>, bool v)</td></tr>
+<tr class="memdesc:a6c9039ce94db9f289573794a5761f700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> of the given Type and bool value. No position.  <a href="#a6c9039ce94db9f289573794a5761f700">More...</a><br /></td></tr>
+<tr class="separator:a6c9039ce94db9f289573794a5761f700"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96c99c38edcdae0cc884d69af4057be2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a96c99c38edcdae0cc884d69af4057be2">Action</a> (<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a> <a class="el" href="a00892.html#aa53ea192eef191bf3ba44abceb0f5fc8">type</a>, sf::Event::KeyEvent key, const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:a96c99c38edcdae0cc884d69af4057be2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an action of the given Type and position and sets the extra data.  <a href="#a96c99c38edcdae0cc884d69af4057be2">More...</a><br /></td></tr>
+<tr class="separator:a96c99c38edcdae0cc884d69af4057be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2acd80c39064608f9a6f20ae07a5bec3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a2acd80c39064608f9a6f20ae07a5bec3">Action</a> (<a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a> <a class="el" href="a00892.html#aa53ea192eef191bf3ba44abceb0f5fc8">type</a>, const sf::Vector2f &amp;drag, const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:a2acd80c39064608f9a6f20ae07a5bec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an action of the given Type and position and sets the extra data.  <a href="#a2acd80c39064608f9a6f20ae07a5bec3">More...</a><br /></td></tr>
+<tr class="separator:a2acd80c39064608f9a6f20ae07a5bec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a218e44eb9f8db2644a605d5b31df4dc1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a218e44eb9f8db2644a605d5b31df4dc1">Action</a> (const <a class="el" href="a00896.html">CustomData</a> &amp;<a class="el" href="a00892.html#aa99b3b274c3bc63ce4dfd24499627a36">data</a>, const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:a218e44eb9f8db2644a605d5b31df4dc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new custom <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a>.  <a href="#a218e44eb9f8db2644a605d5b31df4dc1">More...</a><br /></td></tr>
+<tr class="separator:a218e44eb9f8db2644a605d5b31df4dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a894022a048993dca367ba1a01423b844"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a894022a048993dca367ba1a01423b844">RadioButton</a></td></tr>
-<tr class="separator:a894022a048993dca367ba1a01423b844"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a7f26ed92c171a81091c60974266ade41"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00892.html">Action</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#a7f26ed92c171a81091c60974266ade41">fromRaw</a> (const <a class="el" href="a00996.html">RawEvent</a> &amp;event)</td></tr>
+<tr class="memdesc:a7f26ed92c171a81091c60974266ade41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to construct an <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> from a raw event.  <a href="#a7f26ed92c171a81091c60974266ade41">More...</a><br /></td></tr>
+<tr class="separator:a7f26ed92c171a81091c60974266ade41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aa53ea192eef191bf3ba44abceb0f5fc8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#aa53ea192eef191bf3ba44abceb0f5fc8">type</a></td></tr>
+<tr class="separator:aa53ea192eef191bf3ba44abceb0f5fc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa99b3b274c3bc63ce4dfd24499627a36"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00900.html">TData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#aa99b3b274c3bc63ce4dfd24499627a36">data</a></td></tr>
+<tr class="memdesc:aa99b3b274c3bc63ce4dfd24499627a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a>.  <a href="#aa99b3b274c3bc63ce4dfd24499627a36">More...</a><br /></td></tr>
+<tr class="separator:aa99b3b274c3bc63ce4dfd24499627a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade32d3f520e3d2ca9117c7163259b849"><td class="memItemLeft" align="right" valign="top">const sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html#ade32d3f520e3d2ca9117c7163259b849">position</a></td></tr>
+<tr class="memdesc:ade32d3f520e3d2ca9117c7163259b849"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extra <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> data if required by type.  <a href="#ade32d3f520e3d2ca9117c7163259b849">More...</a><br /></td></tr>
+<tr class="separator:ade32d3f520e3d2ca9117c7163259b849"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A group of radio buttons. Used to disable buttons. </p>
+<div class="textblock"><p><a class="el" href="a00984.html" title="Top level class for creating a graphical user interface. ">GUI</a> analog of sf::Event. Represents user actions that can propogate through the <a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> tree. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00026">26</a> of file <a class="el" href="a00125_source.html">RadioButton.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8c76591ff3b665c54341e26fcbab3903"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c76591ff3b665c54341e26fcbab3903">&#9670;&nbsp;</a></span>getActiveButton()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00888.html">RadioButton</a> * bl::gui::RadioButton::Group::getActiveButton </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the currently selected radio button. May be null. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00407_source.html#l00049">49</a> of file <a class="el" href="a00407_source.html">RadioButton.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6a68a7a035376150a6d6fd2cf1e16251"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a68a7a035376150a6d6fd2cf1e16251">&#9670;&nbsp;</a></span>setActiveButton()</h2>
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00019">19</a> of file <a class="el" href="a00113_source.html">Action.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a306cfe617542093b22a782469b68592c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a306cfe617542093b22a782469b68592c">&#9670;&nbsp;</a></span>Type</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::RadioButton::Group::setActiveButton </td>
+          <td class="memname">enum <a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">bl::gui::Action::Type</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The type of <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> that occured. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca0c3349181d2e4072cddffaa7dc0e6716"></a>MouseEntered&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592cafc1fab0debde670f087383480aba9aa1"></a>MouseLeft&#160;</td><td class="fielddoc"><p>Mouse moved over <a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592cad73bacb25b367e3fafd05f7e44b7c61a"></a>LeftClicked&#160;</td><td class="fielddoc"><p>Mouse moved away from <a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca06138e2faee03af18613c4d68f82bf57"></a>RightClicked&#160;</td><td class="fielddoc"><p><a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> left clicked. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592caee8dd3eefcaccc1c9dcc63da30e8a9b6"></a>Pressed&#160;</td><td class="fielddoc"><p><a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> right clicked. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592caec0c5db6225aa3b93bcc88f62f74db94"></a>Dragged&#160;</td><td class="fielddoc"><p>Left mouse button pressed on element. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca05fcc9728349ee7aa604e8c3551b2fde"></a>Released&#160;</td><td class="fielddoc"><p>Mouse moved while left mouse button pressed on <a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592cab5dd3a0d8458e6ce4331a30e9d798f14"></a>Scrolled&#160;</td><td class="fielddoc"><p>Left mouse button released on element. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca12290e42f686476d2ea5e32321259395"></a>KeyPressed&#160;</td><td class="fielddoc"><p>Mouse wheel scrolled while over <a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca249f171299ef12ce6319e23994a451a8"></a>KeyReleased&#160;</td><td class="fielddoc"><p>Keyboard key pressed while <a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> focused. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592caa5d82988a35edfc8a6ab4ffadb4e9fbd"></a>TextEntered&#160;</td><td class="fielddoc"><p>Keyboard key released while <a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> focused. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca9688a29d88ef0913c124296fe66d5c33"></a>ValueChanged&#160;</td><td class="fielddoc"><p>Text typed in while <a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> focused. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca486bd941ac0e5d49b107ef257f0d482f"></a>Moved&#160;</td><td class="fielddoc"><p>Generic action for non text inputs to fire on change. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca31888aafa1dca20ab4b9dce07d6289db"></a>Closed&#160;</td><td class="fielddoc"><p>Specific to <a class="el" href="a00980.html" title="Element that represents a window in a GUI. Window elements are the top level element of any GUI...">Window</a> element. Fired when it is moved. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592caad9d11c76156d6f6e1158b0ed6ccdad9"></a>GainedFocus&#160;</td><td class="fielddoc"><p>Specific to <a class="el" href="a00980.html" title="Element that represents a window in a GUI. Window elements are the top level element of any GUI...">Window</a> element. Fired when it is closed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca4306a06c098f44e9d99e3804303be3a8"></a>LostFocus&#160;</td><td class="fielddoc"><p><a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> came into focus. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca25f817c28b469b6c0337c477b3aa658b"></a>AcquisitionChanged&#160;</td><td class="fielddoc"><p>Focus was removed from element. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592caac3cbb3110ee516a36408cfd47b95d26"></a>RenderSettingsChanged&#160;</td><td class="fielddoc"><p><a class="el" href="a00928.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> obtained a new acquisition. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca8124d164df166c8770d8689ea7d83b53"></a>Custom&#160;</td><td class="fielddoc"><p>One of the element's render settings was updated. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca5e0418327a4e188299a1876c2bc3593b"></a>NUM_ACTIONS&#160;</td><td class="fielddoc"><p>Custom type for custom elements to use. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a306cfe617542093b22a782469b68592ca716081c32233e23121708b6a506941f2"></a>Unknown&#160;</td><td class="fielddoc"><p>How many valid <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> types exist. </p>
+<p>Invalid <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00024">24</a> of file <a class="el" href="a00113_source.html">Action.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a431be94faf75cb10c907aabb5c06f924"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a431be94faf75cb10c907aabb5c06f924">&#9670;&nbsp;</a></span>Action() <span class="overload">[1/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Action::Action </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00888.html">RadioButton</a> *&#160;</td>
-          <td class="paramname"><em>button</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set the currently active button. Deactivates the rest. </p>
+<p>Makes an empty <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> of the given type. For types that have no position or data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">button</td><td></td></tr>
+    <tr><td class="paramname">type</td><td>The type of action to create </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00407_source.html#l00051">51</a> of file <a class="el" href="a00407_source.html">RadioButton.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00044">44</a> of file <a class="el" href="a00389_source.html">Action.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a894022a048993dca367ba1a01423b844"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a894022a048993dca367ba1a01423b844">&#9670;&nbsp;</a></span>RadioButton</h2>
+<a id="a1d1f52ec018bab4fe37decfea3cb28ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d1f52ec018bab4fe37decfea3cb28ec">&#9670;&nbsp;</a></span>Action() <span class="overload">[2/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Action::Action </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an action of the given Type and position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> </td></tr>
+    <tr><td class="paramname">pos</td><td>The mouse position relative to the containing window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00049">49</a> of file <a class="el" href="a00389_source.html">Action.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a45daa5a3aba09f5d993e927d4f1ab07b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45daa5a3aba09f5d993e927d4f1ab07b">&#9670;&nbsp;</a></span>Action() <span class="overload">[3/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Action::Action </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an action of the given Type and position and sets the extra data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> </td></tr>
+    <tr><td class="paramname">c</td><td>Character to set the extra data to </td></tr>
+    <tr><td class="paramname">pos</td><td>The mouse position relative to the containing window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00054">54</a> of file <a class="el" href="a00389_source.html">Action.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae615220909fb0d45739511cdbe483d4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae615220909fb0d45739511cdbe483d4d">&#9670;&nbsp;</a></span>Action() <span class="overload">[4/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Action::Action </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an action of the given Type and position and sets the extra data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> </td></tr>
+    <tr><td class="paramname">s</td><td>Scroll delta to set the extra data to </td></tr>
+    <tr><td class="paramname">pos</td><td>The mouse position relative to the containing window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00067">67</a> of file <a class="el" href="a00389_source.html">Action.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0a715328b318129bc5f320c48d6488e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a715328b318129bc5f320c48d6488e3">&#9670;&nbsp;</a></span>Action() <span class="overload">[5/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Action::Action </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> of the given Type and float value. No position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> </td></tr>
+    <tr><td class="paramname">v</td><td>The value to store </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00059">59</a> of file <a class="el" href="a00389_source.html">Action.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c9039ce94db9f289573794a5761f700"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c9039ce94db9f289573794a5761f700">&#9670;&nbsp;</a></span>Action() <span class="overload">[6/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Action::Action </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> of the given Type and bool value. No position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> </td></tr>
+    <tr><td class="paramname">v</td><td>The value to store </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00063">63</a> of file <a class="el" href="a00389_source.html">Action.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a96c99c38edcdae0cc884d69af4057be2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96c99c38edcdae0cc884d69af4057be2">&#9670;&nbsp;</a></span>Action() <span class="overload">[7/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Action::Action </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Event::KeyEvent&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an action of the given Type and position and sets the extra data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> </td></tr>
+    <tr><td class="paramname">key</td><td>Key to set the extra data to </td></tr>
+    <tr><td class="paramname">pos</td><td>The mouse position relative to the containing window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00072">72</a> of file <a class="el" href="a00389_source.html">Action.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2acd80c39064608f9a6f20ae07a5bec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2acd80c39064608f9a6f20ae07a5bec3">&#9670;&nbsp;</a></span>Action() <span class="overload">[8/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Action::Action </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>drag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an action of the given Type and position and sets the extra data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> </td></tr>
+    <tr><td class="paramname">drag</td><td>Start of the drag </td></tr>
+    <tr><td class="paramname">pos</td><td>The mouse position relative to the containing window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00077">77</a> of file <a class="el" href="a00389_source.html">Action.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a218e44eb9f8db2644a605d5b31df4dc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a218e44eb9f8db2644a605d5b31df4dc1">&#9670;&nbsp;</a></span>Action() <span class="overload">[9/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Action::Action </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00896.html">CustomData</a> &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new custom <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Data for the custom action </td></tr>
+    <tr><td class="paramname">pos</td><td>The mouse position relative to the containing window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00082">82</a> of file <a class="el" href="a00389_source.html">Action.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7f26ed92c171a81091c60974266ade41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f26ed92c171a81091c60974266ade41">&#9670;&nbsp;</a></span>fromRaw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,29 +621,89 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a00888.html">RadioButton</a></td>
+          <td class="memname"><a class="el" href="a00892.html">Action</a> bl::gui::Action::fromRaw </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00996.html">RawEvent</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00048">48</a> of file <a class="el" href="a00125_source.html">RadioButton.hpp</a>.</p>
+<p>Helper method to construct an <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> from a raw event. </p>
+<p>The mouse position in parent local coords. Same reference as the acquisition </p>
+
+<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00009">9</a> of file <a class="el" href="a00389_source.html">Action.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/GUI/Elements/<a class="el" href="a00125_source.html">RadioButton.hpp</a></li>
-<li>src/GUI/Elements/<a class="el" href="a00407_source.html">RadioButton.cpp</a></li>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa99b3b274c3bc63ce4dfd24499627a36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa99b3b274c3bc63ce4dfd24499627a36">&#9670;&nbsp;</a></span>data</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a00900.html">TData</a> bl::gui::Action::data</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The type of <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00081">81</a> of file <a class="el" href="a00113_source.html">Action.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ade32d3f520e3d2ca9117c7163259b849"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade32d3f520e3d2ca9117c7163259b849">&#9670;&nbsp;</a></span>position</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const sf::Vector2f bl::gui::Action::position</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extra <a class="el" href="a00892.html" title="GUI analog of sf::Event. Represents user actions that can propogate through the Element tree...">Action</a> data if required by type. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00082">82</a> of file <a class="el" href="a00113_source.html">Action.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa53ea192eef191bf3ba44abceb0f5fc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa53ea192eef191bf3ba44abceb0f5fc8">&#9670;&nbsp;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a00892.html#a306cfe617542093b22a782469b68592c">Type</a> bl::gui::Action::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00080">80</a> of file <a class="el" href="a00113_source.html">Action.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/GUI/<a class="el" href="a00113_source.html">Action.hpp</a></li>
+<li>src/GUI/<a class="el" href="a00389_source.html">Action.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 5 2021 15:03:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 6 2021 03:58:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

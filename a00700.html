@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::bf::SerializableFieldBase Class Reference</title>
+<title>BLIB: bl::entity::IdGenerator Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,97 +63,39 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00567.html">bl</a></li><li class="navelem"><a class="el" href="a00570.html">bf</a></li><li class="navelem"><a class="el" href="a00700.html">SerializableFieldBase</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00591.html">bl</a></li><li class="navelem"><a class="el" href="a00593.html">entity</a></li><li class="navelem"><a class="el" href="a00700.html">IdGenerator</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a00697.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::bf::SerializableFieldBase Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00554.html">BinaryFiles</a></div></div>  </div>
+<div class="title">bl::entity::IdGenerator Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for binary serializable fields. Do not use.  
+<p>Singleton Entity generator. Can create sequential or random ids.  
  <a href="a00700.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01443_source.html">SerializableField.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::bf::SerializableFieldBase:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a00700.png" usemap="#bl::bf::SerializableFieldBase_map" alt=""/>
-  <map id="bl::bf::SerializableFieldBase_map" name="bl::bf::SerializableFieldBase_map">
-<area href="a00704.html" title="Template class that represents a serializable field for BinaryFile use. Strings and integral types ar..." alt="bl::bf::SerializableField&lt; Id, T &gt;" shape="rect" coords="0,56,189,80"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00050_source.html">Entity.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a809cf9549d45c1110ac83adaa979dfa1"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#a809cf9549d45c1110ac83adaa979dfa1">serialize</a> (<a class="el" href="a00696.html">BinaryFile</a> &amp;output) const =0</td></tr>
-<tr class="separator:a809cf9549d45c1110ac83adaa979dfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9a9bb3249af3891f93d29ca4cfcda41"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#ac9a9bb3249af3891f93d29ca4cfcda41">deserialize</a> (<a class="el" href="a00696.html">BinaryFile</a> &amp;input)=0</td></tr>
-<tr class="separator:ac9a9bb3249af3891f93d29ca4cfcda41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a616a44b6790bd1e398e29999be878e27"><td class="memItemLeft" align="right" valign="top">virtual std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#a616a44b6790bd1e398e29999be878e27">size</a> () const =0</td></tr>
-<tr class="separator:a616a44b6790bd1e398e29999be878e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf9064e8a689ea6a23cccd6a933aed9d"><td class="memItemLeft" align="right" valign="top">virtual std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#adf9064e8a689ea6a23cccd6a933aed9d">id</a> () const =0</td></tr>
-<tr class="separator:adf9064e8a689ea6a23cccd6a933aed9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a39c56168e9a3367ecf3bc6a54525bd20"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#a39c56168e9a3367ecf3bc6a54525bd20">SerializableFieldBase</a> (<a class="el" href="a00708.html">SerializableObject</a> &amp;owner, std::uint16_t <a class="el" href="a00700.html#adf9064e8a689ea6a23cccd6a933aed9d">id</a>)</td></tr>
-<tr class="separator:a39c56168e9a3367ecf3bc6a54525bd20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a20d520abadc52a007bc7a4cf87cf3228"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00591.html#a910c7407c6edb12bc4514c6b62271d07">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#a20d520abadc52a007bc7a4cf87cf3228">makeNew</a> ()</td></tr>
+<tr class="memdesc:a20d520abadc52a007bc7a4cf87cf3228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new Entity.  <a href="#a20d520abadc52a007bc7a4cf87cf3228">More...</a><br /></td></tr>
+<tr class="separator:a20d520abadc52a007bc7a4cf87cf3228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b1396844c86b6825ac26b413ae2da5a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html#a9b1396844c86b6825ac26b413ae2da5a">generateSequentialIds</a> (bool makeSequential)</td></tr>
+<tr class="memdesc:a9b1396844c86b6825ac26b413ae2da5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether new Entities should be created with random or sequential ids. Sequential ids are guaranteed to be unique, but require a mutex and may slow down threads that have to wait for a lock. <a class="el" href="a01256.html" title="Random number generator for integral and floating point numbers. ">Random</a> ids have a 1/2^64 chance of collision and are the default setting.  <a href="#a9b1396844c86b6825ac26b413ae2da5a">More...</a><br /></td></tr>
+<tr class="separator:a9b1396844c86b6825ac26b413ae2da5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for binary serializable fields. Do not use. </p>
+<div class="textblock"><p>Singleton Entity generator. Can create sequential or random ids. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01443_source.html#l00019">19</a> of file <a class="el" href="a01443_source.html">SerializableField.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a39c56168e9a3367ecf3bc6a54525bd20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39c56168e9a3367ecf3bc6a54525bd20">&#9670;&nbsp;</a></span>SerializableFieldBase()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::bf::SerializableFieldBase::SerializableFieldBase </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00708.html">SerializableObject</a> &amp;&#160;</td>
-          <td class="paramname"><em>owner</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint16_t&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01491_source.html#l00008">8</a> of file <a class="el" href="a01491_source.html">SerializableField.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac9a9bb3249af3891f93d29ca4cfcda41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9a9bb3249af3891f93d29ca4cfcda41">&#9670;&nbsp;</a></span>deserialize()</h2>
+<p class="definition">Definition at line <a class="el" href="a00050_source.html#l00027">27</a> of file <a class="el" href="a00050_source.html">Entity.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9b1396844c86b6825ac26b413ae2da5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b1396844c86b6825ac26b413ae2da5a">&#9670;&nbsp;</a></span>generateSequentialIds()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,26 +104,34 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool bl::bf::SerializableFieldBase::deserialize </td>
+          <td class="memname">void bl::entity::IdGenerator::generateSequentialIds </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00696.html">BinaryFile</a> &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>makeSequential</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="a00704.html#a10f27d46b39453249152b5e850240265">bl::bf::SerializableField&lt; Id, T &gt;</a>.</p>
+<p>Sets whether new Entities should be created with random or sequential ids. Sequential ids are guaranteed to be unique, but require a mutex and may slow down threads that have to wait for a lock. <a class="el" href="a01256.html" title="Random number generator for integral and floating point numbers. ">Random</a> ids have a 1/2^64 chance of collision and are the default setting. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">makeSequential</td><td>True to generate ids sequentially, false for random </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00353_source.html#l00018">18</a> of file <a class="el" href="a00353_source.html">Entity.cpp</a>.</p>
 
 </div>
 </div>
-<a id="adf9064e8a689ea6a23cccd6a933aed9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf9064e8a689ea6a23cccd6a933aed9d">&#9670;&nbsp;</a></span>id()</h2>
+<a id="a20d520abadc52a007bc7a4cf87cf3228"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20d520abadc52a007bc7a4cf87cf3228">&#9670;&nbsp;</a></span>makeNew()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,87 +140,34 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::uint16_t bl::bf::SerializableFieldBase::id </td>
+          <td class="memname"><a class="el" href="a00591.html#a910c7407c6edb12bc4514c6b62271d07">Entity</a> bl::entity::IdGenerator::makeNew </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="a00704.html#af99d8f12cb9aa77814c970a03d8f84bb">bl::bf::SerializableField&lt; Id, T &gt;</a>.</p>
+<p>Creates a new Entity. </p>
 
-</div>
-</div>
-<a id="a809cf9549d45c1110ac83adaa979dfa1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a809cf9549d45c1110ac83adaa979dfa1">&#9670;&nbsp;</a></span>serialize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool bl::bf::SerializableFieldBase::serialize </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00696.html">BinaryFile</a> &amp;&#160;</td>
-          <td class="paramname"><em>output</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="a00704.html#a8c6934b89d273b19f34f2239518a5774">bl::bf::SerializableField&lt; Id, T &gt;</a>.</p>
-
-</div>
-</div>
-<a id="a616a44b6790bd1e398e29999be878e27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a616a44b6790bd1e398e29999be878e27">&#9670;&nbsp;</a></span>size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::uint32_t bl::bf::SerializableFieldBase::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="a00704.html#aba0d965e0dfae06e1b025a4deae837fa">bl::bf::SerializableField&lt; Id, T &gt;</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00353_source.html#l00020">20</a> of file <a class="el" href="a00353_source.html">Entity.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Files/Binary/<a class="el" href="a01443_source.html">SerializableField.hpp</a></li>
-<li>src/Files/Binary/<a class="el" href="a01491_source.html">SerializableField.cpp</a></li>
+<li>include/BLIB/Entities/<a class="el" href="a00050_source.html">Entity.hpp</a></li>
+<li>src/Entities/<a class="el" href="a00353_source.html">Entity.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 5 2021 15:03:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 6 2021 03:58:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
