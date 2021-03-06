@@ -15,11 +15,9 @@ public:
 
     Playlist(const std::string& source);
 
-    Playlist(const Playlist& copy);
+    Playlist(const Playlist&);
 
-    Playlist(Playlist&& copy);
-
-    Playlist& operator=(Playlist&& copy);
+    Playlist& operator=(const Playlist& copy);
 
     bool isPlaying() const;
 
@@ -27,11 +25,11 @@ public:
 
     void pause();
 
-    void resume();
-
     void stop();
 
     void update();
+
+    void setVolume(float volume);
 
     void addSong(const std::string& song);
 
@@ -45,7 +43,7 @@ private:
 
     sf::Music current;
     unsigned int currentIndex;
-    bool playing;
+    bool playing, paused;
 
     void shuffle();
 };

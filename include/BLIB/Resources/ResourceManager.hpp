@@ -80,7 +80,9 @@ ResourceManager<T>::ResourceManager(ResourceLoader<T>& loader, unsigned int gcPe
 : loader(loader)
 , gcPeriod(gcPeriod)
 , gcActive(true)
-, gcThread(&ResourceManager<T>::garbageCollector, this) {}
+, gcThread(&ResourceManager<T>::garbageCollector, this) {
+    BL_LOG_INFO << "Resource manager (" << typeid(T).name() << ") online";
+}
 
 template<typename T>
 ResourceManager<T>::~ResourceManager() {

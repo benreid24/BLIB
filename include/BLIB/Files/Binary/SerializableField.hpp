@@ -96,10 +96,23 @@ public:
     virtual std::uint32_t size() const override;
 
     /**
+     * @brief Returns a movable reference to the contained value
+     *
+     * @return T&& rvalue reference of the contained value
+     */
+    T&& getMovable();
+
+    /**
      * @brief Explicit accessor for the field value
      *
      */
     const T& getValue() const;
+
+    /**
+     * @brief Explicit accessor for the field value
+     *
+     */
+    T& getValue();
 
     /**
      * @brief Explicit setter for the field value
@@ -175,6 +188,16 @@ std::uint32_t SerializableField<Id, T>::size() const {
 template<std::uint16_t Id, typename T>
 const T& SerializableField<Id, T>::getValue() const {
     return value;
+}
+
+template<std::uint16_t Id, typename T>
+T& SerializableField<Id, T>::getValue() {
+    return value;
+}
+
+template<std::uint16_t Id, typename T>
+T&& SerializableField<Id, T>::getMovable() {
+    return std::move(value);
 }
 
 template<std::uint16_t Id, typename T>
