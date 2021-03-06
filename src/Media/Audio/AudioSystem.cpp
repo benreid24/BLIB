@@ -49,9 +49,6 @@ void AudioSystem::stopAll(bool fade) {
 void AudioSystem::pause() {
     std::unique_lock lock(pauseMutex);
     state = SystemState::Paused;
-
-    for (auto& s : playlists) { s->pause(); }
-    for (auto& s : sounds) { s->sound.pause(); }
 }
 
 void AudioSystem::resume() {
@@ -80,15 +77,12 @@ void AudioSystem::pushPlaylist(const Playlist& np) {
 
     playlists.emplace_back(new Playlist(np));
     playlists.back()->setVolume(volume() * musicVolumeFactor);
-    if (playlists.size() == 1) {
-        musicState = MusicState::Playing;
-        playlists[0]->play();
-    }
+    if (playlists.size() == 1) { musicState = MusicState::Playing; }
     else {
         musicState        = MusicState::Pushing;
         musicVolumeFactor = 1.f;
-        playlists.back()->play();
     }
+    if (state != SystemState::Paused) playlists.back()->play();
 }
 
 void AudioSystem::replacePlaylist(const Playlist& np) {
@@ -96,15 +90,12 @@ void AudioSystem::replacePlaylist(const Playlist& np) {
 
     playlists.emplace_back(new Playlist(np));
     playlists.back()->setVolume(volume() * musicVolumeFactor);
-    if (playlists.size() == 1) {
-        musicState = MusicState::Playing;
-        playlists[0]->play();
-    }
+    if (playlists.size() == 1) { musicState = MusicState::Playing; }
     else {
         musicState        = MusicState::Replacing;
         musicVolumeFactor = 1.f;
-        playlists.back()->play();
     }
+    if (state != SystemState::Paused) playlists.back()->play();
 }
 
 void AudioSystem::popPlaylist() {
@@ -124,7 +115,7 @@ AudioSystem::Handle AudioSystem::playSound(Resource<sf::SoundBuffer>::Ref sound,
     auto s = *sounds.emplace(new Sound(h, sound));
     s->sound.setVolume(volume());
     s->sound.setLoop(loop);
-    s->sound.play();
+    if (state != SystemState::Paused) s->sound.play();
     soundMap.emplace(h, s);
     return h;
 }
@@ -149,7 +140,7 @@ AudioSystem::Handle AudioSystem::playSpatialSound(Resource<sf::SoundBuffer>::Ref
     s->sound.setMinDistance(settings.fadeStartDistance);
     s->sound.setAttenuation(settings.attenuation);
     s->sound.setLoop(loop);
-    s->sound.play();
+    if (state != SystemState::Paused) s->sound.play();
     soundMap.emplace(h, s);
     return h;
 }
@@ -200,7 +191,31 @@ void AudioSystem::background() {
         {
             // sleep if paused
             std::unique_lock lock(pauseMutex);
-            if (state == SystemState::Paused) { pauseSync.wait(lock); }
+            if (state == SystemState::Paused) {
+                {
+                    std::unique_lock mlock(playlistMutex);
+                    std::unique_lock slock(soundMutex);
+                    for (auto& s : playlists) { s->pause(); }
+                    for (auto& s : sounds) { s->sound.pause(); }
+                }
+                pauseSync.wait(lock);
+
+                // unpaused
+                std::unique_lock mlock(playlistMutex);
+                std::unique_lock slock(soundMutex);
+                for (auto& s : sounds) {
+                    if (s->sound.getStatus() == sf::Sound::Paused) s->sound.play();
+                }
+                if (playlists.size() > 2) {
+                    for (unsigned int i = 0; i < playlists.size(); ++i) { playlists[i]->stop(); }
+                }
+                if (!playlists.empty()) {
+                    playlists.back()->play();
+                    if (musicState != MusicState::Playing && playlists.size() > 1) {
+                        playlists[playlists.size() - 1]->play(); // resume crossfade
+                    }
+                }
+            }
 
             // Update fadeout
             if (fadeVolumeFactor > 0.f) {
