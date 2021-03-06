@@ -159,7 +159,7 @@ var searchData=
   ['stream_2ehpp',['Stream.hpp',['../a00272.html',1,'']]],
   ['string',['String',['../a00841.html',1,'bl::json::schema::String'],['../a00841.html#a5ff79fc6060136eb10c6e11d63399eb0',1,'bl::json::schema::String::String()'],['../a00596.html#a040a5616a5bc09b1aa4a9b6ab12b832c',1,'bl::json::String()']]],
   ['stringlit',['StringLit',['../a01277.html#a3cbc50643e49faadde618f0c2b11ed4ca67df4d3e2c94f117096a1e6928788a02',1,'bl::scripts::Parser']]],
-  ['style',['style',['../a01017.html#a8af9da3d15afc6ebd6d24466b505db3f',1,'bl::gui::RenderSettings::style()'],['../a00981.html#ab5ed19ef2dc0fba1a8b63b0d469eca88',1,'bl::gui::Window::Style()']]],
+  ['style',['Style',['../a00981.html#ab5ed19ef2dc0fba1a8b63b0d469eca88',1,'bl::gui::Window::Style()'],['../a01017.html#a8af9da3d15afc6ebd6d24466b505db3f',1,'bl::gui::RenderSettings::style()']]],
   ['subscribe',['subscribe',['../a00733.html#a8160b5b9a7c74c01f3b9963875dd3bc6',1,'bl::EventDispatcher::subscribe()'],['../a00737.html#ad653f961848fce3d0f8fc97cea1e8e14',1,'bl::EventDispatcherScopeGuard::subscribe()'],['../a00745.html#a99c9c32fd497cd6d489b119b2cb386ec',1,'bl::MultiEventDispatcher::subscribe()'],['../a00749.html#a3e822c909530700c37b506f613c1a978',1,'bl::MultiEventDispatcherScopeGuard::subscribe()']]],
   ['subtype',['subtype',['../a00897.html#ab4b653d2e286152f98b597fb6ff9c929',1,'bl::gui::Action::CustomData']]],
   ['sum',['Sum',['../a01277.html#a3cbc50643e49faadde618f0c2b11ed4cae852e8d7b9642abfde4f8b59cd43bd77',1,'bl::scripts::Parser']]],

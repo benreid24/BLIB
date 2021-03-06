@@ -30,7 +30,7 @@ var searchData=
   ['loadfromstring',['loadFromString',['../a00825.html#a53f588b5d4bc904757c91939fa32df52',1,'bl::JSON']]],
   ['loadmutable',['loadMutable',['../a01193.html#ab22f10531b26ca5df5b7a9f413a13ab5',1,'bl::ResourceManager']]],
   ['localmousepos',['localMousePos',['../a00997.html#af27256ed6e4095aa97467deab065e428',1,'bl::gui::RawEvent']]],
-  ['locationevent',['LocationEvent',['../a01069.html',1,'bl::menu::Event::LocationEvent'],['../a01057.html#a6509aa9615da435e6e13e290faac0deb',1,'bl::menu::Event::locationEvent()'],['../a01069.html#ab2cdfe1f55957ada31e0a78b9f6f0c6b',1,'bl::menu::Event::LocationEvent::LocationEvent()=default'],['../a01069.html#a5371c0a96e16dc234f532047712c2911',1,'bl::menu::Event::LocationEvent::LocationEvent(const sf::Vector2f &amp;pos)']]],
+  ['locationevent',['LocationEvent',['../a01069.html',1,'bl::menu::Event::LocationEvent'],['../a01069.html#ab2cdfe1f55957ada31e0a78b9f6f0c6b',1,'bl::menu::Event::LocationEvent::LocationEvent()=default'],['../a01069.html#a5371c0a96e16dc234f532047712c2911',1,'bl::menu::Event::LocationEvent::LocationEvent(const sf::Vector2f &amp;pos)'],['../a01057.html#a6509aa9615da435e6e13e290faac0deb',1,'bl::menu::Event::locationEvent()']]],
   ['logger',['Logger',['../a01021.html',1,'bl::Logger'],['../a01025.html#aff02b76416d2846736b7ecd798921a0a',1,'bl::LoggingConfig::Logger()']]],
   ['logger_2ecpp',['Logger.cpp',['../a00479.html',1,'']]],
   ['logger_2ehpp',['Logger.hpp',['../a00200.html',1,'']]],
