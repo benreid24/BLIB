@@ -33,10 +33,7 @@ void DelayedEventDispatcher::drain() {
 }
 
 void DelayedEventDispatcher::drainAll() {
-    for (Dispatch* d : events) {
-        d->dispatch(underlying);
-        delete d;
-    }
+    for (Any<32>& d : events) { static_cast<Dispatch*>(d.raw())->dispatch(underlying); }
     events.clear();
 }
 

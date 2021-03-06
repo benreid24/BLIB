@@ -1,6 +1,7 @@
 #ifndef BLIB_EVENTS_DELAYEDEVENTDISPATCHER_HPP
 #define BLIB_EVENTS_DELAYEDEVENTDISPATCHER_HPP
 
+#include <BLIB/Containers/Any.hpp>
 #include <BLIB/Events/MultiEventDispatcher.hpp>
 
 #include <atomic>
@@ -79,7 +80,7 @@ private:
     std::condition_variable cvar;
     std::atomic_bool running;
     std::thread runner;
-    std::vector<Dispatch*> events;
+    std::vector<Any<32>> events;
 
     void background();
     void drainAll();
@@ -90,7 +91,7 @@ private:
 template<typename T>
 void DelayedEventDispatcher::dispatch(const T& e) {
     std::unique_lock lock(mutex);
-    events.emplace_back(new TypedDispatch<T>(e));
+    events.emplace_back(TypedDispatch<T>(e));
     cvar.notify_all();
 }
 

@@ -116,6 +116,13 @@ public:
      */
     void clear();
 
+    /**
+     * @brief Retrieves the raw memory address of the underlying storage. Use with caution
+     *
+     * @return void* Pointer to the underlying object
+     */
+    void* raw();
+
 private:
     typedef void (*OpFunc)(Any<Size>&, const Any<Size>*);
 
@@ -140,7 +147,16 @@ template<unsigned int Size>
 template<typename T>
 Any<Size>::Any(const T& value)
 : Any() {
-    *this = value;
+    if constexpr (sizeof(T) < Size) {
+        object = static_cast<void*>(inplace);
+        new (static_cast<T*>(object)) T(value);
+        heap = false;
+    }
+    else {
+        object = static_cast<void*>(new T(value));
+        heap   = true;
+    }
+    ctype = &Any<Size>::operate<T>;
 }
 
 template<unsigned int Size>
@@ -265,6 +281,11 @@ void Any<Size>::operate(Any<Size>& obj, const Any<Size>* copy) {
             static_cast<T*>(obj.object)->~T();
         }
     }
+}
+
+template<unsigned int Size>
+void* Any<Size>::raw() {
+    return object;
 }
 
 } // namespace bl
