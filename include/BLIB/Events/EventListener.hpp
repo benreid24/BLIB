@@ -18,7 +18,7 @@ public:
     virtual ~EventListener() = default;
 
     /**
-     * @brief Notification method for the listener to recieve events from the dispatcher
+     * @brief Notification method for the listener to receive events from the dispatcher
      *
      * @param event The event being dispatched
      */
