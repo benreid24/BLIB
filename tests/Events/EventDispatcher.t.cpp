@@ -1,5 +1,5 @@
-#include <BLIB/Util/EventDispatcher.hpp>
-#include <BLIB/Util/EventDispatcherScopeGuard.hpp>
+#include <BLIB/Events/EventDispatcher.hpp>
+#include <BLIB/Events/EventDispatcherScopeGuard.hpp>
 #include <gmock/gmock.h>
 
 namespace bl

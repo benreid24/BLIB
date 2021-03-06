@@ -13,7 +13,7 @@ class SerializableObject;
 /**
  * @brief Base class for binary serializable fields. Do not use
  *
- * @ingroup BinaryFiles
+ * @ingroup Binary
  *
  */
 class SerializableFieldBase {

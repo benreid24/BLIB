@@ -27,7 +27,6 @@ typedef std::optional<Value> RValue;
 /**
  * @brief Holds source location of any json object
  * @ingroup JSON
- * @ingroup Files
  *
  */
 struct SourceInfo {
@@ -38,7 +37,6 @@ struct SourceInfo {
 /**
  * @brief Base class for all json types
  * @ingroup JSON
- * @ingroup Files
  *
  */
 class Base {
@@ -151,7 +149,6 @@ private:
 /**
  * @brief Represents any value type in JSON
  * @ingroup JSON
- * @ingroup Files
  *
  */
 class Value : public Base {
@@ -324,7 +321,6 @@ std::ostream& operator<<(std::ostream& stream, const List& list);
 /**
  * @brief Top level interface for loading and saving json data
  * @ingroup JSON
- * @ingroup Files
  *
  */
 struct JSON {

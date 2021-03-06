@@ -3,7 +3,7 @@
 
 #include <BLIB/Menu/Item.hpp>
 #include <BLIB/Menu/Menu.hpp>
-#include <BLIB/Util/EventListener.hpp>
+#include <BLIB/Events/EventListener.hpp>
 #include <SFML/Window/Keyboard.hpp>
 
 namespace bl

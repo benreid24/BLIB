@@ -15,7 +15,7 @@ namespace bl
  *
  * @tparam TKey Key type for the cache
  * @tparam TPayload The type of data to store in the cache
- * @ingroup Util
+ * @ingroup Containers
  */
 template<typename TKey, typename TPayload>
 class Cache {

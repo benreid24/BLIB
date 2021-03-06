@@ -1,5 +1,5 @@
-#ifndef BLIB_UTIL_EVENT_LISTENER_HPP
-#define BLIB_UTIL_EVENT_LISTENER_HPP
+#ifndef BLIB_EVENTS_EVENT_LISTENER_HPP
+#define BLIB_EVENTS_EVENT_LISTENER_HPP
 
 #include <SFML/Window.hpp>
 
@@ -10,7 +10,7 @@ namespace bl
  * @see EventDispatcher
  *
  * @tparam T The type of event
- * @ingroup Util
+ * @ingroup Events
  */
 template<typename T>
 class EventListener {
@@ -18,7 +18,7 @@ public:
     virtual ~EventListener() = default;
 
     /**
-     * @brief Notification method for the listener to recieve events from the dispatcher
+     * @brief Notification method for the listener to receive events from the dispatcher
      *
      * @param event The event being dispatched
      */

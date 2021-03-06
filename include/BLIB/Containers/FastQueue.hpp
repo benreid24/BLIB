@@ -12,7 +12,7 @@ namespace bl
  *         the front in O(1) time. Values contained must be unique
  *
  * @tparam T Type of data to store
- * @ingroup Util
+ * @ingroup Containers
  */
 template<typename T>
 class FastQueue {

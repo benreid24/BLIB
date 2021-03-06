@@ -15,7 +15,7 @@ class SerializableFieldBase;
  * @brief Base class for user defined objects that can be serialized in binary files. Data fields to
  *        be serialized should be stored as SerializableField objects
  *
- * @ingroup BinaryFiles
+ * @ingroup Binary
  */
 class SerializableObject {
 public:

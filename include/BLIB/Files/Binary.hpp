@@ -2,9 +2,10 @@
 #define BLIB_FILES_BINARY_HPP
 
 /**
- * @defgroup BinaryFiles
+ * @addtogroup Binary
  * @brief Collection of classes for encoding and decoding data into endian agnostic binary files.
  *        Core class is BinaryFile
+ * @ingroup Files
  *
  */
 

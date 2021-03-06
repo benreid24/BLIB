@@ -17,7 +17,7 @@ namespace bf
  * @brief Base interface for payload loaders. File version loaders should implement this interface
  *
  * @tparam Payload The type of object to read and write
- * @ingroup BinaryFiles
+ * @ingroup Binary
  */
 template<typename Payload>
 struct VersionedPayloadLoader {

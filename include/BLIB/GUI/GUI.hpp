@@ -2,7 +2,7 @@
 #define BLIB_GUI_GUI_HPP
 
 #include <BLIB/GUI/Elements/Box.hpp>
-#include <BLIB/Util/EventListener.hpp>
+#include <BLIB/Events/EventListener.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace bl

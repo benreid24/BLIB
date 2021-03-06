@@ -15,7 +15,7 @@ namespace bl
  *        trying to fit many types inplace while minimizing waste for unused inplace storage
  *
  * @tparam Size Number of bytes to use for in place storage
- * @ingroup Util
+ * @ingroup Containers
  *
  */
 template<unsigned int Size>

@@ -8,7 +8,7 @@
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
-#include <BLIB/Util/EventDispatcher.hpp>
+#include <BLIB/Events/EventDispatcher.hpp>
 
 namespace bl
 {

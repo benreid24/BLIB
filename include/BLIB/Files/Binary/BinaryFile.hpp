@@ -18,7 +18,7 @@ namespace bf
  *        values, simply store an integral type and multiply/divide on
  *        save/load
  *
- * @ingroup BinaryFiles
+ * @ingroup Binary
  */
 class BinaryFile : private NonCopyable {
 public:
