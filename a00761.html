@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::bf::BinaryFile Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,27 +63,459 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00591.html">bl</a></li><li class="navelem"><a class="el" href="a00594.html">bf</a></li><li class="navelem"><a class="el" href="a00764.html">SerializableFieldBase</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00592.html">bl</a></li><li class="navelem"><a class="el" href="a00595.html">bf</a></li><li class="navelem"><a class="el" href="a00761.html">BinaryFile</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a00758.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::bf::SerializableFieldBase Member List</div>  </div>
+<div class="title">bl::bf::BinaryFile Class Reference<div class="ingroups"><a class="el" href="a00579.html">Files</a> &raquo; <a class="el" href="a00588.html">Binary</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00764.html">bl::bf::SerializableFieldBase</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00764.html#ac9a9bb3249af3891f93d29ca4cfcda41">deserialize</a>(BinaryFile &amp;input)=0</td><td class="entry"><a class="el" href="a00764.html">bl::bf::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00764.html#adf9064e8a689ea6a23cccd6a933aed9d">id</a>() const =0</td><td class="entry"><a class="el" href="a00764.html">bl::bf::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00764.html#a39c56168e9a3367ecf3bc6a54525bd20">SerializableFieldBase</a>(SerializableObject &amp;owner, std::uint16_t id)</td><td class="entry"><a class="el" href="a00764.html">bl::bf::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00764.html#a809cf9549d45c1110ac83adaa979dfa1">serialize</a>(BinaryFile &amp;output) const =0</td><td class="entry"><a class="el" href="a00764.html">bl::bf::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00764.html#a616a44b6790bd1e398e29999be878e27">size</a>() const =0</td><td class="entry"><a class="el" href="a00764.html">bl::bf::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Utility class to read and write binary data. Endianness agnostic Floating point types are not supported. To store floating point values, simply store an integral type and multiply/divide on save/load.  
+ <a href="a00761.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00083_source.html">BinaryFile.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::bf::BinaryFile:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00761.png" usemap="#bl::bf::BinaryFile_map" alt=""/>
+  <map id="bl::bf::BinaryFile_map" name="bl::bf::BinaryFile_map">
+<area href="a01249.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::NonCopyable" shape="rect" coords="0,0,105,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a2670fb025b45350f4f9807674e437813"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00761.html#a2670fb025b45350f4f9807674e437813">OpenMode</a> { <a class="el" href="a00761.html#a2670fb025b45350f4f9807674e437813ad9b6e33509eb8361bcbdb84c5ec32c5f">Read</a>, 
+<a class="el" href="a00761.html#a2670fb025b45350f4f9807674e437813ab2ce022226162a8042c2f472f8e48ee8">Write</a>
+ }<tr class="memdesc:a2670fb025b45350f4f9807674e437813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates file operation mode.  <a href="a00761.html#a2670fb025b45350f4f9807674e437813">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a2670fb025b45350f4f9807674e437813"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ab0dd18f8f26e01eb4fc3c03d0810cca6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00761.html#ab0dd18f8f26e01eb4fc3c03d0810cca6">BinaryFile</a> (const std::string &amp;path, <a class="el" href="a00761.html#a2670fb025b45350f4f9807674e437813">OpenMode</a> mode=<a class="el" href="a00761.html#a2670fb025b45350f4f9807674e437813ad9b6e33509eb8361bcbdb84c5ec32c5f">Read</a>)</td></tr>
+<tr class="memdesc:ab0dd18f8f26e01eb4fc3c03d0810cca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a handle to the given file in the given mode.  <a href="#ab0dd18f8f26e01eb4fc3c03d0810cca6">More...</a><br /></td></tr>
+<tr class="separator:ab0dd18f8f26e01eb4fc3c03d0810cca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9b17ca31f32b9a6005fff89976232e8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00761.html#aa9b17ca31f32b9a6005fff89976232e8">BinaryFile</a> (std::iostream &amp;stream, <a class="el" href="a00761.html#a2670fb025b45350f4f9807674e437813">OpenMode</a> mode=<a class="el" href="a00761.html#a2670fb025b45350f4f9807674e437813ad9b6e33509eb8361bcbdb84c5ec32c5f">Read</a>)</td></tr>
+<tr class="memdesc:aa9b17ca31f32b9a6005fff89976232e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the binary file and writes to the given stream.  <a href="#aa9b17ca31f32b9a6005fff89976232e8">More...</a><br /></td></tr>
+<tr class="separator:aa9b17ca31f32b9a6005fff89976232e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a097d33ca1eaaadde1774b2cfd562f9a3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a097d33ca1eaaadde1774b2cfd562f9a3"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00761.html#a097d33ca1eaaadde1774b2cfd562f9a3">write</a> (const T &amp;data)</td></tr>
+<tr class="memdesc:a097d33ca1eaaadde1774b2cfd562f9a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes an integral type to the file in it's binary representation.  <a href="#a097d33ca1eaaadde1774b2cfd562f9a3">More...</a><br /></td></tr>
+<tr class="separator:a097d33ca1eaaadde1774b2cfd562f9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfbdffb4f30d247631a178e121db8135"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00761.html#adfbdffb4f30d247631a178e121db8135">write</a> (const std::string &amp;data)</td></tr>
+<tr class="memdesc:adfbdffb4f30d247631a178e121db8135"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the string to the file. Stores 4 bytes for the length, then the size of the string.  <a href="#adfbdffb4f30d247631a178e121db8135">More...</a><br /></td></tr>
+<tr class="separator:adfbdffb4f30d247631a178e121db8135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e9b027e2f9e388cefbb8d35e67e9b2c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a6e9b027e2f9e388cefbb8d35e67e9b2c"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00761.html#a6e9b027e2f9e388cefbb8d35e67e9b2c">read</a> (T &amp;output)</td></tr>
+<tr class="memdesc:a6e9b027e2f9e388cefbb8d35e67e9b2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the integral type from the file.  <a href="#a6e9b027e2f9e388cefbb8d35e67e9b2c">More...</a><br /></td></tr>
+<tr class="separator:a6e9b027e2f9e388cefbb8d35e67e9b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19aa500c6026f1dd4ba999969be5732f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a19aa500c6026f1dd4ba999969be5732f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00761.html#a19aa500c6026f1dd4ba999969be5732f">peek</a> (T &amp;output)</td></tr>
+<tr class="memdesc:a19aa500c6026f1dd4ba999969be5732f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peeks the integral type from the file without moving the cursor.  <a href="#a19aa500c6026f1dd4ba999969be5732f">More...</a><br /></td></tr>
+<tr class="separator:a19aa500c6026f1dd4ba999969be5732f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6af14f4c16ea610c9dac46b626e00d7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00761.html#ab6af14f4c16ea610c9dac46b626e00d7">read</a> (std::string &amp;output)</td></tr>
+<tr class="memdesc:ab6af14f4c16ea610c9dac46b626e00d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a string from the file.  <a href="#ab6af14f4c16ea610c9dac46b626e00d7">More...</a><br /></td></tr>
+<tr class="separator:ab6af14f4c16ea610c9dac46b626e00d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a666d80dfec215fddc157e4caa50d1584"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00761.html#a666d80dfec215fddc157e4caa50d1584">skip</a> (std::size_t bytes)</td></tr>
+<tr class="memdesc:a666d80dfec215fddc157e4caa50d1584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skips the given number of bytes if in Read mode.  <a href="#a666d80dfec215fddc157e4caa50d1584">More...</a><br /></td></tr>
+<tr class="separator:a666d80dfec215fddc157e4caa50d1584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f101eca2dbb47574183d1d70be3dd5a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00761.html#a3f101eca2dbb47574183d1d70be3dd5a">good</a> ()</td></tr>
+<tr class="memdesc:a3f101eca2dbb47574183d1d70be3dd5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the status of the file handle.  <a href="#a3f101eca2dbb47574183d1d70be3dd5a">More...</a><br /></td></tr>
+<tr class="separator:a3f101eca2dbb47574183d1d70be3dd5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Utility class to read and write binary data. Endianness agnostic Floating point types are not supported. To store floating point values, simply store an integral type and multiply/divide on save/load. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00023">23</a> of file <a class="el" href="a00083_source.html">BinaryFile.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a2670fb025b45350f4f9807674e437813"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2670fb025b45350f4f9807674e437813">&#9670;&nbsp;</a></span>OpenMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00761.html#a2670fb025b45350f4f9807674e437813">bl::bf::BinaryFile::OpenMode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates file operation mode. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2670fb025b45350f4f9807674e437813ad9b6e33509eb8361bcbdb84c5ec32c5f"></a>Read&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2670fb025b45350f4f9807674e437813ab2ce022226162a8042c2f472f8e48ee8"></a>Write&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00029">29</a> of file <a class="el" href="a00083_source.html">BinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab0dd18f8f26e01eb4fc3c03d0810cca6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0dd18f8f26e01eb4fc3c03d0810cca6">&#9670;&nbsp;</a></span>BinaryFile() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::bf::BinaryFile::BinaryFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00761.html#a2670fb025b45350f4f9807674e437813">OpenMode</a>&#160;</td>
+          <td class="paramname"><em>mode</em> = <code><a class="el" href="a00761.html#a2670fb025b45350f4f9807674e437813ad9b6e33509eb8361bcbdb84c5ec32c5f">Read</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a handle to the given file in the given mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The file to read or write </td></tr>
+    <tr><td class="paramname">mode</td><td>The mode to operate in </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00118">118</a> of file <a class="el" href="a00083_source.html">BinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa9b17ca31f32b9a6005fff89976232e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9b17ca31f32b9a6005fff89976232e8">&#9670;&nbsp;</a></span>BinaryFile() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::bf::BinaryFile::BinaryFile </td>
+          <td>(</td>
+          <td class="paramtype">std::iostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00761.html#a2670fb025b45350f4f9807674e437813">OpenMode</a>&#160;</td>
+          <td class="paramname"><em>mode</em> = <code><a class="el" href="a00761.html#a2670fb025b45350f4f9807674e437813ad9b6e33509eb8361bcbdb84c5ec32c5f">Read</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the binary file and writes to the given stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to write to </td></tr>
+    <tr><td class="paramname">mode</td><td>The mode to operate in </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00127">127</a> of file <a class="el" href="a00083_source.html">BinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3f101eca2dbb47574183d1d70be3dd5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f101eca2dbb47574183d1d70be3dd5a">&#9670;&nbsp;</a></span>good()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::bf::BinaryFile::good </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the status of the file handle. </p>
+<dl class="section return"><dt>Returns</dt><dd>bool Returns false if EOF is reached or the file did not exist </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00191">191</a> of file <a class="el" href="a00083_source.html">BinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a19aa500c6026f1dd4ba999969be5732f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19aa500c6026f1dd4ba999969be5732f">&#9670;&nbsp;</a></span>peek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type bl::bf::BinaryFile::peek </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Peeks the integral type from the file without moving the cursor. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type to read. Be explicit with bit width and sign </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">output</td><td>Variable to write the read value to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the value could be read </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00169">169</a> of file <a class="el" href="a00083_source.html">BinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e9b027e2f9e388cefbb8d35e67e9b2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e9b027e2f9e388cefbb8d35e67e9b2c">&#9670;&nbsp;</a></span>read() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type bl::bf::BinaryFile::read </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads the integral type from the file. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type to read. Be explicit with bit width and sign </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">output</td><td>Variable to write the read value to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the value could be read </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00153">153</a> of file <a class="el" href="a00083_source.html">BinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab6af14f4c16ea610c9dac46b626e00d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6af14f4c16ea610c9dac46b626e00d7">&#9670;&nbsp;</a></span>read() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::bf::BinaryFile::read </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reads a string from the file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">output</td><td>Variable to write the read string to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the string could be read </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00176">176</a> of file <a class="el" href="a00083_source.html">BinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a666d80dfec215fddc157e4caa50d1584"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a666d80dfec215fddc157e4caa50d1584">&#9670;&nbsp;</a></span>skip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::bf::BinaryFile::skip </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>bytes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Skips the given number of bytes if in Read mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bytes</td><td>The number of bytes to skip </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the underlying stream is still valid, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00186">186</a> of file <a class="el" href="a00083_source.html">BinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a097d33ca1eaaadde1774b2cfd562f9a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a097d33ca1eaaadde1774b2cfd562f9a3">&#9670;&nbsp;</a></span>write() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type bl::bf::BinaryFile::write </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Writes an integral type to the file in it's binary representation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type to write. It is better to be explicit for code to be cross platform </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>The value to write </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the value could be written </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00132">132</a> of file <a class="el" href="a00083_source.html">BinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adfbdffb4f30d247631a178e121db8135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfbdffb4f30d247631a178e121db8135">&#9670;&nbsp;</a></span>write() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::bf::BinaryFile::write </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Writes the string to the file. Stores 4 bytes for the length, then the size of the string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>The string to write </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the value could be written </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00145">145</a> of file <a class="el" href="a00083_source.html">BinaryFile.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Files/Binary/<a class="el" href="a00083_source.html">BinaryFile.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 6 2021 03:58:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 6 2021 04:01:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

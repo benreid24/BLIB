@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['binary',['Binary',['../a00587.html',1,'']]]
+  ['binary',['Binary',['../a00588.html',1,'']]]
 ];

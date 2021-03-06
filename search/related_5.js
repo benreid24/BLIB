@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['menu',['Menu',['../a01084.html#a834cec0fab7efabab3cd53540e4d466d',1,'bl::menu::Item']]],
-  ['multieventdispatcherscopeguard',['MultiEventDispatcherScopeGuard',['../a00744.html#a256c8a9fd270b6e8d1ca61c6b409f4ff',1,'bl::MultiEventDispatcher']]]
+  ['menu',['Menu',['../a01085.html#a834cec0fab7efabab3cd53540e4d466d',1,'bl::menu::Item']]],
+  ['multieventdispatcherscopeguard',['MultiEventDispatcherScopeGuard',['../a00745.html#a256c8a9fd270b6e8d1ca61c6b409f4ff',1,'bl::MultiEventDispatcher']]]
 ];
