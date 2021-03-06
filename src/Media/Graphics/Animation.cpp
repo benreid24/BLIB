@@ -18,14 +18,14 @@ Animation::Animation()
 , loopOverride(false)
 , loop(false) {}
 
-Animation::Animation(AnimationData::Ptr data)
+Animation::Animation(AnimationData& data)
 : Animation() {
     setData(data);
 }
 
-void Animation::setData(AnimationData::Ptr d) { data = d; }
+void Animation::setData(AnimationData& d) { data = &d; }
 
-AnimationData::Ptr Animation::getData() const { return data; }
+AnimationData& Animation::getData() const { return *data; }
 
 void Animation::setIsCentered(bool c) { centerOrigin = c; }
 

@@ -2,11 +2,10 @@
 #include <SFML/Window.hpp>
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 800, 32),
-                            "Animation Example",
-                            sf::Style::Titlebar | sf::Style::Close);
+    sf::RenderWindow window(
+        sf::VideoMode(800, 800, 32), "Animation Example", sf::Style::Titlebar | sf::Style::Close);
 
-    bl::AnimationData::Ptr src = bl::AnimationData::create("resources/animation.anim");
+    bl::AnimationData src("resources/animation.anim");
     bl::Animation anim(src);
 
     anim.setIsCentered(true);

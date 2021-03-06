@@ -1,6 +1,7 @@
 #ifndef BLIB_RESOURCES_RESOURCEMANAGER_HPP
 #define BLIB_RESOURCES_RESOURCEMANAGER_HPP
 
+#include <BLIB/Logging.hpp>
 #include <BLIB/Resources/ResourceLoader.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
@@ -85,6 +86,7 @@ template<typename T>
 ResourceManager<T>::~ResourceManager() {
     gcActive = false;
     gcThread.join();
+    BL_LOG_INFO << "Resource manager (" << typeid(T).name() << ") shutdown";
 }
 
 template<typename T>

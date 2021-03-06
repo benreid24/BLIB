@@ -1,16 +1,11 @@
 #include <BLIB/Media/Graphics/AnimationData.hpp>
 
+#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Files/Binary/BinaryFile.hpp>
 #include <BLIB/Files/FileUtil.hpp>
 
 namespace bl
 {
-AnimationData::Ptr AnimationData::create() { return Ptr(new AnimationData()); }
-
-AnimationData::Ptr AnimationData::create(const std::string& fname, const std::string& dir) {
-    return Ptr(new AnimationData(fname, dir));
-}
-
 AnimationData::AnimationData()
 : spritesheet()
 , frames()
@@ -38,7 +33,7 @@ bool AnimationData::load(const std::string& filename, const std::string& sprites
         else
             return false;
     }
-    if (!spritesheet.loadFromFile(sheet)) return false;
+    spritesheet = engine::Resources::textures().load(sheet).data;
     if (!file.read(loop)) return false;
 
     uint16_t nFrames = 0;
@@ -98,7 +93,7 @@ sf::Vector2f AnimationData::getFrameSize(unsigned int i) const {
 
     const Frame& frame = frames[i];
     sf::FloatRect bounds(0, 0, 0, 0);
-    sf::Sprite sprite(spritesheet);
+    sf::Sprite sprite(*spritesheet);
     for (unsigned int j = 0; j < frame.shards.size(); ++j) {
         frame.shards[j].apply(sprite);
         bounds.left = std::min(bounds.left, sprite.getGlobalBounds().left);
@@ -143,7 +138,7 @@ void AnimationData::render(sf::RenderTarget& target, sf::RenderStates states, fl
         i = frames.size() - 1;
 
     const Frame& frame = frames[i];
-    sf::Sprite s(spritesheet);
+    sf::Sprite s(*spritesheet);
     for (unsigned int j = 0; j < frame.shards.size(); ++j) {
         frame.shards[j].apply(s, scale, rotation, centerOnOrigin);
         s.move(pos);
