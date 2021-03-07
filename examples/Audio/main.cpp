@@ -44,45 +44,44 @@ int main() {
     std::cout << "Loaded playlist\n";
 
     // AudioSystem has a background thread which calls update() for us
-    bl::AudioSystem system;
-    system.pushPlaylist(list1);
+    bl::AudioSystem::pushPlaylist(list1);
     std::cout << "Playing playlist through AudioSystem\n";
 
     // AudioSystem also manages running sounds
     std::this_thread::sleep_for(std::chrono::seconds(5));
     std::cout << "Playing thunder\n";
-    system.playSound(bl::engine::Resources::sounds().load("resources/thunder.wav").data);
+    bl::AudioSystem::playSound(bl::engine::Resources::sounds().load("resources/thunder.wav").data);
 
     // Sounds may be looped
     std::this_thread::sleep_for(std::chrono::seconds(4));
     std::cout << "Looping eagle\n";
-    auto handle =
-        system.playSound(bl::engine::Resources::sounds().load("resources/gameSave.wav").data, true);
+    auto handle = bl::AudioSystem::playSound(
+        bl::engine::Resources::sounds().load("resources/gameSave.wav").data, true);
 
     // Everything may be paused
     std::this_thread::sleep_for(std::chrono::seconds(4));
     std::cout << "Pausing\n";
-    system.pause();
+    bl::AudioSystem::pause();
     std::this_thread::sleep_for(std::chrono::seconds(3));
     std::cout << "Unpausing\n";
-    system.resume();
+    bl::AudioSystem::resume();
 
     // Sounds may be stopped using their handles
     std::this_thread::sleep_for(std::chrono::seconds(4));
     std::cout << "Stopping eagle\n";
-    system.stopSound(handle);
+    bl::AudioSystem::stopSound(handle);
 
     // AudioSystem maintains a stack of playlists
-    system.pushPlaylist(list2);
+    bl::AudioSystem::pushPlaylist(list2);
     std::cout << "Pushing new playlist\n";
     std::this_thread::sleep_for(std::chrono::seconds(7));
     std::cout << "Popping it\n";
-    system.popPlaylist();
+    bl::AudioSystem::popPlaylist();
 
     // Playlists may also be replaced
     std::this_thread::sleep_for(std::chrono::seconds(7));
     std::cout << "Replacing current playlist\n";
-    system.replacePlaylist(list3); // replace current playing with mylist
+    bl::AudioSystem::replacePlaylist(list3); // replace current playing with mylist
     std::this_thread::sleep_for(std::chrono::seconds(7));
 
     // AudioSystem will fade out and clean up

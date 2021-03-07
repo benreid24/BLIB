@@ -42,39 +42,44 @@ AudioSystem::~AudioSystem() {
     BL_LOG_INFO << "AudioSystem shutdown";
 }
 
-void AudioSystem::setVolume(float v) { masterVolume = v; }
+AudioSystem& AudioSystem::get() {
+    static AudioSystem system;
+    return system;
+}
 
-void AudioSystem::stopAll(bool fade) {
+void AudioSystem::setVolumeImp(float v) { masterVolume = v; }
+
+void AudioSystem::stopAllImp(bool fade) {
     fadeVolumeFactor = (fade && state != SystemState::Paused) ? 1.f : 0.0001f;
 }
 
-void AudioSystem::pause() {
+void AudioSystem::pauseImp() {
     std::unique_lock lock(pauseMutex);
     state = SystemState::Paused;
 }
 
-void AudioSystem::resume() {
+void AudioSystem::resumeImp() {
     if (state == SystemState::Paused) {
         state = SystemState::Running;
         pauseSync.notify_all();
     }
 }
 
-void AudioSystem::setListenerPosition(const sf::Vector2f& pos) {
+void AudioSystem::setListenerPositionImp(const sf::Vector2f& pos) {
     sf::Listener::setPosition({pos.x, pos.y, 0});
 }
 
-void AudioSystem::setDefaultSpatialSoundSettings(const SpatialSettings& settings) {
+void AudioSystem::setDefaultSpatialSoundSettingsImp(const SpatialSettings& settings) {
     std::unique_lock lock(soundMutex);
     defaultSpatialSettings = settings;
 }
 
-void AudioSystem::setSpatialSoundCutoffDistance(float md) {
+void AudioSystem::setSpatialSoundCutoffDistanceImp(float md) {
     std::unique_lock lock(soundMutex);
     maxSpatialDistanceSquared = md;
 }
 
-void AudioSystem::pushPlaylist(const Playlist& np, float fadeout) {
+void AudioSystem::pushPlaylistImp(const Playlist& np, float fadeout) {
     std::unique_lock lock(playlistMutex);
 
     playlists.emplace_back(new Playlist(np));
@@ -91,7 +96,7 @@ void AudioSystem::pushPlaylist(const Playlist& np, float fadeout) {
     if (state != SystemState::Paused) playlists.back()->play();
 }
 
-void AudioSystem::replacePlaylist(const Playlist& np, float fadeout) {
+void AudioSystem::replacePlaylistImp(const Playlist& np, float fadeout) {
     std::unique_lock lock(playlistMutex);
 
     playlists.emplace_back(new Playlist(np));
@@ -108,7 +113,7 @@ void AudioSystem::replacePlaylist(const Playlist& np, float fadeout) {
     if (state != SystemState::Paused) playlists.back()->play();
 }
 
-void AudioSystem::popPlaylist(float fadeout) {
+void AudioSystem::popPlaylistImp(float fadeout) {
     if (!playlists.empty()) {
         std::unique_lock lock(playlistMutex);
         musicState        = MusicState::Popping;
@@ -121,7 +126,7 @@ AudioSystem::Handle AudioSystem::create() const {
     return Random::get<Handle>(1, std::numeric_limits<Handle>::max());
 }
 
-AudioSystem::Handle AudioSystem::playSound(Resource<sf::SoundBuffer>::Ref sound, bool loop) {
+AudioSystem::Handle AudioSystem::playSoundImp(Resource<sf::SoundBuffer>::Ref sound, bool loop) {
     const Handle h = create();
     std::unique_lock lock(soundMutex);
     auto s = *sounds.emplace(new Sound(h, sound));
@@ -132,14 +137,14 @@ AudioSystem::Handle AudioSystem::playSound(Resource<sf::SoundBuffer>::Ref sound,
     return h;
 }
 
-AudioSystem::Handle AudioSystem::playSpatialSound(Resource<sf::SoundBuffer>::Ref sound,
-                                                  const sf::Vector2f& pos, bool loop) {
+AudioSystem::Handle AudioSystem::playSpatialSoundImp(Resource<sf::SoundBuffer>::Ref sound,
+                                                     const sf::Vector2f& pos, bool loop) {
     return playSpatialSound(sound, pos, defaultSpatialSettings, loop);
 }
 
-AudioSystem::Handle AudioSystem::playSpatialSound(Resource<sf::SoundBuffer>::Ref sound,
-                                                  const sf::Vector2f& pos,
-                                                  const SpatialSettings& settings, bool loop) {
+AudioSystem::Handle AudioSystem::playSpatialSoundImp(Resource<sf::SoundBuffer>::Ref sound,
+                                                     const sf::Vector2f& pos,
+                                                     const SpatialSettings& settings, bool loop) {
     std::unique_lock lock(soundMutex);
     const float dx = pos.x - sf::Listener::getPosition().x;
     const float dy = pos.y - sf::Listener::getPosition().y;
@@ -157,14 +162,14 @@ AudioSystem::Handle AudioSystem::playSpatialSound(Resource<sf::SoundBuffer>::Ref
     return h;
 }
 
-std::shared_ptr<AudioSystem::Sound> AudioSystem::getSound(Handle h) {
+std::shared_ptr<AudioSystem::Sound> AudioSystem::getSoundImp(Handle h) {
     std::shared_lock lock(soundMutex);
     auto it = soundMap.find(h);
     if (it == soundMap.end()) return nullptr;
     return it->second;
 }
 
-void AudioSystem::stopSound(Handle h) {
+void AudioSystem::stopSoundImp(Handle h) {
     std::unique_lock lock(soundMutex);
     auto it = soundMap.find(h);
     if (it == soundMap.end()) return;
