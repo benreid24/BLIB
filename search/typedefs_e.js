@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['windoweventdispatcher',['WindowEventDispatcher',['../a00592.html#a71469c99c37bba2898231806ffbf43f8',1,'bl']]],
-  ['windoweventdispatcherscopeguard',['WindowEventDispatcherScopeGuard',['../a00592.html#a5a74a9e80821b1227e77b1b21e1dda8e',1,'bl']]],
-  ['windoweventlistener',['WindowEventListener',['../a00592.html#a3a7ea0c6fb643afb5f057df33ca967e9',1,'bl']]],
-  ['wptr',['WPtr',['../a00929.html#a5a203f6b9f513c2adbeb9b8a9082013b',1,'bl::gui::Element']]]
+  ['visitor',['Visitor',['../a01148.html#a384c475127c4552bc9a4b27f9e121aa7',1,'bl::menu::Item']]]
 ];
