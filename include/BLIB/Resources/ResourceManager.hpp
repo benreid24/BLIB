@@ -1,6 +1,7 @@
 #ifndef BLIB_RESOURCES_RESOURCEMANAGER_HPP
 #define BLIB_RESOURCES_RESOURCEMANAGER_HPP
 
+#include <BLIB/Logging.hpp>
 #include <BLIB/Resources/ResourceLoader.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
@@ -79,12 +80,15 @@ ResourceManager<T>::ResourceManager(ResourceLoader<T>& loader, unsigned int gcPe
 : loader(loader)
 , gcPeriod(gcPeriod)
 , gcActive(true)
-, gcThread(&ResourceManager<T>::garbageCollector, this) {}
+, gcThread(&ResourceManager<T>::garbageCollector, this) {
+    BL_LOG_INFO << "Resource manager (" << typeid(T).name() << ") online";
+}
 
 template<typename T>
 ResourceManager<T>::~ResourceManager() {
     gcActive = false;
     gcThread.join();
+    BL_LOG_INFO << "Resource manager (" << typeid(T).name() << ") shutdown";
 }
 
 template<typename T>

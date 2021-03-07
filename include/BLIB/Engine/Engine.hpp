@@ -9,6 +9,7 @@
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
 #include <BLIB/Events/EventDispatcher.hpp>
+#include <BLIB/Resources.hpp>
 
 namespace bl
 {
@@ -39,6 +40,8 @@ public:
      *
      */
     engine::EventDispatcher& engineEventDispatcher();
+
+    // TODO - use MultiEventDispatcher for one queue
 
     /**
      * @brief Returns a reference to the window event dispatcher

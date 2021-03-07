@@ -3,6 +3,7 @@ add_executable(animation main.cpp)
 target_link_libraries(animation
     BLIB
     sfml-graphics
+    sfml-audio
     sfml-window
 )
 

@@ -124,7 +124,8 @@ public:
 
     /**
      * @brief Removes the given iterator from the pool and marks the object slot for resuse. All
-     *        iterators remain valid except for the one removed
+     *        iterators remain valid except for the one removed. The erased iterator is partially
+     *        invalidated. It may not be dereferenced but it may still be incremented
      *
      * @param i Iterator to erase
      */
@@ -384,6 +385,7 @@ void DynamicObjectPool<T>::shrink() {
         if (pool[i].alive()) { newPool.push_back(std::move(pool[i])); }
     }
     std::swap(pool, newPool);
+    next = -1;
 }
 
 template<typename T>

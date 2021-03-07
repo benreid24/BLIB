@@ -50,6 +50,22 @@ public:
     SerializableField(SerializableObject& owner);
 
     /**
+     * @brief Copy constructor for the value contained in the field
+     *
+     * @param owner The owner of this field
+     * @param value The value to copy
+     */
+    SerializableField(SerializableObject& owner, const T& value);
+
+    /**
+     * @brief Move constructor for the value contained in the field
+     *
+     * @param owner The owner of this field
+     * @param value The value to move
+     */
+    SerializableField(SerializableObject& owner, T&& value);
+
+    /**
      * @brief Writes the value of this field to the given file
      *
      * @param output The file to write to
@@ -80,10 +96,23 @@ public:
     virtual std::uint32_t size() const override;
 
     /**
+     * @brief Returns a movable reference to the contained value
+     *
+     * @return T&& rvalue reference of the contained value
+     */
+    T&& getMovable();
+
+    /**
      * @brief Explicit accessor for the field value
      *
      */
     const T& getValue() const;
+
+    /**
+     * @brief Explicit accessor for the field value
+     *
+     */
+    T& getValue();
 
     /**
      * @brief Explicit setter for the field value
@@ -99,6 +128,14 @@ public:
      * @return SerializableField& A reference to this field
      */
     SerializableField& operator=(const T& v);
+
+    /**
+     * @brief Assigns a new value to this field by move
+     *
+     * @param v The value to assign to
+     * @return SerializableField& A reference to this field
+     */
+    SerializableField& operator=(T&& v);
 
     /**
      * @brief Implicit conversion operator for convenience
@@ -117,6 +154,16 @@ private:
 template<std::uint16_t Id, typename T>
 SerializableField<Id, T>::SerializableField(SerializableObject& owner)
 : SerializableFieldBase(owner, Id) {}
+
+template<std::uint16_t Id, typename T>
+SerializableField<Id, T>::SerializableField(SerializableObject& owner, const T& copy)
+: SerializableFieldBase(owner, Id)
+, value(copy) {}
+
+template<std::uint16_t Id, typename T>
+SerializableField<Id, T>::SerializableField(SerializableObject& owner, T&& copy)
+: SerializableFieldBase(owner, Id)
+, value(std::forward<T>(copy)) {}
 
 template<std::uint16_t Id, typename T>
 bool SerializableField<Id, T>::serialize(BinaryFile& output) const {
@@ -144,6 +191,16 @@ const T& SerializableField<Id, T>::getValue() const {
 }
 
 template<std::uint16_t Id, typename T>
+T& SerializableField<Id, T>::getValue() {
+    return value;
+}
+
+template<std::uint16_t Id, typename T>
+T&& SerializableField<Id, T>::getMovable() {
+    return std::move(value);
+}
+
+template<std::uint16_t Id, typename T>
 void SerializableField<Id, T>::setValue(const T& v) {
     value = v;
 }
@@ -151,6 +208,12 @@ void SerializableField<Id, T>::setValue(const T& v) {
 template<std::uint16_t Id, typename T>
 SerializableField<Id, T>& SerializableField<Id, T>::operator=(const T& v) {
     value = v;
+    return *this;
+}
+
+template<std::uint16_t Id, typename T>
+SerializableField<Id, T>& SerializableField<Id, T>::operator=(T&& v) {
+    value = std::forward<T>(v);
     return *this;
 }
 

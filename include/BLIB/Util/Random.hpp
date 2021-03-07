@@ -3,6 +3,7 @@
 
 #include <BLIB/Util/NonCopyable.hpp>
 
+#include <chrono>
 #include <limits>
 #include <random>
 #include <type_traits>
@@ -22,7 +23,7 @@ public:
      * @tparam T The type of number to return
      * @param min Minimum value of the range
      * @param max Maximum value of the range
-     * @return T A random number in the range [min,max)
+     * @return T A random number in the range [min,max]
      */
     template<typename T>
     static std::enable_if_t<std::is_integral_v<T>, T> get(T min, T max) {
@@ -37,7 +38,7 @@ public:
      * @tparam T The type of number to return
      * @param min Minimum value of the range
      * @param max Maximum value of the range
-     * @return T A random number in the range [min,max)
+     * @return T A random number in the range [min,max]
      */
     template<typename T>
     static std::enable_if_t<std::is_floating_point_v<T>, T> get(T min, T max) {
@@ -49,7 +50,9 @@ public:
 
 private:
     Random()
-    : rng(rngdev()) {}
+    : rng(rngdev()) {
+        rng.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+    }
     static Random& _priv() {
         static Random rng;
         return rng;

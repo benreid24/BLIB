@@ -1,6 +1,8 @@
 #ifndef BLIB_MEDIA_ANIMATIONDATA_HPP
 #define BLIB_MEDIA_ANIMATIONDATA_HPP
 
+#include <BLIB/Resources.hpp>
+
 #include <memory>
 #include <string>
 #include <vector>
@@ -12,7 +14,7 @@ namespace bl
 class Animation;
 
 /**
- * @brief Data class for animations. Holds the frame information and is resposnsible for
+ * @brief Data class for animations. Holds the frame information and is responsible for
  *        rendering
  * @see Animation
  * @ingroup Media
@@ -20,33 +22,31 @@ class Animation;
  */
 class AnimationData {
 public:
-    typedef std::shared_ptr<AnimationData> Ptr;
-
     /**
      * @brief Create empty AnimationData to be loaded later
      *
      */
-    static Ptr create();
+    AnimationData();
 
     /**
      * @brief Loads the AnimationData from the given file. Spritesheets are searched for in the
-     *        same directory as the animation file
+     *        same directory as the animation file. If not found then
+     *        engine::Configuration::get("blib.animation.spritesheet_path") is used
      *
      * @param filename File to laod from
-     * @param spritesheetDir Optional additional directory to search for spritesheets
-     * @return Ptr the AnimationData, or null if could not be loaded
      */
-    static Ptr create(const std::string& filename, const std::string& spritesheetDir = "");
+    AnimationData(const std::string& filename);
 
     /**
      * @brief Loads the animation from the given file, overwriting internal data
-     *        Spritesheets are searched for in the same directory as the file
+     *        Spritesheets are searched for in the same directory as the file. If not found then
+     *        engine::Configuration::get("blib.animation.spritesheet_path") is used
      *
      * @param filename The file to laod from
      * @param spritesheetDir Optional additional directory to search for spritesheets
      * @return bool True if the animation could be loaded, false otherwise
      */
-    bool load(const std::string& filename, const std::string& spritesheetDir = "");
+    bool load(const std::string& filename);
 
     /**
      * @brief Returns if the animation is set to loop on end. Can be overriden in Animation
@@ -89,21 +89,18 @@ private:
             float rotation;
             uint8_t alpha;
 
-            void apply(sf::Sprite& sprite, const sf::Vector2f& scale = {1, 1},
-                       float rotation = 0, bool center = true) const;
+            void apply(sf::Sprite& sprite, const sf::Vector2f& scale = {1, 1}, float rotation = 0,
+                       bool center = true) const;
         };
 
         float length;
         std::vector<Shard> shards;
     };
 
-    sf::Texture spritesheet;
+    Resource<sf::Texture>::Ref spritesheet;
     std::vector<Frame> frames;
     float totalLength;
     bool loop;
-
-    AnimationData();
-    AnimationData(const std::string& filename, const std::string& spritesheetDir = "");
 
     void render(sf::RenderTarget& target, sf::RenderStates states, float elapsedTime,
                 const sf::Vector2f& position, const sf::Vector2f& scale, float rotation,

@@ -25,19 +25,19 @@ public:
      *
      * @param data The AnimationData to use for rendering
      */
-    Animation(AnimationData::Ptr data);
+    Animation(AnimationData& data);
 
     /**
      * @brief Sets the AnimationData to use for rendering
      *
      */
-    void setData(AnimationData::Ptr data);
+    void setData(AnimationData& data);
 
     /**
      * @brief Returns the underlying AnimationData
      *
      */
-    AnimationData::Ptr getData() const;
+    AnimationData& getData() const;
 
     /**
      * @brief Set the position to render at
@@ -107,7 +107,7 @@ public:
     void stop();
 
 private:
-    AnimationData::Ptr data;
+    AnimationData* data;
     bool isPlaying;
     float startTime;
 
