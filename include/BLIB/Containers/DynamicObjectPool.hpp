@@ -385,6 +385,7 @@ void DynamicObjectPool<T>::shrink() {
         if (pool[i].alive()) { newPool.push_back(std::move(pool[i])); }
     }
     std::swap(pool, newPool);
+    next = -1;
 }
 
 template<typename T>

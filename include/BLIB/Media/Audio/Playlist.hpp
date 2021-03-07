@@ -37,6 +37,10 @@ public:
 
     const std::vector<std::string>& getSongList() const;
 
+    void setShuffle(bool shuffle);
+
+    bool shuffling() const;
+
 private:
     bf::SerializableField<1, std::vector<std::string>> songs;
     bf::SerializableField<2, bool> _shuffle;

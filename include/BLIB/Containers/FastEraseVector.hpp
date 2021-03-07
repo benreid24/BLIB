@@ -1,6 +1,7 @@
 #ifndef BLIB_CONTAINERS_FASTERASEVECTOR_HPP
 #define BLIB_CONTAINERS_FASTERASEVECTOR_HPP
 
+#include <algorithm>
 #include <vector>
 
 namespace bl
@@ -39,13 +40,13 @@ public:
 
 template<class T, class Alloc>
 void FastEraseVector<T, Alloc>::erase(iterator position) {
-    *position = std::vector<T, Alloc>::back();
+    std::swap(*position, std::vector<T, Alloc>::back());
     std::vector<T, Alloc>::pop_back();
 }
 
 template<class T, class Alloc>
 void FastEraseVector<T, Alloc>::erase(std::size_t i) {
-    (*this)[i] = std::vector<T, Alloc>::back();
+    std::swap((*this)[i], std::vector<T, Alloc>::back());
     std::vector<T, Alloc>::pop_back();
 }
 

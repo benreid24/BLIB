@@ -24,6 +24,7 @@ AudioSystem::AudioSystem()
 , state(SystemState::Running)
 , runner(&AudioSystem::background, this)
 , musicVolumeFactor(1)
+, musicFadeAmount(0)
 , musicState(MusicState::Stopped)
 , fadeVolumeFactor(-1.f)
 , defaultSpatialSettings{DefaultMinFadeDistance, DefaultAttenuation}
@@ -33,6 +34,7 @@ AudioSystem::AudioSystem()
 }
 
 AudioSystem::~AudioSystem() {
+    BL_LOG_INFO << "Audiosystem shutting down";
     stopAll();
     state = SystemState::Stopping;
     pauseSync.notify_all();
@@ -72,36 +74,46 @@ void AudioSystem::setSpatialSoundCutoffDistance(float md) {
     maxSpatialDistanceSquared = md;
 }
 
-void AudioSystem::pushPlaylist(const Playlist& np) {
+void AudioSystem::pushPlaylist(const Playlist& np, float fadeout) {
     std::unique_lock lock(playlistMutex);
 
     playlists.emplace_back(new Playlist(np));
-    playlists.back()->setVolume(volume() * musicVolumeFactor);
-    if (playlists.size() == 1) { musicState = MusicState::Playing; }
+    musicVolumeFactor = 1.f;
+    musicFadeAmount   = 1.f / (fadeout * 10.f);
+    if (playlists.size() == 1) {
+        playlists.back()->setVolume(volume());
+        musicState = MusicState::Playing;
+    }
     else {
-        musicState        = MusicState::Pushing;
-        musicVolumeFactor = 1.f;
+        musicState = MusicState::Pushing;
+        playlists.back()->setVolume(0);
     }
     if (state != SystemState::Paused) playlists.back()->play();
 }
 
-void AudioSystem::replacePlaylist(const Playlist& np) {
+void AudioSystem::replacePlaylist(const Playlist& np, float fadeout) {
     std::unique_lock lock(playlistMutex);
 
     playlists.emplace_back(new Playlist(np));
-    playlists.back()->setVolume(volume() * musicVolumeFactor);
-    if (playlists.size() == 1) { musicState = MusicState::Playing; }
+    musicVolumeFactor = 1.f;
+    musicFadeAmount   = 1.f / (fadeout * 10.f);
+    if (playlists.size() == 1) {
+        playlists.back()->setVolume(volume());
+        musicState = MusicState::Playing;
+    }
     else {
-        musicState        = MusicState::Replacing;
-        musicVolumeFactor = 1.f;
+        musicState = MusicState::Replacing;
+        playlists.back()->setVolume(0);
     }
     if (state != SystemState::Paused) playlists.back()->play();
 }
 
-void AudioSystem::popPlaylist() {
+void AudioSystem::popPlaylist(float fadeout) {
     if (!playlists.empty()) {
         std::unique_lock lock(playlistMutex);
-        musicState = MusicState::Popping;
+        musicState        = MusicState::Popping;
+        musicVolumeFactor = 1.f;
+        musicFadeAmount   = 1.f / (fadeout * 10.f);
     }
 }
 
@@ -145,12 +157,11 @@ AudioSystem::Handle AudioSystem::playSpatialSound(Resource<sf::SoundBuffer>::Ref
     return h;
 }
 
-sf::Sound* AudioSystem::getSound(Handle h) {
+std::shared_ptr<AudioSystem::Sound> AudioSystem::getSound(Handle h) {
     std::shared_lock lock(soundMutex);
     auto it = soundMap.find(h);
     if (it == soundMap.end()) return nullptr;
-    if (!it->second->sound.getLoop()) return nullptr;
-    return &it->second->sound;
+    return it->second;
 }
 
 void AudioSystem::stopSound(Handle h) {
@@ -166,15 +177,18 @@ float AudioSystem::volume() const {
 }
 
 void AudioSystem::background() {
-    const auto crossfade = [this]() {
-        musicVolumeFactor -= FadeAmount;
-        const float f = std::max(0.f, musicVolumeFactor);
-        playlists.back()->setVolume(volume() * f);
+    const auto crossfade = [this](bool lvolUp) {
+        musicVolumeFactor -= musicFadeAmount;
+        const float f  = std::max(0.f, musicVolumeFactor);
+        const float lf = lvolUp ? (1.f - f) : f;
+        const float pf = !lvolUp ? (1.f - f) : f;
+        playlists.back()->setVolume(volume() * lf);
         playlists.back()->update();
+        playlists.back()->play();
         if (playlists.size() > 1) { // cross fade
             playlists[playlists.size() - 2]->update();
             playlists[playlists.size() - 2]->play();
-            playlists[playlists.size() - 2]->setVolume(volume() * (1.f - f));
+            playlists[playlists.size() - 2]->setVolume(volume() * pf);
         }
     };
 
@@ -182,7 +196,7 @@ void AudioSystem::background() {
         musicVolumeFactor = 1.f;
         if (!playlists.empty()) {
             playlists.back()->setVolume(volume());
-            playlists.back()->play();
+            if (state != SystemState::Paused) playlists.back()->play();
         }
         musicState = playlists.empty() ? MusicState::Stopped : MusicState::Playing;
     };
@@ -229,8 +243,11 @@ void AudioSystem::background() {
                     musicState       = MusicState::Stopped;
                     fadeVolumeFactor = -1.f;
                 }
-                // volumes are updated below
-                fadeVolumeFactor = std::max(fadeVolumeFactor - FadeAmount, 0.0001f);
+                else {
+                    // volumes are updated below
+                    fadeVolumeFactor =
+                        std::max(fadeVolumeFactor - FadeAmount, FadeTolerance / 10.f);
+                }
             }
 
             // Update playlists
@@ -239,7 +256,7 @@ void AudioSystem::background() {
 
                 switch (musicState) {
                 case MusicState::Popping:
-                    crossfade();
+                    crossfade(false);
                     if (musicVolumeFactor <= 0) { // fade complete
                         playlists.pop_back();
                         finishCrossfade();
@@ -248,19 +265,20 @@ void AudioSystem::background() {
 
                 case MusicState::Replacing:
                 case MusicState::Pushing:
-                    crossfade();
-                    if (musicVolumeFactor <= 0) { // fade complete
-                        if (musicState != MusicState::Pushing && playlists.size() > 1) { // replace
+                    crossfade(true);
+                    if (musicVolumeFactor <= 0) {   // fade complete
+                        if (playlists.size() > 1) { // stop old one
                             playlists[playlists.size() - 2]->stop();
-                            playlists.erase(playlists.begin() + playlists.size() - 2);
+                            if (musicState == MusicState::Replacing) // erase replaced list
+                                playlists.erase(playlists.begin() + playlists.size() - 2);
                         }
                         finishCrossfade();
                     }
                     break;
 
                 case MusicState::Playing:
-                    playlists.back()->update();
                     playlists.back()->setVolume(volume());
+                    playlists.back()->update();
                     break;
 
                 default:
@@ -292,5 +310,10 @@ void AudioSystem::background() {
         std::this_thread::sleep_for(std::chrono::milliseconds(UpdatePeriod));
     }
 }
+
+AudioSystem::Sound::Sound(AudioSystem::Handle h, Resource<sf::SoundBuffer>::Ref r)
+: handle(h)
+, buffer(r)
+, sound(*r) {}
 
 } // namespace bl

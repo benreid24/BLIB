@@ -7,7 +7,7 @@ namespace bl
 {
 Playlist::Playlist()
 : songs(*this)
-, _shuffle(*this)
+, _shuffle(*this, false)
 , playing(false)
 , paused(false)
 , currentIndex(0) {}
@@ -38,10 +38,16 @@ void Playlist::play() {
         if (!paused) {
             if (_shuffle) shuffle();
             currentIndex = 0;
-            current.openFromFile(songs.getValue()[currentIndex]);
+            while (!current.openFromFile(songs.getValue()[currentIndex])) {
+                currentIndex = (currentIndex + 1) % songs.getValue().size();
+                if (currentIndex == 0) {
+                    playing = false;
+                    break;
+                }
+            }
         }
         paused = false;
-        current.play();
+        if (playing) current.play();
     }
 }
 
@@ -61,9 +67,15 @@ void Playlist::setVolume(float volume) { current.setVolume(volume); }
 void Playlist::update() {
     if (playing) {
         if (current.getStatus() == sf::Music::Stopped) {
-            currentIndex = (currentIndex + 1) % songs.getValue().size();
-            current.openFromFile(songs.getValue()[currentIndex]);
-            current.play();
+            unsigned int newI = (currentIndex + 1) % songs.getValue().size();
+            while (!current.openFromFile(songs.getValue()[newI])) {
+                newI = (newI + 1) % songs.getValue().size();
+                if (newI == currentIndex) break;
+            }
+            if (newI != currentIndex) {
+                currentIndex = newI;
+                current.play();
+            }
         }
     }
 }
@@ -81,6 +93,10 @@ void Playlist::removeSong(const std::string& song) {
 
 const std::vector<std::string>& Playlist::getSongList() const { return songs.getValue(); }
 
+void Playlist::setShuffle(bool s) { _shuffle = s; }
+
+bool Playlist::shuffling() const { return _shuffle; }
+
 void Playlist::shuffle() {
     const std::vector<std::string> order(songs.getMovable());
     FastEraseVector<std::size_t> indices;
@@ -90,8 +106,8 @@ void Playlist::shuffle() {
     for (std::size_t i = 0; i < order.size(); ++i) { indices.push_back(i); }
 
     while (!indices.empty()) {
-        const std::size_t i = Random::get<std::size_t>(0, indices.size());
-        songs.getValue().emplace_back(std::move(order[i]));
+        const std::size_t i = Random::get<std::size_t>(0, indices.size() - 1);
+        songs.getValue().emplace_back(std::move(order[indices[i]]));
         indices.erase(i);
     }
 }

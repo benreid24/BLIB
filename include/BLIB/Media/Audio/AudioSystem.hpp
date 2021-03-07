@@ -29,6 +29,17 @@ public:
         float attenuation;
     };
 
+    struct Sound {
+        const Handle handle;
+        const Resource<sf::SoundBuffer>::Ref buffer;
+        sf::Sound sound;
+
+    private:
+        Sound(Handle handle, Resource<sf::SoundBuffer>::Ref buffer);
+
+        friend class AudioSystem;
+    };
+
     AudioSystem();
 
     ~AudioSystem();
@@ -47,11 +58,11 @@ public:
 
     void setListenerPosition(const sf::Vector2f& pos);
 
-    void pushPlaylist(const Playlist& newPlaylist);
+    void pushPlaylist(const Playlist& newPlaylist, float fadeout = 4.f);
 
-    void replacePlaylist(const Playlist& newPlaylist);
+    void replacePlaylist(const Playlist& newPlaylist, float fadeout = 4.f);
 
-    void popPlaylist();
+    void popPlaylist(float fadeout = 4.f);
 
     Handle playSound(Resource<sf::SoundBuffer>::Ref sound, bool loop = false);
 
@@ -61,7 +72,7 @@ public:
     Handle playSpatialSound(Resource<sf::SoundBuffer>::Ref sound, const sf::Vector2f& pos,
                             const SpatialSettings& settings, bool loop = false);
 
-    sf::Sound* getSound(Handle handle);
+    std::shared_ptr<Sound> getSound(Handle handle);
 
     void stopSound(Handle handle);
 
@@ -84,16 +95,9 @@ private:
     };
     MusicState::State musicState;
     float musicVolumeFactor;
+    float musicFadeAmount;
 
     std::shared_mutex soundMutex;
-    struct Sound { // TODO - make public for safe shared_ptr access so can return non looping in get
-                   // sound
-        Handle handle;
-        Resource<sf::SoundBuffer>::Ref buffer;
-        sf::Sound sound;
-
-        Sound(Handle handle, Resource<sf::SoundBuffer>::Ref buffer);
-    };
     DynamicObjectPool<std::shared_ptr<Sound>> sounds;
     std::unordered_map<Handle, std::shared_ptr<Sound>> soundMap;
     SpatialSettings defaultSpatialSettings;

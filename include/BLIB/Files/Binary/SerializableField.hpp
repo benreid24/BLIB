@@ -163,7 +163,7 @@ SerializableField<Id, T>::SerializableField(SerializableObject& owner, const T& 
 template<std::uint16_t Id, typename T>
 SerializableField<Id, T>::SerializableField(SerializableObject& owner, T&& copy)
 : SerializableFieldBase(owner, Id)
-, value(std::forward(copy)) {}
+, value(std::forward<T>(copy)) {}
 
 template<std::uint16_t Id, typename T>
 bool SerializableField<Id, T>::serialize(BinaryFile& output) const {
