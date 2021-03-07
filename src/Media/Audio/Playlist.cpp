@@ -18,6 +18,7 @@ inline std::string songfile(const std::string& path) {
 Playlist::Playlist()
 : songs(*this)
 , _shuffle(*this, false)
+, shuffleOnLoop(*this, false)
 , playing(false)
 , paused(false)
 , currentIndex(0) {}
@@ -32,11 +33,13 @@ Playlist::Playlist(const Playlist& copy)
 : Playlist() {
     songs = copy.songs.getValue();
     _shuffle.setValue(copy._shuffle);
+    shuffleOnLoop.setValue(copy.shuffleOnLoop);
 }
 
 Playlist& Playlist::operator=(const Playlist& copy) {
     songs = copy.songs.getValue();
     _shuffle.setValue(copy._shuffle);
+    shuffleOnLoop.setValue(copy.shuffleOnLoop);
     return *this;
 }
 
@@ -55,6 +58,7 @@ void Playlist::play() {
                     break;
                 }
             }
+            startIndex = currentIndex;
         }
         paused = false;
         if (playing) current.play();
@@ -78,14 +82,13 @@ void Playlist::update() {
     if (playing) {
         if (current.getStatus() == sf::Music::Stopped) {
             unsigned int newI = (currentIndex + 1) % songs.getValue().size();
+            if (newI == startIndex && shuffleOnLoop) shuffle();
             while (!current.openFromFile(songfile(songs.getValue()[newI]))) {
                 newI = (newI + 1) % songs.getValue().size();
                 if (newI == currentIndex) break;
             }
-            if (newI != currentIndex) {
-                currentIndex = newI;
-                current.play();
-            }
+            currentIndex = newI;
+            current.play();
         }
     }
 }
@@ -106,6 +109,10 @@ const std::vector<std::string>& Playlist::getSongList() const { return songs.get
 void Playlist::setShuffle(bool s) { _shuffle = s; }
 
 bool Playlist::shuffling() const { return _shuffle; }
+
+void Playlist::setShuffleOnLoop(bool s) { shuffleOnLoop = s; }
+
+bool Playlist::shufflingOnLoop() const { return shuffleOnLoop; }
 
 void Playlist::shuffle() {
     const std::vector<std::string> order(songs.getMovable());

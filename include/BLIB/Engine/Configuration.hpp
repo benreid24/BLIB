@@ -13,11 +13,36 @@ namespace bl
 {
 namespace engine
 {
+/**
+ * @brief Global typeless configuration store for engine settings. Applications may add their own
+ *        configuration settings to the store as well. Some examples of configuration are the path
+ *        prefixes for songs in Playlists and spritesheets in Animations
+ *
+ * @ingroup Engine
+ *
+ */
 class Configuration {
 public:
+    /**
+     * @brief Returns the stored value for the given configuration type and key. If the key does not
+     *        exist or is a different type then the default value is returned
+     *
+     * @tparam T The type of the item to be retrieved
+     * @param key The key of the item to be returned
+     * @param defaultValue The default value to return if not found
+     * @return const T& The stored configuration value
+     */
     template<typename T>
     static const T& get(const std::string& key, const T& defaultValue = T());
 
+    /**
+     * @brief Sets the value for the given type and key in the config store. Keys may be duplicated
+     *        across types. Values may not be overwritten
+     *
+     * @tparam T The type of item to set
+     * @param key The key to set the value for
+     * @param value The value to set the config to
+     */
     template<typename T>
     static void set(const std::string& key, const T& value);
 
