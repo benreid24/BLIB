@@ -43,10 +43,8 @@ struct AnimationLoader : public ResourceLoader<AnimationData> {
     virtual ~AnimationLoader() = default;
 
     virtual Resource<AnimationData>::Ref load(const std::string& uri) override {
-        return Resource<AnimationData>::Ref(new AnimationData(uri, spritesheetPath));
+        return Resource<AnimationData>::Ref(new AnimationData(uri));
     }
-
-    std::string spritesheetPath;
 } animationLoader;
 
 } // namespace
@@ -62,8 +60,6 @@ ResourceManager<sf::Texture>& Resources::textures() { return get()._textures; }
 ResourceManager<sf::Font>& Resources::fonts() { return get()._fonts; }
 
 ResourceManager<sf::SoundBuffer>& Resources::sounds() { return get()._sounds; }
-
-void Resources::setSpritesheetPath(const std::string& p) { animationLoader.spritesheetPath = p; }
 
 Resources& Resources::get() {
     static Resources resources;

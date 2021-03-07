@@ -45,13 +45,6 @@ struct Resources : private NonCopyable {
      */
     static ResourceManager<AnimationData>& animations();
 
-    /**
-     * @brief Updates the default path used when loading spritesheets for Animations
-     *
-     * @param path
-     */
-    static void setSpritesheetPath(const std::string& path);
-
 private:
     ResourceManager<sf::SoundBuffer> _sounds;
     ResourceManager<sf::Texture> _textures;

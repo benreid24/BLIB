@@ -1,5 +1,6 @@
 #include <BLIB/Media/Graphics/AnimationData.hpp>
 
+#include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Files/Binary/BinaryFile.hpp>
 #include <BLIB/Files/FileUtil.hpp>
@@ -12,16 +13,16 @@ AnimationData::AnimationData()
 , totalLength(0)
 , loop(false) {}
 
-AnimationData::AnimationData(const std::string& filename, const std::string& spritesheetDir) {
-    load(filename, spritesheetDir);
-}
+AnimationData::AnimationData(const std::string& filename) { load(filename); }
 
-bool AnimationData::load(const std::string& filename, const std::string& spritesheetDir) {
+bool AnimationData::load(const std::string& filename) {
     frames.clear();
     totalLength = 0;
 
     bf::BinaryFile file(filename, bf::BinaryFile::Read);
     const std::string path = FileUtil::getPath(filename);
+    const std::string& spritesheetDir =
+        engine::Configuration::get<std::string>("blib.animation.spritesheet_path");
 
     std::string sheet;
     if (!file.read(sheet)) return false;

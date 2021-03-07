@@ -30,22 +30,23 @@ public:
 
     /**
      * @brief Loads the AnimationData from the given file. Spritesheets are searched for in the
-     *        same directory as the animation file
+     *        same directory as the animation file. If not found then
+     *        engine::Configuration::get("blib.animation.spritesheet_path") is used
      *
      * @param filename File to laod from
-     * @param spritesheetDir Optional additional directory to search for spritesheets
      */
-    AnimationData(const std::string& filename, const std::string& spritesheetDir = "");
+    AnimationData(const std::string& filename);
 
     /**
      * @brief Loads the animation from the given file, overwriting internal data
-     *        Spritesheets are searched for in the same directory as the file
+     *        Spritesheets are searched for in the same directory as the file. If not found then
+     *        engine::Configuration::get("blib.animation.spritesheet_path") is used
      *
      * @param filename The file to laod from
      * @param spritesheetDir Optional additional directory to search for spritesheets
      * @return bool True if the animation could be loaded, false otherwise
      */
-    bool load(const std::string& filename, const std::string& spritesheetDir = "");
+    bool load(const std::string& filename);
 
     /**
      * @brief Returns if the animation is set to loop on end. Can be overriden in Animation

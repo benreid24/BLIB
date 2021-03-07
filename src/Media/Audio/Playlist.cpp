@@ -1,10 +1,20 @@
 #include <BLIB/Containers/FastEraseVector.hpp>
+#include <BLIB/Engine/Configuration.hpp>
+#include <BLIB/Files/FileUtil.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Media/Audio/Playlist.hpp>
 #include <BLIB/Util/Random.hpp>
 
 namespace bl
 {
+namespace
+{
+inline std::string songfile(const std::string& path) {
+    return FileUtil::joinPath(engine::Configuration::get<std::string>("blib.playlist.song_path"),
+                              path);
+}
+} // namespace
+
 Playlist::Playlist()
 : songs(*this)
 , _shuffle(*this, false)
@@ -38,7 +48,7 @@ void Playlist::play() {
         if (!paused) {
             if (_shuffle) shuffle();
             currentIndex = 0;
-            while (!current.openFromFile(songs.getValue()[currentIndex])) {
+            while (!current.openFromFile(songfile(songs.getValue()[currentIndex]))) {
                 currentIndex = (currentIndex + 1) % songs.getValue().size();
                 if (currentIndex == 0) {
                     playing = false;
@@ -68,7 +78,7 @@ void Playlist::update() {
     if (playing) {
         if (current.getStatus() == sf::Music::Stopped) {
             unsigned int newI = (currentIndex + 1) % songs.getValue().size();
-            while (!current.openFromFile(songs.getValue()[newI])) {
+            while (!current.openFromFile(songfile(songs.getValue()[newI]))) {
                 newI = (newI + 1) % songs.getValue().size();
                 if (newI == currentIndex) break;
             }

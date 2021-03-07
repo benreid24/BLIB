@@ -62,15 +62,14 @@ std::string FileUtil::getPath(const std::string& file) {
 }
 
 std::string FileUtil::joinPath(const std::string& l, const std::string& r) {
+    if (l.empty()) return r;
+    if (r.empty()) return l;
+
     size_t ls = std::string::npos;
-    if (l.size() > 0) {
-        if (l[l.size() - 1] == '/' || l[l.size() - 1] == '\\') ls = l.size() - 1;
-    }
+    if (l[l.size() - 1] == '/' || l[l.size() - 1] == '\\') ls = l.size() - 1;
 
     size_t rs = 0;
-    if (r.size() > 0) {
-        if (r[0] == '/' || r[0] == '\\') rs = 1;
-    }
+    if (r[0] == '/' || r[0] == '\\') rs = 1;
 
     return l.substr(0, ls) + "/" + r.substr(rs);
 }
@@ -115,8 +114,8 @@ bool FileUtil::createDirectory(const std::string& path) {
     return createDir(cd);
 }
 
-std::vector<std::string> FileUtil::listDirectory(
-    const std::string& path, const std::string& ext, bool recursive) {
+std::vector<std::string> FileUtil::listDirectory(const std::string& path, const std::string& ext,
+                                                 bool recursive) {
     if (path.empty()) return {};
 
     DIR* cd;
@@ -147,8 +146,6 @@ std::vector<std::string> FileUtil::listDirectory(
     return list;
 }
 
-bool FileUtil::deleteFile(const std::string& file) {
-    return 0 == remove(file.c_str());
-}
+bool FileUtil::deleteFile(const std::string& file) { return 0 == remove(file.c_str()); }
 
 } // namespace bl
