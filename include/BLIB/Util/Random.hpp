@@ -50,10 +50,11 @@ public:
 
 private:
     Random()
-    : rng(rngdev()) {}
+    : rng(rngdev()) {
+        rng.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+    }
     static Random& _priv() {
         static Random rng;
-        rng.rng.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
         return rng;
     }
 
