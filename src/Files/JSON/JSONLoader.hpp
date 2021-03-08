@@ -6,14 +6,14 @@
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
-
 /**
  * @brief Utility class to load JSON objects from input streams or files
  * @ingroup JSON
- * @ingroup Files
- * 
+ *
  */
 class Loader {
 public:
@@ -48,7 +48,8 @@ private:
     std::string error();
 };
 
-}
-}
+} // namespace json
+} // namespace file
+} // namespace bl
 
 #endif

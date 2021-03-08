@@ -8,6 +8,8 @@
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
 class SerializableObject;
@@ -145,6 +147,7 @@ struct Serializer<std::unordered_map<std::string, U>> {
 };
 
 } // namespace json
+} // namespace file
 } // namespace bl
 
 #endif

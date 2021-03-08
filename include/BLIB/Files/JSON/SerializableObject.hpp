@@ -6,6 +6,8 @@
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
 class SerializableFieldBase;
@@ -67,6 +69,7 @@ private:
 };
 
 } // namespace json
+} // namespace file
 } // namespace bl
 
 #endif

@@ -5,6 +5,8 @@
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
 namespace
@@ -284,28 +286,28 @@ std::ostream& operator<<(std::ostream& stream, const List& list) {
     return stream;
 }
 
-} // namespace json
-
-json::Group JSON::loadFromStream(std::istream& stream) {
-    json::Loader loader(stream);
+Group loadFromStream(std::istream& stream) {
+    Loader loader(stream);
     return loader.load();
 }
 
-json::Group JSON::loadFromString(const std::string& data) {
+Group loadFromString(const std::string& data) {
     std::stringstream stream(data);
     return loadFromStream(stream);
 }
 
-json::Group JSON::loadFromFile(const std::string& file) {
-    json::Loader loader(file);
+Group loadFromFile(const std::string& file) {
+    Loader loader(file);
     return loader.load();
 }
 
-void JSON::saveToFile(const std::string& file, const json::Group& group) {
+void saveToFile(const std::string& file, const Group& group) {
     std::ofstream out(file.c_str());
     out << group;
 }
 
-void JSON::saveToStream(std::ostream& stream, const json::Group& group) { stream << group; }
+void saveToStream(std::ostream& stream, const Group& group) { stream << group; }
 
+} // namespace json
+} // namespace file
 } // namespace bl

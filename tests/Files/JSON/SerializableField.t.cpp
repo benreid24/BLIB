@@ -3,6 +3,8 @@
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
 namespace unittest
@@ -76,4 +78,5 @@ TEST(JsonSerializableField, Map) {
 
 } // namespace unittest
 } // namespace json
+} // namespace file
 } // namespace bl

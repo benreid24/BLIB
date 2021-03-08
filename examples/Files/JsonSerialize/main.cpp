@@ -4,6 +4,8 @@
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
 bool Serializer<Map>::deserialize(Map& result, const Value& value) {
@@ -30,6 +32,7 @@ Value Serializer<Map>::serialize(const Map& value) {
 }
 
 } // namespace json
+} // namespace file
 } // namespace bl
 
 int main() {
@@ -37,11 +40,11 @@ int main() {
     World world({"mapName", "mapData"}, {Npc("Guy", 100), Npc("Woman", 105), Npc("Dog", 50)});
 
     // Save our world
-    bl::JSON::saveToFile("world.json", world.serialize());
+    bl::file::json::saveToFile("world.json", world.serialize());
 
     // Load it again
     World loaded;
-    if (!loaded.deserialize(bl::JSON::loadFromFile("world.json"))) {
+    if (!loaded.deserialize(bl::file::json::loadFromFile("world.json"))) {
         std::cout << "Error loading world\n";
         return 1;
     }

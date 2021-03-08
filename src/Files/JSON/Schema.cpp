@@ -3,11 +3,13 @@
 #include <BLIB/Logging.hpp>
 #include <algorithm>
 
-#define SCHEMA_ERROR(source)                                       \
-    BL_LOG_ERROR << "VALIDATION FAILED: File '" << source.filename \
-                 << "':" << source.lineNumber << ": "
+#define SCHEMA_ERROR(source)                                                                    \
+    BL_LOG_ERROR << "VALIDATION FAILED: File '" << source.filename << "':" << source.lineNumber \
+                 << ": "
 
 namespace bl
+{
+namespace file
 {
 namespace json
 {
@@ -88,15 +90,15 @@ bool Value::validate(const json::Value& value, bool strict) const {
     case json::Value::TNumeric:
         if (std::get<Numeric>(*schema).min) {
             if (value.getAsNumeric().value() < std::get<Numeric>(*schema).min.value()) {
-                SCHEMA_ERROR(value.source()) << "Value is too small, minimum is "
-                                             << std::get<Numeric>(*schema).min.value();
+                SCHEMA_ERROR(value.source())
+                    << "Value is too small, minimum is " << std::get<Numeric>(*schema).min.value();
                 return false;
             }
         }
         if (std::get<Numeric>(*schema).max) {
             if (value.getAsNumeric().value() > std::get<Numeric>(*schema).max.value()) {
-                SCHEMA_ERROR(value.source()) << "Value is too large, maximum is "
-                                             << std::get<Numeric>(*schema).max.value();
+                SCHEMA_ERROR(value.source())
+                    << "Value is too large, maximum is " << std::get<Numeric>(*schema).max.value();
                 return false;
             }
         }
@@ -117,8 +119,7 @@ bool Value::validate(const json::Value& value, bool strict) const {
     case json::Value::TGroup:
         return std::get<Schema>(*schema).validate(value.getAsGroup().value(), strict);
     case json::Value::TList:
-        return std::get<List>(*schema).validate(
-            value.source(), value.getAsList().value(), strict);
+        return std::get<List>(*schema).validate(value.source(), value.getAsList().value(), strict);
     default:
         SCHEMA_ERROR(value.source()) << "Invalid schema type " << type;
         return false;
@@ -202,5 +203,5 @@ bool Schema::validate(const Group& root, bool strict) const {
 }
 
 } // namespace json
-
+} // namespace file
 } // namespace bl
