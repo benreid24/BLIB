@@ -28,6 +28,7 @@ sf::RenderWindow& Engine::window() { return *renderWindow; }
 void Engine::nextState(State::Ptr next) { newState = next; }
 
 int Engine::run(State::Ptr initialState) {
+    BL_LOG_INFO << "Starting engine with state: " << initialState->name();
     states.push(initialState);
 
     sf::Clock timer;
@@ -124,17 +125,21 @@ int Engine::run(State::Ptr initialState) {
             return 1;
         }
         else if (engineFlags.active(Flags::PopState)) {
+            BL_LOG_INFO << "Popping state: " << states.top()->name();
             states.top()->onPoppedOff(*this);
             states.pop();
             if (states.empty()) {
+                BL_LOG_INFO << "Final state popped, exiting";
                 if (renderWindow) renderWindow->close();
                 return 0;
             }
+            BL_LOG_INFO << "New engine state: " << states.top()->name();
             states.top()->makeActive(*this);
         }
 
         // Handle state transition
         if (newState) {
+            BL_LOG_INFO << "New engine state: " << newState->name();
             states.top()->onPushedDown(*this);
             states.push(newState);
             states.top()->makeActive(*this);

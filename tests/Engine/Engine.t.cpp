@@ -24,6 +24,8 @@ public:
 
     int timesUpdated() const { return callCount; }
 
+    virtual const char* name() const override { return "FlagTestState"; }
+
 private:
     const Flags::Flag flag;
     int callCount;
@@ -71,6 +73,8 @@ public:
     , counter(0) {
         times.reserve(6);
     }
+
+    virtual const char* name() const override { return "VariableTimeTestState"; }
 
     virtual void update(Engine& engine, float dt) {
         BL_LOG_INFO << "update() called with timestep: " << dt << "s";
@@ -150,6 +154,8 @@ public:
     virtual void render(Engine& engine, float rd) {}
 
     const std::vector<float>& getTimes() const { return times; }
+
+    virtual const char* name() const override { return "FixedTimestepTestState"; }
 
 private:
     std::vector<float> times;

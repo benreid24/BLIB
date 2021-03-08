@@ -23,6 +23,12 @@ public:
     virtual ~State() = default;
 
     /**
+     * @brief A human readable name of the state for logging
+     *
+     */
+    virtual const char* name() const = 0;
+
+    /**
      * @brief This is called each time the state becomes the active engine state
      *
      */
