@@ -16,7 +16,7 @@ TEST(ScriptImpl, ValueTree) {
     parser::Grammar grammar     = Parser::getGrammar();
     parser::Tokenizer tokenizer = Parser::getTokenizer();
     grammar.setStart(G::Value);
-    bl::Parser parser(grammar, tokenizer);
+    bl::parser::Parser parser(grammar, tokenizer);
     ASSERT_TRUE(parser.valid());
 
     const std::string script = "5 + 6^(7*12-2*dog) >= wogh";
@@ -81,7 +81,7 @@ TEST_P(ScriptImplValueTest, ValueTest) {
     parser::Grammar grammar     = Parser::getGrammar();
     parser::Tokenizer tokenizer = Parser::getTokenizer();
     grammar.setStart(G::Value);
-    bl::Parser parser(grammar, tokenizer);
+    bl::parser::Parser parser(grammar, tokenizer);
     ASSERT_TRUE(parser.valid());
 
     ValueTest td           = GetParam();
@@ -108,8 +108,7 @@ TEST_P(ScriptImplValueTest, ValueTest) {
     case Value::TArray: {
         ASSERT_EQ(td.result.getAsArray().size(), actual.getAsArray().size()) << td.input;
         for (unsigned int i = 0; i < td.result.getAsArray().size(); ++i) {
-            EXPECT_EQ(td.result.getAsArray()[i]->getAsNum(),
-                      actual.getAsArray()[i]->getAsNum())
+            EXPECT_EQ(td.result.getAsArray()[i]->getAsNum(), actual.getAsArray()[i]->getAsNum())
                 << td.input;
         }
         break;
@@ -126,8 +125,7 @@ INSTANTIATE_TEST_SUITE_P(
     ScriptImplValues, ScriptImplValueTest,
     ::testing::Values(
         ValueTest("3+5*2+4^2-6/3+5*2^(1+1)", Value(47), SymbolTable()),
-        ValueTest("5+6-3", Value(8), SymbolTable()),
-        ValueTest("5-6+3", Value(2), SymbolTable()),
+        ValueTest("5+6-3", Value(8), SymbolTable()), ValueTest("5-6+3", Value(2), SymbolTable()),
         ValueTest("5+6/2-3", Value(5), SymbolTable()),
         ValueTest("true and false", boolValue(false), SymbolTable()),
         ValueTest("true or false", boolValue(true), SymbolTable()),
@@ -152,8 +150,7 @@ INSTANTIATE_TEST_SUITE_P(
         ValueTest("[\"cat\", \"dog\"] == arr", boolValue(true),
                   genVar("arr", Value(std::vector<Value>({Value("cat"), Value("dog")})))),
         ValueTest("var == ref", boolValue(true), genRef("var", Value(7), "ref")),
-        ValueTest("var.prop == 5", boolValue(true),
-                  genProp("var", "prop", Value(), Value(5)))));
+        ValueTest("var.prop == 5", boolValue(true), genProp("var", "prop", Value(), Value(5)))));
 
 struct FunctionTest {
     const std::string fdef;
@@ -175,10 +172,10 @@ TEST_P(ScriptImplFunctionTest, FunctionTest) {
     parser::Grammar grammar     = Parser::getGrammar();
     parser::Tokenizer tokenizer = Parser::getTokenizer();
     grammar.setStart(G::Value);
-    bl::Parser cparser(grammar, tokenizer);
+    bl::parser::Parser cparser(grammar, tokenizer);
     ASSERT_TRUE(cparser.valid());
     grammar.setStart(G::Statement);
-    bl::Parser fparser(grammar, tokenizer);
+    bl::parser::Parser fparser(grammar, tokenizer);
     ASSERT_TRUE(fparser.valid());
 
     parser::Node::Ptr fdef = fparser.parse(t.fdef);
@@ -193,10 +190,7 @@ TEST_P(ScriptImplFunctionTest, FunctionTest) {
         ASSERT_EQ(v.getType(), Value::TNumeric);
         ASSERT_EQ(v.getAsNum(), t.result.getAsNum());
     } catch (const Error& err) {
-        FAIL() << err.stacktrace() << "\n"
-               << err.message() << "\n"
-               << t.fdef << "\n"
-               << t.call;
+        FAIL() << err.stacktrace() << "\n" << err.message() << "\n" << t.fdef << "\n" << t.call;
     }
 }
 
@@ -212,15 +206,13 @@ INSTANTIATE_TEST_SUITE_P(
         FunctionTest("def func(l,r) { return l-r; }", "func(5, 4)", 1),
         FunctionTest("def func(l,r) { s = l+r; return s-5; }", "func(5, 4)", 4),
         FunctionTest("def func(l,r) { s = [l,r]; return s.length; }", "func(5, 4)", 2),
-        FunctionTest("def func(l,r) { s = [l,r]; s.append(l,r); return s.length; }",
-                     "func(5, 4)", 4),
-        FunctionTest("def func(l,r) { s = [l,r]; s.insert(0, l); return s[0]; }", "func(5, 4)",
-                     5),
+        FunctionTest("def func(l,r) { s = [l,r]; s.append(l,r); return s.length; }", "func(5, 4)",
+                     4),
+        FunctionTest("def func(l,r) { s = [l,r]; s.insert(0, l); return s[0]; }", "func(5, 4)", 5),
         FunctionTest("def func(l,r) { s = [l,r]; s.resize(3, r); return s.length+s[2]; }",
                      "func(5, 4)", 7),
         FunctionTest("def func(l,r) { s = [l,r]; s.erase(0); return s[0]; }", "func(5, 4)", 4),
-        FunctionTest("def func(l,r) { s = [l,r]; s.clear(); return s.length; }", "func(5, 4)",
-                     0),
+        FunctionTest("def func(l,r) { s = [l,r]; s.clear(); return s.length; }", "func(5, 4)", 0),
         FunctionTest(eliftest, "func(1,2,3)", 1), FunctionTest(eliftest, "func(5,2,3)", 2),
         FunctionTest(eliftest, "func(5,4,3)", 3), FunctionTest(whiletest, "func(5, 2)", 10),
         FunctionTest(whiletest, "func(5, 0)", 0),

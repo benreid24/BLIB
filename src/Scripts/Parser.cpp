@@ -260,10 +260,10 @@ parser::Grammar buildGrammar() {
     return grammar;
 }
 
-bl::Parser buildParser() {
+bl::parser::Parser buildParser() {
     parser::Grammar grammar = buildGrammar();
     grammar.setStart(Parser::Grammar::Program);
-    return bl::Parser(grammar, Parser::getTokenizer());
+    return bl::parser::Parser(grammar, Parser::getTokenizer());
 }
 
 } // namespace
@@ -279,7 +279,7 @@ parser::Grammar Parser::getGrammar() {
 }
 
 parser::Node::Ptr Parser::parse(const std::string& input) {
-    static const bl::Parser parser = buildParser();
+    static const bl::parser::Parser parser = buildParser();
     return parser.parse(input);
 }
 

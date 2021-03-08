@@ -10,7 +10,8 @@
 
 namespace bl
 {
-using namespace parser;
+namespace parser
+{
 namespace
 {
 Node::Type getFree(const Grammar& g) {
@@ -218,8 +219,7 @@ bool Parser::generateTables() {
                 Grammar::ItemSet gotoSet;
                 gotoSet.add(item.next());
                 for (const Grammar::Item& ot : table[i].state.items()) {
-                    if (!ot.final() && ot.production.set[ot.cursor] == t)
-                        gotoSet.add(ot.next());
+                    if (!ot.final() && ot.production.set[ot.cursor] == t) gotoSet.add(ot.next());
                 }
                 gotoSet           = grammar.closure(gotoSet);
                 table[i].gotos[t] = getState(gotoSet, true);
@@ -279,4 +279,5 @@ Parser::Action Parser::Action::reduce(const Grammar::Item& item) {
     return a;
 }
 
+} // namespace parser
 } // namespace bl
