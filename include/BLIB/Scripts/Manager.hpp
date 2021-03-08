@@ -8,24 +8,20 @@
 
 namespace bl
 {
-namespace engine
-{
-class Engine;
-}
-
 namespace script
 {
-namespace unittest
-{
-class ManagerOwner;
-}
-
 /**
  * @brief Utility class that can manage sets of concurrently running scripts
  *
  */
 class Manager : private util::NonCopyable {
 public:
+    /**
+     * @brief Terminates all running scripts
+     *
+     */
+    ~Manager();
+
     /**
      * @brief Terminates all running scripts
      *
@@ -37,8 +33,6 @@ public:
 private:
     std::mutex mutex;
     std::list<Script::ExecutionContext::WPtr> scripts;
-
-    Manager() = default;
 
     /**
      * @brief Registers a Script to have its execution tracked
@@ -54,8 +48,6 @@ private:
     void clean();
 
     friend class Script;
-    friend class engine::Engine;
-    friend class unittest::ManagerOwner;
 };
 
 } // namespace script

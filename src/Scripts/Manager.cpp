@@ -5,7 +5,13 @@
 
 namespace bl
 {
-using namespace script;
+namespace script
+{
+Manager::~Manager() {
+    BL_LOG_INFO << "script manager (" << this << ") terminating. timeout = 2s";
+    terminateAll(2.f);
+    BL_LOG_INFO << "script manager (" << this << ") terminated";
+}
 
 void Manager::watch(Script::ExecutionContext::WPtr record) {
     std::lock_guard guard(mutex);
@@ -50,4 +56,5 @@ void Manager::clean() {
     }
 }
 
+} // namespace script
 } // namespace bl

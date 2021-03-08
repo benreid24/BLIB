@@ -9,11 +9,6 @@ namespace script
 {
 namespace unittest
 {
-class ManagerOwner {
-public:
-    Manager manager;
-};
-
 class TestScript : public Script {
 public:
     TestScript(const std::string& input)
@@ -68,10 +63,10 @@ TEST(Script, Manager) {
     const Script script(input);
     ASSERT_TRUE(script.valid());
 
-    ManagerOwner manager;
-    for (int i = 0; i < 5; ++i) script.runBackground(&manager.manager);
+    Manager manager;
+    for (int i = 0; i < 5; ++i) script.runBackground(&manager);
     std::this_thread::sleep_for(std::chrono::milliseconds(30));
-    ASSERT_TRUE(manager.manager.terminateAll());
+    ASSERT_TRUE(manager.terminateAll());
 }
 
 TEST(Script, Shadow) {
