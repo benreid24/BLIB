@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 Value::Value()
 : type(TVoid)
@@ -148,24 +148,21 @@ Value::Ptr Value::getProperty(const std::string& name, bool create) {
         if (name == "length")
             return Ptr(new Value(static_cast<int>(getAsArray().size())));
         else if (name == "resize") {
-            Function::CustomCB cb = [this](SymbolTable&,
-                                           const std::vector<Value>& args) -> Value {
+            Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>& args) -> Value {
                 this->resize(args);
                 return Value();
             };
             return Ptr(new Value(cb));
         }
         else if (name == "append") {
-            Function::CustomCB cb = [this](SymbolTable&,
-                                           const std::vector<Value>& args) -> Value {
+            Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>& args) -> Value {
                 this->append(args);
                 return Value();
             };
             return Ptr(new Value(cb));
         }
         else if (name == "insert") {
-            Function::CustomCB cb = [this](SymbolTable&,
-                                           const std::vector<Value>& args) -> Value {
+            Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>& args) -> Value {
                 this->insert(args);
                 return Value();
             };
@@ -179,8 +176,7 @@ Value::Ptr Value::getProperty(const std::string& name, bool create) {
             return Ptr(new Value(cb));
         }
         else if (name == "erase") {
-            Function::CustomCB cb = [this](SymbolTable&,
-                                           const std::vector<Value>& args) -> Value {
+            Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>& args) -> Value {
                 this->erase(args);
                 return Value();
             };
@@ -239,8 +235,7 @@ void Value::append(const std::vector<Value>& args) {
 void Value::insert(const std::vector<Value>& args) {
     Value::Array* arr = std::get_if<Value::Array>(value.get());
     if (arr) {
-        if (args.size() < 2)
-            throw Error("insert() requires a position and a list of elements");
+        if (args.size() < 2) throw Error("insert() requires a position and a list of elements");
         if (args[0].getType() != TNumeric)
             throw Error("First argument of insert() must be Numeric");
         if (std::floor(args[0].getAsNum()) != args[0].getAsNum())
@@ -261,8 +256,7 @@ void Value::erase(const std::vector<Value>& args) {
     Value::Array* arr = std::get_if<Value::Array>(value.get());
     if (arr) {
         if (args.size() != 1) throw Error("erase() requires a position");
-        if (args[0].getType() != TNumeric)
-            throw Error("First argument of erase() must be Numeric");
+        if (args[0].getType() != TNumeric) throw Error("First argument of erase() must be Numeric");
         if (std::floor(args[0].getAsNum()) != args[0].getAsNum())
             throw Error("Position in erase() must be an integer");
         if (args[0].getAsNum() < 0) throw Error("Position in erase() must be positive");
@@ -315,5 +309,5 @@ Value Value::at(const std::vector<Value>& args) {
     return Value();
 }
 
-} // namespace scripts
+} // namespace script
 } // namespace bl

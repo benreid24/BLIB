@@ -5,8 +5,8 @@
 
 namespace bl
 {
-using namespace scripts;
-
+namespace script
+{
 class TestScript : public Script {
 public:
     TestScript(const std::string& input)
@@ -18,7 +18,7 @@ public:
     bool executed() const { return ran; }
 
 private:
-    virtual void addCustomSymbols(scripts::SymbolTable& table) const override {
+    virtual void addCustomSymbols(script::SymbolTable& table) const override {
         TestScript* me        = const_cast<TestScript*>(this);
         Function::CustomCB cb = [me](SymbolTable&, const std::vector<Value>&) -> Value {
             me->call = true;
@@ -63,7 +63,7 @@ TEST(Script, Manager) {
     const Script script(input);
     ASSERT_TRUE(script.valid());
 
-    ScriptManager manager;
+    Manager manager;
     for (int i = 0; i < 5; ++i) script.runBackground(&manager);
     std::this_thread::sleep_for(std::chrono::milliseconds(30));
     ASSERT_TRUE(manager.terminateAll());
@@ -82,4 +82,5 @@ TEST(Script, Shadow) {
 }
 
 } // namespace unittest
+} // namespace script
 } // namespace bl

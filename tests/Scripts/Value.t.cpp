@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 namespace unittest
 {
@@ -87,5 +87,5 @@ TEST(Value, Properties) {
 }
 
 } // namespace unittest
-} // namespace scripts
+} // namespace script
 } // namespace bl

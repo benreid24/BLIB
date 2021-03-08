@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 namespace
 {
@@ -46,5 +46,5 @@ const std::string& Error::message() const { return error; }
 
 const std::string& Error::stacktrace() const { return stack; }
 
-} // namespace scripts
+} // namespace script
 } // namespace bl

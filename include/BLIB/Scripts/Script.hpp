@@ -11,7 +11,10 @@
 
 namespace bl
 {
-class ScriptManager;
+/// Script interpreter for bScript
+namespace script
+{
+class Manager;
 
 /**
  * @brief Loads scripts. Can run scripts directly or in the background. Is threadsafe
@@ -37,19 +40,19 @@ public:
     /**
      * @brief Runs the script in the current thread
      *
-     * @param manager The ScriptManager to use to manage spawned Scripts, if any
+     * @param manager The Manager to use to manage spawned Scripts, if any
      * @return Return value if completed successfully (void if no return) or null on error
      *
      */
-    std::optional<scripts::Value> run(ScriptManager* manager = nullptr) const;
+    std::optional<script::Value> run(Manager* manager = nullptr) const;
 
     /**
      * @brief Runs the script in the background
      *
-     * @param manager ScriptManager to register with, nullptr for none
+     * @param manager Manager to register with, nullptr for none
      *
      */
-    void runBackground(ScriptManager* manager = nullptr) const;
+    void runBackground(Manager* manager = nullptr) const;
 
 protected:
     /**
@@ -57,7 +60,7 @@ protected:
      *        to allow scripts to access whatever they are hooked into
      *
      */
-    virtual void addCustomSymbols(scripts::SymbolTable& table) const {}
+    virtual void addCustomSymbols(script::SymbolTable& table) const {}
 
     /**
      * @brief Hook for custom Script classes to run custom code before running
@@ -73,7 +76,7 @@ private:
      * @brief Calls generateCustomStartSymbols and adds built in methods
      *
      */
-    scripts::SymbolTable generateBaseTable() const;
+    script::SymbolTable generateBaseTable() const;
 
     struct ExecutionContext : public std::enable_shared_from_this<ExecutionContext> {
         typedef std::shared_ptr<ExecutionContext> Ptr;
@@ -81,7 +84,7 @@ private:
 
         parser::Node::Ptr root;
         std::shared_ptr<std::thread> thread;
-        scripts::SymbolTable table;
+        script::SymbolTable table;
         std::atomic_bool running;
 
         ExecutionContext(parser::Node::Ptr root)
@@ -93,11 +96,12 @@ private:
      * @brief Actually runs the script
      *
      */
-    std::optional<scripts::Value> execute(ExecutionContext::Ptr context) const;
+    std::optional<script::Value> execute(ExecutionContext::Ptr context) const;
 
-    friend class ScriptManager;
+    friend class Manager;
 };
 
+} // namespace script
 } // namespace bl
 
 #endif

@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 namespace unittest
 {
@@ -230,5 +230,5 @@ INSTANTIATE_TEST_SUITE_P(
         ));
 
 } // namespace unittest
-} // namespace scripts
+} // namespace script
 } // namespace bl

@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 TEST(ScriptLibrary, Print) {
     const std::string input = "x = 5; y = &x; print(true, 5, \"cat\", [1,2], y, abs);";
@@ -194,5 +194,5 @@ TEST(ScriptLibrary, Atan2) {
     ASSERT_THAT(r.value().getAsNum(), FloatEq(45));
 }
 
-} // namespace scripts
+} // namespace script
 } // namespace bl

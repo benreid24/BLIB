@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 namespace unittest
 {
@@ -239,5 +239,5 @@ TEST(ScriptParser, FullTree) {
 }
 
 } // namespace unittest
-} // namespace scripts
+} // namespace script
 } // namespace bl

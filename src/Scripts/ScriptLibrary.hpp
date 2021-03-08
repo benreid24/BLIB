@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 /**
  * @brief Static helper to add built-in functions to each script
@@ -15,7 +15,7 @@ struct Library {
     static void addBuiltIns(SymbolTable& table);
 };
 
-} // namespace scripts
+} // namespace script
 } // namespace bl
 
 #endif

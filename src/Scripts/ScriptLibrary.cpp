@@ -11,7 +11,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 namespace
 {
@@ -245,5 +245,5 @@ Value atan2(SymbolTable&, const std::vector<Value>& args) {
 
 } // namespace
 
-} // namespace scripts
+} // namespace script
 } // namespace bl

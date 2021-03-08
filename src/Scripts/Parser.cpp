@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 namespace
 {
@@ -283,5 +283,5 @@ parser::Node::Ptr Parser::parse(const std::string& input) {
     return parser.parse(input);
 }
 
-} // namespace scripts
+} // namespace script
 } // namespace bl

@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 namespace unittest
 {
@@ -87,5 +87,5 @@ TEST(SymbolTable, ExtraPop) {
 }
 
 } // namespace unittest
-} // namespace scripts
+} // namespace script
 } // namespace bl

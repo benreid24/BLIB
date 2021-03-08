@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 /**
  * @brief Collection of testable utility methods for executing components of scripts
@@ -34,8 +34,7 @@ struct ScriptImpl {
      * @return std::optional<Value> Result of a return if present, or null if no return
      *
      */
-    static std::optional<Value> runStatementList(parser::Node::Ptr statement,
-                                                 SymbolTable& table);
+    static std::optional<Value> runStatementList(parser::Node::Ptr statement, SymbolTable& table);
 
     /**
      * @brief Executes a statement
@@ -49,8 +48,7 @@ struct ScriptImpl {
      *
      * @return std::optional<Value> Value of any executed Return, null if no return
      */
-    static std::optional<Value> runConditional(parser::Node::Ptr conditional,
-                                               SymbolTable& table);
+    static std::optional<Value> runConditional(parser::Node::Ptr conditional, SymbolTable& table);
 
     /**
      * @brief Runs a Loop
@@ -73,7 +71,7 @@ struct ScriptImpl {
     static bool evaluateCond(parser::Node::Ptr pgroup, SymbolTable& table);
 };
 
-} // namespace scripts
+} // namespace script
 } // namespace bl
 
 #endif

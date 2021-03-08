@@ -9,9 +9,10 @@
 
 namespace bl
 {
-class ScriptManager;
-namespace scripts
+namespace script
 {
+class Manager;
+
 /**
  * @brief Stack aware symbol table for managing functions and variables
  *        Each Script holds a single instance
@@ -76,25 +77,24 @@ public:
     bool killed() const;
 
     /**
-     * @brief Registers the ScriptManager controlling this context
+     * @brief Registers the Manager controlling this context
      *
      */
-    void registerManager(ScriptManager* manager);
+    void registerManager(Manager* manager);
 
     /**
-     * @brief Returns the ScriptManager managing this context, nullptr if none
+     * @brief Returns the Manager managing this context, nullptr if none
      *
      */
-    ScriptManager* manager();
+    Manager* manager();
 
 private:
     std::vector<std::unordered_map<std::string, Value::Ptr>> table;
-    ScriptManager* mgr;
+    Manager* mgr;
     bool stop;
 };
 
-} // namespace scripts
-
+} // namespace script
 } // namespace bl
 
 #endif

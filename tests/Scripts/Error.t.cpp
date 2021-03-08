@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 namespace unittest
 {
@@ -47,5 +47,5 @@ TEST(Error, Stack) {
 }
 
 } // namespace unittest
-} // namespace scripts
+} // namespace script
 } // namespace bl
