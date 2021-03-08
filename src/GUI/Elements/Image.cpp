@@ -4,12 +4,12 @@ namespace bl
 {
 namespace gui
 {
-Image::Ptr Image::create(Resource<sf::Texture>::Ref texture, const std::string& group,
+Image::Ptr Image::create(resource::Resource<sf::Texture>::Ref texture, const std::string& group,
                          const std::string& id) {
     return Ptr(new Image(texture, group, id));
 }
 
-Image::Image(Resource<sf::Texture>::Ref texture, const std::string& group,
+Image::Image(resource::Resource<sf::Texture>::Ref texture, const std::string& group,
              const std::string& id)
 : Element(group, id)
 , texture(texture)

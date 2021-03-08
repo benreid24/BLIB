@@ -25,31 +25,31 @@ struct Resources : private util::NonCopyable {
      * @brief Returns a reference to the resource manager for sf::SoundBuffer
      *
      */
-    static ResourceManager<sf::SoundBuffer>& sounds();
+    static resource::Manager<sf::SoundBuffer>& sounds();
 
     /**
      * @brief Returns a reference to the resource manager for sf::Texture
      *
      */
-    static ResourceManager<sf::Texture>& textures();
+    static resource::Manager<sf::Texture>& textures();
 
     /**
      * @brief Returns a reference to the resource manager for sf::Font
      *
      */
-    static ResourceManager<sf::Font>& fonts();
+    static resource::Manager<sf::Font>& fonts();
 
     /**
      * @brief Returns a reference to the resource manager for AnimationData
      *
      */
-    static ResourceManager<gfx::AnimationData>& animations();
+    static resource::Manager<gfx::AnimationData>& animations();
 
 private:
-    ResourceManager<sf::SoundBuffer> _sounds;
-    ResourceManager<sf::Texture> _textures;
-    ResourceManager<sf::Font> _fonts;
-    ResourceManager<gfx::AnimationData> _animations;
+    resource::Manager<sf::SoundBuffer> _sounds;
+    resource::Manager<sf::Texture> _textures;
+    resource::Manager<sf::Font> _fonts;
+    resource::Manager<gfx::AnimationData> _animations;
 
     Resources();
     static Resources& get();

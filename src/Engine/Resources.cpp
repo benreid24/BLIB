@@ -7,21 +7,21 @@ namespace engine
 {
 namespace
 {
-struct SoundLoader : public ResourceLoader<sf::SoundBuffer> {
+struct SoundLoader : public resource::Loader<sf::SoundBuffer> {
     virtual ~SoundLoader() = default;
 
-    virtual Resource<sf::SoundBuffer>::Ref load(const std::string& uri) override {
-        Resource<sf::SoundBuffer>::Ref ref(new sf::SoundBuffer());
+    virtual resource::Resource<sf::SoundBuffer>::Ref load(const std::string& uri) override {
+        resource::Resource<sf::SoundBuffer>::Ref ref(new sf::SoundBuffer());
         if (!ref->loadFromFile(uri)) { BL_LOG_ERROR << "Failed to open sound file: " << uri; }
         return ref;
     }
 } soundLoader;
 
-struct TextureLoader : public ResourceLoader<sf::Texture> {
+struct TextureLoader : public resource::Loader<sf::Texture> {
     virtual ~TextureLoader() = default;
 
-    virtual Resource<sf::Texture>::Ref load(const std::string& uri) override {
-        Resource<sf::Texture>::Ref ref(new sf::Texture());
+    virtual resource::Resource<sf::Texture>::Ref load(const std::string& uri) override {
+        resource::Resource<sf::Texture>::Ref ref(new sf::Texture());
         if (!ref->loadFromFile(uri)) {
             BL_LOG_ERROR << "Failed to load texture from file: " << uri;
         }
@@ -29,21 +29,21 @@ struct TextureLoader : public ResourceLoader<sf::Texture> {
     }
 } textureLoader;
 
-struct FontLoader : public ResourceLoader<sf::Font> {
+struct FontLoader : public resource::Loader<sf::Font> {
     virtual ~FontLoader() = default;
 
-    virtual Resource<sf::Font>::Ref load(const std::string& uri) override {
-        Resource<sf::Font>::Ref ref(new sf::Font());
+    virtual resource::Resource<sf::Font>::Ref load(const std::string& uri) override {
+        resource::Resource<sf::Font>::Ref ref(new sf::Font());
         if (!ref->loadFromFile(uri)) { BL_LOG_ERROR << "Failed to load font from file: " << uri; }
         return ref;
     }
 } fontLoader;
 
-struct AnimationLoader : public ResourceLoader<gfx::AnimationData> {
+struct AnimationLoader : public resource::Loader<gfx::AnimationData> {
     virtual ~AnimationLoader() = default;
 
-    virtual Resource<gfx::AnimationData>::Ref load(const std::string& uri) override {
-        return Resource<gfx::AnimationData>::Ref(new gfx::AnimationData(uri));
+    virtual resource::Resource<gfx::AnimationData>::Ref load(const std::string& uri) override {
+        return resource::Resource<gfx::AnimationData>::Ref(new gfx::AnimationData(uri));
     }
 } animationLoader;
 
@@ -55,11 +55,13 @@ Resources::Resources()
 , _fonts(fontLoader)
 , _animations(animationLoader) {}
 
-ResourceManager<sf::Texture>& Resources::textures() { return get()._textures; }
+resource::Manager<sf::Texture>& Resources::textures() { return get()._textures; }
 
-ResourceManager<sf::Font>& Resources::fonts() { return get()._fonts; }
+resource::Manager<sf::Font>& Resources::fonts() { return get()._fonts; }
 
-ResourceManager<sf::SoundBuffer>& Resources::sounds() { return get()._sounds; }
+resource::Manager<sf::SoundBuffer>& Resources::sounds() { return get()._sounds; }
+
+resource::Manager<gfx::AnimationData>& Resources::animations() { return get()._animations; }
 
 Resources& Resources::get() {
     static Resources resources;

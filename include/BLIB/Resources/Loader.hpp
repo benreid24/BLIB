@@ -7,6 +7,8 @@
 
 namespace bl
 {
+namespace resource
+{
 /**
  * @brief Templatized resource loader. Must be implemented for any resource type that is
  *        intended to be managed
@@ -16,8 +18,8 @@ namespace bl
  * @ingroup Resources
  */
 template<typename TResourceType>
-struct ResourceLoader {
-    virtual ~ResourceLoader() = default;
+struct Loader {
+    virtual ~Loader() = default;
 
     /**
      * @brief Load the resource as identified by the uri
@@ -28,6 +30,7 @@ struct ResourceLoader {
     virtual typename Resource<TResourceType>::Ref load(const std::string& uri) = 0;
 };
 
+} // namespace resource
 } // namespace bl
 
 #endif

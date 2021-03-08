@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_DATA_FONT_HPP
 #define BLIB_GUI_DATA_FONT_HPP
 
-#include <BLIB/Resources/ResourceLoader.hpp>
+#include <BLIB/Resources/Loader.hpp>
 #include <SFML/Graphics/Font.hpp>
 
 namespace bl
@@ -20,7 +20,7 @@ struct Font {
      * @brief Returns a loaded sf::Font resource from the built in font
      *
      */
-    static Resource<sf::Font>::Ref get();
+    static resource::Resource<sf::Font>::Ref get();
 };
 
 } // namespace gui

@@ -5,6 +5,8 @@
 
 namespace bl
 {
+namespace resource
+{
 /**
  * @brief Base level struct representing a resource that can be loaded and managed by the
  *        resource system
@@ -24,6 +26,7 @@ struct Resource {
     , forceInCache(false) {}
 };
 
+} // namespace resource
 } // namespace bl
 
 #endif

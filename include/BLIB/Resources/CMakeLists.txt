@@ -1,4 +1,4 @@
 target_sources(BLIB PUBLIC
-    ResourceLoader.hpp
-    ResourceManager.hpp
+    Loader.hpp
+    Manager.hpp
 )

@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_RENDERERS_RENDERSETTINGS_HPP
 #define BLIB_GUI_RENDERERS_RENDERSETTINGS_HPP
 
-#include <BLIB/Resources/ResourceLoader.hpp>
+#include <BLIB/Resources/Loader.hpp>
 #include <SFML/Graphics.hpp>
 #include <optional>
 
@@ -41,7 +41,7 @@ struct RenderSettings {
     std::optional<sf::Color> secondaryOutlineColor;
     std::optional<int> secondaryOutlineThickness;
 
-    std::optional<bl::Resource<sf::Font>::Ref> font;
+    std::optional<bl::resource::Resource<sf::Font>::Ref> font;
     std::optional<sf::Uint32> style;
     std::optional<unsigned int> characterSize;
 

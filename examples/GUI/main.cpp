@@ -52,8 +52,8 @@ int main() {
     sf::RenderWindow window(
         sf::VideoMode(800, 600, 32), "BLIB GUI Demo", sf::Style::Close | sf::Style::Titlebar);
 
-    TextureResourceLoader textureLoader;
-    TextureResourceManager textureManager(textureLoader);
+    resource::TextureResourceLoader textureLoader;
+    resource::TextureResourceManager textureManager(textureLoader);
 
     event::Dispatcher dispatcher;
     gui::GUI::Ptr gui =

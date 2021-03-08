@@ -9,12 +9,11 @@ namespace bl
 namespace gui
 {
 sf::Text RendererUtil::buildRenderText(const std::string& text, const sf::IntRect& acquisition,
-                                       const RenderSettings& s,
-                                       const RenderSettings& defaults) {
+                                       const RenderSettings& s, const RenderSettings& defaults) {
     RenderSettings settings = defaults;
     settings.merge(s);
 
-    Resource<sf::Font>::Ref font = settings.font.value_or(Font::get());
+    resource::Resource<sf::Font>::Ref font = settings.font.value_or(Font::get());
     if (!font) {
         BL_LOG_ERROR << "Attempting to render text with no sf::Font";
         return {};
@@ -30,8 +29,7 @@ sf::Text RendererUtil::buildRenderText(const std::string& text, const sf::IntRec
     sfText.setStyle(settings.style.value_or(sf::Text::Regular));
 
     const sf::Vector2f size(sfText.getGlobalBounds().width + sfText.getGlobalBounds().left * 2,
-                            sfText.getGlobalBounds().height +
-                                sfText.getGlobalBounds().top * 2);
+                            sfText.getGlobalBounds().height + sfText.getGlobalBounds().top * 2);
     sfText.setPosition(
         calculatePosition(settings.horizontalAlignment.value_or(RenderSettings::Center),
                           settings.verticalAlignment.value_or(RenderSettings::Center),
@@ -56,8 +54,7 @@ void RendererUtil::renderRectangle(sf::RenderTarget& target, sf::RenderStates st
 
 sf::Vector2f RendererUtil::calculatePosition(RenderSettings::Alignment horizontalAlignment,
                                              RenderSettings::Alignment verticalAlignment,
-                                             const sf::IntRect& region,
-                                             const sf::Vector2f& size) {
+                                             const sf::IntRect& region, const sf::Vector2f& size) {
     sf::Vector2f position;
     switch (horizontalAlignment) {
     case RenderSettings::Left:

@@ -6,8 +6,7 @@ namespace bl
 {
 namespace gui
 {
-Label::Ptr Label::create(const std::string& text, const std::string& group,
-                         const std::string& id) {
+Label::Ptr Label::create(const std::string& text, const std::string& group, const std::string& id) {
     return Ptr(new Label(text, group, id));
 }
 
@@ -32,14 +31,13 @@ void Label::doRender(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 sf::Vector2i Label::minimumRequisition() const {
-    return {static_cast<int>(renderText.getGlobalBounds().width +
-                             renderText.getGlobalBounds().left),
-            static_cast<int>(renderText.getGlobalBounds().height +
-                             renderText.getGlobalBounds().top)};
+    return {
+        static_cast<int>(renderText.getGlobalBounds().width + renderText.getGlobalBounds().left),
+        static_cast<int>(renderText.getGlobalBounds().height + renderText.getGlobalBounds().top)};
 }
 
 void Label::settingsChanged() {
-    bl::Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
+    bl::resource::Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
     if (font) renderText.setFont(*font);
     renderText.setString(text);
     renderText.setCharacterSize(renderSettings().characterSize.value_or(DefaultFontSize));
