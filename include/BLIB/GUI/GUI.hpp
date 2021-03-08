@@ -8,6 +8,9 @@
 
 namespace bl
 {
+/// A window based graphical user interface
+namespace gui
+{
 /**
  * @brief Top level class for creating a graphical user interface
  *
@@ -85,6 +88,7 @@ private:
         const std::string& id = "");
 };
 
+} // namespace gui
 } // namespace bl
 
 #endif

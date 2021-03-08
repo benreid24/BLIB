@@ -4,6 +4,8 @@
 
 namespace bl
 {
+namespace gui
+{
 GUI::Ptr GUI::create(gui::Packer::Ptr packer, const sf::IntRect& region, const std::string& group,
                      const std::string& id) {
     return Ptr(new GUI(packer, region, group, id));
@@ -50,4 +52,5 @@ void GUI::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     Container::render(target, states, *renderer);
 }
 
+} // namespace gui
 } // namespace bl

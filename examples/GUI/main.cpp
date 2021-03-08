@@ -56,8 +56,8 @@ int main() {
     TextureResourceManager textureManager(textureLoader);
 
     event::Dispatcher dispatcher;
-    GUI::Ptr gui =
-        GUI::create(gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
+    gui::GUI::Ptr gui =
+        gui::GUI::create(gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
                     {200, 100, 400, 400},
                     "",
                     "gui");
