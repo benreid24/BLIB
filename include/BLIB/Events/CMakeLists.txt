@@ -1,9 +1,9 @@
 target_sources(BLIB PUBLIC
-    DelayedEventDispatcher.hpp
-    EventDispatcher.hpp
-    EventDispatcherScopeGuard.hpp
-    EventListener.hpp
-    MultiEventDispatcher.hpp
-    MultiEventDispatcherScopeGuard.hpp
-    MultiEventListener.hpp
+    DelayedDispatcher.hpp
+    SingleDispatcher.hpp
+    SingleDispatcherScopeGuard.hpp
+    SingleListener.hpp
+    Dispatcher.hpp
+    DispatcherScopeGuard.hpp
+    Listener.hpp
 )

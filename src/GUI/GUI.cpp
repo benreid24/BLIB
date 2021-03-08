@@ -4,8 +4,8 @@
 
 namespace bl
 {
-GUI::Ptr GUI::create(gui::Packer::Ptr packer, const sf::IntRect& region,
-                     const std::string& group, const std::string& id) {
+GUI::Ptr GUI::create(gui::Packer::Ptr packer, const sf::IntRect& region, const std::string& group,
+                     const std::string& id) {
     return Ptr(new GUI(packer, region, group, id));
 }
 
@@ -29,6 +29,8 @@ GUI::GUI(gui::Packer::Ptr packer, const sf::RenderWindow& window, const std::str
 : GUI(packer, group, id) {
     assignAcquisition(sf::IntRect(0, 0, window.getSize().x, window.getSize().y));
 }
+
+void GUI::subscribe(event::Dispatcher& d) { d.subscribe(this); }
 
 void GUI::observe(const sf::Event& event) {
     if (event.type == sf::Event::MouseMoved) {

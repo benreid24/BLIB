@@ -1,34 +1,36 @@
-#ifndef BLIB_EVENTS_EVENTDISPATCHER_HPP
-#define BLIB_EVENTS_EVENTDISPATCHER_HPP
+#ifndef BLIB_EVENTS_SINGLEDISPATCHER_HPP
+#define BLIB_EVENTS_SINGLEDISPATCHER_HPP
 
-#include <BLIB/Events/EventListener.hpp>
+#include <BLIB/Events/SingleListener.hpp>
 #include <shared_mutex>
 
 namespace bl
 {
+namespace event
+{
 /**
  * @brief Utility class to dispatch events of a single type to a set of listeners
- * @see EventListener
+ * @see SingleListener
  *
  * @tparam T The type of event
  * @ingroup Events
  */
 template<typename T>
-class EventDispatcher {
+class SingleDispatcher {
 public:
     /**
      * @brief Subscribe the given listener to receive events. Listener must not go out of scope
      *
      * @param listener The listener to start notifying
      */
-    void subscribe(EventListener<T>* listener);
+    void subscribe(SingleListener<T>* listener);
 
     /**
      * @brief Removes the given listener from the dispatcher queue. No effect if not present
      *
      * @param listener The listener to remove
      */
-    void remove(EventListener<T>* listener);
+    void remove(SingleListener<T>* listener);
 
     /**
      * @brief Dispatches the event to the queue of listeners
@@ -39,28 +41,28 @@ public:
 
 private:
     std::shared_mutex mutex;
-    std::vector<EventListener<T>*> listeners;
+    std::vector<SingleListener<T>*> listeners;
 };
 
-/// Special instantiation of EventDispatcher for sf::Event window events
-typedef EventDispatcher<sf::Event> WindowEventDispatcher;
+/// Special instantiation of SingleDispatcher for sf::Event window events
+typedef SingleDispatcher<sf::Event> WindowEventDispatcher;
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-void EventDispatcher<T>::subscribe(EventListener<T>* listener) {
+void SingleDispatcher<T>::subscribe(SingleListener<T>* listener) {
     std::unique_lock lock(mutex);
     listeners.push_back(listener);
 }
 
 template<typename T>
-void EventDispatcher<T>::dispatch(const T& event) {
+void SingleDispatcher<T>::dispatch(const T& event) {
     std::shared_lock lock(mutex);
-    for (EventListener<T>* listener : listeners) { listener->observe(event); }
+    for (SingleListener<T>* listener : listeners) { listener->observe(event); }
 }
 
 template<typename T>
-void EventDispatcher<T>::remove(EventListener<T>* listener) {
+void SingleDispatcher<T>::remove(SingleListener<T>* listener) {
     std::unique_lock lock(mutex);
     for (unsigned int i = 0; i < listeners.size(); ++i) {
         if (listeners[i] == listener) {
@@ -70,6 +72,7 @@ void EventDispatcher<T>::remove(EventListener<T>* listener) {
     }
 }
 
+} // namespace event
 } // namespace bl
 
 #endif

@@ -1,8 +1,10 @@
-#include <BLIB/Events/MultiEventDispatcher.hpp>
+#include <BLIB/Events/Dispatcher.hpp>
 
 namespace bl
 {
-void MultiEventDispatcher::remove(const std::type_index& t, void* val) {
+namespace event
+{
+void Dispatcher::remove(const std::type_index& t, void* val) {
     auto lit = listeners.find(t);
     if (lit != listeners.end()) {
         for (unsigned int j = 0; j < lit->second.size(); ++j) {
@@ -14,4 +16,5 @@ void MultiEventDispatcher::remove(const std::type_index& t, void* val) {
     }
 }
 
+} // namespace event
 } // namespace bl

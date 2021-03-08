@@ -1,22 +1,24 @@
-#include <BLIB/Events/DelayedEventDispatcher.hpp>
+#include <BLIB/Events/DelayedDispatcher.hpp>
 
 #include <chrono>
 
 namespace bl
 {
-DelayedEventDispatcher::DelayedEventDispatcher(MultiEventDispatcher& d, bool mt)
+namespace event
+{
+DelayedDispatcher::DelayedDispatcher(Dispatcher& d, bool mt)
 : underlying(d)
 , running(mt)
-, runner(&DelayedEventDispatcher::background, this) {}
+, runner(&DelayedDispatcher::background, this) {}
 
-DelayedEventDispatcher::~DelayedEventDispatcher() {
+DelayedDispatcher::~DelayedDispatcher() {
     running = false;
     cvar.notify_all();
     runner.join();
     drain();
 }
 
-void DelayedEventDispatcher::background() {
+void DelayedDispatcher::background() {
     while (running) {
         {
             std::unique_lock lock(mutex);
@@ -27,14 +29,15 @@ void DelayedEventDispatcher::background() {
     }
 }
 
-void DelayedEventDispatcher::drain() {
+void DelayedDispatcher::drain() {
     std::unique_lock lock(mutex);
     drainAll();
 }
 
-void DelayedEventDispatcher::drainAll() {
+void DelayedDispatcher::drainAll() {
     for (container::Any<32>& d : events) { static_cast<Dispatch*>(d.raw())->dispatch(underlying); }
     events.clear();
 }
 
+} // namespace event
 } // namespace bl

@@ -1,22 +1,16 @@
+#include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/GUI.hpp>
 #include <BLIB/Resources.hpp>
-#include <BLIB/Events/EventDispatcher.hpp>
 
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
 
-void b1click(const bl::gui::Action&, bl::gui::Element*) {
-    std::cout << "Button b1 was clicked\n";
-}
+void b1click(const bl::gui::Action&, bl::gui::Element*) { std::cout << "Button b1 was clicked\n"; }
 
-void b2click(const bl::gui::Action&, bl::gui::Element*) {
-    std::cout << "Button b2 was clicked\n";
-}
+void b2click(const bl::gui::Action&, bl::gui::Element*) { std::cout << "Button b2 was clicked\n"; }
 
-void b3click(const bl::gui::Action&, bl::gui::Element*) {
-    std::cout << "Button b3 was clicked\n";
-}
+void b3click(const bl::gui::Action&, bl::gui::Element*) { std::cout << "Button b3 was clicked\n"; }
 
 void notebookCb() { std::cout << "Button inside of notebook was clicked\n"; }
 
@@ -61,14 +55,14 @@ int main() {
     TextureResourceLoader textureLoader;
     TextureResourceManager textureManager(textureLoader);
 
-    WindowEventDispatcher dispatcher;
-    GUI::Ptr gui = GUI::create(
-        gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
-        {200, 100, 400, 400},
-        "",
-        "gui");
+    event::Dispatcher dispatcher;
+    GUI::Ptr gui =
+        GUI::create(gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
+                    {200, 100, 400, 400},
+                    "",
+                    "gui");
     gui::DebugRenderer::Ptr renderer = gui::DebugRenderer::create();
-    dispatcher.subscribe(gui.get());
+    gui->subscribe(dispatcher);
     gui->setRenderer(renderer);
 
     gui::Image::Ptr image = gui::Image::create(textureManager.load("image.png").data);
@@ -171,7 +165,7 @@ int main() {
     testWindow->pack(entry, true, true);
     gui->pack(testWindow);
 
-    testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
+    testWindow            = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Notebook Window",
                                      gui::Window::Default,
                                      {10, 200},

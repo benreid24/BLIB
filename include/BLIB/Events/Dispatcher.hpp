@@ -1,7 +1,7 @@
-#ifndef BLIB_EVENTS_MULTIEVENTDISPATCHER_HPP
-#define BLIB_EVENTS_MULTIEVENTDISPATCHER_HPP
+#ifndef BLIB_EVENTS_DISPATCHER_HPP
+#define BLIB_EVENTS_DISPATCHER_HPP
 
-#include <BLIB/Events/MultiEventListener.hpp>
+#include <BLIB/Events/Listener.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
 #include <shared_mutex>
@@ -11,19 +11,21 @@
 
 namespace bl
 {
-class MultiEventDispatcherScopeGuard;
+namespace event
+{
+class DispatcherScopeGuard;
 
 /**
  * @brief Event dispatcher capable of handling events of many different types. The dispatcher is
  *        threadsafe. If events are dispatched by multiple threads care should be taken to keep
  *        the listeners threadsafe as well. Care must also be taken to not subscribe the same
  *        listener more than once or it will get notified more than once per event
- * @see MultiEventListener
+ * @see Listener
  *
  * @ingroup Events
  *
  */
-class MultiEventDispatcher : private util::NonCopyable {
+class Dispatcher : private util::NonCopyable {
 public:
     /**
      * @brief Subscribe the given listener to the event stream for the event types given
@@ -32,7 +34,7 @@ public:
      * @param listener The listener to receive events as they are dispatched
      */
     template<typename... TEvents>
-    void subscribe(MultiEventListener<TEvents...>* listener);
+    void subscribe(Listener<TEvents...>* listener);
 
     /**
      * @brief Removes the given listener and prevents it from receiving any more events
@@ -41,7 +43,7 @@ public:
      * @param listener The listener to remove
      */
     template<typename... TEvents>
-    void unsubscribe(MultiEventListener<TEvents...>* listener);
+    void unsubscribe(Listener<TEvents...>* listener);
 
     /**
      * @brief Dispatches the given event to each listener that is subscribed to that type of event
@@ -58,15 +60,15 @@ private:
 
     void remove(const std::type_index& t, void* val);
 
-    friend class MultiEventDispatcherScopeGuard;
+    friend class DispatcherScopeGuard;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename... TEvents>
-void MultiEventDispatcher::subscribe(MultiEventListener<TEvents...>* listener) {
+void Dispatcher::subscribe(Listener<TEvents...>* listener) {
     std::type_index types[]  = {std::type_index(typeid(TEvents))...};
-    void* const pointers[]   = {static_cast<MultiEventListenerBase<TEvents>*>(listener)...};
+    void* const pointers[]   = {static_cast<ListenerBase<TEvents>*>(listener)...};
     constexpr std::size_t nt = sizeof...(TEvents);
 
     std::unique_lock lock(mutex);
@@ -78,28 +80,29 @@ void MultiEventDispatcher::subscribe(MultiEventListener<TEvents...>* listener) {
 }
 
 template<typename T>
-void MultiEventDispatcher::dispatch(const T& event) const {
+void Dispatcher::dispatch(const T& event) const {
     const std::type_index type(typeid(T));
     std::shared_lock lock(mutex);
 
     auto lit = listeners.find(type);
     if (lit != listeners.end()) {
         for (void* listener : lit->second) {
-            static_cast<MultiEventListenerBase<T>*>(listener)->observe(event);
+            static_cast<ListenerBase<T>*>(listener)->observe(event);
         }
     }
 }
 
 template<typename... TEvents>
-void MultiEventDispatcher::unsubscribe(MultiEventListener<TEvents...>* listener) {
+void Dispatcher::unsubscribe(Listener<TEvents...>* listener) {
     std::type_index types[]  = {std::type_index(typeid(TEvents))...};
-    void* const pointers[]   = {static_cast<MultiEventListenerBase<TEvents>*>(listener)...};
+    void* const pointers[]   = {static_cast<ListenerBase<TEvents>*>(listener)...};
     constexpr std::size_t nt = sizeof...(TEvents);
 
     std::unique_lock lock(mutex);
     for (std::size_t i = 0; i < nt; ++i) { remove(types[i], pointers[i]); }
 }
 
+} // namespace event
 } // namespace bl
 
 #endif

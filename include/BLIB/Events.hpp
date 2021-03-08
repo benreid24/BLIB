@@ -7,8 +7,11 @@
  *
  */
 
-#include <BLIB/Events/EventDispatcher.hpp>
-#include <BLIB/Events/EventDispatcherScopeGuard.hpp>
-#include <BLIB/Events/EventListener.hpp>
+#include <BLIB/Events/DelayedDispatcher.hpp>
+#include <BLIB/Events/Dispatcher.hpp>
+#include <BLIB/Events/Listener.hpp>
+#include <BLIB/Events/SingleDispatcher.hpp>
+#include <BLIB/Events/SingleDispatcherScopeGuard.hpp>
+#include <BLIB/Events/SingleListener.hpp>
 
 #endif

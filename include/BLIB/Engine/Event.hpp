@@ -1,7 +1,7 @@
 #ifndef BLIB_ENGINE_EVENT_HPP
 #define BLIB_ENGINE_EVENT_HPP
 
-#include <BLIB/Events/EventDispatcher.hpp>
+#include <BLIB/Events/SingleDispatcher.hpp>
 
 namespace bl
 {
@@ -17,9 +17,6 @@ struct Event {
 public:
     // TODO
 };
-
-using EventDispatcher = bl::EventDispatcher<Event>;
-using EventListener   = bl::EventListener<Event>;
 
 } // namespace engine
 } // namespace bl

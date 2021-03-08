@@ -13,9 +13,7 @@ Engine::Engine(const Settings& settings)
 
 void Engine::useWindow(sf::RenderWindow& w) { renderWindow = &w; }
 
-EventDispatcher& Engine::engineEventDispatcher() { return engineEventBus; }
-
-WindowEventDispatcher& Engine::windowEventDispatcher() { return windowEventBus; }
+event::Dispatcher& Engine::eventBus() { return engineEventBus; }
 
 const Settings& Engine::settings() const { return engineSettings; }
 
@@ -63,7 +61,7 @@ int Engine::run(State::Ptr initialState) {
         if (renderWindow) {
             sf::Event event;
             while (renderWindow->pollEvent(event)) {
-                windowEventBus.dispatch(event);
+                engineEventBus.dispatch<sf::Event>(event);
 
                 if (event.type == sf::Event::Closed) {
                     renderWindow->close();

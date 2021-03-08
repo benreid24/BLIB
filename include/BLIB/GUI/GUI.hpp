@@ -1,8 +1,9 @@
 #ifndef BLIB_GUI_GUI_HPP
 #define BLIB_GUI_GUI_HPP
 
+#include <BLIB/Events/Dispatcher.hpp>
+#include <BLIB/Events/Listener.hpp>
 #include <BLIB/GUI/Elements/Box.hpp>
-#include <BLIB/Events/EventListener.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace bl
@@ -19,7 +20,7 @@ namespace bl
 class GUI
 : public sf::Drawable
 , public sf::Transformable
-, public bl::WindowEventListener
+, public bl::event::Listener<sf::Event>
 , public gui::Box {
 public:
     typedef std::shared_ptr<GUI> Ptr;
@@ -55,6 +56,13 @@ public:
      * @param event Raw window event
      */
     virtual void observe(const sf::Event& event) override;
+
+    /**
+     * @brief Subscribes the GUI to the event dispatcher to start receiving window events
+     *
+     * @param dispatcher The event dispatcher to get events from
+     */
+    void subscribe(event::Dispatcher& dispatcher);
 
 protected:
     /**

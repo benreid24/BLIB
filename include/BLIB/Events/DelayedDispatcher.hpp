@@ -1,8 +1,8 @@
-#ifndef BLIB_EVENTS_DELAYEDEVENTDISPATCHER_HPP
-#define BLIB_EVENTS_DELAYEDEVENTDISPATCHER_HPP
+#ifndef BLIB_EVENTS_DELAYEDDISPATCHER_HPP
+#define BLIB_EVENTS_DELAYEDDISPATCHER_HPP
 
 #include <BLIB/Containers/Any.hpp>
-#include <BLIB/Events/MultiEventDispatcher.hpp>
+#include <BLIB/Events/Dispatcher.hpp>
 
 #include <atomic>
 #include <condition_variable>
@@ -13,15 +13,18 @@
 
 namespace bl
 {
+/// Collection of classes providing different types of publisher/consumer event queues
+namespace event
+{
 /**
- * @brief A wrapper around MultiEventDispatcher for delayed event dispatches. Events are queued up
+ * @brief A wrapper around Dispatcher for delayed event dispatches. Events are queued up
  *        as dispatch is called. The queue may then be drained manually or using a builtin
  *        background thread.
  *
  * @ingroup Events
  *
  */
-class DelayedEventDispatcher {
+class DelayedDispatcher {
 public:
     /**
      * @brief Creates a new delayed dispatcher with the given underlying. If multithread is true
@@ -32,13 +35,13 @@ public:
      * @param dispatcher The underlying dispatcher to send events into
      * @param multithread True to drain in the background, false for manual draining
      */
-    DelayedEventDispatcher(MultiEventDispatcher& dispatcher, bool multithread = true);
+    DelayedDispatcher(Dispatcher& dispatcher, bool multithread = true);
 
     /**
      * @brief Stops the background thread if running and drains the queue one last time
      *
      */
-    ~DelayedEventDispatcher();
+    ~DelayedDispatcher();
 
     /**
      * @brief Dispatches the given event to each listener that is subscribed to that type of event
@@ -59,8 +62,8 @@ public:
 
 private:
     struct Dispatch {
-        virtual ~Dispatch()                                           = default;
-        virtual void dispatch(MultiEventDispatcher& dispatcher) const = 0;
+        virtual ~Dispatch()                                 = default;
+        virtual void dispatch(Dispatcher& dispatcher) const = 0;
     };
 
     template<typename T>
@@ -69,13 +72,13 @@ private:
         TypedDispatch(const T& v);
         virtual ~TypedDispatch() = default;
 
-        virtual void dispatch(MultiEventDispatcher& dispatcher) const override;
+        virtual void dispatch(Dispatcher& dispatcher) const override;
 
     private:
         const T event;
     };
 
-    MultiEventDispatcher& underlying;
+    Dispatcher& underlying;
     std::mutex mutex;
     std::condition_variable cvar;
     std::atomic_bool running;
@@ -89,21 +92,22 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-void DelayedEventDispatcher::dispatch(const T& e) {
+void DelayedDispatcher::dispatch(const T& e) {
     std::unique_lock lock(mutex);
     events.emplace_back(TypedDispatch<T>(e));
     cvar.notify_all();
 }
 
 template<typename T>
-DelayedEventDispatcher::TypedDispatch<T>::TypedDispatch(const T& e)
+DelayedDispatcher::TypedDispatch<T>::TypedDispatch(const T& e)
 : event(e) {}
 
 template<typename T>
-void DelayedEventDispatcher::TypedDispatch<T>::dispatch(MultiEventDispatcher& underlying) const {
+void DelayedDispatcher::TypedDispatch<T>::dispatch(Dispatcher& underlying) const {
     underlying.dispatch(event);
 }
 
+} // namespace event
 } // namespace bl
 
 #endif

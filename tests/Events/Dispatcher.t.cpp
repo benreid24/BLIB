@@ -1,14 +1,16 @@
-#include <BLIB/Events/MultiEventDispatcher.hpp>
+#include <BLIB/Events/Dispatcher.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 namespace bl
 {
+namespace event
+{
 namespace unittest
 {
 namespace
 {
-class MockListener : public MultiEventListener<int, std::string> {
+class MockListener : public Listener<int, std::string> {
 public:
     virtual ~MockListener() = default;
 
@@ -18,8 +20,8 @@ public:
 
 } // namespace
 
-TEST(MultiEventDispatcher, DispatchEventsDifferentTypes) {
-    MultiEventDispatcher dispatch;
+TEST(Dispatcher, DispatchEventsDifferentTypes) {
+    Dispatcher dispatch;
     MockListener listener;
     dispatch.subscribe(&listener);
 
@@ -30,8 +32,8 @@ TEST(MultiEventDispatcher, DispatchEventsDifferentTypes) {
     dispatch.dispatch<std::string>("Hello");
 }
 
-TEST(MultiEventDispatcher, Unsubscribe) {
-    MultiEventDispatcher dispatch;
+TEST(Dispatcher, Unsubscribe) {
+    Dispatcher dispatch;
 
     ::testing::StrictMock<MockListener> listener;
     dispatch.subscribe(&listener);
@@ -42,4 +44,5 @@ TEST(MultiEventDispatcher, Unsubscribe) {
 }
 
 } // namespace unittest
+} // namespace event
 } // namespace bl

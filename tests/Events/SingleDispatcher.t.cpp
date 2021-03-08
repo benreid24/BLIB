@@ -1,18 +1,20 @@
-#include <BLIB/Events/EventDispatcher.hpp>
-#include <BLIB/Events/EventDispatcherScopeGuard.hpp>
+#include <BLIB/Events/SingleDispatcher.hpp>
+#include <BLIB/Events/SingleDispatcherScopeGuard.hpp>
 #include <gmock/gmock.h>
 
 namespace bl
 {
+namespace event
+{
 namespace unittest
 {
-struct MockListener : public EventListener<int> {
+struct MockListener : public SingleListener<int> {
     MOCK_METHOD(void, observe, (const int& i), (override));
 };
 
-TEST(EventDispatcher, Dispatch) {
+TEST(SingleDispatcher, Dispatch) {
     MockListener listener1, listener2;
-    EventDispatcher<int> dispatcher;
+    SingleDispatcher<int> dispatcher;
 
     dispatcher.subscribe(&listener1);
     dispatcher.subscribe(&listener2);
@@ -27,12 +29,12 @@ TEST(EventDispatcher, Dispatch) {
     dispatcher.dispatch(-1);
 }
 
-TEST(EventDispatcher, ScopeGuard) {
+TEST(SingleDispatcher, ScopeGuard) {
     MockListener listener1;
     MockListener listener2;
-    EventDispatcher<int> dispatcher;
+    SingleDispatcher<int> dispatcher;
 
-    EventDispatcherScopeGuard<int> outerGuard(dispatcher);
+    SingleDispatcherScopeGuard<int> outerGuard(dispatcher);
     outerGuard.subscribe(&listener1);
 
     EXPECT_CALL(listener1, observe(5));
@@ -40,7 +42,7 @@ TEST(EventDispatcher, ScopeGuard) {
     dispatcher.dispatch(5);
 
     {
-        EventDispatcherScopeGuard<int> innerGuard(dispatcher);
+        SingleDispatcherScopeGuard<int> innerGuard(dispatcher);
         innerGuard.subscribe(&listener2);
 
         EXPECT_CALL(listener1, observe(5));
@@ -54,4 +56,5 @@ TEST(EventDispatcher, ScopeGuard) {
 }
 
 } // namespace unittest
+} // namespace event
 } // namespace bl

@@ -8,7 +8,7 @@
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
-#include <BLIB/Events/EventDispatcher.hpp>
+#include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Resources.hpp>
 
 namespace bl
@@ -39,18 +39,11 @@ public:
     void useWindow(sf::RenderWindow& window);
 
     /**
-     * @brief Returns a reference to the engine event dispatcher
+     * @brief Returns a reference to the primary engine event dispatcher. Engine events and window
+     *        events are pushed through this bus
      *
      */
-    EventDispatcher& engineEventDispatcher();
-
-    // TODO - use MultiEventDispatcher for one queue
-
-    /**
-     * @brief Returns a reference to the window event dispatcher
-     *
-     */
-    WindowEventDispatcher& windowEventDispatcher();
+    event::Dispatcher& eventBus();
 
     /**
      * @brief Returns the settings the engine is using
@@ -96,8 +89,7 @@ private:
     State::Ptr newState;
 
     sf::RenderWindow* renderWindow;
-    EventDispatcher engineEventBus;
-    WindowEventDispatcher windowEventBus;
+    event::Dispatcher engineEventBus;
 
     bool awaitFocus();
 };

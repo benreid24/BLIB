@@ -1,10 +1,10 @@
 #ifndef BLIB_MENU_EVENTGENERATORS_KEYBOARDEVENTGENERATOR_HPP
 #define BLIB_MENU_EVENTGENERATORS_KEYBOARDEVENTGENERATOR_HPP
 
+#include <BLIB/Events/Listener.hpp>
 #include <BLIB/Menu/Item.hpp>
 #include <BLIB/Menu/Menu.hpp>
-#include <BLIB/Events/EventListener.hpp>
-#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window.hpp>
 
 namespace bl
 {
@@ -16,7 +16,7 @@ namespace menu
  * @ingroup Menu
  *
  */
-class KeyboardEventGenerator : public bl::WindowEventListener {
+class KeyboardEventGenerator : public bl::event::Listener<sf::Event> {
 public:
     /**
      * @brief Create a new keyboard generator that services the given menu
