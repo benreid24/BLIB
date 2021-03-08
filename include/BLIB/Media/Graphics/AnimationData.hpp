@@ -11,6 +11,8 @@
 
 namespace bl
 {
+namespace gfx
+{
 class Animation;
 
 /**
@@ -109,6 +111,7 @@ private:
     friend class Animation;
 };
 
+} // namespace gfx
 } // namespace bl
 
 #endif

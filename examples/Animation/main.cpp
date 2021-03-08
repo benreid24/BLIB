@@ -5,8 +5,8 @@ int main() {
     sf::RenderWindow window(
         sf::VideoMode(800, 800, 32), "Animation Example", sf::Style::Titlebar | sf::Style::Close);
 
-    bl::AnimationData src("resources/animation.anim");
-    bl::Animation anim(src);
+    bl::gfx::AnimationData src("resources/animation.anim");
+    bl::gfx::Animation anim(src);
 
     anim.setIsCentered(true);
     anim.setPosition(sf::Vector2f(400, 400));

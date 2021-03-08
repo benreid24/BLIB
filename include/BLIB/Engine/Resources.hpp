@@ -43,13 +43,13 @@ struct Resources : private util::NonCopyable {
      * @brief Returns a reference to the resource manager for AnimationData
      *
      */
-    static ResourceManager<AnimationData>& animations();
+    static ResourceManager<gfx::AnimationData>& animations();
 
 private:
     ResourceManager<sf::SoundBuffer> _sounds;
     ResourceManager<sf::Texture> _textures;
     ResourceManager<sf::Font> _fonts;
-    ResourceManager<AnimationData> _animations;
+    ResourceManager<gfx::AnimationData> _animations;
 
     Resources();
     static Resources& get();

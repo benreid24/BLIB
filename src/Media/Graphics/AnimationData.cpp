@@ -7,6 +7,8 @@
 
 namespace bl
 {
+namespace gfx
+{
 AnimationData::AnimationData()
 : spritesheet()
 , frames()
@@ -161,4 +163,5 @@ void AnimationData::Frame::Shard::apply(sf::Sprite& s, const sf::Vector2f& sc, f
     s.setColor(sf::Color(255, 255, 255, alpha));
 }
 
+} // namespace gfx
 } // namespace bl

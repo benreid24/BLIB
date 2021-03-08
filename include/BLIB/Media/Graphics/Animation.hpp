@@ -5,6 +5,8 @@
 
 namespace bl
 {
+namespace gfx
+{
 /**
  * @brief Represents a renderable animation.
  *        AnimationData is to Animation like sf::Texture is to sf::Sprite.
@@ -121,6 +123,7 @@ private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
+} // namespace gfx
 } // namespace bl
 
 #endif

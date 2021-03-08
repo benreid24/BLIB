@@ -39,11 +39,11 @@ struct FontLoader : public ResourceLoader<sf::Font> {
     }
 } fontLoader;
 
-struct AnimationLoader : public ResourceLoader<AnimationData> {
+struct AnimationLoader : public ResourceLoader<gfx::AnimationData> {
     virtual ~AnimationLoader() = default;
 
-    virtual Resource<AnimationData>::Ref load(const std::string& uri) override {
-        return Resource<AnimationData>::Ref(new AnimationData(uri));
+    virtual Resource<gfx::AnimationData>::Ref load(const std::string& uri) override {
+        return Resource<gfx::AnimationData>::Ref(new gfx::AnimationData(uri));
     }
 } animationLoader;
 
