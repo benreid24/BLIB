@@ -7,7 +7,7 @@
  */
 
 #include <BLIB/Files/Binary.hpp>
-#include <BLIB/Files/FileUtil.hpp>
 #include <BLIB/Files/JSON.hpp>
+#include <BLIB/Files/Util.hpp>
 
 #endif

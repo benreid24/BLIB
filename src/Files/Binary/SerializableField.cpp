@@ -3,9 +3,14 @@
 
 namespace bl
 {
-namespace bf
+namespace file
 {
-SerializableFieldBase::SerializableFieldBase(SerializableObject& owner, std::uint16_t id) { owner.addField(this, id); }
+namespace binary
+{
+SerializableFieldBase::SerializableFieldBase(SerializableObject& owner, std::uint16_t id) {
+    owner.addField(this, id);
+}
 
-} // namespace bf
+} // namespace binary
+} // namespace file
 } // namespace bl

@@ -35,7 +35,7 @@ int main() {
     // We can save playlists to files
     std::cout << "Saving playlist\n";
     {
-        bl::bf::BinaryFile output("mylist.plst", bl::bf::BinaryFile::Write);
+        bl::file::binary::File output("mylist.plst", bl::file::binary::File::Write);
         playlist.serialize(output);
     }
 

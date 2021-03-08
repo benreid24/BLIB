@@ -1,12 +1,14 @@
 #ifndef BLIB_FILES_BINARY_SERIALIZABLEFIELD_HPP
 #define BLIB_FILES_BINARY_SERIALIZABLEFIELD_HPP
 
-#include <BLIB/Files/Binary/BinaryFile.hpp>
+#include <BLIB/Files/Binary/File.hpp>
 #include <BLIB/Files/Binary/Serializer.hpp>
 
 namespace bl
 {
-namespace bf
+namespace file
+{
+namespace binary
 {
 class SerializableObject;
 
@@ -18,9 +20,9 @@ class SerializableObject;
  */
 class SerializableFieldBase {
 public:
-    virtual bool serialize(BinaryFile& output) const = 0;
+    virtual bool serialize(File& output) const = 0;
 
-    virtual bool deserialize(BinaryFile& input) = 0;
+    virtual bool deserialize(File& input) = 0;
 
     virtual std::uint32_t size() const = 0;
 
@@ -31,7 +33,7 @@ protected:
 };
 
 /**
- * @brief Template class that represents a serializable field for BinaryFile use. Strings and
+ * @brief Template class that represents a serializable field for File use. Strings and
  *        integral types are supported out of the box, as well as SerializableObjects. User
  *        defined types must either implement SerializableObject or a custom version of Serializer
  *
@@ -71,7 +73,7 @@ public:
      * @param output The file to write to
      * @return True on success, false if the file is in a bad state
      */
-    virtual bool serialize(BinaryFile& output) const override;
+    virtual bool serialize(File& output) const override;
 
     /**
      * @brief Populates this field value with data read from the given file
@@ -79,7 +81,7 @@ public:
      * @param input File to read from
      * @return True if read successfully, false if file is in bad state
      */
-    virtual bool deserialize(BinaryFile& input) override;
+    virtual bool deserialize(File& input) override;
 
     /**
      * @brief Returns the id of this field
@@ -166,12 +168,12 @@ SerializableField<Id, T>::SerializableField(SerializableObject& owner, T&& copy)
 , value(std::forward<T>(copy)) {}
 
 template<std::uint16_t Id, typename T>
-bool SerializableField<Id, T>::serialize(BinaryFile& output) const {
+bool SerializableField<Id, T>::serialize(File& output) const {
     return Serializer<T>::serialize(output, value);
 }
 
 template<std::uint16_t Id, typename T>
-bool SerializableField<Id, T>::deserialize(BinaryFile& input) {
+bool SerializableField<Id, T>::deserialize(File& input) {
     return Serializer<T>::deserialize(input, value);
 }
 
@@ -222,7 +224,8 @@ SerializableField<Id, T>::operator T() const {
     return value;
 }
 
-} // namespace bf
+} // namespace binary
+} // namespace file
 } // namespace bl
 
 #endif

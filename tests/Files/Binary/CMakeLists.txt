@@ -1,6 +1,6 @@
 target_sources(BLIB.t PUBLIC
-    BinaryFile.t.cpp
+    File.t.cpp
     SerializableField.t.cpp
     SerializableObject.t.cpp
-    VersionedBinaryFile.t.cpp
+    VersionedFile.t.cpp
 )

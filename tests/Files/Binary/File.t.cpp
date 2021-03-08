@@ -1,20 +1,22 @@
-#include <BLIB/Files/Binary/BinaryFile.hpp>
-#include <BLIB/Files/FileUtil.hpp>
+#include <BLIB/Files/Binary/File.hpp>
+#include <BLIB/Files/Util.hpp>
 #include <gtest/gtest.h>
 
 namespace bl
 {
-namespace bf
+namespace file
+{
+namespace binary
 {
 namespace unittest
 {
-TEST(BinaryFile, Peek) {
-    ASSERT_TRUE(FileUtil::createDirectory("temp"));
-    const std::string filename = FileUtil::genTempName("temp", "bin");
+TEST(File, Peek) {
+    ASSERT_TRUE(Util::createDirectory("temp"));
+    const std::string filename = Util::genTempName("temp", "bin");
 
     // test write
     {
-        BinaryFile file(filename, BinaryFile::Write);
+        File file(filename, File::Write);
         ASSERT_TRUE(file.good());
         ASSERT_TRUE(file.write<uint32_t>(100));
         ASSERT_TRUE(file.good());
@@ -22,7 +24,7 @@ TEST(BinaryFile, Peek) {
 
     // test read
     {
-        BinaryFile file(filename, BinaryFile::Read);
+        File file(filename, File::Read);
         ASSERT_TRUE(file.good());
 
         uint32_t u32 = 0;
@@ -38,16 +40,16 @@ TEST(BinaryFile, Peek) {
         EXPECT_FALSE(file.good());
     }
 
-    ASSERT_TRUE(FileUtil::deleteFile(filename));
+    ASSERT_TRUE(Util::deleteFile(filename));
 }
 
-TEST(BinaryFile, Integers) {
-    ASSERT_TRUE(FileUtil::createDirectory("temp"));
-    const std::string filename = FileUtil::genTempName("temp", "bin");
+TEST(File, Integers) {
+    ASSERT_TRUE(Util::createDirectory("temp"));
+    const std::string filename = Util::genTempName("temp", "bin");
 
     // test write
     {
-        BinaryFile file(filename, BinaryFile::Write);
+        File file(filename, File::Write);
         ASSERT_TRUE(file.good());
         ASSERT_TRUE(file.write<uint32_t>(100));
         ASSERT_TRUE(file.write<uint16_t>(1234));
@@ -61,7 +63,7 @@ TEST(BinaryFile, Integers) {
 
     // test read
     {
-        BinaryFile file(filename, BinaryFile::Read);
+        File file(filename, File::Read);
         ASSERT_TRUE(file.good());
 
         uint32_t u32 = 0;
@@ -95,16 +97,16 @@ TEST(BinaryFile, Integers) {
         EXPECT_FALSE(file.good());
     }
 
-    ASSERT_TRUE(FileUtil::deleteFile(filename));
+    ASSERT_TRUE(Util::deleteFile(filename));
 }
 
-TEST(BinaryFile, String) {
-    ASSERT_TRUE(FileUtil::createDirectory("temp"));
-    const std::string filename = FileUtil::genTempName("temp", "bin");
+TEST(File, String) {
+    ASSERT_TRUE(Util::createDirectory("temp"));
+    const std::string filename = Util::genTempName("temp", "bin");
 
     // write
     {
-        BinaryFile file(filename, BinaryFile::Write);
+        File file(filename, File::Write);
         ASSERT_TRUE(file.good());
 
         ASSERT_TRUE(file.write("Hello world"));
@@ -113,7 +115,7 @@ TEST(BinaryFile, String) {
 
     // read
     {
-        BinaryFile file(filename, BinaryFile::Read);
+        File file(filename, File::Read);
         ASSERT_TRUE(file.good());
 
         std::string value;
@@ -124,16 +126,16 @@ TEST(BinaryFile, String) {
         EXPECT_FALSE(file.good());
     }
 
-    ASSERT_TRUE(FileUtil::deleteFile(filename));
+    ASSERT_TRUE(Util::deleteFile(filename));
 }
 
-TEST(BinaryFile, Mixed) {
-    ASSERT_TRUE(FileUtil::createDirectory("temp"));
-    const std::string filename = FileUtil::genTempName("temp", "bin");
+TEST(File, Mixed) {
+    ASSERT_TRUE(Util::createDirectory("temp"));
+    const std::string filename = Util::genTempName("temp", "bin");
 
     // write
     {
-        BinaryFile file(filename, BinaryFile::Write);
+        File file(filename, File::Write);
         ASSERT_TRUE(file.write<uint32_t>(123456));
         ASSERT_TRUE(file.write("data"));
         ASSERT_TRUE(file.write<int16_t>(-1234));
@@ -143,7 +145,7 @@ TEST(BinaryFile, Mixed) {
 
     // read
     {
-        BinaryFile file(filename, BinaryFile::Read);
+        File file(filename, File::Read);
         ASSERT_TRUE(file.good());
 
         uint32_t u32;
@@ -163,9 +165,10 @@ TEST(BinaryFile, Mixed) {
         EXPECT_FALSE(file.good());
     }
 
-    ASSERT_TRUE(FileUtil::deleteFile(filename));
+    ASSERT_TRUE(Util::deleteFile(filename));
 }
 
 } // namespace unittest
-} // namespace bf
+} // namespace binary
+} // namespace file
 } // namespace bl

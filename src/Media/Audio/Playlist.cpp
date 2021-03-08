@@ -1,6 +1,6 @@
 #include <BLIB/Containers/FastEraseVector.hpp>
 #include <BLIB/Engine/Configuration.hpp>
-#include <BLIB/Files/FileUtil.hpp>
+#include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Media/Audio/Playlist.hpp>
 #include <BLIB/Util/Random.hpp>
@@ -10,8 +10,8 @@ namespace bl
 namespace
 {
 inline std::string songfile(const std::string& path) {
-    return FileUtil::joinPath(engine::Configuration::get<std::string>("blib.playlist.song_path"),
-                              path);
+    return file::Util::joinPath(engine::Configuration::get<std::string>("blib.playlist.song_path"),
+                                path);
 }
 } // namespace
 
@@ -25,7 +25,7 @@ Playlist::Playlist()
 
 Playlist::Playlist(const std::string& file)
 : Playlist() {
-    bf::BinaryFile input(file, bf::BinaryFile::Read);
+    file::binary::File input(file, file::binary::File::Read);
     if (!deserialize(input)) { BL_LOG_ERROR << "Failed to load playlist from file: " << file; }
 }
 

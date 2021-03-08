@@ -1,6 +1,6 @@
 #include <BLIB/Scripts.hpp>
 
-#include <BLIB/Files/FileUtil.hpp>
+#include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
 #include <Scripts/Parser.hpp>
 #include <Scripts/ScriptImpl.hpp>
@@ -15,7 +15,7 @@ using namespace scripts;
 Script::Script(const std::string& data)
 : source(data) {
     std::string input = data;
-    if (FileUtil::exists(data)) {
+    if (file::Util::exists(data)) {
         std::ifstream file(data.c_str());
         file.seekg(0, std::ios::end);
         input.reserve(file.tellg());

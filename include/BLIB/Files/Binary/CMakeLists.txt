@@ -1,3 +1,3 @@
 target_sources(BLIB PUBLIC
-    BinaryFile.hpp
+    File.hpp
 )

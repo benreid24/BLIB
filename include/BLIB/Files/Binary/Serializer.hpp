@@ -1,14 +1,16 @@
 #ifndef BLIB_FILES_BINARY_SERIALIZER_HPP
 #define BLIB_FILES_BINARY_SERIALIZER_HPP
 
-#include <BLIB/Files/Binary/BinaryFile.hpp>
+#include <BLIB/Files/Binary/File.hpp>
 #include <BLIB/Files/Binary/SerializableObject.hpp>
 
 #include <type_traits>
 
 namespace bl
 {
-namespace bf
+namespace file
+{
+namespace binary
 {
 /**
  * @brief Helper struct for serializing types into binary files. Integral types, strings, vector,
@@ -28,7 +30,7 @@ struct Serializer {
      * @param value The value to write
      * @return True if written, false on error
      */
-    static bool serialize(BinaryFile& output, const T& value);
+    static bool serialize(File& output, const T& value);
 
     /**
      * @brief Reads the value from input into result
@@ -37,7 +39,7 @@ struct Serializer {
      * @param result The object to read into
      * @return True if read, false on error
      */
-    static bool deserialize(BinaryFile& input, T& result);
+    static bool deserialize(File& input, T& result);
 
     /**
      * @brief Returns the size of the value when serialized
@@ -52,36 +54,34 @@ struct Serializer {
 
 template<typename T>
 struct Serializer<T, false> {
-    static bool serialize(BinaryFile& output, const T& value) { return value.serialize(output); }
+    static bool serialize(File& output, const T& value) { return value.serialize(output); }
 
-    static bool deserialize(BinaryFile& input, T& result) { return result.deserialize(input); }
+    static bool deserialize(File& input, T& result) { return result.deserialize(input); }
 
     static std::uint32_t size(const T& value) { return value.size(); }
 };
 
 template<typename T>
 struct Serializer<T, true> {
-    static bool serialize(BinaryFile& output, const T& value) { return output.write<T>(value); }
+    static bool serialize(File& output, const T& value) { return output.write<T>(value); }
 
-    static bool deserialize(BinaryFile& input, T& result) { return input.read<T>(result); }
+    static bool deserialize(File& input, T& result) { return input.read<T>(result); }
 
     static std::uint32_t size(const T&) { return sizeof(T); }
 };
 
 template<>
 struct Serializer<std::string> {
-    static bool serialize(BinaryFile& output, const std::string& value) {
-        return output.write(value);
-    }
+    static bool serialize(File& output, const std::string& value) { return output.write(value); }
 
-    static bool deserialize(BinaryFile& input, std::string& result) { return input.read(result); }
+    static bool deserialize(File& input, std::string& result) { return input.read(result); }
 
     static std::uint32_t size(const std::string& s) { return sizeof(std::uint32_t) + s.size(); }
 };
 
 template<typename U>
 struct Serializer<std::vector<U>, false> {
-    static bool serialize(BinaryFile& output, const std::vector<U>& value) {
+    static bool serialize(File& output, const std::vector<U>& value) {
         if (!output.write<std::uint32_t>(value.size())) return false;
         for (const U& v : value) {
             if (!Serializer<U>::serialize(output, v)) return false;
@@ -89,7 +89,7 @@ struct Serializer<std::vector<U>, false> {
         return true;
     }
 
-    static bool deserialize(BinaryFile& input, std::vector<U>& value) {
+    static bool deserialize(File& input, std::vector<U>& value) {
         value.clear();
         std::uint32_t size;
         if (!input.read<std::uint32_t>(size)) return false;
@@ -107,7 +107,8 @@ struct Serializer<std::vector<U>, false> {
     }
 };
 
-} // namespace bf
+} // namespace binary
+} // namespace file
 } // namespace bl
 
 #endif

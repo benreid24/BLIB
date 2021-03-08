@@ -3,7 +3,9 @@
 
 namespace bl
 {
-namespace bf
+namespace file
+{
+namespace binary
 {
 namespace unittest
 {
@@ -74,13 +76,13 @@ TEST(BinarySerializableObject, SingleLevel) {
     Nested original(52, "test object");
 
     {
-        BinaryFile output("binaryobjectsinglelevel.bin", BinaryFile::Write);
+        File output("binaryobjectsinglelevel.bin", File::Write);
         ASSERT_TRUE(original.serialize(output));
     }
 
     Nested loaded;
     {
-        BinaryFile input("binaryobjectsinglelevel.bin", BinaryFile::Read);
+        File input("binaryobjectsinglelevel.bin", File::Read);
         ASSERT_TRUE(loaded.deserialize(input));
     }
 
@@ -92,13 +94,13 @@ TEST(BinarySerializableObject, NestedObjects) {
     Data data({Nested(35, "nested 1"), Nested(923, "nested two")});
 
     {
-        BinaryFile output("binaryobjectnested.bin", BinaryFile::Write);
+        File output("binaryobjectnested.bin", File::Write);
         ASSERT_TRUE(data.serialize(output));
     }
 
     Data loaded;
     {
-        BinaryFile input("binaryobjectnested.bin", BinaryFile::Read);
+        File input("binaryobjectnested.bin", File::Read);
         ASSERT_TRUE(loaded.deserialize(input));
     }
 
@@ -112,14 +114,14 @@ TEST(BinarySerializableObject, LoadOldVersion) {
     Data old({Nested(35, "nested 1"), Nested(923, "nested two")});
 
     {
-        BinaryFile output("binaryobjectnested.bin", BinaryFile::Write);
+        File output("binaryobjectnested.bin", File::Write);
         ASSERT_TRUE(old.serialize(output));
     }
 
     DataV2 loaded;
     loaded.newString = "unchanged";
     {
-        BinaryFile input("binaryobjectnested.bin", BinaryFile::Read);
+        File input("binaryobjectnested.bin", File::Read);
         ASSERT_TRUE(loaded.deserialize(input));
     }
 
@@ -136,7 +138,7 @@ TEST(BinarySerializableObject, LoadNewVersion) {
 
     {
         std::stringstream ss;
-        BinaryFile output(ss, BinaryFile::Write);
+        File output(ss, File::Write);
         ASSERT_TRUE(data.serialize(output));
         buffer = ss.str();
     }
@@ -144,7 +146,7 @@ TEST(BinarySerializableObject, LoadNewVersion) {
     Data loaded;
     {
         std::stringstream ss(buffer);
-        BinaryFile input(ss, BinaryFile::Read);
+        File input(ss, File::Read);
         ASSERT_TRUE(loaded.deserialize(input));
     }
 
@@ -155,5 +157,6 @@ TEST(BinarySerializableObject, LoadNewVersion) {
 }
 
 } // namespace unittest
-} // namespace bf
+} // namespace binary
+} // namespace file
 } // namespace bl

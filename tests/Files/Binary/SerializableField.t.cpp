@@ -3,7 +3,9 @@
 
 namespace bl
 {
-namespace bf
+namespace file
+{
+namespace binary
 {
 namespace unittest
 {
@@ -18,7 +20,7 @@ TEST(BinarySerializableField, IntegralTypes) {
     f3.setValue(true);
 
     {
-        BinaryFile output("inttypes.bin", BinaryFile::Write);
+        File output("inttypes.bin", File::Write);
         ASSERT_TRUE(f1.serialize(output));
         ASSERT_TRUE(f2.serialize(output));
         ASSERT_TRUE(f3.serialize(output));
@@ -29,7 +31,7 @@ TEST(BinarySerializableField, IntegralTypes) {
     SerializableField<3, bool> r3(owner);
 
     {
-        BinaryFile input("inttypes.bin", BinaryFile::Read);
+        File input("inttypes.bin", File::Read);
         ASSERT_TRUE(r1.deserialize(input));
         ASSERT_TRUE(r2.deserialize(input));
         ASSERT_TRUE(r3.deserialize(input));
@@ -46,13 +48,13 @@ TEST(BinarySerializableField, String) {
     field.setValue("hello world");
 
     {
-        BinaryFile output("stringtest.bin", BinaryFile::Write);
+        File output("stringtest.bin", File::Write);
         ASSERT_TRUE(field.serialize(output));
     }
 
     SerializableField<1, std::string> loaded(owner);
     {
-        BinaryFile input("stringtest.bin", BinaryFile::Read);
+        File input("stringtest.bin", File::Read);
         ASSERT_TRUE(loaded.deserialize(input));
     }
 
@@ -65,13 +67,13 @@ TEST(BinarySerializableField, IntVector) {
     field.setValue({5, 3, 6, 435});
 
     {
-        BinaryFile output("stringtest.bin", BinaryFile::Write);
+        File output("stringtest.bin", File::Write);
         ASSERT_TRUE(field.serialize(output));
     }
 
     SerializableField<1, std::vector<std::int16_t>> loaded(owner);
     {
-        BinaryFile input("stringtest.bin", BinaryFile::Read);
+        File input("stringtest.bin", File::Read);
         ASSERT_TRUE(loaded.deserialize(input));
     }
 
@@ -87,13 +89,13 @@ TEST(BinarySerializableField, StringVector) {
     field.setValue({"hello", "everyone"});
 
     {
-        BinaryFile output("stringtest.bin", BinaryFile::Write);
+        File output("stringtest.bin", File::Write);
         ASSERT_TRUE(field.serialize(output));
     }
 
     SerializableField<1, std::vector<std::string>> loaded(owner);
     {
-        BinaryFile input("stringtest.bin", BinaryFile::Read);
+        File input("stringtest.bin", File::Read);
         ASSERT_TRUE(loaded.deserialize(input));
     }
 
@@ -104,5 +106,6 @@ TEST(BinarySerializableField, StringVector) {
 }
 
 } // namespace unittest
-} // namespace bf
+} // namespace binary
+} // namespace file
 } // namespace bl

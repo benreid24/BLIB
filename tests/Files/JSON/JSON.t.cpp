@@ -1,6 +1,6 @@
 #include <BLIB/Files/JSON/JSON.hpp>
 
-#include <BLIB/Files/FileUtil.hpp>
+#include <BLIB/Files/Util.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
@@ -74,8 +74,7 @@ TEST(JSON, BasicGroup) {
 }
 
 TEST(JSON, NestedGroup) {
-    const std::string json =
-        "{\"grp\":{\"deep\":{\"wogh\":12},\"list\": [1,2,3]}, \"b\": false}";
+    const std::string json = "{\"grp\":{\"deep\":{\"wogh\":12},\"list\": [1,2,3]}, \"b\": false}";
 
     Group root = JSON::loadFromString(json);
     ASSERT_TRUE(root.getGroup("grp"));
@@ -110,13 +109,13 @@ TEST(JSON, GroupList) {
 TEST(JSON, Files) {
     const std::string json =
         "{ \"num\": 123.45, \"str\": \"hello\", \"b\": true, \"ls\": [1,2,3] }";
-    const std::string filename = FileUtil::genTempName("json", "json");
+    const std::string filename = file::Util::genTempName("json", "json");
 
     Group goodRoot = JSON::loadFromString(json);
-    FileUtil::createDirectory("json");
+    file::Util::createDirectory("json");
     JSON::saveToFile(filename, goodRoot);
     Group root = JSON::loadFromFile(filename);
-    FileUtil::deleteFile(filename);
+    file::Util::deleteFile(filename);
 
     EXPECT_TRUE(root.hasField("num"));
     EXPECT_TRUE(root.hasField("str"));

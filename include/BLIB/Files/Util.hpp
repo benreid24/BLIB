@@ -1,17 +1,20 @@
-#ifndef BLIB_FILES_FILEUTIL_HPP
-#define BLIB_FILES_FILEUTIL_HPP
+#ifndef BLIB_FILES_UTIL_HPP
+#define BLIB_FILES_UTIL_HPP
 
 #include <string>
 #include <vector>
 
 namespace bl
 {
+/// Collection of classes to simplify file interactions
+namespace file
+{
 /**
  * @brief Common utility functions for dealing with files and filenames
  *
  * @ingroup Files
  */
-struct FileUtil {
+struct Util {
     /**
      * @brief Test whether the given file exists
      *
@@ -22,7 +25,7 @@ struct FileUtil {
 
     /**
      * @brief Returns the endianness of the current system. Endianness is abstracted
-     *        away by BinaryFile but may still be useful to know
+     *        away by File but may still be useful to know
      *
      * @return true System is Big Endian
      * @return false System is Little Endian
@@ -121,6 +124,7 @@ struct FileUtil {
     static bool deleteFile(const std::string& file);
 };
 
+} // namespace file
 } // namespace bl
 
 #endif
