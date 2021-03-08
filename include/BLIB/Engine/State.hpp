@@ -5,10 +5,9 @@
 
 namespace bl
 {
-class Engine;
-
 namespace engine
 {
+class Engine;
 /**
  * @brief Base interface for all engine states. The Engine class manages the main game loop,
  *        application logic should be implemented in a set of EngineState classes which can be

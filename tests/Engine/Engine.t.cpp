@@ -5,11 +5,13 @@
 
 namespace bl
 {
+namespace engine
+{
 namespace unittest
 {
-class FlagTestState : public engine::State {
+class FlagTestState : public State {
 public:
-    FlagTestState(engine::Flags::Flag flag)
+    FlagTestState(Flags::Flag flag)
     : callCount(0)
     , flag(flag) {}
 
@@ -23,15 +25,15 @@ public:
     int timesUpdated() const { return callCount; }
 
 private:
-    const engine::Flags::Flag flag;
+    const Flags::Flag flag;
     int callCount;
 };
 
 TEST(Engine, Terminate) {
     Engine engine({});
 
-    FlagTestState* state = new FlagTestState(engine::Flags::Terminate);
-    engine::State::Ptr ptr(state);
+    FlagTestState* state = new FlagTestState(Flags::Terminate);
+    State::Ptr ptr(state);
     EXPECT_EQ(engine.run(ptr), 1);
     EXPECT_EQ(state->timesUpdated(), 1);
     EXPECT_EQ(ptr.use_count(), 2);
@@ -40,8 +42,8 @@ TEST(Engine, Terminate) {
 TEST(Engine, PopState) {
     Engine engine({});
 
-    FlagTestState* state = new FlagTestState(engine::Flags::PopState);
-    engine::State::Ptr ptr(state);
+    FlagTestState* state = new FlagTestState(Flags::PopState);
+    State::Ptr ptr(state);
     EXPECT_EQ(engine.run(ptr), 0);
     EXPECT_EQ(state->timesUpdated(), 1);
     EXPECT_EQ(ptr.use_count(), 1);
@@ -50,10 +52,10 @@ TEST(Engine, PopState) {
 TEST(Engine, MultipleStates) {
     Engine engine({});
 
-    FlagTestState* first = new FlagTestState(engine::Flags::PopState);
-    engine::State::Ptr firstPtr(first);
-    FlagTestState* second = new FlagTestState(engine::Flags::PopState);
-    engine::State::Ptr secondPtr(second);
+    FlagTestState* first = new FlagTestState(Flags::PopState);
+    State::Ptr firstPtr(first);
+    FlagTestState* second = new FlagTestState(Flags::PopState);
+    State::Ptr secondPtr(second);
 
     // update -> pop -> next state -> update -> pop -> end
     engine.nextState(secondPtr);
@@ -62,7 +64,7 @@ TEST(Engine, MultipleStates) {
     EXPECT_EQ(second->timesUpdated(), 1);
 }
 
-class VariableTimeTestState : public engine::State {
+class VariableTimeTestState : public State {
 public:
     VariableTimeTestState()
     : state(Constant)
@@ -99,7 +101,7 @@ public:
             break;
 
         case Decreasing:
-            if (counter >= 1) { engine.flags().set(engine::Flags::Terminate); }
+            if (counter >= 1) { engine.flags().set(Flags::Terminate); }
             else {
                 ++counter;
                 sf::sleep(sf::seconds(dt / 1.5f));
@@ -124,10 +126,10 @@ private:
 };
 
 TEST(Engine, VariableTimestep) {
-    Engine engine(engine::Settings().withAllowVariableTimestep(true).withUpdateInterval(0.1f));
+    Engine engine(Settings().withAllowVariableTimestep(true).withUpdateInterval(0.1f));
 
     VariableTimeTestState* state = new VariableTimeTestState();
-    engine::State::Ptr ptr(state);
+    State::Ptr ptr(state);
     EXPECT_EQ(engine.run(ptr), 1);
     ASSERT_GE(state->getTimes().size(), 6);
 
@@ -138,11 +140,11 @@ TEST(Engine, VariableTimestep) {
     EXPECT_GE(state->getTimes().at(4), state->getTimes().at(5));
 }
 
-class FixedTimestepTestState : public engine::State {
+class FixedTimestepTestState : public State {
 public:
     virtual void update(Engine& engine, float dt) {
         times.push_back(dt);
-        if (times.size() >= 10) engine.flags().set(engine::Flags::Terminate);
+        if (times.size() >= 10) engine.flags().set(Flags::Terminate);
     }
 
     virtual void render(Engine& engine, float rd) {}
@@ -154,10 +156,10 @@ private:
 };
 
 TEST(Engine, FixedTimestep) {
-    Engine engine(engine::Settings().withAllowVariableTimestep(false));
+    Engine engine(Settings().withAllowVariableTimestep(false));
 
     FixedTimestepTestState* state = new FixedTimestepTestState();
-    engine::State::Ptr ptr(state);
+    State::Ptr ptr(state);
     EXPECT_EQ(engine.run(ptr), 1);
 
     for (unsigned int i = 0; i < state->getTimes().size() - 1; ++i) {
@@ -166,4 +168,5 @@ TEST(Engine, FixedTimestep) {
 }
 
 } // namespace unittest
+} // namespace engine
 } // namespace bl

@@ -5,10 +5,9 @@
 
 namespace bl
 {
-class Engine;
-
 namespace engine
 {
+class Engine;
 /**
  * @brief Collection of flags that can be set to modify or control the behavior of the Engine.
  *        All flags are read by the engine at the end of each update loop
@@ -47,7 +46,7 @@ private:
     Flags();
     void clear();
 
-    friend class bl::Engine;
+    friend class Engine;
 };
 
 } // namespace engine
