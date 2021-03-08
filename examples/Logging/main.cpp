@@ -2,11 +2,11 @@
 #include <iostream>
 
 int main() {
-    bl::LoggingConfig::addFileOutput("example.log", bl::LoggingConfig::Trace);
-    bl::LoggingConfig::configureOutput(std::cout, bl::LoggingConfig::Info);
+    bl::logging::Config::addFileOutput("example.log", bl::logging::Config::Trace);
+    bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Info);
 
     // Can use the logger directly
-    bl::Logger::info() << "This is a log number: " << 5;
+    bl::logging::Logger::info() << "This is a log number: " << 5;
 
     // Or use macros which add file, function, and line
     BL_LOG_INFO << "This will have file info";

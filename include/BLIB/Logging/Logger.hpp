@@ -1,12 +1,15 @@
 #ifndef BLIB_LOGGING_LOGGER_HPP
 #define BLIB_LOGGING_LOGGER_HPP
 
-#include <BLIB/Logging/LoggingConfig.hpp>
+#include <BLIB/Logging/Config.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <cstring>
 #include <sstream>
 
 namespace bl
+{
+/// Logging utility. Supports a configurable log environment and multiple outputs. Threadsafe
+namespace logging
 {
 /**
  * @brief Actual logging class. Provides several static methods to begin log output. Instances
@@ -70,9 +73,9 @@ struct Logger : public util::NonCopyable {
     static Logger trace();
 
 private:
-    Logger(const LoggingConfig& config, int level);
+    Logger(const Config& config, int level);
 
-    const LoggingConfig& config;
+    const Config& config;
     const int level;
     mutable std::stringstream ss;
 };
@@ -84,6 +87,7 @@ const Logger& Logger::operator<<(const T& data) const {
     return *this;
 }
 
+} // namespace logging
 } // namespace bl
 
 ////////////////////////////////// MACROS //////////////////////////////////////
@@ -92,22 +96,22 @@ const Logger& Logger::operator<<(const T& data) const {
 #define __FILENAME__ (std::strrchr(__FILE__, '/') ? std::strrchr(__FILE__, '/') + 1 : __FILE__)
 
 /// @brief Helper macro to log at critical level and include file, function, and line information
-#define BL_LOG_CRITICAL bl::Logger::critical() << __FILENAME__ << " " << __FUNCTION__ << "()" << ":" << __LINE__ << " - "
+#define BL_LOG_CRITICAL bl::logging::Logger::critical() << __FILENAME__ << " " << __FUNCTION__ << "()" << ":" << __LINE__ << " - "
 
 /// @brief Helper macro to log at error level and include file, function, and line information
-#define BL_LOG_ERROR bl::Logger::error() << __FILENAME__ << " " << __FUNCTION__ << "()" << ":" << __LINE__ << " - "
+#define BL_LOG_ERROR bl::logging::Logger::error() << __FILENAME__ << " " << __FUNCTION__ << "()" << ":" << __LINE__ << " - "
 
 /// @brief Helper macro to log at warn level and include file, function, and line information
-#define BL_LOG_WARN bl::Logger::warn() << __FILENAME__ << " " << __FUNCTION__ << "()" << ":" << __LINE__ << " - "
+#define BL_LOG_WARN bl::logging::Logger::warn() << __FILENAME__ << " " << __FUNCTION__ << "()" << ":" << __LINE__ << " - "
 
 /// @brief Helper macro to log at info level and include file, function, and line information
-#define BL_LOG_INFO bl::Logger::info() << __FILENAME__ << " " << __FUNCTION__ << "()" << ":" << __LINE__ << " - "
+#define BL_LOG_INFO bl::logging::Logger::info() << __FILENAME__ << " " << __FUNCTION__ << "()" << ":" << __LINE__ << " - "
 
 /// @brief Helper macro to log at debug level and include file, function, and line information
-#define BL_LOG_DEBUG bl::Logger::debug() << __FILENAME__ << " " << __FUNCTION__ << "()" << ":" << __LINE__ << " - "
+#define BL_LOG_DEBUG bl::logging::Logger::debug() << __FILENAME__ << " " << __FUNCTION__ << "()" << ":" << __LINE__ << " - "
 
 /// @brief Helper macro to log at trace level and include file, function, and line information
-#define BL_LOG_TRACE bl::Logger::trace() << __FILENAME__ << " " << __FUNCTION__ << "()" << ":" << __LINE__ << " - "
+#define BL_LOG_TRACE bl::logging::Logger::trace() << __FILENAME__ << " " << __FUNCTION__ << "()" << ":" << __LINE__ << " - "
 // clang-format on
 
 #endif

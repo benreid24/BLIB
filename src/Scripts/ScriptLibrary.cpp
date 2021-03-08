@@ -67,17 +67,17 @@ Value print(SymbolTable& t, const std::vector<Value>& args) {
 }
 
 Value loginfo(SymbolTable& t, const std::vector<Value>& args) {
-    bl::Logger::info() << argsToStr(t, args);
+    bl::logging::Logger::info() << argsToStr(t, args);
     return Value();
 }
 
 Value logerror(SymbolTable& t, const std::vector<Value>& args) {
-    bl::Logger::error() << argsToStr(t, args);
+    bl::logging::Logger::error() << argsToStr(t, args);
     return Value();
 }
 
 Value logdebug(SymbolTable& t, const std::vector<Value>& args) {
-    bl::Logger::debug() << argsToStr(t, args);
+    bl::logging::Logger::debug() << argsToStr(t, args);
     return Value();
 }
 

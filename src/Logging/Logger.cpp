@@ -2,19 +2,21 @@
 
 namespace bl
 {
-Logger Logger::critical() { return Logger(LoggingConfig::get(), LoggingConfig::Critical); }
+namespace logging
+{
+Logger Logger::critical() { return Logger(Config::get(), Config::Critical); }
 
-Logger Logger::error() { return Logger(LoggingConfig::get(), LoggingConfig::Error); }
+Logger Logger::error() { return Logger(Config::get(), Config::Error); }
 
-Logger Logger::warn() { return Logger(LoggingConfig::get(), LoggingConfig::Warn); }
+Logger Logger::warn() { return Logger(Config::get(), Config::Warn); }
 
-Logger Logger::info() { return Logger(LoggingConfig::get(), LoggingConfig::Info); }
+Logger Logger::info() { return Logger(Config::get(), Config::Info); }
 
-Logger Logger::debug() { return Logger(LoggingConfig::get(), LoggingConfig::Debug); }
+Logger Logger::debug() { return Logger(Config::get(), Config::Debug); }
 
-Logger Logger::trace() { return Logger(LoggingConfig::get(), LoggingConfig::Trace); }
+Logger Logger::trace() { return Logger(Config::get(), Config::Trace); }
 
-Logger::Logger(const LoggingConfig& config, int level)
+Logger::Logger(const Config& config, int level)
 : config(config)
 , level(level) {
     ss << config.genPrefix(level);
@@ -26,4 +28,5 @@ Logger::~Logger() {
     config.unlock();
 }
 
+} // namespace logging
 } // namespace bl
