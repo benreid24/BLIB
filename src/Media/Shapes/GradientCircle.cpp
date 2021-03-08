@@ -5,6 +5,8 @@
 
 namespace bl
 {
+namespace shapes
+{
 GradientCircle::GradientCircle(float r, bool co, unsigned int pc)
 : points(sf::PrimitiveType::TrianglesFan, std::max(pc + 2, 10u)) {
     setRadius(r, co);
@@ -47,4 +49,5 @@ void GradientCircle::updatePoints() {
     points[points.getVertexCount() - 1].position = points[1].position;
 }
 
+} // namespace shapes
 } // namespace bl

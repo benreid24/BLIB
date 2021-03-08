@@ -2,13 +2,15 @@
 
 namespace bl
 {
+namespace shapes
+{
 Triangle::Triangle(const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Vector2f& p3,
                    bool co) {
     setPoints(p1, p2, p3, co);
 }
 
-void Triangle::setPoints(const sf::Vector2f& p1, const sf::Vector2f& p2,
-                         const sf::Vector2f& p3, bool co) {
+void Triangle::setPoints(const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Vector2f& p3,
+                         bool co) {
     points[0] = p1;
     points[1] = p2;
     points[2] = p3;
@@ -20,4 +22,5 @@ std::size_t Triangle::getPointCount() const { return 3; }
 
 sf::Vector2f Triangle::getPoint(size_t index) const { return points[index]; }
 
+} // namespace shapes
 } // namespace bl

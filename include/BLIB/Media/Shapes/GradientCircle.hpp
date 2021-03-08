@@ -7,6 +7,8 @@
 
 namespace bl
 {
+namespace shapes
+{
 /**
  * @brief A circle, similar to sf::CircleShape, but with a color gradient between the
  *        circumfrence and center
@@ -82,6 +84,8 @@ private:
 
     void updatePoints();
 };
+
+} // namespace shapes
 } // namespace bl
 
 #endif

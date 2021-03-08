@@ -5,6 +5,8 @@
 
 namespace bl
 {
+namespace shapes
+{
 /**
  * @brief Basic triangle comprised of 3 points (which must not be colinear)
  *
@@ -50,6 +52,8 @@ public:
 private:
     sf::Vector2f points[3];
 };
+
+} // namespace shapes
 } // namespace bl
 
 #endif
