@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['joinpath',['joinPath',['../a00844.html#a3af09696ef4d23bb7865a70f37ea614a',1,'bl::FileUtil']]]
+  ['joinpath',['joinPath',['../a00927.html#a145d77fb664dbd9e6204a8bc02a7250e',1,'bl::file::Util']]]
 ];

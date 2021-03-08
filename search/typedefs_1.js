@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bool',['Bool',['../a00624.html#a4fa3346ec46524abde42a02235213891',1,'bl::json']]]
+  ['bool',['Bool',['../a00621.html#a42f2114244ec0fa3456eb601060e7891',1,'bl::file::json']]]
 ];

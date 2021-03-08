@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['animation',['Animation',['../a01096.html#af47625f50036c466946f960db7320bcf',1,'bl::AnimationData']]],
-  ['audiosystem',['AudioSystem',['../a01076.html#af3ccdd3ec77058bf8f885b94d33402c1',1,'bl::AudioSystem::Sound']]]
+  ['animation',['Animation',['../a01095.html#af47625f50036c466946f960db7320bcf',1,'bl::gfx::AnimationData']]],
+  ['audiosystem',['AudioSystem',['../a01075.html#af3ccdd3ec77058bf8f885b94d33402c1',1,'bl::audio::AudioSystem::Sound']]]
 ];

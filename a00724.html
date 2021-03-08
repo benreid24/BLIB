@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::engine::State Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.1</span>
+   &#160;<span id="projectnumber">0.9.9</span>
    </div>
    <div id="projectbrief">Ben&#39;s SFML Game Library</div>
   </td>
@@ -63,285 +63,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00620.html">bl</a></li><li class="navelem"><a class="el" href="a00621.html">engine</a></li><li class="navelem"><a class="el" href="a00724.html">State</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00616.html">engine</a></li><li class="navelem"><a class="el" href="a00727.html">State</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a00721.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::engine::State Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00603.html">Engine</a></div></div>  </div>
+<div class="title">bl::engine::State Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base interface for all engine states. The <a class="el" href="a00704.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> class manages the main game loop, application logic should be implemented in a set of EngineState classes which can be plugged into the <a class="el" href="a00704.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a>.  
- <a href="a00724.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00047_source.html">State.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:af13f7b9dd4d6e317dbc378896ddcf6d5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00724.html#af13f7b9dd4d6e317dbc378896ddcf6d5">Ptr</a> = std::shared_ptr&lt; <a class="el" href="a00724.html">State</a> &gt;</td></tr>
-<tr class="separator:af13f7b9dd4d6e317dbc378896ddcf6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a75cd69b2c7d5e71c1dbe449856f2767e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00724.html#a75cd69b2c7d5e71c1dbe449856f2767e">~State</a> ()=default</td></tr>
-<tr class="separator:a75cd69b2c7d5e71c1dbe449856f2767e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a832ed940d9522b28ccc75626b97cbe6c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00724.html#a832ed940d9522b28ccc75626b97cbe6c">makeActive</a> (<a class="el" href="a00704.html">Engine</a> &amp;engine)</td></tr>
-<tr class="memdesc:a832ed940d9522b28ccc75626b97cbe6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is called each time the state becomes the active engine state.  <a href="#a832ed940d9522b28ccc75626b97cbe6c">More...</a><br /></td></tr>
-<tr class="separator:a832ed940d9522b28ccc75626b97cbe6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10c19d036b219999c8b567e3da30f2a7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00724.html#a10c19d036b219999c8b567e3da30f2a7">onPushedDown</a> (<a class="el" href="a00704.html">Engine</a> &amp;engine)</td></tr>
-<tr class="memdesc:a10c19d036b219999c8b567e3da30f2a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is called each time this state is pushed down by a new state.  <a href="#a10c19d036b219999c8b567e3da30f2a7">More...</a><br /></td></tr>
-<tr class="separator:a10c19d036b219999c8b567e3da30f2a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47e9c475d02192149ccc2c6ebb4045e9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00724.html#a47e9c475d02192149ccc2c6ebb4045e9">onPoppedOff</a> (<a class="el" href="a00704.html">Engine</a> &amp;engine)</td></tr>
-<tr class="memdesc:a47e9c475d02192149ccc2c6ebb4045e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is called when this state is popped off the state stack entirely.  <a href="#a47e9c475d02192149ccc2c6ebb4045e9">More...</a><br /></td></tr>
-<tr class="separator:a47e9c475d02192149ccc2c6ebb4045e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae24e56d077045e068ced0094609fd9de"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00724.html#ae24e56d077045e068ced0094609fd9de">update</a> (<a class="el" href="a00704.html">Engine</a> &amp;engine, float dt)=0</td></tr>
-<tr class="memdesc:ae24e56d077045e068ced0094609fd9de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform logic updates.  <a href="#ae24e56d077045e068ced0094609fd9de">More...</a><br /></td></tr>
-<tr class="separator:ae24e56d077045e068ced0094609fd9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a450b38e31a88eef076ba1c3d68a46752"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00724.html#a450b38e31a88eef076ba1c3d68a46752">render</a> (<a class="el" href="a00704.html">Engine</a> &amp;engine, float residualLag)=0</td></tr>
-<tr class="memdesc:a450b38e31a88eef076ba1c3d68a46752"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render the application to the window owned by the <a class="el" href="a00704.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a>.  <a href="#a450b38e31a88eef076ba1c3d68a46752">More...</a><br /></td></tr>
-<tr class="separator:a450b38e31a88eef076ba1c3d68a46752"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base interface for all engine states. The <a class="el" href="a00704.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> class manages the main game loop, application logic should be implemented in a set of EngineState classes which can be plugged into the <a class="el" href="a00704.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a>. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00047_source.html#l00020">20</a> of file <a class="el" href="a00047_source.html">State.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="af13f7b9dd4d6e317dbc378896ddcf6d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af13f7b9dd4d6e317dbc378896ddcf6d5">&#9670;&nbsp;</a></span>Ptr</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a00724.html#af13f7b9dd4d6e317dbc378896ddcf6d5">bl::engine::State::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="a00724.html">State</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00047_source.html#l00022">22</a> of file <a class="el" href="a00047_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a75cd69b2c7d5e71c1dbe449856f2767e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75cd69b2c7d5e71c1dbe449856f2767e">&#9670;&nbsp;</a></span>~State()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bl::engine::State::~State </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a832ed940d9522b28ccc75626b97cbe6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a832ed940d9522b28ccc75626b97cbe6c">&#9670;&nbsp;</a></span>makeActive()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::engine::State::makeActive </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00704.html">Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>This is called each time the state becomes the active engine state. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00047_source.html#l00030">30</a> of file <a class="el" href="a00047_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a47e9c475d02192149ccc2c6ebb4045e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47e9c475d02192149ccc2c6ebb4045e9">&#9670;&nbsp;</a></span>onPoppedOff()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::engine::State::onPoppedOff </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00704.html">Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>This is called when this state is popped off the state stack entirely. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00047_source.html#l00042">42</a> of file <a class="el" href="a00047_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a10c19d036b219999c8b567e3da30f2a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10c19d036b219999c8b567e3da30f2a7">&#9670;&nbsp;</a></span>onPushedDown()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::engine::State::onPushedDown </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00704.html">Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>This is called each time this state is pushed down by a new state. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00047_source.html#l00036">36</a> of file <a class="el" href="a00047_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a450b38e31a88eef076ba1c3d68a46752"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a450b38e31a88eef076ba1c3d68a46752">&#9670;&nbsp;</a></span>render()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::engine::State::render </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00704.html">Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>residualLag</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Render the application to the window owned by the <a class="el" href="a00704.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The main <a class="el" href="a00704.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> managing the window to render to </td></tr>
-    <tr><td class="paramname">residualLag</td><td>Residual elapsed time between calls to <a class="el" href="a00724.html#ae24e56d077045e068ced0094609fd9de" title="Perform logic updates. ">update()</a>. May be used for graphical interpolation </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ae24e56d077045e068ced0094609fd9de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae24e56d077045e068ced0094609fd9de">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::engine::State::update </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00704.html">Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Perform logic updates. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>Reference to the main <a class="el" href="a00704.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> </td></tr>
-    <tr><td class="paramname">dt</td><td>Elapsed time since last update </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Engine/<a class="el" href="a00047_source.html">State.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a00727.html">bl::engine::State</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a00727.html#a832ed940d9522b28ccc75626b97cbe6c">makeActive</a>(Engine &amp;engine)</td><td class="entry"><a class="el" href="a00727.html">bl::engine::State</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00727.html#a7f4260441baa5af414b782f8466ef0e1">name</a>() const =0</td><td class="entry"><a class="el" href="a00727.html">bl::engine::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00727.html#a47e9c475d02192149ccc2c6ebb4045e9">onPoppedOff</a>(Engine &amp;engine)</td><td class="entry"><a class="el" href="a00727.html">bl::engine::State</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00727.html#a10c19d036b219999c8b567e3da30f2a7">onPushedDown</a>(Engine &amp;engine)</td><td class="entry"><a class="el" href="a00727.html">bl::engine::State</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00727.html#af13f7b9dd4d6e317dbc378896ddcf6d5">Ptr</a> typedef</td><td class="entry"><a class="el" href="a00727.html">bl::engine::State</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00727.html#a450b38e31a88eef076ba1c3d68a46752">render</a>(Engine &amp;engine, float residualLag)=0</td><td class="entry"><a class="el" href="a00727.html">bl::engine::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00727.html#ae24e56d077045e068ced0094609fd9de">update</a>(Engine &amp;engine, float dt)=0</td><td class="entry"><a class="el" href="a00727.html">bl::engine::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00727.html#a75cd69b2c7d5e71c1dbe449856f2767e">~State</a>()=default</td><td class="entry"><a class="el" href="a00727.html">bl::engine::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 7 2021 22:22:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

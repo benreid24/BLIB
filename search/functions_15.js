@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['warn',['warn',['../a01060.html#adbfdf9dc3b43ac1bf944eaafab82b295',1,'bl::Logger']]],
-  ['willalwayscall',['willAlwaysCall',['../a01324.html#a0641280059d1b4e03dacc797eefd057f',1,'bl::Signal']]],
-  ['willcall',['willCall',['../a01324.html#aa1962e011112899d0c71cbc0947dfdb7',1,'bl::Signal']]],
-  ['willset',['willSet',['../a01324.html#a5314e63b5922d36e97966cd8bcb7f3c7',1,'bl::Signal']]],
-  ['window',['window',['../a00704.html#a1a8d0a905c8c2acb2629169cb7e2c664',1,'bl::Engine::window()'],['../a01020.html#a5bdc66b5aae615dd7b3c77139e1095ef',1,'bl::gui::Window::Window()']]],
-  ['windoweventdispatcher',['windowEventDispatcher',['../a00704.html#a0106d0e85f6bbba47dac2274b0480d0a',1,'bl::Engine']]],
-  ['withallowvariabletimestep',['withAllowVariableTimestep',['../a00720.html#a039c2e374424f76db2b380fe843812b8',1,'bl::engine::Settings']]],
-  ['withmaxframerate',['withMaxFramerate',['../a00720.html#aac93beb39b7e5ae1a1cc31ec8db19a46',1,'bl::engine::Settings']]],
-  ['withupdateinterval',['withUpdateInterval',['../a00720.html#a97aa33c871c3b5fc738263d368c50d4b',1,'bl::engine::Settings']]],
-  ['write',['write',['../a00800.html#a097d33ca1eaaadde1774b2cfd562f9a3',1,'bl::bf::BinaryFile::write(const T &amp;data)'],['../a00800.html#adfbdffb4f30d247631a178e121db8135',1,'bl::bf::BinaryFile::write(const std::string &amp;data)'],['../a00836.html#ad414ec62afcabd965b2c9c8e0db65e48',1,'bl::bf::VersionedPayloadLoader::write()'],['../a00840.html#a0ab5de7e6ec42645c136e91ee6d39d35',1,'bl::bf::VersionedBinaryFile::write()']]]
+  ['warn',['warn',['../a01063.html#aceeb9b5121a77f94e4c52382ecca0b20',1,'bl::logging::Logger']]],
+  ['willalwayscall',['willAlwaysCall',['../a01323.html#a419a776049b9cb49fe75e3a9cd55f05b',1,'bl::util::Signal']]],
+  ['willcall',['willCall',['../a01323.html#a5c3dee119766378bdc5262795bc0d08c',1,'bl::util::Signal']]],
+  ['willset',['willSet',['../a01323.html#a8a2fe54cccdcc5e9a607898725cd5f02',1,'bl::util::Signal']]],
+  ['window',['Window',['../a01019.html#a5bdc66b5aae615dd7b3c77139e1095ef',1,'bl::gui::Window::Window()'],['../a00707.html#ab7615560dde03f27fb7054f7fe89a119',1,'bl::engine::Engine::window()']]],
+  ['withallowvariabletimestep',['withAllowVariableTimestep',['../a00723.html#a039c2e374424f76db2b380fe843812b8',1,'bl::engine::Settings']]],
+  ['withmaxframerate',['withMaxFramerate',['../a00723.html#aac93beb39b7e5ae1a1cc31ec8db19a46',1,'bl::engine::Settings']]],
+  ['withupdateinterval',['withUpdateInterval',['../a00723.html#a97aa33c871c3b5fc738263d368c50d4b',1,'bl::engine::Settings']]],
+  ['write',['write',['../a00803.html#a1185f141001091a4fc7b78eb45d4cae5',1,'bl::file::binary::File::write(const T &amp;data)'],['../a00803.html#a671021b804d98851dd19c8367739463c',1,'bl::file::binary::File::write(const std::string &amp;data)'],['../a00839.html#a3be240121feabd7805e5e7ba62f5f05a',1,'bl::file::binary::VersionedPayloadLoader::write()'],['../a00843.html#a2533493b810431df1ff09bdf35c076d7',1,'bl::file::binary::VersionedFile::write()']]]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Events/EventListener.hpp File Reference</title>
+<title>BLIB: include/BLIB/Events/Listener.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.1</span>
+   &#160;<span id="projectnumber">0.9.9</span>
    </div>
    <div id="projectbrief">Ben&#39;s SFML Game Library</div>
   </td>
@@ -69,38 +69,37 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">EventListener.hpp File Reference</div>  </div>
+<div class="title">Listener.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;SFML/Window.hpp&gt;</code><br />
-</div>
+
 <p><a href="a00074_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00780.html">bl::EventListener&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templatized utility class for setting up an event dispatcher and listener system.  <a href="a00780.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00783.html">bl::event::ListenerBase&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a00787.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a>. Do not use directly.  <a href="a00783.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00787.html">bl::event::Listener&lt; TEvents &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a00787.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> of multiple event types. Listeners should inherit this class with the types of events they would like to subscribe to as template params. An observe method from <a class="el" href="a00787.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> will be created for each passed type and must be implemented.  <a href="a00787.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00620"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00620.html">bl</a></td></tr>
+<tr class="memitem:a00614"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00614.html">bl</a></td></tr>
+<tr class="memdesc:a00614"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a3a7ea0c6fb643afb5f057df33ca967e9"><td class="memItemLeft" align="right" valign="top">typedef EventListener&lt; sf::Event &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00620.html#a3a7ea0c6fb643afb5f057df33ca967e9">bl::WindowEventListener</a></td></tr>
-<tr class="memdesc:a3a7ea0c6fb643afb5f057df33ca967e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special instantiation of <a class="el" href="a00780.html" title="Templatized utility class for setting up an event dispatcher and listener system. ...">EventListener</a> for sf::Event window events.  <a href="a00620.html#a3a7ea0c6fb643afb5f057df33ca967e9">More...</a><br /></td></tr>
-<tr class="separator:a3a7ea0c6fb643afb5f057df33ca967e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00618"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00618.html">bl::event</a></td></tr>
+<tr class="memdesc:a00618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes providing different types of publisher/consumer event queues. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 7 2021 22:22:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

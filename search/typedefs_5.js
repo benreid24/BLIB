@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['g',['G',['../a00631.html#a42a6e4ae363453d9bf34dd25fbbb78c4',1,'bl::scripts']]]
+  ['g',['G',['../a00633.html#af98b10434d6862ecf69f33b6b5b25f27',1,'bl::script']]]
 ];

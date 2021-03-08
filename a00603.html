@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Engine</title>
+<title>BLIB: Media</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.1</span>
+   &#160;<span id="projectnumber">0.9.9</span>
    </div>
    <div id="projectbrief">Ben&#39;s SFML Game Library</div>
   </td>
@@ -64,46 +64,44 @@ $(function() {
 
 <div class="header">
   <div class="summary">
+<a href="#groups">Modules</a> &#124;
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Engine</div>  </div>
+<div class="title">Media</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Core classes for the game engine, centered around the Engine class.  
+<p>Provides several groups of classes for more advanced media functionality.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
+Modules</h2></td></tr>
+<tr class="memitem:a00611"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00611.html">Audio</a></td></tr>
+<tr class="memdesc:a00611"><td class="mdescLeft">&#160;</td><td class="mdescRight">A more sophisticated audio system over SFML's system. Provides playlist, music stack, sound system, and spatial sound. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00612"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00612.html">Graphics</a></td></tr>
+<tr class="memdesc:a00612"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides several different graphics features such as animations. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00613"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00613.html">Shapes</a></td></tr>
+<tr class="memdesc:a00613"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of shapes to add to the functionality provided by SFML. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00700.html">bl::engine::Configuration</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global typeless configuration store for engine settings. Applications may add their own configuration settings to the store as well. Some examples of configuration are the path prefixes for songs in Playlists and spritesheets in Animations.  <a href="a00700.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01091.html">bl::gfx::Animation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a renderable animation. <a class="el" href="a01095.html" title="Data class for animations. Holds the frame information and is responsible for rendering. ">AnimationData</a> is to <a class="el" href="a01091.html" title="Represents a renderable animation. AnimationData is to Animation like sf::Texture is to sf::Sprite...">Animation</a> like sf::Texture is to sf::Sprite. <a class="el" href="a01091.html" title="Represents a renderable animation. AnimationData is to Animation like sf::Texture is to sf::Sprite...">Animation</a> contains state such as the position and current frame.  <a href="a01091.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00704.html">bl::Engine</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core engine class that owns engine resources and the main game loop.  <a href="a00704.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00708.html">bl::engine::Event</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic event class for engine related events.  <a href="a00708.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00712.html">bl::engine::Flags</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of flags that can be set to modify or control the behavior of the <a class="el" href="a00704.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a>. All flags are read by the engine at the end of each update loop.  <a href="a00712.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00716.html">bl::engine::Resources</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Globally available structure containing ResourceManagers for the core resources used by the engine and almost all applications. Currently all resources are loaded from files.  <a href="a00716.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00720.html">bl::engine::Settings</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of settings to create an <a class="el" href="a00704.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> with, organized as a builder.  <a href="a00720.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00724.html">bl::engine::State</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base interface for all engine states. The <a class="el" href="a00704.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> class manages the main game loop, application logic should be implemented in a set of EngineState classes which can be plugged into the <a class="el" href="a00704.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a>.  <a href="a00724.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html">bl::gfx::AnimationData</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data class for animations. Holds the frame information and is responsible for rendering.  <a href="a01095.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Core classes for the game engine, centered around the Engine class. </p>
+<p>Provides several groups of classes for more advanced media functionality. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 7 2021 22:22:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::scripts::SymbolTable Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.1</span>
+   &#160;<span id="projectnumber">0.9.9</span>
    </div>
    <div id="projectbrief">Ben&#39;s SFML Game Library</div>
   </td>
@@ -63,332 +63,61 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00620.html">bl</a></li><li class="navelem"><a class="el" href="a00631.html">scripts</a></li><li class="navelem"><a class="el" href="a01292.html">SymbolTable</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00633.html">script</a></li><li class="navelem"><a class="el" href="a01295.html">Value</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a01289.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::scripts::SymbolTable Class Reference<div class="ingroups"><a class="el" href="a00613.html">Scripts</a></div></div>  </div>
+<div class="title">bl::script::Value Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Stack aware symbol table for managing functions and variables Each <a class="el" href="a01280.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> holds a single instance.  
- <a href="a01292.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00332_source.html">SymbolTable.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ad91b53a650947a1523208aab0e6224bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#ad91b53a650947a1523208aab0e6224bb">SymbolTable</a> ()</td></tr>
-<tr class="memdesc:ad91b53a650947a1523208aab0e6224bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the global stack frame.  <a href="#ad91b53a650947a1523208aab0e6224bb">More...</a><br /></td></tr>
-<tr class="separator:ad91b53a650947a1523208aab0e6224bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f6f0a655f23b11ad68de746ac08d0ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a6f6f0a655f23b11ad68de746ac08d0ed">pushFrame</a> ()</td></tr>
-<tr class="memdesc:a6f6f0a655f23b11ad68de746ac08d0ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a new stack frame on.  <a href="#a6f6f0a655f23b11ad68de746ac08d0ed">More...</a><br /></td></tr>
-<tr class="separator:a6f6f0a655f23b11ad68de746ac08d0ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c29fc095db199fe93cd33815f04a50e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a8c29fc095db199fe93cd33815f04a50e">popFrame</a> ()</td></tr>
-<tr class="memdesc:a8c29fc095db199fe93cd33815f04a50e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pops off the top stack frame. Will never pop the global frame.  <a href="#a8c29fc095db199fe93cd33815f04a50e">More...</a><br /></td></tr>
-<tr class="separator:a8c29fc095db199fe93cd33815f04a50e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89e14569d024c785b1c1d0d33e3ab84d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a89e14569d024c785b1c1d0d33e3ab84d">exists</a> (const std::string &amp;name) const</td></tr>
-<tr class="memdesc:a89e14569d024c785b1c1d0d33e3ab84d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells whether the given symbol exists or not.  <a href="#a89e14569d024c785b1c1d0d33e3ab84d">More...</a><br /></td></tr>
-<tr class="separator:a89e14569d024c785b1c1d0d33e3ab84d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a799713a6e9efaaa69c6cd0e77546e273"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01296.html#acbf5b46766cd38bf5fa83d695245fe80">Value::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a799713a6e9efaaa69c6cd0e77546e273">get</a> (const std::string &amp;name, bool create=false)</td></tr>
-<tr class="memdesc:a799713a6e9efaaa69c6cd0e77546e273"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="a01296.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> from the current stack frame or above.  <a href="#a799713a6e9efaaa69c6cd0e77546e273">More...</a><br /></td></tr>
-<tr class="separator:a799713a6e9efaaa69c6cd0e77546e273"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49e411ebbf9f1f015533d6ea6fb7bff9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a49e411ebbf9f1f015533d6ea6fb7bff9">set</a> (const std::string &amp;name, const <a class="el" href="a01296.html">Value</a> &amp;value, bool forceTop=false)</td></tr>
-<tr class="memdesc:a49e411ebbf9f1f015533d6ea6fb7bff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a <a class="el" href="a01296.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> in the table in the current frame.  <a href="#a49e411ebbf9f1f015533d6ea6fb7bff9">More...</a><br /></td></tr>
-<tr class="separator:a49e411ebbf9f1f015533d6ea6fb7bff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bf16994a1bbd60736262f905e6c0920"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a6bf16994a1bbd60736262f905e6c0920">kill</a> ()</td></tr>
-<tr class="memdesc:a6bf16994a1bbd60736262f905e6c0920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the internal kill flag to terminate script execution.  <a href="#a6bf16994a1bbd60736262f905e6c0920">More...</a><br /></td></tr>
-<tr class="separator:a6bf16994a1bbd60736262f905e6c0920"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8673d85db1c5a17127770fbcab8c9327"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a8673d85db1c5a17127770fbcab8c9327">killed</a> () const</td></tr>
-<tr class="memdesc:a8673d85db1c5a17127770fbcab8c9327"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the internal kill flag.  <a href="#a8673d85db1c5a17127770fbcab8c9327">More...</a><br /></td></tr>
-<tr class="separator:a8673d85db1c5a17127770fbcab8c9327"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3974125def7e48a5bfd67164f6149c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#aa3974125def7e48a5bfd67164f6149c8">registerManager</a> (<a class="el" href="a01288.html">ScriptManager</a> *<a class="el" href="a01292.html#a84d6d642b0e55268f8583614c8d66d8e">manager</a>)</td></tr>
-<tr class="memdesc:aa3974125def7e48a5bfd67164f6149c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the <a class="el" href="a01288.html" title="Utility class that can manage sets of concurrently running scripts. ">ScriptManager</a> controlling this context.  <a href="#aa3974125def7e48a5bfd67164f6149c8">More...</a><br /></td></tr>
-<tr class="separator:aa3974125def7e48a5bfd67164f6149c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84d6d642b0e55268f8583614c8d66d8e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01288.html">ScriptManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a84d6d642b0e55268f8583614c8d66d8e">manager</a> ()</td></tr>
-<tr class="memdesc:a84d6d642b0e55268f8583614c8d66d8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="a01288.html" title="Utility class that can manage sets of concurrently running scripts. ">ScriptManager</a> managing this context, nullptr if none.  <a href="#a84d6d642b0e55268f8583614c8d66d8e">More...</a><br /></td></tr>
-<tr class="separator:a84d6d642b0e55268f8583614c8d66d8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Stack aware symbol table for managing functions and variables Each <a class="el" href="a01280.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> holds a single instance. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00332_source.html#l00021">21</a> of file <a class="el" href="a00332_source.html">SymbolTable.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad91b53a650947a1523208aab0e6224bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad91b53a650947a1523208aab0e6224bb">&#9670;&nbsp;</a></span>SymbolTable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::scripts::SymbolTable::SymbolTable </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates the global stack frame. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00593_source.html#l00027">27</a> of file <a class="el" href="a00593_source.html">SymbolTable.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a89e14569d024c785b1c1d0d33e3ab84d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89e14569d024c785b1c1d0d33e3ab84d">&#9670;&nbsp;</a></span>exists()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::scripts::SymbolTable::exists </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Tells whether the given symbol exists or not. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the symbol to search for </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00593_source.html#l00042">42</a> of file <a class="el" href="a00593_source.html">SymbolTable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a799713a6e9efaaa69c6cd0e77546e273"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a799713a6e9efaaa69c6cd0e77546e273">&#9670;&nbsp;</a></span>get()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01296.html#acbf5b46766cd38bf5fa83d695245fe80">Value::Ptr</a> bl::scripts::SymbolTable::get </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>create</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a <a class="el" href="a01296.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> from the current stack frame or above. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the <a class="el" href="a01296.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> to get </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01296.html#acbf5b46766cd38bf5fa83d695245fe80">Value::Ptr</a> The <a class="el" href="a01296.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> or nullptr on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00593_source.html#l00048">48</a> of file <a class="el" href="a00593_source.html">SymbolTable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6bf16994a1bbd60736262f905e6c0920"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bf16994a1bbd60736262f905e6c0920">&#9670;&nbsp;</a></span>kill()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::scripts::SymbolTable::kill </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the internal kill flag to terminate script execution. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00593_source.html#l00070">70</a> of file <a class="el" href="a00593_source.html">SymbolTable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8673d85db1c5a17127770fbcab8c9327"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8673d85db1c5a17127770fbcab8c9327">&#9670;&nbsp;</a></span>killed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::scripts::SymbolTable::killed </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the value of the internal kill flag. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00593_source.html#l00072">72</a> of file <a class="el" href="a00593_source.html">SymbolTable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a84d6d642b0e55268f8583614c8d66d8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84d6d642b0e55268f8583614c8d66d8e">&#9670;&nbsp;</a></span>manager()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01288.html">ScriptManager</a> * bl::scripts::SymbolTable::manager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the <a class="el" href="a01288.html" title="Utility class that can manage sets of concurrently running scripts. ">ScriptManager</a> managing this context, nullptr if none. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00593_source.html#l00076">76</a> of file <a class="el" href="a00593_source.html">SymbolTable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8c29fc095db199fe93cd33815f04a50e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c29fc095db199fe93cd33815f04a50e">&#9670;&nbsp;</a></span>popFrame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::scripts::SymbolTable::popFrame </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Pops off the top stack frame. Will never pop the global frame. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00593_source.html#l00035">35</a> of file <a class="el" href="a00593_source.html">SymbolTable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6f6f0a655f23b11ad68de746ac08d0ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f6f0a655f23b11ad68de746ac08d0ed">&#9670;&nbsp;</a></span>pushFrame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::scripts::SymbolTable::pushFrame </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Pushes a new stack frame on. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00593_source.html#l00033">33</a> of file <a class="el" href="a00593_source.html">SymbolTable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa3974125def7e48a5bfd67164f6149c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3974125def7e48a5bfd67164f6149c8">&#9670;&nbsp;</a></span>registerManager()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::scripts::SymbolTable::registerManager </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01288.html">ScriptManager</a> *&#160;</td>
-          <td class="paramname"><em>manager</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Registers the <a class="el" href="a01288.html" title="Utility class that can manage sets of concurrently running scripts. ">ScriptManager</a> controlling this context. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00593_source.html#l00074">74</a> of file <a class="el" href="a00593_source.html">SymbolTable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a49e411ebbf9f1f015533d6ea6fb7bff9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49e411ebbf9f1f015533d6ea6fb7bff9">&#9670;&nbsp;</a></span>set()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::scripts::SymbolTable::set </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01296.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>forceTop</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets a <a class="el" href="a01296.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> in the table in the current frame. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name of the symbol to set or create </td></tr>
-    <tr><td class="paramname">value</td><td>The value to store in the table </td></tr>
-    <tr><td class="paramname">forceTop</td><td>If true will create the variable in the current scope even if it exists in higher scope </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00593_source.html#l00058">58</a> of file <a class="el" href="a00593_source.html">SymbolTable.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Scripts/<a class="el" href="a00332_source.html">SymbolTable.hpp</a></li>
-<li>src/Scripts/<a class="el" href="a00593_source.html">SymbolTable.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01295.html">bl::script::Value</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#ad16baafa0e822170dd7d19e45c0faed0">Array</a> typedef</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#acbc8afe9c1694b8b477a103161d933e1">CPtr</a> typedef</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#a0a2dcb53184e07ffa040243295e57420">CRef</a> typedef</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#aa815be13f76c76d9f8b89d14887db0a0">getAsArray</a>() const</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#a4eaeb0839f75b81ddb27705cd40ee4ef">getAsBool</a>() const</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#a1d43ba3a23d59e66eb9ba5198b532367">getAsFunction</a>() const</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#a21d28161efed232e78963b159fe5a115">getAsNum</a>() const</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#a1d7e118521a9af6e3a6a5e9ab6b2a759">getAsRef</a>()</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#aedbe2f74eb6dd3ba033043b9cd1a6965">getAsRef</a>() const</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#a59347ffb73d2faa3b2d71b1f6873077f">getAsString</a>() const</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#ae9bf298cc4dd29066d594b5bd0eb6bad">getProperty</a>(const std::string &amp;name, bool create=false)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#a7bc47770a251350b28d1e84c385400f8">getType</a>() const</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#a2e5eaacb6e68b704fdcf41a1f8ae7067">makeBool</a>(bool val)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#ab00043951fb27516975784c4a1d66d93">operator=</a>(const Value &amp;)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#aeda70d075fa2bd5858a915a01cd32677">operator=</a>(float num)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#a59be6cbd68e23641b998ae85838e9586">operator=</a>(const std::string &amp;str)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#a2047e6d38b758b822f997bad0a3ba9c6">operator=</a>(const Array &amp;array)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#a82a41df7836c3817a83e21178fdcf7c0">operator=</a>(const std::vector&lt; Value &gt; &amp;array)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#af83d527fa5bd7b1aaaf48cfb25b53300">operator=</a>(Ref ref)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#a33ad299cfbdbe73cb235e7da1319cadd">operator=</a>(const Function &amp;func)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#a05482f040f74aeda3155d42c127ba95c">Ptr</a> typedef</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#ad621fff1c04eac5abd0e59b9381c57cb">Ref</a> typedef</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#a09c062a3cb8c37556eeb02d1afee60c8">setProperty</a>(const std::string &amp;name, const Value &amp;value)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#ab697fcef0281476b23127914839bfe14ae55c266d9cd23ebac42b4144971407d5">TArray</a> enum value</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#ab697fcef0281476b23127914839bfe14a4401d804b826bae63cb72e6a7c3bb1be">TBool</a> enum value</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#ab697fcef0281476b23127914839bfe14a8a7a25c62983665c9b15e52b492dbc49">TFunction</a> enum value</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#ab697fcef0281476b23127914839bfe14a44a89f7fbbc6874ad29c57edddc9c193">TNumeric</a> enum value</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#ab697fcef0281476b23127914839bfe14add8762b1907210434a14f91a9319e22f">TRef</a> enum value</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#ab697fcef0281476b23127914839bfe14a9c080ec4629297d3c2d027c5308b4e85">TString</a> enum value</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#ab697fcef0281476b23127914839bfe14a7d3dd155afe6d7f38b875051947959e2">TVoid</a> enum value</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#ab697fcef0281476b23127914839bfe14">Type</a> enum name</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#a35654d08bdbefe4a3581cb52cb33a59a">Value</a>()</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#aa65a1ef6079d3beb744a3551af613b10">Value</a>(const Value &amp;cpy)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#aebea591dbb898503dabe1b29f7c330ec">Value</a>(float num)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#aaff0579d2ed48f249ab48480c9285765">Value</a>(const std::string &amp;str)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#ab699c6c379b94c94d2fad54440ed4873">Value</a>(const Array &amp;array)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#a6775c2ff53eb7ddd77dd90bb0c1f6435">Value</a>(const std::vector&lt; Value &gt; &amp;array)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01295.html#a4d9d136a3f574477966d11313b7f612a">Value</a>(Ref ref)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01295.html#a654d8c89ca0463ccc0718b6c29f53ad6">Value</a>(const Function &amp;func)</td><td class="entry"><a class="el" href="a01295.html">bl::script::Value</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 7 2021 22:22:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fontresourcemanager',['FontResourceManager',['../a00620.html#af70db8674e6095114faba90a9f9468b7',1,'bl']]]
+  ['fontresourcemanager',['FontResourceManager',['../a00632.html#a447c0867aa84a4f314bc9cc113ce84e9',1,'bl::resource']]]
 ];

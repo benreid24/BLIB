@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::json::schema Namespace Reference</title>
+<title>BLIB: bl::audio Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.1</span>
+   &#160;<span id="projectnumber">0.9.9</span>
    </div>
    <div id="projectbrief">Ben&#39;s SFML Game Library</div>
   </td>
@@ -63,40 +63,36 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00620.html">bl</a></li><li class="navelem"><a class="el" href="a00624.html">json</a></li><li class="navelem"><a class="el" href="a00625.html">schema</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00625.html">audio</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::json::schema Namespace Reference</div>  </div>
+<div class="title">bl::audio Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Sophisticated audio system for managing all music and sounds.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00872.html">Bool</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a boolean value required for <a class="el" href="a00860.html" title="Represents any value type in JSON. ">json::Value</a>.  <a href="a00872.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html">AudioSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centralized control class for sound effects and music. It manages playing sounds, removing finished sounds, looping sounds, global volume, pausing, fading out on exit, and a stack of playlists.  <a href="a01067.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00884.html">List</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a constrained list for <a class="el" href="a00860.html" title="Represents any value type in JSON. ">json::Value</a>. Can supply optional limits on min and max size, as well as supply a <a class="el" href="a00868.html" title="Represents a constraint on the type and value of a json::Value. ">Value</a> to validate the contained items.  <a href="a00884.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00876.html">Numeric</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a constrained numeric value for a <a class="el" href="a00860.html" title="Represents any value type in JSON. ">json::Value</a>. Can optionally supply a minimum and/or maximum value.  <a href="a00876.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00880.html">String</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a constrained string value for <a class="el" href="a00860.html" title="Represents any value type in JSON. ">json::Value</a>. Can optionally supply a set of strings that the value must be.  <a href="a00880.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00868.html">Value</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a constraint on the type and value of a <a class="el" href="a00860.html" title="Represents any value type in JSON. ">json::Value</a>.  <a href="a00868.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html">Playlist</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A playable, serializable music playlist. Can be manually manipulated or loaded from files.  <a href="a01087.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Sophisticated audio system for managing all music and sounds. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 7 2021 22:22:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

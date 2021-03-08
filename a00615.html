@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Binary</title>
+<title>BLIB: bl::container Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.1</span>
+   &#160;<span id="projectnumber">0.9.9</span>
    </div>
    <div id="projectbrief">Ben&#39;s SFML Game Library</div>
   </td>
@@ -47,7 +47,6 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,42 +61,53 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00615.html">container</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Binary<div class="ingroups"><a class="el" href="a00606.html">Files</a></div></div>  </div>
+<div class="title">bl::container Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes for encoding and decoding data into endian agnostic binary files. Core class is BinaryFile.  
+<p>Collection of containers and container like classes more specialized than the STL.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00800.html">bl::bf::BinaryFile</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to read and write binary data. Endianness agnostic Floating point types are not supported. To store floating point values, simply store an integral type and multiply/divide on save/load.  <a href="a00800.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00659.html">Any</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed size equivalent of std::any. Specified size is for in place storage. Stored objects smaller than that size will be stored in place, which allows sequential storage for cache locality optimization. Larger objects will require allocations. In place storage size is always used, even for types requiring allocation. Care must be taken to balance trying to fit many types inplace while minimizing waste for unused inplace storage.  <a href="a00659.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00804.html">bl::bf::SerializableFieldBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for binary serializable fields. Do not use.  <a href="a00804.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00663.html">Cache</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto-evicting cache with several policy options and programmable watermarks.  <a href="a00663.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00812.html">bl::bf::SerializableObject</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for user defined objects that can be serialized in binary files. Data fields to be serialized should be stored as <a class="el" href="a00808.html" title="Template class that represents a serializable field for BinaryFile use. Strings and integral types ar...">SerializableField</a> objects.  <a href="a00812.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00667.html">DynamicObjectPool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic object pool that may vary in size. Similar to <a class="el" href="a00683.html" title="A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...">FastEraseVector</a> in that erase is O(1), however objects in the pool maintain their indices in the <a class="el" href="a00667.html" title="Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1)...">DynamicObjectPool</a>. Object slots are marked free on <a class="el" href="a00667.html#af37f49c2a9ebadee2028221c7af028ae" title="Removes the given iterator from the pool and marks the object slot for resuse. All iterators remain v...">erase()</a>, reused on <a class="el" href="a00667.html#a32395f65fa9daaf142efc3380c0cfa6a" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a>, and the pool grows in size if no slot is when <a class="el" href="a00667.html#a32395f65fa9daaf142efc3380c0cfa6a" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a> is called. Objects must implement a default constructor and copy constructor.  <a href="a00667.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00816.html">bl::bf::Serializer&lt; T, bool &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for serializing types into binary files. Integral types, strings, vector, and SerializableObjects are supported out of the box. Specializations may be provided for user defined types.  <a href="a00816.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00683.html">FastEraseVector</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a00683.html#ac6424078bf8566ee5aab963214fc288f" title="Erase a single element using an iterator. ">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy.  <a href="a00683.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00836.html">bl::bf::VersionedPayloadLoader&lt; Payload &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base interface for payload loaders. File version loaders should implement this interface.  <a href="a00836.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00687.html">FastQueue</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO Container class similar to std::queue but allows promoting an element back to the front in O(1) time. Values contained must be unique.  <a href="a00687.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00691.html">RingBuffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple circular buffer implementation for small objects. Underlying storage is a std::vector of buffers. Objects are constructed with placement new and destructors are called when erased, cleared, or overwritten.  <a href="a00691.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00699.html">Vector2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class that wraps std::vector, making it indexable in two dimensions.  <a href="a00699.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of classes for encoding and decoding data into endian agnostic binary files. Core class is BinaryFile. </p>
-</div><!-- contents -->
+<div class="textblock"><p>Collection of containers and container like classes more specialized than the STL. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 7 2021 22:22:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
