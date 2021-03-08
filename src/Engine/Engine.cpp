@@ -15,6 +15,8 @@ void Engine::useWindow(sf::RenderWindow& w) { renderWindow = &w; }
 
 event::Dispatcher& Engine::eventBus() { return engineEventBus; }
 
+script::Manager& Engine::scriptManager() { return engineScriptManager; }
+
 const Settings& Engine::settings() const { return engineSettings; }
 
 Flags& Engine::flags() { return engineFlags; }

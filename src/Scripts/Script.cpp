@@ -1,5 +1,6 @@
 #include <BLIB/Scripts.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
 #include <Scripts/Parser.hpp>
@@ -27,6 +28,10 @@ Script::Script(const std::string& data)
 
 bool Script::valid() const { return root.get() != nullptr; }
 
+std::optional<script::Value> Script::run(engine::Engine& engine) const {
+    return run(&engine.scriptManager());
+}
+
 std::optional<script::Value> Script::run(Manager* manager) const {
     if (!valid()) return {};
     ExecutionContext::Ptr ctx(new ExecutionContext(root));
@@ -36,6 +41,8 @@ std::optional<script::Value> Script::run(Manager* manager) const {
     onRun();
     return execute(ctx);
 }
+
+void Script::runBackground(engine::Engine& engine) const { runBackground(&engine.scriptManager()); }
 
 void Script::runBackground(Manager* manager) const {
     if (!valid()) return;

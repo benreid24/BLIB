@@ -7,6 +7,13 @@ namespace bl
 {
 namespace script
 {
+namespace unittest
+{
+class ManagerOwner {
+public:
+    Manager manager;
+};
+
 class TestScript : public Script {
 public:
     TestScript(const std::string& input)
@@ -33,8 +40,6 @@ private:
     bool call;
 };
 
-namespace unittest
-{
 TEST(Script, Run) {
     const std::string input = "def square(x) { return x*x; } y = 4; return square(y);";
     const Script script(input);
@@ -63,10 +68,10 @@ TEST(Script, Manager) {
     const Script script(input);
     ASSERT_TRUE(script.valid());
 
-    Manager manager;
-    for (int i = 0; i < 5; ++i) script.runBackground(&manager);
+    ManagerOwner manager;
+    for (int i = 0; i < 5; ++i) script.runBackground(&manager.manager);
     std::this_thread::sleep_for(std::chrono::milliseconds(30));
-    ASSERT_TRUE(manager.terminateAll());
+    ASSERT_TRUE(manager.manager.terminateAll());
 }
 
 TEST(Script, Shadow) {

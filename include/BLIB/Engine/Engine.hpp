@@ -10,6 +10,7 @@
 #include <BLIB/Engine/State.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Resources.hpp>
+#include <BLIB/Scripts/Manager.hpp>
 
 namespace bl
 {
@@ -44,6 +45,13 @@ public:
      *
      */
     event::Dispatcher& eventBus();
+
+    /**
+     * @brief Returns a reference to the engine's script Manager
+     *
+     * @return script::Manager& The script Manager used by all scripts running in this engine
+     */
+    script::Manager& scriptManager();
 
     /**
      * @brief Returns the settings the engine is using
@@ -90,6 +98,7 @@ private:
 
     sf::RenderWindow* renderWindow;
     event::Dispatcher engineEventBus;
+    script::Manager engineScriptManager;
 
     bool awaitFocus();
 };

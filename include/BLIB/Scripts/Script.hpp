@@ -11,6 +11,11 @@
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+}
+
 /// Script interpreter for bScript
 namespace script
 {
@@ -40,16 +45,33 @@ public:
     /**
      * @brief Runs the script in the current thread
      *
-     * @param manager The Manager to use to manage spawned Scripts, if any
+     * @param manager The Manager to use to manage spawned Scripts
      * @return Return value if completed successfully (void if no return) or null on error
      *
      */
     std::optional<script::Value> run(Manager* manager = nullptr) const;
 
     /**
+     * @brief Runs the script in the current thread
+     *
+     * @param engine The Engine to use to manage spawned Scripts
+     * @return Return value if completed successfully (void if no return) or null on error
+     *
+     */
+    std::optional<script::Value> run(engine::Engine& engine) const;
+
+    /**
      * @brief Runs the script in the background
      *
-     * @param manager Manager to register with, nullptr for none
+     * @param manager Engine to register scripts with
+     *
+     */
+    void runBackground(engine::Engine& engine) const;
+
+    /**
+     * @brief Runs the script in the background
+     *
+     * @param manager Manager to register scripts with. Optional
      *
      */
     void runBackground(Manager* manager = nullptr) const;
