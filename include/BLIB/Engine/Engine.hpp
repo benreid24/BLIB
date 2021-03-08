@@ -8,6 +8,7 @@
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
+#include <BLIB/Entities/Registry.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
@@ -40,6 +41,12 @@ public:
     void useWindow(sf::RenderWindow& window);
 
     /**
+     * @brief Returns a reference to the engine wide entity registry
+     *
+     */
+    entity::Registry& entities();
+
+    /**
      * @brief Returns a reference to the primary engine event dispatcher. Engine events and window
      *        events are pushed through this bus
      *
@@ -49,7 +56,6 @@ public:
     /**
      * @brief Returns a reference to the engine's script Manager
      *
-     * @return script::Manager& The script Manager used by all scripts running in this engine
      */
     script::Manager& scriptManager();
 
@@ -99,6 +105,7 @@ private:
     sf::RenderWindow* renderWindow;
     event::Dispatcher engineEventBus;
     script::Manager engineScriptManager;
+    entity::Registry entityRegistry;
 
     bool awaitFocus();
 };
