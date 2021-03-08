@@ -18,6 +18,9 @@
 
 namespace bl
 {
+/// Sophisticated audio system for managing all music and sounds
+namespace audio
+{
 /**
  * @brief Centralized control class for sound effects and music. It manages playing sounds, removing
  *        finished sounds, looping sounds, global volume, pausing, fading out on exit, and a stack
@@ -305,6 +308,7 @@ inline std::shared_ptr<AudioSystem::Sound> AudioSystem::getSound(Handle h) {
 
 inline void AudioSystem::stopSound(Handle h) { get().stopSoundImp(h); }
 
+} // namespace audio
 } // namespace bl
 
 #endif

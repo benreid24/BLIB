@@ -7,15 +7,15 @@
 
 int main() {
     // We will use these later for demonstrating AudioSystem
-    bl::Playlist list1;
+    bl::audio::Playlist list1;
     list1.addSong("resources/song1.ogg");
-    bl::Playlist list2;
+    bl::audio::Playlist list2;
     list2.addSong("resources/song2.ogg");
-    bl::Playlist list3;
+    bl::audio::Playlist list3;
     list3.addSong("resources/song3.ogg");
 
     // playlists may be created manually
-    bl::Playlist playlist;
+    bl::audio::Playlist playlist;
     playlist.addSong("resources/hardRain.wav");
     playlist.addSong("resources/lightRain.wav");
     playlist.addSong("resources/foundItem.wav");
@@ -40,48 +40,49 @@ int main() {
     }
 
     // And load them
-    bl::Playlist mylist("mylist.plst");
+    bl::audio::Playlist mylist("mylist.plst");
     std::cout << "Loaded playlist\n";
 
     // AudioSystem has a background thread which calls update() for us
-    bl::AudioSystem::pushPlaylist(list1);
+    bl::audio::AudioSystem::pushPlaylist(list1);
     std::cout << "Playing playlist through AudioSystem\n";
 
     // AudioSystem also manages running sounds
     std::this_thread::sleep_for(std::chrono::seconds(5));
     std::cout << "Playing thunder\n";
-    bl::AudioSystem::playSound(bl::engine::Resources::sounds().load("resources/thunder.wav").data);
+    bl::audio::AudioSystem::playSound(
+        bl::engine::Resources::sounds().load("resources/thunder.wav").data);
 
     // Sounds may be looped
     std::this_thread::sleep_for(std::chrono::seconds(4));
     std::cout << "Looping eagle\n";
-    auto handle = bl::AudioSystem::playSound(
+    auto handle = bl::audio::AudioSystem::playSound(
         bl::engine::Resources::sounds().load("resources/gameSave.wav").data, true);
 
     // Everything may be paused
     std::this_thread::sleep_for(std::chrono::seconds(4));
     std::cout << "Pausing\n";
-    bl::AudioSystem::pause();
+    bl::audio::AudioSystem::pause();
     std::this_thread::sleep_for(std::chrono::seconds(3));
     std::cout << "Unpausing\n";
-    bl::AudioSystem::resume();
+    bl::audio::AudioSystem::resume();
 
     // Sounds may be stopped using their handles
     std::this_thread::sleep_for(std::chrono::seconds(4));
     std::cout << "Stopping eagle\n";
-    bl::AudioSystem::stopSound(handle);
+    bl::audio::AudioSystem::stopSound(handle);
 
     // AudioSystem maintains a stack of playlists
-    bl::AudioSystem::pushPlaylist(list2);
+    bl::audio::AudioSystem::pushPlaylist(list2);
     std::cout << "Pushing new playlist\n";
     std::this_thread::sleep_for(std::chrono::seconds(7));
     std::cout << "Popping it\n";
-    bl::AudioSystem::popPlaylist();
+    bl::audio::AudioSystem::popPlaylist();
 
     // Playlists may also be replaced
     std::this_thread::sleep_for(std::chrono::seconds(7));
     std::cout << "Replacing current playlist\n";
-    bl::AudioSystem::replacePlaylist(list3); // replace current playing with mylist
+    bl::audio::AudioSystem::replacePlaylist(list3); // replace current playing with mylist
     std::this_thread::sleep_for(std::chrono::seconds(7));
 
     // AudioSystem will fade out and clean up

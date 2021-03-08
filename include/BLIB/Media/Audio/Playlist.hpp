@@ -9,6 +9,8 @@
 
 namespace bl
 {
+namespace audio
+{
 /**
  * @brief A playable, serializable music playlist. Can be manually manipulated or loaded from files
  *
@@ -150,6 +152,7 @@ private:
     void shuffle();
 };
 
+} // namespace audio
 } // namespace bl
 
 #endif

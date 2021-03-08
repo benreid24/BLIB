@@ -7,6 +7,8 @@
 
 namespace bl
 {
+namespace audio
+{
 namespace
 {
 inline std::string songfile(const std::string& path) {
@@ -129,4 +131,5 @@ void Playlist::shuffle() {
     }
 }
 
+} // namespace audio
 } // namespace bl

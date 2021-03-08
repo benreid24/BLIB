@@ -7,6 +7,8 @@
 
 namespace bl
 {
+namespace audio
+{
 namespace
 {
 constexpr unsigned int UpdatePeriod    = 100;  // milliseconds
@@ -321,4 +323,5 @@ AudioSystem::Sound::Sound(AudioSystem::Handle h, Resource<sf::SoundBuffer>::Ref 
 , buffer(r)
 , sound(*r) {}
 
+} // namespace audio
 } // namespace bl
