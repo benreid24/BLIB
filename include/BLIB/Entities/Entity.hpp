@@ -6,6 +6,9 @@
 
 namespace bl
 {
+/// Contains the Entity Component System
+namespace entity
+{
 /**
  * @brief Entity is simply an id. Components are added via a Registry and they own all the
  *        relevant properties. Systems can query lists of Entities with certain components and
@@ -16,8 +19,6 @@ namespace bl
  */
 using Entity = std::uint64_t;
 
-namespace entity
-{
 /**
  * @brief Singleton Entity generator. Can create sequential or random ids
  *
