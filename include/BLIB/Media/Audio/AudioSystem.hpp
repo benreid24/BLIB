@@ -221,7 +221,7 @@ private:
     float musicFadeAmount;
 
     std::shared_mutex soundMutex;
-    DynamicObjectPool<std::shared_ptr<Sound>> sounds;
+    container::DynamicObjectPool<std::shared_ptr<Sound>> sounds;
     std::unordered_map<Handle, std::shared_ptr<Sound>> soundMap;
     SpatialSettings defaultSpatialSettings;
     float maxSpatialDistanceSquared;

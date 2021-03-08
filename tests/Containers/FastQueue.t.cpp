@@ -3,6 +3,8 @@
 
 namespace bl
 {
+namespace container
+{
 namespace unittest
 {
 TEST(FastQueue, FifoTest) {
@@ -59,4 +61,5 @@ TEST(FastQueue, NewElementPromote) {
 }
 
 } // namespace unittest
+} // namespace container
 } // namespace bl

@@ -3,6 +3,8 @@
 
 namespace bl
 {
+namespace container
+{
 namespace unittest
 {
 TEST(Cache, BasicElements) {
@@ -60,4 +62,5 @@ TEST(Cache, WriteEviction) {
 }
 
 } // namespace unittest
+} // namespace container
 } // namespace bl

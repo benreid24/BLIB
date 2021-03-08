@@ -6,6 +6,8 @@
 
 namespace bl
 {
+namespace container
+{
 /**
  * @brief A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector
  *        with a constant time implementation. It works by copying the last item into the
@@ -50,6 +52,7 @@ void FastEraseVector<T, Alloc>::erase(std::size_t i) {
     std::vector<T, Alloc>::pop_back();
 }
 
+} // namespace container
 } // namespace bl
 
 #endif

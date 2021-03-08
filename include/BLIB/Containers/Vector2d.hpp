@@ -5,6 +5,8 @@
 
 namespace bl
 {
+namespace container
+{
 /**
  * @brief Utility class that wraps std::vector, making it indexable in two dimensions
  *
@@ -57,6 +59,7 @@ private:
     int W, H;
 };
 
+} // namespace container
 } // namespace bl
 
 #endif
