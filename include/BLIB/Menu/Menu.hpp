@@ -12,6 +12,7 @@
 
 namespace bl
 {
+/// Collection of classes to create mouseless menus
 namespace menu
 {
 /**
@@ -37,8 +38,8 @@ public:
      * @param position The position to render the root element at
      * @param renderStates Render states to use
      */
-    void render(const Renderer& renderer, sf::RenderTarget& target,
-                const sf::Vector2f& position, sf::RenderStates renderStates = {});
+    void render(const Renderer& renderer, sf::RenderTarget& target, const sf::Vector2f& position,
+                sf::RenderStates renderStates = {});
 
     /**
      * @brief Processes the event and updates the Menu state

@@ -28,7 +28,7 @@ public:
      * @param id The id of this image
      * @return Ptr The new image
      */
-    static Ptr create(Resource<sf::Texture>::Ref texture, const std::string& group = "",
+    static Ptr create(resource::Resource<sf::Texture>::Ref texture, const std::string& group = "",
                       const std::string& id = "");
 
     /**
@@ -60,7 +60,8 @@ protected:
      * @param id The id of this image
      * @return Ptr The new image
      */
-    Image(Resource<sf::Texture>::Ref texture, const std::string& group, const std::string& id);
+    Image(resource::Resource<sf::Texture>::Ref texture, const std::string& group,
+          const std::string& id);
 
     /**
      * @brief Returns the size the image is set to render to. Default is the image size
@@ -79,7 +80,7 @@ protected:
                           const Renderer& renderer) const override;
 
 private:
-    Resource<sf::Texture>::Ref texture;
+    resource::Resource<sf::Texture>::Ref texture;
     sf::Sprite sprite;
     std::optional<sf::Vector2f> size;
     bool fillAcq;

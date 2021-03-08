@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 namespace
 {
@@ -59,8 +59,7 @@ Value Function::operator()(SymbolTable& table, const std::vector<Value>& args) c
         using G                       = Parser::Grammar;
         const parser::Node::Ptr& root = *std::get_if<parser::Node::Ptr>(&data);
         if (root->type != G::FDef) throw Error("Internal error: Expected FDef", root);
-        if (root->children.size() != 2)
-            throw Error("Internal error: Invalid FDef children", root);
+        if (root->children.size() != 2) throw Error("Internal error: Invalid FDef children", root);
         if (!params.has_value()) throw Error("Internal error: Null param list", root);
         const std::vector<std::string>& plist = params.value();
 
@@ -71,8 +70,7 @@ Value Function::operator()(SymbolTable& table, const std::vector<Value>& args) c
         }
         table.pushFrame();
         for (unsigned int i = 0; i < args.size(); ++i) { table.set(plist[i], args[i], true); }
-        const std::optional<Value> ret =
-            ScriptImpl::runStatementList(root->children[1], table);
+        const std::optional<Value> ret = ScriptImpl::runStatementList(root->children[1], table);
         table.popFrame();
         return ret.value_or(Value());
     }
@@ -101,8 +99,7 @@ std::vector<std::string> recurseParams(parser::Node::Ptr plist) {
 std::vector<std::string> parseParams(parser::Node::Ptr fhead) {
     using G = Parser::Grammar;
     if (fhead->children.size() == 3) return {};
-    if (fhead->children.size() != 4)
-        throw Error("Internal error: Invalid FHead children", fhead);
+    if (fhead->children.size() != 4) throw Error("Internal error: Invalid FHead children", fhead);
 
     if (fhead->children[2]->type == G::Id)
         return {fhead->children[2]->data};
@@ -113,5 +110,5 @@ std::vector<std::string> parseParams(parser::Node::Ptr fhead) {
 }
 } // namespace
 
-} // namespace scripts
+} // namespace script
 } // namespace bl

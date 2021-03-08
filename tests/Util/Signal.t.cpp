@@ -3,6 +3,8 @@
 
 namespace bl
 {
+namespace util
+{
 namespace unittest
 {
 TEST(Signal, SetBool) {
@@ -53,4 +55,5 @@ TEST(Signal, Clear) {
 }
 
 } // namespace unittest
+} // namespace util
 } // namespace bl

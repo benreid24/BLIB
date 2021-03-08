@@ -3,6 +3,8 @@
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
 namespace schema
@@ -14,7 +16,7 @@ TEST(Schema, BasicTypesPass) {
                              "\"str\": \"word\","
                              "\"num\": 15,"
                              "\"b\": true }";
-    json::Group root = JSON::loadFromString(json);
+    json::Group root = loadFromString(json);
 
     Schema schema;
     schema.addRequiredField("str", String::Any);
@@ -149,4 +151,5 @@ TEST(Schema, TypeMismatches) {
 } // namespace unittest
 } // namespace schema
 } // namespace json
+} // namespace file
 } // namespace bl

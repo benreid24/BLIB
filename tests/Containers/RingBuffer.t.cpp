@@ -3,6 +3,8 @@
 
 namespace bl
 {
+namespace container
+{
 namespace unittest
 {
 namespace
@@ -135,4 +137,5 @@ TEST(RingBuffer, ClearDestructor) {
 }
 
 } // namespace unittest
+} // namespace container
 } // namespace bl

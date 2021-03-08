@@ -39,7 +39,7 @@ void Item::setAllowSelectionCrossing(bool a) { allowSelectionCross = a; }
 
 bool Item::allowsSelectionCrossing() const { return allowSelectionCross; }
 
-Signal<>& Item::getSignal(EventType e) { return signals[e]; }
+util::Signal<>& Item::getSignal(EventType e) { return signals[e]; }
 
 const RenderItem& Item::getRenderItem() const { return *renderItem; }
 

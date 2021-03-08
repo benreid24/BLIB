@@ -8,10 +8,15 @@
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
-#include <BLIB/Events/EventDispatcher.hpp>
+#include <BLIB/Entities/Registry.hpp>
+#include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Resources.hpp>
+#include <BLIB/Scripts/Manager.hpp>
 
 namespace bl
+{
+/// The core game engine and related classes
+namespace engine
 {
 /**
  * @brief Core engine class that owns engine resources and the main game loop
@@ -26,7 +31,7 @@ public:
      *
      * @param settings Settings for the engine to use
      */
-    Engine(const engine::Settings& settings);
+    Engine(const Settings& settings);
 
     /**
      * @brief Sets the window for the Engine to render to and process events for
@@ -36,30 +41,35 @@ public:
     void useWindow(sf::RenderWindow& window);
 
     /**
-     * @brief Returns a reference to the engine event dispatcher
+     * @brief Returns a reference to the engine wide entity registry
      *
      */
-    engine::EventDispatcher& engineEventDispatcher();
-
-    // TODO - use MultiEventDispatcher for one queue
+    entity::Registry& entities();
 
     /**
-     * @brief Returns a reference to the window event dispatcher
+     * @brief Returns a reference to the primary engine event dispatcher. Engine events and window
+     *        events are pushed through this bus
      *
      */
-    WindowEventDispatcher& windowEventDispatcher();
+    event::Dispatcher& eventBus();
+
+    /**
+     * @brief Returns a reference to the engine's script Manager
+     *
+     */
+    script::Manager& scriptManager();
 
     /**
      * @brief Returns the settings the engine is using
      *
      */
-    const engine::Settings& settings() const;
+    const Settings& settings() const;
 
     /**
      * @brief Returns the flags that can be set to control Engine behavior
      *
      */
-    engine::Flags& flags();
+    Flags& flags();
 
     /**
      * @brief Returns a reference to the window being managed. Undefined behavior if no window
@@ -75,7 +85,7 @@ public:
      * @param initialState The starting engine state
      * @return int Return code of the program
      */
-    int run(engine::State::Ptr initialState);
+    int run(State::Ptr initialState);
 
     /**
      * @brief Sets the next state for the following engine update loop. May be called at any
@@ -84,21 +94,23 @@ public:
      *
      * @param next Next state to enter on the following main loop run
      */
-    void nextState(engine::State::Ptr next);
+    void nextState(State::Ptr next);
 
 private:
-    const engine::Settings engineSettings;
-    engine::Flags engineFlags;
-    std::stack<engine::State::Ptr> states;
-    engine::State::Ptr newState;
+    const Settings engineSettings;
+    Flags engineFlags;
+    std::stack<State::Ptr> states;
+    State::Ptr newState;
 
     sf::RenderWindow* renderWindow;
-    engine::EventDispatcher engineEventBus;
-    WindowEventDispatcher windowEventBus;
+    event::Dispatcher engineEventBus;
+    script::Manager engineScriptManager;
+    entity::Registry entityRegistry;
 
     bool awaitFocus();
 };
 
+} // namespace engine
 } // namespace bl
 
 #endif

@@ -7,6 +7,8 @@
 
 namespace bl
 {
+namespace audio
+{
 namespace
 {
 constexpr unsigned int UpdatePeriod    = 100;  // milliseconds
@@ -123,10 +125,11 @@ void AudioSystem::popPlaylistImp(float fadeout) {
 }
 
 AudioSystem::Handle AudioSystem::create() const {
-    return Random::get<Handle>(1, std::numeric_limits<Handle>::max());
+    return util::Random::get<Handle>(1, std::numeric_limits<Handle>::max());
 }
 
-AudioSystem::Handle AudioSystem::playSoundImp(Resource<sf::SoundBuffer>::Ref sound, bool loop) {
+AudioSystem::Handle AudioSystem::playSoundImp(resource::Resource<sf::SoundBuffer>::Ref sound,
+                                              bool loop) {
     const Handle h = create();
     std::unique_lock lock(soundMutex);
     auto s = *sounds.emplace(new Sound(h, sound));
@@ -137,12 +140,12 @@ AudioSystem::Handle AudioSystem::playSoundImp(Resource<sf::SoundBuffer>::Ref sou
     return h;
 }
 
-AudioSystem::Handle AudioSystem::playSpatialSoundImp(Resource<sf::SoundBuffer>::Ref sound,
+AudioSystem::Handle AudioSystem::playSpatialSoundImp(resource::Resource<sf::SoundBuffer>::Ref sound,
                                                      const sf::Vector2f& pos, bool loop) {
     return playSpatialSound(sound, pos, defaultSpatialSettings, loop);
 }
 
-AudioSystem::Handle AudioSystem::playSpatialSoundImp(Resource<sf::SoundBuffer>::Ref sound,
+AudioSystem::Handle AudioSystem::playSpatialSoundImp(resource::Resource<sf::SoundBuffer>::Ref sound,
                                                      const sf::Vector2f& pos,
                                                      const SpatialSettings& settings, bool loop) {
     std::unique_lock lock(soundMutex);
@@ -316,9 +319,10 @@ void AudioSystem::background() {
     }
 }
 
-AudioSystem::Sound::Sound(AudioSystem::Handle h, Resource<sf::SoundBuffer>::Ref r)
+AudioSystem::Sound::Sound(AudioSystem::Handle h, resource::Resource<sf::SoundBuffer>::Ref r)
 : handle(h)
 , buffer(r)
 , sound(*r) {}
 
+} // namespace audio
 } // namespace bl

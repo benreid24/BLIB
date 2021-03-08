@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 using Symbol = parser::Node::Ptr;
 using G      = Parser::Grammar;
@@ -63,8 +63,7 @@ Value ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
 Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
     if (table.killed()) throw Error("Script killed");
 
-    if (node->type != G::Call)
-        throw Error("Internal error: runFunction called on non Call", node);
+    if (node->type != G::Call) throw Error("Internal error: runFunction called on non Call", node);
     if (node->children.size() != 2 && node->children.size() != 3)
         throw Error("Internal error: Invalid Call children", node);
 
@@ -130,8 +129,7 @@ std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
 
     case G::FDef: {
         node = node->children[0];
-        if (node->children.size() != 2)
-            throw Error("Internal error: Invalid FDef children", node);
+        if (node->children.size() != 2) throw Error("Internal error: Invalid FDef children", node);
         Symbol c = node->children[0];
         if (c->children.size() < 3) throw Error("Internal error: Invalid FHead children", c);
         c = c->children[0];
@@ -202,8 +200,7 @@ std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
 
     Symbol head = node->children[0];
     if (head->type != G::LoopHead) throw Error("Internal error: Expected LoopHead", head);
-    if (head->children.size() != 2)
-        throw Error("Internal error: Invalid LoopHead children", head);
+    if (head->children.size() != 2) throw Error("Internal error: Invalid LoopHead children", head);
     head = head->children[1]; // PGroup
 
     while (evaluateCond(head, table)) {
@@ -217,14 +214,12 @@ std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
 std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
     if (table.killed()) throw Error("Script killed");
     if (node->type != G::ForLoop) throw Error("Internal error: Expected ForLoop", node);
-    if (node->children.size() != 2)
-        throw Error("Internal error: Invalid ForLoop children", node);
+    if (node->children.size() != 2) throw Error("Internal error: Invalid ForLoop children", node);
 
     Symbol head = node->children[0];
     if (head->type != G::ForHead) throw Error("Internal error: Invalid ForLoop child", head);
     if (head->children.size() != 6) throw Error("Invalid ForHead children", head);
-    if (head->children[2]->type != G::Id)
-        throw Error("Invalid ForHead child", head->children[2]);
+    if (head->children[2]->type != G::Id) throw Error("Invalid ForHead child", head->children[2]);
 
     const Value arr        = computeValue(head->children[4], table);
     const std::string iter = head->children[2]->data;
@@ -243,8 +238,7 @@ std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
 
 std::optional<Value> ScriptImpl::runConditional(Symbol node, SymbolTable& table) {
     if (table.killed()) throw Error("Script killed");
-    if (node->type != G::Conditional)
-        throw Error("Internal error: Expected Conditional", node);
+    if (node->type != G::Conditional) throw Error("Internal error: Expected Conditional", node);
     if (node->children.size() != 1)
         throw Error("Internal error: Invalid Conditional children", node);
 
@@ -272,8 +266,7 @@ std::optional<Value> ScriptImpl::runConditional(Symbol node, SymbolTable& table)
 
 bool ScriptImpl::evaluateCond(Symbol node, SymbolTable& table) {
     if (node->type != G::PGroup) throw Error("Internal error: Expected PGroup", node);
-    if (node->children.size() != 3)
-        throw Error("Internal error: Invalid PGroup children", node);
+    if (node->children.size() != 3) throw Error("Internal error: Invalid PGroup children", node);
     return ScriptImpl::computeValue(node->children[1], table).getAsBool();
 }
 
@@ -293,8 +286,7 @@ std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran) {
 
     if (node->children.size() == 1) {
         node = node->children[0];
-        if (node->type != G::IfBlock)
-            throw Error("Internal error: Invalid ElifChain child", node);
+        if (node->type != G::IfBlock) throw Error("Internal error: Invalid ElifChain child", node);
         if (ScriptImpl::evaluateCond(getCond(node), table)) {
             ran = true;
             if (node->children.size() != 2)
@@ -320,13 +312,11 @@ std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran) {
 }
 
 Value evalOrGrp(Symbol node, SymbolTable& table) {
-    if (node->type != G::OrGrp)
-        throw Error("Internal error: evalOrGrp called on non OrGrp", node);
+    if (node->type != G::OrGrp) throw Error("Internal error: evalOrGrp called on non OrGrp", node);
     if (node->children.size() == 1)
         return evalAndGrp(node->children[0], table);
     else if (node->children.size() == 3)
-        return Ops::Or(evalOrGrp(node->children[0], table),
-                       evalAndGrp(node->children[2], table));
+        return Ops::Or(evalOrGrp(node->children[0], table), evalAndGrp(node->children[2], table));
     throw Error("Internal error: OrGrp node has invalid child", node);
 }
 
@@ -336,8 +326,7 @@ Value evalAndGrp(Symbol node, SymbolTable& table) {
     if (node->children.size() == 1)
         return evalNegGrp(node->children[0], table);
     else if (node->children.size() == 3)
-        return Ops::And(evalAndGrp(node->children[0], table),
-                        evalNegGrp(node->children[2], table));
+        return Ops::And(evalAndGrp(node->children[0], table), evalNegGrp(node->children[2], table));
     throw Error("Internal error: AndGrp node has invalid child", node);
 }
 
@@ -465,8 +454,7 @@ Value evalTVal(Symbol node, SymbolTable& table) {
         return r;
     }
     case G::UNeg: {
-        if (node->children.size() != 2)
-            throw Error("Internal error: Invalid UNeg children", node);
+        if (node->children.size() != 2) throw Error("Internal error: Invalid UNeg children", node);
         const Value v = evalTVal(node->children[1], table);
         if (v.getType() != Value::TNumeric)
             throw Error("Right operand of unary '-' must be Numeric", node->children[1]);
@@ -494,8 +482,7 @@ Value::Ptr evalRVal(Symbol node, SymbolTable& table, bool create) {
         Value::Ptr v = evalRVal(node->children[0], table, create);
         v            = v->getProperty(node->children[2]->data, create);
         if (!v)
-            throw Error("Undefined property '" + node->children[2]->data + "'",
-                        node->children[2]);
+            throw Error("Undefined property '" + node->children[2]->data + "'", node->children[2]);
         return v;
     }
     case G::ArrayAcc: {
@@ -511,8 +498,7 @@ Value::Ptr evalRVal(Symbol node, SymbolTable& table, bool create) {
         if (i.getAsNum() != j)
             throw Error("Array indices must be positive integers", node->children[2]);
         if (j >= v->getAsArray().size())
-            throw Error("Array index " + std::to_string(j) + " out of bounds",
-                        node->children[2]);
+            throw Error("Array index " + std::to_string(j) + " out of bounds", node->children[2]);
         return v->getAsArray()[j];
     }
     default:
@@ -521,8 +507,7 @@ Value::Ptr evalRVal(Symbol node, SymbolTable& table, bool create) {
 }
 
 std::vector<Value> evalList(Symbol node, SymbolTable& table) {
-    if (node->type != G::ValueList)
-        throw Error("Internal error: evalList called on non ValueList");
+    if (node->type != G::ValueList) throw Error("Internal error: evalList called on non ValueList");
 
     if (node->children.size() == 1)
         return {ScriptImpl::computeValue(node->children[0], table)};
@@ -743,8 +728,7 @@ Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
         return a;
     }
     default:
-        throw Error("Valid left operand types for '+' are Array, String, and Numeric only",
-                    node);
+        throw Error("Valid left operand types for '+' are Array, String, and Numeric only", node);
     }
 }
 
@@ -767,8 +751,7 @@ Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
     case Value::TString:
         if (rh.getType() == Value::TNumeric) {
             const unsigned int n = static_cast<unsigned int>(rh.getAsNum());
-            if (n != rh.getAsNum())
-                throw Error("Multiplier must be a positive integer or 0", node);
+            if (n != rh.getAsNum()) throw Error("Multiplier must be a positive integer or 0", node);
             std::string r;
             for (unsigned int i = 0; i < n; ++i) { r += lh.getAsString(); }
             return r;
@@ -777,8 +760,7 @@ Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
     case Value::TArray:
         if (rh.getType() == Value::TNumeric) {
             const unsigned int n = static_cast<unsigned int>(rh.getAsNum());
-            if (n != rh.getAsNum())
-                throw Error("Multiplier must be a positive integer or 0", node);
+            if (n != rh.getAsNum()) throw Error("Multiplier must be a positive integer or 0", node);
             Value::Array a;
             a.reserve(a.size() * n);
             for (unsigned int i = 0; i < n; ++i) {
@@ -788,8 +770,7 @@ Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
         }
         throw Error("An Array type can only be multiplied by a Numeric type", node);
     default:
-        throw Error("Valid left operand types for '*' are Array, String, and Numeric only",
-                    node);
+        throw Error("Valid left operand types for '*' are Array, String, and Numeric only", node);
     }
 }
 
@@ -830,5 +811,5 @@ Value::Ptr deref(Value::Ptr val) {
 
 } // namespace
 
-} // namespace scripts
+} // namespace script
 } // namespace bl

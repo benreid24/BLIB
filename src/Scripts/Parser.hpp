@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 /**
  * @brief Implementation of a Parser for the scripting language
@@ -136,15 +136,15 @@ struct Parser {
         // Function Definition
         ParamList, // Id Comma Id. ParamList Comma Id
         FName,     // Def Id
-        FHead, // FName LParen ParamList RParen. FName LParen Id RParen. FName LParen RParen
-        FDef,  // FHead StmtBlock
+        FHead,     // FName LParen ParamList RParen. FName LParen Id RParen. FName LParen RParen
+        FDef,      // FHead StmtBlock
 
         // Program
         Program // StmtList
     };
 };
 
-} // namespace scripts
+} // namespace script
 } // namespace bl
 
 #endif

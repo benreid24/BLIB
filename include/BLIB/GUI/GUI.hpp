@@ -1,11 +1,15 @@
 #ifndef BLIB_GUI_GUI_HPP
 #define BLIB_GUI_GUI_HPP
 
+#include <BLIB/Events/Dispatcher.hpp>
+#include <BLIB/Events/Listener.hpp>
 #include <BLIB/GUI/Elements/Box.hpp>
-#include <BLIB/Events/EventListener.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace bl
+{
+/// A window based graphical user interface
+namespace gui
 {
 /**
  * @brief Top level class for creating a graphical user interface
@@ -19,7 +23,7 @@ namespace bl
 class GUI
 : public sf::Drawable
 , public sf::Transformable
-, public bl::WindowEventListener
+, public bl::event::Listener<sf::Event>
 , public gui::Box {
 public:
     typedef std::shared_ptr<GUI> Ptr;
@@ -56,6 +60,13 @@ public:
      */
     virtual void observe(const sf::Event& event) override;
 
+    /**
+     * @brief Subscribes the GUI to the event dispatcher to start receiving window events
+     *
+     * @param dispatcher The event dispatcher to get events from
+     */
+    void subscribe(event::Dispatcher& dispatcher);
+
 protected:
     /**
      * @brief Renders the GUI to the target
@@ -77,6 +88,7 @@ private:
         const std::string& id = "");
 };
 
+} // namespace gui
 } // namespace bl
 
 #endif

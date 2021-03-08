@@ -11,7 +11,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 class SymbolTable;
 
@@ -70,7 +70,7 @@ private:
     std::optional<std::vector<std::string>> params;
 };
 
-} // namespace scripts
+} // namespace script
 } // namespace bl
 
 #endif

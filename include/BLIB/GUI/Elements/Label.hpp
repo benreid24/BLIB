@@ -2,7 +2,7 @@
 #define BLIB_GUI_ELEMENTS_LABEL_HPP
 
 #include <BLIB/GUI/Elements/Element.hpp>
-#include <BLIB/Resources/ResourceLoader.hpp>
+#include <BLIB/Resources/Loader.hpp>
 
 namespace bl
 {

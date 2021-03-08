@@ -7,6 +7,8 @@
 
 namespace bl
 {
+namespace container
+{
 /**
  * @brief FIFO Container class similar to std::queue but allows promoting an element back to
  *         the front in O(1) time. Values contained must be unique
@@ -170,6 +172,7 @@ void FastQueue<T>::clear() {
     containedValues.clear();
 }
 
+} // namespace container
 } // namespace bl
 
 #endif

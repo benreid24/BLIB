@@ -33,7 +33,7 @@ public:
 
 private:
     const float width;
-    mutable bl::Triangle triangle;
+    mutable bl::shapes::Triangle triangle;
 
     ArrowSelector(float width);
 };

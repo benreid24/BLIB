@@ -12,6 +12,8 @@
 
 namespace bl
 {
+namespace logging
+{
 class Logger;
 
 /**
@@ -22,7 +24,7 @@ class Logger;
  * @ingroup Logging
  *
  */
-class LoggingConfig : public NonCopyable {
+class Config : public util::NonCopyable {
 public:
     static constexpr int Critical = 5;
     static constexpr int Error    = 4;
@@ -70,12 +72,13 @@ private:
     void lock() const;
     void unlock() const;
 
-    LoggingConfig();
-    static LoggingConfig& get();
+    Config();
+    static Config& get();
 
     friend class Logger;
 };
 
+} // namespace logging
 } // namespace bl
 
 #endif

@@ -7,6 +7,8 @@ class Map;
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
 template<>
@@ -15,8 +17,8 @@ struct Serializer<Map> {
 
     static Value serialize(const Map& value);
 };
-
 } // namespace json
+} // namespace file
 } // namespace bl
 
 /**
@@ -24,7 +26,7 @@ struct Serializer<Map> {
  *        SerializableField in parent objects
  *
  */
-struct Npc : public bl::json::SerializableObject {
+struct Npc : public bl::file::json::SerializableObject {
     Npc()
     : name("name", *this)
     , health("health", *this) {}
@@ -42,8 +44,8 @@ struct Npc : public bl::json::SerializableObject {
         health.setValue(h);
     }
 
-    bl::json::SerializableField<std::string> name;
-    bl::json::SerializableField<int> health;
+    bl::file::json::SerializableField<std::string> name;
+    bl::file::json::SerializableField<int> health;
 };
 
 /**
@@ -60,10 +62,10 @@ struct Map {
  * @brief World inherits from SerializableObject and can be directly serialized and deserialized
  *
  */
-struct World : public bl::json::SerializableObject {
-    bl::json::SerializableField<Map> map;
-    bl::json::SerializableField<std::string> test;
-    bl::json::SerializableField<std::vector<Npc>> npcs;
+struct World : public bl::file::json::SerializableObject {
+    bl::file::json::SerializableField<Map> map;
+    bl::file::json::SerializableField<std::string> test;
+    bl::file::json::SerializableField<std::vector<Npc>> npcs;
 
     World()
     : map("map", *this)

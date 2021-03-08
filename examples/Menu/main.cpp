@@ -1,5 +1,5 @@
+#include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Menu.hpp>
-#include <BLIB/Events/EventDispatcher.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -18,15 +18,11 @@ int main() {
 
     bl::menu::Item::Ptr newGame =
         bl::menu::Item::create(bl::menu::TextRenderItem::create(sf::Text("New Game", font)));
-    newGame->getSignal(bl::menu::Item::Activated).willCall([]() {
-        std::cout << "New Game\n";
-    });
+    newGame->getSignal(bl::menu::Item::Activated).willCall([]() { std::cout << "New Game\n"; });
 
     bl::menu::Item::Ptr loadGame =
         bl::menu::Item::create(bl::menu::TextRenderItem::create(sf::Text("Load Game", font)));
-    loadGame->getSignal(bl::menu::Item::Activated).willCall([]() {
-        std::cout << "Load Game\n";
-    });
+    loadGame->getSignal(bl::menu::Item::Activated).willCall([]() { std::cout << "Load Game\n"; });
 
     bl::menu::Item::Ptr quit =
         bl::menu::Item::create(bl::menu::TextRenderItem::create(sf::Text("Quit", font)));
@@ -40,7 +36,7 @@ int main() {
     bl::menu::KeyboardEventGenerator keyboardEventGenerator(menu);
     bl::menu::MouseEventGenerator mouseEventGenerator(menu);
 
-    bl::WindowEventDispatcher eventDispatcher;
+    bl::event::Dispatcher eventDispatcher;
     eventDispatcher.subscribe(&keyboardEventGenerator);
     eventDispatcher.subscribe(&mouseEventGenerator);
 
@@ -56,7 +52,7 @@ int main() {
                 window.close();
                 break;
             }
-            eventDispatcher.dispatch(event);
+            eventDispatcher.dispatch<sf::Event>(event);
         }
 
         window.clear();

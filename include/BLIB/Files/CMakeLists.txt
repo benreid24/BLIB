@@ -1,6 +1,6 @@
 target_sources(BLIB PUBLIC
     Binary.hpp
-    FileUtil.hpp
+    Util.hpp
     JSON.hpp
 )
 

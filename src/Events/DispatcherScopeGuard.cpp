@@ -1,17 +1,19 @@
-#include <BLIB/Events/MultiEventDispatcherScopeGuard.hpp>
+#include <BLIB/Events/DispatcherScopeGuard.hpp>
 
 namespace bl
 {
-MultiEventDispatcherScopeGuard::MultiEventDispatcherScopeGuard(MultiEventDispatcher& dispatcher)
+namespace event
+{
+DispatcherScopeGuard::DispatcherScopeGuard(Dispatcher& dispatcher)
 : dispatcher(dispatcher) {}
 
-MultiEventDispatcherScopeGuard::~MultiEventDispatcherScopeGuard() {
+DispatcherScopeGuard::~DispatcherScopeGuard() {
     for (const auto tpair : listeners) {
         for (void* l : tpair.second) { dispatcher.remove(tpair.first, l); }
     }
 }
 
-void MultiEventDispatcherScopeGuard::remove(const std::type_index& t, void* val) {
+void DispatcherScopeGuard::remove(const std::type_index& t, void* val) {
     auto lit = listeners.find(t);
     if (lit != listeners.end()) {
         for (unsigned int j = 0; j < lit->second.size(); ++j) {
@@ -23,4 +25,5 @@ void MultiEventDispatcherScopeGuard::remove(const std::type_index& t, void* val)
     }
 }
 
+} // namespace event
 } // namespace bl

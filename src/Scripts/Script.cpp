@@ -1,6 +1,7 @@
 #include <BLIB/Scripts.hpp>
 
-#include <BLIB/Files/FileUtil.hpp>
+#include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
 #include <Scripts/Parser.hpp>
 #include <Scripts/ScriptImpl.hpp>
@@ -10,24 +11,28 @@
 
 namespace bl
 {
-using namespace scripts;
-
+namespace script
+{
 Script::Script(const std::string& data)
 : source(data) {
     std::string input = data;
-    if (FileUtil::exists(data)) {
+    if (file::Util::exists(data)) {
         std::ifstream file(data.c_str());
         file.seekg(0, std::ios::end);
         input.reserve(file.tellg());
         file.seekg(0, std::ios::beg);
         input.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
     }
-    root = scripts::Parser::parse(input);
+    root = script::Parser::parse(input);
 }
 
 bool Script::valid() const { return root.get() != nullptr; }
 
-std::optional<scripts::Value> Script::run(ScriptManager* manager) const {
+std::optional<script::Value> Script::run(engine::Engine& engine) const {
+    return run(&engine.scriptManager());
+}
+
+std::optional<script::Value> Script::run(Manager* manager) const {
     if (!valid()) return {};
     ExecutionContext::Ptr ctx(new ExecutionContext(root));
     ctx->table = generateBaseTable();
@@ -37,7 +42,9 @@ std::optional<scripts::Value> Script::run(ScriptManager* manager) const {
     return execute(ctx);
 }
 
-void Script::runBackground(ScriptManager* manager) const {
+void Script::runBackground(engine::Engine& engine) const { runBackground(&engine.scriptManager()); }
+
+void Script::runBackground(Manager* manager) const {
     if (!valid()) return;
     ExecutionContext::Ptr ctx(new ExecutionContext(root));
     ctx->table = generateBaseTable();
@@ -49,9 +56,9 @@ void Script::runBackground(ScriptManager* manager) const {
     if (manager) manager->watch(ctx);
 }
 
-std::optional<scripts::Value> Script::execute(ExecutionContext::Ptr context) const {
+std::optional<script::Value> Script::execute(ExecutionContext::Ptr context) const {
     try {
-        std::optional<scripts::Value> r =
+        std::optional<script::Value> r =
             ScriptImpl::runStatementList(context->root->children[0], context->table);
         context->running = false;
         context.reset();
@@ -70,4 +77,5 @@ SymbolTable Script::generateBaseTable() const {
     return table;
 }
 
+} // namespace script
 } // namespace bl

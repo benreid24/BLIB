@@ -28,7 +28,7 @@ class Slider;
  *
  */
 class Element
-: public bl::NonCopyable
+: public bl::util::NonCopyable
 , public std::enable_shared_from_this<Element> {
 public:
     typedef std::shared_ptr<Element> Ptr;
@@ -237,8 +237,7 @@ public:
      * @param states Render states to apply
      * @param renderer The renderer to use
      */
-    void render(sf::RenderTarget& target, sf::RenderStates states,
-                const Renderer& renderer) const;
+    void render(sf::RenderTarget& target, sf::RenderStates states, const Renderer& renderer) const;
 
     /**
      * @brief Set the character size. Default is 12. Doesn't apply to all Element types
@@ -295,7 +294,7 @@ public:
      *
      * @param font Resource managed font to use
      */
-    void setFont(bl::Resource<sf::Font>::Ref font);
+    void setFont(bl::resource::Resource<sf::Font>::Ref font);
 
     /**
      * @brief Set the horizontal alignment. Doesn't apply to all Element types

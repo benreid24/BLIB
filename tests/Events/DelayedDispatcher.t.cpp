@@ -1,14 +1,16 @@
-#include <BLIB/Events/DelayedEventDispatcher.hpp>
+#include <BLIB/Events/DelayedDispatcher.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 namespace bl
 {
+namespace event
+{
 namespace unittest
 {
 namespace
 {
-class MockListener : public MultiEventListener<int, std::string> {
+class MockListener : public Listener<int, std::string> {
 public:
     virtual ~MockListener() = default;
 
@@ -18,8 +20,8 @@ public:
 
 } // namespace
 
-TEST(DelayedEventDispatcher, ManualDtorDrain) {
-    MultiEventDispatcher dispatch;
+TEST(DelayedDispatcher, ManualDtorDrain) {
+    Dispatcher dispatch;
     MockListener listener;
     dispatch.subscribe(&listener);
 
@@ -27,35 +29,35 @@ TEST(DelayedEventDispatcher, ManualDtorDrain) {
     EXPECT_CALL(listener, observe("Hello"));
 
     {
-        DelayedEventDispatcher delayed(dispatch, false);
+        DelayedDispatcher delayed(dispatch, false);
         delayed.dispatch<int>(5);
         delayed.dispatch<std::string>("Hello");
     }
 }
 
-TEST(DelayedEventDispatcher, ManualDrain) {
-    MultiEventDispatcher dispatch;
+TEST(DelayedDispatcher, ManualDrain) {
+    Dispatcher dispatch;
     MockListener listener;
     dispatch.subscribe(&listener);
 
     EXPECT_CALL(listener, observe(5));
     EXPECT_CALL(listener, observe("Hello"));
 
-    DelayedEventDispatcher delayed(dispatch, false);
+    DelayedDispatcher delayed(dispatch, false);
     delayed.dispatch<int>(5);
     delayed.dispatch<std::string>("Hello");
     delayed.drain();
 }
 
-TEST(DelayedEventDispatcher, BackgroundDrain) {
-    MultiEventDispatcher dispatch;
+TEST(DelayedDispatcher, BackgroundDrain) {
+    Dispatcher dispatch;
     MockListener listener;
     dispatch.subscribe(&listener);
 
     EXPECT_CALL(listener, observe(5));
     EXPECT_CALL(listener, observe("Hello"));
 
-    DelayedEventDispatcher delayed(dispatch, true);
+    DelayedDispatcher delayed(dispatch, true);
     delayed.dispatch<int>(5);
     delayed.dispatch<std::string>("Hello");
 
@@ -63,4 +65,5 @@ TEST(DelayedEventDispatcher, BackgroundDrain) {
 }
 
 } // namespace unittest
+} // namespace event
 } // namespace bl

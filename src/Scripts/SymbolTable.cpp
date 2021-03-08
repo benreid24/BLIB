@@ -1,16 +1,15 @@
 #include <BLIB/Scripts/SymbolTable.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Scripts/ScriptManager.hpp>
+#include <BLIB/Scripts/Manager.hpp>
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 namespace
 {
-using TableKey =
-    std::pair<unsigned int, std::unordered_map<std::string, Value::Ptr>::iterator>;
+using TableKey = std::pair<unsigned int, std::unordered_map<std::string, Value::Ptr>::iterator>;
 
 TableKey searchTable(const std::string& name,
                      std::vector<std::unordered_map<std::string, Value::Ptr>>& table,
@@ -40,7 +39,7 @@ void SymbolTable::popFrame() {
 }
 
 bool SymbolTable::exists(const std::string& name) const {
-    auto& tbl = const_cast<std::vector<std::unordered_map<std::string, Value::Ptr>>&>(table);
+    auto& tbl    = const_cast<std::vector<std::unordered_map<std::string, Value::Ptr>>&>(table);
     TableKey key = searchTable(name, tbl);
     return table[key.first].end() != key.second;
 }
@@ -71,9 +70,9 @@ void SymbolTable::kill() { stop = true; }
 
 bool SymbolTable::killed() const { return stop; }
 
-void SymbolTable::registerManager(ScriptManager* m) { mgr = m; }
+void SymbolTable::registerManager(Manager* m) { mgr = m; }
 
-ScriptManager* SymbolTable::manager() { return mgr; }
+Manager* SymbolTable::manager() { return mgr; }
 
-} // namespace scripts
+} // namespace script
 } // namespace bl

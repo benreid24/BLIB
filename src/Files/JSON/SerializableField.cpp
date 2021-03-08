@@ -2,6 +2,8 @@
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
 SerializableFieldBase::SerializableFieldBase(const std::string& name, SerializableObject& owner)
@@ -12,4 +14,5 @@ SerializableFieldBase::SerializableFieldBase(const std::string& name, Serializab
 const std::string& SerializableFieldBase::getName() const { return name; }
 
 } // namespace json
+} // namespace file
 } // namespace bl

@@ -5,6 +5,8 @@
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
 Loader::Loader(const std::string& filename)
@@ -255,4 +257,5 @@ Group Loader::loadGroup() {
 }
 
 } // namespace json
+} // namespace file
 } // namespace bl

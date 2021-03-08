@@ -17,7 +17,7 @@ namespace gui
  * @ingroup GUI
  *
  */
-class Packer : public bl::NonCopyable {
+class Packer : public bl::util::NonCopyable {
 public:
     typedef std::shared_ptr<Packer> Ptr;
 

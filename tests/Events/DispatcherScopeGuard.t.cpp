@@ -1,15 +1,17 @@
-#include <BLIB/Events/MultiEventDispatcher.hpp>
-#include <BLIB/Events/MultiEventDispatcherScopeGuard.hpp>
+#include <BLIB/Events/Dispatcher.hpp>
+#include <BLIB/Events/DispatcherScopeGuard.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 namespace bl
 {
+namespace event
+{
 namespace unittest
 {
 namespace
 {
-class MockListener : public MultiEventListener<int, std::string> {
+class MockListener : public Listener<int, std::string> {
 public:
     virtual ~MockListener() = default;
 
@@ -19,15 +21,15 @@ public:
 
 } // namespace
 
-TEST(MultiEventDispatcherScopeGuard, Scoped) {
-    MultiEventDispatcher dispatch;
+TEST(DispatcherScopeGuard, Scoped) {
+    Dispatcher dispatch;
     MockListener listener;
 
     EXPECT_CALL(listener, observe(5)).Times(1);
     EXPECT_CALL(listener, observe("Hello")).Times(1);
 
     {
-        MultiEventDispatcherScopeGuard guard(dispatch);
+        DispatcherScopeGuard guard(dispatch);
         guard.subscribe(&listener);
         dispatch.dispatch<int>(5);
         dispatch.dispatch<std::string>("Hello");
@@ -37,9 +39,9 @@ TEST(MultiEventDispatcherScopeGuard, Scoped) {
     dispatch.dispatch<std::string>("Hello");
 }
 
-TEST(MultiEventDispatcherScopeGuard, Unsubscribe) {
-    MultiEventDispatcher dispatch;
-    MultiEventDispatcherScopeGuard guard(dispatch);
+TEST(DispatcherScopeGuard, Unsubscribe) {
+    Dispatcher dispatch;
+    DispatcherScopeGuard guard(dispatch);
 
     ::testing::StrictMock<MockListener> listener;
     guard.subscribe(&listener);
@@ -50,4 +52,5 @@ TEST(MultiEventDispatcherScopeGuard, Unsubscribe) {
 }
 
 } // namespace unittest
+} // namespace event
 } // namespace bl

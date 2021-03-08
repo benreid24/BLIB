@@ -4,6 +4,8 @@
 
 namespace bl
 {
+namespace shapes
+{
 Ellipse::Ellipse(float major, float minor, bool co, unsigned int pc)
 : nPoints(pc) {
     setAxes(major, minor, co);
@@ -34,4 +36,5 @@ sf::Vector2f Ellipse::getPoint(std::size_t index) const {
     return {x + majorRadius, y + minorRadius};
 }
 
+} // namespace shapes
 } // namespace bl

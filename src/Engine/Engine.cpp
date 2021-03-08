@@ -5,25 +5,30 @@
 
 namespace bl
 {
-Engine::Engine(const engine::Settings& settings)
+namespace engine
+{
+Engine::Engine(const Settings& settings)
 : renderWindow(nullptr)
 , engineSettings(settings) {}
 
 void Engine::useWindow(sf::RenderWindow& w) { renderWindow = &w; }
 
-engine::EventDispatcher& Engine::engineEventDispatcher() { return engineEventBus; }
+event::Dispatcher& Engine::eventBus() { return engineEventBus; }
 
-WindowEventDispatcher& Engine::windowEventDispatcher() { return windowEventBus; }
+entity::Registry& Engine::entities() { return entityRegistry; }
 
-const engine::Settings& Engine::settings() const { return engineSettings; }
+script::Manager& Engine::scriptManager() { return engineScriptManager; }
 
-engine::Flags& Engine::flags() { return engineFlags; }
+const Settings& Engine::settings() const { return engineSettings; }
+
+Flags& Engine::flags() { return engineFlags; }
 
 sf::RenderWindow& Engine::window() { return *renderWindow; }
 
-void Engine::nextState(engine::State::Ptr next) { newState = next; }
+void Engine::nextState(State::Ptr next) { newState = next; }
 
-int Engine::run(engine::State::Ptr initialState) {
+int Engine::run(State::Ptr initialState) {
+    BL_LOG_INFO << "Starting engine with state: " << initialState->name();
     states.push(initialState);
 
     sf::Clock timer;
@@ -61,7 +66,7 @@ int Engine::run(engine::State::Ptr initialState) {
         if (renderWindow) {
             sf::Event event;
             while (renderWindow->pollEvent(event)) {
-                windowEventBus.dispatch(event);
+                engineEventBus.dispatch<sf::Event>(event);
 
                 if (event.type == sf::Event::Closed) {
                     renderWindow->close();
@@ -87,15 +92,14 @@ int Engine::run(engine::State::Ptr initialState) {
             const float updateStart = updateTimer.getElapsedTime().asSeconds();
             states.top()->update(*this, updateTimestep);
             lag -= updateTimestep;
-            averageUpdateTime =
-                0.8f * averageUpdateTime +
-                0.2f * (updateTimer.getElapsedTime().asSeconds() - updateStart);
+            averageUpdateTime = 0.8f * averageUpdateTime +
+                                0.2f * (updateTimer.getElapsedTime().asSeconds() - updateStart);
             if (updateTimer.getElapsedTime().asSeconds() > startingLag * 1.1f) {
                 fallBehindWarning(updateTimer.getElapsedTime().asSeconds() - startingLag);
                 if (engineSettings.allowVariableTimestep()) {
                     const float newTs = updateTimestep * 1.05f;
-                    BL_LOG_INFO << "Adjusting update timestep from " << updateTimestep
-                                << "s to " << newTs << "s";
+                    BL_LOG_INFO << "Adjusting update timestep from " << updateTimestep << "s to "
+                                << newTs << "s";
                     updateTimestep    = newTs;
                     averageUpdateTime = updateTimestep;
                 }
@@ -108,8 +112,7 @@ int Engine::run(engine::State::Ptr initialState) {
         if (averageUpdateTime < updateTimestep * 0.9f &&
             updateTimestep > engineSettings.updateTimestep()) {
             float newTs = (1 - averageUpdateTime / updateTimestep) / 2.f * updateTimestep;
-            if (newTs < engineSettings.updateTimestep())
-                newTs = engineSettings.updateTimestep();
+            if (newTs < engineSettings.updateTimestep()) newTs = engineSettings.updateTimestep();
             BL_LOG_INFO << "Performance improved, adjusting timestep from " << updateTimestep
                         << "s to " << newTs << "s";
             updateTimestep = newTs;
@@ -117,22 +120,26 @@ int Engine::run(engine::State::Ptr initialState) {
         states.top()->render(*this, lag);
 
         // Process flags
-        if (engineFlags.active(engine::Flags::Terminate)) {
+        if (engineFlags.active(Flags::Terminate)) {
             if (renderWindow) renderWindow->close();
             return 1;
         }
-        else if (engineFlags.active(engine::Flags::PopState)) {
+        else if (engineFlags.active(Flags::PopState)) {
+            BL_LOG_INFO << "Popping state: " << states.top()->name();
             states.top()->onPoppedOff(*this);
             states.pop();
             if (states.empty()) {
+                BL_LOG_INFO << "Final state popped, exiting";
                 if (renderWindow) renderWindow->close();
                 return 0;
             }
+            BL_LOG_INFO << "New engine state: " << states.top()->name();
             states.top()->makeActive(*this);
         }
 
         // Handle state transition
         if (newState) {
+            BL_LOG_INFO << "New engine state: " << newState->name();
             states.top()->onPushedDown(*this);
             states.push(newState);
             states.top()->makeActive(*this);
@@ -141,8 +148,7 @@ int Engine::run(engine::State::Ptr initialState) {
 
         // Adhere to FPS cap
         if (minFrameLength > 0) {
-            const float st =
-                minFrameLength - (timer.getElapsedTime().asSeconds() - lastLoopTime);
+            const float st = minFrameLength - (timer.getElapsedTime().asSeconds() - lastLoopTime);
             if (st > 0) sf::sleep(sf::seconds(st));
             lastLoopTime = timer.getElapsedTime().asSeconds();
         }
@@ -158,4 +164,5 @@ bool Engine::awaitFocus() {
     return false;
 }
 
+} // namespace engine
 } // namespace bl

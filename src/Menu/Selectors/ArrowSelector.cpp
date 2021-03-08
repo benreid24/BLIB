@@ -8,8 +8,8 @@ namespace
 {
 const float HeightRatio = 0.5;
 
-bl::Triangle makeTriangle(float w) {
-    return bl::Triangle({0, 0}, {w, w * HeightRatio}, {0, 2.f * w * HeightRatio});
+bl::shapes::Triangle makeTriangle(float w) {
+    return bl::shapes::Triangle({0, 0}, {w, w * HeightRatio}, {0, 2.f * w * HeightRatio});
 }
 } // namespace
 

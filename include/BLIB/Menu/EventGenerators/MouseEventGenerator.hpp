@@ -1,10 +1,10 @@
 #ifndef BLIB_MENU_EVENTGENERATORS_MOUSEEVENTGENERATOR_HPP
 #define BLIB_MENU_EVENTGENERATORS_MOUSEEVENTGENERATOR_HPP
 
-#include <BLIB/Events/EventListener.hpp>
+#include <BLIB/Events/Listener.hpp>
 #include <BLIB/Menu/Item.hpp>
 #include <BLIB/Menu/Menu.hpp>
-#include <SFML/Window/Mouse.hpp>
+#include <SFML/Window.hpp>
 
 namespace bl
 {
@@ -16,7 +16,7 @@ namespace menu
  * @ingroup Menu
  *
  */
-class MouseEventGenerator : public bl::WindowEventListener {
+class MouseEventGenerator : public bl::event::Listener<sf::Event> {
 public:
     /**
      * @brief Create a new mouse generator that services the given menu

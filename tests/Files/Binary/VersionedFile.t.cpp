@@ -1,9 +1,11 @@
-#include <BLIB/Files/Binary/VersionedBinaryFile.hpp>
+#include <BLIB/Files/Binary.hpp>
 #include <gtest/gtest.h>
 
 namespace bl
 {
-namespace bf
+namespace file
+{
+namespace binary
 {
 namespace unittest
 {
@@ -17,13 +19,13 @@ struct Payload {
 };
 
 struct DefaultLoader : public VersionedPayloadLoader<Payload> {
-    virtual bool read(Payload& result, BinaryFile& input) const override {
+    virtual bool read(Payload& result, File& input) const override {
         if (!input.read(result.ogField)) return false;
         if (!input.read(result.ogString)) return false;
         return true;
     }
 
-    virtual bool write(const Payload& value, BinaryFile& output) const override {
+    virtual bool write(const Payload& value, File& output) const override {
         if (!output.write(value.ogField)) return false;
         if (!output.write(value.ogString)) return false;
         return true;
@@ -33,13 +35,13 @@ struct DefaultLoader : public VersionedPayloadLoader<Payload> {
 using Version0 = DefaultLoader;
 
 struct Version1 : public Version0 {
-    virtual bool read(Payload& result, BinaryFile& input) const override {
+    virtual bool read(Payload& result, File& input) const override {
         if (!Version0::read(result, input)) return false;
         if (!input.read(result.newInt)) return false;
         return true;
     }
 
-    virtual bool write(const Payload& value, BinaryFile& output) const override {
+    virtual bool write(const Payload& value, File& output) const override {
         if (!Version0::write(value, output)) return false;
         if (!output.write(value.newInt)) return false;
         return true;
@@ -47,13 +49,13 @@ struct Version1 : public Version0 {
 };
 
 struct Version2 : public Version1 {
-    virtual bool read(Payload& result, BinaryFile& input) const override {
+    virtual bool read(Payload& result, File& input) const override {
         if (!Version1::read(result, input)) return false;
         if (!input.read(result.newerString)) return false;
         return true;
     }
 
-    virtual bool write(const Payload& value, BinaryFile& output) const override {
+    virtual bool write(const Payload& value, File& output) const override {
         if (!Version1::write(value, output)) return false;
         if (!output.write(value.newerString)) return false;
         return true;
@@ -62,11 +64,11 @@ struct Version2 : public Version1 {
 
 } // namespace
 
-TEST(VersionedBinaryFile, DefaultLoader) {
+TEST(VersionedFile, DefaultLoader) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedBinaryFile<Payload, DefaultLoader> file;
+    VersionedFile<Payload, DefaultLoader> file;
     ASSERT_TRUE(file.write("vbin_default.bin", orig));
     ASSERT_TRUE(file.read("vbin_default.bin", loaded));
 
@@ -76,11 +78,11 @@ TEST(VersionedBinaryFile, DefaultLoader) {
     EXPECT_EQ(loaded.newerString, "not goodbye");
 }
 
-TEST(VersionedBinaryFile, MultipleVersions) {
+TEST(VersionedFile, MultipleVersions) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1, Version2> file;
+    VersionedFile<Payload, DefaultLoader, Version0, Version1, Version2> file;
     ASSERT_TRUE(file.write("vbin_default.bin", orig));
     ASSERT_TRUE(file.read("vbin_default.bin", loaded));
 
@@ -90,13 +92,13 @@ TEST(VersionedBinaryFile, MultipleVersions) {
     EXPECT_EQ(loaded.newerString, orig.newerString);
 }
 
-TEST(VersionedBinaryFile, LoadOldVersion) {
+TEST(VersionedFile, LoadOldVersion) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1> oldfile;
+    VersionedFile<Payload, DefaultLoader, Version0, Version1> oldfile;
     ASSERT_TRUE(oldfile.write("vbin_default.bin", orig));
-    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
+    VersionedFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
     ASSERT_TRUE(newfile.read("vbin_default.bin", loaded));
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
@@ -105,13 +107,13 @@ TEST(VersionedBinaryFile, LoadOldVersion) {
     EXPECT_EQ(loaded.newerString, "not goodbye");
 }
 
-TEST(VersionedBinaryFile, LoadNoVersion) {
+TEST(VersionedFile, LoadNoVersion) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedBinaryFile<Payload, DefaultLoader> oldfile;
+    VersionedFile<Payload, DefaultLoader> oldfile;
     ASSERT_TRUE(oldfile.write("vbin_default.bin", orig));
-    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
+    VersionedFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
     ASSERT_TRUE(newfile.read("vbin_default.bin", loaded));
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
@@ -120,17 +122,18 @@ TEST(VersionedBinaryFile, LoadNoVersion) {
     EXPECT_EQ(loaded.newerString, "not goodbye");
 }
 
-TEST(VersionedBinaryFile, BadVersion) {
+TEST(VersionedFile, BadVersion) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedBinaryFile<Payload, DefaultLoader, Version0> oldfile;
-    VersionedBinaryFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
+    VersionedFile<Payload, DefaultLoader, Version0> oldfile;
+    VersionedFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
 
     ASSERT_TRUE(newfile.write("vbin_default.bin", orig));
     ASSERT_FALSE(oldfile.read("vbin_default.bin", loaded));
 }
 
 } // namespace unittest
-} // namespace bf
+} // namespace binary
+} // namespace file
 } // namespace bl

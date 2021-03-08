@@ -1,21 +1,23 @@
-#ifndef BLIB_EVENTS_EVENT_LISTENER_HPP
-#define BLIB_EVENTS_EVENT_LISTENER_HPP
+#ifndef BLIB_EVENTS_SINGLELISTENER_HPP
+#define BLIB_EVENTS_SINGLELISTENER_HPP
 
 #include <SFML/Window.hpp>
 
 namespace bl
 {
+namespace event
+{
 /**
  * @brief Templatized utility class for setting up an event dispatcher and listener system
- * @see EventDispatcher
+ * @see SingleDispatcher
  *
  * @tparam T The type of event
  * @ingroup Events
  */
 template<typename T>
-class EventListener {
+class SingleListener {
 public:
-    virtual ~EventListener() = default;
+    virtual ~SingleListener() = default;
 
     /**
      * @brief Notification method for the listener to receive events from the dispatcher
@@ -25,9 +27,7 @@ public:
     virtual void observe(const T& event) = 0;
 };
 
-/// Special instantiation of EventListener for sf::Event window events
-typedef EventListener<sf::Event> WindowEventListener;
-
+} // namespace event
 } // namespace bl
 
 #endif

@@ -1,17 +1,19 @@
 #include <BLIB/Containers/FastEraseVector.hpp>
 #include <BLIB/Engine/Configuration.hpp>
-#include <BLIB/Files/FileUtil.hpp>
+#include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Media/Audio/Playlist.hpp>
 #include <BLIB/Util/Random.hpp>
 
 namespace bl
 {
+namespace audio
+{
 namespace
 {
 inline std::string songfile(const std::string& path) {
-    return FileUtil::joinPath(engine::Configuration::get<std::string>("blib.playlist.song_path"),
-                              path);
+    return file::Util::joinPath(engine::Configuration::get<std::string>("blib.playlist.song_path"),
+                                path);
 }
 } // namespace
 
@@ -25,7 +27,7 @@ Playlist::Playlist()
 
 Playlist::Playlist(const std::string& file)
 : Playlist() {
-    bf::BinaryFile input(file, bf::BinaryFile::Read);
+    file::binary::File input(file, file::binary::File::Read);
     if (!deserialize(input)) { BL_LOG_ERROR << "Failed to load playlist from file: " << file; }
 }
 
@@ -116,17 +118,18 @@ bool Playlist::shufflingOnLoop() const { return shuffleOnLoop; }
 
 void Playlist::shuffle() {
     const std::vector<std::string> order(songs.getMovable());
-    FastEraseVector<std::size_t> indices;
+    container::FastEraseVector<std::size_t> indices;
     indices.reserve(songs.getValue().size());
     songs.getValue().reserve(order.size());
 
     for (std::size_t i = 0; i < order.size(); ++i) { indices.push_back(i); }
 
     while (!indices.empty()) {
-        const std::size_t i = Random::get<std::size_t>(0, indices.size() - 1);
+        const std::size_t i = util::Random::get<std::size_t>(0, indices.size() - 1);
         songs.getValue().emplace_back(std::move(order[indices[i]]));
         indices.erase(i);
     }
 }
 
+} // namespace audio
 } // namespace bl

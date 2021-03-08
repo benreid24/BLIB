@@ -5,6 +5,8 @@
 
 namespace bl
 {
+namespace util
+{
 /**
  * @brief Utility struct to allow hashing of std::pair objects
  *
@@ -15,9 +17,14 @@ namespace bl
  *
  * @ingroup Util
  */
-template<typename T1, typename T2, typename T1Hash = std::hash<T1>,
-         typename T2Hash = std::hash<T2>>
+template<typename T1, typename T2, typename T1Hash = std::hash<T1>, typename T2Hash = std::hash<T2>>
 struct PairHash {
+    /**
+     * @brief Hashes the given pair using the hash function for each member of the pair
+     *
+     * @param pair The pair to hash
+     * @return std::size_t A hash of the items in the pair
+     */
     std::size_t operator()(const std::pair<T1, T2>& pair) const {
         std::size_t h1 = T1Hash()(pair.first);
         std::size_t h2 = T2Hash()(pair.second);
@@ -26,6 +33,7 @@ struct PairHash {
     }
 };
 
+} // namespace util
 } // namespace bl
 
 #endif

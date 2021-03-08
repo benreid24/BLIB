@@ -4,7 +4,9 @@
 
 namespace bl
 {
-namespace bf
+namespace file
+{
+namespace binary
 {
 SerializableObject::SerializableObject(const SerializableObject&) {}
 
@@ -12,7 +14,7 @@ SerializableObject::SerializableObject(SerializableObject&&) {}
 
 SerializableObject& SerializableObject::operator=(const SerializableObject&) { return *this; }
 
-bool SerializableObject::serialize(BinaryFile& output) const {
+bool SerializableObject::serialize(File& output) const {
     if (!output.write<std::uint16_t>(fields.size())) return false;
     for (const auto& it : fields) {
         if (!output.write<std::uint16_t>(it.first)) return false;
@@ -22,7 +24,7 @@ bool SerializableObject::serialize(BinaryFile& output) const {
     return true;
 }
 
-bool SerializableObject::deserialize(BinaryFile& input) {
+bool SerializableObject::deserialize(File& input) {
     std::uint16_t nfields = 0;
     if (!input.read<std::uint16_t>(nfields)) return false;
     for (std::uint16_t i = 0; i < nfields; ++i) {
@@ -55,5 +57,6 @@ std::uint32_t SerializableObject::size() const {
     return s;
 }
 
-} // namespace bf
+} // namespace binary
+} // namespace file
 } // namespace bl

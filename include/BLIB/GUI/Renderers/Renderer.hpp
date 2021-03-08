@@ -32,7 +32,7 @@ class Window;
  * @ingroup GUI
  *
  */
-class Renderer : public bl::NonCopyable {
+class Renderer : public bl::util::NonCopyable {
 public:
     typedef std::shared_ptr<Renderer> Ptr;
 

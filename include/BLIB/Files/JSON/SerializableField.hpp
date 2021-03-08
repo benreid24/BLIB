@@ -7,6 +7,8 @@
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
 /**
@@ -162,6 +164,7 @@ SerializableField<T>::operator T() const {
 }
 
 } // namespace json
+} // namespace file
 } // namespace bl
 
 #endif

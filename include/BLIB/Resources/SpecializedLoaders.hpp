@@ -1,20 +1,22 @@
 #ifndef BLIB_RESOURCES_SPECIALIZEDMANAGERS_HPP
 #define BLIB_RESOURCES_SPECIALIZEDMANAGERS_HPP
 
-#include <BLIB/Resources/ResourceLoader.hpp>
-#include <BLIB/Resources/ResourceManager.hpp>
+#include <BLIB/Resources/Loader.hpp>
+#include <BLIB/Resources/Manager.hpp>
 
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
 namespace bl
 {
+namespace resource
+{
 /**
- * @brief Specialized ResourceLoader for sf::Texture
+ * @brief Specialized Loader for sf::Texture
  *
  * @ingroup Resources
  */
-struct TextureResourceLoader : public ResourceLoader<sf::Texture> {
+struct TextureResourceLoader : public Loader<sf::Texture> {
     virtual Resource<sf::Texture>::Ref load(const std::string& uri) override {
         Resource<sf::Texture>::Ref txtr = std::make_shared<sf::Texture>();
         txtr->loadFromFile(uri);
@@ -23,12 +25,12 @@ struct TextureResourceLoader : public ResourceLoader<sf::Texture> {
 };
 
 /**
- * @brief Specialized ResourceLoader for sf::Font
+ * @brief Specialized Loader for sf::Font
  *
  * @ingroup Resources
  *
  */
-struct FontResourceLoader : public ResourceLoader<sf::Font> {
+struct FontResourceLoader : public Loader<sf::Font> {
     virtual Resource<sf::Font>::Ref load(const std::string& uri) override {
         Resource<sf::Font>::Ref font = std::make_shared<sf::Font>();
         font->loadFromFile(uri);
@@ -38,12 +40,13 @@ struct FontResourceLoader : public ResourceLoader<sf::Font> {
 
 // TODO - sound. music. more?
 
-/// Specialized ResourceManager for sf::Texture objects
-typedef ResourceManager<sf::Texture> TextureResourceManager;
+/// Specialized Manager for sf::Texture objects
+typedef Manager<sf::Texture> TextureResourceManager;
 
-// Specialized ResourceManager for sf::Font objects
-typedef ResourceManager<sf::Font> FontResourceManager;
+// Specialized Manager for sf::Font objects
+typedef Manager<sf::Font> FontResourceManager;
 
+} // namespace resource
 } // namespace bl
 
 #endif

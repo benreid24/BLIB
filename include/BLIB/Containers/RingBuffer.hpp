@@ -5,6 +5,8 @@
 
 namespace bl
 {
+namespace container
+{
 /**
  * @brief Simple circular buffer implementation for small objects. Underlying storage is a
  *        std::vector of buffers. Objects are constructed with placement new and destructors
@@ -267,6 +269,7 @@ void RingBuffer<T>::pop_front() {
     }
 }
 
+} // namespace container
 } // namespace bl
 
 #endif

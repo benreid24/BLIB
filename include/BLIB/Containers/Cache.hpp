@@ -10,6 +10,8 @@
 
 namespace bl
 {
+namespace container
+{
 /**
  * @brief Auto-evicting cache with several policy options and programmable watermarks
  *
@@ -248,6 +250,7 @@ void Cache<TKey, TPayload>::checkEviction() {
     }
 }
 
+} // namespace container
 } // namespace bl
 
 #endif

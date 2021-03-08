@@ -1,13 +1,15 @@
 #ifndef BLIB_FILES_BINARY_SERIALIZABLEOBJECT_HPP
 #define BLIB_FILES_BINARY_SERIALIZABLEOBJECT_HPP
 
-#include <BLIB/Files/Binary/BinaryFile.hpp>
+#include <BLIB/Files/Binary/File.hpp>
 
 #include <unordered_map>
 
 namespace bl
 {
-namespace bf
+namespace file
+{
+namespace binary
 {
 class SerializableFieldBase;
 
@@ -52,7 +54,7 @@ public:
      * @param output The file to write to
      * @return True on success, false if data could not be written
      */
-    bool serialize(BinaryFile& output) const;
+    bool serialize(File& output) const;
 
     /**
      * @brief Loads the fields of this object from the given file
@@ -60,7 +62,7 @@ public:
      * @param input The file to read from
      * @return True on success, false if not all fields could be read
      */
-    bool deserialize(BinaryFile& input);
+    bool deserialize(File& input);
 
     /**
      * @brief Returns the total size of this object when serialized, in bytes
@@ -77,7 +79,8 @@ private:
     friend class SerializableFieldBase;
 };
 
-} // namespace bf
+} // namespace binary
+} // namespace file
 } // namespace bl
 
 #endif

@@ -3,6 +3,8 @@
 
 namespace bl
 {
+namespace engine
+{
 struct Engine {
     engine::Flags flags;
     void clear() { flags.clear(); }
@@ -26,4 +28,5 @@ TEST(EngineFlags, FlagSet) {
 }
 
 } // namespace unittest
+} // namespace engine
 } // namespace bl

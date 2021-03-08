@@ -1,7 +1,7 @@
 #ifndef BLIB_FILES_BINARY_VERSIONEDBINARYFILE_HPP
 #define BLIB_FILES_BINARY_VERSIONEDBINARYFILE_HPP
 
-#include <BLIB/Files/Binary/BinaryFile.hpp>
+#include <BLIB/Files/Binary/File.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/LastVariadic.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
@@ -11,7 +11,9 @@
 
 namespace bl
 {
-namespace bf
+namespace file
+{
+namespace binary
 {
 /**
  * @brief Base interface for payload loaders. File version loaders should implement this interface
@@ -28,7 +30,7 @@ struct VersionedPayloadLoader {
      * @param input The file to read from
      * @return True if the object was read, false on any error
      */
-    virtual bool read(Payload& result, BinaryFile& input) const = 0;
+    virtual bool read(Payload& result, File& input) const = 0;
 
     /**
      * @brief Write the object to the given file
@@ -37,7 +39,7 @@ struct VersionedPayloadLoader {
      * @param output The file to write to
      * @return True if the object was written, false on any error
      */
-    virtual bool write(const Payload& value, BinaryFile& output) const = 0;
+    virtual bool write(const Payload& value, File& output) const = 0;
 };
 
 /**
@@ -52,7 +54,7 @@ struct VersionedPayloadLoader {
  * @ingroup BinaryFiles
  */
 template<typename Payload, typename DefaultLoader, typename... Versions>
-class VersionedBinaryFile : private NonCopyable {
+class VersionedFile : private util::NonCopyable {
 public:
     using Loader = VersionedPayloadLoader<Payload>;
 
@@ -60,13 +62,13 @@ public:
      * @brief Creates instances of each loader type
      *
      */
-    VersionedBinaryFile();
+    VersionedFile();
 
     /**
      * @brief Destroys each created version loader
      *
      */
-    ~VersionedBinaryFile();
+    ~VersionedFile();
 
     /**
      * @brief Writes the given object to the given file
@@ -96,20 +98,20 @@ private:
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
-VersionedBinaryFile<Payload, DefaultLoader, Versions...>::VersionedBinaryFile()
+VersionedFile<Payload, DefaultLoader, Versions...>::VersionedFile()
 : defaultLoader(new DefaultLoader())
 , versions({new Versions()...}) {}
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
-VersionedBinaryFile<Payload, DefaultLoader, Versions...>::~VersionedBinaryFile() {
+VersionedFile<Payload, DefaultLoader, Versions...>::~VersionedFile() {
     delete defaultLoader;
     for (const Loader* l : versions) { delete l; }
 }
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
-bool VersionedBinaryFile<Payload, DefaultLoader, Versions...>::write(const std::string& path,
-                                                                     const Payload& value) const {
-    BinaryFile file(path, BinaryFile::Write);
+bool VersionedFile<Payload, DefaultLoader, Versions...>::write(const std::string& path,
+                                                               const Payload& value) const {
+    File file(path, File::Write);
 
     const Loader* writer = versions.empty() ? defaultLoader : versions.back();
     if (!versions.empty()) {
@@ -120,9 +122,9 @@ bool VersionedBinaryFile<Payload, DefaultLoader, Versions...>::write(const std::
 }
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
-bool VersionedBinaryFile<Payload, DefaultLoader, Versions...>::read(const std::string& path,
-                                                                    Payload& value) const {
-    BinaryFile file(path, BinaryFile::Read);
+bool VersionedFile<Payload, DefaultLoader, Versions...>::read(const std::string& path,
+                                                              Payload& value) const {
+    File file(path, File::Read);
 
     const Loader* loader = defaultLoader;
     std::uint32_t header = 0;
@@ -141,7 +143,8 @@ bool VersionedBinaryFile<Payload, DefaultLoader, Versions...>::read(const std::s
     return loader->read(value, file);
 }
 
-} // namespace bf
+} // namespace binary
+} // namespace file
 } // namespace bl
 
 #endif

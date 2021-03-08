@@ -1,19 +1,21 @@
-#ifndef BLIB_EVENTS_MULTIEVENTLISTENER_HPP
-#define BLIB_EVENTS_MULTIEVENTLISTENER_HPP
+#ifndef BLIB_EVENTS_LISTENER_HPP
+#define BLIB_EVENTS_LISTENER_HPP
 
 namespace bl
 {
+namespace event
+{
 /**
- * @brief Base class for MultiEventListener. Do not use directly
- * @see MultiEventListener
+ * @brief Base class for Listener. Do not use directly
+ * @see Listener
  *
  * @tparam T The type of event to be base for
  * @ingroup Events
  */
 template<typename T>
-class MultiEventListenerBase {
+class ListenerBase {
 public:
-    virtual ~MultiEventListenerBase() = default;
+    virtual ~ListenerBase() = default;
 
     /**
      * @brief Observe the given
@@ -26,19 +28,20 @@ public:
 /**
  * @brief Listener of multiple event types. Listeners should inherit this class with the types of
  *        events they would like to subscribe to as template params. An observe method from
- *        MultiEventListenerBase will be created for each passed type and must be implemented
- * @see MultiEventDispatcher
- * @see MultiEventListenerBase
+ *        Listener will be created for each passed type and must be implemented
+ * @see Dispatcher
+ * @see Listener
  *
  * @tparam TEvents The sequence of event types to subscribe to
  * @ingroup Events
  */
 template<typename... TEvents>
-class MultiEventListener : public MultiEventListenerBase<TEvents>... {
+class Listener : public ListenerBase<TEvents>... {
 public:
-    virtual ~MultiEventListener() = default;
+    virtual ~Listener() = default;
 };
 
+} // namespace event
 } // namespace bl
 
 #endif

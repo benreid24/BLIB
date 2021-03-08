@@ -1,13 +1,15 @@
 #ifndef BLIB_RESOURCES_BACKGROUNDRESOURCELOADER_HPP
 #define BLIB_RESOURCES_BACKGROUNDRESOURCELOADER_HPP
 
-#include <BLIB/Resources/AsyncResourceLoader.hpp>
+#include <BLIB/Resources/AsyncLoader.hpp>
 
 #include <SFML/System.hpp>
 #include <functional>
 #include <vector>
 
 namespace bl
+{
+namespace resource
 {
 /**
  * @brief Utility class for loading resources in the background while monitoring the progress.
@@ -17,22 +19,21 @@ namespace bl
  * @ingroup Resources
  */
 template<typename TResourceType>
-class BackgroundResourceLoader {
+class BackgroundLoader {
 public:
     /// Progress report callback. Parameter is completion in range [0,1]
     typedef std::function<void(float)> ProgressCallback;
 
     /**
-     * @brief Create a new BackgroundResourceLoader
+     * @brief Create a new BackgroundLoader
      *
      * @param manager The resource manager to populate
      * @param loader The background loader to use
      * @param callback The progress reporting callback to call from the second thread
      * @param cbPeriod Time, in seconds, in between calls to the callback
      */
-    BackgroundResourceLoader(ResourceManager<TResourceType>& manager,
-                             AsyncResourceLoader<TResourceType>& loader,
-                             ProgressCallback callback, float cbPeriod = 0.01f);
+    BackgroundLoader(Manager<TResourceType>& manager, AsyncLoader<TResourceType>& loader,
+                     ProgressCallback callback, float cbPeriod = 0.01f);
 
     /**
      * @brief Add a new uri to be loaded
@@ -43,7 +44,7 @@ public:
     void addResourceToQueue(const std::string& uri, float estimate);
 
     /**
-     * @brief Add a new uri to be loaded and use the AsyncResourceLoader to determine the
+     * @brief Add a new uri to be loaded and use the AsyncLoader to determine the
      *        estimate
      *
      * @param uri The resource identifier
@@ -61,8 +62,8 @@ private:
     std::atomic<bool> loadingActive;
     std::thread monitorThread;
 
-    ResourceManager<TResourceType>& manager;
-    AsyncResourceLoader<TResourceType>& loader;
+    Manager<TResourceType>& manager;
+    AsyncLoader<TResourceType>& loader;
     const ProgressCallback callback;
     const float callbackPeriod;
 
@@ -78,10 +79,8 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-BackgroundResourceLoader<T>::BackgroundResourceLoader(ResourceManager<T>& manager,
-                                                      AsyncResourceLoader<T>& loader,
-                                                      ProgressCallback callback,
-                                                      float cbPeriod)
+BackgroundLoader<T>::BackgroundLoader(Manager<T>& manager, AsyncLoader<T>& loader,
+                                      ProgressCallback callback, float cbPeriod)
 : loadingActive(false)
 , manager(manager)
 , loader(loader)
@@ -93,22 +92,22 @@ BackgroundResourceLoader<T>::BackgroundResourceLoader(ResourceManager<T>& manage
 , completed(0) {}
 
 template<typename T>
-void BackgroundResourceLoader<T>::addResourceToQueue(const std::string& uri, float estimate) {
+void BackgroundLoader<T>::addResourceToQueue(const std::string& uri, float estimate) {
     uris.push_back(std::make_pair(uri, estimate));
     totalWork += estimate;
 }
 
 template<typename T>
-void BackgroundResourceLoader<T>::addResourceToQueue(const std::string& uri) {
+void BackgroundLoader<T>::addResourceToQueue(const std::string& uri) {
     const float estimate = loader.estimateWork(uri);
     uris.push_back(std::make_pair(uri, estimate));
     totalWork += estimate;
 }
 
 template<typename T>
-void BackgroundResourceLoader<T>::load() {
+void BackgroundLoader<T>::load() {
     loadingActive = true;
-    monitorThread = std::thread(&BackgroundResourceLoader<T>::monitor, this);
+    monitorThread = std::thread(&BackgroundLoader<T>::monitor, this);
 
     for (const auto& item : uris) {
         inProgress  = 0;
@@ -123,7 +122,7 @@ void BackgroundResourceLoader<T>::load() {
 }
 
 template<typename T>
-void BackgroundResourceLoader<T>::monitor() {
+void BackgroundLoader<T>::monitor() {
     const int usSleep = callbackPeriod * 1000000;
     while (loadingActive) {
         std::this_thread::sleep_for(std::chrono::microseconds(usSleep));
@@ -131,6 +130,7 @@ void BackgroundResourceLoader<T>::monitor() {
     }
 }
 
+} // namespace resource
 } // namespace bl
 
 #endif

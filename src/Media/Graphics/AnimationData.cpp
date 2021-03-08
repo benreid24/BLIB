@@ -2,10 +2,12 @@
 
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Resources.hpp>
-#include <BLIB/Files/Binary/BinaryFile.hpp>
-#include <BLIB/Files/FileUtil.hpp>
+#include <BLIB/Files/Binary/File.hpp>
+#include <BLIB/Files/Util.hpp>
 
 namespace bl
+{
+namespace gfx
 {
 AnimationData::AnimationData()
 : spritesheet()
@@ -19,18 +21,18 @@ bool AnimationData::load(const std::string& filename) {
     frames.clear();
     totalLength = 0;
 
-    bf::BinaryFile file(filename, bf::BinaryFile::Read);
-    const std::string path = FileUtil::getPath(filename);
+    file::binary::File file(filename, file::binary::File::Read);
+    const std::string path = file::Util::getPath(filename);
     const std::string& spritesheetDir =
         engine::Configuration::get<std::string>("blib.animation.spritesheet_path");
 
     std::string sheet;
     if (!file.read(sheet)) return false;
-    if (!FileUtil::exists(sheet)) {
-        if (FileUtil::exists(FileUtil::joinPath(path, sheet)))
-            sheet = FileUtil::joinPath(path, sheet);
-        else if (FileUtil::exists(FileUtil::joinPath(spritesheetDir, sheet)))
-            sheet = FileUtil::joinPath(spritesheetDir, sheet);
+    if (!file::Util::exists(sheet)) {
+        if (file::Util::exists(file::Util::joinPath(path, sheet)))
+            sheet = file::Util::joinPath(path, sheet);
+        else if (file::Util::exists(file::Util::joinPath(spritesheetDir, sheet)))
+            sheet = file::Util::joinPath(spritesheetDir, sheet);
         else
             return false;
     }
@@ -161,4 +163,5 @@ void AnimationData::Frame::Shard::apply(sf::Sprite& s, const sf::Vector2f& sc, f
     s.setColor(sf::Color(255, 255, 255, alpha));
 }
 
+} // namespace gfx
 } // namespace bl

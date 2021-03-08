@@ -3,6 +3,8 @@
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
 namespace unittest
@@ -20,7 +22,8 @@ struct Nested : public SerializableObject {
         floatValue.setValue(fval);
     }
 
-    Nested(const Nested& copy) : Nested() {
+    Nested(const Nested& copy)
+    : Nested() {
         boolValue.setValue(copy.boolValue.getValue());
         floatValue.setValue(copy.floatValue.getValue());
     }
@@ -72,4 +75,5 @@ TEST(JsonSerializableObject, Nested) {
 
 } // namespace unittest
 } // namespace json
+} // namespace file
 } // namespace bl

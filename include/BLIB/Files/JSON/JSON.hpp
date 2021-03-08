@@ -11,6 +11,9 @@
 
 namespace bl
 {
+namespace file
+{
+/// Collection of classes and utilities for interacting with JSON files
 namespace json
 {
 class Value;
@@ -316,55 +319,48 @@ std::ostream& operator<<(std::ostream& stream, const Group& type);
 std::ostream& operator<<(std::ostream& stream, const Value& type);
 std::ostream& operator<<(std::ostream& stream, const List& list);
 
-} // namespace json
+/**
+ * @brief Loads json data from the given stream and returns the constructed Group
+ *
+ * @param stream Stream containing valid json
+ * @return json::Group Group containing loaded data. Empty on error
+ */
+json::Group loadFromStream(std::istream& stream);
 
 /**
- * @brief Top level interface for loading and saving json data
- * @ingroup JSON
+ * @brief Loads json data from the given file
  *
+ * @param file Filename to load from
+ * @return json::Group Group containing loaded data. Empty on error
  */
-struct JSON {
-    /**
-     * @brief Loads json data from the given stream and returns the constructed Group
-     *
-     * @param stream Stream containing valid json
-     * @return json::Group Group containing loaded data. Empty on error
-     */
-    static json::Group loadFromStream(std::istream& stream);
+json::Group loadFromFile(const std::string& file);
 
-    /**
-     * @brief Loads json data from the given file
-     *
-     * @param file Filename to load from
-     * @return json::Group Group containing loaded data. Empty on error
-     */
-    static json::Group loadFromFile(const std::string& file);
+/**
+ * @brief Loads json from the supplied string
+ *
+ * @param data String containing valid json
+ * @return json::Group Group containing loaded data. Empty on error
+ */
+json::Group loadFromString(const std::string& data);
 
-    /**
-     * @brief Loads json from the supplied string
-     *
-     * @param data String containing valid json
-     * @return json::Group Group containing loaded data. Empty on error
-     */
-    static json::Group loadFromString(const std::string& data);
+/**
+ * @brief Saves a json::Group to the given file
+ *
+ * @param file Filename to save to
+ * @param data The top level json data to save
+ */
+void saveToFile(const std::string& file, const json::Group& data);
 
-    /**
-     * @brief Saves a json::Group to the given file
-     *
-     * @param file Filename to save to
-     * @param data The top level json data to save
-     */
-    static void saveToFile(const std::string& file, const json::Group& data);
+/**
+ * @brief Writes a json::Group to the given stream
+ *
+ * @param stream The stream to write to
+ * @param data The top level json data to write
+ */
+void saveToStream(std::ostream& stream, const json::Group& data);
 
-    /**
-     * @brief Writes a json::Group to the given stream
-     *
-     * @param stream The stream to write to
-     * @param data The top level json data to write
-     */
-    static void saveToStream(std::ostream& stream, const json::Group& data);
-};
-
+} // namespace json
+} // namespace file
 } // namespace bl
 
 #endif

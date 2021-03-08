@@ -6,13 +6,15 @@
 
 namespace bl
 {
+namespace util
+{
 /**
  * @brief Global class for tracking time. Implemented over the top of sf::Clock
  *        to allow for pausing
  *
  * @ingroup Util
  */
-class Timer : private NonCopyable {
+class Timer : private util::NonCopyable {
 public:
     /**
      * @brief Returns the global timer object
@@ -57,6 +59,7 @@ private:
     bool paused;
 };
 
+} // namespace util
 } // namespace bl
 
 #endif

@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 namespace unittest
 {
@@ -13,7 +13,7 @@ using G          = Parser::Grammar;
 TEST(ScriptParser, GrammarCompile) {
     parser::Grammar grammar     = Parser::getGrammar();
     parser::Tokenizer tokenizer = Parser::getTokenizer();
-    bl::Parser parser(grammar, tokenizer);
+    bl::parser::Parser parser(grammar, tokenizer);
     EXPECT_TRUE(parser.valid());
 }
 
@@ -55,21 +55,20 @@ TEST_P(ScriptParserTokenTest, Tokens) {
 INSTANTIATE_TEST_SUITE_P(
     ScriptParserTokens, ScriptParserTokenTest,
     ::testing::Values(
-        NodeString(G::NumLit, "16.76"), NodeString(G::NumLit, "0.05"),
-        NodeString(G::NumLit, "16"), NodeString(G::StringLit, "\"hello world\""),
-        NodeString(G::Def, "def"), NodeString(G::If, "if"), NodeString(G::While, "while"),
-        NodeString(G::Return, "return"), NodeString(G::And, "and"), NodeString(G::Or, "or"),
-        NodeString(G::Not, "not"), NodeString(G::LParen, "("), NodeString(G::RParen, ")"),
-        NodeString(G::LBrkt, "["), NodeString(G::RBrkt, "]"), NodeString(G::LBrc, "{"),
-        NodeString(G::RBrc, "}"), NodeString(G::Assign, "="), NodeString(G::Eq, "=="),
-        NodeString(G::Ne, "!="), NodeString(G::Gt, ">"), NodeString(G::Ge, ">="),
-        NodeString(G::Lt, "<"), NodeString(G::Le, "<="), NodeString(G::Amp, "&"),
-        NodeString(G::Dot, "."), NodeString(G::Plus, "+"), NodeString(G::Minus, "-"),
-        NodeString(G::Mult, "*"), NodeString(G::Div, "/"), NodeString(G::Hat, "^"),
-        NodeString(G::Comma, ","), NodeString(G::Term, ";"), NodeString(G::Id, "varname"),
-        NodeString(G::Id, "varname09"), NodeString(G::Id, "varname5id"),
-        NodeString(G::Id, "Varname"), NodeString(G::Id, "ifName"), NodeString(G::Id, "nameif"),
-        NodeString(G::Id, "pleasewhilework")));
+        NodeString(G::NumLit, "16.76"), NodeString(G::NumLit, "0.05"), NodeString(G::NumLit, "16"),
+        NodeString(G::StringLit, "\"hello world\""), NodeString(G::Def, "def"),
+        NodeString(G::If, "if"), NodeString(G::While, "while"), NodeString(G::Return, "return"),
+        NodeString(G::And, "and"), NodeString(G::Or, "or"), NodeString(G::Not, "not"),
+        NodeString(G::LParen, "("), NodeString(G::RParen, ")"), NodeString(G::LBrkt, "["),
+        NodeString(G::RBrkt, "]"), NodeString(G::LBrc, "{"), NodeString(G::RBrc, "}"),
+        NodeString(G::Assign, "="), NodeString(G::Eq, "=="), NodeString(G::Ne, "!="),
+        NodeString(G::Gt, ">"), NodeString(G::Ge, ">="), NodeString(G::Lt, "<"),
+        NodeString(G::Le, "<="), NodeString(G::Amp, "&"), NodeString(G::Dot, "."),
+        NodeString(G::Plus, "+"), NodeString(G::Minus, "-"), NodeString(G::Mult, "*"),
+        NodeString(G::Div, "/"), NodeString(G::Hat, "^"), NodeString(G::Comma, ","),
+        NodeString(G::Term, ";"), NodeString(G::Id, "varname"), NodeString(G::Id, "varname09"),
+        NodeString(G::Id, "varname5id"), NodeString(G::Id, "Varname"), NodeString(G::Id, "ifName"),
+        NodeString(G::Id, "nameif"), NodeString(G::Id, "pleasewhilework")));
 
 TEST(ScriptParser, StringLiteral) {
     const parser::Tokenizer& t = Parser::getTokenizer();
@@ -98,7 +97,7 @@ TEST_P(ScriptParserTest, Value) {
     parser::Grammar grammar    = Parser::getGrammar();
     grammar.setStart(GetParam().result);
 
-    const bl::Parser p(grammar, t);
+    const bl::parser::Parser p(grammar, t);
     ASSERT_TRUE(p.valid());
     EXPECT_EQ(p.parse(GetParam().data).get() != nullptr, GetParam().pass) << GetParam().data;
 }
@@ -114,26 +113,21 @@ INSTANTIATE_TEST_SUITE_P(
         ParseTest(T::ValueList, "3 / (5+3^5)", true),
         ParseTest(T::ValueList, "function(5, variable)", true),
         ParseTest(T::ValueList, "array[5]", true), ParseTest(T::ValueList, "[]", true),
-        ParseTest(T::ValueList, "[5, 6, [1, 2]]", true),
-        ParseTest(T::ValueList, "[5, 6]", true), ParseTest(T::ValueList, "\"string\"", true),
-        ParseTest(T::ValueList, "5 == 6", true), ParseTest(T::ValueList, "6 >= 5", true),
-        ParseTest(T::ValueList, "0 <= 2", true), ParseTest(T::ValueList, "10 < 3", true),
-        ParseTest(T::ValueList, "5 != 89", true),
-        ParseTest(T::ValueList, "this and that", true),
-        ParseTest(T::ValueList, "me or you", true),
-        ParseTest(T::ValueList, "not variable", true),
-        ParseTest(T::Program, "var = 5 + 3;", true),
+        ParseTest(T::ValueList, "[5, 6, [1, 2]]", true), ParseTest(T::ValueList, "[5, 6]", true),
+        ParseTest(T::ValueList, "\"string\"", true), ParseTest(T::ValueList, "5 == 6", true),
+        ParseTest(T::ValueList, "6 >= 5", true), ParseTest(T::ValueList, "0 <= 2", true),
+        ParseTest(T::ValueList, "10 < 3", true), ParseTest(T::ValueList, "5 != 89", true),
+        ParseTest(T::ValueList, "this and that", true), ParseTest(T::ValueList, "me or you", true),
+        ParseTest(T::ValueList, "not variable", true), ParseTest(T::Program, "var = 5 + 3;", true),
         ParseTest(T::Program, "var = [5 + 3, \"hello\", func(wow)];", true),
         ParseTest(T::Program, "def test() { return 5; }", true),
         ParseTest(T::Program, "def test(arg) { return arg^5; }", true),
         ParseTest(T::Program, "def test(arg1, arg2) { return arg1+arg2; }", true),
         ParseTest(T::Program, "return 5^(function(5, \"hello\"));", true),
-        ParseTest(T::Program, "def func(arg1, arg2) { return arg1+arg2; } func(3.5, 7^2);",
+        ParseTest(T::Program, "def func(arg1, arg2) { return arg1+arg2; } func(3.5, 7^2);", true),
+        ParseTest(T::Program,
+                  "if (var == 5 or 3*3 > 2^3) { this.array[5^2].nested = func(1, \"2\", 3.5);}",
                   true),
-        ParseTest(
-            T::Program,
-            "if (var == 5 or 3*3 > 2^3) { this.array[5^2].nested = func(1, \"2\", 3.5);}",
-            true),
         ParseTest(T::Program,
                   "while (var == 5 or 3*3 > 2^3 and not something) { this.array[5^2].nested = "
                   "func(1, \"2\", 3.5);}",
@@ -245,5 +239,5 @@ TEST(ScriptParser, FullTree) {
 }
 
 } // namespace unittest
-} // namespace scripts
+} // namespace script
 } // namespace bl

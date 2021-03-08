@@ -1,6 +1,4 @@
-add_executable(BLIB.t
-    ResourceManager.t.cpp
-)
+add_executable(BLIB.t)
 
 target_link_libraries(BLIB.t PRIVATE
     BLIB
@@ -22,6 +20,7 @@ add_subdirectory(Entities)
 add_subdirectory(Events)
 add_subdirectory(Files)
 add_subdirectory(Parser)
+add_subdirectory(Resources)
 add_subdirectory(Scripts)
 add_subdirectory(Util)
 

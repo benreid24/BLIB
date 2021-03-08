@@ -2,6 +2,9 @@
 
 namespace bl
 {
+/// Collection of graphical utilities and functionality
+namespace gfx
+{
 namespace
 {
 sf::Clock clock; // TODO - pass in elapsed time?
@@ -65,4 +68,5 @@ void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     }
 }
 
+} // namespace gfx
 } // namespace bl

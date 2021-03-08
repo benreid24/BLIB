@@ -7,6 +7,9 @@
 
 namespace bl
 {
+/// Collection of containers and container like classes more specialized than the STL
+namespace container
+{
 /**
  * @brief Fixed size equivalent of std::any. Specified size is for in place storage. Stored
  *        objects smaller than that size will be stored in place, which allows sequential storage
@@ -288,6 +291,7 @@ void* Any<Size>::raw() {
     return object;
 }
 
+} // namespace container
 } // namespace bl
 
 #endif

@@ -18,6 +18,9 @@
 
 namespace bl
 {
+/// Sophisticated audio system for managing all music and sounds
+namespace audio
+{
 /**
  * @brief Centralized control class for sound effects and music. It manages playing sounds, removing
  *        finished sounds, looping sounds, global volume, pausing, fading out on exit, and a stack
@@ -58,14 +61,14 @@ public:
         /// The Handle of the playing sound
         const Handle handle;
 
-        /// The underlying SoundBuffer being managed by a ResourceManager
-        const Resource<sf::SoundBuffer>::Ref buffer;
+        /// The underlying SoundBuffer being managed by a Manager
+        const resource::Resource<sf::SoundBuffer>::Ref buffer;
 
         /// The actual sound that is playing
         sf::Sound sound;
 
     private:
-        Sound(Handle handle, Resource<sf::SoundBuffer>::Ref buffer);
+        Sound(Handle handle, resource::Resource<sf::SoundBuffer>::Ref buffer);
 
         friend class AudioSystem;
     };
@@ -159,7 +162,7 @@ public:
      * @param loop True to loop the sound, false to play once
      * @return Handle A Handle to the newly playing sound
      */
-    static Handle playSound(Resource<sf::SoundBuffer>::Ref sound, bool loop = false);
+    static Handle playSound(resource::Resource<sf::SoundBuffer>::Ref sound, bool loop = false);
 
     /**
      * @brief Play a sound in space with the default SpacialSettings
@@ -169,8 +172,8 @@ public:
      * @param loop True to loop, false to play once
      * @return Handle A Handle to the newly playing sound, or InvalidHandle if too far away
      */
-    static Handle playSpatialSound(Resource<sf::SoundBuffer>::Ref sound, const sf::Vector2f& pos,
-                                   bool loop = false);
+    static Handle playSpatialSound(resource::Resource<sf::SoundBuffer>::Ref sound,
+                                   const sf::Vector2f& pos, bool loop = false);
 
     /**
      * @brief Play a sound in space with its own SpatialSettings
@@ -181,8 +184,9 @@ public:
      * @param loop True to loop, false to play once
      * @return Handle A Handle to the newly playing sound, or InvalidHandle if too far away
      */
-    static Handle playSpatialSound(Resource<sf::SoundBuffer>::Ref sound, const sf::Vector2f& pos,
-                                   const SpatialSettings& settings, bool loop = false);
+    static Handle playSpatialSound(resource::Resource<sf::SoundBuffer>::Ref sound,
+                                   const sf::Vector2f& pos, const SpatialSettings& settings,
+                                   bool loop = false);
 
     /**
      * @brief Returns a shared_ptr to a currently running sound by Handle
@@ -221,7 +225,7 @@ private:
     float musicFadeAmount;
 
     std::shared_mutex soundMutex;
-    DynamicObjectPool<std::shared_ptr<Sound>> sounds;
+    container::DynamicObjectPool<std::shared_ptr<Sound>> sounds;
     std::unordered_map<Handle, std::shared_ptr<Sound>> soundMap;
     SpatialSettings defaultSpatialSettings;
     float maxSpatialDistanceSquared;
@@ -238,11 +242,11 @@ private:
     void pushPlaylistImp(const Playlist& newPlaylist, float fadeout);
     void replacePlaylistImp(const Playlist& newPlaylist, float fadeout);
     void popPlaylistImp(float fadeout = 4.f);
-    Handle playSoundImp(Resource<sf::SoundBuffer>::Ref sound, bool loop);
-    Handle playSpatialSoundImp(Resource<sf::SoundBuffer>::Ref sound, const sf::Vector2f& pos,
-                               bool loop);
-    Handle playSpatialSoundImp(Resource<sf::SoundBuffer>::Ref sound, const sf::Vector2f& pos,
-                               const SpatialSettings& settings, bool loop);
+    Handle playSoundImp(resource::Resource<sf::SoundBuffer>::Ref sound, bool loop);
+    Handle playSpatialSoundImp(resource::Resource<sf::SoundBuffer>::Ref sound,
+                               const sf::Vector2f& pos, bool loop);
+    Handle playSpatialSoundImp(resource::Resource<sf::SoundBuffer>::Ref sound,
+                               const sf::Vector2f& pos, const SpatialSettings& settings, bool loop);
     std::shared_ptr<Sound> getSoundImp(Handle handle);
     void stopSoundImp(Handle handle);
 
@@ -283,19 +287,19 @@ inline void AudioSystem::replacePlaylist(const Playlist& p, float f) {
 
 inline void AudioSystem::popPlaylist(float f) { get().popPlaylistImp(f); }
 
-inline AudioSystem::Handle AudioSystem::playSound(Resource<sf::SoundBuffer>::Ref sound, bool loop) {
+inline AudioSystem::Handle AudioSystem::playSound(resource::Resource<sf::SoundBuffer>::Ref sound,
+                                                  bool loop) {
     return get().playSoundImp(sound, loop);
 }
 
-inline AudioSystem::Handle AudioSystem::playSpatialSound(Resource<sf::SoundBuffer>::Ref sound,
-                                                         const sf::Vector2f& pos, bool loop) {
+inline AudioSystem::Handle AudioSystem::playSpatialSound(
+    resource::Resource<sf::SoundBuffer>::Ref sound, const sf::Vector2f& pos, bool loop) {
     return get().playSpatialSoundImp(sound, pos, loop);
 }
 
-inline AudioSystem::Handle AudioSystem::playSpatialSound(Resource<sf::SoundBuffer>::Ref sound,
-                                                         const sf::Vector2f& pos,
-                                                         const SpatialSettings& settings,
-                                                         bool loop) {
+inline AudioSystem::Handle AudioSystem::playSpatialSound(
+    resource::Resource<sf::SoundBuffer>::Ref sound, const sf::Vector2f& pos,
+    const SpatialSettings& settings, bool loop) {
     return get().playSpatialSoundImp(sound, pos, settings, loop);
 }
 
@@ -305,6 +309,7 @@ inline std::shared_ptr<AudioSystem::Sound> AudioSystem::getSound(Handle h) {
 
 inline void AudioSystem::stopSound(Handle h) { get().stopSoundImp(h); }
 
+} // namespace audio
 } // namespace bl
 
 #endif

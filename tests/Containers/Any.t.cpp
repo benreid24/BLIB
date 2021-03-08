@@ -3,6 +3,8 @@
 
 namespace bl
 {
+namespace container
+{
 namespace unittest
 {
 namespace
@@ -82,4 +84,5 @@ TEST(Any, Destructor) {
 }
 
 } // namespace unittest
+} // namespace container
 } // namespace bl

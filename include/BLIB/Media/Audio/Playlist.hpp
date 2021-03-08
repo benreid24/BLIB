@@ -9,13 +9,15 @@
 
 namespace bl
 {
+namespace audio
+{
 /**
  * @brief A playable, serializable music playlist. Can be manually manipulated or loaded from files
  *
  * @ingroup Audio
  *
  */
-class Playlist : public bf::SerializableObject {
+class Playlist : public file::binary::SerializableObject {
 public:
     /**
      * @brief Creates an empty playlist
@@ -138,9 +140,9 @@ public:
     bool shufflingOnLoop() const;
 
 private:
-    bf::SerializableField<1, std::vector<std::string>> songs;
-    bf::SerializableField<2, bool> _shuffle;
-    bf::SerializableField<3, bool> shuffleOnLoop;
+    file::binary::SerializableField<1, std::vector<std::string>> songs;
+    file::binary::SerializableField<2, bool> _shuffle;
+    file::binary::SerializableField<3, bool> shuffleOnLoop;
 
     sf::Music current;
     unsigned int currentIndex;
@@ -150,6 +152,7 @@ private:
     void shuffle();
 };
 
+} // namespace audio
 } // namespace bl
 
 #endif

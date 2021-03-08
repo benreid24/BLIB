@@ -11,6 +11,8 @@
 
 namespace bl
 {
+namespace gfx
+{
 class Animation;
 
 /**
@@ -97,7 +99,7 @@ private:
         std::vector<Shard> shards;
     };
 
-    Resource<sf::Texture>::Ref spritesheet;
+    resource::Resource<sf::Texture>::Ref spritesheet;
     std::vector<Frame> frames;
     float totalLength;
     bool loop;
@@ -109,6 +111,7 @@ private:
     friend class Animation;
 };
 
+} // namespace gfx
 } // namespace bl
 
 #endif

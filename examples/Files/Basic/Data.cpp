@@ -6,14 +6,14 @@
 
 namespace
 {
-bl::json::Schema buildSchema() {
-    using namespace bl::json::schema;
+bl::file::json::Schema buildSchema() {
+    using namespace bl::file::json::schema;
 
     Value point     = Numeric::Any;
     Value pointList = List(point); // any length
     Value name      = String::Any;
 
-    bl::json::Schema schema;
+    bl::file::json::Schema schema;
     schema.addRequiredField("name", name);
     schema.addRequiredField("points", pointList);
 
@@ -40,7 +40,7 @@ std::ostream& operator<<(std::ostream& os, const Data& data) {
 }
 
 void Data::saveToBin(const std::string& file) const {
-    bl::bf::BinaryFile output(file, bl::bf::BinaryFile::Write);
+    bl::file::binary::File output(file, bl::file::binary::File::Write);
 
     output.write(name);
     output.write<uint32_t>(points.size());
@@ -48,7 +48,7 @@ void Data::saveToBin(const std::string& file) const {
 }
 
 bool Data::loadFromBin(const std::string& file) {
-    bl::bf::BinaryFile input(file, bl::bf::BinaryFile::Read);
+    bl::file::binary::File input(file, bl::file::binary::File::Read);
     if (!input.good()) return false;
 
     if (!input.read(name)) return false;
@@ -65,8 +65,8 @@ bool Data::loadFromBin(const std::string& file) {
 }
 
 void Data::saveToJson(const std::string& file) const {
-    bl::json::Group data;
-    bl::json::List jlist;
+    bl::file::json::Group data;
+    bl::file::json::List jlist;
 
     jlist.reserve(points.size());
     for (const auto& p : points) jlist.push_back(p);
@@ -74,12 +74,12 @@ void Data::saveToJson(const std::string& file) const {
     data.addField("name", name);
     data.addField("points", jlist);
 
-    bl::JSON::saveToFile(file, data);
+    bl::file::json::saveToFile(file, data);
 }
 
 bool Data::loadFromJson(const std::string& file) {
-    static const bl::json::Schema schema = buildSchema();
-    const bl::json::Group data           = bl::JSON::loadFromFile(file);
+    static const bl::file::json::Schema schema = buildSchema();
+    const bl::file::json::Group data           = bl::file::json::loadFromFile(file);
 
     if (!schema.validate(data, true)) {
         std::cout << "Schema validation failed\n";
@@ -89,9 +89,9 @@ bool Data::loadFromJson(const std::string& file) {
     points.clear();
 
     // fields return std::optional, but schema ensures they are present
-    name                       = data.getString("name").value();
-    const bl::json::List plist = data.getList("points").value();
+    name                             = data.getString("name").value();
+    const bl::file::json::List plist = data.getList("points").value();
     points.reserve(plist.size());
-    for (const bl::json::Value& p : plist) { points.push_back(p.getAsNumeric().value()); }
+    for (const bl::file::json::Value& p : plist) { points.push_back(p.getAsNumeric().value()); }
     return true;
 }

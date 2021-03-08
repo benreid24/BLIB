@@ -3,6 +3,8 @@
 
 namespace bl
 {
+namespace container
+{
 namespace unittest
 {
 TEST(FastEraseVector, Erase) {
@@ -22,4 +24,5 @@ TEST(FastEraseVector, Erase) {
 }
 
 } // namespace unittest
+} // namespace container
 } // namespace bl

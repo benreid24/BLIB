@@ -2,6 +2,8 @@
 
 namespace bl
 {
+namespace util
+{
 Timer::Timer()
 : paused(false) {}
 
@@ -20,9 +22,7 @@ sf::Time Timer::timeElapsed() const {
 
 float Timer::timeElapsedSeconds() const { return timeElapsed().asSeconds(); }
 
-unsigned long int Timer::timeElapsedMilliseconds() const {
-    return timeElapsed().asMilliseconds();
-}
+unsigned long int Timer::timeElapsedMilliseconds() const { return timeElapsed().asMilliseconds(); }
 
 void Timer::pause() {
     paused     = true;
@@ -34,4 +34,5 @@ void Timer::resume() {
     offset += clock.getElapsedTime() - timePaused;
 }
 
+} // namespace util
 } // namespace bl

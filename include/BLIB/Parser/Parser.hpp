@@ -6,13 +6,13 @@
 
 namespace bl
 {
+/// A framework for tokenizing and shift reduce parsing
 namespace parser
 {
 namespace unittest
 {
 class TableReader;
 }
-} // namespace parser
 
 /**
  * @brief Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer
@@ -81,6 +81,7 @@ private:
     friend class parser::unittest::TableReader;
 };
 
+} // namespace parser
 } // namespace bl
 
 #endif

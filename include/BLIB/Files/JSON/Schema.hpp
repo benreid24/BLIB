@@ -11,10 +11,13 @@
 
 namespace bl
 {
+namespace file
+{
 namespace json
 {
 class Schema;
 
+/// Collection of classes for creating json schemas and verifying that file content matches
 namespace schema
 {
 class Bool;
@@ -242,6 +245,7 @@ private:
 };
 
 } // namespace json
+} // namespace file
 } // namespace bl
 
 #endif

@@ -1,8 +1,10 @@
-#include <BLIB/Containers/DynamicObjectPool.hpp>
 #include <BLIB/Containers/Any.hpp>
+#include <BLIB/Containers/DynamicObjectPool.hpp>
 #include <gtest/gtest.h>
 
 namespace bl
+{
+namespace container
 {
 namespace unittest
 {
@@ -33,7 +35,8 @@ struct Data {
     int value;
 
     Data() = default;
-    Data(int i) : value(i) {}
+    Data(int i)
+    : value(i) {}
 };
 
 } // namespace
@@ -227,8 +230,8 @@ TEST(DynamicObjectPool, MultipleObjects) {
     pool.add({15});
 
     EXPECT_EQ(pool.begin()->value, 5);
-    EXPECT_EQ((pool.begin()+1)->value, 10);
-    EXPECT_EQ((pool.begin()+2)->value, 15);
+    EXPECT_EQ((pool.begin() + 1)->value, 10);
+    EXPECT_EQ((pool.begin() + 2)->value, 15);
 }
 
 TEST(DynamicObjectPool, Any) {
@@ -238,10 +241,11 @@ TEST(DynamicObjectPool, Any) {
     pool.add(Data(10));
 
     Any<32>& temp = *pool.begin();
-    auto val = temp.get<Data>();
+    auto val      = temp.get<Data>();
     EXPECT_EQ(pool.begin()->get<Data>().value, 5);
-    EXPECT_EQ((pool.begin()+1)->get<Data>().value, 10);
+    EXPECT_EQ((pool.begin() + 1)->get<Data>().value, 10);
 }
 
 } // namespace unittest
+} // namespace container
 } // namespace bl

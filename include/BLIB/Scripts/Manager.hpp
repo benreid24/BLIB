@@ -8,12 +8,20 @@
 
 namespace bl
 {
+namespace script
+{
 /**
  * @brief Utility class that can manage sets of concurrently running scripts
  *
  */
-class ScriptManager : private NonCopyable {
+class Manager : private util::NonCopyable {
 public:
+    /**
+     * @brief Terminates all running scripts
+     *
+     */
+    ~Manager();
+
     /**
      * @brief Terminates all running scripts
      *
@@ -42,6 +50,7 @@ private:
     friend class Script;
 };
 
+} // namespace script
 } // namespace bl
 
 #endif

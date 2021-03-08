@@ -211,8 +211,8 @@ public:
     ComponentSet<TComponents...> getEntityComponents(Entity e);
 
 private:
-    using ComponentStorage = Any<32>; // TODO - benchmark this
-    using ComponentPool    = DynamicObjectPool<ComponentStorage>;
+    using ComponentStorage = container::Any<32>; // TODO - benchmark this
+    using ComponentPool    = container::DynamicObjectPool<ComponentStorage>;
 
     mutable std::shared_mutex entityMutex;
     std::unordered_set<Entity> entities;

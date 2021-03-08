@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 /**
  * @brief Script utility class to represent an error. Can be used to build a call stack for
@@ -65,7 +65,7 @@ private:
  */
 struct Exit {};
 
-} // namespace scripts
+} // namespace script
 
 } // namespace bl
 

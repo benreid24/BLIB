@@ -5,10 +5,9 @@
 
 namespace bl
 {
-class Engine;
-
 namespace engine
 {
+class Engine;
 /**
  * @brief Base interface for all engine states. The Engine class manages the main game loop,
  *        application logic should be implemented in a set of EngineState classes which can be
@@ -22,6 +21,12 @@ public:
     using Ptr = std::shared_ptr<State>;
 
     virtual ~State() = default;
+
+    /**
+     * @brief A human readable name of the state for logging
+     *
+     */
+    virtual const char* name() const = 0;
 
     /**
      * @brief This is called each time the state becomes the active engine state

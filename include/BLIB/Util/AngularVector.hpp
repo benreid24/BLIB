@@ -1,10 +1,12 @@
 #ifndef BLIB_UTIL_ANGULARVECTOR_HPP
-#define BLIB_UTILANGULARVECTOR_HPP
+#define BLIB_UTIL_ANGULARVECTOR_HPP
 
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
 namespace bl
+{
+namespace util
 {
 /**
  * @brief Angular contemporary to sf::Vector2<T>.
@@ -45,11 +47,11 @@ struct AngularVector {
     /**
      * @brief Construct from a cartesian vector
      *
-     * @param cartesianVector The vector to convert to angular corrdinates
+     * @param cartesianVector The vector to convert to angular coordinates
      */
     AngularVector(const sf::Vector2<T>& cartesianVector)
-    : magnitude(std::sqrt(cartesianVector.x * cartesianVector.x +
-                          cartesianVector.y * cartesianVector.y))
+    : magnitude(
+          std::sqrt(cartesianVector.x * cartesianVector.x + cartesianVector.y * cartesianVector.y))
     , angle(std::atan2(cartesianVector.y, cartesianVector.x) * 180 / 3.1415926 +
             StdToSFMLRotationOffset) {}
 
@@ -112,9 +114,7 @@ struct AngularVector {
      * @brief Subtract a Cartesian vector from this vector
      *
      */
-    AngularVector operator-(const sf::Vector2<T>& v) {
-        return AngularVector(toCartesian() - v);
-    }
+    AngularVector operator-(const sf::Vector2<T>& v) { return AngularVector(toCartesian() - v); }
 
     /**
      * @brief Scale the vector magnitude with a scalar
@@ -131,6 +131,7 @@ struct AngularVector {
 
 typedef AngularVector<float> AngularVectorF;
 
+} // namespace util
 } // namespace bl
 
 #endif

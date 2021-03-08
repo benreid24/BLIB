@@ -5,6 +5,9 @@
 
 namespace bl
 {
+/// Collection of shapes to expand on what's offered by SFML
+namespace shapes
+{
 /**
  * @brief Ellipse shape defined by it's major and minor axes. The elipse is horizontal
  *
@@ -62,6 +65,8 @@ private:
     float majorRadius;
     float minorRadius;
 };
+
+} // namespace shapes
 } // namespace bl
 
 #endif

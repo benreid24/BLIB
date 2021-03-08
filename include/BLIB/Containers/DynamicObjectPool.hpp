@@ -7,6 +7,8 @@
 
 namespace bl
 {
+namespace container
+{
 /**
  * @brief Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1),
  *        however objects in the pool maintain their indices in the DynamicObjectPool. Object slots
@@ -456,6 +458,7 @@ bool DynamicObjectPool<T>::IteratorType<ET>::operator!=(const IteratorType<ET>& 
     return &pool != &right.pool || i != right.i;
 }
 
+} // namespace container
 } // namespace bl
 
 #endif

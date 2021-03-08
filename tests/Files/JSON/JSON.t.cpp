@@ -1,10 +1,12 @@
 #include <BLIB/Files/JSON/JSON.hpp>
 
-#include <BLIB/Files/FileUtil.hpp>
+#include <BLIB/Files/Util.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 namespace bl
+{
+namespace file
 {
 namespace json
 {
@@ -61,7 +63,7 @@ TEST(JSON, BasicGroup) {
     const std::string json = "{ \"num\": 123.45, \"str\": \"hello\", \"b\": true }";
     std::stringstream stream(json);
 
-    Group root = JSON::loadFromStream(stream);
+    Group root = loadFromStream(stream);
     EXPECT_TRUE(root.hasField("num"));
     EXPECT_TRUE(root.hasField("str"));
     EXPECT_TRUE(root.hasField("b"));
@@ -74,10 +76,9 @@ TEST(JSON, BasicGroup) {
 }
 
 TEST(JSON, NestedGroup) {
-    const std::string json =
-        "{\"grp\":{\"deep\":{\"wogh\":12},\"list\": [1,2,3]}, \"b\": false}";
+    const std::string json = "{\"grp\":{\"deep\":{\"wogh\":12},\"list\": [1,2,3]}, \"b\": false}";
 
-    Group root = JSON::loadFromString(json);
+    Group root = loadFromString(json);
     ASSERT_TRUE(root.getGroup("grp"));
     ASSERT_TRUE(root.getGroup("grp/deep"));
     ASSERT_TRUE(root.getNumeric("grp/deep/wogh"));
@@ -95,7 +96,7 @@ TEST(JSON, NestedGroup) {
 TEST(JSON, GroupList) {
     const std::string json = "{\"l\":[{\"name\": 15}]}";
 
-    Group root = JSON::loadFromString(json);
+    Group root = loadFromString(json);
     ASSERT_TRUE(root.hasField("l"));
     ASSERT_TRUE(root.getField("l").value().getAsList());
     List list = root.getField("l").value().getAsList().value();
@@ -110,13 +111,13 @@ TEST(JSON, GroupList) {
 TEST(JSON, Files) {
     const std::string json =
         "{ \"num\": 123.45, \"str\": \"hello\", \"b\": true, \"ls\": [1,2,3] }";
-    const std::string filename = FileUtil::genTempName("json", "json");
+    const std::string filename = file::Util::genTempName("json", "json");
 
-    Group goodRoot = JSON::loadFromString(json);
-    FileUtil::createDirectory("json");
-    JSON::saveToFile(filename, goodRoot);
-    Group root = JSON::loadFromFile(filename);
-    FileUtil::deleteFile(filename);
+    Group goodRoot = loadFromString(json);
+    file::Util::createDirectory("json");
+    saveToFile(filename, goodRoot);
+    Group root = loadFromFile(filename);
+    file::Util::deleteFile(filename);
 
     EXPECT_TRUE(root.hasField("num"));
     EXPECT_TRUE(root.hasField("str"));
@@ -133,4 +134,5 @@ TEST(JSON, Files) {
 
 } // namespace unittest
 } // namespace json
+} // namespace file
 } // namespace bl

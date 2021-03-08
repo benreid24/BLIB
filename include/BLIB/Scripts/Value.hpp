@@ -9,7 +9,7 @@
 
 namespace bl
 {
-namespace scripts
+namespace script
 {
 class Function;
 /**
@@ -173,7 +173,7 @@ private:
     Value at(const std::vector<Value>& args);
 };
 
-} // namespace scripts
+} // namespace script
 } // namespace bl
 
 #endif

@@ -164,9 +164,8 @@ bool Element::handleEvent(const RawEvent& event) {
     case sf::Event::MouseMoved:
         if (!active()) { return eventOnMe; }
         if (isLeftPressed) {
-            isMouseOver = eventOnMe;
-            const bool r =
-                processAction(Action(Action::Dragged, dragStart, event.localMousePos));
+            isMouseOver  = eventOnMe;
+            const bool r = processAction(Action(Action::Dragged, dragStart, event.localMousePos));
             return r;
         }
         else if (eventOnMe) {
@@ -285,7 +284,7 @@ void Element::doRender(sf::RenderTarget& target, sf::RenderStates states,
 
 const RenderSettings& Element::renderSettings() const { return settings; }
 
-void Element::setFont(bl::Resource<sf::Font>::Ref f) {
+void Element::setFont(bl::resource::Resource<sf::Font>::Ref f) {
     settings.font = f;
     fireSignal(Action(Action::RenderSettingsChanged));
 }

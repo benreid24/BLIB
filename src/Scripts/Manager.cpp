@@ -1,19 +1,25 @@
-#include <BLIB/Scripts/ScriptManager.hpp>
+#include <BLIB/Scripts/Manager.hpp>
 
 #include <BLIB/Logging.hpp>
 #include <chrono>
 
 namespace bl
 {
-using namespace scripts;
+namespace script
+{
+Manager::~Manager() {
+    BL_LOG_INFO << "script manager (" << this << ") terminating. timeout = 2s";
+    terminateAll(2.f);
+    BL_LOG_INFO << "script manager (" << this << ") terminated";
+}
 
-void ScriptManager::watch(Script::ExecutionContext::WPtr record) {
+void Manager::watch(Script::ExecutionContext::WPtr record) {
     std::lock_guard guard(mutex);
     clean();
     scripts.push_back(record);
 }
 
-bool ScriptManager::terminateAll(float timeout) {
+bool Manager::terminateAll(float timeout) {
     std::lock_guard guard(mutex);
     for (auto i = scripts.begin(); i != scripts.end(); ++i) {
         if (i->expired())
@@ -33,14 +39,13 @@ bool ScriptManager::terminateAll(float timeout) {
     }
 
     if (!scripts.empty()) {
-        BL_LOG_WARN << scripts.size() << "scripts still running after " << timeout
-                    << "s  timeout";
+        BL_LOG_WARN << scripts.size() << "scripts still running after " << timeout << "s  timeout";
         return false;
     }
     return true;
 }
 
-void ScriptManager::clean() {
+void Manager::clean() {
     for (auto i = scripts.begin(); i != scripts.end(); ++i) {
         if (i->expired())
             i = scripts.erase(i);
@@ -51,4 +56,5 @@ void ScriptManager::clean() {
     }
 }
 
+} // namespace script
 } // namespace bl

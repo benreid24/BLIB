@@ -82,7 +82,7 @@ public:
      * @param event The EventType the Signal is triggered by
      * @return Signal<>& The modifiable signal
      */
-    Signal<>& getSignal(EventType event);
+    util::Signal<>& getSignal(EventType event);
 
     /**
      * @brief Get the RenderItem for this Item
@@ -112,7 +112,7 @@ public:
 private:
     RenderItem::Ptr renderItem;
     Ptr attachments[_NUM_ATTACHPOINTS];
-    Signal<> signals[_NUM_EVENTS];
+    util::Signal<> signals[_NUM_EVENTS];
     bool canBeSelected;
     bool allowSelectionCross;
     bool attached;
