@@ -22,7 +22,7 @@ class Logger;
  * @ingroup Logging
  *
  */
-class LoggingConfig : public NonCopyable {
+class LoggingConfig : public util::NonCopyable {
 public:
     static constexpr int Critical = 5;
     static constexpr int Error    = 4;

@@ -10,7 +10,7 @@ namespace gui
 {
 class Element;
 
-using Signal = bl::Signal<const Action&, Element*>;
+using Signal = bl::util::Signal<const Action&, Element*>;
 
 } // namespace gui
 } // namespace bl

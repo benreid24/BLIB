@@ -23,7 +23,7 @@ class MultiEventDispatcherScopeGuard;
  * @ingroup Events
  *
  */
-class MultiEventDispatcher : private NonCopyable {
+class MultiEventDispatcher : private util::NonCopyable {
 public:
     /**
      * @brief Subscribe the given listener to the event stream for the event types given

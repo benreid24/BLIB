@@ -123,7 +123,7 @@ void Playlist::shuffle() {
     for (std::size_t i = 0; i < order.size(); ++i) { indices.push_back(i); }
 
     while (!indices.empty()) {
-        const std::size_t i = Random::get<std::size_t>(0, indices.size() - 1);
+        const std::size_t i = util::Random::get<std::size_t>(0, indices.size() - 1);
         songs.getValue().emplace_back(std::move(order[indices[i]]));
         indices.erase(i);
     }

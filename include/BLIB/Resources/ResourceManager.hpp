@@ -20,7 +20,7 @@ namespace bl
  * @ingroup Resources
  */
 template<typename TResourceType>
-class ResourceManager : private NonCopyable {
+class ResourceManager : private util::NonCopyable {
 public:
     /**
      * @brief Creates a ResourceManager for a given resource type and garbage collection period

@@ -78,7 +78,7 @@ std::string FileUtil::genTempName(const std::string& path, const std::string& ex
     std::string file;
     do {
         std::stringstream ss;
-        ss << "TEMP_" << std::hex << Random::get(1000, 10000000);
+        ss << "TEMP_" << std::hex << util::Random::get(1000, 10000000);
         if (!ext.empty()) {
             if (ext[0] != '.') ss << ".";
             ss << ext;

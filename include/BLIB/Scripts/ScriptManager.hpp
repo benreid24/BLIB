@@ -12,7 +12,7 @@ namespace bl
  * @brief Utility class that can manage sets of concurrently running scripts
  *
  */
-class ScriptManager : private NonCopyable {
+class ScriptManager : private util::NonCopyable {
 public:
     /**
      * @brief Terminates all running scripts

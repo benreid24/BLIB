@@ -123,7 +123,7 @@ void AudioSystem::popPlaylistImp(float fadeout) {
 }
 
 AudioSystem::Handle AudioSystem::create() const {
-    return Random::get<Handle>(1, std::numeric_limits<Handle>::max());
+    return util::Random::get<Handle>(1, std::numeric_limits<Handle>::max());
 }
 
 AudioSystem::Handle AudioSystem::playSoundImp(Resource<sf::SoundBuffer>::Ref sound, bool loop) {

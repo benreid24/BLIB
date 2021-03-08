@@ -9,6 +9,8 @@
 
 namespace bl
 {
+namespace util
+{
 /**
  * @brief Utility class perform callback actions on events. Can be configured to perform
  * multiple callbacks. Includes a helper method to simply set a boolean variable
@@ -18,7 +20,7 @@ namespace bl
  *
  */
 template<typename... CallbackArgs>
-class Signal : public bl::NonCopyable {
+class Signal : public NonCopyable {
 public:
     /**
      * @brief Callback function signature for a Signal
@@ -99,6 +101,7 @@ void Signal<CallbackArgs...>::operator()(CallbackArgs... args) {
     for (const auto& cb : internalCallbacks) { cb(args...); }
 }
 
+} // namespace util
 } // namespace bl
 
 #endif

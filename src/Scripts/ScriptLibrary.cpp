@@ -87,13 +87,12 @@ Value random(SymbolTable&, const std::vector<Value>& args) {
         throw Error("random() only takes Numeric arguments");
     const float mn = std::min(args[0].getAsNum(), args[1].getAsNum());
     const float mx = std::max(args[0].getAsNum(), args[1].getAsNum());
-    return Value(Random::get(mn, mx));
+    return Value(util::Random::get(mn, mx));
 }
 
 Value sleep(SymbolTable& table, const std::vector<Value>& args) {
     if (args.size() != 1) throw Error("sleep() takes 1 argument");
-    if (args[0].getType() != Value::TNumeric)
-        throw Error("sleep() expects a Numeric time in ms");
+    if (args[0].getType() != Value::TNumeric) throw Error("sleep() expects a Numeric time in ms");
     if (args[0].getAsNum() <= 0) throw Error("sleep() must be given a positive value");
     const unsigned int ms = args[0].getAsNum();
     unsigned int t        = 0;
@@ -107,7 +106,7 @@ Value sleep(SymbolTable& table, const std::vector<Value>& args) {
 
 Value time(SymbolTable&, const std::vector<Value>& args) {
     if (!args.empty()) throw Error("time() takes 0 arguments");
-    return Value(Timer::get().timeElapsedRaw().asMilliseconds());
+    return Value(util::Timer::get().timeElapsedRaw().asMilliseconds());
 }
 
 Value run(SymbolTable& table, const std::vector<Value>& args) {

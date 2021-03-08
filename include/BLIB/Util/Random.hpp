@@ -8,14 +8,18 @@
 #include <random>
 #include <type_traits>
 
+/// The parent namespace for all of BLIB
 namespace bl
+{
+/// Contains a set of common utility classes that do not fit into any other modules
+namespace util
 {
 /**
  * @brief Random number generator for integral and floating point numbers
  *
  * @ingroup Util
  */
-class Random : private NonCopyable {
+class Random : private util::NonCopyable {
 public:
     /**
      * @brief Returns a random number in the given range of an integral type
@@ -62,6 +66,7 @@ private:
     std::mt19937 rng;
 };
 
+} // namespace util
 } // namespace bl
 
 #endif

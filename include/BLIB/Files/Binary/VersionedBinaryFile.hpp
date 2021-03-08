@@ -52,7 +52,7 @@ struct VersionedPayloadLoader {
  * @ingroup BinaryFiles
  */
 template<typename Payload, typename DefaultLoader, typename... Versions>
-class VersionedBinaryFile : private NonCopyable {
+class VersionedBinaryFile : private util::NonCopyable {
 public:
     using Loader = VersionedPayloadLoader<Payload>;
 

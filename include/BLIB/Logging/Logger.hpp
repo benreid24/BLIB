@@ -16,7 +16,7 @@ namespace bl
  * @ingroup Logging
  *
  */
-struct Logger : public NonCopyable {
+struct Logger : public util::NonCopyable {
     /**
      * @brief Flushes the generated log line
      *

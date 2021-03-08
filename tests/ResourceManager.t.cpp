@@ -9,7 +9,7 @@ namespace unittest
 {
 struct MockLoader : public ResourceLoader<int> {
     virtual Resource<int>::Ref load(const std::string&) override {
-        return std::make_shared<int>(Random::get(0, 1000));
+        return std::make_shared<int>(util::Random::get(0, 1000));
     }
 };
 

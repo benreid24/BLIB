@@ -18,7 +18,7 @@ namespace bl
  * @ingroup Events
  *
  */
-class MultiEventDispatcherScopeGuard : private NonCopyable {
+class MultiEventDispatcherScopeGuard : private util::NonCopyable {
 public:
     /**
      * @brief Create the guard around the given dispatcher

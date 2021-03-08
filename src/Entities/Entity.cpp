@@ -24,7 +24,7 @@ Entity IdGenerator::makeNew() {
         get().idLock.unlock();
         return e;
     }
-    return Random::get<Entity>(1, std::numeric_limits<Entity>::max());
+    return util::Random::get<Entity>(1, std::numeric_limits<Entity>::max());
 }
 
 } // namespace entity

@@ -20,7 +20,7 @@ namespace bf
  *
  * @ingroup Binary
  */
-class BinaryFile : private NonCopyable {
+class BinaryFile : private util::NonCopyable {
 public:
     /**
      * @brief Indicates file operation mode

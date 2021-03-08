@@ -20,7 +20,7 @@ namespace engine
  * @ingroup Engine
  *
  */
-struct Resources : private NonCopyable {
+struct Resources : private util::NonCopyable {
     /**
      * @brief Returns a reference to the resource manager for sf::SoundBuffer
      *
