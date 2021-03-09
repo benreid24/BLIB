@@ -3,7 +3,10 @@
 
 #include <BLIB/Scripts/Function.hpp>
 #include <BLIB/Scripts/Value.hpp>
+#include <atomic>
+#include <condition_variable>
 #include <list>
+#include <mutex>
 #include <string>
 #include <unordered_map>
 
@@ -26,6 +29,12 @@ public:
      *
      */
     SymbolTable();
+
+    /**
+     * @brief Copies the symbol table
+     *
+     */
+    SymbolTable(const SymbolTable& copy);
 
     /**
      * @brief Pushes a new stack frame on
@@ -88,10 +97,20 @@ public:
      */
     Manager* manager();
 
+    /**
+     * @brief Pauses the current thread for the given amount of time. Unpauses if the script is
+     *        terminated during its sleep
+     *
+     * @param milliseconds The number of milliseconds to pause for
+     */
+    void waitFor(unsigned long int milliseconds);
+
 private:
     std::vector<std::unordered_map<std::string, Value::Ptr>> table;
     Manager* mgr;
-    bool stop;
+    std::atomic<bool> stop;
+    std::mutex waitMutex;
+    std::condition_variable waitVar;
 };
 
 } // namespace script

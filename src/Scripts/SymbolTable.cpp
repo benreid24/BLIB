@@ -29,6 +29,11 @@ SymbolTable::SymbolTable()
     pushFrame();
 }
 
+SymbolTable::SymbolTable(const SymbolTable& copy)
+: table(copy.table)
+, mgr(copy.mgr)
+, stop(copy.stop.operator bool()) {}
+
 void SymbolTable::pushFrame() { table.push_back({}); }
 
 void SymbolTable::popFrame() {
@@ -66,13 +71,21 @@ void SymbolTable::set(const std::string& name, const Value& val, bool top) {
     *value = val;
 }
 
-void SymbolTable::kill() { stop = true; }
+void SymbolTable::kill() {
+    stop = true;
+    waitVar.notify_all();
+}
 
 bool SymbolTable::killed() const { return stop; }
 
 void SymbolTable::registerManager(Manager* m) { mgr = m; }
 
 Manager* SymbolTable::manager() { return mgr; }
+
+void SymbolTable::waitFor(unsigned long int ms) {
+    std::unique_lock lock(waitMutex);
+    waitVar.wait_for(lock, std::chrono::milliseconds(ms));
+}
 
 } // namespace script
 } // namespace bl
