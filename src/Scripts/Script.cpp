@@ -35,7 +35,7 @@ std::optional<script::Value> Script::run(engine::Engine& engine) const {
 std::optional<script::Value> Script::run(Manager* manager) const {
     if (!valid()) return {};
     ExecutionContext::Ptr ctx(new ExecutionContext(root));
-    ctx->table = generateBaseTable();
+    Library::addBuiltIns(ctx->table);
     if (manager) ctx->table.registerManager(manager);
     addCustomSymbols(ctx->table);
     onRun();
@@ -47,7 +47,7 @@ void Script::runBackground(engine::Engine& engine) const { runBackground(&engine
 void Script::runBackground(Manager* manager) const {
     if (!valid()) return;
     ExecutionContext::Ptr ctx(new ExecutionContext(root));
-    ctx->table = generateBaseTable();
+    Library::addBuiltIns(ctx->table);
     if (manager) ctx->table.registerManager(manager);
     addCustomSymbols(ctx->table);
     onRun();
@@ -69,12 +69,6 @@ std::optional<script::Value> Script::execute(ExecutionContext::Ptr context) cons
         BL_LOG_ERROR << err.stacktrace();
         return {};
     } catch (const Exit&) { return {}; }
-}
-
-SymbolTable Script::generateBaseTable() const {
-    SymbolTable table;
-    Library::addBuiltIns(table);
-    return table;
 }
 
 } // namespace script

@@ -34,13 +34,6 @@ public:
     Engine(const Settings& settings);
 
     /**
-     * @brief Sets the window for the Engine to render to and process events for
-     *
-     * @param window Reference to the window to use, must remain valid
-     */
-    void useWindow(sf::RenderWindow& window);
-
-    /**
      * @brief Returns a reference to the engine wide entity registry
      *
      */
@@ -72,7 +65,8 @@ public:
     Flags& flags();
 
     /**
-     * @brief Returns a reference to the window being managed. Undefined behavior if no window
+     * @brief Returns a reference to the window the engine has created and is managing. The window
+     *        is created when run() is called
      *
      */
     sf::RenderWindow& window();
@@ -80,12 +74,12 @@ public:
     /**
      * @brief Runs the main game loop starting in the given initial state. This is the main
      *        application loop and runs for the duration of the program. All setup should be
-     *        performed prior to calling this
+     *        performed prior to calling this. The sf::RenderWindow is created in here
      *
      * @param initialState The starting engine state
-     * @return int Return code of the program
+     * @return bool True if the engine exited cleanly, false if exiting due to error
      */
-    int run(State::Ptr initialState);
+    bool run(State::Ptr initialState);
 
     /**
      * @brief Sets the next state for the following engine update loop. May be called at any
@@ -102,7 +96,7 @@ private:
     std::stack<State::Ptr> states;
     State::Ptr newState;
 
-    sf::RenderWindow* renderWindow;
+    std::shared_ptr<sf::RenderWindow> renderWindow;
     event::Dispatcher engineEventBus;
     script::Manager engineScriptManager;
     entity::Registry entityRegistry;

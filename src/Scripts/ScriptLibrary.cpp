@@ -95,12 +95,8 @@ Value sleep(SymbolTable& table, const std::vector<Value>& args) {
     if (args[0].getType() != Value::TNumeric) throw Error("sleep() expects a Numeric time in ms");
     if (args[0].getAsNum() <= 0) throw Error("sleep() must be given a positive value");
     const unsigned int ms = args[0].getAsNum();
-    unsigned int t        = 0;
-    while (t < ms) {
-        if (table.killed()) throw Error("Script killed");
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        ++t;
-    }
+    table.waitFor(ms);
+    if (table.killed()) throw Error("Script killed");
     return Value();
 }
 

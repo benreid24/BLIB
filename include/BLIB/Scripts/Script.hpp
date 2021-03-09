@@ -94,12 +94,6 @@ private:
     parser::Node::Ptr root;
     const std::string source;
 
-    /**
-     * @brief Calls generateCustomStartSymbols and adds built in methods
-     *
-     */
-    script::SymbolTable generateBaseTable() const;
-
     struct ExecutionContext : public std::enable_shared_from_this<ExecutionContext> {
         typedef std::shared_ptr<ExecutionContext> Ptr;
         typedef std::weak_ptr<ExecutionContext> WPtr;

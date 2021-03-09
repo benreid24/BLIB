@@ -1,6 +1,8 @@
 #include <BLIB/Engine/Engine.hpp>
 
+#include <BLIB/Engine/Event.hpp>
 #include <BLIB/Logging.hpp>
+#include <SFML/Window.hpp>
 #include <cmath>
 
 namespace bl
@@ -10,8 +12,6 @@ namespace engine
 Engine::Engine(const Settings& settings)
 : renderWindow(nullptr)
 , engineSettings(settings) {}
-
-void Engine::useWindow(sf::RenderWindow& w) { renderWindow = &w; }
 
 event::Dispatcher& Engine::eventBus() { return engineEventBus; }
 
@@ -27,7 +27,7 @@ sf::RenderWindow& Engine::window() { return *renderWindow; }
 
 void Engine::nextState(State::Ptr next) { newState = next; }
 
-int Engine::run(State::Ptr initialState) {
+bool Engine::run(State::Ptr initialState) {
     BL_LOG_INFO << "Starting engine with state: " << initialState->name();
     states.push(initialState);
 
@@ -58,6 +58,20 @@ int Engine::run(State::Ptr initialState) {
         }
     };
 
+    std::shared_ptr<sf::Context> renderContext; // ensure this thread has active context
+    if (engineSettings.createWindow()) {
+        renderContext = std::make_shared<sf::Context>();
+        renderWindow  = std::make_shared<sf::RenderWindow>(
+            engineSettings.videoMode(), engineSettings.windowTitle(), engineSettings.windowStyle());
+        if (!renderWindow->isOpen()) {
+            BL_LOG_ERROR << "Failed to create window";
+            return false;
+        }
+    }
+
+    initialState->makeActive(*this);
+    engineEventBus.dispatch<Event>({Event::StartupEvent{initialState}});
+
     while (true) {
         // Clear flags from last loop
         engineFlags.clear();
@@ -69,14 +83,20 @@ int Engine::run(State::Ptr initialState) {
                 engineEventBus.dispatch<sf::Event>(event);
 
                 if (event.type == sf::Event::Closed) {
+                    engineEventBus.dispatch<Event>(
+                        Event::ShutdownEvent({Event::ShutdownEvent::WindowClosed}));
                     renderWindow->close();
-                    return 0;
+                    return true;
                 }
                 else if (event.type == sf::Event::LostFocus) {
+                    engineEventBus.dispatch<Event>({Event::PausedEvent()});
                     if (!awaitFocus()) {
+                        engineEventBus.dispatch<Event>(
+                            Event::ShutdownEvent({Event::ShutdownEvent::WindowClosed}));
                         renderWindow->close();
-                        return 0;
+                        return true;
                     }
+                    engineEventBus.dispatch<Event>({Event::ResumedEvent()});
                 }
                 // more events?
             }
@@ -121,28 +141,36 @@ int Engine::run(State::Ptr initialState) {
 
         // Process flags
         if (engineFlags.active(Flags::Terminate)) {
+            engineEventBus.dispatch<Event>(
+                {Event::ShutdownEvent{Event::ShutdownEvent::Terminated}});
             if (renderWindow) renderWindow->close();
-            return 1;
+            return true;
         }
         else if (engineFlags.active(Flags::PopState)) {
             BL_LOG_INFO << "Popping state: " << states.top()->name();
-            states.top()->onPoppedOff(*this);
+            auto prev = states.top();
+            prev->onPoppedOff(*this);
             states.pop();
             if (states.empty()) {
                 BL_LOG_INFO << "Final state popped, exiting";
+                engineEventBus.dispatch<Event>(
+                    {Event::ShutdownEvent{Event::ShutdownEvent::FinalStatePopped}});
                 if (renderWindow) renderWindow->close();
-                return 0;
+                return true;
             }
             BL_LOG_INFO << "New engine state: " << states.top()->name();
             states.top()->makeActive(*this);
+            engineEventBus.dispatch<Event>({Event::StateChangeEvent{states.top(), prev}});
         }
 
         // Handle state transition
         if (newState) {
             BL_LOG_INFO << "New engine state: " << newState->name();
-            states.top()->onPushedDown(*this);
+            auto prev = states.top();
+            prev->onPushedDown(*this);
             states.push(newState);
             states.top()->makeActive(*this);
+            engineEventBus.dispatch<Event>({Event::StateChangeEvent{states.top(), prev}});
             newState = nullptr;
         }
 
@@ -153,6 +181,8 @@ int Engine::run(State::Ptr initialState) {
             lastLoopTime = timer.getElapsedTime().asSeconds();
         }
     }
+
+    return false; // shouldn't be able to get here
 }
 
 bool Engine::awaitFocus() {
