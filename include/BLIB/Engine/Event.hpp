@@ -60,7 +60,7 @@ public:
 
             /// The main window was closed
             WindowClosed
-        } type;
+        } cause;
     };
 
     /// Stores data related to StateChange event type
@@ -94,6 +94,9 @@ public:
         /// Contains engine resume information
         ResumedEvent resumed;
     };
+
+    /// Copies an Event
+    Event(const Event& copy);
 
     /// Cleans up
     ~Event();

@@ -1,4 +1,5 @@
 #include <BLIB/Engine.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
 #include <gtest/gtest.h>
 #include <vector>
@@ -130,7 +131,9 @@ private:
 };
 
 TEST(Engine, VariableTimestep) {
-    Engine engine(Settings().withAllowVariableTimestep(true).withUpdateInterval(0.1f));
+    Engine engine(
+        Settings().withAllowVariableTimestep(true).withUpdateInterval(0.1f).withCreateWindow(
+            false));
 
     VariableTimeTestState* state = new VariableTimeTestState();
     State::Ptr ptr(state);
@@ -162,7 +165,7 @@ private:
 };
 
 TEST(Engine, FixedTimestep) {
-    Engine engine(Settings().withAllowVariableTimestep(false));
+    Engine engine(Settings().withAllowVariableTimestep(false).withCreateWindow(false));
 
     FixedTimestepTestState* state = new FixedTimestepTestState();
     State::Ptr ptr(state);
@@ -171,6 +174,56 @@ TEST(Engine, FixedTimestep) {
     for (unsigned int i = 0; i < state->getTimes().size() - 1; ++i) {
         EXPECT_EQ(state->getTimes().at(i), state->getTimes().at(i + 1));
     }
+}
+
+struct EventReceiver : public bl::event::Listener<Event> {
+    EventReceiver(std::vector<Event>& recv)
+    : recv(recv) {}
+
+    virtual void observe(const Event& event) override {
+        std::cout << "Adding event: " << event.type << std::endl;
+        recv.push_back(event);
+    }
+
+private:
+    std::vector<Event>& recv;
+};
+
+TEST(Engine, EventsStartShutdownStateChanges) {
+    Engine engine(Settings().withCreateWindow(false));
+    std::vector<Event> events;
+    EventReceiver listener(events);
+    engine.eventBus().subscribe(&listener);
+
+    FlagTestState* first = new FlagTestState(Flags::PopState);
+    State::Ptr firstPtr(first);
+    FlagTestState* second = new FlagTestState(Flags::PopState);
+    State::Ptr secondPtr(second);
+    engine.nextState(secondPtr);
+    ASSERT_EQ(engine.run(firstPtr), true);
+
+    ASSERT_EQ(events.size(), 4);
+    EXPECT_EQ(events[0].type, Event::Type::Startup);
+    EXPECT_EQ(events[1].type, Event::Type::StateChange);
+    EXPECT_EQ(events[2].type, Event::Type::StateChange);
+    EXPECT_EQ(events[3].type, Event::Type::Shutdown);
+    EXPECT_EQ(events[3].shutdown.cause, Event::ShutdownEvent::FinalStatePopped);
+}
+
+TEST(Engine, TerminateEvent) {
+    Engine engine(Settings().withCreateWindow(false));
+    std::vector<Event> events;
+    EventReceiver listener(events);
+    engine.eventBus().subscribe(&listener);
+
+    FlagTestState* first = new FlagTestState(Flags::Terminate);
+    State::Ptr firstPtr(first);
+    ASSERT_EQ(engine.run(firstPtr), true);
+
+    ASSERT_EQ(events.size(), 2);
+    EXPECT_EQ(events[0].type, Event::Type::Startup);
+    EXPECT_EQ(events[1].type, Event::Type::Shutdown);
+    EXPECT_EQ(events[1].shutdown.cause, Event::ShutdownEvent::Terminated);
 }
 
 } // namespace unittest

@@ -25,6 +25,30 @@ Event::Event(const ResumedEvent& event)
 : type(Type::EngineResumed)
 , resumed(event) {}
 
+Event::Event(const Event& copy)
+: type(copy.type) {
+    switch (type) {
+    case Type::Startup:
+        new (&startup) StartupEvent(copy.startup);
+        break;
+    case Type::Shutdown:
+        new (&shutdown) ShutdownEvent(copy.shutdown);
+        break;
+    case Type::StateChange:
+        new (&stateChange) StateChangeEvent(copy.stateChange);
+        break;
+    case Type::EnginePaused:
+        new (&paused) PausedEvent(copy.paused);
+        break;
+    case Type::EngineResumed:
+        new (&resumed) ResumedEvent(copy.resumed);
+        break;
+    default:
+        BL_LOG_WARN << "Invalid engine event type copied: " << type;
+        break;
+    }
+}
+
 Event::~Event() {
     switch (type) {
     case Type::Startup:
