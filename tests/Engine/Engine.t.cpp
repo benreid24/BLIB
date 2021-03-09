@@ -32,27 +32,27 @@ private:
 };
 
 TEST(Engine, Terminate) {
-    Engine engine({});
+    Engine engine(Settings().withCreateWindow(false));
 
     FlagTestState* state = new FlagTestState(Flags::Terminate);
     State::Ptr ptr(state);
-    EXPECT_EQ(engine.run(ptr), 1);
+    EXPECT_EQ(engine.run(ptr), true);
     EXPECT_EQ(state->timesUpdated(), 1);
     EXPECT_EQ(ptr.use_count(), 2);
 }
 
 TEST(Engine, PopState) {
-    Engine engine({});
+    Engine engine(Settings().withCreateWindow(false));
 
     FlagTestState* state = new FlagTestState(Flags::PopState);
     State::Ptr ptr(state);
-    EXPECT_EQ(engine.run(ptr), 0);
+    EXPECT_EQ(engine.run(ptr), true);
     EXPECT_EQ(state->timesUpdated(), 1);
     EXPECT_EQ(ptr.use_count(), 1);
 }
 
 TEST(Engine, MultipleStates) {
-    Engine engine({});
+    Engine engine(Settings().withCreateWindow(false));
 
     FlagTestState* first = new FlagTestState(Flags::PopState);
     State::Ptr firstPtr(first);
@@ -61,7 +61,7 @@ TEST(Engine, MultipleStates) {
 
     // update -> pop -> next state -> update -> pop -> end
     engine.nextState(secondPtr);
-    EXPECT_EQ(engine.run(firstPtr), 0);
+    EXPECT_EQ(engine.run(firstPtr), true);
     EXPECT_EQ(first->timesUpdated(), 1);
     EXPECT_EQ(second->timesUpdated(), 1);
 }
@@ -134,7 +134,7 @@ TEST(Engine, VariableTimestep) {
 
     VariableTimeTestState* state = new VariableTimeTestState();
     State::Ptr ptr(state);
-    EXPECT_EQ(engine.run(ptr), 1);
+    EXPECT_EQ(engine.run(ptr), true);
     ASSERT_GE(state->getTimes().size(), 6);
 
     EXPECT_EQ(state->getTimes().at(0), state->getTimes().at(1));
@@ -166,7 +166,7 @@ TEST(Engine, FixedTimestep) {
 
     FixedTimestepTestState* state = new FixedTimestepTestState();
     State::Ptr ptr(state);
-    EXPECT_EQ(engine.run(ptr), 1);
+    EXPECT_EQ(engine.run(ptr), true);
 
     for (unsigned int i = 0; i < state->getTimes().size() - 1; ++i) {
         EXPECT_EQ(state->getTimes().at(i), state->getTimes().at(i + 1));
