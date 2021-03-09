@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['whitespaceskipper',['WhitespaceSkipper',['../a01235.html',1,'bl::parser']]],
-  ['window',['Window',['../a01019.html',1,'bl::gui']]]
+  ['whitespaceskipper',['WhitespaceSkipper',['../a01263.html',1,'bl::parser']]],
+  ['window',['Window',['../a01047.html',1,'bl::gui']]]
 ];

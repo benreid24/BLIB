@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Files/JSON/Schema.cpp File Reference</title>
+<title>BLIB: src/Files/JSON/JSONLoader.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,9 +25,9 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.9</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
-   <div id="projectbrief">Ben&#39;s SFML Game Library</div>
+   <div id="projectbrief">Ben&#39;s SFML Game Engine</div>
   </td>
  </tr>
  </tbody>
@@ -68,18 +68,23 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Schema.cpp File Reference</div>  </div>
+<div class="title">JSONLoader.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00110_source.html">BLIB/Files/JSON/Schema.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00212_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a01683_source.html">BLIB/Files/JSON/JSON.hpp</a>&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
 </div>
 <p><a href="a00398_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01375.html">bl::file::json::Loader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to load JSON objects from input streams or files.  <a href="a01375.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:a00614"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00614.html">bl</a></td></tr>
@@ -91,42 +96,12 @@ Namespaces</h2></td></tr>
 <tr class="memitem:a00621"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html">bl::file::json</a></td></tr>
 <tr class="memdesc:a00621"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for interacting with JSON files. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00622"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html">bl::file::json::schema</a></td></tr>
-<tr class="memdesc:a00622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for creating json schemas and verifying that file content matches. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a9417a2067ad8ee39688fc22efd2ceb48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00398.html#a9417a2067ad8ee39688fc22efd2ceb48">SCHEMA_ERROR</a>(source)</td></tr>
-<tr class="separator:a9417a2067ad8ee39688fc22efd2ceb48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a9417a2067ad8ee39688fc22efd2ceb48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9417a2067ad8ee39688fc22efd2ceb48">&#9670;&nbsp;</a></span>SCHEMA_ERROR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SCHEMA_ERROR</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">source</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="a00209.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;VALIDATION FAILED: File &#39;&quot;</span> &lt;&lt; source.filename &lt;&lt; <span class="stringliteral">&quot;&#39;:&quot;</span> &lt;&lt; source.lineNumber \</div><div class="line">                 &lt;&lt; <span class="stringliteral">&quot;: &quot;</span></div><div class="ttc" id="a00209_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00209.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information. </div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00102">Logger.hpp:102</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00006">6</a> of file <a class="el" href="a00398_source.html">Schema.cpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 9 2021 05:02:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

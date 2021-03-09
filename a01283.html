@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::script::Script Class Reference</title>
+<title>BLIB: bl::resource::Resource&lt; TResourceType &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,9 +25,9 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.9</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
-   <div id="projectbrief">Ben&#39;s SFML Game Library</div>
+   <div id="projectbrief">Ben&#39;s SFML Game Engine</div>
   </td>
  </tr>
  </tbody>
@@ -63,323 +63,156 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00633.html">script</a></li><li class="navelem"><a class="el" href="a01283.html">Script</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00632.html">resource</a></li><li class="navelem"><a class="el" href="a01283.html">Resource</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01280.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::script::Script Class Reference<div class="ingroups"><a class="el" href="a00607.html">Scripts</a></div></div>  </div>
+<div class="title">bl::resource::Resource&lt; TResourceType &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a00606.html">Resources</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Loads scripts. Can run scripts directly or in the background. Is threadsafe.  
+<p>Base level struct representing a resource that can be loaded and managed by the resource system.  
  <a href="a01283.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00326_source.html">Script.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00314_source.html">Resource.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a54cc9af401f31dc2bb85e13b9391d3aa"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; TResourceType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#a54cc9af401f31dc2bb85e13b9391d3aa">Ref</a></td></tr>
+<tr class="separator:a54cc9af401f31dc2bb85e13b9391d3aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4aac30cd37f26b14b91a4e019b5232df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a> (const std::string &amp;data)</td></tr>
-<tr class="memdesc:a4aac30cd37f26b14b91a4e019b5232df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the input is a file, then loads the script from the file or from the input directly.  <a href="#a4aac30cd37f26b14b91a4e019b5232df">More...</a><br /></td></tr>
-<tr class="separator:a4aac30cd37f26b14b91a4e019b5232df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ac39ed384b38fb7eb08f30be44fed34"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#a0ac39ed384b38fb7eb08f30be44fed34">valid</a> () const</td></tr>
-<tr class="memdesc:a0ac39ed384b38fb7eb08f30be44fed34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if the <a class="el" href="a01283.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> is valid or not.  <a href="#a0ac39ed384b38fb7eb08f30be44fed34">More...</a><br /></td></tr>
-<tr class="separator:a0ac39ed384b38fb7eb08f30be44fed34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeae73e353105783f1e01364aff7f6bcc"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="a01295.html">script::Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#aeae73e353105783f1e01364aff7f6bcc">run</a> (<a class="el" href="a01279.html">Manager</a> *manager=nullptr) const</td></tr>
-<tr class="memdesc:aeae73e353105783f1e01364aff7f6bcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the script in the current thread.  <a href="#aeae73e353105783f1e01364aff7f6bcc">More...</a><br /></td></tr>
-<tr class="separator:aeae73e353105783f1e01364aff7f6bcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea9712b4100900e54eea89b359020056"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="a01295.html">script::Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#aea9712b4100900e54eea89b359020056">run</a> (<a class="el" href="a00707.html">engine::Engine</a> &amp;engine) const</td></tr>
-<tr class="memdesc:aea9712b4100900e54eea89b359020056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the script in the current thread.  <a href="#aea9712b4100900e54eea89b359020056">More...</a><br /></td></tr>
-<tr class="separator:aea9712b4100900e54eea89b359020056"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb8e404e25964aa6a24324c47a595a5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#aeb8e404e25964aa6a24324c47a595a5e">runBackground</a> (<a class="el" href="a00707.html">engine::Engine</a> &amp;engine) const</td></tr>
-<tr class="memdesc:aeb8e404e25964aa6a24324c47a595a5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the script in the background.  <a href="#aeb8e404e25964aa6a24324c47a595a5e">More...</a><br /></td></tr>
-<tr class="separator:aeb8e404e25964aa6a24324c47a595a5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a984f8ef988f91d6122def4cbd5f5bdf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#a984f8ef988f91d6122def4cbd5f5bdf3">runBackground</a> (<a class="el" href="a01279.html">Manager</a> *manager=nullptr) const</td></tr>
-<tr class="memdesc:a984f8ef988f91d6122def4cbd5f5bdf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the script in the background.  <a href="#a984f8ef988f91d6122def4cbd5f5bdf3">More...</a><br /></td></tr>
-<tr class="separator:a984f8ef988f91d6122def4cbd5f5bdf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b8776ae35fb7f8c427bc01dd639540b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#a8b8776ae35fb7f8c427bc01dd639540b">Resource</a> (<a class="el" href="a01283.html#a54cc9af401f31dc2bb85e13b9391d3aa">Ref</a> <a class="el" href="a01283.html#a99f66441e8244543806493b838a3fb4d">data</a>)</td></tr>
+<tr class="memdesc:a8b8776ae35fb7f8c427bc01dd639540b"><td class="mdescLeft">&#160;</td><td class="mdescRight">True to keep in cache even if no references remain.  <a href="#a8b8776ae35fb7f8c427bc01dd639540b">More...</a><br /></td></tr>
+<tr class="separator:a8b8776ae35fb7f8c427bc01dd639540b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a31b62848bf9b27a611b39c883d95b996"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#a31b62848bf9b27a611b39c883d95b996">addCustomSymbols</a> (<a class="el" href="a01291.html">script::SymbolTable</a> &amp;table) const</td></tr>
-<tr class="memdesc:a31b62848bf9b27a611b39c883d95b996"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows specialized subclasses to populate the symbol table with custom functions to allow scripts to access whatever they are hooked into.  <a href="#a31b62848bf9b27a611b39c883d95b996">More...</a><br /></td></tr>
-<tr class="separator:a31b62848bf9b27a611b39c883d95b996"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9a41af490640e582935e0926792c05d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#ad9a41af490640e582935e0926792c05d">onRun</a> () const</td></tr>
-<tr class="memdesc:ad9a41af490640e582935e0926792c05d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hook for custom <a class="el" href="a01283.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> classes to run custom code before running.  <a href="#ad9a41af490640e582935e0926792c05d">More...</a><br /></td></tr>
-<tr class="separator:ad9a41af490640e582935e0926792c05d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:adddd5c43ff870a047aa66db4edf82a7e"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#adddd5c43ff870a047aa66db4edf82a7e">Manager</a></td></tr>
-<tr class="separator:adddd5c43ff870a047aa66db4edf82a7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a99f66441e8244543806493b838a3fb4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01283.html#a54cc9af401f31dc2bb85e13b9391d3aa">Ref</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#a99f66441e8244543806493b838a3fb4d">data</a></td></tr>
+<tr class="separator:a99f66441e8244543806493b838a3fb4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac04d4094da2e3e9fe8edae5d3b83eef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html#aac04d4094da2e3e9fe8edae5d3b83eef">forceInCache</a></td></tr>
+<tr class="memdesc:aac04d4094da2e3e9fe8edae5d3b83eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">The resource itself. May not be null.  <a href="#aac04d4094da2e3e9fe8edae5d3b83eef">More...</a><br /></td></tr>
+<tr class="separator:aac04d4094da2e3e9fe8edae5d3b83eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Loads scripts. Can run scripts directly or in the background. Is threadsafe. </p>
+<div class="textblock"><h3>template&lt;typename TResourceType&gt;<br />
+struct bl::resource::Resource&lt; TResourceType &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00326_source.html#l00029">29</a> of file <a class="el" href="a00326_source.html">Script.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4aac30cd37f26b14b91a4e019b5232df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4aac30cd37f26b14b91a4e019b5232df">&#9670;&nbsp;</a></span>Script()</h2>
+<p>Base level struct representing a resource that can be loaded and managed by the resource system. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TResourceType</td><td>the type </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00314_source.html#l00018">18</a> of file <a class="el" href="a00314_source.html">Resource.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a54cc9af401f31dc2bb85e13b9391d3aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54cc9af401f31dc2bb85e13b9391d3aa">&#9670;&nbsp;</a></span>Ref</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::script::Script::Script </td>
+          <td class="memname">typedef std::shared_ptr&lt;TResourceType&gt; <a class="el" href="a01283.html">bl::resource::Resource</a>&lt; TResourceType &gt;::<a class="el" href="a01283.html#a54cc9af401f31dc2bb85e13b9391d3aa">Ref</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00314_source.html#l00019">19</a> of file <a class="el" href="a00314_source.html">Resource.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8b8776ae35fb7f8c427bc01dd639540b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b8776ae35fb7f8c427bc01dd639540b">&#9670;&nbsp;</a></span>Resource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01283.html">bl::resource::Resource</a>&lt; TResourceType &gt;::<a class="el" href="a01283.html">Resource</a> </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="a01283.html#a54cc9af401f31dc2bb85e13b9391d3aa">Ref</a>&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-<p>Determines if the input is a file, then loads the script from the file or from the input directly. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00016">16</a> of file <a class="el" href="a00572_source.html">Script.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a31b62848bf9b27a611b39c883d95b996"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31b62848bf9b27a611b39c883d95b996">&#9670;&nbsp;</a></span>addCustomSymbols()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::script::Script::addCustomSymbols </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01291.html">script::SymbolTable</a> &amp;&#160;</td>
-          <td class="paramname"><em>table</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Allows specialized subclasses to populate the symbol table with custom functions to allow scripts to access whatever they are hooked into. </p>
+<p>True to keep in cache even if no references remain. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00326_source.html#l00085">85</a> of file <a class="el" href="a00326_source.html">Script.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00314_source.html#l00024">24</a> of file <a class="el" href="a00314_source.html">Resource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad9a41af490640e582935e0926792c05d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9a41af490640e582935e0926792c05d">&#9670;&nbsp;</a></span>onRun()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a99f66441e8244543806493b838a3fb4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99f66441e8244543806493b838a3fb4d">&#9670;&nbsp;</a></span>data</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">virtual void bl::script::Script::onRun </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Hook for custom <a class="el" href="a01283.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> classes to run custom code before running. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00326_source.html#l00091">91</a> of file <a class="el" href="a00326_source.html">Script.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aeae73e353105783f1e01364aff7f6bcc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeae73e353105783f1e01364aff7f6bcc">&#9670;&nbsp;</a></span>run() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a01295.html">script::Value</a> &gt; bl::script::Script::run </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01279.html">Manager</a> *&#160;</td>
-          <td class="paramname"><em>manager</em> = <code>nullptr</code></td><td>)</td>
-          <td> const</td>
+          <td class="memname"><a class="el" href="a01283.html#a54cc9af401f31dc2bb85e13b9391d3aa">Ref</a> <a class="el" href="a01283.html">bl::resource::Resource</a>&lt; TResourceType &gt;::data</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Runs the script in the current thread. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">manager</td><td>The <a class="el" href="a01279.html" title="Utility class that can manage sets of concurrently running scripts. ">Manager</a> to use to manage spawned Scripts </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Return value if completed successfully (void if no return) or null on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00035">35</a> of file <a class="el" href="a00572_source.html">Script.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00314_source.html#l00021">21</a> of file <a class="el" href="a00314_source.html">Resource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aea9712b4100900e54eea89b359020056"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea9712b4100900e54eea89b359020056">&#9670;&nbsp;</a></span>run() <span class="overload">[2/2]</span></h2>
+<a id="aac04d4094da2e3e9fe8edae5d3b83eef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac04d4094da2e3e9fe8edae5d3b83eef">&#9670;&nbsp;</a></span>forceInCache</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="a01295.html">script::Value</a> &gt; bl::script::Script::run </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00707.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname">bool <a class="el" href="a01283.html">bl::resource::Resource</a>&lt; TResourceType &gt;::forceInCache</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Runs the script in the current thread. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The Engine to use to manage spawned Scripts </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Return value if completed successfully (void if no return) or null on error </dd></dl>
+<p>The resource itself. May not be null. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00031">31</a> of file <a class="el" href="a00572_source.html">Script.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00314_source.html#l00022">22</a> of file <a class="el" href="a00314_source.html">Resource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aeb8e404e25964aa6a24324c47a595a5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb8e404e25964aa6a24324c47a595a5e">&#9670;&nbsp;</a></span>runBackground() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::script::Script::runBackground </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00707.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Runs the script in the background. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">manager</td><td>Engine to register scripts with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00045">45</a> of file <a class="el" href="a00572_source.html">Script.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a984f8ef988f91d6122def4cbd5f5bdf3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a984f8ef988f91d6122def4cbd5f5bdf3">&#9670;&nbsp;</a></span>runBackground() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::script::Script::runBackground </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01279.html">Manager</a> *&#160;</td>
-          <td class="paramname"><em>manager</em> = <code>nullptr</code></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Runs the script in the background. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">manager</td><td><a class="el" href="a01279.html" title="Utility class that can manage sets of concurrently running scripts. ">Manager</a> to register scripts with. Optional </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00047">47</a> of file <a class="el" href="a00572_source.html">Script.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0ac39ed384b38fb7eb08f30be44fed34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ac39ed384b38fb7eb08f30be44fed34">&#9670;&nbsp;</a></span>valid()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::script::Script::valid </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns if the <a class="el" href="a01283.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> is valid or not. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00029">29</a> of file <a class="el" href="a00572_source.html">Script.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="adddd5c43ff870a047aa66db4edf82a7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adddd5c43ff870a047aa66db4edf82a7e">&#9670;&nbsp;</a></span>Manager</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="a01279.html">Manager</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00326_source.html#l00123">123</a> of file <a class="el" href="a00326_source.html">Script.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Scripts/<a class="el" href="a00326_source.html">Script.hpp</a></li>
-<li>src/Scripts/<a class="el" href="a00572_source.html">Script.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Resources/<a class="el" href="a00314_source.html">Resource.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 9 2021 05:02:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

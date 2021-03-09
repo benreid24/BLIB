@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::audio::AudioSystem Class Reference</title>
+<title>BLIB: bl::gui::DebugRenderer Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,9 +25,9 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.9</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
-   <div id="projectbrief">Ben&#39;s SFML Game Library</div>
+   <div id="projectbrief">Ben&#39;s SFML Game Engine</div>
   </td>
  </tr>
  </tbody>
@@ -63,150 +63,160 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00625.html">audio</a></li><li class="navelem"><a class="el" href="a01067.html">AudioSystem</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00623.html">gui</a></li><li class="navelem"><a class="el" href="a01067.html">DebugRenderer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a01064.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::audio::AudioSystem Class Reference<div class="ingroups"><a class="el" href="a00603.html">Media</a> &raquo; <a class="el" href="a00611.html">Audio</a></div></div>  </div>
+<div class="title">bl::gui::DebugRenderer Class Reference<div class="ingroups"><a class="el" href="a00601.html">GUI</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Centralized control class for sound effects and music. It manages playing sounds, removing finished sounds, looping sounds, global volume, pausing, fading out on exit, and a stack of playlists.  
+<p>Utility renderer that can show the groups, ids, and acquisitions of elements.  
  <a href="a01067.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00215_source.html">AudioSystem.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00188_source.html">DebugRenderer.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::DebugRenderer:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01067.png" usemap="#bl::gui::DebugRenderer_map" alt=""/>
+  <map id="bl::gui::DebugRenderer_map" name="bl::gui::DebugRenderer_map">
+<area href="a01075.html" title="Interface for renderers for GUIs. Derived classes may elect to inherit from DefaultRenderer and only ..." alt="bl::gui::Renderer" shape="rect" coords="0,56,141,80"/>
+<area href="a01339.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::util::NonCopyable" shape="rect" coords="0,0,141,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html">Sound</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a sound being managed by <a class="el" href="a01067.html" title="Centralized control class for sound effects and music. It manages playing sounds, removing finished s...">AudioSystem</a>.  <a href="a01075.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html">SpatialSettings</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Some settings for spatial sounds.  <a href="a01071.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a1976c9cbec3cb0348a2e6f0381ea9906"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> = std::uint32_t</td></tr>
-<tr class="memdesc:a1976c9cbec3cb0348a2e6f0381ea9906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integer type handle for playing sounds.  <a href="#a1976c9cbec3cb0348a2e6f0381ea9906">More...</a><br /></td></tr>
-<tr class="separator:a1976c9cbec3cb0348a2e6f0381ea9906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1692c11c3fe17a1a927472cbc138b87d"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a01067.html">DebugRenderer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a1692c11c3fe17a1a927472cbc138b87d">Ptr</a></td></tr>
+<tr class="separator:a1692c11c3fe17a1a927472cbc138b87d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad371e47a81fa27e259973b37447ee640"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#ad371e47a81fa27e259973b37447ee640">~AudioSystem</a> ()</td></tr>
-<tr class="memdesc:ad371e47a81fa27e259973b37447ee640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops all playing sounds and music with a one second fadeout, then terminates the background thread.  <a href="#ad371e47a81fa27e259973b37447ee640">More...</a><br /></td></tr>
-<tr class="separator:ad371e47a81fa27e259973b37447ee640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbda85dc48dd24c8f35668bbad95c433"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#adbda85dc48dd24c8f35668bbad95c433">~DebugRenderer</a> ()=default</td></tr>
+<tr class="memdesc:adbda85dc48dd24c8f35668bbad95c433"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a01067.html" title="Utility renderer that can show the groups, ids, and acquisitions of elements. ">DebugRenderer</a>.  <a href="#adbda85dc48dd24c8f35668bbad95c433">More...</a><br /></td></tr>
+<tr class="separator:adbda85dc48dd24c8f35668bbad95c433"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7d83cb7cdaafffbfc7d063e6f102083"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#ae7d83cb7cdaafffbfc7d063e6f102083">showAcquisitions</a> (bool show=true)</td></tr>
+<tr class="memdesc:ae7d83cb7cdaafffbfc7d063e6f102083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not to draw outlines showing element acquisitions.  <a href="#ae7d83cb7cdaafffbfc7d063e6f102083">More...</a><br /></td></tr>
+<tr class="separator:ae7d83cb7cdaafffbfc7d063e6f102083"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f5694c3c50e7f03a6d59cdf2b5e9b3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a0f5694c3c50e7f03a6d59cdf2b5e9b3c">showGroups</a> (bool show=true)</td></tr>
+<tr class="memdesc:a0f5694c3c50e7f03a6d59cdf2b5e9b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not to print group names by elements.  <a href="#a0f5694c3c50e7f03a6d59cdf2b5e9b3c">More...</a><br /></td></tr>
+<tr class="separator:a0f5694c3c50e7f03a6d59cdf2b5e9b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acca961442cf01a44a29d3744f0f2039d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#acca961442cf01a44a29d3744f0f2039d">showIds</a> (bool show=true)</td></tr>
+<tr class="memdesc:acca961442cf01a44a29d3744f0f2039d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not to print element ids.  <a href="#acca961442cf01a44a29d3744f0f2039d">More...</a><br /></td></tr>
+<tr class="separator:acca961442cf01a44a29d3744f0f2039d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a071175f008abe4e558ea71aa2eab32cf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a071175f008abe4e558ea71aa2eab32cf">renderCustom</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a00995.html">Element</a> &amp;element) const override</td></tr>
+<tr class="separator:a071175f008abe4e558ea71aa2eab32cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2786b2c9888c7d1cded90a61880b354d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a2786b2c9888c7d1cded90a61880b354d">renderBox</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a00991.html">Container</a> &amp;container) const override</td></tr>
+<tr class="separator:a2786b2c9888c7d1cded90a61880b354d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2abd8310243fcdb39f6152b250a4c7a1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a2abd8310243fcdb39f6152b250a4c7a1">renderComboBox</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a00987.html">ComboBox</a> &amp;box, const sf::Vector2i &amp;optionSize, unsigned int optionCount, unsigned int mousedOption) const override</td></tr>
+<tr class="separator:a2abd8310243fcdb39f6152b250a4c7a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4537984c32a118befd5bdff8958a112"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#ae4537984c32a118befd5bdff8958a112">renderComboBoxDropdown</a> (sf::RenderTexture &amp;texture) const override</td></tr>
+<tr class="separator:ae4537984c32a118befd5bdff8958a112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab74e267c3d2eba7ab87fea21c66924d0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#ab74e267c3d2eba7ab87fea21c66924d0">renderImage</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a00995.html">Element</a> *element, const sf::Sprite &amp;image) const override</td></tr>
+<tr class="separator:ab74e267c3d2eba7ab87fea21c66924d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a736687acdd8b1d7820fa2b69dc5c26e6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a736687acdd8b1d7820fa2b69dc5c26e6">renderLabel</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a01003.html">Label</a> &amp;label) const override</td></tr>
+<tr class="separator:a736687acdd8b1d7820fa2b69dc5c26e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a962672567175786b7518eec706adc11e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a962672567175786b7518eec706adc11e">renderButton</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a00975.html">Button</a> &amp;button) const override</td></tr>
+<tr class="separator:a962672567175786b7518eec706adc11e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65cf41fb8620554d52677fdb430c521d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a65cf41fb8620554d52677fdb430c521d">renderMouseoverOverlay</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a00995.html">Element</a> *element) const override</td></tr>
+<tr class="separator:a65cf41fb8620554d52677fdb430c521d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a813473579a070d94766ea3f9666e774b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a813473579a070d94766ea3f9666e774b">renderNotebook</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a01007.html">Notebook</a> &amp;notebook) const override</td></tr>
+<tr class="separator:a813473579a070d94766ea3f9666e774b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a691e2bff82d22f33a4be2a1ce380fed1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a691e2bff82d22f33a4be2a1ce380fed1">renderProgressBar</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a01015.html">ProgressBar</a> &amp;progressBar) const override</td></tr>
+<tr class="separator:a691e2bff82d22f33a4be2a1ce380fed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cdbb43d59a641f21688197979315e03"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a7cdbb43d59a641f21688197979315e03">renderSeparator</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a01031.html">Separator</a> &amp;separator) const override</td></tr>
+<tr class="separator:a7cdbb43d59a641f21688197979315e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6f482c93933bd149fe98cfcdba5da5d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#ad6f482c93933bd149fe98cfcdba5da5d">renderSlider</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a01035.html">Slider</a> &amp;slider) const override</td></tr>
+<tr class="separator:ad6f482c93933bd149fe98cfcdba5da5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a478698c31b3be9434b3ca7ae172009e4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a478698c31b3be9434b3ca7ae172009e4">renderSliderButton</a> (sf::RenderTexture &amp;texture, bool horizontal, bool increasing) const override</td></tr>
+<tr class="separator:a478698c31b3be9434b3ca7ae172009e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6117bc6f915bf2da1f56849cc2167b90"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a6117bc6f915bf2da1f56849cc2167b90">renderTextEntry</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a01039.html">TextEntry</a> &amp;entry) const override</td></tr>
+<tr class="separator:a6117bc6f915bf2da1f56849cc2167b90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad47f60af2a188bba397da0675943de36"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#ad47f60af2a188bba397da0675943de36">renderToggleButton</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a01043.html">ToggleButton</a> &amp;button) const override</td></tr>
+<tr class="separator:ad47f60af2a188bba397da0675943de36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4587699ce952a3dc6a5b58d4ecccfe8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#ad4587699ce952a3dc6a5b58d4ecccfe8">renderToggleCheckButton</a> (sf::RenderTexture &amp;texture, bool active) const override</td></tr>
+<tr class="separator:ad4587699ce952a3dc6a5b58d4ecccfe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e6a5d750f7f7b86a101ca515a013c3a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a5e6a5d750f7f7b86a101ca515a013c3a">renderToggleRadioButton</a> (sf::RenderTexture &amp;texture, bool active) const override</td></tr>
+<tr class="separator:a5e6a5d750f7f7b86a101ca515a013c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0b6601d92f2693263cf3aaf99867b04"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#ae0b6601d92f2693263cf3aaf99867b04">renderWindow</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a00991.html">Container</a> *titlebar, const <a class="el" href="a01047.html">Window</a> &amp;window) const override</td></tr>
+<tr class="separator:ae0b6601d92f2693263cf3aaf99867b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e0dc3b1c6e7143e22861f9c37ed46bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html#a8e0dc3b1c6e7143e22861f9c37ed46bd">setGroupSettings</a> (const std::string &amp;group, const <a class="el" href="a01083.html">RenderSettings</a> &amp;settings)</td></tr>
+<tr class="memdesc:a8e0dc3b1c6e7143e22861f9c37ed46bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add or set <a class="el" href="a01083.html" title="Data class to override rendering settings for GUI Elements. Overrides can be done by group or id...">RenderSettings</a> for the given group. Overriden for Elements with id level overrides.  <a href="#a8e0dc3b1c6e7143e22861f9c37ed46bd">More...</a><br /></td></tr>
+<tr class="separator:a8e0dc3b1c6e7143e22861f9c37ed46bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a418d1078ea34d7ac18ed2706c04db376"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html#a418d1078ea34d7ac18ed2706c04db376">setIdSettings</a> (const std::string &amp;id, const <a class="el" href="a01083.html">RenderSettings</a> &amp;settings)</td></tr>
+<tr class="memdesc:a418d1078ea34d7ac18ed2706c04db376"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add or set <a class="el" href="a01083.html" title="Data class to override rendering settings for GUI Elements. Overrides can be done by group or id...">RenderSettings</a> for the given id. Settings applied in the element itself, if any, override these.  <a href="#a418d1078ea34d7ac18ed2706c04db376">More...</a><br /></td></tr>
+<tr class="separator:a418d1078ea34d7ac18ed2706c04db376"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceab247b43a9dc9726168fbeaed2f8c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01083.html">RenderSettings</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html#aceab247b43a9dc9726168fbeaed2f8c6">getSettings</a> (const <a class="el" href="a00995.html">Element</a> *element) const</td></tr>
+<tr class="memdesc:aceab247b43a9dc9726168fbeaed2f8c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an aggregated <a class="el" href="a01083.html" title="Data class to override rendering settings for GUI Elements. Overrides can be done by group or id...">RenderSettings</a> object for the given <a class="el" href="a00995.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Settings with no values are left empty.  <a href="#aceab247b43a9dc9726168fbeaed2f8c6">More...</a><br /></td></tr>
+<tr class="separator:aceab247b43a9dc9726168fbeaed2f8c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a843870c2487a7c686a9fa2a353171ac2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a843870c2487a7c686a9fa2a353171ac2">setDefaultSpatialSoundSettings</a> (const <a class="el" href="a01071.html">SpatialSettings</a> &amp;settings)</td></tr>
-<tr class="memdesc:a843870c2487a7c686a9fa2a353171ac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the default settings to apply to spatial sounds.  <a href="#a843870c2487a7c686a9fa2a353171ac2">More...</a><br /></td></tr>
-<tr class="separator:a843870c2487a7c686a9fa2a353171ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6adee704d5a0df4c203f6b3ba4df6b98"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a6adee704d5a0df4c203f6b3ba4df6b98">setSpatialSoundCutoffDistance</a> (float cutoff)</td></tr>
-<tr class="memdesc:a6adee704d5a0df4c203f6b3ba4df6b98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the maximum distance at which spatial sounds will be played. Sounds coming from outside this distance will not play and return InvalidHandle.  <a href="#a6adee704d5a0df4c203f6b3ba4df6b98">More...</a><br /></td></tr>
-<tr class="separator:a6adee704d5a0df4c203f6b3ba4df6b98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93274a6e8a82bc1c0dc8b0a46b751c26"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a93274a6e8a82bc1c0dc8b0a46b751c26">setVolume</a> (float volume)</td></tr>
-<tr class="memdesc:a93274a6e8a82bc1c0dc8b0a46b751c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the master volume of all audio. Spatial sounds will be attenuated as well.  <a href="#a93274a6e8a82bc1c0dc8b0a46b751c26">More...</a><br /></td></tr>
-<tr class="separator:a93274a6e8a82bc1c0dc8b0a46b751c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfa713298871bb1089f51ac8b8ccb738"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#abfa713298871bb1089f51ac8b8ccb738">stopAll</a> (bool fade=true)</td></tr>
-<tr class="memdesc:abfa713298871bb1089f51ac8b8ccb738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops all playing sounds and playlists and removes them from the system.  <a href="#abfa713298871bb1089f51ac8b8ccb738">More...</a><br /></td></tr>
-<tr class="separator:abfa713298871bb1089f51ac8b8ccb738"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a892f00cbc45e915c30246a10834359c0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a892f00cbc45e915c30246a10834359c0">pause</a> ()</td></tr>
-<tr class="memdesc:a892f00cbc45e915c30246a10834359c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pauses all sounds, music, and active fades/transitions.  <a href="#a892f00cbc45e915c30246a10834359c0">More...</a><br /></td></tr>
-<tr class="separator:a892f00cbc45e915c30246a10834359c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedacf534c5de4c76bb4cf222e174373c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#aedacf534c5de4c76bb4cf222e174373c">resume</a> ()</td></tr>
-<tr class="memdesc:aedacf534c5de4c76bb4cf222e174373c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes all sounds, music, and active fades/transitions.  <a href="#aedacf534c5de4c76bb4cf222e174373c">More...</a><br /></td></tr>
-<tr class="separator:aedacf534c5de4c76bb4cf222e174373c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa23acf12db9a47afe15e1f7a10547825"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#aa23acf12db9a47afe15e1f7a10547825">setListenerPosition</a> (const sf::Vector2f &amp;pos)</td></tr>
-<tr class="memdesc:aa23acf12db9a47afe15e1f7a10547825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the global position of the sound listener. This is used for attenuating spatial sounds. Should be the position of the player.  <a href="#aa23acf12db9a47afe15e1f7a10547825">More...</a><br /></td></tr>
-<tr class="separator:aa23acf12db9a47afe15e1f7a10547825"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa912b861683293be1620650a4bfb7051"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#aa912b861683293be1620650a4bfb7051">pushPlaylist</a> (const <a class="el" href="a01087.html">Playlist</a> &amp;newPlaylist, float fadeout=4.f)</td></tr>
-<tr class="memdesc:aa912b861683293be1620650a4bfb7051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a new playlist onto the <a class="el" href="a01087.html" title="A playable, serializable music playlist. Can be manually manipulated or loaded from files...">Playlist</a> stack. If a playlist is currently playing it is crossfaded with the new playlist over the specified interval.  <a href="#aa912b861683293be1620650a4bfb7051">More...</a><br /></td></tr>
-<tr class="separator:aa912b861683293be1620650a4bfb7051"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b85a1827726d2c4f363916cfcd6a438"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a9b85a1827726d2c4f363916cfcd6a438">replacePlaylist</a> (const <a class="el" href="a01087.html">Playlist</a> &amp;newPlaylist, float fadeout=4.f)</td></tr>
-<tr class="memdesc:a9b85a1827726d2c4f363916cfcd6a438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the playlist at the top of the stack. If a playlist is currently playing it is crossfaded with the new playlist over the specified interval.  <a href="#a9b85a1827726d2c4f363916cfcd6a438">More...</a><br /></td></tr>
-<tr class="separator:a9b85a1827726d2c4f363916cfcd6a438"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe4e11056e31c59d8a8d919b093c0dff"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#afe4e11056e31c59d8a8d919b093c0dff">popPlaylist</a> (float fadeout=4.f)</td></tr>
-<tr class="memdesc:afe4e11056e31c59d8a8d919b093c0dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the currently playing playlist from the top of the stack and resumes the previous playlist if present.  <a href="#afe4e11056e31c59d8a8d919b093c0dff">More...</a><br /></td></tr>
-<tr class="separator:afe4e11056e31c59d8a8d919b093c0dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac59f0ca430761b1bf872690827c065e2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#ac59f0ca430761b1bf872690827c065e2">playSound</a> (<a class="el" href="a01255.html">resource::Resource</a>&lt; sf::SoundBuffer &gt;::Ref sound, bool loop=false)</td></tr>
-<tr class="memdesc:ac59f0ca430761b1bf872690827c065e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Play a sound.  <a href="#ac59f0ca430761b1bf872690827c065e2">More...</a><br /></td></tr>
-<tr class="separator:ac59f0ca430761b1bf872690827c065e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa230cba26aac9a8018677356ca233202"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#aa230cba26aac9a8018677356ca233202">playSpatialSound</a> (<a class="el" href="a01255.html">resource::Resource</a>&lt; sf::SoundBuffer &gt;::Ref sound, const sf::Vector2f &amp;pos, bool loop=false)</td></tr>
-<tr class="memdesc:aa230cba26aac9a8018677356ca233202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Play a sound in space with the default SpacialSettings.  <a href="#aa230cba26aac9a8018677356ca233202">More...</a><br /></td></tr>
-<tr class="separator:aa230cba26aac9a8018677356ca233202"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d626f5cdacf330b82719e3fc513e928"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a5d626f5cdacf330b82719e3fc513e928">playSpatialSound</a> (<a class="el" href="a01255.html">resource::Resource</a>&lt; sf::SoundBuffer &gt;::Ref sound, const sf::Vector2f &amp;pos, const <a class="el" href="a01071.html">SpatialSettings</a> &amp;settings, bool loop=false)</td></tr>
-<tr class="memdesc:a5d626f5cdacf330b82719e3fc513e928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Play a sound in space with its own <a class="el" href="a01071.html" title="Some settings for spatial sounds. ">SpatialSettings</a>.  <a href="#a5d626f5cdacf330b82719e3fc513e928">More...</a><br /></td></tr>
-<tr class="separator:a5d626f5cdacf330b82719e3fc513e928"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a9d057d09622eb4927ffb129e599ce2"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="a01075.html">Sound</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a0a9d057d09622eb4927ffb129e599ce2">getSound</a> (<a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> handle)</td></tr>
-<tr class="memdesc:a0a9d057d09622eb4927ffb129e599ce2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a shared_ptr to a currently running sound by Handle.  <a href="#a0a9d057d09622eb4927ffb129e599ce2">More...</a><br /></td></tr>
-<tr class="separator:a0a9d057d09622eb4927ffb129e599ce2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29e92d77dd007bbb3f60240023c2ed33"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#a29e92d77dd007bbb3f60240023c2ed33">stopSound</a> (<a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> handle)</td></tr>
-<tr class="memdesc:a29e92d77dd007bbb3f60240023c2ed33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the currently playing sound. No effect if not found.  <a href="#a29e92d77dd007bbb3f60240023c2ed33">More...</a><br /></td></tr>
-<tr class="separator:a29e92d77dd007bbb3f60240023c2ed33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:aaba4e74c447f330c9cdd71e99508a15b"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#aaba4e74c447f330c9cdd71e99508a15b">InvalidHandle</a> = 0</td></tr>
-<tr class="memdesc:aaba4e74c447f330c9cdd71e99508a15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved Handle for error conditions.  <a href="#aaba4e74c447f330c9cdd71e99508a15b">More...</a><br /></td></tr>
-<tr class="separator:aaba4e74c447f330c9cdd71e99508a15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6d4d231913f14a2cbca03338f5b7762"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01067.html#a1692c11c3fe17a1a927472cbc138b87d">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html#ab6d4d231913f14a2cbca03338f5b7762">create</a> (<a class="el" href="a01075.html#ac04ddaf4a07081266cdf70a3e3f1d748">Renderer::Ptr</a> renderer=DefaultRenderer::create())</td></tr>
+<tr class="memdesc:ab6d4d231913f14a2cbca03338f5b7762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a01067.html" title="Utility renderer that can show the groups, ids, and acquisitions of elements. ">DebugRenderer</a> with the given underlying renderer.  <a href="#ab6d4d231913f14a2cbca03338f5b7762">More...</a><br /></td></tr>
+<tr class="separator:ab6d4d231913f14a2cbca03338f5b7762"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Centralized control class for sound effects and music. It manages playing sounds, removing finished sounds, looping sounds, global volume, pausing, fading out on exit, and a stack of playlists. </p>
+<div class="textblock"><p>Utility renderer that can show the groups, ids, and acquisitions of elements. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00032">32</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00015">15</a> of file <a class="el" href="a00188_source.html">DebugRenderer.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a1976c9cbec3cb0348a2e6f0381ea9906"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1976c9cbec3cb0348a2e6f0381ea9906">&#9670;&nbsp;</a></span>Handle</h2>
+<a id="a1692c11c3fe17a1a927472cbc138b87d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1692c11c3fe17a1a927472cbc138b87d">&#9670;&nbsp;</a></span>Ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">bl::audio::AudioSystem::Handle</a> =  std::uint32_t</td>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a01067.html">DebugRenderer</a>&gt; <a class="el" href="a01067.html#a1692c11c3fe17a1a927472cbc138b87d">bl::gui::DebugRenderer::Ptr</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Integer type handle for playing sounds. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00035">35</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00017">17</a> of file <a class="el" href="a00188_source.html">DebugRenderer.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad371e47a81fa27e259973b37447ee640"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad371e47a81fa27e259973b37447ee640">&#9670;&nbsp;</a></span>~AudioSystem()</h2>
+<a id="adbda85dc48dd24c8f35668bbad95c433"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbda85dc48dd24c8f35668bbad95c433">&#9670;&nbsp;</a></span>~DebugRenderer()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::audio::AudioSystem::~AudioSystem </td>
+          <td class="memname">virtual bl::gui::DebugRenderer::~DebugRenderer </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Stops all playing sounds and music with a one second fadeout, then terminates the background thread. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00500_source.html#l00038">38</a> of file <a class="el" href="a00500_source.html">AudioSystem.cpp</a>.</p>
+<p>Destroy the <a class="el" href="a01067.html" title="Utility renderer that can show the groups, ids, and acquisitions of elements. ">DebugRenderer</a>. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0a9d057d09622eb4927ffb129e599ce2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a9d057d09622eb4927ffb129e599ce2">&#9670;&nbsp;</a></span>getSound()</h2>
+<a id="ab6d4d231913f14a2cbca03338f5b7762"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6d4d231913f14a2cbca03338f5b7762">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,614 +225,11 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt; <a class="el" href="a01075.html">AudioSystem::Sound</a> &gt; bl::audio::AudioSystem::getSound </td>
+          <td class="memname"><a class="el" href="a01067.html#a1692c11c3fe17a1a927472cbc138b87d">DebugRenderer::Ptr</a> bl::gui::DebugRenderer::create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td>
-          <td class="paramname"><em>handle</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a01075.html#ac04ddaf4a07081266cdf70a3e3f1d748">Renderer::Ptr</a>&#160;</td>
+          <td class="paramname"><em>renderer</em> = <code>DefaultRenderer::create()</code></td><td>)</td>
           <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a shared_ptr to a currently running sound by Handle. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">handle</td><td>The Handle of the sound to get </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::shared_ptr&lt;Sound&gt; A pointer to the sound. May be null if handle is not found </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00306">306</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a892f00cbc45e915c30246a10834359c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a892f00cbc45e915c30246a10834359c0">&#9670;&nbsp;</a></span>pause()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::AudioSystem::pause </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Pauses all sounds, music, and active fades/transitions. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00274">274</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac59f0ca430761b1bf872690827c065e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac59f0ca430761b1bf872690827c065e2">&#9670;&nbsp;</a></span>playSound()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> bl::audio::AudioSystem::playSound </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01255.html">resource::Resource</a>&lt; sf::SoundBuffer &gt;::Ref&#160;</td>
-          <td class="paramname"><em>sound</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>loop</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Play a sound. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sound</td><td>The sound to play </td></tr>
-    <tr><td class="paramname">loop</td><td>True to loop the sound, false to play once </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Handle A Handle to the newly playing sound </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00290">290</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa230cba26aac9a8018677356ca233202"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa230cba26aac9a8018677356ca233202">&#9670;&nbsp;</a></span>playSpatialSound() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> bl::audio::AudioSystem::playSpatialSound </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01255.html">resource::Resource</a>&lt; sf::SoundBuffer &gt;::Ref&#160;</td>
-          <td class="paramname"><em>sound</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>loop</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Play a sound in space with the default SpacialSettings. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sound</td><td>The sound to play </td></tr>
-    <tr><td class="paramname">pos</td><td>The position of the sound </td></tr>
-    <tr><td class="paramname">loop</td><td>True to loop, false to play once </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Handle A Handle to the newly playing sound, or InvalidHandle if too far away </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00295">295</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5d626f5cdacf330b82719e3fc513e928"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d626f5cdacf330b82719e3fc513e928">&#9670;&nbsp;</a></span>playSpatialSound() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> bl::audio::AudioSystem::playSpatialSound </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01255.html">resource::Resource</a>&lt; sf::SoundBuffer &gt;::Ref&#160;</td>
-          <td class="paramname"><em>sound</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01071.html">SpatialSettings</a> &amp;&#160;</td>
-          <td class="paramname"><em>settings</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>loop</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Play a sound in space with its own <a class="el" href="a01071.html" title="Some settings for spatial sounds. ">SpatialSettings</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sound</td><td>The sound to play </td></tr>
-    <tr><td class="paramname">pos</td><td>The position of the sound </td></tr>
-    <tr><td class="paramname">settings</td><td>The spaital settings of the sound </td></tr>
-    <tr><td class="paramname">loop</td><td>True to loop, false to play once </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Handle A Handle to the newly playing sound, or InvalidHandle if too far away </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00300">300</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afe4e11056e31c59d8a8d919b093c0dff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe4e11056e31c59d8a8d919b093c0dff">&#9670;&nbsp;</a></span>popPlaylist()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::AudioSystem::popPlaylist </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>fadeout</em> = <code>4.f</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Removes the currently playing playlist from the top of the stack and resumes the previous playlist if present. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fadeout</td><td>The interval to crossfade or fade out, in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00288">288</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa912b861683293be1620650a4bfb7051"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa912b861683293be1620650a4bfb7051">&#9670;&nbsp;</a></span>pushPlaylist()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::AudioSystem::pushPlaylist </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01087.html">Playlist</a> &amp;&#160;</td>
-          <td class="paramname"><em>newPlaylist</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>fadeout</em> = <code>4.f</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Pushes a new playlist onto the <a class="el" href="a01087.html" title="A playable, serializable music playlist. Can be manually manipulated or loaded from files...">Playlist</a> stack. If a playlist is currently playing it is crossfaded with the new playlist over the specified interval. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">newPlaylist</td><td>The new playlist to play </td></tr>
-    <tr><td class="paramname">fadeout</td><td>The interval to crossfade or fade in, in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00282">282</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9b85a1827726d2c4f363916cfcd6a438"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b85a1827726d2c4f363916cfcd6a438">&#9670;&nbsp;</a></span>replacePlaylist()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::AudioSystem::replacePlaylist </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01087.html">Playlist</a> &amp;&#160;</td>
-          <td class="paramname"><em>newPlaylist</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>fadeout</em> = <code>4.f</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Replaces the playlist at the top of the stack. If a playlist is currently playing it is crossfaded with the new playlist over the specified interval. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">newPlaylist</td><td>The new playlist to play </td></tr>
-    <tr><td class="paramname">fadeout</td><td>The interval to crossfade or fade in, in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00284">284</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aedacf534c5de4c76bb4cf222e174373c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedacf534c5de4c76bb4cf222e174373c">&#9670;&nbsp;</a></span>resume()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::AudioSystem::resume </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Resumes all sounds, music, and active fades/transitions. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00276">276</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a843870c2487a7c686a9fa2a353171ac2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a843870c2487a7c686a9fa2a353171ac2">&#9670;&nbsp;</a></span>setDefaultSpatialSoundSettings()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::AudioSystem::setDefaultSpatialSoundSettings </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01071.html">SpatialSettings</a> &amp;&#160;</td>
-          <td class="paramname"><em>settings</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set the default settings to apply to spatial sounds. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">settings</td><td>The settings to apply to sounds without their own settings </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00262">262</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa23acf12db9a47afe15e1f7a10547825"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa23acf12db9a47afe15e1f7a10547825">&#9670;&nbsp;</a></span>setListenerPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::AudioSystem::setListenerPosition </td>
-          <td>(</td>
-          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
-          <td class="paramname"><em>pos</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets the global position of the sound listener. This is used for attenuating spatial sounds. Should be the position of the player. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>The position of the sound listener </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00278">278</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6adee704d5a0df4c203f6b3ba4df6b98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6adee704d5a0df4c203f6b3ba4df6b98">&#9670;&nbsp;</a></span>setSpatialSoundCutoffDistance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::AudioSystem::setSpatialSoundCutoffDistance </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>cutoff</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set the maximum distance at which spatial sounds will be played. Sounds coming from outside this distance will not play and return InvalidHandle. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cutoff</td><td>The maximum distance. Default value is 320 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00266">266</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a93274a6e8a82bc1c0dc8b0a46b751c26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93274a6e8a82bc1c0dc8b0a46b751c26">&#9670;&nbsp;</a></span>setVolume()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::AudioSystem::setVolume </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>volume</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set the master volume of all audio. Spatial sounds will be attenuated as well. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">volume</td><td>The master volume for all audio </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00270">270</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="abfa713298871bb1089f51ac8b8ccb738"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfa713298871bb1089f51ac8b8ccb738">&#9670;&nbsp;</a></span>stopAll()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::AudioSystem::stopAll </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>fade</em> = <code>true</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Stops all playing sounds and playlists and removes them from the system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fade</td><td>True to fade the sound over one second, false to stop immediately </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00272">272</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a29e92d77dd007bbb3f60240023c2ed33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29e92d77dd007bbb3f60240023c2ed33">&#9670;&nbsp;</a></span>stopSound()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::AudioSystem::stopSound </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td>
-          <td class="paramname"><em>handle</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Stops the currently playing sound. No effect if not found. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">handle</td><td>The handle of the sound to stop </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00310">310</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="aaba4e74c447f330c9cdd71e99508a15b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaba4e74c447f330c9cdd71e99508a15b">&#9670;&nbsp;</a></span>InvalidHandle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr <a class="el" href="a01067.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> bl::audio::AudioSystem::InvalidHandle = 0</td>
         </tr>
       </table>
   </td>
@@ -832,21 +239,1083 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reserved Handle for error conditions. </p>
+<p>Creates a new <a class="el" href="a01067.html" title="Utility renderer that can show the groups, ids, and acquisitions of elements. ">DebugRenderer</a> with the given underlying renderer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>The renderer to use to render elements </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00038">38</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00010">10</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aceab247b43a9dc9726168fbeaed2f8c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceab247b43a9dc9726168fbeaed2f8c6">&#9670;&nbsp;</a></span>getSettings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01083.html">RenderSettings</a> bl::gui::Renderer::getSettings </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00995.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>element</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns an aggregated <a class="el" href="a01083.html" title="Data class to override rendering settings for GUI Elements. Overrides can be done by group or id...">RenderSettings</a> object for the given <a class="el" href="a00995.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Settings with no values are left empty. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00488_source.html#l00019">19</a> of file <a class="el" href="a00488_source.html">Renderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2786b2c9888c7d1cded90a61880b354d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2786b2c9888c7d1cded90a61880b354d">&#9670;&nbsp;</a></span>renderBox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderBox </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00991.html">Container</a> &amp;&#160;</td>
+          <td class="paramname"><em>container</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#afc4e940b7990657c370e0e8a9725b69b" title="Renders a Box element. ">Renderer::renderBox</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#afc4e940b7990657c370e0e8a9725b69b">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00038">38</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a962672567175786b7518eec706adc11e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a962672567175786b7518eec706adc11e">&#9670;&nbsp;</a></span>renderButton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderButton </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00975.html">Button</a> &amp;&#160;</td>
+          <td class="paramname"><em>button</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#aeea3b7b4da27e91b1a441f9581bbf743" title="Renders a Button element. ">Renderer::renderButton</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#aeea3b7b4da27e91b1a441f9581bbf743">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00050">50</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2abd8310243fcdb39f6152b250a4c7a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2abd8310243fcdb39f6152b250a4c7a1">&#9670;&nbsp;</a></span>renderComboBox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderComboBox </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00987.html">ComboBox</a> &amp;&#160;</td>
+          <td class="paramname"><em>box</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
+          <td class="paramname"><em>optionSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>optionCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>mousedOption</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#a57115f7d2089f1aa364af0a8b1358358" title="Render a ComboBox. ">Renderer::renderComboBox</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#a57115f7d2089f1aa364af0a8b1358358">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00056">56</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae4537984c32a118befd5bdff8958a112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4537984c32a118befd5bdff8958a112">&#9670;&nbsp;</a></span>renderComboBoxDropdown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderComboBoxDropdown </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTexture &amp;&#160;</td>
+          <td class="paramname"><em>texture</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#a8d574177719334247c63052f65155f0c" title="Render the dropdown arrow to be used by ComboBox&#39;s. ">Renderer::renderComboBoxDropdown</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#a8d574177719334247c63052f65155f0c">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00063">63</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a071175f008abe4e558ea71aa2eab32cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a071175f008abe4e558ea71aa2eab32cf">&#9670;&nbsp;</a></span>renderCustom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderCustom </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00995.html">Element</a> &amp;&#160;</td>
+          <td class="paramname"><em>element</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#ab4e5b46f979bbfa61f8442eecf299e23" title="Render a user defined GUI Element. User code may use group() and id() to determine how to render...">Renderer::renderCustom</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#ab4e5b46f979bbfa61f8442eecf299e23">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00026">26</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab74e267c3d2eba7ab87fea21c66924d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab74e267c3d2eba7ab87fea21c66924d0">&#9670;&nbsp;</a></span>renderImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderImage </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00995.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>element</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Sprite &amp;&#160;</td>
+          <td class="paramname"><em>image</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#a44a6caa2b1f97302ea2b7181326f3ec5" title="Renders an image. This is used by both Canvas and Image. ">Renderer::renderImage</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#a44a6caa2b1f97302ea2b7181326f3ec5">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00044">44</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a736687acdd8b1d7820fa2b69dc5c26e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a736687acdd8b1d7820fa2b69dc5c26e6">&#9670;&nbsp;</a></span>renderLabel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderLabel </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01003.html">Label</a> &amp;&#160;</td>
+          <td class="paramname"><em>label</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#ab123f6b84a616bd9860aa2c4279befe1" title="Renders a Label element. ">Renderer::renderLabel</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#ab123f6b84a616bd9860aa2c4279befe1">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00032">32</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a65cf41fb8620554d52677fdb430c521d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65cf41fb8620554d52677fdb430c521d">&#9670;&nbsp;</a></span>renderMouseoverOverlay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderMouseoverOverlay </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00995.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>element</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#aba7eb0da2f946f57b178ef2bc60c8668" title="Render a highlight or dark overlay over an element based on it&#39;s current state. ">Renderer::renderMouseoverOverlay</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#aba7eb0da2f946f57b178ef2bc60c8668">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00067">67</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a813473579a070d94766ea3f9666e774b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a813473579a070d94766ea3f9666e774b">&#9670;&nbsp;</a></span>renderNotebook()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderNotebook </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01007.html">Notebook</a> &amp;&#160;</td>
+          <td class="paramname"><em>notebook</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#a483630ee92c1e4df47008a97ab6172a3" title="Renders a Notebook element. Must also render the tabs and active content using getPages() ...">Renderer::renderNotebook</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#a483630ee92c1e4df47008a97ab6172a3">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00072">72</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a691e2bff82d22f33a4be2a1ce380fed1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a691e2bff82d22f33a4be2a1ce380fed1">&#9670;&nbsp;</a></span>renderProgressBar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderProgressBar </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01015.html">ProgressBar</a> &amp;&#160;</td>
+          <td class="paramname"><em>progressBar</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#afb5e3fa8a5b122ce897868b97b385934" title="Renders a ProgressBar element. ">Renderer::renderProgressBar</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#afb5e3fa8a5b122ce897868b97b385934">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00078">78</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7cdbb43d59a641f21688197979315e03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cdbb43d59a641f21688197979315e03">&#9670;&nbsp;</a></span>renderSeparator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderSeparator </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01031.html">Separator</a> &amp;&#160;</td>
+          <td class="paramname"><em>separator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#a6c9c0d7937e03e0963f641ea159ebd7e" title="Renders a Separator element. Note that the outline thickness should be used for line thickness...">Renderer::renderSeparator</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#a6c9c0d7937e03e0963f641ea159ebd7e">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00084">84</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad6f482c93933bd149fe98cfcdba5da5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6f482c93933bd149fe98cfcdba5da5d">&#9670;&nbsp;</a></span>renderSlider()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderSlider </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01035.html">Slider</a> &amp;&#160;</td>
+          <td class="paramname"><em>slider</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#a9a1a877c7b63c65eb02488c0fc758204" title="Render a Slider element. The track only, none of the buttons should be rendered. ">Renderer::renderSlider</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#a9a1a877c7b63c65eb02488c0fc758204">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00090">90</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a478698c31b3be9434b3ca7ae172009e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a478698c31b3be9434b3ca7ae172009e4">&#9670;&nbsp;</a></span>renderSliderButton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderSliderButton </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTexture &amp;&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>horizontal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>increasing</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#a76538733b18f486483e6da30252cbdb4" title="Render to the rendertexture of a sliders increase or decrease button. This is typically called only o...">Renderer::renderSliderButton</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#a76538733b18f486483e6da30252cbdb4">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00096">96</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6117bc6f915bf2da1f56849cc2167b90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6117bc6f915bf2da1f56849cc2167b90">&#9670;&nbsp;</a></span>renderTextEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderTextEntry </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01039.html">TextEntry</a> &amp;&#160;</td>
+          <td class="paramname"><em>entry</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#abb9bad5052ae552333ea6f81ddaf9267" title="Renders a TextEntry element. ">Renderer::renderTextEntry</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#abb9bad5052ae552333ea6f81ddaf9267">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00101">101</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad47f60af2a188bba397da0675943de36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad47f60af2a188bba397da0675943de36">&#9670;&nbsp;</a></span>renderToggleButton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderToggleButton </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01043.html">ToggleButton</a> &amp;&#160;</td>
+          <td class="paramname"><em>button</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#a33cd758ff90b5792293afd15868ef6bd" title="Renders a ToggleButton element. Can be either CheckBox or RadioButton. The buttons and text should be...">Renderer::renderToggleButton</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#a33cd758ff90b5792293afd15868ef6bd">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00107">107</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad4587699ce952a3dc6a5b58d4ecccfe8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4587699ce952a3dc6a5b58d4ecccfe8">&#9670;&nbsp;</a></span>renderToggleCheckButton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderToggleCheckButton </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTexture &amp;&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>active</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#a9db4a8cf578589fecb22e10a997f2e65" title="Render a check button to an internal texture. ">Renderer::renderToggleCheckButton</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#a9db4a8cf578589fecb22e10a997f2e65">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00113">113</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5e6a5d750f7f7b86a101ca515a013c3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e6a5d750f7f7b86a101ca515a013c3a">&#9670;&nbsp;</a></span>renderToggleRadioButton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderToggleRadioButton </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTexture &amp;&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>active</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#a9c0afe0b8288599fec42cb33846888c9" title="Render a radio button to an internal texture. ">Renderer::renderToggleRadioButton</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#a9c0afe0b8288599fec42cb33846888c9">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00117">117</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae0b6601d92f2693263cf3aaf99867b04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0b6601d92f2693263cf3aaf99867b04">&#9670;&nbsp;</a></span>renderWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::renderWindow </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00991.html">Container</a> *&#160;</td>
+          <td class="paramname"><em>titlebar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01047.html">Window</a> &amp;&#160;</td>
+          <td class="paramname"><em>window</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01075.html#a93f84efe180ce3fbfaf9b3f2e9324470" title="Render a Window element. The titlebar will have no styling and should use the styling options from th...">Renderer::renderWindow</a> </dd></dl>
+
+<p>Implements <a class="el" href="a01075.html#a93f84efe180ce3fbfaf9b3f2e9324470">bl::gui::Renderer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00121">121</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8e0dc3b1c6e7143e22861f9c37ed46bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e0dc3b1c6e7143e22861f9c37ed46bd">&#9670;&nbsp;</a></span>setGroupSettings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Renderer::setGroupSettings </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>group</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01083.html">RenderSettings</a> &amp;&#160;</td>
+          <td class="paramname"><em>settings</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add or set <a class="el" href="a01083.html" title="Data class to override rendering settings for GUI Elements. Overrides can be done by group or id...">RenderSettings</a> for the given group. Overriden for Elements with id level overrides. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">group</td><td>The group to apply the settings to </td></tr>
+    <tr><td class="paramname">settings</td><td>The render settings </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00488_source.html#l00011">11</a> of file <a class="el" href="a00488_source.html">Renderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a418d1078ea34d7ac18ed2706c04db376"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a418d1078ea34d7ac18ed2706c04db376">&#9670;&nbsp;</a></span>setIdSettings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Renderer::setIdSettings </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01083.html">RenderSettings</a> &amp;&#160;</td>
+          <td class="paramname"><em>settings</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add or set <a class="el" href="a01083.html" title="Data class to override rendering settings for GUI Elements. Overrides can be done by group or id...">RenderSettings</a> for the given id. Settings applied in the element itself, if any, override these. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Id of the <a class="el" href="a00995.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> to set for </td></tr>
+    <tr><td class="paramname">settings</td><td>The render settings </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00488_source.html#l00015">15</a> of file <a class="el" href="a00488_source.html">Renderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae7d83cb7cdaafffbfc7d063e6f102083"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7d83cb7cdaafffbfc7d063e6f102083">&#9670;&nbsp;</a></span>showAcquisitions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::showAcquisitions </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>show</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set whether or not to draw outlines showing element acquisitions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">show</td><td>True to show acquisitions </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00020">20</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0f5694c3c50e7f03a6d59cdf2b5e9b3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f5694c3c50e7f03a6d59cdf2b5e9b3c">&#9670;&nbsp;</a></span>showGroups()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::showGroups </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>show</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set whether or not to print group names by elements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">show</td><td>True to print group names of elements </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00022">22</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acca961442cf01a44a29d3744f0f2039d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acca961442cf01a44a29d3744f0f2039d">&#9670;&nbsp;</a></span>showIds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::DebugRenderer::showIds </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>show</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set whether or not to print element ids. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">show</td><td>True to print element ids </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00024">24</a> of file <a class="el" href="a00482_source.html">DebugRenderer.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Media/Audio/<a class="el" href="a00215_source.html">AudioSystem.hpp</a></li>
-<li>src/Media/Audio/<a class="el" href="a00500_source.html">AudioSystem.cpp</a></li>
+<li>include/BLIB/GUI/Renderers/<a class="el" href="a00188_source.html">DebugRenderer.hpp</a></li>
+<li>src/GUI/Renderers/<a class="el" href="a00482_source.html">DebugRenderer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 9 2021 05:02:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

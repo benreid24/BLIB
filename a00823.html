@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::file::binary::Serializer&lt; T, false &gt; Struct Template Reference</title>
+<title>BLIB: bl::event::SingleDispatcherScopeGuard&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,9 +25,9 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.9</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
-   <div id="projectbrief">Ben&#39;s SFML Game Library</div>
+   <div id="projectbrief">Ben&#39;s SFML Game Engine</div>
   </td>
  </tr>
  </tbody>
@@ -63,154 +63,156 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00619.html">file</a></li><li class="navelem"><a class="el" href="a00620.html">binary</a></li><li class="navelem"><a class="el" href="a00823.html">Serializer&lt; T, false &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00618.html">event</a></li><li class="navelem"><a class="el" href="a00823.html">SingleDispatcherScopeGuard</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00820.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::file::binary::Serializer&lt; T, false &gt; Struct Template Reference</div>  </div>
+<div class="title">bl::event::SingleDispatcherScopeGuard&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00599.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a01649_source.html">Serializer.hpp</a>&gt;</code></p>
+<p>Scope guard for <a class="el" href="a00827.html" title="Templatized utility class for setting up an event dispatcher and listener system. ...">SingleListener</a> objects to subscribe to an <a class="el" href="a00819.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> if they are limited by scope. All listeners subscribed through the guard are removed from the dispatcher when the guard goes out of scope.  
+ <a href="a00823.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00080_source.html">SingleDispatcherScopeGuard.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a6177723c9dcabe4686a908a035eb329f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00823.html#a6177723c9dcabe4686a908a035eb329f">serialize</a> (<a class="el" href="a00803.html">File</a> &amp;output, const T &amp;value)</td></tr>
-<tr class="separator:a6177723c9dcabe4686a908a035eb329f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23ae64b39e40e83f8bdeb565bc2cdcae"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00823.html#a23ae64b39e40e83f8bdeb565bc2cdcae">deserialize</a> (<a class="el" href="a00803.html">File</a> &amp;input, T &amp;result)</td></tr>
-<tr class="separator:a23ae64b39e40e83f8bdeb565bc2cdcae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3f57826a35a124e57aecaba7e641ec5"><td class="memItemLeft" align="right" valign="top">static std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00823.html#ae3f57826a35a124e57aecaba7e641ec5">size</a> (const T &amp;value)</td></tr>
-<tr class="separator:ae3f57826a35a124e57aecaba7e641ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a275d34d79e5f67227f77b61e2ee1d062"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00823.html#a275d34d79e5f67227f77b61e2ee1d062">SingleDispatcherScopeGuard</a> (<a class="el" href="a00819.html">SingleDispatcher</a>&lt; T &gt; &amp;dispatcher)</td></tr>
+<tr class="memdesc:a275d34d79e5f67227f77b61e2ee1d062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new scope guard for the given dispatcher.  <a href="#a275d34d79e5f67227f77b61e2ee1d062">More...</a><br /></td></tr>
+<tr class="separator:a275d34d79e5f67227f77b61e2ee1d062"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3321114e6ff23a29979d1ca00606cf65"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00823.html#a3321114e6ff23a29979d1ca00606cf65">~SingleDispatcherScopeGuard</a> ()</td></tr>
+<tr class="memdesc:a3321114e6ff23a29979d1ca00606cf65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all added listeners from the dispatcher.  <a href="#a3321114e6ff23a29979d1ca00606cf65">More...</a><br /></td></tr>
+<tr class="separator:a3321114e6ff23a29979d1ca00606cf65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a053019c1c0f99059828a06afacecc6ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00823.html#a053019c1c0f99059828a06afacecc6ca">subscribe</a> (<a class="el" href="a00827.html">SingleListener</a>&lt; T &gt; *listener)</td></tr>
+<tr class="memdesc:a053019c1c0f99059828a06afacecc6ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe the given scoped listener object.  <a href="#a053019c1c0f99059828a06afacecc6ca">More...</a><br /></td></tr>
+<tr class="separator:a053019c1c0f99059828a06afacecc6ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6866413e36bc5bd161116c0f9b8c6a90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00823.html#a6866413e36bc5bd161116c0f9b8c6a90">remove</a> (<a class="el" href="a00827.html">SingleListener</a>&lt; T &gt; *listener)</td></tr>
+<tr class="memdesc:a6866413e36bc5bd161116c0f9b8c6a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the given listener.  <a href="#a6866413e36bc5bd161116c0f9b8c6a90">More...</a><br /></td></tr>
+<tr class="separator:a6866413e36bc5bd161116c0f9b8c6a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
-struct bl::file::binary::Serializer&lt; T, false &gt;</h3>
+class bl::event::SingleDispatcherScopeGuard&lt; T &gt;</h3>
 
+<p>Scope guard for <a class="el" href="a00827.html" title="Templatized utility class for setting up an event dispatcher and listener system. ...">SingleListener</a> objects to subscribe to an <a class="el" href="a00819.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> if they are limited by scope. All listeners subscribed through the guard are removed from the dispatcher when the guard goes out of scope. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type of event to handle </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01649_source.html#l00056">56</a> of file <a class="el" href="a01649_source.html">Serializer.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a23ae64b39e40e83f8bdeb565bc2cdcae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23ae64b39e40e83f8bdeb565bc2cdcae">&#9670;&nbsp;</a></span>deserialize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool <a class="el" href="a00819.html">bl::file::binary::Serializer</a>&lt; T, false &gt;::deserialize </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00803.html">File</a> &amp;&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01649_source.html#l00059">59</a> of file <a class="el" href="a01649_source.html">Serializer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6177723c9dcabe4686a908a035eb329f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6177723c9dcabe4686a908a035eb329f">&#9670;&nbsp;</a></span>serialize()</h2>
+<p class="definition">Definition at line <a class="el" href="a00080_source.html#l00020">20</a> of file <a class="el" href="a00080_source.html">SingleDispatcherScopeGuard.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a275d34d79e5f67227f77b61e2ee1d062"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a275d34d79e5f67227f77b61e2ee1d062">&#9670;&nbsp;</a></span>SingleDispatcherScopeGuard()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a00819.html">bl::file::binary::Serializer</a>&lt; T, false &gt;::serialize </td>
+          <td class="memname"><a class="el" href="a00823.html">bl::event::SingleDispatcherScopeGuard</a>&lt; T &gt;::<a class="el" href="a00823.html">SingleDispatcherScopeGuard</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00803.html">File</a> &amp;&#160;</td>
-          <td class="paramname"><em>output</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a00819.html">SingleDispatcher</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>dispatcher</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01649_source.html#l00057">57</a> of file <a class="el" href="a01649_source.html">Serializer.hpp</a>.</p>
+<p>Create a new scope guard for the given dispatcher. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00080_source.html#l00056">56</a> of file <a class="el" href="a00080_source.html">SingleDispatcherScopeGuard.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae3f57826a35a124e57aecaba7e641ec5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3f57826a35a124e57aecaba7e641ec5">&#9670;&nbsp;</a></span>size()</h2>
+<a id="a3321114e6ff23a29979d1ca00606cf65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3321114e6ff23a29979d1ca00606cf65">&#9670;&nbsp;</a></span>~SingleDispatcherScopeGuard()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::uint32_t <a class="el" href="a00819.html">bl::file::binary::Serializer</a>&lt; T, false &gt;::size </td>
+          <td class="memname"><a class="el" href="a00823.html">bl::event::SingleDispatcherScopeGuard</a>&lt; T &gt;::~<a class="el" href="a00823.html">SingleDispatcherScopeGuard</a> </td>
           <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01649_source.html#l00061">61</a> of file <a class="el" href="a01649_source.html">Serializer.hpp</a>.</p>
+<p>Removes all added listeners from the dispatcher. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00080_source.html#l00060">60</a> of file <a class="el" href="a00080_source.html">SingleDispatcherScopeGuard.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Files/Binary/<a class="el" href="a01649_source.html">Serializer.hpp</a></li>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6866413e36bc5bd161116c0f9b8c6a90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6866413e36bc5bd161116c0f9b8c6a90">&#9670;&nbsp;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00823.html">bl::event::SingleDispatcherScopeGuard</a>&lt; T &gt;::remove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00827.html">SingleListener</a>&lt; T &gt; *&#160;</td>
+          <td class="paramname"><em>listener</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove the given listener. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00080_source.html#l00071">71</a> of file <a class="el" href="a00080_source.html">SingleDispatcherScopeGuard.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a053019c1c0f99059828a06afacecc6ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a053019c1c0f99059828a06afacecc6ca">&#9670;&nbsp;</a></span>subscribe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00823.html">bl::event::SingleDispatcherScopeGuard</a>&lt; T &gt;::subscribe </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00827.html">SingleListener</a>&lt; T &gt; *&#160;</td>
+          <td class="paramname"><em>listener</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Subscribe the given scoped listener object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00080_source.html#l00065">65</a> of file <a class="el" href="a00080_source.html">SingleDispatcherScopeGuard.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Events/<a class="el" href="a00080_source.html">SingleDispatcherScopeGuard.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 9 2021 05:02:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

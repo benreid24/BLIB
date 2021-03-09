@@ -25,9 +25,9 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.9</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
-   <div id="projectbrief">Ben&#39;s SFML Game Library</div>
+   <div id="projectbrief">Ben&#39;s SFML Game Engine</div>
   </td>
  </tr>
  </tbody>
@@ -63,28 +63,56 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00619.html">file</a></li><li class="navelem"><a class="el" href="a00621.html">json</a></li><li class="navelem"><a class="el" href="a00887.html">SerializableFieldBase</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00619.html">file</a></li><li class="navelem"><a class="el" href="a00621.html">json</a></li><li class="navelem"><a class="el" href="a00887.html">Value</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">bl::file::json::SerializableFieldBase Member List</div>  </div>
+<div class="title">bl::file::json::Value Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00887.html">bl::file::json::SerializableFieldBase</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00887.html">bl::file::json::Value</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00887.html#ab08489c2078cba72dabb25d8f84709de">deserialize</a>(const Value &amp;json)=0</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00887.html#a5bc3f501f187922b45619b2bf8002795">getName</a>() const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::SerializableFieldBase</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00887.html#a033beaa366400b279bbc5ca9ec9a2084">SerializableFieldBase</a>(const SerializableFieldBase &amp;copy)=delete</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::SerializableFieldBase</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00887.html#a7f1514cc35948b87408c5e0a4f18e8d0">SerializableFieldBase</a>(SerializableFieldBase &amp;&amp;copy)=delete</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::SerializableFieldBase</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00887.html#ae81905cc9315e6832359605ca64695d9">SerializableFieldBase</a>(const std::string &amp;name, SerializableObject &amp;owner)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00887.html#aa6fcd06d6bf6c96802b3c16b388a4ed0">serialize</a>() const =0</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#a3975cf6f383d81c2df789f64936185d6">getAsBool</a>() const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#a18c3471b702f210e6466fb9d643d2187">getAsGroup</a>() const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#aab897f9043ef9226f4c9b0f9730df173">getAsList</a>() const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#a53728faae1aa10dbf97810595227cb01">getAsNumeric</a>() const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#adb7b25cd81fe19cefd5515b693a76bea">getAsString</a>() const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#a5ba5ecb999cc15e2fd8f6396ae9e5713">getBool</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#a88cf891e66c273ec30867b36ef2e9fb2">getGroup</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#a64b837b467b9a9d7c9883363ecba381d">getList</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#a8a26c7b0256d240022ea4fb5614848d4">getNumeric</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#a5ca48a14f8ff0248569bb2670707356d">getString</a>(const std::string &amp;name) const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#aec003bd3d3fff3ee199bb0a34b72df10">getType</a>() const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#ac2b7fceed524a01b7d17c60a5564579e">operator=</a>(const Value &amp;rhs)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#a3715d729f3db75eaf5a00d195cafa097">operator=</a>(bool value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#a93482455f86b01dd5c61f2ca1ffdc2aa">operator=</a>(float value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#a19c68e75b87cc75f1b567327687c6d74">operator=</a>(const std::string &amp;value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#abd289758f8b0b2c1f4929d1a28cdcec9">operator=</a>(const char *value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#adef73a8c0601579f7b23c3db839f4c01">operator=</a>(const List &amp;value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#a6d551529237fbd9f541b074fecd813c4">operator=</a>(const Group &amp;value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#af0282b6a7a54aea9e504f9611f1a851d">print</a>(std::ostream &amp;stream, int indentLevel) const</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00879.html#adfdcca4ce9a64c4dcc8214c79db9bd5b">setSource</a>(const SourceInfo &amp;source)</td><td class="entry"><a class="el" href="a00879.html">bl::file::json::Base</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00879.html#ae5c7696b7eac84bcf69b33b0b8c78c44">source</a>() const</td><td class="entry"><a class="el" href="a00879.html">bl::file::json::Base</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#af1111560eb422e0ac3e8eeed67751cd6ab6f605477edb566c482db71cdfa04a36">TBool</a> enum value</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#af1111560eb422e0ac3e8eeed67751cd6aa5b6c1603cdee2b1640bee2bf321b904">TGroup</a> enum value</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#af1111560eb422e0ac3e8eeed67751cd6a857221d5b6a3d07281d8c3b7a54d925f">TList</a> enum value</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#af1111560eb422e0ac3e8eeed67751cd6a58e9fa59a9ec75acf5c04258666f14a0">TNumeric</a> enum value</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#af1111560eb422e0ac3e8eeed67751cd6a1f23f3e8803f060de5da6211563cf5e2">TString</a> enum value</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#af1111560eb422e0ac3e8eeed67751cd6">Type</a> enum name</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#af0af4d7d351539f8c02df8a4901ae2fb">Value</a>(const Value &amp;value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#af36c508f21b4660040b81d207f1bb67b">Value</a>(bool value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#a7ae761a4f3cff009ffeac815504dd81f">Value</a>(float value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#a1e6f32c39c20dbcc7a8421b1943f6fc7">Value</a>(const std::string &amp;value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#a15a90fccf44ee5a4ef65b3ac8cf8375b">Value</a>(const char *value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00887.html#af97517ab5be351f675f0e6a57103a7bf">Value</a>(const List &amp;value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00887.html#a614419a0592f3f458f0c6ebc7f1fdbab">Value</a>(const Group &amp;value)</td><td class="entry"><a class="el" href="a00887.html">bl::file::json::Value</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 9 2021 05:02:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

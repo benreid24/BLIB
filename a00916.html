@@ -25,9 +25,9 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.9</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
-   <div id="projectbrief">Ben&#39;s SFML Game Library</div>
+   <div id="projectbrief">Ben&#39;s SFML Game Engine</div>
   </td>
  </tr>
  </tbody>
@@ -63,24 +63,36 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00619.html">file</a></li><li class="navelem"><a class="el" href="a00621.html">json</a></li><li class="navelem"><a class="el" href="a00919.html">Serializer&lt; std::vector&lt; U &gt; &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00619.html">file</a></li><li class="navelem"><a class="el" href="a00621.html">json</a></li><li class="navelem"><a class="el" href="a00919.html">SerializableField</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">bl::file::json::Serializer&lt; std::vector&lt; U &gt; &gt; Member List</div>  </div>
+<div class="title">bl::file::json::SerializableField&lt; T &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00919.html">bl::file::json::Serializer&lt; std::vector&lt; U &gt; &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00919.html">bl::file::json::SerializableField&lt; T &gt;</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00919.html#a2bd64fbd3b637905b0bf8166e3db5521">deserialize</a>(std::vector&lt; U &gt; &amp;result, const Value &amp;v)</td><td class="entry"><a class="el" href="a00919.html">bl::file::json::Serializer&lt; std::vector&lt; U &gt; &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00919.html#a60fb90457b83288103ad19b322bd60e9">serialize</a>(const std::vector&lt; U &gt; &amp;value)</td><td class="entry"><a class="el" href="a00919.html">bl::file::json::Serializer&lt; std::vector&lt; U &gt; &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00919.html#a9beaedf00294b114487aa5be381aee80">deserialize</a>(const Value &amp;json) override</td><td class="entry"><a class="el" href="a00919.html">bl::file::json::SerializableField&lt; T &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00915.html#a5bc3f501f187922b45619b2bf8002795">getName</a>() const</td><td class="entry"><a class="el" href="a00915.html">bl::file::json::SerializableFieldBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00919.html#a130f34292bc56ce225f0608578c1cb61">getValue</a>() const</td><td class="entry"><a class="el" href="a00919.html">bl::file::json::SerializableField&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00919.html#a1fe3ddb659d0319c46ed74e23c0e1764">operator T</a>() const</td><td class="entry"><a class="el" href="a00919.html">bl::file::json::SerializableField&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00919.html#ae0b5cb3c37fece276508df28701ebff4">operator=</a>(const SerializableField &amp;copy)</td><td class="entry"><a class="el" href="a00919.html">bl::file::json::SerializableField&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00919.html#ad87c0e41913e39af09f4d038f84619ee">operator=</a>(const T &amp;value)</td><td class="entry"><a class="el" href="a00919.html">bl::file::json::SerializableField&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00919.html#a07c1f126cff1258597546179828b56d1">SerializableField</a>(const std::string &amp;name, SerializableObject &amp;owner)</td><td class="entry"><a class="el" href="a00919.html">bl::file::json::SerializableField&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00919.html#a47a99428af0f370f0c2c37a7e6e2eb7a">SerializableField</a>(const SerializableField &amp;copy)=delete</td><td class="entry"><a class="el" href="a00919.html">bl::file::json::SerializableField&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00919.html#a38aa88a99b59cffa4858e2a627085ad2">SerializableField</a>(SerializableField &amp;&amp;copy)=delete</td><td class="entry"><a class="el" href="a00919.html">bl::file::json::SerializableField&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00915.html#a033beaa366400b279bbc5ca9ec9a2084">SerializableFieldBase</a>(const SerializableFieldBase &amp;copy)=delete</td><td class="entry"><a class="el" href="a00915.html">bl::file::json::SerializableFieldBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00915.html#a7f1514cc35948b87408c5e0a4f18e8d0">SerializableFieldBase</a>(SerializableFieldBase &amp;&amp;copy)=delete</td><td class="entry"><a class="el" href="a00915.html">bl::file::json::SerializableFieldBase</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00915.html#ae81905cc9315e6832359605ca64695d9">SerializableFieldBase</a>(const std::string &amp;name, SerializableObject &amp;owner)</td><td class="entry"><a class="el" href="a00915.html">bl::file::json::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00919.html#a3662f0abb61fdda7dd4fb53c4f8e42ef">serialize</a>() const override</td><td class="entry"><a class="el" href="a00919.html">bl::file::json::SerializableField&lt; T &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00919.html#a84d995a4d6e899199bcfd3a09631cdc8">setValue</a>(const T &amp;value)</td><td class="entry"><a class="el" href="a00919.html">bl::file::json::SerializableField&lt; T &gt;</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 9 2021 05:02:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

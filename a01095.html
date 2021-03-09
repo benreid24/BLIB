@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gfx::AnimationData Class Reference</title>
+<title>BLIB: bl::audio::AudioSystem Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,9 +25,9 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.9</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
-   <div id="projectbrief">Ben&#39;s SFML Game Library</div>
+   <div id="projectbrief">Ben&#39;s SFML Game Engine</div>
   </td>
  </tr>
  </tbody>
@@ -63,71 +63,134 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00626.html">gfx</a></li><li class="navelem"><a class="el" href="a01095.html">AnimationData</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00625.html">audio</a></li><li class="navelem"><a class="el" href="a01095.html">AudioSystem</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a01092.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gfx::AnimationData Class Reference<div class="ingroups"><a class="el" href="a00603.html">Media</a></div></div>  </div>
+<div class="title">bl::audio::AudioSystem Class Reference<div class="ingroups"><a class="el" href="a00603.html">Media</a> &raquo; <a class="el" href="a00611.html">Audio</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Data class for animations. Holds the frame information and is responsible for rendering.  
+<p>Centralized control class for sound effects and music. It manages playing sounds, removing finished sounds, looping sounds, global volume, pausing, fading out on exit, and a stack of playlists.  
  <a href="a01095.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00227_source.html">AnimationData.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00215_source.html">AudioSystem.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html">Sound</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a sound being managed by <a class="el" href="a01095.html" title="Centralized control class for sound effects and music. It manages playing sounds, removing finished s...">AudioSystem</a>.  <a href="a01103.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01099.html">SpatialSettings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Some settings for spatial sounds.  <a href="a01099.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a1976c9cbec3cb0348a2e6f0381ea9906"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> = std::uint32_t</td></tr>
+<tr class="memdesc:a1976c9cbec3cb0348a2e6f0381ea9906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integer type handle for playing sounds.  <a href="#a1976c9cbec3cb0348a2e6f0381ea9906">More...</a><br /></td></tr>
+<tr class="separator:a1976c9cbec3cb0348a2e6f0381ea9906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae4b7667925e60ec395ac4fd82b75ea9a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#ae4b7667925e60ec395ac4fd82b75ea9a">AnimationData</a> ()</td></tr>
-<tr class="memdesc:ae4b7667925e60ec395ac4fd82b75ea9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create empty <a class="el" href="a01095.html" title="Data class for animations. Holds the frame information and is responsible for rendering. ">AnimationData</a> to be loaded later.  <a href="#ae4b7667925e60ec395ac4fd82b75ea9a">More...</a><br /></td></tr>
-<tr class="separator:ae4b7667925e60ec395ac4fd82b75ea9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aced91456b364e3a019fffe5ece302055"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#aced91456b364e3a019fffe5ece302055">AnimationData</a> (const std::string &amp;filename)</td></tr>
-<tr class="memdesc:aced91456b364e3a019fffe5ece302055"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the <a class="el" href="a01095.html" title="Data class for animations. Holds the frame information and is responsible for rendering. ">AnimationData</a> from the given file. Spritesheets are searched for in the same directory as the animation file. If not found then <a class="el" href="a00703.html#a94315222fa535d2d63c87bde6a806453" title="Returns the stored value for the given configuration type and key. If the key does not exist or is a ...">engine::Configuration::get</a>("blib.animation.spritesheet_path") is used.  <a href="#aced91456b364e3a019fffe5ece302055">More...</a><br /></td></tr>
-<tr class="separator:aced91456b364e3a019fffe5ece302055"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27ef0e23e111728894705972123418d7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a27ef0e23e111728894705972123418d7">load</a> (const std::string &amp;filename)</td></tr>
-<tr class="memdesc:a27ef0e23e111728894705972123418d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the animation from the given file, overwriting internal data Spritesheets are searched for in the same directory as the file. If not found then <a class="el" href="a00703.html#a94315222fa535d2d63c87bde6a806453" title="Returns the stored value for the given configuration type and key. If the key does not exist or is a ...">engine::Configuration::get</a>("blib.animation.spritesheet_path") is used.  <a href="#a27ef0e23e111728894705972123418d7">More...</a><br /></td></tr>
-<tr class="separator:a27ef0e23e111728894705972123418d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a690b92879de3b386d9efa468c91cbad4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a690b92879de3b386d9efa468c91cbad4">isLooping</a> () const</td></tr>
-<tr class="memdesc:a690b92879de3b386d9efa468c91cbad4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if the animation is set to loop on end. Can be overriden in <a class="el" href="a01091.html" title="Represents a renderable animation. AnimationData is to Animation like sf::Texture is to sf::Sprite...">Animation</a>.  <a href="#a690b92879de3b386d9efa468c91cbad4">More...</a><br /></td></tr>
-<tr class="separator:a690b92879de3b386d9efa468c91cbad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d24dddb9b4278f586342975fafc1e1d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a6d24dddb9b4278f586342975fafc1e1d">getLength</a> () const</td></tr>
-<tr class="memdesc:a6d24dddb9b4278f586342975fafc1e1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total length of the animation in seconds.  <a href="#a6d24dddb9b4278f586342975fafc1e1d">More...</a><br /></td></tr>
-<tr class="separator:a6d24dddb9b4278f586342975fafc1e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a427ddf6ea2d3d806bac2d2c022c711dc"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a427ddf6ea2d3d806bac2d2c022c711dc">frameCount</a> () const</td></tr>
-<tr class="memdesc:a427ddf6ea2d3d806bac2d2c022c711dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of frames in the animation.  <a href="#a427ddf6ea2d3d806bac2d2c022c711dc">More...</a><br /></td></tr>
-<tr class="separator:a427ddf6ea2d3d806bac2d2c022c711dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e769a31fbbc6a6cd96ec5174bacec67"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a2e769a31fbbc6a6cd96ec5174bacec67">getFrameSize</a> (unsigned int frameIndex) const</td></tr>
-<tr class="memdesc:a2e769a31fbbc6a6cd96ec5174bacec67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the width and height of the given frame.  <a href="#a2e769a31fbbc6a6cd96ec5174bacec67">More...</a><br /></td></tr>
-<tr class="separator:a2e769a31fbbc6a6cd96ec5174bacec67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b356b85907651d583f0ddf1e48ca9e5"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a9b356b85907651d583f0ddf1e48ca9e5">getMaxSize</a> () const</td></tr>
-<tr class="memdesc:a9b356b85907651d583f0ddf1e48ca9e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the largest frame.  <a href="#a9b356b85907651d583f0ddf1e48ca9e5">More...</a><br /></td></tr>
-<tr class="separator:a9b356b85907651d583f0ddf1e48ca9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad371e47a81fa27e259973b37447ee640"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#ad371e47a81fa27e259973b37447ee640">~AudioSystem</a> ()</td></tr>
+<tr class="memdesc:ad371e47a81fa27e259973b37447ee640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops all playing sounds and music with a one second fadeout, then terminates the background thread.  <a href="#ad371e47a81fa27e259973b37447ee640">More...</a><br /></td></tr>
+<tr class="separator:ad371e47a81fa27e259973b37447ee640"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:af47625f50036c466946f960db7320bcf"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#af47625f50036c466946f960db7320bcf">Animation</a></td></tr>
-<tr class="separator:af47625f50036c466946f960db7320bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a843870c2487a7c686a9fa2a353171ac2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a843870c2487a7c686a9fa2a353171ac2">setDefaultSpatialSoundSettings</a> (const <a class="el" href="a01099.html">SpatialSettings</a> &amp;settings)</td></tr>
+<tr class="memdesc:a843870c2487a7c686a9fa2a353171ac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the default settings to apply to spatial sounds.  <a href="#a843870c2487a7c686a9fa2a353171ac2">More...</a><br /></td></tr>
+<tr class="separator:a843870c2487a7c686a9fa2a353171ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6adee704d5a0df4c203f6b3ba4df6b98"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a6adee704d5a0df4c203f6b3ba4df6b98">setSpatialSoundCutoffDistance</a> (float cutoff)</td></tr>
+<tr class="memdesc:a6adee704d5a0df4c203f6b3ba4df6b98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the maximum distance at which spatial sounds will be played. Sounds coming from outside this distance will not play and return InvalidHandle.  <a href="#a6adee704d5a0df4c203f6b3ba4df6b98">More...</a><br /></td></tr>
+<tr class="separator:a6adee704d5a0df4c203f6b3ba4df6b98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93274a6e8a82bc1c0dc8b0a46b751c26"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a93274a6e8a82bc1c0dc8b0a46b751c26">setVolume</a> (float volume)</td></tr>
+<tr class="memdesc:a93274a6e8a82bc1c0dc8b0a46b751c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the master volume of all audio. Spatial sounds will be attenuated as well.  <a href="#a93274a6e8a82bc1c0dc8b0a46b751c26">More...</a><br /></td></tr>
+<tr class="separator:a93274a6e8a82bc1c0dc8b0a46b751c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfa713298871bb1089f51ac8b8ccb738"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#abfa713298871bb1089f51ac8b8ccb738">stopAll</a> (bool fade=true)</td></tr>
+<tr class="memdesc:abfa713298871bb1089f51ac8b8ccb738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops all playing sounds and playlists and removes them from the system.  <a href="#abfa713298871bb1089f51ac8b8ccb738">More...</a><br /></td></tr>
+<tr class="separator:abfa713298871bb1089f51ac8b8ccb738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a892f00cbc45e915c30246a10834359c0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a892f00cbc45e915c30246a10834359c0">pause</a> ()</td></tr>
+<tr class="memdesc:a892f00cbc45e915c30246a10834359c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pauses all sounds, music, and active fades/transitions.  <a href="#a892f00cbc45e915c30246a10834359c0">More...</a><br /></td></tr>
+<tr class="separator:a892f00cbc45e915c30246a10834359c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedacf534c5de4c76bb4cf222e174373c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#aedacf534c5de4c76bb4cf222e174373c">resume</a> ()</td></tr>
+<tr class="memdesc:aedacf534c5de4c76bb4cf222e174373c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes all sounds, music, and active fades/transitions.  <a href="#aedacf534c5de4c76bb4cf222e174373c">More...</a><br /></td></tr>
+<tr class="separator:aedacf534c5de4c76bb4cf222e174373c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa23acf12db9a47afe15e1f7a10547825"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#aa23acf12db9a47afe15e1f7a10547825">setListenerPosition</a> (const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:aa23acf12db9a47afe15e1f7a10547825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the global position of the sound listener. This is used for attenuating spatial sounds. Should be the position of the player.  <a href="#aa23acf12db9a47afe15e1f7a10547825">More...</a><br /></td></tr>
+<tr class="separator:aa23acf12db9a47afe15e1f7a10547825"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa912b861683293be1620650a4bfb7051"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#aa912b861683293be1620650a4bfb7051">pushPlaylist</a> (const <a class="el" href="a01115.html">Playlist</a> &amp;newPlaylist, float fadeout=4.f)</td></tr>
+<tr class="memdesc:aa912b861683293be1620650a4bfb7051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a new playlist onto the <a class="el" href="a01115.html" title="A playable, serializable music playlist. Can be manually manipulated or loaded from files...">Playlist</a> stack. If a playlist is currently playing it is crossfaded with the new playlist over the specified interval.  <a href="#aa912b861683293be1620650a4bfb7051">More...</a><br /></td></tr>
+<tr class="separator:aa912b861683293be1620650a4bfb7051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b85a1827726d2c4f363916cfcd6a438"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a9b85a1827726d2c4f363916cfcd6a438">replacePlaylist</a> (const <a class="el" href="a01115.html">Playlist</a> &amp;newPlaylist, float fadeout=4.f)</td></tr>
+<tr class="memdesc:a9b85a1827726d2c4f363916cfcd6a438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the playlist at the top of the stack. If a playlist is currently playing it is crossfaded with the new playlist over the specified interval.  <a href="#a9b85a1827726d2c4f363916cfcd6a438">More...</a><br /></td></tr>
+<tr class="separator:a9b85a1827726d2c4f363916cfcd6a438"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe4e11056e31c59d8a8d919b093c0dff"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#afe4e11056e31c59d8a8d919b093c0dff">popPlaylist</a> (float fadeout=4.f)</td></tr>
+<tr class="memdesc:afe4e11056e31c59d8a8d919b093c0dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the currently playing playlist from the top of the stack and resumes the previous playlist if present.  <a href="#afe4e11056e31c59d8a8d919b093c0dff">More...</a><br /></td></tr>
+<tr class="separator:afe4e11056e31c59d8a8d919b093c0dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac59f0ca430761b1bf872690827c065e2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#ac59f0ca430761b1bf872690827c065e2">playSound</a> (<a class="el" href="a01283.html">resource::Resource</a>&lt; sf::SoundBuffer &gt;::Ref sound, bool loop=false)</td></tr>
+<tr class="memdesc:ac59f0ca430761b1bf872690827c065e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Play a sound.  <a href="#ac59f0ca430761b1bf872690827c065e2">More...</a><br /></td></tr>
+<tr class="separator:ac59f0ca430761b1bf872690827c065e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa230cba26aac9a8018677356ca233202"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#aa230cba26aac9a8018677356ca233202">playSpatialSound</a> (<a class="el" href="a01283.html">resource::Resource</a>&lt; sf::SoundBuffer &gt;::Ref sound, const sf::Vector2f &amp;pos, bool loop=false)</td></tr>
+<tr class="memdesc:aa230cba26aac9a8018677356ca233202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Play a sound in space with the default SpacialSettings.  <a href="#aa230cba26aac9a8018677356ca233202">More...</a><br /></td></tr>
+<tr class="separator:aa230cba26aac9a8018677356ca233202"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d626f5cdacf330b82719e3fc513e928"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a5d626f5cdacf330b82719e3fc513e928">playSpatialSound</a> (<a class="el" href="a01283.html">resource::Resource</a>&lt; sf::SoundBuffer &gt;::Ref sound, const sf::Vector2f &amp;pos, const <a class="el" href="a01099.html">SpatialSettings</a> &amp;settings, bool loop=false)</td></tr>
+<tr class="memdesc:a5d626f5cdacf330b82719e3fc513e928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Play a sound in space with its own <a class="el" href="a01099.html" title="Some settings for spatial sounds. ">SpatialSettings</a>.  <a href="#a5d626f5cdacf330b82719e3fc513e928">More...</a><br /></td></tr>
+<tr class="separator:a5d626f5cdacf330b82719e3fc513e928"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a9d057d09622eb4927ffb129e599ce2"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="a01103.html">Sound</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a0a9d057d09622eb4927ffb129e599ce2">getSound</a> (<a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> handle)</td></tr>
+<tr class="memdesc:a0a9d057d09622eb4927ffb129e599ce2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a shared_ptr to a currently running sound by Handle.  <a href="#a0a9d057d09622eb4927ffb129e599ce2">More...</a><br /></td></tr>
+<tr class="separator:a0a9d057d09622eb4927ffb129e599ce2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29e92d77dd007bbb3f60240023c2ed33"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#a29e92d77dd007bbb3f60240023c2ed33">stopSound</a> (<a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> handle)</td></tr>
+<tr class="memdesc:a29e92d77dd007bbb3f60240023c2ed33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the currently playing sound. No effect if not found.  <a href="#a29e92d77dd007bbb3f60240023c2ed33">More...</a><br /></td></tr>
+<tr class="separator:a29e92d77dd007bbb3f60240023c2ed33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:aaba4e74c447f330c9cdd71e99508a15b"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html#aaba4e74c447f330c9cdd71e99508a15b">InvalidHandle</a> = 0</td></tr>
+<tr class="memdesc:aaba4e74c447f330c9cdd71e99508a15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved Handle for error conditions.  <a href="#aaba4e74c447f330c9cdd71e99508a15b">More...</a><br /></td></tr>
+<tr class="separator:aaba4e74c447f330c9cdd71e99508a15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Data class for animations. Holds the frame information and is responsible for rendering. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01091.html" title="Represents a renderable animation. AnimationData is to Animation like sf::Texture is to sf::Sprite...">Animation</a> </dd></dl>
+<div class="textblock"><p>Centralized control class for sound effects and music. It manages playing sounds, removing finished sounds, looping sounds, global volume, pausing, fading out on exit, and a stack of playlists. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00025">25</a> of file <a class="el" href="a00227_source.html">AnimationData.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae4b7667925e60ec395ac4fd82b75ea9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4b7667925e60ec395ac4fd82b75ea9a">&#9670;&nbsp;</a></span>AnimationData() <span class="overload">[1/2]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00032">32</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a1976c9cbec3cb0348a2e6f0381ea9906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1976c9cbec3cb0348a2e6f0381ea9906">&#9670;&nbsp;</a></span>Handle</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gfx::AnimationData::AnimationData </td>
+          <td class="memname">using <a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">bl::audio::AudioSystem::Handle</a> =  std::uint32_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Integer type handle for playing sounds. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00035">35</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad371e47a81fa27e259973b37447ee640"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad371e47a81fa27e259973b37447ee640">&#9670;&nbsp;</a></span>~AudioSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::audio::AudioSystem::~AudioSystem </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -135,187 +198,15 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Create empty <a class="el" href="a01095.html" title="Data class for animations. Holds the frame information and is responsible for rendering. ">AnimationData</a> to be loaded later. </p>
+<p>Stops all playing sounds and music with a one second fadeout, then terminates the background thread. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00509_source.html#l00012">12</a> of file <a class="el" href="a00509_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aced91456b364e3a019fffe5ece302055"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aced91456b364e3a019fffe5ece302055">&#9670;&nbsp;</a></span>AnimationData() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::gfx::AnimationData::AnimationData </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads the <a class="el" href="a01095.html" title="Data class for animations. Holds the frame information and is responsible for rendering. ">AnimationData</a> from the given file. Spritesheets are searched for in the same directory as the animation file. If not found then <a class="el" href="a00703.html#a94315222fa535d2d63c87bde6a806453" title="Returns the stored value for the given configuration type and key. If the key does not exist or is a ...">engine::Configuration::get</a>("blib.animation.spritesheet_path") is used. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>File to laod from </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00509_source.html#l00018">18</a> of file <a class="el" href="a00509_source.html">AnimationData.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00503_source.html#l00038">38</a> of file <a class="el" href="a00503_source.html">AudioSystem.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a427ddf6ea2d3d806bac2d2c022c711dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a427ddf6ea2d3d806bac2d2c022c711dc">&#9670;&nbsp;</a></span>frameCount()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int bl::gfx::AnimationData::frameCount </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the number of frames in the animation. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00509_source.html#l00092">92</a> of file <a class="el" href="a00509_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2e769a31fbbc6a6cd96ec5174bacec67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e769a31fbbc6a6cd96ec5174bacec67">&#9670;&nbsp;</a></span>getFrameSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Vector2f bl::gfx::AnimationData::getFrameSize </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>frameIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the width and height of the given frame. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">frameIndex</td><td>Index of the frame to check </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>sf::Vector2f Size of the frame </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00509_source.html#l00094">94</a> of file <a class="el" href="a00509_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6d24dddb9b4278f586342975fafc1e1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d24dddb9b4278f586342975fafc1e1d">&#9670;&nbsp;</a></span>getLength()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float bl::gfx::AnimationData::getLength </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the total length of the animation in seconds. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00509_source.html#l00090">90</a> of file <a class="el" href="a00509_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9b356b85907651d583f0ddf1e48ca9e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b356b85907651d583f0ddf1e48ca9e5">&#9670;&nbsp;</a></span>getMaxSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Vector2f bl::gfx::AnimationData::getMaxSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the size of the largest frame. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00509_source.html#l00113">113</a> of file <a class="el" href="a00509_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a690b92879de3b386d9efa468c91cbad4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a690b92879de3b386d9efa468c91cbad4">&#9670;&nbsp;</a></span>isLooping()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::gfx::AnimationData::isLooping </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns if the animation is set to loop on end. Can be overriden in <a class="el" href="a01091.html" title="Represents a renderable animation. AnimationData is to Animation like sf::Texture is to sf::Sprite...">Animation</a>. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00509_source.html#l00088">88</a> of file <a class="el" href="a00509_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a27ef0e23e111728894705972123418d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27ef0e23e111728894705972123418d7">&#9670;&nbsp;</a></span>load()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::gfx::AnimationData::load </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads the animation from the given file, overwriting internal data Spritesheets are searched for in the same directory as the file. If not found then <a class="el" href="a00703.html#a94315222fa535d2d63c87bde6a806453" title="Returns the stored value for the given configuration type and key. If the key does not exist or is a ...">engine::Configuration::get</a>("blib.animation.spritesheet_path") is used. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>The file to laod from </td></tr>
-    <tr><td class="paramname">spritesheetDir</td><td>Optional additional directory to search for spritesheets </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the animation could be loaded, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00509_source.html#l00020">20</a> of file <a class="el" href="a00509_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="af47625f50036c466946f960db7320bcf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af47625f50036c466946f960db7320bcf">&#9670;&nbsp;</a></span>Animation</h2>
+<a id="a0a9d057d09622eb4927ffb129e599ce2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a9d057d09622eb4927ffb129e599ce2">&#9670;&nbsp;</a></span>getSound()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -324,29 +215,638 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a01091.html">Animation</a></td>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="a01103.html">AudioSystem::Sound</a> &gt; bl::audio::AudioSystem::getSound </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td>
+          <td class="paramname"><em>handle</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00111">111</a> of file <a class="el" href="a00227_source.html">AnimationData.hpp</a>.</p>
+<p>Returns a shared_ptr to a currently running sound by Handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>The Handle of the sound to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::shared_ptr&lt;Sound&gt; A pointer to the sound. May be null if handle is not found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00306">306</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a892f00cbc45e915c30246a10834359c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a892f00cbc45e915c30246a10834359c0">&#9670;&nbsp;</a></span>pause()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::pause </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pauses all sounds, music, and active fades/transitions. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00274">274</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac59f0ca430761b1bf872690827c065e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac59f0ca430761b1bf872690827c065e2">&#9670;&nbsp;</a></span>playSound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> bl::audio::AudioSystem::playSound </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01283.html">resource::Resource</a>&lt; sf::SoundBuffer &gt;::Ref&#160;</td>
+          <td class="paramname"><em>sound</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loop</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Play a sound. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sound</td><td>The sound to play </td></tr>
+    <tr><td class="paramname">loop</td><td>True to loop the sound, false to play once </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Handle A Handle to the newly playing sound </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00290">290</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa230cba26aac9a8018677356ca233202"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa230cba26aac9a8018677356ca233202">&#9670;&nbsp;</a></span>playSpatialSound() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> bl::audio::AudioSystem::playSpatialSound </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01283.html">resource::Resource</a>&lt; sf::SoundBuffer &gt;::Ref&#160;</td>
+          <td class="paramname"><em>sound</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loop</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Play a sound in space with the default SpacialSettings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sound</td><td>The sound to play </td></tr>
+    <tr><td class="paramname">pos</td><td>The position of the sound </td></tr>
+    <tr><td class="paramname">loop</td><td>True to loop, false to play once </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Handle A Handle to the newly playing sound, or InvalidHandle if too far away </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00295">295</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5d626f5cdacf330b82719e3fc513e928"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d626f5cdacf330b82719e3fc513e928">&#9670;&nbsp;</a></span>playSpatialSound() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> bl::audio::AudioSystem::playSpatialSound </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01283.html">resource::Resource</a>&lt; sf::SoundBuffer &gt;::Ref&#160;</td>
+          <td class="paramname"><em>sound</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01099.html">SpatialSettings</a> &amp;&#160;</td>
+          <td class="paramname"><em>settings</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loop</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Play a sound in space with its own <a class="el" href="a01099.html" title="Some settings for spatial sounds. ">SpatialSettings</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sound</td><td>The sound to play </td></tr>
+    <tr><td class="paramname">pos</td><td>The position of the sound </td></tr>
+    <tr><td class="paramname">settings</td><td>The spaital settings of the sound </td></tr>
+    <tr><td class="paramname">loop</td><td>True to loop, false to play once </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Handle A Handle to the newly playing sound, or InvalidHandle if too far away </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00300">300</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afe4e11056e31c59d8a8d919b093c0dff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe4e11056e31c59d8a8d919b093c0dff">&#9670;&nbsp;</a></span>popPlaylist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::popPlaylist </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fadeout</em> = <code>4.f</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes the currently playing playlist from the top of the stack and resumes the previous playlist if present. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fadeout</td><td>The interval to crossfade or fade out, in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00288">288</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa912b861683293be1620650a4bfb7051"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa912b861683293be1620650a4bfb7051">&#9670;&nbsp;</a></span>pushPlaylist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::pushPlaylist </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01115.html">Playlist</a> &amp;&#160;</td>
+          <td class="paramname"><em>newPlaylist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fadeout</em> = <code>4.f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pushes a new playlist onto the <a class="el" href="a01115.html" title="A playable, serializable music playlist. Can be manually manipulated or loaded from files...">Playlist</a> stack. If a playlist is currently playing it is crossfaded with the new playlist over the specified interval. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newPlaylist</td><td>The new playlist to play </td></tr>
+    <tr><td class="paramname">fadeout</td><td>The interval to crossfade or fade in, in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00282">282</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9b85a1827726d2c4f363916cfcd6a438"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b85a1827726d2c4f363916cfcd6a438">&#9670;&nbsp;</a></span>replacePlaylist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::replacePlaylist </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01115.html">Playlist</a> &amp;&#160;</td>
+          <td class="paramname"><em>newPlaylist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fadeout</em> = <code>4.f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Replaces the playlist at the top of the stack. If a playlist is currently playing it is crossfaded with the new playlist over the specified interval. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newPlaylist</td><td>The new playlist to play </td></tr>
+    <tr><td class="paramname">fadeout</td><td>The interval to crossfade or fade in, in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00284">284</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aedacf534c5de4c76bb4cf222e174373c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedacf534c5de4c76bb4cf222e174373c">&#9670;&nbsp;</a></span>resume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::resume </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Resumes all sounds, music, and active fades/transitions. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00276">276</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a843870c2487a7c686a9fa2a353171ac2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a843870c2487a7c686a9fa2a353171ac2">&#9670;&nbsp;</a></span>setDefaultSpatialSoundSettings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::setDefaultSpatialSoundSettings </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01099.html">SpatialSettings</a> &amp;&#160;</td>
+          <td class="paramname"><em>settings</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the default settings to apply to spatial sounds. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">settings</td><td>The settings to apply to sounds without their own settings </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00262">262</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa23acf12db9a47afe15e1f7a10547825"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa23acf12db9a47afe15e1f7a10547825">&#9670;&nbsp;</a></span>setListenerPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::setListenerPosition </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the global position of the sound listener. This is used for attenuating spatial sounds. Should be the position of the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The position of the sound listener </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00278">278</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6adee704d5a0df4c203f6b3ba4df6b98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6adee704d5a0df4c203f6b3ba4df6b98">&#9670;&nbsp;</a></span>setSpatialSoundCutoffDistance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::setSpatialSoundCutoffDistance </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>cutoff</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the maximum distance at which spatial sounds will be played. Sounds coming from outside this distance will not play and return InvalidHandle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cutoff</td><td>The maximum distance. Default value is 320 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00266">266</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a93274a6e8a82bc1c0dc8b0a46b751c26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93274a6e8a82bc1c0dc8b0a46b751c26">&#9670;&nbsp;</a></span>setVolume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::setVolume </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>volume</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the master volume of all audio. Spatial sounds will be attenuated as well. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">volume</td><td>The master volume for all audio </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00270">270</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abfa713298871bb1089f51ac8b8ccb738"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfa713298871bb1089f51ac8b8ccb738">&#9670;&nbsp;</a></span>stopAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::stopAll </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>fade</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stops all playing sounds and playlists and removes them from the system. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fade</td><td>True to fade the sound over one second, false to stop immediately </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00272">272</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a29e92d77dd007bbb3f60240023c2ed33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29e92d77dd007bbb3f60240023c2ed33">&#9670;&nbsp;</a></span>stopSound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::stopSound </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td>
+          <td class="paramname"><em>handle</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stops the currently playing sound. No effect if not found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>The handle of the sound to stop </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00310">310</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aaba4e74c447f330c9cdd71e99508a15b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaba4e74c447f330c9cdd71e99508a15b">&#9670;&nbsp;</a></span>InvalidHandle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> bl::audio::AudioSystem::InvalidHandle = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reserved Handle for error conditions. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00038">38</a> of file <a class="el" href="a00215_source.html">AudioSystem.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Media/Graphics/<a class="el" href="a00227_source.html">AnimationData.hpp</a></li>
-<li>src/Media/Graphics/<a class="el" href="a00509_source.html">AnimationData.cpp</a></li>
+<li>include/BLIB/Media/Audio/<a class="el" href="a00215_source.html">AudioSystem.hpp</a></li>
+<li>src/Media/Audio/<a class="el" href="a00503_source.html">AudioSystem.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 9 2021 05:02:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

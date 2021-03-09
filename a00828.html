@@ -25,9 +25,9 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.9</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
-   <div id="projectbrief">Ben&#39;s SFML Game Library</div>
+   <div id="projectbrief">Ben&#39;s SFML Game Engine</div>
   </td>
  </tr>
  </tbody>
@@ -63,25 +63,36 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00619.html">file</a></li><li class="navelem"><a class="el" href="a00620.html">binary</a></li><li class="navelem"><a class="el" href="a00831.html">Serializer&lt; std::string &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00619.html">file</a></li><li class="navelem"><a class="el" href="a00620.html">binary</a></li><li class="navelem"><a class="el" href="a00831.html">File</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">bl::file::binary::Serializer&lt; std::string &gt; Member List</div>  </div>
+<div class="title">bl::file::binary::File Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00831.html">bl::file::binary::Serializer&lt; std::string &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00831.html">bl::file::binary::File</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00831.html#a0f02d1150c39934a93ee19be95f0668a">deserialize</a>(File &amp;input, std::string &amp;result)</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::Serializer&lt; std::string &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00831.html#a82ca13fd0da658fbb311833bbd54228c">serialize</a>(File &amp;output, const std::string &amp;value)</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::Serializer&lt; std::string &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00831.html#a838d4a9d3558b8017b0e11ffd9ac0d84">size</a>(const std::string &amp;s)</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::Serializer&lt; std::string &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00831.html#aa3f23544139b91afeb949fa53c07b6eb">File</a>(const std::string &amp;path, OpenMode mode=Read)</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::File</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00831.html#a1231e3285f352c52be60d3878d301bd0">File</a>(std::iostream &amp;stream, OpenMode mode=Read)</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::File</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00831.html#aa495f880957ba2a4dec1f2e2f77b417a">good</a>()</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::File</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01339.html#afcf81f46019af7f662b7a11db32304b5">NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a01339.html">bl::util::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00831.html#a6190ae9a68283742636b0b926ee43392">OpenMode</a> enum name</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::File</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00831.html#a8763569a312f6e6753396a9e2f33508d">peek</a>(T &amp;output)</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::File</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00831.html#ab14d7cae6876f3e1d812a0cfa86a49a7">read</a>(T &amp;output)</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::File</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00831.html#af344576f34ea2ca01f5e725c9922332d">read</a>(std::string &amp;output)</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::File</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00831.html#a6190ae9a68283742636b0b926ee43392a516ea79713be10270e5a7a617ffac864">Read</a> enum value</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::File</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00831.html#a08710a59bba1bc2aafc5ff743ee68b21">skip</a>(std::size_t bytes)</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::File</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00831.html#a1185f141001091a4fc7b78eb45d4cae5">write</a>(const T &amp;data)</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::File</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00831.html#a671021b804d98851dd19c8367739463c">write</a>(const std::string &amp;data)</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::File</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00831.html#a6190ae9a68283742636b0b926ee43392a9197c71f7e7fd0de5b8a519d2e73a776">Write</a> enum value</td><td class="entry"><a class="el" href="a00831.html">bl::file::binary::File</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01339.html#a999f83d0ea136037022f6ea90888bf60">~NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a01339.html">bl::util::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 9 2021 05:02:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

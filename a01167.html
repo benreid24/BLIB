@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::menu::SpriteRenderItem Class Reference</title>
+<title>BLIB: bl::menu::KeyboardEventGenerator Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,9 +25,9 @@
   <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">BLIB
-   &#160;<span id="projectnumber">0.9.9</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
-   <div id="projectbrief">Ben&#39;s SFML Game Library</div>
+   <div id="projectbrief">Ben&#39;s SFML Game Engine</div>
   </td>
  </tr>
  </tbody>
@@ -63,216 +63,260 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00628.html">menu</a></li><li class="navelem"><a class="el" href="a01167.html">SpriteRenderItem</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00628.html">menu</a></li><li class="navelem"><a class="el" href="a01167.html">KeyboardEventGenerator</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a01164.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::menu::SpriteRenderItem Class Reference<div class="ingroups"><a class="el" href="a00604.html">Menu</a></div></div>  </div>
+<div class="title">bl::menu::KeyboardEventGenerator Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00604.html">Menu</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a01163.html" title="Abstract base class for any Item that can be rendered by a Menu. ">RenderItem</a> for displaying sprites in a <a class="el" href="a01151.html" title="Primary class for mouseless menus. ">Menu</a>.  
+<p>Basic helper class to map keyboard input to menu events.  
  <a href="a01167.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00266_source.html">SpriteRenderItem.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00248_source.html">KeyboardEventGenerator.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::menu::SpriteRenderItem:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::menu::KeyboardEventGenerator:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a01167.png" usemap="#bl::menu::SpriteRenderItem_map" alt=""/>
-  <map id="bl::menu::SpriteRenderItem_map" name="bl::menu::SpriteRenderItem_map">
-<area href="a01163.html" title="Abstract base class for any Item that can be rendered by a Menu. " alt="bl::menu::RenderItem" shape="rect" coords="0,0,160,24"/>
+  <img src="a01167.png" usemap="#bl::menu::KeyboardEventGenerator_map" alt=""/>
+  <map id="bl::menu::KeyboardEventGenerator_map" name="bl::menu::KeyboardEventGenerator_map">
+<area href="a00815.html" alt="bl::event::Listener&lt; sf::Event &gt;" shape="rect" coords="0,56,208,80"/>
+<area href="a00811.html" alt="bl::event::ListenerBase&lt; TEvents &gt;" shape="rect" coords="0,0,208,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ab36d2f8eebeaee69c459403529eb5af4"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a01167.html">SpriteRenderItem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01167.html#ab36d2f8eebeaee69c459403529eb5af4">Ptr</a></td></tr>
-<tr class="separator:ab36d2f8eebeaee69c459403529eb5af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af2bff856eb015f520c886a2250b0db2b"><td class="memItemLeft" align="right" valign="top">sf::Sprite &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01167.html#af2bff856eb015f520c886a2250b0db2b">getSprite</a> ()</td></tr>
-<tr class="memdesc:af2bff856eb015f520c886a2250b0db2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a modifiable reference to the contained sprite.  <a href="#af2bff856eb015f520c886a2250b0db2b">More...</a><br /></td></tr>
-<tr class="separator:af2bff856eb015f520c886a2250b0db2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7c1a105c2fa2a5c933dad05c651d69d"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01167.html#aa7c1a105c2fa2a5c933dad05c651d69d">getSize</a> () const override</td></tr>
-<tr class="separator:aa7c1a105c2fa2a5c933dad05c651d69d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a756922dd6ff66f5e2b24450b53f854d6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01167.html#a756922dd6ff66f5e2b24450b53f854d6">render</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const sf::Vector2f &amp;position) const override</td></tr>
-<tr class="separator:a756922dd6ff66f5e2b24450b53f854d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a86c28aa8ebfe738c0263bd8da26fab3b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01163.html#a6f1ae2f79b2d4437421e69201da2b08e">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01167.html#a86c28aa8ebfe738c0263bd8da26fab3b">create</a> (const sf::Sprite &amp;sprite)</td></tr>
-<tr class="memdesc:a86c28aa8ebfe738c0263bd8da26fab3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create the render item from a sprite.  <a href="#a86c28aa8ebfe738c0263bd8da26fab3b">More...</a><br /></td></tr>
-<tr class="separator:a86c28aa8ebfe738c0263bd8da26fab3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d843e6ed990f76b82790e2270138ec3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01167.html#a5d843e6ed990f76b82790e2270138ec3">KeyboardEventGenerator</a> (<a class="el" href="a01179.html">Menu</a> &amp;menu, sf::Keyboard::Key upCtrl=sf::Keyboard::Up, sf::Keyboard::Key rightCtrl=sf::Keyboard::Right, sf::Keyboard::Key downCtrl=sf::Keyboard::Down, sf::Keyboard::Key leftCtrl=sf::Keyboard::Left, sf::Keyboard::Key activateCtrl=sf::Keyboard::Space)</td></tr>
+<tr class="memdesc:a5d843e6ed990f76b82790e2270138ec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new keyboard generator that services the given menu.  <a href="#a5d843e6ed990f76b82790e2270138ec3">More...</a><br /></td></tr>
+<tr class="separator:a5d843e6ed990f76b82790e2270138ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c32133556839cf89d2fda0d7fc21cc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01167.html#a3c32133556839cf89d2fda0d7fc21cc5">setMoveControl</a> (<a class="el" href="a01175.html#a59352334626855d0cd8c8ca1b173db68">Item::AttachPoint</a> direction, sf::Keyboard::Key control)</td></tr>
+<tr class="memdesc:a3c32133556839cf89d2fda0d7fc21cc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the key bound to the given direction. Defaults are the arrrow keys.  <a href="#a3c32133556839cf89d2fda0d7fc21cc5">More...</a><br /></td></tr>
+<tr class="separator:a3c32133556839cf89d2fda0d7fc21cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a837d5fa9a394004bb415ab401dcab72c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01167.html#a837d5fa9a394004bb415ab401dcab72c">setActivateControl</a> (sf::Keyboard::Key control)</td></tr>
+<tr class="memdesc:a837d5fa9a394004bb415ab401dcab72c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the key that is bound to the activate event. Default is space bar.  <a href="#a837d5fa9a394004bb415ab401dcab72c">More...</a><br /></td></tr>
+<tr class="separator:a837d5fa9a394004bb415ab401dcab72c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a265ca42bcd447ff566f9817b960823a4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01167.html#a265ca42bcd447ff566f9817b960823a4">~KeyboardEventGenerator</a> ()=default</td></tr>
+<tr class="separator:a265ca42bcd447ff566f9817b960823a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5297276cfbb757ede3391eb9d525832"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00811.html#ae5297276cfbb757ede3391eb9d525832">observe</a> (const TEvents &amp;event)=0</td></tr>
+<tr class="memdesc:ae5297276cfbb757ede3391eb9d525832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observe the given.  <a href="#ae5297276cfbb757ede3391eb9d525832">More...</a><br /></td></tr>
+<tr class="separator:ae5297276cfbb757ede3391eb9d525832"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a01163.html" title="Abstract base class for any Item that can be rendered by a Menu. ">RenderItem</a> for displaying sprites in a <a class="el" href="a01151.html" title="Primary class for mouseless menus. ">Menu</a>. </p>
+<div class="textblock"><p>Basic helper class to map keyboard input to menu events. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00266_source.html#l00017">17</a> of file <a class="el" href="a00266_source.html">SpriteRenderItem.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ab36d2f8eebeaee69c459403529eb5af4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab36d2f8eebeaee69c459403529eb5af4">&#9670;&nbsp;</a></span>Ptr</h2>
+<p class="definition">Definition at line <a class="el" href="a00248_source.html#l00019">19</a> of file <a class="el" href="a00248_source.html">KeyboardEventGenerator.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5d843e6ed990f76b82790e2270138ec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d843e6ed990f76b82790e2270138ec3">&#9670;&nbsp;</a></span>KeyboardEventGenerator()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a01167.html">SpriteRenderItem</a>&gt; <a class="el" href="a01167.html#ab36d2f8eebeaee69c459403529eb5af4">bl::menu::SpriteRenderItem::Ptr</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00266_source.html#l00019">19</a> of file <a class="el" href="a00266_source.html">SpriteRenderItem.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a86c28aa8ebfe738c0263bd8da26fab3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86c28aa8ebfe738c0263bd8da26fab3b">&#9670;&nbsp;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01167.html#ab36d2f8eebeaee69c459403529eb5af4">SpriteRenderItem::Ptr</a> bl::menu::SpriteRenderItem::create </td>
+          <td class="memname">bl::menu::KeyboardEventGenerator::KeyboardEventGenerator </td>
           <td>(</td>
-          <td class="paramtype">const sf::Sprite &amp;&#160;</td>
-          <td class="paramname"><em>sprite</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Create the render item from a sprite. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00539_source.html#l00007">7</a> of file <a class="el" href="a00539_source.html">SpriteRenderItem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa7c1a105c2fa2a5c933dad05c651d69d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7c1a105c2fa2a5c933dad05c651d69d">&#9670;&nbsp;</a></span>getSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Vector2f bl::menu::SpriteRenderItem::getSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01163.html#aecfc85f5f33435428070ec4c3f000750" title="Return the untransformed size of the object. ">RenderItem::getSize</a> </dd></dl>
-
-<p>Implements <a class="el" href="a01163.html#aecfc85f5f33435428070ec4c3f000750">bl::menu::RenderItem</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00539_source.html#l00016">16</a> of file <a class="el" href="a00539_source.html">SpriteRenderItem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af2bff856eb015f520c886a2250b0db2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2bff856eb015f520c886a2250b0db2b">&#9670;&nbsp;</a></span>getSprite()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Sprite &amp; bl::menu::SpriteRenderItem::getSprite </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a modifiable reference to the contained sprite. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00539_source.html#l00014">14</a> of file <a class="el" href="a00539_source.html">SpriteRenderItem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a756922dd6ff66f5e2b24450b53f854d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a756922dd6ff66f5e2b24450b53f854d6">&#9670;&nbsp;</a></span>render()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::menu::SpriteRenderItem::render </td>
-          <td>(</td>
-          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
+          <td class="paramtype"><a class="el" href="a01179.html">Menu</a> &amp;&#160;</td>
+          <td class="paramname"><em>menu</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">sf::RenderStates&#160;</td>
-          <td class="paramname"><em>states</em>, </td>
+          <td class="paramtype">sf::Keyboard::Key&#160;</td>
+          <td class="paramname"><em>upCtrl</em> = <code>sf::Keyboard::Up</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
-          <td class="paramname"><em>position</em>&#160;</td>
+          <td class="paramtype">sf::Keyboard::Key&#160;</td>
+          <td class="paramname"><em>rightCtrl</em> = <code>sf::Keyboard::Right</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Keyboard::Key&#160;</td>
+          <td class="paramname"><em>downCtrl</em> = <code>sf::Keyboard::Down</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Keyboard::Key&#160;</td>
+          <td class="paramname"><em>leftCtrl</em> = <code>sf::Keyboard::Left</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Keyboard::Key&#160;</td>
+          <td class="paramname"><em>activateCtrl</em> = <code>sf::Keyboard::Space</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a new keyboard generator that services the given menu. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">menu</td><td><a class="el" href="a01179.html" title="Primary class for mouseless menus. ">Menu</a> to feed events into. Must remain valid for the lifetime of this object </td></tr>
+    <tr><td class="paramname">upCtrl</td><td>Control to generate move up events </td></tr>
+    <tr><td class="paramname">rightCtrl</td><td>Control to generate move right events </td></tr>
+    <tr><td class="paramname">downCtrl</td><td>Control to generate move down events </td></tr>
+    <tr><td class="paramname">leftCtrl</td><td>Control to generate move left events </td></tr>
+    <tr><td class="paramname">activateCtrl</td><td>Control to generate activate events </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00007">7</a> of file <a class="el" href="a00524_source.html">KeyboardEventGenerator.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a265ca42bcd447ff566f9817b960823a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a265ca42bcd447ff566f9817b960823a4">&#9670;&nbsp;</a></span>~KeyboardEventGenerator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::menu::KeyboardEventGenerator::~KeyboardEventGenerator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01163.html#aa4b753af65febaa1a41a146a010d7373" title="Render the item to the given target. ">RenderItem::render</a> </dd></dl>
 
-<p>Implements <a class="el" href="a01163.html#aa4b753af65febaa1a41a146a010d7373">bl::menu::RenderItem</a>.</p>
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae5297276cfbb757ede3391eb9d525832"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5297276cfbb757ede3391eb9d525832">&#9670;&nbsp;</a></span>observe()</h2>
 
-<p class="definition">Definition at line <a class="el" href="a00539_source.html#l00020">20</a> of file <a class="el" href="a00539_source.html">SpriteRenderItem.cpp</a>.</p>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="a00811.html">bl::event::ListenerBase</a>&lt; TEvents  &gt;::observe </td>
+          <td>(</td>
+          <td class="paramtype">const TEvents  &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Observe the given. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a837d5fa9a394004bb415ab401dcab72c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a837d5fa9a394004bb415ab401dcab72c">&#9670;&nbsp;</a></span>setActivateControl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::menu::KeyboardEventGenerator::setActivateControl </td>
+          <td>(</td>
+          <td class="paramtype">sf::Keyboard::Key&#160;</td>
+          <td class="paramname"><em>control</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the key that is bound to the activate event. Default is space bar. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">control</td><td>The key that should generator activate events </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00020">20</a> of file <a class="el" href="a00524_source.html">KeyboardEventGenerator.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3c32133556839cf89d2fda0d7fc21cc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c32133556839cf89d2fda0d7fc21cc5">&#9670;&nbsp;</a></span>setMoveControl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::menu::KeyboardEventGenerator::setMoveControl </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01175.html#a59352334626855d0cd8c8ca1b173db68">Item::AttachPoint</a>&#160;</td>
+          <td class="paramname"><em>direction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Keyboard::Key&#160;</td>
+          <td class="paramname"><em>control</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the key bound to the given direction. Defaults are the arrrow keys. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">direction</td><td>The control direction to bind to </td></tr>
+    <tr><td class="paramname">control</td><td>The key to bind </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00016">16</a> of file <a class="el" href="a00524_source.html">KeyboardEventGenerator.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Menu/RenderItems/<a class="el" href="a00266_source.html">SpriteRenderItem.hpp</a></li>
-<li>src/Menu/RenderItems/<a class="el" href="a00539_source.html">SpriteRenderItem.cpp</a></li>
+<li>include/BLIB/Menu/EventGenerators/<a class="el" href="a00248_source.html">KeyboardEventGenerator.hpp</a></li>
+<li>src/Menu/EventGenerators/<a class="el" href="a00524_source.html">KeyboardEventGenerator.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 8 2021 06:30:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 9 2021 05:02:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
