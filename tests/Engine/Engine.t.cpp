@@ -180,10 +180,7 @@ struct EventReceiver : public bl::event::Listener<Event> {
     EventReceiver(std::vector<Event>& recv)
     : recv(recv) {}
 
-    virtual void observe(const Event& event) override {
-        std::cout << "Adding event: " << event.type << std::endl;
-        recv.push_back(event);
-    }
+    virtual void observe(const Event& event) override { recv.push_back(event); }
 
 private:
     std::vector<Event>& recv;

@@ -8,9 +8,9 @@ namespace bl
 namespace script
 {
 Manager::~Manager() {
-    BL_LOG_INFO << "script manager (" << this << ") terminating. timeout = 2s";
+    BL_LOG_INFO << "ScriptManager (" << this << ") terminating. timeout = 2s";
     terminateAll(2.f);
-    BL_LOG_INFO << "script manager (" << this << ") terminated";
+    BL_LOG_INFO << "ScriptManager (" << this << ") terminated";
 }
 
 void Manager::watch(Script::ExecutionContext::WPtr record) {
