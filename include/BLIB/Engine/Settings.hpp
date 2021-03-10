@@ -22,7 +22,7 @@ public:
     static const std::string DefaultWindowTitle;
     static const sf::VideoMode DefaultVideoMode;
     static constexpr sf::Uint32 DefaultWindowStyle = sf::Style::Titlebar | sf::Style::Close;
-    static constexpr bool DefaultCreateWindow      = false;
+    static constexpr bool DefaultCreateWindow      = true;
 
     /**
      * @brief Creates a new settings object with all default settings
