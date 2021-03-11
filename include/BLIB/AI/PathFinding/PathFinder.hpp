@@ -6,7 +6,9 @@
 #include <BLIB/Util/HashCombine.hpp>
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/System/Vector3.hpp>
 
+#include <cmath>
 #include <functional>
 #include <queue>
 #include <unordered_map>
@@ -16,11 +18,11 @@ namespace bl
 {
 namespace ai
 {
-namespace util
+namespace helpers
 {
 template<typename T>
 struct SfVector2Hash {
-    std::size_t operator(const sf::Vector2<T>& value) {
+    std::size_t operator()(const sf::Vector2<T>& value) const {
         std::hash<T> hasher;
         return bl::util::hashCombine(hasher(value.x), hasher(value.y));
     }
@@ -28,15 +30,40 @@ struct SfVector2Hash {
 
 template<typename T>
 struct SfVector3Hash {
-    std::size_t operator(const sf::Vector3<T>& value) {
+    std::size_t operator()(const sf::Vector3<T>& value) const {
         std::hash<T> hasher;
         return bl::util::hashCombine(bl::util::hashCombine(hasher(value.x), hasher(value.y)),
                                      hasher(value.z));
     }
 };
-} // namespace util
 
-template<typename TCoord = sf::Vector2i, typename CoordHash = util::SfVector2Hash<int>>
+template<typename T>
+int Vector2ManhattanDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, entity::Entity) {
+    return std::abs(from.x - to.x) + std::abs(from.y - to.y);
+}
+
+template<typename T>
+int Vector2RealDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, entity::Entity) {
+    const int dx = from.x - to.x;
+    const int dy = from.y - to.y;
+    return std::sqrt(dx * dx + dy * dy);
+}
+
+template<typename T>
+int Vector3ManhattanDist(const sf::Vector3<T>& from, const sf::Vector3<T>& to, entity::Entity) {
+    return std::abs(from.x - to.x) + std::abs(from.y - to.y) + std::abs(from.z - to.z);
+}
+
+template<typename T>
+int Vector3RealDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, entity::Entity) {
+    const int dx = from.x - to.x;
+    const int dy = from.y - to.y;
+    const int dz = from.z - to.z;
+    return std::sqrt(dx * dx + dy * dy + dz * dz);
+}
+} // namespace helpers
+
+template<typename TCoord, typename CoordHash>
 class PathFinder {
 public:
     using Heuristic =
@@ -70,7 +97,7 @@ bool PathFinder<TCoord, CHash>::findPath(const TCoord& start, const TCoord& dest
                                          std::vector<TCoord>& result) const {
     if (start == destination) return true;
 
-    using QueueItem         = std::pair<float, TCoord>;
+    using QueueItem         = std::pair<int, TCoord>;
     using QueueCompareSig   = std::function<bool(const QueueItem&, const QueueItem&)>;
     const auto QueueCompare = [](const QueueItem& a, const QueueItem& b) {
         return a.first > b.first;
@@ -81,14 +108,15 @@ bool PathFinder<TCoord, CHash>::findPath(const TCoord& start, const TCoord& dest
     std::unordered_map<TCoord, int, CHash> positionDistances;  // pos index -> distance
     std::vector<TCoord> adjCoords;
 
-    adjCoords.resize(map.getMaxAdjacentNodes());
-    toVisit.emplace(heuristic(start, destination), start);
+    toVisit.emplace(heuristic(start, destination, mover), start);
     positionDistances[start] = 0;
 
     bool endReached = false;
     while (!toVisit.empty()) {
         const TCoord currentPos   = toVisit.top().second;
         const int currentDistance = positionDistances[currentPos];
+
+        adjCoords.clear();
         map.getAdjacentNodes(currentPos, adjCoords);
         toVisit.pop();
 
@@ -106,7 +134,7 @@ bool PathFinder<TCoord, CHash>::findPath(const TCoord& start, const TCoord& dest
             if (distanceIter == positionDistances.end() || estDistance < distanceIter->second) {
                 prevPositionMap[nextPos]   = currentPos;
                 positionDistances[nextPos] = estDistance;
-                toVisit.emplace(estDistance + heuristic(nextPos, destination), nextPos);
+                toVisit.emplace(estDistance + heuristic(nextPos, destination, mover), nextPos);
             }
         }
     }

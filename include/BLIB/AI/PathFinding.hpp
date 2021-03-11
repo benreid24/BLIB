@@ -8,6 +8,7 @@
  *
  */
 
-// TODO - include
+#include <BLIB/AI/PathFinding/PathFinder.hpp>
+#include <BLIB/AI/PathFinding/PathMap.hpp>
 
 #endif
