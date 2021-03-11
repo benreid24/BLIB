@@ -1,6 +1,7 @@
 #ifndef BLIB_UTIL_PAIRHASH_HPP
 #define BLIB_UTIL_PAIRHASH_HPP
 
+#include <BLIB/Util/HashCombine.hpp>
 #include <functional>
 
 namespace bl
@@ -28,8 +29,7 @@ struct PairHash {
     std::size_t operator()(const std::pair<T1, T2>& pair) const {
         std::size_t h1 = T1Hash()(pair.first);
         std::size_t h2 = T2Hash()(pair.second);
-        h1 ^= h2 + 0x9e3779b9 + (h1 << 6) + (h1 >> 2);
-        return h1;
+        return hashCombine(h1, h2);
     }
 };
 

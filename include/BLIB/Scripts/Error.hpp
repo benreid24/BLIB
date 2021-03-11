@@ -36,7 +36,7 @@ public:
      * stack
      *
      * @param error Error message
-     * @param location Where the error occured
+     * @param location Where the error occurred
      * @param stack An Error object containing the stack levels below this
      */
     Error(const std::string& error, parser::Node::Ptr location, const Error& stack);
