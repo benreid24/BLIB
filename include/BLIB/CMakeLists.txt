@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+    AI.hpp
     Containers.hpp
     Engine.hpp
     Entities.hpp
@@ -14,6 +15,7 @@ target_sources(BLIB PUBLIC
     Util.hpp
 )
 
+add_subdirectory(AI)
 add_subdirectory(Containers)
 add_subdirectory(Engine)
 add_subdirectory(Entities)

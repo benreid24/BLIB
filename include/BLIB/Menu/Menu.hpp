@@ -5,7 +5,7 @@
 #include <BLIB/Menu/Item.hpp>
 #include <BLIB/Menu/Renderer.hpp>
 #include <BLIB/Menu/Selector.hpp>
-#include <BLIB/Util/PairHash.hpp>
+#include <BLIB/Util/Hashes.hpp>
 
 #include <list>
 #include <unordered_map>

@@ -14,6 +14,7 @@ target_link_libraries(BLIB.t PRIVATE
     gtest_main
 )
 
+add_subdirectory(AI)
 add_subdirectory(Containers)
 add_subdirectory(Engine)
 add_subdirectory(Entities)
