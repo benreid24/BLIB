@@ -1,4 +1,5 @@
 #include <BLIB/AI/PathFinding.hpp>
+#include <BLIB/Util/Hashes.hpp>
 #include <gtest/gtest.h>
 
 namespace bl
@@ -37,22 +38,19 @@ struct TestMap : public PathMap<sf::Vector2i> {
 } // namespace
 
 TEST(PathFinding, FindPath) {
-    PathFinder<sf::Vector2i, helpers::SfVector2Hash<int>> finder(
-        helpers::Vector2ManhattanDist<int>);
+    PathFinder<sf::Vector2i, util::Vector2Hash<int>> finder(helpers::Vector2ManhattanDist<int>);
     std::vector<sf::Vector2i> path;
     EXPECT_TRUE(finder.findPath({0, 2}, {0, 5}, 5, TestMap(), path));
 }
 
 TEST(PathFinding, NoPath) {
-    PathFinder<sf::Vector2i, helpers::SfVector2Hash<int>> finder(
-        helpers::Vector2ManhattanDist<int>);
+    PathFinder<sf::Vector2i, util::Vector2Hash<int>> finder(helpers::Vector2ManhattanDist<int>);
     std::vector<sf::Vector2i> path;
     EXPECT_FALSE(finder.findPath({0, 0}, {1, 5}, 5, TestMap(), path));
 }
 
 TEST(PathFinding, SpecificPath) {
-    PathFinder<sf::Vector2i, helpers::SfVector2Hash<int>> finder(
-        helpers::Vector2ManhattanDist<int>);
+    PathFinder<sf::Vector2i, util::Vector2Hash<int>> finder(helpers::Vector2ManhattanDist<int>);
     std::vector<sf::Vector2i> path;
     EXPECT_TRUE(finder.findPath({0, 2}, {5, 1}, 5, TestMap(), path));
     ASSERT_EQ(path.size(), 20);

@@ -3,7 +3,7 @@
 
 #include <BLIB/AI/PathFinding/PathMap.hpp>
 #include <BLIB/Entities/Entity.hpp>
-#include <BLIB/Util/HashCombine.hpp>
+#include <BLIB/Util/Hashes.hpp>
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
@@ -16,32 +16,42 @@
 
 namespace bl
 {
+/// Collection of utilities to aid in the development of game AI
 namespace ai
 {
+/// Helper methods and classes for use with AI features
 namespace helpers
 {
-template<typename T>
-struct SfVector2Hash {
-    std::size_t operator()(const sf::Vector2<T>& value) const {
-        std::hash<T> hasher;
-        return bl::util::hashCombine(hasher(value.x), hasher(value.y));
-    }
-};
+/**
+ * @addtogroup Helpers
+ * @ingroup AI
+ * @brief Helper methods and classes for use with AI features
+ *
+ */
 
-template<typename T>
-struct SfVector3Hash {
-    std::size_t operator()(const sf::Vector3<T>& value) const {
-        std::hash<T> hasher;
-        return bl::util::hashCombine(bl::util::hashCombine(hasher(value.x), hasher(value.y)),
-                                     hasher(value.z));
-    }
-};
-
+/**
+ * @brief Computes the manhattan distance between two points
+ * @ingroup Helpers
+ *
+ * @tparam T The type of the underlying vector
+ * @param from The origin point
+ * @param to The point to calculate distance to
+ * @return int The distance between the points
+ */
 template<typename T>
 int Vector2ManhattanDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, entity::Entity) {
     return std::abs(from.x - to.x) + std::abs(from.y - to.y);
 }
 
+/**
+ * @brief Computes the real distance between two points
+ * @ingroup Helpers
+ *
+ * @tparam T The type of the underlying vector
+ * @param from The origin point
+ * @param to The point to calculate distance to
+ * @return int The distance between the points
+ */
 template<typename T>
 int Vector2RealDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, entity::Entity) {
     const int dx = from.x - to.x;
@@ -49,11 +59,29 @@ int Vector2RealDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, entity
     return std::sqrt(dx * dx + dy * dy);
 }
 
+/**
+ * @brief Computes the manhattan distance between two points
+ * @ingroup Helpers
+ *
+ * @tparam T The type of the underlying vector
+ * @param from The origin point
+ * @param to The point to calculate distance to
+ * @return int The distance between the points
+ */
 template<typename T>
 int Vector3ManhattanDist(const sf::Vector3<T>& from, const sf::Vector3<T>& to, entity::Entity) {
     return std::abs(from.x - to.x) + std::abs(from.y - to.y) + std::abs(from.z - to.z);
 }
 
+/**
+ * @brief Computes the real distance between two points
+ * @ingroup Helpers
+ *
+ * @tparam T The type of the underlying vector
+ * @param from The origin point
+ * @param to The point to calculate distance to
+ * @return int The distance between the points
+ */
 template<typename T>
 int Vector3RealDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, entity::Entity) {
     const int dx = from.x - to.x;
@@ -63,16 +91,45 @@ int Vector3RealDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, entity
 }
 } // namespace helpers
 
+/**
+ * @brief Class for calculating paths between arbitrary points in a PathMap
+ *
+ * @tparam TCoord The type of coordinate used to index the map
+ * @tparam CoordHash A hasher for the given coordinate type
+ * @ingroup PathFinding
+ */
 template<typename TCoord, typename CoordHash>
 class PathFinder {
 public:
+    /// Distance estimation function signature
     using Heuristic =
         std::function<int(const TCoord& from, const TCoord& to, entity::Entity mover)>;
 
+    /**
+     * @brief Builds the PathFinder with the given distance estimation heuristic
+     *
+     * @param heuristic The heuristic to use while searching
+     */
     PathFinder(Heuristic heuristic);
 
+    /**
+     * @brief Set the heuristic to use while searching
+     *
+     * @param heuristic The heuristic to use while searching
+     */
     void setHeuristic(Heuristic heuristic);
 
+    /**
+     * @brief Calculates the shortest path between the two points using the internal heuristic.
+     *        Paths may not be optimal depending on the heuristic used
+     *
+     * @param start The point to start at
+     * @param destination The point to end at
+     * @param mover The Entity traversing the path
+     * @param map The map the entity is traversing
+     * @param result vector to store the calculated path in
+     * @return True if a path was found, false if a path was not found
+     */
     bool findPath(const TCoord& start, const TCoord& destination, entity::Entity mover,
                   const PathMap<TCoord>& map, std::vector<TCoord>& result) const;
 
