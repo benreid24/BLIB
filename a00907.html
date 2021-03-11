@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::file::json::schema::List Struct Reference</title>
+<title>BLIB: bl::file::json::Base Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,241 +63,95 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00619.html">file</a></li><li class="navelem"><a class="el" href="a00621.html">json</a></li><li class="navelem"><a class="el" href="a00622.html">schema</a></li><li class="navelem"><a class="el" href="a00907.html">List</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00632.html">bl</a></li><li class="navelem"><a class="el" href="a00639.html">file</a></li><li class="navelem"><a class="el" href="a00641.html">json</a></li><li class="navelem"><a class="el" href="a00907.html">Base</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a00904.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::file::json::schema::List Struct Reference<div class="ingroups"><a class="el" href="a00600.html">Files</a> &raquo; <a class="el" href="a00610.html">JSON</a></div></div>  </div>
+<div class="title">bl::file::json::Base Class Reference<div class="ingroups"><a class="el" href="a00616.html">Files</a> &raquo; <a class="el" href="a00628.html">JSON</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a constrained list for <a class="el" href="a00887.html" title="Represents any value type in JSON. ">json::Value</a>. Can supply optional limits on min and max size, as well as supply a <a class="el" href="a00891.html" title="Represents a constraint on the type and value of a json::Value. ">Value</a> to validate the contained items.  
+<p><a class="el" href="a00907.html" title="Base class for all json types. ">Base</a> class for all json types.  
  <a href="a00907.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00110_source.html">Schema.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01725_source.html">JSON.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::file::json::Base:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00907.png" usemap="#bl::file::json::Base_map" alt=""/>
+  <map id="bl::file::json::Base_map" name="bl::file::json::Base_map">
+<area href="a00911.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ..." alt="bl::file::json::Group" shape="rect" coords="0,56,115,80"/>
+<area href="a00915.html" title="Represents any value type in JSON. " alt="bl::file::json::Value" shape="rect" coords="125,56,240,80"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a38d24fcc912820b903cc42c6607d338e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00907.html#a38d24fcc912820b903cc42c6607d338e">List</a> (const <a class="el" href="a00891.html">Value</a> &amp;type, unsigned int <a class="el" href="a00907.html#a4ad02547e373f4ef553eb1f2b7edde1b">minSize</a>=0)</td></tr>
-<tr class="memdesc:a38d24fcc912820b903cc42c6607d338e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a00907.html" title="Represents a constrained list for json::Value. Can supply optional limits on min and max size...">List</a> expectation of a list with the given type and minimum size, unbouned maximum size.  <a href="#a38d24fcc912820b903cc42c6607d338e">More...</a><br /></td></tr>
-<tr class="separator:a38d24fcc912820b903cc42c6607d338e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ec81b60ed4a617fd5d93503d4943e5a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00907.html#a8ec81b60ed4a617fd5d93503d4943e5a">List</a> (const <a class="el" href="a00891.html">Value</a> &amp;type, unsigned int <a class="el" href="a00907.html#a4ad02547e373f4ef553eb1f2b7edde1b">minSize</a>, unsigned int <a class="el" href="a00907.html#afb93b3197f4ed24ff63520cb5e9e7c10">maxSize</a>)</td></tr>
-<tr class="memdesc:a8ec81b60ed4a617fd5d93503d4943e5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a00907.html" title="Represents a constrained list for json::Value. Can supply optional limits on min and max size...">List</a> expectation of a list with the given type, minimum size, and maximum size.  <a href="#a8ec81b60ed4a617fd5d93503d4943e5a">More...</a><br /></td></tr>
-<tr class="separator:a8ec81b60ed4a617fd5d93503d4943e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25de8b766d5a0956e2eae22831e609c9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00907.html#a25de8b766d5a0956e2eae22831e609c9">validate</a> (const <a class="el" href="a00875.html">SourceInfo</a> &amp;source, const <a class="el" href="a00621.html#ad8cc7c3da93ebd40131413c16b1bb51d">json::List</a> &amp;list, bool strict) const</td></tr>
-<tr class="memdesc:a25de8b766d5a0956e2eae22831e609c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the given <a class="el" href="a00621.html#ad8cc7c3da93ebd40131413c16b1bb51d">json::List</a> against the expectations set, including type and size.  <a href="#a25de8b766d5a0956e2eae22831e609c9">More...</a><br /></td></tr>
-<tr class="separator:a25de8b766d5a0956e2eae22831e609c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ac537c67d4cd3239f79c0c23e5c183068"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00891.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00907.html#ac537c67d4cd3239f79c0c23e5c183068">itemType</a></td></tr>
-<tr class="separator:ac537c67d4cd3239f79c0c23e5c183068"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ad02547e373f4ef553eb1f2b7edde1b"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00907.html#a4ad02547e373f4ef553eb1f2b7edde1b">minSize</a></td></tr>
-<tr class="separator:a4ad02547e373f4ef553eb1f2b7edde1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb93b3197f4ed24ff63520cb5e9e7c10"><td class="memItemLeft" align="right" valign="top">std::optional&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00907.html#afb93b3197f4ed24ff63520cb5e9e7c10">maxSize</a></td></tr>
-<tr class="separator:afb93b3197f4ed24ff63520cb5e9e7c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfdcca4ce9a64c4dcc8214c79db9bd5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00907.html#adfdcca4ce9a64c4dcc8214c79db9bd5b">setSource</a> (const <a class="el" href="a00903.html">SourceInfo</a> &amp;<a class="el" href="a00907.html#ae5c7696b7eac84bcf69b33b0b8c78c44">source</a>)</td></tr>
+<tr class="separator:adfdcca4ce9a64c4dcc8214c79db9bd5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5c7696b7eac84bcf69b33b0b8c78c44"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00903.html">SourceInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00907.html#ae5c7696b7eac84bcf69b33b0b8c78c44">source</a> () const</td></tr>
+<tr class="separator:ae5c7696b7eac84bcf69b33b0b8c78c44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a constrained list for <a class="el" href="a00887.html" title="Represents any value type in JSON. ">json::Value</a>. Can supply optional limits on min and max size, as well as supply a <a class="el" href="a00891.html" title="Represents a constraint on the type and value of a json::Value. ">Value</a> to validate the contained items. </p>
+<div class="textblock"><p><a class="el" href="a00907.html" title="Base class for all json types. ">Base</a> class for all json types. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00110_source.html#l00139">139</a> of file <a class="el" href="a00110_source.html">Schema.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a38d24fcc912820b903cc42c6607d338e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38d24fcc912820b903cc42c6607d338e">&#9670;&nbsp;</a></span>List() <span class="overload">[1/2]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a01725_source.html#l00045">45</a> of file <a class="el" href="a01725_source.html">JSON.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="adfdcca4ce9a64c4dcc8214c79db9bd5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfdcca4ce9a64c4dcc8214c79db9bd5b">&#9670;&nbsp;</a></span>setSource()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::file::json::schema::List::List </td>
+          <td class="memname">void bl::file::json::Base::setSource </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00891.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="a00903.html">SourceInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>source</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>minSize</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="a00907.html" title="Represents a constrained list for json::Value. Can supply optional limits on min and max size...">List</a> expectation of a list with the given type and minimum size, unbouned maximum size. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">type</td><td>The <a class="el" href="a00891.html" title="Represents a constraint on the type and value of a json::Value. ">Value</a> expectation for list elements </td></tr>
-    <tr><td class="paramname">minSize</td><td>The minimum list size </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00024">24</a> of file <a class="el" href="a00401_source.html">Schema.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00407_source.html#l00035">35</a> of file <a class="el" href="a00407_source.html">JSON.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8ec81b60ed4a617fd5d93503d4943e5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ec81b60ed4a617fd5d93503d4943e5a">&#9670;&nbsp;</a></span>List() <span class="overload">[2/2]</span></h2>
+<a id="ae5c7696b7eac84bcf69b33b0b8c78c44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5c7696b7eac84bcf69b33b0b8c78c44">&#9670;&nbsp;</a></span>source()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::file::json::schema::List::List </td>
+          <td class="memname">const <a class="el" href="a00903.html">SourceInfo</a> &amp; bl::file::json::Base::source </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00891.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>minSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>maxSize</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="a00907.html" title="Represents a constrained list for json::Value. Can supply optional limits on min and max size...">List</a> expectation of a list with the given type, minimum size, and maximum size. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">type</td><td>The <a class="el" href="a00891.html" title="Represents a constraint on the type and value of a json::Value. ">Value</a> expectation for list elements </td></tr>
-    <tr><td class="paramname">minSize</td><td>The minimum list size </td></tr>
-    <tr><td class="paramname">maxSize</td><td>The maximum list size </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00028">28</a> of file <a class="el" href="a00401_source.html">Schema.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00407_source.html#l00037">37</a> of file <a class="el" href="a00407_source.html">JSON.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a25de8b766d5a0956e2eae22831e609c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25de8b766d5a0956e2eae22831e609c9">&#9670;&nbsp;</a></span>validate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::file::json::schema::List::validate </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00875.html">SourceInfo</a> &amp;&#160;</td>
-          <td class="paramname"><em>source</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00621.html#ad8cc7c3da93ebd40131413c16b1bb51d">json::List</a> &amp;&#160;</td>
-          <td class="paramname"><em>list</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>strict</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Validates the given <a class="el" href="a00621.html#ad8cc7c3da93ebd40131413c16b1bb51d">json::List</a> against the expectations set, including type and size. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">source</td><td>json source info for error printing </td></tr>
-    <tr><td class="paramname">list</td><td>The list to validate </td></tr>
-    <tr><td class="paramname">strict</td><td>For group types. strict checking fails if extra fields present </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the suppliedl list meets expectations </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00033">33</a> of file <a class="el" href="a00401_source.html">Schema.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ac537c67d4cd3239f79c0c23e5c183068"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac537c67d4cd3239f79c0c23e5c183068">&#9670;&nbsp;</a></span>itemType</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00891.html">Value</a> bl::file::json::schema::List::itemType</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00110_source.html#l00140">140</a> of file <a class="el" href="a00110_source.html">Schema.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afb93b3197f4ed24ff63520cb5e9e7c10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb93b3197f4ed24ff63520cb5e9e7c10">&#9670;&nbsp;</a></span>maxSize</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt;unsigned int&gt; bl::file::json::schema::List::maxSize</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00110_source.html#l00142">142</a> of file <a class="el" href="a00110_source.html">Schema.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4ad02547e373f4ef553eb1f2b7edde1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ad02547e373f4ef553eb1f2b7edde1b">&#9670;&nbsp;</a></span>minSize</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int bl::file::json::schema::List::minSize</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00110_source.html#l00141">141</a> of file <a class="el" href="a00110_source.html">Schema.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/BLIB/Files/JSON/<a class="el" href="a00110_source.html">Schema.hpp</a></li>
-<li>src/Files/JSON/<a class="el" href="a00401_source.html">Schema.cpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Files/JSON/<a class="el" href="a01725_source.html">JSON.hpp</a></li>
+<li>src/Files/JSON/<a class="el" href="a00407_source.html">JSON.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 10 2021 04:48:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 11 2021 05:20:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

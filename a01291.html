@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::resource::FontResourceLoader Struct Reference</title>
+<title>BLIB: bl::parser::WhitespaceSkipper Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,47 +63,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00632.html">resource</a></li><li class="navelem"><a class="el" href="a01291.html">FontResourceLoader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00632.html">bl</a></li><li class="navelem"><a class="el" href="a00649.html">parser</a></li><li class="navelem"><a class="el" href="a01291.html">WhitespaceSkipper</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a01288.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::resource::FontResourceLoader Struct Reference<div class="ingroups"><a class="el" href="a00606.html">Resources</a></div></div>  </div>
+<div class="title">bl::parser::WhitespaceSkipper Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Specialized <a class="el" href="a01275.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">Loader</a> for sf::Font.  
+<p>Default skipper that skips over all whitespace beginning with the next token Note that this will not work with any tokens that begin with whitespace.  
  <a href="a01291.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00317_source.html">SpecializedLoaders.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00311_source.html">WhitespaceSkipper.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::resource::FontResourceLoader:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::parser::WhitespaceSkipper:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a01291.png" usemap="#bl::resource::FontResourceLoader_map" alt=""/>
-  <map id="bl::resource::FontResourceLoader_map" name="bl::resource::FontResourceLoader_map">
-<area href="a01275.html" alt="bl::resource::Loader&lt; sf::Font &gt;" shape="rect" coords="0,0,204,24"/>
+  <img src="a01291.png" usemap="#bl::parser::WhitespaceSkipper_map" alt=""/>
+  <map id="bl::parser::WhitespaceSkipper_map" name="bl::parser::WhitespaceSkipper_map">
+<area href="a01259.html" title="Interface for custom parsers to skip past unwanted characters such as whitespace or comments..." alt="bl::parser::ISkipper" shape="rect" coords="0,0,179,24"/>
+<area href="a01239.html" title="Basic comment and whitespace skipper for more common use cases. " alt="bl::parser::CommentSkipper" shape="rect" coords="0,112,179,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ac94262dbc4b796277c22a958aa727323"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a01259.html">ISkipper</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01259.html#ac94262dbc4b796277c22a958aa727323">Ptr</a></td></tr>
+<tr class="separator:ac94262dbc4b796277c22a958aa727323"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a435e4a8cc8d56c345ecd06c7189cafec"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a01283.html">Resource</a>&lt; sf::Font &gt;::Ref&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01291.html#a435e4a8cc8d56c345ecd06c7189cafec">load</a> (const std::string &amp;uri) override</td></tr>
-<tr class="memdesc:a435e4a8cc8d56c345ecd06c7189cafec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the resource as identified by the uri.  <a href="#a435e4a8cc8d56c345ecd06c7189cafec">More...</a><br /></td></tr>
-<tr class="separator:a435e4a8cc8d56c345ecd06c7189cafec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77fb74e134d21e95a59ef5bb4686dc74"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01291.html#a77fb74e134d21e95a59ef5bb4686dc74">skip</a> (<a class="el" href="a01283.html">Stream</a> &amp;stream) const override</td></tr>
+<tr class="memdesc:a77fb74e134d21e95a59ef5bb4686dc74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip past unwanted characters in the stream.  <a href="#a77fb74e134d21e95a59ef5bb4686dc74">More...</a><br /></td></tr>
+<tr class="separator:a77fb74e134d21e95a59ef5bb4686dc74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a17380f013a7b0b8bca4839683da5742b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01259.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01291.html#a17380f013a7b0b8bca4839683da5742b">create</a> ()</td></tr>
+<tr class="separator:a17380f013a7b0b8bca4839683da5742b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Specialized <a class="el" href="a01275.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">Loader</a> for sf::Font. </p>
+<div class="textblock"><p>Default skipper that skips over all whitespace beginning with the next token Note that this will not work with any tokens that begin with whitespace. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00317_source.html#l00033">33</a> of file <a class="el" href="a00317_source.html">SpecializedLoaders.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a435e4a8cc8d56c345ecd06c7189cafec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a435e4a8cc8d56c345ecd06c7189cafec">&#9670;&nbsp;</a></span>load()</h2>
+<p class="definition">Definition at line <a class="el" href="a00311_source.html#l00016">16</a> of file <a class="el" href="a00311_source.html">WhitespaceSkipper.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ac94262dbc4b796277c22a958aa727323"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac94262dbc4b796277c22a958aa727323">&#9670;&nbsp;</a></span>Ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -112,11 +125,63 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="a01283.html">Resource</a>&lt;sf::Font&gt;::Ref bl::resource::FontResourceLoader::load </td>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a01259.html">ISkipper</a>&gt; <a class="el" href="a01259.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00296_source.html#l00019">19</a> of file <a class="el" href="a00296_source.html">ISkipper.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a17380f013a7b0b8bca4839683da5742b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17380f013a7b0b8bca4839683da5742b">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="a01259.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a> bl::parser::WhitespaceSkipper::create </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>uri</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00311_source.html#l00018">18</a> of file <a class="el" href="a00311_source.html">WhitespaceSkipper.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a77fb74e134d21e95a59ef5bb4686dc74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77fb74e134d21e95a59ef5bb4686dc74">&#9670;&nbsp;</a></span>skip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::parser::WhitespaceSkipper::skip </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01283.html">Stream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -126,29 +191,30 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Load the resource as identified by the uri. </p>
+<p>Skip past unwanted characters in the stream. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">uri</td><td>The resource identifier </td></tr>
+    <tr><td class="paramname">stream</td><td>The stream to perform skip operations on </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01283.html#a54cc9af401f31dc2bb85e13b9391d3aa">Resource&lt;TResourceType&gt;::Ref</a> The loaded resource </dd></dl>
 
-<p>Implements <a class="el" href="a01275.html#a5ddbd3868a2b6fb36471ef4b3e9e7588">bl::resource::Loader&lt; sf::Font &gt;</a>.</p>
+<p>Implements <a class="el" href="a01259.html#a044cd5fba80d2ab990c25d9b92bbc5b4">bl::parser::ISkipper</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a00317_source.html#l00034">34</a> of file <a class="el" href="a00317_source.html">SpecializedLoaders.hpp</a>.</p>
+<p>Reimplemented in <a class="el" href="a01239.html#ad8a968db6095fab17e8b637c550671fd">bl::parser::CommentSkipper</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00311_source.html#l00022">22</a> of file <a class="el" href="a00311_source.html">WhitespaceSkipper.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Resources/<a class="el" href="a00317_source.html">SpecializedLoaders.hpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Parser/<a class="el" href="a00311_source.html">WhitespaceSkipper.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 10 2021 04:48:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 11 2021 05:20:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

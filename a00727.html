@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::engine::Event::StateChangeEvent Struct Reference</title>
+<title>BLIB: bl::container::Vector2D&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,81 +63,327 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00616.html">engine</a></li><li class="navelem"><a class="el" href="a00711.html">Event</a></li><li class="navelem"><a class="el" href="a00727.html">StateChangeEvent</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00632.html">bl</a></li><li class="navelem"><a class="el" href="a00635.html">container</a></li><li class="navelem"><a class="el" href="a00727.html">Vector2D</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00724.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::engine::Event::StateChangeEvent Struct Reference</div>  </div>
+<div class="title">bl::container::Vector2D&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00612.html">Containers</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Stores data related to StateChange event type.  
+<p>Utility class that wraps std::vector, making it indexable in two dimensions.  
  <a href="a00727.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01656_source.html">Event.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00035_source.html">Vector2d.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a3191647c2c08ee6226c3508ea88be95a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00755.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html#a3191647c2c08ee6226c3508ea88be95a">newState</a></td></tr>
-<tr class="memdesc:a3191647c2c08ee6226c3508ea88be95a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The new state of the engine.  <a href="#a3191647c2c08ee6226c3508ea88be95a">More...</a><br /></td></tr>
-<tr class="separator:a3191647c2c08ee6226c3508ea88be95a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5bb1d88ce3e31b8d440be9417b8dc10b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00755.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html#a5bb1d88ce3e31b8d440be9417b8dc10b">prevState</a></td></tr>
-<tr class="memdesc:a5bb1d88ce3e31b8d440be9417b8dc10b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The previous state of the engine. May be null.  <a href="#a5bb1d88ce3e31b8d440be9417b8dc10b">More...</a><br /></td></tr>
-<tr class="separator:a5bb1d88ce3e31b8d440be9417b8dc10b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aeda93da25eec652d9c7eb036deb71ab7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html#aeda93da25eec652d9c7eb036deb71ab7">Vector2D</a> ()=default</td></tr>
+<tr class="separator:aeda93da25eec652d9c7eb036deb71ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a736b126282271c4396e08e217f3182c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html#a736b126282271c4396e08e217f3182c7">Vector2D</a> (int w, int h)</td></tr>
+<tr class="separator:a736b126282271c4396e08e217f3182c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7431e9bb650673bbcd1b3af3c2c29e10"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html#a7431e9bb650673bbcd1b3af3c2c29e10">operator()</a> (int x, int y)</td></tr>
+<tr class="memdesc:a7431e9bb650673bbcd1b3af3c2c29e10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the element at the given position.  <a href="#a7431e9bb650673bbcd1b3af3c2c29e10">More...</a><br /></td></tr>
+<tr class="separator:a7431e9bb650673bbcd1b3af3c2c29e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69d1f1fdd45c06146055935551cfaf15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html#a69d1f1fdd45c06146055935551cfaf15">setSize</a> (int x, int y, const T &amp;val={})</td></tr>
+<tr class="memdesc:a69d1f1fdd45c06146055935551cfaf15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes the vector to the given size.  <a href="#a69d1f1fdd45c06146055935551cfaf15">More...</a><br /></td></tr>
+<tr class="separator:a69d1f1fdd45c06146055935551cfaf15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9e6058cf51819b2cbc257740dd2b2ee"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html#ab9e6058cf51819b2cbc257740dd2b2ee">getWidth</a> () const</td></tr>
+<tr class="memdesc:ab9e6058cf51819b2cbc257740dd2b2ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the width of the vector.  <a href="#ab9e6058cf51819b2cbc257740dd2b2ee">More...</a><br /></td></tr>
+<tr class="separator:ab9e6058cf51819b2cbc257740dd2b2ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4b9992d2307002ac4678877608929b1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html#ae4b9992d2307002ac4678877608929b1">getHeight</a> () const</td></tr>
+<tr class="memdesc:ae4b9992d2307002ac4678877608929b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the height of the vector.  <a href="#ae4b9992d2307002ac4678877608929b1">More...</a><br /></td></tr>
+<tr class="separator:ae4b9992d2307002ac4678877608929b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5744193af905ac6a5227f0809f8df6da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html#a5744193af905ac6a5227f0809f8df6da">clear</a> ()</td></tr>
+<tr class="memdesc:a5744193af905ac6a5227f0809f8df6da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all memory used by the vector, erasing all elements.  <a href="#a5744193af905ac6a5227f0809f8df6da">More...</a><br /></td></tr>
+<tr class="separator:a5744193af905ac6a5227f0809f8df6da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Stores data related to StateChange event type. </p>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::container::Vector2D&lt; T &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a01656_source.html#l00067">67</a> of file <a class="el" href="a01656_source.html">Event.hpp</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a3191647c2c08ee6226c3508ea88be95a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3191647c2c08ee6226c3508ea88be95a">&#9670;&nbsp;</a></span>newState</h2>
+<p>Utility class that wraps std::vector, making it indexable in two dimensions. </p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00755.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> bl::engine::Event::StateChangeEvent::newState</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The new state of the engine. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01656_source.html#l00069">69</a> of file <a class="el" href="a01656_source.html">Event.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5bb1d88ce3e31b8d440be9417b8dc10b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5bb1d88ce3e31b8d440be9417b8dc10b">&#9670;&nbsp;</a></span>prevState</h2>
+<p class="definition">Definition at line <a class="el" href="a00035_source.html#l00016">16</a> of file <a class="el" href="a00035_source.html">Vector2d.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aeda93da25eec652d9c7eb036deb71ab7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeda93da25eec652d9c7eb036deb71ab7">&#9670;&nbsp;</a></span>Vector2D() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00755.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> bl::engine::Event::StateChangeEvent::prevState</td>
+          <td class="memname"><a class="el" href="a00727.html">bl::container::Vector2D</a>&lt; T &gt;::<a class="el" href="a00727.html">Vector2D</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>The previous state of the engine. May be null. </p>
+</div>
+</div>
+<a id="a736b126282271c4396e08e217f3182c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a736b126282271c4396e08e217f3182c7">&#9670;&nbsp;</a></span>Vector2D() <span class="overload">[2/2]</span></h2>
 
-<p class="definition">Definition at line <a class="el" href="a01656_source.html#l00072">72</a> of file <a class="el" href="a01656_source.html">Event.hpp</a>.</p>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00727.html">bl::container::Vector2D</a>&lt; T &gt;::<a class="el" href="a00727.html">Vector2D</a> </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00035_source.html#l00019">19</a> of file <a class="el" href="a00035_source.html">Vector2d.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Engine/<a class="el" href="a01656_source.html">Event.hpp</a></li>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5744193af905ac6a5227f0809f8df6da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5744193af905ac6a5227f0809f8df6da">&#9670;&nbsp;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00727.html">bl::container::Vector2D</a>&lt; T &gt;::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clears all memory used by the vector, erasing all elements. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00035_source.html#l00055">55</a> of file <a class="el" href="a00035_source.html">Vector2d.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae4b9992d2307002ac4678877608929b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4b9992d2307002ac4678877608929b1">&#9670;&nbsp;</a></span>getHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="a00727.html">bl::container::Vector2D</a>&lt; T &gt;::getHeight </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the height of the vector. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00035_source.html#l00050">50</a> of file <a class="el" href="a00035_source.html">Vector2d.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab9e6058cf51819b2cbc257740dd2b2ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9e6058cf51819b2cbc257740dd2b2ee">&#9670;&nbsp;</a></span>getWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="a00727.html">bl::container::Vector2D</a>&lt; T &gt;::getWidth </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the width of the vector. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00035_source.html#l00045">45</a> of file <a class="el" href="a00035_source.html">Vector2d.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7431e9bb650673bbcd1b3af3c2c29e10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7431e9bb650673bbcd1b3af3c2c29e10">&#9670;&nbsp;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T&amp; <a class="el" href="a00727.html">bl::container::Vector2D</a>&lt; T &gt;::operator() </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the element at the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The x coordinate of the element to access </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate of the element to access </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the element at the given indices </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00035_source.html#l00028">28</a> of file <a class="el" href="a00035_source.html">Vector2d.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a69d1f1fdd45c06146055935551cfaf15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69d1f1fdd45c06146055935551cfaf15">&#9670;&nbsp;</a></span>setSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00727.html">bl::container::Vector2D</a>&lt; T &gt;::setSize </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Resizes the vector to the given size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The new width </td></tr>
+    <tr><td class="paramname">y</td><td>The new height </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00035_source.html#l00036">36</a> of file <a class="el" href="a00035_source.html">Vector2d.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Containers/<a class="el" href="a00035_source.html">Vector2d.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 10 2021 04:48:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 11 2021 05:20:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

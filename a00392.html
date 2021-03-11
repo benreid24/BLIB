@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Files/JSON/JSON.cpp File Reference</title>
+<title>BLIB: src/Events/DelayedDispatcher.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,68 +63,35 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_d9d945326b48e34f691cb10a881118b0.html">Files</a></li><li class="navelem"><a class="el" href="dir_a88226eb68b26d8838249d5a31668eac.html">JSON</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_1ff81008302cb45769f1dab653ab23f8.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">JSON.cpp File Reference</div>  </div>
+<div class="title">DelayedDispatcher.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a01683_source.html">BLIB/Files/JSON/JSON.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00398_source.html">Files/JSON/JSONLoader.hpp</a>&gt;</code><br />
-<code>#include &lt;fstream&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00077_source.html">BLIB/Events/DelayedDispatcher.hpp</a>&gt;</code><br />
+<code>#include &lt;chrono&gt;</code><br />
 </div>
 <p><a href="a00392_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00614"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00614.html">bl</a></td></tr>
-<tr class="memdesc:a00614"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a00632"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00632.html">bl</a></td></tr>
+<tr class="memdesc:a00632"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00619"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00619.html">bl::file</a></td></tr>
-<tr class="memdesc:a00619"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to simplify file interactions. <br /></td></tr>
+<tr class="memitem:a00638"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00638.html">bl::event</a></td></tr>
+<tr class="memdesc:a00638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes providing different types of publisher/consumer event queues. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00621"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html">bl::file::json</a></td></tr>
-<tr class="memdesc:a00621"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for interacting with JSON files. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a8cac6ae909e526b2c4517b0218dc8161"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html#a8cac6ae909e526b2c4517b0218dc8161">bl::file::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const SourceInfo &amp;info)</td></tr>
-<tr class="separator:a8cac6ae909e526b2c4517b0218dc8161"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ef7597cd0b216cb5dabec2162326adc"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html#a1ef7597cd0b216cb5dabec2162326adc">bl::file::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const Value::Type &amp;type)</td></tr>
-<tr class="separator:a1ef7597cd0b216cb5dabec2162326adc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a213b6aedd1a56ec4a7b840a4029be9e5"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html#a213b6aedd1a56ec4a7b840a4029be9e5">bl::file::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const Value &amp;type)</td></tr>
-<tr class="separator:a213b6aedd1a56ec4a7b840a4029be9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bb00686eb8cf0da1af898565f895071"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html#a3bb00686eb8cf0da1af898565f895071">bl::file::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const Group &amp;type)</td></tr>
-<tr class="separator:a3bb00686eb8cf0da1af898565f895071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4434e80192cdb066a8ca6b3e1808d556"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html#a4434e80192cdb066a8ca6b3e1808d556">bl::file::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const List &amp;list)</td></tr>
-<tr class="separator:a4434e80192cdb066a8ca6b3e1808d556"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c108fcae49c1918c6059cd08670cbbc"><td class="memItemLeft" align="right" valign="top">json::Group&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html#a6c108fcae49c1918c6059cd08670cbbc">bl::file::json::loadFromStream</a> (std::istream &amp;stream)</td></tr>
-<tr class="memdesc:a6c108fcae49c1918c6059cd08670cbbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads json data from the given stream and returns the constructed <a class="el" href="a00883.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a>.  <a href="a00621.html#a6c108fcae49c1918c6059cd08670cbbc">More...</a><br /></td></tr>
-<tr class="separator:a6c108fcae49c1918c6059cd08670cbbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17be6c2680a616483485c2ce16747622"><td class="memItemLeft" align="right" valign="top">json::Group&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html#a17be6c2680a616483485c2ce16747622">bl::file::json::loadFromString</a> (const std::string &amp;data)</td></tr>
-<tr class="memdesc:a17be6c2680a616483485c2ce16747622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads json from the supplied string.  <a href="a00621.html#a17be6c2680a616483485c2ce16747622">More...</a><br /></td></tr>
-<tr class="separator:a17be6c2680a616483485c2ce16747622"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d82650fc1176aa424a0d387663ede26"><td class="memItemLeft" align="right" valign="top">json::Group&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html#a6d82650fc1176aa424a0d387663ede26">bl::file::json::loadFromFile</a> (const std::string &amp;file)</td></tr>
-<tr class="memdesc:a6d82650fc1176aa424a0d387663ede26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads json data from the given file.  <a href="a00621.html#a6d82650fc1176aa424a0d387663ede26">More...</a><br /></td></tr>
-<tr class="separator:a6d82650fc1176aa424a0d387663ede26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed5e74e51b22ed23d7b84025315b960e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html#aed5e74e51b22ed23d7b84025315b960e">bl::file::json::saveToFile</a> (const std::string &amp;file, const json::Group &amp;data)</td></tr>
-<tr class="memdesc:aed5e74e51b22ed23d7b84025315b960e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves a <a class="el" href="a00883.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to the given file.  <a href="a00621.html#aed5e74e51b22ed23d7b84025315b960e">More...</a><br /></td></tr>
-<tr class="separator:aed5e74e51b22ed23d7b84025315b960e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb8960cd27e1f54fa5df5cab3b56444d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html#acb8960cd27e1f54fa5df5cab3b56444d">bl::file::json::saveToStream</a> (std::ostream &amp;stream, const json::Group &amp;data)</td></tr>
-<tr class="memdesc:acb8960cd27e1f54fa5df5cab3b56444d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a <a class="el" href="a00883.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to the given stream.  <a href="a00621.html#acb8960cd27e1f54fa5df5cab3b56444d">More...</a><br /></td></tr>
-<tr class="separator:acb8960cd27e1f54fa5df5cab3b56444d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 10 2021 04:48:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 11 2021 05:20:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

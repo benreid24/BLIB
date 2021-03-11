@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['openmode',['OpenMode',['../a00831.html#a6190ae9a68283742636b0b926ee43392',1,'bl::file::binary::File']]]
+  ['openmode',['OpenMode',['../a00859.html#a6190ae9a68283742636b0b926ee43392',1,'bl::file::binary::File']]]
 ];

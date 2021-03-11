@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['handle',['Handle',['../a01095.html#a1976c9cbec3cb0348a2e6f0381ea9906',1,'bl::audio::AudioSystem']]]
+  ['handle',['Handle',['../a01123.html#a1976c9cbec3cb0348a2e6f0381ea9906',1,'bl::audio::AudioSystem']]],
+  ['heuristic',['Heuristic',['../a00679.html#afc96959a9553ec9dd2ab4422b14ca68e',1,'bl::ai::PathFinder']]]
 ];

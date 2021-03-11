@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::parser::Parser Class Reference</title>
+<title>BLIB: bl::parser::Grammar Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,67 +63,122 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00629.html">parser</a></li><li class="navelem"><a class="el" href="a01243.html">Parser</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00632.html">bl</a></li><li class="navelem"><a class="el" href="a00649.html">parser</a></li><li class="navelem"><a class="el" href="a01243.html">Grammar</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a01240.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::parser::Parser Class Reference<div class="ingroups"><a class="el" href="a00605.html">Parser</a></div></div>  </div>
+<div class="title">bl::parser::Grammar Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Top level <a class="el" href="a01243.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> class. Implements a basic LR0 parser from a <a class="el" href="a01215.html" title="Represents a grammar for a Parser to build a parse tree with from a token sequence. ">Grammar</a> and <a class="el" href="a01259.html" title="Utility class for a Parser to break down an input string into tokens. ">Tokenizer</a>.  
+<p>Represents a grammar for a <a class="el" href="a01271.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> to build a parse tree with from a token sequence.  
  <a href="a01243.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01707_source.html">Parser.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00293_source.html">Grammar.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01251.html">Item</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="a01247.html" title="Helper struct to represent grammar productions. ">Production</a> with a cursor representing current parser position.  <a href="a01251.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01255.html">ItemSet</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of unique Items.  <a href="a01255.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01247.html">Production</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct to represent grammar productions.  <a href="a01247.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4eb7b71c40074b0ad2b62176e0bf2daa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a4eb7b71c40074b0ad2b62176e0bf2daa">Parser</a> (const <a class="el" href="a01215.html">parser::Grammar</a> &amp;grammar, const <a class="el" href="a01259.html">parser::Tokenizer</a> &amp;tokenizer)</td></tr>
-<tr class="memdesc:a4eb7b71c40074b0ad2b62176e0bf2daa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01243.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> object.  <a href="#a4eb7b71c40074b0ad2b62176e0bf2daa">More...</a><br /></td></tr>
-<tr class="separator:a4eb7b71c40074b0ad2b62176e0bf2daa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b5c66fa942ffd1ee765d7414ab083c1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a3b5c66fa942ffd1ee765d7414ab083c1">valid</a> () const</td></tr>
-<tr class="memdesc:a3b5c66fa942ffd1ee765d7414ab083c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the grammar is supported and parse tables were created.  <a href="#a3b5c66fa942ffd1ee765d7414ab083c1">More...</a><br /></td></tr>
-<tr class="separator:a3b5c66fa942ffd1ee765d7414ab083c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84253084053e6603b4ab077ee58726d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01235.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a84253084053e6603b4ab077ee58726d9">parse</a> (<a class="el" href="a01255.html">parser::Stream</a> &amp;input) const</td></tr>
-<tr class="memdesc:a84253084053e6603b4ab077ee58726d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the input stream into a parse tree of Nodes.  <a href="#a84253084053e6603b4ab077ee58726d9">More...</a><br /></td></tr>
-<tr class="separator:a84253084053e6603b4ab077ee58726d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a695cac182ceebc8560fc3fcb63e02105"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01235.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a695cac182ceebc8560fc3fcb63e02105">parse</a> (const std::string &amp;input) const</td></tr>
-<tr class="memdesc:a695cac182ceebc8560fc3fcb63e02105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience method to avoid manually creating a <a class="el" href="a01255.html" title="Wrapper class around std::ostream. Used for keeping track of current line and column numbers...">Stream</a>.  <a href="#a695cac182ceebc8560fc3fcb63e02105">More...</a><br /></td></tr>
-<tr class="separator:a695cac182ceebc8560fc3fcb63e02105"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a14010ec614ea08d573fabfb9d00a9ca7"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a14010ec614ea08d573fabfb9d00a9ca7">parser::unittest::TableReader</a></td></tr>
-<tr class="separator:a14010ec614ea08d573fabfb9d00a9ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1775cb991e31b645b3e0af99db03b1df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a1775cb991e31b645b3e0af99db03b1df">setStart</a> (<a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> start)</td></tr>
+<tr class="memdesc:a1775cb991e31b645b3e0af99db03b1df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Start <a class="el" href="a01263.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements...">Node</a> type.  <a href="#a1775cb991e31b645b3e0af99db03b1df">More...</a><br /></td></tr>
+<tr class="separator:a1775cb991e31b645b3e0af99db03b1df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64b93b0f4eb88cebd899b193a8e46307"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a64b93b0f4eb88cebd899b193a8e46307">addTerminal</a> (<a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> <a class="el" href="a01243.html#a4216447cf017313da081fddab0ac23b5">terminal</a>)</td></tr>
+<tr class="memdesc:a64b93b0f4eb88cebd899b193a8e46307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a new <a class="el" href="a01263.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements...">Node</a> type as a terminal.  <a href="#a64b93b0f4eb88cebd899b193a8e46307">More...</a><br /></td></tr>
+<tr class="separator:a64b93b0f4eb88cebd899b193a8e46307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3727dc96e94a21264e1b248fb6d71fb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a3727dc96e94a21264e1b248fb6d71fb1">addNonTerminal</a> (<a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> <a class="el" href="a01243.html#a82044ef9b7fcf632393cf5b887114a26">nonterminal</a>)</td></tr>
+<tr class="memdesc:a3727dc96e94a21264e1b248fb6d71fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a new <a class="el" href="a01263.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements...">Node</a> type as a nonterminal.  <a href="#a3727dc96e94a21264e1b248fb6d71fb1">More...</a><br /></td></tr>
+<tr class="separator:a3727dc96e94a21264e1b248fb6d71fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27582803bee33aa113723692c7a53d29"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a27582803bee33aa113723692c7a53d29">addRule</a> (<a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> result, const <a class="el" href="a01263.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a> &amp;elements)</td></tr>
+<tr class="memdesc:a27582803bee33aa113723692c7a53d29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a grammar rule.  <a href="#a27582803bee33aa113723692c7a53d29">More...</a><br /></td></tr>
+<tr class="separator:a27582803bee33aa113723692c7a53d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66126e9c88532244b37c1f97e71e6a10"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a66126e9c88532244b37c1f97e71e6a10">addRule</a> (<a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> result, <a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> rhs)</td></tr>
+<tr class="memdesc:a66126e9c88532244b37c1f97e71e6a10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience rule construction.  <a href="#a66126e9c88532244b37c1f97e71e6a10">More...</a><br /></td></tr>
+<tr class="separator:a66126e9c88532244b37c1f97e71e6a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cf51447f336daeb9be8c75070926cbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a6cf51447f336daeb9be8c75070926cbf">getStart</a> () const</td></tr>
+<tr class="memdesc:a6cf51447f336daeb9be8c75070926cbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the start symbol.  <a href="#a6cf51447f336daeb9be8c75070926cbf">More...</a><br /></td></tr>
+<tr class="separator:a6cf51447f336daeb9be8c75070926cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4216447cf017313da081fddab0ac23b5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a4216447cf017313da081fddab0ac23b5">terminal</a> (<a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> t) const</td></tr>
+<tr class="memdesc:a4216447cf017313da081fddab0ac23b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the symbol is a terminal.  <a href="#a4216447cf017313da081fddab0ac23b5">More...</a><br /></td></tr>
+<tr class="separator:a4216447cf017313da081fddab0ac23b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82044ef9b7fcf632393cf5b887114a26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a82044ef9b7fcf632393cf5b887114a26">nonterminal</a> (<a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> t) const</td></tr>
+<tr class="memdesc:a82044ef9b7fcf632393cf5b887114a26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the symbol is a nonterminal.  <a href="#a82044ef9b7fcf632393cf5b887114a26">More...</a><br /></td></tr>
+<tr class="separator:a82044ef9b7fcf632393cf5b887114a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6d3051ad3d4974ddc24c26aefc67475"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01263.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#ac6d3051ad3d4974ddc24c26aefc67475">followSet</a> (<a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> t, <a class="el" href="a01263.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a> *recurseGuard=nullptr) const</td></tr>
+<tr class="memdesc:ac6d3051ad3d4974ddc24c26aefc67475"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the follow set of the given symbol.  <a href="#ac6d3051ad3d4974ddc24c26aefc67475">More...</a><br /></td></tr>
+<tr class="separator:ac6d3051ad3d4974ddc24c26aefc67475"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1d216d342ea853ae429f454a9687930"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01255.html">ItemSet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#ab1d216d342ea853ae429f454a9687930">closure</a> (const <a class="el" href="a01251.html">Item</a> &amp;item, <a class="el" href="a01255.html">ItemSet</a> *result=nullptr) const</td></tr>
+<tr class="memdesc:ab1d216d342ea853ae429f454a9687930"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the closure of an <a class="el" href="a01251.html" title="A Production with a cursor representing current parser position. ">Item</a>.  <a href="#ab1d216d342ea853ae429f454a9687930">More...</a><br /></td></tr>
+<tr class="separator:ab1d216d342ea853ae429f454a9687930"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a340a1fee9bf1025d9c10c41f75d217"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01255.html">ItemSet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01243.html#a3a340a1fee9bf1025d9c10c41f75d217">closure</a> (const <a class="el" href="a01255.html">ItemSet</a> &amp;itemSet) const</td></tr>
+<tr class="memdesc:a3a340a1fee9bf1025d9c10c41f75d217"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the union of the closures of each <a class="el" href="a01251.html" title="A Production with a cursor representing current parser position. ">Item</a> in the set.  <a href="#a3a340a1fee9bf1025d9c10c41f75d217">More...</a><br /></td></tr>
+<tr class="separator:a3a340a1fee9bf1025d9c10c41f75d217"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Top level <a class="el" href="a01243.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> class. Implements a basic LR0 parser from a <a class="el" href="a01215.html" title="Represents a grammar for a Parser to build a parse tree with from a token sequence. ">Grammar</a> and <a class="el" href="a01259.html" title="Utility class for a Parser to break down an input string into tokens. ">Tokenizer</a>. </p>
+<div class="textblock"><p>Represents a grammar for a <a class="el" href="a01271.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> to build a parse tree with from a token sequence. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01707_source.html#l00022">22</a> of file <a class="el" href="a01707_source.html">Parser.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4eb7b71c40074b0ad2b62176e0bf2daa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4eb7b71c40074b0ad2b62176e0bf2daa">&#9670;&nbsp;</a></span>Parser()</h2>
+<p class="definition">Definition at line <a class="el" href="a00293_source.html#l00016">16</a> of file <a class="el" href="a00293_source.html">Grammar.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3727dc96e94a21264e1b248fb6d71fb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3727dc96e94a21264e1b248fb6d71fb1">&#9670;&nbsp;</a></span>addNonTerminal()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::parser::Parser::Parser </td>
+          <td class="memname">void bl::parser::Grammar::addNonTerminal </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01215.html">parser::Grammar</a> &amp;&#160;</td>
-          <td class="paramname"><em>grammar</em>, </td>
+          <td class="paramtype"><a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
+          <td class="paramname"><em>nonterminal</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register a new <a class="el" href="a01263.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements...">Node</a> type as a nonterminal. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nonterminal</td><td>The nonterminal symbol </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00078">78</a> of file <a class="el" href="a00566_source.html">Grammar.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a27582803bee33aa113723692c7a53d29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27582803bee33aa113723692c7a53d29">&#9670;&nbsp;</a></span>addRule() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::parser::Grammar::addRule </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
+          <td class="paramname"><em>result</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a01259.html">parser::Tokenizer</a> &amp;&#160;</td>
-          <td class="paramname"><em>tokenizer</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a01263.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a> &amp;&#160;</td>
+          <td class="paramname"><em>elements</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -133,87 +188,203 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a01243.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> object. </p>
+<p>Adds a grammar rule. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">grammar</td><td>The <a class="el" href="a01215.html" title="Represents a grammar for a Parser to build a parse tree with from a token sequence. ">Grammar</a> to use </td></tr>
-    <tr><td class="paramname">tokenizer</td><td>The <a class="el" href="a01259.html" title="Utility class for a Parser to break down an input string into tokens. ">Tokenizer</a> to use </td></tr>
+    <tr><td class="paramname">result</td><td>The non-terminal <a class="el" href="a01263.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements...">Node</a> to create </td></tr>
+    <tr><td class="paramname">elements</td><td>The list of Nodes that constitute the non-terminal </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01740_source.html#l00091">91</a> of file <a class="el" href="a01740_source.html">Parser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00020">20</a> of file <a class="el" href="a00566_source.html">Grammar.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a84253084053e6603b4ab077ee58726d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84253084053e6603b4ab077ee58726d9">&#9670;&nbsp;</a></span>parse() <span class="overload">[1/2]</span></h2>
+<a id="a66126e9c88532244b37c1f97e71e6a10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66126e9c88532244b37c1f97e71e6a10">&#9670;&nbsp;</a></span>addRule() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01235.html#a3f49fe9da8742463aa757f89f67a8827">Node::Ptr</a> bl::parser::Parser::parse </td>
+          <td class="memname">bool bl::parser::Grammar::addRule </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01255.html">parser::Stream</a> &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
+          <td class="paramname"><em>result</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience rule construction. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">result</td><td>The non-terminal to generate </td></tr>
+    <tr><td class="paramname">rhs</td><td>The terminal or non-terminal node to reduce from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00035">35</a> of file <a class="el" href="a00566_source.html">Grammar.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a64b93b0f4eb88cebd899b193a8e46307"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64b93b0f4eb88cebd899b193a8e46307">&#9670;&nbsp;</a></span>addTerminal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::parser::Grammar::addTerminal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
+          <td class="paramname"><em>terminal</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register a new <a class="el" href="a01263.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements...">Node</a> type as a terminal. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">terminal</td><td>The terminal symbol </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00072">72</a> of file <a class="el" href="a00566_source.html">Grammar.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab1d216d342ea853ae429f454a9687930"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1d216d342ea853ae429f454a9687930">&#9670;&nbsp;</a></span>closure() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01255.html">Grammar::ItemSet</a> bl::parser::Grammar::closure </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01251.html">Item</a> &amp;&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01255.html">ItemSet</a> *&#160;</td>
+          <td class="paramname"><em>result</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the closure of an <a class="el" href="a01251.html" title="A Production with a cursor representing current parser position. ">Item</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td><a class="el" href="a01251.html" title="A Production with a cursor representing current parser position. ">Item</a> to take the closure of </td></tr>
+    <tr><td class="paramname">result</td><td>Internal implementation only </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01255.html" title="A set of unique Items. ">ItemSet</a> The closure </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00040">40</a> of file <a class="el" href="a00566_source.html">Grammar.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3a340a1fee9bf1025d9c10c41f75d217"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a340a1fee9bf1025d9c10c41f75d217">&#9670;&nbsp;</a></span>closure() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01255.html">Grammar::ItemSet</a> bl::parser::Grammar::closure </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01255.html">ItemSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>itemSet</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Parses the input stream into a parse tree of Nodes. </p>
+<p>Returns the union of the closures of each <a class="el" href="a01251.html" title="A Production with a cursor representing current parser position. ">Item</a> in the set. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">input</td><td>The stream to tokenize and parse </td></tr>
+    <tr><td class="paramname">itemSet</td><td>Items to take the closure of </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01235.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> The root of the tree, or nullptr if error </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01255.html" title="A set of unique Items. ">ItemSet</a> Union of all closures </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01740_source.html#l00105">105</a> of file <a class="el" href="a01740_source.html">Parser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00053">53</a> of file <a class="el" href="a00566_source.html">Grammar.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a695cac182ceebc8560fc3fcb63e02105"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a695cac182ceebc8560fc3fcb63e02105">&#9670;&nbsp;</a></span>parse() <span class="overload">[2/2]</span></h2>
+<a id="ac6d3051ad3d4974ddc24c26aefc67475"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6d3051ad3d4974ddc24c26aefc67475">&#9670;&nbsp;</a></span>followSet()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01235.html#a3f49fe9da8742463aa757f89f67a8827">Node::Ptr</a> bl::parser::Parser::parse </td>
+          <td class="memname"><a class="el" href="a01263.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a> bl::parser::Grammar::followSet </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01263.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a> *&#160;</td>
+          <td class="paramname"><em>recurseGuard</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Convenience method to avoid manually creating a <a class="el" href="a01255.html" title="Wrapper class around std::ostream. Used for keeping track of current line and column numbers...">Stream</a>. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01235.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> parse(parser::Stream&amp; input)</dd></dl>
+<p>Returns the follow set of the given symbol. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">input</td><td>Input to parse into tree </td></tr>
+    <tr><td class="paramname">t</td><td>Symbol to determine follow set of </td></tr>
+    <tr><td class="paramname">recurseGuard</td><td>Internal implementation only </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01235.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> The generated parse tree or nullptr on error </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01263.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a> The terminal symbols that can follow t </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01740_source.html#l00100">100</a> of file <a class="el" href="a01740_source.html">Parser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00080">80</a> of file <a class="el" href="a00566_source.html">Grammar.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a3b5c66fa942ffd1ee765d7414ab083c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b5c66fa942ffd1ee765d7414ab083c1">&#9670;&nbsp;</a></span>valid()</h2>
+<a id="a6cf51447f336daeb9be8c75070926cbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cf51447f336daeb9be8c75070926cbf">&#9670;&nbsp;</a></span>getStart()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::parser::Parser::valid </td>
+          <td class="memname"><a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> bl::parser::Grammar::getStart </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -221,46 +392,93 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns true if the grammar is supported and parse tables were created. </p>
+<p>Get the start symbol. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01740_source.html#l00098">98</a> of file <a class="el" href="a01740_source.html">Parser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00018">18</a> of file <a class="el" href="a00566_source.html">Grammar.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a14010ec614ea08d573fabfb9d00a9ca7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14010ec614ea08d573fabfb9d00a9ca7">&#9670;&nbsp;</a></span>parser::unittest::TableReader</h2>
+<a id="a82044ef9b7fcf632393cf5b887114a26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82044ef9b7fcf632393cf5b887114a26">&#9670;&nbsp;</a></span>nonterminal()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class parser::unittest::TableReader</td>
+          <td class="memname">bool bl::parser::Grammar::nonterminal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01707_source.html#l00081">81</a> of file <a class="el" href="a01707_source.html">Parser.hpp</a>.</p>
+<p>Returns true if the symbol is a nonterminal. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00074">74</a> of file <a class="el" href="a00566_source.html">Grammar.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1775cb991e31b645b3e0af99db03b1df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1775cb991e31b645b3e0af99db03b1df">&#9670;&nbsp;</a></span>setStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::parser::Grammar::setStart </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
+          <td class="paramname"><em>start</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the Start <a class="el" href="a01263.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements...">Node</a> type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start</td><td>The root node type of the grammar </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00010">10</a> of file <a class="el" href="a00566_source.html">Grammar.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4216447cf017313da081fddab0ac23b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4216447cf017313da081fddab0ac23b5">&#9670;&nbsp;</a></span>terminal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::parser::Grammar::terminal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01263.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if the symbol is a terminal. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00070">70</a> of file <a class="el" href="a00566_source.html">Grammar.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Parser/<a class="el" href="a01707_source.html">Parser.hpp</a></li>
-<li>src/Parser/<a class="el" href="a01740_source.html">Parser.cpp</a></li>
+<li>include/BLIB/Parser/<a class="el" href="a00293_source.html">Grammar.hpp</a></li>
+<li>src/Parser/<a class="el" href="a00566_source.html">Grammar.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 10 2021 04:48:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 11 2021 05:20:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

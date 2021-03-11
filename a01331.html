@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::util::LastVariadic&lt; Ts &gt; Class Template Reference</title>
+<title>BLIB: bl::script::Function Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,72 +63,221 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00634.html">util</a></li><li class="navelem"><a class="el" href="a01331.html">LastVariadic</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00632.html">bl</a></li><li class="navelem"><a class="el" href="a00653.html">script</a></li><li class="navelem"><a class="el" href="a01331.html">Function</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01328.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::util::LastVariadic&lt; Ts &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00608.html">Util</a></div></div>  </div>
+<div class="title">bl::script::Function Class Reference<div class="ingroups"><a class="el" href="a00623.html">Scripts</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Provides a typedef for the last type in a variadic template parameter list.  
+<p>Utility class for functions defined in scripts themselves.  
  <a href="a01331.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00341_source.html">LastVariadic.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00335_source.html">Function.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:af272ecfc09083f9cec3776a769bd2509"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01331.html#af272ecfc09083f9cec3776a769bd2509">Last</a> = typename decltype((tag&lt; Ts &gt;{},...))::type</td></tr>
-<tr class="memdesc:af272ecfc09083f9cec3776a769bd2509"><td class="mdescLeft">&#160;</td><td class="mdescRight">The last type in the provided list of types.  <a href="#af272ecfc09083f9cec3776a769bd2509">More...</a><br /></td></tr>
-<tr class="separator:af272ecfc09083f9cec3776a769bd2509"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d6c406756679bc0e41e70507e2b1576"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; <a class="el" href="a01351.html">Value</a>(<a class="el" href="a01347.html">SymbolTable</a> &amp;, const std::vector&lt; <a class="el" href="a01351.html">Value</a> &gt; &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01331.html#a6d6c406756679bc0e41e70507e2b1576">CustomCB</a></td></tr>
+<tr class="memdesc:a6d6c406756679bc0e41e70507e2b1576"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for custom functions. Can be used to provide a built in library Receives the <a class="el" href="a01347.html" title="Stack aware symbol table for managing functions and variables Each Script holds a single instance...">SymbolTable</a> and list of calling parameters. Can throw an <a class="el" href="a01323.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> object on error.  <a href="#a6d6c406756679bc0e41e70507e2b1576">More...</a><br /></td></tr>
+<tr class="separator:a6d6c406756679bc0e41e70507e2b1576"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a2e1c840d6e1931a14c9f1b8ba963b1e8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01331.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function</a> ()</td></tr>
+<tr class="memdesc:a2e1c840d6e1931a14c9f1b8ba963b1e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty, uncallable function.  <a href="#a2e1c840d6e1931a14c9f1b8ba963b1e8">More...</a><br /></td></tr>
+<tr class="separator:a2e1c840d6e1931a14c9f1b8ba963b1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72fe6ee6fa572c488583572990d2a7ba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01331.html#a72fe6ee6fa572c488583572990d2a7ba">Function</a> (<a class="el" href="a01263.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> fdef)</td></tr>
+<tr class="memdesc:a72fe6ee6fa572c488583572990d2a7ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01331.html" title="Utility class for functions defined in scripts themselves. ">Function</a> from a subset of a valid parse tree.  <a href="#a72fe6ee6fa572c488583572990d2a7ba">More...</a><br /></td></tr>
+<tr class="separator:a72fe6ee6fa572c488583572990d2a7ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45e9f2115381d877debfe992e3392aa7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01331.html#a45e9f2115381d877debfe992e3392aa7">Function</a> (<a class="el" href="a01331.html#a6d6c406756679bc0e41e70507e2b1576">CustomCB</a> userFunction)</td></tr>
+<tr class="memdesc:a45e9f2115381d877debfe992e3392aa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01331.html" title="Utility class for functions defined in scripts themselves. ">Function</a> from a user defined function.  <a href="#a45e9f2115381d877debfe992e3392aa7">More...</a><br /></td></tr>
+<tr class="separator:a45e9f2115381d877debfe992e3392aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa01f0ed7f508bd64c3cd635be88d4b71"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01331.html#aa01f0ed7f508bd64c3cd635be88d4b71">operator==</a> (const <a class="el" href="a01331.html">Function</a> &amp;func) const</td></tr>
+<tr class="memdesc:aa01f0ed7f508bd64c3cd635be88d4b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comapres against another function.  <a href="#aa01f0ed7f508bd64c3cd635be88d4b71">More...</a><br /></td></tr>
+<tr class="separator:aa01f0ed7f508bd64c3cd635be88d4b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04de884838965a3aedce56b07d67c3e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01351.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01331.html#a04de884838965a3aedce56b07d67c3e8">operator()</a> (<a class="el" href="a01347.html">SymbolTable</a> &amp;table, const std::vector&lt; <a class="el" href="a01351.html">Value</a> &gt; &amp;args) const</td></tr>
+<tr class="memdesc:a04de884838965a3aedce56b07d67c3e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the function. <a class="el" href="a01323.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> thrown on error.  <a href="#a04de884838965a3aedce56b07d67c3e8">More...</a><br /></td></tr>
+<tr class="separator:a04de884838965a3aedce56b07d67c3e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename... Ts&gt;<br />
-class bl::util::LastVariadic&lt; Ts &gt;</h3>
+<div class="textblock"><p>Utility class for functions defined in scripts themselves. </p>
 
-<p>Provides a typedef for the last type in a variadic template parameter list. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Ts</td><td>List of types to select the last from </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00015">15</a> of file <a class="el" href="a00341_source.html">LastVariadic.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00335_source.html#l00023">23</a> of file <a class="el" href="a00335_source.html">Function.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="af272ecfc09083f9cec3776a769bd2509"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af272ecfc09083f9cec3776a769bd2509">&#9670;&nbsp;</a></span>Last</h2>
+<a id="a6d6c406756679bc0e41e70507e2b1576"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d6c406756679bc0e41e70507e2b1576">&#9670;&nbsp;</a></span>CustomCB</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename... Ts&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a01331.html">bl::util::LastVariadic</a>&lt; Ts &gt;::<a class="el" href="a01331.html#af272ecfc09083f9cec3776a769bd2509">Last</a> =  typename decltype((tag&lt;Ts&gt;{}, ...))::type</td>
+          <td class="memname">typedef std::function&lt;<a class="el" href="a01351.html">Value</a>(<a class="el" href="a01347.html">SymbolTable</a>&amp;, const std::vector&lt;<a class="el" href="a01351.html">Value</a>&gt;&amp;)&gt; <a class="el" href="a01331.html#a6d6c406756679bc0e41e70507e2b1576">bl::script::Function::CustomCB</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The last type in the provided list of types. </p>
+<p>Callback type for custom functions. Can be used to provide a built in library Receives the <a class="el" href="a01347.html" title="Stack aware symbol table for managing functions and variables Each Script holds a single instance...">SymbolTable</a> and list of calling parameters. Can throw an <a class="el" href="a01323.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> object on error. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00341_source.html#l00023">23</a> of file <a class="el" href="a00341_source.html">LastVariadic.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00335_source.html#l00031">31</a> of file <a class="el" href="a00335_source.html">Function.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Util/<a class="el" href="a00341_source.html">LastVariadic.hpp</a></li>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2e1c840d6e1931a14c9f1b8ba963b1e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e1c840d6e1931a14c9f1b8ba963b1e8">&#9670;&nbsp;</a></span>Function() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::script::Function::Function </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an empty, uncallable function. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00018">18</a> of file <a class="el" href="a00581_source.html">Function.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a72fe6ee6fa572c488583572990d2a7ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72fe6ee6fa572c488583572990d2a7ba">&#9670;&nbsp;</a></span>Function() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::script::Function::Function </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01263.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td>
+          <td class="paramname"><em>fdef</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a01331.html" title="Utility class for functions defined in scripts themselves. ">Function</a> from a subset of a valid parse tree. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tree</td><td>The root node of type FDef </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00021">21</a> of file <a class="el" href="a00581_source.html">Function.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a45e9f2115381d877debfe992e3392aa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45e9f2115381d877debfe992e3392aa7">&#9670;&nbsp;</a></span>Function() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::script::Function::Function </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01331.html#a6d6c406756679bc0e41e70507e2b1576">CustomCB</a>&#160;</td>
+          <td class="paramname"><em>userFunction</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a01331.html" title="Utility class for functions defined in scripts themselves. ">Function</a> from a user defined function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userFunction</td><td>Callback to a custom function </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00035">35</a> of file <a class="el" href="a00581_source.html">Function.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a04de884838965a3aedce56b07d67c3e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04de884838965a3aedce56b07d67c3e8">&#9670;&nbsp;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01351.html">Value</a> bl::script::Function::operator() </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01347.html">SymbolTable</a> &amp;&#160;</td>
+          <td class="paramname"><em>table</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="a01351.html">Value</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calls the function. <a class="el" href="a01323.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a> thrown on error. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">table</td><td>Modifiable reference to the <a class="el" href="a01347.html" title="Stack aware symbol table for managing functions and variables Each Script holds a single instance...">SymbolTable</a> </td></tr>
+    <tr><td class="paramname">args</td><td>The arguments it was called with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01351.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> The result of the function </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00052">52</a> of file <a class="el" href="a00581_source.html">Function.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa01f0ed7f508bd64c3cd635be88d4b71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa01f0ed7f508bd64c3cd635be88d4b71">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::script::Function::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01331.html">Function</a> &amp;&#160;</td>
+          <td class="paramname"><em>func</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Comapres against another function. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00038">38</a> of file <a class="el" href="a00581_source.html">Function.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Scripts/<a class="el" href="a00335_source.html">Function.hpp</a></li>
+<li>src/Scripts/<a class="el" href="a00581_source.html">Function.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 10 2021 04:48:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 11 2021 05:20:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

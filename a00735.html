@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::engine::Event::ResumedEvent Struct Reference</title>
+<title>BLIB: bl::engine::Engine Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,31 +63,279 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00614.html">bl</a></li><li class="navelem"><a class="el" href="a00616.html">engine</a></li><li class="navelem"><a class="el" href="a00711.html">Event</a></li><li class="navelem"><a class="el" href="a00735.html">ResumedEvent</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00632.html">bl</a></li><li class="navelem"><a class="el" href="a00636.html">engine</a></li><li class="navelem"><a class="el" href="a00735.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a00732.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::engine::Event::ResumedEvent Struct Reference</div>  </div>
+<div class="title">bl::engine::Engine Class Reference<div class="ingroups"><a class="el" href="a00613.html">Engine</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Empty struct to indicate the engine has resumed.  
+<p>Core engine class that owns engine resources and the main game loop.  
  <a href="a00735.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01656_source.html">Event.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01695_source.html">Engine.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a6d8638fa37986934e8de4fa46a17dd9f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00735.html#a6d8638fa37986934e8de4fa46a17dd9f">Engine</a> (const <a class="el" href="a00779.html">Settings</a> &amp;<a class="el" href="a00735.html#ad305287ca113addc1b34ab818993be12">settings</a>)</td></tr>
+<tr class="memdesc:a6d8638fa37986934e8de4fa46a17dd9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the game engine from the given settings.  <a href="#a6d8638fa37986934e8de4fa46a17dd9f">More...</a><br /></td></tr>
+<tr class="separator:a6d8638fa37986934e8de4fa46a17dd9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9f9b7542bcbd47f627b12b96738619c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00803.html">entity::Registry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00735.html#aa9f9b7542bcbd47f627b12b96738619c">entities</a> ()</td></tr>
+<tr class="memdesc:aa9f9b7542bcbd47f627b12b96738619c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the engine wide entity registry.  <a href="#aa9f9b7542bcbd47f627b12b96738619c">More...</a><br /></td></tr>
+<tr class="separator:aa9f9b7542bcbd47f627b12b96738619c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36819c7d28ad581904bdb4e254305980"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00831.html">event::Dispatcher</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00735.html#a36819c7d28ad581904bdb4e254305980">eventBus</a> ()</td></tr>
+<tr class="memdesc:a36819c7d28ad581904bdb4e254305980"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the primary engine event dispatcher. <a class="el" href="a00735.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> events and window events are pushed through this bus.  <a href="#a36819c7d28ad581904bdb4e254305980">More...</a><br /></td></tr>
+<tr class="separator:a36819c7d28ad581904bdb4e254305980"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af16f26ef6570e646dbab6a1d63c1fa83"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01335.html">script::Manager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00735.html#af16f26ef6570e646dbab6a1d63c1fa83">scriptManager</a> ()</td></tr>
+<tr class="memdesc:af16f26ef6570e646dbab6a1d63c1fa83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the engine's script Manager.  <a href="#af16f26ef6570e646dbab6a1d63c1fa83">More...</a><br /></td></tr>
+<tr class="separator:af16f26ef6570e646dbab6a1d63c1fa83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad305287ca113addc1b34ab818993be12"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00779.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00735.html#ad305287ca113addc1b34ab818993be12">settings</a> () const</td></tr>
+<tr class="memdesc:ad305287ca113addc1b34ab818993be12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the settings the engine is using.  <a href="#ad305287ca113addc1b34ab818993be12">More...</a><br /></td></tr>
+<tr class="separator:ad305287ca113addc1b34ab818993be12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3eadddd1a0a2f23774baf0add80b607"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00771.html">Flags</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00735.html#ad3eadddd1a0a2f23774baf0add80b607">flags</a> ()</td></tr>
+<tr class="memdesc:ad3eadddd1a0a2f23774baf0add80b607"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the flags that can be set to control <a class="el" href="a00735.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> behavior.  <a href="#ad3eadddd1a0a2f23774baf0add80b607">More...</a><br /></td></tr>
+<tr class="separator:ad3eadddd1a0a2f23774baf0add80b607"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7615560dde03f27fb7054f7fe89a119"><td class="memItemLeft" align="right" valign="top">sf::RenderWindow &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00735.html#ab7615560dde03f27fb7054f7fe89a119">window</a> ()</td></tr>
+<tr class="memdesc:ab7615560dde03f27fb7054f7fe89a119"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the window the engine has created and is managing. The window is created when <a class="el" href="a00735.html#a101b5879f1f1b2164517da01b5df7e25" title="Runs the main game loop starting in the given initial state. This is the main application loop and ru...">run()</a> is called.  <a href="#ab7615560dde03f27fb7054f7fe89a119">More...</a><br /></td></tr>
+<tr class="separator:ab7615560dde03f27fb7054f7fe89a119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a101b5879f1f1b2164517da01b5df7e25"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00735.html#a101b5879f1f1b2164517da01b5df7e25">run</a> (<a class="el" href="a00783.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> initialState)</td></tr>
+<tr class="memdesc:a101b5879f1f1b2164517da01b5df7e25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the main game loop starting in the given initial state. This is the main application loop and runs for the duration of the program. All setup should be performed prior to calling this. The sf::RenderWindow is created in here.  <a href="#a101b5879f1f1b2164517da01b5df7e25">More...</a><br /></td></tr>
+<tr class="separator:a101b5879f1f1b2164517da01b5df7e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecaca4168ea79bf345e849eb562e5a7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00735.html#aecaca4168ea79bf345e849eb562e5a7e">nextState</a> (<a class="el" href="a00783.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> next)</td></tr>
+<tr class="memdesc:aecaca4168ea79bf345e849eb562e5a7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the next state for the following engine update loop. May be called at any time, the next state will not be transitioned to until the start of main loop. If the Popstate flag is set, that will be evaluated before the new state is pushed.  <a href="#aecaca4168ea79bf345e849eb562e5a7e">More...</a><br /></td></tr>
+<tr class="separator:aecaca4168ea79bf345e849eb562e5a7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Empty struct to indicate the engine has resumed. </p>
+<div class="textblock"><p>Core engine class that owns engine resources and the main game loop. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01656_source.html#l00079">79</a> of file <a class="el" href="a01656_source.html">Event.hpp</a>.</p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Engine/<a class="el" href="a01656_source.html">Event.hpp</a></li>
+<p class="definition">Definition at line <a class="el" href="a01695_source.html#l00027">27</a> of file <a class="el" href="a01695_source.html">Engine.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6d8638fa37986934e8de4fa46a17dd9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d8638fa37986934e8de4fa46a17dd9f">&#9670;&nbsp;</a></span>Engine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::engine::Engine::Engine </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00779.html">Settings</a> &amp;&#160;</td>
+          <td class="paramname"><em>settings</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the game engine from the given settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">settings</td><td><a class="el" href="a00779.html" title="Collection of settings to create an Engine with, organized as a builder. ">Settings</a> for the engine to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00371_source.html#l00012">12</a> of file <a class="el" href="a00371_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa9f9b7542bcbd47f627b12b96738619c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9f9b7542bcbd47f627b12b96738619c">&#9670;&nbsp;</a></span>entities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00803.html">entity::Registry</a> &amp; bl::engine::Engine::entities </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the engine wide entity registry. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00371_source.html#l00018">18</a> of file <a class="el" href="a00371_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a36819c7d28ad581904bdb4e254305980"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36819c7d28ad581904bdb4e254305980">&#9670;&nbsp;</a></span>eventBus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00831.html">event::Dispatcher</a> &amp; bl::engine::Engine::eventBus </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the primary engine event dispatcher. <a class="el" href="a00735.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> events and window events are pushed through this bus. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00371_source.html#l00016">16</a> of file <a class="el" href="a00371_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad3eadddd1a0a2f23774baf0add80b607"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3eadddd1a0a2f23774baf0add80b607">&#9670;&nbsp;</a></span>flags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00771.html">Flags</a> &amp; bl::engine::Engine::flags </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the flags that can be set to control <a class="el" href="a00735.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> behavior. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00371_source.html#l00024">24</a> of file <a class="el" href="a00371_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aecaca4168ea79bf345e849eb562e5a7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecaca4168ea79bf345e849eb562e5a7e">&#9670;&nbsp;</a></span>nextState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::engine::Engine::nextState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00783.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a>&#160;</td>
+          <td class="paramname"><em>next</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the next state for the following engine update loop. May be called at any time, the next state will not be transitioned to until the start of main loop. If the Popstate flag is set, that will be evaluated before the new state is pushed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">next</td><td>Next state to enter on the following main loop run </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00371_source.html#l00028">28</a> of file <a class="el" href="a00371_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a101b5879f1f1b2164517da01b5df7e25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a101b5879f1f1b2164517da01b5df7e25">&#9670;&nbsp;</a></span>run()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::engine::Engine::run </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00783.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a>&#160;</td>
+          <td class="paramname"><em>initialState</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Runs the main game loop starting in the given initial state. This is the main application loop and runs for the duration of the program. All setup should be performed prior to calling this. The sf::RenderWindow is created in here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">initialState</td><td>The starting engine state </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the engine exited cleanly, false if exiting due to error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00371_source.html#l00030">30</a> of file <a class="el" href="a00371_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af16f26ef6570e646dbab6a1d63c1fa83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af16f26ef6570e646dbab6a1d63c1fa83">&#9670;&nbsp;</a></span>scriptManager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01335.html">script::Manager</a> &amp; bl::engine::Engine::scriptManager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the engine's script Manager. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00371_source.html#l00020">20</a> of file <a class="el" href="a00371_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad305287ca113addc1b34ab818993be12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad305287ca113addc1b34ab818993be12">&#9670;&nbsp;</a></span>settings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a00779.html">Settings</a> &amp; bl::engine::Engine::settings </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the settings the engine is using. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00371_source.html#l00022">22</a> of file <a class="el" href="a00371_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab7615560dde03f27fb7054f7fe89a119"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7615560dde03f27fb7054f7fe89a119">&#9670;&nbsp;</a></span>window()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::RenderWindow &amp; bl::engine::Engine::window </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the window the engine has created and is managing. The window is created when <a class="el" href="a00735.html#a101b5879f1f1b2164517da01b5df7e25" title="Runs the main game loop starting in the given initial state. This is the main application loop and ru...">run()</a> is called. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00371_source.html#l00026">26</a> of file <a class="el" href="a00371_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Engine/<a class="el" href="a01695_source.html">Engine.hpp</a></li>
+<li>src/Engine/<a class="el" href="a00371_source.html">Engine.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 10 2021 04:48:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 11 2021 05:20:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
