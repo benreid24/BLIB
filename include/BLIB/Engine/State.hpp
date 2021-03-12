@@ -1,6 +1,7 @@
 #ifndef BLIB_ENGINE_STATE_HPP
 #define BLIB_ENGINE_STATE_HPP
 
+#include <BLIB/Util/NonCopyable.hpp>
 #include <memory>
 
 namespace bl
@@ -16,7 +17,7 @@ class Engine;
  * @ingroup Engine
  *
  */
-class State {
+class State : private util::NonCopyable {
 public:
     using Ptr = std::shared_ptr<State>;
 
@@ -32,19 +33,13 @@ public:
      * @brief This is called each time the state becomes the active engine state
      *
      */
-    virtual void makeActive(Engine& engine){};
+    virtual void activate(Engine& engine){};
 
     /**
-     * @brief This is called each time this state is pushed down by a new state
+     * @brief This is called each time this state is deactivated
      *
      */
-    virtual void onPushedDown(Engine& engine){};
-
-    /**
-     * @brief This is called when this state is popped off the state stack entirely
-     *
-     */
-    virtual void onPoppedOff(Engine& engine){};
+    virtual void deactivate(Engine& engine){};
 
     /**
      * @brief Perform logic updates

@@ -19,6 +19,8 @@ ArrowSelector::ArrowSelector(float w)
 : width(w)
 , triangle(makeTriangle(w)) {}
 
+shapes::Triangle& ArrowSelector::getArrow() { return triangle; }
+
 void ArrowSelector::render(sf::RenderTarget& target, sf::RenderStates states,
                            sf::FloatRect itemArea) const {
     triangle.setPosition(

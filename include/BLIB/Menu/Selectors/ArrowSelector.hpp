@@ -25,6 +25,12 @@ public:
     static Ptr create(float width);
 
     /**
+     * @brief Exposes the underlying triangle
+     *
+     */
+    shapes::Triangle& getArrow();
+
+    /**
      * @see Selector::render
      *
      */

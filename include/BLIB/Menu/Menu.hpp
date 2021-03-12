@@ -55,6 +55,13 @@ public:
      */
     void refresh();
 
+    /**
+     * @brief Set the selected item. No check is done to ensure that the given item is valid
+     *
+     * @param item The item to select. Must be in the menu
+     */
+    void setSelectedItem(Item::Ptr item);
+
 private:
     Selector::Ptr selector;
     Item::Ptr rootItem;

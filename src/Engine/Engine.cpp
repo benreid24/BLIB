@@ -69,7 +69,7 @@ bool Engine::run(State::Ptr initialState) {
         }
     }
 
-    initialState->makeActive(*this);
+    initialState->activate(*this);
     engineEventBus.dispatch<Event>({Event::StartupEvent{initialState}});
 
     while (true) {
@@ -149,7 +149,7 @@ bool Engine::run(State::Ptr initialState) {
         else if (engineFlags.active(Flags::PopState)) {
             BL_LOG_INFO << "Popping state: " << states.top()->name();
             auto prev = states.top();
-            prev->onPoppedOff(*this);
+            prev->deactivate(*this);
             states.pop();
             if (states.empty()) {
                 BL_LOG_INFO << "Final state popped, exiting";
@@ -159,7 +159,7 @@ bool Engine::run(State::Ptr initialState) {
                 return true;
             }
             BL_LOG_INFO << "New engine state: " << states.top()->name();
-            states.top()->makeActive(*this);
+            states.top()->activate(*this);
             engineEventBus.dispatch<Event>({Event::StateChangeEvent{states.top(), prev}});
         }
 
@@ -167,9 +167,9 @@ bool Engine::run(State::Ptr initialState) {
         if (newState) {
             BL_LOG_INFO << "New engine state: " << newState->name();
             auto prev = states.top();
-            prev->onPushedDown(*this);
+            prev->deactivate(*this);
             states.push(newState);
-            states.top()->makeActive(*this);
+            states.top()->activate(*this);
             engineEventBus.dispatch<Event>({Event::StateChangeEvent{states.top(), prev}});
             newState = nullptr;
         }

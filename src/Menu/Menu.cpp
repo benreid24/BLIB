@@ -28,18 +28,19 @@ void Menu::refresh() {
     rootItem->visit(itemVisitor);
 }
 
-void Menu::render(const Renderer& renderer, sf::RenderTarget& target,
-                  const sf::Vector2f& position, sf::RenderStates renderStates) {
+void Menu::setSelectedItem(Item::Ptr s) { selectedItem = s; }
+
+void Menu::render(const Renderer& renderer, sf::RenderTarget& target, const sf::Vector2f& position,
+                  sf::RenderStates renderStates) {
     std::list<std::pair<int, int>> rendered;
     itemAreas.clear();
     renderItem(renderer, target, rootItem, position, renderStates, 0, 0, rendered);
 }
 
 void Menu::renderItem(const Renderer& renderer, sf::RenderTarget& target, Item::Ptr item,
-                      const sf::Vector2f& position, sf::RenderStates renderStates, int x,
-                      int y, std::list<std::pair<int, int>>& rendered) {
-    if (std::find(rendered.begin(), rendered.end(), std::make_pair(x, y)) != rendered.end())
-        return;
+                      const sf::Vector2f& position, sf::RenderStates renderStates, int x, int y,
+                      std::list<std::pair<int, int>>& rendered) {
+    if (std::find(rendered.begin(), rendered.end(), std::make_pair(x, y)) != rendered.end()) return;
     rendered.push_back(std::make_pair(x, y));
 
     float columnWidth = item->getRenderItem().getSize().x;
@@ -49,8 +50,8 @@ void Menu::renderItem(const Renderer& renderer, sf::RenderTarget& target, Item::
     it = rowHeights.find(y);
     if (it != rowHeights.end()) rowHeight = rowHeights[y];
 
-    const sf::Vector2f size = renderer.renderItem(
-        target, renderStates, *item, position, columnWidth, rowHeight, x, y);
+    const sf::Vector2f size =
+        renderer.renderItem(target, renderStates, *item, position, columnWidth, rowHeight, x, y);
     itemAreas.push_back(std::make_pair(sf::FloatRect(position, size), item));
     if (item.get() == selectedItem.get()) {
         selector->render(target, renderStates, {position, size});
