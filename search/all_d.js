@@ -1,7 +1,6 @@
 var searchData=
 [
   ['magnitude',['magnitude',['../a01355.html#aa09a8f5dc1f4a99fc096d2162a911c7f',1,'bl::util::AngularVector']]],
-  ['makeactive',['makeActive',['../a00783.html#a832ed940d9522b28ccc75626b97cbe6c',1,'bl::engine::State']]],
   ['makebool',['makeBool',['../a01351.html#a2e5eaacb6e68b704fdcf41a1f8ae7067',1,'bl::script::Value']]],
   ['makedirty',['makeDirty',['../a01023.html#a25f12a23ffb09b4a0fb6eb92f005d810',1,'bl::gui::Element']]],
   ['makenew',['makeNew',['../a00799.html#a20d520abadc52a007bc7a4cf87cf3228',1,'bl::entity::IdGenerator']]],

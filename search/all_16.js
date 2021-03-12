@@ -8,7 +8,7 @@ var searchData=
   ['willalwayscall',['willAlwaysCall',['../a01387.html#a419a776049b9cb49fe75e3a9cd55f05b',1,'bl::util::Signal']]],
   ['willcall',['willCall',['../a01387.html#a5c3dee119766378bdc5262795bc0d08c',1,'bl::util::Signal']]],
   ['willset',['willSet',['../a01387.html#a8a2fe54cccdcc5e9a607898725cd5f02',1,'bl::util::Signal']]],
-  ['window',['Window',['../a01075.html',1,'bl::gui::Window'],['../a01075.html#a5bdc66b5aae615dd7b3c77139e1095ef',1,'bl::gui::Window::Window()'],['../a00735.html#ab7615560dde03f27fb7054f7fe89a119',1,'bl::engine::Engine::window()']]],
+  ['window',['Window',['../a01075.html',1,'bl::gui::Window'],['../a00735.html#ab7615560dde03f27fb7054f7fe89a119',1,'bl::engine::Engine::window()'],['../a01075.html#a5bdc66b5aae615dd7b3c77139e1095ef',1,'bl::gui::Window::Window()']]],
   ['window_2ecpp',['Window.cpp',['../a00482.html',1,'']]],
   ['window_2ehpp',['Window.hpp',['../a00185.html',1,'']]],
   ['windowclosed',['WindowClosed',['../a00751.html#aac77dae6bf652d5fc561e31820114860a0d32df43a3eac74e9cd2d76cab2feeaf',1,'bl::engine::Event::ShutdownEvent']]],

@@ -9,6 +9,7 @@ var searchData=
   ['getactivepageindex',['getActivePageIndex',['../a01035.html#aa8a9e3c507f976e6582acc76cd916d78',1,'bl::gui::Notebook']]],
   ['getactivepagename',['getActivePageName',['../a01035.html#a0925e4ea140cfb74c678e79ca829d94c',1,'bl::gui::Notebook']]],
   ['getadjacentnodes',['getAdjacentNodes',['../a00683.html#a73b053225fcfcac442fd79fe5abd064c',1,'bl::ai::PathMap']]],
+  ['getarrow',['getArrow',['../a01235.html#ac347e4eddf2ade88c2410fa1bf38271d',1,'bl::menu::ArrowSelector']]],
   ['getasarray',['getAsArray',['../a01351.html#aa815be13f76c76d9f8b89d14887db0a0',1,'bl::script::Value']]],
   ['getasbool',['getAsBool',['../a00915.html#a3975cf6f383d81c2df789f64936185d6',1,'bl::file::json::Value::getAsBool()'],['../a01351.html#a4eaeb0839f75b81ddb27705cd40ee4ef',1,'bl::script::Value::getAsBool()']]],
   ['getasfunction',['getAsFunction',['../a01351.html#a1d43ba3a23d59e66eb9ba5198b532367',1,'bl::script::Value']]],

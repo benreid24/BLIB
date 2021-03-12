@@ -1,6 +1,7 @@
 var searchData=
 [
   ['data',['data',['../a00987.html#aa99b3b274c3bc63ce4dfd24499627a36',1,'bl::gui::Action::data()'],['../a01263.html#aa80197fd64232776f14ed64176adf1e3',1,'bl::parser::Node::data()'],['../a01311.html#a99f66441e8244543806493b838a3fb4d',1,'bl::resource::Resource::data()']]],
+  ['deactivate',['deactivate',['../a00783.html#a267a30de1f76db32c54676ba7a3bf30e',1,'bl::engine::State']]],
   ['debug',['debug',['../a01119.html#aed4a225248fd95298110965be134530c',1,'bl::logging::Logger::debug()'],['../a01115.html#a32b0a01f1377244acb18aab50588a515',1,'bl::logging::Config::Debug()']]],
   ['debugrenderer',['DebugRenderer',['../a01095.html',1,'bl::gui']]],
   ['debugrenderer_2ecpp',['DebugRenderer.cpp',['../a00497.html',1,'']]],
