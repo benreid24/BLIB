@@ -32,19 +32,13 @@ public:
      * @brief This is called each time the state becomes the active engine state
      *
      */
-    virtual void makeActive(Engine& engine){};
+    virtual void activate(Engine& engine){};
 
     /**
-     * @brief This is called each time this state is pushed down by a new state
+     * @brief This is called each time this state is deactivated
      *
      */
-    virtual void onPushedDown(Engine& engine){};
-
-    /**
-     * @brief This is called when this state is popped off the state stack entirely
-     *
-     */
-    virtual void onPoppedOff(Engine& engine){};
+    virtual void deactivate(Engine& engine){};
 
     /**
      * @brief Perform logic updates
