@@ -1,6 +1,7 @@
 #ifndef BLIB_ENGINE_STATE_HPP
 #define BLIB_ENGINE_STATE_HPP
 
+#include <BLIB/Util/NonCopyable.hpp>
 #include <memory>
 
 namespace bl
@@ -16,7 +17,7 @@ class Engine;
  * @ingroup Engine
  *
  */
-class State {
+class State : private util::NonCopyable {
 public:
     using Ptr = std::shared_ptr<State>;
 
