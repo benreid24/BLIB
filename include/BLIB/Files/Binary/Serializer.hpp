@@ -21,7 +21,7 @@ namespace binary
  * @tparam bool Helper for integral specialization. Can be ignored
  * @ingroup Binary
  */
-template<typename T, bool = std::is_integral<T>::value>
+template<typename T, bool = std::is_integral<T>::value || std::is_enum<T>::value>
 struct Serializer {
     /**
      * @brief Serialize the given value to the given file
@@ -63,9 +63,25 @@ struct Serializer<T, false> {
 
 template<typename T>
 struct Serializer<T, true> {
-    static bool serialize(File& output, const T& value) { return output.write<T>(value); }
+    static bool serialize(File& output, const T& value) {
+        if constexpr (std::is_enum<T>::value) {
+            return output.write<std::underlying_type_t<T>>(
+                static_cast<std::underlying_type_t<T>>(value));
+        }
+        else {
+            return output.write<T>(value);
+        }
+    }
 
-    static bool deserialize(File& input, T& result) { return input.read<T>(result); }
+    static bool deserialize(File& input, T& result) {
+        if constexpr (std::is_enum<T>::value) {
+            return input.read<std::underlying_type_t<T>>(
+                *reinterpret_cast<std::underlying_type_t<T>*>(&result));
+        }
+        else {
+            return input.read<T>(result);
+        }
+    }
 
     static std::uint32_t size(const T&) { return sizeof(T); }
 };
