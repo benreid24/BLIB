@@ -49,6 +49,13 @@ public:
     File(std::iostream& stream, OpenMode mode = Read);
 
     /**
+     * @brief Returns the path that this file was opened with
+     *
+     * @return const std::string& The path this file was opened with
+     */
+    const std::string& filename() const;
+
+    /**
      * @brief Writes an integral type to the file in it's binary representation
      *
      * @tparam T The type to write. It is better to be explicit for code to be cross platform
@@ -112,6 +119,7 @@ public:
 
 private:
     const OpenMode mode;
+    const std::string& openPath;
     std::iostream& stream;
     std::fstream handle;
 };
@@ -120,6 +128,7 @@ private:
 
 inline File::File(const std::string& path, OpenMode mode)
 : mode(mode)
+, openPath(path)
 , stream(handle) {
     if (mode == Read)
         handle.open(path.c_str(), std::ios::in | std::ios::binary);
@@ -129,7 +138,10 @@ inline File::File(const std::string& path, OpenMode mode)
 
 inline File::File(std::iostream& s, OpenMode mode)
 : mode(mode)
+, openPath("<input-stream>")
 , stream(s) {}
+
+inline const std::string& File::filename() const { return openPath; }
 
 template<typename T>
 typename std::enable_if<std::is_integral_v<T>, bool>::type File::write(const T& data) {

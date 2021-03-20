@@ -73,20 +73,20 @@ public:
     /**
      * @brief Writes the given object to the given file
      *
-     * @param path The file to write to
+     * @param output The file to write to
      * @param payload The payload to write
      * @return True if the payload was written, false on error
      */
-    bool write(const std::string& path, const Payload& payload) const;
+    bool write(File& output, const Payload& payload) const;
 
     /**
      * @brief Reads the given object from the given file
      *
-     * @param path The file to read from
+     * @param input The file to read from
      * @param payload The payload to read into
      * @return True if the payload was read, false on error
      */
-    bool read(const std::string& path, Payload& payload) const;
+    bool read(File& input, Payload& payload) const;
 
 private:
     static constexpr std::uint32_t Header = 3257628152;
@@ -109,38 +109,33 @@ VersionedFile<Payload, DefaultLoader, Versions...>::~VersionedFile() {
 }
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
-bool VersionedFile<Payload, DefaultLoader, Versions...>::write(const std::string& path,
+bool VersionedFile<Payload, DefaultLoader, Versions...>::write(File& output,
                                                                const Payload& value) const {
-    File file(path, File::Write);
-
     const Loader* writer = versions.empty() ? defaultLoader : versions.back();
     if (!versions.empty()) {
-        if (!file.write<std::uint32_t>(Header)) return false;
-        if (!file.write<std::uint32_t>(versions.size() - 1)) return false;
+        if (!output.write<std::uint32_t>(Header)) return false;
+        if (!output.write<std::uint32_t>(versions.size() - 1)) return false;
     }
-    return writer->write(value, file);
+    return writer->write(value, output);
 }
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
-bool VersionedFile<Payload, DefaultLoader, Versions...>::read(const std::string& path,
-                                                              Payload& value) const {
-    File file(path, File::Read);
-
+bool VersionedFile<Payload, DefaultLoader, Versions...>::read(File& input, Payload& value) const {
     const Loader* loader = defaultLoader;
     std::uint32_t header = 0;
-    if (!file.peek<uint32_t>(header)) return false;
+    if (!input.peek<uint32_t>(header)) return false;
     if (header == Header) {
         std::uint32_t version;
-        file.read<std::uint32_t>(header); // skip header
-        if (!file.read<std::uint32_t>(version)) return false;
+        input.read<std::uint32_t>(header); // skip header
+        if (!input.read<std::uint32_t>(version)) return false;
         if (version >= versions.size()) {
-            BL_LOG_ERROR << "Invalid file version: file=" << path << " version=" << version
+            BL_LOG_ERROR << "Invalid file version: file=" << input.filename() << " version=" << version
                          << " max version=" << versions.size() - 1;
             return false;
         }
         loader = versions.at(version);
     }
-    return loader->read(value, file);
+    return loader->read(value, input);
 }
 
 } // namespace binary
