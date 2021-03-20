@@ -123,6 +123,39 @@ struct Serializer<std::vector<U>, false> {
     }
 };
 
+template<typename TKey, typename TValue>
+struct Serializer<std::unordered_map<TKey, TValue>, false> {
+    static bool serialize(File& output, const std::unordered_map<TKey, TValue>& value) {
+        if (!output.write<std::uint32_t>(value.size())) return false;
+        for (const auto& pair : value) {
+            if (!Serializer<TKey>::serialize(output, pair.first)) return false;
+            if (!Serializer<TValue>::serialize(output, pair.second)) return false;
+        }
+        return true;
+    }
+
+    static bool deserialize(File& input, std::unordered_map<TKey, TValue>& value) {
+        std::uint32_t size;
+        if (!input.read<std::uint32_t>(size)) return false;
+        for (std::uint32_t i = 0; i < size; ++i) {
+            TKey key;
+            if (!Serializer<TKey>::deserialize(input, key)) return false;
+            auto it = value.try_emplace(key).first;
+            if (!Serializer<TValue>::deserialize(input, it->second)) return false;
+        }
+        return true;
+    }
+
+    static std::uint32_t size(const std::unordered_map<TKey, TValue>& value) {
+        std::uint32_t ms = 0;
+        for (const auto& pair : value) {
+            ms += Serializer<TKey>::size(pair.first);
+            ms += Serializer<TValue>::size(pair.second);
+        }
+        return sizeof(std::uint32_t) + ms;
+    }
+};
+
 } // namespace binary
 } // namespace file
 } // namespace bl
