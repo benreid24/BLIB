@@ -130,6 +130,25 @@ TEST(BinarySerializableField, StringMap) {
     }
 }
 
+TEST(BinarySerializableField, SfVector) {
+    SerializableObject owner;
+    SerializableField<1, sf::Vector2i> field(owner);
+    field.setValue({15, 32});
+
+    {
+        File output("stringtest.bin", File::Write);
+        ASSERT_TRUE(field.serialize(output));
+    }
+
+    SerializableField<1, sf::Vector2i> loaded(owner);
+    {
+        File input("stringtest.bin", File::Read);
+        ASSERT_TRUE(loaded.deserialize(input));
+    }
+
+    EXPECT_EQ(field.getValue(), loaded.getValue());
+}
+
 } // namespace unittest
 } // namespace binary
 } // namespace file

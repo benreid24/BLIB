@@ -4,6 +4,7 @@
 #include <BLIB/Files/Binary/File.hpp>
 #include <BLIB/Files/Binary/SerializableObject.hpp>
 
+#include <SFML/System/Vector2.hpp>
 #include <type_traits>
 
 namespace bl
@@ -154,6 +155,21 @@ struct Serializer<std::unordered_map<TKey, TValue>, false> {
         }
         return sizeof(std::uint32_t) + ms;
     }
+};
+
+template<>
+struct Serializer<sf::Vector2i> {
+    static bool serialize(File& output, const sf::Vector2i& v) {
+        if (!output.write<std::int32_t>(v.x)) return false;
+        return output.write<std::int32_t>(v.y);
+    }
+
+    static bool deserialize(File& input, sf::Vector2i& v) {
+        if (!input.read<std::int32_t>(v.x)) return false;
+        return input.read<std::int32_t>(v.y);
+    }
+
+    static std::uint32_t size(const sf::Vector2i&) { return sizeof(std::uint32_t) * 2; }
 };
 
 } // namespace binary
