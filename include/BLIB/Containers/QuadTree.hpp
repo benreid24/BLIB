@@ -8,6 +8,14 @@ namespace bl
 {
 namespace container
 {
+/**
+ * @brief Fairly basic implementation of a quadtree for spatially partitioning objects. Works most
+ *        efficiently if the payload type is trivially movable. Stored objects are keyed on position
+ *
+ * @tparam TCoord The type of coordinate to use. Must contain members x and y and define operator ==
+ * @tparam TPayload The type of payload to store
+ * @ingroup Containers
+ */
 template<typename TCoord, typename TPayload>
 class QuadTree {
     struct Partition;
@@ -15,18 +23,63 @@ class QuadTree {
 public:
     struct Area;
 
+    /**
+     * @brief Stores an iterable result set from a QuadTree query
+     *
+     * @ingroup Containers
+     *
+     */
     class ResultSet {
     public:
+        /**
+         * @brief Special iterator for traversing a ResultSet
+         *
+         * @ingroup Containers
+         *
+         */
         class Iterator {
         public:
+            /**
+             * @brief Dereference the iterator to the base value
+             *
+             * @return TPayload& A reference to the underlying value. Iterator must be valid
+             */
             TPayload& operator*();
 
+            /**
+             * @brief Returns a pointer to the underlying value
+             *
+             * @return TPayload* Pointer to underlying payload. Iterator must be valid
+             */
             TPayload* operator->();
 
+            /**
+             * @brief Returns the position of the underlying object
+             *
+             * @return const TCoord& The position of the object this iterator points to
+             */
+            const TCoord& position();
+
+            /**
+             * @brief Increments the iterator to the next available value
+             *
+             */
             void operator++();
 
+            /**
+             * @brief Compares this iterator to another
+             *
+             * @param it The iterator to compare to
+             * @return True if equal, false otherwise
+             */
             bool operator==(const Iterator& it) const;
 
+            /**
+             * @brief Compares this iterator to another
+             *
+             * @param it The iterator to compare to
+             * @return True if not equal, false otherwise
+             */
             bool operator!=(const Iterator& it) const;
 
         private:
@@ -39,8 +92,18 @@ public:
             friend class ResultSet;
         };
 
+        /**
+         * @brief Returns an iterator to the first item in the set
+         *
+         * @return Iterator An iterator to the first item in the set
+         */
         Iterator begin();
 
+        /**
+         * @brief Returns an iterator to the last item in the set
+         *
+         * @return Iterator An iterator to the last item in the set
+         */
         Iterator end();
 
     private:
@@ -51,52 +114,175 @@ public:
         friend class QuadTree;
     };
 
+    /**
+     * @brief Creates an empty QuadTree
+     *
+     */
     QuadTree();
 
+    /**
+     * @brief Copies the QuadTree
+     *
+     * @param copy The tree to copy from
+     */
     QuadTree(const QuadTree& copy);
 
+    /**
+     * @brief Takes ownership of the objects stored in the given tree
+     *
+     * @param move The tree to inherit objects and partitions from
+     */
     QuadTree(QuadTree&& move);
 
+    /**
+     * @brief Cleans up resources
+     *
+     */
     ~QuadTree();
 
+    /**
+     * @brief Set the max number of objects allowed in a single partition. Partitions that exceed
+     *        this size are subdivided until each new partition is under the max size
+     *
+     * @param maxLoad The maximum number of objects allowed in a single quad
+     */
     void setMaxLoad(std::size_t maxLoad);
 
+    /**
+     * @brief Set the area over which partitioning will occur. QuadTree can handle objects outside
+     *        of the given area but is more performant if the area is accurate
+     *
+     * @param area The spatial region objects will be contained within
+     */
     void setIndexedArea(const Area& area);
 
+    /**
+     * @brief Adds the given object to the QuadTree at the given position. Objects are keyed on
+     *        position and may only be removed if their exact position in the tree is available
+     *
+     * @param position The position to add the object at
+     * @param value The object to add
+     */
     void add(const TCoord& position, const TPayload& value);
 
+    /**
+     * @brief Adds the given object to the QuadTree at the given position. Objects are keyed on
+     *        position and may only be removed if their exact position in the tree is available
+     *
+     * @param position The position to add the object at
+     * @param value The object to add
+     */
     void add(const TCoord& position, TPayload&& value);
 
+    /**
+     * @brief Updates the position of an object using its old position
+     *
+     * @param oldPosition The position the object is currently at
+     * @param newPosition The position to move the object to
+     * @return True if an object was moved, false if no object was moved
+     */
     bool updatePosition(const TCoord& oldPosition, const TCoord& newPosition);
 
+    /**
+     * @brief Removes an object from the QuadTree by its position
+     *
+     * @param position The position of the object to remove
+     * @return True if an object was removed, false if no object is at the position
+     */
     bool remove(const TCoord& position);
 
+    /**
+     * @brief Returns an iterable set of all contained objects
+     *
+     * @return ResultSet A set containing all stored objects
+     */
     ResultSet all();
 
+    /**
+     * @brief Returns a set of objects contained or nearby the given area
+     *
+     * @param area The area to search for objects within
+     * @return ResultSet A set containing objects near the given area
+     */
     ResultSet getInArea(const Area& area);
 
+    /**
+     * @brief Returns objects immediately nearby the given position. This returns a single partition
+     *        of objects and as such may omit nearby objects if they are in a different partition
+     *
+     * @param position The position to query for objects at
+     * @return ResultSet A set containing objects in the same partition as the given position
+     */
     ResultSet getQuad(const TCoord& position);
 
+    /**
+     * @brief Removes all stored objects
+     *
+     */
     void clear();
 
+    /**
+     * @brief Helper struct that represents a spatial region
+     *
+     * @ingroup Containers
+     *
+     */
     struct Area {
         TCoord position;
         TCoord size;
 
+        /**
+         * @brief Creates an empty area
+         *
+         */
         Area() = default;
 
+        /**
+         * @brief Creates an area from the given position and size
+         *
+         * @param position The top left corner of the area
+         * @param size The size of the area
+         */
         Area(const TCoord& position, const TCoord& size);
 
+        /**
+         * @brief Tests whether or not this area contains the given point
+         *
+         * @param point The point to check
+         * @return True if contained, false if outside
+         */
         bool contains(const TCoord& point) const;
 
+        /**
+         * @brief Tests whether or not this area intersects the other area
+         *
+         * @param area The area to test
+         * @return True if the areas intersect, false if disjoint
+         */
         bool intersects(const Area& area) const;
 
+        /**
+         * @brief Returns the top left quadrant of this area
+         *
+         */
         Area topLeft() const;
 
+        /**
+         * @brief Returns the top right quadrant of this area
+         *
+         */
         Area topRight() const;
 
+        /**
+         * @brief Returns the bottom left quadrant of this area
+         *
+         */
         Area bottomLeft() const;
 
+        /**
+         * @brief Returns the bottom right quadrant of this area
+         *
+         */
         Area bottomRight() const;
     };
 
@@ -478,6 +664,11 @@ QuadTree<TCoord, TPayload>::ResultSet::Iterator::Iterator(std::vector<Partition*
 template<typename TCoord, typename TPayload>
 TPayload& QuadTree<TCoord, TPayload>::ResultSet::Iterator::operator*() {
     return leafs[leafIndex]->entities[valueIndex].second;
+}
+
+template<typename TCoord, typename TPayload>
+const TCoord& QuadTree<TCoord, TPayload>::ResultSet::Iterator::position() {
+    return leafs[leafIndex]->entities[valueIndex].first;
 }
 
 template<typename TCoord, typename TPayload>
