@@ -31,6 +31,21 @@ public:
     template<typename EType>
     struct IteratorType {
         /**
+         * @brief Copies from the given iterator
+         *
+         * @param copy The iterator to copy from
+         */
+        IteratorType(const IteratorType& copy);
+
+        /**
+         * @brief Copies from the given iterator
+         *
+         * @param copy The iterator to copy from
+         * @return IteratorType& A reference to this iterator
+         */
+        IteratorType& operator=(const IteratorType& copy);
+
+        /**
          * @brief Returns a reference to the underlying object. Undefined behavior if invalid
          *
          */
@@ -81,7 +96,7 @@ public:
     private:
         IteratorType(std::vector<Entry>& pool, long long int i);
 
-        std::vector<Entry>& pool;
+        std::vector<Entry>* pool;
         long long int i;
 
         friend class DynamicObjectPool;
@@ -394,19 +409,34 @@ template<typename T>
 template<typename ET>
 DynamicObjectPool<T>::IteratorType<ET>::IteratorType(std::vector<DynamicObjectPool<T>::Entry>& pool,
                                                      long long int i)
-: pool(pool)
+: pool(&pool)
 , i(i) {}
 
 template<typename T>
 template<typename ET>
+DynamicObjectPool<T>::IteratorType<ET>::IteratorType::IteratorType(const IteratorType& copy)
+: pool(copy.pool)
+, i(copy.i) {}
+
+template<typename T>
+template<typename ET>
+DynamicObjectPool<T>::IteratorType<ET>&
+DynamicObjectPool<T>::IteratorType<ET>::IteratorType ::operator=(const IteratorType& copy) {
+    pool = copy.pool;
+    i    = copy.i;
+    return *this;
+}
+
+template<typename T>
+template<typename ET>
 ET& DynamicObjectPool<T>::IteratorType<ET>::operator*() {
-    return *pool[i].cast();
+    return *(*pool)[i].cast();
 }
 
 template<typename T>
 template<typename ET>
 ET* DynamicObjectPool<T>::IteratorType<ET>::operator->() {
-    return pool[i].cast();
+    return (*pool)[i].cast();
 }
 
 template<typename T>
@@ -414,8 +444,8 @@ template<typename ET>
 typename DynamicObjectPool<T>::template IteratorType<ET>&
 DynamicObjectPool<T>::IteratorType<ET>::operator++() {
     ++i;
-    while (i < pool.size() && !pool[i].alive()) { ++i; }
-    if (i == pool.size() - 1 && !pool[i].alive()) ++i;
+    while (i < pool->size() && !(*pool)[i].alive()) { ++i; }
+    if (i == pool->size() - 1 && !(*pool)[i].alive()) ++i;
     return *this;
 }
 
@@ -424,7 +454,7 @@ template<typename ET>
 typename DynamicObjectPool<T>::template IteratorType<ET>&
 DynamicObjectPool<T>::IteratorType<ET>::operator--() {
     --i;
-    while (i > 0 && !pool[i].alive()) { --i; }
+    while (i > 0 && !(*pool)[i].alive()) { --i; }
     return *this;
 }
 
@@ -449,13 +479,13 @@ DynamicObjectPool<T>::IteratorType<ET>::operator-(int d) const {
 template<typename T>
 template<typename ET>
 bool DynamicObjectPool<T>::IteratorType<ET>::operator==(const IteratorType<ET>& right) const {
-    return &pool == &right.pool && i == right.i;
+    return pool == right.pool && i == right.i;
 }
 
 template<typename T>
 template<typename ET>
 bool DynamicObjectPool<T>::IteratorType<ET>::operator!=(const IteratorType<ET>& right) const {
-    return &pool != &right.pool || i != right.i;
+    return pool != right.pool || i != right.i;
 }
 
 } // namespace container
