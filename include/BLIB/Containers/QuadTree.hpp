@@ -109,11 +109,13 @@ private:
 
         Partition(Partition* parent);
         Partition(Partition* parent, const Partition& copy);
+        Partition(Partition* parent, const Area& area);
         ~Partition();
 
-        void partitionChildren();
+        void tryCollapseChildren(std::size_t maxLoad);
+        void partitionChildren(std::size_t maxLoad);
         bool isLeaf() const;
-        void addSelf(std::vector<Partition*>& results) const;
+        void addSelf(std::vector<Partition*>& results);
     };
 
     static std::size_t index(const Area& area, const TCoord& size);
@@ -173,14 +175,14 @@ template<typename TCoord, typename TPayload>
 void QuadTree<TCoord, TPayload>::add(const TCoord& pos, const TPayload& val) {
     Partition* current = findLeaf(pos);
     current->entities.emplace_back(pos, val);
-    if (current->entities.size() > maxLoad) current->partitionChildren();
+    if (current->entities.size() > maxLoad) current->partitionChildren(maxLoad);
 }
 
 template<typename TCoord, typename TPayload>
 void QuadTree<TCoord, TPayload>::add(const TCoord& pos, TPayload&& val) {
     Partition* current = findLeaf(pos);
     current->entities.emplace_back(pos, std::forward<TPayload>(val));
-    if (current->entities.size() > maxLoad) current->partitionChildren();
+    if (current->entities.size() > maxLoad) current->partitionChildren(maxLoad);
 }
 
 template<typename TCoord, typename TPayload>
@@ -188,9 +190,9 @@ bool QuadTree<TCoord, TPayload>::updatePosition(const TCoord& oldPos, const TCoo
     Partition* p = findLeaf(oldPos);
     for (unsigned int i = 0; i < p->entities.size(); ++i) {
         if (p->entities[i].first == oldPos) {
-            const TPayload temp(std::move<TPayload>(p->entities[i].second));
+            TPayload temp(std::forward<TPayload>(p->entities[i].second));
             p->entities.erase(p->entities.begin() + i);
-            add(newPos, std::move<TPayload>(temp));
+            add(newPos, std::forward<TPayload>(temp));
             return true;
         }
     }
@@ -201,8 +203,9 @@ template<typename TCoord, typename TPayload>
 bool QuadTree<TCoord, TPayload>::remove(const TCoord& pos) {
     Partition* p = findLeaf(pos);
     for (unsigned int i = 0; i < p->entities.size(); ++i) {
-        if (p->entities[i].first == oldPos) {
+        if (p->entities[i].first == pos) {
             p->entities.erase(p->entities.begin() + i);
+            if (p->parent) p->parent->tryCollapseChildren(maxLoad);
             return true;
         }
     }
@@ -210,21 +213,24 @@ bool QuadTree<TCoord, TPayload>::remove(const TCoord& pos) {
 }
 
 template<typename TCoord, typename TPayload>
-QuadTree<TCoord, TPayload>::ResultSet QuadTree<TCoord, TPayload>::all() {
+typename QuadTree<TCoord, TPayload>::ResultSet QuadTree<TCoord, TPayload>::all() {
     ResultSet result;
     top->addSelf(result.leafs);
     return result;
 }
 
 template<typename TCoord, typename TPayload>
-QuadTree<TCoord, TPayload>::ResultSet QuadTree<TCoord, TPayload>::getQuad(const TCoord& pos) {
+typename QuadTree<TCoord, TPayload>::ResultSet QuadTree<TCoord, TPayload>::getQuad(
+    const TCoord& pos) {
     ResultSet result;
-    result.leafs.push_back(findLeaf(pos));
+    Partition* p = findLeaf(pos);
+    if (!p->entities.empty()) result.leafs.push_back(p);
     return result;
 }
 
 template<typename TCoord, typename TPayload>
-QuadTree<TCoord, TPayload>::ResultSet QuadTree<TCoord, TPayload>::getInArea(const Area& area) {
+typename QuadTree<TCoord, TPayload>::ResultSet QuadTree<TCoord, TPayload>::getInArea(
+    const Area& area) {
     ResultSet result;
     result.leafs.reserve(10);
 
@@ -236,8 +242,9 @@ QuadTree<TCoord, TPayload>::ResultSet QuadTree<TCoord, TPayload>::getInArea(cons
         Partition* current = toVisit.back();
         toVisit.pop_back();
 
-        if (current->isLeaf())
-            result.leafs.push_back(current);
+        if (current->isLeaf()) {
+            if (!current->entities.empty()) result.leafs.push_back(current);
+        }
         else {
             toVisit.reserve(toVisit.size() + 4);
             for (unsigned int i = 0; i < 4; ++i) {
@@ -254,21 +261,20 @@ QuadTree<TCoord, TPayload>::ResultSet QuadTree<TCoord, TPayload>::getInArea(cons
 template<typename TCoord, typename TPayload>
 void QuadTree<TCoord, TPayload>::clear() {
     Partition* oldTop = top;
-    top               = new Partition(nullptr);
-    top->area         = oldTop->area;
+    top               = new Partition(nullptr, top->area);
     delete oldTop;
 }
 
 template<typename TCoord, typename TPayload>
 std::size_t QuadTree<TCoord, TPayload>::index(const Area& area, const TCoord& pos) {
-    if (area.position.x + area.size.x / 2.f > pos.x) {
-        if (area.position.y + area.size.y / 2.f > pos.y)
+    if (area.position.x + area.size.x / 2 > pos.x) {
+        if (area.position.y + area.size.y / 2 > pos.y)
             return TopLeft;
         else
             return BottomLeft;
     }
     else {
-        if (area.position.y + area.size.y / 2.f > pos.y)
+        if (area.position.y + area.size.y / 2 > pos.y)
             return TopRight;
         else
             return BottomRight;
@@ -276,10 +282,10 @@ std::size_t QuadTree<TCoord, TPayload>::index(const Area& area, const TCoord& po
 }
 
 template<typename TCoord, typename TPayload>
-QuadTree<TCoord, TPayload>::Partition* QuadTree<TCoord, TPayload>::findLeaf(
+typename QuadTree<TCoord, TPayload>::Partition* QuadTree<TCoord, TPayload>::findLeaf(
     const TCoord& pos) const {
     Partition* current = top;
-    while (!current->isLeaf()) { current = current->children(index(current->area, pos)); }
+    while (!current->isLeaf()) { current = current->children[index(current->area, pos)]; }
     return current;
 }
 
@@ -287,8 +293,7 @@ template<typename TCoord, typename TPayload>
 void QuadTree<TCoord, TPayload>::repartition() {
     ResultSet a       = all();
     Partition* oldTop = top;
-    top               = new Partition(nullptr);
-    top->area         = oldTop->area;
+    top               = new Partition(nullptr, top->area);
     for (Partition* p : a.leafs) {
         for (const auto& pair : p->entities) { add(pair.first, pair.second); }
     }
@@ -305,8 +310,18 @@ QuadTree<TCoord, TPayload>::Partition::Partition(Partition* parent)
 }
 
 template<typename TCoord, typename TPayload>
+QuadTree<TCoord, TPayload>::Partition::Partition(Partition* parent, const Area& area)
+: parent(parent)
+, area(area) {
+    children[0] = nullptr;
+    children[1] = nullptr;
+    children[2] = nullptr;
+    children[3] = nullptr;
+}
+
+template<typename TCoord, typename TPayload>
 QuadTree<TCoord, TPayload>::Partition::Partition(Partition* parent, const Partition& copy)
-: Partition(parent)
+: parent(parent)
 , area(copy.area)
 , entities(copy.entities) {
     if (!copy.isLeaf()) {
@@ -314,6 +329,12 @@ QuadTree<TCoord, TPayload>::Partition::Partition(Partition* parent, const Partit
         children[1] = new Partition(this, *copy.children[1]);
         children[2] = new Partition(this, *copy.children[2]);
         children[3] = new Partition(this, *copy.children[3]);
+    }
+    else {
+        children[0] = nullptr;
+        children[1] = nullptr;
+        children[2] = nullptr;
+        children[3] = nullptr;
     }
 }
 
@@ -328,17 +349,52 @@ QuadTree<TCoord, TPayload>::Partition::~Partition() {
 }
 
 template<typename TCoord, typename TPayload>
-void QuadTree<TCoord, TPayload>::Partition::partitionChildren() {
-    children[TopLeft]     = new Partition(area.topLeft());
-    children[BottomLeft]  = new Partition(area.bottomLeft());
-    children[TopRight]    = new Partition(area.topRight());
-    children[BottomRight] = new Partition(area.bottomRight());
+void QuadTree<TCoord, TPayload>::Partition::tryCollapseChildren(std::size_t maxLoad) {
+    const std::size_t load = children[0]->entities.size() + children[1]->entities.size() +
+                             children[2]->entities.size() + children[3]->entities.size();
+    if (load <= maxLoad) {
+        entities.reserve(load);
+        entities.insert(entities.end(),
+                        std::make_move_iterator(children[0]->entities.begin()),
+                        std::make_move_iterator(children[0]->entities.end()));
+        entities.insert(entities.end(),
+                        std::make_move_iterator(children[1]->entities.begin()),
+                        std::make_move_iterator(children[1]->entities.end()));
+        entities.insert(entities.end(),
+                        std::make_move_iterator(children[2]->entities.begin()),
+                        std::make_move_iterator(children[2]->entities.end()));
+        entities.insert(entities.end(),
+                        std::make_move_iterator(children[3]->entities.begin()),
+                        std::make_move_iterator(children[3]->entities.end()));
+        delete children[0];
+        delete children[1];
+        delete children[2];
+        delete children[3];
+        children[0] = nullptr;
+        children[1] = nullptr;
+        children[2] = nullptr;
+        children[3] = nullptr;
+        if (parent) parent->tryCollapseChildren(maxLoad);
+    }
+}
 
-    for (auto& pair : entities) {
+template<typename TCoord, typename TPayload>
+void QuadTree<TCoord, TPayload>::Partition::partitionChildren(std::size_t maxLoad) {
+    children[TopLeft]     = new Partition(this, area.topLeft());
+    children[BottomLeft]  = new Partition(this, area.bottomLeft());
+    children[TopRight]    = new Partition(this, area.topRight());
+    children[BottomRight] = new Partition(this, area.bottomRight());
+
+    for (auto&& pair : entities) {
         children[QuadTree<TCoord, TPayload>::index(area, pair.first)]->entities.emplace_back(
-            std::move<std::pair<TCoord, TPayload>>(pair));
+            std::move(pair));
     }
     entities.clear();
+
+    if (children[0]->entities.size() > maxLoad) children[0]->partitionChildren(maxLoad);
+    if (children[1]->entities.size() > maxLoad) children[1]->partitionChildren(maxLoad);
+    if (children[2]->entities.size() > maxLoad) children[2]->partitionChildren(maxLoad);
+    if (children[3]->entities.size() > maxLoad) children[3]->partitionChildren(maxLoad);
 }
 
 template<typename TCoord, typename TPayload>
@@ -347,8 +403,10 @@ bool QuadTree<TCoord, TPayload>::Partition::isLeaf() const {
 }
 
 template<typename TCoord, typename TPayload>
-void QuadTree<TCoord, TPayload>::Partition::addSelf(std::vector<Partition*>& v) const {
-    if (isLeaf()) { v.push_back(this); }
+void QuadTree<TCoord, TPayload>::Partition::addSelf(std::vector<Partition*>& v) {
+    if (isLeaf()) {
+        if (!entities.empty()) v.push_back(this);
+    }
     else {
         children[0]->addSelf(v);
         children[1]->addSelf(v);
@@ -379,33 +437,34 @@ bool QuadTree<TCoord, TPayload>::Area::intersects(const Area& area) const {
 }
 
 template<typename TCoord, typename TPayload>
-QuadTree<TCoord, TPayload>::Area QuadTree<TCoord, TPayload>::Area::topLeft() const {
-    return Area(position, {size.x / 2.f, size.y / 2.f});
+typename QuadTree<TCoord, TPayload>::Area QuadTree<TCoord, TPayload>::Area::topLeft() const {
+    return Area(position, {size.x / 2, size.y / 2});
 }
 
 template<typename TCoord, typename TPayload>
-QuadTree<TCoord, TPayload>::Area QuadTree<TCoord, TPayload>::Area::topRight() const {
-    return Area({position.x + size.x / 2.f, position.y}, {size.x / 2.f, size.y / 2.f});
+typename QuadTree<TCoord, TPayload>::Area QuadTree<TCoord, TPayload>::Area::topRight() const {
+    return Area({position.x + size.x / 2, position.y}, {size.x / 2, size.y / 2});
 }
 
 template<typename TCoord, typename TPayload>
-QuadTree<TCoord, TPayload>::Area QuadTree<TCoord, TPayload>::Area::bottomRight() const {
-    return Area({position.x + size.x / 2.f, position.y + size.y / 2.f},
-                {size.x / 2.f, size.y / 2.f});
+typename QuadTree<TCoord, TPayload>::Area QuadTree<TCoord, TPayload>::Area::bottomRight() const {
+    return Area({position.x + size.x / 2, position.y + size.y / 2}, {size.x / 2, size.y / 2});
 }
 
 template<typename TCoord, typename TPayload>
-QuadTree<TCoord, TPayload>::Area QuadTree<TCoord, TPayload>::Area::bottomLeft() const {
-    return Area({position.x, position.y + size.y / 2.f}, {size.x / 2.f, size.y / 2.f});
+typename QuadTree<TCoord, TPayload>::Area QuadTree<TCoord, TPayload>::Area::bottomLeft() const {
+    return Area({position.x, position.y + size.y / 2}, {size.x / 2, size.y / 2});
 }
 
 template<typename TCoord, typename TPayload>
-QuadTree<TCoord, TPayload>::ResultSet::Iterator QuadTree<TCoord, TPayload>::ResultSet::begin() {
+typename QuadTree<TCoord, TPayload>::ResultSet::Iterator
+QuadTree<TCoord, TPayload>::ResultSet::begin() {
     return {leafs, 0, 0};
 }
 
 template<typename TCoord, typename TPayload>
-QuadTree<TCoord, TPayload>::ResultSet::Iterator QuadTree<TCoord, TPayload>::ResultSet::end() {
+typename QuadTree<TCoord, TPayload>::ResultSet::Iterator
+QuadTree<TCoord, TPayload>::ResultSet::end() {
     return {leafs, leafs.size(), 0};
 }
 
@@ -418,12 +477,12 @@ QuadTree<TCoord, TPayload>::ResultSet::Iterator::Iterator(std::vector<Partition*
 
 template<typename TCoord, typename TPayload>
 TPayload& QuadTree<TCoord, TPayload>::ResultSet::Iterator::operator*() {
-    return leafs[leafIndex]->entities[valueIndex];
+    return leafs[leafIndex]->entities[valueIndex].second;
 }
 
 template<typename TCoord, typename TPayload>
 TPayload* QuadTree<TCoord, TPayload>::ResultSet::Iterator::operator->() {
-    return &leafs[leafIndex]->entities[valueIndex];
+    return &leafs[leafIndex]->entities[valueIndex].second;
 }
 
 template<typename TCoord, typename TPayload>

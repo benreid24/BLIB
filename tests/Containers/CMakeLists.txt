@@ -5,4 +5,5 @@ target_sources(BLIB.t PUBLIC
     RingBuffer.t.cpp
     FastEraseVector.t.cpp
     DynamicObjectPool.t.cpp
+    QuadTree.t.cpp
 )
