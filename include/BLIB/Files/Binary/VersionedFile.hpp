@@ -24,6 +24,12 @@ namespace binary
 template<typename Payload>
 struct VersionedPayloadLoader {
     /**
+     * @brief Destroy the Versioned Payload Loader object
+     *
+     */
+    virtual ~VersionedPayloadLoader() = default;
+
+    /**
      * @brief Read the object from the given file
      *
      * @param result The object to read data into
@@ -129,8 +135,8 @@ bool VersionedFile<Payload, DefaultLoader, Versions...>::read(File& input, Paylo
         input.read<std::uint32_t>(header); // skip header
         if (!input.read<std::uint32_t>(version)) return false;
         if (version >= versions.size()) {
-            BL_LOG_ERROR << "Invalid file version: file=" << input.filename() << " version=" << version
-                         << " max version=" << versions.size() - 1;
+            BL_LOG_ERROR << "Invalid file version: file=" << input.filename()
+                         << " version=" << version << " max version=" << versions.size() - 1;
             return false;
         }
         loader = versions.at(version);
