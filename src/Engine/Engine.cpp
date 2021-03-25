@@ -1,6 +1,5 @@
 #include <BLIB/Engine/Engine.hpp>
 
-#include <BLIB/Engine/Event.hpp>
 #include <BLIB/Logging.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
@@ -13,7 +12,7 @@ Engine::Engine(const Settings& settings)
 : renderWindow(nullptr)
 , engineSettings(settings) {}
 
-event::Dispatcher& Engine::eventBus() { return engineEventBus; }
+bl::event::Dispatcher& Engine::eventBus() { return engineEventBus; }
 
 entity::Registry& Engine::entities() { return entityRegistry; }
 
@@ -70,7 +69,7 @@ bool Engine::run(State::Ptr initialState) {
     }
 
     initialState->activate(*this);
-    engineEventBus.dispatch<Event>({Event::StartupEvent{initialState}});
+    engineEventBus.dispatch<event::Startup>({initialState});
 
     while (true) {
         // Clear flags from last loop
@@ -83,20 +82,18 @@ bool Engine::run(State::Ptr initialState) {
                 engineEventBus.dispatch<sf::Event>(event);
 
                 if (event.type == sf::Event::Closed) {
-                    engineEventBus.dispatch<Event>(
-                        Event::ShutdownEvent({Event::ShutdownEvent::WindowClosed}));
+                    engineEventBus.dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
                     renderWindow->close();
                     return true;
                 }
                 else if (event.type == sf::Event::LostFocus) {
-                    engineEventBus.dispatch<Event>({Event::PausedEvent()});
+                    engineEventBus.dispatch<event::Paused>({});
                     if (!awaitFocus()) {
-                        engineEventBus.dispatch<Event>(
-                            Event::ShutdownEvent({Event::ShutdownEvent::WindowClosed}));
+                        engineEventBus.dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
                         renderWindow->close();
                         return true;
                     }
-                    engineEventBus.dispatch<Event>({Event::ResumedEvent()});
+                    engineEventBus.dispatch<event::Resumed>({});
                 }
                 // more events?
             }
@@ -141,8 +138,7 @@ bool Engine::run(State::Ptr initialState) {
 
         // Process flags
         if (engineFlags.active(Flags::Terminate)) {
-            engineEventBus.dispatch<Event>(
-                {Event::ShutdownEvent{Event::ShutdownEvent::Terminated}});
+            engineEventBus.dispatch<event::Shutdown>({event::Shutdown::Terminated});
             if (renderWindow) renderWindow->close();
             return true;
         }
@@ -153,14 +149,13 @@ bool Engine::run(State::Ptr initialState) {
             states.pop();
             if (states.empty()) {
                 BL_LOG_INFO << "Final state popped, exiting";
-                engineEventBus.dispatch<Event>(
-                    {Event::ShutdownEvent{Event::ShutdownEvent::FinalStatePopped}});
+                engineEventBus.dispatch<event::Shutdown>({event::Shutdown::FinalStatePopped});
                 if (renderWindow) renderWindow->close();
                 return true;
             }
             BL_LOG_INFO << "New engine state: " << states.top()->name();
             states.top()->activate(*this);
-            engineEventBus.dispatch<Event>({Event::StateChangeEvent{states.top(), prev}});
+            engineEventBus.dispatch<event::StateChange>({states.top(), prev});
         }
 
         // Handle state transition
@@ -170,7 +165,7 @@ bool Engine::run(State::Ptr initialState) {
             prev->deactivate(*this);
             states.push(newState);
             states.top()->activate(*this);
-            engineEventBus.dispatch<Event>({Event::StateChangeEvent{states.top(), prev}});
+            engineEventBus.dispatch<event::StateChange>({states.top(), prev});
             newState = nullptr;
         }
 

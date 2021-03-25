@@ -4,7 +4,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <stack>
 
-#include <BLIB/Engine/Event.hpp>
+#include <BLIB/Engine/Events.hpp>
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
@@ -44,7 +44,7 @@ public:
      *        events are pushed through this bus
      *
      */
-    event::Dispatcher& eventBus();
+    bl::event::Dispatcher& eventBus();
 
     /**
      * @brief Returns a reference to the engine's script Manager
@@ -97,7 +97,7 @@ private:
     State::Ptr newState;
 
     std::shared_ptr<sf::RenderWindow> renderWindow;
-    event::Dispatcher engineEventBus;
+    bl::event::Dispatcher engineEventBus;
     script::Manager engineScriptManager;
     entity::Registry entityRegistry;
 

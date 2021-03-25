@@ -1,6 +1,7 @@
 #include <BLIB/Engine.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
+#include <any>
 #include <gtest/gtest.h>
 #include <vector>
 
@@ -176,19 +177,22 @@ TEST(Engine, FixedTimestep) {
     }
 }
 
-struct EventReceiver : public bl::event::Listener<Event> {
-    EventReceiver(std::vector<Event>& recv)
+struct EventReceiver
+: public bl::event::Listener<event::Startup, event::StateChange, event::Shutdown> {
+    EventReceiver(std::vector<std::any>& recv)
     : recv(recv) {}
 
-    virtual void observe(const Event& event) override { recv.push_back(event); }
+    virtual void observe(const event::Startup& event) override { recv.push_back({event}); }
+    virtual void observe(const event::StateChange& event) override { recv.push_back({event}); }
+    virtual void observe(const event::Shutdown& event) override { recv.push_back({event}); }
 
 private:
-    std::vector<Event>& recv;
+    std::vector<std::any>& recv;
 };
 
 TEST(Engine, EventsStartShutdownStateChanges) {
     Engine engine(Settings().withCreateWindow(false));
-    std::vector<Event> events;
+    std::vector<std::any> events;
     EventReceiver listener(events);
     engine.eventBus().subscribe(&listener);
 
@@ -200,16 +204,16 @@ TEST(Engine, EventsStartShutdownStateChanges) {
     ASSERT_EQ(engine.run(firstPtr), true);
 
     ASSERT_EQ(events.size(), 4);
-    EXPECT_EQ(events[0].type, Event::Type::Startup);
-    EXPECT_EQ(events[1].type, Event::Type::StateChange);
-    EXPECT_EQ(events[2].type, Event::Type::StateChange);
-    EXPECT_EQ(events[3].type, Event::Type::Shutdown);
-    EXPECT_EQ(events[3].shutdown.cause, Event::ShutdownEvent::FinalStatePopped);
+    EXPECT_EQ(events[0].type(), typeid(event::Startup));
+    EXPECT_EQ(events[1].type(), typeid(event::StateChange));
+    EXPECT_EQ(events[2].type(), typeid(event::StateChange));
+    EXPECT_EQ(events[3].type(), typeid(event::Shutdown));
+    EXPECT_EQ(std::any_cast<event::Shutdown>(events[3]).cause, event::Shutdown::FinalStatePopped);
 }
 
 TEST(Engine, TerminateEvent) {
     Engine engine(Settings().withCreateWindow(false));
-    std::vector<Event> events;
+    std::vector<std::any> events;
     EventReceiver listener(events);
     engine.eventBus().subscribe(&listener);
 
@@ -218,9 +222,9 @@ TEST(Engine, TerminateEvent) {
     ASSERT_EQ(engine.run(firstPtr), true);
 
     ASSERT_EQ(events.size(), 2);
-    EXPECT_EQ(events[0].type, Event::Type::Startup);
-    EXPECT_EQ(events[1].type, Event::Type::Shutdown);
-    EXPECT_EQ(events[1].shutdown.cause, Event::ShutdownEvent::Terminated);
+    EXPECT_EQ(events[0].type(), typeid(event::Startup));
+    EXPECT_EQ(events[1].type(), typeid(event::Shutdown));
+    EXPECT_EQ(std::any_cast<event::Shutdown>(events[1]).cause, event::Shutdown::Terminated);
 }
 
 } // namespace unittest

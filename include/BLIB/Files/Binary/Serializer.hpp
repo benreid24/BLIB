@@ -169,7 +169,22 @@ struct Serializer<sf::Vector2i> {
         return input.read<std::int32_t>(v.y);
     }
 
-    static std::uint32_t size(const sf::Vector2i&) { return sizeof(std::uint32_t) * 2; }
+    static std::uint32_t size(const sf::Vector2i&) { return sizeof(std::int32_t) * 2; }
+};
+
+template<>
+struct Serializer<sf::Vector2u> {
+    static bool serialize(File& output, const sf::Vector2u& v) {
+        if (!output.write<std::uint32_t>(v.x)) return false;
+        return output.write<std::uint32_t>(v.y);
+    }
+
+    static bool deserialize(File& input, sf::Vector2u& v) {
+        if (!input.read<std::uint32_t>(v.x)) return false;
+        return input.read<std::uint32_t>(v.y);
+    }
+
+    static std::uint32_t size(const sf::Vector2u&) { return sizeof(std::uint32_t) * 2; }
 };
 
 } // namespace binary
