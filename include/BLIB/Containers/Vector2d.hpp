@@ -15,8 +15,22 @@ namespace container
 template<typename T>
 class Vector2D {
 public:
-    Vector2D() = default;
-    Vector2D(int w, int h) { setSize(w, h); }
+    /**
+     * @brief Creates an empty 2d vector
+     *
+     */
+    Vector2D()
+    : W(0)
+    , H(0) {}
+
+    /**
+     * @brief Creates the vector of the given width and height
+     *
+     * @param w The width of the vector
+     * @param h The height of the vector
+     * @param val The value to fill the vector with
+     */
+    Vector2D(unsigned int w, unsigned int h, const T& val = {}) { setSize(w, h, val); }
 
     /**
      * @brief Returns a reference to the element at the given position
@@ -33,7 +47,7 @@ public:
      * @param x The new width
      * @param y The new height
      */
-    void setSize(int x, int y, const T& val = {}) {
+    void setSize(unsigned int x, unsigned int y, const T& val = {}) {
         W = x;
         H = y;
         data.resize(W * H, val);

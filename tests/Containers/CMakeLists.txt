@@ -6,4 +6,5 @@ target_sources(BLIB.t PUBLIC
     FastEraseVector.t.cpp
     DynamicObjectPool.t.cpp
     QuadTree.t.cpp
+    Grid.t.cpp
 )
