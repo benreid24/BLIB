@@ -135,7 +135,8 @@ public:
         typename Payload::Ptr current;
 
         Iterator(Grid* owner, unsigned int x, unsigned int y, unsigned int w, unsigned int h,
-                 const typename Payload::Ptr& current);
+                 const typename Payload::Ptr& current, bool s = false);
+        void skipEmpty();
 
         friend class Grid;
     };
@@ -271,7 +272,7 @@ Grid<T>::Grid(float w, float h, float cw, float ch)
 , height(std::floor(h / ch))
 , cellWidth(cw)
 , cellHeight(ch)
-, cells(width, height) {}
+, cells(std::floor(w / cw), std::floor(h / ch)) {}
 
 template<typename T>
 void Grid<T>::setSize(float w, float h, float cw, float ch) {
@@ -280,6 +281,7 @@ void Grid<T>::setSize(float w, float h, float cw, float ch) {
     height     = std::floor(h / ch);
     cellWidth  = cw;
     cellHeight = ch;
+    cells.setSize(width, height);
 }
 
 template<typename T>
@@ -320,7 +322,8 @@ template<typename T>
 typename Grid<T>::Range Grid<T>::getCell(float x, float y) {
     const unsigned int xi = std::floor(x / cellWidth);
     const unsigned int yi = std::floor(y / cellHeight);
-    return {Iterator(this, xi, yi, 1, 1, cells(xi, yi)), Iterator(this, xi, yi, 1, 1, nullptr)};
+    return {Iterator(this, xi, yi, 1, 1, cells(xi, yi)),
+            Iterator(this, xi, yi, 1, 1, nullptr, false)};
 }
 
 template<typename T>
@@ -333,7 +336,8 @@ typename Grid<T>::Range Grid<T>::getCellAndNeighbors(float x, float y) {
     const unsigned int ey = std::min(sx + (yi > 0 ? 3 : 2) - 1, height - 1);
     const unsigned int w  = ex - sx + 1;
     const unsigned int h  = ey - sy + 1;
-    return {Iterator(this, sx, sy, w, h, cells(sx, sy)), Iterator(this, ex, ey, w, h, nullptr)};
+    return {Iterator(this, sx, sy, w, h, cells(sx, sy)),
+            Iterator(this, ex, ey, w, h, nullptr, false)};
 }
 
 template<typename T>
@@ -346,24 +350,25 @@ typename Grid<T>::Range Grid<T>::getArea(float x, float y, float w, float h) {
         static_cast<unsigned int>(std::floor(std::max(y + h, 0.f) / cellHeight)), height - 1);
     const unsigned int wi = ex - sx + 1;
     const unsigned int hi = ey - sy + 1;
-    return {Iterator(this, sx, sy, wi, hi, cells(sx, sy)), Iterator(this, ex, ey, wi, hi, nullptr)};
+    return {Iterator(this, sx, sy, wi, hi, cells(sx, sy)),
+            Iterator(this, ex, ey, wi, hi, nullptr, false)};
 }
 
 template<typename T>
 typename Grid<T>::Range Grid<T>::getAll() {
     return {Iterator(this, 0, 0, width, height, cells(0, 0)),
-            Iterator(this, width - 1, height - 1, width, height, nullptr)};
+            Iterator(this, width - 1, height - 1, width, height, nullptr, false)};
 }
 
 template<typename T>
 Grid<T>::Payload::Payload(Grid& owner, const T& v)
 : owner(owner)
-, value(value) {}
+, value(v) {}
 
 template<typename T>
 Grid<T>::Payload::Payload(Grid& owner, T&& v)
 : owner(owner)
-, value(std::forward<T>(value)) {}
+, value(std::forward<T>(v)) {}
 
 template<typename T>
 Grid<T>::Payload::~Payload() {
@@ -409,14 +414,16 @@ bool Grid<T>::Payload::inGrid() const {
 
 template<typename T>
 Grid<T>::Iterator::Iterator(Grid* o, unsigned int x, unsigned int y, unsigned int w, unsigned int h,
-                            const typename Payload::Ptr& current)
+                            const typename Payload::Ptr& current, bool s)
 : owner(o)
 , sx(x)
 , cx(x)
 , cy(y)
 , w(w)
 , h(h)
-, current(current) {}
+, current(current) {
+    if (s) skipEmpty();
+}
 
 template<typename T>
 typename Grid<T>::Payload& Grid<T>::Iterator::operator*() {
@@ -432,16 +439,16 @@ template<typename T>
 typename Grid<T>::Iterator Grid<T>::Iterator::operator++() {
     if (!current) return *this;
 
-    if (current->next || (cy == h - 1 && cx == w - 1)) { current = current->next; }
+    const bool atEnd = cy == h - 1 && cx == w - 1;
+    if (current->next || atEnd) { current = current->next; }
     else {
-        while (cy != h - 1 || cx != w - 1) {
-            ++cx;
-            if (cx >= w) {
-                cx = sx;
-                ++cy;
-            }
+        ++cx;
+        if (cx >= w) {
+            cx = sx;
+            ++cy;
         }
         current = owner->cells(cx, cy);
+        skipEmpty();
     }
 
     return *this;
@@ -452,6 +459,21 @@ typename Grid<T>::Iterator Grid<T>::Iterator::operator++(int) {
     const auto it = *this;
     this->operator++();
     return it;
+}
+
+template<typename T>
+void Grid<T>::Iterator::skipEmpty() {
+    const auto atEnd = [this]() { return cy == h - 1 && cx == w - 1; };
+
+    while (!atEnd() && !current) {
+        ++cx;
+        if (cx >= w) {
+            cx = sx;
+            ++cy;
+        }
+        current = owner->cells(cx, cy);
+    }
+    current = owner->cells(cx, cy); // if at end need to update to end pointer
 }
 
 template<typename T>
