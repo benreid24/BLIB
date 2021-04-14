@@ -33,13 +33,49 @@ TEST(Grid, IterateArea) {
 
     std::unordered_set<int> found;
     auto range = grid.getArea(90, 20, 12, 15);
-    auto i = range.begin();
-    while (i != range.end()) {
-        ++i;
-    }
     for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
 
     EXPECT_NE(found.find(87), found.end());
+}
+
+TEST(Grid, IterateCell) {
+    Grid<int> grid(100, 100, 10, 10);
+
+    grid.add(5, 5, 52);
+    grid.add(95, 64, 23);
+    grid.emplace(99, 23, 87);
+
+    std::unordered_set<int> found;
+    auto range = grid.getCell(3, 8);
+    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
+
+    EXPECT_NE(found.find(52), found.end());
+}
+
+TEST(Grid, IterateCellAndNeighbors) {
+    Grid<int> grid(100, 100, 10, 10);
+
+    // not neighbor
+    grid.add(5, 5, 52);
+    grid.add(95, 64, 23);
+    grid.emplace(99, 23, 87);
+
+    // neighbors
+    grid.add(51, 51, 1);
+    grid.add(61, 51, 2);
+    grid.add(41, 51, 3);
+    grid.add(51, 61, 4);
+    grid.add(51, 41, 5);
+
+    std::unordered_set<int> found;
+    auto range = grid.getCellAndNeighbors(55, 55);
+    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
+
+    EXPECT_NE(found.find(1), found.end());
+    EXPECT_NE(found.find(2), found.end());
+    EXPECT_NE(found.find(3), found.end());
+    EXPECT_NE(found.find(4), found.end());
+    EXPECT_NE(found.find(5), found.end());
 }
 
 } // namespace unittest

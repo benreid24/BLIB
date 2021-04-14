@@ -137,7 +137,7 @@ public:
         typename Payload::Ptr current;
 
         Iterator(Grid* owner, unsigned int x, unsigned int y, unsigned int ex, unsigned int ey,
-                 const typename Payload::Ptr& current, bool s = false);
+                 const typename Payload::Ptr& current, bool s = true);
         void skipEmpty();
         bool atEnd() const;
 
