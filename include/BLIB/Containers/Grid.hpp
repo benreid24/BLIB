@@ -106,6 +106,18 @@ public:
         Payload* operator->();
 
         /**
+         * @brief Access the value pointed to by this iterator
+         *
+         */
+        const Payload& operator*() const;
+
+        /**
+         * @brief Access the value pointed to by this iterator
+         *
+         */
+        const Payload* operator->() const;
+
+        /**
          * @brief Increments the iterator
          *
          */
@@ -336,7 +348,11 @@ void Grid<T>::doAdd(float x, float y, typename Payload::Ptr& payload) {
 
 template<typename T>
 void Grid<T>::clear() {
-    for (Cell& c : cells) { c.content.clear(); }
+    for (unsigned int x = 0; x < width; ++x) {
+        for (unsigned int y = 0; y < height; ++y) {
+            while (cells(x, y)) { cells(x, y)->remove(); }
+        }
+    }
 }
 
 template<typename T>
@@ -414,7 +430,8 @@ void Grid<T>::Payload::move(float nx, float ny) {
     const unsigned int yi = std::floor(ny / owner.cellHeight);
     if (xi != x || yi != y) {
         remove();
-        owner.doAdd(this->shared_from_this());
+        auto ptr = this->shared_from_this();
+        owner.doAdd(nx, ny, ptr);
     }
 }
 
@@ -455,6 +472,16 @@ typename Grid<T>::Payload& Grid<T>::Iterator::operator*() {
 
 template<typename T>
 typename Grid<T>::Payload* Grid<T>::Iterator::operator->() {
+    return current.get();
+}
+
+template<typename T>
+const typename Grid<T>::Payload& Grid<T>::Iterator::operator*() const {
+    return *current;
+}
+
+template<typename T>
+const typename Grid<T>::Payload* Grid<T>::Iterator::operator->() const {
     return current.get();
 }
 
