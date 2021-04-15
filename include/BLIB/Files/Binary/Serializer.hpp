@@ -4,6 +4,7 @@
 #include <BLIB/Files/Binary/File.hpp>
 #include <BLIB/Files/Binary/SerializableObject.hpp>
 
+#include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <type_traits>
 
@@ -170,6 +171,25 @@ struct Serializer<sf::Vector2i> {
     }
 
     static std::uint32_t size(const sf::Vector2i&) { return sizeof(std::int32_t) * 2; }
+};
+
+template<>
+struct Serializer<sf::IntRect> {
+    static bool serialize(File& output, const sf::IntRect& r) {
+        if (!output.write<std::int32_t>(r.left)) return false;
+        if (!output.write<std::int32_t>(r.top)) return false;
+        if (!output.write<std::int32_t>(r.width)) return false;
+        return output.write<std::int32_t>(r.height);
+    }
+
+    static bool deserialize(File& input, sf::IntRect& r) {
+        if (!input.read<std::int32_t>(r.left)) return false;
+        if (!input.read<std::int32_t>(r.top)) return false;
+        if (!input.read<std::int32_t>(r.width)) return false;
+        return input.read<std::int32_t>(r.height);
+    }
+
+    static std::uint32_t size(const sf::IntRect&) { return sizeof(std::int32_t) * 4; }
 };
 
 template<>
