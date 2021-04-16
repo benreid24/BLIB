@@ -5,16 +5,11 @@ namespace bl
 /// Collection of graphical utilities and functionality
 namespace gfx
 {
-namespace
-{
-sf::Clock clock; // TODO - pass in elapsed time?
-}
-
 Animation::Animation()
 : data(nullptr)
 , centerOrigin(true)
 , isPlaying(false)
-, startTime(0)
+, animTime(0)
 , position(0, 0)
 , scale(1, 1)
 , rotation(0)
@@ -47,22 +42,26 @@ void Animation::resetIsLoop() { loopOverride = false; }
 
 void Animation::play() {
     isPlaying = true;
-    startTime = clock.getElapsedTime().asSeconds();
+    animTime  = 0.f;
 }
 
 bool Animation::playing() const {
     if (data == nullptr || !isPlaying) return false;
 
     const bool isLoop = loopOverride ? loop : data->isLooping();
-    if (!isLoop) return clock.getElapsedTime().asSeconds() - startTime <= data->getLength();
+    if (!isLoop) return animTime <= data->getLength();
     return true;
 }
 
 void Animation::stop() { isPlaying = false; }
 
+void Animation::update(float dt) {
+    if (isPlaying) { animTime += dt; }
+}
+
 void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     if (data) {
-        const float t = isPlaying ? (clock.getElapsedTime().asSeconds() - startTime) : 0;
+        const float t = isPlaying ? animTime : 0;
         data->render(
             target, states, t, position, scale, rotation, centerOrigin, loopOverride, loop);
     }

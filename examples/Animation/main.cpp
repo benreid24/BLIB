@@ -2,6 +2,7 @@
 #include <SFML/Window.hpp>
 
 int main() {
+    sf::Clock timer;
     sf::RenderWindow window(
         sf::VideoMode(800, 800, 32), "Animation Example", sf::Style::Titlebar | sf::Style::Close);
 
@@ -22,6 +23,9 @@ int main() {
                 break;
             }
         }
+
+        anim.update(timer.getElapsedTime().asSeconds());
+        timer.restart();
 
         window.clear(sf::Color::White);
         window.draw(anim);
