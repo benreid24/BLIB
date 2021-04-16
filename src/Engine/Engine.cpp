@@ -66,6 +66,11 @@ bool Engine::run(State::Ptr initialState) {
             BL_LOG_ERROR << "Failed to create window";
             return false;
         }
+        if (engineSettings.windowIcon().getSize().x > 0) {
+            renderWindow->setIcon(engineSettings.windowIcon().getSize().x,
+                                  engineSettings.windowIcon().getSize().y,
+                                  engineSettings.windowIcon().getPixelsPtr());
+        }
     }
 
     initialState->activate(*this);
