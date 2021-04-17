@@ -119,7 +119,7 @@ public:
 
 private:
     const OpenMode mode;
-    const std::string& openPath;
+    const std::string openPath;
     std::iostream& stream;
     std::fstream handle;
 };
