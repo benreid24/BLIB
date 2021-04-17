@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logger',['Logger',['../a01115.html#aff02b76416d2846736b7ecd798921a0a',1,'bl::logging::Config']]]
+  ['iterator',['Iterator',['../a00745.html#a9830fc407400559db7e7783cc10a9394',1,'bl::container::Grid']]]
 ];

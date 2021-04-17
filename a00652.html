@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::resource Namespace Reference</title>
+<title>BLIB: Binary</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,6 +47,7 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,97 +62,42 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a00632.html">bl</a></li><li class="navelem"><a class="el" href="a00652.html">resource</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::resource Namespace Reference</div>  </div>
+<div class="title">Binary<div class="ingroups"><a class="el" href="a00640.html">Files</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes for resource management and flyweight pattern.  
+<p>Collection of classes for encoding and decoding data into endian agnostic binary files. Core class is File.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01295.html">AsyncLoader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized loader meant for loading resources into a <a class="el" href="a01307.html" title="Single template based resource management class. Meant for storing. ">Manager</a> in the background. Default implementation simply calls <a class="el" href="a01295.html#aa3bdaa1b95c641cb669887a9f10d95ff" title="Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their ...">load()</a> on the manager, but custom background loaders can be built for large resources and should leverage <a class="el" href="a01307.html#ab7f67e29b779d355aa2bb7005ed1617a" title="Add an already loaded resource to the manager. Overwrites existing if present. ">Manager::add()</a> to insert constructed resources.  <a href="a01295.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00909.html">bl::file::binary::File</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to read and write binary data. Endianness agnostic Floating point types are not supported. To store floating point values, simply store an integral type and multiply/divide on save/load.  <a href="a00909.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01299.html">BackgroundLoader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for loading resources in the background while monitoring the progress. <a class="el" href="a01311.html" title="Base level struct representing a resource that can be loaded and managed by the resource system...">Resource</a> loading is done from the calling thread, and monitoring is done on a second thread. This is to eliminate any context issues with loading SFML resources.  <a href="a01299.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00913.html">bl::file::binary::SerializableFieldBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for binary serializable fields. Do not use.  <a href="a00913.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01319.html">FontResourceLoader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a01303.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">Loader</a> for sf::Font.  <a href="a01319.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00921.html">bl::file::binary::SerializableObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for user defined objects that can be serialized in binary files. Data fields to be serialized should be stored as <a class="el" href="a00917.html" title="Template class that represents a serializable field for File use. Strings and integral types are supp...">SerializableField</a> objects.  <a href="a00921.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01303.html">Loader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templatized resource loader. Must be implemented for any resource type that is intended to be managed.  <a href="a01303.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00925.html">bl::file::binary::Serializer&lt; T, bool &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for serializing types into binary files. Integral types, strings, vector, and SerializableObjects are supported out of the box. Specializations may be provided for user defined types.  <a href="a00925.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01307.html">Manager</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single template based resource management class. Meant for storing.  <a href="a01307.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00961.html">bl::file::binary::VersionedPayloadLoader&lt; Payload &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base interface for payload loaders. <a class="el" href="a00909.html" title="Utility class to read and write binary data. Endianness agnostic Floating point types are not support...">File</a> version loaders should implement this interface.  <a href="a00961.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01311.html">Resource</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base level struct representing a resource that can be loaded and managed by the resource system.  <a href="a01311.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01315.html">TextureResourceLoader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a01303.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">Loader</a> for sf::Texture.  <a href="a01315.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a1a043587d311f4ee8d12b4d7643a6c99"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="a01307.html">Manager</a>&lt; sf::Texture &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00652.html#a1a043587d311f4ee8d12b4d7643a6c99">TextureResourceManager</a></td></tr>
-<tr class="memdesc:a1a043587d311f4ee8d12b4d7643a6c99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a01307.html" title="Single template based resource management class. Meant for storing. ">Manager</a> for sf::Texture objects.  <a href="#a1a043587d311f4ee8d12b4d7643a6c99">More...</a><br /></td></tr>
-<tr class="separator:a1a043587d311f4ee8d12b4d7643a6c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a447c0867aa84a4f314bc9cc113ce84e9"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="a01307.html">Manager</a>&lt; sf::Font &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00652.html#a447c0867aa84a4f314bc9cc113ce84e9">FontResourceManager</a></td></tr>
-<tr class="separator:a447c0867aa84a4f314bc9cc113ce84e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of classes for resource management and flyweight pattern. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a447c0867aa84a4f314bc9cc113ce84e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a447c0867aa84a4f314bc9cc113ce84e9">&#9670;&nbsp;</a></span>FontResourceManager</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef <a class="el" href="a01307.html">Manager</a>&lt;sf::Font&gt; <a class="el" href="a00652.html#a447c0867aa84a4f314bc9cc113ce84e9">bl::resource::FontResourceManager</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00329_source.html#l00047">47</a> of file <a class="el" href="a00329_source.html">SpecializedLoaders.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a1a043587d311f4ee8d12b4d7643a6c99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a043587d311f4ee8d12b4d7643a6c99">&#9670;&nbsp;</a></span>TextureResourceManager</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef <a class="el" href="a01307.html">Manager</a>&lt;sf::Texture&gt; <a class="el" href="a00652.html#a1a043587d311f4ee8d12b4d7643a6c99">bl::resource::TextureResourceManager</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Specialized <a class="el" href="a01307.html" title="Single template based resource management class. Meant for storing. ">Manager</a> for sf::Texture objects. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00329_source.html#l00044">44</a> of file <a class="el" href="a00329_source.html">SpecializedLoaders.hpp</a>.</p>
-
-</div>
-</div>
+<p>Collection of classes for encoding and decoding data into endian agnostic binary files. Core class is File. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 12 2021 05:08:34 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 17 2021 17:15:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
