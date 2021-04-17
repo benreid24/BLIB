@@ -420,8 +420,8 @@ DynamicObjectPool<T>::IteratorType<ET>::IteratorType::IteratorType(const Iterato
 
 template<typename T>
 template<typename ET>
-DynamicObjectPool<T>::IteratorType<ET>&
-DynamicObjectPool<T>::IteratorType<ET>::IteratorType ::operator=(const IteratorType& copy) {
+typename DynamicObjectPool<T>::template IteratorType<ET>&
+DynamicObjectPool<T>::IteratorType<ET>::operator=(const IteratorType& copy) {
     pool = copy.pool;
     i    = copy.i;
     return *this;
