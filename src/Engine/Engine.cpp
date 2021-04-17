@@ -1,6 +1,5 @@
 #include <BLIB/Engine/Engine.hpp>
 
-#include <BLIB/Engine/Event.hpp>
 #include <BLIB/Logging.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
@@ -13,7 +12,7 @@ Engine::Engine(const Settings& settings)
 : renderWindow(nullptr)
 , engineSettings(settings) {}
 
-event::Dispatcher& Engine::eventBus() { return engineEventBus; }
+bl::event::Dispatcher& Engine::eventBus() { return engineEventBus; }
 
 entity::Registry& Engine::entities() { return entityRegistry; }
 
@@ -25,28 +24,42 @@ Flags& Engine::flags() { return engineFlags; }
 
 sf::RenderWindow& Engine::window() { return *renderWindow; }
 
-void Engine::nextState(State::Ptr next) { newState = next; }
+void Engine::pushState(State::Ptr next) {
+    if (newState) {
+        BL_LOG_WARN << "pushState called with state " << next->name()
+                    << " replaces currently queued next state " << newState->name();
+    }
+    newState = next;
+}
+
+void Engine::replaceState(State::Ptr next) {
+    flags().set(Flags::PopState);
+    if (newState) {
+        BL_LOG_WARN << "replaceState called with state " << next->name()
+                    << " replaces currently queued next state " << newState->name();
+    }
+    newState = next;
+}
 
 bool Engine::run(State::Ptr initialState) {
     BL_LOG_INFO << "Starting engine with state: " << initialState->name();
     states.push(initialState);
 
-    sf::Clock timer;
+    sf::Clock loopTimer;
+    sf::Clock updateOuterTimer;
     const float minFrameLength =
         engineSettings.maximumFramerate() > 0 ? 1.f / engineSettings.maximumFramerate() : 0.f;
-    float lag            = 0.f;
-    float lastUpdateTime = timer.getElapsedTime().asSeconds();
-    float lastLoopTime   = timer.getElapsedTime().asSeconds();
+    float lag = 0.f;
 
-    sf::Clock updateTimer;
+    sf::Clock updateMeasureTimer;
     float updateTimestep    = engineSettings.updateTimestep();
     float averageUpdateTime = engineSettings.updateTimestep();
 
     float lastWarnTime     = -6.f; // always log first warning
     bool followupLog       = false;
-    auto fallBehindWarning = [&lastWarnTime, &updateTimer, &followupLog](float behind) {
-        if (updateTimer.getElapsedTime().asSeconds() - lastWarnTime >= 5.f) {
-            lastWarnTime = updateTimer.getElapsedTime().asSeconds();
+    auto fallBehindWarning = [&lastWarnTime, &updateMeasureTimer, &followupLog](float behind) {
+        if (updateMeasureTimer.getElapsedTime().asSeconds() - lastWarnTime >= 5.f) {
+            lastWarnTime = updateMeasureTimer.getElapsedTime().asSeconds();
             followupLog  = true;
             BL_LOG_WARN << "Can't catch up, running " << behind << " seconds behind";
         }
@@ -67,10 +80,15 @@ bool Engine::run(State::Ptr initialState) {
             BL_LOG_ERROR << "Failed to create window";
             return false;
         }
+        if (engineSettings.windowIcon().getSize().x > 0) {
+            renderWindow->setIcon(engineSettings.windowIcon().getSize().x,
+                                  engineSettings.windowIcon().getSize().y,
+                                  engineSettings.windowIcon().getPixelsPtr());
+        }
     }
 
     initialState->activate(*this);
-    engineEventBus.dispatch<Event>({Event::StartupEvent{initialState}});
+    engineEventBus.dispatch<event::Startup>({initialState});
 
     while (true) {
         // Clear flags from last loop
@@ -83,39 +101,39 @@ bool Engine::run(State::Ptr initialState) {
                 engineEventBus.dispatch<sf::Event>(event);
 
                 if (event.type == sf::Event::Closed) {
-                    engineEventBus.dispatch<Event>(
-                        Event::ShutdownEvent({Event::ShutdownEvent::WindowClosed}));
+                    engineEventBus.dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
                     renderWindow->close();
                     return true;
                 }
                 else if (event.type == sf::Event::LostFocus) {
-                    engineEventBus.dispatch<Event>({Event::PausedEvent()});
+                    engineEventBus.dispatch<event::Paused>({});
                     if (!awaitFocus()) {
-                        engineEventBus.dispatch<Event>(
-                            Event::ShutdownEvent({Event::ShutdownEvent::WindowClosed}));
+                        engineEventBus.dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
                         renderWindow->close();
                         return true;
                     }
-                    engineEventBus.dispatch<Event>({Event::ResumedEvent()});
+                    engineEventBus.dispatch<event::Resumed>({});
+                    updateOuterTimer.restart();
+                    loopTimer.restart();
                 }
                 // more events?
             }
         }
 
         // Update and render
-        const float now = timer.getElapsedTime().asSeconds();
-        lag += now - lastUpdateTime;
-        lastUpdateTime          = now;
+        lag += updateOuterTimer.getElapsedTime().asSeconds();
+        updateOuterTimer.restart();
         const float startingLag = lag;
-        updateTimer.restart();
+        updateMeasureTimer.restart();
         while (lag >= updateTimestep) {
-            const float updateStart = updateTimer.getElapsedTime().asSeconds();
+            const float updateStart = updateMeasureTimer.getElapsedTime().asSeconds();
             states.top()->update(*this, updateTimestep);
             lag -= updateTimestep;
-            averageUpdateTime = 0.8f * averageUpdateTime +
-                                0.2f * (updateTimer.getElapsedTime().asSeconds() - updateStart);
-            if (updateTimer.getElapsedTime().asSeconds() > startingLag * 1.1f) {
-                fallBehindWarning(updateTimer.getElapsedTime().asSeconds() - startingLag);
+            averageUpdateTime =
+                0.8f * averageUpdateTime +
+                0.2f * (updateMeasureTimer.getElapsedTime().asSeconds() - updateStart);
+            if (updateMeasureTimer.getElapsedTime().asSeconds() > startingLag * 1.1f) {
+                fallBehindWarning(updateMeasureTimer.getElapsedTime().asSeconds() - startingLag);
                 if (engineSettings.allowVariableTimestep()) {
                     const float newTs = updateTimestep * 1.05f;
                     BL_LOG_INFO << "Adjusting update timestep from " << updateTimestep << "s to "
@@ -141,8 +159,7 @@ bool Engine::run(State::Ptr initialState) {
 
         // Process flags
         if (engineFlags.active(Flags::Terminate)) {
-            engineEventBus.dispatch<Event>(
-                {Event::ShutdownEvent{Event::ShutdownEvent::Terminated}});
+            engineEventBus.dispatch<event::Shutdown>({event::Shutdown::Terminated});
             if (renderWindow) renderWindow->close();
             return true;
         }
@@ -151,34 +168,42 @@ bool Engine::run(State::Ptr initialState) {
             auto prev = states.top();
             prev->deactivate(*this);
             states.pop();
-            if (states.empty()) {
+            if (states.empty() && !newState) { // exit if no states left
                 BL_LOG_INFO << "Final state popped, exiting";
-                engineEventBus.dispatch<Event>(
-                    {Event::ShutdownEvent{Event::ShutdownEvent::FinalStatePopped}});
+                engineEventBus.dispatch<event::Shutdown>({event::Shutdown::FinalStatePopped});
                 if (renderWindow) renderWindow->close();
                 return true;
             }
-            BL_LOG_INFO << "New engine state: " << states.top()->name();
-            states.top()->activate(*this);
-            engineEventBus.dispatch<Event>({Event::StateChangeEvent{states.top(), prev}});
+            else if (!newState) { // plain pop state
+                BL_LOG_INFO << "New engine state (popped): " << states.top()->name();
+                states.top()->activate(*this);
+                engineEventBus.dispatch<event::StateChange>({states.top(), prev});
+            }
+            else { // replace state
+                BL_LOG_INFO << "New engine state (replaced): " << newState->name();
+                states.push(newState);
+                states.top()->activate(*this);
+                engineEventBus.dispatch<event::StateChange>({states.top(), prev});
+                newState = nullptr;
+            }
         }
 
-        // Handle state transition
+        // Handle state push
         if (newState) {
-            BL_LOG_INFO << "New engine state: " << newState->name();
+            BL_LOG_INFO << "New engine state (pushed): " << newState->name();
             auto prev = states.top();
             prev->deactivate(*this);
             states.push(newState);
             states.top()->activate(*this);
-            engineEventBus.dispatch<Event>({Event::StateChangeEvent{states.top(), prev}});
+            engineEventBus.dispatch<event::StateChange>({states.top(), prev});
             newState = nullptr;
         }
 
         // Adhere to FPS cap
         if (minFrameLength > 0) {
-            const float st = minFrameLength - (timer.getElapsedTime().asSeconds() - lastLoopTime);
+            const float st = minFrameLength - loopTimer.getElapsedTime().asSeconds();
             if (st > 0) sf::sleep(sf::seconds(st));
-            lastLoopTime = timer.getElapsedTime().asSeconds();
+            loopTimer.restart();
         }
     }
 

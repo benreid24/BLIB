@@ -69,8 +69,14 @@ TEST(VersionedFile, DefaultLoader) {
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
     VersionedFile<Payload, DefaultLoader> file;
-    ASSERT_TRUE(file.write("vbin_default.bin", orig));
-    ASSERT_TRUE(file.read("vbin_default.bin", loaded));
+    {
+        File bin("vbin_default.bin", File::Write);
+        ASSERT_TRUE(file.write(bin, orig));
+    }
+    {
+        File bin("vbin_default.bin", File::Read);
+        ASSERT_TRUE(file.read(bin, loaded));
+    }
 
     EXPECT_EQ(loaded.ogField, 42);
     EXPECT_EQ(loaded.ogString, "hello");
@@ -83,8 +89,14 @@ TEST(VersionedFile, MultipleVersions) {
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
     VersionedFile<Payload, DefaultLoader, Version0, Version1, Version2> file;
-    ASSERT_TRUE(file.write("vbin_default.bin", orig));
-    ASSERT_TRUE(file.read("vbin_default.bin", loaded));
+    {
+        File bin("vbin_default.bin", File::Write);
+        ASSERT_TRUE(file.write(bin, orig));
+    }
+    {
+        File bin("vbin_default.bin", File::Read);
+        ASSERT_TRUE(file.read(bin, loaded));
+    }
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
     EXPECT_EQ(loaded.ogString, orig.ogString);
@@ -97,9 +109,15 @@ TEST(VersionedFile, LoadOldVersion) {
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
     VersionedFile<Payload, DefaultLoader, Version0, Version1> oldfile;
-    ASSERT_TRUE(oldfile.write("vbin_default.bin", orig));
+    {
+        File bin("vbin_default.bin", File::Write);
+        ASSERT_TRUE(oldfile.write(bin, orig));
+    }
     VersionedFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
-    ASSERT_TRUE(newfile.read("vbin_default.bin", loaded));
+    {
+        File bin("vbin_default.bin", File::Read);
+        ASSERT_TRUE(newfile.read(bin, loaded));
+    }
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
     EXPECT_EQ(loaded.ogString, orig.ogString);
@@ -112,9 +130,15 @@ TEST(VersionedFile, LoadNoVersion) {
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
     VersionedFile<Payload, DefaultLoader> oldfile;
-    ASSERT_TRUE(oldfile.write("vbin_default.bin", orig));
+    {
+        File bin("vbin_default.bin", File::Write);
+        ASSERT_TRUE(oldfile.write(bin, orig));
+    }
     VersionedFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
-    ASSERT_TRUE(newfile.read("vbin_default.bin", loaded));
+    {
+        File bin("vbin_default.bin", File::Read);
+        ASSERT_TRUE(newfile.read(bin, loaded));
+    }
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
     EXPECT_EQ(loaded.ogString, orig.ogString);
@@ -129,8 +153,14 @@ TEST(VersionedFile, BadVersion) {
     VersionedFile<Payload, DefaultLoader, Version0> oldfile;
     VersionedFile<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
 
-    ASSERT_TRUE(newfile.write("vbin_default.bin", orig));
-    ASSERT_FALSE(oldfile.read("vbin_default.bin", loaded));
+    {
+        File bin("vbin_default.bin", File::Write);
+        ASSERT_TRUE(newfile.write(bin, orig));
+    }
+    {
+        File bin("vbin_default.bin", File::Read);
+        ASSERT_FALSE(oldfile.read(bin, loaded));
+    }
 }
 
 } // namespace unittest

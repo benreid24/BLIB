@@ -40,6 +40,14 @@ add_subdirectory(include/BLIB)
 add_subdirectory(src)
 include_directories(include)
 
+target_link_libraries(BLIB PRIVATE
+    sfml-graphics
+    sfml-window
+    sfml-network
+    sfml-audio
+    sfml-system
+)
+
 if (BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()

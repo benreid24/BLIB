@@ -6,4 +6,6 @@ target_sources(BLIB PUBLIC
     RingBuffer.hpp
     FastEraseVector.hpp
     DynamicObjectPool.hpp
+    QuadTree.hpp
+    Grid.hpp
 )

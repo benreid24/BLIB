@@ -4,6 +4,8 @@
 #include <BLIB/Files/Binary/File.hpp>
 #include <BLIB/Files/Binary/SerializableObject.hpp>
 
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <type_traits>
 
 namespace bl
@@ -21,7 +23,7 @@ namespace binary
  * @tparam bool Helper for integral specialization. Can be ignored
  * @ingroup Binary
  */
-template<typename T, bool = std::is_integral<T>::value>
+template<typename T, bool = std::is_integral<T>::value || std::is_enum<T>::value>
 struct Serializer {
     /**
      * @brief Serialize the given value to the given file
@@ -63,9 +65,25 @@ struct Serializer<T, false> {
 
 template<typename T>
 struct Serializer<T, true> {
-    static bool serialize(File& output, const T& value) { return output.write<T>(value); }
+    static bool serialize(File& output, const T& value) {
+        if constexpr (std::is_enum<T>::value) {
+            return output.write<std::underlying_type_t<T>>(
+                static_cast<std::underlying_type_t<T>>(value));
+        }
+        else {
+            return output.write<T>(value);
+        }
+    }
 
-    static bool deserialize(File& input, T& result) { return input.read<T>(result); }
+    static bool deserialize(File& input, T& result) {
+        if constexpr (std::is_enum<T>::value) {
+            return input.read<std::underlying_type_t<T>>(
+                *reinterpret_cast<std::underlying_type_t<T>*>(&result));
+        }
+        else {
+            return input.read<T>(result);
+        }
+    }
 
     static std::uint32_t size(const T&) { return sizeof(T); }
 };
@@ -105,6 +123,88 @@ struct Serializer<std::vector<U>, false> {
         for (const U& u : v) { vs += Serializer<U>::size(u); }
         return sizeof(std::uint32_t) + vs;
     }
+};
+
+template<typename TKey, typename TValue>
+struct Serializer<std::unordered_map<TKey, TValue>, false> {
+    static bool serialize(File& output, const std::unordered_map<TKey, TValue>& value) {
+        if (!output.write<std::uint32_t>(value.size())) return false;
+        for (const auto& pair : value) {
+            if (!Serializer<TKey>::serialize(output, pair.first)) return false;
+            if (!Serializer<TValue>::serialize(output, pair.second)) return false;
+        }
+        return true;
+    }
+
+    static bool deserialize(File& input, std::unordered_map<TKey, TValue>& value) {
+        std::uint32_t size;
+        if (!input.read<std::uint32_t>(size)) return false;
+        for (std::uint32_t i = 0; i < size; ++i) {
+            TKey key;
+            if (!Serializer<TKey>::deserialize(input, key)) return false;
+            auto it = value.try_emplace(key).first;
+            if (!Serializer<TValue>::deserialize(input, it->second)) return false;
+        }
+        return true;
+    }
+
+    static std::uint32_t size(const std::unordered_map<TKey, TValue>& value) {
+        std::uint32_t ms = 0;
+        for (const auto& pair : value) {
+            ms += Serializer<TKey>::size(pair.first);
+            ms += Serializer<TValue>::size(pair.second);
+        }
+        return sizeof(std::uint32_t) + ms;
+    }
+};
+
+template<>
+struct Serializer<sf::Vector2i> {
+    static bool serialize(File& output, const sf::Vector2i& v) {
+        if (!output.write<std::int32_t>(v.x)) return false;
+        return output.write<std::int32_t>(v.y);
+    }
+
+    static bool deserialize(File& input, sf::Vector2i& v) {
+        if (!input.read<std::int32_t>(v.x)) return false;
+        return input.read<std::int32_t>(v.y);
+    }
+
+    static std::uint32_t size(const sf::Vector2i&) { return sizeof(std::int32_t) * 2; }
+};
+
+template<>
+struct Serializer<sf::IntRect> {
+    static bool serialize(File& output, const sf::IntRect& r) {
+        if (!output.write<std::int32_t>(r.left)) return false;
+        if (!output.write<std::int32_t>(r.top)) return false;
+        if (!output.write<std::int32_t>(r.width)) return false;
+        return output.write<std::int32_t>(r.height);
+    }
+
+    static bool deserialize(File& input, sf::IntRect& r) {
+        if (!input.read<std::int32_t>(r.left)) return false;
+        if (!input.read<std::int32_t>(r.top)) return false;
+        if (!input.read<std::int32_t>(r.width)) return false;
+        return input.read<std::int32_t>(r.height);
+    }
+
+    static std::uint32_t size(const sf::IntRect&) { return sizeof(std::int32_t) * 4; }
+};
+
+template<>
+struct Serializer<sf::Vector2u> {
+    static bool serialize(File& output, const sf::Vector2u& v) {
+        if (!output.write<std::uint32_t>(v.x)) return false;
+        return output.write<std::uint32_t>(v.y);
+    }
+
+    static bool deserialize(File& input, sf::Vector2u& v) {
+        if (!input.read<std::uint32_t>(v.x)) return false;
+        return input.read<std::uint32_t>(v.y);
+    }
+
+    static std::uint32_t size(const sf::Vector2u&) { return sizeof(std::uint32_t) * 2; }
 };
 
 } // namespace binary

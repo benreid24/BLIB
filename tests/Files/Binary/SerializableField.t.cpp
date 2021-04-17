@@ -105,6 +105,50 @@ TEST(BinarySerializableField, StringVector) {
     }
 }
 
+TEST(BinarySerializableField, StringMap) {
+    SerializableObject owner;
+    SerializableField<1, std::unordered_map<std::string, std::string>> field(owner);
+    field.getValue().emplace("key1", "value1");
+    field.getValue().emplace("key2", "value2");
+
+    {
+        File output("stringtest.bin", File::Write);
+        ASSERT_TRUE(field.serialize(output));
+    }
+
+    SerializableField<1, std::unordered_map<std::string, std::string>> loaded(owner);
+    {
+        File input("stringtest.bin", File::Read);
+        ASSERT_TRUE(loaded.deserialize(input));
+    }
+
+    ASSERT_EQ(field.getValue().size(), loaded.getValue().size());
+    for (const auto& ogpair : field.getValue()) {
+        auto it = loaded.getValue().find(ogpair.first);
+        ASSERT_NE(it, loaded.getValue().end());
+        EXPECT_EQ(ogpair.second, it->second);
+    }
+}
+
+TEST(BinarySerializableField, SfVector) {
+    SerializableObject owner;
+    SerializableField<1, sf::Vector2i> field(owner);
+    field.setValue({15, 32});
+
+    {
+        File output("stringtest.bin", File::Write);
+        ASSERT_TRUE(field.serialize(output));
+    }
+
+    SerializableField<1, sf::Vector2i> loaded(owner);
+    {
+        File input("stringtest.bin", File::Read);
+        ASSERT_TRUE(loaded.deserialize(input));
+    }
+
+    EXPECT_EQ(field.getValue(), loaded.getValue());
+}
+
 } // namespace unittest
 } // namespace binary
 } // namespace file

@@ -1,4 +1,5 @@
 #include <BLIB/Engine/Settings.hpp>
+#include <BLIB/Logging.hpp>
 
 namespace bl
 {
@@ -14,7 +15,8 @@ Settings::Settings()
 , sfWindowTitle(DefaultWindowTitle)
 , windowMode(DefaultVideoMode)
 , sfWindowStyle(DefaultWindowStyle)
-, createSfWindow(DefaultCreateWindow) {}
+, createSfWindow(DefaultCreateWindow)
+, icon() {}
 
 Settings& Settings::withMaxFramerate(float fps) {
     maxFps = fps;
@@ -51,6 +53,11 @@ Settings& Settings::withCreateWindow(bool c) {
     return *this;
 }
 
+Settings& Settings::withWindowIcon(const std::string& path) {
+    if (!icon.loadFromFile(path)) { BL_LOG_ERROR << "Failed to load window icon: " << path; }
+    return *this;
+}
+
 float Settings::updateTimestep() const { return updateTime; }
 
 float Settings::maximumFramerate() const { return maxFps; }
@@ -64,6 +71,8 @@ const sf::VideoMode& Settings::videoMode() const { return windowMode; }
 sf::Uint32 Settings::windowStyle() const { return sfWindowStyle; }
 
 bool Settings::createWindow() const { return createSfWindow; }
+
+const sf::Image& Settings::windowIcon() const { return icon; }
 
 } // namespace engine
 } // namespace bl

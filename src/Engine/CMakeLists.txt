@@ -1,6 +1,6 @@
 target_sources(BLIB PRIVATE
+    Configuration.cpp
     Engine.cpp
-    Event.cpp
     Flags.cpp
     Resources.cpp
     Settings.cpp

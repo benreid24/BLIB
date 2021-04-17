@@ -1,6 +1,7 @@
 #ifndef BLIB_ENGINE_SETTINGS_HPP
 #define BLIB_ENGINE_SETTINGS_HPP
 
+#include <SFML/Graphics/Image.hpp>
 #include <SFML/Window.hpp>
 #include <string>
 
@@ -92,6 +93,14 @@ public:
     Settings& withCreateWindow(bool create);
 
     /**
+     * @brief Sets the path to an image to use as the window icon
+     *
+     * @param iconPath Path to the image to use
+     * @return Settings& A reference to this object
+     */
+    Settings& withWindowIcon(const std::string& iconPath);
+
+    /**
      * @brief Returns the fixed physics update interval, in seconds
      *
      */
@@ -128,6 +137,12 @@ public:
     sf::Uint32 windowStyle() const;
 
     /**
+     * @brief Returns the window icon to use
+     *
+     */
+    const sf::Image& windowIcon() const;
+
+    /**
      * @brief Returns whether or not a window should be created
      *
      */
@@ -141,6 +156,7 @@ private:
     sf::VideoMode windowMode;
     sf::Uint32 sfWindowStyle;
     bool createSfWindow;
+    sf::Image icon;
 };
 
 } // namespace engine

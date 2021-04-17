@@ -108,10 +108,17 @@ public:
      */
     void stop();
 
+    /**
+     * @brief Moves the animation forward by dt seconds if playing
+     * 
+     * @param dt Time elapsed since last call to update
+     */
+    void update(float dt);
+
 private:
     AnimationData* data;
     bool isPlaying;
-    float startTime;
+    float animTime;
 
     bool centerOrigin;
     sf::Vector2f position;
