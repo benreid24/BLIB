@@ -113,6 +113,8 @@ bool Engine::run(State::Ptr initialState) {
                         return true;
                     }
                     engineEventBus.dispatch<event::Resumed>({});
+                    updateOuterTimer.restart();
+                    loopTimer.restart();
                 }
                 // more events?
             }
