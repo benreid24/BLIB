@@ -88,7 +88,17 @@ public:
      *
      * @param next Next state to enter on the following main loop run
      */
-    void nextState(State::Ptr next);
+    void pushState(State::Ptr next);
+
+    /**
+     * @brief Sets the next state for the following engine update loop. May be called at any
+     *        time, the next state will not be transitioned to until the start of main loop. This
+     *        replaces the current state so that it will not be returned to when the next state is
+     *        popped. Equivalent to setting PopState flag and pushing state together
+     *
+     * @param next Next state to enter on the following main loop run
+     */
+    void replaceState(State::Ptr next);
 
 private:
     const Settings engineSettings;

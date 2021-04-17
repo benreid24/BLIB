@@ -11,14 +11,27 @@ namespace engine
 {
 namespace unittest
 {
+namespace
+{
 class FlagTestState : public State {
 public:
-    FlagTestState(Flags::Flag flag)
+    FlagTestState(Flags::Flag flag, State::Ptr next = {}, bool replace = false)
     : callCount(0)
+    , n(next)
+    , r(replace)
     , flag(flag) {}
 
     virtual void update(Engine& engine, float dt) {
-        engine.flags().set(flag);
+        if (n) {
+            if (r)
+                engine.replaceState(n);
+            else
+                engine.pushState(n);
+            n.reset();
+        }
+        else {
+            engine.flags().set(flag);
+        }
         ++callCount;
     }
 
@@ -30,8 +43,12 @@ public:
 
 private:
     const Flags::Flag flag;
+    State::Ptr n;
+    bool r;
     int callCount;
 };
+
+} // namespace
 
 TEST(Engine, Terminate) {
     Engine engine(Settings().withCreateWindow(false));
@@ -53,21 +70,37 @@ TEST(Engine, PopState) {
     EXPECT_EQ(ptr.use_count(), 1);
 }
 
-TEST(Engine, MultipleStates) {
+TEST(Engine, ReplaceState) {
     Engine engine(Settings().withCreateWindow(false));
 
-    FlagTestState* first = new FlagTestState(Flags::PopState);
-    State::Ptr firstPtr(first);
     FlagTestState* second = new FlagTestState(Flags::PopState);
     State::Ptr secondPtr(second);
+    FlagTestState* first = new FlagTestState(Flags::PopState, secondPtr, true);
+    State::Ptr firstPtr(first);
 
-    // update -> pop -> next state -> update -> pop -> end
-    engine.nextState(secondPtr);
+    // update1(s) -> pop -> next state -> update2(s) -> pop -> end
     EXPECT_EQ(engine.run(firstPtr), true);
-    EXPECT_EQ(first->timesUpdated(), 1);
-    EXPECT_EQ(second->timesUpdated(), 1);
+    EXPECT_GE(first->timesUpdated(), 1);
+    EXPECT_GE(second->timesUpdated(), 1);
 }
 
+TEST(Engine, PushState) {
+    Engine engine(Settings().withCreateWindow(false));
+
+    FlagTestState* second = new FlagTestState(Flags::PopState);
+    State::Ptr secondPtr(second);
+    FlagTestState* first = new FlagTestState(Flags::PopState, secondPtr, false);
+    State::Ptr firstPtr(first);
+
+    // update1(s) -> push -> next state -> update2(s) -> pop -> update1(s) -> end
+    engine.pushState(secondPtr);
+    EXPECT_EQ(engine.run(firstPtr), true);
+    EXPECT_GE(first->timesUpdated(), 2);
+    EXPECT_GE(second->timesUpdated(), 1);
+}
+
+namespace
+{
 class VariableTimeTestState : public State {
 public:
     VariableTimeTestState()
@@ -165,6 +198,8 @@ private:
     std::vector<float> times;
 };
 
+} // namespace
+
 TEST(Engine, FixedTimestep) {
     Engine engine(Settings().withAllowVariableTimestep(false).withCreateWindow(false));
 
@@ -177,6 +212,8 @@ TEST(Engine, FixedTimestep) {
     }
 }
 
+namespace
+{
 struct EventReceiver
 : public bl::event::Listener<event::Startup, event::StateChange, event::Shutdown> {
     EventReceiver(std::vector<std::any>& recv)
@@ -190,6 +227,8 @@ private:
     std::vector<std::any>& recv;
 };
 
+} // namespace
+
 TEST(Engine, EventsStartShutdownStateChanges) {
     Engine engine(Settings().withCreateWindow(false));
     std::vector<std::any> events;
@@ -200,7 +239,7 @@ TEST(Engine, EventsStartShutdownStateChanges) {
     State::Ptr firstPtr(first);
     FlagTestState* second = new FlagTestState(Flags::PopState);
     State::Ptr secondPtr(second);
-    engine.nextState(secondPtr);
+    engine.pushState(secondPtr);
     ASSERT_EQ(engine.run(firstPtr), true);
 
     ASSERT_EQ(events.size(), 4);
