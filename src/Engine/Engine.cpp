@@ -186,6 +186,8 @@ bool Engine::run(State::Ptr initialState) {
                 engineEventBus.dispatch<event::StateChange>({states.top(), prev});
                 newState = nullptr;
             }
+            updateOuterTimer.restart();
+            loopTimer.restart();
         }
 
         // Handle state push
@@ -197,6 +199,8 @@ bool Engine::run(State::Ptr initialState) {
             states.top()->activate(*this);
             engineEventBus.dispatch<event::StateChange>({states.top(), prev});
             newState = nullptr;
+            updateOuterTimer.restart();
+            loopTimer.restart();
         }
 
         // Adhere to FPS cap
