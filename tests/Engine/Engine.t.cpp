@@ -266,6 +266,40 @@ TEST(Engine, TerminateEvent) {
     EXPECT_EQ(std::any_cast<event::Shutdown>(events[1]).cause, event::Shutdown::Terminated);
 }
 
+namespace
+{
+class TimeTestState : public bl::engine::State {
+public:
+    TimeTestState()
+    : totalTime(0) {}
+
+    virtual void update(Engine& engine, float dt) {
+        totalTime += dt;
+        if (totalTime >= 5.f) { engine.flags().set(Flags::Terminate); }
+    }
+
+    virtual void render(Engine& engine, float rd) {}
+
+    float timeElapsed() const { return totalTime; }
+
+    virtual const char* name() const override { return "TimeTestState"; }
+
+private:
+    float totalTime;
+};
+
+} // namespace
+
+TEST(Engine, TimeElapsedParity) {
+    Engine engine(Settings().withCreateWindow(false));
+    TimeTestState* state = new TimeTestState();
+    State::Ptr ptr(state);
+
+    ASSERT_EQ(engine.run(ptr), 1);
+    EXPECT_GE(state->timeElapsed(), 5.f);
+    EXPECT_LE(state->timeElapsed(), 5.2f);
+}
+
 } // namespace unittest
 } // namespace engine
 } // namespace bl

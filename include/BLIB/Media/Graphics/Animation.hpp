@@ -110,10 +110,20 @@ public:
 
     /**
      * @brief Moves the animation forward by dt seconds if playing
-     * 
+     *
      * @param dt Time elapsed since last call to update
      */
     void update(float dt);
+
+    /**
+     * @brief Additional rendering function that allows residual time to be passed in. Residual time
+     *        is elapsed real time between calls to update()
+     *
+     * @param target The target to render to
+     * @param residual Time elapsed that is not accounted for in calls to update()
+     * @param states Additional render states for SFML
+     */
+    void render(sf::RenderTarget& target, float residual, sf::RenderStates states = {});
 
 private:
     AnimationData* data;
