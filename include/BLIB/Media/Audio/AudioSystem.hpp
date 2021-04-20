@@ -68,6 +68,9 @@ public:
         sf::Sound sound;
 
     private:
+        float fadeOut;
+        float fadeFactor;
+
         Sound(Handle handle, resource::Resource<sf::SoundBuffer>::Ref buffer);
 
         friend class AudioSystem;
@@ -203,6 +206,14 @@ public:
      */
     static void stopSound(Handle handle);
 
+    /**
+     * @brief Stops the currently playing sound. No effect if not found
+     *
+     * @param handle The handle of the sound to stop
+     * @param fadeOut Fade out time in seconds
+     */
+    static void stopSound(Handle handle, float fadeOut);
+
 private:
     struct SystemState {
         enum State { Running, Stopping, Paused };
@@ -249,6 +260,7 @@ private:
                                const sf::Vector2f& pos, const SpatialSettings& settings, bool loop);
     std::shared_ptr<Sound> getSoundImp(Handle handle);
     void stopSoundImp(Handle handle);
+    void stopSoundImp(Handle handle, float fadeOut);
 
     void background();
     float volume() const;
@@ -308,6 +320,8 @@ inline std::shared_ptr<AudioSystem::Sound> AudioSystem::getSound(Handle h) {
 }
 
 inline void AudioSystem::stopSound(Handle h) { get().stopSoundImp(h); }
+
+inline void AudioSystem::stopSound(Handle h, float fadeOut) { get().stopSoundImp(h, fadeOut); }
 
 } // namespace audio
 } // namespace bl

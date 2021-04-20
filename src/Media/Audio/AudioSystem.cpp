@@ -179,6 +179,14 @@ void AudioSystem::stopSoundImp(Handle h) {
     it->second->sound.stop();
 }
 
+void AudioSystem::stopSoundImp(Handle h, float fadeOut) {
+    std::unique_lock lock(soundMutex);
+    auto it = soundMap.find(h);
+    if (it == soundMap.end()) return;
+    it->second->fadeOut    = fadeOut;
+    it->second->fadeFactor = 1.f;
+}
+
 float AudioSystem::volume() const {
     if (fadeVolumeFactor < 0) return masterVolume;
     return masterVolume * fadeVolumeFactor;
@@ -209,6 +217,7 @@ void AudioSystem::background() {
         musicState = playlists.empty() ? MusicState::Stopped : MusicState::Playing;
     };
 
+    sf::Clock soundFadeTimer;
     while (state != SystemState::Stopping || fadeVolumeFactor > 0.f) {
         {
             // sleep if paused
@@ -304,6 +313,18 @@ void AudioSystem::background() {
                         soundMap.erase(it->get()->handle);
                         sounds.erase(it); // only partially invalidated, can still increment
                     }
+                    else if (it->get()->fadeOut > 0.f) {
+                        // TODO - fade out then stop and remove
+                        it->get()->fadeFactor -=
+                            soundFadeTimer.getElapsedTime().asSeconds() / it->get()->fadeOut;
+                        if (it->get()->fadeFactor > 0.f) {
+                            it->get()->sound.setVolume(v * it->get()->fadeFactor);
+                        }
+                        else {
+                            soundMap.erase(it->get()->handle);
+                            sounds.erase(it); // only partially invalidated, can still increment
+                        }
+                    }
                     else {
                         it->get()->sound.setVolume(v);
                     }
@@ -322,7 +343,9 @@ void AudioSystem::background() {
 AudioSystem::Sound::Sound(AudioSystem::Handle h, resource::Resource<sf::SoundBuffer>::Ref r)
 : handle(h)
 , buffer(r)
-, sound(*r) {}
+, sound(*r)
+, fadeOut(-1.f)
+, fadeFactor(-1.f) {}
 
 } // namespace audio
 } // namespace bl

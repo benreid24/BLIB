@@ -185,6 +185,13 @@ public:
     std::size_t capacity() const;
 
     /**
+     * @brief Reserve space for the given capacity
+     *
+     * @param capacity The amount of elements to reserve space for
+     */
+    void reserve(std::size_t capacity);
+
+    /**
      * @brief Removes all objects from the pool. This invalidates all iterators
      *
      * @param shrinkStorage True to also clear the pool's memory, false to leave it
@@ -368,6 +375,11 @@ std::size_t DynamicObjectPool<T>::size() const {
 template<typename T>
 std::size_t DynamicObjectPool<T>::capacity() const {
     return pool.size();
+}
+
+template<typename T>
+void DynamicObjectPool<T>::reserve(std::size_t cap) {
+    pool.reserve(cap);
 }
 
 template<typename T>

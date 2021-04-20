@@ -10,6 +10,7 @@ target_sources(BLIB PUBLIC
     Media.hpp
     Menu.hpp
     Parser.hpp
+    Particles.hpp
     Resources.hpp
     Scripts.hpp
     Util.hpp
@@ -26,5 +27,6 @@ add_subdirectory(Logging)
 add_subdirectory(Media)
 add_subdirectory(Menu)
 add_subdirectory(Parser)
+add_subdirectory(Particles)
 add_subdirectory(Scripts)
 add_subdirectory(Util)
