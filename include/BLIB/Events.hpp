@@ -7,6 +7,7 @@
  *
  */
 
+#include <BLIB/Events/ClassGuard.hpp>
 #include <BLIB/Events/DelayedDispatcher.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Events/Listener.hpp>

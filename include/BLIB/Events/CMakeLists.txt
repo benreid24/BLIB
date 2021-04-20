@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+    ClassGuard.hpp
     DelayedDispatcher.hpp
     SingleDispatcher.hpp
     SingleDispatcherScopeGuard.hpp
