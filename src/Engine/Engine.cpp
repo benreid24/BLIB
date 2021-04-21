@@ -12,6 +12,12 @@ Engine::Engine(const Settings& settings)
 : renderWindow(nullptr)
 , engineSettings(settings) {}
 
+Engine::~Engine() {
+    while (!states.empty()) { states.pop(); }
+    newState.reset();
+    renderWindow.reset();
+}
+
 bl::event::Dispatcher& Engine::eventBus() { return engineEventBus; }
 
 entity::Registry& Engine::entities() { return entityRegistry; }

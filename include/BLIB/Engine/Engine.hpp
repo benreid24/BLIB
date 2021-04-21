@@ -34,6 +34,12 @@ public:
     Engine(const Settings& settings);
 
     /**
+     * @brief Destroy the Engine object
+     *
+     */
+    ~Engine();
+
+    /**
      * @brief Returns a reference to the engine wide entity registry
      *
      */

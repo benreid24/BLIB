@@ -350,7 +350,10 @@ template<typename T>
 void Grid<T>::clear() {
     for (unsigned int x = 0; x < width; ++x) {
         for (unsigned int y = 0; y < height; ++y) {
-            while (cells(x, y)) { cells(x, y)->remove(); }
+            while (cells(x, y)) {
+                auto keepAlive = cells(x, y); // to prevent delete in middle of remove()
+                cells(x, y)->remove();
+            }
         }
     }
 }
@@ -439,7 +442,7 @@ template<typename T>
 void Grid<T>::Payload::remove() {
     if (prev) { prev->next = next; }
     else if (owner.cells(x, y).get() == this) {
-        owner.cells(x, y) = owner.cells(x, y)->next;
+        owner.cells(x, y) = next;
     }
     if (next) { next->prev = prev; }
 

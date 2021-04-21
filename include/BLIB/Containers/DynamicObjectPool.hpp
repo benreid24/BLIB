@@ -93,7 +93,7 @@ public:
          */
         bool operator!=(const IteratorType<EType>& iterator) const;
 
-    private:
+        // private:
         IteratorType(std::vector<Entry>& pool, long long int i);
 
         std::vector<Entry>* pool;
@@ -214,7 +214,7 @@ public:
 private:
     class Entry {
     public:
-        Entry()
+        explicit Entry()
         : _alive(false) {
             slot.next = -1;
         }
