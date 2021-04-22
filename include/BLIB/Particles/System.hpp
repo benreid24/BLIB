@@ -106,7 +106,8 @@ private:
             new (cast()) T(std::move(*c.cast()));
             return *this;
         }
-        ~Instance() { cast()->~T(); }
+        ~Instance() { destroy(); }
+        void destroy() { cast()->~T(); }
     };
     mutable container::FastEraseVector<Instance> particles;
     unsigned int target;
@@ -152,9 +153,14 @@ template<typename T>
 void System<T>::update(const UpdateFunction& cb, float dt) {
     for (unsigned int i = 0; i < particles.size(); ++i) {
         if (!cb(*particles[i].cast())) {
-            particles.erase(i);
-            --i;
-            if (replace) toCreate += 1;
+            if (replace) {
+                particles[i].destroy();
+                createFunction(particles[i].cast());
+            }
+            else {
+                particles.erase(i);
+                --i;
+            }
         }
     }
 
