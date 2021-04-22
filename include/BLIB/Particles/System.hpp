@@ -2,6 +2,7 @@
 #define BLIB_PARTICLES_SYSTEM_HPP
 
 #include <BLIB/Containers/FastEraseVector.hpp>
+#include <BLIB/Containers/ObjectWrapper.hpp>
 #include <cmath>
 #include <functional>
 
@@ -96,20 +97,7 @@ public:
     void render(const RenderFunction& renderCb) const;
 
 private:
-    struct Instance {
-        char buf[sizeof(T)];
-        T* cast() { return static_cast<T*>(static_cast<void*>(buf)); }
-        const T* cast() const { return static_cast<const T*>(static_cast<const void*>(buf)); }
-        Instance() = default;
-        Instance(Instance&& c) { new (cast()) T(std::move(*c.cast())); }
-        Instance& operator=(Instance&& c) {
-            new (cast()) T(std::move(*c.cast()));
-            return *this;
-        }
-        ~Instance() { destroy(); }
-        void destroy() { cast()->~T(); }
-    };
-    mutable container::FastEraseVector<Instance> particles;
+    container::FastEraseVector<container::ObjectWrapper<T>> particles;
     unsigned int target;
     float rate;
     float toCreate;
@@ -152,10 +140,10 @@ unsigned int System<T>::particleCount() const {
 template<typename T>
 void System<T>::update(const UpdateFunction& cb, float dt) {
     for (unsigned int i = 0; i < particles.size(); ++i) {
-        if (!cb(*particles[i].cast())) {
+        if (!cb(particles[i].get())) {
             if (replace) {
                 particles[i].destroy();
-                createFunction(particles[i].cast());
+                createFunction(particles[i].ptr());
             }
             else {
                 particles.erase(i);
@@ -170,13 +158,13 @@ void System<T>::update(const UpdateFunction& cb, float dt) {
 
     for (unsigned int i = 0; i < create; ++i) {
         particles.emplace_back();
-        createFunction(particles.back().cast());
+        createFunction(particles.back().ptr());
     }
 }
 
 template<typename T>
 void System<T>::render(const RenderFunction& cb) const {
-    for (const auto& inst : particles) { cb(*inst.cast()); }
+    for (const auto& particle : particles) { cb(particle.get()); }
 }
 
 } // namespace particle
