@@ -138,7 +138,7 @@ public:
             }
             else {
                 ++counter;
-                sf::sleep(sf::seconds(dt + 0.01f));
+                sf::sleep(sf::seconds(dt + 0.1f));
             }
             break;
 
