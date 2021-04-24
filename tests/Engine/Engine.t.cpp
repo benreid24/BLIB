@@ -106,17 +106,19 @@ public:
     VariableTimeTestState()
     : state(Constant)
     , counter(0) {
-        times.reserve(6);
+        levelTimes.reserve(20);
+        shortTimes.reserve(20);
+        longTimes.reserve(20);
     }
 
     virtual const char* name() const override { return "VariableTimeTestState"; }
 
     virtual void update(Engine& engine, float dt) {
         BL_LOG_INFO << "update() called with timestep: " << dt << "s";
-        times.push_back(dt);
         switch (state) {
         case Constant:
-            if (counter >= 1) {
+            levelTimes.push_back(dt);
+            if (counter >= 20) {
                 counter = 0;
                 state   = Increasing;
                 sf::sleep(sf::seconds(dt * 1.5f));
@@ -128,19 +130,21 @@ public:
             break;
 
         case Increasing:
-            if (counter >= 1) {
+            longTimes.push_back(dt);
+            if (counter >= 20) {
                 counter = 0;
                 state   = Decreasing;
                 sf::sleep(sf::seconds(dt / 3.f));
             }
             else {
                 ++counter;
-                sf::sleep(sf::seconds(dt * 2.f));
+                sf::sleep(sf::seconds(dt + 0.01f));
             }
             break;
 
         case Decreasing:
-            if (counter >= 1) { engine.flags().set(Flags::Terminate); }
+            shortTimes.push_back(dt);
+            if (counter >= 20) { engine.flags().set(Flags::Terminate); }
             else {
                 ++counter;
                 sf::sleep(sf::seconds(dt / 1.5f));
@@ -156,10 +160,28 @@ public:
         BL_LOG_INFO << "render() called with residual lag: " << rd << "s";
     }
 
-    const std::vector<float>& getTimes() const { return times; }
+    const float levelAvg() {
+        float s = 0;
+        for (const float t : levelTimes) { s += t; }
+        return s / static_cast<float>(levelTimes.size());
+    }
+
+    const float longAvg() {
+        float s = 0;
+        for (const float t : longTimes) { s += t; }
+        return s / static_cast<float>(longTimes.size());
+    }
+
+    const float shortAvg() {
+        float s = 0;
+        for (const float t : shortTimes) { s += t; }
+        return s / static_cast<float>(shortTimes.size());
+    }
 
 private:
-    std::vector<float> times;
+    std::vector<float> levelTimes;
+    std::vector<float> longTimes;
+    std::vector<float> shortTimes;
     enum State { Constant, Increasing, Decreasing } state;
     int counter;
 };
@@ -172,13 +194,9 @@ TEST(Engine, VariableTimestep) {
     VariableTimeTestState* state = new VariableTimeTestState();
     State::Ptr ptr(state);
     EXPECT_EQ(engine.run(ptr), true);
-    ASSERT_GE(state->getTimes().size(), 6);
-
-    EXPECT_EQ(state->getTimes().at(0), state->getTimes().at(1));
-    EXPECT_LE(state->getTimes().at(1), state->getTimes().at(2));
-    EXPECT_LE(state->getTimes().at(2), state->getTimes().at(3));
-    EXPECT_GE(state->getTimes().at(3), state->getTimes().at(4));
-    EXPECT_GE(state->getTimes().at(4), state->getTimes().at(5));
+    EXPECT_FLOAT_EQ(state->levelAvg(), 0.1f);
+    EXPECT_GT(state->longAvg(), state->levelAvg());
+    EXPECT_LT(state->shortAvg(), state->longAvg());
 }
 
 class FixedTimestepTestState : public State {
