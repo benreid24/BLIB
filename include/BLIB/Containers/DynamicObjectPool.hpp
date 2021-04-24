@@ -93,7 +93,7 @@ public:
          */
         bool operator!=(const IteratorType<EType>& iterator) const;
 
-        // private:
+    private:
         IteratorType(std::vector<Entry>& pool, long long int i);
 
         std::vector<Entry>* pool;
