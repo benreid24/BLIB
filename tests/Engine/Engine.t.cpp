@@ -124,7 +124,7 @@ public:
                 sf::sleep(sf::seconds(dt * 1.5f));
             }
             else {
-                sf::sleep(sf::seconds(dt * 0.9f));
+                sf::sleep(sf::seconds(dt * 0.1f));
                 ++counter;
             }
             break;
@@ -138,16 +138,16 @@ public:
             }
             else {
                 ++counter;
-                sf::sleep(sf::seconds(dt + 0.1f));
+                sf::sleep(sf::seconds(dt * 2.f));
             }
             break;
 
         case Decreasing:
-            shortTimes.push_back(dt);
-            if (counter >= 20) { engine.flags().set(Flags::Terminate); }
+            if (counter > 20) shortTimes.push_back(dt);
+            if (counter >= 40) { engine.flags().set(Flags::Terminate); }
             else {
                 ++counter;
-                sf::sleep(sf::seconds(dt / 1.5f));
+                sf::sleep(sf::seconds(0.001f));
             }
             break;
         default:
@@ -194,7 +194,7 @@ TEST(Engine, VariableTimestep) {
     VariableTimeTestState* state = new VariableTimeTestState();
     State::Ptr ptr(state);
     EXPECT_EQ(engine.run(ptr), true);
-    EXPECT_FLOAT_EQ(state->levelAvg(), 0.1f);
+    EXPECT_LE(std::abs(state->levelAvg() - 0.1f), 0.001f);
     EXPECT_GT(state->longAvg(), state->levelAvg());
     EXPECT_LT(state->shortAvg(), state->longAvg());
 }
