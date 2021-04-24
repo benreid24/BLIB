@@ -106,29 +106,32 @@ public:
     VariableTimeTestState()
     : state(Constant)
     , counter(0) {
-        times.reserve(6);
+        levelTimes.reserve(20);
+        shortTimes.reserve(20);
+        longTimes.reserve(20);
     }
 
     virtual const char* name() const override { return "VariableTimeTestState"; }
 
     virtual void update(Engine& engine, float dt) {
         BL_LOG_INFO << "update() called with timestep: " << dt << "s";
-        times.push_back(dt);
         switch (state) {
         case Constant:
-            if (counter >= 1) {
+            levelTimes.push_back(dt);
+            if (counter >= 20) {
                 counter = 0;
                 state   = Increasing;
                 sf::sleep(sf::seconds(dt * 1.5f));
             }
             else {
-                sf::sleep(sf::seconds(dt * 0.9f));
+                sf::sleep(sf::seconds(dt * 0.1f));
                 ++counter;
             }
             break;
 
         case Increasing:
-            if (counter >= 1) {
+            longTimes.push_back(dt);
+            if (counter >= 20) {
                 counter = 0;
                 state   = Decreasing;
                 sf::sleep(sf::seconds(dt / 3.f));
@@ -140,10 +143,11 @@ public:
             break;
 
         case Decreasing:
-            if (counter >= 1) { engine.flags().set(Flags::Terminate); }
+            if (counter > 20) shortTimes.push_back(dt);
+            if (counter >= 40) { engine.flags().set(Flags::Terminate); }
             else {
                 ++counter;
-                sf::sleep(sf::seconds(dt / 1.5f));
+                sf::sleep(sf::seconds(0.001f));
             }
             break;
         default:
@@ -156,10 +160,28 @@ public:
         BL_LOG_INFO << "render() called with residual lag: " << rd << "s";
     }
 
-    const std::vector<float>& getTimes() const { return times; }
+    const float levelAvg() {
+        float s = 0;
+        for (const float t : levelTimes) { s += t; }
+        return s / static_cast<float>(levelTimes.size());
+    }
+
+    const float longAvg() {
+        float s = 0;
+        for (const float t : longTimes) { s += t; }
+        return s / static_cast<float>(longTimes.size());
+    }
+
+    const float shortAvg() {
+        float s = 0;
+        for (const float t : shortTimes) { s += t; }
+        return s / static_cast<float>(shortTimes.size());
+    }
 
 private:
-    std::vector<float> times;
+    std::vector<float> levelTimes;
+    std::vector<float> longTimes;
+    std::vector<float> shortTimes;
     enum State { Constant, Increasing, Decreasing } state;
     int counter;
 };
@@ -172,13 +194,9 @@ TEST(Engine, VariableTimestep) {
     VariableTimeTestState* state = new VariableTimeTestState();
     State::Ptr ptr(state);
     EXPECT_EQ(engine.run(ptr), true);
-    ASSERT_GE(state->getTimes().size(), 6);
-
-    EXPECT_EQ(state->getTimes().at(0), state->getTimes().at(1));
-    EXPECT_LE(state->getTimes().at(1), state->getTimes().at(2));
-    EXPECT_LE(state->getTimes().at(2), state->getTimes().at(3));
-    EXPECT_GE(state->getTimes().at(3), state->getTimes().at(4));
-    EXPECT_GE(state->getTimes().at(4), state->getTimes().at(5));
+    EXPECT_LE(std::abs(state->levelAvg() - 0.1f), 0.001f);
+    EXPECT_GT(state->longAvg(), state->levelAvg());
+    EXPECT_LT(state->shortAvg(), state->longAvg());
 }
 
 class FixedTimestepTestState : public State {
@@ -264,6 +282,40 @@ TEST(Engine, TerminateEvent) {
     EXPECT_EQ(events[0].type(), typeid(event::Startup));
     EXPECT_EQ(events[1].type(), typeid(event::Shutdown));
     EXPECT_EQ(std::any_cast<event::Shutdown>(events[1]).cause, event::Shutdown::Terminated);
+}
+
+namespace
+{
+class TimeTestState : public bl::engine::State {
+public:
+    TimeTestState()
+    : totalTime(0) {}
+
+    virtual void update(Engine& engine, float dt) {
+        totalTime += dt;
+        if (totalTime >= 5.f) { engine.flags().set(Flags::Terminate); }
+    }
+
+    virtual void render(Engine& engine, float rd) {}
+
+    float timeElapsed() const { return totalTime; }
+
+    virtual const char* name() const override { return "TimeTestState"; }
+
+private:
+    float totalTime;
+};
+
+} // namespace
+
+TEST(Engine, TimeElapsedParity) {
+    Engine engine(Settings().withCreateWindow(false));
+    TimeTestState* state = new TimeTestState();
+    State::Ptr ptr(state);
+
+    ASSERT_EQ(engine.run(ptr), 1);
+    EXPECT_GE(state->timeElapsed(), 5.f);
+    EXPECT_LE(state->timeElapsed(), 5.2f);
 }
 
 } // namespace unittest

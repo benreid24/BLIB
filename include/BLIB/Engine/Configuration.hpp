@@ -97,6 +97,12 @@ public:
     static bool save(const std::string& file);
 
     /**
+     * @brief Logs the configuration via the included logging utility
+     *
+     */
+    static void log();
+
+    /**
      * @brief Clears out all stored config data. Useful for doing a fresh reload
      *
      */
@@ -158,10 +164,7 @@ void Configuration::set(const std::string& key, const T& value, bool ov) {
     if (tit == config.end()) { tit = config.try_emplace(tkey).first; }
 
     auto it = tit->second.find(key);
-    if (it == tit->second.end() || ov) {
-        BL_LOG_INFO << "Configuration set: " << key << "=" << value;
-        tit->second[key] = std::make_any<T>(value);
-    }
+    if (it == tit->second.end() || ov) { tit->second[key] = std::make_any<T>(value); }
     else {
         BL_LOG_WARN << "Tried to overwrite configuration (" << key << "="
                     << std::any_cast<T>(it->second) << ") to " << value;

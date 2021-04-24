@@ -8,7 +8,7 @@ namespace bl
 namespace script
 {
 Manager::~Manager() {
-    BL_LOG_INFO << "ScriptManager (" << this << ") terminating. timeout = 2s";
+    BL_LOG_INFO << "ScriptManager (" << this << ") terminating with timeout = 2s";
     terminateAll(2.f);
     BL_LOG_INFO << "ScriptManager (" << this << ") terminated";
 }
@@ -35,6 +35,7 @@ bool Manager::terminateAll(float timeout) {
     const int ms = static_cast<int>(timeout * 1000.0f);
     for (int t = 0; t < ms; t += 30) {
         clean();
+        if (scripts.empty()) break;
         std::this_thread::sleep_for(std::chrono::milliseconds(30));
     }
 

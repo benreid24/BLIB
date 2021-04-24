@@ -52,6 +52,17 @@ public:
         return min + point / static_cast<T>(range) * (max - min);
     }
 
+    /**
+     * @brief Returns true or false with probability equal to numerator/denominator
+     *
+     * @param numerator Odds of returning true
+     * @param denominator Total odds
+     * @return true or false with probability equal to numerator/denominator
+     */
+    static bool chance(int numerator, int denominator) {
+        return get<int>(0, denominator) > numerator;
+    }
+
 private:
     Random()
     : rng(rngdev()) {

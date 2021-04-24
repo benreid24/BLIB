@@ -1,5 +1,7 @@
 #include <BLIB/Media/Graphics/Animation.hpp>
 
+#include <cmath>
+
 namespace bl
 {
 /// Collection of graphical utilities and functionality
@@ -56,7 +58,18 @@ bool Animation::playing() const {
 void Animation::stop() { isPlaying = false; }
 
 void Animation::update(float dt) {
-    if (isPlaying) { animTime += dt; }
+    if (isPlaying) {
+        animTime += dt;
+        animTime -= animTime * std::floor(animTime / data->getLength());
+    }
+}
+
+void Animation::render(sf::RenderTarget& target, float lag, sf::RenderStates states) {
+    if (data) {
+        const float t = isPlaying ? animTime + lag : 0;
+        data->render(
+            target, states, t, position, scale, rotation, centerOrigin, loopOverride, loop);
+    }
 }
 
 void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const {

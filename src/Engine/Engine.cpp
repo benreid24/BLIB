@@ -12,6 +12,12 @@ Engine::Engine(const Settings& settings)
 : renderWindow(nullptr)
 , engineSettings(settings) {}
 
+Engine::~Engine() {
+    while (!states.empty()) { states.pop(); }
+    newState.reset();
+    renderWindow.reset();
+}
+
 bl::event::Dispatcher& Engine::eventBus() { return engineEventBus; }
 
 entity::Registry& Engine::entities() { return entityRegistry; }
@@ -186,6 +192,8 @@ bool Engine::run(State::Ptr initialState) {
                 engineEventBus.dispatch<event::StateChange>({states.top(), prev});
                 newState = nullptr;
             }
+            updateOuterTimer.restart();
+            loopTimer.restart();
         }
 
         // Handle state push
@@ -197,6 +205,8 @@ bool Engine::run(State::Ptr initialState) {
             states.top()->activate(*this);
             engineEventBus.dispatch<event::StateChange>({states.top(), prev});
             newState = nullptr;
+            updateOuterTimer.restart();
+            loopTimer.restart();
         }
 
         // Adhere to FPS cap

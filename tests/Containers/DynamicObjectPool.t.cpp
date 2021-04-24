@@ -1,6 +1,7 @@
 #include <BLIB/Containers/Any.hpp>
 #include <BLIB/Containers/DynamicObjectPool.hpp>
 #include <gtest/gtest.h>
+#include <unordered_set>
 
 namespace bl
 {
@@ -244,6 +245,22 @@ TEST(DynamicObjectPool, Any) {
     auto val      = temp.get<Data>();
     EXPECT_EQ(pool.begin()->get<Data>().value, 5);
     EXPECT_EQ((pool.begin() + 1)->get<Data>().value, 10);
+}
+
+TEST(DynamicObjectPool, Iterate) {
+    DynamicObjectPool<int> pool;
+
+    pool.add(5);
+    pool.emplace(15);
+    pool.add(32);
+
+    std::unordered_set<int> found;
+
+    for (const int i : pool) { found.insert(i); }
+
+    EXPECT_NE(found.find(5), found.end());
+    EXPECT_NE(found.find(15), found.end());
+    EXPECT_NE(found.find(32), found.end());
 }
 
 } // namespace unittest

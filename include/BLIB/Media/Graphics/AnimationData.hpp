@@ -44,7 +44,7 @@ public:
      *        Spritesheets are searched for in the same directory as the file. If not found then
      *        engine::Configuration::get("blib.animation.spritesheet_path") is used
      *
-     * @param filename The file to laod from
+     * @param filename The file to load from
      * @param spritesheetDir Optional additional directory to search for spritesheets
      * @return bool True if the animation could be loaded, false otherwise
      */

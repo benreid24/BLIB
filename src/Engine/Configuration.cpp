@@ -35,6 +35,18 @@ void saveValues(
     }
 }
 
+template<typename T>
+void logValues(
+    std::unordered_map<std::type_index, std::unordered_map<std::string, std::any>>& config) {
+    const auto tkey = std::type_index(typeid(T));
+    auto it         = config.find(tkey);
+    if (it != config.end()) {
+        for (const auto& pair : it->second) {
+            BL_LOG_INFO << "Config " << pair.first << "=" << std::any_cast<T>(pair.second);
+        }
+    }
+}
+
 } // namespace
 
 Configuration& Configuration::get() {
@@ -111,6 +123,14 @@ bool Configuration::save(const std::string& file) {
     saveValues<std::string>(output, 's', get().config);
 
     return output.good();
+}
+
+void Configuration::log() {
+    logValues<bool>(get().config);
+    logValues<int>(get().config);
+    logValues<unsigned>(get().config);
+    logValues<float>(get().config);
+    logValues<std::string>(get().config);
 }
 
 void Configuration::clear() { get().config.clear(); }
