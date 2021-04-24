@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::container::FastEraseVector&lt; T, Alloc &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,29 +63,150 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00657.html">bl</a></li><li class="navelem"><a class="el" href="a00660.html">container</a></li><li class="navelem"><a class="el" href="a00761.html">QuadTree</a></li><li class="navelem"><a class="el" href="a00765.html">ResultSet</a></li><li class="navelem"><a class="el" href="a00769.html">Iterator</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00683.html">bl</a></li><li class="navelem"><a class="el" href="a00686.html">container</a></li><li class="navelem"><a class="el" href="a00766.html">FastEraseVector</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a00763.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::container::QuadTree&lt; TCoord, TPayload &gt;::ResultSet::Iterator Member List</div>  </div>
+<div class="title">bl::container::FastEraseVector&lt; T, Alloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00660.html">Containers</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00769.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::ResultSet::Iterator</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00769.html#a619b186c3b2a52ebb234c7a94a0383a9">operator!=</a>(const Iterator &amp;it) const</td><td class="entry"><a class="el" href="a00769.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::ResultSet::Iterator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00769.html#afcdc7d50658fd2902462e07d03deb2b9">operator*</a>()</td><td class="entry"><a class="el" href="a00769.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::ResultSet::Iterator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00769.html#a3aa54483f7c378adc3a2539d08720d79">operator++</a>()</td><td class="entry"><a class="el" href="a00769.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::ResultSet::Iterator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00769.html#a0c9b1d5fa6786773a3ef3a91b1c60074">operator-&gt;</a>()</td><td class="entry"><a class="el" href="a00769.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::ResultSet::Iterator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00769.html#a96484d7768a19258f34c892d223b50ff">operator==</a>(const Iterator &amp;it) const</td><td class="entry"><a class="el" href="a00769.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::ResultSet::Iterator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00769.html#a5a03e4fe93fd6b50eb8e4b6edb7c6f18">position</a>()</td><td class="entry"><a class="el" href="a00769.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::ResultSet::Iterator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00769.html#a409719f61e9439051d21243690a5e416">ResultSet</a> class</td><td class="entry"><a class="el" href="a00769.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::ResultSet::Iterator</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-</table></div><!-- contents -->
+<p>A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a00766.html#ac6424078bf8566ee5aab963214fc288f" title="Erase a single element using an iterator. ">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy.  
+ <a href="a00766.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00026_source.html">FastEraseVector.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::container::FastEraseVector&lt; T, Alloc &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00766.png" usemap="#bl::container::FastEraseVector_3C_20T_2C_20Alloc_20_3E_map" alt=""/>
+  <map id="bl::container::FastEraseVector_3C_20T_2C_20Alloc_20_3E_map" name="bl::container::FastEraseVector_3C_20T_2C_20Alloc_20_3E_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a6b11f65868953b910a95b9ca4fed2a63"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00766.html#a6b11f65868953b910a95b9ca4fed2a63">iterator</a> = typename std::vector&lt; T, Alloc &gt;::<a class="el" href="a00766.html#a6b11f65868953b910a95b9ca4fed2a63">iterator</a></td></tr>
+<tr class="separator:a6b11f65868953b910a95b9ca4fed2a63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac6424078bf8566ee5aab963214fc288f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00766.html#ac6424078bf8566ee5aab963214fc288f">erase</a> (<a class="el" href="a00766.html#a6b11f65868953b910a95b9ca4fed2a63">iterator</a> position)</td></tr>
+<tr class="memdesc:ac6424078bf8566ee5aab963214fc288f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase a single element using an iterator.  <a href="#ac6424078bf8566ee5aab963214fc288f">More...</a><br /></td></tr>
+<tr class="separator:ac6424078bf8566ee5aab963214fc288f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d84fc0886009ca6aa5e3bb4fa0ae932"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00766.html#a4d84fc0886009ca6aa5e3bb4fa0ae932">erase</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a4d84fc0886009ca6aa5e3bb4fa0ae932"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase a single element using an index.  <a href="#a4d84fc0886009ca6aa5e3bb4fa0ae932">More...</a><br /></td></tr>
+<tr class="separator:a4d84fc0886009ca6aa5e3bb4fa0ae932"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;class T, class Alloc = std::allocator&lt;T&gt;&gt;<br />
+class bl::container::FastEraseVector&lt; T, Alloc &gt;</h3>
+
+<p>A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a00766.html#ac6424078bf8566ee5aab963214fc288f" title="Erase a single element using an iterator. ">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type of object to store </td></tr>
+    <tr><td class="paramname">Alloc</td><td>Allocator type to use, defaults to std::allocator&lt;T&gt; </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00026_source.html#l00022">22</a> of file <a class="el" href="a00026_source.html">FastEraseVector.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a6b11f65868953b910a95b9ca4fed2a63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b11f65868953b910a95b9ca4fed2a63">&#9670;&nbsp;</a></span>iterator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T, class Alloc = std::allocator&lt;T&gt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a00766.html">bl::container::FastEraseVector</a>&lt; T, Alloc &gt;::<a class="el" href="a00766.html#a6b11f65868953b910a95b9ca4fed2a63">iterator</a> =  typename std::vector&lt;T, Alloc&gt;::<a class="el" href="a00766.html#a6b11f65868953b910a95b9ca4fed2a63">iterator</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00026_source.html#l00024">24</a> of file <a class="el" href="a00026_source.html">FastEraseVector.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac6424078bf8566ee5aab963214fc288f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6424078bf8566ee5aab963214fc288f">&#9670;&nbsp;</a></span>erase() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class Alloc &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00766.html">bl::container::FastEraseVector</a>&lt; T, Alloc &gt;::erase </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00766.html#a6b11f65868953b910a95b9ca4fed2a63">iterator</a>&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Erase a single element using an iterator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>Element to erase </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00026_source.html#l00044">44</a> of file <a class="el" href="a00026_source.html">FastEraseVector.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4d84fc0886009ca6aa5e3bb4fa0ae932"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d84fc0886009ca6aa5e3bb4fa0ae932">&#9670;&nbsp;</a></span>erase() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class Alloc &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00766.html">bl::container::FastEraseVector</a>&lt; T, Alloc &gt;::erase </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Erase a single element using an index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>Element to erase </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00026_source.html#l00050">50</a> of file <a class="el" href="a00026_source.html">FastEraseVector.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Containers/<a class="el" href="a00026_source.html">FastEraseVector.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 17 2021 17:15:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 24 2021 21:26:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::resource Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,25 +63,95 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00657.html">bl</a></li><li class="navelem"><a class="el" href="a00658.html">ai</a></li><li class="navelem"><a class="el" href="a00709.html">PathMap</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00683.html">bl</a></li><li class="navelem"><a class="el" href="a00706.html">resource</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">bl::ai::PathMap&lt; TCoord &gt; Member List</div>  </div>
+<div class="title">bl::resource Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00709.html">bl::ai::PathMap&lt; TCoord &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00709.html#a73b053225fcfcac442fd79fe5abd064c">getAdjacentNodes</a>(const TCoord &amp;node, std::vector&lt; TCoord &gt; &amp;result) const =0</td><td class="entry"><a class="el" href="a00709.html">bl::ai::PathMap&lt; TCoord &gt;</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00709.html#aab9d3e9d8a67a0ad318d3570b06fbdaa">movementCost</a>(const TCoord &amp;from, const TCoord &amp;to, entity::Entity mover) const =0</td><td class="entry"><a class="el" href="a00709.html">bl::ai::PathMap&lt; TCoord &gt;</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00709.html#a484743533d130aebb4a0d60b1262e543">~PathMap</a>()=default</td><td class="entry"><a class="el" href="a00709.html">bl::ai::PathMap&lt; TCoord &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Collection of classes for resource management and flyweight pattern.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01402.html">AsyncLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized loader meant for loading resources into a <a class="el" href="a01414.html" title="Single template based resource management class. Meant for storing. ">Manager</a> in the background. Default implementation simply calls <a class="el" href="a01402.html#aa3bdaa1b95c641cb669887a9f10d95ff" title="Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their ...">load()</a> on the manager, but custom background loaders can be built for large resources and should leverage <a class="el" href="a01414.html#ab7f67e29b779d355aa2bb7005ed1617a" title="Add an already loaded resource to the manager. Overwrites existing if present. ">Manager::add()</a> to insert constructed resources.  <a href="a01402.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01406.html">BackgroundLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for loading resources in the background while monitoring the progress. <a class="el" href="a01418.html" title="Base level struct representing a resource that can be loaded and managed by the resource system...">Resource</a> loading is done from the calling thread, and monitoring is done on a second thread. This is to eliminate any context issues with loading SFML resources.  <a href="a01406.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01426.html">FontResourceLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a01410.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">Loader</a> for sf::Font.  <a href="a01426.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01410.html">Loader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templatized resource loader. Must be implemented for any resource type that is intended to be managed.  <a href="a01410.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01414.html">Manager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single template based resource management class. Meant for storing.  <a href="a01414.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01418.html">Resource</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base level struct representing a resource that can be loaded and managed by the resource system.  <a href="a01418.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01422.html">TextureResourceLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a01410.html" title="Templatized resource loader. Must be implemented for any resource type that is intended to be managed...">Loader</a> for sf::Texture.  <a href="a01422.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a1a043587d311f4ee8d12b4d7643a6c99"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="a01414.html">Manager</a>&lt; sf::Texture &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00706.html#a1a043587d311f4ee8d12b4d7643a6c99">TextureResourceManager</a></td></tr>
+<tr class="memdesc:a1a043587d311f4ee8d12b4d7643a6c99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a01414.html" title="Single template based resource management class. Meant for storing. ">Manager</a> for sf::Texture objects.  <a href="#a1a043587d311f4ee8d12b4d7643a6c99">More...</a><br /></td></tr>
+<tr class="separator:a1a043587d311f4ee8d12b4d7643a6c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a447c0867aa84a4f314bc9cc113ce84e9"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="a01414.html">Manager</a>&lt; sf::Font &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00706.html#a447c0867aa84a4f314bc9cc113ce84e9">FontResourceManager</a></td></tr>
+<tr class="separator:a447c0867aa84a4f314bc9cc113ce84e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Collection of classes for resource management and flyweight pattern. </p>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a447c0867aa84a4f314bc9cc113ce84e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a447c0867aa84a4f314bc9cc113ce84e9">&#9670;&nbsp;</a></span>FontResourceManager</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="a01414.html">Manager</a>&lt;sf::Font&gt; <a class="el" href="a00706.html#a447c0867aa84a4f314bc9cc113ce84e9">bl::resource::FontResourceManager</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00371_source.html#l00047">47</a> of file <a class="el" href="a00371_source.html">SpecializedLoaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1a043587d311f4ee8d12b4d7643a6c99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a043587d311f4ee8d12b4d7643a6c99">&#9670;&nbsp;</a></span>TextureResourceManager</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="a01414.html">Manager</a>&lt;sf::Texture&gt; <a class="el" href="a00706.html#a1a043587d311f4ee8d12b4d7643a6c99">bl::resource::TextureResourceManager</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specialized <a class="el" href="a01414.html" title="Single template based resource management class. Meant for storing. ">Manager</a> for sf::Texture objects. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00371_source.html#l00044">44</a> of file <a class="el" href="a00371_source.html">SpecializedLoaders.hpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 17 2021 17:15:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 24 2021 21:26:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

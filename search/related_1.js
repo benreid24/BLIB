@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['dispatcherscopeguard',['DispatcherScopeGuard',['../a00881.html#a6947217ec9323301d105214296a77b04',1,'bl::event::Dispatcher']]],
-  ['dynamicobjectpool',['DynamicObjectPool',['../a00725.html#a160fce7459a78c991f2c66f1bfd56fec',1,'bl::container::DynamicObjectPool::IteratorType']]]
+  ['dispatcherscopeguard',['DispatcherScopeGuard',['../a00918.html#a6947217ec9323301d105214296a77b04',1,'bl::event::Dispatcher']]],
+  ['dynamicobjectpool',['DynamicObjectPool',['../a00754.html#a160fce7459a78c991f2c66f1bfd56fec',1,'bl::container::DynamicObjectPool::IteratorType']]]
 ];

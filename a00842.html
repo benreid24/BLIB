@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::engine::event::Shutdown Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,29 +63,92 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00657.html">bl</a></li><li class="navelem"><a class="el" href="a00663.html">entity</a></li><li class="navelem"><a class="el" href="a00845.html">ComponentSet</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00683.html">bl</a></li><li class="navelem"><a class="el" href="a00687.html">engine</a></li><li class="navelem"><a class="el" href="a00688.html">event</a></li><li class="navelem"><a class="el" href="a00842.html">Shutdown</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a00839.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::entity::ComponentSet&lt; TComponents &gt; Member List</div>  </div>
+<div class="title">bl::engine::event::Shutdown Struct Reference<div class="ingroups"><a class="el" href="a00661.html">Engine</a> &raquo; <a class="el" href="a00677.html">EngineEvents</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00845.html">bl::entity::ComponentSet&lt; TComponents &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00841.html#a5eb7262bed94f97371ce5f4912f5d794">component</a></td><td class="entry"><a class="el" href="a00841.html">bl::entity::ComponentSetMember&lt; TComponents &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00845.html#a5e4bfe3fc4436e3b8606ff7ac6f4c449">ComponentSet</a>(Entity owner)</td><td class="entry"><a class="el" href="a00845.html">bl::entity::ComponentSet&lt; TComponents &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00841.html#abde2ba7263617c694b61e8cd0cc67917">ComponentSetMember</a>()</td><td class="entry"><a class="el" href="a00841.html">bl::entity::ComponentSetMember&lt; TComponents &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00845.html#a91bce37eb17599270deff0529bfb4840">get</a>()</td><td class="entry"><a class="el" href="a00845.html">bl::entity::ComponentSet&lt; TComponents &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00845.html#af97d56a6a03a87f8a63ab14255c6cb5b">get</a>() const</td><td class="entry"><a class="el" href="a00845.html">bl::entity::ComponentSet&lt; TComponents &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00845.html#acb32052cdd1fd98e7bc4364721fbeff9">getOwner</a>() const</td><td class="entry"><a class="el" href="a00845.html">bl::entity::ComponentSet&lt; TComponents &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00845.html#ac7b716e6d41ff508ad2d8e5dad655d72">Registry</a> class</td><td class="entry"><a class="el" href="a00845.html">bl::entity::ComponentSet&lt; TComponents &gt;</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-</table></div><!-- contents -->
+<p>Fired when the <a class="el" href="a00830.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> shuts down.  
+ <a href="a00842.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00062_source.html">Shutdown.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a610f7ea530340c0339eae47bea563204"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00842.html#a610f7ea530340c0339eae47bea563204">ShutdownType</a> { <a class="el" href="a00842.html#a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786">Terminated</a>, 
+<a class="el" href="a00842.html#a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea">FinalStatePopped</a>, 
+<a class="el" href="a00842.html#a610f7ea530340c0339eae47bea563204a124f6c688386414dba77b638454e3082">WindowClosed</a>
+ }<tr class="memdesc:a610f7ea530340c0339eae47bea563204"><td class="mdescLeft">&#160;</td><td class="mdescRight">What triggered the engine to shutdown.  <a href="a00842.html#a610f7ea530340c0339eae47bea563204">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a610f7ea530340c0339eae47bea563204"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a647a87f978bf480a8ac3c2553e618590"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="a00842.html#a610f7ea530340c0339eae47bea563204">bl::engine::event::Shutdown::ShutdownType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00842.html#a647a87f978bf480a8ac3c2553e618590">cause</a></td></tr>
+<tr class="separator:a647a87f978bf480a8ac3c2553e618590"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Fired when the <a class="el" href="a00830.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> shuts down. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00062_source.html#l00016">16</a> of file <a class="el" href="a00062_source.html">Shutdown.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a610f7ea530340c0339eae47bea563204"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a610f7ea530340c0339eae47bea563204">&#9670;&nbsp;</a></span>ShutdownType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00842.html#a610f7ea530340c0339eae47bea563204">bl::engine::event::Shutdown::ShutdownType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>What triggered the engine to shutdown. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786"></a>Terminated&#160;</td><td class="fielddoc"><p>The terminate engine flag was set. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea"></a>FinalStatePopped&#160;</td><td class="fielddoc"><p>The final engine state was popped off. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a610f7ea530340c0339eae47bea563204a124f6c688386414dba77b638454e3082"></a>WindowClosed&#160;</td><td class="fielddoc"><p>The main window was closed. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00062_source.html#l00018">18</a> of file <a class="el" href="a00062_source.html">Shutdown.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a647a87f978bf480a8ac3c2553e618590"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a647a87f978bf480a8ac3c2553e618590">&#9670;&nbsp;</a></span>cause</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00842.html#a610f7ea530340c0339eae47bea563204">bl::engine::event::Shutdown::ShutdownType</a>  bl::engine::event::Shutdown::cause</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Engine/Events/<a class="el" href="a00062_source.html">Shutdown.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 17 2021 17:15:59 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 24 2021 21:26:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
