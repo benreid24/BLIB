@@ -6,6 +6,18 @@
 #include <cmath>
 #include <iostream>
 
+struct TextureLoader : public bl::resource::Loader<sf::Texture> {
+    virtual ~TextureLoader() = default;
+
+    virtual bl::resource::Resource<sf::Texture>::Ref load(const std::string& uri) override {
+        bl::resource::Resource<sf::Texture>::Ref ref(new sf::Texture());
+        if (!ref->loadFromFile(uri)) {
+            BL_LOG_ERROR << "Failed to load texture from file: " << uri;
+        }
+        return ref;
+    }
+} textureLoader;
+
 void b1click(const bl::gui::Action&, bl::gui::Element*) { std::cout << "Button b1 was clicked\n"; }
 
 void b2click(const bl::gui::Action&, bl::gui::Element*) { std::cout << "Button b2 was clicked\n"; }
@@ -52,15 +64,14 @@ int main() {
     sf::RenderWindow window(
         sf::VideoMode(800, 600, 32), "BLIB GUI Demo", sf::Style::Close | sf::Style::Titlebar);
 
-    resource::TextureResourceLoader textureLoader;
-    resource::TextureResourceManager textureManager(textureLoader);
+    resource::Manager<sf::Texture> textureManager(textureLoader);
 
     event::Dispatcher dispatcher;
-    gui::GUI::Ptr gui =
-        gui::GUI::create(gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
-                    {200, 100, 400, 400},
-                    "",
-                    "gui");
+    gui::GUI::Ptr gui = gui::GUI::create(
+        gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
+        {200, 100, 400, 400},
+        "",
+        "gui");
     gui::DebugRenderer::Ptr renderer = gui::DebugRenderer::create();
     gui->subscribe(dispatcher);
     gui->setRenderer(renderer);

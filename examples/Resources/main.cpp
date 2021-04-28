@@ -2,9 +2,21 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+struct TextureLoader : public bl::resource::Loader<sf::Texture> {
+    virtual ~TextureLoader() = default;
+
+    virtual bl::resource::Resource<sf::Texture>::Ref load(const std::string& uri) override {
+        bl::resource::Resource<sf::Texture>::Ref ref(new sf::Texture());
+        if (!ref->loadFromFile(uri)) {
+            BL_LOG_ERROR << "Failed to load texture from file: " << uri;
+        }
+        return ref;
+    }
+} textureLoader;
+
 // Example custom async loader for heavy resources
 struct SlowTextureLoader : public bl::resource::AsyncLoader<sf::Texture> {
-    virtual void load(bl::resource::TextureResourceManager& manager, const std::string& uri,
+    virtual void load(bl::resource::Manager<sf::Texture>& manager, const std::string& uri,
                       float& progress) override {
         // Pretend this is a heavy resource and takes time to load
         for (int i = 0; i <= 1000; ++i) {
@@ -23,8 +35,7 @@ void progressCallback(float progress) { std::cout << "Loading: " << (progress * 
 
 int main() {
     // Create the resource manager for textures
-    bl::resource::TextureResourceLoader textureLoader;
-    bl::resource::TextureResourceManager textureManager(textureLoader);
+    bl::resource::Manager<sf::Texture> textureManager(textureLoader);
 
     // Load a managed texture using the new resource manager
     bl::resource::Resource<sf::Texture> texture = textureManager.load("image.png");
