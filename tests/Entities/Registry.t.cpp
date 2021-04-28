@@ -201,7 +201,7 @@ TEST(Registry, ViewIterate) {
 
     auto view = registry.getEntitiesWithComponents<Component1>();
     int s     = 0;
-    for (auto& set : *view) { s += set.get<Component1>()->value; }
+    for (auto& set : *view) { s += set.second.get<Component1>()->value; }
     EXPECT_EQ(s, 10);
 }
 

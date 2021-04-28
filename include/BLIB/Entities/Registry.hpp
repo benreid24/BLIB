@@ -168,22 +168,22 @@ public:
          * @brief Returns the set of results
          *
          */
-        const std::vector<ComponentSet<TComponents...>>& results();
+        const std::unordered_map<Entity, ComponentSet<TComponents...>>& results();
 
         /**
          * @brief Returns the beginning of the result set
          *
          */
-        typename std::vector<ComponentSet<TComponents...>>::iterator begin();
+        typename std::unordered_map<Entity, ComponentSet<TComponents...>>::iterator begin();
 
         /**
          * @brief Returns the end of the result set
          *
          */
-        typename std::vector<ComponentSet<TComponents...>>::iterator end();
+        typename std::unordered_map<Entity, ComponentSet<TComponents...>>::iterator end();
 
     private:
-        std::vector<ComponentSet<TComponents...>> entities;
+        std::unordered_map<Entity, ComponentSet<TComponents...>> entities;
 
         View(Registry& registry);
         void refresh();
@@ -231,7 +231,7 @@ private:
     void invalidateViews(Component::IdType cid);
 
     template<typename... TComponents>
-    void populateView(std::vector<ComponentSet<TComponents...>>& results);
+    void populateView(std::unordered_map<Entity, ComponentSet<TComponents...>>& results);
 
     template<typename TComponent, typename... TComponents>
     bool populateComponent(Entity entity, ComponentSet<TComponents...>& set);
@@ -325,7 +325,7 @@ typename Registry::View<TComponents...>::Ptr Registry::getEntitiesWithComponents
 }
 
 template<typename... TComponents>
-void Registry::populateView(std::vector<ComponentSet<TComponents...>>& results) {
+void Registry::populateView(std::unordered_map<Entity, ComponentSet<TComponents...>>& results) {
     results.clear();
     const Component::IdType ids[] = {Component::getId<TComponents>()...};
     if (sizeof...(TComponents) == 0) return;
@@ -335,14 +335,13 @@ void Registry::populateView(std::vector<ComponentSet<TComponents...>>& results) 
     auto entityIt = componentEntities.find(ids[0]);
     if (entityIt == componentEntities.end()) return;
 
-    results.reserve(entityIt->second.size());
     for (const Entity e : entityIt->second) {
         ComponentSet<TComponents...> set(e);
         const bool present[] = {populateComponent<TComponents, TComponents...>(e, set)...};
         for (unsigned int i = 0; i < sizeof...(TComponents); ++i) {
             if (!present[i]) goto noAdd;
         }
-        results.push_back(set);
+        results.emplace(e, set);
     noAdd:;
     }
 }
@@ -382,20 +381,22 @@ Registry::View<TComponents...>::View(Registry& r)
 : ViewBase(r, ViewBase::DeductionDummy<TComponents...>()) {}
 
 template<typename... TComponents>
-const std::vector<ComponentSet<TComponents...>>& Registry::View<TComponents...>::results() {
+const std::unordered_map<Entity, ComponentSet<TComponents...>>&
+Registry::View<TComponents...>::results() {
     if (isDirty()) refresh();
     return entities;
 }
 
 template<typename... TComponents>
-typename std::vector<ComponentSet<TComponents...>>::iterator
+typename std::unordered_map<Entity, ComponentSet<TComponents...>>::iterator
 Registry::View<TComponents...>::begin() {
     if (isDirty()) refresh();
     return entities.begin();
 }
 
 template<typename... TComponents>
-typename std::vector<ComponentSet<TComponents...>>::iterator Registry::View<TComponents...>::end() {
+typename std::unordered_map<Entity, ComponentSet<TComponents...>>::iterator
+Registry::View<TComponents...>::end() {
     if (isDirty()) refresh();
     return entities.end();
 }
