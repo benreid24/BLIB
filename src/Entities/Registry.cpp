@@ -4,10 +4,16 @@ namespace bl
 {
 namespace entity
 {
+Registry::Registry()
+: dispatcher(nullptr) {}
+
+void Registry::setEventDispatcher(bl::event::Dispatcher& d) { dispatcher = &d; }
+
 Entity Registry::createEntity() {
     const Entity e = IdGenerator::makeNew();
     std::unique_lock lock(entityMutex);
     entities.insert(e);
+    if (dispatcher) dispatcher->dispatch<event::EntityCreated>({e});
     return e;
 }
 
@@ -27,6 +33,8 @@ void Registry::destroyEntity(Entity e) {
 
     auto it = entityComponentIterators.find(e);
     if (it != entityComponentIterators.end()) {
+        if (dispatcher) dispatcher->dispatch<event::EntityDestroyed>({e});
+
         for (const auto& component : it->second) {
             // invalidate views with this component type
             invalidateViews(component.first);

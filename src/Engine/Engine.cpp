@@ -10,7 +10,9 @@ namespace engine
 {
 Engine::Engine(const Settings& settings)
 : renderWindow(nullptr)
-, engineSettings(settings) {}
+, engineSettings(settings) {
+    entityRegistry.setEventDispatcher(engineEventBus);
+}
 
 Engine::~Engine() {
     while (!states.empty()) { states.pop(); }

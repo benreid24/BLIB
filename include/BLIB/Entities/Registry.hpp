@@ -6,6 +6,8 @@
 #include <BLIB/Entities/Component.hpp>
 #include <BLIB/Entities/ComponentSet.hpp>
 #include <BLIB/Entities/Entity.hpp>
+#include <BLIB/Entities/Events.hpp>
+#include <BLIB/Events/Dispatcher.hpp>
 
 #include <algorithm>
 #include <any>
@@ -56,6 +58,19 @@ class Registry {
 public:
     using EntityIterator      = std::unordered_set<Entity>::iterator;
     using ConstEntityIterator = std::unordered_set<Entity>::const_iterator;
+
+    /**
+     * @brief Construct a new Registry object
+     *
+     */
+    Registry();
+
+    /**
+     * @brief Sets the event dispatcher to fire entity events through. Optional
+     *
+     * @param dispatcher The dispatcher to fire events through. Must remain in scope
+     */
+    void setEventDispatcher(bl::event::Dispatcher& dispatcher);
 
     /**
      * @brief Create a new Entity
@@ -216,6 +231,7 @@ private:
 
     mutable std::shared_mutex entityMutex;
     std::unordered_set<Entity> entities;
+    bl::event::Dispatcher* dispatcher;
 
     std::unordered_map<Component::IdType, ComponentPool> componentPools;
     std::unordered_map<Component::IdType, std::unordered_set<Entity>> componentEntities;
