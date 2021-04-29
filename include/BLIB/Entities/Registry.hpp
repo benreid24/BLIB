@@ -279,9 +279,10 @@ bool Registry::addComponent(Entity entity, const T& component) {
     if (indexIter->second.find(id) != indexIter->second.end()) return false;
 
     // add and track component
-    auto it = poolIter->second.add(component);
+    ComponentPool::Iterator it = poolIter->second.add(component);
     indexIter->second.emplace(id, it);
     linkIter->second.insert(entity);
+    if (dispatcher) dispatcher->dispatch<event::ComponentAdded<T>>({entity, it->get<T>()});
 
     invalidateViews(id);
     return true;
@@ -323,6 +324,9 @@ bool Registry::removeComponent(Entity entity) {
 
     auto poolIter = componentPools.find(id);
     if (poolIter == componentPools.end()) return false;
+
+    if (dispatcher)
+        dispatcher->dispatch<event::ComponentRemoved<T>>({entity, it->second->get<T>()});
 
     auto linkIter = componentEntities.find(id);
     linkIter->second.erase(entity);
