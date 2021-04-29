@@ -39,7 +39,16 @@ public:
      * @param y The y coordinate of the element to access
      * @return A reference to the element at the given indices
      */
-    T& operator()(int x, int y) { return data[y * W + x]; }
+    T& operator()(unsigned int x, unsigned int y) { return data[y * W + x]; }
+
+    /**
+     * @brief Returns a const reference to the element at the given position
+     *
+     * @param x The x coordinate of the element to access
+     * @param y The y coordinate of the element to access
+     * @return A reference to the element at the given indices
+     */
+    const T& operator()(unsigned int x, unsigned int y) const { return data.at(y * W + x); }
 
     /**
      * @brief Resizes the vector to the given size
