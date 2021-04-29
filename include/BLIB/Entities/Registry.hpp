@@ -183,7 +183,7 @@ public:
          * @brief Returns the set of results
          *
          */
-        const std::unordered_map<Entity, ComponentSet<TComponents...>>& results();
+        std::unordered_map<Entity, ComponentSet<TComponents...>>& results();
 
         /**
          * @brief Returns the beginning of the result set
@@ -401,7 +401,7 @@ Registry::View<TComponents...>::View(Registry& r)
 : ViewBase(r, ViewBase::DeductionDummy<TComponents...>()) {}
 
 template<typename... TComponents>
-const std::unordered_map<Entity, ComponentSet<TComponents...>>&
+std::unordered_map<Entity, ComponentSet<TComponents...>>&
 Registry::View<TComponents...>::results() {
     if (isDirty()) refresh();
     return entities;
