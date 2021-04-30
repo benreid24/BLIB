@@ -31,6 +31,9 @@ namespace entity
  *
  */
 class Registry {
+    using ComponentStorage = container::Any<32>; // TODO - benchmark this
+    using ComponentPool    = container::DynamicObjectPool<ComponentStorage>;
+
     class ViewBase {
     public:
         template<typename... TComponents>
@@ -58,6 +61,45 @@ class Registry {
 public:
     using EntityIterator      = std::unordered_set<Entity>::iterator;
     using ConstEntityIterator = std::unordered_set<Entity>::const_iterator;
+
+    /**
+     * @brief Represents a persistant handle to a component. Uses a DynamicObjectPool iterator under
+     *        the hood and is invalidated when the underlying iterator is invalidated (typically
+     *        never unless deleted). Use this instead of raw pointer for keeping handles on
+     *        components
+     *
+     * @tparam T The type of underlying component
+     */
+    template<typename T>
+    class ComponentHandle {
+    public:
+        /**
+         * @brief Returns a modifiable reference to the underlying component
+         *
+         */
+        T& get();
+
+        /**
+         * @brief Returns a const reference to the underlying component
+         *
+         */
+        const T& get() const;
+
+        /**
+         * @brief Returns true if a value is contained. Does not detect invalidation
+         *
+         */
+        bool hasValue();
+
+    private:
+        ComponentPool::Iterator it;
+        const bool valid;
+
+        ComponentHandle();
+        ComponentHandle(const ComponentPool::Iterator& it);
+
+        friend class Registry;
+    };
 
     /**
      * @brief Construct a new Registry object
@@ -157,6 +199,16 @@ public:
     TComponent* getComponent(Entity entity);
 
     /**
+     * @brief Returns a consistent handle to the given component of the given entity
+     *
+     * @tparam TComponent The type of component to get the handle for
+     * @param entity The entity to get the handle for
+     * @return ComponentHandle<TComponent> A persistant handle. Must check if a value is contained
+     */
+    template<typename TComponent>
+    ComponentHandle<TComponent> getComponentHandle(Entity entity);
+
+    /**
      * @brief Removes the given component from the given entity
      *
      * @tparam TComponent The type of component to remove
@@ -226,9 +278,6 @@ public:
     ComponentSet<TComponents...> getEntityComponents(Entity e);
 
 private:
-    using ComponentStorage = container::Any<32>; // TODO - benchmark this
-    using ComponentPool    = container::DynamicObjectPool<ComponentStorage>;
-
     mutable std::shared_mutex entityMutex;
     std::unordered_set<Entity> entities;
     bl::event::Dispatcher* dispatcher;
@@ -309,6 +358,20 @@ T* Registry::getComponent(Entity entity) {
     auto poolIndexIter = indexIter->second.find(id);
     if (poolIndexIter == indexIter->second.end()) return nullptr;
     return &poolIndexIter->second->get<T>();
+}
+
+template<typename T>
+Registry::ComponentHandle<T> Registry::getComponentHandle(Entity entity) {
+    const Component::IdType& id = Component::getId<T>();
+    std::shared_lock lock(entityMutex);
+
+    auto indexIter = entityComponentIterators.find(entity);
+    if (indexIter == entityComponentIterators.end()) return {};
+
+    auto poolIndexIter = indexIter->second.find(id);
+    if (poolIndexIter == indexIter->second.end()) return {};
+
+    return {poolIndexIter->second};
 }
 
 template<typename T>
@@ -425,6 +488,30 @@ template<typename... TComponents>
 void Registry::View<TComponents...>::refresh() {
     registry.populateView(entities);
     makeClean();
+}
+
+template<typename T>
+Registry::ComponentHandle<T>::ComponentHandle()
+: valid(false) {}
+
+template<typename T>
+Registry::ComponentHandle<T>::ComponentHandle(const Registry::ComponentPool::Iterator& it)
+: it(it)
+, valid(true) {}
+
+template<typename T>
+T& Registry::ComponentHandle<T>::ComponentHandle::get() {
+    return it->get<T>();
+}
+
+template<typename T>
+const T& Registry::ComponentHandle<T>::ComponentHandle::get() const {
+    return it->get<T>();
+}
+
+template<typename T>
+bool Registry::ComponentHandle<T>::ComponentHandle::hasValue() {
+    return valid;
 }
 
 } // namespace entity
