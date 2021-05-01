@@ -65,12 +65,12 @@ public:
     /**
      * @brief Returns the width of the vector
      */
-    int getWidth() const { return W; }
+    unsigned int getWidth() const { return W; }
 
     /**
      * @brief Returns the height of the vector
      */
-    int getHeight() const { return H; }
+    unsigned int getHeight() const { return H; }
 
     /**
      * @brief Clears all memory used by the vector, erasing all elements
@@ -79,7 +79,7 @@ public:
 
 private:
     std::vector<T> data;
-    int W, H;
+    unsigned int W, H;
 };
 
 } // namespace container
