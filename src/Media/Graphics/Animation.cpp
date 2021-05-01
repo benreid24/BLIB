@@ -42,9 +42,9 @@ void Animation::setIsLoop(bool l) {
 
 void Animation::resetIsLoop() { loopOverride = false; }
 
-void Animation::play() {
+void Animation::play(bool restart) {
+    if (!isPlaying) animTime = 0.f;
     isPlaying = true;
-    animTime  = 0.f;
 }
 
 bool Animation::playing() const {
@@ -55,7 +55,10 @@ bool Animation::playing() const {
     return true;
 }
 
-void Animation::stop() { isPlaying = false; }
+void Animation::stop() {
+    isPlaying = false;
+    animTime  = 0.f;
+}
 
 void Animation::update(float dt) {
     if (isPlaying) {
