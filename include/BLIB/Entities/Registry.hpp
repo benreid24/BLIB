@@ -74,6 +74,12 @@ public:
     class ComponentHandle {
     public:
         /**
+         * @brief Construct an empty handle
+         *
+         */
+        ComponentHandle();
+
+        /**
          * @brief Returns a modifiable reference to the underlying component
          *
          */
@@ -93,9 +99,8 @@ public:
 
     private:
         ComponentPool::Iterator it;
-        const bool valid;
+        bool valid;
 
-        ComponentHandle();
         ComponentHandle(const ComponentPool::Iterator& it);
 
         friend class Registry;
