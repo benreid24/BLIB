@@ -24,6 +24,7 @@ public:
     static const sf::VideoMode DefaultVideoMode;
     static constexpr sf::Uint32 DefaultWindowStyle = sf::Style::Titlebar | sf::Style::Close;
     static constexpr bool DefaultCreateWindow      = true;
+    static constexpr bool DefaultLogFps            = false;
 
     /**
      * @brief Creates a new settings object with all default settings
@@ -101,6 +102,21 @@ public:
     Settings& withWindowIcon(const std::string& iconPath);
 
     /**
+     * @brief Sets whether or not to log FPS
+     *
+     * @param log True to log FPS, false to not
+     * @return Settings& A reference to this object
+     */
+    Settings& withLogFps(bool log);
+
+    /**
+     * @brief Pulls settings from the Configuration store. See Settings.cpp for config paths
+     *
+     * @return Settings& A reference to this object
+     */
+    Settings& fromConfig();
+
+    /**
      * @brief Returns the fixed physics update interval, in seconds
      *
      */
@@ -148,6 +164,12 @@ public:
      */
     bool createWindow() const;
 
+    /**
+     * @brief Returns whether or not the engine should log the fps
+     *
+     */
+    bool logFps() const;
+
 private:
     float updateTime;
     float maxFps;
@@ -157,6 +179,7 @@ private:
     sf::Uint32 sfWindowStyle;
     bool createSfWindow;
     sf::Image icon;
+    bool loggingFps;
 };
 
 } // namespace engine

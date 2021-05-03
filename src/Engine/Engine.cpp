@@ -95,6 +95,9 @@ bool Engine::run(State::Ptr initialState) {
         }
     }
 
+    sf::Clock fpsTimer;
+    float frameCount;
+
     initialState->activate(*this);
     engineEventBus.dispatch<event::Startup>({initialState});
 
@@ -216,6 +219,14 @@ bool Engine::run(State::Ptr initialState) {
             const float st = minFrameLength - loopTimer.getElapsedTime().asSeconds();
             if (st > 0) sf::sleep(sf::seconds(st));
             loopTimer.restart();
+        }
+
+        frameCount += 1.f;
+        if (fpsTimer.getElapsedTime().asSeconds() >= 1.f && engineSettings.logFps()) {
+            BL_LOG_INFO << "Running at " << frameCount / fpsTimer.getElapsedTime().asSeconds()
+                        << " fps";
+            frameCount = 0.f;
+            fpsTimer.restart();
         }
     }
 

@@ -1,4 +1,6 @@
 #include <BLIB/Engine/Settings.hpp>
+
+#include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Logging.hpp>
 
 namespace bl
@@ -16,6 +18,7 @@ Settings::Settings()
 , windowMode(DefaultVideoMode)
 , sfWindowStyle(DefaultWindowStyle)
 , createSfWindow(DefaultCreateWindow)
+, loggingFps(DefaultLogFps)
 , icon() {}
 
 Settings& Settings::withMaxFramerate(float fps) {
@@ -58,6 +61,32 @@ Settings& Settings::withWindowIcon(const std::string& path) {
     return *this;
 }
 
+Settings& Settings::withLogFps(bool log) {
+    loggingFps = log;
+    return *this;
+}
+
+Settings& Settings::fromConfig() {
+    updateTime = Configuration::getOrDefault<float>("blib.engine.update_period", updateTime);
+    maxFps     = Configuration::getOrDefault<float>("blib.engine.max_fps", maxFps);
+    allowVariableInterval =
+        Configuration::getOrDefault<bool>("blib.engine.variable_timestep", allowVariableInterval);
+    sfWindowTitle =
+        Configuration::getOrDefault<std::string>("blib.engine.window_title", sfWindowTitle);
+    windowMode.width =
+        Configuration::getOrDefault<unsigned int>("blib.engine.window_width", windowMode.width);
+    windowMode.height =
+        Configuration::getOrDefault<unsigned int>("blib.engine.window_height", windowMode.height);
+    loggingFps = Configuration::getOrDefault<bool>("blib.engine.log_fps", loggingFps);
+
+    const std::string icf = Configuration::getOrDefault<std::string>("blib.engine.icon", "");
+    if (!icf.empty()) {
+        if (!icon.loadFromFile(icf)) BL_LOG_ERROR << "Failed to load window icon: " << icf;
+    }
+
+    return *this;
+}
+
 float Settings::updateTimestep() const { return updateTime; }
 
 float Settings::maximumFramerate() const { return maxFps; }
@@ -73,6 +102,8 @@ sf::Uint32 Settings::windowStyle() const { return sfWindowStyle; }
 bool Settings::createWindow() const { return createSfWindow; }
 
 const sf::Image& Settings::windowIcon() const { return icon; }
+
+bool Settings::logFps() const { return loggingFps; }
 
 } // namespace engine
 } // namespace bl
