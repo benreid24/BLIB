@@ -24,6 +24,26 @@ public:
     , H(0) {}
 
     /**
+     * @brief Copy construct a new Vector2D
+     *
+     * @param copy The vector to copy from
+     */
+    Vector2D(const Vector2D& copy)
+    : data(copy.data)
+    , W(copy.W)
+    , H(copy.H) {}
+
+    /**
+     * @brief Move construct a new Vector2D
+     *
+     * @param move The vector to move from
+     */
+    Vector2D(Vector2D&& move)
+    : data(std::move<std::vector<T>>(move.data))
+    , W(move.W)
+    , H(move.H) {}
+
+    /**
      * @brief Creates the vector of the given width and height
      *
      * @param w The width of the vector
