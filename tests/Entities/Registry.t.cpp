@@ -75,6 +75,8 @@ TEST(Registry, EntityDelete) {
     EXPECT_FALSE(registry.addComponent<Component1>(e, {5}));
 
     registry.destroyEntity(e);
+    EXPECT_NE(registry.begin(), registry.end());
+    registry.doDestroy();
     EXPECT_EQ(registry.begin(), registry.end());
 
     EXPECT_FALSE(registry.hasComponent<Component1>(e));
@@ -189,6 +191,7 @@ TEST(Registry, ViewUpdate) {
     EXPECT_EQ(view->results().size(), 1);
 
     registry.destroyEntity(e2);
+    registry.doDestroy();
     EXPECT_EQ(view->results().size(), 0);
 }
 
@@ -210,6 +213,47 @@ TEST(Registry, PredefinedEntity) {
     Entity e1 = registry.createEntity();
     EXPECT_FALSE(registry.createEntity(e1));
     EXPECT_TRUE(registry.createEntity(e1 + 1));
+}
+
+TEST(Registry, Clear) {
+    Registry registry;
+    Entity e1 = registry.createEntity();
+    Entity e2 = registry.createEntity();
+
+    ASSERT_TRUE(registry.addComponent<Component1>(e1, {5}));
+    ASSERT_TRUE(registry.addComponent<Component1>(e2, {10}));
+
+    EXPECT_TRUE(registry.hasComponent<Component1>(e1));
+    ASSERT_NE(registry.getComponent<Component1>(e1), nullptr);
+    EXPECT_EQ(registry.getComponent<Component1>(e1)->value, 5);
+    auto cs1 = registry.getEntityComponents<Component1>(e1);
+    EXPECT_NE(cs1.get<Component1>(), nullptr);
+    EXPECT_EQ(cs1.get<Component1>()->value, 5);
+
+    EXPECT_TRUE(registry.hasComponent<Component1>(e2));
+    ASSERT_NE(registry.getComponent<Component1>(e2), nullptr);
+    EXPECT_EQ(registry.getComponent<Component1>(e2)->value, 10);
+    auto cs2 = registry.getEntityComponents<Component1>(e2);
+    EXPECT_NE(cs2.get<Component1>(), nullptr);
+    EXPECT_EQ(cs2.get<Component1>()->value, 10);
+
+    auto view = registry.getEntitiesWithComponents<Component1>();
+    EXPECT_EQ(view->results().size(), 2);
+
+    registry.clear();
+
+    EXPECT_EQ(registry.begin(), registry.end());
+
+    EXPECT_FALSE(registry.hasComponent<Component1>(e1));
+    EXPECT_EQ(registry.getComponent<Component1>(e1), nullptr);
+    EXPECT_FALSE(registry.hasComponent<Component1>(e2));
+    EXPECT_EQ(registry.getComponent<Component1>(e2), nullptr);
+    auto view2 = registry.getEntitiesWithComponents<Component1>();
+    EXPECT_EQ(view->results().size(), 0);
+    auto cs12 = registry.getEntityComponents<Component1>(e1);
+    EXPECT_EQ(cs12.get<Component1>(), nullptr);
+    auto cs22 = registry.getEntityComponents<Component1>(e2);
+    EXPECT_EQ(cs22.get<Component1>(), nullptr);
 }
 
 } // namespace unittest

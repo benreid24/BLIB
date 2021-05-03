@@ -136,11 +136,24 @@ public:
     bool entityExists(Entity entity) const;
 
     /**
-     * @brief Destroys the given entity and all of its components
+     * @brief Destroys the given entity and all of its components. Entities are destroyed in batch
+     *        when doDestroy is called
      *
      * @param entity The entity to destroy. No effect if it does not exist
      */
     void destroyEntity(Entity entity);
+
+    /**
+     * @brief Destroys all the entities that were queued to be destroyed
+     *
+     */
+    void doDestroy();
+
+    /**
+     * @brief Destroys all entities in the registry
+     *
+     */
+    void clear();
 
     /**
      * @brief Returns an iterator to the first Entity
@@ -286,9 +299,12 @@ private:
     std::unordered_map<Component::IdType, std::unordered_set<Entity>> componentEntities;
     std::unordered_map<Entity, std::unordered_map<Component::IdType, ComponentPool::Iterator>>
         entityComponentIterators;
+    std::vector<Entity> toDestroy;
 
     std::unordered_set<ViewBase*> activeViews;
     std::shared_mutex viewMutex;
+
+    void doDestroy(Entity entity);
 
     void addView(ViewBase* view);
     void removeView(ViewBase* view);
