@@ -199,6 +199,34 @@ TEST(Registry, ViewUpdate) {
     EXPECT_EQ(view->results().find(e2), view->results().end());
 }
 
+TEST(Registry, ViewUpdateMultipleComponents) {
+    Registry registry;
+    Entity e1 = registry.createEntity();
+    Entity e2 = registry.createEntity();
+
+    auto view = registry.getEntitiesWithComponents<Component1, Component2>();
+    EXPECT_EQ(view->results().size(), 0);
+
+    registry.addComponent<Component1>(e1, {5});
+    EXPECT_EQ(view->results().size(), 0);
+
+    registry.addComponent<Component1>(e2, {5});
+    EXPECT_EQ(view->results().size(), 0);
+
+    registry.addComponent<Component2>(e1, {"g"});
+    EXPECT_EQ(view->results().size(), 1);
+
+    registry.addComponent<Component2>(e2, {"g"});
+    EXPECT_EQ(view->results().size(), 2);
+
+    registry.removeComponent<Component1>(e1);
+    EXPECT_EQ(view->results().size(), 1);
+
+    registry.destroyEntity(e2);
+    registry.doDestroy();
+    EXPECT_EQ(view->results().size(), 0);
+}
+
 TEST(Registry, ViewIterate) {
     Registry registry;
     Entity e1 = registry.createEntity();
