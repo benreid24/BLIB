@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::event Namespace Reference</title>
+<title>BLIB: bl::file::binary Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,101 +63,69 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00683.html">bl</a></li><li class="navelem"><a class="el" href="a00690.html">event</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00680.html">bl</a></li><li class="navelem"><a class="el" href="a00689.html">file</a></li><li class="navelem"><a class="el" href="a00690.html">binary</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::event Namespace Reference</div>  </div>
+<div class="title">bl::file::binary Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes providing different types of publisher/consumer event queues.  
+<p>Collection of classes for interacting with binary encoded files.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00902.html">ClassGuard</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version of scope guard but for classes. Classes that subscribe to event buses through a member <a class="el" href="a00902.html" title="Version of scope guard but for classes. Classes that subscribe to event buses through a member ClassG...">ClassGuard</a> will automatically unsubscribe when they are destructed. The catch is that they may only subscribe to a single event bus at a time.  <a href="a00902.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00964.html">File</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to read and write binary data. Endianness agnostic Floating point types are not supported. To store floating point values, simply store an integral type and multiply/divide on save/load.  <a href="a00964.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00906.html">DelayedDispatcher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper around <a class="el" href="a00918.html" title="Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe...">Dispatcher</a> for delayed event dispatches. Events are queued up as dispatch is called. The queue may then be drained manually or using a builtin background thread.  <a href="a00906.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00972.html">SerializableField</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template class that represents a serializable field for <a class="el" href="a00964.html" title="Utility class to read and write binary data. Endianness agnostic Floating point types are not support...">File</a> use. Strings and integral types are supported out of the box, as well as SerializableObjects. User defined types must either implement <a class="el" href="a00976.html" title="Base class for user defined objects that can be serialized in binary files. Data fields to be seriali...">SerializableObject</a> or a custom version of <a class="el" href="a00980.html" title="Helper struct for serializing types into binary files. Integral types, strings, vector, and SerializableObjects are supported out of the box. Specializations may be provided for user defined types. ">Serializer</a>.  <a href="a00972.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html">Dispatcher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe. If events are dispatched by multiple threads care should be taken to keep the listeners threadsafe as well. Care must also be taken to not subscribe the same listener more than once or it will get notified more than once per event.  <a href="a00918.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00968.html">SerializableFieldBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for binary serializable fields. Do not use.  <a href="a00968.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00922.html">DispatcherScopeGuard</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scope guard for <a class="el" href="a00918.html" title="Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe...">Dispatcher</a>. Listeners that are subscribed through the guard will be unsubscribed when it goes out of scope.  <a href="a00922.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00976.html">SerializableObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for user defined objects that can be serialized in binary files. Data fields to be serialized should be stored as <a class="el" href="a00972.html" title="Template class that represents a serializable field for File use. Strings and integral types are supp...">SerializableField</a> objects.  <a href="a00976.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00930.html">Listener</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a00930.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> of multiple event types. Listeners should inherit this class with the types of events they would like to subscribe to as template params. An observe method from <a class="el" href="a00930.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> will be created for each passed type and must be implemented.  <a href="a00930.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html">Serializer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for serializing types into binary files. Integral types, strings, vector, and SerializableObjects are supported out of the box. Specializations may be provided for user defined types.  <a href="a00980.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00926.html">ListenerBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a00930.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a>. Do not use directly.  <a href="a00926.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01000.html">Serializer&lt; container::Vector2D&lt; U &gt;, false &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00934.html">SingleDispatcher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to dispatch events of a single type to a set of listeners.  <a href="a00934.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01012.html">Serializer&lt; sf::IntRect &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00938.html">SingleDispatcherScopeGuard</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scope guard for <a class="el" href="a00942.html" title="Templatized utility class for setting up an event dispatcher and listener system. ...">SingleListener</a> objects to subscribe to an <a class="el" href="a00934.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> if they are limited by scope. All listeners subscribed through the guard are removed from the dispatcher when the guard goes out of scope.  <a href="a00938.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01008.html">Serializer&lt; sf::Vector2i &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00942.html">SingleListener</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templatized utility class for setting up an event dispatcher and listener system.  <a href="a00942.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01016.html">Serializer&lt; sf::Vector2u &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a3f96c0e79041dddef412f9ac5174c313"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="a00934.html">SingleDispatcher</a>&lt; sf::Event &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00690.html#a3f96c0e79041dddef412f9ac5174c313">WindowEventDispatcher</a></td></tr>
-<tr class="memdesc:a3f96c0e79041dddef412f9ac5174c313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special instantiation of <a class="el" href="a00934.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> for sf::Event window events.  <a href="#a3f96c0e79041dddef412f9ac5174c313">More...</a><br /></td></tr>
-<tr class="separator:a3f96c0e79041dddef412f9ac5174c313"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abded5c4fb93b1a6984ecdcce00e04acd"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="a00938.html">SingleDispatcherScopeGuard</a>&lt; sf::Event &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00690.html#abded5c4fb93b1a6984ecdcce00e04acd">WindowEventDispatcherScopeGuard</a></td></tr>
-<tr class="separator:abded5c4fb93b1a6984ecdcce00e04acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00992.html">Serializer&lt; std::string &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01004.html">Serializer&lt; std::unordered_map&lt; TKey, TValue &gt;, false &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00996.html">Serializer&lt; std::vector&lt; U &gt;, false &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00984.html">Serializer&lt; T, false &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00988.html">Serializer&lt; T, true &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01024.html">VersionedFile</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to facilitate the versioning of binary files. Versions are represented by the provided loaders. Version numbers are derived from the template ordering so care must be taken to keep it consistent. A special header value is written to versioned files in order to detect versioned from non-versioned files.  <a href="a01024.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01020.html">VersionedPayloadLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base interface for payload loaders. <a class="el" href="a00964.html" title="Utility class to read and write binary data. Endianness agnostic Floating point types are not support...">File</a> version loaders should implement this interface.  <a href="a01020.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of classes providing different types of publisher/consumer event queues. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a3f96c0e79041dddef412f9ac5174c313"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f96c0e79041dddef412f9ac5174c313">&#9670;&nbsp;</a></span>WindowEventDispatcher</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef <a class="el" href="a00934.html">SingleDispatcher</a>&lt;sf::Event&gt; <a class="el" href="a00690.html#a3f96c0e79041dddef412f9ac5174c313">bl::event::WindowEventDispatcher</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Special instantiation of <a class="el" href="a00934.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> for sf::Event window events. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00116_source.html#l00048">48</a> of file <a class="el" href="a00116_source.html">SingleDispatcher.hpp</a>.</p>
-
-</div>
-</div>
-<a id="abded5c4fb93b1a6984ecdcce00e04acd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abded5c4fb93b1a6984ecdcce00e04acd">&#9670;&nbsp;</a></span>WindowEventDispatcherScopeGuard</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef <a class="el" href="a00938.html">SingleDispatcherScopeGuard</a>&lt;sf::Event&gt; <a class="el" href="a00690.html#abded5c4fb93b1a6984ecdcce00e04acd">bl::event::WindowEventDispatcherScopeGuard</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00051">51</a> of file <a class="el" href="a00119_source.html">SingleDispatcherScopeGuard.hpp</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Collection of classes for interacting with binary encoded files. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 24 2021 21:26:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 5 2021 18:06:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

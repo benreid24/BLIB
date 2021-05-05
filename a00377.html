@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Scripts/Function.hpp File Reference</title>
+<title>BLIB: include/BLIB/Scripts/Script.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,38 +71,41 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Function.hpp File Reference</div>  </div>
+<div class="title">Script.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="a00335_source.html">BLIB/Parser/Node.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00386_source.html">BLIB/Scripts/Value.hpp</a>&gt;</code><br />
-<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00380_source.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</code><br />
+<code>#include &lt;atomic&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
-<code>#include &lt;variant&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;thread&gt;</code><br />
 </div>
 <p><a href="a00377_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01438.html">bl::script::Function</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for functions defined in scripts themselves.  <a href="a01438.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01460.html">bl::script::Script</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads scripts. Can run scripts directly or in the background. Is threadsafe.  <a href="a01460.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00683"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00683.html">bl</a></td></tr>
-<tr class="memdesc:a00683"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a00680"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00680.html">bl</a></td></tr>
+<tr class="memdesc:a00680"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00707"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00707.html">bl::script</a></td></tr>
-<tr class="memdesc:a00707"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01446.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> interpreter for bScript. <br /></td></tr>
+<tr class="memitem:a00684"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00684.html">bl::engine</a></td></tr>
+<tr class="memdesc:a00684"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00705"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00705.html">bl::script</a></td></tr>
+<tr class="memdesc:a00705"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01460.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> interpreter for bScript. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 24 2021 21:26:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 5 2021 18:06:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
