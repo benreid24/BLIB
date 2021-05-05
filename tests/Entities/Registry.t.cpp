@@ -183,9 +183,11 @@ TEST(Registry, ViewUpdate) {
 
     registry.addComponent<Component1>(e1, {5});
     EXPECT_EQ(view->results().size(), 1);
+    EXPECT_NE(view->results().find(e1), view->results().end());
 
     registry.addComponent<Component1>(e2, {5});
     EXPECT_EQ(view->results().size(), 2);
+    EXPECT_NE(view->results().find(e2), view->results().end());
 
     registry.removeComponent<Component1>(e1);
     EXPECT_EQ(view->results().size(), 1);
@@ -193,6 +195,8 @@ TEST(Registry, ViewUpdate) {
     registry.destroyEntity(e2);
     registry.doDestroy();
     EXPECT_EQ(view->results().size(), 0);
+    EXPECT_EQ(view->results().find(e1), view->results().end());
+    EXPECT_EQ(view->results().find(e2), view->results().end());
 }
 
 TEST(Registry, ViewIterate) {
