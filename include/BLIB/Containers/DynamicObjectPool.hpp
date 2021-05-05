@@ -31,6 +31,12 @@ public:
     template<typename EType>
     struct IteratorType {
         /**
+         * @brief Creates an empty, invalid iterator
+         *
+         */
+        IteratorType() = default;
+
+        /**
          * @brief Copies from the given iterator
          *
          * @param copy The iterator to copy from
@@ -52,10 +58,22 @@ public:
         EType& operator*();
 
         /**
-         * @brief Returns a reference to the underlying object. Undefined behavior if invalid
+         * @brief Returns a pointer to the underlying object. Undefined behavior if invalid
          *
          */
         EType* operator->();
+
+        /**
+         * @brief Returns a const reference to the underlying object. Undefined behavior if invalid
+         *
+         */
+        const EType& operator*() const;
+
+        /**
+         * @brief Returns a const pointer to the underlying object. Undefined behavior if invalid
+         *
+         */
+        const EType* operator->() const;
 
         /**
          * @brief Modifies this iterator to point to the next object in the pool
@@ -449,6 +467,18 @@ template<typename T>
 template<typename ET>
 ET* DynamicObjectPool<T>::IteratorType<ET>::operator->() {
     return (*pool)[i].cast();
+}
+
+template<typename T>
+template<typename ET>
+const ET& DynamicObjectPool<T>::IteratorType<ET>::operator*() const {
+    return *pool->at(i).cast();
+}
+
+template<typename T>
+template<typename ET>
+const ET* DynamicObjectPool<T>::IteratorType<ET>::operator->() const {
+    return pool->at(i).cast();
 }
 
 template<typename T>

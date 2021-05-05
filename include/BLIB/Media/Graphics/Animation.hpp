@@ -83,10 +83,12 @@ public:
     void resetIsLoop();
 
     /**
-     * @brief Starts playing the animation. Resets to first frame if already playing
+     * @brief Starts playing the animation. Restarts if not currently playing
+     *
+     * @param restart True to restart if already playing, false to keep place
      *
      */
-    void play();
+    void play(bool restart = true);
 
     /**
      * @brief Returns if the animation is currently playing

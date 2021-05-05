@@ -4,10 +4,16 @@ namespace bl
 {
 namespace entity
 {
+Registry::Registry()
+: dispatcher(nullptr) {}
+
+void Registry::setEventDispatcher(bl::event::Dispatcher& d) { dispatcher = &d; }
+
 Entity Registry::createEntity() {
     const Entity e = IdGenerator::makeNew();
     std::unique_lock lock(entityMutex);
     entities.insert(e);
+    if (dispatcher) dispatcher->dispatch<event::EntityCreated>({e});
     return e;
 }
 
@@ -24,9 +30,20 @@ bool Registry::entityExists(Entity e) const { return entities.find(e) != entitie
 
 void Registry::destroyEntity(Entity e) {
     std::unique_lock lock(entityMutex);
+    toDestroy.push_back(e);
+}
 
+void Registry::doDestroy() {
+    std::unique_lock lock(entityMutex);
+    for (const Entity e : toDestroy) { doDestroy(e); }
+    toDestroy.clear();
+}
+
+void Registry::doDestroy(Entity e) {
     auto it = entityComponentIterators.find(e);
     if (it != entityComponentIterators.end()) {
+        if (dispatcher) dispatcher->dispatch<event::EntityDestroyed>({e});
+
         for (const auto& component : it->second) {
             // invalidate views with this component type
             invalidateViews(component.first);
@@ -44,6 +61,22 @@ void Registry::destroyEntity(Entity e) {
         entityComponentIterators.erase(it);
     }
     entities.erase(e);
+}
+
+void Registry::clear() {
+    std::unique_lock lock(entityMutex);
+
+    if (dispatcher) {
+        for (const Entity e : entities) { dispatcher->dispatch<event::EntityDestroyed>({e}); }
+    }
+
+    for (const auto& pair : componentPools) { invalidateViews(pair.first); }
+
+    entities.clear();
+    componentPools.clear();
+    componentEntities.clear();
+    entityComponentIterators.clear();
+    toDestroy.clear();
 }
 
 Registry::EntityIterator Registry::begin() { return entities.begin(); }

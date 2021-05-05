@@ -20,6 +20,14 @@ namespace entity
 using Entity = std::uint64_t;
 
 /**
+ * @brief Special value to indicate that an Entity is not valid
+ *
+ * @ingroup Entities
+ *
+ */
+constexpr Entity InvalidEntity = 0;
+
+/**
  * @brief Singleton Entity generator. Can create sequential or random ids
  *
  * @ingroup Entity

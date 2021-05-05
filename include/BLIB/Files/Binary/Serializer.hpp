@@ -1,6 +1,7 @@
 #ifndef BLIB_FILES_BINARY_SERIALIZER_HPP
 #define BLIB_FILES_BINARY_SERIALIZER_HPP
 
+#include <BLIB/Containers/Vector2d.hpp>
 #include <BLIB/Files/Binary/File.hpp>
 #include <BLIB/Files/Binary/SerializableObject.hpp>
 
@@ -122,6 +123,43 @@ struct Serializer<std::vector<U>, false> {
         std::uint32_t vs = 0;
         for (const U& u : v) { vs += Serializer<U>::size(u); }
         return sizeof(std::uint32_t) + vs;
+    }
+};
+
+template<typename U>
+struct Serializer<container::Vector2D<U>, false> {
+    static bool serialize(File& output, const container::Vector2D<U>& val) {
+        if (!output.write<std::uint32_t>(val.getWidth())) return false;
+        if (!output.write<std::uint32_t>(val.getHeight())) return false;
+        for (unsigned int x = 0; x < val.getWidth(); ++x) {
+            for (unsigned int y = 0; y < val.getHeight(); ++y) {
+                if (!Serializer<U>::serialize(output, val(x, y))) return false;
+            }
+        }
+        return true;
+    }
+
+    static bool deserialize(File& input, container::Vector2D<U>& result) {
+        std::uint32_t w, h;
+        if (!input.read<std::uint32_t>(w)) return false;
+        if (!input.read<std::uint32_t>(h)) return false;
+        result.setSize(w, h);
+        for (unsigned int x = 0; x < w; ++x) {
+            for (unsigned int y = 0; y < h; ++y) {
+                if (!Serializer<U>::deserialize(input, result(x, y))) return false;
+            }
+        }
+        return true;
+    }
+
+    static std::uint32_t size(const container::Vector2D<U>& val) {
+        std::uint32_t s = sizeof(std::uint32_t) * 2;
+        for (unsigned int x = 0; x < val.getWidth(); ++x) {
+            for (unsigned int y = 0; y < val.getHeight(); ++y) {
+                s += Serializer<U>::size(val(x, y));
+            }
+        }
+        return s;
     }
 };
 

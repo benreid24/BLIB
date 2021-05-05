@@ -24,6 +24,26 @@ public:
     , H(0) {}
 
     /**
+     * @brief Copy construct a new Vector2D
+     *
+     * @param copy The vector to copy from
+     */
+    Vector2D(const Vector2D& copy)
+    : data(copy.data)
+    , W(copy.W)
+    , H(copy.H) {}
+
+    /**
+     * @brief Move construct a new Vector2D
+     *
+     * @param move The vector to move from
+     */
+    Vector2D(Vector2D&& move)
+    : data(std::move<std::vector<T>>(move.data))
+    , W(move.W)
+    , H(move.H) {}
+
+    /**
      * @brief Creates the vector of the given width and height
      *
      * @param w The width of the vector
@@ -39,7 +59,16 @@ public:
      * @param y The y coordinate of the element to access
      * @return A reference to the element at the given indices
      */
-    T& operator()(int x, int y) { return data[y * W + x]; }
+    T& operator()(unsigned int x, unsigned int y) { return data[y * W + x]; }
+
+    /**
+     * @brief Returns a const reference to the element at the given position
+     *
+     * @param x The x coordinate of the element to access
+     * @param y The y coordinate of the element to access
+     * @return A reference to the element at the given indices
+     */
+    const T& operator()(unsigned int x, unsigned int y) const { return data.at(y * W + x); }
 
     /**
      * @brief Resizes the vector to the given size
@@ -56,12 +85,12 @@ public:
     /**
      * @brief Returns the width of the vector
      */
-    int getWidth() const { return W; }
+    unsigned int getWidth() const { return W; }
 
     /**
      * @brief Returns the height of the vector
      */
-    int getHeight() const { return H; }
+    unsigned int getHeight() const { return H; }
 
     /**
      * @brief Clears all memory used by the vector, erasing all elements
@@ -70,7 +99,7 @@ public:
 
 private:
     std::vector<T> data;
-    int W, H;
+    unsigned int W, H;
 };
 
 } // namespace container

@@ -12,6 +12,5 @@
 #include <BLIB/Resources/Loader.hpp>
 #include <BLIB/Resources/Manager.hpp>
 #include <BLIB/Resources/Resource.hpp>
-#include <BLIB/Resources/SpecializedLoaders.hpp>
 
 #endif

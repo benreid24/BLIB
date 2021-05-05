@@ -6,6 +6,8 @@
 #include <BLIB/Entities/Component.hpp>
 #include <BLIB/Entities/ComponentSet.hpp>
 #include <BLIB/Entities/Entity.hpp>
+#include <BLIB/Entities/Events.hpp>
+#include <BLIB/Events/Dispatcher.hpp>
 
 #include <algorithm>
 #include <any>
@@ -29,6 +31,9 @@ namespace entity
  *
  */
 class Registry {
+    using ComponentStorage = container::Any<32>; // TODO - benchmark this
+    using ComponentPool    = container::DynamicObjectPool<ComponentStorage>;
+
     class ViewBase {
     public:
         template<typename... TComponents>
@@ -58,6 +63,63 @@ public:
     using ConstEntityIterator = std::unordered_set<Entity>::const_iterator;
 
     /**
+     * @brief Represents a persistant handle to a component. Uses a DynamicObjectPool iterator under
+     *        the hood and is invalidated when the underlying iterator is invalidated (typically
+     *        never unless deleted). Use this instead of raw pointer for keeping handles on
+     *        components
+     *
+     * @tparam T The type of underlying component
+     */
+    template<typename T>
+    class ComponentHandle {
+    public:
+        /**
+         * @brief Construct an empty handle
+         *
+         */
+        ComponentHandle();
+
+        /**
+         * @brief Returns a modifiable reference to the underlying component
+         *
+         */
+        T& get();
+
+        /**
+         * @brief Returns a const reference to the underlying component
+         *
+         */
+        const T& get() const;
+
+        /**
+         * @brief Returns true if a value is contained. Does not detect invalidation
+         *
+         */
+        bool hasValue();
+
+    private:
+        ComponentPool::Iterator it;
+        bool valid;
+
+        ComponentHandle(const ComponentPool::Iterator& it);
+
+        friend class Registry;
+    };
+
+    /**
+     * @brief Construct a new Registry object
+     *
+     */
+    Registry();
+
+    /**
+     * @brief Sets the event dispatcher to fire entity events through. Optional
+     *
+     * @param dispatcher The dispatcher to fire events through. Must remain in scope
+     */
+    void setEventDispatcher(bl::event::Dispatcher& dispatcher);
+
+    /**
      * @brief Create a new Entity
      *
      * @return Entity The new Entity
@@ -79,11 +141,24 @@ public:
     bool entityExists(Entity entity) const;
 
     /**
-     * @brief Destroys the given entity and all of its components
+     * @brief Destroys the given entity and all of its components. Entities are destroyed in batch
+     *        when doDestroy is called
      *
      * @param entity The entity to destroy. No effect if it does not exist
      */
     void destroyEntity(Entity entity);
+
+    /**
+     * @brief Destroys all the entities that were queued to be destroyed
+     *
+     */
+    void doDestroy();
+
+    /**
+     * @brief Destroys all entities in the registry
+     *
+     */
+    void clear();
 
     /**
      * @brief Returns an iterator to the first Entity
@@ -142,6 +217,16 @@ public:
     TComponent* getComponent(Entity entity);
 
     /**
+     * @brief Returns a consistent handle to the given component of the given entity
+     *
+     * @tparam TComponent The type of component to get the handle for
+     * @param entity The entity to get the handle for
+     * @return ComponentHandle<TComponent> A persistant handle. Must check if a value is contained
+     */
+    template<typename TComponent>
+    ComponentHandle<TComponent> getComponentHandle(Entity entity);
+
+    /**
      * @brief Removes the given component from the given entity
      *
      * @tparam TComponent The type of component to remove
@@ -168,22 +253,22 @@ public:
          * @brief Returns the set of results
          *
          */
-        const std::vector<ComponentSet<TComponents...>>& results();
+        std::unordered_map<Entity, ComponentSet<TComponents...>>& results();
 
         /**
          * @brief Returns the beginning of the result set
          *
          */
-        typename std::vector<ComponentSet<TComponents...>>::iterator begin();
+        typename std::unordered_map<Entity, ComponentSet<TComponents...>>::iterator begin();
 
         /**
          * @brief Returns the end of the result set
          *
          */
-        typename std::vector<ComponentSet<TComponents...>>::iterator end();
+        typename std::unordered_map<Entity, ComponentSet<TComponents...>>::iterator end();
 
     private:
-        std::vector<ComponentSet<TComponents...>> entities;
+        std::unordered_map<Entity, ComponentSet<TComponents...>> entities;
 
         View(Registry& registry);
         void refresh();
@@ -211,19 +296,20 @@ public:
     ComponentSet<TComponents...> getEntityComponents(Entity e);
 
 private:
-    using ComponentStorage = container::Any<32>; // TODO - benchmark this
-    using ComponentPool    = container::DynamicObjectPool<ComponentStorage>;
-
     mutable std::shared_mutex entityMutex;
     std::unordered_set<Entity> entities;
+    bl::event::Dispatcher* dispatcher;
 
     std::unordered_map<Component::IdType, ComponentPool> componentPools;
     std::unordered_map<Component::IdType, std::unordered_set<Entity>> componentEntities;
     std::unordered_map<Entity, std::unordered_map<Component::IdType, ComponentPool::Iterator>>
         entityComponentIterators;
+    std::vector<Entity> toDestroy;
 
     std::unordered_set<ViewBase*> activeViews;
     std::shared_mutex viewMutex;
+
+    void doDestroy(Entity entity);
 
     void addView(ViewBase* view);
     void removeView(ViewBase* view);
@@ -231,7 +317,7 @@ private:
     void invalidateViews(Component::IdType cid);
 
     template<typename... TComponents>
-    void populateView(std::vector<ComponentSet<TComponents...>>& results);
+    void populateView(std::unordered_map<Entity, ComponentSet<TComponents...>>& results);
 
     template<typename TComponent, typename... TComponents>
     bool populateComponent(Entity entity, ComponentSet<TComponents...>& set);
@@ -263,9 +349,10 @@ bool Registry::addComponent(Entity entity, const T& component) {
     if (indexIter->second.find(id) != indexIter->second.end()) return false;
 
     // add and track component
-    auto it = poolIter->second.add(component);
+    ComponentPool::Iterator it = poolIter->second.add(component);
     indexIter->second.emplace(id, it);
     linkIter->second.insert(entity);
+    if (dispatcher) dispatcher->dispatch<event::ComponentAdded<T>>({entity, it->get<T>()});
 
     invalidateViews(id);
     return true;
@@ -295,6 +382,20 @@ T* Registry::getComponent(Entity entity) {
 }
 
 template<typename T>
+Registry::ComponentHandle<T> Registry::getComponentHandle(Entity entity) {
+    const Component::IdType& id = Component::getId<T>();
+    std::shared_lock lock(entityMutex);
+
+    auto indexIter = entityComponentIterators.find(entity);
+    if (indexIter == entityComponentIterators.end()) return {};
+
+    auto poolIndexIter = indexIter->second.find(id);
+    if (poolIndexIter == indexIter->second.end()) return {};
+
+    return {poolIndexIter->second};
+}
+
+template<typename T>
 bool Registry::removeComponent(Entity entity) {
     const Component::IdType& id = Component::getId<T>();
     std::unique_lock lock(entityMutex);
@@ -307,6 +408,9 @@ bool Registry::removeComponent(Entity entity) {
 
     auto poolIter = componentPools.find(id);
     if (poolIter == componentPools.end()) return false;
+
+    if (dispatcher)
+        dispatcher->dispatch<event::ComponentRemoved<T>>({entity, it->second->get<T>()});
 
     auto linkIter = componentEntities.find(id);
     linkIter->second.erase(entity);
@@ -325,7 +429,7 @@ typename Registry::View<TComponents...>::Ptr Registry::getEntitiesWithComponents
 }
 
 template<typename... TComponents>
-void Registry::populateView(std::vector<ComponentSet<TComponents...>>& results) {
+void Registry::populateView(std::unordered_map<Entity, ComponentSet<TComponents...>>& results) {
     results.clear();
     const Component::IdType ids[] = {Component::getId<TComponents>()...};
     if (sizeof...(TComponents) == 0) return;
@@ -335,14 +439,13 @@ void Registry::populateView(std::vector<ComponentSet<TComponents...>>& results) 
     auto entityIt = componentEntities.find(ids[0]);
     if (entityIt == componentEntities.end()) return;
 
-    results.reserve(entityIt->second.size());
     for (const Entity e : entityIt->second) {
         ComponentSet<TComponents...> set(e);
         const bool present[] = {populateComponent<TComponents, TComponents...>(e, set)...};
         for (unsigned int i = 0; i < sizeof...(TComponents); ++i) {
             if (!present[i]) goto noAdd;
         }
-        results.push_back(set);
+        results.emplace(e, set);
     noAdd:;
     }
 }
@@ -382,20 +485,22 @@ Registry::View<TComponents...>::View(Registry& r)
 : ViewBase(r, ViewBase::DeductionDummy<TComponents...>()) {}
 
 template<typename... TComponents>
-const std::vector<ComponentSet<TComponents...>>& Registry::View<TComponents...>::results() {
+std::unordered_map<Entity, ComponentSet<TComponents...>>&
+Registry::View<TComponents...>::results() {
     if (isDirty()) refresh();
     return entities;
 }
 
 template<typename... TComponents>
-typename std::vector<ComponentSet<TComponents...>>::iterator
+typename std::unordered_map<Entity, ComponentSet<TComponents...>>::iterator
 Registry::View<TComponents...>::begin() {
     if (isDirty()) refresh();
     return entities.begin();
 }
 
 template<typename... TComponents>
-typename std::vector<ComponentSet<TComponents...>>::iterator Registry::View<TComponents...>::end() {
+typename std::unordered_map<Entity, ComponentSet<TComponents...>>::iterator
+Registry::View<TComponents...>::end() {
     if (isDirty()) refresh();
     return entities.end();
 }
@@ -404,6 +509,30 @@ template<typename... TComponents>
 void Registry::View<TComponents...>::refresh() {
     registry.populateView(entities);
     makeClean();
+}
+
+template<typename T>
+Registry::ComponentHandle<T>::ComponentHandle()
+: valid(false) {}
+
+template<typename T>
+Registry::ComponentHandle<T>::ComponentHandle(const Registry::ComponentPool::Iterator& it)
+: it(it)
+, valid(true) {}
+
+template<typename T>
+T& Registry::ComponentHandle<T>::ComponentHandle::get() {
+    return it->get<T>();
+}
+
+template<typename T>
+const T& Registry::ComponentHandle<T>::ComponentHandle::get() const {
+    return it->get<T>();
+}
+
+template<typename T>
+bool Registry::ComponentHandle<T>::ComponentHandle::hasValue() {
+    return valid;
 }
 
 } // namespace entity

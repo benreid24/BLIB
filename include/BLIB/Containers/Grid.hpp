@@ -94,6 +94,20 @@ public:
     class Iterator {
     public:
         /**
+         * @brief Creates an invalid iterator
+         *
+         */
+        Iterator();
+
+        /**
+         * @brief Copies from the given iterator
+         *
+         * @param copy The iterator to copy from
+         * @return Iterator& A reference to this iterator
+         */
+        Iterator& operator=(const Iterator& copy);
+
+        /**
          * @brief Access the value pointed to by this iterator
          *
          */
@@ -163,6 +177,12 @@ public:
     class Range {
     public:
         /**
+         * @brief Construct an empty Range
+         *
+         */
+        Range() = default;
+
+        /**
          * @brief The first element in the range
          *
          */
@@ -181,7 +201,7 @@ public:
         bool empty() const;
 
     private:
-        const Iterator b, e;
+        Iterator b, e;
         friend class Grid;
 
         Range(const Iterator& b, const Iterator& e);
@@ -456,6 +476,10 @@ bool Grid<T>::Payload::inGrid() const {
 }
 
 template<typename T>
+Grid<T>::Iterator::Iterator()
+: Iterator(nullptr, 0, 0, 0, 0, nullptr, false) {}
+
+template<typename T>
 Grid<T>::Iterator::Iterator(Grid* o, unsigned int x, unsigned int y, unsigned int ex,
                             unsigned int ey, const typename Payload::Ptr& current, bool s)
 : owner(o)
@@ -466,6 +490,18 @@ Grid<T>::Iterator::Iterator(Grid* o, unsigned int x, unsigned int y, unsigned in
 , ey(ey)
 , current(current) {
     if (s) skipEmpty();
+}
+
+template<typename T>
+typename Grid<T>::Iterator& Grid<T>::Iterator::operator=(const Iterator& copy) {
+    const_cast<Grid<T>*&>(owner)  = copy.owner;
+    sx                            = copy.sx;
+    cx                            = copy.cx;
+    cy                            = copy.cy;
+    const_cast<unsigned int&>(ex) = copy.ex;
+    const_cast<unsigned int&>(ey) = copy.ey;
+    current                       = copy.current;
+    return *this;
 }
 
 template<typename T>
