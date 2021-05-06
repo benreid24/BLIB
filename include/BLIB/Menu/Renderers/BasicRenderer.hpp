@@ -57,6 +57,14 @@ public:
     void setVerticalAlignment(Alignment align);
 
     /**
+     * @brief Set a uniform size for all items. Items that are larger will be allowed to take the
+     *        extra space required. Items that are smaller are expanded to fill the size
+     *
+     * @param size The minimum size for items
+     */
+    void setUniformSize(const sf::Vector2f& size);
+
+    /**
      * @see Renderer::renderItem
      */
     virtual sf::Vector2f renderItem(sf::RenderTarget& target, sf::RenderStates renderStates,
@@ -73,6 +81,7 @@ private:
     Alignment horizontalAlignment;
     Alignment verticalAlignment;
     sf::Vector2f padding;
+    sf::Vector2f minSize;
 };
 
 } // namespace menu

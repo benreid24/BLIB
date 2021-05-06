@@ -72,7 +72,7 @@ private:
 
     void renderItem(const Renderer& renderer, sf::RenderTarget& target, Item::Ptr item,
                     const sf::Vector2f& position, sf::RenderStates renderStates, int x, int y,
-                    std::list<std::pair<int, int>>& rendered);
+                    std::vector<std::pair<int, int>>& rendered);
 };
 
 } // namespace menu

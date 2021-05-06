@@ -34,8 +34,7 @@ public:
      */
     virtual sf::Vector2f renderItem(sf::RenderTarget& target, sf::RenderStates renderStates,
                                     const Item& item, const sf::Vector2f& position,
-                                    float columnWidth, float rowHeight, int x,
-                                    int y) const = 0;
+                                    float columnWidth, float rowHeight, int x, int y) const = 0;
 
     /**
      * @brief Returns the estimated total render area required by the given item
