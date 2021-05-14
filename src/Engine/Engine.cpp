@@ -49,6 +49,8 @@ void Engine::replaceState(State::Ptr next) {
     newState = next;
 }
 
+void Engine::popState() { flags().set(Flags::PopState); }
+
 bool Engine::run(State::Ptr initialState) {
     BL_LOG_INFO << "Starting engine with state: " << initialState->name();
     states.push(initialState);

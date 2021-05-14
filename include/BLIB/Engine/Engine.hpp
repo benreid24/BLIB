@@ -106,6 +106,12 @@ public:
      */
     void replaceState(State::Ptr next);
 
+    /**
+     * @brief Convenience method to set the PopState flag
+     *
+     */
+    void popState();
+
 private:
     const Settings engineSettings;
     Flags engineFlags;

@@ -32,19 +32,20 @@ void Menu::setSelectedItem(Item::Ptr s) { selectedItem = s; }
 
 void Menu::render(const Renderer& renderer, sf::RenderTarget& target, const sf::Vector2f& position,
                   sf::RenderStates renderStates) {
-    std::list<std::pair<int, int>> rendered;
+    std::vector<std::pair<int, int>> rendered;
+    rendered.reserve(10);
     itemAreas.clear();
     renderItem(renderer, target, rootItem, position, renderStates, 0, 0, rendered);
 }
 
 void Menu::renderItem(const Renderer& renderer, sf::RenderTarget& target, Item::Ptr item,
                       const sf::Vector2f& position, sf::RenderStates renderStates, int x, int y,
-                      std::list<std::pair<int, int>>& rendered) {
+                      std::vector<std::pair<int, int>>& rendered) {
     if (std::find(rendered.begin(), rendered.end(), std::make_pair(x, y)) != rendered.end()) return;
     rendered.push_back(std::make_pair(x, y));
 
-    float columnWidth = item->getRenderItem().getSize().x;
-    float rowHeight   = item->getRenderItem().getSize().y;
+    float columnWidth = renderer.estimateItemSize(*item).x;
+    float rowHeight   = renderer.estimateItemSize(*item).y;
     auto it           = columnWidths.find(x);
     if (it != columnWidths.end()) columnWidth = columnWidths[x];
     it = rowHeights.find(y);
@@ -58,7 +59,6 @@ void Menu::renderItem(const Renderer& renderer, sf::RenderTarget& target, Item::
     }
 
     if (item->attachments[Item::Top]) {
-        // TODO - add method to renderer to est size, use that when mod pos
         const sf::Vector2f esize = renderer.estimateItemSize(*item->attachments[Item::Top]);
         renderItem(renderer,
                    target,

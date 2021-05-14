@@ -23,8 +23,8 @@ shapes::Triangle& ArrowSelector::getArrow() { return triangle; }
 
 void ArrowSelector::render(sf::RenderTarget& target, sf::RenderStates states,
                            sf::FloatRect itemArea) const {
-    triangle.setPosition(
-        {itemArea.left - width - 2.f, itemArea.top + itemArea.height - width * HeightRatio});
+    triangle.setPosition({itemArea.left - width - 2.f,
+                          itemArea.top + itemArea.height / 2.f + width * HeightRatio / 2.f});
     target.draw(triangle, states);
 }
 
