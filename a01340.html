@@ -124,6 +124,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4b897e99537883478d637b5743f97f19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01340.html#a4b897e99537883478d637b5743f97f19">setVerticalAlignment</a> (<a class="el" href="a01340.html#a9c525ef72fcebe09312fed7ac5ebfd57">Alignment</a> align)</td></tr>
 <tr class="memdesc:a4b897e99537883478d637b5743f97f19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the vertical alignment of items.  <a href="#a4b897e99537883478d637b5743f97f19">More...</a><br /></td></tr>
 <tr class="separator:a4b897e99537883478d637b5743f97f19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13cf9961a8cdbab3e5f111262db68a35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01340.html#a13cf9961a8cdbab3e5f111262db68a35">setUniformSize</a> (const sf::Vector2f &amp;size)</td></tr>
+<tr class="memdesc:a13cf9961a8cdbab3e5f111262db68a35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a uniform size for all items. Items that are larger will be allowed to take the extra space required. Items that are smaller are expanded to fill the size.  <a href="#a13cf9961a8cdbab3e5f111262db68a35">More...</a><br /></td></tr>
+<tr class="separator:a13cf9961a8cdbab3e5f111262db68a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21c03b9800ee0a65034d25b1124cdbc9"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01340.html#a21c03b9800ee0a65034d25b1124cdbc9">renderItem</a> (sf::RenderTarget &amp;target, sf::RenderStates renderStates, const <a class="el" href="a01328.html">Item</a> &amp;item, const sf::Vector2f &amp;position, float columnWidth, float rowHeight, int x, int y) const override</td></tr>
 <tr class="separator:a21c03b9800ee0a65034d25b1124cdbc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4b98d86b888318ca118455dd154cdb8"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01340.html#af4b98d86b888318ca118455dd154cdb8">estimateItemSize</a> (const <a class="el" href="a01328.html">Item</a> &amp;item) const override</td></tr>
@@ -341,7 +344,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="a01336.html#a11950433dc4441181b961f321dd1e2d4">bl::menu::Renderer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00020">20</a> of file <a class="el" href="a00596_source.html">BasicRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00021">21</a> of file <a class="el" href="a00596_source.html">BasicRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -363,7 +366,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Set the horizontal alignment of items. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00012">12</a> of file <a class="el" href="a00596_source.html">BasicRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00013">13</a> of file <a class="el" href="a00596_source.html">BasicRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -391,7 +394,35 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00016">16</a> of file <a class="el" href="a00596_source.html">BasicRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00017">17</a> of file <a class="el" href="a00596_source.html">BasicRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a13cf9961a8cdbab3e5f111262db68a35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13cf9961a8cdbab3e5f111262db68a35">&#9670;&nbsp;</a></span>setUniformSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::menu::BasicRenderer::setUniformSize </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set a uniform size for all items. Items that are larger will be allowed to take the extra space required. Items that are smaller are expanded to fill the size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>The minimum size for items </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00043">43</a> of file <a class="el" href="a00596_source.html">BasicRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -413,7 +444,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Set the vertical alignment of items. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00014">14</a> of file <a class="el" href="a00596_source.html">BasicRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00015">15</a> of file <a class="el" href="a00596_source.html">BasicRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -441,7 +472,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00018">18</a> of file <a class="el" href="a00596_source.html">BasicRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00019">19</a> of file <a class="el" href="a00596_source.html">BasicRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -453,7 +484,7 @@ Public Member Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 5 2021 18:06:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri May 14 2021 15:45:34 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
