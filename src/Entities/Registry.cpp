@@ -34,6 +34,9 @@ void Registry::destroyEntity(Entity e) {
 }
 
 void Registry::doDestroy() {
+    if (dispatcher) {
+        for (const Entity e : toDestroy) { dispatcher->dispatch<event::EntityDestroyed>({e}); }
+    }
     std::unique_lock lock(entityMutex);
     for (const Entity e : toDestroy) { doDestroy(e); }
     toDestroy.clear();
@@ -42,8 +45,6 @@ void Registry::doDestroy() {
 void Registry::doDestroy(Entity e) {
     auto it = entityComponentIterators.find(e);
     if (it != entityComponentIterators.end()) {
-        if (dispatcher) dispatcher->dispatch<event::EntityDestroyed>({e});
-
         for (const auto& component : it->second) {
             // invalidate views with this component type
             invalidateViews(component.first);
