@@ -327,34 +327,40 @@ private:
 
 template<typename T>
 bool Registry::addComponent(Entity entity, const T& component) {
-    const Component::IdType& id = Component::getId<T>();
-    std::unique_lock lock(entityMutex);
+    ComponentPool::Iterator it;
 
-    // entity does not exist
-    if (entities.find(entity) == entities.end()) return false;
+    {
+        const Component::IdType& id = Component::getId<T>();
+        std::unique_lock lock(entityMutex);
 
-    // ensure pool exists
-    auto poolIter = componentPools.find(id);
-    if (poolIter == componentPools.end()) { poolIter = componentPools.try_emplace(id).first; }
+        // entity does not exist
+        if (entities.find(entity) == entities.end()) return false;
 
-    // ensure component link exists
-    auto linkIter = componentEntities.find(id);
-    if (linkIter == componentEntities.end()) { linkIter = componentEntities.try_emplace(id).first; }
+        // ensure pool exists
+        auto poolIter = componentPools.find(id);
+        if (poolIter == componentPools.end()) { poolIter = componentPools.try_emplace(id).first; }
 
-    // ensure entity does not already have component
-    auto indexIter = entityComponentIterators.find(entity);
-    if (indexIter == entityComponentIterators.end()) {
-        indexIter = entityComponentIterators.try_emplace(entity).first;
+        // ensure component link exists
+        auto linkIter = componentEntities.find(id);
+        if (linkIter == componentEntities.end()) {
+            linkIter = componentEntities.try_emplace(id).first;
+        }
+
+        // ensure entity does not already have component
+        auto indexIter = entityComponentIterators.find(entity);
+        if (indexIter == entityComponentIterators.end()) {
+            indexIter = entityComponentIterators.try_emplace(entity).first;
+        }
+        if (indexIter->second.find(id) != indexIter->second.end()) return false;
+
+        // add and track component
+        it = poolIter->second.add(component);
+        indexIter->second.emplace(id, it);
+        linkIter->second.insert(entity);
+
+        invalidateViews(id);
     }
-    if (indexIter->second.find(id) != indexIter->second.end()) return false;
-
-    // add and track component
-    ComponentPool::Iterator it = poolIter->second.add(component);
-    indexIter->second.emplace(id, it);
-    linkIter->second.insert(entity);
     if (dispatcher) dispatcher->dispatch<event::ComponentAdded<T>>({entity, it->get<T>()});
-
-    invalidateViews(id);
     return true;
 }
 
@@ -398,26 +404,38 @@ Registry::ComponentHandle<T> Registry::getComponentHandle(Entity entity) {
 template<typename T>
 bool Registry::removeComponent(Entity entity) {
     const Component::IdType& id = Component::getId<T>();
-    std::unique_lock lock(entityMutex);
 
-    auto indexIter = entityComponentIterators.find(entity);
-    if (indexIter == entityComponentIterators.end()) return false;
+    std::unordered_map<Entity,
+                       std::unordered_map<Component::IdType, ComponentPool::Iterator>>::iterator
+        indexIter;
+    std::unordered_map<Component::IdType, ComponentPool::Iterator>::iterator it;
+    std::unordered_map<Component::IdType, ComponentPool>::iterator poolIter;
 
-    auto it = indexIter->second.find(id);
-    if (it == indexIter->second.end()) return false;
+    {
+        std::shared_lock lock(entityMutex);
 
-    auto poolIter = componentPools.find(id);
-    if (poolIter == componentPools.end()) return false;
+        indexIter = entityComponentIterators.find(entity);
+        if (indexIter == entityComponentIterators.end()) return false;
+
+        it = indexIter->second.find(id);
+        if (it == indexIter->second.end()) return false;
+
+        poolIter = componentPools.find(id);
+        if (poolIter == componentPools.end()) return false;
+    }
 
     if (dispatcher)
         dispatcher->dispatch<event::ComponentRemoved<T>>({entity, it->second->get<T>()});
 
-    auto linkIter = componentEntities.find(id);
-    linkIter->second.erase(entity);
-    poolIter->second.erase(it->second);
-    indexIter->second.erase(id);
+    {
+        std::unique_lock lock(entityMutex);
+        auto linkIter = componentEntities.find(id);
+        linkIter->second.erase(entity);
+        poolIter->second.erase(it->second);
+        indexIter->second.erase(id);
 
-    invalidateViews(id);
+        invalidateViews(id);
+    }
     return true;
 }
 
