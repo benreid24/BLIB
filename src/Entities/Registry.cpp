@@ -11,19 +11,26 @@ void Registry::setEventDispatcher(bl::event::Dispatcher& d) { dispatcher = &d; }
 
 Entity Registry::createEntity() {
     const Entity e = IdGenerator::makeNew();
-    std::unique_lock lock(entityMutex);
-    entities.insert(e);
+    {
+        std::unique_lock lock(entityMutex);
+        entities.insert(e);
+    }
     if (dispatcher) dispatcher->dispatch<event::EntityCreated>({e});
     return e;
 }
 
 bool Registry::createEntity(Entity e) {
-    std::unique_lock lock(entityMutex);
-    if (entities.find(e) == entities.end()) {
-        entities.insert(e);
-        return true;
+    bool created = false;
+    {
+        std::unique_lock lock(entityMutex);
+        if (entities.find(e) == entities.end()) {
+            entities.insert(e);
+            created = true;
+        }
     }
-    return false;
+
+    if (dispatcher && created) dispatcher->dispatch<event::EntityCreated>({e});
+    return created;
 }
 
 bool Registry::entityExists(Entity e) const { return entities.find(e) != entities.end(); }
@@ -34,6 +41,9 @@ void Registry::destroyEntity(Entity e) {
 }
 
 void Registry::doDestroy() {
+    if (dispatcher) {
+        for (const Entity e : toDestroy) { dispatcher->dispatch<event::EntityDestroyed>({e}); }
+    }
     std::unique_lock lock(entityMutex);
     for (const Entity e : toDestroy) { doDestroy(e); }
     toDestroy.clear();
@@ -42,8 +52,6 @@ void Registry::doDestroy() {
 void Registry::doDestroy(Entity e) {
     auto it = entityComponentIterators.find(e);
     if (it != entityComponentIterators.end()) {
-        if (dispatcher) dispatcher->dispatch<event::EntityDestroyed>({e});
-
         for (const auto& component : it->second) {
             // invalidate views with this component type
             invalidateViews(component.first);
