@@ -10,5 +10,6 @@
 
 #include <BLIB/Media/Graphics/Animation.hpp>
 #include <BLIB/Media/Graphics/AnimationData.hpp>
+#include <BLIB/Media/Graphics/Flashing.hpp>
 
 #endif
