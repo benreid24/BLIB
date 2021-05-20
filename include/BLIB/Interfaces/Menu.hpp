@@ -2,7 +2,8 @@
 #define BLIB_INTERFACES_MENU_HPP
 
 /**
- * @defgroup Menu
+ * @addtogroup Menu
+ * @ingroup Interface
  * @brief A mouseless menu that accepts basic inputs and defers rendering to the client
  *
  */

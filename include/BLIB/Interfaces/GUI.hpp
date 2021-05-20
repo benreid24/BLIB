@@ -2,7 +2,8 @@
 #define BLIB_GUI_HPP
 
 /**
- * @defgroup GUI
+ * @addtogroup GUI
+ * @ingroup Interface
  * @brief Full featured, extensible GUI framework
  *
  */
