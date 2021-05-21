@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['math',['Math',['../a00664.html',1,'']]],
-  ['media',['Media',['../a00665.html',1,'']]],
-  ['menu',['Menu',['../a00666.html',1,'']]]
+  ['logging',['Logging',['../a00693.html',1,'']]]
 ];

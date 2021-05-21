@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Files/JSON/Schema.cpp File Reference</title>
+<title>BLIB: src/Events/DispatcherScopeGuard.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,70 +63,34 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_d9d945326b48e34f691cb10a881118b0.html">Files</a></li><li class="navelem"><a class="el" href="dir_a88226eb68b26d8838249d5a31668eac.html">JSON</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_1ff81008302cb45769f1dab653ab23f8.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Schema.cpp File Reference</div>  </div>
+<div class="title">DispatcherScopeGuard.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00146_source.html">BLIB/Files/JSON/Schema.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00248_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00110_source.html">BLIB/Events/DispatcherScopeGuard.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00455_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00680"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00680.html">bl</a></td></tr>
-<tr class="memdesc:a00680"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a00712"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00712.html">bl</a></td></tr>
+<tr class="memdesc:a00712"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00689"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00689.html">bl::file</a></td></tr>
-<tr class="memdesc:a00689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to simplify file interactions. <br /></td></tr>
+<tr class="memitem:a00720"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00720.html">bl::event</a></td></tr>
+<tr class="memdesc:a00720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes providing different types of publisher/consumer event queues. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00691"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00691.html">bl::file::json</a></td></tr>
-<tr class="memdesc:a00691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for interacting with JSON files. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00692"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00692.html">bl::file::json::schema</a></td></tr>
-<tr class="memdesc:a00692"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for creating json schemas and verifying that file content matches. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a9417a2067ad8ee39688fc22efd2ceb48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00455.html#a9417a2067ad8ee39688fc22efd2ceb48">SCHEMA_ERROR</a>(source)</td></tr>
-<tr class="separator:a9417a2067ad8ee39688fc22efd2ceb48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a9417a2067ad8ee39688fc22efd2ceb48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9417a2067ad8ee39688fc22efd2ceb48">&#9670;&nbsp;</a></span>SCHEMA_ERROR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SCHEMA_ERROR</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">source</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="a00245.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;VALIDATION FAILED: File &#39;&quot;</span> &lt;&lt; source.filename &lt;&lt; <span class="stringliteral">&quot;&#39;:&quot;</span> &lt;&lt; source.lineNumber \</div><div class="line">                 &lt;&lt; <span class="stringliteral">&quot;: &quot;</span></div><div class="ttc" id="a00245_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00245.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information. </div><div class="ttdef"><b>Definition:</b> <a href="a00245_source.html#l00102">Logger.hpp:102</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="a00455_source.html#l00006">6</a> of file <a class="el" href="a00455_source.html">Schema.cpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 18 2021 03:26:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri May 21 2021 02:55:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
