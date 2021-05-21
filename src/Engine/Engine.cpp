@@ -162,8 +162,7 @@ bool Engine::run(State::Ptr initialState) {
         }
         if (averageUpdateTime < updateTimestep * 0.9f &&
             updateTimestep > engineSettings.updateTimestep()) {
-            float newTs = (1 - averageUpdateTime / updateTimestep) / 2.f * updateTimestep;
-            if (newTs < engineSettings.updateTimestep()) newTs = engineSettings.updateTimestep();
+            const float newTs = std::max(engineSettings.updateTimestep(), updateTimestep * 0.95f);
             BL_LOG_INFO << "Performance improved, adjusting timestep from " << updateTimestep
                         << "s to " << newTs << "s";
             updateTimestep = newTs;
