@@ -7,6 +7,7 @@
  *
  */
 
+#include <BLIB/Entities/Cleaner.hpp>
 #include <BLIB/Entities/Component.hpp>
 #include <BLIB/Entities/ComponentSet.hpp>
 #include <BLIB/Entities/Entity.hpp>

@@ -245,6 +245,23 @@ struct Serializer<sf::Vector2u> {
     static std::uint32_t size(const sf::Vector2u&) { return sizeof(std::uint32_t) * 2; }
 };
 
+template<typename U, typename V>
+struct Serializer<std::pair<U, V>, false> {
+    static bool serialize(File& output, const std::pair<U, V>& v) {
+        if (!Serializer<U>::serialize(output, v.first)) return false;
+        return Serializer<V>::serialize(output, v.second);
+    }
+
+    static bool deserialize(File& input, std::pair<U, V>& v) {
+        if (!Serializer<U>::deserialize(input, v.first)) return false;
+        return Serializer<V>::deserialize(input, v.second);
+    }
+
+    static std::uint32_t size(const std::pair<U, V>& v) {
+        return Serializer<U>::size(v.first) + Serializer<V>::size(v.second);
+    }
+};
+
 } // namespace binary
 } // namespace file
 } // namespace bl
