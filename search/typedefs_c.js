@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['type',['Type',['../a01434.html#a7aead111e234327c018e49a75c20f702',1,'bl::parser::Node']]]
+  ['type',['Type',['../a01445.html#a7aead111e234327c018e49a75c20f702',1,'bl::parser::Node']]]
 ];

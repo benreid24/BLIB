@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['numeric',['Numeric',['../a00723.html#aeb69f6841b7360dcd6403224f82f6663',1,'bl::file::json']]]
+  ['numeric',['Numeric',['../a00726.html#aeb69f6841b7360dcd6403224f82f6663',1,'bl::file::json']]]
 ];
