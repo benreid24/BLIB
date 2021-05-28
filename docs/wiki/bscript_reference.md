@@ -162,7 +162,7 @@ keys = var.keys();              // keys = ["nestedProp1", "nestedProp2"]
 The following functions are provided on all variables for interacting with their properties:
 | Name | Parameters  | Return                                                               |
 |------|-------------|----------------------------------------------------------------------|
-| get  | key: String | Property with the given name or void if does not exist               |
+| at   | key: String | Property with the given name or void if does not exist               |
 | keys | N/A         | Array of strings of all property names. Excludes built-in properties |
 
 ### References
@@ -204,7 +204,8 @@ var = alias(5, my_value_cb); // var = 10
 ## Statements
 
 As with any other language, **bScript** is evaluated as a series of statements. Beyond function calls and definitions, and variable assignment as listed
-above, the following constructs are available to implement logic.
+above, **bScript** also contains conditional statements, while loops, and for loops. Like C, individual lines of code almost always end with a semicolon (`;`).
+Blocks of code are contained in curly brackets (`{` and `}`).
 
 ### Conditional Statements
 
