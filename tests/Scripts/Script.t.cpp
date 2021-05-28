@@ -9,31 +9,30 @@ namespace script
 {
 namespace unittest
 {
-class TestScript : public Script {
+namespace
+{
+class TestContext : public Context {
 public:
-    TestScript(const std::string& input)
-    : Script(input)
-    , ran(false)
-    , call(false) {}
+    TestContext()
+    : call(false) {}
+
+    virtual ~TestContext() = default;
 
     bool called() const { return call; }
-    bool executed() const { return ran; }
 
 private:
-    virtual void addCustomSymbols(script::SymbolTable& table) const override {
-        TestScript* me        = const_cast<TestScript*>(this);
+    bool call;
+
+    virtual void addCustomSymbols(SymbolTable& table) const override {
+        TestContext* me       = const_cast<TestContext*>(this);
         Function::CustomCB cb = [me](SymbolTable&, const std::vector<Value>&) -> Value {
             me->call = true;
             return Value();
         };
         table.set("call", Value(cb));
     }
-
-    virtual void onRun() const override { ran = true; }
-
-    mutable bool ran;
-    bool call;
 };
+} // namespace
 
 TEST(Script, Run) {
     const std::string input = "def square(x) { return x*x; } y = 4; return square(y);";
@@ -49,13 +48,13 @@ TEST(Script, Run) {
 
 TEST(Script, Background) {
     const std::string input = "call();";
-    const TestScript script(input);
+    TestContext context;
+    const Script script(input, context);
     ASSERT_TRUE(script.valid());
 
     script.runBackground();
     std::this_thread::sleep_for(std::chrono::milliseconds(30));
-    ASSERT_TRUE(script.executed());
-    ASSERT_TRUE(script.called());
+    ASSERT_TRUE(context.called());
 }
 
 TEST(Script, Manager) {
