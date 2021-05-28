@@ -36,15 +36,15 @@ Valid identifiers in **bScript** begin with an underscore or a letter which is t
 
 The following types are part of the core language:
 
-| Type      | Description                           | Example                    | Truthiness         |
-|-----------|---------------------------------------|----------------------------|--------------------|
-| Void      | No type                               | N/A                        | `false`            |
-| Bool      | True or false                         | `true` or `false`          | N/A                |
-| Numeric   | Floating point number                 | `5` or `-34.56`            | Nonzero is `true`  |
-| String    | String of characters                  | `"hello world"`            | Nonempty is `true` |
-| Array     | Resizable list of values              | `[]` or `[1, true, "str"]` | Nonempty is `true` |
-| Function  | Callable function                     | `def fn() {return 5; }`    | `false`            |
-| Reference | Modifiable reference to another value | `&someVar`                 | Referenced Value   |
+| Type      | Description                           | Example                    | Truthiness                           |
+|-----------|---------------------------------------|----------------------------|--------------------------------------|
+| Void      | No type                               | N/A                        | `false`                              |
+| Bool      | True or false                         | `true` or `false`          | N/A                                  |
+| Numeric   | Floating point number                 | `5` or `-34.56`            | Nonzero is `true`, zero is `false`   |
+| String    | String of characters                  | `"hello world"`            | Nonempty is `true`, empty is `false` |
+| Array     | Resizable list of values              | `[]` or `[1, true, "str"]` | Nonempty is `true`, empty is `false` |
+| Function  | Callable function                     | `def fn() {return 5; }`    | `false`                              |
+| Reference | Modifiable reference to another value | `&someVar`                 | Referenced Value                     |
 
 
 ## Built-in Operations
@@ -68,7 +68,7 @@ The following operations are supported natively by **bScript**. References to va
 
 ### Comparators
 
-Note that strings are compared alphabetically for less/greater comparisons. Arrays are compared by length for them. For Boolean `true` is greater than
+Note that strings are compared alphabetically for less/greater comparisons. Arrays are compared by length. For Boolean `true` is greater than
 `false`. Numeric values are compared numerically.
 
 | Comparison    | Operator | Type(s)                  |

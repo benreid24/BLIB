@@ -716,9 +716,11 @@ Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
     case Value::TString:
         if (rh.getType() == Value::TString) return lh.getAsString() + rh.getAsString();
         if (rh.getType() == Value::TNumeric) {
-            std::string str = std::to_string(rh.getAsNum());
+            std::string str;
             if (std::floor(rh.getAsNum()) == rh.getAsNum())
                 str = std::to_string(static_cast<int>(rh.getAsNum()));
+            else
+                std::to_string(rh.getAsNum());
             return lh.getAsString() + str;
         }
         throw Error("Only Numeric and String types may be added to Strings", node);
