@@ -221,11 +221,11 @@ else {
 
 Very familiar to any programmer:
 ```
-i = 0
-my_list = []
+i = 0;
+my_list = [];
 while (i <= 5) {
-    my_list.append(i)
-    i = i + 1
+    my_list.append(i);
+    i = i + 1;
 }
 // my_list = [1, 2, 3, 4, 5]
 ```
@@ -234,8 +234,8 @@ while (i <= 5) {
 
 Python inspired container iteration:
 ```
-my_list = [1, 2, 3, 4]
-sum = 0
+my_list = [1, 2, 3, 4];
+sum = 0;
 for (n in my_list) {
     sum = sum + n;
 }
