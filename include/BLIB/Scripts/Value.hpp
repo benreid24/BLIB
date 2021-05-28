@@ -1,9 +1,9 @@
 #ifndef BLIB_SCRIPTS_VALUE_HPP
 #define BLIB_SCRIPTS_VALUE_HPP
 
-#include <map>
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <variant>
 #include <vector>
 
@@ -157,7 +157,7 @@ private:
 
     Type type;
     std::unique_ptr<TData> value;
-    std::map<std::string, Ptr> properties;
+    std::unordered_map<std::string, Ptr> properties;
 
     void resetProps();
 

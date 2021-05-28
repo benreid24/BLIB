@@ -41,7 +41,7 @@ parser::Tokenizer buildTokenizer() {
     tokenizer.addTokenType(G::Comma, ",");
     tokenizer.addTokenType(G::Term, ";");
     tokenizer.addTokenType(G::Colon, ":");
-    tokenizer.addTokenType(G::Id, "[a-zA-Z]+[a-zA-Z0-9]*");
+    tokenizer.addTokenType(G::Id, "[a-zA-Z]+[a-zA-Z0-9_]*");
     tokenizer.addKeyword(G::Id, G::Def, "def");
     tokenizer.addKeyword(G::Id, G::If, "if");
     tokenizer.addKeyword(G::Id, G::Elif, "elif");
