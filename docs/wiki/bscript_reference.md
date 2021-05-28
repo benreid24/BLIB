@@ -11,7 +11,7 @@ within games to script events and AI, however, which limits the need for a compl
 
 ## Built-in Functions
 
-See the [reference](docs/wiki/bscript_functions.md) of built-in functions.
+See the [reference](bscript_functions.md) of built-in functions.
 
 ***
 
