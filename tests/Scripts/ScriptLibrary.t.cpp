@@ -194,5 +194,83 @@ TEST(ScriptLibrary, Atan2) {
     ASSERT_THAT(r.value().getAsNum(), FloatEq(45));
 }
 
+TEST(ScriptLibrary, MinArray) {
+    using ::testing::FloatEq;
+
+    const std::string input = "return min([45, -30, 3.5]);";
+    Script script(input);
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    ASSERT_EQ(r.value().getType(), Value::TNumeric);
+    ASSERT_THAT(r.value().getAsNum(), FloatEq(-30.f));
+}
+
+TEST(ScriptLibrary, Min) {
+    using ::testing::FloatEq;
+
+    const std::string input = "return min(45, -30, 3.5);";
+    Script script(input);
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    ASSERT_EQ(r.value().getType(), Value::TNumeric);
+    ASSERT_THAT(r.value().getAsNum(), FloatEq(-30.f));
+}
+
+TEST(ScriptLibrary, MaxArray) {
+    using ::testing::FloatEq;
+
+    const std::string input = "return max([45, -30, 3.5]);";
+    Script script(input);
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    ASSERT_EQ(r.value().getType(), Value::TNumeric);
+    ASSERT_THAT(r.value().getAsNum(), FloatEq(45.f));
+}
+
+TEST(ScriptLibrary, Max) {
+    using ::testing::FloatEq;
+
+    const std::string input = "return max(45, -30, 3.5);";
+    Script script(input);
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    ASSERT_EQ(r.value().getType(), Value::TNumeric);
+    ASSERT_THAT(r.value().getAsNum(), FloatEq(45.f));
+}
+
+TEST(ScriptLibrary, SumArray) {
+    using ::testing::FloatEq;
+
+    const std::string input = "return sum([45, -30, 3.5]);";
+    Script script(input);
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    ASSERT_EQ(r.value().getType(), Value::TNumeric);
+    ASSERT_THAT(r.value().getAsNum(), FloatEq(18.5f));
+}
+
+TEST(ScriptLibrary, Sum) {
+    using ::testing::FloatEq;
+
+    const std::string input = "return sum(45, -30, 3.5);";
+    Script script(input);
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    ASSERT_EQ(r.value().getType(), Value::TNumeric);
+    ASSERT_THAT(r.value().getAsNum(), FloatEq(18.5f));
+}
+
 } // namespace script
 } // namespace bl

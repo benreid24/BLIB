@@ -12,6 +12,7 @@ namespace bl
 namespace script
 {
 class Function;
+
 /**
  * @brief Represents a Value in a script. Can be a temp value or from a SymbolTable
  * @ingroup Scripts
@@ -154,6 +155,8 @@ public:
 
 private:
     typedef std::variant<bool, float, std::string, Array, Ref, Function> TData;
+    typedef Value (Value::*Builtin)(const std::vector<Value>&);
+    static const std::unordered_map<std::string, Builtin> builtins;
 
     Type type;
     std::unique_ptr<TData> value;
@@ -162,11 +165,11 @@ private:
     void resetProps();
 
     // built-ins for arrays
-    void clear();
-    void append(const std::vector<Value>& args);
-    void resize(const std::vector<Value>& args);
-    void insert(const std::vector<Value>& args);
-    void erase(const std::vector<Value>& args);
+    Value clear(const std::vector<Value>& args);
+    Value append(const std::vector<Value>& args);
+    Value resize(const std::vector<Value>& args);
+    Value insert(const std::vector<Value>& args);
+    Value erase(const std::vector<Value>& args);
 
     // built-ins for properties
     Value keys(const std::vector<Value>& args);

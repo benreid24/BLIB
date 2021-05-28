@@ -9,6 +9,15 @@ namespace bl
 {
 namespace script
 {
+const std::unordered_map<std::string, Value::Builtin> Value::builtins = {
+    std::make_pair("clear", &Value::clear),
+    std::make_pair("append", &Value::append),
+    std::make_pair("resize", &Value::resize),
+    std::make_pair("insert", &Value::insert),
+    std::make_pair("erase", &Value::erase),
+    std::make_pair("keys", &Value::keys),
+    std::make_pair("at", &Value::at)};
+
 Value::Value()
 : type(TVoid)
 , value(new TData(0.0f)) {}
@@ -143,58 +152,15 @@ Function Value::getAsFunction() const {
 }
 
 Value::Ptr Value::getProperty(const std::string& name, bool create) {
-    if (type == TArray) {
-        using namespace std::placeholders;
-        if (name == "length")
-            return Ptr(new Value(static_cast<int>(getAsArray().size())));
-        else if (name == "resize") {
-            Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>& args) -> Value {
-                this->resize(args);
-                return Value();
-            };
-            return Ptr(new Value(cb));
-        }
-        else if (name == "append") {
-            Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>& args) -> Value {
-                this->append(args);
-                return Value();
-            };
-            return Ptr(new Value(cb));
-        }
-        else if (name == "insert") {
-            Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>& args) -> Value {
-                this->insert(args);
-                return Value();
-            };
-            return Ptr(new Value(cb));
-        }
-        else if (name == "clear") {
-            Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>&) -> Value {
-                this->clear();
-                return Value();
-            };
-            return Ptr(new Value(cb));
-        }
-        else if (name == "erase") {
-            Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>& args) -> Value {
-                this->erase(args);
-                return Value();
-            };
-            return Ptr(new Value(cb));
-        }
-    }
-    if (name == "keys") {
-        Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>& args) -> Value {
-            return this->keys(args);
+    const auto it = builtins.find(name);
+    if (it != builtins.end()) {
+        const Builtin f       = it->second;
+        Function::CustomCB cb = [this, f](SymbolTable&, const std::vector<Value>& args) -> Value {
+            return (this->*f)(args);
         };
         return Ptr(new Value(cb));
     }
-    else if (name == "at") {
-        Function::CustomCB cb = [this](SymbolTable&, const std::vector<Value>& args) -> Value {
-            return this->at(args);
-        };
-        return Ptr(new Value(cb));
-    }
+    if (type == TArray && name == "length") { return Ptr(new Value(getAsArray().size())); }
     auto i = properties.find(name);
     if (i != properties.end()) return i->second;
     if (create) {
@@ -205,9 +171,7 @@ Value::Ptr Value::getProperty(const std::string& name, bool create) {
 }
 
 bool Value::setProperty(const std::string& name, const Value& val) {
-    if (name == "length" || name == "resize" || name == "append" || name == "insert" ||
-        name == "clear" || name == "erase" || name == "keys" || name == "at")
-        return false;
+    if (builtins.find(name) != builtins.end() || name == "length") return false;
     Ptr v = getProperty(name);
     if (!v) {
         v                = Ptr(new Value(val));
@@ -220,19 +184,21 @@ bool Value::setProperty(const std::string& name, const Value& val) {
 
 void Value::resetProps() { properties.clear(); }
 
-void Value::clear() {
+Value Value::clear(const std::vector<Value>&) {
     Value::Array* arr = std::get_if<Value::Array>(value.get());
     if (arr) arr->clear();
+    return {};
 }
 
-void Value::append(const std::vector<Value>& args) {
+Value Value::append(const std::vector<Value>& args) {
     Value::Array* arr = std::get_if<Value::Array>(value.get());
     if (arr) {
         for (const Value& v : args) { arr->push_back(Ptr(new Value(v))); }
     }
+    return {};
 }
 
-void Value::insert(const std::vector<Value>& args) {
+Value Value::insert(const std::vector<Value>& args) {
     Value::Array* arr = std::get_if<Value::Array>(value.get());
     if (arr) {
         if (args.size() < 2) throw Error("insert() requires a position and a list of elements");
@@ -250,9 +216,10 @@ void Value::insert(const std::vector<Value>& args) {
         for (unsigned int j = 1; j < args.size(); ++j) ins.push_back(Ptr(new Value(args[j])));
         arr->insert(arr->begin() + i, ins.begin(), ins.end());
     }
+    return {};
 }
 
-void Value::erase(const std::vector<Value>& args) {
+Value Value::erase(const std::vector<Value>& args) {
     Value::Array* arr = std::get_if<Value::Array>(value.get());
     if (arr) {
         if (args.size() != 1) throw Error("erase() requires a position");
@@ -265,9 +232,10 @@ void Value::erase(const std::vector<Value>& args) {
         if (i >= arr->size()) throw Error("Position in erase() is out of bounds");
         arr->erase(arr->begin() + i);
     }
+    return {};
 }
 
-void Value::resize(const std::vector<Value>& args) {
+Value Value::resize(const std::vector<Value>& args) {
     Value::Array* arr = std::get_if<Value::Array>(value.get());
     if (arr) {
         if (args.size() != 1 && args.size() != 2)
@@ -289,6 +257,7 @@ void Value::resize(const std::vector<Value>& args) {
             for (unsigned int i = 0; i < s; ++i) { arr->push_back(Ptr(new Value(fill))); }
         }
     }
+    return {};
 }
 
 Value Value::keys(const std::vector<Value>& args) {

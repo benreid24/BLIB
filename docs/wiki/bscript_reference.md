@@ -9,6 +9,10 @@ to the example of this**
 aims to be lightweight and concise while still allowing for fairly complex systems to be built using it, within reason. The majority of its use will be
 within games to script events and AI, however, which limits the need for a completely robust language.
 
+## Built-in Functions
+
+See the [reference](bscript_functions.md) of built-in functions.
+
 ***
 
 # Syntax
@@ -160,16 +164,6 @@ The following functions are provided on all variables for interacting with their
 |------|-------------|----------------------------------------------------------------------|
 | get  | key: String | Property with the given name or void if does not exist               |
 | keys | N/A         | Array of strings of all property names. Excludes built-in properties |
-
-Properties may be named with any valid identifier except for the list of reserved built-in names:
-| clear  |
-|--------|
-| append |
-| insert |
-| erase  |
-| length |
-| keys   |
-| at     |
 
 ### References
 

@@ -5,7 +5,6 @@
 #include <BLIB/Logging.hpp>
 #include <Scripts/Parser.hpp>
 #include <Scripts/ScriptImpl.hpp>
-#include <Scripts/ScriptLibrary.hpp>
 #include <fstream>
 #include <streambuf>
 
@@ -13,7 +12,7 @@ namespace bl
 {
 namespace script
 {
-Script::Script(const std::string& data)
+Script::Script(const std::string& data, const Context& ctx)
 : source(data) {
     std::string input = data;
     if (file::Util::exists(data)) {
@@ -24,33 +23,22 @@ Script::Script(const std::string& data)
         input.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
     }
     root = script::Parser::parse(input);
+    ctx.initializeTable(defaultTable);
 }
 
 bool Script::valid() const { return root.get() != nullptr; }
 
-std::optional<script::Value> Script::run(engine::Engine& engine) const {
-    return run(&engine.scriptManager());
-}
-
 std::optional<script::Value> Script::run(Manager* manager) const {
     if (!valid()) return {};
-    ExecutionContext::Ptr ctx(new ExecutionContext(root));
-    Library::addBuiltIns(ctx->table);
+    ExecutionContext::Ptr ctx(new ExecutionContext(root, defaultTable));
     if (manager) ctx->table.registerManager(manager);
-    addCustomSymbols(ctx->table);
-    onRun();
     return execute(ctx);
 }
 
-void Script::runBackground(engine::Engine& engine) const { runBackground(&engine.scriptManager()); }
-
 void Script::runBackground(Manager* manager) const {
     if (!valid()) return;
-    ExecutionContext::Ptr ctx(new ExecutionContext(root));
-    Library::addBuiltIns(ctx->table);
+    ExecutionContext::Ptr ctx(new ExecutionContext(root, defaultTable));
     if (manager) ctx->table.registerManager(manager);
-    addCustomSymbols(ctx->table);
-    onRun();
     ctx->thread.reset(new std::thread(&Script::execute, this, ctx));
     ctx->thread->detach();
     if (manager) manager->watch(ctx);
