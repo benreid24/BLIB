@@ -120,9 +120,9 @@ Raw values of various types may be hardcoded as literals. See the above types ta
 
 Arrays may be constructed and used as follows:
 ```
-arr1 = [1,2,3]
+arr1 = [1,2,3];
 
-arr2 = []
+arr2 = [];
 arr2.append(5);        // now [5]
 arr2.insert(0, 3, 4);  // now [3, 4, 5]
 arr2.erase(2);         // now [3, 4]
