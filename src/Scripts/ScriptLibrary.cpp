@@ -36,6 +36,9 @@ Value sin(SymbolTable&, const std::vector<Value>& args);
 Value cos(SymbolTable&, const std::vector<Value>& args);
 Value tan(SymbolTable&, const std::vector<Value>& args);
 Value atan2(SymbolTable&, const std::vector<Value>& args);
+Value min(SymbolTable&, const std::vector<Value>& args);
+Value max(SymbolTable&, const std::vector<Value>& args);
+Value sum(SymbolTable&, const std::vector<Value>& args);
 
 typedef std::pair<std::string, Function::CustomCB> builtin;
 const std::vector<builtin> builtins = {
@@ -45,7 +48,8 @@ const std::vector<builtin> builtins = {
     builtin("error", error),       builtin("str", str),         builtin("num", num),
     builtin("sqrt", sqrt),         builtin("abs", abs),         builtin("round", round),
     builtin("floor", floor),       builtin("ceil", ceil),       builtin("sin", sin),
-    builtin("cos", cos),           builtin("tan", tan),         builtin("atan2", atan2)};
+    builtin("cos", cos),           builtin("tan", tan),         builtin("atan2", atan2),
+    builtin("min", min),           builtin("max", max),         builtin("sum", sum)};
 
 } // namespace
 
@@ -125,7 +129,7 @@ Value run(SymbolTable& table, const std::vector<Value>& args) {
     }
 }
 
-Value exit(SymbolTable&, const std::vector<Value>& args) {
+Value   exit(SymbolTable&, const std::vector<Value>& args) {
     if (!args.empty()) throw Error("exit() takes 0 arguments");
     throw Exit();
 }
@@ -237,6 +241,66 @@ Value atan2(SymbolTable&, const std::vector<Value>& args) {
     if (args[0].getType() != Value::TNumeric || args[1].getType() != Value::TNumeric)
         throw Error("atan2() only takes Numeric types");
     return Value(std::atan2(args[0].getAsNum(), args[1].getAsNum()) * 180 / 3.1415926);
+}
+
+Value min(SymbolTable&, const std::vector<Value>& args) {
+    float mn = 1000000000000.f;
+    if (args.size() == 1) {
+        if (args.front().getType() == Value::TArray) {
+            for (const Value::Ptr& v : args.front().getAsArray()) {
+                if (v->getType() != Value::TNumeric)
+                    throw Error("Arguments to min(array) must all be Numeric");
+                if (v->getAsNum() < mn) mn = v->getAsNum();
+            }
+            return Value(mn);
+        }
+    }
+    // deliberate fallthrough
+    for (const Value& v : args) {
+        if (v.getType() != Value::TNumeric) throw Error("Arguments to min() must all be numberic");
+        if (v.getAsNum() < mn) mn = v.getAsNum();
+    }
+    return Value(mn);
+}
+
+Value max(SymbolTable&, const std::vector<Value>& args) {
+    float mx = -1000000000000.f;
+    if (args.size() == 1) {
+        if (args.front().getType() == Value::TArray) {
+            for (const Value::Ptr& v : args.front().getAsArray()) {
+                if (v->getType() != Value::TNumeric)
+                    throw Error("Arguments to max(array) must all be Numeric");
+                if (v->getAsNum() > mx) mx = v->getAsNum();
+            }
+            return Value(mx);
+        }
+    }
+    // deliberate fallthrough
+    for (const Value& v : args) {
+        if (v.getType() != Value::TNumeric) throw Error("Arguments to max() must all be numberic");
+        if (v.getAsNum() > mx) mx = v.getAsNum();
+    }
+    return Value(mx);
+}
+
+Value sum(SymbolTable&, const std::vector<Value>& args) {
+    float s = 0.f;
+    if (args.size() == 1) {
+        if (args.front().getType() == Value::TArray) {
+            for (const Value::Ptr& v : args.front().getAsArray()) {
+                if (v->getType() != Value::TNumeric)
+                    throw Error("Arguments to sum(array) must all be Numeric");
+                s += v->getAsNum();
+            }
+            return Value(s);
+        }
+    }
+    // deliberate fallthrough
+    for (const Value& v : args) {
+        if (v.getType() != Value::TNumeric) throw Error("Arguments to sum() must all be numberic");
+        s += v.getAsNum();
+    }
+    return Value(s);
 }
 
 } // namespace

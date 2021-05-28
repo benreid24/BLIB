@@ -20,7 +20,7 @@ Visit the [projects page](https://github.com/benreid24/BLIB/projects) for future
 ## Documentation
 
 - [Examples](examples)
-- [bScript language reference](docs/wiki/bscript.md)
+- [bScript language reference](docs/wiki/bscript_reference.md)
 - [Full source documentation](https://benreid24.github.io/BLIB). 
 
 ## Build Status
