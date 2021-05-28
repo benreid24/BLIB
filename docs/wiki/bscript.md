@@ -161,6 +161,16 @@ The following functions are provided on all variables for interacting with their
 | get  | key: String | Property with the given name or void if does not exist               |
 | keys | N/A         | Array of strings of all property names. Excludes built-in properties |
 
+Properties may be named with any valid identifier except for the list of reserved built-in names:
+| clear  |
+|--------|
+| append |
+| insert |
+| erase  |
+| length |
+| keys   |
+| at     |
+
 ### References
 
 Similar to C++ references, **bScript** references are pointers to other values but do not require any special dereference syntax to access the underlying
