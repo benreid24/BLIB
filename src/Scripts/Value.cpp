@@ -194,20 +194,23 @@ Function Value::getAsFunction() const {
 }
 
 Value::Ptr Value::getProperty(const std::string& name, bool create) {
+    Value& me = deref();
+
     const auto it = builtins.find(name);
     if (it != builtins.end()) {
         const Builtin f       = it->second;
-        Function::CustomCB cb = [this, f](SymbolTable&, const std::vector<Value>& args) -> Value {
-            return (this->*f)(args);
+        Function::CustomCB cb = [&me, f](SymbolTable&, const std::vector<Value>& args) -> Value {
+            return (me.*f)(args);
         };
         return Ptr(new Value(cb));
     }
-    if (type == TArray && name == "length") { return Ptr(new Value(getAsArray().size())); }
-    auto i = properties.find(name);
-    if (i != properties.end()) return i->second;
+    if (type == TArray && name == "length") { return Ptr(new Value(me.getAsArray().size())); }
+
+    auto i = me.properties.find(name);
+    if (i != me.properties.end()) return i->second;
     if (create) {
-        properties[name] = Ptr(new Value());
-        return properties[name];
+        me.properties[name] = Ptr(new Value());
+        return me.properties[name];
     }
     return {};
 }
@@ -217,11 +220,13 @@ Value::CPtr Value::getProperty(const std::string& name) const {
 }
 
 bool Value::setProperty(const std::string& name, const Value& val) {
+    Value& me = deref();
+
     if (builtins.find(name) != builtins.end() || name == "length") return false;
-    Ptr v = getProperty(name);
+    Ptr v = me.getProperty(name);
     if (!v) {
-        v                = Ptr(new Value(val));
-        properties[name] = v;
+        v                   = Ptr(new Value(val));
+        me.properties[name] = v;
     }
     else
         *v = val;
