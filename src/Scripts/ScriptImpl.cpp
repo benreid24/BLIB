@@ -29,8 +29,6 @@ struct Ops {
     static Value Exp(const Value& lhs, const Value& rhs, Symbol node);
 };
 
-Value deref(const Value& ref);
-Value::Ptr deref(Value::Ptr val);
 std::vector<Value> evalList(Symbol node, SymbolTable& table);
 std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran);
 
@@ -119,8 +117,7 @@ std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
             *rv          = Value::Ref(v);
         }
         else if (node->type == G::Value) {
-            rv  = deref(rv);
-            *rv = computeValue(node, table);
+            rv->deref() = computeValue(node, table);
         }
         else
             throw Error("Internal error: Invalid Assignment children", node);
@@ -429,11 +426,11 @@ Value evalTVal(Symbol node, SymbolTable& table) {
     node = node->children[0];
     switch (node->type) {
     case G::RValue:
-        return deref(*evalRVal(node, table));
+        return Value(evalRVal(node, table)->deref());
     case G::PGroup:
         if (node->children.size() != 3)
             throw Error("Internal error: PGroup has invalid children", node);
-        return deref(ScriptImpl::computeValue(node->children[1], table));
+        return Value(ScriptImpl::computeValue(node->children[1], table).deref());
     case G::NumLit: {
         std::stringstream ss(node->data);
         float f;
@@ -525,25 +522,25 @@ std::vector<Value> evalList(Symbol node, SymbolTable& table) {
 
 Value Ops::Or(const Value& lhs, const Value& rhs) {
     Value r;
-    r.makeBool(deref(lhs).getAsBool() || deref(rhs).getAsBool());
+    r.makeBool(lhs.deref().getAsBool() || rhs.deref().getAsBool());
     return r;
 }
 
 Value Ops::And(const Value& lhs, const Value& rhs) {
     Value r;
-    r.makeBool(deref(lhs).getAsBool() && deref(rhs).getAsBool());
+    r.makeBool(lhs.deref().getAsBool() && rhs.deref().getAsBool());
     return r;
 }
 
 Value Ops::Neg(const Value& val) {
     Value r;
-    r.makeBool(!deref(val).getAsBool());
+    r.makeBool(!val.deref().getAsBool());
     return r;
 }
 
 Value Ops::Eq(const Value& lhs, const Value& rhs) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != lh.getType()) {
         Value r;
         r.makeBool(false);
@@ -590,8 +587,8 @@ Value Ops::Ne(const Value& lhs, const Value& rhs) {
 }
 
 Value Ops::Gt(const Value& lhs, const Value& rhs) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != lh.getType()) {
         Value r;
         r.makeBool(false);
@@ -620,8 +617,8 @@ Value Ops::Gt(const Value& lhs, const Value& rhs) {
 }
 
 Value Ops::Ge(const Value& lhs, const Value& rhs) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != lh.getType()) {
         Value r;
         r.makeBool(false);
@@ -650,8 +647,8 @@ Value Ops::Ge(const Value& lhs, const Value& rhs) {
 }
 
 Value Ops::Lt(const Value& lhs, const Value& rhs) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != lh.getType()) {
         Value r;
         r.makeBool(false);
@@ -680,8 +677,8 @@ Value Ops::Lt(const Value& lhs, const Value& rhs) {
 }
 
 Value Ops::Le(const Value& lhs, const Value& rhs) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != lh.getType()) {
         Value r;
         r.makeBool(false);
@@ -710,8 +707,8 @@ Value Ops::Le(const Value& lhs, const Value& rhs) {
 }
 
 Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
 
     switch (lh.getType()) {
     case Value::TNumeric:
@@ -739,16 +736,16 @@ Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
 }
 
 Value Ops::Sub(const Value& lhs, const Value& rhs, Symbol node) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
         throw Error("Subtraction may only be done between Numeric types", node);
     return lhs.getAsNum() - rhs.getAsNum();
 }
 
 Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
 
     switch (lh.getType()) {
     case Value::TNumeric:
@@ -781,38 +778,19 @@ Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
 }
 
 Value Ops::Div(const Value& lhs, const Value& rhs, Symbol node) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
         throw Error("Division may only be done between Numeric types", node);
     return lhs.getAsNum() / rhs.getAsNum();
 }
 
 Value Ops::Exp(const Value& lhs, const Value& rhs, Symbol node) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
         throw Error("Exponentiation may only be done between Numeric types", node);
     return std::pow(lhs.getAsNum(), rhs.getAsNum());
-}
-
-Value deref(const Value& v) {
-    if (v.getType() == Value::TRef) {
-        Value::CPtr l = v.getAsRef().lock();
-        if (l) return deref(*l);
-        BL_LOG_WARN << "Referenced Value expired";
-        return Value();
-    }
-    return v;
-}
-
-Value::Ptr deref(Value::Ptr val) {
-    if (val->getType() == Value::TRef) {
-        Value::Ptr r = val->getAsRef().lock();
-        if (!r) throw Error("Expired reference");
-        return deref(r);
-    }
-    return val;
 }
 
 } // namespace

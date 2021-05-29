@@ -131,6 +131,22 @@ public:
     Ref getAsRef();
 
     /**
+     * @brief Dereferences the value and returns the pointed to value. Recursively follows
+     *        references
+     *
+     * @return Value& The referenced value, or this value if not a reference
+     */
+    Value& deref();
+
+    /**
+     * @brief Dereferences the value and returns the pointed to value. Recursively follows
+     *        references. Const version
+     *
+     * @return Value& The referenced value, or this value if not a reference
+     */
+    const Value& deref() const;
+
+    /**
      * @brief Get the As CRef value
      *
      * @return Ref A reference to the Value this references, or nullptr

@@ -163,6 +163,26 @@ Value::Ref Value::getAsRef() {
     return {};
 }
 
+Value& Value::deref() {
+    if (type == TRef) {
+        auto val = getAsRef().lock();
+        if (val) return val->deref();
+
+        throw Error("Dereferenced expired reference");
+    }
+    return *this;
+}
+
+const Value& Value::deref() const {
+    if (type == TRef) {
+        auto val = getAsRef().lock();
+        if (val) return val->deref();
+
+        throw Error("Dereferenced expired reference");
+    }
+    return *this;
+}
+
 Value::CRef Value::getAsRef() const {
     Ref* r = std::get_if<Ref>(value.get());
     if (r) return *r;
