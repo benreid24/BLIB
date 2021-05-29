@@ -95,5 +95,12 @@ void SymbolTable::waitFor(unsigned long int ms) {
     waitVar.wait_for(lock, std::chrono::milliseconds(ms));
 }
 
+void SymbolTable::waitOn(util::Waiter& waiter) {
+    while (!waiter.wasUnblocked()) {
+        waiter.waitFor(std::chrono::milliseconds(100));
+        if (killed()) throw Exit();
+    }
+}
+
 } // namespace script
 } // namespace bl

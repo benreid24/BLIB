@@ -45,7 +45,7 @@ Value::Ptr evalRVal(Symbol node, SymbolTable& table, bool create = false);
 } // namespace
 
 Value ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
 
     if (node->type != G::Value)
         throw Error("Internal error: computeValue called on non Value: " +
@@ -59,7 +59,7 @@ Value ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
 }
 
 Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
 
     if (node->type != G::Call) throw Error("Internal error: runFunction called on non Call", node);
     if (node->children.size() != 2 && node->children.size() != 3)
@@ -79,7 +79,7 @@ Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
 }
 
 std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
     if (node->children.empty()) throw Error("Internal error: Invalid Statement", node);
 
     switch (node->children[0]->type) {
@@ -145,7 +145,7 @@ std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
 }
 
 std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
 
     class ScopeGuard {
     public:
@@ -191,7 +191,7 @@ std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& tabl
 }
 
 std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
     if (node->type != G::Loop) throw Error("Internal error: Expected Loop", node);
     if (node->children.size() != 2) throw Error("Internal error: Invalid Loop children", node);
 
@@ -201,7 +201,7 @@ std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
     head = head->children[1]; // PGroup
 
     while (evaluateCond(head, table)) {
-        if (table.killed()) throw Error("Script killed");
+        if (table.killed()) throw Exit();
         const std::optional<Value> r = runStatementList(node->children[1], table);
         if (r.has_value()) return r;
     }
@@ -209,7 +209,7 @@ std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
 }
 
 std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
     if (node->type != G::ForLoop) throw Error("Internal error: Expected ForLoop", node);
     if (node->children.size() != 2) throw Error("Internal error: Invalid ForLoop children", node);
 
@@ -223,7 +223,7 @@ std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
     if (arr.getType() != Value::TArray)
         throw Error("For loop can only iterate over Array type", head->children[4]);
     for (const Value::Ptr v : arr.getAsArray()) {
-        if (table.killed()) throw Error("Script killed");
+        if (table.killed()) throw Exit();
         table.pushFrame();
         table.set(iter, *v, true);
         std::optional<Value> r = runStatementList(node->children[1], table);
@@ -234,7 +234,7 @@ std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
 }
 
 std::optional<Value> ScriptImpl::runConditional(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
     if (node->type != G::Conditional) throw Error("Internal error: Expected Conditional", node);
     if (node->children.size() != 1)
         throw Error("Internal error: Invalid Conditional children", node);

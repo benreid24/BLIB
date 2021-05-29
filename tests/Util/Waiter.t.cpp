@@ -23,6 +23,21 @@ TEST(Waiter, Wait) {
     EXPECT_TRUE(ran);
 }
 
+TEST(Waiter, WaitFor) {
+    Waiter waiter;
+    bool ran = false;
+
+    std::thread thread([&waiter, &ran]() {
+        waiter.waitFor(std::chrono::milliseconds(10));
+        ran = true;
+    });
+
+    EXPECT_FALSE(ran);
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    thread.join();
+    EXPECT_TRUE(ran);
+}
+
 TEST(Waiter, Immediate) {
     Waiter waiter;
     bool ran = false;

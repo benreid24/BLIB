@@ -2,6 +2,7 @@
 #define BLIB_UTIL_WAITER_HPP
 
 #include <atomic>
+#include <chrono>
 #include <condition_variable>
 #include <mutex>
 
@@ -36,6 +37,12 @@ public:
     void unblock();
 
     /**
+     * @brief Returns whether or not the Waiter has been unblocked
+     *
+     */
+    bool wasUnblocked() const;
+
+    /**
      * @brief Resets the waiter to allow it to be resued after unblock() is called
      *
      */
@@ -47,6 +54,15 @@ public:
      *
      */
     void wait();
+
+    /**
+     * @brief Waits for a given amount of time then returns, even if not unblocked
+     *
+     * @param timeout The maximum time to wait for
+     *
+     */
+    template<class Rep, class Period>
+    void waitFor(const std::chrono::duration<Rep, Period>& timeout);
 
     /**
      * @brief Unblocks all waiting threads. A program leveraging the Waiter class should call this
@@ -61,6 +77,16 @@ private:
     std::mutex waitMutex;
     std::condition_variable waitVar;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<class Rep, class Period>
+void Waiter::waitFor(const std::chrono::duration<Rep, Period>& timeout) {
+    if (!unblocked) {
+        std::unique_lock lock(waitMutex);
+        waitVar.wait_for(lock, timeout);
+    }
+}
 
 } // namespace util
 } // namespace bl

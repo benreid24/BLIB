@@ -3,6 +3,7 @@
 
 #include <BLIB/Scripts/Function.hpp>
 #include <BLIB/Scripts/Value.hpp>
+#include <BLIB/Util/Waiter.hpp>
 #include <atomic>
 #include <condition_variable>
 #include <list>
@@ -116,6 +117,15 @@ public:
      * @param milliseconds The number of milliseconds to pause for
      */
     void waitFor(unsigned long int milliseconds);
+
+    /**
+     * @brief Blocks script execution on the given Waiter. Unblocks and exits if the script is
+     *        killed while waiting
+     *
+     * @param waiter The waiter to wait on
+     *
+     */
+    void waitOn(util::Waiter& waiter);
 
 private:
     std::vector<std::unordered_map<std::string, Value::Ptr>> table;

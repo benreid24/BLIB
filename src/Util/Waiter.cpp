@@ -31,6 +31,8 @@ void Waiter::unblock() {
     waitVar.notify_all();
 }
 
+bool Waiter::wasUnblocked() const { return unblocked; }
+
 void Waiter::wait() {
     if (!unblocked) {
         std::unique_lock lock(waitMutex);
