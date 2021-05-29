@@ -53,6 +53,21 @@ TEST(Waiter, Reset) {
     EXPECT_TRUE(ran);
 }
 
+TEST(Waiter, UnblockAll) {
+    Waiter waiter;
+    bool ran = false;
+
+    std::thread thread([&waiter, &ran]() {
+        waiter.wait();
+        ran = true;
+    });
+
+    EXPECT_FALSE(ran);
+    Waiter::unblockAll();
+    thread.join();
+    EXPECT_TRUE(ran);
+}
+
 } // namespace unittest
 } // namespace util
 } // namespace bl
