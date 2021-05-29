@@ -153,6 +153,13 @@ public:
     Ptr getProperty(const std::string& name, bool create = false);
 
     /**
+     * @brief Const accessor for properties
+     *
+     * @param name Name of the property to access
+     */
+    CPtr getProperty(const std::string& name) const;
+
+    /**
      * @brief Assigns a Value to the given property name
      *
      * @param name Name of the property to modify

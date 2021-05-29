@@ -193,6 +193,10 @@ Value::Ptr Value::getProperty(const std::string& name, bool create) {
     return {};
 }
 
+Value::CPtr Value::getProperty(const std::string& name) const {
+    return const_cast<Value&>(*this).getProperty(name, false);
+}
+
 bool Value::setProperty(const std::string& name, const Value& val) {
     if (builtins.find(name) != builtins.end() || name == "length") return false;
     Ptr v = getProperty(name);
