@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logging',['Logging',['../a00702.html',1,'']]]
+  ['logging',['Logging',['../a00708.html',1,'']]]
 ];
