@@ -314,7 +314,7 @@ void AudioSystem::background() {
                         sounds.erase(it); // only partially invalidated, can still increment
                     }
                     else if (it->get()->fadeOut > 0.f) {
-                        // TODO - fade out then stop and remove
+                        // fade out then stop and remove
                         it->get()->fadeFactor -=
                             soundFadeTimer.getElapsedTime().asSeconds() / it->get()->fadeOut;
                         if (it->get()->fadeFactor > 0.f) {
