@@ -29,8 +29,6 @@ struct Ops {
     static Value Exp(const Value& lhs, const Value& rhs, Symbol node);
 };
 
-Value deref(const Value& ref);
-Value::Ptr deref(Value::Ptr val);
 std::vector<Value> evalList(Symbol node, SymbolTable& table);
 std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran);
 
@@ -47,7 +45,7 @@ Value::Ptr evalRVal(Symbol node, SymbolTable& table, bool create = false);
 } // namespace
 
 Value ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
 
     if (node->type != G::Value)
         throw Error("Internal error: computeValue called on non Value: " +
@@ -61,7 +59,7 @@ Value ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
 }
 
 Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
 
     if (node->type != G::Call) throw Error("Internal error: runFunction called on non Call", node);
     if (node->children.size() != 2 && node->children.size() != 3)
@@ -81,7 +79,7 @@ Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
 }
 
 std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
     if (node->children.empty()) throw Error("Internal error: Invalid Statement", node);
 
     switch (node->children[0]->type) {
@@ -119,8 +117,7 @@ std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
             *rv          = Value::Ref(v);
         }
         else if (node->type == G::Value) {
-            rv  = deref(rv);
-            *rv = computeValue(node, table);
+            rv->deref() = computeValue(node, table);
         }
         else
             throw Error("Internal error: Invalid Assignment children", node);
@@ -148,7 +145,7 @@ std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
 }
 
 std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
 
     class ScopeGuard {
     public:
@@ -194,7 +191,7 @@ std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& tabl
 }
 
 std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
     if (node->type != G::Loop) throw Error("Internal error: Expected Loop", node);
     if (node->children.size() != 2) throw Error("Internal error: Invalid Loop children", node);
 
@@ -204,7 +201,7 @@ std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
     head = head->children[1]; // PGroup
 
     while (evaluateCond(head, table)) {
-        if (table.killed()) throw Error("Script killed");
+        if (table.killed()) throw Exit();
         const std::optional<Value> r = runStatementList(node->children[1], table);
         if (r.has_value()) return r;
     }
@@ -212,7 +209,7 @@ std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
 }
 
 std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
     if (node->type != G::ForLoop) throw Error("Internal error: Expected ForLoop", node);
     if (node->children.size() != 2) throw Error("Internal error: Invalid ForLoop children", node);
 
@@ -226,7 +223,7 @@ std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
     if (arr.getType() != Value::TArray)
         throw Error("For loop can only iterate over Array type", head->children[4]);
     for (const Value::Ptr v : arr.getAsArray()) {
-        if (table.killed()) throw Error("Script killed");
+        if (table.killed()) throw Exit();
         table.pushFrame();
         table.set(iter, *v, true);
         std::optional<Value> r = runStatementList(node->children[1], table);
@@ -237,7 +234,7 @@ std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
 }
 
 std::optional<Value> ScriptImpl::runConditional(Symbol node, SymbolTable& table) {
-    if (table.killed()) throw Error("Script killed");
+    if (table.killed()) throw Exit();
     if (node->type != G::Conditional) throw Error("Internal error: Expected Conditional", node);
     if (node->children.size() != 1)
         throw Error("Internal error: Invalid Conditional children", node);
@@ -262,6 +259,10 @@ std::optional<Value> ScriptImpl::runConditional(Symbol node, SymbolTable& table)
     default:
         throw Error("Internal error: Invalid Conditional children", node->children[0]);
     }
+}
+
+bool ScriptImpl::equals(const Value& left, const Value& right) {
+    return Ops::Eq(left, right).getAsBool();
 }
 
 bool ScriptImpl::evaluateCond(Symbol node, SymbolTable& table) {
@@ -425,11 +426,11 @@ Value evalTVal(Symbol node, SymbolTable& table) {
     node = node->children[0];
     switch (node->type) {
     case G::RValue:
-        return deref(*evalRVal(node, table));
+        return Value(evalRVal(node, table)->deref());
     case G::PGroup:
         if (node->children.size() != 3)
             throw Error("Internal error: PGroup has invalid children", node);
-        return deref(ScriptImpl::computeValue(node->children[1], table));
+        return Value(ScriptImpl::computeValue(node->children[1], table).deref());
     case G::NumLit: {
         std::stringstream ss(node->data);
         float f;
@@ -521,25 +522,25 @@ std::vector<Value> evalList(Symbol node, SymbolTable& table) {
 
 Value Ops::Or(const Value& lhs, const Value& rhs) {
     Value r;
-    r.makeBool(deref(lhs).getAsBool() || deref(rhs).getAsBool());
+    r.makeBool(lhs.deref().getAsBool() || rhs.deref().getAsBool());
     return r;
 }
 
 Value Ops::And(const Value& lhs, const Value& rhs) {
     Value r;
-    r.makeBool(deref(lhs).getAsBool() && deref(rhs).getAsBool());
+    r.makeBool(lhs.deref().getAsBool() && rhs.deref().getAsBool());
     return r;
 }
 
 Value Ops::Neg(const Value& val) {
     Value r;
-    r.makeBool(!deref(val).getAsBool());
+    r.makeBool(!val.deref().getAsBool());
     return r;
 }
 
 Value Ops::Eq(const Value& lhs, const Value& rhs) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != lh.getType()) {
         Value r;
         r.makeBool(false);
@@ -586,8 +587,8 @@ Value Ops::Ne(const Value& lhs, const Value& rhs) {
 }
 
 Value Ops::Gt(const Value& lhs, const Value& rhs) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != lh.getType()) {
         Value r;
         r.makeBool(false);
@@ -616,8 +617,8 @@ Value Ops::Gt(const Value& lhs, const Value& rhs) {
 }
 
 Value Ops::Ge(const Value& lhs, const Value& rhs) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != lh.getType()) {
         Value r;
         r.makeBool(false);
@@ -646,8 +647,8 @@ Value Ops::Ge(const Value& lhs, const Value& rhs) {
 }
 
 Value Ops::Lt(const Value& lhs, const Value& rhs) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != lh.getType()) {
         Value r;
         r.makeBool(false);
@@ -676,8 +677,8 @@ Value Ops::Lt(const Value& lhs, const Value& rhs) {
 }
 
 Value Ops::Le(const Value& lhs, const Value& rhs) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != lh.getType()) {
         Value r;
         r.makeBool(false);
@@ -706,8 +707,8 @@ Value Ops::Le(const Value& lhs, const Value& rhs) {
 }
 
 Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
 
     switch (lh.getType()) {
     case Value::TNumeric:
@@ -735,16 +736,16 @@ Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
 }
 
 Value Ops::Sub(const Value& lhs, const Value& rhs, Symbol node) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
         throw Error("Subtraction may only be done between Numeric types", node);
     return lhs.getAsNum() - rhs.getAsNum();
 }
 
 Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
 
     switch (lh.getType()) {
     case Value::TNumeric:
@@ -777,38 +778,19 @@ Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
 }
 
 Value Ops::Div(const Value& lhs, const Value& rhs, Symbol node) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
         throw Error("Division may only be done between Numeric types", node);
     return lhs.getAsNum() / rhs.getAsNum();
 }
 
 Value Ops::Exp(const Value& lhs, const Value& rhs, Symbol node) {
-    Value rh = deref(rhs);
-    Value lh = deref(lhs);
+    const Value& rh = rhs.deref();
+    const Value& lh = lhs.deref();
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
         throw Error("Exponentiation may only be done between Numeric types", node);
     return std::pow(lhs.getAsNum(), rhs.getAsNum());
-}
-
-Value deref(const Value& v) {
-    if (v.getType() == Value::TRef) {
-        Value::CPtr l = v.getAsRef().lock();
-        if (l) return deref(*l);
-        BL_LOG_WARN << "Referenced Value expired";
-        return Value();
-    }
-    return v;
-}
-
-Value::Ptr deref(Value::Ptr val) {
-    if (val->getType() == Value::TRef) {
-        Value::Ptr r = val->getAsRef().lock();
-        if (!r) throw Error("Expired reference");
-        return deref(r);
-    }
-    return val;
 }
 
 } // namespace

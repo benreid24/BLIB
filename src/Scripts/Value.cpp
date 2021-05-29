@@ -2,6 +2,7 @@
 
 #include <BLIB/Scripts/Error.hpp>
 #include <BLIB/Scripts/Function.hpp>
+#include <Scripts/ScriptImpl.hpp>
 #include <cmath>
 #include <functional>
 
@@ -15,8 +16,30 @@ const std::unordered_map<std::string, Value::Builtin> Value::builtins = {
     std::make_pair("resize", &Value::resize),
     std::make_pair("insert", &Value::insert),
     std::make_pair("erase", &Value::erase),
+    std::make_pair("find", &Value::find),
     std::make_pair("keys", &Value::keys),
     std::make_pair("at", &Value::at)};
+
+std::string Value::typeToString(Type t) {
+    switch (t) {
+    case TVoid:
+        return "Void";
+    case TBool:
+        return "Bool";
+    case TNumeric:
+        return "Numeric";
+    case TString:
+        return "String";
+    case TArray:
+        return "Array";
+    case TFunction:
+        return "Function";
+    case TRef:
+        return "Reference";
+    default:
+        return "Unknown";
+    }
+}
 
 Value::Value()
 : type(TVoid)
@@ -109,8 +132,7 @@ bool Value::getAsBool() const {
     case TArray:
         return !getAsArray().empty();
     case TRef:
-        if (getAsRef().expired()) return false;
-        return getAsRef().lock()->getAsBool();
+        return deref().getAsBool();
     default:
         return false;
     }
@@ -138,6 +160,26 @@ Value::Ref Value::getAsRef() {
     Ref* r = std::get_if<Ref>(value.get());
     if (r) return *r;
     return {};
+}
+
+Value& Value::deref() {
+    if (type == TRef) {
+        auto val = getAsRef().lock();
+        if (val) return val->deref();
+
+        throw Error("Dereferenced expired reference");
+    }
+    return *this;
+}
+
+const Value& Value::deref() const {
+    if (type == TRef) {
+        auto val = getAsRef().lock();
+        if (val) return val->deref();
+
+        throw Error("Dereferenced expired reference");
+    }
+    return *this;
 }
 
 Value::CRef Value::getAsRef() const {
@@ -168,6 +210,10 @@ Value::Ptr Value::getProperty(const std::string& name, bool create) {
         return properties[name];
     }
     return {};
+}
+
+Value::CPtr Value::getProperty(const std::string& name) const {
+    return const_cast<Value&>(*this).getProperty(name, false);
 }
 
 bool Value::setProperty(const std::string& name, const Value& val) {
@@ -258,6 +304,19 @@ Value Value::resize(const std::vector<Value>& args) {
         }
     }
     return {};
+}
+
+Value Value::find(const std::vector<Value>& args) {
+    Value::Array* arr = std::get_if<Value::Array>(value.get());
+    if (arr) {
+        if (args.size() != 1) throw Error("find() takes a single argument");
+        float i = 0.f;
+        for (const Ptr element : *arr) {
+            if (ScriptImpl::equals(*element, args.front())) { return Value(i); }
+            i += 1.f;
+        }
+    }
+    return Value(-1.f);
 }
 
 Value Value::keys(const std::vector<Value>& args) {

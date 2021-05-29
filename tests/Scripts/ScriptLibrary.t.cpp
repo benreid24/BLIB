@@ -272,5 +272,29 @@ TEST(ScriptLibrary, Sum) {
     ASSERT_THAT(r.value().getAsNum(), FloatEq(18.5f));
 }
 
+TEST(Value, FindSuccess) {
+    using ::testing::FloatEq;
+
+    Script script("ls = [1, 3, 5]; return ls.find(3);");
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    ASSERT_EQ(r.value().getType(), Value::TNumeric);
+    ASSERT_THAT(r.value().getAsNum(), FloatEq(1.f));
+}
+
+TEST(Value, FindFail) {
+    using ::testing::FloatEq;
+
+    Script script("ls = [1, 3, 5]; return ls.find(30);");
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    ASSERT_EQ(r.value().getType(), Value::TNumeric);
+    ASSERT_THAT(r.value().getAsNum(), FloatEq(-1.f));
+}
+
 } // namespace script
 } // namespace bl

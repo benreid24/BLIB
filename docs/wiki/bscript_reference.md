@@ -136,14 +136,15 @@ arr2[0] = arr1[1];     // arr2 = [2, 4]
 ```
 
 Arrays have the following built-in methods and properties:
-| Name   | Type     | Parameters                          | Description                                                                           |
-|--------|----------|-------------------------------------|---------------------------------------------------------------------------------------|
-| length | Numeric  | N/A                                 | Number of items in the array                                                          |
-| clear  | Function | N/A                                 | Clears all items in the array                                                         |
-| append | Function | value: Any                          | Appends the value to the end of the array                                             |
-| resize | Function | size: Numeric, fill: Any (optional) | Sets the new size of the array with an optional fill value. Fill is defaulted to void |
-| insert | Function | index: Numeric, value(s): Any       | Inserts at the given index the list of values provided                                |
-| erase  | Function | index: Numeric                      | Erases the element at the given index                                                 |
+| Name   | Type     | Parameters                              | Description                                                                           |
+|--------|----------|-----------------------------------------|---------------------------------------------------------------------------------------|
+| length | Numeric  | N/A                                     | Number of items in the array                                                          |
+| clear  | Function | N/A                                     | Clears all items in the array                                                         |
+| append | Function | `value`: Any                            | Appends the value to the end of the array                                             |
+| resize | Function | `size`: Numeric, `fill`: Any (optional) | Sets the new size of the array with an optional fill value. Fill is defaulted to void |
+| insert | Function | `index`: Numeric, `value`(s): Any       | Inserts at the given index the list of values provided                                |
+| erase  | Function | `index`: Numeric                        | Erases the element at the given index                                                 |
+| find   | Function | `value`: Any                            | Searches the array for the given value and returns its index, or -1 if not found      |
 
 ### Properties
 
@@ -160,10 +161,10 @@ keys = var.keys();              // keys = ["nestedProp1", "nestedProp2"]
 ```
 
 The following functions are provided on all variables for interacting with their properties:
-| Name | Parameters  | Return                                                               |
-|------|-------------|----------------------------------------------------------------------|
-| get  | key: String | Property with the given name or void if does not exist               |
-| keys | N/A         | Array of strings of all property names. Excludes built-in properties |
+| Name | Parameters    | Return                                                               |
+|------|---------------|----------------------------------------------------------------------|
+| at   | `key`: String | Property with the given name or void if does not exist               |
+| keys | N/A           | Array of strings of all property names. Excludes built-in properties |
 
 ### References
 
@@ -204,7 +205,8 @@ var = alias(5, my_value_cb); // var = 10
 ## Statements
 
 As with any other language, **bScript** is evaluated as a series of statements. Beyond function calls and definitions, and variable assignment as listed
-above, the following constructs are available to implement logic.
+above, **bScript** also contains conditional statements, while loops, and for loops. Like C, individual lines of code almost always end with a semicolon (`;`).
+Blocks of code are contained in curly brackets (`{` and `}`).
 
 ### Conditional Statements
 
@@ -244,4 +246,18 @@ for (n in my_list) {
     sum = sum + n;
 }
 // sum = 10
+```
+
+## Comments
+
+Finally, like any good langauage, **bScript** allows for non-code human notes, or comments, to be added:
+
+```
+// This is a single line comment
+
+/*
+This is
+a multiline
+comment
+*/
 ```

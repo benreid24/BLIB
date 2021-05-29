@@ -30,6 +30,14 @@ public:
     typedef std::weak_ptr<const Value> CRef;
 
     /**
+     * @brief Helper function to print types as strings
+     *
+     * @param type The type to get the string for
+     * @return std::string The string representation of the type
+     */
+    static std::string typeToString(Type type);
+
+    /**
      * @brief Makes Void type
      *
      */
@@ -123,6 +131,22 @@ public:
     Ref getAsRef();
 
     /**
+     * @brief Dereferences the value and returns the pointed to value. Recursively follows
+     *        references
+     *
+     * @return Value& The referenced value, or this value if not a reference
+     */
+    Value& deref();
+
+    /**
+     * @brief Dereferences the value and returns the pointed to value. Recursively follows
+     *        references. Const version
+     *
+     * @return Value& The referenced value, or this value if not a reference
+     */
+    const Value& deref() const;
+
+    /**
      * @brief Get the As CRef value
      *
      * @return Ref A reference to the Value this references, or nullptr
@@ -143,6 +167,13 @@ public:
      * @param create If true, creates the property if it doesn't exist
      */
     Ptr getProperty(const std::string& name, bool create = false);
+
+    /**
+     * @brief Const accessor for properties
+     *
+     * @param name Name of the property to access
+     */
+    CPtr getProperty(const std::string& name) const;
 
     /**
      * @brief Assigns a Value to the given property name
@@ -170,6 +201,7 @@ private:
     Value resize(const std::vector<Value>& args);
     Value insert(const std::vector<Value>& args);
     Value erase(const std::vector<Value>& args);
+    Value find(const std::vector<Value>& args);
 
     // built-ins for properties
     Value keys(const std::vector<Value>& args);

@@ -12,7 +12,7 @@ namespace bl
 {
 namespace script
 {
-Script::Script(const std::string& data, const Context& ctx)
+Script::Script(const std::string& data, bool addDefaults)
 : source(data) {
     std::string input = data;
     if (file::Util::exists(data)) {
@@ -23,7 +23,20 @@ Script::Script(const std::string& data, const Context& ctx)
         input.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
     }
     root = script::Parser::parse(input);
+    if (addDefaults) Context().initializeTable(defaultTable);
+}
+
+Script::Script(const std::string& data)
+: Script(data, true) {}
+
+Script::Script(const std::string& data, const Context& ctx)
+: Script(data, false) {
     ctx.initializeTable(defaultTable);
+}
+
+Script::Script(const std::string& s, const SymbolTable& t)
+: Script(s, false) {
+    defaultTable.copy(t);
 }
 
 bool Script::valid() const { return root.get() != nullptr; }

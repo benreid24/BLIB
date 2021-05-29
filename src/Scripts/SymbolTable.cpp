@@ -34,6 +34,14 @@ SymbolTable::SymbolTable(const SymbolTable& copy)
 , mgr(copy.mgr)
 , stop(copy.stop.operator bool()) {}
 
+void SymbolTable::copy(const SymbolTable& copy) { table = copy.table; }
+
+SymbolTable SymbolTable::base() const {
+    SymbolTable derived;
+    derived.table.emplace_back(table.front());
+    return derived;
+}
+
 void SymbolTable::pushFrame() { table.push_back({}); }
 
 void SymbolTable::popFrame() {
@@ -85,6 +93,13 @@ Manager* SymbolTable::manager() { return mgr; }
 void SymbolTable::waitFor(unsigned long int ms) {
     std::unique_lock lock(waitMutex);
     waitVar.wait_for(lock, std::chrono::milliseconds(ms));
+}
+
+void SymbolTable::waitOn(util::Waiter& waiter) {
+    while (!waiter.wasUnblocked()) {
+        waiter.waitFor(std::chrono::milliseconds(100));
+        if (killed()) throw Exit();
+    }
 }
 
 } // namespace script
