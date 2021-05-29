@@ -19,6 +19,7 @@ TEST(Waiter, Wait) {
 
     EXPECT_FALSE(ran);
     waiter.unblock();
+    thread.join();
     EXPECT_TRUE(ran);
 }
 
@@ -31,7 +32,7 @@ TEST(Waiter, Immediate) {
         waiter.wait();
         ran = true;
     });
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    thread.join();
     EXPECT_TRUE(ran);
 }
 
@@ -48,6 +49,7 @@ TEST(Waiter, Reset) {
 
     EXPECT_FALSE(ran);
     waiter.unblock();
+    thread.join();
     EXPECT_TRUE(ran);
 }
 
