@@ -263,11 +263,14 @@ Value Value::resize(const std::vector<Value>& args) {
 }
 
 Value Value::find(const std::vector<Value>& args) {
-    if (args.size() != 1) throw Error("find() takes a single argument");
-    float i = 0.f;
-    for (const Ptr element : getAsArray()) {
-        if (ScriptImpl::equals(*element, args.front())) { return Value(i); }
-        i += 1.f;
+    Value::Array* arr = std::get_if<Value::Array>(value.get());
+    if (arr) {
+        if (args.size() != 1) throw Error("find() takes a single argument");
+        float i = 0.f;
+        for (const Ptr element : *arr) {
+            if (ScriptImpl::equals(*element, args.front())) { return Value(i); }
+            i += 1.f;
+        }
     }
     return Value(-1.f);
 }
