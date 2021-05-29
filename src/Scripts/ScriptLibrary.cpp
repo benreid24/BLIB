@@ -86,17 +86,16 @@ Value logdebug(SymbolTable& t, const std::vector<Value>& args) {
 }
 
 Value random(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 2) throw Error("random() expects 2 arguments");
-    if (args[0].getType() != Value::TNumeric || args[1].getType() != Value::TNumeric)
-        throw Error("random() only takes Numeric arguments");
+    Function::validateArgs<Value::TNumeric, Value::TNumeric>("random", args);
+
     const float mn = std::min(args[0].getAsNum(), args[1].getAsNum());
     const float mx = std::max(args[0].getAsNum(), args[1].getAsNum());
     return Value(util::Random::get(mn, mx));
 }
 
 Value sleep(SymbolTable& table, const std::vector<Value>& args) {
-    if (args.size() != 1) throw Error("sleep() takes 1 argument");
-    if (args[0].getType() != Value::TNumeric) throw Error("sleep() expects a Numeric time in ms");
+    Function::validateArgs<Value::TNumeric>("sleep", args);
+
     if (args[0].getAsNum() <= 0) throw Error("sleep() must be given a positive value");
     const unsigned int ms = args[0].getAsNum();
     table.waitFor(ms);
@@ -110,9 +109,7 @@ Value time(SymbolTable&, const std::vector<Value>& args) {
 }
 
 Value run(SymbolTable& table, const std::vector<Value>& args) {
-    if (args.size() != 2) throw Error("run() takes 2 arguments");
-    if (args[0].getType() != Value::TString || args[1].getType() != Value::TBool)
-        throw Error("run() requires a String and a Bool");
+    Function::validateArgs<Value::TString, Value::TBool>("run", args);
 
     Script script(args[0].getAsString(), table.base());
     if (!script.valid()) throw Error("Syntax error in script passed to run()");
@@ -135,8 +132,7 @@ Value exit(SymbolTable&, const std::vector<Value>& args) {
 }
 
 Value error(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 1) throw Error("error() takes 1 argument");
-    if (args[0].getType() != Value::TString) throw Error("error() takes a String message");
+    Function::validateArgs<Value::TString>("error", args);
     throw Error(args[0].getAsString());
 }
 
@@ -179,8 +175,8 @@ Value str(SymbolTable& t, const std::vector<Value>& args) {
 }
 
 Value num(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 1) throw Error("num() takes 1 argument");
-    if (args[0].getType() != Value::TString) throw Error("num() only takes String types");
+    Function::validateArgs<Value::TString>("num", args);
+
     std::stringstream ss(args[0].getAsString());
     float f;
     ss >> f;
@@ -188,58 +184,49 @@ Value num(SymbolTable&, const std::vector<Value>& args) {
 }
 
 Value sqrt(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 1) throw Error("sqrt() takes 1 argument");
-    if (args[0].getType() != Value::TNumeric) throw Error("sqrt() only takes Numeric types");
+    Function::validateArgs<Value::TNumeric>("sqrt", args);
+
     if (args[0].getAsNum() < 0) throw Error("Cannot take sqrt of negative value");
     return Value(std::sqrt(args[0].getAsNum()));
 }
 
 Value abs(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 1) throw Error("abs() takes 1 argument");
-    if (args[0].getType() != Value::TNumeric) throw Error("abs() only takes Numeric types");
+    Function::validateArgs<Value::TNumeric>("abs", args);
     return Value(std::abs(args[0].getAsNum()));
 }
 
 Value round(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 1) throw Error("round() takes 1 argument");
-    if (args[0].getType() != Value::TNumeric) throw Error("round() only takes Numeric types");
+    Function::validateArgs<Value::TNumeric>("round", args);
     return Value(std::round(args[0].getAsNum()));
 }
 
 Value floor(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 1) throw Error("floor() takes 1 argument");
-    if (args[0].getType() != Value::TNumeric) throw Error("floor() only takes Numeric types");
+    Function::validateArgs<Value::TNumeric>("floor", args);
     return Value(std::floor(args[0].getAsNum()));
 }
 
 Value ceil(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 1) throw Error("ceil() takes 1 argument");
-    if (args[0].getType() != Value::TNumeric) throw Error("ceil() only takes Numeric types");
+    Function::validateArgs<Value::TNumeric>("ceil", args);
     return Value(std::ceil(args[0].getAsNum()));
 }
 
 Value sin(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 1) throw Error("sin() takes 1 argument");
-    if (args[0].getType() != Value::TNumeric) throw Error("sin() only takes Numeric types");
+    Function::validateArgs<Value::TNumeric>("sin", args);
     return Value(std::sin(args[0].getAsNum() / 180 * 3.1415926));
 }
 
 Value cos(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 1) throw Error("cos() takes 1 argument");
-    if (args[0].getType() != Value::TNumeric) throw Error("cos() only takes Numeric types");
+    Function::validateArgs<Value::TNumeric>("cos", args);
     return Value(std::cos(args[0].getAsNum() / 180 * 3.1415926));
 }
 
 Value tan(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 1) throw Error("tan() takes 1 argument");
-    if (args[0].getType() != Value::TNumeric) throw Error("tan() only takes Numeric types");
+    Function::validateArgs<Value::TNumeric>("tan", args);
     return Value(std::tan(args[0].getAsNum() / 180 * 3.1415926));
 }
 
 Value atan2(SymbolTable&, const std::vector<Value>& args) {
-    if (args.size() != 2) throw Error("atan2() takes 2 arguments");
-    if (args[0].getType() != Value::TNumeric || args[1].getType() != Value::TNumeric)
-        throw Error("atan2() only takes Numeric types");
+    Function::validateArgs<Value::TNumeric, Value::TNumeric>("atan2", args);
     return Value(std::atan2(args[0].getAsNum(), args[1].getAsNum()) * 180 / 3.1415926);
 }
 
