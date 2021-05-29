@@ -132,8 +132,7 @@ bool Value::getAsBool() const {
     case TArray:
         return !getAsArray().empty();
     case TRef:
-        if (getAsRef().expired()) return false;
-        return getAsRef().lock()->getAsBool();
+        return deref().getAsBool();
     default:
         return false;
     }
