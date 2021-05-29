@@ -21,7 +21,7 @@ Visit the [projects page](https://github.com/benreid24/BLIB/projects) for future
 
 - [Examples](examples)
 - [bScript language reference](docs/wiki/bscript_reference.md)
-- [Full source documentation](https://benreid24.github.io/BLIB). 
+- [Full source documentation](https://benreid24.github.io/BLIB/modules.html)
 
 ## Build Status
 ![Windows](https://github.com/benreid24/BLIB/workflows/windows-verify/badge.svg?branch=master) 
