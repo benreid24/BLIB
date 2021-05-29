@@ -1,5 +1,6 @@
 #include <BLIB/Scripts.hpp>
 
+#include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
@@ -12,17 +13,42 @@ namespace bl
 {
 namespace script
 {
+namespace
+{
+bool prepScript(std::string& script) {
+    static const auto exists = [](const std::string& v) {
+        if (file::Util::exists(v)) {
+            if (file::Util::getExtension(v) != "bs") {
+                BL_LOG_WARN << "bScript files should have '.bs' extension: " << v;
+            }
+            return true;
+        }
+        return false;
+    };
+    static const std::string path =
+        engine::Configuration::getOrDefault<std::string>("blib.script.path", "");
+
+    if (exists(script)) return true;
+    script = file::Util::joinPath(path, script);
+    if (exists(script)) return true;
+    return false;
+}
+} // namespace
+
 Script::Script(const std::string& data, bool addDefaults)
 : source(data) {
     std::string input = data;
-    if (file::Util::exists(data)) {
-        std::ifstream file(data.c_str());
+    if (prepScript(input)) {
+        std::ifstream file(input.c_str());
         file.seekg(0, std::ios::end);
         input.reserve(file.tellg());
         file.seekg(0, std::ios::beg);
         input.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+        root = script::Parser::parse(input);
     }
-    root = script::Parser::parse(input);
+    else {
+        root = script::Parser::parse(data);
+    }
     if (addDefaults) Context().initializeTable(defaultTable);
 }
 
