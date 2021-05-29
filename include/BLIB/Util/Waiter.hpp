@@ -24,6 +24,12 @@ public:
     Waiter();
 
     /**
+     * @brief Unblocks any waiting threads before destruction
+     *
+     */
+    ~Waiter();
+
+    /**
      * @brief Unblocks the waiting thread
      *
      */
@@ -42,30 +48,19 @@ public:
      */
     void wait();
 
+    /**
+     * @brief Unblocks all waiting threads. A program leveraging the Waiter class should call this
+     *        before exit. Threads utilizing the Waiter should be able to exit cleanly once
+     *        unblocked
+     *
+     */
+    static void unblockAll();
+
 private:
     std::atomic<bool> unblocked;
     std::mutex waitMutex;
     std::condition_variable waitVar;
 };
-
-//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
-
-inline Waiter::Waiter()
-: unblocked(false) {}
-
-inline void Waiter::unblock() {
-    unblocked = true;
-    waitVar.notify_all();
-}
-
-inline void Waiter::wait() {
-    if (!unblocked) {
-        std::unique_lock lock(waitMutex);
-        waitVar.wait(lock);
-    }
-}
-
-inline void Waiter::reset() { unblocked = false; }
 
 } // namespace util
 } // namespace bl
