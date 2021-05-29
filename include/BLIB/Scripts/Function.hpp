@@ -91,10 +91,11 @@ void Function::validateArgs(const std::string& func, const std::vector<Value>& a
     if (args.size() != nargs)
         throw Error(func + "() takes " + std::to_string(nargs) + " arguments");
     for (unsigned int i = 0; i < nargs; ++i) {
-        if (args[i].getType() != types[i]) {
+        const Value& v = args[i].deref();
+        if (v.getType() != types[i]) {
             throw Error(func + "() argument " + std::to_string(i) + " must be a " +
-                        Value::typeToString(types[i]) + " but " +
-                        Value::typeToString(args[i].getType()) + " was passed");
+                        Value::typeToString(types[i]) + " but " + Value::typeToString(v.getType()) +
+                        " was passed");
         }
     }
 }

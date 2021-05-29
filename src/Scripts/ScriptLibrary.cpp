@@ -88,16 +88,16 @@ Value logdebug(SymbolTable& t, const std::vector<Value>& args) {
 Value random(SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TNumeric>("random", args);
 
-    const float mn = std::min(args[0].getAsNum(), args[1].getAsNum());
-    const float mx = std::max(args[0].getAsNum(), args[1].getAsNum());
-    return Value(util::Random::get(mn, mx));
+    const float l = args[0].deref().getAsNum();
+    const float r = args[1].deref().getAsNum();
+    return Value(util::Random::get(std::min(l, r), std::max(l, r)));
 }
 
 Value sleep(SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("sleep", args);
 
-    if (args[0].getAsNum() <= 0) throw Error("sleep() must be given a positive value");
-    const unsigned int ms = args[0].getAsNum();
+    if (args[0].deref().getAsNum() <= 0) throw Error("sleep() must be given a positive value");
+    const unsigned int ms = args[0].deref().getAsNum();
     table.waitFor(ms);
     if (table.killed()) throw Error("Script killed");
     return Value();
@@ -111,10 +111,10 @@ Value time(SymbolTable&, const std::vector<Value>& args) {
 Value run(SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString, Value::TBool>("run", args);
 
-    Script script(args[0].getAsString(), table.base());
+    Script script(args[0].deref().getAsString(), table.base());
     if (!script.valid()) throw Error("Syntax error in script passed to run()");
 
-    if (args[1].getAsBool()) {
+    if (args[1].deref().getAsBool()) {
         script.runBackground(table.manager());
         Value r;
         r.makeBool(true);
@@ -133,16 +133,17 @@ Value exit(SymbolTable&, const std::vector<Value>& args) {
 
 Value error(SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString>("error", args);
-    throw Error(args[0].getAsString());
+    throw Error(args[0].deref().getAsString());
 }
 
 Value str(SymbolTable& t, const std::vector<Value>& args) {
     if (args.size() != 1) throw Error("str() takes 1 argument");
+
     switch (args[0].getType()) {
     case Value::TBool:
         return Value(args[0].getAsBool() ? "true" : "false");
     case Value::TNumeric: {
-        int v = args[0].getAsNum();
+        const int v = args[0].getAsNum();
         if (v == args[0].getAsNum()) return Value(std::to_string(v));
         return Value(std::to_string(args[0].getAsNum()));
     }
@@ -158,11 +159,9 @@ Value str(SymbolTable& t, const std::vector<Value>& args) {
         result += "]";
         return Value(result);
     }
-    case Value::TRef: {
-        Value::CPtr r = args[0].getAsRef().lock();
-        if (!r) return Value("<expired reference>");
-        return str(t, {*r});
-    }
+    case Value::TRef:
+        return str(t, {args[0].deref()});
+
     case Value::TFunction:
         return Value("<function>");
 
@@ -177,7 +176,7 @@ Value str(SymbolTable& t, const std::vector<Value>& args) {
 Value num(SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString>("num", args);
 
-    std::stringstream ss(args[0].getAsString());
+    std::stringstream ss(args[0].deref().getAsString());
     float f;
     ss >> f;
     return Value(f);
@@ -186,66 +185,70 @@ Value num(SymbolTable&, const std::vector<Value>& args) {
 Value sqrt(SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("sqrt", args);
 
-    if (args[0].getAsNum() < 0) throw Error("Cannot take sqrt of negative value");
-    return Value(std::sqrt(args[0].getAsNum()));
+    const float n = args[0].deref().getAsNum();
+    if (n < 0) throw Error("Cannot take sqrt of negative value");
+    return Value(std::sqrt(n));
 }
 
 Value abs(SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("abs", args);
-    return Value(std::abs(args[0].getAsNum()));
+    return Value(std::abs(args[0].deref().getAsNum()));
 }
 
 Value round(SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("round", args);
-    return Value(std::round(args[0].getAsNum()));
+    return Value(std::round(args[0].deref().getAsNum()));
 }
 
 Value floor(SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("floor", args);
-    return Value(std::floor(args[0].getAsNum()));
+    return Value(std::floor(args[0].deref().getAsNum()));
 }
 
 Value ceil(SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("ceil", args);
-    return Value(std::ceil(args[0].getAsNum()));
+    return Value(std::ceil(args[0].deref().getAsNum()));
 }
 
 Value sin(SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("sin", args);
-    return Value(std::sin(args[0].getAsNum() / 180 * 3.1415926));
+    return Value(std::sin(args[0].deref().getAsNum() / 180 * 3.1415926));
 }
 
 Value cos(SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("cos", args);
-    return Value(std::cos(args[0].getAsNum() / 180 * 3.1415926));
+    return Value(std::cos(args[0].deref().getAsNum() / 180 * 3.1415926));
 }
 
 Value tan(SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("tan", args);
-    return Value(std::tan(args[0].getAsNum() / 180 * 3.1415926));
+    return Value(std::tan(args[0].deref().getAsNum() / 180 * 3.1415926));
 }
 
 Value atan2(SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TNumeric>("atan2", args);
-    return Value(std::atan2(args[0].getAsNum(), args[1].getAsNum()) * 180 / 3.1415926);
+    return Value(std::atan2(args[0].deref().getAsNum(), args[1].getAsNum()) * 180 / 3.1415926);
 }
 
 Value min(SymbolTable&, const std::vector<Value>& args) {
     float mn = 1000000000000.f;
     if (args.size() == 1) {
-        if (args.front().getType() == Value::TArray) {
-            for (const Value::Ptr& v : args.front().getAsArray()) {
-                if (v->getType() != Value::TNumeric)
+        const Value& arr = args[0].deref();
+        if (arr.getType() == Value::TArray) {
+            for (const Value::Ptr& v : arr.getAsArray()) {
+                const Value& dr = v->deref();
+                if (dr.getType() != Value::TNumeric)
                     throw Error("Arguments to min(array) must all be Numeric");
-                if (v->getAsNum() < mn) mn = v->getAsNum();
+                if (dr.getAsNum() < mn) mn = dr.getAsNum();
             }
             return Value(mn);
         }
     }
     // deliberate fallthrough
     for (const Value& v : args) {
-        if (v.getType() != Value::TNumeric) throw Error("Arguments to min() must all be numberic");
-        if (v.getAsNum() < mn) mn = v.getAsNum();
+        const Value dv = v.deref();
+        if (dv.getType() != Value::TNumeric) throw Error("Arguments to min() must all be numberic");
+        if (dv.getAsNum() < mn) mn = dv.getAsNum();
     }
     return Value(mn);
 }
@@ -253,19 +256,22 @@ Value min(SymbolTable&, const std::vector<Value>& args) {
 Value max(SymbolTable&, const std::vector<Value>& args) {
     float mx = -1000000000000.f;
     if (args.size() == 1) {
-        if (args.front().getType() == Value::TArray) {
-            for (const Value::Ptr& v : args.front().getAsArray()) {
-                if (v->getType() != Value::TNumeric)
+        const Value& arr = args[0].deref();
+        if (arr.getType() == Value::TArray) {
+            for (const Value::Ptr& v : arr.getAsArray()) {
+                const Value& dv = v->deref();
+                if (dv.getType() != Value::TNumeric)
                     throw Error("Arguments to max(array) must all be Numeric");
-                if (v->getAsNum() > mx) mx = v->getAsNum();
+                if (dv.getAsNum() > mx) mx = dv.getAsNum();
             }
             return Value(mx);
         }
     }
     // deliberate fallthrough
     for (const Value& v : args) {
-        if (v.getType() != Value::TNumeric) throw Error("Arguments to max() must all be numberic");
-        if (v.getAsNum() > mx) mx = v.getAsNum();
+        const Value& dv = v.deref();
+        if (dv.getType() != Value::TNumeric) throw Error("Arguments to max() must all be numberic");
+        if (dv.getAsNum() > mx) mx = dv.getAsNum();
     }
     return Value(mx);
 }
@@ -273,19 +279,22 @@ Value max(SymbolTable&, const std::vector<Value>& args) {
 Value sum(SymbolTable&, const std::vector<Value>& args) {
     float s = 0.f;
     if (args.size() == 1) {
-        if (args.front().getType() == Value::TArray) {
-            for (const Value::Ptr& v : args.front().getAsArray()) {
-                if (v->getType() != Value::TNumeric)
+        const Value& arr = args[0].deref();
+        if (arr.getType() == Value::TArray) {
+            for (const Value::Ptr& v : arr.getAsArray()) {
+                const Value& dv = v->deref();
+                if (dv.getType() != Value::TNumeric)
                     throw Error("Arguments to sum(array) must all be Numeric");
-                s += v->getAsNum();
+                s += dv.getAsNum();
             }
             return Value(s);
         }
     }
     // deliberate fallthrough
     for (const Value& v : args) {
-        if (v.getType() != Value::TNumeric) throw Error("Arguments to sum() must all be numberic");
-        s += v.getAsNum();
+        const Value& dv = v.deref();
+        if (dv.getType() != Value::TNumeric) throw Error("Arguments to sum() must all be numberic");
+        s += dv.getAsNum();
     }
     return Value(s);
 }
