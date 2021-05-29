@@ -170,6 +170,7 @@ private:
     Value resize(const std::vector<Value>& args);
     Value insert(const std::vector<Value>& args);
     Value erase(const std::vector<Value>& args);
+    Value find(const std::vector<Value>& args);
 
     // built-ins for properties
     Value keys(const std::vector<Value>& args);

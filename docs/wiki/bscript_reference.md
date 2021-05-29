@@ -144,6 +144,7 @@ Arrays have the following built-in methods and properties:
 | resize | Function | size: Numeric, fill: Any (optional) | Sets the new size of the array with an optional fill value. Fill is defaulted to void |
 | insert | Function | index: Numeric, value(s): Any       | Inserts at the given index the list of values provided                                |
 | erase  | Function | index: Numeric                      | Erases the element at the given index                                                 |
+| find   | Function | value: Any                          | Searches the array for the given value and returns its index, or -1 if not foun       |
 
 ### Properties
 
@@ -245,4 +246,18 @@ for (n in my_list) {
     sum = sum + n;
 }
 // sum = 10
+```
+
+## Comments
+
+Finally, like any good langauage, **bScript** allows for non-code human notes, or comments, to be added:
+
+```
+// This is a single line comment
+
+/*
+This is
+a multiline
+comment
+*/
 ```

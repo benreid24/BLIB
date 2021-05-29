@@ -264,6 +264,10 @@ std::optional<Value> ScriptImpl::runConditional(Symbol node, SymbolTable& table)
     }
 }
 
+bool ScriptImpl::equals(const Value& left, const Value& right) {
+    return Ops::Eq(left, right).getAsBool();
+}
+
 bool ScriptImpl::evaluateCond(Symbol node, SymbolTable& table) {
     if (node->type != G::PGroup) throw Error("Internal error: Expected PGroup", node);
     if (node->children.size() != 3) throw Error("Internal error: Invalid PGroup children", node);

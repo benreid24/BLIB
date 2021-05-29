@@ -2,6 +2,7 @@
 
 #include <BLIB/Scripts/Error.hpp>
 #include <BLIB/Scripts/Function.hpp>
+#include <Scripts/ScriptImpl.hpp>
 #include <cmath>
 #include <functional>
 
@@ -15,6 +16,7 @@ const std::unordered_map<std::string, Value::Builtin> Value::builtins = {
     std::make_pair("resize", &Value::resize),
     std::make_pair("insert", &Value::insert),
     std::make_pair("erase", &Value::erase),
+    std::make_pair("find", &Value::find),
     std::make_pair("keys", &Value::keys),
     std::make_pair("at", &Value::at)};
 
@@ -258,6 +260,16 @@ Value Value::resize(const std::vector<Value>& args) {
         }
     }
     return {};
+}
+
+Value Value::find(const std::vector<Value>& args) {
+    if (args.size() != 1) throw Error("find() takes a single argument");
+    float i = 0.f;
+    for (const Ptr element : getAsArray()) {
+        if (ScriptImpl::equals(*element, args.front())) { return Value(i); }
+        i += 1.f;
+    }
+    return Value(-1.f);
 }
 
 Value Value::keys(const std::vector<Value>& args) {

@@ -69,6 +69,15 @@ struct ScriptImpl {
      *
      */
     static bool evaluateCond(parser::Node::Ptr pgroup, SymbolTable& table);
+
+    /**
+     * @brief Helper function that exposes the ability to compare values
+     *
+     * @param left Left value to compare
+     * @param right Right value to compare
+     * @return True if values are equal, false if not equal
+     */
+    static bool equals(const Value& left, const Value& right);
 };
 
 } // namespace script

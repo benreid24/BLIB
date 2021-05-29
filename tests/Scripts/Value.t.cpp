@@ -1,4 +1,5 @@
 #include <BLIB/Scripts/Function.hpp>
+#include <BLIB/Scripts/Script.hpp>
 #include <BLIB/Scripts/Value.hpp>
 #include <gtest/gtest.h>
 
