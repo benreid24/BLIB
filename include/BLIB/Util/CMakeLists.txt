@@ -7,4 +7,5 @@ target_sources(BLIB PUBLIC
     Random.hpp
     Signal.hpp
     Timer.hpp
+    Waiter.hpp
 )

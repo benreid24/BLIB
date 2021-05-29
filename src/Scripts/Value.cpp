@@ -20,6 +20,27 @@ const std::unordered_map<std::string, Value::Builtin> Value::builtins = {
     std::make_pair("keys", &Value::keys),
     std::make_pair("at", &Value::at)};
 
+std::string Value::typeToString(Type t) {
+    switch (t) {
+    case TVoid:
+        return "Void";
+    case TBool:
+        return "Bool";
+    case TNumeric:
+        return "Numeric";
+    case TString:
+        return "String";
+    case TArray:
+        return "Array";
+    case TFunction:
+        return "Function";
+    case TRef:
+        return "Reference";
+    default:
+        return "Unknown";
+    }
+}
+
 Value::Value()
 : type(TVoid)
 , value(new TData(0.0f)) {}

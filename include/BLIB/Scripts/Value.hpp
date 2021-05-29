@@ -30,6 +30,14 @@ public:
     typedef std::weak_ptr<const Value> CRef;
 
     /**
+     * @brief Helper function to print types as strings
+     *
+     * @param type The type to get the string for
+     * @return std::string The string representation of the type
+     */
+    static std::string typeToString(Type type);
+
+    /**
      * @brief Makes Void type
      *
      */
