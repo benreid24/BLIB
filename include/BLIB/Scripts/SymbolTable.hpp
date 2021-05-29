@@ -37,6 +37,18 @@ public:
     SymbolTable(const SymbolTable& copy);
 
     /**
+     * @brief Copies the symbol table
+     *
+     */
+    void copy(const SymbolTable& copy);
+
+    /**
+     * @brief Returns a new SymbolTable that inherits the global scope of this one
+     *
+     */
+    SymbolTable base() const;
+
+    /**
      * @brief Pushes a new stack frame on
      *
      */

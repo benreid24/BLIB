@@ -34,6 +34,14 @@ SymbolTable::SymbolTable(const SymbolTable& copy)
 , mgr(copy.mgr)
 , stop(copy.stop.operator bool()) {}
 
+void SymbolTable::copy(const SymbolTable& copy) { table = copy.table; }
+
+SymbolTable SymbolTable::base() const {
+    SymbolTable derived;
+    derived.table.emplace_back(table.front());
+    return derived;
+}
+
 void SymbolTable::pushFrame() { table.push_back({}); }
 
 void SymbolTable::popFrame() {

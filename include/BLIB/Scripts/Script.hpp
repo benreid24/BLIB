@@ -36,7 +36,25 @@ public:
      * @param data The script content to run, or a filename containing a script
      * @param ctx Context to initialize the default symbol table with
      */
-    Script(const std::string& data, const Context& ctx = Context());
+    Script(const std::string& data);
+
+    /**
+     * @brief Determines if the input is a file, then loads the script from the file or from
+     *        the input directly. Uses a custom context to initialize built-in functions
+     *
+     * @param data The script content to run, or a filename containing a script
+     * @param ctx Context to initialize the default symbol table with
+     */
+    Script(const std::string& data, const Context& ctx);
+
+    /**
+     * @brief Special constructor that takes an assembled table and uses that instead of using a
+     *        context to add built-in functions
+     *
+     * @param data The script content to run, or a filename containing a script
+     * @param startingTable The symbol table to begin with
+     */
+    Script(const std::string& script, const SymbolTable& startingTable);
 
     /**
      * @brief Returns if the Script is valid or not
@@ -81,10 +99,7 @@ private:
         , running(true) {}
     };
 
-    /**
-     * @brief Actually runs the script
-     *
-     */
+    Script(const std::string& data, bool addDefaults);
     std::optional<script::Value> execute(ExecutionContext::Ptr context) const;
 
     friend class Manager;

@@ -114,7 +114,7 @@ Value run(SymbolTable& table, const std::vector<Value>& args) {
     if (args[0].getType() != Value::TString || args[1].getType() != Value::TBool)
         throw Error("run() requires a String and a Bool");
 
-    Script script(args[0].getAsString());
+    Script script(args[0].getAsString(), table.base());
     if (!script.valid()) throw Error("Syntax error in script passed to run()");
 
     if (args[1].getAsBool()) {
@@ -129,7 +129,7 @@ Value run(SymbolTable& table, const std::vector<Value>& args) {
     }
 }
 
-Value   exit(SymbolTable&, const std::vector<Value>& args) {
+Value exit(SymbolTable&, const std::vector<Value>& args) {
     if (!args.empty()) throw Error("exit() takes 0 arguments");
     throw Exit();
 }
