@@ -87,6 +87,12 @@ public:
     void set(const std::string& name, const Value& value, bool forceTop = false);
 
     /**
+     * @brief Resets the table to an empty state with an empty global frame
+     *
+     */
+    void reset();
+
+    /**
      * @brief Sets the internal kill flag to terminate script execution
      *
      */

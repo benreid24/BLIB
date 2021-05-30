@@ -67,6 +67,11 @@ Script::Script(const std::string& s, const SymbolTable& t)
 
 bool Script::valid() const { return root.get() != nullptr; }
 
+void Script::resetContext(const Context& ctx, bool clear) {
+    if (clear) { defaultTable.reset(); }
+    ctx.initializeTable(defaultTable);
+}
+
 std::optional<script::Value> Script::run(Manager* manager) const {
     if (!valid()) return {};
     ExecutionContext::Ptr ctx(new ExecutionContext(root, defaultTable));

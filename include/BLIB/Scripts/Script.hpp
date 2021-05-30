@@ -63,6 +63,15 @@ public:
     bool valid() const;
 
     /**
+     * @brief Recreates the script's starting symbol table from a new context. Optionally clears the
+     *        existing symbol table
+     *
+     * @param context Context to add built-in symbols from
+     * @param clear True to clear the symbol table first, false to add/overrwrite into the existing
+     */
+    void resetContext(const Context& context, bool clear = false);
+
+    /**
      * @brief Runs the script in the current thread
      *
      * @param manager The Manager to use to manage spawned Scripts

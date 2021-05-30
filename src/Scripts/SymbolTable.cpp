@@ -42,7 +42,7 @@ SymbolTable SymbolTable::base() const {
     return derived;
 }
 
-void SymbolTable::pushFrame() { table.push_back({}); }
+void SymbolTable::pushFrame() { table.emplace_back(); }
 
 void SymbolTable::popFrame() {
     if (table.size() > 1)
@@ -85,6 +85,11 @@ void SymbolTable::kill() {
 }
 
 bool SymbolTable::killed() const { return stop; }
+
+void SymbolTable::reset() {
+    table.clear();
+    pushFrame();
+}
 
 void SymbolTable::registerManager(Manager* m) { mgr = m; }
 
