@@ -148,8 +148,8 @@ Arrays have the following built-in methods and properties:
 
 ### Properties
 
-All variables may be assigned nested properties no matter the type of the variable. These function similar to class members. Properties may be used
-as follows:
+All variables may be assigned nested properties no matter the type of the variable. These function similar to class members. If a variable is assigned a
+new value it loses its existing properties. Properties may be used as follows:
 ```
 var = "hello world";
 var.nestedProp1 = 5;
@@ -260,4 +260,49 @@ This is
 a multiline
 comment
 */
+```
+
+## Example Script
+
+A more complete example script:
+
+```
+def makeVector(x, y) {
+    // All variables must have a value in addition to properties
+    // so we assign the magnitude of the vector as its main value
+    vec = sqrt(x * x + y * y);
+    vec.x = x;
+    vec.y = y;
+    return vec;
+}
+
+def normalizeVector(vec) {
+    nvec = 1 // magnitude of normalized vector
+
+    // remember that the outer value is the magnitude
+    nvec.x = vec.x / vec;
+    nvec.y = vec.y / vec;
+    
+    return nvec;
+}
+
+def makeVecList() {
+    vl = [];
+    i = 0;
+    while (i < 10) {
+        vl.append(makeVector(random(-100, 100), random(-100, 100)));
+    }
+    return vl;
+}
+
+def vecToStr(vec) {
+    return "(" + vec.x + ", " + vec.y + ")";
+}
+
+points = makeVecList();
+for (point in points) {
+    np = normalizeVector(point);
+    print(vecToStr(point) + " normalized is " + vecToStr(np));
+}
+
 ```
