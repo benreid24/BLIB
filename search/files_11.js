@@ -8,7 +8,7 @@ var searchData=
   ['registry_2ecpp',['Registry.cpp',['../a00455.html',1,'']]],
   ['registry_2ehpp',['Registry.hpp',['../a00098.html',1,'']]],
   ['renderer_2ecpp',['Renderer.cpp',['../a00569.html',1,'']]],
-  ['renderer_2ehpp',['Renderer.hpp',['../a01969.html',1,'(Global Namespace)'],['../a01972.html',1,'(Global Namespace)']]],
+  ['renderer_2ehpp',['Renderer.hpp',['../a01970.html',1,'(Global Namespace)'],['../a01973.html',1,'(Global Namespace)']]],
   ['rendererutil_2ecpp',['RendererUtil.cpp',['../a00572.html',1,'']]],
   ['rendererutil_2ehpp',['RendererUtil.hpp',['../a00236.html',1,'']]],
   ['renderitem_2ehpp',['RenderItem.hpp',['../a00263.html',1,'']]],
@@ -16,7 +16,7 @@ var searchData=
   ['rendersettings_2ehpp',['RenderSettings.hpp',['../a00239.html',1,'']]],
   ['resource_2ehpp',['Resource.hpp',['../a00389.html',1,'']]],
   ['resources_2ecpp',['Resources.cpp',['../a00446.html',1,'']]],
-  ['resources_2ehpp',['Resources.hpp',['../a01939.html',1,'(Global Namespace)'],['../a00077.html',1,'(Global Namespace)']]],
+  ['resources_2ehpp',['Resources.hpp',['../a01940.html',1,'(Global Namespace)'],['../a00077.html',1,'(Global Namespace)']]],
   ['resumed_2ehpp',['Resumed.hpp',['../a00059.html',1,'']]],
   ['ringbuffer_2ehpp',['RingBuffer.hpp',['../a00041.html',1,'']]]
 ];
