@@ -39,6 +39,8 @@ Script::Script(const std::string& data, bool addDefaults)
 : source(data) {
     std::string input = data;
     if (prepScript(input)) {
+        BL_LOG_DEBUG << "Loading bScript: " << input;
+
         std::ifstream file(input.c_str());
         file.seekg(0, std::ios::end);
         input.reserve(file.tellg());
@@ -47,6 +49,7 @@ Script::Script(const std::string& data, bool addDefaults)
         root = script::Parser::parse(input);
     }
     else {
+        BL_LOG_DEBUG << "Loading bScript: " << data;
         root = script::Parser::parse(data);
     }
 
