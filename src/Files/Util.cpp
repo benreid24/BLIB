@@ -5,7 +5,6 @@
 #include <dirent.h>
 #include <fstream>
 #include <sstream>
-#include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -25,8 +24,8 @@ bool createDir(const std::string& path) {
 } // namespace
 
 bool Util::exists(const std::string& file) {
-    struct stat buffer;
-    return (stat(file.c_str(), &buffer) == 0);
+    std::ifstream test(file.c_str());
+    return test.good();
 }
 
 bool Util::isBigEndian() {

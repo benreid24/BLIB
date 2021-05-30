@@ -49,6 +49,7 @@ Script::Script(const std::string& data, bool addDefaults)
     else {
         root = script::Parser::parse(data);
     }
+
     if (addDefaults) Context().initializeTable(defaultTable);
 }
 
