@@ -98,18 +98,21 @@ private:
         typedef std::weak_ptr<ExecutionContext> WPtr;
 
         parser::Node::Ptr root;
+        const std::string source;
         std::shared_ptr<std::thread> thread;
         script::SymbolTable table;
         std::atomic_bool running;
 
-        ExecutionContext(parser::Node::Ptr root, const SymbolTable& table)
+        ExecutionContext(parser::Node::Ptr root, const SymbolTable& table,
+                         const std::string& source)
         : root(root)
+        , source(source)
         , table(table)
         , running(true) {}
     };
 
     Script(const std::string& data, bool addDefaults);
-    std::optional<script::Value> execute(ExecutionContext::Ptr context) const;
+    static std::optional<script::Value> execute(ExecutionContext::Ptr context);
 
     friend class Manager;
 };

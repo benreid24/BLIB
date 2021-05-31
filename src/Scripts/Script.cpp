@@ -78,21 +78,21 @@ void Script::resetContext(const Context& ctx, bool clear) {
 
 std::optional<script::Value> Script::run(Manager* manager) const {
     if (!valid()) return {};
-    ExecutionContext::Ptr ctx(new ExecutionContext(root, defaultTable));
+    ExecutionContext::Ptr ctx(new ExecutionContext(root, defaultTable, source));
     if (manager) ctx->table.registerManager(manager);
     return execute(ctx);
 }
 
 void Script::runBackground(Manager* manager) const {
     if (!valid()) return;
-    ExecutionContext::Ptr ctx(new ExecutionContext(root, defaultTable));
+    ExecutionContext::Ptr ctx(new ExecutionContext(root, defaultTable, source));
     if (manager) ctx->table.registerManager(manager);
-    ctx->thread.reset(new std::thread(&Script::execute, this, ctx));
+    ctx->thread.reset(new std::thread(&Script::execute, ctx));
     ctx->thread->detach();
     if (manager) manager->watch(ctx);
 }
 
-std::optional<script::Value> Script::execute(ExecutionContext::Ptr context) const {
+std::optional<script::Value> Script::execute(ExecutionContext::Ptr context) {
     try {
         std::optional<script::Value> r =
             ScriptImpl::runStatementList(context->root->children[0], context->table);
@@ -101,8 +101,8 @@ std::optional<script::Value> Script::execute(ExecutionContext::Ptr context) cons
         return r.value_or(Value());
     } catch (const Error& err) {
         context->running = false;
+        BL_LOG_ERROR << "Error in script '" << context->source << "':\n" << err.stacktrace();
         context.reset();
-        BL_LOG_ERROR << err.stacktrace();
         return {};
     } catch (const Exit&) { return {}; }
 }

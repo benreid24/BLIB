@@ -27,7 +27,7 @@ public:
      * @brief Construct a new Error object with the given message and source location
      *
      * @param error Error message
-     * @param location Node where the error occured
+     * @param location Node where the error occurred
      */
     Error(const std::string& error, parser::Node::Ptr location);
 
