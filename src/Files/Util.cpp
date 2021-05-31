@@ -15,18 +15,24 @@ namespace file
 {
 namespace
 {
-bool createDir(const std::string& path) {
+void createDir(const std::string& path) {
 #ifdef _WIN32
-    return 0 == mkdir(path.c_str());
+    mkdir(path.c_str());
 #else
-    return 0 == mkdir(path.c_str(), 0755);
+    mkdir(path.c_str(), 0755);
 #endif
 }
 } // namespace
 
 bool Util::exists(const std::string& file) {
-    struct stat buffer;
-    return (stat(file.c_str(), &buffer) == 0);
+    std::ifstream test(file.c_str());
+    return test.good();
+}
+
+bool Util::directoryExists(const std::string& file) {
+    struct stat info;
+    if (stat(file.c_str(), &info) != 0) return false;
+    return info.st_mode & S_IFDIR;
 }
 
 bool Util::isBigEndian() {
@@ -103,17 +109,16 @@ void Util::copyFile(const std::string& src, const std::string& dest) {
 }
 
 bool Util::createDirectory(const std::string& path) {
-    if (exists(path)) return true;
+    if (directoryExists(path)) return true;
 
     std::string cd;
     cd.reserve(path.size());
     for (unsigned int i = 0; i < path.size(); ++i) {
-        if (path[i] == '/' || path[i] == '\\') {
-            if (!createDir(cd.c_str())) return false;
-        }
+        if (path[i] == '/' || path[i] == '\\') { createDir(cd); }
         cd.push_back(path[i]);
     }
-    return createDir(cd);
+    createDir(cd);
+    return directoryExists(cd);
 }
 
 std::vector<std::string> Util::listDirectory(const std::string& path, const std::string& ext,

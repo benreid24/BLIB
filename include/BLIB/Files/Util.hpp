@@ -24,6 +24,14 @@ struct Util {
     static bool exists(const std::string& file);
 
     /**
+     * @brief Test whether or not the given directory exists
+     *
+     * @param path Path to the directory to test
+     * @return True if it exists, false otherwise
+     */
+    static bool directoryExists(const std::string& path);
+
+    /**
      * @brief Returns the endianness of the current system. Endianness is abstracted
      *        away by File but may still be useful to know
      *

@@ -78,6 +78,51 @@ TEST(Grid, IterateCellAndNeighbors) {
     EXPECT_NE(found.find(5), found.end());
 }
 
+TEST(Grid, CellAndNeighborsOutOfBounds) {
+    Grid<int> grid(100, 100, 10, 10);
+
+    // not neighbor
+    grid.add(5, 5, 52);
+    grid.emplace(99, 23, 87);
+    grid.add(51, 51, 1);
+    grid.add(61, 51, 2);
+    grid.add(41, 51, 3);
+    grid.add(51, 61, 4);
+    grid.add(51, 41, 5);
+
+    // neighbor
+    grid.add(95, 64, 23);
+
+    std::unordered_set<int> found;
+    auto range = grid.getCellAndNeighbors(95, 55);
+    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
+
+    EXPECT_NE(found.find(23), found.end());
+}
+
+TEST(Grid, EndOverflow) {
+    Grid<int> grid(100, 100, 10, 10);
+
+    // not neighbor
+    grid.add(5, 5, 52);
+    grid.add(51, 51, 1);
+    grid.add(61, 51, 2);
+    grid.add(41, 51, 3);
+    grid.add(51, 61, 4);
+    grid.add(51, 41, 5);
+
+    // neighbor
+    grid.add(95, 94, 23);
+    grid.emplace(99, 93, 87);
+
+    std::unordered_set<int> found;
+    auto range = grid.getCellAndNeighbors(95, 95);
+    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
+
+    EXPECT_NE(found.find(23), found.end());
+    EXPECT_NE(found.find(87), found.end());
+}
+
 TEST(Grid, Clear) {
     Grid<int> grid(100, 100, 10, 10);
 

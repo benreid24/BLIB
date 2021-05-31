@@ -393,7 +393,7 @@ typename Grid<T>::Range Grid<T>::getCellAndNeighbors(float x, float y) {
     const unsigned int sx = xi > 0 ? xi - 1 : 0;
     const unsigned int sy = yi > 0 ? yi - 1 : 0;
     const unsigned int ex = std::min(sx + (xi > 0 ? 3 : 2) - 1, width - 1);
-    const unsigned int ey = std::min(sx + (yi > 0 ? 3 : 2) - 1, height - 1);
+    const unsigned int ey = std::min(sy + (yi > 0 ? 3 : 2) - 1, height - 1);
     return {Iterator(this, sx, sy, ex, ey, cells(sx, sy)),
             Iterator(this, ex, ey, ex, ey, nullptr, false)};
 }
@@ -556,7 +556,7 @@ typename Grid<T>::Iterator Grid<T>::Iterator::operator++(int) {
 
 template<typename T>
 void Grid<T>::Iterator::skipEmpty() {
-    while (!atEnd() && !current) {
+    while (!current && !atEnd()) {
         ++cx;
         if (cx > ex) {
             cx = sx;
