@@ -5,6 +5,7 @@
 #include <dirent.h>
 #include <fstream>
 #include <sstream>
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -26,6 +27,12 @@ bool createDir(const std::string& path) {
 bool Util::exists(const std::string& file) {
     std::ifstream test(file.c_str());
     return test.good();
+}
+
+bool Util::directoryExists(const std::string& file) {
+    struct stat info;
+    if (stat(file.c_str(), &info) != 0) return false;
+    return info.st_mode & S_IFDIR;
 }
 
 bool Util::isBigEndian() {
@@ -102,7 +109,7 @@ void Util::copyFile(const std::string& src, const std::string& dest) {
 }
 
 bool Util::createDirectory(const std::string& path) {
-    if (exists(path)) return true;
+    if (directoryExists(path)) return true;
 
     std::string cd;
     cd.reserve(path.size());
