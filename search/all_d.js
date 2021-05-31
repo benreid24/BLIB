@@ -4,7 +4,7 @@ var searchData=
   ['makebool',['makeBool',['../a01547.html#a2e5eaacb6e68b704fdcf41a1f8ae7067',1,'bl::script::Value']]],
   ['makedirty',['makeDirty',['../a01207.html#a25f12a23ffb09b4a0fb6eb92f005d810',1,'bl::gui::Element']]],
   ['makenew',['makeNew',['../a00935.html#a20d520abadc52a007bc7a4cf87cf3228',1,'bl::entity::IdGenerator']]],
-  ['manager',['Manager',['../a01507.html',1,'bl::resource::Manager&lt; TResourceType &gt;'],['../a01531.html',1,'bl::script::Manager'],['../a01543.html#a6ff7c1f833bc8b7b41d665fded5d1c14',1,'bl::script::SymbolTable::manager()'],['../a01535.html#adddd5c43ff870a047aa66db4edf82a7e',1,'bl::script::Script::Manager()'],['../a01507.html#a8ebd9f42b18b801ff45a324ea27b0ff3',1,'bl::resource::Manager::Manager()']]],
+  ['manager',['Manager',['../a01507.html',1,'bl::resource::Manager&lt; TResourceType &gt;'],['../a01531.html',1,'bl::script::Manager'],['../a01535.html#adddd5c43ff870a047aa66db4edf82a7e',1,'bl::script::Script::Manager()'],['../a01507.html#a8ebd9f42b18b801ff45a324ea27b0ff3',1,'bl::resource::Manager::Manager()'],['../a01543.html#a6ff7c1f833bc8b7b41d665fded5d1c14',1,'bl::script::SymbolTable::manager()']]],
   ['manager_2ecpp',['Manager.cpp',['../a00671.html',1,'']]],
   ['manager_2ehpp',['Manager.hpp',['../a01994.html',1,'(Global Namespace)'],['../a01997.html',1,'(Global Namespace)']]],
   ['manager_3c_20bl_3a_3agfx_3a_3aanimationdata_20_3e',['Manager&lt; bl::gfx::AnimationData &gt;',['../a01507.html',1,'bl::resource']]],

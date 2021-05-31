@@ -96,6 +96,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0ac39ed384b38fb7eb08f30be44fed34"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#a0ac39ed384b38fb7eb08f30be44fed34">valid</a> () const</td></tr>
 <tr class="memdesc:a0ac39ed384b38fb7eb08f30be44fed34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if the <a class="el" href="a01535.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> is valid or not.  <a href="#a0ac39ed384b38fb7eb08f30be44fed34">More...</a><br /></td></tr>
 <tr class="separator:a0ac39ed384b38fb7eb08f30be44fed34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef3618c17f3baef3331cd0128d899183"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#aef3618c17f3baef3331cd0128d899183">resetContext</a> (const <a class="el" href="a01515.html">Context</a> &amp;context, bool clear=false)</td></tr>
+<tr class="memdesc:aef3618c17f3baef3331cd0128d899183"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recreates the script's starting symbol table from a new context. Optionally clears the existing symbol table.  <a href="#aef3618c17f3baef3331cd0128d899183">More...</a><br /></td></tr>
+<tr class="separator:aef3618c17f3baef3331cd0128d899183"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeae73e353105783f1e01364aff7f6bcc"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="a01547.html">script::Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#aeae73e353105783f1e01364aff7f6bcc">run</a> (<a class="el" href="a01531.html">Manager</a> *manager=nullptr) const</td></tr>
 <tr class="memdesc:aeae73e353105783f1e01364aff7f6bcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the script in the current thread.  <a href="#aeae73e353105783f1e01364aff7f6bcc">More...</a><br /></td></tr>
 <tr class="separator:aeae73e353105783f1e01364aff7f6bcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,7 +141,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00055">55</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00059">59</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
 
 </div>
 </div>
@@ -177,7 +180,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00058">58</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00062">62</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
 
 </div>
 </div>
@@ -216,11 +219,50 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00063">63</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00067">67</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="aef3618c17f3baef3331cd0128d899183"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef3618c17f3baef3331cd0128d899183">&#9670;&nbsp;</a></span>resetContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::script::Script::resetContext </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01515.html">Context</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>clear</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recreates the script's starting symbol table from a new context. Optionally clears the existing symbol table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td><a class="el" href="a01515.html" title="A context to run a script with. Custom context classes may be created to have different types of scri...">Context</a> to add built-in symbols from </td></tr>
+    <tr><td class="paramname">clear</td><td>True to clear the symbol table first, false to add/overrwrite into the existing </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00074">74</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
+
+</div>
+</div>
 <a id="aeae73e353105783f1e01364aff7f6bcc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeae73e353105783f1e01364aff7f6bcc">&#9670;&nbsp;</a></span>run()</h2>
 
@@ -246,7 +288,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Return value if completed successfully (void if no return) or null on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00070">70</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00079">79</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
 
 </div>
 </div>
@@ -274,7 +316,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00077">77</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00086">86</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
 
 </div>
 </div>
@@ -295,7 +337,7 @@ Friends</h2></td></tr>
 
 <p>Returns if the <a class="el" href="a01535.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> is valid or not. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00068">68</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00072">72</a> of file <a class="el" href="a00674_source.html">Script.cpp</a>.</p>
 
 </div>
 </div>
@@ -320,7 +362,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00105">105</a> of file <a class="el" href="a00401_source.html">Script.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00117">117</a> of file <a class="el" href="a00401_source.html">Script.hpp</a>.</p>
 
 </div>
 </div>
@@ -332,7 +374,7 @@ Friends</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun May 30 2021 02:25:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 31 2021 04:43:53 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

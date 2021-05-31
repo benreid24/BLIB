@@ -35,6 +35,7 @@ var searchData=
   ['destroy',['destroy',['../a00839.html#ae54d63585555a883af1308670dfebe0c',1,'bl::container::ObjectWrapper']]],
   ['destroyentity',['destroyEntity',['../a00955.html#a9b1f9c8150d417e4bd8e103456f116d7',1,'bl::entity::Registry']]],
   ['direction',['direction',['../a01303.html#a66a8c12d075cbcdc436b6780656ffc4c',1,'bl::menu::Event::MoveEvent::direction()'],['../a01243.html#ad0731961632fe5b5a812099fd85d6704',1,'bl::gui::Separator::Direction()'],['../a01247.html#acd52048c7974a69b23cd8bf9a80ea24e',1,'bl::gui::Slider::Direction()'],['../a01267.html#a17617096f908d715eaa906cd4f104755',1,'bl::gui::LinePacker::Direction()']]],
+  ['directoryexists',['directoryExists',['../a01167.html#a678504b4b942cf1aedd8220ccee99241',1,'bl::file::Util']]],
   ['dirty',['dirty',['../a01207.html#a2fe9691022f41756de7f7c07008de6ee',1,'bl::gui::Element']]],
   ['disarm',['disarm',['../a00919.html#a2fa8c09001f6aa05bae6455be1e1e2be',1,'bl::entity::Cleaner']]],
   ['dispatch',['dispatch',['../a00979.html#a6872243c8ff2ab30526c7f55ffdf7433',1,'bl::event::DelayedDispatcher::dispatch()'],['../a00991.html#af4a089803c52014291eade8e462fc9bd',1,'bl::event::Dispatcher::dispatch()'],['../a01007.html#a2c69f2f70a63a33d25fdb2848412d869',1,'bl::event::SingleDispatcher::dispatch()']]],

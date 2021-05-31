@@ -43,7 +43,7 @@ var searchData=
   ['topleft',['topLeft',['../a00855.html#af0695a39800d9dd7c673d5cf17ae0b86',1,'bl::container::QuadTree::Area']]],
   ['topright',['topRight',['../a00855.html#a06ce52c2ab8b0eacfd53ff86c4ad5602',1,'bl::container::QuadTree::Area']]],
   ['toptobottom',['TopToBottom',['../a01227.html#aba6a25c601d8802fe1767c4b64b81cfaa013c1ce2b8e3886a51be67388e918e37',1,'bl::gui::ProgressBar']]],
-  ['trace',['trace',['../a01375.html#a7df75dafbd91fae955cfe5772963e786',1,'bl::logging::Logger::trace()'],['../a01371.html#a74e5da1abfb366b222375bf333369421',1,'bl::logging::Config::Trace()']]],
+  ['trace',['Trace',['../a01371.html#a74e5da1abfb366b222375bf333369421',1,'bl::logging::Config::Trace()'],['../a01375.html#a7df75dafbd91fae955cfe5772963e786',1,'bl::logging::Logger::trace()']]],
   ['transformevent',['transformEvent',['../a01203.html#ab4075514a3bd5f13fe01abdbd4cff2ab',1,'bl::gui::Container']]],
   ['transformstates',['transformStates',['../a01203.html#ad3e038e31d652d2a10c2ca290bf169b1',1,'bl::gui::Container']]],
   ['transformtolocal',['transformToLocal',['../a01275.html#a7fc9aaaef25287dfac827a4f2e7f2064',1,'bl::gui::RawEvent']]],

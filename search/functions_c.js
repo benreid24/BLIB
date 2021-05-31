@@ -3,7 +3,7 @@ var searchData=
   ['makebool',['makeBool',['../a01547.html#a2e5eaacb6e68b704fdcf41a1f8ae7067',1,'bl::script::Value']]],
   ['makedirty',['makeDirty',['../a01207.html#a25f12a23ffb09b4a0fb6eb92f005d810',1,'bl::gui::Element']]],
   ['makenew',['makeNew',['../a00935.html#a20d520abadc52a007bc7a4cf87cf3228',1,'bl::entity::IdGenerator']]],
-  ['manager',['manager',['../a01543.html#a6ff7c1f833bc8b7b41d665fded5d1c14',1,'bl::script::SymbolTable::manager()'],['../a01507.html#a8ebd9f42b18b801ff45a324ea27b0ff3',1,'bl::resource::Manager::Manager()']]],
+  ['manager',['Manager',['../a01507.html#a8ebd9f42b18b801ff45a324ea27b0ff3',1,'bl::resource::Manager::Manager()'],['../a01543.html#a6ff7c1f833bc8b7b41d665fded5d1c14',1,'bl::script::SymbolTable::manager()']]],
   ['manuallypackelement',['manuallyPackElement',['../a01271.html#aefc892f71754fe2c98c90d3b0b757b57',1,'bl::gui::Packer']]],
   ['markclean',['markClean',['../a01207.html#a5dbd0c299a7d38912c2441a484cbe669',1,'bl::gui::Element']]],
   ['maximumframerate',['maximumFramerate',['../a00911.html#a500e3b0353d109f1e37d652563def747',1,'bl::engine::Settings']]],
