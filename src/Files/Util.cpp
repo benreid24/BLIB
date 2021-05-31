@@ -15,11 +15,11 @@ namespace file
 {
 namespace
 {
-bool createDir(const std::string& path) {
+void createDir(const std::string& path) {
 #ifdef _WIN32
-    return 0 == mkdir(path.c_str());
+    mkdir(path.c_str());
 #else
-    return 0 == mkdir(path.c_str(), 0755);
+    mkdir(path.c_str(), 0755);
 #endif
 }
 } // namespace
@@ -114,12 +114,11 @@ bool Util::createDirectory(const std::string& path) {
     std::string cd;
     cd.reserve(path.size());
     for (unsigned int i = 0; i < path.size(); ++i) {
-        if (path[i] == '/' || path[i] == '\\') {
-            if (!createDir(cd.c_str())) return false;
-        }
+        if (path[i] == '/' || path[i] == '\\') { createDir(cd); }
         cd.push_back(path[i]);
     }
-    return createDir(cd);
+    createDir(cd);
+    return directoryExists(cd);
 }
 
 std::vector<std::string> Util::listDirectory(const std::string& path, const std::string& ext,
