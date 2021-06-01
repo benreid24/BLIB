@@ -8,6 +8,11 @@ namespace bl
 {
 namespace gui
 {
+namespace
+{
+constexpr int ChildPadding = 2;
+}
+
 Button::Ptr Button::create(const std::string& text, const std::string& group,
                            const std::string& id) {
     Ptr button(new Button(Label::create(text, group, id + "-label"), group, id));
@@ -32,13 +37,17 @@ void Button::addChild() { add(child); }
 sf::Vector2i Button::minimumRequisition() const {
     sf::Vector2i area = child->getRequisition();
     const int buffer  = renderSettings().outlineThickness.value_or(DefaultOutlineThickness) + 2;
-    area.x += buffer * 2;
-    area.y += buffer * 2;
+    area.x += (buffer + ChildPadding) * 2;
+    area.y += (buffer + ChildPadding) * 2;
     return area;
 }
 
 void Button::onAcquisition() {
-    Packer::manuallyPackElement(child, {0, 0, getAcquisition().width, getAcquisition().height});
+    Packer::manuallyPackElement(child,
+                                {ChildPadding,
+                                 ChildPadding,
+                                 getAcquisition().width - ChildPadding * 2,
+                                 getAcquisition().height - ChildPadding * 2});
 }
 
 bool Button::handleRawEvent(const RawEvent& event) {

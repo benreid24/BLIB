@@ -19,6 +19,8 @@ namespace gui
  * contain multiple GUI's. A GUI may be positioned and have a size set. Elements in the GUI
  * will be positioned and constrained by the GUI's position and size.
  *
+ * @ingroup GUI
+ *
  */
 class GUI
 : public sf::Drawable
@@ -53,7 +55,14 @@ public:
     void setRenderer(gui::Renderer::Ptr renderer);
 
     /**
-     * @brief Handles and propogates the window event
+     * @brief Set the Region objectSets the region to pack elements into
+     *
+     * @param area The new region to fill
+     */
+    void setRegion(const sf::IntRect& area);
+
+    /**
+     * @brief Handles and propagates the window event
      *
      * @param Packer The Packer to use
      * @param event Raw window event

@@ -114,6 +114,12 @@ public:
      */
     void removePageByName(const std::string& name);
 
+    /**
+     * @brief Returns the acquisition of the tabs for the notebook
+     *
+     */
+    const sf::IntRect& getTabAcquisition() const;
+
 protected:
     /**
      * @brief Create a new empty Notebook

@@ -40,15 +40,22 @@ sf::Text RendererUtil::buildRenderText(const std::string& text, const sf::IntRec
 
 void RendererUtil::renderRectangle(sf::RenderTarget& target, sf::RenderStates states,
                                    const sf::IntRect& area, const RenderSettings& s,
-                                   const RenderSettings& defaults) {
+                                   const RenderSettings& defaults, bool secondary) {
     RenderSettings settings = defaults;
     settings.merge(s);
 
+    const std::optional<sf::Color>& fill =
+        secondary ? settings.secondaryFillColor : settings.fillColor;
+    const std::optional<sf::Color>& outlineColor =
+        secondary ? settings.secondaryOutlineColor : settings.outlineColor;
+    const std::optional<int>& outlineThickness =
+        secondary ? settings.secondaryOutlineThickness : settings.outlineThickness;
+
     sf::RectangleShape rect({static_cast<float>(area.width), static_cast<float>(area.height)});
     rect.setPosition(area.left, area.top);
-    rect.setFillColor(settings.fillColor.value_or(sf::Color(75, 75, 75)));
-    rect.setOutlineThickness(-settings.outlineThickness.value_or(1));
-    rect.setOutlineColor(settings.outlineColor.value_or(sf::Color(20, 20, 20)));
+    rect.setFillColor(fill.value_or(sf::Color(75, 75, 75)));
+    rect.setOutlineThickness(-outlineThickness.value_or(1));
+    rect.setOutlineColor(outlineColor.value_or(sf::Color(20, 20, 20)));
     target.draw(rect, states);
 }
 

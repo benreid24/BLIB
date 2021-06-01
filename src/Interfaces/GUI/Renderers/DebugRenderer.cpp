@@ -3,6 +3,8 @@
 #include <Interfaces/GUI/Data/Font.hpp>
 #include <sstream>
 
+#include <BLIB/Logging.hpp>
+
 namespace bl
 {
 namespace gui
@@ -130,7 +132,7 @@ void DebugRenderer::addInfo(sf::RenderTarget& target, sf::RenderStates states,
     if (showBounds) {
         sf::RectangleShape rect(sf::Vector2f(region.width, region.height));
         rect.setPosition(region.left, region.top);
-        rect.setOutlineThickness(2);
+        rect.setOutlineThickness(-2.f);
         rect.setOutlineColor(sf::Color::Red);
         rect.setFillColor(sf::Color::Transparent);
         target.draw(rect, states);

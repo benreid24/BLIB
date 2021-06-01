@@ -89,6 +89,8 @@ void Notebook::removePageByName(const std::string& name) {
     if (i != pageMap.end()) removePageByIndex(i->second.first);
 }
 
+const sf::IntRect& Notebook::getTabAcquisition() const { return tabArea->getAcquisition(); }
+
 sf::Vector2i Notebook::minimumRequisition() const {
     const sf::Vector2i tabReq = tabArea->getRequisition();
     sf::Vector2i contentReq(0, 0);
