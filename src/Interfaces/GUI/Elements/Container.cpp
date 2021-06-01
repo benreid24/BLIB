@@ -1,5 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Container.hpp>
 
+#include <BLIB/Interfaces/Utilities.hpp>
+
 namespace bl
 {
 namespace gui
@@ -143,7 +145,7 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
     target.setView(view);
 
     // Transform children
-    transformStates(states);
+    //transformStates(states);
 
     // Draw children
     for (auto it = packableChildren.rbegin(); it != packableChildren.rend(); ++it) {
@@ -177,26 +179,35 @@ sf::View Container::computeView(sf::RenderTarget& target, const sf::Transform& t
 
     // Cast
     const sf::FloatRect acq = static_cast<sf::FloatRect>(area);
-    const float w           = static_cast<float>(target.getSize().x);
-    const float h           = static_cast<float>(target.getSize().y);
+    const float w           = oldView.getSize().x;
+    const float h           = oldView.getSize().y;
+
+    const sf::FloatRect port(acq.left / w, acq.top / h, acq.width / w, acq.height / h);
+    return interface::ViewUtil::computeView({acq.width, acq.height}, oldView, port);
+
+    //if (constrain) view.setViewport(intersection(port, oldView.getViewport()));
+    //return view;
 
     // Compute region children will be drawn in and constrain
-    const sf::FloatRect oldRegion(oldView.getCenter() - oldView.getSize() / 2.f, oldView.getSize());
-    const sf::FloatRect region      = transform.transformRect(acq);
-    const sf::FloatRect constrained = constrain ? intersection(oldRegion, region) : region;
-    sf::View view(constrained);
+    // const sf::FloatRect oldRegion(
+    //    oldView.getCenter() - oldView.getSize() * 0.5f,
+    //    {static_cast<float>(getAcquisition().width),
+    //    static_cast<float>(getAcquisition().height)});
+    // const sf::FloatRect region      = transform.transformRect(acq);
+    /*const sf::FloatRect region = static_cast<sf::FloatRect>(getAcquisition());
+    // const sf::FloatRect constrained = constrain ? intersection(oldRegion, region) : region;
+    sf::View view(region);
 
     // Compute viewport and constrain
-    const sf::FloatRect port(
-        constrained.left / w, constrained.top / h, constrained.width / w, constrained.height / h);
+    const sf::FloatRect port(region.left / w, region.top / h, region.width / w, region.height / h);
     view.setViewport(constrain ? intersection(port, oldView.getViewport()) : port);
 
-    return view;
+    return view;*/
 }
 
 void Container::transformStates(sf::RenderStates& states) const {
-    states.transform.translate(static_cast<float>(getAcquisition().left),
-                               static_cast<float>(getAcquisition().top));
+    /*states.transform.translate(static_cast<float>(-getAcquisition().left),
+                               static_cast<float>(-getAcquisition().top));*/
 }
 
 } // namespace gui
