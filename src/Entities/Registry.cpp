@@ -72,12 +72,11 @@ void Registry::doDestroy(Entity e) {
 }
 
 void Registry::clear() {
-    std::unique_lock lock(entityMutex);
-
     if (dispatcher) {
         for (const Entity e : entities) { dispatcher->dispatch<event::EntityDestroyed>({e}); }
     }
 
+    std::unique_lock lock(entityMutex);
     for (const auto& pair : componentPools) { invalidateViews(pair.first); }
 
     entities.clear();

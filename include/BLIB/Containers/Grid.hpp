@@ -302,9 +302,9 @@ public:
     Range getAll();
 
 private:
-    Vector2D<typename Payload::Ptr> cells;
     unsigned int width, height;
     float cellWidth, cellHeight;
+    Vector2D<typename Payload::Ptr> cells;
 
     void doAdd(float x, float y, typename Payload::Ptr& payload);
 
@@ -315,17 +315,17 @@ private:
 
 template<typename T>
 Grid<T>::Grid(float w, float h, float cw, float ch)
-: width(std::floor(w / cw))
-, height(std::floor(h / ch))
+: width(std::max(std::floor(w / cw), 1.f))
+, height(std::max(std::floor(h / ch), 1.f))
 , cellWidth(cw)
 , cellHeight(ch)
-, cells(std::floor(w / cw), std::floor(h / ch)) {}
+, cells(width, height) {}
 
 template<typename T>
 void Grid<T>::setSize(float w, float h, float cw, float ch) {
     clear();
-    width      = std::floor(w / cw);
-    height     = std::floor(h / ch);
+    width      = std::max(std::floor(w / cw), 1.f);
+    height     = std::max(std::floor(h / ch), 1.f);
     cellWidth  = cw;
     cellHeight = ch;
     cells.setSize(width, height);
@@ -355,8 +355,10 @@ typename Grid<T>::Payload::Ptr Grid<T>::emplace(float x, float y, TArgs... args)
 
 template<typename T>
 void Grid<T>::doAdd(float x, float y, typename Payload::Ptr& payload) {
-    payload->x                  = std::floor(x / cellWidth);
-    payload->y                  = std::floor(y / cellHeight);
+    payload->x =
+        std::max(0u, std::min(static_cast<unsigned int>(std::floor(x / cellWidth)), width - 1u));
+    payload->y =
+        std::max(0u, std::min(static_cast<unsigned int>(std::floor(y / cellHeight)), height - 1u));
     typename Payload::Ptr& cell = cells(payload->x, payload->y);
     if (!cell) { cell = payload; }
     else {
