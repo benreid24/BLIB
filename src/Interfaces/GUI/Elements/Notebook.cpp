@@ -15,7 +15,10 @@ Notebook::Ptr Notebook::create(const std::string& group, const std::string& id) 
 Notebook::Notebook(const std::string& group, const std::string& id)
 : Container(group, id)
 , tabArea(Box::create(LinePacker::create(), group, id + "-tabarea"))
-, activePage(0) {}
+, activePage(0) {
+    tabArea->setExpandsWidth(true);
+    tabArea->setExpandsHeight(true);
+}
 
 void Notebook::addChildren() { add(tabArea); }
 
