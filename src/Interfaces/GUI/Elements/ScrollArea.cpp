@@ -1,5 +1,8 @@
 #include <BLIB/Interfaces/GUI/Elements/ScrollArea.hpp>
 
+#include <BLIB/Interfaces/Utilities.hpp>
+#include <BLIB/Logging.hpp>
+
 namespace bl
 {
 namespace gui
@@ -77,6 +80,7 @@ void ScrollArea::setMaxSize(const sf::Vector2i& s) {
         maxSize.reset();
     else
         maxSize = s;
+
     makeDirty();
 }
 
@@ -151,24 +155,17 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const {
     // Preserve old view and compute new
     const sf::View oldView = target.getView();
-    sf::View view =
-        computeView(target,
-                    states.transform,
-                    {sf::Vector2i(getAcquisition().left, getAcquisition().top), availableSize});
+    sf::View view          = computeView(
+        target, {sf::Vector2i(getAcquisition().left, getAcquisition().top), availableSize}, false);
+    view.move(-offset);
     target.setView(view);
 
-    // Translate transform
-    states.transform.translate(getAcquisition().left, getAcquisition().top);
-    states.transform.translate(offset);
-
-    // Render children
+    // Render children and reset view
     renderChildrenRawFiltered(target, states, renderer, filter);
-
-    // Undo scroll offset and reset view
-    states.transform.translate(offset * -1.f);
     target.setView(oldView);
+
+    // Compute and set scrollbar view
     view = computeView(target,
-                       states.transform,
                        {getAcquisition().left,
                         getAcquisition().top,
                         getAcquisition().width,

@@ -11,6 +11,13 @@ namespace gui
 {
 namespace
 {
+sf::Color shiftColor(sf::Color color, int r, int g, int b) {
+    color.r = static_cast<sf::Uint8>(std::min(std::max(static_cast<signed>(color.r + r), 0), 255));
+    color.g = static_cast<sf::Uint8>(std::min(std::max(static_cast<signed>(color.g + g), 0), 255));
+    color.b = static_cast<sf::Uint8>(std::min(std::max(static_cast<signed>(color.b + b), 0), 255));
+    return color;
+}
+
 RenderSettings getWindowDefaults() {
     RenderSettings settings;
     settings.fillColor        = sf::Color(75, 75, 75);
@@ -82,9 +89,12 @@ RenderSettings getLabelDefaults() {
 
 RenderSettings getNotebookDefaults() {
     RenderSettings settings;
-    settings.fillColor        = sf::Color(120, 120, 120);
-    settings.outlineColor     = sf::Color::Black;
-    settings.outlineThickness = 1;
+    settings.fillColor                 = sf::Color(120, 120, 120);
+    settings.outlineColor              = sf::Color::Black;
+    settings.outlineThickness          = 1;
+    settings.secondaryFillColor        = sf::Color(60, 60, 60);
+    settings.secondaryOutlineColor     = sf::Color(90, 90, 90);
+    settings.secondaryOutlineThickness = 1;
     return settings;
 }
 
@@ -221,15 +231,13 @@ void DefaultRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates 
     const RenderSettings settings        = getSettings(&nb);
 
     RendererUtil::renderRectangle(target, states, nb.getAcquisition(), settings, defaults);
+    RendererUtil::renderRectangle(target, states, nb.getTabAcquisition(), settings, defaults, true);
     for (unsigned int i = 0; i < nb.getPages().size(); ++i) {
         Notebook::Page* page       = nb.getPages()[i];
         RenderSettings tabSettings = settings;
         if (i != nb.getActivePageIndex()) {
-            sf::Color base = tabSettings.fillColor.value_or(defaults.fillColor.value());
-            base.r -= 25;
-            base.g -= 25;
-            base.b -= 25;
-            tabSettings.fillColor = base;
+            tabSettings.fillColor = shiftColor(
+                tabSettings.fillColor.value_or(defaults.fillColor.value()), -25, -25, -25);
         }
         else
             tabSettings.outlineThickness = 0;

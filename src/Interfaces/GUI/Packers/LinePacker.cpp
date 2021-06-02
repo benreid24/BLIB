@@ -57,11 +57,18 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
 
     sf::Vector2i pos(rect.left, rect.top);
     if (mode == Compact) {
-        auto compSize = [this, &maxSize, &extraSpace](Element::Ptr e) -> sf::Vector2i {
+        auto compSize = [this, &maxSize, &extraSpace, &rect](Element::Ptr e) -> sf::Vector2i {
             sf::Vector2i size(e->getRequisition().x, maxSize.y);
             if (dir == Vertical) size = {maxSize.x, e->getRequisition().y};
-            if (dir == Vertical && e->expandsHeight()) size.y += extraSpace;
-            if (dir == Horizontal && e->expandsWidth()) size.x += extraSpace;
+
+            if (dir == Vertical) {
+                if (e->expandsHeight()) size.y += extraSpace;
+                if (e->expandsWidth()) size.x = rect.width;
+            }
+            if (dir == Horizontal) {
+                if (e->expandsWidth()) size.x += extraSpace;
+                if (e->expandsHeight()) size.y = rect.height;
+            }
             return size;
         };
 

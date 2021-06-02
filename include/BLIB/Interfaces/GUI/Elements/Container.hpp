@@ -147,13 +147,12 @@ protected:
      *        the acquisition with no spill over
      *
      * @param target The target being rendered to
-     * @param transform The transform to apply that was passed down into render()
-     * @param region The region to render into. Defaults to the acquisition
+     * @param region The region to render into
      * @param constrain True to constrain rendering to the intersection of the old view and new
      * @return sf::View A View that can be applied to the target to constrain rendering
      */
-    sf::View computeView(sf::RenderTarget& target, const sf::Transform& transform,
-                         sf::IntRect region = {}, bool constrain = true) const;
+    sf::View computeView(sf::RenderTarget& target, const sf::IntRect& region,
+                         bool constrain = true) const;
 
     /**
      * @brief Transforms the event into container local coordinates for child elements
@@ -162,12 +161,6 @@ protected:
      * @return RawEvent A new event with transformed local coordinates
      */
     RawEvent transformEvent(const RawEvent& event) const;
-
-    /**
-     * @brief Transforms the render states so that child elements may use local coordinates
-     *
-     */
-    void transformStates(sf::RenderStates& states) const;
 
 private:
     std::vector<Element::Ptr> packableChildren;

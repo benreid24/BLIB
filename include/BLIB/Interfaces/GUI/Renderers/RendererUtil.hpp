@@ -46,10 +46,11 @@ struct RendererUtil {
      * @param area The rectangle to render
      * @param settings The settings to use
      * @param defaults Default settings to apply if settings is missing a parameter
+     * @param useSecondary True to use secondary fill and outline from settings, false for primary
      */
     static void renderRectangle(sf::RenderTarget& target, sf::RenderStates states,
                                 const sf::IntRect& area, const RenderSettings& settings,
-                                const RenderSettings& defaults = {});
+                                const RenderSettings& defaults = {}, bool useSecondary = false);
 };
 
 } // namespace gui

@@ -83,7 +83,7 @@ void ToggleButton::doRender(sf::RenderTarget& target, sf::RenderStates states,
     renderChildren(target, states, renderer);
 
     const sf::View oldView = target.getView();
-    target.setView(computeView(target, states.transform));
+    target.setView(computeView(target, getAcquisition()));
     // TODO - render mouse overlay
     target.setView(oldView);
 }

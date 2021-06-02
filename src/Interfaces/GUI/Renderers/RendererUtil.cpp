@@ -40,15 +40,22 @@ sf::Text RendererUtil::buildRenderText(const std::string& text, const sf::IntRec
 
 void RendererUtil::renderRectangle(sf::RenderTarget& target, sf::RenderStates states,
                                    const sf::IntRect& area, const RenderSettings& s,
-                                   const RenderSettings& defaults) {
+                                   const RenderSettings& defaults, bool secondary) {
     RenderSettings settings = defaults;
     settings.merge(s);
 
+    const std::optional<sf::Color>& fill =
+        secondary ? settings.secondaryFillColor : settings.fillColor;
+    const std::optional<sf::Color>& outlineColor =
+        secondary ? settings.secondaryOutlineColor : settings.outlineColor;
+    const std::optional<int>& outlineThickness =
+        secondary ? settings.secondaryOutlineThickness : settings.outlineThickness;
+
     sf::RectangleShape rect({static_cast<float>(area.width), static_cast<float>(area.height)});
     rect.setPosition(area.left, area.top);
-    rect.setFillColor(settings.fillColor.value_or(sf::Color(75, 75, 75)));
-    rect.setOutlineThickness(-settings.outlineThickness.value_or(1));
-    rect.setOutlineColor(settings.outlineColor.value_or(sf::Color(20, 20, 20)));
+    rect.setFillColor(fill.value_or(sf::Color(75, 75, 75)));
+    rect.setOutlineThickness(-outlineThickness.value_or(1));
+    rect.setOutlineColor(outlineColor.value_or(sf::Color(20, 20, 20)));
     target.draw(rect, states);
 }
 
@@ -58,10 +65,10 @@ sf::Vector2f RendererUtil::calculatePosition(RenderSettings::Alignment horizonta
     sf::Vector2f position;
     switch (horizontalAlignment) {
     case RenderSettings::Left:
-        position.x = region.left;
+        position.x = region.left + 3;
         break;
     case RenderSettings::Right:
-        position.x = region.left + region.width - size.x;
+        position.x = region.left + region.width - size.x - 3;
         break;
     case RenderSettings::Center:
     default:
@@ -71,10 +78,10 @@ sf::Vector2f RendererUtil::calculatePosition(RenderSettings::Alignment horizonta
 
     switch (verticalAlignment) {
     case RenderSettings::Top:
-        position.y = region.top;
+        position.y = region.top + 3;
         break;
     case RenderSettings::Bottom:
-        position.y = region.top + region.height - size.y;
+        position.y = region.top + region.height - size.y - 3;
         break;
     case RenderSettings::Center:
     default:

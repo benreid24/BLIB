@@ -32,6 +32,8 @@ GUI::GUI(gui::Packer::Ptr packer, const sf::RenderWindow& window, const std::str
     assignAcquisition(sf::IntRect(0, 0, window.getSize().x, window.getSize().y));
 }
 
+void GUI::setRegion(const sf::IntRect& area) { assignAcquisition(area); }
+
 void GUI::subscribe(event::Dispatcher& d) { d.subscribe(this); }
 
 void GUI::observe(const sf::Event& event) {

@@ -15,7 +15,10 @@ Notebook::Ptr Notebook::create(const std::string& group, const std::string& id) 
 Notebook::Notebook(const std::string& group, const std::string& id)
 : Container(group, id)
 , tabArea(Box::create(LinePacker::create(), group, id + "-tabarea"))
-, activePage(0) {}
+, activePage(0) {
+    tabArea->setExpandsWidth(true);
+    tabArea->setExpandsHeight(true);
+}
 
 void Notebook::addChildren() { add(tabArea); }
 
@@ -89,6 +92,8 @@ void Notebook::removePageByName(const std::string& name) {
     if (i != pageMap.end()) removePageByIndex(i->second.first);
 }
 
+const sf::IntRect& Notebook::getTabAcquisition() const { return tabArea->getAcquisition(); }
+
 sf::Vector2i Notebook::minimumRequisition() const {
     const sf::Vector2i tabReq = tabArea->getRequisition();
     sf::Vector2i contentReq(0, 0);
@@ -114,7 +119,7 @@ void Notebook::onAcquisition() {
 void Notebook::doRender(sf::RenderTarget& target, sf::RenderStates states,
                         const Renderer& renderer) const {
     const sf::View oldView = target.getView();
-    target.setView(computeView(target, states.transform));
+    target.setView(computeView(target, getAcquisition()));
     renderer.renderNotebook(target, states, *this);
     target.setView(oldView);
 }
