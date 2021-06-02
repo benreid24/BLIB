@@ -151,10 +151,8 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const {
     // Preserve old view and compute new
     const sf::View oldView = target.getView();
-    sf::View view =
-        computeView(target,
-                    states.transform,
-                    {sf::Vector2i(getAcquisition().left, getAcquisition().top), availableSize});
+    sf::View view          = computeView(
+        target, {sf::Vector2i(getAcquisition().left, getAcquisition().top), availableSize});
     target.setView(view);
 
     // Translate transform
@@ -168,7 +166,6 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
     states.transform.translate(offset * -1.f);
     target.setView(oldView);
     view = computeView(target,
-                       states.transform,
                        {getAcquisition().left,
                         getAcquisition().top,
                         getAcquisition().width,

@@ -65,10 +65,10 @@ sf::Vector2f RendererUtil::calculatePosition(RenderSettings::Alignment horizonta
     sf::Vector2f position;
     switch (horizontalAlignment) {
     case RenderSettings::Left:
-        position.x = region.left;
+        position.x = region.left + 3;
         break;
     case RenderSettings::Right:
-        position.x = region.left + region.width - size.x;
+        position.x = region.left + region.width - size.x - 3;
         break;
     case RenderSettings::Center:
     default:
@@ -78,10 +78,10 @@ sf::Vector2f RendererUtil::calculatePosition(RenderSettings::Alignment horizonta
 
     switch (verticalAlignment) {
     case RenderSettings::Top:
-        position.y = region.top;
+        position.y = region.top + 3;
         break;
     case RenderSettings::Bottom:
-        position.y = region.top + region.height - size.y;
+        position.y = region.top + region.height - size.y - 3;
         break;
     case RenderSettings::Center:
     default:

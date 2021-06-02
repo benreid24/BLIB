@@ -16,7 +16,7 @@ sf::View constructView(const sf::Vector2f& size, float x, float y, float w, floa
 sf::View ViewUtil::computeView(const sf::Vector2f& size, const sf::View& oldView,
                                const sf::FloatRect& coverArea) {
     const float x = oldView.getViewport().left + oldView.getViewport().width * coverArea.left;
-    const float y = oldView.getViewport().top + oldView.getViewport().width * coverArea.top;
+    const float y = oldView.getViewport().top + oldView.getViewport().height * coverArea.top;
     const float w = oldView.getViewport().width * coverArea.width;
     const float h = oldView.getViewport().height * coverArea.height;
 
@@ -26,7 +26,7 @@ sf::View ViewUtil::computeView(const sf::Vector2f& size, const sf::View& oldView
 sf::View ViewUtil::computeViewPreserveAR(const sf::Vector2f& size, const sf::View& oldView,
                                          const sf::Vector2f& position, float width) {
     const float x      = oldView.getViewport().left + oldView.getViewport().width * position.x;
-    const float y      = oldView.getViewport().top + oldView.getViewport().width * position.y;
+    const float y      = oldView.getViewport().top + oldView.getViewport().height * position.y;
     const float w      = oldView.getViewport().width * width;
     const float height = size.y / size.x * w;
     const float h      = oldView.getViewport().height * height;
