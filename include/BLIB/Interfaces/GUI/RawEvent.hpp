@@ -9,7 +9,7 @@ namespace bl
 namespace gui
 {
 /**
- * @brief Raw window event that can be propogated in response to window events
+ * @brief Raw window event that can be propagated in response to window events
  *
  * @ingroup GUI
  *
@@ -22,8 +22,7 @@ struct RawEvent {
      * @param mousePos The global mouse position to use if none in the event
      * @param transform The transform to apply to the mouse position
      */
-    RawEvent(const sf::Event& event, const sf::Vector2f& mousePos,
-             const sf::Transform& transform);
+    RawEvent(const sf::Event& event, const sf::Vector2f& mousePos, const sf::Transform& transform);
 
     /**
      * @brief Create a new RawEvent with the local position transformed to the new

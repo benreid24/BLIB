@@ -31,7 +31,8 @@ Notebook::Page::Page(const std::string& name, Label::Ptr label, Element::Ptr con
 , label(label)
 , content(content) {}
 
-void Notebook::addPage(const std::string& name, const std::string& title, Element::Ptr content) {
+void Notebook::addPage(const std::string& name, const std::string& title, Element::Ptr content,
+                       const PageSelectedCb& cb) {
     if (pageMap.find(name) == pageMap.end()) {
         pages.push_back(
             new Page(name, Label::create(title, group(), id() + "-tab-" + name), content));
@@ -44,6 +45,10 @@ void Notebook::addPage(const std::string& name, const std::string& title, Elemen
         pages.back()
             ->label->getSignal(Action::LeftClicked)
             .willAlwaysCall(std::bind(&Notebook::pageClicked, this, pages.back()));
+
+        auto cbWrapper = [cb](const Action&, Element*) { cb(); };
+        pages.back()->label->getSignal(Action::LeftClicked).willAlwaysCall(cbWrapper);
+
         if (pages.size() == 1) makePageActive(0);
     }
 }

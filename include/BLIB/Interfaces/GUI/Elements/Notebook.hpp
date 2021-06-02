@@ -20,6 +20,7 @@ namespace gui
 class Notebook : public Container {
 public:
     typedef std::shared_ptr<Notebook> Ptr;
+    typedef std::function<void()> PageSelectedCb;
 
     virtual ~Notebook();
 
@@ -52,9 +53,12 @@ public:
      *
      * @param name The name of the page. This is not visible anywhere
      * @param title The title to put in the button
-     * @param content
+     * @param content The content to put in the notebook when the page is selected
+     * @param cb Callback to trigger when this page is selected
      */
-    void addPage(const std::string& name, const std::string& title, Element::Ptr content);
+    void addPage(
+        const std::string& name, const std::string& title, Element::Ptr content,
+        const PageSelectedCb& cb = []() {});
 
     /**
      * @brief Returns the active page itself
