@@ -171,10 +171,13 @@ void DefaultRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates 
     static const RenderSettings defaults = getComboDefaults();
     const RenderSettings settings        = getSettings(&box);
 
-    RendererUtil::renderRectangle(target, states, box.getAcquisition(), settings, defaults);
+    RendererUtil::renderRectangle(target,
+                                  states,
+                                  {0, 0, box.getAcquisition().width, box.getAcquisition().height},
+                                  settings,
+                                  defaults);
 
-    sf::Vector2i pos(box.getAcquisition().left,
-                     box.getAcquisition().top + box.getAcquisition().height);
+    sf::Vector2i pos(0, box.getAcquisition().height);
     for (unsigned int i = 0; i < optionCount; ++i) {
         RenderSettings s = settings;
         if (i == mousedOption) {

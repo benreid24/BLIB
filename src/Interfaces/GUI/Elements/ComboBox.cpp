@@ -125,8 +125,8 @@ void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
     const sf::View oldView = target.getView();
     sf::IntRect region     = getAcquisition();
     region.height += options.size() * labelSize.y;
-    renderer.renderComboBox(target, states, *this, labelSize, opened ? options.size() : 0, moused);
     target.setView(computeView(target, region, false));
+    renderer.renderComboBox(target, states, *this, labelSize, opened ? options.size() : 0, moused);
     renderChildrenRawFiltered(target, states, renderer, {});
     target.setView(oldView);
 }
