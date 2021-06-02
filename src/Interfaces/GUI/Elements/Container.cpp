@@ -179,14 +179,15 @@ void Container::renderChildrenRawFiltered(sf::RenderTarget& target, sf::RenderSt
 
 sf::View Container::computeView(sf::RenderTarget& target, const sf::IntRect& area,
                                 bool constrain) const {
-    const sf::View oldView = target.getView();
+    const sf::View& oldView      = target.getView();
+    const sf::Vector2f oldCorner = oldView.getCenter() - oldView.getSize() * 0.5f;
 
-    // Cast
     const sf::FloatRect acq = static_cast<sf::FloatRect>(area);
     const float w           = oldView.getSize().x;
     const float h           = oldView.getSize().y;
 
-    const sf::FloatRect port(acq.left / w, acq.top / h, acq.width / w, acq.height / h);
+    const sf::FloatRect port(
+        (acq.left - oldCorner.x) / w, (acq.top - oldCorner.y) / h, acq.width / w, acq.height / h);
     sf::View view = interface::ViewUtil::computeView({acq.width, acq.height}, oldView, port);
 
     if (constrain) {

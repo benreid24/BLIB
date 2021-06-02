@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/GUI/Elements/ScrollArea.hpp>
 
+#include <BLIB/Interfaces/Utilities.hpp>
 #include <BLIB/Logging.hpp>
 
 namespace bl
@@ -156,16 +157,11 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
     const sf::View oldView = target.getView();
     sf::View view          = computeView(
         target, {sf::Vector2i(getAcquisition().left, getAcquisition().top), availableSize}, false);
+    view.move(-offset);
     target.setView(view);
 
-    // Translate transform
-    states.transform.translate(offset);
-
-    // Render children
+    // Render children and reset view
     renderChildrenRawFiltered(target, states, renderer, filter);
-
-    // Undo scroll offset and reset view
-    states.transform.translate(offset * -1.f);
     target.setView(oldView);
 
     // Compute and set scrollbar view
