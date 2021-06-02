@@ -146,7 +146,7 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
     const sf::View oldView = target.getView();
 
     // Compute new view
-    const sf::View view = computeView(target);
+    const sf::View view = computeView(target, getAcquisition());
     if (!viewValid(view)) {
         // Restore view
         target.setView(oldView);
@@ -177,10 +177,8 @@ void Container::renderChildrenRawFiltered(sf::RenderTarget& target, sf::RenderSt
     }
 }
 
-sf::View Container::computeView(sf::RenderTarget& target, sf::IntRect area, bool constrain) const {
-    if (area.left == 0 && area.top == 0 && area.height == 0 && area.width == 0)
-        area = getAcquisition();
-
+sf::View Container::computeView(sf::RenderTarget& target, const sf::IntRect& area,
+                                bool constrain) const {
     const sf::View oldView = target.getView();
 
     // Cast

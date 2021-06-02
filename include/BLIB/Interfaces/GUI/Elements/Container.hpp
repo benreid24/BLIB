@@ -147,11 +147,11 @@ protected:
      *        the acquisition with no spill over
      *
      * @param target The target being rendered to
-     * @param region The region to render into. Defaults to the acquisition
+     * @param region The region to render into
      * @param constrain True to constrain rendering to the intersection of the old view and new
      * @return sf::View A View that can be applied to the target to constrain rendering
      */
-    sf::View computeView(sf::RenderTarget& target, sf::IntRect region = {},
+    sf::View computeView(sf::RenderTarget& target, const sf::IntRect& region,
                          bool constrain = true) const;
 
     /**
