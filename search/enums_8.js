@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['shutdowntype',['ShutdownType',['../a00891.html#a610f7ea530340c0339eae47bea563204',1,'bl::engine::event::Shutdown']]],
-  ['spacemode',['SpaceMode',['../a01267.html#a7be24b6df8ddd6710ecab4193c7ab781',1,'bl::gui::LinePacker']]],
-  ['style',['Style',['../a01259.html#ab5ed19ef2dc0fba1a8b63b0d469eca88',1,'bl::gui::Window']]]
+  ['shutdowntype',['ShutdownType',['../a00893.html#a610f7ea530340c0339eae47bea563204',1,'bl::engine::event::Shutdown']]],
+  ['spacemode',['SpaceMode',['../a01269.html#a7be24b6df8ddd6710ecab4193c7ab781',1,'bl::gui::LinePacker']]],
+  ['style',['Style',['../a01261.html#ab5ed19ef2dc0fba1a8b63b0d469eca88',1,'bl::gui::Window']]]
 ];
