@@ -40,6 +40,8 @@ void Notebook::addPage(const std::string& name, const std::string& title, Elemen
 
         pages.back()->content->skipPacking(true);
         pages.back()->content->setVisible(false);
+        pages.back()->content->setExpandsWidth(true);
+        pages.back()->content->setExpandsHeight(true);
         add(pages.back()->content);
         tabArea->pack(pages.back()->label, false, true);
         pages.back()
