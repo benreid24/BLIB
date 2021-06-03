@@ -20,7 +20,7 @@ namespace gui
 class Notebook : public Container {
 public:
     typedef std::shared_ptr<Notebook> Ptr;
-    typedef std::function<void()> PageSelectedCb;
+    typedef std::function<void()> PageChangedCb;
 
     virtual ~Notebook();
 
@@ -38,12 +38,24 @@ public:
      *
      */
     struct Page {
-        const std::string name; /// The internal name of the page
-        Label::Ptr label;       /// The label at the top of the notebook
-        Element::Ptr content;   /// Any element that is the actual page content
+        /// The internal name of the page
+        const std::string name;
+
+        /// The label at the top of the notebook
+        Label::Ptr label;
+
+        /// Any element that is the actual page content
+        Element::Ptr content;
+
+        /// Callback to trigger when the page is opened
+        PageChangedCb onOpen;
+
+        /// Callback to trigger when the page is closed
+        PageChangedCb onClose;
 
     private:
-        Page(const std::string& name, Label::Ptr label, Element::Ptr content);
+        Page(const std::string& name, Label::Ptr label, Element::Ptr content,
+             const PageChangedCb& onOpen, const PageChangedCb& onClose);
 
         friend class Notebook;
     };
@@ -54,11 +66,12 @@ public:
      * @param name The name of the page. This is not visible anywhere
      * @param title The title to put in the button
      * @param content The content to put in the notebook when the page is selected
-     * @param cb Callback to trigger when this page is selected
+     * @param onOpen Callback to trigger when this page is selected
+     * @param onClose Callback to trigger when this page is left
      */
     void addPage(
         const std::string& name, const std::string& title, Element::Ptr content,
-        const PageSelectedCb& cb = []() {});
+        const PageChangedCb& onOpen = []() {}, const PageChangedCb& onClose = []() {});
 
     /**
      * @brief Returns the active page itself
