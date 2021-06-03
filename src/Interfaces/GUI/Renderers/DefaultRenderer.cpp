@@ -36,7 +36,7 @@ RenderSettings getTitlebarDefaults() {
 
 RenderSettings getButtonDefaults() {
     RenderSettings settings;
-    settings.fillColor        = sf::Color(70, 70, 70);
+    settings.fillColor        = sf::Color(85, 85, 85);
     settings.outlineColor     = sf::Color::Black;
     settings.outlineThickness = Button::DefaultOutlineThickness;
     return settings;

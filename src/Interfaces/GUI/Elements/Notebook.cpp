@@ -115,10 +115,10 @@ sf::Vector2i Notebook::minimumRequisition() const {
 void Notebook::onAcquisition() {
     Packer::manuallyPackElement(tabArea,
                                 {0, 0, getAcquisition().width, tabArea->getRequisition().y});
-    contentArea = {0,
-                   tabArea->getRequisition().y,
-                   getAcquisition().width,
-                   getAcquisition().height - tabArea->getRequisition().y};
+    contentArea = {2,
+                   tabArea->getRequisition().y + 2,
+                   getAcquisition().width - 4,
+                   getAcquisition().height - tabArea->getRequisition().y - 4};
     if (activePage < pages.size())
         Packer::manuallyPackElement(pages[activePage]->content, contentArea);
 }
