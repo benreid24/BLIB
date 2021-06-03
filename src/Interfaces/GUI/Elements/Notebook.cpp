@@ -41,7 +41,7 @@ void Notebook::addPage(const std::string& name, const std::string& title, Elemen
         pages.back()->content->skipPacking(true);
         pages.back()->content->setVisible(false);
         add(pages.back()->content);
-        tabArea->pack(pages.back()->label, true, true);
+        tabArea->pack(pages.back()->label, false, true);
         pages.back()
             ->label->getSignal(Action::LeftClicked)
             .willAlwaysCall(std::bind(&Notebook::pageClicked, this, pages.back()));
