@@ -58,7 +58,7 @@ bool ToggleButton::handleRawEvent(const RawEvent& event) {
 sf::Vector2i ToggleButton::minimumRequisition() const {
     const sf::Vector2i butReq   = activeButton->getRequisition();
     const sf::Vector2i childReq = getChild()->getRequisition();
-    return {butReq.x + childReq.x + 2, std::max(butReq.y, childReq.y)};
+    return {butReq.x + childReq.x + 12, std::max(butReq.y, childReq.y)};
 }
 
 void ToggleButton::onAcquisition() {

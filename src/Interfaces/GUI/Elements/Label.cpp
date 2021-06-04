@@ -6,11 +6,6 @@ namespace bl
 {
 namespace gui
 {
-namespace
-{
-constexpr int Padding = 3;
-}
-
 Label::Ptr Label::create(const std::string& text, const std::string& group, const std::string& id) {
     return Ptr(new Label(text, group, id));
 }
@@ -37,10 +32,8 @@ void Label::doRender(sf::RenderTarget& target, sf::RenderStates states,
 
 sf::Vector2i Label::minimumRequisition() const {
     return {
-        static_cast<int>(renderText.getGlobalBounds().width + renderText.getGlobalBounds().left) +
-            Padding * 2,
-        static_cast<int>(renderText.getGlobalBounds().height + renderText.getGlobalBounds().top) +
-            Padding * 2};
+        static_cast<int>(renderText.getGlobalBounds().width + renderText.getGlobalBounds().left),
+        static_cast<int>(renderText.getGlobalBounds().height + renderText.getGlobalBounds().top)};
 }
 
 void Label::settingsChanged() {

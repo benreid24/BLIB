@@ -36,7 +36,7 @@ RenderSettings getTitlebarDefaults() {
 
 RenderSettings getButtonDefaults() {
     RenderSettings settings;
-    settings.fillColor        = sf::Color(70, 70, 70);
+    settings.fillColor        = sf::Color(85, 85, 85);
     settings.outlineColor     = sf::Color::Black;
     settings.outlineThickness = Button::DefaultOutlineThickness;
     return settings;
@@ -171,10 +171,13 @@ void DefaultRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates 
     static const RenderSettings defaults = getComboDefaults();
     const RenderSettings settings        = getSettings(&box);
 
-    RendererUtil::renderRectangle(target, states, box.getAcquisition(), settings, defaults);
+    RendererUtil::renderRectangle(target,
+                                  states,
+                                  {0, 0, box.getAcquisition().width, box.getAcquisition().height},
+                                  settings,
+                                  defaults);
 
-    sf::Vector2i pos(box.getAcquisition().left,
-                     box.getAcquisition().top + box.getAcquisition().height);
+    sf::Vector2i pos(0, box.getAcquisition().height);
     for (unsigned int i = 0; i < optionCount; ++i) {
         RenderSettings s = settings;
         if (i == mousedOption) {
@@ -230,7 +233,11 @@ void DefaultRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates 
     static const RenderSettings defaults = getNotebookDefaults();
     const RenderSettings settings        = getSettings(&nb);
 
-    RendererUtil::renderRectangle(target, states, nb.getAcquisition(), settings, defaults);
+    RendererUtil::renderRectangle(target,
+                                  states,
+                                  {0, 0, nb.getAcquisition().width, nb.getAcquisition().height},
+                                  settings,
+                                  defaults);
     RendererUtil::renderRectangle(target, states, nb.getTabAcquisition(), settings, defaults, true);
     for (unsigned int i = 0; i < nb.getPages().size(); ++i) {
         Notebook::Page* page       = nb.getPages()[i];
@@ -373,7 +380,6 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
     settings.promoteSecondaries();
     sf::Text text =
         RendererUtil::buildRenderText(entry.getInput(), textArea, settings, textDefaults);
-    text.setPosition(text.getPosition().x, text.getPosition().y - text.getLocalBounds().top);
     target.draw(text, states);
 
     if (entry.cursorVisible()) {
@@ -411,7 +417,7 @@ void DefaultRenderer::renderToggleCheckButton(sf::RenderTexture& texture, bool a
 
 void DefaultRenderer::renderToggleRadioButton(sf::RenderTexture& texture, bool active) const {
     const sf::Vector2f size = static_cast<sf::Vector2f>(texture.getSize());
-    const float radius      = std::min(size.x, size.y) * 0.4;
+    const float radius      = std::min(size.x, size.y) * 0.5f;
     sf::CircleShape circle(radius);
     circle.setPosition(size.x / 2, size.y / 2);
     circle.setOrigin(radius, radius);

@@ -26,24 +26,32 @@ Notebook::~Notebook() {
     while (!pages.empty()) removePageByIndex(0);
 }
 
-Notebook::Page::Page(const std::string& name, Label::Ptr label, Element::Ptr content)
+Notebook::Page::Page(const std::string& name, Label::Ptr label, Element::Ptr content,
+                     const Notebook::PageChangedCb& op, const Notebook::PageChangedCb& oc)
 : name(name)
 , label(label)
-, content(content) {}
+, content(content)
+, onOpen(op)
+, onClose(oc) {}
 
-void Notebook::addPage(const std::string& name, const std::string& title, Element::Ptr content) {
+void Notebook::addPage(const std::string& name, const std::string& title, Element::Ptr content,
+                       const PageChangedCb& onOpen, const PageChangedCb& onClose) {
     if (pageMap.find(name) == pageMap.end()) {
-        pages.push_back(
-            new Page(name, Label::create(title, group(), id() + "-tab-" + name), content));
+        Label::Ptr label = Label::create(title, group(), id() + "-tab-" + name);
+        label->setRequisition(label->getRequisition() + sf::Vector2i(6, 6));
+        pages.push_back(new Page(name, label, content, onOpen, onClose));
         pageMap[name] = std::make_pair(pages.size() - 1, pages.back());
 
         pages.back()->content->skipPacking(true);
         pages.back()->content->setVisible(false);
+        pages.back()->content->setExpandsWidth(true);
+        pages.back()->content->setExpandsHeight(true);
         add(pages.back()->content);
-        tabArea->pack(pages.back()->label, true, true);
+        tabArea->pack(pages.back()->label, false, true);
         pages.back()
             ->label->getSignal(Action::LeftClicked)
             .willAlwaysCall(std::bind(&Notebook::pageClicked, this, pages.back()));
+
         if (pages.size() == 1) makePageActive(0);
     }
 }
@@ -108,10 +116,10 @@ sf::Vector2i Notebook::minimumRequisition() const {
 void Notebook::onAcquisition() {
     Packer::manuallyPackElement(tabArea,
                                 {0, 0, getAcquisition().width, tabArea->getRequisition().y});
-    contentArea = {0,
-                   tabArea->getRequisition().y,
-                   getAcquisition().width,
-                   getAcquisition().height - tabArea->getRequisition().y};
+    contentArea = {2,
+                   tabArea->getRequisition().y + 2,
+                   getAcquisition().width - 4,
+                   getAcquisition().height - tabArea->getRequisition().y - 4};
     if (activePage < pages.size())
         Packer::manuallyPackElement(pages[activePage]->content, contentArea);
 }
@@ -131,11 +139,15 @@ void Notebook::pageClicked(Page* page) {
 
 void Notebook::makePageActive(unsigned int i) {
     if (i < pages.size()) {
-        if (activePage < pages.size()) pages[activePage]->content->setVisible(false, false);
-        activePage = i;
+        if (activePage < pages.size()) {
+            pages[activePage]->content->setVisible(false, false);
+            if (i != activePage) pages[activePage]->onClose();
+        }
         pages[i]->content->setVisible(true, false);
         pages[i]->content->moveToTop();
         Packer::manuallyPackElement(pages[i]->content, contentArea);
+        if (i != activePage) pages[i]->onOpen();
+        activePage = i;
     }
 }
 

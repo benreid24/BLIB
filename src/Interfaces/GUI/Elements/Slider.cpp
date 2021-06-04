@@ -126,9 +126,11 @@ void Slider::sliderMoved(const Action& drag) {
     if (drag.type != Action::Dragged) return;
 
     const unsigned int size = calculateFreeSize();
-    int dragAmount          = 0;
-    int pos                 = 0;
-    int offset              = 0;
+    if (size == 0) return;
+
+    int dragAmount = 0;
+    int pos        = 0;
+    int offset     = 0;
     if (dir == Horizontal) {
         pos        = slider->getAcquisition().left;
         dragAmount = drag.position.x - drag.data.dragStart.x;
