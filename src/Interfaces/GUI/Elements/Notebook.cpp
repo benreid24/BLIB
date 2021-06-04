@@ -37,8 +37,9 @@ Notebook::Page::Page(const std::string& name, Label::Ptr label, Element::Ptr con
 void Notebook::addPage(const std::string& name, const std::string& title, Element::Ptr content,
                        const PageChangedCb& onOpen, const PageChangedCb& onClose) {
     if (pageMap.find(name) == pageMap.end()) {
-        pages.push_back(new Page(
-            name, Label::create(title, group(), id() + "-tab-" + name), content, onOpen, onClose));
+        Label::Ptr label = Label::create(title, group(), id() + "-tab-" + name);
+        label->setRequisition(label->getRequisition() + sf::Vector2i(6, 6));
+        pages.push_back(new Page(name, label, content, onOpen, onClose));
         pageMap[name] = std::make_pair(pages.size() - 1, pages.back());
 
         pages.back()->content->skipPacking(true);
@@ -140,13 +141,13 @@ void Notebook::makePageActive(unsigned int i) {
     if (i < pages.size()) {
         if (activePage < pages.size()) {
             pages[activePage]->content->setVisible(false, false);
-            pages[activePage]->onClose();
+            if (i != activePage) pages[activePage]->onClose();
         }
-        activePage = i;
         pages[i]->content->setVisible(true, false);
         pages[i]->content->moveToTop();
         Packer::manuallyPackElement(pages[i]->content, contentArea);
-        pages[i]->onOpen();
+        if (i != activePage) pages[i]->onOpen();
+        activePage = i;
     }
 }
 
