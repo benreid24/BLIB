@@ -380,7 +380,6 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
     settings.promoteSecondaries();
     sf::Text text =
         RendererUtil::buildRenderText(entry.getInput(), textArea, settings, textDefaults);
-    text.setPosition(text.getPosition().x, text.getPosition().y - text.getLocalBounds().top);
     target.draw(text, states);
 
     if (entry.cursorVisible()) {
