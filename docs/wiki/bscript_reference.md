@@ -1,7 +1,6 @@
 # bScript
 **bScript** is the built in scripting language included in BLIB. A generic, reusable shift-reduce parser is provided as well for other parsing needs. The
-general syntax for **bScript** is documented below. Specific function libraries are added by user supplied derived classes of `Script`. **TODO: Add link
-to the example of this**
+general syntax for **bScript** is documented below. Specific function libraries are added by user supplied derived classes of `script::Context`.
 
 ## Design Rationale
 
