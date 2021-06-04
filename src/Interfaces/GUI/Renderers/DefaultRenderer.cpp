@@ -418,7 +418,7 @@ void DefaultRenderer::renderToggleCheckButton(sf::RenderTexture& texture, bool a
 
 void DefaultRenderer::renderToggleRadioButton(sf::RenderTexture& texture, bool active) const {
     const sf::Vector2f size = static_cast<sf::Vector2f>(texture.getSize());
-    const float radius      = std::min(size.x, size.y) * 0.4;
+    const float radius      = std::min(size.x, size.y) * 0.5f;
     sf::CircleShape circle(radius);
     circle.setPosition(size.x / 2, size.y / 2);
     circle.setOrigin(radius, radius);
