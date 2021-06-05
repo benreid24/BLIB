@@ -60,11 +60,16 @@ public:
 
     /// @see Renderer::renderComboBox
     virtual void renderComboBox(sf::RenderTarget& target, sf::RenderStates states,
-                                const ComboBox& box, const sf::Vector2i& optionSize,
-                                unsigned int optionCount, unsigned int mousedOption) const override;
+                                const ComboBox& box) const override;
 
-    /// @see Renderer::renderComboBoxDropdown
-    virtual void renderComboBoxDropdown(sf::RenderTexture& texture) const override;
+    /// @see Renderer::renderComboBoxDropdownBoxes
+    virtual void renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::RenderStates states,
+                                             const ComboBox& box, const sf::Vector2i& optionSize,
+                                             unsigned int optionCount,
+                                             unsigned int mousedOption) const override;
+
+    /// @see Renderer::renderComboBoxDropdownArrow
+    virtual void renderComboBoxDropdownArrow(sf::RenderTexture& texture) const override;
 
     /// @see Renderer::renderImage
     virtual void renderImage(sf::RenderTarget& target, sf::RenderStates states,

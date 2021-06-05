@@ -16,6 +16,8 @@ ComboBox::ComboBox(const std::string& group, const std::string& id)
 : Container(group, id)
 , arrow(Canvas::create(32, 32, group, id + "-dropdown"))
 , selected(-1)
+, maxHeight(0.f)
+, scroll(0.f)
 , opened(false)
 , arrowRendered(false) {
     getSignal(Action::RenderSettingsChanged).willAlwaysCall(std::bind(&ComboBox::onSettings, this));
@@ -90,6 +92,8 @@ void ComboBox::onAcquisition() {
                  getAcquisition().height + OptionPadding};
     labelRegion = {
         0, getAcquisition().height, labelSize.x, labelSize.y * static_cast<int>(options.size())};
+    labelRegion.height =
+        maxHeight > 0 ? std::min(maxHeight, labelRegion.height) : labelRegion.height;
     arrow->scaleToSize(
         {static_cast<float>(getAcquisition().height), static_cast<float>(getAcquisition().height)},
         false);
@@ -102,9 +106,17 @@ void ComboBox::onAcquisition() {
 }
 
 bool ComboBox::handleRawEvent(const RawEvent& event) {
-    Container::handleRawEvent(event);
-    return labelRegion.contains(static_cast<sf::Vector2i>(transformEvent(event).localMousePos)) &&
-           opened;
+    const RawEvent transformed = transformEvent(event);
+    const bool contained =
+        labelRegion.contains(static_cast<sf::Vector2i>(transformed.localMousePos));
+    if (contained) {
+        if (transformed.event.type == sf::Event::MouseWheelScrolled) {
+            scrolled(Action::fromRaw(transformed));
+            return true;
+        }
+    }
+    Container::handleRawEvent(event.transformToLocal({0.f, -scroll}));
+    return contained && opened;
 }
 
 void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
@@ -119,15 +131,27 @@ void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
 
     if (!arrowRendered) {
         arrowRendered = true;
-        renderer.renderComboBoxDropdown(arrow->getTexture());
+        renderer.renderComboBoxDropdownArrow(arrow->getTexture());
     }
 
     const sf::View oldView = target.getView();
-    sf::IntRect region     = getAcquisition();
-    region.height += options.size() * labelSize.y;
-    target.setView(computeView(oldView, region, false));
-    renderer.renderComboBox(target, states, *this, labelSize, opened ? options.size() : 0, moused);
-    renderChildrenRawFiltered(target, states, renderer, {});
+
+    target.setView(computeView(oldView, getAcquisition(), false));
+    renderer.renderComboBox(target, states, *this);
+    arrow->render(target, states, renderer);
+
+    sf::IntRect region = labelRegion;
+    region.top += getAcquisition().top;
+    region.left += getAcquisition().left;
+
+    sf::View trickView = oldView;
+    trickView.move(0, labelSize.y);
+    target.setView(computeView(trickView, region, false));
+    if (opened) states.transform.translate(0, -scroll);
+
+    renderer.renderComboBoxDropdownBoxes(
+        target, states, *this, labelSize, opened ? options.size() : 0, moused);
+    renderChildrenRawFiltered(target, states, renderer, {arrow.get()});
     target.setView(oldView);
 }
 
@@ -172,6 +196,23 @@ void ComboBox::packClosed() {
         }
         else
             labels[i]->setVisible(false, false);
+    }
+}
+
+bool ComboBox::consumesScrolls() const { return true; }
+
+void ComboBox::setMaxHeight(int m) { maxHeight = m; }
+
+void ComboBox::scrolled(const Action& a) {
+    if (maxHeight > 0) {
+        const float height    = labelSize.y * static_cast<int>(options.size() + 1);
+        const float maxScroll = height - maxHeight;
+
+        scroll += a.data.scroll * 2.f;
+        if (scroll < 0.f)
+            scroll = 0.f;
+        else if (scroll > maxScroll)
+            scroll = maxScroll;
     }
 }
 
