@@ -155,6 +155,15 @@ protected:
                          bool constrain = true) const;
 
     /**
+     * @brief Constrains the viewport of the given view to the area that overlaps with the viewport
+     *        of the original view
+     *
+     * @param view The view to constrain
+     * @param oldView The original view to constrain to
+     */
+    void constrainView(sf::View& view, const sf::View& oldView) const;
+
+    /**
      * @brief Transforms the event into container local coordinates for child elements
      *
      * @param event The event to transform
