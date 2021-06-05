@@ -146,7 +146,7 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
     const sf::View oldView = target.getView();
 
     // Compute new view
-    const sf::View view = computeView(target, getAcquisition());
+    const sf::View view = computeView(oldView, getAcquisition());
     if (!viewValid(view)) {
         // Restore view
         target.setView(oldView);
@@ -177,9 +177,8 @@ void Container::renderChildrenRawFiltered(sf::RenderTarget& target, sf::RenderSt
     }
 }
 
-sf::View Container::computeView(sf::RenderTarget& target, const sf::IntRect& area,
+sf::View Container::computeView(const sf::View& oldView, const sf::IntRect& area,
                                 bool constrain) const {
-    const sf::View& oldView      = target.getView();
     const sf::Vector2f oldCorner = oldView.getCenter() - oldView.getSize() * 0.5f;
 
     const sf::FloatRect acq = static_cast<sf::FloatRect>(area);
@@ -194,8 +193,16 @@ sf::View Container::computeView(sf::RenderTarget& target, const sf::IntRect& are
         const sf::FloatRect cport = intersection(view.getViewport(), oldView.getViewport());
         const float nw            = acq.width * (cport.width / view.getViewport().width);
         const float nh            = acq.height * (cport.height / view.getViewport().height);
+        const sf::Vector2f diff(sf::Vector2f(acq.width, acq.height) - sf::Vector2f(nw, nh));
 
-        view.setCenter(nw * 0.5f, nh * 0.5f);
+        if (diff.x > 0.f) {
+            // TODO
+        }
+        if (diff.y > 0.f) {
+            // TODO
+        }
+
+        view.move(diff * -0.5f);
         view.setViewport(cport);
         view.setSize(nw, nh);
     }

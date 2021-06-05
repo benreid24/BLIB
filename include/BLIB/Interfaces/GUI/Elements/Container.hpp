@@ -146,12 +146,12 @@ protected:
      * @brief Computes a View that can be used for constrained rendering of child elements into
      *        the acquisition with no spill over
      *
-     * @param target The target being rendered to
+     * @param oldView The original view of the parent element
      * @param region The region to render into
      * @param constrain True to constrain rendering to the intersection of the old view and new
      * @return sf::View A View that can be applied to the target to constrain rendering
      */
-    sf::View computeView(sf::RenderTarget& target, const sf::IntRect& region,
+    sf::View computeView(const sf::View& oldView, const sf::IntRect& region,
                          bool constrain = true) const;
 
     /**
