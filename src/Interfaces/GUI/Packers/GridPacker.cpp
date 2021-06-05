@@ -76,28 +76,28 @@ void GridPacker::doPack(const sf::IntRect& area, const std::vector<Element::Ptr>
                     }
                 }
             }
-        }
-        else {
-            if (rule == FixedAmount) {
-                if (pcount == size) { // wrap
-                    pos.y = area.top;
-                    pos.x += mreq.x + padding;
-                    mreq   = {0, 0};
-                    pcount = 0;
-                }
-                else { // coninue in row/column
-                    pos.y += req.y + padding;
-                }
-            }
             else {
-                const sf::Vector2i nreq = elements[i + 1]->getRequisition();
-                if (pos.y + padding + nreq.y > size) { // wrap
-                    pos.y = area.top;
-                    pos.x += mreq.x + padding;
-                    mreq = {0, 0};
+                if (rule == FixedAmount) {
+                    if (pcount == size) { // wrap
+                        pos.y = area.top;
+                        pos.x += mreq.x + padding;
+                        mreq   = {0, 0};
+                        pcount = 0;
+                    }
+                    else { // coninue in row/column
+                        pos.y += req.y + padding;
+                    }
                 }
-                else { // continue in row/column
-                    pos.y += req.y + padding;
+                else {
+                    const sf::Vector2i nreq = elements[i + 1]->getRequisition();
+                    if (pos.y + padding + nreq.y > size) { // wrap
+                        pos.y = area.top;
+                        pos.x += mreq.x + padding;
+                        mreq = {0, 0};
+                    }
+                    else { // continue in row/column
+                        pos.y += req.y + padding;
+                    }
                 }
             }
         }
