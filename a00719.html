@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Binary</title>
+<title>BLIB: Resources</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,38 +66,38 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Binary<div class="ingroups"><a class="el" href="a00706.html">Files</a></div></div>  </div>
+<div class="title">Resources</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes for encoding and decoding data into endian agnostic binary files. Core class is File.  
+<p>A collection of classes useful for managing resources, including their loading and lifetimes.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01020.html">bl::file::binary::File</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to read and write binary data. Endianness agnostic Floating point types are not supported. To store floating point values, simply store an integral type and multiply/divide on save/load.  <a href="a01020.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01506.html">bl::resource::AsyncLoader&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized loader meant for loading resources into a <a class="el" href="a01518.html" title="Single template based resource management class. Meant for storing. ">Manager</a> in the background. Default implementation simply calls <a class="el" href="a01506.html#aa3bdaa1b95c641cb669887a9f10d95ff" title="Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their ...">load()</a> on the manager, but custom background loaders can be built for large resources and should leverage <a class="el" href="a01518.html#ab7f67e29b779d355aa2bb7005ed1617a" title="Add an already loaded resource to the manager. Overwrites existing if present. ">Manager::add()</a> to insert constructed resources.  <a href="a01506.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01024.html">bl::file::binary::SerializableFieldBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for binary serializable fields. Do not use.  <a href="a01024.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01510.html">bl::resource::BackgroundLoader&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for loading resources in the background while monitoring the progress. <a class="el" href="a01522.html" title="Base level struct representing a resource that can be loaded and managed by the resource system...">Resource</a> loading is done from the calling thread, and monitoring is done on a second thread. This is to eliminate any context issues with loading SFML resources.  <a href="a01510.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html">bl::file::binary::SerializableObject</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for user defined objects that can be serialized in binary files. Data fields to be serialized should be stored as <a class="el" href="a01028.html" title="Template class that represents a serializable field for File use. Strings and integral types are supp...">SerializableField</a> objects.  <a href="a01032.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01514.html">bl::resource::Loader&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templatized resource loader. Must be implemented for any resource type that is intended to be managed.  <a href="a01514.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01036.html">bl::file::binary::Serializer&lt; T, bool &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for serializing types into binary files. Integral types, strings, vector, and SerializableObjects are supported out of the box. Specializations may be provided for user defined types.  <a href="a01036.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01518.html">bl::resource::Manager&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single template based resource management class. Meant for storing.  <a href="a01518.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01080.html">bl::file::binary::VersionedPayloadLoader&lt; Payload &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base interface for payload loaders. <a class="el" href="a01020.html" title="Utility class to read and write binary data. Endianness agnostic Floating point types are not support...">File</a> version loaders should implement this interface.  <a href="a01080.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01522.html">bl::resource::Resource&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base level struct representing a resource that can be loaded and managed by the resource system.  <a href="a01522.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of classes for encoding and decoding data into endian agnostic binary files. Core class is File. </p>
+<p>A collection of classes useful for managing resources, including their loading and lifetimes. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 15:19:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 6 2021 22:29:30 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
