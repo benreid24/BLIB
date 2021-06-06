@@ -166,8 +166,7 @@ void DefaultRenderer::renderButton(sf::RenderTarget& target, sf::RenderStates st
 }
 
 void DefaultRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates states,
-                                     const ComboBox& box, const sf::Vector2i& optionSize,
-                                     unsigned int optionCount, unsigned int mousedOption) const {
+                                     const ComboBox& box) const {
     static const RenderSettings defaults = getComboDefaults();
     const RenderSettings settings        = getSettings(&box);
 
@@ -176,6 +175,15 @@ void DefaultRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates 
                                   {0, 0, box.getAcquisition().width, box.getAcquisition().height},
                                   settings,
                                   defaults);
+}
+
+void DefaultRenderer::renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::RenderStates states,
+                                                  const ComboBox& box,
+                                                  const sf::Vector2i& optionSize,
+                                                  unsigned int optionCount,
+                                                  unsigned int mousedOption) const {
+    static const RenderSettings defaults = getComboDefaults();
+    const RenderSettings settings        = getSettings(&box);
 
     sf::Vector2i pos(0, box.getAcquisition().height);
     for (unsigned int i = 0; i < optionCount; ++i) {
@@ -189,7 +197,7 @@ void DefaultRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates 
     }
 }
 
-void DefaultRenderer::renderComboBoxDropdown(sf::RenderTexture& texture) const {
+void DefaultRenderer::renderComboBoxDropdownArrow(sf::RenderTexture& texture) const {
     sf::VertexArray points(sf::PrimitiveType::Triangles, 3);
     const sf::Vector2f size = static_cast<sf::Vector2f>(texture.getSize());
 

@@ -56,14 +56,21 @@ void DebugRenderer::renderButton(sf::RenderTarget& target, sf::RenderStates stat
 }
 
 void DebugRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates states,
-                                   const ComboBox& box, const sf::Vector2i& optionSize,
-                                   unsigned int optionCount, unsigned int mousedOption) const {
-    underlying->renderComboBox(target, states, box, optionSize, optionCount, mousedOption);
+                                   const ComboBox& box) const {
+    underlying->renderComboBox(target, states, box);
     addInfo(target, states, box.getAcquisition(), box.group(), box.id());
 }
 
-void DebugRenderer::renderComboBoxDropdown(sf::RenderTexture& texture) const {
-    underlying->renderComboBoxDropdown(texture);
+void DebugRenderer::renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::RenderStates states,
+                                                const ComboBox& box, const sf::Vector2i& optionSize,
+                                                unsigned int optionCount,
+                                                unsigned int mousedOption) const {
+    underlying->renderComboBoxDropdownBoxes(
+        target, states, box, optionSize, optionCount, mousedOption);
+}
+
+void DebugRenderer::renderComboBoxDropdownArrow(sf::RenderTexture& texture) const {
+    underlying->renderComboBoxDropdownArrow(texture);
 }
 
 void DebugRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,

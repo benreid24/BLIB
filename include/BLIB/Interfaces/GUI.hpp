@@ -19,6 +19,7 @@
 #include <BLIB/Interfaces/GUI/Renderers/Renderer.hpp>
 #include <BLIB/Interfaces/GUI/Renderers/RendererUtil.hpp>
 
+#include <BLIB/Interfaces/GUI/Packers/GridPacker.hpp>
 #include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
 #include <BLIB/Interfaces/GUI/Packers/Packer.hpp>
 

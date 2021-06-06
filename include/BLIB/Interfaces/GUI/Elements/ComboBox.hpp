@@ -52,6 +52,14 @@ public:
     void clearOptions();
 
     /**
+     * @brief Sets the maximum height the box can fill before limiting the size and scrolling. Set
+     *        to 0 for unbounded heoght
+     *
+     * @param height The maximum height of the dropdown
+     */
+    void setMaxHeight(int height);
+
+    /**
      * @brief Returns the selected option's index. -1 means no selection
      *
      */
@@ -80,6 +88,12 @@ public:
      *
      */
     bool isOpened() const;
+
+    /**
+     * @brief Returns true
+     *
+     */
+    virtual bool consumesScrolls() const override;
 
 protected:
     /**
@@ -127,6 +141,8 @@ private:
     sf::Vector2i labelSize;
     sf::IntRect labelRegion;
     std::optional<sf::Color> labelColor;
+    int maxHeight;
+    float scroll;
     int selected; // -1 means none
     bool opened;
     mutable bool arrowRendered;
@@ -134,6 +150,7 @@ private:
     void onSettings(); // update label settings
     void optionClicked(std::string text);
     void clicked();
+    void scrolled(const Action& scroll);
 
     void packOpened();
     void packClosed();

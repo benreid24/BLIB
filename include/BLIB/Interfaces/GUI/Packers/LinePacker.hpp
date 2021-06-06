@@ -70,6 +70,12 @@ public:
     virtual void pack(const sf::IntRect& acquisition,
                       const std::vector<Element::Ptr>& elements) override;
 
+    /**
+     * @brief Destroy the Line Packer
+     *
+     */
+    virtual ~LinePacker() = default;
+
 private:
     const Direction dir;
     const SpaceMode mode;

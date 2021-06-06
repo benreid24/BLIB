@@ -28,23 +28,14 @@ RawEvent makeFakeMove() {
     return RawEvent(sfevent, {-100000, -100000}, sf::Transform::Identity);
 }
 
-template<typename T>
-sf::Rect<T> intersection(const sf::Rect<T>& r, const sf::Rect<T>& l) {
-    const sf::Rect<T> rc(r.left, r.top, r.left + r.width, r.top + r.height);
-    const sf::Rect<T> lc(l.left, l.top, l.left + l.width, l.top + l.height);
-    const sf::Rect<T> c(std::max(rc.left, lc.left),
-                        std::max(rc.top, lc.top),
-                        std::min(rc.width, lc.width),
-                        std::min(rc.height, lc.height));
-    return {c.left, c.top, c.width - c.left, c.height - c.top};
-}
-
 bool viewValid(const sf::View& v) {
     const sf::FloatRect& a = v.getViewport();
     if (a.width < 0.f) return false;
     if (a.height < 0.f) return false;
     if (a.left < 0.f) return false;
     if (a.top < 0.f) return false;
+    if (a.width > 1.f) return false;
+    if (a.height > 1.f) return false;
     return true;
 }
 
@@ -146,7 +137,7 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
     const sf::View oldView = target.getView();
 
     // Compute new view
-    const sf::View view = computeView(target, getAcquisition());
+    const sf::View view = computeView(oldView, getAcquisition());
     if (!viewValid(view)) {
         // Restore view
         target.setView(oldView);
@@ -177,9 +168,8 @@ void Container::renderChildrenRawFiltered(sf::RenderTarget& target, sf::RenderSt
     }
 }
 
-sf::View Container::computeView(sf::RenderTarget& target, const sf::IntRect& area,
+sf::View Container::computeView(const sf::View& oldView, const sf::IntRect& area,
                                 bool constrain) const {
-    const sf::View& oldView      = target.getView();
     const sf::Vector2f oldCorner = oldView.getCenter() - oldView.getSize() * 0.5f;
 
     const sf::FloatRect acq = static_cast<sf::FloatRect>(area);
@@ -190,17 +180,51 @@ sf::View Container::computeView(sf::RenderTarget& target, const sf::IntRect& are
         (acq.left - oldCorner.x) / w, (acq.top - oldCorner.y) / h, acq.width / w, acq.height / h);
     sf::View view = interface::ViewUtil::computeView({acq.width, acq.height}, oldView, port);
 
-    if (constrain) {
-        const sf::FloatRect cport = intersection(view.getViewport(), oldView.getViewport());
-        const float nw            = acq.width * (cport.width / view.getViewport().width);
-        const float nh            = acq.height * (cport.height / view.getViewport().height);
-
-        view.setCenter(nw * 0.5f, nh * 0.5f);
-        view.setViewport(cport);
-        view.setSize(nw, nh);
-    }
+    if (constrain) { constrainView(view, oldView); }
 
     return view;
+}
+
+void Container::constrainView(sf::View& view, const sf::View& oldView) const {
+    const sf::FloatRect& newPort = view.getViewport();
+    const sf::FloatRect& oldPort = oldView.getViewport();
+    const sf::Vector2f m(view.getSize().x / newPort.width, view.getSize().y / newPort.height);
+    const float oldBottom = oldPort.top + oldPort.height;
+    const float oldRight  = oldPort.left + oldPort.width;
+
+    if (newPort.left < oldPort.left) {
+        const float d = oldPort.left - newPort.left;
+        const float s = d * m.x;
+        view.setSize(view.getSize() - sf::Vector2f(s, 0.f));
+        view.move(s * 0.5f, 0.f);
+        view.setViewport({oldPort.left, newPort.top, newPort.width - d, newPort.height});
+    }
+
+    const float newRight = newPort.left + newPort.width;
+    if (newRight > oldRight) {
+        const float d = newRight - oldRight;
+        const float s = d * m.x;
+        view.setSize(view.getSize() - sf::Vector2f(s, 0.f));
+        view.move(-s * 0.5f, 0.f);
+        view.setViewport({newPort.left, newPort.top, newPort.width - d, newPort.height});
+    }
+
+    if (newPort.top < oldPort.top) {
+        const float d = oldPort.top - newPort.top;
+        const float s = d * m.y;
+        view.setSize(view.getSize() - sf::Vector2f(0.f, s));
+        view.move(0.f, s * 0.5f);
+        view.setViewport({newPort.left, oldPort.top, newPort.width, newPort.height - d});
+    }
+
+    const float newBottom = newPort.top + newPort.height;
+    if (newBottom > oldBottom) {
+        const float d = newBottom - oldBottom;
+        const float s = d * m.y;
+        view.setSize(view.getSize() - sf::Vector2f(0.f, s));
+        view.move(0.f, -s * 0.5f);
+        view.setViewport({newPort.left, newPort.top, newPort.width, newPort.height - d});
+    }
 }
 
 } // namespace gui

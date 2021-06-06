@@ -156,16 +156,15 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
     // Preserve old view and compute new
     const sf::View oldView = target.getView();
     sf::View view          = computeView(
-        target, {sf::Vector2i(getAcquisition().left, getAcquisition().top), availableSize}, false);
+        oldView, {sf::Vector2i(getAcquisition().left, getAcquisition().top), availableSize}, false);
     view.move(-offset);
     target.setView(view);
 
-    // Render children and reset view
+    // Render children
     renderChildrenRawFiltered(target, states, renderer, filter);
-    target.setView(oldView);
 
     // Compute and set scrollbar view
-    view = computeView(target,
+    view = computeView(oldView,
                        {getAcquisition().left,
                         getAcquisition().top,
                         getAcquisition().width,
