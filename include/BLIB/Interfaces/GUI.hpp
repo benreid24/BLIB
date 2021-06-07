@@ -42,4 +42,7 @@
 #include <BLIB/Interfaces/GUI/Elements/ToggleButton.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Window.hpp>
 
+#include <BLIB/Interfaces/GUI/Dialogs/FilePicker.hpp>
+#include <BLIB/Interfaces/GUI/Dialogs/tinyfiledialogs.h>
+
 #endif
