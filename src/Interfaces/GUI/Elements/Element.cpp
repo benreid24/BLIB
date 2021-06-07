@@ -190,7 +190,7 @@ bool Element::processAction(const Action& action) {
     if (action.type == Action::Scrolled) {
         if (mouseOver()) {
             fireSignal(action);
-            return true;
+            return consumesScrolls();
         }
         return false;
     }

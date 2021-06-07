@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/GUI/Elements/Container.hpp>
 
+#include <BLIB/Interfaces/GUI/Elements/ScrollArea.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
 
 namespace bl
@@ -69,6 +70,11 @@ void Container::bringToTop(const Element* child) {
 }
 
 void Container::add(Element::Ptr e) {
+    if (!dynamic_cast<ScrollArea*>(e.get())) {
+        e->getSignal(Action::Scrolled).willAlwaysCall([this](const Action& a, Element*) {
+            fireSignal(a);
+        });
+    }
     children.insert(children.begin(), e);
     if (e->packable())
         packableChildren.push_back(e);
@@ -92,22 +98,26 @@ RawEvent Container::transformEvent(const RawEvent& e) const {
 }
 
 bool Container::handleRawEvent(const RawEvent& event) {
-    static const RawEvent fakeMove = makeFakeMove();
-    bool sendFakes                 = false;
-    const RawEvent transformed     = transformEvent(event);
+    if (!getAcquisition().contains(static_cast<sf::Vector2i>(event.localMousePos))) {
+        if (event.event.type != sf::Event::MouseMoved) return false;
+    }
+
+    bool sendFakes             = false;
+    const RawEvent transformed = transformEvent(event);
+    const RawEvent fakeMove =
+        event.event.type == sf::Event::MouseMoved ? transformed : makeFakeMove();
 
     for (Element::Ptr e : nonpackableChildren) {
-        if (sendFakes)
-            e->handleEvent(fakeMove);
-        else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get()))))
+        if (sendFakes) { e->handleEvent(fakeMove); }
+        else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get())))) {
             sendFakes = true;
+        }
     }
     for (Element::Ptr e : packableChildren) {
-        if (sendFakes)
-            e->handleEvent(fakeMove);
-        else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get()))) &&
-                 (event.event.type != sf::Event::MouseWheelScrolled || e->consumesScrolls()))
+        if (sendFakes) { e->handleEvent(fakeMove); }
+        else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get())))) {
             sendFakes = true;
+        }
     }
 
     // allow Element::handleEvent to complete for this element now if sendFakes is false

@@ -9,14 +9,8 @@ namespace gui
 namespace
 {
 sf::Clock timer;
-constexpr float DoubleClick = 0.75f;
+constexpr float DoubleClick = 1.25f;
 } // namespace
-
-FilePicker::Ptr FilePicker::create(const std::string& rootdir,
-                                   const std::vector<std::string>& extensions,
-                                   const ChooseCb& onChoose, const CancelCb& onCancel) {
-    return Ptr(new FilePicker(rootdir, extensions, onChoose, onCancel));
-}
 
 FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string>& extensions,
                        const ChooseCb& onChoose, const CancelCb& onCancel)
@@ -36,10 +30,13 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
     pathRow->pack(pathBox, true, true);
     window->pack(pathRow, true, false);
 
-    filesBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    ScrollArea::Ptr fileSroll = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 4));
+    filesBox                  = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    fileSroll->setMaxSize({500, 400});
     filesBox->setColor(sf::Color::White, sf::Color::Black);
     filesBox->setOutlineThickness(2);
-    window->pack(filesBox, true, true);
+    fileSroll->pack(filesBox, true, true);
+    window->pack(fileSroll, true, true);
 
     Box::Ptr entryRow        = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
     fileEntry                = TextEntry::create(1);
@@ -57,7 +54,7 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
     window->pack(entryRow, true, false);
 }
 
-void FilePicker::show(Mode m, const std::string& title, GUI::Ptr parent, bool rpath) {
+void FilePicker::open(Mode m, const std::string& title, GUI::Ptr parent, bool rpath) {
     mode = m;
     window->getTitleLabel()->setText(title);
 
@@ -68,11 +65,10 @@ void FilePicker::show(Mode m, const std::string& title, GUI::Ptr parent, bool rp
     }
 
     populateFiles();
-    window->setForceFocus(true);
     parent->pack(window);
 }
 
-void FilePicker::hide() { window->remove(); }
+void FilePicker::close() { window->remove(); }
 
 void FilePicker::onPathClick(unsigned int i) {
     if (i < path.size() - 1) {
@@ -128,7 +124,7 @@ void FilePicker::onChooseClicked() {
 
 void FilePicker::highlight(const std::string& f) {
     for (auto& pair : fileLabels) {
-        if (pair.first == f) { pair.second->setColor(sf::Color(20, 50, 200), sf::Color::Blue); }
+        if (pair.first == f) { pair.second->setColor(sf::Color(20, 75, 240), sf::Color::Blue); }
         else {
             pair.second->setColor(sf::Color::Transparent, sf::Color::Transparent);
         }
@@ -155,17 +151,33 @@ void FilePicker::populateFiles() {
     std::sort(folders.begin(), folders.end());
 
     for (const std::string& f : folders) {
+        const auto onClick = [this, f](const Action&, Element*) { onFolderClick(f); };
+
         Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
-        row->pack(Label::create("Folder:"), false, true);
-        row->pack(Label::create(f), true, true);
+        row->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        Label::Ptr label = Label::create("Folder:");
+        label->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        row->pack(label, false, true);
+        label = Label::create(f);
+        label->setHorizontalAlignment(RenderSettings::Left);
+        label->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        row->pack(label, true, true);
         filesBox->pack(row, true, false);
         fileLabels[f] = row;
     }
 
     for (const std::string& f : files) {
+        const auto onClick = [this, f](const Action&, Element*) { onFileClick(f); };
+
         Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
-        row->pack(Label::create("File:"), false, true);
-        row->pack(Label::create(f), true, true);
+        row->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        Label::Ptr label = Label::create("File:");
+        label->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        row->pack(label, false, true);
+        label = Label::create(f);
+        label->setHorizontalAlignment(RenderSettings::Left);
+        label->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        row->pack(label, true, true);
         filesBox->pack(row, true, false);
         fileLabels[f] = row;
     }

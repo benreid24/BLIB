@@ -11,19 +11,17 @@ namespace gui
 {
 class FilePicker {
 public:
-    typedef std::shared_ptr<FilePicker> Ptr;
-
     using ChooseCb = std::function<void(const std::string&)>;
     using CancelCb = std::function<void()>;
 
     enum Mode { CreateNew, PickExisting };
 
-    static Ptr create(const std::string& rootdir, const std::vector<std::string>& extensions,
-                      const ChooseCb& onChoose, const CancelCb& onCancel);
+    FilePicker(const std::string& rootdir, const std::vector<std::string>& extensions,
+               const ChooseCb& onChoose, const CancelCb& onCancel);
 
-    void show(Mode mode, const std::string& title, GUI::Ptr parent, bool resetPath = false);
+    void open(Mode mode, const std::string& title, GUI::Ptr parent, bool resetPath = false);
 
-    void hide();
+    void close();
 
 private:
     Mode mode;
@@ -43,9 +41,6 @@ private:
 
     std::string clickedFile;
     float fileClickTime;
-
-    FilePicker(const std::string& rootdir, const std::vector<std::string>& extensions,
-               const ChooseCb& onChoose, const CancelCb& onCancel);
 
     void onPathClick(unsigned int i);
     void onFolderClick(const std::string& folder);

@@ -159,6 +159,12 @@ protected:
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const override;
 
+    /**
+     * @brief Returns true
+     *
+     */
+    virtual bool consumesScrolls() const override;
+
 private:
     const bool moveable;
     unsigned int titlebarHeight;

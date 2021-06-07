@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI/Elements/ScrollArea.hpp>
 
 #include <BLIB/Interfaces/Utilities.hpp>
-#include <BLIB/Logging.hpp>
 
 namespace bl
 {

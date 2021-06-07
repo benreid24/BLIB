@@ -162,5 +162,7 @@ void Window::addChildren() {
     add(elementArea);
 }
 
+bool Window::consumesScrolls() const { return true; }
+
 } // namespace gui
 } // namespace bl
