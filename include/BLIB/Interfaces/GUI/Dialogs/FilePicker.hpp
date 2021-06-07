@@ -29,11 +29,11 @@ private:
     Mode mode;
     const std::string root;
     const std::vector<std::string> extensions;
+    const ChooseCb onChoose;
     std::vector<std::string> path;
 
     Window::Ptr window;
 
-    Label::Ptr pathLabel;
     Box::Ptr pathBox;
     std::vector<Button::Ptr> pathButtons;
 
@@ -54,6 +54,7 @@ private:
 
     void highlight(const std::string& file);
     void populateFiles();
+    std::string buildPath() const;
 };
 
 } // namespace gui

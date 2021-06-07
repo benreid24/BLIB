@@ -153,6 +153,27 @@ std::vector<std::string> Util::listDirectory(const std::string& path, const std:
     return list;
 }
 
+std::vector<std::string> Util::listDirectoryFolders(const std::string& path) {
+    if (path.empty()) return {};
+
+    DIR* cd;
+    struct dirent* cfile;
+    std::vector<std::string> list;
+    std::string folder = path;
+    if (folder[folder.size() - 1] != '/' && folder[folder.size() - 1] != '\\')
+        folder.push_back('/');
+
+    cd = opendir(folder.c_str());
+    if (cd != nullptr) {
+        while ((cfile = readdir(cd))) {
+            std::string file = cfile->d_name;
+            if (file.find(".") == std::string::npos) { list.push_back(file); }
+        }
+    }
+
+    return list;
+}
+
 bool Util::deleteFile(const std::string& file) { return 0 == remove(file.c_str()); }
 
 } // namespace file

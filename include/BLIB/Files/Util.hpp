@@ -124,6 +124,14 @@ struct Util {
                                                   bool recursive         = true);
 
     /**
+     * @brief Lists the folders in a given directory. Results are not joined with the root dir
+     *
+     * @param path The directory to search in
+     * @return std::vector<std::string> Folders in the search directory
+     */
+    static std::vector<std::string> listDirectoryFolders(const std::string& path);
+
+    /**
      * @brief Delets the file from the file system
      *
      * @param file Path of the file to delete
