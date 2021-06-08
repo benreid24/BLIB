@@ -31,6 +31,7 @@ private:
     std::vector<std::string> path;
 
     Window::Ptr window;
+    sf::RenderTexture folderTexture;
 
     Box::Ptr pathBox;
     std::vector<Box::Ptr> pathButtons;

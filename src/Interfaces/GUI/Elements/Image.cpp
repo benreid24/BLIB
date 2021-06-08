@@ -9,10 +9,25 @@ Image::Ptr Image::create(resource::Resource<sf::Texture>::Ref texture, const std
     return Ptr(new Image(texture, group, id));
 }
 
-Image::Image(resource::Resource<sf::Texture>::Ref texture, const std::string& group,
+Image::Ptr Image::create(const sf::Texture& texture, const std::string& group,
+                         const std::string& id) {
+    return Ptr(new Image(texture, group, id));
+}
+
+Image::Image(resource::Resource<sf::Texture>::Ref th, const std::string& group,
              const std::string& id)
 : Element(group, id)
-, texture(texture)
+, textureHandle(th)
+, texture(th.get())
+, sprite(*texture)
+, fillAcq(false)
+, maintainAR(true) {
+    getSignal(Action::AcquisitionChanged).willAlwaysCall(std::bind(&Image::setScale, this));
+}
+
+Image::Image(const sf::Texture& th, const std::string& group, const std::string& id)
+: Element(group, id)
+, texture(&th)
 , sprite(*texture)
 , fillAcq(false)
 , maintainAR(true) {

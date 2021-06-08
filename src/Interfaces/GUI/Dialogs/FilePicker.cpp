@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI.hpp>
 
 #include <BLIB/Files/Util.hpp>
+#include <BLIB/Media/Shapes.hpp>
 
 namespace bl
 {
@@ -10,6 +11,9 @@ namespace
 {
 sf::Clock timer;
 constexpr float DoubleClick = 1.25f;
+
+constexpr float IconSize = 25.f;
+constexpr float Corner   = 4.f;
 } // namespace
 
 FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string>& extensions,
@@ -55,6 +59,24 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
     entryRow->pack(chooseButton, false, true);
     entryRow->pack(cancelButton, false, true);
     window->pack(entryRow, true, false);
+
+    constexpr float IndentY = IconSize * 0.07f;
+    constexpr float IndentX = IconSize * 0.4f;
+    const sf::Color folderColor(40, 40, 240);
+
+    folderTexture.create(static_cast<unsigned int>(IconSize), static_cast<unsigned int>(IconSize));
+    sf::RectangleShape rect({IndentX, IconSize});
+    rect.setFillColor(folderColor);
+    rect.setPosition(0.f, 0.f);
+    folderTexture.draw(rect);
+    rect.setPosition(IndentX, 0.f);
+    rect.setSize({IconSize, IconSize - IndentY});
+    folderTexture.draw(rect);
+    folderTexture.draw(rect);
+    shapes::Triangle triangle({0.f, 0.f}, {4.f, IndentY}, {0.f, IndentY});
+    triangle.setFillColor(folderColor);
+    triangle.setPosition(IndentX, IconSize - IndentY);
+    folderTexture.draw(triangle);
 }
 
 void FilePicker::open(Mode m, const std::string& title, GUI::Ptr parent, bool rpath) {
@@ -132,7 +154,7 @@ void FilePicker::onChooseClicked() {
 
 void FilePicker::highlight(const std::string& f) {
     for (auto& pair : fileLabels) {
-        if (pair.first == f) { pair.second->setColor(sf::Color(20, 75, 240), sf::Color::Blue); }
+        if (pair.first == f) { pair.second->setColor(sf::Color(40, 95, 250), sf::Color::Blue); }
         else {
             pair.second->setColor(sf::Color::Transparent, sf::Color::Transparent);
         }
@@ -163,10 +185,10 @@ void FilePicker::populateFiles() {
 
         Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
         row->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
-        Label::Ptr label = Label::create("Folder:");
-        label->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
-        row->pack(label, false, true);
-        label = Label::create(f);
+        Image::Ptr icon = Image::create(folderTexture.getTexture());
+        icon->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        row->pack(icon, false, true);
+        Label::Ptr label = Label::create(f);
         label->setHorizontalAlignment(RenderSettings::Left);
         label->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
         row->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
@@ -181,10 +203,7 @@ void FilePicker::populateFiles() {
 
         Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
         row->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
-        Label::Ptr label = Label::create("File:");
-        label->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
-        row->pack(label, false, true);
-        label = Label::create(f);
+        Label::Ptr label = Label::create(f);
         label->setHorizontalAlignment(RenderSettings::Left);
         label->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
         row->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
@@ -203,7 +222,7 @@ void FilePicker::populateFiles() {
         but->getSignal(Action::LeftClicked).willAlwaysCall([this, i](const Action&, Element*) {
             onPathClick(i);
         });
-        b->pack(Label::create("->"));
+        b->pack(Label::create(" / "));
         b->pack(but);
         pathButtons.push_back(b);
         pathBox->pack(b);
