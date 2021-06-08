@@ -87,7 +87,7 @@ void ScrollArea::refreshSize() const {
 
 sf::Vector2i ScrollArea::minimumRequisition() const {
     refreshSize();
-    sf::Vector2i req = totalSize;
+    sf::Vector2i req = totalSize + sf::Vector2i(BarSize, BarSize);
     if (maxSize.has_value())
         req = {std::min(totalSize.x, maxSize.value().x), std::min(totalSize.y, maxSize.value().y)};
     return req;
