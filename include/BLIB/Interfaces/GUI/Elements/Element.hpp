@@ -217,11 +217,14 @@ public:
     bool active() const;
 
     /**
-     * @brief Whether or not this Element type consumes mouse scroll events. Default is false.
-     *        Sliders and ScrollAreas return true, as should any scrollable element
+     * @brief Special event handler for scroll events. Default behavior is to return the result of
+     *        calling the parent handleScroll() method. Scrollable classes should override
+     *
+     * @param scroll The scroll action to process
+     * @return True if the event was processed, false if unhandled
      *
      */
-    virtual bool consumesScrolls() const { return false; }
+    virtual bool handleScroll(const Action& scroll);
 
     /**
      * @brief Performs any custom logic of the Element

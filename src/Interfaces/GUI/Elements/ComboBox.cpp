@@ -119,6 +119,14 @@ bool ComboBox::handleRawEvent(const RawEvent& event) {
     return contained && opened;
 }
 
+bool ComboBox::handleScroll(const Action& action) {
+    if (opened) {
+        scrolled(action);
+        return true;
+    }
+    return false;
+}
+
 void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
                         const Renderer& renderer) const {
     unsigned int moused = options.size();
@@ -198,8 +206,6 @@ void ComboBox::packClosed() {
             labels[i]->setVisible(false, false);
     }
 }
-
-bool ComboBox::consumesScrolls() const { return true; }
 
 void ComboBox::setMaxHeight(int m) { maxHeight = m; }
 

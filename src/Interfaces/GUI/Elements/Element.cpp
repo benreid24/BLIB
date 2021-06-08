@@ -190,7 +190,7 @@ bool Element::processAction(const Action& action) {
     if (action.type == Action::Scrolled) {
         if (mouseOver()) {
             fireSignal(action);
-            return consumesScrolls();
+            return handleScroll(action);
         }
         return false;
     }
@@ -198,6 +198,12 @@ bool Element::processAction(const Action& action) {
         fireSignal(action);
         return true;
     }
+    return false;
+}
+
+bool Element::handleScroll(const Action& scroll) {
+    auto p = parent.lock();
+    if (p) return p->handleScroll(scroll);
     return false;
 }
 

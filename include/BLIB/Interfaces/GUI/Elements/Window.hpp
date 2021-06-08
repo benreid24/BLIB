@@ -160,10 +160,10 @@ protected:
                           const Renderer& renderer) const override;
 
     /**
-     * @brief Returns true
+     * @brief Returns true to prevent pass through
      *
      */
-    virtual bool consumesScrolls() const override;
+    virtual bool handleScroll(const Action&) override;
 
 private:
     const bool moveable;

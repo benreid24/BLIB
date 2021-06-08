@@ -125,8 +125,13 @@ protected:
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const override;
 
-    /// @brief True
-    virtual bool consumesScrolls() const override { return true; }
+    /**
+     * @brief Scrolls the area and returns true
+     *
+     * @param scroll The scroll that occured
+     * @return True
+     */
+    virtual bool handleScroll(const Action& scroll) override;
 
 private:
     Packer::Ptr packer;
@@ -143,7 +148,6 @@ private:
     void addBars();
     void refreshSize() const;
     void scrolled();
-    void mouseScroll(const Action& scroll);
 };
 } // namespace gui
 } // namespace bl

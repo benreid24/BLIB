@@ -72,11 +72,6 @@ void Container::bringToTop(const Element* child) {
 }
 
 void Container::add(Element::Ptr e) {
-    if (!e->consumesScrolls()) {
-        e->getSignal(Action::Scrolled).willAlwaysCall([this](const Action& a, Element*) {
-            fireSignal(a);
-        });
-    }
     children.insert(children.begin(), e);
     if (e->packable())
         packableChildren.push_back(e);
@@ -115,9 +110,7 @@ bool Container::handleRawEvent(const RawEvent& event) {
     for (Element::Ptr e : packableChildren) {
         if (sendFakes) { e->handleEvent(fakeMove); }
         else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get())))) {
-            if (event.event.type != sf::Event::MouseWheelScrolled || e->consumesScrolls()) {
-                sendFakes = true;
-            }
+            sendFakes = true;
         }
     }
 
