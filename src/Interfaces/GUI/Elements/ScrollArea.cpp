@@ -150,6 +150,15 @@ sf::Vector2f ScrollArea::getElementOffset(const Element* e) const {
     return {0, 0};
 }
 
+bool ScrollArea::handleRawEvent(const RawEvent& event) {
+    const bool in = getAcquisition().contains(static_cast<sf::Vector2i>(event.localMousePos));
+    if (in || event.event.type == sf::Event::MouseMoved ||
+        event.event.type == sf::Event::MouseButtonReleased) {
+        return Container::handleRawEvent(event);
+    }
+    return false;
+}
+
 void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const {
     // Preserve old view and compute new

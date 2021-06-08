@@ -112,29 +112,9 @@ bool Container::handleRawEvent(const RawEvent& event) {
         }
     }
 
-    /*if (!getAcquisition().contains(static_cast<sf::Vector2i>(event.localMousePos))) {
-        if (event.event.type != sf::Event::MouseMoved &&
-            event.event.type != sf::Event::MouseButtonReleased) {
-            BL_LOG_INFO << "event pass";
-            if (!sendFakes) {
-                BL_LOG_INFO << "no fakes";
-                for (Element::Ptr e : packableChildren) {
-                    if (e->unbounded()) {
-                        BL_LOG_INFO << "sent unbounded";
-                        if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get()))))
-                            return true;
-                    }
-                }
-            }
-
-            return sendFakes;
-        }
-    }*/
-
     for (Element::Ptr e : packableChildren) {
         if (sendFakes) { e->handleEvent(fakeMove); }
         else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get())))) {
-            sendFakes = true;
             if (event.event.type != sf::Event::MouseWheelScrolled || e->consumesScrolls()) {
                 sendFakes = true;
             }

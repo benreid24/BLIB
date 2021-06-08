@@ -74,6 +74,14 @@ public:
      */
     void pack(Element::Ptr e, bool fillX, bool fillY);
 
+    /**
+     * @brief Does a bounds check and calls Container::handleRawEvent if in bounds
+     *
+     * @param event The event that fired
+     * @return True if the event was consumed, false otherwise
+     */
+    virtual bool handleRawEvent(const RawEvent& event) override;
+
 protected:
     /**
      * @brief Create a new ScrollArea
