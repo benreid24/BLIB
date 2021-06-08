@@ -33,15 +33,17 @@ private:
     Window::Ptr window;
 
     Box::Ptr pathBox;
-    std::vector<Button::Ptr> pathButtons;
+    std::vector<Box::Ptr> pathButtons;
 
     Box::Ptr filesBox;
+    ScrollArea::Ptr filesScroll;
     std::unordered_map<std::string, Box::Ptr> fileLabels;
     TextEntry::Ptr fileEntry;
 
     std::string clickedFile;
     float fileClickTime;
 
+    void onClearPath();
     void onPathClick(unsigned int i);
     void onFolderClick(const std::string& folder);
     void onFileClick(const std::string& file);

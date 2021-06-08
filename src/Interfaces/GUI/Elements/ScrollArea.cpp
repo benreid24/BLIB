@@ -71,6 +71,18 @@ void ScrollArea::setAlwaysShowHorizontalScrollbar(bool s) { alwaysShowH = s; }
 
 void ScrollArea::setAlwaysShowVerticalScrollbar(bool s) { alwaysShowV = s; }
 
+void ScrollArea::setScroll(const sf::Vector2f& scroll) {
+    if (dirty()) refreshSize();
+    const sf::Vector2i freeSpace = totalSize - availableSize;
+    offset.x                     = static_cast<float>(freeSpace.x) * scroll.x;
+    offset.y                     = static_cast<float>(freeSpace.y) * scroll.y;
+
+    if (offset.x > freeSpace.x) offset.x = freeSpace.x;
+    if (offset.x < 0.f) offset.x = 0.f;
+    if (offset.y > freeSpace.y) offset.y = freeSpace.y;
+    if (offset.y < 0.f) offset.y = 0.f;
+}
+
 void ScrollArea::setMaxSize(const sf::Vector2i& s) {
     if (s.x <= 0 || s.y <= 0)
         maxSize.reset();
@@ -96,7 +108,6 @@ sf::Vector2i ScrollArea::minimumRequisition() const {
 void ScrollArea::onAcquisition() {
     refreshSize();
 
-    packer->pack({sf::Vector2i(0, 0), totalSize}, getPackableChildren());
     if (totalSize.x > (getAcquisition().width - BarSize) || alwaysShowH) {
         availableSize.y -= BarSize;
         const sf::Vector2i barSize(getAcquisition().width - BarSize, BarSize);
@@ -120,6 +131,10 @@ void ScrollArea::onAcquisition() {
     }
     else
         vertScrollbar->setVisible(false);
+
+    packer->pack(
+        {0, 0, std::max(totalSize.x, availableSize.x), std::max(totalSize.y, availableSize.y)},
+        getPackableChildren());
 }
 
 void ScrollArea::scrolled() {
@@ -135,11 +150,15 @@ void ScrollArea::scrolled() {
 }
 
 bool ScrollArea::handleScroll(const Action& scroll) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
-        horScrollbar->incrementValue(-scroll.data.scroll);
-    else
-        vertScrollbar->incrementValue(-scroll.data.scroll);
+    if (totalSize.x > availableSize.x || totalSize.y > availableSize.y) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ||
+            sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
+            horScrollbar->incrementValue(-scroll.data.scroll);
+        }
+        else {
+            vertScrollbar->incrementValue(-scroll.data.scroll);
+        }
+    }
     return true;
 }
 

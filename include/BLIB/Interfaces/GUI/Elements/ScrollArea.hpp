@@ -58,6 +58,13 @@ public:
     void setAlwaysShowHorizontalScrollbar(bool show);
 
     /**
+     * @brief Direct way to set the scroll. Parameter is a normalized vector
+     *
+     * @param scroll The normalized scroll values. 0 is top/left, 1 is bottom/right
+     */
+    void setScroll(const sf::Vector2f& scroll);
+
+    /**
      * @brief Pack the element into the ScrollArea
      *
      * @param e The element to pack
