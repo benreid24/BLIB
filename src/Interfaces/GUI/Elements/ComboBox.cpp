@@ -208,7 +208,7 @@ void ComboBox::scrolled(const Action& a) {
         const float height    = labelSize.y * static_cast<int>(options.size() + 1);
         const float maxScroll = height - maxHeight;
 
-        scroll += a.data.scroll * 2.f;
+        scroll -= a.data.scroll * 6.f;
         if (scroll < 0.f)
             scroll = 0.f;
         else if (scroll > maxScroll)
