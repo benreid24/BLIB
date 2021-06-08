@@ -3,7 +3,7 @@
 #include <BLIB/Interfaces/GUI/Elements/ScrollArea.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
 
-#include <BLIB/Logging.hpp>
+#include <BLIB/Interfaces.hpp>
 
 namespace bl
 {
@@ -21,25 +21,6 @@ bool deleteElement(std::vector<Element::Ptr>& list, const Element* e) {
         }
     }
     return del;
-}
-
-RawEvent makeFakeMove() {
-    sf::Event sfevent;
-    sfevent.type        = sf::Event::MouseMoved;
-    sfevent.mouseMove.x = -100000;
-    sfevent.mouseMove.y = -100000;
-    return RawEvent(sfevent, {-100000, -100000}, sf::Transform::Identity);
-}
-
-bool viewValid(const sf::View& v) {
-    const sf::FloatRect& a = v.getViewport();
-    if (a.width < 0.f) return false;
-    if (a.height < 0.f) return false;
-    if (a.left < 0.f) return false;
-    if (a.top < 0.f) return false;
-    if (a.width > 1.f) return false;
-    if (a.height > 1.f) return false;
-    return true;
 }
 
 } // namespace
@@ -95,27 +76,21 @@ RawEvent Container::transformEvent(const RawEvent& e) const {
 }
 
 bool Container::handleRawEvent(const RawEvent& event) {
-    bool sendFakes             = false;
     const RawEvent transformed = transformEvent(event);
-    const RawEvent fakeMove =
-        event.event.type == sf::Event::MouseMoved ? transformed : makeFakeMove();
 
     for (Element::Ptr e : nonpackableChildren) {
-        if (sendFakes) { e->handleEvent(fakeMove); }
-        else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get())))) {
-            sendFakes = true;
+        if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get())))) {
+            if (event.event.type != sf::Event::MouseMoved) { return true; }
         }
     }
 
     for (Element::Ptr e : packableChildren) {
-        if (sendFakes) { e->handleEvent(fakeMove); }
-        else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get())))) {
-            sendFakes = true;
+        if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get())))) {
+            if (event.event.type != sf::Event::MouseMoved) { return true; }
         }
     }
 
-    // allow Element::handleEvent to complete for this element now if sendFakes is false
-    return sendFakes;
+    return false;
 }
 
 sf::Vector2f Container::getElementOffset(const Element* e) const { return {0, 0}; }
@@ -142,11 +117,6 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
 
     // Compute new view
     const sf::View view = computeView(oldView, getAcquisition());
-    if (!viewValid(view)) {
-        // Restore view
-        target.setView(oldView);
-        return;
-    }
     target.setView(view);
 
     // Draw children

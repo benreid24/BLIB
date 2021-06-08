@@ -268,6 +268,12 @@ protected:
      */
     Renderer() = default;
 
+    /**
+     * @brief Returns whether or not the given view is valid for rendering
+     *
+     */
+    bool viewValid(const sf::View& view) const;
+
 private:
     std::unordered_map<std::string, RenderSettings> groupSettings;
     std::unordered_map<std::string, RenderSettings> idSettings;

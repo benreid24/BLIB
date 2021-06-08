@@ -149,6 +149,7 @@ private:
     mutable sf::Vector2i totalSize;
     mutable sf::Vector2i availableSize;
     sf::Vector2f offset;
+    sf::Vector2f boxMousePos;
     bool alwaysShowH;
     bool alwaysShowV;
 

@@ -26,5 +26,16 @@ RenderSettings Renderer::getSettings(const Element* element) const {
     return result;
 }
 
+bool Renderer::viewValid(const sf::View& v) const {
+    const sf::FloatRect& a = v.getViewport();
+    if (a.width < 0.f) return false;
+    if (a.height < 0.f) return false;
+    if (a.left < 0.f) return false;
+    if (a.top < 0.f) return false;
+    if (a.width > 1.f) return false;
+    if (a.height > 1.f) return false;
+    return true;
+}
+
 } // namespace gui
 } // namespace bl

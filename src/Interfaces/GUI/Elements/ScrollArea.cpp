@@ -147,6 +147,13 @@ void ScrollArea::scrolled() {
         const float freeSpace = totalSize.y - availableSize.y;
         offset.y              = -freeSpace * vertScrollbar->getValue();
     }
+
+    sf::Event sfevent;
+    sfevent.type        = sf::Event::MouseMoved;
+    sfevent.mouseMove.x = boxMousePos.x - offset.x;
+    sfevent.mouseMove.y = boxMousePos.y - offset.y;
+    const RawEvent event(sfevent, boxMousePos - offset, sf::Transform::Identity);
+    for (Element::Ptr e : getPackableChildren()) { e->handleEvent(event); }
 }
 
 bool ScrollArea::handleScroll(const Action& scroll) {
@@ -168,6 +175,8 @@ sf::Vector2f ScrollArea::getElementOffset(const Element* e) const {
 }
 
 bool ScrollArea::handleRawEvent(const RawEvent& event) {
+    if (event.event.type == sf::Event::MouseMoved) { boxMousePos = event.localMousePos; }
+
     const bool in = getAcquisition().contains(static_cast<sf::Vector2i>(event.localMousePos));
     if (in || event.event.type == sf::Event::MouseMoved ||
         event.event.type == sf::Event::MouseButtonReleased) {

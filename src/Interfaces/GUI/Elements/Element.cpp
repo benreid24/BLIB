@@ -164,9 +164,8 @@ bool Element::handleEvent(const RawEvent& event) {
     case sf::Event::MouseMoved:
         if (!active()) { return eventOnMe; }
         if (isLeftPressed) {
-            isMouseOver  = eventOnMe;
-            const bool r = processAction(Action(Action::Dragged, dragStart, event.localMousePos));
-            return r;
+            isMouseOver = eventOnMe;
+            return processAction(Action(Action::Dragged, dragStart, event.localMousePos));
         }
         else if (eventOnMe) {
             if (!isMouseOver) {
@@ -188,7 +187,7 @@ bool Element::handleEvent(const RawEvent& event) {
 
 bool Element::processAction(const Action& action) {
     if (action.type == Action::Scrolled) {
-        if (mouseOver()) {
+        if (getAcquisition().contains(static_cast<sf::Vector2i>(action.position))) {
             fireSignal(action);
             return handleScroll(action);
         }

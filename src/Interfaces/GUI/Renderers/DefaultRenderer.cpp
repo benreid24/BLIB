@@ -153,6 +153,8 @@ void DefaultRenderer::renderCustom(sf::RenderTarget& target, sf::RenderStates st
 
 void DefaultRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates states,
                                 const Container& container) const {
+    if (!viewValid(target.getView())) return;
+
     const RenderSettings settings        = getSettings(&container);
     static const RenderSettings defaults = getContainerDefaults();
     RendererUtil::renderRectangle(target, states, container.getAcquisition(), settings, defaults);
@@ -160,6 +162,8 @@ void DefaultRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates state
 
 void DefaultRenderer::renderButton(sf::RenderTarget& target, sf::RenderStates states,
                                    const Button& button) const {
+    if (!viewValid(target.getView())) return;
+
     const RenderSettings settings        = getSettings(&button);
     static const RenderSettings defaults = getButtonDefaults();
     RendererUtil::renderRectangle(target, states, button.getAcquisition(), settings, defaults);
@@ -167,6 +171,8 @@ void DefaultRenderer::renderButton(sf::RenderTarget& target, sf::RenderStates st
 
 void DefaultRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates states,
                                      const ComboBox& box) const {
+    if (!viewValid(target.getView())) return;
+
     static const RenderSettings defaults = getComboDefaults();
     const RenderSettings settings        = getSettings(&box);
 
@@ -182,6 +188,8 @@ void DefaultRenderer::renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::
                                                   const sf::Vector2i& optionSize,
                                                   unsigned int optionCount,
                                                   unsigned int mousedOption) const {
+    if (!viewValid(target.getView())) return;
+
     static const RenderSettings defaults = getComboDefaults();
     const RenderSettings settings        = getSettings(&box);
 
@@ -223,6 +231,8 @@ void DefaultRenderer::renderComboBoxDropdownArrow(sf::RenderTexture& texture) co
 
 void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
                                              const Element* element) const {
+    if (!viewValid(target.getView())) return;
+
     sf::RectangleShape rect({static_cast<float>(element->getAcquisition().width),
                              static_cast<float>(element->getAcquisition().height)});
     rect.setPosition(element->getAcquisition().left, element->getAcquisition().top);
@@ -238,6 +248,8 @@ void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::Rende
 
 void DefaultRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates states,
                                      const Notebook& nb) const {
+    if (!viewValid(target.getView())) return;
+
     static const RenderSettings defaults = getNotebookDefaults();
     const RenderSettings settings        = getSettings(&nb);
 
@@ -267,6 +279,8 @@ void DefaultRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates 
 
 void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,
                                         const ProgressBar& bar) const {
+    if (!viewValid(target.getView())) return;
+
     RenderSettings settings               = getSettings(&bar);
     static const RenderSettings defaults  = getProgressBarDefaults();
     static const RenderSettings sdefaults = getProgressBarSecondaryDefaults();
@@ -299,6 +313,8 @@ void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStat
 
 void DefaultRenderer::renderSeparator(sf::RenderTarget& target, sf::RenderStates states,
                                       const Separator& sep) const {
+    if (!viewValid(target.getView())) return;
+
     const RenderSettings settings = getSettings(&sep);
     const float thickness         = settings.outlineThickness.value_or(Separator::DefaultThickness);
     sf::Vector2f lineSize         = {static_cast<float>(sep.getAcquisition().width), thickness};
@@ -318,6 +334,8 @@ void DefaultRenderer::renderSeparator(sf::RenderTarget& target, sf::RenderStates
 
 void DefaultRenderer::renderSlider(sf::RenderTarget& target, sf::RenderStates states,
                                    const Slider& slider) const {
+    if (!viewValid(target.getView())) return;
+
     const RenderSettings settings        = getSettings(&slider);
     static const RenderSettings defaults = getSliderDefaults();
     RendererUtil::renderRectangle(target, states, slider.getAcquisition(), settings, defaults);
@@ -365,6 +383,8 @@ void DefaultRenderer::renderSliderButton(sf::RenderTexture& texture, bool hor,
 
 void DefaultRenderer::renderLabel(sf::RenderTarget& target, sf::RenderStates states,
                                   const Label& label) const {
+    if (!viewValid(target.getView())) return;
+
     static const RenderSettings defaults = getLabelDefaults();
     target.draw(RendererUtil::buildRenderText(
                     label.getText(), label.getAcquisition(), getSettings(&label), defaults),
@@ -373,6 +393,8 @@ void DefaultRenderer::renderLabel(sf::RenderTarget& target, sf::RenderStates sta
 
 void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates states,
                                       const TextEntry& entry) const {
+    if (!viewValid(target.getView())) return;
+
     RenderSettings settings                  = getSettings(&entry);
     static const RenderSettings boxDefaults  = getTextEntryBoxDefaults();
     static const RenderSettings textDefaults = getTextEntryTextDefaults();
@@ -401,6 +423,8 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
 
 void DefaultRenderer::renderToggleButton(sf::RenderTarget& target, sf::RenderStates states,
                                          const ToggleButton& button) const {
+    if (!viewValid(target.getView())) return;
+
     static const RenderSettings defaults = getToggleButtonDefaults();
     const RenderSettings settings        = getSettings(&button);
     RendererUtil::renderRectangle(target, states, button.getAcquisition(), settings, defaults);
@@ -445,6 +469,8 @@ void DefaultRenderer::renderToggleRadioButton(sf::RenderTexture& texture, bool a
 
 void DefaultRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                                    const Container* titlebar, const Window& window) const {
+    if (!viewValid(target.getView())) return;
+
     const RenderSettings settings        = getSettings(&window);
     static const RenderSettings defaults = getWindowDefaults();
 
@@ -467,6 +493,8 @@ void DefaultRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates st
 
 void DefaultRenderer::renderImage(sf::RenderTarget& target, sf::RenderStates states,
                                   const Element* e, const sf::Sprite& image) const {
+    if (!viewValid(target.getView())) return;
+
     const RenderSettings settings        = getSettings(e);
     static const RenderSettings defaults = getImageDefaults();
 
