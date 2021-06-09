@@ -74,7 +74,7 @@ public:
     sf::Vector2i getRequisition() const;
 
     /**
-     * @brief Returns the acquision of the Element. This is the size allocated to it, and mays
+     * @brief Returns the acquisition of the Element. This is the size allocated to it, and mays
      *        be larger or equal to the requisition. The requisition includes the position
      *
      */
@@ -169,7 +169,7 @@ public:
 
     /**
      * @brief Signifies that this Element should be packed. Takes into account the element
-     *        type, visibilty, and pack override
+     *        type, visibility, and pack override
      *
      */
     bool packable() const;
@@ -185,7 +185,7 @@ public:
      *        acquisitions
      *
      * @param visible True to render the Element, false to hide. Default is true
-     * @param markDirty Marks this element dirty if the visibilty changed
+     * @param markDirty Marks this element dirty if the visibility changed
      */
     void setVisible(bool visible, bool markDirty = true);
 
@@ -372,7 +372,7 @@ protected:
     void markClean();
 
     /**
-     * @brief The's the parent of the child Element to this Element
+     * @brief Sets the parent of the child Element to this Element
      *
      * @param child The child to set the parent to
      */
