@@ -9,18 +9,45 @@ namespace bl
 {
 namespace gui
 {
+/**
+ * @brief Helper class for picking files limited to subdirectories of the current directory. For
+ *        other uses use the tinyfd functions defined in the dialog namespace
+ *
+ * @ingroup GUI
+ */
 class FilePicker {
 public:
     using ChooseCb = std::function<void(const std::string&)>;
     using CancelCb = std::function<void()>;
 
+    /// What mode to pick file in
     enum Mode { CreateNew, PickExisting };
 
+    /**
+     * @brief Construct a new File Picker dialog
+     *
+     * @param rootdir The starting directory. The picker will not go above this
+     * @param extensions List of extenions to allow
+     * @param onChoose Callback for when a file is selected
+     * @param onCancel Callback for when the window is closed without a selection
+     */
     FilePicker(const std::string& rootdir, const std::vector<std::string>& extensions,
                const ChooseCb& onChoose, const CancelCb& onCancel);
 
+    /**
+     * @brief Opens the dialog in the given mode with the given settings
+     *
+     * @param mode The mode to open in
+     * @param title The title of the window
+     * @param parent The main GUI object to attach to
+     * @param resetPath True to reset the starting path to root dir, false to keep the same
+     */
     void open(Mode mode, const std::string& title, GUI::Ptr parent, bool resetPath = false);
 
+    /**
+     * @brief Closes the dialog
+     *
+     */
     void close();
 
 private:

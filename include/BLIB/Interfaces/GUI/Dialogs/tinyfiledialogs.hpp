@@ -51,6 +51,7 @@ misrepresented as being the original software.
 
 namespace bl
 {
+/// Collection of functions from the tinyfiledialogs library
 namespace dialog
 {
 
