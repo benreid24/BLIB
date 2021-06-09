@@ -90,7 +90,7 @@ Thanks for contributions, bug corrections & thorough testing to:
  #define SLASH "/"
 #endif /* _WIN32 */
 
-#include <BLIB/Interfaces/GUI/Dialogs/tinyfiledialogs.h>
+#include <BLIB/Interfaces/GUI/Dialogs/tinyfiledialogs.hpp>
 
 #define MAX_PATH_OR_CMD 1024 /* _MAX_PATH or MAX_PATH */
 
@@ -98,6 +98,11 @@ Thanks for contributions, bug corrections & thorough testing to:
 #define MAX_MULTIPLE_FILES 1024
 #endif
 #define LOW_MULTIPLE_FILES 32
+
+namespace bl
+{
+namespace dialog
+{
 
 char tinyfd_version[8] = "3.8.8";
 
@@ -7748,3 +7753,6 @@ tinyfd_messageBox("The selected hexcolor is",
 #pragma warning(default:4100)
 #pragma warning(default:4706)
 #endif
+
+}
+}

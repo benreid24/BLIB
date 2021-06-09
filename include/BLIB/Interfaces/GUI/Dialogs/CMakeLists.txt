@@ -1,4 +1,4 @@
 target_sources(BLIB PUBLIC
     FilePicker.hpp
-    tinyfiledialogs.h
+    tinyfiledialogs.hpp
 )

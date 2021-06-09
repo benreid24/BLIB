@@ -1,4 +1,4 @@
 target_sources(BLIB PRIVATE
     FilePicker.cpp
-    tinyfiledialogs.c
+    tinyfiledialogs.cpp
 )

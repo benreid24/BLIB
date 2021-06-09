@@ -43,6 +43,6 @@
 #include <BLIB/Interfaces/GUI/Elements/Window.hpp>
 
 #include <BLIB/Interfaces/GUI/Dialogs/FilePicker.hpp>
-#include <BLIB/Interfaces/GUI/Dialogs/tinyfiledialogs.h>
+#include <BLIB/Interfaces/GUI/Dialogs/tinyfiledialogs.hpp>
 
 #endif

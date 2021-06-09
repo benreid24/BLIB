@@ -49,11 +49,10 @@ misrepresented as being the original software.
 #ifndef TINYFILEDIALOGS_H
 #define TINYFILEDIALOGS_H
 
-#ifdef	__cplusplus
-/* if tinydialogs.c is compiled as C++ code rather than C code, you may need to comment this out
-				and the corresponding closing bracket near the end of this file. */
-extern "C" {
-#endif
+namespace bl
+{
+namespace dialog
+{
 
 /******************************************************************************************************/
 /**************************************** UTF-8 on Windows ********************************************/
@@ -239,9 +238,8 @@ wchar_t * tinyfd_colorChooserW(
 
 #endif /*_WIN32 */
 
-#ifdef	__cplusplus
-} /*extern "C"*/
-#endif
+}
+}
 
 #endif /* TINYFILEDIALOGS_H */
 

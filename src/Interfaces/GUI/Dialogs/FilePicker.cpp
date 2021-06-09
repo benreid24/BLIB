@@ -1,7 +1,10 @@
 #include <BLIB/Interfaces/GUI.hpp>
 
 #include <BLIB/Files/Util.hpp>
+#include <BLIB/Interfaces/GUI/Dialogs/tinyfiledialogs.hpp>
 #include <BLIB/Media/Shapes.hpp>
+
+#include <BLIB/Logging.hpp>
 
 namespace bl
 {
@@ -111,6 +114,7 @@ void FilePicker::onPathClick(unsigned int i) {
 
 void FilePicker::onFolderClick(const std::string& f) {
     highlight(f);
+    fileEntry->setInput(f);
 
     if (f != clickedFile) {
         clickedFile   = f;
@@ -121,6 +125,7 @@ void FilePicker::onFolderClick(const std::string& f) {
         if (n - fileClickTime < DoubleClick) {
             path.emplace_back(f);
             populateFiles();
+            fileEntry->setInput("");
         }
         else {
             fileClickTime = n;
@@ -138,10 +143,7 @@ void FilePicker::onFileClick(const std::string& f) {
     }
     else {
         const float n = timer.getElapsedTime().asSeconds();
-        if (n - fileClickTime < DoubleClick) {
-            // TODO - check mode and confirm overwrite
-            onChooseClicked();
-        }
+        if (n - fileClickTime < DoubleClick) { onChooseClicked(); }
         else {
             fileClickTime = n;
         }
@@ -149,7 +151,41 @@ void FilePicker::onFileClick(const std::string& f) {
 }
 
 void FilePicker::onChooseClicked() {
-    onChoose(file::Util::joinPath(buildPath(), fileEntry->getInput()));
+    if (fileEntry->getInput().empty()) {
+        dialog::tinyfd_messageBox("Error", "You must enter a filename", "ok", "error", 1);
+        return;
+    }
+
+    const std::string filename =
+        file::Util::joinPath(root, file::Util::joinPath(buildPath(), fileEntry->getInput()));
+    BL_LOG_INFO << filename;
+
+    if (file::Util::directoryExists(filename)) {
+        BL_LOG_INFO << "folder exists";
+        fileClickTime = timer.getElapsedTime().asSeconds(); // trick
+        onFolderClick(fileEntry->getInput());
+        return;
+    }
+
+    if (mode == CreateNew) {
+        if (file::Util::exists(filename)) {
+            if (dialog::tinyfd_messageBox("Overwrite file?",
+                                          (filename + " already exists, overwrite?").c_str(),
+                                          "yesno",
+                                          "warning",
+                                          0) != 1) {
+                return;
+            }
+        }
+        onChoose(filename);
+    }
+    else if (mode == PickExisting) {
+        if (file::Util::exists(filename)) { onChoose(filename); }
+        else {
+            dialog::tinyfd_messageBox(
+                "Error", (fileEntry->getInput() + " does not exist").c_str(), "ok", "error", 1);
+        }
+    }
 }
 
 void FilePicker::highlight(const std::string& f) {
