@@ -241,8 +241,6 @@ TEST(DynamicObjectPool, Any) {
     pool.add(Data(5));
     pool.add(Data(10));
 
-    Any<32>& temp = *pool.begin();
-    auto val      = temp.get<Data>();
     EXPECT_EQ(pool.begin()->get<Data>().value, 5);
     EXPECT_EQ((pool.begin() + 1)->get<Data>().value, 10);
 }

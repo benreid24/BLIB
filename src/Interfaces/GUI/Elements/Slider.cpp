@@ -16,14 +16,14 @@ Slider::Ptr Slider::create(Direction dir, const std::string& group, const std::s
 Slider::Slider(Direction d, const std::string& g, const std::string& i)
 : Container(g, i)
 , dir(d)
-, slider(Button::create("", g, i + "-slider"))
+, buttonSize(0.2)
+, value(0)
+, increment(0.1)
 , increaseImg(Canvas::create(64, 64, g, i + "-increaseArrow"))
 , increaseBut(Button::create(increaseImg, g, i + "-increase"))
 , decreaseImg(Canvas::create(64, 64, g, i + "-decreaseArrow"))
 , decreaseBut(Button::create(decreaseImg, g, i + "-decrease"))
-, buttonSize(0.2)
-, increment(0.1)
-, value(0)
+, slider(Button::create("", g, i + "-slider"))
 , renderedButs(false) {
     increaseBut->setExpandsHeight(true);
     increaseBut->setExpandsWidth(true);
@@ -119,7 +119,7 @@ void Slider::incrementValue(float incs) {
 void Slider::sliderMoved(const Action& drag) {
     if (drag.type != Action::Dragged) return;
 
-    const unsigned int size = calculateFreeSize();
+    const int size = calculateFreeSize();
     if (size == 0) return;
 
     int dragAmount = 0;
@@ -151,9 +151,9 @@ void Slider::sliderMoved(const Action& drag) {
 void Slider::clicked(const Action& click) {
     if (click.type != Action::LeftClicked) return;
 
-    const unsigned int size = calculateFreeSize();
-    int pos                 = 0;
-    int offset              = 0;
+    const int size = calculateFreeSize();
+    int pos        = 0;
+    int offset     = 0;
     if (dir == Horizontal) {
         pos    = click.position.x - getAcquisition().left;
         offset = decreaseBut->visible() ? decreaseBut->getAcquisition().width : 0;
@@ -175,8 +175,8 @@ void Slider::clicked(const Action& click) {
     fireChanged();
 }
 
-unsigned int Slider::calculateFreeSize() const {
-    unsigned int size = 0;
+int Slider::calculateFreeSize() const {
+    int size = 0;
     if (dir == Horizontal) {
         size = getAcquisition().width - slider->getAcquisition().width;
         if (increaseBut->visible()) size -= increaseBut->getAcquisition().width;

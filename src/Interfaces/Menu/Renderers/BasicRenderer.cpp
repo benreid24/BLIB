@@ -20,7 +20,7 @@ void BasicRenderer::setVerticalPadding(float pad) { padding.y = pad; }
 
 sf::Vector2f BasicRenderer::renderItem(sf::RenderTarget& target, sf::RenderStates renderStates,
                                        const Item& item, const sf::Vector2f& position,
-                                       float columnWidth, float rowHeight, int x, int y) const {
+                                       float columnWidth, float rowHeight, int, int) const {
     sf::Vector2f pos = position + padding;
     if (horizontalAlignment == Center)
         pos.x += columnWidth / 2.f - item.getRenderItem().getSize().x / 2.f;

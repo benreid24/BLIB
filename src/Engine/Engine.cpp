@@ -9,8 +9,8 @@ namespace bl
 namespace engine
 {
 Engine::Engine(const Settings& settings)
-: renderWindow(nullptr)
-, engineSettings(settings) {
+: engineSettings(settings)
+, renderWindow(nullptr) {
     entityRegistry.setEventDispatcher(engineEventBus);
 }
 

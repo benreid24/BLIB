@@ -47,6 +47,11 @@ Thanks for contributions, bug corrections & thorough testing to:
 - Paul Rouget
 */
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wcast-function-type"
+
 
 #ifndef __sun
 #ifndef _POSIX_C_SOURCE
@@ -7756,3 +7761,5 @@ tinyfd_messageBox("The selected hexcolor is",
 
 }
 }
+
+#pragma GCC diagnostic pop

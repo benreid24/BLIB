@@ -17,8 +17,8 @@ struct TestObject {
     TestObject(const TestObject&) = default;
 
     TestObject(TestObject&& mv)
-    : data(mv.data)
-    , dtorCalled(mv.dtorCalled) {
+    : dtorCalled(mv.dtorCalled)
+    , data(mv.data) {
         mv.dtorCalled = nullptr;
     }
 
@@ -35,8 +35,8 @@ struct TestObject {
         return *this;
     }
 
-    int data;
     int* dtorCalled;
+    int data;
 };
 } // namespace
 

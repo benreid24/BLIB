@@ -6,8 +6,8 @@ namespace bl
 namespace menu
 {
 Menu::Menu(Item::Ptr root, Selector::Ptr selector)
-: rootItem(root)
-, selector(selector)
+: selector(selector)
+, rootItem(root)
 , selectedItem(root) {
     refresh();
 }

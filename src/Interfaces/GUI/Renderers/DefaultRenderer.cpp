@@ -146,8 +146,7 @@ RenderSettings getTextEntryTextDefaults() {
 
 DefaultRenderer::Ptr DefaultRenderer::create() { return Ptr(new DefaultRenderer()); }
 
-void DefaultRenderer::renderCustom(sf::RenderTarget& target, sf::RenderStates states,
-                                   const Element& element) const {
+void DefaultRenderer::renderCustom(sf::RenderTarget&, sf::RenderStates, const Element&) const {
     BL_LOG_ERROR << "renderCustom() called on default renderer. Use a custom renderer";
 }
 
@@ -473,8 +472,6 @@ void DefaultRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates st
 
     const RenderSettings settings        = getSettings(&window);
     static const RenderSettings defaults = getWindowDefaults();
-
-    const sf::FloatRect area = static_cast<sf::FloatRect>(window.getAcquisition());
 
     RendererUtil::renderRectangle(target, states, window.getAcquisition(), settings, defaults);
     if (titlebar) {

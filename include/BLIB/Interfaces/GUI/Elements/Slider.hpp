@@ -142,7 +142,7 @@ private:
     Button::Ptr slider;
     mutable bool renderedButs;
 
-    unsigned int calculateFreeSize() const;
+    int calculateFreeSize() const;
     void packElements();
     void fireChanged();
 

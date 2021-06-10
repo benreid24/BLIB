@@ -8,7 +8,7 @@ namespace gui
 {
 namespace
 {
-constexpr unsigned int BarSize = 16;
+constexpr int BarSize          = 16;
 constexpr float PixelsPerClick = 10;
 
 float computeButtonSize(float totalSize, float availableSize) {

@@ -15,9 +15,9 @@ ComboBox::Ptr ComboBox::create(const std::string& group, const std::string& id) 
 ComboBox::ComboBox(const std::string& group, const std::string& id)
 : Container(group, id)
 , arrow(Canvas::create(32, 32, group, id + "-dropdown"))
-, selected(-1)
 , maxHeight(0.f)
 , scroll(0.f)
+, selected(-1)
 , opened(false)
 , arrowRendered(false) {
     getSignal(Action::RenderSettingsChanged).willAlwaysCall(std::bind(&ComboBox::onSettings, this));
@@ -60,7 +60,7 @@ const std::string& ComboBox::getSelectedOptionText() const {
 
 void ComboBox::setSelectedOption(int i) {
     selected = i;
-    if (selected >= options.size()) selected = options.size() - 1;
+    if (selected >= static_cast<int>(options.size())) selected = options.size() - 1;
     opened = false;
     packClosed();
     fireSignal(Action(Action::ValueChanged));

@@ -20,7 +20,7 @@ const int map[6][6] = {{0, 1, 0, 0, 0, 0},
 struct TestMap : public PathMap<sf::Vector2i> {
     virtual ~TestMap() = default;
 
-    virtual int movementCost(const sf::Vector2i& from, const sf::Vector2i& to,
+    virtual int movementCost(const sf::Vector2i&, const sf::Vector2i& to,
                              entity::Entity) const override {
         if (to.x < 0 || to.x >= 6 || to.y < 0 || to.y >= 6) return -1;
         if (map[to.y][to.x] == 0) return 1;

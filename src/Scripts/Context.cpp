@@ -10,5 +10,9 @@ void Context::initializeTable(SymbolTable& table) const {
     addCustomSymbols(table);
 }
 
+void Context::addCustomSymbols(SymbolTable&) const {
+    // empty
+}
+
 } // namespace script
 } // namespace bl

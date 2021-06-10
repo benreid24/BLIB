@@ -31,7 +31,7 @@ protected:
      *
      * @param table The symbol table that will be used by any script using this context
      */
-    virtual void addCustomSymbols(SymbolTable& table) const {}
+    virtual void addCustomSymbols(SymbolTable& table) const;
 
 private:
     void initializeTable(SymbolTable& table) const;

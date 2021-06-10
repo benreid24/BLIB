@@ -7,8 +7,8 @@ namespace bl
 namespace entity
 {
 IdGenerator::IdGenerator()
-: seq(false)
-, nextEntity(1) {}
+: nextEntity(1)
+, seq(false) {}
 
 IdGenerator& IdGenerator::get() {
     static IdGenerator gen;

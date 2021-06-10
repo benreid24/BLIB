@@ -486,10 +486,10 @@ Grid<T>::Iterator::Iterator(Grid* o, unsigned int x, unsigned int y, unsigned in
                             unsigned int ey, const typename Payload::Ptr& current, bool s)
 : owner(o)
 , sx(x)
-, cx(x)
-, cy(y)
 , ex(ex)
 , ey(ey)
+, cx(x)
+, cy(y)
 , current(current) {
     if (s) skipEmpty();
 }

@@ -111,7 +111,7 @@ bool Container::handleScroll(const RawEvent& event) {
     return false;
 }
 
-sf::Vector2f Container::getElementOffset(const Element* e) const { return {0, 0}; }
+sf::Vector2f Container::getElementOffset(const Element*) const { return {0, 0}; }
 
 void Container::update(float dt) {
     if (!toRemove.empty()) makeDirty();

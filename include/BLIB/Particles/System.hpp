@@ -112,8 +112,8 @@ System<T>::System(CreateFunction cf, unsigned int target, float createRate)
 : target(target)
 , rate(createRate)
 , toCreate(0.f)
-, createFunction(cf)
-, replace(false) {
+, replace(false)
+, createFunction(cf) {
     particles.reserve(target);
 }
 

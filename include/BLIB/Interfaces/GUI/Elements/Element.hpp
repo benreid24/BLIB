@@ -230,7 +230,7 @@ public:
      *
      * @param dt Time elapsed, in seconds, since last update
      */
-    virtual void update(float dt) {}
+    virtual void update(float dt);
 
     /**
      * @brief Renders the element using the given renderer
@@ -384,14 +384,14 @@ protected:
      *
      * @param child The child to move to the top of the screen (rendered last)
      */
-    virtual void bringToTop(const Element* child) {}
+    virtual void bringToTop(const Element* child);
 
     /**
      * @brief Removes the child Element. Only implemented by Container
      *
      * @param child The Element to remove. No effect if not present
      */
-    virtual void removeChild(const Element* child) {}
+    virtual void removeChild(const Element* child);
 
     /**
      * @brief Method for child classes to handle raw SFML events. Not recommended to use.
@@ -403,7 +403,7 @@ protected:
      * @param event The raw event
      * @return True if the event is consumed and no more Elements should be notified
      */
-    virtual bool handleRawEvent(const RawEvent& event) { return false; }
+    virtual bool handleRawEvent(const RawEvent& event);
 
     /**
      * @brief Fires the signal that corresponds with the passed Action. This only needs to be

@@ -10,9 +10,9 @@ Item::Ptr Item::create(RenderItem::Ptr renderItem) { return Ptr(new Item(renderI
 
 Item::Item(RenderItem::Ptr renderItem)
 : renderItem(renderItem)
-, attached(false)
 , canBeSelected(true)
-, allowSelectionCross(false) {}
+, allowSelectionCross(false)
+, attached(false) {}
 
 Item::AttachPoint Item::oppositeSide(AttachPoint point) {
     switch (point) {

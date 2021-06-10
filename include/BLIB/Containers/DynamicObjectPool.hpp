@@ -485,9 +485,10 @@ template<typename T>
 template<typename ET>
 typename DynamicObjectPool<T>::template IteratorType<ET>&
 DynamicObjectPool<T>::IteratorType<ET>::operator++() {
-    ++i;
-    while (i < pool->size() && !(*pool)[i].alive()) { ++i; }
-    if (i == pool->size() - 1 && !(*pool)[i].alive()) ++i;
+    std::size_t ni = i + 1;
+    while (ni < pool->size() && !(*pool)[ni].alive()) { ++ni; }
+    if (ni == pool->size() - 1 && !(*pool)[ni].alive()) ++ni;
+    i = ni;
     return *this;
 }
 

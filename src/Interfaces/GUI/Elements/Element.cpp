@@ -200,7 +200,7 @@ bool Element::processAction(const Action& action) {
     return false;
 }
 
-bool Element::handleScroll(const RawEvent& scroll) { return false; }
+bool Element::handleScroll(const RawEvent&) { return false; }
 
 void Element::fireSignal(const Action& action) { signals[action.type](action, this); }
 
@@ -344,6 +344,14 @@ void Element::setVerticalAlignment(RenderSettings::Alignment align) {
 }
 
 Element::Ptr Element::me() { return shared_from_this(); }
+
+void Element::bringToTop(const Element*) {}
+
+void Element::removeChild(const Element*) {}
+
+bool Element::handleRawEvent(const RawEvent&) { return false; }
+
+void Element::update(float) {}
 
 } // namespace gui
 } // namespace bl
