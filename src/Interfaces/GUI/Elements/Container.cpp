@@ -93,6 +93,24 @@ bool Container::handleRawEvent(const RawEvent& event) {
     return false;
 }
 
+bool Container::handleScroll(const RawEvent& event) {
+    const RawEvent transformed = transformEvent(event);
+
+    for (Element::Ptr e : nonpackableChildren) {
+        if (e->handleScroll(transformed.transformToLocal(getElementOffset(e.get())))) {
+            return true;
+        }
+    }
+
+    for (Element::Ptr e : packableChildren) {
+        if (e->handleScroll(transformed.transformToLocal(getElementOffset(e.get())))) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 sf::Vector2f Container::getElementOffset(const Element* e) const { return {0, 0}; }
 
 void Container::update(float dt) {

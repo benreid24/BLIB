@@ -217,14 +217,13 @@ public:
     bool active() const;
 
     /**
-     * @brief Special event handler for scroll events. Default behavior is to return the result of
-     *        calling the parent handleScroll() method. Scrollable classes should override
+     * @brief Special event handler for scroll events. Default behavior returns false
      *
      * @param scroll The scroll action to process
      * @return True if the event was processed, false if unhandled
      *
      */
-    virtual bool handleScroll(const Action& scroll);
+    virtual bool handleScroll(const RawEvent& scroll);
 
     /**
      * @brief Performs any custom logic of the Element

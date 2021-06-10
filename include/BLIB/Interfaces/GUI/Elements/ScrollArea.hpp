@@ -138,7 +138,7 @@ protected:
      * @param scroll The scroll that occured
      * @return True
      */
-    virtual bool handleScroll(const Action& scroll) override;
+    virtual bool handleScroll(const RawEvent& scroll) override;
 
 private:
     Packer::Ptr packer;

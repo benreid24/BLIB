@@ -126,6 +126,14 @@ protected:
     virtual bool handleRawEvent(const RawEvent& event) override;
 
     /**
+     * @brief Dispatches the scroll to children and returns true if any child handles the scroll
+     *
+     * @param scroll The scroll to dispatch
+     * @return True if event consumed, false if not
+     */
+    virtual bool handleScroll(const RawEvent& scroll) override;
+
+    /**
      * @brief This is for sophisticated containers to transform the position of events to local
      *        coordinates for elements that have additional offsets applied beyond only the
      *        position of the Container. ScrollArea uses this for its elements. The default

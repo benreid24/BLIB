@@ -105,8 +105,8 @@ void Slider::doRender(sf::RenderTarget& target, sf::RenderStates states,
 
 void Slider::fireChanged() { fireSignal(Action(Action::ValueChanged, value)); }
 
-bool Slider::handleScroll(const Action& scroll) {
-    incrementValue(-scroll.data.scroll);
+bool Slider::handleScroll(const RawEvent& scroll) {
+    incrementValue(-scroll.event.mouseWheelScroll.delta);
     return true;
 }
 

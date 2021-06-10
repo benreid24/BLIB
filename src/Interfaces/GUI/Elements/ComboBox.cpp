@@ -119,9 +119,9 @@ bool ComboBox::handleRawEvent(const RawEvent& event) {
     return contained && opened;
 }
 
-bool ComboBox::handleScroll(const Action& action) {
+bool ComboBox::handleScroll(const RawEvent& event) {
     if (opened) {
-        scrolled(action);
+        scrolled(Action::fromRaw(event));
         return true;
     }
     return false;

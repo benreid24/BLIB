@@ -128,7 +128,7 @@ protected:
      * @param scroll The scroll event
      * @return True
      */
-    virtual bool handleScroll(const Action& scroll) override;
+    virtual bool handleScroll(const RawEvent& scroll) override;
 
 private:
     const Direction dir;

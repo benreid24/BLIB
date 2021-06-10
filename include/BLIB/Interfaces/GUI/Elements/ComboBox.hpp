@@ -93,7 +93,7 @@ public:
      * @brief Returns true if open
      *
      */
-    virtual bool handleScroll(const Action& scroll) override;
+    virtual bool handleScroll(const RawEvent& scroll) override;
 
 protected:
     /**

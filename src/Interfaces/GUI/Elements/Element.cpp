@@ -104,6 +104,13 @@ bool Element::rightPressed() const { return isRightPressed; }
 bool Element::handleEvent(const RawEvent& event) {
     if (!visible()) return false;
 
+    if (event.event.type == sf::Event::MouseWheelScrolled) {
+        if (getAcquisition().contains(sf::Vector2i(event.localMousePos))) {
+            return handleScroll(event);
+        }
+        return false;
+    }
+
     if (handleRawEvent(event)) return true;
 
     const bool eventOnMe =
@@ -186,25 +193,14 @@ bool Element::handleEvent(const RawEvent& event) {
 }
 
 bool Element::processAction(const Action& action) {
-    if (action.type == Action::Scrolled) {
-        if (getAcquisition().contains(static_cast<sf::Vector2i>(action.position))) {
-            fireSignal(action);
-            return handleScroll(action);
-        }
-        return false;
-    }
-    else if (hasFocus()) {
+    if (hasFocus()) {
         fireSignal(action);
         return true;
     }
     return false;
 }
 
-bool Element::handleScroll(const Action& scroll) {
-    auto p = parent.lock();
-    if (p) return p->handleScroll(scroll);
-    return false;
-}
+bool Element::handleScroll(const RawEvent& scroll) { return false; }
 
 void Element::fireSignal(const Action& action) { signals[action.type](action, this); }
 

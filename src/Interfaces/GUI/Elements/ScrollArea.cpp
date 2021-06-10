@@ -156,14 +156,16 @@ void ScrollArea::scrolled() {
     for (Element::Ptr e : getPackableChildren()) { e->handleEvent(event); }
 }
 
-bool ScrollArea::handleScroll(const Action& scroll) {
+bool ScrollArea::handleScroll(const RawEvent& scroll) {
+    if (Container::handleScroll(scroll)) return true;
+
     if (totalSize.x > availableSize.x || totalSize.y > availableSize.y) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ||
             sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
-            horScrollbar->incrementValue(-scroll.data.scroll);
+            horScrollbar->incrementValue(-scroll.event.mouseWheelScroll.delta);
         }
         else {
-            vertScrollbar->incrementValue(-scroll.data.scroll);
+            vertScrollbar->incrementValue(-scroll.event.mouseWheelScroll.delta);
         }
     }
     return true;

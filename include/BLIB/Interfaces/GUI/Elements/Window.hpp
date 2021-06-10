@@ -163,7 +163,7 @@ protected:
      * @brief Returns true to prevent pass through
      *
      */
-    virtual bool handleScroll(const Action&) override;
+    virtual bool handleScroll(const RawEvent& scroll) override;
 
 private:
     const bool moveable;
