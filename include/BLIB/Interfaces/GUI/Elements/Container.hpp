@@ -39,6 +39,27 @@ public:
      */
     virtual void update(float dt) override;
 
+    /**
+     * @brief Computes a View that can be used for constrained rendering of child elements into
+     *        the acquisition with no spill over
+     *
+     * @param oldView The original view of the parent element
+     * @param region The region to render into
+     * @param constrain True to constrain rendering to the intersection of the old view and new
+     * @return sf::View A View that can be applied to the target to constrain rendering
+     */
+    static sf::View computeView(const sf::View& oldView, const sf::IntRect& region,
+                                bool constrain = true);
+
+    /**
+     * @brief Constrains the viewport of the given view to the area that overlaps with the viewport
+     *        of the original view
+     *
+     * @param view The view to constrain
+     * @param oldView The original view to constrain to
+     */
+    static void constrainView(sf::View& view, const sf::View& oldView);
+
 protected:
     /**
      * @brief Construct a new Container with the given id and group
@@ -141,27 +162,6 @@ protected:
     void renderChildrenRawFiltered(sf::RenderTarget& target, sf::RenderStates states,
                                    const Renderer& renderer,
                                    const std::unordered_set<const Element*>& filter) const;
-
-    /**
-     * @brief Computes a View that can be used for constrained rendering of child elements into
-     *        the acquisition with no spill over
-     *
-     * @param oldView The original view of the parent element
-     * @param region The region to render into
-     * @param constrain True to constrain rendering to the intersection of the old view and new
-     * @return sf::View A View that can be applied to the target to constrain rendering
-     */
-    sf::View computeView(const sf::View& oldView, const sf::IntRect& region,
-                         bool constrain = true) const;
-
-    /**
-     * @brief Constrains the viewport of the given view to the area that overlaps with the viewport
-     *        of the original view
-     *
-     * @param view The view to constrain
-     * @param oldView The original view to constrain to
-     */
-    void constrainView(sf::View& view, const sf::View& oldView) const;
 
     /**
      * @brief Transforms the event into container local coordinates for child elements

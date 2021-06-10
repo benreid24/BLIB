@@ -142,8 +142,7 @@ void Container::renderChildrenRawFiltered(sf::RenderTarget& target, sf::RenderSt
     }
 }
 
-sf::View Container::computeView(const sf::View& oldView, const sf::IntRect& area,
-                                bool constrain) const {
+sf::View Container::computeView(const sf::View& oldView, const sf::IntRect& area, bool constrain) {
     const sf::Vector2f oldCorner = oldView.getCenter() - oldView.getSize() * 0.5f;
 
     const sf::FloatRect acq = static_cast<sf::FloatRect>(area);
@@ -159,7 +158,7 @@ sf::View Container::computeView(const sf::View& oldView, const sf::IntRect& area
     return view;
 }
 
-void Container::constrainView(sf::View& view, const sf::View& oldView) const {
+void Container::constrainView(sf::View& view, const sf::View& oldView) {
     const sf::FloatRect& newPort = view.getViewport();
     const sf::FloatRect& oldPort = oldView.getViewport();
     const sf::Vector2f m(view.getSize().x / newPort.width, view.getSize().y / newPort.height);
