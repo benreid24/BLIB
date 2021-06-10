@@ -98,7 +98,7 @@ bool Engine::run(State::Ptr initialState) {
     }
 
     sf::Clock fpsTimer;
-    float frameCount;
+    float frameCount = 0.f;
 
     initialState->activate(*this);
     engineEventBus.dispatch<event::Startup>({initialState});

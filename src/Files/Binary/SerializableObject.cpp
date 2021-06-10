@@ -52,7 +52,7 @@ void SerializableObject::addField(SerializableFieldBase* field, std::uint16_t id
 }
 
 std::uint32_t SerializableObject::size() const {
-    std::uint32_t s;
+    std::uint32_t s(0);
     for (const auto& it : fields) { s += it.second->size(); }
     return s;
 }
