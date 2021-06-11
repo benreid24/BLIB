@@ -83,6 +83,7 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
 }
 
 void FilePicker::open(Mode m, const std::string& title, GUI::Ptr parent, bool rpath) {
+    BL_LOG_INFO << "open picker";
     mode = m;
     window->getTitleLabel()->setText(title);
 
@@ -91,8 +92,10 @@ void FilePicker::open(Mode m, const std::string& title, GUI::Ptr parent, bool rp
         for (auto& but : pathButtons) { but->remove(); }
         pathButtons.clear();
     }
+    BL_LOG_INFO << "path reset";
 
     populateFiles();
+    BL_LOG_INFO << "files populated";
     parent->pack(window);
 }
 
@@ -207,7 +210,7 @@ void FilePicker::populateFiles() {
     const std::string p = file::Util::joinPath(root, buildPath());
     std::vector<std::string> files, folders;
     for (const std::string& ext : extensions) {
-        std::vector f = file::Util::listDirectory(p, ext, false);
+        std::vector<std::string> f = file::Util::listDirectory(p, ext, false);
         files.insert(
             files.end(), std::make_move_iterator(f.begin()), std::make_move_iterator(f.end()));
     }
@@ -215,6 +218,7 @@ void FilePicker::populateFiles() {
     for (std::string& f : files) { f = file::Util::getFilename(f); }
     std::sort(files.begin(), files.end());
     std::sort(folders.begin(), folders.end());
+    BL_LOG_INFO << "sorted and listed files";
 
     for (const std::string& f : folders) {
         const auto onClick = [this, f](const Action&, Element*) { onFolderClick(f); };
@@ -233,21 +237,29 @@ void FilePicker::populateFiles() {
         filesBox->pack(row, true, false);
         fileLabels[f] = row;
     }
+    BL_LOG_INFO << "packed folders";
 
     for (const std::string& f : files) {
         const auto onClick = [this, f](const Action&, Element*) { onFileClick(f); };
+        BL_LOG_INFO << "made lambda";
 
         Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
+        BL_LOG_INFO << "box created";
         row->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        BL_LOG_INFO <<"made row";
         Label::Ptr label = Label::create(f);
         label->setHorizontalAlignment(RenderSettings::Left);
         label->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        BL_LOG_INFO << "made label";
         row->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
         row->setRequisition({0, 25});
         row->pack(label, true, true);
+        BL_LOG_INFO << "packed label";
         filesBox->pack(row, true, false);
         fileLabels[f] = row;
+        BL_LOG_INFO << "saved row";
     }
+    BL_LOG_INFO << "packed files";
 
     for (Box::Ptr but : pathButtons) { but->remove(); }
     pathButtons.clear();
@@ -263,6 +275,7 @@ void FilePicker::populateFiles() {
         pathButtons.push_back(b);
         pathBox->pack(b);
     }
+    BL_LOG_INFO << "path buttons";
 
     filesScroll->setScroll({0.f, 0.f});
     filesScroll->makeDirty();

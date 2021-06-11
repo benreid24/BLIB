@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+#include <BLIB/Logging.hpp>
+
 namespace bl
 {
 namespace gui
@@ -13,7 +15,9 @@ LinePacker::LinePacker(Direction dir, int spacing, SpaceMode mode, PackStart sta
 , spacing(spacing) {}
 
 Packer::Ptr LinePacker::create(Direction dir, int spacing, SpaceMode mode, PackStart start) {
-    return Packer::Ptr(new LinePacker(dir, spacing, mode, start));
+    auto p = Packer::Ptr(new LinePacker(dir, spacing, mode, start));
+    BL_LOG_INFO << "linepacker made";
+    return p;
 }
 
 sf::Vector2i LinePacker::getRequisition(const std::vector<Element::Ptr>& elems) {
