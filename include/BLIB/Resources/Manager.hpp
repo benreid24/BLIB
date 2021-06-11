@@ -89,6 +89,7 @@ Manager<T>::Manager(Loader<T>& loader, unsigned int gcPeriod)
 
 template<typename T>
 Manager<T>::~Manager() {
+    BL_LOG_INFO << "Resource manager (" << typeid(T).name() << ") shutting down";
     gcActive = false;
     gcThread.join();
     BL_LOG_INFO << "Resource manager (" << typeid(T).name() << ") shutdown";
