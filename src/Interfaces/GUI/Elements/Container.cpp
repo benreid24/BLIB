@@ -1,10 +1,8 @@
 #include <BLIB/Interfaces/GUI/Elements/Container.hpp>
 
+#include <BLIB/Interfaces.hpp>
 #include <BLIB/Interfaces/GUI/Elements/ScrollArea.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
-#include <BLIB/Interfaces.hpp>
-
-#include <BLIB/Logging.hpp>
 
 namespace bl
 {
@@ -28,10 +26,8 @@ bool deleteElement(std::vector<Element::Ptr>& list, const Element* e) {
 
 Container::Container(const std::string& group, const std::string& id)
 : Element(group, id) {
-    BL_LOG_INFO << "container ctor";
     getSignal(Action::AcquisitionChanged)
         .willAlwaysCall(std::bind(&Container::acquisitionCb, this));
-    BL_LOG_INFO << "signal set";
 }
 
 bool Container::releaseFocus() {

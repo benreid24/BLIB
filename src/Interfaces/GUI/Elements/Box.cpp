@@ -1,14 +1,11 @@
 #include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 
-#include <BLIB/Logging.hpp>
-
 namespace bl
 {
 namespace gui
 {
 Box::Ptr Box::create(Packer::Ptr packer, const std::string& group, const std::string& id) {
     auto p = Ptr(new Box(packer, group, id));
-    BL_LOG_INFO << "box create";
     return p;
 }
 
