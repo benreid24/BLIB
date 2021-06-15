@@ -151,6 +151,7 @@ void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
     sf::IntRect region = labelRegion;
     region.top += getAcquisition().top;
     region.left += getAcquisition().left;
+    region.height += labelSize.y;
 
     sf::View trickView = oldView;
     trickView.move(0, labelSize.y);

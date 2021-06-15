@@ -7,6 +7,7 @@
 
 #include <atomic>
 #include <chrono>
+#include <condition_variable>
 #include <mutex>
 #include <thread>
 #include <unordered_map>
@@ -72,6 +73,7 @@ private:
     std::atomic<bool> gcActive;
     std::thread gcThread;
     std::mutex mapLock;
+    std::condition_variable quitVar;
 
     void garbageCollector();
 };
@@ -91,6 +93,7 @@ template<typename T>
 Manager<T>::~Manager() {
     BL_LOG_INFO << "Resource manager (" << typeid(T).name() << ") shutting down";
     gcActive = false;
+    quitVar.notify_all();
     gcThread.join();
     BL_LOG_INFO << "Resource manager (" << typeid(T).name() << ") shutdown";
 }
@@ -121,17 +124,14 @@ Resource<T>* Manager<T>::loadMutable(const std::string& uri) {
 template<typename T>
 void Manager<T>::garbageCollector() {
     while (gcActive) {
-        for (unsigned int t = 0; t < gcPeriod; ++t) {
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-            if (!gcActive) return;
-        }
+        std::unique_lock lock(mapLock);
+        quitVar.wait_for(lock, std::chrono::seconds(gcPeriod));
+        if (!gcActive) return;
 
-        mapLock.lock();
         for (auto i = resources.begin(); i != resources.end();) {
             auto j = i++;
             if (j->second.data.unique() && !j->second.forceInCache) resources.erase(j);
         }
-        mapLock.unlock();
     }
 }
 
