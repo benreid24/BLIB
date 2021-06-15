@@ -10,22 +10,20 @@ namespace gui
 {
 namespace
 {
-bool deleteElement(std::vector<Element::Ptr>& list, const Element* e) {
-    bool del = false;
+void deleteElement(std::vector<Element::Ptr>& list, const Element* e) {
     for (unsigned int i = 0; i < list.size(); ++i) {
         if (list[i].get() == e) {
             list.erase(list.begin() + i);
             --i;
-            del = true;
         }
     }
-    return del;
 }
 
 } // namespace
 
 Container::Container(const std::string& group, const std::string& id)
-: Element(group, id) {
+: Element(group, id)
+, clearFlag(false) {
     getSignal(Action::AcquisitionChanged)
         .willAlwaysCall(std::bind(&Container::acquisitionCb, this));
 }
@@ -68,6 +66,11 @@ const std::vector<Element::Ptr>& Container::getNonPackableChildren() const {
 }
 
 void Container::removeChild(const Element* child) { toRemove.push_back(child); }
+
+void Container::clearChildren(bool immediate) {
+    clearFlag = true;
+    if (immediate) update(0.f);
+}
 
 RawEvent Container::transformEvent(const RawEvent& e) const {
     return e.transformToLocal(
@@ -113,17 +116,28 @@ bool Container::handleScroll(const RawEvent& event) {
 sf::Vector2f Container::getElementOffset(const Element*) const { return {0, 0}; }
 
 void Container::update(float dt) {
-    if (!toRemove.empty()) makeDirty();
-    for (const Element* e : toRemove) {
-        deleteElement(nonpackableChildren, e);
-        deleteElement(packableChildren, e);
-        deleteElement(children, e);
+    if (!toRemove.empty() || clearFlag) makeDirty();
+
+    if (clearFlag) {
+        clearFlag = false;
+        children.clear();
+        packableChildren.clear();
+        nonpackableChildren.clear();
+    }
+    else {
+        for (const Element* e : toRemove) {
+            deleteElement(nonpackableChildren, e);
+            deleteElement(packableChildren, e);
+            deleteElement(children, e);
+        }
     }
     toRemove.clear();
+
     if (dirty()) {
         assignAcquisition(getAcquisition());
         markClean();
     }
+
     for (Element::Ptr e : children) { e->update(dt); }
 }
 

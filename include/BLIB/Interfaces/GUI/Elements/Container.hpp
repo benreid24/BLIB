@@ -10,8 +10,8 @@ namespace bl
 namespace gui
 {
 /**
- * @brief Base class for Elements that have child elements. Provides coordinate transofmation
- *        for rendering and events, as well as event propogation
+ * @brief Base class for Elements that have child elements. Provides coordinate transformation
+ *        for rendering and events, as well as event propagation
  *
  * @ingroup GUI
  *
@@ -38,6 +38,14 @@ public:
      *
      */
     virtual void update(float dt) override;
+
+    /**
+     * @brief Removes and unpacks all child elements
+     *
+     * @param immediate True to clear all children immediately, false to wait until update()
+     *
+     */
+    void clearChildren(bool immediate = false);
 
     /**
      * @brief Computes a View that can be used for constrained rendering of child elements into
@@ -184,6 +192,7 @@ private:
     std::vector<Element::Ptr> nonpackableChildren;
     std::vector<Element::Ptr> children;
     std::list<const Element*> toRemove;
+    bool clearFlag;
 
     void acquisitionCb();
 };
