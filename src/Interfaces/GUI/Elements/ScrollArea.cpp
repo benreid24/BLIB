@@ -157,18 +157,21 @@ void ScrollArea::scrolled() {
 }
 
 bool ScrollArea::handleScroll(const RawEvent& scroll) {
-    if (Container::handleScroll(scroll)) return true;
+    if (getAcquisition().contains(sf::Vector2i(scroll.localMousePos))) {
+        if (Container::handleScroll(scroll)) return true;
 
-    if (totalSize.x > availableSize.x || totalSize.y > availableSize.y) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ||
-            sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
-            horScrollbar->incrementValue(-scroll.event.mouseWheelScroll.delta);
+        if (totalSize.x > availableSize.x || totalSize.y > availableSize.y) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ||
+                sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
+                horScrollbar->incrementValue(-scroll.event.mouseWheelScroll.delta);
+            }
+            else {
+                vertScrollbar->incrementValue(-scroll.event.mouseWheelScroll.delta);
+            }
         }
-        else {
-            vertScrollbar->incrementValue(-scroll.event.mouseWheelScroll.delta);
-        }
+        return true;
     }
-    return true;
+    return false;
 }
 
 sf::Vector2f ScrollArea::getElementOffset(const Element* e) const {
@@ -204,7 +207,7 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
                        {getAcquisition().left,
                         getAcquisition().top,
                         getAcquisition().width,
-                        getAcquisition().height + 16});
+                        getAcquisition().height + BarSize});
     target.setView(view);
 
     // Render scrollbars
