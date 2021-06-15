@@ -215,6 +215,7 @@ void Element::makeDirty() {
     _dirty = true;
     if (!parent.expired()) {
         Element::Ptr p = parent.lock();
+        // TODO - stop this bubbling up at container level if requisition unchanged
         if (p) p->makeDirty();
     }
 }

@@ -2,6 +2,7 @@
 #define BLIB_GUI_ELEMENTS_IMAGE_HPP
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
+#include <BLIB/Resources.hpp>
 
 namespace bl
 {

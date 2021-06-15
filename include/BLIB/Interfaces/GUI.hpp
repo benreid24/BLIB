@@ -26,6 +26,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Container.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 
+#include <BLIB/Interfaces/GUI/Elements/Animation.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Button.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
 #include <BLIB/Interfaces/GUI/Elements/CheckButton.hpp>

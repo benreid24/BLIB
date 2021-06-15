@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
+    Animation.cpp
     Box.cpp
     Button.cpp
     Canvas.cpp
