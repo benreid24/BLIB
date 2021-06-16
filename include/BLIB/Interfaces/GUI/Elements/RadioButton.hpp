@@ -106,11 +106,15 @@ protected:
     virtual void renderToggles(Canvas& activeBut, Canvas& inactiveBut,
                                const Renderer& renderer) const override;
 
+    /**
+     * @brief Activates the radio button. Does not deactivate if already active
+     *
+     */
+    virtual void onClick() override;
+
 private:
     Group myGroup;
     Group* rgroup;
-
-    void onValueChanged();
 
     friend class Group;
 };

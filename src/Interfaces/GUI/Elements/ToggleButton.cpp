@@ -17,7 +17,7 @@ ToggleButton::ToggleButton(Element::Ptr c, const std::string& g, const std::stri
     setExpandsWidth(true);
     getChild()->setHorizontalAlignment(RenderSettings::Left);
     getChild()->setExpandsWidth(true);
-    getSignal(Action::LeftClicked).willAlwaysCall(std::bind(&ToggleButton::onClick, this));
+    getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) { onClick(); });
     getSignal(Action::ValueChanged).willAlwaysCall(std::bind(&ToggleButton::updateButtons, this));
 }
 
