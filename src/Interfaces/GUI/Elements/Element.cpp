@@ -170,6 +170,7 @@ bool Element::handleEvent(const RawEvent& event) {
 
     case sf::Event::MouseMoved:
         if (!active()) { return eventOnMe; }
+        if (eventOnMe) { fireSignal(Action(Action::MouseMoved, event.localMousePos)); }
         if (isLeftPressed) {
             isMouseOver = eventOnMe;
             return processAction(Action(Action::Dragged, dragStart, event.localMousePos));

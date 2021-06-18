@@ -24,6 +24,7 @@ struct Action {
     enum Type {
         MouseEntered = 0,      /// Mouse moved over Element
         MouseLeft,             /// Mouse moved away from Element
+        MouseMoved,            /// Mouse moved while over element
         LeftClicked,           /// Element left clicked
         RightClicked,          /// Element right clicked
         Pressed,               /// Left mouse button pressed on element

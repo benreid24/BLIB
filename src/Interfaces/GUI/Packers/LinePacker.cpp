@@ -76,7 +76,7 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
 
         // Compute start position
         if (start == RightAlign) {
-            const sf::Vector2i size = compSize(elems.back());
+            const sf::Vector2i size = compSize(elems.front());
             if (dir == Horizontal)
                 pos.x = rect.left + rect.width - size.x;
             else
