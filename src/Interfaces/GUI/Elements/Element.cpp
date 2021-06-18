@@ -238,7 +238,14 @@ bool Element::shouldPack() const { return true; }
 
 bool Element::visible() const { return _visible; }
 
-void Element::setActive(bool a) { _active = a; }
+void Element::setActive(bool a) {
+    _active = a;
+    if (!_active) {
+        isMouseOver    = false;
+        isLeftPressed  = false;
+        isRightPressed = false;
+    }
+}
 
 bool Element::active() const { return _active && _visible; }
 
