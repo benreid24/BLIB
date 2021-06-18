@@ -216,17 +216,6 @@ public:
                                  const TextEntry& entry) const = 0;
 
     /**
-     * @brief Renders a ToggleButton element. Can be either CheckBox or RadioButton. The
-     *        buttons and text should be rendered by this as well
-     *
-     * @param target The target to render to
-     * @param states RenderStates to apply
-     * @param button ToggleButton to render
-     */
-    virtual void renderToggleButton(sf::RenderTarget& target, sf::RenderStates states,
-                                    const ToggleButton& button) const = 0;
-
-    /**
      * @brief Render a check button to an internal texture
      *
      * @param texture The canvas texture to render to

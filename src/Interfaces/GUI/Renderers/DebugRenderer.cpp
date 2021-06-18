@@ -113,12 +113,6 @@ void DebugRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates s
     addInfo(target, states, entry.getAcquisition(), entry.group(), entry.id());
 }
 
-void DebugRenderer::renderToggleButton(sf::RenderTarget& target, sf::RenderStates states,
-                                       const ToggleButton& button) const {
-    underlying->renderToggleButton(target, states, button);
-    addInfo(target, states, button.getAcquisition(), button.group(), button.id());
-}
-
 void DebugRenderer::renderToggleCheckButton(sf::RenderTexture& texture, bool active) const {
     underlying->renderToggleCheckButton(texture, active);
 }

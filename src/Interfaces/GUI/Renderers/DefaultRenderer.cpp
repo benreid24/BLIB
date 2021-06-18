@@ -122,14 +122,6 @@ RenderSettings getTextEntryBoxDefaults() {
     return settings;
 }
 
-RenderSettings getToggleButtonDefaults() {
-    RenderSettings settings;
-    settings.fillColor        = sf::Color::Transparent;
-    settings.outlineColor     = sf::Color::Transparent;
-    settings.outlineThickness = 0;
-    return settings;
-}
-
 RenderSettings getTextEntryTextDefaults() {
     RenderSettings settings;
     settings.fillColor           = sf::Color::Black;
@@ -418,15 +410,6 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
         carat.setFillColor(sf::Color::Black);
         target.draw(carat, states);
     }
-}
-
-void DefaultRenderer::renderToggleButton(sf::RenderTarget& target, sf::RenderStates states,
-                                         const ToggleButton& button) const {
-    if (!viewValid(target.getView())) return;
-
-    static const RenderSettings defaults = getToggleButtonDefaults();
-    const RenderSettings settings        = getSettings(&button);
-    RendererUtil::renderRectangle(target, states, button.getAcquisition(), settings, defaults);
 }
 
 void DefaultRenderer::renderToggleCheckButton(sf::RenderTexture& texture, bool active) const {

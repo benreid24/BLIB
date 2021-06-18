@@ -2,6 +2,8 @@
 
 #include <BLIB/Interfaces/GUI/Packers/Packer.hpp>
 
+#include <BLIB/Logging.hpp>
+
 namespace bl
 {
 namespace gui
@@ -79,7 +81,6 @@ void ToggleButton::doRender(sf::RenderTarget& target, sf::RenderStates states,
         butsRendered = true;
         renderToggles(*activeButton, *inactiveButton, renderer);
     }
-    renderer.renderToggleButton(target, states, *this);
     renderChildren(target, states, renderer);
 
     const sf::View oldView = target.getView();

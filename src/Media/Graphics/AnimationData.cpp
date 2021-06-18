@@ -4,6 +4,7 @@
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Files/Binary/File.hpp>
 #include <BLIB/Files/Util.hpp>
+#include <cmath>
 
 namespace bl
 {
@@ -129,7 +130,7 @@ void AnimationData::render(sf::RenderTarget& target, sf::RenderStates states, fl
     unsigned int i    = 0;
 
     if (isLoop || elapsedTime <= totalLength) {
-        while (elapsedTime > totalLength) elapsedTime -= totalLength;
+        elapsedTime -= std::floor(elapsedTime / totalLength);
         while (elapsedTime > 0) {
             if (frames[i].length > elapsedTime) break;
             elapsedTime -= frames[i].length;
