@@ -154,8 +154,8 @@ void FilePicker::onChooseClicked() {
         return;
     }
 
-    const std::string filename =
-        file::Util::joinPath(root, file::Util::joinPath(buildPath(), fileEntry->getInput()));
+    const std::string localpath = file::Util::joinPath(buildPath(), fileEntry->getInput());
+    const std::string filename  = file::Util::joinPath(root, localpath);
 
     if (file::Util::directoryExists(filename)) {
         fileClickTime = timer.getElapsedTime().asSeconds(); // trick
@@ -173,10 +173,10 @@ void FilePicker::onChooseClicked() {
                 return;
             }
         }
-        onChoose(filename);
+        onChoose(localpath);
     }
     else if (mode == PickExisting) {
-        if (file::Util::exists(filename)) { onChoose(filename); }
+        if (file::Util::exists(filename)) { onChoose(localpath); }
         else {
             dialog::tinyfd_messageBox(
                 "Error", (fileEntry->getInput() + " does not exist").c_str(), "ok", "error", 1);
