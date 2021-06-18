@@ -63,7 +63,13 @@ void Animation::stop() {
 void Animation::update(float dt) {
     if (isPlaying) {
         animTime += dt;
-        animTime -= animTime * std::floor(animTime / data->getLength());
+        if (animTime > data->getLength()) {
+            if (data->isLooping() || (loopOverride && loop)) { animTime -= data->getLength(); }
+            else {
+                isPlaying = false;
+                animTime  = 0.f;
+            }
+        }
     }
 }
 

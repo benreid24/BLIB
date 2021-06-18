@@ -138,8 +138,6 @@ void AnimationData::render(sf::RenderTarget& target, sf::RenderStates states, fl
             i += 1;
         }
     }
-    else
-        i = frames.size() - 1;
 
     const Frame& frame = frames[i];
     sf::Sprite s(*spritesheet);
