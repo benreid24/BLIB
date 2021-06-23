@@ -44,6 +44,32 @@ public:
     , H(move.H) {}
 
     /**
+     * @brief Copies into this vector from the given vector
+     *
+     * @param copy The vector to copy from
+     * @return Vector2D& A reference to this vector
+     */
+    Vector2D& operator=(const Vector2D& copy) {
+        data = copy.data;
+        W    = copy.W;
+        H    = copy.H;
+        return *this;
+    }
+
+    /**
+     * @brief Moves from the given vector into this vector
+     *
+     * @param move The vector to move from
+     * @return Vector2D& A reference to this vector
+     */
+    Vector2D& operator=(Vector2D&& move) {
+        data = std::move(move.data);
+        W    = move.W;
+        H    = move.H;
+        return *this;
+    }
+
+    /**
      * @brief Creates the vector of the given width and height
      *
      * @param w The width of the vector
