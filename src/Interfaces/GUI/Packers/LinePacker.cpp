@@ -84,7 +84,8 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
         }
 
         // Pack elements
-        for (Element::Ptr e : elems) {
+        for (unsigned int i = 0; i < elems.size(); ++i) {
+            auto& e = elems[i];
             if (!e->packable()) continue;
 
             // Compute size
@@ -97,14 +98,18 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
             if (dir == Horizontal) {
                 if (start == LeftAlign)
                     pos.x += size.x + spacing;
-                else
-                    pos.x -= size.x + spacing;
+                else {
+                    const sf::Vector2i as = i < elems.size() - 1 ? compSize(elems[i + 1]) : size;
+                    pos.x -= as.x + spacing;
+                }
             }
             else {
                 if (start == LeftAlign)
                     pos.y += size.y + spacing;
-                else
-                    pos.y -= size.y + spacing;
+                else {
+                    const sf::Vector2i as = i < elems.size() - 1 ? compSize(elems[i + 1]) : size;
+                    pos.y -= as.y + spacing;
+                }
             }
         }
     }
