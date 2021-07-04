@@ -175,8 +175,8 @@ void FilePicker::onChooseClicked() {
         }
         onChoose(localpath);
     }
-    else if (mode == PickExisting) {
-        if (file::Util::exists(filename)) { onChoose(localpath); }
+    else {
+        if (mode == CreateOrPick || file::Util::exists(filename)) { onChoose(localpath); }
         else {
             dialog::tinyfd_messageBox(
                 "Error", (fileEntry->getInput() + " does not exist").c_str(), "ok", "error", 1);

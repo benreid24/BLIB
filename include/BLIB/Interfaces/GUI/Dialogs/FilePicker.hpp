@@ -21,7 +21,7 @@ public:
     using CancelCb = std::function<void()>;
 
     /// What mode to pick file in
-    enum Mode { CreateNew, PickExisting };
+    enum Mode { CreateNew, PickExisting, CreateOrPick };
 
     /**
      * @brief Construct a new File Picker dialog
