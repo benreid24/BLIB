@@ -22,11 +22,59 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
 : root(rootdir)
 , extensions(extensions)
 , onChoose(onChoose) {
-    window = Window::create(LinePacker::create(LinePacker::Vertical, 0), "File picker");
+    window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "File picker");
     window->setRequisition({500, 600});
     window->getSignal(Action::Closed).willAlwaysCall([onCancel](const Action&, Element*) {
         onCancel();
     });
+
+    Box::Ptr controlRow = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
+    Button::Ptr upBut   = Button::create("Up");
+    upBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        path.pop_back();
+        populateFiles();
+    });
+    Button::Ptr makeBut = Button::create("New Folder");
+    makeBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        char* name = dialog::tinyfd_inputBox("New Folder", "Folder name:", "");
+        if (name) {
+            const std::string f    = file::Util::joinPath(buildPath(), name);
+            const std::string full = file::Util::joinPath(root, f);
+            file::Util::createDirectory(full);
+            populateFiles();
+        }
+    });
+    Button::Ptr delBut = Button::create("Delete");
+    delBut->setColor(sf::Color::Red, sf::Color::Black);
+    delBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        if (!fileEntry->getInput().empty()) {
+            const std::string f    = file::Util::joinPath(buildPath(), fileEntry->getInput());
+            const std::string full = file::Util::joinPath(root, f);
+            if (file::Util::exists(full)) {
+                if (dialog::tinyfd_messageBox("Delete File?",
+                                              std::string("Delete file '" + full + "'?").c_str(),
+                                              "yesno",
+                                              "question",
+                                              0) == 1) {
+                    file::Util::deleteFile(full);
+                    populateFiles();
+                }
+            }
+            else if (file::Util::directoryExists(full)) {
+                if (dialog::tinyfd_messageBox("Delete Folder?",
+                                              std::string("Delete folder '" + full + "'?").c_str(),
+                                              "yesno",
+                                              "question",
+                                              0) == 1) {
+                    // TODO - delete
+                }
+            }
+        }
+    });
+    controlRow->pack(upBut, false, true);
+    controlRow->pack(makeBut, false, true);
+    controlRow->pack(delBut, false, true);
+    window->pack(controlRow, true, false);
 
     Box::Ptr pathRow      = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr pathReset = Button::create(file::Util::joinPath(root, " "));
@@ -255,7 +303,7 @@ void FilePicker::populateFiles() {
             onPathClick(i);
         });
         b->pack(Label::create(" / "));
-        b->pack(but);
+        b->pack(but, false, true);
         pathButtons.push_back(b);
         pathBox->pack(b);
     }
