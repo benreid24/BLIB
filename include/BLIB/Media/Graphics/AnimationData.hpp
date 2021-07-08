@@ -51,6 +51,12 @@ public:
     bool load(const std::string& filename);
 
     /**
+     * @brief Returns the filename of the spritesheet
+     *
+     */
+    const std::string& spritesheetFile() const;
+
+    /**
      * @brief Returns if the animation is set to loop on end. Can be overriden in Animation
      *
      */
@@ -99,6 +105,7 @@ private:
         std::vector<Shard> shards;
     };
 
+    std::string spritesheetSource;
     resource::Resource<sf::Texture>::Ref spritesheet;
     std::vector<Frame> frames;
     float totalLength;

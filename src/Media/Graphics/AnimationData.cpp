@@ -29,6 +29,7 @@ bool AnimationData::load(const std::string& filename) {
 
     std::string sheet;
     if (!file.read(sheet)) return false;
+    spritesheetSource = sheet;
     if (!file::Util::exists(sheet)) {
         if (file::Util::exists(file::Util::joinPath(path, sheet)))
             sheet = file::Util::joinPath(path, sheet);
@@ -85,6 +86,8 @@ bool AnimationData::load(const std::string& filename) {
 
     return true;
 }
+
+const std::string& AnimationData::spritesheetFile() const { return spritesheetSource; }
 
 bool AnimationData::isLooping() const { return loop; }
 
