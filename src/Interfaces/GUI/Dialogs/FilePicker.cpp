@@ -52,7 +52,7 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
             const std::string full = file::Util::joinPath(root, f);
             if (file::Util::exists(full)) {
                 if (dialog::tinyfd_messageBox("Delete File?",
-                                              std::string("Delete file '" + full + "'?").c_str(),
+                                              std::string("Delete file `" + full + "`?").c_str(),
                                               "yesno",
                                               "question",
                                               0) == 1) {
@@ -62,11 +62,12 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
             }
             else if (file::Util::directoryExists(full)) {
                 if (dialog::tinyfd_messageBox("Delete Folder?",
-                                              std::string("Delete folder '" + full + "'?").c_str(),
+                                              std::string("Delete folder `" + full + "`?").c_str(),
                                               "yesno",
                                               "question",
                                               0) == 1) {
-                    // TODO - delete
+                    file::Util::deleteDirectory(full);
+                    populateFiles();
                 }
             }
         }
@@ -302,10 +303,10 @@ void FilePicker::populateFiles() {
         but->getSignal(Action::LeftClicked).willAlwaysCall([this, i](const Action&, Element*) {
             onPathClick(i);
         });
-        b->pack(Label::create(" / "));
+        b->pack(Label::create(" / "), false, true);
         b->pack(but, false, true);
         pathButtons.push_back(b);
-        pathBox->pack(b);
+        pathBox->pack(b, false, true);
     }
 
     filesScroll->setScroll({0.f, 0.f});

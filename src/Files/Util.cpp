@@ -5,9 +5,12 @@
 #include <dirent.h>
 #include <fstream>
 #include <sstream>
+#include <stack>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+#include <BLIB/Logging.hpp>
 
 namespace bl
 {
@@ -125,27 +128,25 @@ std::vector<std::string> Util::listDirectory(const std::string& path, const std:
                                              bool recursive) {
     if (path.empty()) return {};
 
-    DIR* cd;
     struct dirent* cfile;
     std::vector<std::string> list;
     std::string folder = path;
     if (folder[folder.size() - 1] != '/' && folder[folder.size() - 1] != '\\')
         folder.push_back('/');
 
-    cd = opendir(folder.c_str());
+    DIR* cd = opendir(folder.c_str());
     if (cd != nullptr) {
         while ((cfile = readdir(cd))) {
-            std::string file = cfile->d_name;
-            if (file.find(".") != std::string::npos) {
-                if (file != "." && file != "..") {
-                    if (getExtension(file) == ext || ext.empty())
-                        list.push_back(joinPath(folder, file));
-                }
+            const std::string file = cfile->d_name;
+            const std::string full = joinPath(folder, file);
+            if (!directoryExists(full)) {
+                if (ext.empty() || getExtension(file) == ext) list.push_back(full);
             }
             else if (recursive) {
-                const std::vector<std::string> files =
-                    listDirectory(joinPath(folder, file), ext, true);
-                list.insert(list.end(), files.begin(), files.end());
+                if (file != "." && file != "..") {
+                    const std::vector<std::string> files = listDirectory(full, ext, true);
+                    list.insert(list.end(), files.begin(), files.end());
+                }
             }
         }
     }
@@ -166,8 +167,9 @@ std::vector<std::string> Util::listDirectoryFolders(const std::string& path) {
     cd = opendir(folder.c_str());
     if (cd != nullptr) {
         while ((cfile = readdir(cd))) {
-            std::string file = cfile->d_name;
-            if (file.find(".") == std::string::npos) { list.push_back(file); }
+            const std::string file = cfile->d_name;
+            const std::string full = joinPath(folder, file);
+            if (file != "." && file != ".." && directoryExists(full)) { list.push_back(file); }
         }
     }
 
@@ -175,6 +177,20 @@ std::vector<std::string> Util::listDirectoryFolders(const std::string& path) {
 }
 
 bool Util::deleteFile(const std::string& file) { return 0 == remove(file.c_str()); }
+
+bool Util::deleteDirectory(const std::string& path) {
+    const std::vector<std::string> folders = listDirectoryFolders(path);
+    for (const std::string& d : folders) {
+        if (!deleteDirectory(joinPath(path, d))) { return false; }
+    }
+
+    const std::vector<std::string> files = listDirectory(path);
+    for (const std::string& file : files) {
+        if (!deleteFile(file)) { return false; }
+    }
+
+    return 0 == rmdir(path.c_str());
+}
 
 } // namespace file
 } // namespace bl

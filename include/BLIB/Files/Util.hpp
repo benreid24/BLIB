@@ -138,6 +138,14 @@ struct Util {
      * @return bool True if the file could be deleted, false otherwise
      */
     static bool deleteFile(const std::string& file);
+
+    /**
+     * @brief Recursively deletes the given directory and all contained files and subdirectories
+     *
+     * @param path The directory to remove
+     * @return True if the directory was removed, false on error
+     */
+    static bool deleteDirectory(const std::string& path);
 };
 
 } // namespace file
