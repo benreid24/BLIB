@@ -8,7 +8,7 @@ DispatcherScopeGuard::DispatcherScopeGuard(Dispatcher& dispatcher)
 : dispatcher(dispatcher) {}
 
 DispatcherScopeGuard::~DispatcherScopeGuard() {
-    for (const auto tpair : listeners) {
+    for (const auto& tpair : listeners) {
         for (void* l : tpair.second) { dispatcher.remove(tpair.first, l); }
     }
 }
