@@ -14,7 +14,7 @@ namespace bl
 {
 namespace logging
 {
-class Logger;
+struct Logger;
 
 /**
  * @brief Global log config class. Stores the various output streams and their configured log
@@ -75,7 +75,7 @@ private:
     Config();
     static Config& get();
 
-    friend class Logger;
+    friend struct Logger;
 };
 
 } // namespace logging
