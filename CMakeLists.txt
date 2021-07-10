@@ -31,7 +31,7 @@ if (MSVC)
     target_compile_options(BLIB PUBLIC /W4 /WX)
 else()
     # lots of warnings and all warnings as errors
-    target_compile_options(BLIB PUBLIC -Wall -Wextra -pedantic -Werror)
+    target_compile_options(BLIB PUBLIC -Wall -Wextra -pedantic)
 endif()
 
 if (STATIC_LINK)
