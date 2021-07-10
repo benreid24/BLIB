@@ -222,7 +222,7 @@ std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
     const std::string iter = head->children[2]->data;
     if (arr.getType() != Value::TArray)
         throw Error("For loop can only iterate over Array type", head->children[4]);
-    for (const Value::Ptr v : arr.getAsArray()) {
+    for (const Value::Ptr& v : arr.getAsArray()) {
         if (table.killed()) throw Exit();
         table.pushFrame();
         table.set(iter, *v, true);

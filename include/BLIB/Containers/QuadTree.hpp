@@ -18,7 +18,7 @@ namespace container
  */
 template<typename TCoord, typename TPayload>
 class QuadTree {
-    struct Partition;
+    class Partition;
 
 public:
     struct Area;
