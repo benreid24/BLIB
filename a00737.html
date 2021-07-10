@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::engine Namespace Reference</title>
+<title>BLIB: Binary</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,6 +47,7 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,57 +62,42 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a00733.html">bl</a></li><li class="navelem"><a class="el" href="a00737.html">engine</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::engine Namespace Reference</div>  </div>
+<div class="title">Binary<div class="ingroups"><a class="el" href="a00724.html">Files</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The core game engine and related classes.  
+<p>Collection of classes for encoding and decoding data into endian agnostic binary files. Core class is File.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a00738"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00738.html">event</a></td></tr>
-<tr class="memdesc:a00738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of <a class="el" href="a00886.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> events. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00882.html">Configuration</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global typeless configuration store for engine settings. Applications may add their own configuration settings to the store as well. Some examples of configuration are the path prefixes for songs in Playlists and spritesheets in Animations. Reading the configuration is threadsafe, however all calls to <a class="el" href="a00882.html#aaa942f77c47d4278b5f7f5706946cf0e" title="Sets the value for the given type and key in the config store. Keys may be duplicated across types...">set()</a> should be performed before any concurrent access is attempted.  <a href="a00882.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01040.html">bl::file::binary::File</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to read and write binary data. Endianness agnostic Floating point types are not supported. To store floating point values, simply store an integral type and multiply/divide on save/load.  <a href="a01040.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00886.html">Engine</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core engine class that owns engine resources and the main game loop.  <a href="a00886.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01044.html">bl::file::binary::SerializableFieldBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for binary serializable fields. Do not use.  <a href="a01044.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00910.html">Flags</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of flags that can be set to modify or control the behavior of the <a class="el" href="a00886.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a>. All flags are read by the engine at the end of each update loop.  <a href="a00910.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html">bl::file::binary::SerializableObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for user defined objects that can be serialized in binary files. Data fields to be serialized should be stored as <a class="el" href="a01048.html" title="Template class that represents a serializable field for File use. Strings and integral types are supp...">SerializableField</a> objects.  <a href="a01052.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00914.html">Resources</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Globally available structure containing ResourceManagers for the core resources used by the engine and almost all applications. Currently all resources are loaded from files.  <a href="a00914.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01056.html">bl::file::binary::Serializer&lt; T, bool &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for serializing types into binary files. Integral types, strings, vector, and SerializableObjects are supported out of the box. Specializations may be provided for user defined types.  <a href="a01056.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html">Settings</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of settings to create an <a class="el" href="a00886.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> with, organized as a builder.  <a href="a00918.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00922.html">State</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base interface for all engine states. The <a class="el" href="a00886.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> class manages the main game loop, application logic should be implemented in a set of EngineState classes which can be plugged into the <a class="el" href="a00886.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a>.  <a href="a00922.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01100.html">bl::file::binary::VersionedPayloadLoader&lt; Payload &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base interface for payload loaders. <a class="el" href="a01040.html" title="Utility class to read and write binary data. Endianness agnostic Floating point types are not support...">File</a> version loaders should implement this interface.  <a href="a01100.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The core game engine and related classes. </p>
-</div></div><!-- contents -->
+<p>Collection of classes for encoding and decoding data into endian agnostic binary files. Core class is File. </p>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 6 2021 22:29:30 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 10 2021 04:08:31 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

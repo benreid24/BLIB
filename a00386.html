@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Resources/Loader.hpp File Reference</title>
+<title>BLIB: include/BLIB/Resources/AsyncLoader.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,34 +71,34 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Loader.hpp File Reference</div>  </div>
+<div class="title">AsyncLoader.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00392_source.html">BLIB/Resources/Resource.hpp</a>&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a02043_source.html">BLIB/Resources/Manager.hpp</a>&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
 </div>
 <p><a href="a00386_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01514.html">bl::resource::Loader&lt; TResourceType &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templatized resource loader. Must be implemented for any resource type that is intended to be managed.  <a href="a01514.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01528.html">bl::resource::AsyncLoader&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized loader meant for loading resources into a <a class="el" href="a01540.html" title="Single template based resource management class. Meant for storing. ">Manager</a> in the background. Default implementation simply calls <a class="el" href="a01528.html#aa3bdaa1b95c641cb669887a9f10d95ff" title="Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their ...">load()</a> on the manager, but custom background loaders can be built for large resources and should leverage <a class="el" href="a01540.html#ab7f67e29b779d355aa2bb7005ed1617a" title="Add an already loaded resource to the manager. Overwrites existing if present. ">Manager::add()</a> to insert constructed resources.  <a href="a01528.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00733"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00733.html">bl</a></td></tr>
-<tr class="memdesc:a00733"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a00745"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00745.html">bl</a></td></tr>
+<tr class="memdesc:a00745"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00758"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00758.html">bl::resource</a></td></tr>
-<tr class="memdesc:a00758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for resource management and flyweight pattern. <br /></td></tr>
+<tr class="memitem:a00771"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00771.html">bl::resource</a></td></tr>
+<tr class="memdesc:a00771"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for resource management and flyweight pattern. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 6 2021 22:29:30 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 10 2021 04:08:31 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
