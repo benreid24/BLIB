@@ -14,7 +14,6 @@ sf::Clock timer;
 constexpr float DoubleClick = 1.25f;
 
 constexpr float IconSize = 25.f;
-constexpr float Corner   = 4.f;
 } // namespace
 
 FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string>& extensions,
