@@ -20,7 +20,7 @@ namespace container
  */
 template<typename T>
 class DynamicObjectPool {
-    struct Entry;
+    class Entry;
 
 public:
     /**
