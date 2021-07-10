@@ -112,8 +112,8 @@ System<T>::System(CreateFunction cf, unsigned int target, float createRate)
 : target(target)
 , rate(createRate)
 , toCreate(0.f)
-, createFunction(cf)
-, replace(false) {
+, replace(false)
+, createFunction(cf) {
     particles.reserve(target);
 }
 
@@ -141,7 +141,7 @@ template<typename T>
 void System<T>::update(const UpdateFunction& cb, float dt) {
     for (unsigned int i = 0; i < particles.size(); ++i) {
         if (!cb(particles[i].get())) {
-            if (replace) {
+            if (replace && target >= particles.size()) {
                 particles[i].destroy();
                 createFunction(particles[i].ptr());
             }
@@ -152,13 +152,15 @@ void System<T>::update(const UpdateFunction& cb, float dt) {
         }
     }
 
-    toCreate = std::min(toCreate + rate * dt, static_cast<float>(target - particleCount()));
-    const unsigned int create = std::floor(toCreate);
-    toCreate -= create;
+    if (target > particleCount()) {
+        toCreate = std::min(toCreate + rate * dt, static_cast<float>(target - particleCount()));
+        const unsigned int create = std::floor(toCreate);
+        toCreate -= create;
 
-    for (unsigned int i = 0; i < create; ++i) {
-        particles.emplace_back();
-        createFunction(particles.back().ptr());
+        for (unsigned int i = 0; i < create; ++i) {
+            particles.emplace_back();
+            createFunction(particles.back().ptr());
+        }
     }
 }
 

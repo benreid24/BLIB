@@ -74,7 +74,7 @@ public:
     sf::Vector2i getRequisition() const;
 
     /**
-     * @brief Returns the acquision of the Element. This is the size allocated to it, and mays
+     * @brief Returns the acquisition of the Element. This is the size allocated to it, and mays
      *        be larger or equal to the requisition. The requisition includes the position
      *
      */
@@ -169,7 +169,7 @@ public:
 
     /**
      * @brief Signifies that this Element should be packed. Takes into account the element
-     *        type, visibilty, and pack override
+     *        type, visibility, and pack override
      *
      */
     bool packable() const;
@@ -185,7 +185,7 @@ public:
      *        acquisitions
      *
      * @param visible True to render the Element, false to hide. Default is true
-     * @param markDirty Marks this element dirty if the visibilty changed
+     * @param markDirty Marks this element dirty if the visibility changed
      */
     void setVisible(bool visible, bool markDirty = true);
 
@@ -217,18 +217,20 @@ public:
     bool active() const;
 
     /**
-     * @brief Whether or not this Element type consumes mouse scroll events. Default is false.
-     *        Sliders and ScrollAreas return true, as should any scrollable element
+     * @brief Special event handler for scroll events. Default behavior returns false
+     *
+     * @param scroll The scroll action to process
+     * @return True if the event was processed, false if unhandled
      *
      */
-    virtual bool consumesScrolls() const { return false; }
+    virtual bool handleScroll(const RawEvent& scroll);
 
     /**
      * @brief Performs any custom logic of the Element
      *
      * @param dt Time elapsed, in seconds, since last update
      */
-    virtual void update(float dt) {}
+    virtual void update(float dt);
 
     /**
      * @brief Renders the element using the given renderer
@@ -369,7 +371,7 @@ protected:
     void markClean();
 
     /**
-     * @brief The's the parent of the child Element to this Element
+     * @brief Sets the parent of the child Element to this Element
      *
      * @param child The child to set the parent to
      */
@@ -382,14 +384,14 @@ protected:
      *
      * @param child The child to move to the top of the screen (rendered last)
      */
-    virtual void bringToTop(const Element* child) {}
+    virtual void bringToTop(const Element* child);
 
     /**
      * @brief Removes the child Element. Only implemented by Container
      *
      * @param child The Element to remove. No effect if not present
      */
-    virtual void removeChild(const Element* child) {}
+    virtual void removeChild(const Element* child);
 
     /**
      * @brief Method for child classes to handle raw SFML events. Not recommended to use.
@@ -401,7 +403,7 @@ protected:
      * @param event The raw event
      * @return True if the event is consumed and no more Elements should be notified
      */
-    virtual bool handleRawEvent(const RawEvent& event) { return false; }
+    virtual bool handleRawEvent(const RawEvent& event);
 
     /**
      * @brief Fires the signal that corresponds with the passed Action. This only needs to be

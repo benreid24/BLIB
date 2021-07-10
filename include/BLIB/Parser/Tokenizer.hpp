@@ -5,8 +5,8 @@
 #include <BLIB/Parser/Node.hpp>
 
 #include <list>
-#include <map>
 #include <regex>
+#include <unordered_map>
 #include <vector>
 
 namespace bl
@@ -86,10 +86,10 @@ public:
 
 private:
     ISkipper::Ptr skipper;
-    std::map<std::string, std::pair<std::regex, Node::Type>> matchers;
-    std::map<std::string, int> matchGroups;
-    std::map<std::string, std::list<std::string>> ambiguous;
-    std::map<Node::Type, std::vector<std::pair<std::string, Node::Type>>> kwords;
+    std::unordered_map<std::string, std::pair<std::regex, Node::Type>> matchers;
+    std::unordered_map<std::string, unsigned int> matchGroups;
+    std::unordered_map<std::string, std::list<std::string>> ambiguous;
+    std::unordered_map<Node::Type, std::vector<std::pair<std::string, Node::Type>>> kwords;
     std::vector<char> togglers;
     std::vector<std::pair<std::string, char>> escapeSequences;
 

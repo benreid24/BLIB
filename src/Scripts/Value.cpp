@@ -316,7 +316,7 @@ Value Value::find(const std::vector<Value>& args) {
     if (arr) {
         if (args.size() != 1) throw Error("find() takes a single argument");
         float i = 0.f;
-        for (const Ptr element : *arr) {
+        for (const Ptr& element : *arr) {
             if (ScriptImpl::equals(*element, args.front())) { return Value(i); }
             i += 1.f;
         }

@@ -27,7 +27,7 @@ Group SerializableObject::serialize() const {
 
 void SerializableObject::addField(SerializableFieldBase* field) { fields.push_back(field); }
 
-SerializableObject& SerializableObject::operator=(const SerializableObject& copy) { return *this; }
+SerializableObject& SerializableObject::operator=(const SerializableObject&) { return *this; }
 
 SerializableObject::SerializableObject(const SerializableObject&) {}
 

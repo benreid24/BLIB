@@ -21,9 +21,9 @@ Playlist::Playlist()
 : songs(*this)
 , _shuffle(*this, false)
 , shuffleOnLoop(*this, false)
+, currentIndex(0)
 , playing(false)
-, paused(false)
-, currentIndex(0) {}
+, paused(false) {}
 
 Playlist::Playlist(const std::string& file)
 : Playlist() {

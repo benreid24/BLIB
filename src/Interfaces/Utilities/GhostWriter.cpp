@@ -8,15 +8,15 @@ namespace bl
 namespace interface
 {
 GhostWriter::GhostWriter()
-: showing(0)
-, residual(0.f)
-, speed(engine::Configuration::getOrDefault<float>("blib.interface.ghost_speed", 20.f)) {}
+: speed(engine::Configuration::getOrDefault<float>("blib.interface.ghost_speed", 20.f))
+, showing(0)
+, residual(0.f) {}
 
 GhostWriter::GhostWriter(const std::string& content)
-: content(content)
+: speed(engine::Configuration::getOrDefault<float>("blib.interface.ghost_speed", 20.f))
+, content(content)
 , showing(0)
-, residual(0.f)
-, speed(engine::Configuration::getOrDefault<float>("blib.interface.ghost_speed", 20.f)) {}
+, residual(0.f) {}
 
 void GhostWriter::setContent(const std::string& c) {
     content  = c;

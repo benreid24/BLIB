@@ -473,6 +473,7 @@ ComponentSet<TComponents...> Registry::getEntityComponents(Entity e) {
     ComponentSet<TComponents...> set(e);
     std::shared_lock lock(entityMutex);
     const bool present[] = {populateComponent<TComponents, TComponents...>(e, set)...};
+    (void)present; // disables unused warning
     return set;
 }
 
@@ -491,10 +492,10 @@ bool Registry::populateComponent(Entity e, ComponentSet<TComponents...>& set) {
 }
 
 template<typename... Ts>
-Registry::ViewBase::ViewBase(Registry& r, DeductionDummy<Ts...> _)
+Registry::ViewBase::ViewBase(Registry& r, DeductionDummy<Ts...>)
 : registry(r)
-, dirty(false)
-, componentTypes({Component::getId<Ts>()...}) {
+, componentTypes({Component::getId<Ts>()...})
+, dirty(false) {
     registry.addView(this);
 }
 

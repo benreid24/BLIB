@@ -24,7 +24,9 @@ RadioButton::RadioButton(Element::Ptr child, Group* radioGroup, const std::strin
 , myGroup(this)
 , rgroup(radioGroup ? radioGroup : &myGroup) {
     rgroup->buttons.push_back(this);
-    getSignal(Action::ValueChanged).willAlwaysCall(std::bind(&RadioButton::onValueChanged, this));
+    getSignal(Action::ValueChanged).willAlwaysCall([this](const Action&, Element*) {
+        if (getValue()) rgroup->setActiveButton(this);
+    });
 }
 
 RadioButton::~RadioButton() { rgroup->removeButton(this); }
@@ -37,8 +39,11 @@ void RadioButton::renderToggles(Canvas& activeBut, Canvas& inactiveBut,
     renderer.renderToggleRadioButton(inactiveBut.getTexture(), false);
 }
 
-void RadioButton::onValueChanged() {
-    if (getValue()) rgroup->setActiveButton(this);
+void RadioButton::onClick() {
+    if (!getValue()) {
+        setValue(true);
+        rgroup->setActiveButton(this);
+    }
 }
 
 RadioButton::Group::Group(RadioButton* o)

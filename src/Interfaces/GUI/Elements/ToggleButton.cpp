@@ -2,6 +2,8 @@
 
 #include <BLIB/Interfaces/GUI/Packers/Packer.hpp>
 
+#include <BLIB/Logging.hpp>
+
 namespace bl
 {
 namespace gui
@@ -17,7 +19,7 @@ ToggleButton::ToggleButton(Element::Ptr c, const std::string& g, const std::stri
     setExpandsWidth(true);
     getChild()->setHorizontalAlignment(RenderSettings::Left);
     getChild()->setExpandsWidth(true);
-    getSignal(Action::LeftClicked).willAlwaysCall(std::bind(&ToggleButton::onClick, this));
+    getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) { onClick(); });
     getSignal(Action::ValueChanged).willAlwaysCall(std::bind(&ToggleButton::updateButtons, this));
 }
 
@@ -79,12 +81,11 @@ void ToggleButton::doRender(sf::RenderTarget& target, sf::RenderStates states,
         butsRendered = true;
         renderToggles(*activeButton, *inactiveButton, renderer);
     }
-    renderer.renderToggleButton(target, states, *this);
     renderChildren(target, states, renderer);
 
     const sf::View oldView = target.getView();
     target.setView(computeView(oldView, getAcquisition()));
-    // TODO - render mouse overlay
+    renderer.renderMouseoverOverlay(target, states, getChild().get());
     target.setView(oldView);
 }
 

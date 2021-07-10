@@ -21,6 +21,9 @@ struct Component2 {
     Component2(const std::string& s)
     : value(s) {}
 
+    Component2(const Component2& c)
+    : value(c.value) {}
+
     Component2& operator=(const Component2& c) {
         value = c.value;
         return *this;

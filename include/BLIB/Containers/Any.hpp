@@ -142,9 +142,9 @@ private:
 
 template<unsigned int Size>
 Any<Size>::Any()
-: heap(false)
-, ctype(nullptr)
-, object(nullptr) {}
+: object(nullptr)
+, heap(false)
+, ctype(nullptr) {}
 
 template<unsigned int Size>
 template<typename T>
@@ -240,8 +240,6 @@ T& Any<Size>::get() {
         BL_LOG_ERROR << "Bad Any cast";
         abort();
     }
-    auto addr = &inplace;
-    T temp    = *static_cast<T*>(object);
     return *static_cast<T*>(object);
 }
 

@@ -15,9 +15,9 @@ namespace parser
  */
 class WhitespaceSkipper : public ISkipper {
 public:
-    static ISkipper::Ptr create() {
-        return ISkipper::Ptr(new WhitespaceSkipper());
-    }
+    virtual ~WhitespaceSkipper() = default;
+
+    static ISkipper::Ptr create() { return ISkipper::Ptr(new WhitespaceSkipper()); }
 
     virtual void skip(Stream& stream) const override {
         while (std::isspace(stream.peek())) stream.get();

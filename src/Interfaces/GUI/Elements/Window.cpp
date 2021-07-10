@@ -22,9 +22,9 @@ Window::Ptr Window::create(Packer::Ptr packer, const std::string& titleText, Sty
 Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
                const sf::Vector2i& position, const std::string& group, const std::string& id)
 : Container(group, id)
-, elementArea(Box::create(packer, group, id + "-elementArea"))
 , moveable(hasStyle(style, Moveable))
-, titlebarHeight(22) {
+, titlebarHeight(22)
+, elementArea(Box::create(packer, group, id + "-elementArea")) {
     using namespace std::placeholders;
     const Signal::Callback dragCb   = std::bind(&Window::handleDrag, this, _1);
     const Signal::Callback activeCb = std::bind(&Window::titleActive, this);
@@ -160,6 +160,11 @@ Button::Ptr Window::getCloseButton() { return closeButton; }
 void Window::addChildren() {
     if (titlebar) add(titlebar);
     add(elementArea);
+}
+
+bool Window::handleScroll(const RawEvent& scroll) {
+    Container::handleScroll(scroll);
+    return true;
 }
 
 } // namespace gui

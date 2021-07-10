@@ -9,12 +9,12 @@ namespace gfx
 {
 Animation::Animation()
 : data(nullptr)
-, centerOrigin(true)
 , isPlaying(false)
-, animTime(0)
-, position(0, 0)
-, scale(1, 1)
-, rotation(0)
+, animTime(0.f)
+, centerOrigin(true)
+, position(0.f, 0.f)
+, scale(1.f, 1.f)
+, rotation(0.f)
 , loopOverride(false)
 , loop(false) {}
 
@@ -43,7 +43,7 @@ void Animation::setIsLoop(bool l) {
 void Animation::resetIsLoop() { loopOverride = false; }
 
 void Animation::play(bool restart) {
-    if (!isPlaying) animTime = 0.f;
+    if (!isPlaying || restart) animTime = 0.f;
     isPlaying = true;
 }
 
@@ -63,7 +63,13 @@ void Animation::stop() {
 void Animation::update(float dt) {
     if (isPlaying) {
         animTime += dt;
-        animTime -= animTime * std::floor(animTime / data->getLength());
+        if (animTime > data->getLength()) {
+            if (data->isLooping() || (loopOverride && loop)) { animTime -= data->getLength(); }
+            else {
+                isPlaying = false;
+                animTime  = 0.f;
+            }
+        }
     }
 }
 

@@ -15,9 +15,9 @@ ComboBox::Ptr ComboBox::create(const std::string& group, const std::string& id) 
 ComboBox::ComboBox(const std::string& group, const std::string& id)
 : Container(group, id)
 , arrow(Canvas::create(32, 32, group, id + "-dropdown"))
-, selected(-1)
 , maxHeight(0.f)
 , scroll(0.f)
+, selected(-1)
 , opened(false)
 , arrowRendered(false) {
     getSignal(Action::RenderSettingsChanged).willAlwaysCall(std::bind(&ComboBox::onSettings, this));
@@ -60,7 +60,7 @@ const std::string& ComboBox::getSelectedOptionText() const {
 
 void ComboBox::setSelectedOption(int i) {
     selected = i;
-    if (selected >= options.size()) selected = options.size() - 1;
+    if (selected >= static_cast<int>(options.size())) selected = options.size() - 1;
     opened = false;
     packClosed();
     fireSignal(Action(Action::ValueChanged));
@@ -119,6 +119,14 @@ bool ComboBox::handleRawEvent(const RawEvent& event) {
     return contained && opened;
 }
 
+bool ComboBox::handleScroll(const RawEvent& event) {
+    if (opened) {
+        scrolled(Action::fromRaw(event));
+        return true;
+    }
+    return false;
+}
+
 void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
                         const Renderer& renderer) const {
     unsigned int moused = options.size();
@@ -143,6 +151,7 @@ void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
     sf::IntRect region = labelRegion;
     region.top += getAcquisition().top;
     region.left += getAcquisition().left;
+    region.height += labelSize.y;
 
     sf::View trickView = oldView;
     trickView.move(0, labelSize.y);
@@ -199,8 +208,6 @@ void ComboBox::packClosed() {
     }
 }
 
-bool ComboBox::consumesScrolls() const { return true; }
-
 void ComboBox::setMaxHeight(int m) { maxHeight = m; }
 
 void ComboBox::scrolled(const Action& a) {
@@ -208,7 +215,7 @@ void ComboBox::scrolled(const Action& a) {
         const float height    = labelSize.y * static_cast<int>(options.size() + 1);
         const float maxScroll = height - maxHeight;
 
-        scroll += a.data.scroll * 2.f;
+        scroll -= a.data.scroll * 6.f;
         if (scroll < 0.f)
             scroll = 0.f;
         else if (scroll > maxScroll)

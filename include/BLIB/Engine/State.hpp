@@ -33,13 +33,13 @@ public:
      * @brief This is called each time the state becomes the active engine state
      *
      */
-    virtual void activate(Engine& engine){};
+    virtual void activate(Engine& engine) = 0;
 
     /**
      * @brief This is called each time this state is deactivated
      *
      */
-    virtual void deactivate(Engine& engine){};
+    virtual void deactivate(Engine& engine) = 0;
 
     /**
      * @brief Perform logic updates

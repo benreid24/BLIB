@@ -4,6 +4,7 @@
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Files/Binary/File.hpp>
 #include <BLIB/Files/Util.hpp>
+#include <cmath>
 
 namespace bl
 {
@@ -28,6 +29,7 @@ bool AnimationData::load(const std::string& filename) {
 
     std::string sheet;
     if (!file.read(sheet)) return false;
+    spritesheetSource = sheet;
     if (!file::Util::exists(sheet)) {
         if (file::Util::exists(file::Util::joinPath(path, sheet)))
             sheet = file::Util::joinPath(path, sheet);
@@ -85,6 +87,8 @@ bool AnimationData::load(const std::string& filename) {
     return true;
 }
 
+const std::string& AnimationData::spritesheetFile() const { return spritesheetSource; }
+
 bool AnimationData::isLooping() const { return loop; }
 
 float AnimationData::getLength() const { return totalLength; }
@@ -129,7 +133,7 @@ void AnimationData::render(sf::RenderTarget& target, sf::RenderStates states, fl
     unsigned int i    = 0;
 
     if (isLoop || elapsedTime <= totalLength) {
-        while (elapsedTime > totalLength) elapsedTime -= totalLength;
+        elapsedTime -= std::floor(elapsedTime / totalLength);
         while (elapsedTime > 0) {
             if (frames[i].length > elapsedTime) break;
             elapsedTime -= frames[i].length;
@@ -137,8 +141,6 @@ void AnimationData::render(sf::RenderTarget& target, sf::RenderStates states, fl
             i += 1;
         }
     }
-    else
-        i = frames.size() - 1;
 
     const Frame& frame = frames[i];
     sf::Sprite s(*spritesheet);

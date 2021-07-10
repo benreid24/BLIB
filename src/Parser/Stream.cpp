@@ -24,7 +24,8 @@ std::string Stream::peekN(unsigned int n) {
     int offset = 0;
 
     peek.reserve(n);
-    while (offset < n && stream.good()) {
+    const int sn = static_cast<int>(n);
+    while (offset < sn && stream.good()) {
         const char c = stream.peek();
         peek.push_back(c);
         if (c == EOF)

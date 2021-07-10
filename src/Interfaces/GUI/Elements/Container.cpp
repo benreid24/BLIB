@@ -1,5 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Container.hpp>
 
+#include <BLIB/Interfaces.hpp>
+#include <BLIB/Interfaces/GUI/Elements/ScrollArea.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
 
 namespace bl
@@ -8,41 +10,20 @@ namespace gui
 {
 namespace
 {
-bool deleteElement(std::vector<Element::Ptr>& list, const Element* e) {
-    bool del = false;
+void deleteElement(std::vector<Element::Ptr>& list, const Element* e) {
     for (unsigned int i = 0; i < list.size(); ++i) {
         if (list[i].get() == e) {
             list.erase(list.begin() + i);
             --i;
-            del = true;
         }
     }
-    return del;
-}
-
-RawEvent makeFakeMove() {
-    sf::Event sfevent;
-    sfevent.type        = sf::Event::MouseMoved;
-    sfevent.mouseMove.x = -100000;
-    sfevent.mouseMove.y = -100000;
-    return RawEvent(sfevent, {-100000, -100000}, sf::Transform::Identity);
-}
-
-bool viewValid(const sf::View& v) {
-    const sf::FloatRect& a = v.getViewport();
-    if (a.width < 0.f) return false;
-    if (a.height < 0.f) return false;
-    if (a.left < 0.f) return false;
-    if (a.top < 0.f) return false;
-    if (a.width > 1.f) return false;
-    if (a.height > 1.f) return false;
-    return true;
 }
 
 } // namespace
 
 Container::Container(const std::string& group, const std::string& id)
-: Element(group, id) {
+: Element(group, id)
+, clearFlag(false) {
     getSignal(Action::AcquisitionChanged)
         .willAlwaysCall(std::bind(&Container::acquisitionCb, this));
 }
@@ -86,48 +67,77 @@ const std::vector<Element::Ptr>& Container::getNonPackableChildren() const {
 
 void Container::removeChild(const Element* child) { toRemove.push_back(child); }
 
+void Container::clearChildren(bool immediate) {
+    clearFlag = true;
+    if (immediate) update(0.f);
+}
+
 RawEvent Container::transformEvent(const RawEvent& e) const {
     return e.transformToLocal(
         {static_cast<float>(getAcquisition().left), static_cast<float>(getAcquisition().top)});
 }
 
 bool Container::handleRawEvent(const RawEvent& event) {
-    static const RawEvent fakeMove = makeFakeMove();
-    bool sendFakes                 = false;
-    const RawEvent transformed     = transformEvent(event);
+    const RawEvent transformed = transformEvent(event);
 
     for (Element::Ptr e : nonpackableChildren) {
-        if (sendFakes)
-            e->handleEvent(fakeMove);
-        else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get()))))
-            sendFakes = true;
-    }
-    for (Element::Ptr e : packableChildren) {
-        if (sendFakes)
-            e->handleEvent(fakeMove);
-        else if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get()))) &&
-                 (event.event.type != sf::Event::MouseWheelScrolled || e->consumesScrolls()))
-            sendFakes = true;
+        if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get())))) {
+            if (event.event.type != sf::Event::MouseMoved) { return true; }
+        }
     }
 
-    // allow Element::handleEvent to complete for this element now if sendFakes is false
-    return sendFakes;
+    for (Element::Ptr e : packableChildren) {
+        if (e->handleEvent(transformed.transformToLocal(getElementOffset(e.get())))) {
+            if (event.event.type != sf::Event::MouseMoved) { return true; }
+        }
+    }
+
+    return false;
 }
 
-sf::Vector2f Container::getElementOffset(const Element* e) const { return {0, 0}; }
+bool Container::handleScroll(const RawEvent& event) {
+    const RawEvent transformed = transformEvent(event);
+
+    for (Element::Ptr e : nonpackableChildren) {
+        if (e->handleScroll(transformed.transformToLocal(getElementOffset(e.get())))) {
+            return true;
+        }
+    }
+
+    for (Element::Ptr e : packableChildren) {
+        if (e->handleScroll(transformed.transformToLocal(getElementOffset(e.get())))) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+sf::Vector2f Container::getElementOffset(const Element*) const { return {0, 0}; }
 
 void Container::update(float dt) {
-    if (!toRemove.empty()) makeDirty();
-    for (const Element* e : toRemove) {
-        deleteElement(nonpackableChildren, e);
-        deleteElement(packableChildren, e);
-        deleteElement(children, e);
+    if (!toRemove.empty() || clearFlag) makeDirty();
+
+    if (clearFlag) {
+        clearFlag = false;
+        children.clear();
+        packableChildren.clear();
+        nonpackableChildren.clear();
+    }
+    else {
+        for (const Element* e : toRemove) {
+            deleteElement(nonpackableChildren, e);
+            deleteElement(packableChildren, e);
+            deleteElement(children, e);
+        }
     }
     toRemove.clear();
+
     if (dirty()) {
         assignAcquisition(getAcquisition());
         markClean();
     }
+
     for (Element::Ptr e : children) { e->update(dt); }
 }
 
@@ -138,11 +148,6 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
 
     // Compute new view
     const sf::View view = computeView(oldView, getAcquisition());
-    if (!viewValid(view)) {
-        // Restore view
-        target.setView(oldView);
-        return;
-    }
     target.setView(view);
 
     // Draw children
@@ -168,8 +173,7 @@ void Container::renderChildrenRawFiltered(sf::RenderTarget& target, sf::RenderSt
     }
 }
 
-sf::View Container::computeView(const sf::View& oldView, const sf::IntRect& area,
-                                bool constrain) const {
+sf::View Container::computeView(const sf::View& oldView, const sf::IntRect& area, bool constrain) {
     const sf::Vector2f oldCorner = oldView.getCenter() - oldView.getSize() * 0.5f;
 
     const sf::FloatRect acq = static_cast<sf::FloatRect>(area);
@@ -185,7 +189,7 @@ sf::View Container::computeView(const sf::View& oldView, const sf::IntRect& area
     return view;
 }
 
-void Container::constrainView(sf::View& view, const sf::View& oldView) const {
+void Container::constrainView(sf::View& view, const sf::View& oldView) {
     const sf::FloatRect& newPort = view.getViewport();
     const sf::FloatRect& oldPort = oldView.getViewport();
     const sf::Vector2f m(view.getSize().x / newPort.width, view.getSize().y / newPort.height);

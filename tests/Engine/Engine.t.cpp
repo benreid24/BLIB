@@ -21,7 +21,7 @@ public:
     , r(replace)
     , flag(flag) {}
 
-    virtual void update(Engine& engine, float dt) {
+    virtual void update(Engine& engine, float) override {
         if (n) {
             if (r)
                 engine.replaceState(n);
@@ -35,17 +35,20 @@ public:
         ++callCount;
     }
 
-    virtual void render(Engine& engine, float rd) {}
+    virtual void render(Engine&, float) override {}
 
     int timesUpdated() const { return callCount; }
 
     virtual const char* name() const override { return "FlagTestState"; }
 
+    virtual void activate(Engine&) override {}
+    virtual void deactivate(Engine&) override {}
+
 private:
-    const Flags::Flag flag;
+    int callCount;
     State::Ptr n;
     bool r;
-    int callCount;
+    const Flags::Flag flag;
 };
 
 } // namespace
@@ -155,28 +158,31 @@ public:
         }
     }
 
-    virtual void render(Engine& engine, float rd) {
+    virtual void render(Engine&, float rd) {
         sf::sleep(sf::seconds(0.05));
         BL_LOG_INFO << "render() called with residual lag: " << rd << "s";
     }
 
-    const float levelAvg() {
+    float levelAvg() {
         float s = 0;
         for (const float t : levelTimes) { s += t; }
         return s / static_cast<float>(levelTimes.size());
     }
 
-    const float longAvg() {
+    float longAvg() {
         float s = 0;
         for (const float t : longTimes) { s += t; }
         return s / static_cast<float>(longTimes.size());
     }
 
-    const float shortAvg() {
+    float shortAvg() {
         float s = 0;
         for (const float t : shortTimes) { s += t; }
         return s / static_cast<float>(shortTimes.size());
     }
+
+    virtual void activate(Engine&) override {}
+    virtual void deactivate(Engine&) override {}
 
 private:
     std::vector<float> levelTimes;
@@ -201,16 +207,19 @@ TEST(Engine, VariableTimestep) {
 
 class FixedTimestepTestState : public State {
 public:
-    virtual void update(Engine& engine, float dt) {
+    virtual void update(Engine& engine, float dt) override {
         times.push_back(dt);
         if (times.size() >= 10) engine.flags().set(Flags::Terminate);
     }
 
-    virtual void render(Engine& engine, float rd) {}
+    virtual void render(Engine&, float) override {}
 
     const std::vector<float>& getTimes() const { return times; }
 
     virtual const char* name() const override { return "FixedTimestepTestState"; }
+
+    virtual void activate(Engine&) override {}
+    virtual void deactivate(Engine&) override {}
 
 private:
     std::vector<float> times;
@@ -291,16 +300,19 @@ public:
     TimeTestState()
     : totalTime(0) {}
 
-    virtual void update(Engine& engine, float dt) {
+    virtual void update(Engine& engine, float dt) override {
         totalTime += dt;
         if (totalTime >= 5.f) { engine.flags().set(Flags::Terminate); }
     }
 
-    virtual void render(Engine& engine, float rd) {}
+    virtual void render(Engine&, float) override {}
 
     float timeElapsed() const { return totalTime; }
 
     virtual const char* name() const override { return "TimeTestState"; }
+
+    virtual void activate(Engine&) override {}
+    virtual void deactivate(Engine&) override {}
 
 private:
     float totalTime;

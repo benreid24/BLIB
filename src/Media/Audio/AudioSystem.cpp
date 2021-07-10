@@ -23,12 +23,12 @@ constexpr float SoundCapacityFactor    = 0.2f; // 20% size:capacity ratio
 
 AudioSystem::AudioSystem()
 : masterVolume(100.f)
-, state(SystemState::Running)
 , runner(&AudioSystem::background, this)
+, state(SystemState::Running)
+, fadeVolumeFactor(-1.f)
+, musicState(MusicState::Stopped)
 , musicVolumeFactor(1)
 , musicFadeAmount(0)
-, musicState(MusicState::Stopped)
-, fadeVolumeFactor(-1.f)
 , defaultSpatialSettings{DefaultMinFadeDistance, DefaultAttenuation}
 , maxSpatialDistanceSquared(DefaultMaxDistance) {
     sf::Listener::setUpVector(0, 0, -1); // TODO - correct?

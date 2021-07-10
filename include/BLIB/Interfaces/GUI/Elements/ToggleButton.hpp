@@ -107,13 +107,18 @@ protected:
      */
     void finishCreate();
 
+    /**
+     * @brief Handler for clicks. Default behavior toggles the value
+     *
+     */
+    virtual void onClick();
+
 private:
     mutable bool butsRendered;
     Canvas::Ptr activeButton;
     Canvas::Ptr inactiveButton;
     bool value;
 
-    void onClick();
     void updateButtons();
 };
 

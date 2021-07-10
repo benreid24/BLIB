@@ -19,6 +19,12 @@ public:
     typedef std::shared_ptr<ISkipper> Ptr;
 
     /**
+     * @brief Destroy the ISkipper object
+     *
+     */
+    virtual ~ISkipper() = default;
+
+    /**
      * @brief Skip past unwanted characters in the stream
      *
      * @param stream The stream to perform skip operations on

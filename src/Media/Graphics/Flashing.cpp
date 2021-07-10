@@ -29,7 +29,9 @@ void Flashing::update(float dt) {
 
 void Flashing::render(sf::RenderTarget& target, sf::RenderStates states, float lag) const {
     const float t = time + lag;
-    if (visible && t < onPeriod || !visible && t >= offPeriod) { target.draw(component, states); }
+    if ((visible && t < onPeriod) || (!visible && t >= offPeriod)) {
+        target.draw(component, states);
+    }
 }
 
 } // namespace gfx

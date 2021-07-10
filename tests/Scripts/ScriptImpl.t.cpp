@@ -59,15 +59,6 @@ SymbolTable genRef(const std::string& name, const Value& value, const std::strin
     return t;
 }
 
-SymbolTable genArray(const std::string& name, const Value& fill, unsigned int len) {
-    SymbolTable t;
-    Value::Array a;
-    Value::Ptr f(new Value(fill));
-    a.resize(len, f);
-    t.set(name, a);
-    return t;
-}
-
 SymbolTable genProp(const std::string name, const std::string& propName, const Value& value,
                     const Value& propVal) {
     SymbolTable t = genVar(name, value);

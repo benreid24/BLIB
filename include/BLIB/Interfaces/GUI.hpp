@@ -26,6 +26,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Container.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 
+#include <BLIB/Interfaces/GUI/Elements/Animation.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Button.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
 #include <BLIB/Interfaces/GUI/Elements/CheckButton.hpp>
@@ -41,5 +42,8 @@
 #include <BLIB/Interfaces/GUI/Elements/TextEntry.hpp>
 #include <BLIB/Interfaces/GUI/Elements/ToggleButton.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Window.hpp>
+
+#include <BLIB/Interfaces/GUI/Dialogs/FilePicker.hpp>
+#include <BLIB/Interfaces/GUI/Dialogs/tinyfiledialogs.hpp>
 
 #endif

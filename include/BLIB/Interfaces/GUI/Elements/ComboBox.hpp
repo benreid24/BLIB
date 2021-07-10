@@ -90,10 +90,10 @@ public:
     bool isOpened() const;
 
     /**
-     * @brief Returns true
+     * @brief Returns true if open
      *
      */
-    virtual bool consumesScrolls() const override;
+    virtual bool handleScroll(const RawEvent& scroll) override;
 
 protected:
     /**

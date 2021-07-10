@@ -58,6 +58,13 @@ public:
     void setAlwaysShowHorizontalScrollbar(bool show);
 
     /**
+     * @brief Direct way to set the scroll. Parameter is a normalized vector
+     *
+     * @param scroll The normalized scroll values. 0 is top/left, 1 is bottom/right
+     */
+    void setScroll(const sf::Vector2f& scroll);
+
+    /**
      * @brief Pack the element into the ScrollArea
      *
      * @param e The element to pack
@@ -73,6 +80,14 @@ public:
      * @param fillY True for the element to expand vertically into all available space
      */
     void pack(Element::Ptr e, bool fillX, bool fillY);
+
+    /**
+     * @brief Does a bounds check and calls Container::handleRawEvent if in bounds
+     *
+     * @param event The event that fired
+     * @return True if the event was consumed, false otherwise
+     */
+    virtual bool handleRawEvent(const RawEvent& event) override;
 
 protected:
     /**
@@ -117,8 +132,13 @@ protected:
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const override;
 
-    /// @brief True
-    virtual bool consumesScrolls() const override { return true; }
+    /**
+     * @brief Scrolls the area and returns true
+     *
+     * @param scroll The scroll that occured
+     * @return True
+     */
+    virtual bool handleScroll(const RawEvent& scroll) override;
 
 private:
     Packer::Ptr packer;
@@ -129,13 +149,13 @@ private:
     mutable sf::Vector2i totalSize;
     mutable sf::Vector2i availableSize;
     sf::Vector2f offset;
+    sf::Vector2f boxMousePos;
     bool alwaysShowH;
     bool alwaysShowV;
 
     void addBars();
     void refreshSize() const;
     void scrolled();
-    void mouseScroll(const Action& scroll);
 };
 } // namespace gui
 } // namespace bl

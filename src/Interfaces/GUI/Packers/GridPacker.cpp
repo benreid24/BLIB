@@ -23,8 +23,8 @@ GridPacker::GridPacker(WrapRule r, Direction d, unsigned int pad, unsigned int s
 sf::Vector2i GridPacker::getRequisition(const std::vector<Element::Ptr>& elements) {
     sf::Vector2i req(0, 0);
     auto measure = [&req](Element::Ptr, const sf::IntRect& area) {
-        if (req.x < area.width) req.x = area.width;
-        if (req.y < area.height) req.y = area.height;
+        if (req.x < area.left + area.width) req.x = area.left + area.width;
+        if (req.y < area.top + area.height) req.y = area.top + area.height;
     };
     doPack({}, elements, measure);
     return req;

@@ -122,8 +122,13 @@ protected:
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const override;
 
-    /// @brief True
-    virtual bool consumesScrolls() const override { return true; }
+    /**
+     * @brief Handles the scroll and returns true
+     *
+     * @param scroll The scroll event
+     * @return True
+     */
+    virtual bool handleScroll(const RawEvent& scroll) override;
 
 private:
     const Direction dir;
@@ -137,11 +142,10 @@ private:
     Button::Ptr slider;
     mutable bool renderedButs;
 
-    unsigned int calculateFreeSize() const;
+    int calculateFreeSize() const;
     void packElements();
     void fireChanged();
 
-    void mouseScrolled(const Action& scroll);
     void sliderMoved(const Action& drag);
     void clicked(const Action& click);
 

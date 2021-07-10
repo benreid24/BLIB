@@ -2,6 +2,7 @@
 #define BLIB_GUI_ELEMENTS_IMAGE_HPP
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
+#include <BLIB/Resources.hpp>
 
 namespace bl
 {
@@ -21,7 +22,7 @@ public:
     virtual ~Image() = default;
 
     /**
-     * @brief Create a new Image with the desired size
+     * @brief Create a new Image from the given managed texture
      *
      * @param texture The texture of the image to render
      * @param group The group the image belongs to
@@ -29,6 +30,17 @@ public:
      * @return Ptr The new image
      */
     static Ptr create(resource::Resource<sf::Texture>::Ref texture, const std::string& group = "",
+                      const std::string& id = "");
+
+    /**
+     * @brief Create a new Image from a non managed texture
+     *
+     * @param texture The texture of the image to render. Must remain in scope
+     * @param group The group the image belongs to
+     * @param id The id of this image
+     * @return Ptr The new image
+     */
+    static Ptr create(const sf::Texture& texture, const std::string& group = "",
                       const std::string& id = "");
 
     /**
@@ -53,7 +65,7 @@ public:
 
 protected:
     /**
-     * @brief Create a new Image with the desired size
+     * @brief Create a new Image from the given managed texture
      *
      * @param texture The texture of the image to render
      * @param group The group the image belongs to
@@ -62,6 +74,16 @@ protected:
      */
     Image(resource::Resource<sf::Texture>::Ref texture, const std::string& group,
           const std::string& id);
+
+    /**
+     * @brief Create a new Image from a non managed texture
+     *
+     * @param texture The texture of the image to render. Must remain in scope
+     * @param group The group the image belongs to
+     * @param id The id of this image
+     * @return Ptr The new image
+     */
+    Image(const sf::Texture& texture, const std::string& group, const std::string& id);
 
     /**
      * @brief Returns the size the image is set to render to. Default is the image size
@@ -80,7 +102,8 @@ protected:
                           const Renderer& renderer) const override;
 
 private:
-    resource::Resource<sf::Texture>::Ref texture;
+    resource::Resource<sf::Texture>::Ref textureHandle;
+    const sf::Texture* texture;
     sf::Sprite sprite;
     std::optional<sf::Vector2f> size;
     bool fillAcq;

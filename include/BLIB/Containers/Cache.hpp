@@ -137,8 +137,8 @@ template<typename TKey, typename TPayload>
 Cache<TKey, TPayload>::Cache(EvictionPolicy policy, unsigned int lowWatermark,
                              unsigned int highWatermark)
 : evictionPolicy(policy)
-, lowWatermark(lowWatermark)
-, highWatermark(highWatermark) {}
+, highWatermark(highWatermark)
+, lowWatermark(lowWatermark) {}
 
 template<typename TKey, typename TPayload>
 bool Cache<TKey, TPayload>::add(const TKey& key, const TPayload& value) {

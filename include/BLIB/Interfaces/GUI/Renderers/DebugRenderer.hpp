@@ -111,10 +111,6 @@ public:
     virtual void renderTextEntry(sf::RenderTarget& target, sf::RenderStates states,
                                  const TextEntry& entry) const override;
 
-    /// @see Renderer::renderToggleButton
-    virtual void renderToggleButton(sf::RenderTarget& target, sf::RenderStates states,
-                                    const ToggleButton& button) const override;
-
     /// @see Renderer::renderToggleCheckButton
     virtual void renderToggleCheckButton(sf::RenderTexture& texture, bool active) const override;
 

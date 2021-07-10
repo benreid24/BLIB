@@ -20,10 +20,10 @@ class Schema;
 /// Collection of classes for creating json schemas and verifying that file content matches
 namespace schema
 {
-class Bool;
-class Numeric;
-class String;
-class List;
+struct Bool;
+struct Numeric;
+struct String;
+struct List;
 
 /**
  * @brief Represents a constraint on the type and value of a json::Value

@@ -5,7 +5,8 @@ namespace bl
 namespace gui
 {
 Box::Ptr Box::create(Packer::Ptr packer, const std::string& group, const std::string& id) {
-    return Ptr(new Box(packer, group, id));
+    auto p = Ptr(new Box(packer, group, id));
+    return p;
 }
 
 Box::Box(Packer::Ptr packer, const std::string& group, const std::string& id)

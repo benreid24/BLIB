@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+    Animation.hpp
     Box.hpp
     Button.hpp
     Canvas.hpp

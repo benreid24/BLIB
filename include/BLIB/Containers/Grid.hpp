@@ -103,6 +103,13 @@ public:
          * @brief Copies from the given iterator
          *
          * @param copy The iterator to copy from
+         */
+        Iterator(const Iterator& copy);
+
+        /**
+         * @brief Copies from the given iterator
+         *
+         * @param copy The iterator to copy from
          * @return Iterator& A reference to this iterator
          */
         Iterator& operator=(const Iterator& copy);
@@ -486,13 +493,23 @@ Grid<T>::Iterator::Iterator(Grid* o, unsigned int x, unsigned int y, unsigned in
                             unsigned int ey, const typename Payload::Ptr& current, bool s)
 : owner(o)
 , sx(x)
-, cx(x)
-, cy(y)
 , ex(ex)
 , ey(ey)
+, cx(x)
+, cy(y)
 , current(current) {
     if (s) skipEmpty();
 }
+
+template<typename T>
+Grid<T>::Iterator::Iterator(const Iterator& copy)
+: owner(copy.owner)
+, sx(copy.sx)
+, ex(copy.ex)
+, ey(copy.ey)
+, cx(copy.cx)
+, cy(copy.cy)
+, current(copy.current) {}
 
 template<typename T>
 typename Grid<T>::Iterator& Grid<T>::Iterator::operator=(const Iterator& copy) {

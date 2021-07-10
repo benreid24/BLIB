@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI/Elements/ScrollArea.hpp>
 
 #include <BLIB/Interfaces/Utilities.hpp>
-#include <BLIB/Logging.hpp>
 
 namespace bl
 {
@@ -9,7 +8,7 @@ namespace gui
 {
 namespace
 {
-constexpr unsigned int BarSize = 16;
+constexpr int BarSize          = 16;
 constexpr float PixelsPerClick = 10;
 
 float computeButtonSize(float totalSize, float availableSize) {
@@ -53,9 +52,6 @@ ScrollArea::ScrollArea(Packer::Ptr packer, const std::string& g, const std::stri
 
     filter.insert(horScrollbar.get());
     filter.insert(vertScrollbar.get());
-
-    using namespace std::placeholders;
-    getSignal(Action::Scrolled).willAlwaysCall(std::bind(&ScrollArea::mouseScroll, this, _1));
 }
 
 void ScrollArea::addBars() {
@@ -75,6 +71,18 @@ void ScrollArea::setAlwaysShowHorizontalScrollbar(bool s) { alwaysShowH = s; }
 
 void ScrollArea::setAlwaysShowVerticalScrollbar(bool s) { alwaysShowV = s; }
 
+void ScrollArea::setScroll(const sf::Vector2f& scroll) {
+    if (dirty()) refreshSize();
+    const sf::Vector2i freeSpace = totalSize - availableSize;
+    offset.x                     = static_cast<float>(freeSpace.x) * scroll.x;
+    offset.y                     = static_cast<float>(freeSpace.y) * scroll.y;
+
+    if (offset.x > freeSpace.x) offset.x = freeSpace.x;
+    if (offset.x < 0.f) offset.x = 0.f;
+    if (offset.y > freeSpace.y) offset.y = freeSpace.y;
+    if (offset.y < 0.f) offset.y = 0.f;
+}
+
 void ScrollArea::setMaxSize(const sf::Vector2i& s) {
     if (s.x <= 0 || s.y <= 0)
         maxSize.reset();
@@ -91,7 +99,7 @@ void ScrollArea::refreshSize() const {
 
 sf::Vector2i ScrollArea::minimumRequisition() const {
     refreshSize();
-    sf::Vector2i req = totalSize;
+    sf::Vector2i req = totalSize + sf::Vector2i(BarSize, BarSize);
     if (maxSize.has_value())
         req = {std::min(totalSize.x, maxSize.value().x), std::min(totalSize.y, maxSize.value().y)};
     return req;
@@ -100,7 +108,6 @@ sf::Vector2i ScrollArea::minimumRequisition() const {
 void ScrollArea::onAcquisition() {
     refreshSize();
 
-    packer->pack({sf::Vector2i(0, 0), totalSize}, getPackableChildren());
     if (totalSize.x > (getAcquisition().width - BarSize) || alwaysShowH) {
         availableSize.y -= BarSize;
         const sf::Vector2i barSize(getAcquisition().width - BarSize, BarSize);
@@ -124,6 +131,10 @@ void ScrollArea::onAcquisition() {
     }
     else
         vertScrollbar->setVisible(false);
+
+    packer->pack(
+        {0, 0, std::max(totalSize.x, availableSize.x), std::max(totalSize.y, availableSize.y)},
+        getPackableChildren());
 }
 
 void ScrollArea::scrolled() {
@@ -136,19 +147,47 @@ void ScrollArea::scrolled() {
         const float freeSpace = totalSize.y - availableSize.y;
         offset.y              = -freeSpace * vertScrollbar->getValue();
     }
+
+    sf::Event sfevent;
+    sfevent.type        = sf::Event::MouseMoved;
+    sfevent.mouseMove.x = boxMousePos.x - offset.x;
+    sfevent.mouseMove.y = boxMousePos.y - offset.y;
+    const RawEvent event(sfevent, boxMousePos - offset, sf::Transform::Identity);
+    for (Element::Ptr e : getPackableChildren()) { e->handleEvent(event); }
 }
 
-void ScrollArea::mouseScroll(const Action& scroll) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
-        horScrollbar->incrementValue(-scroll.data.scroll);
-    else
-        vertScrollbar->incrementValue(-scroll.data.scroll);
+bool ScrollArea::handleScroll(const RawEvent& scroll) {
+    if (getAcquisition().contains(sf::Vector2i(scroll.localMousePos))) {
+        if (Container::handleScroll(scroll)) return true;
+
+        if (totalSize.x > availableSize.x || totalSize.y > availableSize.y) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ||
+                sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
+                horScrollbar->incrementValue(-scroll.event.mouseWheelScroll.delta);
+            }
+            else {
+                vertScrollbar->incrementValue(-scroll.event.mouseWheelScroll.delta);
+            }
+        }
+        return true;
+    }
+    return false;
 }
 
 sf::Vector2f ScrollArea::getElementOffset(const Element* e) const {
     if (e != horScrollbar.get() && e != vertScrollbar.get()) return offset;
     return {0, 0};
+}
+
+bool ScrollArea::handleRawEvent(const RawEvent& event) {
+    if (event.event.type == sf::Event::MouseMoved) { boxMousePos = event.localMousePos; }
+
+    const bool in = getAcquisition().contains(static_cast<sf::Vector2i>(event.localMousePos));
+    if (in || event.event.type == sf::Event::MouseMoved ||
+        event.event.type == sf::Event::MouseButtonReleased) {
+        return Container::handleRawEvent(event);
+    }
+    return false;
 }
 
 void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
@@ -168,7 +207,7 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
                        {getAcquisition().left,
                         getAcquisition().top,
                         getAcquisition().width,
-                        getAcquisition().height + 16});
+                        getAcquisition().height + BarSize});
     target.setView(view);
 
     // Render scrollbars

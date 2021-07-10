@@ -10,8 +10,8 @@ namespace bl
 namespace gui
 {
 /**
- * @brief Base class for Elements that have child elements. Provides coordinate transofmation
- *        for rendering and events, as well as event propogation
+ * @brief Base class for Elements that have child elements. Provides coordinate transformation
+ *        for rendering and events, as well as event propagation
  *
  * @ingroup GUI
  *
@@ -38,6 +38,35 @@ public:
      *
      */
     virtual void update(float dt) override;
+
+    /**
+     * @brief Removes and unpacks all child elements
+     *
+     * @param immediate True to clear all children immediately, false to wait until update()
+     *
+     */
+    void clearChildren(bool immediate = false);
+
+    /**
+     * @brief Computes a View that can be used for constrained rendering of child elements into
+     *        the acquisition with no spill over
+     *
+     * @param oldView The original view of the parent element
+     * @param region The region to render into
+     * @param constrain True to constrain rendering to the intersection of the old view and new
+     * @return sf::View A View that can be applied to the target to constrain rendering
+     */
+    static sf::View computeView(const sf::View& oldView, const sf::IntRect& region,
+                                bool constrain = true);
+
+    /**
+     * @brief Constrains the viewport of the given view to the area that overlaps with the viewport
+     *        of the original view
+     *
+     * @param view The view to constrain
+     * @param oldView The original view to constrain to
+     */
+    static void constrainView(sf::View& view, const sf::View& oldView);
 
 protected:
     /**
@@ -105,6 +134,14 @@ protected:
     virtual bool handleRawEvent(const RawEvent& event) override;
 
     /**
+     * @brief Dispatches the scroll to children and returns true if any child handles the scroll
+     *
+     * @param scroll The scroll to dispatch
+     * @return True if event consumed, false if not
+     */
+    virtual bool handleScroll(const RawEvent& scroll) override;
+
+    /**
      * @brief This is for sophisticated containers to transform the position of events to local
      *        coordinates for elements that have additional offsets applied beyond only the
      *        position of the Container. ScrollArea uses this for its elements. The default
@@ -143,27 +180,6 @@ protected:
                                    const std::unordered_set<const Element*>& filter) const;
 
     /**
-     * @brief Computes a View that can be used for constrained rendering of child elements into
-     *        the acquisition with no spill over
-     *
-     * @param oldView The original view of the parent element
-     * @param region The region to render into
-     * @param constrain True to constrain rendering to the intersection of the old view and new
-     * @return sf::View A View that can be applied to the target to constrain rendering
-     */
-    sf::View computeView(const sf::View& oldView, const sf::IntRect& region,
-                         bool constrain = true) const;
-
-    /**
-     * @brief Constrains the viewport of the given view to the area that overlaps with the viewport
-     *        of the original view
-     *
-     * @param view The view to constrain
-     * @param oldView The original view to constrain to
-     */
-    void constrainView(sf::View& view, const sf::View& oldView) const;
-
-    /**
      * @brief Transforms the event into container local coordinates for child elements
      *
      * @param event The event to transform
@@ -176,6 +192,7 @@ private:
     std::vector<Element::Ptr> nonpackableChildren;
     std::vector<Element::Ptr> children;
     std::list<const Element*> toRemove;
+    bool clearFlag;
 
     void acquisitionCb();
 };

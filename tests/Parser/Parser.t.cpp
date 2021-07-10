@@ -31,8 +31,9 @@ public:
         if (s < parser.table.size()) r = parser.table[s].state;
         return r;
     }
-    std::optional<std::map<parser::Node::Type, unsigned int>> stateGoto(unsigned int s) const {
-        std::optional<std::map<parser::Node::Type, unsigned int>> r;
+    std::optional<std::unordered_map<parser::Node::Type, unsigned int>> stateGoto(
+        unsigned int s) const {
+        std::optional<std::unordered_map<parser::Node::Type, unsigned int>> r;
         if (s < parser.table.size()) r = parser.table[s].gotos;
         return r;
     }
@@ -77,7 +78,7 @@ TEST(Parser, Table) {
     TableReader table(parser);
     ASSERT_TRUE(parser.valid());
 
-    std::optional<std::map<parser::Node::Type, unsigned int>> gotos;
+    std::optional<std::unordered_map<parser::Node::Type, unsigned int>> gotos;
     std::optional<TableReader::Action> action;
     Production r0 = {table.getStart(), {S}};
     Production r1 = {S, {A, B}};

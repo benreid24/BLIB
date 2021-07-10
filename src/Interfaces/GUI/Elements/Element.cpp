@@ -104,6 +104,13 @@ bool Element::rightPressed() const { return isRightPressed; }
 bool Element::handleEvent(const RawEvent& event) {
     if (!visible()) return false;
 
+    if (event.event.type == sf::Event::MouseWheelScrolled) {
+        if (getAcquisition().contains(sf::Vector2i(event.localMousePos))) {
+            return handleScroll(event);
+        }
+        return false;
+    }
+
     if (handleRawEvent(event)) return true;
 
     const bool eventOnMe =
@@ -163,10 +170,10 @@ bool Element::handleEvent(const RawEvent& event) {
 
     case sf::Event::MouseMoved:
         if (!active()) { return eventOnMe; }
+        if (eventOnMe) { fireSignal(Action(Action::MouseMoved, event.localMousePos)); }
         if (isLeftPressed) {
-            isMouseOver  = eventOnMe;
-            const bool r = processAction(Action(Action::Dragged, dragStart, event.localMousePos));
-            return r;
+            isMouseOver = eventOnMe;
+            return processAction(Action(Action::Dragged, dragStart, event.localMousePos));
         }
         else if (eventOnMe) {
             if (!isMouseOver) {
@@ -187,19 +194,14 @@ bool Element::handleEvent(const RawEvent& event) {
 }
 
 bool Element::processAction(const Action& action) {
-    if (action.type == Action::Scrolled) {
-        if (mouseOver()) {
-            fireSignal(action);
-            return true;
-        }
-        return false;
-    }
-    else if (hasFocus()) {
+    if (hasFocus()) {
         fireSignal(action);
         return true;
     }
     return false;
 }
+
+bool Element::handleScroll(const RawEvent&) { return false; }
 
 void Element::fireSignal(const Action& action) { signals[action.type](action, this); }
 
@@ -214,6 +216,7 @@ void Element::makeDirty() {
     _dirty = true;
     if (!parent.expired()) {
         Element::Ptr p = parent.lock();
+        // TODO - stop this bubbling up at container level if requisition unchanged
         if (p) p->makeDirty();
     }
 }
@@ -236,7 +239,14 @@ bool Element::shouldPack() const { return true; }
 
 bool Element::visible() const { return _visible; }
 
-void Element::setActive(bool a) { _active = a; }
+void Element::setActive(bool a) {
+    _active = a;
+    if (!_active) {
+        isMouseOver    = false;
+        isLeftPressed  = false;
+        isRightPressed = false;
+    }
+}
 
 bool Element::active() const { return _active && _visible; }
 
@@ -343,6 +353,14 @@ void Element::setVerticalAlignment(RenderSettings::Alignment align) {
 }
 
 Element::Ptr Element::me() { return shared_from_this(); }
+
+void Element::bringToTop(const Element*) {}
+
+void Element::removeChild(const Element*) {}
+
+bool Element::handleRawEvent(const RawEvent&) { return false; }
+
+void Element::update(float) {}
 
 } // namespace gui
 } // namespace bl

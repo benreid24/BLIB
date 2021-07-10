@@ -18,8 +18,8 @@ Settings::Settings()
 , windowMode(DefaultVideoMode)
 , sfWindowStyle(DefaultWindowStyle)
 , createSfWindow(DefaultCreateWindow)
-, loggingFps(DefaultLogFps)
-, icon() {}
+, icon()
+, loggingFps(DefaultLogFps) {}
 
 Settings& Settings::withMaxFramerate(float fps) {
     maxFps = fps;
