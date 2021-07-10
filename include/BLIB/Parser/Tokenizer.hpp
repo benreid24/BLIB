@@ -87,7 +87,7 @@ public:
 private:
     ISkipper::Ptr skipper;
     std::unordered_map<std::string, std::pair<std::regex, Node::Type>> matchers;
-    std::map<std::string, unsigned int> matchGroups;
+    std::unordered_map<std::string, unsigned int> matchGroups;
     std::unordered_map<std::string, std::list<std::string>> ambiguous;
     std::unordered_map<Node::Type, std::vector<std::pair<std::string, Node::Type>>> kwords;
     std::vector<char> togglers;

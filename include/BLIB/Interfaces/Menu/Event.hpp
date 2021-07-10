@@ -51,7 +51,7 @@ struct Event {
     };
 
     const Type type;
-    const union {
+    union {
         MoveEvent moveEvent;
         ActivateEvent activateEvent;
         LocationEvent locationEvent;

@@ -25,6 +25,12 @@ public:
                    const std::string& blockCommentClose);
 
     /**
+     * @brief Destroy the Comment Skipper object
+     *
+     */
+    virtual ~CommentSkipper() = default;
+
+    /**
      * @brief Helper function to create a CommentSkipper wrapped in an ISkipper::Ptr
      * @see CommentSkiper()
      */
