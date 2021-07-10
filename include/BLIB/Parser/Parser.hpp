@@ -63,8 +63,8 @@ private:
 
     struct Row {
         parser::Grammar::ItemSet state;
-        std::map<parser::Node::Type, unsigned int> gotos;
-        std::map<parser::Node::Type, Action> actions;
+        std::unordered_map<parser::Node::Type, unsigned int> gotos;
+        std::unordered_map<parser::Node::Type, Action> actions;
     };
 
     bool generateTables();
