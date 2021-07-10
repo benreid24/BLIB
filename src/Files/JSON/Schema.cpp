@@ -193,7 +193,7 @@ bool Schema::validate(const Group& root, bool strict) const {
     if (!reqFlds.empty()) {
         std::stringstream ss;
         ss << "Missing required fields [ ";
-        for (const auto f : reqFlds) ss << "'" << f << "' ";
+        for (const auto& f : reqFlds) ss << "'" << f << "' ";
         ss << "]";
         SCHEMA_ERROR(root.source()) << ss.str();
         valid = false;
