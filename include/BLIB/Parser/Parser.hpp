@@ -39,18 +39,20 @@ public:
      * @brief Parses the input stream into a parse tree of Nodes
      *
      * @param input The stream to tokenize and parse
+     * @param err String to populate with error message on error
      * @return parser::Node::Ptr The root of the tree, or nullptr if error
      */
-    parser::Node::Ptr parse(parser::Stream& input) const;
+    parser::Node::Ptr parse(parser::Stream& input, std::string* err = nullptr) const;
 
     /**
      * @brief Convenience method to avoid manually creating a Stream
      * @see parser::Node::Ptr parse(parser::Stream& input)
      *
      * @param input Input to parse into tree
+     * @param err String to populate with error message on error
      * @return parser::Node::Ptr The generated parse tree or nullptr on error
      */
-    parser::Node::Ptr parse(const std::string& input) const;
+    parser::Node::Ptr parse(const std::string& input, std::string* err = nullptr) const;
 
 private:
     struct Action {

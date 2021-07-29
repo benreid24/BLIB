@@ -278,9 +278,9 @@ parser::Grammar Parser::getGrammar() {
     return grammar;
 }
 
-parser::Node::Ptr Parser::parse(const std::string& input) {
+parser::Node::Ptr Parser::parse(const std::string& input, std::string* err) {
     static const bl::parser::Parser parser = buildParser();
-    return parser.parse(input);
+    return parser.parse(input, err);
 }
 
 } // namespace script

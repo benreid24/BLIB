@@ -17,9 +17,10 @@ struct Parser {
      * @brief Parses the input script into a parse tree
      *
      * @param input The script to parse
+     * @param err String to populate with error message on parse error
      * @return parser::Node::Ptr The root node, or nullptr on error
      */
-    static parser::Node::Ptr parse(const std::string& input);
+    static parser::Node::Ptr parse(const std::string& input, std::string* err = nullptr);
 
     /**
      * @brief Builds and returns the tokenizer for scripts

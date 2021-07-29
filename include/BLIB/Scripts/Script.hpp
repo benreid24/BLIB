@@ -63,6 +63,12 @@ public:
     bool valid() const;
 
     /**
+     * @brief Returns an error message for the last parsing error that occured
+     *
+     */
+    const std::string& errorMessage() const;
+
+    /**
      * @brief Recreates the script's starting symbol table from a new context. Optionally clears the
      *        existing symbol table
      *
@@ -91,6 +97,7 @@ public:
 private:
     parser::Node::Ptr root;
     const std::string source;
+    std::string error;
     SymbolTable defaultTable;
 
     struct ExecutionContext : public std::enable_shared_from_this<ExecutionContext> {

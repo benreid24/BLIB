@@ -46,11 +46,11 @@ Script::Script(const std::string& data, bool addDefaults)
         input.reserve(file.tellg());
         file.seekg(0, std::ios::beg);
         input.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-        root = script::Parser::parse(input);
+        root = script::Parser::parse(input, &error);
     }
     else {
         BL_LOG_DEBUG << "Loading bScript: " << data;
-        root = script::Parser::parse(data);
+        root = script::Parser::parse(data, &error);
     }
 
     if (addDefaults) Context().initializeTable(defaultTable);
@@ -70,6 +70,8 @@ Script::Script(const std::string& s, const SymbolTable& t)
 }
 
 bool Script::valid() const { return root.get() != nullptr; }
+
+const std::string& Script::errorMessage() const { return error; }
 
 void Script::resetContext(const Context& ctx, bool clear) {
     if (clear) { defaultTable.reset(); }
