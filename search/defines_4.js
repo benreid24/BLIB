@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['parser_5ferror',['PARSER_ERROR',['../a02067.html#aad487a8d1815f7c8cf4fcbfe5f03a0c9',1,'Parser.cpp']]]
+  ['schema_5ferror',['SCHEMA_ERROR',['../a00491.html#a9417a2067ad8ee39688fc22efd2ceb48',1,'Schema.cpp']]],
+  ['slash',['SLASH',['../a00509.html#a69eb17477fd6f6af2c9ca2d5f4c7df3c',1,'tinyfiledialogs.cpp']]]
 ];

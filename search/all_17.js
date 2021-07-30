@@ -6,9 +6,9 @@ var searchData=
   ['waiter_2ehpp',['Waiter.hpp',['../a00443.html',1,'']]],
   ['waitfor',['waitFor',['../a01576.html#ae6ec33df7bd81f407858b725342e7f12',1,'bl::script::SymbolTable::waitFor()'],['../a01624.html#ab18842baad424ae363690f3f018836a3',1,'bl::util::Waiter::waitFor()']]],
   ['waiton',['waitOn',['../a01576.html#a495c91f3ed29f986bcaedc6334419df9',1,'bl::script::SymbolTable']]],
-  ['warn',['warn',['../a01408.html#aceeb9b5121a77f94e4c52382ecca0b20',1,'bl::logging::Logger::warn()'],['../a01404.html#a3ae6ba0bf40434238378e10e2f291804',1,'bl::logging::Config::Warn()']]],
+  ['warn',['Warn',['../a01404.html#a3ae6ba0bf40434238378e10e2f291804',1,'bl::logging::Config::Warn()'],['../a01408.html#aceeb9b5121a77f94e4c52382ecca0b20',1,'bl::logging::Logger::warn()']]],
   ['wasunblocked',['wasUnblocked',['../a01624.html#a1452bb16386e9f68434e415b4645b3f3',1,'bl::util::Waiter']]],
-  ['while',['While',['../a01652.html#aab7cdda02e78cc66c150f58063c8b9e4a566c8bd17619e3612df6030200ac0233',1,'bl::script::Parser']]],
+  ['while',['While',['../a01656.html#aab7cdda02e78cc66c150f58063c8b9e4a566c8bd17619e3612df6030200ac0233',1,'bl::script::Parser']]],
   ['whiptailpresent',['whiptailPresent',['../a00759.html#a3ae28c4dc902f32ab2196cfadd7987d9',1,'bl::dialog']]],
   ['whiptailpresentonly',['whiptailPresentOnly',['../a00759.html#a6b0d37c2634377ce5cb7c8da6b378177',1,'bl::dialog']]],
   ['whitespaceskipper',['WhitespaceSkipper',['../a01520.html',1,'bl::parser']]],
@@ -16,7 +16,7 @@ var searchData=
   ['willalwayscall',['willAlwaysCall',['../a01616.html#a419a776049b9cb49fe75e3a9cd55f05b',1,'bl::util::Signal']]],
   ['willcall',['willCall',['../a01616.html#a5c3dee119766378bdc5262795bc0d08c',1,'bl::util::Signal']]],
   ['willset',['willSet',['../a01616.html#a8a2fe54cccdcc5e9a607898725cd5f02',1,'bl::util::Signal']]],
-  ['window',['Window',['../a01288.html',1,'bl::gui::Window'],['../a00900.html#ab7615560dde03f27fb7054f7fe89a119',1,'bl::engine::Engine::window()'],['../a01288.html#a5bdc66b5aae615dd7b3c77139e1095ef',1,'bl::gui::Window::Window()']]],
+  ['window',['Window',['../a01288.html',1,'bl::gui::Window'],['../a01288.html#a5bdc66b5aae615dd7b3c77139e1095ef',1,'bl::gui::Window::Window()'],['../a00900.html#ab7615560dde03f27fb7054f7fe89a119',1,'bl::engine::Engine::window()']]],
   ['window_2ecpp',['Window.cpp',['../a00566.html',1,'']]],
   ['window_2ehpp',['Window.hpp',['../a00221.html',1,'']]],
   ['windowclosed',['WindowClosed',['../a00912.html#a610f7ea530340c0339eae47bea563204a124f6c688386414dba77b638454e3082',1,'bl::engine::event::Shutdown']]],
@@ -39,5 +39,5 @@ var searchData=
   ['wordwrap_2ecpp',['WordWrap.cpp',['../a00632.html',1,'']]],
   ['wordwrap_2ehpp',['WordWrap.hpp',['../a00296.html',1,'']]],
   ['wptr',['WPtr',['../a01236.html#a5a203f6b9f513c2adbeb9b8a9082013b',1,'bl::gui::Element']]],
-  ['write',['Write',['../a01040.html#a6190ae9a68283742636b0b926ee43392a9197c71f7e7fd0de5b8a519d2e73a776',1,'bl::file::binary::File::Write()'],['../a01040.html#a1185f141001091a4fc7b78eb45d4cae5',1,'bl::file::binary::File::write(const T &amp;data)'],['../a01040.html#a671021b804d98851dd19c8367739463c',1,'bl::file::binary::File::write(const std::string &amp;data)'],['../a01100.html#a3be240121feabd7805e5e7ba62f5f05a',1,'bl::file::binary::VersionedPayloadLoader::write()'],['../a01104.html#ad65ef7fe1ced7afb9ae6a79f786e8cf2',1,'bl::file::binary::VersionedFile::write()']]]
+  ['write',['write',['../a01040.html#a1185f141001091a4fc7b78eb45d4cae5',1,'bl::file::binary::File::write(const T &amp;data)'],['../a01040.html#a671021b804d98851dd19c8367739463c',1,'bl::file::binary::File::write(const std::string &amp;data)'],['../a01100.html#a3be240121feabd7805e5e7ba62f5f05a',1,'bl::file::binary::VersionedPayloadLoader::write()'],['../a01104.html#ad65ef7fe1ced7afb9ae6a79f786e8cf2',1,'bl::file::binary::VersionedFile::write()'],['../a01040.html#a6190ae9a68283742636b0b926ee43392a9197c71f7e7fd0de5b8a519d2e73a776',1,'bl::file::binary::File::Write()']]]
 ];

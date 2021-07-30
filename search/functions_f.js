@@ -5,7 +5,7 @@ var searchData=
   ['packelementintospace',['packElementIntoSpace',['../a01304.html#ae3842989a2d0a6abf63e46c04f81e427',1,'bl::gui::Packer']]],
   ['pactlpresent',['pactlPresent',['../a00759.html#aa7e1f0872463575fe9b2e5ea7e1d3d68',1,'bl::dialog']]],
   ['pagecount',['pageCount',['../a01248.html#abe387afed6fa4b42c68ae4b2443971e0',1,'bl::gui::Notebook']]],
-  ['parse',['parse',['../a01500.html#a84253084053e6603b4ab077ee58726d9',1,'bl::parser::Parser::parse(parser::Stream &amp;input) const'],['../a01500.html#a695cac182ceebc8560fc3fcb63e02105',1,'bl::parser::Parser::parse(const std::string &amp;input) const'],['../a01652.html#a52b691345b39cbe0a7ced067ed774ca4',1,'bl::script::Parser::parse()']]],
+  ['parse',['parse',['../a01500.html#ae4cb0e12c1fa3d6f54ebc0074a1b4491',1,'bl::parser::Parser::parse(parser::Stream &amp;input, std::string *err=nullptr) const'],['../a01500.html#a205695a85995efbe949a307fd7944369',1,'bl::parser::Parser::parse(const std::string &amp;input, std::string *err=nullptr) const'],['../a01656.html#a9ef704f0aebc378fce106ffefd2f12e4',1,'bl::script::Parser::parse()']]],
   ['parser',['Parser',['../a01500.html#a4eb7b71c40074b0ad2b62176e0bf2daa',1,'bl::parser::Parser']]],
   ['particlecount',['particleCount',['../a01524.html#a37becae7fd8c8406c359d52b4342976e',1,'bl::particle::System']]],
   ['pathfinder',['PathFinder',['../a00804.html#a5fcc71737a622dc7028e1d8d613b8051',1,'bl::ai::PathFinder']]],

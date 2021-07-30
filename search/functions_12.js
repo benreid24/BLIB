@@ -84,7 +84,7 @@ var searchData=
   ['setstyle',['setStyle',['../a01236.html#addb4566469e2004ec0caa4a9de1acfe4',1,'bl::gui::Element']]],
   ['settargetcount',['setTargetCount',['../a01524.html#a1f7b5ed87b4f3769a0e41e2328350377',1,'bl::particle::System']]],
   ['settext',['setText',['../a01244.html#a66d688962685b095e7bc16302ff011e4',1,'bl::gui::Label']]],
-  ['settings',['settings',['../a00900.html#ad305287ca113addc1b34ab818993be12',1,'bl::engine::Engine::settings()'],['../a00932.html#a53e691c80798c988e9ea192cd2c119a0',1,'bl::engine::Settings::Settings()']]],
+  ['settings',['Settings',['../a00932.html#a53e691c80798c988e9ea192cd2c119a0',1,'bl::engine::Settings::Settings()'],['../a00900.html#ad305287ca113addc1b34ab818993be12',1,'bl::engine::Engine::settings()']]],
   ['settitlebarheight',['setTitlebarHeight',['../a01288.html#ac051db87a4c80ecd4c296df773a93952',1,'bl::gui::Window']]],
   ['settogglebuttonsize',['setToggleButtonSize',['../a01284.html#af2d4730267bacb2015bc58c1aeb301b8',1,'bl::gui::ToggleButton']]],
   ['setuniformsize',['setUniformSize',['../a01372.html#a13cf9961a8cdbab3e5f111262db68a35',1,'bl::menu::BasicRenderer']]],
