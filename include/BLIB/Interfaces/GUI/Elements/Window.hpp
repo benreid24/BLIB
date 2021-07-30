@@ -44,7 +44,7 @@ public:
      * @param id The id of this window
      */
     static Ptr create(Packer::Ptr packer, const std::string& title = "", Style style = Default,
-                      const sf::Vector2i& position = {30, 30}, const std::string& group = "",
+                      const sf::Vector2i& position = {250, 150}, const std::string& group = "",
                       const std::string& id = "");
 
     /**
