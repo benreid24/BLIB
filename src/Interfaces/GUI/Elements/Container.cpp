@@ -54,7 +54,7 @@ void Container::add(Element::Ptr e) {
     if (e->packable())
         packableChildren.push_back(e);
     else
-        nonpackableChildren.push_back(e);
+        nonpackableChildren.insert(nonpackableChildren.begin(), e);
     setChildParent(e);
     makeDirty();
 }
