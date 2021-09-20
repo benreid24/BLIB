@@ -55,6 +55,8 @@ bool Animation::playing() const {
     return true;
 }
 
+bool Animation::finished() const { return !playing(); }
+
 void Animation::stop() {
     isPlaying = false;
     animTime  = 0.f;
