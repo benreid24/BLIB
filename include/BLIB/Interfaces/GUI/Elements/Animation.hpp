@@ -26,12 +26,21 @@ public:
      * @brief Create a new Animation element
      *
      * @param anim The animation to use
+     * @param centered True to center the animation, false for top left
      * @param group The group of the element
      * @param id The id of this element
      * @return Ptr The new Animation
      */
-    static Ptr create(resource::Resource<gfx::AnimationData>::Ref anim,
+    static Ptr create(resource::Resource<gfx::AnimationData>::Ref anim, bool centered,
                       const std::string& group = "", const std::string& id = "");
+
+    /**
+     * @brief Sets the animation to render. Does not reset any applied size
+     *
+     * @param centered True to center the animation, false for top left
+     * @param anim The animation to render
+     */
+    void setAnimation(resource::Resource<gfx::AnimationData>::Ref anim, bool centered);
 
     /**
      * @brief Scales the rendered animation to the given size
@@ -52,11 +61,12 @@ protected:
      * @brief Create a new Animation element
      *
      * @param anim The animation to use
+     * @param centered True to center the animation, false for top left
      * @param group The group of the element
      * @param id The id of this element
      */
-    Animation(resource::Resource<gfx::AnimationData>::Ref anim, const std::string& group,
-              const std::string& id);
+    Animation(resource::Resource<gfx::AnimationData>::Ref anim, bool centered,
+              const std::string& group, const std::string& id);
 
     /**
      * @brief Returns the size required to render the animation
@@ -75,6 +85,7 @@ protected:
                           const Renderer& renderer) const override;
 
 private:
+    bool centered;
     resource::Resource<gfx::AnimationData>::Ref source;
     gfx::Animation animation;
     std::optional<sf::Vector2f> size;
