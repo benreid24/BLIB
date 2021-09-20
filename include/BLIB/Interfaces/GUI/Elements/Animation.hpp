@@ -34,6 +34,13 @@ public:
                       const std::string& group = "", const std::string& id = "");
 
     /**
+     * @brief Sets the animation to render. Does not reset any applied size
+     *
+     * @param anim The animation to render
+     */
+    void setAnimation(resource::Resource<gfx::AnimationData>::Ref anim);
+
+    /**
      * @brief Scales the rendered animation to the given size
      *
      * @param size The size to render to, in pixels

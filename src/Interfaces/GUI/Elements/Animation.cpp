@@ -24,6 +24,14 @@ Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim, const std
     });
 }
 
+void Animation::setAnimation(resource::Resource<gfx::AnimationData>::Ref src) {
+    source = src;
+    animation.setData(*source);
+    animation.setIsLoop(true);
+    animation.setIsCentered(false);
+    animation.play();
+}
+
 void Animation::scaleToSize(const sf::Vector2f& s) {
     size = s;
     makeDirty();
