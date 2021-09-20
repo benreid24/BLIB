@@ -4,32 +4,40 @@ namespace bl
 {
 namespace gui
 {
-Animation::Ptr Animation::create(resource::Resource<gfx::AnimationData>::Ref anim,
+Animation::Ptr Animation::create(resource::Resource<gfx::AnimationData>::Ref anim, bool c,
                                  const std::string& group, const std::string& id) {
-    return Ptr(new Animation(anim, group, id));
+    return Ptr(new Animation(anim, c, group, id));
 }
 
-Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim, const std::string& group,
-                     const std::string& id)
+Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim, bool c,
+                     const std::string& group, const std::string& id)
 : Element(group, id)
+, centered(c)
 , source(anim)
 , animation(*anim) {
     animation.setIsLoop(true);
-    animation.setIsCentered(false);
+    animation.setIsCentered(centered);
     animation.play();
 
     getSignal(Action::AcquisitionChanged).willAlwaysCall([this](const Action&, Element*) {
-        animation.setPosition(
-            {static_cast<float>(getAcquisition().left), static_cast<float>(getAcquisition().top)});
+        const sf::Vector2f offset =
+            centered ? sf::Vector2f{static_cast<float>(getAcquisition().width) * 0.5f,
+                                    static_cast<float>(getAcquisition().height) * 0.5f} :
+                       sf::Vector2f{0.f, 0.f};
+        animation.setPosition(sf::Vector2f{static_cast<float>(getAcquisition().left),
+                                           static_cast<float>(getAcquisition().top)} +
+                              offset);
     });
 }
 
-void Animation::setAnimation(resource::Resource<gfx::AnimationData>::Ref src) {
-    source = src;
+void Animation::setAnimation(resource::Resource<gfx::AnimationData>::Ref src, bool c) {
+    centered = c;
+    source   = src;
     animation.setData(*source);
     animation.setIsLoop(true);
-    animation.setIsCentered(false);
+    animation.setIsCentered(centered);
     animation.play();
+    makeDirty();
 }
 
 void Animation::scaleToSize(const sf::Vector2f& s) {
