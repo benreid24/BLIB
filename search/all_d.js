@@ -4,6 +4,7 @@ var searchData=
   ['makebool',['makeBool',['../a01580.html#a2e5eaacb6e68b704fdcf41a1f8ae7067',1,'bl::script::Value']]],
   ['makedirty',['makeDirty',['../a01236.html#a25f12a23ffb09b4a0fb6eb92f005d810',1,'bl::gui::Element']]],
   ['makenew',['makeNew',['../a00956.html#a20d520abadc52a007bc7a4cf87cf3228',1,'bl::entity::IdGenerator']]],
+  ['makepageactive',['makePageActive',['../a01248.html#ad307545a126f10ff5aaa12c55ae0e193',1,'bl::gui::Notebook']]],
   ['manager',['Manager',['../a01540.html',1,'bl::resource::Manager&lt; TResourceType &gt;'],['../a01564.html',1,'bl::script::Manager'],['../a01576.html#a6ff7c1f833bc8b7b41d665fded5d1c14',1,'bl::script::SymbolTable::manager()'],['../a01568.html#adddd5c43ff870a047aa66db4edf82a7e',1,'bl::script::Script::Manager()'],['../a01540.html#a8ebd9f42b18b801ff45a324ea27b0ff3',1,'bl::resource::Manager::Manager()']]],
   ['manager_2ecpp',['Manager.cpp',['../a00689.html',1,'']]],
   ['manager_2ehpp',['Manager.hpp',['../a02047.html',1,'(Global Namespace)'],['../a02050.html',1,'(Global Namespace)']]],
