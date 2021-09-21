@@ -92,6 +92,13 @@ public:
     unsigned int pageCount() const;
 
     /**
+     * @brief Set the Active Page
+     *
+     * @param i Index of the page to make active
+     */
+    void makePageActive(unsigned int index);
+
+    /**
      * @brief Returns a real only reference to all the pages. Useful for Renderers
      *
      */
@@ -177,7 +184,6 @@ private:
 
     void addChildren();
     void pageClicked(Page* page);
-    void makePageActive(unsigned int index);
 };
 } // namespace gui
 } // namespace bl
