@@ -53,24 +53,18 @@ public:
      *
      * @param text The text to put to the right of the check box
      * @param radioGroup The group of buttons for selection. Leave nullptr for new group
-     * @param group The group of the button
-     * @param id The id of this button
      * @return Ptr The new button
      */
-    static Ptr create(const std::string& text, Group* radioGroup = nullptr,
-                      const std::string& group = "", const std::string& id = "");
+    static Ptr create(const std::string& text, Group* radioGroup = nullptr);
 
     /**
      * @brief Create a new RadioButton with any child to its right
      *
      * @param child The element to put to the right of the check box
      * @param radioGroup The group of buttons for selection. Leave nullptr for new group
-     * @param group The group of the button
-     * @param id The id of this button
      * @return Ptr The new button
      */
-    static Ptr create(Element::Ptr child, Group* radioGroup = nullptr,
-                      const std::string& group = "", const std::string& id = "");
+    static Ptr create(Element::Ptr child, Group* radioGroup = nullptr);
 
     /**
      * @brief Removes this button from the group
@@ -90,11 +84,8 @@ protected:
      *
      * @param child The element to put to the right of the check box
      * @param radioGroup The group of buttons for selection. Leave nullptr for new group
-     * @param group The group of the button
-     * @param id The id of this button
      */
-    RadioButton(Element::Ptr child, Group* radioGroup, const std::string& group,
-                const std::string& id);
+    RadioButton(Element::Ptr child, Group* radioGroup);
 
     /**
      * @brief Renders the unchecked and checked box

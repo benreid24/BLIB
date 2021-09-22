@@ -55,10 +55,8 @@ protected:
      * @brief Create a new ToggleButton
      *
      * @param child The element to put to the right of the button
-     * @param group The group of the Button
-     * @param id The id of this button
      */
-    ToggleButton(Element::Ptr child, const std::string& group, const std::string& id);
+    ToggleButton(Element::Ptr child);
 
     /**
      * @brief Passes the event to the child then returns false always

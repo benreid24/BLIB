@@ -13,21 +13,20 @@ namespace
 constexpr int ChildPadding = 2;
 }
 
-Button::Ptr Button::create(const std::string& text, const std::string& group,
-                           const std::string& id) {
-    Ptr button(new Button(Label::create(text, group, id + "-label"), group, id));
+Button::Ptr Button::create(const std::string& text) {
+    Ptr button(new Button(Label::create(text)));
     button->addChild();
     return button;
 }
 
-Button::Ptr Button::create(Element::Ptr e, const std::string& g, const std::string& i) {
-    Ptr button(new Button(e, g, i));
+Button::Ptr Button::create(Element::Ptr e) {
+    Ptr button(new Button(e));
     button->addChild();
     return button;
 }
 
-Button::Button(Element::Ptr child, const std::string& group, const std::string& id)
-: Container(group, id)
+Button::Button(Element::Ptr child)
+: Container()
 , child(child) {}
 
 Element::Ptr Button::getChild() const { return child; }

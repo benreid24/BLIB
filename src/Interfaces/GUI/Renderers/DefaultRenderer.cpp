@@ -453,7 +453,7 @@ void DefaultRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates st
                                    const Container* titlebar, const Window& window) const {
     if (!viewValid(target.getView())) return;
 
-    const RenderSettings settings        = getSettings(&window);
+    const RenderSettings& settings        = getSettings(&window);
     static const RenderSettings defaults = getWindowDefaults();
 
     RendererUtil::renderRectangle(target, states, window.getAcquisition(), settings, defaults);

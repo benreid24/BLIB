@@ -8,12 +8,10 @@ namespace bl
 {
 namespace gui
 {
-TextEntry::Ptr TextEntry::create(unsigned int lc, const std::string& g, const std::string& i) {
-    return Ptr(new TextEntry(lc, g, i));
-}
+TextEntry::Ptr TextEntry::create(unsigned int lc) { return Ptr(new TextEntry(lc)); }
 
-TextEntry::TextEntry(unsigned int lc, const std::string& g, const std::string& i)
-: Element(g, i)
+TextEntry::TextEntry(unsigned int lc)
+: Element()
 , lineCount(lc)
 , cursorPos(0)
 , cursorShowing(false)

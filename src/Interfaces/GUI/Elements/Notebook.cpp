@@ -6,15 +6,15 @@ namespace bl
 {
 namespace gui
 {
-Notebook::Ptr Notebook::create(const std::string& group, const std::string& id) {
-    Ptr nb(new Notebook(group, id));
+Notebook::Ptr Notebook::create() {
+    Ptr nb(new Notebook());
     nb->addChildren();
     return nb;
 }
 
-Notebook::Notebook(const std::string& group, const std::string& id)
-: Container(group, id)
-, tabArea(Box::create(LinePacker::create(), group, id + "-tabarea"))
+Notebook::Notebook()
+: Container()
+, tabArea(Box::create(LinePacker::create()))
 , activePage(0) {
     tabArea->setExpandsWidth(true);
     tabArea->setExpandsHeight(true);
@@ -37,7 +37,7 @@ Notebook::Page::Page(const std::string& name, Label::Ptr label, Element::Ptr con
 void Notebook::addPage(const std::string& name, const std::string& title, Element::Ptr content,
                        const PageChangedCb& onOpen, const PageChangedCb& onClose) {
     if (pageMap.find(name) == pageMap.end()) {
-        Label::Ptr label = Label::create(title, group(), id() + "-tab-" + name);
+        Label::Ptr label = Label::create(title);
         label->setRequisition(label->getRequisition() + sf::Vector2i(6, 6));
         pages.push_back(new Page(name, label, content, onOpen, onClose));
         pageMap[name] = std::make_pair(pages.size() - 1, pages.back());

@@ -25,12 +25,9 @@ public:
      * @brief Create a new Image from the given managed texture
      *
      * @param texture The texture of the image to render
-     * @param group The group the image belongs to
-     * @param id The id of this image
      * @return Ptr The new image
      */
-    static Ptr create(resource::Resource<sf::Texture>::Ref texture, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(resource::Resource<sf::Texture>::Ref texture);
 
     /**
      * @brief Create a new Image from a non managed texture
@@ -40,8 +37,7 @@ public:
      * @param id The id of this image
      * @return Ptr The new image
      */
-    static Ptr create(const sf::Texture& texture, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(const sf::Texture& texture);
 
     /**
      * @brief Override the target size the image renders to. The default is the size of the
@@ -68,22 +64,17 @@ protected:
      * @brief Create a new Image from the given managed texture
      *
      * @param texture The texture of the image to render
-     * @param group The group the image belongs to
-     * @param id The id of this image
      * @return Ptr The new image
      */
-    Image(resource::Resource<sf::Texture>::Ref texture, const std::string& group,
-          const std::string& id);
+    Image(resource::Resource<sf::Texture>::Ref texture);
 
     /**
      * @brief Create a new Image from a non managed texture
      *
      * @param texture The texture of the image to render. Must remain in scope
-     * @param group The group the image belongs to
-     * @param id The id of this image
      * @return Ptr The new image
      */
-    Image(const sf::Texture& texture, const std::string& group, const std::string& id);
+    Image(const sf::Texture& texture);
 
     /**
      * @brief Returns the size the image is set to render to. Default is the image size

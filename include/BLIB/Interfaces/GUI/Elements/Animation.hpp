@@ -27,12 +27,9 @@ public:
      *
      * @param anim The animation to use
      * @param centered True to center the animation, false for top left
-     * @param group The group of the element
-     * @param id The id of this element
      * @return Ptr The new Animation
      */
-    static Ptr create(resource::Resource<gfx::AnimationData>::Ref anim, bool centered,
-                      const std::string& group = "", const std::string& id = "");
+    static Ptr create(resource::Resource<gfx::AnimationData>::Ref anim, bool centered);
 
     /**
      * @brief Sets the animation to render. Does not reset any applied size
@@ -62,11 +59,8 @@ protected:
      *
      * @param anim The animation to use
      * @param centered True to center the animation, false for top left
-     * @param group The group of the element
-     * @param id The id of this element
      */
-    Animation(resource::Resource<gfx::AnimationData>::Ref anim, bool centered,
-              const std::string& group, const std::string& id);
+    Animation(resource::Resource<gfx::AnimationData>::Ref anim, bool centered);
 
     /**
      * @brief Returns the size required to render the animation

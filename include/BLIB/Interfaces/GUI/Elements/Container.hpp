@@ -70,12 +70,10 @@ public:
 
 protected:
     /**
-     * @brief Construct a new Container with the given id and group
+     * @brief Construct a new Container
      *
-     * @param group The group of the Element
-     * @param id The id of this Element
      */
-    Container(const std::string& group = "", const std::string& id = "");
+    Container();
 
     /**
      * @brief Adds the Element as a new child. Marks dirty. Note that this cannot be called

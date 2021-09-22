@@ -42,18 +42,6 @@ public:
     virtual ~Element() = default;
 
     /**
-     * @brief Returns the user set id of the Element. This is solely for client use
-     *
-     */
-    const std::string& id() const;
-
-    /**
-     * @brief Returns the user set group of the Element. This is solely for client use
-     *
-     */
-    const std::string& group() const;
-
-    /**
      * @brief Returns a const pointer to the parent element. May be null
      *
      */
@@ -342,14 +330,10 @@ public:
 
 protected:
     /**
-     * @brief Builds a new Element. The group and id are optional and are only used to be
-     *        passed to the client callbacks and renderer. They can be used to differentiate
-     *        elements for custom rendering or behavior
+     * @brief Builds a new Element
      *
-     * @param group The group the element belongs to
-     * @param id The id of this element
      */
-    Element(const std::string& group, const std::string& id);
+    Element();
 
     /**
      * @brief Returns the minimum required size of the Element. Any acquisition smaller than
@@ -455,8 +439,6 @@ protected:
     Ptr me();
 
 private:
-    const std::string _id;
-    const std::string _group;
     RenderSettings settings;
     std::optional<sf::Vector2i> requisition;
     sf::IntRect acquisition;

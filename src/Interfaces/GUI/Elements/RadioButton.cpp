@@ -6,21 +6,18 @@ namespace bl
 {
 namespace gui
 {
-RadioButton::Ptr RadioButton::create(const std::string& text, Group* radioGroup,
-                                     const std::string& group, const std::string& id) {
-    return create(Label::create(text, group, id + "-label"), radioGroup, group, id);
+RadioButton::Ptr RadioButton::create(const std::string& text, Group* radioGroup) {
+    return create(Label::create(text), radioGroup);
 }
 
-RadioButton::Ptr RadioButton::create(Element::Ptr child, Group* radioGroup,
-                                     const std::string& group, const std::string& id) {
-    Ptr but(new RadioButton(child, radioGroup, group, id));
+RadioButton::Ptr RadioButton::create(Element::Ptr child, Group* radioGroup) {
+    Ptr but(new RadioButton(child, radioGroup));
     but->finishCreate();
     return but;
 }
 
-RadioButton::RadioButton(Element::Ptr child, Group* radioGroup, const std::string& group,
-                         const std::string& id)
-: ToggleButton(child, group, id)
+RadioButton::RadioButton(Element::Ptr child, Group* radioGroup)
+: ToggleButton(child)
 , myGroup(this)
 , rgroup(radioGroup ? radioGroup : &myGroup) {
     rgroup->buttons.push_back(this);

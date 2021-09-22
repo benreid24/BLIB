@@ -26,11 +26,9 @@ public:
     /**
      * @brief Create a new ComboBox
      *
-     * @param group The group the box is in
-     * @param id The id of this box
-     * @return Ptr
+     * @return Ptr The new ComboBox
      */
-    static Ptr create(const std::string& group = "", const std::string& id = "");
+    static Ptr create();
 
     /**
      * @brief Set the color of the text labels
@@ -99,10 +97,8 @@ protected:
     /**
      * @brief Create a new ComboBox
      *
-     * @param group The group the box is in
-     * @param id The id of this box
      */
-    ComboBox(const std::string& group, const std::string& id);
+    ComboBox();
 
     /**
      * @brief Returns the size of the largest label plus the dropdown arrow

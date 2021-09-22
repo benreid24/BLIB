@@ -40,12 +40,9 @@ public:
      * @param title Title of the window. Only has effect if style contains Titlebar
      * @param style The style to render with
      * @param position The position to create the window at
-     * @param group Group the window belongs to
-     * @param id The id of this window
      */
     static Ptr create(Packer::Ptr packer, const std::string& title = "", Style style = Default,
-                      const sf::Vector2i& position = {250, 150}, const std::string& group = "",
-                      const std::string& id = "");
+                      const sf::Vector2i& position = {250, 150});
 
     /**
      * @brief Destroy the Window object
@@ -125,11 +122,8 @@ protected:
      * @param title Title of the window. Only has effect if style contains Titlebar
      * @param style The style to render with
      * @param position The position to create the window at
-     * @param group Group the window belongs to
-     * @param id The id of this window
      */
-    Window(Packer::Ptr packer, const std::string& title, Style style, const sf::Vector2i& position,
-           const std::string& group, const std::string& id);
+    Window(Packer::Ptr packer, const std::string& title, Style style, const sf::Vector2i& position);
 
     /**
      * @brief Returns size required by children elements plus the titlebar

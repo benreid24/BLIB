@@ -4,14 +4,12 @@ namespace bl
 {
 namespace gui
 {
-Animation::Ptr Animation::create(resource::Resource<gfx::AnimationData>::Ref anim, bool c,
-                                 const std::string& group, const std::string& id) {
-    return Ptr(new Animation(anim, c, group, id));
+Animation::Ptr Animation::create(resource::Resource<gfx::AnimationData>::Ref anim, bool c) {
+    return Ptr(new Animation(anim, c));
 }
 
-Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim, bool c,
-                     const std::string& group, const std::string& id)
-: Element(group, id)
+Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim, bool c)
+: Element()
 , centered(c)
 , source(anim)
 , animation(*anim) {

@@ -8,11 +8,11 @@ namespace bl
 {
 namespace gui
 {
-ToggleButton::ToggleButton(Element::Ptr c, const std::string& g, const std::string& i)
-: Button(c, g, i)
+ToggleButton::ToggleButton(Element::Ptr c)
+: Button(c)
 , butsRendered(false)
-, activeButton(Canvas::create(10, 10, g, i + "-checked"))
-, inactiveButton(Canvas::create(10, 10, g, i + "-unchecked"))
+, activeButton(Canvas::create(10, 10))
+, inactiveButton(Canvas::create(10, 10))
 , value(false) {
     updateButtons();
     setHorizontalAlignment(RenderSettings::Left);

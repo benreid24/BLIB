@@ -27,8 +27,7 @@ public:
      * @param id The id of this button
      * @return Ptr Pointer to the new Button
      */
-    static Ptr create(const std::string& text, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(const std::string& text);
 
     /**
      * @brief Create a new Button with any element inside. Typically used for images
@@ -38,8 +37,7 @@ public:
      * @param id The id of this button
      * @return Ptr Pointer to the new Button
      */
-    static Ptr create(Element::Ptr child, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(Element::Ptr child);
 
     /**
      * @brief Get the child element of the Button. Typically this is a Label but may be
@@ -54,10 +52,8 @@ protected:
      * @brief Create a new Button
      *
      * @param c The element to put inside the button
-     * @param group The group of the Button
-     * @param id The id of this button
      */
-    Button(Element::Ptr c, const std::string& group, const std::string& id);
+    Button(Element::Ptr c);
 
     /**
      * @brief Passes the event to the child then returns false always

@@ -12,37 +12,29 @@ inline bool hasStyle(Window::Style style, Window::Style check) { return (style &
 } // namespace
 
 Window::Ptr Window::create(Packer::Ptr packer, const std::string& titleText, Style style,
-                           const sf::Vector2i& position, const std::string& group,
-                           const std::string& id) {
-    Ptr window(new Window(packer, titleText, style, position, group, id));
+                           const sf::Vector2i& position) {
+    Ptr window(new Window(packer, titleText, style, position));
     window->addChildren();
     return window;
 }
 
 Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
-               const sf::Vector2i& position, const std::string& group, const std::string& id)
-: Container(group, id)
+               const sf::Vector2i& position)
+: Container()
 , moveable(hasStyle(style, Moveable))
 , titlebarHeight(22)
-, elementArea(Box::create(packer, group, id + "-elementArea")) {
+, elementArea(Box::create(packer)) {
     using namespace std::placeholders;
     const Signal::Callback dragCb   = std::bind(&Window::handleDrag, this, _1);
     const Signal::Callback activeCb = std::bind(&Window::titleActive, this);
 
     if (hasStyle(style, Titlebar)) {
         // Create titlebar containers
-        titlebar =
-            Box::create(LinePacker::create(
-                            LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::LeftAlign),
-                        group,
-                        id + "-titlebar");
-        leftTitleSide =
-            Box::create(LinePacker::create(LinePacker::Horizontal), group, id + "-leftTitlebar");
-        rightTitleSide =
-            Box::create(LinePacker::create(
-                            LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::RightAlign),
-                        group,
-                        id + "-rightTitlebar");
+        titlebar       = Box::create(LinePacker::create(
+            LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::LeftAlign));
+        leftTitleSide  = Box::create(LinePacker::create(LinePacker::Horizontal));
+        rightTitleSide = Box::create(LinePacker::create(
+            LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::RightAlign));
         rightTitleSide->setRequisition(
             {static_cast<int>(titlebarHeight), static_cast<int>(titlebarHeight)});
         titlebar->pack(leftTitleSide, true, true);
@@ -51,7 +43,7 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
         titlebar->setExpandsHeight(true);
 
         // Title text
-        title = Label::create(titleText, group, id + "-title");
+        title = Label::create(titleText);
         title->setCharacterSize(18);
         title->setHorizontalAlignment(RenderSettings::Left);
         leftTitleSide->pack(title, true, true);
@@ -69,7 +61,7 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
 
         // Close button
         if (hasStyle(style, CloseButton)) {
-            closeButton = Button::create("X", group, id + "-close");
+            closeButton = Button::create("X");
             closeButton->setCharacterSize(16);
             closeButton->setExpandsWidth(true);
             closeButton->getSignal(Action::LeftClicked)

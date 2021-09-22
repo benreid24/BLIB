@@ -243,13 +243,6 @@ public:
     virtual void renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                               const Container* titlebar, const Window& window) const = 0;
 
-    /**
-     * @brief Returns an aggregated RenderSettings object for the given Element. Settings
-     *        with no values are left empty.
-     *
-     */
-    RenderSettings getSettings(const Element* element) const;
-
 protected:
     /**
      * @brief Construct a new default renderer
@@ -263,9 +256,13 @@ protected:
      */
     bool viewValid(const sf::View& view) const;
 
-private:
-    std::unordered_map<std::string, RenderSettings> groupSettings;
-    std::unordered_map<std::string, RenderSettings> idSettings;
+    /**
+     * @brief Helper function to get render settings for the given element
+     *
+     * @param e The element to get settings for
+     * @return const RenderSettings& The render settings to use
+     */
+    const RenderSettings& getSettings(const Element* e) const;
 };
 
 } // namespace gui

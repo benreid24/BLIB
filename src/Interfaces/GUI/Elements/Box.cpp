@@ -4,13 +4,13 @@ namespace bl
 {
 namespace gui
 {
-Box::Ptr Box::create(Packer::Ptr packer, const std::string& group, const std::string& id) {
-    auto p = Ptr(new Box(packer, group, id));
+Box::Ptr Box::create(Packer::Ptr packer) {
+    auto p = Ptr(new Box(packer));
     return p;
 }
 
-Box::Box(Packer::Ptr packer, const std::string& group, const std::string& id)
-: Container(group, id)
+Box::Box(Packer::Ptr packer)
+: Container()
 , packer(packer) {}
 
 void Box::setPacker(Packer::Ptr p) {

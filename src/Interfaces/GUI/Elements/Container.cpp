@@ -21,8 +21,8 @@ void deleteElement(std::vector<Element::Ptr>& list, const Element* e) {
 
 } // namespace
 
-Container::Container(const std::string& group, const std::string& id)
-: Element(group, id)
+Container::Container()
+: Element()
 , clearFlag(false) {
     getSignal(Action::AcquisitionChanged)
         .willAlwaysCall(std::bind(&Container::acquisitionCb, this));

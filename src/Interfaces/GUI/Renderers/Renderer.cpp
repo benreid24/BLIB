@@ -8,24 +8,6 @@ namespace bl
 {
 namespace gui
 {
-void Renderer::setGroupSettings(const std::string& group, const RenderSettings& settings) {
-    groupSettings[group] = settings;
-}
-
-void Renderer::setIdSettings(const std::string& id, const RenderSettings& settings) {
-    idSettings[id] = settings;
-}
-
-RenderSettings Renderer::getSettings(const Element* element) const {
-    RenderSettings result;
-    auto it = groupSettings.find(element->group());
-    if (it != groupSettings.end()) result.merge(it->second);
-    it = idSettings.find(element->id());
-    if (it != idSettings.end()) result.merge(it->second);
-    result.merge(element->renderSettings());
-    return result;
-}
-
 bool Renderer::viewValid(const sf::View& v) const {
     const sf::FloatRect& a = v.getViewport();
     if (a.width < 0.f) return false;
@@ -36,6 +18,8 @@ bool Renderer::viewValid(const sf::View& v) const {
     if (a.height > 1.f) return false;
     return true;
 }
+
+const RenderSettings& Renderer::getSettings(const Element* e) const { return e->renderSettings(); }
 
 } // namespace gui
 } // namespace bl

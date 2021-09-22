@@ -26,12 +26,9 @@ public:
      * @brief Create a new ProgressBar
      *
      * @param fillDir The direction the bar should fill in
-     * @param group The group the bar belongs to
-     * @param id The id of this bar
      * @return Ptr The new ProgressBar
      */
-    static Ptr create(FillDirection fillDir = LeftToRight, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(FillDirection fillDir = LeftToRight);
 
     /**
      * @brief Set the progress of the bar. In the range [0,1]
@@ -57,10 +54,8 @@ protected:
      * @brief Create a new ProgressBar
      *
      * @param fillDir The direction the bar should fill in
-     * @param group The group the bar belongs to
-     * @param id The id of this bar
      */
-    ProgressBar(FillDirection fillDir, const std::string& group, const std::string& id);
+    ProgressBar(FillDirection fillDir);
 
     /**
      * @brief Returns (5,5)

@@ -36,20 +36,6 @@ public:
      */
     void showAcquisitions(bool show = true);
 
-    /**
-     * @brief Set whether or not to print group names by elements
-     *
-     * @param show True to print group names of elements
-     */
-    void showGroups(bool show = true);
-
-    /**
-     * @brief Set whether or not to print element ids
-     *
-     * @param show True to print element ids
-     */
-    void showIds(bool show = true);
-
     /// @see Renderer::renderCustom
     virtual void renderCustom(sf::RenderTarget& target, sf::RenderStates states,
                               const Element& element) const override;
@@ -124,12 +110,10 @@ public:
 private:
     Renderer::Ptr underlying;
     bool showBounds;
-    bool printGroups;
-    bool printIds;
 
     DebugRenderer(Renderer::Ptr renderer);
-    void addInfo(sf::RenderTarget& target, sf::RenderStates states, const sf::IntRect& region,
-                 const std::string& group, const std::string& id) const;
+    void addInfo(sf::RenderTarget& target, sf::RenderStates states,
+                 const sf::IntRect& region) const;
 };
 
 } // namespace gui

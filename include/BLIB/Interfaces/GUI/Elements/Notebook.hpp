@@ -27,11 +27,9 @@ public:
     /**
      * @brief Create a new empty Notebook
      *
-     * @param group The group the notebook is in
-     * @param id The id of this notebook
      * @return Ptr The new Notebook
      */
-    static Ptr create(const std::string& group = "", const std::string& id = "");
+    static Ptr create();
 
     /**
      * @brief Container struct representing a page in the notebook
@@ -148,10 +146,8 @@ protected:
     /**
      * @brief Create a new empty Notebook
      *
-     * @param group The group the notebook is in
-     * @param id The id of this notebook
      */
-    Notebook(const std::string& group, const std::string& id);
+    Notebook();
 
     /**
      * @brief Computes space required across all tabs

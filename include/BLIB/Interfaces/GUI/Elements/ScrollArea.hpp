@@ -28,12 +28,9 @@ public:
      * @brief Create a new ScrollArea
      *
      * @param packer The packer to use
-     * @param group The group of the ScrollArea
-     * @param id The id of this ScrollArea
      * @return Ptr The newly created ScrollArea
      */
-    static Ptr create(Packer::Ptr packer, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(Packer::Ptr packer);
 
     /**
      * @brief Set the maximum size the scroll area can fill before scrolling is enabled. Note
@@ -94,11 +91,9 @@ protected:
      * @brief Create a new ScrollArea
      *
      * @param packer The packer to use
-     * @param group The group of the ScrollArea
-     * @param id The id of this ScrollArea
      * @return Ptr The newly created ScrollArea
      */
-    ScrollArea(Packer::Ptr packer, const std::string& group, const std::string& id);
+    ScrollArea(Packer::Ptr packer);
 
     /**
      * @brief Adjusts the size of the visible window and updates the scrollbars

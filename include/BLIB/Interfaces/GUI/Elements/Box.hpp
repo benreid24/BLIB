@@ -24,11 +24,8 @@ public:
      * @brief Construct a new Box with the given id, group, and Packer
      *
      * @param packer The Packer to pack child elements with
-     * @param group The group of the Element
-     * @param id The id of this Element
      */
-    static Ptr create(Packer::Ptr packer, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(Packer::Ptr packer);
 
     /**
      * @brief Destroy the Box object
@@ -64,10 +61,8 @@ protected:
      * @brief Construct a new Container with the given id, group, and Packer
      *
      * @param packer The Packer to pack child elements with
-     * @param group The group of the Element
-     * @param id The id of this Element
      */
-    Box(Packer::Ptr packer, const std::string& group, const std::string& id);
+    Box(Packer::Ptr packer);
 
     /**
      * @brief Returns the minimum requisition for the Container. This depends on the child

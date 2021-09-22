@@ -30,11 +30,9 @@ public:
      * @brief Create a new slider
      *
      * @param dir The direction to slide in
-     * @param group The group the slider is in
-     * @param id The id of the slider
      * @return Ptr The new slider
      */
-    static Ptr create(Direction dir, const std::string& group = "", const std::string& id = "");
+    static Ptr create(Direction dir);
 
     /**
      * @brief Returns the position of the slider, normalized to [0,1]
@@ -95,10 +93,8 @@ protected:
      * @brief Create a new slider
      *
      * @param dir The direction to slide in
-     * @param group The group the slider is in
-     * @param id The id of the slider
      */
-    Slider(Direction dir, const std::string& group, const std::string& id);
+    Slider(Direction dir);
 
     /**
      * @brief Returns the space required by the slider button and the others if visible

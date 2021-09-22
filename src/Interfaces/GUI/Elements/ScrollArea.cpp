@@ -27,17 +27,17 @@ float computeIncrement(float totalSize, float availableSize) {
 
 } // namespace
 
-ScrollArea::Ptr ScrollArea::create(Packer::Ptr packer, const std::string& g, const std::string& i) {
-    Ptr area(new ScrollArea(packer, g, i));
+ScrollArea::Ptr ScrollArea::create(Packer::Ptr packer) {
+    Ptr area(new ScrollArea(packer));
     area->addBars();
     return area;
 }
 
-ScrollArea::ScrollArea(Packer::Ptr packer, const std::string& g, const std::string& i)
-: Container(g, i)
+ScrollArea::ScrollArea(Packer::Ptr packer)
+: Container()
 , packer(packer)
-, horScrollbar(Slider::create(Slider::Horizontal, g, i + "-hscroll"))
-, vertScrollbar(Slider::create(Slider::Vertical, g, i + "-vscroll")) {
+, horScrollbar(Slider::create(Slider::Horizontal))
+, vertScrollbar(Slider::create(Slider::Vertical)) {
     horScrollbar->getSignal(Action::ValueChanged)
         .willAlwaysCall(std::bind(&ScrollArea::scrolled, this));
     vertScrollbar->getSignal(Action::ValueChanged)

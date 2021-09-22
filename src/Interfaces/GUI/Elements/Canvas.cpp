@@ -4,13 +4,10 @@ namespace bl
 {
 namespace gui
 {
-Canvas::Ptr Canvas::create(unsigned int w, unsigned int h, const std::string& group,
-                           const std::string& id) {
-    return Ptr(new Canvas(w, h, group, id));
-}
+Canvas::Ptr Canvas::create(unsigned int w, unsigned int h) { return Ptr(new Canvas(w, h)); }
 
-Canvas::Canvas(unsigned int w, unsigned int h, const std::string& group, const std::string& id)
-: Element(group, id)
+Canvas::Canvas(unsigned int w, unsigned int h)
+: Element()
 , fillAcq(false)
 , maintainAR(true) {
     texture.create(w, h);

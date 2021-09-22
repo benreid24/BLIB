@@ -7,23 +7,23 @@ namespace bl
 {
 namespace gui
 {
-Slider::Ptr Slider::create(Direction dir, const std::string& group, const std::string& id) {
-    Ptr slider(new Slider(dir, group, id));
+Slider::Ptr Slider::create(Direction dir) {
+    Ptr slider(new Slider(dir));
     slider->addChildren();
     return slider;
 }
 
-Slider::Slider(Direction d, const std::string& g, const std::string& i)
-: Container(g, i)
+Slider::Slider(Direction d)
+: Container()
 , dir(d)
 , buttonSize(0.2)
 , value(0)
 , increment(0.1)
-, increaseImg(Canvas::create(64, 64, g, i + "-increaseArrow"))
-, increaseBut(Button::create(increaseImg, g, i + "-increase"))
-, decreaseImg(Canvas::create(64, 64, g, i + "-decreaseArrow"))
-, decreaseBut(Button::create(decreaseImg, g, i + "-decrease"))
-, slider(Button::create("", g, i + "-slider"))
+, increaseImg(Canvas::create(64, 64))
+, increaseBut(Button::create(increaseImg))
+, decreaseImg(Canvas::create(64, 64))
+, decreaseBut(Button::create(decreaseImg))
+, slider(Button::create(""))
 , renderedButs(false) {
     increaseBut->setExpandsHeight(true);
     increaseBut->setExpandsWidth(true);

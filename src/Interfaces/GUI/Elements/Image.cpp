@@ -4,19 +4,14 @@ namespace bl
 {
 namespace gui
 {
-Image::Ptr Image::create(resource::Resource<sf::Texture>::Ref texture, const std::string& group,
-                         const std::string& id) {
-    return Ptr(new Image(texture, group, id));
+Image::Ptr Image::create(resource::Resource<sf::Texture>::Ref texture) {
+    return Ptr(new Image(texture));
 }
 
-Image::Ptr Image::create(const sf::Texture& texture, const std::string& group,
-                         const std::string& id) {
-    return Ptr(new Image(texture, group, id));
-}
+Image::Ptr Image::create(const sf::Texture& texture) { return Ptr(new Image(texture)); }
 
-Image::Image(resource::Resource<sf::Texture>::Ref th, const std::string& group,
-             const std::string& id)
-: Element(group, id)
+Image::Image(resource::Resource<sf::Texture>::Ref th)
+: Element()
 , textureHandle(th)
 , texture(th.get())
 , sprite(*texture)
@@ -25,8 +20,8 @@ Image::Image(resource::Resource<sf::Texture>::Ref th, const std::string& group,
     getSignal(Action::AcquisitionChanged).willAlwaysCall(std::bind(&Image::setScale, this));
 }
 
-Image::Image(const sf::Texture& th, const std::string& group, const std::string& id)
-: Element(group, id)
+Image::Image(const sf::Texture& th)
+: Element()
 , texture(&th)
 , sprite(*texture)
 , fillAcq(false)

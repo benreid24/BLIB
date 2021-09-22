@@ -6,15 +6,15 @@ namespace bl
 {
 namespace gui
 {
-ComboBox::Ptr ComboBox::create(const std::string& group, const std::string& id) {
-    Ptr box(new ComboBox(group, id));
+ComboBox::Ptr ComboBox::create() {
+    Ptr box(new ComboBox());
     box->addChildren();
     return box;
 }
 
-ComboBox::ComboBox(const std::string& group, const std::string& id)
-: Container(group, id)
-, arrow(Canvas::create(32, 32, group, id + "-dropdown"))
+ComboBox::ComboBox()
+: Container()
+, arrow(Canvas::create(32, 32))
 , maxHeight(0.f)
 , scroll(0.f)
 , selected(-1)
@@ -33,7 +33,7 @@ void ComboBox::setLabelColor(const sf::Color& c) {
 
 void ComboBox::addOption(const std::string& text) {
     options.push_back(text);
-    labels.push_back(Label::create(text, group(), id() + "-" + text));
+    labels.push_back(Label::create(text));
     labels.back()->setExpandsWidth(true);
     labels.back()->setHorizontalAlignment(RenderSettings::Left);
     labels.back()

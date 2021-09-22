@@ -4,10 +4,8 @@ namespace bl
 {
 namespace gui
 {
-Element::Element(const std::string& g, const std::string& i)
-: _id(i)
-, _group(g)
-, _dirty(true)
+Element::Element()
+: _dirty(true)
 , _active(true)
 , _visible(true)
 , skipPack(false)
@@ -18,10 +16,6 @@ Element::Element(const std::string& g, const std::string& i)
 , isMouseOver(false)
 , isLeftPressed(false)
 , isRightPressed(false) {}
-
-const std::string& Element::id() const { return _id; }
-
-const std::string& Element::group() const { return _group; }
 
 Element::CPtr Element::getParent() const { return parent.expired() ? nullptr : parent.lock(); }
 

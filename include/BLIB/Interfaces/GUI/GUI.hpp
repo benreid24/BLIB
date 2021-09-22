@@ -33,10 +33,10 @@ public:
     /**
      * @brief Create a new GUI that is in the given region
      *
+     * @param packer The Packer to use
      * @param region The position and size of the renderable area
      */
-    static Ptr create(gui::Packer::Ptr packer, const sf::IntRect& region,
-                      const std::string& group = "", const std::string& id = "");
+    static Ptr create(gui::Packer::Ptr packer, const sf::IntRect& region);
 
     /**
      * @brief Create a new GUI that fills the window
@@ -44,8 +44,7 @@ public:
      * @param packer The Packer to use
      * @param window The window to fill
      */
-    static Ptr create(gui::Packer::Ptr packer, const sf::RenderWindow& window,
-                      const std::string& group = "", const std::string& id = "");
+    static Ptr create(gui::Packer::Ptr packer, const sf::RenderWindow& window);
 
     /**
      * @brief Sets the renderer to use. Default is gui::Renderer
@@ -90,11 +89,9 @@ private:
     sf::Vector2f mousePos;
     mutable sf::Transform renderTransform;
 
-    GUI(gui::Packer::Ptr packer, const std::string& group, const std::string& id);
-    GUI(gui::Packer::Ptr packer, const sf::IntRect& region, const std::string& group = "",
-        const std::string& id = "");
-    GUI(gui::Packer::Ptr packer, const sf::RenderWindow& window, const std::string& group = "",
-        const std::string& id = "");
+    GUI(gui::Packer::Ptr packer);
+    GUI(gui::Packer::Ptr packer, const sf::IntRect& region);
+    GUI(gui::Packer::Ptr packer, const sf::RenderWindow& window);
 };
 
 } // namespace gui
