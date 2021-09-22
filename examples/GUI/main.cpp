@@ -69,9 +69,7 @@ int main() {
     event::Dispatcher dispatcher;
     gui::GUI::Ptr gui = gui::GUI::create(
         gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
-        {200, 100, 400, 400},
-        "",
-        "gui");
+        {200, 100, 400, 400});
     gui::DebugRenderer::Ptr renderer = gui::DebugRenderer::create();
     gui->subscribe(dispatcher);
     gui->setRenderer(renderer);
@@ -82,7 +80,7 @@ int main() {
 
     gui->pack(gui::Separator::create(gui::Separator::Horizontal));
 
-    gui::Label::Ptr label = gui::Label::create("This a label", "labels", "l1");
+    gui::Label::Ptr label = gui::Label::create("This a label");
     label->setColor(sf::Color::Red, sf::Color::Transparent);
     gui->pack(label, true, true);
 
@@ -101,10 +99,10 @@ int main() {
     progressBar->setRequisition({10, 20});
     gui->pack(progressBar, true, false);
 
-    label = gui::Label::create("This another label", "labels", "l2");
+    label = gui::Label::create("This another label");
     gui->pack(label);
 
-    gui::Button::Ptr button = gui::Button::create("Press Me", "buttons", "b1");
+    gui::Button::Ptr button = gui::Button::create("Press Me");
     button->getSignal(gui::Action::LeftClicked).willCall(b1click);
     gui->pack(button, true, true);
 
@@ -112,9 +110,7 @@ int main() {
         gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                             "Test Window",
                             gui::Window::Default,
-                            {30, 30},
-                            "",
-                            "window1");
+                            {30, 30});
     label = gui::Label::create("This is a window");
     testWindow->pack(label);
     button = gui::Button::create("Click me");
@@ -131,9 +127,7 @@ int main() {
     testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Test Window",
                                      gui::Window::Default,
-                                     {200, 30},
-                                     "",
-                                     "window2");
+                                     {200, 30});
     label      = gui::Label::create("This is also a window");
     testWindow->pack(label);
     button = gui::Button::create("Click me too");
@@ -150,9 +144,7 @@ int main() {
     testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Scroll Window",
                                      gui::Window::Default,
-                                     {200, 300},
-                                     "",
-                                     "window3");
+                                     {200, 300});
     gui::ScrollArea::Ptr scroll =
         gui::ScrollArea::create(gui::LinePacker::create(gui::LinePacker::Vertical, 5));
     scroll->setMaxSize({150, 100});
@@ -168,10 +160,8 @@ int main() {
     testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Text Window",
                                      gui::Window::Default,
-                                     {150, 200},
-                                     "",
-                                     "window4");
-    gui::TextEntry::Ptr entry = gui::TextEntry::create(4, "", "text");
+                                     {150, 200});
+    gui::TextEntry::Ptr entry = gui::TextEntry::create(4);
     entry->setRequisition({100, 20});
     testWindow->pack(entry, true, true);
     gui->pack(testWindow);
@@ -179,13 +169,11 @@ int main() {
     testWindow            = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Notebook Window",
                                      gui::Window::Default,
-                                     {10, 200},
-                                     "",
-                                     "window5");
+                                     {10, 200});
     gui::Notebook::Ptr nb = gui::Notebook::create();
     nb->addPage("page1", "Page 1", gui::Label::create("Content goes here"));
     gui::Box::Ptr box = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Vertical));
-    button            = gui::Button::create("Content", "nbb");
+    button            = gui::Button::create("Content");
     button->getSignal(gui::Action::LeftClicked).willCall(std::bind(&notebookCb));
     box->pack(button);
     box->pack(gui::Label::create("This is a notebook"));
@@ -204,10 +192,7 @@ int main() {
     testWindow->pack(nb, true, true);
     gui->pack(testWindow);
 
-    bool showBoxes  = false;
-    bool showGroups = false;
-    bool showIds    = false;
-
+    bool showBoxes = false;
     sf::Clock timer;
     while (window.isOpen()) {
         sf::Event event;
@@ -220,14 +205,6 @@ int main() {
                 if (event.key.code == sf::Keyboard::Z) {
                     showBoxes = !showBoxes;
                     renderer->showAcquisitions(showBoxes);
-                }
-                else if (event.key.code == sf::Keyboard::X) {
-                    showGroups = !showGroups;
-                    renderer->showGroups(showGroups);
-                }
-                else if (event.key.code == sf::Keyboard::C) {
-                    showIds = !showIds;
-                    renderer->showIds(showIds);
                 }
             }
             dispatcher.dispatch(event);
