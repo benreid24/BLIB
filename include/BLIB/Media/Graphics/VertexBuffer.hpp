@@ -2,6 +2,7 @@
 #define BLIB_MEDIA_GRAPHICS_VERTEXBUFFER_HPP
 
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/VertexBuffer.hpp>
 

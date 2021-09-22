@@ -32,5 +32,12 @@ void VertexBuffer::update() {
     if (sf::VertexBuffer::isAvailable()) { buffer.update(&array[0]); }
 }
 
+void VertexBuffer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    if (sf::VertexBuffer::isAvailable()) { target.draw(buffer, states); }
+    else {
+        target.draw(array, states);
+    }
+}
+
 } // namespace gfx
 } // namespace bl
