@@ -1,26 +1,22 @@
 #include <BLIB/Interfaces/GUI/Elements/Notebook.hpp>
 
 #include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
+#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 
 namespace bl
 {
 namespace gui
 {
-Notebook::Ptr Notebook::create() {
-    Ptr nb(new Notebook());
-    nb->addChildren();
-    return nb;
-}
+Notebook::Ptr Notebook::create() { return Ptr(new Notebook()); }
 
 Notebook::Notebook()
-: Container()
+: Element()
 , tabArea(Box::create(LinePacker::create()))
 , activePage(0) {
     tabArea->setExpandsWidth(true);
     tabArea->setExpandsHeight(true);
+    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Notebook::onAcquisition, this));
 }
-
-void Notebook::addChildren() { add(tabArea); }
 
 Notebook::~Notebook() {
     while (!pages.empty()) removePageByIndex(0);
@@ -46,10 +42,9 @@ void Notebook::addPage(const std::string& name, const std::string& title, Elemen
         pages.back()->content->setVisible(false);
         pages.back()->content->setExpandsWidth(true);
         pages.back()->content->setExpandsHeight(true);
-        add(pages.back()->content);
         tabArea->pack(pages.back()->label, false, true);
         pages.back()
-            ->label->getSignal(Action::LeftClicked)
+            ->label->getSignal(Event::LeftClicked)
             .willAlwaysCall(std::bind(&Notebook::pageClicked, this, pages.back()));
 
         if (pages.size() == 1) makePageActive(0);
@@ -115,9 +110,12 @@ sf::Vector2i Notebook::minimumRequisition() const {
 
 void Notebook::onAcquisition() {
     Packer::manuallyPackElement(tabArea,
-                                {0, 0, getAcquisition().width, tabArea->getRequisition().y});
-    contentArea = {2,
-                   tabArea->getRequisition().y + 2,
+                                {getAcquisition().left,
+                                 getAcquisition().top,
+                                 getAcquisition().width,
+                                 tabArea->getRequisition().y});
+    contentArea = {getAcquisition().left + 2,
+                   getAcquisition().top + tabArea->getRequisition().y + 2,
                    getAcquisition().width - 4,
                    getAcquisition().height - tabArea->getRequisition().y - 4};
     if (activePage < pages.size())
@@ -127,7 +125,7 @@ void Notebook::onAcquisition() {
 void Notebook::doRender(sf::RenderTarget& target, sf::RenderStates states,
                         const Renderer& renderer) const {
     const sf::View oldView = target.getView();
-    target.setView(computeView(oldView, getAcquisition()));
+    target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(getAcquisition()), oldView));
     renderer.renderNotebook(target, states, *this);
     target.setView(oldView);
 }

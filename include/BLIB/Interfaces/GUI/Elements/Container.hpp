@@ -47,27 +47,6 @@ public:
      */
     void clearChildren(bool immediate = false);
 
-    /**
-     * @brief Computes a View that can be used for constrained rendering of child elements into
-     *        the acquisition with no spill over
-     *
-     * @param oldView The original view of the parent element
-     * @param region The region to render into
-     * @param constrain True to constrain rendering to the intersection of the old view and new
-     * @return sf::View A View that can be applied to the target to constrain rendering
-     */
-    static sf::View computeView(const sf::View& oldView, const sf::IntRect& region,
-                                bool constrain = true);
-
-    /**
-     * @brief Constrains the viewport of the given view to the area that overlaps with the viewport
-     *        of the original view
-     *
-     * @param view The view to constrain
-     * @param oldView The original view to constrain to
-     */
-    static void constrainView(sf::View& view, const sf::View& oldView);
-
 protected:
     /**
      * @brief Construct a new Container
@@ -129,7 +108,7 @@ protected:
      * @param event The event that fired
      * @return True if the event was consumed, false otherwise
      */
-    virtual bool handleRawEvent(const RawEvent& event) override;
+    virtual bool propagateEvent(const Event& event) override;
 
     /**
      * @brief Dispatches the scroll to children and returns true if any child handles the scroll
@@ -137,7 +116,7 @@ protected:
      * @param scroll The scroll to dispatch
      * @return True if event consumed, false if not
      */
-    virtual bool handleScroll(const RawEvent& scroll) override;
+    virtual bool handleScroll(const Event& scroll) override;
 
     /**
      * @brief This is for sophisticated containers to transform the position of events to local
@@ -151,39 +130,15 @@ protected:
     virtual sf::Vector2f getElementOffset(const Element* e) const;
 
     /**
-     * @brief Utility method to render the child elements. This will call computeView to
-     *        constrain rendering and will offset the child elements by the Containers
-     *        position. Containers that need to manually render elements should apply the view
-     *        from computeView() then use renderChildrenRawFiltered() to filter out those they
-     *        need to manually render
+     * @brief Renders all child elements
      *
      * @param target The target to render to
      * @param states Render states to apply
      * @param renderer The renderer to use
+     * @param changeView True to compute a new view, false to use the existing
      */
-    void renderChildren(sf::RenderTarget& target, sf::RenderStates states,
-                        const Renderer& renderer) const;
-
-    /**
-     * @brief Renders the children of this Container excluding those in filter. Does not apply
-     *       any additional translations or apply any view. That must be done manually
-     *
-     * @param target Target to render to. View should be set to computeView()
-     * @param states Render states to use. Transform must include translation to global coords
-     * @param renderer The renderer to use
-     * @param filter Set of elements to skip while rendering
-     */
-    void renderChildrenRawFiltered(sf::RenderTarget& target, sf::RenderStates states,
-                                   const Renderer& renderer,
-                                   const std::unordered_set<const Element*>& filter) const;
-
-    /**
-     * @brief Transforms the event into container local coordinates for child elements
-     *
-     * @param event The event to transform
-     * @return RawEvent A new event with transformed local coordinates
-     */
-    RawEvent transformEvent(const RawEvent& event) const;
+    void renderChildren(sf::RenderTarget& target, sf::RenderStates states, const Renderer& renderer,
+                        bool changeView = true) const;
 
 private:
     std::vector<Element::Ptr> packableChildren;

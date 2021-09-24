@@ -34,7 +34,7 @@ public:
 
     /**
      * @brief Set the maximum size the scroll area can fill before scrolling is enabled. Note
-     *        that if a size is set via setAcquisition() then that will take precedence
+     *        that if a size is set via setRequisition() then that will take precedence
      *
      * @param size The maximum size. (0,0) to reset
      */
@@ -78,14 +78,6 @@ public:
      */
     void pack(Element::Ptr e, bool fillX, bool fillY);
 
-    /**
-     * @brief Does a bounds check and calls Container::handleRawEvent if in bounds
-     *
-     * @param event The event that fired
-     * @return True if the event was consumed, false otherwise
-     */
-    virtual bool handleRawEvent(const RawEvent& event) override;
-
 protected:
     /**
      * @brief Create a new ScrollArea
@@ -128,18 +120,25 @@ protected:
                           const Renderer& renderer) const override;
 
     /**
+     * @brief Does a bounds check and calls Container::handleRawEvent if in bounds
+     *
+     * @param event The event that fired
+     * @return True if the event was consumed, false otherwise
+     */
+    virtual bool propagateEvent(const Event& event) override;
+
+    /**
      * @brief Scrolls the area and returns true
      *
      * @param scroll The scroll that occured
      * @return True
      */
-    virtual bool handleScroll(const RawEvent& scroll) override;
+    virtual bool handleScroll(const Event& scroll) override;
 
 private:
     Packer::Ptr packer;
     Slider::Ptr horScrollbar;
     Slider::Ptr vertScrollbar;
-    std::unordered_set<const Element*> filter;
     std::optional<sf::Vector2i> maxSize;
     mutable sf::Vector2i totalSize;
     mutable sf::Vector2i availableSize;

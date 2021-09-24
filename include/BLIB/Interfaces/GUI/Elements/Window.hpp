@@ -16,7 +16,7 @@ namespace gui
  *
  * @ingroup GUI
  */
-class Window : public Container {
+class Window : public Element {
 public:
     typedef std::shared_ptr<Window> Ptr;
 
@@ -138,12 +138,6 @@ protected:
     virtual bool shouldPack() const override;
 
     /**
-     * @brief Resets the acquisition and repacks all elements
-     *
-     */
-    virtual void onAcquisition() override;
-
-    /**
      * @brief Renders the window and children elements to the given target
      *
      * @param target The target to render to
@@ -154,10 +148,12 @@ protected:
                           const Renderer& renderer) const override;
 
     /**
-     * @brief Returns true to prevent pass through
+     * @brief Propagates the event to the window's children and returns true if the event was
+     *        consumed by any child or the window itself
      *
+     * @param event The event to process
      */
-    virtual bool handleScroll(const RawEvent& scroll) override;
+    virtual bool propagateEvent(const Event& event) override;
 
 private:
     const bool moveable;
@@ -168,13 +164,12 @@ private:
     Label::Ptr title;
     Button::Ptr closeButton;
 
-    void handleDrag(const Action& drag);
+    void handleDrag(const Event& drag);
     void closed();
-    void titleActive();
 
     int computeTitleHeight() const;
     int computeTitleWidth() const;
-    void addChildren();
+    void onAcquisition();
 };
 
 } // namespace gui

@@ -10,11 +10,7 @@ CheckButton::Ptr CheckButton::create(const std::string& text) {
     return create(Label::create(text));
 }
 
-CheckButton::Ptr CheckButton::create(Element::Ptr child) {
-    Ptr but(new CheckButton(child));
-    but->finishCreate();
-    return but;
-}
+CheckButton::Ptr CheckButton::create(Element::Ptr child) { return Ptr(new CheckButton(child)); }
 
 CheckButton::CheckButton(Element::Ptr child)
 : ToggleButton(child) {}

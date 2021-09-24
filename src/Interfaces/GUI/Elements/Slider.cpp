@@ -7,14 +7,10 @@ namespace bl
 {
 namespace gui
 {
-Slider::Ptr Slider::create(Direction dir) {
-    Ptr slider(new Slider(dir));
-    slider->addChildren();
-    return slider;
-}
+Slider::Ptr Slider::create(Direction dir) { return Ptr(new Slider(dir)); }
 
 Slider::Slider(Direction d)
-: Container()
+: Element()
 , dir(d)
 , buttonSize(0.2)
 , value(0)
@@ -36,18 +32,13 @@ Slider::Slider(Direction d)
     decreaseImg->setFillAcquisition(true, false);
 
     using namespace std::placeholders;
-    getSignal(Action::LeftClicked).willAlwaysCall(std::bind(&Slider::clicked, this, _1));
-    slider->getSignal(Action::Dragged).willAlwaysCall(std::bind(&Slider::sliderMoved, this, _1));
-    increaseBut->getSignal(Action::LeftClicked)
+    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Slider::packElements, this));
+    getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&Slider::clicked, this, _1));
+    slider->getSignal(Event::Dragged).willAlwaysCall(std::bind(&Slider::sliderMoved, this, _1));
+    increaseBut->getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&Slider::incrementValue, this, 1));
-    decreaseBut->getSignal(Action::LeftClicked)
+    decreaseBut->getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&Slider::incrementValue, this, -1));
-}
-
-void Slider::addChildren() {
-    add(increaseBut);
-    add(slider);
-    add(decreaseBut);
 }
 
 float Slider::getValue() const { return value; }
@@ -90,8 +81,6 @@ sf::Vector2i Slider::minimumRequisition() const {
     return {max.x, sum.y};
 }
 
-void Slider::onAcquisition() { packElements(); }
-
 void Slider::doRender(sf::RenderTarget& target, sf::RenderStates states,
                       const Renderer& renderer) const {
     if (!renderedButs) {
@@ -100,13 +89,15 @@ void Slider::doRender(sf::RenderTarget& target, sf::RenderStates states,
         renderer.renderSliderButton(decreaseImg->getTexture(), dir == Horizontal, false);
     }
     renderer.renderSlider(target, states, *this);
-    renderChildren(target, states, renderer);
+    slider->render(target, states, renderer);
+    increaseBut->render(target, states, renderer);
+    decreaseBut->render(target, states, renderer);
 }
 
-void Slider::fireChanged() { fireSignal(Action(Action::ValueChanged, value)); }
+void Slider::fireChanged() { fireSignal(Event(Event::ValueChanged, value)); }
 
-bool Slider::handleScroll(const RawEvent& scroll) {
-    incrementValue(-scroll.event.mouseWheelScroll.delta);
+bool Slider::handleScroll(const Event& scroll) {
+    incrementValue(-scroll.scrollDelta());
     return true;
 }
 
@@ -116,8 +107,8 @@ void Slider::incrementValue(float incs) {
     fireChanged();
 }
 
-void Slider::sliderMoved(const Action& drag) {
-    if (drag.type != Action::Dragged) return;
+void Slider::sliderMoved(const Event& drag) {
+    if (drag.type() != Event::Dragged) return;
 
     const int size = calculateFreeSize();
     if (size == 0) return;
@@ -127,12 +118,12 @@ void Slider::sliderMoved(const Action& drag) {
     int offset     = 0;
     if (dir == Horizontal) {
         pos        = slider->getAcquisition().left;
-        dragAmount = drag.position.x - drag.data.dragStart.x;
+        dragAmount = drag.mousePosition().x - drag.dragStart().x;
         offset     = decreaseBut->visible() ? decreaseBut->getAcquisition().width : 0;
     }
     else {
         pos        = slider->getAcquisition().top;
-        dragAmount = drag.position.y - drag.data.dragStart.y;
+        dragAmount = drag.mousePosition().y - drag.dragStart().y;
         offset     = decreaseBut->visible() ? decreaseBut->getAcquisition().height : 0;
     }
 
@@ -142,24 +133,26 @@ void Slider::sliderMoved(const Action& drag) {
 
     value = static_cast<float>(pos) / static_cast<float>(size);
     if (dir == Horizontal)
-        slider->setPosition({pos + offset, slider->getAcquisition().top});
+        slider->setPosition({pos + offset + getAcquisition().left,
+                             slider->getAcquisition().top + getAcquisition().top});
     else
-        slider->setPosition({slider->getAcquisition().left, pos + offset});
+        slider->setPosition({slider->getAcquisition().left + getAcquisition().left,
+                             pos + offset + getAcquisition().top});
     fireChanged();
 }
 
-void Slider::clicked(const Action& click) {
-    if (click.type != Action::LeftClicked) return;
+void Slider::clicked(const Event& click) {
+    if (click.type() != Event::LeftClicked) return;
 
     const int size = calculateFreeSize();
     int pos        = 0;
     int offset     = 0;
     if (dir == Horizontal) {
-        pos    = click.position.x - getAcquisition().left;
+        pos    = click.mousePosition().x - getAcquisition().left;
         offset = decreaseBut->visible() ? decreaseBut->getAcquisition().width : 0;
     }
     else {
-        pos    = click.position.y - getAcquisition().top;
+        pos    = click.mousePosition().y - getAcquisition().top;
         offset = decreaseBut->visible() ? decreaseBut->getAcquisition().height : 0;
     }
 
@@ -198,7 +191,8 @@ void Slider::packElements() {
     int space         = (dir == Horizontal) ? getAcquisition().width : getAcquisition().height;
     int offset        = 0;
     if (decreaseBut->visible()) {
-        Packer::manuallyPackElement(decreaseBut, {0, 0, butSize, butSize});
+        Packer::manuallyPackElement(
+            decreaseBut, {getAcquisition().left, getAcquisition().top, butSize, butSize});
         offset += butSize;
         space -= butSize;
     }
@@ -206,7 +200,8 @@ void Slider::packElements() {
         const int x = (dir == Horizontal) ? (getAcquisition().width - butSize) : (0);
         const int y = (dir == Vertical) ? (getAcquisition().height - butSize) : (0);
 
-        Packer::manuallyPackElement(increaseBut, {x, y, butSize, butSize});
+        Packer::manuallyPackElement(
+            increaseBut, {x + getAcquisition().left, y + getAcquisition().top, butSize, butSize});
         space -= butSize;
     }
 
@@ -214,9 +209,11 @@ void Slider::packElements() {
     const int pos        = offset + std::floor(static_cast<float>(space - sliderSize) * value);
 
     if (dir == Horizontal)
-        Packer::manuallyPackElement(slider, {pos, 0, sliderSize, butSize});
+        Packer::manuallyPackElement(
+            slider, {pos + getAcquisition().left, getAcquisition().top, sliderSize, butSize});
     else
-        Packer::manuallyPackElement(slider, {0, pos, butSize, sliderSize});
+        Packer::manuallyPackElement(
+            slider, {getAcquisition().left, pos + getAcquisition().top, butSize, sliderSize});
 }
 
 } // namespace gui

@@ -13,20 +13,18 @@ inline bool hasStyle(Window::Style style, Window::Style check) { return (style &
 
 Window::Ptr Window::create(Packer::Ptr packer, const std::string& titleText, Style style,
                            const sf::Vector2i& position) {
-    Ptr window(new Window(packer, titleText, style, position));
-    window->addChildren();
-    return window;
+    return Ptr(new Window(packer, titleText, style, position));
 }
 
 Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
                const sf::Vector2i& position)
-: Container()
+: Element()
 , moveable(hasStyle(style, Moveable))
 , titlebarHeight(22)
 , elementArea(Box::create(packer)) {
     using namespace std::placeholders;
     const Signal::Callback dragCb   = std::bind(&Window::handleDrag, this, _1);
-    const Signal::Callback activeCb = std::bind(&Window::titleActive, this);
+    const Signal::Callback activeCb = std::bind(&Window::moveToTop, this);
 
     if (hasStyle(style, Titlebar)) {
         // Create titlebar containers
@@ -49,22 +47,22 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
         leftTitleSide->pack(title, true, true);
 
         // Setup drag action
-        getSignal(Action::Dragged).willAlwaysCall(dragCb);
-        title->getSignal(Action::Dragged).willAlwaysCall(dragCb);
-        title->getSignal(Action::Pressed).willAlwaysCall(activeCb);
-        leftTitleSide->getSignal(Action::Dragged).willAlwaysCall(dragCb);
-        leftTitleSide->getSignal(Action::Pressed).willAlwaysCall(activeCb);
-        rightTitleSide->getSignal(Action::Dragged).willAlwaysCall(dragCb);
-        rightTitleSide->getSignal(Action::Pressed).willAlwaysCall(activeCb);
-        titlebar->getSignal(Action::Dragged).willAlwaysCall(dragCb);
-        titlebar->getSignal(Action::Pressed).willAlwaysCall(activeCb);
+        getSignal(Event::Dragged).willAlwaysCall(dragCb);
+        title->getSignal(Event::Dragged).willAlwaysCall(dragCb);
+        title->getSignal(Event::LeftMousePressed).willAlwaysCall(activeCb);
+        leftTitleSide->getSignal(Event::Dragged).willAlwaysCall(dragCb);
+        leftTitleSide->getSignal(Event::LeftMousePressed).willAlwaysCall(activeCb);
+        rightTitleSide->getSignal(Event::Dragged).willAlwaysCall(dragCb);
+        rightTitleSide->getSignal(Event::LeftMousePressed).willAlwaysCall(activeCb);
+        titlebar->getSignal(Event::Dragged).willAlwaysCall(dragCb);
+        titlebar->getSignal(Event::LeftMousePressed).willAlwaysCall(activeCb);
 
         // Close button
         if (hasStyle(style, CloseButton)) {
             closeButton = Button::create("X");
             closeButton->setCharacterSize(16);
             closeButton->setExpandsWidth(true);
-            closeButton->getSignal(Action::LeftClicked)
+            closeButton->getSignal(Event::LeftClicked)
                 .willAlwaysCall(std::bind(&Window::closed, this));
             rightTitleSide->pack(closeButton);
         }
@@ -72,19 +70,21 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
 
     elementArea->setExpandsWidth(true);
     elementArea->setExpandsHeight(true);
-    elementArea->getSignal(Action::Dragged).willAlwaysCall(dragCb);
+    elementArea->getSignal(Event::Dragged).willAlwaysCall(dragCb);
+    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Window::onAcquisition, this));
     assignAcquisition({position.x, position.y, 40, 20});
 }
 
-void Window::handleDrag(const Action& action) {
-    if (action.type == Action::Dragged && moveable) {
+void Window::handleDrag(const Event& action) {
+    if (action.type() == Event::Dragged && moveable) {
         const sf::Vector2i dragAmount =
-            static_cast<sf::Vector2i>(action.data.dragStart - action.position);
+            static_cast<sf::Vector2i>(action.dragStart() - action.mousePosition());
         const sf::Vector2i newPos =
             sf::Vector2i(getAcquisition().left, getAcquisition().top) - dragAmount;
         Element::setPosition(newPos);
 
-        fireSignal(Action(Action::Moved, static_cast<sf::Vector2f>(dragAmount), action.position));
+        fireSignal(
+            Event(Event::Moved, static_cast<sf::Vector2f>(dragAmount), action.mousePosition()));
     }
 }
 
@@ -98,10 +98,14 @@ void Window::onAcquisition() {
     const int h = computeTitleHeight();
     if (titlebar) {
         rightTitleSide->setRequisition({h, h});
-        Packer::manuallyPackElement(titlebar, {0, 0, getAcquisition().width, h});
+        Packer::manuallyPackElement(
+            titlebar, {getAcquisition().left, getAcquisition().top, getAcquisition().width, h});
     }
     Packer::manuallyPackElement(elementArea,
-                                {0, h, getAcquisition().width, getAcquisition().height - h});
+                                {getAcquisition().left,
+                                 getAcquisition().top + h,
+                                 getAcquisition().width,
+                                 getAcquisition().height - h});
 }
 
 sf::Vector2i Window::minimumRequisition() const {
@@ -111,21 +115,23 @@ sf::Vector2i Window::minimumRequisition() const {
     return {std::max(childMin.x, titleWidth), h > 10 ? h : 10};
 }
 
-void Window::closed() { fireSignal(Action(Action::Closed)); }
-
-void Window::titleActive() { moveToTop(); }
+void Window::closed() { fireSignal(Event(Event::Closed)); }
 
 void Window::doRender(sf::RenderTarget& target, sf::RenderStates states,
                       const Renderer& renderer) const {
     renderer.renderWindow(target, states, titlebar.get(), *this);
-    renderChildren(target, states, renderer);
+    if (titlebar) { titlebar->render(target, states, renderer); }
+    elementArea->render(target, states, renderer);
 }
 
 void Window::update(float dt) {
-    if (dirty())
+    if (dirty()) {
         assignAcquisition(
             {sf::Vector2i(getAcquisition().left, getAcquisition().top), getRequisition()});
-    Container::update(dt);
+        markClean();
+    }
+    if (titlebar) { titlebar->update(dt); }
+    elementArea->update(dt);
 }
 
 bool Window::shouldPack() const { return false; }
@@ -149,14 +155,10 @@ Box::Ptr Window::getTitlebar() { return titlebar; }
 
 Button::Ptr Window::getCloseButton() { return closeButton; }
 
-void Window::addChildren() {
-    if (titlebar) add(titlebar);
-    add(elementArea);
-}
-
-bool Window::handleScroll(const RawEvent& scroll) {
-    Container::handleScroll(scroll);
-    return true;
+bool Window::propagateEvent(const Event& event) {
+    if (titlebar && titlebar->processEvent(event)) return true;
+    if (elementArea->processEvent(event)) return true;
+    return getAcquisition().contains(sf::Vector2i(event.mousePosition()));
 }
 
 } // namespace gui

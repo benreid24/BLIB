@@ -1,10 +1,9 @@
 #ifndef BLIB_GUI_ELEMENTS_SLIDER_HPP
 #define BLIB_GUI_ELEMENTS_SLIDER_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
-
 #include <BLIB/Interfaces/GUI/Elements/Button.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
+#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
 
 namespace bl
 {
@@ -16,7 +15,7 @@ namespace gui
  * @ingroup GUI
  *
  */
-class Slider : public Container {
+class Slider : public Element {
 public:
     typedef std::shared_ptr<Slider> Ptr;
 
@@ -103,12 +102,6 @@ protected:
     virtual sf::Vector2i minimumRequisition() const override;
 
     /**
-     * @brief Packs the slider and increase/decrease buttons
-     *
-     */
-    virtual void onAcquisition() override;
-
-    /**
      * @brief Renders the slider and buttons
      *
      * @param target The target to render to
@@ -124,7 +117,7 @@ protected:
      * @param scroll The scroll event
      * @return True
      */
-    virtual bool handleScroll(const RawEvent& scroll) override;
+    virtual bool handleScroll(const Event& scroll) override;
 
 private:
     const Direction dir;
@@ -142,10 +135,8 @@ private:
     void packElements();
     void fireChanged();
 
-    void sliderMoved(const Action& drag);
-    void clicked(const Action& click);
-
-    void addChildren();
+    void sliderMoved(const Event& drag);
+    void clicked(const Event& click);
 };
 
 } // namespace gui

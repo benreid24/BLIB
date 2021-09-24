@@ -29,12 +29,23 @@ struct ViewUtil {
      *
      * @param size The desired size of the computed view. Represents the renderable coordinate space
      * @param oldView The original view that is being replaced
-     * @param coverArea The portion of the original viewport to fill. Values are each in range [0,
-     * 1]
+     * @param coverArea The portion of the original viewport to fill. Values are normalized
      * @return sf::View The computed view to apply for proper rendering. Center is half the size
      */
     static sf::View computeView(const sf::Vector2f& size, const sf::View& oldView,
                                 const sf::FloatRect& coverArea);
+
+    /**
+     * @brief Helper function to compute a view of the given size that will cover the given area of
+     *        the original view. This is most useful for creating views to render menus of fixed
+     *        resolution that fill fixed areas while not having to be concerned with the original
+     *        view area or size
+     *
+     * @param region Coordinate space to cover with the view
+     * @param oldView The original view that is being replaced
+     * @return sf::View The computed view to apply for proper rendering. Center is half the size
+     */
+    static sf::View computeSubView(const sf::FloatRect& region, const sf::View& oldView);
 
     /**
      * @brief Helper function to compute a view of the given size that will cover the given area of
@@ -79,6 +90,15 @@ struct ViewUtil {
      */
     static sf::View computeViewAnchoredPreserveAR(const sf::Vector2f& size, const sf::View& oldView,
                                                   float viewportWidth, Anchor side);
+
+    /**
+     * @brief Constrains the viewport of the given view to the area that overlaps with the viewport
+     *        of the original view
+     *
+     * @param view The view to constrain
+     * @param oldView The original view to constrain to
+     */
+    static void constrainView(sf::View& view, const sf::View& oldView);
 };
 
 } // namespace interface

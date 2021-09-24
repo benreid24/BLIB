@@ -1,8 +1,7 @@
 #ifndef BLIB_GUI_ELEMENTS_ELEMENT_HPP
 #define BLIB_GUI_ELEMENTS_ELEMENT_HPP
 
-#include <BLIB/Interfaces/GUI/Action.hpp>
-#include <BLIB/Interfaces/GUI/RawEvent.hpp>
+#include <BLIB/Interfaces/GUI/Event.hpp>
 #include <BLIB/Interfaces/GUI/Renderers/RenderSettings.hpp>
 #include <BLIB/Interfaces/GUI/Renderers/Renderer.hpp>
 #include <BLIB/Interfaces/GUI/Signal.hpp>
@@ -75,7 +74,7 @@ public:
      * @param trigger The signal to get
      * @return Signal& A signal that can be set
      */
-    Signal& getSignal(Action::Type trigger);
+    Signal& getSignal(Event::Type trigger);
 
     /**
      * @brief Returns if the Element is in focus or not
@@ -136,12 +135,12 @@ public:
     bool rightPressed() const;
 
     /**
-     * @brief Handles the raw window event. Should be called by parent class
+     * @brief Handles a GUI event. Typically not called manually
      *
      * @param event The window event
      * @return True if the event is consumed and no more Elements should be notified
      */
-    bool handleEvent(const RawEvent& event);
+    bool processEvent(const Event& event);
 
     /**
      * @brief Marks this Element as requiring a recalculation of acquisition
@@ -211,7 +210,7 @@ public:
      * @return True if the event was processed, false if unhandled
      *
      */
-    virtual bool handleScroll(const RawEvent& scroll);
+    virtual bool handleScroll(const Event& scroll);
 
     /**
      * @brief Performs any custom logic of the Element
@@ -336,6 +335,14 @@ protected:
     Element();
 
     /**
+     * @brief Virtual method for containers to propagate events to their children
+     *
+     * @param event The event to propagate
+     * @return True if a child element handled the event, false if the event should be processed
+     */
+    virtual bool propagateEvent(const Event& event);
+
+    /**
      * @brief Returns the minimum required size of the Element. Any acquisition smaller than
      *        this size is invalid
      *
@@ -378,24 +385,12 @@ protected:
     virtual void removeChild(const Element* child);
 
     /**
-     * @brief Method for child classes to handle raw SFML events. Not recommended to use.
-     *        Instead, use signals for the Actions you care about. This method is called
-     *        regardless of where the mouse is and if the Element is in focus. Used by
-     *        Container. Note that if this returns true then handleEvent() will return before
-     *        performing common processing, like tracking mouse in/out and clicking
-     *
-     * @param event The raw event
-     * @return True if the event is consumed and no more Elements should be notified
-     */
-    virtual bool handleRawEvent(const RawEvent& event);
-
-    /**
      * @brief Fires the signal that corresponds with the passed Action. This only needs to be
      *        called for Actions specific to derived Elements
      *
      * @param action The action to fire
      */
-    void fireSignal(const Action& action);
+    void fireSignal(const Event& action);
 
     /**
      * @brief Returns the render settings for this object
@@ -443,7 +438,7 @@ private:
     std::optional<sf::Vector2i> requisition;
     sf::IntRect acquisition;
     Element::WPtr parent;
-    Signal signals[Action::NUM_ACTIONS];
+    Signal signals[Event::NUM_ACTIONS];
 
     bool _dirty;
     bool _active;
@@ -458,7 +453,7 @@ private:
     bool isRightPressed;
     sf::Vector2f dragStart;
 
-    bool processAction(const Action& action);
+    bool processAction(const Event& action);
 
     friend class Packer;
     friend class Renderer;

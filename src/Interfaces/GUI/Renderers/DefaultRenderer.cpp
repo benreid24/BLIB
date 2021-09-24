@@ -244,11 +244,7 @@ void DefaultRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates 
     static const RenderSettings defaults = getNotebookDefaults();
     const RenderSettings settings        = getSettings(&nb);
 
-    RendererUtil::renderRectangle(target,
-                                  states,
-                                  {0, 0, nb.getAcquisition().width, nb.getAcquisition().height},
-                                  settings,
-                                  defaults);
+    RendererUtil::renderRectangle(target, states, nb.getAcquisition(), settings, defaults);
     RendererUtil::renderRectangle(target, states, nb.getTabAcquisition(), settings, defaults, true);
     for (unsigned int i = 0; i < nb.getPages().size(); ++i) {
         Notebook::Page* page       = nb.getPages()[i];
@@ -453,7 +449,7 @@ void DefaultRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates st
                                    const Container* titlebar, const Window& window) const {
     if (!viewValid(target.getView())) return;
 
-    const RenderSettings& settings        = getSettings(&window);
+    const RenderSettings& settings       = getSettings(&window);
     static const RenderSettings defaults = getWindowDefaults();
 
     RendererUtil::renderRectangle(target, states, window.getAcquisition(), settings, defaults);

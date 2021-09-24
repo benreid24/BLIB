@@ -13,7 +13,7 @@ Canvas::Canvas(unsigned int w, unsigned int h)
     texture.create(w, h);
     texture.clear(sf::Color::Transparent);
     sprite.setTexture(texture.getTexture());
-    getSignal(Action::AcquisitionChanged).willAlwaysCall(std::bind(&Canvas::setScale, this));
+    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Canvas::setScale, this));
 }
 
 void Canvas::resize(unsigned int w, unsigned int h, bool resetScale) {
@@ -64,6 +64,7 @@ void Canvas::setScale() {
         sy = sx;
     }
     sprite.setScale(sx, sy);
+    sprite.setPosition(getAcquisition().left, getAcquisition().top);
 }
 
 } // namespace gui

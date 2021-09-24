@@ -21,7 +21,7 @@ RadioButton::RadioButton(Element::Ptr child, Group* radioGroup)
 , myGroup(this)
 , rgroup(radioGroup ? radioGroup : &myGroup) {
     rgroup->buttons.push_back(this);
-    getSignal(Action::ValueChanged).willAlwaysCall([this](const Action&, Element*) {
+    getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
         if (getValue()) rgroup->setActiveButton(this);
     });
 }

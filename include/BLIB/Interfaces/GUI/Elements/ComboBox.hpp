@@ -1,8 +1,9 @@
 #ifndef BLIB_GUI_ELEMENTS_COMBOBOX_HPP
 #define BLIB_GUI_ELEMENTS_COMBOBOX_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
+#include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 
+#include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 
@@ -17,7 +18,7 @@ namespace gui
  * @ingroup GUI
  *
  */
-class ComboBox : public Container {
+class ComboBox : public Element {
 public:
     typedef std::shared_ptr<ComboBox> Ptr;
 
@@ -91,7 +92,7 @@ public:
      * @brief Returns true if open
      *
      */
-    virtual bool handleScroll(const RawEvent& scroll) override;
+    virtual bool handleScroll(const Event& scroll) override;
 
 protected:
     /**
@@ -110,15 +111,15 @@ protected:
      * @brief Packs the labels
      *
      */
-    virtual void onAcquisition() override;
+    virtual void onAcquisition();
 
     /**
-     * @brief Calls Container::handleRawEvent() and returns false
+     * @brief Calls Container::propagateEvent() and returns false
      *
      * @param event The event that fired
      * @return False
      */
-    virtual bool handleRawEvent(const RawEvent& event) override;
+    virtual bool propagateEvent(const Event& event) override;
 
     /**
      * @brief Renders the box and options
@@ -134,6 +135,7 @@ private:
     Canvas::Ptr arrow;
     std::vector<std::string> options;
     std::vector<Label::Ptr> labels;
+    Box::Ptr labelBox;
     sf::Vector2i labelSize;
     sf::IntRect labelRegion;
     std::optional<sf::Color> labelColor;
@@ -144,14 +146,12 @@ private:
     mutable bool arrowRendered;
 
     void onSettings(); // update label settings
-    void optionClicked(std::string text);
+    void optionClicked(const std::string& text);
     void clicked();
-    void scrolled(const Action& scroll);
+    void scrolled(const Event& scroll);
 
     void packOpened();
     void packClosed();
-
-    void addChildren();
 };
 } // namespace gui
 } // namespace bl

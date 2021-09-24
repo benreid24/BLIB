@@ -17,7 +17,7 @@ Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim, bool c)
     animation.setIsCentered(centered);
     animation.play();
 
-    getSignal(Action::AcquisitionChanged).willAlwaysCall([this](const Action&, Element*) {
+    getSignal(Event::AcquisitionChanged).willAlwaysCall([this](const Event&, Element*) {
         const sf::Vector2f offset =
             centered ? sf::Vector2f{static_cast<float>(getAcquisition().width) * 0.5f,
                                     static_cast<float>(getAcquisition().height) * 0.5f} :

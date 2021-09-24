@@ -23,7 +23,7 @@ sf::Vector2i Box::minimumRequisition() const {
 }
 
 void Box::onAcquisition() {
-    packer->pack({0, 0, getAcquisition().width, getAcquisition().height}, getPackableChildren());
+    packer->pack(getAcquisition(), getPackableChildren());
 }
 
 void Box::pack(Element::Ptr e) { add(e); }

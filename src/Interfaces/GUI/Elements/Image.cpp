@@ -17,7 +17,7 @@ Image::Image(resource::Resource<sf::Texture>::Ref th)
 , sprite(*texture)
 , fillAcq(false)
 , maintainAR(true) {
-    getSignal(Action::AcquisitionChanged).willAlwaysCall(std::bind(&Image::setScale, this));
+    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Image::setScale, this));
 }
 
 Image::Image(const sf::Texture& th)
@@ -26,7 +26,7 @@ Image::Image(const sf::Texture& th)
 , sprite(*texture)
 , fillAcq(false)
 , maintainAR(true) {
-    getSignal(Action::AcquisitionChanged).willAlwaysCall(std::bind(&Image::setScale, this));
+    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Image::setScale, this));
 }
 
 void Image::scaleToSize(const sf::Vector2f& s) {
@@ -54,10 +54,16 @@ void Image::doRender(sf::RenderTarget& target, sf::RenderStates states,
 
 void Image::setScale() {
     const sf::Vector2f origSize(texture->getSize().x, texture->getSize().y);
+    const sf::Vector2f acq(getAcquisition().left, getAcquisition().top);
+    const sf::Vector2f as(getAcquisition().width, getAcquisition().height);
     sf::Vector2f area = size.value_or(origSize);
     if (fillAcq) {
+        sprite.setPosition(acq);
         area.x = getAcquisition().width;
         area.y = getAcquisition().height;
+    }
+    else {
+        sprite.setPosition(acq + (as - area) * 0.5f);
     }
     float sx = area.x / origSize.x;
     float sy = area.y / origSize.y;

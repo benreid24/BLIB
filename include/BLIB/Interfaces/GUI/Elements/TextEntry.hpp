@@ -116,9 +116,9 @@ private:
     void cursorUp();
     void cursorDown();
 
-    void onInput(const Action& action);
-    void onKeypress(const Action& action);
-    void onClicked(const Action& action);
+    void onInput(const Event& action);
+    void onKeypress(const Event& action);
+    void onClicked(const Event& action);
 };
 
 } // namespace gui

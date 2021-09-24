@@ -1,9 +1,8 @@
 #ifndef BLIB_GUI_ELEMENTS_NOTEBOOK_HPP
 #define BLIB_GUI_ELEMENTS_NOTEBOOK_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
-
 #include <BLIB/Interfaces/GUI/Elements/Box.hpp>
+#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 
 namespace bl
@@ -17,7 +16,7 @@ namespace gui
  * @ingroup GUI
  *
  */
-class Notebook : public Container {
+class Notebook : public Element {
 public:
     typedef std::shared_ptr<Notebook> Ptr;
     typedef std::function<void()> PageChangedCb;
@@ -159,7 +158,7 @@ protected:
      * @brief Repacks the tabs and their content
      *
      */
-    virtual void onAcquisition() override;
+    void onAcquisition();
 
     /**
      * @brief Renders the notebook
@@ -178,7 +177,6 @@ private:
     std::map<std::string, std::pair<unsigned int, Page*>> pageMap;
     unsigned int activePage;
 
-    void addChildren();
     void pageClicked(Page* page);
 };
 } // namespace gui

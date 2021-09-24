@@ -2,6 +2,7 @@
 #define BLIB_GUI_ELEMENTS_HPP
 
 #include <BLIB/Interfaces/GUI/Elements/Container.hpp>
+#include <BLIB/Interfaces/GUI/Event.hpp>
 
 namespace bl
 {
@@ -13,7 +14,7 @@ namespace gui
  * @ingroup GUI
  *
  */
-class Button : public Container {
+class Button : public Element {
 public:
     typedef std::shared_ptr<Button> Ptr;
 
@@ -61,19 +62,13 @@ protected:
      * @param event The event that fired
      * @return False so that the button always generates events
      */
-    virtual bool handleRawEvent(const RawEvent& event) override;
+    virtual bool propagateEvent(const Event& event) override;
 
     /**
      * @brief Returns the size required to display the full button text
      *
      */
     virtual sf::Vector2i minimumRequisition() const override;
-
-    /**
-     * @brief Sets the acquisition of the child element to its own acquisition
-     *
-     */
-    virtual void onAcquisition() override;
 
     /**
      * @brief Renders the button and text/child
@@ -85,15 +80,10 @@ protected:
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const override;
 
-    /**
-     * @brief Calls add() on the child method. Should be called in create() for any derived
-     *        classes. add() cannot be called until the object is fully constructed
-     *
-     */
-    void addChild();
-
 private:
     Element::Ptr child;
+
+    void onAcquisition();
 };
 } // namespace gui
 } // namespace bl

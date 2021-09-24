@@ -18,11 +18,10 @@ TextEntry::TextEntry(unsigned int lc)
 , cursorTime(0)
 , currentLine(0) {
     using namespace std::placeholders;
-    getSignal(Action::TextEntered).willAlwaysCall(std::bind(&TextEntry::onInput, this, _1));
-    getSignal(Action::KeyPressed).willAlwaysCall(std::bind(&TextEntry::onKeypress, this, _1));
-    getSignal(Action::LeftClicked).willAlwaysCall(std::bind(&TextEntry::onClicked, this, _1));
-    getSignal(Action::RenderSettingsChanged)
-        .willAlwaysCall(std::bind(&TextEntry::recalcText, this));
+    getSignal(Event::TextEntered).willAlwaysCall(std::bind(&TextEntry::onInput, this, _1));
+    getSignal(Event::KeyPressed).willAlwaysCall(std::bind(&TextEntry::onKeypress, this, _1));
+    getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&TextEntry::onClicked, this, _1));
+    getSignal(Event::RenderSettingsChanged).willAlwaysCall(std::bind(&TextEntry::recalcText, this));
 
     newlines.reserve(lineCount + 2);
     recalcText();
@@ -88,10 +87,10 @@ void TextEntry::recalcNewlines() {
     newlines.push_back(input.size());
 }
 
-void TextEntry::onInput(const Action& action) {
-    if (action.type != Action::TextEntered) return;
+void TextEntry::onInput(const Event& action) {
+    if (action.type() != Event::TextEntered) return;
 
-    const uint32_t c = action.data.input;
+    const uint32_t c = action.inputValue();
     if (c == 8) { // backspace
         if (cursorPos > 0) {
             input.erase(cursorPos - 1, 1);
@@ -109,31 +108,31 @@ void TextEntry::onInput(const Action& action) {
     recalcNewlines();
 }
 
-void TextEntry::onKeypress(const Action& action) {
-    if (action.type != Action::KeyPressed) return;
+void TextEntry::onKeypress(const Event& action) {
+    if (action.type() != Event::KeyPressed) return;
 
-    if (action.data.key.code == sf::Keyboard::Right) {
+    if (action.key().code == sf::Keyboard::Right) {
         if (cursorPos < input.size()) ++cursorPos;
     }
-    else if (action.data.key.code == sf::Keyboard::Left) {
+    else if (action.key().code == sf::Keyboard::Left) {
         if (cursorPos > 0) --cursorPos;
     }
-    else if (action.data.key.code == sf::Keyboard::Up) {
+    else if (action.key().code == sf::Keyboard::Up) {
         if (currentLine > 0) cursorUp();
     }
-    else if (action.data.key.code == sf::Keyboard::Down) {
+    else if (action.key().code == sf::Keyboard::Down) {
         if (currentLine < newlines.size() - 2) cursorDown();
     }
-    else if (action.data.key.code == sf::Keyboard::Home) {
+    else if (action.key().code == sf::Keyboard::Home) {
         cursorPos = newlines[currentLine] + 1;
     }
-    else if (action.data.key.code == sf::Keyboard::End) {
+    else if (action.key().code == sf::Keyboard::End) {
         cursorPos = newlines[currentLine + 1];
     }
-    else if (action.data.key.code == sf::Keyboard::Delete) {
+    else if (action.key().code == sf::Keyboard::Delete) {
         if (cursorPos < input.size()) input.erase(cursorPos, 1);
     }
-    else if (action.data.key.code == sf::Keyboard::Return) {
+    else if (action.key().code == sf::Keyboard::Return) {
         if (newlines.size() - 1 < lineCount) {
             if (cursorPos < input.size())
                 input.insert(cursorPos, 1, '\n');
@@ -142,7 +141,7 @@ void TextEntry::onKeypress(const Action& action) {
             ++cursorPos;
         }
     }
-    else if (action.data.key.control && action.data.key.code == sf::Keyboard::V) {
+    else if (action.key().control && action.key().code == sf::Keyboard::V) {
         const std::string c = sf::Clipboard::getString().toAnsiString();
         if (cursorPos < input.size())
             input.insert(cursorPos, c);
@@ -154,17 +153,14 @@ void TextEntry::onKeypress(const Action& action) {
     recalcNewlines();
 }
 
-void TextEntry::onClicked(const Action& action) {
-    if (action.type != Action::LeftClicked) return;
-
-    const sf::Vector2f pos(getAcquisition().left, getAcquisition().top);
-    const sf::Vector2f mpos = action.position - pos;
+void TextEntry::onClicked(const Event& action) {
+    if (action.type() != Event::LeftClicked) return;
 
     float minDist   = 10000000;
     unsigned int mi = 0;
     for (unsigned int i = 0; i < input.size(); ++i) {
         const sf::Vector2f cpos = renderText.findCharacterPos(i);
-        const sf::Vector2f diff = cpos - mpos;
+        const sf::Vector2f diff = cpos - action.mousePosition();
         const float d           = diff.x * diff.x + diff.y * diff.y;
         if (d < minDist) {
             minDist = d;

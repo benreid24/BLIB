@@ -36,7 +36,7 @@ sf::Vector2i Element::getRequisition() const {
 
 const sf::IntRect& Element::getAcquisition() const { return acquisition; }
 
-Signal& Element::getSignal(Action::Type trigger) { return signals[trigger]; }
+Signal& Element::getSignal(Event::Type trigger) { return signals[trigger]; }
 
 bool Element::hasFocus() const { return isFocused; }
 
@@ -44,7 +44,7 @@ bool Element::takeFocus() {
     if (isFocused) return true;
     if (!clearFocus()) return false;
     isFocused = true;
-    fireSignal(Action(Action::GainedFocus));
+    fireSignal(Event(Event::GainedFocus));
     moveToTop();
     return true;
 }
@@ -78,7 +78,7 @@ bool Element::releaseFocus() {
     }
     bool wasFocused = isFocused;
     isFocused       = false;
-    if (wasFocused) fireSignal(Action(Action::LostFocus));
+    if (wasFocused) fireSignal(Event(Event::LostFocus));
     return true;
 }
 
@@ -95,39 +95,39 @@ bool Element::leftPressed() const { return isLeftPressed; }
 
 bool Element::rightPressed() const { return isRightPressed; }
 
-bool Element::handleEvent(const RawEvent& event) {
+bool Element::processEvent(const Event& event) {
     if (!visible()) return false;
 
-    if (event.event.type == sf::Event::MouseWheelScrolled) {
-        if (getAcquisition().contains(sf::Vector2i(event.localMousePos))) {
+    if (propagateEvent(event)) return true;
+
+    if (event.type() == Event::Scrolled) {
+        if (getAcquisition().contains(sf::Vector2i(event.mousePosition()))) {
             return handleScroll(event);
         }
         return false;
     }
 
-    if (handleRawEvent(event)) return true;
+    const bool eventOnMe = acquisition.contains(sf::Vector2i(event.mousePosition()));
 
-    const bool eventOnMe =
-        acquisition.contains(sf::Vector2i(event.localMousePos.x, event.localMousePos.y));
+    switch (event.type()) {
+    case Event::TextEntered:
+    case Event::KeyPressed:
+    case Event::KeyReleased:
+    case Event::Scrolled:
+        return processAction(event); // TODO - is this right?
 
-    switch (event.event.type) {
-    case sf::Event::TextEntered:
-    case sf::Event::KeyPressed:
-    case sf::Event::KeyReleased:
-    case sf::Event::MouseWheelScrolled:
-        return processAction(Action::fromRaw(event));
-
-    case sf::Event::MouseButtonPressed:
+    case Event::LeftMousePressed:
+    case Event::RightMousePressed:
         if (eventOnMe) {
             if (!active()) return true;
 
             if (takeFocus()) {
-                if (event.event.mouseButton.button == sf::Mouse::Left) {
-                    dragStart     = event.localMousePos;
+                if (event.type() == Event::LeftMousePressed) {
+                    dragStart     = event.mousePosition();
                     isLeftPressed = true;
-                    return processAction(Action(Action::Pressed, event.localMousePos));
+                    return processAction(event);
                 }
-                else if (event.event.mouseButton.button == sf::Mouse::Right) {
+                else {
                     isRightPressed = true;
                     return true;
                 }
@@ -136,49 +136,50 @@ bool Element::handleEvent(const RawEvent& event) {
         }
         return false;
 
-    case sf::Event::MouseButtonReleased:
+    case Event::LeftMouseReleased:
+    case Event::RightMouseReleased:
         if (!active()) {
             isLeftPressed = isRightPressed = false;
             return eventOnMe;
         }
-        if (event.event.mouseButton.button == sf::Mouse::Left) {
+        processAction(event);
+        if (event.type() == Event::LeftMouseReleased) {
             if (isLeftPressed) {
                 isLeftPressed = false;
-                processAction(Action(Action::Released, event.localMousePos));
                 if (eventOnMe) {
-                    processAction(Action(Action::LeftClicked, event.localMousePos));
+                    processAction(Event(Event::LeftClicked, event.mousePosition()));
                     return true;
                 }
             }
         }
-        else if (event.event.mouseButton.button == sf::Mouse::Right) {
+        else if (event.type() == Event::RightMouseReleased) {
             if (isRightPressed) {
                 isRightPressed = false;
                 if (eventOnMe) {
-                    processAction(Action(Action::RightClicked, event.localMousePos));
+                    processAction(Event(Event::RightClicked, event.mousePosition()));
                     return true;
                 }
             }
         }
         return false;
 
-    case sf::Event::MouseMoved:
+    case Event::MouseMoved:
         if (!active()) { return eventOnMe; }
-        if (eventOnMe) { fireSignal(Action(Action::MouseMoved, event.localMousePos)); }
+        if (eventOnMe) { fireSignal(event); }
         if (isLeftPressed) {
             isMouseOver = eventOnMe;
-            return processAction(Action(Action::Dragged, dragStart, event.localMousePos));
+            return processAction(Event(Event::Dragged, dragStart, event.mousePosition()));
         }
         else if (eventOnMe) {
             if (!isMouseOver) {
                 isMouseOver = true;
-                processAction(Action(Action::MouseEntered, event.localMousePos));
+                processAction(Event(Event::MouseEntered, event.mousePosition()));
             }
             return true;
         }
         else if (isMouseOver) {
             isMouseOver = false;
-            processAction(Action(Action::MouseLeft, event.localMousePos));
+            processAction(Event(Event::MouseLeft, event.mousePosition()));
         }
         return false;
 
@@ -187,7 +188,7 @@ bool Element::handleEvent(const RawEvent& event) {
     }
 }
 
-bool Element::processAction(const Action& action) {
+bool Element::processAction(const Event& action) {
     if (hasFocus()) {
         fireSignal(action);
         return true;
@@ -195,9 +196,11 @@ bool Element::processAction(const Action& action) {
     return false;
 }
 
-bool Element::handleScroll(const RawEvent&) { return false; }
+bool Element::handleScroll(const Event&) { return false; }
 
-void Element::fireSignal(const Action& action) { signals[action.type](action, this); }
+bool Element::propagateEvent(const Event&) { return false; }
+
+void Element::fireSignal(const Event& action) { signals[action.type()](action, this); }
 
 void Element::remove() {
     if (!parent.expired()) {
@@ -263,7 +266,7 @@ bool Element::expandsHeight() const { return fillY; }
 void Element::assignAcquisition(const sf::IntRect& acq) {
     markClean();
     acquisition = acq;
-    fireSignal(Action(Action::AcquisitionChanged));
+    fireSignal(Event(Event::AcquisitionChanged));
 }
 
 void Element::setPosition(const sf::Vector2i& pos) {
@@ -301,49 +304,49 @@ const RenderSettings& Element::renderSettings() const { return settings; }
 
 void Element::setFont(bl::resource::Resource<sf::Font>::Ref f) {
     settings.font = f;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setCharacterSize(unsigned int s) {
     settings.characterSize = s;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setColor(sf::Color fill, sf::Color outline) {
     settings.fillColor    = fill;
     settings.outlineColor = outline;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setOutlineThickness(unsigned int t) {
     settings.outlineThickness = t;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setSecondaryColor(sf::Color fill, sf::Color outline) {
     settings.secondaryFillColor    = fill;
     settings.secondaryOutlineColor = outline;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setSecondaryOutlineThickness(unsigned int t) {
     settings.secondaryOutlineThickness = t;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setStyle(sf::Uint32 style) {
     settings.style = style;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setHorizontalAlignment(RenderSettings::Alignment align) {
     settings.horizontalAlignment = align;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setVerticalAlignment(RenderSettings::Alignment align) {
     settings.verticalAlignment = align;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 Element::Ptr Element::me() { return shared_from_this(); }
@@ -351,8 +354,6 @@ Element::Ptr Element::me() { return shared_from_this(); }
 void Element::bringToTop(const Element*) {}
 
 void Element::removeChild(const Element*) {}
-
-bool Element::handleRawEvent(const RawEvent&) { return false; }
 
 void Element::update(float) {}
 

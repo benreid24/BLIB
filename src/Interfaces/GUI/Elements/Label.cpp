@@ -11,7 +11,7 @@ Label::Ptr Label::create(const std::string& text) { return Ptr(new Label(text));
 Label::Label(const std::string& text)
 : Element()
 , text(text) {
-    getSignal(Action::RenderSettingsChanged)
+    getSignal(Event::RenderSettingsChanged)
         .willAlwaysCall(std::bind(&Label::settingsChanged, this));
     settingsChanged();
 }

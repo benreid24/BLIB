@@ -13,25 +13,17 @@ namespace
 constexpr int ChildPadding = 2;
 }
 
-Button::Ptr Button::create(const std::string& text) {
-    Ptr button(new Button(Label::create(text)));
-    button->addChild();
-    return button;
-}
+Button::Ptr Button::create(const std::string& text) { return Ptr(new Button(Label::create(text))); }
 
-Button::Ptr Button::create(Element::Ptr e) {
-    Ptr button(new Button(e));
-    button->addChild();
-    return button;
-}
+Button::Ptr Button::create(Element::Ptr e) { return Ptr(new Button(e)); }
 
 Button::Button(Element::Ptr child)
-: Container()
-, child(child) {}
+: Element()
+, child(child) {
+    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Button::onAcquisition, this));
+}
 
 Element::Ptr Button::getChild() const { return child; }
-
-void Button::addChild() { add(child); }
 
 sf::Vector2i Button::minimumRequisition() const {
     sf::Vector2i area = child->getRequisition();
@@ -43,21 +35,21 @@ sf::Vector2i Button::minimumRequisition() const {
 
 void Button::onAcquisition() {
     Packer::manuallyPackElement(child,
-                                {ChildPadding,
-                                 ChildPadding,
+                                {getAcquisition().left + ChildPadding,
+                                 getAcquisition().top + ChildPadding,
                                  getAcquisition().width - ChildPadding * 2,
                                  getAcquisition().height - ChildPadding * 2});
 }
 
-bool Button::handleRawEvent(const RawEvent& event) {
-    child->handleEvent(transformEvent(event));
+bool Button::propagateEvent(const Event& event) {
+    child->processEvent(event);
     return false; // so the button can have proper mouseover and click events
 }
 
 void Button::doRender(sf::RenderTarget& target, sf::RenderStates states,
                       const Renderer& renderer) const {
     renderer.renderButton(target, states, *this);
-    renderChildren(target, states, renderer);
+    child->render(target, states, renderer);
     renderer.renderMouseoverOverlay(target, states, this);
 }
 

@@ -2,7 +2,6 @@
 #define BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP
 
 #include <BLIB/Interfaces/GUI/Elements/Button.hpp>
-
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
 
 namespace bl
@@ -64,19 +63,13 @@ protected:
      * @param event The event that fired
      * @return False so that the button always generates events
      */
-    virtual bool handleRawEvent(const RawEvent& event) override;
+    virtual bool propagateEvent(const Event& event) override;
 
     /**
      * @brief Returns the size required to display the full button text
      *
      */
     virtual sf::Vector2i minimumRequisition() const override;
-
-    /**
-     * @brief Packs the buttons and child element
-     *
-     */
-    virtual void onAcquisition() override;
 
     /**
      * @brief Derived buttons should call the apropriate render methods in renderer. This is
@@ -100,12 +93,6 @@ protected:
                           const Renderer& renderer) const override;
 
     /**
-     * @brief This must be called in derived elements create method() before returning
-     *
-     */
-    void finishCreate();
-
-    /**
      * @brief Handler for clicks. Default behavior toggles the value
      *
      */
@@ -117,7 +104,7 @@ private:
     Canvas::Ptr inactiveButton;
     bool value;
 
-    void updateButtons();
+    void onAcquisition();
 };
 
 } // namespace gui
