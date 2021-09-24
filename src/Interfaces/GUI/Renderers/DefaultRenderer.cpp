@@ -138,10 +138,6 @@ RenderSettings getTextEntryTextDefaults() {
 
 DefaultRenderer::Ptr DefaultRenderer::create() { return Ptr(new DefaultRenderer()); }
 
-void DefaultRenderer::renderCustom(sf::RenderTarget&, sf::RenderStates, const Element&) const {
-    BL_LOG_ERROR << "renderCustom() called on default renderer. Use a custom renderer";
-}
-
 void DefaultRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates states,
                                 const Container& container) const {
     if (!viewValid(target.getView())) return;

@@ -61,14 +61,6 @@ public:
     virtual ~Renderer() = default;
 
     /**
-     * @brief Render a user defined GUI Element. User code may use group() and id() to
-     *        determine how to render
-     *
-     */
-    virtual void renderCustom(sf::RenderTarget& target, sf::RenderStates states,
-                              const Element& element) const = 0;
-
-    /**
      * @brief Renders a Box element
      *
      * @param target Target to render to

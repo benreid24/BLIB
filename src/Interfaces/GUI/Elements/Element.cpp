@@ -295,11 +295,6 @@ void Element::render(sf::RenderTarget& target, sf::RenderStates states,
     if (visible()) doRender(target, states, renderer);
 }
 
-void Element::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                       const Renderer& renderer) const {
-    renderer.renderCustom(target, states, *this);
-}
-
 const RenderSettings& Element::renderSettings() const { return settings; }
 
 void Element::setFont(bl::resource::Resource<sf::Font>::Ref f) {

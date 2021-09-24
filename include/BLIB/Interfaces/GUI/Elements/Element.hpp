@@ -402,14 +402,14 @@ protected:
     /**
      * @brief Actually performs the rendering. This is only called if the element is visible.
      *        Child classes may call specialized methods in the renderer, or implement their
-     *        own rendering. The latter is not recommended as then appearance is hard coded
+     *        own rendering
      *
      * @param target The target to render to
      * @param states Render states to apply
      * @param renderer The renderer to use
      */
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const;
+                          const Renderer& renderer) const = 0;
 
     /**
      * @brief Set the acquisition of this element. Meant to be called by a Packer

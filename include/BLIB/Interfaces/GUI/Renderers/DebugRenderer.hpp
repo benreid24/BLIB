@@ -36,10 +36,6 @@ public:
      */
     void showAcquisitions(bool show = true);
 
-    /// @see Renderer::renderCustom
-    virtual void renderCustom(sf::RenderTarget& target, sf::RenderStates states,
-                              const Element& element) const override;
-
     /// @see Renderer::renderBox
     virtual void renderBox(sf::RenderTarget& target, sf::RenderStates states,
                            const Container& container) const override;

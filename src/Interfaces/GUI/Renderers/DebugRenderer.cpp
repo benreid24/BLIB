@@ -19,12 +19,6 @@ DebugRenderer::DebugRenderer(Renderer::Ptr renderer)
 
 void DebugRenderer::showAcquisitions(bool show) { showBounds = show; }
 
-void DebugRenderer::renderCustom(sf::RenderTarget& target, sf::RenderStates states,
-                                 const Element& element) const {
-    underlying->renderCustom(target, states, element);
-    addInfo(target, states, element.getAcquisition());
-}
-
 void DebugRenderer::renderLabel(sf::RenderTarget& target, sf::RenderStates states,
                                 const Label& element) const {
     underlying->renderLabel(target, states, element);
