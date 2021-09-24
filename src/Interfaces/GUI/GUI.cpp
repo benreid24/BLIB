@@ -33,6 +33,7 @@ void GUI::setRegion(const sf::IntRect& area) { assignAcquisition(area); }
 void GUI::subscribe(event::Dispatcher& d) { d.subscribe(this); }
 
 void GUI::observe(const sf::Event& event) {
+    if (event.type == sf::Event::MouseEntered) return;
     if (event.type == sf::Event::MouseMoved) {
         mousePos.x = event.mouseMove.x;
         mousePos.y = event.mouseMove.y;
