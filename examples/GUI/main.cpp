@@ -18,11 +18,11 @@ struct TextureLoader : public bl::resource::Loader<sf::Texture> {
     }
 } textureLoader;
 
-void b1click(const bl::gui::Action&, bl::gui::Element*) { std::cout << "Button b1 was clicked\n"; }
+void b1click(const bl::gui::Event&, bl::gui::Element*) { std::cout << "Button b1 was clicked\n"; }
 
-void b2click(const bl::gui::Action&, bl::gui::Element*) { std::cout << "Button b2 was clicked\n"; }
+void b2click(const bl::gui::Event&, bl::gui::Element*) { std::cout << "Button b2 was clicked\n"; }
 
-void b3click(const bl::gui::Action&, bl::gui::Element*) { std::cout << "Button b3 was clicked\n"; }
+void b3click(const bl::gui::Event&, bl::gui::Element*) { std::cout << "Button b3 was clicked\n"; }
 
 void notebookCb() { std::cout << "Button inside of notebook was clicked\n"; }
 
@@ -103,7 +103,7 @@ int main() {
     gui->pack(label);
 
     gui::Button::Ptr button = gui::Button::create("Press Me");
-    button->getSignal(gui::Action::LeftClicked).willCall(b1click);
+    button->getSignal(gui::Event::LeftClicked).willCall(b1click);
     gui->pack(button, true, true);
 
     gui::Window::Ptr testWindow =
@@ -114,9 +114,9 @@ int main() {
     label = gui::Label::create("This is a window");
     testWindow->pack(label);
     button = gui::Button::create("Click me");
-    button->getSignal(gui::Action::LeftClicked).willCall(b2click);
+    button->getSignal(gui::Event::LeftClicked).willCall(b2click);
     testWindow->pack(button);
-    testWindow->getSignal(gui::Action::Closed)
+    testWindow->getSignal(gui::Event::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
     gui->pack(testWindow);
 
@@ -131,9 +131,9 @@ int main() {
     label      = gui::Label::create("This is also a window");
     testWindow->pack(label);
     button = gui::Button::create("Click me too");
-    button->getSignal(gui::Action::LeftClicked).willCall(b3click);
+    button->getSignal(gui::Event::LeftClicked).willCall(b3click);
     testWindow->pack(button);
-    testWindow->getSignal(gui::Action::Closed)
+    testWindow->getSignal(gui::Event::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
     gui->pack(testWindow);
 
@@ -150,7 +150,7 @@ int main() {
     scroll->setMaxSize({150, 100});
     scroll->pack(gui::Label::create("This can be scrolled"));
     scroll->pack(gui::Label::create("Try scrolling me around"));
-    scroll->pack(gui::Button::create("No Action"));
+    scroll->pack(gui::Button::create("No Event"));
     slider = gui::Slider::create(gui::Slider::Horizontal);
     slider->setRequisition({120, 35});
     scroll->pack(slider);
@@ -174,7 +174,7 @@ int main() {
     nb->addPage("page1", "Page 1", gui::Label::create("Content goes here"));
     gui::Box::Ptr box = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Vertical));
     button            = gui::Button::create("Content");
-    button->getSignal(gui::Action::LeftClicked).willCall(std::bind(&notebookCb));
+    button->getSignal(gui::Event::LeftClicked).willCall(std::bind(&notebookCb));
     box->pack(button);
     box->pack(gui::Label::create("This is a notebook"));
     nb->addPage("page2", "More Stuff", box);

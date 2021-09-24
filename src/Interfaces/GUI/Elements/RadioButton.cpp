@@ -11,9 +11,7 @@ RadioButton::Ptr RadioButton::create(const std::string& text, Group* radioGroup)
 }
 
 RadioButton::Ptr RadioButton::create(Element::Ptr child, Group* radioGroup) {
-    Ptr but(new RadioButton(child, radioGroup));
-    but->finishCreate();
-    return but;
+    return Ptr(new RadioButton(child, radioGroup));
 }
 
 RadioButton::RadioButton(Element::Ptr child, Group* radioGroup)

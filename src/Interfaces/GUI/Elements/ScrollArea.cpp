@@ -166,14 +166,14 @@ sf::Vector2f ScrollArea::getElementOffset(const Element* e) const {
 }
 
 bool ScrollArea::propagateEvent(const Event& event) {
-    if (event.type() == sf::Event::MouseMoved) { boxMousePos = event.mousePosition(); }
+    if (event.type() == Event::MouseMoved) { boxMousePos = event.mousePosition(); }
 
     if (horScrollbar->processEvent(event)) return true;
     if (vertScrollbar->processEvent(event)) return true;
 
     const bool in = getAcquisition().contains(sf::Vector2i(event.mousePosition()));
-    if (in || event.type() == sf::Event::MouseMoved ||
-        event.type() == sf::Event::MouseButtonReleased) {
+    if (in || event.type() == Event::MouseMoved || event.type() == Event::LeftMouseReleased ||
+        event.type() == Event::RightMouseReleased) {
         const sf::Vector2f pos(getAcquisition().left, getAcquisition().top);
         return Container::propagateEvent({event, event.mousePosition() - pos + offset});
     }
