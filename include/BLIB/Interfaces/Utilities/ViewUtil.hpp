@@ -42,10 +42,10 @@ struct ViewUtil {
      *        view area or size
      *
      * @param region Coordinate space to cover with the view
-     * @param oldView The original view that is being replaced
+     * @param defaultView The original view that is being replaced
      * @return sf::View The computed view to apply for proper rendering. Center is half the size
      */
-    static sf::View computeSubView(const sf::FloatRect& region, const sf::View& oldView);
+    static sf::View computeSubView(const sf::FloatRect& region, const sf::View& defaultView);
 
     /**
      * @brief Helper function to compute a view of the given size that will cover the given area of

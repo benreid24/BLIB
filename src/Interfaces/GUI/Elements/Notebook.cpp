@@ -125,7 +125,8 @@ void Notebook::onAcquisition() {
 void Notebook::doRender(sf::RenderTarget& target, sf::RenderStates states,
                         const Renderer& renderer) const {
     const sf::View oldView = target.getView();
-    target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(getAcquisition()), oldView));
+    target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(getAcquisition()),
+                                                       target.getDefaultView()));
     renderer.renderNotebook(target, states, *this);
     target.setView(oldView);
 }

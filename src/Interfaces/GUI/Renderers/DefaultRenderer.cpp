@@ -163,11 +163,7 @@ void DefaultRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates 
     static const RenderSettings defaults = getComboDefaults();
     const RenderSettings settings        = getSettings(&box);
 
-    RendererUtil::renderRectangle(target,
-                                  states,
-                                  {0, 0, box.getAcquisition().width, box.getAcquisition().height},
-                                  settings,
-                                  defaults);
+    RendererUtil::renderRectangle(target, states, box.getAcquisition(), settings, defaults);
 }
 
 void DefaultRenderer::renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::RenderStates states,
@@ -180,7 +176,8 @@ void DefaultRenderer::renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::
     static const RenderSettings defaults = getComboDefaults();
     const RenderSettings settings        = getSettings(&box);
 
-    sf::Vector2i pos(0, box.getAcquisition().height);
+    sf::Vector2i pos(box.getAcquisition().left,
+                     box.getAcquisition().top + box.getAcquisition().height);
     for (unsigned int i = 0; i < optionCount; ++i) {
         RenderSettings s = settings;
         if (i == mousedOption) {
@@ -220,10 +217,10 @@ void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::Rende
                                              const Element* element) const {
     if (!viewValid(target.getView())) return;
 
-    sf::RectangleShape rect({static_cast<float>(element->getAcquisition().width),
-                             static_cast<float>(element->getAcquisition().height)});
-    rect.setPosition(element->getAcquisition().left, element->getAcquisition().top);
     if (element->mouseOver() || element->leftPressed()) {
+        sf::RectangleShape rect({static_cast<float>(element->getAcquisition().width),
+                                 static_cast<float>(element->getAcquisition().height)});
+        rect.setPosition(element->getAcquisition().left, element->getAcquisition().top);
         rect.setOutlineThickness(0);
         if (element->leftPressed())
             rect.setFillColor(sf::Color(30, 30, 30, 100));

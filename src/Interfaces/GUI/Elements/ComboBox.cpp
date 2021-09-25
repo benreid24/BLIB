@@ -151,7 +151,8 @@ void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
     arrow->render(target, states, renderer);
 
     const sf::View oldView = target.getView();
-    target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(labelRegion), oldView));
+    target.setView(
+        interface::ViewUtil::computeSubView(sf::FloatRect(labelRegion), target.getDefaultView()));
     if (opened) states.transform.translate(0, -scroll);
     renderer.renderComboBoxDropdownBoxes(
         target, states, *this, labelSize, opened ? options.size() : 0, moused);

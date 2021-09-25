@@ -57,6 +57,8 @@ Event Event::fromSFML(const sf::Event& event, const sf::Vector2f& position) {
         }
         BL_LOG_ERROR << "gui::Event: Unknown mouse button: " << event.mouseButton.button;
         return Event(Event::Unknown, pos);
+    case sf::Event::MouseWheelMoved:
+        return Event(Event::Unknown, pos);
     default:
         BL_LOG_ERROR << "gui::Event: Unsupported SFML event type: " << event.type;
         return Event(Event::Unknown, pos);

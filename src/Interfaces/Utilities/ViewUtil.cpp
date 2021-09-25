@@ -13,15 +13,15 @@ sf::View constructView(const sf::Vector2f& size, float x, float y, float w, floa
 }
 } // namespace
 
-sf::View ViewUtil::computeSubView(const sf::FloatRect& region, const sf::View& oldView) {
-    const sf::Vector2f& corner = oldView.getCenter() - oldView.getSize() * 0.5f;
-    const float x              = (region.left - corner.x) / oldView.getSize().x;
-    const float y              = (region.top - corner.y) / oldView.getSize().y;
-    const float w              = region.width / oldView.getSize().x;
-    const float h              = region.height / oldView.getSize().y;
+sf::View ViewUtil::computeSubView(const sf::FloatRect& region, const sf::View& defaultView) {
+    const sf::Vector2f corner = defaultView.getCenter() - defaultView.getSize() * 0.5f;
+    const float x             = (region.left - corner.x) / defaultView.getSize().x;
+    const float y             = (region.top - corner.y) / defaultView.getSize().y;
+    const float w             = region.width / defaultView.getSize().x;
+    const float h             = region.height / defaultView.getSize().y;
 
     sf::View result = constructView({region.width, region.height}, x, y, w, h);
-    result.move(region.left, region.height);
+    result.move(region.left, region.top);
     return result;
 }
 
