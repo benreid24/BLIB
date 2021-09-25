@@ -53,25 +53,27 @@ void Image::doRender(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 void Image::setScale() {
+    BL_LOG_INFO << "Packing image into (" << getAcquisition().left << ", " << getAcquisition().top
+                << ", " << getAcquisition().width << ", " << getAcquisition().height << ")";
+
     const sf::Vector2f origSize(texture->getSize().x, texture->getSize().y);
-    const sf::Vector2f acq(getAcquisition().left, getAcquisition().top);
-    const sf::Vector2f as(getAcquisition().width, getAcquisition().height);
-    sf::Vector2f area = size.value_or(origSize);
+    const sf::Vector2f acqPos(getAcquisition().left, getAcquisition().top);
+    const sf::Vector2f acqSize(getAcquisition().width, getAcquisition().height);
+    sf::Vector2f imgSize = size.value_or(origSize);
     if (fillAcq) {
-        sprite.setPosition(acq);
-        area.x = getAcquisition().width;
-        area.y = getAcquisition().height;
+        imgSize.x = getAcquisition().width;
+        imgSize.y = getAcquisition().height;
     }
-    else {
-        sprite.setPosition(acq + (as - area) * 0.5f);
-    }
-    float sx = area.x / origSize.x;
-    float sy = area.y / origSize.y;
+    float sx = imgSize.x / origSize.x;
+    float sy = imgSize.y / origSize.y;
     if (fillAcq && maintainAR) {
         sx = std::min(sx, sy);
         sy = sx;
     }
     sprite.setScale(sx, sy);
+    imgSize.x = sprite.getGlobalBounds().width;
+    imgSize.y = sprite.getGlobalBounds().height;
+    sprite.setPosition(acqPos + (acqSize - imgSize) * 0.5f);
 }
 
 } // namespace gui

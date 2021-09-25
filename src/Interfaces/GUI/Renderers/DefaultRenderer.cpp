@@ -476,7 +476,6 @@ void DefaultRenderer::renderImage(sf::RenderTarget& target, sf::RenderStates sta
     const sf::IntRect region(static_cast<sf::Vector2i>(pos), static_cast<sf::Vector2i>(size));
 
     RendererUtil::renderRectangle(target, states, region, settings, defaults);
-    states.transform.translate(pos);
     target.draw(image, states);
 }
 

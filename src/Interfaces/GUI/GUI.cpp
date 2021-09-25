@@ -40,14 +40,15 @@ void GUI::observe(const sf::Event& event) {
     }
     sf::Transform tform = getInverseTransform();
     tform *= renderTransform.getInverse();
-    Container::processEvent(gui::Event::fromSFML(event, tform.transformPoint(mousePos)));
+    const Event guiEvent = Event::fromSFML(event, tform.transformPoint(mousePos));
+    if (guiEvent.type() != Event::Unknown) { Container::processEvent(guiEvent); }
 }
 
 void GUI::setRenderer(gui::Renderer::Ptr r) { renderer = r; }
 
 void GUI::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     renderTransform = states.transform;
-    // states.transform.combine(getTransform());
+    states.transform.combine(getTransform());
     Container::render(target, states, *renderer);
 }
 

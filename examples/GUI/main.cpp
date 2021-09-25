@@ -74,6 +74,9 @@ int main() {
     gui->subscribe(dispatcher);
     gui->setRenderer(renderer);
 
+    gui->setOutlineThickness(1);
+    gui->setColor(sf::Color::Transparent, sf::Color::Red);
+
     gui::Image::Ptr image = gui::Image::create(textureManager.load("image.png").data);
     image->setFillAcquisition(true, true);
     gui->pack(image, true, true);
@@ -118,7 +121,7 @@ int main() {
     testWindow->pack(button);
     testWindow->getSignal(gui::Event::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
-    gui->pack(testWindow);
+    // gui->pack(testWindow);
 
     gui::Slider::Ptr slider = gui::Slider::create(gui::Slider::Horizontal);
     slider->setRequisition({120, 35});
@@ -135,7 +138,7 @@ int main() {
     testWindow->pack(button);
     testWindow->getSignal(gui::Event::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
-    gui->pack(testWindow);
+    // gui->pack(testWindow);
 
     gui::Canvas::Ptr canvas = gui::Canvas::create(100, 75);
     renderStuff(canvas->getTexture());
@@ -155,7 +158,7 @@ int main() {
     slider->setRequisition({120, 35});
     scroll->pack(slider);
     testWindow->pack(scroll, true, true);
-    gui->pack(testWindow);
+    // gui->pack(testWindow);
 
     testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Text Window",
@@ -164,7 +167,7 @@ int main() {
     gui::TextEntry::Ptr entry = gui::TextEntry::create(4);
     entry->setRequisition({100, 20});
     testWindow->pack(entry, true, true);
-    gui->pack(testWindow);
+    // gui->pack(testWindow);
 
     testWindow            = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Notebook Window",
@@ -190,7 +193,7 @@ int main() {
     box->pack(gui::RadioButton::create("Could be me", radio->getRadioGroup()));
     nb->addPage("page4", "Radio buttons", box);
     testWindow->pack(nb, true, true);
-    gui->pack(testWindow);
+    // gui->pack(testWindow);
 
     bool showBoxes = false;
     sf::Clock timer;
