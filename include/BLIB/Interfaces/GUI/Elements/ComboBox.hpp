@@ -146,6 +146,7 @@ private:
     sf::IntRect labelRegion;
     std::optional<sf::Color> labelColor;
     int maxHeight;
+    int totalHeight;
     float scroll;
     int selected; // -1 means none
     bool opened;

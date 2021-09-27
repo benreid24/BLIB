@@ -87,10 +87,11 @@ void ComboBox::onAcquisition() {
     labelSize = {getAcquisition().width - getAcquisition().height + OptionPadding,
                  getAcquisition().height + OptionPadding};
 
+    totalHeight = labelSize.y * static_cast<int>(options.size());
     labelRegion = {getAcquisition().left,
                    getAcquisition().top + getAcquisition().height,
                    labelSize.x,
-                   labelSize.y * static_cast<int>(options.size())};
+                   totalHeight};
 
     labelRegion.height =
         maxHeight > 0 ? std::min(maxHeight, labelRegion.height) : labelRegion.height;
@@ -114,11 +115,16 @@ bool ComboBox::propagateEvent(const Event& event) {
     if (contained && opened) {
         if (event.type() == Event::Scrolled) {
             scrolled(event);
+            const Event fakeMove(
+                Event::MouseMoved,
+                sf::Vector2f(event.mousePosition().x, event.mousePosition().y + scroll));
+            for (Label::Ptr& option : labels) { option->processEvent(fakeMove); }
             return true;
         }
         else {
-            // TODO - offset by scroll
-            for (Label::Ptr& option : labels) { option->processEvent(event); }
+            const Event translated(
+                event, sf::Vector2f(event.mousePosition().x, event.mousePosition().y + scroll));
+            for (Label::Ptr& option : labels) { option->processEvent(translated); }
         }
     }
     return contained && opened;
@@ -154,7 +160,6 @@ void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
         const sf::View oldView = target.getView();
         target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(labelRegion),
                                                            target.getDefaultView()));
-        target.setView(target.getDefaultView());
         states.transform.translate(0, -scroll);
         renderer.renderComboBoxDropdownBoxes(
             target, states, *this, labelSize, opened ? options.size() : 0, moused);
@@ -216,9 +221,8 @@ void ComboBox::packClosed() {
 void ComboBox::setMaxHeight(int m) { maxHeight = m; }
 
 void ComboBox::scrolled(const Event& a) {
-    if (maxHeight > 0) {
-        const float height    = labelSize.y * static_cast<int>(options.size() + 1);
-        const float maxScroll = height - maxHeight;
+    if (maxHeight > 0 && totalHeight > maxHeight) {
+        const float maxScroll = totalHeight - maxHeight;
 
         scroll -= a.scrollDelta() * 6.f;
         if (scroll < 0.f)

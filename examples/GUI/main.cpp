@@ -95,6 +95,7 @@ int main() {
     combo->addOption("Option 3");
     combo->addOption("Option 4");
     combo->addOption("Option 5");
+    combo->setMaxHeight(50);
     gui->pack(combo);
 
     const float ProgressPerSecond     = 0.1;
