@@ -37,14 +37,15 @@ bool Container::releaseFocus() {
 void Container::acquisitionCb() { onAcquisition(); }
 
 void Container::bringToTop(const Element* child) {
-    for (unsigned int i = 1; i < nonpackableChildren.size(); ++i) {
-        if (nonpackableChildren[i].get() == child) {
-            Element::Ptr c = nonpackableChildren[i];
-            nonpackableChildren.erase(nonpackableChildren.begin() + i);
-            nonpackableChildren.insert(nonpackableChildren.begin(), c);
+    for (unsigned int i = 1; i < children.size(); ++i) {
+        if (children[i].get() == child) {
+            Element::Ptr c = children[i];
+            children.erase(children.begin() + i);
+            children.insert(children.begin(), c);
             return;
         }
     }
+
     moveToTop();
 }
 
@@ -72,22 +73,11 @@ void Container::clearChildren(bool immediate) {
 }
 
 bool Container::propagateEvent(const Event& event) {
-    for (Element::Ptr e : nonpackableChildren) {
-        if (e->processEvent(event)) {
-            // if (event.event.type != sf::Event::MouseMoved) { return true; }
-            return true;
-        }
+    for (Element::Ptr e : children) {
+        if (e->processEvent(event)) { return true; }
     }
 
-    bool processed = false;
-    for (Element::Ptr e : packableChildren) {
-        if (e->processEvent(event)) {
-            // if (event.event.type != sf::Event::MouseMoved) { return true; }
-            processed = true;
-        }
-    }
-
-    return processed;
+    return false;
 }
 
 bool Container::handleScroll(const Event& event) {

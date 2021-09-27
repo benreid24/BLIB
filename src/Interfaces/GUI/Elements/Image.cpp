@@ -53,9 +53,6 @@ void Image::doRender(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 void Image::setScale() {
-    BL_LOG_INFO << "Packing image into (" << getAcquisition().left << ", " << getAcquisition().top
-                << ", " << getAcquisition().width << ", " << getAcquisition().height << ")";
-
     const sf::Vector2f origSize(texture->getSize().x, texture->getSize().y);
     const sf::Vector2f acqPos(getAcquisition().left, getAcquisition().top);
     const sf::Vector2f acqSize(getAcquisition().width, getAcquisition().height);

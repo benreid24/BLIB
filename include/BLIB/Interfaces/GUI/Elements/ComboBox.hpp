@@ -94,6 +94,13 @@ public:
      */
     virtual bool handleScroll(const Event& scroll) override;
 
+    /**
+     * @brief Updates the combo box and its children if opened
+     *
+     * @param dt Elapsed time in seconds
+     */
+    virtual void update(float dt) override;
+
 protected:
     /**
      * @brief Create a new ComboBox
@@ -135,7 +142,6 @@ private:
     Canvas::Ptr arrow;
     std::vector<std::string> options;
     std::vector<Label::Ptr> labels;
-    Box::Ptr labelBox;
     sf::Vector2i labelSize;
     sf::IntRect labelRegion;
     std::optional<sf::Color> labelColor;

@@ -12,7 +12,6 @@ ComboBox::Ptr ComboBox::create() { return Ptr(new ComboBox()); }
 ComboBox::ComboBox()
 : Element()
 , arrow(Canvas::create(32, 32))
-, labelBox(Box::create(LinePacker::create(LinePacker::Vertical, 0)))
 , maxHeight(0.f)
 , scroll(0.f)
 , selected(-1)
@@ -36,7 +35,6 @@ void ComboBox::addOption(const std::string& text) {
     labels.back()
         ->getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&ComboBox::optionClicked, this, options.back()));
-    labelBox->pack(labels.back(), true, false);
     onSettings();
 }
 
@@ -44,7 +42,6 @@ void ComboBox::clearOptions() {
     for (Label::Ptr label : labels) { label->remove(); }
     options.clear();
     labels.clear();
-    labelBox->clearChildren(true);
     selected = -1;
     opened   = false;
 }
@@ -106,7 +103,6 @@ void ComboBox::onAcquisition() {
                                  getAcquisition().top,
                                  getAcquisition().height,
                                  getAcquisition().height});
-    Packer::manuallyPackElement(labelBox, labelRegion);
     if (opened)
         packOpened();
     else
@@ -119,6 +115,10 @@ bool ComboBox::propagateEvent(const Event& event) {
         if (event.type() == Event::Scrolled) {
             scrolled(event);
             return true;
+        }
+        else {
+            // TODO - offset by scroll
+            for (Label::Ptr& option : labels) { option->processEvent(event); }
         }
     }
     return contained && opened;
@@ -150,13 +150,20 @@ void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
     renderer.renderComboBox(target, states, *this);
     arrow->render(target, states, renderer);
 
-    const sf::View oldView = target.getView();
-    target.setView(
-        interface::ViewUtil::computeSubView(sf::FloatRect(labelRegion), target.getDefaultView()));
-    if (opened) states.transform.translate(0, -scroll);
-    renderer.renderComboBoxDropdownBoxes(
-        target, states, *this, labelSize, opened ? options.size() : 0, moused);
-    target.setView(oldView);
+    if (opened) {
+        const sf::View oldView = target.getView();
+        target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(labelRegion),
+                                                           target.getDefaultView()));
+        target.setView(target.getDefaultView());
+        states.transform.translate(0, -scroll);
+        renderer.renderComboBoxDropdownBoxes(
+            target, states, *this, labelSize, opened ? options.size() : 0, moused);
+        for (const Label::Ptr& option : labels) { option->render(target, states, renderer); }
+        target.setView(oldView);
+    }
+    else if (selected >= 0) {
+        labels[selected]->render(target, states, renderer);
+    }
 }
 
 void ComboBox::onSettings() {
@@ -182,7 +189,7 @@ void ComboBox::clicked() {
 }
 
 void ComboBox::packOpened() {
-    sf::Vector2i pos(OptionPadding, labelSize.y + OptionPadding);
+    sf::Vector2i pos(labelRegion.left, labelRegion.top);
     for (Label::Ptr label : labels) {
         label->setVisible(true, false);
         Packer::manuallyPackElement(label, {pos, labelSize});
@@ -195,7 +202,10 @@ void ComboBox::packClosed() {
     for (unsigned int i = 0; i < labels.size(); ++i) {
         if (i == sel) {
             Packer::manuallyPackElement(labels[i],
-                                        {OptionPadding, OptionPadding, labelSize.x, labelSize.y});
+                                        {getAcquisition().left + OptionPadding,
+                                         getAcquisition().top + OptionPadding,
+                                         labelSize.x,
+                                         labelSize.y});
             labels[i]->setVisible(true, false);
         }
         else
@@ -215,6 +225,12 @@ void ComboBox::scrolled(const Event& a) {
             scroll = 0.f;
         else if (scroll > maxScroll)
             scroll = maxScroll;
+    }
+}
+
+void ComboBox::update(float dt) {
+    if (opened) {
+        for (Label::Ptr& option : labels) { option->update(dt); }
     }
 }
 

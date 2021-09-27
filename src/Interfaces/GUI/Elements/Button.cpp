@@ -4,8 +4,6 @@
 #include <BLIB/Interfaces/GUI/Packers/Packer.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
 
-#include <BLIB/Logging.hpp>
-
 namespace bl
 {
 namespace gui
@@ -36,8 +34,6 @@ sf::Vector2i Button::minimumRequisition() const {
 }
 
 void Button::onAcquisition() {
-    BL_LOG_INFO << "Packing button into (" << getAcquisition().left << ", " << getAcquisition().top
-                << ", " << getAcquisition().width << ", " << getAcquisition().height << ")";
     Packer::manuallyPackElement(child,
                                 {getAcquisition().left + ChildPadding,
                                  getAcquisition().top + ChildPadding,
