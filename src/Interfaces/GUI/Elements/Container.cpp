@@ -73,8 +73,14 @@ void Container::clearChildren(bool immediate) {
 }
 
 bool Container::propagateEvent(const Event& event) {
-    for (Element::Ptr e : children) {
-        if (e->processEvent(event)) { return true; }
+    for (unsigned int i = 0; i < children.size(); ++i) {
+        if (children[i]->processEvent(event)) {
+            if (event.type() == Event::MouseMoved) {
+                const Event fakeMove(Event::MouseMoved, sf::Vector2f(-100000.f, -100000.f));
+                for (++i; i < children.size(); ++i) { children[i]->processEvent(fakeMove); }
+            }
+            return true;
+        }
     }
 
     return false;
