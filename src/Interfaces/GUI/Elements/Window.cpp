@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Window.hpp>
 
 #include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
+#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 
 namespace bl
 {
@@ -13,7 +14,9 @@ inline bool hasStyle(Window::Style style, Window::Style check) { return (style &
 
 Window::Ptr Window::create(Packer::Ptr packer, const std::string& titleText, Style style,
                            const sf::Vector2i& position) {
-    return Ptr(new Window(packer, titleText, style, position));
+    Ptr window(new Window(packer, titleText, style, position));
+    window->finishConstruction();
+    return window;
 }
 
 Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
@@ -82,6 +85,7 @@ void Window::handleDrag(const Event& action) {
         const sf::Vector2i newPos =
             sf::Vector2i(getAcquisition().left, getAcquisition().top) - dragAmount;
         Element::setPosition(newPos);
+        onAcquisition(); // TODO - positions inherit from parents
 
         fireSignal(
             Event(Event::Moved, static_cast<sf::Vector2f>(dragAmount), action.mousePosition()));
@@ -119,9 +123,13 @@ void Window::closed() { fireSignal(Event(Event::Closed)); }
 
 void Window::doRender(sf::RenderTarget& target, sf::RenderStates states,
                       const Renderer& renderer) const {
+    const sf::View oldView = target.getView();
+    target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(getAcquisition()),
+                                                       target.getDefaultView()));
     renderer.renderWindow(target, states, titlebar.get(), *this);
     if (titlebar) { titlebar->render(target, states, renderer); }
     elementArea->render(target, states, renderer);
+    target.setView(oldView);
 }
 
 void Window::update(float dt) {
@@ -159,6 +167,11 @@ bool Window::propagateEvent(const Event& event) {
     if (titlebar && titlebar->processEvent(event)) return true;
     if (elementArea->processEvent(event)) return true;
     return getAcquisition().contains(sf::Vector2i(event.mousePosition()));
+}
+
+void Window::finishConstruction() {
+    if (titlebar) { setChildParent(titlebar); }
+    setChildParent(elementArea);
 }
 
 } // namespace gui

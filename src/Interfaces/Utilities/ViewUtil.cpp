@@ -22,6 +22,26 @@ sf::View ViewUtil::computeSubView(const sf::FloatRect& region, const sf::View& d
 
     sf::View result = constructView({region.width, region.height}, x, y, w, h);
     result.move(region.left, region.top);
+
+    if (x < 0.f) {
+        const float shift = defaultView.getSize().x * (-x);
+        result.setSize(result.getSize().x - shift, result.getSize().y);
+        result.move(shift * 0.5f, 0.f);
+        sf::FloatRect t = result.getViewport();
+        t.left          = 0.f;
+        t.width += x;
+        result.setViewport(t);
+    }
+    if (y < 0.f) {
+        const float shift = defaultView.getSize().y * (-y);
+        result.setSize(result.getSize().x, result.getSize().y - shift);
+        result.move(0.f, shift * 0.5f);
+        sf::FloatRect t = result.getViewport();
+        t.top           = 0.f;
+        t.height += y;
+        result.setViewport(t);
+    }
+
     return result;
 }
 

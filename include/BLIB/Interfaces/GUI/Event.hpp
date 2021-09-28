@@ -43,6 +43,7 @@ struct Event {
         LostFocus,             /// Focus was removed from element
         AcquisitionChanged,    /// Element obtained a new acquisition
         RenderSettingsChanged, /// One of the element's render settings was updated
+        MouseOutsideWindow,    /// The mouse has left the window entirely
         NUM_ACTIONS,           /// How many valid Event types exist
         Unknown                /// Invalid Event
     };

@@ -167,8 +167,10 @@ bool Element::processEvent(const Event& event) {
         if (!active()) { return eventOnMe; }
         if (eventOnMe) { fireSignal(event); }
         if (isLeftPressed) {
-            isMouseOver = eventOnMe;
-            return processAction(Event(Event::Dragged, dragStart, event.mousePosition()));
+            isMouseOver  = eventOnMe;
+            const bool r = processAction(Event(Event::Dragged, dragStart, event.mousePosition()));
+            dragStart    = event.mousePosition();
+            return r;
         }
         else if (eventOnMe) {
             if (!isMouseOver) {
@@ -181,6 +183,12 @@ bool Element::processEvent(const Event& event) {
             isMouseOver = false;
             processAction(Event(Event::MouseLeft, event.mousePosition()));
         }
+        return false;
+
+    case Event::MouseOutsideWindow:
+        isMouseOver    = false;
+        isLeftPressed  = false;
+        isRightPressed = false;
         return false;
 
     default:
@@ -275,17 +283,6 @@ void Element::setPosition(const sf::Vector2i& pos) {
     dragStart += diff;
     acquisition.left = pos.x;
     acquisition.top  = pos.y;
-    if (acquisition.left < 0.f) acquisition.left = 0.f;
-    if (acquisition.top < 0.f) acquisition.top = 0.f;
-    CPtr p = parent.lock();
-    if (p) {
-        if (acquisition.left + acquisition.width > p->getAcquisition().width) {
-            acquisition.left = p->getAcquisition().width - acquisition.width;
-        }
-        if (acquisition.top + acquisition.height > p->getAcquisition().height) {
-            acquisition.top = p->getAcquisition().height - acquisition.height;
-        }
-    }
 }
 
 void Element::setChildParent(Element::Ptr child) { child->parent = me(); }

@@ -89,6 +89,8 @@ int main() {
 
     gui->pack(gui::Separator::create(gui::Separator::Horizontal));
 
+    gui::Box::Ptr row = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Horizontal));
+    row->pack(gui::Label::create("Combobox:"));
     gui::ComboBox::Ptr combo = gui::ComboBox::create();
     combo->addOption("Option 1");
     combo->addOption("Option 2");
@@ -96,7 +98,8 @@ int main() {
     combo->addOption("Option 4");
     combo->addOption("Option 5");
     combo->setMaxHeight(50);
-    gui->pack(combo);
+    row->pack(combo);
+    gui->pack(row);
 
     const float ProgressPerSecond     = 0.1;
     gui::ProgressBar::Ptr progressBar = gui::ProgressBar::create();
@@ -122,13 +125,13 @@ int main() {
     testWindow->pack(button);
     testWindow->getSignal(gui::Event::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
-    // gui->pack(testWindow);
+    gui->pack(testWindow);
 
     gui::Slider::Ptr slider = gui::Slider::create(gui::Slider::Horizontal);
     slider->setRequisition({120, 35});
     testWindow->pack(slider);
 
-    testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
+    /*testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Test Window",
                                      gui::Window::Default,
                                      {200, 30});
@@ -139,7 +142,7 @@ int main() {
     testWindow->pack(button);
     testWindow->getSignal(gui::Event::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
-    // gui->pack(testWindow);
+    gui->pack(testWindow);
 
     gui::Canvas::Ptr canvas = gui::Canvas::create(100, 75);
     renderStuff(canvas->getTexture());
@@ -159,7 +162,7 @@ int main() {
     slider->setRequisition({120, 35});
     scroll->pack(slider);
     testWindow->pack(scroll, true, true);
-    // gui->pack(testWindow);
+    gui->pack(testWindow);
 
     testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Text Window",
@@ -168,7 +171,7 @@ int main() {
     gui::TextEntry::Ptr entry = gui::TextEntry::create(4);
     entry->setRequisition({100, 20});
     testWindow->pack(entry, true, true);
-    // gui->pack(testWindow);
+    gui->pack(testWindow);
 
     testWindow            = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Notebook Window",
@@ -194,7 +197,7 @@ int main() {
     box->pack(gui::RadioButton::create("Could be me", radio->getRadioGroup()));
     nb->addPage("page4", "Radio buttons", box);
     testWindow->pack(nb, true, true);
-    // gui->pack(testWindow);
+    gui->pack(testWindow); */
 
     bool showBoxes = false;
     sf::Clock timer;

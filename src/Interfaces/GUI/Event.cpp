@@ -30,7 +30,7 @@ Event Event::fromSFML(const sf::Event& event, const sf::Vector2f& position) {
     case sf::Event::MouseMoved:
         return Event(Event::MouseMoved, sf::Vector2f(event.mouseMove.x, event.mouseMove.y));
     case sf::Event::MouseLeft:
-        return Event(Event::MouseMoved, sf::Vector2f(-1000000.f, -100000000.f));
+        return Event(Event::MouseOutsideWindow, sf::Vector2f(-1000000.f, -100000000.f));
     case sf::Event::TextEntered:
         return Event(Event::TextEntered, event.text.unicode, pos);
     case sf::Event::KeyPressed:

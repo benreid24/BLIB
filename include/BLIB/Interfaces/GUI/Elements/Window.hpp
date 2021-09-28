@@ -170,6 +170,8 @@ private:
     int computeTitleHeight() const;
     int computeTitleWidth() const;
     void onAcquisition();
+
+    void finishConstruction();
 };
 
 } // namespace gui
