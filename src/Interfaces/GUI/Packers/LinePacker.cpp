@@ -21,7 +21,9 @@ Packer::Ptr LinePacker::create(Direction dir, int spacing, SpaceMode mode, PackS
 sf::Vector2i LinePacker::getRequisition(const std::vector<Element::Ptr>& elems) {
     int md = 0;
     int od = 0;
-    for (Element::Ptr e : elems) {
+    for (const Element::Ptr& e : elems) {
+        if (!e->packable()) continue;
+
         if (dir == Vertical) {
             md += e->getRequisition().y;
             if (e->getRequisition().x > od) od = e->getRequisition().x;
@@ -43,7 +45,7 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
     sf::Vector2i maxSize;
     sf::Vector2i totalSize;
     int expanders = 0;
-    for (Element::Ptr e : elems) {
+    for (const Element::Ptr& e : elems) {
         if (!e->packable()) continue;
 
         if (e->getRequisition().x > maxSize.x) maxSize.x = e->getRequisition().x;

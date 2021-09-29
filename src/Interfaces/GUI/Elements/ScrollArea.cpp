@@ -81,7 +81,7 @@ void ScrollArea::setMaxSize(const sf::Vector2i& s) {
 }
 
 void ScrollArea::refreshSize() const {
-    totalSize     = packer->getRequisition(getPackableChildren());
+    totalSize     = packer->getRequisition(getChildren());
     availableSize = {getAcquisition().width, getAcquisition().height};
 }
 
@@ -124,7 +124,7 @@ void ScrollArea::onAcquisition() {
 
     packer->pack(
         {0, 0, std::max(totalSize.x, availableSize.x), std::max(totalSize.y, availableSize.y)},
-        getPackableChildren());
+        getChildren());
 }
 
 void ScrollArea::scrolled() {
@@ -139,7 +139,7 @@ void ScrollArea::scrolled() {
     }
 
     const Event mockMove(Event::MouseMoved, boxMousePos + offset);
-    for (Element::Ptr e : getPackableChildren()) { e->processEvent(mockMove); }
+    for (Element::Ptr e : getChildren()) { e->processEvent(mockMove); }
 }
 
 bool ScrollArea::handleScroll(const Event& scroll) {

@@ -60,23 +60,14 @@ protected:
      *
      * @param child The child to add
      */
-    void add(Element::Ptr child);
+    void add(const Element::Ptr& child);
 
     /**
-     * @brief Returns a non mutable list of the child elements that are packable. Each element
-     *        is mutable
+     * @brief Returns a non mutable list of the child elements. Each element is mutable
      *
      * @return const std::vector<Element::Ptr>& A creference to the list of packable elements
      */
-    const std::vector<Element::Ptr>& getPackableChildren() const;
-
-    /**
-     * @brief Returns a non mutable list of the child elements that are not packable. Each
-     *        element is mutable
-     *
-     * @return const std::vector<Element::Ptr>& A list of non packable elements
-     */
-    const std::vector<Element::Ptr>& getNonPackableChildren() const;
+    const std::vector<Element::Ptr>& getChildren() const;
 
     /**
      * @brief Called when the acquisition changes. This method is identical to subscribing to
@@ -141,9 +132,8 @@ protected:
                         bool changeView = true) const;
 
 private:
-    std::vector<Element::Ptr> packableChildren;
-    std::vector<Element::Ptr> nonpackableChildren;
     std::vector<Element::Ptr> children;
+    std::vector<Element*> zorder;
     std::list<const Element*> toRemove;
     bool clearFlag;
 

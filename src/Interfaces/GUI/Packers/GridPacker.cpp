@@ -41,6 +41,8 @@ void GridPacker::doPack(const sf::IntRect& area, const std::vector<Element::Ptr>
     sf::Vector2i mreq;
 
     for (unsigned int i = 0; i < elements.size(); ++i) {
+        if (!elements[i]->packable()) continue;
+
         // Pack
         const sf::Vector2i req = elements[i]->getRequisition();
         packCb(elements[i], {pos, req});

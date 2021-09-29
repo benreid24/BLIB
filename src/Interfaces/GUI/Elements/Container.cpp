@@ -19,6 +19,15 @@ void deleteElement(std::vector<Element::Ptr>& list, const Element* e) {
     }
 }
 
+void deleteElement(std::vector<Element*>& list, const Element* e) {
+    for (unsigned int i = 0; i < list.size(); ++i) {
+        if (list[i] == e) {
+            list.erase(list.begin() + i);
+            --i;
+        }
+    }
+}
+
 } // namespace
 
 Container::Container()
@@ -37,11 +46,11 @@ bool Container::releaseFocus() {
 void Container::acquisitionCb() { onAcquisition(); }
 
 void Container::bringToTop(const Element* child) {
-    for (unsigned int i = 1; i < children.size(); ++i) {
-        if (children[i].get() == child) {
-            Element::Ptr c = children[i];
-            children.erase(children.begin() + i);
-            children.insert(children.begin(), c);
+    for (unsigned int i = 1; i < zorder.size(); ++i) {
+        if (zorder[i] == child) {
+            Element* c = zorder[i];
+            zorder.erase(zorder.begin() + i);
+            zorder.insert(zorder.begin(), c);
             return;
         }
     }
@@ -49,21 +58,14 @@ void Container::bringToTop(const Element* child) {
     moveToTop();
 }
 
-void Container::add(Element::Ptr e) {
-    children.insert(children.begin(), e);
-    if (e->packable())
-        packableChildren.push_back(e);
-    else
-        nonpackableChildren.insert(nonpackableChildren.begin(), e);
+void Container::add(const Element::Ptr& e) {
+    children.emplace_back(e);
+    zorder.insert(zorder.begin(), e.get());
     setChildParent(e);
     makeDirty();
 }
 
-const std::vector<Element::Ptr>& Container::getPackableChildren() const { return packableChildren; }
-
-const std::vector<Element::Ptr>& Container::getNonPackableChildren() const {
-    return nonpackableChildren;
-}
+const std::vector<Element::Ptr>& Container::getChildren() const { return children; }
 
 void Container::removeChild(const Element* child) { toRemove.push_back(child); }
 
@@ -73,11 +75,11 @@ void Container::clearChildren(bool immediate) {
 }
 
 bool Container::propagateEvent(const Event& event) {
-    for (unsigned int i = 0; i < children.size(); ++i) {
-        if (children[i]->processEvent(event)) {
+    for (unsigned int i = 0; i < zorder.size(); ++i) {
+        if (zorder[i]->processEvent(event)) {
             if (event.type() == Event::MouseMoved) {
                 const Event fakeMove(Event::MouseMoved, sf::Vector2f(-100000.f, -100000.f));
-                for (++i; i < children.size(); ++i) { children[i]->processEvent(fakeMove); }
+                for (++i; i < zorder.size(); ++i) { zorder[i]->processEvent(fakeMove); }
             }
             return true;
         }
@@ -87,11 +89,7 @@ bool Container::propagateEvent(const Event& event) {
 }
 
 bool Container::handleScroll(const Event& event) {
-    for (Element::Ptr e : nonpackableChildren) {
-        if (e->handleScroll(event)) { return true; }
-    }
-
-    for (Element::Ptr e : packableChildren) {
+    for (Element* e : zorder) {
         if (e->handleScroll(event)) { return true; }
     }
 
@@ -106,14 +104,11 @@ void Container::update(float dt) {
     if (clearFlag) {
         clearFlag = false;
         children.clear();
-        packableChildren.clear();
-        nonpackableChildren.clear();
     }
     else {
         for (const Element* e : toRemove) {
-            deleteElement(nonpackableChildren, e);
-            deleteElement(packableChildren, e);
             deleteElement(children, e);
+            deleteElement(zorder, e);
         }
     }
     toRemove.clear();
@@ -123,7 +118,7 @@ void Container::update(float dt) {
         markClean();
     }
 
-    for (Element::Ptr e : children) { e->update(dt); }
+    for (Element* e : zorder) { e->update(dt); }
 }
 
 void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states,
@@ -137,10 +132,7 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
     if (changeView) { target.setView(view); }
 
     // Draw children
-    for (auto it = packableChildren.rbegin(); it != packableChildren.rend(); ++it) {
-        (*it)->render(target, states, renderer);
-    }
-    for (auto it = nonpackableChildren.rbegin(); it != nonpackableChildren.rend(); ++it) {
+    for (auto it = zorder.rbegin(); it != zorder.rend(); ++it) {
         (*it)->render(target, states, renderer);
     }
 

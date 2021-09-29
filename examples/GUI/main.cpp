@@ -97,7 +97,7 @@ int main() {
     combo->addOption("Option 3");
     combo->addOption("Option 4");
     combo->addOption("Option 5");
-    combo->setMaxHeight(50);
+    combo->setMaxHeight(70);
     row->pack(combo);
     gui->pack(row);
 
