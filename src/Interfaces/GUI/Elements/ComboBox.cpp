@@ -73,10 +73,10 @@ void ComboBox::setSelectedOption(const std::string& t) {
 
 bool ComboBox::isOpened() const { return opened; }
 
-sf::Vector2i ComboBox::minimumRequisition() const {
-    sf::Vector2i lreq(0, 0);
-    for (Label::Ptr label : labels) {
-        const sf::Vector2i req = label->getRequisition();
+sf::Vector2f ComboBox::minimumRequisition() const {
+    sf::Vector2f lreq(0.f, 0.f);
+    for (const Label::Ptr& label : labels) {
+        const sf::Vector2f req = label->getRequisition();
         lreq.x                 = std::max(req.x + 4, lreq.x);
         lreq.y                 = std::max(req.y + 4, lreq.y);
     }
@@ -111,7 +111,7 @@ void ComboBox::onAcquisition() {
 }
 
 bool ComboBox::propagateEvent(const Event& event) {
-    const bool contained = labelRegion.contains(sf::Vector2i(event.mousePosition()));
+    const bool contained = labelRegion.contains(event.mousePosition());
     if (contained && opened) {
         if (event.type() == Event::Scrolled) {
             scrolled(event);
@@ -194,7 +194,7 @@ void ComboBox::clicked() {
 }
 
 void ComboBox::packOpened() {
-    sf::Vector2i pos(labelRegion.left, labelRegion.top);
+    sf::Vector2f pos(labelRegion.left, labelRegion.top);
     for (Label::Ptr label : labels) {
         label->setVisible(true, false);
         Packer::manuallyPackElement(label, {pos, labelSize});
@@ -218,7 +218,7 @@ void ComboBox::packClosed() {
     }
 }
 
-void ComboBox::setMaxHeight(int m) { maxHeight = m; }
+void ComboBox::setMaxHeight(float m) { maxHeight = m; }
 
 void ComboBox::scrolled(const Event& a) {
     if (maxHeight > 0 && totalHeight > maxHeight) {

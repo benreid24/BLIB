@@ -110,17 +110,6 @@ protected:
     virtual bool handleScroll(const Event& scroll) override;
 
     /**
-     * @brief This is for sophisticated containers to transform the position of events to local
-     *        coordinates for elements that have additional offsets applied beyond only the
-     *        position of the Container. ScrollArea uses this for its elements. The default
-     *        behavior is to return pos unaltered
-     *
-     * @param e The element that is receiving the event
-     * @return sf::Vector2i The offset to apply to RawEvents
-     */
-    virtual sf::Vector2f getElementOffset(const Element* e) const;
-
-    /**
      * @brief Renders all child elements
      *
      * @param target The target to render to
@@ -138,6 +127,7 @@ private:
     bool clearFlag;
 
     void acquisitionCb();
+    void moveCb();
 };
 
 } // namespace gui

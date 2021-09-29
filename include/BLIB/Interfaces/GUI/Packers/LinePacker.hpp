@@ -50,8 +50,8 @@ public:
      * @param start Which side to pack from
      *
      */
-    static Packer::Ptr create(Direction dir = Horizontal, int spacing = 2, SpaceMode mode = Compact,
-                              PackStart start = LeftAlign);
+    static Packer::Ptr create(Direction dir = Horizontal, float spacing = 2,
+                              SpaceMode mode = Compact, PackStart start = LeftAlign);
 
     /**
      * @brief Reports the minimum requisition of the element list given
@@ -59,7 +59,7 @@ public:
      * @param elements The list of Elements to consider
      * @return sf::Vector2i The minimum requisition for the list given the packing strategy
      */
-    virtual sf::Vector2i getRequisition(const std::vector<Element::Ptr>& elements) override;
+    virtual sf::Vector2f getRequisition(const std::vector<Element::Ptr>& elements) override;
 
     /**
      * @brief Pack the elements into the assigned acquisition
@@ -67,7 +67,7 @@ public:
      * @param acquisition Region to pack into. Always at least as big as getRequisition()
      * @param elements The elements to pack
      */
-    virtual void pack(const sf::IntRect& acquisition,
+    virtual void pack(const sf::FloatRect& acquisition,
                       const std::vector<Element::Ptr>& elements) override;
 
     /**
@@ -80,7 +80,7 @@ private:
     const Direction dir;
     const SpaceMode mode;
     const PackStart start;
-    const int spacing;
+    const float spacing;
 
     LinePacker(Direction dir, int spacing, SpaceMode mode, PackStart start);
 };

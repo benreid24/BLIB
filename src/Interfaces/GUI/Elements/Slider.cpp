@@ -66,13 +66,13 @@ Button::Ptr Slider::getIncreaseButton() { return increaseBut; }
 
 Button::Ptr Slider::getDecreaseButton() { return decreaseBut; }
 
-sf::Vector2i Slider::minimumRequisition() const {
-    const sf::Vector2i max(
+sf::Vector2f Slider::minimumRequisition() const {
+    const sf::Vector2f max(
         std::max(std::max(slider->getAcquisition().width, increaseBut->getAcquisition().width),
                  decreaseBut->getAcquisition().width),
         std::max(std::max(slider->getAcquisition().height, increaseBut->getAcquisition().height),
                  decreaseBut->getAcquisition().height));
-    const sf::Vector2i sum(slider->getAcquisition().width + increaseBut->getAcquisition().width +
+    const sf::Vector2f sum(slider->getAcquisition().width + increaseBut->getAcquisition().width +
                                decreaseBut->getAcquisition().width,
                            slider->getAcquisition().height + increaseBut->getAcquisition().height +
                                decreaseBut->getAcquisition().height);
@@ -144,9 +144,9 @@ void Slider::sliderMoved(const Event& drag) {
 void Slider::clicked(const Event& click) {
     if (click.type() != Event::LeftClicked) return;
 
-    const int size = calculateFreeSize();
-    int pos        = 0;
-    int offset     = 0;
+    const float size = calculateFreeSize();
+    float pos        = 0;
+    float offset     = 0;
     if (dir == Horizontal) {
         pos    = click.mousePosition().x - getAcquisition().left;
         offset = decreaseBut->visible() ? decreaseBut->getAcquisition().width : 0;
@@ -160,7 +160,7 @@ void Slider::clicked(const Event& click) {
     if (pos < 0) pos = 0;
     if (pos > size) pos = size;
 
-    value = static_cast<float>(pos) / static_cast<float>(size);
+    value = pos / size;
     if (dir == Horizontal)
         slider->setPosition({pos + offset, slider->getAcquisition().top});
     else
@@ -187,9 +187,9 @@ void Slider::packElements() {
     if (value < 0) value = 0;
     if (value > 1) value = 1;
 
-    const int butSize = std::min(getAcquisition().width, getAcquisition().height);
-    int space         = (dir == Horizontal) ? getAcquisition().width : getAcquisition().height;
-    int offset        = 0;
+    const float butSize = std::min(getAcquisition().width, getAcquisition().height);
+    float space         = (dir == Horizontal) ? getAcquisition().width : getAcquisition().height;
+    float offset        = 0;
     if (decreaseBut->visible()) {
         Packer::manuallyPackElement(
             decreaseBut, {getAcquisition().left, getAcquisition().top, butSize, butSize});
@@ -197,16 +197,16 @@ void Slider::packElements() {
         space -= butSize;
     }
     if (increaseBut->visible()) {
-        const int x = (dir == Horizontal) ? (getAcquisition().width - butSize) : (0);
-        const int y = (dir == Vertical) ? (getAcquisition().height - butSize) : (0);
+        const float x = (dir == Horizontal) ? (getAcquisition().width - butSize) : (0);
+        const float y = (dir == Vertical) ? (getAcquisition().height - butSize) : (0);
 
         Packer::manuallyPackElement(
             increaseBut, {x + getAcquisition().left, y + getAcquisition().top, butSize, butSize});
         space -= butSize;
     }
 
-    const int sliderSize = static_cast<int>(std::floor(static_cast<float>(space) * buttonSize));
-    const int pos        = offset + std::floor(static_cast<float>(space - sliderSize) * value);
+    const float sliderSize = std::floor(space * buttonSize);
+    const float pos        = offset + std::floor((space - sliderSize) * value);
 
     if (dir == Horizontal)
         Packer::manuallyPackElement(

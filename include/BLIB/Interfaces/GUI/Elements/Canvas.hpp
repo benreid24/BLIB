@@ -30,7 +30,7 @@ public:
     static Ptr create(unsigned int w, unsigned int h);
 
     /**
-     * @brief Resize the underlying texture of the Canva
+     * @brief Resize the underlying texture of the Canvas
      *
      * @param w The width of the renderable area
      * @param h The height of the renderable area
@@ -80,7 +80,7 @@ protected:
      * @brief Returns the size the canvas is set to render to. Default is the canvas size
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the texture to the acquisition area

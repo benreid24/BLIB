@@ -14,13 +14,13 @@ LinePacker::LinePacker(Direction dir, int spacing, SpaceMode mode, PackStart sta
 , start(start)
 , spacing(spacing) {}
 
-Packer::Ptr LinePacker::create(Direction dir, int spacing, SpaceMode mode, PackStart start) {
+Packer::Ptr LinePacker::create(Direction dir, float spacing, SpaceMode mode, PackStart start) {
     return Packer::Ptr(new LinePacker(dir, spacing, mode, start));
 }
 
-sf::Vector2i LinePacker::getRequisition(const std::vector<Element::Ptr>& elems) {
-    int md = 0;
-    int od = 0;
+sf::Vector2f LinePacker::getRequisition(const std::vector<Element::Ptr>& elems) {
+    float md = 0.f;
+    float od = 0.f;
     for (const Element::Ptr& e : elems) {
         if (!e->packable()) continue;
 
@@ -39,11 +39,11 @@ sf::Vector2i LinePacker::getRequisition(const std::vector<Element::Ptr>& elems) 
     return {md, od};
 }
 
-void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& elems) {
+void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>& elems) {
     if (elems.empty()) return;
 
-    sf::Vector2i maxSize;
-    sf::Vector2i totalSize;
+    sf::Vector2f maxSize;
+    sf::Vector2f totalSize;
     int expanders = 0;
     for (const Element::Ptr& e : elems) {
         if (!e->packable()) continue;
@@ -52,17 +52,17 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
         if (e->getRequisition().y > maxSize.y) maxSize.y = e->getRequisition().y;
         if (e->expandsHeight() && dir == Vertical) ++expanders;
         if (e->expandsWidth() && dir == Horizontal) ++expanders;
-        totalSize += e->getRequisition() + sf::Vector2i(spacing, spacing);
+        totalSize += e->getRequisition() + sf::Vector2f(spacing, spacing);
     }
-    const sf::Vector2i freeSpace = sf::Vector2i(rect.width, rect.height) - totalSize;
-    const int extraSpace = expanders > 0 ? ((dir == Horizontal) ? (freeSpace.x / expanders) :
-                                                                  (freeSpace.y / expanders)) :
-                                           0;
+    const sf::Vector2f freeSpace = sf::Vector2f(rect.width, rect.height) - totalSize;
+    const float extraSpace = expanders > 0 ? ((dir == Horizontal) ? (freeSpace.x / expanders) :
+                                                                    (freeSpace.y / expanders)) :
+                                             0;
 
-    sf::Vector2i pos(rect.left, rect.top);
+    sf::Vector2f pos(rect.left, rect.top);
     if (mode == Compact) {
-        auto compSize = [this, &maxSize, &extraSpace, &rect](Element::Ptr e) -> sf::Vector2i {
-            sf::Vector2i size(e->getRequisition().x, maxSize.y);
+        auto compSize = [this, &maxSize, &extraSpace, &rect](Element::Ptr e) -> sf::Vector2f {
+            sf::Vector2f size(e->getRequisition().x, maxSize.y);
             if (dir == Vertical) size = {maxSize.x, e->getRequisition().y};
 
             if (dir == Vertical) {
@@ -78,7 +78,7 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
 
         // Compute start position
         if (start == RightAlign) {
-            const sf::Vector2i size = compSize(elems.front());
+            const sf::Vector2f size = compSize(elems.front());
             if (dir == Horizontal)
                 pos.x = rect.left + rect.width - size.x;
             else
@@ -91,7 +91,7 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
             if (!e->packable()) continue;
 
             // Compute size
-            const sf::Vector2i size = compSize(e);
+            const sf::Vector2f size = compSize(e);
 
             // Pack
             packElementIntoSpace(e, {pos, size});
@@ -101,7 +101,7 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
                 if (start == LeftAlign)
                     pos.x += size.x + spacing;
                 else {
-                    const sf::Vector2i as = i < elems.size() - 1 ? compSize(elems[i + 1]) : size;
+                    const sf::Vector2f as = i < elems.size() - 1 ? compSize(elems[i + 1]) : size;
                     pos.x -= as.x + spacing;
                 }
             }
@@ -109,7 +109,7 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
                 if (start == LeftAlign)
                     pos.y += size.y + spacing;
                 else {
-                    const sf::Vector2i as = i < elems.size() - 1 ? compSize(elems[i + 1]) : size;
+                    const sf::Vector2f as = i < elems.size() - 1 ? compSize(elems[i + 1]) : size;
                     pos.y -= as.y + spacing;
                 }
             }
@@ -117,7 +117,7 @@ void LinePacker::pack(const sf::IntRect& rect, const std::vector<Element::Ptr>& 
     }
     else if (mode == Uniform) {
         // Compute size
-        sf::Vector2i size(rect.width, rect.height);
+        sf::Vector2f size(rect.width, rect.height);
         if (dir == Horizontal)
             size.x = rect.width / elems.size() - spacing;
         else

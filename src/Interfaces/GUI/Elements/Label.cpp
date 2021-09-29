@@ -28,10 +28,9 @@ void Label::doRender(sf::RenderTarget& target, sf::RenderStates states,
     renderer.renderLabel(target, states, *this);
 }
 
-sf::Vector2i Label::minimumRequisition() const {
-    return {
-        static_cast<int>(renderText.getGlobalBounds().width + renderText.getGlobalBounds().left),
-        static_cast<int>(renderText.getGlobalBounds().height + renderText.getGlobalBounds().top)};
+sf::Vector2f Label::minimumRequisition() const {
+    return {renderText.getGlobalBounds().width + renderText.getGlobalBounds().left,
+            renderText.getGlobalBounds().height + renderText.getGlobalBounds().top};
 }
 
 void Label::settingsChanged() {

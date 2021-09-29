@@ -52,20 +52,26 @@ public:
      *
      * @param box The size to request. Cannot be smaller than minimumRequisition()
      */
-    void setRequisition(const sf::Vector2i& size);
+    void setRequisition(const sf::Vector2f& size);
 
     /**
      * @brief Returns the requisition of the Element
      *
      */
-    sf::Vector2i getRequisition() const;
+    sf::Vector2f getRequisition() const;
 
     /**
      * @brief Returns the acquisition of the Element. This is the size allocated to it, and mays
-     *        be larger or equal to the requisition. The requisition includes the position
+     *        be larger or equal to the requisition
      *
      */
-    const sf::IntRect& getAcquisition() const;
+    const sf::FloatRect& getAcquisition() const;
+
+    /**
+     * @brief Returns the absolute position of the element. Stays up to date with parent element
+     *
+     */
+    sf::Vector2f getPosition() const;
 
     /**
      * @brief Returns a modifiable reference to the signal for the given trigger. Undefined
@@ -250,7 +256,7 @@ public:
      *
      * @param thickness Thickness in pixels
      */
-    void setOutlineThickness(unsigned int thickness);
+    void setOutlineThickness(float thickness);
 
     /**
      * @brief Set secondary colors of the Element. Doesn't apply to all element types
@@ -267,7 +273,7 @@ public:
      *
      * @param thickness Thickness in pixels
      */
-    void setSecondaryOutlineThickness(unsigned int thickness);
+    void setSecondaryOutlineThickness(float thickness);
 
     /**
      * @brief Set the style of the text. See sf::Text::Style. Doesn't apply to all Element
@@ -327,6 +333,12 @@ public:
      */
     void setExpandsHeight(bool expand);
 
+    /**
+     * @brief Recalculates the position relative to the parent. Called whenever the parent moves
+     *
+     */
+    void recalculatePosition();
+
 protected:
     /**
      * @brief Builds a new Element
@@ -347,7 +359,7 @@ protected:
      *        this size is invalid
      *
      */
-    virtual sf::Vector2i minimumRequisition() const = 0;
+    virtual sf::Vector2f minimumRequisition() const = 0;
 
     /**
      * @brief Returns true. Elements such as window should return false
@@ -414,9 +426,9 @@ protected:
     /**
      * @brief Set the acquisition of this element. Meant to be called by a Packer
      *
-     * @param acquisition The area to occupy, in local parent coordinates
+     * @param acquisition The area to occupy, in absolute coordinates
      */
-    void assignAcquisition(const sf::IntRect& acquisition);
+    void assignAcquisition(const sf::FloatRect& acquisition);
 
     /**
      * @brief Manually set the position of the element. This modifies the acquisition but does
@@ -424,7 +436,7 @@ protected:
      *
      * @param pos The new position of the element. Relative to the parent element
      */
-    void setPosition(const sf::Vector2i& pos);
+    void setPosition(const sf::Vector2f& pos);
 
     /**
      * @brief Returns the Ptr to this Element
@@ -435,8 +447,9 @@ protected:
 
 private:
     RenderSettings settings;
-    std::optional<sf::Vector2i> requisition;
-    sf::IntRect acquisition;
+    std::optional<sf::Vector2f> requisition;
+    sf::Vector2f position;    // relative to parent
+    sf::FloatRect cachedArea; // absolute. Stores acquisition
     Element::WPtr parent;
     Signal signals[Event::NUM_ACTIONS];
 

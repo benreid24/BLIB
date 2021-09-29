@@ -34,6 +34,7 @@ Container::Container()
 : Element()
 , clearFlag(false) {
     getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Container::acquisitionCb, this));
+    getSignal(Event::Moved).willAlwaysCall(std::bind(&Container::moveCb, this));
 }
 
 bool Container::releaseFocus() {
@@ -44,6 +45,10 @@ bool Container::releaseFocus() {
 }
 
 void Container::acquisitionCb() { onAcquisition(); }
+
+void Container::moveCb() {
+    for (Element* c : zorder) { c->recalculatePosition(); }
+}
 
 void Container::bringToTop(const Element* child) {
     for (unsigned int i = 1; i < zorder.size(); ++i) {
@@ -95,8 +100,6 @@ bool Container::handleScroll(const Event& event) {
 
     return false;
 }
-
-sf::Vector2f Container::getElementOffset(const Element*) const { return {0, 0}; }
 
 void Container::update(float dt) {
     if (!toRemove.empty() || clearFlag) makeDirty();

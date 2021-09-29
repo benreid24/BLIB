@@ -23,13 +23,13 @@ public:
      * @brief Returns the canvas that should be rendered for the current button state
      *
      */
-    Canvas::Ptr getVisibleButton() const;
+    const Canvas::Ptr& getVisibleButton() const;
 
     /**
      * @brief Returns the canvas that should be not rendered
      *
      */
-    Canvas::Ptr getHiddenButton() const;
+    const Canvas::Ptr& getHiddenButton() const;
 
     /**
      * @brief Returns the current state of the toggle
@@ -47,7 +47,7 @@ public:
      * @brief Set the size of the actual toggle button area. Default is (10,10)
      *
      */
-    void setToggleButtonSize(const sf::Vector2i& size);
+    void setToggleButtonSize(const sf::Vector2f& size);
 
 protected:
     /**
@@ -55,7 +55,7 @@ protected:
      *
      * @param child The element to put to the right of the button
      */
-    ToggleButton(Element::Ptr child);
+    ToggleButton(const Element::Ptr& child);
 
     /**
      * @brief Passes the event to the child then returns false always
@@ -69,7 +69,7 @@ protected:
      * @brief Returns the size required to display the full button text
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Derived buttons should call the apropriate render methods in renderer. This is

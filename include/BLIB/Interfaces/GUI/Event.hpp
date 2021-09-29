@@ -37,7 +37,7 @@ struct Event {
         KeyReleased,           /// Keyboard key released while Element focused
         TextEntered,           /// Text typed in while Element focused
         ValueChanged,          /// Generic action for non text inputs to fire on change
-        Moved,                 /// Specific to Window element. Fired when it is moved
+        Moved,                 /// Fired when the element is moved
         Closed,                /// Specific to Window element. Fired when it is closed
         GainedFocus,           /// Element came into focus
         LostFocus,             /// Focus was removed from element

@@ -60,7 +60,7 @@ protected:
      *
      * @return sf::Vector2i Space required
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Render the Label to the given target

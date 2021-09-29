@@ -17,8 +17,8 @@ Separator::Separator(Direction d)
 
 Separator::Direction Separator::getDirection() const { return dir; }
 
-sf::Vector2i Separator::minimumRequisition() const {
-    const int thick = renderSettings().outlineThickness.value_or(DefaultThickness);
+sf::Vector2f Separator::minimumRequisition() const {
+    const float thick = renderSettings().outlineThickness.value_or(DefaultThickness);
     return {thick, thick};
 }
 

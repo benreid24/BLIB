@@ -18,7 +18,7 @@ void Box::setPacker(Packer::Ptr p) {
     makeDirty();
 }
 
-sf::Vector2i Box::minimumRequisition() const { return packer->getRequisition(getChildren()); }
+sf::Vector2f Box::minimumRequisition() const { return packer->getRequisition(getChildren()); }
 
 void Box::onAcquisition() { packer->pack(getAcquisition(), getChildren()); }
 

@@ -50,7 +50,7 @@ void DebugRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates st
 }
 
 void DebugRenderer::renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::RenderStates states,
-                                                const ComboBox& box, const sf::Vector2i& optionSize,
+                                                const ComboBox& box, const sf::Vector2f& optionSize,
                                                 unsigned int optionCount,
                                                 unsigned int mousedOption) const {
     underlying->renderComboBoxDropdownBoxes(
@@ -116,7 +116,7 @@ void DebugRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates stat
 }
 
 void DebugRenderer::addInfo(sf::RenderTarget& target, sf::RenderStates states,
-                            const sf::IntRect& region) const {
+                            const sf::FloatRect& region) const {
     if (showBounds) {
         sf::RectangleShape rect(sf::Vector2f(region.width, region.height));
         rect.setPosition(region.left, region.top);

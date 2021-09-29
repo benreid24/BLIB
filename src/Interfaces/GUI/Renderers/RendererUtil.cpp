@@ -8,7 +8,7 @@ namespace bl
 {
 namespace gui
 {
-sf::Text RendererUtil::buildRenderText(const std::string& text, const sf::IntRect& acquisition,
+sf::Text RendererUtil::buildRenderText(const std::string& text, const sf::FloatRect& acquisition,
                                        const RenderSettings& s, const RenderSettings& defaults) {
     RenderSettings settings = defaults;
     settings.merge(s);
@@ -39,7 +39,7 @@ sf::Text RendererUtil::buildRenderText(const std::string& text, const sf::IntRec
 }
 
 void RendererUtil::renderRectangle(sf::RenderTarget& target, sf::RenderStates states,
-                                   const sf::IntRect& area, const RenderSettings& s,
+                                   const sf::FloatRect& area, const RenderSettings& s,
                                    const RenderSettings& defaults, bool secondary) {
     RenderSettings settings = defaults;
     settings.merge(s);
@@ -48,10 +48,10 @@ void RendererUtil::renderRectangle(sf::RenderTarget& target, sf::RenderStates st
         secondary ? settings.secondaryFillColor : settings.fillColor;
     const std::optional<sf::Color>& outlineColor =
         secondary ? settings.secondaryOutlineColor : settings.outlineColor;
-    const std::optional<int>& outlineThickness =
+    const std::optional<float>& outlineThickness =
         secondary ? settings.secondaryOutlineThickness : settings.outlineThickness;
 
-    sf::RectangleShape rect({static_cast<float>(area.width), static_cast<float>(area.height)});
+    sf::RectangleShape rect({area.width, area.height});
     rect.setPosition(area.left, area.top);
     rect.setFillColor(fill.value_or(sf::Color(75, 75, 75)));
     rect.setOutlineThickness(-outlineThickness.value_or(1));
@@ -61,7 +61,8 @@ void RendererUtil::renderRectangle(sf::RenderTarget& target, sf::RenderStates st
 
 sf::Vector2f RendererUtil::calculatePosition(RenderSettings::Alignment horizontalAlignment,
                                              RenderSettings::Alignment verticalAlignment,
-                                             const sf::IntRect& region, const sf::Vector2f& size) {
+                                             const sf::FloatRect& region,
+                                             const sf::Vector2f& size) {
     sf::Vector2f position;
     switch (horizontalAlignment) {
     case RenderSettings::Left:

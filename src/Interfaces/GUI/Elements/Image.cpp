@@ -42,9 +42,8 @@ void Image::setFillAcquisition(bool fill, bool mar) {
     makeDirty();
 }
 
-sf::Vector2i Image::minimumRequisition() const {
-    return static_cast<sf::Vector2i>(
-        size.value_or(sf::Vector2f(texture->getSize().x, texture->getSize().y)));
+sf::Vector2f Image::minimumRequisition() const {
+    return size.value_or(sf::Vector2f(texture->getSize().x, texture->getSize().y));
 }
 
 void Image::doRender(sf::RenderTarget& target, sf::RenderStates states,

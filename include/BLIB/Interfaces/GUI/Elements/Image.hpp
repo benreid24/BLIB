@@ -80,7 +80,7 @@ protected:
      * @brief Returns the size the image is set to render to. Default is the image size
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the texture to the acquisition area

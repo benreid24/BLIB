@@ -19,7 +19,7 @@ Element::Element()
 
 Element::CPtr Element::getParent() const { return parent.expired() ? nullptr : parent.lock(); }
 
-void Element::setRequisition(const sf::Vector2i& size) {
+void Element::setRequisition(const sf::Vector2f& size) {
     requisition.reset();
     if (size.x > 0 && size.y > 0) {
         requisition = size;
@@ -27,14 +27,12 @@ void Element::setRequisition(const sf::Vector2i& size) {
     }
 }
 
-sf::Vector2i Element::getRequisition() const {
-    const sf::Vector2i mr = minimumRequisition();
+sf::Vector2f Element::getRequisition() const {
+    const sf::Vector2f mr = minimumRequisition();
     if (requisition.has_value())
         return {std::max(requisition.value().x, mr.x), std::max(requisition.value().y, mr.y)};
     return mr;
 }
-
-const sf::IntRect& Element::getAcquisition() const { return acquisition; }
 
 Signal& Element::getSignal(Event::Type trigger) { return signals[trigger]; }
 
@@ -100,14 +98,12 @@ bool Element::processEvent(const Event& event) {
 
     if (propagateEvent(event)) return true;
 
+    const bool eventOnMe = cachedArea.contains(event.mousePosition());
+
     if (event.type() == Event::Scrolled) {
-        if (getAcquisition().contains(sf::Vector2i(event.mousePosition()))) {
-            return handleScroll(event);
-        }
+        if (eventOnMe) { return handleScroll(event); }
         return false;
     }
-
-    const bool eventOnMe = acquisition.contains(sf::Vector2i(event.mousePosition()));
 
     switch (event.type()) {
     case Event::TextEntered:
@@ -218,12 +214,9 @@ void Element::remove() {
 }
 
 void Element::makeDirty() {
-    _dirty = true;
-    if (!parent.expired()) {
-        Element::Ptr p = parent.lock();
-        // TODO - stop this bubbling up at container level if requisition unchanged
-        if (p) p->makeDirty();
-    }
+    _dirty         = true;
+    Element::Ptr p = parent.lock();
+    if (p && packable()) { p->makeDirty(); }
 }
 
 void Element::markClean() { _dirty = false; }
@@ -271,19 +264,39 @@ void Element::setExpandsHeight(bool expand) {
 
 bool Element::expandsHeight() const { return fillY; }
 
-void Element::assignAcquisition(const sf::IntRect& acq) {
+void Element::assignAcquisition(const sf::FloatRect& acq) {
     markClean();
-    acquisition = acq;
+    cachedArea     = acq;
+    Element::Ptr p = parent.lock();
+    if (p) { position = sf::Vector2f(cachedArea.left, cachedArea.top) - p->getPosition(); }
     fireSignal(Event(Event::AcquisitionChanged));
 }
 
-void Element::setPosition(const sf::Vector2i& pos) {
-    const sf::Vector2f diff =
-        static_cast<sf::Vector2f>(pos) - sf::Vector2f(acquisition.left, acquisition.top);
+void Element::setPosition(const sf::Vector2f& pos) {
+    const sf::Vector2f diff = pos - sf::Vector2f(cachedArea.left, cachedArea.top);
     dragStart += diff;
-    acquisition.left = pos.x;
-    acquisition.top  = pos.y;
+    cachedArea.left = pos.x;
+    cachedArea.top  = pos.y;
+    Element::Ptr p  = parent.lock();
+    if (p) { position = sf::Vector2f(cachedArea.left, cachedArea.top) - p->getPosition(); }
+    fireSignal(Event(Event::Moved));
 }
+
+void Element::recalculatePosition() {
+    Element::Ptr p = parent.lock();
+    if (p) {
+        const sf::Vector2f npos = p->getPosition() + position;
+        if (npos.x != cachedArea.left || npos.y != cachedArea.top) {
+            cachedArea.left = npos.x;
+            cachedArea.top  = npos.y;
+            fireSignal(Event(Event::Moved));
+        }
+    }
+}
+
+const sf::FloatRect& Element::getAcquisition() const { return cachedArea; }
+
+sf::Vector2f Element::getPosition() const { return {cachedArea.left, cachedArea.top}; }
 
 void Element::setChildParent(Element::Ptr child) { child->parent = me(); }
 
@@ -310,7 +323,7 @@ void Element::setColor(sf::Color fill, sf::Color outline) {
     fireSignal(Event(Event::RenderSettingsChanged));
 }
 
-void Element::setOutlineThickness(unsigned int t) {
+void Element::setOutlineThickness(float t) {
     settings.outlineThickness = t;
     fireSignal(Event(Event::RenderSettingsChanged));
 }
@@ -321,7 +334,7 @@ void Element::setSecondaryColor(sf::Color fill, sf::Color outline) {
     fireSignal(Event(Event::RenderSettingsChanged));
 }
 
-void Element::setSecondaryOutlineThickness(unsigned int t) {
+void Element::setSecondaryOutlineThickness(float t) {
     settings.secondaryOutlineThickness = t;
     fireSignal(Event(Event::RenderSettingsChanged));
 }

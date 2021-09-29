@@ -4,25 +4,23 @@ namespace bl
 {
 namespace gui
 {
-GridPacker::Ptr GridPacker::createDynamicGrid(Direction dir, unsigned int size,
-                                              unsigned int padding) {
+GridPacker::Ptr GridPacker::createDynamicGrid(Direction dir, unsigned int size, float padding) {
     return Ptr(new GridPacker(Dynamic, dir, padding, size));
 }
 
-GridPacker::Ptr GridPacker::createFixedGrid(Direction dir, unsigned int wrap,
-                                            unsigned int padding) {
+GridPacker::Ptr GridPacker::createFixedGrid(Direction dir, unsigned int wrap, float padding) {
     return Ptr(new GridPacker(FixedAmount, dir, padding, wrap));
 }
 
-GridPacker::GridPacker(WrapRule r, Direction d, unsigned int pad, unsigned int s)
+GridPacker::GridPacker(WrapRule r, Direction d, float pad, unsigned int s)
 : rule(r)
 , dir(d)
 , padding(pad)
 , size(s) {}
 
-sf::Vector2i GridPacker::getRequisition(const std::vector<Element::Ptr>& elements) {
-    sf::Vector2i req(0, 0);
-    auto measure = [&req](Element::Ptr, const sf::IntRect& area) {
+sf::Vector2f GridPacker::getRequisition(const std::vector<Element::Ptr>& elements) {
+    sf::Vector2f req(0, 0);
+    auto measure = [&req](Element::Ptr, const sf::FloatRect& area) {
         if (req.x < area.left + area.width) req.x = area.left + area.width;
         if (req.y < area.top + area.height) req.y = area.top + area.height;
     };
@@ -30,21 +28,21 @@ sf::Vector2i GridPacker::getRequisition(const std::vector<Element::Ptr>& element
     return req;
 }
 
-void GridPacker::pack(const sf::IntRect& area, const std::vector<Element::Ptr>& elements) {
+void GridPacker::pack(const sf::FloatRect& area, const std::vector<Element::Ptr>& elements) {
     doPack(area, elements, &Packer::packElementIntoSpace);
 }
 
-void GridPacker::doPack(const sf::IntRect& area, const std::vector<Element::Ptr>& elements,
-                        const std::function<void(Element::Ptr, const sf::IntRect&)>& packCb) {
-    sf::Vector2i pos(area.left, area.top);
+void GridPacker::doPack(const sf::FloatRect& area, const std::vector<Element::Ptr>& elements,
+                        const std::function<void(Element::Ptr, const sf::FloatRect&)>& packCb) {
+    sf::Vector2f pos(area.left, area.top);
     unsigned int pcount = 0;
-    sf::Vector2i mreq;
+    sf::Vector2f mreq;
 
     for (unsigned int i = 0; i < elements.size(); ++i) {
         if (!elements[i]->packable()) continue;
 
         // Pack
-        const sf::Vector2i req = elements[i]->getRequisition();
+        const sf::Vector2f req = elements[i]->getRequisition();
         packCb(elements[i], {pos, req});
         ++pcount;
 
@@ -67,7 +65,7 @@ void GridPacker::doPack(const sf::IntRect& area, const std::vector<Element::Ptr>
                     }
                 }
                 else {
-                    const sf::Vector2i nreq = elements[i + 1]->getRequisition();
+                    const sf::Vector2f nreq = elements[i + 1]->getRequisition();
                     if (pos.x + padding + nreq.x > size) { // wrap
                         pos.x = area.left;
                         pos.y += mreq.y + padding;
@@ -91,7 +89,7 @@ void GridPacker::doPack(const sf::IntRect& area, const std::vector<Element::Ptr>
                     }
                 }
                 else {
-                    const sf::Vector2i nreq = elements[i + 1]->getRequisition();
+                    const sf::Vector2f nreq = elements[i + 1]->getRequisition();
                     if (pos.y + padding + nreq.y > size) { // wrap
                         pos.y = area.top;
                         pos.x += mreq.x + padding;

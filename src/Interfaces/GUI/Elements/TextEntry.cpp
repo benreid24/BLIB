@@ -55,12 +55,12 @@ void TextEntry::update(float dt) {
     }
 }
 
-sf::Vector2i TextEntry::minimumRequisition() const {
+sf::Vector2f TextEntry::minimumRequisition() const {
     resource::Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
     const int csize     = renderSettings().characterSize.value_or(TextEntry::DefaultCharacterSize);
     const float spacing = font ? std::ceil(font->getLineSpacing(csize)) : csize;
-    const int paddedSpacing = spacing * 1.2f;
-    return {10, csize + paddedSpacing * static_cast<int>(lineCount)};
+    const float paddedSpacing = spacing * 1.2f;
+    return {10.f, csize + paddedSpacing * static_cast<float>(lineCount)};
 }
 
 void TextEntry::doRender(sf::RenderTarget& target, sf::RenderStates states,

@@ -10,11 +10,11 @@ RadioButton::Ptr RadioButton::create(const std::string& text, Group* radioGroup)
     return create(Label::create(text), radioGroup);
 }
 
-RadioButton::Ptr RadioButton::create(Element::Ptr child, Group* radioGroup) {
+RadioButton::Ptr RadioButton::create(const Element::Ptr& child, Group* radioGroup) {
     return Ptr(new RadioButton(child, radioGroup));
 }
 
-RadioButton::RadioButton(Element::Ptr child, Group* radioGroup)
+RadioButton::RadioButton(const Element::Ptr& child, Group* radioGroup)
 : ToggleButton(child)
 , myGroup(this)
 , rgroup(radioGroup ? radioGroup : &myGroup) {

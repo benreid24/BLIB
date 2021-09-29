@@ -15,9 +15,9 @@ constexpr int ChildPadding = 2;
 
 Button::Ptr Button::create(const std::string& text) { return Ptr(new Button(Label::create(text))); }
 
-Button::Ptr Button::create(Element::Ptr e) { return Ptr(new Button(e)); }
+Button::Ptr Button::create(const Element::Ptr& e) { return Ptr(new Button(e)); }
 
-Button::Button(Element::Ptr child)
+Button::Button(const Element::Ptr& child)
 : Element()
 , child(child) {
     getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Button::onAcquisition, this));
@@ -25,8 +25,8 @@ Button::Button(Element::Ptr child)
 
 Element::Ptr Button::getChild() const { return child; }
 
-sf::Vector2i Button::minimumRequisition() const {
-    sf::Vector2i area = child->getRequisition();
+sf::Vector2f Button::minimumRequisition() const {
+    sf::Vector2f area = child->getRequisition();
     const int buffer  = renderSettings().outlineThickness.value_or(DefaultOutlineThickness) + 2;
     area.x += (buffer + ChildPadding) * 2;
     area.y += (buffer + ChildPadding) * 2;

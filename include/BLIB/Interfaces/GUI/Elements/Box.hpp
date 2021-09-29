@@ -70,7 +70,7 @@ protected:
      *
      * @return sf::Vector2i Minimum size required by the Container
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the container and all of its children in bottom up Z order

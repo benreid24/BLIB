@@ -22,7 +22,7 @@ Notebook::~Notebook() {
     while (!pages.empty()) removePageByIndex(0);
 }
 
-Notebook::Page::Page(const std::string& name, Label::Ptr label, Element::Ptr content,
+Notebook::Page::Page(const std::string& name, const Label::Ptr& label, const Element::Ptr& content,
                      const Notebook::PageChangedCb& op, const Notebook::PageChangedCb& oc)
 : name(name)
 , label(label)
@@ -30,11 +30,12 @@ Notebook::Page::Page(const std::string& name, Label::Ptr label, Element::Ptr con
 , onOpen(op)
 , onClose(oc) {}
 
-void Notebook::addPage(const std::string& name, const std::string& title, Element::Ptr content,
-                       const PageChangedCb& onOpen, const PageChangedCb& onClose) {
+void Notebook::addPage(const std::string& name, const std::string& title,
+                       const Element::Ptr& content, const PageChangedCb& onOpen,
+                       const PageChangedCb& onClose) {
     if (pageMap.find(name) == pageMap.end()) {
         Label::Ptr label = Label::create(title);
-        label->setRequisition(label->getRequisition() + sf::Vector2i(6, 6));
+        label->setRequisition(label->getRequisition() + sf::Vector2f(6.f, 6.f));
         pages.push_back(new Page(name, label, content, onOpen, onClose));
         pageMap[name] = std::make_pair(pages.size() - 1, pages.back());
 
@@ -95,13 +96,13 @@ void Notebook::removePageByName(const std::string& name) {
     if (i != pageMap.end()) removePageByIndex(i->second.first);
 }
 
-const sf::IntRect& Notebook::getTabAcquisition() const { return tabArea->getAcquisition(); }
+const sf::FloatRect& Notebook::getTabAcquisition() const { return tabArea->getAcquisition(); }
 
-sf::Vector2i Notebook::minimumRequisition() const {
-    const sf::Vector2i tabReq = tabArea->getRequisition();
-    sf::Vector2i contentReq(0, 0);
+sf::Vector2f Notebook::minimumRequisition() const {
+    const sf::Vector2f tabReq = tabArea->getRequisition();
+    sf::Vector2f contentReq(0, 0);
     for (unsigned int i = 0; i < pages.size(); ++i) {
-        const sf::Vector2i creq = pages[i]->content->getRequisition();
+        const sf::Vector2f creq = pages[i]->content->getRequisition();
         contentReq.x            = std::max(contentReq.x, creq.x);
         contentReq.y            = std::max(contentReq.y, creq.y);
     }

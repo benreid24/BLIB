@@ -8,7 +8,7 @@ namespace bl
 {
 namespace gui
 {
-ToggleButton::ToggleButton(Element::Ptr c)
+ToggleButton::ToggleButton(const Element::Ptr& c)
 : Button(c)
 , butsRendered(false)
 , activeButton(Canvas::create(10, 10))
@@ -23,9 +23,13 @@ ToggleButton::ToggleButton(Element::Ptr c)
         .willAlwaysCall(std::bind(&ToggleButton::onAcquisition, this));
 }
 
-Canvas::Ptr ToggleButton::getVisibleButton() const { return value ? activeButton : inactiveButton; }
+const Canvas::Ptr& ToggleButton::getVisibleButton() const {
+    return value ? activeButton : inactiveButton;
+}
 
-Canvas::Ptr ToggleButton::getHiddenButton() const { return value ? inactiveButton : activeButton; }
+const Canvas::Ptr& ToggleButton::getHiddenButton() const {
+    return value ? inactiveButton : activeButton;
+}
 
 bool ToggleButton::getValue() const { return value; }
 
@@ -36,7 +40,7 @@ void ToggleButton::setValue(bool v) {
     }
 }
 
-void ToggleButton::setToggleButtonSize(const sf::Vector2i& size) {
+void ToggleButton::setToggleButtonSize(const sf::Vector2f& size) {
     butsRendered = false;
     activeButton->resize(size.x, size.y);
     inactiveButton->resize(size.x, size.y);
@@ -50,10 +54,10 @@ bool ToggleButton::propagateEvent(const Event& event) {
     return false;
 }
 
-sf::Vector2i ToggleButton::minimumRequisition() const {
-    const sf::Vector2i butReq   = activeButton->getRequisition();
-    const sf::Vector2i childReq = getChild()->getRequisition();
-    return {butReq.x + childReq.x + 12, std::max(butReq.y, childReq.y)};
+sf::Vector2f ToggleButton::minimumRequisition() const {
+    const sf::Vector2f butReq   = activeButton->getRequisition();
+    const sf::Vector2f childReq = getChild()->getRequisition();
+    return {butReq.x + childReq.x + 12.f, std::max(butReq.y, childReq.y)};
 }
 
 void ToggleButton::onAcquisition() {

@@ -99,7 +99,7 @@ protected:
      * @brief Returns the space required by the slider button and the others if visible
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the slider and buttons

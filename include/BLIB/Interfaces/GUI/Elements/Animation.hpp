@@ -66,7 +66,7 @@ protected:
      * @brief Returns the size required to render the animation
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the animation

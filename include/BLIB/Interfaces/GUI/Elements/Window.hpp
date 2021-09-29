@@ -41,8 +41,8 @@ public:
      * @param style The style to render with
      * @param position The position to create the window at
      */
-    static Ptr create(Packer::Ptr packer, const std::string& title = "", Style style = Default,
-                      const sf::Vector2i& position = {250, 150});
+    static Ptr create(const Packer::Ptr& packer, const std::string& title = "",
+                      Style style = Default, const sf::Vector2f& position = {250.f, 150.f});
 
     /**
      * @brief Destroy the Window object
@@ -55,21 +55,21 @@ public:
      *
      * @param height Height of the titlebar, in pixels
      */
-    void setTitlebarHeight(unsigned int height);
+    void setTitlebarHeight(float height);
 
     /**
      * @brief Set the position of the window
      *
      * @param pos The position to put the window at
      */
-    void setPosition(const sf::Vector2i& pos);
+    void setPosition(const sf::Vector2f& pos);
 
     /**
      * @brief Pack the given element into the windows main area
      *
      * @param e The element to pack
      */
-    void pack(Element::Ptr e);
+    void pack(const Element::Ptr& e);
 
     /**
      * @brief Pack the given element into the windows main area
@@ -78,33 +78,33 @@ public:
      * @param fillX True for the element to expand into all available width
      * @param fillY True for the element to expand into all available height
      */
-    void pack(Element::Ptr e, bool fillX, bool fillY);
+    void pack(const Element::Ptr& e, bool fillX, bool fillY);
 
     /**
      * @brief Returns a Ptr to the title label. May be null if there is no titlebar
      *
      */
-    Label::Ptr getTitleLabel();
+    const Label::Ptr& getTitleLabel();
 
     /**
      * @brief Returns a Ptr to the titlebar box. May be null if there is no titlebar
      *
      */
-    Box::Ptr getTitlebar();
+    const Box::Ptr& getTitlebar();
 
     /**
      * @brief Return a Ptr to the box that has all of the child elements
      *
      * @return Box::Ptr
      */
-    Box::Ptr getElementArea();
+    const Box::Ptr& getElementArea();
 
     /**
      * @brief Returns a Ptr to the close button. May be null if there is no titlebar or close
      *        button
      *
      */
-    Button::Ptr getCloseButton();
+    const Button::Ptr& getCloseButton();
 
     /**
      * @brief Assigns its own acquisition and calls Container::update
@@ -123,13 +123,14 @@ protected:
      * @param style The style to render with
      * @param position The position to create the window at
      */
-    Window(Packer::Ptr packer, const std::string& title, Style style, const sf::Vector2i& position);
+    Window(const Packer::Ptr& packer, const std::string& title, Style style,
+           const sf::Vector2f& position);
 
     /**
      * @brief Returns size required by children elements plus the titlebar
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Returns false. Windows handle their own positioning and do not need to be packed
@@ -157,7 +158,7 @@ protected:
 
 private:
     const bool moveable;
-    unsigned int titlebarHeight;
+    float titlebarHeight;
     Box::Ptr titlebar;
     Box::Ptr leftTitleSide, rightTitleSide;
     Box::Ptr elementArea;
@@ -167,9 +168,10 @@ private:
     void handleDrag(const Event& drag);
     void closed();
 
-    int computeTitleHeight() const;
-    int computeTitleWidth() const;
+    float computeTitleHeight() const;
+    float computeTitleWidth() const;
     void onAcquisition();
+    void moveCb();
 
     void finishConstruction();
 };

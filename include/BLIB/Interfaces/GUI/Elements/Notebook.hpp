@@ -51,7 +51,7 @@ public:
         PageChangedCb onClose;
 
     private:
-        Page(const std::string& name, Label::Ptr label, Element::Ptr content,
+        Page(const std::string& name, const Label::Ptr& label, const Element::Ptr& content,
              const PageChangedCb& onOpen, const PageChangedCb& onClose);
 
         friend class Notebook;
@@ -67,7 +67,7 @@ public:
      * @param onClose Callback to trigger when this page is left
      */
     void addPage(
-        const std::string& name, const std::string& title, Element::Ptr content,
+        const std::string& name, const std::string& title, const Element::Ptr& content,
         const PageChangedCb& onOpen = []() {}, const PageChangedCb& onClose = []() {});
 
     /**
@@ -139,7 +139,7 @@ public:
      * @brief Returns the acquisition of the tabs for the notebook
      *
      */
-    const sf::IntRect& getTabAcquisition() const;
+    const sf::FloatRect& getTabAcquisition() const;
 
 protected:
     /**
@@ -152,7 +152,7 @@ protected:
      * @brief Computes space required across all tabs
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Repacks the tabs and their content
@@ -172,13 +172,14 @@ protected:
 
 private:
     Box::Ptr tabArea;
-    sf::IntRect contentArea;
+    sf::FloatRect contentArea;
     std::vector<Page*> pages;
     std::map<std::string, std::pair<unsigned int, Page*>> pageMap;
     unsigned int activePage;
 
     void pageClicked(Page* page);
 };
+
 } // namespace gui
 } // namespace bl
 

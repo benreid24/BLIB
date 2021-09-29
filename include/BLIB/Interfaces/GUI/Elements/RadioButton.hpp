@@ -64,7 +64,7 @@ public:
      * @param radioGroup The group of buttons for selection. Leave nullptr for new group
      * @return Ptr The new button
      */
-    static Ptr create(Element::Ptr child, Group* radioGroup = nullptr);
+    static Ptr create(const Element::Ptr& child, Group* radioGroup = nullptr);
 
     /**
      * @brief Removes this button from the group
@@ -85,7 +85,7 @@ protected:
      * @param child The element to put to the right of the check box
      * @param radioGroup The group of buttons for selection. Leave nullptr for new group
      */
-    RadioButton(Element::Ptr child, Group* radioGroup);
+    RadioButton(const Element::Ptr& child, Group* radioGroup);
 
     /**
      * @brief Renders the unchecked and checked box
@@ -109,6 +109,7 @@ private:
 
     friend class Group;
 };
+
 } // namespace gui
 } // namespace bl
 

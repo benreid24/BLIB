@@ -61,7 +61,7 @@ protected:
      * @brief Returns (5,5)
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the progress bar
@@ -77,6 +77,7 @@ private:
     const FillDirection direction;
     float progress;
 };
+
 } // namespace gui
 } // namespace bl
 

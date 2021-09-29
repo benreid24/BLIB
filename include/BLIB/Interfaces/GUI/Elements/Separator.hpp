@@ -17,7 +17,7 @@ class Separator : public Element {
 public:
     typedef std::shared_ptr<Separator> Ptr;
 
-    static constexpr int DefaultThickness = 1;
+    static constexpr float DefaultThickness = 1.f;
 
     virtual ~Separator() = default;
 
@@ -50,7 +50,7 @@ protected:
      * @brief Returns the the outline thickness in both the x and y components
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the separator

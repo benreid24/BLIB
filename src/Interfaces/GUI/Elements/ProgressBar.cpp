@@ -21,7 +21,7 @@ float ProgressBar::getProgress() const { return progress; }
 
 ProgressBar::FillDirection ProgressBar::getFillDirection() const { return direction; }
 
-sf::Vector2i ProgressBar::minimumRequisition() const { return {5, 5}; }
+sf::Vector2f ProgressBar::minimumRequisition() const { return {5.f, 5.f}; }
 
 void ProgressBar::doRender(sf::RenderTarget& target, sf::RenderStates states,
                            const Renderer& renderer) const {

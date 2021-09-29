@@ -31,7 +31,7 @@ public:
     static Ptr create(unsigned int lineCount = 1);
 
     /**
-     * @brief Set the maximum amount of characters that can be input. Has no affect if
+     * @brief Set the maximum amount of characters that can be input
      *
      * @param maxLength The number of characters that can be input
      */
@@ -85,7 +85,7 @@ protected:
      *        width. Width should be set via setRequisition() or by setExpandsWidth(true)
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the text entry

@@ -18,7 +18,7 @@ class Button : public Element {
 public:
     typedef std::shared_ptr<Button> Ptr;
 
-    static constexpr int DefaultOutlineThickness = 2;
+    static constexpr float DefaultOutlineThickness = 2.f;
 
     /**
      * @brief Create a new Button with a label inside of it
@@ -38,7 +38,7 @@ public:
      * @param id The id of this button
      * @return Ptr Pointer to the new Button
      */
-    static Ptr create(Element::Ptr child);
+    static Ptr create(const Element::Ptr& child);
 
     /**
      * @brief Get the child element of the Button. Typically this is a Label but may be
@@ -54,7 +54,7 @@ protected:
      *
      * @param c The element to put inside the button
      */
-    Button(Element::Ptr c);
+    Button(const Element::Ptr& c);
 
     /**
      * @brief Passes the event to the child then returns false always
@@ -68,7 +68,7 @@ protected:
      * @brief Returns the size required to display the full button text
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the button and text/child
@@ -85,6 +85,7 @@ private:
 
     void onAcquisition();
 };
+
 } // namespace gui
 } // namespace bl
 

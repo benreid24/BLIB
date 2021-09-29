@@ -31,7 +31,7 @@ public:
      * @param child The element to put to the right of the check box
      * @return Ptr The new button
      */
-    static Ptr create(Element::Ptr child);
+    static Ptr create(const Element::Ptr& child);
 
 protected:
     /**
@@ -39,7 +39,7 @@ protected:
      *
      * @param child The element to put to the right of the check box
      */
-    CheckButton(Element::Ptr child);
+    CheckButton(const Element::Ptr& child);
 
     /**
      * @brief Renders the unchecked and checked box
@@ -51,6 +51,7 @@ protected:
     virtual void renderToggles(Canvas& activeBut, Canvas& inactiveBut,
                                const Renderer& renderer) const override;
 };
+
 } // namespace gui
 } // namespace bl
 

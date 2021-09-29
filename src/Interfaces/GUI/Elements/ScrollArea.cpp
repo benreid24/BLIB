@@ -8,7 +8,7 @@ namespace gui
 {
 namespace
 {
-constexpr int BarSize          = 16;
+constexpr float BarSize        = 16;
 constexpr float PixelsPerClick = 10;
 
 float computeButtonSize(float totalSize, float availableSize) {
@@ -27,9 +27,11 @@ float computeIncrement(float totalSize, float availableSize) {
 
 } // namespace
 
-ScrollArea::Ptr ScrollArea::create(Packer::Ptr packer) { return Ptr(new ScrollArea(packer)); }
+ScrollArea::Ptr ScrollArea::create(const Packer::Ptr& packer) {
+    return Ptr(new ScrollArea(packer));
+}
 
-ScrollArea::ScrollArea(Packer::Ptr packer)
+ScrollArea::ScrollArea(const Packer::Ptr& packer)
 : Container()
 , packer(packer)
 , horScrollbar(Slider::create(Slider::Horizontal))
@@ -47,9 +49,9 @@ ScrollArea::ScrollArea(Packer::Ptr packer)
     vertScrollbar->setExpandsWidth(true);
 }
 
-void ScrollArea::pack(Element::Ptr e) { add(e); }
+void ScrollArea::pack(const Element::Ptr& e) { add(e); }
 
-void ScrollArea::pack(Element::Ptr e, bool fx, bool fy) {
+void ScrollArea::pack(const Element::Ptr& e, bool fx, bool fy) {
     e->setExpandsWidth(fx);
     e->setExpandsHeight(fy);
     pack(e);
@@ -61,7 +63,7 @@ void ScrollArea::setAlwaysShowVerticalScrollbar(bool s) { alwaysShowV = s; }
 
 void ScrollArea::setScroll(const sf::Vector2f& scroll) {
     if (dirty()) refreshSize();
-    const sf::Vector2i freeSpace = totalSize - availableSize;
+    const sf::Vector2f freeSpace = totalSize - availableSize;
     offset.x                     = static_cast<float>(freeSpace.x) * scroll.x;
     offset.y                     = static_cast<float>(freeSpace.y) * scroll.y;
 
@@ -71,7 +73,7 @@ void ScrollArea::setScroll(const sf::Vector2f& scroll) {
     if (offset.y < 0.f) offset.y = 0.f;
 }
 
-void ScrollArea::setMaxSize(const sf::Vector2i& s) {
+void ScrollArea::setMaxSize(const sf::Vector2f& s) {
     if (s.x <= 0 || s.y <= 0)
         maxSize.reset();
     else
@@ -85,9 +87,9 @@ void ScrollArea::refreshSize() const {
     availableSize = {getAcquisition().width, getAcquisition().height};
 }
 
-sf::Vector2i ScrollArea::minimumRequisition() const {
+sf::Vector2f ScrollArea::minimumRequisition() const {
     refreshSize();
-    sf::Vector2i req = totalSize + sf::Vector2i(BarSize, BarSize);
+    sf::Vector2f req = totalSize + sf::Vector2f(BarSize, BarSize);
     if (maxSize.has_value())
         req = {std::min(totalSize.x, maxSize.value().x), std::min(totalSize.y, maxSize.value().y)};
     return req;
@@ -98,8 +100,8 @@ void ScrollArea::onAcquisition() {
 
     if (totalSize.x > (getAcquisition().width - BarSize) || alwaysShowH) {
         availableSize.y -= BarSize;
-        const sf::Vector2i barSize(getAcquisition().width - BarSize, BarSize);
-        const sf::Vector2i barPos(getAcquisition().left,
+        const sf::Vector2f barSize(getAcquisition().width - BarSize, BarSize);
+        const sf::Vector2f barPos(getAcquisition().left,
                                   getAcquisition().top + getAcquisition().height - barSize.y);
         horScrollbar->setVisible(true);
         horScrollbar->setSliderSize(computeButtonSize(totalSize.x, availableSize.x));
@@ -111,8 +113,8 @@ void ScrollArea::onAcquisition() {
 
     if (totalSize.y > (getAcquisition().height - BarSize) || alwaysShowV) {
         availableSize.x -= BarSize;
-        const sf::Vector2i barSize(BarSize, getAcquisition().height - BarSize);
-        const sf::Vector2i barPos(getAcquisition().left + getAcquisition().width - barSize.x,
+        const sf::Vector2f barSize(BarSize, getAcquisition().height - BarSize);
+        const sf::Vector2f barPos(getAcquisition().left + getAcquisition().width - barSize.x,
                                   getAcquisition().top);
         vertScrollbar->setVisible(true);
         vertScrollbar->setSliderSize(computeButtonSize(totalSize.y, availableSize.y));
@@ -143,7 +145,7 @@ void ScrollArea::scrolled() {
 }
 
 bool ScrollArea::handleScroll(const Event& scroll) {
-    if (getAcquisition().contains(sf::Vector2i(scroll.mousePosition()))) {
+    if (getAcquisition().contains(scroll.mousePosition())) {
         if (Container::handleScroll(scroll)) return true;
 
         if (totalSize.x > availableSize.x || totalSize.y > availableSize.y) {
@@ -160,18 +162,13 @@ bool ScrollArea::handleScroll(const Event& scroll) {
     return false;
 }
 
-sf::Vector2f ScrollArea::getElementOffset(const Element* e) const {
-    if (e != horScrollbar.get() && e != vertScrollbar.get()) return offset;
-    return {0, 0};
-}
-
 bool ScrollArea::propagateEvent(const Event& event) {
     if (event.type() == Event::MouseMoved) { boxMousePos = event.mousePosition(); }
 
     if (horScrollbar->processEvent(event)) return true;
     if (vertScrollbar->processEvent(event)) return true;
 
-    const bool in = getAcquisition().contains(sf::Vector2i(event.mousePosition()));
+    const bool in = getAcquisition().contains(event.mousePosition());
     if (in || event.type() == Event::MouseMoved || event.type() == Event::LeftMouseReleased ||
         event.type() == Event::RightMouseReleased) {
         const sf::Vector2f pos(getAcquisition().left, getAcquisition().top);

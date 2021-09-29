@@ -22,7 +22,7 @@ class ComboBox : public Element {
 public:
     typedef std::shared_ptr<ComboBox> Ptr;
 
-    static constexpr int OptionPadding = 2;
+    static constexpr float OptionPadding = 2;
 
     /**
      * @brief Create a new ComboBox
@@ -56,7 +56,7 @@ public:
      *
      * @param height The maximum height of the dropdown
      */
-    void setMaxHeight(int height);
+    void setMaxHeight(float height);
 
     /**
      * @brief Returns the selected option's index. -1 means no selection
@@ -112,13 +112,13 @@ protected:
      * @brief Returns the size of the largest label plus the dropdown arrow
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Packs the labels
      *
      */
-    virtual void onAcquisition();
+    void onAcquisition();
 
     /**
      * @brief Calls Container::propagateEvent() and returns false
@@ -142,11 +142,11 @@ private:
     Canvas::Ptr arrow;
     std::vector<std::string> options;
     std::vector<Label::Ptr> labels;
-    sf::Vector2i labelSize;
-    sf::IntRect labelRegion;
+    sf::Vector2f labelSize;
+    sf::FloatRect labelRegion;
     std::optional<sf::Color> labelColor;
-    int maxHeight;
-    int totalHeight;
+    float maxHeight;
+    float totalHeight;
     float scroll;
     int selected; // -1 means none
     bool opened;
@@ -160,6 +160,7 @@ private:
     void packOpened();
     void packClosed();
 };
+
 } // namespace gui
 } // namespace bl
 

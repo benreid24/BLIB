@@ -168,7 +168,7 @@ void DefaultRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates 
 
 void DefaultRenderer::renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::RenderStates states,
                                                   const ComboBox& box,
-                                                  const sf::Vector2i& optionSize,
+                                                  const sf::Vector2f& optionSize,
                                                   unsigned int optionCount,
                                                   unsigned int mousedOption) const {
     if (!viewValid(target.getView())) return;
@@ -176,7 +176,7 @@ void DefaultRenderer::renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::
     static const RenderSettings defaults = getComboDefaults();
     const RenderSettings settings        = getSettings(&box);
 
-    sf::Vector2i pos(box.getAcquisition().left,
+    sf::Vector2f pos(box.getAcquisition().left,
                      box.getAcquisition().top + box.getAcquisition().height);
     for (unsigned int i = 0; i < optionCount; ++i) {
         RenderSettings s = settings;
@@ -265,7 +265,7 @@ void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStat
     static const RenderSettings defaults  = getProgressBarDefaults();
     static const RenderSettings sdefaults = getProgressBarSecondaryDefaults();
 
-    sf::IntRect rect = bar.getAcquisition();
+    sf::FloatRect rect = bar.getAcquisition();
     RendererUtil::renderRectangle(target, states, rect, settings, defaults);
     const float xs = static_cast<float>(rect.width) * bar.getProgress();
     const float ys = static_cast<float>(rect.height) * bar.getProgress();
@@ -381,8 +381,8 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
 
     RendererUtil::renderRectangle(target, states, entry.getAcquisition(), settings, boxDefaults);
 
-    sf::IntRect textArea = entry.getAcquisition();
-    const int thickness  = settings.outlineThickness.value_or(2);
+    sf::FloatRect textArea = entry.getAcquisition();
+    const int thickness    = settings.outlineThickness.value_or(2);
     textArea.left += thickness;
     textArea.top += thickness;
     textArea.width -= thickness * 2;
@@ -473,7 +473,7 @@ void DefaultRenderer::renderImage(sf::RenderTarget& target, sf::RenderStates sta
         settings.verticalAlignment.value_or(RenderSettings::Center),
         e->getAcquisition(),
         size);
-    const sf::IntRect region(static_cast<sf::Vector2i>(pos), static_cast<sf::Vector2i>(size));
+    const sf::FloatRect region(pos, size);
 
     RendererUtil::renderRectangle(target, states, region, settings, defaults);
     target.draw(image, states);

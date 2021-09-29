@@ -40,9 +40,8 @@ void Canvas::setFillAcquisition(bool fill, bool mar) {
 
 sf::RenderTexture& Canvas::getTexture() { return texture; }
 
-sf::Vector2i Canvas::minimumRequisition() const {
-    return static_cast<sf::Vector2i>(
-        size.value_or(sf::Vector2f(texture.getSize().x, texture.getSize().y)));
+sf::Vector2f Canvas::minimumRequisition() const {
+    return size.value_or(sf::Vector2f(texture.getSize().x, texture.getSize().y));
 }
 
 void Canvas::doRender(sf::RenderTarget& target, sf::RenderStates states,

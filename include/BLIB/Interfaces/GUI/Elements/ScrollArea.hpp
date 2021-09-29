@@ -30,7 +30,7 @@ public:
      * @param packer The packer to use
      * @return Ptr The newly created ScrollArea
      */
-    static Ptr create(Packer::Ptr packer);
+    static Ptr create(const Packer::Ptr& packer);
 
     /**
      * @brief Set the maximum size the scroll area can fill before scrolling is enabled. Note
@@ -38,7 +38,7 @@ public:
      *
      * @param size The maximum size. (0,0) to reset
      */
-    void setMaxSize(const sf::Vector2i& size);
+    void setMaxSize(const sf::Vector2f& size);
 
     /**
      * @brief Set whether or not to always show the vertical scrollbar
@@ -66,7 +66,7 @@ public:
      *
      * @param e The element to pack
      */
-    void pack(Element::Ptr e);
+    void pack(const Element::Ptr& e);
 
     /**
      * @brief Pack the element into the ScrollArea. Also modifies the Element's expand
@@ -76,7 +76,7 @@ public:
      * @param fillX True for the element to expand horizontally into all available space
      * @param fillY True for the element to expand vertically into all available space
      */
-    void pack(Element::Ptr e, bool fillX, bool fillY);
+    void pack(const Element::Ptr& e, bool fillX, bool fillY);
 
 protected:
     /**
@@ -85,7 +85,7 @@ protected:
      * @param packer The packer to use
      * @return Ptr The newly created ScrollArea
      */
-    ScrollArea(Packer::Ptr packer);
+    ScrollArea(const Packer::Ptr& packer);
 
     /**
      * @brief Adjusts the size of the visible window and updates the scrollbars
@@ -99,15 +99,7 @@ protected:
      *
      * @return sf::Vector2i
      */
-    virtual sf::Vector2i minimumRequisition() const override;
-
-    /**
-     * @brief Returns the scroll offset if e is not one of the scrollbars
-     *
-     * @param e The element to get the offset for
-     * @return The offset to apply to events to the element
-     */
-    virtual sf::Vector2f getElementOffset(const Element* e) const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the scroll area, scrollbars if visible, and the child elements
@@ -139,9 +131,9 @@ private:
     Packer::Ptr packer;
     Slider::Ptr horScrollbar;
     Slider::Ptr vertScrollbar;
-    std::optional<sf::Vector2i> maxSize;
-    mutable sf::Vector2i totalSize;
-    mutable sf::Vector2i availableSize;
+    std::optional<sf::Vector2f> maxSize;
+    mutable sf::Vector2f totalSize;
+    mutable sf::Vector2f availableSize;
     sf::Vector2f offset;
     sf::Vector2f boxMousePos;
     bool alwaysShowH;

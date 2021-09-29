@@ -46,7 +46,7 @@ public:
 
     /// @see Renderer::renderComboBoxDropdownBoxes
     virtual void renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::RenderStates states,
-                                             const ComboBox& box, const sf::Vector2i& optionSize,
+                                             const ComboBox& box, const sf::Vector2f& optionSize,
                                              unsigned int optionCount,
                                              unsigned int mousedOption) const override;
 
@@ -109,7 +109,7 @@ private:
 
     DebugRenderer(Renderer::Ptr renderer);
     void addInfo(sf::RenderTarget& target, sf::RenderStates states,
-                 const sf::IntRect& region) const;
+                 const sf::FloatRect& region) const;
 };
 
 } // namespace gui
