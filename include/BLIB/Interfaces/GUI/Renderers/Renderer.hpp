@@ -37,28 +37,23 @@ public:
     typedef std::shared_ptr<Renderer> Ptr;
 
     /**
-     * @brief Add or set RenderSettings for the given group. Overriden for Elements with id
-     *        level overrides
-     *
-     * @param group The group to apply the settings to
-     * @param settings The render settings
-     */
-    void setGroupSettings(const std::string& group, const RenderSettings& settings);
-
-    /**
-     * @brief Add or set RenderSettings for the given id. Settings applied in the element
-     *        itself, if any, override these
-     *
-     * @param id Id of the Element to set for
-     * @param settings The render settings
-     */
-    void setIdSettings(const std::string& id, const RenderSettings& settings);
-
-    /**
      * @brief Destroy the Renderer object
      *
      */
     virtual ~Renderer() = default;
+
+    /**
+     * @brief Set the Original View that GUI::render was called with
+     *
+     * @param view The original view that was used
+     */
+    void setOriginalView(const sf::View& view);
+
+    /**
+     * @brief Get the Original View that GUI::render was called with
+     *
+     */
+    const sf::View& getOriginalView() const;
 
     /**
      * @brief Renders a Box element
@@ -255,6 +250,9 @@ protected:
      * @return const RenderSettings& The render settings to use
      */
     const RenderSettings& getSettings(const Element* e) const;
+
+private:
+    sf::View ogView;
 };
 
 } // namespace gui

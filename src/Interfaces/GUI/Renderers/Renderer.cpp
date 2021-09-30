@@ -21,5 +21,9 @@ bool Renderer::viewValid(const sf::View& v) const {
 
 const RenderSettings& Renderer::getSettings(const Element* e) const { return e->renderSettings(); }
 
+void Renderer::setOriginalView(const sf::View& v) { ogView = v; }
+
+const sf::View& Renderer::getOriginalView() const { return ogView; }
+
 } // namespace gui
 } // namespace bl

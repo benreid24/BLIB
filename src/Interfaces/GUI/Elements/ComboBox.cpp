@@ -127,6 +127,11 @@ bool ComboBox::propagateEvent(const Event& event) {
             for (Label::Ptr& option : labels) { option->processEvent(translated); }
         }
     }
+    if (opened && event.type() == Event::LeftMousePressed) {
+        opened = false;
+        packClosed();
+        return true; // eat it?
+    }
     return contained && opened;
 }
 
@@ -159,7 +164,7 @@ void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
     if (opened) {
         const sf::View oldView = target.getView();
         target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(labelRegion),
-                                                           target.getDefaultView()));
+                                                           renderer.getOriginalView()));
         states.transform.translate(0, -scroll);
         renderer.renderComboBoxDropdownBoxes(
             target, states, *this, labelSize, opened ? options.size() : 0, moused);

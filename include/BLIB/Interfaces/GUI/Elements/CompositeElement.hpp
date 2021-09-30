@@ -119,7 +119,7 @@ void CompositeElement<N>::renderChildren(sf::RenderTarget& target, sf::RenderSta
     const sf::View oldView = target.getView();
     if (changeView) {
         target.setView(
-            interface::ViewUtil::computeSubView(getAcquisition(), target.getDefaultView()));
+            interface::ViewUtil::computeSubView(getAcquisition(), renderer.getOriginalView()));
     }
 
     for (std::size_t i = 0; i < N; ++i) { children[i]->render(target, states, renderer); }

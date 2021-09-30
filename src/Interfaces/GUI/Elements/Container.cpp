@@ -131,7 +131,7 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
 
     // Compute new view
     const sf::View view = interface::ViewUtil::computeSubView(sf::FloatRect{getAcquisition()},
-                                                              target.getDefaultView());
+                                                              renderer.getOriginalView());
     if (changeView) { target.setView(view); }
 
     // Draw children

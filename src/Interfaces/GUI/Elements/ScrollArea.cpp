@@ -184,7 +184,7 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
     sf::View view          = interface::ViewUtil::computeSubView(
         sf::FloatRect{sf::Vector2f(getAcquisition().left, getAcquisition().top),
                       sf::Vector2f(availableSize)},
-        target.getDefaultView());
+        renderer.getOriginalView());
     view.setCenter(view.getSize() * 0.5f);
     view.move(offset);
     target.setView(view);
