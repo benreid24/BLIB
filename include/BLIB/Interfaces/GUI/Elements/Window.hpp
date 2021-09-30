@@ -3,6 +3,7 @@
 
 #include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Button.hpp>
+#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Container.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 
@@ -16,7 +17,7 @@ namespace gui
  *
  * @ingroup GUI
  */
-class Window : public Element {
+class Window : public CompositeElement<2> {
 public:
     typedef std::shared_ptr<Window> Ptr;
 
@@ -171,9 +172,6 @@ private:
     float computeTitleHeight() const;
     float computeTitleWidth() const;
     void onAcquisition();
-    void moveCb();
-
-    void finishConstruction();
 };
 
 } // namespace gui

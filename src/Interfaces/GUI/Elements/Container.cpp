@@ -66,7 +66,7 @@ void Container::bringToTop(const Element* child) {
 void Container::add(const Element::Ptr& e) {
     children.emplace_back(e);
     zorder.insert(zorder.begin(), e.get());
-    setChildParent(e);
+    setChildParent(e.get());
     makeDirty();
 }
 

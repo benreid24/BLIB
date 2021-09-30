@@ -1,8 +1,7 @@
 #ifndef BLIB_GUI_ELEMENTS_HPP
 #define BLIB_GUI_ELEMENTS_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
-#include <BLIB/Interfaces/GUI/Event.hpp>
+#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 
 namespace bl
 {
@@ -14,7 +13,7 @@ namespace gui
  * @ingroup GUI
  *
  */
-class Button : public Element {
+class Button : public CompositeElement<1> {
 public:
     typedef std::shared_ptr<Button> Ptr;
 
@@ -46,7 +45,7 @@ public:
      *
      * @return Element::Ptr The child element that renders inside the button
      */
-    Element::Ptr getChild() const;
+    const Element::Ptr& getChild() const;
 
 protected:
     /**
@@ -83,7 +82,7 @@ protected:
 private:
     Element::Ptr child;
 
-    void onAcquisition();
+    virtual void onAcquisition() override;
 };
 
 } // namespace gui

@@ -18,12 +18,13 @@ Button::Ptr Button::create(const std::string& text) { return Ptr(new Button(Labe
 Button::Ptr Button::create(const Element::Ptr& e) { return Ptr(new Button(e)); }
 
 Button::Button(const Element::Ptr& child)
-: Element()
+: CompositeElement<1>()
 , child(child) {
-    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Button::onAcquisition, this));
+    Element* tmp[1] = {child.get()};
+    registerChildren(tmp);
 }
 
-Element::Ptr Button::getChild() const { return child; }
+const Element::Ptr& Button::getChild() const { return child; }
 
 sf::Vector2f Button::minimumRequisition() const {
     sf::Vector2f area = child->getRequisition();
@@ -42,7 +43,7 @@ void Button::onAcquisition() {
 }
 
 bool Button::propagateEvent(const Event& event) {
-    child->processEvent(event);
+    sendEventToChildren(event);
     return false; // so the button can have proper mouseover and click events
 }
 

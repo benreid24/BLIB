@@ -5,7 +5,8 @@ namespace bl
 namespace gui
 {
 Element::Element()
-: _dirty(true)
+: parent(nullptr)
+, _dirty(true)
 , _active(true)
 , _visible(true)
 , skipPack(false)
@@ -16,8 +17,6 @@ Element::Element()
 , isMouseOver(false)
 , isLeftPressed(false)
 , isRightPressed(false) {}
-
-Element::CPtr Element::getParent() const { return parent.expired() ? nullptr : parent.lock(); }
 
 void Element::setRequisition(const sf::Vector2f& size) {
     requisition.reset();
@@ -53,20 +52,9 @@ bool Element::setForceFocus(bool force) {
 }
 
 bool Element::clearFocus() {
-    WPtr top = parent;
-    while (!top.expired()) {
-        Ptr t = top.lock();
-        if (t) {
-            if (t->parent.expired()) break;
-            top = t->parent;
-        }
-        else
-            break;
-    }
-    if (!top.expired()) {
-        Ptr t = top.lock();
-        if (t) return t->releaseFocus();
-    }
+    Element* p = parent;
+    while (p) { p = p->parent; }
+    if (p) { return p->releaseFocus(); }
     return releaseFocus();
 }
 
@@ -81,10 +69,7 @@ bool Element::releaseFocus() {
 }
 
 void Element::moveToTop() const {
-    if (!parent.expired()) {
-        Element::Ptr p = parent.lock();
-        if (p) p->bringToTop(this);
-    }
+    if (parent) parent->bringToTop(this);
 }
 
 bool Element::mouseOver() const { return isMouseOver; }
@@ -207,16 +192,12 @@ bool Element::propagateEvent(const Event&) { return false; }
 void Element::fireSignal(const Event& action) { signals[action.type()](action, this); }
 
 void Element::remove() {
-    if (!parent.expired()) {
-        Element::Ptr p = parent.lock();
-        if (p) p->removeChild(this);
-    }
+    if (parent) { parent->removeChild(this); }
 }
 
 void Element::makeDirty() {
-    _dirty         = true;
-    Element::Ptr p = parent.lock();
-    if (p && packable()) { p->makeDirty(); }
+    _dirty = true;
+    if (parent && packable()) { parent->makeDirty(); }
 }
 
 void Element::markClean() { _dirty = false; }
@@ -266,9 +247,10 @@ bool Element::expandsHeight() const { return fillY; }
 
 void Element::assignAcquisition(const sf::FloatRect& acq) {
     markClean();
-    cachedArea     = acq;
-    Element::Ptr p = parent.lock();
-    if (p) { position = sf::Vector2f(cachedArea.left, cachedArea.top) - p->getPosition(); }
+    cachedArea = acq;
+    if (parent) {
+        position = sf::Vector2f(cachedArea.left, cachedArea.top) - parent->getPosition();
+    }
     fireSignal(Event(Event::AcquisitionChanged));
 }
 
@@ -277,15 +259,15 @@ void Element::setPosition(const sf::Vector2f& pos) {
     dragStart += diff;
     cachedArea.left = pos.x;
     cachedArea.top  = pos.y;
-    Element::Ptr p  = parent.lock();
-    if (p) { position = sf::Vector2f(cachedArea.left, cachedArea.top) - p->getPosition(); }
+    if (parent) {
+        position = sf::Vector2f(cachedArea.left, cachedArea.top) - parent->getPosition();
+    }
     fireSignal(Event(Event::Moved));
 }
 
 void Element::recalculatePosition() {
-    Element::Ptr p = parent.lock();
-    if (p) {
-        const sf::Vector2f npos = p->getPosition() + position;
+    if (parent) {
+        const sf::Vector2f npos = parent->getPosition() + position;
         if (npos.x != cachedArea.left || npos.y != cachedArea.top) {
             cachedArea.left = npos.x;
             cachedArea.top  = npos.y;
@@ -298,7 +280,7 @@ const sf::FloatRect& Element::getAcquisition() const { return cachedArea; }
 
 sf::Vector2f Element::getPosition() const { return {cachedArea.left, cachedArea.top}; }
 
-void Element::setChildParent(Element::Ptr child) { child->parent = me(); }
+void Element::setChildParent(Element* p) { p->parent = this; }
 
 void Element::render(sf::RenderTarget& target, sf::RenderStates states,
                      const Renderer& renderer) const {

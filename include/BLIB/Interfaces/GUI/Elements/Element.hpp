@@ -41,12 +41,6 @@ public:
     virtual ~Element() = default;
 
     /**
-     * @brief Returns a const pointer to the parent element. May be null
-     *
-     */
-    CPtr getParent() const;
-
-    /**
      * @brief Sets the requisition of the Element. This is the minimum amount of space it
      *        needs. Pass in (0,0) to reset
      *
@@ -374,11 +368,11 @@ protected:
     void markClean();
 
     /**
-     * @brief Sets the parent of the child Element to this Element
+     * @brief Sets the parent of the given element to this
      *
-     * @param child The child to set the parent to
+     * @param parent The element to make a child
      */
-    void setChildParent(Element::Ptr child);
+    void setChildParent(Element* parent);
 
     /**
      * @brief Bring the given child Element to the top. A child Element calls this on it's
@@ -450,7 +444,7 @@ private:
     std::optional<sf::Vector2f> requisition;
     sf::Vector2f position;    // relative to parent
     sf::FloatRect cachedArea; // absolute. Stores acquisition
-    Element::WPtr parent;
+    Element* parent;
     Signal signals[Event::NUM_ACTIONS];
 
     bool _dirty;
