@@ -14,6 +14,7 @@ Canvas::Canvas(unsigned int w, unsigned int h)
     texture.clear(sf::Color::Transparent);
     sprite.setTexture(texture.getTexture());
     getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Canvas::setScale, this));
+    getSignal(Event::Moved).willAlwaysCall(std::bind(&Canvas::moveCb, this));
 }
 
 void Canvas::resize(unsigned int w, unsigned int h, bool resetScale) {
@@ -65,6 +66,8 @@ void Canvas::setScale() {
     sprite.setScale(sx, sy);
     sprite.setPosition(getAcquisition().left, getAcquisition().top);
 }
+
+void Canvas::moveCb() { sprite.setPosition(getPosition()); }
 
 } // namespace gui
 } // namespace bl

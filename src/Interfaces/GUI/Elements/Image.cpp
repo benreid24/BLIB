@@ -18,6 +18,7 @@ Image::Image(resource::Resource<sf::Texture>::Ref th)
 , fillAcq(false)
 , maintainAR(true) {
     getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Image::setScale, this));
+    getSignal(Event::Moved).willAlwaysCall(std::bind(&Image::moveCb, this));
 }
 
 Image::Image(const sf::Texture& th)
@@ -27,6 +28,7 @@ Image::Image(const sf::Texture& th)
 , fillAcq(false)
 , maintainAR(true) {
     getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Image::setScale, this));
+    getSignal(Event::Moved).willAlwaysCall(std::bind(&Image::moveCb, this));
 }
 
 void Image::scaleToSize(const sf::Vector2f& s) {
@@ -69,6 +71,13 @@ void Image::setScale() {
     sprite.setScale(sx, sy);
     imgSize.x = sprite.getGlobalBounds().width;
     imgSize.y = sprite.getGlobalBounds().height;
+    sprite.setPosition(acqPos + (acqSize - imgSize) * 0.5f);
+}
+
+void Image::moveCb() {
+    const sf::Vector2f imgSize(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
+    const sf::Vector2f acqPos(getAcquisition().left, getAcquisition().top);
+    const sf::Vector2f acqSize(getAcquisition().width, getAcquisition().height);
     sprite.setPosition(acqPos + (acqSize - imgSize) * 0.5f);
 }
 

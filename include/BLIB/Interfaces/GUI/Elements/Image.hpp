@@ -101,6 +101,7 @@ private:
     bool maintainAR;
 
     void setScale();
+    void moveCb();
 };
 
 } // namespace gui
