@@ -3,7 +3,7 @@
 
 #include <BLIB/Interfaces/GUI/Elements/Button.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
-#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
+#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 
 namespace bl
 {
@@ -15,7 +15,7 @@ namespace gui
  * @ingroup GUI
  *
  */
-class Slider : public Element {
+class Slider : public CompositeElement<3> {
 public:
     typedef std::shared_ptr<Slider> Ptr;
 
@@ -119,11 +119,27 @@ protected:
      */
     virtual bool handleScroll(const Event& scroll) override;
 
+    /**
+     * @brief Propagates the given event to the child elements
+     *
+     * @param event The event to propagate
+     * @return True if the event was handled, false if unhandled
+     */
+    virtual bool propagateEvent(const Event& event) override;
+
+    /**
+     * @brief Packs the child elements when the acquisition changes
+     *
+     */
+    virtual void onAcquisition() override;
+
 private:
     const Direction dir;
-    float buttonSize;
+    float sliderSizeRatio;
     float value;
     float increment;
+    float sliderSize;
+    float freeSpace;
     Canvas::Ptr increaseImg;
     Button::Ptr increaseBut;
     Canvas::Ptr decreaseImg;
@@ -132,8 +148,11 @@ private:
     mutable bool renderedButs;
 
     int calculateFreeSize() const;
-    void packElements();
+
+    void valueChanged();
     void fireChanged();
+    void updateSliderPos();
+    void constrainValue();
 
     void sliderMoved(const Event& drag);
     void clicked(const Event& click);
