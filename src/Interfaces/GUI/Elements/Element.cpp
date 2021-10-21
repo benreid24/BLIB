@@ -1,5 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 
+#include <cmath>
+
 namespace bl
 {
 namespace gui
@@ -16,7 +18,8 @@ Element::Element()
 , focusForced(false)
 , isMouseOver(false)
 , isLeftPressed(false)
-, isRightPressed(false) {}
+, isRightPressed(false)
+, flashTime(-1.f) {}
 
 void Element::setRequisition(const sf::Vector2f& size) {
     requisition.reset();
@@ -37,9 +40,13 @@ Signal& Element::getSignal(Event::Type trigger) { return signals[trigger]; }
 
 bool Element::hasFocus() const { return isFocused; }
 
+bool Element::focusIsforced() const { return focusForced; }
+
 bool Element::takeFocus() {
     if (isFocused) return true;
-    if (!clearFocus()) return false;
+
+    if (!clearFocus(this)) return false;
+
     isFocused = true;
     fireSignal(Event(Event::GainedFocus));
     moveToTop();
@@ -51,21 +58,35 @@ bool Element::setForceFocus(bool force) {
     return hasFocus() || !force;
 }
 
-bool Element::clearFocus() {
+bool Element::clearFocus(const Element* requester) {
     Element* p = parent;
-    while (p) { p = p->parent; }
-    if (p) { return p->releaseFocus(); }
-    return releaseFocus();
+    while (p) {
+        if (!p->releaseFocus(requester)) return false;
+        p = p->parent;
+    }
+    return releaseFocus(requester);
 }
 
-bool Element::releaseFocus() {
+bool Element::releaseFocus(const Element* requester) {
     if (focusForced) {
-        if (hasFocus()) return false;
+        if (requester && (requester != this && !isChild(requester))) {
+            if (flashTime < 0.f) flashTime = 0.f;
+            return false;
+        }
     }
     bool wasFocused = isFocused;
     isFocused       = false;
     if (wasFocused) fireSignal(Event(Event::LostFocus));
     return true;
+}
+
+bool Element::isChild(const Element* e) {
+    const Element* p = e->parent;
+    while (p) {
+        if (p == this) return true;
+        p = p->parent;
+    }
+    return false;
 }
 
 void Element::moveToTop() const {
@@ -94,7 +115,6 @@ bool Element::processEvent(const Event& event) {
     case Event::TextEntered:
     case Event::KeyPressed:
     case Event::KeyReleased:
-    case Event::Scrolled:
         return processAction(event); // TODO - is this right?
 
     case Event::LeftMousePressed:
@@ -284,7 +304,16 @@ void Element::setChildParent(Element* p) { p->parent = this; }
 
 void Element::render(sf::RenderTarget& target, sf::RenderStates states,
                      const Renderer& renderer) const {
-    if (visible()) doRender(target, states, renderer);
+    if (visible()) {
+        doRender(target, states, renderer);
+        if (flashTime >= 0.f) {
+            sf::RectangleShape rect({getAcquisition().width, getAcquisition().height});
+            rect.setFillColor(sf::Color(
+                255, 255, 255, 50.f + std::abs(std::sin(flashTime * 4.f * 3.1415f) * 120.f)));
+            rect.setPosition(getPosition());
+            target.draw(rect, states);
+        }
+    }
 }
 
 const RenderSettings& Element::renderSettings() const { return settings; }
@@ -342,7 +371,12 @@ void Element::bringToTop(const Element*) {}
 
 void Element::removeChild(const Element*) {}
 
-void Element::update(float) {}
+void Element::update(float dt) {
+    if (flashTime >= 0.f) {
+        flashTime += dt;
+        if (flashTime > 0.5f) { flashTime = -1.f; }
+    }
+}
 
 } // namespace gui
 } // namespace bl

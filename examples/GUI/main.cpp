@@ -164,7 +164,7 @@ int main() {
     testWindow->pack(scroll, true, true);
     gui->pack(testWindow);
 
-    /*testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
+    testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Text Window",
                                      gui::Window::Default,
                                      {150, 200});
@@ -173,7 +173,9 @@ int main() {
     testWindow->pack(entry, true, true);
     gui->pack(testWindow);
 
-    testWindow            = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
+    testWindow->setForceFocus(true);
+
+    /*testWindow            = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Notebook Window",
                                      gui::Window::Default,
                                      {10, 200});

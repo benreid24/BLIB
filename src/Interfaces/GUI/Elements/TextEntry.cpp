@@ -22,6 +22,9 @@ TextEntry::TextEntry(unsigned int lc)
     getSignal(Event::KeyPressed).willAlwaysCall(std::bind(&TextEntry::onKeypress, this, _1));
     getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&TextEntry::onClicked, this, _1));
     getSignal(Event::RenderSettingsChanged).willAlwaysCall(std::bind(&TextEntry::recalcText, this));
+    getSignal(Event::Moved).willAlwaysCall([this](const Event&, Element*) {
+        renderText.setPosition(getPosition());
+    });
 
     newlines.reserve(lineCount + 2);
     recalcText();
@@ -42,6 +45,8 @@ bool TextEntry::cursorVisible() const { return cursorShowing && visible() && has
 unsigned int TextEntry::getCursorPosition() const { return cursorPos; }
 
 void TextEntry::update(float dt) {
+    Element::update(dt);
+    
     if (hasFocus()) {
         cursorTime += dt;
         while (cursorTime > CursorFlashPeriod) {
@@ -70,7 +75,7 @@ void TextEntry::doRender(sf::RenderTarget& target, sf::RenderStates states,
 
 void TextEntry::recalcText() {
     renderText = RendererUtil::buildRenderText(input, getAcquisition(), renderSettings());
-    renderText.setPosition(0, 0);
+    renderText.setPosition(getPosition());
 }
 
 void TextEntry::recalcNewlines() {
@@ -90,7 +95,7 @@ void TextEntry::recalcNewlines() {
 void TextEntry::onInput(const Event& action) {
     if (action.type() != Event::TextEntered) return;
 
-    const uint32_t c = action.inputValue();
+    const uint32_t c = action.character();
     if (c == 8) { // backspace
         if (cursorPos > 0) {
             input.erase(cursorPos - 1, 1);

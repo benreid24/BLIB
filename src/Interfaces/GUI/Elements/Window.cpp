@@ -127,6 +127,8 @@ void Window::doRender(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 void Window::update(float dt) {
+    Element::update(dt);
+
     if (dirty()) {
         assignAcquisition({getPosition(), getRequisition()});
         markClean();

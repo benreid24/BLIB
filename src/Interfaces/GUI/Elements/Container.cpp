@@ -37,11 +37,13 @@ Container::Container()
     getSignal(Event::Moved).willAlwaysCall(std::bind(&Container::moveCb, this));
 }
 
-bool Container::releaseFocus() {
-    for (Element::Ptr e : children) {
-        if (!e->releaseFocus()) return false;
+bool Container::releaseFocus(const Element* requester) {
+    if (!Element::releaseFocus(requester)) return false;
+
+    for (Element::Ptr& e : children) {
+        if (!e->releaseFocus(requester)) return false;
     }
-    return Element::releaseFocus();
+    return true;
 }
 
 void Container::acquisitionCb() { onAcquisition(); }
@@ -102,6 +104,8 @@ bool Container::handleScroll(const Event& event) {
 }
 
 void Container::update(float dt) {
+    Element::update(dt);
+    
     if (!toRemove.empty() || clearFlag) makeDirty();
 
     if (clearFlag) {

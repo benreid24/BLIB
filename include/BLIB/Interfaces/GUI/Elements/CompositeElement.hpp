@@ -30,6 +30,15 @@ public:
      */
     virtual void update(float dt) override;
 
+    /**
+     * @brief Releases the focus of this Element, parent, and children, if not forced to stay
+     *        in focus
+     *
+     * @param requester The element requesting for focus to be cleared
+     *
+     */
+    virtual bool releaseFocus(const Element* requester) override;
+
 protected:
     /**
      * @brief Construct a new Composite Element
@@ -135,6 +144,16 @@ void CompositeElement<N>::moveCb() {
 template<std::size_t N>
 void CompositeElement<N>::acquisitionCb() {
     onAcquisition();
+}
+
+template<std::size_t N>
+bool CompositeElement<N>::releaseFocus(const Element* r) {
+    if (!Element::releaseFocus(r)) return false;
+
+    for (unsigned int i = 0; i < N; ++i) {
+        if (!children[i]->releaseFocus(r)) return false;
+    }
+    return true;
 }
 
 } // namespace gui

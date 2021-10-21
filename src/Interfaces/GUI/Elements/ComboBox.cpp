@@ -238,6 +238,7 @@ void ComboBox::scrolled(const Event& a) {
 }
 
 void ComboBox::update(float dt) {
+    Element::update(dt);
     if (opened) {
         for (Label::Ptr& option : labels) { option->update(dt); }
     }

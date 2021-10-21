@@ -43,7 +43,10 @@ void Animation::scaleToSize(const sf::Vector2f& s) {
     makeDirty();
 }
 
-void Animation::update(float dt) { animation.update(dt); }
+void Animation::update(float dt) {
+    Element::update(dt);
+    animation.update(dt);
+}
 
 sf::Vector2f Animation::minimumRequisition() const { return size.value_or(source->getMaxSize()); }
 

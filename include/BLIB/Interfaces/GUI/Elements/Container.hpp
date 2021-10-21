@@ -27,9 +27,11 @@ public:
     /**
      * @brief Releases the focus of this Element, parent, and children, if not forced to stay
      *        in focus
-     * @see Element::releaseFocus()
+     *
+     * @param requester The element requesting for focus to be cleared
+     *
      */
-    virtual bool releaseFocus() override;
+    virtual bool releaseFocus(const Element* requester) override;
 
     /**
      * @brief Performs the removal of Elements pending removal. Then updates all children.

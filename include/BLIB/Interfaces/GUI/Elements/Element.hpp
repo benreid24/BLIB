@@ -83,6 +83,12 @@ public:
     bool hasFocus() const;
 
     /**
+     * @brief Returns whether or not this element is forcing itself to stay in focus
+     *
+     */
+    bool focusIsforced() const;
+
+    /**
      * @brief Attempts to take the focus. Returns true if able to take, false otherwise
      *
      */
@@ -101,14 +107,18 @@ public:
      *        the element is not forcing itself in focus. On a false return other Elements will
      *        not be able to takeFocus()
      *
-     */
-    virtual bool releaseFocus();
-
-    /**
-     * @brief Removes the focus from ALL elements
+     * @param requester The element requesting for focus to be cleared
      *
      */
-    bool clearFocus();
+    virtual bool releaseFocus(const Element* requester = nullptr);
+
+    /**
+     * @brief Removes the focus from ALL elements unless an element is forcing itself in focus
+     *
+     * @param requester The element requesting for focus to be cleared
+     *
+     */
+    bool clearFocus(const Element* requester = nullptr);
 
     /**
      * @brief Brings this Element to the top
@@ -433,6 +443,14 @@ protected:
     void setPosition(const sf::Vector2f& pos);
 
     /**
+     * @brief Returns whether or not an element is a child of this one
+     *
+     * @param element The element to check
+     * @return True if this element is a parent of the given element
+     */
+    bool isChild(const Element* element);
+
+    /**
      * @brief Returns the Ptr to this Element
      *
      * @return Element::Ptr Ptr to this Element
@@ -459,6 +477,7 @@ private:
     bool isLeftPressed;
     bool isRightPressed;
     sf::Vector2f dragStart;
+    float flashTime;
 
     bool processAction(const Event& action);
 
