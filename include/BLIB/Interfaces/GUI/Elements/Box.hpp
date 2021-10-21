@@ -10,6 +10,8 @@ namespace bl
 {
 namespace gui
 {
+class ScrollArea;
+
 /**
  * @brief Simple Container for packing elements into a visible box on screen
  *
@@ -90,6 +92,9 @@ protected:
 
 private:
     Packer::Ptr packer;
+    bool computeView;
+
+    friend class ScrollArea;
 };
 
 } // namespace gui

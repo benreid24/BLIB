@@ -98,8 +98,11 @@ void Slider::doRender(sf::RenderTarget& target, sf::RenderStates states,
 void Slider::fireChanged() { fireSignal(Event(Event::ValueChanged, value)); }
 
 bool Slider::handleScroll(const Event& scroll) {
-    incrementValue(-scroll.scrollDelta());
-    return true;
+    if (getAcquisition().contains(scroll.mousePosition())) {
+        incrementValue(-scroll.scrollDelta());
+        return true;
+    }
+    return false;
 }
 
 void Slider::incrementValue(float incs) {

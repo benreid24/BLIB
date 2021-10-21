@@ -1,10 +1,11 @@
 #ifndef BLIB_GUI_ELEMENTS_SCROLLAREA_HPP
 #define BLIB_GUI_ELEMENTS_SCROLLAREA_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
+#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Slider.hpp>
 #include <BLIB/Interfaces/GUI/Packers/Packer.hpp>
+#include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 
 namespace bl
 {
@@ -18,7 +19,7 @@ namespace gui
  * @see Box
  *
  */
-class ScrollArea : public Container {
+class ScrollArea : public CompositeElement<3> {
 public:
     typedef std::shared_ptr<ScrollArea> Ptr;
 
@@ -123,14 +124,14 @@ protected:
      * @brief Scrolls the area and returns true
      *
      * @param scroll The scroll that occured
-     * @return True
+     * @return True if the scroll was over the area, false otherwise
      */
     virtual bool handleScroll(const Event& scroll) override;
 
 private:
-    Packer::Ptr packer;
     Slider::Ptr horScrollbar;
     Slider::Ptr vertScrollbar;
+    Box::Ptr content;
     std::optional<sf::Vector2f> maxSize;
     mutable sf::Vector2f totalSize;
     mutable sf::Vector2f availableSize;
@@ -142,6 +143,7 @@ private:
     void addBars();
     void refreshSize() const;
     void scrolled();
+    void updateContentPos();
 };
 } // namespace gui
 } // namespace bl

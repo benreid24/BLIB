@@ -131,7 +131,7 @@ int main() {
     slider->setRequisition({120, 35});
     testWindow->pack(slider);
 
-    /*testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
+    testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Test Window",
                                      gui::Window::Default,
                                      {200, 30});
@@ -164,7 +164,7 @@ int main() {
     testWindow->pack(scroll, true, true);
     gui->pack(testWindow);
 
-    testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
+    /*testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Text Window",
                                      gui::Window::Default,
                                      {150, 200});

@@ -11,7 +11,8 @@ Box::Ptr Box::create(Packer::Ptr packer) {
 
 Box::Box(Packer::Ptr packer)
 : Container()
-, packer(packer) {}
+, packer(packer)
+, computeView(true) {}
 
 void Box::setPacker(Packer::Ptr p) {
     packer = p;
@@ -33,7 +34,7 @@ void Box::pack(Element::Ptr e, bool fx, bool fy) {
 void Box::doRender(sf::RenderTarget& target, sf::RenderStates states,
                    const Renderer& renderer) const {
     renderer.renderBox(target, states, *this);
-    renderChildren(target, states, renderer);
+    renderChildren(target, states, renderer, computeView);
 }
 
 } // namespace gui
