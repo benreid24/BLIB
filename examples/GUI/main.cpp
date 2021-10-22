@@ -168,15 +168,19 @@ int main() {
                                      "Text Window",
                                      gui::Window::Default,
                                      {150, 200});
+    gui::CheckButton::Ptr check = gui::CheckButton::create("Keep focused");
+    gui::Window* tmp            = testWindow.get();
+    check->getSignal(gui::Event::ValueChanged)
+        .willAlwaysCall(
+            [tmp](const gui::Event& e, gui::Element*) { tmp->setForceFocus(e.toggleValue()); });
+    testWindow->pack(check);
     gui::TextEntry::Ptr entry = gui::TextEntry::create(4);
     entry->setRequisition({100, 20});
     testWindow->pack(entry, true, true);
     gui->pack(testWindow);
 
-    testWindow->setForceFocus(true);
-
-    /*testWindow            = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
-                                     "Notebook Window",
+    /*testWindow            =
+    gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical), "Notebook Window",
                                      gui::Window::Default,
                                      {10, 200});
     gui::Notebook::Ptr nb = gui::Notebook::create();

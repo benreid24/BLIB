@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP
 #define BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Button.hpp>
+#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
 
 namespace bl
@@ -15,7 +15,7 @@ namespace gui
  * @ingroup GUI
  *
  */
-class ToggleButton : public Button {
+class ToggleButton : public CompositeElement<3> {
 public:
     virtual ~ToggleButton() = default;
 
@@ -100,11 +100,12 @@ protected:
 
 private:
     mutable bool butsRendered;
+    Element::Ptr child;
     Canvas::Ptr activeButton;
     Canvas::Ptr inactiveButton;
     bool value;
 
-    void onAcquisition();
+    virtual void onAcquisition() override;
 };
 
 } // namespace gui
