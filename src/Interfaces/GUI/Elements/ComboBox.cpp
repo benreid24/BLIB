@@ -20,6 +20,7 @@ ComboBox::ComboBox()
     getSignal(Event::RenderSettingsChanged).willAlwaysCall(std::bind(&ComboBox::onSettings, this));
     getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&ComboBox::clicked, this));
     getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&ComboBox::onAcquisition, this));
+    getSignal(Event::Moved).willAlwaysCall(std::bind(&ComboBox::onAcquisition, this));
 }
 
 void ComboBox::setLabelColor(const sf::Color& c) {
@@ -96,9 +97,7 @@ void ComboBox::onAcquisition() {
     labelRegion.height =
         maxHeight > 0 ? std::min(maxHeight, labelRegion.height) : labelRegion.height;
 
-    arrow->scaleToSize(
-        {static_cast<float>(getAcquisition().height), static_cast<float>(getAcquisition().height)},
-        false);
+    arrow->scaleToSize({getAcquisition().height, getAcquisition().height}, false);
     Packer::manuallyPackElement(arrow,
                                 {getAcquisition().left + labelSize.x,
                                  getAcquisition().top,
@@ -163,8 +162,8 @@ void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
 
     if (opened) {
         const sf::View oldView = target.getView();
-        target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(labelRegion),
-                                                           renderer.getOriginalView()));
+        target.setView(
+            interface::ViewUtil::computeSubView(labelRegion, renderer.getOriginalView()));
         states.transform.translate(0, -scroll);
         renderer.renderComboBoxDropdownBoxes(
             target, states, *this, labelSize, opened ? options.size() : 0, moused);
@@ -191,6 +190,8 @@ void ComboBox::optionClicked(const std::string& text) {
 }
 
 void ComboBox::clicked() {
+    takeFocus();
+    moveToTop();
     opened = !opened;
     if (opened)
         packOpened();

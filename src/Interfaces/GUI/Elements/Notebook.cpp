@@ -123,8 +123,12 @@ void Notebook::onAcquisition() {
 
 void Notebook::doRender(sf::RenderTarget& target, sf::RenderStates states,
                         const Renderer& renderer) const {
+    const sf::View oldView = target.getView();
+    target.setView(
+        interface::ViewUtil::computeSubView(getAcquisition(), renderer.getOriginalView()));
     renderer.renderNotebookTabs(target, states, *this);
     if (activePage) activePage->content->render(target, states, renderer);
+    target.setView(oldView);
 }
 
 void Notebook::pageClicked(Page* page) {

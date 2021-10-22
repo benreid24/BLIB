@@ -60,6 +60,13 @@ protected:
     virtual void onAcquisition() = 0;
 
     /**
+     * @brief Does not affect child, but requests to move this element to the top as well
+     *
+     * @param child Ignored
+     */
+    virtual void bringToTop(const Element* child) override;
+
+    /**
      * @brief Sends the given event to each child (in order of registerChildren) and returns the
      *        reuslt. Optionally sends the event to all children or terminates once one consumes
      *
@@ -120,6 +127,11 @@ bool CompositeElement<N>::sendEventToChildren(const Event& e, bool s) {
         }
     }
     return r;
+}
+
+template<std::size_t N>
+void CompositeElement<N>::bringToTop(const Element*) {
+    moveToTop();
 }
 
 template<std::size_t N>

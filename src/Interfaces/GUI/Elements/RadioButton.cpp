@@ -6,16 +6,19 @@ namespace bl
 {
 namespace gui
 {
-RadioButton::Ptr RadioButton::create(const std::string& text, Group* radioGroup) {
-    return create(Label::create(text), radioGroup);
+RadioButton::Ptr RadioButton::create(const std::string& text, const std::string& name,
+                                     Group* radioGroup) {
+    return create(Label::create(text), name, radioGroup);
 }
 
-RadioButton::Ptr RadioButton::create(const Element::Ptr& child, Group* radioGroup) {
-    return Ptr(new RadioButton(child, radioGroup));
+RadioButton::Ptr RadioButton::create(const Element::Ptr& child, const std::string& name,
+                                     Group* radioGroup) {
+    return Ptr(new RadioButton(child, name, radioGroup));
 }
 
-RadioButton::RadioButton(const Element::Ptr& child, Group* radioGroup)
+RadioButton::RadioButton(const Element::Ptr& child, const std::string& n, Group* radioGroup)
 : ToggleButton(child)
+, name(n)
 , myGroup(this)
 , rgroup(radioGroup ? radioGroup : &myGroup) {
     rgroup->buttons.push_back(this);
@@ -75,6 +78,8 @@ void RadioButton::Group::removeButton(RadioButton* but) {
         }
     }
 }
+
+const std::string& RadioButton::getName() const { return name; }
 
 } // namespace gui
 } // namespace bl

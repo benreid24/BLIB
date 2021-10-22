@@ -183,9 +183,8 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const {
     // Preserve old view and compute new
     const sf::View oldView = target.getView();
-    sf::View view = interface::ViewUtil::computeSubView(sf::FloatRect{getPosition(), availableSize},
-                                                        renderer.getOriginalView());
-    target.setView(view);
+    target.setView(interface::ViewUtil::computeSubView(sf::FloatRect{getPosition(), availableSize},
+                                                       renderer.getOriginalView()));
 
     // Render content
     content->render(target, states, renderer);
@@ -199,6 +198,8 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 void ScrollArea::updateContentPos() { content->setPosition(getPosition() + offset); }
+
+void ScrollArea::clearChildren(bool immediate) { content->clearChildren(immediate); }
 
 } // namespace gui
 } // namespace bl

@@ -14,6 +14,8 @@ Box::Box(Packer::Ptr packer)
 , packer(packer)
 , computeView(true) {}
 
+void Box::setConstrainView(bool c) { computeView = c; }
+
 void Box::setPacker(Packer::Ptr p) {
     packer = p;
     makeDirty();

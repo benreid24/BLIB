@@ -36,6 +36,13 @@ public:
     virtual ~Box() = default;
 
     /**
+     * @brief Set whether or not to constrain the render view. Default is true
+     *
+     * @param constrain True to constrain rendering to the acquisition
+     */
+    void setConstrainView(bool constrain);
+
+    /**
      * @brief Update the Packer used. Marks the Element as dirty
      *
      */

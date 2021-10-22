@@ -79,6 +79,14 @@ public:
      */
     void pack(const Element::Ptr& e, bool fillX, bool fillY);
 
+    /**
+     * @brief Removes and unpacks all child elements
+     *
+     * @param immediate True to clear all children immediately, false to wait until update()
+     *
+     */
+    void clearChildren(bool immediate);
+
 protected:
     /**
      * @brief Create a new ScrollArea

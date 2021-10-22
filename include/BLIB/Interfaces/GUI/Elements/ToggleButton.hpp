@@ -1,8 +1,8 @@
 #ifndef BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP
 #define BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
+#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 
 namespace bl
 {
@@ -98,14 +98,18 @@ protected:
      */
     virtual void onClick();
 
+    /**
+     * @brief Called when acquisition changes. Packs child elements
+     *
+     */
+    virtual void onAcquisition() override;
+
 private:
     mutable bool butsRendered;
     Element::Ptr child;
     Canvas::Ptr activeButton;
     Canvas::Ptr inactiveButton;
     bool value;
-
-    virtual void onAcquisition() override;
 };
 
 } // namespace gui

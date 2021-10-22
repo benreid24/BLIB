@@ -52,19 +52,23 @@ public:
      * @brief Create a new RadioButton with a Label as it's child
      *
      * @param text The text to put to the right of the check box
+     * @name Name to identify this button in the group
      * @param radioGroup The group of buttons for selection. Leave nullptr for new group
      * @return Ptr The new button
      */
-    static Ptr create(const std::string& text, Group* radioGroup = nullptr);
+    static Ptr create(const std::string& text, const std::string& name,
+                      Group* radioGroup = nullptr);
 
     /**
      * @brief Create a new RadioButton with any child to its right
      *
      * @param child The element to put to the right of the check box
+     * @name Name to identify this button in the group
      * @param radioGroup The group of buttons for selection. Leave nullptr for new group
      * @return Ptr The new button
      */
-    static Ptr create(const Element::Ptr& child, Group* radioGroup = nullptr);
+    static Ptr create(const Element::Ptr& child, const std::string& name,
+                      Group* radioGroup = nullptr);
 
     /**
      * @brief Removes this button from the group
@@ -78,14 +82,21 @@ public:
      */
     Group* getRadioGroup();
 
+    /**
+     * @brief Get the name of this button
+     *
+     */
+    const std::string& getName() const;
+
 protected:
     /**
      * @brief Create a new RadioButton with any child to its right
      *
      * @param child The element to put to the right of the check box
+     * @name Name to identify this button in the group
      * @param radioGroup The group of buttons for selection. Leave nullptr for new group
      */
-    RadioButton(const Element::Ptr& child, Group* radioGroup);
+    RadioButton(const Element::Ptr& child, const std::string& name, Group* radioGroup);
 
     /**
      * @brief Renders the unchecked and checked box
@@ -104,6 +115,7 @@ protected:
     virtual void onClick() override;
 
 private:
+    const std::string name;
     Group myGroup;
     Group* rgroup;
 

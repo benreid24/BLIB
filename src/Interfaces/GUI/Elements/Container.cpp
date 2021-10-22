@@ -105,7 +105,7 @@ bool Container::handleScroll(const Event& event) {
 
 void Container::update(float dt) {
     Element::update(dt);
-    
+
     if (!toRemove.empty() || clearFlag) makeDirty();
 
     if (clearFlag) {
@@ -134,9 +134,13 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
     const sf::View oldView = target.getView();
 
     // Compute new view
-    const sf::View view = interface::ViewUtil::computeSubView(sf::FloatRect{getAcquisition()},
-                                                              renderer.getOriginalView());
-    if (changeView) { target.setView(view); }
+
+    if (changeView) {
+        sf::View view = interface::ViewUtil::computeSubView(sf::FloatRect{getAcquisition()},
+                                                            renderer.getOriginalView());
+        interface::ViewUtil::constrainView(view, oldView);
+        target.setView(view);
+    }
 
     // Draw children
     for (auto it = zorder.rbegin(); it != zorder.rend(); ++it) {

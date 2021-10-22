@@ -17,15 +17,14 @@ Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim, bool c)
     animation.setIsCentered(centered);
     animation.play();
 
-    getSignal(Event::AcquisitionChanged).willAlwaysCall([this](const Event&, Element*) {
+    const auto updatePos = [this](const Event&, Element*) {
         const sf::Vector2f offset =
-            centered ? sf::Vector2f{static_cast<float>(getAcquisition().width) * 0.5f,
-                                    static_cast<float>(getAcquisition().height) * 0.5f} :
+            centered ? sf::Vector2f{getAcquisition().width * 0.5f, getAcquisition().height * 0.5f} :
                        sf::Vector2f{0.f, 0.f};
-        animation.setPosition(sf::Vector2f{static_cast<float>(getAcquisition().left),
-                                           static_cast<float>(getAcquisition().top)} +
-                              offset);
-    });
+        animation.setPosition(getPosition() + offset);
+    };
+    getSignal(Event::AcquisitionChanged).willAlwaysCall(updatePos);
+    getSignal(Event::Moved).willAlwaysCall(updatePos);
 }
 
 void Animation::setAnimation(resource::Resource<gfx::AnimationData>::Ref src, bool c) {
@@ -40,6 +39,7 @@ void Animation::setAnimation(resource::Resource<gfx::AnimationData>::Ref src, bo
 
 void Animation::scaleToSize(const sf::Vector2f& s) {
     size = s;
+    animation.setScale({s.x / source->getMaxSize().x, s.y / source->getMaxSize().y});
     makeDirty();
 }
 
@@ -51,10 +51,6 @@ void Animation::update(float dt) {
 sf::Vector2f Animation::minimumRequisition() const { return size.value_or(source->getMaxSize()); }
 
 void Animation::doRender(sf::RenderTarget& target, sf::RenderStates states, const Renderer&) const {
-    if (size.has_value()) {
-        const sf::Vector2f& s = size.value();
-        states.transform.scale({s.x / source->getMaxSize().x, s.y / source->getMaxSize().y});
-    }
     target.draw(animation, states);
 }
 
