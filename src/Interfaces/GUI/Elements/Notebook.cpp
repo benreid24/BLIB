@@ -7,19 +7,21 @@ namespace bl
 {
 namespace gui
 {
-Notebook::Ptr Notebook::create() { return Ptr(new Notebook()); }
+Notebook::Ptr Notebook::create() {
+    Ptr nb(new Notebook());
+    nb->add(nb->tabArea);
+    return nb;
+}
 
 Notebook::Notebook()
-: Element()
+: Container()
 , tabArea(Box::create(LinePacker::create()))
-, activePage(0) {
+, activePage(nullptr)
+, activePageIndex(0) {
     tabArea->setExpandsWidth(true);
     tabArea->setExpandsHeight(true);
     getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Notebook::onAcquisition, this));
-}
-
-Notebook::~Notebook() {
-    while (!pages.empty()) removePageByIndex(0);
+    getSignal(Event::Moved).willAlwaysCall(std::bind(&Notebook::onMove, this));
 }
 
 Notebook::Page::Page(const std::string& name, const Label::Ptr& label, const Element::Ptr& content,
@@ -36,64 +38,65 @@ void Notebook::addPage(const std::string& name, const std::string& title,
     if (pageMap.find(name) == pageMap.end()) {
         Label::Ptr label = Label::create(title);
         label->setRequisition(label->getRequisition() + sf::Vector2f(6.f, 6.f));
-        pages.push_back(new Page(name, label, content, onOpen, onClose));
-        pageMap[name] = std::make_pair(pages.size() - 1, pages.back());
-
-        pages.back()->content->skipPacking(true);
-        pages.back()->content->setVisible(false);
-        pages.back()->content->setExpandsWidth(true);
-        pages.back()->content->setExpandsHeight(true);
-        tabArea->pack(pages.back()->label, false, true);
-        pages.back()
-            ->label->getSignal(Event::LeftClicked)
-            .willAlwaysCall(std::bind(&Notebook::pageClicked, this, pages.back()));
+        const auto it = pages.emplace(pages.end(), name, label, content, onOpen, onClose);
+        Page& p       = *it;
+        p.content->skipPacking(true);
+        p.content->setVisible(false);
+        p.content->setExpandsWidth(true);
+        p.content->setExpandsHeight(true);
+        add(p.content);
+        tabArea->pack(p.label, false, true);
+        p.label->getSignal(Event::LeftClicked)
+            .willAlwaysCall(std::bind(&Notebook::pageClicked, this, &p));
 
         if (pages.size() == 1) makePageActive(0);
     }
 }
 
-Notebook::Page* Notebook::getActivePage() const {
-    if (activePage < pages.size()) return pages[activePage];
-    return nullptr;
-}
+Notebook::Page* Notebook::getActivePage() const { return activePage; }
 
-unsigned int Notebook::getActivePageIndex() const { return activePage; }
+unsigned int Notebook::getActivePageIndex() const { return activePageIndex; }
 
 unsigned int Notebook::pageCount() const { return pages.size(); }
 
-const std::vector<Notebook::Page*>& Notebook::getPages() const { return pages; }
+const std::list<Notebook::Page>& Notebook::getPages() const { return pages; }
 
 const std::string& Notebook::getActivePageName() const {
     static const std::string empty;
-    if (activePage < pages.size()) return pages[activePage]->name;
-    return empty;
+    return activePage ? activePage->name : empty;
 }
 
 Notebook::Page* Notebook::getPageByIndex(unsigned int i) {
-    if (i < pages.size()) return pages[i];
-    return nullptr;
+    auto it = getIterator(i);
+    return it != pages.end() ? &(*it) : nullptr;
 }
 
 Notebook::Page* Notebook::getPageByName(const std::string& name) {
-    auto i = pageMap.find(name);
-    if (i != pageMap.end()) return i->second.second;
-    return nullptr;
+    const auto it = pageMap.find(name);
+    return it != pageMap.end() ? &(*it->second) : nullptr;
 }
 
 void Notebook::removePageByIndex(unsigned int i) {
     if (i < pages.size()) {
-        pages[i]->label->remove();
-        pages[i]->content->remove();
-        pageMap.erase(pages[i]->name);
+        const auto it = getIterator(i);
+        it->label->remove();
+        it->content->remove();
+        pageMap.erase(it->name);
         if (i > 0) makePageActive(i - 1);
-        delete pages[i];
-        pages.erase(pages.begin() + i);
+        pages.erase(it);
     }
 }
 
 void Notebook::removePageByName(const std::string& name) {
-    auto i = pageMap.find(name);
-    if (i != pageMap.end()) removePageByIndex(i->second.first);
+    const auto it = pageMap.find(name);
+    if (it != pageMap.end()) {
+        auto pit = it->second;
+        pit->label->remove();
+        pit->content->remove();
+        pageMap.erase(pit->name);
+        if (pages.size() > 1) makePageActive(0);
+        pages.erase(pit);
+    }
 }
 
 const sf::FloatRect& Notebook::getTabAcquisition() const { return tabArea->getAcquisition(); }
@@ -101,8 +104,8 @@ const sf::FloatRect& Notebook::getTabAcquisition() const { return tabArea->getAc
 sf::Vector2f Notebook::minimumRequisition() const {
     const sf::Vector2f tabReq = tabArea->getRequisition();
     sf::Vector2f contentReq(0, 0);
-    for (unsigned int i = 0; i < pages.size(); ++i) {
-        const sf::Vector2f creq = pages[i]->content->getRequisition();
+    for (const Page& p : pages) {
+        const sf::Vector2f creq = p.content->getRequisition();
         contentReq.x            = std::max(contentReq.x, creq.x);
         contentReq.y            = std::max(contentReq.y, creq.y);
     }
@@ -115,40 +118,62 @@ void Notebook::onAcquisition() {
                                  getAcquisition().top,
                                  getAcquisition().width,
                                  tabArea->getRequisition().y});
-    contentArea = {getAcquisition().left + 2,
-                   getAcquisition().top + tabArea->getRequisition().y + 2,
-                   getAcquisition().width - 4,
-                   getAcquisition().height - tabArea->getRequisition().y - 4};
-    if (activePage < pages.size())
-        Packer::manuallyPackElement(pages[activePage]->content, contentArea);
+    if (activePage) Packer::manuallyPackElement(activePage->content, contentArea());
 }
 
 void Notebook::doRender(sf::RenderTarget& target, sf::RenderStates states,
                         const Renderer& renderer) const {
-    const sf::View oldView = target.getView();
-    target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(getAcquisition()),
-                                                       renderer.getOriginalView()));
-    renderer.renderNotebook(target, states, *this);
-    target.setView(oldView);
+    renderer.renderNotebookTabs(target, states, *this);
+    if (activePage) activePage->content->render(target, states, renderer);
 }
 
 void Notebook::pageClicked(Page* page) {
-    auto i = pageMap.find(page->name);
-    if (i != pageMap.end()) makePageActive(i->second.first);
+    unsigned int i = 0;
+    for (const Page& p : pages) {
+        if (&p == page) {
+            makePageActive(i);
+            break;
+        }
+        ++i;
+    }
 }
 
 void Notebook::makePageActive(unsigned int i) {
     if (i < pages.size()) {
-        if (activePage < pages.size()) {
-            pages[activePage]->content->setVisible(false, false);
-            if (i != activePage) pages[activePage]->onClose();
+        Page* np = &(*getIterator(i));
+        if (activePage) {
+            activePage->content->setVisible(false, false);
+            if (np != activePage && activePage) activePage->onClose();
         }
-        pages[i]->content->setVisible(true, false);
-        pages[i]->content->moveToTop();
-        Packer::manuallyPackElement(pages[i]->content, contentArea);
-        if (i != activePage) pages[i]->onOpen();
-        activePage = i;
+        np->content->setVisible(true, false);
+        np->content->moveToTop();
+        Packer::manuallyPackElement(np->content, contentArea());
+        if (np != activePage) np->onOpen();
+        activePage = np;
     }
+}
+
+void Notebook::onMove() {
+    tabArea->recalculatePosition();
+    for (Page& p : pages) { p.content->recalculatePosition(); }
+}
+
+std::list<Notebook::Page>::iterator Notebook::getIterator(unsigned int i) {
+    auto it = pages.begin();
+    for (unsigned int j = 0; j < i; ++j) {
+        if (it != pages.end()) { ++it; }
+        else {
+            break;
+        }
+    }
+    return it;
+}
+
+sf::FloatRect Notebook::contentArea() const {
+    return {getAcquisition().left + 2,
+            getAcquisition().top + tabArea->getRequisition().y + 2,
+            getAcquisition().width - 4,
+            getAcquisition().height - tabArea->getRequisition().y - 4};
 }
 
 } // namespace gui

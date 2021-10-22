@@ -230,8 +230,8 @@ void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::Rende
     }
 }
 
-void DefaultRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates states,
-                                     const Notebook& nb) const {
+void DefaultRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderStates states,
+                                         const Notebook& nb) const {
     if (!viewValid(target.getView())) return;
 
     static const RenderSettings defaults = getNotebookDefaults();
@@ -239,22 +239,19 @@ void DefaultRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates 
 
     RendererUtil::renderRectangle(target, states, nb.getAcquisition(), settings, defaults);
     RendererUtil::renderRectangle(target, states, nb.getTabAcquisition(), settings, defaults, true);
-    for (unsigned int i = 0; i < nb.getPages().size(); ++i) {
-        Notebook::Page* page       = nb.getPages()[i];
+    for (const Notebook::Page& page : nb.getPages()) {
         RenderSettings tabSettings = settings;
-        if (i != nb.getActivePageIndex()) {
+        if (&page != nb.getActivePage()) {
             tabSettings.fillColor = shiftColor(
                 tabSettings.fillColor.value_or(defaults.fillColor.value()), -25, -25, -25);
         }
         else
             tabSettings.outlineThickness = 0;
         RendererUtil::renderRectangle(
-            target, states, page->label->getAcquisition(), tabSettings, defaults);
-        page->label->render(target, states, *this);
-        renderMouseoverOverlay(target, states, page->label.get());
+            target, states, page.label->getAcquisition(), tabSettings, defaults);
+        page.label->render(target, states, *this);
+        renderMouseoverOverlay(target, states, page.label.get());
     }
-    Notebook::Page* active = nb.getActivePage();
-    if (active) active->content->render(target, states, *this);
 }
 
 void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,

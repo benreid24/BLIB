@@ -147,8 +147,8 @@ public:
      * @param states RenderStates to apply
      * @param notebook Notebook to render
      */
-    virtual void renderNotebook(sf::RenderTarget& target, sf::RenderStates states,
-                                const Notebook& notebook) const = 0;
+    virtual void renderNotebookTabs(sf::RenderTarget& target, sf::RenderStates states,
+                                    const Notebook& notebook) const = 0;
 
     /**
      * @brief Renders a ProgressBar element

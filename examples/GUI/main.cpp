@@ -179,8 +179,8 @@ int main() {
     testWindow->pack(entry, true, true);
     gui->pack(testWindow);
 
-    /*testWindow            =
-    gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical), "Notebook Window",
+    testWindow            = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
+                                     "Notebook Window",
                                      gui::Window::Default,
                                      {10, 200});
     gui::Notebook::Ptr nb = gui::Notebook::create();
@@ -203,7 +203,7 @@ int main() {
     box->pack(gui::RadioButton::create("Could be me", radio->getRadioGroup()));
     nb->addPage("page4", "Radio buttons", box);
     testWindow->pack(nb, true, true);
-    gui->pack(testWindow); */
+    gui->pack(testWindow);
 
     bool showBoxes = false;
     sf::Clock timer;
