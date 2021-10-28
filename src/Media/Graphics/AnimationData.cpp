@@ -42,21 +42,26 @@ bool AnimationData::load(const std::string& filename) {
     if (!file.read(loop)) return false;
 
     uint16_t nFrames = 0;
+    std::vector<Frame> frameData;
     if (!file.read(nFrames)) return false;
-    frames.reserve(nFrames);
+    frameData.reserve(nFrames);
+    lengths.reserve(nFrames);
     for (unsigned int i = 0; i < nFrames; ++i) {
-        Frame frame;
+        frameData.emplace_back();
+        Frame& frame = frameData.back();
 
         uint32_t length;
         if (!file.read(length)) return false;
-        frame.length = static_cast<float>(length) / 1000.0f;
+        lengths.emplace_back(static_cast<float>(length) / 1000.0f);
 
-        Frame::Shard shard;
         uint16_t nShards = 0;
         if (!file.read(nShards)) return false;
         frame.shards.reserve(nShards);
 
         for (unsigned int j = 0; j < nShards; ++j) {
+            frame.shards.emplace_back();
+            Frame::Shard& shard = frame.shards.back();
+
             uint32_t u32;
             int32_t s32;
             if (!file.read(u32)) return false;
@@ -80,9 +85,23 @@ bool AnimationData::load(const std::string& filename) {
             if (!file.read(shard.alpha)) return false;
             frame.shards.push_back(shard);
         }
-        frames.push_back(frame);
-        totalLength += frame.length;
+        totalLength += lengths.back();
     }
+
+    frames.reserve(frameData.size());
+    for (const Frame& frame : frameData) {
+        frames.emplace_back(
+            sf::PrimitiveType::Quads, sf::VertexBuffer::Usage::Static, frame.shards.size() * 4);
+        unsigned int offset = 0;
+        for (const Frame::Shard& shard : frame.shards) {
+            shard.apply(frames.back(), offset);
+            offset += 4;
+        }
+        frames.back().update();
+    }
+
+    sizes.reserve(frames.size());
+    for (unsigned int i = 0; i < frames.size(); ++i) { sizes.emplace_back(computeFrameSize(i)); }
 
     return true;
 }
@@ -95,24 +114,23 @@ float AnimationData::getLength() const { return totalLength; }
 
 unsigned int AnimationData::frameCount() const { return frames.size(); }
 
-sf::Vector2f AnimationData::getFrameSize(unsigned int i) const {
+sf::Vector2f AnimationData::computeFrameSize(unsigned int i) const {
     if (i >= frames.size()) return {0, 0};
 
-    const Frame& frame = frames[i];
-    sf::FloatRect bounds(0, 0, 0, 0);
-    sf::Sprite sprite(*spritesheet);
-    for (unsigned int j = 0; j < frame.shards.size(); ++j) {
-        frame.shards[j].apply(sprite);
-        bounds.left = std::min(bounds.left, sprite.getGlobalBounds().left);
-        bounds.top  = std::min(bounds.top, sprite.getGlobalBounds().top);
-        bounds.width =
-            std::max(bounds.width, sprite.getGlobalBounds().left + sprite.getGlobalBounds().width);
-        bounds.height =
-            std::max(bounds.height, sprite.getGlobalBounds().top + sprite.getGlobalBounds().height);
+    const VertexBuffer& frame = frames[i];
+    sf::FloatRect bounds(1000000.f, 1000000.f, -1000000.f, -1000000.f);
+    for (unsigned int i = 0; i < frame.size(); ++i) {
+        const auto& pos = frame[i].position;
+        bounds.left     = std::min(bounds.left, pos.x);
+        bounds.top      = std::min(bounds.top, pos.y);
+        bounds.width    = std::max(bounds.width, pos.x);
+        bounds.height   = std::max(bounds.height, pos.y);
     }
 
     return {bounds.width - bounds.left, bounds.height - bounds.top};
 }
+
+const sf::Vector2f& AnimationData::getFrameSize(unsigned int i) const { return sizes[i]; }
 
 sf::Vector2f AnimationData::getMaxSize() const {
     sf::Vector2f max(0, 0);
@@ -124,45 +142,46 @@ sf::Vector2f AnimationData::getMaxSize() const {
     return max;
 }
 
-void AnimationData::render(sf::RenderTarget& target, sf::RenderStates states, float elapsedTime,
+void AnimationData::render(sf::RenderTarget& target, sf::RenderStates states,
                            const sf::Vector2f& pos, const sf::Vector2f& scale, float rotation,
-                           bool centerOnOrigin, bool loopOverride, bool canLoop) const {
+                           bool centerOnOrigin, unsigned int i) const {
     if (frames.empty()) return;
 
-    const bool isLoop = loopOverride ? canLoop : loop;
-    unsigned int i    = 0;
-
-    if (isLoop || elapsedTime <= totalLength) {
-        elapsedTime -= std::floor(elapsedTime / totalLength);
-        while (elapsedTime > 0) {
-            if (frames[i].length > elapsedTime) break;
-            elapsedTime -= frames[i].length;
-            if (i >= frames.size() - 1) break;
-            i += 1;
-        }
-    }
-
-    const Frame& frame = frames[i];
-    sf::Sprite s(*spritesheet);
-    for (unsigned int j = 0; j < frame.shards.size(); ++j) {
-        frame.shards[j].apply(s, scale, rotation, centerOnOrigin);
-        s.move(pos);
-        target.draw(s, states);
-    }
+    const VertexBuffer& frame = frames[i];
+    states.texture            = spritesheet.get();
+    states.transform.translate(pos);
+    if (!centerOnOrigin) { states.transform.translate(sizes[i] * 0.5f); }
+    states.transform.rotate(rotation);
+    states.transform.scale(scale);
+    target.draw(frame, states);
 }
 
-void AnimationData::Frame::Shard::apply(sf::Sprite& s, const sf::Vector2f& sc, float rot,
-                                        bool co) const {
-    const sf::Vector2f center(source.width / 2, source.height / 2);
-    s.setRotation(0);
-    s.setTextureRect(source);
-    s.setOrigin(center);
-    s.setPosition(posOffset + center); // TODO - transform the offset by the rotation
-    s.setScale(scale);
-    s.scale(sc);
-    if (co) s.move(-s.getGlobalBounds().width / 2, -s.getGlobalBounds().height / 2);
-    s.setRotation(rotation + rot);
-    s.setColor(sf::Color(255, 255, 255, alpha));
+void AnimationData::Frame::Shard::apply(VertexBuffer& buffer, unsigned int offset) const {
+    for (unsigned int i = 0; i < 4; ++i) {
+        buffer[offset + i].color = sf::Color(255, 255, 255, alpha);
+    }
+    const sf::FloatRect s(source);
+    buffer[offset].texCoords     = {s.left, s.top};
+    buffer[offset + 1].texCoords = {s.left + s.width, s.top};
+    buffer[offset + 2].texCoords = {s.left + s.width, s.top + s.height};
+    buffer[offset + 3].texCoords = {s.left, s.top + s.height};
+
+    sf::Vector2f halfSize(s.width * 0.5f, s.height * 0.5f);
+    halfSize.x *= scale.x;
+    halfSize.y *= scale.y;
+    const sf::Vector2f points[] = {{-halfSize.x, -halfSize.y},
+                                   {halfSize.x, -halfSize.y},
+                                   {halfSize.x, halfSize.y},
+                                   {-halfSize.x, halfSize.y}};
+    const float r               = rotation / 180.f * 3.1415926f;
+    const float cosA            = std::cos(r);
+    const float sinA            = std::sin(r);
+    for (unsigned int i = 0; i < 4; ++i) {
+        sf::Vertex& vertex = buffer[offset + i];
+        vertex.position.x  = posOffset.x + points[i].x * cosA - points[i].y * sinA;
+        vertex.position.y  = posOffset.y + points[i].x * sinA + points[i].y * cosA;
+        vertex.position -= halfSize - sf::Vector2f{s.width * 0.5f, s.height * 0.5f};
+    }
 }
 
 } // namespace gfx

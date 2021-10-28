@@ -130,7 +130,8 @@ public:
 private:
     AnimationData* data;
     bool isPlaying;
-    float animTime;
+    unsigned int frame;
+    float frameTime;
 
     bool centerOrigin;
     sf::Vector2f position;
