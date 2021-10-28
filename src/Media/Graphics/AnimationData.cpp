@@ -150,7 +150,11 @@ void AnimationData::render(sf::RenderTarget& target, sf::RenderStates states,
     const VertexBuffer& frame = frames[i];
     states.texture            = spritesheet.get();
     states.transform.translate(pos);
-    if (!centerOnOrigin) { states.transform.translate(sizes[i] * 0.5f); }
+    if (!centerOnOrigin) {
+        const float sx = sizes[i].x * scale.x;
+        const float sy = sizes[i].y * scale.y;
+        states.transform.translate(sx * 0.5f, sy * 0.5f);
+    }
     states.transform.rotate(rotation);
     states.transform.scale(scale);
     target.draw(frame, states);

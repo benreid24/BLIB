@@ -1,7 +1,5 @@
 #include <BLIB/Media/Graphics/Animation.hpp>
 
-#include <cmath>
-
 namespace bl
 {
 /// Collection of graphical utilities and functionality
