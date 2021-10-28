@@ -322,24 +322,24 @@ void DefaultRenderer::renderSliderButton(sf::RenderTexture& texture, bool hor,
                                          bool increasing) const {
     texture.clear(sf::Color::Transparent);
 
-    const float cosRatio      = cos(45.f / 180.f * 3.1415f);
-    const sf::Vector2f center = static_cast<sf::Vector2f>(texture.getSize()) / 2.f;
-    const float halfWidth     = static_cast<float>(texture.getSize().x) * 0.20f;
+    const float cosRatio      = std::cos(45.f / 180.f * 3.1415f);
+    const sf::Vector2f center = static_cast<sf::Vector2f>(texture.getSize()) * 0.5f;
+    const float halfWidth     = static_cast<float>(texture.getSize().x) * 0.08f;
     const float rectWidth     = halfWidth / cosRatio;
-    const float rectHeight    = static_cast<float>(texture.getSize().y) * 0.08f;
+    const float rectHeight    = static_cast<float>(texture.getSize().y) * 0.06f;
 
     sf::RenderTexture subtexture;
     subtexture.create(texture.getSize().x, texture.getSize().y);
     subtexture.clear(sf::Color::Transparent);
 
     sf::RectangleShape rect({rectWidth, rectHeight});
-    rect.setOrigin(rectWidth / 2, rectHeight / 2);
+    rect.setOrigin(rectWidth * 0.5f, rectHeight * 0.5f);
     rect.setFillColor(sf::Color::Black);
-    rect.setRotation(45);
-    rect.setPosition(center.x + halfWidth / 2 * cosRatio, center.y * 1.1);
+    rect.setRotation(45.f);
+    rect.setPosition(center.x + halfWidth * 0.5f * cosRatio, center.y * 1.f);
     subtexture.draw(rect);
-    rect.setRotation(-45);
-    rect.setPosition(center.x - halfWidth / 2 * cosRatio, center.y * 1.1);
+    rect.setRotation(-45.f);
+    rect.setPosition(center.x - halfWidth * 0.5f * cosRatio, center.y * 1.f);
     subtexture.draw(rect);
 
     sf::Sprite sprite(subtexture.getTexture());
