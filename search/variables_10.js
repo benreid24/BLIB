@@ -1,17 +1,14 @@
 var searchData=
 [
-  ['scale',['scale',['../a01448.html#a23522c410eb08a859fb0c03c0fca5339',1,'bl::gfx::AnimationData::Frame::Shard']]],
-  ['scroll',['scroll',['../a01200.html#a1cd7b64abf7308d5c89e1b796bb7a8f7',1,'bl::gui::Action::TData']]],
-  ['secondaryfillcolor',['secondaryFillColor',['../a01328.html#aca7a4bea8ddb58cd57842c2231eb3ff8',1,'bl::gui::RenderSettings']]],
-  ['secondaryoutlinecolor',['secondaryOutlineColor',['../a01328.html#af47d879866dc2be0e874ce22665f4239',1,'bl::gui::RenderSettings']]],
-  ['secondaryoutlinethickness',['secondaryOutlineThickness',['../a01328.html#a58d461eddf2560948ecc666a393d1321',1,'bl::gui::RenderSettings']]],
-  ['set',['set',['../a01476.html#a9779fed8e5279e369f0b1d637031836a',1,'bl::parser::Grammar::Production']]],
-  ['size',['size',['../a00876.html#acb544d885f87e7b8ea2e5568dae02989',1,'bl::container::QuadTree::Area']]],
-  ['sound',['sound',['../a01420.html#accadfbcf31d068cd8969e31c2e0080ff',1,'bl::audio::AudioSystem::Sound']]],
-  ['source',['source',['../a01448.html#ac0b2e7af521ac19ef0386258b89c0ea1',1,'bl::gfx::AnimationData::Frame::Shard']]],
-  ['sourcecolumn',['sourceColumn',['../a01492.html#a2aefdf0aa8a0c54c4ea10899895b4baa',1,'bl::parser::Node']]],
-  ['sourceline',['sourceLine',['../a01492.html#aedefe68f7194aeccd75aad71dfd8ca7d',1,'bl::parser::Node']]],
-  ['stdtosfmlrotationoffset',['StdToSFMLRotationOffset',['../a01584.html#adfa905681992e5a43707f162ca355e96',1,'bl::util::AngularVector']]],
-  ['style',['style',['../a01328.html#a8af9da3d15afc6ebd6d24466b505db3f',1,'bl::gui::RenderSettings']]],
-  ['subtype',['subtype',['../a01196.html#ab4b653d2e286152f98b597fb6ff9c929',1,'bl::gui::Action::CustomData']]]
+  ['text',['text',['../a00584.html#a6d372f7ea1f537bfbc73492e24ef8623',1,'DefaultRenderer.cpp']]],
+  ['tinyfd_5fallowcursesdialogs',['tinyfd_allowCursesDialogs',['../a00756.html#a16a68fa154b12e7b532e97db642f904b',1,'bl::dialog']]],
+  ['tinyfd_5fassumegraphicdisplay',['tinyfd_assumeGraphicDisplay',['../a00756.html#a90beabad06e8fcde1936876c71f84620',1,'bl::dialog']]],
+  ['tinyfd_5fforceconsole',['tinyfd_forceConsole',['../a00756.html#a9923360971d286c260685d8147a8b077',1,'bl::dialog']]],
+  ['tinyfd_5fneeds',['tinyfd_needs',['../a00756.html#a5796a725b4ffe28b362d1327db71fb03',1,'bl::dialog']]],
+  ['tinyfd_5fresponse',['tinyfd_response',['../a00756.html#a90ce40a9dccff59e6fd6760d377dbbe0',1,'bl::dialog']]],
+  ['tinyfd_5fsilent',['tinyfd_silent',['../a00756.html#ab679ee1556c3d4f7f099f083f31113c4',1,'bl::dialog']]],
+  ['tinyfd_5fverbose',['tinyfd_verbose',['../a00756.html#a3c52e0e98b50e117ae837752c5826c33',1,'bl::dialog']]],
+  ['tinyfd_5fversion',['tinyfd_version',['../a00756.html#aa90af71434f12133b420a4986d8be418',1,'bl::dialog']]],
+  ['trace',['Trace',['../a01393.html#a74e5da1abfb366b222375bf333369421',1,'bl::logging::Config']]],
+  ['type',['type',['../a01321.html#a8afc2c88a59747bfdf14797715dcb338',1,'bl::menu::Event::type()'],['../a01485.html#aef8e0b4138b7e6a645fea5049565c78a',1,'bl::parser::Node::type()']]]
 ];

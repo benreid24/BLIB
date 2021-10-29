@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Binary</title>
+<title>BLIB: Menu</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,38 +66,59 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Binary<div class="ingroups"><a class="el" href="a00724.html">Files</a></div></div>  </div>
+<div class="title">Menu<div class="ingroups"><a class="el" href="a00722.html">Interface</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes for encoding and decoding data into endian agnostic binary files. Core class is File.  
+<p>A mouseless menu that accepts basic inputs and defers rendering to the client.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01040.html">bl::file::binary::File</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to read and write binary data. Endianness agnostic Floating point types are not supported. To store floating point values, simply store an integral type and multiply/divide on save/load.  <a href="a01040.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01321.html">bl::menu::Event</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data struct representing an event in a <a class="el" href="a01353.html" title="Primary class for mouseless menus. ">Menu</a>.  <a href="a01321.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01044.html">bl::file::binary::SerializableFieldBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for binary serializable fields. Do not use.  <a href="a01044.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html">bl::menu::KeyboardEventGenerator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic helper class to map keyboard input to menu events.  <a href="a01341.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html">bl::file::binary::SerializableObject</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for user defined objects that can be serialized in binary files. Data fields to be serialized should be stored as <a class="el" href="a01048.html" title="Template class that represents a serializable field for File use. Strings and integral types are supp...">SerializableField</a> objects.  <a href="a01052.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01345.html">bl::menu::MouseEventGenerator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic helper class to map mouse input to menu events.  <a href="a01345.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01056.html">bl::file::binary::Serializer&lt; T, bool &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for serializing types into binary files. Integral types, strings, vector, and SerializableObjects are supported out of the box. Specializations may be provided for user defined types.  <a href="a01056.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01349.html">bl::menu::Item</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01349.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> for a mouseless menu. Can be 'attached' to other items in a <a class="el" href="a01353.html" title="Primary class for mouseless menus. ">Menu</a>, configured to be selectable, and can trigger a signal if selected.  <a href="a01349.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01100.html">bl::file::binary::VersionedPayloadLoader&lt; Payload &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base interface for payload loaders. <a class="el" href="a01040.html" title="Utility class to read and write binary data. Endianness agnostic Floating point types are not support...">File</a> version loaders should implement this interface.  <a href="a01100.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01353.html">bl::menu::Menu</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary class for mouseless menus.  <a href="a01353.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01357.html">bl::menu::Renderer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base renderer class for <a class="el" href="a01353.html" title="Primary class for mouseless menus. ">Menu</a> renderers.  <a href="a01357.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01361.html">bl::menu::BasicRenderer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic renderer that renders items with padding and alignment.  <a href="a01361.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01365.html">bl::menu::RenderItem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base class for any <a class="el" href="a01349.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> that can be rendered by a <a class="el" href="a01353.html" title="Primary class for mouseless menus. ">Menu</a>.  <a href="a01365.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01369.html">bl::menu::SpriteRenderItem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01365.html" title="Abstract base class for any Item that can be rendered by a Menu. ">RenderItem</a> for displaying sprites in a <a class="el" href="a01353.html" title="Primary class for mouseless menus. ">Menu</a>.  <a href="a01369.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html">bl::menu::TextRenderItem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01365.html" title="Abstract base class for any Item that can be rendered by a Menu. ">RenderItem</a> to display text.  <a href="a01373.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01377.html">bl::menu::Selector</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for selector items that indicate which <a class="el" href="a01353.html" title="Primary class for mouseless menus. ">Menu</a> item is active.  <a href="a01377.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01381.html">bl::menu::ArrowSelector</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic selection indicator, draws a triangle to the left of the selected item.  <a href="a01381.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of classes for encoding and decoding data into endian agnostic binary files. Core class is File. </p>
+<p>A mouseless menu that accepts basic inputs and defers rendering to the client. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 21 2021 03:14:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 29 2021 21:12:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

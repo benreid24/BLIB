@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['name',['name',['../a01252.html#a64f6e69fba35071e94033297e80fa307',1,'bl::gui::Notebook::Page']]],
-  ['negative',['Negative',['../a01132.html#a71e00c1b6891627295eb01b9195af19d',1,'bl::file::json::schema::Numeric']]],
-  ['newstate',['newState',['../a00920.html#ac658b229cad73461262df7d59599c603',1,'bl::engine::event::StateChange']]],
-  ['none',['None',['../a01492.html#a4bbdfc3239a1e6b8781433b8e2f46c6b',1,'bl::parser::Node']]]
+  ['onclose',['onClose',['../a01241.html#a4ae742d702159b70205f797dd50398ba',1,'bl::gui::Notebook::Page']]],
+  ['onopen',['onOpen',['../a01241.html#a2cdb4f8a2b7862ad8c0906514f9e533e',1,'bl::gui::Notebook::Page']]],
+  ['optionpadding',['OptionPadding',['../a01213.html#a013d8151b4532328a158175137830d1b',1,'bl::gui::ComboBox']]],
+  ['outlinecolor',['outlineColor',['../a01317.html#ad7e9b5c5fb74f67ae501095b12dbfa35',1,'bl::gui::RenderSettings']]],
+  ['outlinethickness',['outlineThickness',['../a01317.html#a2f17a345da820fb310b8afb40896043f',1,'bl::gui::RenderSettings']]]
 ];

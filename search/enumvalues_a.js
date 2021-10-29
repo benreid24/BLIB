@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['keypressed',['KeyPressed',['../a01192.html#a306cfe617542093b22a782469b68592ca12290e42f686476d2ea5e32321259395',1,'bl::gui::Action']]],
-  ['keyreleased',['KeyReleased',['../a01192.html#a306cfe617542093b22a782469b68592ca249f171299ef12ce6319e23994a451a8',1,'bl::gui::Action']]]
+  ['keypressed',['KeyPressed',['../a01281.html#a14b67eb968cc68b09a420e989b3a4a54a80b5eeed37979c4ca92958794b60f608',1,'bl::gui::Event']]],
+  ['keyreleased',['KeyReleased',['../a01281.html#a14b67eb968cc68b09a420e989b3a4a54a3b85440c88274796b55f22470d435827',1,'bl::gui::Event']]]
 ];

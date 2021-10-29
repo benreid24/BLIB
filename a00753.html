@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::event Namespace Reference</title>
+<title>BLIB: bl::file::json Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,93 +63,547 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00745.html">bl</a></li><li class="navelem"><a class="el" href="a00753.html">event</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00742.html">bl</a></li><li class="navelem"><a class="el" href="a00751.html">file</a></li><li class="navelem"><a class="el" href="a00753.html">json</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">bl::event Namespace Reference</div>  </div>
+<div class="title">bl::file::json Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes providing different types of publisher/consumer event queues.  
+<p>Collection of classes and utilities for interacting with JSON files.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00754"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00754.html">schema</a></td></tr>
+<tr class="memdesc:a00754"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for creating json schemas and verifying that file content matches. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00996.html">ClassGuard</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version of scope guard but for classes. Classes that subscribe to event buses through a member <a class="el" href="a00996.html" title="Version of scope guard but for classes. Classes that subscribe to event buses through a member ClassG...">ClassGuard</a> will automatically unsubscribe when they are destructed. The catch is that they may only subscribe to a single event bus at a time.  <a href="a00996.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01109.html">Base</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01109.html" title="Base class for all json types. ">Base</a> class for all json types.  <a href="a01109.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01000.html">DelayedDispatcher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper around <a class="el" href="a01012.html" title="Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe...">Dispatcher</a> for delayed event dispatches. Events are queued up as dispatch is called. The queue may then be drained manually or using a builtin background thread.  <a href="a01000.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01113.html">Group</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A collection of fields as (std::string, <a class="el" href="a01117.html" title="Represents any value type in JSON. ">Value</a>) pairs. This is the top level data type that should be used.  <a href="a01113.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01012.html">Dispatcher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe. If events are dispatched by multiple threads care should be taken to keep the listeners threadsafe as well. Care must also be taken to not subscribe the same listener more than once or it will get notified more than once per event.  <a href="a01012.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html">Loader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to load JSON objects from input streams or files.  <a href="a01637.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01016.html">DispatcherScopeGuard</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scope guard for <a class="el" href="a01012.html" title="Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe...">Dispatcher</a>. Listeners that are subscribed through the guard will be unsubscribed when it goes out of scope.  <a href="a01016.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html">Schema</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a nestable schema for JSON objects. Equivilent to <a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> <a class="el" href="a01141.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> can be used to define a data format for json, allowing for fields to be expected and constraining their types and values. Creating a <a class="el" href="a01141.html" title="Represents a nestable schema for JSON objects. Equivilent to json::Group Schema can be used to define...">Schema</a> for loading data can elimate the need for verbose error checking/handling in the code that reads the json data.  <a href="a01141.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01024.html">Listener</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01024.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> of multiple event types. Listeners should inherit this class with the types of events they would like to subscribe to as template params. An observe method from <a class="el" href="a01024.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> will be created for each passed type and must be implemented.  <a href="a01024.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01149.html">SerializableField</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a field in a class that can be serialized. Serializable objects should inherit from <a class="el" href="a01153.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> and make their data fields of type <a class="el" href="a01149.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Serialization is builtin for primitive json types, vectors, maps, and nested <a class="el" href="a01153.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members. Specializations of <a class="el" href="a01157.html" title="Helper class for SerializableField. Specializations are provided for json native types, vector, and unordered_map. User defined types should either implement SerializableObject or provide a specialization of this class. ">Serializer</a> may be created to support other types which are not easily represented as Serializable objects.  <a href="a01149.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01020.html">ListenerBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a01024.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a>. Do not use directly.  <a href="a01020.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01145.html">SerializableFieldBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01109.html" title="Base class for all json types. ">Base</a> class for <a class="el" href="a01149.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a> objects. Not to be used directly.  <a href="a01145.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01028.html">SingleDispatcher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to dispatch events of a single type to a set of listeners.  <a href="a01028.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01153.html">SerializableObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01109.html" title="Base class for all json types. ">Base</a> class for user defined classes meant to be serialized to and from JSON. Data members of serializable objects should be of type <a class="el" href="a01149.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. JSON native types, vector, unordered_map, and nested <a class="el" href="a01153.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members are supported out of the box. For user defined types as fields they must either extend <a class="el" href="a01153.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> themselves, or a specialization of <a class="el" href="a01157.html" title="Helper class for SerializableField. Specializations are provided for json native types, vector, and unordered_map. User defined types should either implement SerializableObject or provide a specialization of this class. ">Serializer</a> must be provided for the desired type. SerializableObjects that will be nested must provide a copy constructor that registers each contained field.  <a href="a01153.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html">SingleDispatcherScopeGuard</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scope guard for <a class="el" href="a01036.html" title="Templatized utility class for setting up an event dispatcher and listener system. ...">SingleListener</a> objects to subscribe to an <a class="el" href="a01028.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> if they are limited by scope. All listeners subscribed through the guard are removed from the dispatcher when the guard goes out of scope.  <a href="a01032.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01157.html">Serializer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class for <a class="el" href="a01149.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Specializations are provided for json native types, vector, and unordered_map. User defined types should either implement <a class="el" href="a01153.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> or provide a specialization of this class.  <a href="a01157.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01036.html">SingleListener</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templatized utility class for setting up an event dispatcher and listener system.  <a href="a01036.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01161.html">Serializer&lt; bool &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html">Serializer&lt; float &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01169.html">Serializer&lt; int &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01173.html">Serializer&lt; std::string &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01181.html">Serializer&lt; std::unordered_map&lt; std::string, U &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01177.html">Serializer&lt; std::vector&lt; U &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01105.html">SourceInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds source location of any json object.  <a href="a01105.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01117.html">Value</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents any value type in JSON.  <a href="a01117.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a3f96c0e79041dddef412f9ac5174c313"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="a01028.html">SingleDispatcher</a>&lt; sf::Event &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a3f96c0e79041dddef412f9ac5174c313">WindowEventDispatcher</a></td></tr>
-<tr class="memdesc:a3f96c0e79041dddef412f9ac5174c313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special instantiation of <a class="el" href="a01028.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> for sf::Event window events.  <a href="#a3f96c0e79041dddef412f9ac5174c313">More...</a><br /></td></tr>
-<tr class="separator:a3f96c0e79041dddef412f9ac5174c313"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abded5c4fb93b1a6984ecdcce00e04acd"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="a01032.html">SingleDispatcherScopeGuard</a>&lt; sf::Event &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#abded5c4fb93b1a6984ecdcce00e04acd">WindowEventDispatcherScopeGuard</a></td></tr>
-<tr class="separator:abded5c4fb93b1a6984ecdcce00e04acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8cc7c3da93ebd40131413c16b1bb51d"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; <a class="el" href="a01117.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#ad8cc7c3da93ebd40131413c16b1bb51d">List</a></td></tr>
+<tr class="separator:ad8cc7c3da93ebd40131413c16b1bb51d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb69f6841b7360dcd6403224f82f6663"><td class="memItemLeft" align="right" valign="top">typedef std::optional&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#aeb69f6841b7360dcd6403224f82f6663">Numeric</a></td></tr>
+<tr class="separator:aeb69f6841b7360dcd6403224f82f6663"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80498d8d8896eb60b93d190c728bbc63"><td class="memItemLeft" align="right" valign="top">typedef std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a80498d8d8896eb60b93d190c728bbc63">String</a></td></tr>
+<tr class="separator:a80498d8d8896eb60b93d190c728bbc63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42f2114244ec0fa3456eb601060e7891"><td class="memItemLeft" align="right" valign="top">typedef std::optional&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a42f2114244ec0fa3456eb601060e7891">Bool</a></td></tr>
+<tr class="separator:a42f2114244ec0fa3456eb601060e7891"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49eb9c51697237b16ad7959a682c3061"><td class="memItemLeft" align="right" valign="top">typedef std::optional&lt; <a class="el" href="a01113.html">Group</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a49eb9c51697237b16ad7959a682c3061">RGroup</a></td></tr>
+<tr class="separator:a49eb9c51697237b16ad7959a682c3061"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b8f3cecd043f7a41eea3ee8c6935830"><td class="memItemLeft" align="right" valign="top">typedef std::optional&lt; <a class="el" href="a00753.html#ad8cc7c3da93ebd40131413c16b1bb51d">List</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a6b8f3cecd043f7a41eea3ee8c6935830">RList</a></td></tr>
+<tr class="separator:a6b8f3cecd043f7a41eea3ee8c6935830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb6dfbea999f1f88d112b412415c9a8e"><td class="memItemLeft" align="right" valign="top">typedef std::optional&lt; <a class="el" href="a01117.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#aeb6dfbea999f1f88d112b412415c9a8e">RValue</a></td></tr>
+<tr class="separator:aeb6dfbea999f1f88d112b412415c9a8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a8cac6ae909e526b2c4517b0218dc8161"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a8cac6ae909e526b2c4517b0218dc8161">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a01105.html">SourceInfo</a> &amp;info)</td></tr>
+<tr class="separator:a8cac6ae909e526b2c4517b0218dc8161"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ef7597cd0b216cb5dabec2162326adc"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a1ef7597cd0b216cb5dabec2162326adc">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a01117.html#af1111560eb422e0ac3e8eeed67751cd6">Value::Type</a> &amp;type)</td></tr>
+<tr class="separator:a1ef7597cd0b216cb5dabec2162326adc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bb00686eb8cf0da1af898565f895071"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a3bb00686eb8cf0da1af898565f895071">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a01113.html">Group</a> &amp;type)</td></tr>
+<tr class="separator:a3bb00686eb8cf0da1af898565f895071"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a213b6aedd1a56ec4a7b840a4029be9e5"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a213b6aedd1a56ec4a7b840a4029be9e5">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a01117.html">Value</a> &amp;type)</td></tr>
+<tr class="separator:a213b6aedd1a56ec4a7b840a4029be9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4434e80192cdb066a8ca6b3e1808d556"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a4434e80192cdb066a8ca6b3e1808d556">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="a00753.html#ad8cc7c3da93ebd40131413c16b1bb51d">List</a> &amp;list)</td></tr>
+<tr class="separator:a4434e80192cdb066a8ca6b3e1808d556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c108fcae49c1918c6059cd08670cbbc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01113.html">json::Group</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a6c108fcae49c1918c6059cd08670cbbc">loadFromStream</a> (std::istream &amp;stream)</td></tr>
+<tr class="memdesc:a6c108fcae49c1918c6059cd08670cbbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads json data from the given stream and returns the constructed <a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a>.  <a href="#a6c108fcae49c1918c6059cd08670cbbc">More...</a><br /></td></tr>
+<tr class="separator:a6c108fcae49c1918c6059cd08670cbbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d82650fc1176aa424a0d387663ede26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01113.html">json::Group</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a6d82650fc1176aa424a0d387663ede26">loadFromFile</a> (const std::string &amp;file)</td></tr>
+<tr class="memdesc:a6d82650fc1176aa424a0d387663ede26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads json data from the given file.  <a href="#a6d82650fc1176aa424a0d387663ede26">More...</a><br /></td></tr>
+<tr class="separator:a6d82650fc1176aa424a0d387663ede26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17be6c2680a616483485c2ce16747622"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01113.html">json::Group</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#a17be6c2680a616483485c2ce16747622">loadFromString</a> (const std::string &amp;data)</td></tr>
+<tr class="memdesc:a17be6c2680a616483485c2ce16747622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads json from the supplied string.  <a href="#a17be6c2680a616483485c2ce16747622">More...</a><br /></td></tr>
+<tr class="separator:a17be6c2680a616483485c2ce16747622"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed5e74e51b22ed23d7b84025315b960e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#aed5e74e51b22ed23d7b84025315b960e">saveToFile</a> (const std::string &amp;file, const <a class="el" href="a01113.html">json::Group</a> &amp;data)</td></tr>
+<tr class="memdesc:aed5e74e51b22ed23d7b84025315b960e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves a <a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to the given file.  <a href="#aed5e74e51b22ed23d7b84025315b960e">More...</a><br /></td></tr>
+<tr class="separator:aed5e74e51b22ed23d7b84025315b960e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb8960cd27e1f54fa5df5cab3b56444d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html#acb8960cd27e1f54fa5df5cab3b56444d">saveToStream</a> (std::ostream &amp;stream, const <a class="el" href="a01113.html">json::Group</a> &amp;data)</td></tr>
+<tr class="memdesc:acb8960cd27e1f54fa5df5cab3b56444d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a <a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to the given stream.  <a href="#acb8960cd27e1f54fa5df5cab3b56444d">More...</a><br /></td></tr>
+<tr class="separator:acb8960cd27e1f54fa5df5cab3b56444d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of classes providing different types of publisher/consumer event queues. </p>
+<div class="textblock"><p>Collection of classes and utilities for interacting with JSON files. </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a3f96c0e79041dddef412f9ac5174c313"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f96c0e79041dddef412f9ac5174c313">&#9670;&nbsp;</a></span>WindowEventDispatcher</h2>
+<a id="a42f2114244ec0fa3456eb601060e7891"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42f2114244ec0fa3456eb601060e7891">&#9670;&nbsp;</a></span>Bool</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="a01028.html">SingleDispatcher</a>&lt;sf::Event&gt; <a class="el" href="a00753.html#a3f96c0e79041dddef412f9ac5174c313">bl::event::WindowEventDispatcher</a></td>
+          <td class="memname">typedef std::optional&lt;bool&gt; <a class="el" href="a00753.html#a42f2114244ec0fa3456eb601060e7891">bl::file::json::Bool</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Special instantiation of <a class="el" href="a01028.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> for sf::Event window events. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00048">48</a> of file <a class="el" href="a00119_source.html">SingleDispatcher.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02017_source.html#l00025">25</a> of file <a class="el" href="a02017_source.html">JSON.hpp</a>.</p>
 
 </div>
 </div>
-<a id="abded5c4fb93b1a6984ecdcce00e04acd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abded5c4fb93b1a6984ecdcce00e04acd">&#9670;&nbsp;</a></span>WindowEventDispatcherScopeGuard</h2>
+<a id="ad8cc7c3da93ebd40131413c16b1bb51d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8cc7c3da93ebd40131413c16b1bb51d">&#9670;&nbsp;</a></span>List</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="a01032.html">SingleDispatcherScopeGuard</a>&lt;sf::Event&gt; <a class="el" href="a00753.html#abded5c4fb93b1a6984ecdcce00e04acd">bl::event::WindowEventDispatcherScopeGuard</a></td>
+          <td class="memname">typedef std::vector&lt;<a class="el" href="a01117.html">Value</a>&gt; <a class="el" href="a00753.html#ad8cc7c3da93ebd40131413c16b1bb51d">bl::file::json::List</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00051">51</a> of file <a class="el" href="a00122_source.html">SingleDispatcherScopeGuard.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02017_source.html#l00020">20</a> of file <a class="el" href="a02017_source.html">JSON.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aeb69f6841b7360dcd6403224f82f6663"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb69f6841b7360dcd6403224f82f6663">&#9670;&nbsp;</a></span>Numeric</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::optional&lt;float&gt; <a class="el" href="a00753.html#aeb69f6841b7360dcd6403224f82f6663">bl::file::json::Numeric</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02017_source.html#l00023">23</a> of file <a class="el" href="a02017_source.html">JSON.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a49eb9c51697237b16ad7959a682c3061"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49eb9c51697237b16ad7959a682c3061">&#9670;&nbsp;</a></span>RGroup</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::optional&lt;<a class="el" href="a01113.html">Group</a>&gt; <a class="el" href="a00753.html#a49eb9c51697237b16ad7959a682c3061">bl::file::json::RGroup</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02017_source.html#l00026">26</a> of file <a class="el" href="a02017_source.html">JSON.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6b8f3cecd043f7a41eea3ee8c6935830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b8f3cecd043f7a41eea3ee8c6935830">&#9670;&nbsp;</a></span>RList</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::optional&lt;<a class="el" href="a00753.html#ad8cc7c3da93ebd40131413c16b1bb51d">List</a>&gt; <a class="el" href="a00753.html#a6b8f3cecd043f7a41eea3ee8c6935830">bl::file::json::RList</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02017_source.html#l00027">27</a> of file <a class="el" href="a02017_source.html">JSON.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aeb6dfbea999f1f88d112b412415c9a8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb6dfbea999f1f88d112b412415c9a8e">&#9670;&nbsp;</a></span>RValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::optional&lt;<a class="el" href="a01117.html">Value</a>&gt; <a class="el" href="a00753.html#aeb6dfbea999f1f88d112b412415c9a8e">bl::file::json::RValue</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02017_source.html#l00028">28</a> of file <a class="el" href="a02017_source.html">JSON.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a80498d8d8896eb60b93d190c728bbc63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80498d8d8896eb60b93d190c728bbc63">&#9670;&nbsp;</a></span>String</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::optional&lt;std::string&gt; <a class="el" href="a00753.html#a80498d8d8896eb60b93d190c728bbc63">bl::file::json::String</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02017_source.html#l00024">24</a> of file <a class="el" href="a02017_source.html">JSON.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a6d82650fc1176aa424a0d387663ede26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d82650fc1176aa424a0d387663ede26">&#9670;&nbsp;</a></span>loadFromFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01113.html">Group</a> bl::file::json::loadFromFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads json data from the given file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>Filename to load from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> <a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a> containing loaded data. Empty on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00299">299</a> of file <a class="el" href="a00482_source.html">JSON.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c108fcae49c1918c6059cd08670cbbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c108fcae49c1918c6059cd08670cbbc">&#9670;&nbsp;</a></span>loadFromStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01113.html">Group</a> bl::file::json::loadFromStream </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads json data from the given stream and returns the constructed <a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>Stream containing valid json </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> <a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a> containing loaded data. Empty on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00289">289</a> of file <a class="el" href="a00482_source.html">JSON.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a17be6c2680a616483485c2ce16747622"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17be6c2680a616483485c2ce16747622">&#9670;&nbsp;</a></span>loadFromString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01113.html">Group</a> bl::file::json::loadFromString </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads json from the supplied string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>String containing valid json </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> <a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a> containing loaded data. Empty on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00294">294</a> of file <a class="el" href="a00482_source.html">JSON.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8cac6ae909e526b2c4517b0218dc8161"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cac6ae909e526b2c4517b0218dc8161">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; bl::file::json::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01105.html">SourceInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>info</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00193">193</a> of file <a class="el" href="a00482_source.html">JSON.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ef7597cd0b216cb5dabec2162326adc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ef7597cd0b216cb5dabec2162326adc">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; bl::file::json::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01117.html#af1111560eb422e0ac3e8eeed67751cd6">Value::Type</a> &amp;&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00243">243</a> of file <a class="el" href="a00482_source.html">JSON.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3bb00686eb8cf0da1af898565f895071"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bb00686eb8cf0da1af898565f895071">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; bl::file::json::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01113.html">Group</a> &amp;&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00272">272</a> of file <a class="el" href="a00482_source.html">JSON.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a213b6aedd1a56ec4a7b840a4029be9e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a213b6aedd1a56ec4a7b840a4029be9e5">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; bl::file::json::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01117.html">Value</a> &amp;&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00267">267</a> of file <a class="el" href="a00482_source.html">JSON.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4434e80192cdb066a8ca6b3e1808d556"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4434e80192cdb066a8ca6b3e1808d556">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; bl::file::json::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00753.html#ad8cc7c3da93ebd40131413c16b1bb51d">List</a> &amp;&#160;</td>
+          <td class="paramname"><em>list</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00277">277</a> of file <a class="el" href="a00482_source.html">JSON.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aed5e74e51b22ed23d7b84025315b960e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed5e74e51b22ed23d7b84025315b960e">&#9670;&nbsp;</a></span>saveToFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::file::json::saveToFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01113.html">json::Group</a> &amp;&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saves a <a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to the given file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>Filename to save to </td></tr>
+    <tr><td class="paramname">data</td><td>The top level json data to save </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00304">304</a> of file <a class="el" href="a00482_source.html">JSON.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acb8960cd27e1f54fa5df5cab3b56444d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb8960cd27e1f54fa5df5cab3b56444d">&#9670;&nbsp;</a></span>saveToStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::file::json::saveToStream </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01113.html">json::Group</a> &amp;&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Writes a <a class="el" href="a01113.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to the given stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to write to </td></tr>
+    <tr><td class="paramname">data</td><td>The top level json data to write </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00309">309</a> of file <a class="el" href="a00482_source.html">JSON.cpp</a>.</p>
 
 </div>
 </div>
@@ -157,7 +611,7 @@ Typedefs</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 21 2021 03:14:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 29 2021 21:12:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

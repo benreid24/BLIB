@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Files/Binary/Serializer.hpp File Reference</title>
+<title>BLIB: include/BLIB/Files/JSON/SerializableField.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_9db18de2ceab7e55a777939b27c6f81d.html">Files</a></li><li class="navelem"><a class="el" href="dir_967d48625de5a790a27c0c582b4b6598.html">Binary</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_9db18de2ceab7e55a777939b27c6f81d.html">Files</a></li><li class="navelem"><a class="el" href="dir_bf4022fdc39536f02c8a45f0637a7819.html">JSON</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,61 +71,41 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Serializer.hpp File Reference</div>  </div>
+<div class="title">SerializableField.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00044_source.html">BLIB/Containers/Vector2d.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00128_source.html">BLIB/Files/Binary/File.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01996_source.html">BLIB/Files/Binary/SerializableObject.hpp</a>&gt;</code><br />
-<code>#include &lt;SFML/Graphics/Rect.hpp&gt;</code><br />
-<code>#include &lt;SFML/System/Vector2.hpp&gt;</code><br />
-<code>#include &lt;type_traits&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a02017_source.html">BLIB/Files/JSON/JSON.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02008_source.html">BLIB/Files/JSON/SerializableObject.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02014_source.html">BLIB/Files/JSON/Serializer.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a02002_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01056.html">bl::file::binary::Serializer&lt; T, bool &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for serializing types into binary files. Integral types, strings, vector, and SerializableObjects are supported out of the box. Specializations may be provided for user defined types.  <a href="a01056.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01145.html">bl::file::json::SerializableFieldBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01109.html" title="Base class for all json types. ">Base</a> class for <a class="el" href="a01149.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a> objects. Not to be used directly.  <a href="a01145.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01060.html">bl::file::binary::Serializer&lt; T, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01064.html">bl::file::binary::Serializer&lt; T, true &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01068.html">bl::file::binary::Serializer&lt; std::string &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01072.html">bl::file::binary::Serializer&lt; std::vector&lt; U &gt;, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01076.html">bl::file::binary::Serializer&lt; container::Vector2D&lt; U &gt;, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01080.html">bl::file::binary::Serializer&lt; std::unordered_map&lt; TKey, TValue &gt;, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01084.html">bl::file::binary::Serializer&lt; sf::Vector2i &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01088.html">bl::file::binary::Serializer&lt; sf::IntRect &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01092.html">bl::file::binary::Serializer&lt; sf::Vector2u &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01096.html">bl::file::binary::Serializer&lt; std::pair&lt; U, V &gt;, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01149.html">bl::file::json::SerializableField&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a field in a class that can be serialized. Serializable objects should inherit from <a class="el" href="a01153.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> and make their data fields of type <a class="el" href="a01149.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Serialization is builtin for primitive json types, vectors, maps, and nested <a class="el" href="a01153.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members. Specializations of <a class="el" href="a01157.html" title="Helper class for SerializableField. Specializations are provided for json native types, vector, and unordered_map. User defined types should either implement SerializableObject or provide a specialization of this class. ">Serializer</a> may be created to support other types which are not easily represented as Serializable objects.  <a href="a01149.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00745"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00745.html">bl</a></td></tr>
-<tr class="memdesc:a00745"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a00742"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00742.html">bl</a></td></tr>
+<tr class="memdesc:a00742"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00754"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00754.html">bl::file</a></td></tr>
-<tr class="memdesc:a00754"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to simplify file interactions. <br /></td></tr>
+<tr class="memitem:a00751"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00751.html">bl::file</a></td></tr>
+<tr class="memdesc:a00751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to simplify file interactions. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00755"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00755.html">bl::file::binary</a></td></tr>
-<tr class="memdesc:a00755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for interacting with binary encoded files. <br /></td></tr>
+<tr class="memitem:a00753"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00753.html">bl::file::json</a></td></tr>
+<tr class="memdesc:a00753"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for interacting with JSON files. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 21 2021 03:14:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 29 2021 21:12:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
