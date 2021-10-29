@@ -35,7 +35,7 @@ void ComboBox::addOption(const std::string& text) {
     labels.back()->setHorizontalAlignment(RenderSettings::Left);
     labels.back()
         ->getSignal(Event::LeftClicked)
-        .willAlwaysCall(std::bind(&ComboBox::optionClicked, this, options.back()));
+        .willAlwaysCall(std::bind(&ComboBox::optionClicked, this, text));
     onSettings();
 }
 
@@ -126,10 +126,10 @@ bool ComboBox::propagateEvent(const Event& event) {
             for (Label::Ptr& option : labels) { option->processEvent(translated); }
         }
     }
-    if (opened && event.type() == Event::LeftMousePressed) {
+    if (opened && !contained && event.type() == Event::LeftMousePressed) {
         opened = false;
         packClosed();
-        return true; // eat it?
+        return true; // eat it
     }
     return contained && opened;
 }
@@ -186,7 +186,11 @@ void ComboBox::onSettings() {
 }
 
 void ComboBox::optionClicked(const std::string& text) {
-    if (opened) setSelectedOption(text);
+    if (opened) {
+        setSelectedOption(text);
+        opened = false;
+        packClosed();
+    }
 }
 
 void ComboBox::clicked() {

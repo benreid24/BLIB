@@ -141,9 +141,13 @@ void FilePicker::open(Mode m, const std::string& title, GUI::Ptr parent, bool rp
 
     populateFiles();
     parent->pack(window);
+    window->setForceFocus(true);
 }
 
-void FilePicker::close() { window->remove(); }
+void FilePicker::close() {
+    window->remove();
+    window->setForceFocus(false);
+}
 
 void FilePicker::onClearPath() {
     if (!path.empty()) {
