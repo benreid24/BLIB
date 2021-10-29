@@ -20,7 +20,6 @@ Notebook::Notebook()
 , activePageIndex(0) {
     tabArea->setExpandsWidth(true);
     tabArea->setExpandsHeight(true);
-    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Notebook::onAcquisition, this));
     getSignal(Event::Moved).willAlwaysCall(std::bind(&Notebook::onMove, this));
 }
 
@@ -40,16 +39,15 @@ void Notebook::addPage(const std::string& name, const std::string& title,
         label->setRequisition(label->getRequisition() + sf::Vector2f(6.f, 6.f));
         const auto it = pages.emplace(pages.end(), name, label, content, onOpen, onClose);
         Page& p       = *it;
-        p.content->skipPacking(true);
         p.content->setVisible(false);
         p.content->setExpandsWidth(true);
         p.content->setExpandsHeight(true);
         add(p.content);
         tabArea->pack(p.label, false, true);
         p.label->getSignal(Event::LeftClicked)
-            .willAlwaysCall(std::bind(&Notebook::pageClicked, this, &p));
+            .willAlwaysCall(std::bind(&Notebook::makePageActiveDirect, this, &p));
 
-        if (pages.size() == 1) makePageActive(0);
+        if (pages.size() == 1) makePageActiveDirect(&*pages.begin());
     }
 }
 
@@ -82,7 +80,17 @@ void Notebook::removePageByIndex(unsigned int i) {
         it->label->remove();
         it->content->remove();
         pageMap.erase(it->name);
-        if (i > 0) makePageActive(i - 1);
+        if (pages.size() > 1) {
+            auto ni = it;
+            if (i > 0) { --ni; }
+            else {
+                ++ni;
+            }
+            makePageActiveDirect(&*ni);
+        }
+        else {
+            activePage = nullptr;
+        }
         pages.erase(it);
     }
 }
@@ -94,7 +102,17 @@ void Notebook::removePageByName(const std::string& name) {
         pit->label->remove();
         pit->content->remove();
         pageMap.erase(pit->name);
-        if (pages.size() > 1) makePageActive(0);
+        if (pages.size() > 1) {
+            auto ni = pit;
+            if (ni != pages.begin()) { --ni; }
+            else {
+                ++ni;
+            }
+            makePageActiveDirect(&*ni);
+        }
+        else {
+            activePage = nullptr;
+        }
         pages.erase(pit);
     }
 }
@@ -131,29 +149,22 @@ void Notebook::doRender(sf::RenderTarget& target, sf::RenderStates states,
     target.setView(oldView);
 }
 
-void Notebook::pageClicked(Page* page) {
-    unsigned int i = 0;
-    for (const Page& p : pages) {
-        if (&p == page) {
-            makePageActive(i);
-            break;
-        }
-        ++i;
+void Notebook::makePageActiveDirect(Page* page) {
+    if (activePage) {
+        activePage->content->setVisible(false, false);
+        if (page != activePage && activePage) activePage->onClose();
     }
+    page->content->setVisible(true, false);
+    page->content->moveToTop();
+    Packer::manuallyPackElement(page->content, contentArea());
+    if (page != activePage) page->onOpen();
+    activePage = page;
 }
 
 void Notebook::makePageActive(unsigned int i) {
     if (i < pages.size()) {
         Page* np = &(*getIterator(i));
-        if (activePage) {
-            activePage->content->setVisible(false, false);
-            if (np != activePage && activePage) activePage->onClose();
-        }
-        np->content->setVisible(true, false);
-        np->content->moveToTop();
-        Packer::manuallyPackElement(np->content, contentArea());
-        if (np != activePage) np->onOpen();
-        activePage = np;
+        makePageActiveDirect(np);
     }
 }
 
@@ -178,6 +189,10 @@ sf::FloatRect Notebook::contentArea() const {
             getAcquisition().top + tabArea->getRequisition().y + 2,
             getAcquisition().width - 4,
             getAcquisition().height - tabArea->getRequisition().y - 4};
+}
+
+void Notebook::requestMakeDirty(const Element* child) {
+    if (child->packable(true)) makeDirty();
 }
 
 } // namespace gui

@@ -129,10 +129,7 @@ void Window::doRender(sf::RenderTarget& target, sf::RenderStates states,
 void Window::update(float dt) {
     Element::update(dt);
 
-    if (dirty()) {
-        assignAcquisition({getPosition(), getRequisition()});
-        markClean();
-    }
+    if (dirty()) { assignAcquisition({getPosition(), getRequisition()}); }
     if (titlebar) { titlebar->update(dt); }
     elementArea->update(dt);
 }

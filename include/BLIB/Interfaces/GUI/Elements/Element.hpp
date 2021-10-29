@@ -168,8 +168,10 @@ public:
      * @brief Signifies that this Element should be packed. Takes into account the element
      *        type, visibility, and pack override
      *
+     * @param includeInvisible True to be packable even if not visible
+     *
      */
-    bool packable() const;
+    bool packable(bool includeInvisible = false) const;
 
     /**
      * @brief Removes this Element from its parent. Safe to call at any time
@@ -449,6 +451,14 @@ protected:
      * @return True if this element is a parent of the given element
      */
     bool isChild(const Element* element);
+
+    /**
+     * @brief Called by a child element that is dirty. Parent element gets to decide if it makes
+     *        itself dirty or not
+     *
+     * @param childRequester The child requesting to dirty this parent
+     */
+    virtual void requestMakeDirty(const Element* childRequester);
 
     /**
      * @brief Returns the Ptr to this Element

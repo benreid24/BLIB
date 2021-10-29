@@ -217,7 +217,11 @@ void Element::remove() {
 
 void Element::makeDirty() {
     _dirty = true;
-    if (parent && packable()) { parent->makeDirty(); }
+    if (parent) { parent->requestMakeDirty(this); }
+}
+
+void Element::requestMakeDirty(const Element* child) {
+    if (child->packable()) makeDirty();
 }
 
 void Element::markClean() { _dirty = false; }
@@ -227,8 +231,8 @@ void Element::setVisible(bool v, bool md) {
     _visible = v;
 }
 
-bool Element::packable() const {
-    if (!visible() || skipPack) return false;
+bool Element::packable(bool ivs) const {
+    if ((!visible() && !ivs) || skipPack) return false;
     return shouldPack();
 }
 

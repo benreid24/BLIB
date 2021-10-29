@@ -160,6 +160,14 @@ protected:
     virtual void onAcquisition() override;
 
     /**
+     * @brief Called by a child element that is dirty. Parent element gets to decide if it makes
+     *        itself dirty or not
+     *
+     * @param childRequester The child requesting to dirty this parent
+     */
+    virtual void requestMakeDirty(const Element* childRequester) override;
+
+    /**
      * @brief Renders the notebook
      *
      * @param target The target to render to
@@ -176,7 +184,7 @@ private:
     Page* activePage;
     unsigned int activePageIndex;
 
-    void pageClicked(Page* page);
+    void makePageActiveDirect(Page* page);
     void onMove();
     std::list<Page>::iterator getIterator(unsigned int i);
     sf::FloatRect contentArea() const;

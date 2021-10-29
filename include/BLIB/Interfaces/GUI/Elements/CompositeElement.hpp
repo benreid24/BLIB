@@ -106,6 +106,8 @@ CompositeElement<N>::CompositeElement()
 
 template<std::size_t N>
 void CompositeElement<N>::update(float dt) {
+    Element::update(dt);
+    if (dirty()) { assignAcquisition(getAcquisition()); }
     for (std::size_t i = 0; i < N; ++i) { children[i]->update(dt); }
 }
 

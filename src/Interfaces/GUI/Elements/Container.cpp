@@ -106,8 +106,7 @@ bool Container::handleScroll(const Event& event) {
 void Container::update(float dt) {
     Element::update(dt);
 
-    if (!toRemove.empty() || clearFlag) makeDirty();
-
+    const bool soiled = clearFlag || !toRemove.empty();
     if (clearFlag) {
         clearFlag = false;
         children.clear();
@@ -120,10 +119,8 @@ void Container::update(float dt) {
     }
     toRemove.clear();
 
-    if (dirty()) {
-        assignAcquisition(getAcquisition());
-        markClean();
-    }
+    if (dirty()) { assignAcquisition(getAcquisition()); }
+    if (soiled) { makeDirty(); }
 
     for (Element* e : zorder) { e->update(dt); }
 }
@@ -134,7 +131,6 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
     const sf::View oldView = target.getView();
 
     // Compute new view
-
     if (changeView) {
         sf::View view = interface::ViewUtil::computeSubView(sf::FloatRect{getAcquisition()},
                                                             renderer.getOriginalView());
