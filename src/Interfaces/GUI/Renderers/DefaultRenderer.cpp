@@ -497,6 +497,7 @@ void DefaultRenderer::renderTooltip(sf::RenderTarget& target, sf::RenderStates s
     constexpr float MinWidth = 140.f;
     constexpr float Padding  = 3.f;
     static const sf::Vector2f PaddingOffset(Padding, Padding);
+    constexpr float MaxWidth = 250.f;
 
     const std::string& t = e->getTooltip();
     sf::Text& rt         = TooltipText::get().text;
@@ -510,6 +511,7 @@ void DefaultRenderer::renderTooltip(sf::RenderTarget& target, sf::RenderStates s
         left -= d;
         hs += d;
     }
+    hs = std::min(hs, MaxWidth);
 
     std::string content;
     std::string word;
