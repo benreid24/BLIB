@@ -51,6 +51,7 @@ void GUI::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform.combine(getTransform());
     renderer->setOriginalView(target.getView());
     Container::render(target, states, *renderer);
+    renderer->renderTooltip(target, states, mousePos);
 }
 
 } // namespace gui

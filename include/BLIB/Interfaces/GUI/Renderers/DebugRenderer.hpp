@@ -103,6 +103,10 @@ public:
     virtual void renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                               const Container* titlebar, const Window& window) const override;
 
+    /// @see Renderer::renderTooltip
+    virtual void renderTooltip(sf::RenderTarget& target, sf::RenderStates states,
+                               const Element* tooltip, const sf::Vector2f& mousePos) const override;
+
 private:
     Renderer::Ptr underlying;
     bool showBounds;

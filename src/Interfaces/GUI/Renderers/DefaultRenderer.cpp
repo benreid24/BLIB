@@ -11,6 +11,22 @@ namespace gui
 {
 namespace
 {
+struct TooltipText {
+    sf::Text text;
+
+    static TooltipText& get() {
+        static TooltipText t;
+        return t;
+    }
+
+private:
+    TooltipText() {
+        text.setFont(*Font::get());
+        text.setFillColor(sf::Color::Black);
+        text.setCharacterSize(14);
+    }
+};
+
 sf::Color shiftColor(sf::Color color, int r, int g, int b) {
     color.r = static_cast<sf::Uint8>(std::min(std::max(static_cast<signed>(color.r + r), 0), 255));
     color.g = static_cast<sf::Uint8>(std::min(std::max(static_cast<signed>(color.g + g), 0), 255));
@@ -474,6 +490,68 @@ void DefaultRenderer::renderImage(sf::RenderTarget& target, sf::RenderStates sta
 
     RendererUtil::renderRectangle(target, states, region, settings, defaults);
     target.draw(image, states);
+}
+
+void DefaultRenderer::renderTooltip(sf::RenderTarget& target, sf::RenderStates states,
+                                    const Element* e, const sf::Vector2f& mousePos) const {
+    constexpr float MinWidth = 140.f;
+    constexpr float Padding  = 3.f;
+    static const sf::Vector2f PaddingOffset(Padding, Padding);
+
+    const std::string& t = e->getTooltip();
+    sf::Text& rt         = TooltipText::get().text;
+    const sf::View& v    = target.getView();
+
+    float left = v.getCenter().x - v.getSize().x * 0.5f;
+    float hs   = v.getSize().x - (mousePos.x - left);
+    left       = mousePos.x;
+    if (hs < MinWidth) {
+        const float d = MinWidth - hs;
+        left -= d;
+        hs += d;
+    }
+
+    std::string content;
+    std::string word;
+    content.reserve(t.size() + 4);
+    word.reserve(12);
+    rt.setPosition(0.f, 0.f);
+    const auto addWord = [&word, &content, &rt, hs]() {
+        const std::string attempt = content + " " + word;
+        rt.setString(attempt);
+        char sep = ' ';
+        if (rt.getGlobalBounds().width + rt.getGlobalBounds().left > hs - Padding * 2.f) {
+            sep = '\n';
+        }
+        if (!content.empty()) content.push_back(sep);
+        content += word;
+        word.clear();
+    };
+    for (char c : t) {
+        if (std::isspace(c)) { addWord(); }
+        else {
+            word.push_back(c);
+        }
+    }
+    if (!word.empty()) { addWord(); }
+    rt.setString(content);
+
+    const sf::Vector2f size(rt.getGlobalBounds().left + rt.getGlobalBounds().width + 2.f * Padding,
+                            rt.getGlobalBounds().top + rt.getGlobalBounds().height + 2.f * Padding);
+    const float top = v.getCenter().y - v.getSize().y * 0.5f;
+    float y = mousePos.y - rt.getGlobalBounds().top - rt.getGlobalBounds().height - Padding * 2.f;
+    if (y < top) { y = top + Padding; }
+    const sf::Vector2f pos(left, y);
+
+    static sf::RectangleShape rect;
+    rect.setSize(size);
+    rect.setPosition(pos);
+    rect.setFillColor(sf::Color(230, 230, 170));
+    rect.setOutlineColor(sf::Color::Black);
+    rect.setOutlineThickness(1.f);
+    target.draw(rect, states);
+    rt.setPosition(pos + PaddingOffset);
+    target.draw(rt, states);
 }
 
 } // namespace gui

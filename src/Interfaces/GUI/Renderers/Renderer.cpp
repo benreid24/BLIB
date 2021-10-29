@@ -8,6 +8,9 @@ namespace bl
 {
 namespace gui
 {
+Renderer::Renderer()
+: tooltip(nullptr) {}
+
 bool Renderer::viewValid(const sf::View& v) const {
     const sf::FloatRect& a = v.getViewport();
     if (a.width < 0.f) return false;
@@ -24,6 +27,16 @@ const RenderSettings& Renderer::getSettings(const Element* e) const { return e->
 void Renderer::setOriginalView(const sf::View& v) { ogView = v; }
 
 const sf::View& Renderer::getOriginalView() const { return ogView; }
+
+void Renderer::setTooltipToRender(const Element* e) const { tooltip = e; }
+
+void Renderer::renderTooltip(sf::RenderTarget& target, sf::RenderStates states,
+                             const sf::Vector2f& mousePos) const {
+    if (tooltip && !tooltip->getTooltip().empty()) {
+        renderTooltip(target, states, tooltip, mousePos);
+        tooltip = nullptr;
+    }
+}
 
 } // namespace gui
 } // namespace bl

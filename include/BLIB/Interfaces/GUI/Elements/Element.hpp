@@ -345,6 +345,19 @@ public:
      */
     void recalculatePosition();
 
+    /**
+     * @brief Set a help message to display on hover
+     *
+     * @param tooltip The help message to display
+     */
+    void setTooltip(const std::string& tooltip);
+
+    /**
+     * @brief Returns the tooltip of this element
+     *
+     */
+    const std::string& getTooltip() const;
+
 protected:
     /**
      * @brief Builds a new Element
@@ -474,6 +487,7 @@ private:
     sf::FloatRect cachedArea; // absolute. Stores acquisition
     Element* parent;
     Signal signals[Event::NUM_ACTIONS];
+    std::string tooltip;
 
     bool _dirty;
     bool _active;
@@ -488,6 +502,7 @@ private:
     bool isRightPressed;
     sf::Vector2f dragStart;
     float flashTime;
+    float hoverTime;
 
     bool processAction(const Event& action);
 

@@ -127,5 +127,10 @@ void DebugRenderer::addInfo(sf::RenderTarget& target, sf::RenderStates states,
     }
 }
 
+void DebugRenderer::renderTooltip(sf::RenderTarget& target, sf::RenderStates states,
+                                  const Element* e, const sf::Vector2f& mousePos) const {
+    underlying->renderTooltip(target, states, e, mousePos);
+}
+
 } // namespace gui
 } // namespace bl

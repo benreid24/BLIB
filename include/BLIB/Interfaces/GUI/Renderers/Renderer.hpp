@@ -11,6 +11,8 @@ namespace bl
 {
 namespace gui
 {
+class DebugRenderer;
+
 class Element;
 class Container;
 
@@ -230,12 +232,28 @@ public:
     virtual void renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                               const Container* titlebar, const Window& window) const = 0;
 
+    /**
+     * @brief Sets the element to render a tooltip for. Only applied on this render
+     *
+     */
+    void setTooltipToRender(const Element* element) const;
+
+    /**
+     * @brief Renders the visible tooltip, if any
+     *
+     * @param target The target to render to
+     * @param states Render states to use
+     * @param mousePos The current position of the mouse
+     */
+    void renderTooltip(sf::RenderTarget& target, sf::RenderStates states,
+                       const sf::Vector2f& mousePos) const;
+
 protected:
     /**
      * @brief Construct a new default renderer
      *
      */
-    Renderer() = default;
+    Renderer();
 
     /**
      * @brief Returns whether or not the given view is valid for rendering
@@ -251,8 +269,22 @@ protected:
      */
     const RenderSettings& getSettings(const Element* e) const;
 
+    /**
+     * @brief Actually render a given tooltip
+     *
+     * @param target The target to render to
+     * @param states Render states to use
+     * @param tooltip The element to render a tooltip over
+     * @param mousePos The current position of the mouse
+     */
+    virtual void renderTooltip(sf::RenderTarget& target, sf::RenderStates states,
+                               const Element* tooltip, const sf::Vector2f& mousePos) const = 0;
+
 private:
     sf::View ogView;
+    mutable const Element* tooltip;
+
+    friend class DebugRenderer;
 };
 
 } // namespace gui

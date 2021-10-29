@@ -19,7 +19,8 @@ Element::Element()
 , isMouseOver(false)
 , isLeftPressed(false)
 , isRightPressed(false)
-, flashTime(-1.f) {}
+, flashTime(-1.f)
+, hoverTime(0.f) {}
 
 void Element::setRequisition(const sf::Vector2f& size) {
     requisition.reset();
@@ -178,6 +179,7 @@ bool Element::processEvent(const Event& event) {
                 isMouseOver = true;
                 processAction(Event(Event::MouseEntered, event.mousePosition()));
             }
+            hoverTime = 0.f;
             return true;
         }
         else if (isMouseOver) {
@@ -317,6 +319,9 @@ void Element::render(sf::RenderTarget& target, sf::RenderStates states,
             rect.setPosition(getPosition());
             target.draw(rect, states);
         }
+        if (mouseOver() && hoverTime > 1.f && !tooltip.empty()) {
+            renderer.setTooltipToRender(this);
+        }
     }
 }
 
@@ -380,7 +385,12 @@ void Element::update(float dt) {
         flashTime += dt;
         if (flashTime > 0.5f) { flashTime = -1.f; }
     }
+    hoverTime += dt;
 }
+
+void Element::setTooltip(const std::string& tt) { tooltip = tt; }
+
+const std::string& Element::getTooltip() const { return tooltip; }
 
 } // namespace gui
 } // namespace bl
