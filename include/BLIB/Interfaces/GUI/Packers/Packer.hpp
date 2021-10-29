@@ -29,7 +29,7 @@ public:
      * @param elements The list of Elements to consider
      * @return sf::Vector2i The minimum requisition for the list given the packing strategy
      */
-    virtual sf::Vector2i getRequisition(const std::vector<Element::Ptr>& elements) = 0;
+    virtual sf::Vector2f getRequisition(const std::vector<Element::Ptr>& elements) = 0;
 
     /**
      * @brief Pack the elements into the assigned acquisition
@@ -37,7 +37,7 @@ public:
      * @param acquisition Region to pack into. Always at least as big as getRequisition()
      * @param elements The elements to pack
      */
-    virtual void pack(const sf::IntRect& acquisition,
+    virtual void pack(const sf::FloatRect& acquisition,
                       const std::vector<Element::Ptr>& elements) = 0;
 
     /**
@@ -47,7 +47,7 @@ public:
      * @param element The element to pack
      * @param area The atra to pack it into
      */
-    static void manuallyPackElement(Element::Ptr element, const sf::IntRect& area);
+    static void manuallyPackElement(const Element::Ptr& element, const sf::FloatRect& area);
 
 protected:
     /**
@@ -56,7 +56,7 @@ protected:
      * @param element The element to pack
      * @param space The space to use as computed by the packer
      */
-    static void packElementIntoSpace(Element::Ptr element, const sf::IntRect& space);
+    static void packElementIntoSpace(const Element::Ptr& element, const sf::FloatRect& space);
 };
 
 } // namespace gui

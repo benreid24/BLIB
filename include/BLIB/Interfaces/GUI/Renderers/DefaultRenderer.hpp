@@ -38,10 +38,6 @@ public:
      */
     virtual ~DefaultRenderer() = default;
 
-    /// @see Renderer::renderCustom
-    virtual void renderCustom(sf::RenderTarget& target, sf::RenderStates states,
-                              const Element& element) const override;
-
     /// @see Renderer::renderBox
     virtual void renderBox(sf::RenderTarget& target, sf::RenderStates states,
                            const Container& container) const override;
@@ -52,7 +48,7 @@ public:
 
     /// @see Renderer::renderComboBoxDropdownBoxes
     virtual void renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::RenderStates states,
-                                             const ComboBox& box, const sf::Vector2i& optionSize,
+                                             const ComboBox& box, const sf::Vector2f& optionSize,
                                              unsigned int optionCount,
                                              unsigned int mousedOption) const override;
 
@@ -75,9 +71,9 @@ public:
     virtual void renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderStates states,
                                         const Element* element) const override;
 
-    /// @see Renderer::renderNotebook
-    virtual void renderNotebook(sf::RenderTarget& target, sf::RenderStates states,
-                                const Notebook& notebook) const override;
+    /// @see Renderer::renderNotebookTabs
+    virtual void renderNotebookTabs(sf::RenderTarget& target, sf::RenderStates states,
+                                    const Notebook& notebook) const override;
 
     /// @see Renderer::renderProgressBar
     virtual void renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,
@@ -107,6 +103,10 @@ public:
     /// @see Renderer::renderWindow
     virtual void renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                               const Container* titlebar, const Window& window) const override;
+
+    /// @see Renderer::renderTooltip
+    virtual void renderTooltip(sf::RenderTarget& target, sf::RenderStates states,
+                               const Element* tooltip, const sf::Vector2f& mousePos) const override;
 };
 
 } // namespace gui

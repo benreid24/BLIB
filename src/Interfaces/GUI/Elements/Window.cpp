@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Window.hpp>
 
 #include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
+#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 
 namespace bl
 {
@@ -11,68 +12,57 @@ namespace
 inline bool hasStyle(Window::Style style, Window::Style check) { return (style & check) == check; }
 } // namespace
 
-Window::Ptr Window::create(Packer::Ptr packer, const std::string& titleText, Style style,
-                           const sf::Vector2i& position, const std::string& group,
-                           const std::string& id) {
-    Ptr window(new Window(packer, titleText, style, position, group, id));
-    window->addChildren();
-    return window;
+Window::Ptr Window::create(const Packer::Ptr& packer, const std::string& titleText, Style style,
+                           const sf::Vector2f& position) {
+    return Ptr(new Window(packer, titleText, style, position));
 }
 
-Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
-               const sf::Vector2i& position, const std::string& group, const std::string& id)
-: Container(group, id)
+Window::Window(const Packer::Ptr& packer, const std::string& titleText, Style style,
+               const sf::Vector2f& position)
+: CompositeElement<2>()
 , moveable(hasStyle(style, Moveable))
-, titlebarHeight(22)
-, elementArea(Box::create(packer, group, id + "-elementArea")) {
+, titlebarHeight(22.f)
+, elementArea(Box::create(packer)) {
     using namespace std::placeholders;
     const Signal::Callback dragCb   = std::bind(&Window::handleDrag, this, _1);
-    const Signal::Callback activeCb = std::bind(&Window::titleActive, this);
+    const Signal::Callback activeCb = std::bind(&Window::moveToTop, this);
 
+    titlebar = Box::create(
+        LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::LeftAlign));
     if (hasStyle(style, Titlebar)) {
         // Create titlebar containers
-        titlebar =
-            Box::create(LinePacker::create(
-                            LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::LeftAlign),
-                        group,
-                        id + "-titlebar");
-        leftTitleSide =
-            Box::create(LinePacker::create(LinePacker::Horizontal), group, id + "-leftTitlebar");
-        rightTitleSide =
-            Box::create(LinePacker::create(
-                            LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::RightAlign),
-                        group,
-                        id + "-rightTitlebar");
-        rightTitleSide->setRequisition(
-            {static_cast<int>(titlebarHeight), static_cast<int>(titlebarHeight)});
+        leftTitleSide  = Box::create(LinePacker::create(LinePacker::Horizontal));
+        rightTitleSide = Box::create(LinePacker::create(
+            LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::RightAlign));
+        rightTitleSide->setRequisition({titlebarHeight, titlebarHeight});
         titlebar->pack(leftTitleSide, true, true);
         titlebar->pack(rightTitleSide);
         titlebar->setExpandsWidth(true);
         titlebar->setExpandsHeight(true);
 
         // Title text
-        title = Label::create(titleText, group, id + "-title");
+        title = Label::create(titleText);
         title->setCharacterSize(18);
         title->setHorizontalAlignment(RenderSettings::Left);
         leftTitleSide->pack(title, true, true);
 
         // Setup drag action
-        getSignal(Action::Dragged).willAlwaysCall(dragCb);
-        title->getSignal(Action::Dragged).willAlwaysCall(dragCb);
-        title->getSignal(Action::Pressed).willAlwaysCall(activeCb);
-        leftTitleSide->getSignal(Action::Dragged).willAlwaysCall(dragCb);
-        leftTitleSide->getSignal(Action::Pressed).willAlwaysCall(activeCb);
-        rightTitleSide->getSignal(Action::Dragged).willAlwaysCall(dragCb);
-        rightTitleSide->getSignal(Action::Pressed).willAlwaysCall(activeCb);
-        titlebar->getSignal(Action::Dragged).willAlwaysCall(dragCb);
-        titlebar->getSignal(Action::Pressed).willAlwaysCall(activeCb);
+        getSignal(Event::Dragged).willAlwaysCall(dragCb);
+        title->getSignal(Event::Dragged).willAlwaysCall(dragCb);
+        title->getSignal(Event::LeftMousePressed).willAlwaysCall(activeCb);
+        leftTitleSide->getSignal(Event::Dragged).willAlwaysCall(dragCb);
+        leftTitleSide->getSignal(Event::LeftMousePressed).willAlwaysCall(activeCb);
+        rightTitleSide->getSignal(Event::Dragged).willAlwaysCall(dragCb);
+        rightTitleSide->getSignal(Event::LeftMousePressed).willAlwaysCall(activeCb);
+        titlebar->getSignal(Event::Dragged).willAlwaysCall(dragCb);
+        titlebar->getSignal(Event::LeftMousePressed).willAlwaysCall(activeCb);
 
         // Close button
         if (hasStyle(style, CloseButton)) {
-            closeButton = Button::create("X", group, id + "-close");
+            closeButton = Button::create("X");
             closeButton->setCharacterSize(16);
             closeButton->setExpandsWidth(true);
-            closeButton->getSignal(Action::LeftClicked)
+            closeButton->getSignal(Event::LeftClicked)
                 .willAlwaysCall(std::bind(&Window::closed, this));
             rightTitleSide->pack(closeButton);
         }
@@ -80,91 +70,95 @@ Window::Window(Packer::Ptr packer, const std::string& titleText, Style style,
 
     elementArea->setExpandsWidth(true);
     elementArea->setExpandsHeight(true);
-    elementArea->getSignal(Action::Dragged).willAlwaysCall(dragCb);
+    elementArea->getSignal(Event::Dragged).willAlwaysCall(dragCb);
     assignAcquisition({position.x, position.y, 40, 20});
+
+    Element* tmp[2] = {titlebar.get(), elementArea.get()};
+    registerChildren(tmp);
 }
 
-void Window::handleDrag(const Action& action) {
-    if (action.type == Action::Dragged && moveable) {
-        const sf::Vector2i dragAmount =
-            static_cast<sf::Vector2i>(action.data.dragStart - action.position);
-        const sf::Vector2i newPos =
-            sf::Vector2i(getAcquisition().left, getAcquisition().top) - dragAmount;
+void Window::handleDrag(const Event& action) {
+    if (action.type() == Event::Dragged && moveable) {
+        const sf::Vector2f dragAmount = action.dragStart() - action.mousePosition();
+        const sf::Vector2f newPos =
+            sf::Vector2f(getAcquisition().left, getAcquisition().top) - dragAmount;
         Element::setPosition(newPos);
-
-        fireSignal(Action(Action::Moved, static_cast<sf::Vector2f>(dragAmount), action.position));
     }
 }
 
-int Window::computeTitleHeight() const {
-    return titlebar ? std::max(static_cast<int>(titlebarHeight), titlebar->getRequisition().y) : 0;
+float Window::computeTitleHeight() const {
+    return titlebar ? std::max(titlebarHeight, titlebar->getRequisition().y) : 0.f;
 }
 
-int Window::computeTitleWidth() const { return titlebar ? titlebar->getRequisition().x : 0; }
+float Window::computeTitleWidth() const { return titlebar ? titlebar->getRequisition().x : 0.f; }
 
 void Window::onAcquisition() {
-    const int h = computeTitleHeight();
+    const float h = computeTitleHeight();
     if (titlebar) {
         rightTitleSide->setRequisition({h, h});
-        Packer::manuallyPackElement(titlebar, {0, 0, getAcquisition().width, h});
+        Packer::manuallyPackElement(
+            titlebar, {getAcquisition().left, getAcquisition().top, getAcquisition().width, h});
     }
     Packer::manuallyPackElement(elementArea,
-                                {0, h, getAcquisition().width, getAcquisition().height - h});
+                                {getAcquisition().left,
+                                 getAcquisition().top + h,
+                                 getAcquisition().width,
+                                 getAcquisition().height - h});
 }
 
-sf::Vector2i Window::minimumRequisition() const {
-    const sf::Vector2i childMin = elementArea->getRequisition();
-    const int titleWidth        = computeTitleWidth();
-    const int h                 = childMin.y + computeTitleHeight();
-    return {std::max(childMin.x, titleWidth), h > 10 ? h : 10};
+sf::Vector2f Window::minimumRequisition() const {
+    const sf::Vector2f childMin = elementArea->getRequisition();
+    const float titleWidth      = computeTitleWidth();
+    const float h               = childMin.y + computeTitleHeight();
+    return {std::max(childMin.x, titleWidth), h > 10.f ? h : 10.f};
 }
 
-void Window::closed() { fireSignal(Action(Action::Closed)); }
-
-void Window::titleActive() { moveToTop(); }
+void Window::closed() { fireSignal(Event(Event::Closed)); }
 
 void Window::doRender(sf::RenderTarget& target, sf::RenderStates states,
                       const Renderer& renderer) const {
+    const sf::View oldView = target.getView();
+    target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(getAcquisition()),
+                                                       renderer.getOriginalView()));
     renderer.renderWindow(target, states, titlebar.get(), *this);
-    renderChildren(target, states, renderer);
+    if (titlebar) { titlebar->render(target, states, renderer); }
+    elementArea->render(target, states, renderer);
+    target.setView(oldView);
 }
 
 void Window::update(float dt) {
-    if (dirty())
-        assignAcquisition(
-            {sf::Vector2i(getAcquisition().left, getAcquisition().top), getRequisition()});
-    Container::update(dt);
+    Element::update(dt);
+
+    if (dirty()) { assignAcquisition({getPosition(), getRequisition()}); }
+    if (titlebar) { titlebar->update(dt); }
+    elementArea->update(dt);
 }
 
 bool Window::shouldPack() const { return false; }
 
-void Window::pack(Element::Ptr e) { elementArea->pack(e); }
+void Window::pack(const Element::Ptr& e) { elementArea->pack(e); }
 
-void Window::pack(Element::Ptr e, bool fx, bool fy) { elementArea->pack(e, fx, fy); }
+void Window::pack(const Element::Ptr& e, bool fx, bool fy) { elementArea->pack(e, fx, fy); }
 
-void Window::setTitlebarHeight(unsigned int h) {
+void Window::setTitlebarHeight(float h) {
     titlebarHeight = h;
-    assignAcquisition(getAcquisition());
+    assignAcquisition({getPosition(), getRequisition()});
 }
 
-void Window::setPosition(const sf::Vector2i& pos) { Element::setPosition(pos); }
+void Window::setPosition(const sf::Vector2f& pos) { Element::setPosition(pos); }
 
-Box::Ptr Window::getElementArea() { return elementArea; }
+const Box::Ptr& Window::getElementArea() { return elementArea; }
 
-Label::Ptr Window::getTitleLabel() { return title; }
+const Label::Ptr& Window::getTitleLabel() { return title; }
 
-Box::Ptr Window::getTitlebar() { return titlebar; }
+const Box::Ptr& Window::getTitlebar() { return titlebar; }
 
-Button::Ptr Window::getCloseButton() { return closeButton; }
+const Button::Ptr& Window::getCloseButton() { return closeButton; }
 
-void Window::addChildren() {
-    if (titlebar) add(titlebar);
-    add(elementArea);
-}
-
-bool Window::handleScroll(const RawEvent& scroll) {
-    Container::handleScroll(scroll);
-    return true;
+bool Window::propagateEvent(const Event& event) {
+    if (titlebar && titlebar->processEvent(event)) return true;
+    if (elementArea->processEvent(event)) return true;
+    return getAcquisition().contains(event.mousePosition());
 }
 
 } // namespace gui

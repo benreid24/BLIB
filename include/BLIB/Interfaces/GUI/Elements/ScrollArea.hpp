@@ -1,10 +1,11 @@
 #ifndef BLIB_GUI_ELEMENTS_SCROLLAREA_HPP
 #define BLIB_GUI_ELEMENTS_SCROLLAREA_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
+#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Slider.hpp>
 #include <BLIB/Interfaces/GUI/Packers/Packer.hpp>
+#include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 
 namespace bl
 {
@@ -18,7 +19,7 @@ namespace gui
  * @see Box
  *
  */
-class ScrollArea : public Container {
+class ScrollArea : public CompositeElement<3> {
 public:
     typedef std::shared_ptr<ScrollArea> Ptr;
 
@@ -28,20 +29,17 @@ public:
      * @brief Create a new ScrollArea
      *
      * @param packer The packer to use
-     * @param group The group of the ScrollArea
-     * @param id The id of this ScrollArea
      * @return Ptr The newly created ScrollArea
      */
-    static Ptr create(Packer::Ptr packer, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(const Packer::Ptr& packer);
 
     /**
      * @brief Set the maximum size the scroll area can fill before scrolling is enabled. Note
-     *        that if a size is set via setAcquisition() then that will take precedence
+     *        that if a size is set via setRequisition() then that will take precedence
      *
      * @param size The maximum size. (0,0) to reset
      */
-    void setMaxSize(const sf::Vector2i& size);
+    void setMaxSize(const sf::Vector2f& size);
 
     /**
      * @brief Set whether or not to always show the vertical scrollbar
@@ -69,7 +67,7 @@ public:
      *
      * @param e The element to pack
      */
-    void pack(Element::Ptr e);
+    void pack(const Element::Ptr& e);
 
     /**
      * @brief Pack the element into the ScrollArea. Also modifies the Element's expand
@@ -79,26 +77,24 @@ public:
      * @param fillX True for the element to expand horizontally into all available space
      * @param fillY True for the element to expand vertically into all available space
      */
-    void pack(Element::Ptr e, bool fillX, bool fillY);
+    void pack(const Element::Ptr& e, bool fillX, bool fillY);
 
     /**
-     * @brief Does a bounds check and calls Container::handleRawEvent if in bounds
+     * @brief Removes and unpacks all child elements
      *
-     * @param event The event that fired
-     * @return True if the event was consumed, false otherwise
+     * @param immediate True to clear all children immediately, false to wait until update()
+     *
      */
-    virtual bool handleRawEvent(const RawEvent& event) override;
+    void clearChildren(bool immediate);
 
 protected:
     /**
      * @brief Create a new ScrollArea
      *
      * @param packer The packer to use
-     * @param group The group of the ScrollArea
-     * @param id The id of this ScrollArea
      * @return Ptr The newly created ScrollArea
      */
-    ScrollArea(Packer::Ptr packer, const std::string& group, const std::string& id);
+    ScrollArea(const Packer::Ptr& packer);
 
     /**
      * @brief Adjusts the size of the visible window and updates the scrollbars
@@ -112,15 +108,7 @@ protected:
      *
      * @return sf::Vector2i
      */
-    virtual sf::Vector2i minimumRequisition() const override;
-
-    /**
-     * @brief Returns the scroll offset if e is not one of the scrollbars
-     *
-     * @param e The element to get the offset for
-     * @return The offset to apply to events to the element
-     */
-    virtual sf::Vector2f getElementOffset(const Element* e) const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the scroll area, scrollbars if visible, and the child elements
@@ -133,21 +121,28 @@ protected:
                           const Renderer& renderer) const override;
 
     /**
+     * @brief Does a bounds check and calls Container::handleRawEvent if in bounds
+     *
+     * @param event The event that fired
+     * @return True if the event was consumed, false otherwise
+     */
+    virtual bool propagateEvent(const Event& event) override;
+
+    /**
      * @brief Scrolls the area and returns true
      *
      * @param scroll The scroll that occured
-     * @return True
+     * @return True if the scroll was over the area, false otherwise
      */
-    virtual bool handleScroll(const RawEvent& scroll) override;
+    virtual bool handleScroll(const Event& scroll) override;
 
 private:
-    Packer::Ptr packer;
     Slider::Ptr horScrollbar;
     Slider::Ptr vertScrollbar;
-    std::unordered_set<const Element*> filter;
-    std::optional<sf::Vector2i> maxSize;
-    mutable sf::Vector2i totalSize;
-    mutable sf::Vector2i availableSize;
+    Box::Ptr content;
+    std::optional<sf::Vector2f> maxSize;
+    mutable sf::Vector2f totalSize;
+    mutable sf::Vector2f availableSize;
     sf::Vector2f offset;
     sf::Vector2f boxMousePos;
     bool alwaysShowH;
@@ -156,6 +151,7 @@ private:
     void addBars();
     void refreshSize() const;
     void scrolled();
+    void updateContentPos();
 };
 } // namespace gui
 } // namespace bl

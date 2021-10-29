@@ -26,15 +26,12 @@ public:
      * @brief Create a new TextEntry element
      *
      * @param lineCount The number of lines in the entry
-     * @param group The group the TextEntry is in
-     * @param id The id of this TextEntry
      * @return Ptr The new TextEntry
      */
-    static Ptr create(unsigned int lineCount = 1, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(unsigned int lineCount = 1);
 
     /**
-     * @brief Set the maximum amount of characters that can be input. Has no affect if
+     * @brief Set the maximum amount of characters that can be input
      *
      * @param maxLength The number of characters that can be input
      */
@@ -79,18 +76,16 @@ protected:
      * @brief Create a new TextEntry element
      *
      * @param lineCount The number of lines in the entry
-     * @param group The group the TextEntry is in
-     * @param id The id of this TextEntry
      * @return Ptr The new TextEntry
      */
-    TextEntry(unsigned int lineCount, const std::string& group, const std::string& id);
+    TextEntry(unsigned int lineCount);
 
     /**
      * @brief Computes the minimum area required based on the number of lines. Returns small
      *        width. Width should be set via setRequisition() or by setExpandsWidth(true)
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the text entry
@@ -121,9 +116,9 @@ private:
     void cursorUp();
     void cursorDown();
 
-    void onInput(const Action& action);
-    void onKeypress(const Action& action);
-    void onClicked(const Action& action);
+    void onInput(const Event& action);
+    void onKeypress(const Event& action);
+    void onClicked(const Event& action);
 };
 
 } // namespace gui

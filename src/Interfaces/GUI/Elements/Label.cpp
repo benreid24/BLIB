@@ -6,14 +6,12 @@ namespace bl
 {
 namespace gui
 {
-Label::Ptr Label::create(const std::string& text, const std::string& group, const std::string& id) {
-    return Ptr(new Label(text, group, id));
-}
+Label::Ptr Label::create(const std::string& text) { return Ptr(new Label(text)); }
 
-Label::Label(const std::string& text, const std::string& group, const std::string& id)
-: Element(group, id)
+Label::Label(const std::string& text)
+: Element()
 , text(text) {
-    getSignal(Action::RenderSettingsChanged)
+    getSignal(Event::RenderSettingsChanged)
         .willAlwaysCall(std::bind(&Label::settingsChanged, this));
     settingsChanged();
 }
@@ -30,10 +28,9 @@ void Label::doRender(sf::RenderTarget& target, sf::RenderStates states,
     renderer.renderLabel(target, states, *this);
 }
 
-sf::Vector2i Label::minimumRequisition() const {
-    return {
-        static_cast<int>(renderText.getGlobalBounds().width + renderText.getGlobalBounds().left),
-        static_cast<int>(renderText.getGlobalBounds().height + renderText.getGlobalBounds().top)};
+sf::Vector2f Label::minimumRequisition() const {
+    return {renderText.getGlobalBounds().width + renderText.getGlobalBounds().left,
+            renderText.getGlobalBounds().height + renderText.getGlobalBounds().top};
 }
 
 void Label::settingsChanged() {

@@ -15,54 +15,42 @@ DebugRenderer::Ptr DebugRenderer::create(Renderer::Ptr renderer) {
 
 DebugRenderer::DebugRenderer(Renderer::Ptr renderer)
 : underlying(renderer)
-, showBounds(false)
-, printGroups(false)
-, printIds(false) {}
+, showBounds(false) {}
 
 void DebugRenderer::showAcquisitions(bool show) { showBounds = show; }
-
-void DebugRenderer::showGroups(bool show) { printGroups = show; }
-
-void DebugRenderer::showIds(bool show) { printIds = show; }
-
-void DebugRenderer::renderCustom(sf::RenderTarget& target, sf::RenderStates states,
-                                 const Element& element) const {
-    underlying->renderCustom(target, states, element);
-    addInfo(target, states, element.getAcquisition(), element.group(), element.id());
-}
 
 void DebugRenderer::renderLabel(sf::RenderTarget& target, sf::RenderStates states,
                                 const Label& element) const {
     underlying->renderLabel(target, states, element);
-    addInfo(target, states, element.getAcquisition(), element.group(), element.id());
+    addInfo(target, states, element.getAcquisition());
 }
 
 void DebugRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates states,
                               const Container& element) const {
     underlying->renderBox(target, states, element);
-    addInfo(target, states, element.getAcquisition(), element.group(), element.id());
+    addInfo(target, states, element.getAcquisition());
 }
 
 void DebugRenderer::renderImage(sf::RenderTarget& target, sf::RenderStates states,
                                 const Element* element, const sf::Sprite& image) const {
     underlying->renderImage(target, states, element, image);
-    addInfo(target, states, element->getAcquisition(), element->group(), element->id());
+    addInfo(target, states, element->getAcquisition());
 }
 
 void DebugRenderer::renderButton(sf::RenderTarget& target, sf::RenderStates states,
                                  const Button& element) const {
     underlying->renderButton(target, states, element);
-    addInfo(target, states, element.getAcquisition(), element.group(), element.id());
+    addInfo(target, states, element.getAcquisition());
 }
 
 void DebugRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates states,
                                    const ComboBox& box) const {
     underlying->renderComboBox(target, states, box);
-    addInfo(target, states, box.getAcquisition(), box.group(), box.id());
+    addInfo(target, states, box.getAcquisition());
 }
 
 void DebugRenderer::renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::RenderStates states,
-                                                const ComboBox& box, const sf::Vector2i& optionSize,
+                                                const ComboBox& box, const sf::Vector2f& optionSize,
                                                 unsigned int optionCount,
                                                 unsigned int mousedOption) const {
     underlying->renderComboBoxDropdownBoxes(
@@ -78,28 +66,28 @@ void DebugRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderS
     underlying->renderMouseoverOverlay(target, states, element);
 }
 
-void DebugRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates states,
-                                   const Notebook& nb) const {
-    underlying->renderNotebook(target, states, nb);
-    addInfo(target, states, nb.getAcquisition(), nb.group(), nb.id());
+void DebugRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderStates states,
+                                       const Notebook& nb) const {
+    underlying->renderNotebookTabs(target, states, nb);
+    addInfo(target, states, nb.getAcquisition());
 }
 
 void DebugRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,
                                       const ProgressBar& bar) const {
     underlying->renderProgressBar(target, states, bar);
-    addInfo(target, states, bar.getAcquisition(), bar.group(), bar.id());
+    addInfo(target, states, bar.getAcquisition());
 }
 
 void DebugRenderer::renderSeparator(sf::RenderTarget& target, sf::RenderStates states,
                                     const Separator& sep) const {
     underlying->renderSeparator(target, states, sep);
-    addInfo(target, states, sep.getAcquisition(), sep.group(), sep.id());
+    addInfo(target, states, sep.getAcquisition());
 }
 
 void DebugRenderer::renderSlider(sf::RenderTarget& target, sf::RenderStates states,
                                  const Slider& slider) const {
     underlying->renderSlider(target, states, slider);
-    addInfo(target, states, slider.getAcquisition(), slider.group(), slider.id());
+    addInfo(target, states, slider.getAcquisition());
 }
 
 void DebugRenderer::renderSliderButton(sf::RenderTexture& texture, bool hor,
@@ -110,7 +98,7 @@ void DebugRenderer::renderSliderButton(sf::RenderTexture& texture, bool hor,
 void DebugRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates states,
                                     const TextEntry& entry) const {
     underlying->renderTextEntry(target, states, entry);
-    addInfo(target, states, entry.getAcquisition(), entry.group(), entry.id());
+    addInfo(target, states, entry.getAcquisition());
 }
 
 void DebugRenderer::renderToggleCheckButton(sf::RenderTexture& texture, bool active) const {
@@ -124,12 +112,11 @@ void DebugRenderer::renderToggleRadioButton(sf::RenderTexture& texture, bool act
 void DebugRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates states,
                                  const Container* titlebar, const Window& window) const {
     underlying->renderWindow(target, states, titlebar, window);
-    addInfo(target, states, window.getAcquisition(), window.group(), window.id());
+    addInfo(target, states, window.getAcquisition());
 }
 
 void DebugRenderer::addInfo(sf::RenderTarget& target, sf::RenderStates states,
-                            const sf::IntRect& region, const std::string& group,
-                            const std::string& id) const {
+                            const sf::FloatRect& region) const {
     if (showBounds) {
         sf::RectangleShape rect(sf::Vector2f(region.width, region.height));
         rect.setPosition(region.left, region.top);
@@ -138,21 +125,11 @@ void DebugRenderer::addInfo(sf::RenderTarget& target, sf::RenderStates states,
         rect.setFillColor(sf::Color::Transparent);
         target.draw(rect, states);
     }
-    if (printGroups || printIds) {
-        std::stringstream ss;
-        if (printGroups) ss << "g: " << group << "\n";
-        if (printIds) ss << "i: " << id;
+}
 
-        sf::Text text;
-        text.setString(ss.str());
-        text.setPosition(region.left + 3, region.top + 3);
-        text.setFillColor(sf::Color::Cyan);
-        text.setOutlineColor(sf::Color::Magenta);
-        text.setOutlineThickness(1.5);
-        text.setCharacterSize(12);
-        text.setFont(*Font::get());
-        target.draw(text, states);
-    }
+void DebugRenderer::renderTooltip(sf::RenderTarget& target, sf::RenderStates states,
+                                  const Element* e, const sf::Vector2f& mousePos) const {
+    underlying->renderTooltip(target, states, e, mousePos);
 }
 
 } // namespace gui

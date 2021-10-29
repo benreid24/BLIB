@@ -4,27 +4,26 @@ namespace bl
 {
 namespace gui
 {
-Box::Ptr Box::create(Packer::Ptr packer, const std::string& group, const std::string& id) {
-    auto p = Ptr(new Box(packer, group, id));
+Box::Ptr Box::create(Packer::Ptr packer) {
+    auto p = Ptr(new Box(packer));
     return p;
 }
 
-Box::Box(Packer::Ptr packer, const std::string& group, const std::string& id)
-: Container(group, id)
-, packer(packer) {}
+Box::Box(Packer::Ptr packer)
+: Container()
+, packer(packer)
+, computeView(true) {}
+
+void Box::setConstrainView(bool c) { computeView = c; }
 
 void Box::setPacker(Packer::Ptr p) {
     packer = p;
     makeDirty();
 }
 
-sf::Vector2i Box::minimumRequisition() const {
-    return packer->getRequisition(getPackableChildren());
-}
+sf::Vector2f Box::minimumRequisition() const { return packer->getRequisition(getChildren()); }
 
-void Box::onAcquisition() {
-    packer->pack({0, 0, getAcquisition().width, getAcquisition().height}, getPackableChildren());
-}
+void Box::onAcquisition() { packer->pack(getAcquisition(), getChildren()); }
 
 void Box::pack(Element::Ptr e) { add(e); }
 
@@ -37,7 +36,7 @@ void Box::pack(Element::Ptr e, bool fx, bool fy) {
 void Box::doRender(sf::RenderTarget& target, sf::RenderStates states,
                    const Renderer& renderer) const {
     renderer.renderBox(target, states, *this);
-    renderChildren(target, states, renderer);
+    renderChildren(target, states, renderer, computeView);
 }
 
 } // namespace gui

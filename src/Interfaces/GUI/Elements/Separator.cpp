@@ -4,12 +4,10 @@ namespace bl
 {
 namespace gui
 {
-Separator::Ptr Separator::create(Direction dir, const std::string& g, const std::string& i) {
-    return Ptr(new Separator(dir, g, i));
-}
+Separator::Ptr Separator::create(Direction dir) { return Ptr(new Separator(dir)); }
 
-Separator::Separator(Direction d, const std::string& g, const std::string& i)
-: Element(g, i)
+Separator::Separator(Direction d)
+: Element()
 , dir(d) {
     if (dir == Horizontal)
         setExpandsWidth(true);
@@ -19,8 +17,8 @@ Separator::Separator(Direction d, const std::string& g, const std::string& i)
 
 Separator::Direction Separator::getDirection() const { return dir; }
 
-sf::Vector2i Separator::minimumRequisition() const {
-    const int thick = renderSettings().outlineThickness.value_or(DefaultThickness);
+sf::Vector2f Separator::minimumRequisition() const {
+    const float thick = renderSettings().outlineThickness.value_or(DefaultThickness);
     return {thick, thick};
 }
 

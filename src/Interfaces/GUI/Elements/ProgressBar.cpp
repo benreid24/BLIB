@@ -4,13 +4,10 @@ namespace bl
 {
 namespace gui
 {
-ProgressBar::Ptr ProgressBar::create(FillDirection dir, const std::string& g,
-                                     const std::string& i) {
-    return Ptr(new ProgressBar(dir, g, i));
-}
+ProgressBar::Ptr ProgressBar::create(FillDirection dir) { return Ptr(new ProgressBar(dir)); }
 
-ProgressBar::ProgressBar(FillDirection dir, const std::string& g, const std::string& i)
-: Element(g, i)
+ProgressBar::ProgressBar(FillDirection dir)
+: Element()
 , direction(dir)
 , progress(0) {}
 
@@ -24,7 +21,7 @@ float ProgressBar::getProgress() const { return progress; }
 
 ProgressBar::FillDirection ProgressBar::getFillDirection() const { return direction; }
 
-sf::Vector2i ProgressBar::minimumRequisition() const { return {5, 5}; }
+sf::Vector2f ProgressBar::minimumRequisition() const { return {5.f, 5.f}; }
 
 void ProgressBar::doRender(sf::RenderTarget& target, sf::RenderStates states,
                            const Renderer& renderer) const {

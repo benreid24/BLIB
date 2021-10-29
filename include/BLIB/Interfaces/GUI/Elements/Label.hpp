@@ -26,11 +26,8 @@ public:
      * @brief Construct a new Label
      *
      * @param text The text to display
-     * @param group The group the element is in
-     * @param id The id of this element
      */
-    static Ptr create(const std::string& text, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(const std::string& text);
 
     /**
      * @brief Destroy the Label object
@@ -55,17 +52,15 @@ protected:
      * @brief Construct a new Label
      *
      * @param text The text to display
-     * @param group The group the element is in
-     * @param id The id of this element
      */
-    Label(const std::string& text, const std::string& group = "", const std::string& id = "");
+    Label(const std::string& text);
 
     /**
      * @brief Returns the minimum space required to render the label
      *
      * @return sf::Vector2i Space required
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Render the Label to the given target

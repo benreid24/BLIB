@@ -6,20 +6,16 @@ namespace bl
 {
 namespace gui
 {
-CheckButton::Ptr CheckButton::create(const std::string& text, const std::string& group,
-                                     const std::string& id) {
-    return create(Label::create(text, group, id + "-label"), group, id);
+CheckButton::Ptr CheckButton::create(const std::string& text) {
+    return create(Label::create(text));
 }
 
-CheckButton::Ptr CheckButton::create(Element::Ptr child, const std::string& group,
-                                     const std::string& id) {
-    Ptr but(new CheckButton(child, group, id));
-    but->finishCreate();
-    return but;
+CheckButton::Ptr CheckButton::create(const Element::Ptr& child) {
+    return Ptr(new CheckButton(child));
 }
 
-CheckButton::CheckButton(Element::Ptr child, const std::string& group, const std::string& id)
-: ToggleButton(child, group, id) {}
+CheckButton::CheckButton(const Element::Ptr& child)
+: ToggleButton(child) {}
 
 void CheckButton::renderToggles(Canvas& activeBut, Canvas& inactiveBut,
                                 const Renderer& renderer) const {

@@ -1,30 +1,27 @@
 #include <BLIB/Interfaces/GUI/Elements/ComboBox.hpp>
 
-#include <BLIB/Interfaces/GUI/Packers/Packer.hpp>
+#include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
+#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 
 namespace bl
 {
 namespace gui
 {
-ComboBox::Ptr ComboBox::create(const std::string& group, const std::string& id) {
-    Ptr box(new ComboBox(group, id));
-    box->addChildren();
-    return box;
-}
+ComboBox::Ptr ComboBox::create() { return Ptr(new ComboBox()); }
 
-ComboBox::ComboBox(const std::string& group, const std::string& id)
-: Container(group, id)
-, arrow(Canvas::create(32, 32, group, id + "-dropdown"))
+ComboBox::ComboBox()
+: Element()
+, arrow(Canvas::create(32, 32))
 , maxHeight(0.f)
 , scroll(0.f)
 , selected(-1)
 , opened(false)
 , arrowRendered(false) {
-    getSignal(Action::RenderSettingsChanged).willAlwaysCall(std::bind(&ComboBox::onSettings, this));
-    getSignal(Action::LeftClicked).willAlwaysCall(std::bind(&ComboBox::clicked, this));
+    getSignal(Event::RenderSettingsChanged).willAlwaysCall(std::bind(&ComboBox::onSettings, this));
+    getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&ComboBox::clicked, this));
+    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&ComboBox::onAcquisition, this));
+    getSignal(Event::Moved).willAlwaysCall(std::bind(&ComboBox::onAcquisition, this));
 }
-
-void ComboBox::addChildren() { add(arrow); }
 
 void ComboBox::setLabelColor(const sf::Color& c) {
     labelColor = c;
@@ -33,13 +30,12 @@ void ComboBox::setLabelColor(const sf::Color& c) {
 
 void ComboBox::addOption(const std::string& text) {
     options.push_back(text);
-    labels.push_back(Label::create(text, group(), id() + "-" + text));
+    labels.push_back(Label::create(text));
     labels.back()->setExpandsWidth(true);
     labels.back()->setHorizontalAlignment(RenderSettings::Left);
     labels.back()
-        ->getSignal(Action::LeftClicked)
+        ->getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&ComboBox::optionClicked, this, options.back()));
-    add(labels.back());
     onSettings();
 }
 
@@ -63,13 +59,14 @@ void ComboBox::setSelectedOption(int i) {
     if (selected >= static_cast<int>(options.size())) selected = options.size() - 1;
     opened = false;
     packClosed();
-    fireSignal(Action(Action::ValueChanged));
+    fireSignal(Event(Event::ValueChanged, options[i]));
 }
 
 void ComboBox::setSelectedOption(const std::string& t) {
     for (unsigned int i = 0; i < options.size(); ++i) {
         if (options[i] == t) {
             setSelectedOption(i);
+            fireSignal(Event(Event::ValueChanged, t));
             break;
         }
     }
@@ -77,10 +74,10 @@ void ComboBox::setSelectedOption(const std::string& t) {
 
 bool ComboBox::isOpened() const { return opened; }
 
-sf::Vector2i ComboBox::minimumRequisition() const {
-    sf::Vector2i lreq(0, 0);
-    for (Label::Ptr label : labels) {
-        const sf::Vector2i req = label->getRequisition();
+sf::Vector2f ComboBox::minimumRequisition() const {
+    sf::Vector2f lreq(0.f, 0.f);
+    for (const Label::Ptr& label : labels) {
+        const sf::Vector2f req = label->getRequisition();
         lreq.x                 = std::max(req.x + 4, lreq.x);
         lreq.y                 = std::max(req.y + 4, lreq.y);
     }
@@ -88,40 +85,58 @@ sf::Vector2i ComboBox::minimumRequisition() const {
 }
 
 void ComboBox::onAcquisition() {
-    labelSize   = {getAcquisition().width - getAcquisition().height + OptionPadding,
+    labelSize = {getAcquisition().width - getAcquisition().height + OptionPadding,
                  getAcquisition().height + OptionPadding};
-    labelRegion = {
-        0, getAcquisition().height, labelSize.x, labelSize.y * static_cast<int>(options.size())};
+
+    totalHeight = labelSize.y * static_cast<int>(options.size());
+    labelRegion = {getAcquisition().left,
+                   getAcquisition().top + getAcquisition().height,
+                   labelSize.x,
+                   totalHeight};
+
     labelRegion.height =
         maxHeight > 0 ? std::min(maxHeight, labelRegion.height) : labelRegion.height;
-    arrow->scaleToSize(
-        {static_cast<float>(getAcquisition().height), static_cast<float>(getAcquisition().height)},
-        false);
+
+    arrow->scaleToSize({getAcquisition().height, getAcquisition().height}, false);
     Packer::manuallyPackElement(arrow,
-                                {labelSize.x, 0, getAcquisition().height, getAcquisition().height});
+                                {getAcquisition().left + labelSize.x,
+                                 getAcquisition().top,
+                                 getAcquisition().height,
+                                 getAcquisition().height});
     if (opened)
         packOpened();
     else
         packClosed();
 }
 
-bool ComboBox::handleRawEvent(const RawEvent& event) {
-    const RawEvent transformed = transformEvent(event);
-    const bool contained =
-        labelRegion.contains(static_cast<sf::Vector2i>(transformed.localMousePos));
-    if (contained) {
-        if (transformed.event.type == sf::Event::MouseWheelScrolled) {
-            scrolled(Action::fromRaw(transformed));
+bool ComboBox::propagateEvent(const Event& event) {
+    const bool contained = labelRegion.contains(event.mousePosition());
+    if (contained && opened) {
+        if (event.type() == Event::Scrolled) {
+            scrolled(event);
+            const Event fakeMove(
+                Event::MouseMoved,
+                sf::Vector2f(event.mousePosition().x, event.mousePosition().y + scroll));
+            for (Label::Ptr& option : labels) { option->processEvent(fakeMove); }
             return true;
         }
+        else {
+            const Event translated(
+                event, sf::Vector2f(event.mousePosition().x, event.mousePosition().y + scroll));
+            for (Label::Ptr& option : labels) { option->processEvent(translated); }
+        }
     }
-    Container::handleRawEvent(event.transformToLocal({0.f, -scroll}));
+    if (opened && event.type() == Event::LeftMousePressed) {
+        opened = false;
+        packClosed();
+        return true; // eat it?
+    }
     return contained && opened;
 }
 
-bool ComboBox::handleScroll(const RawEvent& event) {
+bool ComboBox::handleScroll(const Event& event) {
     if (opened) {
-        scrolled(Action::fromRaw(event));
+        scrolled(event);
         return true;
     }
     return false;
@@ -142,26 +157,22 @@ void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
         renderer.renderComboBoxDropdownArrow(arrow->getTexture());
     }
 
-    const sf::View oldView = target.getView();
-
-    target.setView(computeView(oldView, getAcquisition(), false));
     renderer.renderComboBox(target, states, *this);
     arrow->render(target, states, renderer);
 
-    sf::IntRect region = labelRegion;
-    region.top += getAcquisition().top;
-    region.left += getAcquisition().left;
-    region.height += labelSize.y;
-
-    sf::View trickView = oldView;
-    trickView.move(0, labelSize.y);
-    target.setView(computeView(trickView, region, false));
-    if (opened) states.transform.translate(0, -scroll);
-
-    renderer.renderComboBoxDropdownBoxes(
-        target, states, *this, labelSize, opened ? options.size() : 0, moused);
-    renderChildrenRawFiltered(target, states, renderer, {arrow.get()});
-    target.setView(oldView);
+    if (opened) {
+        const sf::View oldView = target.getView();
+        target.setView(
+            interface::ViewUtil::computeSubView(labelRegion, renderer.getOriginalView()));
+        states.transform.translate(0, -scroll);
+        renderer.renderComboBoxDropdownBoxes(
+            target, states, *this, labelSize, opened ? options.size() : 0, moused);
+        for (const Label::Ptr& option : labels) { option->render(target, states, renderer); }
+        target.setView(oldView);
+    }
+    else if (selected >= 0) {
+        labels[selected]->render(target, states, renderer);
+    }
 }
 
 void ComboBox::onSettings() {
@@ -174,11 +185,13 @@ void ComboBox::onSettings() {
     }
 }
 
-void ComboBox::optionClicked(std::string text) {
+void ComboBox::optionClicked(const std::string& text) {
     if (opened) setSelectedOption(text);
 }
 
 void ComboBox::clicked() {
+    takeFocus();
+    moveToTop();
     opened = !opened;
     if (opened)
         packOpened();
@@ -187,7 +200,7 @@ void ComboBox::clicked() {
 }
 
 void ComboBox::packOpened() {
-    sf::Vector2i pos(OptionPadding, labelSize.y + OptionPadding);
+    sf::Vector2f pos(labelRegion.left, labelRegion.top);
     for (Label::Ptr label : labels) {
         label->setVisible(true, false);
         Packer::manuallyPackElement(label, {pos, labelSize});
@@ -200,7 +213,10 @@ void ComboBox::packClosed() {
     for (unsigned int i = 0; i < labels.size(); ++i) {
         if (i == sel) {
             Packer::manuallyPackElement(labels[i],
-                                        {OptionPadding, OptionPadding, labelSize.x, labelSize.y});
+                                        {getAcquisition().left + OptionPadding,
+                                         getAcquisition().top + OptionPadding,
+                                         labelSize.x,
+                                         labelSize.y});
             labels[i]->setVisible(true, false);
         }
         else
@@ -208,18 +224,24 @@ void ComboBox::packClosed() {
     }
 }
 
-void ComboBox::setMaxHeight(int m) { maxHeight = m; }
+void ComboBox::setMaxHeight(float m) { maxHeight = m; }
 
-void ComboBox::scrolled(const Action& a) {
-    if (maxHeight > 0) {
-        const float height    = labelSize.y * static_cast<int>(options.size() + 1);
-        const float maxScroll = height - maxHeight;
+void ComboBox::scrolled(const Event& a) {
+    if (maxHeight > 0 && totalHeight > maxHeight) {
+        const float maxScroll = totalHeight - maxHeight;
 
-        scroll -= a.data.scroll * 6.f;
+        scroll -= a.scrollDelta() * 6.f;
         if (scroll < 0.f)
             scroll = 0.f;
         else if (scroll > maxScroll)
             scroll = maxScroll;
+    }
+}
+
+void ComboBox::update(float dt) {
+    Element::update(dt);
+    if (opened) {
+        for (Label::Ptr& option : labels) { option->update(dt); }
     }
 }
 

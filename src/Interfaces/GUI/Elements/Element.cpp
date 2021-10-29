@@ -1,12 +1,13 @@
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 
+#include <cmath>
+
 namespace bl
 {
 namespace gui
 {
-Element::Element(const std::string& g, const std::string& i)
-: _id(i)
-, _group(g)
+Element::Element()
+: parent(nullptr)
 , _dirty(true)
 , _active(true)
 , _visible(true)
@@ -17,15 +18,11 @@ Element::Element(const std::string& g, const std::string& i)
 , focusForced(false)
 , isMouseOver(false)
 , isLeftPressed(false)
-, isRightPressed(false) {}
+, isRightPressed(false)
+, flashTime(-1.f)
+, hoverTime(0.f) {}
 
-const std::string& Element::id() const { return _id; }
-
-const std::string& Element::group() const { return _group; }
-
-Element::CPtr Element::getParent() const { return parent.expired() ? nullptr : parent.lock(); }
-
-void Element::setRequisition(const sf::Vector2i& size) {
+void Element::setRequisition(const sf::Vector2f& size) {
     requisition.reset();
     if (size.x > 0 && size.y > 0) {
         requisition = size;
@@ -33,24 +30,26 @@ void Element::setRequisition(const sf::Vector2i& size) {
     }
 }
 
-sf::Vector2i Element::getRequisition() const {
-    const sf::Vector2i mr = minimumRequisition();
+sf::Vector2f Element::getRequisition() const {
+    const sf::Vector2f mr = minimumRequisition();
     if (requisition.has_value())
         return {std::max(requisition.value().x, mr.x), std::max(requisition.value().y, mr.y)};
     return mr;
 }
 
-const sf::IntRect& Element::getAcquisition() const { return acquisition; }
-
-Signal& Element::getSignal(Action::Type trigger) { return signals[trigger]; }
+Signal& Element::getSignal(Event::Type trigger) { return signals[trigger]; }
 
 bool Element::hasFocus() const { return isFocused; }
 
+bool Element::focusIsforced() const { return focusForced; }
+
 bool Element::takeFocus() {
     if (isFocused) return true;
-    if (!clearFocus()) return false;
+
+    if (!clearFocus(this)) return false;
+
     isFocused = true;
-    fireSignal(Action(Action::GainedFocus));
+    fireSignal(Event(Event::GainedFocus));
     moveToTop();
     return true;
 }
@@ -60,39 +59,39 @@ bool Element::setForceFocus(bool force) {
     return hasFocus() || !force;
 }
 
-bool Element::clearFocus() {
-    WPtr top = parent;
-    while (!top.expired()) {
-        Ptr t = top.lock();
-        if (t) {
-            if (t->parent.expired()) break;
-            top = t->parent;
-        }
-        else
-            break;
+bool Element::clearFocus(const Element* requester) {
+    Element* p = parent;
+    while (p) {
+        if (!p->releaseFocus(requester)) return false;
+        p = p->parent;
     }
-    if (!top.expired()) {
-        Ptr t = top.lock();
-        if (t) return t->releaseFocus();
-    }
-    return releaseFocus();
+    return releaseFocus(requester);
 }
 
-bool Element::releaseFocus() {
+bool Element::releaseFocus(const Element* requester) {
     if (focusForced) {
-        if (hasFocus()) return false;
+        if (requester && (requester != this && !isChild(requester))) {
+            if (flashTime < 0.f) flashTime = 0.f;
+            return false;
+        }
     }
     bool wasFocused = isFocused;
     isFocused       = false;
-    if (wasFocused) fireSignal(Action(Action::LostFocus));
+    if (wasFocused) fireSignal(Event(Event::LostFocus));
     return true;
 }
 
-void Element::moveToTop() const {
-    if (!parent.expired()) {
-        Element::Ptr p = parent.lock();
-        if (p) p->bringToTop(this);
+bool Element::isChild(const Element* e) {
+    const Element* p = e->parent;
+    while (p) {
+        if (p == this) return true;
+        p = p->parent;
     }
+    return false;
+}
+
+void Element::moveToTop() const {
+    if (parent) parent->bringToTop(this);
 }
 
 bool Element::mouseOver() const { return isMouseOver; }
@@ -101,39 +100,36 @@ bool Element::leftPressed() const { return isLeftPressed; }
 
 bool Element::rightPressed() const { return isRightPressed; }
 
-bool Element::handleEvent(const RawEvent& event) {
+bool Element::processEvent(const Event& event) {
     if (!visible()) return false;
 
-    if (event.event.type == sf::Event::MouseWheelScrolled) {
-        if (getAcquisition().contains(sf::Vector2i(event.localMousePos))) {
-            return handleScroll(event);
-        }
+    if (propagateEvent(event)) return true;
+
+    const bool eventOnMe = cachedArea.contains(event.mousePosition());
+
+    if (event.type() == Event::Scrolled) {
+        if (eventOnMe) { return handleScroll(event); }
         return false;
     }
 
-    if (handleRawEvent(event)) return true;
+    switch (event.type()) {
+    case Event::TextEntered:
+    case Event::KeyPressed:
+    case Event::KeyReleased:
+        return processAction(event); // TODO - is this right?
 
-    const bool eventOnMe =
-        acquisition.contains(sf::Vector2i(event.localMousePos.x, event.localMousePos.y));
-
-    switch (event.event.type) {
-    case sf::Event::TextEntered:
-    case sf::Event::KeyPressed:
-    case sf::Event::KeyReleased:
-    case sf::Event::MouseWheelScrolled:
-        return processAction(Action::fromRaw(event));
-
-    case sf::Event::MouseButtonPressed:
+    case Event::LeftMousePressed:
+    case Event::RightMousePressed:
         if (eventOnMe) {
             if (!active()) return true;
 
             if (takeFocus()) {
-                if (event.event.mouseButton.button == sf::Mouse::Left) {
-                    dragStart     = event.localMousePos;
+                if (event.type() == Event::LeftMousePressed) {
+                    dragStart     = event.mousePosition();
                     isLeftPressed = true;
-                    return processAction(Action(Action::Pressed, event.localMousePos));
+                    return processAction(event);
                 }
-                else if (event.event.mouseButton.button == sf::Mouse::Right) {
+                else {
                     isRightPressed = true;
                     return true;
                 }
@@ -142,50 +138,60 @@ bool Element::handleEvent(const RawEvent& event) {
         }
         return false;
 
-    case sf::Event::MouseButtonReleased:
+    case Event::LeftMouseReleased:
+    case Event::RightMouseReleased:
         if (!active()) {
             isLeftPressed = isRightPressed = false;
             return eventOnMe;
         }
-        if (event.event.mouseButton.button == sf::Mouse::Left) {
+        processAction(event);
+        if (event.type() == Event::LeftMouseReleased) {
             if (isLeftPressed) {
                 isLeftPressed = false;
-                processAction(Action(Action::Released, event.localMousePos));
                 if (eventOnMe) {
-                    processAction(Action(Action::LeftClicked, event.localMousePos));
+                    processAction(Event(Event::LeftClicked, event.mousePosition()));
                     return true;
                 }
             }
         }
-        else if (event.event.mouseButton.button == sf::Mouse::Right) {
+        else if (event.type() == Event::RightMouseReleased) {
             if (isRightPressed) {
                 isRightPressed = false;
                 if (eventOnMe) {
-                    processAction(Action(Action::RightClicked, event.localMousePos));
+                    processAction(Event(Event::RightClicked, event.mousePosition()));
                     return true;
                 }
             }
         }
         return false;
 
-    case sf::Event::MouseMoved:
+    case Event::MouseMoved:
         if (!active()) { return eventOnMe; }
-        if (eventOnMe) { fireSignal(Action(Action::MouseMoved, event.localMousePos)); }
+        if (eventOnMe) { fireSignal(event); }
         if (isLeftPressed) {
-            isMouseOver = eventOnMe;
-            return processAction(Action(Action::Dragged, dragStart, event.localMousePos));
+            isMouseOver  = eventOnMe;
+            const bool r = processAction(Event(Event::Dragged, dragStart, event.mousePosition()));
+            dragStart    = event.mousePosition();
+            return r;
         }
         else if (eventOnMe) {
             if (!isMouseOver) {
                 isMouseOver = true;
-                processAction(Action(Action::MouseEntered, event.localMousePos));
+                processAction(Event(Event::MouseEntered, event.mousePosition()));
             }
+            hoverTime = 0.f;
             return true;
         }
         else if (isMouseOver) {
             isMouseOver = false;
-            processAction(Action(Action::MouseLeft, event.localMousePos));
+            processAction(Event(Event::MouseLeft, event.mousePosition()));
         }
+        return false;
+
+    case Event::MouseOutsideWindow:
+        isMouseOver    = false;
+        isLeftPressed  = false;
+        isRightPressed = false;
         return false;
 
     default:
@@ -193,7 +199,7 @@ bool Element::handleEvent(const RawEvent& event) {
     }
 }
 
-bool Element::processAction(const Action& action) {
+bool Element::processAction(const Event& action) {
     if (hasFocus()) {
         fireSignal(action);
         return true;
@@ -201,24 +207,23 @@ bool Element::processAction(const Action& action) {
     return false;
 }
 
-bool Element::handleScroll(const RawEvent&) { return false; }
+bool Element::handleScroll(const Event&) { return false; }
 
-void Element::fireSignal(const Action& action) { signals[action.type](action, this); }
+bool Element::propagateEvent(const Event&) { return false; }
+
+void Element::fireSignal(const Event& action) { signals[action.type()](action, this); }
 
 void Element::remove() {
-    if (!parent.expired()) {
-        Element::Ptr p = parent.lock();
-        if (p) p->removeChild(this);
-    }
+    if (parent) { parent->removeChild(this); }
 }
 
 void Element::makeDirty() {
     _dirty = true;
-    if (!parent.expired()) {
-        Element::Ptr p = parent.lock();
-        // TODO - stop this bubbling up at container level if requisition unchanged
-        if (p) p->makeDirty();
-    }
+    if (parent) { parent->requestMakeDirty(this); }
+}
+
+void Element::requestMakeDirty(const Element* child) {
+    if (child->packable()) makeDirty();
 }
 
 void Element::markClean() { _dirty = false; }
@@ -228,8 +233,8 @@ void Element::setVisible(bool v, bool md) {
     _visible = v;
 }
 
-bool Element::packable() const {
-    if (!visible() || skipPack) return false;
+bool Element::packable(bool ivs) const {
+    if ((!visible() && !ivs) || skipPack) return false;
     return shouldPack();
 }
 
@@ -266,90 +271,107 @@ void Element::setExpandsHeight(bool expand) {
 
 bool Element::expandsHeight() const { return fillY; }
 
-void Element::assignAcquisition(const sf::IntRect& acq) {
+void Element::assignAcquisition(const sf::FloatRect& acq) {
     markClean();
-    acquisition = acq;
-    fireSignal(Action(Action::AcquisitionChanged));
+    cachedArea = acq;
+    if (parent) {
+        position = sf::Vector2f(cachedArea.left, cachedArea.top) - parent->getPosition();
+    }
+    fireSignal(Event(Event::AcquisitionChanged));
 }
 
-void Element::setPosition(const sf::Vector2i& pos) {
-    const sf::Vector2f diff =
-        static_cast<sf::Vector2f>(pos) - sf::Vector2f(acquisition.left, acquisition.top);
+void Element::setPosition(const sf::Vector2f& pos) {
+    const sf::Vector2f diff = pos - sf::Vector2f(cachedArea.left, cachedArea.top);
     dragStart += diff;
-    acquisition.left = pos.x;
-    acquisition.top  = pos.y;
-    if (acquisition.left < 0.f) acquisition.left = 0.f;
-    if (acquisition.top < 0.f) acquisition.top = 0.f;
-    CPtr p = parent.lock();
-    if (p) {
-        if (acquisition.left + acquisition.width > p->getAcquisition().width) {
-            acquisition.left = p->getAcquisition().width - acquisition.width;
-        }
-        if (acquisition.top + acquisition.height > p->getAcquisition().height) {
-            acquisition.top = p->getAcquisition().height - acquisition.height;
+    cachedArea.left = pos.x;
+    cachedArea.top  = pos.y;
+    if (parent) {
+        position = sf::Vector2f(cachedArea.left, cachedArea.top) - parent->getPosition();
+    }
+    fireSignal(Event(Event::Moved));
+}
+
+void Element::recalculatePosition() {
+    if (parent) {
+        const sf::Vector2f npos = parent->getPosition() + position;
+        if (npos.x != cachedArea.left || npos.y != cachedArea.top) {
+            cachedArea.left = npos.x;
+            cachedArea.top  = npos.y;
+            fireSignal(Event(Event::Moved));
         }
     }
 }
 
-void Element::setChildParent(Element::Ptr child) { child->parent = me(); }
+const sf::FloatRect& Element::getAcquisition() const { return cachedArea; }
+
+sf::Vector2f Element::getPosition() const { return {cachedArea.left, cachedArea.top}; }
+
+void Element::setChildParent(Element* p) { p->parent = this; }
 
 void Element::render(sf::RenderTarget& target, sf::RenderStates states,
                      const Renderer& renderer) const {
-    if (visible()) doRender(target, states, renderer);
-}
-
-void Element::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                       const Renderer& renderer) const {
-    renderer.renderCustom(target, states, *this);
+    if (visible()) {
+        doRender(target, states, renderer);
+        if (flashTime >= 0.f) {
+            sf::RectangleShape rect({getAcquisition().width, getAcquisition().height});
+            rect.setFillColor(sf::Color(
+                255, 255, 255, 50.f + std::abs(std::sin(flashTime * 4.f * 3.1415f) * 120.f)));
+            rect.setPosition(getPosition());
+            target.draw(rect, states);
+        }
+        if (mouseOver() && hoverTime > 1.f && !tooltip.empty()) {
+            renderer.setTooltipToRender(this);
+        }
+    }
 }
 
 const RenderSettings& Element::renderSettings() const { return settings; }
 
 void Element::setFont(bl::resource::Resource<sf::Font>::Ref f) {
     settings.font = f;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setCharacterSize(unsigned int s) {
     settings.characterSize = s;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setColor(sf::Color fill, sf::Color outline) {
     settings.fillColor    = fill;
     settings.outlineColor = outline;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
-void Element::setOutlineThickness(unsigned int t) {
+void Element::setOutlineThickness(float t) {
     settings.outlineThickness = t;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setSecondaryColor(sf::Color fill, sf::Color outline) {
     settings.secondaryFillColor    = fill;
     settings.secondaryOutlineColor = outline;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
-void Element::setSecondaryOutlineThickness(unsigned int t) {
+void Element::setSecondaryOutlineThickness(float t) {
     settings.secondaryOutlineThickness = t;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setStyle(sf::Uint32 style) {
     settings.style = style;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setHorizontalAlignment(RenderSettings::Alignment align) {
     settings.horizontalAlignment = align;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 void Element::setVerticalAlignment(RenderSettings::Alignment align) {
     settings.verticalAlignment = align;
-    fireSignal(Action(Action::RenderSettingsChanged));
+    fireSignal(Event(Event::RenderSettingsChanged));
 }
 
 Element::Ptr Element::me() { return shared_from_this(); }
@@ -358,9 +380,17 @@ void Element::bringToTop(const Element*) {}
 
 void Element::removeChild(const Element*) {}
 
-bool Element::handleRawEvent(const RawEvent&) { return false; }
+void Element::update(float dt) {
+    if (flashTime >= 0.f) {
+        flashTime += dt;
+        if (flashTime > 0.5f) { flashTime = -1.f; }
+    }
+    hoverTime += dt;
+}
 
-void Element::update(float) {}
+void Element::setTooltip(const std::string& tt) { tooltip = tt; }
+
+const std::string& Element::getTooltip() const { return tooltip; }
 
 } // namespace gui
 } // namespace bl

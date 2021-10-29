@@ -8,7 +8,7 @@ namespace gui
 {
 namespace
 {
-constexpr int BarSize          = 16;
+constexpr float BarSize        = 16;
 constexpr float PixelsPerClick = 10;
 
 float computeButtonSize(float totalSize, float availableSize) {
@@ -27,20 +27,18 @@ float computeIncrement(float totalSize, float availableSize) {
 
 } // namespace
 
-ScrollArea::Ptr ScrollArea::create(Packer::Ptr packer, const std::string& g, const std::string& i) {
-    Ptr area(new ScrollArea(packer, g, i));
-    area->addBars();
-    return area;
+ScrollArea::Ptr ScrollArea::create(const Packer::Ptr& packer) {
+    return Ptr(new ScrollArea(packer));
 }
 
-ScrollArea::ScrollArea(Packer::Ptr packer, const std::string& g, const std::string& i)
-: Container(g, i)
-, packer(packer)
-, horScrollbar(Slider::create(Slider::Horizontal, g, i + "-hscroll"))
-, vertScrollbar(Slider::create(Slider::Vertical, g, i + "-vscroll")) {
-    horScrollbar->getSignal(Action::ValueChanged)
+ScrollArea::ScrollArea(const Packer::Ptr& packer)
+: CompositeElement<3>()
+, horScrollbar(Slider::create(Slider::Horizontal))
+, vertScrollbar(Slider::create(Slider::Vertical))
+, content(Box::create(packer)) {
+    horScrollbar->getSignal(Event::ValueChanged)
         .willAlwaysCall(std::bind(&ScrollArea::scrolled, this));
-    vertScrollbar->getSignal(Action::ValueChanged)
+    vertScrollbar->getSignal(Event::ValueChanged)
         .willAlwaysCall(std::bind(&ScrollArea::scrolled, this));
 
     horScrollbar->skipPacking(true);
@@ -50,22 +48,15 @@ ScrollArea::ScrollArea(Packer::Ptr packer, const std::string& g, const std::stri
     vertScrollbar->setExpandsHeight(true);
     vertScrollbar->setExpandsWidth(true);
 
-    filter.insert(horScrollbar.get());
-    filter.insert(vertScrollbar.get());
+    content->computeView = false;
+
+    Element* children[3] = {content.get(), horScrollbar.get(), vertScrollbar.get()};
+    registerChildren(children);
 }
 
-void ScrollArea::addBars() {
-    add(vertScrollbar);
-    add(horScrollbar);
-}
+void ScrollArea::pack(const Element::Ptr& e) { content->pack(e); }
 
-void ScrollArea::pack(Element::Ptr e) { add(e); }
-
-void ScrollArea::pack(Element::Ptr e, bool fx, bool fy) {
-    e->setExpandsWidth(fx);
-    e->setExpandsHeight(fy);
-    pack(e);
-}
+void ScrollArea::pack(const Element::Ptr& e, bool fx, bool fy) { content->pack(e, fx, fy); }
 
 void ScrollArea::setAlwaysShowHorizontalScrollbar(bool s) { alwaysShowH = s; }
 
@@ -73,7 +64,7 @@ void ScrollArea::setAlwaysShowVerticalScrollbar(bool s) { alwaysShowV = s; }
 
 void ScrollArea::setScroll(const sf::Vector2f& scroll) {
     if (dirty()) refreshSize();
-    const sf::Vector2i freeSpace = totalSize - availableSize;
+    const sf::Vector2f freeSpace = totalSize - availableSize;
     offset.x                     = static_cast<float>(freeSpace.x) * scroll.x;
     offset.y                     = static_cast<float>(freeSpace.y) * scroll.y;
 
@@ -81,9 +72,11 @@ void ScrollArea::setScroll(const sf::Vector2f& scroll) {
     if (offset.x < 0.f) offset.x = 0.f;
     if (offset.y > freeSpace.y) offset.y = freeSpace.y;
     if (offset.y < 0.f) offset.y = 0.f;
+
+    updateContentPos();
 }
 
-void ScrollArea::setMaxSize(const sf::Vector2i& s) {
+void ScrollArea::setMaxSize(const sf::Vector2f& s) {
     if (s.x <= 0 || s.y <= 0)
         maxSize.reset();
     else
@@ -93,13 +86,13 @@ void ScrollArea::setMaxSize(const sf::Vector2i& s) {
 }
 
 void ScrollArea::refreshSize() const {
-    totalSize     = packer->getRequisition(getPackableChildren());
+    totalSize     = content->getRequisition();
     availableSize = {getAcquisition().width, getAcquisition().height};
 }
 
-sf::Vector2i ScrollArea::minimumRequisition() const {
+sf::Vector2f ScrollArea::minimumRequisition() const {
     refreshSize();
-    sf::Vector2i req = totalSize + sf::Vector2i(BarSize, BarSize);
+    sf::Vector2f req = totalSize + sf::Vector2f(BarSize, BarSize);
     if (maxSize.has_value())
         req = {std::min(totalSize.x, maxSize.value().x), std::min(totalSize.y, maxSize.value().y)};
     return req;
@@ -110,8 +103,9 @@ void ScrollArea::onAcquisition() {
 
     if (totalSize.x > (getAcquisition().width - BarSize) || alwaysShowH) {
         availableSize.y -= BarSize;
-        const sf::Vector2i barSize(getAcquisition().width - BarSize, BarSize);
-        const sf::Vector2i barPos(0, getAcquisition().height - barSize.y);
+        const sf::Vector2f barSize(getAcquisition().width - BarSize, BarSize);
+        const sf::Vector2f barPos(getAcquisition().left,
+                                  getAcquisition().top + getAcquisition().height - barSize.y);
         horScrollbar->setVisible(true);
         horScrollbar->setSliderSize(computeButtonSize(totalSize.x, availableSize.x));
         horScrollbar->setSliderIncrement(computeIncrement(totalSize.x, availableSize.x));
@@ -122,8 +116,9 @@ void ScrollArea::onAcquisition() {
 
     if (totalSize.y > (getAcquisition().height - BarSize) || alwaysShowV) {
         availableSize.x -= BarSize;
-        const sf::Vector2i barSize(BarSize, getAcquisition().height - BarSize);
-        const sf::Vector2i barPos(getAcquisition().width - barSize.x, 0);
+        const sf::Vector2f barSize(BarSize, getAcquisition().height - BarSize);
+        const sf::Vector2f barPos(getAcquisition().left + getAcquisition().width - barSize.x,
+                                  getAcquisition().top);
         vertScrollbar->setVisible(true);
         vertScrollbar->setSliderSize(computeButtonSize(totalSize.y, availableSize.y));
         vertScrollbar->setSliderIncrement(computeIncrement(totalSize.y, availableSize.y));
@@ -132,9 +127,7 @@ void ScrollArea::onAcquisition() {
     else
         vertScrollbar->setVisible(false);
 
-    packer->pack(
-        {0, 0, std::max(totalSize.x, availableSize.x), std::max(totalSize.y, availableSize.y)},
-        getPackableChildren());
+    Packer::manuallyPackElement(content, {getPosition(), totalSize});
 }
 
 void ScrollArea::scrolled() {
@@ -148,25 +141,23 @@ void ScrollArea::scrolled() {
         offset.y              = -freeSpace * vertScrollbar->getValue();
     }
 
-    sf::Event sfevent;
-    sfevent.type        = sf::Event::MouseMoved;
-    sfevent.mouseMove.x = boxMousePos.x - offset.x;
-    sfevent.mouseMove.y = boxMousePos.y - offset.y;
-    const RawEvent event(sfevent, boxMousePos - offset, sf::Transform::Identity);
-    for (Element::Ptr e : getPackableChildren()) { e->handleEvent(event); }
+    updateContentPos();
+
+    const Event mockMove(Event::MouseMoved, boxMousePos);
+    content->processEvent(mockMove);
 }
 
-bool ScrollArea::handleScroll(const RawEvent& scroll) {
-    if (getAcquisition().contains(sf::Vector2i(scroll.localMousePos))) {
-        if (Container::handleScroll(scroll)) return true;
+bool ScrollArea::handleScroll(const Event& scroll) {
+    if (getAcquisition().contains(scroll.mousePosition())) {
+        if (content->handleScroll(scroll)) return true;
 
         if (totalSize.x > availableSize.x || totalSize.y > availableSize.y) {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ||
                 sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
-                horScrollbar->incrementValue(-scroll.event.mouseWheelScroll.delta);
+                horScrollbar->incrementValue(-scroll.scrollDelta());
             }
             else {
-                vertScrollbar->incrementValue(-scroll.event.mouseWheelScroll.delta);
+                vertScrollbar->incrementValue(-scroll.scrollDelta());
             }
         }
         return true;
@@ -174,18 +165,16 @@ bool ScrollArea::handleScroll(const RawEvent& scroll) {
     return false;
 }
 
-sf::Vector2f ScrollArea::getElementOffset(const Element* e) const {
-    if (e != horScrollbar.get() && e != vertScrollbar.get()) return offset;
-    return {0, 0};
-}
+bool ScrollArea::propagateEvent(const Event& event) {
+    if (event.type() == Event::MouseMoved) { boxMousePos = event.mousePosition(); }
 
-bool ScrollArea::handleRawEvent(const RawEvent& event) {
-    if (event.event.type == sf::Event::MouseMoved) { boxMousePos = event.localMousePos; }
+    if (horScrollbar->processEvent(event)) return true;
+    if (vertScrollbar->processEvent(event)) return true;
 
-    const bool in = getAcquisition().contains(static_cast<sf::Vector2i>(event.localMousePos));
-    if (in || event.event.type == sf::Event::MouseMoved ||
-        event.event.type == sf::Event::MouseButtonReleased) {
-        return Container::handleRawEvent(event);
+    const bool in = getAcquisition().contains(event.mousePosition());
+    if (in || event.type() == Event::MouseMoved || event.type() == Event::LeftMouseReleased ||
+        event.type() == Event::RightMouseReleased) {
+        return content->processEvent(event);
     }
     return false;
 }
@@ -194,29 +183,23 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const {
     // Preserve old view and compute new
     const sf::View oldView = target.getView();
-    sf::View view          = computeView(
-        oldView, {sf::Vector2i(getAcquisition().left, getAcquisition().top), availableSize}, false);
-    view.move(-offset);
-    target.setView(view);
+    target.setView(interface::ViewUtil::computeSubView(sf::FloatRect{getPosition(), availableSize},
+                                                       renderer.getOriginalView()));
 
-    // Render children
-    renderChildrenRawFiltered(target, states, renderer, filter);
+    // Render content
+    content->render(target, states, renderer);
 
-    // Compute and set scrollbar view
-    view = computeView(oldView,
-                       {getAcquisition().left,
-                        getAcquisition().top,
-                        getAcquisition().width,
-                        getAcquisition().height + BarSize});
-    target.setView(view);
+    // Restore old view
+    target.setView(oldView);
 
     // Render scrollbars
     horScrollbar->render(target, states, renderer);
     vertScrollbar->render(target, states, renderer);
-
-    // Restore old view
-    target.setView(oldView);
 }
+
+void ScrollArea::updateContentPos() { content->setPosition(getPosition() + offset); }
+
+void ScrollArea::clearChildren(bool immediate) { content->clearChildren(immediate); }
 
 } // namespace gui
 } // namespace bl

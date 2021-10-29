@@ -23,7 +23,7 @@ struct RendererUtil {
      */
     static sf::Vector2f calculatePosition(RenderSettings::Alignment horizontalAlignment,
                                           RenderSettings::Alignment verticalAlignment,
-                                          const sf::IntRect& region, const sf::Vector2f& size);
+                                          const sf::FloatRect& region, const sf::Vector2f& size);
 
     /**
      * @brief Generates an sf::Text object that takes into account all settings
@@ -33,7 +33,7 @@ struct RendererUtil {
      * @param settings The settings to apply
      * @param defaults Default settings to apply if settings is missing a parameter
      */
-    static sf::Text buildRenderText(const std::string& text, const sf::IntRect& acquisition,
+    static sf::Text buildRenderText(const std::string& text, const sf::FloatRect& acquisition,
                                     const RenderSettings& settings,
                                     const RenderSettings& defaults = {});
 
@@ -49,7 +49,7 @@ struct RendererUtil {
      * @param useSecondary True to use secondary fill and outline from settings, false for primary
      */
     static void renderRectangle(sf::RenderTarget& target, sf::RenderStates states,
-                                const sf::IntRect& area, const RenderSettings& settings,
+                                const sf::FloatRect& area, const RenderSettings& settings,
                                 const RenderSettings& defaults = {}, bool useSecondary = false);
 };
 

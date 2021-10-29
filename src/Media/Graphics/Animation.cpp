@@ -1,7 +1,5 @@
 #include <BLIB/Media/Graphics/Animation.hpp>
 
-#include <cmath>
-
 namespace bl
 {
 /// Collection of graphical utilities and functionality
@@ -10,7 +8,8 @@ namespace gfx
 Animation::Animation()
 : data(nullptr)
 , isPlaying(false)
-, animTime(0.f)
+, frame(0)
+, frameTime(0.f)
 , centerOrigin(true)
 , position(0.f, 0.f)
 , scale(1.f, 1.f)
@@ -43,7 +42,10 @@ void Animation::setIsLoop(bool l) {
 void Animation::resetIsLoop() { loopOverride = false; }
 
 void Animation::play(bool restart) {
-    if (!isPlaying || restart) animTime = 0.f;
+    if (!isPlaying || restart) {
+        frameTime = 0.f;
+        frame     = 0;
+    }
     isPlaying = true;
 }
 
@@ -51,7 +53,7 @@ bool Animation::playing() const {
     if (data == nullptr || !isPlaying) return false;
 
     const bool isLoop = loopOverride ? loop : data->isLooping();
-    if (!isLoop) return animTime <= data->getLength();
+    if (!isLoop) return frame < data->frames.size() - 1 || frameTime <= data->lengths.back();
     return true;
 }
 
@@ -59,17 +61,22 @@ bool Animation::finished() const { return !playing(); }
 
 void Animation::stop() {
     isPlaying = false;
-    animTime  = 0.f;
+    frameTime = 0.f;
+    frame     = 0;
 }
 
 void Animation::update(float dt) {
     if (isPlaying) {
-        animTime += dt;
-        if (animTime > data->getLength()) {
-            if (data->isLooping() || (loopOverride && loop)) { animTime -= data->getLength(); }
-            else {
-                isPlaying = false;
-                animTime  = 0.f;
+        frameTime += dt;
+        if (frameTime > data->lengths[frame]) {
+            frameTime -= data->lengths[frame];
+            ++frame;
+            if (frame >= data->frames.size()) {
+                frame = 0;
+                if (!data->isLooping() && !(loopOverride && loop)) {
+                    isPlaying = false;
+                    frameTime = 0.f;
+                }
             }
         }
     }
@@ -77,18 +84,15 @@ void Animation::update(float dt) {
 
 void Animation::render(sf::RenderTarget& target, float lag, sf::RenderStates states) {
     if (data) {
-        const float t = isPlaying ? animTime + lag : 0;
-        data->render(
-            target, states, t, position, scale, rotation, centerOrigin, loopOverride, loop);
+        const float t = isPlaying ? frameTime + lag : 0.f;
+        const unsigned int i =
+            (t > data->lengths[frame]) ? (frame + 1) % data->frames.size() : frame;
+        data->render(target, states, position, scale, rotation, centerOrigin, i);
     }
 }
 
 void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    if (data) {
-        const float t = isPlaying ? animTime : 0;
-        data->render(
-            target, states, t, position, scale, rotation, centerOrigin, loopOverride, loop);
-    }
+    if (data) { data->render(target, states, position, scale, rotation, centerOrigin, frame); }
 }
 
 } // namespace gfx

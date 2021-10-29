@@ -4,34 +4,31 @@ namespace bl
 {
 namespace gui
 {
-Image::Ptr Image::create(resource::Resource<sf::Texture>::Ref texture, const std::string& group,
-                         const std::string& id) {
-    return Ptr(new Image(texture, group, id));
+Image::Ptr Image::create(resource::Resource<sf::Texture>::Ref texture) {
+    return Ptr(new Image(texture));
 }
 
-Image::Ptr Image::create(const sf::Texture& texture, const std::string& group,
-                         const std::string& id) {
-    return Ptr(new Image(texture, group, id));
-}
+Image::Ptr Image::create(const sf::Texture& texture) { return Ptr(new Image(texture)); }
 
-Image::Image(resource::Resource<sf::Texture>::Ref th, const std::string& group,
-             const std::string& id)
-: Element(group, id)
+Image::Image(resource::Resource<sf::Texture>::Ref th)
+: Element()
 , textureHandle(th)
 , texture(th.get())
 , sprite(*texture)
 , fillAcq(false)
 , maintainAR(true) {
-    getSignal(Action::AcquisitionChanged).willAlwaysCall(std::bind(&Image::setScale, this));
+    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Image::setScale, this));
+    getSignal(Event::Moved).willAlwaysCall(std::bind(&Image::moveCb, this));
 }
 
-Image::Image(const sf::Texture& th, const std::string& group, const std::string& id)
-: Element(group, id)
+Image::Image(const sf::Texture& th)
+: Element()
 , texture(&th)
 , sprite(*texture)
 , fillAcq(false)
 , maintainAR(true) {
-    getSignal(Action::AcquisitionChanged).willAlwaysCall(std::bind(&Image::setScale, this));
+    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Image::setScale, this));
+    getSignal(Event::Moved).willAlwaysCall(std::bind(&Image::moveCb, this));
 }
 
 void Image::scaleToSize(const sf::Vector2f& s) {
@@ -47,9 +44,8 @@ void Image::setFillAcquisition(bool fill, bool mar) {
     makeDirty();
 }
 
-sf::Vector2i Image::minimumRequisition() const {
-    return static_cast<sf::Vector2i>(
-        size.value_or(sf::Vector2f(texture->getSize().x, texture->getSize().y)));
+sf::Vector2f Image::minimumRequisition() const {
+    return size.value_or(sf::Vector2f(texture->getSize().x, texture->getSize().y));
 }
 
 void Image::doRender(sf::RenderTarget& target, sf::RenderStates states,
@@ -59,18 +55,30 @@ void Image::doRender(sf::RenderTarget& target, sf::RenderStates states,
 
 void Image::setScale() {
     const sf::Vector2f origSize(texture->getSize().x, texture->getSize().y);
-    sf::Vector2f area = size.value_or(origSize);
+    const sf::Vector2f acqPos(getAcquisition().left, getAcquisition().top);
+    const sf::Vector2f acqSize(getAcquisition().width, getAcquisition().height);
+    sf::Vector2f imgSize = size.value_or(origSize);
     if (fillAcq) {
-        area.x = getAcquisition().width;
-        area.y = getAcquisition().height;
+        imgSize.x = getAcquisition().width;
+        imgSize.y = getAcquisition().height;
     }
-    float sx = area.x / origSize.x;
-    float sy = area.y / origSize.y;
+    float sx = imgSize.x / origSize.x;
+    float sy = imgSize.y / origSize.y;
     if (fillAcq && maintainAR) {
         sx = std::min(sx, sy);
         sy = sx;
     }
     sprite.setScale(sx, sy);
+    imgSize.x = sprite.getGlobalBounds().width;
+    imgSize.y = sprite.getGlobalBounds().height;
+    sprite.setPosition(acqPos + (acqSize - imgSize) * 0.5f);
+}
+
+void Image::moveCb() {
+    const sf::Vector2f imgSize(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
+    const sf::Vector2f acqPos(getAcquisition().left, getAcquisition().top);
+    const sf::Vector2f acqSize(getAcquisition().width, getAcquisition().height);
+    sprite.setPosition(acqPos + (acqSize - imgSize) * 0.5f);
 }
 
 } // namespace gui

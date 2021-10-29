@@ -1,9 +1,8 @@
 #ifndef BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP
 #define BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Button.hpp>
-
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
+#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 
 namespace bl
 {
@@ -16,7 +15,7 @@ namespace gui
  * @ingroup GUI
  *
  */
-class ToggleButton : public Button {
+class ToggleButton : public CompositeElement<3> {
 public:
     virtual ~ToggleButton() = default;
 
@@ -24,13 +23,13 @@ public:
      * @brief Returns the canvas that should be rendered for the current button state
      *
      */
-    Canvas::Ptr getVisibleButton() const;
+    const Canvas::Ptr& getVisibleButton() const;
 
     /**
      * @brief Returns the canvas that should be not rendered
      *
      */
-    Canvas::Ptr getHiddenButton() const;
+    const Canvas::Ptr& getHiddenButton() const;
 
     /**
      * @brief Returns the current state of the toggle
@@ -48,17 +47,15 @@ public:
      * @brief Set the size of the actual toggle button area. Default is (10,10)
      *
      */
-    void setToggleButtonSize(const sf::Vector2i& size);
+    void setToggleButtonSize(const sf::Vector2f& size);
 
 protected:
     /**
      * @brief Create a new ToggleButton
      *
      * @param child The element to put to the right of the button
-     * @param group The group of the Button
-     * @param id The id of this button
      */
-    ToggleButton(Element::Ptr child, const std::string& group, const std::string& id);
+    ToggleButton(const Element::Ptr& child);
 
     /**
      * @brief Passes the event to the child then returns false always
@@ -66,19 +63,13 @@ protected:
      * @param event The event that fired
      * @return False so that the button always generates events
      */
-    virtual bool handleRawEvent(const RawEvent& event) override;
+    virtual bool propagateEvent(const Event& event) override;
 
     /**
      * @brief Returns the size required to display the full button text
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
-
-    /**
-     * @brief Packs the buttons and child element
-     *
-     */
-    virtual void onAcquisition() override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Derived buttons should call the apropriate render methods in renderer. This is
@@ -102,24 +93,23 @@ protected:
                           const Renderer& renderer) const override;
 
     /**
-     * @brief This must be called in derived elements create method() before returning
-     *
-     */
-    void finishCreate();
-
-    /**
      * @brief Handler for clicks. Default behavior toggles the value
      *
      */
     virtual void onClick();
 
+    /**
+     * @brief Called when acquisition changes. Packs child elements
+     *
+     */
+    virtual void onAcquisition() override;
+
 private:
     mutable bool butsRendered;
+    Element::Ptr child;
     Canvas::Ptr activeButton;
     Canvas::Ptr inactiveButton;
     bool value;
-
-    void updateButtons();
 };
 
 } // namespace gui

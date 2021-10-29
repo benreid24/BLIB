@@ -1,8 +1,7 @@
 #ifndef BLIB_GUI_ELEMENTS_ELEMENT_HPP
 #define BLIB_GUI_ELEMENTS_ELEMENT_HPP
 
-#include <BLIB/Interfaces/GUI/Action.hpp>
-#include <BLIB/Interfaces/GUI/RawEvent.hpp>
+#include <BLIB/Interfaces/GUI/Event.hpp>
 #include <BLIB/Interfaces/GUI/Renderers/RenderSettings.hpp>
 #include <BLIB/Interfaces/GUI/Renderers/Renderer.hpp>
 #include <BLIB/Interfaces/GUI/Signal.hpp>
@@ -42,43 +41,31 @@ public:
     virtual ~Element() = default;
 
     /**
-     * @brief Returns the user set id of the Element. This is solely for client use
-     *
-     */
-    const std::string& id() const;
-
-    /**
-     * @brief Returns the user set group of the Element. This is solely for client use
-     *
-     */
-    const std::string& group() const;
-
-    /**
-     * @brief Returns a const pointer to the parent element. May be null
-     *
-     */
-    CPtr getParent() const;
-
-    /**
      * @brief Sets the requisition of the Element. This is the minimum amount of space it
      *        needs. Pass in (0,0) to reset
      *
      * @param box The size to request. Cannot be smaller than minimumRequisition()
      */
-    void setRequisition(const sf::Vector2i& size);
+    void setRequisition(const sf::Vector2f& size);
 
     /**
      * @brief Returns the requisition of the Element
      *
      */
-    sf::Vector2i getRequisition() const;
+    sf::Vector2f getRequisition() const;
 
     /**
      * @brief Returns the acquisition of the Element. This is the size allocated to it, and mays
-     *        be larger or equal to the requisition. The requisition includes the position
+     *        be larger or equal to the requisition
      *
      */
-    const sf::IntRect& getAcquisition() const;
+    const sf::FloatRect& getAcquisition() const;
+
+    /**
+     * @brief Returns the absolute position of the element. Stays up to date with parent element
+     *
+     */
+    sf::Vector2f getPosition() const;
 
     /**
      * @brief Returns a modifiable reference to the signal for the given trigger. Undefined
@@ -87,13 +74,19 @@ public:
      * @param trigger The signal to get
      * @return Signal& A signal that can be set
      */
-    Signal& getSignal(Action::Type trigger);
+    Signal& getSignal(Event::Type trigger);
 
     /**
      * @brief Returns if the Element is in focus or not
      *
      */
     bool hasFocus() const;
+
+    /**
+     * @brief Returns whether or not this element is forcing itself to stay in focus
+     *
+     */
+    bool focusIsforced() const;
 
     /**
      * @brief Attempts to take the focus. Returns true if able to take, false otherwise
@@ -114,14 +107,18 @@ public:
      *        the element is not forcing itself in focus. On a false return other Elements will
      *        not be able to takeFocus()
      *
-     */
-    virtual bool releaseFocus();
-
-    /**
-     * @brief Removes the focus from ALL elements
+     * @param requester The element requesting for focus to be cleared
      *
      */
-    bool clearFocus();
+    virtual bool releaseFocus(const Element* requester = nullptr);
+
+    /**
+     * @brief Removes the focus from ALL elements unless an element is forcing itself in focus
+     *
+     * @param requester The element requesting for focus to be cleared
+     *
+     */
+    bool clearFocus(const Element* requester = nullptr);
 
     /**
      * @brief Brings this Element to the top
@@ -148,12 +145,12 @@ public:
     bool rightPressed() const;
 
     /**
-     * @brief Handles the raw window event. Should be called by parent class
+     * @brief Handles a GUI event. Typically not called manually
      *
      * @param event The window event
      * @return True if the event is consumed and no more Elements should be notified
      */
-    bool handleEvent(const RawEvent& event);
+    bool processEvent(const Event& event);
 
     /**
      * @brief Marks this Element as requiring a recalculation of acquisition
@@ -171,8 +168,10 @@ public:
      * @brief Signifies that this Element should be packed. Takes into account the element
      *        type, visibility, and pack override
      *
+     * @param includeInvisible True to be packable even if not visible
+     *
      */
-    bool packable() const;
+    bool packable(bool includeInvisible = false) const;
 
     /**
      * @brief Removes this Element from its parent. Safe to call at any time
@@ -223,7 +222,7 @@ public:
      * @return True if the event was processed, false if unhandled
      *
      */
-    virtual bool handleScroll(const RawEvent& scroll);
+    virtual bool handleScroll(const Event& scroll);
 
     /**
      * @brief Performs any custom logic of the Element
@@ -263,7 +262,7 @@ public:
      *
      * @param thickness Thickness in pixels
      */
-    void setOutlineThickness(unsigned int thickness);
+    void setOutlineThickness(float thickness);
 
     /**
      * @brief Set secondary colors of the Element. Doesn't apply to all element types
@@ -280,7 +279,7 @@ public:
      *
      * @param thickness Thickness in pixels
      */
-    void setSecondaryOutlineThickness(unsigned int thickness);
+    void setSecondaryOutlineThickness(float thickness);
 
     /**
      * @brief Set the style of the text. See sf::Text::Style. Doesn't apply to all Element
@@ -340,23 +339,46 @@ public:
      */
     void setExpandsHeight(bool expand);
 
+    /**
+     * @brief Recalculates the position relative to the parent. Called whenever the parent moves
+     *
+     */
+    void recalculatePosition();
+
+    /**
+     * @brief Set a help message to display on hover
+     *
+     * @param tooltip The help message to display
+     */
+    void setTooltip(const std::string& tooltip);
+
+    /**
+     * @brief Returns the tooltip of this element
+     *
+     */
+    const std::string& getTooltip() const;
+
 protected:
     /**
-     * @brief Builds a new Element. The group and id are optional and are only used to be
-     *        passed to the client callbacks and renderer. They can be used to differentiate
-     *        elements for custom rendering or behavior
+     * @brief Builds a new Element
      *
-     * @param group The group the element belongs to
-     * @param id The id of this element
      */
-    Element(const std::string& group, const std::string& id);
+    Element();
+
+    /**
+     * @brief Virtual method for containers to propagate events to their children
+     *
+     * @param event The event to propagate
+     * @return True if a child element handled the event, false if the event should be processed
+     */
+    virtual bool propagateEvent(const Event& event);
 
     /**
      * @brief Returns the minimum required size of the Element. Any acquisition smaller than
      *        this size is invalid
      *
      */
-    virtual sf::Vector2i minimumRequisition() const = 0;
+    virtual sf::Vector2f minimumRequisition() const = 0;
 
     /**
      * @brief Returns true. Elements such as window should return false
@@ -371,11 +393,11 @@ protected:
     void markClean();
 
     /**
-     * @brief Sets the parent of the child Element to this Element
+     * @brief Sets the parent of the given element to this
      *
-     * @param child The child to set the parent to
+     * @param parent The element to make a child
      */
-    void setChildParent(Element::Ptr child);
+    void setChildParent(Element* parent);
 
     /**
      * @brief Bring the given child Element to the top. A child Element calls this on it's
@@ -394,24 +416,12 @@ protected:
     virtual void removeChild(const Element* child);
 
     /**
-     * @brief Method for child classes to handle raw SFML events. Not recommended to use.
-     *        Instead, use signals for the Actions you care about. This method is called
-     *        regardless of where the mouse is and if the Element is in focus. Used by
-     *        Container. Note that if this returns true then handleEvent() will return before
-     *        performing common processing, like tracking mouse in/out and clicking
-     *
-     * @param event The raw event
-     * @return True if the event is consumed and no more Elements should be notified
-     */
-    virtual bool handleRawEvent(const RawEvent& event);
-
-    /**
      * @brief Fires the signal that corresponds with the passed Action. This only needs to be
      *        called for Actions specific to derived Elements
      *
      * @param action The action to fire
      */
-    void fireSignal(const Action& action);
+    void fireSignal(const Event& action);
 
     /**
      * @brief Returns the render settings for this object
@@ -423,21 +433,21 @@ protected:
     /**
      * @brief Actually performs the rendering. This is only called if the element is visible.
      *        Child classes may call specialized methods in the renderer, or implement their
-     *        own rendering. The latter is not recommended as then appearance is hard coded
+     *        own rendering
      *
      * @param target The target to render to
      * @param states Render states to apply
      * @param renderer The renderer to use
      */
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const;
+                          const Renderer& renderer) const = 0;
 
     /**
      * @brief Set the acquisition of this element. Meant to be called by a Packer
      *
-     * @param acquisition The area to occupy, in local parent coordinates
+     * @param acquisition The area to occupy, in absolute coordinates
      */
-    void assignAcquisition(const sf::IntRect& acquisition);
+    void assignAcquisition(const sf::FloatRect& acquisition);
 
     /**
      * @brief Manually set the position of the element. This modifies the acquisition but does
@@ -445,7 +455,23 @@ protected:
      *
      * @param pos The new position of the element. Relative to the parent element
      */
-    void setPosition(const sf::Vector2i& pos);
+    void setPosition(const sf::Vector2f& pos);
+
+    /**
+     * @brief Returns whether or not an element is a child of this one
+     *
+     * @param element The element to check
+     * @return True if this element is a parent of the given element
+     */
+    bool isChild(const Element* element);
+
+    /**
+     * @brief Called by a child element that is dirty. Parent element gets to decide if it makes
+     *        itself dirty or not
+     *
+     * @param childRequester The child requesting to dirty this parent
+     */
+    virtual void requestMakeDirty(const Element* childRequester);
 
     /**
      * @brief Returns the Ptr to this Element
@@ -455,13 +481,13 @@ protected:
     Ptr me();
 
 private:
-    const std::string _id;
-    const std::string _group;
     RenderSettings settings;
-    std::optional<sf::Vector2i> requisition;
-    sf::IntRect acquisition;
-    Element::WPtr parent;
-    Signal signals[Action::NUM_ACTIONS];
+    std::optional<sf::Vector2f> requisition;
+    sf::Vector2f position;    // relative to parent
+    sf::FloatRect cachedArea; // absolute. Stores acquisition
+    Element* parent;
+    Signal signals[Event::NUM_ACTIONS];
+    std::string tooltip;
 
     bool _dirty;
     bool _active;
@@ -475,8 +501,10 @@ private:
     bool isLeftPressed;
     bool isRightPressed;
     sf::Vector2f dragStart;
+    float flashTime;
+    float hoverTime;
 
-    bool processAction(const Action& action);
+    bool processAction(const Event& action);
 
     friend class Packer;
     friend class Renderer;

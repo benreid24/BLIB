@@ -8,9 +8,8 @@
  *
  */
 
-#include <BLIB/Interfaces/GUI/Action.hpp>
+#include <BLIB/Interfaces/GUI/Event.hpp>
 #include <BLIB/Interfaces/GUI/GUI.hpp>
-#include <BLIB/Interfaces/GUI/RawEvent.hpp>
 #include <BLIB/Interfaces/GUI/Signal.hpp>
 
 #include <BLIB/Interfaces/GUI/Renderers/DebugRenderer.hpp>

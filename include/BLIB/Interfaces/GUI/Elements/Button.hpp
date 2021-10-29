@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_ELEMENTS_HPP
 #define BLIB_GUI_ELEMENTS_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
+#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 
 namespace bl
 {
@@ -13,11 +13,11 @@ namespace gui
  * @ingroup GUI
  *
  */
-class Button : public Container {
+class Button : public CompositeElement<1> {
 public:
     typedef std::shared_ptr<Button> Ptr;
 
-    static constexpr int DefaultOutlineThickness = 2;
+    static constexpr float DefaultOutlineThickness = 2.f;
 
     /**
      * @brief Create a new Button with a label inside of it
@@ -27,8 +27,7 @@ public:
      * @param id The id of this button
      * @return Ptr Pointer to the new Button
      */
-    static Ptr create(const std::string& text, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(const std::string& text);
 
     /**
      * @brief Create a new Button with any element inside. Typically used for images
@@ -38,8 +37,7 @@ public:
      * @param id The id of this button
      * @return Ptr Pointer to the new Button
      */
-    static Ptr create(Element::Ptr child, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(const Element::Ptr& child);
 
     /**
      * @brief Get the child element of the Button. Typically this is a Label but may be
@@ -47,17 +45,15 @@ public:
      *
      * @return Element::Ptr The child element that renders inside the button
      */
-    Element::Ptr getChild() const;
+    const Element::Ptr& getChild() const;
 
 protected:
     /**
      * @brief Create a new Button
      *
      * @param c The element to put inside the button
-     * @param group The group of the Button
-     * @param id The id of this button
      */
-    Button(Element::Ptr c, const std::string& group, const std::string& id);
+    Button(const Element::Ptr& c);
 
     /**
      * @brief Passes the event to the child then returns false always
@@ -65,19 +61,13 @@ protected:
      * @param event The event that fired
      * @return False so that the button always generates events
      */
-    virtual bool handleRawEvent(const RawEvent& event) override;
+    virtual bool propagateEvent(const Event& event) override;
 
     /**
      * @brief Returns the size required to display the full button text
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
-
-    /**
-     * @brief Sets the acquisition of the child element to its own acquisition
-     *
-     */
-    virtual void onAcquisition() override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the button and text/child
@@ -89,16 +79,12 @@ protected:
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const override;
 
-    /**
-     * @brief Calls add() on the child method. Should be called in create() for any derived
-     *        classes. add() cannot be called until the object is fully constructed
-     *
-     */
-    void addChild();
-
 private:
     Element::Ptr child;
+
+    virtual void onAcquisition() override;
 };
+
 } // namespace gui
 } // namespace bl
 

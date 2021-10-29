@@ -3,6 +3,7 @@
 
 #include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Button.hpp>
+#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Container.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 
@@ -16,7 +17,7 @@ namespace gui
  *
  * @ingroup GUI
  */
-class Window : public Container {
+class Window : public CompositeElement<2> {
 public:
     typedef std::shared_ptr<Window> Ptr;
 
@@ -40,12 +41,9 @@ public:
      * @param title Title of the window. Only has effect if style contains Titlebar
      * @param style The style to render with
      * @param position The position to create the window at
-     * @param group Group the window belongs to
-     * @param id The id of this window
      */
-    static Ptr create(Packer::Ptr packer, const std::string& title = "", Style style = Default,
-                      const sf::Vector2i& position = {250, 150}, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(const Packer::Ptr& packer, const std::string& title = "",
+                      Style style = Default, const sf::Vector2f& position = {250.f, 150.f});
 
     /**
      * @brief Destroy the Window object
@@ -58,21 +56,21 @@ public:
      *
      * @param height Height of the titlebar, in pixels
      */
-    void setTitlebarHeight(unsigned int height);
+    void setTitlebarHeight(float height);
 
     /**
      * @brief Set the position of the window
      *
      * @param pos The position to put the window at
      */
-    void setPosition(const sf::Vector2i& pos);
+    void setPosition(const sf::Vector2f& pos);
 
     /**
      * @brief Pack the given element into the windows main area
      *
      * @param e The element to pack
      */
-    void pack(Element::Ptr e);
+    void pack(const Element::Ptr& e);
 
     /**
      * @brief Pack the given element into the windows main area
@@ -81,33 +79,33 @@ public:
      * @param fillX True for the element to expand into all available width
      * @param fillY True for the element to expand into all available height
      */
-    void pack(Element::Ptr e, bool fillX, bool fillY);
+    void pack(const Element::Ptr& e, bool fillX, bool fillY);
 
     /**
      * @brief Returns a Ptr to the title label. May be null if there is no titlebar
      *
      */
-    Label::Ptr getTitleLabel();
+    const Label::Ptr& getTitleLabel();
 
     /**
      * @brief Returns a Ptr to the titlebar box. May be null if there is no titlebar
      *
      */
-    Box::Ptr getTitlebar();
+    const Box::Ptr& getTitlebar();
 
     /**
      * @brief Return a Ptr to the box that has all of the child elements
      *
      * @return Box::Ptr
      */
-    Box::Ptr getElementArea();
+    const Box::Ptr& getElementArea();
 
     /**
      * @brief Returns a Ptr to the close button. May be null if there is no titlebar or close
      *        button
      *
      */
-    Button::Ptr getCloseButton();
+    const Button::Ptr& getCloseButton();
 
     /**
      * @brief Assigns its own acquisition and calls Container::update
@@ -125,29 +123,21 @@ protected:
      * @param title Title of the window. Only has effect if style contains Titlebar
      * @param style The style to render with
      * @param position The position to create the window at
-     * @param group Group the window belongs to
-     * @param id The id of this window
      */
-    Window(Packer::Ptr packer, const std::string& title, Style style, const sf::Vector2i& position,
-           const std::string& group, const std::string& id);
+    Window(const Packer::Ptr& packer, const std::string& title, Style style,
+           const sf::Vector2f& position);
 
     /**
      * @brief Returns size required by children elements plus the titlebar
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Returns false. Windows handle their own positioning and do not need to be packed
      *
      */
     virtual bool shouldPack() const override;
-
-    /**
-     * @brief Resets the acquisition and repacks all elements
-     *
-     */
-    virtual void onAcquisition() override;
 
     /**
      * @brief Renders the window and children elements to the given target
@@ -160,27 +150,28 @@ protected:
                           const Renderer& renderer) const override;
 
     /**
-     * @brief Returns true to prevent pass through
+     * @brief Propagates the event to the window's children and returns true if the event was
+     *        consumed by any child or the window itself
      *
+     * @param event The event to process
      */
-    virtual bool handleScroll(const RawEvent& scroll) override;
+    virtual bool propagateEvent(const Event& event) override;
 
 private:
     const bool moveable;
-    unsigned int titlebarHeight;
+    float titlebarHeight;
     Box::Ptr titlebar;
     Box::Ptr leftTitleSide, rightTitleSide;
     Box::Ptr elementArea;
     Label::Ptr title;
     Button::Ptr closeButton;
 
-    void handleDrag(const Action& drag);
+    void handleDrag(const Event& drag);
     void closed();
-    void titleActive();
 
-    int computeTitleHeight() const;
-    int computeTitleWidth() const;
-    void addChildren();
+    float computeTitleHeight() const;
+    float computeTitleWidth() const;
+    void onAcquisition();
 };
 
 } // namespace gui

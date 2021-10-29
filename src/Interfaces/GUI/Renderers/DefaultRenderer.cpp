@@ -11,6 +11,22 @@ namespace gui
 {
 namespace
 {
+struct TooltipText {
+    sf::Text text;
+
+    static TooltipText& get() {
+        static TooltipText t;
+        return t;
+    }
+
+private:
+    TooltipText() {
+        text.setFont(*Font::get());
+        text.setFillColor(sf::Color::Black);
+        text.setCharacterSize(14);
+    }
+};
+
 sf::Color shiftColor(sf::Color color, int r, int g, int b) {
     color.r = static_cast<sf::Uint8>(std::min(std::max(static_cast<signed>(color.r + r), 0), 255));
     color.g = static_cast<sf::Uint8>(std::min(std::max(static_cast<signed>(color.g + g), 0), 255));
@@ -138,10 +154,6 @@ RenderSettings getTextEntryTextDefaults() {
 
 DefaultRenderer::Ptr DefaultRenderer::create() { return Ptr(new DefaultRenderer()); }
 
-void DefaultRenderer::renderCustom(sf::RenderTarget&, sf::RenderStates, const Element&) const {
-    BL_LOG_ERROR << "renderCustom() called on default renderer. Use a custom renderer";
-}
-
 void DefaultRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates states,
                                 const Container& container) const {
     if (!viewValid(target.getView())) return;
@@ -167,16 +179,12 @@ void DefaultRenderer::renderComboBox(sf::RenderTarget& target, sf::RenderStates 
     static const RenderSettings defaults = getComboDefaults();
     const RenderSettings settings        = getSettings(&box);
 
-    RendererUtil::renderRectangle(target,
-                                  states,
-                                  {0, 0, box.getAcquisition().width, box.getAcquisition().height},
-                                  settings,
-                                  defaults);
+    RendererUtil::renderRectangle(target, states, box.getAcquisition(), settings, defaults);
 }
 
 void DefaultRenderer::renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::RenderStates states,
                                                   const ComboBox& box,
-                                                  const sf::Vector2i& optionSize,
+                                                  const sf::Vector2f& optionSize,
                                                   unsigned int optionCount,
                                                   unsigned int mousedOption) const {
     if (!viewValid(target.getView())) return;
@@ -184,7 +192,8 @@ void DefaultRenderer::renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::
     static const RenderSettings defaults = getComboDefaults();
     const RenderSettings settings        = getSettings(&box);
 
-    sf::Vector2i pos(0, box.getAcquisition().height);
+    sf::Vector2f pos(box.getAcquisition().left,
+                     box.getAcquisition().top + box.getAcquisition().height);
     for (unsigned int i = 0; i < optionCount; ++i) {
         RenderSettings s = settings;
         if (i == mousedOption) {
@@ -224,10 +233,10 @@ void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::Rende
                                              const Element* element) const {
     if (!viewValid(target.getView())) return;
 
-    sf::RectangleShape rect({static_cast<float>(element->getAcquisition().width),
-                             static_cast<float>(element->getAcquisition().height)});
-    rect.setPosition(element->getAcquisition().left, element->getAcquisition().top);
     if (element->mouseOver() || element->leftPressed()) {
+        sf::RectangleShape rect({static_cast<float>(element->getAcquisition().width),
+                                 static_cast<float>(element->getAcquisition().height)});
+        rect.setPosition(element->getAcquisition().left, element->getAcquisition().top);
         rect.setOutlineThickness(0);
         if (element->leftPressed())
             rect.setFillColor(sf::Color(30, 30, 30, 100));
@@ -237,35 +246,28 @@ void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::Rende
     }
 }
 
-void DefaultRenderer::renderNotebook(sf::RenderTarget& target, sf::RenderStates states,
-                                     const Notebook& nb) const {
+void DefaultRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderStates states,
+                                         const Notebook& nb) const {
     if (!viewValid(target.getView())) return;
 
     static const RenderSettings defaults = getNotebookDefaults();
     const RenderSettings settings        = getSettings(&nb);
 
-    RendererUtil::renderRectangle(target,
-                                  states,
-                                  {0, 0, nb.getAcquisition().width, nb.getAcquisition().height},
-                                  settings,
-                                  defaults);
+    RendererUtil::renderRectangle(target, states, nb.getAcquisition(), settings, defaults);
     RendererUtil::renderRectangle(target, states, nb.getTabAcquisition(), settings, defaults, true);
-    for (unsigned int i = 0; i < nb.getPages().size(); ++i) {
-        Notebook::Page* page       = nb.getPages()[i];
+    for (const Notebook::Page& page : nb.getPages()) {
         RenderSettings tabSettings = settings;
-        if (i != nb.getActivePageIndex()) {
+        if (&page != nb.getActivePage()) {
             tabSettings.fillColor = shiftColor(
                 tabSettings.fillColor.value_or(defaults.fillColor.value()), -25, -25, -25);
         }
         else
             tabSettings.outlineThickness = 0;
         RendererUtil::renderRectangle(
-            target, states, page->label->getAcquisition(), tabSettings, defaults);
-        page->label->render(target, states, *this);
-        renderMouseoverOverlay(target, states, page->label.get());
+            target, states, page.label->getAcquisition(), tabSettings, defaults);
+        page.label->render(target, states, *this);
+        renderMouseoverOverlay(target, states, page.label.get());
     }
-    Notebook::Page* active = nb.getActivePage();
-    if (active) active->content->render(target, states, *this);
 }
 
 void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,
@@ -276,7 +278,7 @@ void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStat
     static const RenderSettings defaults  = getProgressBarDefaults();
     static const RenderSettings sdefaults = getProgressBarSecondaryDefaults();
 
-    sf::IntRect rect = bar.getAcquisition();
+    sf::FloatRect rect = bar.getAcquisition();
     RendererUtil::renderRectangle(target, states, rect, settings, defaults);
     const float xs = static_cast<float>(rect.width) * bar.getProgress();
     const float ys = static_cast<float>(rect.height) * bar.getProgress();
@@ -336,24 +338,24 @@ void DefaultRenderer::renderSliderButton(sf::RenderTexture& texture, bool hor,
                                          bool increasing) const {
     texture.clear(sf::Color::Transparent);
 
-    const float cosRatio      = cos(45.f / 180.f * 3.1415f);
-    const sf::Vector2f center = static_cast<sf::Vector2f>(texture.getSize()) / 2.f;
-    const float halfWidth     = static_cast<float>(texture.getSize().x) * 0.20f;
+    const float cosRatio      = std::cos(45.f / 180.f * 3.1415f);
+    const sf::Vector2f center = static_cast<sf::Vector2f>(texture.getSize()) * 0.5f;
+    const float halfWidth     = static_cast<float>(texture.getSize().x) * 0.08f;
     const float rectWidth     = halfWidth / cosRatio;
-    const float rectHeight    = static_cast<float>(texture.getSize().y) * 0.08f;
+    const float rectHeight    = static_cast<float>(texture.getSize().y) * 0.06f;
 
     sf::RenderTexture subtexture;
     subtexture.create(texture.getSize().x, texture.getSize().y);
     subtexture.clear(sf::Color::Transparent);
 
     sf::RectangleShape rect({rectWidth, rectHeight});
-    rect.setOrigin(rectWidth / 2, rectHeight / 2);
+    rect.setOrigin(rectWidth * 0.5f, rectHeight * 0.5f);
     rect.setFillColor(sf::Color::Black);
-    rect.setRotation(45);
-    rect.setPosition(center.x + halfWidth / 2 * cosRatio, center.y * 1.1);
+    rect.setRotation(45.f);
+    rect.setPosition(center.x + halfWidth * 0.5f * cosRatio, center.y * 1.f);
     subtexture.draw(rect);
-    rect.setRotation(-45);
-    rect.setPosition(center.x - halfWidth / 2 * cosRatio, center.y * 1.1);
+    rect.setRotation(-45.f);
+    rect.setPosition(center.x - halfWidth * 0.5f * cosRatio, center.y * 1.f);
     subtexture.draw(rect);
 
     sf::Sprite sprite(subtexture.getTexture());
@@ -392,8 +394,8 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
 
     RendererUtil::renderRectangle(target, states, entry.getAcquisition(), settings, boxDefaults);
 
-    sf::IntRect textArea = entry.getAcquisition();
-    const int thickness  = settings.outlineThickness.value_or(2);
+    sf::FloatRect textArea = entry.getAcquisition();
+    const int thickness    = settings.outlineThickness.value_or(2);
     textArea.left += thickness;
     textArea.top += thickness;
     textArea.width -= thickness * 2;
@@ -453,7 +455,7 @@ void DefaultRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates st
                                    const Container* titlebar, const Window& window) const {
     if (!viewValid(target.getView())) return;
 
-    const RenderSettings settings        = getSettings(&window);
+    const RenderSettings& settings       = getSettings(&window);
     static const RenderSettings defaults = getWindowDefaults();
 
     RendererUtil::renderRectangle(target, states, window.getAcquisition(), settings, defaults);
@@ -484,11 +486,74 @@ void DefaultRenderer::renderImage(sf::RenderTarget& target, sf::RenderStates sta
         settings.verticalAlignment.value_or(RenderSettings::Center),
         e->getAcquisition(),
         size);
-    const sf::IntRect region(static_cast<sf::Vector2i>(pos), static_cast<sf::Vector2i>(size));
+    const sf::FloatRect region(pos, size);
 
     RendererUtil::renderRectangle(target, states, region, settings, defaults);
-    states.transform.translate(pos);
     target.draw(image, states);
+}
+
+void DefaultRenderer::renderTooltip(sf::RenderTarget& target, sf::RenderStates states,
+                                    const Element* e, const sf::Vector2f& mousePos) const {
+    constexpr float MinWidth = 140.f;
+    constexpr float Padding  = 3.f;
+    static const sf::Vector2f PaddingOffset(Padding, Padding);
+    constexpr float MaxWidth = 250.f;
+
+    const std::string& t = e->getTooltip();
+    sf::Text& rt         = TooltipText::get().text;
+    const sf::View& v    = target.getView();
+
+    float left = v.getCenter().x - v.getSize().x * 0.5f;
+    float hs   = v.getSize().x - (mousePos.x - left);
+    left       = mousePos.x;
+    if (hs < MinWidth) {
+        const float d = MinWidth - hs;
+        left -= d;
+        hs += d;
+    }
+    hs = std::min(hs, MaxWidth);
+
+    std::string content;
+    std::string word;
+    content.reserve(t.size() + 4);
+    word.reserve(12);
+    rt.setPosition(0.f, 0.f);
+    const auto addWord = [&word, &content, &rt, hs]() {
+        const std::string attempt = content + " " + word;
+        rt.setString(attempt);
+        char sep = ' ';
+        if (rt.getGlobalBounds().width + rt.getGlobalBounds().left > hs - Padding * 2.f) {
+            sep = '\n';
+        }
+        if (!content.empty()) content.push_back(sep);
+        content += word;
+        word.clear();
+    };
+    for (char c : t) {
+        if (std::isspace(c)) { addWord(); }
+        else {
+            word.push_back(c);
+        }
+    }
+    if (!word.empty()) { addWord(); }
+    rt.setString(content);
+
+    const sf::Vector2f size(rt.getGlobalBounds().left + rt.getGlobalBounds().width + 2.f * Padding,
+                            rt.getGlobalBounds().top + rt.getGlobalBounds().height + 2.f * Padding);
+    const float top = v.getCenter().y - v.getSize().y * 0.5f;
+    float y = mousePos.y - rt.getGlobalBounds().top - rt.getGlobalBounds().height - Padding * 2.f;
+    if (y < top) { y = top + Padding; }
+    const sf::Vector2f pos(left, y);
+
+    static sf::RectangleShape rect;
+    rect.setSize(size);
+    rect.setPosition(pos);
+    rect.setFillColor(sf::Color(230, 230, 170));
+    rect.setOutlineColor(sf::Color::Black);
+    rect.setOutlineThickness(1.f);
+    target.draw(rect, states);
+    rt.setPosition(pos + PaddingOffset);
+    target.draw(rt, states);
 }
 
 } // namespace gui

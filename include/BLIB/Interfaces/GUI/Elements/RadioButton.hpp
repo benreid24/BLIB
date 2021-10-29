@@ -52,25 +52,23 @@ public:
      * @brief Create a new RadioButton with a Label as it's child
      *
      * @param text The text to put to the right of the check box
+     * @name Name to identify this button in the group
      * @param radioGroup The group of buttons for selection. Leave nullptr for new group
-     * @param group The group of the button
-     * @param id The id of this button
      * @return Ptr The new button
      */
-    static Ptr create(const std::string& text, Group* radioGroup = nullptr,
-                      const std::string& group = "", const std::string& id = "");
+    static Ptr create(const std::string& text, const std::string& name,
+                      Group* radioGroup = nullptr);
 
     /**
      * @brief Create a new RadioButton with any child to its right
      *
      * @param child The element to put to the right of the check box
+     * @name Name to identify this button in the group
      * @param radioGroup The group of buttons for selection. Leave nullptr for new group
-     * @param group The group of the button
-     * @param id The id of this button
      * @return Ptr The new button
      */
-    static Ptr create(Element::Ptr child, Group* radioGroup = nullptr,
-                      const std::string& group = "", const std::string& id = "");
+    static Ptr create(const Element::Ptr& child, const std::string& name,
+                      Group* radioGroup = nullptr);
 
     /**
      * @brief Removes this button from the group
@@ -84,17 +82,21 @@ public:
      */
     Group* getRadioGroup();
 
+    /**
+     * @brief Get the name of this button
+     *
+     */
+    const std::string& getName() const;
+
 protected:
     /**
      * @brief Create a new RadioButton with any child to its right
      *
      * @param child The element to put to the right of the check box
+     * @name Name to identify this button in the group
      * @param radioGroup The group of buttons for selection. Leave nullptr for new group
-     * @param group The group of the button
-     * @param id The id of this button
      */
-    RadioButton(Element::Ptr child, Group* radioGroup, const std::string& group,
-                const std::string& id);
+    RadioButton(const Element::Ptr& child, const std::string& name, Group* radioGroup);
 
     /**
      * @brief Renders the unchecked and checked box
@@ -113,11 +115,13 @@ protected:
     virtual void onClick() override;
 
 private:
+    const std::string name;
     Group myGroup;
     Group* rgroup;
 
     friend class Group;
 };
+
 } // namespace gui
 } // namespace bl
 

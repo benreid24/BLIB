@@ -1,10 +1,9 @@
 #ifndef BLIB_GUI_ELEMENTS_SLIDER_HPP
 #define BLIB_GUI_ELEMENTS_SLIDER_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
-
 #include <BLIB/Interfaces/GUI/Elements/Button.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
+#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 
 namespace bl
 {
@@ -16,7 +15,7 @@ namespace gui
  * @ingroup GUI
  *
  */
-class Slider : public Container {
+class Slider : public CompositeElement<3> {
 public:
     typedef std::shared_ptr<Slider> Ptr;
 
@@ -30,11 +29,9 @@ public:
      * @brief Create a new slider
      *
      * @param dir The direction to slide in
-     * @param group The group the slider is in
-     * @param id The id of the slider
      * @return Ptr The new slider
      */
-    static Ptr create(Direction dir, const std::string& group = "", const std::string& id = "");
+    static Ptr create(Direction dir);
 
     /**
      * @brief Returns the position of the slider, normalized to [0,1]
@@ -95,22 +92,14 @@ protected:
      * @brief Create a new slider
      *
      * @param dir The direction to slide in
-     * @param group The group the slider is in
-     * @param id The id of the slider
      */
-    Slider(Direction dir, const std::string& group, const std::string& id);
+    Slider(Direction dir);
 
     /**
      * @brief Returns the space required by the slider button and the others if visible
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
-
-    /**
-     * @brief Packs the slider and increase/decrease buttons
-     *
-     */
-    virtual void onAcquisition() override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the slider and buttons
@@ -128,13 +117,29 @@ protected:
      * @param scroll The scroll event
      * @return True
      */
-    virtual bool handleScroll(const RawEvent& scroll) override;
+    virtual bool handleScroll(const Event& scroll) override;
+
+    /**
+     * @brief Propagates the given event to the child elements
+     *
+     * @param event The event to propagate
+     * @return True if the event was handled, false if unhandled
+     */
+    virtual bool propagateEvent(const Event& event) override;
+
+    /**
+     * @brief Packs the child elements when the acquisition changes
+     *
+     */
+    virtual void onAcquisition() override;
 
 private:
     const Direction dir;
-    float buttonSize;
+    float sliderSizeRatio;
     float value;
     float increment;
+    float sliderSize;
+    float freeSpace;
     Canvas::Ptr increaseImg;
     Button::Ptr increaseBut;
     Canvas::Ptr decreaseImg;
@@ -143,13 +148,14 @@ private:
     mutable bool renderedButs;
 
     int calculateFreeSize() const;
-    void packElements();
+
+    void valueChanged();
     void fireChanged();
+    void updateSliderPos();
+    void constrainValue();
 
-    void sliderMoved(const Action& drag);
-    void clicked(const Action& click);
-
-    void addChildren();
+    void sliderMoved(const Event& drag);
+    void clicked(const Event& click);
 };
 
 } // namespace gui

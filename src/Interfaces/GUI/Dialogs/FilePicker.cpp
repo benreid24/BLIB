@@ -23,18 +23,18 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
 , onChoose(onChoose) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "File picker");
     window->setRequisition({500, 600});
-    window->getSignal(Action::Closed).willAlwaysCall([onCancel](const Action&, Element*) {
+    window->getSignal(Event::Closed).willAlwaysCall([onCancel](const Event&, Element*) {
         onCancel();
     });
 
     Box::Ptr controlRow = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
     Button::Ptr upBut   = Button::create("Up");
-    upBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    upBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         path.pop_back();
         populateFiles();
     });
     Button::Ptr makeBut = Button::create("New Folder");
-    makeBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    makeBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         char* name = dialog::tinyfd_inputBox("New Folder", "Folder name:", "");
         if (name) {
             const std::string f    = file::Util::joinPath(buildPath(), name);
@@ -45,7 +45,7 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
     });
     Button::Ptr delBut = Button::create("Delete");
     delBut->setColor(sf::Color::Red, sf::Color::Black);
-    delBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    delBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (!fileEntry->getInput().empty()) {
             const std::string f    = file::Util::joinPath(buildPath(), fileEntry->getInput());
             const std::string full = file::Util::joinPath(root, f);
@@ -79,7 +79,7 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
     Box::Ptr pathRow      = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr pathReset = Button::create(file::Util::joinPath(root, " "));
     pathBox               = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    pathReset->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    pathReset->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         onClearPath();
     });
     pathRow->pack(pathReset, false, true);
@@ -97,12 +97,13 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
     Box::Ptr entryRow        = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
     fileEntry                = TextEntry::create(1);
     Button::Ptr chooseButton = Button::create("Select");
-    chooseButton->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    chooseButton->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         onChooseClicked();
     });
     Button::Ptr cancelButton = Button::create("Cancel");
-    cancelButton->getSignal(Action::LeftClicked)
-        .willAlwaysCall([onCancel](const Action&, Element*) { onCancel(); });
+    cancelButton->getSignal(Event::LeftClicked).willAlwaysCall([onCancel](const Event&, Element*) {
+        onCancel();
+    });
     entryRow->pack(Label::create("File:"), false, true);
     entryRow->pack(fileEntry, true, true);
     entryRow->pack(chooseButton, false, true);
@@ -261,17 +262,17 @@ void FilePicker::populateFiles() {
     std::sort(folders.begin(), folders.end());
 
     for (const std::string& f : folders) {
-        const auto onClick = [this, f](const Action&, Element*) { onFolderClick(f); };
+        const auto onClick = [this, f](const Event&, Element*) { onFolderClick(f); };
 
         Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
-        row->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        row->getSignal(Event::LeftClicked).willAlwaysCall(onClick);
         Image::Ptr icon = Image::create(folderTexture.getTexture());
-        icon->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        icon->getSignal(Event::LeftClicked).willAlwaysCall(onClick);
         row->pack(icon, false, true);
         Label::Ptr label = Label::create(f);
         label->setHorizontalAlignment(RenderSettings::Left);
-        label->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
-        row->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        label->getSignal(Event::LeftClicked).willAlwaysCall(onClick);
+        row->getSignal(Event::LeftClicked).willAlwaysCall(onClick);
         row->setRequisition({0, 20});
         row->pack(label, true, true);
         filesBox->pack(row, true, false);
@@ -279,14 +280,14 @@ void FilePicker::populateFiles() {
     }
 
     for (const std::string& f : files) {
-        const auto onClick = [this, f](const Action&, Element*) { onFileClick(f); };
+        const auto onClick = [this, f](const Event&, Element*) { onFileClick(f); };
 
         Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
-        row->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        row->getSignal(Event::LeftClicked).willAlwaysCall(onClick);
         Label::Ptr label = Label::create(f);
         label->setHorizontalAlignment(RenderSettings::Left);
-        label->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
-        row->getSignal(Action::LeftClicked).willAlwaysCall(onClick);
+        label->getSignal(Event::LeftClicked).willAlwaysCall(onClick);
+        row->getSignal(Event::LeftClicked).willAlwaysCall(onClick);
         row->setRequisition({0, 25});
         row->pack(label, true, true);
         filesBox->pack(row, true, false);
@@ -299,7 +300,7 @@ void FilePicker::populateFiles() {
     for (unsigned int i = 0; i < path.size(); ++i) {
         Box::Ptr b      = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
         Button::Ptr but = Button::create(path[i]);
-        but->getSignal(Action::LeftClicked).willAlwaysCall([this, i](const Action&, Element*) {
+        but->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element*) {
             onPathClick(i);
         });
         b->pack(Label::create(" / "), false, true);

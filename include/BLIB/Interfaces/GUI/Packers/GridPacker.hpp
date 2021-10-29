@@ -37,7 +37,7 @@ public:
      * @param padding Padding between packed elements
      * @return Ptr The new GridPacker
      */
-    static Ptr createFixedGrid(Direction dir, unsigned int wrapCount, unsigned int padding = 2);
+    static Ptr createFixedGrid(Direction dir, unsigned int wrapCount, float padding = 2);
 
     /**
      * @brief Creates a new GridPacker that has a dynamic number of elements on each row or column
@@ -47,7 +47,7 @@ public:
      * @param padding Padding between packed elements
      * @return Ptr The new GridPacker
      */
-    static Ptr createDynamicGrid(Direction dir, unsigned int size, unsigned int padding = 2);
+    static Ptr createDynamicGrid(Direction dir, unsigned int size, float padding = 2);
 
     /**
      * @brief Returns the space required to pack the given list of elements
@@ -55,7 +55,7 @@ public:
      * @param elements The list of elements to pack
      * @return sf::Vector2i The space required to pack
      */
-    virtual sf::Vector2i getRequisition(const std::vector<Element::Ptr>& elements) override;
+    virtual sf::Vector2f getRequisition(const std::vector<Element::Ptr>& elements) override;
 
     /**
      * @brief Packs the given list of elements into the given region
@@ -63,7 +63,7 @@ public:
      * @param acquisition The region to pack into
      * @param elements The elements to pack
      */
-    virtual void pack(const sf::IntRect& acquisition,
+    virtual void pack(const sf::FloatRect& acquisition,
                       const std::vector<Element::Ptr>& elements) override;
 
     /**
@@ -77,13 +77,13 @@ private:
 
     const WrapRule rule;
     const Direction dir;
-    const unsigned int padding;
+    const float padding;
     const unsigned int size;
 
-    GridPacker(WrapRule rule, Direction dir, unsigned int padding, unsigned int s);
+    GridPacker(WrapRule rule, Direction dir, float padding, unsigned int s);
 
-    void doPack(const sf::IntRect& area, const std::vector<Element::Ptr>& elements,
-                const std::function<void(Element::Ptr, const sf::IntRect&)>& packCb);
+    void doPack(const sf::FloatRect& area, const std::vector<Element::Ptr>& elements,
+                const std::function<void(Element::Ptr, const sf::FloatRect&)>& packCb);
 };
 
 } // namespace gui

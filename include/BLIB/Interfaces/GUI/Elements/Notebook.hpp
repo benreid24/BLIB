@@ -1,10 +1,11 @@
 #ifndef BLIB_GUI_ELEMENTS_NOTEBOOK_HPP
 #define BLIB_GUI_ELEMENTS_NOTEBOOK_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
-
 #include <BLIB/Interfaces/GUI/Elements/Box.hpp>
+#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
+
+#include <list>
 
 namespace bl
 {
@@ -22,16 +23,14 @@ public:
     typedef std::shared_ptr<Notebook> Ptr;
     typedef std::function<void()> PageChangedCb;
 
-    virtual ~Notebook();
+    virtual ~Notebook() = default;
 
     /**
      * @brief Create a new empty Notebook
      *
-     * @param group The group the notebook is in
-     * @param id The id of this notebook
      * @return Ptr The new Notebook
      */
-    static Ptr create(const std::string& group = "", const std::string& id = "");
+    static Ptr create();
 
     /**
      * @brief Container struct representing a page in the notebook
@@ -53,11 +52,8 @@ public:
         /// Callback to trigger when the page is closed
         PageChangedCb onClose;
 
-    private:
-        Page(const std::string& name, Label::Ptr label, Element::Ptr content,
+        Page(const std::string& name, const Label::Ptr& label, const Element::Ptr& content,
              const PageChangedCb& onOpen, const PageChangedCb& onClose);
-
-        friend class Notebook;
     };
 
     /**
@@ -70,7 +66,7 @@ public:
      * @param onClose Callback to trigger when this page is left
      */
     void addPage(
-        const std::string& name, const std::string& title, Element::Ptr content,
+        const std::string& name, const std::string& title, const Element::Ptr& content,
         const PageChangedCb& onOpen = []() {}, const PageChangedCb& onClose = []() {});
 
     /**
@@ -102,7 +98,7 @@ public:
      * @brief Returns a real only reference to all the pages. Useful for Renderers
      *
      */
-    const std::vector<Page*>& getPages() const;
+    const std::list<Page>& getPages() const;
 
     /**
      * @brief Returns the name of the active page
@@ -142,28 +138,34 @@ public:
      * @brief Returns the acquisition of the tabs for the notebook
      *
      */
-    const sf::IntRect& getTabAcquisition() const;
+    const sf::FloatRect& getTabAcquisition() const;
 
 protected:
     /**
      * @brief Create a new empty Notebook
      *
-     * @param group The group the notebook is in
-     * @param id The id of this notebook
      */
-    Notebook(const std::string& group, const std::string& id);
+    Notebook();
 
     /**
      * @brief Computes space required across all tabs
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Repacks the tabs and their content
      *
      */
     virtual void onAcquisition() override;
+
+    /**
+     * @brief Called by a child element that is dirty. Parent element gets to decide if it makes
+     *        itself dirty or not
+     *
+     * @param childRequester The child requesting to dirty this parent
+     */
+    virtual void requestMakeDirty(const Element* childRequester) override;
 
     /**
      * @brief Renders the notebook
@@ -177,14 +179,17 @@ protected:
 
 private:
     Box::Ptr tabArea;
-    sf::IntRect contentArea;
-    std::vector<Page*> pages;
-    std::map<std::string, std::pair<unsigned int, Page*>> pageMap;
-    unsigned int activePage;
+    std::list<Page> pages;
+    std::unordered_map<std::string, std::list<Page>::iterator> pageMap;
+    Page* activePage;
+    unsigned int activePageIndex;
 
-    void addChildren();
-    void pageClicked(Page* page);
+    void makePageActiveDirect(Page* page);
+    void onMove();
+    std::list<Page>::iterator getIterator(unsigned int i);
+    sf::FloatRect contentArea() const;
 };
+
 } // namespace gui
 } // namespace bl
 

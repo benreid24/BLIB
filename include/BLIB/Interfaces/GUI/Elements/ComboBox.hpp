@@ -1,8 +1,9 @@
 #ifndef BLIB_GUI_ELEMENTS_COMBOBOX_HPP
 #define BLIB_GUI_ELEMENTS_COMBOBOX_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Container.hpp>
+#include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 
+#include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 
@@ -17,20 +18,18 @@ namespace gui
  * @ingroup GUI
  *
  */
-class ComboBox : public Container {
+class ComboBox : public Element {
 public:
     typedef std::shared_ptr<ComboBox> Ptr;
 
-    static constexpr int OptionPadding = 2;
+    static constexpr float OptionPadding = 2;
 
     /**
      * @brief Create a new ComboBox
      *
-     * @param group The group the box is in
-     * @param id The id of this box
-     * @return Ptr
+     * @return Ptr The new ComboBox
      */
-    static Ptr create(const std::string& group = "", const std::string& id = "");
+    static Ptr create();
 
     /**
      * @brief Set the color of the text labels
@@ -57,7 +56,7 @@ public:
      *
      * @param height The maximum height of the dropdown
      */
-    void setMaxHeight(int height);
+    void setMaxHeight(float height);
 
     /**
      * @brief Returns the selected option's index. -1 means no selection
@@ -93,36 +92,41 @@ public:
      * @brief Returns true if open
      *
      */
-    virtual bool handleScroll(const RawEvent& scroll) override;
+    virtual bool handleScroll(const Event& scroll) override;
+
+    /**
+     * @brief Updates the combo box and its children if opened
+     *
+     * @param dt Elapsed time in seconds
+     */
+    virtual void update(float dt) override;
 
 protected:
     /**
      * @brief Create a new ComboBox
      *
-     * @param group The group the box is in
-     * @param id The id of this box
      */
-    ComboBox(const std::string& group, const std::string& id);
+    ComboBox();
 
     /**
      * @brief Returns the size of the largest label plus the dropdown arrow
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Packs the labels
      *
      */
-    virtual void onAcquisition() override;
+    void onAcquisition();
 
     /**
-     * @brief Calls Container::handleRawEvent() and returns false
+     * @brief Calls Container::propagateEvent() and returns false
      *
      * @param event The event that fired
      * @return False
      */
-    virtual bool handleRawEvent(const RawEvent& event) override;
+    virtual bool propagateEvent(const Event& event) override;
 
     /**
      * @brief Renders the box and options
@@ -138,25 +142,25 @@ private:
     Canvas::Ptr arrow;
     std::vector<std::string> options;
     std::vector<Label::Ptr> labels;
-    sf::Vector2i labelSize;
-    sf::IntRect labelRegion;
+    sf::Vector2f labelSize;
+    sf::FloatRect labelRegion;
     std::optional<sf::Color> labelColor;
-    int maxHeight;
+    float maxHeight;
+    float totalHeight;
     float scroll;
     int selected; // -1 means none
     bool opened;
     mutable bool arrowRendered;
 
     void onSettings(); // update label settings
-    void optionClicked(std::string text);
+    void optionClicked(const std::string& text);
     void clicked();
-    void scrolled(const Action& scroll);
+    void scrolled(const Event& scroll);
 
     void packOpened();
     void packClosed();
-
-    void addChildren();
 };
+
 } // namespace gui
 } // namespace bl
 

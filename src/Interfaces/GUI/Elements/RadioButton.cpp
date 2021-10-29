@@ -6,25 +6,23 @@ namespace bl
 {
 namespace gui
 {
-RadioButton::Ptr RadioButton::create(const std::string& text, Group* radioGroup,
-                                     const std::string& group, const std::string& id) {
-    return create(Label::create(text, group, id + "-label"), radioGroup, group, id);
+RadioButton::Ptr RadioButton::create(const std::string& text, const std::string& name,
+                                     Group* radioGroup) {
+    return create(Label::create(text), name, radioGroup);
 }
 
-RadioButton::Ptr RadioButton::create(Element::Ptr child, Group* radioGroup,
-                                     const std::string& group, const std::string& id) {
-    Ptr but(new RadioButton(child, radioGroup, group, id));
-    but->finishCreate();
-    return but;
+RadioButton::Ptr RadioButton::create(const Element::Ptr& child, const std::string& name,
+                                     Group* radioGroup) {
+    return Ptr(new RadioButton(child, name, radioGroup));
 }
 
-RadioButton::RadioButton(Element::Ptr child, Group* radioGroup, const std::string& group,
-                         const std::string& id)
-: ToggleButton(child, group, id)
+RadioButton::RadioButton(const Element::Ptr& child, const std::string& n, Group* radioGroup)
+: ToggleButton(child)
+, name(n)
 , myGroup(this)
 , rgroup(radioGroup ? radioGroup : &myGroup) {
     rgroup->buttons.push_back(this);
-    getSignal(Action::ValueChanged).willAlwaysCall([this](const Action&, Element*) {
+    getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
         if (getValue()) rgroup->setActiveButton(this);
     });
 }
@@ -80,6 +78,8 @@ void RadioButton::Group::removeButton(RadioButton* but) {
         }
     }
 }
+
+const std::string& RadioButton::getName() const { return name; }
 
 } // namespace gui
 } // namespace bl

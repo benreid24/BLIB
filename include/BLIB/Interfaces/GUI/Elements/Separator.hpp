@@ -17,7 +17,7 @@ class Separator : public Element {
 public:
     typedef std::shared_ptr<Separator> Ptr;
 
-    static constexpr int DefaultThickness = 1;
+    static constexpr float DefaultThickness = 1.f;
 
     virtual ~Separator() = default;
 
@@ -28,12 +28,9 @@ public:
      * @brief Create a new separator in the given direction
      *
      * @param direction The direction to orient the separator
-     * @param group The group the separator is in
-     * @param id The id of this separator
      * @return Ptr The new separator
      */
-    static Ptr create(Direction direction, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(Direction direction);
 
     /**
      * @brief Returns the direction the separator is facing
@@ -46,16 +43,14 @@ protected:
      * @brief Create a new separator in the given direction
      *
      * @param direction The direction to orient the separator
-     * @param group The group the separator is in
-     * @param id The id of this separator
      */
-    Separator(Direction direction, const std::string& group, const std::string& id);
+    Separator(Direction direction);
 
     /**
      * @brief Returns the the outline thickness in both the x and y components
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the separator

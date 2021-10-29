@@ -1,6 +1,7 @@
 #ifndef BLIB_MEDIA_ANIMATIONDATA_HPP
 #define BLIB_MEDIA_ANIMATIONDATA_HPP
 
+#include <BLIB/Media/Graphics/VertexBuffer.hpp>
 #include <BLIB/Resources.hpp>
 
 #include <memory>
@@ -80,7 +81,7 @@ public:
      * @param frameIndex Index of the frame to check
      * @return sf::Vector2f Size of the frame
      */
-    sf::Vector2f getFrameSize(unsigned int frameIndex) const;
+    const sf::Vector2f& getFrameSize(unsigned int frameIndex) const;
 
     /**
      * @brief Returns the size of the largest frame
@@ -97,23 +98,25 @@ private:
             float rotation;
             uint8_t alpha;
 
-            void apply(sf::Sprite& sprite, const sf::Vector2f& scale = {1, 1}, float rotation = 0,
-                       bool center = true) const;
+            void apply(VertexBuffer& buffer, unsigned int offset) const;
         };
 
-        float length;
         std::vector<Shard> shards;
     };
 
     std::string spritesheetSource;
     resource::Resource<sf::Texture>::Ref spritesheet;
-    std::vector<Frame> frames;
+    std::vector<VertexBuffer> frames;
+    std::vector<sf::Vector2f> sizes;
+    std::vector<float> lengths;
     float totalLength;
     bool loop;
 
-    void render(sf::RenderTarget& target, sf::RenderStates states, float elapsedTime,
-                const sf::Vector2f& position, const sf::Vector2f& scale, float rotation,
-                bool centerOnOrigin, bool loopOverride = false, bool loop = false) const;
+    void render(sf::RenderTarget& target, sf::RenderStates states, const sf::Vector2f& position,
+                const sf::Vector2f& scale, float rotation, bool centerOnOrigin,
+                unsigned int frame) const;
+
+    sf::Vector2f computeFrameSize(unsigned int i) const;
 
     friend class Animation;
 };

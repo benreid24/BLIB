@@ -25,15 +25,12 @@ public:
      *
      * @param w Width of the renderable area in pixels
      * @param h Height of the renderable area in pixels
-     * @param group The group the canvas belongs to
-     * @param id The id of this canvas
      * @return Ptr The new canvas
      */
-    static Ptr create(unsigned int w, unsigned int h, const std::string& group = "",
-                      const std::string& id = "");
+    static Ptr create(unsigned int w, unsigned int h);
 
     /**
-     * @brief Resize the underlying texture of the Canva
+     * @brief Resize the underlying texture of the Canvas
      *
      * @param w The width of the renderable area
      * @param h The height of the renderable area
@@ -76,16 +73,14 @@ protected:
      *
      * @param w Width of the renderable area in pixels
      * @param h Height of the renderable area in pixels
-     * @param group The group the canvas belongs to
-     * @param id The id of this canvas
      */
-    Canvas(unsigned int w, unsigned int h, const std::string& group, const std::string& id);
+    Canvas(unsigned int w, unsigned int h);
 
     /**
      * @brief Returns the size the canvas is set to render to. Default is the canvas size
      *
      */
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Renders the texture to the acquisition area
@@ -105,6 +100,7 @@ private:
     bool maintainAR;
 
     void setScale();
+    void moveCb();
 };
 
 } // namespace gui

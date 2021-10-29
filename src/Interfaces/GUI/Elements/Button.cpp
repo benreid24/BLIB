@@ -13,29 +13,21 @@ namespace
 constexpr int ChildPadding = 2;
 }
 
-Button::Ptr Button::create(const std::string& text, const std::string& group,
-                           const std::string& id) {
-    Ptr button(new Button(Label::create(text, group, id + "-label"), group, id));
-    button->addChild();
-    return button;
+Button::Ptr Button::create(const std::string& text) { return Ptr(new Button(Label::create(text))); }
+
+Button::Ptr Button::create(const Element::Ptr& e) { return Ptr(new Button(e)); }
+
+Button::Button(const Element::Ptr& child)
+: CompositeElement<1>()
+, child(child) {
+    Element* tmp[1] = {child.get()};
+    registerChildren(tmp);
 }
 
-Button::Ptr Button::create(Element::Ptr e, const std::string& g, const std::string& i) {
-    Ptr button(new Button(e, g, i));
-    button->addChild();
-    return button;
-}
+const Element::Ptr& Button::getChild() const { return child; }
 
-Button::Button(Element::Ptr child, const std::string& group, const std::string& id)
-: Container(group, id)
-, child(child) {}
-
-Element::Ptr Button::getChild() const { return child; }
-
-void Button::addChild() { add(child); }
-
-sf::Vector2i Button::minimumRequisition() const {
-    sf::Vector2i area = child->getRequisition();
+sf::Vector2f Button::minimumRequisition() const {
+    sf::Vector2f area = child->getRequisition();
     const int buffer  = renderSettings().outlineThickness.value_or(DefaultOutlineThickness) + 2;
     area.x += (buffer + ChildPadding) * 2;
     area.y += (buffer + ChildPadding) * 2;
@@ -44,21 +36,21 @@ sf::Vector2i Button::minimumRequisition() const {
 
 void Button::onAcquisition() {
     Packer::manuallyPackElement(child,
-                                {ChildPadding,
-                                 ChildPadding,
+                                {getAcquisition().left + ChildPadding,
+                                 getAcquisition().top + ChildPadding,
                                  getAcquisition().width - ChildPadding * 2,
                                  getAcquisition().height - ChildPadding * 2});
 }
 
-bool Button::handleRawEvent(const RawEvent& event) {
-    child->handleEvent(transformEvent(event));
+bool Button::propagateEvent(const Event& event) {
+    sendEventToChildren(event);
     return false; // so the button can have proper mouseover and click events
 }
 
 void Button::doRender(sf::RenderTarget& target, sf::RenderStates states,
                       const Renderer& renderer) const {
     renderer.renderButton(target, states, *this);
-    renderChildren(target, states, renderer);
+    child->render(target, states, renderer);
     renderer.renderMouseoverOverlay(target, states, this);
 }
 

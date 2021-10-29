@@ -18,11 +18,11 @@ struct TextureLoader : public bl::resource::Loader<sf::Texture> {
     }
 } textureLoader;
 
-void b1click(const bl::gui::Action&, bl::gui::Element*) { std::cout << "Button b1 was clicked\n"; }
+void b1click(const bl::gui::Event&, bl::gui::Element*) { std::cout << "Button b1 was clicked\n"; }
 
-void b2click(const bl::gui::Action&, bl::gui::Element*) { std::cout << "Button b2 was clicked\n"; }
+void b2click(const bl::gui::Event&, bl::gui::Element*) { std::cout << "Button b2 was clicked\n"; }
 
-void b3click(const bl::gui::Action&, bl::gui::Element*) { std::cout << "Button b3 was clicked\n"; }
+void b3click(const bl::gui::Event&, bl::gui::Element*) { std::cout << "Button b3 was clicked\n"; }
 
 void notebookCb() { std::cout << "Button inside of notebook was clicked\n"; }
 
@@ -69,12 +69,13 @@ int main() {
     event::Dispatcher dispatcher;
     gui::GUI::Ptr gui = gui::GUI::create(
         gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
-        {200, 100, 400, 400},
-        "",
-        "gui");
+        {200, 100, 400, 400});
     gui::DebugRenderer::Ptr renderer = gui::DebugRenderer::create();
     gui->subscribe(dispatcher);
     gui->setRenderer(renderer);
+
+    gui->setOutlineThickness(1);
+    gui->setColor(sf::Color::Transparent, sf::Color::Red);
 
     gui::Image::Ptr image = gui::Image::create(textureManager.load("image.png").data);
     image->setFillAcquisition(true, true);
@@ -82,45 +83,47 @@ int main() {
 
     gui->pack(gui::Separator::create(gui::Separator::Horizontal));
 
-    gui::Label::Ptr label = gui::Label::create("This a label", "labels", "l1");
+    gui::Label::Ptr label = gui::Label::create("This a label");
     label->setColor(sf::Color::Red, sf::Color::Transparent);
     gui->pack(label, true, true);
 
     gui->pack(gui::Separator::create(gui::Separator::Horizontal));
 
+    gui::Box::Ptr row = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Horizontal));
+    row->pack(gui::Label::create("Combobox:"));
     gui::ComboBox::Ptr combo = gui::ComboBox::create();
     combo->addOption("Option 1");
     combo->addOption("Option 2");
     combo->addOption("Option 3");
     combo->addOption("Option 4");
     combo->addOption("Option 5");
-    gui->pack(combo);
+    combo->setMaxHeight(70);
+    row->pack(combo);
+    gui->pack(row);
 
     const float ProgressPerSecond     = 0.1;
     gui::ProgressBar::Ptr progressBar = gui::ProgressBar::create();
     progressBar->setRequisition({10, 20});
     gui->pack(progressBar, true, false);
 
-    label = gui::Label::create("This another label", "labels", "l2");
+    label = gui::Label::create("This another label");
     gui->pack(label);
 
-    gui::Button::Ptr button = gui::Button::create("Press Me", "buttons", "b1");
-    button->getSignal(gui::Action::LeftClicked).willCall(b1click);
+    gui::Button::Ptr button = gui::Button::create("Press Me");
+    button->getSignal(gui::Event::LeftClicked).willCall(b1click);
     gui->pack(button, true, true);
 
     gui::Window::Ptr testWindow =
         gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                             "Test Window",
                             gui::Window::Default,
-                            {30, 30},
-                            "",
-                            "window1");
+                            {30, 30});
     label = gui::Label::create("This is a window");
     testWindow->pack(label);
     button = gui::Button::create("Click me");
-    button->getSignal(gui::Action::LeftClicked).willCall(b2click);
+    button->getSignal(gui::Event::LeftClicked).willCall(b2click);
     testWindow->pack(button);
-    testWindow->getSignal(gui::Action::Closed)
+    testWindow->getSignal(gui::Event::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
     gui->pack(testWindow);
 
@@ -131,15 +134,13 @@ int main() {
     testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Test Window",
                                      gui::Window::Default,
-                                     {200, 30},
-                                     "",
-                                     "window2");
+                                     {200, 30});
     label      = gui::Label::create("This is also a window");
     testWindow->pack(label);
     button = gui::Button::create("Click me too");
-    button->getSignal(gui::Action::LeftClicked).willCall(b3click);
+    button->getSignal(gui::Event::LeftClicked).willCall(b3click);
     testWindow->pack(button);
-    testWindow->getSignal(gui::Action::Closed)
+    testWindow->getSignal(gui::Event::Closed)
         .willCall(std::bind(&gui::Element::remove, testWindow.get()));
     gui->pack(testWindow);
 
@@ -150,15 +151,13 @@ int main() {
     testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Scroll Window",
                                      gui::Window::Default,
-                                     {200, 300},
-                                     "",
-                                     "window3");
+                                     {200, 300});
     gui::ScrollArea::Ptr scroll =
         gui::ScrollArea::create(gui::LinePacker::create(gui::LinePacker::Vertical, 5));
     scroll->setMaxSize({150, 100});
     scroll->pack(gui::Label::create("This can be scrolled"));
     scroll->pack(gui::Label::create("Try scrolling me around"));
-    scroll->pack(gui::Button::create("No Action"));
+    scroll->pack(gui::Button::create("No Event"));
     slider = gui::Slider::create(gui::Slider::Horizontal);
     slider->setRequisition({120, 35});
     scroll->pack(slider);
@@ -168,10 +167,14 @@ int main() {
     testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Text Window",
                                      gui::Window::Default,
-                                     {150, 200},
-                                     "",
-                                     "window4");
-    gui::TextEntry::Ptr entry = gui::TextEntry::create(4, "", "text");
+                                     {150, 200});
+    gui::CheckButton::Ptr check = gui::CheckButton::create("Keep focused");
+    gui::Window* tmp            = testWindow.get();
+    check->getSignal(gui::Event::ValueChanged)
+        .willAlwaysCall(
+            [tmp](const gui::Event& e, gui::Element*) { tmp->setForceFocus(e.toggleValue()); });
+    testWindow->pack(check);
+    gui::TextEntry::Ptr entry = gui::TextEntry::create(4);
     entry->setRequisition({100, 20});
     testWindow->pack(entry, true, true);
     gui->pack(testWindow);
@@ -179,14 +182,12 @@ int main() {
     testWindow            = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Notebook Window",
                                      gui::Window::Default,
-                                     {10, 200},
-                                     "",
-                                     "window5");
+                                     {10, 200});
     gui::Notebook::Ptr nb = gui::Notebook::create();
     nb->addPage("page1", "Page 1", gui::Label::create("Content goes here"));
     gui::Box::Ptr box = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Vertical));
-    button            = gui::Button::create("Content", "nbb");
-    button->getSignal(gui::Action::LeftClicked).willCall(std::bind(&notebookCb));
+    button            = gui::Button::create("Content");
+    button->getSignal(gui::Event::LeftClicked).willCall(std::bind(&notebookCb));
     box->pack(button);
     box->pack(gui::Label::create("This is a notebook"));
     nb->addPage("page2", "More Stuff", box);
@@ -196,18 +197,15 @@ int main() {
     box->pack(gui::CheckButton::create("Maybe me"));
     nb->addPage("page3", "Checkboxes", box);
     box = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Vertical));
-    gui::RadioButton::Ptr radio = gui::RadioButton::create("Check me");
+    gui::RadioButton::Ptr radio = gui::RadioButton::create("Check me", "ex1");
     box->pack(radio);
-    box->pack(gui::RadioButton::create("Or me", radio->getRadioGroup()));
-    box->pack(gui::RadioButton::create("Could be me", radio->getRadioGroup()));
+    box->pack(gui::RadioButton::create("Or me", "ex2", radio->getRadioGroup()));
+    box->pack(gui::RadioButton::create("Could be me", "ex3", radio->getRadioGroup()));
     nb->addPage("page4", "Radio buttons", box);
     testWindow->pack(nb, true, true);
     gui->pack(testWindow);
 
-    bool showBoxes  = false;
-    bool showGroups = false;
-    bool showIds    = false;
-
+    bool showBoxes = false;
     sf::Clock timer;
     while (window.isOpen()) {
         sf::Event event;
@@ -220,14 +218,6 @@ int main() {
                 if (event.key.code == sf::Keyboard::Z) {
                     showBoxes = !showBoxes;
                     renderer->showAcquisitions(showBoxes);
-                }
-                else if (event.key.code == sf::Keyboard::X) {
-                    showGroups = !showGroups;
-                    renderer->showGroups(showGroups);
-                }
-                else if (event.key.code == sf::Keyboard::C) {
-                    showIds = !showIds;
-                    renderer->showIds(showIds);
                 }
             }
             dispatcher.dispatch(event);

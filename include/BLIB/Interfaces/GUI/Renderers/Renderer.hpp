@@ -11,6 +11,8 @@ namespace bl
 {
 namespace gui
 {
+class DebugRenderer;
+
 class Element;
 class Container;
 
@@ -37,36 +39,23 @@ public:
     typedef std::shared_ptr<Renderer> Ptr;
 
     /**
-     * @brief Add or set RenderSettings for the given group. Overriden for Elements with id
-     *        level overrides
-     *
-     * @param group The group to apply the settings to
-     * @param settings The render settings
-     */
-    void setGroupSettings(const std::string& group, const RenderSettings& settings);
-
-    /**
-     * @brief Add or set RenderSettings for the given id. Settings applied in the element
-     *        itself, if any, override these
-     *
-     * @param id Id of the Element to set for
-     * @param settings The render settings
-     */
-    void setIdSettings(const std::string& id, const RenderSettings& settings);
-
-    /**
      * @brief Destroy the Renderer object
      *
      */
     virtual ~Renderer() = default;
 
     /**
-     * @brief Render a user defined GUI Element. User code may use group() and id() to
-     *        determine how to render
+     * @brief Set the Original View that GUI::render was called with
+     *
+     * @param view The original view that was used
+     */
+    void setOriginalView(const sf::View& view);
+
+    /**
+     * @brief Get the Original View that GUI::render was called with
      *
      */
-    virtual void renderCustom(sf::RenderTarget& target, sf::RenderStates states,
-                              const Element& element) const = 0;
+    const sf::View& getOriginalView() const;
 
     /**
      * @brief Renders a Box element
@@ -100,7 +89,7 @@ public:
      *                     over. None are moused over if mousedOption >= optioncount
      */
     virtual void renderComboBoxDropdownBoxes(sf::RenderTarget& target, sf::RenderStates states,
-                                             const ComboBox& box, const sf::Vector2i& optionSize,
+                                             const ComboBox& box, const sf::Vector2f& optionSize,
                                              unsigned int optionCount,
                                              unsigned int mousedOption) const = 0;
 
@@ -160,8 +149,8 @@ public:
      * @param states RenderStates to apply
      * @param notebook Notebook to render
      */
-    virtual void renderNotebook(sf::RenderTarget& target, sf::RenderStates states,
-                                const Notebook& notebook) const = 0;
+    virtual void renderNotebookTabs(sf::RenderTarget& target, sf::RenderStates states,
+                                    const Notebook& notebook) const = 0;
 
     /**
      * @brief Renders a ProgressBar element
@@ -244,18 +233,27 @@ public:
                               const Container* titlebar, const Window& window) const = 0;
 
     /**
-     * @brief Returns an aggregated RenderSettings object for the given Element. Settings
-     *        with no values are left empty.
+     * @brief Sets the element to render a tooltip for. Only applied on this render
      *
      */
-    RenderSettings getSettings(const Element* element) const;
+    void setTooltipToRender(const Element* element) const;
+
+    /**
+     * @brief Renders the visible tooltip, if any
+     *
+     * @param target The target to render to
+     * @param states Render states to use
+     * @param mousePos The current position of the mouse
+     */
+    void renderTooltip(sf::RenderTarget& target, sf::RenderStates states,
+                       const sf::Vector2f& mousePos) const;
 
 protected:
     /**
      * @brief Construct a new default renderer
      *
      */
-    Renderer() = default;
+    Renderer();
 
     /**
      * @brief Returns whether or not the given view is valid for rendering
@@ -263,9 +261,30 @@ protected:
      */
     bool viewValid(const sf::View& view) const;
 
+    /**
+     * @brief Helper function to get render settings for the given element
+     *
+     * @param e The element to get settings for
+     * @return const RenderSettings& The render settings to use
+     */
+    const RenderSettings& getSettings(const Element* e) const;
+
+    /**
+     * @brief Actually render a given tooltip
+     *
+     * @param target The target to render to
+     * @param states Render states to use
+     * @param tooltip The element to render a tooltip over
+     * @param mousePos The current position of the mouse
+     */
+    virtual void renderTooltip(sf::RenderTarget& target, sf::RenderStates states,
+                               const Element* tooltip, const sf::Vector2f& mousePos) const = 0;
+
 private:
-    std::unordered_map<std::string, RenderSettings> groupSettings;
-    std::unordered_map<std::string, RenderSettings> idSettings;
+    sf::View ogView;
+    mutable const Element* tooltip;
+
+    friend class DebugRenderer;
 };
 
 } // namespace gui

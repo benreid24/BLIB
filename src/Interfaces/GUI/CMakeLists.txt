@@ -1,7 +1,6 @@
 target_sources(BLIB PRIVATE
-    Action.cpp
+    Event.cpp
     GUI.cpp
-    RawEvent.cpp
 )
 
 add_subdirectory(Data)

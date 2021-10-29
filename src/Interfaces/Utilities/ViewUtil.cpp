@@ -13,6 +13,38 @@ sf::View constructView(const sf::Vector2f& size, float x, float y, float w, floa
 }
 } // namespace
 
+sf::View ViewUtil::computeSubView(const sf::FloatRect& region, const sf::View& defaultView) {
+    const sf::Vector2f corner = defaultView.getCenter() - defaultView.getSize() * 0.5f;
+    const float x             = (region.left - corner.x) / defaultView.getSize().x;
+    const float y             = (region.top - corner.y) / defaultView.getSize().y;
+    const float w             = region.width / defaultView.getSize().x;
+    const float h             = region.height / defaultView.getSize().y;
+
+    sf::View result = constructView({region.width, region.height}, x, y, w, h);
+    result.move(region.left, region.top);
+
+    if (x < 0.f) {
+        const float shift = defaultView.getSize().x * (-x);
+        result.setSize(result.getSize().x - shift, result.getSize().y);
+        result.move(shift * 0.5f, 0.f);
+        sf::FloatRect t = result.getViewport();
+        t.left          = 0.f;
+        t.width += x;
+        result.setViewport(t);
+    }
+    if (y < 0.f) {
+        const float shift = defaultView.getSize().y * (-y);
+        result.setSize(result.getSize().x, result.getSize().y - shift);
+        result.move(0.f, shift * 0.5f);
+        sf::FloatRect t = result.getViewport();
+        t.top           = 0.f;
+        t.height += y;
+        result.setViewport(t);
+    }
+
+    return result;
+}
+
 sf::View ViewUtil::computeView(const sf::Vector2f& size, const sf::View& oldView,
                                const sf::FloatRect& coverArea) {
     const float x = oldView.getViewport().left + oldView.getViewport().width * coverArea.left;
@@ -82,6 +114,48 @@ sf::View ViewUtil::computeViewAnchoredPreserveAR(const sf::Vector2f& size, const
     }
 
     return constructView(size, x, y, w, h);
+}
+
+void ViewUtil::constrainView(sf::View& view, const sf::View& oldView) {
+    const sf::FloatRect& newPort = view.getViewport();
+    const sf::FloatRect& oldPort = oldView.getViewport();
+    const sf::Vector2f m(view.getSize().x / newPort.width, view.getSize().y / newPort.height);
+    const float oldBottom = oldPort.top + oldPort.height;
+    const float oldRight  = oldPort.left + oldPort.width;
+
+    if (newPort.left < oldPort.left) {
+        const float d = oldPort.left - newPort.left;
+        const float s = d * m.x;
+        view.setSize(view.getSize() - sf::Vector2f(s, 0.f));
+        view.move(s * 0.5f, 0.f);
+        view.setViewport({oldPort.left, newPort.top, newPort.width - d, newPort.height});
+    }
+
+    const float newRight = newPort.left + newPort.width;
+    if (newRight > oldRight) {
+        const float d = newRight - oldRight;
+        const float s = d * m.x;
+        view.setSize(view.getSize() - sf::Vector2f(s, 0.f));
+        view.move(-s * 0.5f, 0.f);
+        view.setViewport({newPort.left, newPort.top, newPort.width - d, newPort.height});
+    }
+
+    if (newPort.top < oldPort.top) {
+        const float d = oldPort.top - newPort.top;
+        const float s = d * m.y;
+        view.setSize(view.getSize() - sf::Vector2f(0.f, s));
+        view.move(0.f, s * 0.5f);
+        view.setViewport({newPort.left, oldPort.top, newPort.width, newPort.height - d});
+    }
+
+    const float newBottom = newPort.top + newPort.height;
+    if (newBottom > oldBottom) {
+        const float d = newBottom - oldBottom;
+        const float s = d * m.y;
+        view.setSize(view.getSize() - sf::Vector2f(0.f, s));
+        view.move(0.f, -s * 0.5f);
+        view.setViewport({newPort.left, newPort.top, newPort.width, newPort.height - d});
+    }
 }
 
 } // namespace interface
