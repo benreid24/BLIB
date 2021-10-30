@@ -46,8 +46,10 @@ public:
      *
      * @param element The element to pack
      * @param area The atra to pack it into
+     * @param force True to set the acquisition exactly, false to use the element's settings
      */
-    static void manuallyPackElement(const Element::Ptr& element, const sf::FloatRect& area);
+    static void manuallyPackElement(const Element::Ptr& element, const sf::FloatRect& area,
+                                    bool force = false);
 
 protected:
     /**

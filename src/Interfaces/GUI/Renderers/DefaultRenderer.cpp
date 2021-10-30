@@ -255,7 +255,11 @@ void DefaultRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderSta
 
     RendererUtil::renderRectangle(target, states, nb.getAcquisition(), settings, defaults);
     RendererUtil::renderRectangle(target, states, nb.getTabAcquisition(), settings, defaults, true);
+
+    const sf::View oldView = target.getView();
+    target.setView(interface::ViewUtil::computeSubView(nb.getTabAcquisition(), getOriginalView()));
     states.transform.translate(-scroll, 0.f);
+
     for (const Notebook::Page& page : nb.getPages()) {
         RenderSettings tabSettings = settings;
         if (&page != nb.getActivePage()) {
@@ -269,6 +273,8 @@ void DefaultRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderSta
         page.label->render(target, states, *this);
         renderMouseoverOverlay(target, states, page.label.get());
     }
+
+    target.setView(oldView);
 }
 
 void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,

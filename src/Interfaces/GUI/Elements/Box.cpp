@@ -21,9 +21,19 @@ void Box::setPacker(Packer::Ptr p) {
     makeDirty();
 }
 
-sf::Vector2f Box::minimumRequisition() const { return packer->getRequisition(getChildren()); }
+sf::Vector2f Box::minimumRequisition() const {
+    const float outline = renderSettings().outlineThickness.value_or(1.f);
+    return packer->getRequisition(getChildren()) + 2.f * sf::Vector2f(outline, outline);
+}
 
-void Box::onAcquisition() { packer->pack(getAcquisition(), getChildren()); }
+void Box::onAcquisition() {
+    const float outline = renderSettings().outlineThickness.value_or(2.f);
+    sf::FloatRect area(getAcquisition().left + outline,
+                       getAcquisition().top + outline,
+                       getAcquisition().width - outline * 2.f,
+                       getAcquisition().height - 2.f * outline);
+    packer->pack(area, getChildren());
+}
 
 void Box::pack(Element::Ptr e) { add(e); }
 

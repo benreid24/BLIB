@@ -35,6 +35,8 @@ Window::Window(const Packer::Ptr& packer, const std::string& titleText, Style st
         rightTitleSide = Box::create(LinePacker::create(
             LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::RightAlign));
         rightTitleSide->setRequisition({titlebarHeight, titlebarHeight});
+        rightTitleSide->setOutlineThickness(0.f);
+        leftTitleSide->setOutlineThickness(0.f);
         titlebar->pack(leftTitleSide, true, true);
         titlebar->pack(rightTitleSide);
         titlebar->setExpandsWidth(true);
@@ -97,13 +99,16 @@ void Window::onAcquisition() {
     if (titlebar) {
         rightTitleSide->setRequisition({h, h});
         Packer::manuallyPackElement(
-            titlebar, {getAcquisition().left, getAcquisition().top, getAcquisition().width, h});
+            titlebar,
+            {getAcquisition().left, getAcquisition().top, getAcquisition().width, h},
+            true);
     }
     Packer::manuallyPackElement(elementArea,
                                 {getAcquisition().left,
                                  getAcquisition().top + h,
                                  getAcquisition().width,
-                                 getAcquisition().height - h});
+                                 getAcquisition().height - h},
+                                true);
     markClean();
 }
 

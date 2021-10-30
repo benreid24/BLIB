@@ -12,8 +12,11 @@ void Packer::packElementIntoSpace(const Element::Ptr& e, const sf::FloatRect& sp
     e->assignAcquisition({pos, size});
 }
 
-void Packer::manuallyPackElement(const Element::Ptr& e, const sf::FloatRect& area) {
-    packElementIntoSpace(e, area);
+void Packer::manuallyPackElement(const Element::Ptr& e, const sf::FloatRect& area, bool f) {
+    if (f) { e->assignAcquisition(area); }
+    else {
+        packElementIntoSpace(e, area);
+    }
 }
 
 } // namespace gui

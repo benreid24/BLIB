@@ -7,6 +7,11 @@ namespace bl
 {
 namespace gui
 {
+namespace
+{
+constexpr float TabTopPadding = 2.f;
+}
+
 Notebook::Ptr Notebook::create() {
     Ptr nb(new Notebook());
     nb->add(nb->tabArea);
@@ -22,6 +27,7 @@ Notebook::Notebook()
 , scroll(0.f) {
     tabArea->setExpandsWidth(true);
     tabArea->setExpandsHeight(true);
+    tabArea->setOutlineThickness(0.f);
     getSignal(Event::Moved).willAlwaysCall(std::bind(&Notebook::onMove, this));
 }
 
@@ -129,6 +135,7 @@ const sf::FloatRect& Notebook::getTabAcquisition() const { return tabAcquisition
 sf::Vector2f Notebook::minimumRequisition() const {
     sf::Vector2f tabReq = tabArea->getRequisition();
     tabReq.x            = maxWidth > 0.f ? std::min(maxWidth, tabReq.x) : tabReq.x;
+    tabReq.y += TabTopPadding;
     sf::Vector2f contentReq(0, 0);
     for (const Page& p : pages) {
         const sf::Vector2f creq = p.content->getRequisition();
@@ -139,15 +146,23 @@ sf::Vector2f Notebook::minimumRequisition() const {
 }
 
 void Notebook::onAcquisition() {
-    scroll         = 0.f;
-    tabAcquisition = {getAcquisition().left,
-                      getAcquisition().top,
-                      std::max(tabArea->getRequisition().x, getAcquisition().width),
-                      tabArea->getRequisition().y};
-    Packer::manuallyPackElement(tabArea, tabAcquisition);
-    if (maxWidth > 0.f)
-        tabAcquisition.width = std::min(getAcquisition().width, tabAcquisition.width);
+    const float contentOutline =
+        activePage ?
+            activePage->content->renderSettings().outlineThickness.value_or(TabTopPadding) :
+            TabTopPadding;
+    tabAcquisition = {getAcquisition().left + contentOutline,
+                      getAcquisition().top + TabTopPadding,
+                      std::max(tabArea->getRequisition().x, getAcquisition().width) -
+                          contentOutline * 2.f,
+                      tabArea->getRequisition().y - TabTopPadding};
+    Packer::manuallyPackElement(tabArea, tabAcquisition, true);
+    if (maxWidth > 0.f) {
+        tabAcquisition.width =
+            std::min(getAcquisition().width, tabAcquisition.width) - contentOutline * 2.f;
+    }
     if (activePage) Packer::manuallyPackElement(activePage->content, contentArea());
+
+    constrainScroll();
 }
 
 void Notebook::doRender(sf::RenderTarget& target, sf::RenderStates states,
@@ -167,7 +182,7 @@ void Notebook::makePageActiveDirect(Page* page) {
     }
     page->content->setVisible(true, false);
     page->content->moveToTop();
-    Packer::manuallyPackElement(page->content, contentArea());
+    Packer::manuallyPackElement(page->content, contentArea(), true);
     if (page != activePage) page->onOpen();
     activePage = page;
 
@@ -239,7 +254,7 @@ bool Notebook::propagateEvent(const Event& e) {
 void Notebook::constrainScroll() {
     if (scroll < 0.f) { scroll = 0.f; }
     if (maxWidth > 0.f && tabArea->getAcquisition().width > getAcquisition().width) {
-        const float ms = tabArea->getAcquisition().width - getAcquisition().width;
+        const float ms = tabArea->getAcquisition().width - tabAcquisition.width;
         if (scroll > ms) { scroll = ms; }
     }
 }

@@ -109,7 +109,7 @@ void ScrollArea::onAcquisition() {
         horScrollbar->setVisible(true);
         horScrollbar->setSliderSize(computeButtonSize(totalSize.x, availableSize.x));
         horScrollbar->setSliderIncrement(computeIncrement(totalSize.x, availableSize.x));
-        Packer::manuallyPackElement(horScrollbar, {barPos, barSize});
+        Packer::manuallyPackElement(horScrollbar, {barPos, barSize}, true);
     }
     else
         horScrollbar->setVisible(false);
@@ -122,12 +122,14 @@ void ScrollArea::onAcquisition() {
         vertScrollbar->setVisible(true);
         vertScrollbar->setSliderSize(computeButtonSize(totalSize.y, availableSize.y));
         vertScrollbar->setSliderIncrement(computeIncrement(totalSize.y, availableSize.y));
-        Packer::manuallyPackElement(vertScrollbar, {barPos, barSize});
+        Packer::manuallyPackElement(vertScrollbar, {barPos, barSize}, true);
     }
     else
         vertScrollbar->setVisible(false);
 
-    Packer::manuallyPackElement(content, {getPosition(), totalSize});
+    const sf::Vector2f contentArea(std::max(totalSize.x, getAcquisition().width),
+                                   std::max(totalSize.y, getAcquisition().height));
+    Packer::manuallyPackElement(content, {getPosition(), contentArea}, true);
 }
 
 void ScrollArea::scrolled() {

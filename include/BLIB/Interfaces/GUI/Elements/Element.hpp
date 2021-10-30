@@ -358,6 +358,13 @@ public:
      */
     const std::string& getTooltip() const;
 
+    /**
+     * @brief Returns the render settings for this object
+     *
+     * @return const RenderSettings& The render settings
+     */
+    const RenderSettings& renderSettings() const;
+
 protected:
     /**
      * @brief Builds a new Element
@@ -422,13 +429,6 @@ protected:
      * @param action The action to fire
      */
     void fireSignal(const Event& action);
-
-    /**
-     * @brief Returns the render settings for this object
-     *
-     * @return const RenderSettings& The render settings
-     */
-    const RenderSettings& renderSettings() const;
 
     /**
      * @brief Actually performs the rendering. This is only called if the element is visible.
