@@ -104,6 +104,7 @@ void Window::onAcquisition() {
                                  getAcquisition().top + h,
                                  getAcquisition().width,
                                  getAcquisition().height - h});
+    markClean();
 }
 
 sf::Vector2f Window::minimumRequisition() const {
