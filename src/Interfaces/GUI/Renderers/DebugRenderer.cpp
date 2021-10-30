@@ -67,8 +67,8 @@ void DebugRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderS
 }
 
 void DebugRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderStates states,
-                                       const Notebook& nb) const {
-    underlying->renderNotebookTabs(target, states, nb);
+                                       const Notebook& nb, float scroll) const {
+    underlying->renderNotebookTabs(target, states, nb, scroll);
     addInfo(target, states, nb.getAcquisition());
 }
 

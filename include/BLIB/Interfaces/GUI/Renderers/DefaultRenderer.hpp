@@ -73,7 +73,7 @@ public:
 
     /// @see Renderer::renderNotebookTabs
     virtual void renderNotebookTabs(sf::RenderTarget& target, sf::RenderStates states,
-                                    const Notebook& notebook) const override;
+                                    const Notebook& notebook, float scroll) const override;
 
     /// @see Renderer::renderProgressBar
     virtual void renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,

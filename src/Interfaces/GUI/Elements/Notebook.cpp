@@ -17,10 +17,17 @@ Notebook::Notebook()
 : Container()
 , tabArea(Box::create(LinePacker::create()))
 , activePage(nullptr)
-, activePageIndex(0) {
+, activePageIndex(0)
+, maxWidth(-1.f)
+, scroll(0.f) {
     tabArea->setExpandsWidth(true);
     tabArea->setExpandsHeight(true);
     getSignal(Event::Moved).willAlwaysCall(std::bind(&Notebook::onMove, this));
+}
+
+void Notebook::setMaxTabWidth(float mw) {
+    maxWidth = mw;
+    makeDirty();
 }
 
 Notebook::Page::Page(const std::string& name, const Label::Ptr& label, const Element::Ptr& content,
@@ -117,10 +124,11 @@ void Notebook::removePageByName(const std::string& name) {
     }
 }
 
-const sf::FloatRect& Notebook::getTabAcquisition() const { return tabArea->getAcquisition(); }
+const sf::FloatRect& Notebook::getTabAcquisition() const { return tabAcquisition; }
 
 sf::Vector2f Notebook::minimumRequisition() const {
-    const sf::Vector2f tabReq = tabArea->getRequisition();
+    sf::Vector2f tabReq = tabArea->getRequisition();
+    tabReq.x            = maxWidth > 0.f ? std::min(maxWidth, tabReq.x) : tabReq.x;
     sf::Vector2f contentReq(0, 0);
     for (const Page& p : pages) {
         const sf::Vector2f creq = p.content->getRequisition();
@@ -131,11 +139,14 @@ sf::Vector2f Notebook::minimumRequisition() const {
 }
 
 void Notebook::onAcquisition() {
-    Packer::manuallyPackElement(tabArea,
-                                {getAcquisition().left,
-                                 getAcquisition().top,
-                                 getAcquisition().width,
-                                 tabArea->getRequisition().y});
+    scroll         = 0.f;
+    tabAcquisition = {getAcquisition().left,
+                      getAcquisition().top,
+                      std::max(tabArea->getRequisition().x, getAcquisition().width),
+                      tabArea->getRequisition().y};
+    Packer::manuallyPackElement(tabArea, tabAcquisition);
+    if (maxWidth > 0.f)
+        tabAcquisition.width = std::min(getAcquisition().width, tabAcquisition.width);
     if (activePage) Packer::manuallyPackElement(activePage->content, contentArea());
 }
 
@@ -144,7 +155,7 @@ void Notebook::doRender(sf::RenderTarget& target, sf::RenderStates states,
     const sf::View oldView = target.getView();
     target.setView(
         interface::ViewUtil::computeSubView(getAcquisition(), renderer.getOriginalView()));
-    renderer.renderNotebookTabs(target, states, *this);
+    renderer.renderNotebookTabs(target, states, *this, scroll);
     if (activePage) activePage->content->render(target, states, renderer);
     target.setView(oldView);
 }
@@ -159,6 +170,20 @@ void Notebook::makePageActiveDirect(Page* page) {
     Packer::manuallyPackElement(page->content, contentArea());
     if (page != activePage) page->onOpen();
     activePage = page;
+
+    if (maxWidth > 0.f) {
+        const float x = page->label->getPosition().x - scroll;
+        if (x < getPosition().x) { scroll = page->label->getPosition().x - getPosition().x; }
+        else {
+            const float right = getAcquisition().left + getAcquisition().width;
+            const float xr    = x + page->label->getAcquisition().width;
+            if (xr > right) {
+                scroll = (page->label->getPosition().x - getPosition().x) - getAcquisition().width +
+                         page->label->getAcquisition().width;
+            }
+        }
+        constrainScroll();
+    }
 }
 
 void Notebook::makePageActive(unsigned int i) {
@@ -193,6 +218,30 @@ sf::FloatRect Notebook::contentArea() const {
 
 void Notebook::requestMakeDirty(const Element* child) {
     if (child->packable(true)) makeDirty();
+}
+
+bool Notebook::propagateEvent(const Event& e) {
+    if (e.type() == Event::Scrolled && tabAcquisition.contains(e.mousePosition())) {
+        scroll += e.scrollDelta() * -4.f;
+        constrainScroll();
+        const Event fakeMove(Event::MouseMoved,
+                             sf::Vector2f(e.mousePosition().x + scroll, e.mousePosition().y));
+        tabArea->processEvent(fakeMove);
+        return true;
+    }
+
+    const Event translated(e, sf::Vector2f(e.mousePosition().x + scroll, e.mousePosition().y));
+    if (tabArea->processEvent(translated)) return true;
+    if (activePage) return activePage->content->processEvent(e);
+    return false;
+}
+
+void Notebook::constrainScroll() {
+    if (scroll < 0.f) { scroll = 0.f; }
+    if (maxWidth > 0.f && tabArea->getAcquisition().width > getAcquisition().width) {
+        const float ms = tabArea->getAcquisition().width - getAcquisition().width;
+        if (scroll > ms) { scroll = ms; }
+    }
 }
 
 } // namespace gui

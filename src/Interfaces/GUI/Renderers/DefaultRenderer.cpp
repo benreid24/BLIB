@@ -247,7 +247,7 @@ void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::Rende
 }
 
 void DefaultRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderStates states,
-                                         const Notebook& nb) const {
+                                         const Notebook& nb, float scroll) const {
     if (!viewValid(target.getView())) return;
 
     static const RenderSettings defaults = getNotebookDefaults();
@@ -255,6 +255,7 @@ void DefaultRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderSta
 
     RendererUtil::renderRectangle(target, states, nb.getAcquisition(), settings, defaults);
     RendererUtil::renderRectangle(target, states, nb.getTabAcquisition(), settings, defaults, true);
+    states.transform.translate(-scroll, 0.f);
     for (const Notebook::Page& page : nb.getPages()) {
         RenderSettings tabSettings = settings;
         if (&page != nb.getActivePage()) {
