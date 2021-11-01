@@ -101,20 +101,36 @@ void ScrollArea::refreshSize() const {
 
 sf::Vector2f ScrollArea::minimumRequisition() const {
     refreshSize();
-    static const sf::Vector2f BarOffset(BarSize, BarSize);
     sf::Vector2f req = totalSize;
     if (maxSize.has_value()) {
         req = {std::min(totalSize.x, maxSize.value().x), std::min(totalSize.y, maxSize.value().y)};
     }
-    req += BarOffset;
     return req;
 }
 
 void ScrollArea::onAcquisition() {
     refreshSize();
 
-    if ((totalSize.x > (getAcquisition().width - BarSize) || alwaysShowH) && !neverShowH) {
-        availableSize.y -= BarSize;
+    bool showH = alwaysShowH && !neverShowH;
+    if (!neverShowH) { showH = showH || availableSize.x < totalSize.x; }
+    bool showV = alwaysShowV && !neverShowV;
+    if (!neverShowV) { showV = showV || availableSize.y < totalSize.y; }
+
+    if (!neverShowH && showV) {
+        availableSize.x = getAcquisition().width - BarSize;
+        showH           = showH || availableSize.x < totalSize.x;
+    }
+    if (!neverShowV && showH) {
+        availableSize.x = getAcquisition().height - BarSize;
+        showV           = showV || availableSize.y < totalSize.y;
+    }
+    // one more time in case V is now visible
+    if (!neverShowH && showV) {
+        availableSize.x = getAcquisition().width - BarSize;
+        showH           = showH || availableSize.x < totalSize.x;
+    }
+
+    if (showH) {
         const sf::Vector2f barSize(getAcquisition().width - BarSize, BarSize);
         const sf::Vector2f barPos(getAcquisition().left,
                                   getAcquisition().top + getAcquisition().height - barSize.y);
@@ -126,8 +142,7 @@ void ScrollArea::onAcquisition() {
     else
         horScrollbar->setVisible(false);
 
-    if ((totalSize.y > (getAcquisition().height - BarSize) || alwaysShowV) && !neverShowV) {
-        availableSize.x -= BarSize;
+    if (showV) {
         const sf::Vector2f barSize(BarSize, getAcquisition().height - BarSize);
         const sf::Vector2f barPos(getAcquisition().left + getAcquisition().width - barSize.x,
                                   getAcquisition().top);
@@ -139,8 +154,8 @@ void ScrollArea::onAcquisition() {
     else
         vertScrollbar->setVisible(false);
 
-    const sf::Vector2f contentArea(std::max(totalSize.x, getAcquisition().width),
-                                   std::max(totalSize.y, getAcquisition().height));
+    const sf::Vector2f contentArea(std::max(totalSize.x, availableSize.x),
+                                   std::max(totalSize.y, availableSize.y));
     Packer::manuallyPackElement(content, {getPosition(), contentArea}, true);
 }
 

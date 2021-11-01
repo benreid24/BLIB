@@ -34,7 +34,7 @@ sf::Vector2f LinePacker::getRequisition(const std::vector<Element::Ptr>& elems) 
         }
     }
 
-    md += elems.size() * spacing;
+    md += std::max(static_cast<float>((elems.empty() ? 0 : elems.size() - 1)) * spacing, 0.f);
     if (dir == Vertical) return {od, md};
     return {md, od};
 }
@@ -55,9 +55,9 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
         totalSize += e->getRequisition() + sf::Vector2f(spacing, spacing);
     }
     const sf::Vector2f freeSpace = sf::Vector2f(rect.width, rect.height) - totalSize;
-    const float extraSpace = expanders > 0 ? ((dir == Horizontal) ? (freeSpace.x / expanders) :
-                                                                    (freeSpace.y / expanders)) :
-                                             0;
+    const float extraSpace = expanders > 0.f ? ((dir == Horizontal) ? (freeSpace.x / expanders) :
+                                                                      (freeSpace.y / expanders)) :
+                                               0.f;
 
     sf::Vector2f pos(rect.left, rect.top);
     if (mode == Compact) {
