@@ -89,6 +89,7 @@ void Window::handleDrag(const Event& action) {
 }
 
 float Window::computeTitleHeight() const {
+    rightTitleSide->setRequisition({0.f, 0.f});
     return titlebar ? std::max(titlebarHeight, titlebar->getRequisition().y) : 0.f;
 }
 

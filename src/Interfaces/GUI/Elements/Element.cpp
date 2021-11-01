@@ -26,7 +26,7 @@ Element::Element()
 
 void Element::setRequisition(const sf::Vector2f& size) {
     requisition.reset();
-    if (size.x > 0 && size.y > 0) {
+    if (size.x > 0.f && size.y > 0.f) {
         requisition = size;
         makeDirty();
     }
