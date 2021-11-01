@@ -16,7 +16,9 @@ GUI::Ptr GUI::create(const gui::Packer::Ptr& packer, const sf::RenderWindow& win
 
 GUI::GUI(const gui::Packer::Ptr& packer)
 : Box(packer)
-, renderer(gui::DefaultRenderer::create()) {}
+, renderer(gui::DefaultRenderer::create()) {
+    setOutlineThickness(0.f);
+}
 
 GUI::GUI(const gui::Packer::Ptr& packer, const sf::FloatRect& region)
 : GUI(packer) {

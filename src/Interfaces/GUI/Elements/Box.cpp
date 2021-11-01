@@ -4,6 +4,11 @@ namespace bl
 {
 namespace gui
 {
+namespace
+{
+constexpr float DefaultOutline = 1.f;
+}
+
 Box::Ptr Box::create(Packer::Ptr packer) {
     auto p = Ptr(new Box(packer));
     return p;
@@ -22,12 +27,12 @@ void Box::setPacker(Packer::Ptr p) {
 }
 
 sf::Vector2f Box::minimumRequisition() const {
-    const float outline = renderSettings().outlineThickness.value_or(1.f);
+    const float outline = renderSettings().outlineThickness.value_or(DefaultOutline);
     return packer->getRequisition(getChildren()) + 2.f * sf::Vector2f(outline, outline);
 }
 
 void Box::onAcquisition() {
-    const float outline = renderSettings().outlineThickness.value_or(2.f);
+    const float outline = renderSettings().outlineThickness.value_or(DefaultOutline);
     sf::FloatRect area(getAcquisition().left + outline,
                        getAcquisition().top + outline,
                        getAcquisition().width - outline * 2.f,

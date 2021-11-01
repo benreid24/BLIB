@@ -9,8 +9,9 @@ namespace gui
 {
 namespace
 {
-constexpr float TabTopPadding = 2.f;
-}
+constexpr float TabTopPadding  = 2.f;
+constexpr float ContentPadding = 2.f;
+} // namespace
 
 Notebook::Ptr Notebook::create() {
     Ptr nb(new Notebook());
@@ -142,6 +143,7 @@ sf::Vector2f Notebook::minimumRequisition() const {
         contentReq.x            = std::max(contentReq.x, creq.x);
         contentReq.y            = std::max(contentReq.y, creq.y);
     }
+    contentReq += 2.f * sf::Vector2f(ContentPadding, ContentPadding);
     return {std::max(tabReq.x, contentReq.x), tabReq.y + contentReq.y};
 }
 
@@ -225,10 +227,10 @@ std::list<Notebook::Page>::iterator Notebook::getIterator(unsigned int i) {
 }
 
 sf::FloatRect Notebook::contentArea() const {
-    return {getAcquisition().left + 2,
-            getAcquisition().top + tabArea->getRequisition().y + 2,
-            getAcquisition().width - 4,
-            getAcquisition().height - tabArea->getRequisition().y - 4};
+    return {getAcquisition().left + ContentPadding,
+            getAcquisition().top + tabArea->getRequisition().y + ContentPadding,
+            getAcquisition().width - 2.f * ContentPadding,
+            getAcquisition().height - tabArea->getRequisition().y - 2.f * ContentPadding};
 }
 
 void Notebook::requestMakeDirty(const Element* child) {

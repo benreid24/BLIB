@@ -3,9 +3,9 @@
 
 #include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 
+#include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Slider.hpp>
 #include <BLIB/Interfaces/GUI/Packers/Packer.hpp>
-#include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 
 namespace bl
 {
@@ -54,6 +54,20 @@ public:
      * @param show True to always show, false to hide
      */
     void setAlwaysShowHorizontalScrollbar(bool show);
+
+    /**
+     * @brief Set whether or not to never the vertical scrollbar
+     *
+     * @param neverShow True to never show, false to show when needed
+     */
+    void setNeverShowVerticalScrollbar(bool neverShow);
+
+    /**
+     * @brief Set whether or not to never the horizontal scrollbar
+     *
+     * @param neverShow True to never show, false to show when needed
+     */
+    void setNeverShowHorizontalScrollbar(bool neverShow);
 
     /**
      * @brief Direct way to set the scroll. Parameter is a normalized vector
@@ -147,6 +161,8 @@ private:
     sf::Vector2f boxMousePos;
     bool alwaysShowH;
     bool alwaysShowV;
+    bool neverShowH;
+    bool neverShowV;
 
     void addBars();
     void refreshSize() const;

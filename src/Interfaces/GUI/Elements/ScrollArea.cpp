@@ -35,7 +35,11 @@ ScrollArea::ScrollArea(const Packer::Ptr& packer)
 : CompositeElement<3>()
 , horScrollbar(Slider::create(Slider::Horizontal))
 , vertScrollbar(Slider::create(Slider::Vertical))
-, content(Box::create(packer)) {
+, content(Box::create(packer))
+, alwaysShowH(false)
+, alwaysShowV(false)
+, neverShowH(false)
+, neverShowV(false) {
     horScrollbar->getSignal(Event::ValueChanged)
         .willAlwaysCall(std::bind(&ScrollArea::scrolled, this));
     vertScrollbar->getSignal(Event::ValueChanged)
@@ -49,6 +53,7 @@ ScrollArea::ScrollArea(const Packer::Ptr& packer)
     vertScrollbar->setExpandsWidth(true);
 
     content->computeView = false;
+    content->setOutlineThickness(0.f);
 
     Element* children[3] = {content.get(), horScrollbar.get(), vertScrollbar.get()};
     registerChildren(children);
@@ -62,11 +67,15 @@ void ScrollArea::setAlwaysShowHorizontalScrollbar(bool s) { alwaysShowH = s; }
 
 void ScrollArea::setAlwaysShowVerticalScrollbar(bool s) { alwaysShowV = s; }
 
+void ScrollArea::setNeverShowHorizontalScrollbar(bool s) { neverShowH = s; }
+
+void ScrollArea::setNeverShowVerticalScrollbar(bool s) { neverShowV = s; }
+
 void ScrollArea::setScroll(const sf::Vector2f& scroll) {
     if (dirty()) refreshSize();
     const sf::Vector2f freeSpace = totalSize - availableSize;
-    offset.x                     = static_cast<float>(freeSpace.x) * scroll.x;
-    offset.y                     = static_cast<float>(freeSpace.y) * scroll.y;
+    offset.x                     = freeSpace.x * scroll.x;
+    offset.y                     = freeSpace.y * scroll.y;
 
     if (offset.x > freeSpace.x) offset.x = freeSpace.x;
     if (offset.x < 0.f) offset.x = 0.f;
@@ -77,7 +86,7 @@ void ScrollArea::setScroll(const sf::Vector2f& scroll) {
 }
 
 void ScrollArea::setMaxSize(const sf::Vector2f& s) {
-    if (s.x <= 0 || s.y <= 0)
+    if (s.x <= 0.f || s.y <= 0.f)
         maxSize.reset();
     else
         maxSize = s;
@@ -92,16 +101,19 @@ void ScrollArea::refreshSize() const {
 
 sf::Vector2f ScrollArea::minimumRequisition() const {
     refreshSize();
-    sf::Vector2f req = totalSize + sf::Vector2f(BarSize, BarSize);
-    if (maxSize.has_value())
+    static const sf::Vector2f BarOffset(BarSize, BarSize);
+    sf::Vector2f req = totalSize;
+    if (maxSize.has_value()) {
         req = {std::min(totalSize.x, maxSize.value().x), std::min(totalSize.y, maxSize.value().y)};
+    }
+    req += BarOffset;
     return req;
 }
 
 void ScrollArea::onAcquisition() {
     refreshSize();
 
-    if (totalSize.x > (getAcquisition().width - BarSize) || alwaysShowH) {
+    if ((totalSize.x > (getAcquisition().width - BarSize) || alwaysShowH) && !neverShowH) {
         availableSize.y -= BarSize;
         const sf::Vector2f barSize(getAcquisition().width - BarSize, BarSize);
         const sf::Vector2f barPos(getAcquisition().left,
@@ -114,7 +126,7 @@ void ScrollArea::onAcquisition() {
     else
         horScrollbar->setVisible(false);
 
-    if (totalSize.y > (getAcquisition().height - BarSize) || alwaysShowV) {
+    if ((totalSize.y > (getAcquisition().height - BarSize) || alwaysShowV) && !neverShowV) {
         availableSize.x -= BarSize;
         const sf::Vector2f barSize(BarSize, getAcquisition().height - BarSize);
         const sf::Vector2f barPos(getAcquisition().left + getAcquisition().width - barSize.x,
