@@ -128,7 +128,7 @@ void ScrollArea::onAcquisition() {
         showH           = showH || availableSize.x < totalSize.x;
     }
     if (!neverShowV && showH) {
-        availableSize.x = getAcquisition().height - BarSize;
+        availableSize.y = getAcquisition().height - BarSize;
         showV           = showV || availableSize.y < totalSize.y;
     }
     // one more time in case V is now visible
