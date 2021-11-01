@@ -75,6 +75,21 @@ public:
      */
     void subscribe(event::Dispatcher& dispatcher);
 
+    /**
+     * @brief Updates all child elements and runs any queud actions
+     *
+     * @param dt Time elapsed in seconds
+     */
+    virtual void update(float dt) override;
+
+    /**
+     * @brief Queues an action to be ran after update()
+     *
+     * @see Element::queueUpdateAction
+     * @param action The action to run
+     */
+    void queueAction(const QueuedAction& action);
+
 protected:
     /**
      * @brief Renders the GUI to the target
@@ -85,6 +100,7 @@ protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
+    std::vector<Element::QueuedAction> queuedActions;
     gui::Renderer::Ptr renderer;
     sf::Vector2f mousePos;
     mutable sf::Transform renderTransform;

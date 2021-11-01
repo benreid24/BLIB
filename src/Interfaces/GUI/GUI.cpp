@@ -18,6 +18,7 @@ GUI::GUI(const gui::Packer::Ptr& packer)
 : Box(packer)
 , renderer(gui::DefaultRenderer::create()) {
     setOutlineThickness(0.f);
+    queuedActions.reserve(4);
 }
 
 GUI::GUI(const gui::Packer::Ptr& packer, const sf::FloatRect& region)
@@ -55,6 +56,15 @@ void GUI::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     Container::render(target, states, *renderer);
     renderer->renderTooltip(target, states, mousePos);
 }
+
+void GUI::update(float dt) {
+    Box::update(dt);
+
+    for (const auto& action : queuedActions) { action(); }
+    queuedActions.clear();
+}
+
+void GUI::queueAction(const Element::QueuedAction& a) { queuedActions.emplace_back(a); }
 
 } // namespace gui
 } // namespace bl

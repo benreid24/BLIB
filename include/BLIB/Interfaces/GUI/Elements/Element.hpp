@@ -17,6 +17,7 @@ namespace gui
 {
 class Packer;
 class Slider;
+class GUI;
 
 /**
  * @brief Base class for all GUI elements. Provides the common interface used for positioning,
@@ -33,6 +34,8 @@ public:
     typedef std::shared_ptr<Element> Ptr;
     typedef std::shared_ptr<const Element> CPtr;
     typedef std::weak_ptr<Element> WPtr;
+
+    using QueuedAction = std::function<void()>;
 
     /**
      * @brief Destroy the Element object
@@ -365,6 +368,16 @@ public:
      */
     const RenderSettings& renderSettings() const;
 
+    /**
+     * @brief Adds an action to the queue to be executed after all elements are next updated. This
+     *        is for event handlers/update methods to perform actions that modify the element tree
+     *        to do so safely. It is not safe to modify the element tree inside of a call to an
+     *        event handler or an update() call
+     *
+     * @param action The action to queue
+     */
+    void queueUpdateAction(const QueuedAction& action);
+
 protected:
     /**
      * @brief Builds a new Element
@@ -505,6 +518,8 @@ private:
     float hoverTime;
 
     bool processAction(const Event& action);
+    GUI* getTopParent();
+    const GUI* getTopParent() const;
 
     friend class Packer;
     friend class Renderer;

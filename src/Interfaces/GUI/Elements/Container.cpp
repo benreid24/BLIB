@@ -110,6 +110,7 @@ void Container::update(float dt) {
     if (clearFlag) {
         clearFlag = false;
         children.clear();
+        zorder.clear();
     }
     else {
         for (const Element* e : toRemove) {
