@@ -39,7 +39,8 @@ ScrollArea::ScrollArea(const Packer::Ptr& packer)
 , alwaysShowH(false)
 , alwaysShowV(false)
 , neverShowH(false)
-, neverShowV(false) {
+, neverShowV(false)
+, includeBars(false) {
     horScrollbar->getSignal(Event::ValueChanged)
         .willAlwaysCall(std::bind(&ScrollArea::scrolled, this));
     vertScrollbar->getSignal(Event::ValueChanged)
@@ -70,6 +71,8 @@ void ScrollArea::setAlwaysShowVerticalScrollbar(bool s) { alwaysShowV = s; }
 void ScrollArea::setNeverShowHorizontalScrollbar(bool s) { neverShowH = s; }
 
 void ScrollArea::setNeverShowVerticalScrollbar(bool s) { neverShowV = s; }
+
+void ScrollArea::includeScrollbarsInRequisition(bool i) { includeBars = i; }
 
 void ScrollArea::setScroll(const sf::Vector2f& scroll) {
     if (dirty()) refreshSize();
@@ -104,6 +107,10 @@ sf::Vector2f ScrollArea::minimumRequisition() const {
     sf::Vector2f req = totalSize;
     if (maxSize.has_value()) {
         req = {std::min(totalSize.x, maxSize.value().x), std::min(totalSize.y, maxSize.value().y)};
+    }
+    if (includeBars) {
+        req.x += BarSize;
+        req.y += BarSize;
     }
     return req;
 }

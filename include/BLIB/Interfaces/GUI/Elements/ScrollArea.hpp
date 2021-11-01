@@ -101,6 +101,15 @@ public:
      */
     void clearChildren(bool immediate);
 
+    /**
+     * @brief Set whether or not to include the scrollbars in the requisition. Default is not to
+     *        include them. Not including them allows a tighter requisition, but may result in
+     *        scrolling earlier than desired for small boxes
+     *
+     * @param include True to include, false to exclude.
+     */
+    void includeScrollbarsInRequisition(bool include);
+
 protected:
     /**
      * @brief Create a new ScrollArea
@@ -163,6 +172,7 @@ private:
     bool alwaysShowV;
     bool neverShowH;
     bool neverShowV;
+    bool includeBars;
 
     void addBars();
     void refreshSize() const;

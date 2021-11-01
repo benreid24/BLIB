@@ -213,6 +213,8 @@ void Notebook::makePageActive(unsigned int i) {
 void Notebook::onMove() {
     tabArea->recalculatePosition();
     for (Page& p : pages) { p.content->recalculatePosition(); }
+    tabAcquisition.left = getPosition().x;
+    tabAcquisition.top  = getPosition().y;
 }
 
 std::list<Notebook::Page>::iterator Notebook::getIterator(unsigned int i) {
