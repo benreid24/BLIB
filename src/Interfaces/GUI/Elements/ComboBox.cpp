@@ -54,19 +54,18 @@ const std::string& ComboBox::getSelectedOptionText() const {
     return selected >= 0 ? options[selected] : empty;
 }
 
-void ComboBox::setSelectedOption(int i) {
+void ComboBox::setSelectedOption(int i, bool f) {
     selected = i;
     if (selected >= static_cast<int>(options.size())) selected = options.size() - 1;
     opened = false;
     packClosed();
-    fireSignal(Event(Event::ValueChanged, static_cast<float>(i)));
+    if (f) fireSignal(Event(Event::ValueChanged, static_cast<float>(i)));
 }
 
-void ComboBox::setSelectedOption(const std::string& t) {
+void ComboBox::setSelectedOption(const std::string& t, bool f) {
     for (unsigned int i = 0; i < options.size(); ++i) {
         if (options[i] == t) {
-            setSelectedOption(i);
-            fireSignal(Event(Event::ValueChanged, static_cast<float>(i)));
+            setSelectedOption(i, f);
             break;
         }
     }

@@ -73,14 +73,20 @@ public:
     /**
      * @brief Set the selected option. -1 to clear selection
      *
+     * @param i The index of the option to select
+     * @param fireEvent True to fire a changed event, false to not
+     *
      */
-    void setSelectedOption(int i);
+    void setSelectedOption(int i, bool fireEvent = true);
 
     /**
      * @brief Set the selected option by text label. Has no effect if text is not an option
      *
+     * @param text The text of the option to select
+     * @param fireEvent True to fire a changed event, false to not
+     *
      */
-    void setSelectedOption(const std::string& text);
+    void setSelectedOption(const std::string& text, bool fireEvent = true);
 
     /**
      * @brief Returns whether or not the dropdown is opened
