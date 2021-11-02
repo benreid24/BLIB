@@ -119,6 +119,7 @@ private:
     void onInput(const Event& action);
     void onKeypress(const Event& action);
     void onClicked(const Event& action);
+    void fireChanged();
 };
 
 } // namespace gui

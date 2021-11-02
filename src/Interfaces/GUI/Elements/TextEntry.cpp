@@ -46,7 +46,7 @@ unsigned int TextEntry::getCursorPosition() const { return cursorPos; }
 
 void TextEntry::update(float dt) {
     Element::update(dt);
-    
+
     if (hasFocus()) {
         cursorTime += dt;
         while (cursorTime > CursorFlashPeriod) {
@@ -111,6 +111,7 @@ void TextEntry::onInput(const Event& action) {
 
     renderText.setString(input);
     recalcNewlines();
+    fireChanged();
 }
 
 void TextEntry::onKeypress(const Event& action) {
@@ -136,6 +137,7 @@ void TextEntry::onKeypress(const Event& action) {
     }
     else if (action.key().code == sf::Keyboard::Delete) {
         if (cursorPos < input.size()) input.erase(cursorPos, 1);
+        fireChanged();
     }
     else if (action.key().code == sf::Keyboard::Return) {
         if (newlines.size() - 1 < lineCount) {
@@ -145,6 +147,7 @@ void TextEntry::onKeypress(const Event& action) {
                 input.push_back('\n');
             ++cursorPos;
         }
+        fireChanged();
     }
     else if (action.key().control && action.key().code == sf::Keyboard::V) {
         const std::string c = sf::Clipboard::getString().toAnsiString();
@@ -153,6 +156,7 @@ void TextEntry::onKeypress(const Event& action) {
         else
             input += c;
         cursorPos += c.size();
+        fireChanged();
     }
 
     recalcNewlines();
@@ -192,6 +196,8 @@ void TextEntry::cursorDown() {
     cursorPos         = newlines[currentLine + 1] + npos;
     currentLine += 1;
 }
+
+void TextEntry::fireChanged() { fireSignal(Event(Event::ValueChanged, input)); }
 
 } // namespace gui
 } // namespace bl

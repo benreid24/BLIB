@@ -59,14 +59,14 @@ void ComboBox::setSelectedOption(int i) {
     if (selected >= static_cast<int>(options.size())) selected = options.size() - 1;
     opened = false;
     packClosed();
-    fireSignal(Event(Event::ValueChanged, options[i]));
+    fireSignal(Event(Event::ValueChanged, static_cast<float>(i)));
 }
 
 void ComboBox::setSelectedOption(const std::string& t) {
     for (unsigned int i = 0; i < options.size(); ++i) {
         if (options[i] == t) {
             setSelectedOption(i);
-            fireSignal(Event(Event::ValueChanged, t));
+            fireSignal(Event(Event::ValueChanged, static_cast<float>(i)));
             break;
         }
     }
