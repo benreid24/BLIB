@@ -37,6 +37,7 @@ void ComboBox::addOption(const std::string& text) {
         ->getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&ComboBox::optionClicked, this, text));
     onSettings();
+    refreshLabelRegion();
 }
 
 void ComboBox::clearOptions() {
@@ -45,7 +46,10 @@ void ComboBox::clearOptions() {
     labels.clear();
     selected = -1;
     opened   = false;
+    refreshLabelRegion();
 }
+
+int ComboBox::optionCount() const { return options.size(); }
 
 int ComboBox::getSelectedOption() const { return selected; }
 
@@ -84,17 +88,7 @@ sf::Vector2f ComboBox::minimumRequisition() const {
 }
 
 void ComboBox::onAcquisition() {
-    labelSize = {getAcquisition().width - getAcquisition().height + OptionPadding,
-                 getAcquisition().height + OptionPadding};
-
-    totalHeight = labelSize.y * static_cast<int>(options.size());
-    labelRegion = {getAcquisition().left,
-                   getAcquisition().top + getAcquisition().height,
-                   labelSize.x,
-                   totalHeight};
-
-    labelRegion.height =
-        maxHeight > 0 ? std::min(maxHeight, labelRegion.height) : labelRegion.height;
+    refreshLabelRegion();
 
     arrow->scaleToSize({getAcquisition().height, getAcquisition().height}, false);
     Packer::manuallyPackElement(arrow,
@@ -106,6 +100,20 @@ void ComboBox::onAcquisition() {
         packOpened();
     else
         packClosed();
+}
+
+void ComboBox::refreshLabelRegion() {
+    labelSize = {getAcquisition().width - getAcquisition().height + OptionPadding,
+                 getAcquisition().height + OptionPadding};
+
+    totalHeight = labelSize.y * static_cast<float>(options.size());
+    labelRegion = {getAcquisition().left,
+                   getAcquisition().top + getAcquisition().height,
+                   labelSize.x,
+                   totalHeight};
+
+    labelRegion.height =
+        maxHeight > 0 ? std::min(maxHeight, labelRegion.height) : labelRegion.height;
 }
 
 bool ComboBox::propagateEvent(const Event& event) {

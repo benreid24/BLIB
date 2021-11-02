@@ -89,6 +89,12 @@ public:
     void setSelectedOption(const std::string& text, bool fireEvent = true);
 
     /**
+     * @brief Returns the number of options in the combo box
+     * 
+     */
+    int optionCount() const;
+
+    /**
      * @brief Returns whether or not the dropdown is opened
      *
      */
@@ -162,6 +168,7 @@ private:
     void optionClicked(const std::string& text);
     void clicked();
     void scrolled(const Event& scroll);
+    void refreshLabelRegion();
 
     void packOpened();
     void packClosed();
