@@ -261,6 +261,8 @@ void Notebook::constrainScroll() {
         const float ms = tabArea->getAcquisition().width - tabAcquisition.width;
         if (scroll > ms) { scroll = ms; }
     }
+
+    if (maxWidth < 0.f) scroll = 0.f;
 }
 
 } // namespace gui
