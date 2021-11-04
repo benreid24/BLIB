@@ -378,6 +378,14 @@ public:
      */
     void queueUpdateAction(const QueuedAction& action);
 
+    /**
+     * @brief Returns whether or not this element should receive events that occured outside the
+     *        acquisition of its parent
+     *
+     * @return True if it should take outside events, false for contained only
+     */
+    virtual bool receivesOutOfBoundsEvents() const;
+
 protected:
     /**
      * @brief Builds a new Element

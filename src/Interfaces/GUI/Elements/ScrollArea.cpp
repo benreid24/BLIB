@@ -207,7 +207,8 @@ bool ScrollArea::propagateEvent(const Event& event) {
     if (horScrollbar->processEvent(event)) return true;
     if (vertScrollbar->processEvent(event)) return true;
 
-    const bool in = getAcquisition().contains(event.mousePosition());
+    const bool in =
+        getAcquisition().contains(event.mousePosition()) || content->receivesOutOfBoundsEvents();
     if (in || event.type() == Event::MouseMoved || event.type() == Event::LeftMouseReleased ||
         event.type() == Event::RightMouseReleased) {
         return content->processEvent(event);
@@ -236,6 +237,8 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
 void ScrollArea::updateContentPos() { content->setPosition(getPosition() + offset); }
 
 void ScrollArea::clearChildren(bool immediate) { content->clearChildren(immediate); }
+
+bool ScrollArea::receivesOutOfBoundsEvents() const { return content->receivesOutOfBoundsEvents(); }
 
 } // namespace gui
 } // namespace bl

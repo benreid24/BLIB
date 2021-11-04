@@ -411,5 +411,7 @@ GUI* Element::getTopParent() {
 
 const GUI* Element::getTopParent() const { return const_cast<Element*>(this)->getTopParent(); }
 
+bool Element::receivesOutOfBoundsEvents() const { return false; }
+
 } // namespace gui
 } // namespace bl

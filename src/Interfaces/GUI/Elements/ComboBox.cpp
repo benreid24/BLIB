@@ -142,7 +142,7 @@ bool ComboBox::propagateEvent(const Event& event) {
 }
 
 bool ComboBox::handleScroll(const Event& event) {
-    if (opened) {
+    if (opened && labelRegion.contains(event.mousePosition())) {
         scrolled(event);
         return true;
     }
@@ -255,6 +255,8 @@ void ComboBox::update(float dt) {
         for (Label::Ptr& option : labels) { option->update(dt); }
     }
 }
+
+bool ComboBox::receivesOutOfBoundsEvents() const { return opened; }
 
 } // namespace gui
 } // namespace bl
