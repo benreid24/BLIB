@@ -165,20 +165,48 @@ void TextEntry::onKeypress(const Event& action) {
 void TextEntry::onClicked(const Event& action) {
     if (action.type() != Event::LeftClicked) return;
 
-    float minDist   = 10000000;
-    unsigned int mi = 0;
-    for (unsigned int i = 0; i < input.size(); ++i) {
+    recalcText();
+    const auto selectIndex = [this](unsigned int i) {
+        cursorPos = i;
+        recalcNewlines();
+    };
+
+    // Determine which line we're on
+    const float y = action.mousePosition().y - renderText.getGlobalBounds().top;
+    if (y < 0.f) {
+        selectIndex(0);
+        return;
+    }
+    if (y > renderText.getGlobalBounds().top + renderText.getGlobalBounds().height) {
+        selectIndex(input.size());
+        return;
+    }
+
+    const float lineHeight = renderText.getFont()->getLineSpacing(renderText.getCharacterSize()) *
+                             renderText.getLineSpacing();
+    const unsigned int line =
+        std::min(static_cast<std::size_t>(std::floor(y / lineHeight)) + 1, newlines.size() - 1);
+
+    const float x = action.mousePosition().x - renderText.getGlobalBounds().left;
+    if (x < 0.f) {
+        selectIndex(newlines[line - 1] + 1);
+        return;
+    }
+    for (int i = newlines[line - 1] + 1; i < newlines[line]; ++i) {
+        const sf::Glyph& g = renderText.getFont()->getGlyph(
+            renderText.getString()[i],
+            renderText.getCharacterSize(),
+            (renderText.getStyle() & sf::Text::Style::Bold) == sf::Text::Style::Bold,
+            renderText.getOutlineThickness());
         const sf::Vector2f cpos = renderText.findCharacterPos(i);
-        const sf::Vector2f diff = cpos - action.mousePosition();
-        const float d           = diff.x * diff.x + diff.y * diff.y;
-        if (d < minDist) {
-            minDist = d;
-            mi      = i;
+        const sf::FloatRect bounds(cpos.x, cpos.y, g.bounds.left + g.bounds.width, lineHeight);
+        if (bounds.contains(action.mousePosition())) {
+            selectIndex(i);
+            return;
         }
     }
 
-    cursorPos = mi;
-    recalcNewlines();
+    selectIndex(newlines[line]);
 }
 
 void TextEntry::cursorUp() {
