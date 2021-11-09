@@ -58,7 +58,7 @@ void TextEntry::update(float dt) {
         }
     }
     else {
-        cursorTime    = 0;
+        cursorTime    = 0.f;
         cursorShowing = false;
     }
 }
@@ -123,21 +123,33 @@ void TextEntry::onKeypress(const Event& action) {
 
     if (action.key().code == sf::Keyboard::Right) {
         if (cursorPos < input.size()) ++cursorPos;
+        cursorShowing = true;
+        cursorTime    = 0.f;
     }
     else if (action.key().code == sf::Keyboard::Left) {
         if (cursorPos > 0) --cursorPos;
+        cursorShowing = true;
+        cursorTime    = 0.f;
     }
     else if (action.key().code == sf::Keyboard::Up) {
         if (currentLine > 0) cursorUp();
+        cursorShowing = true;
+        cursorTime    = 0.f;
     }
     else if (action.key().code == sf::Keyboard::Down) {
         if (currentLine < newlines.size() - 2) cursorDown();
+        cursorShowing = true;
+        cursorTime    = 0.f;
     }
     else if (action.key().code == sf::Keyboard::Home) {
-        cursorPos = newlines[currentLine] + 1;
+        cursorPos     = newlines[currentLine] + 1;
+        cursorShowing = true;
+        cursorTime    = 0.f;
     }
     else if (action.key().code == sf::Keyboard::End) {
-        cursorPos = newlines[currentLine + 1];
+        cursorPos     = newlines[currentLine + 1];
+        cursorShowing = true;
+        cursorTime    = 0.f;
     }
     else if (action.key().code == sf::Keyboard::Delete) {
         if (cursorPos < input.size()) input.erase(cursorPos, 1);
