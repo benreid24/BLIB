@@ -109,7 +109,7 @@ sf::Vector2f ScrollArea::minimumRequisition() const {
         req = {std::min(totalSize.x, maxSize.value().x), std::min(totalSize.y, maxSize.value().y)};
     }
     if (includeBars) {
-        req.x += BarSize;
+        req.x += BarSize + 4.f; // it works lol
         req.y += BarSize;
     }
     return req;
@@ -123,18 +123,18 @@ void ScrollArea::onAcquisition() {
     bool showV = alwaysShowV && !neverShowV;
     if (!neverShowV) { showV = showV || availableSize.y < totalSize.y; }
 
-    if (!neverShowH && showV) {
+    if (showV) {
         availableSize.x = getAcquisition().width - BarSize;
-        showH           = showH || availableSize.x < totalSize.x;
+        if (!neverShowH) showH = showH || availableSize.x < totalSize.x;
     }
-    if (!neverShowV && showH) {
+    if (showH) {
         availableSize.y = getAcquisition().height - BarSize;
-        showV           = showV || availableSize.y < totalSize.y;
+        if (!!neverShowV) showV = showV || availableSize.y < totalSize.y;
     }
     // one more time in case V is now visible
-    if (!neverShowH && showV) {
+    if (showV) {
         availableSize.x = getAcquisition().width - BarSize;
-        showH           = showH || availableSize.x < totalSize.x;
+        if (!neverShowH) showH = showH || availableSize.x < totalSize.x;
     }
 
     if (showH) {
@@ -218,6 +218,10 @@ bool ScrollArea::propagateEvent(const Event& event) {
 
 void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const {
+    // Render scrollbars
+    horScrollbar->render(target, states, renderer);
+    vertScrollbar->render(target, states, renderer);
+
     // Preserve old view and compute new
     const sf::View oldView = target.getView();
     target.setView(interface::ViewUtil::computeSubView(sf::FloatRect{getPosition(), availableSize},
@@ -228,10 +232,6 @@ void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
 
     // Restore old view
     target.setView(oldView);
-
-    // Render scrollbars
-    horScrollbar->render(target, states, renderer);
-    vertScrollbar->render(target, states, renderer);
 }
 
 void ScrollArea::updateContentPos() { content->setPosition(getPosition() + offset); }

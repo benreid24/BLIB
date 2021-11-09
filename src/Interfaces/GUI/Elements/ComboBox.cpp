@@ -81,10 +81,10 @@ sf::Vector2f ComboBox::minimumRequisition() const {
     sf::Vector2f lreq(0.f, 0.f);
     for (const Label::Ptr& label : labels) {
         const sf::Vector2f req = label->getRequisition();
-        lreq.x                 = std::max(req.x + 4, lreq.x);
-        lreq.y                 = std::max(req.y + 4, lreq.y);
+        lreq.x                 = std::max(req.x + OptionPadding * 2.f, lreq.x);
+        lreq.y                 = std::max(req.y + OptionPadding * 2.f, lreq.y);
     }
-    return {lreq.x + lreq.y, lreq.y};
+    return {lreq.x + lreq.y + OptionPadding * 4.f, lreq.y};
 }
 
 void ComboBox::onAcquisition() {
