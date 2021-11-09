@@ -401,6 +401,10 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
 
     RendererUtil::renderRectangle(target, states, entry.getAcquisition(), settings, boxDefaults);
 
+    const sf::View oldView = target.getView();
+    target.setView(interface::ViewUtil::computeSubView(entry.getAcquisition(), getOriginalView()));
+    states.transform.translate(-entry.getTextOffset());
+
     sf::FloatRect textArea = entry.getAcquisition();
     const int thickness    = settings.outlineThickness.value_or(2);
     textArea.left += thickness;
@@ -414,11 +418,13 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
 
     if (entry.cursorVisible()) {
         const sf::Vector2f pos = text.findCharacterPos(entry.getCursorPosition());
-        sf::RectangleShape carat({1.5, text.getFont()->getLineSpacing(text.getCharacterSize())});
+        sf::RectangleShape carat(
+            {1.5, text.getFont()->getLineSpacing(text.getCharacterSize()) * text.getLineSpacing()});
         carat.setPosition(pos);
         carat.setFillColor(sf::Color::Black);
         target.draw(carat, states);
     }
+    target.setView(oldView);
 }
 
 void DefaultRenderer::renderToggleCheckButton(sf::RenderTexture& texture, bool active) const {
