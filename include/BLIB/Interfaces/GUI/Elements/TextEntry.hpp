@@ -26,9 +26,10 @@ public:
      * @brief Create a new TextEntry element
      *
      * @param lineCount The number of lines in the entry
+     * @param allowMoreLines True to allow more lines than fits (scroll)
      * @return Ptr The new TextEntry
      */
-    static Ptr create(unsigned int lineCount = 1);
+    static Ptr create(unsigned int lineCount = 1, bool allowMoreLines = false);
 
     /**
      * @brief Set the maximum amount of characters that can be input
@@ -65,6 +66,12 @@ public:
     unsigned int getCursorPosition() const;
 
     /**
+     * @brief Returns the scrolling offset of the text within the entry
+     *
+     */
+    const sf::Vector2f& getTextOffset() const;
+
+    /**
      * @brief Manages cursor visibility based on elapsed time and active status
      *
      * @param dt Time elapsed since last update, in seconds
@@ -76,9 +83,10 @@ protected:
      * @brief Create a new TextEntry element
      *
      * @param lineCount The number of lines in the entry
+     * @param allowMoreLines True to allow more lines than fits (scroll)
      * @return Ptr The new TextEntry
      */
-    TextEntry(unsigned int lineCount);
+    TextEntry(unsigned int lineCount, bool allowMoreLines);
 
     /**
      * @brief Computes the minimum area required based on the number of lines. Returns small
@@ -99,9 +107,11 @@ protected:
 
 private:
     const unsigned lineCount;
+    const bool allowMoreLines;
     std::optional<unsigned int> maxInputLen;
     std::string input;
     sf::Text renderText;
+    sf::Vector2f textOffset;
 
     unsigned int cursorPos;
     bool cursorShowing;
@@ -112,6 +122,8 @@ private:
 
     void recalcText();
     void recalcNewlines();
+    void recalcOffset();
+    void refresh();
 
     void cursorUp();
     void cursorDown();
@@ -119,6 +131,7 @@ private:
     void onInput(const Event& action);
     void onKeypress(const Event& action);
     void onClicked(const Event& action);
+    void fireChanged();
 };
 
 } // namespace gui

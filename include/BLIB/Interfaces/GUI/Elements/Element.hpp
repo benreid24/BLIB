@@ -17,6 +17,7 @@ namespace gui
 {
 class Packer;
 class Slider;
+class GUI;
 
 /**
  * @brief Base class for all GUI elements. Provides the common interface used for positioning,
@@ -33,6 +34,8 @@ public:
     typedef std::shared_ptr<Element> Ptr;
     typedef std::shared_ptr<const Element> CPtr;
     typedef std::weak_ptr<Element> WPtr;
+
+    using QueuedAction = std::function<void()>;
 
     /**
      * @brief Destroy the Element object
@@ -358,6 +361,31 @@ public:
      */
     const std::string& getTooltip() const;
 
+    /**
+     * @brief Returns the render settings for this object
+     *
+     * @return const RenderSettings& The render settings
+     */
+    const RenderSettings& renderSettings() const;
+
+    /**
+     * @brief Adds an action to the queue to be executed after all elements are next updated. This
+     *        is for event handlers/update methods to perform actions that modify the element tree
+     *        to do so safely. It is not safe to modify the element tree inside of a call to an
+     *        event handler or an update() call
+     *
+     * @param action The action to queue
+     */
+    void queueUpdateAction(const QueuedAction& action);
+
+    /**
+     * @brief Returns whether or not this element should receive events that occured outside the
+     *        acquisition of its parent
+     *
+     * @return True if it should take outside events, false for contained only
+     */
+    virtual bool receivesOutOfBoundsEvents() const;
+
 protected:
     /**
      * @brief Builds a new Element
@@ -422,13 +450,6 @@ protected:
      * @param action The action to fire
      */
     void fireSignal(const Event& action);
-
-    /**
-     * @brief Returns the render settings for this object
-     *
-     * @return const RenderSettings& The render settings
-     */
-    const RenderSettings& renderSettings() const;
 
     /**
      * @brief Actually performs the rendering. This is only called if the element is visible.
@@ -505,6 +526,8 @@ private:
     float hoverTime;
 
     bool processAction(const Event& action);
+    GUI* getTopParent();
+    const GUI* getTopParent() const;
 
     friend class Packer;
     friend class Renderer;

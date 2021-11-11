@@ -35,8 +35,9 @@ void ComboBox::addOption(const std::string& text) {
     labels.back()->setHorizontalAlignment(RenderSettings::Left);
     labels.back()
         ->getSignal(Event::LeftClicked)
-        .willAlwaysCall(std::bind(&ComboBox::optionClicked, this, options.back()));
+        .willAlwaysCall(std::bind(&ComboBox::optionClicked, this, text));
     onSettings();
+    refreshLabelRegion();
 }
 
 void ComboBox::clearOptions() {
@@ -45,7 +46,10 @@ void ComboBox::clearOptions() {
     labels.clear();
     selected = -1;
     opened   = false;
+    refreshLabelRegion();
 }
+
+int ComboBox::optionCount() const { return options.size(); }
 
 int ComboBox::getSelectedOption() const { return selected; }
 
@@ -54,19 +58,18 @@ const std::string& ComboBox::getSelectedOptionText() const {
     return selected >= 0 ? options[selected] : empty;
 }
 
-void ComboBox::setSelectedOption(int i) {
+void ComboBox::setSelectedOption(int i, bool f) {
     selected = i;
     if (selected >= static_cast<int>(options.size())) selected = options.size() - 1;
     opened = false;
     packClosed();
-    fireSignal(Event(Event::ValueChanged, options[i]));
+    if (f) fireSignal(Event(Event::ValueChanged, static_cast<float>(i)));
 }
 
-void ComboBox::setSelectedOption(const std::string& t) {
+void ComboBox::setSelectedOption(const std::string& t, bool f) {
     for (unsigned int i = 0; i < options.size(); ++i) {
         if (options[i] == t) {
-            setSelectedOption(i);
-            fireSignal(Event(Event::ValueChanged, t));
+            setSelectedOption(i, f);
             break;
         }
     }
@@ -78,24 +81,14 @@ sf::Vector2f ComboBox::minimumRequisition() const {
     sf::Vector2f lreq(0.f, 0.f);
     for (const Label::Ptr& label : labels) {
         const sf::Vector2f req = label->getRequisition();
-        lreq.x                 = std::max(req.x + 4, lreq.x);
-        lreq.y                 = std::max(req.y + 4, lreq.y);
+        lreq.x                 = std::max(req.x + OptionPadding * 2.f, lreq.x);
+        lreq.y                 = std::max(req.y + OptionPadding * 2.f, lreq.y);
     }
-    return {lreq.x + lreq.y, lreq.y};
+    return {lreq.x + lreq.y + OptionPadding * 4.f, lreq.y};
 }
 
 void ComboBox::onAcquisition() {
-    labelSize = {getAcquisition().width - getAcquisition().height + OptionPadding,
-                 getAcquisition().height + OptionPadding};
-
-    totalHeight = labelSize.y * static_cast<int>(options.size());
-    labelRegion = {getAcquisition().left,
-                   getAcquisition().top + getAcquisition().height,
-                   labelSize.x,
-                   totalHeight};
-
-    labelRegion.height =
-        maxHeight > 0 ? std::min(maxHeight, labelRegion.height) : labelRegion.height;
+    refreshLabelRegion();
 
     arrow->scaleToSize({getAcquisition().height, getAcquisition().height}, false);
     Packer::manuallyPackElement(arrow,
@@ -107,6 +100,20 @@ void ComboBox::onAcquisition() {
         packOpened();
     else
         packClosed();
+}
+
+void ComboBox::refreshLabelRegion() {
+    labelSize = {getAcquisition().width - getAcquisition().height + OptionPadding,
+                 getAcquisition().height + OptionPadding};
+
+    totalHeight = labelSize.y * static_cast<float>(options.size());
+    labelRegion = {getAcquisition().left,
+                   getAcquisition().top + getAcquisition().height,
+                   labelSize.x,
+                   totalHeight};
+
+    labelRegion.height =
+        maxHeight > 0 ? std::min(maxHeight, labelRegion.height) : labelRegion.height;
 }
 
 bool ComboBox::propagateEvent(const Event& event) {
@@ -126,16 +133,16 @@ bool ComboBox::propagateEvent(const Event& event) {
             for (Label::Ptr& option : labels) { option->processEvent(translated); }
         }
     }
-    if (opened && event.type() == Event::LeftMousePressed) {
+    if (opened && !contained && event.type() == Event::LeftMousePressed) {
         opened = false;
         packClosed();
-        return true; // eat it?
+        return true; // eat it
     }
     return contained && opened;
 }
 
 bool ComboBox::handleScroll(const Event& event) {
-    if (opened) {
+    if (opened && labelRegion.contains(event.mousePosition())) {
         scrolled(event);
         return true;
     }
@@ -186,7 +193,11 @@ void ComboBox::onSettings() {
 }
 
 void ComboBox::optionClicked(const std::string& text) {
-    if (opened) setSelectedOption(text);
+    if (opened) {
+        setSelectedOption(text);
+        opened = false;
+        packClosed();
+    }
 }
 
 void ComboBox::clicked() {
@@ -244,6 +255,8 @@ void ComboBox::update(float dt) {
         for (Label::Ptr& option : labels) { option->update(dt); }
     }
 }
+
+bool ComboBox::receivesOutOfBoundsEvents() const { return opened; }
 
 } // namespace gui
 } // namespace bl

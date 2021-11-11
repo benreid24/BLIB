@@ -49,6 +49,14 @@ public:
      */
     void clearChildren(bool immediate = false);
 
+    /**
+     * @brief Returns whether or not this element should receive events that occured outside the
+     *        acquisition of its parent
+     *
+     * @return True if it should take outside events, false for contained only
+     */
+    virtual bool receivesOutOfBoundsEvents() const override;
+
 protected:
     /**
      * @brief Construct a new Container

@@ -30,8 +30,10 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
     Box::Ptr controlRow = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
     Button::Ptr upBut   = Button::create("Up");
     upBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        path.pop_back();
-        populateFiles();
+        if (!path.empty()) {
+            path.pop_back();
+            populateFiles();
+        }
     });
     Button::Ptr makeBut = Button::create("New Folder");
     makeBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
@@ -141,9 +143,13 @@ void FilePicker::open(Mode m, const std::string& title, GUI::Ptr parent, bool rp
 
     populateFiles();
     parent->pack(window);
+    window->setForceFocus(true);
 }
 
-void FilePicker::close() { window->remove(); }
+void FilePicker::close() {
+    window->remove();
+    window->setForceFocus(false);
+}
 
 void FilePicker::onClearPath() {
     if (!path.empty()) {

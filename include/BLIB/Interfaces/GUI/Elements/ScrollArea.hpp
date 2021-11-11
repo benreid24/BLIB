@@ -3,9 +3,9 @@
 
 #include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 
+#include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Slider.hpp>
 #include <BLIB/Interfaces/GUI/Packers/Packer.hpp>
-#include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 
 namespace bl
 {
@@ -56,6 +56,20 @@ public:
     void setAlwaysShowHorizontalScrollbar(bool show);
 
     /**
+     * @brief Set whether or not to never the vertical scrollbar
+     *
+     * @param neverShow True to never show, false to show when needed
+     */
+    void setNeverShowVerticalScrollbar(bool neverShow);
+
+    /**
+     * @brief Set whether or not to never the horizontal scrollbar
+     *
+     * @param neverShow True to never show, false to show when needed
+     */
+    void setNeverShowHorizontalScrollbar(bool neverShow);
+
+    /**
      * @brief Direct way to set the scroll. Parameter is a normalized vector
      *
      * @param scroll The normalized scroll values. 0 is top/left, 1 is bottom/right
@@ -86,6 +100,23 @@ public:
      *
      */
     void clearChildren(bool immediate);
+
+    /**
+     * @brief Set whether or not to include the scrollbars in the requisition. Default is not to
+     *        include them. Not including them allows a tighter requisition, but may result in
+     *        scrolling earlier than desired for small boxes
+     *
+     * @param include True to include, false to exclude.
+     */
+    void includeScrollbarsInRequisition(bool include);
+
+    /**
+     * @brief Returns whether or not this element should receive events that occured outside the
+     *        acquisition of its parent
+     *
+     * @return True if it should take outside events, false for contained only
+     */
+    virtual bool receivesOutOfBoundsEvents() const override;
 
 protected:
     /**
@@ -147,6 +178,9 @@ private:
     sf::Vector2f boxMousePos;
     bool alwaysShowH;
     bool alwaysShowV;
+    bool neverShowH;
+    bool neverShowV;
+    bool includeBars;
 
     void addBars();
     void refreshSize() const;

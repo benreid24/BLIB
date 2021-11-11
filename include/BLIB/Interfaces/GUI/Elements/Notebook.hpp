@@ -57,6 +57,13 @@ public:
     };
 
     /**
+     * @brief Sets a maximum width for the tabs to take up. Tabs beyond this size will scroll
+     *
+     * @param maxWidth The maximum width of the top tabs, in pixels. Set negative for no max
+     */
+    void setMaxTabWidth(float maxWidth);
+
+    /**
      * @brief Add a new page to the Notebook
      *
      * @param name The name of the page. This is not visible anywhere
@@ -177,17 +184,29 @@ protected:
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const override;
 
+    /**
+     * @brief Passes the event down to the tabs and active page content
+     *
+     * @param event The event to send
+     * @return True if consumed, false if the event should keep sending
+     */
+    virtual bool propagateEvent(const Event& event) override;
+
 private:
     Box::Ptr tabArea;
     std::list<Page> pages;
     std::unordered_map<std::string, std::list<Page>::iterator> pageMap;
     Page* activePage;
+    sf::FloatRect tabAcquisition;
     unsigned int activePageIndex;
+    float maxWidth;
+    float scroll;
 
     void makePageActiveDirect(Page* page);
     void onMove();
     std::list<Page>::iterator getIterator(unsigned int i);
     sf::FloatRect contentArea() const;
+    void constrainScroll();
 };
 
 } // namespace gui

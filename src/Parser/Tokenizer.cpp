@@ -9,8 +9,7 @@ namespace parser
 Tokenizer::Tokenizer(ISkipper::Ptr skipper)
 : skipper(skipper) {}
 
-void Tokenizer::addTokenType(Node::Type type, const std::string& regex,
-                             MatchGroup matchGroup) {
+void Tokenizer::addTokenType(Node::Type type, const std::string& regex, MatchGroup matchGroup) {
     matchers[regex]    = std::make_pair(std::regex(regex.c_str()), type);
     matchGroups[regex] = matchGroup;
     recomputeAmbiguous();
@@ -26,7 +25,7 @@ void Tokenizer::addKeyword(Node::Type src, Node::Type res, const std::string& kw
     kwords[src].push_back({kword, res});
 }
 
-std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
+std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input, std::string* err) const {
     std::vector<Node::Ptr> tokens;
     std::string current;
     int fLine = 0;
@@ -68,9 +67,8 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
                 if (a != ambiguous.end()) {
                     bool skip = false;
                     for (const std::string& k : a->second) {
-                        const std::string check =
-                            current + input.peekN(k.size() - current.size());
-                        const std::regex& m = matchers.find(k)->second.first;
+                        const std::string check = current + input.peekN(k.size() - current.size());
+                        const std::regex& m     = matchers.find(k)->second.first;
                         if (std::regex_match(check, m)) {
                             skip = true;
                             break;
@@ -83,10 +81,10 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
                 const unsigned int matchGroup = matchGroups.at(matcher.first) < result.size() ?
                                                     matchGroups.at(matcher.first) :
                                                     0;
-                token->data         = result[matchGroup].str();
-                token->sourceLine   = input.currentLine();
-                token->sourceColumn = input.currentColumn() - token->data.size();
-                token->type         = matcher.second.second;
+                token->data                   = result[matchGroup].str();
+                token->sourceLine             = input.currentLine();
+                token->sourceColumn           = input.currentColumn() - token->data.size();
+                token->type                   = matcher.second.second;
 
                 auto kiter = kwords.find(token->type);
                 if (kiter != kwords.end()) {
@@ -106,8 +104,11 @@ std::vector<Node::Ptr> Tokenizer::tokenize(Stream& input) const {
     }
 
     if (!current.empty()) {
-        BL_LOG_ERROR << "Unexpected character '" << current[0] << "' on line " << fLine
-                     << " at position " << fCol;
+        std::stringstream ss;
+        ss << "Unexpected character '" << current[0] << "' on line " << fLine << " at position "
+           << fCol;
+        BL_LOG_ERROR << ss.str();
+        if (err) *err = ss.str();
         return {};
     }
     return tokens;

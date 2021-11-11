@@ -155,7 +155,7 @@ RenderSettings getTextEntryTextDefaults() {
 DefaultRenderer::Ptr DefaultRenderer::create() { return Ptr(new DefaultRenderer()); }
 
 void DefaultRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates states,
-                                const Container& container) const {
+                                const Element& container) const {
     if (!viewValid(target.getView())) return;
 
     const RenderSettings settings        = getSettings(&container);
@@ -247,7 +247,7 @@ void DefaultRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::Rende
 }
 
 void DefaultRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderStates states,
-                                         const Notebook& nb) const {
+                                         const Notebook& nb, float scroll) const {
     if (!viewValid(target.getView())) return;
 
     static const RenderSettings defaults = getNotebookDefaults();
@@ -255,6 +255,11 @@ void DefaultRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderSta
 
     RendererUtil::renderRectangle(target, states, nb.getAcquisition(), settings, defaults);
     RendererUtil::renderRectangle(target, states, nb.getTabAcquisition(), settings, defaults, true);
+
+    const sf::View oldView = target.getView();
+    target.setView(interface::ViewUtil::computeSubView(nb.getTabAcquisition(), getOriginalView()));
+    states.transform.translate(-scroll, 0.f);
+
     for (const Notebook::Page& page : nb.getPages()) {
         RenderSettings tabSettings = settings;
         if (&page != nb.getActivePage()) {
@@ -268,6 +273,8 @@ void DefaultRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderSta
         page.label->render(target, states, *this);
         renderMouseoverOverlay(target, states, page.label.get());
     }
+
+    target.setView(oldView);
 }
 
 void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStates states,
@@ -394,6 +401,10 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
 
     RendererUtil::renderRectangle(target, states, entry.getAcquisition(), settings, boxDefaults);
 
+    const sf::View oldView = target.getView();
+    target.setView(interface::ViewUtil::computeSubView(entry.getAcquisition(), getOriginalView()));
+    states.transform.translate(-entry.getTextOffset());
+
     sf::FloatRect textArea = entry.getAcquisition();
     const int thickness    = settings.outlineThickness.value_or(2);
     textArea.left += thickness;
@@ -407,11 +418,13 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
 
     if (entry.cursorVisible()) {
         const sf::Vector2f pos = text.findCharacterPos(entry.getCursorPosition());
-        sf::RectangleShape carat({1.5, text.getFont()->getLineSpacing(text.getCharacterSize())});
+        sf::RectangleShape carat(
+            {1.5, text.getFont()->getLineSpacing(text.getCharacterSize()) * text.getLineSpacing()});
         carat.setPosition(pos);
         carat.setFillColor(sf::Color::Black);
         target.draw(carat, states);
     }
+    target.setView(oldView);
 }
 
 void DefaultRenderer::renderToggleCheckButton(sf::RenderTexture& texture, bool active) const {

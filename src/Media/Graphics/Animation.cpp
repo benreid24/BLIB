@@ -66,7 +66,7 @@ void Animation::stop() {
 }
 
 void Animation::update(float dt) {
-    if (isPlaying) {
+    if (isPlaying && data->frameCount() > 0) {
         frameTime += dt;
         if (frameTime > data->lengths[frame]) {
             frameTime -= data->lengths[frame];
@@ -83,7 +83,7 @@ void Animation::update(float dt) {
 }
 
 void Animation::render(sf::RenderTarget& target, float lag, sf::RenderStates states) {
-    if (data) {
+    if (data && data->frameCount() > 0) {
         const float t = isPlaying ? frameTime + lag : 0.f;
         const unsigned int i =
             (t > data->lengths[frame]) ? (frame + 1) % data->frames.size() : frame;

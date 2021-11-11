@@ -200,6 +200,7 @@ void Slider::updateSliderPos() {
 bool Slider::propagateEvent(const Event& e) { return sendEventToChildren(e); }
 
 void Slider::constrainValue() {
+    if (std::isnan(value)) value = 0.f;
     if (value < 0.f) value = 0.f;
     if (value > 1.f) value = 1.f;
 }

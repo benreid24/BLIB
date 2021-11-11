@@ -26,7 +26,7 @@ void DebugRenderer::renderLabel(sf::RenderTarget& target, sf::RenderStates state
 }
 
 void DebugRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates states,
-                              const Container& element) const {
+                              const Element& element) const {
     underlying->renderBox(target, states, element);
     addInfo(target, states, element.getAcquisition());
 }
@@ -67,8 +67,8 @@ void DebugRenderer::renderMouseoverOverlay(sf::RenderTarget& target, sf::RenderS
 }
 
 void DebugRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderStates states,
-                                       const Notebook& nb) const {
-    underlying->renderNotebookTabs(target, states, nb);
+                                       const Notebook& nb, float scroll) const {
+    underlying->renderNotebookTabs(target, states, nb, scroll);
     addInfo(target, states, nb.getAcquisition());
 }
 

@@ -96,6 +96,8 @@ bool Container::propagateEvent(const Event& event) {
 }
 
 bool Container::handleScroll(const Event& event) {
+    if (!getAcquisition().contains(event.mousePosition())) return false;
+    
     for (Element* e : zorder) {
         if (e->handleScroll(event)) { return true; }
     }
@@ -110,6 +112,7 @@ void Container::update(float dt) {
     if (clearFlag) {
         clearFlag = false;
         children.clear();
+        zorder.clear();
     }
     else {
         for (const Element* e : toRemove) {
@@ -145,6 +148,13 @@ void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states
 
     // Restore view
     target.setView(oldView);
+}
+
+bool Container::receivesOutOfBoundsEvents() const {
+    for (const auto& c : children) {
+        if (c->receivesOutOfBoundsEvents()) return true;
+    }
+    return false;
 }
 
 } // namespace gui

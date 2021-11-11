@@ -73,14 +73,26 @@ public:
     /**
      * @brief Set the selected option. -1 to clear selection
      *
+     * @param i The index of the option to select
+     * @param fireEvent True to fire a changed event, false to not
+     *
      */
-    void setSelectedOption(int i);
+    void setSelectedOption(int i, bool fireEvent = true);
 
     /**
      * @brief Set the selected option by text label. Has no effect if text is not an option
      *
+     * @param text The text of the option to select
+     * @param fireEvent True to fire a changed event, false to not
+     *
      */
-    void setSelectedOption(const std::string& text);
+    void setSelectedOption(const std::string& text, bool fireEvent = true);
+
+    /**
+     * @brief Returns the number of options in the combo box
+     * 
+     */
+    int optionCount() const;
 
     /**
      * @brief Returns whether or not the dropdown is opened
@@ -100,6 +112,14 @@ public:
      * @param dt Elapsed time in seconds
      */
     virtual void update(float dt) override;
+
+    /**
+     * @brief Returns whether or not this element should receive events that occured outside the
+     *        acquisition of its parent
+     *
+     * @return True if it should take outside events, false for contained only
+     */
+    virtual bool receivesOutOfBoundsEvents() const override;
 
 protected:
     /**
@@ -156,6 +176,7 @@ private:
     void optionClicked(const std::string& text);
     void clicked();
     void scrolled(const Event& scroll);
+    void refreshLabelRegion();
 
     void packOpened();
     void packClosed();

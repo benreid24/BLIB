@@ -1,5 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 
+#include <BLIB/Interfaces/GUI/GUI.hpp>
+#include <BLIB/Logging.hpp>
 #include <cmath>
 
 namespace bl
@@ -24,7 +26,7 @@ Element::Element()
 
 void Element::setRequisition(const sf::Vector2f& size) {
     requisition.reset();
-    if (size.x > 0 && size.y > 0) {
+    if (size.x > 0.f && size.y > 0.f) {
         requisition = size;
         makeDirty();
     }
@@ -391,6 +393,25 @@ void Element::update(float dt) {
 void Element::setTooltip(const std::string& tt) { tooltip = tt; }
 
 const std::string& Element::getTooltip() const { return tooltip; }
+
+void Element::queueUpdateAction(const QueuedAction& a) {
+    GUI* g = getTopParent();
+    if (g) { g->queueAction(a); }
+    else {
+        BL_LOG_ERROR << "Element " << this << " is not a child of GUI";
+    }
+}
+
+GUI* Element::getTopParent() {
+    Element* p = parent;
+    while (p && p->parent) { p = p->parent; }
+    if (p) return dynamic_cast<GUI*>(p);
+    return nullptr;
+}
+
+const GUI* Element::getTopParent() const { return const_cast<Element*>(this)->getTopParent(); }
+
+bool Element::receivesOutOfBoundsEvents() const { return false; }
 
 } // namespace gui
 } // namespace bl

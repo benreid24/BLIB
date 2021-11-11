@@ -65,7 +65,7 @@ public:
      * @param container Container to render
      */
     virtual void renderBox(sf::RenderTarget& target, sf::RenderStates states,
-                           const Container& container) const = 0;
+                           const Element& container) const = 0;
 
     /**
      * @brief Render a ComboBox base box
@@ -148,9 +148,10 @@ public:
      * @param target The target to render to
      * @param states RenderStates to apply
      * @param notebook Notebook to render
+     * @param scroll The amount of scrolling in the tabs, in pixels
      */
     virtual void renderNotebookTabs(sf::RenderTarget& target, sf::RenderStates states,
-                                    const Notebook& notebook) const = 0;
+                                    const Notebook& notebook, float scroll) const = 0;
 
     /**
      * @brief Renders a ProgressBar element

@@ -34,7 +34,7 @@ sf::Vector2f LinePacker::getRequisition(const std::vector<Element::Ptr>& elems) 
         }
     }
 
-    md += elems.size() * spacing;
+    md += std::max(static_cast<float>((elems.empty() ? 0 : elems.size() - 1)) * spacing, 0.f);
     if (dir == Vertical) return {od, md};
     return {md, od};
 }
@@ -55,9 +55,9 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
         totalSize += e->getRequisition() + sf::Vector2f(spacing, spacing);
     }
     const sf::Vector2f freeSpace = sf::Vector2f(rect.width, rect.height) - totalSize;
-    const float extraSpace = expanders > 0 ? ((dir == Horizontal) ? (freeSpace.x / expanders) :
-                                                                    (freeSpace.y / expanders)) :
-                                             0;
+    const float extraSpace = expanders > 0.f ? ((dir == Horizontal) ? (freeSpace.x / expanders) :
+                                                                      (freeSpace.y / expanders)) :
+                                               0.f;
 
     sf::Vector2f pos(rect.left, rect.top);
     if (mode == Compact) {
@@ -123,32 +123,51 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
         else
             size.y = rect.height / elems.size() - spacing;
 
+        // Compute oversize amount
+        sf::Vector2f oversize(0.f, 0.f);
+        const std::size_t en = elems.size() > 1 ? elems.size() - 1 : 1;
+        const float enf      = static_cast<float>(en);
+        for (const Element::Ptr& e : elems) {
+            const sf::Vector2f req = e->getRequisition();
+            if (dir == Horizontal && req.x > size.x) { size.x -= (req.x - size.x) / enf; }
+            else if (dir == Vertical && req.y > size.y) {
+                size.y -= (req.y - size.y) / enf;
+            }
+        }
+
+        const auto computeElementSize = [&elems, &size](const Element::Ptr& e) -> sf::Vector2f {
+            const sf::Vector2f req = e->getRequisition();
+            return sf::Vector2f(std::max(size.x, req.x), std::max(size.y, req.y));
+        };
+
         // Compute start position
-        if (start == RightAlign) {
+        if (start == RightAlign && !elems.empty()) {
             if (dir == Horizontal)
-                pos.x = rect.left + rect.width - size.x;
+                pos.x = rect.left + rect.width - computeElementSize(elems.front()).x;
             else
-                pos.y = rect.top + rect.height - size.y;
+                pos.y = rect.top + rect.height - computeElementSize(elems.front()).y;
         }
 
         // Pack elements
-        for (Element::Ptr e : elems) {
+        float spacing = 0;
+        for (const Element::Ptr& e : elems) {
             if (!e->packable()) continue;
 
-            packElementIntoSpace(e, {pos, size});
+            const sf::Vector2f eSize = computeElementSize(e);
+            packElementIntoSpace(e, {pos, eSize});
 
             // Update position
             if (dir == Horizontal) {
                 if (start == LeftAlign)
-                    pos.x += size.x + spacing;
+                    pos.x += eSize.x + spacing;
                 else
-                    pos.x -= size.x + spacing;
+                    pos.x -= eSize.x + spacing;
             }
             else {
                 if (start == LeftAlign)
-                    pos.y += size.y + spacing;
+                    pos.y += eSize.y + spacing;
                 else
-                    pos.y -= size.y + spacing;
+                    pos.y -= eSize.y + spacing;
             }
         }
     }

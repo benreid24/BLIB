@@ -87,6 +87,14 @@ protected:
     void renderChildren(sf::RenderTarget& target, sf::RenderStates states, const Renderer& renderer,
                         bool changeView) const;
 
+    /**
+     * @brief Returns whether or not this element should receive events that occured outside the
+     *        acquisition of its parent
+     *
+     * @return True if it should take outside events, false for contained only
+     */
+    virtual bool receivesOutOfBoundsEvents() const override;
+
 private:
     Element* children[N];
 
@@ -168,6 +176,14 @@ bool CompositeElement<N>::releaseFocus(const Element* r) {
         if (!children[i]->releaseFocus(r)) return false;
     }
     return true;
+}
+
+template<std::size_t N>
+bool CompositeElement<N>::receivesOutOfBoundsEvents() const {
+    for (unsigned int i = 0; i < N; ++i) {
+        if (children[i]->receivesOutOfBoundsEvents()) return true;
+    }
+    return false;
 }
 
 } // namespace gui

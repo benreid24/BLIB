@@ -120,7 +120,7 @@ Node::Ptr Parser::parse(const std::string& input, std::string* res) const {
 }
 
 Node::Ptr Parser::parse(Stream& input, std::string* res) const {
-    std::vector<Node::Ptr> parsed = tokenizer.tokenize(input);
+    std::vector<Node::Ptr> parsed = tokenizer.tokenize(input, res);
     if (parsed.empty()) return nullptr;
     std::list<Node::Ptr> tokens(parsed.begin(), parsed.end());
 
