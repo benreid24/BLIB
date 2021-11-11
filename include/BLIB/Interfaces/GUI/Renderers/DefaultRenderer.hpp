@@ -40,7 +40,7 @@ public:
 
     /// @see Renderer::renderBox
     virtual void renderBox(sf::RenderTarget& target, sf::RenderStates states,
-                           const Container& container) const override;
+                           const Element& container) const override;
 
     /// @see Renderer::renderComboBox
     virtual void renderComboBox(sf::RenderTarget& target, sf::RenderStates states,

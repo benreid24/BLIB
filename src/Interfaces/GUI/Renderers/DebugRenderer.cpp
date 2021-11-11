@@ -26,7 +26,7 @@ void DebugRenderer::renderLabel(sf::RenderTarget& target, sf::RenderStates state
 }
 
 void DebugRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates states,
-                              const Container& element) const {
+                              const Element& element) const {
     underlying->renderBox(target, states, element);
     addInfo(target, states, element.getAcquisition());
 }

@@ -155,7 +155,7 @@ RenderSettings getTextEntryTextDefaults() {
 DefaultRenderer::Ptr DefaultRenderer::create() { return Ptr(new DefaultRenderer()); }
 
 void DefaultRenderer::renderBox(sf::RenderTarget& target, sf::RenderStates states,
-                                const Container& container) const {
+                                const Element& container) const {
     if (!viewValid(target.getView())) return;
 
     const RenderSettings settings        = getSettings(&container);

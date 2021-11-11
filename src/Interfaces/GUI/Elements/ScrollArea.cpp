@@ -218,6 +218,9 @@ bool ScrollArea::propagateEvent(const Event& event) {
 
 void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const Renderer& renderer) const {
+    // Render background
+    renderer.renderBox(target, states, *this);
+
     // Render scrollbars
     horScrollbar->render(target, states, renderer);
     vertScrollbar->render(target, states, renderer);

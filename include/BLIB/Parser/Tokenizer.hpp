@@ -80,9 +80,10 @@ public:
      * @brief Parses the input stream into a token list
      *
      * @param input Stream to parse
+     * @param err Optional string to populate with error message
      * @return std::vector<Node::Ptr> List of parsed tokens, empty on error
      */
-    std::vector<Node::Ptr> tokenize(Stream& input) const;
+    std::vector<Node::Ptr> tokenize(Stream& input, std::string* err = nullptr) const;
 
 private:
     ISkipper::Ptr skipper;

@@ -65,7 +65,7 @@ public:
      * @param container Container to render
      */
     virtual void renderBox(sf::RenderTarget& target, sf::RenderStates states,
-                           const Container& container) const = 0;
+                           const Element& container) const = 0;
 
     /**
      * @brief Render a ComboBox base box
