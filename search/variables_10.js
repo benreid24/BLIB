@@ -9,6 +9,6 @@ var searchData=
   ['tinyfd_5fsilent',['tinyfd_silent',['../a00756.html#ab679ee1556c3d4f7f099f083f31113c4',1,'bl::dialog']]],
   ['tinyfd_5fverbose',['tinyfd_verbose',['../a00756.html#a3c52e0e98b50e117ae837752c5826c33',1,'bl::dialog']]],
   ['tinyfd_5fversion',['tinyfd_version',['../a00756.html#aa90af71434f12133b420a4986d8be418',1,'bl::dialog']]],
-  ['trace',['Trace',['../a01393.html#a74e5da1abfb366b222375bf333369421',1,'bl::logging::Config']]],
-  ['type',['type',['../a01321.html#a8afc2c88a59747bfdf14797715dcb338',1,'bl::menu::Event::type()'],['../a01485.html#aef8e0b4138b7e6a645fea5049565c78a',1,'bl::parser::Node::type()']]]
+  ['trace',['Trace',['../a01395.html#a74e5da1abfb366b222375bf333369421',1,'bl::logging::Config']]],
+  ['type',['type',['../a01323.html#a8afc2c88a59747bfdf14797715dcb338',1,'bl::menu::Event::type()'],['../a01487.html#aef8e0b4138b7e6a645fea5049565c78a',1,'bl::parser::Node::type()']]]
 ];
