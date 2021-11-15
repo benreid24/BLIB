@@ -198,7 +198,6 @@ private:
     std::unordered_map<std::string, std::list<Page>::iterator> pageMap;
     Page* activePage;
     sf::FloatRect tabAcquisition;
-    unsigned int activePageIndex;
     float maxWidth;
     float scroll;
 
