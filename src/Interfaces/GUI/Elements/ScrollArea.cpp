@@ -109,9 +109,10 @@ sf::Vector2f ScrollArea::minimumRequisition() const {
         req = {std::min(totalSize.x, maxSize.value().x), std::min(totalSize.y, maxSize.value().y)};
     }
     if (includeBars) {
-        req.x += BarSize + 4.f; // it works lol
+        req.x += BarSize;
         req.y += BarSize;
     }
+    req.x += 4.f; // it works lol
     return req;
 }
 

@@ -36,7 +36,7 @@ void Box::onAcquisition() {
     sf::FloatRect area(getAcquisition().left + outline,
                        getAcquisition().top + outline,
                        getAcquisition().width - outline * 2.f,
-                       getAcquisition().height - 2.f * outline);
+                       getAcquisition().height - outline * 2.f);
     packer->pack(area, getChildren());
 }
 
