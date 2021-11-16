@@ -335,7 +335,9 @@ void AudioSystem::background() {
                 if (loadFactor <= SoundCapacityFactor) { sounds.shrink(); }
             }
         }
+
         // sleep
+        soundFadeTimer.restart();
         std::this_thread::sleep_for(std::chrono::milliseconds(UpdatePeriod));
     }
 }
