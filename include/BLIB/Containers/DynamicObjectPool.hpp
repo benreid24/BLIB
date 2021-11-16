@@ -438,9 +438,14 @@ void DynamicObjectPool<T>::shrink() {
 template<typename T>
 template<typename ET>
 DynamicObjectPool<T>::IteratorType<ET>::IteratorType(std::vector<DynamicObjectPool<T>::Entry>& pool,
-                                                     long long int i)
+                                                     long long int j)
 : pool(&pool)
-, i(i) {}
+, i(j) {
+    std::size_t ni = i;
+    while (ni < pool.size() && !pool[ni].alive()) { ++ni; }
+    if (ni == pool.size() - 1 && !pool[ni].alive()) ++ni;
+    i = ni;
+}
 
 template<typename T>
 template<typename ET>
