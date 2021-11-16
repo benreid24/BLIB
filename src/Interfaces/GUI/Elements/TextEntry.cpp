@@ -3,17 +3,29 @@
 #include <BLIB/Interfaces/GUI/Renderers/RendererUtil.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
 #include <cmath>
+#include <type_traits>
 
 namespace bl
 {
 namespace gui
 {
+namespace
+{
+inline bool modeEnabled(TextEntry::Mode mode, TextEntry::Mode check) {
+    using T   = std::underlying_type_t<TextEntry::Mode>;
+    const T m = static_cast<T>(mode);
+    const T c = static_cast<T>(check);
+    return (m & c) != 0;
+}
+} // namespace
+
 TextEntry::Ptr TextEntry::create(unsigned int lc, bool am) { return Ptr(new TextEntry(lc, am)); }
 
 TextEntry::TextEntry(unsigned int lc, bool am)
 : Element()
 , lineCount(lc)
 , allowMoreLines(am)
+, mode(Mode::Any)
 , cursorPos(0)
 , cursorShowing(false)
 , cursorTime(0)
@@ -32,12 +44,18 @@ TextEntry::TextEntry(unsigned int lc, bool am)
     recalcText();
 }
 
+void TextEntry::setMode(Mode m) {
+    mode = m;
+    filter();
+}
+
 void TextEntry::setMaxInputLength(unsigned int ml) { maxInputLen = ml; }
 
 const std::string& TextEntry::getInput() const { return input; }
 
 void TextEntry::setInput(const std::string& s) {
     input = s;
+    filter();
     if (cursorPos > input.size()) cursorPos = input.size();
     recalcNewlines();
     recalcOffset();
@@ -112,6 +130,7 @@ void TextEntry::onInput(const Event& action) {
         }
     }
 
+    filter();
     renderText.setString(input);
     recalcNewlines();
     recalcOffset();
@@ -153,6 +172,7 @@ void TextEntry::onKeypress(const Event& action) {
     }
     else if (action.key().code == sf::Keyboard::Delete) {
         if (cursorPos < input.size()) input.erase(cursorPos, 1);
+        filter();
         fireChanged();
     }
     else if (action.key().code == sf::Keyboard::Return) {
@@ -163,6 +183,7 @@ void TextEntry::onKeypress(const Event& action) {
                 input.push_back('\n');
             ++cursorPos;
         }
+        filter();
         fireChanged();
     }
     else if (action.key().control && action.key().code == sf::Keyboard::V) {
@@ -172,6 +193,7 @@ void TextEntry::onKeypress(const Event& action) {
         else
             input += c;
         cursorPos += c.size();
+        filter();
         fireChanged();
     }
 
@@ -285,6 +307,28 @@ void TextEntry::recalcOffset() {
 void TextEntry::refresh() {
     recalcText();
     recalcOffset();
+}
+
+void TextEntry::filter() {
+    if (mode == Mode::Any) return;
+
+    if (modeEnabled(mode, Mode::Integer) || modeEnabled(mode, Mode::Float)) {
+        bool decimalFound = false;
+        for (int i = 0; i < static_cast<int>(input.size()); ++i) {
+            if (!std::isdigit(input[i])) {
+                if (i == 0 && input[i] == '-' && modeEnabled(mode, Mode::Signed)) continue;
+                if (input[i] == '.' && modeEnabled(mode, Mode::Float) && !decimalFound) {
+                    decimalFound = true;
+                    continue;
+                }
+                input.erase(i, 1);
+                --i;
+                --cursorPos;
+            }
+        }
+        if (input.empty()) { input = "0"; }
+        if (cursorPos > input.size()) cursorPos = input.size();
+    }
 }
 
 } // namespace gui
