@@ -8,6 +8,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <type_traits>
+#include <unordered_set>
 
 namespace bl
 {
@@ -193,6 +194,35 @@ struct Serializer<std::unordered_map<TKey, TValue>, false> {
             ms += Serializer<TValue>::size(pair.second);
         }
         return sizeof(std::uint32_t) + ms;
+    }
+};
+
+template<typename U>
+struct Serializer<std::unordered_set<U>, false> {
+    static bool serialize(File& output, const std::unordered_set<U>& value) {
+        if (!output.write<std::uint32_t>(value.size())) return false;
+        for (const U& v : value) {
+            if (!Serializer<U>::serialize(output, v)) return false;
+        }
+        return true;
+    }
+
+    static bool deserialize(File& input, std::unordered_set<U>& value) {
+        value.clear();
+        std::uint32_t size;
+        if (!input.read<std::uint32_t>(size)) return false;
+        for (unsigned int i = 0; i < size; ++i) {
+            U k;
+            if (!Serializer<U>::deserialize(input, k)) return false;
+            value.insert(std::move(k));
+        }
+        return true;
+    }
+
+    static std::uint32_t size(const std::unordered_set<U>& v) {
+        std::uint32_t vs = 0;
+        for (const U& u : v) { vs += Serializer<U>::size(u); }
+        return sizeof(std::uint32_t) + vs;
     }
 };
 

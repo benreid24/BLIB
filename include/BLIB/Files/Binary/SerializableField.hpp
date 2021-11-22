@@ -124,6 +124,18 @@ public:
     void setValue(const T& v);
 
     /**
+     * @brief Accessor for the value. Shorthand for getValue()
+     *
+     */
+    T& operator()();
+
+    /**
+     * @brief Accessor for the value. Shorthand for getValue()
+     *
+     */
+    const T& operator()() const;
+
+    /**
      * @brief Assigns a new value to this field
      *
      * @param v The value to assign to
@@ -194,6 +206,16 @@ const T& SerializableField<Id, T>::getValue() const {
 
 template<std::uint16_t Id, typename T>
 T& SerializableField<Id, T>::getValue() {
+    return value;
+}
+
+template<std::uint16_t Id, typename T>
+const T& SerializableField<Id, T>::operator()() const {
+    return value;
+}
+
+template<std::uint16_t Id, typename T>
+T& SerializableField<Id, T>::operator()() {
     return value;
 }
 
