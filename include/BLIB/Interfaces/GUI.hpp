@@ -36,6 +36,7 @@
 #include <BLIB/Interfaces/GUI/Elements/ProgressBar.hpp>
 #include <BLIB/Interfaces/GUI/Elements/RadioButton.hpp>
 #include <BLIB/Interfaces/GUI/Elements/ScrollArea.hpp>
+#include <BLIB/Interfaces/GUI/Elements/SelectBox.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Separator.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Slider.hpp>
 #include <BLIB/Interfaces/GUI/Elements/TextEntry.hpp>
