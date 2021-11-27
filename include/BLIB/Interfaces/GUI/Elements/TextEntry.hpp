@@ -153,6 +153,20 @@ private:
     void fireChanged();
 };
 
+inline TextEntry::Mode operator|(TextEntry::Mode l, TextEntry::Mode r) {
+    using T    = std::underlying_type_t<TextEntry::Mode>;
+    const T lc = static_cast<T>(l);
+    const T rc = static_cast<T>(r);
+    return static_cast<TextEntry::Mode>(lc | rc);
+}
+
+inline TextEntry::Mode operator&(TextEntry::Mode l, TextEntry::Mode r) {
+    using T    = std::underlying_type_t<TextEntry::Mode>;
+    const T lc = static_cast<T>(l);
+    const T rc = static_cast<T>(r);
+    return static_cast<TextEntry::Mode>(lc & rc);
+}
+
 } // namespace gui
 } // namespace bl
 
