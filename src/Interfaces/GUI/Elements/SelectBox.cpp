@@ -37,6 +37,10 @@ void SelectBox::addOption(const std::string& o) {
     content->pack(values.back().first, true, false);
 }
 
+void SelectBox::editOptionText(unsigned int i, const std::string& t) {
+    values[i].second->setText(t);
+}
+
 void SelectBox::removeOption(const std::string& o) {
     for (unsigned int i = 0; i < values.size(); ++i) {
         if (values[i].second->getText() == o) {

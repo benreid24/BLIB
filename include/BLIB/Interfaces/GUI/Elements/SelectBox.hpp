@@ -37,6 +37,14 @@ public:
     void addOption(const std::string& option);
 
     /**
+     * @brief Updates the text of the given option
+     *
+     * @param i The index of the option to update
+     * @param text The new text to display
+     */
+    void editOptionText(unsigned int i, const std::string& text);
+
+    /**
      * @brief Removes the given option by its text value
      *
      * @param option The text of the option to remove

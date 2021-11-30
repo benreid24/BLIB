@@ -2,6 +2,7 @@
 #define BLIB_LOGGING_LOGGER_HPP
 
 #include <BLIB/Logging/Config.hpp>
+#include <BLIB/Logging/Outputters.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -31,64 +32,14 @@ struct Logger : public util::NonCopyable {
     ~Logger();
 
     /**
-     * @brief Outputer for enums
+     * @brief Outputer for everything
      *
-     * @param data The enum value to log
+     * @param data The value to log
      * @return const Logger& This logger
      */
-    template<typename T, typename = std::enable_if_t<std::is_enum<T>::value>>
-    const Logger& operator<<(const T& data) const {
-        // TODO - constexpr if on template param
-        ss << static_cast<std::underlying_type_t<T>>(data);
-        return *this;
-    }
-
-    /**
-     * @brief Outputer for SFML vectors
-     *
-     * @param data The vector to log
-     * @return const Logger& This logger
-     */
-    template<typename T, typename = std::enable_if_t<std::is_integral<T>::value>>
-    const Logger& operator<<(const sf::Vector2<T>& data) const {
-        ss << "(" << data.x << ", " << data.y << ")";
-        return *this;
-    }
-
-    /**
-     * @brief Outputer for SFML vectors
-     *
-     * @param data The vector to log
-     * @return const Logger& This logger
-     */
-    template<typename T, typename = std::enable_if_t<std::is_integral<T>::value>>
-    const Logger& operator<<(const sf::Vector3<T>& data) const {
-        ss << "(" << data.x << ", " << data.y << ", " << data.z << ")";
-        return *this;
-    }
-
-    /**
-     * @brief Outputer everything else
-     *
-     * @param data The data to log
-     * @return const Logger& This logger
-     */
-    template<typename T, typename = std::enable_if_t<std::is_enum<T>::value>>
+    template<typename T>
     const Logger& operator<<(const T& data) const {
         ss << data;
-        return *this;
-    }
-
-    /**
-     * @brief Outputer for SFML rectangles
-     *
-     * @param data The rectangle to log
-     * @return const Logger& This logger
-     */
-    template<typename T, typename = std::enable_if_t<std::is_integral<T>::value, const Logger&>>
-    const Logger& operator<<(const sf::Rect<T>& data) const {
-        ss << "(" << data.left << ", " << data.top << ", " << data.width << ", " << data.height
-           << ")";
         return *this;
     }
 
