@@ -10,12 +10,13 @@
 template<typename E>
 typename std::enable_if<std::is_enum<E>::value, std::ostream&>::type operator<<(std::ostream& os,
                                                                                 E v) {
-    if constexpr (std::is_same<E, std::uint8_t>::value) { os << static_cast<unsigned int>(v); }
-    else if constexpr (std::is_same<E, std::int8_t>::value) {
+    using T = std::underlying_type_t<E>;
+    if constexpr (std::is_same<T, std::uint8_t>::value) { os << static_cast<unsigned int>(v); }
+    else if constexpr (std::is_same<T, std::int8_t>::value) {
         os << static_cast<int>(v);
     }
     else {
-        os << static_cast<std::underlying_type_t<E>>(v);
+        os << static_cast<T>(v);
     }
     return os;
 }
