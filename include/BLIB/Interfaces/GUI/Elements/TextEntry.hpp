@@ -22,6 +22,15 @@ public:
     static constexpr float CursorFlashPeriod           = 0.75;
     static constexpr unsigned int DefaultCharacterSize = 14;
 
+    /// The mode a TextEntry is in
+    enum struct Mode : std::uint8_t {
+        Any      = 0x0,      /// Any text may be input
+        Integer  = 0x1 << 0, /// Only integer values may be entered
+        Float    = 0x1 << 1, /// Only numbers may be entered
+        Unsigned = 0x1 << 2, /// Positive numbers only
+        Signed   = 0x1 << 3, /// Positive and negative numbers allowed
+    };
+
     /**
      * @brief Create a new TextEntry element
      *
@@ -30,6 +39,14 @@ public:
      * @return Ptr The new TextEntry
      */
     static Ptr create(unsigned int lineCount = 1, bool allowMoreLines = false);
+
+    /**
+     * @brief Set the mode of the input. Default is Any. Existing input is filtered based on the new
+     *        mode
+     *
+     * @param mode The mode to be in
+     */
+    void setMode(Mode mode);
 
     /**
      * @brief Set the maximum amount of characters that can be input
@@ -108,6 +125,7 @@ protected:
 private:
     const unsigned lineCount;
     const bool allowMoreLines;
+    Mode mode;
     std::optional<unsigned int> maxInputLen;
     std::string input;
     sf::Text renderText;
@@ -120,6 +138,7 @@ private:
     std::vector<int> newlines;
     unsigned int currentLine;
 
+    void filter();
     void recalcText();
     void recalcNewlines();
     void recalcOffset();
@@ -133,6 +152,20 @@ private:
     void onClicked(const Event& action);
     void fireChanged();
 };
+
+inline TextEntry::Mode operator|(TextEntry::Mode l, TextEntry::Mode r) {
+    using T    = std::underlying_type_t<TextEntry::Mode>;
+    const T lc = static_cast<T>(l);
+    const T rc = static_cast<T>(r);
+    return static_cast<TextEntry::Mode>(lc | rc);
+}
+
+inline TextEntry::Mode operator&(TextEntry::Mode l, TextEntry::Mode r) {
+    using T    = std::underlying_type_t<TextEntry::Mode>;
+    const T lc = static_cast<T>(l);
+    const T rc = static_cast<T>(r);
+    return static_cast<TextEntry::Mode>(lc & rc);
+}
 
 } // namespace gui
 } // namespace bl

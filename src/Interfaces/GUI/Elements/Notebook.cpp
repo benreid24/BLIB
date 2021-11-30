@@ -23,7 +23,6 @@ Notebook::Notebook()
 : Container()
 , tabArea(Box::create(LinePacker::create()))
 , activePage(nullptr)
-, activePageIndex(0)
 , maxWidth(-1.f)
 , scroll(0.f) {
     tabArea->setExpandsWidth(true);
@@ -67,7 +66,13 @@ void Notebook::addPage(const std::string& name, const std::string& title,
 
 Notebook::Page* Notebook::getActivePage() const { return activePage; }
 
-unsigned int Notebook::getActivePageIndex() const { return activePageIndex; }
+unsigned int Notebook::getActivePageIndex() const {
+    unsigned int i = 0;
+    for (auto it = pages.begin(); it != pages.end(); ++it, ++i) {
+        if (&*it == activePage) return i;
+    }
+    return 0;
+}
 
 unsigned int Notebook::pageCount() const { return pages.size(); }
 

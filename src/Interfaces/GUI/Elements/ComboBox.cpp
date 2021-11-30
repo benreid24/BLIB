@@ -240,8 +240,9 @@ void ComboBox::setMaxHeight(float m) { maxHeight = m; }
 void ComboBox::scrolled(const Event& a) {
     if (maxHeight > 0 && totalHeight > maxHeight) {
         const float maxScroll = totalHeight - maxHeight;
+        const float f         = maxScroll / 140.f;
 
-        scroll -= a.scrollDelta() * 6.f;
+        scroll -= a.scrollDelta() * 6.f * f;
         if (scroll < 0.f)
             scroll = 0.f;
         else if (scroll > maxScroll)

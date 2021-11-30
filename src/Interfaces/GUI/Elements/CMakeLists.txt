@@ -13,6 +13,7 @@ target_sources(BLIB PRIVATE
     ProgressBar.cpp
     RadioButton.cpp
     ScrollArea.cpp
+    SelectBox.cpp
     Separator.cpp
     Slider.cpp
     TextEntry.cpp

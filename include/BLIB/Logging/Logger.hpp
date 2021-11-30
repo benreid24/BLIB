@@ -2,9 +2,14 @@
 #define BLIB_LOGGING_LOGGER_HPP
 
 #include <BLIB/Logging/Config.hpp>
+#include <BLIB/Logging/Outputters.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Vector3.hpp>
 #include <cstring>
 #include <sstream>
+#include <type_traits>
 
 namespace bl
 {
@@ -27,14 +32,16 @@ struct Logger : public util::NonCopyable {
     ~Logger();
 
     /**
-     * @brief Generic output operator. Any data type T that can be outputted to a std::ostream
-     *        can be outputted here
+     * @brief Outputer for everything
      *
-     * @param data The object to log
+     * @param data The value to log
      * @return const Logger& This logger
      */
     template<typename T>
-    const Logger& operator<<(const T& data) const;
+    const Logger& operator<<(const T& data) const {
+        ss << data;
+        return *this;
+    }
 
     /**
      * @brief Create a new Logger for logging a critical error
@@ -79,13 +86,6 @@ private:
     const int level;
     mutable std::stringstream ss;
 };
-
-//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
-template<typename T>
-const Logger& Logger::operator<<(const T& data) const {
-    ss << data;
-    return *this;
-}
 
 } // namespace logging
 } // namespace bl

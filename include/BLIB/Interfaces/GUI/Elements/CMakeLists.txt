@@ -14,6 +14,7 @@ target_sources(BLIB PUBLIC
     RadioButton.hpp
     ProgressBar.hpp
     ScrollArea.hpp
+    SelectBox.hpp
     Separator.hpp
     Slider.hpp
     TextEntry.hpp
