@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: InterfaceUtilities</title>
+<title>BLIB: Scripts</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,78 +64,52 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">InterfaceUtilities<div class="ingroups"><a class="el" href="a00722.html">Interface</a></div></div>  </div>
+<div class="title">Scripts</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of helpers and utilities for interfaces in general.  
+<p>Collection of classes for parsing and executing scripts.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01387.html">bl::interface::GhostWriter</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic string wrapper that allows for text to be unhidden over time.  <a href="a01387.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01562.html">bl::script::Context</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A context to run a script with. Custom context classes may be created to have different types of scripts. For example, an NPC running a script may have a context that adds several global functions to manipulate that NPC directly from the script.  <a href="a01562.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01391.html">bl::interface::ViewUtil</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of helper functions for computing views for various constraints. Most utilities are primarily for computing views to render menus.  <a href="a01391.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01566.html">bl::script::Error</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01582.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> utility class to represent an error. Can be used to build a call stack for script errors.  <a href="a01566.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga9d8f6970c459e4acf9ad6adac4e1592b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00738.html#ga9d8f6970c459e4acf9ad6adac4e1592b">bl::interface::wordWrap</a> (sf::Text &amp;<a class="el" href="a00584.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a>, float maxWidth)</td></tr>
-<tr class="memdesc:ga9d8f6970c459e4acf9ad6adac4e1592b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic helper function to wrap text to fit within a specified maximum width.  <a href="a00738.html#ga9d8f6970c459e4acf9ad6adac4e1592b">More...</a><br /></td></tr>
-<tr class="separator:ga9d8f6970c459e4acf9ad6adac4e1592b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01570.html">bl::script::Exit</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special Exception for Scripts to exit without an <a class="el" href="a01566.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors...">Error</a>.  <a href="a01570.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01574.html">bl::script::Function</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for functions defined in scripts themselves.  <a href="a01574.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01582.html">bl::script::Script</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads scripts. Can run scripts directly or in the background. Is threadsafe.  <a href="a01582.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01590.html">bl::script::SymbolTable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack aware symbol table for managing functions and variables Each <a class="el" href="a01582.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> holds a single instance.  <a href="a01590.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01594.html">bl::script::Value</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a <a class="el" href="a01594.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> in a script. Can be a temp value or from a <a class="el" href="a01590.html" title="Stack aware symbol table for managing functions and variables Each Script holds a single instance...">SymbolTable</a>.  <a href="a01594.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01674.html">bl::script::Parser</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of a <a class="el" href="a01674.html" title="Implementation of a Parser for the scripting language. ">Parser</a> for the scripting language.  <a href="a01674.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01686.html">bl::script::Library</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static helper to add built-in functions to each script.  <a href="a01686.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of helpers and utilities for interfaces in general. </p>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="ga9d8f6970c459e4acf9ad6adac4e1592b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9d8f6970c459e4acf9ad6adac4e1592b">&#9670;&nbsp;</a></span>wordWrap()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::interface::wordWrap </td>
-          <td>(</td>
-          <td class="paramtype">sf::Text &amp;&#160;</td>
-          <td class="paramname"><em>text</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>maxWidth</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Basic helper function to wrap text to fit within a specified maximum width. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">text</td><td>The text to wrap. Must be initialized with font and size. Modifed in place </td></tr>
-    <tr><td class="paramname">maxWidth</td><td>The width to constrain the text to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00626_source.html#l00007">7</a> of file <a class="el" href="a00626_source.html">WordWrap.cpp</a>.</p>
-
-</div>
-</div>
+<p>Collection of classes for parsing and executing scripts. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 11 2021 17:22:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 30 2021 03:28:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

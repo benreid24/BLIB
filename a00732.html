@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: PathFinding</title>
+<title>BLIB: Logging</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,29 +66,29 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">PathFinding<div class="ingroups"><a class="el" href="a00716.html">AI</a></div></div>  </div>
+<div class="title">Logging</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A generic pathfinding system that can work in any coordinate space.  
+<p>Structured logging with configurable outputs, predefined levels, and timestamps in local machine time or utc.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00803.html">bl::ai::PathFinder&lt; TCoord, CoordHash &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class for calculating paths between arbitrary points in a <a class="el" href="a00807.html" title="An interface for a traversable map meant to be navigated by a PathFinder. ">PathMap</a>.  <a href="a00803.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01414.html">bl::logging::Config</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global log config class. Stores the various output streams and their configured log levels. Loggers flush their output here. Logging is threadsafe, however none of the public methods are threadsafe.  <a href="a01414.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00807.html">bl::ai::PathMap&lt; TCoord &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An interface for a traversable map meant to be navigated by a <a class="el" href="a00803.html" title="Class for calculating paths between arbitrary points in a PathMap. ">PathFinder</a>.  <a href="a00807.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01418.html">bl::logging::Logger</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actual logging class. Provides several static methods to begin log output. Instances of <a class="el" href="a01418.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> only live long enough to build the log line and flush it via the LoggerConfig singleton instance.  <a href="a01418.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>A generic pathfinding system that can work in any coordinate space. </p>
+<p>Structured logging with configurable outputs, predefined levels, and timestamps in local machine time or utc. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 11 2021 17:22:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 30 2021 03:28:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/HashCombine.hpp Source File</title>
+<title>BLIB: include/BLIB/Scripts.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,21 +63,25 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">HashCombine.hpp</div>  </div>
+<div class="title">Scripts.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00425.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_HASHCOMBINE_HPP</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_HASHCOMBINE_HPP</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a00742.html">bl</a></div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>util</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div><div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a00770.html#a867dbeaa40c3e27ca66b3217256cd351">   10</a></span>&#160;<span class="keyword">inline</span> std::size_t <a class="code" href="a00770.html#a867dbeaa40c3e27ca66b3217256cd351">hashCombine</a>(std::size_t right, std::size_t left) {</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    right ^= left + 0x9e3779b9 + (right &lt;&lt; 6) + (right &gt;&gt; 2);</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> right;</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace util</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace bl</span></div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="a00742_html"><div class="ttname"><a href="a00742.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB. </div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00017">PathFinder.hpp:17</a></div></div>
-<div class="ttc" id="a00770_html_a867dbeaa40c3e27ca66b3217256cd351"><div class="ttname"><a href="a00770.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a></div><div class="ttdeci">std::size_t hashCombine(std::size_t right, std::size_t left)</div><div class="ttdef"><b>Definition:</b> <a href="a00425_source.html#l00010">HashCombine.hpp:10</a></div></div>
+<a href="a00425.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_HPP</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_HPP</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00410.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00413.html">BLIB/Scripts/Function.hpp</a>&gt;</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02086.html">BLIB/Scripts/Manager.hpp</a>&gt;</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00416.html">BLIB/Scripts/Script.hpp</a>&gt;</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00419.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</span></div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00422.html">BLIB/Scripts/Value.hpp</a>&gt;</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="a00422_html"><div class="ttname"><a href="a00422.html">Value.hpp</a></div></div>
+<div class="ttc" id="a00410_html"><div class="ttname"><a href="a00410.html">Error.hpp</a></div></div>
+<div class="ttc" id="a00413_html"><div class="ttname"><a href="a00413.html">Function.hpp</a></div></div>
+<div class="ttc" id="a02086_html"><div class="ttname"><a href="a02086.html">Manager.hpp</a></div></div>
+<div class="ttc" id="a00416_html"><div class="ttname"><a href="a00416.html">Script.hpp</a></div></div>
+<div class="ttc" id="a00419_html"><div class="ttname"><a href="a00419.html">SymbolTable.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 11 2021 17:22:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 30 2021 03:28:50 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
