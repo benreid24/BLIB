@@ -12,6 +12,7 @@ target_sources(BLIB PUBLIC
     Particles.hpp
     Resources.hpp
     Scripts.hpp
+    Serialization.hpp
     Util.hpp
 )
 
@@ -28,4 +29,5 @@ add_subdirectory(Media)
 add_subdirectory(Parser)
 add_subdirectory(Particles)
 add_subdirectory(Scripts)
+add_subdirectory(Serialization)
 add_subdirectory(Util)
