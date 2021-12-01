@@ -1,3 +1,4 @@
 target_sources(BLIB PRIVATE
-    BinaryInputFile.cpp
+    InputFile.cpp
+    OutputFile.cpp
 )

@@ -7,8 +7,10 @@
  *
  */
 
-#include <BLIB/Serialization/Binary/BinaryInputFile.hpp>
-#include <BLIB/Serialization/Binary/BinaryInputStream.hpp>
+#include <BLIB/Serialization/Binary/InputFile.hpp>
+#include <BLIB/Serialization/Binary/InputStream.hpp>
+#include <BLIB/Serialization/Binary/OutputFile.hpp>
+#include <BLIB/Serialization/Binary/OutputStream.hpp>
 
 #include <BLIB/Serialization/Buffers/InputBuffer.hpp>
 #include <BLIB/Serialization/Buffers/MemoryInputBuffer.hpp>

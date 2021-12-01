@@ -1,4 +1,6 @@
 target_sources(BLIB PUBLIC
-    BinaryInputFile.hpp
-    BinaryInputStream.hpp
+    InputFile.hpp
+    InputStream.hpp
+    OutputFile.hpp
+    OutputStream.hpp
 )

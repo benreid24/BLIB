@@ -1,5 +1,5 @@
-#ifndef BLIB_SERIALIZATION_BINARYINPUTSTREAM_HPP
-#define BLIB_SERIALIZATION_BINARYINPUTSTREAM_HPP
+#ifndef BLIB_SERIALIZATION_INPUTSTREAM_HPP
+#define BLIB_SERIALIZATION_INPUTSTREAM_HPP
 
 #include <BLIB/Files/Util.hpp>
 #include <BLIB/Serialization/Buffers/InputBuffer.hpp>
@@ -9,20 +9,23 @@ namespace bl
 /// Collection of classes and utilities for serializing and deserializing data
 namespace serial
 {
+/// Module for serializing and deserializing binary data
+namespace binary
+{
 /**
  * @brief A readable stream for binary deserialization
  *
  * @ingroup Serialization
  *
  */
-class BinaryInputStream {
+class InputStream {
 public:
     /**
      * @brief Construct a new Binary Input Stream
      *
      * @param underlying The underlying buffer to read from
      */
-    BinaryInputStream(InputBuffer& underlying);
+    InputStream(InputBuffer& underlying);
 
     /**
      * @brief Reads the integral type from the underlying
@@ -72,11 +75,11 @@ private:
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
-inline BinaryInputStream::BinaryInputStream(InputBuffer& u)
+inline InputStream::InputStream(InputBuffer& u)
 : underlying(u) {}
 
 template<typename T>
-typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryInputStream::read(T& output) {
+typename std::enable_if<std::is_integral_v<T>, bool>::type InputStream::read(T& output) {
     if (!underlying.good()) return false;
 
     const std::size_t size = sizeof(output);
@@ -91,14 +94,14 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryInputStream::re
 }
 
 template<typename T>
-typename std::enable_if<std::is_integral_v<T>, bool>::type BinaryInputStream::peek(T& output) {
+typename std::enable_if<std::is_integral_v<T>, bool>::type InputStream::peek(T& output) {
     const std::size_t s = sizeof(T);
     const bool r        = read<T>(output);
     underlying.seekg(underlying.tellg() - s);
     return r;
 }
 
-inline bool BinaryInputStream::read(std::string& output) {
+inline bool InputStream::read(std::string& output) {
     if (!underlying.good()) return false;
     std::uint32_t size;
     if (!read<std::uint32_t>(size)) return false;
@@ -107,15 +110,16 @@ inline bool BinaryInputStream::read(std::string& output) {
     return underlying.read(output.data(), size);
 }
 
-inline bool BinaryInputStream::skip(std::size_t bytes) {
+inline bool InputStream::skip(std::size_t bytes) {
     return underlying.seekg(underlying.tellg() + bytes);
 }
 
-inline bool BinaryInputStream::good() {
+inline bool InputStream::good() {
     const bool eof = underlying.peek() == EOF;
     return underlying.good() && !eof;
 }
 
+} // namespace binary
 } // namespace serial
 } // namespace bl
 
