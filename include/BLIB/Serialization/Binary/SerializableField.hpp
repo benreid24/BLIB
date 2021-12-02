@@ -1,6 +1,7 @@
 #ifndef BLIB_SERIALIZATION_BINARY_SERIALIZABLEFIELD_HPP
 #define BLIB_SERIALIZATION_BINARY_SERIALIZABLEFIELD_HPP
 
+#include <BLIB/Serialization/Binary/SerializableObject.hpp>
 #include <BLIB/Serialization/Binary/Serializer.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <cstdint>
@@ -11,8 +12,6 @@ namespace serial
 {
 namespace binary
 {
-class SerializableObjectBase;
-
 /**
  * @brief Base class for representing serializable class members. Do not use directly
  *
@@ -23,9 +22,12 @@ struct SerializableFieldBase {
     /**
      * @brief Construct the field with the object descriptor that it belongs to
      *
+     * @param id The id of the field
      * @param owner The serizable object descriptor that owns this field
      */
-    SerializableFieldBase(SerializableObjectBase& owner);
+    SerializableFieldBase(std::uint16_t id, SerializableObjectBase& owner) {
+        owner.fields[id] = this;
+    }
 
     /**
      * @brief Returns the id of the field
@@ -89,7 +91,8 @@ struct SerializableField
      *
      * @param owner The serizable object descriptor that owns this field
      */
-    SerializableField(SerializableObjectBase& owner);
+    SerializableField(SerializableObjectBase& owner)
+    : SerializableFieldBase(Id, owner) {}
 
     /**
      * @brief Returns the id of the field

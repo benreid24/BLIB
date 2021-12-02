@@ -49,6 +49,8 @@ public:
 
 private:
     std::unordered_map<std::uint16_t, SerializableFieldBase*> fields;
+
+    friend class SerializableFieldBase;
 };
 
 /**
