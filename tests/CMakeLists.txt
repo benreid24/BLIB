@@ -32,6 +32,7 @@ add_subdirectory(Math)
 add_subdirectory(Parser)
 add_subdirectory(Resources)
 add_subdirectory(Scripts)
+add_subdirectory(Serialization)
 add_subdirectory(Util)
 
 target_include_directories(BLIB.t PRIVATE ${PROJECT_SOURCE_DIR}/src)
