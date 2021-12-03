@@ -114,8 +114,8 @@ struct SerializableField
      * @return True on success, false on error
      */
     virtual bool serialize(OutputStream& stream, const void* obj) const override {
-        const void* addr = obj + Offset;
-        const T* field   = static_cast<const T*>(addr);
+        const char* addr = static_cast<const char*>(obj) + Offset;
+        const T* field   = static_cast<const T*>(static_cast<const void*>(addr));
         return Serializer<T>::serialize(stream, *field);
     }
 
@@ -126,9 +126,9 @@ struct SerializableField
      * @param object The object to deserialize
      * @return True on success, false on error
      */
-    virtual void deserialize(InputStream& stream, void* object) const override {
-        void* addr = object + Offset;
-        T* field   = static_cast<T*>(addr);
+    virtual bool deserialize(InputStream& stream, void* object) const override {
+        char* addr = static_cast<char*>(object) + Offset;
+        T* field   = static_cast<T*>(static_cast<void*>(addr));
         return Serializer<T>::deserialize(stream, *field);
     }
 
@@ -139,8 +139,8 @@ struct SerializableField
      * @return std::size_t The size of the field when serialized, in bytes
      */
     virtual std::size_t size(const void* object) const override {
-        const void* addr = object + Offset;
-        const T* field   = static_cast<const T*>(addr);
+        const char* addr = static_cast<const char*>(object) + Offset;
+        const T* field   = static_cast<const T*>(static_cast<const void*>(addr));
         return Serializer<T>::size(*field);
     }
 };
