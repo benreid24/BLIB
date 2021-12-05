@@ -5,3 +5,4 @@
 #include <BLIB/Serialization/Binary/SerializableField.hpp>
 #include <BLIB/Serialization/Binary/SerializableObject.hpp>
 #include <BLIB/Serialization/Binary/Serializer.hpp>
+#include <BLIB/Serialization/Binary/VersionedSerializer.hpp>

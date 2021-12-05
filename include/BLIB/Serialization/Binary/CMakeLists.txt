@@ -6,4 +6,5 @@ target_sources(BLIB PUBLIC
     SerializableField.hpp
     SerializableObject.hpp
     Serializer.hpp
+    VersionedSerializer.hpp
 )

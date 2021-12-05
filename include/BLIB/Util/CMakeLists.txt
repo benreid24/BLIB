@@ -7,5 +7,6 @@ target_sources(BLIB PUBLIC
     Random.hpp
     Signal.hpp
     Timer.hpp
+    TupleLoop.hpp
     Waiter.hpp
 )

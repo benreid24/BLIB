@@ -13,6 +13,7 @@
 #include <BLIB/Util/Random.hpp>
 #include <BLIB/Util/Signal.hpp>
 #include <BLIB/Util/Timer.hpp>
+#include <BLIB/Util/TupleLoop.hpp>
 #include <BLIB/Util/Waiter.hpp>
 
 #endif
