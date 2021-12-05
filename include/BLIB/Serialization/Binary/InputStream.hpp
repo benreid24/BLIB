@@ -1,8 +1,8 @@
 #ifndef BLIB_SERIALIZATION_INPUTSTREAM_HPP
 #define BLIB_SERIALIZATION_INPUTSTREAM_HPP
 
-#include <BLIB/Files/Util.hpp>
 #include <BLIB/Serialization/Buffers/InputBuffer.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 
 namespace bl
 {
@@ -87,7 +87,7 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type InputStream::read(T& 
 
     output       = 0;
     const bool r = underlying.read(bytes, size);
-    if (file::Util::isBigEndian()) {
+    if (util::FileUtil::isBigEndian()) {
         for (unsigned int i = 0; i < size / 2; ++i) { std::swap(bytes[i], bytes[size - i - 1]); }
     }
     return r;

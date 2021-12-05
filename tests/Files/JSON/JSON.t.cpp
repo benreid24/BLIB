@@ -1,6 +1,6 @@
 #include <BLIB/Files/JSON/JSON.hpp>
 
-#include <BLIB/Files/Util.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
@@ -111,13 +111,13 @@ TEST(JSON, GroupList) {
 TEST(JSON, Files) {
     const std::string json =
         "{ \"num\": 123.45, \"str\": \"hello\", \"b\": true, \"ls\": [1,2,3] }";
-    const std::string filename = file::Util::genTempName("json", "json");
+    const std::string filename = util::FileUtil::genTempName("json", "json");
 
     Group goodRoot = loadFromString(json);
-    file::Util::createDirectory("json");
+    util::FileUtil::createDirectory("json");
     saveToFile(filename, goodRoot);
     Group root = loadFromFile(filename);
-    file::Util::deleteFile(filename);
+    util::FileUtil::deleteFile(filename);
 
     EXPECT_TRUE(root.hasField("num"));
     EXPECT_TRUE(root.hasField("str"));

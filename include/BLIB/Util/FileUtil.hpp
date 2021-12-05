@@ -1,20 +1,19 @@
-#ifndef BLIB_FILES_UTIL_HPP
-#define BLIB_FILES_UTIL_HPP
+#ifndef BLIB_UTIL_FILEUTIL_HPP
+#define BLIB_UTIL_FILEUTIL_HPP
 
 #include <string>
 #include <vector>
 
 namespace bl
 {
-/// Collection of classes to simplify file interactions
-namespace file
+namespace util
 {
 /**
  * @brief Common utility functions for dealing with files and filenames
  *
- * @ingroup Files
+ * @ingroup Util
  */
-struct Util {
+struct FileUtil {
     /**
      * @brief Test whether the given file exists
      *
@@ -148,7 +147,7 @@ struct Util {
     static bool deleteDirectory(const std::string& path);
 };
 
-} // namespace file
+} // namespace util
 } // namespace bl
 
 #endif

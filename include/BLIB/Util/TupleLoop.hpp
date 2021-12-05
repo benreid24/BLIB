@@ -15,6 +15,8 @@ namespace util
  * @tparam FuncT callback method type
  * @tparam Tp Tuple types
  * @return std::enable_if<I == sizeof...(Tp), void>::type False type
+ *
+ * @ingroup Util
  */
 template<std::size_t I = 0, typename FuncT, typename... Tp>
 inline typename std::enable_if<I == sizeof...(Tp), void>::type TupleLoop(std::tuple<Tp...>&,
@@ -28,6 +30,8 @@ inline typename std::enable_if<I == sizeof...(Tp), void>::type TupleLoop(std::tu
  * @tparam I Starting index
  * @tparam FuncT Callback method type signature
  * @tparam Tp Tuple types
+ *
+ * @ingroup Util
  */
 template<std::size_t I = 0, typename FuncT, typename... Tp>
     inline typename std::enable_if <

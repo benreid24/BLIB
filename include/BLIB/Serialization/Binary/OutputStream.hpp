@@ -1,8 +1,8 @@
 #ifndef BLIB_SERIALIZATION_BINARY_OUTPUTSTREAM_HPP
 #define BLIB_SERIALIZATION_BINARY_OUTPUTSTREAM_HPP
 
-#include <BLIB/Files/Util.hpp>
 #include <BLIB/Serialization/Buffers/OutputBuffer.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 #include <cstring>
 
 namespace bl
@@ -67,7 +67,7 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type OutputStream::write(c
     const std::size_t size = sizeof(T);
     char bytes[size];
     std::memcpy(bytes, &data, size);
-    if (file::Util::isBigEndian()) {
+    if (util::FileUtil::isBigEndian()) {
         for (unsigned int i = 0; i < size / 2; ++i) { std::swap(bytes[i], bytes[size - i - 1]); }
     }
     return buffer.write(bytes, size);

@@ -1,7 +1,7 @@
 #ifndef BLIB_MEDIA_AUDIO_PLAYLIST_HPP
 #define BLIB_MEDIA_AUDIO_PLAYLIST_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <SFML/Audio/Music.hpp>
 
 #include <string>
@@ -17,7 +17,7 @@ namespace audio
  * @ingroup Audio
  *
  */
-class Playlist : public file::binary::SerializableObject {
+class Playlist {
 public:
     /**
      * @brief Creates an empty playlist
@@ -140,9 +140,9 @@ public:
     bool shufflingOnLoop() const;
 
 private:
-    file::binary::SerializableField<1, std::vector<std::string>> songs;
-    file::binary::SerializableField<2, bool> _shuffle;
-    file::binary::SerializableField<3, bool> shuffleOnLoop;
+    std::vector<std::string> songs;
+    bool _shuffle;
+    bool shuffleOnLoop;
 
     sf::Music current;
     unsigned int currentIndex;
@@ -150,9 +150,30 @@ private:
     bool playing, paused;
 
     void shuffle();
+
+    friend class serial::binary::SerializableObject<audio::Playlist>;
 };
 
 } // namespace audio
+
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<audio::Playlist> : public SerializableObjectBase {
+    SerializableField<1, std::vector<std::string>, offsetof(audio::Playlist, songs)> songs;
+    SerializableField<2, bool, offsetof(audio::Playlist, _shuffle)> shuffle;
+    SerializableField<3, bool, offsetof(audio::Playlist, shuffleOnLoop)> shuffleOnLoop;
+
+    SerializableObject()
+    : songs(*this)
+    , shuffle(*this)
+    , shuffleOnLoop(*this) {}
+};
+
+} // namespace binary
+} // namespace serial
 } // namespace bl
 
 #endif

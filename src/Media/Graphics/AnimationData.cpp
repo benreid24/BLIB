@@ -2,8 +2,8 @@
 
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Resources.hpp>
-#include <BLIB/Files/Binary/File.hpp>
-#include <BLIB/Files/Util.hpp>
+#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 #include <cmath>
 
 namespace bl
@@ -22,19 +22,19 @@ bool AnimationData::load(const std::string& filename) {
     frames.clear();
     totalLength = 0;
 
-    file::binary::File file(filename, file::binary::File::Read);
-    const std::string path = file::Util::getPath(filename);
+    serial::binary::InputFile file(filename);
+    const std::string path = util::FileUtil::getPath(filename);
     const std::string& spritesheetDir =
         engine::Configuration::get<std::string>("blib.animation.spritesheet_path");
 
     std::string sheet;
     if (!file.read(sheet)) return false;
     spritesheetSource = sheet;
-    if (!file::Util::exists(sheet)) {
-        if (file::Util::exists(file::Util::joinPath(path, sheet)))
-            sheet = file::Util::joinPath(path, sheet);
-        else if (file::Util::exists(file::Util::joinPath(spritesheetDir, sheet)))
-            sheet = file::Util::joinPath(spritesheetDir, sheet);
+    if (!util::FileUtil::exists(sheet)) {
+        if (util::FileUtil::exists(util::FileUtil::joinPath(path, sheet)))
+            sheet = util::FileUtil::joinPath(path, sheet);
+        else if (util::FileUtil::exists(util::FileUtil::joinPath(spritesheetDir, sheet)))
+            sheet = util::FileUtil::joinPath(spritesheetDir, sheet);
         else
             return false;
     }

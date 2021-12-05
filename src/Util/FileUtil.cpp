@@ -1,4 +1,4 @@
-#include <BLIB/Files/Util.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 
 #include <BLIB/Util/Random.hpp>
 #include <cstdio>
@@ -14,7 +14,7 @@
 
 namespace bl
 {
-namespace file
+namespace util
 {
 namespace
 {
@@ -27,18 +27,18 @@ void createDir(const std::string& path) {
 }
 } // namespace
 
-bool Util::exists(const std::string& file) {
+bool FileUtil::exists(const std::string& file) {
     std::ifstream test(file.c_str());
     return test.good();
 }
 
-bool Util::directoryExists(const std::string& file) {
+bool FileUtil::directoryExists(const std::string& file) {
     struct stat info;
     if (stat(file.c_str(), &info) != 0) return false;
     return info.st_mode & S_IFDIR;
 }
 
-bool Util::isBigEndian() {
+bool FileUtil::isBigEndian() {
     union {
         uint32_t i;
         char c[4];
@@ -46,7 +46,7 @@ bool Util::isBigEndian() {
     return endTest.c[0] == 1;
 }
 
-std::string Util::getExtension(const std::string& file) {
+std::string FileUtil::getExtension(const std::string& file) {
     size_t i = file.find_last_of(".");
     if (i != std::string::npos) return file.substr(i + 1);
     i = file.find_last_of("/\\");
@@ -54,25 +54,25 @@ std::string Util::getExtension(const std::string& file) {
     return file;
 }
 
-std::string Util::getBaseName(const std::string& file) {
+std::string FileUtil::getBaseName(const std::string& file) {
     std::string base = getFilename(file);
     size_t i         = base.find_last_of(".");
     if (i != std::string::npos) base.erase(i);
     return base;
 }
 
-std::string Util::getFilename(const std::string& file) {
+std::string FileUtil::getFilename(const std::string& file) {
     const size_t i = file.find_last_of("/\\");
     if (i != std::string::npos) return file.substr(i + 1);
     return file;
 }
 
-std::string Util::getPath(const std::string& file) {
+std::string FileUtil::getPath(const std::string& file) {
     const size_t i = file.find_last_of("/\\");
     return file.substr(0, (i != std::string::npos) ? (i + 1) : (i));
 }
 
-std::string Util::joinPath(const std::string& l, const std::string& r) {
+std::string FileUtil::joinPath(const std::string& l, const std::string& r) {
     if (l.empty()) return r;
     if (r.empty()) return l;
 
@@ -85,7 +85,7 @@ std::string Util::joinPath(const std::string& l, const std::string& r) {
     return l.substr(0, ls) + "/" + r.substr(rs);
 }
 
-std::string Util::genTempName(const std::string& path, const std::string& ext) {
+std::string FileUtil::genTempName(const std::string& path, const std::string& ext) {
     std::string file;
     do {
         std::stringstream ss;
@@ -99,7 +99,7 @@ std::string Util::genTempName(const std::string& path, const std::string& ext) {
     return file;
 }
 
-void Util::copyFile(const std::string& src, const std::string& dest) {
+void FileUtil::copyFile(const std::string& src, const std::string& dest) {
     if (src == dest) return;
 
     std::ifstream source(src.c_str(), std::ios::binary);
@@ -111,7 +111,7 @@ void Util::copyFile(const std::string& src, const std::string& dest) {
     std::copy(begin_source, end_source, begin_dest);
 }
 
-bool Util::createDirectory(const std::string& path) {
+bool FileUtil::createDirectory(const std::string& path) {
     if (directoryExists(path)) return true;
 
     std::string cd;
@@ -124,8 +124,8 @@ bool Util::createDirectory(const std::string& path) {
     return directoryExists(cd);
 }
 
-std::vector<std::string> Util::listDirectory(const std::string& path, const std::string& ext,
-                                             bool recursive) {
+std::vector<std::string> FileUtil::listDirectory(const std::string& path, const std::string& ext,
+                                                 bool recursive) {
     if (path.empty()) return {};
 
     struct dirent* cfile;
@@ -154,7 +154,7 @@ std::vector<std::string> Util::listDirectory(const std::string& path, const std:
     return list;
 }
 
-std::vector<std::string> Util::listDirectoryFolders(const std::string& path) {
+std::vector<std::string> FileUtil::listDirectoryFolders(const std::string& path) {
     if (path.empty()) return {};
 
     DIR* cd;
@@ -176,9 +176,9 @@ std::vector<std::string> Util::listDirectoryFolders(const std::string& path) {
     return list;
 }
 
-bool Util::deleteFile(const std::string& file) { return 0 == remove(file.c_str()); }
+bool FileUtil::deleteFile(const std::string& file) { return 0 == remove(file.c_str()); }
 
-bool Util::deleteDirectory(const std::string& path) {
+bool FileUtil::deleteDirectory(const std::string& path) {
     const std::vector<std::string> folders = listDirectoryFolders(path);
     for (const std::string& d : folders) {
         if (!deleteDirectory(joinPath(path, d))) { return false; }
@@ -192,5 +192,5 @@ bool Util::deleteDirectory(const std::string& path) {
     return 0 == rmdir(path.c_str());
 }
 
-} // namespace file
+} // namespace util
 } // namespace bl

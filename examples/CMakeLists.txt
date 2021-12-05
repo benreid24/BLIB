@@ -1,7 +1,6 @@
 add_subdirectory(Animation)
 add_subdirectory(Audio)
 add_subdirectory(Containers)
-add_subdirectory(Files)
 add_subdirectory(GUI)
 add_subdirectory(Logging)
 add_subdirectory(Menu)
