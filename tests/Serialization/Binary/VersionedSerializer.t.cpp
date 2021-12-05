@@ -64,7 +64,7 @@ struct Version2 : public Version1 {
 
 } // namespace
 
-TEST(VersionedSerializer, DefaultLoader) {
+TEST(BinaryVersionedSerializer, DefaultLoader) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
@@ -83,7 +83,7 @@ TEST(VersionedSerializer, DefaultLoader) {
     EXPECT_EQ(loaded.newerString, "not goodbye");
 }
 
-TEST(VersionedSerializer, MultipleVersions) {
+TEST(BinaryVersionedSerializer, MultipleVersions) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
@@ -102,7 +102,7 @@ TEST(VersionedSerializer, MultipleVersions) {
     EXPECT_EQ(loaded.newerString, orig.newerString);
 }
 
-TEST(VersionedSerializer, LoadOldVersion) {
+TEST(BinaryVersionedSerializer, LoadOldVersion) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
@@ -122,7 +122,7 @@ TEST(VersionedSerializer, LoadOldVersion) {
     EXPECT_EQ(loaded.newerString, "not goodbye");
 }
 
-TEST(VersionedSerializer, LoadNoVersion) {
+TEST(BinaryVersionedSerializer, LoadNoVersion) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
@@ -142,7 +142,7 @@ TEST(VersionedSerializer, LoadNoVersion) {
     EXPECT_EQ(loaded.newerString, "not goodbye");
 }
 
-TEST(VersionedSerializer, BadVersion) {
+TEST(BinaryVersionedSerializer, BadVersion) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 

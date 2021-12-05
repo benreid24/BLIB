@@ -9,7 +9,7 @@ namespace binary
 {
 namespace unittest
 {
-TEST(BinarySerialization, IntegerEncodeDecode) {
+TEST(BinaryStreams, IntegerEncodeDecode) {
     MemoryOutputBuffer outbuf;
     outbuf.reserve(sizeof(std::int32_t) + sizeof(std::uint8_t) + sizeof(std::int16_t) +
                    sizeof(std::uint64_t));
@@ -39,7 +39,7 @@ TEST(BinarySerialization, IntegerEncodeDecode) {
     EXPECT_EQ(u64, 734673743);
 }
 
-TEST(BinarySerialization, Strings) {
+TEST(BinaryStreams, Strings) {
     {
         OutputFile of("temp.bin");
         ASSERT_TRUE(of.write("hello world"));
