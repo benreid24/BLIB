@@ -16,7 +16,7 @@ struct SerializableFieldBase;
 /**
  * @brief Base class for object descriptors. Provides methods used by Serializer
  *
- * @ingroup Serialization
+ * @ingroup Binary
  *
  */
 class SerializableObjectBase {

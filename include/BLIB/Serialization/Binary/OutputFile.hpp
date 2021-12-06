@@ -14,7 +14,7 @@ namespace binary
 /**
  * @brief Helper wrapper class that encapsulates a file, a buffer, and a stream
  *
- * @ingroup Serialization
+ * @ingroup Binary
  *
  */
 class OutputFile : public OutputStream {

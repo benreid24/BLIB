@@ -15,7 +15,7 @@ namespace binary
 /**
  * @brief Base class for representing serializable class members. Do not use directly
  *
- * @ingroup Serialization
+ * @ingroup Binary
  *
  */
 struct SerializableFieldBase {
@@ -74,7 +74,7 @@ struct SerializableFieldBase {
  * @tparam Id The id of the data member. Allows formats to change without invalidating existing data
  * @tparam T The type of the data member
  * @tparam Offset The offset of the data member in it's class
- * @ingroup Serialization
+ * @ingroup Binary
  */
 template<std::uint16_t Id, typename T, std::size_t Offset>
 struct SerializableField

@@ -14,7 +14,7 @@ namespace binary
 /**
  * @brief A writable stream for binary serialization
  *
- * @ingroup Serialization
+ * @ingroup Binary
  *
  */
 class OutputStream {

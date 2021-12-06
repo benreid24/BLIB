@@ -14,7 +14,7 @@ namespace binary
 /**
  * @brief Convenience wrapper around ifstream, StreamInputBuffer, and BinaryInputStream
  *
- * @ingroup Serialization
+ * @ingroup Binary
  *
  */
 class InputFile : public InputStream {

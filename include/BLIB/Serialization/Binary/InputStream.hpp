@@ -4,6 +4,13 @@
 #include <BLIB/Serialization/Buffers/InputBuffer.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 
+/**
+ * @addtogroup Binary
+ * @ingroup Serialization
+ * @brief Collection of classes and utilities for serializing data to a binary format
+ *
+ */
+
 namespace bl
 {
 /// Collection of classes and utilities for serializing and deserializing data
@@ -15,7 +22,7 @@ namespace binary
 /**
  * @brief A readable stream for binary deserialization
  *
- * @ingroup Serialization
+ * @ingroup Binary
  *
  */
 class InputStream {
