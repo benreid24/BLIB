@@ -11,13 +11,15 @@ struct Nested {
     bool boolValue;
     float floatValue;
 
+    Nested() {}
+
     Nested(bool b, float f)
     : boolValue(b)
     , floatValue(f) {}
 };
 
 template<>
-struct SerializableObject<Nested> : public SerializableFieldBase {
+struct SerializableObject<Nested> : public SerializableObjectBase {
     SerializableField<bool, offsetof(Nested, boolValue)> boolValue;
     SerializableField<float, offsetof(Nested, floatValue)> floatValue;
 

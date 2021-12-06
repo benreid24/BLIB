@@ -39,6 +39,9 @@ struct Serializer {
      * @return Value A JSON object representing the value
      */
     static Value serialize(const T& value);
+
+private:
+    static SerializableObject<T>& get();
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
@@ -47,12 +50,18 @@ template<typename T>
 bool Serializer<T>::deserialize(T& result, const Value& value) {
     const auto& g = value.getAsGroup();
     if (!g.has_value()) return false;
-    return SerializableObject<T>::deserialize(result, g.value());
+    return get().deserialize(g.value(), &result);
 }
 
 template<typename T>
 Value Serializer<T>::serialize(const T& value) {
-    return SerializableObject<T>::serialize(&value);
+    return get().serialize(&value);
+}
+
+template<typename T>
+SerializableObject<T>& Serializer<T>::get() {
+    static SerializableObject<T> ser;
+    return ser;
 }
 
 template<>

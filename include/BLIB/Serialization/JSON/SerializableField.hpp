@@ -65,9 +65,7 @@ private:
  * @ingroup JSON
  */
 template<typename T, std::size_t Offset>
-class SerializableField
-: public SerializableFieldBase
-, private util::NonCopyable {
+class SerializableField : public SerializableFieldBase {
 public:
     /**
      * @brief Assigns the field a name to be used in JSON and registers itself
@@ -112,7 +110,7 @@ bool SerializableField<T, Offset>::deserialize(const Value& v, void* obj) const 
 template<typename T, std::size_t Offset>
 Value SerializableField<T, Offset>::serialize(const void* obj) const {
     const char* addr = static_cast<const char*>(obj) + Offset;
-    T* field         = static_cast<const T*>(static_cast<const void*>(addr));
+    const T* field   = static_cast<const T*>(static_cast<const void*>(addr));
     return Serializer<T>::serialize(*field);
 }
 
