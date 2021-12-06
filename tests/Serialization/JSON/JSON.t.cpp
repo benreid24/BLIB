@@ -1,4 +1,4 @@
-#include <BLIB/Files/JSON/JSON.hpp>
+#include <BLIB/Serialization/JSON/JSON.hpp>
 
 #include <BLIB/Util/FileUtil.hpp>
 #include <gmock/gmock.h>
@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace file
+namespace serial
 {
 namespace json
 {

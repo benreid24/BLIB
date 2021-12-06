@@ -1,9 +1,9 @@
-#include <BLIB/Files/JSON/Schema.hpp>
+#include <BLIB/Serialization/JSON/Schema.hpp>
 #include <gtest/gtest.h>
 
 namespace bl
 {
-namespace file
+namespace serial
 {
 namespace json
 {
