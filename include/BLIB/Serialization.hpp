@@ -9,5 +9,6 @@
 
 #include <BLIB/Serialization/Binary.hpp>
 #include <BLIB/Serialization/Buffers.hpp>
+#include <BLIB/Serialization/JSON.hpp>
 
 #endif
