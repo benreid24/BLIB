@@ -48,7 +48,7 @@ public:
     std::size_t size(const void* object) const;
 
 private:
-    std::unordered_map<std::uint16_t, SerializableFieldBase*> fields;
+    std::unordered_map<std::uint16_t, const SerializableFieldBase*> fields;
 
     friend class SerializableFieldBase;
 };

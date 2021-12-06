@@ -2,6 +2,7 @@
 #define BLIB_SERIALIZATION_JSON_SERIALIZER_HPP
 
 #include <BLIB/Serialization/JSON/JSON.hpp>
+#include <BLIB/Serialization/JSON/SerializableObject.hpp>
 
 #include <cstdint>
 #include <unordered_map>
@@ -44,12 +45,14 @@ struct Serializer {
 
 template<typename T>
 bool Serializer<T>::deserialize(T& result, const Value& value) {
-    // TODO - implement serializable object
+    const auto& g = value.getAsGroup();
+    if (!g.has_value()) return false;
+    return SerializableObject<T>::deserialize(result, g.value());
 }
 
 template<typename T>
 Value Serializer<T>::serialize(const T& value) {
-    // TODO - implement serializable object
+    return SerializableObject<T>::serialize(&value);
 }
 
 template<>
