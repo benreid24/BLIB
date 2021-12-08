@@ -27,12 +27,12 @@ namespace binary
  * @ingroup Binary
  */
 template<typename Payload>
-struct VersionedSerializer {
+struct SerializerVersion {
     /**
      * @brief Destroy the Versioned Payload Loader object
      *
      */
-    virtual ~VersionedSerializer() = default;
+    virtual ~SerializerVersion() = default;
 
     /**
      * @brief Read the object from the given file
@@ -60,14 +60,14 @@ struct VersionedSerializer {
  *        to detect versioned from non-versioned files
  *
  * @tparam Payload The type of object to read and write
- * @tparam DefaultLoader The VersionedSerializer to use if version information is missing
- * @tparam Versions A list of VersionedSerializer for all the versions of the object
+ * @tparam DefaultLoader The SerializerVersion to use if version information is missing
+ * @tparam Versions A list of SerializerVersion for all the versions of the object
  * @ingroup BinaryFiles
  */
 template<typename Payload, typename DefaultLoader, typename... Versions>
-class VersionedFile : private util::NonCopyable {
+class VersionedSerializer : private util::NonCopyable {
 public:
-    using Loader = VersionedSerializer<Payload>;
+    using Loader = SerializerVersion<Payload>;
 
     /**
      * @brief Writes the given object to the given stream
@@ -97,8 +97,8 @@ private:
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
-bool VersionedFile<Payload, DefaultLoader, Versions...>::write(OutputStream& output,
-                                                               const Payload& value) {
+bool VersionedSerializer<Payload, DefaultLoader, Versions...>::write(OutputStream& output,
+                                                                     const Payload& value) {
     static const auto& versions        = getLoaders();
     static const Loader* defaultLoader = getDefault();
     const Loader* writer               = versions.empty() ? defaultLoader : versions.back();
@@ -110,7 +110,8 @@ bool VersionedFile<Payload, DefaultLoader, Versions...>::write(OutputStream& out
 }
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
-bool VersionedFile<Payload, DefaultLoader, Versions...>::read(InputStream& input, Payload& value) {
+bool VersionedSerializer<Payload, DefaultLoader, Versions...>::read(InputStream& input,
+                                                                    Payload& value) {
     static const auto& versions        = getLoaders();
     static const Loader* defaultLoader = getDefault();
 
@@ -134,15 +135,15 @@ bool VersionedFile<Payload, DefaultLoader, Versions...>::read(InputStream& input
 }
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
-const VersionedSerializer<Payload>*
-VersionedFile<Payload, DefaultLoader, Versions...>::getDefault() {
+const SerializerVersion<Payload>*
+VersionedSerializer<Payload, DefaultLoader, Versions...>::getDefault() {
     static const DefaultLoader loader;
     return &loader;
 }
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
-const std::array<const VersionedSerializer<Payload>*, sizeof...(Versions)>&
-VersionedFile<Payload, DefaultLoader, Versions...>::getLoaders() {
+const std::array<const SerializerVersion<Payload>*, sizeof...(Versions)>&
+VersionedSerializer<Payload, DefaultLoader, Versions...>::getLoaders() {
     static std::tuple<Versions...> loaders;
     static std::array<const Loader*, sizeof...(Versions)> loaderArray;
     static bool init = false;
