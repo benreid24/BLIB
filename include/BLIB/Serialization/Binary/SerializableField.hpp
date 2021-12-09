@@ -1,6 +1,7 @@
 #ifndef BLIB_SERIALIZATION_BINARY_SERIALIZABLEFIELD_HPP
 #define BLIB_SERIALIZATION_BINARY_SERIALIZABLEFIELD_HPP
 
+#include <BLIB/Logging.hpp>
 #include <BLIB/Serialization/Binary/SerializableObject.hpp>
 #include <BLIB/Serialization/Binary/Serializer.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
@@ -25,7 +26,12 @@ struct SerializableFieldBase {
      * @param id The id of the field
      * @param owner The serizable object descriptor that owns this field
      */
-    SerializableFieldBase(std::uint16_t id, SerializableObjectBase& owner) {
+    template<typename C, typename M>
+    SerializableFieldBase(std::uint16_t id, SerializableObjectBase& owner, M C::*) {
+        if (owner.fields.find(id) != owner.fields.end()) {
+            BL_LOG_WARN << "Duplicate field id " << id << " encountered for object "
+                        << typeid(C).name() << " member type " << typeid(M).name();
+        }
         owner.fields[id] = this;
     }
 
@@ -88,7 +94,7 @@ struct SerializableField
      * @param member
      */
     SerializableField(SerializableObjectBase& owner, T C::*member)
-    : SerializableFieldBase(Id, owner)
+    : SerializableFieldBase(Id, owner, member)
     , member(member) {}
 
     /**
