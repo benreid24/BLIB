@@ -33,6 +33,16 @@ struct Serializer {
     static bool deserialize(T& result, const Value& value);
 
     /**
+     * @brief Deserialize the given object from the given Value, which must be a group
+     *
+     * @param value The value to deserialize from
+     * @param name The name of the field to read
+     * @param result The object to read into
+     * @return True on success, false on error
+     */
+    static bool deserializeFrom(const Value& value, const std::string& name, T& result);
+
+    /**
      * @brief Serializes the given value into a JSON Value
      *
      * @param value The value to serialize
@@ -40,11 +50,48 @@ struct Serializer {
      */
     static Value serialize(const T& value);
 
+    /**
+     * @brief Serialize the given object into the given value
+     *
+     * @param result The value to serialize into. Must be a Group
+     * @param name The name of the field to write to
+     * @param value The value to write
+     * @return True on success, false on error
+     */
+    static bool serializeInto(Group& result, const std::string& name, const T& value);
+
 private:
     static SerializableObject<T>& get();
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
+
+/// Private inline helper methods
+namespace priv
+{
+template<typename T>
+struct Serializer {
+    template<typename F>
+    static bool deserializeFrom(const Value& val, const std::string& name, T& result,
+                                F deserialize) {
+        const auto& og = val.getAsGroup();
+        if (!og.has_value()) return false;
+        const auto& f = og.value().getField(name);
+        if (!f.has_value()) return false;
+        return deserialize(result, f.value());
+    }
+
+    template<typename F>
+    static bool serializeInto(Group& group, const std::string& name, const T& val, F serialize) {
+        if (group.hasField(name)) {
+            BL_LOG_WARN << "Type " << typeid(T).name() << " has duplicate field " << name;
+        }
+        group.addField(name, serialize(val));
+        return true;
+    }
+};
+
+} // namespace priv
 
 template<typename T>
 bool Serializer<T>::deserialize(T& result, const Value& value) {
@@ -54,8 +101,18 @@ bool Serializer<T>::deserialize(T& result, const Value& value) {
 }
 
 template<typename T>
+bool Serializer<T>::deserializeFrom(const Value& val, const std::string& name, T& result) {
+    return priv::Serializer<T>::deserializeFrom(val, name, result, &deserialize);
+}
+
+template<typename T>
 Value Serializer<T>::serialize(const T& value) {
     return get().serialize(&value);
+}
+
+template<typename T>
+bool Serializer<T>::serializeInto(Group& result, const std::string& name, const T& val) {
+    return priv::Serializer<T>::serializeInto(result, name, val, &serialize);
 }
 
 template<typename T>
@@ -75,7 +132,15 @@ struct Serializer<bool> {
         return false;
     }
 
+    static bool deserializeFrom(const Value& val, const std::string& name, bool& result) {
+        return priv::Serializer<bool>::deserializeFrom(val, name, result, &deserialize);
+    }
+
     static Value serialize(bool value) { return Value(value); }
+
+    static bool serializeInto(Group& result, const std::string& name, bool value) {
+        return priv::Serializer<bool>::serializeInto(result, name, value, &serialize);
+    }
 };
 
 template<>
@@ -89,7 +154,15 @@ struct Serializer<float> {
         return false;
     }
 
+    static bool deserializeFrom(const Value& val, const std::string& name, float& result) {
+        return priv::Serializer<float>::deserializeFrom(val, name, result, &deserialize);
+    }
+
     static Value serialize(float value) { return Value(value); }
+
+    static bool serializeInto(Group& result, const std::string& name, float value) {
+        return priv::Serializer<float>::serializeInto(result, name, value, &serialize);
+    }
 };
 
 template<>
@@ -104,6 +177,10 @@ struct Serializer<int> {
     }
 
     static Value serialize(int value) { return Value(static_cast<float>(value)); }
+
+    static bool serializeInto(Group& result, const std::string& name, int value) {
+        return priv::Serializer<int>::serializeInto(result, name, value, &serialize);
+    }
 };
 
 template<>
@@ -117,7 +194,15 @@ struct Serializer<std::string> {
         return false;
     }
 
+    static bool deserializeFrom(const Value& val, const std::string& name, std::string& result) {
+        return priv::Serializer<std::string>::deserializeFrom(val, name, result, &deserialize);
+    }
+
     static Value serialize(const std::string& value) { return Value(value); }
+
+    static bool serializeInto(Group& result, const std::string& name, const std::string& value) {
+        return priv::Serializer<std::string>::serializeInto(result, name, value, &serialize);
+    }
 };
 
 template<typename U>
@@ -134,11 +219,19 @@ struct Serializer<std::vector<U>> {
         return false;
     }
 
+    static bool deserializeFrom(const Value& val, const std::string& name, std::vector<U>& result) {
+        return priv::Serializer<std::vector<U>>::deserializeFrom(val, name, result, &deserialize);
+    }
+
     static Value serialize(const std::vector<U>& value) {
         List result;
         result.reserve(value.size());
         for (const U& v : value) { result.push_back(Serializer<U>::serialize(v)); }
         return {result};
+    }
+
+    static bool serializeInto(Group& result, const std::string& name, const std::vector<U>& value) {
+        return priv::Serializer<std::vector<U>>::serializeInto(result, name, value, &serialize);
     }
 };
 
@@ -158,12 +251,24 @@ struct Serializer<std::unordered_map<std::string, U>> {
         return false;
     }
 
+    static bool deserializeFrom(const Value& val, const std::string& name,
+                                std::unordered_map<std::string, U>& result) {
+        return priv::Serializer<std::unordered_map<std::string, U>>::deserializeFrom(
+            val, name, result, &deserialize);
+    }
+
     static Value serialize(const std::unordered_map<std::string, U>& value) {
         Group result;
         for (const auto& p : value) {
             result.addField(p.first, Serializer<U>::serialize(p.second));
         }
         return {result};
+    }
+
+    static bool serializeInto(Group& result, const std::string& name,
+                              const std::unordered_map<std::string, U>& value) {
+        return priv::Serializer<std::unordered_map<std::string, U>>::serializeInto(
+            result, name, value, &serialize);
     }
 };
 
