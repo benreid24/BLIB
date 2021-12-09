@@ -20,12 +20,12 @@ struct Nested {
 
 template<>
 struct SerializableObject<Nested> : public SerializableObjectBase {
-    SerializableField<bool, offsetof(Nested, boolValue)> boolValue;
-    SerializableField<float, offsetof(Nested, floatValue)> floatValue;
+    SerializableField<Nested, bool> boolValue;
+    SerializableField<Nested, float> floatValue;
 
     SerializableObject()
-    : boolValue("bval", *this)
-    , floatValue("fval", *this) {}
+    : boolValue("bval", *this, &Nested::boolValue)
+    , floatValue("fval", *this, &Nested::floatValue) {}
 };
 
 struct Data {
@@ -41,14 +41,14 @@ struct Data {
 
 template<>
 struct SerializableObject<Data> : public SerializableObjectBase {
-    SerializableField<int, offsetof(Data, intValue)> intValue;
-    SerializableField<std::string, offsetof(Data, stringValue)> stringValue;
-    SerializableField<std::vector<Nested>, offsetof(Data, nestedValue)> nestedValue;
+    SerializableField<Data, int> intValue;
+    SerializableField<Data, std::string> stringValue;
+    SerializableField<Data, std::vector<Nested>> nestedValue;
 
     SerializableObject()
-    : intValue("ival", *this)
-    , stringValue("sval", *this)
-    , nestedValue("nval", *this) {}
+    : intValue("ival", *this, &Data::intValue)
+    , stringValue("sval", *this, &Data::stringValue)
+    , nestedValue("nval", *this, &Data::nestedValue) {}
 };
 
 namespace unittest

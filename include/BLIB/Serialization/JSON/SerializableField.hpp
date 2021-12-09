@@ -1,6 +1,7 @@
 #ifndef BLIB_SERIALIZATION_JSON_SERIALIZABLEFIELD_HPP
 #define BLIB_SERIALIZATION_JSON_SERIALIZABLEFIELD_HPP
 
+#include <BLIB/Logging.hpp>
 #include <BLIB/Serialization/JSON/JSON.hpp>
 #include <BLIB/Serialization/JSON/SerializableObject.hpp>
 #include <BLIB/Serialization/JSON/Serializer.hpp>
@@ -44,8 +45,13 @@ public:
     const std::string& getName() const { return name; }
 
 protected:
-    SerializableFieldBase(const std::string& name, SerializableObjectBase& owner)
+    template<typename C, typename M>
+    SerializableFieldBase(const std::string& name, SerializableObjectBase& owner, M C::*)
     : name(name) {
+        if (owner.fields.find(name) != owner.fields.end()) {
+            BL_LOG_WARN << "Duplicate field name " << name << " encountered for object "
+                        << typeid(C).name() << " member type " << typeid(M).name();
+        }
         owner.fields[name] = this;
     }
 
@@ -60,11 +66,11 @@ private:
  *        SerializableObject members. Specializations of Serializer may be created to support other
  *        types which are not easily represented as Serializable objects
  *
+ * @tparam C The object type the field belongs to
  * @tparam T The underlying type of the field
- * @tparam Offset The offset of the field in bytes
  * @ingroup JSON
  */
-template<typename T, std::size_t Offset>
+template<typename C, typename T>
 class SerializableField : public SerializableFieldBase {
 public:
     /**
@@ -72,8 +78,9 @@ public:
      *
      * @param name Name to use when serializing and deserializing
      * @param owner The parent Serializable object to register with
+     * @param member Pointer to the member to serialize
      */
-    SerializableField(const std::string& name, SerializableObjectBase& owner);
+    SerializableField(const std::string& name, SerializableObjectBase& owner, T C::*member);
 
     /**
      * @brief Updates the value of this field from the json data
@@ -91,27 +98,29 @@ public:
      * @return Value JSON value of this field
      */
     virtual Value serialize(const void* object) const override;
+
+private:
+    T C::*const member;
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
-template<typename T, std::size_t Offset>
-SerializableField<T, Offset>::SerializableField(const std::string& name,
-                                                SerializableObjectBase& owner)
-: SerializableFieldBase(name, owner) {}
+template<typename C, typename T>
+SerializableField<C, T>::SerializableField(const std::string& name, SerializableObjectBase& owner,
+                                           T C::*member)
+: SerializableFieldBase(name, owner, member)
+, member(member) {}
 
-template<typename T, std::size_t Offset>
-bool SerializableField<T, Offset>::deserialize(const Value& v, void* obj) const {
-    char* addr = static_cast<char*>(obj) + Offset;
-    T* field   = static_cast<T*>(static_cast<void*>(addr));
-    return Serializer<T>::deserialize(*field, v);
+template<typename C, typename T>
+bool SerializableField<C, T>::deserialize(const Value& v, void* obj) const {
+    C& o = *static_cast<C*>(obj);
+    return Serializer<T>::deserialize(o.*member, v);
 }
 
-template<typename T, std::size_t Offset>
-Value SerializableField<T, Offset>::serialize(const void* obj) const {
-    const char* addr = static_cast<const char*>(obj) + Offset;
-    const T* field   = static_cast<const T*>(static_cast<const void*>(addr));
-    return Serializer<T>::serialize(*field);
+template<typename C, typename T>
+Value SerializableField<C, T>::serialize(const void* obj) const {
+    const C& o = *static_cast<const C*>(obj);
+    return Serializer<T>::serialize(o.*member);
 }
 
 } // namespace json
