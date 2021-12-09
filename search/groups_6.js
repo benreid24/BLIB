@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['helpers',['Helpers',['../a00740.html',1,'']]]
+  ['interface',['Interface',['../a00784.html',1,'']]],
+  ['interfaceutilities',['InterfaceUtilities',['../a00799.html',1,'']]]
 ];

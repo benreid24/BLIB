@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['openmode',['OpenMode',['../a01050.html#a6190ae9a68283742636b0b926ee43392',1,'bl::file::binary::File']]]
+  ['packstart',['PackStart',['../a01211.html#aa93923af9a1d910c135d79afc9dd80e1',1,'bl::gui::LinePacker']]]
 ];

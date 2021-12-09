@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::gui::TextEntry Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,24 +63,2865 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00751.html">bl</a></li><li class="navelem"><a class="el" href="a00760.html">file</a></li><li class="navelem"><a class="el" href="a00762.html">json</a></li><li class="navelem"><a class="el" href="a01190.html">Serializer&lt; std::string &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00804.html">bl</a></li><li class="navelem"><a class="el" href="a00813.html">gui</a></li><li class="navelem"><a class="el" href="a01187.html">TextEntry</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="a01184.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::file::json::Serializer&lt; std::string &gt; Member List</div>  </div>
+<div class="title">bl::gui::TextEntry Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01190.html">bl::file::json::Serializer&lt; std::string &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01190.html#a0fea4701d8fe4dd655c502a78aba7484">deserialize</a>(std::string &amp;result, const Value &amp;v)</td><td class="entry"><a class="el" href="a01190.html">bl::file::json::Serializer&lt; std::string &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01190.html#a85ea3b78e0a3ee847d3fe97b00e5b2f2">serialize</a>(const std::string &amp;value)</td><td class="entry"><a class="el" href="a01190.html">bl::file::json::Serializer&lt; std::string &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-</table></div><!-- contents -->
+<p>Single or multiline text entry <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Note that the text color is the secondary color in render settings. The box color is the primary.  
+ <a href="a01187.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00188_source.html">TextEntry.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::TextEntry:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01187.png" usemap="#bl::gui::TextEntry_map" alt=""/>
+  <map id="bl::gui::TextEntry_map" name="bl::gui::TextEntry_map">
+<area href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. " alt="bl::gui::Element" shape="rect" coords="127,56,371,80"/>
+<area href="a01735.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::util::NonCopyable" shape="rect" coords="0,0,244,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a7feddc70c7c990ad6bc0b5174d866707"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#a7feddc70c7c990ad6bc0b5174d866707">Mode</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="a01187.html#a7feddc70c7c990ad6bc0b5174d866707aed36a1ef76a59ee3f15180e0441188ad">Mode::Any</a> = 0x0, 
+<a class="el" href="a01187.html#a7feddc70c7c990ad6bc0b5174d866707aa0faef0851b4294c06f2b94bb1cb2044">Mode::Integer</a> = 0x1 &lt;&lt; 0, 
+<a class="el" href="a01187.html#a7feddc70c7c990ad6bc0b5174d866707a22ae0e2b89e5e3d477f988cc36d3272b">Mode::Float</a> = 0x1 &lt;&lt; 1, 
+<a class="el" href="a01187.html#a7feddc70c7c990ad6bc0b5174d866707aa1a914735b205424ba6c40b85528d78a">Mode::Unsigned</a> = 0x1 &lt;&lt; 2, 
+<br />
+&#160;&#160;<a class="el" href="a01187.html#a7feddc70c7c990ad6bc0b5174d866707a71fed0c3428bf1a2e19af257c4bac379">Mode::Signed</a> = 0x1 &lt;&lt; 3
+<br />
+ }<tr class="memdesc:a7feddc70c7c990ad6bc0b5174d866707"><td class="mdescLeft">&#160;</td><td class="mdescRight">The mode a <a class="el" href="a01187.html" title="Single or multiline text entry Element. Note that the text color is the secondary color in render set...">TextEntry</a> is in.  <a href="a01187.html#a7feddc70c7c990ad6bc0b5174d866707">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a7feddc70c7c990ad6bc0b5174d866707"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad282be9fe710dc878323a91d687e29f9"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a01187.html">TextEntry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#ad282be9fe710dc878323a91d687e29f9">Ptr</a></td></tr>
+<tr class="separator:ad282be9fe710dc878323a91d687e29f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a0b6f767fcb2a444b60cce3046e95b7"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; const <a class="el" href="a01139.html">Element</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a1a0b6f767fcb2a444b60cce3046e95b7">CPtr</a></td></tr>
+<tr class="separator:a1a0b6f767fcb2a444b60cce3046e95b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a203f6b9f513c2adbeb9b8a9082013b"><td class="memItemLeft" align="right" valign="top">typedef std::weak_ptr&lt; <a class="el" href="a01139.html">Element</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a5a203f6b9f513c2adbeb9b8a9082013b">WPtr</a></td></tr>
+<tr class="separator:a5a203f6b9f513c2adbeb9b8a9082013b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affa548f516bcc2528bd7ad8ef1092e48"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#affa548f516bcc2528bd7ad8ef1092e48">QueuedAction</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="separator:affa548f516bcc2528bd7ad8ef1092e48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a6cf37c5378ad2606c6fd00204218e4c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#a6cf37c5378ad2606c6fd00204218e4c1">setMode</a> (<a class="el" href="a01187.html#a7feddc70c7c990ad6bc0b5174d866707">Mode</a> mode)</td></tr>
+<tr class="memdesc:a6cf37c5378ad2606c6fd00204218e4c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the mode of the input. Default is Any. Existing input is filtered based on the new mode.  <a href="#a6cf37c5378ad2606c6fd00204218e4c1">More...</a><br /></td></tr>
+<tr class="separator:a6cf37c5378ad2606c6fd00204218e4c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07fb9010f3d7888d933e48fd02fa6bc9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#a07fb9010f3d7888d933e48fd02fa6bc9">setMaxInputLength</a> (unsigned int maxLength)</td></tr>
+<tr class="memdesc:a07fb9010f3d7888d933e48fd02fa6bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the maximum amount of characters that can be input.  <a href="#a07fb9010f3d7888d933e48fd02fa6bc9">More...</a><br /></td></tr>
+<tr class="separator:a07fb9010f3d7888d933e48fd02fa6bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8178e9a97c6b9302c09241c5cef4ac13"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#a8178e9a97c6b9302c09241c5cef4ac13">getInput</a> () const</td></tr>
+<tr class="memdesc:a8178e9a97c6b9302c09241c5cef4ac13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current input.  <a href="#a8178e9a97c6b9302c09241c5cef4ac13">More...</a><br /></td></tr>
+<tr class="separator:a8178e9a97c6b9302c09241c5cef4ac13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30dc8a233f2c760e07aa105de1360cae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#a30dc8a233f2c760e07aa105de1360cae">setInput</a> (const std::string &amp;input)</td></tr>
+<tr class="memdesc:a30dc8a233f2c760e07aa105de1360cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the text in the entry.  <a href="#a30dc8a233f2c760e07aa105de1360cae">More...</a><br /></td></tr>
+<tr class="separator:a30dc8a233f2c760e07aa105de1360cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ab6ffaf3c047bbe35f6f2bbffc2fbd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#a2ab6ffaf3c047bbe35f6f2bbffc2fbd3">cursorVisible</a> () const</td></tr>
+<tr class="memdesc:a2ab6ffaf3c047bbe35f6f2bbffc2fbd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the cursor is visible.  <a href="#a2ab6ffaf3c047bbe35f6f2bbffc2fbd3">More...</a><br /></td></tr>
+<tr class="separator:a2ab6ffaf3c047bbe35f6f2bbffc2fbd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceba6f9abb6b29e79903bd4f2fc4db70"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#aceba6f9abb6b29e79903bd4f2fc4db70">getCursorPosition</a> () const</td></tr>
+<tr class="memdesc:aceba6f9abb6b29e79903bd4f2fc4db70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the position of the cursor, in characters.  <a href="#aceba6f9abb6b29e79903bd4f2fc4db70">More...</a><br /></td></tr>
+<tr class="separator:aceba6f9abb6b29e79903bd4f2fc4db70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09acee851f4f0bf38d8a5396a0dc0578"><td class="memItemLeft" align="right" valign="top">const sf::Vector2f &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#a09acee851f4f0bf38d8a5396a0dc0578">getTextOffset</a> () const</td></tr>
+<tr class="memdesc:a09acee851f4f0bf38d8a5396a0dc0578"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the scrolling offset of the text within the entry.  <a href="#a09acee851f4f0bf38d8a5396a0dc0578">More...</a><br /></td></tr>
+<tr class="separator:a09acee851f4f0bf38d8a5396a0dc0578"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5312febe55d50af6530b81e179d5e36b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#a5312febe55d50af6530b81e179d5e36b">update</a> (float dt) override</td></tr>
+<tr class="memdesc:a5312febe55d50af6530b81e179d5e36b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages cursor visibility based on elapsed time and active status.  <a href="#a5312febe55d50af6530b81e179d5e36b">More...</a><br /></td></tr>
+<tr class="separator:a5312febe55d50af6530b81e179d5e36b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56737528495d6b5d9c01c8dd52851766"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a56737528495d6b5d9c01c8dd52851766">setRequisition</a> (const sf::Vector2f &amp;size)</td></tr>
+<tr class="memdesc:a56737528495d6b5d9c01c8dd52851766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the requisition of the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. This is the minimum amount of space it needs. Pass in (0,0) to reset.  <a href="#a56737528495d6b5d9c01c8dd52851766">More...</a><br /></td></tr>
+<tr class="separator:a56737528495d6b5d9c01c8dd52851766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c804da248429fa37336781cd91f9c4f"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a3c804da248429fa37336781cd91f9c4f">getRequisition</a> () const</td></tr>
+<tr class="memdesc:a3c804da248429fa37336781cd91f9c4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the requisition of the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>.  <a href="#a3c804da248429fa37336781cd91f9c4f">More...</a><br /></td></tr>
+<tr class="separator:a3c804da248429fa37336781cd91f9c4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0695b05e105ed699a612ed3a3c0c84f"><td class="memItemLeft" align="right" valign="top">const sf::FloatRect &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#af0695b05e105ed699a612ed3a3c0c84f">getAcquisition</a> () const</td></tr>
+<tr class="memdesc:af0695b05e105ed699a612ed3a3c0c84f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the acquisition of the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. This is the size allocated to it, and mays be larger or equal to the requisition.  <a href="#af0695b05e105ed699a612ed3a3c0c84f">More...</a><br /></td></tr>
+<tr class="separator:af0695b05e105ed699a612ed3a3c0c84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac843bddb7798c90874b40cb2d28bb840"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#ac843bddb7798c90874b40cb2d28bb840">getPosition</a> () const</td></tr>
+<tr class="memdesc:ac843bddb7798c90874b40cb2d28bb840"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute position of the element. Stays up to date with parent element.  <a href="#ac843bddb7798c90874b40cb2d28bb840">More...</a><br /></td></tr>
+<tr class="separator:ac843bddb7798c90874b40cb2d28bb840"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc2879ece76f07e11c0878d692985fb9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00813.html#a0d2f488379b11b840372812e04dee005">Signal</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#abc2879ece76f07e11c0878d692985fb9">getSignal</a> (<a class="el" href="a01199.html#a14b67eb968cc68b09a420e989b3a4a54">Event::Type</a> trigger)</td></tr>
+<tr class="memdesc:abc2879ece76f07e11c0878d692985fb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a modifiable reference to the signal for the given trigger. Undefined behavior if trigger is not valid.  <a href="#abc2879ece76f07e11c0878d692985fb9">More...</a><br /></td></tr>
+<tr class="separator:abc2879ece76f07e11c0878d692985fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7205badf3ab0478843e07554025cd13b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a7205badf3ab0478843e07554025cd13b">hasFocus</a> () const</td></tr>
+<tr class="memdesc:a7205badf3ab0478843e07554025cd13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> is in focus or not.  <a href="#a7205badf3ab0478843e07554025cd13b">More...</a><br /></td></tr>
+<tr class="separator:a7205badf3ab0478843e07554025cd13b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4666a9982560eec35c38a7d35f315013"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a4666a9982560eec35c38a7d35f315013">focusIsforced</a> () const</td></tr>
+<tr class="memdesc:a4666a9982560eec35c38a7d35f315013"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this element is forcing itself to stay in focus.  <a href="#a4666a9982560eec35c38a7d35f315013">More...</a><br /></td></tr>
+<tr class="separator:a4666a9982560eec35c38a7d35f315013"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8541c47fb63ab006f69871114fb3d00"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#ad8541c47fb63ab006f69871114fb3d00">takeFocus</a> ()</td></tr>
+<tr class="memdesc:ad8541c47fb63ab006f69871114fb3d00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to take the focus. Returns true if able to take, false otherwise.  <a href="#ad8541c47fb63ab006f69871114fb3d00">More...</a><br /></td></tr>
+<tr class="separator:ad8541c47fb63ab006f69871114fb3d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b605764109dba9610a32ac010715913"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a9b605764109dba9610a32ac010715913">setForceFocus</a> (bool force)</td></tr>
+<tr class="memdesc:a9b605764109dba9610a32ac010715913"><td class="mdescLeft">&#160;</td><td class="mdescRight">If set, takes the focus and forces this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> to be in focus. Returns true if able to take focus.  <a href="#a9b605764109dba9610a32ac010715913">More...</a><br /></td></tr>
+<tr class="separator:a9b605764109dba9610a32ac010715913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5c567ea13f423a6b106becf3b9dd2ae"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#ab5c567ea13f423a6b106becf3b9dd2ae">releaseFocus</a> (const <a class="el" href="a01139.html">Element</a> *requester=nullptr)</td></tr>
+<tr class="memdesc:ab5c567ea13f423a6b106becf3b9dd2ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the focus from this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Returns true if element not in focus or if the element is not forcing itself in focus. On a false return other Elements will not be able to <a class="el" href="a01139.html#ad8541c47fb63ab006f69871114fb3d00" title="Attempts to take the focus. Returns true if able to take, false otherwise. ">takeFocus()</a>  <a href="#ab5c567ea13f423a6b106becf3b9dd2ae">More...</a><br /></td></tr>
+<tr class="separator:ab5c567ea13f423a6b106becf3b9dd2ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d182c711ec3860dd2e2307f79cc576a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a8d182c711ec3860dd2e2307f79cc576a">clearFocus</a> (const <a class="el" href="a01139.html">Element</a> *requester=nullptr)</td></tr>
+<tr class="memdesc:a8d182c711ec3860dd2e2307f79cc576a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the focus from ALL elements unless an element is forcing itself in focus.  <a href="#a8d182c711ec3860dd2e2307f79cc576a">More...</a><br /></td></tr>
+<tr class="separator:a8d182c711ec3860dd2e2307f79cc576a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfba06297becce01d059dea8eeea90ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#abfba06297becce01d059dea8eeea90ba">moveToTop</a> () const</td></tr>
+<tr class="memdesc:abfba06297becce01d059dea8eeea90ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Brings this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> to the top.  <a href="#abfba06297becce01d059dea8eeea90ba">More...</a><br /></td></tr>
+<tr class="separator:abfba06297becce01d059dea8eeea90ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d229bf55f3d75ff32e45094e36ea171"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a3d229bf55f3d75ff32e45094e36ea171">mouseOver</a> () const</td></tr>
+<tr class="memdesc:a3d229bf55f3d75ff32e45094e36ea171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if the mouse is currently over this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>.  <a href="#a3d229bf55f3d75ff32e45094e36ea171">More...</a><br /></td></tr>
+<tr class="separator:a3d229bf55f3d75ff32e45094e36ea171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f2d5d5a431b82b8c0515d5dac59ded8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a6f2d5d5a431b82b8c0515d5dac59ded8">leftPressed</a> () const</td></tr>
+<tr class="memdesc:a6f2d5d5a431b82b8c0515d5dac59ded8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if the mouse is over the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> and the Left button is pressed.  <a href="#a6f2d5d5a431b82b8c0515d5dac59ded8">More...</a><br /></td></tr>
+<tr class="separator:a6f2d5d5a431b82b8c0515d5dac59ded8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98661250ab85d114150c6e3dfd448e3d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a98661250ab85d114150c6e3dfd448e3d">rightPressed</a> () const</td></tr>
+<tr class="memdesc:a98661250ab85d114150c6e3dfd448e3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if the mouse is over the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> and the Right button is pressed.  <a href="#a98661250ab85d114150c6e3dfd448e3d">More...</a><br /></td></tr>
+<tr class="separator:a98661250ab85d114150c6e3dfd448e3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5867f27d44f8ebaf42b86db81524278c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a5867f27d44f8ebaf42b86db81524278c">processEvent</a> (const <a class="el" href="a01199.html">Event</a> &amp;event)</td></tr>
+<tr class="memdesc:a5867f27d44f8ebaf42b86db81524278c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a <a class="el" href="a01203.html" title="Top level class for creating a graphical user interface. ">GUI</a> event. Typically not called manually.  <a href="#a5867f27d44f8ebaf42b86db81524278c">More...</a><br /></td></tr>
+<tr class="separator:a5867f27d44f8ebaf42b86db81524278c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f12a23ffb09b4a0fb6eb92f005d810"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a25f12a23ffb09b4a0fb6eb92f005d810">makeDirty</a> ()</td></tr>
+<tr class="memdesc:a25f12a23ffb09b4a0fb6eb92f005d810"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> as requiring a recalculation of acquisition.  <a href="#a25f12a23ffb09b4a0fb6eb92f005d810">More...</a><br /></td></tr>
+<tr class="separator:a25f12a23ffb09b4a0fb6eb92f005d810"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fe9691022f41756de7f7c07008de6ee"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a2fe9691022f41756de7f7c07008de6ee">dirty</a> () const</td></tr>
+<tr class="memdesc:a2fe9691022f41756de7f7c07008de6ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> requires a reacquisition.  <a href="#a2fe9691022f41756de7f7c07008de6ee">More...</a><br /></td></tr>
+<tr class="separator:a2fe9691022f41756de7f7c07008de6ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fc9c37715cf06cd780e40a329e6d587"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a5fc9c37715cf06cd780e40a329e6d587">packable</a> (bool includeInvisible=false) const</td></tr>
+<tr class="memdesc:a5fc9c37715cf06cd780e40a329e6d587"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signifies that this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> should be packed. Takes into account the element type, visibility, and pack override.  <a href="#a5fc9c37715cf06cd780e40a329e6d587">More...</a><br /></td></tr>
+<tr class="separator:a5fc9c37715cf06cd780e40a329e6d587"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0817e87d35e8220f702b0b2724ac0cca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a0817e87d35e8220f702b0b2724ac0cca">remove</a> ()</td></tr>
+<tr class="memdesc:a0817e87d35e8220f702b0b2724ac0cca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> from its parent. Safe to call at any time.  <a href="#a0817e87d35e8220f702b0b2724ac0cca">More...</a><br /></td></tr>
+<tr class="separator:a0817e87d35e8220f702b0b2724ac0cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79445a7bedd5035f2dc0bc1fd8d9da54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a79445a7bedd5035f2dc0bc1fd8d9da54">setVisible</a> (bool <a class="el" href="a01139.html#a1ef6fedb34d0dd9fa4f1864dc7a939a8">visible</a>, bool markDirty=true)</td></tr>
+<tr class="memdesc:a79445a7bedd5035f2dc0bc1fd8d9da54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show or hide the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Making it invisible does not change any other element acquisitions.  <a href="#a79445a7bedd5035f2dc0bc1fd8d9da54">More...</a><br /></td></tr>
+<tr class="separator:a79445a7bedd5035f2dc0bc1fd8d9da54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a385416ecc73d0e435b9303592e406e45"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a385416ecc73d0e435b9303592e406e45">skipPacking</a> (bool skip)</td></tr>
+<tr class="memdesc:a385416ecc73d0e435b9303592e406e45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signal to Packers that this element should not be packed. Intended to be used by advanced Containers that manually pack certain elements.  <a href="#a385416ecc73d0e435b9303592e406e45">More...</a><br /></td></tr>
+<tr class="separator:a385416ecc73d0e435b9303592e406e45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ef6fedb34d0dd9fa4f1864dc7a939a8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a1ef6fedb34d0dd9fa4f1864dc7a939a8">visible</a> () const</td></tr>
+<tr class="memdesc:a1ef6fedb34d0dd9fa4f1864dc7a939a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> is visible.  <a href="#a1ef6fedb34d0dd9fa4f1864dc7a939a8">More...</a><br /></td></tr>
+<tr class="separator:a1ef6fedb34d0dd9fa4f1864dc7a939a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad48727e4838480e83f1ed6038393edfd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#ad48727e4838480e83f1ed6038393edfd">setActive</a> (bool <a class="el" href="a01139.html#a73c4c08fbc474e43d77515b3cac83b07">active</a>)</td></tr>
+<tr class="memdesc:ad48727e4838480e83f1ed6038393edfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> is active and responds to events.  <a href="#ad48727e4838480e83f1ed6038393edfd">More...</a><br /></td></tr>
+<tr class="separator:ad48727e4838480e83f1ed6038393edfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73c4c08fbc474e43d77515b3cac83b07"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a73c4c08fbc474e43d77515b3cac83b07">active</a> () const</td></tr>
+<tr class="memdesc:a73c4c08fbc474e43d77515b3cac83b07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> is active and responds to events.  <a href="#a73c4c08fbc474e43d77515b3cac83b07">More...</a><br /></td></tr>
+<tr class="separator:a73c4c08fbc474e43d77515b3cac83b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab599e6c7983c2ac2cb34db4279a6ad16"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#ab599e6c7983c2ac2cb34db4279a6ad16">handleScroll</a> (const <a class="el" href="a01199.html">Event</a> &amp;scroll)</td></tr>
+<tr class="memdesc:ab599e6c7983c2ac2cb34db4279a6ad16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special event handler for scroll events. Default behavior returns false.  <a href="#ab599e6c7983c2ac2cb34db4279a6ad16">More...</a><br /></td></tr>
+<tr class="separator:ab599e6c7983c2ac2cb34db4279a6ad16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b700d54baf5e69aef8412964600c8b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a0b700d54baf5e69aef8412964600c8b3">render</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a01227.html">Renderer</a> &amp;renderer) const</td></tr>
+<tr class="memdesc:a0b700d54baf5e69aef8412964600c8b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the element using the given renderer.  <a href="#a0b700d54baf5e69aef8412964600c8b3">More...</a><br /></td></tr>
+<tr class="separator:a0b700d54baf5e69aef8412964600c8b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92c847156e9aca1eb3bbeb7e6fd97673"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a92c847156e9aca1eb3bbeb7e6fd97673">setCharacterSize</a> (unsigned int size)</td></tr>
+<tr class="memdesc:a92c847156e9aca1eb3bbeb7e6fd97673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the character size. Default is 12. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types.  <a href="#a92c847156e9aca1eb3bbeb7e6fd97673">More...</a><br /></td></tr>
+<tr class="separator:a92c847156e9aca1eb3bbeb7e6fd97673"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91bebe612f0c98f326f39b3e5dbffadf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a91bebe612f0c98f326f39b3e5dbffadf">setColor</a> (sf::Color fill, sf::Color outline)</td></tr>
+<tr class="memdesc:a91bebe612f0c98f326f39b3e5dbffadf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the fill and outline color. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types.  <a href="#a91bebe612f0c98f326f39b3e5dbffadf">More...</a><br /></td></tr>
+<tr class="separator:a91bebe612f0c98f326f39b3e5dbffadf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a595d88a70fcfa1bf421a4fc828adb100"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a595d88a70fcfa1bf421a4fc828adb100">setOutlineThickness</a> (float thickness)</td></tr>
+<tr class="memdesc:a595d88a70fcfa1bf421a4fc828adb100"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the outline thickness of the element, in pixels. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types.  <a href="#a595d88a70fcfa1bf421a4fc828adb100">More...</a><br /></td></tr>
+<tr class="separator:a595d88a70fcfa1bf421a4fc828adb100"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef09489fda89614e34f088d88f5cdde2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#aef09489fda89614e34f088d88f5cdde2">setSecondaryColor</a> (sf::Color fill, sf::Color outline)</td></tr>
+<tr class="memdesc:aef09489fda89614e34f088d88f5cdde2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set secondary colors of the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Doesn't apply to all element types.  <a href="#aef09489fda89614e34f088d88f5cdde2">More...</a><br /></td></tr>
+<tr class="separator:aef09489fda89614e34f088d88f5cdde2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ce0398c610dc6b9edeacda7d968e8ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a9ce0398c610dc6b9edeacda7d968e8ab">setSecondaryOutlineThickness</a> (float thickness)</td></tr>
+<tr class="memdesc:a9ce0398c610dc6b9edeacda7d968e8ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the outline thickness of the text, in pixels. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types.  <a href="#a9ce0398c610dc6b9edeacda7d968e8ab">More...</a><br /></td></tr>
+<tr class="separator:a9ce0398c610dc6b9edeacda7d968e8ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addb4566469e2004ec0caa4a9de1acfe4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#addb4566469e2004ec0caa4a9de1acfe4">setStyle</a> (sf::Uint32 style)</td></tr>
+<tr class="memdesc:addb4566469e2004ec0caa4a9de1acfe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the style of the text. See sf::Text::Style. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types.  <a href="#addb4566469e2004ec0caa4a9de1acfe4">More...</a><br /></td></tr>
+<tr class="separator:addb4566469e2004ec0caa4a9de1acfe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8042a6e965903fedbcc06eb5432f7dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#ac8042a6e965903fedbcc06eb5432f7dc">setFont</a> (<a class="el" href="a01459.html">bl::resource::Resource</a>&lt; sf::Font &gt;::Ref font)</td></tr>
+<tr class="memdesc:ac8042a6e965903fedbcc06eb5432f7dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the font used by the text. Note that a default font is used if this isn't called. The default font may be left out of the build by defining BLIB_NO_FONT.  <a href="#ac8042a6e965903fedbcc06eb5432f7dc">More...</a><br /></td></tr>
+<tr class="separator:ac8042a6e965903fedbcc06eb5432f7dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae50e10892baab5cd01b623565877aead"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#ae50e10892baab5cd01b623565877aead">setHorizontalAlignment</a> (<a class="el" href="a01235.html#aae930cb5781c4d97d0a5c39be0d1f3cc">RenderSettings::Alignment</a> align)</td></tr>
+<tr class="memdesc:ae50e10892baab5cd01b623565877aead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the horizontal alignment. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types.  <a href="#ae50e10892baab5cd01b623565877aead">More...</a><br /></td></tr>
+<tr class="separator:ae50e10892baab5cd01b623565877aead"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a171082f35d20d5d80463439ca6b0887d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a171082f35d20d5d80463439ca6b0887d">setVerticalAlignment</a> (<a class="el" href="a01235.html#aae930cb5781c4d97d0a5c39be0d1f3cc">RenderSettings::Alignment</a> align)</td></tr>
+<tr class="memdesc:a171082f35d20d5d80463439ca6b0887d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the vertical alignment. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types.  <a href="#a171082f35d20d5d80463439ca6b0887d">More...</a><br /></td></tr>
+<tr class="separator:a171082f35d20d5d80463439ca6b0887d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a098bc4aac9475e3b2829ca6e171516ec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a098bc4aac9475e3b2829ca6e171516ec">expandsWidth</a> () const</td></tr>
+<tr class="memdesc:a098bc4aac9475e3b2829ca6e171516ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the widget should expand horizontally to fill available space when packing. If false, the widget will only get its requisition for acquisition.  <a href="#a098bc4aac9475e3b2829ca6e171516ec">More...</a><br /></td></tr>
+<tr class="separator:a098bc4aac9475e3b2829ca6e171516ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7978679462ce3b23fc2622d2675d35df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a7978679462ce3b23fc2622d2675d35df">setExpandsWidth</a> (bool expand)</td></tr>
+<tr class="memdesc:a7978679462ce3b23fc2622d2675d35df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not the widget should expand horizontally when packing.  <a href="#a7978679462ce3b23fc2622d2675d35df">More...</a><br /></td></tr>
+<tr class="separator:a7978679462ce3b23fc2622d2675d35df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a577fbeda43f63c82abd6d753cfd33afd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a577fbeda43f63c82abd6d753cfd33afd">expandsHeight</a> () const</td></tr>
+<tr class="memdesc:a577fbeda43f63c82abd6d753cfd33afd"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the widget should expand vertically to fill available space when packing. If false, the widget will only get its requisition for acquisition.  <a href="#a577fbeda43f63c82abd6d753cfd33afd">More...</a><br /></td></tr>
+<tr class="separator:a577fbeda43f63c82abd6d753cfd33afd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a925befbd84254f5c5d0171d243263908"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a925befbd84254f5c5d0171d243263908">setExpandsHeight</a> (bool expand)</td></tr>
+<tr class="memdesc:a925befbd84254f5c5d0171d243263908"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not the widget should expand vertically when packing.  <a href="#a925befbd84254f5c5d0171d243263908">More...</a><br /></td></tr>
+<tr class="separator:a925befbd84254f5c5d0171d243263908"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa5cd052c66f7cdf7928df76aabc4c8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#aaa5cd052c66f7cdf7928df76aabc4c8c">recalculatePosition</a> ()</td></tr>
+<tr class="memdesc:aaa5cd052c66f7cdf7928df76aabc4c8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the position relative to the parent. Called whenever the parent moves.  <a href="#aaa5cd052c66f7cdf7928df76aabc4c8c">More...</a><br /></td></tr>
+<tr class="separator:aaa5cd052c66f7cdf7928df76aabc4c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a201874fa2892e810e29a9f8c46ef51d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a201874fa2892e810e29a9f8c46ef51d3">setTooltip</a> (const std::string &amp;tooltip)</td></tr>
+<tr class="memdesc:a201874fa2892e810e29a9f8c46ef51d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a help message to display on hover.  <a href="#a201874fa2892e810e29a9f8c46ef51d3">More...</a><br /></td></tr>
+<tr class="separator:a201874fa2892e810e29a9f8c46ef51d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8091f6b8a8718ed4d1e47f0a7e4a4f76"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a8091f6b8a8718ed4d1e47f0a7e4a4f76">getTooltip</a> () const</td></tr>
+<tr class="memdesc:a8091f6b8a8718ed4d1e47f0a7e4a4f76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the tooltip of this element.  <a href="#a8091f6b8a8718ed4d1e47f0a7e4a4f76">More...</a><br /></td></tr>
+<tr class="separator:a8091f6b8a8718ed4d1e47f0a7e4a4f76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea5114a9914b0b8534951d0e488b1419"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01235.html">RenderSettings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#aea5114a9914b0b8534951d0e488b1419">renderSettings</a> () const</td></tr>
+<tr class="memdesc:aea5114a9914b0b8534951d0e488b1419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the render settings for this object.  <a href="#aea5114a9914b0b8534951d0e488b1419">More...</a><br /></td></tr>
+<tr class="separator:aea5114a9914b0b8534951d0e488b1419"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb1328297cc698f4f614e57cabafff6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#acb1328297cc698f4f614e57cabafff6c">queueUpdateAction</a> (const <a class="el" href="a01139.html#affa548f516bcc2528bd7ad8ef1092e48">QueuedAction</a> &amp;action)</td></tr>
+<tr class="memdesc:acb1328297cc698f4f614e57cabafff6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an action to the queue to be executed after all elements are next updated. This is for event handlers/update methods to perform actions that modify the element tree to do so safely. It is not safe to modify the element tree inside of a call to an event handler or an <a class="el" href="a01139.html#ac4458e4f4a7dd0a552a1fdbb991244e7" title="Performs any custom logic of the Element. ">update()</a> call.  <a href="#acb1328297cc698f4f614e57cabafff6c">More...</a><br /></td></tr>
+<tr class="separator:acb1328297cc698f4f614e57cabafff6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad183906984bac1d111e726d451823ef5"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#ad183906984bac1d111e726d451823ef5">receivesOutOfBoundsEvents</a> () const</td></tr>
+<tr class="memdesc:ad183906984bac1d111e726d451823ef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this element should receive events that occured outside the acquisition of its parent.  <a href="#ad183906984bac1d111e726d451823ef5">More...</a><br /></td></tr>
+<tr class="separator:ad183906984bac1d111e726d451823ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a6203fbe692104ebd19ed20e3e94ff138"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01139.html#a21b57f73febb9e1c62e8abcef64b1654">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#a6203fbe692104ebd19ed20e3e94ff138">create</a> (unsigned int lineCount=1, bool allowMoreLines=false)</td></tr>
+<tr class="memdesc:a6203fbe692104ebd19ed20e3e94ff138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="a01187.html" title="Single or multiline text entry Element. Note that the text color is the secondary color in render set...">TextEntry</a> element.  <a href="#a6203fbe692104ebd19ed20e3e94ff138">More...</a><br /></td></tr>
+<tr class="separator:a6203fbe692104ebd19ed20e3e94ff138"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a670a760fec15a57cf7ca54e348e57c46"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#a670a760fec15a57cf7ca54e348e57c46">CursorFlashPeriod</a> = 0.75</td></tr>
+<tr class="separator:a670a760fec15a57cf7ca54e348e57c46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6ad38fe6e305040f491e83558920eee"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#ae6ad38fe6e305040f491e83558920eee">DefaultCharacterSize</a> = 14</td></tr>
+<tr class="separator:ae6ad38fe6e305040f491e83558920eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a34a4a55252dbc2c4801fc213d957911a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#a34a4a55252dbc2c4801fc213d957911a">TextEntry</a> (unsigned int lineCount, bool allowMoreLines)</td></tr>
+<tr class="memdesc:a34a4a55252dbc2c4801fc213d957911a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="a01187.html" title="Single or multiline text entry Element. Note that the text color is the secondary color in render set...">TextEntry</a> element.  <a href="#a34a4a55252dbc2c4801fc213d957911a">More...</a><br /></td></tr>
+<tr class="separator:a34a4a55252dbc2c4801fc213d957911a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ba446bcce9a5287dd20f35b9799ea25"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#a3ba446bcce9a5287dd20f35b9799ea25">minimumRequisition</a> () const override</td></tr>
+<tr class="memdesc:a3ba446bcce9a5287dd20f35b9799ea25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the minimum area required based on the number of lines. Returns small width. Width should be set via <a class="el" href="a01139.html#a56737528495d6b5d9c01c8dd52851766" title="Sets the requisition of the Element. This is the minimum amount of space it needs. Pass in (0,0) to reset. ">setRequisition()</a> or by setExpandsWidth(true)  <a href="#a3ba446bcce9a5287dd20f35b9799ea25">More...</a><br /></td></tr>
+<tr class="separator:a3ba446bcce9a5287dd20f35b9799ea25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa591d78ffd4b6042c0841f0d54b29797"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01187.html#aa591d78ffd4b6042c0841f0d54b29797">doRender</a> (sf::RenderTarget &amp;target, sf::RenderStates states, const <a class="el" href="a01227.html">Renderer</a> &amp;renderer) const override</td></tr>
+<tr class="memdesc:aa591d78ffd4b6042c0841f0d54b29797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the text entry.  <a href="#aa591d78ffd4b6042c0841f0d54b29797">More...</a><br /></td></tr>
+<tr class="separator:aa591d78ffd4b6042c0841f0d54b29797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7329e84ffd9e61927ce1c4e13b2e090c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a7329e84ffd9e61927ce1c4e13b2e090c">propagateEvent</a> (const <a class="el" href="a01199.html">Event</a> &amp;event)</td></tr>
+<tr class="memdesc:a7329e84ffd9e61927ce1c4e13b2e090c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual method for containers to propagate events to their children.  <a href="#a7329e84ffd9e61927ce1c4e13b2e090c">More...</a><br /></td></tr>
+<tr class="separator:a7329e84ffd9e61927ce1c4e13b2e090c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a559f4dbe59b34d18c4c4461147897f2e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a559f4dbe59b34d18c4c4461147897f2e">shouldPack</a> () const</td></tr>
+<tr class="memdesc:a559f4dbe59b34d18c4c4461147897f2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true. Elements such as window should return false.  <a href="#a559f4dbe59b34d18c4c4461147897f2e">More...</a><br /></td></tr>
+<tr class="separator:a559f4dbe59b34d18c4c4461147897f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dbd0c299a7d38912c2441a484cbe669"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a5dbd0c299a7d38912c2441a484cbe669">markClean</a> ()</td></tr>
+<tr class="memdesc:a5dbd0c299a7d38912c2441a484cbe669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks this element as clean and not needing of re-acquisition.  <a href="#a5dbd0c299a7d38912c2441a484cbe669">More...</a><br /></td></tr>
+<tr class="separator:a5dbd0c299a7d38912c2441a484cbe669"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d58a16e0ab4908418af27188d0ce11e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a1d58a16e0ab4908418af27188d0ce11e">setChildParent</a> (<a class="el" href="a01139.html">Element</a> *parent)</td></tr>
+<tr class="memdesc:a1d58a16e0ab4908418af27188d0ce11e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the parent of the given element to this.  <a href="#a1d58a16e0ab4908418af27188d0ce11e">More...</a><br /></td></tr>
+<tr class="separator:a1d58a16e0ab4908418af27188d0ce11e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1516964ca202a9732bdb081eb266721e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a1516964ca202a9732bdb081eb266721e">bringToTop</a> (const <a class="el" href="a01139.html">Element</a> *child)</td></tr>
+<tr class="memdesc:a1516964ca202a9732bdb081eb266721e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bring the given child <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> to the top. A child <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> calls this on it's parent when it gains focus. Most elements do not need to implement this except for Containers.  <a href="#a1516964ca202a9732bdb081eb266721e">More...</a><br /></td></tr>
+<tr class="separator:a1516964ca202a9732bdb081eb266721e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa612f46b8382827395e1f6ef9e646843"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#aa612f46b8382827395e1f6ef9e646843">removeChild</a> (const <a class="el" href="a01139.html">Element</a> *child)</td></tr>
+<tr class="memdesc:aa612f46b8382827395e1f6ef9e646843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the child <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Only implemented by <a class="el" href="a01135.html" title="Base class for Elements that have child elements. Provides coordinate transformation for rendering an...">Container</a>.  <a href="#aa612f46b8382827395e1f6ef9e646843">More...</a><br /></td></tr>
+<tr class="separator:aa612f46b8382827395e1f6ef9e646843"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a2e8c523eb026786a0757370d7315bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a6a2e8c523eb026786a0757370d7315bf">fireSignal</a> (const <a class="el" href="a01199.html">Event</a> &amp;action)</td></tr>
+<tr class="memdesc:a6a2e8c523eb026786a0757370d7315bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fires the signal that corresponds with the passed Action. This only needs to be called for Actions specific to derived Elements.  <a href="#a6a2e8c523eb026786a0757370d7315bf">More...</a><br /></td></tr>
+<tr class="separator:a6a2e8c523eb026786a0757370d7315bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9236487952f5fc68729a2b20f692a141"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a9236487952f5fc68729a2b20f692a141">assignAcquisition</a> (const sf::FloatRect &amp;acquisition)</td></tr>
+<tr class="memdesc:a9236487952f5fc68729a2b20f692a141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the acquisition of this element. Meant to be called by a <a class="el" href="a01215.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container. Custom packers may be implemented from this interface. Care must be taken to avoid packing elements that are marked not packable. ">Packer</a>.  <a href="#a9236487952f5fc68729a2b20f692a141">More...</a><br /></td></tr>
+<tr class="separator:a9236487952f5fc68729a2b20f692a141"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e09fe825dada5bd095e68ec50d06bca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a6e09fe825dada5bd095e68ec50d06bca">setPosition</a> (const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:a6e09fe825dada5bd095e68ec50d06bca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually set the position of the element. This modifies the acquisition but does not trigger any signals or repacking.  <a href="#a6e09fe825dada5bd095e68ec50d06bca">More...</a><br /></td></tr>
+<tr class="separator:a6e09fe825dada5bd095e68ec50d06bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1172339667002feeb59c3469b30acec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#ad1172339667002feeb59c3469b30acec">isChild</a> (const <a class="el" href="a01139.html">Element</a> *element)</td></tr>
+<tr class="memdesc:ad1172339667002feeb59c3469b30acec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not an element is a child of this one.  <a href="#ad1172339667002feeb59c3469b30acec">More...</a><br /></td></tr>
+<tr class="separator:ad1172339667002feeb59c3469b30acec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a515e6b0127b8a2e71260644e414e49fc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a515e6b0127b8a2e71260644e414e49fc">requestMakeDirty</a> (const <a class="el" href="a01139.html">Element</a> *childRequester)</td></tr>
+<tr class="memdesc:a515e6b0127b8a2e71260644e414e49fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by a child element that is dirty. Parent element gets to decide if it makes itself dirty or not.  <a href="#a515e6b0127b8a2e71260644e414e49fc">More...</a><br /></td></tr>
+<tr class="separator:a515e6b0127b8a2e71260644e414e49fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a655c624b8b982c35bfb05b339c1d20f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01139.html#a21b57f73febb9e1c62e8abcef64b1654">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01139.html#a655c624b8b982c35bfb05b339c1d20f0">me</a> ()</td></tr>
+<tr class="memdesc:a655c624b8b982c35bfb05b339c1d20f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Ptr to this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>.  <a href="#a655c624b8b982c35bfb05b339c1d20f0">More...</a><br /></td></tr>
+<tr class="separator:a655c624b8b982c35bfb05b339c1d20f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Single or multiline text entry <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Note that the text color is the secondary color in render settings. The box color is the primary. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00018">18</a> of file <a class="el" href="a00188_source.html">TextEntry.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a1a0b6f767fcb2a444b60cce3046e95b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a0b6f767fcb2a444b60cce3046e95b7">&#9670;&nbsp;</a></span>CPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;const <a class="el" href="a01139.html">Element</a>&gt; <a class="el" href="a01139.html#a1a0b6f767fcb2a444b60cce3046e95b7">bl::gui::Element::CPtr</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00158_source.html#l00035">35</a> of file <a class="el" href="a00158_source.html">Element.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad282be9fe710dc878323a91d687e29f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad282be9fe710dc878323a91d687e29f9">&#9670;&nbsp;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a01187.html">TextEntry</a>&gt; <a class="el" href="a01187.html#ad282be9fe710dc878323a91d687e29f9">bl::gui::TextEntry::Ptr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00020">20</a> of file <a class="el" href="a00188_source.html">TextEntry.hpp</a>.</p>
+
+</div>
+</div>
+<a id="affa548f516bcc2528bd7ad8ef1092e48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affa548f516bcc2528bd7ad8ef1092e48">&#9670;&nbsp;</a></span>QueuedAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01139.html#affa548f516bcc2528bd7ad8ef1092e48">bl::gui::Element::QueuedAction</a> =  std::function&lt;void()&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00158_source.html#l00038">38</a> of file <a class="el" href="a00158_source.html">Element.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5a203f6b9f513c2adbeb9b8a9082013b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a203f6b9f513c2adbeb9b8a9082013b">&#9670;&nbsp;</a></span>WPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::weak_ptr&lt;<a class="el" href="a01139.html">Element</a>&gt; <a class="el" href="a01139.html#a5a203f6b9f513c2adbeb9b8a9082013b">bl::gui::Element::WPtr</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00158_source.html#l00036">36</a> of file <a class="el" href="a00158_source.html">Element.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a7feddc70c7c990ad6bc0b5174d866707"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7feddc70c7c990ad6bc0b5174d866707">&#9670;&nbsp;</a></span>Mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a01187.html#a7feddc70c7c990ad6bc0b5174d866707">bl::gui::TextEntry::Mode</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The mode a <a class="el" href="a01187.html" title="Single or multiline text entry Element. Note that the text color is the secondary color in render set...">TextEntry</a> is in. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7feddc70c7c990ad6bc0b5174d866707aed36a1ef76a59ee3f15180e0441188ad"></a>Any&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7feddc70c7c990ad6bc0b5174d866707aa0faef0851b4294c06f2b94bb1cb2044"></a>Integer&#160;</td><td class="fielddoc"><p>Any text may be input. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7feddc70c7c990ad6bc0b5174d866707a22ae0e2b89e5e3d477f988cc36d3272b"></a>Float&#160;</td><td class="fielddoc"><p>Only integer values may be entered. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7feddc70c7c990ad6bc0b5174d866707aa1a914735b205424ba6c40b85528d78a"></a>Unsigned&#160;</td><td class="fielddoc"><p>Only numbers may be entered. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7feddc70c7c990ad6bc0b5174d866707a71fed0c3428bf1a2e19af257c4bac379"></a>Signed&#160;</td><td class="fielddoc"><p>Positive numbers only. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00026">26</a> of file <a class="el" href="a00188_source.html">TextEntry.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a34a4a55252dbc2c4801fc213d957911a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34a4a55252dbc2c4801fc213d957911a">&#9670;&nbsp;</a></span>TextEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::TextEntry::TextEntry </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>lineCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>allowMoreLines</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new <a class="el" href="a01187.html" title="Single or multiline text entry Element. Note that the text color is the secondary color in render set...">TextEntry</a> element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lineCount</td><td>The number of lines in the entry </td></tr>
+    <tr><td class="paramname">allowMoreLines</td><td>True to allow more lines than fits (scroll) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Ptr The new <a class="el" href="a01187.html" title="Single or multiline text entry Element. Note that the text color is the secondary color in render set...">TextEntry</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00584_source.html#l00024">24</a> of file <a class="el" href="a00584_source.html">TextEntry.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a73c4c08fbc474e43d77515b3cac83b07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73c4c08fbc474e43d77515b3cac83b07">&#9670;&nbsp;</a></span>active()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::active </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> is active and responds to events. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00258">258</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9236487952f5fc68729a2b20f692a141"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9236487952f5fc68729a2b20f692a141">&#9670;&nbsp;</a></span>assignAcquisition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::assignAcquisition </td>
+          <td>(</td>
+          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
+          <td class="paramname"><em>acquisition</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the acquisition of this element. Meant to be called by a <a class="el" href="a01215.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container. Custom packers may be implemented from this interface. Care must be taken to avoid packing elements that are marked not packable. ">Packer</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">acquisition</td><td>The area to occupy, in absolute coordinates </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00276">276</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1516964ca202a9732bdb081eb266721e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1516964ca202a9732bdb081eb266721e">&#9670;&nbsp;</a></span>bringToTop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::bringToTop </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01139.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>child</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bring the given child <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> to the top. A child <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> calls this on it's parent when it gains focus. Most elements do not need to implement this except for Containers. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">child</td><td>The child to move to the top of the screen (rendered last) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="a01135.html#ab66b030effcbc408715e6ced7961ce62">bl::gui::Container</a>, <a class="el" href="a01131.html#a228e2ada6d9a18d82cac540e65daf802">bl::gui::CompositeElement&lt; N &gt;</a>, <a class="el" href="a01131.html#a228e2ada6d9a18d82cac540e65daf802">bl::gui::CompositeElement&lt; 1 &gt;</a>, <a class="el" href="a01131.html#a228e2ada6d9a18d82cac540e65daf802">bl::gui::CompositeElement&lt; 2 &gt;</a>, and <a class="el" href="a01131.html#a228e2ada6d9a18d82cac540e65daf802">bl::gui::CompositeElement&lt; 3 &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00381">381</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8d182c711ec3860dd2e2307f79cc576a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d182c711ec3860dd2e2307f79cc576a">&#9670;&nbsp;</a></span>clearFocus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::clearFocus </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01139.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>requester</em> = <code>nullptr</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes the focus from ALL elements unless an element is forcing itself in focus. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">requester</td><td>The element requesting for focus to be cleared </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00064">64</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6203fbe692104ebd19ed20e3e94ff138"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6203fbe692104ebd19ed20e3e94ff138">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01187.html#ad282be9fe710dc878323a91d687e29f9">TextEntry::Ptr</a> bl::gui::TextEntry::create </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>lineCount</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>allowMoreLines</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new <a class="el" href="a01187.html" title="Single or multiline text entry Element. Note that the text color is the secondary color in render set...">TextEntry</a> element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lineCount</td><td>The number of lines in the entry </td></tr>
+    <tr><td class="paramname">allowMoreLines</td><td>True to allow more lines than fits (scroll) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Ptr The new <a class="el" href="a01187.html" title="Single or multiline text entry Element. Note that the text color is the secondary color in render set...">TextEntry</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00584_source.html#l00022">22</a> of file <a class="el" href="a00584_source.html">TextEntry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2ab6ffaf3c047bbe35f6f2bbffc2fbd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ab6ffaf3c047bbe35f6f2bbffc2fbd3">&#9670;&nbsp;</a></span>cursorVisible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::TextEntry::cursorVisible </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the cursor is visible. </p>
+<dl class="section return"><dt>Returns</dt><dd>true </dd>
+<dd>
+false </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00584_source.html#l00064">64</a> of file <a class="el" href="a00584_source.html">TextEntry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2fe9691022f41756de7f7c07008de6ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fe9691022f41756de7f7c07008de6ee">&#9670;&nbsp;</a></span>dirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::dirty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> requires a reacquisition. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00260">260</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa591d78ffd4b6042c0841f0d54b29797"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa591d78ffd4b6042c0841f0d54b29797">&#9670;&nbsp;</a></span>doRender()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::TextEntry::doRender </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01227.html">Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>renderer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Renders the text entry. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td>Target to render to </td></tr>
+    <tr><td class="paramname">states</td><td>RenderStates to apply </td></tr>
+    <tr><td class="paramname">renderer</td><td><a class="el" href="a01227.html" title="Interface for renderers for GUIs. Derived classes may elect to inherit from DefaultRenderer and only ...">Renderer</a> to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a01139.html#a49e21f66ab1c5ed342be2edfdf085747">bl::gui::Element</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00584_source.html#l00092">92</a> of file <a class="el" href="a00584_source.html">TextEntry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a577fbeda43f63c82abd6d753cfd33afd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a577fbeda43f63c82abd6d753cfd33afd">&#9670;&nbsp;</a></span>expandsHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::expandsHeight </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>True if the widget should expand vertically to fill available space when packing. If false, the widget will only get its requisition for acquisition. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00274">274</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a098bc4aac9475e3b2829ca6e171516ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a098bc4aac9475e3b2829ca6e171516ec">&#9670;&nbsp;</a></span>expandsWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::expandsWidth </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>True if the widget should expand horizontally to fill available space when packing. If false, the widget will only get its requisition for acquisition. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00267">267</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6a2e8c523eb026786a0757370d7315bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a2e8c523eb026786a0757370d7315bf">&#9670;&nbsp;</a></span>fireSignal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::fireSignal </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01199.html">Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>action</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fires the signal that corresponds with the passed Action. This only needs to be called for Actions specific to derived Elements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">action</td><td>The action to fire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00216">216</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4666a9982560eec35c38a7d35f315013"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4666a9982560eec35c38a7d35f315013">&#9670;&nbsp;</a></span>focusIsforced()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::focusIsforced </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not this element is forcing itself to stay in focus. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00046">46</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af0695b05e105ed699a612ed3a3c0c84f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0695b05e105ed699a612ed3a3c0c84f">&#9670;&nbsp;</a></span>getAcquisition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const sf::FloatRect &amp; bl::gui::Element::getAcquisition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the acquisition of the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. This is the size allocated to it, and mays be larger or equal to the requisition. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00307">307</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aceba6f9abb6b29e79903bd4f2fc4db70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceba6f9abb6b29e79903bd4f2fc4db70">&#9670;&nbsp;</a></span>getCursorPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int bl::gui::TextEntry::getCursorPosition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the position of the cursor, in characters. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00584_source.html#l00066">66</a> of file <a class="el" href="a00584_source.html">TextEntry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8178e9a97c6b9302c09241c5cef4ac13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8178e9a97c6b9302c09241c5cef4ac13">&#9670;&nbsp;</a></span>getInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; bl::gui::TextEntry::getInput </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the current input. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00584_source.html#l00054">54</a> of file <a class="el" href="a00584_source.html">TextEntry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac843bddb7798c90874b40cb2d28bb840"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac843bddb7798c90874b40cb2d28bb840">&#9670;&nbsp;</a></span>getPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2f bl::gui::Element::getPosition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the absolute position of the element. Stays up to date with parent element. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00309">309</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3c804da248429fa37336781cd91f9c4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c804da248429fa37336781cd91f9c4f">&#9670;&nbsp;</a></span>getRequisition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2f bl::gui::Element::getRequisition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the requisition of the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00035">35</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abc2879ece76f07e11c0878d692985fb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc2879ece76f07e11c0878d692985fb9">&#9670;&nbsp;</a></span>getSignal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00813.html#a0d2f488379b11b840372812e04dee005">Signal</a> &amp; bl::gui::Element::getSignal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01199.html#a14b67eb968cc68b09a420e989b3a4a54">Event::Type</a>&#160;</td>
+          <td class="paramname"><em>trigger</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a modifiable reference to the signal for the given trigger. Undefined behavior if trigger is not valid. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trigger</td><td>The signal to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Signal&amp; A signal that can be set </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00042">42</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a09acee851f4f0bf38d8a5396a0dc0578"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09acee851f4f0bf38d8a5396a0dc0578">&#9670;&nbsp;</a></span>getTextOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const sf::Vector2f &amp; bl::gui::TextEntry::getTextOffset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the scrolling offset of the text within the entry. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00584_source.html#l00272">272</a> of file <a class="el" href="a00584_source.html">TextEntry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8091f6b8a8718ed4d1e47f0a7e4a4f76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8091f6b8a8718ed4d1e47f0a7e4a4f76">&#9670;&nbsp;</a></span>getTooltip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; bl::gui::Element::getTooltip </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the tooltip of this element. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00395">395</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab599e6c7983c2ac2cb34db4279a6ad16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab599e6c7983c2ac2cb34db4279a6ad16">&#9670;&nbsp;</a></span>handleScroll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::handleScroll </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01199.html">Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>scroll</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Special event handler for scroll events. Default behavior returns false. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scroll</td><td>The scroll action to process </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the event was processed, false if unhandled </dd></dl>
+
+<p>Reimplemented in <a class="el" href="a01171.html#abc68f0edb066ba244e5713af4c123564">bl::gui::ScrollArea</a>, <a class="el" href="a01135.html#a1ea169d386ec13b5dc15b9777088c72e">bl::gui::Container</a>, <a class="el" href="a01183.html#a806b24b50e49e932b2078ffc2e4e1be6">bl::gui::Slider</a>, and <a class="el" href="a01127.html#a6b7dd64a5d4aaf0681dc7f3e6359ed96">bl::gui::ComboBox</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00212">212</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7205badf3ab0478843e07554025cd13b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7205badf3ab0478843e07554025cd13b">&#9670;&nbsp;</a></span>hasFocus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::hasFocus </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns if the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> is in focus or not. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00044">44</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad1172339667002feeb59c3469b30acec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1172339667002feeb59c3469b30acec">&#9670;&nbsp;</a></span>isChild()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::isChild </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01139.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>element</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not an element is a child of this one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">element</td><td>The element to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if this element is a parent of the given element </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00086">86</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6f2d5d5a431b82b8c0515d5dac59ded8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f2d5d5a431b82b8c0515d5dac59ded8">&#9670;&nbsp;</a></span>leftPressed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::leftPressed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns if the mouse is over the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> and the Left button is pressed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00101">101</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a25f12a23ffb09b4a0fb6eb92f005d810"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25f12a23ffb09b4a0fb6eb92f005d810">&#9670;&nbsp;</a></span>makeDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::makeDirty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marks this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> as requiring a recalculation of acquisition. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00222">222</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5dbd0c299a7d38912c2441a484cbe669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dbd0c299a7d38912c2441a484cbe669">&#9670;&nbsp;</a></span>markClean()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::markClean </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marks this element as clean and not needing of re-acquisition. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00231">231</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a655c624b8b982c35bfb05b339c1d20f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a655c624b8b982c35bfb05b339c1d20f0">&#9670;&nbsp;</a></span>me()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01139.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> bl::gui::Element::me </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the Ptr to this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01139.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> Ptr to this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00379">379</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3ba446bcce9a5287dd20f35b9799ea25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ba446bcce9a5287dd20f35b9799ea25">&#9670;&nbsp;</a></span>minimumRequisition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2f bl::gui::TextEntry::minimumRequisition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes the minimum area required based on the number of lines. Returns small width. Width should be set via <a class="el" href="a01139.html#a56737528495d6b5d9c01c8dd52851766" title="Sets the requisition of the Element. This is the minimum amount of space it needs. Pass in (0,0) to reset. ">setRequisition()</a> or by setExpandsWidth(true) </p>
+
+<p>Implements <a class="el" href="a01139.html#a37aab20ddf86f8a63e7fd271e4aecf6d">bl::gui::Element</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00584_source.html#l00084">84</a> of file <a class="el" href="a00584_source.html">TextEntry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3d229bf55f3d75ff32e45094e36ea171"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d229bf55f3d75ff32e45094e36ea171">&#9670;&nbsp;</a></span>mouseOver()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::mouseOver </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns if the mouse is currently over this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00099">99</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abfba06297becce01d059dea8eeea90ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfba06297becce01d059dea8eeea90ba">&#9670;&nbsp;</a></span>moveToTop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::moveToTop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Brings this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> to the top. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00095">95</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5fc9c37715cf06cd780e40a329e6d587"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fc9c37715cf06cd780e40a329e6d587">&#9670;&nbsp;</a></span>packable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::packable </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>includeInvisible</em> = <code>false</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Signifies that this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> should be packed. Takes into account the element type, visibility, and pack override. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">includeInvisible</td><td>True to be packable even if not visible </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00238">238</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5867f27d44f8ebaf42b86db81524278c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5867f27d44f8ebaf42b86db81524278c">&#9670;&nbsp;</a></span>processEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::processEvent </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01199.html">Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handles a <a class="el" href="a01203.html" title="Top level class for creating a graphical user interface. ">GUI</a> event. Typically not called manually. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The window event </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the event is consumed and no more Elements should be notified </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00105">105</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7329e84ffd9e61927ce1c4e13b2e090c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7329e84ffd9e61927ce1c4e13b2e090c">&#9670;&nbsp;</a></span>propagateEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::propagateEvent </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01199.html">Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Virtual method for containers to propagate events to their children. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event to propagate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if a child element handled the event, false if the event should be processed </dd></dl>
+
+<p>Reimplemented in <a class="el" href="a01151.html#afcafc5da34a6de250af0c9fcb47a8e02">bl::gui::Notebook</a>, <a class="el" href="a01171.html#a3bee3f09be47456d43e36fe733a29a9a">bl::gui::ScrollArea</a>, <a class="el" href="a01195.html#af9f0efc4d85d1a6fc5010ea8f4f50532">bl::gui::Window</a>, <a class="el" href="a01127.html#a089d77cdf629033ee6cefa3319e6884f">bl::gui::ComboBox</a>, <a class="el" href="a01183.html#a0f3e09425dcd44fc7f897de14fb32312">bl::gui::Slider</a>, <a class="el" href="a01135.html#a0e06751608c742b0a7a7470d0dd25b24">bl::gui::Container</a>, <a class="el" href="a01191.html#a15e67fe8f675fe3a0bbb10d727cf4205">bl::gui::ToggleButton</a>, and <a class="el" href="a01115.html#a8ec8a2f82e66d3cd2e2439f601134450">bl::gui::Button</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00214">214</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acb1328297cc698f4f614e57cabafff6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb1328297cc698f4f614e57cabafff6c">&#9670;&nbsp;</a></span>queueUpdateAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::queueUpdateAction </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01139.html#affa548f516bcc2528bd7ad8ef1092e48">QueuedAction</a> &amp;&#160;</td>
+          <td class="paramname"><em>action</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds an action to the queue to be executed after all elements are next updated. This is for event handlers/update methods to perform actions that modify the element tree to do so safely. It is not safe to modify the element tree inside of a call to an event handler or an <a class="el" href="a01187.html#a5312febe55d50af6530b81e179d5e36b" title="Manages cursor visibility based on elapsed time and active status. ">update()</a> call. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">action</td><td>The action to queue </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00397">397</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaa5cd052c66f7cdf7928df76aabc4c8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa5cd052c66f7cdf7928df76aabc4c8c">&#9670;&nbsp;</a></span>recalculatePosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::recalculatePosition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recalculates the position relative to the parent. Called whenever the parent moves. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00296">296</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad183906984bac1d111e726d451823ef5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad183906984bac1d111e726d451823ef5">&#9670;&nbsp;</a></span>receivesOutOfBoundsEvents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::receivesOutOfBoundsEvents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not this element should receive events that occured outside the acquisition of its parent. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if it should take outside events, false for contained only </dd></dl>
+
+<p>Reimplemented in <a class="el" href="a01127.html#ac7234253e9efb7143b23ecfa1aa6023f">bl::gui::ComboBox</a>, <a class="el" href="a01171.html#a1dd2742156f73eec227049b963088c53">bl::gui::ScrollArea</a>, <a class="el" href="a01131.html#a44861344c20c2f90e4dc0028cd901d0b">bl::gui::CompositeElement&lt; N &gt;</a>, <a class="el" href="a01131.html#a44861344c20c2f90e4dc0028cd901d0b">bl::gui::CompositeElement&lt; 1 &gt;</a>, <a class="el" href="a01131.html#a44861344c20c2f90e4dc0028cd901d0b">bl::gui::CompositeElement&lt; 2 &gt;</a>, <a class="el" href="a01131.html#a44861344c20c2f90e4dc0028cd901d0b">bl::gui::CompositeElement&lt; 3 &gt;</a>, and <a class="el" href="a01135.html#a8fcb78fb0d456a57749905155c2a120a">bl::gui::Container</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00414">414</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab5c567ea13f423a6b106becf3b9dd2ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5c567ea13f423a6b106becf3b9dd2ae">&#9670;&nbsp;</a></span>releaseFocus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::releaseFocus </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01139.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>requester</em> = <code>nullptr</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Releases the focus from this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Returns true if element not in focus or if the element is not forcing itself in focus. On a false return other Elements will not be able to <a class="el" href="a01139.html#ad8541c47fb63ab006f69871114fb3d00" title="Attempts to take the focus. Returns true if able to take, false otherwise. ">takeFocus()</a> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">requester</td><td>The element requesting for focus to be cleared </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="a01131.html#a37686b54197806fde269952b2754e47b">bl::gui::CompositeElement&lt; N &gt;</a>, <a class="el" href="a01131.html#a37686b54197806fde269952b2754e47b">bl::gui::CompositeElement&lt; 1 &gt;</a>, <a class="el" href="a01131.html#a37686b54197806fde269952b2754e47b">bl::gui::CompositeElement&lt; 2 &gt;</a>, <a class="el" href="a01131.html#a37686b54197806fde269952b2754e47b">bl::gui::CompositeElement&lt; 3 &gt;</a>, and <a class="el" href="a01135.html#a17accf8a3bf4c7ba8de2ecc0e0d0f056">bl::gui::Container</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00073">73</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0817e87d35e8220f702b0b2724ac0cca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0817e87d35e8220f702b0b2724ac0cca">&#9670;&nbsp;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::remove </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> from its parent. Safe to call at any time. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00218">218</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa612f46b8382827395e1f6ef9e646843"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa612f46b8382827395e1f6ef9e646843">&#9670;&nbsp;</a></span>removeChild()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::removeChild </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01139.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>child</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes the child <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Only implemented by <a class="el" href="a01135.html" title="Base class for Elements that have child elements. Provides coordinate transformation for rendering an...">Container</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">child</td><td>The <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> to remove. No effect if not present </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="a01135.html#acdce7aa80bf5fef13736d9b34e47c311">bl::gui::Container</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00383">383</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0b700d54baf5e69aef8412964600c8b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b700d54baf5e69aef8412964600c8b3">&#9670;&nbsp;</a></span>render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::render </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01227.html">Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>renderer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Renders the element using the given renderer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td>The target to render to </td></tr>
+    <tr><td class="paramname">states</td><td>Render states to apply </td></tr>
+    <tr><td class="paramname">renderer</td><td>The renderer to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00313">313</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aea5114a9914b0b8534951d0e488b1419"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea5114a9914b0b8534951d0e488b1419">&#9670;&nbsp;</a></span>renderSettings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a01235.html">RenderSettings</a> &amp; bl::gui::Element::renderSettings </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the render settings for this object. </p>
+<dl class="section return"><dt>Returns</dt><dd>const <a class="el" href="a01235.html" title="Data class to override rendering settings for GUI Elements. Overrides can be done by group or id...">RenderSettings</a>&amp; The render settings </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00330">330</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a515e6b0127b8a2e71260644e414e49fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a515e6b0127b8a2e71260644e414e49fc">&#9670;&nbsp;</a></span>requestMakeDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::requestMakeDirty </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01139.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>childRequester</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called by a child element that is dirty. Parent element gets to decide if it makes itself dirty or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">childRequester</td><td>The child requesting to dirty this parent </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="a01151.html#ab737c6a6b95cd95a48c10c3513c2a37a">bl::gui::Notebook</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00227">227</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a98661250ab85d114150c6e3dfd448e3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98661250ab85d114150c6e3dfd448e3d">&#9670;&nbsp;</a></span>rightPressed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::rightPressed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns if the mouse is over the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> and the Right button is pressed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00103">103</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad48727e4838480e83f1ed6038393edfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad48727e4838480e83f1ed6038393edfd">&#9670;&nbsp;</a></span>setActive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setActive </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>active</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether or not the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> is active and responds to events. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">active</td><td>True to respond to events. Default is true </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00249">249</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a92c847156e9aca1eb3bbeb7e6fd97673"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92c847156e9aca1eb3bbeb7e6fd97673">&#9670;&nbsp;</a></span>setCharacterSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setCharacterSize </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the character size. Default is 12. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Point size </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00337">337</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1d58a16e0ab4908418af27188d0ce11e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d58a16e0ab4908418af27188d0ce11e">&#9670;&nbsp;</a></span>setChildParent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setChildParent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01139.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the parent of the given element to this. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>The element to make a child </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00311">311</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a91bebe612f0c98f326f39b3e5dbffadf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91bebe612f0c98f326f39b3e5dbffadf">&#9670;&nbsp;</a></span>setColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setColor </td>
+          <td>(</td>
+          <td class="paramtype">sf::Color&#160;</td>
+          <td class="paramname"><em>fill</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Color&#160;</td>
+          <td class="paramname"><em>outline</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the fill and outline color. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fill</td><td>Fill color of the element </td></tr>
+    <tr><td class="paramname">outline</td><td>Outline color of the element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00342">342</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a925befbd84254f5c5d0171d243263908"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a925befbd84254f5c5d0171d243263908">&#9670;&nbsp;</a></span>setExpandsHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setExpandsHeight </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>expand</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether or not the widget should expand vertically when packing. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expand</td><td>True to fill all space, false to use only requisition </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00269">269</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7978679462ce3b23fc2622d2675d35df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7978679462ce3b23fc2622d2675d35df">&#9670;&nbsp;</a></span>setExpandsWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setExpandsWidth </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>expand</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether or not the widget should expand horizontally when packing. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expand</td><td>True to fill all space, false to use only requisition </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00262">262</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac8042a6e965903fedbcc06eb5432f7dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8042a6e965903fedbcc06eb5432f7dc">&#9670;&nbsp;</a></span>setFont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setFont </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01459.html">bl::resource::Resource</a>&lt; sf::Font &gt;::Ref&#160;</td>
+          <td class="paramname"><em>font</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the font used by the text. Note that a default font is used if this isn't called. The default font may be left out of the build by defining BLIB_NO_FONT. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">font</td><td>Resource managed font to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00332">332</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9b605764109dba9610a32ac010715913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b605764109dba9610a32ac010715913">&#9670;&nbsp;</a></span>setForceFocus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::setForceFocus </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>force</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>If set, takes the focus and forces this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> to be in focus. Returns true if able to take focus. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">force</td><td>Whether or not to force this <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> in focus if others try to <a class="el" href="a01139.html#ad8541c47fb63ab006f69871114fb3d00" title="Attempts to take the focus. Returns true if able to take, false otherwise. ">takeFocus()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00059">59</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae50e10892baab5cd01b623565877aead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae50e10892baab5cd01b623565877aead">&#9670;&nbsp;</a></span>setHorizontalAlignment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setHorizontalAlignment </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01235.html#aae930cb5781c4d97d0a5c39be0d1f3cc">RenderSettings::Alignment</a>&#160;</td>
+          <td class="paramname"><em>align</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the horizontal alignment. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">align</td><td>The alignment to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00369">369</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a30dc8a233f2c760e07aa105de1360cae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30dc8a233f2c760e07aa105de1360cae">&#9670;&nbsp;</a></span>setInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::TextEntry::setInput </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the text in the entry. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The text to set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00584_source.html#l00056">56</a> of file <a class="el" href="a00584_source.html">TextEntry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a07fb9010f3d7888d933e48fd02fa6bc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07fb9010f3d7888d933e48fd02fa6bc9">&#9670;&nbsp;</a></span>setMaxInputLength()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::TextEntry::setMaxInputLength </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>maxLength</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the maximum amount of characters that can be input. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">maxLength</td><td>The number of characters that can be input </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00584_source.html#l00052">52</a> of file <a class="el" href="a00584_source.html">TextEntry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6cf37c5378ad2606c6fd00204218e4c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cf37c5378ad2606c6fd00204218e4c1">&#9670;&nbsp;</a></span>setMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::TextEntry::setMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01187.html#a7feddc70c7c990ad6bc0b5174d866707">Mode</a>&#160;</td>
+          <td class="paramname"><em>mode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the mode of the input. Default is Any. Existing input is filtered based on the new mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>The mode to be in </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00584_source.html#l00047">47</a> of file <a class="el" href="a00584_source.html">TextEntry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a595d88a70fcfa1bf421a4fc828adb100"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a595d88a70fcfa1bf421a4fc828adb100">&#9670;&nbsp;</a></span>setOutlineThickness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setOutlineThickness </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>thickness</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the outline thickness of the element, in pixels. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">thickness</td><td>Thickness in pixels </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00348">348</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e09fe825dada5bd095e68ec50d06bca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e09fe825dada5bd095e68ec50d06bca">&#9670;&nbsp;</a></span>setPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setPosition </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Manually set the position of the element. This modifies the acquisition but does not trigger any signals or repacking. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The new position of the element. Relative to the parent element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00285">285</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a56737528495d6b5d9c01c8dd52851766"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56737528495d6b5d9c01c8dd52851766">&#9670;&nbsp;</a></span>setRequisition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setRequisition </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the requisition of the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. This is the minimum amount of space it needs. Pass in (0,0) to reset. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">box</td><td>The size to request. Cannot be smaller than <a class="el" href="a01187.html#a3ba446bcce9a5287dd20f35b9799ea25" title="Computes the minimum area required based on the number of lines. Returns small width. Width should be set via setRequisition() or by setExpandsWidth(true) ">minimumRequisition()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00027">27</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aef09489fda89614e34f088d88f5cdde2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef09489fda89614e34f088d88f5cdde2">&#9670;&nbsp;</a></span>setSecondaryColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setSecondaryColor </td>
+          <td>(</td>
+          <td class="paramtype">sf::Color&#160;</td>
+          <td class="paramname"><em>fill</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Color&#160;</td>
+          <td class="paramname"><em>outline</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set secondary colors of the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Doesn't apply to all element types. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fill</td><td>Secondary fill color of the element </td></tr>
+    <tr><td class="paramname">outline</td><td>Secondary outline color of the text </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00353">353</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9ce0398c610dc6b9edeacda7d968e8ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ce0398c610dc6b9edeacda7d968e8ab">&#9670;&nbsp;</a></span>setSecondaryOutlineThickness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setSecondaryOutlineThickness </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>thickness</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the outline thickness of the text, in pixels. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">thickness</td><td>Thickness in pixels </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00359">359</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="addb4566469e2004ec0caa4a9de1acfe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addb4566469e2004ec0caa4a9de1acfe4">&#9670;&nbsp;</a></span>setStyle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setStyle </td>
+          <td>(</td>
+          <td class="paramtype">sf::Uint32&#160;</td>
+          <td class="paramname"><em>style</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the style of the text. See sf::Text::Style. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">style</td><td>Style to set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00364">364</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a201874fa2892e810e29a9f8c46ef51d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a201874fa2892e810e29a9f8c46ef51d3">&#9670;&nbsp;</a></span>setTooltip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setTooltip </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>tooltip</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set a help message to display on hover. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tooltip</td><td>The help message to display </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00393">393</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a171082f35d20d5d80463439ca6b0887d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a171082f35d20d5d80463439ca6b0887d">&#9670;&nbsp;</a></span>setVerticalAlignment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setVerticalAlignment </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01235.html#aae930cb5781c4d97d0a5c39be0d1f3cc">RenderSettings::Alignment</a>&#160;</td>
+          <td class="paramname"><em>align</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the vertical alignment. Doesn't apply to all <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">align</td><td>The alignment to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00374">374</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a79445a7bedd5035f2dc0bc1fd8d9da54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79445a7bedd5035f2dc0bc1fd8d9da54">&#9670;&nbsp;</a></span>setVisible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::setVisible </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>visible</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>markDirty</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Show or hide the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Making it invisible does not change any other element acquisitions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">visible</td><td>True to render the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>, false to hide. Default is true </td></tr>
+    <tr><td class="paramname">markDirty</td><td>Marks this element dirty if the visibility changed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00233">233</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a559f4dbe59b34d18c4c4461147897f2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a559f4dbe59b34d18c4c4461147897f2e">&#9670;&nbsp;</a></span>shouldPack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::shouldPack </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true. Elements such as window should return false. </p>
+
+<p>Reimplemented in <a class="el" href="a01195.html#acf3b29bbad7689d8a026217572859d62">bl::gui::Window</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00245">245</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a385416ecc73d0e435b9303592e406e45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a385416ecc73d0e435b9303592e406e45">&#9670;&nbsp;</a></span>skipPacking()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::Element::skipPacking </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>skip</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Signal to Packers that this element should not be packed. Intended to be used by advanced Containers that manually pack certain elements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">skip</td><td>True to skip packing, false to pack normally </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00243">243</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad8541c47fb63ab006f69871114fb3d00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8541c47fb63ab006f69871114fb3d00">&#9670;&nbsp;</a></span>takeFocus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::takeFocus </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Attempts to take the focus. Returns true if able to take, false otherwise. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00048">48</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5312febe55d50af6530b81e179d5e36b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5312febe55d50af6530b81e179d5e36b">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::TextEntry::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Manages cursor visibility based on elapsed time and active status. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Time elapsed since last update, in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="a01139.html#ac4458e4f4a7dd0a552a1fdbb991244e7">bl::gui::Element</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00584_source.html#l00068">68</a> of file <a class="el" href="a00584_source.html">TextEntry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ef6fedb34d0dd9fa4f1864dc7a939a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ef6fedb34d0dd9fa4f1864dc7a939a8">&#9670;&nbsp;</a></span>visible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::gui::Element::visible </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the <a class="el" href="a01139.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> is visible. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00247">247</a> of file <a class="el" href="a00554_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a670a760fec15a57cf7ca54e348e57c46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a670a760fec15a57cf7ca54e348e57c46">&#9670;&nbsp;</a></span>CursorFlashPeriod</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float bl::gui::TextEntry::CursorFlashPeriod = 0.75</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00022">22</a> of file <a class="el" href="a00188_source.html">TextEntry.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae6ad38fe6e305040f491e83558920eee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6ad38fe6e305040f491e83558920eee">&#9670;&nbsp;</a></span>DefaultCharacterSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr unsigned int bl::gui::TextEntry::DefaultCharacterSize = 14</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00023">23</a> of file <a class="el" href="a00188_source.html">TextEntry.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Interfaces/GUI/Elements/<a class="el" href="a00188_source.html">TextEntry.hpp</a></li>
+<li>src/Interfaces/GUI/Elements/<a class="el" href="a00584_source.html">TextEntry.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 03:28:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 9 2021 04:03:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

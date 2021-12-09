@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::serial::json::Serializer&lt; T &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,31 +63,143 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00751.html">bl</a></li><li class="navelem"><a class="el" href="a00778.html">script</a></li><li class="navelem"><a class="el" href="a01682.html">ScriptImpl</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00804.html">bl</a></li><li class="navelem"><a class="el" href="a00820.html">serial</a></li><li class="navelem"><a class="el" href="a00830.html">json</a></li><li class="navelem"><a class="el" href="a01679.html">Serializer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a01676.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::script::ScriptImpl Member List</div>  </div>
+<div class="title">bl::serial::json::Serializer&lt; T &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01682.html">bl::script::ScriptImpl</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01682.html#ad36f078e8686d3ec4d74bb0ced1ba1de">computeValue</a>(parser::Node::Ptr value, SymbolTable &amp;table)</td><td class="entry"><a class="el" href="a01682.html">bl::script::ScriptImpl</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01682.html#a2e339a085d8372e636fc1c8fbeaff707">equals</a>(const Value &amp;left, const Value &amp;right)</td><td class="entry"><a class="el" href="a01682.html">bl::script::ScriptImpl</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01682.html#a50a38f6834aa43bc89eb13ac1edf6de6">evaluateCond</a>(parser::Node::Ptr pgroup, SymbolTable &amp;table)</td><td class="entry"><a class="el" href="a01682.html">bl::script::ScriptImpl</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01682.html#a2ce83e90ffbcf661b968f59ce7df5968">runConditional</a>(parser::Node::Ptr conditional, SymbolTable &amp;table)</td><td class="entry"><a class="el" href="a01682.html">bl::script::ScriptImpl</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01682.html#a5ea6d208f2115fae52a8a4c528a40d5d">runForLoop</a>(parser::Node::Ptr loop, SymbolTable &amp;table)</td><td class="entry"><a class="el" href="a01682.html">bl::script::ScriptImpl</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01682.html#a8bbadeb0f15a8ee29b8ef9cc4bd8dda1">runFunction</a>(parser::Node::Ptr call, SymbolTable &amp;table)</td><td class="entry"><a class="el" href="a01682.html">bl::script::ScriptImpl</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01682.html#aceee7e6b38ba72b5a6f50fdfddeba4f3">runLoop</a>(parser::Node::Ptr loop, SymbolTable &amp;table)</td><td class="entry"><a class="el" href="a01682.html">bl::script::ScriptImpl</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01682.html#aae6a6439e1b06af869f18d38a4aa79f1">runStatement</a>(parser::Node::Ptr statement, SymbolTable &amp;table)</td><td class="entry"><a class="el" href="a01682.html">bl::script::ScriptImpl</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01682.html#a8f1ad8745c55995c61eb837c2a4184a0">runStatementList</a>(parser::Node::Ptr statement, SymbolTable &amp;table)</td><td class="entry"><a class="el" href="a01682.html">bl::script::ScriptImpl</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-</table></div><!-- contents -->
+<p>Helper class for <a class="el" href="a01663.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Specializations are provided for json native types, vector, and unordered_map. User defined types should either implement <a class="el" href="a01671.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> or provide a specialization of this class.  
+ <a href="a01679.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a02215_source.html">Serializer.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a586375d75c05885ed4a2cb902d9f187f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01679.html#a586375d75c05885ed4a2cb902d9f187f">deserialize</a> (T &amp;result, const <a class="el" href="a01631.html">Value</a> &amp;value)</td></tr>
+<tr class="memdesc:a586375d75c05885ed4a2cb902d9f187f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes the given object from the json tree.  <a href="#a586375d75c05885ed4a2cb902d9f187f">More...</a><br /></td></tr>
+<tr class="separator:a586375d75c05885ed4a2cb902d9f187f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4c669ebb31442bc790cc4a2c7efda49"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01631.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01679.html#af4c669ebb31442bc790cc4a2c7efda49">serialize</a> (const T &amp;value)</td></tr>
+<tr class="memdesc:af4c669ebb31442bc790cc4a2c7efda49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the given value into a JSON <a class="el" href="a01631.html" title="Represents any value type in JSON. ">Value</a>.  <a href="#af4c669ebb31442bc790cc4a2c7efda49">More...</a><br /></td></tr>
+<tr class="separator:af4c669ebb31442bc790cc4a2c7efda49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+struct bl::serial::json::Serializer&lt; T &gt;</h3>
+
+<p>Helper class for <a class="el" href="a01663.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Specializations are provided for json native types, vector, and unordered_map. User defined types should either implement <a class="el" href="a01671.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> or provide a specialization of this class. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type to serialize </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02215_source.html#l00025">25</a> of file <a class="el" href="a02215_source.html">Serializer.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a586375d75c05885ed4a2cb902d9f187f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a586375d75c05885ed4a2cb902d9f187f">&#9670;&nbsp;</a></span>deserialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a01679.html">bl::serial::json::Serializer</a>&lt; T &gt;::deserialize </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>result</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01631.html">Value</a> &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deserializes the given object from the json tree. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">result</td><td>The object to read into </td></tr>
+    <tr><td class="paramname">value</td><td>The JSON tree to read from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02215_source.html#l00050">50</a> of file <a class="el" href="a02215_source.html">Serializer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af4c669ebb31442bc790cc4a2c7efda49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4c669ebb31442bc790cc4a2c7efda49">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01631.html">Value</a> <a class="el" href="a01679.html">bl::serial::json::Serializer</a>&lt; T &gt;::serialize </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Serializes the given value into a JSON <a class="el" href="a01631.html" title="Represents any value type in JSON. ">Value</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to serialize </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01631.html" title="Represents any value type in JSON. ">Value</a> A JSON object representing the value </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02215_source.html#l00057">57</a> of file <a class="el" href="a02215_source.html">Serializer.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Serialization/JSON/<a class="el" href="a02215_source.html">Serializer.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 03:28:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 9 2021 04:03:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::container::DynamicObjectPool&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,32 +63,545 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00751.html">bl</a></li><li class="navelem"><a class="el" href="a00754.html">container</a></li><li class="navelem"><a class="el" href="a00874.html">QuadTree</a></li><li class="navelem"><a class="el" href="a00886.html">Area</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00804.html">bl</a></li><li class="navelem"><a class="el" href="a00807.html">container</a></li><li class="navelem"><a class="el" href="a00883.html">DynamicObjectPool</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a00880.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area Member List</div>  </div>
+<div class="title">bl::container::DynamicObjectPool&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00780.html">Containers</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00886.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00886.html#af9dbb44c7f3502094414cfed7df414c0">Area</a>()=default</td><td class="entry"><a class="el" href="a00886.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00886.html#a4ad195bd03ad407e2d68fbd7f158f908">Area</a>(const TCoord &amp;position, const TCoord &amp;size)</td><td class="entry"><a class="el" href="a00886.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00886.html#ade0175260928aa29a336ed1464ee8ed9">bottomLeft</a>() const</td><td class="entry"><a class="el" href="a00886.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00886.html#a359d838c87813143a59db947db2999de">bottomRight</a>() const</td><td class="entry"><a class="el" href="a00886.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00886.html#acd3290d1caff702f47cf3ac7f9f545e9">contains</a>(const TCoord &amp;point) const</td><td class="entry"><a class="el" href="a00886.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00886.html#a294cbeeddc6e2bfa0e02be1523e9ac66">intersects</a>(const Area &amp;area) const</td><td class="entry"><a class="el" href="a00886.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00886.html#ad32034eac1a8044805fb501d78305acb">position</a></td><td class="entry"><a class="el" href="a00886.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00886.html#acb544d885f87e7b8ea2e5568dae02989">size</a></td><td class="entry"><a class="el" href="a00886.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00886.html#af0695a39800d9dd7c673d5cf17ae0b86">topLeft</a>() const</td><td class="entry"><a class="el" href="a00886.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00886.html#a06ce52c2ab8b0eacfd53ff86c4ad5602">topRight</a>() const</td><td class="entry"><a class="el" href="a00886.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Basic object pool that may vary in size. Similar to <a class="el" href="a00899.html" title="A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...">FastEraseVector</a> in that erase is O(1), however objects in the pool maintain their indices in the <a class="el" href="a00883.html" title="Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1)...">DynamicObjectPool</a>. Object slots are marked free on <a class="el" href="a00883.html#af37f49c2a9ebadee2028221c7af028ae" title="Removes the given iterator from the pool and marks the object slot for resuse. All iterators remain v...">erase()</a>, reused on <a class="el" href="a00883.html#a32395f65fa9daaf142efc3380c0cfa6a" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a>, and the pool grows in size if no slot is when <a class="el" href="a00883.html#a32395f65fa9daaf142efc3380c0cfa6a" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a> is called. Objects must implement a default constructor and copy constructor.  
+ <a href="a00883.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00887.html">IteratorType</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator for traversing the object pool. Use Iterator or ConstIterator.  <a href="a00887.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ad6abe728c65b0d9843ffa3639de171c4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a> = <a class="el" href="a00887.html">IteratorType</a>&lt; T &gt;</td></tr>
+<tr class="separator:ad6abe728c65b0d9843ffa3639de171c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13707077dab921ea3d6a2c00e1edac73"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#a13707077dab921ea3d6a2c00e1edac73">ConstIterator</a> = <a class="el" href="a00887.html">IteratorType</a>&lt; const T &gt;</td></tr>
+<tr class="separator:a13707077dab921ea3d6a2c00e1edac73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa262fa2e7290843900f36aaf4627e2c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#aa262fa2e7290843900f36aaf4627e2c8">DynamicObjectPool</a> ()</td></tr>
+<tr class="memdesc:aa262fa2e7290843900f36aaf4627e2c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the empty object pool.  <a href="#aa262fa2e7290843900f36aaf4627e2c8">More...</a><br /></td></tr>
+<tr class="separator:aa262fa2e7290843900f36aaf4627e2c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32395f65fa9daaf142efc3380c0cfa6a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#a32395f65fa9daaf142efc3380c0cfa6a">add</a> (const T &amp;obj)</td></tr>
+<tr class="memdesc:a32395f65fa9daaf142efc3380c0cfa6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty slots. All iterators remain valid.  <a href="#a32395f65fa9daaf142efc3380c0cfa6a">More...</a><br /></td></tr>
+<tr class="separator:a32395f65fa9daaf142efc3380c0cfa6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae66d8d7c5f217f875569705cec309c73"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#ae66d8d7c5f217f875569705cec309c73">add</a> (T &amp;&amp;obj)</td></tr>
+<tr class="memdesc:ae66d8d7c5f217f875569705cec309c73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty slots. All iterators remain valid.  <a href="#ae66d8d7c5f217f875569705cec309c73">More...</a><br /></td></tr>
+<tr class="separator:ae66d8d7c5f217f875569705cec309c73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af55089c5c2f0c2559a5b2b00170ebc62"><td class="memTemplParams" colspan="2">template&lt;typename... TArgs&gt; </td></tr>
+<tr class="memitem:af55089c5c2f0c2559a5b2b00170ebc62"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00883.html#af55089c5c2f0c2559a5b2b00170ebc62">emplace</a> (TArgs... args)</td></tr>
+<tr class="memdesc:af55089c5c2f0c2559a5b2b00170ebc62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new object inplace in the pool.  <a href="#af55089c5c2f0c2559a5b2b00170ebc62">More...</a><br /></td></tr>
+<tr class="separator:af55089c5c2f0c2559a5b2b00170ebc62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af37f49c2a9ebadee2028221c7af028ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#af37f49c2a9ebadee2028221c7af028ae">erase</a> (const <a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a> &amp;i)</td></tr>
+<tr class="memdesc:af37f49c2a9ebadee2028221c7af028ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given iterator from the pool and marks the object slot for resuse. All iterators remain valid except for the one removed. The erased iterator is partially invalidated. It may not be dereferenced but it may still be incremented.  <a href="#af37f49c2a9ebadee2028221c7af028ae">More...</a><br /></td></tr>
+<tr class="separator:af37f49c2a9ebadee2028221c7af028ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c70f91b3650307ac4b0ed78fca6f431"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#a0c70f91b3650307ac4b0ed78fca6f431">begin</a> ()</td></tr>
+<tr class="memdesc:a0c70f91b3650307ac4b0ed78fca6f431"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the beginning of the pool.  <a href="#a0c70f91b3650307ac4b0ed78fca6f431">More...</a><br /></td></tr>
+<tr class="separator:a0c70f91b3650307ac4b0ed78fca6f431"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a329e4c99dba5e3f707dc46f96b5dcb59"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00883.html#a13707077dab921ea3d6a2c00e1edac73">ConstIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#a329e4c99dba5e3f707dc46f96b5dcb59">begin</a> () const</td></tr>
+<tr class="memdesc:a329e4c99dba5e3f707dc46f96b5dcb59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator to the beginning of the pool.  <a href="#a329e4c99dba5e3f707dc46f96b5dcb59">More...</a><br /></td></tr>
+<tr class="separator:a329e4c99dba5e3f707dc46f96b5dcb59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa493ed163987cc18e195e2ba203de9be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#aa493ed163987cc18e195e2ba203de9be">end</a> ()</td></tr>
+<tr class="memdesc:aa493ed163987cc18e195e2ba203de9be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the end of the pool.  <a href="#aa493ed163987cc18e195e2ba203de9be">More...</a><br /></td></tr>
+<tr class="separator:aa493ed163987cc18e195e2ba203de9be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21e552f320b7c39a054f8749a8f1da7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00883.html#a13707077dab921ea3d6a2c00e1edac73">ConstIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#a21e552f320b7c39a054f8749a8f1da7f">end</a> () const</td></tr>
+<tr class="memdesc:a21e552f320b7c39a054f8749a8f1da7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator to the end of the pool.  <a href="#a21e552f320b7c39a054f8749a8f1da7f">More...</a><br /></td></tr>
+<tr class="separator:a21e552f320b7c39a054f8749a8f1da7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04c91f7477d606bebf96a42e5dfd9c7c"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#a04c91f7477d606bebf96a42e5dfd9c7c">size</a> () const</td></tr>
+<tr class="memdesc:a04c91f7477d606bebf96a42e5dfd9c7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the pool.  <a href="#a04c91f7477d606bebf96a42e5dfd9c7c">More...</a><br /></td></tr>
+<tr class="separator:a04c91f7477d606bebf96a42e5dfd9c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a8512c78243be2f4e8f9c96c27c16ae"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#a8a8512c78243be2f4e8f9c96c27c16ae">capacity</a> () const</td></tr>
+<tr class="memdesc:a8a8512c78243be2f4e8f9c96c27c16ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the capacity of the pool. This is the size plus the amount of unused slots.  <a href="#a8a8512c78243be2f4e8f9c96c27c16ae">More...</a><br /></td></tr>
+<tr class="separator:a8a8512c78243be2f4e8f9c96c27c16ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc8f3e7306d789f282589a294768bd6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#abc8f3e7306d789f282589a294768bd6b">reserve</a> (std::size_t <a class="el" href="a00883.html#a8a8512c78243be2f4e8f9c96c27c16ae">capacity</a>)</td></tr>
+<tr class="memdesc:abc8f3e7306d789f282589a294768bd6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserve space for the given capacity.  <a href="#abc8f3e7306d789f282589a294768bd6b">More...</a><br /></td></tr>
+<tr class="separator:abc8f3e7306d789f282589a294768bd6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15b4c0edd8da02d008e5963176283ddb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#a15b4c0edd8da02d008e5963176283ddb">clear</a> (bool shrinkStorage=false)</td></tr>
+<tr class="memdesc:a15b4c0edd8da02d008e5963176283ddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all objects from the pool. This invalidates all iterators.  <a href="#a15b4c0edd8da02d008e5963176283ddb">More...</a><br /></td></tr>
+<tr class="separator:a15b4c0edd8da02d008e5963176283ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a950a178646184e3bb934b821b630595f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#a950a178646184e3bb934b821b630595f">shrink</a> ()</td></tr>
+<tr class="memdesc:a950a178646184e3bb934b821b630595f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shrinks the capacity of the pool down to the size.  <a href="#a950a178646184e3bb934b821b630595f">More...</a><br /></td></tr>
+<tr class="separator:a950a178646184e3bb934b821b630595f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c46c4bc3506978e785ccb8ef17c9811"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html#a4c46c4bc3506978e785ccb8ef17c9811">empty</a> () const</td></tr>
+<tr class="memdesc:a4c46c4bc3506978e785ccb8ef17c9811"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the pool is empty.  <a href="#a4c46c4bc3506978e785ccb8ef17c9811">More...</a><br /></td></tr>
+<tr class="separator:a4c46c4bc3506978e785ccb8ef17c9811"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::container::DynamicObjectPool&lt; T &gt;</h3>
+
+<p>Basic object pool that may vary in size. Similar to <a class="el" href="a00899.html" title="A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...">FastEraseVector</a> in that erase is O(1), however objects in the pool maintain their indices in the <a class="el" href="a00883.html" title="Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1)...">DynamicObjectPool</a>. Object slots are marked free on <a class="el" href="a00883.html#af37f49c2a9ebadee2028221c7af028ae" title="Removes the given iterator from the pool and marks the object slot for resuse. All iterators remain v...">erase()</a>, reused on <a class="el" href="a00883.html#a32395f65fa9daaf142efc3380c0cfa6a" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a>, and the pool grows in size if no slot is when <a class="el" href="a00883.html#a32395f65fa9daaf142efc3380c0cfa6a" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a> is called. Objects must implement a default constructor and copy constructor. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type of object to store. Works best with small POD objects </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00022">22</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a13707077dab921ea3d6a2c00e1edac73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13707077dab921ea3d6a2c00e1edac73">&#9670;&nbsp;</a></span>ConstIterator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00883.html#a13707077dab921ea3d6a2c00e1edac73">ConstIterator</a> =  <a class="el" href="a00887.html">IteratorType</a>&lt;const T&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00124">124</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad6abe728c65b0d9843ffa3639de171c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6abe728c65b0d9843ffa3639de171c4">&#9670;&nbsp;</a></span>Iterator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a> =  <a class="el" href="a00887.html">IteratorType</a>&lt;T&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00123">123</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa262fa2e7290843900f36aaf4627e2c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa262fa2e7290843900f36aaf4627e2c8">&#9670;&nbsp;</a></span>DynamicObjectPool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00883.html">DynamicObjectPool</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the empty object pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00309">309</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a32395f65fa9daaf142efc3380c0cfa6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32395f65fa9daaf142efc3380c0cfa6a">&#9670;&nbsp;</a></span>add() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00883.html">DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a> <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::add </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty slots. All iterators remain valid. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>Object to add </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Iterator Iterator to the newly created object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00314">314</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae66d8d7c5f217f875569705cec309c73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66d8d7c5f217f875569705cec309c73">&#9670;&nbsp;</a></span>add() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00883.html">DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a> <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::add </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty slots. All iterators remain valid. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>Object to add </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Iterator Iterator to the newly created object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00329">329</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0c70f91b3650307ac4b0ed78fca6f431"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c70f91b3650307ac4b0ed78fca6f431">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00883.html">DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a> <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::begin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns an iterator to the beginning of the pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00369">369</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a329e4c99dba5e3f707dc46f96b5dcb59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a329e4c99dba5e3f707dc46f96b5dcb59">&#9670;&nbsp;</a></span>begin() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00883.html">DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00883.html#a13707077dab921ea3d6a2c00e1edac73">ConstIterator</a> <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::begin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a const iterator to the beginning of the pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00374">374</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8a8512c78243be2f4e8f9c96c27c16ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a8512c78243be2f4e8f9c96c27c16ae">&#9670;&nbsp;</a></span>capacity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::capacity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the capacity of the pool. This is the size plus the amount of unused slots. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00394">394</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a15b4c0edd8da02d008e5963176283ddb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15b4c0edd8da02d008e5963176283ddb">&#9670;&nbsp;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::clear </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>shrinkStorage</em> = <code>false</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes all objects from the pool. This invalidates all iterators. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shrinkStorage</td><td>True to also clear the pool's memory, false to leave it </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00409">409</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af55089c5c2f0c2559a5b2b00170ebc62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af55089c5c2f0c2559a5b2b00170ebc62">&#9670;&nbsp;</a></span>emplace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename... TArgs&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00883.html">DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a> <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::emplace </td>
+          <td>(</td>
+          <td class="paramtype">TArgs...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs a new object inplace in the pool. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TArgs</td><td>The types of arguments </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>The arguments to construct the new object with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Iterator Iterator to the newly created object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00345">345</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4c46c4bc3506978e785ccb8ef17c9811"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c46c4bc3506978e785ccb8ef17c9811">&#9670;&nbsp;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::empty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the pool is empty. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00404">404</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa493ed163987cc18e195e2ba203de9be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa493ed163987cc18e195e2ba203de9be">&#9670;&nbsp;</a></span>end() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00883.html">DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a> <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::end </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns an iterator to the end of the pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00379">379</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a21e552f320b7c39a054f8749a8f1da7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21e552f320b7c39a054f8749a8f1da7f">&#9670;&nbsp;</a></span>end() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00883.html">DynamicObjectPool</a>&lt; T &gt;::<a class="el" href="a00883.html#a13707077dab921ea3d6a2c00e1edac73">ConstIterator</a> <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::end </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a const iterator to the end of the pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00384">384</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af37f49c2a9ebadee2028221c7af028ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af37f49c2a9ebadee2028221c7af028ae">&#9670;&nbsp;</a></span>erase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::erase </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00883.html#ad6abe728c65b0d9843ffa3639de171c4">Iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the given iterator from the pool and marks the object slot for resuse. All iterators remain valid except for the one removed. The erased iterator is partially invalidated. It may not be dereferenced but it may still be incremented. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>Iterator to erase </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00360">360</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abc8f3e7306d789f282589a294768bd6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc8f3e7306d789f282589a294768bd6b">&#9670;&nbsp;</a></span>reserve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::reserve </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>capacity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reserve space for the given capacity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">capacity</td><td>The amount of elements to reserve space for </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00399">399</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a950a178646184e3bb934b821b630595f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a950a178646184e3bb934b821b630595f">&#9670;&nbsp;</a></span>shrink()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::shrink </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shrinks the capacity of the pool down to the size. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00428">428</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a04c91f7477d606bebf96a42e5dfd9c7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04c91f7477d606bebf96a42e5dfd9c7c">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="a00883.html">bl::container::DynamicObjectPool</a>&lt; T &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the size of the pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00389">389</a> of file <a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Containers/<a class="el" href="a00023_source.html">DynamicObjectPool.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 03:28:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 9 2021 04:03:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

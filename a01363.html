@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::gfx::Flashing Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,29 +63,170 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00751.html">bl</a></li><li class="navelem"><a class="el" href="a00766.html">menu</a></li><li class="navelem"><a class="el" href="a01366.html">MouseEventGenerator</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00804.html">bl</a></li><li class="navelem"><a class="el" href="a00822.html">gfx</a></li><li class="navelem"><a class="el" href="a01363.html">Flashing</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01360.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::menu::MouseEventGenerator Member List</div>  </div>
+<div class="title">bl::gfx::Flashing Class Reference<div class="ingroups"><a class="el" href="a00787.html">Media</a> &raquo; <a class="el" href="a00801.html">Graphics</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01366.html">bl::menu::MouseEventGenerator</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01366.html#aa867eb1af7dab92b0fa60bdbf0f5764a">MouseEventGenerator</a>(Menu &amp;menu, bool allowClickActivate=true, sf::Mouse::Button activateButton=sf::Mouse::Left)</td><td class="entry"><a class="el" href="a01366.html">bl::menu::MouseEventGenerator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01030.html#ae5297276cfbb757ede3391eb9d525832">Listener&lt; sf::Event &gt;::observe</a>(const TEvents &amp;event)=0</td><td class="entry"><a class="el" href="a01030.html">bl::event::ListenerBase&lt; TEvents &gt;</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01366.html#a55e293f6ab5f8fc2fd4e57da838851e6">setAllowButtonActivate</a>(bool allow)</td><td class="entry"><a class="el" href="a01366.html">bl::menu::MouseEventGenerator</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01366.html#a38a7211f2ae23f6d6b1b4a14ffab6846">setMouseActivateButton</a>(sf::Mouse::Button activateButton)</td><td class="entry"><a class="el" href="a01366.html">bl::menu::MouseEventGenerator</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01034.html#ae349f77728308bc882bb3cfa81c64641">~Listener</a>()=default</td><td class="entry"><a class="el" href="a01034.html">bl::event::Listener&lt; sf::Event &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01030.html#a36c44a860cf98c5a39ca4a3064152585">~ListenerBase</a>()=default</td><td class="entry"><a class="el" href="a01030.html">bl::event::ListenerBase&lt; TEvents &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01366.html#a7298602ca0fd8c88bac1b7cb17cfa039">~MouseEventGenerator</a>()=default</td><td class="entry"><a class="el" href="a01366.html">bl::menu::MouseEventGenerator</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Wrapper class for drawable elements that should flash with a fixed period.  
+ <a href="a01363.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00308_source.html">Flashing.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa92ea52eed0559bf0ff841e33eb946af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01363.html#aa92ea52eed0559bf0ff841e33eb946af">Flashing</a> (sf::Drawable &amp;component, float onPeriod, float offPeriod)</td></tr>
+<tr class="memdesc:aa92ea52eed0559bf0ff841e33eb946af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01363.html" title="Wrapper class for drawable elements that should flash with a fixed period. ">Flashing</a> component.  <a href="#aa92ea52eed0559bf0ff841e33eb946af">More...</a><br /></td></tr>
+<tr class="separator:aa92ea52eed0559bf0ff841e33eb946af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f11d9f2f6573edc77d87b343fd35bc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01363.html#a0f11d9f2f6573edc77d87b343fd35bc3">update</a> (float dt)</td></tr>
+<tr class="memdesc:a0f11d9f2f6573edc77d87b343fd35bc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the state of the flasher.  <a href="#a0f11d9f2f6573edc77d87b343fd35bc3">More...</a><br /></td></tr>
+<tr class="separator:a0f11d9f2f6573edc77d87b343fd35bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74e4fb7ea4ca6b225b876fe9991b0900"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01363.html#a74e4fb7ea4ca6b225b876fe9991b0900">render</a> (sf::RenderTarget &amp;target, sf::RenderStates states, float lag) const</td></tr>
+<tr class="memdesc:a74e4fb7ea4ca6b225b876fe9991b0900"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the flashing element if it is visible.  <a href="#a74e4fb7ea4ca6b225b876fe9991b0900">More...</a><br /></td></tr>
+<tr class="separator:a74e4fb7ea4ca6b225b876fe9991b0900"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Wrapper class for drawable elements that should flash with a fixed period. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00017">17</a> of file <a class="el" href="a00308_source.html">Flashing.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa92ea52eed0559bf0ff841e33eb946af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa92ea52eed0559bf0ff841e33eb946af">&#9670;&nbsp;</a></span>Flashing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gfx::Flashing::Flashing </td>
+          <td>(</td>
+          <td class="paramtype">sf::Drawable &amp;&#160;</td>
+          <td class="paramname"><em>component</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>onPeriod</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>offPeriod</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a01363.html" title="Wrapper class for drawable elements that should flash with a fixed period. ">Flashing</a> component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">component</td><td>The renderable element to flash </td></tr>
+    <tr><td class="paramname">onPeriod</td><td>How long to be visible, in seconds </td></tr>
+    <tr><td class="paramname">offPeriod</td><td>How long to be hidden, in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00007">7</a> of file <a class="el" href="a00674_source.html">Flashing.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a74e4fb7ea4ca6b225b876fe9991b0900"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74e4fb7ea4ca6b225b876fe9991b0900">&#9670;&nbsp;</a></span>render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::Flashing::render </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::RenderStates&#160;</td>
+          <td class="paramname"><em>states</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>lag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renders the flashing element if it is visible. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td>The target to render to </td></tr>
+    <tr><td class="paramname">states</td><td>Render states to use </td></tr>
+    <tr><td class="paramname">lag</td><td>Time elapsed, in seconds, not accounted for in update </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00030">30</a> of file <a class="el" href="a00674_source.html">Flashing.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0f11d9f2f6573edc77d87b343fd35bc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f11d9f2f6573edc77d87b343fd35bc3">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::Flashing::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the state of the flasher. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Time elapsed, in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00674_source.html#l00014">14</a> of file <a class="el" href="a00674_source.html">Flashing.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Media/Graphics/<a class="el" href="a00308_source.html">Flashing.hpp</a></li>
+<li>src/Media/Graphics/<a class="el" href="a00674_source.html">Flashing.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 03:28:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 9 2021 04:03:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

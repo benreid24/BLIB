@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Resources/AsyncLoader.hpp File Reference</title>
+<title>BLIB: include/BLIB/Scripts/Value.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_9fb35b166bb00afcaa31ece623ebed60.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,34 +71,37 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">AsyncLoader.hpp File Reference</div>  </div>
+<div class="title">Value.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a02083_source.html">BLIB/Resources/Manager.hpp</a>&gt;</code><br />
-<code>#include &lt;fstream&gt;</code><br />
+<div class="textblock"><code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;variant&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a00392_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01542.html">bl::resource::AsyncLoader&lt; TResourceType &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized loader meant for loading resources into a <a class="el" href="a01554.html" title="Single template based resource management class. Meant for storing. ">Manager</a> in the background. Default implementation simply calls <a class="el" href="a01542.html#aa3bdaa1b95c641cb669887a9f10d95ff" title="Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their ...">load()</a> on the manager, but custom background loaders can be built for large resources and should leverage <a class="el" href="a01554.html#ab7f67e29b779d355aa2bb7005ed1617a" title="Add an already loaded resource to the manager. Overwrites existing if present. ">Manager::add()</a> to insert constructed resources.  <a href="a01542.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01495.html">bl::script::Value</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a <a class="el" href="a01495.html" title="Represents a Value in a script. Can be a temp value or from a SymbolTable. ">Value</a> in a script. Can be a temp value or from a <a class="el" href="a01491.html" title="Stack aware symbol table for managing functions and variables Each Script holds a single instance...">SymbolTable</a>.  <a href="a01495.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00751"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00751.html">bl</a></td></tr>
-<tr class="memdesc:a00751"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a00804"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00804.html">bl</a></td></tr>
+<tr class="memdesc:a00804"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00777"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00777.html">bl::resource</a></td></tr>
-<tr class="memdesc:a00777"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for resource management and flyweight pattern. <br /></td></tr>
+<tr class="memitem:a00829"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00829.html">bl::script</a></td></tr>
+<tr class="memdesc:a00829"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01483.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> interpreter for bScript. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 03:28:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 9 2021 04:03:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

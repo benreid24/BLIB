@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::menu::Item Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,25 +63,518 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00751.html">bl</a></li><li class="navelem"><a class="el" href="a00764.html">gui</a></li><li class="navelem"><a class="el" href="a01266.html">RadioButton</a></li><li class="navelem"><a class="el" href="a01270.html">Group</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00804.html">bl</a></li><li class="navelem"><a class="el" href="a00815.html">menu</a></li><li class="navelem"><a class="el" href="a01267.html">Item</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a01264.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gui::RadioButton::Group Member List</div>  </div>
+<div class="title">bl::menu::Item Class Reference<div class="ingroups"><a class="el" href="a00784.html">Interface</a> &raquo; <a class="el" href="a00798.html">Menu</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01270.html">bl::gui::RadioButton::Group</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01270.html#a8c76591ff3b665c54341e26fcbab3903">getActiveButton</a>()</td><td class="entry"><a class="el" href="a01270.html">bl::gui::RadioButton::Group</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01270.html#a894022a048993dca367ba1a01423b844">RadioButton</a> class</td><td class="entry"><a class="el" href="a01270.html">bl::gui::RadioButton::Group</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01270.html#a6a68a7a035376150a6d6fd2cf1e16251">setActiveButton</a>(RadioButton *button)</td><td class="entry"><a class="el" href="a01270.html">bl::gui::RadioButton::Group</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p><a class="el" href="a01267.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> for a mouseless menu. Can be 'attached' to other items in a <a class="el" href="a01271.html" title="Primary class for mouseless menus. ">Menu</a>, configured to be selectable, and can trigger a signal if selected.  
+ <a href="a01267.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00236_source.html">Item.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::menu::Item:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01267.png" usemap="#bl::menu::Item_map" alt=""/>
+  <map id="bl::menu::Item_map" name="bl::menu::Item_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a59352334626855d0cd8c8ca1b173db68"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> { <br />
+&#160;&#160;<a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c">Top</a>, 
+<a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866">Right</a>, 
+<a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d">Bottom</a>, 
+<a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f">Left</a>, 
+<br />
+&#160;&#160;<a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68a2816176a831a8a4c942a0d09e653a9c4">_NUM_ATTACHPOINTS</a>
+<br />
+ }</td></tr>
+<tr class="separator:a59352334626855d0cd8c8ca1b173db68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bae0491b79706cac6c93b58cfeb5ec5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#a0bae0491b79706cac6c93b58cfeb5ec5">EventType</a> { <a class="el" href="a01267.html#a0bae0491b79706cac6c93b58cfeb5ec5a78269e44a81151f5e3e97a49dc6a2aa3">Selected</a>, 
+<a class="el" href="a01267.html#a0bae0491b79706cac6c93b58cfeb5ec5a4275858e386e70954b80ef36823ff369">Deselected</a>, 
+<a class="el" href="a01267.html#a0bae0491b79706cac6c93b58cfeb5ec5a6698b73a862c1caef37c9d00070fd250">Activated</a>, 
+<a class="el" href="a01267.html#a0bae0491b79706cac6c93b58cfeb5ec5aa86dd8b1fbfe5e9c37417099d60a5d9d">_NUM_EVENTS</a>
+ }</td></tr>
+<tr class="separator:a0bae0491b79706cac6c93b58cfeb5ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac09f75d0ea24baafc88f39b9e30e20ce"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a01267.html">Item</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#ac09f75d0ea24baafc88f39b9e30e20ce">Ptr</a></td></tr>
+<tr class="separator:ac09f75d0ea24baafc88f39b9e30e20ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a384c475127c4552bc9a4b27f9e121aa7"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(const <a class="el" href="a01267.html">Item</a> &amp;, int, int)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#a384c475127c4552bc9a4b27f9e121aa7">Visitor</a></td></tr>
+<tr class="separator:a384c475127c4552bc9a4b27f9e121aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a6456946a5c7e6ecd87bd21c5fedd57c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#a6456946a5c7e6ecd87bd21c5fedd57c6">isAttached</a> () const</td></tr>
+<tr class="memdesc:a6456946a5c7e6ecd87bd21c5fedd57c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the item has been attached to another.  <a href="#a6456946a5c7e6ecd87bd21c5fedd57c6">More...</a><br /></td></tr>
+<tr class="separator:a6456946a5c7e6ecd87bd21c5fedd57c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a944e2405bfafe6b3bf4718cab498b4a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#a944e2405bfafe6b3bf4718cab498b4a2">setSelectable</a> (bool selectable)</td></tr>
+<tr class="memdesc:a944e2405bfafe6b3bf4718cab498b4a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not the <a class="el" href="a01267.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> may be selected.  <a href="#a944e2405bfafe6b3bf4718cab498b4a2">More...</a><br /></td></tr>
+<tr class="separator:a944e2405bfafe6b3bf4718cab498b4a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b17ae5ffbb9b3fe97e6105479b601b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#a8b17ae5ffbb9b3fe97e6105479b601b6">isSelectable</a> () const</td></tr>
+<tr class="memdesc:a8b17ae5ffbb9b3fe97e6105479b601b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the <a class="el" href="a01267.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> may be selected.  <a href="#a8b17ae5ffbb9b3fe97e6105479b601b6">More...</a><br /></td></tr>
+<tr class="separator:a8b17ae5ffbb9b3fe97e6105479b601b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84f76cf2dc6f67fb425d09d804d66948"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#a84f76cf2dc6f67fb425d09d804d66948">setAllowSelectionCrossing</a> (bool allow)</td></tr>
+<tr class="memdesc:a84f76cf2dc6f67fb425d09d804d66948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not the selection is allowed to move through this item if this item is not selectable itself.  <a href="#a84f76cf2dc6f67fb425d09d804d66948">More...</a><br /></td></tr>
+<tr class="separator:a84f76cf2dc6f67fb425d09d804d66948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5f75c6ebfb7625ff18c0d78afd5c5f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#ab5f75c6ebfb7625ff18c0d78afd5c5f0">allowsSelectionCrossing</a> () const</td></tr>
+<tr class="memdesc:ab5f75c6ebfb7625ff18c0d78afd5c5f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the selection may move through this item is it is not selectable itself.  <a href="#ab5f75c6ebfb7625ff18c0d78afd5c5f0">More...</a><br /></td></tr>
+<tr class="separator:ab5f75c6ebfb7625ff18c0d78afd5c5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ec1d4800025cc512ad596ef13cb03fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01743.html">util::Signal</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#a1ec1d4800025cc512ad596ef13cb03fd">getSignal</a> (<a class="el" href="a01267.html#a0bae0491b79706cac6c93b58cfeb5ec5">EventType</a> event)</td></tr>
+<tr class="memdesc:a1ec1d4800025cc512ad596ef13cb03fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a modifiable reference to the Signal object for the corresponding EventType.  <a href="#a1ec1d4800025cc512ad596ef13cb03fd">More...</a><br /></td></tr>
+<tr class="separator:a1ec1d4800025cc512ad596ef13cb03fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adce8ed27ba0e44db15ffc2f0a71b4fe7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01283.html">RenderItem</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#adce8ed27ba0e44db15ffc2f0a71b4fe7">getRenderItem</a> () const</td></tr>
+<tr class="memdesc:adce8ed27ba0e44db15ffc2f0a71b4fe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="a01283.html" title="Abstract base class for any Item that can be rendered by a Menu. ">RenderItem</a> for this <a class="el" href="a01267.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a>.  <a href="#adce8ed27ba0e44db15ffc2f0a71b4fe7">More...</a><br /></td></tr>
+<tr class="separator:adce8ed27ba0e44db15ffc2f0a71b4fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7a2f626ff900bf7fc3cc4157d8f46e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#a5b7a2f626ff900bf7fc3cc4157d8f46e">attach</a> (<a class="el" href="a01267.html#ac09f75d0ea24baafc88f39b9e30e20ce">Ptr</a> item, <a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> attachPoint)</td></tr>
+<tr class="memdesc:a5b7a2f626ff900bf7fc3cc4157d8f46e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attach the given item to this item at the attach point. Fails if the given item is already attached to another or if the given attach point is used.  <a href="#a5b7a2f626ff900bf7fc3cc4157d8f46e">More...</a><br /></td></tr>
+<tr class="separator:a5b7a2f626ff900bf7fc3cc4157d8f46e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9dcbc8c7484172b0ae3d4ff9d3214c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#ae9dcbc8c7484172b0ae3d4ff9d3214c5">visit</a> (<a class="el" href="a01267.html#a384c475127c4552bc9a4b27f9e121aa7">Visitor</a> visitor) const</td></tr>
+<tr class="memdesc:ae9dcbc8c7484172b0ae3d4ff9d3214c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invokes the visitor with this <a class="el" href="a01267.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> and all attached Items. Visitor is called recursively to traverse the entire tree. Visitor arguments are (item, x, y), where x and y are relative to this root item.  <a href="#ae9dcbc8c7484172b0ae3d4ff9d3214c5">More...</a><br /></td></tr>
+<tr class="separator:ae9dcbc8c7484172b0ae3d4ff9d3214c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a8fec45b0851a45c4f753b91062a518fe"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#a8fec45b0851a45c4f753b91062a518fe">oppositeSide</a> (<a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> point)</td></tr>
+<tr class="memdesc:a8fec45b0851a45c4f753b91062a518fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the opposite side of the given attach point.  <a href="#a8fec45b0851a45c4f753b91062a518fe">More...</a><br /></td></tr>
+<tr class="separator:a8fec45b0851a45c4f753b91062a518fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acedec714ad14cbe5341b917f88097f7a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01267.html#ac09f75d0ea24baafc88f39b9e30e20ce">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#acedec714ad14cbe5341b917f88097f7a">create</a> (<a class="el" href="a01283.html#a6f1ae2f79b2d4437421e69201da2b08e">RenderItem::Ptr</a> renderItem)</td></tr>
+<tr class="memdesc:acedec714ad14cbe5341b917f88097f7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a01267.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> using the given <a class="el" href="a01283.html" title="Abstract base class for any Item that can be rendered by a Menu. ">RenderItem</a>.  <a href="#acedec714ad14cbe5341b917f88097f7a">More...</a><br /></td></tr>
+<tr class="separator:acedec714ad14cbe5341b917f88097f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a834cec0fab7efabab3cd53540e4d466d"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01267.html#a834cec0fab7efabab3cd53540e4d466d">Menu</a></td></tr>
+<tr class="separator:a834cec0fab7efabab3cd53540e4d466d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="a01267.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> for a mouseless menu. Can be 'attached' to other items in a <a class="el" href="a01271.html" title="Primary class for mouseless menus. ">Menu</a>, configured to be selectable, and can trigger a signal if selected. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00236_source.html#l00025">25</a> of file <a class="el" href="a00236_source.html">Item.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ac09f75d0ea24baafc88f39b9e30e20ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac09f75d0ea24baafc88f39b9e30e20ce">&#9670;&nbsp;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a01267.html">Item</a>&gt; <a class="el" href="a01267.html#ac09f75d0ea24baafc88f39b9e30e20ce">bl::menu::Item::Ptr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00236_source.html#l00027">27</a> of file <a class="el" href="a00236_source.html">Item.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a384c475127c4552bc9a4b27f9e121aa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a384c475127c4552bc9a4b27f9e121aa7">&#9670;&nbsp;</a></span>Visitor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::function&lt;void(const <a class="el" href="a01267.html">Item</a>&amp;, int, int)&gt; <a class="el" href="a01267.html#a384c475127c4552bc9a4b27f9e121aa7">bl::menu::Item::Visitor</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00236_source.html#l00028">28</a> of file <a class="el" href="a00236_source.html">Item.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a59352334626855d0cd8c8ca1b173db68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59352334626855d0cd8c8ca1b173db68">&#9670;&nbsp;</a></span>AttachPoint</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68">bl::menu::Item::AttachPoint</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c"></a>Top&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866"></a>Right&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d"></a>Bottom&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f"></a>Left&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68a2816176a831a8a4c942a0d09e653a9c4"></a>_NUM_ATTACHPOINTS&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00236_source.html#l00029">29</a> of file <a class="el" href="a00236_source.html">Item.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0bae0491b79706cac6c93b58cfeb5ec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bae0491b79706cac6c93b58cfeb5ec5">&#9670;&nbsp;</a></span>EventType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a01267.html#a0bae0491b79706cac6c93b58cfeb5ec5">bl::menu::Item::EventType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0bae0491b79706cac6c93b58cfeb5ec5a78269e44a81151f5e3e97a49dc6a2aa3"></a>Selected&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0bae0491b79706cac6c93b58cfeb5ec5a4275858e386e70954b80ef36823ff369"></a>Deselected&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0bae0491b79706cac6c93b58cfeb5ec5a6698b73a862c1caef37c9d00070fd250"></a>Activated&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0bae0491b79706cac6c93b58cfeb5ec5aa86dd8b1fbfe5e9c37417099d60a5d9d"></a>_NUM_EVENTS&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00236_source.html#l00030">30</a> of file <a class="el" href="a00236_source.html">Item.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab5f75c6ebfb7625ff18c0d78afd5c5f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5f75c6ebfb7625ff18c0d78afd5c5f0">&#9670;&nbsp;</a></span>allowsSelectionCrossing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::menu::Item::allowsSelectionCrossing </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the selection may move through this item is it is not selectable itself. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00629_source.html#l00040">40</a> of file <a class="el" href="a00629_source.html">Item.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5b7a2f626ff900bf7fc3cc4157d8f46e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b7a2f626ff900bf7fc3cc4157d8f46e">&#9670;&nbsp;</a></span>attach()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::menu::Item::attach </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01267.html#ac09f75d0ea24baafc88f39b9e30e20ce">Ptr</a>&#160;</td>
+          <td class="paramname"><em>item</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a>&#160;</td>
+          <td class="paramname"><em>attachPoint</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attach the given item to this item at the attach point. Fails if the given item is already attached to another or if the given attach point is used. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>The item to attach </td></tr>
+    <tr><td class="paramname">attachPoint</td><td>Where to attach the item </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the item was attached, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00629_source.html#l00046">46</a> of file <a class="el" href="a00629_source.html">Item.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acedec714ad14cbe5341b917f88097f7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acedec714ad14cbe5341b917f88097f7a">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01267.html#ac09f75d0ea24baafc88f39b9e30e20ce">Item::Ptr</a> bl::menu::Item::create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01283.html#a6f1ae2f79b2d4437421e69201da2b08e">RenderItem::Ptr</a>&#160;</td>
+          <td class="paramname"><em>renderItem</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="a01267.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> using the given <a class="el" href="a01283.html" title="Abstract base class for any Item that can be rendered by a Menu. ">RenderItem</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderItem</td><td>The renderable entity for this item </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00629_source.html#l00009">9</a> of file <a class="el" href="a00629_source.html">Item.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adce8ed27ba0e44db15ffc2f0a71b4fe7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adce8ed27ba0e44db15ffc2f0a71b4fe7">&#9670;&nbsp;</a></span>getRenderItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a01283.html">RenderItem</a> &amp; bl::menu::Item::getRenderItem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the <a class="el" href="a01283.html" title="Abstract base class for any Item that can be rendered by a Menu. ">RenderItem</a> for this <a class="el" href="a01267.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00629_source.html#l00044">44</a> of file <a class="el" href="a00629_source.html">Item.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ec1d4800025cc512ad596ef13cb03fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ec1d4800025cc512ad596ef13cb03fd">&#9670;&nbsp;</a></span>getSignal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01743.html">util::Signal</a> &amp; bl::menu::Item::getSignal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01267.html#a0bae0491b79706cac6c93b58cfeb5ec5">EventType</a>&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a modifiable reference to the Signal object for the corresponding EventType. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The EventType the Signal is triggered by </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Signal&lt;&gt;&amp; The modifiable signal </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00629_source.html#l00042">42</a> of file <a class="el" href="a00629_source.html">Item.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6456946a5c7e6ecd87bd21c5fedd57c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6456946a5c7e6ecd87bd21c5fedd57c6">&#9670;&nbsp;</a></span>isAttached()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::menu::Item::isAttached </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if the item has been attached to another. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00629_source.html#l00032">32</a> of file <a class="el" href="a00629_source.html">Item.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8b17ae5ffbb9b3fe97e6105479b601b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b17ae5ffbb9b3fe97e6105479b601b6">&#9670;&nbsp;</a></span>isSelectable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::menu::Item::isSelectable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the <a class="el" href="a01267.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> may be selected. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00629_source.html#l00036">36</a> of file <a class="el" href="a00629_source.html">Item.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8fec45b0851a45c4f753b91062a518fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fec45b0851a45c4f753b91062a518fe">&#9670;&nbsp;</a></span>oppositeSide()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68">Item::AttachPoint</a> bl::menu::Item::oppositeSide </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01267.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a>&#160;</td>
+          <td class="paramname"><em>point</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculates the opposite side of the given attach point. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00629_source.html#l00017">17</a> of file <a class="el" href="a00629_source.html">Item.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a84f76cf2dc6f67fb425d09d804d66948"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84f76cf2dc6f67fb425d09d804d66948">&#9670;&nbsp;</a></span>setAllowSelectionCrossing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::menu::Item::setAllowSelectionCrossing </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>allow</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set whether or not the selection is allowed to move through this item if this item is not selectable itself. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">allow</td><td>True to allow item on the other side to be selected, false to block </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00629_source.html#l00038">38</a> of file <a class="el" href="a00629_source.html">Item.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a944e2405bfafe6b3bf4718cab498b4a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a944e2405bfafe6b3bf4718cab498b4a2">&#9670;&nbsp;</a></span>setSelectable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::menu::Item::setSelectable </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>selectable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set whether or not the <a class="el" href="a01267.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> may be selected. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00629_source.html#l00034">34</a> of file <a class="el" href="a00629_source.html">Item.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae9dcbc8c7484172b0ae3d4ff9d3214c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9dcbc8c7484172b0ae3d4ff9d3214c5">&#9670;&nbsp;</a></span>visit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::menu::Item::visit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01267.html#a384c475127c4552bc9a4b27f9e121aa7">Visitor</a>&#160;</td>
+          <td class="paramname"><em>visitor</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Invokes the visitor with this <a class="el" href="a01267.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> and all attached Items. Visitor is called recursively to traverse the entire tree. Visitor arguments are (item, x, y), where x and y are relative to this root item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">visitor</td><td>The visitor to invoke all attached items on </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00629_source.html#l00056">56</a> of file <a class="el" href="a00629_source.html">Item.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a834cec0fab7efabab3cd53540e4d466d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a834cec0fab7efabab3cd53540e4d466d">&#9670;&nbsp;</a></span>Menu</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a01271.html">Menu</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00236_source.html#l00123">123</a> of file <a class="el" href="a00236_source.html">Item.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Interfaces/Menu/<a class="el" href="a00236_source.html">Item.hpp</a></li>
+<li>src/Interfaces/Menu/<a class="el" href="a00629_source.html">Item.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 03:28:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 9 2021 04:03:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

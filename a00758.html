@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::entity::event Namespace Reference</title>
+<title>BLIB: src/Serialization/JSON/JSON.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,42 +63,68 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00751.html">bl</a></li><li class="navelem"><a class="el" href="a00757.html">entity</a></li><li class="navelem"><a class="el" href="a00758.html">event</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_6e8170a1d6e30c05be237c1781c6abba.html">JSON</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">bl::entity::event Namespace Reference</div>  </div>
+<div class="title">JSON.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Collection of events pertaining to entities.  
-<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="a02218_source.html">BLIB/Serialization/JSON/JSON.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00764_source.html">Serialization/JSON/JSONLoader.hpp</a>&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+</div>
+<p><a href="a00758_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00978.html">ComponentAdded</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a component is added to an entity.  <a href="a00978.html#details">More...</a><br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00804"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00804.html">bl</a></td></tr>
+<tr class="memdesc:a00804"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00982.html">ComponentRemoved</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired right before a component is removed from an entity.  <a href="a00982.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a00820"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00820.html">bl::serial</a></td></tr>
+<tr class="memdesc:a00820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00970.html">EntityCreated</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired after an entity is added to the <a class="el" href="a00986.html" title="Core class of the entity component system. This class stores and manages all entities and components...">Registry</a>.  <a href="a00970.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a00830"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html">bl::serial::json</a></td></tr>
+<tr class="memdesc:a00830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for interacting with JSON files. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00974.html">EntityDestroyed</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired right before an entity is removed from the registry.  <a href="a00974.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a190ee1013a9c24252da21b2cf81c4f38"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html#a190ee1013a9c24252da21b2cf81c4f38">bl::serial::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const SourceInfo &amp;info)</td></tr>
+<tr class="separator:a190ee1013a9c24252da21b2cf81c4f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11ebc17c99ccf22733cc24cc38ed7997"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html#a11ebc17c99ccf22733cc24cc38ed7997">bl::serial::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const Value::Type &amp;type)</td></tr>
+<tr class="separator:a11ebc17c99ccf22733cc24cc38ed7997"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57231d1058a4b5a48df1c7f9c50ec793"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html#a57231d1058a4b5a48df1c7f9c50ec793">bl::serial::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const Value &amp;type)</td></tr>
+<tr class="separator:a57231d1058a4b5a48df1c7f9c50ec793"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacfee524435d566df4f0bb2928785baa"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html#aacfee524435d566df4f0bb2928785baa">bl::serial::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const Group &amp;type)</td></tr>
+<tr class="separator:aacfee524435d566df4f0bb2928785baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31981f3bf0f51f86d312a77b568e4ca2"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html#a31981f3bf0f51f86d312a77b568e4ca2">bl::serial::json::operator&lt;&lt;</a> (std::ostream &amp;stream, const List &amp;list)</td></tr>
+<tr class="separator:a31981f3bf0f51f86d312a77b568e4ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27dd2255ced45f678f0703de1927ce44"><td class="memItemLeft" align="right" valign="top">json::Group&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html#a27dd2255ced45f678f0703de1927ce44">bl::serial::json::loadFromStream</a> (std::istream &amp;stream)</td></tr>
+<tr class="memdesc:a27dd2255ced45f678f0703de1927ce44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads json data from the given stream and returns the constructed <a class="el" href="a01627.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a>.  <a href="a00830.html#a27dd2255ced45f678f0703de1927ce44">More...</a><br /></td></tr>
+<tr class="separator:a27dd2255ced45f678f0703de1927ce44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa551cd6ae6085cb53150b859f28ad2e0"><td class="memItemLeft" align="right" valign="top">json::Group&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html#aa551cd6ae6085cb53150b859f28ad2e0">bl::serial::json::loadFromString</a> (const std::string &amp;data)</td></tr>
+<tr class="memdesc:aa551cd6ae6085cb53150b859f28ad2e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads json from the supplied string.  <a href="a00830.html#aa551cd6ae6085cb53150b859f28ad2e0">More...</a><br /></td></tr>
+<tr class="separator:aa551cd6ae6085cb53150b859f28ad2e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37b6d02c661392bcb40b53caf6231b50"><td class="memItemLeft" align="right" valign="top">json::Group&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html#a37b6d02c661392bcb40b53caf6231b50">bl::serial::json::loadFromFile</a> (const std::string &amp;file)</td></tr>
+<tr class="memdesc:a37b6d02c661392bcb40b53caf6231b50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads json data from the given file.  <a href="a00830.html#a37b6d02c661392bcb40b53caf6231b50">More...</a><br /></td></tr>
+<tr class="separator:a37b6d02c661392bcb40b53caf6231b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89086b06b4232fb8014e2d8a181a7667"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html#a89086b06b4232fb8014e2d8a181a7667">bl::serial::json::saveToFile</a> (const std::string &amp;file, const json::Group &amp;data)</td></tr>
+<tr class="memdesc:a89086b06b4232fb8014e2d8a181a7667"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves a <a class="el" href="a01627.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to the given file.  <a href="a00830.html#a89086b06b4232fb8014e2d8a181a7667">More...</a><br /></td></tr>
+<tr class="separator:a89086b06b4232fb8014e2d8a181a7667"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9e4ee165173a807bc8308987173d922"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html#ab9e4ee165173a807bc8308987173d922">bl::serial::json::saveToStream</a> (std::ostream &amp;stream, const json::Group &amp;data)</td></tr>
+<tr class="memdesc:ab9e4ee165173a807bc8308987173d922"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a <a class="el" href="a01627.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">json::Group</a> to the given stream.  <a href="a00830.html#ab9e4ee165173a807bc8308987173d922">More...</a><br /></td></tr>
+<tr class="separator:ab9e4ee165173a807bc8308987173d922"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of events pertaining to entities. </p>
-</div></div><!-- contents -->
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 03:28:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 9 2021 04:03:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Entities</title>
+<title>BLIB: src/Scripts/ScriptLibrary.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,7 +47,6 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,80 +61,43 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Entities</div>  </div>
+<div class="title">ScriptLibrary.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Collection of classes for managing entities via the ECS pattern.  
-<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="a00389_source.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</code><br />
+</div>
+<p><a href="a00728_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00950.html">bl::entity::Cleaner</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to automatically remove entities using RAII based cleanup. Useful for functions that build entities by adding many components where component creation may fail at arbitrary points.  <a href="a00950.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00954.html">bl::entity::Component</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class for components in the entity component system. <a class="el" href="a00954.html" title="Helper class for components in the entity component system. Component classes must define a unique nu...">Component</a> classes must define a unique numeric id in the manner below:  <a href="a00954.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00958.html">bl::entity::ComponentSetMember&lt; TComponent &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper base class for tuple like functionality.  <a href="a00958.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00962.html">bl::entity::ComponentSet&lt; TComponents &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tuple like class that stores a set of components by pointer value.  <a href="a00962.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00970.html">bl::entity::event::EntityCreated</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired after an entity is added to the <a class="el" href="a00986.html" title="Core class of the entity component system. This class stores and manages all entities and components...">Registry</a>.  <a href="a00970.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00974.html">bl::entity::event::EntityDestroyed</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired right before an entity is removed from the registry.  <a href="a00974.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00978.html">bl::entity::event::ComponentAdded&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a component is added to an entity.  <a href="a00978.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00982.html">bl::entity::event::ComponentRemoved&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired right before a component is removed from an entity.  <a href="a00982.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html">bl::entity::Registry</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core class of the entity component system. This class stores and manages all entities and components. It is threadsafe and provides views that stay up to date as the registry evolves.  <a href="a00986.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01807.html">bl::script::Library</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static helper to add built-in functions to each script.  <a href="a01807.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:gac614be9bb15ca1a84f7c533f8f0ac228"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a00757.html#ab6d639dfb2dac3babe06d1fb28939b76">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html#gac614be9bb15ca1a84f7c533f8f0ac228">bl::entity::InvalidEntity</a> = 0</td></tr>
-<tr class="memdesc:gac614be9bb15ca1a84f7c533f8f0ac228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special value to indicate that an Entity is not valid.  <a href="a00728.html#gac614be9bb15ca1a84f7c533f8f0ac228">More...</a><br /></td></tr>
-<tr class="separator:gac614be9bb15ca1a84f7c533f8f0ac228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00804"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00804.html">bl</a></td></tr>
+<tr class="memdesc:a00804"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00829"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00829.html">bl::script</a></td></tr>
+<tr class="memdesc:a00829"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01483.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> interpreter for bScript. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of classes for managing entities via the ECS pattern. </p>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="gac614be9bb15ca1a84f7c533f8f0ac228"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac614be9bb15ca1a84f7c533f8f0ac228">&#9670;&nbsp;</a></span>InvalidEntity</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr <a class="el" href="a00757.html#ab6d639dfb2dac3babe06d1fb28939b76">Entity</a> bl::entity::InvalidEntity = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Special value to indicate that an Entity is not valid. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00095_source.html#l00028">28</a> of file <a class="el" href="a00095_source.html">Entity.hpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 03:28:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 9 2021 04:03:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
