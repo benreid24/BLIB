@@ -176,6 +176,10 @@ struct Serializer<int> {
         return false;
     }
 
+    static bool deserializeFrom(const Value& val, const std::string& name, int& result) {
+        return priv::Serializer<int>::deserializeFrom(val, name, result, &deserialize);
+    }
+
     static Value serialize(int value) { return Value(static_cast<float>(value)); }
 
     static bool serializeInto(Group& result, const std::string& name, int value) {

@@ -50,6 +50,55 @@ TEST(JsonSerializer, BasicTypes) {
     }
 }
 
+TEST(JsonSerializer, SerializeFromTo) {
+    Group result;
+
+    std::unordered_map<std::string, int> map;
+    map["k1"] = 5;
+    map["k1"] = 6;
+    map["k1"] = 8;
+
+    EXPECT_TRUE(Serializer<bool>::serializeInto(result, "bool", false));
+    EXPECT_TRUE(Serializer<int>::serializeInto(result, "int", 8237));
+    EXPECT_TRUE(Serializer<float>::serializeInto(result, "float", -45.75));
+    EXPECT_TRUE(Serializer<std::string>::serializeInto(result, "string", "hello"));
+    EXPECT_TRUE(Serializer<std::vector<int>>::serializeInto(result, "vec", {1, 2, 3}));
+    EXPECT_TRUE(Serializer<decltype(map)>::serializeInto(result, "map", map));
+    const Value val(result);
+
+    bool b = true;
+    EXPECT_TRUE(Serializer<bool>::deserializeFrom(val, "bool", b));
+    EXPECT_EQ(b, false);
+
+    int i = 724273;
+    EXPECT_TRUE(Serializer<int>::deserializeFrom(val, "int", i));
+    EXPECT_EQ(i, 8237);
+
+    float f = 34324.3434;
+    EXPECT_TRUE(Serializer<float>::deserializeFrom(val, "float", f));
+    EXPECT_LE(std::abs(f + 45.75), 0.1f);
+
+    std::string s;
+    EXPECT_TRUE(Serializer<std::string>::deserializeFrom(val, "string", s));
+    EXPECT_EQ(s, "hello");
+
+    std::vector<int> v;
+    EXPECT_TRUE(Serializer<std::vector<int>>::deserializeFrom(val, "vec", v));
+    ASSERT_EQ(v.size(), 3);
+    EXPECT_EQ(v[0], 1);
+    EXPECT_EQ(v[1], 2);
+    EXPECT_EQ(v[2], 3);
+
+    std::unordered_map<std::string, int> m;
+    EXPECT_TRUE(Serializer<decltype(m)>::deserializeFrom(val, "map", m));
+    EXPECT_EQ(m.size(), map.size());
+    for (const auto& p : map) {
+        const auto it = m.find(p.first);
+        ASSERT_NE(it, m.end());
+        EXPECT_EQ(it->second, p.second);
+    }
+}
+
 } // namespace unittest
 } // namespace json
 } // namespace serial
