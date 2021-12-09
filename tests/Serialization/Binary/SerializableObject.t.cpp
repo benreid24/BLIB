@@ -28,16 +28,16 @@ private:
 
 template<>
 struct SerializableObject<TestyBoi> : public SerializableObjectBase {
-    SerializableField<1, std::string, offsetof(TestyBoi, str)> str;
-    SerializableField<2, std::uint32_t, offsetof(TestyBoi, u32)> u32;
-    SerializableField<3, std::int16_t, offsetof(TestyBoi, nowidth)> nowidth;
-    SerializableField<4, bool, offsetof(TestyBoi, b)> b;
+    SerializableField<1, TestyBoi, std::string> str;
+    SerializableField<2, TestyBoi, std::uint32_t> u32;
+    SerializableField<3, TestyBoi, std::int16_t> nowidth;
+    SerializableField<4, TestyBoi, bool> b;
 
     SerializableObject()
-    : str(*this)
-    , u32(*this)
-    , nowidth(*this)
-    , b(*this) {}
+    : str(*this, &TestyBoi::str)
+    , u32(*this, &TestyBoi::u32)
+    , nowidth(*this, &TestyBoi::nowidth)
+    , b(*this, &TestyBoi::b) {}
 };
 
 class TestyBoi2 {
@@ -64,18 +64,18 @@ private:
 
 template<>
 struct SerializableObject<TestyBoi2> : public SerializableObjectBase {
-    SerializableField<1, std::string, offsetof(TestyBoi2, str)> str;
-    SerializableField<2, std::uint32_t, offsetof(TestyBoi2, u32)> u32;
-    SerializableField<3, std::int16_t, offsetof(TestyBoi2, nowidth)> nowidth;
-    SerializableField<4, bool, offsetof(TestyBoi2, b)> b;
-    SerializableField<5, std::string, offsetof(TestyBoi2, newfield)> newfield;
+    SerializableField<1, TestyBoi2, std::string> str;
+    SerializableField<2, TestyBoi2, std::uint32_t> u32;
+    SerializableField<3, TestyBoi2, std::int16_t> nowidth;
+    SerializableField<4, TestyBoi2, bool> b;
+    SerializableField<5, TestyBoi2, std::string> newfield;
 
     SerializableObject()
-    : str(*this)
-    , u32(*this)
-    , nowidth(*this)
-    , b(*this)
-    , newfield(*this) {}
+    : str(*this, &TestyBoi2::str)
+    , u32(*this, &TestyBoi2::u32)
+    , nowidth(*this, &TestyBoi2::nowidth)
+    , b(*this, &TestyBoi2::b)
+    , newfield(*this, &TestyBoi2::newfield) {}
 };
 
 namespace unittest

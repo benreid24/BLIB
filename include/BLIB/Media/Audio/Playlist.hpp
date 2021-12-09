@@ -162,14 +162,14 @@ namespace binary
 {
 template<>
 struct SerializableObject<audio::Playlist> : public SerializableObjectBase {
-    SerializableField<1, std::vector<std::string>, offsetof(audio::Playlist, songs)> songs;
-    SerializableField<2, bool, offsetof(audio::Playlist, _shuffle)> shuffle;
-    SerializableField<3, bool, offsetof(audio::Playlist, shuffleOnLoop)> shuffleOnLoop;
+    SerializableField<1, audio::Playlist, std::vector<std::string>> songs;
+    SerializableField<2, audio::Playlist, bool> shuffle;
+    SerializableField<3, audio::Playlist, bool> shuffleOnLoop;
 
     SerializableObject()
-    : songs(*this)
-    , shuffle(*this)
-    , shuffleOnLoop(*this) {}
+    : songs(*this, &audio::Playlist::songs)
+    , shuffle(*this, &audio::Playlist::_shuffle)
+    , shuffleOnLoop(*this, &audio::Playlist::shuffleOnLoop) {}
 };
 
 } // namespace binary
