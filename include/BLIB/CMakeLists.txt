@@ -4,7 +4,6 @@ target_sources(BLIB PUBLIC
     Engine.hpp
     Entities.hpp
     Events.hpp
-    Files.hpp
     Interfaces.hpp
     Logging.hpp
     Media.hpp
@@ -12,6 +11,7 @@ target_sources(BLIB PUBLIC
     Particles.hpp
     Resources.hpp
     Scripts.hpp
+    Serialization.hpp
     Util.hpp
 )
 
@@ -20,7 +20,6 @@ add_subdirectory(Containers)
 add_subdirectory(Engine)
 add_subdirectory(Entities)
 add_subdirectory(Events)
-add_subdirectory(Files)
 add_subdirectory(Interfaces)
 add_subdirectory(Logging)
 add_subdirectory(Math)
@@ -28,4 +27,5 @@ add_subdirectory(Media)
 add_subdirectory(Parser)
 add_subdirectory(Particles)
 add_subdirectory(Scripts)
+add_subdirectory(Serialization)
 add_subdirectory(Util)

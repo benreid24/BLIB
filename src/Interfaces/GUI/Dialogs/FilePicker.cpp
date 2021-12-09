@@ -1,8 +1,8 @@
 #include <BLIB/Interfaces/GUI.hpp>
 
-#include <BLIB/Files/Util.hpp>
 #include <BLIB/Interfaces/GUI/Dialogs/tinyfiledialogs.hpp>
 #include <BLIB/Media/Shapes.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 
 namespace bl
 {
@@ -39,9 +39,9 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
     makeBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         char* name = dialog::tinyfd_inputBox("New Folder", "Folder name:", "");
         if (name) {
-            const std::string f    = file::Util::joinPath(buildPath(), name);
-            const std::string full = file::Util::joinPath(root, f);
-            file::Util::createDirectory(full);
+            const std::string f    = util::FileUtil::joinPath(buildPath(), name);
+            const std::string full = util::FileUtil::joinPath(root, f);
+            util::FileUtil::createDirectory(full);
             populateFiles();
         }
     });
@@ -49,25 +49,25 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
     delBut->setColor(sf::Color::Red, sf::Color::Black);
     delBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (!fileEntry->getInput().empty()) {
-            const std::string f    = file::Util::joinPath(buildPath(), fileEntry->getInput());
-            const std::string full = file::Util::joinPath(root, f);
-            if (file::Util::exists(full)) {
+            const std::string f    = util::FileUtil::joinPath(buildPath(), fileEntry->getInput());
+            const std::string full = util::FileUtil::joinPath(root, f);
+            if (util::FileUtil::exists(full)) {
                 if (dialog::tinyfd_messageBox("Delete File?",
                                               std::string("Delete file `" + full + "`?").c_str(),
                                               "yesno",
                                               "question",
                                               0) == 1) {
-                    file::Util::deleteFile(full);
+                    util::FileUtil::deleteFile(full);
                     populateFiles();
                 }
             }
-            else if (file::Util::directoryExists(full)) {
+            else if (util::FileUtil::directoryExists(full)) {
                 if (dialog::tinyfd_messageBox("Delete Folder?",
                                               std::string("Delete folder `" + full + "`?").c_str(),
                                               "yesno",
                                               "question",
                                               0) == 1) {
-                    file::Util::deleteDirectory(full);
+                    util::FileUtil::deleteDirectory(full);
                     populateFiles();
                 }
             }
@@ -79,7 +79,7 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
     window->pack(controlRow, true, false);
 
     Box::Ptr pathRow      = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    Button::Ptr pathReset = Button::create(file::Util::joinPath(root, " "));
+    Button::Ptr pathReset = Button::create(util::FileUtil::joinPath(root, " "));
     pathBox               = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     pathReset->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         onClearPath();
@@ -209,17 +209,17 @@ void FilePicker::onChooseClicked() {
         return;
     }
 
-    const std::string localpath = file::Util::joinPath(buildPath(), fileEntry->getInput());
-    const std::string filename  = file::Util::joinPath(root, localpath);
+    const std::string localpath = util::FileUtil::joinPath(buildPath(), fileEntry->getInput());
+    const std::string filename  = util::FileUtil::joinPath(root, localpath);
 
-    if (file::Util::directoryExists(filename)) {
+    if (util::FileUtil::directoryExists(filename)) {
         fileClickTime = timer.getElapsedTime().asSeconds(); // trick
         onFolderClick(fileEntry->getInput());
         return;
     }
 
     if (mode == CreateNew) {
-        if (file::Util::exists(filename)) {
+        if (util::FileUtil::exists(filename)) {
             if (dialog::tinyfd_messageBox("Overwrite file?",
                                           (filename + " already exists, overwrite?").c_str(),
                                           "yesno",
@@ -231,7 +231,7 @@ void FilePicker::onChooseClicked() {
         onChoose(localpath);
     }
     else {
-        if (mode == CreateOrPick || file::Util::exists(filename)) { onChoose(localpath); }
+        if (mode == CreateOrPick || util::FileUtil::exists(filename)) { onChoose(localpath); }
         else {
             dialog::tinyfd_messageBox(
                 "Error", (fileEntry->getInput() + " does not exist").c_str(), "ok", "error", 1);
@@ -255,15 +255,15 @@ void FilePicker::populateFiles() {
     clickedFile   = "";
     fileClickTime = 0.f;
 
-    const std::string p = file::Util::joinPath(root, buildPath());
+    const std::string p = util::FileUtil::joinPath(root, buildPath());
     std::vector<std::string> files, folders;
     for (const std::string& ext : extensions) {
-        std::vector<std::string> f = file::Util::listDirectory(p, ext, false);
+        std::vector<std::string> f = util::FileUtil::listDirectory(p, ext, false);
         files.insert(
             files.end(), std::make_move_iterator(f.begin()), std::make_move_iterator(f.end()));
     }
-    folders = file::Util::listDirectoryFolders(p);
-    for (std::string& f : files) { f = file::Util::getFilename(f); }
+    folders = util::FileUtil::listDirectoryFolders(p);
+    for (std::string& f : files) { f = util::FileUtil::getFilename(f); }
     std::sort(files.begin(), files.end());
     std::sort(folders.begin(), folders.end());
 
@@ -321,7 +321,7 @@ void FilePicker::populateFiles() {
 
 std::string FilePicker::buildPath() const {
     std::string result;
-    for (const std::string& p : path) { result = file::Util::joinPath(result, p); }
+    for (const std::string& p : path) { result = util::FileUtil::joinPath(result, p); }
     return result;
 }
 

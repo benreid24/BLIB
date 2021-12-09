@@ -2,8 +2,8 @@
 
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 #include <Scripts/Parser.hpp>
 #include <Scripts/ScriptImpl.hpp>
 #include <fstream>
@@ -17,8 +17,8 @@ namespace
 {
 bool prepScript(std::string& script) {
     static const auto exists = [](const std::string& v) {
-        if (file::Util::exists(v)) {
-            if (file::Util::getExtension(v) != "bs") {
+        if (util::FileUtil::exists(v)) {
+            if (util::FileUtil::getExtension(v) != "bs") {
                 BL_LOG_WARN << "bScript files should have '.bs' extension: " << v;
             }
             return true;
@@ -29,7 +29,7 @@ bool prepScript(std::string& script) {
         engine::Configuration::getOrDefault<std::string>("blib.script.path", "");
 
     if (exists(script)) return true;
-    script = file::Util::joinPath(path, script);
+    script = util::FileUtil::joinPath(path, script);
     if (exists(script)) return true;
     return false;
 }

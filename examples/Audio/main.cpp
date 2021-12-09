@@ -1,5 +1,6 @@
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Media/Audio.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 
 #include <chrono>
 #include <iostream>
@@ -35,8 +36,8 @@ int main() {
     // We can save playlists to files
     std::cout << "Saving playlist\n";
     {
-        bl::file::binary::File output("mylist.plst", bl::file::binary::File::Write);
-        playlist.serialize(output);
+        bl::serial::binary::OutputFile output("mylist.plst");
+        bl::serial::binary::Serializer<bl::audio::Playlist>::serialize(output, playlist);
     }
 
     // And load them

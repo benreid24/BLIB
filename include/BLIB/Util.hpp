@@ -6,6 +6,7 @@
  * @brief Miscellaneous set of classes that provide common functionality
  */
 
+#include <BLIB/Util/FileUtil.hpp>
 #include <BLIB/Util/HashCombine.hpp>
 #include <BLIB/Util/Hashes.hpp>
 #include <BLIB/Util/LastVariadic.hpp>
@@ -13,6 +14,7 @@
 #include <BLIB/Util/Random.hpp>
 #include <BLIB/Util/Signal.hpp>
 #include <BLIB/Util/Timer.hpp>
+#include <BLIB/Util/TupleLoop.hpp>
 #include <BLIB/Util/Waiter.hpp>
 
 #endif
