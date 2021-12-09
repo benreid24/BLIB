@@ -113,6 +113,33 @@ struct Serializer<std::string> {
     static std::uint32_t size(const std::string& s) { return sizeof(std::uint32_t) + s.size(); }
 };
 
+template<typename U, std::size_t N>
+struct Serializer<U[N], false> {
+    static bool serialize(OutputStream& out, const U* arr) {
+        if (!out.write<std::uint32_t>(N)) return false;
+        for (std::size_t i = 0; i < N; ++i) {
+            if (!Serializer<U>::serialize(out, arr[i])) return false;
+        }
+        return true;
+    }
+
+    static bool deserialize(InputStream& in, U* arr) {
+        std::uint32_t n = 0;
+        if (!in.read<std::uint32_t>(n)) return false;
+        if (n != N) return false;
+        for (std::size_t i = 0; i < N; ++i) {
+            if (!Serializer<U>::deserialize(in, arr[i])) return false;
+        }
+        return true;
+    }
+
+    static std::size_t size(const U* arr) {
+        std::size_t s = sizeof(std::uint32_t);
+        for (std::size_t i = 0; i < N; ++i) { s += Serializer<U>::size(arr[i]); }
+        return s;
+    }
+};
+
 template<typename U>
 struct Serializer<std::vector<U>, false> {
     static bool serialize(OutputStream& output, const std::vector<U>& value) {
