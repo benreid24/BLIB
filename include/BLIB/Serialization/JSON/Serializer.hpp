@@ -19,9 +19,11 @@ namespace json
  *        or provide a specialization of this class
  *
  * @tparam T The type to serialize
+ * @tparam Helper for specializations, ignore
  * @ingroup JSON
  */
-template<typename T>
+template<typename T, bool = (std::is_integral_v<T> || std::is_enum_v<T> ||
+                             std::is_floating_point_v<T>)&&!std::is_same_v<T, bool>>
 struct Serializer {
     /**
      * @brief Deserializes the given object from the json tree
@@ -94,35 +96,32 @@ struct Serializer {
 } // namespace priv
 
 template<typename T>
-bool Serializer<T>::deserialize(T& result, const Value& value) {
-    const auto& g = value.getAsGroup();
-    if (!g.has_value()) return false;
-    return get().deserialize(g.value(), &result);
-}
+struct Serializer<T, false> {
+    static bool deserialize(T& result, const Value& value) {
+        const auto& g = value.getAsGroup();
+        if (!g.has_value()) return false;
+        return get().deserialize(g.value(), &result);
+    }
 
-template<typename T>
-bool Serializer<T>::deserializeFrom(const Value& val, const std::string& name, T& result) {
-    return priv::Serializer<T>::deserializeFrom(val, name, result, &deserialize);
-}
+    static bool deserializeFrom(const Value& val, const std::string& name, T& result) {
+        return priv::Serializer<T>::deserializeFrom(val, name, result, &deserialize);
+    }
 
-template<typename T>
-Value Serializer<T>::serialize(const T& value) {
-    return get().serialize(&value);
-}
+    static Value serialize(const T& value) { return get().serialize(&value); }
 
-template<typename T>
-bool Serializer<T>::serializeInto(Group& result, const std::string& name, const T& val) {
-    return priv::Serializer<T>::serializeInto(result, name, val, &serialize);
-}
+    static bool serializeInto(Group& result, const std::string& name, const T& val) {
+        return priv::Serializer<T>::serializeInto(result, name, val, &serialize);
+    }
 
-template<typename T>
-SerializableObject<T>& Serializer<T>::get() {
-    static SerializableObject<T> ser;
-    return ser;
-}
+private:
+    static const SerializableObject<T>& get() {
+        static const SerializableObject<T> ser;
+        return ser;
+    }
+};
 
 template<>
-struct Serializer<bool> {
+struct Serializer<bool, false> {
     static bool deserialize(bool& result, const Value& v) {
         Bool r = v.getAsBool();
         if (r.has_value()) {
@@ -143,52 +142,47 @@ struct Serializer<bool> {
     }
 };
 
-template<>
-struct Serializer<float> {
-    static bool deserialize(float& result, const Value& v) {
-        Numeric r = v.getAsNumeric();
-        if (r.has_value()) {
-            result = r.value();
-            return true;
+template<typename T>
+struct Serializer<T, true> {
+    static bool deserialize(T& result, const Value& v) {
+        if constexpr (std::is_enum_v<T>) {
+            String s = v.getAsString();
+            if (s.has_value()) {
+                std::underlying_type_t<T> u = std::atoi(s.value().c_str());
+                result                      = static_cast<T>(u);
+                return true;
+            }
+        }
+        else {
+            Numeric r = v.getAsNumeric();
+            if (r.has_value()) {
+                result = r.value();
+                return true;
+            }
         }
         return false;
     }
 
-    static bool deserializeFrom(const Value& val, const std::string& name, float& result) {
-        return priv::Serializer<float>::deserializeFrom(val, name, result, &deserialize);
+    static bool deserializeFrom(const Value& val, const std::string& name, T& result) {
+        return priv::Serializer<T>::deserializeFrom(val, name, result, &deserialize);
     }
 
-    static Value serialize(float value) { return Value(value); }
-
-    static bool serializeInto(Group& result, const std::string& name, float value) {
-        return priv::Serializer<float>::serializeInto(result, name, value, &serialize);
-    }
-};
-
-template<>
-struct Serializer<int> {
-    static bool deserialize(int& result, const Value& v) {
-        Numeric r = v.getAsNumeric();
-        if (r.has_value()) {
-            result = r.value();
-            return true;
+    static Value serialize(T value) {
+        if constexpr (std::is_enum_v<T>) {
+            return Value(std::to_string(static_cast<std::underlying_type_t<T>>(value)));
         }
-        return false;
+        else {
+            return Value(static_cast<float>(value));
+        }
     }
 
-    static bool deserializeFrom(const Value& val, const std::string& name, int& result) {
-        return priv::Serializer<int>::deserializeFrom(val, name, result, &deserialize);
-    }
-
-    static Value serialize(int value) { return Value(static_cast<float>(value)); }
-
-    static bool serializeInto(Group& result, const std::string& name, int value) {
-        return priv::Serializer<int>::serializeInto(result, name, value, &serialize);
+    static bool serializeInto(Group& result, const std::string& name, T value) {
+        return priv::Serializer<T>::serializeInto(result, name, value, &serialize);
     }
 };
 
 template<>
-struct Serializer<std::string> {
+struct Serializer<std::string, false> {
     static bool deserialize(std::string& result, const Value& v) {
         String r = v.getAsString();
         if (r.has_value()) {
@@ -210,7 +204,7 @@ struct Serializer<std::string> {
 };
 
 template<typename U>
-struct Serializer<std::vector<U>> {
+struct Serializer<std::vector<U>, false> {
     static bool deserialize(std::vector<U>& result, const Value& v) {
         RList r = v.getAsList();
         if (r.has_value()) {
@@ -240,7 +234,7 @@ struct Serializer<std::vector<U>> {
 };
 
 template<typename U>
-struct Serializer<std::unordered_map<std::string, U>> {
+struct Serializer<std::unordered_map<std::string, U>, false> {
     static bool deserialize(std::unordered_map<std::string, U>& result, const Value& v) {
         RGroup group = v.getAsGroup();
         if (group.has_value()) {
