@@ -26,6 +26,14 @@ else()
     add_library(BLIB SHARED)
 endif()
 
+if (APPLE)
+    target_compile_definitions(BLIB PUBLIC BLIB_APPLE=1)
+elseif(WIN32)
+    target_compile_definitions(BLIB PUBLIC BLIB_WINDOWS=1)
+else()
+    target_compile_definitions(BLIB PUBLIC BLIB_LINUX=1) # we don't really care about Sun/IBM/etc
+endif()
+
 if (MSVC)
     # warning level 4 and all warnings as errors
     target_compile_options(BLIB PUBLIC /W4 /WX)
@@ -37,7 +45,7 @@ endif()
 if (STATIC_LINK)
     set(BUILD_SHARED_LIBS Off)
     set(SFML_USE_STATIC_STD_LIBS On)
-    add_definitions(-DSFML_STATIC)
+    target_compile_definitions(BLIB PUBLIC SFML_STATIC)
 endif()
 
 include_directories(lib/SFML/include)

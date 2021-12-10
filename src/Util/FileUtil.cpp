@@ -2,6 +2,7 @@
 
 #include <BLIB/Util/Random.hpp>
 #include <cstdio>
+#include <cstdlib>
 #include <dirent.h>
 #include <fstream>
 #include <sstream>
@@ -10,7 +11,12 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include <BLIB/Logging.hpp>
+#ifdef BLIB_WINDOWS
+#include <shlobj.h>
+#else
+#include <pwd.h>
+#include <unistd.h>
+#endif
 
 namespace bl
 {
@@ -19,7 +25,7 @@ namespace util
 namespace
 {
 void createDir(const std::string& path) {
-#ifdef _WIN32
+#ifdef BLIB_WINDOWS
     mkdir(path.c_str());
 #else
     mkdir(path.c_str(), 0755);
@@ -190,6 +196,23 @@ bool FileUtil::deleteDirectory(const std::string& path) {
     }
 
     return 0 == rmdir(path.c_str());
+}
+
+std::string FileUtil::getDataDirectory(const std::string& appName) {
+    std::string path;
+#ifdef BLIB_WINDOWS
+    char buf[MAX_PATH];
+    SHGetFolderPathA(NULL, CSIDL_MYDOCUMENTS, 0, 0, buf);
+    path = joinPath(buf, "My Games");
+    createDirectory(path);
+#else
+    struct passwd* pwd = getpwuid(getuid());
+    path               = pwd ? pwd->pw_dir : "";
+#endif
+
+    path = joinPath(path, appName);
+    createDirectory(path);
+    return path;
 }
 
 } // namespace util
