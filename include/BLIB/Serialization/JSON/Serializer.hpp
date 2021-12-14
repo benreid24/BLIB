@@ -4,8 +4,12 @@
 #include <BLIB/Serialization/JSON/JSON.hpp>
 #include <BLIB/Serialization/JSON/SerializableObject.hpp>
 
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Vector3.hpp>
 #include <cstdint>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace bl
 {
@@ -263,6 +267,40 @@ struct Serializer<std::vector<U>, false> {
 };
 
 template<typename U>
+struct Serializer<std::unordered_set<U>, false> {
+    static bool deserialize(std::unordered_set<U>& result, const Value& v) {
+        RList r = v.getAsList();
+        if (r.has_value()) {
+            for (unsigned int i = 0; i < r.value().size(); ++i) {
+                U val;
+                if (!Serializer<U>::deserialize(result[i], val)) return false;
+                result.emplace(std::move(val));
+            }
+            return true;
+        }
+        return false;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& name,
+                                std::unordered_set<U>& result) {
+        return priv::Serializer<std::unordered_set<U>>::deserializeFrom(
+            val, name, result, &deserialize);
+    }
+
+    static Value serialize(const std::unordered_set<U>& value) {
+        List result;
+        result.reserve(value.size());
+        for (const U& v : value) { result.push_back(Serializer<U>::serialize(v)); }
+        return {result};
+    }
+
+    static void serializeInto(Group& result, const std::string& name,
+                              const std::unordered_set<U>& value) {
+        priv::Serializer<std::unordered_set<U>>::serializeInto(result, name, value, &serialize);
+    }
+};
+
+template<typename U>
 struct Serializer<std::unordered_map<std::string, U>, false> {
     static bool deserialize(std::unordered_map<std::string, U>& result, const Value& v) {
         RGroup group = v.getAsGroup();
@@ -296,6 +334,102 @@ struct Serializer<std::unordered_map<std::string, U>, false> {
                               const std::unordered_map<std::string, U>& value) {
         priv::Serializer<std::unordered_map<std::string, U>>::serializeInto(
             result, name, value, &serialize);
+    }
+};
+
+template<typename U>
+struct Serializer<sf::Vector2<U>, false> {
+    static Value serialize(const sf::Vector2<U>& v) {
+        Group g;
+        g.addField("x", Serializer<U>::serialize(v.x));
+        g.addField("y", Serializer<U>::serialize(v.y));
+        return {g};
+    }
+
+    static void serializeInto(const std::string& key, Group& g, const sf::Vector2<U>& val) {
+        priv::Serializer<sf::Vector2<U>>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(sf::Vector2<U>& result, const Value& val) {
+        const RGroup rg = val.getAsGroup();
+        if (!rg.has_value()) return false;
+        const Group& g = rg.value();
+        if (!g.hasField("x")) return false;
+        if (!g.hasField("y")) return false;
+        if (!Serializer<U>::deserialize(result.x, g.getField("x").value())) return false;
+        if (!Serializer<U>::deserialize(result.y, g.getField("y").value())) return false;
+        return false;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, sf::Vector2<U>& result) {
+        return priv::Serializer<sf::Vector2<U>>::deserializeFrom(val, key, result, &deserialize);
+    }
+};
+
+template<typename U>
+struct Serializer<sf::Vector3<U>, false> {
+    static Value serialize(const sf::Vector3<U>& v) {
+        Group g;
+        g.addField("x", Serializer<U>::serialize(v.x));
+        g.addField("y", Serializer<U>::serialize(v.y));
+        g.addField("z", Serializer<U>::serialize(v.z));
+        return {g};
+    }
+
+    static void serializeInto(const std::string& key, Group& g, const sf::Vector3<U>& val) {
+        priv::Serializer<sf::Vector3<U>>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(sf::Vector3<U>& result, const Value& val) {
+        const RGroup rg = val.getAsGroup();
+        if (!rg.has_value()) return false;
+        const Group& g = rg.value();
+        if (!g.hasField("x")) return false;
+        if (!g.hasField("y")) return false;
+        if (!g.hasField("z")) return false;
+        if (!Serializer<U>::deserialize(result.x, g.getField("x").value())) return false;
+        if (!Serializer<U>::deserialize(result.y, g.getField("y").value())) return false;
+        if (!Serializer<U>::deserialize(result.y, g.getField("z").value())) return false;
+        return false;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, sf::Vector3<U>& result) {
+        return priv::Serializer<sf::Vector3<U>>::deserializeFrom(val, key, result, &deserialize);
+    }
+};
+
+template<typename U>
+struct Serializer<sf::Rect<U>, false> {
+    static Value serialize(const sf::Rect<U>& v) {
+        Group g;
+        g.addField("left", Serializer<U>::serialize(v.left));
+        g.addField("top", Serializer<U>::serialize(v.top));
+        g.addField("width", Serializer<U>::serialize(v.width));
+        g.addField("height", Serializer<U>::serialize(v.height));
+        return {g};
+    }
+
+    static void serializeInto(const std::string& key, Group& g, const sf::Rect<U>& val) {
+        priv::Serializer<sf::Rect<U>>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(sf::Rect<U>& result, const Value& val) {
+        const RGroup rg = val.getAsGroup();
+        if (!rg.has_value()) return false;
+        const Group& g = rg.value();
+        if (!g.hasField("left")) return false;
+        if (!g.hasField("top")) return false;
+        if (!g.hasField("width")) return false;
+        if (!g.hasField("height")) return false;
+        if (!Serializer<U>::deserialize(result.x, g.getField("left").value())) return false;
+        if (!Serializer<U>::deserialize(result.y, g.getField("top").value())) return false;
+        if (!Serializer<U>::deserialize(result.y, g.getField("width").value())) return false;
+        if (!Serializer<U>::deserialize(result.y, g.getField("height").value())) return false;
+        return false;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, sf::Rect<U>& result) {
+        return priv::Serializer<sf::Rect<U>>::deserializeFrom(val, key, result, &deserialize);
     }
 };
 
