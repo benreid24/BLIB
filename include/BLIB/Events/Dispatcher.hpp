@@ -50,9 +50,10 @@ public:
      *
      * @tparam T The type of event to dispatch
      * @param event The event to dispatch
+     * @param lock Whether or not to lock the dispatcher mutex
      */
     template<typename T>
-    void dispatch(const T& event) const;
+    void dispatch(const T& event, bool lock = true) const;
 
 private:
     mutable std::shared_mutex mutex;
@@ -80,9 +81,10 @@ void Dispatcher::subscribe(Listener<TEvents...>* listener) {
 }
 
 template<typename T>
-void Dispatcher::dispatch(const T& event) const {
+void Dispatcher::dispatch(const T& event, bool l) const {
     const std::type_index type(typeid(T));
-    std::shared_lock lock(mutex);
+    std::shared_lock lock(mutex, std::defer_lock);
+    if (l) lock.lock();
 
     auto lit = listeners.find(type);
     if (lit != listeners.end()) {
