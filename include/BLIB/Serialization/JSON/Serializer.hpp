@@ -358,7 +358,7 @@ struct Serializer<sf::Vector2<U>, false> {
         if (!g.hasField("y")) return false;
         if (!Serializer<U>::deserialize(result.x, g.getField("x").value())) return false;
         if (!Serializer<U>::deserialize(result.y, g.getField("y").value())) return false;
-        return false;
+        return true;
     }
 
     static bool deserializeFrom(const Value& val, const std::string& key, sf::Vector2<U>& result) {
@@ -390,7 +390,7 @@ struct Serializer<sf::Vector3<U>, false> {
         if (!Serializer<U>::deserialize(result.x, g.getField("x").value())) return false;
         if (!Serializer<U>::deserialize(result.y, g.getField("y").value())) return false;
         if (!Serializer<U>::deserialize(result.y, g.getField("z").value())) return false;
-        return false;
+        return true;
     }
 
     static bool deserializeFrom(const Value& val, const std::string& key, sf::Vector3<U>& result) {
@@ -425,7 +425,7 @@ struct Serializer<sf::Rect<U>, false> {
         if (!Serializer<U>::deserialize(result.y, g.getField("top").value())) return false;
         if (!Serializer<U>::deserialize(result.y, g.getField("width").value())) return false;
         if (!Serializer<U>::deserialize(result.y, g.getField("height").value())) return false;
-        return false;
+        return true;
     }
 
     static bool deserializeFrom(const Value& val, const std::string& key, sf::Rect<U>& result) {
