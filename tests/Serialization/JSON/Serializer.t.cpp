@@ -58,12 +58,12 @@ TEST(JsonSerializer, SerializeFromTo) {
     map["k1"] = 6;
     map["k1"] = 8;
 
-    EXPECT_TRUE(Serializer<bool>::serializeInto(result, "bool", false));
-    EXPECT_TRUE(Serializer<int>::serializeInto(result, "int", 8237));
-    EXPECT_TRUE(Serializer<float>::serializeInto(result, "float", -45.75));
-    EXPECT_TRUE(Serializer<std::string>::serializeInto(result, "string", "hello"));
-    EXPECT_TRUE(Serializer<std::vector<int>>::serializeInto(result, "vec", {1, 2, 3}));
-    EXPECT_TRUE(Serializer<decltype(map)>::serializeInto(result, "map", map));
+    Serializer<bool>::serializeInto(result, "bool", false);
+    Serializer<int>::serializeInto(result, "int", 8237);
+    Serializer<float>::serializeInto(result, "float", -45.75);
+    Serializer<std::string>::serializeInto(result, "string", "hello");
+    Serializer<std::vector<int>>::serializeInto(result, "vec", {1, 2, 3});
+    Serializer<decltype(map)>::serializeInto(result, "map", map);
     const Value val(result);
 
     bool b = true;
