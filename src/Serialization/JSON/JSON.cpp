@@ -213,7 +213,7 @@ void Value::print(std::ostream& stream, int ilvl) const {
         stream << (getAsBool().value() ? "true" : "false");
         break;
     case TNumeric:
-        stream << getAsNumeric().value();
+        stream << std::fixed << getAsNumeric().value();
         break;
     case TString:
         stream << '"' << getAsString().value() << '"';
@@ -231,7 +231,8 @@ void Value::print(std::ostream& stream, int ilvl) const {
             if (i < list.size() - 1) stream << ",";
             stream << "\n";
         }
-        stream << std::string(ilvl, ' ') << "]";
+        stream << (list.empty() ? " " : std::string(ilvl, ' '));
+        stream << "]";
         break;
     }
 
@@ -309,5 +310,5 @@ void saveToFile(const std::string& file, const Group& group) {
 void saveToStream(std::ostream& stream, const Group& group) { stream << group; }
 
 } // namespace json
-} // namespace file
+} // namespace serial
 } // namespace bl
