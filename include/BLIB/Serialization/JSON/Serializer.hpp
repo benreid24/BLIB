@@ -80,11 +80,11 @@ struct Serializer {
     template<typename F>
     static bool deserializeFrom(const Value& val, const std::string& name, T& result,
                                 F deserialize) {
-        const auto& og = val.getAsGroup();
-        if (!og.has_value()) return false;
-        const auto& f = og.value().getField(name);
-        if (!f.has_value()) return false;
-        return deserialize(result, f.value());
+        const auto* og = val.getAsGroup();
+        if (og != nullptr) return false;
+        const auto* f = og->getField(name);
+        if (f != nullptr) return false;
+        return deserialize(result, *f);
     }
 
     template<typename F>
@@ -101,9 +101,9 @@ struct Serializer {
 template<typename T>
 struct Serializer<T, false> {
     static bool deserialize(T& result, const Value& value) {
-        const auto& g = value.getAsGroup();
-        if (!g.has_value()) return false;
-        return get().deserialize(g.value(), &result);
+        const auto* g = value.getAsGroup();
+        if (g != nullptr) return false;
+        return get().deserialize(*g, &result);
     }
 
     static bool deserializeFrom(const Value& val, const std::string& name, T& result) {
@@ -126,9 +126,9 @@ private:
 template<>
 struct Serializer<bool, false> {
     static bool deserialize(bool& result, const Value& v) {
-        Bool r = v.getAsBool();
-        if (r.has_value()) {
-            result = r.value();
+        const bool* r = v.getAsBool();
+        if (r != nullptr) {
+            result = *r;
             return true;
         }
         return false;
@@ -149,17 +149,17 @@ template<typename T>
 struct Serializer<T, true> {
     static bool deserialize(T& result, const Value& v) {
         if constexpr (std::is_enum_v<T>) {
-            String s = v.getAsString();
-            if (s.has_value()) {
-                std::underlying_type_t<T> u = std::atoi(s.value().c_str());
+            const std::string* s = v.getAsString();
+            if (s != nullptr) {
+                std::underlying_type_t<T> u = std::atoi(s->c_str());
                 result                      = static_cast<T>(u);
                 return true;
             }
         }
         else {
-            Numeric r = v.getAsNumeric();
-            if (r.has_value()) {
-                result = r.value();
+            const float* r = v.getAsNumeric();
+            if (r != nullptr) {
+                result = *r;
                 return true;
             }
         }
@@ -187,9 +187,9 @@ struct Serializer<T, true> {
 template<>
 struct Serializer<std::string, false> {
     static bool deserialize(std::string& result, const Value& v) {
-        String r = v.getAsString();
-        if (r.has_value()) {
-            result = r.value();
+        const std::string* r = v.getAsString();
+        if (r != nullptr) {
+            result = *r;
             return true;
         }
         return false;
@@ -209,11 +209,11 @@ struct Serializer<std::string, false> {
 template<typename U, std::size_t N>
 struct Serializer<U[N], false> {
     static bool deserialize(U* result, const Value& v) {
-        RList r = v.getAsList();
-        if (!r.has_value()) return false;
-        if (r.value().size() != N) return false;
+        const List* r = v.getAsList();
+        if (r != nullptr) return false;
+        if (r->size() != N) return false;
         for (std::size_t i = 0; i < N; ++i) {
-            if (!Serializer<U>::deserialize(result[i], r.value()[i])) return false;
+            if (!Serializer<U>::deserialize(result[i], r->at(i))) return false;
         }
         return true;
     }
@@ -239,11 +239,11 @@ struct Serializer<U[N], false> {
 template<typename U>
 struct Serializer<std::vector<U>, false> {
     static bool deserialize(std::vector<U>& result, const Value& v) {
-        RList r = v.getAsList();
-        if (r.has_value()) {
-            result.resize(r.value().size());
-            for (unsigned int i = 0; i < r.value().size(); ++i) {
-                if (!Serializer<U>::deserialize(result[i], r.value()[i])) return false;
+        const List* r = v.getAsList();
+        if (r != nullptr) {
+            result.resize(r->size());
+            for (unsigned int i = 0; i < r->size(); ++i) {
+                if (!Serializer<U>::deserialize(result[i], r->at(i))) return false;
             }
             return true;
         }
@@ -269,11 +269,11 @@ struct Serializer<std::vector<U>, false> {
 template<typename U>
 struct Serializer<std::unordered_set<U>, false> {
     static bool deserialize(std::unordered_set<U>& result, const Value& v) {
-        RList r = v.getAsList();
-        if (r.has_value()) {
-            for (unsigned int i = 0; i < r.value().size(); ++i) {
+        const List* r = v.getAsList();
+        if (r != nullptr) {
+            for (unsigned int i = 0; i < r->size(); ++i) {
                 U val;
-                if (!Serializer<U>::deserialize(result[i], val)) return false;
+                if (!Serializer<U>::deserialize(r->at(i), val)) return false;
                 result.emplace(std::move(val));
             }
             return true;
@@ -303,13 +303,13 @@ struct Serializer<std::unordered_set<U>, false> {
 template<typename U>
 struct Serializer<std::unordered_map<std::string, U>, false> {
     static bool deserialize(std::unordered_map<std::string, U>& result, const Value& v) {
-        RGroup group = v.getAsGroup();
-        if (group.has_value()) {
-            const Group& g = group.value();
+        const Group* group = v.getAsGroup();
+        if (group != nullptr) {
+            const Group& g = *group;
             for (const std::string& field : g.getFields()) {
                 U f;
-                if (!Serializer<U>::deserialize(f, g.getField(field).value())) return false;
-                result[field] = f;
+                if (!Serializer<U>::deserialize(f, *g.getField(field))) return false;
+                result.emplace(field, std::move(f));
             }
             return true;
         }
@@ -351,13 +351,14 @@ struct Serializer<sf::Vector2<U>, false> {
     }
 
     static bool deserialize(sf::Vector2<U>& result, const Value& val) {
-        const RGroup rg = val.getAsGroup();
-        if (!rg.has_value()) return false;
-        const Group& g = rg.value();
-        if (!g.hasField("x")) return false;
-        if (!g.hasField("y")) return false;
-        if (!Serializer<U>::deserialize(result.x, g.getField("x").value())) return false;
-        if (!Serializer<U>::deserialize(result.y, g.getField("y").value())) return false;
+        const Group* rg = val.getAsGroup();
+        if (rg != nullptr) return false;
+        const Group& g = *rg;
+        const Value* x = g.getField("x");
+        const Value* y = g.getField("y");
+        if (!x || !y) return false;
+        if (!Serializer<U>::deserialize(result.x, *x)) return false;
+        if (!Serializer<U>::deserialize(result.y, *y)) return false;
         return true;
     }
 
@@ -381,15 +382,16 @@ struct Serializer<sf::Vector3<U>, false> {
     }
 
     static bool deserialize(sf::Vector3<U>& result, const Value& val) {
-        const RGroup rg = val.getAsGroup();
-        if (!rg.has_value()) return false;
-        const Group& g = rg.value();
-        if (!g.hasField("x")) return false;
-        if (!g.hasField("y")) return false;
-        if (!g.hasField("z")) return false;
-        if (!Serializer<U>::deserialize(result.x, g.getField("x").value())) return false;
-        if (!Serializer<U>::deserialize(result.y, g.getField("y").value())) return false;
-        if (!Serializer<U>::deserialize(result.y, g.getField("z").value())) return false;
+        const Group* rg = val.getAsGroup();
+        if (rg != nullptr) return false;
+        const Group& g = *rg;
+        const Value* x = g.getField("x");
+        const Value* y = g.getField("y");
+        const Value* z = g.getField("z");
+        if (!x || !y || !z) return false;
+        if (!Serializer<U>::deserialize(result.x, *x)) return false;
+        if (!Serializer<U>::deserialize(result.y, *y)) return false;
+        if (!Serializer<U>::deserialize(result.y, *z)) return false;
         return true;
     }
 
@@ -414,17 +416,18 @@ struct Serializer<sf::Rect<U>, false> {
     }
 
     static bool deserialize(sf::Rect<U>& result, const Value& val) {
-        const RGroup rg = val.getAsGroup();
-        if (!rg.has_value()) return false;
-        const Group& g = rg.value();
-        if (!g.hasField("left")) return false;
-        if (!g.hasField("top")) return false;
-        if (!g.hasField("width")) return false;
-        if (!g.hasField("height")) return false;
-        if (!Serializer<U>::deserialize(result.x, g.getField("left").value())) return false;
-        if (!Serializer<U>::deserialize(result.y, g.getField("top").value())) return false;
-        if (!Serializer<U>::deserialize(result.y, g.getField("width").value())) return false;
-        if (!Serializer<U>::deserialize(result.y, g.getField("height").value())) return false;
+        const Group* rg = val.getAsGroup();
+        if (rg != nullptr) return false;
+        const Group& g = *rg;
+        const Value* l = g.getField("left");
+        const Value* t = g.getField("top");
+        const Value* w = g.getField("width");
+        const Value* h = g.getField("height");
+        if (!l || !t || !w || !h) return false;
+        if (!Serializer<U>::deserialize(result.left, *l)) return false;
+        if (!Serializer<U>::deserialize(result.top, *t)) return false;
+        if (!Serializer<U>::deserialize(result.width, *w)) return false;
+        if (!Serializer<U>::deserialize(result.height, *h)) return false;
         return true;
     }
 

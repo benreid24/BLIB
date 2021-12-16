@@ -15,34 +15,34 @@ namespace unittest
 TEST(JSON, BoolValue) {
     Value val(true);
     EXPECT_EQ(Value::TBool, val.getType());
-    EXPECT_TRUE(val.getAsBool());
-    EXPECT_TRUE(val.getAsBool().value());
+    ASSERT_NE(val.getAsBool(), nullptr);
+    EXPECT_TRUE(*val.getAsBool());
     val = false;
     EXPECT_EQ(Value::TBool, val.getType());
-    EXPECT_TRUE(val.getAsBool());
-    EXPECT_FALSE(val.getAsBool().value());
+    ASSERT_NE(val.getAsBool(), nullptr);
+    EXPECT_FALSE(*val.getAsBool());
 }
 
 TEST(JSON, NumericalValue) {
     Value val(15.5f);
     EXPECT_EQ(Value::TNumeric, val.getType());
-    EXPECT_TRUE(val.getAsNumeric());
-    EXPECT_EQ(val.getAsNumeric().value(), 15.5f);
+    ASSERT_NE(val.getAsNumeric(), nullptr);
+    EXPECT_EQ(*val.getAsNumeric(), 15.5f);
     val = 32.3f;
     EXPECT_EQ(Value::TNumeric, val.getType());
-    EXPECT_TRUE(val.getAsNumeric());
-    EXPECT_EQ(val.getAsNumeric().value(), 32.3f);
+    ASSERT_NE(val.getAsNumeric(), nullptr);
+    EXPECT_EQ(*val.getAsNumeric(), 32.3f);
 }
 
 TEST(JSON, StringValue) {
     Value val("hello");
     EXPECT_EQ(Value::TString, val.getType());
-    EXPECT_TRUE(val.getAsString());
-    EXPECT_EQ(val.getAsString().value(), "hello");
+    ASSERT_NE(val.getAsString(), nullptr);
+    EXPECT_EQ(*val.getAsString(), "hello");
     val = "world";
     EXPECT_EQ(Value::TString, val.getType());
-    EXPECT_TRUE(val.getAsString());
-    EXPECT_EQ(val.getAsString().value(), "world");
+    ASSERT_NE(val.getAsString(), nullptr);
+    EXPECT_EQ(*val.getAsString(), "world");
 }
 
 TEST(JSON, ListValue) {
@@ -70,9 +70,9 @@ TEST(JSON, BasicGroup) {
     ASSERT_TRUE(root.getString("str"));
     ASSERT_TRUE(root.getNumeric("num"));
     ASSERT_TRUE(root.getBool("b"));
-    EXPECT_FLOAT_EQ(123.45, root.getNumeric("num").value());
-    EXPECT_EQ("hello", root.getString("str").value());
-    EXPECT_EQ(true, root.getBool("b").value());
+    EXPECT_FLOAT_EQ(123.45, *root.getNumeric("num"));
+    EXPECT_EQ("hello", *root.getString("str"));
+    EXPECT_EQ(true, *root.getBool("b"));
 }
 
 TEST(JSON, NestedGroup) {
@@ -84,13 +84,13 @@ TEST(JSON, NestedGroup) {
     ASSERT_TRUE(root.getNumeric("grp/deep/wogh"));
     ASSERT_TRUE(root.getList("grp/list"));
     ASSERT_TRUE(root.getBool("b"));
-    EXPECT_EQ(root.getNumeric("grp/deep/wogh").value(), 12);
-    EXPECT_EQ(false, root.getBool("b").value());
-    List list = root.getList("grp/list").value();
+    EXPECT_EQ(*root.getNumeric("grp/deep/wogh"), 12);
+    EXPECT_EQ(false, *root.getBool("b"));
+    const List& list = *root.getList("grp/list");
     ASSERT_EQ(list.size(), 3);
-    EXPECT_EQ(list[0].getAsNumeric().value(), 1);
-    EXPECT_EQ(list[1].getAsNumeric().value(), 2);
-    EXPECT_EQ(list[2].getAsNumeric().value(), 3);
+    EXPECT_EQ(*list[0].getAsNumeric(), 1);
+    EXPECT_EQ(*list[1].getAsNumeric(), 2);
+    EXPECT_EQ(*list[2].getAsNumeric(), 3);
 }
 
 TEST(JSON, GroupList) {
@@ -98,14 +98,14 @@ TEST(JSON, GroupList) {
 
     Group root = loadFromString(json);
     ASSERT_TRUE(root.hasField("l"));
-    ASSERT_TRUE(root.getField("l").value().getAsList());
-    List list = root.getField("l").value().getAsList().value();
+    ASSERT_NE(root.getField("l")->getAsList(), nullptr);
+    const List& list = *root.getField("l")->getAsList();
     ASSERT_EQ(list.size(), 1);
     ASSERT_TRUE(list[0].getAsGroup());
-    Group nested = list[0].getAsGroup().value();
+    const Group& nested = *list[0].getAsGroup();
     ASSERT_TRUE(nested.hasField("name"));
-    ASSERT_TRUE(nested.getField("name").value().getAsNumeric());
-    EXPECT_EQ(nested.getNumeric("name").value(), 15);
+    ASSERT_NE(nested.getField("name")->getAsNumeric(), nullptr);
+    EXPECT_EQ(*nested.getNumeric("name"), 15);
 }
 
 TEST(JSON, Files) {
@@ -126,13 +126,13 @@ TEST(JSON, Files) {
     ASSERT_TRUE(root.getNumeric("num"));
     ASSERT_TRUE(root.getBool("b"));
     ASSERT_TRUE(root.getList("ls"));
-    EXPECT_FLOAT_EQ(123.45, root.getNumeric("num").value());
-    EXPECT_EQ("hello", root.getString("str").value());
-    EXPECT_EQ(true, root.getBool("b").value());
-    EXPECT_EQ(3, root.getList("ls").value().size());
+    EXPECT_FLOAT_EQ(123.45, *root.getNumeric("num"));
+    EXPECT_EQ("hello", *root.getString("str"));
+    EXPECT_EQ(true, *root.getBool("b"));
+    EXPECT_EQ(3, root.getList("ls")->size());
 }
 
 } // namespace unittest
 } // namespace json
-} // namespace file
+} // namespace serial
 } // namespace bl

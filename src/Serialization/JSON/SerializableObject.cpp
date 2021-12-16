@@ -8,9 +8,9 @@ namespace json
 {
 bool SerializableObjectBase::deserialize(const Group& val, void* obj) const {
     for (const auto& field : fields) {
-        const auto f = val.getField(field.first);
-        if (f.has_value()) {
-            if (!field.second->deserialize(f.value(), obj)) { return false; }
+        const auto* f = val.getField(field.first);
+        if (f != nullptr) {
+            if (!field.second->deserialize(*f, obj)) { return false; }
         }
         else {
             return false;
