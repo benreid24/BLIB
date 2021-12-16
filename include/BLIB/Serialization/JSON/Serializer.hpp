@@ -81,9 +81,9 @@ struct Serializer {
     static bool deserializeFrom(const Value& val, const std::string& name, T& result,
                                 F deserialize) {
         const auto* og = val.getAsGroup();
-        if (og != nullptr) return false;
+        if (og == nullptr) return false;
         const auto* f = og->getField(name);
-        if (f != nullptr) return false;
+        if (f == nullptr) return false;
         return deserialize(result, *f);
     }
 
@@ -102,7 +102,7 @@ template<typename T>
 struct Serializer<T, false> {
     static bool deserialize(T& result, const Value& value) {
         const auto* g = value.getAsGroup();
-        if (g != nullptr) return false;
+        if (g == nullptr) return false;
         return get().deserialize(*g, &result);
     }
 
@@ -210,7 +210,7 @@ template<typename U, std::size_t N>
 struct Serializer<U[N], false> {
     static bool deserialize(U* result, const Value& v) {
         const List* r = v.getAsList();
-        if (r != nullptr) return false;
+        if (r == nullptr) return false;
         if (r->size() != N) return false;
         for (std::size_t i = 0; i < N; ++i) {
             if (!Serializer<U>::deserialize(result[i], r->at(i))) return false;
@@ -352,7 +352,7 @@ struct Serializer<sf::Vector2<U>, false> {
 
     static bool deserialize(sf::Vector2<U>& result, const Value& val) {
         const Group* rg = val.getAsGroup();
-        if (rg != nullptr) return false;
+        if (rg == nullptr) return false;
         const Group& g = *rg;
         const Value* x = g.getField("x");
         const Value* y = g.getField("y");
@@ -383,7 +383,7 @@ struct Serializer<sf::Vector3<U>, false> {
 
     static bool deserialize(sf::Vector3<U>& result, const Value& val) {
         const Group* rg = val.getAsGroup();
-        if (rg != nullptr) return false;
+        if (rg == nullptr) return false;
         const Group& g = *rg;
         const Value* x = g.getField("x");
         const Value* y = g.getField("y");
@@ -417,7 +417,7 @@ struct Serializer<sf::Rect<U>, false> {
 
     static bool deserialize(sf::Rect<U>& result, const Value& val) {
         const Group* rg = val.getAsGroup();
-        if (rg != nullptr) return false;
+        if (rg == nullptr) return false;
         const Group& g = *rg;
         const Value* l = g.getField("left");
         const Value* t = g.getField("top");
