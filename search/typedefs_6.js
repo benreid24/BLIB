@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['idtype',['IdType',['../a01007.html#a5893bab2cd3979b1abe2f1901f73036f',1,'bl::entity::Component']]],
-  ['item',['Item',['../a00879.html#a577da758160e325cc40a371857918e9b',1,'bl::container::Cache']]],
-  ['iterator',['Iterator',['../a00883.html#ad6abe728c65b0d9843ffa3639de171c4',1,'bl::container::DynamicObjectPool::Iterator()'],['../a00899.html#a6b11f65868953b910a95b9ca4fed2a63',1,'bl::container::FastEraseVector::iterator()']]]
+  ['last',['Last',['../a01721.html#af272ecfc09083f9cec3776a769bd2509',1,'bl::util::LastVariadic']]],
+  ['list',['List',['../a00824.html#a1651c2f4db91ae08cdd9015e247eef67',1,'bl::serial::json']]],
+  ['loader',['Loader',['../a01585.html#a461178ff9f82492f862fa2f582736a89',1,'bl::serial::binary::VersionedSerializer']]]
 ];

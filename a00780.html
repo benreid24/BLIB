@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Containers</title>
+<title>BLIB: Math</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,62 +63,19 @@ $(function() {
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Containers</div>  </div>
+<div class="title">Math</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Different containers meant to add to what's available in the standard library.  
+<p>Collection of utilties for doing math.  
 <a href="#details">More...</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00875.html">bl::container::Any&lt; Size &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed size equivalent of std::any. Specified size is for in place storage. Stored objects smaller than that size will be stored in place, which allows sequential storage for cache locality optimization. Larger objects will require allocations. In place storage size is always used, even for types requiring allocation. Care must be taken to balance trying to fit many types inplace while minimizing waste for unused inplace storage.  <a href="a00875.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00879.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto-evicting cache with several policy options and programmable watermarks.  <a href="a00879.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html">bl::container::DynamicObjectPool&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic object pool that may vary in size. Similar to <a class="el" href="a00899.html" title="A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...">FastEraseVector</a> in that erase is O(1), however objects in the pool maintain their indices in the <a class="el" href="a00883.html" title="Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1)...">DynamicObjectPool</a>. Object slots are marked free on <a class="el" href="a00883.html#af37f49c2a9ebadee2028221c7af028ae" title="Removes the given iterator from the pool and marks the object slot for resuse. All iterators remain v...">erase()</a>, reused on <a class="el" href="a00883.html#a32395f65fa9daaf142efc3380c0cfa6a" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a>, and the pool grows in size if no slot is when <a class="el" href="a00883.html#a32395f65fa9daaf142efc3380c0cfa6a" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a> is called. Objects must implement a default constructor and copy constructor.  <a href="a00883.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00899.html">bl::container::FastEraseVector&lt; T, Alloc &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a00899.html#ac6424078bf8566ee5aab963214fc288f" title="Erase a single element using an iterator. ">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy.  <a href="a00899.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00903.html">bl::container::FastQueue&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO Container class similar to std::queue but allows promoting an element back to the front in O(1) time. Values contained must be unique.  <a href="a00903.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00907.html">bl::container::Grid&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic spatial partioning grid class for breaking down areas into equal sized boxes.  <a href="a00907.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00935.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::ResultSet::Iterator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special iterator for traversing a <a class="el" href="a00931.html" title="Stores an iterable result set from a QuadTree query. ">ResultSet</a>.  <a href="a00935.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00931.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::ResultSet</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores an iterable result set from a <a class="el" href="a00927.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a> query.  <a href="a00931.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00939.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;::Area</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct that represents a spatial region.  <a href="a00939.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00927.html">bl::container::QuadTree&lt; TCoord, TPayload &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently if the payload type is trivially movable. Stored objects are keyed on position.  <a href="a00927.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00947.html">bl::container::RingBuffer&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple circular buffer implementation for small objects. Underlying storage is a std::vector of buffers. Objects are constructed with placement new and destructors are called when erased, cleared, or overwritten.  <a href="a00947.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00955.html">bl::container::Vector2D&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class that wraps std::vector, making it indexable in two dimensions.  <a href="a00955.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Different containers meant to add to what's available in the standard library. </p>
+<p>Collection of utilties for doing math. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 9 2021 04:03:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 17 2021 04:58:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

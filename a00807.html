@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::container Namespace Reference</title>
+<title>BLIB: bl::gui Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,60 +63,236 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00804.html">bl</a></li><li class="navelem"><a class="el" href="a00807.html">container</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00798.html">bl</a></li><li class="navelem"><a class="el" href="a00807.html">gui</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">bl::container Namespace Reference</div>  </div>
+<div class="title">bl::gui Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of containers and container like classes more specialized than the STL.  
+<p>A window based graphical user interface.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00875.html">Any</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed size equivalent of std::any. Specified size is for in place storage. Stored objects smaller than that size will be stored in place, which allows sequential storage for cache locality optimization. Larger objects will require allocations. In place storage size is always used, even for types requiring allocation. Care must be taken to balance trying to fit many types inplace while minimizing waste for unused inplace storage.  <a href="a00875.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html">Animation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple element that displays a constantly playing animation. Similar to <a class="el" href="a01137.html" title="Element that renders an image to its acquisition. ">Image</a>.  <a href="a01101.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00879.html">Cache</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto-evicting cache with several policy options and programmable watermarks.  <a href="a00879.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01105.html">Box</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple <a class="el" href="a01129.html" title="Base class for Elements that have child elements. Provides coordinate transformation for rendering an...">Container</a> for packing elements into a visible box on screen.  <a href="a01105.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00883.html">DynamicObjectPool</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic object pool that may vary in size. Similar to <a class="el" href="a00899.html" title="A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...">FastEraseVector</a> in that erase is O(1), however objects in the pool maintain their indices in the <a class="el" href="a00883.html" title="Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1)...">DynamicObjectPool</a>. Object slots are marked free on <a class="el" href="a00883.html#af37f49c2a9ebadee2028221c7af028ae" title="Removes the given iterator from the pool and marks the object slot for resuse. All iterators remain v...">erase()</a>, reused on <a class="el" href="a00883.html#a32395f65fa9daaf142efc3380c0cfa6a" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a>, and the pool grows in size if no slot is when <a class="el" href="a00883.html#a32395f65fa9daaf142efc3380c0cfa6a" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a> is called. Objects must implement a default constructor and copy constructor.  <a href="a00883.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01109.html">Button</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A clickable button with a single child element, typically a <a class="el" href="a01141.html" title="Display only text element. Used to display text in a GUI. Note that any render settings changed here ...">Label</a>.  <a href="a01109.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00899.html">FastEraseVector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a00899.html#ac6424078bf8566ee5aab963214fc288f" title="Erase a single element using an iterator. ">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy.  <a href="a00899.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01113.html">Canvas</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a01133.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> that allows user code to render to its area.  <a href="a01113.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00903.html">FastQueue</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO Container class similar to std::queue but allows promoting an element back to the front in O(1) time. Values contained must be unique.  <a href="a00903.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01117.html">CheckButton</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checkbox button.  <a href="a01117.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00907.html">Grid</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic spatial partioning grid class for breaking down areas into equal sized boxes.  <a href="a00907.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01121.html">ComboBox</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A dropdown option selector. Note that fillColor is the background and secondaryFillColor is the mouseover background when opened.  <a href="a01121.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00923.html">ObjectWrapper</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple wrapper around single objects allowing for delayed construction, memory reuse, and destruction at any time. Note that space is allocated inline with the object and will therefor be wherever <a class="el" href="a00923.html" title="Simple wrapper around single objects allowing for delayed construction, memory reuse, and destruction at any time. Note that space is allocated inline with the object and will therefor be wherever ObjectWrapper is allocated (stack or heap). Because of this, moving from another ObjectWrapper will invoke T&#39;s move constructor instead of swapping memory. ">ObjectWrapper</a> is allocated (stack or heap). Because of this, moving from another <a class="el" href="a00923.html" title="Simple wrapper around single objects allowing for delayed construction, memory reuse, and destruction at any time. Note that space is allocated inline with the object and will therefor be wherever ObjectWrapper is allocated (stack or heap). Because of this, moving from another ObjectWrapper will invoke T&#39;s move constructor instead of swapping memory. ">ObjectWrapper</a> will invoke T's move constructor instead of swapping memory.  <a href="a00923.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01125.html">CompositeElement</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intermediate class for elements that consist of other elements. Provides some helper methods to ensure contained elements receive events and position updates.  <a href="a01125.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00927.html">QuadTree</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently if the payload type is trivially movable. Stored objects are keyed on position.  <a href="a00927.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01129.html">Container</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for Elements that have child elements. Provides coordinate transformation for rendering and events, as well as event propagation.  <a href="a01129.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00947.html">RingBuffer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple circular buffer implementation for small objects. Underlying storage is a std::vector of buffers. Objects are constructed with placement new and destructors are called when erased, cleared, or overwritten.  <a href="a00947.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01213.html">DebugRenderer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility renderer that can show the groups, ids, and acquisitions of elements.  <a href="a01213.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00955.html">Vector2D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class that wraps std::vector, making it indexable in two dimensions.  <a href="a00955.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01217.html">DefaultRenderer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default renderer. Good enough for development or for tools, but a custom renderer may be preferred for better visual quality.  <a href="a01217.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01133.html">Element</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all <a class="el" href="a01197.html" title="Top level class for creating a graphical user interface. ">GUI</a> elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element.  <a href="a01133.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01193.html">Event</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01197.html" title="Top level class for creating a graphical user interface. ">GUI</a> analog of sf::Event. Represents user actions that can propogate through the <a class="el" href="a01133.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> tree.  <a href="a01193.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01097.html">FilePicker</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class for picking files limited to subdirectories of the current directory. For other uses use the tinyfd functions defined in the dialog namespace.  <a href="a01097.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01777.html">Font</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data struct that provides access to the built in font. The font may be left out of the build by defining BLIB_NO_FONT.  <a href="a01777.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01201.html">GridPacker</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01209.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container. Custom packers may be implemented from this interface. Care must be taken to avoid packing elements that are marked not packable. ">Packer</a> that can pack elements into grids.  <a href="a01201.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01197.html">GUI</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level class for creating a graphical user interface.  <a href="a01197.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01137.html">Image</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01133.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> that renders an image to its acquisition.  <a href="a01137.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01141.html">Label</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display only text element. Used to display text in a <a class="el" href="a01197.html" title="Top level class for creating a graphical user interface. ">GUI</a>. Note that any render settings changed here will take precedance over any overrides the <a class="el" href="a01221.html" title="Interface for renderers for GUIs. Derived classes may elect to inherit from DefaultRenderer and only ...">Renderer</a> has set, even id level overrides.  <a href="a01141.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01205.html">LinePacker</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01209.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container. Custom packers may be implemented from this interface. Care must be taken to avoid packing elements that are marked not packable. ">Packer</a> that positions Elements all in a single row or column.  <a href="a01205.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01145.html">Notebook</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A notebook with tabs and pages. The tabs are horizontally positioned across the top of the element. Each page is typically a <a class="el" href="a01105.html" title="Simple Container for packing elements into a visible box on screen. ">Box</a>. Allows more sophisticated UI's.  <a href="a01145.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01209.html">Packer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a01133.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> packers. A <a class="el" href="a01209.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container. Custom packers may be implemented from this interface. Care must be taken to avoid packing elements that are marked not packable. ">Packer</a> assigns acquisitions to Elements in a <a class="el" href="a01129.html" title="Base class for Elements that have child elements. Provides coordinate transformation for rendering an...">Container</a>. Custom packers may be implemented from this interface. Care must be taken to avoid packing elements that are marked not packable.  <a href="a01209.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01153.html">ProgressBar</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple progress bar.  <a href="a01153.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01157.html">RadioButton</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A radio button element. Only one button in the group may be active.  <a href="a01157.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01221.html">Renderer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for renderers for GUIs. Derived classes may elect to inherit from <a class="el" href="a01217.html" title="Default renderer. Good enough for development or for tools, but a custom renderer may be preferred fo...">DefaultRenderer</a> and only override what they need. Provides some common functionality.  <a href="a01221.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01225.html">RendererUtil</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility struct containing some common useful methods for rendering.  <a href="a01225.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01229.html">RenderSettings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data class to override rendering settings for <a class="el" href="a01197.html" title="Top level class for creating a graphical user interface. ">GUI</a> Elements. Overrides can be done by group or id. All fields are optional. Fields left empty will be defaulted by the renderer. Not all fields are valid for all <a class="el" href="a01133.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> types.  <a href="a01229.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01165.html">ScrollArea</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <a class="el" href="a01105.html" title="Simple Container for packing elements into a visible box on screen. ">Box</a>, except scrolling is possible both horizontally and vertically if the size of the elements packed exceeds the maximum allowed space.  <a href="a01165.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01169.html">SelectBox</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A scrollable element that packs labels and allows the selection of one.  <a href="a01169.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01173.html">Separator</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01177.html">Slider</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slidable button element. Can be used as an input. Used by <a class="el" href="a01165.html" title="Similar to Box, except scrolling is possible both horizontally and vertically if the size of the elem...">ScrollArea</a>.  <a href="a01177.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01181.html">TextEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single or multiline text entry <a class="el" href="a01133.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a>. Note that the text color is the secondary color in render settings. The box color is the primary.  <a href="a01181.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01185.html">ToggleButton</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for toggleable buttons. <a class="el" href="a01157.html" title="A radio button element. Only one button in the group may be active. ">RadioButton</a> and CheckBox are derived from this. Cannot be instantiated.  <a href="a01185.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01189.html">Window</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01133.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> that represents a window in a <a class="el" href="a01197.html" title="Top level class for creating a graphical user interface. ">GUI</a>. <a class="el" href="a01189.html" title="Element that represents a window in a GUI. Window elements are the top level element of any GUI...">Window</a> elements are the top level element of any <a class="el" href="a01197.html" title="Top level class for creating a graphical user interface. ">GUI</a>. Windows can be moveable or fixed and are highly configurable.  <a href="a01189.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a0d2f488379b11b840372812e04dee005"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00807.html#a0d2f488379b11b840372812e04dee005">Signal</a> = <a class="el" href="a01737.html">bl::util::Signal</a>&lt; const <a class="el" href="a01193.html">Event</a> &amp;, <a class="el" href="a01133.html">Element</a> * &gt;</td></tr>
+<tr class="separator:a0d2f488379b11b840372812e04dee005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a21273b0a358ad17d2498808769286d57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01181.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00807.html#a21273b0a358ad17d2498808769286d57">operator|</a> (<a class="el" href="a01181.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a> l, <a class="el" href="a01181.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a> r)</td></tr>
+<tr class="separator:a21273b0a358ad17d2498808769286d57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae26bb3cdc8e14faad5fd32b57fb9ef07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01181.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00807.html#ae26bb3cdc8e14faad5fd32b57fb9ef07">operator &amp;</a> (<a class="el" href="a01181.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a> l, <a class="el" href="a01181.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a> r)</td></tr>
+<tr class="separator:ae26bb3cdc8e14faad5fd32b57fb9ef07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of containers and container like classes more specialized than the STL. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>A window based graphical user interface. </p>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a0d2f488379b11b840372812e04dee005"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d2f488379b11b840372812e04dee005">&#9670;&nbsp;</a></span>Signal</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a00807.html#a0d2f488379b11b840372812e04dee005">bl::gui::Signal</a> = typedef <a class="el" href="a01737.html">bl::util::Signal</a>&lt;const <a class="el" href="a01193.html">Event</a>&amp;, <a class="el" href="a01133.html">Element</a>*&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02170_source.html#l00013">13</a> of file <a class="el" href="a02170_source.html">Signal.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ae26bb3cdc8e14faad5fd32b57fb9ef07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae26bb3cdc8e14faad5fd32b57fb9ef07">&#9670;&nbsp;</a></span>operator &()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01181.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a> bl::gui::operator&amp; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01181.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a>&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01181.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a>&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00163">163</a> of file <a class="el" href="a00188_source.html">TextEntry.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a21273b0a358ad17d2498808769286d57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21273b0a358ad17d2498808769286d57">&#9670;&nbsp;</a></span>operator|()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01181.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a> bl::gui::operator| </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01181.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a>&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01181.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a>&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00156">156</a> of file <a class="el" href="a00188_source.html">TextEntry.hpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 9 2021 04:03:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 17 2021 04:58:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

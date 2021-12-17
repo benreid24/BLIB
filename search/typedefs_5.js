@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['handle',['Handle',['../a01319.html#a1976c9cbec3cb0348a2e6f0381ea9906',1,'bl::audio::AudioSystem']]],
-  ['heuristic',['Heuristic',['../a00867.html#afc96959a9553ec9dd2ab4422b14ca68e',1,'bl::ai::PathFinder']]]
+  ['idtype',['IdType',['../a01001.html#a5893bab2cd3979b1abe2f1901f73036f',1,'bl::entity::Component']]],
+  ['item',['Item',['../a00873.html#a577da758160e325cc40a371857918e9b',1,'bl::container::Cache']]],
+  ['iterator',['Iterator',['../a00877.html#ad6abe728c65b0d9843ffa3639de171c4',1,'bl::container::DynamicObjectPool::Iterator()'],['../a00893.html#a6b11f65868953b910a95b9ca4fed2a63',1,'bl::container::FastEraseVector::iterator()']]]
 ];

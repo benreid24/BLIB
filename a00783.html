@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Events</title>
+<title>BLIB: Particles</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,50 +66,26 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Events</div>  </div>
+<div class="title">Particles</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of utility classes for pub/sub style event queues.  
+<p>A simple bare bones particle system.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01059.html">bl::event::ClassGuard&lt; TEvents &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version of scope guard but for classes. Classes that subscribe to event buses through a member <a class="el" href="a01059.html" title="Version of scope guard but for classes. Classes that subscribe to event buses through a member ClassG...">ClassGuard</a> will automatically unsubscribe when they are destructed. The catch is that they may only subscribe to a single event bus at a time.  <a href="a01059.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01063.html">bl::event::DelayedDispatcher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper around <a class="el" href="a01075.html" title="Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe...">Dispatcher</a> for delayed event dispatches. Events are queued up as dispatch is called. The queue may then be drained manually or using a builtin background thread.  <a href="a01063.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html">bl::event::Dispatcher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe. If events are dispatched by multiple threads care should be taken to keep the listeners threadsafe as well. Care must also be taken to not subscribe the same listener more than once or it will get notified more than once per event.  <a href="a01075.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01079.html">bl::event::DispatcherScopeGuard</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scope guard for <a class="el" href="a01075.html" title="Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe...">Dispatcher</a>. Listeners that are subscribed through the guard will be unsubscribed when it goes out of scope.  <a href="a01079.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01083.html">bl::event::ListenerBase&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a01087.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a>. Do not use directly.  <a href="a01083.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html">bl::event::Listener&lt; TEvents &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01087.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> of multiple event types. Listeners should inherit this class with the types of events they would like to subscribe to as template params. An observe method from <a class="el" href="a01087.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> will be created for each passed type and must be implemented.  <a href="a01087.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01091.html">bl::event::SingleDispatcher&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to dispatch events of a single type to a set of listeners.  <a href="a01091.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01095.html">bl::event::SingleDispatcherScopeGuard&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scope guard for <a class="el" href="a01099.html" title="Templatized utility class for setting up an event dispatcher and listener system. ...">SingleListener</a> objects to subscribe to an <a class="el" href="a01091.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> if they are limited by scope. All listeners subscribed through the guard are removed from the dispatcher when the guard goes out of scope.  <a href="a01095.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01099.html">bl::event::SingleListener&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templatized utility class for setting up an event dispatcher and listener system.  <a href="a01099.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01433.html">bl::particle::System&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A very simple particle system. Particles not provided.  <a href="a01433.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of utility classes for pub/sub style event queues. </p>
+<p>A simple bare bones particle system. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 9 2021 04:03:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 17 2021 04:58:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

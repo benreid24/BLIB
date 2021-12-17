@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Math/Trig.cpp File Reference</title>
+<title>BLIB: src/Media/Audio/AudioSystem.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,45 +63,38 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3813464283bee2267f39dcf080a84d74.html">Math</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_863df3df8e14086a38c0e28f6c571e1d.html">Media</a></li><li class="navelem"><a class="el" href="dir_e33b272d993c522f0f96db2f6424f4d3.html">Audio</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Trig.cpp File Reference</div>  </div>
+<div class="title">AudioSystem.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00290_source.html">BLIB/Math/Trig.hpp</a>&gt;</code><br />
-<code>#include &lt;cmath&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00284_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00296_source.html">BLIB/Media/Audio/AudioSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00470_source.html">BLIB/Util/Random.hpp</a>&gt;</code><br />
+<code>#include &lt;chrono&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
 </div>
 <p><a href="a00662_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00804"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00804.html">bl</a></td></tr>
-<tr class="memdesc:a00804"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a00798"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html">bl</a></td></tr>
+<tr class="memdesc:a00798"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00818"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00818.html">bl::math</a></td></tr>
-<tr class="memdesc:a00818"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of functions and constants for doing math. <br /></td></tr>
+<tr class="memitem:a00813"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00813.html">bl::audio</a></td></tr>
+<tr class="memdesc:a00813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sophisticated audio system for managing all music and sounds. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ae8e482156412ed87dc2d91572ee817ab"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00818.html#ae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a> (float degrees)</td></tr>
-<tr class="memdesc:ae8e482156412ed87dc2d91572ee817ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the cosine of the given angle using cached values. Values are cached in quarter degree increments.  <a href="a00818.html#ae8e482156412ed87dc2d91572ee817ab">More...</a><br /></td></tr>
-<tr class="separator:ae8e482156412ed87dc2d91572ee817ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0379b8bbdfc3c74fecd12c93fdf0ca5b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00818.html#a0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a> (float degrees)</td></tr>
-<tr class="memdesc:a0379b8bbdfc3c74fecd12c93fdf0ca5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the sine of the given angle using cached values. Values are cached in quarter degree increments.  <a href="a00818.html#a0379b8bbdfc3c74fecd12c93fdf0ca5b">More...</a><br /></td></tr>
-<tr class="separator:a0379b8bbdfc3c74fecd12c93fdf0ca5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 9 2021 04:03:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 17 2021 04:58:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
