@@ -40,7 +40,7 @@ private:
 
     Value loadValue();
     std::string loadString();
-    float loadNumeric();
+    void loadNumeric(Value& val);
     bool loadBool();
     List loadList();
     Group loadGroup();

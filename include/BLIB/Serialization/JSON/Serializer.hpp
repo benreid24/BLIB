@@ -149,21 +149,16 @@ template<typename T>
 struct Serializer<T, true> {
     static bool deserialize(T& result, const Value& v) {
         if constexpr (std::is_enum_v<T>) {
-            const std::string* s = v.getAsString();
-            if (s != nullptr) {
-                std::underlying_type_t<T> u = std::atoi(s->c_str());
-                result                      = static_cast<T>(u);
-                return true;
-            }
+            const long t = v.getNumericAsInteger();
+            result       = static_cast<T>(t);
+        }
+        else if constexpr (std::is_floating_point_v<T>) {
+            result = v.getNumericAsFloat();
         }
         else {
-            const float* r = v.getAsNumeric();
-            if (r != nullptr) {
-                result = *r;
-                return true;
-            }
+            result = v.getNumericAsInteger();
         }
-        return false;
+        return true;
     }
 
     static bool deserializeFrom(const Value& val, const std::string& name, T& result) {
@@ -171,11 +166,9 @@ struct Serializer<T, true> {
     }
 
     static Value serialize(T value) {
-        if constexpr (std::is_enum_v<T>) {
-            return Value(std::to_string(static_cast<std::underlying_type_t<T>>(value)));
-        }
+        if constexpr (std::is_enum_v<T>) { return Value(static_cast<long>(value)); }
         else {
-            return Value(static_cast<float>(value));
+            return Value(value);
         }
     }
 

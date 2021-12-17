@@ -56,10 +56,16 @@ const bool* Group::getBool(const std::string& name) const {
     return nullptr;
 }
 
-const float* Group::getNumeric(const std::string& name) const {
+long Group::getInteger(const std::string& name) const {
     const Value* val = getNestedValue(*this, name);
-    if (val) return val->getAsNumeric();
-    return nullptr;
+    if (val) return val->getNumericAsInteger();
+    return 0;
+}
+
+float Group::getFloat(const std::string& name) const {
+    const Value* val = getNestedValue(*this, name);
+    if (val) return val->getNumericAsFloat();
+    return 0.f;
 }
 
 const std::string* Group::getString(const std::string& name) const {
@@ -92,12 +98,6 @@ bool* Group::getBool(const std::string& name) {
     return nullptr;
 }
 
-float* Group::getNumeric(const std::string& name) {
-    Value* val = const_cast<Value*>(getNestedValue(*this, name));
-    if (val) return val->getAsNumeric();
-    return nullptr;
-}
-
 std::string* Group::getString(const std::string& name) {
     Value* val = const_cast<Value*>(getNestedValue(*this, name));
     if (val) return val->getAsString();
@@ -120,8 +120,6 @@ Value::Value(const Value& value)
 : type(value.type)
 , data(value.data) {}
 
-Value::Value(bool value) { *this = value; }
-
 Value::Value(float value) { *this = value; }
 
 Value::Value(const std::string& value) { *this = value; }
@@ -138,20 +136,14 @@ Value& Value::operator=(const Value& value) {
     return *this;
 }
 
-Value& Value::operator=(bool value) {
-    type = TBool;
-    data = value;
-    return *this;
-}
-
 Value& Value::operator=(float value) {
-    type = TNumeric;
+    type = Type::Float;
     data = value;
     return *this;
 }
 
 Value& Value::operator=(const std::string& value) {
-    type = TString;
+    type = Type::String;
     data = value;
     return *this;
 }
@@ -162,13 +154,13 @@ Value& Value::operator=(const char* value) {
 }
 
 Value& Value::operator=(const List& value) {
-    type = TList;
+    type = Type::List;
     data = value;
     return *this;
 }
 
 Value& Value::operator=(const Group& value) {
-    type = TGroup;
+    type = Type::Group;
     data = value;
     return *this;
 }
@@ -177,7 +169,9 @@ Value::Type Value::getType() const { return type; }
 
 const bool* Value::getAsBool() const { return std::get_if<bool>(&data); }
 
-const float* Value::getAsNumeric() const { return std::get_if<float>(&data); }
+const long* Value::getAsInteger() const { return std::get_if<long>(&data); }
+
+const float* Value::getAsFloat() const { return std::get_if<float>(&data); }
 
 const std::string* Value::getAsString() const { return std::get_if<std::string>(&data); }
 
@@ -187,13 +181,37 @@ const List* Value::getAsList() const { return std::get_if<List>(&data); }
 
 bool* Value::getAsBool() { return std::get_if<bool>(&data); }
 
-float* Value::getAsNumeric() { return std::get_if<float>(&data); }
+long* Value::getAsInteger() { return std::get_if<long>(&data); }
+
+float* Value::getAsFloat() { return std::get_if<float>(&data); }
 
 std::string* Value::getAsString() { return std::get_if<std::string>(&data); }
 
 Group* Value::getAsGroup() { return std::get_if<Group>(&data); }
 
 List* Value::getAsList() { return std::get_if<List>(&data); }
+
+float Value::getNumericAsFloat() const {
+    switch (type) {
+    case Type::Float:
+        return *getAsFloat();
+    case Type::Integer:
+        return static_cast<float>(*getAsInteger());
+    default:
+        return 0.f;
+    }
+}
+
+long Value::getNumericAsInteger() const {
+    switch (type) {
+    case Type::Float:
+        return static_cast<float>(*getAsFloat());
+    case Type::Integer:
+        return *getAsInteger();
+    default:
+        return 0;
+    }
+}
 
 std::ostream& operator<<(std::ostream& stream, const SourceInfo& info) {
     stream << info.filename << ":" << info.lineNumber;
@@ -214,19 +232,22 @@ void Group::print(std::ostream& stream, int ilvl) const {
 
 void Value::print(std::ostream& stream, int ilvl) const {
     switch (getType()) {
-    case TBool:
+    case Type::Bool:
         stream << (*getAsBool() ? "true" : "false");
         break;
-    case TNumeric:
-        stream << std::fixed << *getAsNumeric();
+    case Type::Float:
+        stream << std::fixed << *getAsFloat();
         break;
-    case TString:
+    case Type::Integer:
+        stream << *getAsInteger();
+        break;
+    case Type::String:
         stream << '"' << *getAsString() << '"';
         break;
-    case TGroup:
+    case Type::Group:
         getAsGroup()->print(stream, ilvl);
         break;
-    case TList: {
+    case Type::List: {
         const List& list = *getAsList();
         stream << "[";
         if (!list.empty()) stream << "\n";
@@ -248,19 +269,22 @@ void Value::print(std::ostream& stream, int ilvl) const {
 
 std::ostream& operator<<(std::ostream& stream, const Value::Type& type) {
     switch (type) {
-    case Value::TBool:
-        stream << "const bool*";
+    case Value::Type::Bool:
+        stream << "Bool";
         break;
-    case Value::TString:
-        stream << "const std::string*";
+    case Value::Type::String:
+        stream << "String";
         break;
-    case Value::TNumeric:
-        stream << "const float*";
+    case Value::Type::Integer:
+        stream << "Integer";
         break;
-    case Value::TList:
+    case Value::Type::Float:
+        stream << "Float";
+        break;
+    case Value::Type::List:
         stream << "List";
         break;
-    case Value::TGroup:
+    case Value::Type::Group:
         stream << "Group";
         break;
     default:

@@ -109,22 +109,22 @@ public:
     bool* getBool(const std::string& name);
 
     /**
-     * @brief Shortcut method to retrieve a Numeric type field
+     * @brief Shortcut method to retrieve an Integer or Float type field
      *        The field name can be nested, ex "subgroup/fieldname"
      *
      * @param name Name of the field, can contain multiple levels of groups
-     * @return const float* Pointer to the requested number value, or nullptr
+     * @return long The numeric value as an integer
      */
-    const float* getNumeric(const std::string& name) const;
+    long getInteger(const std::string& name) const;
 
     /**
-     * @brief Shortcut method to retrieve a Numeric type field
+     * @brief Shortcut method to retrieve an Integer or Float type field
      *        The field name can be nested, ex "subgroup/fieldname"
      *
      * @param name Name of the field, can contain multiple levels of groups
-     * @return float* Pointer to the requested number value, or nullptr
+     * @return float The numeric value as a float
      */
-    float* getNumeric(const std::string& name);
+    float getFloat(const std::string& name) const;
 
     /**
      * @brief Shortcut method to retrieve a String type field
@@ -206,7 +206,7 @@ public:
      * @brief Represents the currently stored type
      *
      */
-    enum Type { TBool, TString, TNumeric, TGroup, TList };
+    enum struct Type { Bool, String, Integer, Float, Group, List };
 
     /**
      * @brief Copies from another Value
@@ -215,13 +215,18 @@ public:
     Value(const Value& value);
 
     /**
-     * @brief Makes a Bool Value
+     * @brief Initializes the Value with either an integer or a boolean value
      *
+     * @tparam T Integer type or bool
+     * @param intOrBool Integer value or boolean value
      */
-    explicit Value(bool value);
+    template<typename T, class = std::enable_if<std::is_integral_v<T>>>
+    Value(T intOrBool) {
+        *this = intOrBool;
+    }
 
     /**
-     * @brief Makes a Numeric Value
+     * @brief Makes a Float Value
      *
      */
     Value(float value);
@@ -250,8 +255,27 @@ public:
      */
     Value(const Group& value);
 
+    /**
+     * @brief Initializes the Value with either an integer or a boolean value
+     *
+     * @tparam T Integer type or bool
+     * @param intOrBool Integer value or boolean value
+     * @return A reference to this Value
+     */
+    template<typename T, class = std::enable_if<std::is_integral_v<T>>>
+    Value& operator=(T intOrBool) {
+        if constexpr (std::is_same_v<T, bool>) {
+            type = Type::Bool;
+            data = intOrBool;
+        }
+        else {
+            type = Type::Integer;
+            data = static_cast<long>(intOrBool);
+        }
+        return *this;
+    }
+
     Value& operator=(const Value& rhs);
-    Value& operator=(bool value);
     Value& operator=(float value);
     Value& operator=(const std::string& value);
     Value& operator=(const char* value);
@@ -280,13 +304,37 @@ public:
      * @brief Returns the value as a float, may be nullptr
      *
      */
-    const float* getAsNumeric() const;
+    const long* getAsInteger() const;
 
     /**
      * @brief Returns the value as a float, may be nullptr
      *
      */
-    float* getAsNumeric();
+    long* getAsInteger();
+
+    /**
+     * @brief Returns the value as a float, may be nullptr
+     *
+     */
+    const float* getAsFloat() const;
+
+    /**
+     * @brief Returns the value as a float, may be nullptr
+     *
+     */
+    float* getAsFloat();
+
+    /**
+     * @brief Returns the current numeric value as an integer. Must be either an Integer or Float
+     *
+     */
+    long getNumericAsInteger() const;
+
+    /**
+     * @brief Returns the current numeric value as a float. Must be either an Integer or Float
+     *
+     */
+    float getNumericAsFloat() const;
 
     /**
      * @brief Returns the value as a String, may be nullptr
@@ -336,7 +384,7 @@ public:
 
 private:
     Type type;
-    std::variant<bool, std::string, float, Group, List> data;
+    std::variant<bool, long, std::string, float, Group, List> data;
 };
 
 std::ostream& operator<<(std::ostream& stream, const SourceInfo& info);
