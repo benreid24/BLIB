@@ -11,24 +11,23 @@ namespace json
 {
 namespace
 {
-RValue getNestedValue(const Group& group, const std::string& name) {
-    RGroup nestedGroup = group;
-    std::string path   = name;
+const Value* getNestedValue(const Group& group, std::string path) {
+    const Group* nestedGroup = &group;
 
     while (!path.empty()) {
-        auto n = path.find_first_of('/');
+        const auto n = path.find_first_of('/');
         if (n != std::string::npos) {
             const std::string subname = path.substr(0, n);
-            RValue val                = nestedGroup.value().getField(subname);
-            if (!val || !val.value().getAsGroup()) return std::nullopt;
-            nestedGroup = val.value().getAsGroup();
+            const Value* val          = nestedGroup->getField(subname);
+            if (!val || !val->getAsGroup()) return nullptr;
+            nestedGroup = val->getAsGroup();
             path.erase(0, n + 1);
         }
         else
-            return nestedGroup.value().getField(path);
+            return nestedGroup->getField(path);
     }
 
-    return std::nullopt;
+    return nullptr;
 }
 } // namespace
 
@@ -45,47 +44,81 @@ void Group::addField(const std::string& name, const Value& value) {
 
 bool Group::hasField(const std::string& name) const { return fields.find(name) != fields.end(); }
 
-RValue Group::getField(const std::string& name) const {
-    auto i = fields.find(name);
-    if (i != fields.end()) return RValue(i->second);
-    return std::nullopt;
+const Value* Group::getField(const std::string& name) const {
+    const auto i = fields.find(name);
+    if (i != fields.end()) return &i->second;
+    return nullptr;
 }
 
-Bool Group::getBool(const std::string& name) const {
-    RValue val = getNestedValue(*this, name);
-    if (val) return val.value().getAsBool();
-    return std::nullopt;
+const bool* Group::getBool(const std::string& name) const {
+    const Value* val = getNestedValue(*this, name);
+    if (val) return val->getAsBool();
+    return nullptr;
 }
 
-Numeric Group::getNumeric(const std::string& name) const {
-    RValue val = getNestedValue(*this, name);
-    if (val) return val.value().getAsNumeric();
-    return std::nullopt;
+long Group::getInteger(const std::string& name) const {
+    const Value* val = getNestedValue(*this, name);
+    if (val) return val->getNumericAsInteger();
+    return 0;
 }
 
-String Group::getString(const std::string& name) const {
-    RValue val = getNestedValue(*this, name);
-    if (val) return val.value().getAsString();
-    return std::nullopt;
+float Group::getFloat(const std::string& name) const {
+    const Value* val = getNestedValue(*this, name);
+    if (val) return val->getNumericAsFloat();
+    return 0.f;
 }
 
-RGroup Group::getGroup(const std::string& name) const {
-    RValue val = getNestedValue(*this, name);
-    if (val) return val.value().getAsGroup();
-    return std::nullopt;
+const std::string* Group::getString(const std::string& name) const {
+    const Value* val = getNestedValue(*this, name);
+    if (val) return val->getAsString();
+    return nullptr;
 }
 
-RList Group::getList(const std::string& name) const {
-    RValue val = getNestedValue(*this, name);
-    if (val) return val.value().getAsList();
-    return std::nullopt;
+const Group* Group::getGroup(const std::string& name) const {
+    const Value* val = getNestedValue(*this, name);
+    if (val) return val->getAsGroup();
+    return nullptr;
+}
+
+const List* Group::getList(const std::string& name) const {
+    const Value* val = getNestedValue(*this, name);
+    if (val) return val->getAsList();
+    return nullptr;
+}
+
+Value* Group::getField(const std::string& name) {
+    const auto i = fields.find(name);
+    if (i != fields.end()) return &i->second;
+    return nullptr;
+}
+
+bool* Group::getBool(const std::string& name) {
+    Value* val = const_cast<Value*>(getNestedValue(*this, name));
+    if (val) return val->getAsBool();
+    return nullptr;
+}
+
+std::string* Group::getString(const std::string& name) {
+    Value* val = const_cast<Value*>(getNestedValue(*this, name));
+    if (val) return val->getAsString();
+    return nullptr;
+}
+
+Group* Group::getGroup(const std::string& name) {
+    Value* val = const_cast<Value*>(getNestedValue(*this, name));
+    if (val) return val->getAsGroup();
+    return nullptr;
+}
+
+List* Group::getList(const std::string& name) {
+    Value* val = const_cast<Value*>(getNestedValue(*this, name));
+    if (val) return val->getAsList();
+    return nullptr;
 }
 
 Value::Value(const Value& value)
 : type(value.type)
 , data(value.data) {}
-
-Value::Value(bool value) { *this = value; }
 
 Value::Value(float value) { *this = value; }
 
@@ -103,20 +136,14 @@ Value& Value::operator=(const Value& value) {
     return *this;
 }
 
-Value& Value::operator=(bool value) {
-    type = TBool;
-    data = value;
-    return *this;
-}
-
 Value& Value::operator=(float value) {
-    type = TNumeric;
+    type = Type::Float;
     data = value;
     return *this;
 }
 
 Value& Value::operator=(const std::string& value) {
-    type = TString;
+    type = Type::String;
     data = value;
     return *this;
 }
@@ -127,67 +154,63 @@ Value& Value::operator=(const char* value) {
 }
 
 Value& Value::operator=(const List& value) {
-    type = TList;
+    type = Type::List;
     data = value;
     return *this;
 }
 
 Value& Value::operator=(const Group& value) {
-    type = TGroup;
+    type = Type::Group;
     data = value;
     return *this;
 }
 
 Value::Type Value::getType() const { return type; }
 
-Bool Value::getAsBool() const {
-    if (type == TBool) return std::get<bool>(data);
-    return std::nullopt;
+const bool* Value::getAsBool() const { return std::get_if<bool>(&data); }
+
+const long* Value::getAsInteger() const { return std::get_if<long>(&data); }
+
+const float* Value::getAsFloat() const { return std::get_if<float>(&data); }
+
+const std::string* Value::getAsString() const { return std::get_if<std::string>(&data); }
+
+const Group* Value::getAsGroup() const { return std::get_if<Group>(&data); }
+
+const List* Value::getAsList() const { return std::get_if<List>(&data); }
+
+bool* Value::getAsBool() { return std::get_if<bool>(&data); }
+
+long* Value::getAsInteger() { return std::get_if<long>(&data); }
+
+float* Value::getAsFloat() { return std::get_if<float>(&data); }
+
+std::string* Value::getAsString() { return std::get_if<std::string>(&data); }
+
+Group* Value::getAsGroup() { return std::get_if<Group>(&data); }
+
+List* Value::getAsList() { return std::get_if<List>(&data); }
+
+float Value::getNumericAsFloat() const {
+    switch (type) {
+    case Type::Float:
+        return *getAsFloat();
+    case Type::Integer:
+        return static_cast<float>(*getAsInteger());
+    default:
+        return 0.f;
+    }
 }
 
-Numeric Value::getAsNumeric() const {
-    if (type == TNumeric) return std::get<float>(data);
-    return std::nullopt;
-}
-
-String Value::getAsString() const {
-    if (type == TString) return std::get<std::string>(data);
-    return std::nullopt;
-}
-
-RGroup Value::getAsGroup() const {
-    if (type == TGroup) return std::get<Group>(data);
-    return std::nullopt;
-}
-
-RList Value::getAsList() const {
-    if (type == TList) return std::get<List>(data);
-    return std::nullopt;
-}
-
-Bool Value::getBool(const std::string& name) const {
-    if (type == TGroup) return getAsGroup().value().getBool(name);
-    return std::nullopt;
-}
-
-Numeric Value::getNumeric(const std::string& name) const {
-    if (type == TGroup) return getAsGroup().value().getNumeric(name);
-    return std::nullopt;
-}
-
-String Value::getString(const std::string& name) const {
-    if (type == TGroup) return getAsGroup().value().getString(name);
-    return std::nullopt;
-}
-
-RGroup Value::getGroup(const std::string& name) const {
-    if (type == TGroup) return getAsGroup().value().getGroup(name);
-    return std::nullopt;
-}
-
-RList Value::getList(const std::string& name) const {
-    if (type == TGroup) return getAsGroup().value().getList(name);
-    return std::nullopt;
+long Value::getNumericAsInteger() const {
+    switch (type) {
+    case Type::Float:
+        return static_cast<float>(*getAsFloat());
+    case Type::Integer:
+        return *getAsInteger();
+    default:
+        return 0;
+    }
 }
 
 std::ostream& operator<<(std::ostream& stream, const SourceInfo& info) {
@@ -209,20 +232,23 @@ void Group::print(std::ostream& stream, int ilvl) const {
 
 void Value::print(std::ostream& stream, int ilvl) const {
     switch (getType()) {
-    case TBool:
-        stream << (getAsBool().value() ? "true" : "false");
+    case Type::Bool:
+        stream << (*getAsBool() ? "true" : "false");
         break;
-    case TNumeric:
-        stream << getAsNumeric().value();
+    case Type::Float:
+        stream << std::fixed << *getAsFloat();
         break;
-    case TString:
-        stream << '"' << getAsString().value() << '"';
+    case Type::Integer:
+        stream << *getAsInteger();
         break;
-    case TGroup:
-        getAsGroup().value().print(stream, ilvl);
+    case Type::String:
+        stream << '"' << *getAsString() << '"';
         break;
-    case TList: {
-        const List list = getAsList().value();
+    case Type::Group:
+        getAsGroup()->print(stream, ilvl);
+        break;
+    case Type::List: {
+        const List& list = *getAsList();
         stream << "[";
         if (!list.empty()) stream << "\n";
         for (unsigned int i = 0; i < list.size(); ++i) {
@@ -231,7 +257,8 @@ void Value::print(std::ostream& stream, int ilvl) const {
             if (i < list.size() - 1) stream << ",";
             stream << "\n";
         }
-        stream << std::string(ilvl, ' ') << "]";
+        stream << (list.empty() ? " " : std::string(ilvl, ' '));
+        stream << "]";
         break;
     }
 
@@ -242,19 +269,22 @@ void Value::print(std::ostream& stream, int ilvl) const {
 
 std::ostream& operator<<(std::ostream& stream, const Value::Type& type) {
     switch (type) {
-    case Value::TBool:
+    case Value::Type::Bool:
         stream << "Bool";
         break;
-    case Value::TString:
+    case Value::Type::String:
         stream << "String";
         break;
-    case Value::TNumeric:
-        stream << "Numeric";
+    case Value::Type::Integer:
+        stream << "Integer";
         break;
-    case Value::TList:
+    case Value::Type::Float:
+        stream << "Float";
+        break;
+    case Value::Type::List:
         stream << "List";
         break;
-    case Value::TGroup:
+    case Value::Type::Group:
         stream << "Group";
         break;
     default:
@@ -309,5 +339,5 @@ void saveToFile(const std::string& file, const Group& group) {
 void saveToStream(std::ostream& stream, const Group& group) { stream << group; }
 
 } // namespace json
-} // namespace file
+} // namespace serial
 } // namespace bl

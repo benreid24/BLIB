@@ -74,7 +74,8 @@ Value Loader::loadValue() {
     const SourceInfo source = {filename, currentLine};
 
     if (isNumeric(input.peek())) {
-        Value val = loadNumeric();
+        Value val(0);
+        loadNumeric(val);
         val.setSource(source);
         return val;
     }
@@ -137,7 +138,7 @@ bool Loader::loadBool() {
     return false;
 }
 
-float Loader::loadNumeric() {
+void Loader::loadNumeric(Value& val) {
     if (isValid()) {
         const char c = input.peek();
         if (c == '-' || (c >= '0' && c <= '9')) {
@@ -148,7 +149,7 @@ float Loader::loadNumeric() {
             while (isNumber(input.peek()) || input.peek() == '.') {
                 if (input.peek() == '.' && decimal) {
                     BL_LOG_ERROR << error() << "Too many decimal points in number";
-                    return 0;
+                    return;
                 }
                 else if (input.peek() == '.')
                     decimal = true;
@@ -157,18 +158,20 @@ float Loader::loadNumeric() {
                 if (!input.good()) {
                     BL_LOG_ERROR << error() << "Unexpected end of file";
                     valid = false;
-                    return 0;
+                    return;
                 }
             }
             skipWhitespace();
-            return std::stod(num);
+            if (decimal) { val = std::stof(num.c_str()); }
+            else {
+                val = std::stol(num.c_str());
+            }
         }
         else {
             BL_LOG_ERROR << error() << "Invalid numeric symbol " << c;
             valid = false;
         }
     }
-    return 0;
 }
 
 std::string Loader::loadString() {
@@ -257,5 +260,5 @@ Group Loader::loadGroup() {
 }
 
 } // namespace json
-} // namespace file
+} // namespace serial
 } // namespace bl

@@ -145,6 +145,14 @@ struct FileUtil {
      * @return True if the directory was removed, false on error
      */
     static bool deleteDirectory(const std::string& path);
+
+    /**
+     * @brief Get the directory to save data to. Handles platform specific paths
+     *
+     * @param appName The name of the application saving data
+     *
+     */
+    static std::string getDataDirectory(const std::string& appName);
 };
 
 } // namespace util

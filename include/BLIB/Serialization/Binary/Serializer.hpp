@@ -84,6 +84,9 @@ struct Serializer<T, true> {
             return output.write<std::underlying_type_t<T>>(
                 static_cast<std::underlying_type_t<T>>(value));
         }
+        else if constexpr (std::is_same_v<T, bool>) {
+            return output.write<std::uint8_t>(value);
+        }
         else {
             return output.write<T>(value);
         }
@@ -93,6 +96,12 @@ struct Serializer<T, true> {
         if constexpr (std::is_enum<T>::value) {
             return input.read<std::underlying_type_t<T>>(
                 *reinterpret_cast<std::underlying_type_t<T>*>(&result));
+        }
+        else if constexpr (std::is_same_v<T, bool>) {
+            std::uint8_t v;
+            if (!input.read<std::uint8_t>(v)) return false;
+            result = v != 0;
+            return true;
         }
         else {
             return input.read<T>(result);

@@ -20,13 +20,6 @@ class Value;
 class Group;
 typedef std::vector<Value> List;
 
-typedef std::optional<float> Numeric;
-typedef std::optional<std::string> String;
-typedef std::optional<bool> Bool;
-typedef std::optional<Group> RGroup;
-typedef std::optional<List> RList;
-typedef std::optional<Value> RValue;
-
 /**
  * @brief Holds source location of any json object
  * @ingroup JSON
@@ -85,54 +78,107 @@ public:
      * @brief Returns the field with the given name, if any
      *
      * @param name Name of the field to retrieve
-     * @return RValue std::optional containing the Value of the field, or null if not present
+     * @return Value* Pointer to the contained value. nullptr is returned if not found
      */
-    RValue getField(const std::string& name) const;
+    Value* getField(const std::string& name);
+
+    /**
+     * @brief Returns the field with the given name, if any
+     *
+     * @param name Name of the field to retrieve
+     * @return const Value* Pointer to the contained value. nullptr is returned if not found
+     */
+    const Value* getField(const std::string& name) const;
 
     /**
      * @brief Shortcut method to retrieve a Bool type field
      *        The field name can be nested, ex "subgroup/fieldname"
      *
      * @param name Name of the field, can contain multiple levels of groups
-     * @return Bool std::optional with the Value, or null if not present
+     * @return const bool* Returns the contained bool, or nullptr if not found
      */
-    Bool getBool(const std::string& name) const;
+    const bool* getBool(const std::string& name) const;
 
     /**
-     * @brief Shortcut method to retrieve a Numeric type field
+     * @brief Shortcut method to retrieve a Bool type field
      *        The field name can be nested, ex "subgroup/fieldname"
      *
      * @param name Name of the field, can contain multiple levels of groups
-     * @return Numeric std::optional with the Value, or null if not present
+     * @return bool* Returns the contained bool, or nullptr if not found
      */
-    Numeric getNumeric(const std::string& name) const;
+    bool* getBool(const std::string& name);
+
+    /**
+     * @brief Shortcut method to retrieve an Integer or Float type field
+     *        The field name can be nested, ex "subgroup/fieldname"
+     *
+     * @param name Name of the field, can contain multiple levels of groups
+     * @return long The numeric value as an integer
+     */
+    long getInteger(const std::string& name) const;
+
+    /**
+     * @brief Shortcut method to retrieve an Integer or Float type field
+     *        The field name can be nested, ex "subgroup/fieldname"
+     *
+     * @param name Name of the field, can contain multiple levels of groups
+     * @return float The numeric value as a float
+     */
+    float getFloat(const std::string& name) const;
 
     /**
      * @brief Shortcut method to retrieve a String type field
      *        The field name can be nested, ex "subgroup/fieldname"
      *
      * @param name Name of the field, can contain multiple levels of groups
-     * @return String std::optional with the Value, or null if not present
+     * @return const std::string* Pointer to the contained string, nullptr if not found
      */
-    String getString(const std::string& name) const;
+    const std::string* getString(const std::string& name) const;
+
+    /**
+     * @brief Shortcut method to retrieve a String type field
+     *        The field name can be nested, ex "subgroup/fieldname"
+     *
+     * @param name Name of the field, can contain multiple levels of groups
+     * @return std::string* Pointer to the contained string, nullptr if not found
+     */
+    std::string* getString(const std::string& name);
 
     /**
      * @brief Shortcut method to retrieve a Group type field
      *        The field name can be nested, ex "subgroup/fieldname"
      *
      * @param name Name of the field, can contain multiple levels of groups
-     * @return RGroup std::optional with the Value, or null if not present
+     * @return const Group* Pointer to the contained group, nullptr if not found
      */
-    RGroup getGroup(const std::string& name) const;
+    const Group* getGroup(const std::string& name) const;
+
+    /**
+     * @brief Shortcut method to retrieve a Group type field
+     *        The field name can be nested, ex "subgroup/fieldname"
+     *
+     * @param name Name of the field, can contain multiple levels of groups
+     * @return Group* Pointer to the contained group, nullptr if not found
+     */
+    Group* getGroup(const std::string& name);
 
     /**
      * @brief Shortcut method to retrieve a List type field
      *        The field name can be nested, ex "subgroup/fieldname"
      *
      * @param name Name of the field, can contain multiple levels of groups
-     * @return RList std::optional with the Value, or null if not present
+     * @return const List* Pointer to the contained list, nullptr if not found
      */
-    RList getList(const std::string& name) const;
+    const List* getList(const std::string& name) const;
+
+    /**
+     * @brief Shortcut method to retrieve a List type field
+     *        The field name can be nested, ex "subgroup/fieldname"
+     *
+     * @param name Name of the field, can contain multiple levels of groups
+     * @return List* Pointer to the contained list, nullptr if not found
+     */
+    List* getList(const std::string& name);
 
     /**
      * @brief Prints the json group to the given stream. This prints valid json that can be
@@ -160,7 +206,7 @@ public:
      * @brief Represents the currently stored type
      *
      */
-    enum Type { TBool, TString, TNumeric, TGroup, TList };
+    enum struct Type { Bool, String, Integer, Float, Group, List };
 
     /**
      * @brief Copies from another Value
@@ -169,13 +215,18 @@ public:
     Value(const Value& value);
 
     /**
-     * @brief Makes a Bool Value
+     * @brief Initializes the Value with either an integer or a boolean value
      *
+     * @tparam T Integer type or bool
+     * @param intOrBool Integer value or boolean value
      */
-    explicit Value(bool value);
+    template<typename T, class = std::enable_if<std::is_integral_v<T>>>
+    Value(T intOrBool) {
+        *this = intOrBool;
+    }
 
     /**
-     * @brief Makes a Numeric Value
+     * @brief Makes a Float Value
      *
      */
     Value(float value);
@@ -204,8 +255,27 @@ public:
      */
     Value(const Group& value);
 
+    /**
+     * @brief Initializes the Value with either an integer or a boolean value
+     *
+     * @tparam T Integer type or bool
+     * @param intOrBool Integer value or boolean value
+     * @return A reference to this Value
+     */
+    template<typename T, class = std::enable_if<std::is_integral_v<T>>>
+    Value& operator=(T intOrBool) {
+        if constexpr (std::is_same_v<T, bool>) {
+            type = Type::Bool;
+            data = intOrBool;
+        }
+        else {
+            type = Type::Integer;
+            data = static_cast<long>(intOrBool);
+        }
+        return *this;
+    }
+
     Value& operator=(const Value& rhs);
-    Value& operator=(bool value);
     Value& operator=(float value);
     Value& operator=(const std::string& value);
     Value& operator=(const char* value);
@@ -219,84 +289,88 @@ public:
     Type getType() const;
 
     /**
-     * @brief Returns the value as a Bool
+     * @brief Returns the value as a Bool. May return nullptr
      *
-     * @return Bool std::optional with the value, or null if wrong type
      */
-    Bool getAsBool() const;
+    const bool* getAsBool() const;
 
     /**
-     * @brief Returns the value as a Numeric
+     * @brief Returns the value as a Bool. May return nullptr
      *
-     * @return Numeric std::optional with the value, or null if wrong type
      */
-    Numeric getAsNumeric() const;
+    bool* getAsBool();
 
     /**
-     * @brief Returns the value as a String
+     * @brief Returns the value as a float, may be nullptr
      *
-     * @return String std::optional with the value, or null if wrong type
      */
-    String getAsString() const;
+    const long* getAsInteger() const;
 
     /**
-     * @brief Returns the value as a Group
+     * @brief Returns the value as a float, may be nullptr
      *
-     * @return RGroup std::optional with the value, or null if wrong type
      */
-    RGroup getAsGroup() const;
+    long* getAsInteger();
 
     /**
-     * @brief Returns the value as a List
+     * @brief Returns the value as a float, may be nullptr
      *
-     * @return RList std::optional with the value, or null if wrong type
      */
-    RList getAsList() const;
+    const float* getAsFloat() const;
 
     /**
-     * @brief Shortcut method to retrieve a Bool type field. Only works on Group types
-     *        The field name can be nested, ex "subgroup/fieldname"
+     * @brief Returns the value as a float, may be nullptr
      *
-     * @param name Name of the field, can contain multiple levels of groups
-     * @return Bool std::optional with the Value, or null if not present
      */
-    Bool getBool(const std::string& name) const;
+    float* getAsFloat();
 
     /**
-     * @brief Shortcut method to retrieve a Numeric type field. Only works on Group types
-     *        The field name can be nested, ex "subgroup/fieldname"
+     * @brief Returns the current numeric value as an integer. Must be either an Integer or Float
      *
-     * @param name Name of the field, can contain multiple levels of groups
-     * @return Numeric std::optional with the Value, or null if not present
      */
-    Numeric getNumeric(const std::string& name) const;
+    long getNumericAsInteger() const;
 
     /**
-     * @brief Shortcut method to retrieve a String type field. Only works on Group types
-     *        The field name can be nested, ex "subgroup/fieldname"
+     * @brief Returns the current numeric value as a float. Must be either an Integer or Float
      *
-     * @param name Name of the field, can contain multiple levels of groups
-     * @return String std::optional with the Value, or null if not present
      */
-    String getString(const std::string& name) const;
+    float getNumericAsFloat() const;
 
     /**
-     * @brief Shortcut method to retrieve a Group type field. Only works on Group types
-     *        The field name can be nested, ex "subgroup/fieldname"
+     * @brief Returns the value as a String, may be nullptr
      *
-     * @param name Name of the field, can contain multiple levels of groups
-     * @return RGroup std::optional with the Value, or null if not present
      */
-    RGroup getGroup(const std::string& name) const;
+    const std::string* getAsString() const;
 
     /**
-     * @brief Shortcut method to retrieve a List type field. Only works on Group types
-     *        The field name can be nested, ex "subgroup/fieldname"
+     * @brief Returns the value as a String, may be nullptr
      *
-     * @param name Name of the field, can contain multiple levels of groups
-     * @return RList std::optional with the Value, or null if not present
      */
-    RList getList(const std::string& name) const;
+    std::string* getAsString();
+
+    /**
+     * @brief Returns the value as a Group, may be nullptr
+     *
+     */
+    const Group* getAsGroup() const;
+
+    /**
+     * @brief Returns the value as a Group, may be nullptr
+     *
+     */
+    Group* getAsGroup();
+
+    /**
+     * @brief Returns the value as a List, may be nullptr
+     *
+     */
+    const List* getAsList() const;
+
+    /**
+     * @brief Returns the value as a List, may be nullptr
+     *
+     */
+    List* getAsList();
 
     /**
      * @brief Prints the value to the given stream
@@ -310,7 +384,7 @@ public:
 
 private:
     Type type;
-    std::variant<bool, std::string, float, Group, List> data;
+    std::variant<bool, long, std::string, float, Group, List> data;
 };
 
 std::ostream& operator<<(std::ostream& stream, const SourceInfo& info);
