@@ -12,12 +12,9 @@
 #include <BLIB/Interfaces/Menu/EventGenerators/KeyboardEventGenerator.hpp>
 #include <BLIB/Interfaces/Menu/EventGenerators/MouseEventGenerator.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
+#include <BLIB/Interfaces/Menu/Items/ImageItem.hpp>
+#include <BLIB/Interfaces/Menu/Items/TextItem.hpp>
 #include <BLIB/Interfaces/Menu/Menu.hpp>
-#include <BLIB/Interfaces/Menu/RenderItem.hpp>
-#include <BLIB/Interfaces/Menu/RenderItems/SpriteRenderItem.hpp>
-#include <BLIB/Interfaces/Menu/RenderItems/TextRenderItem.hpp>
-#include <BLIB/Interfaces/Menu/Renderer.hpp>
-#include <BLIB/Interfaces/Menu/Renderers/BasicRenderer.hpp>
 #include <BLIB/Interfaces/Menu/Selector.hpp>
 #include <BLIB/Interfaces/Menu/Selectors/ArrowSelector.hpp>
 

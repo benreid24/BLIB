@@ -1,9 +1,8 @@
 #ifndef BLIB_MENU_ITEM_HPP
 #define BLIB_MENU_ITEM_HPP
 
-#include <BLIB/Interfaces/Menu/RenderItem.hpp>
 #include <BLIB/Util/Signal.hpp>
-
+#include <SFML/Graphics.hpp>
 #include <functional>
 #include <list>
 #include <memory>
@@ -13,19 +12,18 @@ namespace bl
 namespace menu
 {
 class Menu;
-class Renderer;
 
 /**
  * @brief Item for a mouseless menu. Can be 'attached' to other items in a Menu,
- *        configured to be selectable, and can trigger a signal if selected
+ *        configured to be selectable, and can trigger a signal if selected. Subclasses
+ *        of this provide specific behaviors
  *
  * @ingroup Menu
  *
  */
-class Item : public std::enable_shared_from_this<Item> {
+class Item {
 public:
     typedef std::shared_ptr<Item> Ptr;
-    typedef std::function<void(const Item&, int, int)> Visitor;
     enum AttachPoint { Top, Right, Bottom, Left, _NUM_ATTACHPOINTS };
     enum EventType { Selected, Deselected, Activated, _NUM_EVENTS };
 
@@ -34,13 +32,6 @@ public:
      *
      */
     static AttachPoint oppositeSide(AttachPoint point);
-
-    /**
-     * @brief Creates a new Item using the given RenderItem
-     *
-     * @param renderItem The renderable entity for this item
-     */
-    static Ptr create(RenderItem::Ptr renderItem);
 
     /**
      * @brief Returns true if the item has been attached to another
@@ -76,6 +67,12 @@ public:
     bool allowsSelectionCrossing() const;
 
     /**
+     * @brief Set an explicit position for this item. Default behavior is to grid items
+     *
+     */
+    void overridePosition(const sf::Vector2f& position);
+
+    /**
      * @brief Returns a modifiable reference to the Signal object for the corresponding
      *        EventType
      *
@@ -84,41 +81,37 @@ public:
      */
     util::Signal<>& getSignal(EventType event);
 
+protected:
     /**
-     * @brief Get the RenderItem for this Item
+     * @brief Construct a new Item
      *
      */
-    const RenderItem& getRenderItem() const;
+    Item();
 
     /**
-     * @brief Attach the given item to this item at the attach point. Fails if the given item
-     *        is already attached to another or if the given attach point is used.
+     * @brief Return the untransformed size of the object
      *
-     * @param item The item to attach
-     * @param attachPoint Where to attach the item
-     * @return True if the item was attached, false otherwise
+     * @return sf::Vector2f Size the object will take
      */
-    bool attach(Ptr item, AttachPoint attachPoint);
+    virtual sf::Vector2f getSize() const = 0;
 
     /**
-     * @brief Invokes the visitor with this Item and all attached Items. Visitor is called
-     *        recursively to traverse the entire tree. Visitor arguments are (item, x, y),
-     *        where x and y are relative to this root item
+     * @brief Render the item to the given target
      *
-     * @param visitor The visitor to invoke all attached items on
+     * @param target The target to render to
+     * @param states RenderStates to apply
+     * @param position Position to render at
      */
-    void visit(Visitor visitor) const;
+    virtual void render(sf::RenderTarget& target, sf::RenderStates states,
+                        const sf::Vector2f& position) const = 0;
 
 private:
-    RenderItem::Ptr renderItem;
-    Ptr attachments[_NUM_ATTACHPOINTS];
+    sf::Vector2f position;
+    Item* attachments[_NUM_ATTACHPOINTS];
     util::Signal<> signals[_NUM_EVENTS];
     bool canBeSelected;
     bool allowSelectionCross;
-    bool attached;
-
-    Item(RenderItem::Ptr renderItem);
-    void visit(Visitor visitor, int x, int y, std::list<std::pair<int, int>>& visited) const;
+    bool positionOverridden;
 
     friend class Menu;
 };

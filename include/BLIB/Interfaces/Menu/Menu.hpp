@@ -3,7 +3,6 @@
 
 #include <BLIB/Interfaces/Menu/Event.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
-#include <BLIB/Interfaces/Menu/Renderer.hpp>
 #include <BLIB/Interfaces/Menu/Selector.hpp>
 #include <BLIB/Util/Hashes.hpp>
 
@@ -27,19 +26,22 @@ public:
      * @brief Create a new Menu with the base Item and selection indicator
      *
      */
-    Menu(Item::Ptr root, Selector::Ptr selector);
+    Menu(const Selector::Ptr& selector);
+
+    /**
+     * @brief Set the position to render the menu at
+     *
+     */
+    void setPosition(const sf::Vector2f& position);
 
     /**
      * @brief Render the menu to the given target using the given renderer at the given
      *        position with the given states.
      *
-     * @param renderer The renderer to use
      * @param target The target to render to
-     * @param position The position to render the root element at
      * @param renderStates Render states to use
      */
-    void render(const Renderer& renderer, sf::RenderTarget& target, const sf::Vector2f& position,
-                sf::RenderStates renderStates = {});
+    void render(sf::RenderTarget& target, sf::RenderStates renderStates = {});
 
     /**
      * @brief Processes the event and updates the Menu state
@@ -49,30 +51,80 @@ public:
     void processEvent(const Event& event);
 
     /**
-     * @brief Refreshes the calculated sizes of each item. Needs to be called if items
-     *        are added or updated after the Menu is constructed
+     * @brief Sets the root item of the menu. Clears all other items
      *
+     * @param root The new item to be the root
      */
-    void refresh();
+    void setRootItem(const Item::Ptr& root);
+
+    /**
+     * @brief Adds a new item to the menu and attaches it to the given parent item
+     *
+     * @param item The item to add
+     * @param parent The item to attach to. Must already be in the menu
+     * @param attachPoint The part of the parent item to attach to
+     * @param reverse True to attach item back to parent, false for a one way connection
+     */
+    void addItem(const Item::Ptr& item, Item* parent, Item::AttachPoint attachPoint,
+                 bool reverse = true);
+
+    /**
+     * @brief Attach two items that are already in the menu. Allows for items to have multiple
+     *        connections
+     *
+     * @param item The item to add. Must already be in the menu
+     * @param parent The item to attach to. Must already be in the menu
+     * @param attachPoint The part of the parent item to attach to
+     * @param reverse True to attach item back to parent, false for a one way connection
+     */
+    void attachExisting(Item* item, Item* parent, Item::AttachPoint attachPoint,
+                        bool reverse = true);
+
+    /**
+     * @brief Removes the given item from the menu. Optionally connects surrounding items to each
+     *        other horizontally and vertically
+     *
+     * @param item The item to remove
+     * @param connect True to connect surrounding items, false to create a hole
+     */
+    void removeItem(Item* item, bool connect = true);
 
     /**
      * @brief Set the selected item. No check is done to ensure that the given item is valid
      *
      * @param item The item to select. Must be in the menu
      */
-    void setSelectedItem(Item::Ptr item);
+    void setSelectedItem(Item* item);
+
+    /**
+     * @brief Sets the padding to place between elements
+     *
+     */
+    void setPadding(const sf::Vector2f& padding);
+
+    /**
+     * @brief Sets the minimum height an item should take
+     *
+     */
+    void setMinHeight(float mh);
+
+    /**
+     * @brief Sets the minimum width an item should take
+     *
+     */
+    void setMinWidth(float mw);
 
 private:
+    sf::Vector2f position;
+    std::vector<Item::Ptr> items;
     Selector::Ptr selector;
-    Item::Ptr rootItem;
-    Item::Ptr selectedItem;
-    std::unordered_map<int, float> columnWidths;
-    std::unordered_map<int, float> rowHeights;
-    std::vector<std::pair<sf::FloatRect, Item::Ptr>> itemAreas;
+    Item* selectedItem;
+    sf::Vector2f padding;
+    sf::Vector2f minSize;
 
-    void renderItem(const Renderer& renderer, sf::RenderTarget& target, Item::Ptr item,
-                    const sf::Vector2f& position, sf::RenderStates renderStates, int x, int y,
-                    std::vector<std::pair<int, int>>& rendered);
+    void refresh();
+    sf::Vector2f move(const sf::Vector2f& pos, const sf::Vector2f& psize, const sf::Vector2f& esize,
+                      Item::AttachPoint ap);
 };
 
 } // namespace menu

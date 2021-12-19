@@ -5,6 +5,5 @@ target_sources(BLIB PRIVATE
 )
 
 add_subdirectory(EventGenerators)
-add_subdirectory(Renderers)
-add_subdirectory(RenderItems)
+add_subdirectory(Items)
 add_subdirectory(Selectors)
