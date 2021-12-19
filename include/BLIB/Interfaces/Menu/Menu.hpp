@@ -114,6 +114,12 @@ public:
      */
     void setMinWidth(float mw);
 
+    /**
+     * @brief Refreshes the positions of all items in the menu
+     *
+     */
+    void refreshPositions();
+
 private:
     sf::Vector2f position;
     std::vector<Item::Ptr> items;
@@ -122,7 +128,6 @@ private:
     sf::Vector2f padding;
     sf::Vector2f minSize;
 
-    void refresh();
     sf::Vector2f move(const sf::Vector2f& pos, const sf::Vector2f& psize, const sf::Vector2f& esize,
                       Item::AttachPoint ap);
 };

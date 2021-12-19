@@ -31,6 +31,12 @@ public:
      */
     sf::Sprite& getSprite();
 
+    /**
+     * @brief Changes the texture of this image. Does not trigger a menu refresh
+     *
+     */
+    void setTexture(const resource::Resource<sf::Texture>::Ref& texture);
+
 protected:
     /**
      * @see RenderItem::getSize

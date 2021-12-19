@@ -14,6 +14,11 @@ ImageItem::ImageItem(const resource::Resource<sf::Texture>::Ref& texture)
 
 sf::Sprite& ImageItem::getSprite() { return sprite; }
 
+void ImageItem::setTexture(const resource::Resource<sf::Texture>::Ref& t) {
+    texture = t;
+    sprite.setTexture(*texture, true);
+}
+
 sf::Vector2f ImageItem::getSize() const {
     return {sprite.getGlobalBounds().width, sprite.getGlobalBounds().height};
 }

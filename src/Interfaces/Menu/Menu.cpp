@@ -31,20 +31,20 @@ void Menu::setRootItem(const Item::Ptr& root) {
     items.clear();
     items.emplace_back(root);
     selectedItem = root.get();
-    refresh();
+    refreshPositions();
 }
 
 void Menu::addItem(const Item::Ptr& item, Item* parent, Item::AttachPoint ap, bool r) {
     items.emplace_back(item);
     parent->attachments[ap] = item.get();
     if (r) { item->attachments[Item::oppositeSide(ap)] = parent; }
-    refresh();
+    refreshPositions();
 }
 
 void Menu::attachExisting(Item* item, Item* parent, Item::AttachPoint ap, bool r) {
     parent->attachments[ap] = item;
     if (r) { item->attachments[Item::oppositeSide(ap)] = parent; }
-    refresh();
+    refreshPositions();
 }
 
 void Menu::removeItem(Item* item, bool c) {
@@ -72,7 +72,7 @@ void Menu::removeItem(Item* item, bool c) {
         }
         if (!selectedItem) { selectedItem = items.front().get(); }
     }
-    refresh();
+    refreshPositions();
 }
 
 void Menu::render(sf::RenderTarget& target, sf::RenderStates states) {
@@ -123,7 +123,7 @@ void Menu::processEvent(const Event& event) {
     }
 }
 
-void Menu::refresh() {
+void Menu::refreshPositions() {
     if (items.empty()) return;
 
     std::queue<Item*> toVisit;
@@ -139,10 +139,12 @@ void Menu::refresh() {
         for (unsigned int i = 0; i < Item::AttachPoint::_NUM_ATTACHPOINTS; ++i) {
             Item* v = item->attachments[i];
             if (v && visited.find(v) == visited.end()) {
-                v->position = move(item->position,
-                                   item->getSize(),
-                                   v->getSize(),
-                                   static_cast<Item::AttachPoint>(i));
+                if (!v->positionOverridden) {
+                    v->position = move(item->position,
+                                       item->getSize(),
+                                       v->getSize(),
+                                       static_cast<Item::AttachPoint>(i));
+                }
                 toVisit.emplace(v);
                 visited.insert(v);
             }
