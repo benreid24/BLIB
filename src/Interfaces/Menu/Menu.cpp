@@ -55,7 +55,6 @@ void Menu::addItem(const Item::Ptr& item, Item* parent, Item::AttachPoint ap, bo
 void Menu::attachExisting(Item* item, Item* parent, Item::AttachPoint ap, bool r) {
     parent->attachments[ap] = item;
     if (r) { item->attachments[Item::oppositeSide(ap)] = parent; }
-    refreshPositions();
 }
 
 void Menu::removeItem(Item* item, bool c) {
