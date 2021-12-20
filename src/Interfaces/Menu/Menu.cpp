@@ -49,6 +49,7 @@ void Menu::addItem(const Item::Ptr& item, Item* parent, Item::AttachPoint ap, bo
     items.emplace_back(item);
     parent->attachments[ap] = item.get();
     if (r) { item->attachments[Item::oppositeSide(ap)] = parent; }
+    item->parent = ap;
     refreshPositions();
 }
 
@@ -154,11 +155,12 @@ void Menu::refreshPositions() {
         if (item->position.y + size.y > bounds.height) bounds.height = item->position.y + size.y;
 
         for (unsigned int i = 0; i < Item::AttachPoint::_NUM_ATTACHPOINTS; ++i) {
+            const Item::AttachPoint ap = static_cast<Item::AttachPoint>(i);
+
             Item* v = item->attachments[i];
-            if (v && visited.find(v) == visited.end()) {
+            if (v && v->parent == ap && visited.find(v) == visited.end()) {
                 if (!v->positionOverridden) {
-                    v->position =
-                        move(item->position, size, v->getSize(), static_cast<Item::AttachPoint>(i));
+                    v->position = move(item->position, size, v->getSize(), ap);
                 }
                 toVisit.emplace(v);
                 visited.insert(v);

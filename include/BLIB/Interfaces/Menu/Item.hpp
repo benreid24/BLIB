@@ -108,6 +108,7 @@ protected:
 private:
     sf::Vector2f position;
     Item* attachments[_NUM_ATTACHPOINTS];
+    AttachPoint parent;
     util::Signal<> signals[_NUM_EVENTS];
     bool canBeSelected;
     bool allowSelectionCross;
