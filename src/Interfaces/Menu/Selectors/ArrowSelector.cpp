@@ -13,11 +13,15 @@ bl::shapes::Triangle makeTriangle(float w) {
 }
 } // namespace
 
-ArrowSelector::Ptr ArrowSelector::create(float w) { return Ptr(new ArrowSelector(w)); }
+ArrowSelector::Ptr ArrowSelector::create(float w, const sf::Color& f) {
+    return Ptr(new ArrowSelector(w, f));
+}
 
-ArrowSelector::ArrowSelector(float w)
+ArrowSelector::ArrowSelector(float w, const sf::Color& f)
 : width(w)
-, triangle(makeTriangle(w)) {}
+, triangle(makeTriangle(w)) {
+    triangle.setFillColor(f);
+}
 
 shapes::Triangle& ArrowSelector::getArrow() { return triangle; }
 

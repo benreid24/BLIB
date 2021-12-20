@@ -21,11 +21,22 @@ void Menu::setSelectedItem(Item* s) {
 
 void Menu::setPosition(const sf::Vector2f& pos) { position = pos; }
 
-void Menu::setPadding(const sf::Vector2f& p) { padding = p; }
+void Menu::setPadding(const sf::Vector2f& p) {
+    padding = p;
+    refreshPositions();
+}
 
-void Menu::setMinHeight(float h) { minSize.x = h; }
+void Menu::setMinHeight(float h) {
+    minSize.y = h;
+    refreshPositions();
+}
 
-void Menu::setMinWidth(float w) { minSize.x = w; }
+void Menu::setMinWidth(float w) {
+    minSize.x = w;
+    refreshPositions();
+}
+
+const sf::FloatRect& Menu::getBounds() const { return bounds; }
 
 void Menu::setRootItem(const Item::Ptr& root) {
     items.clear();
@@ -131,25 +142,33 @@ void Menu::refreshPositions() {
     toVisit.emplace(items.front().get());
     visited.insert(items.front().get());
     items.front()->position = {0.f, 0.f};
+    bounds                  = {0.f, 0.f, 0.f, 0.f};
 
     while (!toVisit.empty()) {
         Item* item = toVisit.front();
         toVisit.pop();
 
+        const sf::Vector2f size = item->getSize();
+        if (item->position.x < bounds.left) bounds.left = item->position.x;
+        if (item->position.x + size.x > bounds.width) bounds.width = item->position.x + size.x;
+        if (item->position.y < bounds.top) bounds.top = item->position.y;
+        if (item->position.y + size.y > bounds.height) bounds.height = item->position.y + size.y;
+
         for (unsigned int i = 0; i < Item::AttachPoint::_NUM_ATTACHPOINTS; ++i) {
             Item* v = item->attachments[i];
             if (v && visited.find(v) == visited.end()) {
                 if (!v->positionOverridden) {
-                    v->position = move(item->position,
-                                       item->getSize(),
-                                       v->getSize(),
-                                       static_cast<Item::AttachPoint>(i));
+                    v->position =
+                        move(item->position, size, v->getSize(), static_cast<Item::AttachPoint>(i));
                 }
                 toVisit.emplace(v);
                 visited.insert(v);
             }
         }
     }
+
+    bounds.width  = bounds.width - bounds.left;
+    bounds.height = bounds.height - bounds.top;
 }
 
 sf::Vector2f Menu::move(const sf::Vector2f& pos, const sf::Vector2f& psize,

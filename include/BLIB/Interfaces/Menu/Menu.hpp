@@ -120,8 +120,15 @@ public:
      */
     void refreshPositions();
 
+    /**
+     * @brief Returns the bounds of the menu
+     *
+     */
+    const sf::FloatRect& getBounds() const;
+
 private:
     sf::Vector2f position;
+    sf::FloatRect bounds;
     std::vector<Item::Ptr> items;
     Selector::Ptr selector;
     Item* selectedItem;

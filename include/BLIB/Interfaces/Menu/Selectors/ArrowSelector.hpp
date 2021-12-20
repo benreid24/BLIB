@@ -21,8 +21,11 @@ public:
     /**
      * @brief Create a new ArrowSelector with the given width
      *
+     * @param width The width of the arrow in pixels
+     * @param fill Color to fill the arrow with
+     *
      */
-    static Ptr create(float width);
+    static Ptr create(float width, const sf::Color& fill = sf::Color::White);
 
     /**
      * @brief Exposes the underlying triangle
@@ -41,7 +44,7 @@ private:
     const float width;
     mutable bl::shapes::Triangle triangle;
 
-    ArrowSelector(float width);
+    ArrowSelector(float width, const sf::Color& f);
 };
 
 } // namespace menu
