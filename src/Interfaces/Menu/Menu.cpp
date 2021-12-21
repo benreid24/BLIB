@@ -86,7 +86,7 @@ void Menu::removeItem(Item* item, bool c) {
     refreshPositions();
 }
 
-void Menu::render(sf::RenderTarget& target, sf::RenderStates states) {
+void Menu::render(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform.translate(position);
     for (const auto& item : items) {
         item->render(target, states, item->position);

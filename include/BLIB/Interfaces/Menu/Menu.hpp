@@ -41,7 +41,7 @@ public:
      * @param target The target to render to
      * @param renderStates Render states to use
      */
-    void render(sf::RenderTarget& target, sf::RenderStates renderStates = {});
+    void render(sf::RenderTarget& target, sf::RenderStates renderStates = {}) const;
 
     /**
      * @brief Processes the event and updates the Menu state
