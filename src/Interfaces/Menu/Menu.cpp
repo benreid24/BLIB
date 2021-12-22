@@ -1,104 +1,98 @@
 #include <BLIB/Interfaces/Menu/Menu.hpp>
+
 #include <BLIB/Logging.hpp>
+#include <queue>
+#include <unordered_set>
 
 namespace bl
 {
 namespace menu
 {
-Menu::Menu(Item::Ptr root, Selector::Ptr selector)
+Menu::Menu(const Selector::Ptr& selector)
 : selector(selector)
-, rootItem(root)
-, selectedItem(root) {
-    refresh();
+, selectedItem(nullptr)
+, padding(10.f, 10.f)
+, minSize(0.f, 0.f) {}
+
+void Menu::setSelectedItem(Item* s) {
+    selectedItem = s;
+    selectedItem->getSignal(Item::Selected)();
 }
 
-void Menu::refresh() {
-    const auto itemVisitor = [this](const Item& item, int x, int y) {
-        auto it = columnWidths.find(x);
-        if (it == columnWidths.end())
-            columnWidths[x] = item.getRenderItem().getSize().x;
-        else if (it->second < item.getRenderItem().getSize().x)
-            it->second = item.getRenderItem().getSize().x;
-        it = rowHeights.find(y);
-        if (it == rowHeights.end())
-            rowHeights[y] = item.getRenderItem().getSize().y;
-        else if (it->second < item.getRenderItem().getSize().y)
-            rowHeights[y] = item.getRenderItem().getSize().y;
-    };
-    rootItem->visit(itemVisitor);
+void Menu::setPosition(const sf::Vector2f& pos) { position = pos; }
+
+void Menu::setPadding(const sf::Vector2f& p) {
+    padding = p;
+    refreshPositions();
 }
 
-void Menu::setSelectedItem(Item::Ptr s) { selectedItem = s; }
-
-void Menu::render(const Renderer& renderer, sf::RenderTarget& target, const sf::Vector2f& position,
-                  sf::RenderStates renderStates) {
-    std::vector<std::pair<int, int>> rendered;
-    rendered.reserve(10);
-    itemAreas.clear();
-    renderItem(renderer, target, rootItem, position, renderStates, 0, 0, rendered);
+void Menu::setMinHeight(float h) {
+    minSize.y = h;
+    refreshPositions();
 }
 
-void Menu::renderItem(const Renderer& renderer, sf::RenderTarget& target, Item::Ptr item,
-                      const sf::Vector2f& position, sf::RenderStates renderStates, int x, int y,
-                      std::vector<std::pair<int, int>>& rendered) {
-    if (std::find(rendered.begin(), rendered.end(), std::make_pair(x, y)) != rendered.end()) return;
-    rendered.push_back(std::make_pair(x, y));
+void Menu::setMinWidth(float w) {
+    minSize.x = w;
+    refreshPositions();
+}
 
-    float columnWidth = renderer.estimateItemSize(*item).x;
-    float rowHeight   = renderer.estimateItemSize(*item).y;
-    auto it           = columnWidths.find(x);
-    if (it != columnWidths.end()) columnWidth = columnWidths[x];
-    it = rowHeights.find(y);
-    if (it != rowHeights.end()) rowHeight = rowHeights[y];
+const sf::FloatRect& Menu::getBounds() const { return bounds; }
 
-    const sf::Vector2f size =
-        renderer.renderItem(target, renderStates, *item, position, columnWidth, rowHeight, x, y);
-    itemAreas.push_back(std::make_pair(sf::FloatRect(position, size), item));
-    if (item.get() == selectedItem.get()) {
-        selector->render(target, renderStates, {position, size});
-    }
+void Menu::setRootItem(const Item::Ptr& root) {
+    items.clear();
+    items.emplace_back(root);
+    selectedItem = root.get();
+    refreshPositions();
+}
 
-    if (item->attachments[Item::Top]) {
-        const sf::Vector2f esize = renderer.estimateItemSize(*item->attachments[Item::Top]);
-        renderItem(renderer,
-                   target,
-                   item->attachments[Item::Top],
-                   {position.x, position.y - esize.y},
-                   renderStates,
-                   x,
-                   y - 1,
-                   rendered);
+void Menu::addItem(const Item::Ptr& item, Item* parent, Item::AttachPoint ap, bool r) {
+    items.emplace_back(item);
+    parent->attachments[ap] = item.get();
+    if (r) { item->attachments[Item::oppositeSide(ap)] = parent; }
+    item->parent = ap;
+    refreshPositions();
+}
+
+void Menu::attachExisting(Item* item, Item* parent, Item::AttachPoint ap, bool r) {
+    parent->attachments[ap] = item;
+    if (r) { item->attachments[Item::oppositeSide(ap)] = parent; }
+}
+
+void Menu::removeItem(Item* item, bool c) {
+    unsigned int i;
+    for (unsigned int j = 0; j < items.size(); ++j) {
+        if (items[j].get() == item) { i = j; }
+        else {
+            for (unsigned int k = 0; k < Item::AttachPoint::_NUM_ATTACHPOINTS; ++k) {
+                if (items[j]->attachments[k] == item) {
+                    if (c) { items[j]->attachments[k] = item->attachments[k]; }
+                    else {
+                        items[j]->attachments[k] = nullptr;
+                    }
+                }
+            }
+        }
     }
-    if (item->attachments[Item::Right]) {
-        renderItem(renderer,
-                   target,
-                   item->attachments[Item::Right],
-                   {position.x + size.x, position.y},
-                   renderStates,
-                   x + 1,
-                   y,
-                   rendered);
+    items.erase(items.begin() + i);
+    if (selectedItem == item) {
+        selectedItem = nullptr;
+        if (!items.empty()) {
+            for (unsigned int k = 0; k < Item::AttachPoint::_NUM_ATTACHPOINTS; ++k) {
+                if (item->attachments[k]) selectedItem = item->attachments[k];
+            }
+        }
+        if (!selectedItem) { selectedItem = items.front().get(); }
     }
-    if (item->attachments[Item::Bottom]) {
-        renderItem(renderer,
-                   target,
-                   item->attachments[Item::Bottom],
-                   {position.x, position.y + size.y},
-                   renderStates,
-                   x,
-                   y + 1,
-                   rendered);
-    }
-    if (item->attachments[Item::Left]) {
-        const sf::Vector2f esize = renderer.estimateItemSize(*item->attachments[Item::Top]);
-        renderItem(renderer,
-                   target,
-                   item->attachments[Item::Left],
-                   {position.x - esize.x, position.y},
-                   renderStates,
-                   x - 1,
-                   y,
-                   rendered);
+    refreshPositions();
+}
+
+void Menu::render(sf::RenderTarget& target, sf::RenderStates states) const {
+    states.transform.translate(position);
+    for (const auto& item : items) {
+        item->render(target, states, item->position);
+        if (item.get() == selectedItem) {
+            selector->render(target, states, {item->position, item->getSize()});
+        }
     }
 }
 
@@ -106,7 +100,7 @@ void Menu::processEvent(const Event& event) {
     switch (event.type) {
     case Event::SelectorMove: {
         if (selectedItem->attachments[event.moveEvent.direction]) {
-            Item::Ptr item = selectedItem->attachments[event.moveEvent.direction];
+            Item* item = selectedItem->attachments[event.moveEvent.direction];
             while (item) {
                 if (item->isSelectable()) {
                     selectedItem->getSignal(Item::Deselected)();
@@ -123,11 +117,12 @@ void Menu::processEvent(const Event& event) {
         selectedItem->getSignal(Item::Activated)();
         break;
     case Event::SelectorLocation: {
-        for (unsigned int i = 0; i < itemAreas.size(); ++i) {
-            if (itemAreas[i].first.contains(event.locationEvent.position)) {
-                if (itemAreas[i].second->isSelectable()) {
+        for (const auto& item : items) {
+            if (sf::FloatRect(item->position, item->getSize())
+                    .contains(event.locationEvent.position)) {
+                if (item->isSelectable()) {
                     selectedItem->getSignal(Item::Deselected)();
-                    selectedItem = itemAreas[i].second;
+                    selectedItem = item.get();
                     selectedItem->getSignal(Item::Selected)();
                 }
             }
@@ -136,6 +131,60 @@ void Menu::processEvent(const Event& event) {
     default:
         BL_LOG_ERROR << "Menu::processEvent received invalid Event::Type: " << event.type;
         break;
+    }
+}
+
+void Menu::refreshPositions() {
+    if (items.empty()) return;
+
+    std::queue<Item*> toVisit;
+    std::unordered_set<Item*> visited;
+    toVisit.emplace(items.front().get());
+    visited.insert(items.front().get());
+    items.front()->position = {0.f, 0.f};
+    bounds                  = {0.f, 0.f, 0.f, 0.f};
+
+    while (!toVisit.empty()) {
+        Item* item = toVisit.front();
+        toVisit.pop();
+
+        const sf::Vector2f size = item->getSize();
+        if (item->position.x < bounds.left) bounds.left = item->position.x;
+        if (item->position.x + size.x > bounds.width) bounds.width = item->position.x + size.x;
+        if (item->position.y < bounds.top) bounds.top = item->position.y;
+        if (item->position.y + size.y > bounds.height) bounds.height = item->position.y + size.y;
+
+        for (unsigned int i = 0; i < Item::AttachPoint::_NUM_ATTACHPOINTS; ++i) {
+            const Item::AttachPoint ap = static_cast<Item::AttachPoint>(i);
+
+            Item* v = item->attachments[i];
+            if (v && v->parent == ap && visited.find(v) == visited.end()) {
+                if (!v->positionOverridden) {
+                    v->position = move(item->position, size, v->getSize(), ap);
+                }
+                toVisit.emplace(v);
+                visited.insert(v);
+            }
+        }
+    }
+
+    bounds.width  = bounds.width - bounds.left;
+    bounds.height = bounds.height - bounds.top;
+}
+
+sf::Vector2f Menu::move(const sf::Vector2f& pos, const sf::Vector2f& psize,
+                        const sf::Vector2f& esize, Item::AttachPoint ap) {
+    switch (ap) {
+    case Item::AttachPoint::Top:
+        return {pos.x, pos.y - std::max(minSize.y, esize.y) - padding.y};
+    case Item::AttachPoint::Right:
+        return {pos.x + std::max(minSize.x, psize.x) + padding.x, pos.y};
+    case Item::AttachPoint::Bottom:
+        return {pos.x, pos.y + std::max(minSize.y, psize.y) + padding.y};
+    case Item::AttachPoint::Left:
+        return {pos.x - std::max(minSize.x, esize.x) - padding.x, pos.y};
+    default:
+        return pos;
     }
 }
 

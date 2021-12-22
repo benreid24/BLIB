@@ -1,7 +1,8 @@
-#ifndef BLIB_MENU_RENDERITEMS_SPRITERENDERITEM_HPP
-#define BLIB_MENU_RENDERITEMS_SPRITERENDERITEM_HPP
+#ifndef BLIB_MENU_ITEMS_IMAGEITEM_HPP
+#define BLIB_MENU_ITEMS_IMAGEITEM_HPP
 
-#include <BLIB/Interfaces/Menu/RenderItem.hpp>
+#include <BLIB/Interfaces/Menu/Item.hpp>
+#include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
 namespace bl
@@ -14,15 +15,15 @@ namespace menu
  * @ingroup Menu
  *
  */
-class SpriteRenderItem : public RenderItem {
+class ImageItem : public Item {
 public:
-    typedef std::shared_ptr<SpriteRenderItem> Ptr;
+    typedef std::shared_ptr<ImageItem> Ptr;
 
     /**
      * @brief Create the render item from a sprite
      *
      */
-    static Ptr create(const sf::Sprite& sprite);
+    static Ptr create(const resource::Resource<sf::Texture>::Ref& texture);
 
     /**
      * @brief Returns a modifiable reference to the contained sprite
@@ -30,6 +31,13 @@ public:
      */
     sf::Sprite& getSprite();
 
+    /**
+     * @brief Changes the texture of this image. Does not trigger a menu refresh
+     *
+     */
+    void setTexture(const resource::Resource<sf::Texture>::Ref& texture);
+
+protected:
     /**
      * @see RenderItem::getSize
      *
@@ -44,9 +52,10 @@ public:
                         const sf::Vector2f& position) const override;
 
 private:
-    mutable sf::Sprite sprite;
+    resource::Resource<sf::Texture>::Ref texture;
+    sf::Sprite sprite;
 
-    SpriteRenderItem(const sf::Sprite& sprite);
+    ImageItem(const resource::Resource<sf::Texture>::Ref& texture);
 };
 
 } // namespace menu
