@@ -120,8 +120,10 @@ public:
      * @param fill The background color
      * @param outline The outline color around the background and menu
      * @param outlineThickness The thickness of the outline
+     * @param padding Padding between menu elements and the edge of the background on each side
      */
-    void configureBackground(sf::Color fill, sf::Color outline, float outlineThickness);
+    void configureBackground(sf::Color fill, sf::Color outline, float outlineThickness,
+                             const sf::FloatRect& padding = {-1.f, -1.f, -1.f, -1.f});
 
     /**
      * @brief Refreshes the positions of all items in the menu
@@ -144,6 +146,7 @@ private:
     sf::Vector2f padding;
     sf::Vector2f minSize;
     sf::RectangleShape background;
+    sf::FloatRect bgndPadding;
 
     sf::Vector2f move(const sf::Vector2f& pos, const sf::Vector2f& psize, const sf::Vector2f& esize,
                       Item::AttachPoint ap);

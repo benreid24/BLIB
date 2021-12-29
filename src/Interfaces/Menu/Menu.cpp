@@ -12,7 +12,8 @@ Menu::Menu(const Selector::Ptr& selector)
 : selector(selector)
 , selectedItem(nullptr)
 , padding(10.f, 10.f)
-, minSize(0.f, 0.f) {
+, minSize(0.f, 0.f)
+, bgndPadding(padding * 2.f, padding * 2.f) {
     background.setFillColor(sf::Color::Transparent);
     background.setOutlineColor(sf::Color::Transparent);
 }
@@ -39,10 +40,11 @@ void Menu::setMinWidth(float w) {
     refreshPositions();
 }
 
-void Menu::configureBackground(sf::Color fill, sf::Color outline, float t) {
+void Menu::configureBackground(sf::Color fill, sf::Color outline, float t, const sf::FloatRect& p) {
     background.setFillColor(fill);
     background.setOutlineColor(outline);
     background.setOutlineThickness(t);
+    bgndPadding = p.left >= 0.f ? p : sf::FloatRect(padding * 2.f, padding * 2.f);
 }
 
 const sf::FloatRect& Menu::getBounds() const { return bounds; }
@@ -181,8 +183,10 @@ void Menu::refreshPositions() {
     bounds.width  = bounds.width - bounds.left;
     bounds.height = bounds.height - bounds.top;
 
-    background.setSize({bounds.width + padding.x * 4.f, bounds.height + padding.y * 4.f});
-    background.setPosition(-padding * 2.f);
+    background.setSize({bounds.width + bgndPadding.left + bgndPadding.width,
+                        bounds.height + bgndPadding.top + bgndPadding.height});
+    background.setPosition(sf::Vector2f(bounds.left, bounds.top) -
+                           sf::Vector2f(bgndPadding.left, bgndPadding.top));
 }
 
 sf::Vector2f Menu::move(const sf::Vector2f& pos, const sf::Vector2f& psize,
