@@ -47,7 +47,7 @@ void Menu::configureBackground(sf::Color fill, sf::Color outline, float t, const
     bgndPadding = p.left >= 0.f ? p : sf::FloatRect(padding * 2.f, padding * 2.f);
 }
 
-const sf::FloatRect& Menu::getBounds() const { return bounds; }
+sf::FloatRect Menu::getBounds() const { return background.getGlobalBounds(); }
 
 void Menu::setRootItem(const Item::Ptr& root) {
     items.clear();
@@ -154,7 +154,7 @@ void Menu::refreshPositions() {
     toVisit.emplace(items.front().get());
     visited.insert(items.front().get());
     items.front()->position = {0.f, 0.f};
-    bounds                  = {0.f, 0.f, 0.f, 0.f};
+    sf::FloatRect bounds    = {0.f, 0.f, 0.f, 0.f};
 
     while (!toVisit.empty()) {
         Item* item = toVisit.front();
