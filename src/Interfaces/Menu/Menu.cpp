@@ -12,7 +12,10 @@ Menu::Menu(const Selector::Ptr& selector)
 : selector(selector)
 , selectedItem(nullptr)
 , padding(10.f, 10.f)
-, minSize(0.f, 0.f) {}
+, minSize(0.f, 0.f) {
+    background.setFillColor(sf::Color::Transparent);
+    background.setOutlineColor(sf::Color::Transparent);
+}
 
 void Menu::setSelectedItem(Item* s) {
     selectedItem = s;
@@ -34,6 +37,12 @@ void Menu::setMinHeight(float h) {
 void Menu::setMinWidth(float w) {
     minSize.x = w;
     refreshPositions();
+}
+
+void Menu::configureBackground(sf::Color fill, sf::Color outline, float t) {
+    background.setFillColor(fill);
+    background.setOutlineColor(outline);
+    background.setOutlineThickness(t);
 }
 
 const sf::FloatRect& Menu::getBounds() const { return bounds; }
@@ -88,6 +97,7 @@ void Menu::removeItem(Item* item, bool c) {
 
 void Menu::render(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform.translate(position);
+    target.draw(background, states);
     for (const auto& item : items) {
         item->render(target, states, item->position);
         if (item.get() == selectedItem) {
@@ -170,6 +180,9 @@ void Menu::refreshPositions() {
 
     bounds.width  = bounds.width - bounds.left;
     bounds.height = bounds.height - bounds.top;
+
+    background.setSize({bounds.width + padding.x * 4.f, bounds.height + padding.y * 4.f});
+    background.setPosition(-padding * 2.f);
 }
 
 sf::Vector2f Menu::move(const sf::Vector2f& pos, const sf::Vector2f& psize,
