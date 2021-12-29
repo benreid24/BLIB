@@ -8,7 +8,7 @@ namespace menu
 {
 Item::Item()
 : canBeSelected(true)
-, allowSelectionCross(false)
+, allowSelectionCross(true)
 , positionOverridden(false) {
     for (unsigned int i = 0; i < AttachPoint::_NUM_ATTACHPOINTS; ++i) { attachments[i] = nullptr; }
 }
