@@ -81,19 +81,19 @@ public:
      */
     util::Signal<>& getSignal(EventType event);
 
-protected:
-    /**
-     * @brief Construct a new Item
-     *
-     */
-    Item();
-
     /**
      * @brief Return the untransformed size of the object
      *
      * @return sf::Vector2f Size the object will take
      */
     virtual sf::Vector2f getSize() const = 0;
+
+protected:
+    /**
+     * @brief Construct a new Item
+     *
+     */
+    Item();
 
     /**
      * @brief Render the item to the given target

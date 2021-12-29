@@ -37,15 +37,15 @@ public:
      */
     void setTexture(const resource::Resource<sf::Texture>::Ref& texture);
 
-protected:
     /**
-     * @see RenderItem::getSize
+     * @see Item::getSize
      *
      */
     virtual sf::Vector2f getSize() const override;
 
+protected:
     /**
-     * @see RenderItem::render
+     * @see Item::render
      *
      */
     virtual void render(sf::RenderTarget& target, sf::RenderStates states,
