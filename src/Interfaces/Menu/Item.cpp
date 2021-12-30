@@ -43,6 +43,8 @@ void Item::overridePosition(const sf::Vector2f& pos) {
     positionOverridden = true;
 }
 
+const sf::Vector2f& Item::getPosition() const { return position; }
+
 } // namespace menu
 
 } // namespace bl

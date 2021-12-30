@@ -82,6 +82,12 @@ public:
     util::Signal<>& getSignal(EventType event);
 
     /**
+     * @brief Returns the position of the button relative to it's menu
+     *
+     */
+    const sf::Vector2f& getPosition() const;
+
+    /**
      * @brief Return the untransformed size of the object
      *
      * @return sf::Vector2f Size the object will take
