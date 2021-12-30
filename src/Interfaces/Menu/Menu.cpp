@@ -19,6 +19,7 @@ Menu::Menu(const Selector::Ptr& selector)
 }
 
 void Menu::setSelectedItem(Item* s) {
+    if (selectedItem) selectedItem->getSignal(Item::Deselected)();
     selectedItem = s;
     selectedItem->getSignal(Item::Selected)();
 }
