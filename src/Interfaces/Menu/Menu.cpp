@@ -48,7 +48,7 @@ void Menu::configureBackground(sf::Color fill, sf::Color outline, float t, const
     bgndPadding = p.left >= 0.f ? p : sf::FloatRect(padding * 2.f, padding * 2.f);
 }
 
-sf::FloatRect Menu::getBounds() const { return background.getGlobalBounds(); }
+sf::FloatRect Menu::getBounds() const { return {position, background.getSize()}; }
 
 void Menu::setRootItem(const Item::Ptr& root) {
     items.clear();
