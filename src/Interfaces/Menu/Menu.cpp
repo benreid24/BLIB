@@ -240,8 +240,8 @@ void Menu::refreshPositions() {
 
     totalSize = {bounds.width - bounds.left, bounds.height - bounds.top};
     for (auto& item : items) {
-        item->position.x += bounds.left;
-        item->position.y += bounds.top;
+        item->position.x -= bounds.left;
+        item->position.y -= bounds.top;
     }
 
     const sf::Vector2f thick(background.getOutlineThickness(), background.getOutlineThickness());
