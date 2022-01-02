@@ -36,8 +36,16 @@ std::string Value::typeToString(Type t) {
         return "Function";
     case TRef:
         return "Reference";
-    default:
-        return "Unknown";
+    default: {
+        std::string ret = "(";
+        for (unsigned int i = 0; i < Value::_TYPE_COUNT; ++i) {
+            const Type v = static_cast<Type>(0x1 << i);
+            if ((t & v) != 0) { ret += typeToString(v) + ", "; }
+        }
+        ret.pop_back();
+        ret.back() = ')';
+        return ret;
+    }
     }
 }
 

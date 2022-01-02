@@ -23,7 +23,16 @@ public:
     typedef std::shared_ptr<Value> Ptr;
     typedef std::shared_ptr<const Value> CPtr;
 
-    enum Type { TVoid, TBool, TString, TNumeric, TArray, TFunction, TRef };
+    enum Type : std::uint8_t {
+        TVoid       = 0x0,
+        TBool       = 0x1 << 0,
+        TString     = 0x1 << 1,
+        TNumeric    = 0x1 << 2,
+        TArray      = 0x1 << 3,
+        TFunction   = 0x1 << 4,
+        TRef        = 0x1 << 5,
+        _TYPE_COUNT = 6 // excludes void
+    };
 
     typedef std::vector<Ptr> Array;
     typedef std::weak_ptr<Value> Ref;
@@ -183,6 +192,12 @@ public:
      * @return True if the property could be set, false otherwise
      */
     bool setProperty(const std::string& name, const Value& value);
+
+    /**
+     * @brief Returns all properties on this value
+     *
+     */
+    const std::unordered_map<std::string, Ptr>& allProperties() const;
 
 private:
     typedef std::variant<bool, float, std::string, Array, Ref, Function> TData;

@@ -4,6 +4,8 @@
 #include <BLIB/Serialization/JSON/JSON.hpp>
 #include <BLIB/Serialization/JSON/SerializableObject.hpp>
 
+#include <BLIB/Scripts/Function.hpp> // needed for type_traits
+#include <BLIB/Scripts/Value.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
@@ -426,6 +428,115 @@ struct Serializer<sf::Rect<U>, false> {
 
     static bool deserializeFrom(const Value& val, const std::string& key, sf::Rect<U>& result) {
         return priv::Serializer<sf::Rect<U>>::deserializeFrom(val, key, result, &deserialize);
+    }
+};
+
+template<>
+struct Serializer<script::Value, false> {
+    static Value serialize(const script::Value& value) {
+        const script::Value val = value.deref();
+
+        Group g;
+        g.addField("type", Serializer<script::Value::Type>::serialize(val.getType()));
+
+        Value v(false);
+        switch (val.getType()) {
+        case script::Value::TBool:
+            v = val.getAsBool();
+            break;
+        case script::Value::TNumeric:
+            v = val.getAsNum();
+            break;
+        case script::Value::TString:
+            v = val.getAsString();
+            break;
+        case script::Value::TArray: {
+            v              = List();
+            const auto arr = val.getAsArray();
+            v.getAsList()->reserve(arr.size());
+            for (const auto& iv : arr) { v.getAsList()->emplace_back(serialize(*iv)); }
+        } break;
+
+        case script::Value::TFunction:
+        case script::Value::TVoid:
+        default:
+            v = "<NONSERIALIZABLE>";
+            break;
+        }
+        g.addField("value", v);
+
+        g.addField("props", Group());
+        Group* props = g.getField("props")->getAsGroup();
+        for (const auto& prop : val.allProperties()) {
+            serializeInto(prop.first, *props, *prop.second);
+        }
+
+        return {g};
+    }
+
+    static void serializeInto(const std::string& name, Group& group, const script::Value& val) {
+        priv::Serializer<script::Value>::serializeInto(group, name, val, &serialize);
+    }
+
+    static bool deserialize(script::Value& result, const Value& val) {
+        const Group* group = val.getAsGroup();
+        if (!group) return false;
+
+        script::Value::Type type;
+        if (!Serializer<script::Value::Type>::deserializeFrom(val, "type", type)) return false;
+
+        const Value* v = group->getField("value");
+        if (!v) return false;
+
+        switch (type) {
+        case script::Value::TBool:
+            if (!v->getAsBool()) return false;
+            result = *v->getAsBool();
+            break;
+
+        case script::Value::TNumeric:
+            if (!v->getAsInteger() || !v->getAsFloat()) return false;
+            result = v->getNumericAsFloat(); // TODO - refactor int/float separated
+            break;
+
+        case script::Value::TString:
+            if (!v->getAsString()) return false;
+            result = *v->getAsString();
+            break;
+
+        case script::Value::TArray: {
+            const List* list = v->getAsList();
+            if (!list) return false;
+
+            std::vector<script::Value> arr;
+            arr.resize(list->size());
+            for (unsigned int i = 0; i < list->size(); ++i) {
+                if (!deserialize(arr[i], list->at(i))) return false;
+            }
+            result = arr;
+        } break;
+
+        case script::Value::TFunction:
+        case script::Value::TVoid:
+        default:
+            result = false;
+            break;
+        }
+
+        const Group* props = group->getGroup("props");
+        if (!props) return false;
+
+        for (const auto& prop : props->getFields()) {
+            script::Value r;
+            if (!deserialize(r, *props->getField(prop))) return false;
+            result.setProperty(prop, r);
+        }
+
+        return true;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, script::Value& result) {
+        return priv::Serializer<script::Value>::deserializeFrom(val, key, result, &deserialize);
     }
 };
 
