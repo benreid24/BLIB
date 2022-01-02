@@ -266,7 +266,7 @@ struct Serializer<std::unordered_set<U>, false> {
         if (r != nullptr) {
             for (unsigned int i = 0; i < r->size(); ++i) {
                 U val;
-                if (!Serializer<U>::deserialize(r->at(i), val)) return false;
+                if (!Serializer<U>::deserialize(val, r->at(i))) return false;
                 result.emplace(std::move(val));
             }
             return true;
