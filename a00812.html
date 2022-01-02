@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::particle Namespace Reference</title>
+<title>BLIB: bl::parser Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,33 +63,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00789.html">bl</a></li><li class="navelem"><a class="el" href="a00812.html">particle</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00792.html">bl</a></li><li class="navelem"><a class="el" href="a00812.html">parser</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::particle Namespace Reference</div>  </div>
+<div class="title">bl::parser Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A simple bare bones particle system.  
+<p>A framework for tokenizing and shift reduce parsing.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00814"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00814.html">unittest</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01412.html">System</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A very simple particle system. Particles not provided.  <a href="a01412.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01363.html">CommentSkipper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic comment and whitespace skipper for more common use cases.  <a href="a01363.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01367.html">Grammar</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a grammar for a <a class="el" href="a01395.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> to build a parse tree with from a token sequence.  <a href="a01367.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01383.html">ISkipper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.  <a href="a01383.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01387.html">Node</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.  <a href="a01387.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01395.html">Parser</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level <a class="el" href="a01395.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> class. Implements a basic LR0 parser from a <a class="el" href="a01367.html" title="Represents a grammar for a Parser to build a parse tree with from a token sequence. ">Grammar</a> and <a class="el" href="a01411.html" title="Utility class for a Parser to break down an input string into tokens. ">Tokenizer</a>.  <a href="a01395.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01407.html">Stream</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.  <a href="a01407.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01411.html">Tokenizer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for a <a class="el" href="a01395.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> to break down an input string into tokens.  <a href="a01411.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01415.html">WhitespaceSkipper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default skipper that skips over all whitespace beginning with the next token Note that this will not work with any tokens that begin with whitespace.  <a href="a01415.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A simple bare bones particle system. </p>
+<div class="textblock"><p>A framework for tokenizing and shift reduce parsing. </p>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 22 2021 18:21:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 2 2022 02:11:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

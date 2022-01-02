@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::container Namespace Reference</title>
+<title>BLIB: bl Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,62 +61,88 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a00789.html">bl</a></li><li class="navelem"><a class="el" href="a00792.html">container</a></li>  </ul>
-</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">bl::container Namespace Reference</div>  </div>
+<div class="title">bl Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of containers and container like classes more specialized than the STL.  
+<p>The parent namespace for all of BLIB.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00860.html">Any</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed size equivalent of std::any. Specified size is for in place storage. Stored objects smaller than that size will be stored in place, which allows sequential storage for cache locality optimization. Larger objects will require allocations. In place storage size is always used, even for types requiring allocation. Care must be taken to balance trying to fit many types inplace while minimizing waste for unused inplace storage.  <a href="a00860.html#details">More...</a><br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00793"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00793.html">ai</a></td></tr>
+<tr class="memdesc:a00793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of utilities to aid in the development of game AI. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00864.html">Cache</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto-evicting cache with several policy options and programmable watermarks.  <a href="a00864.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a00807"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00807.html">audio</a></td></tr>
+<tr class="memdesc:a00807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sophisticated audio system for managing all music and sounds. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00868.html">DynamicObjectPool</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic object pool that may vary in size. Similar to <a class="el" href="a00884.html" title="A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...">FastEraseVector</a> in that erase is O(1), however objects in the pool maintain their indices in the <a class="el" href="a00868.html" title="Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1)...">DynamicObjectPool</a>. Object slots are marked free on <a class="el" href="a00868.html#af37f49c2a9ebadee2028221c7af028ae" title="Removes the given iterator from the pool and marks the object slot for resuse. All iterators remain v...">erase()</a>, reused on <a class="el" href="a00868.html#a32395f65fa9daaf142efc3380c0cfa6a" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a>, and the pool grows in size if no slot is when <a class="el" href="a00868.html#a32395f65fa9daaf142efc3380c0cfa6a" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a> is called. Objects must implement a default constructor and copy constructor.  <a href="a00868.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a00795"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00795.html">container</a></td></tr>
+<tr class="memdesc:a00795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of containers and container like classes more specialized than the STL. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00884.html">FastEraseVector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a00884.html#ac6424078bf8566ee5aab963214fc288f" title="Erase a single element using an iterator. ">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy.  <a href="a00884.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a00802"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00802.html">dialog</a></td></tr>
+<tr class="memdesc:a00802"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of functions from the tinyfiledialogs library. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00888.html">FastQueue</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO Container class similar to std::queue but allows promoting an element back to the front in O(1) time. Values contained must be unique.  <a href="a00888.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a00796"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00796.html">engine</a></td></tr>
+<tr class="memdesc:a00796"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00892.html">Grid</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic spatial partioning grid class for breaking down areas into equal sized boxes.  <a href="a00892.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a00798"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html">entity</a></td></tr>
+<tr class="memdesc:a00798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the Entity <a class="el" href="a00995.html" title="Helper class for components in the entity component system. Component classes must define a unique nu...">Component</a> System. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00908.html">ObjectWrapper</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple wrapper around single objects allowing for delayed construction, memory reuse, and destruction at any time. Note that space is allocated inline with the object and will therefor be wherever <a class="el" href="a00908.html" title="Simple wrapper around single objects allowing for delayed construction, memory reuse, and destruction at any time. Note that space is allocated inline with the object and will therefor be wherever ObjectWrapper is allocated (stack or heap). Because of this, moving from another ObjectWrapper will invoke T&#39;s move constructor instead of swapping memory. ">ObjectWrapper</a> is allocated (stack or heap). Because of this, moving from another <a class="el" href="a00908.html" title="Simple wrapper around single objects allowing for delayed construction, memory reuse, and destruction at any time. Note that space is allocated inline with the object and will therefor be wherever ObjectWrapper is allocated (stack or heap). Because of this, moving from another ObjectWrapper will invoke T&#39;s move constructor instead of swapping memory. ">ObjectWrapper</a> will invoke T's move constructor instead of swapping memory.  <a href="a00908.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a00800"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00800.html">event</a></td></tr>
+<tr class="memdesc:a00800"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes providing different types of publisher/consumer event queues. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00912.html">QuadTree</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently if the payload type is trivially movable. Stored objects are keyed on position.  <a href="a00912.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a00810"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00810.html">gfx</a></td></tr>
+<tr class="memdesc:a00810"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of graphical utilities and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00932.html">RingBuffer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple circular buffer implementation for small objects. Underlying storage is a std::vector of buffers. Objects are constructed with placement new and destructors are called when erased, cleared, or overwritten.  <a href="a00932.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a00801"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00801.html">gui</a></td></tr>
+<tr class="memdesc:a00801"><td class="mdescLeft">&#160;</td><td class="mdescRight">A window based graphical user interface. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00940.html">Vector2D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class that wraps std::vector, making it indexable in two dimensions.  <a href="a00940.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a00804"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00804.html">interface</a></td></tr>
+<tr class="memdesc:a00804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for interfaces. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00805"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00805.html">logging</a></td></tr>
+<tr class="memdesc:a00805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logging utility. Supports a configurable log environment and multiple outputs. Threadsafe. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00806"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00806.html">math</a></td></tr>
+<tr class="memdesc:a00806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of functions and constants for doing math. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00803"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00803.html">menu</a></td></tr>
+<tr class="memdesc:a00803"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to create mouseless menus. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00812"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00812.html">parser</a></td></tr>
+<tr class="memdesc:a00812"><td class="mdescLeft">&#160;</td><td class="mdescRight">A framework for tokenizing and shift reduce parsing. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00815"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00815.html">particle</a></td></tr>
+<tr class="memdesc:a00815"><td class="mdescLeft">&#160;</td><td class="mdescRight">A simple bare bones particle system. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00816"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00816.html">resource</a></td></tr>
+<tr class="memdesc:a00816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for resource management and flyweight pattern. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00817"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00817.html">script</a></td></tr>
+<tr class="memdesc:a00817"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01463.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> interpreter for bScript. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00808"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00808.html">serial</a></td></tr>
+<tr class="memdesc:a00808"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00811"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00811.html">shapes</a></td></tr>
+<tr class="memdesc:a00811"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of shapes to expand on what's offered by SFML. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00820"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00820.html">util</a></td></tr>
+<tr class="memdesc:a00820"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a set of common utility classes that do not fit into any other modules. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of containers and container like classes more specialized than the STL. </p>
+<div class="textblock"><p>The parent namespace for all of BLIB. </p>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 22 2021 18:21:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 2 2022 02:11:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::resource::AsyncLoader&lt; TResourceType &gt; Struct Template Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,144 +63,32 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00789.html">bl</a></li><li class="navelem"><a class="el" href="a00813.html">resource</a></li><li class="navelem"><a class="el" href="a01416.html">AsyncLoader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00792.html">bl</a></li><li class="navelem"><a class="el" href="a00815.html">particle</a></li><li class="navelem"><a class="el" href="a01419.html">System</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a01413.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::resource::AsyncLoader&lt; TResourceType &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a00775.html">Resources</a></div></div>  </div>
+<div class="title">bl::particle::System&lt; T &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Specialized loader meant for loading resources into a <a class="el" href="a01428.html" title="Single template based resource management class. Meant for storing. ">Manager</a> in the background. Default implementation simply calls <a class="el" href="a01416.html#aa3bdaa1b95c641cb669887a9f10d95ff" title="Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their ...">load()</a> on the manager, but custom background loaders can be built for large resources and should leverage <a class="el" href="a01428.html#ab7f67e29b779d355aa2bb7005ed1617a" title="Add an already loaded resource to the manager. Overwrites existing if present. ">Manager::add()</a> to insert constructed resources.  
- <a href="a01416.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00356_source.html">AsyncLoader.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:aa3bdaa1b95c641cb669887a9f10d95ff"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01416.html#aa3bdaa1b95c641cb669887a9f10d95ff">load</a> (<a class="el" href="a01428.html">Manager</a>&lt; TResourceType &gt; &amp;manager, const std::string &amp;uri, float &amp;progress)</td></tr>
-<tr class="memdesc:aa3bdaa1b95c641cb669887a9f10d95ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their loading and progress reporting here.  <a href="#aa3bdaa1b95c641cb669887a9f10d95ff">More...</a><br /></td></tr>
-<tr class="separator:aa3bdaa1b95c641cb669887a9f10d95ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33d1436f0ffbad49ae49ebe8bc4c3b62"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01416.html#a33d1436f0ffbad49ae49ebe8bc4c3b62">estimateWork</a> (const std::string &amp;uri)</td></tr>
-<tr class="memdesc:a33d1436f0ffbad49ae49ebe8bc4c3b62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimate the relative amount of work required for the given resource. The number itself is arbitary and the value does not matter. It must simply be on the same scale as the other numbers returned by this method for different resources. The default behavior returns the file size, in bytes, divided by 10,000.  <a href="#a33d1436f0ffbad49ae49ebe8bc4c3b62">More...</a><br /></td></tr>
-<tr class="separator:a33d1436f0ffbad49ae49ebe8bc4c3b62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename TResourceType&gt;<br />
-struct bl::resource::AsyncLoader&lt; TResourceType &gt;</h3>
-
-<p>Specialized loader meant for loading resources into a <a class="el" href="a01428.html" title="Single template based resource management class. Meant for storing. ">Manager</a> in the background. Default implementation simply calls <a class="el" href="a01416.html#aa3bdaa1b95c641cb669887a9f10d95ff" title="Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their ...">load()</a> on the manager, but custom background loaders can be built for large resources and should leverage <a class="el" href="a01428.html#ab7f67e29b779d355aa2bb7005ed1617a" title="Add an already loaded resource to the manager. Overwrites existing if present. ">Manager::add()</a> to insert constructed resources. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01420.html" title="Utility class for loading resources in the background while monitoring the progress. Resource loading is done from the calling thread, and monitoring is done on a second thread. This is to eliminate any context issues with loading SFML resources. ">BackgroundLoader</a> </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00021">21</a> of file <a class="el" href="a00356_source.html">AsyncLoader.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a33d1436f0ffbad49ae49ebe8bc4c3b62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33d1436f0ffbad49ae49ebe8bc4c3b62">&#9670;&nbsp;</a></span>estimateWork()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float <a class="el" href="a01416.html">bl::resource::AsyncLoader</a>&lt; T &gt;::estimateWork </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>uri</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Estimate the relative amount of work required for the given resource. The number itself is arbitary and the value does not matter. It must simply be on the same scale as the other numbers returned by this method for different resources. The default behavior returns the file size, in bytes, divided by 10,000. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">uri</td><td>The resource identifier to estimate the work load for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>float Relative estimate of the work required to load it </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00053">53</a> of file <a class="el" href="a00356_source.html">AsyncLoader.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa3bdaa1b95c641cb669887a9f10d95ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3bdaa1b95c641cb669887a9f10d95ff">&#9670;&nbsp;</a></span>load()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TResourceType&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01416.html">bl::resource::AsyncLoader</a>&lt; T &gt;::load </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01428.html">Manager</a>&lt; TResourceType &gt; &amp;&#160;</td>
-          <td class="paramname"><em>manager</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>uri</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float &amp;&#160;</td>
-          <td class="paramname"><em>progress</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Load a resource into the manager. Simply calls manager.load() but custom loaders may implement their loading and progress reporting here. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">manager</td><td>The resource manager to load into </td></tr>
-    <tr><td class="paramname">uri</td><td>The resource identifier to load and add </td></tr>
-    <tr><td class="paramname">progress</td><td>Optionally update the progress (in range [0,1]) as loading is done </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00047">47</a> of file <a class="el" href="a00356_source.html">AsyncLoader.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Resources/<a class="el" href="a00356_source.html">AsyncLoader.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01419.html">bl::particle::System&lt; T &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01419.html#a0d009bfaf92233041239e98d35ebcc83">CreateFunction</a> typedef</td><td class="entry"><a class="el" href="a01419.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01419.html#a37becae7fd8c8406c359d52b4342976e">particleCount</a>() const</td><td class="entry"><a class="el" href="a01419.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01419.html#a7d9f45995a7bf9bebb0979a786f94dc6">render</a>(const RenderFunction &amp;renderCb) const</td><td class="entry"><a class="el" href="a01419.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01419.html#a6d65a82dfabc27d663f4422009e9c315">RenderFunction</a> typedef</td><td class="entry"><a class="el" href="a01419.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01419.html#ab2225537806f8d8a67edfcd641761e22">setCreateRate</a>(float createPerSecond)</td><td class="entry"><a class="el" href="a01419.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01419.html#ab09259f65b61c222d9a8b21495527e69">setReplaceDestroyed</a>(bool replace)</td><td class="entry"><a class="el" href="a01419.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01419.html#a1f7b5ed87b4f3769a0e41e2328350377">setTargetCount</a>(unsigned int target)</td><td class="entry"><a class="el" href="a01419.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01419.html#a32abd191fe590ed2e66b5f36ab6df945">System</a>(CreateFunction createFunction, unsigned int target, float createPerSecond)</td><td class="entry"><a class="el" href="a01419.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01419.html#a0ecdaa91ac7baccc80912e0f8b1058fb">update</a>(const UpdateFunction &amp;updateCb, float dt)</td><td class="entry"><a class="el" href="a01419.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01419.html#ac97bdc4a2d1ce6d95ecff6419ce49fab">UpdateFunction</a> typedef</td><td class="entry"><a class="el" href="a01419.html">bl::particle::System&lt; T &gt;</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 22 2021 18:21:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 2 2022 02:11:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

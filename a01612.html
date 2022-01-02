@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::json::SerializableField&lt; C, T &gt; Class Template Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,244 +63,28 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00789.html">bl</a></li><li class="navelem"><a class="el" href="a00805.html">serial</a></li><li class="navelem"><a class="el" href="a00815.html">json</a></li><li class="navelem"><a class="el" href="a01612.html">SerializableField</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00792.html">bl</a></li><li class="navelem"><a class="el" href="a00808.html">serial</a></li><li class="navelem"><a class="el" href="a00818.html">json</a></li><li class="navelem"><a class="el" href="a01615.html">SerializableFieldBase</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a01609.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::json::SerializableField&lt; C, T &gt; Class Template Reference</div>  </div>
+<div class="title">bl::serial::json::SerializableFieldBase Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a field in a class that can be serialized. Serializable objects should inherit from <a class="el" href="a01620.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> and make their data fields of type <a class="el" href="a01612.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Serialization is builtin for primitive json types, vectors, maps, and nested <a class="el" href="a01620.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members. Specializations of <a class="el" href="a01628.html" title="Helper class for SerializableField. Specializations are provided for json native types, vector, and unordered_map. User defined types should either implement SerializableObject or provide a specialization of this class. ">Serializer</a> may be created to support other types which are not easily represented as Serializable objects.  
- <a href="a01612.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a02164_source.html">SerializableField.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::json::SerializableField&lt; C, T &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01612.png" usemap="#bl::serial::json::SerializableField_3C_20C_2C_20T_20_3E_map" alt=""/>
-  <map id="bl::serial::json::SerializableField_3C_20C_2C_20T_20_3E_map" name="bl::serial::json::SerializableField_3C_20C_2C_20T_20_3E_map">
-<area href="a01608.html" title="Base class for SerializableField objects. Not to be used directly. " alt="bl::serial::json::SerializableFieldBase" shape="rect" coords="0,56,237,80"/>
-<area href="a01708.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::util::NonCopyable" shape="rect" coords="0,0,237,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a00d6764df2dd2e93ec929e10556778bd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01612.html#a00d6764df2dd2e93ec929e10556778bd">SerializableField</a> (const std::string &amp;name, <a class="el" href="a01616.html">SerializableObjectBase</a> &amp;owner, T C::*member)</td></tr>
-<tr class="memdesc:a00d6764df2dd2e93ec929e10556778bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns the field a name to be used in JSON and registers itself.  <a href="#a00d6764df2dd2e93ec929e10556778bd">More...</a><br /></td></tr>
-<tr class="separator:a00d6764df2dd2e93ec929e10556778bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2b8325be74f63b911150aa4d88d1cd2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01612.html#ab2b8325be74f63b911150aa4d88d1cd2">deserialize</a> (const <a class="el" href="a01604.html">Value</a> &amp;json, void *object) const override</td></tr>
-<tr class="memdesc:ab2b8325be74f63b911150aa4d88d1cd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the value of this field from the json data.  <a href="#ab2b8325be74f63b911150aa4d88d1cd2">More...</a><br /></td></tr>
-<tr class="separator:ab2b8325be74f63b911150aa4d88d1cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fc2fd02bec6fe557f6e1d00f148ed2b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a01604.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01612.html#a2fc2fd02bec6fe557f6e1d00f148ed2b">serialize</a> (const void *object) const override</td></tr>
-<tr class="memdesc:a2fc2fd02bec6fe557f6e1d00f148ed2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the held value of this field to JSON.  <a href="#a2fc2fd02bec6fe557f6e1d00f148ed2b">More...</a><br /></td></tr>
-<tr class="separator:a2fc2fd02bec6fe557f6e1d00f148ed2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8141585e06667bf03128ba5ed7abf53d"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01608.html#a8141585e06667bf03128ba5ed7abf53d">getName</a> () const</td></tr>
-<tr class="memdesc:a8141585e06667bf03128ba5ed7abf53d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of this field in json.  <a href="#a8141585e06667bf03128ba5ed7abf53d">More...</a><br /></td></tr>
-<tr class="separator:a8141585e06667bf03128ba5ed7abf53d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename C, typename T&gt;<br />
-class bl::serial::json::SerializableField&lt; C, T &gt;</h3>
-
-<p>Represents a field in a class that can be serialized. Serializable objects should inherit from <a class="el" href="a01620.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> and make their data fields of type <a class="el" href="a01612.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Serialization is builtin for primitive json types, vectors, maps, and nested <a class="el" href="a01620.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members. Specializations of <a class="el" href="a01628.html" title="Helper class for SerializableField. Specializations are provided for json native types, vector, and unordered_map. User defined types should either implement SerializableObject or provide a specialization of this class. ">Serializer</a> may be created to support other types which are not easily represented as Serializable objects. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">C</td><td>The object type the field belongs to </td></tr>
-    <tr><td class="paramname">T</td><td>The underlying type of the field </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02164_source.html#l00074">74</a> of file <a class="el" href="a02164_source.html">SerializableField.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a00d6764df2dd2e93ec929e10556778bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00d6764df2dd2e93ec929e10556778bd">&#9670;&nbsp;</a></span>SerializableField()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename C , typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01612.html">bl::serial::json::SerializableField</a>&lt; C, T &gt;::<a class="el" href="a01612.html">SerializableField</a> </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01616.html">SerializableObjectBase</a> &amp;&#160;</td>
-          <td class="paramname"><em>owner</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T C::*&#160;</td>
-          <td class="paramname"><em>member</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Assigns the field a name to be used in JSON and registers itself. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>Name to use when serializing and deserializing </td></tr>
-    <tr><td class="paramname">owner</td><td>The parent Serializable object to register with </td></tr>
-    <tr><td class="paramname">member</td><td>Pointer to the member to serialize </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02164_source.html#l00109">109</a> of file <a class="el" href="a02164_source.html">SerializableField.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab2b8325be74f63b911150aa4d88d1cd2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2b8325be74f63b911150aa4d88d1cd2">&#9670;&nbsp;</a></span>deserialize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename C , typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a01612.html">bl::serial::json::SerializableField</a>&lt; C, T &gt;::deserialize </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01604.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>json</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>object</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Updates the value of this field from the json data. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">json</td><td>JSON value to deserialize from </td></tr>
-    <tr><td class="paramname">object</td><td>Address of the object being deserialized </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if successfully deserialized, false on error </dd></dl>
-
-<p>Implements <a class="el" href="a01608.html#a8a74f13c07729f078cfceccc82f8e055">bl::serial::json::SerializableFieldBase</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a02164_source.html#l00115">115</a> of file <a class="el" href="a02164_source.html">SerializableField.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8141585e06667bf03128ba5ed7abf53d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8141585e06667bf03128ba5ed7abf53d">&#9670;&nbsp;</a></span>getName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string&amp; bl::serial::json::SerializableFieldBase::getName </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the name of this field in json. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02164_source.html#l00045">45</a> of file <a class="el" href="a02164_source.html">SerializableField.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2fc2fd02bec6fe557f6e1d00f148ed2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fc2fd02bec6fe557f6e1d00f148ed2b">&#9670;&nbsp;</a></span>serialize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename C , typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01604.html">Value</a> <a class="el" href="a01612.html">bl::serial::json::SerializableField</a>&lt; C, T &gt;::serialize </td>
-          <td>(</td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>object</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Serializes the held value of this field to JSON. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">object</td><td>Address of the object being serialized </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01604.html" title="Represents any value type in JSON. ">Value</a> JSON value of this field </dd></dl>
-
-<p>Implements <a class="el" href="a01608.html#a853cb032ac45bd7db78ff4ffcbe9e84a">bl::serial::json::SerializableFieldBase</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a02164_source.html#l00121">121</a> of file <a class="el" href="a02164_source.html">SerializableField.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Serialization/JSON/<a class="el" href="a02164_source.html">SerializableField.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01615.html">bl::serial::json::SerializableFieldBase</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01615.html#a8a74f13c07729f078cfceccc82f8e055">deserialize</a>(const Value &amp;json, void *object) const =0</td><td class="entry"><a class="el" href="a01615.html">bl::serial::json::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01615.html#a8141585e06667bf03128ba5ed7abf53d">getName</a>() const</td><td class="entry"><a class="el" href="a01615.html">bl::serial::json::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01715.html#afcf81f46019af7f662b7a11db32304b5">NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a01715.html">bl::util::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01615.html#aede7f4cdee71d56a054e397de5931d78">SerializableFieldBase</a>(const std::string &amp;name, SerializableObjectBase &amp;owner, M C::*)</td><td class="entry"><a class="el" href="a01615.html">bl::serial::json::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01615.html#a853cb032ac45bd7db78ff4ffcbe9e84a">serialize</a>(const void *object) const =0</td><td class="entry"><a class="el" href="a01615.html">bl::serial::json::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01715.html#a999f83d0ea136037022f6ea90888bf60">~NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a01715.html">bl::util::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 22 2021 18:21:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 2 2022 02:11:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

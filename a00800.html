@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::menu Namespace Reference</title>
+<title>BLIB: bl::event Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,57 +63,101 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00789.html">bl</a></li><li class="navelem"><a class="el" href="a00800.html">menu</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00792.html">bl</a></li><li class="navelem"><a class="el" href="a00800.html">event</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">bl::menu Namespace Reference</div>  </div>
+<div class="title">bl::event Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes to create mouseless menus.  
+<p>Collection of classes providing different types of publisher/consumer event queues.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01272.html">ArrowSelector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic selection indicator, draws a triangle to the left of the selected item.  <a href="a01272.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01047.html">ClassGuard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version of scope guard but for classes. Classes that subscribe to event buses through a member <a class="el" href="a01047.html" title="Version of scope guard but for classes. Classes that subscribe to event buses through a member ClassG...">ClassGuard</a> will automatically unsubscribe when they are destructed. The catch is that they may only subscribe to a single event bus at a time.  <a href="a01047.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01224.html">Event</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data struct representing an event in a <a class="el" href="a01264.html" title="Primary class for mouseless menus. ">Menu</a>.  <a href="a01224.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html">DelayedDispatcher</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper around <a class="el" href="a01063.html" title="Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe...">Dispatcher</a> for delayed event dispatches. Events are queued up as dispatch is called. The queue may then be drained manually or using a builtin background thread.  <a href="a01051.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01256.html">ImageItem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RenderItem for displaying sprites in a <a class="el" href="a01264.html" title="Primary class for mouseless menus. ">Menu</a>.  <a href="a01256.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01063.html">Dispatcher</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe. If events are dispatched by multiple threads care should be taken to keep the listeners threadsafe as well. Care must also be taken to not subscribe the same listener more than once or it will get notified more than once per event.  <a href="a01063.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01252.html">Item</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01252.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable...">Item</a> for a mouseless menu. Can be 'attached' to other items in a <a class="el" href="a01264.html" title="Primary class for mouseless menus. ">Menu</a>, configured to be selectable, and can trigger a signal if selected. Subclasses of this provide specific behaviors.  <a href="a01252.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html">DispatcherScopeGuard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scope guard for <a class="el" href="a01063.html" title="Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe...">Dispatcher</a>. Listeners that are subscribed through the guard will be unsubscribed when it goes out of scope.  <a href="a01067.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01244.html">KeyboardEventGenerator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic helper class to map keyboard input to menu events.  <a href="a01244.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html">Listener</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01075.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> of multiple event types. Listeners should inherit this class with the types of events they would like to subscribe to as template params. An observe method from <a class="el" href="a01075.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> will be created for each passed type and must be implemented.  <a href="a01075.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01264.html">Menu</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary class for mouseless menus.  <a href="a01264.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html">ListenerBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a01075.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a>. Do not use directly.  <a href="a01071.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01248.html">MouseEventGenerator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic helper class to map mouse input to menu events.  <a href="a01248.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01079.html">SingleDispatcher</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to dispatch events of a single type to a set of listeners.  <a href="a01079.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01268.html">Selector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for selector items that indicate which <a class="el" href="a01264.html" title="Primary class for mouseless menus. ">Menu</a> item is active.  <a href="a01268.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01083.html">SingleDispatcherScopeGuard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scope guard for <a class="el" href="a01087.html" title="Templatized utility class for setting up an event dispatcher and listener system. ...">SingleListener</a> objects to subscribe to an <a class="el" href="a01079.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> if they are limited by scope. All listeners subscribed through the guard are removed from the dispatcher when the guard goes out of scope.  <a href="a01083.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01260.html">TextItem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RenderItem to display text.  <a href="a01260.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01087.html">SingleListener</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templatized utility class for setting up an event dispatcher and listener system.  <a href="a01087.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a3f96c0e79041dddef412f9ac5174c313"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="a01079.html">SingleDispatcher</a>&lt; sf::Event &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00800.html#a3f96c0e79041dddef412f9ac5174c313">WindowEventDispatcher</a></td></tr>
+<tr class="memdesc:a3f96c0e79041dddef412f9ac5174c313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special instantiation of <a class="el" href="a01079.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> for sf::Event window events.  <a href="#a3f96c0e79041dddef412f9ac5174c313">More...</a><br /></td></tr>
+<tr class="separator:a3f96c0e79041dddef412f9ac5174c313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abded5c4fb93b1a6984ecdcce00e04acd"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="a01083.html">SingleDispatcherScopeGuard</a>&lt; sf::Event &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00800.html#abded5c4fb93b1a6984ecdcce00e04acd">WindowEventDispatcherScopeGuard</a></td></tr>
+<tr class="separator:abded5c4fb93b1a6984ecdcce00e04acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of classes to create mouseless menus. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Collection of classes providing different types of publisher/consumer event queues. </p>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a3f96c0e79041dddef412f9ac5174c313"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f96c0e79041dddef412f9ac5174c313">&#9670;&nbsp;</a></span>WindowEventDispatcher</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="a01079.html">SingleDispatcher</a>&lt;sf::Event&gt; <a class="el" href="a00800.html#a3f96c0e79041dddef412f9ac5174c313">bl::event::WindowEventDispatcher</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Special instantiation of <a class="el" href="a01079.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> for sf::Event window events. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00048">48</a> of file <a class="el" href="a00119_source.html">SingleDispatcher.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abded5c4fb93b1a6984ecdcce00e04acd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abded5c4fb93b1a6984ecdcce00e04acd">&#9670;&nbsp;</a></span>WindowEventDispatcherScopeGuard</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="a01083.html">SingleDispatcherScopeGuard</a>&lt;sf::Event&gt; <a class="el" href="a00800.html#abded5c4fb93b1a6984ecdcce00e04acd">bl::event::WindowEventDispatcherScopeGuard</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00051">51</a> of file <a class="el" href="a00122_source.html">SingleDispatcherScopeGuard.hpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 22 2021 18:21:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 2 2022 02:11:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
