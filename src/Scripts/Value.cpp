@@ -241,6 +241,10 @@ bool Value::setProperty(const std::string& name, const Value& val) {
     return true;
 }
 
+const std::unordered_map<std::string, Value::Ptr>& Value::allProperties() const {
+    return properties;
+}
+
 void Value::resetProps() { properties.clear(); }
 
 Value Value::clear(const std::vector<Value>&) {
