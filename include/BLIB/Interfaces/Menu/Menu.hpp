@@ -162,6 +162,12 @@ public:
      */
     const sf::Vector2f& currentOffset() const;
 
+    /**
+     * @brief Returns the currently selected item
+     *
+     */
+    const Item* getSelectedItem() const;
+
 private:
     sf::Vector2f maxSize;
     sf::Vector2f position;

@@ -142,6 +142,7 @@ void Menu::removeItem(Item* item, bool c) {
         }
         if (!selectedItem) { selectedItem = items.front().get(); }
     }
+    selectedItem->getSignal(Item::Selected)();
     refreshPositions();
 }
 
@@ -266,6 +267,8 @@ sf::Vector2f Menu::move(const sf::Vector2f& pos, const sf::Vector2f& psize,
         return pos;
     }
 }
+
+const Item* Menu::getSelectedItem() const { return selectedItem; }
 
 } // namespace menu
 } // namespace bl
