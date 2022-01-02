@@ -8,7 +8,8 @@ namespace menu
 {
 Item::Item()
 : canBeSelected(true)
-, allowSelectionCross(false) {
+, allowSelectionCross(true)
+, positionOverridden(false) {
     for (unsigned int i = 0; i < AttachPoint::_NUM_ATTACHPOINTS; ++i) { attachments[i] = nullptr; }
 }
 
@@ -36,6 +37,13 @@ void Item::setAllowSelectionCrossing(bool a) { allowSelectionCross = a; }
 bool Item::allowsSelectionCrossing() const { return allowSelectionCross; }
 
 util::Signal<>& Item::getSignal(EventType e) { return signals[e]; }
+
+void Item::overridePosition(const sf::Vector2f& pos) {
+    position           = pos;
+    positionOverridden = true;
+}
+
+const sf::Vector2f& Item::getPosition() const { return position; }
 
 } // namespace menu
 

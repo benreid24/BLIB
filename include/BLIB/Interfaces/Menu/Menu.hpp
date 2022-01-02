@@ -115,28 +115,75 @@ public:
     void setMinWidth(float mw);
 
     /**
+     * @brief Sets the background parameters for simple backgrouns. Default is no background
+     *
+     * @param fill The background color
+     * @param outline The outline color around the background and menu
+     * @param outlineThickness The thickness of the outline
+     * @param padding Padding between menu elements and the edge of the background on each side
+     */
+    void configureBackground(sf::Color fill, sf::Color outline, float outlineThickness,
+                             const sf::FloatRect& padding = {-1.f, -1.f, -1.f, -1.f});
+
+    /**
      * @brief Refreshes the positions of all items in the menu
      *
      */
     void refreshPositions();
 
     /**
-     * @brief Returns the bounds of the menu
+     * @brief Returns the bounds of the menu. Ignores the maximum size
      *
      */
-    const sf::FloatRect& getBounds() const;
+    sf::FloatRect getBounds() const;
+
+    /**
+     * @brief Set the maximum size the menu may take up before scrolling. Set negative dimensions to
+     *        prevent scrolling in that dimension. Default is no max size
+     *
+     */
+    void setMaximumSize(const sf::Vector2f& maxSize);
+
+    /**
+     * @brief Returns the maximum size of the menu
+     *
+     */
+    const sf::Vector2f& maximumSize() const;
+
+    /**
+     * @brief Returns the currently visible size of the menu
+     *
+     */
+    sf::Vector2f visibleSize() const;
+
+    /**
+     * @brief Returns the current scroll offset of the menu
+     *
+     */
+    const sf::Vector2f& currentOffset() const;
+
+    /**
+     * @brief Returns the currently selected item
+     *
+     */
+    const Item* getSelectedItem() const;
 
 private:
+    sf::Vector2f maxSize;
     sf::Vector2f position;
-    sf::FloatRect bounds;
+    sf::Vector2f offset;
     std::vector<Item::Ptr> items;
     Selector::Ptr selector;
     Item* selectedItem;
     sf::Vector2f padding;
     sf::Vector2f minSize;
+    sf::RectangleShape background;
+    sf::Vector2f totalSize;
+    sf::FloatRect bgndPadding;
 
     sf::Vector2f move(const sf::Vector2f& pos, const sf::Vector2f& psize, const sf::Vector2f& esize,
                       Item::AttachPoint ap);
+    void refreshScroll();
 };
 
 } // namespace menu

@@ -81,12 +81,11 @@ public:
      */
     util::Signal<>& getSignal(EventType event);
 
-protected:
     /**
-     * @brief Construct a new Item
+     * @brief Returns the position of the button relative to it's menu
      *
      */
-    Item();
+    const sf::Vector2f& getPosition() const;
 
     /**
      * @brief Return the untransformed size of the object
@@ -94,6 +93,13 @@ protected:
      * @return sf::Vector2f Size the object will take
      */
     virtual sf::Vector2f getSize() const = 0;
+
+protected:
+    /**
+     * @brief Construct a new Item
+     *
+     */
+    Item();
 
     /**
      * @brief Render the item to the given target

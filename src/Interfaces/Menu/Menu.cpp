@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/Menu/Menu.hpp>
 
+#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <BLIB/Logging.hpp>
 #include <queue>
 #include <unordered_set>
@@ -9,14 +10,21 @@ namespace bl
 namespace menu
 {
 Menu::Menu(const Selector::Ptr& selector)
-: selector(selector)
+: maxSize(-1.f, -1.f)
+, selector(selector)
 , selectedItem(nullptr)
 , padding(10.f, 10.f)
-, minSize(0.f, 0.f) {}
+, minSize(0.f, 0.f)
+, bgndPadding(padding * 2.f, padding * 2.f) {
+    background.setFillColor(sf::Color::Transparent);
+    background.setOutlineColor(sf::Color::Transparent);
+}
 
 void Menu::setSelectedItem(Item* s) {
+    if (selectedItem) selectedItem->getSignal(Item::Deselected)();
     selectedItem = s;
     selectedItem->getSignal(Item::Selected)();
+    refreshScroll();
 }
 
 void Menu::setPosition(const sf::Vector2f& pos) { position = pos; }
@@ -36,7 +44,58 @@ void Menu::setMinWidth(float w) {
     refreshPositions();
 }
 
-const sf::FloatRect& Menu::getBounds() const { return bounds; }
+void Menu::configureBackground(sf::Color fill, sf::Color outline, float t, const sf::FloatRect& p) {
+    background.setFillColor(fill);
+    background.setOutlineColor(outline);
+    background.setOutlineThickness(t);
+    bgndPadding = p.left >= 0.f ? p : sf::FloatRect(padding * 2.f, padding * 2.f);
+}
+
+sf::FloatRect Menu::getBounds() const { return {position, totalSize}; }
+
+sf::Vector2f Menu::visibleSize() const {
+    const sf::Vector2f s(maxSize.x > 0.f ? std::min(maxSize.x, totalSize.x) : totalSize.x,
+                         maxSize.y > 0.f ? std::min(maxSize.y, totalSize.y) : totalSize.y);
+    const float b = background.getOutlineThickness() * 2.f;
+    return s + sf::Vector2f(bgndPadding.left + bgndPadding.width + b,
+                            bgndPadding.top + bgndPadding.height + b);
+}
+
+const sf::Vector2f& Menu::maximumSize() const { return maxSize; }
+
+const sf::Vector2f& Menu::currentOffset() const { return offset; }
+
+void Menu::setMaximumSize(const sf::Vector2f& m) {
+    maxSize = m;
+    refreshScroll();
+}
+
+void Menu::refreshScroll() {
+    if (!selectedItem) return;
+
+    if (maxSize.x > 0.f) {
+        // left side
+        if (selectedItem->position.x < offset.x) {
+            offset.x = selectedItem->position.x - bgndPadding.left;
+        }
+        // right side
+        if (selectedItem->position.x + selectedItem->getSize().x > offset.x + maxSize.x) {
+            offset.x = selectedItem->getSize().x + selectedItem->position.y + bgndPadding.width -
+                       maxSize.x;
+        }
+    }
+    if (maxSize.y > 0.f) {
+        // top
+        if (selectedItem->position.y < offset.y) {
+            offset.y = selectedItem->position.y - bgndPadding.top;
+        }
+        // bottom
+        if (selectedItem->position.y + selectedItem->getSize().y > offset.y + maxSize.y) {
+            offset.y = selectedItem->getSize().y + selectedItem->position.y + bgndPadding.height -
+                       maxSize.y;
+        }
+    }
+}
 
 void Menu::setRootItem(const Item::Ptr& root) {
     items.clear();
@@ -83,17 +142,27 @@ void Menu::removeItem(Item* item, bool c) {
         }
         if (!selectedItem) { selectedItem = items.front().get(); }
     }
+    selectedItem->getSignal(Item::Selected)();
     refreshPositions();
 }
 
 void Menu::render(sf::RenderTarget& target, sf::RenderStates states) const {
+    const sf::View oldView = target.getView();
+    if (maxSize.x > 0.f || maxSize.y > 0.f) {
+        target.setView(interface::ViewUtil::computeSubView({position, visibleSize()}, oldView));
+    }
     states.transform.translate(position);
+    target.draw(background, states);
+    states.transform.translate(
+        sf::Vector2f(bgndPadding.left, bgndPadding.top) - offset +
+        sf::Vector2f(background.getOutlineThickness(), background.getOutlineThickness()));
     for (const auto& item : items) {
         item->render(target, states, item->position);
         if (item.get() == selectedItem) {
             selector->render(target, states, {item->position, item->getSize()});
         }
     }
+    target.setView(oldView);
 }
 
 void Menu::processEvent(const Event& event) {
@@ -106,6 +175,7 @@ void Menu::processEvent(const Event& event) {
                     selectedItem->getSignal(Item::Deselected)();
                     selectedItem = item;
                     selectedItem->getSignal(Item::Selected)();
+                    refreshScroll();
                     break;
                 }
                 if (!item->allowsSelectionCrossing()) break;
@@ -117,13 +187,14 @@ void Menu::processEvent(const Event& event) {
         selectedItem->getSignal(Item::Activated)();
         break;
     case Event::SelectorLocation: {
+        const sf::Vector2f pos = event.locationEvent.position - position - offset;
         for (const auto& item : items) {
-            if (sf::FloatRect(item->position, item->getSize())
-                    .contains(event.locationEvent.position)) {
+            if (sf::FloatRect(item->position, item->getSize()).contains(pos)) {
                 if (item->isSelectable()) {
                     selectedItem->getSignal(Item::Deselected)();
                     selectedItem = item.get();
                     selectedItem->getSignal(Item::Selected)();
+                    refreshScroll();
                 }
             }
         }
@@ -142,7 +213,7 @@ void Menu::refreshPositions() {
     toVisit.emplace(items.front().get());
     visited.insert(items.front().get());
     items.front()->position = {0.f, 0.f};
-    bounds                  = {0.f, 0.f, 0.f, 0.f};
+    sf::FloatRect bounds    = {0.f, 0.f, 0.f, 0.f};
 
     while (!toVisit.empty()) {
         Item* item = toVisit.front();
@@ -168,8 +239,17 @@ void Menu::refreshPositions() {
         }
     }
 
-    bounds.width  = bounds.width - bounds.left;
-    bounds.height = bounds.height - bounds.top;
+    totalSize = {bounds.width - bounds.left, bounds.height - bounds.top};
+    for (auto& item : items) {
+        item->position.x -= bounds.left;
+        item->position.y -= bounds.top;
+    }
+
+    const sf::Vector2f thick(background.getOutlineThickness(), background.getOutlineThickness());
+    background.setSize(visibleSize() - thick * 2.f);
+    background.setPosition(thick);
+
+    refreshScroll();
 }
 
 sf::Vector2f Menu::move(const sf::Vector2f& pos, const sf::Vector2f& psize,
@@ -187,6 +267,8 @@ sf::Vector2f Menu::move(const sf::Vector2f& pos, const sf::Vector2f& psize,
         return pos;
     }
 }
+
+const Item* Menu::getSelectedItem() const { return selectedItem; }
 
 } // namespace menu
 } // namespace bl

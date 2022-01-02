@@ -17,5 +17,6 @@
 #include <BLIB/Interfaces/Menu/Menu.hpp>
 #include <BLIB/Interfaces/Menu/Selector.hpp>
 #include <BLIB/Interfaces/Menu/Selectors/ArrowSelector.hpp>
+#include <BLIB/Interfaces/Menu/Selectors/NoSelector.hpp>
 
 #endif
