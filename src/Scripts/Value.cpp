@@ -10,7 +10,7 @@ namespace bl
 {
 namespace script
 {
-const std::unordered_map<std::string, Value::Builtin> Value::builtins = {
+const std::unordered_map<std::string, Value::Builtin> Value::Builtins = {
     std::make_pair("clear", &Value::clear),
     std::make_pair("append", &Value::append),
     std::make_pair("resize", &Value::resize),
@@ -51,86 +51,72 @@ std::string Value::typeToString(Type t) {
 
 Value::Value()
 : type(TVoid)
-, value(new TData(0.0f)) {}
+, value(Empty())
+, depth(-1) {}
 
-Value::Value(const Value& cpy) { *this = cpy; }
+Value::Value(float num)
+: type(TNumeric)
+, value(num)
+, depth(-1) {}
 
-Value& Value::operator=(const Value& rhs) {
-    type       = rhs.type;
-    properties = rhs.properties;
-    value.reset(new TData(*rhs.value.get()));
-    return *this;
-}
+Value::Value(const std::string& str)
+: type(TString)
+, value(str)
+, depth(-1) {}
 
-void Value::makeBool(bool val) {
-    type = TBool;
-    value.reset(new TData(val));
-    resetProps();
-}
+Value::Value(const Array& arr)
+: type(TArray)
+, value(arr)
+, depth(-1) {}
+
+Value::Value(const Ref& ref)
+: type(TRef)
+, value(ref)
+, depth(-1) {}
+
+Value::Value(const Function& func)
+: type(TFunction)
+, value(func)
+, depth(-1) {}
 
 Value& Value::operator=(float num) {
     type = TNumeric;
-    value.reset(new TData(num));
-    resetProps();
+    value.emplace<float>(num);
     return *this;
 }
-
-Value::Value(float num) { *this = num; }
 
 Value& Value::operator=(const std::string& str) {
     type = TString;
-    value.reset(new TData(str));
-    resetProps();
+    value.emplace<std::string>(str);
     return *this;
 }
-
-Value::Value(const std::string& str) { *this = str; }
 
 Value& Value::operator=(const Array& arr) {
     type = TArray;
-    value.reset(new TData(arr));
-    resetProps();
+    value.emplace<Array>(arr);
     return *this;
 }
 
-Value::Value(const Array& arr) { *this = arr; }
-
-Value& Value::operator=(const std::vector<Value>& a) {
-    std::vector<Ptr> array;
-    array.reserve(a.size());
-    for (const Value& v : a) array.push_back(Ptr(new Value(v)));
-    *this = array;
-    return *this;
-}
-
-Value::Value(const std::vector<Value>& a) { *this = a; }
-
-Value& Value::operator=(Ref ref) {
+Value& Value::operator=(const Ref& ref) {
     type = TRef;
-    value.reset(new TData(ref));
-    resetProps();
+    value.emplace<Ref>(ref);
     return *this;
 }
-
-Value::Value(Ref ref) { *this = ref; }
 
 Value& Value::operator=(const Function& func) {
     type = TFunction;
-    value.reset(new TData(func));
-    resetProps();
+    value.emplace<Function>(func);
     return *this;
 }
 
-Value::Value(const Function& func) { *this = func; }
-
 Value::Type Value::getType() const { return type; }
 
-bool Value::getAsBool() const {
+bool Value::getAsBool(int d) const {
     switch (type) {
     case TVoid:
         return false;
     case TBool: {
-        const bool* b = std::get_if<bool>(value.get());
+        const bool* b = std::get_if<bool>(&value);
         return b ? *b : false;
     }
     case TNumeric:
@@ -140,129 +126,85 @@ bool Value::getAsBool() const {
     case TArray:
         return !getAsArray().empty();
     case TRef:
-        return deref().getAsBool();
+        return deref(d).getAsBool();
     default:
         return false;
     }
 }
 
 float Value::getAsNum() const {
-    const float* f = std::get_if<float>(value.get());
+    const float* f = std::get_if<float>(&value);
     if (f) return *f;
-    return 0.0f;
+    throw Error("Interpreter bug: Accessing float value of non-float type");
 }
 
-std::string Value::getAsString() const {
-    const std::string* s = std::get_if<std::string>(value.get());
+const std::string& Value::getAsString() const {
+    const std::string* s = std::get_if<std::string>(&value);
     if (s) return *s;
-    return "ERROR";
+    throw Error("Interpreter bug: Accessing string value of non-string type");
 }
 
-Value::Array Value::getAsArray() const {
-    const Array* a = std::get_if<Array>(value.get());
+const Value::Array& Value::getAsArray() const {
+    const Array* a = std::get_if<Array>(&value);
     if (a) return *a;
-    return {};
+    throw Error("Interpreter bug: Accessing array value of non-array type");
 }
 
-Value::Ref Value::getAsRef() {
-    Ref* r = std::get_if<Ref>(value.get());
+Value::Array& Value::getAsArray() {
+    Array* a = std::get_if<Array>(&value);
+    if (a) return *a;
+    throw Error("Interpreter bug: Accessing array value of non-array type");
+}
+
+const Value::Ref& Value::getAsRef() const {
+    const Ref* r = std::get_if<Ref>(&value);
     if (r) return *r;
-    return {};
+    throw Error("Interpreter bug: Accessing ref type value of non-ref type");
 }
 
-Value& Value::deref() {
+Value& Value::deref(int depth) {
     if (type == TRef) {
-        auto val = getAsRef().lock();
-        if (val) return val->deref();
+        const Ref& ref = getAsRef();
+        if (ref.depth <= depth) return ref.value->deref(depth);
 
         throw Error("Dereferenced expired reference");
     }
     return *this;
 }
 
-const Value& Value::deref() const {
+const Value& Value::deref(int depth) const {
     if (type == TRef) {
-        auto val = getAsRef().lock();
-        if (val) return val->deref();
+        const auto& ref = getAsRef();
+        if (ref.depth <= depth) return ref.value->deref(depth);
 
         throw Error("Dereferenced expired reference");
     }
     return *this;
 }
 
-Value::CRef Value::getAsRef() const {
-    Ref* r = std::get_if<Ref>(value.get());
-    if (r) return *r;
-    return {};
+const Function& Value::getAsFunction() const {
+    const Function* func = std::get_if<Function>(&value);
+    if (!func) throw Error("Internal error: Function access on non-function type");
+    return *func;
 }
 
-Function Value::getAsFunction() const {
-    const Function* func = std::get_if<Function>(value.get());
-    return func ? *func : Function();
-}
-
-Value::Ptr Value::getProperty(const std::string& name, bool create) {
-    Value& me = deref();
-
-    const auto it = builtins.find(name);
-    if (it != builtins.end()) {
-        const Builtin f       = it->second;
-        Function::CustomCB cb = [&me, f](SymbolTable&, const std::vector<Value>& args) -> Value {
-            return (me.*f)(args);
-        };
-        return Ptr(new Value(cb));
-    }
-    if (type == TArray && name == "length") { return Ptr(new Value(me.getAsArray().size())); }
-
-    auto i = me.properties.find(name);
-    if (i != me.properties.end()) return i->second;
-    if (create) {
-        me.properties[name] = Ptr(new Value());
-        return me.properties[name];
-    }
-    return {};
-}
-
-Value::CPtr Value::getProperty(const std::string& name) const {
-    return const_cast<Value&>(*this).getProperty(name, false);
-}
-
-bool Value::setProperty(const std::string& name, const Value& val) {
-    Value& me = deref();
-
-    if (builtins.find(name) != builtins.end() || name == "length") return false;
-    Ptr v = me.getProperty(name);
-    if (!v) {
-        v                   = Ptr(new Value(val));
-        me.properties[name] = v;
-    }
-    else
-        *v = val;
-    return true;
-}
-
-const std::unordered_map<std::string, Value::Ptr>& Value::allProperties() const {
-    return properties;
-}
-
-void Value::resetProps() { properties.clear(); }
-
-Value Value::clear(const std::vector<Value>&) {
-    Value::Array* arr = std::get_if<Value::Array>(value.get());
+Value Value::clear(SymbolTable&, const std::vector<Value>&) {
+    Value::Array* arr = std::get_if<Value::Array>(&value);
     if (arr) arr->clear();
     return {};
 }
 
-Value Value::append(const std::vector<Value>& args) {
-    Value::Array* arr = std::get_if<Value::Array>(value.get());
+Value Value::append(SymbolTable&, const std::vector<Value>& args) {
+    Value::Array* arr = std::get_if<Value::Array>(&value);
     if (arr) {
-        for (const Value& v : args) { arr->push_back(Ptr(new Value(v))); }
+        arr->reserve(arr->size() + args.size());
+        for (const Value& v : args) { arr->emplace_back(v); }
     }
     return {};
 }
 
-Value Value::insert(const std::vector<Value>& args) {
-    Value::Array* arr = std::get_if<Value::Array>(value.get());
+Value Value::insert(SymbolTable&, const std::vector<Value>& args) {
+    Value::Array* arr = std::get_if<Value::Array>(&value);
     if (arr) {
         if (args.size() < 2) throw Error("insert() requires a position and a list of elements");
         if (args[0].getType() != TNumeric)
@@ -274,16 +216,13 @@ Value Value::insert(const std::vector<Value>& args) {
         const unsigned int i = args[0].getAsNum();
         if (i >= arr->size()) throw Error("Position in insert() is out of bounds");
 
-        std::vector<Ptr> ins;
-        ins.reserve(args.size() - 1);
-        for (unsigned int j = 1; j < args.size(); ++j) ins.push_back(Ptr(new Value(args[j])));
-        arr->insert(arr->begin() + i, ins.begin(), ins.end());
+        arr->insert(arr->begin() + i, args.begin() + 1, args.end());
     }
     return {};
 }
 
-Value Value::erase(const std::vector<Value>& args) {
-    Value::Array* arr = std::get_if<Value::Array>(value.get());
+Value Value::erase(SymbolTable&, const std::vector<Value>& args) {
+    Value::Array* arr = std::get_if<Value::Array>(&value);
     if (arr) {
         if (args.size() != 1) throw Error("erase() requires a position");
         if (args[0].getType() != TNumeric) throw Error("First argument of erase() must be Numeric");
@@ -298,8 +237,8 @@ Value Value::erase(const std::vector<Value>& args) {
     return {};
 }
 
-Value Value::resize(const std::vector<Value>& args) {
-    Value::Array* arr = std::get_if<Value::Array>(value.get());
+Value Value::resize(SymbolTable&, const std::vector<Value>& args) {
+    Value::Array* arr = std::get_if<Value::Array>(&value);
     if (arr) {
         if (args.size() != 1 && args.size() != 2)
             throw Error("resize() expects a size and optional fill value");
@@ -310,46 +249,39 @@ Value Value::resize(const std::vector<Value>& args) {
         if (args[0].getAsNum() < 0) throw Error("Length in resize() must be positive");
 
         const unsigned int len = args[0].getAsNum();
-        if (len < arr->size())
-            arr->resize(len);
-        else {
-            arr->reserve(len);
-            Value fill;
-            if (args.size() == 2) fill = args[1];
-            unsigned int s = len - arr->size();
-            for (unsigned int i = 0; i < s; ++i) { arr->push_back(Ptr(new Value(fill))); }
-        }
+        arr->resize(len);
     }
     return {};
 }
 
-Value Value::find(const std::vector<Value>& args) {
-    Value::Array* arr = std::get_if<Value::Array>(value.get());
+Value Value::find(SymbolTable& table, const std::vector<Value>& args) {
+    Value::Array* arr = std::get_if<Value::Array>(&value);
     if (arr) {
         if (args.size() != 1) throw Error("find() takes a single argument");
         float i = 0.f;
-        for (const Ptr& element : *arr) {
-            if (ScriptImpl::equals(*element, args.front())) { return Value(i); }
+        for (const Value& element : *arr) {
+            if (ScriptImpl::equals(element, args.front(), table.currentDepth())) {
+                return Value(i);
+            }
             i += 1.f;
         }
     }
     return Value(-1.f);
 }
 
-Value Value::keys(const std::vector<Value>& args) {
+Value Value::keys(SymbolTable& table, const std::vector<Value>& args) {
     if (!args.empty()) throw Error("keys() expects 0 arguments");
+    const auto& props = table.getAllProps(*this);
     Value::Array keys;
-    keys.reserve(properties.size());
-    for (auto i = properties.begin(); i != properties.end(); ++i) {
-        keys.push_back(Ptr(new Value(i->first)));
-    }
-    return keys;
+    keys.reserve(props.size());
+    for (const auto& prop : props) { keys.emplace_back(prop.first); }
+    return {keys};
 }
 
-Value Value::at(const std::vector<Value>& args) {
+Value Value::at(SymbolTable& table, const std::vector<Value>& args) {
     if (args.size() != 1) throw Error("at() takes a single argument");
     if (args[0].getType() != TString) throw Error("at() expects a String key");
-    Value::Ptr p = getProperty(args[0].getAsString(), false);
+    Value* p = table.getProp({this, depth}, args[0].getAsString(), false);
     if (p) return *p;
     return Value();
 }

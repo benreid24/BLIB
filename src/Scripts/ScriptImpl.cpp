@@ -13,20 +13,20 @@ using G      = Parser::Grammar;
 namespace
 {
 struct Ops {
-    static Value Or(const Value& lhs, const Value& rhs);
-    static Value And(const Value& lhs, const Value& rhs);
-    static Value Neg(const Value& val);
-    static Value Eq(const Value& lhs, const Value& rhs);
-    static Value Ne(const Value& lhs, const Value& rhs);
-    static Value Gt(const Value& lhs, const Value& rhs);
-    static Value Ge(const Value& lhs, const Value& rhs);
-    static Value Lt(const Value& lhs, const Value& rhs);
-    static Value Le(const Value& lhs, const Value& rhs);
-    static Value Add(const Value& lhs, const Value& rhs, Symbol node);
-    static Value Sub(const Value& lhs, const Value& rhs, Symbol node);
-    static Value Mult(const Value& lhs, const Value& rhs, Symbol node);
-    static Value Div(const Value& lhs, const Value& rhs, Symbol node);
-    static Value Exp(const Value& lhs, const Value& rhs, Symbol node);
+    static Value Or(const Value& lhs, const Value& rhs, int depth);
+    static Value And(const Value& lhs, const Value& rhs, int depth);
+    static Value Neg(const Value& val, int depth);
+    static Value Eq(const Value& lhs, const Value& rhs, int depth);
+    static Value Ne(const Value& lhs, const Value& rhs, int depth);
+    static Value Gt(const Value& lhs, const Value& rhs, int depth);
+    static Value Ge(const Value& lhs, const Value& rhs, int depth);
+    static Value Lt(const Value& lhs, const Value& rhs, int depth);
+    static Value Le(const Value& lhs, const Value& rhs, int depth);
+    static Value Add(const Value& lhs, const Value& rhs, Symbol node, int depth);
+    static Value Sub(const Value& lhs, const Value& rhs, Symbol node, int depth);
+    static Value Mult(const Value& lhs, const Value& rhs, Symbol node, int depth);
+    static Value Div(const Value& lhs, const Value& rhs, Symbol node, int depth);
+    static Value Exp(const Value& lhs, const Value& rhs, Symbol node, int depth);
 };
 
 std::vector<Value> evalList(Symbol node, SymbolTable& table);
@@ -40,7 +40,7 @@ Value evalSum(Symbol node, SymbolTable& table);
 Value evalProd(Symbol node, SymbolTable& table);
 Value evalExp(Symbol node, SymbolTable& table);
 Value evalTVal(Symbol node, SymbolTable& table);
-Value::Ptr evalRVal(Symbol node, SymbolTable& table, bool create = false);
+Value::Ref evalRVal(Symbol node, SymbolTable& table, bool create = false);
 
 } // namespace
 
@@ -66,7 +66,7 @@ Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
         throw Error("Internal error: Invalid Call children", node);
 
     std::vector<Value> params;
-    Value func = *evalRVal(node->children[0], table);
+    const Value& func = *evalRVal(node->children[0], table).value;
     if (func.getType() != Value::TFunction)
         throw Error("Cannot call non-function type", node->children[0]);
     if (node->children.size() == 2) {
@@ -108,16 +108,15 @@ std::optional<Value> ScriptImpl::runStatement(Symbol node, SymbolTable& table) {
         node = node->children[0];
         if (node->children.size() != 4)
             throw Error("Internal error: Invalid Assignment children", node);
-        Value::Ptr rv = evalRVal(node->children[0], table, true);
+        Value::Ref rv = evalRVal(node->children[0], table, true);
         node          = node->children[2];
         if (node->type == G::Ref) {
             if (node->children.size() != 2)
                 throw Error("Internal error: Invalid Ref children", node);
-            Value::Ptr v = evalRVal(node->children[1], table);
-            *rv          = Value::Ref(v);
+            *rv.value = evalRVal(node->children[1], table);
         }
         else if (node->type == G::Value) {
-            rv->deref() = computeValue(node, table);
+            rv.value->deref(table.currentDepth()) = computeValue(node, table);
         }
         else
             throw Error("Internal error: Invalid Assignment children", node);
@@ -222,10 +221,10 @@ std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
     const std::string iter = head->children[2]->data;
     if (arr.getType() != Value::TArray)
         throw Error("For loop can only iterate over Array type", head->children[4]);
-    for (const Value::Ptr& v : arr.getAsArray()) {
+    for (const Value& v : arr.getAsArray()) {
         if (table.killed()) throw Exit();
         table.pushFrame();
-        table.set(iter, *v, true);
+        table.set(iter, v, true);
         std::optional<Value> r = runStatementList(node->children[1], table);
         table.popFrame();
         if (r.has_value()) return r;
@@ -261,8 +260,8 @@ std::optional<Value> ScriptImpl::runConditional(Symbol node, SymbolTable& table)
     }
 }
 
-bool ScriptImpl::equals(const Value& left, const Value& right) {
-    return Ops::Eq(left, right).getAsBool();
+bool ScriptImpl::equals(const Value& left, const Value& right, int d) {
+    return Ops::Eq(left, right, d).getAsBool();
 }
 
 bool ScriptImpl::evaluateCond(Symbol node, SymbolTable& table) {
@@ -317,7 +316,9 @@ Value evalOrGrp(Symbol node, SymbolTable& table) {
     if (node->children.size() == 1)
         return evalAndGrp(node->children[0], table);
     else if (node->children.size() == 3)
-        return Ops::Or(evalOrGrp(node->children[0], table), evalAndGrp(node->children[2], table));
+        return Ops::Or(evalOrGrp(node->children[0], table),
+                       evalAndGrp(node->children[2], table),
+                       table.currentDepth());
     throw Error("Internal error: OrGrp node has invalid child", node);
 }
 
@@ -327,7 +328,9 @@ Value evalAndGrp(Symbol node, SymbolTable& table) {
     if (node->children.size() == 1)
         return evalNegGrp(node->children[0], table);
     else if (node->children.size() == 3)
-        return Ops::And(evalAndGrp(node->children[0], table), evalNegGrp(node->children[2], table));
+        return Ops::And(evalAndGrp(node->children[0], table),
+                        evalNegGrp(node->children[2], table),
+                        table.currentDepth());
     throw Error("Internal error: AndGrp node has invalid child", node);
 }
 
@@ -337,7 +340,7 @@ Value evalNegGrp(Symbol node, SymbolTable& table) {
     if (node->children.size() == 1)
         return evalCmp(node->children[0], table);
     else if (node->children.size() == 2)
-        return Ops::Neg(evalNegGrp(node->children[1], table));
+        return Ops::Neg(evalNegGrp(node->children[1], table), table.currentDepth());
     throw Error("Internal error: Negation node has invalid child", node);
 }
 
@@ -350,17 +353,17 @@ Value evalCmp(Symbol node, SymbolTable& table) {
         const Value rhs = evalSum(node->children[2], table);
         switch (node->children[1]->type) {
         case G::Eq:
-            return Ops::Eq(lhs, rhs);
+            return Ops::Eq(lhs, rhs, table.currentDepth());
         case G::Ne:
-            return Ops::Ne(lhs, rhs);
+            return Ops::Ne(lhs, rhs, table.currentDepth());
         case G::Gt:
-            return Ops::Gt(lhs, rhs);
+            return Ops::Gt(lhs, rhs, table.currentDepth());
         case G::Ge:
-            return Ops::Ge(lhs, rhs);
+            return Ops::Ge(lhs, rhs, table.currentDepth());
         case G::Lt:
-            return Ops::Lt(lhs, rhs);
+            return Ops::Lt(lhs, rhs, table.currentDepth());
         case G::Le:
-            return Ops::Le(lhs, rhs);
+            return Ops::Le(lhs, rhs, table.currentDepth());
         default:
             throw Error("Internal error: Invalid operation in Cmp", node);
         }
@@ -377,9 +380,9 @@ Value evalSum(Symbol node, SymbolTable& table) {
         const Value rhs = evalProd(node->children[2], table);
         switch (node->children[1]->type) {
         case G::Plus:
-            return Ops::Add(lhs, rhs, node);
+            return Ops::Add(lhs, rhs, node, table.currentDepth());
         case G::Minus:
-            return Ops::Sub(lhs, rhs, node);
+            return Ops::Sub(lhs, rhs, node, table.currentDepth());
         default:
             throw Error("Internal error: Invalid operation in Sum");
         }
@@ -397,9 +400,9 @@ Value evalProd(Symbol node, SymbolTable& table) {
         const Value rhs = evalExp(node->children[2], table);
         switch (node->children[1]->type) {
         case G::Mult:
-            return Ops::Mult(lhs, rhs, node);
+            return Ops::Mult(lhs, rhs, node, table.currentDepth());
         case G::Div:
-            return Ops::Div(lhs, rhs, node);
+            return Ops::Div(lhs, rhs, node, table.currentDepth());
         default:
             throw Error("Internal error: Invalid operation in Product");
         }
@@ -414,7 +417,7 @@ Value evalExp(Symbol node, SymbolTable& table) {
     else if (node->children.size() == 3) {
         const Value lhs = evalExp(node->children[0], table);
         const Value rhs = evalTVal(node->children[2], table);
-        return Ops::Exp(lhs, rhs, node);
+        return Ops::Exp(lhs, rhs, node, table.currentDepth());
     }
     throw Error("Internal error: Exp node has invalid child", node);
 }
@@ -426,11 +429,12 @@ Value evalTVal(Symbol node, SymbolTable& table) {
     node = node->children[0];
     switch (node->type) {
     case G::RValue:
-        return Value(evalRVal(node, table)->deref());
+        return Value(evalRVal(node, table).value->deref(table.currentDepth()));
     case G::PGroup:
         if (node->children.size() != 3)
             throw Error("Internal error: PGroup has invalid children", node);
-        return Value(ScriptImpl::computeValue(node->children[1], table).deref());
+        return Value(
+            ScriptImpl::computeValue(node->children[1], table).deref(table.currentDepth()));
     case G::NumLit: {
         std::stringstream ss(node->data);
         float f;
@@ -445,14 +449,10 @@ Value evalTVal(Symbol node, SymbolTable& table) {
         if (node->children.size() != 3) throw Error("Invalid ArrayDef children", node);
         return Value(evalList(node->children[1], table));
     case G::True: {
-        Value r;
-        r.makeBool(true);
-        return r;
+        return Value(true);
     }
     case G::False: {
-        Value r;
-        r.makeBool(false);
-        return r;
+        return Value(false);
     }
     case G::UNeg: {
         if (node->children.size() != 2) throw Error("Internal error: Invalid UNeg children", node);
@@ -466,42 +466,47 @@ Value evalTVal(Symbol node, SymbolTable& table) {
     }
 }
 
-Value::Ptr evalRVal(Symbol node, SymbolTable& table, bool create) {
+Value::Ref evalRVal(Symbol node, SymbolTable& table, bool create) {
     if (node->type != G::RValue) throw Error("Internal error: evalRVal called on non RValue");
     if (node->children.size() != 1) throw Error("Internal error: RValue has invalid children");
 
     node = node->children[0];
     switch (node->type) {
     case G::Id: {
-        Value::Ptr v = table.get(node->data, create);
-        if (!v) throw Error("Use of undefined symbol '" + node->data + "'", node);
+        Value::Ref v = table.get(node->data, create);
+        if (!v.value) throw Error("Use of undefined symbol '" + node->data + "'", node);
         return v;
     }
+
     case G::Property: {
         if (node->children.size() != 3)
             throw Error("Internal error: Invalid Property children", node);
-        Value::Ptr v = evalRVal(node->children[0], table, create);
-        v            = v->getProperty(node->children[2]->data, create);
-        if (!v)
-            throw Error("Undefined property '" + node->children[2]->data + "'", node->children[2]);
-        return v;
+        Value::Ref v = evalRVal(node->children[0], table, create);
+        if (!v.value) throw Error("Use of undefined symbol '" + node->children[0]->data + "'");
+        const std::string& prop = node->children[2]->data;
+        Value* pv = table.getProp(v, prop, create);
+        if (!pv)
+            throw Error("Undefined property '" + prop + "'", node->children[2]);
+        return {pv, v.depth};
     }
+
     case G::ArrayAcc: {
         if (node->children.size() != 4)
             throw Error("Internal error: Invalid ArrayAcc children", node);
-        Value::Ptr v = evalRVal(node->children[0], table, create);
+        Value::Ref v = evalRVal(node->children[0], table, create);
         Value i      = ScriptImpl::computeValue(node->children[2], table);
-        if (v->getType() != Value::TArray)
+        if (v.value->getType() != Value::TArray)
             throw Error("Array access on non-array type", node->children[0]);
         if (i.getType() != Value::TNumeric)
             throw Error("Array indices must be Numeric", node->children[2]);
         unsigned int j = static_cast<unsigned int>(i.getAsNum());
         if (i.getAsNum() != j)
             throw Error("Array indices must be positive integers", node->children[2]);
-        if (j >= v->getAsArray().size())
+        if (j >= v.value->getAsArray().size())
             throw Error("Array index " + std::to_string(j) + " out of bounds", node->children[2]);
-        return v->getAsArray()[j];
+        return {&(v.value->getAsArray()[j]), v.depth};
     }
+
     default:
         throw Error("Internal error: Invalid RValue child", node);
     }
@@ -520,32 +525,20 @@ std::vector<Value> evalList(Symbol node, SymbolTable& table) {
     throw Error("Internal error: Invalid ValueList children", node);
 }
 
-Value Ops::Or(const Value& lhs, const Value& rhs) {
-    Value r;
-    r.makeBool(lhs.deref().getAsBool() || rhs.deref().getAsBool());
-    return r;
+Value Ops::Or(const Value& lhs, const Value& rhs, int d) {
+    return {lhs.deref(d).getAsBool() || rhs.deref(d).getAsBool()};
 }
 
-Value Ops::And(const Value& lhs, const Value& rhs) {
-    Value r;
-    r.makeBool(lhs.deref().getAsBool() && rhs.deref().getAsBool());
-    return r;
+Value Ops::And(const Value& lhs, const Value& rhs, int d) {
+    return {lhs.deref(d).getAsBool() && rhs.deref(d).getAsBool()};
 }
 
-Value Ops::Neg(const Value& val) {
-    Value r;
-    r.makeBool(!val.deref().getAsBool());
-    return r;
-}
+Value Ops::Neg(const Value& val, int d) { return {!val.deref(d).getAsBool()}; }
 
-Value Ops::Eq(const Value& lhs, const Value& rhs) {
-    const Value& rh = rhs.deref();
-    const Value& lh = lhs.deref();
-    if (rh.getType() != lh.getType()) {
-        Value r;
-        r.makeBool(false);
-        return r;
-    }
+Value Ops::Eq(const Value& lhs, const Value& rhs, int d) {
+    const Value& rh = rhs.deref(d);
+    const Value& lh = lhs.deref(d);
+    if (rh.getType() != lh.getType()) { return Value(false); }
     bool eq = true;
     switch (lh.getType()) {
     case Value::TBool:
@@ -560,7 +553,7 @@ Value Ops::Eq(const Value& lhs, const Value& rhs) {
     case Value::TArray:
         if (rh.getAsArray().size() == lh.getAsArray().size()) {
             for (unsigned int i = 0; i < rh.getAsArray().size(); ++i) {
-                if (!Ops::Eq(*rh.getAsArray()[i], *lh.getAsArray()[i]).getAsBool()) {
+                if (!Ops::Eq(rh.getAsArray()[i], lh.getAsArray()[i], d).getAsBool()) {
                     eq = false;
                     break;
                 }
@@ -575,25 +568,17 @@ Value Ops::Eq(const Value& lhs, const Value& rhs) {
     default:
         eq = false;
     }
-    Value r;
-    r.makeBool(eq);
-    return r;
+    return Value(eq);
 }
 
-Value Ops::Ne(const Value& lhs, const Value& rhs) {
-    Value r;
-    r.makeBool(!Ops::Eq(rhs, lhs).getAsBool());
-    return r;
+Value Ops::Ne(const Value& lhs, const Value& rhs, int d) {
+    return Value(!Ops::Eq(rhs, lhs, d).getAsBool());
 }
 
-Value Ops::Gt(const Value& lhs, const Value& rhs) {
-    const Value& rh = rhs.deref();
-    const Value& lh = lhs.deref();
-    if (rh.getType() != lh.getType()) {
-        Value r;
-        r.makeBool(false);
-        return r;
-    }
+Value Ops::Gt(const Value& lhs, const Value& rhs, int d) {
+    const Value& rh = rhs.deref(d);
+    const Value& lh = lhs.deref(d);
+    if (rh.getType() != lh.getType()) { return Value(false); }
     bool gt = true;
     switch (lh.getType()) {
     case Value::TBool:
@@ -611,19 +596,13 @@ Value Ops::Gt(const Value& lhs, const Value& rhs) {
     default:
         gt = false;
     }
-    Value r;
-    r.makeBool(gt);
-    return r;
+    return Value(gt);
 }
 
-Value Ops::Ge(const Value& lhs, const Value& rhs) {
-    const Value& rh = rhs.deref();
-    const Value& lh = lhs.deref();
-    if (rh.getType() != lh.getType()) {
-        Value r;
-        r.makeBool(false);
-        return r;
-    }
+Value Ops::Ge(const Value& lhs, const Value& rhs, int d) {
+    const Value& rh = rhs.deref(d);
+    const Value& lh = lhs.deref(d);
+    if (rh.getType() != lh.getType()) { return Value(false); }
     bool ge = true;
     switch (lh.getType()) {
     case Value::TBool:
@@ -641,19 +620,13 @@ Value Ops::Ge(const Value& lhs, const Value& rhs) {
     default:
         ge = false;
     }
-    Value r;
-    r.makeBool(ge);
-    return r;
+    return Value(ge);
 }
 
-Value Ops::Lt(const Value& lhs, const Value& rhs) {
-    const Value& rh = rhs.deref();
-    const Value& lh = lhs.deref();
-    if (rh.getType() != lh.getType()) {
-        Value r;
-        r.makeBool(false);
-        return r;
-    }
+Value Ops::Lt(const Value& lhs, const Value& rhs, int d) {
+    const Value& rh = rhs.deref(d);
+    const Value& lh = lhs.deref(d);
+    if (rh.getType() != lh.getType()) { return Value(false); }
     bool lt = true;
     switch (lh.getType()) {
     case Value::TBool:
@@ -671,19 +644,13 @@ Value Ops::Lt(const Value& lhs, const Value& rhs) {
     default:
         lt = false;
     }
-    Value r;
-    r.makeBool(lt);
-    return r;
+    return Value(lt);
 }
 
-Value Ops::Le(const Value& lhs, const Value& rhs) {
-    const Value& rh = rhs.deref();
-    const Value& lh = lhs.deref();
-    if (rh.getType() != lh.getType()) {
-        Value r;
-        r.makeBool(false);
-        return r;
-    }
+Value Ops::Le(const Value& lhs, const Value& rhs, int d) {
+    const Value& rh = rhs.deref(d);
+    const Value& lh = lhs.deref(d);
+    if (rh.getType() != lh.getType()) { return Value(false); }
     bool gt = true;
     switch (lh.getType()) {
     case Value::TBool:
@@ -701,14 +668,12 @@ Value Ops::Le(const Value& lhs, const Value& rhs) {
     default:
         gt = false;
     }
-    Value r;
-    r.makeBool(gt);
-    return r;
+    return Value(gt);
 }
 
-Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
-    const Value& rh = rhs.deref();
-    const Value& lh = lhs.deref();
+Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node, int d) {
+    const Value& rh = rhs.deref(d);
+    const Value& lh = lhs.deref(d);
 
     switch (lh.getType()) {
     case Value::TNumeric:
@@ -726,8 +691,8 @@ Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
         }
         throw Error("Only Numeric and String types may be added to Strings", node);
     case Value::TArray: {
-        auto a = lh.getAsArray();
-        a.push_back(Value::Ptr(new Value(rhs)));
+        auto& a = const_cast<Value&>(lh).getAsArray();
+        a.emplace_back(rh);
         return a;
     }
     default:
@@ -735,17 +700,17 @@ Value Ops::Add(const Value& lhs, const Value& rhs, Symbol node) {
     }
 }
 
-Value Ops::Sub(const Value& lhs, const Value& rhs, Symbol node) {
-    const Value& rh = rhs.deref();
-    const Value& lh = lhs.deref();
+Value Ops::Sub(const Value& lhs, const Value& rhs, Symbol node, int d) {
+    const Value& rh = rhs.deref(d);
+    const Value& lh = lhs.deref(d);
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
         throw Error("Subtraction may only be done between Numeric types", node);
     return lhs.getAsNum() - rhs.getAsNum();
 }
 
-Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
-    const Value& rh = rhs.deref();
-    const Value& lh = lhs.deref();
+Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node, int d) {
+    const Value& rh = rhs.deref(d);
+    const Value& lh = lhs.deref(d);
 
     switch (lh.getType()) {
     case Value::TNumeric:
@@ -777,17 +742,17 @@ Value Ops::Mult(const Value& lhs, const Value& rhs, Symbol node) {
     }
 }
 
-Value Ops::Div(const Value& lhs, const Value& rhs, Symbol node) {
-    const Value& rh = rhs.deref();
-    const Value& lh = lhs.deref();
+Value Ops::Div(const Value& lhs, const Value& rhs, Symbol node, int d) {
+    const Value& rh = rhs.deref(d);
+    const Value& lh = lhs.deref(d);
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
         throw Error("Division may only be done between Numeric types", node);
     return lhs.getAsNum() / rhs.getAsNum();
 }
 
-Value Ops::Exp(const Value& lhs, const Value& rhs, Symbol node) {
-    const Value& rh = rhs.deref();
-    const Value& lh = lhs.deref();
+Value Ops::Exp(const Value& lhs, const Value& rhs, Symbol node, int d) {
+    const Value& rh = rhs.deref(d);
+    const Value& lh = lhs.deref(d);
     if (rh.getType() != Value::TNumeric || lh.getType() != Value::TNumeric)
         throw Error("Exponentiation may only be done between Numeric types", node);
     return std::pow(lhs.getAsNum(), rhs.getAsNum());

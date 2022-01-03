@@ -62,6 +62,13 @@ public:
     void popFrame();
 
     /**
+     * @brief Returns the current stack depth. Used for validating references
+     *
+     * @return int
+     */
+    int currentDepth() const;
+
+    /**
      * @brief Tells whether the given symbol exists or not
      *
      * @param name Name of the symbol to search for
@@ -72,9 +79,9 @@ public:
      * @brief Returns a Value from the current stack frame or above
      *
      * @param name The name of the Value to get
-     * @return Value::Ptr The Value or nullptr on error
+     * @return Value::Ref The Value or nullptr on error
      */
-    Value::Ptr get(const std::string& name, bool create = false);
+    Value::Ref get(const std::string& name, bool create = false);
 
     /**
      * @brief Sets a Value in the table in the current frame
@@ -85,6 +92,34 @@ public:
      *                 in higher scope
      */
     void set(const std::string& name, const Value& value, bool forceTop = false);
+
+    /**
+     * @brief Gets (or optionally creates) a property on a value
+     *
+     * @param ref The value to get the property from
+     * @param name The name of the property
+     * @param create True to create if doesn't exist, false to fail
+     * @return Value* Address of the property or nullptr
+     */
+    Value* getProp(const Value::Ref& ref, const std::string& name, bool create = false);
+
+    /**
+     * @brief Sets the value of a property on the given value
+     *
+     * @param ref The value to set the property on
+     * @param name The name of the property to set
+     * @param value The value to set it to
+     * @return Value* Address of the created property
+     */
+    Value* setProp(const Value::Ref& ref, const std::string& name, const Value& value);
+
+    /**
+     * @brief Returns all properties on the given ref
+     *
+     * @param ref The value to get properties on
+     * @return const std::unordered_map<std::string, Value>& All properties on the value
+     */
+    const std::unordered_map<std::string, Value>& getAllProps(const Value& val) const;
 
     /**
      * @brief Resets the table to an empty state with an empty global frame
@@ -134,7 +169,8 @@ public:
     void waitOn(util::Waiter& waiter);
 
 private:
-    std::vector<std::unordered_map<std::string, Value::Ptr>> table;
+    std::vector<std::unordered_map<std::string, Value>> table;
+    std::vector<std::unordered_map<const Value*, std::unordered_map<std::string, Value>>> props;
     Manager* mgr;
     std::atomic<bool> stop;
     std::mutex waitMutex;

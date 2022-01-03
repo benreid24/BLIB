@@ -75,9 +75,10 @@ struct ScriptImpl {
      *
      * @param left Left value to compare
      * @param right Right value to compare
+     * @param depth The current stack depth. Used to validate references
      * @return True if values are equal, false if not equal
      */
-    static bool equals(const Value& left, const Value& right);
+    static bool equals(const Value& left, const Value& right, int depth);
 };
 
 } // namespace script

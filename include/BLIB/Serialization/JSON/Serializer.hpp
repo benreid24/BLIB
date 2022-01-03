@@ -4,8 +4,7 @@
 #include <BLIB/Serialization/JSON/JSON.hpp>
 #include <BLIB/Serialization/JSON/SerializableObject.hpp>
 
-#include <BLIB/Scripts/Function.hpp> // needed for type_traits
-#include <BLIB/Scripts/Value.hpp>
+#include <BLIB/Scripts.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
@@ -433,9 +432,7 @@ struct Serializer<sf::Rect<U>, false> {
 
 template<>
 struct Serializer<script::Value, false> {
-    static Value serialize(const script::Value& value) {
-        const script::Value val = value.deref();
-
+    static Value serialize(const script::Value& val) {
         Group g;
         g.addField("type", Serializer<script::Value::Type>::serialize(val.getType()));
 
@@ -451,11 +448,15 @@ struct Serializer<script::Value, false> {
             v = val.getAsString();
             break;
         case script::Value::TArray: {
-            v              = List();
-            const auto arr = val.getAsArray();
+            v               = List();
+            const auto& arr = val.getAsArray();
             v.getAsList()->reserve(arr.size());
-            for (const auto& iv : arr) { v.getAsList()->emplace_back(serialize(*iv)); }
+            for (const auto& iv : arr) { v.getAsList()->emplace_back(serialize(iv)); }
         } break;
+
+        case script::Value::TRef:
+            v = "<Dereference before serializing>";
+            break;
 
         case script::Value::TFunction:
         case script::Value::TVoid:
@@ -464,12 +465,6 @@ struct Serializer<script::Value, false> {
             break;
         }
         g.addField("value", v);
-
-        g.addField("props", Group());
-        Group* props = g.getField("props")->getAsGroup();
-        for (const auto& prop : val.allProperties()) {
-            serializeInto(prop.first, *props, *prop.second);
-        }
 
         return {g};
     }
@@ -491,7 +486,7 @@ struct Serializer<script::Value, false> {
         switch (type) {
         case script::Value::TBool:
             if (!v->getAsBool()) return false;
-            result.makeBool(*v->getAsBool());
+            result = *v->getAsBool();
             break;
 
         case script::Value::TNumeric:
@@ -516,20 +511,12 @@ struct Serializer<script::Value, false> {
             result = arr;
         } break;
 
+        case script::Value::TRef:
         case script::Value::TFunction:
         case script::Value::TVoid:
         default:
             result = false;
             break;
-        }
-
-        const Group* props = group->getGroup("props");
-        if (!props) return false;
-
-        for (const auto& prop : props->getFields()) {
-            script::Value r;
-            if (!deserialize(r, *props->getField(prop))) return false;
-            result.setProperty(prop, r);
         }
 
         return true;

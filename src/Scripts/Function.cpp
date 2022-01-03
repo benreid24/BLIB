@@ -12,13 +12,13 @@ namespace script
 {
 namespace
 {
-std::vector<std::string> parseParams(parser::Node::Ptr fhead);
+std::vector<std::string> parseParams(const parser::Node::Ptr& fhead);
 } // namespace
 
 Function::Function()
 : data(CustomCB(nullptr)) {}
 
-Function::Function(parser::Node::Ptr tree)
+Function::Function(const parser::Node::Ptr& tree)
 : data(tree) {
     using G                       = Parser::Grammar;
     const parser::Node::Ptr& root = *std::get_if<parser::Node::Ptr>(&data);
@@ -32,7 +32,7 @@ Function::Function(parser::Node::Ptr tree)
         throw Error("Internal error: Invalid FDef children");
 }
 
-Function::Function(CustomCB cb)
+Function::Function(const CustomCB& cb)
 : data(cb) {}
 
 bool Function::operator==(const Function& f) const {
@@ -78,7 +78,7 @@ Value Function::operator()(SymbolTable& table, const std::vector<Value>& args) c
 
 namespace
 {
-std::vector<std::string> recurseParams(parser::Node::Ptr plist) {
+std::vector<std::string> recurseParams(const parser::Node::Ptr& plist) {
     using G = Parser::Grammar;
     if (plist->type != G::ParamList) throw Error("Internal error: Expected ParamList", plist);
     if (plist->children.size() != 3)
@@ -96,7 +96,7 @@ std::vector<std::string> recurseParams(parser::Node::Ptr plist) {
     throw Error("Internal error: Invalid ParamList children types", plist);
 }
 
-std::vector<std::string> parseParams(parser::Node::Ptr fhead) {
+std::vector<std::string> parseParams(const parser::Node::Ptr& fhead) {
     using G = Parser::Grammar;
     if (fhead->children.size() == 3) return {};
     if (fhead->children.size() != 4) throw Error("Internal error: Invalid FHead children", fhead);
