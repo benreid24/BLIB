@@ -99,6 +99,47 @@ TEST(JsonSerializer, SerializeFromTo) {
     }
 }
 
+TEST(JsonSerializer, ScriptValues) {
+    using S = Serializer<script::Value>;
+
+    script::Value b(true);
+    b.makeBool(true);
+    script::Value n(56);
+    script::Value s("Hello World");
+    script::Value l(script::Value::Array({script::Value::Ptr(new script::Value(b)),
+                                          script::Value::Ptr(new script::Value(n)),
+                                          script::Value::Ptr(new script::Value(s))}));
+    b.setProperty("prop", {"nested"});
+
+    script::Value read;
+    ASSERT_TRUE(S::deserialize(read, S::serialize(b)));
+    ASSERT_EQ(read.getType(), script::Value::TBool);
+    EXPECT_EQ(read.getAsBool(), true);
+    auto p = read.getProperty("prop");
+    ASSERT_TRUE(p);
+    ASSERT_EQ(p->getType(), script::Value::TString);
+    EXPECT_EQ(p->getAsString(), "nested");
+
+    ASSERT_TRUE(S::deserialize(read, S::serialize(n)));
+    ASSERT_EQ(read.getType(), script::Value::TNumeric);
+    EXPECT_EQ(read.getAsNum(), 56);
+
+    ASSERT_TRUE(S::deserialize(read, S::serialize(s)));
+    ASSERT_EQ(read.getType(), script::Value::TString);
+    EXPECT_EQ(read.getAsString(), "Hello World");
+
+    ASSERT_TRUE(S::deserialize(read, S::serialize(l)));
+    ASSERT_EQ(read.getType(), script::Value::TArray);
+    const auto arr = read.getAsArray();
+    ASSERT_EQ(arr.size(), 3);
+    ASSERT_EQ(arr[0]->getType(), script::Value::TBool);
+    EXPECT_EQ(arr[0]->getAsBool(), true);
+    ASSERT_EQ(arr[1]->getType(), script::Value::TNumeric);
+    EXPECT_EQ(arr[1]->getAsNum(), 56);
+    ASSERT_EQ(arr[2]->getType(), script::Value::TString);
+    EXPECT_EQ(arr[2]->getAsString(), "Hello World");
+}
+
 } // namespace unittest
 } // namespace json
 } // namespace serial

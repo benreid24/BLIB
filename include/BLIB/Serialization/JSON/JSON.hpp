@@ -264,7 +264,7 @@ public:
      */
     template<typename T, class = std::enable_if<std::is_integral_v<T>>>
     Value& operator=(T intOrBool) {
-        if constexpr (std::is_same_v<T, bool>) {
+        if constexpr (std::is_same_v<std::decay_t<T>, bool>) {
             type = Type::Bool;
             data = intOrBool;
         }

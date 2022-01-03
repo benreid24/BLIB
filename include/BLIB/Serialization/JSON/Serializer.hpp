@@ -491,11 +491,11 @@ struct Serializer<script::Value, false> {
         switch (type) {
         case script::Value::TBool:
             if (!v->getAsBool()) return false;
-            result = *v->getAsBool();
+            result.makeBool(*v->getAsBool());
             break;
 
         case script::Value::TNumeric:
-            if (!v->getAsInteger() || !v->getAsFloat()) return false;
+            if (!v->getAsInteger() && !v->getAsFloat()) return false;
             result = v->getNumericAsFloat(); // TODO - refactor int/float separated
             break;
 
