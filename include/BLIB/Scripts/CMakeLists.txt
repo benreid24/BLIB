@@ -4,6 +4,8 @@ target_sources(BLIB PUBLIC
     Function.hpp
     Script.hpp
     Manager.hpp
+    PrimitiveValue.hpp
     SymbolTable.hpp
     Value.hpp
+    ReferenceValue.hpp
 )

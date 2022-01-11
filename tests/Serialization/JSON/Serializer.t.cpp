@@ -105,31 +105,33 @@ TEST(JsonSerializer, ScriptValues) {
     script::Value b(true);
     script::Value n(56.f);
     script::Value s("Hello World");
-    script::Value l(script::Value::Array({b, n, s}));
+    script::Value l(script::ArrayValue({b, n, s}));
 
     script::Value read;
     ASSERT_TRUE(S::deserialize(read, S::serialize(b)));
-    ASSERT_EQ(read.getType(), script::Value::TBool);
-    EXPECT_EQ(read.getAsBool(), true);
+    ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TBool);
+    EXPECT_EQ(read.value().getAsBool(), true);
 
     ASSERT_TRUE(S::deserialize(read, S::serialize(n)));
-    ASSERT_EQ(read.getType(), script::Value::TNumeric);
-    EXPECT_EQ(read.getAsNum(), 56.f);
+    ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TNumeric);
+    EXPECT_EQ(read.value().getAsNum(), 56.f);
 
     ASSERT_TRUE(S::deserialize(read, S::serialize(s)));
-    ASSERT_EQ(read.getType(), script::Value::TString);
-    EXPECT_EQ(read.getAsString(), "Hello World");
+    ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TString);
+    EXPECT_EQ(read.value().getAsString(), "Hello World");
 
     ASSERT_TRUE(S::deserialize(read, S::serialize(l)));
-    ASSERT_EQ(read.getType(), script::Value::TArray);
-    const auto arr = read.getAsArray();
+    ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TArray);
+    const auto& arr = read.value().getAsArray();
     ASSERT_EQ(arr.size(), 3);
-    ASSERT_EQ(arr[0].getType(), script::Value::TBool);
-    EXPECT_EQ(arr[0].getAsBool(), true);
-    ASSERT_EQ(arr[1].getType(), script::Value::TNumeric);
-    EXPECT_EQ(arr[1].getAsNum(), 56);
-    ASSERT_EQ(arr[2].getType(), script::Value::TString);
-    EXPECT_EQ(arr[2].getAsString(), "Hello World");
+    ASSERT_EQ(arr[0].value().getType(), script::PrimitiveValue::TBool);
+    EXPECT_EQ(arr[0].value().getAsBool(), true);
+    ASSERT_EQ(arr[1].value().getType(), script::PrimitiveValue::TNumeric);
+    EXPECT_EQ(arr[1].value().getAsNum(), 56);
+    ASSERT_EQ(arr[2].value().getType(), script::PrimitiveValue::TString);
+    EXPECT_EQ(arr[2].value().getAsString(), "Hello World");
+
+    // BENTODO - add property tests
 }
 
 } // namespace unittest

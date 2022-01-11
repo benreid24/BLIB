@@ -1,284 +1,151 @@
 #ifndef BLIB_SCRIPTS_VALUE_HPP
 #define BLIB_SCRIPTS_VALUE_HPP
 
-#include <BLIB/Scripts/Function.hpp>
-#include <memory>
+#include <BLIB/Scripts/PrimitiveValue.hpp>
+#include <BLIB/Scripts/ReferenceValue.hpp>
 #include <string>
 #include <unordered_map>
-#include <variant>
-#include <vector>
 
 namespace bl
 {
 namespace script
 {
-class Function;
 class SymbolTable;
 
 /**
- * @brief Represents a Value in a script. Can be a temp value or from a SymbolTable
+ * @brief Main representation of a value in scripts
+ *
  * @ingroup Scripts
  *
  */
-class Value {
+class Value : public std::enable_shared_from_this<Value> {
 public:
-    typedef Value (Value::*Builtin)(SymbolTable&, const std::vector<Value>&);
-    using Array = std::vector<Value>;
-
-    static const std::unordered_map<std::string, Builtin> Builtins;
-
-    enum Type : std::uint8_t {
-        TVoid       = 0x0,
-        TBool       = 0x1 << 0,
-        TString     = 0x1 << 1,
-        TNumeric    = 0x1 << 2,
-        TArray      = 0x1 << 3,
-        TFunction   = 0x1 << 4,
-        TRef        = 0x1 << 5,
-        _TYPE_COUNT = 6 // excludes void
-    };
-
     /**
-     * @brief Represents a reference to a value
-     *
-     * @ingroup Scripts
+     * @brief Makes a void type value
      *
      */
-    struct Ref {
-        /// The value pointed to. May be nullptr or invalid
-        Value* value;
-
-        /// The stack depth of the referred value. If lower than current depth the Ref is invalid
-        int depth;
-
-        /**
-         * @brief Construct a new Ref object
-         *
-         */
-        Ref()
-        : value(nullptr)
-        , depth(0) {}
-
-        /**
-         * @brief Construct a new Ref object
-         *
-         * @param v Value to refer to
-         * @param d Current table depth
-         */
-        Ref(Value* v, int d)
-        : value(v)
-        , depth(d) {}
-    };
+    Value() = default;
 
     /**
-     * @brief Helper function to print types as strings
-     *
-     * @param type The type to get the string for
-     * @return std::string The string representation of the type
-     */
-    static std::string typeToString(Type type);
-
-    /**
-     * @brief Makes Void type
+     * @brief Copies a value
      *
      */
-    Value();
+    Value(const Value& value) = default;
 
     /**
-     * @brief Copy constructor
+     * @brief Moves from a value
      *
      */
-    Value(const Value&) = default;
+    Value(Value&& value) = default;
 
     /**
-     * @brief Move constructor
+     * @brief Constructs a primitive value in-place
+     *
+     * @tparam TArgs Arguments to the PrimitiveValue
+     * @param args The arguments to construct with
+     */
+    template<typename... TArgs>
+    Value(TArgs... args);
+
+    /**
+     * @brief Create from a primitive value
      *
      */
-    Value(Value&&) = default;
+    Value(const PrimitiveValue& value);
 
     /**
-     * @brief Copy operator
+     * @brief Create from a primitive value
+     *
+     */
+    Value(PrimitiveValue&& value);
+
+    /**
+     * @brief Copy the value
      *
      */
     Value& operator=(const Value&) = default;
 
     /**
-     * @brief Move operator
+     * @brief Copy the value
      *
      */
     Value& operator=(Value&&) = default;
 
     /**
-     * @brief Makes integer or bool type based on parameter type
+     * @brief Create from a primitive value
      *
-     * @tparam T The type
-     * @param intOrBool The int or bool value
      */
-    template<typename T, class = std::enable_if_t<std::is_integral_v<T>>>
-    Value& operator=(T intOrBool) {
-        if constexpr (std::is_same_v<std::decay_t<T>, bool>) {
-            type = TBool;
-            value.emplace<bool>(intOrBool);
-        }
-        else {
-            type = TNumeric;
-            value.emplace<float>(static_cast<float>(intOrBool));
-        }
-        return *this;
-    }
+    Value& operator=(const PrimitiveValue& value);
 
     /**
-     * @brief Makes integer or bool type based on parameter type
+     * @brief Create from a primitive value
      *
-     * @tparam T The type
-     * @param intOrBool The int or bool value
      */
-    template<typename T, class = std::enable_if_t<std::is_integral_v<T>>>
-    Value(T intOrBool)
-    : depth(-1) {
-        if constexpr (std::is_same_v<std::decay_t<T>, bool>) {
-            type = TBool;
-            value.emplace<bool>(intOrBool);
-        }
-        else {
-            type = TNumeric;
-            value.emplace<float>(static_cast<float>(intOrBool));
-        }
-    }
+    Value& operator=(PrimitiveValue&& value);
 
     /**
-     * @brief Makes Numeric type
+     * @brief Assignment operator for primitive values
      *
+     * @tparam TArgs The assignment argument type
+     * @param arg The argument to the primitive value assignment operator
+     * @return Value& This value
      */
-    Value& operator=(float num);
+    template<typename TArg>
+    Value& operator=(TArg args);
 
     /**
-     * @brief Makes Numeric type
+     * @brief Access the primitive value of this value
      *
      */
-    Value(float num);
+    PrimitiveValue& value();
 
     /**
-     * @brief Makes String type
+     * @brief Access the primitive value of this value
      *
      */
-    Value& operator=(const std::string& str);
+    const PrimitiveValue& value() const;
 
     /**
-     * @brief Makes String type
+     * @brief Gets a properly constructed reference to this value
      *
      */
-    Value(const std::string& str);
+    ReferenceValue getRef() const;
 
     /**
-     * @brief Makes Array type
+     * @brief Access the value being referred to, or this one if not a reference
      *
      */
-    Value& operator=(const Array& array);
+    const Value& deref() const;
 
     /**
-     * @brief Makes Array type
+     * @brief Access the value being referred to, or this one if not a reference
      *
      */
-    Value(const Array& array);
+    Value& deref();
 
     /**
-     * @brief Makes Ref type
+     * @brief Get a property on this value. Will throw an Error if the property does not exist
      *
+     * @param name The name of the property to get
+     * @return ReferenceValue A reference to the property
      */
-    Value& operator=(const Ref& ref);
+    ReferenceValue getProperty(const std::string& name);
 
     /**
-     * @brief Makes Ref type
+     * @brief Get a property on this value. Will throw an Error if the property does not exist
      *
+     * @param name The name of the property to get
+     * @return ReferenceValue A reference to the property
      */
-    Value(const Ref& ref);
+    ReferenceValue getProperty(const std::string& name) const;
 
     /**
-     * @brief Make Function type
+     * @brief Sets a property on this value. Will throw an Error if the property is not writable
      *
+     * @param name The name of the property to set
+     * @param value The value of the property to set
      */
-    Value& operator=(const Function& func);
-
-    /**
-     * @brief Make Function type
-     *
-     */
-    Value(const Function& func);
-
-    /**
-     * @brief Returns the current type of this Value
-     *
-     */
-    Type getType() const;
-
-    /**
-     * @brief Get the as Bool type. Performs implicit conversion
-     *
-     * @param depth The current stack depth. Used to validate references
-     * @return The value as a boolean
-     */
-    bool getAsBool(int depth = 0) const;
-
-    /**
-     * @brief Get the as Numeric value
-     *
-     * @return float The value or 0 if not a String
-     */
-    float getAsNum() const;
-
-    /**
-     * @brief Get the as String value
-     *
-     * @return std::string The value or "ERROR" if not String type
-     */
-    const std::string& getAsString() const;
-
-    /**
-     * @brief Get the as Array value
-     *
-     * @return Array An Array of Values or empty
-     */
-    const Array& getAsArray() const;
-
-    /**
-     * @brief Get the as Array value
-     *
-     * @return Array An Array of Values or empty
-     */
-    Array& getAsArray();
-
-    /**
-     * @brief Get the as Ref value
-     *
-     * @return Ref A reference to the Value this references, or nullptr
-     */
-    const Ref& getAsRef() const;
-
-    /**
-     * @brief Dereferences the value and returns the pointed to value. Recursively follows
-     *        references
-     *
-     * @param depth The current stack depth. Used to validate references
-     * @return Value& The referenced value, or this value if not a reference
-     */
-    Value& deref(int depth);
-
-    /**
-     * @brief Dereferences the value and returns the pointed to value. Recursively follows
-     *        references. Const version
-     *
-     * @param depth The current stack depth. Used to validate references
-     * @return Value& The referenced value, or this value if not a reference
-     */
-    const Value& deref(int depth) const;
-
-    /**
-     * @brief Get the as Function type
-     *
-     * @return Function The Function value
-     */
-    const Function& getAsFunction() const;
+    void setProperty(const std::string& name, const ReferenceValue& value);
 
     /**
      * @brief Helper function to validate the number and type of arguments passed into functions
@@ -286,18 +153,22 @@ public:
      * @tparam Types The order and number of argument types expected
      * @param func The name of the function for error reporting
      * @param args The arguments passed in
-     * @param depth The current stack depth. Used to validate references
      */
-    template<Value::Type... Types>
-    static void validateArgs(const std::string& func, const std::vector<Value>& args, int depth);
+    template<PrimitiveValue::Type... Types>
+    static void validateArgs(const std::string& func, const std::vector<Value>& args);
+
+    /**
+     * @brief Populates the result vector with all property keys on this value
+     *
+     */
+    void getAllKeys(std::vector<std::string>& result) const;
 
 private:
-    struct Empty {};
-    using TData = std::variant<Empty, bool, float, std::string, Array, Ref, Function>;
+    PrimitiveValue _value;
+    std::unordered_map<std::string, ReferenceValue> properties;
 
-    Type type;
-    TData value;
-    int depth;
+    typedef Value (Value::*Builtin)(SymbolTable&, const std::vector<Value>&);
+    static const std::unordered_map<std::string, Builtin> builtins;
 
     // built-ins for arrays
     Value clear(SymbolTable& table, const std::vector<Value>& args);
@@ -310,25 +181,33 @@ private:
     // built-ins for properties
     Value keys(SymbolTable& table, const std::vector<Value>& args);
     Value at(SymbolTable& table, const std::vector<Value>& args);
-
-    friend class SymbolTable;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-template<Value::Type... Types>
-void Value::validateArgs(const std::string& func, const std::vector<Value>& args, int d) {
-    const Value::Type types[] = {Types...};
-    const unsigned int nargs  = sizeof...(Types);
+template<typename... TArgs>
+Value::Value(TArgs... args)
+: _value(args...) {}
+
+template<typename TArg>
+Value& Value::operator=(TArg arg) {
+    _value = arg;
+    return *this;
+}
+
+template<PrimitiveValue::Type... Types>
+void Value::validateArgs(const std::string& func, const std::vector<Value>& args) {
+    constexpr PrimitiveValue::Type types[] = {Types...};
+    constexpr unsigned int nargs           = sizeof...(Types);
 
     if (args.size() != nargs)
         throw Error(func + "() takes " + std::to_string(nargs) + " arguments");
     for (unsigned int i = 0; i < nargs; ++i) {
-        const Value& v = args[i].deref(d);
-        if ((v.getType() & types[i]) == 0) {
+        const Value& v = args[i].value().deref();
+        if ((v.value().getType() & types[i]) == 0) {
             throw Error(func + "() argument " + std::to_string(i) + " must be a " +
-                        Value::typeToString(types[i]) + " but " + Value::typeToString(v.getType()) +
-                        " was passed");
+                        PrimitiveValue::typeToString(types[i]) + " but " +
+                        PrimitiveValue::typeToString(v.value().getType()) + " was passed");
         }
     }
 }

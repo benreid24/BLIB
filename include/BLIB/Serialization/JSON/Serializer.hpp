@@ -432,39 +432,46 @@ struct Serializer<sf::Rect<U>, false> {
 
 template<>
 struct Serializer<script::Value, false> {
-    static Value serialize(const script::Value& val) {
+    static Value serialize(const script::Value& value) {
+        const auto& val = value.value().deref();
+
         Group g;
-        g.addField("type", Serializer<script::Value::Type>::serialize(val.getType()));
+        g.addField("type", Serializer<script::PrimitiveValue::Type>::serialize(val.getType()));
 
         Value v(false);
         switch (val.getType()) {
-        case script::Value::TBool:
+        case script::PrimitiveValue::TBool:
             v = val.getAsBool();
             break;
-        case script::Value::TNumeric:
+        case script::PrimitiveValue::TNumeric:
             v = val.getAsNum();
             break;
-        case script::Value::TString:
+        case script::PrimitiveValue::TString:
             v = val.getAsString();
             break;
-        case script::Value::TArray: {
+        case script::PrimitiveValue::TArray: {
             v               = List();
             const auto& arr = val.getAsArray();
             v.getAsList()->reserve(arr.size());
             for (const auto& iv : arr) { v.getAsList()->emplace_back(serialize(iv)); }
         } break;
 
-        case script::Value::TRef:
-            v = "<Dereference before serializing>";
-            break;
-
-        case script::Value::TFunction:
-        case script::Value::TVoid:
+        case script::PrimitiveValue::TFunction:
+        case script::PrimitiveValue::TVoid:
         default:
             v = "<NONSERIALIZABLE>";
             break;
         }
         g.addField("value", v);
+
+        Group props;
+        std::vector<std::string> keys;
+        value.getAllKeys(keys);
+        for (const std::string& key : keys) {
+            script::ReferenceValue prop = value.getProperty(key);
+            props.addField(key, serialize(prop.deref()));
+        }
+        g.addField("props", props);
 
         return {g};
     }
@@ -474,50 +481,63 @@ struct Serializer<script::Value, false> {
     }
 
     static bool deserialize(script::Value& result, const Value& val) {
-        const Group* group = val.getAsGroup();
-        if (!group) return false;
+        try {
+            const Group* group = val.getAsGroup();
+            if (!group) return false;
 
-        script::Value::Type type;
-        if (!Serializer<script::Value::Type>::deserializeFrom(val, "type", type)) return false;
-
-        const Value* v = group->getField("value");
-        if (!v) return false;
-
-        switch (type) {
-        case script::Value::TBool:
-            if (!v->getAsBool()) return false;
-            result = *v->getAsBool();
-            break;
-
-        case script::Value::TNumeric:
-            if (!v->getAsInteger() && !v->getAsFloat()) return false;
-            result = v->getNumericAsFloat(); // TODO - refactor int/float separated
-            break;
-
-        case script::Value::TString:
-            if (!v->getAsString()) return false;
-            result = *v->getAsString();
-            break;
-
-        case script::Value::TArray: {
-            const List* list = v->getAsList();
-            if (!list) return false;
-
-            std::vector<script::Value> arr;
-            arr.resize(list->size());
-            for (unsigned int i = 0; i < list->size(); ++i) {
-                if (!deserialize(arr[i], list->at(i))) return false;
+            script::PrimitiveValue::Type type;
+            if (!Serializer<script::PrimitiveValue::Type>::deserializeFrom(val, "type", type)) {
+                return false;
             }
-            result = arr;
-        } break;
 
-        case script::Value::TRef:
-        case script::Value::TFunction:
-        case script::Value::TVoid:
-        default:
-            result = false;
-            break;
-        }
+            const Value* v = group->getField("value");
+            if (!v) return false;
+
+            switch (type) {
+            case script::PrimitiveValue::TBool:
+                if (!v->getAsBool()) return false;
+                result.value() = *v->getAsBool();
+                break;
+
+            case script::PrimitiveValue::TNumeric:
+                if (!v->getAsInteger() && !v->getAsFloat()) return false;
+                result.value() = v->getNumericAsFloat(); // TODO - refactor int/float separated
+                break;
+
+            case script::PrimitiveValue::TString:
+                if (!v->getAsString()) return false;
+                result.value() = *v->getAsString();
+                break;
+
+            case script::PrimitiveValue::TArray: {
+                const List* list = v->getAsList();
+                if (!list) return false;
+
+                std::vector<script::Value> arr;
+                arr.resize(list->size());
+                for (unsigned int i = 0; i < list->size(); ++i) {
+                    if (!deserialize(arr[i], list->at(i))) return false;
+                }
+                result = arr;
+            } break;
+
+            case script::PrimitiveValue::TRef:
+            case script::PrimitiveValue::TFunction:
+            case script::PrimitiveValue::TVoid:
+            default:
+                result.value() = false;
+                break;
+            }
+
+            const Group* props = group->getGroup("props");
+            if (props) {
+                for (const std::string& prop : props->getFields()) {
+                    script::Value pval;
+                    if (!deserialize(pval, *props->getField(prop))) return false;
+                    result.setProperty(prop, {std::move(pval)});
+                }
+            }
+        } catch (...) { return false; }
 
         return true;
     }

@@ -13,8 +13,9 @@ namespace bl
 {
 namespace script
 {
-class SymbolTable;
 class Value;
+class SymbolTable;
+class PrimitiveValue;
 
 /**
  * @brief Utility class for functions defined in scripts themselves

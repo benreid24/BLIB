@@ -7,7 +7,7 @@ namespace script
 {
 namespace
 {
-std::string buildMsg(const std::string& err, parser::Node::Ptr src) {
+std::string buildMsg(const std::string& err, const parser::Node::Ptr& src) {
     std::stringstream ss;
     ss << "Line " << src->sourceLine << " position " << src->sourceColumn << ": " << err;
     return ss.str();
@@ -18,11 +18,11 @@ Error::Error(const std::string& msg)
 : error(msg)
 , stack(msg) {}
 
-Error::Error(const std::string& msg, parser::Node::Ptr src)
+Error::Error(const std::string& msg, const parser::Node::Ptr& src)
 : error(buildMsg(msg, src))
 , stack(error) {}
 
-Error::Error(const std::string& msg, parser::Node::Ptr src, const Error& prev)
+Error::Error(const std::string& msg, const parser::Node::Ptr& src, const Error& prev)
 : error(buildMsg(msg, src))
 , stack(error + "\n    " + prev.stack) {}
 

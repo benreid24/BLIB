@@ -23,8 +23,8 @@ TEST(SymbolTable, Get) {
     table.set("second", Value(10.f));
     ASSERT_TRUE(table.exists("var"));
     ASSERT_TRUE(table.exists("second"));
-    EXPECT_EQ(table.get("var").value->getAsString(), "hello");
-    EXPECT_EQ(table.get("second").value->getAsNum(), 10);
+    EXPECT_EQ(table.get("var")->value().getAsString(), "hello");
+    EXPECT_EQ(table.get("second")->value().getAsNum(), 10);
 }
 
 TEST(SymbolTable, Stack1) {
@@ -36,11 +36,11 @@ TEST(SymbolTable, Stack1) {
     table.set("second", Value(10.f));
     ASSERT_TRUE(table.exists("var"));
     ASSERT_TRUE(table.exists("second"));
-    EXPECT_EQ(table.get("var").value->getAsString(), "hello");
-    EXPECT_EQ(table.get("second").value->getAsNum(), 10.f);
+    EXPECT_EQ(table.get("var")->value().getAsString(), "hello");
+    EXPECT_EQ(table.get("second")->value().getAsNum(), 10.f);
     table.popFrame();
     ASSERT_TRUE(table.exists("var"));
-    EXPECT_EQ(table.get("var").value->getAsString(), "hello");
+    EXPECT_EQ(table.get("var")->value().getAsString(), "hello");
     EXPECT_FALSE(table.exists("second"));
 }
 
@@ -56,15 +56,15 @@ TEST(SymbolTable, Stack2) {
     ASSERT_TRUE(table.exists("var"));
     ASSERT_TRUE(table.exists("second"));
     ASSERT_TRUE(table.exists("deep"));
-    EXPECT_EQ(table.get("var").value->getAsString(), "hello");
-    EXPECT_EQ(table.get("second").value->getAsNum(), 10.f);
-    EXPECT_EQ(table.get("deep").value->getAsString(), "world");
+    EXPECT_EQ(table.get("var")->value().getAsString(), "hello");
+    EXPECT_EQ(table.get("second")->value().getAsNum(), 10.f);
+    EXPECT_EQ(table.get("deep")->value().getAsString(), "world");
     table.popFrame();
     table.popFrame();
     ASSERT_TRUE(table.exists("var"));
     ASSERT_FALSE(table.exists("second"));
     ASSERT_FALSE(table.exists("deep"));
-    EXPECT_EQ(table.get("var").value->getAsString(), "hello");
+    EXPECT_EQ(table.get("var")->value().getAsString(), "hello");
 }
 
 TEST(SymbolTable, ExtraPop) {
@@ -76,13 +76,13 @@ TEST(SymbolTable, ExtraPop) {
     table.set("second", Value(10.f));
     ASSERT_TRUE(table.exists("var"));
     ASSERT_TRUE(table.exists("second"));
-    EXPECT_EQ(table.get("var").value->getAsString(), "hello");
-    EXPECT_EQ(table.get("second").value->getAsNum(), 10);
+    EXPECT_EQ(table.get("var")->value().getAsString(), "hello");
+    EXPECT_EQ(table.get("second")->value().getAsNum(), 10);
     table.popFrame();
     table.popFrame();
     table.popFrame();
     ASSERT_TRUE(table.exists("var"));
-    EXPECT_EQ(table.get("var").value->getAsString(), "hello");
+    EXPECT_EQ(table.get("var")->value().getAsString(), "hello");
     EXPECT_FALSE(table.exists("second"));
 }
 
