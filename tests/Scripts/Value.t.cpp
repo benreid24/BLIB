@@ -98,6 +98,11 @@ TEST(ScriptValue, Builtins) {
     resize.deref().value().getAsFunction()(table, {Value(2.f)});
     ASSERT_EQ(aval.value().getAsArray().size(), 2);
 
+    // clear
+    ReferenceValue clear = aval.getProperty("clear");
+    clear.deref().value().getAsFunction()(table, {});
+    ASSERT_EQ(aval.value().getAsArray().size(), 0);
+
     // at and keys
     aval.setProperty("prop", Value("prop"));
     ReferenceValue keys = aval.getProperty("keys");

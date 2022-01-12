@@ -18,19 +18,54 @@ const std::unordered_map<std::string, Value::Builtin> Value::builtins = {
     std::make_pair("at", &Value::atValue),
     std::make_pair("length", &Value::lengthValue)};
 
+const std::unordered_map<std::string, ReferenceValue> Value::EmptyProps;
+
 Value::Value(const PrimitiveValue& v)
 : _value(v) {}
+
+Value::Value(const Value& v)
+: std::enable_shared_from_this<Value>(v)
+, _value(v._value) {
+    if (v.properties) {
+        properties.reset(new std::unordered_map<std::string, ReferenceValue>(*v.properties));
+    }
+}
+
+Value::Value(Value&& v)
+: std::enable_shared_from_this<Value>(v)
+, _value(std::move(v._value)) {
+    if (v.properties) { properties.swap(v.properties); }
+}
 
 Value::Value(PrimitiveValue&& v)
 : _value(v) {}
 
 Value& Value::operator=(PrimitiveValue&& v) {
-    _value = v;
+    deref()._value = v;
     return *this;
 }
 
 Value& Value::operator=(const PrimitiveValue& v) {
-    _value = v;
+    deref()._value = v;
+    return *this;
+}
+
+Value& Value::operator=(const Value& val) {
+    const Value& v = val.deref();
+    Value& me      = deref();
+
+    me._value = v._value;
+    if (v.properties) {
+        me.properties.reset(new std::unordered_map<std::string, ReferenceValue>(*v.properties));
+    }
+    return *this;
+}
+
+Value& Value::operator=(Value&& v) {
+    Value& me = deref();
+
+    me._value = std::move(v._value);
+    if (v.properties) { me.properties.swap(v.properties); }
     return *this;
 }
 
@@ -59,8 +94,10 @@ ReferenceValue Value::getProperty(const std::string& name) {
     const auto bit = builtins.find(name);
     if (bit != builtins.end()) { return ReferenceValue((this->*bit->second)()); }
 
-    const auto it = props.find(name);
-    if (it == props.end()) { throw Error("Cannot access undefined property '" + name + "'"); }
+    if (!props) { throw Error("Cannot access undefined property '" + name + "'"); }
+
+    const auto it = props->find(name);
+    if (it == props->end()) { throw Error("Cannot access undefined property '" + name + "'"); }
     return it->second;
 }
 
@@ -72,8 +109,10 @@ ReferenceValue Value::getProperty(const std::string& name) const {
         return ReferenceValue((const_cast<Value*>(this)->*bit->second)());
     }
 
-    const auto it = props.find(name);
-    if (it == props.end()) { throw Error("Cannot access undefined property '" + name + "'"); }
+    if (!props) { throw Error("Cannot access undefined property '" + name + "'"); }
+
+    const auto it = props->find(name);
+    if (it == props->end()) { throw Error("Cannot access undefined property '" + name + "'"); }
     return it->second;
 }
 
@@ -81,16 +120,20 @@ void Value::setProperty(const std::string& name, const ReferenceValue& val) {
     if (builtins.find(name) != builtins.end() || name == "length") {
         throw Error("Cannot write to reserved property '" + name + "'");
     }
+
     auto& props = deref().properties;
-    auto it     = props.find(name);
-    if (it != props.end()) { it->second = val; }
+    if (!props) { props.reset(new std::unordered_map<std::string, ReferenceValue>()); }
+
+    auto it = props->find(name);
+    if (it != props->end()) { it->second = val; }
     else {
-        props.emplace(name, val);
+        props->emplace(name, val);
     }
 }
 
 const std::unordered_map<std::string, ReferenceValue>& Value::allProperties() const {
-    return deref().properties;
+    const Value& me = deref();
+    return me.properties ? *me.properties : EmptyProps;
 }
 
 Value Value::clear(SymbolTable&, const std::vector<Value>&) {
@@ -201,8 +244,10 @@ Value Value::findValue() {
 Value Value::keys(SymbolTable&, const std::vector<Value>& args) {
     if (!args.empty()) throw Error("keys() expects 0 arguments");
     ArrayValue keys;
-    keys.reserve(properties.size());
-    for (const auto& prop : properties) { keys.emplace_back(prop.first); }
+    if (properties) {
+        keys.reserve(properties->size());
+        for (const auto& prop : *properties) { keys.emplace_back(prop.first); }
+    }
     return {PrimitiveValue(std::move(keys))};
 }
 

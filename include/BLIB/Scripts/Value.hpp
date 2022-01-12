@@ -30,13 +30,13 @@ public:
      * @brief Copies a value
      *
      */
-    Value(const Value& value) = default;
+    Value(const Value& value);
 
     /**
      * @brief Moves from a value
      *
      */
-    Value(Value&& value) = default;
+    Value(Value&& value);
 
     /**
      * @brief Constructs a primitive value in-place
@@ -63,13 +63,13 @@ public:
      * @brief Copy the value
      *
      */
-    Value& operator=(const Value&) = default;
+    Value& operator=(const Value&);
 
     /**
      * @brief Copy the value
      *
      */
-    Value& operator=(Value&&) = default;
+    Value& operator=(Value&&);
 
     /**
      * @brief Create from a primitive value
@@ -159,14 +159,14 @@ public:
 
     /**
      * @brief Returns all properties on this value
-     * 
+     *
      */
     const std::unordered_map<std::string, ReferenceValue>& allProperties() const;
 
 private:
     PrimitiveValue _value;
-    std::unordered_map<std::string, ReferenceValue> properties;
-    // TODO - consider using std::unique_ptr and only constructing on set
+    std::unique_ptr<std::unordered_map<std::string, ReferenceValue>> properties;
+    static const std::unordered_map<std::string, ReferenceValue> EmptyProps;
 
     typedef Value (Value::*Builtin)();
     static const std::unordered_map<std::string, Builtin> builtins;
