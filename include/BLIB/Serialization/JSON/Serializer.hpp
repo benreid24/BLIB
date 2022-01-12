@@ -433,7 +433,7 @@ struct Serializer<sf::Rect<U>, false> {
 template<>
 struct Serializer<script::Value, false> {
     static Value serialize(const script::Value& value) {
-        const auto& val = value.value().deref();
+        const auto& val = value.value();
 
         Group g;
         g.addField("type", Serializer<script::PrimitiveValue::Type>::serialize(val.getType()));

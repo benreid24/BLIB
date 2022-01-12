@@ -103,6 +103,8 @@ TEST(JsonSerializer, ScriptValues) {
     using S = Serializer<script::Value>;
 
     script::Value b(true);
+    b.setProperty("p1", script::Value(5.f));
+    b.setProperty("p2", script::Value("hello"));
     script::Value n(56.f);
     script::Value s("Hello World");
     script::Value l(script::ArrayValue({b, n, s}));
@@ -111,6 +113,12 @@ TEST(JsonSerializer, ScriptValues) {
     ASSERT_TRUE(S::deserialize(read, S::serialize(b)));
     ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TBool);
     EXPECT_EQ(read.value().getAsBool(), true);
+    script::ReferenceValue p = read.getProperty("p1");
+    ASSERT_EQ(p.deref().value().getType(), script::PrimitiveValue::TNumeric);
+    EXPECT_EQ(p.deref().value().getAsNum(), 5.f);
+    p = read.getProperty("p2");
+    ASSERT_EQ(p.deref().value().getType(), script::PrimitiveValue::TString);
+    EXPECT_EQ(p.deref().value().getAsString(), "hello");
 
     ASSERT_TRUE(S::deserialize(read, S::serialize(n)));
     ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TNumeric);
@@ -130,8 +138,6 @@ TEST(JsonSerializer, ScriptValues) {
     EXPECT_EQ(arr[1].value().getAsNum(), 56);
     ASSERT_EQ(arr[2].value().getType(), script::PrimitiveValue::TString);
     EXPECT_EQ(arr[2].value().getAsString(), "Hello World");
-
-    // BENTODO - add property tests
 }
 
 } // namespace unittest
