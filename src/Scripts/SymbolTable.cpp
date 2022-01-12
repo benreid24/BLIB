@@ -9,9 +9,7 @@ namespace script
 {
 SymbolTable::SymbolTable()
 : mgr(nullptr)
-, stop(false) {
-    pushFrame();
-}
+, stop(false) {}
 
 SymbolTable::SymbolTable(const SymbolTable& copy)
 : global(copy.global)
@@ -84,6 +82,9 @@ void SymbolTable::set(const std::string& name, const Value& val, bool top) {
         else {
             it->second = val;
         }
+    }
+    else if (!stack.empty()) {
+        stack.top().emplace(name, val);
     }
     else {
         global.emplace(name, val);

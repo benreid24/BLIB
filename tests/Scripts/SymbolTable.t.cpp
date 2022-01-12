@@ -54,12 +54,13 @@ TEST(SymbolTable, Stack2) {
     table.pushFrame();
     table.set("deep", Value("world"));
     ASSERT_TRUE(table.exists("var"));
-    ASSERT_TRUE(table.exists("second"));
+    ASSERT_FALSE(table.exists("second"));
     ASSERT_TRUE(table.exists("deep"));
     EXPECT_EQ(table.get("var")->value().getAsString(), "hello");
-    EXPECT_EQ(table.get("second")->value().getAsNum(), 10.f);
     EXPECT_EQ(table.get("deep")->value().getAsString(), "world");
     table.popFrame();
+    ASSERT_TRUE(table.exists("second"));
+    EXPECT_EQ(table.get("second")->value().getAsNum(), 10.f);
     table.popFrame();
     ASSERT_TRUE(table.exists("var"));
     ASSERT_FALSE(table.exists("second"));
@@ -79,8 +80,7 @@ TEST(SymbolTable, ExtraPop) {
     EXPECT_EQ(table.get("var")->value().getAsString(), "hello");
     EXPECT_EQ(table.get("second")->value().getAsNum(), 10);
     table.popFrame();
-    table.popFrame();
-    table.popFrame();
+    EXPECT_THROW(table.popFrame(), Error);
     ASSERT_TRUE(table.exists("var"));
     EXPECT_EQ(table.get("var")->value().getAsString(), "hello");
     EXPECT_FALSE(table.exists("second"));
