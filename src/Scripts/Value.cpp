@@ -88,20 +88,26 @@ PrimitiveValue& Value::value() { return deref()._value; }
 
 const PrimitiveValue& Value::value() const { return deref()._value; }
 
-ReferenceValue Value::getProperty(const std::string& name) {
-    const auto& props = deref().properties;
+ReferenceValue Value::getProperty(const std::string& name, bool create) {
+    auto& props = deref().properties;
 
     const auto bit = builtins.find(name);
     if (bit != builtins.end()) { return ReferenceValue((this->*bit->second)()); }
 
-    if (!props) { throw Error("Cannot access undefined property '" + name + "'"); }
+    if (!props && !create) { throw Error("Cannot access undefined property '" + name + "'"); }
+    else if (!props) {
+        props.reset(new std::unordered_map<std::string, ReferenceValue>());
+    }
 
     const auto it = props->find(name);
-    if (it == props->end()) { throw Error("Cannot access undefined property '" + name + "'"); }
+    if (it == props->end()) {
+        if (create) { return props->emplace(name, Value()).first->second; }
+        throw Error("Cannot access undefined property '" + name + "'");
+    }
     return it->second;
 }
 
-ReferenceValue Value::getProperty(const std::string& name) const {
+ReferenceValue Value::getProperty(const std::string& name, bool) const {
     const auto& props = deref().properties;
 
     const auto bit = builtins.find(name);
@@ -260,7 +266,7 @@ Value Value::at(SymbolTable&, const std::vector<Value>& args) {
     if (args.size() != 1) throw Error("at() takes a single argument");
     const PrimitiveValue& n = args[0].value().deref();
     if (n.getType() != PrimitiveValue::TString) throw Error("at() expects a String key");
-    return {getProperty(n.getAsString())};
+    return {getProperty(n.getAsString(), false)};
 }
 
 Value Value::atValue() {

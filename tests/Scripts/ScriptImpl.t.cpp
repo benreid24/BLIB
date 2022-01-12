@@ -130,13 +130,14 @@ INSTANTIATE_TEST_SUITE_P(
         ValueTest("5>=5", Value(true), SymbolTable()),
         ValueTest("17 == 17", Value(true), SymbolTable()),
         ValueTest("5 != 6", Value(true), SymbolTable()),
-        //ValueTest("[3,4] + 5", Value({Value(3.f), Value(4.f), Value(5.f)}), SymbolTable()),
+        ValueTest("[3,4] + 5", Value(ArrayValue{Value(3.f), Value(4.f), Value(5.f)}),
+                  SymbolTable()),
         ValueTest("\"cat\" * 3", Value("catcatcat"), SymbolTable()),
-        //ValueTest("[3] * 3", Value({Value(3.f), Value(3.f), Value(3.f)}), SymbolTable()),
+        ValueTest("[3] * 3", Value(ArrayValue{Value(3.f), Value(3.f), Value(3.f)}), SymbolTable()),
         ValueTest("\"cat\" + 5", Value("cat5"), SymbolTable()),
         ValueTest("5 == var", Value(true), genVar("var", Value(5.f))),
         ValueTest("[\"cat\", \"dog\"] == arr", Value(true),
-                  genVar("arr", Value(std::vector<Value>({Value("cat"), Value("dog")})))),
+                  genVar("arr", Value(ArrayValue({Value("cat"), Value("dog")})))),
         ValueTest("var == ref", Value(true), genRef("var", Value(7.f), "ref")),
         ValueTest("var.prop == 5", Value(true), genProp("var", "prop", Value(), Value(5.f)))));
 

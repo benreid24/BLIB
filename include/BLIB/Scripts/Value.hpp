@@ -117,15 +117,16 @@ public:
      * @param name The name of the property to get
      * @return ReferenceValue A reference to the property
      */
-    ReferenceValue getProperty(const std::string& name);
+    ReferenceValue getProperty(const std::string& name, bool create);
 
     /**
      * @brief Get a property on this value. Will throw an Error if the property does not exist
      *
      * @param name The name of the property to get
+     * @param create Ignored, but here to prevent accidentily calling this version
      * @return ReferenceValue A reference to the property
      */
-    ReferenceValue getProperty(const std::string& name) const;
+    ReferenceValue getProperty(const std::string& name, bool create) const;
 
     /**
      * @brief Sets a property on this value. Will throw an Error if the property is not writable

@@ -44,19 +44,22 @@ TEST(ScriptValue, GeneralProps) {
     value.setProperty("nval", nval);
     value.setProperty("sval", sval);
 
-    const auto& bref = value.getProperty("bval").deref().value();
+    const auto& bref = value.getProperty("bval", false).deref().value();
     ASSERT_EQ(bref.getType(), PrimitiveValue::TBool);
     EXPECT_EQ(bref.getAsBool(), true);
 
-    const auto& nref = value.getProperty("nval").deref().value();
+    const auto& nref = value.getProperty("nval", false).deref().value();
     ASSERT_EQ(nref.getType(), PrimitiveValue::TNumeric);
     EXPECT_EQ(nref.getAsNum(), 56.f);
 
-    const auto& sref = value.getProperty("sval").deref().value();
+    const auto& sref = value.getProperty("sval", false).deref().value();
     ASSERT_EQ(sref.getType(), PrimitiveValue::TString);
     EXPECT_EQ(sref.getAsString(), "str");
 
-    EXPECT_THROW(value.getProperty("dne"), Error);
+    EXPECT_THROW(value.getProperty("dne", false), Error);
+
+    const auto& vref = value.getProperty("create", true).deref().value();
+    EXPECT_EQ(vref.getType(), PrimitiveValue::TVoid);
 }
 
 TEST(ScriptValue, Builtins) {
@@ -64,53 +67,53 @@ TEST(ScriptValue, Builtins) {
     Value aval(ArrayValue{Value(1.f), Value(2.f), Value(3.f)});
 
     // length
-    ReferenceValue len = aval.getProperty("length");
+    ReferenceValue len = aval.getProperty("length", false);
     const auto& lref   = len.deref().value();
     ASSERT_EQ(lref.getType(), PrimitiveValue::TNumeric);
     EXPECT_EQ(lref.getAsNum(), 3.f);
 
     // append
-    ReferenceValue append = aval.getProperty("append");
+    ReferenceValue append = aval.getProperty("append", false);
     append.deref().value().getAsFunction()(table, {Value(4.f)});
     ASSERT_EQ(aval.value().getAsArray().size(), 4);
 
     // find
-    ReferenceValue find = aval.getProperty("find");
+    ReferenceValue find = aval.getProperty("find", false);
     Value i             = find.deref().value().getAsFunction()(table, {Value(4.f)});
     ASSERT_EQ(i.value().getType(), PrimitiveValue::TNumeric);
     EXPECT_EQ(i.value().getAsNum(), 3.f);
 
     // insert
-    ReferenceValue insert = aval.getProperty("insert");
+    ReferenceValue insert = aval.getProperty("insert", false);
     insert.deref().value().getAsFunction()(table, {Value(0.f), Value("str")});
     ASSERT_EQ(aval.value().getAsArray().size(), 5);
     ASSERT_EQ(aval.value().getAsArray()[0].value().getType(), PrimitiveValue::TString);
     ASSERT_EQ(aval.value().getAsArray()[0].value().getAsString(), "str");
 
     // erase
-    ReferenceValue erase = aval.getProperty("erase");
+    ReferenceValue erase = aval.getProperty("erase", false);
     erase.deref().value().getAsFunction()(table, {Value(0.f)});
     ASSERT_EQ(aval.value().getAsArray().size(), 4);
 
     // resize
-    ReferenceValue resize = aval.getProperty("resize");
+    ReferenceValue resize = aval.getProperty("resize", false);
     resize.deref().value().getAsFunction()(table, {Value(2.f)});
     ASSERT_EQ(aval.value().getAsArray().size(), 2);
 
     // clear
-    ReferenceValue clear = aval.getProperty("clear");
+    ReferenceValue clear = aval.getProperty("clear", false);
     clear.deref().value().getAsFunction()(table, {});
     ASSERT_EQ(aval.value().getAsArray().size(), 0);
 
     // at and keys
     aval.setProperty("prop", Value("prop"));
-    ReferenceValue keys = aval.getProperty("keys");
+    ReferenceValue keys = aval.getProperty("keys", false);
     Value keysResult    = keys.deref().value().getAsFunction()(table, {});
     ASSERT_EQ(keysResult.value().getType(), PrimitiveValue::TArray);
     ASSERT_EQ(keysResult.value().getAsArray().size(), 1);
     EXPECT_EQ(keysResult.value().getAsArray().front().value().getAsString(), "prop");
 
-    ReferenceValue at = aval.getProperty("at");
+    ReferenceValue at = aval.getProperty("at", false);
     Value atResult    = at.deref().value().getAsFunction()(table, {Value("prop")});
     ASSERT_EQ(atResult.value().getType(), PrimitiveValue::TString);
     ASSERT_EQ(atResult.value().getAsString(), "prop");

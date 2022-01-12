@@ -24,7 +24,7 @@ struct Node {
     typedef std::shared_ptr<Node> Ptr;
 
     Type type;
-    Ptr parent;
+    Node* parent;
     std::vector<Ptr> children;
     std::string data;
 

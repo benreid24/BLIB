@@ -88,7 +88,7 @@ bool doReduction(const Grammar& g, std::vector<Node::Ptr>& nonterminals,
                 << "Internal parser error, grammar production uses undefined symbol";
             return false;
         }
-        nt->children[si]->parent = nt;
+        nt->children[si]->parent = nt.get();
         if (nt->children[si]->type != prod.set[pi]) {
             ErrorReporter(res).log(nt->children[si])
                 << "Internal parser error, table specified reduction that does "

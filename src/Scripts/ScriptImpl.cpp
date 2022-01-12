@@ -29,7 +29,7 @@ struct Ops {
     static PrimitiveValue Exp(const PrimitiveValue& lhs, const PrimitiveValue& rhs, Symbol node);
 };
 
-std::vector<Value> evalList(Symbol node, SymbolTable& table);
+void evalList(Symbol node, SymbolTable& table, std::vector<Value>& result);
 std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran);
 
 PrimitiveValue evalOrGrp(Symbol node, SymbolTable& table);
@@ -66,13 +66,14 @@ Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
         throw Error("Internal error: Invalid Call children", node);
 
     std::vector<Value> params;
-    const Value& func = evalRVal(node->children[0], table).deref();
+    ReferenceValue ret = evalRVal(node->children[0], table);
+    const Value& func  = ret.deref();
     if (func.value().getType() != PrimitiveValue::TFunction)
         throw Error("Cannot call non-function type", node->children[0]);
     if (node->children.size() == 2) {
         const auto& c = node->children[1];
         if (c->children.size() != 3) throw Error("Internal error: Invalid ArgList", c);
-        params = evalList(c->children[1], table);
+        evalList(c->children[1], table, params);
     }
 
     return func.value().getAsFunction()(table, params);
@@ -107,13 +108,13 @@ std::optional<Value> ScriptImpl::runStatement(Symbol n, SymbolTable& table) {
     case G::Assignment: {
         if (node->children.size() != 4)
             throw Error("Internal error: Invalid Assignment children", node);
-        ReferenceValue rv = evalRVal(node, table, true);
+        ReferenceValue rv = evalRVal(node->children[0], table, true);
         if (node->children[2]->type == G::Ref) {
             if (node->children[2]->children.size() != 2)
                 throw Error("Internal error: Invalid Ref children", node->children[2]);
             rv.deref().value() = evalRVal(node->children[2]->children[1], table);
         }
-        else if (node->type == G::Value) {
+        else if (node->children[2]->type == G::Value) {
             rv.deref() = computeValue(node, table);
         }
         else
@@ -216,16 +217,14 @@ std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
     if (head->children.size() != 6) throw Error("Invalid ForHead children", head);
     if (head->children[2]->type != G::Id) throw Error("Invalid ForHead child", head->children[2]);
 
-    const Value arr         = computeValue(head->children[4], table);
+    const Value arr = computeValue(head->children[4], table); // TODO - consider switching to RValue
     const std::string& iter = head->children[2]->data;
     if (arr.value().getType() != PrimitiveValue::TArray)
         throw Error("For loop can only iterate over Array type", head->children[4]);
     for (const Value& v : arr.value().getAsArray()) {
         if (table.killed()) throw Exit();
-        table.pushFrame();
         table.set(iter, v, true);
         std::optional<Value> r = runStatementList(node->children[1], table);
-        table.popFrame();
         if (r.has_value()) return r;
     }
     return {};
@@ -432,9 +431,12 @@ Value evalTVal(Symbol node, SymbolTable& table) {
         return PrimitiveValue(n->data);
     case G::Call:
         return ScriptImpl::runFunction(n, table);
-    case G::ArrayDef:
+    case G::ArrayDef: {
         if (n->children.size() != 3) throw Error("Invalid ArrayDef children", n);
-        return Value(evalList(n->children[1], table));
+        Value ret(ArrayValue{});
+        evalList(n->children[1], table, ret.value().getAsArray());
+        return ret;
+    }
     case G::True: {
         return Value(true);
     }
@@ -466,7 +468,7 @@ ReferenceValue evalRVal(Symbol node, SymbolTable& table, bool create) {
     case G::Property: {
         if (n->children.size() != 3) throw Error("Internal error: Invalid Property children", n);
         ReferenceValue v = evalRVal(n->children[0], table, create);
-        return v.deref().getProperty(n->children[2]->data);
+        return v.deref().getProperty(n->children[2]->data, create);
     }
 
     case G::ArrayAcc: {
@@ -490,17 +492,29 @@ ReferenceValue evalRVal(Symbol node, SymbolTable& table, bool create) {
     }
 }
 
-std::vector<Value> evalList(Symbol node, SymbolTable& table) {
+unsigned int findListSize(Symbol list, parser::Node** bottom) {
+    parser::Node* c = list.get();
+    unsigned int s  = 1;
+    while (c->children.size() > 1) {
+        s += 1;
+        c = c->children.front().get();
+    }
+    *bottom = c;
+    return s;
+}
+
+void evalList(Symbol node, SymbolTable& table, std::vector<Value>& result) {
     if (node->type != G::ValueList) throw Error("Internal error: evalList called on non ValueList");
 
-    if (node->children.size() == 1)
-        return {ScriptImpl::computeValue(node->children[0], table)};
-    else if (node->children.size() == 3) {
-        std::vector<Value> r = evalList(node->children[0], table);
-        r.push_back(ScriptImpl::computeValue(node->children[2], table));
-        return r;
+    parser::Node* c;
+    const unsigned int n = findListSize(node, &c);
+    result.reserve(n);
+    while (c != node.get()) {
+        result.emplace_back(ScriptImpl::computeValue(
+            c->children.size() > 1 ? c->children[2] : c->children[0], table));
+        c = c->parent;
     }
-    throw Error("Internal error: Invalid ValueList children", node);
+    result.emplace_back(node->children.size() > 1 ? node->children[2] : node->children[0]);
 }
 
 PrimitiveValue Ops::Or(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {

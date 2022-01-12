@@ -113,10 +113,10 @@ TEST(JsonSerializer, ScriptValues) {
     ASSERT_TRUE(S::deserialize(read, S::serialize(b)));
     ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TBool);
     EXPECT_EQ(read.value().getAsBool(), true);
-    script::ReferenceValue p = read.getProperty("p1");
+    script::ReferenceValue p = read.getProperty("p1", false);
     ASSERT_EQ(p.deref().value().getType(), script::PrimitiveValue::TNumeric);
     EXPECT_EQ(p.deref().value().getAsNum(), 5.f);
-    p = read.getProperty("p2");
+    p = read.getProperty("p2", false);
     ASSERT_EQ(p.deref().value().getType(), script::PrimitiveValue::TString);
     EXPECT_EQ(p.deref().value().getAsString(), "hello");
 
