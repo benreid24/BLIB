@@ -12,7 +12,6 @@ TEST(ScriptValue, PrimitiveEmplace) {
     const Value bval(true);
     ASSERT_EQ(bval.value().getType(), PrimitiveValue::TBool);
     EXPECT_EQ(bval.value().getAsBool(), true);
-    EXPECT_EQ(&bval.deref(), &bval);
 
     const Value nval(56.f);
     ASSERT_EQ(nval.value().getType(), PrimitiveValue::TNumeric);
@@ -31,8 +30,8 @@ TEST(ScriptValue, PrimitiveEmplace) {
     EXPECT_EQ(arr[2].value().getType(), PrimitiveValue::TString);
 
     const Value rval(ReferenceValue{&sval});
-    ASSERT_EQ(rval.value().getType(), PrimitiveValue::TRef);
-    ASSERT_EQ(&rval.deref(), &sval);
+    ASSERT_EQ(rval.value().getType(), PrimitiveValue::TString);
+    ASSERT_EQ(&rval.value(), &sval.value());
 }
 
 TEST(ScriptValue, GeneralProps) {
@@ -106,16 +105,15 @@ TEST(ScriptValue, Builtins) {
     // at and keys
     aval.setProperty("prop", Value("prop"));
     ReferenceValue keys = aval.getProperty("keys");
-    Value keysResult    = keys.deref().deref().value().getAsFunction()(table, {});
+    Value keysResult    = keys.deref().value().getAsFunction()(table, {});
     ASSERT_EQ(keysResult.value().getType(), PrimitiveValue::TArray);
     ASSERT_EQ(keysResult.value().getAsArray().size(), 1);
     EXPECT_EQ(keysResult.value().getAsArray().front().value().getAsString(), "prop");
 
     ReferenceValue at = aval.getProperty("at");
     Value atResult    = at.deref().value().getAsFunction()(table, {Value("prop")});
-    ASSERT_EQ(atResult.value().getType(), PrimitiveValue::TRef);
-    ASSERT_EQ(atResult.deref().value().getType(), PrimitiveValue::TString);
-    ASSERT_EQ(atResult.deref().value().getAsString(), "prop");
+    ASSERT_EQ(atResult.value().getType(), PrimitiveValue::TString);
+    ASSERT_EQ(atResult.value().getAsString(), "prop");
 }
 
 } // namespace unittest

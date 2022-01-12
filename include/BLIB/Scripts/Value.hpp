@@ -112,18 +112,6 @@ public:
     ReferenceValue getRef() const;
 
     /**
-     * @brief Access the value being referred to, or this one if not a reference
-     *
-     */
-    const Value& deref() const;
-
-    /**
-     * @brief Access the value being referred to, or this one if not a reference
-     *
-     */
-    Value& deref();
-
-    /**
      * @brief Get a property on this value. Will throw an Error if the property does not exist
      *
      * @param name The name of the property to get
@@ -193,6 +181,9 @@ private:
 
     // built-ins for arrays
     Value lengthValue();
+
+    const Value& deref() const;
+    Value& deref();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

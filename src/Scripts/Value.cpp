@@ -84,9 +84,9 @@ const Value& Value::deref() const {
     return _value.getType() == PrimitiveValue::TRef ? _value.getAsRef().deref() : *this;
 }
 
-PrimitiveValue& Value::value() { return _value; }
+PrimitiveValue& Value::value() { return deref()._value; }
 
-const PrimitiveValue& Value::value() const { return _value; }
+const PrimitiveValue& Value::value() const { return deref()._value; }
 
 ReferenceValue Value::getProperty(const std::string& name) {
     const auto& props = deref().properties;
