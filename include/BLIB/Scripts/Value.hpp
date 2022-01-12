@@ -158,29 +158,41 @@ public:
     static void validateArgs(const std::string& func, const std::vector<Value>& args);
 
     /**
-     * @brief Populates the result vector with all property keys on this value
-     *
+     * @brief Returns all properties on this value
+     * 
      */
-    void getAllKeys(std::vector<std::string>& result) const;
+    const std::unordered_map<std::string, ReferenceValue>& allProperties() const;
 
 private:
     PrimitiveValue _value;
     std::unordered_map<std::string, ReferenceValue> properties;
+    // TODO - consider using std::unique_ptr and only constructing on set
 
-    typedef Value (Value::*Builtin)(SymbolTable&, const std::vector<Value>&);
+    typedef Value (Value::*Builtin)();
     static const std::unordered_map<std::string, Builtin> builtins;
 
     // built-ins for arrays
     Value clear(SymbolTable& table, const std::vector<Value>& args);
+    Value clearValue();
     Value append(SymbolTable& table, const std::vector<Value>& args);
+    Value appendValue();
     Value resize(SymbolTable& table, const std::vector<Value>& args);
+    Value resizeValue();
     Value insert(SymbolTable& table, const std::vector<Value>& args);
+    Value insertValue();
     Value erase(SymbolTable& table, const std::vector<Value>& args);
+    Value eraseValue();
     Value find(SymbolTable& table, const std::vector<Value>& args);
+    Value findValue();
 
     // built-ins for properties
     Value keys(SymbolTable& table, const std::vector<Value>& args);
+    Value keysValue();
     Value at(SymbolTable& table, const std::vector<Value>& args);
+    Value atValue();
+
+    // built-ins for arrays
+    Value lengthValue();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

@@ -6,4 +6,5 @@ target_sources(BLIB.t PUBLIC
     ScriptImpl.t.cpp
     ScriptLibrary.t.cpp
     SymbolTable.t.cpp
+    Value.t.cpp
 )

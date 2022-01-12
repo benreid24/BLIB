@@ -465,11 +465,8 @@ struct Serializer<script::Value, false> {
         g.addField("value", v);
 
         Group props;
-        std::vector<std::string> keys;
-        value.getAllKeys(keys);
-        for (const std::string& key : keys) {
-            script::ReferenceValue prop = value.getProperty(key);
-            props.addField(key, serialize(prop.deref()));
+        for (const auto& prop : value.allProperties()) {
+            props.addField(prop.first, serialize(prop.second));
         }
         g.addField("props", props);
 
