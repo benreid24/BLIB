@@ -26,6 +26,12 @@ else()
     add_library(BLIB SHARED)
 endif()
 
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(BLIB PUBLIC BLIB_DEBUG)
+else()
+    target_compile_definitions(BLIB PUBLIC BLIB_RELEASE)
+endif()
+
 if (APPLE)
     target_compile_definitions(BLIB PUBLIC BLIB_APPLE=1)
 elseif(WIN32)

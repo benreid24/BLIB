@@ -42,28 +42,39 @@ PrimitiveValue evalExp(Symbol node, SymbolTable& table);
 Value evalTVal(Symbol node, SymbolTable& table);
 ReferenceValue evalRVal(Symbol node, SymbolTable& table, bool create = false);
 
+#ifdef BLIB_DEBUG
+constexpr bool ExtraChecks = true;
+#else
+constexpr bool ExtraChecks = false;
+#endif
+
 } // namespace
 
 PrimitiveValue ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
     if (table.killed()) throw Exit();
 
-    if (node->type != G::Value)
-        throw Error("Internal error: computeValue called on non Value: " +
-                        std::to_string(node->type),
-                    node);
-    if (node->children.size() != 1)
-        throw Error("Internal error: Value node has invalid child", node);
-    if (node->children[0]->type != G::OrGrp)
-        throw Error("Internal error: Value node has invalid child", node);
+    if constexpr (ExtraChecks) {
+        if (node->type != G::Value)
+            throw Error("Internal error: computeValue called on non Value: " +
+                            std::to_string(node->type),
+                        node);
+        if (node->children.size() != 1)
+            throw Error("Internal error: Value node has invalid child", node);
+        if (node->children[0]->type != G::OrGrp)
+            throw Error("Internal error: Value node has invalid child", node);
+    }
     return evalOrGrp(node->children[0], table);
 }
 
 Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
     if (table.killed()) throw Exit();
 
-    if (node->type != G::Call) throw Error("Internal error: runFunction called on non Call", node);
-    if (node->children.size() != 2 && node->children.size() != 3)
-        throw Error("Internal error: Invalid Call children", node);
+    if constexpr (ExtraChecks) {
+        if (node->type != G::Call)
+            throw Error("Internal error: runFunction called on non Call", node);
+        if (node->children.size() != 2 && node->children.size() != 3)
+            throw Error("Internal error: Invalid Call children", node);
+    }
 
     std::vector<Value> params;
     ReferenceValue ret = evalRVal(node->children[0], table);
@@ -72,7 +83,9 @@ Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
         throw Error("Cannot call non-function type", node->children[0]);
     if (node->children.size() == 2) {
         const auto& c = node->children[1];
-        if (c->children.size() != 3) throw Error("Internal error: Invalid ArgList", c);
+        if constexpr (ExtraChecks) {
+            if (c->children.size() != 3) throw Error("Internal error: Invalid ArgList", c);
+        }
         evalList(c->children[1], table, params);
     }
 
@@ -84,8 +97,11 @@ Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
 
 std::optional<Value> ScriptImpl::runStatement(Symbol n, SymbolTable& table) {
     if (table.killed()) throw Exit();
-    if (n->children.empty()) throw Error("Internal error: Invalid Statement", n);
-    if (n->type != G::Statement) throw Error("Internal error: Expected statement", n);
+
+    if constexpr (ExtraChecks) {
+        if (n->children.empty()) throw Error("Internal error: Invalid Statement", n);
+        if (n->type != G::Statement) throw Error("Internal error: Expected statement", n);
+    }
 
     const auto& node = n->children[0];
     switch (node->type) {
@@ -110,12 +126,16 @@ std::optional<Value> ScriptImpl::runStatement(Symbol n, SymbolTable& table) {
         return runForLoop(node, table);
 
     case G::Assignment: {
-        if (node->children.size() != 4)
-            throw Error("Internal error: Invalid Assignment children", node);
+        if constexpr (ExtraChecks) {
+            if (node->children.size() != 4)
+                throw Error("Internal error: Invalid Assignment children", node);
+        }
         ReferenceValue rv = evalRVal(node->children[0], table, true);
         if (node->children[2]->type == G::Ref) {
-            if (node->children[2]->children.size() != 2)
-                throw Error("Internal error: Invalid Ref children", node->children[2]);
+            if constexpr (ExtraChecks) {
+                if (node->children[2]->children.size() != 2)
+                    throw Error("Internal error: Invalid Ref children", node->children[2]);
+            }
             rv.deref().value() = evalRVal(node->children[2]->children[1], table);
         }
         else if (node->children[2]->type == G::Value) {
@@ -127,15 +147,22 @@ std::optional<Value> ScriptImpl::runStatement(Symbol n, SymbolTable& table) {
     }
 
     case G::FDef: {
-        if (node->children.size() != 2) throw Error("Internal error: Invalid FDef children", node);
+        if constexpr (ExtraChecks) {
+            if (node->children.size() != 2)
+                throw Error("Internal error: Invalid FDef children", node);
+        }
         Symbol fhead = node->children[0];
-        if (fhead->children.size() < 3)
-            throw Error("Internal error: Invalid FHead children", fhead);
+        if constexpr (ExtraChecks) {
+            if (fhead->children.size() < 3)
+                throw Error("Internal error: Invalid FHead children", fhead);
+        }
         Symbol fname = fhead->children[0];
-        if (fname->children.size() != 2)
-            throw Error("Internal error: Invalid FName children", fname);
-        if (fname->children[1]->type != G::Id)
-            throw Error("Internal error: Invalid FName children", fname->children[1]);
+        if constexpr (ExtraChecks) {
+            if (fname->children.size() != 2)
+                throw Error("Internal error: Invalid FName children", fname);
+            if (fname->children[1]->type != G::Id)
+                throw Error("Internal error: Invalid FName children", fname->children[1]);
+        }
         table.set(fname->children[1]->data, Value(Function(node)));
         return {};
     }
@@ -153,8 +180,10 @@ std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& tabl
     try {
         switch (node->type) {
         case G::StmtBlock:
-            if (node->children.size() != 3)
-                throw Error("Internal error: Invalid StmtBlock children", node);
+            if constexpr (ExtraChecks) {
+                if (node->children.size() != 3)
+                    throw Error("Internal error: Invalid StmtBlock children", node);
+            }
             return runStatementList(node->children[1], table);
 
         case G::Statement:
@@ -178,12 +207,18 @@ std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& tabl
 
 std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
     if (table.killed()) throw Exit();
-    if (node->type != G::Loop) throw Error("Internal error: Expected Loop", node);
-    if (node->children.size() != 2) throw Error("Internal error: Invalid Loop children", node);
+
+    if constexpr (ExtraChecks) {
+        if (node->type != G::Loop) throw Error("Internal error: Expected Loop", node);
+        if (node->children.size() != 2) throw Error("Internal error: Invalid Loop children", node);
+    }
 
     Symbol head = node->children[0];
-    if (head->type != G::LoopHead) throw Error("Internal error: Expected LoopHead", head);
-    if (head->children.size() != 2) throw Error("Internal error: Invalid LoopHead children", head);
+    if constexpr (ExtraChecks) {
+        if (head->type != G::LoopHead) throw Error("Internal error: Expected LoopHead", head);
+        if (head->children.size() != 2)
+            throw Error("Internal error: Invalid LoopHead children", head);
+    }
     Symbol pgroup = head->children[1];
 
     while (evaluateCond(pgroup, table)) {
@@ -196,13 +231,20 @@ std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
 
 std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
     if (table.killed()) throw Exit();
-    if (node->type != G::ForLoop) throw Error("Internal error: Expected ForLoop", node);
-    if (node->children.size() != 2) throw Error("Internal error: Invalid ForLoop children", node);
+
+    if constexpr (ExtraChecks) {
+        if (node->type != G::ForLoop) throw Error("Internal error: Expected ForLoop", node);
+        if (node->children.size() != 2)
+            throw Error("Internal error: Invalid ForLoop children", node);
+    }
 
     Symbol head = node->children[0];
-    if (head->type != G::ForHead) throw Error("Internal error: Invalid ForLoop child", head);
-    if (head->children.size() != 6) throw Error("Invalid ForHead children", head);
-    if (head->children[2]->type != G::Id) throw Error("Invalid ForHead child", head->children[2]);
+    if constexpr (ExtraChecks) {
+        if (head->type != G::ForHead) throw Error("Internal error: Invalid ForLoop child", head);
+        if (head->children.size() != 6) throw Error("Invalid ForHead children", head);
+        if (head->children[2]->type != G::Id)
+            throw Error("Invalid ForHead child", head->children[2]);
+    }
 
     const Value arr = computeValue(head->children[4], table); // TODO - consider switching to RValue
     const std::string& iter = head->children[2]->data;
@@ -219,9 +261,12 @@ std::optional<Value> ScriptImpl::runForLoop(Symbol node, SymbolTable& table) {
 
 std::optional<Value> ScriptImpl::runConditional(Symbol node, SymbolTable& table) {
     if (table.killed()) throw Exit();
-    if (node->type != G::Conditional) throw Error("Internal error: Expected Conditional", node);
-    if (node->children.size() != 1)
-        throw Error("Internal error: Invalid Conditional children", node);
+
+    if constexpr (ExtraChecks) {
+        if (node->type != G::Conditional) throw Error("Internal error: Expected Conditional", node);
+        if (node->children.size() != 1)
+            throw Error("Internal error: Invalid Conditional children", node);
+    }
 
     bool ran = false;
     std::optional<Value> r;
@@ -230,13 +275,21 @@ std::optional<Value> ScriptImpl::runConditional(Symbol node, SymbolTable& table)
         return runElifChain(node->children[0], table, ran);
     case G::ElseCond: {
         Symbol ec = node->children[0];
-        if (ec->children.size() != 2) throw Error("Internal error: Invalid ElseCond children", ec);
+        if constexpr (ExtraChecks) {
+            if (ec->children.size() != 2)
+                throw Error("Internal error: Invalid ElseCond children", ec);
+        }
         r = runElifChain(ec->children[0], table, ran);
         if (ran) return r;
-        if (ec->children[1]->type != G::ElseBlock)
-            throw Error("Internal error: Invalid ElseCond children", node);
+        if constexpr (ExtraChecks) {
+            if (ec->children[1]->type != G::ElseBlock)
+                throw Error("Internal error: Invalid ElseCond children", node);
+        }
         Symbol el = ec->children[1];
-        if (el->children.size() != 2) throw Error("Internal error: Invalid ElseBlock children", el);
+        if constexpr (ExtraChecks) {
+            if (el->children.size() != 2)
+                throw Error("Internal error: Invalid ElseBlock children", el);
+        }
         return runStatementList(el->children[1], table);
     }
     default:
@@ -249,31 +302,45 @@ bool ScriptImpl::equals(const Value& left, const Value& right) {
 }
 
 bool ScriptImpl::evaluateCond(Symbol node, SymbolTable& table) {
-    if (node->type != G::PGroup) throw Error("Internal error: Expected PGroup", node);
-    if (node->children.size() != 3) throw Error("Internal error: Invalid PGroup children", node);
+    if constexpr (ExtraChecks) {
+        if (node->type != G::PGroup) throw Error("Internal error: Expected PGroup", node);
+        if (node->children.size() != 3)
+            throw Error("Internal error: Invalid PGroup children", node);
+    }
     return ScriptImpl::computeValue(node->children[1], table).getAsBool();
 }
 
 namespace
 {
 std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran) {
-    if (node->type != G::ElifChain) throw Error("Internal error: Expected ElifChain", node);
+    if constexpr (ExtraChecks) {
+        if (node->type != G::ElifChain) throw Error("Internal error: Expected ElifChain", node);
+    }
 
     constexpr auto getCond = [](Symbol block) -> Symbol {
-        if (block->children.size() != 2)
-            throw Error("Internal error: Invalid If/Elif Block children", block);
+        if constexpr (ExtraChecks) {
+            if (block->children.size() != 2)
+                throw Error("Internal error: Invalid If/Elif Block children", block);
+        }
         Symbol b = block->children[0];
-        if (b->children.size() != 2)
-            throw Error("Internal error: Invalid If/Elif Head children", b);
+        if constexpr (ExtraChecks) {
+            if (b->children.size() != 2)
+                throw Error("Internal error: Invalid If/Elif Head children", b);
+        }
         return b->children[1];
     };
 
     if (node->children.size() == 1) {
         Symbol n = node->children[0];
-        if (n->type != G::IfBlock) throw Error("Internal error: Invalid ElifChain child", n);
+        if constexpr (ExtraChecks) {
+            if (n->type != G::IfBlock) throw Error("Internal error: Invalid ElifChain child", n);
+        }
         if (ScriptImpl::evaluateCond(getCond(n), table)) {
             ran = true;
-            if (n->children.size() != 2) throw Error("Internal error: Invalid IfBlock children", n);
+            if constexpr (ExtraChecks) {
+                if (n->children.size() != 2)
+                    throw Error("Internal error: Invalid IfBlock children", n);
+            }
             return ScriptImpl::runStatementList(n->children[1], table);
         }
         return {};
@@ -285,8 +352,10 @@ std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran) {
         if (ran) return r;
         if (ScriptImpl::evaluateCond(getCond(elif), table)) {
             ran = true;
-            if (elif->children.size() != 2)
-                throw Error("Internal error: Invalid ElifBlock children", elif);
+            if constexpr (ExtraChecks) {
+                if (elif->children.size() != 2)
+                    throw Error("Internal error: Invalid ElifBlock children", elif);
+            }
             return ScriptImpl::runStatementList(elif->children[1], table);
         }
         return {};
@@ -295,7 +364,10 @@ std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran) {
 }
 
 PrimitiveValue evalOrGrp(Symbol node, SymbolTable& table) {
-    if (node->type != G::OrGrp) throw Error("Internal error: evalOrGrp called on non OrGrp", node);
+    if constexpr (ExtraChecks) {
+        if (node->type != G::OrGrp)
+            throw Error("Internal error: evalOrGrp called on non OrGrp", node);
+    }
     if (node->children.size() == 1)
         return evalAndGrp(node->children[0], table);
     else if (node->children.size() == 3)
@@ -304,8 +376,10 @@ PrimitiveValue evalOrGrp(Symbol node, SymbolTable& table) {
 }
 
 PrimitiveValue evalAndGrp(Symbol node, SymbolTable& table) {
-    if (node->type != G::AndGrp)
-        throw Error("Internal error: evalAndGrp called on non AndGrp", node);
+    if constexpr (ExtraChecks) {
+        if (node->type != G::AndGrp)
+            throw Error("Internal error: evalAndGrp called on non AndGrp", node);
+    }
     if (node->children.size() == 1)
         return evalNegGrp(node->children[0], table);
     else if (node->children.size() == 3)
@@ -314,8 +388,10 @@ PrimitiveValue evalAndGrp(Symbol node, SymbolTable& table) {
 }
 
 PrimitiveValue evalNegGrp(Symbol node, SymbolTable& table) {
-    if (node->type != G::Negation)
-        throw Error("Internal error: evalNegGrp called on non Neg", node);
+    if constexpr (ExtraChecks) {
+        if (node->type != G::Negation)
+            throw Error("Internal error: evalNegGrp called on non Neg", node);
+    }
     if (node->children.size() == 1)
         return evalCmp(node->children[0], table);
     else if (node->children.size() == 2)
@@ -324,7 +400,9 @@ PrimitiveValue evalNegGrp(Symbol node, SymbolTable& table) {
 }
 
 PrimitiveValue evalCmp(Symbol node, SymbolTable& table) {
-    if (node->type != G::Cmp) throw Error("Internal error: evalCmp called on non Cmp", node);
+    if constexpr (ExtraChecks) {
+        if (node->type != G::Cmp) throw Error("Internal error: evalCmp called on non Cmp", node);
+    }
     if (node->children.size() == 1)
         return evalSum(node->children[0], table);
     else if (node->children.size() == 3) {
@@ -351,7 +429,9 @@ PrimitiveValue evalCmp(Symbol node, SymbolTable& table) {
 }
 
 PrimitiveValue evalSum(Symbol node, SymbolTable& table) {
-    if (node->type != G::Sum) throw Error("Internal error: evalSum called on non Sum", node);
+    if constexpr (ExtraChecks) {
+        if (node->type != G::Sum) throw Error("Internal error: evalSum called on non Sum", node);
+    }
     if (node->children.size() == 1)
         return evalProd(node->children[0], table);
     else if (node->children.size() == 3) {
@@ -370,8 +450,10 @@ PrimitiveValue evalSum(Symbol node, SymbolTable& table) {
 }
 
 PrimitiveValue evalProd(Symbol node, SymbolTable& table) {
-    if (node->type != G::Product)
-        throw Error("Internal error: evalProd called on non Product", node);
+    if constexpr (ExtraChecks) {
+        if (node->type != G::Product)
+            throw Error("Internal error: evalProd called on non Product", node);
+    }
     if (node->children.size() == 1)
         return evalExp(node->children[0], table);
     else if (node->children.size() == 3) {
@@ -390,7 +472,9 @@ PrimitiveValue evalProd(Symbol node, SymbolTable& table) {
 }
 
 PrimitiveValue evalExp(Symbol node, SymbolTable& table) {
-    if (node->type != G::Exp) throw Error("Internal error: evalExp called on non Exp", node);
+    if constexpr (ExtraChecks) {
+        if (node->type != G::Exp) throw Error("Internal error: evalExp called on non Exp", node);
+    }
     if (node->children.size() == 1)
         return evalTVal(node->children[0], table).value();
     else if (node->children.size() == 3) {
@@ -402,15 +486,20 @@ PrimitiveValue evalExp(Symbol node, SymbolTable& table) {
 }
 
 Value evalTVal(Symbol node, SymbolTable& table) {
-    if (node->type != G::TValue) throw Error("Internal error: evalTVal called on non TValue");
-    if (node->children.size() != 1) throw Error("Internal error: TValue has invalid children");
+    if constexpr (ExtraChecks) {
+        if (node->type != G::TValue) throw Error("Internal error: evalTVal called on non TValue");
+        if (node->children.size() != 1) throw Error("Internal error: TValue has invalid children");
+    }
 
     Symbol n = node->children[0];
     switch (n->type) {
     case G::RValue:
         return {evalRVal(n, table)};
     case G::PGroup:
-        if (n->children.size() != 3) throw Error("Internal error: PGroup has invalid children", n);
+        if constexpr (ExtraChecks) {
+            if (n->children.size() != 3)
+                throw Error("Internal error: PGroup has invalid children", n);
+        }
         return ScriptImpl::computeValue(n->children[1], table);
     case G::NumLit:
         return PrimitiveValue(std::atof(n->data.c_str()));
@@ -431,7 +520,9 @@ Value evalTVal(Symbol node, SymbolTable& table) {
         return Value(false);
     }
     case G::UNeg: {
-        if (n->children.size() != 2) throw Error("Internal error: Invalid UNeg children", n);
+        if constexpr (ExtraChecks) {
+            if (n->children.size() != 2) throw Error("Internal error: Invalid UNeg children", n);
+        }
         Value v = evalTVal(n->children[1], table);
         if (v.value().getType() != PrimitiveValue::TNumeric)
             throw Error("Right operand of unary '-' must be Numeric", n->children[1]);
@@ -444,8 +535,10 @@ Value evalTVal(Symbol node, SymbolTable& table) {
 }
 
 ReferenceValue evalRVal(Symbol node, SymbolTable& table, bool create) {
-    if (node->type != G::RValue) throw Error("Internal error: evalRVal called on non RValue");
-    if (node->children.size() != 1) throw Error("Internal error: RValue has invalid children");
+    if constexpr (ExtraChecks) {
+        if (node->type != G::RValue) throw Error("Internal error: evalRVal called on non RValue");
+        if (node->children.size() != 1) throw Error("Internal error: RValue has invalid children");
+    }
 
     Symbol n = node->children[0];
     switch (n->type) {
@@ -456,13 +549,19 @@ ReferenceValue evalRVal(Symbol node, SymbolTable& table, bool create) {
     }
 
     case G::Property: {
-        if (n->children.size() != 3) throw Error("Internal error: Invalid Property children", n);
+        if constexpr (ExtraChecks) {
+            if (n->children.size() != 3)
+                throw Error("Internal error: Invalid Property children", n);
+        }
         ReferenceValue v = evalRVal(n->children[0], table, create);
         return v.deref().getProperty(n->children[2]->data, create);
     }
 
     case G::ArrayAcc: {
-        if (n->children.size() != 4) throw Error("Internal error: Invalid ArrayAcc children", n);
+        if constexpr (ExtraChecks) {
+            if (n->children.size() != 4)
+                throw Error("Internal error: Invalid ArrayAcc children", n);
+        }
         ReferenceValue v = evalRVal(n->children[0], table, create);
         PrimitiveValue i = ScriptImpl::computeValue(n->children[2], table);
         if (v.deref().value().getType() != PrimitiveValue::TArray)
@@ -494,7 +593,10 @@ unsigned int findListSize(Symbol list, parser::Node** bottom) {
 }
 
 void evalList(Symbol node, SymbolTable& table, std::vector<Value>& result) {
-    if (node->type != G::ValueList) throw Error("Internal error: evalList called on non ValueList");
+    if constexpr (ExtraChecks) {
+        if (node->type != G::ValueList)
+            throw Error("Internal error: evalList called on non ValueList");
+    }
 
     parser::Node* c;
     const unsigned int n = findListSize(node, &c);
