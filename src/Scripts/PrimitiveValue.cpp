@@ -51,11 +51,6 @@ PrimitiveValue::PrimitiveValue(const ArrayValue& array)
 : type(TArray)
 , value(array) {}
 
-PrimitiveValue::PrimitiveValue(std::initializer_list<Value>&& array)
-: type(TArray) {
-    value.emplace<ArrayValue>(array);
-}
-
 PrimitiveValue::PrimitiveValue(const std::string& s)
 : type(TString)
 , value(s) {}

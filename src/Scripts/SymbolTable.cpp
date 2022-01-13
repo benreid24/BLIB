@@ -40,12 +40,12 @@ bool SymbolTable::exists(const std::string& name) const {
     return false;
 }
 
-Value* SymbolTable::get(const std::string& name, bool create) {
+ReferenceValue* SymbolTable::get(const std::string& name, bool create) {
     if (!stack.empty()) {
         auto it = stack.top().find(name);
         if (it == stack.top().end()) {
             if (create) {
-                it = stack.top().try_emplace(name).first;
+                it = stack.top().emplace(name, Value()).first;
                 return &it->second;
             }
         }
@@ -57,7 +57,7 @@ Value* SymbolTable::get(const std::string& name, bool create) {
     auto it = global.find(name);
     if (it == global.end()) {
         if (create) {
-            it = global.try_emplace(name).first;
+            it = global.emplace(name, Value()).first;
             return &it->second;
         }
     }

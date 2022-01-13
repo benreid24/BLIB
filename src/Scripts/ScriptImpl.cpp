@@ -76,12 +76,16 @@ Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
         evalList(c->children[1], table, params);
     }
 
-    return func.value().getAsFunction()(table, params);
+    table.pushFrame();
+    const Value r = func.value().getAsFunction()(table, params);
+    table.popFrame();
+    return r;
 }
 
 std::optional<Value> ScriptImpl::runStatement(Symbol n, SymbolTable& table) {
     if (table.killed()) throw Exit();
     if (n->children.empty()) throw Error("Internal error: Invalid Statement", n);
+    if (n->type != G::Statement) throw Error("Internal error: Expected statement", n);
 
     const auto& node = n->children[0];
     switch (node->type) {
@@ -115,7 +119,7 @@ std::optional<Value> ScriptImpl::runStatement(Symbol n, SymbolTable& table) {
             rv.deref().value() = evalRVal(node->children[2]->children[1], table);
         }
         else if (node->children[2]->type == G::Value) {
-            rv.deref() = computeValue(node, table);
+            rv.deref() = computeValue(node->children[2], table);
         }
         else
             throw Error("Internal error: Invalid Assignment children", node);
@@ -145,23 +149,6 @@ std::optional<Value> ScriptImpl::runStatement(Symbol n, SymbolTable& table) {
 
 std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& table) {
     if (table.killed()) throw Exit();
-
-    class ScopeGuard {
-    public:
-        ScopeGuard(Symbol node, SymbolTable& table)
-        : table(table)
-        , pop(node->type == G::StmtBlock) {
-            if (pop) table.pushFrame();
-        }
-
-        ~ScopeGuard() {
-            if (pop) table.popFrame();
-        }
-
-    private:
-        SymbolTable& table;
-        const bool pop;
-    } guard(node, table);
 
     try {
         switch (node->type) {
@@ -248,7 +235,7 @@ std::optional<Value> ScriptImpl::runConditional(Symbol node, SymbolTable& table)
         if (ran) return r;
         if (ec->children[1]->type != G::ElseBlock)
             throw Error("Internal error: Invalid ElseCond children", node);
-        Symbol el = node->children[1];
+        Symbol el = ec->children[1];
         if (el->children.size() != 2) throw Error("Internal error: Invalid ElseBlock children", el);
         return runStatementList(el->children[1], table);
     }
@@ -284,7 +271,7 @@ std::optional<Value> runElifChain(Symbol node, SymbolTable& table, bool& ran) {
     if (node->children.size() == 1) {
         Symbol n = node->children[0];
         if (n->type != G::IfBlock) throw Error("Internal error: Invalid ElifChain child", n);
-        if (ScriptImpl::evaluateCond(getCond(node), table)) {
+        if (ScriptImpl::evaluateCond(getCond(n), table)) {
             ran = true;
             if (n->children.size() != 2) throw Error("Internal error: Invalid IfBlock children", n);
             return ScriptImpl::runStatementList(n->children[1], table);
@@ -421,7 +408,7 @@ Value evalTVal(Symbol node, SymbolTable& table) {
     Symbol n = node->children[0];
     switch (n->type) {
     case G::RValue:
-        return evalRVal(n, table).deref();
+        return {evalRVal(n, table)};
     case G::PGroup:
         if (n->children.size() != 3) throw Error("Internal error: PGroup has invalid children", n);
         return ScriptImpl::computeValue(n->children[1], table);
@@ -462,8 +449,11 @@ ReferenceValue evalRVal(Symbol node, SymbolTable& table, bool create) {
 
     Symbol n = node->children[0];
     switch (n->type) {
-    case G::Id:
-        return table.get(n->data, create);
+    case G::Id: {
+        ReferenceValue* rf = table.get(n->data, create);
+        if (!rf) { throw Error("Cannot access undefined identifier: '" + n->data + "'"); }
+        return *rf;
+    }
 
     case G::Property: {
         if (n->children.size() != 3) throw Error("Internal error: Invalid Property children", n);
@@ -514,7 +504,8 @@ void evalList(Symbol node, SymbolTable& table, std::vector<Value>& result) {
             c->children.size() > 1 ? c->children[2] : c->children[0], table));
         c = c->parent;
     }
-    result.emplace_back(node->children.size() > 1 ? node->children[2] : node->children[0]);
+    result.emplace_back(ScriptImpl::computeValue(
+        node->children.size() > 1 ? node->children[2] : node->children[0], table));
 }
 
 PrimitiveValue Ops::Or(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {

@@ -72,9 +72,9 @@ public:
      * @brief Returns a Value from the current stack frame or global stack frame
      *
      * @param name The name of the Value to get
-     * @return Value* The Value or nullptr on error
+     * @return ReferenceValue* The Value or nullptr on error
      */
-    Value* get(const std::string& name, bool create = false);
+    ReferenceValue* get(const std::string& name, bool create = false);
 
     /**
      * @brief Sets a Value in the table in the current frame
@@ -134,7 +134,7 @@ public:
     void waitOn(util::Waiter& waiter);
 
 private:
-    using Frame = std::unordered_map<std::string, Value>;
+    using Frame = std::unordered_map<std::string, ReferenceValue>;
 
     Frame global;
     std::stack<Frame, std::vector<Frame>> stack;

@@ -26,14 +26,16 @@ TEST(ScriptImpl, ValueTree) {
 }
 
 struct ValueTest {
+    using InitTableCb = std::function<void(SymbolTable&)>;
+
     const std::string input;
     const Value result;
     SymbolTable symbols;
 
-    ValueTest(const std::string& input, const Value& result, const SymbolTable& symbols)
+    ValueTest(const std::string& input, const Value& result, const SymbolTable& tbl)
     : input(input)
     , result(result)
-    , symbols(symbols) {}
+    , symbols(tbl) {}
 };
 
 class ScriptImplValueTest : public ::testing::TestWithParam<ValueTest> {};
@@ -47,17 +49,16 @@ SymbolTable genVar(const std::string& name, const Value& value) {
 }
 
 SymbolTable genRef(const std::string& name, const Value& value, const std::string& refName) {
-    SymbolTable t = genVar(name, value);
-    Value ref     = t.get(name);
-    t.set(refName, ref);
+    SymbolTable t      = genVar(name, value);
+    t.set(refName, {*t.get(name)});
     return t;
 }
 
 SymbolTable genProp(const std::string name, const std::string& propName, const Value& value,
                     const Value& propVal) {
     SymbolTable t     = genVar(name, value);
-    ReferenceValue rv = t.get(name);
-    rv.deref().setProperty(propName, propVal);
+    ReferenceValue* rv = t.get(name);
+    rv->deref().setProperty(propName, propVal);
     return t;
 }
 } // namespace
@@ -170,8 +171,10 @@ TEST_P(ScriptImplFunctionTest, FunctionTest) {
 
     parser::Node::Ptr fdef = fparser.parse(t.fdef);
     ASSERT_NE(fdef.get(), nullptr);
+    ASSERT_EQ(fdef->type, G::Statement);
     parser::Node::Ptr call = cparser.parse(t.call);
     ASSERT_NE(call.get(), nullptr);
+    ASSERT_EQ(call->type, G::Value);
 
     try {
         SymbolTable table;

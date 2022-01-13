@@ -22,6 +22,7 @@ Function::Function(const parser::Node::Ptr& tree)
 : data(tree) {
     using G                       = Parser::Grammar;
     const parser::Node::Ptr& root = *std::get_if<parser::Node::Ptr>(&data);
+    if (root->type != G::FDef) { throw Error("Internal error: Expected FDef"); }
     if (root->children.size() == 2) {
         if (root->children[0]->type == G::FHead)
             params = parseParams(root->children[0]);

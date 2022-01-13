@@ -164,12 +164,6 @@ public:
     PrimitiveValue(const ArrayValue& array);
 
     /**
-     * @brief Makes ArrayValue type
-     *
-     */
-    PrimitiveValue(std::initializer_list<Value>&& array);
-
-    /**
      * @brief Makes Ref type
      *
      */
