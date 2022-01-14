@@ -2,7 +2,6 @@
 #define BLIB_PARTICLES_SYSTEM_HPP
 
 #include <BLIB/Containers/FastEraseVector.hpp>
-#include <BLIB/Containers/ObjectWrapper.hpp>
 #include <cmath>
 #include <functional>
 
@@ -97,7 +96,7 @@ public:
     void render(const RenderFunction& renderCb) const;
 
 private:
-    container::FastEraseVector<container::ObjectWrapper<T>> particles;
+    container::FastEraseVector<T> particles;
     unsigned int target;
     float rate;
     float toCreate;
@@ -140,11 +139,8 @@ unsigned int System<T>::particleCount() const {
 template<typename T>
 void System<T>::update(const UpdateFunction& cb, float dt) {
     for (unsigned int i = 0; i < particles.size(); ++i) {
-        if (!cb(particles[i].get())) {
-            if (replace && target >= particles.size()) {
-                particles[i].destroy();
-                createFunction(particles[i].ptr());
-            }
+        if (!cb(particles[i])) {
+            if (replace && target >= particles.size()) { createFunction(&particles[i]); }
             else {
                 particles.erase(i);
                 --i;
@@ -159,14 +155,14 @@ void System<T>::update(const UpdateFunction& cb, float dt) {
 
         for (unsigned int i = 0; i < create; ++i) {
             particles.emplace_back();
-            createFunction(particles.back().ptr());
+            createFunction(&particles.back());
         }
     }
 }
 
 template<typename T>
 void System<T>::render(const RenderFunction& cb) const {
-    for (const auto& particle : particles) { cb(particle.get()); }
+    for (const auto& particle : particles) { cb(particle); }
 }
 
 } // namespace particle
