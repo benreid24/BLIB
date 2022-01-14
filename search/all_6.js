@@ -4,7 +4,7 @@ var searchData=
   ['false',['False',['../a01796.html#aab7cdda02e78cc66c150f58063c8b9e4a6089bf8836080f40e11af6b11fa6cc4a',1,'bl::script::Parser']]],
   ['fasterasevector',['FastEraseVector',['../a00896.html',1,'bl::container']]],
   ['fasterasevector_2ehpp',['FastEraseVector.hpp',['../a00026.html',1,'']]],
-  ['fasterasevector_3c_20container_3a_3aobjectwrapper_3c_20t_20_3e_20_3e',['FastEraseVector&lt; container::ObjectWrapper&lt; T &gt; &gt;',['../a00896.html',1,'bl::container']]],
+  ['fasterasevector_3c_20t_20_3e',['FastEraseVector&lt; T &gt;',['../a00896.html',1,'bl::container']]],
   ['fastqueue',['FastQueue',['../a00900.html',1,'bl::container']]],
   ['fastqueue_2ehpp',['FastQueue.hpp',['../a00029.html',1,'']]],
   ['fastqueue_3c_20tkey_20_3e',['FastQueue&lt; TKey &gt;',['../a00900.html',1,'bl::container']]],
