@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Logging/Outputters.hpp File Reference</title>
+<title>BLIB: include/BLIB/Logging.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,173 +63,23 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_cde0df6af65f4871d5c46345537df011.html">Logging</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Outputters.hpp File Reference</div>  </div>
+<div class="title">Logging.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;SFML/Graphics/Rect.hpp&gt;</code><br />
-<code>#include &lt;SFML/System/Vector2.hpp&gt;</code><br />
-<code>#include &lt;SFML/System/Vector3.hpp&gt;</code><br />
-<code>#include &lt;ostream&gt;</code><br />
-<code>#include &lt;type_traits&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00269_source.html">BLIB/Logging/Config.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00272_source.html">BLIB/Logging/Logger.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00278_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a2adcfa2ba7f397c7f32ad911f7fb23d2"><td class="memTemplParams" colspan="2">template&lt;typename E &gt; </td></tr>
-<tr class="memitem:a2adcfa2ba7f397c7f32ad911f7fb23d2"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_enum&lt; E &gt;::value, std::ostream &amp; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00278.html#a2adcfa2ba7f397c7f32ad911f7fb23d2">operator&lt;&lt;</a> (std::ostream &amp;os, E v)</td></tr>
-<tr class="separator:a2adcfa2ba7f397c7f32ad911f7fb23d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4822d6ed50423f12790bd71eac8aa96e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a4822d6ed50423f12790bd71eac8aa96e"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00278.html#a4822d6ed50423f12790bd71eac8aa96e">operator&lt;&lt;</a> (std::ostream &amp;os, const sf::Vector2&lt; T &gt; &amp;v)</td></tr>
-<tr class="separator:a4822d6ed50423f12790bd71eac8aa96e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a631f73cf03437dee804efdf53c510f75"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a631f73cf03437dee804efdf53c510f75"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00278.html#a631f73cf03437dee804efdf53c510f75">operator&lt;&lt;</a> (std::ostream &amp;os, const sf::Vector3&lt; T &gt; &amp;v)</td></tr>
-<tr class="separator:a631f73cf03437dee804efdf53c510f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34762ecb7dec014a91f3853513e67d77"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a34762ecb7dec014a91f3853513e67d77"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00278.html#a34762ecb7dec014a91f3853513e67d77">operator&lt;&lt;</a> (std::ostream &amp;os, const sf::Rect&lt; T &gt; &amp;r)</td></tr>
-<tr class="separator:a34762ecb7dec014a91f3853513e67d77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a2adcfa2ba7f397c7f32ad911f7fb23d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2adcfa2ba7f397c7f32ad911f7fb23d2">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename E &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if&lt;std::is_enum&lt;E&gt;::value, std::ostream&amp;&gt;::type operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">E&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00011">11</a> of file <a class="el" href="a00278_source.html">Outputters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4822d6ed50423f12790bd71eac8aa96e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4822d6ed50423f12790bd71eac8aa96e">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector2&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00025">25</a> of file <a class="el" href="a00278_source.html">Outputters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a631f73cf03437dee804efdf53c510f75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a631f73cf03437dee804efdf53c510f75">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector3&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00031">31</a> of file <a class="el" href="a00278_source.html">Outputters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a34762ecb7dec014a91f3853513e67d77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34762ecb7dec014a91f3853513e67d77">&#9670;&nbsp;</a></span>operator<<() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Rect&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>r</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00037">37</a> of file <a class="el" href="a00278_source.html">Outputters.hpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 2 2022 18:06:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 14 2022 01:32:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

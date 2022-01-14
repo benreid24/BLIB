@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::event::ListenerBase&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,25 +63,118 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00792.html">bl</a></li><li class="navelem"><a class="el" href="a00800.html">event</a></li><li class="navelem"><a class="el" href="a01079.html">SingleDispatcher</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00801.html">bl</a></li><li class="navelem"><a class="el" href="a00809.html">event</a></li><li class="navelem"><a class="el" href="a01076.html">ListenerBase</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01073.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::event::SingleDispatcher&lt; T &gt; Member List</div>  </div>
+<div class="title">bl::event::ListenerBase&lt; T &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00780.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01079.html">bl::event::SingleDispatcher&lt; T &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01079.html#a2c69f2f70a63a33d25fdb2848412d869">dispatch</a>(const T &amp;event)</td><td class="entry"><a class="el" href="a01079.html">bl::event::SingleDispatcher&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01079.html#abb6932561b5660ec8c2bd6b7c7baa14e">remove</a>(SingleListener&lt; T &gt; *listener)</td><td class="entry"><a class="el" href="a01079.html">bl::event::SingleDispatcher&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01079.html#a7986645b02630b9689f39fdbdda364c7">subscribe</a>(SingleListener&lt; T &gt; *listener)</td><td class="entry"><a class="el" href="a01079.html">bl::event::SingleDispatcher&lt; T &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Base class for <a class="el" href="a01080.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a>. Do not use directly.  
+ <a href="a01076.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00113_source.html">Listener.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a36c44a860cf98c5a39ca4a3064152585"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01076.html#a36c44a860cf98c5a39ca4a3064152585">~ListenerBase</a> ()=default</td></tr>
+<tr class="separator:a36c44a860cf98c5a39ca4a3064152585"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5297276cfbb757ede3391eb9d525832"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01076.html#ae5297276cfbb757ede3391eb9d525832">observe</a> (const T &amp;event)=0</td></tr>
+<tr class="memdesc:ae5297276cfbb757ede3391eb9d525832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observe the given.  <a href="#ae5297276cfbb757ede3391eb9d525832">More...</a><br /></td></tr>
+<tr class="separator:ae5297276cfbb757ede3391eb9d525832"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::event::ListenerBase&lt; T &gt;</h3>
+
+<p>Base class for <a class="el" href="a01080.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a>. Do not use directly. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a01080.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a></dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of event to be base for </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00016">16</a> of file <a class="el" href="a00113_source.html">Listener.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a36c44a860cf98c5a39ca4a3064152585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36c44a860cf98c5a39ca4a3064152585">&#9670;&nbsp;</a></span>~ListenerBase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a01076.html">bl::event::ListenerBase</a>&lt; T &gt;::~<a class="el" href="a01076.html">ListenerBase</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae5297276cfbb757ede3391eb9d525832"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5297276cfbb757ede3391eb9d525832">&#9670;&nbsp;</a></span>observe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="a01076.html">bl::event::ListenerBase</a>&lt; T &gt;::observe </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Observe the given. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Events/<a class="el" href="a00113_source.html">Listener.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 2 2022 18:06:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 14 2022 01:32:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
