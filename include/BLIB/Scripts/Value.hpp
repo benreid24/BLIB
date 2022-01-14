@@ -1,212 +1,220 @@
 #ifndef BLIB_SCRIPTS_VALUE_HPP
 #define BLIB_SCRIPTS_VALUE_HPP
 
-#include <memory>
+#include <BLIB/Scripts/PrimitiveValue.hpp>
+#include <BLIB/Scripts/ReferenceValue.hpp>
 #include <string>
 #include <unordered_map>
-#include <variant>
-#include <vector>
 
 namespace bl
 {
 namespace script
 {
-class Function;
+class SymbolTable;
 
 /**
- * @brief Represents a Value in a script. Can be a temp value or from a SymbolTable
+ * @brief Main representation of a value in scripts
+ *
  * @ingroup Scripts
  *
  */
-class Value {
+class Value : public std::enable_shared_from_this<Value> {
 public:
-    typedef std::shared_ptr<Value> Ptr;
-    typedef std::shared_ptr<const Value> CPtr;
-
-    enum Type { TVoid, TBool, TString, TNumeric, TArray, TFunction, TRef };
-
-    typedef std::vector<Ptr> Array;
-    typedef std::weak_ptr<Value> Ref;
-    typedef std::weak_ptr<const Value> CRef;
-
     /**
-     * @brief Helper function to print types as strings
-     *
-     * @param type The type to get the string for
-     * @return std::string The string representation of the type
-     */
-    static std::string typeToString(Type type);
-
-    /**
-     * @brief Makes Void type
+     * @brief Makes a void type value
      *
      */
-    Value();
+    Value() = default;
 
-    Value(const Value& cpy);
+    /**
+     * @brief Copies a value
+     *
+     */
+    Value(const Value& value);
+
+    /**
+     * @brief Moves from a value
+     *
+     */
+    Value(Value&& value);
+
+    /**
+     * @brief Constructs a primitive value in-place
+     *
+     * @tparam TArgs Arguments to the PrimitiveValue
+     * @param args The arguments to construct with
+     */
+    template<typename... TArgs>
+    Value(TArgs... args);
+
+    /**
+     * @brief Create from a primitive value
+     *
+     */
+    Value(const PrimitiveValue& value);
+
+    /**
+     * @brief Create from a primitive value
+     *
+     */
+    Value(PrimitiveValue&& value);
+
+    /**
+     * @brief Copy the value
+     *
+     */
     Value& operator=(const Value&);
 
     /**
-     * @brief Makes Bool type
+     * @brief Copy the value
      *
      */
-    void makeBool(bool val);
+    Value& operator=(Value&&);
 
     /**
-     * @brief Makes Numeric type
+     * @brief Create from a primitive value
      *
      */
-    Value& operator=(float num);
-    Value(float num);
+    Value& operator=(const PrimitiveValue& value);
 
     /**
-     * @brief Makes String type
+     * @brief Create from a primitive value
      *
      */
-    Value& operator=(const std::string& str);
-    Value(const std::string& str);
+    Value& operator=(PrimitiveValue&& value);
 
     /**
-     * @brief Makes Array type
+     * @brief Assignment operator for primitive values
      *
+     * @tparam TArgs The assignment argument type
+     * @param arg The argument to the primitive value assignment operator
+     * @return Value& This value
      */
-    Value& operator=(const Array& array);
-    Value(const Array& array);
-    Value& operator=(const std::vector<Value>& array);
-    Value(const std::vector<Value>& array);
+    template<typename TArg>
+    Value& operator=(TArg args);
 
     /**
-     * @brief Makes Ref type
+     * @brief Access the primitive value of this value
      *
      */
-    Value& operator=(Ref ref);
-    Value(Ref ref);
+    PrimitiveValue& value();
 
     /**
-     * @brief Make Function type
+     * @brief Access the primitive value of this value
      *
      */
-    Value& operator=(const Function& func);
-    Value(const Function& func);
+    const PrimitiveValue& value() const;
 
     /**
-     * @brief Returns the current type of this Value
+     * @brief Gets a properly constructed reference to this value
      *
      */
-    Type getType() const;
+    ReferenceValue getRef() const;
 
     /**
-     * @brief Get the As Bool type
+     * @brief Get a property on this value. Will throw an Error if the property does not exist
      *
-     * @return The value as a boolean
+     * @param name The name of the property to get
+     * @return ReferenceValue A reference to the property
      */
-    bool getAsBool() const;
+    ReferenceValue getProperty(const std::string& name, bool create);
 
     /**
-     * @brief Get the As Numeric value
+     * @brief Get a property on this value. Will throw an Error if the property does not exist
      *
-     * @return float The value or 0 if not a String
+     * @param name The name of the property to get
+     * @param create Ignored, but here to prevent accidentily calling this version
+     * @return ReferenceValue A reference to the property
      */
-    float getAsNum() const;
+    ReferenceValue getProperty(const std::string& name, bool create) const;
 
     /**
-     * @brief Get the As String value
+     * @brief Sets a property on this value. Will throw an Error if the property is not writable
      *
-     * @return std::string The value or "ERROR" if not String type
+     * @param name The name of the property to set
+     * @param value The value of the property to set
      */
-    std::string getAsString() const;
+    void setProperty(const std::string& name, const ReferenceValue& value);
 
     /**
-     * @brief Get the As Array value
+     * @brief Helper function to validate the number and type of arguments passed into functions
      *
-     * @return Array An Array of Values or empty
+     * @tparam Types The order and number of argument types expected
+     * @param func The name of the function for error reporting
+     * @param args The arguments passed in
      */
-    Array getAsArray() const;
+    template<PrimitiveValue::Type... Types>
+    static void validateArgs(const std::string& func, const std::vector<Value>& args);
 
     /**
-     * @brief Get the As Ref value
+     * @brief Returns all properties on this value
      *
-     * @return Ref A reference to the Value this references, or nullptr
      */
-    Ref getAsRef();
-
-    /**
-     * @brief Dereferences the value and returns the pointed to value. Recursively follows
-     *        references
-     *
-     * @return Value& The referenced value, or this value if not a reference
-     */
-    Value& deref();
-
-    /**
-     * @brief Dereferences the value and returns the pointed to value. Recursively follows
-     *        references. Const version
-     *
-     * @return Value& The referenced value, or this value if not a reference
-     */
-    const Value& deref() const;
-
-    /**
-     * @brief Get the As CRef value
-     *
-     * @return Ref A reference to the Value this references, or nullptr
-     */
-    CRef getAsRef() const;
-
-    /**
-     * @brief Get the As Function type
-     *
-     * @return Function The Function value
-     */
-    Function getAsFunction() const;
-
-    /**
-     * @brief Returns the given Property. nullptr if none
-     *
-     * @param name Name of the property to access
-     * @param create If true, creates the property if it doesn't exist
-     */
-    Ptr getProperty(const std::string& name, bool create = false);
-
-    /**
-     * @brief Const accessor for properties
-     *
-     * @param name Name of the property to access
-     */
-    CPtr getProperty(const std::string& name) const;
-
-    /**
-     * @brief Assigns a Value to the given property name
-     *
-     * @param name Name of the property to modify
-     * @param value The value to assign it to
-     * @return True if the property could be set, false otherwise
-     */
-    bool setProperty(const std::string& name, const Value& value);
+    const std::unordered_map<std::string, ReferenceValue>& allProperties() const;
 
 private:
-    typedef std::variant<bool, float, std::string, Array, Ref, Function> TData;
-    typedef Value (Value::*Builtin)(const std::vector<Value>&);
+    PrimitiveValue _value;
+    std::unique_ptr<std::unordered_map<std::string, ReferenceValue>> properties;
+    static const std::unordered_map<std::string, ReferenceValue> EmptyProps;
+
+    typedef Value (Value::*Builtin)();
     static const std::unordered_map<std::string, Builtin> builtins;
 
-    Type type;
-    std::unique_ptr<TData> value;
-    std::unordered_map<std::string, Ptr> properties;
-
-    void resetProps();
-
     // built-ins for arrays
-    Value clear(const std::vector<Value>& args);
-    Value append(const std::vector<Value>& args);
-    Value resize(const std::vector<Value>& args);
-    Value insert(const std::vector<Value>& args);
-    Value erase(const std::vector<Value>& args);
-    Value find(const std::vector<Value>& args);
+    void clear(SymbolTable& table, const std::vector<Value>& args, Value& result);
+    Value clearValue();
+    void append(SymbolTable& table, const std::vector<Value>& args, Value& result);
+    Value appendValue();
+    void resize(SymbolTable& table, const std::vector<Value>& args, Value& result);
+    Value resizeValue();
+    void insert(SymbolTable& table, const std::vector<Value>& args, Value& result);
+    Value insertValue();
+    void erase(SymbolTable& table, const std::vector<Value>& args, Value& result);
+    Value eraseValue();
+    void find(SymbolTable& table, const std::vector<Value>& args, Value& result);
+    Value findValue();
 
     // built-ins for properties
-    Value keys(const std::vector<Value>& args);
-    Value at(const std::vector<Value>& args);
+    void keys(SymbolTable& table, const std::vector<Value>& args, Value& result);
+    Value keysValue();
+    void at(SymbolTable& table, const std::vector<Value>& args, Value& result);
+    Value atValue();
+
+    // built-ins for arrays
+    Value lengthValue();
+
+    const Value& deref() const;
+    Value& deref();
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename... TArgs>
+Value::Value(TArgs... args)
+: _value(args...) {}
+
+template<typename TArg>
+Value& Value::operator=(TArg arg) {
+    _value = arg;
+    return *this;
+}
+
+template<PrimitiveValue::Type... Types>
+void Value::validateArgs(const std::string& func, const std::vector<Value>& args) {
+    constexpr PrimitiveValue::Type types[] = {Types...};
+    constexpr unsigned int nargs           = sizeof...(Types);
+
+    if (args.size() != nargs)
+        throw Error(func + "() takes " + std::to_string(nargs) + " arguments");
+    for (unsigned int i = 0; i < nargs; ++i) {
+        const Value& v = args[i].value().deref();
+        if ((v.value().getType() & types[i]) == 0) {
+            throw Error(func + "() argument " + std::to_string(i) + " must be a " +
+                        PrimitiveValue::typeToString(types[i]) + " but " +
+                        PrimitiveValue::typeToString(v.value().getType()) + " was passed");
+        }
+    }
+}
 
 } // namespace script
 } // namespace bl

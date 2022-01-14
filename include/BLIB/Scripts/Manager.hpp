@@ -4,6 +4,7 @@
 #include <BLIB/Scripts/Script.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <atomic>
+#include <list>
 #include <mutex>
 
 namespace bl

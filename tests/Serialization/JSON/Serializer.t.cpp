@@ -99,6 +99,47 @@ TEST(JsonSerializer, SerializeFromTo) {
     }
 }
 
+TEST(JsonSerializer, ScriptValues) {
+    using S = Serializer<script::Value>;
+
+    script::Value b(true);
+    b.setProperty("p1", script::Value(5.f));
+    b.setProperty("p2", script::Value("hello"));
+    script::Value n(56.f);
+    script::Value s("Hello World");
+    script::Value l(script::ArrayValue({b, n, s}));
+
+    script::Value read;
+    ASSERT_TRUE(S::deserialize(read, S::serialize(b)));
+    ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TBool);
+    EXPECT_EQ(read.value().getAsBool(), true);
+    script::ReferenceValue p = read.getProperty("p1", false);
+    ASSERT_EQ(p.deref().value().getType(), script::PrimitiveValue::TNumeric);
+    EXPECT_EQ(p.deref().value().getAsNum(), 5.f);
+    p = read.getProperty("p2", false);
+    ASSERT_EQ(p.deref().value().getType(), script::PrimitiveValue::TString);
+    EXPECT_EQ(p.deref().value().getAsString(), "hello");
+
+    ASSERT_TRUE(S::deserialize(read, S::serialize(n)));
+    ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TNumeric);
+    EXPECT_EQ(read.value().getAsNum(), 56.f);
+
+    ASSERT_TRUE(S::deserialize(read, S::serialize(s)));
+    ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TString);
+    EXPECT_EQ(read.value().getAsString(), "Hello World");
+
+    ASSERT_TRUE(S::deserialize(read, S::serialize(l)));
+    ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TArray);
+    const auto& arr = read.value().getAsArray();
+    ASSERT_EQ(arr.size(), 3);
+    ASSERT_EQ(arr[0].value().getType(), script::PrimitiveValue::TBool);
+    EXPECT_EQ(arr[0].value().getAsBool(), true);
+    ASSERT_EQ(arr[1].value().getType(), script::PrimitiveValue::TNumeric);
+    EXPECT_EQ(arr[1].value().getAsNum(), 56);
+    ASSERT_EQ(arr[2].value().getType(), script::PrimitiveValue::TString);
+    EXPECT_EQ(arr[2].value().getAsString(), "Hello World");
+}
+
 } // namespace unittest
 } // namespace json
 } // namespace serial

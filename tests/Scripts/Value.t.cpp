@@ -1,5 +1,4 @@
-#include <BLIB/Scripts/Function.hpp>
-#include <BLIB/Scripts/Script.hpp>
+#include <BLIB/Scripts/SymbolTable.hpp>
 #include <BLIB/Scripts/Value.hpp>
 #include <gtest/gtest.h>
 
@@ -9,82 +8,116 @@ namespace script
 {
 namespace unittest
 {
-TEST(Value, Void) {
-    Value val;
-    EXPECT_EQ(val.getType(), Value::TVoid);
+TEST(ScriptValue, PrimitiveEmplace) {
+    const Value bval(true);
+    ASSERT_EQ(bval.value().getType(), PrimitiveValue::TBool);
+    EXPECT_EQ(bval.value().getAsBool(), true);
+
+    const Value nval(56.f);
+    ASSERT_EQ(nval.value().getType(), PrimitiveValue::TNumeric);
+    EXPECT_EQ(nval.value().getAsNum(), 56.f);
+
+    Value sval("str");
+    ASSERT_EQ(sval.value().getType(), PrimitiveValue::TString);
+    EXPECT_EQ(sval.value().getAsString(), "str");
+
+    const Value aval(ArrayValue{bval, nval, sval});
+    ASSERT_EQ(aval.value().getType(), PrimitiveValue::TArray);
+    const auto& arr = aval.value().getAsArray();
+    ASSERT_EQ(arr.size(), 3);
+    EXPECT_EQ(arr[0].value().getType(), PrimitiveValue::TBool);
+    EXPECT_EQ(arr[1].value().getType(), PrimitiveValue::TNumeric);
+    EXPECT_EQ(arr[2].value().getType(), PrimitiveValue::TString);
+
+    const Value rval(ReferenceValue{&sval});
+    ASSERT_EQ(rval.value().getType(), PrimitiveValue::TString);
+    ASSERT_EQ(&rval.value(), &sval.value());
 }
 
-TEST(Value, Numeric) {
-    Value val;
-    EXPECT_EQ(val.getType(), Value::TVoid);
-    val = 15;
-    EXPECT_EQ(val.getType(), Value::TNumeric);
-    EXPECT_EQ(val.getAsNum(), 15);
+TEST(ScriptValue, GeneralProps) {
+    const Value bval(true);
+    const Value nval(56.f);
+    const Value sval("str");
+
+    Value value;
+    value.setProperty("bval", bval);
+    value.setProperty("nval", nval);
+    value.setProperty("sval", sval);
+
+    const auto& bref = value.getProperty("bval", false).deref().value();
+    ASSERT_EQ(bref.getType(), PrimitiveValue::TBool);
+    EXPECT_EQ(bref.getAsBool(), true);
+
+    const auto& nref = value.getProperty("nval", false).deref().value();
+    ASSERT_EQ(nref.getType(), PrimitiveValue::TNumeric);
+    EXPECT_EQ(nref.getAsNum(), 56.f);
+
+    const auto& sref = value.getProperty("sval", false).deref().value();
+    ASSERT_EQ(sref.getType(), PrimitiveValue::TString);
+    EXPECT_EQ(sref.getAsString(), "str");
+
+    EXPECT_THROW(value.getProperty("dne", false), Error);
+
+    const auto& vref = value.getProperty("create", true).deref().value();
+    EXPECT_EQ(vref.getType(), PrimitiveValue::TVoid);
 }
 
-TEST(Value, String) {
-    Value val;
-    EXPECT_EQ(val.getType(), Value::TVoid);
-    val = "hello";
-    EXPECT_EQ(val.getType(), Value::TString);
-    EXPECT_EQ(val.getAsString(), "hello");
-}
+TEST(ScriptValue, Builtins) {
+    SymbolTable table;
+    Value aval(ArrayValue{Value(1.f), Value(2.f), Value(3.f)});
+    Value ret;
 
-TEST(Value, Array) {
-    Value val;
-    Value::Array arr(3);
-    arr[0] = Value::Ptr(new Value(12));
-    arr[1] = Value::Ptr(new Value("world"));
-    arr[2] = Value::Ptr(new Value(1));
+    // length
+    ReferenceValue len = aval.getProperty("length", false);
+    const auto& lref   = len.deref().value();
+    ASSERT_EQ(lref.getType(), PrimitiveValue::TNumeric);
+    EXPECT_EQ(lref.getAsNum(), 3.f);
 
-    EXPECT_EQ(val.getType(), Value::TVoid);
-    val = arr;
-    EXPECT_EQ(val.getType(), Value::TArray);
-    ASSERT_EQ(val.getAsArray().size(), 3);
-    EXPECT_EQ(val.getAsArray()[0]->getType(), Value::TNumeric);
-    EXPECT_EQ(val.getAsArray()[0]->getAsNum(), 12);
-    EXPECT_EQ(val.getAsArray()[1]->getType(), Value::TString);
-    EXPECT_EQ(val.getAsArray()[1]->getAsString(), "world");
-    EXPECT_EQ(val.getAsArray()[2]->getType(), Value::TNumeric);
-    EXPECT_EQ(val.getAsArray()[2]->getAsNum(), 1);
+    // append
+    ReferenceValue append = aval.getProperty("append", false);
+    append.deref().value().getAsFunction()(table, {Value(4.f)}, ret);
+    ASSERT_EQ(aval.value().getAsArray().size(), 4);
 
-    EXPECT_EQ(val.getProperty("length")->getAsNum(), 3);
-    EXPECT_FALSE(val.setProperty("length", 4));
-    EXPECT_FALSE(val.setProperty("append", 4));
-    EXPECT_FALSE(val.setProperty("resize", 4));
-    EXPECT_FALSE(val.setProperty("clear", 4));
-    EXPECT_FALSE(val.setProperty("insert", 4));
-}
+    // find
+    ReferenceValue find = aval.getProperty("find", false);
+    find.deref().value().getAsFunction()(table, {Value(4.f)}, ret);
+    ASSERT_EQ(ret.value().getType(), PrimitiveValue::TNumeric);
+    EXPECT_EQ(ret.value().getAsNum(), 3.f);
 
-TEST(Value, Ref) {
-    Value val;
-    Value::Ptr ref(new Value());
-    EXPECT_EQ(val.getType(), Value::TVoid);
+    // insert
+    ReferenceValue insert = aval.getProperty("insert", false);
+    insert.deref().value().getAsFunction()(table, {Value(0.f), Value("str")}, ret);
+    ASSERT_EQ(aval.value().getAsArray().size(), 5);
+    ASSERT_EQ(aval.value().getAsArray()[0].value().getType(), PrimitiveValue::TString);
+    ASSERT_EQ(aval.value().getAsArray()[0].value().getAsString(), "str");
 
-    val = ref;
-    ASSERT_EQ(val.getType(), Value::TRef);
+    // erase
+    ReferenceValue erase = aval.getProperty("erase", false);
+    erase.deref().value().getAsFunction()(table, {Value(0.f)}, ret);
+    ASSERT_EQ(aval.value().getAsArray().size(), 4);
 
-    Value::Ptr deref = val.getAsRef().lock();
-    EXPECT_EQ(deref->getType(), Value::TVoid);
+    // resize
+    ReferenceValue resize = aval.getProperty("resize", false);
+    resize.deref().value().getAsFunction()(table, {Value(2.f)}, ret);
+    ASSERT_EQ(aval.value().getAsArray().size(), 2);
 
-    *deref = "hello";
+    // clear
+    ReferenceValue clear = aval.getProperty("clear", false);
+    clear.deref().value().getAsFunction()(table, {}, ret);
+    ASSERT_EQ(aval.value().getAsArray().size(), 0);
 
-    EXPECT_EQ(val.getAsRef().lock()->getType(), Value::TString);
-    EXPECT_EQ(val.getAsRef().lock()->getAsString(), "hello");
-}
+    // at and keys
+    aval.setProperty("prop", Value("prop"));
+    ReferenceValue keys = aval.getProperty("keys", false);
+    keys.deref().value().getAsFunction()(table, {}, ret);
+    ASSERT_EQ(ret.value().getType(), PrimitiveValue::TArray);
+    ASSERT_EQ(ret.value().getAsArray().size(), 1);
+    EXPECT_EQ(ret.value().getAsArray().front().value().getAsString(), "prop");
 
-TEST(Value, Properties) {
-    Value val;
-
-    EXPECT_EQ(val.getProperty("fake").get(), nullptr);
-
-    EXPECT_TRUE(val.setProperty("set", std::string("woah")));
-    EXPECT_EQ(val.getProperty("set")->getAsString(), "woah");
-
-    Value val2 = val;
-    EXPECT_EQ(val2.getProperty("set")->getAsString(), "woah");
-    val2 = 5;
-    EXPECT_EQ(val2.getProperty("set").get(), nullptr);
+    ReferenceValue at = aval.getProperty("at", false);
+    at.deref().value().getAsFunction()(table, {Value("prop")}, ret);
+    ASSERT_EQ(ret.value().getType(), PrimitiveValue::TString);
+    ASSERT_EQ(ret.value().getAsString(), "prop");
 }
 
 } // namespace unittest

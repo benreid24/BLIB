@@ -25,11 +25,10 @@ private:
 
     virtual void addCustomSymbols(SymbolTable& table) const override {
         TestContext* me       = const_cast<TestContext*>(this);
-        Function::CustomCB cb = [me](SymbolTable&, const std::vector<Value>&) -> Value {
+        Function::CustomCB cb = [me](SymbolTable&, const std::vector<Value>&, Value&) {
             me->call = true;
-            return Value();
         };
-        table.set("call", Value(cb));
+        table.set("call", Value(Function(cb)));
     }
 };
 } // namespace
@@ -42,8 +41,8 @@ TEST(Script, Run) {
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
     const Value v = r.value();
-    ASSERT_EQ(v.getType(), Value::TNumeric);
-    ASSERT_EQ(v.getAsNum(), 16);
+    ASSERT_EQ(v.value().getType(), PrimitiveValue::TNumeric);
+    ASSERT_EQ(v.value().getAsNum(), 16.f);
 }
 
 TEST(Script, Background) {
@@ -76,8 +75,8 @@ TEST(Script, Shadow) {
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
     const Value v = r.value();
-    ASSERT_EQ(v.getType(), Value::TNumeric);
-    ASSERT_EQ(v.getAsNum(), 10);
+    ASSERT_EQ(v.value().getType(), PrimitiveValue::TNumeric);
+    ASSERT_EQ(v.value().getAsNum(), 10.f);
 }
 
 } // namespace unittest

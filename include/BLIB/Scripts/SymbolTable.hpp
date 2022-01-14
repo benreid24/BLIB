@@ -6,8 +6,8 @@
 #include <BLIB/Util/Waiter.hpp>
 #include <atomic>
 #include <condition_variable>
-#include <list>
 #include <mutex>
+#include <stack>
 #include <string>
 #include <unordered_map>
 
@@ -69,12 +69,12 @@ public:
     bool exists(const std::string& name) const;
 
     /**
-     * @brief Returns a Value from the current stack frame or above
+     * @brief Returns a Value from the current stack frame or global stack frame
      *
      * @param name The name of the Value to get
-     * @return Value::Ptr The Value or nullptr on error
+     * @return ReferenceValue* The Value or nullptr on error
      */
-    Value::Ptr get(const std::string& name, bool create = false);
+    ReferenceValue* get(const std::string& name, bool create = false);
 
     /**
      * @brief Sets a Value in the table in the current frame
@@ -134,7 +134,10 @@ public:
     void waitOn(util::Waiter& waiter);
 
 private:
-    std::vector<std::unordered_map<std::string, Value::Ptr>> table;
+    using Frame = std::unordered_map<std::string, ReferenceValue>;
+
+    Frame global;
+    std::stack<Frame, std::vector<Frame>> stack;
     Manager* mgr;
     std::atomic<bool> stop;
     std::mutex waitMutex;

@@ -4,6 +4,7 @@
 #include <BLIB/Serialization/JSON/JSON.hpp>
 #include <BLIB/Serialization/JSON/SerializableObject.hpp>
 
+#include <BLIB/Scripts.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
@@ -426,6 +427,120 @@ struct Serializer<sf::Rect<U>, false> {
 
     static bool deserializeFrom(const Value& val, const std::string& key, sf::Rect<U>& result) {
         return priv::Serializer<sf::Rect<U>>::deserializeFrom(val, key, result, &deserialize);
+    }
+};
+
+template<>
+struct Serializer<script::Value, false> {
+    static Value serialize(const script::Value& value) {
+        const auto& val = value.value();
+
+        Group g;
+        g.addField("type", Serializer<script::PrimitiveValue::Type>::serialize(val.getType()));
+
+        Value v(false);
+        switch (val.getType()) {
+        case script::PrimitiveValue::TBool:
+            v = val.getAsBool();
+            break;
+        case script::PrimitiveValue::TNumeric:
+            v = val.getAsNum();
+            break;
+        case script::PrimitiveValue::TString:
+            v = val.getAsString();
+            break;
+        case script::PrimitiveValue::TArray: {
+            v               = List();
+            const auto& arr = val.getAsArray();
+            v.getAsList()->reserve(arr.size());
+            for (const auto& iv : arr) { v.getAsList()->emplace_back(serialize(iv)); }
+        } break;
+
+        case script::PrimitiveValue::TFunction:
+        case script::PrimitiveValue::TVoid:
+        default:
+            v = "<NONSERIALIZABLE>";
+            break;
+        }
+        g.addField("value", v);
+
+        Group props;
+        for (const auto& prop : value.allProperties()) {
+            props.addField(prop.first, serialize(prop.second));
+        }
+        g.addField("props", props);
+
+        return {g};
+    }
+
+    static void serializeInto(const std::string& name, Group& group, const script::Value& val) {
+        priv::Serializer<script::Value>::serializeInto(group, name, val, &serialize);
+    }
+
+    static bool deserialize(script::Value& result, const Value& val) {
+        try {
+            const Group* group = val.getAsGroup();
+            if (!group) return false;
+
+            script::PrimitiveValue::Type type;
+            if (!Serializer<script::PrimitiveValue::Type>::deserializeFrom(val, "type", type)) {
+                return false;
+            }
+
+            const Value* v = group->getField("value");
+            if (!v) return false;
+
+            switch (type) {
+            case script::PrimitiveValue::TBool:
+                if (!v->getAsBool()) return false;
+                result.value() = *v->getAsBool();
+                break;
+
+            case script::PrimitiveValue::TNumeric:
+                if (!v->getAsInteger() && !v->getAsFloat()) return false;
+                result.value() = v->getNumericAsFloat(); // TODO - refactor int/float separated
+                break;
+
+            case script::PrimitiveValue::TString:
+                if (!v->getAsString()) return false;
+                result.value() = *v->getAsString();
+                break;
+
+            case script::PrimitiveValue::TArray: {
+                const List* list = v->getAsList();
+                if (!list) return false;
+
+                std::vector<script::Value> arr;
+                arr.resize(list->size());
+                for (unsigned int i = 0; i < list->size(); ++i) {
+                    if (!deserialize(arr[i], list->at(i))) return false;
+                }
+                result = arr;
+            } break;
+
+            case script::PrimitiveValue::TRef:
+            case script::PrimitiveValue::TFunction:
+            case script::PrimitiveValue::TVoid:
+            default:
+                result.value() = false;
+                break;
+            }
+
+            const Group* props = group->getGroup("props");
+            if (props) {
+                for (const std::string& prop : props->getFields()) {
+                    script::Value pval;
+                    if (!deserialize(pval, *props->getField(prop))) return false;
+                    result.setProperty(prop, {std::move(pval)});
+                }
+            }
+        } catch (...) { return false; }
+
+        return true;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, script::Value& result) {
+        return priv::Serializer<script::Value>::deserializeFrom(val, key, result, &deserialize);
     }
 };
 

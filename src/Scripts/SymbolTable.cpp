@@ -7,76 +7,88 @@ namespace bl
 {
 namespace script
 {
-namespace
-{
-using TableKey = std::pair<unsigned int, std::unordered_map<std::string, Value::Ptr>::iterator>;
-
-TableKey searchTable(const std::string& name,
-                     std::vector<std::unordered_map<std::string, Value::Ptr>>& table,
-                     bool topOnly = false) {
-    for (int i = static_cast<int>(table.size() - 1); i >= 0; --i) {
-        auto j = table[i].find(name);
-        if (j != table[i].end()) return TableKey(i, j);
-        if (topOnly) break;
-    }
-    return TableKey(0, table[0].end());
-}
-} // namespace
-
 SymbolTable::SymbolTable()
 : mgr(nullptr)
-, stop(false) {
-    pushFrame();
-}
+, stop(false) {}
 
 SymbolTable::SymbolTable(const SymbolTable& copy)
-: table(copy.table)
+: global(copy.global)
 , mgr(copy.mgr)
 , stop(copy.stop.operator bool()) {}
 
-void SymbolTable::copy(const SymbolTable& copy) { table = copy.table; }
+void SymbolTable::copy(const SymbolTable& copy) { global = copy.global; }
 
 SymbolTable SymbolTable::base() const {
-    SymbolTable derived;
-    derived.table.emplace_back(table.front());
-    return derived;
+    SymbolTable t;
+    t.global = global;
+    return t;
 }
 
-void SymbolTable::pushFrame() { table.emplace_back(); }
+void SymbolTable::pushFrame() { stack.emplace(); }
 
 void SymbolTable::popFrame() {
-    if (table.size() > 1)
-        table.pop_back();
-    else
-        BL_LOG_WARN << "Attempted to pop global frame from SymbolTable";
+    if (!stack.empty()) { stack.pop(); }
+    else {
+        throw Error("Internal error: Tried to pop from empty stack");
+    }
 }
 
 bool SymbolTable::exists(const std::string& name) const {
-    auto& tbl    = const_cast<std::vector<std::unordered_map<std::string, Value::Ptr>>&>(table);
-    TableKey key = searchTable(name, tbl);
-    return table[key.first].end() != key.second;
+    const auto it = global.find(name);
+    if (it != global.end()) return true;
+    if (!stack.empty()) { return stack.top().find(name) != stack.top().end(); }
+    return false;
 }
 
-Value::Ptr SymbolTable::get(const std::string& name, bool create) {
-    TableKey key = searchTable(name, table);
-    if (table[key.first].end() != key.second) return key.second->second;
-    if (create) {
-        set(name, Value(), true);
-        return get(name, false);
+ReferenceValue* SymbolTable::get(const std::string& name, bool create) {
+    if (!stack.empty()) {
+        auto it = stack.top().find(name);
+        if (it == stack.top().end()) {
+            if (create) {
+                it = stack.top().emplace(name, Value()).first;
+                return &it->second;
+            }
+        }
+        else {
+            return &it->second;
+        }
+    }
+
+    auto it = global.find(name);
+    if (it == global.end()) {
+        if (create) {
+            it = global.emplace(name, Value()).first;
+            return &it->second;
+        }
+    }
+    else {
+        return &it->second;
     }
     return nullptr;
 }
 
 void SymbolTable::set(const std::string& name, const Value& val, bool top) {
-    TableKey key = searchTable(name, table, top);
-    Value::Ptr value;
-    if (table[key.first].end() != key.second)
-        value = key.second->second;
-    else {
-        value.reset(new Value());
-        table[table.size() - 1].insert(std::make_pair(name, value));
+    if (!stack.empty()) {
+        auto it = stack.top().find(name);
+        if (it != stack.top().end()) {
+            it->second = val;
+            return;
+        }
     }
-    *value = val;
+
+    auto it = global.find(name);
+    if (it != global.end()) {
+        if (top && !stack.empty()) { stack.top().emplace(name, val); }
+        else {
+            it->second = val;
+        }
+    }
+    else if (!stack.empty()) {
+        stack.top().emplace(name, val);
+    }
+    else {
+        global.emplace(name, val);
+    }
 }
 
 void SymbolTable::kill() {
@@ -87,8 +99,8 @@ void SymbolTable::kill() {
 bool SymbolTable::killed() const { return stop; }
 
 void SymbolTable::reset() {
-    table.clear();
-    pushFrame();
+    while (!stack.empty()) { stack.pop(); }
+    global.clear();
 }
 
 void SymbolTable::registerManager(Manager* m) { mgr = m; }
