@@ -65,6 +65,7 @@ TEST(ScriptValue, GeneralProps) {
 TEST(ScriptValue, Builtins) {
     SymbolTable table;
     Value aval(ArrayValue{Value(1.f), Value(2.f), Value(3.f)});
+    Value ret;
 
     // length
     ReferenceValue len = aval.getProperty("length", false);
@@ -74,49 +75,49 @@ TEST(ScriptValue, Builtins) {
 
     // append
     ReferenceValue append = aval.getProperty("append", false);
-    append.deref().value().getAsFunction()(table, {Value(4.f)});
+    append.deref().value().getAsFunction()(table, {Value(4.f)}, ret);
     ASSERT_EQ(aval.value().getAsArray().size(), 4);
 
     // find
     ReferenceValue find = aval.getProperty("find", false);
-    Value i             = find.deref().value().getAsFunction()(table, {Value(4.f)});
-    ASSERT_EQ(i.value().getType(), PrimitiveValue::TNumeric);
-    EXPECT_EQ(i.value().getAsNum(), 3.f);
+    find.deref().value().getAsFunction()(table, {Value(4.f)}, ret);
+    ASSERT_EQ(ret.value().getType(), PrimitiveValue::TNumeric);
+    EXPECT_EQ(ret.value().getAsNum(), 3.f);
 
     // insert
     ReferenceValue insert = aval.getProperty("insert", false);
-    insert.deref().value().getAsFunction()(table, {Value(0.f), Value("str")});
+    insert.deref().value().getAsFunction()(table, {Value(0.f), Value("str")}, ret);
     ASSERT_EQ(aval.value().getAsArray().size(), 5);
     ASSERT_EQ(aval.value().getAsArray()[0].value().getType(), PrimitiveValue::TString);
     ASSERT_EQ(aval.value().getAsArray()[0].value().getAsString(), "str");
 
     // erase
     ReferenceValue erase = aval.getProperty("erase", false);
-    erase.deref().value().getAsFunction()(table, {Value(0.f)});
+    erase.deref().value().getAsFunction()(table, {Value(0.f)}, ret);
     ASSERT_EQ(aval.value().getAsArray().size(), 4);
 
     // resize
     ReferenceValue resize = aval.getProperty("resize", false);
-    resize.deref().value().getAsFunction()(table, {Value(2.f)});
+    resize.deref().value().getAsFunction()(table, {Value(2.f)}, ret);
     ASSERT_EQ(aval.value().getAsArray().size(), 2);
 
     // clear
     ReferenceValue clear = aval.getProperty("clear", false);
-    clear.deref().value().getAsFunction()(table, {});
+    clear.deref().value().getAsFunction()(table, {}, ret);
     ASSERT_EQ(aval.value().getAsArray().size(), 0);
 
     // at and keys
     aval.setProperty("prop", Value("prop"));
     ReferenceValue keys = aval.getProperty("keys", false);
-    Value keysResult    = keys.deref().value().getAsFunction()(table, {});
-    ASSERT_EQ(keysResult.value().getType(), PrimitiveValue::TArray);
-    ASSERT_EQ(keysResult.value().getAsArray().size(), 1);
-    EXPECT_EQ(keysResult.value().getAsArray().front().value().getAsString(), "prop");
+    keys.deref().value().getAsFunction()(table, {}, ret);
+    ASSERT_EQ(ret.value().getType(), PrimitiveValue::TArray);
+    ASSERT_EQ(ret.value().getAsArray().size(), 1);
+    EXPECT_EQ(ret.value().getAsArray().front().value().getAsString(), "prop");
 
     ReferenceValue at = aval.getProperty("at", false);
-    Value atResult    = at.deref().value().getAsFunction()(table, {Value("prop")});
-    ASSERT_EQ(atResult.value().getType(), PrimitiveValue::TString);
-    ASSERT_EQ(atResult.value().getAsString(), "prop");
+    at.deref().value().getAsFunction()(table, {Value("prop")}, ret);
+    ASSERT_EQ(ret.value().getType(), PrimitiveValue::TString);
+    ASSERT_EQ(ret.value().getAsString(), "prop");
 }
 
 } // namespace unittest

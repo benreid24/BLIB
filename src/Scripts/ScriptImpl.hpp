@@ -24,9 +24,11 @@ struct ScriptImpl {
      * @brief Performs a function call. Evaluates arguments, updates SymbolTable, and runs
      * statements
      *
-     * @return Value Result of the function called
+     * @param call The parsed node containing the call information
+     * @param table The symbol table being used
+     * @param result The return value gets stored here
      */
-    static Value runFunction(const parser::Node::Ptr& call, SymbolTable& table);
+    static void runFunction(const parser::Node::Ptr& call, SymbolTable& table, Value& result);
 
     /**
      * @brief Executes a list of statements. Can take Statement, StmtList, or StmtBlock

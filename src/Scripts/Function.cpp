@@ -55,11 +55,11 @@ bool Function::operator==(const Function& f) const {
     }
 }
 
-Value Function::operator()(SymbolTable& table, const std::vector<Value>& args) const {
+void Function::operator()(SymbolTable& table, const std::vector<Value>& args, Value& result) const {
     const CustomCB* cbp = std::get_if<CustomCB>(&data);
     if (cbp) {
         const CustomCB& cb = *cbp;
-        return cb(table, args);
+        cb(table, args, result);
     }
     else {
         using G                       = Parser::Grammar;
@@ -79,9 +79,8 @@ Value Function::operator()(SymbolTable& table, const std::vector<Value>& args) c
         }
         table.pushFrame();
         for (unsigned int i = 0; i < args.size(); ++i) { table.set(plist[i], args[i], true); }
-        const std::optional<Value> ret = ScriptImpl::runStatementList(root->children[1], table);
+        result = ScriptImpl::runStatementList(root->children[1], table).value_or(Value());
         table.popFrame();
-        return ret.value_or(Value());
     }
 }
 

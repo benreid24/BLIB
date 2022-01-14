@@ -142,29 +142,31 @@ const std::unordered_map<std::string, ReferenceValue>& Value::allProperties() co
     return me.properties ? *me.properties : EmptyProps;
 }
 
-Value Value::clear(SymbolTable&, const std::vector<Value>&) {
-    _value.getAsArray().clear();
-    return {};
-}
+void Value::clear(SymbolTable&, const std::vector<Value>&, Value&) { _value.getAsArray().clear(); }
 
 Value Value::clearValue() {
-    return Value(
-        Function(std::bind(&Value::clear, &deref(), std::placeholders::_1, std::placeholders::_2)));
+    return Value(Function(std::bind(&Value::clear,
+                                    &deref(),
+                                    std::placeholders::_1,
+                                    std::placeholders::_2,
+                                    std::placeholders::_3)));
 }
 
-Value Value::append(SymbolTable&, const std::vector<Value>& args) {
+void Value::append(SymbolTable&, const std::vector<Value>& args, Value&) {
     ArrayValue& arr = _value.getAsArray();
     arr.reserve(arr.size() + args.size());
     for (const Value& v : args) { arr.emplace_back(v); }
-    return {};
 }
 
 Value Value::appendValue() {
-    return Value(Function(
-        std::bind(&Value::append, &deref(), std::placeholders::_1, std::placeholders::_2)));
+    return Value(Function(std::bind(&Value::append,
+                                    &deref(),
+                                    std::placeholders::_1,
+                                    std::placeholders::_2,
+                                    std::placeholders::_3)));
 }
 
-Value Value::insert(SymbolTable&, const std::vector<Value>& args) {
+void Value::insert(SymbolTable&, const std::vector<Value>& args, Value&) {
     ArrayValue& arr = _value.getAsArray();
     if (args.size() < 2) throw Error("insert() requires a position and a list of elements");
     const PrimitiveValue& i = args[0].value().deref();
@@ -178,15 +180,17 @@ Value Value::insert(SymbolTable&, const std::vector<Value>& args) {
     if (j >= arr.size()) throw Error("Position in insert() is out of bounds");
 
     arr.insert(arr.begin() + j, args.begin() + 1, args.end());
-    return {};
 }
 
 Value Value::insertValue() {
-    return Value(Function(
-        std::bind(&Value::insert, &deref(), std::placeholders::_1, std::placeholders::_2)));
+    return Value(Function(std::bind(&Value::insert,
+                                    &deref(),
+                                    std::placeholders::_1,
+                                    std::placeholders::_2,
+                                    std::placeholders::_3)));
 }
 
-Value Value::erase(SymbolTable&, const std::vector<Value>& args) {
+void Value::erase(SymbolTable&, const std::vector<Value>& args, Value&) {
     ArrayValue& arr = _value.getAsArray();
     if (args.size() != 1) throw Error("erase() requires a position");
     const PrimitiveValue& i = args[0].value().deref();
@@ -199,15 +203,17 @@ Value Value::erase(SymbolTable&, const std::vector<Value>& args) {
     const unsigned int j = i.getAsNum();
     if (j >= arr.size()) throw Error("Position in erase() is out of bounds");
     arr.erase(arr.begin() + j);
-    return {};
 }
 
 Value Value::eraseValue() {
-    return Value(
-        Function(std::bind(&Value::erase, &deref(), std::placeholders::_1, std::placeholders::_2)));
+    return Value(Function(std::bind(&Value::erase,
+                                    &deref(),
+                                    std::placeholders::_1,
+                                    std::placeholders::_2,
+                                    std::placeholders::_3)));
 }
 
-Value Value::resize(SymbolTable&, const std::vector<Value>& args) {
+void Value::resize(SymbolTable&, const std::vector<Value>& args, Value&) {
     static const Value Default;
 
     ArrayValue& arr = _value.getAsArray();
@@ -223,55 +229,69 @@ Value Value::resize(SymbolTable&, const std::vector<Value>& args) {
     const unsigned int len = i.getAsNum();
     const Value& fill      = args.size() == 2 ? args[1] : Default;
     arr.resize(len, fill);
-    return {};
 }
 
 Value Value::resizeValue() {
-    return Value(Function(
-        std::bind(&Value::resize, &deref(), std::placeholders::_1, std::placeholders::_2)));
+    return Value(Function(std::bind(&Value::resize,
+                                    &deref(),
+                                    std::placeholders::_1,
+                                    std::placeholders::_2,
+                                    std::placeholders::_3)));
 }
 
-Value Value::find(SymbolTable&, const std::vector<Value>& args) {
+void Value::find(SymbolTable&, const std::vector<Value>& args, Value& result) {
     ArrayValue& arr = _value.getAsArray();
     if (args.size() != 1) throw Error("find() takes a single argument");
     float i = 0.f;
     for (const Value& element : arr) {
-        if (ScriptImpl::equals(element, args.front())) { return Value(i); }
+        if (ScriptImpl::equals(element, args.front())) {
+            result = i;
+            return;
+        }
         i += 1.f;
     }
-    return Value(-1.f);
+    result = -1.f;
 }
 
 Value Value::findValue() {
-    return Value(
-        Function(std::bind(&Value::find, &deref(), std::placeholders::_1, std::placeholders::_2)));
+    return Value(Function(std::bind(&Value::find,
+                                    &deref(),
+                                    std::placeholders::_1,
+                                    std::placeholders::_2,
+                                    std::placeholders::_3)));
 }
 
-Value Value::keys(SymbolTable&, const std::vector<Value>& args) {
+void Value::keys(SymbolTable&, const std::vector<Value>& args, Value& result) {
     if (!args.empty()) throw Error("keys() expects 0 arguments");
     ArrayValue keys;
     if (properties) {
         keys.reserve(properties->size());
         for (const auto& prop : *properties) { keys.emplace_back(prop.first); }
     }
-    return {PrimitiveValue(std::move(keys))};
+    result.value() = std::move(keys);
 }
 
 Value Value::keysValue() {
-    return Value(
-        Function(std::bind(&Value::keys, &deref(), std::placeholders::_1, std::placeholders::_2)));
+    return Value(Function(std::bind(&Value::keys,
+                                    &deref(),
+                                    std::placeholders::_1,
+                                    std::placeholders::_2,
+                                    std::placeholders::_3)));
 }
 
-Value Value::at(SymbolTable&, const std::vector<Value>& args) {
+void Value::at(SymbolTable&, const std::vector<Value>& args, Value& result) {
     if (args.size() != 1) throw Error("at() takes a single argument");
     const PrimitiveValue& n = args[0].value().deref();
     if (n.getType() != PrimitiveValue::TString) throw Error("at() expects a String key");
-    return {getProperty(n.getAsString(), false)};
+    result = getProperty(n.getAsString(), false);
 }
 
 Value Value::atValue() {
-    return Value(
-        Function(std::bind(&Value::at, &deref(), std::placeholders::_1, std::placeholders::_2)));
+    return Value(Function(std::bind(&Value::at,
+                                    &deref(),
+                                    std::placeholders::_1,
+                                    std::placeholders::_2,
+                                    std::placeholders::_3)));
 }
 
 Value Value::lengthValue() {

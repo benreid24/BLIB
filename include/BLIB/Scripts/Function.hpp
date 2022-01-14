@@ -30,7 +30,7 @@ public:
      *        object on error
      *
      */
-    using CustomCB = std::function<Value(SymbolTable&, const std::vector<Value>&)>;
+    using CustomCB = std::function<void(SymbolTable&, const std::vector<Value>&, Value&)>;
 
     /**
      * @brief Creates an empty, uncallable function
@@ -75,9 +75,9 @@ public:
      *
      * @param table Modifiable reference to the SymbolTable
      * @param args The arguments it was called with
-     * @return Value The result of the function
+     * @param result The return value of the function is assigned here
      */
-    Value operator()(SymbolTable& table, const std::vector<Value>& args) const;
+    void operator()(SymbolTable& table, const std::vector<Value>& args, Value& result) const;
 
 private:
     std::variant<CustomCB, parser::Node::Ptr> data;

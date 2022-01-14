@@ -66,7 +66,7 @@ PrimitiveValue ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
     return evalOrGrp(node->children[0], table);
 }
 
-Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
+void ScriptImpl::runFunction(Symbol node, SymbolTable& table, Value& result) {
     if (table.killed()) throw Exit();
 
     if constexpr (ExtraChecks) {
@@ -89,10 +89,7 @@ Value ScriptImpl::runFunction(Symbol node, SymbolTable& table) {
         evalList(c->children[1], table, params);
     }
 
-    table.pushFrame();
-    const Value r = func.value().getAsFunction()(table, params);
-    table.popFrame();
-    return r;
+    func.value().getAsFunction()(table, params, result);
 }
 
 std::optional<Value> ScriptImpl::runStatement(Symbol n, SymbolTable& table) {
@@ -104,6 +101,7 @@ std::optional<Value> ScriptImpl::runStatement(Symbol n, SymbolTable& table) {
     }
 
     const auto& node = n->children[0];
+    Value trash;
     switch (node->type) {
     case G::Ret:
         if (node->children.size() == 2)
@@ -113,7 +111,7 @@ std::optional<Value> ScriptImpl::runStatement(Symbol n, SymbolTable& table) {
         throw Error("Internal error: Invalid Ret children", node);
 
     case G::Call:
-        runFunction(node, table);
+        runFunction(node, table, trash);
         return {};
 
     case G::Conditional:
@@ -505,8 +503,11 @@ Value evalTVal(Symbol node, SymbolTable& table) {
         return PrimitiveValue(std::atof(n->data.c_str()));
     case G::StringLit:
         return PrimitiveValue(n->data);
-    case G::Call:
-        return ScriptImpl::runFunction(n, table);
+    case G::Call: {
+        Value r;
+        ScriptImpl::runFunction(n, table, r);
+        return r;
+    }
     case G::ArrayDef: {
         if (n->children.size() != 3) throw Error("Invalid ArrayDef children", n);
         Value ret(ArrayValue{});

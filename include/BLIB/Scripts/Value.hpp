@@ -161,23 +161,23 @@ private:
     static const std::unordered_map<std::string, Builtin> builtins;
 
     // built-ins for arrays
-    Value clear(SymbolTable& table, const std::vector<Value>& args);
+    void clear(SymbolTable& table, const std::vector<Value>& args, Value& result);
     Value clearValue();
-    Value append(SymbolTable& table, const std::vector<Value>& args);
+    void append(SymbolTable& table, const std::vector<Value>& args, Value& result);
     Value appendValue();
-    Value resize(SymbolTable& table, const std::vector<Value>& args);
+    void resize(SymbolTable& table, const std::vector<Value>& args, Value& result);
     Value resizeValue();
-    Value insert(SymbolTable& table, const std::vector<Value>& args);
+    void insert(SymbolTable& table, const std::vector<Value>& args, Value& result);
     Value insertValue();
-    Value erase(SymbolTable& table, const std::vector<Value>& args);
+    void erase(SymbolTable& table, const std::vector<Value>& args, Value& result);
     Value eraseValue();
-    Value find(SymbolTable& table, const std::vector<Value>& args);
+    void find(SymbolTable& table, const std::vector<Value>& args, Value& result);
     Value findValue();
 
     // built-ins for properties
-    Value keys(SymbolTable& table, const std::vector<Value>& args);
+    void keys(SymbolTable& table, const std::vector<Value>& args, Value& result);
     Value keysValue();
-    Value at(SymbolTable& table, const std::vector<Value>& args);
+    void at(SymbolTable& table, const std::vector<Value>& args, Value& result);
     Value atValue();
 
     // built-ins for arrays

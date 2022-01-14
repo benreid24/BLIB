@@ -25,9 +25,8 @@ private:
 
     virtual void addCustomSymbols(SymbolTable& table) const override {
         TestContext* me       = const_cast<TestContext*>(this);
-        Function::CustomCB cb = [me](SymbolTable&, const std::vector<Value>&) -> Value {
+        Function::CustomCB cb = [me](SymbolTable&, const std::vector<Value>&, Value&) {
             me->call = true;
-            return Value();
         };
         table.set("call", Value(Function(cb)));
     }
