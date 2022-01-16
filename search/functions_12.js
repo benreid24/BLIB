@@ -102,7 +102,7 @@ var searchData=
   ['settogglebuttonsize',['setToggleButtonSize',['../a01184.html#ab00d673412b2ed1baf9eb6250771fb25',1,'bl::gui::ToggleButton']]],
   ['settooltip',['setTooltip',['../a01132.html#a201874fa2892e810e29a9f8c46ef51d3',1,'bl::gui::Element']]],
   ['settooltiptorender',['setTooltipToRender',['../a01220.html#a1935e1dcbb2f192bab8505513df97053',1,'bl::gui::Renderer']]],
-  ['setvalue',['setValue',['../a01176.html#aac19279c848e471779f5d72da0acf775',1,'bl::gui::Slider::setValue()'],['../a01184.html#a88e2b9a03134b8d5636256b46b9ccce8',1,'bl::gui::ToggleButton::setValue()']]],
+  ['setvalue',['setValue',['../a01176.html#aaecceb9552d369db538231b2a34b12bb',1,'bl::gui::Slider::setValue()'],['../a01184.html#a88e2b9a03134b8d5636256b46b9ccce8',1,'bl::gui::ToggleButton::setValue()']]],
   ['setverticalalignment',['setVerticalAlignment',['../a01132.html#a171082f35d20d5d80463439ca6b0887d',1,'bl::gui::Element']]],
   ['setvisible',['setVisible',['../a01132.html#a79445a7bedd5035f2dc0bc1fd8d9da54',1,'bl::gui::Element']]],
   ['setvolume',['setVolume',['../a01304.html#a93274a6e8a82bc1c0dc8b0a46b751c26',1,'bl::audio::AudioSystem::setVolume()'],['../a01324.html#a259488541d4dcfe925137c24ab990421',1,'bl::audio::Playlist::setVolume()']]],
