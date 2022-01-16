@@ -16,11 +16,15 @@ SymbolTable::SymbolTable(const SymbolTable& copy)
 , mgr(copy.mgr)
 , stop(copy.stop.operator bool()) {}
 
-void SymbolTable::copy(const SymbolTable& copy) { global = copy.global; }
+void SymbolTable::copy(const SymbolTable& copy) {
+    global = copy.global;
+    if (copy.mgr) { mgr = copy.mgr; }
+}
 
 SymbolTable SymbolTable::base() const {
     SymbolTable t;
     t.global = global;
+    t.mgr    = mgr;
     return t;
 }
 
