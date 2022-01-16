@@ -44,8 +44,9 @@ public:
      * @brief Set the position of the slider
      *
      * @param value The normlized position in the range [0,1]
+     * @param fireEvent True to fire the changed event, false to not
      */
-    void setValue(float value);
+    void setValue(float value, bool fireEvent = true);
 
     /**
      * @brief Increase or decrease the value by the given number of increments

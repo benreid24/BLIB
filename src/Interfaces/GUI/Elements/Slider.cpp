@@ -45,9 +45,11 @@ Slider::Slider(Direction d)
 
 float Slider::getValue() const { return value; }
 
-void Slider::setValue(float v) {
+void Slider::setValue(float v, bool fire) {
     value = v;
-    valueChanged();
+    constrainValue();
+    updateSliderPos();
+    if (fire) { fireChanged(); }
 }
 
 void Slider::setSliderSize(float s) {
