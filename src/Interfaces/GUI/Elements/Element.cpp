@@ -231,8 +231,9 @@ void Element::requestMakeDirty(const Element* child) {
 void Element::markClean() { _dirty = false; }
 
 void Element::setVisible(bool v, bool md) {
-    if (v != _visible && md) makeDirty();
-    _visible = v;
+    const bool was = _visible;
+    _visible       = v;
+    if (v != was && md) makeDirty();
 }
 
 bool Element::packable(bool ivs) const {
