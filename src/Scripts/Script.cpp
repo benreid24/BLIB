@@ -40,12 +40,7 @@ Script::Script(const std::string& data, bool addDefaults)
     std::string input = data;
     if (prepScript(input)) {
         BL_LOG_DEBUG << "Loading bScript: " << input;
-
-        std::ifstream file(input.c_str());
-        file.seekg(0, std::ios::end);
-        input.reserve(file.tellg());
-        file.seekg(0, std::ios::beg);
-        input.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+        util::FileUtil::readFile(input, input);
         root = script::Parser::parse(input, &error);
     }
     else {

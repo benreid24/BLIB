@@ -153,6 +153,15 @@ struct FileUtil {
      *
      */
     static std::string getDataDirectory(const std::string& appName);
+
+    /**
+     * @brief Reads the entire file into the destination string
+     *
+     * @param filename The path to read
+     * @param output The string to store the result in
+     * @return True if the file was read, false on error
+     */
+    static bool readFile(const std::string& filename, std::string& output);
 };
 
 } // namespace util
