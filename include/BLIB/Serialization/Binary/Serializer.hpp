@@ -361,7 +361,7 @@ private:
 
 public:
     static bool serialize(OutputStream& output, const std::variant<Ts...>& v) {
-        const auto visitor = [&output](auto&& c) -> bool {
+        const auto visitor = [&output](const auto& c) -> bool {
             return Serializer<std::decay_t<decltype(c)>>::serialize(output, c);
         };
 
@@ -380,8 +380,8 @@ public:
     }
 
     static std::uint32_t size(const std::variant<Ts...>& v) {
-        static constexpr auto visitor = [](auto&& c) -> std::uint32_t {
-            return Serializer<decltype(c)>::size(c);
+        static constexpr auto visitor = [](const auto& c) -> std::uint32_t {
+            return Serializer<std::decay_t<decltype(c)>>::size(c);
         };
 
         return std::visit(visitor, v) + sizeof(std::uint16_t);
