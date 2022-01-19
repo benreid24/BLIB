@@ -89,12 +89,17 @@ Public Types</h2></td></tr>
 &#160;&#160;<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593bae833bd63c765e8af44880943007075a9">TVoid</a> = 0x0, 
 <a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593ba2159a572c2b2757871e899f5380bc769">TBool</a> = 0x1 &lt;&lt; 0, 
 <a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593ba6da8dbac5fb2543e59c4d5f4586fd977">TString</a> = 0x1 &lt;&lt; 1, 
-<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593badbfebc0a4c28a32923d6e0a658dd5bc4">TNumeric</a> = 0x1 &lt;&lt; 2, 
+<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593bac6c8856c0495f966f5e59a6a5d0ba56c">TFloat</a> = 0x1 &lt;&lt; 2, 
 <br />
-&#160;&#160;<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593ba072266baaed6b88ae76be77718db1e7e">TArray</a> = 0x1 &lt;&lt; 3, 
-<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593ba86b634d536efde80680a212abeeee4f2">TFunction</a> = 0x1 &lt;&lt; 4, 
-<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c">TRef</a> = 0x1 &lt;&lt; 5, 
-<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593bad5fdfe004eb982dca5d4953f3275d748">_TYPE_COUNT</a> = 6
+&#160;&#160;<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593ba9e3ff271f93dadba861d71ec0773a0fd">TInteger</a> = 0x1 &lt;&lt; 3, 
+<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593ba072266baaed6b88ae76be77718db1e7e">TArray</a> = 0x1 &lt;&lt; 4, 
+<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593ba86b634d536efde80680a212abeeee4f2">TFunction</a> = 0x1 &lt;&lt; 5, 
+<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c">TRef</a> = 0x1 &lt;&lt; 6, 
+<br />
+&#160;&#160;<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593badbfebc0a4c28a32923d6e0a658dd5bc4">TNumeric</a> = TInteger | TFloat, 
+<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593bafad0f94353ab3dc102d4fdeb3b6ad939">TAnyValue</a> = TBool | TString | TFloat | TInteger | TArray | TFunction | TRef, 
+<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593ba533c8ba9798e23c6e8ff0cf43adb9458">TAny</a> = TAnyValue | TVoid, 
+<a class="el" href="a01468.html#ae46c56f7af29255ac8f117a0f97d593bad5fdfe004eb982dca5d4953f3275d748">_TYPE_COUNT</a> = 7
 <br />
  }<tr class="memdesc:ae46c56f7af29255ac8f117a0f97d593b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the primitive value.  <a href="a01468.html#ae46c56f7af29255ac8f117a0f97d593b">More...</a><br /></td></tr>
 </td></tr>
@@ -117,11 +122,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a148123aa41b8cc335c9f703641174288"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01468.html">PrimitiveValue</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#a148123aa41b8cc335c9f703641174288">operator=</a> (<a class="el" href="a01468.html">PrimitiveValue</a> &amp;&amp;)=default</td></tr>
 <tr class="memdesc:a148123aa41b8cc335c9f703641174288"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move operator.  <a href="#a148123aa41b8cc335c9f703641174288">More...</a><br /></td></tr>
 <tr class="separator:a148123aa41b8cc335c9f703641174288"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ab30a800a815fa9c90e259980bf5d0e"><td class="memTemplParams" colspan="2">template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt;&gt;&gt; </td></tr>
+<tr class="memitem:a1ab30a800a815fa9c90e259980bf5d0e"><td class="memTemplParams" colspan="2">template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral&lt;T&gt;::value || std::is_enum&lt;T&gt;::value&gt;&gt; </td></tr>
 <tr class="memitem:a1ab30a800a815fa9c90e259980bf5d0e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a01468.html">PrimitiveValue</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01468.html#a1ab30a800a815fa9c90e259980bf5d0e">operator=</a> (T intOrBool)</td></tr>
 <tr class="memdesc:a1ab30a800a815fa9c90e259980bf5d0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes integer or bool type based on parameter type.  <a href="#a1ab30a800a815fa9c90e259980bf5d0e">More...</a><br /></td></tr>
 <tr class="separator:a1ab30a800a815fa9c90e259980bf5d0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ef69501d2b4dfb6a0cf822bf3ca91d4"><td class="memTemplParams" colspan="2">template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt;&gt;&gt; </td></tr>
+<tr class="memitem:a6ef69501d2b4dfb6a0cf822bf3ca91d4"><td class="memTemplParams" colspan="2">template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral&lt;T&gt;::value || std::is_enum&lt;T&gt;::value&gt;&gt; </td></tr>
 <tr class="memitem:a6ef69501d2b4dfb6a0cf822bf3ca91d4"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01468.html#a6ef69501d2b4dfb6a0cf822bf3ca91d4">PrimitiveValue</a> (T intOrBool)</td></tr>
 <tr class="memdesc:a6ef69501d2b4dfb6a0cf822bf3ca91d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes integer or bool type based on parameter type.  <a href="#a6ef69501d2b4dfb6a0cf822bf3ca91d4">More...</a><br /></td></tr>
 <tr class="separator:a6ef69501d2b4dfb6a0cf822bf3ca91d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,28 +176,37 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a152e6fbcec635582ecc1c128b062344e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dereferences the value or returns this value if not a reference.  <a href="#a152e6fbcec635582ecc1c128b062344e">More...</a><br /></td></tr>
 <tr class="separator:a152e6fbcec635582ecc1c128b062344e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07b0eed1e554850fdd3cb969a9fb9bf8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#a07b0eed1e554850fdd3cb969a9fb9bf8">getAsBool</a> () const</td></tr>
-<tr class="memdesc:a07b0eed1e554850fdd3cb969a9fb9bf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the as Bool type. Performs implicit conversion.  <a href="#a07b0eed1e554850fdd3cb969a9fb9bf8">More...</a><br /></td></tr>
+<tr class="memdesc:a07b0eed1e554850fdd3cb969a9fb9bf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as Bool type. Performs implicit conversion.  <a href="#a07b0eed1e554850fdd3cb969a9fb9bf8">More...</a><br /></td></tr>
 <tr class="separator:a07b0eed1e554850fdd3cb969a9fb9bf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c7f54c3a6468c6114500f5cda96e52f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#a6c7f54c3a6468c6114500f5cda96e52f">getAsNum</a> () const</td></tr>
-<tr class="memdesc:a6c7f54c3a6468c6114500f5cda96e52f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the as Numeric value.  <a href="#a6c7f54c3a6468c6114500f5cda96e52f">More...</a><br /></td></tr>
-<tr class="separator:a6c7f54c3a6468c6114500f5cda96e52f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8d6eda77cb92e297f69a3cc121b4dd4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#ab8d6eda77cb92e297f69a3cc121b4dd4">getAsFloat</a> () const</td></tr>
+<tr class="memdesc:ab8d6eda77cb92e297f69a3cc121b4dd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as Float value.  <a href="#ab8d6eda77cb92e297f69a3cc121b4dd4">More...</a><br /></td></tr>
+<tr class="separator:ab8d6eda77cb92e297f69a3cc121b4dd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7944dc8e2f68df10ed8b03636356aa97"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#a7944dc8e2f68df10ed8b03636356aa97">getNumAsFloat</a> () const</td></tr>
+<tr class="memdesc:a7944dc8e2f68df10ed8b03636356aa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained integer or float as a float.  <a href="#a7944dc8e2f68df10ed8b03636356aa97">More...</a><br /></td></tr>
+<tr class="separator:a7944dc8e2f68df10ed8b03636356aa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79718a1b223e9e30eb73f06e198c4b3b"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#a79718a1b223e9e30eb73f06e198c4b3b">getAsInt</a> () const</td></tr>
+<tr class="memdesc:a79718a1b223e9e30eb73f06e198c4b3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as Integer value.  <a href="#a79718a1b223e9e30eb73f06e198c4b3b">More...</a><br /></td></tr>
+<tr class="separator:a79718a1b223e9e30eb73f06e198c4b3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a663ea940da0a308a50f4b792a7cfd24c"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#a663ea940da0a308a50f4b792a7cfd24c">getNumAsInt</a> () const</td></tr>
+<tr class="memdesc:a663ea940da0a308a50f4b792a7cfd24c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained integer or float as an int.  <a href="#a663ea940da0a308a50f4b792a7cfd24c">More...</a><br /></td></tr>
+<tr class="separator:a663ea940da0a308a50f4b792a7cfd24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55b944fc76b0eff919d4cfe95ccf9cbb"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#a55b944fc76b0eff919d4cfe95ccf9cbb">getAsString</a> () const</td></tr>
-<tr class="memdesc:a55b944fc76b0eff919d4cfe95ccf9cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the as String value.  <a href="#a55b944fc76b0eff919d4cfe95ccf9cbb">More...</a><br /></td></tr>
+<tr class="memdesc:a55b944fc76b0eff919d4cfe95ccf9cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as String value.  <a href="#a55b944fc76b0eff919d4cfe95ccf9cbb">More...</a><br /></td></tr>
 <tr class="separator:a55b944fc76b0eff919d4cfe95ccf9cbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7255b0e4a59163b02a3ee43a8dafdd5e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00826.html#a949fe37cb751cac53f257c3c0241a652">ArrayValue</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#a7255b0e4a59163b02a3ee43a8dafdd5e">getAsArray</a> () const</td></tr>
-<tr class="memdesc:a7255b0e4a59163b02a3ee43a8dafdd5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the as ArrayValue value.  <a href="#a7255b0e4a59163b02a3ee43a8dafdd5e">More...</a><br /></td></tr>
+<tr class="memdesc:a7255b0e4a59163b02a3ee43a8dafdd5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as ArrayValue value.  <a href="#a7255b0e4a59163b02a3ee43a8dafdd5e">More...</a><br /></td></tr>
 <tr class="separator:a7255b0e4a59163b02a3ee43a8dafdd5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca828c9d6aa8ebc42b2b3042ff59926b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00826.html#a949fe37cb751cac53f257c3c0241a652">ArrayValue</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#aca828c9d6aa8ebc42b2b3042ff59926b">getAsArray</a> ()</td></tr>
-<tr class="memdesc:aca828c9d6aa8ebc42b2b3042ff59926b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the as ArrayValue value.  <a href="#aca828c9d6aa8ebc42b2b3042ff59926b">More...</a><br /></td></tr>
+<tr class="memdesc:aca828c9d6aa8ebc42b2b3042ff59926b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as ArrayValue value.  <a href="#aca828c9d6aa8ebc42b2b3042ff59926b">More...</a><br /></td></tr>
 <tr class="separator:aca828c9d6aa8ebc42b2b3042ff59926b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5585632b7c19f15a256a703379f958f6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01476.html">ReferenceValue</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#a5585632b7c19f15a256a703379f958f6">getAsRef</a> () const</td></tr>
-<tr class="memdesc:a5585632b7c19f15a256a703379f958f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the as <a class="el" href="a01476.html" title="Reference type for values. Wrapper around std::shared_ptr. ">ReferenceValue</a> value.  <a href="#a5585632b7c19f15a256a703379f958f6">More...</a><br /></td></tr>
+<tr class="memdesc:a5585632b7c19f15a256a703379f958f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as <a class="el" href="a01476.html" title="Reference type for values. Wrapper around std::shared_ptr. ">ReferenceValue</a> value.  <a href="#a5585632b7c19f15a256a703379f958f6">More...</a><br /></td></tr>
 <tr class="separator:a5585632b7c19f15a256a703379f958f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61814749524de07cde8a8c01dc21d099"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01476.html">ReferenceValue</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#a61814749524de07cde8a8c01dc21d099">getAsRef</a> ()</td></tr>
-<tr class="memdesc:a61814749524de07cde8a8c01dc21d099"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the as <a class="el" href="a01476.html" title="Reference type for values. Wrapper around std::shared_ptr. ">ReferenceValue</a> value.  <a href="#a61814749524de07cde8a8c01dc21d099">More...</a><br /></td></tr>
+<tr class="memdesc:a61814749524de07cde8a8c01dc21d099"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as <a class="el" href="a01476.html" title="Reference type for values. Wrapper around std::shared_ptr. ">ReferenceValue</a> value.  <a href="#a61814749524de07cde8a8c01dc21d099">More...</a><br /></td></tr>
 <tr class="separator:a61814749524de07cde8a8c01dc21d099"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb78e2f6d503cbe42df390320957ab30"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01460.html">Function</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01468.html#afb78e2f6d503cbe42df390320957ab30">getAsFunction</a> () const</td></tr>
-<tr class="memdesc:afb78e2f6d503cbe42df390320957ab30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the as <a class="el" href="a01460.html" title="Utility class for functions defined in scripts themselves. ">Function</a> type.  <a href="#afb78e2f6d503cbe42df390320957ab30">More...</a><br /></td></tr>
+<tr class="memdesc:afb78e2f6d503cbe42df390320957ab30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value as <a class="el" href="a01460.html" title="Utility class for functions defined in scripts themselves. ">Function</a> type.  <a href="#afb78e2f6d503cbe42df390320957ab30">More...</a><br /></td></tr>
 <tr class="separator:afb78e2f6d503cbe42df390320957ab30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -223,10 +237,14 @@ Static Public Member Functions</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593bae833bd63c765e8af44880943007075a9"></a>TVoid&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593ba2159a572c2b2757871e899f5380bc769"></a>TBool&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593ba6da8dbac5fb2543e59c4d5f4586fd977"></a>TString&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593badbfebc0a4c28a32923d6e0a658dd5bc4"></a>TNumeric&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593bac6c8856c0495f966f5e59a6a5d0ba56c"></a>TFloat&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593ba9e3ff271f93dadba861d71ec0773a0fd"></a>TInteger&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593ba072266baaed6b88ae76be77718db1e7e"></a>TArray&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593ba86b634d536efde80680a212abeeee4f2"></a>TFunction&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c"></a>TRef&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593badbfebc0a4c28a32923d6e0a658dd5bc4"></a>TNumeric&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593bafad0f94353ab3dc102d4fdeb3b6ad939"></a>TAnyValue&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593ba533c8ba9798e23c6e8ff0cf43adb9458"></a>TAny&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae46c56f7af29255ac8f117a0f97d593bad5fdfe004eb982dca5d4953f3275d748"></a>_TYPE_COUNT&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -252,7 +270,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Makes Void type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00038">38</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00040">40</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -318,7 +336,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt;&gt;&gt; </div>
+template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral&lt;T&gt;::value || std::is_enum&lt;T&gt;::value&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -352,7 +370,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00101">101</a> of file <a class="el" href="a00380_source.html">PrimitiveValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00107">107</a> of file <a class="el" href="a00380_source.html">PrimitiveValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -374,7 +392,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Makes Numeric type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00042">42</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00044">44</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -396,7 +414,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Makes String type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00054">54</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00056">56</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -418,7 +436,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Makes String type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00058">58</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00060">60</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -440,7 +458,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Makes ArrayValue type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00046">46</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00048">48</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -462,7 +480,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Makes ArrayValue type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00050">50</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00052">52</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -484,7 +502,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Makes Ref type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00063">63</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00065">65</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -506,7 +524,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Make <a class="el" href="a01460.html" title="Utility class for functions defined in scripts themselves. ">Function</a> type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00067">67</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00069">69</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -528,7 +546,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Dereferences the value or returns this value if not a reference. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00107">107</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00109">109</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -547,10 +565,10 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
       </table>
 </div><div class="memdoc">
 
-<p>Get the as ArrayValue value. </p>
+<p>Get the value as ArrayValue value. </p>
 <dl class="section return"><dt>Returns</dt><dd>ArrayValue An ArrayValue of Values or empty </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00138">138</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00164">164</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -569,10 +587,10 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
       </table>
 </div><div class="memdoc">
 
-<p>Get the as ArrayValue value. </p>
+<p>Get the value as ArrayValue value. </p>
 <dl class="section return"><dt>Returns</dt><dd>ArrayValue An ArrayValue of Values or empty </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00144">144</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00170">170</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -591,7 +609,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
       </table>
 </div><div class="memdoc">
 
-<p>Get the as Bool type. Performs implicit conversion. </p>
+<p>Get the value as Bool type. Performs implicit conversion. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">depth</td><td>The current stack depth. Used to validate references </td></tr>
@@ -600,7 +618,29 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The value as a boolean </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00113">113</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00115">115</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab8d6eda77cb92e297f69a3cc121b4dd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8d6eda77cb92e297f69a3cc121b4dd4">&#9670;&nbsp;</a></span>getAsFloat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::script::PrimitiveValue::getAsFloat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value as Float value. </p>
+<dl class="section return"><dt>Returns</dt><dd>float The value or 0 if not a float </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00150">150</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -619,21 +659,21 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
       </table>
 </div><div class="memdoc">
 
-<p>Get the as <a class="el" href="a01460.html" title="Utility class for functions defined in scripts themselves. ">Function</a> type. </p>
+<p>Get the value as <a class="el" href="a01460.html" title="Utility class for functions defined in scripts themselves. ">Function</a> type. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01460.html" title="Utility class for functions defined in scripts themselves. ">Function</a> The <a class="el" href="a01460.html" title="Utility class for functions defined in scripts themselves. ">Function</a> value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00156">156</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00182">182</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a6c7f54c3a6468c6114500f5cda96e52f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c7f54c3a6468c6114500f5cda96e52f">&#9670;&nbsp;</a></span>getAsNum()</h2>
+<a id="a79718a1b223e9e30eb73f06e198c4b3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79718a1b223e9e30eb73f06e198c4b3b">&#9670;&nbsp;</a></span>getAsInt()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float bl::script::PrimitiveValue::getAsNum </td>
+          <td class="memname">long bl::script::PrimitiveValue::getAsInt </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -641,10 +681,10 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
       </table>
 </div><div class="memdoc">
 
-<p>Get the as Numeric value. </p>
-<dl class="section return"><dt>Returns</dt><dd>float The value or 0 if not a String </dd></dl>
+<p>Get the value as Integer value. </p>
+<dl class="section return"><dt>Returns</dt><dd>float The value or 0 if not a float </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00132">132</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00136">136</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -663,10 +703,10 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
       </table>
 </div><div class="memdoc">
 
-<p>Get the as <a class="el" href="a01476.html" title="Reference type for values. Wrapper around std::shared_ptr. ">ReferenceValue</a> value. </p>
+<p>Get the value as <a class="el" href="a01476.html" title="Reference type for values. Wrapper around std::shared_ptr. ">ReferenceValue</a> value. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01476.html" title="Reference type for values. Wrapper around std::shared_ptr. ">ReferenceValue</a> A reference to the <a class="el" href="a01468.html" title="Represents the lowest level values in scripts. ">PrimitiveValue</a> this references, or nullptr </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00162">162</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00188">188</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -685,10 +725,10 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
       </table>
 </div><div class="memdoc">
 
-<p>Get the as <a class="el" href="a01476.html" title="Reference type for values. Wrapper around std::shared_ptr. ">ReferenceValue</a> value. </p>
+<p>Get the value as <a class="el" href="a01476.html" title="Reference type for values. Wrapper around std::shared_ptr. ">ReferenceValue</a> value. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01476.html" title="Reference type for values. Wrapper around std::shared_ptr. ">ReferenceValue</a> A reference to the <a class="el" href="a01468.html" title="Represents the lowest level values in scripts. ">PrimitiveValue</a> this references, or nullptr </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00168">168</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00194">194</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -707,10 +747,54 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
       </table>
 </div><div class="memdoc">
 
-<p>Get the as String value. </p>
+<p>Get the value as String value. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::string The value or "ERROR" if not String type </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00150">150</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00176">176</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7944dc8e2f68df10ed8b03636356aa97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7944dc8e2f68df10ed8b03636356aa97">&#9670;&nbsp;</a></span>getNumAsFloat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::script::PrimitiveValue::getNumAsFloat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the contained integer or float as a float. </p>
+<dl class="section return"><dt>Returns</dt><dd>float The contained numeric value </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00156">156</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a663ea940da0a308a50f4b792a7cfd24c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a663ea940da0a308a50f4b792a7cfd24c">&#9670;&nbsp;</a></span>getNumAsInt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long bl::script::PrimitiveValue::getNumAsInt </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the contained integer or float as an int. </p>
+<dl class="section return"><dt>Returns</dt><dd>long The contained numeric value </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00142">142</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -731,7 +815,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Returns the current type of this <a class="el" href="a01468.html" title="Represents the lowest level values in scripts. ">PrimitiveValue</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00111">111</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00113">113</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -797,7 +881,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt;&gt;&gt; </div>
+template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral&lt;T&gt;::value || std::is_enum&lt;T&gt;::value&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -831,7 +915,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00082">82</a> of file <a class="el" href="a00380_source.html">PrimitiveValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00087">87</a> of file <a class="el" href="a00380_source.html">PrimitiveValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -853,7 +937,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Makes Numeric type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00071">71</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00073">73</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -875,7 +959,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Makes String type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00077">77</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00079">79</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -897,7 +981,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Makes String type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00083">83</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00085">85</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -919,7 +1003,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Makes ArrayValue type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00089">89</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00091">91</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -941,7 +1025,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Makes Ref type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00095">95</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00097">97</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -963,7 +1047,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 
 <p>Make <a class="el" href="a01460.html" title="Utility class for functions defined in scripts themselves. ">Function</a> type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00101">101</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00710_source.html#l00103">103</a> of file <a class="el" href="a00710_source.html">PrimitiveValue.cpp</a>.</p>
 
 </div>
 </div>
@@ -1012,7 +1096,7 @@ template&lt;typename T , class  = std::enable_if_t&lt;std::is_integral_v&lt;T&gt
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 02:01:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 19 2022 05:24:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

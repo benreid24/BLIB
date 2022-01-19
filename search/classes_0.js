@@ -1,7 +1,7 @@
 var searchData=
 [
   ['activateevent',['ActivateEvent',['../a01240.html',1,'bl::menu::Event']]],
-  ['angularvector',['AngularVector',['../a01708.html',1,'bl::util']]],
+  ['angularvector',['AngularVector',['../a01720.html',1,'bl::util']]],
   ['animation',['Animation',['../a01100.html',1,'bl::gui::Animation'],['../a01332.html',1,'bl::gfx::Animation']]],
   ['animationdata',['AnimationData',['../a01336.html',1,'bl::gfx']]],
   ['any',['Any',['../a00872.html',1,'bl::container']]],
