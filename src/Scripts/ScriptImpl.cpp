@@ -12,8 +12,6 @@ using Symbol = const parser::Node::Ptr&;
 using G      = Parser::Grammar;
 namespace
 {
-constexpr PrimitiveValue::Type TNumeric = PrimitiveValue::TFloat | PrimitiveValue::TInteger;
-
 struct Ops {
     static PrimitiveValue Or(const PrimitiveValue& lhs, const PrimitiveValue& rhs);
     static PrimitiveValue And(const PrimitiveValue& lhs, const PrimitiveValue& rhs);
@@ -682,11 +680,11 @@ PrimitiveValue Ops::Gt(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
         gt = lh.getAsBool() > rh.getAsBool();
         break;
     case PrimitiveValue::TInteger:
-        if ((rh.getType() & TNumeric) == 0) return PrimitiveValue(false);
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
         gt = lh.getAsInt() > rh.getNumAsInt();
         break;
     case PrimitiveValue::TFloat:
-        if ((rh.getType() & TNumeric) == 0) return PrimitiveValue(false);
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
         gt = lh.getAsFloat() > rh.getNumAsFloat();
         break;
     case PrimitiveValue::TString:
@@ -713,11 +711,11 @@ PrimitiveValue Ops::Ge(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
         ge = lh.getAsBool() >= rh.getAsBool();
         break;
     case PrimitiveValue::TInteger:
-        if ((rh.getType() & TNumeric) == 0) return PrimitiveValue(false);
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
         ge = lh.getAsInt() >= rh.getNumAsInt();
         break;
     case PrimitiveValue::TFloat:
-        if ((rh.getType() & TNumeric) == 0) return PrimitiveValue(false);
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
         ge = lh.getAsFloat() >= rh.getNumAsFloat();
         break;
     case PrimitiveValue::TString:
@@ -744,11 +742,11 @@ PrimitiveValue Ops::Lt(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
         lt = lh.getAsBool() < rh.getAsBool();
         break;
     case PrimitiveValue::TInteger:
-        if ((rh.getType() & TNumeric) == 0) return PrimitiveValue(false);
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
         lt = lh.getAsInt() < rh.getNumAsInt();
         break;
     case PrimitiveValue::TFloat:
-        if ((rh.getType() & TNumeric) == 0) return PrimitiveValue(false);
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
         lt = lh.getAsFloat() < rh.getNumAsFloat();
         break;
     case PrimitiveValue::TString:
@@ -775,11 +773,11 @@ PrimitiveValue Ops::Le(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
         le = lh.getAsBool() <= rh.getAsBool();
         break;
     case PrimitiveValue::TInteger:
-        if ((rh.getType() & TNumeric) == 0) return PrimitiveValue(false);
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
         le = lh.getAsInt() <= rh.getNumAsInt();
         break;
     case PrimitiveValue::TFloat:
-        if ((rh.getType() & TNumeric) == 0) return PrimitiveValue(false);
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
         le = lh.getAsFloat() <= rh.getNumAsFloat();
         break;
     case PrimitiveValue::TString:
@@ -839,7 +837,8 @@ PrimitiveValue Ops::Sub(const PrimitiveValue& lhs, const PrimitiveValue& rhs, Sy
             return lh.getNumAsFloat() - rh.getAsFloat();
     }
     else if (lh.getType() == PrimitiveValue::TFloat) {
-        if ((rh.getType() & TNumeric) != 0) return lh.getAsFloat() - rh.getNumAsFloat();
+        if ((rh.getType() & PrimitiveValue::TNumeric) != 0)
+            return lh.getAsFloat() - rh.getNumAsFloat();
     }
     throw Error("Subtraction may only be done between Numeric types", node);
 }
@@ -896,7 +895,9 @@ PrimitiveValue Ops::Div(const PrimitiveValue& lhs, const PrimitiveValue& rhs, Sy
         if (rh.getType() == PrimitiveValue::TFloat) { return lh.getNumAsFloat() / rh.getAsFloat(); }
     }
     else if (lh.getType() == PrimitiveValue::TFloat) {
-        if ((rh.getType() & TNumeric) != 0) { return lh.getAsFloat() / rh.getNumAsFloat(); }
+        if ((rh.getType() & PrimitiveValue::TNumeric) != 0) {
+            return lh.getAsFloat() / rh.getNumAsFloat();
+        }
     }
     throw Error("Division may only be done between Numeric types", node);
 }
@@ -913,7 +914,7 @@ PrimitiveValue Ops::Exp(const PrimitiveValue& lhs, const PrimitiveValue& rhs, Sy
         }
     }
     else if (lh.getType() == PrimitiveValue::TFloat) {
-        if ((rh.getType() & TNumeric) != 0) {
+        if ((rh.getType() & PrimitiveValue::TNumeric) != 0) {
             return std::pow(lh.getAsFloat(), rh.getNumAsFloat());
         }
     }

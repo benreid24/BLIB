@@ -32,6 +32,9 @@ public:
         TArray      = 0x1 << 4,
         TFunction   = 0x1 << 5,
         TRef        = 0x1 << 6,
+        TNumeric    = TInteger | TFloat,
+        TAnyValue   = TBool | TString | TFloat | TInteger | TArray | TFunction | TRef,
+        TAny        = TAnyValue | TVoid,
         _TYPE_COUNT = 7 // excludes void
     };
 
@@ -79,7 +82,8 @@ public:
      * @tparam T The type
      * @param intOrBool The int or bool value
      */
-    template<typename T, class = std::enable_if_t<std::is_integral_v<T>>>
+    template<typename T,
+             class = std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value>>
     PrimitiveValue& operator=(T intOrBool) {
         if constexpr (std::is_same_v<std::decay_t<T>, bool>) {
             type = TBool;
@@ -98,7 +102,8 @@ public:
      * @tparam T The type
      * @param intOrBool The int or bool value
      */
-    template<typename T, class = std::enable_if_t<std::is_integral_v<T>>>
+    template<typename T,
+             class = std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value>>
     PrimitiveValue(T intOrBool) {
         if constexpr (std::is_same_v<std::decay_t<T>, bool>) {
             type = TBool;
@@ -109,7 +114,6 @@ public:
             value.emplace<long>(static_cast<long>(intOrBool));
         }
     }
-
     /**
      * @brief Makes Numeric type
      *

@@ -15,8 +15,6 @@ namespace script
 {
 namespace
 {
-constexpr PrimitiveValue::Type TNumeric = PrimitiveValue::TFloat | PrimitiveValue::TInteger;
-
 void print(SymbolTable&, const std::vector<Value>& args, Value& result);
 void loginfo(SymbolTable&, const std::vector<Value>& args, Value& result);
 void logerror(SymbolTable&, const std::vector<Value>& args, Value& result);
@@ -294,7 +292,7 @@ void str(SymbolTable& t, const std::vector<Value>& args, Value& result) {
 }
 
 void sqrt(SymbolTable&, const std::vector<Value>& args, Value& result) {
-    Value::validateArgs<TNumeric>("sqrt", args);
+    Value::validateArgs<PrimitiveValue::TNumeric>("sqrt", args);
 
     const float n = args[0].value().getNumAsFloat();
     if (n < 0.f) throw Error("Cannot take sqrt of negative value");
@@ -302,7 +300,7 @@ void sqrt(SymbolTable&, const std::vector<Value>& args, Value& result) {
 }
 
 void abs(SymbolTable&, const std::vector<Value>& args, Value& result) {
-    Value::validateArgs<TNumeric>("abs", args);
+    Value::validateArgs<PrimitiveValue::TNumeric>("abs", args);
     if (args[0].value().getType() == PrimitiveValue::TInteger)
         result = std::abs(args[0].value().getAsInt());
     else
@@ -310,37 +308,37 @@ void abs(SymbolTable&, const std::vector<Value>& args, Value& result) {
 }
 
 void round(SymbolTable&, const std::vector<Value>& args, Value& result) {
-    Value::validateArgs<TNumeric>("round", args);
+    Value::validateArgs<PrimitiveValue::TNumeric>("round", args);
     result = static_cast<long>(std::round(args[0].value().getNumAsFloat()));
 }
 
 void floor(SymbolTable&, const std::vector<Value>& args, Value& result) {
-    Value::validateArgs<TNumeric>("floor", args);
+    Value::validateArgs<PrimitiveValue::TNumeric>("floor", args);
     result = static_cast<long>(std::floor(args[0].value().getNumAsFloat()));
 }
 
 void ceil(SymbolTable&, const std::vector<Value>& args, Value& result) {
-    Value::validateArgs<TNumeric>("ceil", args);
+    Value::validateArgs<PrimitiveValue::TNumeric>("ceil", args);
     result = static_cast<long>(std::ceil(args[0].value().getNumAsFloat()));
 }
 
 void sin(SymbolTable&, const std::vector<Value>& args, Value& result) {
-    Value::validateArgs<TNumeric>("sin", args);
+    Value::validateArgs<PrimitiveValue::TNumeric>("sin", args);
     result = static_cast<float>(std::sin(args[0].value().getNumAsFloat() / 180 * 3.1415926));
 }
 
 void cos(SymbolTable&, const std::vector<Value>& args, Value& result) {
-    Value::validateArgs<TNumeric>("cos", args);
+    Value::validateArgs<PrimitiveValue::TNumeric>("cos", args);
     result = static_cast<float>(std::cos(args[0].value().getNumAsFloat() / 180 * 3.1415926));
 }
 
 void tan(SymbolTable&, const std::vector<Value>& args, Value& result) {
-    Value::validateArgs<TNumeric>("tan", args);
+    Value::validateArgs<PrimitiveValue::TNumeric>("tan", args);
     result = static_cast<float>(std::tan(args[0].value().getNumAsFloat() / 180 * 3.1415926));
 }
 
 void atan2(SymbolTable&, const std::vector<Value>& args, Value& result) {
-    Value::validateArgs<TNumeric, TNumeric>("atan2", args);
+    Value::validateArgs<PrimitiveValue::TNumeric, PrimitiveValue::TNumeric>("atan2", args);
     result = static_cast<float>(
         std::atan2(args[0].value().getNumAsFloat(), args[1].value().getNumAsFloat()) * 180 /
         3.1415926);
@@ -353,7 +351,7 @@ void min(SymbolTable&, const std::vector<Value>& args, Value& result) {
         if (arr.value().getType() == PrimitiveValue::TArray) {
             for (const Value& v : arr.value().getAsArray()) {
                 const Value& dr = v.value();
-                if ((dr.value().getType() & TNumeric) == 0)
+                if ((dr.value().getType() & PrimitiveValue::TNumeric) == 0)
                     throw Error("Arguments to min(array) must all be Numeric");
                 if (dr.value().getNumAsFloat() < mn.getNumAsFloat()) mn = dr.value();
             }
@@ -364,7 +362,7 @@ void min(SymbolTable&, const std::vector<Value>& args, Value& result) {
     // deliberate fallthrough
     for (const Value& v : args) {
         const Value dv = v.value();
-        if ((dv.value().getType() & TNumeric) == 0)
+        if ((dv.value().getType() & PrimitiveValue::TNumeric) == 0)
             throw Error("Arguments to min() must all be Numeric");
         if (dv.value().getNumAsFloat() < mn.getNumAsFloat()) mn = dv.value();
     }
@@ -378,7 +376,7 @@ void max(SymbolTable&, const std::vector<Value>& args, Value& result) {
         if (arr.value().getType() == PrimitiveValue::TArray) {
             for (const Value& v : arr.value().getAsArray()) {
                 const Value& dv = v.value();
-                if ((dv.value().getType() & TNumeric) == 0)
+                if ((dv.value().getType() & PrimitiveValue::TNumeric) == 0)
                     throw Error("Arguments to max(array) must all be Numeric");
                 if (dv.value().getNumAsFloat() > mx.getNumAsFloat()) mx = dv.value();
             }
@@ -389,7 +387,7 @@ void max(SymbolTable&, const std::vector<Value>& args, Value& result) {
     // deliberate fallthrough
     for (const Value& v : args) {
         const Value& dv = v.value();
-        if ((dv.value().getType() & TNumeric) == 0)
+        if ((dv.value().getType() & PrimitiveValue::TNumeric) == 0)
             throw Error("Arguments to max() must all be numberic");
         if (dv.value().getNumAsFloat() > mx.getNumAsFloat()) mx = dv.value();
     }
@@ -403,7 +401,7 @@ void sum(SymbolTable&, const std::vector<Value>& args, Value& result) {
         if (arr.value().getType() == PrimitiveValue::TArray) {
             for (const Value& v : arr.value().getAsArray()) {
                 const Value& dv = v.value();
-                if ((dv.value().getType() & TNumeric) == 0)
+                if ((dv.value().getType() & PrimitiveValue::TNumeric) == 0)
                     throw Error("Arguments to sum(array) must all be Numeric");
                 if (s.getType() == PrimitiveValue::TInteger) {
                     if (dv.value().getType() == PrimitiveValue::TInteger) {
@@ -424,7 +422,7 @@ void sum(SymbolTable&, const std::vector<Value>& args, Value& result) {
     // deliberate fallthrough
     for (const Value& v : args) {
         const Value& dv = v.value();
-        if ((dv.value().getType() & TNumeric) == 0)
+        if ((dv.value().getType() & PrimitiveValue::TNumeric) == 0)
             throw Error("Arguments to sum() must all be numberic");
         if (s.getType() == PrimitiveValue::TInteger) {
             if (dv.value().getType() == PrimitiveValue::TInteger) {
