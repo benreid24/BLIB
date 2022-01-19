@@ -105,6 +105,7 @@ TEST(JsonSerializer, ScriptValues) {
     script::Value b(true);
     b.setProperty("p1", script::Value(5.f));
     b.setProperty("p2", script::Value("hello"));
+    b.setProperty("p3", script::Value(-100));
     script::Value n(56.f);
     script::Value s("Hello World");
     script::Value l(script::ArrayValue({b, n, s}));
@@ -114,15 +115,18 @@ TEST(JsonSerializer, ScriptValues) {
     ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TBool);
     EXPECT_EQ(read.value().getAsBool(), true);
     script::ReferenceValue p = read.getProperty("p1", false);
-    ASSERT_EQ(p.deref().value().getType(), script::PrimitiveValue::TNumeric);
-    EXPECT_EQ(p.deref().value().getAsNum(), 5.f);
+    ASSERT_EQ(p.deref().value().getType(), script::PrimitiveValue::TFloat);
+    EXPECT_EQ(p.deref().value().getAsFloat(), 5.f);
     p = read.getProperty("p2", false);
     ASSERT_EQ(p.deref().value().getType(), script::PrimitiveValue::TString);
     EXPECT_EQ(p.deref().value().getAsString(), "hello");
+    p = read.getProperty("p3", false);
+    ASSERT_EQ(p.deref().value().getType(), script::PrimitiveValue::TInteger);
+    EXPECT_EQ(p.deref().value().getAsInt(), -100);
 
     ASSERT_TRUE(S::deserialize(read, S::serialize(n)));
-    ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TNumeric);
-    EXPECT_EQ(read.value().getAsNum(), 56.f);
+    ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TFloat);
+    EXPECT_EQ(read.value().getAsFloat(), 56.f);
 
     ASSERT_TRUE(S::deserialize(read, S::serialize(s)));
     ASSERT_EQ(read.value().getType(), script::PrimitiveValue::TString);
@@ -134,8 +138,8 @@ TEST(JsonSerializer, ScriptValues) {
     ASSERT_EQ(arr.size(), 3);
     ASSERT_EQ(arr[0].value().getType(), script::PrimitiveValue::TBool);
     EXPECT_EQ(arr[0].value().getAsBool(), true);
-    ASSERT_EQ(arr[1].value().getType(), script::PrimitiveValue::TNumeric);
-    EXPECT_EQ(arr[1].value().getAsNum(), 56);
+    ASSERT_EQ(arr[1].value().getType(), script::PrimitiveValue::TFloat);
+    EXPECT_EQ(arr[1].value().getAsFloat(), 56.f);
     ASSERT_EQ(arr[2].value().getType(), script::PrimitiveValue::TString);
     EXPECT_EQ(arr[2].value().getAsString(), "Hello World");
 }
