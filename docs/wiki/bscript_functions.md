@@ -33,8 +33,10 @@ The following functions are built-in and available globally to all **bScript** s
 
 | Name | Parameters   | Return  | Description                    |
 |------|--------------|---------|--------------------------------|
-| num  | `s`: String  | Numeric | Converts s to a number         |
+| int  | `s`: String/Float  | Integer | Converts s to an Integer         |
+| float  | `s`: String/Integer  | Float | Converts s to a Float         |
 | str  | `value`: Any | String  | Converts the value to a string |
+| typeof | `val`: Any | String | Returns the string representation of the value's type |
 
 ## Control Flow
 

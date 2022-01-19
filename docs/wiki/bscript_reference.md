@@ -43,11 +43,14 @@ The following types are part of the core language:
 |-----------|---------------------------------------|----------------------------|--------------------------------------|
 | Void      | No type                               | N/A                        | `false`                              |
 | Bool      | True or false                         | `true` or `false`          | N/A                                  |
-| Numeric   | Floating point number                 | `5` or `-34.56`            | Nonzero is `true`, zero is `false`   |
+| Integer   | Integer number                        | `5` or `-34`               | Nonzero is `true`, zero is `false`   |
+| Float     | Floating point number                 | `5.0` or `-34.56`          | Nonzero is `true`, zero is `false`   |
 | String    | String of characters                  | `"hello world"`            | Nonempty is `true`, empty is `false` |
 | Array     | Resizable list of values              | `[]` or `[1, true, "str"]` | Nonempty is `true`, empty is `false` |
 | Function  | Callable function                     | `def fn() {return 5; }`    | `false`                              |
 | Reference | Modifiable reference to another value | `&someVar`                 | Referenced Value                     |
+
+Note that floats are contagious. Integer values remain integers until they interact with a float, at which point the result is a float value.
 
 
 ## Built-in Operations
@@ -137,12 +140,12 @@ arr2[0] = arr1[1];     // arr2 = [2, 4]
 Arrays have the following built-in methods and properties:
 | Name   | Type     | Parameters                              | Description                                                                           |
 |--------|----------|-----------------------------------------|---------------------------------------------------------------------------------------|
-| length | Numeric  | N/A                                     | Number of items in the array                                                          |
+| length | Integer  | N/A                                     | Number of items in the array                                                          |
 | clear  | Function | N/A                                     | Clears all items in the array                                                         |
 | append | Function | `value`: Any                            | Appends the value to the end of the array                                             |
-| resize | Function | `size`: Numeric, `fill`: Any (optional) | Sets the new size of the array with an optional fill value. Fill is defaulted to void |
-| insert | Function | `index`: Numeric, `value`(s): Any       | Inserts at the given index the list of values provided                                |
-| erase  | Function | `index`: Numeric                        | Erases the element at the given index                                                 |
+| resize | Function | `size`: Integer, `fill`: Any (optional) | Sets the new size of the array with an optional fill value. Fill is defaulted to void |
+| insert | Function | `index`: Integer, `value`(s): Any       | Inserts at the given index the list of values provided                                |
+| erase  | Function | `index`: Integer                        | Erases the element at the given index                                                 |
 | find   | Function | `value`: Any                            | Searches the array for the given value and returns its index, or -1 if not found      |
 
 ### Properties
