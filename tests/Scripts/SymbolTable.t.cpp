@@ -24,7 +24,7 @@ TEST(SymbolTable, Get) {
     ASSERT_TRUE(table.exists("var"));
     ASSERT_TRUE(table.exists("second"));
     EXPECT_EQ(table.get("var")->deref().value().getAsString(), "hello");
-    EXPECT_EQ(table.get("second")->deref().value().getAsNum(), 10);
+    EXPECT_EQ(table.get("second")->deref().value().getAsFloat(), 10.f);
 }
 
 TEST(SymbolTable, Stack1) {
@@ -33,11 +33,11 @@ TEST(SymbolTable, Stack1) {
     EXPECT_FALSE(table.exists("var"));
     table.set("var", Value("hello"));
     table.pushFrame();
-    table.set("second", Value(10.f));
+    table.set("second", Value(10));
     ASSERT_TRUE(table.exists("var"));
     ASSERT_TRUE(table.exists("second"));
     EXPECT_EQ(table.get("var")->deref().value().getAsString(), "hello");
-    EXPECT_EQ(table.get("second")->deref().value().getAsNum(), 10.f);
+    EXPECT_EQ(table.get("second")->deref().value().getAsInt(), 10);
     table.popFrame();
     ASSERT_TRUE(table.exists("var"));
     EXPECT_EQ(table.get("var")->deref().value().getAsString(), "hello");
@@ -60,7 +60,7 @@ TEST(SymbolTable, Stack2) {
     EXPECT_EQ(table.get("deep")->deref().value().getAsString(), "world");
     table.popFrame();
     ASSERT_TRUE(table.exists("second"));
-    EXPECT_EQ(table.get("second")->deref().value().getAsNum(), 10.f);
+    EXPECT_EQ(table.get("second")->deref().value().getAsFloat(), 10.f);
     table.popFrame();
     ASSERT_TRUE(table.exists("var"));
     ASSERT_FALSE(table.exists("second"));
@@ -74,11 +74,11 @@ TEST(SymbolTable, ExtraPop) {
     EXPECT_FALSE(table.exists("var"));
     table.set("var", Value("hello"));
     table.pushFrame();
-    table.set("second", Value(10.f));
+    table.set("second", Value(10));
     ASSERT_TRUE(table.exists("var"));
     ASSERT_TRUE(table.exists("second"));
     EXPECT_EQ(table.get("var")->deref().value().getAsString(), "hello");
-    EXPECT_EQ(table.get("second")->deref().value().getAsNum(), 10);
+    EXPECT_EQ(table.get("second")->deref().value().getAsInt(), 10);
     table.popFrame();
     EXPECT_THROW(table.popFrame(), Error);
     ASSERT_TRUE(table.exists("var"));

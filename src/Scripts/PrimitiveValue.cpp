@@ -12,8 +12,10 @@ std::string PrimitiveValue::typeToString(Type t) {
         return "Void";
     case TBool:
         return "Bool";
-    case TNumeric:
-        return "Numeric";
+    case TInteger:
+        return "Integer";
+    case TFloat:
+        return "Float";
     case TString:
         return "String";
     case TArray:
@@ -40,7 +42,7 @@ PrimitiveValue::PrimitiveValue()
 , value(Empty()) {}
 
 PrimitiveValue::PrimitiveValue(float n)
-: type(TNumeric)
+: type(TFloat)
 , value(n) {}
 
 PrimitiveValue::PrimitiveValue(ArrayValue&& array)
@@ -69,7 +71,7 @@ PrimitiveValue::PrimitiveValue(const Function& f)
 , value(f) {}
 
 PrimitiveValue& PrimitiveValue::operator=(float n) {
-    type = TNumeric;
+    type = TFloat;
     value.emplace<float>(n);
     return *this;
 }
@@ -116,8 +118,10 @@ bool PrimitiveValue::getAsBool() const {
         return false;
     case TBool:
         return *std::get_if<bool>(&value);
-    case TNumeric:
-        return getAsNum() != 0.f;
+    case TInteger:
+        return getAsInt() != 0;
+    case TFloat:
+        return getAsFloat() != 0.f;
     case TString:
         return !getAsString().empty();
     case TArray:
@@ -129,10 +133,32 @@ bool PrimitiveValue::getAsBool() const {
     }
 }
 
-float PrimitiveValue::getAsNum() const {
+long PrimitiveValue::getAsInt() const {
+    const long* l = std::get_if<long>(&value);
+    if (!l) throw Error("Accessing non-integer value as integer");
+    return *l;
+}
+
+long PrimitiveValue::getNumAsInt() const {
+    const long* l = std::get_if<long>(&value);
+    if (l) return *l;
     const float* f = std::get_if<float>(&value);
-    if (!f) throw Error("Accessing non-numeric value as numeric");
+    if (f) return static_cast<long>(*f);
+    throw Error("Accessing non-numeric value as numeric");
+}
+
+float PrimitiveValue::getAsFloat() const {
+    const float* f = std::get_if<float>(&value);
+    if (!f) throw Error("Accessing non-float value as float");
     return *f;
+}
+
+float PrimitiveValue::getNumAsFloat() const {
+    const float* f = std::get_if<float>(&value);
+    if (f) return *f;
+    const long* l = std::get_if<long>(&value);
+    if (l) return static_cast<float>(*l);
+    throw Error("Accessing non-numeric value as numeric");
 }
 
 const ArrayValue& PrimitiveValue::getAsArray() const {

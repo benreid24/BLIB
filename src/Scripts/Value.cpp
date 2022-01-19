@@ -170,13 +170,11 @@ void Value::insert(SymbolTable&, const std::vector<Value>& args, Value&) {
     ArrayValue& arr = _value.getAsArray();
     if (args.size() < 2) throw Error("insert() requires a position and a list of elements");
     const PrimitiveValue& i = args[0].value().deref();
-    if (i.getType() != PrimitiveValue::TNumeric)
-        throw Error("First argument of insert() must be Numeric");
-    if (std::floor(i.getAsNum()) != i.getAsNum())
-        throw Error("Position in insert() must be an integer");
-    if (i.getAsNum() < 0) throw Error("Position in insert() must be positive");
+    if (i.getType() != PrimitiveValue::TInteger)
+        throw Error("First argument of insert() must be Integer");
+    if (i.getAsInt() < 0) throw Error("Position in insert() must be positive");
 
-    const unsigned int j = i.getAsNum();
+    const unsigned int j = i.getAsInt();
     if (j >= arr.size()) throw Error("Position in insert() is out of bounds");
 
     arr.insert(arr.begin() + j, args.begin() + 1, args.end());
@@ -194,13 +192,11 @@ void Value::erase(SymbolTable&, const std::vector<Value>& args, Value&) {
     ArrayValue& arr = _value.getAsArray();
     if (args.size() != 1) throw Error("erase() requires a position");
     const PrimitiveValue& i = args[0].value().deref();
-    if (i.getType() != PrimitiveValue::TNumeric)
+    if (i.getType() != PrimitiveValue::TInteger)
         throw Error("First argument of erase() must be Numeric");
-    if (std::floor(i.getAsNum()) != i.getAsNum())
-        throw Error("Position in erase() must be an integer");
-    if (i.getAsNum() < 0) throw Error("Position in erase() must be positive");
+    if (i.getAsInt() < 0) throw Error("Position in erase() must be positive");
 
-    const unsigned int j = i.getAsNum();
+    const unsigned int j = i.getAsInt();
     if (j >= arr.size()) throw Error("Position in erase() is out of bounds");
     arr.erase(arr.begin() + j);
 }
@@ -220,13 +216,11 @@ void Value::resize(SymbolTable&, const std::vector<Value>& args, Value&) {
     if (args.size() != 1 && args.size() != 2)
         throw Error("resize() expects a size and optional fill value");
     const PrimitiveValue& i = args[0].value().deref();
-    if (i.getType() != PrimitiveValue::TNumeric)
+    if (i.getType() != PrimitiveValue::TInteger)
         throw Error("First argument of resize() must be Numeric");
-    if (std::floor(i.getAsNum()) != i.getAsNum())
-        throw Error("Length in resize() must be an integer");
-    if (i.getAsNum() < 0) throw Error("Length in resize() must be positive");
+    if (i.getAsInt() < 0) throw Error("Length in resize() must be positive");
 
-    const unsigned int len = i.getAsNum();
+    const unsigned int len = i.getAsInt();
     const Value& fill      = args.size() == 2 ? args[1] : Default;
     arr.resize(len, fill);
 }
@@ -242,15 +236,13 @@ Value Value::resizeValue() {
 void Value::find(SymbolTable&, const std::vector<Value>& args, Value& result) {
     ArrayValue& arr = _value.getAsArray();
     if (args.size() != 1) throw Error("find() takes a single argument");
-    float i = 0.f;
-    for (const Value& element : arr) {
-        if (ScriptImpl::equals(element, args.front())) {
+    for (unsigned int i = 0; i < arr.size(); ++i) {
+        if (ScriptImpl::equals(arr[i], args.front())) {
             result = i;
             return;
         }
-        i += 1.f;
     }
-    result = -1.f;
+    result = -1;
 }
 
 Value Value::findValue() {

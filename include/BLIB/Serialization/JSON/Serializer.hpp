@@ -443,8 +443,11 @@ struct Serializer<script::Value, false> {
         case script::PrimitiveValue::TBool:
             v = val.getAsBool();
             break;
-        case script::PrimitiveValue::TNumeric:
-            v = val.getAsNum();
+        case script::PrimitiveValue::TInteger:
+            v = val.getAsInt();
+            break;
+        case script::PrimitiveValue::TFloat:
+            v = val.getAsFloat();
             break;
         case script::PrimitiveValue::TString:
             v = val.getAsString();
@@ -496,9 +499,14 @@ struct Serializer<script::Value, false> {
                 result.value() = *v->getAsBool();
                 break;
 
-            case script::PrimitiveValue::TNumeric:
+            case script::PrimitiveValue::TInteger:
                 if (!v->getAsInteger() && !v->getAsFloat()) return false;
-                result.value() = v->getNumericAsFloat(); // TODO - refactor int/float separated
+                result.value() = v->getNumericAsInteger();
+                break;
+
+            case script::PrimitiveValue::TFloat:
+                if (!v->getAsInteger() && !v->getAsFloat()) return false;
+                result.value() = v->getNumericAsFloat();
                 break;
 
             case script::PrimitiveValue::TString:

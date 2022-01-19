@@ -215,5 +215,18 @@ std::string FileUtil::getDataDirectory(const std::string& appName) {
     return path;
 }
 
+bool FileUtil::readFile(const std::string& filename, std::string& out) {
+    out.clear();
+
+    std::ifstream file(filename.c_str());
+    if (!file.good()) return false;
+
+    file.seekg(0, std::ios::end);
+    out.reserve(file.tellg());
+    file.seekg(0, std::ios::beg);
+    out.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    return true;
+}
+
 } // namespace util
 } // namespace bl

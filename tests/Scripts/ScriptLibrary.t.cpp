@@ -15,17 +15,30 @@ TEST(ScriptLibrary, Print) {
     script.run();
 }
 
-TEST(ScriptLibrary, Random) {
-    const std::string input = "return random(0, 10);";
+TEST(ScriptLibrary, RandomInt) {
+    const std::string input = "return randomInt(0, 10);";
     Script script(input);
     ASSERT_TRUE(script.valid());
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
     const Value v = r.value();
-    ASSERT_EQ(v.value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_LE(v.value().getAsNum(), 10);
-    ASSERT_GE(v.value().getAsNum(), 0);
+    ASSERT_EQ(v.value().getType(), PrimitiveValue::TInteger);
+    ASSERT_LE(v.value().getAsInt(), 10);
+    ASSERT_GE(v.value().getAsInt(), 0);
+}
+
+TEST(ScriptLibrary, RandomFloat) {
+    const std::string input = "return randomFloat(0.0, 10.0);";
+    Script script(input);
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    const Value v = r.value();
+    ASSERT_EQ(v.value().getType(), PrimitiveValue::TFloat);
+    ASSERT_LE(v.value().getAsFloat(), 10.f);
+    ASSERT_GE(v.value().getAsFloat(), 0.f);
 }
 
 TEST(ScriptLibrary, Run) {
@@ -36,8 +49,8 @@ TEST(ScriptLibrary, Run) {
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
     const Value v = r.value();
-    ASSERT_EQ(v.value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_EQ(v.value().getAsNum(), 5);
+    ASSERT_EQ(v.value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(v.value().getAsInt(), 5);
 }
 
 TEST(ScriptLibrary, RunBgnd) {
@@ -82,15 +95,48 @@ TEST(ScriptLibrary, Str) {
     ASSERT_EQ(r.value().value().getAsString(), "true5cat[1, 2]5<function>");
 }
 
-TEST(ScriptLibrary, Num) {
-    const std::string input = "return num(\"5\");";
+TEST(ScriptLibrary, IntStr) {
+    const std::string input = "return int(\"5\");";
     Script script(input);
     ASSERT_TRUE(script.valid());
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_EQ(r.value().value().getAsNum(), 5);
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(r.value().value().getAsInt(), 5);
+}
+
+TEST(ScriptLibrary, IntFloat) {
+    const std::string input = "return int(5.5);";
+    Script script(input);
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(r.value().value().getAsInt(), 5);
+}
+
+TEST(ScriptLibrary, FloatStr) {
+    const std::string input = "return float(\"5.5\");";
+    Script script(input);
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TFloat);
+    ASSERT_EQ(r.value().value().getAsFloat(), 5.5f);
+}
+
+TEST(ScriptLibrary, FloatInt) {
+    const std::string input = "return float(5);";
+    Script script(input);
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TFloat);
+    ASSERT_EQ(r.value().value().getAsFloat(), 5.f);
 }
 
 TEST(ScriptLibrary, Sqrt) {
@@ -100,19 +146,30 @@ TEST(ScriptLibrary, Sqrt) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_EQ(r.value().value().getAsNum(), 4);
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TFloat);
+    ASSERT_EQ(r.value().value().getAsFloat(), 4.f);
 }
 
-TEST(ScriptLibrary, Abs) {
+TEST(ScriptLibrary, AbsInt) {
     const std::string input = "return abs(-16);";
     Script script(input);
     ASSERT_TRUE(script.valid());
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_EQ(r.value().value().getAsNum(), 16);
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(r.value().value().getAsInt(), 16);
+}
+
+TEST(ScriptLibrary, AbsFloat) {
+    const std::string input = "return abs(-16.5);";
+    Script script(input);
+    ASSERT_TRUE(script.valid());
+
+    std::optional<Value> r = script.run();
+    ASSERT_TRUE(r.has_value());
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TFloat);
+    ASSERT_EQ(r.value().value().getAsFloat(), 16.5f);
 }
 
 TEST(ScriptLibrary, Round) {
@@ -122,8 +179,8 @@ TEST(ScriptLibrary, Round) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_EQ(r.value().value().getAsNum(), 33);
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(r.value().value().getAsInt(), 33);
 }
 
 TEST(ScriptLibrary, Floor) {
@@ -133,8 +190,8 @@ TEST(ScriptLibrary, Floor) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_EQ(r.value().value().getAsNum(), 16);
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(r.value().value().getAsInt(), 16);
 }
 
 TEST(ScriptLibrary, Ceil) {
@@ -144,8 +201,8 @@ TEST(ScriptLibrary, Ceil) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_EQ(r.value().value().getAsNum(), 17);
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(r.value().value().getAsInt(), 17);
 }
 
 TEST(ScriptLibrary, Sin) {
@@ -155,8 +212,8 @@ TEST(ScriptLibrary, Sin) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_EQ(r.value().value().getAsNum(), 1);
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TFloat);
+    ASSERT_EQ(r.value().value().getAsFloat(), 1.f);
 }
 
 TEST(ScriptLibrary, Cos) {
@@ -166,8 +223,8 @@ TEST(ScriptLibrary, Cos) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_EQ(r.value().value().getAsNum(), 1);
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TFloat);
+    ASSERT_EQ(r.value().value().getAsFloat(), 1.f);
 }
 
 TEST(ScriptLibrary, Tan) {
@@ -177,8 +234,8 @@ TEST(ScriptLibrary, Tan) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_EQ(r.value().value().getAsNum(), 0);
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TFloat);
+    ASSERT_EQ(r.value().value().getAsFloat(), 0.f);
 }
 
 TEST(ScriptLibrary, Atan2) {
@@ -190,8 +247,8 @@ TEST(ScriptLibrary, Atan2) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_THAT(r.value().value().getAsNum(), FloatEq(45));
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TFloat);
+    ASSERT_THAT(r.value().value().getAsFloat(), FloatEq(45.f));
 }
 
 TEST(ScriptLibrary, MinArray) {
@@ -203,8 +260,8 @@ TEST(ScriptLibrary, MinArray) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_THAT(r.value().value().getAsNum(), FloatEq(-30.f));
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(r.value().value().getAsInt(), -30);
 }
 
 TEST(ScriptLibrary, Min) {
@@ -216,8 +273,8 @@ TEST(ScriptLibrary, Min) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_THAT(r.value().value().getAsNum(), FloatEq(-30.f));
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(r.value().value().getAsInt(), -30);
 }
 
 TEST(ScriptLibrary, MaxArray) {
@@ -229,21 +286,21 @@ TEST(ScriptLibrary, MaxArray) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_THAT(r.value().value().getAsNum(), FloatEq(45.f));
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(r.value().value().getAsInt(), 45);
 }
 
 TEST(ScriptLibrary, Max) {
     using ::testing::FloatEq;
 
-    const std::string input = "return max(45, -30, 3.5);";
+    const std::string input = "return max(45.5, -30, 3.5);";
     Script script(input);
     ASSERT_TRUE(script.valid());
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_THAT(r.value().value().getAsNum(), FloatEq(45.f));
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TFloat);
+    ASSERT_THAT(r.value().value().getAsFloat(), FloatEq(45.5f));
 }
 
 TEST(ScriptLibrary, SumArray) {
@@ -255,21 +312,21 @@ TEST(ScriptLibrary, SumArray) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_THAT(r.value().value().getAsNum(), FloatEq(18.5f));
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TFloat);
+    ASSERT_THAT(r.value().value().getAsFloat(), FloatEq(18.5f));
 }
 
 TEST(ScriptLibrary, Sum) {
     using ::testing::FloatEq;
 
-    const std::string input = "return sum(45, -30, 3.5);";
+    const std::string input = "return sum(45, -30, 3);";
     Script script(input);
     ASSERT_TRUE(script.valid());
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_THAT(r.value().value().getAsNum(), FloatEq(18.5f));
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(r.value().value().getAsInt(), 18);
 }
 
 TEST(Value, FindSuccess) {
@@ -280,8 +337,8 @@ TEST(Value, FindSuccess) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_THAT(r.value().value().getAsNum(), FloatEq(1.f));
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(r.value().value().getAsInt(), 1);
 }
 
 TEST(Value, FindFail) {
@@ -292,8 +349,8 @@ TEST(Value, FindFail) {
 
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
-    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_THAT(r.value().value().getAsNum(), FloatEq(-1.f));
+    ASSERT_EQ(r.value().value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(r.value().value().getAsInt(), -1);
 }
 
 } // namespace script

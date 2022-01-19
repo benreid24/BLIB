@@ -41,8 +41,8 @@ TEST(Script, Run) {
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
     const Value v = r.value();
-    ASSERT_EQ(v.value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_EQ(v.value().getAsNum(), 16.f);
+    ASSERT_EQ(v.value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(v.value().getAsInt(), 16);
 }
 
 TEST(Script, Background) {
@@ -75,8 +75,8 @@ TEST(Script, Shadow) {
     std::optional<Value> r = script.run();
     ASSERT_TRUE(r.has_value());
     const Value v = r.value();
-    ASSERT_EQ(v.value().getType(), PrimitiveValue::TNumeric);
-    ASSERT_EQ(v.value().getAsNum(), 10.f);
+    ASSERT_EQ(v.value().getType(), PrimitiveValue::TInteger);
+    ASSERT_EQ(v.value().getAsInt(), 10);
 }
 
 } // namespace unittest

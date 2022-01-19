@@ -18,8 +18,11 @@ TEST(PrimitiveValue, Numeric) {
     PrimitiveValue val;
     EXPECT_EQ(val.getType(), PrimitiveValue::TVoid);
     val = 15.f;
-    EXPECT_EQ(val.getType(), PrimitiveValue::TNumeric);
-    EXPECT_EQ(val.getAsNum(), 15.f);
+    EXPECT_EQ(val.getType(), PrimitiveValue::TFloat);
+    EXPECT_EQ(val.getAsFloat(), 15.f);
+    val = -15;
+    EXPECT_EQ(val.getType(), PrimitiveValue::TInteger);
+    EXPECT_EQ(val.getAsInt(), -15);
 }
 
 TEST(PrimitiveValue, String) {
@@ -35,18 +38,18 @@ TEST(PrimitiveValue, Array) {
     ArrayValue arr(3);
     arr[0] = PrimitiveValue(12.f);
     arr[1] = PrimitiveValue("world");
-    arr[2] = PrimitiveValue(1.f);
+    arr[2] = PrimitiveValue(1);
 
     EXPECT_EQ(val.getType(), PrimitiveValue::TVoid);
     val = arr;
     EXPECT_EQ(val.getType(), PrimitiveValue::TArray);
     ASSERT_EQ(val.getAsArray().size(), 3);
-    EXPECT_EQ(val.getAsArray()[0].value().getType(), PrimitiveValue::TNumeric);
-    EXPECT_EQ(val.getAsArray()[0].value().getAsNum(), 12.f);
+    EXPECT_EQ(val.getAsArray()[0].value().getType(), PrimitiveValue::TFloat);
+    EXPECT_EQ(val.getAsArray()[0].value().getAsFloat(), 12.f);
     EXPECT_EQ(val.getAsArray()[1].value().getType(), PrimitiveValue::TString);
     EXPECT_EQ(val.getAsArray()[1].value().getAsString(), "world");
-    EXPECT_EQ(val.getAsArray()[2].value().getType(), PrimitiveValue::TNumeric);
-    EXPECT_EQ(val.getAsArray()[2].value().getAsNum(), 1.f);
+    EXPECT_EQ(val.getAsArray()[2].value().getType(), PrimitiveValue::TInteger);
+    EXPECT_EQ(val.getAsArray()[2].value().getAsInt(), 1);
 }
 
 } // namespace unittest

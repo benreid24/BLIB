@@ -63,6 +63,17 @@ TEST(FileUtil, JoinPath) {
     }
 }
 
+TEST(FileUtil, ReadFile) {
+    const std::string content = "hello fish world";
+    std::ofstream out("readfile.txt");
+    out << content;
+    out.close();
+
+    std::string read;
+    ASSERT_TRUE(FileUtil::readFile("readfile.txt", read));
+    EXPECT_EQ(read, content);
+}
+
 } // namespace unittest
 } // namespace util
 } // namespace bl

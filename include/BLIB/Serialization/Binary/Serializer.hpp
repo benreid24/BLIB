@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <unordered_map>
 #include <unordered_set>
+#include <variant>
 
 namespace bl
 {
@@ -339,6 +340,51 @@ struct Serializer<std::pair<U, V>, false> {
 
     static std::uint32_t size(const std::pair<U, V>& v) {
         return Serializer<U>::size(v.first) + Serializer<V>::size(v.second);
+    }
+};
+
+template<typename... Ts>
+struct Serializer<std::variant<Ts...>, false> {
+private:
+    struct HelperBase {
+        virtual bool deserialize(InputStream& input, std::variant<Ts...>& v) const = 0;
+    };
+
+    template<typename U>
+    struct Helper : public HelperBase {
+        virtual bool deserialize(InputStream& input, std::variant<Ts...>& v) const override {
+            static const U trash{};
+            v = trash;
+            return Serializer<U>::deserialize(input, std::get<U>(v));
+        }
+    };
+
+public:
+    static bool serialize(OutputStream& output, const std::variant<Ts...>& v) {
+        const auto visitor = [&output](const auto& c) -> bool {
+            return Serializer<std::decay_t<decltype(c)>>::serialize(output, c);
+        };
+
+        if (!output.write<std::uint16_t>(v.index())) return false;
+        return std::visit(visitor, v);
+    }
+
+    static bool deserialize(InputStream& input, std::variant<Ts...>& v) {
+        static const std::tuple<Helper<Ts>...> helperTuple(Helper<Ts>{}...);
+        static const HelperBase* helpers[] = {&std::get<Helper<Ts>>(helperTuple)...};
+
+        std::uint16_t i = 0;
+        if (!input.read<std::uint16_t>(i)) return false;
+        if (i >= sizeof...(Ts)) return false;
+        return helpers[i]->deserialize(input, v);
+    }
+
+    static std::uint32_t size(const std::variant<Ts...>& v) {
+        static constexpr auto visitor = [](const auto& c) -> std::uint32_t {
+            return Serializer<std::decay_t<decltype(c)>>::size(c);
+        };
+
+        return std::visit(visitor, v) + sizeof(std::uint16_t);
     }
 };
 

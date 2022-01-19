@@ -500,7 +500,12 @@ Value evalTVal(Symbol node, SymbolTable& table) {
         }
         return ScriptImpl::computeValue(n->children[1], table);
     case G::NumLit:
-        return PrimitiveValue(std::atof(n->data.c_str()));
+        if (n->data.find('.') != std::string::npos) {
+            return PrimitiveValue(std::atof(n->data.c_str()));
+        }
+        else {
+            return PrimitiveValue(std::atol(n->data.c_str()));
+        }
     case G::StringLit:
         return PrimitiveValue(n->data);
     case G::Call: {
@@ -525,9 +530,12 @@ Value evalTVal(Symbol node, SymbolTable& table) {
             if (n->children.size() != 2) throw Error("Internal error: Invalid UNeg children", n);
         }
         Value v = evalTVal(n->children[1], table);
-        if (v.value().getType() != PrimitiveValue::TNumeric)
+        if (v.value().getType() == PrimitiveValue::TInteger) { v.value() = -v.value().getAsInt(); }
+        else if (v.value().getType() == PrimitiveValue::TFloat) {
+            v.value() = -v.value().getAsFloat();
+        }
+        else
             throw Error("Right operand of unary '-' must be Numeric", n->children[1]);
-        v.value() = -v.value().getAsNum();
         return v;
     }
     default:
@@ -567,11 +575,9 @@ ReferenceValue evalRVal(Symbol node, SymbolTable& table, bool create) {
         PrimitiveValue i = ScriptImpl::computeValue(n->children[2], table);
         if (v.deref().value().getType() != PrimitiveValue::TArray)
             throw Error("Array access on non-array type", n->children[0]);
-        if (i.getType() != PrimitiveValue::TNumeric)
-            throw Error("Array indices must be Numeric", n->children[2]);
-        unsigned int j = static_cast<unsigned int>(i.getAsNum());
-        if (i.getAsNum() != j || std::floor(i.getAsNum()) != i.getAsNum())
-            throw Error("Array indices must be positive integers", n->children[2]);
+        if (i.getType() != PrimitiveValue::TInteger)
+            throw Error("Array indices must be Integer", n->children[2]);
+        unsigned int j = i.getAsInt();
         if (j >= v.deref().value().getAsArray().size())
             throw Error("Array index " + std::to_string(j) + " out of bounds", n->children[2]);
         return v.deref().value().getAsArray()[j].getRef();
@@ -630,8 +636,11 @@ PrimitiveValue Ops::Eq(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
     case PrimitiveValue::TBool:
         eq = lh.getAsBool() == rh.getAsBool();
         break;
-    case PrimitiveValue::TNumeric:
-        eq = lh.getAsNum() == rh.getAsNum();
+    case PrimitiveValue::TInteger:
+        eq = lh.getAsInt() == rh.getAsInt();
+        break;
+    case PrimitiveValue::TFloat:
+        eq = lh.getAsFloat() == rh.getAsFloat();
         break;
     case PrimitiveValue::TString:
         eq = lh.getAsString() == rh.getAsString();
@@ -664,19 +673,26 @@ PrimitiveValue Ops::Ne(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
 PrimitiveValue Ops::Gt(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
     const PrimitiveValue& rh = rhs.deref();
     const PrimitiveValue& lh = lhs.deref();
-    if (rh.getType() != lh.getType()) { return PrimitiveValue(false); }
-    bool gt = true;
+    bool gt                  = true;
     switch (lh.getType()) {
     case PrimitiveValue::TBool:
+        if (rh.getType() != PrimitiveValue::TBool) { return PrimitiveValue(false); }
         gt = lh.getAsBool() > rh.getAsBool();
         break;
-    case PrimitiveValue::TNumeric:
-        gt = lh.getAsNum() > rh.getAsNum();
+    case PrimitiveValue::TInteger:
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
+        gt = lh.getAsInt() > rh.getNumAsInt();
+        break;
+    case PrimitiveValue::TFloat:
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
+        gt = lh.getAsFloat() > rh.getNumAsFloat();
         break;
     case PrimitiveValue::TString:
+        if (rh.getType() != PrimitiveValue::TString) return PrimitiveValue(false);
         gt = !(lh.getAsString() < rh.getAsString()) && lh.getAsString() != rh.getAsString();
         break;
     case PrimitiveValue::TArray:
+        if (rh.getType() != PrimitiveValue::TArray) return PrimitiveValue(false);
         gt = lh.getAsArray().size() > rh.getAsArray().size();
         break;
     default:
@@ -688,19 +704,26 @@ PrimitiveValue Ops::Gt(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
 PrimitiveValue Ops::Ge(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
     const PrimitiveValue& rh = rhs.deref();
     const PrimitiveValue& lh = lhs.deref();
-    if (rh.getType() != lh.getType()) { return PrimitiveValue(false); }
-    bool ge = true;
+    bool ge                  = true;
     switch (lh.getType()) {
     case PrimitiveValue::TBool:
+        if (rh.getType() != PrimitiveValue::TBool) { return PrimitiveValue(false); }
         ge = lh.getAsBool() >= rh.getAsBool();
         break;
-    case PrimitiveValue::TNumeric:
-        ge = lh.getAsNum() >= rh.getAsNum();
+    case PrimitiveValue::TInteger:
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
+        ge = lh.getAsInt() >= rh.getNumAsInt();
+        break;
+    case PrimitiveValue::TFloat:
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
+        ge = lh.getAsFloat() >= rh.getNumAsFloat();
         break;
     case PrimitiveValue::TString:
+        if (rh.getType() != PrimitiveValue::TString) return PrimitiveValue(false);
         ge = !(lh.getAsString() < rh.getAsString());
         break;
     case PrimitiveValue::TArray:
+        if (rh.getType() != PrimitiveValue::TArray) return PrimitiveValue(false);
         ge = lh.getAsArray().size() >= rh.getAsArray().size();
         break;
     default:
@@ -712,19 +735,26 @@ PrimitiveValue Ops::Ge(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
 PrimitiveValue Ops::Lt(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
     const PrimitiveValue& rh = rhs.deref();
     const PrimitiveValue& lh = lhs.deref();
-    if (rh.getType() != lh.getType()) { return PrimitiveValue(false); }
-    bool lt = true;
+    bool lt                  = true;
     switch (lh.getType()) {
     case PrimitiveValue::TBool:
+        if (rh.getType() != PrimitiveValue::TBool) { return PrimitiveValue(false); }
         lt = lh.getAsBool() < rh.getAsBool();
         break;
-    case PrimitiveValue::TNumeric:
-        lt = lh.getAsNum() < rh.getAsNum();
+    case PrimitiveValue::TInteger:
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
+        lt = lh.getAsInt() < rh.getNumAsInt();
+        break;
+    case PrimitiveValue::TFloat:
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
+        lt = lh.getAsFloat() < rh.getNumAsFloat();
         break;
     case PrimitiveValue::TString:
+        if (rh.getType() != PrimitiveValue::TString) return PrimitiveValue(false);
         lt = lh.getAsString() < rh.getAsString();
         break;
     case PrimitiveValue::TArray:
+        if (rh.getType() != PrimitiveValue::TArray) return PrimitiveValue(false);
         lt = lh.getAsArray().size() < rh.getAsArray().size();
         break;
     default:
@@ -736,25 +766,32 @@ PrimitiveValue Ops::Lt(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
 PrimitiveValue Ops::Le(const PrimitiveValue& lhs, const PrimitiveValue& rhs) {
     const PrimitiveValue& rh = rhs.deref();
     const PrimitiveValue& lh = lhs.deref();
-    if (rh.getType() != lh.getType()) { return PrimitiveValue(false); }
-    bool gt = true;
+    bool le                  = true;
     switch (lh.getType()) {
     case PrimitiveValue::TBool:
-        gt = lh.getAsBool() <= rh.getAsBool();
+        if (rh.getType() != PrimitiveValue::TBool) { return PrimitiveValue(false); }
+        le = lh.getAsBool() <= rh.getAsBool();
         break;
-    case PrimitiveValue::TNumeric:
-        gt = lh.getAsNum() <= rh.getAsNum();
+    case PrimitiveValue::TInteger:
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
+        le = lh.getAsInt() <= rh.getNumAsInt();
+        break;
+    case PrimitiveValue::TFloat:
+        if ((rh.getType() & PrimitiveValue::TNumeric) == 0) return PrimitiveValue(false);
+        le = lh.getAsFloat() <= rh.getNumAsFloat();
         break;
     case PrimitiveValue::TString:
-        gt = lh.getAsString() < rh.getAsString() || lh.getAsString() != rh.getAsString();
+        if (rh.getType() != PrimitiveValue::TString) return PrimitiveValue(false);
+        le = lh.getAsString() < rh.getAsString() || lh.getAsString() == rh.getAsString();
         break;
     case PrimitiveValue::TArray:
-        gt = lh.getAsArray().size() <= rh.getAsArray().size();
+        if (rh.getType() != PrimitiveValue::TArray) return PrimitiveValue(false);
+        le = lh.getAsArray().size() <= rh.getAsArray().size();
         break;
     default:
-        gt = false;
+        le = false;
     }
-    return PrimitiveValue(gt);
+    return PrimitiveValue(le);
 }
 
 PrimitiveValue Ops::Add(const PrimitiveValue& lhs, const PrimitiveValue& rhs, Symbol node) {
@@ -762,18 +799,21 @@ PrimitiveValue Ops::Add(const PrimitiveValue& lhs, const PrimitiveValue& rhs, Sy
     const PrimitiveValue& lh = lhs.deref();
 
     switch (lh.getType()) {
-    case PrimitiveValue::TNumeric:
-        if (rh.getType() == PrimitiveValue::TNumeric) return lh.getAsNum() + rh.getAsNum();
+    case PrimitiveValue::TInteger:
+        if (rh.getType() == PrimitiveValue::TInteger) return lh.getAsInt() + rh.getAsInt();
+        if (rh.getType() == PrimitiveValue::TFloat) return lh.getNumAsFloat() + rh.getAsFloat();
+        throw Error("Only a Numeric type may be added to a Numeric type", node);
+    case PrimitiveValue::TFloat:
+        if (rh.getType() == PrimitiveValue::TFloat) return lh.getAsFloat() + rh.getAsFloat();
+        if (rh.getType() == PrimitiveValue::TInteger) return lh.getAsFloat() + rh.getNumAsInt();
         throw Error("Only a Numeric type may be added to a Numeric type", node);
     case PrimitiveValue::TString:
         if (rh.getType() == PrimitiveValue::TString) return lh.getAsString() + rh.getAsString();
-        if (rh.getType() == PrimitiveValue::TNumeric) {
-            std::string str;
-            if (std::floor(rh.getAsNum()) == rh.getAsNum())
-                str = std::to_string(static_cast<int>(rh.getAsNum()));
-            else
-                std::to_string(rh.getAsNum());
-            return lh.getAsString() + str;
+        if (rh.getType() == PrimitiveValue::TInteger) {
+            return lh.getAsString() + std::to_string(rh.getAsInt());
+        }
+        if (rh.getType() == PrimitiveValue::TFloat) {
+            return lh.getAsString() + std::to_string(rh.getAsFloat());
         }
         throw Error("Only Numeric and String types may be added to Strings", node);
     case PrimitiveValue::TArray: {
@@ -782,16 +822,25 @@ PrimitiveValue Ops::Add(const PrimitiveValue& lhs, const PrimitiveValue& rhs, Sy
         return {std::move(a)};
     }
     default:
-        throw Error("Valid left operand types for '+' are Array, String, and Numeric only", node);
+        throw Error("Valid left operand types for '+' are Array, String, Integer, and Float only",
+                    node);
     }
 }
 
 PrimitiveValue Ops::Sub(const PrimitiveValue& lhs, const PrimitiveValue& rhs, Symbol node) {
     const PrimitiveValue& rh = rhs.deref();
     const PrimitiveValue& lh = lhs.deref();
-    if (rh.getType() != PrimitiveValue::TNumeric || lh.getType() != PrimitiveValue::TNumeric)
-        throw Error("Subtraction may only be done between Numeric types", node);
-    return lhs.getAsNum() - rhs.getAsNum();
+    if (lh.getType() == PrimitiveValue::TInteger) {
+        if (rh.getType() == PrimitiveValue::TInteger)
+            return lh.getAsInt() - rh.getNumAsInt();
+        else if (rh.getType() == PrimitiveValue::TFloat)
+            return lh.getNumAsFloat() - rh.getAsFloat();
+    }
+    else if (lh.getType() == PrimitiveValue::TFloat) {
+        if ((rh.getType() & PrimitiveValue::TNumeric) != 0)
+            return lh.getAsFloat() - rh.getNumAsFloat();
+    }
+    throw Error("Subtraction may only be done between Numeric types", node);
 }
 
 PrimitiveValue Ops::Mult(const PrimitiveValue& lhs, const PrimitiveValue& rhs, Symbol node) {
@@ -799,22 +848,32 @@ PrimitiveValue Ops::Mult(const PrimitiveValue& lhs, const PrimitiveValue& rhs, S
     const PrimitiveValue& lh = lhs.deref();
 
     switch (lh.getType()) {
-    case PrimitiveValue::TNumeric:
-        if (rh.getType() == PrimitiveValue::TNumeric) return lh.getAsNum() * rh.getAsNum();
+    case PrimitiveValue::TInteger:
+        if (rh.getType() == PrimitiveValue::TInteger) { return lh.getAsInt() * rh.getAsInt(); }
+        if (rh.getType() == PrimitiveValue::TFloat) { return lh.getNumAsFloat() * rh.getAsFloat(); }
+        throw Error("A Numeric type can only be multiplied by a Numeric type", node);
+    case PrimitiveValue::TFloat:
+        if (rh.getType() == PrimitiveValue::TFloat) { return lh.getAsFloat() * rh.getAsFloat(); }
+        if (rh.getType() == PrimitiveValue::TInteger) {
+            return lh.getAsFloat() * rh.getNumAsFloat();
+        }
         throw Error("A Numeric type can only be multiplied by a Numeric type", node);
     case PrimitiveValue::TString:
-        if (rh.getType() == PrimitiveValue::TNumeric) {
-            const unsigned int n = static_cast<unsigned int>(rh.getAsNum());
-            if (n != rh.getAsNum()) throw Error("Multiplier must be a positive integer or 0", node);
+        if (rh.getType() == PrimitiveValue::TInteger) {
+            const unsigned int n = static_cast<unsigned int>(rh.getAsInt());
+            if (static_cast<long long>(n) != rh.getAsInt())
+                throw Error("Multiplier must be a positive integer or 0", node);
             std::string r;
+            r.reserve(lh.getAsString().size() * n);
             for (unsigned int i = 0; i < n; ++i) { r += lh.getAsString(); }
             return r;
         }
-        throw Error("A String type can only be multiplied by a Numeric type", node);
+        throw Error("A String type can only be multiplied by an Integer type", node);
     case PrimitiveValue::TArray:
-        if (rh.getType() == PrimitiveValue::TNumeric) {
-            const unsigned int n = static_cast<unsigned int>(rh.getAsNum());
-            if (n != rh.getAsNum()) throw Error("Multiplier must be a positive integer or 0", node);
+        if (rh.getType() == PrimitiveValue::TInteger) {
+            const unsigned int n = static_cast<unsigned int>(rh.getAsInt());
+            if (static_cast<long long>(n) != rh.getAsInt())
+                throw Error("Multiplier must be a positive integer or 0", node);
             ArrayValue a;
             a.reserve(a.size() * n);
             for (unsigned int i = 0; i < n; ++i) {
@@ -822,7 +881,7 @@ PrimitiveValue Ops::Mult(const PrimitiveValue& lhs, const PrimitiveValue& rhs, S
             }
             return {std::move(a)};
         }
-        throw Error("An Array type can only be multiplied by a Numeric type", node);
+        throw Error("An Array type can only be multiplied by an Integer type", node);
     default:
         throw Error("Valid left operand types for '*' are Array, String, and Numeric only", node);
     }
@@ -831,17 +890,35 @@ PrimitiveValue Ops::Mult(const PrimitiveValue& lhs, const PrimitiveValue& rhs, S
 PrimitiveValue Ops::Div(const PrimitiveValue& lhs, const PrimitiveValue& rhs, Symbol node) {
     const PrimitiveValue& rh = rhs.deref();
     const PrimitiveValue& lh = lhs.deref();
-    if (rh.getType() != PrimitiveValue::TNumeric || lh.getType() != PrimitiveValue::TNumeric)
-        throw Error("Division may only be done between Numeric types", node);
-    return lhs.getAsNum() / rhs.getAsNum();
+    if (lh.getType() == PrimitiveValue::TInteger) {
+        if (rh.getType() == PrimitiveValue::TInteger) { return lh.getAsInt() / rh.getAsInt(); }
+        if (rh.getType() == PrimitiveValue::TFloat) { return lh.getNumAsFloat() / rh.getAsFloat(); }
+    }
+    else if (lh.getType() == PrimitiveValue::TFloat) {
+        if ((rh.getType() & PrimitiveValue::TNumeric) != 0) {
+            return lh.getAsFloat() / rh.getNumAsFloat();
+        }
+    }
+    throw Error("Division may only be done between Numeric types", node);
 }
 
 PrimitiveValue Ops::Exp(const PrimitiveValue& lhs, const PrimitiveValue& rhs, Symbol node) {
     const PrimitiveValue& rh = rhs.deref();
     const PrimitiveValue& lh = lhs.deref();
-    if (rh.getType() != PrimitiveValue::TNumeric || lh.getType() != PrimitiveValue::TNumeric)
-        throw Error("Exponentiation may only be done between Numeric types", node);
-    return std::pow(lhs.getAsNum(), rhs.getAsNum());
+    if (lh.getType() == PrimitiveValue::TInteger) {
+        if (rh.getType() == PrimitiveValue::TInteger) {
+            return static_cast<long>(std::pow(lh.getAsInt(), rh.getAsInt()));
+        }
+        if (rh.getType() == PrimitiveValue::TFloat) {
+            return std::pow(lh.getNumAsFloat(), rh.getAsFloat());
+        }
+    }
+    else if (lh.getType() == PrimitiveValue::TFloat) {
+        if ((rh.getType() & PrimitiveValue::TNumeric) != 0) {
+            return std::pow(lh.getAsFloat(), rh.getNumAsFloat());
+        }
+    }
+    throw Error("Exponentiation may only be done between Numeric types", node);
 }
 
 } // namespace

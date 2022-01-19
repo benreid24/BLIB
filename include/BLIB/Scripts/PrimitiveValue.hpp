@@ -27,11 +27,15 @@ public:
         TVoid       = 0x0,
         TBool       = 0x1 << 0,
         TString     = 0x1 << 1,
-        TNumeric    = 0x1 << 2,
-        TArray      = 0x1 << 3,
-        TFunction   = 0x1 << 4,
-        TRef        = 0x1 << 5,
-        _TYPE_COUNT = 6 // excludes void
+        TFloat      = 0x1 << 2,
+        TInteger    = 0x1 << 3,
+        TArray      = 0x1 << 4,
+        TFunction   = 0x1 << 5,
+        TRef        = 0x1 << 6,
+        TNumeric    = TInteger | TFloat,
+        TAnyValue   = TBool | TString | TFloat | TInteger | TArray | TFunction | TRef,
+        TAny        = TAnyValue | TVoid,
+        _TYPE_COUNT = 7 // excludes void
     };
 
     /**
@@ -78,15 +82,16 @@ public:
      * @tparam T The type
      * @param intOrBool The int or bool value
      */
-    template<typename T, class = std::enable_if_t<std::is_integral_v<T>>>
+    template<typename T,
+             class = std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value>>
     PrimitiveValue& operator=(T intOrBool) {
         if constexpr (std::is_same_v<std::decay_t<T>, bool>) {
             type = TBool;
             value.emplace<bool>(intOrBool);
         }
         else {
-            type = TNumeric;
-            value.emplace<float>(static_cast<float>(intOrBool));
+            type = TInteger;
+            value.emplace<long>(static_cast<long>(intOrBool));
         }
         return *this;
     }
@@ -97,18 +102,18 @@ public:
      * @tparam T The type
      * @param intOrBool The int or bool value
      */
-    template<typename T, class = std::enable_if_t<std::is_integral_v<T>>>
+    template<typename T,
+             class = std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value>>
     PrimitiveValue(T intOrBool) {
         if constexpr (std::is_same_v<std::decay_t<T>, bool>) {
             type = TBool;
             value.emplace<bool>(intOrBool);
         }
         else {
-            type = TNumeric;
-            value.emplace<float>(static_cast<float>(intOrBool));
+            type = TInteger;
+            value.emplace<long>(static_cast<long>(intOrBool));
         }
     }
-
     /**
      * @brief Makes Numeric type
      *
@@ -200,7 +205,7 @@ public:
     const PrimitiveValue& deref() const;
 
     /**
-     * @brief Get the as Bool type. Performs implicit conversion
+     * @brief Get the value as Bool type. Performs implicit conversion
      *
      * @param depth The current stack depth. Used to validate references
      * @return The value as a boolean
@@ -208,49 +213,70 @@ public:
     bool getAsBool() const;
 
     /**
-     * @brief Get the as Numeric value
+     * @brief Get the value as Float value
      *
-     * @return float The value or 0 if not a String
+     * @return float The value or 0 if not a float
      */
-    float getAsNum() const;
+    float getAsFloat() const;
 
     /**
-     * @brief Get the as String value
+     * @brief Returns the contained integer or float as a float
+     *
+     * @return float The contained numeric value
+     */
+    float getNumAsFloat() const;
+
+    /**
+     * @brief Get the value as Integer value
+     *
+     * @return float The value or 0 if not a float
+     */
+    long getAsInt() const;
+
+    /**
+     * @brief Returns the contained integer or float as an int
+     *
+     * @return long The contained numeric value
+     */
+    long getNumAsInt() const;
+
+    /**
+     * @brief Get the value as String value
      *
      * @return std::string The value or "ERROR" if not String type
      */
     const std::string& getAsString() const;
 
     /**
-     * @brief Get the as ArrayValue value
+     * @brief Get the value as ArrayValue value
      *
      * @return ArrayValue An ArrayValue of Values or empty
      */
     const ArrayValue& getAsArray() const;
 
     /**
-     * @brief Get the as ArrayValue value
+     * @brief Get the value as ArrayValue value
      *
      * @return ArrayValue An ArrayValue of Values or empty
      */
     ArrayValue& getAsArray();
 
     /**
-     * @brief Get the as ReferenceValue value
+     * @brief Get the value as ReferenceValue value
      *
      * @return ReferenceValue A reference to the PrimitiveValue this references, or nullptr
      */
     const ReferenceValue& getAsRef() const;
 
     /**
-     * @brief Get the as ReferenceValue value
+     * @brief Get the value as ReferenceValue value
      *
      * @return ReferenceValue A reference to the PrimitiveValue this references, or nullptr
      */
     ReferenceValue& getAsRef();
 
     /**
-     * @brief Get the as Function type
+     * @brief Get the value as Function type
      *
      * @return Function The Function value
      */
@@ -259,7 +285,7 @@ public:
 private:
     struct Empty {};
     using TData =
-        std::variant<Empty, bool, float, std::string, ArrayValue, ReferenceValue, Function>;
+        std::variant<Empty, bool, long, float, std::string, ArrayValue, ReferenceValue, Function>;
 
     Type type;
     TData value;
@@ -267,5 +293,11 @@ private:
 
 } // namespace script
 } // namespace bl
+
+inline constexpr bl::script::PrimitiveValue::Type operator|(bl::script::PrimitiveValue::Type l,
+                                                            bl::script::PrimitiveValue::Type r) {
+    return static_cast<bl::script::PrimitiveValue::Type>(static_cast<std::uint8_t>(l) |
+                                                         static_cast<std::uint8_t>(r));
+}
 
 #endif
