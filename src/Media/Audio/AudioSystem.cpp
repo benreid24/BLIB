@@ -26,8 +26,19 @@ struct Sound {
     Sound();
 };
 
+struct SoundFader {
+    sf::Sound& sound;
+    const float fvel;
+    std::list<SoundFader>::iterator me;
+
+    SoundFader(sf::Sound& s, float fvel);
+    void update();
+};
+
 std::unordered_map<std::string, AudioSystem::Handle> soundHandles;
 std::unordered_map<AudioSystem::Handle, Sound> sounds;
+std::list<SoundFader> fadingSounds;
+sf::Clock soundTimer;
 std::shared_mutex soundMutex;
 
 struct PlaylistFader {
@@ -90,6 +101,7 @@ AudioSystem::Handle AudioSystem::getOrLoadSound(const std::string& path) {
 
 bool AudioSystem::playSound(Handle sound, bool loop) {
     std::shared_lock slock(soundMutex);
+    if (paused) return false;
 
     const auto it = sounds.find(sound);
     if (it == sounds.end()) return false;
@@ -102,13 +114,20 @@ bool AudioSystem::playSound(Handle sound, bool loop) {
     return true;
 }
 
-void AudioSystem::stopSound(Handle sound) {
+void AudioSystem::stopSound(Handle sound, float fadeOut) {
     std::shared_lock slock(soundMutex);
 
     const auto it = sounds.find(sound);
     if (it != sounds.end()) {
         it->second.lastInteractTime = timer.getElapsedTime().asSeconds();
-        if (it->second.sound.getStatus() == sf::Sound::Playing) { it->second.sound.stop(); }
+        if (it->second.sound.getStatus() == sf::Sound::Playing) {
+            if (fadeOut <= 0.f) { it->second.sound.stop(); }
+            else {
+                fadingSounds.emplace_back(it->second.sound,
+                                          -it->second.sound.getVolume() / fadeOut);
+                fadingSounds.back().me = --fadingSounds.end();
+            }
+        }
     }
 }
 
@@ -204,6 +223,7 @@ void AudioSystem::setVolume(float vol) { sf::Listener::setGlobalVolume(vol); }
 
 void AudioSystem::pause() {
     std::unique_lock lock(pauseMutex);
+    if (paused) return;
     paused = true;
 
     for (auto& sound : sounds) {
@@ -218,6 +238,7 @@ void AudioSystem::pause() {
 
 void AudioSystem::resume() {
     std::unique_lock lock(pauseMutex);
+    if (!paused) return;
     paused = false;
 
     for (auto& sound : sounds) {
@@ -277,7 +298,7 @@ void Runner::run() {
             std::unique_lock plock(pauseMutex);
             if (paused) { pauseCond.wait(plock); }
 
-            // sound cleanup
+            // sound cleanup and fadeouts
             {
                 std::unique_lock slock(soundMutex);
 
@@ -292,6 +313,12 @@ void Runner::run() {
                     }
                     soundHandles.erase(j);
                 }
+
+                for (auto i = fadingSounds.begin(); i != fadingSounds.end();) {
+                    auto j = i++;
+                    j->update();
+                }
+                soundTimer.restart();
             }
 
             // playlist crossfade update and song update
@@ -326,7 +353,7 @@ void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime)
         else {
             in->setVolume(100.f);
         }
-        in->play();
+        if (!paused) in->play();
     }
 
     if (fadeOut.playlist) {
@@ -359,6 +386,21 @@ void PlaylistFader::update() {
         else {
             playlist->setVolume(vol);
         }
+    }
+}
+
+SoundFader::SoundFader(sf::Sound& s, float v)
+: sound(s)
+, fvel(v) {}
+
+void SoundFader::update() {
+    const float v = sound.getVolume() + fvel * soundTimer.getElapsedTime().asSeconds();
+    if (v <= 0.f) {
+        sound.stop();
+        fadingSounds.erase(me);
+    }
+    else {
+        sound.setVolume(v);
     }
 }
 
