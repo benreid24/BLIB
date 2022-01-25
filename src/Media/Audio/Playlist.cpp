@@ -41,6 +41,20 @@ Playlist::Playlist(const Playlist& copy)
     shuffleOnLoop = copy.shuffleOnLoop;
 }
 
+bool Playlist::save(const std::string& path) const {
+    serial::binary::OutputFile out(path);
+    return Serializer::serialize(out, *this);
+}
+
+bool Playlist::load(const std::string& path) {
+    serial::binary::InputFile in(path);
+    if (!Serializer::deserialize(in, *this)) return false;
+    playing      = false;
+    paused       = false;
+    currentIndex = 0;
+    return true;
+}
+
 Playlist& Playlist::operator=(const Playlist& copy) {
     songs         = copy.songs;
     _shuffle      = copy._shuffle;
@@ -82,6 +96,8 @@ void Playlist::stop() {
 }
 
 void Playlist::setVolume(float volume) { current.setVolume(volume); }
+
+float Playlist::getVolume() const { return current.getVolume(); }
 
 void Playlist::update() {
     if (playing) {
