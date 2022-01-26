@@ -99,7 +99,7 @@ AudioSystem::Handle AudioSystem::getOrLoadSound(const std::string& path) {
     return handle;
 }
 
-bool AudioSystem::playSound(Handle sound, bool loop) {
+bool AudioSystem::playSound(Handle sound, float fadeIn, bool loop) {
     std::shared_lock slock(soundMutex);
     if (paused) return false;
 
@@ -109,6 +109,14 @@ bool AudioSystem::playSound(Handle sound, bool loop) {
     it->second.sound.setLoop(loop);
     it->second.lastInteractTime = timer.getElapsedTime().asSeconds();
     if (it->second.sound.getStatus() == sf::Sound::Playing) return true;
+
+    if (fadeIn > 0.f) {
+        it->second.sound.setVolume(0.f);
+        fadingSounds.emplace_back(it->second.sound, 100.f / fadeIn);
+    }
+    else {
+        it->second.sound.setVolume(100.f);
+    }
 
     it->second.sound.play();
     return true;
@@ -277,12 +285,8 @@ Runner::Runner()
 : running(false) {}
 
 Runner::~Runner() {
-    BL_LOG_INFO << "AudioSystem shutting down";
     running = false;
-    if (thread.has_value()) {
-        thread.value().join();
-        BL_LOG_INFO << "AudioSystem shutdown";
-    }
+    if (thread.has_value()) { thread.value().join(); }
 }
 
 void Runner::start() {
@@ -397,6 +401,10 @@ void SoundFader::update() {
     const float v = sound.getVolume() + fvel * soundTimer.getElapsedTime().asSeconds();
     if (v <= 0.f) {
         sound.stop();
+        fadingSounds.erase(me);
+    }
+    else if (v >= 100.f) {
+        sound.setVolume(100.f);
         fadingSounds.erase(me);
     }
     else {

@@ -46,7 +46,7 @@ public:
      * @param loop True to loop, false to play once
      * @return True if the sound was able to be played, false if not
      */
-    static bool playSound(Handle sound, bool loop = false);
+    static bool playSound(Handle sound, float fadeIn = -1.f, bool loop = false);
 
     /**
      * @brief Stops the given sound if it is playing
