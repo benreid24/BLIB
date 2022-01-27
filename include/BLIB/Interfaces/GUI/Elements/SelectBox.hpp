@@ -92,6 +92,14 @@ public:
     void removeSelection();
 
     /**
+     * @brief Returns all options contained in the select box
+     *
+     * @param output Vector to populate with the contained options
+     *
+     */
+    void getAllOptions(std::vector<std::string>& output) const;
+
+    /**
      * @brief Set the maximum size to grow to before scrolling
      *
      * @param size The maximum size in pixels
