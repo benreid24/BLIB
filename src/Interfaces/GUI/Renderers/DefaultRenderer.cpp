@@ -402,7 +402,9 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
     RendererUtil::renderRectangle(target, states, entry.getAcquisition(), settings, boxDefaults);
 
     const sf::View oldView = target.getView();
-    target.setView(interface::ViewUtil::computeSubView(entry.getAcquisition(), getOriginalView()));
+    sf::View view = interface::ViewUtil::computeSubView(entry.getAcquisition(), getOriginalView());
+    interface::ViewUtil::constrainView(view, oldView);
+    target.setView(view);
     states.transform.translate(-entry.getTextOffset());
 
     sf::FloatRect textArea = entry.getAcquisition();

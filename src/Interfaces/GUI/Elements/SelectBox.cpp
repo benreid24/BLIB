@@ -113,5 +113,11 @@ void SelectBox::onLabelClick(const Event&, Element* l) {
 
 bool SelectBox::propagateEvent(const Event& e) { return sendEventToChildren(e); }
 
+void SelectBox::getAllOptions(std::vector<std::string>& output) const {
+    output.clear();
+    output.reserve(values.size());
+    for (const auto& v : values) { output.emplace_back(v.second->getText()); }
+}
+
 } // namespace gui
 } // namespace bl

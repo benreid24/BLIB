@@ -49,6 +49,22 @@ public:
     Playlist& operator=(const Playlist& copy);
 
     /**
+     * @brief Loads the playlist from the given binary file
+     *
+     * @param path The file to load from
+     * @return True on success, false on error
+     */
+    bool load(const std::string& path);
+
+    /**
+     * @brief Saves the conversation to the given binary file
+     *
+     * @param path The file to save to
+     * @return True if the conversation could be saved, false on error
+     */
+    bool save(const std::string& path) const;
+
+    /**
      * @brief Returns whether or not the playlist is playing
      *
      * @return True if playing, false if paused or stopped
@@ -89,6 +105,12 @@ public:
      * @param volume Volume, [0,100]
      */
     void setVolume(float volume);
+
+    /**
+     * @brief Returns the current volume
+     *
+     */
+    float getVolume() const;
 
     /**
      * @brief Add a song to the playlist to be played. Not threadsafe
