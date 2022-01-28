@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::binary::InputFile Class Reference</title>
+<title>BLIB: bl::serial::binary::SerializableFieldBase Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00801.html">bl</a></li><li class="navelem"><a class="el" href="a00817.html">serial</a></li><li class="navelem"><a class="el" href="a00818.html">binary</a></li><li class="navelem"><a class="el" href="a01496.html">InputFile</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00801.html">bl</a></li><li class="navelem"><a class="el" href="a00817.html">serial</a></li><li class="navelem"><a class="el" href="a00818.html">binary</a></li><li class="navelem"><a class="el" href="a01496.html">SerializableFieldBase</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,109 +71,188 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01493.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::binary::InputFile Class Reference<div class="ingroups"><a class="el" href="a00789.html">Serialization</a> &raquo; <a class="el" href="a00800.html">Binary</a></div></div>  </div>
+<div class="title">bl::serial::binary::SerializableFieldBase Struct Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00789.html">Serialization</a> &raquo; <a class="el" href="a00800.html">Binary</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Convenience wrapper around ifstream, <a class="el" href="a01620.html" title="Input buffer that operates on C++ streams. ">StreamInputBuffer</a>, and BinaryInputStream.  
+<p>Base class for representing serializable class members. Do not use directly.  
  <a href="a01496.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00398_source.html">InputFile.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02193_source.html">SerializableField.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::binary::InputFile:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::binary::SerializableFieldBase:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a01496.png" usemap="#bl::serial::binary::InputFile_map" alt=""/>
-  <map id="bl::serial::binary::InputFile_map" name="bl::serial::binary::InputFile_map">
-<area href="a01500.html" title="A readable stream for binary deserialization. " alt="bl::serial::binary::InputStream" shape="rect" coords="0,0,173,24"/>
+  <img src="a01496.png" usemap="#bl::serial::binary::SerializableFieldBase_map" alt=""/>
+  <map id="bl::serial::binary::SerializableFieldBase_map" name="bl::serial::binary::SerializableFieldBase_map">
+<area href="a01500.html" title="Descriptor class for a data member of a class to be serialized. " alt="bl::serial::binary::SerializableField&lt; Id, C, T &gt;" shape="rect" coords="0,56,478,80"/>
+<area href="a01500.html" alt="bl::serial::binary::SerializableField&lt; 1, bl::audio::Playlist, std::vector&lt; std::string &gt; &gt;" shape="rect" coords="488,56,966,80"/>
+<area href="a01500.html" alt="bl::serial::binary::SerializableField&lt; 2, bl::audio::Playlist, bool &gt;" shape="rect" coords="976,56,1454,80"/>
+<area href="a01500.html" alt="bl::serial::binary::SerializableField&lt; 3, bl::audio::Playlist, bool &gt;" shape="rect" coords="1464,56,1942,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa6659b98d2fc65579eb58eecc981d01e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01496.html#aa6659b98d2fc65579eb58eecc981d01e">InputFile</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:aa6659b98d2fc65579eb58eecc981d01e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Binary Input File from a file path.  <a href="#aa6659b98d2fc65579eb58eecc981d01e">More...</a><br /></td></tr>
-<tr class="separator:aa6659b98d2fc65579eb58eecc981d01e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7763b6551d4cef2cc2c5325b94030bb7"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01496.html#a7763b6551d4cef2cc2c5325b94030bb7">filename</a> () const</td></tr>
-<tr class="memdesc:a7763b6551d4cef2cc2c5325b94030bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the filename used to open the file.  <a href="#a7763b6551d4cef2cc2c5325b94030bb7">More...</a><br /></td></tr>
-<tr class="separator:a7763b6551d4cef2cc2c5325b94030bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74c75cb1a560331f068aa003bbfd4efc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a74c75cb1a560331f068aa003bbfd4efc"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01500.html#a74c75cb1a560331f068aa003bbfd4efc">read</a> (T &amp;output)</td></tr>
-<tr class="memdesc:a74c75cb1a560331f068aa003bbfd4efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the integral type from the underlying.  <a href="#a74c75cb1a560331f068aa003bbfd4efc">More...</a><br /></td></tr>
-<tr class="separator:a74c75cb1a560331f068aa003bbfd4efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae210e68d7b43990a0a9ae6c287b8a36f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01500.html#ae210e68d7b43990a0a9ae6c287b8a36f">read</a> (std::string &amp;output)</td></tr>
-<tr class="memdesc:ae210e68d7b43990a0a9ae6c287b8a36f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a string from the underlying.  <a href="#ae210e68d7b43990a0a9ae6c287b8a36f">More...</a><br /></td></tr>
-<tr class="separator:ae210e68d7b43990a0a9ae6c287b8a36f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1f019caed52ee29e47d3735fc62d388"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ad1f019caed52ee29e47d3735fc62d388"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01500.html#ad1f019caed52ee29e47d3735fc62d388">peek</a> (T &amp;output)</td></tr>
-<tr class="memdesc:ad1f019caed52ee29e47d3735fc62d388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peeks the integral type from the underlying without moving the cursor.  <a href="#ad1f019caed52ee29e47d3735fc62d388">More...</a><br /></td></tr>
-<tr class="separator:ad1f019caed52ee29e47d3735fc62d388"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52c344d6b62df73e91238b6d5ec1477a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01500.html#a52c344d6b62df73e91238b6d5ec1477a">skip</a> (std::size_t bytes)</td></tr>
-<tr class="memdesc:a52c344d6b62df73e91238b6d5ec1477a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skips the given number of bytes.  <a href="#a52c344d6b62df73e91238b6d5ec1477a">More...</a><br /></td></tr>
-<tr class="separator:a52c344d6b62df73e91238b6d5ec1477a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28531b507eb45cf5b8f3a01eb51e0803"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01500.html#a28531b507eb45cf5b8f3a01eb51e0803">good</a> ()</td></tr>
-<tr class="memdesc:a28531b507eb45cf5b8f3a01eb51e0803"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the status of the underlying.  <a href="#a28531b507eb45cf5b8f3a01eb51e0803">More...</a><br /></td></tr>
-<tr class="separator:a28531b507eb45cf5b8f3a01eb51e0803"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e9db1f4ab6924f541bceed8ab467b1c"><td class="memTemplParams" colspan="2">template&lt;typename C , typename M &gt; </td></tr>
+<tr class="memitem:a1e9db1f4ab6924f541bceed8ab467b1c"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01496.html#a1e9db1f4ab6924f541bceed8ab467b1c">SerializableFieldBase</a> (std::uint16_t <a class="el" href="a01496.html#a17a1e354ef4cf3ffa976c6cb682bfcae">id</a>, <a class="el" href="a01504.html">SerializableObjectBase</a> &amp;owner, M C::*)</td></tr>
+<tr class="memdesc:a1e9db1f4ab6924f541bceed8ab467b1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the field with the object descriptor that it belongs to.  <a href="#a1e9db1f4ab6924f541bceed8ab467b1c">More...</a><br /></td></tr>
+<tr class="separator:a1e9db1f4ab6924f541bceed8ab467b1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17a1e354ef4cf3ffa976c6cb682bfcae"><td class="memItemLeft" align="right" valign="top">virtual std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01496.html#a17a1e354ef4cf3ffa976c6cb682bfcae">id</a> () const =0</td></tr>
+<tr class="memdesc:a17a1e354ef4cf3ffa976c6cb682bfcae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of the field.  <a href="#a17a1e354ef4cf3ffa976c6cb682bfcae">More...</a><br /></td></tr>
+<tr class="separator:a17a1e354ef4cf3ffa976c6cb682bfcae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9e3aa0145f880d4c34f32d4389bf8dd"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01496.html#ad9e3aa0145f880d4c34f32d4389bf8dd">serialize</a> (<a class="el" href="a01492.html">OutputStream</a> &amp;stream, const void *object) const =0</td></tr>
+<tr class="memdesc:ad9e3aa0145f880d4c34f32d4389bf8dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the object at the given address to the given stream.  <a href="#ad9e3aa0145f880d4c34f32d4389bf8dd">More...</a><br /></td></tr>
+<tr class="separator:ad9e3aa0145f880d4c34f32d4389bf8dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71053079a0b0afa0e8e4e3b8a631fc7a"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01496.html#a71053079a0b0afa0e8e4e3b8a631fc7a">deserialize</a> (<a class="el" href="a01484.html">InputStream</a> &amp;stream, void *object) const =0</td></tr>
+<tr class="memdesc:a71053079a0b0afa0e8e4e3b8a631fc7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes the object at the given address to the given stream.  <a href="#a71053079a0b0afa0e8e4e3b8a631fc7a">More...</a><br /></td></tr>
+<tr class="separator:a71053079a0b0afa0e8e4e3b8a631fc7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b6bb8a5c27aa8141d62c9096468f78b"><td class="memItemLeft" align="right" valign="top">virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01496.html#a2b6bb8a5c27aa8141d62c9096468f78b">size</a> (const void *object) const =0</td></tr>
+<tr class="memdesc:a2b6bb8a5c27aa8141d62c9096468f78b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the serialized size of the field in the given object.  <a href="#a2b6bb8a5c27aa8141d62c9096468f78b">More...</a><br /></td></tr>
+<tr class="separator:a2b6bb8a5c27aa8141d62c9096468f78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Convenience wrapper around ifstream, <a class="el" href="a01620.html" title="Input buffer that operates on C++ streams. ">StreamInputBuffer</a>, and BinaryInputStream. </p>
+<div class="textblock"><p>Base class for representing serializable class members. Do not use directly. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00020">20</a> of file <a class="el" href="a00398_source.html">InputFile.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02193_source.html#l00022">22</a> of file <a class="el" href="a02193_source.html">SerializableField.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa6659b98d2fc65579eb58eecc981d01e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6659b98d2fc65579eb58eecc981d01e">&#9670;&nbsp;</a></span>InputFile()</h2>
+<a id="a1e9db1f4ab6924f541bceed8ab467b1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e9db1f4ab6924f541bceed8ab467b1c">&#9670;&nbsp;</a></span>SerializableFieldBase()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename C , typename M &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::serial::binary::InputFile::InputFile </td>
+          <td class="memname">bl::serial::binary::SerializableFieldBase::SerializableFieldBase </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
+          <td class="paramtype">std::uint16_t&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="a01504.html">SerializableObjectBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">M C::*&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Construct a new Binary Input File from a file path. </p>
+<p>Construct the field with the object descriptor that it belongs to. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">path</td><td>The path of the file to open </td></tr>
+    <tr><td class="paramname">id</td><td>The id of the field </td></tr>
+    <tr><td class="paramname">owner</td><td>The serizable object descriptor that owns this field </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00737_source.html#l00009">9</a> of file <a class="el" href="a00737_source.html">InputFile.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02193_source.html#l00030">30</a> of file <a class="el" href="a02193_source.html">SerializableField.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7763b6551d4cef2cc2c5325b94030bb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7763b6551d4cef2cc2c5325b94030bb7">&#9670;&nbsp;</a></span>filename()</h2>
+<a id="a71053079a0b0afa0e8e4e3b8a631fc7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71053079a0b0afa0e8e4e3b8a631fc7a">&#9670;&nbsp;</a></span>deserialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string &amp; bl::serial::binary::InputFile::filename </td>
+          <td class="memname">virtual bool bl::serial::binary::SerializableFieldBase::deserialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01484.html">InputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deserializes the object at the given address to the given stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to deserialize to </td></tr>
+    <tr><td class="paramname">object</td><td>The object to deserialize </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p>Implemented in <a class="el" href="a01500.html#aff7002463f74ab7bc1e260ac4c9dd1af">bl::serial::binary::SerializableField&lt; Id, C, T &gt;</a>, <a class="el" href="a01500.html#aff7002463f74ab7bc1e260ac4c9dd1af">bl::serial::binary::SerializableField&lt; 1, bl::audio::Playlist, std::vector&lt; std::string &gt; &gt;</a>, <a class="el" href="a01500.html#aff7002463f74ab7bc1e260ac4c9dd1af">bl::serial::binary::SerializableField&lt; 2, bl::audio::Playlist, bool &gt;</a>, and <a class="el" href="a01500.html#aff7002463f74ab7bc1e260ac4c9dd1af">bl::serial::binary::SerializableField&lt; 3, bl::audio::Playlist, bool &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a17a1e354ef4cf3ffa976c6cb682bfcae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17a1e354ef4cf3ffa976c6cb682bfcae">&#9670;&nbsp;</a></span>id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::uint16_t bl::serial::binary::SerializableFieldBase::id </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Returns the filename used to open the file. </p>
+<p>Returns the id of the field. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00737_source.html#l00015">15</a> of file <a class="el" href="a00737_source.html">InputFile.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a01500.html#acbdeb668f943803599dd2be9ffb6bf1e">bl::serial::binary::SerializableField&lt; Id, C, T &gt;</a>, <a class="el" href="a01500.html#acbdeb668f943803599dd2be9ffb6bf1e">bl::serial::binary::SerializableField&lt; 1, bl::audio::Playlist, std::vector&lt; std::string &gt; &gt;</a>, <a class="el" href="a01500.html#acbdeb668f943803599dd2be9ffb6bf1e">bl::serial::binary::SerializableField&lt; 2, bl::audio::Playlist, bool &gt;</a>, and <a class="el" href="a01500.html#acbdeb668f943803599dd2be9ffb6bf1e">bl::serial::binary::SerializableField&lt; 3, bl::audio::Playlist, bool &gt;</a>.</p>
 
 </div>
 </div>
-<a id="a28531b507eb45cf5b8f3a01eb51e0803"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28531b507eb45cf5b8f3a01eb51e0803">&#9670;&nbsp;</a></span>good()</h2>
+<a id="ad9e3aa0145f880d4c34f32d4389bf8dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9e3aa0145f880d4c34f32d4389bf8dd">&#9670;&nbsp;</a></span>serialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,117 +261,46 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::serial::binary::InputStream::good </td>
+          <td class="memname">virtual bool bl::serial::binary::SerializableFieldBase::serialize </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="paramtype"><a class="el" href="a01492.html">OutputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the status of the underlying. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00124">124</a> of file <a class="el" href="a00401_source.html">InputStream.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad1f019caed52ee29e47d3735fc62d388"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1f019caed52ee29e47d3735fc62d388">&#9670;&nbsp;</a></span>peek()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type bl::serial::binary::InputStream::peek </td>
-          <td>(</td>
-          <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>output</em></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Peeks the integral type from the underlying without moving the cursor. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type to read. Be explicit with bit width and sign </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Serializes the object at the given address to the given stream. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">output</td><td>Variable to write the read value to </td></tr>
+    <tr><td class="paramname">stream</td><td>The stream to serialize to </td></tr>
+    <tr><td class="paramname">object</td><td>The object to serialize </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the value could be read </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00104">104</a> of file <a class="el" href="a00401_source.html">InputStream.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a74c75cb1a560331f068aa003bbfd4efc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74c75cb1a560331f068aa003bbfd4efc">&#9670;&nbsp;</a></span>read() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type bl::serial::binary::InputStream::read </td>
-          <td>(</td>
-          <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>output</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reads the integral type from the underlying. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type to read. Be explicit with bit width and sign </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">output</td><td>Variable to write the read value to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the value could be read </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00089">89</a> of file <a class="el" href="a00401_source.html">InputStream.hpp</a>.</p>
+<p>Implemented in <a class="el" href="a01500.html#a760a30bf8c6a94c5ce55f94c23520722">bl::serial::binary::SerializableField&lt; Id, C, T &gt;</a>, <a class="el" href="a01500.html#a760a30bf8c6a94c5ce55f94c23520722">bl::serial::binary::SerializableField&lt; 1, bl::audio::Playlist, std::vector&lt; std::string &gt; &gt;</a>, <a class="el" href="a01500.html#a760a30bf8c6a94c5ce55f94c23520722">bl::serial::binary::SerializableField&lt; 2, bl::audio::Playlist, bool &gt;</a>, and <a class="el" href="a01500.html#a760a30bf8c6a94c5ce55f94c23520722">bl::serial::binary::SerializableField&lt; 3, bl::audio::Playlist, bool &gt;</a>.</p>
 
 </div>
 </div>
-<a id="ae210e68d7b43990a0a9ae6c287b8a36f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae210e68d7b43990a0a9ae6c287b8a36f">&#9670;&nbsp;</a></span>read() <span class="overload">[2/2]</span></h2>
+<a id="a2b6bb8a5c27aa8141d62c9096468f78b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b6bb8a5c27aa8141d62c9096468f78b">&#9670;&nbsp;</a></span>size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -301,79 +309,41 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::serial::binary::InputStream::read </td>
+          <td class="memname">virtual std::size_t bl::serial::binary::SerializableFieldBase::size </td>
           <td>(</td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>output</em></td><td>)</td>
-          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reads a string from the underlying. </p>
+<p>Returns the serialized size of the field in the given object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">output</td><td>Variable to write the read string to </td></tr>
+    <tr><td class="paramname">object</td><td>The object to get the field value from </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the string could be read </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>std::size_t The size of the field when serialized, in bytes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00111">111</a> of file <a class="el" href="a00401_source.html">InputStream.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a52c344d6b62df73e91238b6d5ec1477a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52c344d6b62df73e91238b6d5ec1477a">&#9670;&nbsp;</a></span>skip()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::binary::InputStream::skip </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>bytes</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Skips the given number of bytes. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">bytes</td><td>The number of bytes to skip </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the underlying underlying is still valid, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00120">120</a> of file <a class="el" href="a00401_source.html">InputStream.hpp</a>.</p>
+<p>Implemented in <a class="el" href="a01500.html#a4c8e7e6e291e128c9ea08f8278742762">bl::serial::binary::SerializableField&lt; Id, C, T &gt;</a>, <a class="el" href="a01500.html#a4c8e7e6e291e128c9ea08f8278742762">bl::serial::binary::SerializableField&lt; 1, bl::audio::Playlist, std::vector&lt; std::string &gt; &gt;</a>, <a class="el" href="a01500.html#a4c8e7e6e291e128c9ea08f8278742762">bl::serial::binary::SerializableField&lt; 2, bl::audio::Playlist, bool &gt;</a>, and <a class="el" href="a01500.html#a4c8e7e6e291e128c9ea08f8278742762">bl::serial::binary::SerializableField&lt; 3, bl::audio::Playlist, bool &gt;</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Serialization/Binary/<a class="el" href="a00398_source.html">InputFile.hpp</a></li>
-<li>src/Serialization/Binary/<a class="el" href="a00737_source.html">InputFile.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Serialization/Binary/<a class="el" href="a02193_source.html">SerializableField.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 05:29:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 28 2022 16:54:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

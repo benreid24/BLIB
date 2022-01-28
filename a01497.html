@@ -63,28 +63,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00801.html">bl</a></li><li class="navelem"><a class="el" href="a00817.html">serial</a></li><li class="navelem"><a class="el" href="a00818.html">binary</a></li><li class="navelem"><a class="el" href="a01500.html">InputStream</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00801.html">bl</a></li><li class="navelem"><a class="el" href="a00817.html">serial</a></li><li class="navelem"><a class="el" href="a00818.html">binary</a></li><li class="navelem"><a class="el" href="a01500.html">SerializableField</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">bl::serial::binary::InputStream Member List</div>  </div>
+<div class="title">bl::serial::binary::SerializableField&lt; Id, C, T &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01500.html">bl::serial::binary::InputStream</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01500.html">bl::serial::binary::SerializableField&lt; Id, C, T &gt;</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01500.html#a28531b507eb45cf5b8f3a01eb51e0803">good</a>()</td><td class="entry"><a class="el" href="a01500.html">bl::serial::binary::InputStream</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01500.html#ab9885deef9116f3fa2f8c76f43b43c18">InputStream</a>(InputBuffer &amp;underlying)</td><td class="entry"><a class="el" href="a01500.html">bl::serial::binary::InputStream</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01500.html#ad1f019caed52ee29e47d3735fc62d388">peek</a>(T &amp;output)</td><td class="entry"><a class="el" href="a01500.html">bl::serial::binary::InputStream</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01500.html#a74c75cb1a560331f068aa003bbfd4efc">read</a>(T &amp;output)</td><td class="entry"><a class="el" href="a01500.html">bl::serial::binary::InputStream</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01500.html#ae210e68d7b43990a0a9ae6c287b8a36f">read</a>(std::string &amp;output)</td><td class="entry"><a class="el" href="a01500.html">bl::serial::binary::InputStream</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01500.html#a52c344d6b62df73e91238b6d5ec1477a">skip</a>(std::size_t bytes)</td><td class="entry"><a class="el" href="a01500.html">bl::serial::binary::InputStream</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01500.html#aff7002463f74ab7bc1e260ac4c9dd1af">deserialize</a>(InputStream &amp;stream, void *object) const override</td><td class="entry"><a class="el" href="a01500.html">bl::serial::binary::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01500.html#acbdeb668f943803599dd2be9ffb6bf1e">id</a>() const override</td><td class="entry"><a class="el" href="a01500.html">bl::serial::binary::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01732.html#afcf81f46019af7f662b7a11db32304b5">NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a01732.html">bl::util::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01500.html#a2c54a5c25d650686cd85751114f35c97">SerializableField</a>()=delete</td><td class="entry"><a class="el" href="a01500.html">bl::serial::binary::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01500.html#afda4530758599e7d62f221c5e3c55224">SerializableField</a>(SerializableObjectBase &amp;owner, T C::*member)</td><td class="entry"><a class="el" href="a01500.html">bl::serial::binary::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01496.html#a1e9db1f4ab6924f541bceed8ab467b1c">SerializableFieldBase</a>(std::uint16_t id, SerializableObjectBase &amp;owner, M C::*)</td><td class="entry"><a class="el" href="a01496.html">bl::serial::binary::SerializableFieldBase</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01500.html#a760a30bf8c6a94c5ce55f94c23520722">serialize</a>(OutputStream &amp;stream, const void *obj) const override</td><td class="entry"><a class="el" href="a01500.html">bl::serial::binary::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01500.html#a4c8e7e6e291e128c9ea08f8278742762">size</a>(const void *object) const override</td><td class="entry"><a class="el" href="a01500.html">bl::serial::binary::SerializableField&lt; Id, C, T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01732.html#a999f83d0ea136037022f6ea90888bf60">~NonCopyable</a>()=default</td><td class="entry"><a class="el" href="a01732.html">bl::util::NonCopyable</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 05:29:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 28 2022 16:54:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

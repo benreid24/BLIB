@@ -10,5 +10,5 @@ var searchData=
   ['tinyfd_5fverbose',['tinyfd_verbose',['../a00811.html#a3c52e0e98b50e117ae837752c5826c33',1,'bl::dialog']]],
   ['tinyfd_5fversion',['tinyfd_version',['../a00811.html#aa90af71434f12133b420a4986d8be418',1,'bl::dialog']]],
   ['trace',['Trace',['../a01296.html#a74e5da1abfb366b222375bf333369421',1,'bl::logging::Config']]],
-  ['type',['type',['../a01232.html#a8afc2c88a59747bfdf14797715dcb338',1,'bl::menu::Event::type()'],['../a01392.html#aef8e0b4138b7e6a645fea5049565c78a',1,'bl::parser::Node::type()']]]
+  ['type',['type',['../a01232.html#a8afc2c88a59747bfdf14797715dcb338',1,'bl::menu::Event::type()'],['../a01376.html#aef8e0b4138b7e6a645fea5049565c78a',1,'bl::parser::Node::type()']]]
 ];

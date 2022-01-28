@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::binary::OutputFile Class Reference</title>
+<title>BLIB: bl::serial::binary::SerializableObjectBase Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,184 +63,170 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00801.html">bl</a></li><li class="navelem"><a class="el" href="a00817.html">serial</a></li><li class="navelem"><a class="el" href="a00818.html">binary</a></li><li class="navelem"><a class="el" href="a01504.html">OutputFile</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00801.html">bl</a></li><li class="navelem"><a class="el" href="a00817.html">serial</a></li><li class="navelem"><a class="el" href="a00818.html">binary</a></li><li class="navelem"><a class="el" href="a01504.html">SerializableObjectBase</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a01501.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::binary::OutputFile Class Reference<div class="ingroups"><a class="el" href="a00789.html">Serialization</a> &raquo; <a class="el" href="a00800.html">Binary</a></div></div>  </div>
+<div class="title">bl::serial::binary::SerializableObjectBase Class Reference<div class="ingroups"><a class="el" href="a00789.html">Serialization</a> &raquo; <a class="el" href="a00800.html">Binary</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Helper wrapper class that encapsulates a file, a buffer, and a stream.  
+<p>Base class for object descriptors. Provides methods used by <a class="el" href="a01516.html" title="Helper struct for serializing types into binary streams. Integral types, strings, vector...">Serializer</a>.  
  <a href="a01504.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00404_source.html">OutputFile.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02199_source.html">SerializableObject.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::binary::OutputFile:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::binary::SerializableObjectBase:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a01504.png" usemap="#bl::serial::binary::OutputFile_map" alt=""/>
-  <map id="bl::serial::binary::OutputFile_map" name="bl::serial::binary::OutputFile_map">
-<area href="a01508.html" title="A writable stream for binary serialization. " alt="bl::serial::binary::OutputStream" shape="rect" coords="0,0,183,24"/>
+  <img src="a01504.png" usemap="#bl::serial::binary::SerializableObjectBase_map" alt=""/>
+  <map id="bl::serial::binary::SerializableObjectBase_map" name="bl::serial::binary::SerializableObjectBase_map">
+<area href="a01508.html" title="Base template for object descriptors. Specialize this for classes that you wish to serialize..." alt="bl::serial::binary::SerializableObject&lt; T &gt;" shape="rect" coords="0,56,311,80"/>
+<area href="a01312.html" alt="bl::serial::binary::SerializableObject&lt; audio::Playlist &gt;" shape="rect" coords="321,56,632,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a532927eeaa88aa29512a6be438ef85f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01504.html#a532927eeaa88aa29512a6be438ef85f9">OutputFile</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:a532927eeaa88aa29512a6be438ef85f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Output File.  <a href="#a532927eeaa88aa29512a6be438ef85f9">More...</a><br /></td></tr>
-<tr class="separator:a532927eeaa88aa29512a6be438ef85f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90ed8fff6d1c1ce1e3f5ad0ccb66d23b"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01504.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">filename</a> () const</td></tr>
-<tr class="memdesc:a90ed8fff6d1c1ce1e3f5ad0ccb66d23b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The filename used to open the file.  <a href="#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">More...</a><br /></td></tr>
-<tr class="separator:a90ed8fff6d1c1ce1e3f5ad0ccb66d23b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01508.html#ac4410d9f4e7f1bd5efd08dc7a01ec3f3">write</a> (const T &amp;data)</td></tr>
-<tr class="memdesc:ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes an integral type to the stream in it's binary representation.  <a href="#ac4410d9f4e7f1bd5efd08dc7a01ec3f3">More...</a><br /></td></tr>
-<tr class="separator:ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21f37530f8f42f779c58cd8fea566afe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01508.html#a21f37530f8f42f779c58cd8fea566afe">write</a> (const std::string &amp;data)</td></tr>
-<tr class="memdesc:a21f37530f8f42f779c58cd8fea566afe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the string to the stream. Stores 4 bytes for the length, then the content of the string.  <a href="#a21f37530f8f42f779c58cd8fea566afe">More...</a><br /></td></tr>
-<tr class="separator:a21f37530f8f42f779c58cd8fea566afe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80d05e18a69fc45887a82f643c7a4cdd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01508.html#a80d05e18a69fc45887a82f643c7a4cdd">good</a> () const</td></tr>
-<tr class="memdesc:a80d05e18a69fc45887a82f643c7a4cdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the status of the stream.  <a href="#a80d05e18a69fc45887a82f643c7a4cdd">More...</a><br /></td></tr>
-<tr class="separator:a80d05e18a69fc45887a82f643c7a4cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0911a118052aeaf10d888ce1dd4d6672"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01504.html#a0911a118052aeaf10d888ce1dd4d6672">serialize</a> (<a class="el" href="a01492.html">OutputStream</a> &amp;stream, const void *object) const</td></tr>
+<tr class="memdesc:a0911a118052aeaf10d888ce1dd4d6672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the given object to the given stream.  <a href="#a0911a118052aeaf10d888ce1dd4d6672">More...</a><br /></td></tr>
+<tr class="separator:a0911a118052aeaf10d888ce1dd4d6672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20c06fa6b1ad8ccd93c3e82826e44531"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01504.html#a20c06fa6b1ad8ccd93c3e82826e44531">deserialize</a> (<a class="el" href="a01484.html">InputStream</a> &amp;stream, void *object) const</td></tr>
+<tr class="memdesc:a20c06fa6b1ad8ccd93c3e82826e44531"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes from the stream into the given object.  <a href="#a20c06fa6b1ad8ccd93c3e82826e44531">More...</a><br /></td></tr>
+<tr class="separator:a20c06fa6b1ad8ccd93c3e82826e44531"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a8e72b1e76423331d9e3b53926698aa"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01504.html#a9a8e72b1e76423331d9e3b53926698aa">size</a> (const void *object) const</td></tr>
+<tr class="memdesc:a9a8e72b1e76423331d9e3b53926698aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the object when serialized, in bytes.  <a href="#a9a8e72b1e76423331d9e3b53926698aa">More...</a><br /></td></tr>
+<tr class="separator:a9a8e72b1e76423331d9e3b53926698aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ade1750e4bbdaed679daf2d8fe82235d2"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01504.html#ade1750e4bbdaed679daf2d8fe82235d2">SerializableFieldBase</a></td></tr>
+<tr class="separator:ade1750e4bbdaed679daf2d8fe82235d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Helper wrapper class that encapsulates a file, a buffer, and a stream. </p>
+<div class="textblock"><p>Base class for object descriptors. Provides methods used by <a class="el" href="a01516.html" title="Helper struct for serializing types into binary streams. Integral types, strings, vector...">Serializer</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00404_source.html#l00020">20</a> of file <a class="el" href="a00404_source.html">OutputFile.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a532927eeaa88aa29512a6be438ef85f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a532927eeaa88aa29512a6be438ef85f9">&#9670;&nbsp;</a></span>OutputFile()</h2>
+<p class="definition">Definition at line <a class="el" href="a02199_source.html#l00022">22</a> of file <a class="el" href="a02199_source.html">SerializableObject.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a20c06fa6b1ad8ccd93c3e82826e44531"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20c06fa6b1ad8ccd93c3e82826e44531">&#9670;&nbsp;</a></span>deserialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::serial::binary::OutputFile::OutputFile </td>
+          <td class="memname">bool bl::serial::binary::SerializableObjectBase::deserialize </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a01484.html">InputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new Output File. </p>
+<p>Deserializes from the stream into the given object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">path</td><td>The file to write to </td></tr>
+    <tr><td class="paramname">stream</td><td>The stream to read from </td></tr>
+    <tr><td class="paramname">object</td><td>The object to read into </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00740_source.html#l00009">9</a> of file <a class="el" href="a00740_source.html">OutputFile.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02232_source.html#l00020">20</a> of file <a class="el" href="a02232_source.html">SerializableObject.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a90ed8fff6d1c1ce1e3f5ad0ccb66d23b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">&#9670;&nbsp;</a></span>filename()</h2>
+<a id="a0911a118052aeaf10d888ce1dd4d6672"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0911a118052aeaf10d888ce1dd4d6672">&#9670;&nbsp;</a></span>serialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string &amp; bl::serial::binary::OutputFile::filename </td>
+          <td class="memname">bool bl::serial::binary::SerializableObjectBase::serialize </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a01492.html">OutputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Serializes the given object to the given stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to serialize to </td></tr>
+    <tr><td class="paramname">object</td><td>The object to serialize </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02232_source.html#l00010">10</a> of file <a class="el" href="a02232_source.html">SerializableObject.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9a8e72b1e76423331d9e3b53926698aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a8e72b1e76423331d9e3b53926698aa">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t bl::serial::binary::SerializableObjectBase::size </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The filename used to open the file. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00740_source.html#l00015">15</a> of file <a class="el" href="a00740_source.html">OutputFile.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a80d05e18a69fc45887a82f643c7a4cdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80d05e18a69fc45887a82f643c7a4cdd">&#9670;&nbsp;</a></span>good()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::binary::OutputStream::good </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the status of the stream. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00407_source.html#l00082">82</a> of file <a class="el" href="a00407_source.html">OutputStream.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac4410d9f4e7f1bd5efd08dc7a01ec3f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4410d9f4e7f1bd5efd08dc7a01ec3f3">&#9670;&nbsp;</a></span>write() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type bl::serial::binary::OutputStream::write </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Writes an integral type to the stream in it's binary representation. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type to write. It is better to be explicit for code to be cross platform </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Returns the size of the object when serialized, in bytes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>The value to write </td></tr>
+    <tr><td class="paramname">object</td><td>The object to serialize </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the value could be written </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>std::size_t The serialized size of the object, in bytes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00407_source.html#l00064">64</a> of file <a class="el" href="a00407_source.html">OutputStream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02232_source.html#l00039">39</a> of file <a class="el" href="a02232_source.html">SerializableObject.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a21f37530f8f42f779c58cd8fea566afe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21f37530f8f42f779c58cd8fea566afe">&#9670;&nbsp;</a></span>write() <span class="overload">[2/2]</span></h2>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ade1750e4bbdaed679daf2d8fe82235d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade1750e4bbdaed679daf2d8fe82235d2">&#9670;&nbsp;</a></span>SerializableFieldBase</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,42 +235,29 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::serial::binary::OutputStream::write </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
+          <td class="memname">friend class <a class="el" href="a01496.html">SerializableFieldBase</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Writes the string to the stream. Stores 4 bytes for the length, then the content of the string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>The string to write </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the value could be written </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00407_source.html#l00076">76</a> of file <a class="el" href="a00407_source.html">OutputStream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02199_source.html#l00053">53</a> of file <a class="el" href="a02199_source.html">SerializableObject.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Serialization/Binary/<a class="el" href="a00404_source.html">OutputFile.hpp</a></li>
-<li>src/Serialization/Binary/<a class="el" href="a00740_source.html">OutputFile.cpp</a></li>
+<li>include/BLIB/Serialization/Binary/<a class="el" href="a02199_source.html">SerializableObject.hpp</a></li>
+<li>src/Serialization/Binary/<a class="el" href="a02232_source.html">SerializableObject.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 05:29:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 28 2022 16:54:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
