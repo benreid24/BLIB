@@ -83,7 +83,7 @@ var searchData=
   ['topleft',['topLeft',['../a00932.html#af0695a39800d9dd7c673d5cf17ae0b86',1,'bl::container::QuadTree::Area']]],
   ['topright',['topRight',['../a00932.html#a06ce52c2ab8b0eacfd53ff86c4ad5602',1,'bl::container::QuadTree::Area']]],
   ['toptobottom',['TopToBottom',['../a01152.html#aba6a25c601d8802fe1767c4b64b81cfaa013c1ce2b8e3886a51be67388e918e37',1,'bl::gui::ProgressBar']]],
-  ['trace',['trace',['../a01300.html#a7df75dafbd91fae955cfe5772963e786',1,'bl::logging::Logger::trace()'],['../a01296.html#a74e5da1abfb366b222375bf333369421',1,'bl::logging::Config::Trace()']]],
+  ['trace',['Trace',['../a01296.html#a74e5da1abfb366b222375bf333369421',1,'bl::logging::Config::Trace()'],['../a01300.html#a7df75dafbd91fae955cfe5772963e786',1,'bl::logging::Logger::trace()']]],
   ['tref',['TRef',['../a01452.html#ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c',1,'bl::script::PrimitiveValue']]],
   ['triangle',['Triangle',['../a01348.html',1,'bl::shapes::Triangle'],['../a01348.html#afb0d8e04098b750546e2061cdee564af',1,'bl::shapes::Triangle::Triangle()']]],
   ['triangle_2ecpp',['Triangle.cpp',['../a00680.html',1,'']]],
