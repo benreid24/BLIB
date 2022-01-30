@@ -366,8 +366,7 @@ PrimitiveValue evalOrGrp(Symbol node, SymbolTable& table) {
         if (node->type != G::OrGrp)
             throw Error("Internal error: evalOrGrp called on non OrGrp", node);
     }
-    if (node->children.size() == 1)
-        return evalAndGrp(node->children[0], table);
+    if (node->children.size() == 1) { return evalAndGrp(node->children[0], table); }
     else if (node->children.size() == 3)
         return Ops::Or(evalOrGrp(node->children[0], table), evalAndGrp(node->children[2], table));
     throw Error("Internal error: OrGrp node has invalid child", node);
@@ -378,8 +377,7 @@ PrimitiveValue evalAndGrp(Symbol node, SymbolTable& table) {
         if (node->type != G::AndGrp)
             throw Error("Internal error: evalAndGrp called on non AndGrp", node);
     }
-    if (node->children.size() == 1)
-        return evalNegGrp(node->children[0], table);
+    if (node->children.size() == 1) { return evalNegGrp(node->children[0], table); }
     else if (node->children.size() == 3)
         return Ops::And(evalAndGrp(node->children[0], table), evalNegGrp(node->children[2], table));
     throw Error("Internal error: AndGrp node has invalid child", node);
@@ -390,8 +388,7 @@ PrimitiveValue evalNegGrp(Symbol node, SymbolTable& table) {
         if (node->type != G::Negation)
             throw Error("Internal error: evalNegGrp called on non Neg", node);
     }
-    if (node->children.size() == 1)
-        return evalCmp(node->children[0], table);
+    if (node->children.size() == 1) { return evalCmp(node->children[0], table); }
     else if (node->children.size() == 2)
         return Ops::Neg(evalNegGrp(node->children[1], table));
     throw Error("Internal error: Negation node has invalid child", node);
@@ -401,8 +398,7 @@ PrimitiveValue evalCmp(Symbol node, SymbolTable& table) {
     if constexpr (ExtraChecks) {
         if (node->type != G::Cmp) throw Error("Internal error: evalCmp called on non Cmp", node);
     }
-    if (node->children.size() == 1)
-        return evalSum(node->children[0], table);
+    if (node->children.size() == 1) { return evalSum(node->children[0], table); }
     else if (node->children.size() == 3) {
         const PrimitiveValue lhs = evalSum(node->children[0], table);
         const PrimitiveValue rhs = evalSum(node->children[2], table);
@@ -430,8 +426,7 @@ PrimitiveValue evalSum(Symbol node, SymbolTable& table) {
     if constexpr (ExtraChecks) {
         if (node->type != G::Sum) throw Error("Internal error: evalSum called on non Sum", node);
     }
-    if (node->children.size() == 1)
-        return evalProd(node->children[0], table);
+    if (node->children.size() == 1) { return evalProd(node->children[0], table); }
     else if (node->children.size() == 3) {
         const PrimitiveValue lhs = evalSum(node->children[0], table);
         const PrimitiveValue rhs = evalProd(node->children[2], table);
@@ -452,8 +447,7 @@ PrimitiveValue evalProd(Symbol node, SymbolTable& table) {
         if (node->type != G::Product)
             throw Error("Internal error: evalProd called on non Product", node);
     }
-    if (node->children.size() == 1)
-        return evalExp(node->children[0], table);
+    if (node->children.size() == 1) { return evalExp(node->children[0], table); }
     else if (node->children.size() == 3) {
         const PrimitiveValue lhs = evalProd(node->children[0], table);
         const PrimitiveValue rhs = evalExp(node->children[2], table);
@@ -473,8 +467,7 @@ PrimitiveValue evalExp(Symbol node, SymbolTable& table) {
     if constexpr (ExtraChecks) {
         if (node->type != G::Exp) throw Error("Internal error: evalExp called on non Exp", node);
     }
-    if (node->children.size() == 1)
-        return evalTVal(node->children[0], table).noDerefValue();
+    if (node->children.size() == 1) { return evalTVal(node->children[0], table).noDerefValue(); }
     else if (node->children.size() == 3) {
         const PrimitiveValue lhs = evalExp(node->children[0], table);
         const PrimitiveValue rhs = evalTVal(node->children[2], table).value();

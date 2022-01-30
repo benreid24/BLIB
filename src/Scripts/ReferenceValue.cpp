@@ -37,9 +37,7 @@ void ReferenceValue::makeSafe() {
 
 Value* ReferenceValue::ptr() {
     Value* v = get(value);
-    while (v->noDerefValue().getType() == PrimitiveValue::TRef) {
-        v = get(v->noDerefValue().getAsRef().value);
-    }
+    while (v->_value.getType() == PrimitiveValue::TRef) { v = get(v->_value.getAsRef().value); }
     return v;
 }
 

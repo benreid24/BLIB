@@ -88,9 +88,12 @@ PrimitiveValue& Value::value() { return deref()._value; }
 
 const PrimitiveValue& Value::value() const { return deref()._value; }
 
-PrimitiveValue& Value::noDerefValue() { return _value; }
-
-const PrimitiveValue& Value::noDerefValue() const { return _value; }
+PrimitiveValue Value::noDerefValue() const {
+    if (&deref() == this) {
+        if (properties) { return {ReferenceValue(*this)}; }
+    }
+    return _value;
+}
 
 void Value::makeSafe() {
     if (_value.getType() == PrimitiveValue::TRef) { _value.getAsRef().makeSafe(); }

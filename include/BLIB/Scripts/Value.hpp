@@ -109,13 +109,7 @@ public:
      * @brief Returns the contained value without dereferencing
      *
      */
-    PrimitiveValue& noDerefValue();
-
-    /**
-     * @brief Returns the contained value without dereferencing
-     *
-     */
-    const PrimitiveValue& noDerefValue() const;
+    PrimitiveValue noDerefValue() const;
 
     /**
      * @brief Makes any contained references safe to pass back up the stack
@@ -203,6 +197,8 @@ private:
 
     const Value& deref() const;
     Value& deref();
+
+    friend class ReferenceValue;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
