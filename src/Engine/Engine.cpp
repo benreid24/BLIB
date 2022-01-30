@@ -141,6 +141,11 @@ bool Engine::run(State::Ptr initialState) {
         while (lag >= updateTimestep) {
             const float updateStart = updateMeasureTimer.getElapsedTime().asSeconds();
             states.top()->update(*this, updateTimestep);
+            if (engineFlags.active(Flags::PopState) || engineFlags.active(Flags::Terminate) ||
+                newState) {
+                lag = 0.f;
+                break;
+            }
             lag -= updateTimestep;
             averageUpdateTime =
                 0.8f * averageUpdateTime +

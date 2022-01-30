@@ -69,27 +69,29 @@ PrimitiveValue ScriptImpl::computeValue(Symbol node, SymbolTable& table) {
 void ScriptImpl::runFunction(Symbol node, SymbolTable& table, Value& result) {
     if (table.killed()) throw Exit();
 
-    if constexpr (ExtraChecks) {
-        if (node->type != G::Call)
-            throw Error("Internal error: runFunction called on non Call", node);
-        if (node->children.size() != 2 && node->children.size() != 3)
-            throw Error("Internal error: Invalid Call children", node);
-    }
-
-    std::vector<Value> params;
-    ReferenceValue ret = evalRVal(node->children[0], table);
-    const Value& func  = ret.deref();
-    if (func.value().getType() != PrimitiveValue::TFunction)
-        throw Error("Cannot call non-function type", node->children[0]);
-    if (node->children.size() == 2) {
-        const auto& c = node->children[1];
+    try {
         if constexpr (ExtraChecks) {
-            if (c->children.size() != 3) throw Error("Internal error: Invalid ArgList", c);
+            if (node->type != G::Call)
+                throw Error("Internal error: runFunction called on non Call", node);
+            if (node->children.size() != 2 && node->children.size() != 3)
+                throw Error("Internal error: Invalid Call children", node);
         }
-        evalList(c->children[1], table, params);
-    }
 
-    func.value().getAsFunction()(table, params, result);
+        std::vector<Value> params;
+        ReferenceValue ret = evalRVal(node->children[0], table);
+        const Value& func  = ret.deref();
+        if (func.value().getType() != PrimitiveValue::TFunction)
+            throw Error("Cannot call non-function type", node->children[0]);
+        if (node->children.size() == 2) {
+            const auto& c = node->children[1];
+            if constexpr (ExtraChecks) {
+                if (c->children.size() != 3) throw Error("Internal error: Invalid ArgList", c);
+            }
+            evalList(c->children[1], table, params);
+        }
+
+        func.value().getAsFunction()(table, params, result);
+    } catch (const Error& err) { throw Error("Called from here", node, err); }
 }
 
 std::optional<Value> ScriptImpl::runStatement(Symbol n, SymbolTable& table) {
@@ -175,32 +177,30 @@ std::optional<Value> ScriptImpl::runStatement(Symbol n, SymbolTable& table) {
 std::optional<Value> ScriptImpl::runStatementList(Symbol node, SymbolTable& table) {
     if (table.killed()) throw Exit();
 
-    try {
-        switch (node->type) {
-        case G::StmtBlock:
-            if constexpr (ExtraChecks) {
-                if (node->children.size() != 3)
-                    throw Error("Internal error: Invalid StmtBlock children", node);
-            }
-            return runStatementList(node->children[1], table);
-
-        case G::Statement:
-            return runStatement(node, table);
-
-        case G::StmtList:
-            if (node->children.size() == 2) {
-                const std::optional<Value> r = runStatementList(node->children[0], table);
-                if (r.has_value()) return r;
-                return runStatement(node->children[1], table);
-            }
-            else if (node->children.size() == 1)
-                return runStatement(node->children[0], table);
-            throw Error("Internal error: Invalid StmtList children", node);
-
-        default:
-            throw Error("Internal error: Expected Statement, StmtBlock, or StmtList", node);
+    switch (node->type) {
+    case G::StmtBlock:
+        if constexpr (ExtraChecks) {
+            if (node->children.size() != 3)
+                throw Error("Internal error: Invalid StmtBlock children", node);
         }
-    } catch (const Error& err) { throw Error("Called from here", node, err); }
+        return runStatementList(node->children[1], table);
+
+    case G::Statement:
+        return runStatement(node, table);
+
+    case G::StmtList:
+        if (node->children.size() == 2) {
+            const std::optional<Value> r = runStatementList(node->children[0], table);
+            if (r.has_value()) return r;
+            return runStatement(node->children[1], table);
+        }
+        else if (node->children.size() == 1)
+            return runStatement(node->children[0], table);
+        throw Error("Internal error: Invalid StmtList children", node);
+
+    default:
+        throw Error("Internal error: Expected Statement, StmtBlock, or StmtList", node);
+    }
 }
 
 std::optional<Value> ScriptImpl::runLoop(Symbol node, SymbolTable& table) {
@@ -474,7 +474,7 @@ PrimitiveValue evalExp(Symbol node, SymbolTable& table) {
         if (node->type != G::Exp) throw Error("Internal error: evalExp called on non Exp", node);
     }
     if (node->children.size() == 1)
-        return evalTVal(node->children[0], table).value();
+        return evalTVal(node->children[0], table).noDerefValue();
     else if (node->children.size() == 3) {
         const PrimitiveValue lhs = evalExp(node->children[0], table);
         const PrimitiveValue rhs = evalTVal(node->children[2], table).value();

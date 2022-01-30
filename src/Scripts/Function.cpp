@@ -60,6 +60,7 @@ void Function::operator()(SymbolTable& table, const std::vector<Value>& args, Va
     if (cbp) {
         const CustomCB& cb = *cbp;
         cb(table, args, result);
+        result.makeSafe();
     }
     else {
         using G                       = Parser::Grammar;
@@ -80,6 +81,7 @@ void Function::operator()(SymbolTable& table, const std::vector<Value>& args, Va
         table.pushFrame();
         for (unsigned int i = 0; i < args.size(); ++i) { table.set(plist[i], args[i], true); }
         result = ScriptImpl::runStatementList(root->children[1], table).value_or(Value());
+        result.makeSafe();
         table.popFrame();
     }
 }

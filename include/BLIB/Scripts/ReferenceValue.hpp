@@ -45,6 +45,12 @@ public:
     ReferenceValue(Value* value);
 
     /**
+     * @brief Copies the referenced value to managed heap storage
+     *
+     */
+    void makeSafe();
+
+    /**
      * @brief Destroy the Value Reference object
      *
      */

@@ -106,6 +106,24 @@ public:
     const PrimitiveValue& value() const;
 
     /**
+     * @brief Returns the contained value without dereferencing
+     *
+     */
+    PrimitiveValue& noDerefValue();
+
+    /**
+     * @brief Returns the contained value without dereferencing
+     *
+     */
+    const PrimitiveValue& noDerefValue() const;
+
+    /**
+     * @brief Makes any contained references safe to pass back up the stack
+     *
+     */
+    void makeSafe();
+
+    /**
      * @brief Gets a properly constructed reference to this value
      *
      */

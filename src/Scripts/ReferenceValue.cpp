@@ -28,9 +28,18 @@ const Value& ReferenceValue::deref() const { return *const_cast<ReferenceValue*>
 
 Value& ReferenceValue::deref() { return *ptr(); }
 
+void ReferenceValue::makeSafe() {
+    if (value.index() == 1) {
+        Value* v = std::get<Value*>(value);
+        value.emplace<std::shared_ptr<Value>>(new Value(*v));
+    }
+}
+
 Value* ReferenceValue::ptr() {
     Value* v = get(value);
-    while (v->value().getType() == PrimitiveValue::TRef) { v = get(v->value().getAsRef().value); }
+    while (v->noDerefValue().getType() == PrimitiveValue::TRef) {
+        v = get(v->noDerefValue().getAsRef().value);
+    }
     return v;
 }
 

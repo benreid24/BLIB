@@ -88,6 +88,14 @@ PrimitiveValue& Value::value() { return deref()._value; }
 
 const PrimitiveValue& Value::value() const { return deref()._value; }
 
+PrimitiveValue& Value::noDerefValue() { return _value; }
+
+const PrimitiveValue& Value::noDerefValue() const { return _value; }
+
+void Value::makeSafe() {
+    if (_value.getType() == PrimitiveValue::TRef) { _value.getAsRef().makeSafe(); }
+}
+
 ReferenceValue Value::getProperty(const std::string& name, bool create) {
     auto& props = deref().properties;
 
@@ -123,7 +131,7 @@ ReferenceValue Value::getProperty(const std::string& name, bool) const {
 }
 
 void Value::setProperty(const std::string& name, const ReferenceValue& val) {
-    if (builtins.find(name) != builtins.end() || name == "length") {
+    if (builtins.find(name) != builtins.end()) {
         throw Error("Cannot write to reserved property '" + name + "'");
     }
 
