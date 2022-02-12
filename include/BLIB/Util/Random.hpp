@@ -37,6 +37,20 @@ public:
     }
 
     /**
+     * @brief Returns a random number in the given range of an enum type
+     *
+     * @tparam T The type of number to return
+     * @param min Minimum value of the range
+     * @param max Maximum value of the range
+     * @return T A random number in the range [min,max]
+     */
+    template<typename T>
+    static std::enable_if_t<std::is_enum_v<T>, T> get(T min, T max) {
+        using U = std::underlying_type_t<T>;
+        return static_cast<T>(get<U>(static_cast<U>(min), static_cast<U>(max)));
+    }
+
+    /**
      * @brief Returns a random number in the given range of a float type
      *
      * @tparam T The type of number to return
