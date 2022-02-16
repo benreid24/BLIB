@@ -61,6 +61,13 @@ void SelectBox::removeOption(unsigned int i) {
     }
 }
 
+unsigned int SelectBox::optionCount() const { return values.size(); }
+
+const std::string& SelectBox::getOption(unsigned int i) const {
+    static const std::string empty;
+    return i < values.size() ? values[i].second->getText() : empty;
+}
+
 void SelectBox::clearOptions() {
     for (auto& o : values) { o.first->remove(); }
     values.clear();
