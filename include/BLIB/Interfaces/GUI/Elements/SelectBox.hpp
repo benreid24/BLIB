@@ -59,6 +59,20 @@ public:
     void removeOption(unsigned int i);
 
     /**
+     * @brief Returns the number of options in the select box
+     *
+     */
+    unsigned int optionCount() const;
+
+    /**
+     * @brief Returns the given option text
+     *
+     * @param i The index of the option to get
+     * @return const std::string& The text of the option
+     */
+    const std::string& getOption(unsigned int i) const;
+
+    /**
      * @brief Removes all options
      *
      */

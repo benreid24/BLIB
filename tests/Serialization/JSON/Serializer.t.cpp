@@ -144,6 +144,21 @@ TEST(JsonSerializer, ScriptValues) {
     EXPECT_EQ(arr[2].value().getAsString(), "Hello World");
 }
 
+TEST(JsonSerializer, Pointers) {
+    std::uint32_t testVal  = 35343;
+    std::string testString = "hello fish";
+
+    std::uint32_t readVal;
+    EXPECT_TRUE(Serializer<std::uint32_t*>::deserialize(
+        &readVal, Serializer<std::uint32_t*>::serialize(&testVal)));
+    EXPECT_EQ(readVal, testVal);
+
+    std::string readString;
+    EXPECT_TRUE(Serializer<std::string*>::deserialize(
+        &readString, Serializer<std::string*>::serialize(&testString)));
+    EXPECT_EQ(readString, testString);
+}
+
 } // namespace unittest
 } // namespace json
 } // namespace serial

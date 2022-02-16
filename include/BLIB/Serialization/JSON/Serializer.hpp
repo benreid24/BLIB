@@ -178,6 +178,31 @@ struct Serializer<T, true> {
     }
 };
 
+template<typename U>
+struct Serializer<U*, false> {
+    using T = U*;
+
+    static bool deserialize(T result, const Value& v) {
+        if (!result) return false;
+        return Serializer<U>::deserialize(*result, v);
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& name, T result) {
+        if (!result) return false;
+        return Serializer<U>::deserializeFrom(val, name, *result);
+    }
+
+    static Value serialize(const T value) {
+        if (!value) return false;
+        return Serializer<U>::serialize(*value);
+    }
+
+    static void serializeInto(Group& result, const std::string& name, const T value) {
+        if (!value) return;
+        Serializer<U>::serializeInto(result, name, *value);
+    }
+};
+
 template<>
 struct Serializer<std::string, false> {
     static bool deserialize(std::string& result, const Value& v) {
