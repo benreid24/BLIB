@@ -92,7 +92,7 @@ $(function() {
   <map id="bl::gui::SelectBox_map" name="bl::gui::SelectBox_map">
 <area href="a01124.html" alt="bl::gui::CompositeElement&lt; 1 &gt;" shape="rect" coords="127,112,371,136"/>
 <area href="a01132.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. " alt="bl::gui::Element" shape="rect" coords="127,56,371,80"/>
-<area href="a01732.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::util::NonCopyable" shape="rect" coords="0,0,244,24"/>
+<area href="a01736.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::util::NonCopyable" shape="rect" coords="0,0,244,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -121,6 +121,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac77a33d69c71497d2700021157e7b9c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#ac77a33d69c71497d2700021157e7b9c1">removeOption</a> (unsigned int i)</td></tr>
 <tr class="memdesc:ac77a33d69c71497d2700021157e7b9c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the option with the given index.  <a href="#ac77a33d69c71497d2700021157e7b9c1">More...</a><br /></td></tr>
 <tr class="separator:ac77a33d69c71497d2700021157e7b9c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecde836d34cf973a3c0288adddb0fd2e"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#aecde836d34cf973a3c0288adddb0fd2e">optionCount</a> () const</td></tr>
+<tr class="memdesc:aecde836d34cf973a3c0288adddb0fd2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of options in the select box.  <a href="#aecde836d34cf973a3c0288adddb0fd2e">More...</a><br /></td></tr>
+<tr class="separator:aecde836d34cf973a3c0288adddb0fd2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba7155881135cd83571079c5ac72a148"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#aba7155881135cd83571079c5ac72a148">getOption</a> (unsigned int i) const</td></tr>
+<tr class="memdesc:aba7155881135cd83571079c5ac72a148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the given option text.  <a href="#aba7155881135cd83571079c5ac72a148">More...</a><br /></td></tr>
+<tr class="separator:aba7155881135cd83571079c5ac72a148"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11bc2d8035e2ebc2b6a0189cf317e67f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01168.html#a11bc2d8035e2ebc2b6a0189cf317e67f">clearOptions</a> ()</td></tr>
 <tr class="memdesc:a11bc2d8035e2ebc2b6a0189cf317e67f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all options.  <a href="#a11bc2d8035e2ebc2b6a0189cf317e67f">More...</a><br /></td></tr>
 <tr class="separator:a11bc2d8035e2ebc2b6a0189cf317e67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -613,7 +619,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Removes all options. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00064">64</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00071">71</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -891,7 +897,36 @@ Protected Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00116">116</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00123">123</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aba7155881135cd83571079c5ac72a148"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba7155881135cd83571079c5ac72a148">&#9670;&nbsp;</a></span>getOption()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; bl::gui::SelectBox::getOption </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the given option text. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index of the option to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>const std::string&amp; The text of the option </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00066">66</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -971,7 +1006,7 @@ Protected Member Functions</h2></td></tr>
 <p>Returns the index of the selected option, or no value if no selection is present. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::optional&lt;unsigned int&gt; The index of the selected option, if any </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00070">70</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00077">77</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -1318,6 +1353,27 @@ Protected Member Functions</h2></td></tr>
 <p>Brings this <a class="el" href="a01132.html" title="Base class for all GUI elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element. ">Element</a> to the top. </p>
 
 <p class="definition">Definition at line <a class="el" href="a00551_source.html#l00095">95</a> of file <a class="el" href="a00551_source.html">Element.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aecde836d34cf973a3c0288adddb0fd2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecde836d34cf973a3c0288adddb0fd2e">&#9670;&nbsp;</a></span>optionCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int bl::gui::SelectBox::optionCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the number of options in the select box. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00064">64</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -1705,7 +1761,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Clears any active selection. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00087">87</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00094">94</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -2328,7 +2384,7 @@ Protected Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00092">92</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00099">99</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -2547,7 +2603,7 @@ Protected Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00074">74</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00081">81</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -2575,7 +2631,7 @@ Protected Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00083">83</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00090">90</a> of file <a class="el" href="a00572_source.html">SelectBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -2905,7 +2961,7 @@ Protected Member Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 30 2022 18:41:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 16 2022 01:43:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

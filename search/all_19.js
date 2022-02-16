@@ -31,7 +31,7 @@ var searchData=
   ['_7ememoryinputbuffer',['~MemoryInputBuffer',['../a01592.html#aaf82e7604c3a7f7a65ed3cf650187d06',1,'bl::serial::MemoryInputBuffer']]],
   ['_7ememoryoutputbuffer',['~MemoryOutputBuffer',['../a01596.html#aeac8e552b734b515ee6d4103ebd012f1',1,'bl::serial::MemoryOutputBuffer']]],
   ['_7emouseeventgenerator',['~MouseEventGenerator',['../a01256.html#a7298602ca0fd8c88bac1b7cb17cfa039',1,'bl::menu::MouseEventGenerator']]],
-  ['_7enoncopyable',['~NonCopyable',['../a01732.html#a999f83d0ea136037022f6ea90888bf60',1,'bl::util::NonCopyable']]],
+  ['_7enoncopyable',['~NonCopyable',['../a01736.html#a999f83d0ea136037022f6ea90888bf60',1,'bl::util::NonCopyable']]],
   ['_7enotebook',['~Notebook',['../a01144.html#a66699807fd792107f2f5cf2ac0372559',1,'bl::gui::Notebook']]],
   ['_7eoutputbuffer',['~OutputBuffer',['../a01600.html#a4b6f2634ce8ec5ed69dd60e1979d7f29',1,'bl::serial::OutputBuffer']]],
   ['_7epacker',['~Packer',['../a01208.html#a87c464eb5ce463ac799ed74231a77295',1,'bl::gui::Packer']]],
@@ -53,7 +53,7 @@ var searchData=
   ['_7estreamoutputbuffer',['~StreamOutputBuffer',['../a01608.html#a162118a17f9c8b4ba664774d5c843539',1,'bl::serial::StreamOutputBuffer']]],
   ['_7etogglebutton',['~ToggleButton',['../a01184.html#aa91f33dad2ca51f5db34c42f8105949d',1,'bl::gui::ToggleButton']]],
   ['_7eview',['~View',['../a01048.html#abddaf7b42557a9d5e90926a29b8392a6',1,'bl::entity::Registry::View']]],
-  ['_7ewaiter',['~Waiter',['../a01760.html#ad4fd3e5e6d40d4e8165d9320ca038a3e',1,'bl::util::Waiter']]],
+  ['_7ewaiter',['~Waiter',['../a01764.html#ad4fd3e5e6d40d4e8165d9320ca038a3e',1,'bl::util::Waiter']]],
   ['_7ewhitespaceskipper',['~WhitespaceSkipper',['../a01404.html#a04d6ad43bd37419797b6f5cbb625a760',1,'bl::parser::WhitespaceSkipper']]],
   ['_7ewindow',['~Window',['../a01188.html#a0e830e8312b339387f420bb1da4c0d40',1,'bl::gui::Window']]]
 ];
