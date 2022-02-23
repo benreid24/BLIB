@@ -111,7 +111,7 @@ void backgroundCleaner() {
         if (quitFlag) return;
         if (managers.empty()) continue;
 
-        BL_LOG_INFO << "cleaning manager " << nextToClean << ": " << managers[nextToClean];
+        BL_LOG_INFO << "cleaning manager " << nextToClean << ": " << managers[nextToClean].first;
         managers[nextToClean].first->doClean();
         managers[nextToClean].second = managers[nextToClean].first->gcPeriod;
         BL_LOG_INFO << "cleaned";
