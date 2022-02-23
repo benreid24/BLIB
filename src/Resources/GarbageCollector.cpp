@@ -94,9 +94,16 @@ void backgroundCleaner() {
 
     while (!quitFlag) {
         std::unique_lock lock(managerLock);
+        if (managers.empty()) {
+            quitCv.wait_for(lock, std::chrono::seconds(60));
+            continue;
+        }
+        if (quitFlag) return;
+
         const unsigned int sleptFor = managers[nextToClean].second;
         quitCv.wait_for(lock, std::chrono::seconds(sleptFor));
         if (quitFlag) return;
+        if (managers.empty()) continue;
 
         managers[nextToClean].first->doClean();
         managers[nextToClean].second = managers[nextToClean].first->gcPeriod;
