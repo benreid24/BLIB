@@ -17,6 +17,7 @@ struct MockLoader : public Loader<int> {
 
 TEST(Manager, Timeout) {
     MockLoader loader;
+    GarbageCollector collector;
     Manager<int> manager(loader, 1);
     const int first = *manager.load("uri").data;
     std::this_thread::sleep_for(std::chrono::seconds(2));
@@ -36,6 +37,7 @@ TEST(Manager, NoTimeout) {
 TEST(Manager, ForceInCache) {
     MockLoader loader;
     Manager<int> manager(loader, 1);
+    GarbageCollector collector;
     const int value                          = *manager.load("uri").data;
     manager.loadMutable("uri")->forceInCache = true;
     std::this_thread::sleep_for(std::chrono::seconds(2));
