@@ -19,9 +19,13 @@ TEST(ResourceManager, Timeout) {
     MockLoader loader;
     Manager<int> manager(loader, 1);
     GarbageCollector collector;
+    BL_LOG_INFO << "all running";
     const int first = *manager.load("uri").data;
+    BL_LOG_INFO << "loaded data: " << first;
     std::this_thread::sleep_for(std::chrono::seconds(2));
+    BL_LOG_INFO << "slept";
     const Resource<int>::Ref second = manager.load("uri").data;
+    BL_LOG_INFO << "got second: " << *second;
     EXPECT_NE(first, *second);
 }
 
