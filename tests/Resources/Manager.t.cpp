@@ -15,17 +15,17 @@ struct MockLoader : public Loader<int> {
     }
 };
 
-TEST(Manager, Timeout) {
+TEST(ResourceManager, Timeout) {
     MockLoader loader;
-    GarbageCollector collector;
     Manager<int> manager(loader, 1);
+    GarbageCollector collector;
     const int first = *manager.load("uri").data;
     std::this_thread::sleep_for(std::chrono::seconds(2));
     const Resource<int>::Ref second = manager.load("uri").data;
     EXPECT_NE(first, *second);
 }
 
-TEST(Manager, NoTimeout) {
+TEST(ResourceManager, NoTimeout) {
     MockLoader loader;
     Manager<int> manager(loader, 1);
     const Resource<int>::Ref first = manager.load("uri").data;
@@ -34,7 +34,7 @@ TEST(Manager, NoTimeout) {
     EXPECT_EQ(*first, *second);
 }
 
-TEST(Manager, ForceInCache) {
+TEST(ResourceManager, ForceInCache) {
     MockLoader loader;
     Manager<int> manager(loader, 1);
     GarbageCollector collector;

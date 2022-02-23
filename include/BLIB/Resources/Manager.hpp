@@ -110,9 +110,8 @@ Manager<T>::~Manager() {
 
 template<typename T>
 void Manager<T>::add(const std::string& uri, typename Resource<T>::Ref resource) {
-    mapLock.lock();
+    std::unique_lock lock(mapLock);
     resources[uri] = Resource<T>(resource);
-    mapLock.unlock();
 }
 
 template<typename T>
@@ -122,12 +121,9 @@ Resource<T> Manager<T>::load(const std::string& uri) {
 
 template<typename T>
 Resource<T>* Manager<T>::loadMutable(const std::string& uri) {
+    std::unique_lock lock(mapLock);
     auto i = resources.find(uri);
-    if (i == resources.end()) {
-        mapLock.lock();
-        i = resources.insert(std::make_pair(uri, loader.load(uri))).first;
-        mapLock.unlock();
-    }
+    if (i == resources.end()) { i = resources.insert(std::make_pair(uri, loader.load(uri))).first; }
     return &i->second;
 }
 
