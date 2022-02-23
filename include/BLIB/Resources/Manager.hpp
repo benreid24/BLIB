@@ -17,17 +17,38 @@ namespace bl
 /// Collection of classes for resource management and flyweight pattern
 namespace resource
 {
+class GarbageCollector;
+
+/**
+ * @brief Base class for resource managers, do not use
+ *
+ * @ingroup Resources
+ *
+ */
+class ManagerBase {
+public:
+    ManagerBase(unsigned int gcPeriod);
+    ~ManagerBase();
+
+    virtual void doClean() = 0;
+
+    const unsigned int gcPeriod;
+};
+
 /**
  * @brief Single template based resource management class. Meant for storing
- * @brief data exactly once, such as images
+ *        data exactly once, such as images
  *
  * @ingroup Resources
  */
 template<typename TResourceType>
-class Manager : private util::NonCopyable {
+class Manager
+: private util::NonCopyable
+, private ManagerBase {
 public:
     /**
-     * @brief Creates a Manager for a given resource type and garbage collection period
+     * @brief Creates a Manager for a given resource type and garbage collection period. Garbage
+     *        collection is only available if a GarbageCollector is instantiated
      *
      * @param loader Loader to use. Must remain valid for the lifetime of the manager
      * @param gcPeriod Number of seconds between round of freeing memory
@@ -68,41 +89,29 @@ public:
 private:
     Loader<TResourceType>& loader;
     std::unordered_map<std::string, Resource<TResourceType>> resources;
-
-    const unsigned int gcPeriod;
-    std::atomic<bool> gcActive;
-    std::thread gcThread;
     std::mutex mapLock;
-    std::condition_variable quitVar;
 
-    void garbageCollector();
+    virtual void doClean() override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
 Manager<T>::Manager(Loader<T>& loader, unsigned int gcPeriod)
-: loader(loader)
-, gcPeriod(gcPeriod)
-, gcActive(true)
-, gcThread(&Manager<T>::garbageCollector, this) {
+: ManagerBase(gcPeriod)
+, loader(loader) {
     BL_LOG_INFO << "Resource manager (" << typeid(T).name() << ") online";
 }
 
 template<typename T>
 Manager<T>::~Manager() {
-    BL_LOG_INFO << "Resource manager (" << typeid(T).name() << ") shutting down";
-    gcActive = false;
-    quitVar.notify_all();
-    gcThread.join();
     BL_LOG_INFO << "Resource manager (" << typeid(T).name() << ") shutdown";
 }
 
 template<typename T>
 void Manager<T>::add(const std::string& uri, typename Resource<T>::Ref resource) {
-    mapLock.lock();
+    std::unique_lock lock(mapLock);
     resources[uri] = Resource<T>(resource);
-    mapLock.unlock();
 }
 
 template<typename T>
@@ -112,26 +121,18 @@ Resource<T> Manager<T>::load(const std::string& uri) {
 
 template<typename T>
 Resource<T>* Manager<T>::loadMutable(const std::string& uri) {
+    std::unique_lock lock(mapLock);
     auto i = resources.find(uri);
-    if (i == resources.end()) {
-        mapLock.lock();
-        i = resources.insert(std::make_pair(uri, loader.load(uri))).first;
-        mapLock.unlock();
-    }
+    if (i == resources.end()) { i = resources.insert(std::make_pair(uri, loader.load(uri))).first; }
     return &i->second;
 }
 
 template<typename T>
-void Manager<T>::garbageCollector() {
-    while (gcActive) {
-        std::unique_lock lock(mapLock);
-        quitVar.wait_for(lock, std::chrono::seconds(gcPeriod));
-        if (!gcActive) return;
-
-        for (auto i = resources.begin(); i != resources.end();) {
-            auto j = i++;
-            if (j->second.data.unique() && !j->second.forceInCache) resources.erase(j);
-        }
+void Manager<T>::doClean() {
+    std::unique_lock lock(mapLock);
+    for (auto i = resources.begin(); i != resources.end();) {
+        auto j = i++;
+        if (j->second.data.unique() && !j->second.forceInCache) resources.erase(j);
     }
 }
 

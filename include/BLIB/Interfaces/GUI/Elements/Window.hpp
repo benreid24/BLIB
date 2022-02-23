@@ -171,7 +171,7 @@ private:
 
     float computeTitleHeight() const;
     float computeTitleWidth() const;
-    void onAcquisition();
+    virtual void onAcquisition() override;
 };
 
 } // namespace gui
