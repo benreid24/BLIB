@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Media/Audio/Playlist.cpp File Reference</title>
+<title>BLIB: src/Media/Audio/AudioSystem.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,31 +70,131 @@ $(function() {
   <div class="summary">
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Playlist.cpp File Reference</div>  </div>
+<div class="title">AudioSystem.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00026_source.html">BLIB/Containers/FastEraseVector.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00047_source.html">BLIB/Engine/Configuration.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00278_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00293_source.html">BLIB/Media/Audio/Playlist.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00455_source.html">BLIB/Util/FileUtil.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00470_source.html">BLIB/Util/Random.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00290_source.html">BLIB/Media/Audio/AudioSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00473_source.html">BLIB/Util/Random.hpp</a>&gt;</code><br />
+<code>#include &lt;SFML/Audio.hpp&gt;</code><br />
+<code>#include &lt;atomic&gt;</code><br />
+<code>#include &lt;list&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;shared_mutex&gt;</code><br />
+<code>#include &lt;thread&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
 </div>
 <p><a href="a00662_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00801"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00801.html">bl</a></td></tr>
-<tr class="memdesc:a00801"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a00807"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00807.html">bl</a></td></tr>
+<tr class="memdesc:a00807"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00816"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00816.html">bl::audio</a></td></tr>
+<tr class="memitem:a00822"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00822.html">bl::audio</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aacb84450bb9abc480663d9b45a5aaf1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacb84450bb9abc480663d9b45a5aaf1b">&#9670;&nbsp;</a></span>buffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::SoundBuffer buffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00022">22</a> of file <a class="el" href="a00662_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa3a2f37abfabbbc036edc019ccb98af9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3a2f37abfabbbc036edc019ccb98af9">&#9670;&nbsp;</a></span>fvel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float fvel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00031">31</a> of file <a class="el" href="a00662_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8d61e66142eeff806c70575b199f063d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d61e66142eeff806c70575b199f063d">&#9670;&nbsp;</a></span>lastInteractTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float lastInteractTime</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00024">24</a> of file <a class="el" href="a00662_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9c6d12ad0d044ddbc4992dec34d8e153"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c6d12ad0d044ddbc4992dec34d8e153">&#9670;&nbsp;</a></span>me</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::list&lt;SoundFader&gt;::iterator me</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00032">32</a> of file <a class="el" href="a00662_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a34cfaee126866c60bb82a2c96e47940d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34cfaee126866c60bb82a2c96e47940d">&#9670;&nbsp;</a></span>playlist</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Playlist* playlist</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00045">45</a> of file <a class="el" href="a00662_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aec033227294b0120711fd356ed3801bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec033227294b0120711fd356ed3801bc">&#9670;&nbsp;</a></span>sound</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Sound&amp; sound</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00023">23</a> of file <a class="el" href="a00662_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 16 2022 01:43:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 23 2022 17:35:50 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
