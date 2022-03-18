@@ -113,6 +113,7 @@ bool AudioSystem::playSound(Handle sound, float fadeIn, bool loop) {
     if (fadeIn > 0.f) {
         it->second.sound.setVolume(0.f);
         fadingSounds.emplace_back(it->second.sound, 100.f / fadeIn);
+        fadingSounds.back().me = --fadingSounds.end();
     }
     else {
         it->second.sound.setVolume(100.f);
