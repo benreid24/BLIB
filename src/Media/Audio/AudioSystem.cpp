@@ -286,14 +286,18 @@ Runner::Runner()
 : running(false) {}
 
 Runner::~Runner() {
+    BL_LOG_INFO << "Shutting down AudioSystem";
     running = false;
     if (thread.has_value()) { thread.value().join(); }
+    AudioSystem::stop();
+    BL_LOG_INFO << "AudioSystem shutdown";
 }
 
 void Runner::start() {
     if (!running) {
         running = true;
         if (!thread.has_value()) { thread.emplace(&Runner::run, this); }
+        BL_LOG_INFO << "Started AudioSystem";
     }
 }
 
@@ -340,8 +344,10 @@ void Runner::run() {
             }
         }
 
-        sf::sleep(sf::milliseconds(300));
+        sf::sleep(sf::milliseconds(30));
     }
+
+    BL_LOG_INFO << "AudioSystem thread terminated";
 }
 
 void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime) {
