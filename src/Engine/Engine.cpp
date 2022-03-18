@@ -1,6 +1,7 @@
 #include <BLIB/Engine/Engine.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Media/Audio.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
 
@@ -18,6 +19,8 @@ Engine::~Engine() {
     while (!states.empty()) { states.pop(); }
     newState.reset();
     renderWindow.reset();
+    audio::AudioSystem::shutdown();
+    sf::sleep(sf::milliseconds(500)); // for music threads to stop
 }
 
 bl::event::Dispatcher& Engine::eventBus() { return engineEventBus; }

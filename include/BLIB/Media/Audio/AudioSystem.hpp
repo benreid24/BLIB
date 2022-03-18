@@ -140,6 +140,13 @@ public:
      *
      */
     static void stop();
+
+    /**
+     * @brief This should be called at the end of main() if the audiosystem is used. Note that this
+     *        is called by Engine if it is used
+     *
+     */
+    static void shutdown();
 };
 
 } // namespace audio

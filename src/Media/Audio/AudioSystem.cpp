@@ -67,6 +67,7 @@ public:
     Runner();
     ~Runner();
     void start();
+    void stop();
 
 private:
     std::optional<std::thread> thread;
@@ -275,6 +276,8 @@ void AudioSystem::stop() {
     }
 }
 
+void AudioSystem::shutdown() { runner.stop(); }
+
 namespace
 {
 Sound::Sound()
@@ -285,13 +288,7 @@ Sound::Sound()
 Runner::Runner()
 : running(false) {}
 
-Runner::~Runner() {
-    BL_LOG_INFO << "Shutting down AudioSystem";
-    running = false;
-    if (thread.has_value()) { thread.value().join(); }
-    AudioSystem::stop();
-    BL_LOG_INFO << "AudioSystem shutdown";
-}
+Runner::~Runner() { stop(); }
 
 void Runner::start() {
     if (!running) {
@@ -299,6 +296,14 @@ void Runner::start() {
         if (!thread.has_value()) { thread.emplace(&Runner::run, this); }
         BL_LOG_INFO << "Started AudioSystem";
     }
+}
+
+void Runner::stop() {
+    BL_LOG_INFO << "Shutting down AudioSystem";
+    running = false;
+    if (thread.has_value() && thread.value().joinable()) { thread.value().join(); }
+    AudioSystem::stop();
+    BL_LOG_INFO << "AudioSystem shutdown";
 }
 
 void Runner::run() {
