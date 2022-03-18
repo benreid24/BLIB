@@ -19,8 +19,7 @@ Engine::~Engine() {
     while (!states.empty()) { states.pop(); }
     newState.reset();
     renderWindow.reset();
-    audio::AudioSystem::shutdown();
-    sf::sleep(sf::milliseconds(500)); // for music threads to stop
+    //audio::AudioSystem::shutdown();
 }
 
 bl::event::Dispatcher& Engine::eventBus() { return engineEventBus; }
