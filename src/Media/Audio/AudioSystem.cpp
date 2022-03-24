@@ -310,16 +310,14 @@ void Runner::start() {
 }
 
 void Runner::stop() {
-    try {
-        if (running) {
-            BL_LOG_INFO << "Shutting down AudioSystem";
-            running = false;
-            if (thread.has_value() && thread.value().joinable()) { thread.value().join(); }
-            AudioSystem::stop();
-            sf::sleep(sf::milliseconds(500)); // for music threads to stop
-            BL_LOG_INFO << "AudioSystem shutdown";
-        }
-    } catch (...) { BL_LOG_CRITICAL << "Got some exception"; }
+    if (running) {
+        BL_LOG_INFO << "Shutting down AudioSystem";
+        running = false;
+        if (thread.has_value() && thread.value().joinable()) { thread.value().join(); }
+        AudioSystem::stop();
+        sf::sleep(sf::milliseconds(500)); // for music threads to stop
+        BL_LOG_INFO << "AudioSystem shutdown";
+    }
 }
 
 void Runner::run() {
