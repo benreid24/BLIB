@@ -19,7 +19,7 @@ Engine::~Engine() {
     while (!states.empty()) { states.pop(); }
     newState.reset();
     renderWindow.reset();
-    //audio::AudioSystem::shutdown();
+    audio::AudioSystem::shutdown();
 }
 
 bl::event::Dispatcher& Engine::eventBus() { return engineEventBus; }
