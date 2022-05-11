@@ -4,17 +4,15 @@ namespace bl
 {
 namespace gui
 {
-Animation::Ptr Animation::create(resource::Resource<gfx::AnimationData>::Ref anim, bool c) {
-    return Ptr(new Animation(anim, c));
+Animation::Ptr Animation::create(resource::Resource<gfx::AnimationData>::Ref anim) {
+    return Ptr(new Animation(anim));
 }
 
-Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim, bool c)
+Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim)
 : Element()
-, centered(c)
 , source(anim)
 , animation(*anim) {
     animation.setIsLoop(true);
-    animation.setIsCentered(centered);
     animation.play();
 
     const auto updatePos = [this](const Event&, Element*) {
@@ -27,12 +25,10 @@ Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim, bool c)
     getSignal(Event::Moved).willAlwaysCall(updatePos);
 }
 
-void Animation::setAnimation(resource::Resource<gfx::AnimationData>::Ref src, bool c) {
-    centered = c;
+void Animation::setAnimation(resource::Resource<gfx::AnimationData>::Ref src) {
     source   = src;
     animation.setData(*source);
     animation.setIsLoop(true);
-    animation.setIsCentered(centered);
     animation.play();
     makeDirty();
 }

@@ -98,7 +98,7 @@ private:
             float rotation;
             uint8_t alpha;
 
-            void apply(VertexBuffer& buffer, unsigned int offset) const;
+            void apply(VertexBuffer& buffer, unsigned int offset, bool centerShards) const;
         };
 
         std::vector<Shard> shards;
@@ -111,10 +111,10 @@ private:
     std::vector<float> lengths;
     float totalLength;
     bool loop;
+    bool centerShards;
 
     void render(sf::RenderTarget& target, sf::RenderStates states, const sf::Vector2f& position,
-                const sf::Vector2f& scale, float rotation, bool centerOnOrigin,
-                unsigned int frame) const;
+                const sf::Vector2f& scale, float rotation, unsigned int frame) const;
 
     sf::Vector2f computeFrameSize(unsigned int i) const;
 

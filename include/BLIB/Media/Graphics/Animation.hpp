@@ -49,14 +49,6 @@ public:
     void setPosition(const sf::Vector2f& position);
 
     /**
-     * @brief Determines if the origin for rendering is the top left or the center of the
-     *        current frame
-     *
-     * @param center True to center, false to use top left
-     */
-    void setIsCentered(bool center);
-
-    /**
      * @brief Apply a scaling factor when rendering
      *
      */
@@ -133,7 +125,6 @@ private:
     unsigned int frame;
     float frameTime;
 
-    bool centerOrigin;
     sf::Vector2f position;
     sf::Vector2f scale;
     float rotation;

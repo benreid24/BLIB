@@ -113,6 +113,22 @@ struct Serializer<T, true> {
 };
 
 template<>
+struct Serializer<bool, false> {
+    static bool serialize(OutputStream& output, const bool& value) {
+        return output.write<std::uint8_t>(value ? 1 : 0);
+    }
+
+    static bool deserialize(InputStream& input, bool& value) {
+        std::uint8_t v;
+        if (!input.read<std::uint8_t>(v)) return false;
+        value = v == 1;
+        return true;
+    }
+
+    static std::uint32_t size(const bool&) { return sizeof(std::uint8_t); }
+};
+
+template<>
 struct Serializer<std::string> {
     static bool serialize(OutputStream& output, const std::string& value) {
         return output.write(value);
