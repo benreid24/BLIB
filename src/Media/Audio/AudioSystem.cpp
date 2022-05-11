@@ -43,10 +43,8 @@ void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime)
 
 class Runner {
 public:
-    Runner();
-    ~Runner();
-    void start();
-    void stop();
+    static Runner& get();
+    static void stop();
 
     sf::Clock timer;
     float unloadTimeout = 120.f;
@@ -70,11 +68,18 @@ public:
     bool paused;
 
 private:
-    std::optional<std::thread> thread;
-    std::atomic<bool> running;
+    Runner();
+    ~Runner();
+
+    std::thread thread;
+    static std::atomic<bool> started;
+    std::atomic<bool> shouldStop;
 
     void run();
-} runner;
+    void shutdown();
+};
+
+std::atomic<bool> Runner::started = false;
 
 inline AudioSystem::Handle makeHandle() {
     return util::Random::get<AudioSystem::Handle>(1,
@@ -82,246 +87,252 @@ inline AudioSystem::Handle makeHandle() {
 }
 } // namespace
 
-void AudioSystem::setUnloadTimeout(float t) { runner.unloadTimeout = t; }
+void AudioSystem::setUnloadTimeout(float t) { Runner::get().unloadTimeout = t; }
 
 AudioSystem::Handle AudioSystem::getOrLoadSound(const std::string& path) {
-    std::unique_lock lock(runner.soundMutex);
+    std::unique_lock lock(Runner::get().soundMutex);
 
-    auto it = runner.soundHandles.find(path);
-    if (it != runner.soundHandles.end()) { return it->second; }
+    auto it = Runner::get().soundHandles.find(path);
+    if (it != Runner::get().soundHandles.end()) { return it->second; }
 
     const Handle handle = makeHandle();
-    auto sit            = runner.sounds.try_emplace(handle).first;
+    auto sit            = Runner::get().sounds.try_emplace(handle).first;
     if (!sit->second.buffer.loadFromFile(path)) {
-        runner.sounds.erase(sit);
+        Runner::get().sounds.erase(sit);
         return InvalidHandle;
     }
-    runner.soundHandles.emplace(path, handle);
+    Runner::get().soundHandles.emplace(path, handle);
     return handle;
 }
 
 bool AudioSystem::playSound(Handle sound, float fadeIn, bool loop) {
-    std::shared_lock slock(runner.soundMutex);
-    if (runner.paused) return false;
+    std::shared_lock slock(Runner::get().soundMutex);
+    if (Runner::get().paused) return false;
 
-    const auto it = runner.sounds.find(sound);
-    if (it == runner.sounds.end()) return false;
+    const auto it = Runner::get().sounds.find(sound);
+    if (it == Runner::get().sounds.end()) return false;
 
     it->second.sound.setLoop(loop);
-    it->second.lastInteractTime = runner.timer.getElapsedTime().asSeconds();
+    it->second.lastInteractTime = Runner::get().timer.getElapsedTime().asSeconds();
     if (it->second.sound.getStatus() == sf::Sound::Playing) return true;
 
     if (fadeIn > 0.f) {
         it->second.sound.setVolume(0.f);
-        runner.fadingSounds.emplace_back(it->second.sound, 100.f / fadeIn);
-        runner.fadingSounds.back().me = --runner.fadingSounds.end();
+        Runner::get().fadingSounds.emplace_back(it->second.sound, 100.f / fadeIn);
+        Runner::get().fadingSounds.back().me = --Runner::get().fadingSounds.end();
     }
     else {
         it->second.sound.setVolume(100.f);
     }
 
     it->second.sound.play();
+    BL_LOG_INFO << "played";
     return true;
 }
 
 void AudioSystem::stopSound(Handle sound, float fadeOut) {
-    std::shared_lock slock(runner.soundMutex);
+    std::shared_lock slock(Runner::get().soundMutex);
 
-    const auto it = runner.sounds.find(sound);
-    if (it != runner.sounds.end()) {
-        it->second.lastInteractTime = runner.timer.getElapsedTime().asSeconds();
+    const auto it = Runner::get().sounds.find(sound);
+    if (it != Runner::get().sounds.end()) {
+        it->second.lastInteractTime = Runner::get().timer.getElapsedTime().asSeconds();
         if (it->second.sound.getStatus() == sf::Sound::Playing) {
             if (fadeOut <= 0.f) { it->second.sound.stop(); }
             else {
-                runner.fadingSounds.emplace_back(it->second.sound,
-                                                 -it->second.sound.getVolume() / fadeOut);
-                runner.fadingSounds.back().me = --runner.fadingSounds.end();
+                Runner::get().fadingSounds.emplace_back(it->second.sound,
+                                                        -it->second.sound.getVolume() / fadeOut);
+                Runner::get().fadingSounds.back().me = --Runner::get().fadingSounds.end();
             }
         }
     }
 }
 
 void AudioSystem::stopAllSounds() {
-    std::unique_lock lock(runner.soundMutex);
+    std::unique_lock lock(Runner::get().soundMutex);
 
-    for (auto& sound : runner.sounds) {
+    for (auto& sound : Runner::get().sounds) {
         if (sound.second.sound.getStatus() == sf::Sound::Playing) { sound.second.sound.stop(); }
     }
 }
 
 AudioSystem::Handle AudioSystem::getOrLoadPlaylist(const std::string& path) {
-    std::unique_lock lock(runner.playlistMutex);
-    runner.start();
+    std::unique_lock lock(Runner::get().playlistMutex);
 
-    const auto it = runner.playlistHandles.find(path);
-    if (it != runner.playlistHandles.end()) return it->second;
+    const auto it = Runner::get().playlistHandles.find(path);
+    if (it != Runner::get().playlistHandles.end()) return it->second;
 
     const Handle handle = makeHandle();
-    auto pit            = runner.playlists.try_emplace(handle).first;
+    auto pit            = Runner::get().playlists.try_emplace(handle).first;
     if (!pit->second.load(path)) {
-        runner.playlists.erase(pit);
+        Runner::get().playlists.erase(pit);
         return InvalidHandle;
     }
-    runner.playlistHandles.emplace(path, handle);
+    Runner::get().playlistHandles.emplace(path, handle);
     return handle;
 }
 
 bool AudioSystem::pushPlaylist(Handle playlist, float inTime, float outTime) {
-    std::unique_lock lock(runner.playlistMutex);
-    runner.start();
+    std::unique_lock lock(Runner::get().playlistMutex);
 
-    const auto it = runner.playlists.find(playlist);
-    if (it == runner.playlists.end()) return false;
+    const auto it = Runner::get().playlists.find(playlist);
+    if (it == Runner::get().playlists.end()) return false;
 
     initiateCrossfade(&it->second,
-                      runner.playlistStack.empty() ? nullptr : runner.playlistStack.back(),
+                      Runner::get().playlistStack.empty() ? nullptr :
+                                                            Runner::get().playlistStack.back(),
                       inTime,
                       outTime);
-    runner.playlistStack.emplace_back(&it->second);
+    Runner::get().playlistStack.emplace_back(&it->second);
     return true;
 }
 
 bool AudioSystem::replacePlaylist(Handle playlist, float inTime, float outTime) {
-    std::unique_lock lock(runner.playlistMutex);
-    runner.start();
+    std::unique_lock lock(Runner::get().playlistMutex);
 
-    const auto it = runner.playlists.find(playlist);
-    if (it == runner.playlists.end()) return false;
+    const auto it = Runner::get().playlists.find(playlist);
+    if (it == Runner::get().playlists.end()) return false;
 
     Playlist* out = nullptr;
-    if (!runner.playlistStack.empty()) {
-        out = runner.playlistStack.back();
-        runner.playlistStack.pop_back();
+    if (!Runner::get().playlistStack.empty()) {
+        out = Runner::get().playlistStack.back();
+        Runner::get().playlistStack.pop_back();
     }
     initiateCrossfade(&it->second, out, inTime, outTime);
-    runner.playlistStack.emplace_back(&it->second);
+    Runner::get().playlistStack.emplace_back(&it->second);
     return true;
 }
 
 void AudioSystem::popPlaylist(float inTime, float outTime) {
-    std::unique_lock lock(runner.playlistMutex);
-    if (runner.playlistStack.empty()) return;
+    std::unique_lock lock(Runner::get().playlistMutex);
+    if (Runner::get().playlistStack.empty()) return;
 
-    Playlist* in  = runner.playlistStack.size() >= 2 ?
-                        runner.playlistStack[runner.playlistStack.size() - 2] :
+    Playlist* in  = Runner::get().playlistStack.size() >= 2 ?
+                        Runner::get().playlistStack[Runner::get().playlistStack.size() - 2] :
                         nullptr;
-    Playlist* out = runner.playlistStack.back();
-    runner.playlistStack.pop_back();
+    Playlist* out = Runner::get().playlistStack.back();
+    Runner::get().playlistStack.pop_back();
     initiateCrossfade(in, out, inTime, outTime);
 }
 
 bool AudioSystem::replaceAllPlaylists(Handle playlist, float inTime, float outTime) {
-    std::unique_lock lock(runner.playlistMutex);
-    runner.start();
+    std::unique_lock lock(Runner::get().playlistMutex);
 
-    const auto it = runner.playlists.find(playlist);
-    if (it == runner.playlists.end()) return false;
+    const auto it = Runner::get().playlists.find(playlist);
+    if (it == Runner::get().playlists.end()) return false;
 
     initiateCrossfade(&it->second,
-                      runner.playlistStack.empty() ? nullptr : runner.playlistStack.back(),
+                      Runner::get().playlistStack.empty() ? nullptr :
+                                                            Runner::get().playlistStack.back(),
                       inTime,
                       outTime);
-    runner.playlistStack.clear();
-    runner.playlistStack.emplace_back(&it->second);
+    Runner::get().playlistStack.clear();
+    Runner::get().playlistStack.emplace_back(&it->second);
     return true;
 }
 
 void AudioSystem::stopAllPlaylists(float outTime) {
-    std::unique_lock lock(runner.playlistMutex);
+    std::unique_lock lock(Runner::get().playlistMutex);
 
-    if (!runner.playlistStack.empty()) {
-        initiateCrossfade(nullptr, runner.playlistStack.back(), 0.f, outTime);
-        runner.playlistStack.clear();
+    if (!Runner::get().playlistStack.empty()) {
+        initiateCrossfade(nullptr, Runner::get().playlistStack.back(), 0.f, outTime);
+        Runner::get().playlistStack.clear();
     }
 }
 
 void AudioSystem::setVolume(float vol) { sf::Listener::setGlobalVolume(vol); }
 
 void AudioSystem::pause() {
-    std::unique_lock lock(runner.pauseMutex);
-    if (runner.paused) return;
-    runner.paused = true;
+    std::unique_lock lock(Runner::get().pauseMutex);
+    if (Runner::get().paused) return;
+    Runner::get().paused = true;
 
-    for (auto& sound : runner.sounds) {
+    for (auto& sound : Runner::get().sounds) {
         if (sound.second.sound.getStatus() == sf::Sound::Playing) { sound.second.sound.pause(); }
     }
-    if (!runner.playlistStack.empty() && runner.playlistStack.front()->isPlaying()) {
-        runner.playlistStack.front()->pause();
+    if (!Runner::get().playlistStack.empty() && Runner::get().playlistStack.front()->isPlaying()) {
+        Runner::get().playlistStack.front()->pause();
     }
-    if (runner.fadeIn.playlist && runner.fadeIn.playlist->isPlaying()) {
-        runner.fadeIn.playlist->pause();
+    if (Runner::get().fadeIn.playlist && Runner::get().fadeIn.playlist->isPlaying()) {
+        Runner::get().fadeIn.playlist->pause();
     }
-    if (runner.fadeOut.playlist && runner.fadeOut.playlist->isPlaying()) {
-        runner.fadeOut.playlist->pause();
+    if (Runner::get().fadeOut.playlist && Runner::get().fadeOut.playlist->isPlaying()) {
+        Runner::get().fadeOut.playlist->pause();
     }
 }
 
 void AudioSystem::resume() {
-    std::unique_lock lock(runner.pauseMutex);
-    if (!runner.paused) return;
-    runner.paused = false;
+    std::unique_lock lock(Runner::get().pauseMutex);
+    if (!Runner::get().paused) return;
+    Runner::get().paused = false;
 
-    for (auto& sound : runner.sounds) {
+    for (auto& sound : Runner::get().sounds) {
         if (sound.second.sound.getStatus() == sf::Sound::Paused) { sound.second.sound.play(); }
     }
-    if (!runner.playlistStack.empty()) { runner.playlistStack.front()->play(); }
-    if (runner.fadeIn.playlist) { runner.fadeIn.playlist->play(); }
-    if (runner.fadeOut.playlist) { runner.fadeOut.playlist->play(); }
+    if (!Runner::get().playlistStack.empty()) { Runner::get().playlistStack.front()->play(); }
+    if (Runner::get().fadeIn.playlist) { Runner::get().fadeIn.playlist->play(); }
+    if (Runner::get().fadeOut.playlist) { Runner::get().fadeOut.playlist->play(); }
 
-    runner.pauseCond.notify_all();
+    Runner::get().pauseCond.notify_all();
 }
 
 void AudioSystem::stop() {
     {
-        std::unique_lock lock(runner.soundMutex);
-        for (auto& sound : runner.sounds) { sound.second.sound.stop(); }
+        std::unique_lock lock(Runner::get().soundMutex);
+        for (auto& sound : Runner::get().sounds) { sound.second.sound.stop(); }
     }
 
     {
-        std::unique_lock lock(runner.playlistMutex);
-        for (auto p : runner.playlistStack) { p->stop(); }
-        runner.playlistStack.clear();
-        runner.fadeIn.playlist  = nullptr;
-        runner.fadeOut.playlist = nullptr;
+        std::unique_lock lock(Runner::get().playlistMutex);
+        for (auto p : Runner::get().playlistStack) { p->stop(); }
+        Runner::get().playlistStack.clear();
+        Runner::get().fadeIn.playlist  = nullptr;
+        Runner::get().fadeOut.playlist = nullptr;
     }
 }
 
-void AudioSystem::shutdown() { runner.stop(); }
+void AudioSystem::shutdown() { Runner::get().stop(); }
 
 namespace
 {
 Sound::Sound()
-: lastInteractTime(runner.timer.getElapsedTime().asSeconds()) {
+: lastInteractTime(Runner::get().timer.getElapsedTime().asSeconds()) {
     sound.setBuffer(buffer);
 }
 
 Runner::Runner()
 : paused(false)
-, running(false) {}
+, thread(&Runner::run, this)
+, shouldStop(false) {
+    Runner::started = true;
+    BL_LOG_INFO << "Started AudioSystem";
+}
 
 Runner::~Runner() { stop(); }
 
-void Runner::start() {
-    if (!running) {
-        running = true;
-        if (!thread.has_value()) { thread.emplace(&Runner::run, this); }
-        BL_LOG_INFO << "Started AudioSystem";
-    }
+Runner& Runner::get() {
+    static Runner runner;
+    return runner;
 }
 
 void Runner::stop() {
-    if (running) {
+    if (started) {
         BL_LOG_INFO << "Shutting down AudioSystem";
-        running = false;
-        if (thread.has_value() && thread.value().joinable()) { thread.value().join(); }
+        started = false;
+        get().shutdown();
         AudioSystem::stop();
         sf::sleep(sf::milliseconds(500)); // for music threads to stop
         BL_LOG_INFO << "AudioSystem shutdown";
     }
 }
 
+void Runner::shutdown() {
+    shouldStop = true;
+    pauseCond.notify_all();
+    thread.join();
+}
+
 void Runner::run() {
-    while (running) {
+    while (!shouldStop) {
         {
             std::unique_lock plock(pauseMutex);
             if (paused) { pauseCond.wait(plock); }
@@ -335,11 +346,13 @@ void Runner::run() {
                     auto it = sounds.find(j->second);
                     if (it != sounds.end()) {
                         if (timer.getElapsedTime().asSeconds() - it->second.lastInteractTime >=
-                            unloadTimeout + it->second.buffer.getDuration().asSeconds()) {
+                                unloadTimeout + it->second.buffer.getDuration().asSeconds() &&
+                            it->second.sound.getStatus() != sf::Sound::Playing) {
                             sounds.erase(it);
+                            soundHandles.erase(j);
+                            BL_LOG_INFO << "erased";
                         }
                     }
-                    soundHandles.erase(j);
                 }
 
                 for (auto i = fadingSounds.begin(); i != fadingSounds.end();) {
@@ -370,30 +383,30 @@ void Runner::run() {
 }
 
 void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime) {
-    if (runner.fadeIn.playlist) {
-        runner.fadeIn.playlist->pause();
-        runner.fadeIn.playlist = nullptr;
+    if (Runner::get().fadeIn.playlist) {
+        Runner::get().fadeIn.playlist->pause();
+        Runner::get().fadeIn.playlist = nullptr;
     }
     if (in) {
         if (inTime > 0.f) {
-            runner.fadeIn.playlist = in;
-            runner.fadeIn.fvel     = 100.f / inTime;
+            Runner::get().fadeIn.playlist = in;
+            Runner::get().fadeIn.fvel     = 100.f / inTime;
             in->setVolume(0.f);
         }
         else {
             in->setVolume(100.f);
         }
-        if (!runner.paused) in->play();
+        if (!Runner::get().paused) in->play();
     }
 
-    if (runner.fadeOut.playlist) {
-        runner.fadeOut.playlist->pause();
-        runner.fadeOut.playlist = nullptr;
+    if (Runner::get().fadeOut.playlist) {
+        Runner::get().fadeOut.playlist->pause();
+        Runner::get().fadeOut.playlist = nullptr;
     }
     if (out) {
         if (outTime > 0.f) {
-            runner.fadeOut.playlist = out;
-            runner.fadeOut.fvel     = -out->getVolume() / outTime;
+            Runner::get().fadeOut.playlist = out;
+            Runner::get().fadeOut.fvel     = -out->getVolume() / outTime;
         }
         else {
             out->pause();
@@ -404,7 +417,7 @@ void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime)
 void PlaylistFader::update() {
     if (playlist) {
         const float vol =
-            playlist->getVolume() + fvel * runner.fadeTimer.getElapsedTime().asSeconds();
+            playlist->getVolume() + fvel * Runner::get().fadeTimer.getElapsedTime().asSeconds();
         if (vol <= 0.f) {
             playlist->setVolume(0.f);
             playlist->pause();
@@ -425,14 +438,15 @@ SoundFader::SoundFader(sf::Sound& s, float v)
 , fvel(v) {}
 
 void SoundFader::update() {
-    const float v = sound.getVolume() + fvel * runner.soundTimer.getElapsedTime().asSeconds();
+    const float v =
+        sound.getVolume() + fvel * Runner::get().soundTimer.getElapsedTime().asSeconds();
     if (v <= 0.f) {
         sound.stop();
-        runner.fadingSounds.erase(me);
+        Runner::get().fadingSounds.erase(me);
     }
     else if (v >= 100.f) {
         sound.setVolume(100.f);
-        runner.fadingSounds.erase(me);
+        Runner::get().fadingSounds.erase(me);
     }
     else {
         sound.setVolume(v);
