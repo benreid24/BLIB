@@ -27,7 +27,7 @@ void backgroundCleaner();
 GarbageCollector::GarbageCollector() {
     std::unique_lock lock(threadLock);
 
-    if (!thread.has_value() || !thread.value().joinable()) {
+    if (!thread.has_value()) {
         thread.emplace(&backgroundCleaner);
         BL_LOG_INFO << "GarbageCollector online";
     }
