@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::binary::SerializableObject&lt; T &gt; Class Template Reference</title>
+<title>BLIB: bl::serial::binary::SerializableObjectBase Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,69 +63,63 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00807.html">bl</a></li><li class="navelem"><a class="el" href="a00823.html">serial</a></li><li class="navelem"><a class="el" href="a00824.html">binary</a></li><li class="navelem"><a class="el" href="a01523.html">SerializableObject</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00807.html">bl</a></li><li class="navelem"><a class="el" href="a00823.html">serial</a></li><li class="navelem"><a class="el" href="a00824.html">binary</a></li><li class="navelem"><a class="el" href="a01523.html">SerializableObjectBase</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a01520.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::binary::SerializableObject&lt; T &gt; Class Template Reference</div>  </div>
+<div class="title">bl::serial::binary::SerializableObjectBase Class Reference<div class="ingroups"><a class="el" href="a00795.html">Serialization</a> &raquo; <a class="el" href="a00806.html">Binary</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base template for object descriptors. Specialize this for classes that you wish to serialize. If this is instantiated without a specialization a compiler error occurs.  
+<p>Base class for object descriptors. Provides methods used by <a class="el" href="a01535.html" title="Helper struct for serializing types into binary streams. Integral types, strings, vector...">Serializer</a>.  
  <a href="a01523.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a02225_source.html">SerializableObject.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02233_source.html">SerializableObject.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::binary::SerializableObject&lt; T &gt;:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::binary::SerializableObjectBase:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a01523.png" usemap="#bl::serial::binary::SerializableObject_3C_20T_20_3E_map" alt=""/>
-  <map id="bl::serial::binary::SerializableObject_3C_20T_20_3E_map" name="bl::serial::binary::SerializableObject_3C_20T_20_3E_map">
-<area href="a01519.html" title="Base class for object descriptors. Provides methods used by Serializer. " alt="bl::serial::binary::SerializableObjectBase" shape="rect" coords="0,0,241,24"/>
+  <img src="a01523.png" usemap="#bl::serial::binary::SerializableObjectBase_map" alt=""/>
+  <map id="bl::serial::binary::SerializableObjectBase_map" name="bl::serial::binary::SerializableObjectBase_map">
+<area href="a01527.html" title="Base template for object descriptors. Specialize this for classes that you wish to serialize..." alt="bl::serial::binary::SerializableObject&lt; T &gt;" shape="rect" coords="0,56,311,80"/>
+<area href="a01319.html" alt="bl::serial::binary::SerializableObject&lt; audio::Playlist &gt;" shape="rect" coords="321,56,632,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0911a118052aeaf10d888ce1dd4d6672"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01519.html#a0911a118052aeaf10d888ce1dd4d6672">serialize</a> (<a class="el" href="a01507.html">OutputStream</a> &amp;stream, const void *object) const</td></tr>
+<tr class="memitem:a0911a118052aeaf10d888ce1dd4d6672"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01523.html#a0911a118052aeaf10d888ce1dd4d6672">serialize</a> (<a class="el" href="a01507.html">OutputStream</a> &amp;stream, const void *object) const</td></tr>
 <tr class="memdesc:a0911a118052aeaf10d888ce1dd4d6672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the given object to the given stream.  <a href="#a0911a118052aeaf10d888ce1dd4d6672">More...</a><br /></td></tr>
 <tr class="separator:a0911a118052aeaf10d888ce1dd4d6672"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20c06fa6b1ad8ccd93c3e82826e44531"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01519.html#a20c06fa6b1ad8ccd93c3e82826e44531">deserialize</a> (<a class="el" href="a01499.html">InputStream</a> &amp;stream, void *object) const</td></tr>
+<tr class="memitem:a20c06fa6b1ad8ccd93c3e82826e44531"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01523.html#a20c06fa6b1ad8ccd93c3e82826e44531">deserialize</a> (<a class="el" href="a01499.html">InputStream</a> &amp;stream, void *object) const</td></tr>
 <tr class="memdesc:a20c06fa6b1ad8ccd93c3e82826e44531"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes from the stream into the given object.  <a href="#a20c06fa6b1ad8ccd93c3e82826e44531">More...</a><br /></td></tr>
 <tr class="separator:a20c06fa6b1ad8ccd93c3e82826e44531"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a8e72b1e76423331d9e3b53926698aa"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01519.html#a9a8e72b1e76423331d9e3b53926698aa">size</a> (const void *object) const</td></tr>
+<tr class="memitem:a9a8e72b1e76423331d9e3b53926698aa"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01523.html#a9a8e72b1e76423331d9e3b53926698aa">size</a> (const void *object) const</td></tr>
 <tr class="memdesc:a9a8e72b1e76423331d9e3b53926698aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the object when serialized, in bytes.  <a href="#a9a8e72b1e76423331d9e3b53926698aa">More...</a><br /></td></tr>
 <tr class="separator:a9a8e72b1e76423331d9e3b53926698aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ade1750e4bbdaed679daf2d8fe82235d2"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01523.html#ade1750e4bbdaed679daf2d8fe82235d2">SerializableFieldBase</a></td></tr>
+<tr class="separator:ade1750e4bbdaed679daf2d8fe82235d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-class bl::serial::binary::SerializableObject&lt; T &gt;</h3>
+<div class="textblock"><p>Base class for object descriptors. Provides methods used by <a class="el" href="a01535.html" title="Helper struct for serializing types into binary streams. Integral types, strings, vector...">Serializer</a>. </p>
 
-<p>Base template for object descriptors. Specialize this for classes that you wish to serialize. If this is instantiated without a specialization a compiler error occurs. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of object to describe serialization for </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02225_source.html#l00063">63</a> of file <a class="el" href="a02225_source.html">SerializableObject.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02233_source.html#l00022">22</a> of file <a class="el" href="a02233_source.html">SerializableObject.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a20c06fa6b1ad8ccd93c3e82826e44531"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a20c06fa6b1ad8ccd93c3e82826e44531">&#9670;&nbsp;</a></span>deserialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool bl::serial::binary::SerializableObjectBase::deserialize </td>
@@ -145,11 +139,6 @@ class bl::serial::binary::SerializableObject&lt; T &gt;</h3>
           <td></td><td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Deserializes from the stream into the given object. </p>
@@ -162,7 +151,7 @@ class bl::serial::binary::SerializableObject&lt; T &gt;</h3>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02264_source.html#l00020">20</a> of file <a class="el" href="a02264_source.html">SerializableObject.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02272_source.html#l00020">20</a> of file <a class="el" href="a02272_source.html">SerializableObject.cpp</a>.</p>
 
 </div>
 </div>
@@ -171,9 +160,6 @@ class bl::serial::binary::SerializableObject&lt; T &gt;</h3>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool bl::serial::binary::SerializableObjectBase::serialize </td>
@@ -193,11 +179,6 @@ class bl::serial::binary::SerializableObject&lt; T &gt;</h3>
           <td></td><td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Serializes the given object to the given stream. </p>
@@ -210,7 +191,7 @@ class bl::serial::binary::SerializableObject&lt; T &gt;</h3>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02264_source.html#l00010">10</a> of file <a class="el" href="a02264_source.html">SerializableObject.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02272_source.html#l00010">10</a> of file <a class="el" href="a02272_source.html">SerializableObject.cpp</a>.</p>
 
 </div>
 </div>
@@ -219,9 +200,6 @@ class bl::serial::binary::SerializableObject&lt; T &gt;</h3>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::size_t bl::serial::binary::SerializableObjectBase::size </td>
@@ -231,11 +209,6 @@ class bl::serial::binary::SerializableObject&lt; T &gt;</h3>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Returns the size of the object when serialized, in bytes. </p>
@@ -247,18 +220,44 @@ class bl::serial::binary::SerializableObject&lt; T &gt;</h3>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::size_t The serialized size of the object, in bytes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02264_source.html#l00039">39</a> of file <a class="el" href="a02264_source.html">SerializableObject.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02272_source.html#l00039">39</a> of file <a class="el" href="a02272_source.html">SerializableObject.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Serialization/Binary/<a class="el" href="a02225_source.html">SerializableObject.hpp</a></li>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ade1750e4bbdaed679daf2d8fe82235d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade1750e4bbdaed679daf2d8fe82235d2">&#9670;&nbsp;</a></span>SerializableFieldBase</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a01511.html">SerializableFieldBase</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02233_source.html#l00053">53</a> of file <a class="el" href="a02233_source.html">SerializableObject.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Serialization/Binary/<a class="el" href="a02233_source.html">SerializableObject.hpp</a></li>
+<li>src/Serialization/Binary/<a class="el" href="a02272_source.html">SerializableObject.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2022 03:12:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 11 2022 04:31:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

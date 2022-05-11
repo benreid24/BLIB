@@ -3,7 +3,7 @@ var searchData=
   ['idgenerator',['IdGenerator',['../a01019.html',1,'bl::entity']]],
   ['image',['Image',['../a01143.html',1,'bl::gui']]],
   ['imageitem',['ImageItem',['../a01271.html',1,'bl::menu']]],
-  ['inputbuffer',['InputBuffer',['../a01603.html',1,'bl::serial']]],
+  ['inputbuffer',['InputBuffer',['../a01611.html',1,'bl::serial']]],
   ['inputfile',['InputFile',['../a01495.html',1,'bl::serial::binary']]],
   ['inputstream',['InputStream',['../a01499.html',1,'bl::serial::binary']]],
   ['iskipper',['ISkipper',['../a01379.html',1,'bl::parser']]],

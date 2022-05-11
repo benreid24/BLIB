@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['id',['id',['../a01511.html#a17a1e354ef4cf3ffa976c6cb682bfcae',1,'bl::serial::binary::SerializableFieldBase::id()'],['../a01515.html#acbdeb668f943803599dd2be9ffb6bf1e',1,'bl::serial::binary::SerializableField::id()']]],
+  ['id',['id',['../a01511.html#a17a1e354ef4cf3ffa976c6cb682bfcae',1,'bl::serial::binary::SerializableFieldBase::id()'],['../a01515.html#acbdeb668f943803599dd2be9ffb6bf1e',1,'bl::serial::binary::SerializableField::id()'],['../a01519.html#ab1efebbc806f9d4c67b3072b67b71ccf',1,'bl::serial::binary::SerializableFloatField::id()']]],
   ['image',['Image',['../a01143.html#a6572a6752454805209696b8d53e5cf9b',1,'bl::gui::Image::Image(resource::Resource&lt; sf::Texture &gt;::Ref texture)'],['../a01143.html#aeae3fca0cbc3f7148d628e92bec31bd2',1,'bl::gui::Image::Image(const sf::Texture &amp;texture)']]],
   ['includescrollbarsinrequisition',['includeScrollbarsInRequisition',['../a01171.html#ada7f2d9f96fa23a8b7ea06eced7c1332',1,'bl::gui::ScrollArea']]],
   ['incrementvalue',['incrementValue',['../a01183.html#a48df5d9735c6d20cd66f974689cbc421',1,'bl::gui::Slider']]],
@@ -12,7 +12,7 @@ var searchData=
   ['intersects',['intersects',['../a00939.html#a294cbeeddc6e2bfa0e02be1523e9ac66',1,'bl::container::QuadTree::Area']]],
   ['invalidate',['invalidate',['../a01403.html#aa7ed863bd14ab8f2de6e071fd2781c94',1,'bl::parser::Stream']]],
   ['isattached',['isAttached',['../a01267.html#a6456946a5c7e6ecd87bd21c5fedd57c6',1,'bl::menu::Item']]],
-  ['isbigendian',['isBigEndian',['../a01727.html#a24bafb4d915943d65df75390c0584fe3',1,'bl::util::FileUtil']]],
+  ['isbigendian',['isBigEndian',['../a01735.html#a24bafb4d915943d65df75390c0584fe3',1,'bl::util::FileUtil']]],
   ['ischild',['isChild',['../a01139.html#ad1172339667002feeb59c3469b30acec',1,'bl::gui::Element']]],
   ['isdialogversionbetter09b',['isDialogVersionBetter09b',['../a00817.html#acf0cbbc7710ad07aaf6c5bf894059668',1,'bl::dialog']]],
   ['islooping',['isLooping',['../a01327.html#a690b92879de3b386d9efa468c91cbad4',1,'bl::gfx::AnimationData']]],

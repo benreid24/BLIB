@@ -17,6 +17,6 @@ var searchData=
   ['source',['source',['../a01335.html#ac0b2e7af521ac19ef0386258b89c0ea1',1,'bl::gfx::AnimationData::Frame::Shard']]],
   ['sourcecolumn',['sourceColumn',['../a01383.html#a2aefdf0aa8a0c54c4ea10899895b4baa',1,'bl::parser::Node']]],
   ['sourceline',['sourceLine',['../a01383.html#aedefe68f7194aeccd75aad71dfd8ca7d',1,'bl::parser::Node']]],
-  ['stdtosfmlrotationoffset',['StdToSFMLRotationOffset',['../a01723.html#adfa905681992e5a43707f162ca355e96',1,'bl::util::AngularVector']]],
+  ['stdtosfmlrotationoffset',['StdToSFMLRotationOffset',['../a01731.html#adfa905681992e5a43707f162ca355e96',1,'bl::util::AngularVector']]],
   ['style',['style',['../a01235.html#a8af9da3d15afc6ebd6d24466b505db3f',1,'bl::gui::RenderSettings']]]
 ];

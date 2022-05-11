@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::OutputBuffer Class Reference</title>
+<title>BLIB: bl::serial::MemoryInputBuffer Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00807.html">bl</a></li><li class="navelem"><a class="el" href="a00823.html">serial</a></li><li class="navelem"><a class="el" href="a01615.html">OutputBuffer</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00807.html">bl</a></li><li class="navelem"><a class="el" href="a00823.html">serial</a></li><li class="navelem"><a class="el" href="a01615.html">MemoryInputBuffer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,112 +71,131 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01612.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::OutputBuffer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00795.html">Serialization</a></div></div>  </div>
+<div class="title">bl::serial::MemoryInputBuffer Class Reference<div class="ingroups"><a class="el" href="a00795.html">Serialization</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Interface for outputting serialized data.  
+<p>Input buffer that operates entirely on in-memory data.  
  <a href="a01615.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00437_source.html">OutputBuffer.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00431_source.html">MemoryInputBuffer.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::OutputBuffer:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::MemoryInputBuffer:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a01615.png" usemap="#bl::serial::OutputBuffer_map" alt=""/>
-  <map id="bl::serial::OutputBuffer_map" name="bl::serial::OutputBuffer_map">
-<area href="a01611.html" title="Buffer that allows serializing data to an in-memory buffer. " alt="bl::serial::MemoryOutputBuffer" shape="rect" coords="0,56,183,80"/>
-<area href="a01623.html" title="Output buffer that allows writing to C++ streams. " alt="bl::serial::StreamOutputBuffer" shape="rect" coords="193,56,376,80"/>
+  <img src="a01615.png" usemap="#bl::serial::MemoryInputBuffer_map" alt=""/>
+  <map id="bl::serial::MemoryInputBuffer_map" name="bl::serial::MemoryInputBuffer_map">
+<area href="a01611.html" title="Buffer interface for reading data to be deserialized. " alt="bl::serial::InputBuffer" shape="rect" coords="0,0,173,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4b6f2634ce8ec5ed69dd60e1979d7f29"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a4b6f2634ce8ec5ed69dd60e1979d7f29">~OutputBuffer</a> ()=default</td></tr>
-<tr class="memdesc:a4b6f2634ce8ec5ed69dd60e1979d7f29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Output Buffer object.  <a href="#a4b6f2634ce8ec5ed69dd60e1979d7f29">More...</a><br /></td></tr>
-<tr class="separator:a4b6f2634ce8ec5ed69dd60e1979d7f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3873541dba334d85540d95f4cf1f86cb"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a3873541dba334d85540d95f4cf1f86cb">write</a> (const char *data, std::size_t len)=0</td></tr>
-<tr class="memdesc:a3873541dba334d85540d95f4cf1f86cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write some data to the buffer.  <a href="#a3873541dba334d85540d95f4cf1f86cb">More...</a><br /></td></tr>
-<tr class="separator:a3873541dba334d85540d95f4cf1f86cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11768f89bd5cadbcc6c33714793cca69"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a11768f89bd5cadbcc6c33714793cca69">good</a> () const =0</td></tr>
-<tr class="memdesc:a11768f89bd5cadbcc6c33714793cca69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the buffer is in a good state.  <a href="#a11768f89bd5cadbcc6c33714793cca69">More...</a><br /></td></tr>
-<tr class="separator:a11768f89bd5cadbcc6c33714793cca69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae927735128e70af3b58bfadc63cab01c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#ae927735128e70af3b58bfadc63cab01c">MemoryInputBuffer</a> (const sf::Packet &amp;packet)</td></tr>
+<tr class="memdesc:ae927735128e70af3b58bfadc63cab01c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Memory Input Buffer from a packet.  <a href="#ae927735128e70af3b58bfadc63cab01c">More...</a><br /></td></tr>
+<tr class="separator:ae927735128e70af3b58bfadc63cab01c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ab463e0bc1e1aae89ccbb1ed68c710f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a5ab463e0bc1e1aae89ccbb1ed68c710f">MemoryInputBuffer</a> (const std::vector&lt; char &gt; &amp;data)</td></tr>
+<tr class="memdesc:a5ab463e0bc1e1aae89ccbb1ed68c710f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Memory Input Buffer from a vector.  <a href="#a5ab463e0bc1e1aae89ccbb1ed68c710f">More...</a><br /></td></tr>
+<tr class="separator:a5ab463e0bc1e1aae89ccbb1ed68c710f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaa37a16e7c9517401385ad541a94b94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#abaa37a16e7c9517401385ad541a94b94">MemoryInputBuffer</a> (const char *data, std::size_t len)</td></tr>
+<tr class="memdesc:abaa37a16e7c9517401385ad541a94b94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Memory Input Buffer from a raw memory buffer.  <a href="#abaa37a16e7c9517401385ad541a94b94">More...</a><br /></td></tr>
+<tr class="separator:abaa37a16e7c9517401385ad541a94b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf82e7604c3a7f7a65ed3cf650187d06"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#aaf82e7604c3a7f7a65ed3cf650187d06">~MemoryInputBuffer</a> ()=default</td></tr>
+<tr class="memdesc:aaf82e7604c3a7f7a65ed3cf650187d06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Memory Input Buffer object.  <a href="#aaf82e7604c3a7f7a65ed3cf650187d06">More...</a><br /></td></tr>
+<tr class="separator:aaf82e7604c3a7f7a65ed3cf650187d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f9f30c0f9c051df2cb054f114d8059d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a2f9f30c0f9c051df2cb054f114d8059d">read</a> (char *data, std::size_t len) override</td></tr>
+<tr class="memdesc:a2f9f30c0f9c051df2cb054f114d8059d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads data from the buffer.  <a href="#a2f9f30c0f9c051df2cb054f114d8059d">More...</a><br /></td></tr>
+<tr class="separator:a2f9f30c0f9c051df2cb054f114d8059d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5bbe1d1f73ad9ada0bba9b61d016ef2"><td class="memItemLeft" align="right" valign="top">virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#ad5bbe1d1f73ad9ada0bba9b61d016ef2">tellg</a> () const override</td></tr>
+<tr class="memdesc:ad5bbe1d1f73ad9ada0bba9b61d016ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current position of the read head in the buffer.  <a href="#ad5bbe1d1f73ad9ada0bba9b61d016ef2">More...</a><br /></td></tr>
+<tr class="separator:ad5bbe1d1f73ad9ada0bba9b61d016ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5950a553a6c3cb2a52e7223325d1badc"><td class="memItemLeft" align="right" valign="top">virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a5950a553a6c3cb2a52e7223325d1badc">size</a> () const override</td></tr>
+<tr class="memdesc:a5950a553a6c3cb2a52e7223325d1badc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of available input.  <a href="#a5950a553a6c3cb2a52e7223325d1badc">More...</a><br /></td></tr>
+<tr class="separator:a5950a553a6c3cb2a52e7223325d1badc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad526a96030f540ce35fa1c0c5343cee3"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#ad526a96030f540ce35fa1c0c5343cee3">seekg</a> (std::size_t pos) override</td></tr>
+<tr class="memdesc:ad526a96030f540ce35fa1c0c5343cee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the position of the read head in the buffer.  <a href="#ad526a96030f540ce35fa1c0c5343cee3">More...</a><br /></td></tr>
+<tr class="separator:ad526a96030f540ce35fa1c0c5343cee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7326cb683fa44ffee86a4ab78239a8b3"><td class="memItemLeft" align="right" valign="top">virtual char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#a7326cb683fa44ffee86a4ab78239a8b3">peek</a> () const override</td></tr>
+<tr class="memdesc:a7326cb683fa44ffee86a4ab78239a8b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next byte value to be read. May return EOF.  <a href="#a7326cb683fa44ffee86a4ab78239a8b3">More...</a><br /></td></tr>
+<tr class="separator:a7326cb683fa44ffee86a4ab78239a8b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe42825f4fc0023c24ff75b0cf0f88ab"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01615.html#abe42825f4fc0023c24ff75b0cf0f88ab">good</a> () const override</td></tr>
+<tr class="memdesc:abe42825f4fc0023c24ff75b0cf0f88ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the buffer is in a valid state.  <a href="#abe42825f4fc0023c24ff75b0cf0f88ab">More...</a><br /></td></tr>
+<tr class="separator:abe42825f4fc0023c24ff75b0cf0f88ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90ea4ce8bd5cfa2edc4ae192ac48b43a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01611.html#a90ea4ce8bd5cfa2edc4ae192ac48b43a">skip</a> (std::size_t bytes)</td></tr>
+<tr class="memdesc:a90ea4ce8bd5cfa2edc4ae192ac48b43a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skips the next number of bytes.  <a href="#a90ea4ce8bd5cfa2edc4ae192ac48b43a">More...</a><br /></td></tr>
+<tr class="separator:a90ea4ce8bd5cfa2edc4ae192ac48b43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Interface for outputting serialized data. </p>
+<div class="textblock"><p>Input buffer that operates entirely on in-memory data. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00437_source.html#l00016">16</a> of file <a class="el" href="a00437_source.html">OutputBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00431_source.html#l00018">18</a> of file <a class="el" href="a00431_source.html">MemoryInputBuffer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4b6f2634ce8ec5ed69dd60e1979d7f29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b6f2634ce8ec5ed69dd60e1979d7f29">&#9670;&nbsp;</a></span>~OutputBuffer()</h2>
+<a id="ae927735128e70af3b58bfadc63cab01c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae927735128e70af3b58bfadc63cab01c">&#9670;&nbsp;</a></span>MemoryInputBuffer() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bl::serial::OutputBuffer::~OutputBuffer </td>
+          <td class="memname">bl::serial::MemoryInputBuffer::MemoryInputBuffer </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const sf::Packet &amp;&#160;</td>
+          <td class="paramname"><em>packet</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Destroy the Output Buffer object. </p>
+<p>Construct a new Memory Input Buffer from a packet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>The vector to move from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00752_source.html#l00009">9</a> of file <a class="el" href="a00752_source.html">MemoryInputBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a11768f89bd5cadbcc6c33714793cca69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11768f89bd5cadbcc6c33714793cca69">&#9670;&nbsp;</a></span>good()</h2>
+<a id="a5ab463e0bc1e1aae89ccbb1ed68c710f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ab463e0bc1e1aae89ccbb1ed68c710f">&#9670;&nbsp;</a></span>MemoryInputBuffer() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool bl::serial::OutputBuffer::good </td>
+          <td class="memname">bl::serial::MemoryInputBuffer::MemoryInputBuffer </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const std::vector&lt; char &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns whether or not the buffer is in a good state. </p>
+<p>Construct a new Memory Input Buffer from a vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>The vector to copy from </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Implemented in <a class="el" href="a01611.html#ab78ef537e0bd074e9c965e4535632fb0">bl::serial::MemoryOutputBuffer</a>, and <a class="el" href="a01623.html#aaff97d946d1f1b37ae4a46255678904a">bl::serial::StreamOutputBuffer</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00752_source.html#l00014">14</a> of file <a class="el" href="a00752_source.html">MemoryInputBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a3873541dba334d85540d95f4cf1f86cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3873541dba334d85540d95f4cf1f86cb">&#9670;&nbsp;</a></span>write()</h2>
+<a id="abaa37a16e7c9517401385ad541a94b94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaa37a16e7c9517401385ad541a94b94">&#9670;&nbsp;</a></span>MemoryInputBuffer() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool bl::serial::OutputBuffer::write </td>
+          <td class="memname">bl::serial::MemoryInputBuffer::MemoryInputBuffer </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>data</em>, </td>
@@ -193,35 +212,310 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+<p>Construct a new Memory Input Buffer from a raw memory buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Pointer to the data </td></tr>
+    <tr><td class="paramname">len</td><td>Length of the data </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00752_source.html#l00019">19</a> of file <a class="el" href="a00752_source.html">MemoryInputBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaf82e7604c3a7f7a65ed3cf650187d06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf82e7604c3a7f7a65ed3cf650187d06">&#9670;&nbsp;</a></span>~MemoryInputBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::serial::MemoryInputBuffer::~MemoryInputBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Write some data to the buffer. </p>
+<p>Destroy the Memory Input Buffer object. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abe42825f4fc0023c24ff75b0cf0f88ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe42825f4fc0023c24ff75b0cf0f88ab">&#9670;&nbsp;</a></span>good()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::MemoryInputBuffer::good </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the buffer is in a valid state. </p>
+
+<p>Implements <a class="el" href="a01611.html#a336a0ba9e3f7d61911d544bef1f029cb">bl::serial::InputBuffer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00752_source.html#l00042">42</a> of file <a class="el" href="a00752_source.html">MemoryInputBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7326cb683fa44ffee86a4ab78239a8b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7326cb683fa44ffee86a4ab78239a8b3">&#9670;&nbsp;</a></span>peek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char bl::serial::MemoryInputBuffer::peek </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the next byte value to be read. May return EOF. </p>
+<dl class="section return"><dt>Returns</dt><dd>char The next byte in the buffer </dd></dl>
+
+<p>Implements <a class="el" href="a01611.html#aa91d37abeb75649020924a3ce8ef72d7">bl::serial::InputBuffer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00752_source.html#l00040">40</a> of file <a class="el" href="a00752_source.html">MemoryInputBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2f9f30c0f9c051df2cb054f114d8059d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f9f30c0f9c051df2cb054f114d8059d">&#9670;&nbsp;</a></span>read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::MemoryInputBuffer::read </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reads data from the buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>The data to write </td></tr>
-    <tr><td class="paramname">len</td><td>The length of the data to write </td></tr>
+    <tr><td class="paramname">data</td><td>Destination to read to </td></tr>
+    <tr><td class="paramname">len</td><td>The number of bytes to read </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success and false on error </dd></dl>
+
+<p>Implements <a class="el" href="a01611.html#a38ac83c01be85da3086625673aa6350e">bl::serial::InputBuffer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00752_source.html#l00024">24</a> of file <a class="el" href="a00752_source.html">MemoryInputBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad526a96030f540ce35fa1c0c5343cee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad526a96030f540ce35fa1c0c5343cee3">&#9670;&nbsp;</a></span>seekg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::MemoryInputBuffer::seekg </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the position of the read head in the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The new position of the read head </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the read head is within the bounds of the buffer, false on EOF </dd></dl>
+
+<p>Implements <a class="el" href="a01611.html#ab25d70d2602b7da92f4d52d5dd6bfd93">bl::serial::InputBuffer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00752_source.html#l00035">35</a> of file <a class="el" href="a00752_source.html">MemoryInputBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5950a553a6c3cb2a52e7223325d1badc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5950a553a6c3cb2a52e7223325d1badc">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t bl::serial::MemoryInputBuffer::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the size of available input. </p>
+
+<p>Implements <a class="el" href="a01611.html#ab6e28d77224e5bbcdc916b93db7d7254">bl::serial::InputBuffer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00752_source.html#l00033">33</a> of file <a class="el" href="a00752_source.html">MemoryInputBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a90ea4ce8bd5cfa2edc4ae192ac48b43a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90ea4ce8bd5cfa2edc4ae192ac48b43a">&#9670;&nbsp;</a></span>skip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::InputBuffer::skip </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>bytes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Skips the next number of bytes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bytes</td><td>The number of bytes to skip </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on success false on error </dd></dl>
 
-<p>Implemented in <a class="el" href="a01611.html#aa14425bbf68b5d3a49ea56ca30c2f15b">bl::serial::MemoryOutputBuffer</a>, and <a class="el" href="a01623.html#ae11ddac8af8eb2ab7f3130f393d99e5c">bl::serial::StreamOutputBuffer</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00428_source.html#l00079">79</a> of file <a class="el" href="a00428_source.html">InputBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Serialization/Buffers/<a class="el" href="a00437_source.html">OutputBuffer.hpp</a></li>
+<a id="ad5bbe1d1f73ad9ada0bba9b61d016ef2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5bbe1d1f73ad9ada0bba9b61d016ef2">&#9670;&nbsp;</a></span>tellg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t bl::serial::MemoryInputBuffer::tellg </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the current position of the read head in the buffer. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::size_t The position of the read head </dd></dl>
+
+<p>Implements <a class="el" href="a01611.html#a72fa86e855cbcb2adfad17add80b0ce7">bl::serial::InputBuffer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00752_source.html#l00031">31</a> of file <a class="el" href="a00752_source.html">MemoryInputBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Serialization/Buffers/<a class="el" href="a00431_source.html">MemoryInputBuffer.hpp</a></li>
+<li>src/Serialization/Buffers/<a class="el" href="a00752_source.html">MemoryInputBuffer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2022 03:12:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 11 2022 04:31:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
