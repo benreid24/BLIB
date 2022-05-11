@@ -126,7 +126,6 @@ bool AudioSystem::playSound(Handle sound, float fadeIn, bool loop) {
     }
 
     it->second.sound.play();
-    BL_LOG_INFO << "played";
     return true;
 }
 
@@ -307,7 +306,7 @@ Runner::Runner()
     BL_LOG_INFO << "Started AudioSystem";
 }
 
-Runner::~Runner() { stop(); }
+Runner::~Runner() {}
 
 Runner& Runner::get() {
     static Runner runner;
@@ -350,7 +349,6 @@ void Runner::run() {
                             it->second.sound.getStatus() != sf::Sound::Playing) {
                             sounds.erase(it);
                             soundHandles.erase(j);
-                            BL_LOG_INFO << "erased";
                         }
                     }
                 }
