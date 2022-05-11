@@ -14,9 +14,13 @@ AnimationData::AnimationData()
 : spritesheet()
 , frames()
 , totalLength(0)
-, loop(false) {}
+, loop(false)
+, centerShards(true) {}
 
-AnimationData::AnimationData(const std::string& filename) { load(filename); }
+AnimationData::AnimationData(const std::string& filename)
+: AnimationData() {
+    load(filename);
+}
 
 bool AnimationData::load(const std::string& filename) {
     frames.clear();
@@ -88,13 +92,20 @@ bool AnimationData::load(const std::string& filename) {
         totalLength += lengths.back();
     }
 
+    // bool value not present in legacy files
+    std::uint8_t u8;
+    if (!file.read(u8))
+        centerShards = false;
+    else
+        centerShards = u8 == 1;
+
     frames.reserve(frameData.size());
     for (const Frame& frame : frameData) {
         frames.emplace_back(
             sf::PrimitiveType::Quads, sf::VertexBuffer::Usage::Static, frame.shards.size() * 4);
         unsigned int offset = 0;
         for (const Frame::Shard& shard : frame.shards) {
-            shard.apply(frames.back(), offset);
+            shard.apply(frames.back(), offset, centerShards);
             offset += 4;
         }
         frames.back().update();
@@ -144,23 +155,19 @@ sf::Vector2f AnimationData::getMaxSize() const {
 
 void AnimationData::render(sf::RenderTarget& target, sf::RenderStates states,
                            const sf::Vector2f& pos, const sf::Vector2f& scale, float rotation,
-                           bool centerOnOrigin, unsigned int i) const {
+                           unsigned int i) const {
     if (frames.empty()) return;
 
     const VertexBuffer& frame = frames[i];
     states.texture            = spritesheet.get();
     states.transform.translate(pos);
-    if (!centerOnOrigin) {
-        const float sx = sizes[i].x * scale.x;
-        const float sy = sizes[i].y * scale.y;
-        states.transform.translate(sx * 0.5f, sy * 0.5f);
-    }
     states.transform.rotate(rotation);
     states.transform.scale(scale);
     target.draw(frame, states);
 }
 
-void AnimationData::Frame::Shard::apply(VertexBuffer& buffer, unsigned int offset) const {
+void AnimationData::Frame::Shard::apply(VertexBuffer& buffer, unsigned int offset,
+                                        bool centerShards) const {
     for (unsigned int i = 0; i < 4; ++i) {
         buffer[offset + i].color = sf::Color(255, 255, 255, alpha);
     }
@@ -182,9 +189,12 @@ void AnimationData::Frame::Shard::apply(VertexBuffer& buffer, unsigned int offse
     const float sinA            = std::sin(r);
     for (unsigned int i = 0; i < 4; ++i) {
         sf::Vertex& vertex = buffer[offset + i];
-        vertex.position.x  = posOffset.x + points[i].x * cosA - points[i].y * sinA;
-        vertex.position.y  = posOffset.y + points[i].x * sinA + points[i].y * cosA;
-        vertex.position -= halfSize - sf::Vector2f{s.width * 0.5f, s.height * 0.5f};
+        vertex.position.x  = posOffset.x + points[i].x * cosA - points[i].y * sinA + s.width * 0.5f;
+        vertex.position.y = posOffset.y + points[i].x * sinA + points[i].y * cosA + s.height * 0.5f;
+        if (centerShards) {
+            vertex.position.x -= halfSize.x;
+            vertex.position.y -= halfSize.y;
+        }
     }
 }
 

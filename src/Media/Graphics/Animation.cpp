@@ -10,7 +10,6 @@ Animation::Animation()
 , isPlaying(false)
 , frame(0)
 , frameTime(0.f)
-, centerOrigin(true)
 , position(0.f, 0.f)
 , scale(1.f, 1.f)
 , rotation(0.f)
@@ -22,11 +21,12 @@ Animation::Animation(AnimationData& data)
     setData(data);
 }
 
-void Animation::setData(AnimationData& d) { data = &d; }
+void Animation::setData(AnimationData& d) {
+    if (data != &d) stop();
+    data = &d;
+}
 
 AnimationData& Animation::getData() const { return *data; }
-
-void Animation::setIsCentered(bool c) { centerOrigin = c; }
 
 void Animation::setPosition(const sf::Vector2f& pos) { position = pos; }
 
@@ -49,13 +49,7 @@ void Animation::play(bool restart) {
     isPlaying = true;
 }
 
-bool Animation::playing() const {
-    if (data == nullptr || !isPlaying) return false;
-
-    const bool isLoop = loopOverride ? loop : data->isLooping();
-    if (!isLoop) return frame < data->frames.size() - 1 || frameTime <= data->lengths.back();
-    return true;
-}
+bool Animation::playing() const { return isPlaying; }
 
 bool Animation::finished() const { return !playing(); }
 
@@ -68,14 +62,15 @@ void Animation::stop() {
 void Animation::update(float dt) {
     if (isPlaying && data->frameCount() > 0) {
         frameTime += dt;
-        if (frameTime > data->lengths[frame]) {
+        while (frameTime > data->lengths[frame]) {
             frameTime -= data->lengths[frame];
             ++frame;
             if (frame >= data->frames.size()) {
                 frame = 0;
-                if (!data->isLooping() && !(loopOverride && loop)) {
+                if (!(loopOverride ? loop : data->isLooping())) {
                     isPlaying = false;
                     frameTime = 0.f;
+                    break;
                 }
             }
         }
@@ -87,12 +82,12 @@ void Animation::render(sf::RenderTarget& target, float lag, sf::RenderStates sta
         const float t = isPlaying ? frameTime + lag : 0.f;
         const unsigned int i =
             (t > data->lengths[frame]) ? (frame + 1) % data->frames.size() : frame;
-        data->render(target, states, position, scale, rotation, centerOrigin, i);
+        data->render(target, states, position, scale, rotation, i);
     }
 }
 
 void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    if (data) { data->render(target, states, position, scale, rotation, centerOrigin, frame); }
+    if (data) { data->render(target, states, position, scale, rotation, frame); }
 }
 
 } // namespace gfx

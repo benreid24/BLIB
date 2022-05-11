@@ -9,7 +9,6 @@ int main() {
     bl::gfx::AnimationData src("resources/animation.anim");
     bl::gfx::Animation anim(src);
 
-    anim.setIsCentered(true);
     anim.setPosition(sf::Vector2f(400, 400));
     anim.setIsLoop(true);
     anim.setRotation(30);

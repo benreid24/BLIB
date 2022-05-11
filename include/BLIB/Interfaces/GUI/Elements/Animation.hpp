@@ -26,18 +26,16 @@ public:
      * @brief Create a new Animation element
      *
      * @param anim The animation to use
-     * @param centered True to center the animation, false for top left
      * @return Ptr The new Animation
      */
-    static Ptr create(resource::Resource<gfx::AnimationData>::Ref anim, bool centered);
+    static Ptr create(resource::Resource<gfx::AnimationData>::Ref anim);
 
     /**
      * @brief Sets the animation to render. Does not reset any applied size
      *
-     * @param centered True to center the animation, false for top left
      * @param anim The animation to render
      */
-    void setAnimation(resource::Resource<gfx::AnimationData>::Ref anim, bool centered);
+    void setAnimation(resource::Resource<gfx::AnimationData>::Ref anim);
 
     /**
      * @brief Scales the rendered animation to the given size
@@ -58,9 +56,8 @@ protected:
      * @brief Create a new Animation element
      *
      * @param anim The animation to use
-     * @param centered True to center the animation, false for top left
      */
-    Animation(resource::Resource<gfx::AnimationData>::Ref anim, bool centered);
+    Animation(resource::Resource<gfx::AnimationData>::Ref anim);
 
     /**
      * @brief Returns the size required to render the animation

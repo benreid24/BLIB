@@ -17,11 +17,14 @@ public:
 
     bool& bF() { return b; }
 
+    float& fF() { return f; }
+
 private:
     std::string str;
     std::uint32_t u32;
     std::int16_t nowidth;
     bool b;
+    float f;
 
     friend class SerializableObject<TestyBoi>;
 };
@@ -32,12 +35,14 @@ struct SerializableObject<TestyBoi> : public SerializableObjectBase {
     SerializableField<2, TestyBoi, std::uint32_t> u32;
     SerializableField<3, TestyBoi, std::int16_t> nowidth;
     SerializableField<4, TestyBoi, bool> b;
+    SerializableFloatField<5, TestyBoi> f;
 
     SerializableObject()
     : str(*this, &TestyBoi::str)
     , u32(*this, &TestyBoi::u32)
     , nowidth(*this, &TestyBoi::nowidth)
-    , b(*this, &TestyBoi::b) {}
+    , b(*this, &TestyBoi::b)
+    , f(*this, &TestyBoi::f, 100.f) {}
 };
 
 class TestyBoi2 {
@@ -68,7 +73,7 @@ struct SerializableObject<TestyBoi2> : public SerializableObjectBase {
     SerializableField<2, TestyBoi2, std::uint32_t> u32;
     SerializableField<3, TestyBoi2, std::int16_t> nowidth;
     SerializableField<4, TestyBoi2, bool> b;
-    SerializableField<5, TestyBoi2, std::string> newfield;
+    SerializableField<6, TestyBoi2, std::string> newfield;
 
     SerializableObject()
     : str(*this, &TestyBoi2::str)
@@ -86,6 +91,7 @@ TEST(BinarySerializableObject, SerializeObject) {
     boi.u32F()     = 5634533;
     boi.nowidthF() = -4534;
     boi.bF()       = true;
+    boi.fF()       = 0.55f;
 
     MemoryOutputBuffer outbuf;
     OutputStream stream(outbuf);
@@ -101,6 +107,7 @@ TEST(BinarySerializableObject, SerializeObject) {
     EXPECT_EQ(boi.u32F(), read.u32F());
     EXPECT_EQ(boi.nowidthF(), read.nowidthF());
     EXPECT_EQ(boi.bF(), read.bF());
+    EXPECT_FLOAT_EQ(boi.fF(), 0.55f);
 }
 
 TEST(BinarySerializableObject, NewReadOld) {
