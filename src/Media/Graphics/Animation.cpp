@@ -46,7 +46,7 @@ void Animation::play(bool restart) {
         frameTime = 0.f;
         frame     = 0;
     }
-    isPlaying = true;
+    isPlaying = data->frameCount() > 0;
 }
 
 bool Animation::playing() const { return isPlaying; }
