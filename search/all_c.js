@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['label',['Label',['../a01147.html',1,'bl::gui::Label'],['../a01155.html#a4aeb796c95bd273691411c593aad8364',1,'bl::gui::Notebook::Page::label()'],['../a01147.html#a122b0461c7aa479ef60441603ff4bc00',1,'bl::gui::Label::Label()']]],
+  ['label',['Label',['../a01147.html',1,'bl::gui::Label'],['../a01147.html#a122b0461c7aa479ef60441603ff4bc00',1,'bl::gui::Label::Label()'],['../a01155.html#a4aeb796c95bd273691411c593aad8364',1,'bl::gui::Notebook::Page::label()']]],
   ['label_2ecpp',['Label.cpp',['../a00560.html',1,'']]],
   ['label_2ehpp',['Label.hpp',['../a00161.html',1,'']]],
   ['last',['Last',['../a01751.html#af272ecfc09083f9cec3776a769bd2509',1,'bl::util::LastVariadic']]],

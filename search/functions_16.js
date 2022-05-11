@@ -11,7 +11,7 @@ var searchData=
   ['willalwayscall',['willAlwaysCall',['../a01767.html#a419a776049b9cb49fe75e3a9cd55f05b',1,'bl::util::Signal']]],
   ['willcall',['willCall',['../a01767.html#a5c3dee119766378bdc5262795bc0d08c',1,'bl::util::Signal']]],
   ['willset',['willSet',['../a01767.html#a8a2fe54cccdcc5e9a607898725cd5f02',1,'bl::util::Signal']]],
-  ['window',['window',['../a00963.html#ab7615560dde03f27fb7054f7fe89a119',1,'bl::engine::Engine::window()'],['../a01195.html#abb0e061ce56e9d57ca967c691eda8df2',1,'bl::gui::Window::Window()']]],
+  ['window',['Window',['../a01195.html#abb0e061ce56e9d57ca967c691eda8df2',1,'bl::gui::Window::Window()'],['../a00963.html#ab7615560dde03f27fb7054f7fe89a119',1,'bl::engine::Engine::window()']]],
   ['windowicon',['windowIcon',['../a00995.html#a40cab3f9701737183eeab41dd1c819f3',1,'bl::engine::Settings']]],
   ['windowstyle',['windowStyle',['../a00995.html#a1dfa52e8d771b656aaf4c29c244a5c06',1,'bl::engine::Settings']]],
   ['windowtitle',['windowTitle',['../a00995.html#a742c16f4aff29f3df9870d6c9b5f972e',1,'bl::engine::Settings']]],
