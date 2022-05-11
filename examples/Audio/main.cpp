@@ -53,7 +53,7 @@ int main() {
     AudioSystem::Handle save = AudioSystem::getOrLoadSound("resources/gameSave.wav");
     std::this_thread::sleep_for(std::chrono::seconds(4));
     std::cout << "Looping eagle\n";
-    AudioSystem::playSound(save, true);
+    AudioSystem::playSound(save, -1.f, true);
 
     // Everything may be paused
     std::this_thread::sleep_for(std::chrono::seconds(4));
