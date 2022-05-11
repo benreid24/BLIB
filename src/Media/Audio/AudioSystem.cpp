@@ -289,7 +289,9 @@ void AudioSystem::stop() {
     }
 }
 
-void AudioSystem::shutdown() { Runner::stop(); }
+void AudioSystem::shutdown() {
+    // Runner::stop();
+}
 
 namespace
 {
