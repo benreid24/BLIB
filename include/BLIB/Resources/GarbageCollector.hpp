@@ -1,10 +1,12 @@
 #ifndef BLIB_RESOURCES_GARBAGECOLLECTOR_HPP
 #define BLIB_RESOURCES_GARBAGECOLLECTOR_HPP
 
+#include <BLIB/Util/NonCopyable.hpp>
 #include <atomic>
 #include <condition_variable>
 #include <mutex>
 #include <thread>
+#include <vector>
 
 namespace bl
 {
@@ -18,24 +20,29 @@ class ManagerBase;
  * @ingroup Resources
  *
  */
-class GarbageCollector {
+class GarbageCollector : private util::NonCopyable {
 public:
-    /**
-     * @brief Starts the garbage collector
-     *
-     */
-    GarbageCollector();
-
-    /**
-     * @brief Terminates the garbage collector
-     *
-     */
-    ~GarbageCollector();
+    static void shutdown();
 
 private:
-    static void registerManager(ManagerBase* manager);
-    static void unregisterManager(ManagerBase* manager);
+    using MP = std::pair<ManagerBase*, unsigned int>;
+    std::thread thread;
+    std::atomic_bool quitFlag;
+    std::condition_variable quitCv;
+    std::mutex managerLock;
+    std::vector<MP> managers;
+
+    GarbageCollector();
+    ~GarbageCollector();
+    void stop();
+    void runner();
+    unsigned int soonestIndex() const;
+
+    void registerManager(ManagerBase* manager);
+    void unregisterManager(ManagerBase* manager);
     friend class ManagerBase;
+
+    static GarbageCollector& get();
 };
 } // namespace resource
 } // namespace bl

@@ -28,10 +28,9 @@ class GarbageCollector;
 class ManagerBase {
 public:
     ManagerBase(unsigned int gcPeriod);
-    ~ManagerBase();
+    void unregister();
 
     virtual void doClean() = 0;
-
     const unsigned int gcPeriod;
 };
 
@@ -105,6 +104,7 @@ Manager<T>::Manager(Loader<T>& loader, unsigned int gcPeriod)
 
 template<typename T>
 Manager<T>::~Manager() {
+    unregister();
     BL_LOG_INFO << "Resource manager (" << typeid(T).name() << ") shutdown";
 }
 
