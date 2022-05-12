@@ -51,17 +51,6 @@ GarbageCollector& GarbageCollector::get() {
 
 void GarbageCollector::registerManager(ManagerBase* m) {
     std::unique_lock lock(managerLock);
-
-    // try to find a spot to insert
-    for (auto it = managers.begin(); it != managers.end(); ++it) {
-        if (it->second > m->gcPeriod) {
-            managers.insert(it, MP(m, m->gcPeriod));
-            lock.unlock();
-            quitCv.notify_all();
-            return;
-        }
-    }
-
     managers.emplace_back(m, m->gcPeriod);
     lock.unlock();
     quitCv.notify_all();
@@ -96,24 +85,24 @@ void GarbageCollector::runner() {
         // determine the next time we need to clean and sleep until then
         auto& mp                     = managers[soonestIndex()];
         const unsigned int sleepTime = mp.second;
+        const auto startTime         = std::chrono::steady_clock::now();
         quitCv.wait_for(lock, std::chrono::seconds(sleepTime));
+        const unsigned int sleptTime = std::chrono::duration_cast<std::chrono::seconds>(
+                                           std::chrono::steady_clock::now() - startTime)
+                                           .count();
+
+        // check if we need to bail
         if (quitFlag) return;
         if (managers.empty()) continue;
 
-        // clean the manager that needed it
-        mp.first->doClean();
-        mp.second = mp.first->gcPeriod;
-
-        // proceed through others that also should clean
+        // proceed through and clean managers that need it
         for (auto& omp : managers) {
-            if (&omp == &mp) continue;
-
-            if (omp.second <= sleepTime) {
+            if (omp.second <= sleptTime) {
                 omp.first->doClean();
                 omp.second = omp.first->gcPeriod;
             }
             else {
-                omp.second -= sleepTime;
+                omp.second -= sleptTime;
             }
         }
     }
