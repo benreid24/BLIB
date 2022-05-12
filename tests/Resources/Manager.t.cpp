@@ -18,7 +18,6 @@ struct MockLoader : public Loader<int> {
 TEST(ResourceManager, TimeoutAndForceCache) {
     MockLoader loader;
     Manager<int> manager(loader, 1);
-    GarbageCollector collector;
     const int first = *manager.load("uri").data;
     std::this_thread::sleep_for(std::chrono::seconds(2));
     const Resource<int>::Ref second = manager.load("uri").data;

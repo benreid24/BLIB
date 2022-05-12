@@ -2,6 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Media/Audio.hpp>
+#include <BLIB/Resources/GarbageCollector.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
 
@@ -20,6 +21,7 @@ Engine::~Engine() {
     newState.reset();
     renderWindow.reset();
     // audio::AudioSystem::shutdown();
+    resource::GarbageCollector::shutdown();
 }
 
 bl::event::Dispatcher& Engine::eventBus() { return engineEventBus; }

@@ -8,10 +8,10 @@ namespace resource
 {
 ManagerBase::ManagerBase(unsigned int gcPeriod)
 : gcPeriod(gcPeriod) {
-    GarbageCollector::registerManager(this);
+    GarbageCollector::get().registerManager(this);
 }
 
-ManagerBase::~ManagerBase() { GarbageCollector::unregisterManager(this); }
+ManagerBase::~ManagerBase() { GarbageCollector::get().unregisterManager(this); }
 
 } // namespace resource
 } // namespace bl

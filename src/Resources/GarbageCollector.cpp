@@ -12,42 +12,47 @@ namespace resource
 namespace
 {
 using MP = std::pair<ManagerBase*, unsigned int>;
+struct Sorter {
+    inline bool operator()(const MP& left, const MP& right) { return left.second < right.second; }
+};
 
-std::optional<std::thread> thread;
-std::mutex threadLock;
-std::atomic_bool quitFlag = false;
-std::condition_variable quitCv;
-std::mutex managerLock;
-std::vector<MP> managers;
-unsigned int nextToClean = 0;
-
-void backgroundCleaner();
+std::atomic_bool started = false;
+std::atomic_bool stopped = false;
 } // namespace
 
-GarbageCollector::GarbageCollector() {
-    std::unique_lock lock(threadLock);
-
-    if (!thread.has_value()) {
-        thread.emplace(&backgroundCleaner);
-        BL_LOG_INFO << "GarbageCollector online";
-    }
-    else {
-        BL_LOG_ERROR << "Attempted to start a second GarbageCollector";
-    }
+GarbageCollector::GarbageCollector()
+: thread(&GarbageCollector::runner, this)
+, quitFlag(false)
+, nextToClean(0) {
+    started = true;
+    BL_LOG_INFO << "GarbageCollector online";
 }
 
 GarbageCollector::~GarbageCollector() {
-    std::unique_lock lock(threadLock);
-    if (thread.has_value() && thread.value().joinable()) {
+    if (!stopped) { stop(); }
+}
+
+void GarbageCollector::shutdown() {
+    if (started) { get().stop(); }
+}
+
+void GarbageCollector::stop() {
+    if (thread.joinable()) {
         BL_LOG_INFO << "Terminating GarbageCollector";
         quitFlag = true;
         quitCv.notify_all();
-        thread.value().join();
+        thread.join();
+        stopped = true;
         BL_LOG_INFO << "GarbageCollector terminated";
     }
     else {
-        BL_LOG_ERROR << "Attempted to stop GarbageCollector that was not running";
+        BL_LOG_ERROR << "GarbageCollector already shutdown";
     }
+}
+
+GarbageCollector& GarbageCollector::get() {
+    static GarbageCollector gc;
+    return gc;
 }
 
 void GarbageCollector::registerManager(ManagerBase* m) {
@@ -57,11 +62,15 @@ void GarbageCollector::registerManager(ManagerBase* m) {
     for (auto it = managers.begin(); it != managers.end(); ++it) {
         if (it->second > m->gcPeriod) {
             managers.insert(it, MP(m, m->gcPeriod));
+            lock.unlock();
+            quitCv.notify_all();
             return;
         }
     }
 
     managers.emplace_back(m, m->gcPeriod);
+    lock.unlock();
+    quitCv.notify_all();
 }
 
 void GarbageCollector::unregisterManager(ManagerBase* m) {
@@ -76,13 +85,7 @@ void GarbageCollector::unregisterManager(ManagerBase* m) {
     }
 }
 
-namespace
-{
-struct Sorter {
-    inline bool operator()(const MP& left, const MP& right) { return left.second < right.second; }
-};
-
-void backgroundCleaner() {
+void GarbageCollector::runner() {
     // perform one time setup
     quitFlag = false;
     {
@@ -127,7 +130,6 @@ void backgroundCleaner() {
         std::sort(managers.begin(), managers.end(), Sorter());
     }
 }
-} // namespace
 
 } // namespace resource
 } // namespace bl
