@@ -13,9 +13,14 @@ project(BLIB C CXX)
 option(STATIC_LINK "On to link statically" On)
 option(BUILD_TESTS "On to build unit tests" On)
 option(BUILD_EXAMPLES "On to build examples" On)
+option(ON_CI "True when on CI, false when local" Off)
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
+endif()
+
+if (ON_CI)
+    add_compile_definitions(ON_CI)
 endif()
 
 set(CMAKE_INSTALL_PREFIX .)
