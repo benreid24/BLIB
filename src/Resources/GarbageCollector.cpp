@@ -11,19 +11,13 @@ namespace resource
 {
 namespace
 {
-using MP = std::pair<ManagerBase*, unsigned int>;
-struct Sorter {
-    inline bool operator()(const MP& left, const MP& right) { return left.second < right.second; }
-};
-
 std::atomic_bool started = false;
 std::atomic_bool stopped = false;
 } // namespace
 
 GarbageCollector::GarbageCollector()
 : thread(&GarbageCollector::runner, this)
-, quitFlag(false)
-, nextToClean(0) {
+, quitFlag(false) {
     started = true;
     BL_LOG_INFO << "GarbageCollector online";
 }
@@ -78,7 +72,6 @@ void GarbageCollector::unregisterManager(ManagerBase* m) {
 
     for (unsigned int i = 0; i < managers.size(); ++i) {
         if (managers[i].first == m) {
-            if (i < nextToClean) { nextToClean -= 1; }
             managers.erase(managers.begin() + i);
             break;
         }
@@ -91,8 +84,6 @@ void GarbageCollector::runner() {
     {
         std::unique_lock lock(managerLock);
         for (auto& mp : managers) { mp.second = mp.first->gcPeriod; }
-        std::sort(managers.begin(), managers.end(), Sorter());
-        nextToClean = 0;
     }
 
     while (!quitFlag) {
@@ -101,34 +92,43 @@ void GarbageCollector::runner() {
             quitCv.wait_for(lock, std::chrono::seconds(60));
             continue;
         }
-        if (quitFlag) return;
 
-        const unsigned int sleptFor = managers[nextToClean].second;
-        quitCv.wait_for(lock, std::chrono::seconds(sleptFor));
+        // determine the next time we need to clean and sleep until then
+        auto& mp                     = managers[soonestIndex()];
+        const unsigned int sleepTime = mp.second;
+        quitCv.wait_for(lock, std::chrono::seconds(sleepTime));
         if (quitFlag) return;
         if (managers.empty()) continue;
 
-        managers[nextToClean].first->doClean();
-        managers[nextToClean].second = managers[nextToClean].first->gcPeriod;
+        // clean the manager that needed it
+        mp.first->doClean();
+        mp.second = mp.first->gcPeriod;
 
         // proceed through others that also should clean
-        const unsigned int start = nextToClean;
-        unsigned int i           = (nextToClean + 1) % managers.size();
-        while (i != start) {
-            if (managers[i].second <= sleptFor) {
-                managers[i].first->doClean();
-                managers[i].second = managers[i].first->gcPeriod;
+        for (auto& omp : managers) {
+            if (&omp == &mp) continue;
+
+            if (omp.second <= sleepTime) {
+                omp.first->doClean();
+                omp.second = omp.first->gcPeriod;
             }
             else {
-                managers[i].second -= sleptFor;
-                nextToClean = i;
+                omp.second -= sleepTime;
             }
-            i = (i + 1) % managers.size();
         }
-
-        // re-sort now that times have reset
-        std::sort(managers.begin(), managers.end(), Sorter());
     }
+}
+
+unsigned int GarbageCollector::soonestIndex() const {
+    unsigned int nt = 1000000;
+    unsigned int mi = 0;
+    for (unsigned int i = 0; i < managers.size(); ++i) {
+        if (managers[i].second < nt) {
+            nt = managers[i].second;
+            mi = i;
+        }
+    }
+    return mi;
 }
 
 } // namespace resource

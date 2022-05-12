@@ -31,12 +31,12 @@ private:
     std::condition_variable quitCv;
     std::mutex managerLock;
     std::vector<MP> managers;
-    unsigned int nextToClean;
 
     GarbageCollector();
     ~GarbageCollector();
     void stop();
     void runner();
+    unsigned int soonestIndex() const;
 
     void registerManager(ManagerBase* manager);
     void unregisterManager(ManagerBase* manager);
