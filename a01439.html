@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="a01436.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -79,7 +80,7 @@ $(function() {
 <p>Single template based resource management class. Meant for storing data exactly once, such as images.  
  <a href="a01439.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a02221_source.html">Manager.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02217_source.html">Manager.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::resource::Manager&lt; TResourceType &gt;:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -111,6 +112,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab9f959a00d7d831e31ff5b3fb9746850"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the resource for modification (such as forcing it to stay in cache). Will load the resource if it is not in cache.  <a href="#ab9f959a00d7d831e31ff5b3fb9746850">More...</a><br /></td></tr>
 <tr class="separator:ab9f959a00d7d831e31ff5b3fb9746850"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a71dd9f8665bec7440ac942360406fa6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01435.html#a71dd9f8665bec7440ac942360406fa6b">unregister</a> ()</td></tr>
+<tr class="separator:a71dd9f8665bec7440ac942360406fa6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:aa3d5867d6ffc2cd353d4e345bb641229"><td class="memItemLeft" align="right" valign="top">const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01435.html#aa3d5867d6ffc2cd353d4e345bb641229">gcPeriod</a></td></tr>
@@ -122,7 +128,7 @@ class bl::resource::Manager&lt; TResourceType &gt;</h3>
 
 <p>Single template based resource management class. Meant for storing data exactly once, such as images. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02221_source.html#l00045">45</a> of file <a class="el" href="a02221_source.html">Manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02217_source.html#l00044">44</a> of file <a class="el" href="a02217_source.html">Manager.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8ebd9f42b18b801ff45a324ea27b0ff3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8ebd9f42b18b801ff45a324ea27b0ff3">&#9670;&nbsp;</a></span>Manager()</h2>
@@ -161,7 +167,7 @@ template&lt;typename T&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02221_source.html#l00100">100</a> of file <a class="el" href="a02221_source.html">Manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02217_source.html#l00099">99</a> of file <a class="el" href="a02217_source.html">Manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -184,7 +190,7 @@ template&lt;typename T &gt; </div>
 
 <p>Exits the garbage collection thread. Resources still held are not freed. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02221_source.html#l00107">107</a> of file <a class="el" href="a02221_source.html">Manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02217_source.html#l00106">106</a> of file <a class="el" href="a02217_source.html">Manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -226,7 +232,7 @@ template&lt;typename T&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02221_source.html#l00112">112</a> of file <a class="el" href="a02221_source.html">Manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02217_source.html#l00112">112</a> of file <a class="el" href="a02217_source.html">Manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -257,7 +263,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The requested resource </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02221_source.html#l00118">118</a> of file <a class="el" href="a02221_source.html">Manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02217_source.html#l00118">118</a> of file <a class="el" href="a02217_source.html">Manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -288,18 +294,18 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the requested resource </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02221_source.html#l00123">123</a> of file <a class="el" href="a02221_source.html">Manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02217_source.html#l00123">123</a> of file <a class="el" href="a02217_source.html">Manager.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Resources/<a class="el" href="a02221_source.html">Manager.hpp</a></li>
+<li>include/BLIB/Resources/<a class="el" href="a02217_source.html">Manager.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 11 2022 16:46:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 12 2022 14:10:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

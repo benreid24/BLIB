@@ -110,7 +110,7 @@ var searchData=
   ['shrink',['shrink',['../a00887.html#a950a178646184e3bb934b821b630595f',1,'bl::container::DynamicObjectPool']]],
   ['shuffling',['shuffling',['../a01315.html#ac94e8b45cb5fcf11031e438378b8f1eb',1,'bl::audio::Playlist']]],
   ['shufflingonloop',['shufflingOnLoop',['../a01315.html#a4bb5c8276a313c4aa082eba807295bb3',1,'bl::audio::Playlist']]],
-  ['shutdown',['shutdown',['../a01311.html#ada38aa02f628d80e9a9cef2e21044c0a',1,'bl::audio::AudioSystem']]],
+  ['shutdown',['shutdown',['../a01311.html#ada38aa02f628d80e9a9cef2e21044c0a',1,'bl::audio::AudioSystem::shutdown()'],['../a01427.html#a6be472822329104cc720273f19a8b927',1,'bl::resource::GarbageCollector::shutdown()']]],
   ['sighandler',['sigHandler',['../a00817.html#af5fa2209d45c9a51638ef1748e40621f',1,'bl::dialog']]],
   ['sin',['sin',['../a00821.html#a0379b8bbdfc3c74fecd12c93fdf0ca5b',1,'bl::math']]],
   ['singledispatcherscopeguard',['SingleDispatcherScopeGuard',['../a01095.html#a275d34d79e5f67227f77b61e2ee1d062',1,'bl::event::SingleDispatcherScopeGuard']]],

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['garbagecollector',['GarbageCollector',['../a01427.html#a33841d5cbaf289c67d8be5bde94c6269',1,'bl::resource::GarbageCollector']]],
   ['gdialogpresent',['gdialogPresent',['../a00817.html#a727a45fdb7868f71a5a2a724e00d65e0',1,'bl::dialog']]],
   ['generatesequentialids',['generateSequentialIds',['../a01019.html#a9b1396844c86b6825ac26b413ae2da5a',1,'bl::entity::IdGenerator']]],
   ['gentempname',['genTempName',['../a01735.html#a08974cd7e685d676a6031ea5f62f4ade',1,'bl::util::FileUtil']]],
@@ -57,7 +56,7 @@ var searchData=
   ['getforread',['getForRead',['../a00883.html#a6383ea1e0f0c3bdb61dfb87a7ce9452e',1,'bl::container::Cache']]],
   ['getforwrite',['getForWrite',['../a00883.html#a69f1d8cc001ca72384a09625b1c56989',1,'bl::container::Cache']]],
   ['getframesize',['getFrameSize',['../a01327.html#a04681775daa14a8baf5647ed08bb0419',1,'bl::gfx::AnimationData']]],
-  ['getgrammar',['getGrammar',['../a01839.html#aae9192fba63addb85df74e567c984b8d',1,'bl::script::Parser']]],
+  ['getgrammar',['getGrammar',['../a01835.html#aae9192fba63addb85df74e567c984b8d',1,'bl::script::Parser']]],
   ['getgroup',['getGroup',['../a01643.html#a672be2a4e391a5b7b02c19ebecef17cd',1,'bl::serial::json::Group::getGroup(const std::string &amp;name) const'],['../a01643.html#a7eeb29d2f40f02fe87b5f9c3cf61d11a',1,'bl::serial::json::Group::getGroup(const std::string &amp;name)']]],
   ['getheight',['getHeight',['../a00955.html#a3e0f60e481568be502cfbbd240eece26',1,'bl::container::Vector2D']]],
   ['gethiddenbutton',['getHiddenButton',['../a01191.html#a1de8ae205ef46278e65efe4d6287c9cc',1,'bl::gui::ToggleButton']]],
@@ -119,7 +118,7 @@ var searchData=
   ['gettexture',['getTexture',['../a01119.html#aa0fff4d04f1ecdf42f22c42594c02b85',1,'bl::gui::Canvas']]],
   ['gettitlebar',['getTitlebar',['../a01195.html#a51de66c45951b7a415b86488698186e6',1,'bl::gui::Window']]],
   ['gettitlelabel',['getTitleLabel',['../a01195.html#a28a1b44ee2ad8f08a5d18dd1eaa3a89a',1,'bl::gui::Window']]],
-  ['gettokenizer',['getTokenizer',['../a01839.html#a5bcbbdba4a390338416fc834303cfa21',1,'bl::script::Parser']]],
+  ['gettokenizer',['getTokenizer',['../a01835.html#a5bcbbdba4a390338416fc834303cfa21',1,'bl::script::Parser']]],
   ['gettooltip',['getTooltip',['../a01139.html#a8091f6b8a8718ed4d1e47f0a7e4a4f76',1,'bl::gui::Element']]],
   ['gettype',['getType',['../a01467.html#a7bc30156ed009da88ac38b8b8a858d99',1,'bl::script::PrimitiveValue::getType()'],['../a01647.html#a660419e592169ebb9a407ca018cc6b16',1,'bl::serial::json::Value::getType()']]],
   ['getvalue',['getValue',['../a01183.html#a2bdaf2fb24cbec9a15bef28a19ac3f4b',1,'bl::gui::Slider::getValue()'],['../a01191.html#a71939ab1391a764c092c1d46c7ce9bca',1,'bl::gui::ToggleButton::getValue()']]],
