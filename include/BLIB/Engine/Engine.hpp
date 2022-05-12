@@ -11,6 +11,7 @@
 #include <BLIB/Entities/Registry.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Resources.hpp>
+#include <BLIB/Resources/GarbageCollector.hpp>
 #include <BLIB/Scripts/Manager.hpp>
 
 namespace bl
@@ -122,6 +123,8 @@ private:
     bl::event::Dispatcher engineEventBus;
     script::Manager engineScriptManager;
     entity::Registry entityRegistry;
+
+    resource::GarbageCollector gc;
 
     bool awaitFocus();
 };
