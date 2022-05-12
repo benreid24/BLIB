@@ -11,7 +11,7 @@ ManagerBase::ManagerBase(unsigned int gcPeriod)
     GarbageCollector::get().registerManager(this);
 }
 
-ManagerBase::~ManagerBase() { GarbageCollector::get().unregisterManager(this); }
+void ManagerBase::unregister() { GarbageCollector::get().unregisterManager(this); }
 
 } // namespace resource
 } // namespace bl
