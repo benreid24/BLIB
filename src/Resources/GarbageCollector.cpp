@@ -27,7 +27,7 @@ GarbageCollector::~GarbageCollector() {
 }
 
 void GarbageCollector::shutdown() {
-    if (started) { get().stop(); }
+    if (started && !stopped) { get().stop(); }
 }
 
 void GarbageCollector::stop() {
@@ -68,13 +68,6 @@ void GarbageCollector::unregisterManager(ManagerBase* m) {
 }
 
 void GarbageCollector::runner() {
-    // perform one time setup
-    quitFlag = false;
-    {
-        std::unique_lock lock(managerLock);
-        for (auto& mp : managers) { mp.second = mp.first->gcPeriod; }
-    }
-
     while (!quitFlag) {
         std::unique_lock lock(managerLock);
         if (managers.empty()) {
