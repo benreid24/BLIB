@@ -154,6 +154,28 @@ bool AudioSystem::playSound(Handle sound, float fadeIn, bool loop) {
     return true;
 }
 
+bool AudioSystem::playOrRestartSound(Handle sound) {
+    std::shared_lock slock(Runner::get().soundMutex);
+    auto& r = Runner::get();
+    if (r.paused) return false;
+
+    // load sound if we need to
+    auto it = r.sounds.find(sound);
+    if (it == r.sounds.end()) {
+        auto hit = r.soundSources.find(sound);
+        if (hit == r.soundSources.end()) return false;
+        it = r.sounds.try_emplace(sound).first;
+        if (!it->second.buffer.loadFromFile(hit->second)) return false;
+    }
+
+    // play the sound
+    it->second.sound.setLoop(false);
+    it->second.sound.setVolume(100.f);
+    it->second.lastInteractTime = r.timer.getElapsedTime().asSeconds();
+    it->second.sound.play();
+    return true;
+}
+
 void AudioSystem::stopSound(Handle sound, float fadeOut) {
     std::shared_lock slock(Runner::get().soundMutex);
 

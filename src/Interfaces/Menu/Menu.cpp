@@ -9,13 +9,20 @@ namespace bl
 {
 namespace menu
 {
+audio::AudioSystem::Handle Menu::defaultMoveSound   = audio::AudioSystem::InvalidHandle;
+audio::AudioSystem::Handle Menu::defaultFailSound   = audio::AudioSystem::InvalidHandle;
+audio::AudioSystem::Handle Menu::defaultSelectSound = audio::AudioSystem::InvalidHandle;
+
 Menu::Menu(const Selector::Ptr& selector)
 : maxSize(-1.f, -1.f)
 , selector(selector)
 , selectedItem(nullptr)
 , padding(10.f, 10.f)
 , minSize(0.f, 0.f)
-, bgndPadding(padding * 2.f, padding * 2.f) {
+, bgndPadding(padding * 2.f, padding * 2.f)
+, moveSound(defaultMoveSound)
+, failSound(defaultFailSound)
+, selectSound(defaultSelectSound) {
     background.setFillColor(sf::Color::Transparent);
     background.setOutlineColor(sf::Color::Transparent);
 }
@@ -169,7 +176,8 @@ void Menu::processEvent(const Event& event) {
     switch (event.type) {
     case Event::SelectorMove: {
         if (selectedItem->attachments[event.moveEvent.direction]) {
-            Item* item = selectedItem->attachments[event.moveEvent.direction];
+            const Item* ogSel = selectedItem;
+            Item* item        = selectedItem->attachments[event.moveEvent.direction];
             while (item) {
                 if (item->isSelectable()) {
                     selectedItem->getSignal(Item::Deselected)();
@@ -181,10 +189,15 @@ void Menu::processEvent(const Event& event) {
                 if (!item->allowsSelectionCrossing()) break;
                 item = item->attachments[event.moveEvent.direction];
             }
+            playSound(ogSel != selectedItem ? moveSound : failSound);
+        }
+        else {
+            playSound(failSound);
         }
     } break;
     case Event::Activate:
         selectedItem->getSignal(Item::Activated)();
+        playSound(selectSound);
         break;
     case Event::SelectorLocation: {
         const sf::Vector2f pos = event.locationEvent.position - position - offset;
@@ -192,6 +205,7 @@ void Menu::processEvent(const Event& event) {
             if (sf::FloatRect(item->position, item->getSize()).contains(pos)) {
                 if (item->isSelectable()) {
                     selectedItem->getSignal(Item::Deselected)();
+                    if (selectedItem != item.get()) { playSound(selectSound); }
                     selectedItem = item.get();
                     selectedItem->getSignal(Item::Selected)();
                     refreshScroll();
@@ -269,6 +283,22 @@ sf::Vector2f Menu::move(const sf::Vector2f& pos, const sf::Vector2f& psize,
 }
 
 const Item* Menu::getSelectedItem() const { return selectedItem; }
+
+void Menu::playSound(audio::AudioSystem::Handle s) const {
+    if (s != audio::AudioSystem::InvalidHandle) { audio::AudioSystem::playOrRestartSound(s); }
+}
+
+void Menu::setDefaultMoveSound(audio::AudioSystem::Handle s) { defaultMoveSound = s; }
+
+void Menu::setDefaultMoveFailSound(audio::AudioSystem::Handle s) { defaultFailSound = s; }
+
+void Menu::setDefaultSelectSound(audio::AudioSystem::Handle s) { defaultSelectSound = s; }
+
+void Menu::setMoveSound(audio::AudioSystem::Handle s) { moveSound = s; }
+
+void Menu::setMoveFailSound(audio::AudioSystem::Handle s) { failSound = s; }
+
+void Menu::setSelectSound(audio::AudioSystem::Handle s) { selectSound = s; }
 
 } // namespace menu
 } // namespace bl

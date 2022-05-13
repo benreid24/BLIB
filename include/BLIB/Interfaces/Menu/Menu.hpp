@@ -4,6 +4,7 @@
 #include <BLIB/Interfaces/Menu/Event.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
 #include <BLIB/Interfaces/Menu/Selector.hpp>
+#include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <BLIB/Util/Hashes.hpp>
 
 #include <list>
@@ -168,6 +169,48 @@ public:
      */
     const Item* getSelectedItem() const;
 
+    /**
+     * @brief Sets the sound that plays when the selector is moved
+     *
+     * @param sound The sound to play
+     */
+    void setMoveSound(audio::AudioSystem::Handle sound);
+
+    /**
+     * @brief Sets the sound to play when the selector cannot move
+     *
+     * @param sound The sound to play
+     */
+    void setMoveFailSound(audio::AudioSystem::Handle sound);
+
+    /**
+     * @brief Sets the sound to play when an item is activated
+     *
+     * @param sound The sound to play
+     */
+    void setSelectSound(audio::AudioSystem::Handle sound);
+
+    /**
+     * @brief Sets the sound that plays when the selector is moved. Applies to all new menus
+     *
+     * @param sound The sound to play
+     */
+    static void setDefaultMoveSound(audio::AudioSystem::Handle sound);
+
+    /**
+     * @brief Sets the sound to play when the selector cannot move. Applies to all new menus
+     *
+     * @param sound The sound to play
+     */
+    static void setDefaultMoveFailSound(audio::AudioSystem::Handle sound);
+
+    /**
+     * @brief Sets the sound that plays when the selector is moved. Applies to all new menus
+     *
+     * @param sound The sound to play
+     */
+    static void setDefaultSelectSound(audio::AudioSystem::Handle sound);
+
 private:
     sf::Vector2f maxSize;
     sf::Vector2f position;
@@ -180,10 +223,18 @@ private:
     sf::RectangleShape background;
     sf::Vector2f totalSize;
     sf::FloatRect bgndPadding;
+    audio::AudioSystem::Handle moveSound;
+    audio::AudioSystem::Handle failSound;
+    audio::AudioSystem::Handle selectSound;
 
     sf::Vector2f move(const sf::Vector2f& pos, const sf::Vector2f& psize, const sf::Vector2f& esize,
                       Item::AttachPoint ap);
     void refreshScroll();
+    void playSound(audio::AudioSystem::Handle sound) const;
+
+    static audio::AudioSystem::Handle defaultMoveSound;
+    static audio::AudioSystem::Handle defaultFailSound;
+    static audio::AudioSystem::Handle defaultSelectSound;
 };
 
 } // namespace menu

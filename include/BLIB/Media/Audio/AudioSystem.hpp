@@ -49,6 +49,14 @@ public:
     static bool playSound(Handle sound, float fadeIn = -1.f, bool loop = false);
 
     /**
+     * @brief Immediately plays or restarts the given sound, without fade-in and no looping
+     *
+     * @param sound The sound to play or restart
+     * @return True if the sound could be played, false if not found
+     */
+    static bool playOrRestartSound(Handle sound);
+
+    /**
      * @brief Stops the given sound if it is playing
      *
      * @param sound The sound to stop
