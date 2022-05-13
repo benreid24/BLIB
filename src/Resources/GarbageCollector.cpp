@@ -52,6 +52,7 @@ GarbageCollector& GarbageCollector::get() {
 void GarbageCollector::registerManager(ManagerBase* m) {
     std::unique_lock lock(managerLock);
     managers.emplace_back(m, m->gcPeriod);
+    BL_LOG_INFO << "registerd manager";
     lock.unlock();
     quitCv.notify_all();
 }
@@ -65,12 +66,15 @@ void GarbageCollector::unregisterManager(ManagerBase* m) {
             break;
         }
     }
+
+    BL_LOG_INFO << "unregistered manager";
 }
 
 void GarbageCollector::runner() {
     while (!quitFlag) {
         std::unique_lock lock(managerLock);
         if (managers.empty()) {
+            BL_LOG_INFO << "waiting for resources to manage";
             quitCv.wait_for(lock, std::chrono::seconds(60));
             continue;
         }
@@ -79,10 +83,12 @@ void GarbageCollector::runner() {
         auto& mp                     = managers[soonestIndex()];
         const unsigned int sleepTime = mp.second;
         const auto startTime         = std::chrono::steady_clock::now();
+        BL_LOG_INFO << "sleeping for: " << sleepTime;
         quitCv.wait_for(lock, std::chrono::seconds(sleepTime));
         const unsigned int sleptTime = std::chrono::duration_cast<std::chrono::seconds>(
                                            std::chrono::steady_clock::now() - startTime)
                                            .count();
+        BL_LOG_INFO << "slept for " << sleptTime;
 
         // check if we need to bail
         if (quitFlag) return;
@@ -93,9 +99,11 @@ void GarbageCollector::runner() {
             if (omp.second <= sleptTime) {
                 omp.first->doClean();
                 omp.second = omp.first->gcPeriod;
+                BL_LOG_INFO << "cleaned oned";
             }
             else {
                 omp.second -= sleptTime;
+                BL_LOG_INFO << "skipped one";
             }
         }
     }
