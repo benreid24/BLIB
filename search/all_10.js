@@ -49,6 +49,7 @@ var searchData=
   ['playlistmutex',['playlistMutex',['../a00662.html#a3a8166a081fa86e6d733655337bab261',1,'AudioSystem.cpp']]],
   ['playlists',['playlists',['../a00662.html#a1cfda75f3db2aa46448d7f6ad42a24a9',1,'AudioSystem.cpp']]],
   ['playliststack',['playlistStack',['../a00662.html#a6d6455a1a2c22cfc0742e43587c0f1cb',1,'AudioSystem.cpp']]],
+  ['playorrestartsound',['playOrRestartSound',['../a01311.html#a7a223635ce58d1dbe165f5bdc63f7d2d',1,'bl::audio::AudioSystem']]],
   ['playpresent',['playPresent',['../a00817.html#a4ed83e3528a1cda9488cd918216947a8',1,'bl::dialog']]],
   ['playsound',['playSound',['../a01311.html#a411a127a39b3840f1b7cf7095856df6c',1,'bl::audio::AudioSystem']]],
   ['plus',['Plus',['../a01835.html#aab7cdda02e78cc66c150f58063c8b9e4aaf044208cee2c998c4776320ebcb347e',1,'bl::script::Parser']]],

@@ -17,6 +17,7 @@ var searchData=
   ['play',['play',['../a01315.html#ac388d1ce7ec765ca2c7be5cee5736da1',1,'bl::audio::Playlist::play()'],['../a01323.html#a5a2b72ce6c8e773cbafe565821d8c142',1,'bl::gfx::Animation::play()']]],
   ['playing',['playing',['../a01323.html#acfb49f29d3c6df1e5052889e7af9f527',1,'bl::gfx::Animation']]],
   ['playlist',['Playlist',['../a01315.html#a7540a4439817e454b7829edc0093d21b',1,'bl::audio::Playlist::Playlist()'],['../a01315.html#a92d5a7f9573722bd7b6c096539cc2a7b',1,'bl::audio::Playlist::Playlist(const std::string &amp;source)'],['../a01315.html#a118490f5f6d881780d4ec5b5012f63df',1,'bl::audio::Playlist::Playlist(const Playlist &amp;copy)']]],
+  ['playorrestartsound',['playOrRestartSound',['../a01311.html#a7a223635ce58d1dbe165f5bdc63f7d2d',1,'bl::audio::AudioSystem']]],
   ['playpresent',['playPresent',['../a00817.html#a4ed83e3528a1cda9488cd918216947a8',1,'bl::dialog']]],
   ['playsound',['playSound',['../a01311.html#a411a127a39b3840f1b7cf7095856df6c',1,'bl::audio::AudioSystem']]],
   ['pop_5fback',['pop_back',['../a00907.html#a70ebab907610612e57b5020acace4886',1,'bl::container::FastQueue::pop_back(T &amp;value)'],['../a00907.html#af44d25a6e30490b8aa39a04a207ea8fa',1,'bl::container::FastQueue::pop_back()']]],
