@@ -50,6 +50,7 @@ public:
     float unloadTimeout = 120.f;
 
     std::unordered_map<std::string, AudioSystem::Handle> soundHandles;
+    std::unordered_map<AudioSystem::Handle, std::string> soundSources;
     std::unordered_map<AudioSystem::Handle, Sound> sounds;
     std::list<SoundFader> fadingSounds;
     sf::Clock soundTimer;
@@ -82,8 +83,13 @@ private:
 std::atomic<bool> Runner::started = false;
 
 inline AudioSystem::Handle makeHandle() {
-    return util::Random::get<AudioSystem::Handle>(1,
-                                                  std::numeric_limits<AudioSystem::Handle>::max());
+    auto& s = Runner::get().soundSources;
+    AudioSystem::Handle h;
+    do {
+        h = util::Random::get<AudioSystem::Handle>(1,
+                                                   std::numeric_limits<AudioSystem::Handle>::max());
+    } while (s.find(h) != s.end());
+    return h;
 }
 } // namespace
 
@@ -91,35 +97,54 @@ void AudioSystem::setUnloadTimeout(float t) { Runner::get().unloadTimeout = t; }
 
 AudioSystem::Handle AudioSystem::getOrLoadSound(const std::string& path) {
     std::unique_lock lock(Runner::get().soundMutex);
+    auto& r = Runner::get();
 
-    auto it = Runner::get().soundHandles.find(path);
-    if (it != Runner::get().soundHandles.end()) { return it->second; }
-
-    const Handle handle = makeHandle();
-    auto sit            = Runner::get().sounds.try_emplace(handle).first;
-    if (!sit->second.buffer.loadFromFile(path)) {
-        Runner::get().sounds.erase(sit);
-        return InvalidHandle;
+    // Create or find handle
+    Handle handle = AudioSystem::InvalidHandle;
+    auto it       = r.soundHandles.find(path);
+    if (it != r.soundHandles.end()) { handle = it->second; }
+    else {
+        handle = makeHandle();
+        r.soundHandles.emplace(path, handle);
     }
-    Runner::get().soundHandles.emplace(path, handle);
+
+    // Ensure sound loaded
+    auto sit = Runner::get().sounds.find(handle);
+    if (sit == Runner::get().sounds.end()) {
+        sit = Runner::get().sounds.try_emplace(handle).first;
+        if (!sit->second.buffer.loadFromFile(path)) {
+            Runner::get().sounds.erase(sit);
+            BL_LOG_ERROR << "Failed to load sound: " << path;
+            return InvalidHandle;
+        }
+    }
+
     return handle;
 }
 
 bool AudioSystem::playSound(Handle sound, float fadeIn, bool loop) {
     std::shared_lock slock(Runner::get().soundMutex);
-    if (Runner::get().paused) return false;
+    auto& r = Runner::get();
+    if (r.paused) return false;
 
-    const auto it = Runner::get().sounds.find(sound);
-    if (it == Runner::get().sounds.end()) return false;
+    // load sound if we need to
+    auto it = r.sounds.find(sound);
+    if (it == r.sounds.end()) {
+        auto hit = r.soundSources.find(sound);
+        if (hit == r.soundSources.end()) return false;
+        it = r.sounds.try_emplace(sound).first;
+        if (!it->second.buffer.loadFromFile(hit->second)) return false;
+    }
 
+    // play the sound
     it->second.sound.setLoop(loop);
-    it->second.lastInteractTime = Runner::get().timer.getElapsedTime().asSeconds();
+    it->second.lastInteractTime = r.timer.getElapsedTime().asSeconds();
     if (it->second.sound.getStatus() == sf::Sound::Playing) return true;
 
     if (fadeIn > 0.f) {
         it->second.sound.setVolume(0.f);
-        Runner::get().fadingSounds.emplace_back(it->second.sound, 100.f / fadeIn);
-        Runner::get().fadingSounds.back().me = --Runner::get().fadingSounds.end();
+        r.fadingSounds.emplace_back(it->second.sound, 100.f / fadeIn);
+        r.fadingSounds.back().me = --r.fadingSounds.end();
     }
     else {
         it->second.sound.setVolume(100.f);
