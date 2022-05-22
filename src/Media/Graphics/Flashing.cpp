@@ -11,6 +11,13 @@ Flashing::Flashing(sf::Drawable& component, float on, float off)
 , time(0.f)
 , visible(true) {}
 
+void Flashing::setPeriod(float on, float off) {
+    onPeriod  = on;
+    offPeriod = off;
+}
+
+void Flashing::reset() { time = 0.f; }
+
 void Flashing::update(float dt) {
     time += dt;
     if (visible) {
