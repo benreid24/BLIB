@@ -117,7 +117,7 @@ public:
      * @param residual Time elapsed that is not accounted for in calls to update()
      * @param states Additional render states for SFML
      */
-    void render(sf::RenderTarget& target, float residual, sf::RenderStates states = {});
+    void render(sf::RenderTarget& target, float residual, sf::RenderStates states = {}) const;
 
 private:
     AnimationData* data;

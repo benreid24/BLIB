@@ -77,7 +77,7 @@ void Animation::update(float dt) {
     }
 }
 
-void Animation::render(sf::RenderTarget& target, float lag, sf::RenderStates states) {
+void Animation::render(sf::RenderTarget& target, float lag, sf::RenderStates states) const {
     if (data && data->frameCount() > 0) {
         const float t = isPlaying ? frameTime + lag : 0.f;
         const unsigned int i =
