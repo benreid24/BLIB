@@ -7,6 +7,9 @@
 #include <BLIB/Serialization/JSON/Serializer.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
+#include <memory>
+#include <type_traits>
+
 namespace bl
 {
 namespace serial
@@ -131,7 +134,7 @@ public:
 
 private:
     T C::*const member;
-    std::optional<T> defVal;
+    std::unique_ptr<T> defVal;
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
@@ -156,15 +159,18 @@ Value SerializableField<C, T, O>::serialize(const void* obj) const {
 
 template<typename C, typename T, bool O>
 void SerializableField<C, T, O>::makeDefault(void* obj) const {
-    if (defVal.has_value()) {
-        C& o      = *static_cast<C*>(obj);
-        o.*member = defVal.value();
+    if (defVal) {
+        C& o = *static_cast<C*>(obj);
+        if constexpr (!std::is_array_v<T>) { o.*member = *defVal; }
+        else {
+            for (unsigned int i = 0; i < sizeof(o.*member); ++i) { (o.*member)[i] = (*defVal)[i]; }
+        }
     }
 }
 
 template<typename C, typename T, bool O>
 void SerializableField<C, T, O>::setDefault(T&& d) {
-    defVal.emplace(std::forward<T>(d));
+    defVal.reset(new T(std::forward<T>(d)));
 }
 
 } // namespace json
