@@ -36,7 +36,35 @@ struct SerializableObjectBase : private util::NonCopyable {
      */
     Group serialize(const void* object) const;
 
+protected:
+    /**
+     * @brief Struct to indicate that no fields are optional
+     *
+     */
+    struct StrictMode {};
+
+    /**
+     * @brief Struct to indicate that all fields are optional
+     *
+     */
+    struct RelaxedMode {};
+
+    /**
+     * @brief Construct a new Serializable Object Base in strict mode
+     *
+     */
+    SerializableObjectBase(StrictMode&&);
+
+    /**
+     * @brief Construct a new Serializable Object Base in relaxed mode
+     *
+     */
+    SerializableObjectBase(RelaxedMode&&);
+
 private:
+    SerializableObjectBase() = delete;
+
+    const bool strict;
     std::unordered_map<std::string, const SerializableFieldBase*> fields;
 
     friend class SerializableFieldBase;

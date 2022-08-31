@@ -44,10 +44,24 @@ public:
      */
     const std::string& getName() const { return name; }
 
+    /**
+     * @brief Whether or not this field is optional
+     *
+     */
+    bool optional() const { return opt; }
+
+    /**
+     * @brief Initialize the object to the given default value, if any
+     *
+     * @param obj The object to default
+     */
+    virtual void makeDefault(void* obj) const = 0;
+
 protected:
     template<typename C, typename M>
-    SerializableFieldBase(const std::string& name, SerializableObjectBase& owner, M C::*)
-    : name(name) {
+    SerializableFieldBase(const std::string& name, SerializableObjectBase& owner, M C::*, bool opt)
+    : name(name)
+    , opt(opt) {
         if (owner.fields.find(name) != owner.fields.end()) {
             BL_LOG_WARN << "Duplicate field name " << name << " encountered for object "
                         << typeid(C).name() << " member type " << typeid(M).name();
@@ -57,6 +71,7 @@ protected:
 
 private:
     const std::string name;
+    const bool opt;
 };
 
 /**
@@ -68,9 +83,10 @@ private:
  *
  * @tparam C The object type the field belongs to
  * @tparam T The underlying type of the field
+ * @tparam Optional Whether or not this field is optional. Overrides strict/relaxed setting
  * @ingroup JSON
  */
-template<typename C, typename T>
+template<typename C, typename T, bool Optional = false>
 class SerializableField : public SerializableFieldBase {
 public:
     /**
@@ -99,28 +115,56 @@ public:
      */
     virtual Value serialize(const void* object) const override;
 
+    /**
+     * @brief Initialize the object to the given default value, if any
+     *
+     * @param obj The object to default
+     */
+    virtual void makeDefault(void* object) const override;
+
+    /**
+     * @brief Set the default value for deserialization if the field is not present
+     *
+     * @param defaultValue The value to default to
+     */
+    void setDefault(T&& defaultValue);
+
 private:
     T C::*const member;
+    std::optional<T> defVal;
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
-template<typename C, typename T>
-SerializableField<C, T>::SerializableField(const std::string& name, SerializableObjectBase& owner,
-                                           T C::*member)
-: SerializableFieldBase(name, owner, member)
+template<typename C, typename T, bool O>
+SerializableField<C, T, O>::SerializableField(const std::string& name,
+                                              SerializableObjectBase& owner, T C::*member)
+: SerializableFieldBase(name, owner, member, O)
 , member(member) {}
 
-template<typename C, typename T>
-bool SerializableField<C, T>::deserialize(const Value& v, void* obj) const {
+template<typename C, typename T, bool O>
+bool SerializableField<C, T, O>::deserialize(const Value& v, void* obj) const {
     C& o = *static_cast<C*>(obj);
     return Serializer<T>::deserialize(o.*member, v);
 }
 
-template<typename C, typename T>
-Value SerializableField<C, T>::serialize(const void* obj) const {
+template<typename C, typename T, bool O>
+Value SerializableField<C, T, O>::serialize(const void* obj) const {
     const C& o = *static_cast<const C*>(obj);
     return Serializer<T>::serialize(o.*member);
+}
+
+template<typename C, typename T, bool O>
+void SerializableField<C, T, O>::makeDefault(void* obj) const {
+    if (defVal.has_value()) {
+        C& o      = *static_cast<C*>(obj);
+        o.*member = defVal.value();
+    }
+}
+
+template<typename C, typename T, bool O>
+void SerializableField<C, T, O>::setDefault(T&& d) {
+    defVal.emplace(std::forward<T>(d));
 }
 
 } // namespace json

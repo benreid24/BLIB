@@ -1,21 +1,33 @@
 #include <BLIB/Serialization/JSON.hpp>
 
+#include <BLIB/Logging.hpp>
+
 namespace bl
 {
 namespace serial
 {
 namespace json
 {
+SerializableObjectBase::SerializableObjectBase(StrictMode&&)
+: strict(true) {}
+
+SerializableObjectBase::SerializableObjectBase(RelaxedMode&&)
+: strict(false) {}
+
 bool SerializableObjectBase::deserialize(const Group& val, void* obj) const {
     for (const auto& field : fields) {
         const auto* f = val.getField(field.first);
         if (f != nullptr) {
             if (!field.second->deserialize(*f, obj)) { return false; }
         }
-        else {
+        else if (strict || !field.second->optional()) {
             return false;
         }
+        else {
+            field.second->makeDefault(obj);
+        }
     }
+    // never care about extra fields
     return true;
 }
 
