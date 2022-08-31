@@ -118,7 +118,7 @@ bool Element::processEvent(const Event& event) {
     case Event::TextEntered:
     case Event::KeyPressed:
     case Event::KeyReleased:
-        return processAction(event); // TODO - is this right?
+        return processAction(event);
 
     case Event::LeftMousePressed:
     case Event::RightMousePressed:
