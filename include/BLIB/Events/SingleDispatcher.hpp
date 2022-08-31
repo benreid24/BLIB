@@ -2,6 +2,7 @@
 #define BLIB_EVENTS_SINGLEDISPATCHER_HPP
 
 #include <BLIB/Events/SingleListener.hpp>
+#include <mutex>
 #include <shared_mutex>
 
 namespace bl
