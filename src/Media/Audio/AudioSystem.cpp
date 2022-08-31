@@ -3,6 +3,7 @@
 #include <BLIB/Util/Random.hpp>
 #include <SFML/Audio.hpp>
 #include <atomic>
+#include <condition_variable>
 #include <list>
 #include <mutex>
 #include <shared_mutex>
