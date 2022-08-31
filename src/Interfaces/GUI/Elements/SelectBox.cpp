@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/SelectBox.hpp>
 
 #include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
+#include <limits>
 
 namespace bl
 {
