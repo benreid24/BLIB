@@ -4,7 +4,7 @@
 #include <BLIB/Containers/Vector2d.hpp>
 #include <BLIB/Serialization/Binary/InputStream.hpp>
 #include <BLIB/Serialization/Binary/OutputStream.hpp>
-#include <BLIB/Serialization/Binary/SerializableObject.hpp>
+#include <BLIB/Serialization/SerializableObject.hpp>
 
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -62,20 +62,18 @@ struct Serializer {
 template<typename T>
 struct Serializer<T, false> {
     static bool serialize(OutputStream& output, const T& value) {
-        return get().serialize(output, &value);
+        return SerializableObjectBase::get<T>().serializeBinary(output, &value);
     }
 
     static bool deserialize(InputStream& input, T& result) {
-        return get().deserialize(input, &result);
+        return SerializableObjectBase::get<T>().deserializeBinary(input, &result);
     }
 
-    static std::uint32_t size(const T& value) { return get().size(&value); }
+    static std::uint32_t size(const T& value) {
+        return SerializableObjectBase::get<T>().binarySize(&value);
+    }
 
 private:
-    static const SerializableObject<T>& get() {
-        static const SerializableObject<T> descriptor;
-        return descriptor;
-    }
 };
 
 template<typename T>
@@ -137,6 +135,26 @@ struct Serializer<std::string> {
     static bool deserialize(InputStream& input, std::string& result) { return input.read(result); }
 
     static std::uint32_t size(const std::string& s) { return sizeof(std::uint32_t) + s.size(); }
+};
+
+template<>
+struct Serializer<float> {
+    static bool serialize(OutputStream& output, const float& value) {
+        return output.write(std::to_string(value));
+    }
+
+    static bool deserialize(InputStream& input, float& result) {
+        std::string str;
+        if (!input.read(str)) return false;
+        try {
+            result = std::stof(str);
+            return true;
+        } catch (...) { return false; }
+    }
+
+    static std::uint32_t size(const float& s) {
+        return Serializer<std::string>::size(std::to_string(s));
+    }
 };
 
 template<typename U, std::size_t N>

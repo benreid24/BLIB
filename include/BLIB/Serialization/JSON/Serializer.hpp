@@ -2,8 +2,9 @@
 #define BLIB_SERIALIZATION_JSON_SERIALIZER_HPP
 
 #include <BLIB/Serialization/JSON/JSON.hpp>
-#include <BLIB/Serialization/JSON/SerializableObject.hpp>
+#include <BLIB/Serialization/SerializableObject.hpp>
 
+#include <BLIB/Logging.hpp>
 #include <BLIB/Scripts.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -66,9 +67,6 @@ struct Serializer {
      * @return True on success, false on error
      */
     static void serializeInto(Group& result, const std::string& name, const T& value);
-
-private:
-    static SerializableObject<T>& get();
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
@@ -104,23 +102,19 @@ struct Serializer<T, false> {
     static bool deserialize(T& result, const Value& value) {
         const auto* g = value.getAsGroup();
         if (g == nullptr) return false;
-        return get().deserialize(*g, &result);
+        return SerializableObjectBase::get<T>().deserializeJSON(*g, &result);
     }
 
     static bool deserializeFrom(const Value& val, const std::string& name, T& result) {
         return priv::Serializer<T>::deserializeFrom(val, name, result, &deserialize);
     }
 
-    static Value serialize(const T& value) { return get().serialize(&value); }
+    static Value serialize(const T& value) {
+        return SerializableObjectBase::get<T>().serializeJSON(&value);
+    }
 
     static void serializeInto(Group& result, const std::string& name, const T& val) {
         priv::Serializer<T>::serializeInto(result, name, val, &serialize);
-    }
-
-private:
-    static const SerializableObject<T>& get() {
-        static const SerializableObject<T> ser;
-        return ser;
     }
 };
 
