@@ -153,8 +153,10 @@ public:
      * @brief This should be called at the end of main() if the audiosystem is used. Note that this
      *        is called by Engine if it is used
      *
+     * @param fade True to fade out all sound, false to hard stop
+     *
      */
-    static void shutdown();
+    static void shutdown(bool fade = true);
 };
 
 } // namespace audio

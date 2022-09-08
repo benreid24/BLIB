@@ -83,6 +83,8 @@ int main() {
     AudioSystem::replacePlaylist(p3); // replace current playing with mylist
     std::this_thread::sleep_for(std::chrono::seconds(7));
 
-    // AudioSystem will fade out and clean up
+    // AudioSystem fade out and clean up
+    AudioSystem::shutdown();
+
     return 0;
 }
