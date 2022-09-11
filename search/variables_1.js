@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['buffer',['buffer',['../a00662.html#aacb84450bb9abc480663d9b45a5aaf1b',1,'AudioSystem.cpp']]]
+  ['buffer',['buffer',['../a00665.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba',1,'AudioSystem.cpp']]]
 ];

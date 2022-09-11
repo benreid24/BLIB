@@ -1,12 +1,6 @@
 var searchData=
 [
-  ['value',['Value',['../a01491.html',1,'bl::script::Value'],['../a01647.html',1,'bl::serial::json::Value']]],
-  ['vector2d',['Vector2D',['../a00955.html',1,'bl::container']]],
-  ['vector2d_3c_20typename_20payload_3a_3aptr_20_3e',['Vector2D&lt; typename Payload::Ptr &gt;',['../a00955.html',1,'bl::container']]],
-  ['vector2hash',['Vector2Hash',['../a01743.html',1,'bl::util']]],
-  ['vector3hash',['Vector3Hash',['../a01747.html',1,'bl::util']]],
-  ['versionedserializer',['VersionedSerializer',['../a01607.html',1,'bl::serial::binary']]],
-  ['vertexbuffer',['VertexBuffer',['../a01343.html',1,'bl::gfx']]],
-  ['view',['View',['../a01055.html',1,'bl::entity::Registry']]],
-  ['viewutil',['ViewUtil',['../a01299.html',1,'bl::interface']]]
+  ['underlyingtype',['UnderlyingType',['../a01810.html',1,'bl::util']]],
+  ['underlyingtype_3c_20u_2c_20false_20_3e',['UnderlyingType&lt; U, false &gt;',['../a01814.html',1,'bl::util']]],
+  ['underlyingtype_3c_20u_2c_20true_20_3e',['UnderlyingType&lt; U, true &gt;',['../a01818.html',1,'bl::util']]]
 ];
