@@ -2,15 +2,19 @@
 #define BLIB_SERIALIZATION_JSON_SERIALIZER_HPP
 
 #include <BLIB/Serialization/JSON/JSON.hpp>
-#include <BLIB/Serialization/JSON/SerializableObject.hpp>
+#include <BLIB/Serialization/SerializableObject.hpp>
 
+#include <BLIB/Containers/Vector2d.hpp>
+#include <BLIB/Logging.hpp>
 #include <BLIB/Scripts.hpp>
+#include <BLIB/Util/UnderlyingType.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
 #include <cstdint>
 #include <unordered_map>
 #include <unordered_set>
+#include <variant>
 
 namespace bl
 {
@@ -66,9 +70,6 @@ struct Serializer {
      * @return True on success, false on error
      */
     static void serializeInto(Group& result, const std::string& name, const T& value);
-
-private:
-    static SerializableObject<T>& get();
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
@@ -104,23 +105,19 @@ struct Serializer<T, false> {
     static bool deserialize(T& result, const Value& value) {
         const auto* g = value.getAsGroup();
         if (g == nullptr) return false;
-        return get().deserialize(*g, &result);
+        return SerializableObjectBase::get<T>().deserializeJSON(*g, &result);
     }
 
     static bool deserializeFrom(const Value& val, const std::string& name, T& result) {
         return priv::Serializer<T>::deserializeFrom(val, name, result, &deserialize);
     }
 
-    static Value serialize(const T& value) { return get().serialize(&value); }
+    static Value serialize(const T& value) {
+        return SerializableObjectBase::get<T>().serializeJSON(&value);
+    }
 
     static void serializeInto(Group& result, const std::string& name, const T& val) {
         priv::Serializer<T>::serializeInto(result, name, val, &serialize);
-    }
-
-private:
-    static const SerializableObject<T>& get() {
-        static const SerializableObject<T> ser;
-        return ser;
     }
 };
 
@@ -356,6 +353,47 @@ struct Serializer<std::unordered_map<std::string, U>, false> {
     }
 };
 
+template<typename U, typename V>
+struct Serializer<std::unordered_map<U, V>, false> {
+    static_assert(std::is_integral_v<U> || std::is_enum_v<U>, "Map must have integer keys");
+    using T = util::UnderlyingTypeT<U>;
+
+    static bool deserialize(std::unordered_map<U, V>& result, const Value& v) {
+        const Group* group = v.getAsGroup();
+        if (group != nullptr) {
+            const Group& g = *group;
+            for (const std::string& field : g.getFields()) {
+                const U k = static_cast<U>(static_cast<T>(std::stoll(field)));
+                V f;
+                if (!Serializer<V>::deserialize(f, *g.getField(field))) return false;
+                result.emplace(k, std::move(f));
+            }
+            return true;
+        }
+        return false;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& name,
+                                std::unordered_map<U, V>& result) {
+        return priv::Serializer<std::unordered_map<U, V>>::deserializeFrom(
+            val, name, result, &deserialize);
+    }
+
+    static Value serialize(const std::unordered_map<U, V>& value) {
+        Group result;
+        for (const auto& p : value) {
+            result.addField(std::to_string(static_cast<T>(p.first)),
+                            Serializer<V>::serialize(p.second));
+        }
+        return {result};
+    }
+
+    static void serializeInto(Group& result, const std::string& name,
+                              const std::unordered_map<U, V>& value) {
+        priv::Serializer<std::unordered_map<U, V>>::serializeInto(result, name, value, &serialize);
+    }
+};
+
 template<typename U>
 struct Serializer<sf::Vector2<U>, false> {
     static Value serialize(const sf::Vector2<U>& v) {
@@ -494,7 +532,7 @@ struct Serializer<script::Value, false> {
 
         Group props;
         for (const auto& prop : value.allProperties()) {
-            props.addField(prop.first, serialize(prop.second));
+            props.addField(prop.first, serialize(prop.second.deref()));
         }
         g.addField("props", props);
 
@@ -574,6 +612,143 @@ struct Serializer<script::Value, false> {
 
     static bool deserializeFrom(const Value& val, const std::string& key, script::Value& result) {
         return priv::Serializer<script::Value>::deserializeFrom(val, key, result, &deserialize);
+    }
+};
+
+template<typename U>
+struct Serializer<container::Vector2D<U>, false> {
+    static Value serialize(const container::Vector2D<U>& v) {
+        Group g;
+        g.addField("w", Serializer<unsigned int>::serialize(v.getWidth()));
+        g.addField("h", Serializer<unsigned int>::serialize(v.getHeight()));
+        List data;
+        data.reserve(v.getHeight() * v.getWidth());
+        for (unsigned int x = 0; x < v.getWidth(); ++x) {
+            for (unsigned int y = 0; y < v.getHeight(); ++y) {
+                data.emplace_back(Serializer<U>::serialize(v(x, y)));
+            }
+        }
+        g.addField("data", {data});
+        return {g};
+    }
+
+    static void serializeInto(const std::string& key, Group& g, const container::Vector2D<U>& val) {
+        priv::Serializer<container::Vector2D<U>>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(container::Vector2D<U>& result, const Value& val) {
+        const Group* rg = val.getAsGroup();
+        if (rg == nullptr) return false;
+        const Group& g    = *rg;
+        const Value* w    = g.getField("w");
+        const Value* h    = g.getField("h");
+        const Value* data = g.getField("data");
+        if (!w || !h || !data) return false;
+        if (w->getType() != Value::Type::Integer || h->getType() != Value::Type::Integer ||
+            data->getType() != Value::Type::List) {
+            return false;
+        }
+        const unsigned int mx = *w->getAsInteger();
+        const unsigned int my = *h->getAsInteger();
+        const List& d         = *data->getAsList();
+        result.setSize(mx, my);
+        for (unsigned int x = 0; x < mx; ++x) {
+            for (unsigned int y = 0; y < my; ++y) {
+                if (!Serializer<U>::deserialize(result(x, y), d[x * mx + y])) return false;
+            }
+        }
+        return true;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key,
+                                container::Vector2D<U>& result) {
+        return priv::Serializer<container::Vector2D<U>>::deserializeFrom(
+            val, key, result, &deserialize);
+    }
+};
+
+template<typename... Ts>
+struct Serializer<std::variant<Ts...>, false> {
+private:
+    struct HelperBase {
+        virtual bool deserialize(const Value& input, std::variant<Ts...>& v) const = 0;
+    };
+
+    template<typename U>
+    struct Helper : public HelperBase {
+        virtual bool deserialize(const Value& input, std::variant<Ts...>& v) const override {
+            v.template emplace<U>();
+            return Serializer<U>::deserialize(std::get<U>(v), input);
+        }
+    };
+
+public:
+    static bool deserialize(std::variant<Ts...>& result, const Value& v) {
+        const Group* group = v.getAsGroup();
+        if (!group) return false;
+        const Value* i = group->getField("index");
+        const Value* d = group->getField("data");
+        if (!i || !d) return false;
+        if (i->getType() != Value::Type::Integer) return false;
+        const unsigned int index = *i->getAsInteger();
+        if (index >= sizeof...(Ts)) return false;
+
+        static const std::tuple<Helper<Ts>...> helperTuple(Helper<Ts>{}...);
+        static const HelperBase* helpers[] = {&std::get<Helper<Ts>>(helperTuple)...};
+        return helpers[index]->deserialize(*d, result);
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& name,
+                                std::variant<Ts...>& result) {
+        return priv::Serializer<std::variant<Ts...>>::deserializeFrom(
+            val, name, result, &deserialize);
+    }
+
+    static Value serialize(const std::variant<Ts...>& value) {
+        Group result;
+        result.addField("index", value.index());
+
+        static const auto visitor = [](const auto& c) -> Value {
+            return Serializer<std::decay_t<decltype(c)>>::serialize(c);
+        };
+        result.addField("data", std::visit(visitor, value));
+
+        return {result};
+    }
+
+    static void serializeInto(Group& result, const std::string& name,
+                              const std::variant<Ts...>& value) {
+        priv::Serializer<std::variant<Ts...>>::serializeInto(result, name, value, &serialize);
+    }
+};
+
+template<typename U, typename V>
+struct Serializer<std::pair<U, V>, false> {
+    static Value serialize(const std::pair<U, V>& v) {
+        Group g;
+        g.addField("first", Serializer<U>::serialize(v.first));
+        g.addField("second", Serializer<V>::serialize(v.second));
+        return {g};
+    }
+
+    static void serializeInto(const std::string& key, Group& g, const std::pair<U, V>& val) {
+        priv::Serializer<std::pair<U, V>>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(std::pair<U, V>& result, const Value& val) {
+        const Group* rg = val.getAsGroup();
+        if (rg == nullptr) return false;
+        const Group& g = *rg;
+        const Value* f = g.getField("first");
+        const Value* s = g.getField("second");
+        if (!f || !s) return false;
+        if (!Serializer<U>::deserialize(result.first, *f)) return false;
+        if (!Serializer<V>::deserialize(result.second, *s)) return false;
+        return true;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, std::pair<U, V>& result) {
+        return priv::Serializer<std::pair<U, V>>::deserializeFrom(val, key, result, &deserialize);
     }
 };
 

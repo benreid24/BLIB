@@ -1,6 +1,7 @@
 #ifndef BLIB_ENGINE_RESOURCES_HPP
 #define BLIB_ENGINE_RESOURCES_HPP
 
+#include <BLIB/Media/Audio/Playlist.hpp>
 #include <BLIB/Media/Graphics/AnimationData.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
@@ -28,6 +29,12 @@ struct Resources : private util::NonCopyable {
     static resource::Manager<sf::SoundBuffer>& sounds();
 
     /**
+     * @brief Returns a reference to the resource manager for audio::Playlist
+     *
+     */
+    static resource::Manager<audio::Playlist>& playlists();
+
+    /**
      * @brief Returns a reference to the resource manager for sf::Texture
      *
      */
@@ -50,6 +57,7 @@ private:
     resource::Manager<sf::Texture> _textures;
     resource::Manager<sf::Font> _fonts;
     resource::Manager<gfx::AnimationData> _animations;
+    resource::Manager<audio::Playlist> _playlists;
 
     Resources();
     static Resources& get();

@@ -182,6 +182,9 @@ std::string Loader::loadString() {
             while (input.peek() != '"') {
                 if (input.peek() == '\n') currentLine += 1;
 
+                if (input.peek() == '\\') {
+                    input.get(); // skip \ to allow escaped quotes. does not support \n or \t
+                }
                 ret.push_back(input.get());
                 if (!input.good()) {
                     valid = false;

@@ -26,6 +26,20 @@ public:
     Flashing(sf::Drawable& component, float onPeriod, float offPeriod);
 
     /**
+     * @brief Set the Period object
+     *
+     * @param onPeriod
+     * @param offPeriod
+     */
+    void setPeriod(float onPeriod, float offPeriod);
+
+    /**
+     * @brief Resets the flash state to time zero
+     *
+     */
+    void reset();
+
+    /**
      * @brief Updates the state of the flasher
      *
      * @param dt Time elapsed, in seconds
@@ -43,8 +57,8 @@ public:
 
 private:
     const sf::Drawable& component;
-    const float onPeriod;
-    const float offPeriod;
+    float onPeriod;
+    float offPeriod;
     float time;
     bool visible;
 };

@@ -17,6 +17,7 @@ namespace resource
 template<typename TResourceType>
 struct Resource {
     typedef std::shared_ptr<TResourceType> Ref;
+    typedef std::weak_ptr<TResourceType> WeakRef;
 
     Ref data;          /// The resource itself. May not be null
     bool forceInCache; /// True to keep in cache even if no references remain
@@ -24,6 +25,13 @@ struct Resource {
     Resource(Ref data)
     : data(data)
     , forceInCache(false) {}
+
+    /**
+     * @brief Creates a new weak reference to the underlying resource
+     *
+     * @return WeakRef A reference that can be held without keeping the resource in memory
+     */
+    WeakRef getWeakRef() const { return WeakRef(data); }
 };
 
 } // namespace resource

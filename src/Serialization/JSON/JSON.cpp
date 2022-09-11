@@ -242,7 +242,12 @@ void Value::print(std::ostream& stream, int ilvl) const {
         stream << *getAsInteger();
         break;
     case Type::String:
-        stream << '"' << *getAsString() << '"';
+        stream << '"';
+        for (char c : *getAsString()) {
+            if (c == '"') stream << '\\';
+            stream << c;
+        }
+        stream << '"';
         break;
     case Type::Group:
         getAsGroup()->print(stream, ilvl);

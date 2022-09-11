@@ -3,6 +3,7 @@
 
 #include <BLIB/Parser/Grammar.hpp>
 #include <BLIB/Parser/Tokenizer.hpp>
+#include <optional>
 
 namespace bl
 {

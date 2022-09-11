@@ -2,9 +2,10 @@
 #define BLIB_FILES_BINARY_SERIALIZER_HPP
 
 #include <BLIB/Containers/Vector2d.hpp>
+#include <BLIB/Scripts/Value.hpp>
 #include <BLIB/Serialization/Binary/InputStream.hpp>
 #include <BLIB/Serialization/Binary/OutputStream.hpp>
-#include <BLIB/Serialization/Binary/SerializableObject.hpp>
+#include <BLIB/Serialization/SerializableObject.hpp>
 
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -62,20 +63,18 @@ struct Serializer {
 template<typename T>
 struct Serializer<T, false> {
     static bool serialize(OutputStream& output, const T& value) {
-        return get().serialize(output, &value);
+        return SerializableObjectBase::get<T>().serializeBinary(output, &value);
     }
 
     static bool deserialize(InputStream& input, T& result) {
-        return get().deserialize(input, &result);
+        return SerializableObjectBase::get<T>().deserializeBinary(input, &result);
     }
 
-    static std::uint32_t size(const T& value) { return get().size(&value); }
+    static std::uint32_t size(const T& value) {
+        return SerializableObjectBase::get<T>().binarySize(&value);
+    }
 
 private:
-    static const SerializableObject<T>& get() {
-        static const SerializableObject<T> descriptor;
-        return descriptor;
-    }
 };
 
 template<typename T>
@@ -137,6 +136,26 @@ struct Serializer<std::string> {
     static bool deserialize(InputStream& input, std::string& result) { return input.read(result); }
 
     static std::uint32_t size(const std::string& s) { return sizeof(std::uint32_t) + s.size(); }
+};
+
+template<>
+struct Serializer<float> {
+    static bool serialize(OutputStream& output, const float& value) {
+        return output.write(std::to_string(value));
+    }
+
+    static bool deserialize(InputStream& input, float& result) {
+        std::string str;
+        if (!input.read(str)) return false;
+        try {
+            result = std::stof(str);
+            return true;
+        } catch (...) { return false; }
+    }
+
+    static std::uint32_t size(const float& s) {
+        return Serializer<std::string>::size(std::to_string(s));
+    }
 };
 
 template<typename U, std::size_t N>
@@ -293,19 +312,20 @@ struct Serializer<std::unordered_set<U>, false> {
     }
 };
 
-template<>
-struct Serializer<sf::Vector2i> {
-    static bool serialize(OutputStream& output, const sf::Vector2i& v) {
-        if (!output.write<std::int32_t>(v.x)) return false;
-        return output.write<std::int32_t>(v.y);
+template<typename U>
+struct Serializer<sf::Vector2<U>, false> {
+    using S = Serializer<U>;
+    static bool serialize(OutputStream& output, const sf::Vector2<U>& v) {
+        if (!S::serialize(output, v.x)) return false;
+        return S::serialize(output, v.y);
     }
 
-    static bool deserialize(InputStream& input, sf::Vector2i& v) {
-        if (!input.read<std::int32_t>(v.x)) return false;
-        return input.read<std::int32_t>(v.y);
+    static bool deserialize(InputStream& input, sf::Vector2<U>& v) {
+        if (!S::deserialize(input, v.x)) return false;
+        return S::deserialize(input, v.y);
     }
 
-    static std::uint32_t size(const sf::Vector2i&) { return sizeof(std::int32_t) * 2; }
+    static std::uint32_t size(const sf::Vector2<U>& v) { return S::size(v.x) + S::size(v.y); }
 };
 
 template<>
@@ -369,8 +389,7 @@ private:
     template<typename U>
     struct Helper : public HelperBase {
         virtual bool deserialize(InputStream& input, std::variant<Ts...>& v) const override {
-            static const U trash{};
-            v = trash;
+            v.template emplace<U>();
             return Serializer<U>::deserialize(input, std::get<U>(v));
         }
     };
@@ -401,6 +420,176 @@ public:
         };
 
         return std::visit(visitor, v) + sizeof(std::uint16_t);
+    }
+};
+
+template<typename U>
+struct Serializer<U*, false> {
+    using T = U*;
+
+    static bool serialize(OutputStream& output, const T v) {
+        if (!v) return false;
+        return Serializer<U>::serialize(output, *v);
+    }
+
+    static bool deserialize(InputStream& input, T v) {
+        if (!v) return false;
+        return Serializer<U>::deserialize(input, *v);
+    }
+
+    static std::uint32_t size(const T v) {
+        if (!v) return 0;
+        return Serializer<U>::size(*v);
+    }
+};
+
+template<>
+struct Serializer<script::Value, false> {
+    static bool serialize(OutputStream& output, const script::Value& v) {
+        const script::PrimitiveValue& value = v.value();
+        if (!Serializer<script::PrimitiveValue::Type>::serialize(output, value.getType()))
+            return false;
+        if (!supported(v.value().getType())) return true;
+
+        switch (v.value().getType()) {
+        case script::PrimitiveValue::TBool:
+            if (!Serializer<bool>::serialize(output, value.getAsBool())) return false;
+            break;
+        case script::PrimitiveValue::TInteger:
+            if (!output.write<std::int32_t>(value.getAsInt())) return false;
+            break;
+        case script::PrimitiveValue::TFloat:
+            if (!Serializer<float>::serialize(output, value.getAsFloat())) return false;
+            break;
+        case script::PrimitiveValue::TString:
+            if (!Serializer<std::string>::serialize(output, value.getAsString())) return false;
+            break;
+        case script::PrimitiveValue::TArray:
+            if (!output.write<std::uint32_t>(value.getAsArray().size())) return false;
+            for (const script::Value& av : value.getAsArray()) {
+                if (!serialize(output, av)) return false;
+            }
+            break;
+        default:
+            break;
+        }
+
+        if (!output.write<std::uint32_t>(v.allProperties().size())) return false;
+        for (const auto& prop : v.allProperties()) {
+            if (!Serializer<std::string>::serialize(output, prop.first)) return false;
+            if (!Serializer<script::Value>::serialize(output, prop.second.deref())) return false;
+        }
+
+        return true;
+    }
+
+    static bool deserialize(InputStream& input, script::Value& v) {
+        script::PrimitiveValue& value = v.value();
+        script::PrimitiveValue::Type type;
+        if (!Serializer<script::PrimitiveValue::Type>::deserialize(input, type)) return false;
+        if (!supported(type)) {
+            value = "<UNSUPPORTED TYPE>";
+            return true;
+        }
+
+        switch (type) {
+        case script::PrimitiveValue::TBool: {
+            bool bv;
+            if (!Serializer<bool>::deserialize(input, bv)) return false;
+            value = bv;
+            break;
+        }
+        case script::PrimitiveValue::TInteger: {
+            std::int32_t i;
+            if (!input.read<std::int32_t>(i)) return false;
+            value = i;
+            break;
+        }
+        case script::PrimitiveValue::TFloat: {
+            float f;
+            if (!Serializer<float>::deserialize(input, f)) return false;
+            value = f;
+            break;
+        }
+        case script::PrimitiveValue::TString: {
+            std::string s;
+            if (!Serializer<std::string>::deserialize(input, s)) return false;
+            value = s;
+            break;
+        }
+        case script::PrimitiveValue::TArray: {
+            std::uint32_t s;
+            if (!input.read<std::uint32_t>(s)) return false;
+            value = script::ArrayValue{};
+            value.getAsArray().resize(s);
+            for (unsigned int i = 0; i < s; ++s) {
+                if (!deserialize(input, value.getAsArray()[i])) return false;
+            }
+            break;
+        }
+        default:
+            break;
+        }
+
+        std::uint32_t s;
+        if (!input.read<std::uint32_t>(s)) return false;
+        for (unsigned int i = 0; i < s; ++i) {
+            std::string key;
+            script::Value pv;
+            if (!Serializer<std::string>::deserialize(input, key)) return false;
+            if (!Serializer<script::Value>::deserialize(input, pv)) return false;
+            v.setProperty(key, {std::move(pv)});
+        }
+
+        return true;
+    }
+
+    static std::uint32_t size(const script::Value& v) {
+        std::uint32_t s = Serializer<script::PrimitiveValue::Type>::size(v.value().getType());
+        if (!supported(v.value().getType())) return s;
+
+        switch (v.value().getType()) {
+        case script::PrimitiveValue::TBool:
+            s += Serializer<bool>::size(true);
+            break;
+        case script::PrimitiveValue::TInteger:
+            s += sizeof(std::int32_t);
+            break;
+        case script::PrimitiveValue::TFloat:
+            s += Serializer<float>::size(v.value().getAsFloat());
+            break;
+        case script::PrimitiveValue::TString:
+            s += Serializer<std::string>::size(v.value().getAsString());
+            break;
+        case script::PrimitiveValue::TArray:
+            s += sizeof(std::uint32_t);
+            for (const script::Value& av : v.value().getAsArray()) { s += size(av); }
+            break;
+        default:
+            break;
+        }
+
+        s += sizeof(std::uint32_t);
+        for (const auto& prop : v.allProperties()) {
+            s += Serializer<std::string>::size(prop.first);
+            s += Serializer<script::Value>::size(prop.second.deref());
+        }
+
+        return s;
+    }
+
+private:
+    static bool supported(script::PrimitiveValue::Type type) {
+        switch (type) {
+        case script::PrimitiveValue::TBool:
+        case script::PrimitiveValue::TInteger:
+        case script::PrimitiveValue::TFloat:
+        case script::PrimitiveValue::TString:
+        case script::PrimitiveValue::TArray:
+            return true;
+        default:
+            return false;
+        }
     }
 };
 

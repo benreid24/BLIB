@@ -4,6 +4,7 @@
 #include <BLIB/Events/Listener.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
+#include <mutex>
 #include <shared_mutex>
 #include <typeindex>
 #include <unordered_map>

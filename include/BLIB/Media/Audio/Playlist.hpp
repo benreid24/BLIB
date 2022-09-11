@@ -1,7 +1,7 @@
 #ifndef BLIB_MEDIA_AUDIO_PLAYLIST_HPP
 #define BLIB_MEDIA_AUDIO_PLAYLIST_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <SFML/Audio/Music.hpp>
 
 #include <string>
@@ -173,14 +173,12 @@ private:
 
     void shuffle();
 
-    friend class serial::binary::SerializableObject<audio::Playlist>;
+    friend class serial::SerializableObject<audio::Playlist>;
 };
 
 } // namespace audio
 
 namespace serial
-{
-namespace binary
 {
 template<>
 struct SerializableObject<audio::Playlist> : public SerializableObjectBase {
@@ -189,12 +187,15 @@ struct SerializableObject<audio::Playlist> : public SerializableObjectBase {
     SerializableField<3, audio::Playlist, bool> shuffleOnLoop;
 
     SerializableObject()
-    : songs(*this, &audio::Playlist::songs)
-    , shuffle(*this, &audio::Playlist::_shuffle)
-    , shuffleOnLoop(*this, &audio::Playlist::shuffleOnLoop) {}
+    : songs("songs", *this, &audio::Playlist::songs, SerializableFieldBase::Required{})
+    , shuffle("shuffle", *this, &audio::Playlist::_shuffle, SerializableFieldBase::Optional{})
+    , shuffleOnLoop("shuffleOnLoop", *this, &audio::Playlist::shuffleOnLoop,
+                    SerializableFieldBase::Optional{}) {
+        shuffle.setDefault(true);
+        shuffleOnLoop.setDefault(true);
+    }
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

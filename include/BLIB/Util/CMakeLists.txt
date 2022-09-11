@@ -10,5 +10,6 @@ target_sources(BLIB PUBLIC
     TemplateLogic.hpp
     Timer.hpp
     TupleLoop.hpp
+    UnderlyingType.hpp
     Waiter.hpp
 )

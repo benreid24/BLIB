@@ -17,6 +17,16 @@ struct SoundLoader : public resource::Loader<sf::SoundBuffer> {
     }
 } soundLoader;
 
+struct PlaylistLoader : public resource::Loader<audio::Playlist> {
+    virtual ~PlaylistLoader() = default;
+
+    virtual resource::Resource<audio::Playlist>::Ref load(const std::string& uri) override {
+        resource::Resource<audio::Playlist>::Ref ref(new audio::Playlist());
+        if (!ref->load(uri)) { BL_LOG_ERROR << "Failed to load playlist: " << uri; }
+        return ref;
+    }
+} playlistLoader;
+
 struct TextureLoader : public resource::Loader<sf::Texture> {
     virtual ~TextureLoader() = default;
 
@@ -53,13 +63,16 @@ Resources::Resources()
 : _sounds(soundLoader)
 , _textures(textureLoader)
 , _fonts(fontLoader)
-, _animations(animationLoader) {}
+, _animations(animationLoader)
+, _playlists(playlistLoader) {}
 
 resource::Manager<sf::Texture>& Resources::textures() { return get()._textures; }
 
 resource::Manager<sf::Font>& Resources::fonts() { return get()._fonts; }
 
 resource::Manager<sf::SoundBuffer>& Resources::sounds() { return get()._sounds; }
+
+resource::Manager<audio::Playlist>& Resources::playlists() { return get()._playlists; }
 
 resource::Manager<gfx::AnimationData>& Resources::animations() { return get()._animations; }
 
