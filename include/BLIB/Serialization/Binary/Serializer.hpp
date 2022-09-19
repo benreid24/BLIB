@@ -9,6 +9,7 @@
 
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <array>
 #include <type_traits>
 #include <unordered_map>
 #include <unordered_set>
@@ -179,6 +180,35 @@ struct Serializer<U[N], false> {
     }
 
     static std::size_t size(const U* arr) {
+        std::size_t s = sizeof(std::uint32_t);
+        for (std::size_t i = 0; i < N; ++i) { s += Serializer<U>::size(arr[i]); }
+        return s;
+    }
+};
+
+template<typename U, std::size_t N>
+struct Serializer<std::array<U, N>, false> {
+    using T = std::array<U, N>;
+
+    static bool serialize(OutputStream& out, const T& arr) {
+        if (!out.write<std::uint32_t>(N)) return false;
+        for (std::size_t i = 0; i < N; ++i) {
+            if (!Serializer<U>::serialize(out, arr[i])) return false;
+        }
+        return true;
+    }
+
+    static bool deserialize(InputStream& in, T& arr) {
+        std::uint32_t n = 0;
+        if (!in.read<std::uint32_t>(n)) return false;
+        if (n != N) return false;
+        for (std::size_t i = 0; i < N; ++i) {
+            if (!Serializer<U>::deserialize(in, arr[i])) return false;
+        }
+        return true;
+    }
+
+    static std::size_t size(const T& arr) {
         std::size_t s = sizeof(std::uint32_t);
         for (std::size_t i = 0; i < N; ++i) { s += Serializer<U>::size(arr[i]); }
         return s;

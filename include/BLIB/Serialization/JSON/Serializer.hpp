@@ -11,6 +11,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
+#include <array>
 #include <cstdint>
 #include <unordered_map>
 #include <unordered_set>
@@ -248,6 +249,38 @@ struct Serializer<U[N], false> {
     }
 
     static void serializeInto(Group& result, const std::string& name, const U* val) {
+        priv::Serializer<U[N]>::serializeInto(result, name, val, &serialize);
+    }
+};
+
+template<typename U, std::size_t N>
+struct Serializer<std::array<U, N>, false> {
+    using T = std::array<U, N>;
+
+    static bool deserialize(T& result, const Value& v) {
+        const List* r = v.getAsList();
+        if (r == nullptr) return false;
+        if (r->size() != N) return false;
+        for (std::size_t i = 0; i < N; ++i) {
+            if (!Serializer<U>::deserialize(result[i], r->at(i))) return false;
+        }
+        return true;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& name, T& result) {
+        return priv::Serializer<U[N]>::deserializeFrom(val, name, result, &deserialize);
+    }
+
+    static Value serialize(const T& val) {
+        List result;
+        result.reserve(N);
+        for (std::size_t i = 0; i < N; ++i) {
+            result.emplace_back(Serializer<U>::serialize(val[i]));
+        }
+        return {result};
+    }
+
+    static void serializeInto(Group& result, const std::string& name, const T& val) {
         priv::Serializer<U[N]>::serializeInto(result, name, val, &serialize);
     }
 };
