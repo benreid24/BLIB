@@ -31,6 +31,27 @@ Image::Image(const sf::Texture& th)
     getSignal(Event::Moved).willAlwaysCall(std::bind(&Image::moveCb, this));
 }
 
+void Image::setImage(const sf::Texture& txtr, bool rs) {
+    texture = &txtr;
+    sprite.setTexture(txtr, true);
+    if (rs) {
+        size.reset();
+        makeDirty();
+    }
+    setScale();
+}
+
+void Image::setImage(const resource::Resource<sf::Texture>::Ref& txtr, bool rs) {
+    textureHandle = txtr;
+    texture       = txtr.get();
+    sprite.setTexture(*texture, true);
+    if (rs) {
+        size.reset();
+        makeDirty();
+    }
+    setScale();
+}
+
 void Image::scaleToSize(const sf::Vector2f& s) {
     size = s;
     setScale();
