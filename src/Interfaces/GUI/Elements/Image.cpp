@@ -33,7 +33,7 @@ Image::Image(const sf::Texture& th)
 
 void Image::setImage(const sf::Texture& txtr, bool rs) {
     texture = &txtr;
-    sprite.setTexture(txtr);
+    sprite.setTexture(txtr, true);
     if (rs) {
         size.reset();
         makeDirty();
@@ -44,7 +44,7 @@ void Image::setImage(const sf::Texture& txtr, bool rs) {
 void Image::setImage(const resource::Resource<sf::Texture>::Ref& txtr, bool rs) {
     textureHandle = txtr;
     texture       = txtr.get();
-    sprite.setTexture(*texture);
+    sprite.setTexture(*texture, true);
     if (rs) {
         size.reset();
         makeDirty();
