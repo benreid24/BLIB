@@ -59,6 +59,22 @@ public:
      */
     void setFillAcquisition(bool fill, bool maintainAR = true);
 
+    /**
+     * @brief Updates the image to display with the new texture
+     *
+     * @param texture The new texture to display
+     * @param resetScale True to reset the display size, false to keep it
+     */
+    void setImage(const sf::Texture& texture, bool resetScale);
+
+    /**
+     * @brief Updates the image to display with the new texture
+     *
+     * @param texture The new texture to display
+     * @param resetScale True to reset the display size, false to keep it
+     */
+    void setImage(const resource::Resource<sf::Texture>::Ref& texture, bool resetScale);
+
 protected:
     /**
      * @brief Create a new Image from the given managed texture
