@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ai::PathFinder&lt; TCoord, CoordHash &gt; Class Template Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,210 +63,26 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00813.html">bl</a></li><li class="navelem"><a class="el" href="a00814.html">ai</a></li><li class="navelem"><a class="el" href="a00877.html">PathFinder</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00816.html">bl</a></li><li class="navelem"><a class="el" href="a00817.html">ai</a></li><li class="navelem"><a class="el" href="a00880.html">PathFinder</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a00874.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::ai::PathFinder&lt; TCoord, CoordHash &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00788.html">AI</a> &raquo; <a class="el" href="a00804.html">PathFinding</a></div></div>  </div>
+<div class="title">bl::ai::PathFinder&lt; TCoord, CoordHash &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class for calculating paths between arbitrary points in a <a class="el" href="a00881.html" title="An interface for a traversable map meant to be navigated by a PathFinder. ">PathMap</a>.  
- <a href="a00877.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00005_source.html">PathFinder.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:afc96959a9553ec9dd2ab4422b14ca68e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00877.html#afc96959a9553ec9dd2ab4422b14ca68e">Heuristic</a> = std::function&lt; int(const TCoord &amp;from, const TCoord &amp;to, <a class="el" href="a00819.html#ab6d639dfb2dac3babe06d1fb28939b76">entity::Entity</a> mover)&gt;</td></tr>
-<tr class="memdesc:afc96959a9553ec9dd2ab4422b14ca68e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance estimation function signature.  <a href="#afc96959a9553ec9dd2ab4422b14ca68e">More...</a><br /></td></tr>
-<tr class="separator:afc96959a9553ec9dd2ab4422b14ca68e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a5fcc71737a622dc7028e1d8d613b8051"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00877.html#a5fcc71737a622dc7028e1d8d613b8051">PathFinder</a> (<a class="el" href="a00877.html#afc96959a9553ec9dd2ab4422b14ca68e">Heuristic</a> heuristic)</td></tr>
-<tr class="memdesc:a5fcc71737a622dc7028e1d8d613b8051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the <a class="el" href="a00877.html" title="Class for calculating paths between arbitrary points in a PathMap. ">PathFinder</a> with the given distance estimation heuristic.  <a href="#a5fcc71737a622dc7028e1d8d613b8051">More...</a><br /></td></tr>
-<tr class="separator:a5fcc71737a622dc7028e1d8d613b8051"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2080777b428197120c682a2939287f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00877.html#ac2080777b428197120c682a2939287f0">setHeuristic</a> (<a class="el" href="a00877.html#afc96959a9553ec9dd2ab4422b14ca68e">Heuristic</a> heuristic)</td></tr>
-<tr class="memdesc:ac2080777b428197120c682a2939287f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the heuristic to use while searching.  <a href="#ac2080777b428197120c682a2939287f0">More...</a><br /></td></tr>
-<tr class="separator:ac2080777b428197120c682a2939287f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1053ab507f40a46662425790a1191d7a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00877.html#a1053ab507f40a46662425790a1191d7a">findPath</a> (const TCoord &amp;start, const TCoord &amp;destination, <a class="el" href="a00819.html#ab6d639dfb2dac3babe06d1fb28939b76">entity::Entity</a> mover, const <a class="el" href="a00881.html">PathMap</a>&lt; TCoord &gt; &amp;map, std::vector&lt; TCoord &gt; &amp;result) const</td></tr>
-<tr class="memdesc:a1053ab507f40a46662425790a1191d7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the shortest path between the two points using the internal heuristic. Paths may not be optimal depending on the heuristic used.  <a href="#a1053ab507f40a46662425790a1191d7a">More...</a><br /></td></tr>
-<tr class="separator:a1053ab507f40a46662425790a1191d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename TCoord, typename CoordHash&gt;<br />
-class bl::ai::PathFinder&lt; TCoord, CoordHash &gt;</h3>
-
-<p>Class for calculating paths between arbitrary points in a <a class="el" href="a00881.html" title="An interface for a traversable map meant to be navigated by a PathFinder. ">PathMap</a>. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TCoord</td><td>The type of coordinate used to index the map </td></tr>
-    <tr><td class="paramname">CoordHash</td><td>A hasher for the given coordinate type </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00005_source.html#l00102">102</a> of file <a class="el" href="a00005_source.html">PathFinder.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="afc96959a9553ec9dd2ab4422b14ca68e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc96959a9553ec9dd2ab4422b14ca68e">&#9670;&nbsp;</a></span>Heuristic</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename CoordHash &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a00877.html">bl::ai::PathFinder</a>&lt; TCoord, CoordHash &gt;::<a class="el" href="a00877.html#afc96959a9553ec9dd2ab4422b14ca68e">Heuristic</a> =  std::function&lt;int(const TCoord&amp; from, const TCoord&amp; to, <a class="el" href="a00819.html#ab6d639dfb2dac3babe06d1fb28939b76">entity::Entity</a> mover)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Distance estimation function signature. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00005_source.html#l00106">106</a> of file <a class="el" href="a00005_source.html">PathFinder.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5fcc71737a622dc7028e1d8d613b8051"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fcc71737a622dc7028e1d8d613b8051">&#9670;&nbsp;</a></span>PathFinder()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename CHash &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00877.html">bl::ai::PathFinder</a>&lt; TCoord, CHash &gt;::<a class="el" href="a00877.html">PathFinder</a> </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00877.html#afc96959a9553ec9dd2ab4422b14ca68e">Heuristic</a>&#160;</td>
-          <td class="paramname"><em>heuristic</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Builds the <a class="el" href="a00877.html" title="Class for calculating paths between arbitrary points in a PathMap. ">PathFinder</a> with the given distance estimation heuristic. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">heuristic</td><td>The heuristic to use while searching </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00005_source.html#l00143">143</a> of file <a class="el" href="a00005_source.html">PathFinder.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1053ab507f40a46662425790a1191d7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1053ab507f40a46662425790a1191d7a">&#9670;&nbsp;</a></span>findPath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename CHash &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a00877.html">bl::ai::PathFinder</a>&lt; TCoord, CHash &gt;::findPath </td>
-          <td>(</td>
-          <td class="paramtype">const TCoord &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const TCoord &amp;&#160;</td>
-          <td class="paramname"><em>destination</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00819.html#ab6d639dfb2dac3babe06d1fb28939b76">entity::Entity</a>&#160;</td>
-          <td class="paramname"><em>mover</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00881.html">PathMap</a>&lt; TCoord &gt; &amp;&#160;</td>
-          <td class="paramname"><em>map</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; TCoord &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculates the shortest path between the two points using the internal heuristic. Paths may not be optimal depending on the heuristic used. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The point to start at </td></tr>
-    <tr><td class="paramname">destination</td><td>The point to end at </td></tr>
-    <tr><td class="paramname">mover</td><td>The Entity traversing the path </td></tr>
-    <tr><td class="paramname">map</td><td>The map the entity is traversing </td></tr>
-    <tr><td class="paramname">result</td><td>vector to store the calculated path in </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if a path was found, false if a path was not found </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00005_source.html#l00152">152</a> of file <a class="el" href="a00005_source.html">PathFinder.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac2080777b428197120c682a2939287f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2080777b428197120c682a2939287f0">&#9670;&nbsp;</a></span>setHeuristic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename CHash &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a00877.html">bl::ai::PathFinder</a>&lt; TCoord, CHash &gt;::setHeuristic </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00877.html#afc96959a9553ec9dd2ab4422b14ca68e">Heuristic</a>&#160;</td>
-          <td class="paramname"><em>heuristic</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the heuristic to use while searching. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">heuristic</td><td>The heuristic to use while searching </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00005_source.html#l00147">147</a> of file <a class="el" href="a00005_source.html">PathFinder.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/AI/PathFinding/<a class="el" href="a00005_source.html">PathFinder.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a00880.html">bl::ai::PathFinder&lt; TCoord, CoordHash &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a00880.html#a1053ab507f40a46662425790a1191d7a">findPath</a>(const TCoord &amp;start, const TCoord &amp;destination, entity::Entity mover, const PathMap&lt; TCoord &gt; &amp;map, std::vector&lt; TCoord &gt; &amp;result) const</td><td class="entry"><a class="el" href="a00880.html">bl::ai::PathFinder&lt; TCoord, CoordHash &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00880.html#afc96959a9553ec9dd2ab4422b14ca68e">Heuristic</a> typedef</td><td class="entry"><a class="el" href="a00880.html">bl::ai::PathFinder&lt; TCoord, CoordHash &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00880.html#a5fcc71737a622dc7028e1d8d613b8051">PathFinder</a>(Heuristic heuristic)</td><td class="entry"><a class="el" href="a00880.html">bl::ai::PathFinder&lt; TCoord, CoordHash &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00880.html#ac2080777b428197120c682a2939287f0">setHeuristic</a>(Heuristic heuristic)</td><td class="entry"><a class="el" href="a00880.html">bl::ai::PathFinder&lt; TCoord, CoordHash &gt;</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 25 2022 18:57:35 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 28 2022 02:17:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
