@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
     LastVariadic.hpp
     NonCopyable.hpp
     Random.hpp
+    ReadWriteLock.hpp
     Signal.hpp
     TemplateLogic.hpp
     Timer.hpp
