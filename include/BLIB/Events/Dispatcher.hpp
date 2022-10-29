@@ -3,6 +3,7 @@
 
 #include <BLIB/Events/Listener.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <BLIB/Util/ReadWriteLock.hpp>
 
 #include <mutex>
 #include <shared_mutex>
@@ -51,13 +52,12 @@ public:
      *
      * @tparam T The type of event to dispatch
      * @param event The event to dispatch
-     * @param lock Whether or not to lock the dispatcher mutex
      */
     template<typename T>
-    void dispatch(const T& event, bool lock = true) const;
+    void dispatch(const T& event) const;
 
 private:
-    mutable std::shared_mutex mutex;
+    mutable util::ReadWriteLock readWriteLock;
     std::unordered_map<std::type_index, std::vector<void*>> listeners;
 
     void remove(const std::type_index& t, void* val);
@@ -73,7 +73,7 @@ void Dispatcher::subscribe(Listener<TEvents...>* listener) {
     void* const pointers[]   = {static_cast<ListenerBase<TEvents>*>(listener)...};
     constexpr std::size_t nt = sizeof...(TEvents);
 
-    std::unique_lock lock(mutex);
+    util::ReadWriteLock::WriteScopeGuard lock(readWriteLock);
     for (std::size_t i = 0; i < nt; ++i) {
         auto lit = listeners.find(types[i]);
         if (lit == listeners.end()) { lit = listeners.try_emplace(types[i]).first; }
@@ -82,10 +82,9 @@ void Dispatcher::subscribe(Listener<TEvents...>* listener) {
 }
 
 template<typename T>
-void Dispatcher::dispatch(const T& event, bool l) const {
+void Dispatcher::dispatch(const T& event) const {
     const std::type_index type(typeid(T));
-    std::shared_lock lock(mutex, std::defer_lock);
-    if (l) lock.lock();
+    util::ReadWriteLock::ReadScopeGuard lock(readWriteLock);
 
     auto lit = listeners.find(type);
     if (lit != listeners.end()) {
@@ -101,7 +100,7 @@ void Dispatcher::unsubscribe(Listener<TEvents...>* listener) {
     void* const pointers[]   = {static_cast<ListenerBase<TEvents>*>(listener)...};
     constexpr std::size_t nt = sizeof...(TEvents);
 
-    std::unique_lock lock(mutex);
+    util::ReadWriteLock::WriteScopeGuard lock(readWriteLock);
     for (std::size_t i = 0; i < nt; ++i) { remove(types[i], pointers[i]); }
 }
 

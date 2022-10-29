@@ -12,6 +12,7 @@
 #include <BLIB/Util/LastVariadic.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/Random.hpp>
+#include <BLIB/Util/ReadWriteLock.hpp>
 #include <BLIB/Util/Signal.hpp>
 #include <BLIB/Util/Timer.hpp>
 #include <BLIB/Util/TupleLoop.hpp>
