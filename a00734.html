@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/ScriptImpl.cpp File Reference</title>
+<title>BLIB: src/Scripts/Script.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,40 +68,37 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">ScriptImpl.cpp File Reference</div>  </div>
+<div class="title">Script.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00737_source.html">Scripts/ScriptImpl.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00404_source.html">BLIB/Scripts.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00047_source.html">BLIB/Engine/Configuration.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02260_source.html">BLIB/Engine/Engine.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="a00281_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02283_source.html">Scripts/Parser.hpp</a>&gt;</code><br />
-<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00464_source.html">BLIB/Util/FileUtil.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02302_source.html">Scripts/Parser.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00740_source.html">Scripts/ScriptImpl.hpp</a>&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;streambuf&gt;</code><br />
 </div>
 <p><a href="a00734_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00816"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00816.html">bl</a></td></tr>
-<tr class="memdesc:a00816"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a00822"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00822.html">bl</a></td></tr>
+<tr class="memdesc:a00822"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00840"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00840.html">bl::script</a></td></tr>
-<tr class="memdesc:a00840"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01492.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> interpreter for bScript. <br /></td></tr>
+<tr class="memitem:a00846"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00846.html">bl::script</a></td></tr>
+<tr class="memdesc:a00846"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01499.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe. ">Script</a> interpreter for bScript. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:af4832d1de10443d84f1fb19c16bfa24c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00840.html#af4832d1de10443d84f1fb19c16bfa24c">bl::script::Symbol</a> = const parser::Node::Ptr &amp;</td></tr>
-<tr class="separator:af4832d1de10443d84f1fb19c16bfa24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af98b10434d6862ecf69f33b6b5b25f27"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00840.html#af98b10434d6862ecf69f33b6b5b25f27">bl::script::G</a> = Parser::Grammar</td></tr>
-<tr class="separator:af98b10434d6862ecf69f33b6b5b25f27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 28 2022 02:17:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 29 2022 01:47:12 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
