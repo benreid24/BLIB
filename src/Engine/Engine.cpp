@@ -14,6 +14,7 @@ Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , renderWindow(nullptr) {
     entityRegistry.setEventDispatcher(engineEventBus);
+    settings.syncToConfig();
 }
 
 Engine::~Engine() {
@@ -269,6 +270,7 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
     }
 
     engineSettings.withWindowParameters(Settings::WindowParameters(params));
+    params.syncToConfig();
 
     return true;
 }

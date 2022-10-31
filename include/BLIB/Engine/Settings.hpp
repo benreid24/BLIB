@@ -78,6 +78,19 @@ public:
         WindowParameters& withLetterBoxOnResize(bool letterBox);
 
         /**
+         * @brief Loads the settings from the global engine config. See Settings.cpp for keys
+         *
+         * @return Settings& A reference to this object
+         */
+        WindowParameters& fromConfig();
+
+        /**
+         * @brief Saves the settings to the global engine config
+         *
+         */
+        void syncToConfig() const;
+
+        /**
          * @brief Returns the title to create the window with
          *
          */
@@ -171,6 +184,19 @@ public:
      * @return Settings& A reference to this object
      */
     Settings& withLogFps(bool log);
+
+    /**
+     * @brief Loads the settings from the global engine config. See Settings.cpp for keys
+     *
+     * @return Settings& A reference to this object
+     */
+    Settings& fromConfig();
+
+    /**
+     * @brief Saves the settings to the global engine config
+     *
+     */
+    void syncToConfig() const;
 
     /**
      * @brief Returns the fixed physics update interval, in seconds
