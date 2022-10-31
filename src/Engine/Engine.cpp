@@ -88,20 +88,8 @@ bool Engine::run(State::Ptr initialState) {
         }
     };
 
-    std::shared_ptr<sf::Context> renderContext; // ensure this thread has active context
     if (engineSettings.createWindow()) {
-        renderContext = std::make_shared<sf::Context>();
-        renderWindow  = std::make_shared<sf::RenderWindow>(
-            engineSettings.videoMode(), engineSettings.windowTitle(), engineSettings.windowStyle());
-        if (!renderWindow->isOpen()) {
-            BL_LOG_ERROR << "Failed to create window";
-            return false;
-        }
-        if (engineSettings.windowIcon().getSize().x > 0) {
-            renderWindow->setIcon(engineSettings.windowIcon().getSize().x,
-                                  engineSettings.windowIcon().getSize().y,
-                                  engineSettings.windowIcon().getPixelsPtr());
-        }
+        if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
     }
 
     sf::Clock fpsTimer;
@@ -120,12 +108,13 @@ bool Engine::run(State::Ptr initialState) {
             while (renderWindow->pollEvent(event)) {
                 engineEventBus.dispatch<sf::Event>(event);
 
-                if (event.type == sf::Event::Closed) {
+                switch (event.type) {
+                case sf::Event::Closed:
                     engineEventBus.dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
                     renderWindow->close();
                     return true;
-                }
-                else if (event.type == sf::Event::LostFocus) {
+
+                case sf::Event::LostFocus:
                     engineEventBus.dispatch<event::Paused>({});
                     if (!awaitFocus()) {
                         engineEventBus.dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
@@ -135,8 +124,15 @@ bool Engine::run(State::Ptr initialState) {
                     engineEventBus.dispatch<event::Resumed>({});
                     updateOuterTimer.restart();
                     loopTimer.restart();
+                    break;
+
+                case sf::Event::Resized:
+                    if (engineSettings.windowParameters().letterBox()) { handleResize(event.size); }
+                    break;
+
+                default:
+                    break;
                 }
-                // more events?
             }
         }
 
@@ -253,6 +249,55 @@ bool Engine::awaitFocus() {
         if (event.type == sf::Event::GainedFocus) return true;
     }
     return false;
+}
+
+bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
+    if (!renderContext) { renderContext = std::make_unique<sf::Context>(); }
+
+    if (renderWindow) { renderWindow->create(params.videoMode(), params.title(), params.style()); }
+    else {
+        renderWindow =
+            std::make_unique<sf::RenderWindow>(params.videoMode(), params.title(), params.style());
+    }
+    if (!renderWindow->isOpen()) {
+        BL_LOG_ERROR << "Failed to create window";
+        return false;
+    }
+    if (params.icon().getSize().x > 0) {
+        renderWindow->setIcon(
+            params.icon().getSize().x, params.icon().getSize().y, params.icon().getPixelsPtr());
+    }
+
+    engineSettings.withWindowParameters(Settings::WindowParameters(params));
+
+    return true;
+}
+
+void Engine::handleResize(const sf::Event::SizeEvent& resize) {
+    const float ogWidth  = static_cast<float>(engineSettings.windowParameters().videoMode().width);
+    const float ogHeight = static_cast<float>(engineSettings.windowParameters().videoMode().height);
+
+    const float newWidth  = static_cast<float>(resize.width);
+    const float newHeight = static_cast<float>(resize.height);
+
+    const float xScale = newWidth / ogWidth;
+    const float yScale = newHeight / ogHeight;
+
+    // it's ok to change view size here, cameras reset it every frame anyways
+    sf::View view(sf::FloatRect(0.f, 0.f, ogWidth, ogHeight));
+    sf::FloatRect viewPort(0.f, 0.f, 1.f, 1.f);
+
+    if (xScale >= yScale) { // constrained by height, bars on sides
+        viewPort.width = ogWidth * yScale / newWidth;
+        viewPort.left  = (1.f - viewPort.width) * 0.5f;
+    }
+    else { // constrained by width, bars on top and bottom
+        viewPort.height = ogHeight * xScale / newHeight;
+        viewPort.top    = (1.f - viewPort.height) * 0.5f;
+    }
+
+    view.setViewport(viewPort);
+    renderWindow->setView(view);
 }
 
 } // namespace engine

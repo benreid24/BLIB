@@ -7,18 +7,14 @@ namespace bl
 {
 namespace engine
 {
-const sf::VideoMode Settings::DefaultVideoMode(800, 600, 32);
-const std::string Settings::DefaultWindowTitle = "BLIB Engine Window";
+const sf::VideoMode Settings::WindowParameters::DefaultVideoMode(800, 600, 32);
+const std::string Settings::WindowParameters::DefaultWindowTitle = "BLIB Engine Window";
 
 Settings::Settings()
 : updateTime(DefaultUpdateInterval)
 , maxFps(DefaultMaximumFramerate)
 , allowVariableInterval(DefaultAllowVariableTimestep)
-, sfWindowTitle(DefaultWindowTitle)
-, windowMode(DefaultVideoMode)
-, sfWindowStyle(DefaultWindowStyle)
-, createSfWindow(DefaultCreateWindow)
-, icon()
+, windowParams()
 , loggingFps(DefaultLogFps) {}
 
 Settings& Settings::withMaxFramerate(float fps) {
@@ -36,54 +32,13 @@ Settings& Settings::withAllowVariableTimestep(bool allow) {
     return *this;
 }
 
-Settings& Settings::withWindowTitle(const std::string& title) {
-    sfWindowTitle = title;
-    return *this;
-}
-
-Settings& Settings::withVideoMode(const sf::VideoMode& mode) {
-    windowMode = mode;
-    return *this;
-}
-
-Settings& Settings::withWindowStyle(sf::Uint32 style) {
-    sfWindowStyle = style;
-    return *this;
-}
-
-Settings& Settings::withCreateWindow(bool c) {
-    createSfWindow = c;
-    return *this;
-}
-
-Settings& Settings::withWindowIcon(const std::string& path) {
-    if (!icon.loadFromFile(path)) { BL_LOG_ERROR << "Failed to load window icon: " << path; }
+Settings& Settings::withWindowParameters(Settings::WindowParameters&& params) {
+    windowParams = std::forward<Settings::WindowParameters>(params);
     return *this;
 }
 
 Settings& Settings::withLogFps(bool log) {
     loggingFps = log;
-    return *this;
-}
-
-Settings& Settings::fromConfig() {
-    updateTime = Configuration::getOrDefault<float>("blib.engine.update_period", updateTime);
-    maxFps     = Configuration::getOrDefault<float>("blib.engine.max_fps", maxFps);
-    allowVariableInterval =
-        Configuration::getOrDefault<bool>("blib.engine.variable_timestep", allowVariableInterval);
-    sfWindowTitle =
-        Configuration::getOrDefault<std::string>("blib.engine.window_title", sfWindowTitle);
-    windowMode.width =
-        Configuration::getOrDefault<unsigned int>("blib.engine.window_width", windowMode.width);
-    windowMode.height =
-        Configuration::getOrDefault<unsigned int>("blib.engine.window_height", windowMode.height);
-    loggingFps = Configuration::getOrDefault<bool>("blib.engine.log_fps", loggingFps);
-
-    const std::string icf = Configuration::getOrDefault<std::string>("blib.engine.icon", "");
-    if (!icf.empty()) {
-        if (!icon.loadFromFile(icf)) BL_LOG_ERROR << "Failed to load window icon: " << icf;
-    }
-
     return *this;
 }
 
@@ -93,17 +48,55 @@ float Settings::maximumFramerate() const { return maxFps; }
 
 bool Settings::allowVariableTimestep() const { return allowVariableInterval; }
 
-const std::string& Settings::windowTitle() const { return sfWindowTitle; }
+bool Settings::createWindow() const { return windowParams.has_value(); }
 
-const sf::VideoMode& Settings::videoMode() const { return windowMode; }
-
-sf::Uint32 Settings::windowStyle() const { return sfWindowStyle; }
-
-bool Settings::createWindow() const { return createSfWindow; }
-
-const sf::Image& Settings::windowIcon() const { return icon; }
+const Settings::WindowParameters& Settings::windowParameters() const {
+    return windowParams.value();
+}
 
 bool Settings::logFps() const { return loggingFps; }
+
+Settings::WindowParameters::WindowParameters()
+: sfWindowTitle(DefaultWindowTitle)
+, windowMode(DefaultVideoMode)
+, sfWindowStyle(DefaultWindowStyle)
+, iconImg()
+, letterBoxVal(DefaultLetterBoxOnResize) {}
+
+Settings::WindowParameters& Settings::WindowParameters::withTitle(const std::string& title) {
+    sfWindowTitle = title;
+    return *this;
+}
+
+Settings::WindowParameters& Settings::WindowParameters::withVideoMode(const sf::VideoMode& mode) {
+    windowMode = mode;
+    return *this;
+}
+
+Settings::WindowParameters& Settings::WindowParameters::withStyle(sf::Uint32 style) {
+    sfWindowStyle = style;
+    return *this;
+}
+
+Settings::WindowParameters& Settings::WindowParameters::withLetterBoxOnResize(bool lb) {
+    letterBoxVal = lb;
+    return *this;
+}
+
+Settings::WindowParameters& Settings::WindowParameters::withIcon(const std::string& path) {
+    if (!iconImg.loadFromFile(path)) { BL_LOG_ERROR << "Failed to load window icon: " << path; }
+    return *this;
+}
+
+const sf::Image& Settings::WindowParameters::icon() const { return iconImg; }
+
+const std::string& Settings::WindowParameters::title() const { return sfWindowTitle; }
+
+const sf::VideoMode& Settings::WindowParameters::videoMode() const { return windowMode; }
+
+sf::Uint32 Settings::WindowParameters::style() const { return sfWindowStyle; }
+
+bool Settings::WindowParameters::letterBox() const { return letterBoxVal; }
 
 } // namespace engine
 } // namespace bl

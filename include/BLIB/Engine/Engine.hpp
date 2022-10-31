@@ -65,6 +65,14 @@ public:
     const Settings& settings() const;
 
     /**
+     * @brief Re-creates the game window from the new settings
+     *
+     * @param parameters The new settings to create the window with
+     * @return bool True on success, false on error
+     */
+    bool reCreateWindow(const Settings::WindowParameters& parameters);
+
+    /**
      * @brief Returns the flags that can be set to control Engine behavior
      *
      */
@@ -113,17 +121,19 @@ public:
     void popState();
 
 private:
-    const Settings engineSettings;
+    Settings engineSettings;
     Flags engineFlags;
     std::stack<State::Ptr> states;
     State::Ptr newState;
 
-    std::shared_ptr<sf::RenderWindow> renderWindow;
+    std::unique_ptr<sf::RenderWindow> renderWindow;
+    std::unique_ptr<sf::Context> renderContext;
     bl::event::Dispatcher engineEventBus;
     script::Manager engineScriptManager;
     entity::Registry entityRegistry;
 
     bool awaitFocus();
+    void handleResize(const sf::Event::SizeEvent& resize);
 };
 
 } // namespace engine
