@@ -264,9 +264,14 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
         BL_LOG_ERROR << "Failed to create window";
         return false;
     }
-    if (params.icon().getSize().x > 0) {
-        renderWindow->setIcon(
-            params.icon().getSize().x, params.icon().getSize().y, params.icon().getPixelsPtr());
+    if (!params.icon().empty()) {
+        sf::Image icon;
+        if (icon.loadFromFile(params.icon())) {
+            renderWindow->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+        }
+        else {
+            BL_LOG_WARN << "Failed to load icon: " << params.icon();
+        }
     }
 
     engineSettings.withWindowParameters(Settings::WindowParameters(params));

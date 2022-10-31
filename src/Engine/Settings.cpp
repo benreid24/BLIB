@@ -20,6 +20,7 @@ const std::string WindowBitDepthKey  = "blib.engine.window_bit_depth";
 const std::string WindowStyleKey     = "blib.engine.window_style";
 const std::string WindowTitleKey     = "blib.engine.window_title";
 const std::string WindowLetterboxKey = "blib.engine.leterbox";
+const std::string WindowIconKey      = "blib.engine.window_icon";
 } // namespace
 
 const sf::VideoMode Settings::WindowParameters::DefaultVideoMode(800, 600, 32);
@@ -47,8 +48,8 @@ Settings& Settings::withAllowVariableTimestep(bool allow) {
     return *this;
 }
 
-Settings& Settings::withWindowParameters(Settings::WindowParameters&& params) {
-    windowParams = std::forward<Settings::WindowParameters>(params);
+Settings& Settings::withWindowParameters(const Settings::WindowParameters& params) {
+    windowParams = params;
     return *this;
 }
 
@@ -99,7 +100,7 @@ Settings::WindowParameters::WindowParameters()
 : sfWindowTitle(DefaultWindowTitle)
 , windowMode(DefaultVideoMode)
 , sfWindowStyle(DefaultWindowStyle)
-, iconImg()
+, iconPath()
 , letterBoxVal(DefaultLetterBoxOnResize) {}
 
 Settings::WindowParameters& Settings::WindowParameters::withTitle(const std::string& title) {
@@ -123,7 +124,7 @@ Settings::WindowParameters& Settings::WindowParameters::withLetterBoxOnResize(bo
 }
 
 Settings::WindowParameters& Settings::WindowParameters::withIcon(const std::string& path) {
-    if (!iconImg.loadFromFile(path)) { BL_LOG_ERROR << "Failed to load window icon: " << path; }
+    iconPath = path;
     return *this;
 }
 
@@ -136,6 +137,7 @@ Settings::WindowParameters& Settings::WindowParameters::fromConfig() {
         Configuration::getOrDefault<unsigned int>(WindowBitDepthKey, windowMode.bitsPerPixel);
     sfWindowStyle = Configuration::getOrDefault<unsigned int>(WindowStyleKey, sfWindowStyle);
     letterBoxVal  = Configuration::getOrDefault<bool>(WindowLetterboxKey, letterBoxVal);
+    iconPath      = Configuration::getOrDefault<std::string>(WindowIconKey, iconPath);
 
     return *this;
 }
@@ -147,9 +149,10 @@ void Settings::WindowParameters::syncToConfig() const {
     Configuration::set<unsigned int>(WindowBitDepthKey, windowMode.bitsPerPixel);
     Configuration::set<unsigned int>(WindowStyleKey, sfWindowStyle);
     Configuration::set<bool>(WindowLetterboxKey, letterBoxVal);
+    Configuration::set<std::string>(WindowIconKey, iconPath);
 }
 
-const sf::Image& Settings::WindowParameters::icon() const { return iconImg; }
+const std::string& Settings::WindowParameters::icon() const { return iconPath; }
 
 const std::string& Settings::WindowParameters::title() const { return sfWindowTitle; }
 

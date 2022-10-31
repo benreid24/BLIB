@@ -112,7 +112,7 @@ public:
          * @brief Returns the window icon to use
          *
          */
-        const sf::Image& icon() const;
+        const std::string& icon() const;
 
         /**
          * @brief Returns whether or not to letterbox on Window resize
@@ -124,7 +124,7 @@ public:
         std::string sfWindowTitle;
         sf::VideoMode windowMode;
         sf::Uint32 sfWindowStyle;
-        sf::Image iconImg;
+        std::string iconPath;
         bool letterBoxVal;
     };
 
@@ -175,7 +175,7 @@ public:
      * @param parameters The parameters to create the game window with
      * @return Settings& A reference to this object
      */
-    Settings& withWindowParameters(WindowParameters&& parameters);
+    Settings& withWindowParameters(const WindowParameters& parameters);
 
     /**
      * @brief Sets whether or not to log FPS
