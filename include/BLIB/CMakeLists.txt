@@ -9,6 +9,7 @@ target_sources(BLIB PUBLIC
     Media.hpp
     Parser.hpp
     Particles.hpp
+    Render.hpp
     Resources.hpp
     Scripts.hpp
     Serialization.hpp
@@ -26,6 +27,7 @@ add_subdirectory(Math)
 add_subdirectory(Media)
 add_subdirectory(Parser)
 add_subdirectory(Particles)
+add_subdirectory(Render)
 add_subdirectory(Scripts)
 add_subdirectory(Serialization)
 add_subdirectory(Util)

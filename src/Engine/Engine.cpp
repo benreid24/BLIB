@@ -34,6 +34,8 @@ entity::Registry& Engine::entities() { return entityRegistry; }
 
 script::Manager& Engine::scriptManager() { return engineScriptManager; }
 
+render::RenderSystem& Engine::renderSystem() { return renderingSystem; }
+
 const Settings& Engine::settings() const { return engineSettings; }
 
 Flags& Engine::flags() { return engineFlags; }
@@ -144,6 +146,7 @@ bool Engine::run(State::Ptr initialState) {
         updateMeasureTimer.restart();
         while (lag >= updateTimestep) {
             const float updateStart = updateMeasureTimer.getElapsedTime().asSeconds();
+            renderingSystem.update(updateTimestep);
             states.top()->update(*this, updateTimestep);
             if (engineFlags.active(Flags::PopState) || engineFlags.active(Flags::Terminate) ||
                 newState) {
@@ -176,6 +179,7 @@ bool Engine::run(State::Ptr initialState) {
                         << "s to " << newTs << "s";
             updateTimestep = newTs;
         }
+        if (renderWindow) { renderingSystem.cameras().configureView(*renderWindow); }
         states.top()->render(*this, lag);
 
         // Process flags

@@ -10,6 +10,7 @@
 #include <BLIB/Engine/State.hpp>
 #include <BLIB/Entities/Registry.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
+#include <BLIB/Render.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
 
@@ -57,6 +58,13 @@ public:
      *
      */
     script::Manager& scriptManager();
+
+    /**
+     * @brief Returns the rendering system of the engine
+     *
+     * @return render::RenderSystem& The rendering system
+     */
+    render::RenderSystem& renderSystem();
 
     /**
      * @brief Returns the settings the engine is using
@@ -131,6 +139,7 @@ private:
     bl::event::Dispatcher engineEventBus;
     script::Manager engineScriptManager;
     entity::Registry entityRegistry;
+    render::RenderSystem renderingSystem;
 
     bool awaitFocus();
     void handleResize(const sf::Event::SizeEvent& resize);
