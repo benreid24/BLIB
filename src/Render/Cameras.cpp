@@ -6,25 +6,36 @@ namespace bl
 {
 namespace render
 {
+namespace
+{
+bool errorLogged = false;
+}
+
 Cameras::Cameras()
 : renderRegion({-1.f, -1.f, -1.f, -1.f}) {}
 
 camera::Camera::Ptr Cameras::activeCamera() { return cameras.top(); }
 
-void Cameras::pushCamera(const camera::Camera::Ptr& cam) { cameras.emplace(cam); }
+void Cameras::pushCamera(const camera::Camera::Ptr& cam) {
+    cameras.emplace(cam);
+    errorLogged = false;
+}
 
 void Cameras::replaceCamera(const camera::Camera::Ptr& cam) {
     if (!cameras.empty()) cameras.pop();
+    errorLogged = false;
     cameras.emplace(cam);
 }
 
 void Cameras::popCamera() {
     if (!cameras.empty()) cameras.pop();
+    errorLogged = false;
 }
 
 void Cameras::clearAndReplace(const camera::Camera::Ptr& cam) {
     while (!cameras.empty()) cameras.pop();
     cameras.emplace(cam);
+    errorLogged = false;
 }
 
 void Cameras::setViewportConstraint(const sf::FloatRect& constraint) { renderRegion = constraint; }
@@ -47,11 +58,17 @@ void Cameras::update(float dt) {
 
 void Cameras::configureView(sf::RenderTarget& target) const {
     if (cameras.empty()) {
-        BL_LOG_ERROR << "Rendering with no active camera";
+        if (!errorLogged) {
+            errorLogged = true;
+            BL_LOG_ERROR << "Rendering with no active camera";
+        }
         return;
     }
     if (!cameras.top()->valid()) {
-        BL_LOG_ERROR << "Active camera was invalidated";
+        if (!errorLogged) {
+            errorLogged = true;
+            BL_LOG_ERROR << "Active camera was invalidated";
+        }
         return;
     }
 
