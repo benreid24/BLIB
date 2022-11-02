@@ -4,6 +4,7 @@ target_sources(BLIB PUBLIC
     Engine.hpp
     Entities.hpp
     Events.hpp
+    Input.hpp
     Interfaces.hpp
     Logging.hpp
     Media.hpp
@@ -21,6 +22,7 @@ add_subdirectory(Containers)
 add_subdirectory(Engine)
 add_subdirectory(Entities)
 add_subdirectory(Events)
+add_subdirectory(Input)
 add_subdirectory(Interfaces)
 add_subdirectory(Logging)
 add_subdirectory(Math)
