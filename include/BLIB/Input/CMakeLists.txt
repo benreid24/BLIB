@@ -2,9 +2,9 @@ target_sources(BLIB PUBLIC
     Actor.hpp
     Control.hpp
     DirectionalControl.hpp
-    DispatchPolicy.hpp
+    DispatchType.hpp
     InputSystem.hpp
-    JoyStick.hpp
+    Joystick.hpp
     Listener.hpp
     MovementControl.hpp
     Trigger.hpp

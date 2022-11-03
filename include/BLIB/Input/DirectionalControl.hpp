@@ -7,6 +7,8 @@ namespace bl
 {
 namespace input
 {
+class InputSystem;
+
 /**
  * @brief Control data for a directional input
  *
@@ -18,13 +20,38 @@ struct DirectionalControl {
     enum struct Type { Mouse, Joystick };
 
     Type type;
-    Joystick joystick;
+    union {
+        Joystick joystick;
+    };
+    sf::Vector2f normalizedDirection;
 
     /**
      * @brief Defaults to mouse control
      *
      */
     DirectionalControl();
+
+    /**
+     * @brief Processes the given event to potentially update the direction being inputted
+     *
+     * @param system The InputSystem itself to read the mouse vector from
+     * @param event
+     */
+    void process(const InputSystem& system, const sf::Event& event);
+
+    /**
+     * @brief Saves this control config to the engine configuration store
+     *
+     * @param prefix The prefix to use for keys used to save the config
+     */
+    void saveToConfig(const std::string& prefix) const;
+
+    /**
+     * @brief Loads this control config from the engine configuration store
+     *
+     * @param prefix The prefix to use for keys to laod from the config
+     */
+    void loadFromConfig(const std::string& prefix);
 };
 
 } // namespace input

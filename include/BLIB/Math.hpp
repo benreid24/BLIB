@@ -8,6 +8,8 @@
  */
 
 #include <BLIB/Math/Constants.hpp>
+#include <BLIB/Math/Interpolate.hpp>
 #include <BLIB/Math/Trig.hpp>
+#include <BLIB/Math/Vector.hpp>
 
 #endif

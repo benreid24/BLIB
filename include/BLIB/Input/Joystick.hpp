@@ -1,6 +1,7 @@
 #ifndef BLIB_INPUT_JOYSTICK_HPP
 #define BLIB_INPUT_JOYSTICK_HPP
 
+#include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Joystick.hpp>
 
 namespace bl
@@ -18,10 +19,12 @@ struct Joystick {
     sf::Joystick::Axis horizontalAxis;
 
     /**
-     * @brief Reads the joystick value into a vector with components in range [-100, 100]
+     * @brief Reads the joystick value into a normalized vector
+     *
+     * @param joystick The index of the joystick to read from
      *
      */
-    sf::Vector2f read() const;
+    sf::Vector2f read(unsigned int joystick) const;
 };
 
 } // namespace input

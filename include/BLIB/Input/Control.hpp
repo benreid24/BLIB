@@ -2,11 +2,9 @@
 #define BLIB_INPUT_CONTROL_HPP
 
 #include <BLIB/Input/DirectionalControl.hpp>
-#include <BLIB/Input/DispatchPolicy.hpp>
 #include <BLIB/Input/Joystick.hpp>
 #include <BLIB/Input/MovementControl.hpp>
 #include <BLIB/Input/Trigger.hpp>
-#include <BLIB/Input/TriggerControl.hpp>
 
 namespace bl
 {
@@ -33,15 +31,28 @@ struct Control {
     };
 
     /**
-     * @brief Construct a new Control from it's trigger and policy
+     * @brief Construct a new Control in an invalid state
      *
-     * @param policy
-     * @param trigger
      */
-    Control(DispatchPolicy policy, Trigger trigger);
+    Control();
 
+    /**
+     * @brief Saves this control config to the engine configuration store
+     *
+     * @param prefix The prefix to use for keys used to save the config
+     */
+    void saveToConfig(const std::string& prefix) const;
+
+    /**
+     * @brief Loads this control config from the engine configuration store
+     *
+     * @param prefix The prefix to use for keys to laod from the config
+     */
+    void loadFromConfig(const std::string& prefix);
+
+    Type type;
     union {
-        TriggerControl triggerControl;
+        Trigger triggerControl;
         DirectionalControl directionalControl;
         MovementControl movementControl;
     };

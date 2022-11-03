@@ -31,23 +31,7 @@ struct Trigger {
         JoystickButton   = 5,
         JoystickPositive = 6,
         JoystickNegative = 7
-    } type;
-
-    /**
-     * @brief Parses the Trigger from the given string
-     *
-     * @param str
-     * @return Trigger
-     */
-    static Trigger fromString(const std::string& str);
-
-    /**
-     * @brief Creates a Trigger from the given event
-     *
-     * @param event The event to create the Trigger from
-     * @return Trigger The produced Trigger. May be Invalid
-     */
-    static Trigger fromEvent(const sf::Event& event);
+    };
 
     /**
      * @brief Creates an empty invalid Trigger
@@ -93,27 +77,46 @@ struct Trigger {
     Trigger(Type type, sf::Joystick::Axis axis);
 
     /**
-     * @brief Returns the string representation of the Trigger
-     *
-     */
-    const std::string& toString() const;
-
-    /**
      * @brief Returns whether or not this trigger is currently active
      *
-     * @param joystickId The joystick to query if using joysticks
-     *
      */
-    bool active(unsigned int joystickId) const;
+    bool active() const;
 
     /**
-     * @brief Returns whether or not the given event triggers this control
+     * @brief Processes the given event to update the control state
      *
      * @param event The event to check
-     * @return True if this control is triggered by the event, false otherwise
+     * @return True if this control is now active, false otherwise
      */
-    bool triggeredBy(const sf::Event& event) const;
+    bool process(const sf::Event& event) const;
 
+    /**
+     * @brief Updates this trigger data from the given event
+     *
+     * @param event The event to update the Trigger from
+     * @return True if the event was usable for setting this trigger, false otherwise
+     */
+    bool updateFromEvent(const sf::Event& event);
+
+    /**
+     * @brief Saves this control config to the engine configuration store
+     *
+     * @param prefix The prefix to use for keys used to save the config
+     */
+    void saveToConfig(const std::string& prefix) const;
+
+    /**
+     * @brief Loads this control config from the engine configuration store
+     *
+     * @param prefix The prefix to use for keys to laod from the config
+     */
+    void loadFromConfig(const std::string& prefix);
+
+    /// @brief Represents whether this trigger is a toggle or regular control
+    enum Mode { Standard = 0, Toggle = 1 };
+
+    Type type;
+    Mode mode;
     union {
         sf::Keyboard::Key key;
         sf::Mouse::Button mouseButton;
@@ -121,6 +124,12 @@ struct Trigger {
         unsigned int joystickButton;
         sf::Joystick::Axis joystickAxis;
     };
+
+private:
+    bool nowActive;
+
+    void makeOrtoggleActive();
+    void makeInactive(); // no effect if in toggle mode
 };
 
 } // namespace input
