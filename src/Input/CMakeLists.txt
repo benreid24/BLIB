@@ -2,6 +2,7 @@ target_sources(BLIB PRIVATE
     Actor.cpp
     Consts.hpp
     Control.cpp
+    DirectionalControl.cpp
     Encoder.cpp
     Encoder.hpp
     InputSystem.cpp
