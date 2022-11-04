@@ -31,10 +31,11 @@ struct Control {
     };
 
     /**
-     * @brief Construct a new Control in an invalid state
+     * @brief Construct a new Control of the given type
      *
+     * @param type The type of control to create
      */
-    Control();
+    Control(Type type);
 
     /**
      * @brief Saves this control config to the engine configuration store

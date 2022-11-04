@@ -1,5 +1,5 @@
-#ifndef BLIB_INPUT_ENCODING_HPP
-#define BLIB_INPUT_ENCODING_HPP
+#ifndef BLIB_INPUT_ENCODER_HPP
+#define BLIB_INPUT_ENCODER_HPP
 
 #include <SFML/Window.hpp>
 #include <cstdint>
@@ -18,7 +18,9 @@ struct Encoder {
             MouseWheelUp,
             MouseWheelDown,
             JoystickButton,
-            JoystickAxis
+            JoystickAxis,
+            JoystickAxisPositive,
+            JoystickAxisNegative
         } type;
 
         union {
@@ -35,6 +37,7 @@ struct Encoder {
         ControlInfo(sf::Mouse::Wheel wheel, bool upOrRight);
         ControlInfo(unsigned int jbut);
         ControlInfo(sf::Joystick::Axis axis);
+        ControlInfo(sf::Joystick::Axis axis, bool positive);
     };
 
     static std::string toString(const ControlInfo& control);

@@ -13,30 +13,18 @@ namespace bl
 {
 namespace input
 {
+class Actor;
+
 /**
  * @brief Control data for a movement control (ie WASD or a joystick)
  *
  * @ingroup Input
  *
  */
-struct MovementControl {
+class MovementControl {
+public:
     /// @brief The type of input that drives the control
     enum struct Type { Joystick, Triggers };
-
-    /// @brief Key data if the keyboard drives the control
-    struct KeyConfig {
-        Trigger up;
-        Trigger right;
-        Trigger down;
-        Trigger left;
-
-        std::stack<Trigger*, std::vector<Trigger*>> orderStack;
-    };
-
-    union {
-        Joystick joystick;
-        KeyConfig keys;
-    };
 
     /**
      * @brief Defaults to keyboard type with WASD
@@ -45,26 +33,136 @@ struct MovementControl {
     MovementControl();
 
     /**
+     * @brief Construct a new Movement Control from 4 triggers
+     *
+     * @param up The up/forward control
+     * @param right The right control
+     * @param down The down/backward control
+     * @param left The left control
+     */
+    MovementControl(const Trigger& up, const Trigger& right, const Trigger& down,
+                    const Trigger& left);
+
+    /**
+     * @brief Construct a new Movement Control from a joystick axis pair
+     *
+     * @param vertical The vertical axis control
+     * @param horizontal The horizontal axis control
+     */
+    MovementControl(sf::Joystick::Axis vertical, sf::Joystick::Axis horizontal);
+
+    /**
      * @brief Determines what direction the given event activated, if any
      *
      * @param event The event to process
      * @return DispatchType _INVALID if not a movement, otherwise the direction
      */
-    DispatchType process(const sf::Event& event) const;
+    DispatchType process(const sf::Event& event);
+
+    /**
+     * @brief Returns the type of movement control being used
+     *
+     * @return Type The type of movement control being used
+     */
+    Type controlType() const;
+
+    /**
+     * @brief Returns the up trigger control
+     *
+     */
+    Trigger& upControl();
+
+    /**
+     * @brief Returns the up trigger control
+     *
+     */
+    const Trigger& upControl() const;
+
+    /**
+     * @brief Returns the right trigger control
+     *
+     */
+    Trigger& rightControl();
+
+    /**
+     * @brief Returns the right trigger control
+     *
+     */
+    const Trigger& rightControl() const;
+
+    /**
+     * @brief Returns the down trigger control
+     *
+     */
+    Trigger& downControl();
+
+    /**
+     * @brief Returns the down trigger control
+     *
+     */
+    const Trigger& downControl() const;
+
+    /**
+     * @brief Returns the left trigger control
+     *
+     */
+    Trigger& leftControl();
+
+    /**
+     * @brief Returns the left trigger control
+     *
+     */
+    const Trigger& leftControl() const;
+
+    /**
+     * @brief Returns the joystick config for this control
+     *
+     */
+    Joystick& joystickControl();
+
+    /**
+     * @brief Returns the joystick config for this control
+     *
+     */
+    const Joystick& joystickControl() const;
+
+    /**
+     * @brief Returns a normlized vector indicating which direction is being moved in. up/forward is
+     *        positive y, right is positive x
+     *
+     * @return sf::Vector2f The direction being moved in. Components in range [-1, 1]
+     */
+    sf::Vector2f readValue() const;
 
     /**
      * @brief Saves this control config to the engine configuration store
-     * 
+     *
      * @param prefix The prefix to use for keys used to save the config
      */
     void saveToConfig(const std::string& prefix) const;
 
     /**
      * @brief Loads this control config from the engine configuration store
-     * 
+     *
      * @param prefix The prefix to use for keys to laod from the config
      */
     void loadFromConfig(const std::string& prefix);
+
+private:
+    struct KeyConfig {
+        Trigger up;
+        Trigger right;
+        Trigger down;
+        Trigger left;
+    };
+
+    Type type;
+    union {
+        Joystick joystick;
+        KeyConfig keys;
+    };
+
+    friend class Actor;
 };
 
 } // namespace input

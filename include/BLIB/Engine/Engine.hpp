@@ -10,6 +10,7 @@
 #include <BLIB/Engine/State.hpp>
 #include <BLIB/Entities/Registry.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
+#include <BLIB/Input/InputSystem.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
@@ -65,6 +66,13 @@ public:
      * @return render::RenderSystem& The rendering system
      */
     render::RenderSystem& renderSystem();
+
+    /**
+     * @brief Returns the user input sysem of the engine
+     *
+     * @return input::InputSystem& The user input system
+     */
+    input::InputSystem& inputSystem();
 
     /**
      * @brief Returns the settings the engine is using
@@ -140,6 +148,7 @@ private:
     script::Manager engineScriptManager;
     entity::Registry entityRegistry;
     render::RenderSystem renderingSystem;
+    input::InputSystem input;
 
     bool awaitFocus();
     void handleResize(const sf::Event::SizeEvent& resize);

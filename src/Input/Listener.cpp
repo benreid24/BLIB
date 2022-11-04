@@ -11,8 +11,8 @@ Listener::Listener()
 
 Listener::Listener(const Listener& l)
 : owner(l.owner) {
-    if (owner) { owner->replaceListener(l, *this); }
-    const_cast<Listener&>(l).owner = nullptr;
+    Listener& c = const_cast<Listener&>(l);
+    if (owner) { owner->replaceListener(c, *this); }
 }
 
 Listener::Listener(Listener&& l)

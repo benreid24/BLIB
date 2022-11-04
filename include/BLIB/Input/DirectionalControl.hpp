@@ -35,9 +35,10 @@ struct DirectionalControl {
      * @brief Processes the given event to potentially update the direction being inputted
      *
      * @param system The InputSystem itself to read the mouse vector from
-     * @param event
+     * @param event The event to process
+     * @return True if the direction changed, false otherwise
      */
-    void process(const InputSystem& system, const sf::Event& event);
+    bool process(const InputSystem& system, const sf::Event& event);
 
     /**
      * @brief Saves this control config to the engine configuration store

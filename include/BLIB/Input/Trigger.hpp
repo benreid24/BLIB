@@ -19,7 +19,8 @@ namespace input
  */
 struct Trigger {
     /**
-     * @brief The type of Trigger
+     * @brief The type of Trigger. Mouse wheel triggers never stay active and only fire events when
+     *        they are first moved, unless the Trigger is in Toggle mode
      *
      */
     enum Type : std::uint8_t {
@@ -56,10 +57,10 @@ struct Trigger {
     /**
      * @brief Creates a trigger for mouse wheel inputs
      *
-     * @param type Either MouseWheelUp or MouseWheelDown
      * @param wheel The mouse wheel to trigger on
+     * @param upOrRight Whether the trigger should activate on increasing (up) or decreasing wheel
      */
-    Trigger(Type type, sf::Mouse::Wheel wheel = sf::Mouse::Wheel::VerticalWheel);
+    Trigger(sf::Mouse::Wheel wheel, bool upOrRight);
 
     /**
      * @brief Creates a trigger for the given joystick button
@@ -71,10 +72,10 @@ struct Trigger {
     /**
      * @brief Creates a trigger for joystick stick positions
      *
-     * @param type Either JoystickPositive or JoystickNegative
      * @param axis The axis to trigger on
+     * @param positive Whether to trigger on positive or negative stick input
      */
-    Trigger(Type type, sf::Joystick::Axis axis);
+    Trigger(sf::Joystick::Axis axis, bool positive);
 
     /**
      * @brief Returns whether or not this trigger is currently active
@@ -88,7 +89,7 @@ struct Trigger {
      * @param event The event to check
      * @return True if this control is now active, false otherwise
      */
-    bool process(const sf::Event& event) const;
+    bool process(const sf::Event& event);
 
     /**
      * @brief Updates this trigger data from the given event
@@ -96,7 +97,7 @@ struct Trigger {
      * @param event The event to update the Trigger from
      * @return True if the event was usable for setting this trigger, false otherwise
      */
-    bool updateFromEvent(const sf::Event& event);
+    bool configureFromEvent(const sf::Event& event);
 
     /**
      * @brief Saves this control config to the engine configuration store
@@ -112,11 +113,64 @@ struct Trigger {
      */
     void loadFromConfig(const std::string& prefix);
 
-    /// @brief Represents whether this trigger is a toggle or regular control
-    enum Mode { Standard = 0, Toggle = 1 };
+    /**
+     * @brief Returns a string representation of this trigger for presenting to a user
+     *
+     */
+    std::string toString() const;
 
+    /**
+     * @brief Returns the type of input that triggers this
+     *
+     */
+    Type triggerType() const;
+
+    /**
+     * @brief Returns whether or not this input is toggled or needs to be held
+     *
+     */
+    bool isToggle() const;
+
+    /**
+     * @brief Set whether or not this input is toggled or needs to be held
+     *
+     * @param toggle True to toggle, false to hold to stay active
+     */
+    void setIsToggle(bool toggle);
+
+    /**
+     * @brief Returns the key that triggers this input
+     *
+     */
+    sf::Keyboard::Key keyTrigger() const;
+
+    /**
+     * @brief Returns the mouse button that triggers this input
+     *
+     */
+    sf::Mouse::Button mouseButtonTrigger() const;
+
+    /**
+     * @brief Returns the mouse wheel that triggers this input
+     *
+     */
+    sf::Mouse::Wheel mouseWheelTrigger() const;
+
+    /**
+     * @brief Returns the joystick button that triggers this input
+     *
+     */
+    unsigned int joystickButtonTrigger() const;
+
+    /**
+     * @brief Returns the joystick axis that triggers this input
+     *
+     */
+    sf::Joystick::Axis joystickAxisTrigger() const;
+
+private:
     Type type;
-    Mode mode;
+    bool toggle;
     union {
         sf::Keyboard::Key key;
         sf::Mouse::Button mouseButton;
@@ -124,11 +178,9 @@ struct Trigger {
         unsigned int joystickButton;
         sf::Joystick::Axis joystickAxis;
     };
-
-private:
     bool nowActive;
 
-    void makeOrtoggleActive();
+    bool makeOrtoggleActive();
     void makeInactive(); // no effect if in toggle mode
 };
 

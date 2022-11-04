@@ -8,5 +8,4 @@ target_sources(BLIB PUBLIC
     Listener.hpp
     MovementControl.hpp
     Trigger.hpp
-    TriggerControl.hpp
 )

@@ -42,9 +42,9 @@ T magnitude(const sf::Vector2<T>& vec) {
  */
 template<typename T>
 void normalize(sf::Vector2<T>& vec) {
-    const T magSqrd = magnitudeSquared<T>(vec);
-    vec.x           = (vec.x * vec.x) / magSqrd;
-    vec.y           = (vec.y * vec.y) / magSqrd;
+    const T mag = magnitude<T>(vec);
+    vec.x /= mag;
+    vec.y /= mag;
 }
 
 /**
@@ -56,8 +56,8 @@ void normalize(sf::Vector2<T>& vec) {
  */
 template<typename T>
 sf::Vector2<T> normalized(const sf::Vector2<T>& vec) {
-    const T magSqrd = magnitudeSquared<T>(vec);
-    return {(vec.x * vec.x) / magSqrd, (vec.y * vec.y) / magSqrd};
+    const T mag = magnitude<T>(vec);
+    return {vec.x / mag, vec.y / mag};
 }
 
 /**
@@ -129,10 +129,10 @@ T magnitude(const sf::Vector3<T>& vec) {
  */
 template<typename T>
 void normalize(sf::Vector3<T>& vec) {
-    const T magSqrd = magnitudeSquared<T>(vec);
-    vec.x           = (vec.x * vec.x) / magSqrd;
-    vec.y           = (vec.y * vec.y) / magSqrd;
-    vec.z           = (vec.z * vec.z) / magSqrd;
+    const T mag = magnitude<T>(vec);
+    vec.x /= mag;
+    vec.y /= mag;
+    vec.z /= mag;
 }
 
 /**
@@ -144,8 +144,8 @@ void normalize(sf::Vector3<T>& vec) {
  */
 template<typename T>
 sf::Vector3<T> normalized(const sf::Vector3<T>& vec) {
-    const T magSqrd = magnitudeSquared<T>(vec);
-    return {(vec.x * vec.x) / magSqrd, (vec.y * vec.y) / magSqrd, (vec.z * vec.z) / magSqrd};
+    const T mag = magnitude<T>(vec);
+    return {vec.x / mag, vec.y / mag, vec.z / mag};
 }
 
 /**

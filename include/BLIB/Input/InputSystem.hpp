@@ -40,9 +40,8 @@ public:
      * @brief Configures the given control to a trigger control with the given policy
      *
      * @param controlIndex The control to make a trigger control
-     * @param policy The policy to set
      */
-    void configureTriggerControl(unsigned int controlIndex, DispatchPolicy policy);
+    void configureTriggerControl(unsigned int controlIndex);
 
     /**
      * @brief Configures the given control to a directional control
@@ -108,9 +107,12 @@ public:
     void update();
 
 private:
-    std::vector<std::pair<Control::Type, DispatchPolicy>> controlTemplate;
+    engine::Engine& engine;
+    std::vector<Control::Type> controlTemplate;
     std::vector<std::unique_ptr<Actor>> actors;
     sf::Vector2f mouseVector;
+
+    virtual void observe(const sf::Event& event) override;
 };
 
 } // namespace input

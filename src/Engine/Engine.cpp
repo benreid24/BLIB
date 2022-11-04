@@ -12,9 +12,11 @@ namespace engine
 {
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
-, renderWindow(nullptr) {
+, renderWindow(nullptr)
+, input(*this) {
     entityRegistry.setEventDispatcher(engineEventBus);
     settings.syncToConfig();
+    eventBus().subscribe(&input);
 }
 
 Engine::~Engine() {
@@ -35,6 +37,8 @@ entity::Registry& Engine::entities() { return entityRegistry; }
 script::Manager& Engine::scriptManager() { return engineScriptManager; }
 
 render::RenderSystem& Engine::renderSystem() { return renderingSystem; }
+
+input::InputSystem& Engine::inputSystem() { return input; }
 
 const Settings& Engine::settings() const { return engineSettings; }
 

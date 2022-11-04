@@ -1,4 +1,4 @@
-#include <Input/Encoding.hpp>
+#include <Input/Encoder.hpp>
 
 #include <unordered_map>
 
@@ -112,14 +112,19 @@ void init() {
 } // namespace
 
 Encoder::ControlInfo Encoder::fromString(const std::string& s) {
+    if (!inited) init();
+
     const auto keyIt = strKeymap.find(s);
     if (keyIt != strKeymap.end()) { return ControlInfo{keyIt->second}; }
 
     const auto mbutIt = strMouseButtonMap.find(s);
     if (mbutIt != strMouseButtonMap.end()) { return ControlInfo{mbutIt->second}; }
 
-    const auto axIt = strAxisMap.find(s);
+    auto axIt = strAxisMap.find(s);
     if (axIt != strAxisMap.end()) { return ControlInfo{axIt->second}; }
+
+    axIt = strAxisMap.find(s.substr(1));
+    if (axIt != strAxisMap.end()) { return ControlInfo(axIt->second, s[0] == '+'); }
 
     if (s == VerticalWheelUp) { return ControlInfo{sf::Mouse::VerticalWheel, true}; }
     if (s == VerticalWheelDown) { return ControlInfo{sf::Mouse::VerticalWheel, false}; }
@@ -137,6 +142,8 @@ Encoder::ControlInfo Encoder::fromString(const std::string& s) {
 }
 
 std::string Encoder::toString(const ControlInfo& ctrl) {
+    if (!inited) init();
+
     switch (ctrl.type) {
     case ControlInfo::Key:
         return keymap[ctrl.key];
@@ -149,6 +156,10 @@ std::string Encoder::toString(const ControlInfo& ctrl) {
                                                              HorizontalWheelLeft;
     case ControlInfo::JoystickAxis:
         return axisMap[ctrl.joystickAxis];
+    case ControlInfo::JoystickAxisPositive:
+        return "+" + axisMap[ctrl.joystickAxis];
+    case ControlInfo::JoystickAxisNegative:
+        return "-" + axisMap[ctrl.joystickAxis];
     case ControlInfo::JoystickButton:
         return JoystickButtonPrefix + std::to_string(ctrl.joystickButton);
     case ControlInfo::Invalid:
@@ -178,6 +189,10 @@ Encoder::ControlInfo::ControlInfo(unsigned int jbut)
 
 Encoder::ControlInfo::ControlInfo(sf::Joystick::Axis axis)
 : type(JoystickAxis)
+, joystickAxis(axis) {}
+
+Encoder::ControlInfo::ControlInfo(sf::Joystick::Axis axis, bool pos)
+: type(pos ? JoystickAxisPositive : JoystickAxisNegative)
 , joystickAxis(axis) {}
 
 } // namespace input

@@ -29,27 +29,54 @@ public:
     ~Actor();
 
     /**
-     * @brief Sets which joystick this actor will receive input from
+     * @brief Sets which joystick this actor will receive input from. If this is not called then the
+     *        Actor will listen to all joysticks
      *
      * @param joystickId The joystick index from SFML
      */
     void assignJoystick(unsigned int joystickId);
 
     /**
-     * @brief Update the trigger for the given control. Control count is set by InputListener
+     * @brief Returns a reference to the given trigger control
      *
-     * @param controlIndex The control to set. In range [0, controlCount)
-     * @param newTrigger The new trigger for the control
+     * @param controlIndex The trigger control to get. In range [0, controlCount)
      */
-    void updateControl(unsigned int controlIndex, Trigger newTrigger);
+    Trigger& getTriggerControl(unsigned int controlIndex);
 
     /**
-     * @brief Fetches the given control. Control count is set by InputListener
+     * @brief Returns a reference to the given movement control
      *
-     * @param controlIndex The control to get. In range [0, controlCount)
-     * @return const Control& The given control
+     * @param controlIndex The movement control to get. In range [0, controlCount)
      */
-    const Control& getControl(unsigned int controlIndex) const;
+    MovementControl& getMovementControl(unsigned int controlIndex);
+
+    /**
+     * @brief Returns a reference to the given directional control
+     *
+     * @param controlIndex The directional control to get. In range [0, controlCount)
+     */
+    DirectionalControl& getDirectionalControl(unsigned int controlIndex);
+
+    /**
+     * @brief Returns a reference to the given trigger control
+     *
+     * @param controlIndex The trigger control to get. In range [0, controlCount)
+     */
+    const Trigger& getTriggerControl(unsigned int controlIndex) const;
+
+    /**
+     * @brief Returns a reference to the given movement control
+     *
+     * @param controlIndex The movement control to get. In range [0, controlCount)
+     */
+    const MovementControl& getMovementControl(unsigned int controlIndex) const;
+
+    /**
+     * @brief Returns a reference to the given directional control
+     *
+     * @param controlIndex The directional control to get. In range [0, controlCount)
+     */
+    const DirectionalControl& getDirectionalControl(unsigned int controlIndex) const;
 
     /**
      * @brief Returns whether or not the given control is active. Works only for trigger controls
@@ -66,12 +93,6 @@ public:
      * @return sf::Vector2f The control value. Directional controls will be normalized
      */
     sf::Vector2f readControl(unsigned int controlIndex) const;
-
-    /**
-     * @brief Called by the engine once per update frame. Handles repeating input dispatches
-     *
-     */
-    void update();
 
     /**
      * @brief Adds a new input listener
@@ -93,21 +114,18 @@ public:
      * @param oldListener The listener to replace
      * @param newListener The listener to take its place
      */
-    void replaceListener(const input::Listener& oldListener, input::Listener& newListener);
+    void replaceListener(input::Listener& oldListener, input::Listener& newListener);
 
 private:
     InputSystem& owner;
     unsigned int joystick;
     std::vector<Control> controls;
     std::vector<Listener*> listeners;
-    std::stack<Control*, std::vector<Control*>> dedupControls;
 
-    void clearTriggerMap(Trigger trigger);
-    void setTriggerMap(Control& control);
-    void dispatch(unsigned int ctrl);
+    void dispatch(unsigned int ctrl, DispatchType dtype, bool onEvent);
 
     // meant to be called by InputSystem
-    Actor(InputSystem& owner, const std::vector<std::pair<Control::Type, DispatchPolicy>>& schema);
+    Actor(InputSystem& owner, const std::vector<Control::Type>& schema);
     void process(const sf::Event& event);
     void update();
 
