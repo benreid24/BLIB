@@ -27,7 +27,7 @@ struct TestListener : public Listener<int> {
 TEST(EventClassGuard, Subscribe) {
     Dispatcher d;
     TestListener l;
-    ClassGuard<int> g(&l);
+    ListenerGuard<int> g(&l);
 
     g.subscribe(d);
     d.dispatch<int>(5);
@@ -41,7 +41,7 @@ TEST(EventClassGuard, Subscribe) {
 TEST(EventClassGuard, Unsubscribe) {
     Dispatcher d;
     TestListener l;
-    ClassGuard<int> g(&l);
+    ListenerGuard<int> g(&l);
 
     g.subscribe(d);
     d.dispatch<int>(5);
@@ -58,7 +58,7 @@ TEST(EventClassGuard, Destruct) {
     TestListener l;
 
     {
-        ClassGuard<int> g(&l);
+        ListenerGuard<int> g(&l);
         g.subscribe(d);
         d.dispatch<int>(5);
         d.dispatch<int>(10);

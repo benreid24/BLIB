@@ -1,5 +1,5 @@
-#ifndef BLIB_EVENTS_CLASSGUARD_HPP
-#define BLIB_EVENTS_CLASSGUARD_HPP
+#ifndef BLIB_EVENTS_LISTENERGUARD_HPP
+#define BLIB_EVENTS_LISTENERGUARD_HPP
 
 #include <BLIB/Events/Dispatcher.hpp>
 
@@ -9,14 +9,13 @@ namespace event
 {
 /**
  * @brief Version of scope guard but for classes. Classes that subscribe to event buses through a
- *        member ClassGuard will automatically unsubscribe when they are destructed. The catch is
- *        that they may only subscribe to a single event bus at a time
+ *        member ListenerGuard will automatically unsubscribe when they are destructed
  *
  * @tparam TEvents The types of events to subscribe to
  * @ingroup Events
  */
 template<typename... TEvents>
-class ClassGuard {
+class ListenerGuard {
 public:
     /**
      * @brief Creates an empty guard
@@ -24,13 +23,13 @@ public:
      * @param owner The owning class of this guard
      *
      */
-    ClassGuard(Listener<TEvents...>* owner);
+    ListenerGuard(Listener<TEvents...>* owner);
 
     /**
      * @brief Unsubscribes if subscribed
      *
      */
-    ~ClassGuard();
+    ~ListenerGuard();
 
     /**
      * @brief Subscribes the owner to the given bus
@@ -53,24 +52,24 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename... TEvents>
-ClassGuard<TEvents...>::ClassGuard(Listener<TEvents...>* owner)
+ListenerGuard<TEvents...>::ListenerGuard(Listener<TEvents...>* owner)
 : listener(owner)
 , dispatcher(nullptr) {}
 
 template<typename... TEvents>
-ClassGuard<TEvents...>::~ClassGuard() {
+ListenerGuard<TEvents...>::~ListenerGuard() {
     unsubscribe();
 }
 
 template<typename... TEvents>
-void ClassGuard<TEvents...>::subscribe(Dispatcher& bus) {
+void ListenerGuard<TEvents...>::subscribe(Dispatcher& bus) {
     unsubscribe();
     dispatcher = &bus;
     bus.subscribe(listener);
 }
 
 template<typename... TEvents>
-void ClassGuard<TEvents...>::unsubscribe() {
+void ListenerGuard<TEvents...>::unsubscribe() {
     if (dispatcher) {
         dispatcher->unsubscribe(listener);
         dispatcher = nullptr;
