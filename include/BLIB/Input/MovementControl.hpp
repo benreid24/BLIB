@@ -27,29 +27,12 @@ public:
     enum struct Type { Joystick, Triggers };
 
     /**
-     * @brief Defaults to keyboard type with WASD
+     * @brief Creates the movement control with the given mode
+     *
+     * @param joystickMode True to be a joystick control, false for keyboard and mouse
      *
      */
-    MovementControl();
-
-    /**
-     * @brief Construct a new Movement Control from 4 triggers
-     *
-     * @param up The up/forward control
-     * @param right The right control
-     * @param down The down/backward control
-     * @param left The left control
-     */
-    MovementControl(const Trigger& up, const Trigger& right, const Trigger& down,
-                    const Trigger& left);
-
-    /**
-     * @brief Construct a new Movement Control from a joystick axis pair
-     *
-     * @param vertical The vertical axis control
-     * @param horizontal The horizontal axis control
-     */
-    MovementControl(sf::Joystick::Axis vertical, sf::Joystick::Axis horizontal);
+    MovementControl(bool joystickMode);
 
     /**
      * @brief Determines what direction the given event activated, if any
@@ -154,6 +137,8 @@ private:
         Trigger right;
         Trigger down;
         Trigger left;
+
+        KeyConfig(bool jm);
     };
 
     Type type;

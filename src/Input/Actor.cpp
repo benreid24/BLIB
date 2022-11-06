@@ -7,11 +7,27 @@ namespace bl
 {
 namespace input
 {
+namespace
+{
+std::string kbmPrefix(const std::string& prefix, unsigned int i) {
+    return prefix + ".control-" + std::to_string(i) + ".kbm";
+}
+
+std::string joystickPrefix(const std::string& prefix, unsigned int i) {
+    return prefix + ".control-" + std::to_string(i) + ".joystick";
+}
+} // namespace
+
 Actor::Actor(InputSystem& owner, const std::vector<Control::Type>& schema)
 : owner(owner)
-, joystick(sf::Joystick::Count) {
-    controls.reserve(schema.size());
-    for (const Control::Type ctype : schema) { controls.emplace_back(ctype); }
+, joystick(sf::Joystick::Count)
+, activeControls(&kbmControls) {
+    kbmControls.reserve(schema.size());
+    joystickControls.reserve(schema.size());
+    for (const Control::Type ctype : schema) {
+        kbmControls.emplace_back(ctype, false);
+        joystickControls.emplace_back(ctype, true);
+    }
     listeners.reserve(8);
 }
 
@@ -21,38 +37,66 @@ Actor::~Actor() {
 
 void Actor::assignJoystick(unsigned int j) { joystick = j; }
 
-Trigger& Actor::getTriggerControl(unsigned int c) { return controls[c].triggerControl; }
+Trigger& Actor::getKBMTriggerControl(unsigned int c) { return kbmControls[c].triggerControl; }
 
-const Trigger& Actor::getTriggerControl(unsigned int c) const { return controls[c].triggerControl; }
-
-MovementControl& Actor::getMovementControl(unsigned int c) { return controls[c].movementControl; }
-
-const MovementControl& Actor::getMovementControl(unsigned int c) const {
-    return controls[c].movementControl;
+const Trigger& Actor::getKBMTriggerControl(unsigned int c) const {
+    return kbmControls[c].triggerControl;
 }
 
-DirectionalControl& Actor::getDirectionalControl(unsigned int c) {
-    return controls[c].directionalControl;
+MovementControl& Actor::getKBMMovementControl(unsigned int c) {
+    return kbmControls[c].movementControl;
 }
 
-const DirectionalControl& Actor::getDirectionalControl(unsigned int c) const {
-    return controls[c].directionalControl;
+const MovementControl& Actor::getKBMMovementControl(unsigned int c) const {
+    return kbmControls[c].movementControl;
+}
+
+DirectionalControl& Actor::getKBMDirectionalControl(unsigned int c) {
+    return kbmControls[c].directionalControl;
+}
+
+const DirectionalControl& Actor::getKBMDirectionalControl(unsigned int c) const {
+    return kbmControls[c].directionalControl;
+}
+
+Trigger& Actor::getJoystickTriggerControl(unsigned int c) {
+    return joystickControls[c].triggerControl;
+}
+
+const Trigger& Actor::getJoystickTriggerControl(unsigned int c) const {
+    return joystickControls[c].triggerControl;
+}
+
+MovementControl& Actor::getJoystickMovementControl(unsigned int c) {
+    return joystickControls[c].movementControl;
+}
+
+const MovementControl& Actor::getJoystickMovementControl(unsigned int c) const {
+    return joystickControls[c].movementControl;
+}
+
+DirectionalControl& Actor::getJoystickDirectionalControl(unsigned int c) {
+    return joystickControls[c].directionalControl;
+}
+
+const DirectionalControl& Actor::getJoystickDirectionalControl(unsigned int c) const {
+    return joystickControls[c].directionalControl;
 }
 
 bool Actor::controlActive(unsigned int c) const {
-    if (controls[c].type != Control::Type::SingleTrigger) {
+    if ((*activeControls)[c].type != Control::Type::SingleTrigger) {
         BL_LOG_ERROR << "Reading bad control value: " << c;
         return false;
     }
-    return controls[c].triggerControl.active();
+    return (*activeControls)[c].triggerControl.active();
 }
 
 sf::Vector2f Actor::readControl(unsigned int c) const {
-    switch (controls[c].type) {
+    switch ((*activeControls)[c].type) {
     case Control::Type::Directional:
-        return controls[c].directionalControl.normalizedDirection;
+        return (*activeControls)[c].directionalControl.normalizedDirection;
     case Control::Type::Movement:
-        return controls[c].movementControl.readValue();
+        return (*activeControls)[c].movementControl.readValue();
     default:
         BL_LOG_ERROR << "Reading bad control value: " << c;
         return {0.f, 0.f};
@@ -60,8 +104,8 @@ sf::Vector2f Actor::readControl(unsigned int c) const {
 }
 
 void Actor::update() {
-    for (unsigned int i = 0; i < controls.size(); ++i) {
-        const Control& ctrl = controls[i];
+    for (unsigned int i = 0; i < (*activeControls).size(); ++i) {
+        const Control& ctrl = (*activeControls)[i];
 
         switch (ctrl.type) {
         case Control::Type::SingleTrigger:
@@ -124,23 +168,24 @@ void Actor::dispatch(unsigned int ctrl, DispatchType dt, bool onEvent) {
 }
 
 void Actor::process(const sf::Event& event) {
-    // filter joystick events if listening to specific joystick
-    if (joystick < sf::Joystick::Count) {
-        switch (event.type) {
-        case sf::Event::JoystickButtonPressed:
-        case sf::Event::JoystickButtonReleased:
-            if (event.joystickButton.joystickId != joystick) return;
-            break;
-        case sf::Event::JoystickMoved:
-            if (event.joystickMove.joystickId != joystick) return;
-            break;
-        default:
-            break;
-        }
+    // determine if keyboard or controller is being used
+    switch (event.type) {
+    case sf::Event::JoystickButtonPressed:
+    case sf::Event::JoystickButtonReleased:
+        if (joystick < sf::Joystick::Count && event.joystickButton.joystickId != joystick) return;
+        activeControls = &joystickControls;
+        break;
+    case sf::Event::JoystickMoved:
+        if (joystick < sf::Joystick::Count && event.joystickMove.joystickId != joystick) return;
+        activeControls = &joystickControls;
+        break;
+    default:
+        break;
     }
 
-    for (unsigned int i = 0; i < controls.size(); ++i) {
-        Control& ctrl = controls[i];
+    // process control
+    for (unsigned int i = 0; i < (*activeControls).size(); ++i) {
+        Control& ctrl = (*activeControls)[i];
 
         switch (ctrl.type) {
         case Control::Type::SingleTrigger:
@@ -160,6 +205,24 @@ void Actor::process(const sf::Event& event) {
         default:
             break;
         }
+    }
+}
+
+void Actor::saveToConfig(const std::string& prefix) const {
+    for (unsigned int i = 0; i < kbmControls.size(); ++i) {
+        kbmControls[i].saveToConfig(kbmPrefix(prefix, i));
+    }
+    for (unsigned int i = 0; i < joystickControls.size(); ++i) {
+        joystickControls[i].saveToConfig(joystickPrefix(prefix, i));
+    }
+}
+
+void Actor::loadFromConfig(const std::string& prefix) {
+    for (unsigned int i = 0; i < kbmControls.size(); ++i) {
+        kbmControls[i].loadFromConfig(kbmPrefix(prefix, i));
+    }
+    for (unsigned int i = 0; i < joystickControls.size(); ++i) {
+        joystickControls[i].loadFromConfig(joystickPrefix(prefix, i));
     }
 }
 

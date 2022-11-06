@@ -23,25 +23,12 @@ std::string horKey(const std::string& prefix) { return prefix + ".horizontal"; }
 std::string vertKey(const std::string& prefix) { return prefix + ".vertical"; }
 } // namespace
 
-MovementControl::MovementControl()
-: MovementControl(Trigger(sf::Keyboard::W), Trigger(sf::Keyboard::D), Trigger(sf::Keyboard::S),
-                  Trigger(sf::Keyboard::A)) {}
-
-MovementControl::MovementControl(const Trigger& up, const Trigger& right, const Trigger& down,
-                                 const Trigger& left)
-: type(Type::Triggers) {
-    new (&keys) KeyConfig();
-    keys.up    = up;
-    keys.right = right;
-    keys.down  = down;
-    keys.left  = left;
-}
-
-MovementControl::MovementControl(sf::Joystick::Axis hor, sf::Joystick::Axis vert)
-: type(Type::Joystick) {
-    new (&joystick) Joystick();
-    joystick.horizontalAxis = hor;
-    joystick.verticalAxis   = vert;
+MovementControl::MovementControl(bool jm)
+: type(jm ? Type::Joystick : Type::Triggers) {
+    if (jm) { new (&joystick) Joystick(); }
+    else {
+        new (&keys) KeyConfig(jm);
+    }
 }
 
 DispatchType MovementControl::process(const sf::Event& event) {
@@ -135,6 +122,12 @@ void MovementControl::loadFromConfig(const std::string& prefix) {
             Encoder::fromString(Config::get<std::string>(vertKey(prefix))).joystickAxis;
     }
 }
+
+MovementControl::KeyConfig::KeyConfig(bool jm)
+: up(jm)
+, right(jm)
+, down(jm)
+, left(jm) {}
 
 } // namespace input
 } // namespace bl

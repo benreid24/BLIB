@@ -19,8 +19,8 @@ std::string horKey(const std::string& prefix) { return prefix + ".horizontal"; }
 std::string vertKey(const std::string& prefix) { return prefix + ".vertical"; }
 } // namespace
 
-DirectionalControl::DirectionalControl()
-: type(Type::Mouse) {}
+DirectionalControl::DirectionalControl(bool jm)
+: type(jm ? Type::Joystick : Type::Mouse) {}
 
 bool DirectionalControl::process(const InputSystem& system, const sf::Event& event) {
     if (type == Type::Mouse && event.type == sf::Event::MouseMoved) {

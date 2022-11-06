@@ -15,40 +15,56 @@ std::string toggleKey(const std::string& prefix) { return prefix + ".toggle"; }
 std::string inputKey(const std::string& prefix) { return prefix + ".trigger"; }
 } // namespace
 
-Trigger::Trigger()
-: type(Type::Invalid)
+Trigger::Trigger(bool jm)
+: joystickMode(jm)
+, type(Type::Invalid)
 , toggle(false)
 , nowActive(false) {}
 
-Trigger::Trigger(sf::Keyboard::Key key)
-: type(Type::Key)
-, toggle(false)
-, key(key)
-, nowActive(false) {}
+void Trigger::triggerOnKey(sf::Keyboard::Key k) {
+    if (joystickMode) {
+        BL_LOG_ERROR << "Trying to set Key trigger on joystick control";
+        return;
+    }
+    key  = k;
+    type = Type::Key;
+}
 
-Trigger::Trigger(sf::Mouse::Button mbut)
-: type(Type::MouseButton)
-, toggle(false)
-, mouseButton(mbut)
-, nowActive(false) {}
+void Trigger::triggerOnMouseButton(sf::Mouse::Button mb) {
+    if (joystickMode) {
+        BL_LOG_ERROR << "Trying to set MouseButton trigger on joystick control";
+        return;
+    }
+    mouseButton = mb;
+    type        = Type::MouseButton;
+}
 
-Trigger::Trigger(sf::Mouse::Wheel wheel, bool up)
-: type(up ? Type::MouseWheelUp : Type::MouseWheelDown)
-, toggle(false)
-, mouseWheel(wheel)
-, nowActive(false) {}
+void Trigger::triggerOnMouseWheel(sf::Mouse::Wheel w, bool up) {
+    if (joystickMode) {
+        BL_LOG_ERROR << "Trying to set MouseWheel trigger on joystick control";
+        return;
+    }
+    mouseWheel = w;
+    type       = up ? Type::MouseWheelUp : Type::MouseWheelDown;
+}
 
-Trigger::Trigger(unsigned int jbut)
-: type(Type::JoystickButton)
-, toggle(false)
-, joystickButton(jbut)
-, nowActive(false) {}
+void Trigger::triggerOnJoystickButton(unsigned int but) {
+    if (!joystickMode) {
+        BL_LOG_ERROR << "Trying to set JoystickButton trigger on keyboard+mouse control";
+        return;
+    }
+    joystickButton = but;
+    type           = Type::JoystickButton;
+}
 
-Trigger::Trigger(sf::Joystick::Axis axis, bool pos)
-: type(pos ? Type::JoystickPositive : Type::JoystickNegative)
-, toggle(false)
-, joystickAxis(axis)
-, nowActive(false) {}
+void Trigger::triggerOnJoystickAxis(sf::Joystick::Axis a, bool pos) {
+    if (!joystickMode) {
+        BL_LOG_ERROR << "Trying to set JoystickAxis trigger on keyboard+mouse control";
+        return;
+    }
+    joystickAxis = a;
+    type         = pos ? Type::JoystickPositive : Type::JoystickNegative;
+}
 
 bool Trigger::active() const { return nowActive; }
 
@@ -132,26 +148,31 @@ bool Trigger::process(const sf::Event& event) {
 bool Trigger::configureFromEvent(const sf::Event& event) {
     switch (event.type) {
     case sf::Event::KeyPressed:
+        if (joystickMode) return false;
         type = Type::Key;
         key  = event.key.code;
         return true;
 
     case sf::Event::MouseButtonPressed:
+        if (joystickMode) return false;
         type        = Type::MouseButton;
         mouseButton = event.mouseButton.button;
         return true;
 
     case sf::Event::MouseWheelScrolled:
+        if (joystickMode) return false;
         type       = event.mouseWheelScroll.delta > 0.f ? Type::MouseWheelUp : Type::MouseWheelDown;
         mouseWheel = event.mouseWheelScroll.wheel;
         return true;
 
     case sf::Event::JoystickButtonPressed:
+        if (!joystickMode) return false;
         type           = Type::JoystickButton;
         joystickButton = event.joystickButton.button;
         return true;
 
     case sf::Event::JoystickMoved:
+        if (!joystickMode) return false;
         if (event.joystickMove.position >= StickThreshold) {
             type         = Type::JoystickPositive;
             joystickAxis = event.joystickMove.axis;

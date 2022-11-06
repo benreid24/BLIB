@@ -106,6 +106,18 @@ public:
      */
     void update();
 
+    /**
+     * @brief Saves the control config to the engine configuration store
+     *
+     */
+    void saveToConfig() const;
+
+    /**
+     * @brief Loads the control config from the engine configuration store
+     *
+     */
+    void loadFromConfig();
+
 private:
     engine::Engine& engine;
     std::vector<Control::Type> controlTemplate;

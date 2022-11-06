@@ -4,18 +4,18 @@ namespace bl
 {
 namespace input
 {
-Control::Control(Type t)
+Control::Control(Type t, bool jm)
 : type(t) {
     switch (type) {
     case Type::Movement:
-        new (&movementControl) MovementControl();
+        new (&movementControl) MovementControl(jm);
         break;
     case Type::Directional:
-        new (&directionalControl) DirectionalControl();
+        new (&directionalControl) DirectionalControl(jm);
         break;
     case Type::SingleTrigger:
     default:
-        new (&triggerControl) Trigger();
+        new (&triggerControl) Trigger(jm);
         break;
     }
 }

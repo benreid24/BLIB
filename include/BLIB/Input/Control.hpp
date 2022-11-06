@@ -34,8 +34,9 @@ struct Control {
      * @brief Construct a new Control of the given type
      *
      * @param type The type of control to create
+     * @param joystickMode True to be a joystick control, false for keyboard and mouse
      */
-    Control(Type type);
+    Control(Type type, bool joystickMode);
 
     /**
      * @brief Saves this control config to the engine configuration store

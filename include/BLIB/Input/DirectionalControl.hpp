@@ -26,10 +26,12 @@ struct DirectionalControl {
     sf::Vector2f normalizedDirection;
 
     /**
-     * @brief Defaults to mouse control
+     * @brief Creates the directional control in either mouse or joystick mode
+     *
+     * @param joystickMode True to be a joystick control, false for keyboard and mouse
      *
      */
-    DirectionalControl();
+    DirectionalControl(bool joystickMode);
 
     /**
      * @brief Processes the given event to potentially update the direction being inputted

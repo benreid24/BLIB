@@ -37,37 +37,39 @@ struct Trigger {
     /**
      * @brief Creates an empty invalid Trigger
      *
+     * @param joystickMode True to be a joystick control, false for keyboard and mouse
+     *
      */
-    Trigger();
+    Trigger(bool joystickMode);
 
     /**
-     * @brief Creates a Trigger for the given key
+     * @brief Updates to be triggerd by the given key
      *
      * @param key The key to be active on
      */
-    Trigger(sf::Keyboard::Key key);
+    void triggerOnKey(sf::Keyboard::Key key);
 
     /**
-     * @brief Creates a Trigger for the given mouse button
+     * @brief Updates to be triggered by the given mouse button
      *
      * @param button The mouse button to be active on
      */
-    Trigger(sf::Mouse::Button button);
+    void triggerOnMouseButton(sf::Mouse::Button button);
 
     /**
-     * @brief Creates a trigger for mouse wheel inputs
+     * @brief Trigger for mouse wheel inputs.
      *
-     * @param wheel The mouse wheel to trigger on
-     * @param upOrRight Whether the trigger should activate on increasing (up) or decreasing wheel
+     * @param wheel The wheel to trigger on
+     * @param upOrRight True to trigger on positive input, false for negative
      */
-    Trigger(sf::Mouse::Wheel wheel, bool upOrRight);
+    void triggerOnMouseWheel(sf::Mouse::Wheel wheel, bool upOrRight);
 
     /**
-     * @brief Creates a trigger for the given joystick button
+     * @brief Triggers for the given joystick button
      *
      * @param joystickButton The button to trigger on
      */
-    Trigger(unsigned int joystickButton);
+    void triggerOnJoystickButton(unsigned int joystickButton);
 
     /**
      * @brief Creates a trigger for joystick stick positions
@@ -75,7 +77,7 @@ struct Trigger {
      * @param axis The axis to trigger on
      * @param positive Whether to trigger on positive or negative stick input
      */
-    Trigger(sf::Joystick::Axis axis, bool positive);
+    void triggerOnJoystickAxis(sf::Joystick::Axis axis, bool positive);
 
     /**
      * @brief Returns whether or not this trigger is currently active
@@ -169,6 +171,7 @@ struct Trigger {
     sf::Joystick::Axis joystickAxisTrigger() const;
 
 private:
+    const bool joystickMode;
     Type type;
     bool toggle;
     union {

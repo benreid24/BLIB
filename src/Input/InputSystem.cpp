@@ -7,6 +7,11 @@ namespace bl
 {
 namespace input
 {
+namespace
+{
+std::string actorPrefix(unsigned int i) { return "blib.input.player." + std::to_string(i); }
+} // namespace
+
 InputSystem::InputSystem(engine::Engine& engine)
 : engine(engine) {}
 
@@ -52,6 +57,14 @@ void InputSystem::observe(const sf::Event& event) {
     }
 
     for (auto& ap : actors) { ap->process(event); }
+}
+
+void InputSystem::saveToConfig() const {
+    for (unsigned int i = 0; i < actors.size(); ++i) { actors[i]->saveToConfig(actorPrefix(i)); }
+}
+
+void InputSystem::loadFromConfig() {
+    for (unsigned int i = 0; i < actors.size(); ++i) { actors[i]->loadFromConfig(actorPrefix(i)); }
 }
 
 } // namespace input

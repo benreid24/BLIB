@@ -41,42 +41,84 @@ public:
      *
      * @param controlIndex The trigger control to get. In range [0, controlCount)
      */
-    Trigger& getTriggerControl(unsigned int controlIndex);
+    Trigger& getKBMTriggerControl(unsigned int controlIndex);
 
     /**
      * @brief Returns a reference to the given movement control
      *
      * @param controlIndex The movement control to get. In range [0, controlCount)
      */
-    MovementControl& getMovementControl(unsigned int controlIndex);
+    MovementControl& getKBMMovementControl(unsigned int controlIndex);
 
     /**
      * @brief Returns a reference to the given directional control
      *
      * @param controlIndex The directional control to get. In range [0, controlCount)
      */
-    DirectionalControl& getDirectionalControl(unsigned int controlIndex);
+    DirectionalControl& getKBMDirectionalControl(unsigned int controlIndex);
 
     /**
      * @brief Returns a reference to the given trigger control
      *
      * @param controlIndex The trigger control to get. In range [0, controlCount)
      */
-    const Trigger& getTriggerControl(unsigned int controlIndex) const;
+    const Trigger& getKBMTriggerControl(unsigned int controlIndex) const;
 
     /**
      * @brief Returns a reference to the given movement control
      *
      * @param controlIndex The movement control to get. In range [0, controlCount)
      */
-    const MovementControl& getMovementControl(unsigned int controlIndex) const;
+    const MovementControl& getKBMMovementControl(unsigned int controlIndex) const;
 
     /**
      * @brief Returns a reference to the given directional control
      *
      * @param controlIndex The directional control to get. In range [0, controlCount)
      */
-    const DirectionalControl& getDirectionalControl(unsigned int controlIndex) const;
+    const DirectionalControl& getKBMDirectionalControl(unsigned int controlIndex) const;
+
+    /**
+     * @brief Returns a reference to the given trigger control
+     *
+     * @param controlIndex The trigger control to get. In range [0, controlCount)
+     */
+    Trigger& getJoystickTriggerControl(unsigned int controlIndex);
+
+    /**
+     * @brief Returns a reference to the given movement control
+     *
+     * @param controlIndex The movement control to get. In range [0, controlCount)
+     */
+    MovementControl& getJoystickMovementControl(unsigned int controlIndex);
+
+    /**
+     * @brief Returns a reference to the given directional control
+     *
+     * @param controlIndex The directional control to get. In range [0, controlCount)
+     */
+    DirectionalControl& getJoystickDirectionalControl(unsigned int controlIndex);
+
+    /**
+     * @brief Returns a reference to the given trigger control
+     *
+     * @param controlIndex The trigger control to get. In range [0, controlCount)
+     */
+    const Trigger& getJoystickTriggerControl(unsigned int controlIndex) const;
+
+    /**
+     * @brief Returns a reference to the given movement control
+     *
+     * @param controlIndex The movement control to get. In range [0, controlCount)
+     */
+    const MovementControl& getJoystickMovementControl(unsigned int controlIndex) const;
+
+    /**
+     * @brief Returns a reference to the given directional control
+     *
+     * @param controlIndex The directional control to get. In range [0, controlCount)
+     */
+    const DirectionalControl& getJoystickDirectionalControl(unsigned int controlIndex) const;
 
     /**
      * @brief Returns whether or not the given control is active. Works only for trigger controls
@@ -116,10 +158,26 @@ public:
      */
     void replaceListener(input::Listener& oldListener, input::Listener& newListener);
 
+    /**
+     * @brief Saves this control config to the engine configuration store
+     *
+     * @param prefix The prefix to use for keys used to save the config
+     */
+    void saveToConfig(const std::string& prefix) const;
+
+    /**
+     * @brief Loads this control config from the engine configuration store
+     *
+     * @param prefix The prefix to use for keys to laod from the config
+     */
+    void loadFromConfig(const std::string& prefix);
+
 private:
     InputSystem& owner;
     unsigned int joystick;
-    std::vector<Control> controls;
+    std::vector<Control> kbmControls;
+    std::vector<Control> joystickControls;
+    std::vector<Control>* activeControls;
     std::vector<Listener*> listeners;
 
     void dispatch(unsigned int ctrl, DispatchType dtype, bool onEvent);
