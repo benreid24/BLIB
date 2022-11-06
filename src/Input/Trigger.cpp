@@ -133,7 +133,7 @@ bool Trigger::process(const sf::Event& event) {
     case Type::JoystickNegative:
         if (event.type == sf::Event::JoystickMoved) {
             if (event.joystickMove.axis == joystickAxis) {
-                if (event.joystickMove.position <= StickThreshold) { return makeOrtoggleActive(); }
+                if (event.joystickMove.position <= -StickThreshold) { return makeOrtoggleActive(); }
                 makeInactive();
             }
         }

@@ -8,6 +8,7 @@
  */
 
 #include <BLIB/Input/Actor.hpp>
+#include <BLIB/Input/Configurator.hpp>
 #include <BLIB/Input/Control.hpp>
 #include <BLIB/Input/DirectionalControl.hpp>
 #include <BLIB/Input/DispatchType.hpp>

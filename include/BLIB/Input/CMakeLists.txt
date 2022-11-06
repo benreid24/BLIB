@@ -1,5 +1,6 @@
 target_sources(BLIB PUBLIC
     Actor.hpp
+    Configurator.hpp
     Control.hpp
     DirectionalControl.hpp
     DispatchType.hpp

@@ -1,5 +1,6 @@
 target_sources(BLIB PRIVATE
     Actor.cpp
+    Configurator.cpp
     Consts.hpp
     Control.cpp
     DirectionalControl.cpp
