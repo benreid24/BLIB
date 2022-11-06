@@ -52,6 +52,12 @@ struct Control {
      */
     void loadFromConfig(const std::string& prefix);
 
+    /**
+     * @brief Returns a user-readable string signifying what this control is
+     * 
+     */
+    std::string toString() const;
+
     Type type;
     union {
         Trigger triggerControl;

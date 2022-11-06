@@ -131,6 +131,12 @@ public:
      */
     void loadFromConfig(const std::string& prefix);
 
+    /**
+     * @brief Returns a user-readable string signifying what this control is
+     * 
+     */
+    std::string toString() const;
+
 private:
     struct KeyConfig {
         Trigger up;

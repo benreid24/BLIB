@@ -55,6 +55,12 @@ struct DirectionalControl {
      * @param prefix The prefix to use for keys to laod from the config
      */
     void loadFromConfig(const std::string& prefix);
+
+    /**
+     * @brief Returns a user-readable string signifying what this control is
+     * 
+     */
+    std::string toString() const;
 };
 
 } // namespace input

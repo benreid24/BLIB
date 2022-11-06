@@ -48,5 +48,20 @@ void Control::loadFromConfig(const std::string& prefix) {
     }
 }
 
+std::string Control::toString() const {
+    switch (type) {
+    case Type::Movement:
+        return movementControl.toString();
+        break;
+    case Type::Directional:
+        return directionalControl.toString();
+        break;
+    case Type::SingleTrigger:
+        return triggerControl.toString();
+        break;
+    }
+    return "INVALID";
+}
+
 } // namespace input
 } // namespace bl

@@ -60,5 +60,12 @@ void DirectionalControl::loadFromConfig(const std::string& prefix) {
     }
 }
 
+std::string DirectionalControl::toString() const {
+    if (type == Type::Joystick) { return joystick.toString(); }
+    else {
+        return "Mouse";
+    }
+}
+
 } // namespace input
 } // namespace bl

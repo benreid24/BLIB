@@ -1,6 +1,7 @@
 #include <BLIB/Input/Joystick.hpp>
 
 #include <BLIB/Math/Vector.hpp>
+#include <Input/Encoder.hpp>
 
 namespace bl
 {
@@ -24,6 +25,14 @@ bool Joystick::process(const sf::Event& event) {
         }
     }
     return false;
+}
+
+std::string Joystick::toString() const {
+    return Joystick::axisToString(horizontalAxis) + " / " + Joystick::axisToString(verticalAxis);
+}
+
+std::string Joystick::axisToString(sf::Joystick::Axis a) {
+    return Encoder::toString(Encoder::ControlInfo(a));
 }
 
 } // namespace input

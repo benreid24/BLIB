@@ -35,6 +35,20 @@ struct Joystick {
      * @return True if the event had an effect, false otherwise
      */
     bool process(const sf::Event& event);
+
+    /**
+     * @brief Returns a user-readable string signifying what this control is
+     *
+     */
+    std::string toString() const;
+
+    /**
+     * @brief Converts the given joystick axis to a user readable string
+     * 
+     * @param axis The axis to get the string for
+     * @return std::string A user-readable string for the given axis
+     */
+    static std::string axisToString(sf::Joystick::Axis axis);
 };
 
 } // namespace input

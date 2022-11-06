@@ -123,6 +123,16 @@ void MovementControl::loadFromConfig(const std::string& prefix) {
     }
 }
 
+std::string MovementControl::toString() const {
+    if (type == Type::Triggers) {
+        return "Up: " + keys.up.toString() + "\nRight: " + keys.right.toString() +
+               "\nDown: " + keys.down.toString() + "\nLeft: " + keys.left.toString();
+    }
+    else {
+        return joystick.toString();
+    }
+}
+
 MovementControl::KeyConfig::KeyConfig(bool jm)
 : up(jm)
 , right(jm)
