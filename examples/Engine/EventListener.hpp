@@ -6,11 +6,14 @@
 #include <BLIB/Logging.hpp>
 #include <SFML/Window.hpp>
 
-std::ostream& operator<<(std::ostream& os, const sf::Joystick::Identification& id) {
+namespace sf
+{
+inline std::ostream& operator<<(std::ostream& os, const Joystick::Identification& id) {
     os << "[ Name: '" << id.name.toAnsiString() << "' ProductId: " << id.productId
        << " VendorId: " << id.vendorId << " ]";
     return os;
 }
+} // namespace sf
 
 class EventListener : public bl::event::Listener<sf::Event> {
 public:
