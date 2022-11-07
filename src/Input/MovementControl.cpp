@@ -38,11 +38,21 @@ DispatchType MovementControl::process(const sf::Event& event) {
         if (keys.left.process(event)) return DispatchType::MovementLeft;
     }
     else if (type == Type::Joystick) {
+        const sf::Vector2f old = joystick.cachedPosition;
+
         if (joystick.process(event)) {
-            if (joystick.cachedPosition.y >= StickThreshold) return DispatchType::MovementUp;
-            if (joystick.cachedPosition.y <= StickThreshold) return DispatchType::MovementDown;
-            if (joystick.cachedPosition.x >= StickThreshold) return DispatchType::MovementRight;
-            if (joystick.cachedPosition.x <= StickThreshold) return DispatchType::MovementLeft;
+            if (event.joystickMove.axis == joystick.verticalAxis) {
+                if (joystick.cachedPosition.y >= StickThreshold && old.y < StickThreshold)
+                    return DispatchType::MovementUp;
+                if (joystick.cachedPosition.y <= -StickThreshold && old.y > -StickThreshold)
+                    return DispatchType::MovementDown;
+            }
+            else {
+                if (joystick.cachedPosition.x >= StickThreshold && old.x < StickThreshold)
+                    return DispatchType::MovementRight;
+                if (joystick.cachedPosition.x <= -StickThreshold && old.y > -StickThreshold)
+                    return DispatchType::MovementLeft;
+            }
         }
     }
     return DispatchType::_INVALID;

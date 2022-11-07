@@ -44,14 +44,14 @@ public:
      * @brief Notifies the listener of an input event. Listeners are notified in the reverse order
      *        of when they subscribed to the Actor
      *
-     * @param Actor The input system
+     * @param actor The input system
      * @param activatedControl The control that was activated, or is activated
      * @param eventType Provides additional context on the control type
      * @param eventTriggered True for controls triggered by user input, false for continuous
      *                       notification of active controls
      * @return True to consume the event and stop the dispatches, false to send to other listeners
      */
-    virtual bool observe(const Actor& Actor, unsigned int activatedControl, DispatchType eventType,
+    virtual bool observe(const Actor& actor, unsigned int activatedControl, DispatchType eventType,
                          bool eventTriggered) = 0;
 
 private:

@@ -137,6 +137,13 @@ public:
     sf::Vector2f readControl(unsigned int controlIndex) const;
 
     /**
+     * @brief Returns whether or not this actor is using a joystick (last valid input was joystick)
+     *
+     * @return True if last input was controller, false otherwise
+     */
+    bool joystickMode() const;
+
+    /**
      * @brief Adds a new input listener
      *
      * @param listener The listener to make active

@@ -27,6 +27,9 @@ namespace controllers
  *
  */
 struct Xbox360 {
+    static constexpr float StickDeadZone           = 22.f;
+    static constexpr float StickDeadZoneNormalized = StickDeadZone / 100.f;
+
     static constexpr unsigned int A     = 0;
     static constexpr unsigned int B     = 1;
     static constexpr unsigned int X     = 2;
@@ -47,6 +50,18 @@ struct Xbox360 {
     static constexpr sf::Joystick::Axis DPadVertical   = sf::Joystick::Axis::PovY;
 
     static constexpr sf::Joystick::Axis Triggers = sf::Joystick::Axis::Z;
+
+    /**
+     * @brief Returns whether or not the given controller is an Xbox 360 one or not. Tested on
+     *        Windows only
+     *
+     * @param joystickId The joystick to test
+     * @return True if it is an Xbox 360 controller, false otherwise
+     */
+    static bool is(unsigned int joystickId) {
+        const sf::Joystick::Identification id = sf::Joystick::getIdentification(joystickId);
+        return id.productId == 673 && id.vendorId == 1118;
+    }
 };
 
 } // namespace controllers

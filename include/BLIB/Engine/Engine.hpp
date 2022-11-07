@@ -10,7 +10,7 @@
 #include <BLIB/Engine/State.hpp>
 #include <BLIB/Entities/Registry.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
-#include <BLIB/Input/InputSystem.hpp>
+#include <BLIB/Input.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>

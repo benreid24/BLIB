@@ -70,24 +70,26 @@ private:
                 switch (eventType) {
                 case input::DispatchType::MovementUp:
                     driving->processEvent(Event(Event::MoveEvent(Item::Top)));
-                    break;
+                    return true;
                 case input::DispatchType::MovementRight:
                     driving->processEvent(Event(Event::MoveEvent(Item::Right)));
-                    break;
+                    return true;
                 case input::DispatchType::MovementDown:
                     driving->processEvent(Event(Event::MoveEvent(Item::Bottom)));
-                    break;
+                    return true;
                 case input::DispatchType::MovementLeft:
                     driving->processEvent(Event(Event::MoveEvent(Item::Left)));
-                    break;
+                    return true;
                 default:
                     break;
                 }
             }
             else if (activatedControl == ActivateTrigger) {
                 driving->processEvent(Event(Event::ActivateEvent()));
+                return true;
             }
         }
+        return false;
     }
 };
 

@@ -7,6 +7,7 @@
  *
  */
 
+#include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Engine/Events.hpp>
 #include <BLIB/Engine/Flags.hpp>

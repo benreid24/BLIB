@@ -73,23 +73,24 @@ private:
             switch (activatedControl) {
             case UpTrigger:
                 driving->processEvent(Event(Event::MoveEvent(Item::Top)));
-                break;
+                return true;
             case RightTrigger:
                 driving->processEvent(Event(Event::MoveEvent(Item::Right)));
-                break;
+                return true;
             case DownTrigger:
                 driving->processEvent(Event(Event::MoveEvent(Item::Bottom)));
-                break;
+                return true;
             case LeftTrigger:
                 driving->processEvent(Event(Event::MoveEvent(Item::Left)));
-                break;
+                return true;
             case ActivateTrigger:
                 driving->processEvent(Event(Event::ActivateEvent()));
-                break;
+                return true;
             default:
                 break;
             }
         }
+        return false;
     }
 };
 

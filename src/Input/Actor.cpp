@@ -83,6 +83,8 @@ const DirectionalControl& Actor::getJoystickDirectionalControl(unsigned int c) c
     return joystickControls[c].directionalControl;
 }
 
+bool Actor::joystickMode() const { return activeControls == &joystickControls; }
+
 bool Actor::controlActive(unsigned int c) const {
     if ((*activeControls)[c].type != Control::Type::SingleTrigger) {
         BL_LOG_ERROR << "Reading bad control value: " << c;
@@ -124,9 +126,9 @@ void Actor::update() {
             else {
                 const sf::Vector2f& pos = ctrl.movementControl.joystick.cachedPosition;
                 if (pos.x >= StickThreshold) { dispatch(i, DispatchType::MovementRight, false); }
-                if (pos.x <= StickThreshold) { dispatch(i, DispatchType::MovementLeft, false); }
+                if (pos.x <= -StickThreshold) { dispatch(i, DispatchType::MovementLeft, false); }
                 if (pos.y >= StickThreshold) { dispatch(i, DispatchType::MovementUp, false); }
-                if (pos.y <= StickThreshold) { dispatch(i, DispatchType::MovementDown, false); }
+                if (pos.y <= -StickThreshold) { dispatch(i, DispatchType::MovementDown, false); }
             }
             break;
         default:
@@ -179,8 +181,16 @@ void Actor::process(const sf::Event& event) {
         if (joystick < sf::Joystick::Count && event.joystickMove.joystickId != joystick) return;
         activeControls = &joystickControls;
         break;
-    default:
+    case sf::Event::KeyPressed:
+    case sf::Event::KeyReleased:
+    case sf::Event::MouseButtonPressed:
+    case sf::Event::MouseButtonReleased:
+    case sf::Event::MouseWheelScrolled:
+    case sf::Event::MouseMoved:
+        activeControls = &kbmControls;
         break;
+    default:
+        return; // can exit early, event does not trigger any controls
     }
 
     // process control
