@@ -15,8 +15,7 @@ const std::string MouseStr = "Mouse";
 const std::string StickStr = "Joystick";
 
 std::string typeKey(const std::string& prefix) { return prefix + ".type"; }
-std::string horKey(const std::string& prefix) { return prefix + ".horizontal"; }
-std::string vertKey(const std::string& prefix) { return prefix + ".vertical"; }
+std::string stickKey(const std::string& prefix) { return prefix + ".joystick"; }
 } // namespace
 
 DirectionalControl::DirectionalControl(bool jm)
@@ -37,12 +36,7 @@ bool DirectionalControl::process(const InputSystem& system, const sf::Event& eve
 void DirectionalControl::saveToConfig(const std::string& prefix) const {
     bl::engine::Configuration::set<std::string>(typeKey(prefix),
                                                 type == Type::Mouse ? MouseStr : StickStr);
-    if (type == Type::Joystick) {
-        bl::engine::Configuration::set<std::string>(
-            horKey(prefix), Encoder::toString(Encoder::ControlInfo(joystick.horizontalAxis)));
-        bl::engine::Configuration::set<std::string>(
-            vertKey(prefix), Encoder::toString(Encoder::ControlInfo(joystick.verticalAxis)));
-    }
+    if (type == Type::Joystick) { joystick.saveToConfig(stickKey(prefix)); }
 }
 
 void DirectionalControl::loadFromConfig(const std::string& prefix) {
@@ -50,14 +44,7 @@ void DirectionalControl::loadFromConfig(const std::string& prefix) {
                    MouseStr ?
                Type::Mouse :
                Type::Joystick;
-    if (type == Type::Joystick) {
-        joystick.horizontalAxis =
-            Encoder::fromString(bl::engine::Configuration::get<std::string>(horKey(prefix)))
-                .joystickAxis;
-        joystick.verticalAxis =
-            Encoder::fromString(bl::engine::Configuration::get<std::string>(vertKey(prefix)))
-                .joystickAxis;
-    }
+    if (type == Type::Joystick) { joystick.loadFromConfig(stickKey(prefix)); }
 }
 
 std::string DirectionalControl::toString() const {

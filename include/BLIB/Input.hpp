@@ -18,4 +18,6 @@
 #include <BLIB/Input/MovementControl.hpp>
 #include <BLIB/Input/Trigger.hpp>
 
+#include <BLIB/Input/Controllers/Xbox360.hpp>
+
 #endif

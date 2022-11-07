@@ -19,8 +19,7 @@ std::string rightKey(const std::string& prefix) { return prefix + ".right"; }
 std::string downKey(const std::string& prefix) { return prefix + ".down"; }
 std::string leftKey(const std::string& prefix) { return prefix + ".left"; }
 std::string typeKey(const std::string& prefix) { return prefix + ".type"; }
-std::string horKey(const std::string& prefix) { return prefix + ".horizontal"; }
-std::string vertKey(const std::string& prefix) { return prefix + ".vertical"; }
+std::string stickKey(const std::string& prefix) { return prefix + ".joystick"; }
 } // namespace
 
 MovementControl::MovementControl(bool jm)
@@ -96,10 +95,7 @@ void MovementControl::saveToConfig(const std::string& prefix) const {
         keys.left.saveToConfig(leftKey(prefix));
     }
     else {
-        Config::set<std::string>(horKey(prefix),
-                                 Encoder::toString(Encoder::ControlInfo(joystick.horizontalAxis)));
-        Config::set<std::string>(vertKey(prefix),
-                                 Encoder::toString(Encoder::ControlInfo(joystick.verticalAxis)));
+        joystick.saveToConfig(stickKey(prefix));
     }
 }
 
@@ -116,10 +112,7 @@ void MovementControl::loadFromConfig(const std::string& prefix) {
         keys.left.loadFromConfig(leftKey(prefix));
     }
     else {
-        joystick.horizontalAxis =
-            Encoder::fromString(Config::get<std::string>(horKey(prefix))).joystickAxis;
-        joystick.verticalAxis =
-            Encoder::fromString(Config::get<std::string>(vertKey(prefix))).joystickAxis;
+        joystick.loadFromConfig(stickKey(prefix));
     }
 }
 

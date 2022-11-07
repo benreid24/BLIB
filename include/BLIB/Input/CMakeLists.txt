@@ -10,3 +10,5 @@ target_sources(BLIB PUBLIC
     MovementControl.hpp
     Trigger.hpp
 )
+
+add_subdirectory(Controllers)
