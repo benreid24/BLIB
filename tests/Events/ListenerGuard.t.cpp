@@ -30,6 +30,7 @@ TEST(EventClassGuard, Subscribe) {
     ListenerGuard<int> g(&l);
 
     g.subscribe(d);
+    d.syncListeners();
     d.dispatch<int>(5);
     d.dispatch<int>(10);
     d.dispatch<int>(15);
@@ -44,9 +45,11 @@ TEST(EventClassGuard, Unsubscribe) {
     ListenerGuard<int> g(&l);
 
     g.subscribe(d);
+    d.syncListeners();
     d.dispatch<int>(5);
     d.dispatch<int>(10);
     g.unsubscribe();
+    d.syncListeners();
     d.dispatch<int>(15);
 
     EXPECT_EQ(l.sum, 15);
@@ -60,9 +63,11 @@ TEST(EventClassGuard, Destruct) {
     {
         ListenerGuard<int> g(&l);
         g.subscribe(d);
+        d.syncListeners();
         d.dispatch<int>(5);
         d.dispatch<int>(10);
     }
+    d.syncListeners();
     d.dispatch<int>(15);
 
     EXPECT_EQ(l.sum, 15);

@@ -152,6 +152,7 @@ bool Engine::run(State::Ptr initialState) {
             const float updateStart = updateMeasureTimer.getElapsedTime().asSeconds();
             renderingSystem.update(updateTimestep);
             states.top()->update(*this, updateTimestep);
+            engineEventBus.syncListeners();
             if (engineFlags.active(Flags::PopState) || engineFlags.active(Flags::Terminate) ||
                 newState) {
                 lag = 0.f;

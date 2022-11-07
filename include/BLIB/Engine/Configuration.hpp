@@ -58,7 +58,7 @@ public:
      * @param overwrite Set to true to overwrite existing value
      */
     template<typename T>
-    static void set(const std::string& key, const T& value, bool overwrite = false);
+    static void set(const std::string& key, const T& value, bool overwrite = true);
 
     /**
      * @brief Loads the configuration from the given file. Default values should be set for all

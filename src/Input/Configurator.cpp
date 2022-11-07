@@ -47,7 +47,7 @@ void Configurator::observe(const sf::Event& event) {
     switch (state) {
     case WaitingTrigger:
         if (trigger->configureFromEvent(event)) {
-            bus.unsubscribe(this);
+            bus.unsubscribe(this, true);
             state = Finished;
         }
         break;
@@ -73,7 +73,7 @@ void Configurator::observe(const sf::Event& event) {
                         }
                         else {
                             joystick->verticalAxis = axis;
-                            bus.unsubscribe(this);
+                            bus.unsubscribe(this, true);
                             state = Finished;
                         }
                     }

@@ -49,6 +49,7 @@ TEST(Dispatcher, DispatchEventsDifferentTypes) {
     Dispatcher dispatch;
     MockListener listener;
     dispatch.subscribe(&listener);
+    dispatch.syncListeners();
 
     EXPECT_CALL(listener, observe(5));
     EXPECT_CALL(listener, observe("Hello"));
@@ -63,6 +64,7 @@ TEST(Dispatcher, Unsubscribe) {
     ::testing::StrictMock<MockListener> listener;
     dispatch.subscribe(&listener);
     dispatch.unsubscribe(&listener);
+    dispatch.syncListeners();
 
     dispatch.dispatch<int>(5);
     dispatch.dispatch<std::string>("Hello");
