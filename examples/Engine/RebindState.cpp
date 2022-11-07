@@ -13,8 +13,7 @@ RebindState::RebindState(bl::engine::Engine& engine, unsigned int ctrl)
     text.setFillColor(sf::Color(20, 170, 55));
 
     if (ctrl == Control::Movement) {
-        configurator.start(
-            engine.inputSystem().getActor().getJoystickMovementControl(ctrl).joystickControl());
+        configurator.start(engine.inputSystem().getActor().getJoystickMovementControl(ctrl));
     }
     else {
         configurator.start(engine.inputSystem().getActor().getKBMTriggerControl(ctrl));

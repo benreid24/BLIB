@@ -44,18 +44,32 @@ public:
     Trigger& getKBMTriggerControl(unsigned int controlIndex);
 
     /**
-     * @brief Returns a reference to the given movement control
+     * @brief Returns a reference to the given movement up control for keyboard/mouse
      *
      * @param controlIndex The movement control to get. In range [0, controlCount)
      */
-    MovementControl& getKBMMovementControl(unsigned int controlIndex);
+    Trigger& getKBMMovementUpControl(unsigned int controlIndex);
 
     /**
-     * @brief Returns a reference to the given directional control
+     * @brief Returns a reference to the given movement right control for keyboard/mouse
      *
-     * @param controlIndex The directional control to get. In range [0, controlCount)
+     * @param controlIndex The movement control to get. In range [0, controlCount)
      */
-    DirectionalControl& getKBMDirectionalControl(unsigned int controlIndex);
+    Trigger& getKBMMovementRightControl(unsigned int controlIndex);
+
+    /**
+     * @brief Returns a reference to the given movement left control for keyboard/mouse
+     *
+     * @param controlIndex The movement control to get. In range [0, controlCount)
+     */
+    Trigger& getKBMMovementLeftControl(unsigned int controlIndex);
+
+    /**
+     * @brief Returns a reference to the given movement down control for keyboard/mouse
+     *
+     * @param controlIndex The movement control to get. In range [0, controlCount)
+     */
+    Trigger& getKBMMovementDownControl(unsigned int controlIndex);
 
     /**
      * @brief Returns a reference to the given trigger control
@@ -65,18 +79,32 @@ public:
     const Trigger& getKBMTriggerControl(unsigned int controlIndex) const;
 
     /**
-     * @brief Returns a reference to the given movement control
+     * @brief Returns a reference to the given movement up control for keyboard/mouse
      *
      * @param controlIndex The movement control to get. In range [0, controlCount)
      */
-    const MovementControl& getKBMMovementControl(unsigned int controlIndex) const;
+    const Trigger& getKBMMovementUpControl(unsigned int controlIndex) const;
 
     /**
-     * @brief Returns a reference to the given directional control
+     * @brief Returns a reference to the given movement right control for keyboard/mouse
      *
-     * @param controlIndex The directional control to get. In range [0, controlCount)
+     * @param controlIndex The movement control to get. In range [0, controlCount)
      */
-    const DirectionalControl& getKBMDirectionalControl(unsigned int controlIndex) const;
+    const Trigger& getKBMMovementRightControl(unsigned int controlIndex) const;
+
+    /**
+     * @brief Returns a reference to the given movement left control for keyboard/mouse
+     *
+     * @param controlIndex The movement control to get. In range [0, controlCount)
+     */
+    const Trigger& getKBMMovementLeftControl(unsigned int controlIndex) const;
+
+    /**
+     * @brief Returns a reference to the given movement down control for keyboard/mouse
+     *
+     * @param controlIndex The movement control to get. In range [0, controlCount)
+     */
+    const Trigger& getKBMMovementDownControl(unsigned int controlIndex) const;
 
     /**
      * @brief Returns a reference to the given trigger control
@@ -90,14 +118,14 @@ public:
      *
      * @param controlIndex The movement control to get. In range [0, controlCount)
      */
-    MovementControl& getJoystickMovementControl(unsigned int controlIndex);
+    Joystick& getJoystickMovementControl(unsigned int controlIndex);
 
     /**
      * @brief Returns a reference to the given directional control
      *
      * @param controlIndex The directional control to get. In range [0, controlCount)
      */
-    DirectionalControl& getJoystickDirectionalControl(unsigned int controlIndex);
+    Joystick& getJoystickDirectionalControl(unsigned int controlIndex);
 
     /**
      * @brief Returns a reference to the given trigger control
@@ -111,14 +139,14 @@ public:
      *
      * @param controlIndex The movement control to get. In range [0, controlCount)
      */
-    const MovementControl& getJoystickMovementControl(unsigned int controlIndex) const;
+    const Joystick& getJoystickMovementControl(unsigned int controlIndex) const;
 
     /**
      * @brief Returns a reference to the given directional control
      *
      * @param controlIndex The directional control to get. In range [0, controlCount)
      */
-    const DirectionalControl& getJoystickDirectionalControl(unsigned int controlIndex) const;
+    const Joystick& getJoystickDirectionalControl(unsigned int controlIndex) const;
 
     /**
      * @brief Returns whether or not the given control is active. Works only for trigger controls

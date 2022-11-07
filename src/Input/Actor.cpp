@@ -43,20 +43,36 @@ const Trigger& Actor::getKBMTriggerControl(unsigned int c) const {
     return kbmControls[c].triggerControl;
 }
 
-MovementControl& Actor::getKBMMovementControl(unsigned int c) {
-    return kbmControls[c].movementControl;
+Trigger& Actor::getKBMMovementUpControl(unsigned int c) {
+    return kbmControls[c].movementControl.upControl();
 }
 
-const MovementControl& Actor::getKBMMovementControl(unsigned int c) const {
-    return kbmControls[c].movementControl;
+Trigger& Actor::getKBMMovementRightControl(unsigned int c) {
+    return kbmControls[c].movementControl.rightControl();
 }
 
-DirectionalControl& Actor::getKBMDirectionalControl(unsigned int c) {
-    return kbmControls[c].directionalControl;
+Trigger& Actor::getKBMMovementDownControl(unsigned int c) {
+    return kbmControls[c].movementControl.downControl();
 }
 
-const DirectionalControl& Actor::getKBMDirectionalControl(unsigned int c) const {
-    return kbmControls[c].directionalControl;
+Trigger& Actor::getKBMMovementLeftControl(unsigned int c) {
+    return kbmControls[c].movementControl.leftControl();
+}
+
+const Trigger& Actor::getKBMMovementUpControl(unsigned int c) const {
+    return kbmControls[c].movementControl.upControl();
+}
+
+const Trigger& Actor::getKBMMovementRightControl(unsigned int c) const {
+    return kbmControls[c].movementControl.rightControl();
+}
+
+const Trigger& Actor::getKBMMovementDownControl(unsigned int c) const {
+    return kbmControls[c].movementControl.downControl();
+}
+
+const Trigger& Actor::getKBMMovementLeftControl(unsigned int c) const {
+    return kbmControls[c].movementControl.leftControl();
 }
 
 Trigger& Actor::getJoystickTriggerControl(unsigned int c) {
@@ -67,20 +83,20 @@ const Trigger& Actor::getJoystickTriggerControl(unsigned int c) const {
     return joystickControls[c].triggerControl;
 }
 
-MovementControl& Actor::getJoystickMovementControl(unsigned int c) {
-    return joystickControls[c].movementControl;
+Joystick& Actor::getJoystickMovementControl(unsigned int c) {
+    return joystickControls[c].movementControl.joystickControl();
 }
 
-const MovementControl& Actor::getJoystickMovementControl(unsigned int c) const {
-    return joystickControls[c].movementControl;
+const Joystick& Actor::getJoystickMovementControl(unsigned int c) const {
+    return joystickControls[c].movementControl.joystickControl();
 }
 
-DirectionalControl& Actor::getJoystickDirectionalControl(unsigned int c) {
-    return joystickControls[c].directionalControl;
+Joystick& Actor::getJoystickDirectionalControl(unsigned int c) {
+    return joystickControls[c].directionalControl.joystick;
 }
 
-const DirectionalControl& Actor::getJoystickDirectionalControl(unsigned int c) const {
-    return joystickControls[c].directionalControl;
+const Joystick& Actor::getJoystickDirectionalControl(unsigned int c) const {
+    return joystickControls[c].directionalControl.joystick;
 }
 
 bool Actor::joystickMode() const { return activeControls == &joystickControls; }

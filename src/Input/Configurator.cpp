@@ -70,6 +70,7 @@ void Configurator::observe(const sf::Event& event) {
                         if (state == WaitingHorAxis) {
                             joystick->horizontalAxis = axis;
                             state                    = WaitingVertAxis;
+                            jsState                  = JoystickState::WaitingPositive;
                         }
                         else {
                             joystick->verticalAxis = axis;

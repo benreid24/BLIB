@@ -192,7 +192,7 @@ bool Trigger::configureFromEvent(const sf::Event& event) {
 
 void Trigger::saveToConfig(const std::string& prefix) const {
     if (type == Type::Invalid) {
-        BL_LOG_WARN << "Refusing to save unset control";
+        BL_LOG_WARN << "Refusing to save unset control: " << prefix;
         return;
     }
     bl::engine::Configuration::set<bool>(toggleKey(prefix), toggle);

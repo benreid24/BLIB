@@ -20,11 +20,10 @@ void configureInput(bl::input::InputSystem& inputSystem) {
     bl::input::Actor& user = inputSystem.addActor();
 
     // keyboard and mouse default config
-    bl::input::MovementControl& mvKbm = user.getKBMMovementControl(Control::Movement);
-    mvKbm.upControl().triggerOnKey(sf::Keyboard::W);
-    mvKbm.rightControl().triggerOnKey(sf::Keyboard::D);
-    mvKbm.downControl().triggerOnKey(sf::Keyboard::S);
-    mvKbm.leftControl().triggerOnKey(sf::Keyboard::A);
+    user.getKBMMovementUpControl(Control::Movement).triggerOnKey(sf::Keyboard::W);
+    user.getKBMMovementRightControl(Control::Movement).triggerOnKey(sf::Keyboard::D);
+    user.getKBMMovementDownControl(Control::Movement).triggerOnKey(sf::Keyboard::S);
+    user.getKBMMovementLeftControl(Control::Movement).triggerOnKey(sf::Keyboard::A);
     user.getKBMTriggerControl(Control::Back).triggerOnKey(sf::Keyboard::BackSpace);
     user.getKBMTriggerControl(Control::Close).triggerOnKey(sf::Keyboard::Escape);
     user.getKBMTriggerControl(Control::RebindExample).triggerOnKey(sf::Keyboard::E);
@@ -32,10 +31,10 @@ void configureInput(bl::input::InputSystem& inputSystem) {
 
     // controller
     using bl::input::controllers::Xbox360;
-    bl::input::MovementControl& jsMv        = user.getJoystickMovementControl(Control::Movement);
-    jsMv.joystickControl().horizontalAxis   = Xbox360::LSHorizontal;
-    jsMv.joystickControl().verticalAxis     = Xbox360::LSVertical;
-    jsMv.joystickControl().verticalInverted = true;
+    bl::input::Joystick& jsMv = user.getJoystickMovementControl(Control::Movement);
+    jsMv.horizontalAxis       = Xbox360::LSHorizontal;
+    jsMv.verticalAxis         = Xbox360::LSVertical;
+    jsMv.verticalInverted     = true;
     user.getJoystickTriggerControl(Control::Back).triggerOnJoystickButton(Xbox360::B);
     user.getJoystickTriggerControl(Control::Close).triggerOnJoystickButton(Xbox360::Start);
     user.getJoystickTriggerControl(Control::RebindExample).triggerOnJoystickButton(Xbox360::A);
