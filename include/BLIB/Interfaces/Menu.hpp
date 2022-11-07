@@ -8,9 +8,9 @@
  *
  */
 
+#include <BLIB/Interfaces/Menu/Drivers/KeyboardDriver.hpp>
+#include <BLIB/Interfaces/Menu/Drivers/MouseDriver.hpp>
 #include <BLIB/Interfaces/Menu/Event.hpp>
-#include <BLIB/Interfaces/Menu/EventGenerators/KeyboardEventGenerator.hpp>
-#include <BLIB/Interfaces/Menu/EventGenerators/MouseEventGenerator.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
 #include <BLIB/Interfaces/Menu/Items/ImageItem.hpp>
 #include <BLIB/Interfaces/Menu/Items/TextItem.hpp>

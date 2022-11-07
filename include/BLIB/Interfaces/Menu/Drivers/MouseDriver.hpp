@@ -1,5 +1,5 @@
-#ifndef BLIB_MENU_EVENTGENERATORS_MOUSEEVENTGENERATOR_HPP
-#define BLIB_MENU_EVENTGENERATORS_MOUSEEVENTGENERATOR_HPP
+#ifndef BLIB_MENU_DRIVERS_MOUSEDRIVER_HPP
+#define BLIB_MENU_DRIVERS_MOUSEDRIVER_HPP
 
 #include <BLIB/Events/Listener.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
@@ -16,7 +16,7 @@ namespace menu
  * @ingroup Menu
  *
  */
-class MouseEventGenerator : public bl::event::Listener<sf::Event> {
+class MouseDriver : public bl::event::Listener<sf::Event> {
 public:
     /**
      * @brief Create a new mouse generator that services the given menu
@@ -25,8 +25,8 @@ public:
      * @param allowClickActivate True to allow the mouse button click to send an activate event
      * @param activateButton The mouse button that sends activate events
      */
-    MouseEventGenerator(Menu& menu, bool allowClickActivate = true,
-                        sf::Mouse::Button activateButton = sf::Mouse::Left);
+    MouseDriver(Menu& menu, bool allowClickActivate = true,
+                sf::Mouse::Button activateButton = sf::Mouse::Left);
 
     /**
      * @brief Set the mouse button bound to activate events
@@ -40,7 +40,11 @@ public:
      */
     void setAllowButtonActivate(bool allow);
 
-    virtual ~MouseEventGenerator() = default;
+    /**
+     * @brief Destroy the Mouse Driver object
+     *
+     */
+    virtual ~MouseDriver() = default;
 
 private:
     Menu& menu;

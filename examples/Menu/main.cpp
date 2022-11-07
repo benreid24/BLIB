@@ -38,8 +38,8 @@ int main() {
     menu.setSelectedItem(newGame.get());
     menu.setPosition({350.f, 150.f});
 
-    bl::menu::KeyboardEventGenerator keyboardEventGenerator(menu);
-    bl::menu::MouseEventGenerator mouseEventGenerator(menu);
+    bl::menu::KeyboardDriver keyboardEventGenerator(menu);
+    bl::menu::MouseDriver mouseEventGenerator(menu);
 
     bl::event::Dispatcher eventDispatcher;
     eventDispatcher.subscribe(&keyboardEventGenerator);

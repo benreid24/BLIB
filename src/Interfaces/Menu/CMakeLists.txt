@@ -4,6 +4,6 @@ target_sources(BLIB PRIVATE
     Menu.cpp
 )
 
-add_subdirectory(EventGenerators)
+add_subdirectory(Drivers)
 add_subdirectory(Items)
 add_subdirectory(Selectors)

@@ -1,5 +1,5 @@
-#ifndef BLIB_MENU_EVENTGENERATORS_KEYBOARDEVENTGENERATOR_HPP
-#define BLIB_MENU_EVENTGENERATORS_KEYBOARDEVENTGENERATOR_HPP
+#ifndef BLIB_MENU_DRIVERS_KEYBOARDDRIVER_HPP
+#define BLIB_MENU_DRIVERS_KEYBOARDDRIVER_HPP
 
 #include <BLIB/Events/Listener.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
@@ -16,7 +16,7 @@ namespace menu
  * @ingroup Menu
  *
  */
-class KeyboardEventGenerator : public bl::event::Listener<sf::Event> {
+class KeyboardDriver : public bl::event::Listener<sf::Event> {
 public:
     /**
      * @brief Create a new keyboard generator that services the given menu
@@ -28,11 +28,11 @@ public:
      * @param leftCtrl Control to generate move left events
      * @param activateCtrl Control to generate activate events
      */
-    KeyboardEventGenerator(Menu& menu, sf::Keyboard::Key upCtrl = sf::Keyboard::Up,
-                           sf::Keyboard::Key rightCtrl    = sf::Keyboard::Right,
-                           sf::Keyboard::Key downCtrl     = sf::Keyboard::Down,
-                           sf::Keyboard::Key leftCtrl     = sf::Keyboard::Left,
-                           sf::Keyboard::Key activateCtrl = sf::Keyboard::Space);
+    KeyboardDriver(Menu& menu, sf::Keyboard::Key upCtrl = sf::Keyboard::Up,
+                   sf::Keyboard::Key rightCtrl    = sf::Keyboard::Right,
+                   sf::Keyboard::Key downCtrl     = sf::Keyboard::Down,
+                   sf::Keyboard::Key leftCtrl     = sf::Keyboard::Left,
+                   sf::Keyboard::Key activateCtrl = sf::Keyboard::Space);
 
     /**
      * @brief Set the key bound to the given direction. Defaults are the arrrow keys
@@ -49,7 +49,11 @@ public:
      */
     void setActivateControl(sf::Keyboard::Key control);
 
-    virtual ~KeyboardEventGenerator() = default;
+    /**
+     * @brief Destroy the Keyboard Driver object
+     * 
+     */
+    virtual ~KeyboardDriver() = default;
 
 private:
     Menu& menu;

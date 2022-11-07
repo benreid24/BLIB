@@ -1,19 +1,19 @@
-#include <BLIB/Interfaces/Menu/EventGenerators/MouseEventGenerator.hpp>
+#include <BLIB/Interfaces/Menu/Drivers/MouseDriver.hpp>
 
 namespace bl
 {
 namespace menu
 {
-MouseEventGenerator::MouseEventGenerator(Menu& menu, bool allowClick, sf::Mouse::Button abutt)
+MouseDriver::MouseDriver(Menu& menu, bool allowClick, sf::Mouse::Button abutt)
 : menu(menu)
 , clickActivates(allowClick)
 , activateButton(abutt) {}
 
-void MouseEventGenerator::setAllowButtonActivate(bool allow) { clickActivates = allow; }
+void MouseDriver::setAllowButtonActivate(bool allow) { clickActivates = allow; }
 
-void MouseEventGenerator::setMouseActivateButton(sf::Mouse::Button butt) { activateButton = butt; }
+void MouseDriver::setMouseActivateButton(sf::Mouse::Button butt) { activateButton = butt; }
 
-void MouseEventGenerator::observe(const sf::Event& event) {
+void MouseDriver::observe(const sf::Event& event) {
     if (event.type == sf::Event::MouseMoved) {
         menu.processEvent(Event(Event::LocationEvent(
             {static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y)})));
