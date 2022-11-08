@@ -59,18 +59,21 @@ public:
      */
     void setDebounce(float debounceTime) { this->debounceTime = debounceTime; }
 
-private:
-    Menu* driving;
-    sf::Clock debounce;
-    float debounceTime;
-
-    virtual void observe(const input::Actor&, unsigned int activatedControl,
-                         input::DispatchType eventType, bool eventTriggered) override {
+    /**
+     * @brief Programmatically sends the given control to the menu
+     *
+     * @param ctrl The control to send
+     * @param ignoreDebounce True to ignore the signal cooldown and send always, false to debounce
+     * @return True if the input was processed, false if it did not get sent to a menu
+     */
+    bool sendControl(unsigned int ctrl, bool ignoreDebounce) {
         if (driving != nullptr) {
             // enforce debounce on repeat events (not from user events)
-            if (!eventTriggered && debounce.getElapsedTime().asSeconds() < debounceTime) return;
+            if (!ignoreDebounce && debounce.getElapsedTime().asSeconds() < debounceTime)
+                return false;
+            if (!ignoreDebounce) debounce.restart();
 
-            switch (activatedControl) {
+            switch (ctrl) {
             case UpTrigger:
                 driving->processEvent(Event(Event::MoveEvent(Item::Top)));
                 return true;
@@ -91,6 +94,16 @@ private:
             }
         }
         return false;
+    }
+
+private:
+    Menu* driving;
+    sf::Clock debounce;
+    float debounceTime;
+
+    virtual void observe(const input::Actor&, unsigned int activatedControl, input::DispatchType,
+                         bool eventTriggered) override {
+        return sendControl(activatedControl, eventTriggered);
     }
 };
 

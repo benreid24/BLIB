@@ -55,19 +55,23 @@ public:
      */
     void setDebounce(float debounceTime) { this->debounceTime = debounceTime; }
 
-private:
-    Menu* driving;
-    sf::Clock debounce;
-    float debounceTime;
-
-    virtual void observe(const input::Actor&, unsigned int activatedControl,
-                         input::DispatchType eventType, bool eventTriggered) override {
+    /**
+     * @brief Programmatically sends the given control to the menu
+     *
+     * @param ctrl The control to send
+     * @param moveDir The move direction if sending a move control
+     * @param ignoreDebounce True to ignore the signal cooldown and send always, false to debounce
+     * @return True if the input was processed, false if it did not get sent to a menu
+     */
+    bool sendControl(unsigned int ctrl, input::DispatchType moveDir, bool ignoreDebounce) {
         if (driving != nullptr) {
             // enforce debounce on repeat events (not from user events)
-            if (!eventTriggered && debounce.getElapsedTime().asSeconds() < debounceTime) return;
+            if (!ignoreDebounce && debounce.getElapsedTime().asSeconds() < debounceTime)
+                return false;
+            if (!ignoreDebounce) debounce.restart();
 
-            if (activatedControl == MovementControl) {
-                switch (eventType) {
+            if (ctrl == MovementControl) {
+                switch (moveDir) {
                 case input::DispatchType::MovementUp:
                     driving->processEvent(Event(Event::MoveEvent(Item::Top)));
                     return true;
@@ -84,12 +88,22 @@ private:
                     break;
                 }
             }
-            else if (activatedControl == ActivateTrigger) {
+            else if (ctrl == ActivateTrigger) {
                 driving->processEvent(Event(Event::ActivateEvent()));
                 return true;
             }
         }
         return false;
+    }
+
+private:
+    Menu* driving;
+    sf::Clock debounce;
+    float debounceTime;
+
+    virtual bool observe(const input::Actor&, unsigned int activatedControl,
+                         input::DispatchType eventType, bool eventTriggered) override {
+        return sendControl(activatedControl, eventType, eventTriggered);
     }
 };
 
