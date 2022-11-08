@@ -15,6 +15,7 @@
 #include <BLIB/Input/InputSystem.hpp>
 #include <BLIB/Input/Joystick.hpp>
 #include <BLIB/Input/Listener.hpp>
+#include <BLIB/Input/ListenerBoundary.hpp>
 #include <BLIB/Input/MovementControl.hpp>
 #include <BLIB/Input/Trigger.hpp>
 

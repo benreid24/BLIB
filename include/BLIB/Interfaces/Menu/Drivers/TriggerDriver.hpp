@@ -46,11 +46,17 @@ public:
     , debounceTime(DefaultDebounce) {}
 
     /**
+     * @brief Destroy the Trigger Driver object
+     *
+     */
+    virtual ~TriggerDriver() = default;
+
+    /**
      * @brief Change the menu being driven to the given one
      *
      * @param toDrive The menu to drive, or nullptr to disconnect
      */
-    void drive(Menu& toDrive) { driving = &toDrive; }
+    void drive(Menu* toDrive) { driving = toDrive; }
 
     /**
      * @brief Set the debounce time between repeated input events not triggered by user input
@@ -71,7 +77,7 @@ public:
             // enforce debounce on repeat events (not from user events)
             if (!ignoreDebounce && debounce.getElapsedTime().asSeconds() < debounceTime)
                 return false;
-            if (!ignoreDebounce) debounce.restart();
+            debounce.restart();
 
             switch (ctrl) {
             case UpTrigger:
@@ -101,7 +107,7 @@ private:
     sf::Clock debounce;
     float debounceTime;
 
-    virtual void observe(const input::Actor&, unsigned int activatedControl, input::DispatchType,
+    virtual bool observe(const input::Actor&, unsigned int activatedControl, input::DispatchType,
                          bool eventTriggered) override {
         return sendControl(activatedControl, eventTriggered);
     }

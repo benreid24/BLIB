@@ -7,6 +7,7 @@ target_sources(BLIB PUBLIC
     InputSystem.hpp
     Joystick.hpp
     Listener.hpp
+    ListenerBoundary.hpp
     MovementControl.hpp
     Trigger.hpp
 )
