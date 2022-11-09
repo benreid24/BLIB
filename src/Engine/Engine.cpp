@@ -185,8 +185,11 @@ bool Engine::run(State::Ptr initialState) {
                         << "s to " << newTs << "s";
             updateTimestep = newTs;
         }
-        if (renderWindow) { renderingSystem.cameras().configureView(*renderWindow); }
-        states.top()->render(*this, lag);
+        if (!engineFlags.active(Flags::PopState) && !engineFlags.active(Flags::Terminate) &&
+            !newState) {
+            if (renderWindow) { renderingSystem.cameras().configureView(*renderWindow); }
+            states.top()->render(*this, lag);
+        }
 
         // Process flags
         if (engineFlags.active(Flags::Terminate)) {

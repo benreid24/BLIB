@@ -27,7 +27,7 @@ public:
      * @param size The size of the viewport around the position to follow
      * @return Ptr The new camera
      */
-    static Ptr create(sf::Vector2f* follow, const sf::Vector2f& size);
+    static Ptr create(const sf::Vector2f* follow, const sf::Vector2f& size);
 
     /**
      * @brief Centers the view around the Vector2f being followed
@@ -48,10 +48,10 @@ protected:
      * @param follow The position to remain centered on. Must remain valid
      * @param size The size of the viewport around the position to follow
      */
-    FollowCamera(sf::Vector2f* follow, const sf::Vector2f& size);
+    FollowCamera(const sf::Vector2f* follow, const sf::Vector2f& size);
 
 private:
-    sf::Vector2f* follow;
+    const sf::Vector2f* follow;
 };
 
 } // namespace camera

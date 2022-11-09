@@ -66,6 +66,12 @@ public:
     void setDebounce(float debounceTime) { this->debounceTime = debounceTime; }
 
     /**
+     * @brief Resets the debounce time. Call this when re-activating a menu
+     *
+     */
+    void resetDebounce() { debounce.restart(); }
+
+    /**
      * @brief Programmatically sends the given control to the menu
      *
      * @param ctrl The control to send

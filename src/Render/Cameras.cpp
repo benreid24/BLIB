@@ -77,7 +77,8 @@ void Cameras::configureView(sf::RenderTarget& target) const {
     if (renderRegion.width > 0.f) {
         // camera is too big, just center what we have
         if (cam.viewport.width > renderRegion.width) {
-            cam.viewport.left = renderRegion.left + renderRegion.width * 0.5f;
+            cam.viewport.left =
+                renderRegion.left + renderRegion.width * 0.5f - cam.viewport.width * 0.5f;
         }
         else if (cam.viewport.left < renderRegion.left) {
             cam.viewport.left = renderRegion.left;
@@ -88,7 +89,8 @@ void Cameras::configureView(sf::RenderTarget& target) const {
 
         // camera is too tall, just center what we have
         if (cam.viewport.height > renderRegion.height) {
-            cam.viewport.top = renderRegion.top + renderRegion.height * 0.5f;
+            cam.viewport.top =
+                renderRegion.top + renderRegion.height * 0.5f - cam.viewport.height * 0.5f;
         }
         else if (cam.viewport.top < renderRegion.top) {
             cam.viewport.top = renderRegion.top;
