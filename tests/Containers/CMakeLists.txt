@@ -7,4 +7,6 @@ target_sources(BLIB.t PUBLIC
     DynamicObjectPool.t.cpp
     QuadTree.t.cpp
     Grid.t.cpp
+    ObjectWrapper.t.cpp
+    RingQueue.t.cpp
 )

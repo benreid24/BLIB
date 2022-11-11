@@ -3,7 +3,9 @@ target_sources(BLIB PUBLIC
     Cache.hpp
     Any.hpp
     FastQueue.hpp
+    ObjectWrapper.hpp
     RingBuffer.hpp
+    RingQueue.hpp
     FastEraseVector.hpp
     DynamicObjectPool.hpp
     QuadTree.hpp
