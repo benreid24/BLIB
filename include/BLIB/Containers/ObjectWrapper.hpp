@@ -39,14 +39,14 @@ public:
      *
      * @return T& The contained value
      */
-    T& get();
+    constexpr T& get();
 
     /**
      * @brief Access the wrapped value. Undefined behavior if not constructed
      *
      * @return T& The contained value
      */
-    const T& get() const;
+    constexpr const T& get() const;
 
     /**
      * @brief Constructs a new value in place. Does not destruct the prior value if any
@@ -66,8 +66,8 @@ public:
 private:
     std::uint8_t buffer[sizeof(T)];
 
-    T* cast();
-    const T* cast() const;
+    constexpr T* cast();
+    constexpr const T* cast() const;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -79,12 +79,12 @@ ObjectWrapper<T>::ObjectWrapper(TArgs... args) {
 }
 
 template<typename T>
-T& ObjectWrapper<T>::get() {
+constexpr T& ObjectWrapper<T>::get() {
     return *cast();
 }
 
 template<typename T>
-const T& ObjectWrapper<T>::get() const {
+constexpr const T& ObjectWrapper<T>::get() const {
     return *cast();
 }
 
@@ -100,12 +100,12 @@ void ObjectWrapper<T>::destroy() {
 }
 
 template<typename T>
-T* ObjectWrapper<T>::cast() {
+constexpr T* ObjectWrapper<T>::cast() {
     return static_cast<T*>(static_cast<void*>(buffer));
 }
 
 template<typename T>
-const T* ObjectWrapper<T>::cast() const {
+constexpr const T* ObjectWrapper<T>::cast() const {
     return static_cast<const T*>(static_cast<const void*>(buffer));
 }
 

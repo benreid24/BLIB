@@ -4,7 +4,10 @@
 #include <BLIB/ECS/ComponentMask.hpp>
 #include <BLIB/ECS/ComponentSet.hpp>
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/ECS/Events.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <array>
 #include <queue>
 
 namespace bl
@@ -24,13 +27,19 @@ public:
     /// @brief The component mask of this view
     const ComponentMask::Value mask;
 
+    /**
+     * @brief Destroy the View Base object
+     *
+     */
+    virtual ~ViewBase() = default;
+
 protected:
     ViewBase(ComponentMask::Value mask)
     : mask(mask) {}
 
-    virtual void removeEntity(Entity entity)         = 0;
-    virtual void tryAddEntity(Entity entity)         = 0;
-    virtual void clearAndRefresh(Registry& registry) = 0;
+    virtual void removeEntity(Entity entity)                     = 0;
+    virtual void tryAddEntity(Registry& registry, Entity entity) = 0;
+    virtual void clearAndRefresh(Registry& registry)             = 0;
 
     friend class Registry;
 };
@@ -45,27 +54,36 @@ protected:
 template<typename... TComponents>
 class View : public ViewBase {
 public:
-    /**
-     * @brief The beginning of the result set of this view
-     *
-     * @return std::vector<ComponentSet<TComponents...>>::iterator The start of the results
-     */
-    std::vector<ComponentSet<TComponents...>>::iterator begin();
+    /// @brief Callback signature for iterating over the view contents
+    using IterCallback = std::function<void(ComponentSet<TComponents...>&)>;
 
     /**
-     * @brief The end of the result set of this view
+     * @brief Destroy the View object
      *
-     * @return std::vector<ComponentSet<TComponents...>>::iterator The end of the results
      */
-    std::vector<ComponentSet<TComponents...>>::iterator end();
+    virtual ~View() = default;
+
+    /**
+     * @brief Iterates over all results of the view
+     *
+     * @param cb Handler for each entity result in the view
+     */
+    void forEach(const IterCallback& cb);
 
 private:
+    util::ReadWriteLock viewLock;
+    std::array<ComponentPoolBase*, sizeof(TComponents)...> pools;
     std::vector<ComponentSet<TComponents...>> results;
 
-    View(std::size_t maxEntityCount);
+    View(Registry& reg, std::size_t maxEntityCount, ComponentMask::Value mask);
     virtual void removeEntity(Entity entity) override;
-    virtual void tryAddEntity(Entity entity) override;
+    virtual void tryAddEntity(Registry& registry, Entity entity) override;
     virtual void clearAndRefresh(Registry& registry) override;
+
+    void lockPoolsRead();
+    void unlockPoolsRead();
+    void lockWrite();
+    void unlockWrite();
 
     friend class Registry;
 };

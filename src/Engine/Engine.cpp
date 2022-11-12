@@ -13,8 +13,8 @@ namespace engine
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , renderWindow(nullptr)
+, entityRegistry(2000, engineEventBus)
 , input(*this) {
-    entityRegistry.setEventDispatcher(engineEventBus);
     settings.syncToConfig();
     eventBus().subscribe(&input);
 }
@@ -32,7 +32,7 @@ Engine::~Engine() {
 
 bl::event::Dispatcher& Engine::eventBus() { return engineEventBus; }
 
-entity::Registry& Engine::entities() { return entityRegistry; }
+ecs::Registry& Engine::entities() { return entityRegistry; }
 
 script::Manager& Engine::scriptManager() { return engineScriptManager; }
 
@@ -148,17 +148,25 @@ bool Engine::run(State::Ptr initialState) {
         updateOuterTimer.restart();
         const float startingLag = lag;
         updateMeasureTimer.restart();
+
+        // update until caught up
         while (lag >= updateTimestep) {
             const float updateStart = updateMeasureTimer.getElapsedTime().asSeconds();
+
+            // core update game logic
             renderingSystem.update(updateTimestep);
             input.update();
             states.top()->update(*this, updateTimestep);
             engineEventBus.syncListeners();
+
+            // check if we should end early
             if (engineFlags.active(Flags::PopState) || engineFlags.active(Flags::Terminate) ||
                 newState) {
                 lag = 0.f;
                 break;
             }
+
+            // handle timing
             lag -= updateTimestep;
             averageUpdateTime =
                 0.8f * averageUpdateTime +
@@ -178,6 +186,8 @@ bool Engine::run(State::Ptr initialState) {
                 }
             }
         }
+
+        // update timing
         if (averageUpdateTime < updateTimestep * 0.9f &&
             updateTimestep > engineSettings.updateTimestep()) {
             const float newTs = std::max(engineSettings.updateTimestep(), updateTimestep * 0.95f);
@@ -185,6 +195,8 @@ bool Engine::run(State::Ptr initialState) {
                         << "s to " << newTs << "s";
             updateTimestep = newTs;
         }
+
+        // do render
         if (!engineFlags.active(Flags::PopState) && !engineFlags.active(Flags::Terminate) &&
             !newState) {
             if (renderWindow) { renderingSystem.cameras().configureView(*renderWindow); }

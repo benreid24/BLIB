@@ -1,7 +1,7 @@
 #ifndef BLIB_AI_PATHFINDING_PATHMAP_HPP
 #define BLIB_AI_PATHFINDING_PATHMAP_HPP
 
-#include <BLIB/Entities/Entity.hpp>
+#include <BLIB/ECS/Entity.hpp>
 #include <vector>
 
 namespace bl
@@ -28,7 +28,7 @@ public:
      * @param mover The entity trying to move
      * @return int The cost to traverse the positions, or a negative number if not traversable
      */
-    virtual int movementCost(const TCoord& from, const TCoord& to, entity::Entity mover) const = 0;
+    virtual int movementCost(const TCoord& from, const TCoord& to, ecs::Entity mover) const = 0;
 
     /**
      * @brief Populates the result array with the list of adjacent positions

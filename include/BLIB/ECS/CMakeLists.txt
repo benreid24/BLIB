@@ -8,4 +8,5 @@ target_sources(BLIB PUBLIC
     Events.hpp
     Registry.hpp
     View.hpp
+    ViewImpl.hpp
 )

@@ -6,6 +6,7 @@
 #include <BLIB/ECS/View.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <cstdlib>
 #include <memory>
 
 namespace bl
@@ -128,7 +129,9 @@ private:
     bl::event::Dispatcher& eventBus;
 
     // entity id management
-    std::vector<bool> existingEntities;
+    std::mutex entityLock;
+    std::vector<bool> aliveEntities;
+    std::vector<ComponentMask::Value> entityMasks;
     container::RingQueue<Entity> freeEntities;
     Entity nextEntity;
 
@@ -139,14 +142,114 @@ private:
     std::vector<std::unique_ptr<ViewBase>> views;
 
     Registry(std::size_t entityCount, bl::event::Dispatcher& eventBus);
-    void engineUpdate();
 
-    friend class Engine;
+    template<typename T>
+    ComponentPool<T>& getPool();
+
+    template<typename... TComponents>
+    void populateView(View<TComponents...>& view);
+
+    template<typename... TComponents>
+    friend class View;
+    friend class engine::Engine;
 };
 
 } // namespace ecs
 } // namespace bl
 
 #include <BLIB/ECS/ComponentSetImpl.hpp>
+#include <BLIB/ECS/ViewImpl.hpp>
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+namespace bl
+{
+namespace ecs
+{
+template<typename T>
+T* Registry::addComponent(Entity ent, const T& val) {
+    auto& pool = getPool<T>();
+    T* nc      = pool.add(ent, val);
+    eventBus.dispatch<event::ComponentAdded<T>>({ent, *nc});
+    ComponentMask::add(entityMasks[ent], pool.ComponentIndex);
+    for (auto& view : views) {
+        if (ComponentMask::has(view->mask, pool.ComponentIndex)) { view->tryAddEntity(*this, ent); }
+    }
+    return nc;
+}
+
+template<typename T>
+T* Registry::getComponent(Entity ent) {
+    return getPool<T>().get(ent);
+}
+
+template<typename T>
+bool Registry::hasComponent(Entity ent) {
+    return getPool<T>().get(ent) != nullptr;
+}
+
+template<typename T>
+void Registry::removeComponent(Entity ent) {
+    auto& pool = getPool<T>();
+    pool.remove(ent, eventBus);
+    ComponentMask::remove(entityMasks[ent], pool.ComponentIndex);
+    for (auto& view : views) {
+        if (ComponentMask::has(view->mask, pool.ComponentIndex)) { view->removeEntity(ent); }
+    }
+}
+
+template<typename T>
+ComponentPool<T>& Registry::getAllComponents() {
+    return getPool<T>();
+}
+
+template<typename... TComponents>
+ComponentSet<TComponents...> Registry::getComponentSet(Entity ent) {
+    return ComponentSet<TComponents...>(*this, ent);
+}
+
+template<typename... TComponents>
+View<TComponents...>* Registry::getOrCreateView() {
+    // calculate component mask
+    const std::array<std::uint8_t, sizeof(TComponents)...> indices(
+        {getPool<TComponents>().ComponentIndex...});
+    ComponentMask::Value mask = ComponentMask::EmptyMask;
+    for (const std::uint8_t i : indices) { ComponentMask::add(mask, i); }
+
+    // find existing view
+    for (auto& view : views) {
+        if (view->mask == mask) return dynamic_cast<View<TComponents...>*>(view.get());
+    }
+
+    // create new view
+    views.emplace_back(new View<TComponents...>(*this, maxEntities, mask));
+    return dynamic_cast<View<TComponents...>*>(views.back().get());
+}
+
+template<typename T>
+ComponentPool<T>& Registry::getPool() {
+    ComponentPool<T>& pool = ComponentPool<T>::get(maxEntities);
+    if (pool.ComponentIndex == componentPools.size()) {
+        if (pool.ComponentIndex >= ComponentPoolBase::MaximumComponentCount) {
+            BL_LOG_CRITICAL << "Maximum component type count reached on component: "
+                            << typeid(T).name();
+            std::exit(1);
+        }
+        componentPools.emplace_back(&pool);
+    }
+    return pool;
+}
+
+template<typename... TComponents>
+void Registry::populateView(View<TComponents...>& view) {
+    std::lock_guard lock(entityLock);
+
+    for (Entity ent = 0; ent < nextEntity; ++ent) {
+        if (entityMasks[ent] == view.mask) { view.tryAddEntity(*this, ent); }
+    }
+}
+
+} // namespace ecs
+} // namespace bl
 
 #endif

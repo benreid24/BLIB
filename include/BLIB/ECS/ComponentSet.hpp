@@ -49,7 +49,7 @@ public:
      * @return T* Pointer to the given component. May be nullptr
      */
     template<typename T>
-    T* get();
+    constexpr T* get();
 
     /**
      * @brief Access the single component in the set
@@ -58,14 +58,14 @@ public:
      * @return const T* Pointer to the given component. May be nullptr
      */
     template<typename T>
-    const T* get() const;
+    constexpr const T* get() const;
 
     /**
      * @brief Returns whether or not all components are present and non-null
      *
      * @return True if all components were foumd, false if some were not
      */
-    bool isValid() const;
+    constexpr bool isValid() const;
 
 private:
     bool valid;

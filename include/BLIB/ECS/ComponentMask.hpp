@@ -49,8 +49,17 @@ struct ComponentMask {
      * @return True if the component is contained, false otherwise
      */
     static bool has(Value mask, unsigned int componentIndex) {
-        return mask & ~(0x1 << componentIndex) != 0;
+        return (mask & ~(0x1 << componentIndex)) != 0;
     }
+
+    /**
+     * @brief Returns whether or not the two given masks share any components
+     *
+     * @param lhs One mask to evaluate
+     * @param rhs The other mask to evaluate
+     * @return True if one or more components are shared, false if no overlap
+     */
+    static bool overlaps(Value lhs, Value rhs) { return (lhs & rhs) != 0; }
 };
 
 } // namespace ecs

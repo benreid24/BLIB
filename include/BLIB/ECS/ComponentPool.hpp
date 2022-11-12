@@ -3,7 +3,13 @@
 
 #include <BLIB/Containers/RingQueue.hpp>
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Logging.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <BLIB/Util/ReadWriteLock.hpp>
+#include <BLIB/ECS/Events.hpp>
+#include <cstdlib>
+#include <BLIB/Events.hpp>
+#include <functional>
 #include <limits>
 #include <vector>
 
@@ -12,6 +18,8 @@ namespace bl
 namespace ecs
 {
 class Registry;
+template<typename... TComponents>
+class View;
 
 /**
  * @brief Base class for component pools. Not intended to be used directly
@@ -34,19 +42,6 @@ public:
     virtual ~ComponentPoolBase() = default;
 
     /**
-     * @brief Removes the component from the given entity
-     *
-     * @param entity The entity to remove the component from
-     */
-    virtual void remove(Entity entity) = 0;
-
-    /**
-     * @brief Destroys all components
-     *
-     */
-    virtual void clear() = 0;
-
-    /**
      * @brief Returns the number of different component types that exist
      *
      * @return unsigned int The number of unique component types
@@ -54,10 +49,19 @@ public:
     static unsigned int ComponentCount();
 
 protected:
+    util::ReadWriteLock poolLock;
+
     ComponentPoolBase()
     : ComponentIndex(nextComponentIndex++) {}
 
+    virtual void remove(Entity entity, bl::event::Dispatcher& bus) = 0;
+    virtual void clear(bl::event::Dispatcher& bus) = 0;
+
     static unsigned int nextComponentIndex;
+
+    template<typename... TComponents>
+    friend class View;
+    friend class Registry;
 };
 
 /**
@@ -69,31 +73,8 @@ protected:
 template<typename T>
 class ComponentPool : public ComponentPoolBase {
 public:
-    /**
-     * @brief Special iterator for iterating over a single component type in the ECS
-     *
-     */
-    class Iterator {
-    public:
-        Iterator(const Iterator&) = default;
-        Iterator(Iterator&&)      = default;
-        Iterator& operator=(const Iterator&) = default;
-        Iterator& operator=(Iterator&&) = default;
-
-        T& operator*();
-        const T& operator*() const;
-        T& operator->();
-        const T& operator->() const;
-        Iterator& operator++();
-        Iterator& operator++(int);
-        bool operator==(const Iterator& it) const;
-        bool operator!=(const Iterator& it) const;
-        Entity entity() const;
-
-    private:
-        std::vector<container::ObjectWrapper<T>>::iterator it;
-        ComponentPool* pool;
-    };
+    /// @brief Callback signature for iterating over all components
+    using IterCallback = std::function<void(Entity, T&)>;
 
     /**
      * @brief Fetches the component for the given entity if it exists
@@ -104,34 +85,152 @@ public:
     T* get(Entity entity);
 
     /**
-     * @brief Returns an iterator to the first component in the pool
+     * @brief Iterates over all contained components and triggers the callback for each
      *
+     * @param cb The handler for each component. Takes the entity id and the component
      */
-    Iterator begin();
-
-    /**
-     * @brief Returns an iterator to the last component in the pool
-     *
-     */
-    Iterator end();
+    void forEach(const IterCallback& cb);
 
 private:
     std::vector<container::ObjectWrapper<T>> pool;
-    std::vector<std::uint16_t> entityToIndex;
+    std::vector<typename std::vector<container::ObjectWrapper<T>>::iterator> entityToIter;
     std::vector<Entity> indexToEntity;
     std::vector<bool> aliveIndices;
-    container::RingQueue<std::uint16_t> freeIndexes;
+    container::RingQueue<std::uint16_t> freeIndices;
     std::uint16_t nextIndex;
 
     ComponentPool(std::size_t poolSize);
     static ComponentPool& get(std::size_t poolSize);
 
     T* add(Entity entity, const T& component);
-    virtual void remove(Entity entity) override;
-    virtual void clear() override;
+    virtual void remove(Entity entity, bl::event::Dispatcher& bus) override;
+    virtual void clear(bl::event::Dispatcher& bus) override;
 
     friend class Registry;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename T>
+ComponentPool<T>::ComponentPool(std::size_t ps)
+: ComponentPoolBase()
+, pool(ps)
+, entityToIter(ps, pool.end())
+, indexToEntity(ps, InvalidEntity)
+, aliveIndices(ps, false)
+, freeIndices(ps)
+, nextIndex(0) {}
+
+template<typename T>
+ComponentPool<T>& ComponentPool<T>::get(std::size_t ps) {
+    static ComponentPool<T> pool(ps);
+    return pool;
+}
+
+template<typename T>
+T* ComponentPool<T>::add(Entity ent, const T& c) {
+    util::ReadWriteLock::WriteScopeGuard lock(poolLock);
+
+    // determine insertion index
+    std::uint16_t i = nextIndex;
+    if (!freeIndices.empty()) {
+        i = freeIndices.front();
+        freeIndices.pop();
+    }
+    else {
+        ++nextIndex;
+    }
+
+    // check not full
+    if (i >= pool.size()) {
+        nextIndex = pool.size(); // dont break iteration
+        BL_LOG_CRITICAL << "Ran out of storage in component pool. Increase allocation. Capacity: "
+                        << pool.size() << " Pool: " << typeid(T).name();
+        std::exit(1);
+    }
+
+    // perform insertion
+    auto it = pool.begin() + i;
+    it->emplace(c);
+    entityToIter[ent] = it;
+    indexToEntity[i]  = ent;
+    aliveIndices[i]   = true;
+
+    return &it->get();
+}
+
+template<typename T>
+void ComponentPool<T>::remove(Entity ent, bl::event::Dispatcher& bus) {
+    util::ReadWriteLock::WriteScopeGuard lock(poolLock);
+
+    // determine if present
+    auto it = entityToIter[ent];
+    if (it == pool.end()) return;
+
+    // send event
+    bus.dispatch<event::ComponentRemoved>({ent, it->get()});
+
+    // perform removal
+    const std::uint16_t i = it - pool.begin();
+    it->destroy();
+    entityToIter[ent] = pool.end();
+    indexToEntity[i]  = InvalidEntity;
+    aliveIndices[i]   = false;
+    freeIndices.push(i);
+
+    // push back nextIndex to keep iterations tight
+    if (i == nextIndex - 1) {
+        do { --nextIndex; } while (!aliveIndices[nextIndex - 1]);
+    }
+}
+
+template<typename T>
+void ComponentPool<T>::clear(bl::event::Dispatcher& bus) {
+    util::ReadWriteLock::WriteScopeGuard lock(poolLock);
+
+    // destroy components
+    Entity ent = 0;
+    for (auto& it : entityToIter) {
+        if (it != pool.end()) {
+            bus.dispatch<event::ComponentRemoved>({ent, it->get()});
+            it->destroy();
+            it = pool.end();
+        }
+        ++ent;
+    }
+
+    // reset metadata (no allocations)
+    indexToEntity.resize(pool.size(), InvalidEntity);
+    aliveIndices.resize(pool.size(), false);
+    freeIndices.clear();
+    nextIndex = 0;
+}
+
+template<typename T>
+void ComponentPool<T>::forEach(const IterCallback& cb) {
+    util::ReadWriteLock::ReadScopeGuard lock(poolLock);
+
+    std::uint16_t i = 0;
+    auto poolIt     = pool.begin();
+    auto entIt      = indexToEntity.begin();
+    auto aliveIt    = aliveIndices.begin();
+    while (i < nextIndex) {
+        if (*aliveIt) { cb(*entIt, poolIt->get()); }
+
+        ++i;
+        ++poolIt;
+        ++entIt;
+        ++aliveIt;
+    }
+}
+
+template<typename T>
+T* ComponentPool<T>::get(Entity ent) {
+    util::ReadWriteLock::ReadScopeGuard lock(poolLock);
+
+    auto it = entityToIter[ent];
+    return it != pool.end() ? &it->get() : nullptr;
+}
 
 } // namespace ecs
 } // namespace bl
