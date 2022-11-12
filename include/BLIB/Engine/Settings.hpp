@@ -133,6 +133,7 @@ public:
     static constexpr bool DefaultAllowVariableTimestep = true;
     static constexpr bool DefaultCreateWindow          = true;
     static constexpr bool DefaultLogFps                = false;
+    static constexpr unsigned int DefaultMaxEntityCount = 2000;
 
     /**
      * @brief Creates a new settings object with all default settings
@@ -186,6 +187,14 @@ public:
     Settings& withLogFps(bool log);
 
     /**
+     * @brief Sets the maximum number of entities to allocate for in the ECS
+     *
+     * @param maxEntities The number of entities to allocate memory for
+     * @return Settings& A reference to this object
+     */
+    Settings& withMaxEntityCount(unsigned int maxEntities);
+
+    /**
      * @brief Loads the settings from the global engine config. See Settings.cpp for keys
      *
      * @return Settings& A reference to this object
@@ -235,12 +244,19 @@ public:
      */
     bool logFps() const;
 
+    /**
+     * @brief Returns the maximum number of entities in the ECS
+     * 
+     */
+    unsigned int maximumEntityCount() const;
+
 private:
     float updateTime;
     float maxFps;
     bool allowVariableInterval;
     std::optional<WindowParameters> windowParams;
     bool loggingFps;
+    unsigned int maxEntities;
 };
 
 } // namespace engine

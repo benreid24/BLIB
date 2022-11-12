@@ -13,7 +13,7 @@ namespace engine
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , renderWindow(nullptr)
-, entityRegistry(2000, engineEventBus)
+, entityRegistry(settings.maximumEntityCount(), engineEventBus)
 , input(*this) {
     settings.syncToConfig();
     eventBus().subscribe(&input);
