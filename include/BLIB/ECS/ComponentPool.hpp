@@ -3,12 +3,12 @@
 
 #include <BLIB/Containers/RingQueue.hpp>
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/ECS/Events.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/ReadWriteLock.hpp>
-#include <BLIB/ECS/Events.hpp>
 #include <cstdlib>
-#include <BLIB/Events.hpp>
 #include <functional>
 #include <limits>
 #include <vector>
@@ -55,7 +55,7 @@ protected:
     : ComponentIndex(nextComponentIndex++) {}
 
     virtual void remove(Entity entity, bl::event::Dispatcher& bus) = 0;
-    virtual void clear(bl::event::Dispatcher& bus) = 0;
+    virtual void clear(bl::event::Dispatcher& bus)                 = 0;
 
     static unsigned int nextComponentIndex;
 
@@ -98,6 +98,7 @@ private:
     std::vector<bool> aliveIndices;
     container::RingQueue<std::uint16_t> freeIndices;
     std::uint16_t nextIndex;
+    std::uint8_t maxIndex;
 
     ComponentPool(std::size_t poolSize);
     static ComponentPool& get(std::size_t poolSize);
@@ -139,6 +140,7 @@ T* ComponentPool<T>::add(Entity ent, const T& c) {
     }
     else {
         ++nextIndex;
+        maxIndex = i;
     }
 
     // check not full
@@ -168,7 +170,7 @@ void ComponentPool<T>::remove(Entity ent, bl::event::Dispatcher& bus) {
     if (it == pool.end()) return;
 
     // send event
-    bus.dispatch<event::ComponentRemoved>({ent, it->get()});
+    bus.dispatch<event::ComponentRemoved<T>>({ent, it->get()});
 
     // perform removal
     const std::uint16_t i = it - pool.begin();
@@ -178,9 +180,9 @@ void ComponentPool<T>::remove(Entity ent, bl::event::Dispatcher& bus) {
     aliveIndices[i]   = false;
     freeIndices.push(i);
 
-    // push back nextIndex to keep iterations tight
-    if (i == nextIndex - 1) {
-        do { --nextIndex; } while (!aliveIndices[nextIndex - 1]);
+    // push back maxIndex to keep iterations tight
+    if (i == maxIndex) {
+        do { --maxIndex; } while (maxIndex > 0 && !aliveIndices[maxIndex - 1]);
     }
 }
 
@@ -192,18 +194,25 @@ void ComponentPool<T>::clear(bl::event::Dispatcher& bus) {
     Entity ent = 0;
     for (auto& it : entityToIter) {
         if (it != pool.end()) {
-            bus.dispatch<event::ComponentRemoved>({ent, it->get()});
+            bus.dispatch<event::ComponentRemoved<T>>({ent, it->get()});
             it->destroy();
             it = pool.end();
         }
         ++ent;
     }
 
-    // reset metadata (no allocations)
-    indexToEntity.resize(pool.size(), InvalidEntity);
-    aliveIndices.resize(pool.size(), false);
+    // reset metadata
+    auto entIt   = indexToEntity.begin();
+    auto aliveIt = aliveIndices.begin();
+    while (entIt != indexToEntity.end() && aliveIt != aliveIndices.end()) {
+        *entIt   = InvalidEntity;
+        *aliveIt = false;
+        ++entIt;
+        ++aliveIt;
+    }
     freeIndices.clear();
     nextIndex = 0;
+    maxIndex  = 0;
 }
 
 template<typename T>
@@ -214,7 +223,7 @@ void ComponentPool<T>::forEach(const IterCallback& cb) {
     auto poolIt     = pool.begin();
     auto entIt      = indexToEntity.begin();
     auto aliveIt    = aliveIndices.begin();
-    while (i < nextIndex) {
+    while (i <= maxIndex) {
         if (*aliveIt) { cb(*entIt, poolIt->get()); }
 
         ++i;

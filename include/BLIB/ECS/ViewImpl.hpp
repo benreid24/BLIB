@@ -30,7 +30,7 @@ template<typename... TComponents>
 void View<TComponents...>::removeEntity(Entity entity) {
     lockWrite();
     for (auto it = results.begin(); it != results.end(); ++it) {
-        if (it->entity == entity) {
+        if (it->entity() == entity) {
             results.erase(it);
             break;
         }
@@ -42,7 +42,7 @@ template<typename... TComponents>
 void View<TComponents...>::tryAddEntity(Registry& reg, Entity ent) {
     lockWrite();
     results.emplace_back(reg, ent);
-    if (!results.back().valid()) results.pop_back();
+    if (!results.back().isValid()) results.pop_back();
     unlockWrite();
 }
 

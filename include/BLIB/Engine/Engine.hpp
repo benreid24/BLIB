@@ -45,7 +45,7 @@ public:
      * @brief Returns a reference to the engine wide entity registry
      *
      */
-    ecs::Registry& entities();
+    ecs::Registry& ecs();
 
     /**
      * @brief Returns a reference to the primary engine event dispatcher. Engine events and window

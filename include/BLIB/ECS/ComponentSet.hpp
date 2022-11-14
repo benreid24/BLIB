@@ -31,9 +31,6 @@ struct ComponentSetMember {
 template<typename... TComponents>
 class ComponentSet : private ComponentSetMember<TComponents>... {
 public:
-    /// @brief The entity the components belong to
-    const Entity entity;
-
     /**
      * @brief Creates the set and fetches each component type
      *
@@ -41,6 +38,13 @@ public:
      * @param owner The entity to get components for
      */
     ComponentSet(Registry& registry, Entity owner);
+
+    /**
+     * @brief Returns the entity that the components belong to
+     *
+     * @return constexpr Entity The entity that the components belong to
+     */
+    constexpr Entity entity() const;
 
     /**
      * @brief Access the single component in the set
@@ -68,6 +72,7 @@ public:
     constexpr bool isValid() const;
 
 private:
+    Entity owner;
     bool valid;
 };
 

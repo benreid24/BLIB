@@ -32,7 +32,7 @@ Engine::~Engine() {
 
 bl::event::Dispatcher& Engine::eventBus() { return engineEventBus; }
 
-ecs::Registry& Engine::entities() { return entityRegistry; }
+ecs::Registry& Engine::ecs() { return entityRegistry; }
 
 script::Manager& Engine::scriptManager() { return engineScriptManager; }
 

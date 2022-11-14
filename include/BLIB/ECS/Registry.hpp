@@ -168,12 +168,15 @@ namespace ecs
 {
 template<typename T>
 T* Registry::addComponent(Entity ent, const T& val) {
+    std::lock_guard lock(entityLock);
+
     auto& pool = getPool<T>();
     T* nc      = pool.add(ent, val);
     eventBus.dispatch<event::ComponentAdded<T>>({ent, *nc});
-    ComponentMask::add(entityMasks[ent], pool.ComponentIndex);
+    ComponentMask::Value& mask = entityMasks[ent];
+    ComponentMask::add(mask, pool.ComponentIndex);
     for (auto& view : views) {
-        if (ComponentMask::has(view->mask, pool.ComponentIndex)) { view->tryAddEntity(*this, ent); }
+        if (ComponentMask::completelyContains(mask, view->mask)) { view->tryAddEntity(*this, ent); }
     }
     return nc;
 }
@@ -190,6 +193,8 @@ bool Registry::hasComponent(Entity ent) {
 
 template<typename T>
 void Registry::removeComponent(Entity ent) {
+    std::lock_guard lock(entityLock);
+    
     auto& pool = getPool<T>();
     pool.remove(ent, eventBus);
     ComponentMask::remove(entityMasks[ent], pool.ComponentIndex);
@@ -211,8 +216,8 @@ ComponentSet<TComponents...> Registry::getComponentSet(Entity ent) {
 template<typename... TComponents>
 View<TComponents...>* Registry::getOrCreateView() {
     // calculate component mask
-    const std::array<std::uint8_t, sizeof(TComponents)...> indices(
-        {getPool<TComponents>().ComponentIndex...});
+    const std::array<std::uint8_t, sizeof...(TComponents)> indices(
+        {static_cast<std::uint8_t>(getPool<TComponents>().ComponentIndex)...});
     ComponentMask::Value mask = ComponentMask::EmptyMask;
     for (const std::uint8_t i : indices) { ComponentMask::add(mask, i); }
 

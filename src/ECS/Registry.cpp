@@ -4,6 +4,8 @@ namespace bl
 {
 namespace ecs
 {
+unsigned int ComponentPoolBase::nextComponentIndex = 0;
+
 Registry::Registry(std::size_t ec, bl::event::Dispatcher& bus)
 : maxEntities(ec)
 , eventBus(bus)
@@ -27,6 +29,11 @@ Entity Registry::createEntity() {
         ++nextEntity;
     }
 
+    if (ent >= maxEntities) {
+        BL_LOG_CRITICAL << "Out of entity storage. Increase entity allocation in engine settings";
+        std::exit(1);
+    }
+
     aliveEntities[ent] = true;
     entityMasks[ent]   = ComponentMask::EmptyMask;
     eventBus.dispatch<event::EntityCreated>({ent});
@@ -41,7 +48,7 @@ void Registry::destroyEntity(Entity ent) {
 
     eventBus.dispatch<event::EntityDestroyed>({ent});
     for (auto& view : views) {
-        if (ComponentMask::overlaps(view->mask, mask)) { view->removeEntity(ent); }
+        if (ComponentMask::completelyContains(mask, view->mask)) { view->removeEntity(ent); }
     }
 
     for (ComponentPoolBase* pool : componentPools) {
@@ -50,10 +57,6 @@ void Registry::destroyEntity(Entity ent) {
 
     aliveEntities[ent] = false;
     entityMasks[ent]   = ComponentMask::EmptyMask;
-
-    if (ent == nextEntity - 1) {
-        do { --nextEntity; } while (!aliveEntities[nextEntity - 1]);
-    }
 }
 
 void Registry::destroyAllEntities() {
@@ -69,6 +72,18 @@ void Registry::destroyAllEntities() {
 
     // clear views
     for (auto& view : views) { view->clearAndRefresh(*this); }
+
+    // reset entity id management
+    auto aliveIt = aliveEntities.begin();
+    auto maskIt  = entityMasks.begin();
+    while (aliveIt != aliveEntities.end() && maskIt != entityMasks.end()) {
+        *aliveIt = false;
+        *maskIt  = ComponentMask::EmptyMask;
+        ++aliveIt;
+        ++maskIt;
+    }
+    nextEntity = 0;
+    freeEntities.clear();
 }
 
 } // namespace ecs

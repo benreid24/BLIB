@@ -72,7 +72,7 @@ public:
 
 private:
     util::ReadWriteLock viewLock;
-    std::array<ComponentPoolBase*, sizeof(TComponents)...> pools;
+    std::array<ComponentPoolBase*, sizeof...(TComponents)> pools;
     std::vector<ComponentSet<TComponents...>> results;
 
     View(Registry& reg, std::size_t maxEntityCount, ComponentMask::Value mask);
