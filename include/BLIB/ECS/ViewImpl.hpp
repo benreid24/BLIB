@@ -14,7 +14,7 @@ View<TComponents...>::View(Registry& reg, std::size_t ec, ComponentMask::Value m
 : ViewBase(mask)
 , pools({&reg.getPool<TComponents>()...}) {
     results.reserve(ec / 2);
-    reg.populateView(*this);
+    reg.populateViewWithLock(*this);
 }
 
 template<typename... TComponents>

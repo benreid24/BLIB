@@ -150,12 +150,12 @@ TEST(ECS, ComponentIterate) {
     for (unsigned int i = 0; i < MaxEntities; ++i) {
         const Entity e = testRegistry.createEntity();
         const int v    = util::Random::get<int>(0, 100000);
+        testRegistry.addComponent<int>(e, v);
         values.emplace(e, v);
     }
 
     const auto visitor = [&values](Entity e, int& c) {
         const auto it = values.find(e);
-        ASSERT_TRUE(false); // sanity check
         ASSERT_NE(it, values.end());
         EXPECT_EQ(c, it->second);
         values.erase(it);
@@ -166,7 +166,7 @@ TEST(ECS, ComponentIterate) {
 }
 
 TEST(ECS, ViewIterate) {
-    /*testRegistry.destroyAllEntities();
+    testRegistry.destroyAllEntities();
 
     // create entities and components
     std::unordered_map<Entity, std::pair<int, char>> ogValues;
@@ -231,7 +231,7 @@ TEST(ECS, ViewIterate) {
         }
     }
     view->forEach(std::bind(visitor, std::ref(afterRmValues), std::placeholders::_1));
-    EXPECT_TRUE(afterRmValues.empty());*/
+    EXPECT_TRUE(afterRmValues.empty());
 }
 
 TEST(ECS, FillComponentSet) {

@@ -148,6 +148,8 @@ private:
 
     template<typename... TComponents>
     void populateView(View<TComponents...>& view);
+    template<typename... TComponents>
+    void populateViewWithLock(View<TComponents...>& view);
 
     template<typename... TComponents>
     friend class View;
@@ -194,7 +196,7 @@ bool Registry::hasComponent(Entity ent) {
 template<typename T>
 void Registry::removeComponent(Entity ent) {
     std::lock_guard lock(entityLock);
-    
+
     auto& pool = getPool<T>();
     pool.remove(ent, eventBus);
     ComponentMask::remove(entityMasks[ent], pool.ComponentIndex);
@@ -247,11 +249,15 @@ ComponentPool<T>& Registry::getPool() {
 
 template<typename... TComponents>
 void Registry::populateView(View<TComponents...>& view) {
-    std::lock_guard lock(entityLock);
-
     for (Entity ent = 0; ent < nextEntity; ++ent) {
         if (entityMasks[ent] == view.mask) { view.tryAddEntity(*this, ent); }
     }
+}
+
+template<typename... TComponents>
+void Registry::populateViewWithLock(View<TComponents...>& view) {
+    std::lock_guard lock(entityLock);
+    populateView(view);
 }
 
 } // namespace ecs
