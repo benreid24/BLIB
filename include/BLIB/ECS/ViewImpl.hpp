@@ -12,7 +12,8 @@ namespace ecs
 template<typename... TComponents>
 View<TComponents...>::View(Registry& reg, std::size_t ec, ComponentMask::Value mask)
 : ViewBase(mask)
-, pools({&reg.getPool<TComponents>()...}) {
+, pools({&reg.getPool<TComponents>()...})
+, containedEntities(ec, false) {
     results.reserve(ec / 2);
     reg.populateViewWithLock(*this);
 }
@@ -29,6 +30,7 @@ void View<TComponents...>::forEach(const IterCallback& cb) {
 template<typename... TComponents>
 void View<TComponents...>::removeEntity(Entity entity) {
     lockWrite();
+    containedEntities[entity] = false;
     for (auto it = results.begin(); it != results.end(); ++it) {
         if (it->entity() == entity) {
             results.erase(it);
@@ -41,8 +43,15 @@ void View<TComponents...>::removeEntity(Entity entity) {
 template<typename... TComponents>
 void View<TComponents...>::tryAddEntity(Registry& reg, Entity ent) {
     lockWrite();
+    if (containedEntities[ent]) {
+        unlockWrite();
+        return;
+    }
     results.emplace_back(reg, ent);
-    if (!results.back().isValid()) results.pop_back();
+    if (!results.back().isValid()) { results.pop_back(); }
+    else {
+        containedEntities[ent] = true;
+    }
     unlockWrite();
 }
 
@@ -50,6 +59,7 @@ template<typename... TComponents>
 void View<TComponents...>::clearAndRefresh(Registry& reg) {
     lockWrite();
     results.clear();
+    for (auto it = containedEntities.begin(); it != containedEntities.end(); ++it) { *it = false; }
     reg.populateView(*this);
     unlockWrite();
 }

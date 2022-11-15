@@ -74,6 +74,7 @@ private:
     util::ReadWriteLock viewLock;
     std::array<ComponentPoolBase*, sizeof...(TComponents)> pools;
     std::vector<ComponentSet<TComponents...>> results;
+    std::vector<bool> containedEntities;
 
     View(Registry& reg, std::size_t maxEntityCount, ComponentMask::Value mask);
     virtual void removeEntity(Entity entity) override;

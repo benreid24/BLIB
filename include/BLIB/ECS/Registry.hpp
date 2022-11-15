@@ -199,10 +199,11 @@ void Registry::removeComponent(Entity ent) {
 
     auto& pool = getPool<T>();
     pool.remove(ent, eventBus);
-    ComponentMask::remove(entityMasks[ent], pool.ComponentIndex);
+    ComponentMask::Value& mask = entityMasks[ent];
     for (auto& view : views) {
-        if (ComponentMask::has(view->mask, pool.ComponentIndex)) { view->removeEntity(ent); }
+        if (ComponentMask::completelyContains(mask, view->mask)) { view->removeEntity(ent); }
     }
+    ComponentMask::remove(mask, pool.ComponentIndex);
 }
 
 template<typename T>

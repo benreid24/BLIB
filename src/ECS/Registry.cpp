@@ -70,9 +70,6 @@ void Registry::destroyAllEntities() {
     // clear pools
     for (ComponentPoolBase* pool : componentPools) { pool->clear(eventBus); }
 
-    // clear views
-    for (auto& view : views) { view->clearAndRefresh(*this); }
-
     // reset entity id management
     auto aliveIt = aliveEntities.begin();
     auto maskIt  = entityMasks.begin();
@@ -84,6 +81,9 @@ void Registry::destroyAllEntities() {
     }
     nextEntity = 0;
     freeEntities.clear();
+
+    // clear views
+    for (auto& view : views) { view->clearAndRefresh(*this); }
 }
 
 } // namespace ecs
