@@ -21,6 +21,8 @@ typename std::enable_if<std::is_enum<E>::value, std::ostream&>::type operator<<(
     return os;
 }
 
+namespace sf
+{
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const sf::Vector2<T>& v) {
     os << "(" << v.x << ", " << v.y << ")";
@@ -38,5 +40,6 @@ std::ostream& operator<<(std::ostream& os, const sf::Rect<T>& r) {
     os << "(" << r.left << ", " << r.top << ", " << r.width << ", " << r.height << ")";
     return os;
 }
+} // namespace sf
 
 #endif
