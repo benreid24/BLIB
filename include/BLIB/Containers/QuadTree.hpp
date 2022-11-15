@@ -316,7 +316,7 @@ private:
     static constexpr std::size_t TopRight    = 2;
     static constexpr std::size_t BottomRight = 3;
 
-    friend class Partition;
+    friend struct Partition;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

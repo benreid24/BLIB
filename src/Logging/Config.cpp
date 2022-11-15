@@ -18,8 +18,10 @@ Config::Config()
 : utc(false) {}
 
 Config& Config::get() {
-    static Config config;
-    return config;
+    // yes this is a "leak" but we never want to destruct this, otherwise we cannot
+    // log in static/global destructors
+    static Config* config = new Config();
+    return *config;
 }
 
 void Config::configureOutput(std::ostream& s, int level) {
