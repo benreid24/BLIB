@@ -103,7 +103,12 @@ private:
     ComponentPool(std::size_t poolSize);
     static ComponentPool& get(std::size_t poolSize);
 
+    typename std::vector<container::ObjectWrapper<T>>::iterator addLogic(Entity entity);
     T* add(Entity entity, const T& component);
+    T* add(Entity entity, T&& component);
+    template<typename... TArgs>
+    T* emplace(Entity ent, TArgs... args);
+
     virtual void remove(Entity entity, bl::event::Dispatcher& bus) override;
     virtual void clear(bl::event::Dispatcher& bus) override;
 
@@ -129,9 +134,7 @@ ComponentPool<T>& ComponentPool<T>::get(std::size_t ps) {
 }
 
 template<typename T>
-T* ComponentPool<T>::add(Entity ent, const T& c) {
-    util::ReadWriteLock::WriteScopeGuard lock(poolLock);
-
+typename std::vector<container::ObjectWrapper<T>>::iterator ComponentPool<T>::addLogic(Entity ent) {
     // determine insertion index
     std::uint16_t i = nextIndex;
     if (!freeIndices.empty()) {
@@ -152,12 +155,39 @@ T* ComponentPool<T>::add(Entity ent, const T& c) {
     }
 
     // perform insertion
-    auto it = pool.begin() + i;
-    it->emplace(c);
+    auto it           = pool.begin() + i;
     entityToIter[ent] = it;
     indexToEntity[i]  = ent;
     aliveIndices[i]   = true;
 
+    return it;
+}
+
+template<typename T>
+T* ComponentPool<T>::add(Entity ent, const T& c) {
+    util::ReadWriteLock::WriteScopeGuard lock(poolLock);
+
+    auto it = addLogic(ent);
+    it->emplace(c);
+    return &it->get();
+}
+
+template<typename T>
+T* ComponentPool<T>::add(Entity ent, T&& c) {
+    util::ReadWriteLock::WriteScopeGuard lock(poolLock);
+
+    auto it = addLogic(ent);
+    it->emplace(c);
+    return &it->get();
+}
+
+template<typename T>
+template<typename... TArgs>
+T* ComponentPool<T>::emplace(Entity ent, TArgs... args) {
+    util::ReadWriteLock::WriteScopeGuard lock(poolLock);
+
+    auto it = addLogic(ent);
+    it->emplace(args...);
     return &it->get();
 }
 

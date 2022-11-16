@@ -67,6 +67,29 @@ public:
     T* addComponent(Entity entity, const T& value);
 
     /**
+     * @brief Adds a new component of the given type to the given entity
+     *
+     * @tparam T The type of component to add
+     * @param entity Thje entity to add it to
+     * @param value The initial component value
+     * @return T* Pointer to the new component
+     */
+    template<typename T>
+    T* addComponent(Entity entity, T&& value);
+
+    /**
+     * @brief Constructs the given component in-place for the given entity
+     *
+     * @tparam T The type of component to add
+     * @tparam TArgs The constructor parameter types
+     * @param entity Thje entity to add it to
+     * @param args The arguments to the component's constructor
+     * @return T* Pointer to the new component
+     */
+    template<typename T, typename... TArgs>
+    T* emplaceComponent(Entity entity, TArgs... args);
+
+    /**
      * @brief Retrieves the given component belonging to the given entity
      *
      * @tparam T The type of component to get
@@ -151,6 +174,9 @@ private:
     template<typename... TComponents>
     void populateViewWithLock(View<TComponents...>& view);
 
+    template<typename T>
+    void finishComponentAdd(Entity ent, unsigned int cindex, T* component);
+
     template<typename... TComponents>
     friend class View;
     friend class engine::Engine;
@@ -174,13 +200,38 @@ T* Registry::addComponent(Entity ent, const T& val) {
 
     auto& pool = getPool<T>();
     T* nc      = pool.add(ent, val);
-    eventBus.dispatch<event::ComponentAdded<T>>({ent, *nc});
+    finishComponentAdd<T>(ent, pool.ComponentIndex, nc);
+    return nc;
+}
+
+template<typename T>
+T* Registry::addComponent(Entity ent, T&& val) {
+    std::lock_guard lock(entityLock);
+
+    auto& pool = getPool<T>();
+    T* nc      = pool.add(ent, val);
+    finishComponentAdd<T>(ent, pool.ComponentIndex, nc);
+    return nc;
+}
+
+template<typename T, typename... TArgs>
+T* Registry::emplaceComponent(Entity ent, TArgs... args) {
+    std::lock_guard lock(entityLock);
+
+    auto& pool = getPool<T>();
+    T* nc      = pool.emplace(ent, args...);
+    finishComponentAdd<T>(ent, pool.ComponentIndex, nc);
+    return nc;
+}
+
+template<typename T>
+void Registry::finishComponentAdd(Entity ent, unsigned int cIndex, T* component) {
+    eventBus.dispatch<event::ComponentAdded<T>>({ent, *component});
     ComponentMask::Value& mask = entityMasks[ent];
-    ComponentMask::add(mask, pool.ComponentIndex);
+    ComponentMask::add(mask, cIndex);
     for (auto& view : views) {
         if (ComponentMask::completelyContains(mask, view->mask)) { view->tryAddEntity(*this, ent); }
     }
-    return nc;
 }
 
 template<typename T>

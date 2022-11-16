@@ -127,12 +127,12 @@ TEST(ECS, ComponentDestroyed) {
 
     bool destroyed = false;
     Entity e       = testRegistry.createEntity();
-    testRegistry.addComponent<DestroyTestComponent>(e, {destroyed});
+    testRegistry.emplaceComponent<DestroyTestComponent>(e, std::ref(destroyed));
     testRegistry.removeComponent<DestroyTestComponent>(e);
     EXPECT_TRUE(destroyed);
 
     destroyed = false;
-    testRegistry.addComponent<DestroyTestComponent>(e, {destroyed});
+    testRegistry.addComponent<DestroyTestComponent>(e, std::move(DestroyTestComponent{destroyed}));
     testRegistry.destroyEntity(e);
     EXPECT_TRUE(destroyed);
 
