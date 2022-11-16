@@ -54,9 +54,6 @@ protected:
 template<typename... TComponents>
 class View : public ViewBase {
 public:
-    /// @brief Callback signature for iterating over the view contents
-    using IterCallback = std::function<void(ComponentSet<TComponents...>&)>;
-
     /**
      * @brief Destroy the View object
      *
@@ -66,9 +63,11 @@ public:
     /**
      * @brief Iterates over all results of the view
      *
+     * @tparam TCallback The callback type to invoke
      * @param cb Handler for each entity result in the view
      */
-    void forEach(const IterCallback& cb);
+    template<typename TCallback>
+    void forEach(const TCallback& cb);
 
 private:
     util::ReadWriteLock viewLock;

@@ -19,7 +19,11 @@ View<TComponents...>::View(Registry& reg, std::size_t ec, ComponentMask::Value m
 }
 
 template<typename... TComponents>
-void View<TComponents...>::forEach(const IterCallback& cb) {
+template<typename TCallback>
+void View<TComponents...>::forEach(const TCallback& cb) {
+    static_assert(std::is_invocable<TCallback, ComponentSet<TComponents...>&>::value,
+                  "visitor must have signature void(ComponentSet<TComponents...>&)");
+
     viewLock.lockRead();
     lockPoolsRead();
     for (auto& set : results) { cb(set); }

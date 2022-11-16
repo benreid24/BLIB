@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <functional>
 #include <limits>
+#include <type_traits>
 #include <vector>
 
 namespace bl
@@ -73,9 +74,6 @@ protected:
 template<typename T>
 class ComponentPool : public ComponentPoolBase {
 public:
-    /// @brief Callback signature for iterating over all components
-    using IterCallback = std::function<void(Entity, T&)>;
-
     /**
      * @brief Fetches the component for the given entity if it exists
      *
@@ -87,9 +85,11 @@ public:
     /**
      * @brief Iterates over all contained components and triggers the callback for each
      *
+     * @tparam TCallback The callback type to invoke
      * @param cb The handler for each component. Takes the entity id and the component
      */
-    void forEach(const IterCallback& cb);
+    template<typename TCallback>
+    void forEach(const TCallback& cb);
 
 private:
     std::vector<container::ObjectWrapper<T>> pool;
@@ -216,7 +216,11 @@ void ComponentPool<T>::clear(bl::event::Dispatcher& bus) {
 }
 
 template<typename T>
-void ComponentPool<T>::forEach(const IterCallback& cb) {
+template<typename TCallback>
+void ComponentPool<T>::forEach(const TCallback& cb) {
+    static_assert(std::is_invocable<TCallback, Entity, T&>::value,
+                  "Visitor signature is void(Entity, T&)");
+
     util::ReadWriteLock::ReadScopeGuard lock(poolLock);
 
     std::uint16_t i = 0;
