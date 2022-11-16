@@ -72,14 +72,13 @@ public:
      *
      * @param ctrl The control to send
      * @param moveDir The move direction if sending a move control
-     * @param ignoreDebounce True to ignore the signal cooldown and send always, false to debounce
+     * @param fromEvent True to ignore the signal cooldown and send always, false to debounce
      * @return True if the input was processed, false if it did not get sent to a menu
      */
-    bool sendControl(unsigned int ctrl, input::DispatchType moveDir, bool ignoreDebounce) {
+    bool sendControl(unsigned int ctrl, input::DispatchType moveDir, bool fromEvent) {
         if (driving != nullptr) {
             // enforce debounce on repeat events (not from user events)
-            if (!ignoreDebounce && debounce.getElapsedTime().asSeconds() < debounceTime)
-                return false;
+            if (!fromEvent && debounce.getElapsedTime().asSeconds() < debounceTime) return false;
             debounce.restart();
 
             if (ctrl == MovementControl) {
@@ -100,7 +99,7 @@ public:
                     break;
                 }
             }
-            else if (ctrl == ActivateTrigger) {
+            else if (ctrl == ActivateTrigger && fromEvent) {
                 driving->processEvent(Event(Event::ActivateEvent()));
                 return true;
             }

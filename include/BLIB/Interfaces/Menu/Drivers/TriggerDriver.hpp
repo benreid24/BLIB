@@ -75,13 +75,13 @@ public:
      * @brief Programmatically sends the given control to the menu
      *
      * @param ctrl The control to send
-     * @param ignoreDebounce True to ignore the signal cooldown and send always, false to debounce
+     * @param fromEvent True to ignore the signal cooldown and send always, false to debounce
      * @return True if the input was processed, false if it did not get sent to a menu
      */
-    bool sendControl(unsigned int ctrl, bool ignoreDebounce) {
+    bool sendControl(unsigned int ctrl, bool fromEvent) {
         if (driving != nullptr) {
             // enforce debounce on repeat events (not from user events)
-            if (!ignoreDebounce && debounce.getElapsedTime().asSeconds() < debounceTime)
+            if (!fromEvent && debounce.getElapsedTime().asSeconds() < debounceTime)
                 return false;
             debounce.restart();
 
@@ -99,7 +99,7 @@ public:
                 driving->processEvent(Event(Event::MoveEvent(Item::Left)));
                 return true;
             case ActivateTrigger:
-                driving->processEvent(Event(Event::ActivateEvent()));
+                if (fromEvent) { driving->processEvent(Event(Event::ActivateEvent())); }
                 return true;
             default:
                 break;
