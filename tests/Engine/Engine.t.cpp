@@ -174,6 +174,8 @@ TEST(Engine, EventsStartShutdownStateChanges) {
     EXPECT_EQ(events[2].type(), typeid(event::StateChange));
     EXPECT_EQ(events[3].type(), typeid(event::Shutdown));
     EXPECT_EQ(std::any_cast<event::Shutdown>(events[3]).cause, event::Shutdown::FinalStatePopped);
+
+    bl::event::Dispatcher::clearAllListeners();
 }
 
 TEST(Engine, TerminateEvent) {
@@ -190,6 +192,8 @@ TEST(Engine, TerminateEvent) {
     EXPECT_EQ(events[0].type(), typeid(event::Startup));
     EXPECT_EQ(events[1].type(), typeid(event::Shutdown));
     EXPECT_EQ(std::any_cast<event::Shutdown>(events[1]).cause, event::Shutdown::Terminated);
+
+    bl::event::Dispatcher::clearAllListeners();
 }
 
 namespace
