@@ -55,12 +55,17 @@ public:
      */
     virtual ~KeyboardDriver() = default;
 
+    /**
+     * @brief Processes the given window event and drives the menu if relevant
+     * 
+     * @param event The window event to process
+     */
+    virtual void observe(const sf::Event& event) override;
+
 private:
     Menu& menu;
     sf::Keyboard::Key moveControls[Item::AttachPoint::_NUM_ATTACHPOINTS];
     sf::Keyboard::Key activateControl;
-
-    virtual void observe(const sf::Event& event) override;
 };
 
 } // namespace menu

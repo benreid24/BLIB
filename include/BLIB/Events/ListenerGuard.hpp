@@ -35,8 +35,9 @@ public:
      * @brief Subscribes the owner to the given bus
      *
      * @param bus Event bus to subscribe to
+     * @param defer True to defer adding until the engine syncs listeners, false to immediately add
      */
-    void subscribe(Dispatcher& bus);
+    void subscribe(bool defer = false);
 
     /**
      * @brief Unsubscribes the owner from the given event bus
@@ -46,15 +47,13 @@ public:
 
 private:
     Listener<TEvents...>* const listener;
-    Dispatcher* dispatcher;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename... TEvents>
 ListenerGuard<TEvents...>::ListenerGuard(Listener<TEvents...>* owner)
-: listener(owner)
-, dispatcher(nullptr) {}
+: listener(owner) {}
 
 template<typename... TEvents>
 ListenerGuard<TEvents...>::~ListenerGuard() {
@@ -62,18 +61,14 @@ ListenerGuard<TEvents...>::~ListenerGuard() {
 }
 
 template<typename... TEvents>
-void ListenerGuard<TEvents...>::subscribe(Dispatcher& bus) {
+void ListenerGuard<TEvents...>::subscribe(bool defer) {
     unsubscribe();
-    dispatcher = &bus;
-    bus.subscribe(listener);
+    Dispatcher::subscribe(listener, defer);
 }
 
 template<typename... TEvents>
 void ListenerGuard<TEvents...>::unsubscribe() {
-    if (dispatcher) {
-        dispatcher->unsubscribe(listener);
-        dispatcher = nullptr;
-    }
+    Dispatcher::unsubscribe(listener);
 }
 
 } // namespace event

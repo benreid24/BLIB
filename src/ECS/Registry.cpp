@@ -6,9 +6,8 @@ namespace ecs
 {
 unsigned int ComponentPoolBase::nextComponentIndex = 0;
 
-Registry::Registry(std::size_t ec, bl::event::Dispatcher& bus)
+Registry::Registry(std::size_t ec)
 : maxEntities(ec)
-, eventBus(bus)
 , aliveEntities(ec, false)
 , entityMasks(ec, ComponentMask::EmptyMask)
 , freeEntities(ec)
@@ -36,7 +35,7 @@ Entity Registry::createEntity() {
 
     aliveEntities[ent] = true;
     entityMasks[ent]   = ComponentMask::EmptyMask;
-    eventBus.dispatch<event::EntityCreated>({ent});
+    bl::event::Dispatcher::dispatch<event::EntityCreated>({ent});
     return ent;
 }
 
@@ -46,13 +45,13 @@ void Registry::destroyEntity(Entity ent) {
     std::lock_guard lock(entityLock);
     const ComponentMask::Value mask = entityMasks[ent];
 
-    eventBus.dispatch<event::EntityDestroyed>({ent});
+    bl::event::Dispatcher::dispatch<event::EntityDestroyed>({ent});
     for (auto& view : views) {
         if (ComponentMask::completelyContains(mask, view->mask)) { view->removeEntity(ent); }
     }
 
     for (ComponentPoolBase* pool : componentPools) {
-        if (ComponentMask::has(mask, pool->ComponentIndex)) { pool->remove(ent, eventBus); }
+        if (ComponentMask::has(mask, pool->ComponentIndex)) { pool->remove(ent); }
     }
 
     aliveEntities[ent] = false;
@@ -64,11 +63,11 @@ void Registry::destroyAllEntities() {
 
     // send entity events
     for (Entity ent = 0; ent < nextEntity; ++ent) {
-        if (aliveEntities[ent]) { eventBus.dispatch<event::EntityDestroyed>({ent}); }
+        if (aliveEntities[ent]) { bl::event::Dispatcher::dispatch<event::EntityDestroyed>({ent}); }
     }
 
     // clear pools
-    for (ComponentPoolBase* pool : componentPools) { pool->clear(eventBus); }
+    for (ComponentPoolBase* pool : componentPools) { pool->clear(); }
 
     // reset entity id management
     auto aliveIt = aliveEntities.begin();

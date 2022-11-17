@@ -55,8 +55,8 @@ protected:
     ComponentPoolBase()
     : ComponentIndex(nextComponentIndex++) {}
 
-    virtual void remove(Entity entity, bl::event::Dispatcher& bus) = 0;
-    virtual void clear(bl::event::Dispatcher& bus)                 = 0;
+    virtual void remove(Entity entity) = 0;
+    virtual void clear()               = 0;
 
     static unsigned int nextComponentIndex;
 
@@ -109,8 +109,8 @@ private:
     template<typename... TArgs>
     T* emplace(Entity ent, TArgs... args);
 
-    virtual void remove(Entity entity, bl::event::Dispatcher& bus) override;
-    virtual void clear(bl::event::Dispatcher& bus) override;
+    virtual void remove(Entity entity) override;
+    virtual void clear() override;
 
     friend class Registry;
 };
@@ -192,7 +192,7 @@ T* ComponentPool<T>::emplace(Entity ent, TArgs... args) {
 }
 
 template<typename T>
-void ComponentPool<T>::remove(Entity ent, bl::event::Dispatcher& bus) {
+void ComponentPool<T>::remove(Entity ent) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
     // determine if present
@@ -200,7 +200,7 @@ void ComponentPool<T>::remove(Entity ent, bl::event::Dispatcher& bus) {
     if (it == pool.end()) return;
 
     // send event
-    bus.dispatch<event::ComponentRemoved<T>>({ent, it->get()});
+    bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>({ent, it->get()});
 
     // perform removal
     const std::uint16_t i = it - pool.begin();
@@ -217,14 +217,14 @@ void ComponentPool<T>::remove(Entity ent, bl::event::Dispatcher& bus) {
 }
 
 template<typename T>
-void ComponentPool<T>::clear(bl::event::Dispatcher& bus) {
+void ComponentPool<T>::clear() {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
     // destroy components
     Entity ent = 0;
     for (auto& it : entityToIter) {
         if (it != pool.end()) {
-            bus.dispatch<event::ComponentRemoved<T>>({ent, it->get()});
+            bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>({ent, it->get()});
             it->destroy();
             it = pool.end();
         }

@@ -6,7 +6,7 @@ bl::engine::State::Ptr RebindState::create(bl::engine::Engine& engine, unsigned 
 }
 
 RebindState::RebindState(bl::engine::Engine& engine, unsigned int ctrl)
-: configurator(engine.eventBus()) {
+: configurator() {
     font = bl::engine::Resources::fonts().load("font.ttf").data;
     text.setFont(*font);
     text.setPosition(50.f, 300.f);

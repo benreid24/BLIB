@@ -41,10 +41,6 @@ int main() {
     bl::menu::KeyboardDriver keyboardEventGenerator(menu);
     bl::menu::MouseDriver mouseEventGenerator(menu);
 
-    bl::event::Dispatcher eventDispatcher;
-    eventDispatcher.subscribe(&keyboardEventGenerator);
-    eventDispatcher.subscribe(&mouseEventGenerator);
-
     sf::RenderWindow window(
         sf::VideoMode(800, 600, 32), "Menu Demo", sf::Style::Close | sf::Style::Titlebar);
 
@@ -57,7 +53,8 @@ int main() {
                 window.close();
                 break;
             }
-            eventDispatcher.dispatch<sf::Event>(event);
+            keyboardEventGenerator.observe(event);
+            mouseEventGenerator.observe(event);
         }
 
         window.clear();

@@ -3,4 +3,6 @@ target_sources(BLIB PUBLIC
     Dispatcher.hpp
     Listener.hpp
     ListenerGuard.hpp
+    SingleDispatcher.hpp
+    SubscribeHelpers.hpp
 )

@@ -24,9 +24,8 @@ public:
     /**
      * @brief Construct a new Configurator object
      *
-     * @param bus The event bus to use for configuration events
      */
-    Configurator(event::Dispatcher& bus);
+    Configurator();
 
     /**
      * @brief Start the configurator for the given control
@@ -58,7 +57,6 @@ private:
     enum struct JoystickState { WaitingPositive, WaitingNegative };
 
     State state;
-    event::Dispatcher& bus;
     union {
         Trigger* trigger;
         Joystick* joystick;

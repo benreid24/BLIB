@@ -159,7 +159,7 @@ TEST(Engine, EventsStartShutdownStateChanges) {
     Engine engine(Settings{});
     std::vector<std::any> events;
     EventReceiver listener(events);
-    engine.eventBus().subscribe(&listener);
+    bl::event::Dispatcher::subscribe(&listener);
 
     FlagTestState* first = new FlagTestState(Flags::PopState);
     State::Ptr firstPtr(first);
@@ -180,7 +180,7 @@ TEST(Engine, TerminateEvent) {
     Engine engine(Settings{});
     std::vector<std::any> events;
     EventReceiver listener(events);
-    engine.eventBus().subscribe(&listener);
+    bl::event::Dispatcher::subscribe(&listener);
 
     FlagTestState* first = new FlagTestState(Flags::Terminate);
     State::Ptr firstPtr(first);

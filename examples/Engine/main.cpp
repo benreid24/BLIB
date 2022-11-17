@@ -59,7 +59,7 @@ int main() {
     configureInput(engine.inputSystem());
 
     EventListener listener;
-    engine.eventBus().subscribe(&listener);
+    bl::event::Dispatcher::subscribe(&listener);
 
     engine.run(MainState::create());
 

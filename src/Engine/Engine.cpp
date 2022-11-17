@@ -13,13 +13,14 @@ namespace engine
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , renderWindow(nullptr)
-, entityRegistry(settings.maximumEntityCount(), engineEventBus)
+, entityRegistry(settings.maximumEntityCount())
 , input(*this) {
     settings.syncToConfig();
-    eventBus().subscribe(&input);
+    bl::event::Dispatcher::subscribe(&input);
 }
 
 Engine::~Engine() {
+    bl::event::Dispatcher::clearAllListeners();
     while (!states.empty()) { states.pop(); }
     newState.reset();
     renderWindow.reset();
@@ -29,8 +30,6 @@ Engine::~Engine() {
     resource::GarbageCollector::shutdown();
 #endif
 }
-
-bl::event::Dispatcher& Engine::eventBus() { return engineEventBus; }
 
 ecs::Registry& Engine::ecs() { return entityRegistry; }
 
@@ -103,7 +102,7 @@ bool Engine::run(State::Ptr initialState) {
     float frameCount = 0.f;
 
     initialState->activate(*this);
-    engineEventBus.dispatch<event::Startup>({initialState});
+    bl::event::Dispatcher::dispatch<event::Startup>({initialState});
 
     while (true) {
         // Clear flags from last loop
@@ -113,22 +112,24 @@ bool Engine::run(State::Ptr initialState) {
         if (renderWindow) {
             sf::Event event;
             while (renderWindow->pollEvent(event)) {
-                engineEventBus.dispatch<sf::Event>(event);
+                bl::event::Dispatcher::dispatch<sf::Event>(event);
 
                 switch (event.type) {
                 case sf::Event::Closed:
-                    engineEventBus.dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
+                    bl::event::Dispatcher::dispatch<event::Shutdown>(
+                        {event::Shutdown::WindowClosed});
                     renderWindow->close();
                     return true;
 
                 case sf::Event::LostFocus:
-                    engineEventBus.dispatch<event::Paused>({});
+                    bl::event::Dispatcher::dispatch<event::Paused>({});
                     if (!awaitFocus()) {
-                        engineEventBus.dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
+                        bl::event::Dispatcher::dispatch<event::Shutdown>(
+                            {event::Shutdown::WindowClosed});
                         renderWindow->close();
                         return true;
                     }
-                    engineEventBus.dispatch<event::Resumed>({});
+                    bl::event::Dispatcher::dispatch<event::Resumed>({});
                     updateOuterTimer.restart();
                     loopTimer.restart();
                     break;
@@ -157,7 +158,7 @@ bool Engine::run(State::Ptr initialState) {
             renderingSystem.update(updateTimestep);
             input.update();
             states.top()->update(*this, updateTimestep);
-            engineEventBus.syncListeners();
+            bl::event::Dispatcher::syncListeners();
 
             // check if we should end early
             if (engineFlags.active(Flags::PopState) || engineFlags.active(Flags::Terminate) ||
@@ -205,7 +206,7 @@ bool Engine::run(State::Ptr initialState) {
 
         // Process flags
         if (engineFlags.active(Flags::Terminate)) {
-            engineEventBus.dispatch<event::Shutdown>({event::Shutdown::Terminated});
+            bl::event::Dispatcher::dispatch<event::Shutdown>({event::Shutdown::Terminated});
             if (renderWindow) renderWindow->close();
             return true;
         }
@@ -216,20 +217,21 @@ bool Engine::run(State::Ptr initialState) {
             states.pop();
             if (states.empty() && !newState) { // exit if no states left
                 BL_LOG_INFO << "Final state popped, exiting";
-                engineEventBus.dispatch<event::Shutdown>({event::Shutdown::FinalStatePopped});
+                bl::event::Dispatcher::dispatch<event::Shutdown>(
+                    {event::Shutdown::FinalStatePopped});
                 if (renderWindow) renderWindow->close();
                 return true;
             }
             else if (!newState) { // plain pop state
                 BL_LOG_INFO << "New engine state (popped): " << states.top()->name();
                 states.top()->activate(*this);
-                engineEventBus.dispatch<event::StateChange>({states.top(), prev});
+                bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
             }
             else { // replace state
                 BL_LOG_INFO << "New engine state (replaced): " << newState->name();
                 states.push(newState);
                 states.top()->activate(*this);
-                engineEventBus.dispatch<event::StateChange>({states.top(), prev});
+                bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
                 newState = nullptr;
             }
             updateOuterTimer.restart();
@@ -243,7 +245,7 @@ bool Engine::run(State::Ptr initialState) {
             prev->deactivate(*this);
             states.push(newState);
             states.top()->activate(*this);
-            engineEventBus.dispatch<event::StateChange>({states.top(), prev});
+            bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
             newState = nullptr;
             updateOuterTimer.restart();
             loopTimer.restart();

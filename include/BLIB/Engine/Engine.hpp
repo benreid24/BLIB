@@ -48,13 +48,6 @@ public:
     ecs::Registry& ecs();
 
     /**
-     * @brief Returns a reference to the primary engine event dispatcher. Engine events and window
-     *        events are pushed through this bus
-     *
-     */
-    bl::event::Dispatcher& eventBus();
-
-    /**
      * @brief Returns a reference to the engine's script Manager
      *
      */
@@ -144,7 +137,6 @@ private:
 
     std::unique_ptr<sf::RenderWindow> renderWindow;
     std::unique_ptr<sf::Context> renderContext;
-    bl::event::Dispatcher engineEventBus;
     script::Manager engineScriptManager;
     ecs::Registry entityRegistry;
     render::RenderSystem renderingSystem;

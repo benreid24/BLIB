@@ -25,53 +25,55 @@ struct TestListener : public Listener<int> {
 } // namespace
 
 TEST(EventClassGuard, Subscribe) {
-    Dispatcher d;
     TestListener l;
     ListenerGuard<int> g(&l);
 
-    g.subscribe(d);
-    d.syncListeners();
-    d.dispatch<int>(5);
-    d.dispatch<int>(10);
-    d.dispatch<int>(15);
+    g.subscribe(true);
+    bl::event::Dispatcher::syncListeners();
+    bl::event::Dispatcher::dispatch<int>(5);
+    bl::event::Dispatcher::dispatch<int>(10);
+    bl::event::Dispatcher::dispatch<int>(15);
 
     EXPECT_EQ(l.sum, 30);
     EXPECT_EQ(l.eventCount, 3);
+
+    // cleanup
+    bl::event::Dispatcher::clearAllListeners();
 }
 
 TEST(EventClassGuard, Unsubscribe) {
-    Dispatcher d;
     TestListener l;
     ListenerGuard<int> g(&l);
 
-    g.subscribe(d);
-    d.syncListeners();
-    d.dispatch<int>(5);
-    d.dispatch<int>(10);
+    g.subscribe();
+    bl::event::Dispatcher::dispatch<int>(5);
+    bl::event::Dispatcher::dispatch<int>(10);
     g.unsubscribe();
-    d.syncListeners();
-    d.dispatch<int>(15);
+    bl::event::Dispatcher::dispatch<int>(15);
 
     EXPECT_EQ(l.sum, 15);
     EXPECT_EQ(l.eventCount, 2);
+
+    // cleanup
+    bl::event::Dispatcher::clearAllListeners();
 }
 
 TEST(EventClassGuard, Destruct) {
-    Dispatcher d;
     TestListener l;
 
     {
         ListenerGuard<int> g(&l);
-        g.subscribe(d);
-        d.syncListeners();
-        d.dispatch<int>(5);
-        d.dispatch<int>(10);
+        g.subscribe();
+        bl::event::Dispatcher::dispatch<int>(5);
+        bl::event::Dispatcher::dispatch<int>(10);
     }
-    d.syncListeners();
-    d.dispatch<int>(15);
+    bl::event::Dispatcher::dispatch<int>(15);
 
     EXPECT_EQ(l.sum, 15);
     EXPECT_EQ(l.eventCount, 2);
+
+    // cleanup
+    bl::event::Dispatcher::clearAllListeners();
 }
 
 } // namespace unittest

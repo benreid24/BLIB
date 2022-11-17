@@ -46,12 +46,17 @@ public:
      */
     virtual ~MouseDriver() = default;
 
+    /**
+     * @brief Processes the given window event and drives the menu if relevant
+     *
+     * @param event The window event to process
+     */
+    virtual void observe(const sf::Event& event) override;
+
 private:
     Menu& menu;
     bool clickActivates;
     sf::Mouse::Button activateButton;
-
-    virtual void observe(const sf::Event& event) override;
 };
 
 } // namespace menu

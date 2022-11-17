@@ -149,7 +149,6 @@ public:
 
 private:
     const std::size_t maxEntities;
-    bl::event::Dispatcher& eventBus;
 
     // entity id management
     std::mutex entityLock;
@@ -164,7 +163,7 @@ private:
     // views
     std::vector<std::unique_ptr<ViewBase>> views;
 
-    Registry(std::size_t entityCount, bl::event::Dispatcher& eventBus);
+    Registry(std::size_t entityCount);
 
     template<typename T>
     ComponentPool<T>& getPool();
@@ -226,7 +225,7 @@ T* Registry::emplaceComponent(Entity ent, TArgs... args) {
 
 template<typename T>
 void Registry::finishComponentAdd(Entity ent, unsigned int cIndex, T* component) {
-    eventBus.dispatch<event::ComponentAdded<T>>({ent, *component});
+    bl::event::Dispatcher::dispatch<event::ComponentAdded<T>>({ent, *component});
     ComponentMask::Value& mask = entityMasks[ent];
     ComponentMask::add(mask, cIndex);
     for (auto& view : views) {
@@ -249,7 +248,7 @@ void Registry::removeComponent(Entity ent) {
     std::lock_guard lock(entityLock);
 
     auto& pool = getPool<T>();
-    pool.remove(ent, eventBus);
+    pool.remove(ent);
     ComponentMask::Value& mask = entityMasks[ent];
     for (auto& view : views) {
         if (ComponentMask::completelyContains(mask, view->mask)) { view->removeEntity(ent); }

@@ -12,9 +12,8 @@ constexpr float AxisPosThreshold = 90.f;
 constexpr float AxisNegThreshold = 90.f;
 } // namespace
 
-Configurator::Configurator(event::Dispatcher& b)
+Configurator::Configurator()
 : state(Finished)
-, bus(b)
 , trigger(nullptr)
 , axis(sf::Joystick::Axis::X) {}
 
@@ -25,7 +24,7 @@ void Configurator::start(Trigger& t) {
     }
     state   = WaitingTrigger;
     trigger = &t;
-    bus.subscribe(this);
+    bl::event::Dispatcher::subscribe(this);
 }
 
 void Configurator::start(Joystick& js) {
@@ -36,7 +35,7 @@ void Configurator::start(Joystick& js) {
     state    = WaitingHorAxis;
     joystick = &js;
     jsState  = JoystickState::WaitingPositive;
-    bus.subscribe(this);
+    bl::event::Dispatcher::subscribe(this);
 }
 
 bool Configurator::finished() const { return state == Finished; }
@@ -47,7 +46,7 @@ void Configurator::observe(const sf::Event& event) {
     switch (state) {
     case WaitingTrigger:
         if (trigger->configureFromEvent(event)) {
-            bus.unsubscribe(this, true);
+            bl::event::Dispatcher::unsubscribe(this, true);
             state = Finished;
         }
         break;
@@ -74,7 +73,7 @@ void Configurator::observe(const sf::Event& event) {
                         }
                         else {
                             joystick->verticalAxis = axis;
-                            bus.unsubscribe(this, true);
+                            bl::event::Dispatcher::unsubscribe(this, true);
                             state = Finished;
                         }
                     }
