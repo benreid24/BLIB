@@ -91,6 +91,7 @@ private:
 template<typename... TEvents>
 void Dispatcher::subscribe(Listener<TEvents...>* listener, bool defer) {
     priv::SubscriberHelper<TEvents...> subscriber(dispatchers, dispatcherLock, listener, defer);
+    listener->subscribed = true;
 }
 
 template<typename T>
@@ -101,9 +102,12 @@ void Dispatcher::dispatch(const T& event) {
 template<typename... TEvents>
 void Dispatcher::unsubscribe(Listener<TEvents...>* listener, bool defer) {
     priv::UnSubscriberHelper<TEvents...> subscriber(dispatchers, dispatcherLock, listener, defer);
+    listener->subscribed = false;
 }
 
 } // namespace event
 } // namespace bl
+
+#include <BLIB/Events/ListenerImpl.hpp>
 
 #endif
