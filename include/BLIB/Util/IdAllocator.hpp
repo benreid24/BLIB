@@ -119,9 +119,7 @@ template<typename T>
 void IdAllocator<T>::release(T id) {
     freeIds.push(id);
     usedIds[id] = false;
-    if (id == maxId) {
-        do { --maxId; } while (maxId > 0 && !usedIds[maxId]);
-    }
+    while (!usedIds[maxId] && maxId > 0) { --maxId; }
 }
 
 template<typename T>
