@@ -8,10 +8,8 @@ unsigned int ComponentPoolBase::nextComponentIndex = 0;
 
 Registry::Registry(std::size_t ec)
 : maxEntities(ec)
-, aliveEntities(ec, false)
-, entityMasks(ec, ComponentMask::EmptyMask)
-, freeEntities(ec)
-, nextEntity(0) {
+, entityAllocator(ec)
+, entityMasks(ec, ComponentMask::EmptyMask) {
     componentPools.reserve(ComponentPoolBase::MaximumComponentCount);
     views.reserve(32);
 }
@@ -19,27 +17,18 @@ Registry::Registry(std::size_t ec)
 Entity Registry::createEntity() {
     std::lock_guard lock(entityLock);
 
-    Entity ent = nextEntity;
-    if (!freeEntities.empty()) {
-        ent = freeEntities.front();
-        freeEntities.pop();
-    }
-    else {
-        ++nextEntity;
-    }
-
-    if (ent >= maxEntities) {
+    if (!entityAllocator.available()) {
         BL_LOG_CRITICAL << "Out of entity storage. Increase entity allocation in engine settings";
         std::exit(1);
     }
 
-    aliveEntities[ent] = true;
-    entityMasks[ent]   = ComponentMask::EmptyMask;
+    Entity ent       = entityAllocator.allocate();
+    entityMasks[ent] = ComponentMask::EmptyMask;
     bl::event::Dispatcher::dispatch<event::EntityCreated>({ent});
     return ent;
 }
 
-bool Registry::entityExists(Entity ent) const { return aliveEntities[ent]; }
+bool Registry::entityExists(Entity ent) const { return entityAllocator.isAllocated(ent); }
 
 void Registry::destroyEntity(Entity ent) {
     std::lock_guard lock(entityLock);
@@ -54,32 +43,28 @@ void Registry::destroyEntity(Entity ent) {
         if (ComponentMask::has(mask, pool->ComponentIndex)) { pool->remove(ent); }
     }
 
-    aliveEntities[ent] = false;
-    entityMasks[ent]   = ComponentMask::EmptyMask;
+    entityAllocator.release(ent);
+    entityMasks[ent] = ComponentMask::EmptyMask;
 }
 
 void Registry::destroyAllEntities() {
     std::lock_guard lock(entityLock);
 
     // send entity events
-    for (Entity ent = 0; ent < nextEntity; ++ent) {
-        if (aliveEntities[ent]) { bl::event::Dispatcher::dispatch<event::EntityDestroyed>({ent}); }
+    for (Entity ent = 0; ent <= entityAllocator.highestId(); ++ent) {
+        if (entityAllocator.isAllocated(ent)) {
+            bl::event::Dispatcher::dispatch<event::EntityDestroyed>({ent});
+        }
     }
 
     // clear pools
     for (ComponentPoolBase* pool : componentPools) { pool->clear(); }
 
     // reset entity id management
-    auto aliveIt = aliveEntities.begin();
-    auto maskIt  = entityMasks.begin();
-    while (aliveIt != aliveEntities.end() && maskIt != entityMasks.end()) {
-        *aliveIt = false;
-        *maskIt  = ComponentMask::EmptyMask;
-        ++aliveIt;
-        ++maskIt;
+    for (auto maskIt = entityMasks.begin(); maskIt != entityMasks.end(); ++maskIt) {
+        *maskIt = ComponentMask::EmptyMask;
     }
-    nextEntity = 0;
-    freeEntities.clear();
+    entityAllocator.releaseAll();
 
     // clear views
     for (auto& view : views) { view->clearAndRefresh(*this); }

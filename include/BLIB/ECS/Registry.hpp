@@ -5,6 +5,7 @@
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/View.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
+#include <BLIB/Util/IdAllocator.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <cstdlib>
 #include <memory>
@@ -152,10 +153,8 @@ private:
 
     // entity id management
     std::mutex entityLock;
-    std::vector<bool> aliveEntities;
+    util::IdAllocator<Entity> entityAllocator;
     std::vector<ComponentMask::Value> entityMasks;
-    container::RingQueue<Entity> freeEntities;
-    Entity nextEntity;
 
     // components
     std::vector<ComponentPoolBase*> componentPools;
@@ -300,7 +299,7 @@ ComponentPool<T>& Registry::getPool() {
 
 template<typename... TComponents>
 void Registry::populateView(View<TComponents...>& view) {
-    for (Entity ent = 0; ent < nextEntity; ++ent) {
+    for (Entity ent = 0; ent <= entityAllocator.highestId(); ++ent) {
         if (entityMasks[ent] == view.mask) { view.tryAddEntity(*this, ent); }
     }
 }

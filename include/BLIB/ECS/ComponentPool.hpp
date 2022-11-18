@@ -1,11 +1,11 @@
 #ifndef BLIB_ECS_COMPONENTPOOL_HPP
 #define BLIB_ECS_COMPONENTPOOL_HPP
 
-#include <BLIB/Containers/RingQueue.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Events.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Util/IdAllocator.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/ReadWriteLock.hpp>
 #include <cstdlib>
@@ -95,10 +95,7 @@ private:
     std::vector<container::ObjectWrapper<T>> pool;
     std::vector<typename std::vector<container::ObjectWrapper<T>>::iterator> entityToIter;
     std::vector<Entity> indexToEntity;
-    std::vector<bool> aliveIndices;
-    container::RingQueue<std::uint16_t> freeIndices;
-    std::uint16_t nextIndex;
-    std::uint8_t maxIndex;
+    util::IdAllocator<std::uint16_t> indexAllocator;
 
     ComponentPool(std::size_t poolSize);
     static ComponentPool& get(std::size_t poolSize);
@@ -123,9 +120,7 @@ ComponentPool<T>::ComponentPool(std::size_t ps)
 , pool(ps)
 , entityToIter(ps, pool.end())
 , indexToEntity(ps, InvalidEntity)
-, aliveIndices(ps, false)
-, freeIndices(ps)
-, nextIndex(0) {}
+, indexAllocator(ps) {}
 
 template<typename T>
 ComponentPool<T>& ComponentPool<T>::get(std::size_t ps) {
@@ -135,30 +130,18 @@ ComponentPool<T>& ComponentPool<T>::get(std::size_t ps) {
 
 template<typename T>
 typename std::vector<container::ObjectWrapper<T>>::iterator ComponentPool<T>::addLogic(Entity ent) {
-    // determine insertion index
-    std::uint16_t i = nextIndex;
-    if (!freeIndices.empty()) {
-        i = freeIndices.front();
-        freeIndices.pop();
-    }
-    else {
-        ++nextIndex;
-        maxIndex = i;
-    }
-
     // check not full
-    if (i >= pool.size()) {
-        nextIndex = pool.size(); // dont break iteration
+    if (!indexAllocator.available()) {
         BL_LOG_CRITICAL << "Ran out of storage in component pool. Increase allocation. Capacity: "
                         << pool.size() << " Pool: " << typeid(T).name();
         std::exit(1);
     }
 
     // perform insertion
-    auto it           = pool.begin() + i;
-    entityToIter[ent] = it;
-    indexToEntity[i]  = ent;
-    aliveIndices[i]   = true;
+    const std::uint16_t i = indexAllocator.allocate();
+    auto it               = pool.begin() + i;
+    entityToIter[ent]     = it;
+    indexToEntity[i]      = ent;
 
     return it;
 }
@@ -207,13 +190,7 @@ void ComponentPool<T>::remove(Entity ent) {
     it->destroy();
     entityToIter[ent] = pool.end();
     indexToEntity[i]  = InvalidEntity;
-    aliveIndices[i]   = false;
-    freeIndices.push(i);
-
-    // push back maxIndex to keep iterations tight
-    if (i == maxIndex) {
-        do { --maxIndex; } while (maxIndex > 0 && !aliveIndices[maxIndex - 1]);
-    }
+    indexAllocator.release(i);
 }
 
 template<typename T>
@@ -232,17 +209,10 @@ void ComponentPool<T>::clear() {
     }
 
     // reset metadata
-    auto entIt   = indexToEntity.begin();
-    auto aliveIt = aliveIndices.begin();
-    while (entIt != indexToEntity.end() && aliveIt != aliveIndices.end()) {
-        *entIt   = InvalidEntity;
-        *aliveIt = false;
-        ++entIt;
-        ++aliveIt;
+    for (auto entIt = indexToEntity.begin(); entIt != indexToEntity.end(); ++entIt) {
+        *entIt = InvalidEntity;
     }
-    freeIndices.clear();
-    nextIndex = 0;
-    maxIndex  = 0;
+    indexAllocator.releaseAll();
 }
 
 template<typename T>
@@ -256,14 +226,12 @@ void ComponentPool<T>::forEach(const TCallback& cb) {
     std::uint16_t i = 0;
     auto poolIt     = pool.begin();
     auto entIt      = indexToEntity.begin();
-    auto aliveIt    = aliveIndices.begin();
-    while (i <= maxIndex) {
-        if (*aliveIt) { cb(*entIt, poolIt->get()); }
+    while (i <= indexAllocator.highestId()) {
+        if (indexAllocator.isAllocated(i)) { cb(*entIt, poolIt->get()); }
 
         ++i;
         ++poolIt;
         ++entIt;
-        ++aliveIt;
     }
 }
 

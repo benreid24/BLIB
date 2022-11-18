@@ -17,20 +17,20 @@ TEST(IdAllocator, AllocateAndRelease) {
     ASSERT_EQ(alloc.allocate(), 3);
     EXPECT_FALSE(alloc.available());
 
-    for (int i = 0; i < 4; ++i) { EXPECT_TRUE(alloc.allocatedIds()[i]); }
+    for (int i = 0; i < 4; ++i) { EXPECT_TRUE(alloc.isAllocated(i)); }
 
     alloc.release(1);
     alloc.release(2);
     ASSERT_TRUE(alloc.available());
-    EXPECT_FALSE(alloc.allocatedIds()[1]);
-    EXPECT_FALSE(alloc.allocatedIds()[2]);
+    EXPECT_FALSE(alloc.isAllocated(1));
+    EXPECT_FALSE(alloc.isAllocated(2));
     ASSERT_EQ(alloc.allocate(), 1);
     ASSERT_EQ(alloc.allocate(), 2);
     EXPECT_FALSE(alloc.available());
 
     alloc.releaseAll();
     ASSERT_TRUE(alloc.available());
-    for (int i = 0; i < 4; ++i) { EXPECT_FALSE(alloc.allocatedIds()[i]); }
+    for (int i = 0; i < 4; ++i) { EXPECT_FALSE(alloc.isAllocated(i)); }
     ASSERT_EQ(alloc.allocate(), 0);
     ASSERT_EQ(alloc.allocate(), 1);
     ASSERT_EQ(alloc.allocate(), 2);

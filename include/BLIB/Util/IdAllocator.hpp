@@ -36,11 +36,11 @@ public:
     constexpr T highestId() const;
 
     /**
-     * @brief Returns a bitmap that can be used to query a specific id's allocation status
+     * @brief Returns whether or not the given id is allocated
      *
-     * @return constexpr const std::vector<bool>& Map of true=allocated false=free
+     * @return True if the id is in use, false if it is free
      */
-    constexpr const std::vector<bool>& allocatedIds() const;
+    bool isAllocated(T id) const;
 
     /**
      * @brief Returns whether or not any ids are available to be allocated. It is undefined behavior
@@ -90,8 +90,8 @@ constexpr T IdAllocator<T>::highestId() const {
 }
 
 template<typename T>
-constexpr const std::vector<bool>& IdAllocator<T>::allocatedIds() const {
-    return usedIds;
+bool IdAllocator<T>::isAllocated(T id) const {
+    return usedIds[id];
 }
 
 template<typename T>
@@ -120,7 +120,7 @@ void IdAllocator<T>::release(T id) {
     freeIds.push(id);
     usedIds[id] = false;
     if (id == maxId) {
-        do { --maxId; } while (!usedIds[maxId]);
+        do { --maxId; } while (maxId > 0 && !usedIds[maxId]);
     }
 }
 
