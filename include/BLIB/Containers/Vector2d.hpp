@@ -123,6 +123,22 @@ public:
      */
     void clear() { data.clear(); }
 
+    /**
+     * @brief Provides a raw iterator to the underlying data. Useful for iterating all elements
+     *        efficiently without needing pointer arithmetic or nested loops
+     *
+     * @return std::vector<T>::iterator Iterator to the front of the stored data
+     */
+    typename std::vector<T>::iterator begin() { return data.begin(); }
+
+    /**
+     * @brief Provides a raw iterator to the underlying data. Useful for iterating all elements
+     *        efficiently without needing pointer arithmetic or nested loops
+     *
+     * @return std::vector<T>::iterator Iterator to the end of the stored data
+     */
+    typename std::vector<T>::iterator end() { return data.end(); }
+
 private:
     std::vector<T> data;
     unsigned int W, H;
