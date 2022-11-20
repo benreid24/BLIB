@@ -24,7 +24,8 @@ class DynamicObjectPool {
 
 public:
     /**
-     * @brief Iterator for traversing the object pool. Use Iterator or ConstIterator
+     * @brief Iterator for traversing the object pool. Use Iterator or ConstIterator. Forward
+     *        iteration only
      *
      * @tparam EType Either T or const T
      */
@@ -41,7 +42,7 @@ public:
          *
          * @param copy The iterator to copy from
          */
-        IteratorType(const IteratorType& copy);
+        IteratorType(const IteratorType& copy) = default;
 
         /**
          * @brief Copies from the given iterator
@@ -49,7 +50,7 @@ public:
          * @param copy The iterator to copy from
          * @return IteratorType& A reference to this iterator
          */
-        IteratorType& operator=(const IteratorType& copy);
+        IteratorType& operator=(const IteratorType& copy) = default;
 
         /**
          * @brief Returns a reference to the underlying object. Undefined behavior if invalid
@@ -82,22 +83,10 @@ public:
         IteratorType<EType>& operator++();
 
         /**
-         * @brief Modifies this iterator to point to the previous object in the pool
+         * @brief Modifies this iterator to point to the next object in the pool
          *
          */
-        IteratorType<EType>& operator--();
-
-        /**
-         * @brief Basic addition operator. This operation is linear with respect to d
-         *
-         */
-        IteratorType<EType> operator+(int d) const;
-
-        /**
-         * @brief Basic subtraction operator. This operation is linear with respect to d
-         *
-         */
-        IteratorType<EType> operator-(int d) const;
+        IteratorType<EType>& operator++(int);
 
         /**
          * @brief Compares whether two iterators are equal
@@ -112,10 +101,10 @@ public:
         bool operator!=(const IteratorType<EType>& iterator) const;
 
     private:
-        IteratorType(std::vector<Entry>& pool, long long int i);
+        IteratorType(Entry* e, Entry* end);
 
-        std::vector<Entry>* pool;
-        long long int i;
+        Entry* pos;
+        Entry* end;
 
         friend class DynamicObjectPool;
     };
@@ -288,19 +277,22 @@ private:
 
         T* cast() { return static_cast<T*>(static_cast<void*>(slot.buf)); }
 
-        long long int& next() { return slot.next; }
+        long& next() { return slot.next; }
 
     private:
         bool _alive;
         union {
             char buf[sizeof(T)];
-            long long int next;
+            long next;
         } slot;
     };
 
     std::vector<Entry> pool;
     std::size_t trackedSize;
-    long long int next;
+    long next;
+
+    constexpr Entry* endPointer() { return &pool.back() + 1; }
+    constexpr const Entry* endPointer() const { return &pool.back() + 1; }
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -314,14 +306,14 @@ template<typename T>
 typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::add(const T& obj) {
     ++trackedSize;
     if (next >= 0) {
-        const auto it = next;
-        next          = pool[next].next();
-        pool[it].assign(obj);
-        return {pool, it};
+        Entry* e = &pool[next];
+        next     = e->next();
+        e->assign(obj);
+        return {e, endPointer()};
     }
     else {
         pool.emplace_back(obj);
-        return {pool, static_cast<long long int>(pool.size() - 1)};
+        return {&pool.back(), endPointer()};
     }
 }
 
@@ -329,14 +321,14 @@ template<typename T>
 typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::add(T&& obj) {
     ++trackedSize;
     if (next >= 0) {
-        const auto it = next;
-        next          = pool[next].next();
-        pool[it].move(std::forward<T>(obj));
-        return {pool, it};
+        Entry* e = &pool[next];
+        next     = e->next();
+        e->move(std::forward<T>(obj));
+        return {e, endPointer()};
     }
     else {
         pool.emplace_back(std::forward<T>(obj));
-        return {pool, static_cast<long long int>(pool.size() - 1)};
+        return {&pool.back(), endPointer()};
     }
 }
 
@@ -345,44 +337,44 @@ template<typename... TArgs>
 typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::emplace(TArgs... args) {
     ++trackedSize;
     if (next >= 0) {
-        const auto it = next;
-        next          = pool[next].next();
-        pool[it].emplace(args...);
-        return {pool, it};
+        Entry* e = &pool[next];
+        next     = e->next();
+        e->emplace(args...);
+        return {e, endPointer()};
     }
     else {
         pool.emplace_back(args...);
-        return {pool, static_cast<long long int>(pool.size() - 1)};
+        return {&pool.back(), endPointer()};
     }
 }
 
 template<typename T>
 void DynamicObjectPool<T>::erase(const Iterator& i) {
     --trackedSize;
-    pool[i.i].destroy();
-    pool[i.i].next() = -1;
-    if (next >= 0) { pool[i.i].next() = next; }
-    next = i.i;
+    i.pos->destroy();
+    i.pos->next() = -1;
+    if (next >= 0) { i.pos->next() = next; }
+    next = i.pos - &pool.front();
 }
 
 template<typename T>
 typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::begin() {
-    return {pool, 0};
+    return {&pool.front(), endPointer()};
 }
 
 template<typename T>
 typename DynamicObjectPool<T>::ConstIterator DynamicObjectPool<T>::begin() const {
-    return {pool, 0};
+    return {&pool.front(), endPointer()};
 }
 
 template<typename T>
 typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::end() {
-    return {pool, static_cast<long long int>(pool.size())};
+    return {endPointer(), endPointer()};
 }
 
 template<typename T>
 typename DynamicObjectPool<T>::ConstIterator DynamicObjectPool<T>::end() const {
-    return {pool, static_cast<long long int>(pool.size())};
+    return {endPointer(), endPointer()};
 }
 
 template<typename T>
@@ -392,7 +384,7 @@ std::size_t DynamicObjectPool<T>::size() const {
 
 template<typename T>
 std::size_t DynamicObjectPool<T>::capacity() const {
-    return pool.size();
+    return pool.capacity();
 }
 
 template<typename T>
@@ -408,28 +400,26 @@ bool DynamicObjectPool<T>::empty() const {
 template<typename T>
 void DynamicObjectPool<T>::clear(bool s) {
     trackedSize = 0;
-    if (s) {
-        pool.clear();
-        next = -1;
-    }
-    else {
-        for (unsigned int i = 0; i < pool.size(); ++i) {
-            Entry& e = pool[i];
-            if (e.alive()) {
-                e.destroy();
-                if (next >= 0) e.next() = next;
-                next = i;
-            }
+    for (Entry& entry : pool) {
+        if (entry.alive()) { entry.destroy(); }
+        else {
+            entry.next() = -1;
         }
     }
+    pool.clear();
+    next = -1;
+    if (s) { 
+        std::vector<Entry> newPool;
+        std::swap(newPool, pool);
+     }
 }
 
 template<typename T>
 void DynamicObjectPool<T>::shrink() {
     std::vector<Entry> newPool;
     newPool.reserve(trackedSize);
-    for (unsigned int i = 0; i < pool.size(); ++i) {
-        if (pool[i].alive()) { newPool.push_back(std::move(pool[i])); }
+    for (Entry& entry : pool) {
+        if (entry.alive()) { newPool.emplace_back(std::move(entry)); }
     }
     std::swap(pool, newPool);
     next = -1;
@@ -437,103 +427,62 @@ void DynamicObjectPool<T>::shrink() {
 
 template<typename T>
 template<typename ET>
-DynamicObjectPool<T>::IteratorType<ET>::IteratorType(std::vector<DynamicObjectPool<T>::Entry>& pool,
-                                                     long long int j)
-: pool(&pool)
-, i(j) {
-    std::size_t ni = i;
-    while (ni < pool.size() && !pool[ni].alive()) { ++ni; }
-    if (ni == pool.size() - 1 && !pool[ni].alive()) ++ni;
-    i = ni;
-}
-
-template<typename T>
-template<typename ET>
-DynamicObjectPool<T>::IteratorType<ET>::IteratorType::IteratorType(const IteratorType& copy)
-: pool(copy.pool)
-, i(copy.i) {}
-
-template<typename T>
-template<typename ET>
-typename DynamicObjectPool<T>::template IteratorType<ET>&
-DynamicObjectPool<T>::IteratorType<ET>::operator=(const IteratorType& copy) {
-    pool = copy.pool;
-    i    = copy.i;
-    return *this;
-}
+DynamicObjectPool<T>::IteratorType<ET>::IteratorType(DynamicObjectPool<T>::Entry* e,
+                                                     DynamicObjectPool<T>::Entry* end)
+: pos(e)
+, end(end) {}
 
 template<typename T>
 template<typename ET>
 ET& DynamicObjectPool<T>::IteratorType<ET>::operator*() {
-    return *(*pool)[i].cast();
+    return *pos->cast();
 }
 
 template<typename T>
 template<typename ET>
 ET* DynamicObjectPool<T>::IteratorType<ET>::operator->() {
-    return (*pool)[i].cast();
+    return pos->cast();
 }
 
 template<typename T>
 template<typename ET>
 const ET& DynamicObjectPool<T>::IteratorType<ET>::operator*() const {
-    return *pool->at(i).cast();
+    return *pos->cast();
 }
 
 template<typename T>
 template<typename ET>
 const ET* DynamicObjectPool<T>::IteratorType<ET>::operator->() const {
-    return pool->at(i).cast();
+    return pos->cast();
 }
 
 template<typename T>
 template<typename ET>
 typename DynamicObjectPool<T>::template IteratorType<ET>&
 DynamicObjectPool<T>::IteratorType<ET>::operator++() {
-    std::size_t ni = i + 1;
-    while (ni < pool->size() && !(*pool)[ni].alive()) { ++ni; }
-    if (ni == pool->size() - 1 && !(*pool)[ni].alive()) ++ni;
-    i = ni;
+    do { ++pos; } while (pos != end && !pos->alive());
     return *this;
 }
 
 template<typename T>
 template<typename ET>
 typename DynamicObjectPool<T>::template IteratorType<ET>&
-DynamicObjectPool<T>::IteratorType<ET>::operator--() {
-    --i;
-    while (i > 0 && !(*pool)[i].alive()) { --i; }
-    return *this;
-}
-
-template<typename T>
-template<typename ET>
-typename DynamicObjectPool<T>::template IteratorType<ET>
-DynamicObjectPool<T>::IteratorType<ET>::operator+(int d) const {
-    IteratorType<ET> it = *this;
-    for (int j = 0; j < d; ++j) { ++it; }
-    return it;
-}
-
-template<typename T>
-template<typename ET>
-typename DynamicObjectPool<T>::template IteratorType<ET>
-DynamicObjectPool<T>::IteratorType<ET>::operator-(int d) const {
-    IteratorType<ET> it = *this;
-    for (int j = 0; j < d; ++j) { --it; }
-    return it;
+DynamicObjectPool<T>::IteratorType<ET>::operator++(int) {
+    const auto ov = *this;
+    do { ++pos; } while (pos != end && !pos->alive());
+    return ov;
 }
 
 template<typename T>
 template<typename ET>
 bool DynamicObjectPool<T>::IteratorType<ET>::operator==(const IteratorType<ET>& right) const {
-    return pool == right.pool && i == right.i;
+    return pos == right.pos;
 }
 
 template<typename T>
 template<typename ET>
 bool DynamicObjectPool<T>::IteratorType<ET>::operator!=(const IteratorType<ET>& right) const {
-    return pool != right.pool || i != right.i;
+    return pos != right.pos;
 }
 
 } // namespace container
