@@ -7,7 +7,7 @@ target_sources(BLIB PUBLIC
     RingBuffer.hpp
     RingQueue.hpp
     FastEraseVector.hpp
-    DynamicObjectPool.hpp
+    ObjectPool.hpp
     QuadTree.hpp
     Grid.hpp
 )

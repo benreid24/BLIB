@@ -1,7 +1,7 @@
 #ifndef BLIB_MEDIA_AUDIO_AUDIOSYSTEM_HPP
 #define BLIB_MEDIA_AUDIO_AUDIOSYSTEM_HPP
 
-#include <BLIB/Containers/DynamicObjectPool.hpp>
+#include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Media/Audio/Playlist.hpp>
 #include <SFML/Audio.hpp>
 #include <cstdint>

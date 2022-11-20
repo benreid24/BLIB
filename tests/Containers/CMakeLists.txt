@@ -4,7 +4,7 @@ target_sources(BLIB.t PUBLIC
     FastQueue.t.cpp
     RingBuffer.t.cpp
     FastEraseVector.t.cpp
-    DynamicObjectPool.t.cpp
+    ObjectPool.t.cpp
     QuadTree.t.cpp
     Grid.t.cpp
     ObjectWrapper.t.cpp

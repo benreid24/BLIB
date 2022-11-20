@@ -1,5 +1,5 @@
 #include <BLIB/Containers/Any.hpp>
-#include <BLIB/Containers/DynamicObjectPool.hpp>
+#include <BLIB/Containers/ObjectPool.hpp>
 #include <gtest/gtest.h>
 #include <unordered_set>
 
@@ -44,7 +44,7 @@ struct Data {
 };
 
 template<typename T>
-typename DynamicObjectPool<T>::Iterator iterPos(DynamicObjectPool<T>& pool, unsigned int pos) {
+typename ObjectPool<T>::Iterator iterPos(ObjectPool<T>& pool, unsigned int pos) {
     auto it = pool.begin();
     for (unsigned int i = 0; i < pos; ++i) { ++it; }
     return it;
@@ -52,13 +52,13 @@ typename DynamicObjectPool<T>::Iterator iterPos(DynamicObjectPool<T>& pool, unsi
 
 } // namespace
 
-TEST(DynamicObjectPool, Empty) {
-    DynamicObjectPool<int> pool;
+TEST(ObjectPool, Empty) {
+    ObjectPool<int> pool(ObjectPool<int>::GrowthPolicy::ExpandBuffer, 1);
     EXPECT_TRUE(pool.empty());
 }
 
-TEST(DynamicObjectPool, AddIterator) {
-    DynamicObjectPool<int> pool;
+TEST(ObjectPool, AddIterator) {
+    ObjectPool<int> pool(ObjectPool<int>::GrowthPolicy::ExpandBuffer, 3);
     pool.reserve(3);
     auto it1 = pool.add(1);
     auto it2 = pool.add(2);
@@ -68,8 +68,8 @@ TEST(DynamicObjectPool, AddIterator) {
     EXPECT_EQ(*it3, 3);
 }
 
-TEST(DynamicObjectPool, SizeTracking) {
-    DynamicObjectPool<int> pool;
+TEST(ObjectPool, SizeTracking) {
+    ObjectPool<int> pool(ObjectPool<int>::GrowthPolicy::FailTerminate, 3);
 
     pool.add(5);
     pool.add(2);
@@ -80,8 +80,8 @@ TEST(DynamicObjectPool, SizeTracking) {
     EXPECT_EQ(pool.size(), 2);
 }
 
-TEST(DynamicObjectPool, BasicErase) {
-    DynamicObjectPool<int> pool;
+TEST(ObjectPool, BasicErase) {
+    ObjectPool<int> pool(ObjectPool<int>::GrowthPolicy::FailContinue, 3);
 
     pool.add(5);
     pool.add(2);
@@ -89,13 +89,13 @@ TEST(DynamicObjectPool, BasicErase) {
     pool.erase(++pool.begin());
 
     ASSERT_EQ(pool.size(), 2);
-    EXPECT_GE(pool.capacity(), 3);
+    EXPECT_EQ(pool.capacity(), 3);
     EXPECT_EQ(*pool.begin(), 5);
     EXPECT_EQ(*(++pool.begin()), 3);
 }
 
-TEST(DynamicObjectPool, IteratorSkipsDead) {
-    DynamicObjectPool<int> pool;
+TEST(ObjectPool, IteratorSkipsDead) {
+    ObjectPool<int> pool(ObjectPool<int>::GrowthPolicy::ExpandBuffer, 1);
     pool.add(1);
     pool.add(2);
     pool.add(3);
@@ -113,8 +113,8 @@ TEST(DynamicObjectPool, IteratorSkipsDead) {
     EXPECT_EQ(*it, 5);
 }
 
-TEST(DynamicObjectPool, IteratorEnd) {
-    DynamicObjectPool<int> pool;
+TEST(ObjectPool, IteratorEnd) {
+    ObjectPool<int> pool(ObjectPool<int>::GrowthPolicy::ExpandBuffer, 1);
     EXPECT_EQ(pool.begin(), pool.end());
     pool.add(1);
     EXPECT_EQ(iterPos(pool, 1), pool.end());
@@ -123,8 +123,8 @@ TEST(DynamicObjectPool, IteratorEnd) {
     EXPECT_EQ(it, pool.end());
 }
 
-TEST(DynamicObjectPool, Reuse) {
-    DynamicObjectPool<int> pool;
+TEST(ObjectPool, Reuse) {
+    ObjectPool<int> pool(ObjectPool<int>::GrowthPolicy::ExpandBuffer, 5);
     pool.add(1);
     pool.add(2);
     pool.add(3);
@@ -143,8 +143,8 @@ TEST(DynamicObjectPool, Reuse) {
     EXPECT_EQ(*(iterPos(pool, 4)), 5);
 }
 
-TEST(DynamicObjectPool, Destructor) {
-    DynamicObjectPool<Dummy> pool;
+TEST(ObjectPool, Destructor) {
+    ObjectPool<Dummy> pool(ObjectPool<Dummy>::GrowthPolicy::ExpandBuffer, 3);
     bool dcalls[] = {false, false, false};
 
     pool.add({});
@@ -175,8 +175,8 @@ TEST(DynamicObjectPool, Destructor) {
     EXPECT_EQ(pool.capacity(), 0);
 }
 
-TEST(DynamicObjectPool, Shrink) {
-    DynamicObjectPool<int> pool;
+TEST(ObjectPool, Shrink) {
+    ObjectPool<int> pool(ObjectPool<int>::GrowthPolicy::ExpandBuffer, 3);
 
     pool.add(1);
     pool.add(2);
@@ -184,7 +184,7 @@ TEST(DynamicObjectPool, Shrink) {
     pool.erase(iterPos(pool, 1));
 
     ASSERT_EQ(pool.size(), 2);
-    ASSERT_GE(pool.capacity(), 3);
+    ASSERT_EQ(pool.capacity(), 3);
 
     pool.shrink();
     EXPECT_EQ(pool.capacity(), 2);
@@ -192,9 +192,8 @@ TEST(DynamicObjectPool, Shrink) {
     EXPECT_EQ(*(iterPos(pool, 1)), 3);
 }
 
-TEST(DynamicObjectPool, ShrinkDestructor) {
-    DynamicObjectPool<Dummy> pool;
-    pool.reserve(3);
+TEST(ObjectPool, ShrinkDestructor) {
+    ObjectPool<Dummy> pool(ObjectPool<Dummy>::GrowthPolicy::ExpandBuffer, 3);
     bool dcalls[] = {false, false, false};
 
     pool.add({});
@@ -222,9 +221,8 @@ TEST(DynamicObjectPool, ShrinkDestructor) {
     ASSERT_FALSE(dcalls[2]);
 }
 
-TEST(DynamicObjectPool, EmplaceAndMove) {
-    DynamicObjectPool<Dummy> pool;
-    pool.reserve(2);
+TEST(ObjectPool, EmplaceAndMove) {
+    ObjectPool<Dummy> pool(ObjectPool<Dummy>::GrowthPolicy::FailTerminate, 2);
     bool dcalls[] = {false, false};
 
     Dummy d(&dcalls[0]);
@@ -239,8 +237,8 @@ TEST(DynamicObjectPool, EmplaceAndMove) {
     EXPECT_TRUE(dcalls[1]);
 }
 
-TEST(DynamicObjectPool, MultipleObjects) {
-    DynamicObjectPool<Data> pool;
+TEST(ObjectPool, MultipleObjects) {
+    ObjectPool<Data> pool(ObjectPool<Data>::GrowthPolicy::ExpandBuffer, 3);
 
     pool.emplace(5);
     pool.emplace(10);
@@ -251,8 +249,8 @@ TEST(DynamicObjectPool, MultipleObjects) {
     EXPECT_EQ((iterPos(pool, 2))->value, 15);
 }
 
-TEST(DynamicObjectPool, Any) {
-    DynamicObjectPool<Any<32>> pool;
+TEST(ObjectPool, Any) {
+    ObjectPool<Any<32>> pool(ObjectPool<Any<32>>::GrowthPolicy::ExpandBuffer, 1);
 
     pool.add(Data(5));
     pool.add(Data(10));
@@ -261,8 +259,8 @@ TEST(DynamicObjectPool, Any) {
     EXPECT_EQ((iterPos(pool, 1))->get<Data>().value, 10);
 }
 
-TEST(DynamicObjectPool, Iterate) {
-    DynamicObjectPool<int> pool;
+TEST(ObjectPool, Iterate) {
+    ObjectPool<int> pool(ObjectPool<int>::GrowthPolicy::FailContinue, 3);
 
     pool.add(5);
     pool.emplace(15);
@@ -275,6 +273,25 @@ TEST(DynamicObjectPool, Iterate) {
     EXPECT_NE(found.find(5), found.end());
     EXPECT_NE(found.find(15), found.end());
     EXPECT_NE(found.find(32), found.end());
+}
+
+TEST(ObjectPool, FullContinue) {
+    ObjectPool<int> pool(ObjectPool<int>::GrowthPolicy::FailContinue, 2);
+    auto it = pool.add(5);
+    EXPECT_NE(it, pool.end());
+    it = pool.add(5);
+    EXPECT_NE(it, pool.end());
+    it = pool.add(5);
+    EXPECT_EQ(it, pool.end());
+}
+
+TEST(ObjectPool, FullTerminate) {
+    ObjectPool<int> pool(ObjectPool<int>::GrowthPolicy::FailTerminate, 2);
+    auto it = pool.add(5);
+    EXPECT_NE(it, pool.end());
+    it = pool.add(5);
+    EXPECT_NE(it, pool.end());
+    ASSERT_DEATH(pool.add(5), "");
 }
 
 } // namespace unittest

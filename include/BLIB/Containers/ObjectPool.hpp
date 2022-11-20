@@ -1,7 +1,9 @@
-#ifndef BLIB_CONTAINERS_DYNAMICOBJECTPOOL_HPP
-#define BLIB_CONTAINERS_DYNAMICOBJECTPOOL_HPP
+#ifndef BLIB_CONTAINERS_OBJECTPOOL_HPP
+#define BLIB_CONTAINERS_OBJECTPOOL_HPP
 
 #include <BLIB/Containers/ObjectWrapper.hpp>
+#include <BLIB/Logging.hpp>
+#include <cstdlib>
 #include <cstring>
 #include <utility>
 #include <vector>
@@ -12,7 +14,7 @@ namespace container
 {
 /**
  * @brief Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1),
- *        however objects in the pool maintain their indices in the DynamicObjectPool. Object slots
+ *        however objects in the pool maintain their indices in the ObjectPool. Object slots
  *        are marked free on erase(), reused on add(), and the pool grows in size if no slot is
  *        when add() is called. Objects must implement a default constructor and copy constructor.
  *
@@ -20,10 +22,22 @@ namespace container
  * @ingroup Containers
  */
 template<typename T>
-class DynamicObjectPool {
+class ObjectPool {
     class Entry;
 
 public:
+    /// @brief Policy which dictates how the pool handles adding new objects when it is full
+    enum struct GrowthPolicy {
+        /// @brief The pool is reallocated  to a larger buffer. Addresses are not stable
+        ExpandBuffer,
+
+        /// @brief add() will fail and return end() when the pool is full. Addresses are stable
+        FailContinue,
+
+        /// @brief add() will call std::exit() when the pool is full
+        FailTerminate
+    };
+
     /**
      * @brief Iterator for traversing the object pool. Use Iterator or ConstIterator. Forward
      *        iteration only
@@ -57,25 +71,25 @@ public:
          * @brief Returns a reference to the underlying object. Undefined behavior if invalid
          *
          */
-        EType& operator*();
+        constexpr EType& operator*();
 
         /**
          * @brief Returns a pointer to the underlying object. Undefined behavior if invalid
          *
          */
-        EType* operator->();
+        constexpr EType* operator->();
 
         /**
          * @brief Returns a const reference to the underlying object. Undefined behavior if invalid
          *
          */
-        const EType& operator*() const;
+        constexpr const EType& operator*() const;
 
         /**
          * @brief Returns a const pointer to the underlying object. Undefined behavior if invalid
          *
          */
-        const EType* operator->() const;
+        constexpr const EType* operator->() const;
 
         /**
          * @brief Modifies this iterator to point to the next object in the pool
@@ -107,17 +121,22 @@ public:
         Entry* pos;
         Entry* end;
 
-        friend class DynamicObjectPool;
+        friend class ObjectPool;
     };
 
     using Iterator      = IteratorType<T>;
     using ConstIterator = IteratorType<const T>;
 
     /**
-     * @brief Initializes the empty object pool
+     * @brief Initializes the object pool with the growth policy and initial capacity. Not that,
+     *        unless the growth policy is ExpandBuffer, the pool capacity will always be the given
+     *        capacity.
+     *
+     * @param policy How to handle add() when the pool is full
+     * @param capacity The size of buffer to create
      *
      */
-    DynamicObjectPool();
+    ObjectPool(GrowthPolicy policy, std::size_t capacity);
 
     /**
      * @brief Adds the given object to the pool. Either reuses an empty object slot or expands the
@@ -223,128 +242,151 @@ private:
     class Entry {
     public:
         explicit Entry()
-        : _alive(false) {
-            slot.next = -1;
-        }
+        : _alive(false)
+        , _next(-1) {}
 
         Entry(const T& data)
         : _alive(true) {
-            slot.payload.emplace(data);
+            payload.emplace(data);
         }
 
         Entry(T&& data)
         : _alive(true) {
-            slot.payload.emplace(std::forward<T>(data));
+            payload.emplace(std::forward<T>(data));
         }
 
         template<typename... TArgs>
         Entry(TArgs&&... args)
         : _alive(true) {
-            slot.payload.emplace(std::forward<TArgs>(args)...);
+            payload.emplace(std::forward<TArgs>(args)...);
         }
 
         Entry(Entry&& copy)
         : _alive(copy._alive) {
-            if (copy._alive) {
-                slot.payload.emplace(std::forward<T>(copy.slot.payload.getRValue()));
-            }
+            if (copy._alive) { payload.emplace(std::forward<T>(copy.payload.getRValue())); }
         }
 
         ~Entry() {
-            if (_alive) destroy();
+            if (_alive) { payload.destroy(); }
         }
 
         template<typename... TArgs>
         void emplace(TArgs&&... args) {
-            if (_alive) { slot.payload.destroy(); }
+            if (_alive) { payload.destroy(); }
             else {
                 _alive = true;
             }
-            slot.payload.emplace(std::forward<TArgs>(args)...);
+            payload.emplace(std::forward<TArgs>(args)...);
         }
 
         void destroy() {
-            slot.payload.destroy();
             _alive = false;
+            payload.destroy();
         }
 
         constexpr bool alive() const { return _alive; }
 
-        constexpr T* cast() { return &slot.payload.get(); }
+        constexpr T& get() { return payload.get(); }
 
-        constexpr long& next() { return slot.next; }
+        constexpr long& next() { return _next; }
 
     private:
         bool _alive;
         union {
             ObjectWrapper<T> payload;
-            long next;
-        } slot;
+            long _next;
+        };
     };
 
+    const GrowthPolicy policy;
     std::vector<Entry> pool;
     std::size_t trackedSize;
     long next;
+    long oldest;
+    long leastOldest;
 
     constexpr Entry* endPointer() { return &pool.back() + 1; }
     constexpr const Entry* endPointer() const { return &pool.back() + 1; }
+    Entry* doAdd();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-DynamicObjectPool<T>::DynamicObjectPool()
-: trackedSize(0)
-, next(-1) {}
-
-template<typename T>
-typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::add(const T& obj) {
-    ++trackedSize;
-    if (next >= 0) {
-        Entry* e = &pool[next];
-        next     = e->next();
-        e->emplace(obj);
-        return {e, endPointer()};
-    }
-    else {
-        pool.emplace_back(obj);
-        return {&pool.back(), endPointer()};
-    }
+ObjectPool<T>::ObjectPool(GrowthPolicy pl, std::size_t cap)
+: policy(pl)
+, trackedSize(0)
+, next(-1)
+, oldest(-1)
+, leastOldest(-1) {
+    pool.reserve(cap);
 }
 
 template<typename T>
-typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::add(T&& obj) {
-    ++trackedSize;
-    if (next >= 0) {
-        Entry* e = &pool[next];
-        next     = e->next();
+typename ObjectPool<T>::Iterator ObjectPool<T>::add(const T& obj) {
+    Entry* e = doAdd();
+    if (e != nullptr) {
+        e->emplace(obj);
+        return {e, endPointer()};
+    }
+    return end();
+}
+
+template<typename T>
+typename ObjectPool<T>::Iterator ObjectPool<T>::add(T&& obj) {
+    Entry* e = doAdd();
+    if (e != nullptr) {
         e->emplace(std::forward<T>(obj));
         return {e, endPointer()};
     }
-    else {
-        pool.emplace_back(std::forward<T>(obj));
-        return {&pool.back(), endPointer()};
-    }
+    return end();
 }
 
 template<typename T>
 template<typename... TArgs>
-typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::emplace(TArgs&&... args) {
+typename ObjectPool<T>::Iterator ObjectPool<T>::emplace(TArgs&&... args) {
+    Entry* e = doAdd();
+    if (e != nullptr) {
+        e->emplace(std::forward<TArgs>(args)...);
+        return {e, endPointer()};
+    }
+    return end();
+}
+
+template<typename T>
+typename ObjectPool<T>::Entry* ObjectPool<T>::doAdd() {
     ++trackedSize;
     if (next >= 0) {
         Entry* e = &pool[next];
         next     = e->next();
-        e->emplace(std::forward<TArgs>(args)...);
-        return {e, endPointer()};
+        return e;
     }
     else {
-        pool.emplace_back(std::forward<TArgs>(args)...);
-        return {&pool.back(), endPointer()};
+        if (pool.size() < pool.capacity() || policy == GrowthPolicy::ExpandBuffer) {
+            pool.emplace_back();
+            return &pool.back();
+        }
+        else {
+            switch (policy) {
+            case GrowthPolicy::FailContinue:
+                BL_LOG_WARN << typeid(T).name() << " pool exceeded capacity (" << capacity()
+                            << "). Increase allocation";
+                return nullptr;
+            case GrowthPolicy::FailTerminate:
+                BL_LOG_CRITICAL << typeid(T).name() << " pool exceeded capacity (" << capacity()
+                                << "). Increase allocation. Terminating";
+                std::exit(1);
+                break;
+            default:
+                // unreachable
+                return nullptr;
+            }
+        }
     }
 }
 
 template<typename T>
-void DynamicObjectPool<T>::erase(const Iterator& i) {
+void ObjectPool<T>::erase(const Iterator& i) {
     --trackedSize;
     i.pos->destroy();
     i.pos->next() = -1;
@@ -353,47 +395,47 @@ void DynamicObjectPool<T>::erase(const Iterator& i) {
 }
 
 template<typename T>
-typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::begin() {
+typename ObjectPool<T>::Iterator ObjectPool<T>::begin() {
     return {&pool.front(), endPointer()};
 }
 
 template<typename T>
-typename DynamicObjectPool<T>::ConstIterator DynamicObjectPool<T>::begin() const {
+typename ObjectPool<T>::ConstIterator ObjectPool<T>::begin() const {
     return {&pool.front(), endPointer()};
 }
 
 template<typename T>
-typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::end() {
+typename ObjectPool<T>::Iterator ObjectPool<T>::end() {
     return {endPointer(), endPointer()};
 }
 
 template<typename T>
-typename DynamicObjectPool<T>::ConstIterator DynamicObjectPool<T>::end() const {
+typename ObjectPool<T>::ConstIterator ObjectPool<T>::end() const {
     return {endPointer(), endPointer()};
 }
 
 template<typename T>
-std::size_t DynamicObjectPool<T>::size() const {
+std::size_t ObjectPool<T>::size() const {
     return trackedSize;
 }
 
 template<typename T>
-std::size_t DynamicObjectPool<T>::capacity() const {
+std::size_t ObjectPool<T>::capacity() const {
     return pool.capacity();
 }
 
 template<typename T>
-void DynamicObjectPool<T>::reserve(std::size_t cap) {
+void ObjectPool<T>::reserve(std::size_t cap) {
     pool.reserve(cap);
 }
 
 template<typename T>
-bool DynamicObjectPool<T>::empty() const {
+bool ObjectPool<T>::empty() const {
     return trackedSize == 0;
 }
 
 template<typename T>
-void DynamicObjectPool<T>::clear(bool s) {
+void ObjectPool<T>::clear(bool s) {
     trackedSize = 0;
     for (Entry& entry : pool) {
         if (entry.alive()) { entry.destroy(); }
@@ -410,7 +452,7 @@ void DynamicObjectPool<T>::clear(bool s) {
 }
 
 template<typename T>
-void DynamicObjectPool<T>::shrink() {
+void ObjectPool<T>::shrink() {
     std::vector<Entry> newPool;
     newPool.reserve(trackedSize);
     for (Entry& entry : pool) {
@@ -422,47 +464,45 @@ void DynamicObjectPool<T>::shrink() {
 
 template<typename T>
 template<typename ET>
-DynamicObjectPool<T>::IteratorType<ET>::IteratorType(DynamicObjectPool<T>::Entry* e,
-                                                     DynamicObjectPool<T>::Entry* end)
+ObjectPool<T>::IteratorType<ET>::IteratorType(ObjectPool<T>::Entry* e, ObjectPool<T>::Entry* end)
 : pos(e)
 , end(end) {}
 
 template<typename T>
 template<typename ET>
-ET& DynamicObjectPool<T>::IteratorType<ET>::operator*() {
-    return *pos->cast();
+constexpr ET& ObjectPool<T>::IteratorType<ET>::operator*() {
+    return pos->get();
 }
 
 template<typename T>
 template<typename ET>
-ET* DynamicObjectPool<T>::IteratorType<ET>::operator->() {
-    return pos->cast();
+constexpr ET* ObjectPool<T>::IteratorType<ET>::operator->() {
+    return &pos->get();
 }
 
 template<typename T>
 template<typename ET>
-const ET& DynamicObjectPool<T>::IteratorType<ET>::operator*() const {
-    return *pos->cast();
+constexpr const ET& ObjectPool<T>::IteratorType<ET>::operator*() const {
+    return pos->get();
 }
 
 template<typename T>
 template<typename ET>
-const ET* DynamicObjectPool<T>::IteratorType<ET>::operator->() const {
-    return pos->cast();
+constexpr const ET* ObjectPool<T>::IteratorType<ET>::operator->() const {
+    return &pos->get();
 }
 
 template<typename T>
 template<typename ET>
-typename DynamicObjectPool<T>::template IteratorType<ET>&
-DynamicObjectPool<T>::IteratorType<ET>::operator++() {
+typename ObjectPool<T>::template IteratorType<ET>& ObjectPool<T>::IteratorType<ET>::operator++() {
     do { ++pos; } while (pos != end && !pos->alive());
     return *this;
 }
 
 template<typename T>
 template<typename ET>
-typename DynamicObjectPool<T>::template IteratorType<ET>&
-DynamicObjectPool<T>::IteratorType<ET>::operator++(int) {
+typename ObjectPool<T>::template IteratorType<ET>& ObjectPool<T>::IteratorType<ET>::operator++(
+    int) {
     const auto ov = *this;
     do { ++pos; } while (pos != end && !pos->alive());
     return ov;
@@ -470,13 +510,13 @@ DynamicObjectPool<T>::IteratorType<ET>::operator++(int) {
 
 template<typename T>
 template<typename ET>
-bool DynamicObjectPool<T>::IteratorType<ET>::operator==(const IteratorType<ET>& right) const {
+bool ObjectPool<T>::IteratorType<ET>::operator==(const IteratorType<ET>& right) const {
     return pos == right.pos;
 }
 
 template<typename T>
 template<typename ET>
-bool DynamicObjectPool<T>::IteratorType<ET>::operator!=(const IteratorType<ET>& right) const {
+bool ObjectPool<T>::IteratorType<ET>::operator!=(const IteratorType<ET>& right) const {
     return pos != right.pos;
 }
 
