@@ -103,6 +103,30 @@ TEST(Grid, IterateCells) {
     EXPECT_TRUE(inRegion.empty());
 }
 
+TEST(Grid, IterateEndEarly) {
+    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
+
+    // in region
+    grid.add({45.f, 45.f}, 15);
+    grid.add({55.f, 55.f}, 10);
+    grid.add({65.f, 65.f}, 30);
+
+    // outside of region
+    grid.add({41.f, 25.f}, 11);
+    grid.add({5.f, 25.f}, 45);
+    grid.add({20.f, 75.f}, 76);
+
+    int lastSeen = 0;
+
+    const auto visitor = [&lastSeen](int val) {
+        lastSeen = val;
+        return val == 10;
+    };
+
+    grid.forAllInCellAndNeighbors({55.f, 55.f}, visitor);
+    EXPECT_EQ(lastSeen, 10);
+}
+
 } // namespace unittest
 } // namespace container
 } // namespace bl

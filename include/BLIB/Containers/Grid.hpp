@@ -107,7 +107,8 @@ public:
     const Cell& getCellByIndex(const sf::Vector2u& indices);
 
     /**
-     * @brief Iterates over all contained values within the given region
+     * @brief Iterates over all contained values within the given region. Callback can optionally
+     *        return a boolean to end iteration early. Return true to end early
      *
      * @tparam TCallback Callback signature of the vistor to apply
      * @param region The region to iterate over contained entities within
@@ -117,7 +118,8 @@ public:
     void forAllInRegion(const sf::FloatRect& region, const TCallback& cb);
 
     /**
-     * @brief Iterates over all contained values within the cell and it's neighbors
+     * @brief Iterates over all contained values within the cell and it's neighbors. Callback can
+     *        optionally return a boolean to end iteration early. Return true to end early
      *
      * @tparam TCallback Callback signature of the vistor to apply
      * @param region The point to get the cell and neighbors for
@@ -226,7 +228,8 @@ const typename Grid<T>::Cell& Grid<T>::getCellByIndex(const sf::Vector2u& i) {
 template<typename T>
 template<typename TCb>
 void Grid<T>::forAllInRegion(const sf::FloatRect& region, const TCb& cb) {
-    static_assert(std::is_invocable<TCb, T>::value, "Visitor signature is void(T val)");
+    static_assert(std::is_invocable<TCb, T>::value,
+                  "Visitor signature is void(T val) or bool(T val");
 
     const sf::Vector2u sp = getIndexAtPosition({region.left, region.top});
     const sf::Vector2u ep =
@@ -234,7 +237,14 @@ void Grid<T>::forAllInRegion(const sf::FloatRect& region, const TCb& cb) {
     for (unsigned int x = sp.x; x <= ep.x; ++x) {
         for (unsigned int y = sp.y; y <= ep.y; ++y) {
             Cell& cell = cells(x, y);
-            for (T val : cell) { cb(val); }
+            for (T val : cell) {
+                if constexpr (std::is_same_v<std::invoke_result_t<TCb, T>, bool>) {
+                    if (cb(val)) return;
+                }
+                else {
+                    cb(val);
+                }
+            }
         }
     }
 }
@@ -242,7 +252,8 @@ void Grid<T>::forAllInRegion(const sf::FloatRect& region, const TCb& cb) {
 template<typename T>
 template<typename TCb>
 void Grid<T>::forAllInCellAndNeighbors(const sf::Vector2f& pos, const TCb& cb) {
-    static_assert(std::is_invocable<TCb, T>::value, "Visitor signature is void(T val)");
+    static_assert(std::is_invocable<TCb, T>::value,
+                  "Visitor signature is void(T val) or bool(T val");
 
     const sf::Vector2u i  = getIndexAtPosition(pos);
     const unsigned int sx = i.x > 0 ? i.x - 1 : 0;
@@ -253,7 +264,14 @@ void Grid<T>::forAllInCellAndNeighbors(const sf::Vector2f& pos, const TCb& cb) {
     for (unsigned int x = sx; x <= ex; ++x) {
         for (unsigned int y = sy; y <= ey; ++y) {
             Cell& cell = cells(x, y);
-            for (T val : cell) { cb(val); }
+            for (T val : cell) {
+                if constexpr (std::is_same_v<std::invoke_result_t<TCb, T>, bool>) {
+                    if (cb(val)) return;
+                }
+                else {
+                    cb(val);
+                }
+            }
         }
     }
 }
