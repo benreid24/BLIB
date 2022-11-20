@@ -1,6 +1,7 @@
 #ifndef BLIB_CONTAINERS_GRID_HPP
 #define BLIB_CONTAINERS_GRID_HPP
 
+#include <BLIB/Containers/FastEraseVector.hpp>
 #include <BLIB/Containers/Vector2d.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <SFML/Graphics/Rect.hpp>
@@ -9,7 +10,6 @@
 #include <algorithm>
 #include <cmath>
 #include <utility>
-#include <vector>
 
 namespace bl
 {
@@ -29,7 +29,7 @@ public:
     static_assert(std::is_trivial_v<T>, "Grid should only be used with trivial types");
 
     /// @brief Single cell in the grid pointing to objects within that region
-    using Cell = std::vector<T>;
+    using Cell = FastEraseVector<T>;
 
     /**
      * @brief Creates the grid
