@@ -2,6 +2,7 @@
 #define BLIB_CONTAINERS_OBJECTWRAPPER_HPP
 
 #include <cstdint>
+#include <utility>
 
 namespace bl
 {
@@ -32,7 +33,7 @@ public:
      * @param args The arguments to construct with
      */
     template<typename... TArgs>
-    ObjectWrapper(TArgs... args);
+    ObjectWrapper(TArgs&&... args);
 
     /**
      * @brief Access the wrapped value. Undefined behavior if not constructed
@@ -49,13 +50,20 @@ public:
     constexpr const T& get() const;
 
     /**
+     * @brief Returns an RValue reference to the contained object
+     *
+     * @return constexpr T&& A movable rvalue reference
+     */
+    constexpr T&& getRValue();
+
+    /**
      * @brief Constructs a new value in place. Does not destruct the prior value if any
      *
      * @tparam TArgs The argument types to the contained type's constructor
      * @param args The arguments to construct with
      */
     template<typename... TArgs>
-    void emplace(TArgs... args);
+    void emplace(TArgs&&... args);
 
     /**
      * @brief Destructs the contained value. Undefined behavior if no contained value
@@ -74,8 +82,8 @@ private:
 
 template<typename T>
 template<typename... TArgs>
-ObjectWrapper<T>::ObjectWrapper(TArgs... args) {
-    new (cast()) T(args...);
+ObjectWrapper<T>::ObjectWrapper(TArgs&&... args) {
+    new (cast()) T(std::forward<TArgs>(args)...);
 }
 
 template<typename T>
@@ -89,9 +97,14 @@ constexpr const T& ObjectWrapper<T>::get() const {
 }
 
 template<typename T>
+constexpr T&& ObjectWrapper<T>::getRValue() {
+    return static_cast<T&&>(get());
+}
+
+template<typename T>
 template<typename... TArgs>
-void ObjectWrapper<T>::emplace(TArgs... args) {
-    new (cast()) T(args...);
+void ObjectWrapper<T>::emplace(TArgs&&... args) {
+    new (cast()) T(std::forward<TArgs>(args)...);
 }
 
 template<typename T>

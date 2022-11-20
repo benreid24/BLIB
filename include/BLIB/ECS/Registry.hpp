@@ -9,6 +9,7 @@
 #include <BLIB/Util/NonCopyable.hpp>
 #include <cstdlib>
 #include <memory>
+#include <utility>
 
 namespace bl
 {
@@ -88,7 +89,7 @@ public:
      * @return T* Pointer to the new component
      */
     template<typename T, typename... TArgs>
-    T* emplaceComponent(Entity entity, TArgs... args);
+    T* emplaceComponent(Entity entity, TArgs&&... args);
 
     /**
      * @brief Retrieves the given component belonging to the given entity
@@ -213,11 +214,11 @@ T* Registry::addComponent(Entity ent, T&& val) {
 }
 
 template<typename T, typename... TArgs>
-T* Registry::emplaceComponent(Entity ent, TArgs... args) {
+T* Registry::emplaceComponent(Entity ent, TArgs&&... args) {
     std::lock_guard lock(entityLock);
 
     auto& pool = getPool<T>();
-    T* nc      = pool.emplace(ent, args...);
+    T* nc      = pool.emplace(ent, std::forward<TArgs>(args)...);
     finishComponentAdd<T>(ent, pool.ComponentIndex, nc);
     return nc;
 }

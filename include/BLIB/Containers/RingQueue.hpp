@@ -2,6 +2,7 @@
 #define BLIB_CONTAINERS_RINGQUEUE_HPP
 
 #include <BLIB/Containers/ObjectWrapper.hpp>
+#include <utility>
 #include <vector>
 
 namespace bl
@@ -49,7 +50,7 @@ public:
      * @return True if the element could be added, false if the queue is full
      */
     template<typename... TArgs>
-    bool emplace(TArgs... args);
+    bool emplace(TArgs&&... args);
 
     /**
      * @brief Removes the front element from the queue
@@ -156,11 +157,11 @@ bool RingQueue<T>::push(T&& val) {
 
 template<typename T>
 template<typename... TArgs>
-bool RingQueue<T>::emplace(TArgs... args) {
+bool RingQueue<T>::emplace(TArgs&&... args) {
     if (notEmpty && backIter == frontIter) return false;
     notEmpty          = true;
     const Iterator nb = incIter(backIter);
-    backIter->emplace(args...);
+    backIter->emplace(std::forward<TArgs>(args)...);
     backIter = nb;
     return true;
 }

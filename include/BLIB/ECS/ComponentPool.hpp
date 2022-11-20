@@ -12,6 +12,7 @@
 #include <functional>
 #include <limits>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 namespace bl
@@ -104,7 +105,7 @@ private:
     T* add(Entity entity, const T& component);
     T* add(Entity entity, T&& component);
     template<typename... TArgs>
-    T* emplace(Entity ent, TArgs... args);
+    T* emplace(Entity ent, TArgs&&... args);
 
     virtual void remove(Entity entity) override;
     virtual void clear() override;
@@ -166,11 +167,11 @@ T* ComponentPool<T>::add(Entity ent, T&& c) {
 
 template<typename T>
 template<typename... TArgs>
-T* ComponentPool<T>::emplace(Entity ent, TArgs... args) {
+T* ComponentPool<T>::emplace(Entity ent, TArgs&&... args) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
     auto it = addLogic(ent);
-    it->emplace(args...);
+    it->emplace(std::forward<TArgs>(args)...);
     return &it->get();
 }
 

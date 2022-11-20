@@ -1,6 +1,7 @@
 #ifndef BLIB_CONTAINERS_RINGBUFFER_HPP
 #define BLIB_CONTAINERS_RINGBUFFER_HPP
 
+#include <utility>
 #include <vector>
 
 namespace bl
@@ -113,7 +114,7 @@ public:
      * @param args The arguments to construct with
      */
     template<typename... TArgs>
-    void emplace_back(TArgs... args);
+    void emplace_back(TArgs&&... args);
 
     /**
      * @brief Removes the element from the front of the buffer. Destructor may not be called
@@ -136,8 +137,8 @@ private:
         void move(T&& v) { new (cast()) T(std::forward<T>(v)); }
 
         template<typename... TArgs>
-        void emplace(TArgs... args) {
-            new (cast()) T(args...);
+        void emplace(TArgs&&... args) {
+            new (cast()) T(std::forward<TArgs>(args)...);
         }
 
         void destroy() { cast()->~T(); }
@@ -232,9 +233,9 @@ void RingBuffer<T>::push_back(T&& obj) {
 
 template<typename T>
 template<typename... TArgs>
-void RingBuffer<T>::emplace_back(TArgs... args) {
+void RingBuffer<T>::emplace_back(TArgs&&... args) {
     checkHead();
-    buffer[tail].emplace(args...);
+    buffer[tail].emplace(std::forward<TArgs>(args)...);
     increaseSize();
 }
 

@@ -4,6 +4,7 @@
 #include <BLIB/Logging.hpp>
 #include <cstdint>
 #include <cstdlib>
+#include <utility>
 
 namespace bl
 {
@@ -74,7 +75,7 @@ public:
      * @param args Arguments for constructor
      */
     template<typename T, typename... TArgs>
-    void emplace(TArgs... args);
+    void emplace(TArgs&&... args);
 
     /**
      * @brief Copy assigns a new type and value into the Any. Copies are optimized if the type
@@ -219,15 +220,15 @@ Any<Size>& Any<Size>::operator=(const T& value) {
 
 template<unsigned int Size>
 template<typename T, typename... TArgs>
-void Any<Size>::emplace(TArgs... args) {
+void Any<Size>::emplace(TArgs&&... args) {
     clear();
     if constexpr (sizeof(T) <= Size) {
         object = static_cast<void*>(inplace);
         heap   = false;
-        new (object) T(args...);
+        new (object) T(std::forward<TArgs>(args)...);
     }
     else {
-        object = static_cast<void*>(new T(args...));
+        object = static_cast<void*>(new T(std::forward<TArgs>(args)...));
         heap   = true;
     }
     ctype = &Any<Size>::operate<T>;

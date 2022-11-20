@@ -1,6 +1,7 @@
 #ifndef BLIB_CONTAINERS_DYNAMICOBJECTPOOL_HPP
 #define BLIB_CONTAINERS_DYNAMICOBJECTPOOL_HPP
 
+#include <BLIB/Containers/ObjectWrapper.hpp>
 #include <cstring>
 #include <utility>
 #include <vector>
@@ -144,7 +145,7 @@ public:
      * @return Iterator Iterator to the newly created object
      */
     template<typename... TArgs>
-    Iterator emplace(TArgs... args);
+    Iterator emplace(TArgs&&... args);
 
     /**
      * @brief Removes the given iterator from the pool and marks the object slot for resuse. All
@@ -228,61 +229,55 @@ private:
 
         Entry(const T& data)
         : _alive(true) {
-            assign(data);
+            slot.payload.emplace(data);
         }
 
         Entry(T&& data)
         : _alive(true) {
-            move(std::forward<T>(data));
+            slot.payload.emplace(std::forward<T>(data));
         }
 
         template<typename... TArgs>
-        Entry(TArgs... args)
+        Entry(TArgs&&... args)
         : _alive(true) {
-            emplace(args...);
+            slot.payload.emplace(std::forward<TArgs>(args)...);
         }
 
         Entry(Entry&& copy)
         : _alive(copy._alive) {
-            if (_alive) { new (slot.buf) T(std::move(*copy.cast())); }
-            copy._alive = false;
+            if (copy._alive) {
+                slot.payload.emplace(std::forward<T>(copy.slot.payload.getRValue()));
+            }
         }
 
         ~Entry() {
             if (_alive) destroy();
         }
 
-        void assign(const T& v) {
-            _alive = true;
-            new (cast()) T(v);
-        }
-
-        void move(T&& v) {
-            _alive = true;
-            new (cast()) T(std::forward<T>(v));
-        }
-
         template<typename... TArgs>
-        void emplace(TArgs... args) {
-            _alive = true;
-            new (cast()) T(args...);
+        void emplace(TArgs&&... args) {
+            if (_alive) { slot.payload.destroy(); }
+            else {
+                _alive = true;
+            }
+            slot.payload.emplace(std::forward<TArgs>(args)...);
         }
 
         void destroy() {
-            cast()->~T();
+            slot.payload.destroy();
             _alive = false;
         }
 
-        bool alive() const { return _alive; }
+        constexpr bool alive() const { return _alive; }
 
-        T* cast() { return static_cast<T*>(static_cast<void*>(slot.buf)); }
+        constexpr T* cast() { return &slot.payload.get(); }
 
-        long& next() { return slot.next; }
+        constexpr long& next() { return slot.next; }
 
     private:
         bool _alive;
         union {
-            char buf[sizeof(T)];
+            ObjectWrapper<T> payload;
             long next;
         } slot;
     };
@@ -308,7 +303,7 @@ typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::add(const T& obj) 
     if (next >= 0) {
         Entry* e = &pool[next];
         next     = e->next();
-        e->assign(obj);
+        e->emplace(obj);
         return {e, endPointer()};
     }
     else {
@@ -323,7 +318,7 @@ typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::add(T&& obj) {
     if (next >= 0) {
         Entry* e = &pool[next];
         next     = e->next();
-        e->move(std::forward<T>(obj));
+        e->emplace(std::forward<T>(obj));
         return {e, endPointer()};
     }
     else {
@@ -334,16 +329,16 @@ typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::add(T&& obj) {
 
 template<typename T>
 template<typename... TArgs>
-typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::emplace(TArgs... args) {
+typename DynamicObjectPool<T>::Iterator DynamicObjectPool<T>::emplace(TArgs&&... args) {
     ++trackedSize;
     if (next >= 0) {
         Entry* e = &pool[next];
         next     = e->next();
-        e->emplace(args...);
+        e->emplace(std::forward<TArgs>(args)...);
         return {e, endPointer()};
     }
     else {
-        pool.emplace_back(args...);
+        pool.emplace_back(std::forward<TArgs>(args)...);
         return {&pool.back(), endPointer()};
     }
 }
@@ -408,10 +403,10 @@ void DynamicObjectPool<T>::clear(bool s) {
     }
     pool.clear();
     next = -1;
-    if (s) { 
+    if (s) {
         std::vector<Entry> newPool;
         std::swap(newPool, pool);
-     }
+    }
 }
 
 template<typename T>

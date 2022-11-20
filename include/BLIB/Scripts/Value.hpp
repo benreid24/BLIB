@@ -5,6 +5,7 @@
 #include <BLIB/Scripts/ReferenceValue.hpp>
 #include <string>
 #include <unordered_map>
+#include <utility>
 
 namespace bl
 {
@@ -45,7 +46,7 @@ public:
      * @param args The arguments to construct with
      */
     template<typename... TArgs>
-    Value(TArgs... args);
+    Value(TArgs&&... args);
 
     /**
      * @brief Create from a primitive value
@@ -204,8 +205,8 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename... TArgs>
-Value::Value(TArgs... args)
-: _value(args...) {}
+Value::Value(TArgs&&... args)
+: _value(std::forward<TArgs>(args)...) {}
 
 template<typename TArg>
 Value& Value::operator=(TArg arg) {

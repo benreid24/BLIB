@@ -18,6 +18,9 @@ struct Dummy {
     Dummy(bool* d)
     : d(d) {}
 
+    Dummy(const Dummy& c)
+    : d(c.d) {}
+
     Dummy(Dummy&& c)
     : d(c.d) {
         c.d = nullptr;
@@ -56,6 +59,7 @@ TEST(DynamicObjectPool, Empty) {
 
 TEST(DynamicObjectPool, AddIterator) {
     DynamicObjectPool<int> pool;
+    pool.reserve(3);
     auto it1 = pool.add(1);
     auto it2 = pool.add(2);
     auto it3 = pool.add(3);
@@ -190,6 +194,7 @@ TEST(DynamicObjectPool, Shrink) {
 
 TEST(DynamicObjectPool, ShrinkDestructor) {
     DynamicObjectPool<Dummy> pool;
+    pool.reserve(3);
     bool dcalls[] = {false, false, false};
 
     pool.add({});
@@ -219,6 +224,7 @@ TEST(DynamicObjectPool, ShrinkDestructor) {
 
 TEST(DynamicObjectPool, EmplaceAndMove) {
     DynamicObjectPool<Dummy> pool;
+    pool.reserve(2);
     bool dcalls[] = {false, false};
 
     Dummy d(&dcalls[0]);
