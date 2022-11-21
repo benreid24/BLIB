@@ -12,6 +12,7 @@ namespace bl
 namespace menu
 {
 class Menu;
+class SubmenuItem;
 
 /**
  * @brief Item for a mouseless menu. Can be 'attached' to other items in a Menu,
@@ -121,6 +122,7 @@ private:
     bool positionOverridden;
 
     friend class Menu;
+    friend class SubmenuItem;
 };
 
 } // namespace menu

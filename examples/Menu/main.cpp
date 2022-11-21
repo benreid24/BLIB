@@ -5,6 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+using namespace bl::menu;
+
 int main() {
     sf::Font font;
     font.loadFromFile("font.ttf");
@@ -12,39 +14,47 @@ int main() {
     bl::resource::Resource<sf::Texture>::Ref texture =
         bl::engine::Resources::textures().load("title.png").data;
 
-    bl::menu::ArrowSelector::Ptr selector = bl::menu::ArrowSelector::create(12);
+    ArrowSelector::Ptr selector = ArrowSelector::create(12);
+    Menu menu(selector);
 
-    bl::menu::Item::Ptr title = bl::menu::ImageItem::create(texture);
+    Item::Ptr title = ImageItem::create(texture);
     title->setSelectable(false);
     title->setAllowSelectionCrossing(true);
 
-    bl::menu::Item::Ptr newGame = bl::menu::TextItem::create("New Game", font, sf::Color::White);
-    newGame->getSignal(bl::menu::Item::Activated).willCall([]() { std::cout << "New Game\n"; });
+    Item::Ptr newGame = TextItem::create("New Game", font, sf::Color::White);
+    newGame->getSignal(Item::Activated).willCall([]() { std::cout << "New Game\n"; });
 
-    bl::menu::Item::Ptr loadGame = bl::menu::TextItem::create("Load Game", font, sf::Color::White);
-    loadGame->getSignal(bl::menu::Item::Activated).willCall([]() { std::cout << "Load Game\n"; });
+    Item::Ptr loadGame = TextItem::create("Load Game", font, sf::Color::White);
+    loadGame->getSignal(Item::Activated).willCall([]() { std::cout << "Load Game\n"; });
 
-    bl::menu::Item::Ptr quit     = bl::menu::TextItem::create("Quit", font, sf::Color::White);
-    bl::menu::Item::Ptr skipDemo = bl::menu::TextItem::create("Skip to me", font, sf::Color::White);
-    bl::menu::Item::Ptr upHere   = bl::menu::TextItem::create("Up here", font, sf::Color::White);
+    SubmenuItem::Ptr submenu = SubmenuItem::create(
+        menu, TextItem::create("Open me", font, sf::Color::White), Item::Right, Item::Bottom);
+    submenu->addOption(TextItem::create("Submenu option 1", font, sf::Color::White));
+    submenu->addOption(TextItem::create("Submenu option 2", font, sf::Color::White));
+    submenu->addOption(TextItem::create("Back", font, sf::Color::White), true);
 
-    bl::menu::Menu menu(selector);
+    Item::Ptr quit     = TextItem::create("Quit", font, sf::Color::White);
+    Item::Ptr skipDemo = TextItem::create("Skip to me", font, sf::Color::White);
+    Item::Ptr upHere   = TextItem::create("Up here", font, sf::Color::White);
+
     menu.setRootItem(title);
-    menu.addItem(newGame, title.get(), bl::menu::Item::Bottom);
-    menu.addItem(loadGame, newGame.get(), bl::menu::Item::Bottom);
-    menu.addItem(quit, loadGame.get(), bl::menu::Item::Bottom);
-    menu.addItem(skipDemo, title.get(), bl::menu::Item::AttachPoint::Top);
-    menu.addItem(upHere, skipDemo.get(), bl::menu::Item::AttachPoint::Top);
+    menu.addItem(newGame, title.get(), Item::Bottom);
+    menu.addItem(loadGame, newGame.get(), Item::Bottom);
+    menu.addItem(submenu, loadGame.get(), Item::Bottom);
+    menu.addItem(quit, submenu.get(), Item::Bottom);
+    menu.addItem(skipDemo, title.get(), Item::AttachPoint::Top);
+    menu.addItem(upHere, skipDemo.get(), Item::AttachPoint::Top);
     menu.setSelectedItem(newGame.get());
-    menu.setPosition({350.f, 150.f});
+    menu.setPosition({320.f, 150.f});
+    menu.setPadding({30.f, 8.f});
 
-    bl::menu::KeyboardDriver keyboardEventGenerator(menu);
-    bl::menu::MouseDriver mouseEventGenerator(menu);
+    KeyboardDriver keyboardEventGenerator(menu);
+    MouseDriver mouseEventGenerator(menu);
 
     sf::RenderWindow window(
         sf::VideoMode(800, 600, 32), "Menu Demo", sf::Style::Close | sf::Style::Titlebar);
 
-    quit->getSignal(bl::menu::Item::Activated).willCall([&window]() { window.close(); });
+    quit->getSignal(Item::Activated).willCall([&window]() { window.close(); });
 
     while (window.isOpen()) {
         sf::Event event;
