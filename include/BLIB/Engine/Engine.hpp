@@ -82,6 +82,14 @@ public:
     bool reCreateWindow(const Settings::WindowParameters& parameters);
 
     /**
+     * @brief Updates settings on the window without recreating it. Settings that require a new
+     *        window are not applied, but do get saved to the configuration store
+     *
+     * @param parameters The settings to apply
+     */
+    void updateExistingWindow(const Settings::WindowParameters& parameters);
+
+    /**
      * @brief Returns the flags that can be set to control Engine behavior
      *
      */

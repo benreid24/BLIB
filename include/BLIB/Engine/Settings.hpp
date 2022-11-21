@@ -30,6 +30,8 @@ public:
         static const sf::VideoMode DefaultVideoMode;
         static const std::string DefaultWindowTitle;
         static constexpr bool DefaultLetterBoxOnResize = true;
+        static const sf::Vector2f DefaultViewSize;
+        static constexpr bool DefaultVSyncEnabled = true;
 
         /**
          * @brief Construct a new WindowParameters with default settings
@@ -78,6 +80,23 @@ public:
         WindowParameters& withLetterBoxOnResize(bool letterBox);
 
         /**
+         * @brief Size to set the view to when the window is created. If this is unspecified then
+         *        the video mode size is used. The size specified here is used for letterboxing
+         *
+         * @param viewSize The initial size of the window view
+         * @return WindowParameters& A reference to this object
+         */
+        WindowParameters& withInitialViewSize(const sf::Vector2f& viewSize);
+
+        /**
+         * @brief Sets whether or not to enable vsync
+         *
+         * @param enabled True to enable, false to disable
+         * @return WindowParameters& A reference to this object
+         */
+        WindowParameters& withVSyncEnabled(bool enabled);
+
+        /**
          * @brief Loads the settings from the global engine config. See Settings.cpp for keys
          *
          * @return Settings& A reference to this object
@@ -120,19 +139,33 @@ public:
          */
         bool letterBox() const;
 
+        /**
+         * @brief Returns the view size the window is created with
+         *
+         */
+        const sf::Vector2f& initialViewSize() const;
+
+        /**
+         * @brief Returns whether or not to enable vsync on the window
+         *
+         */
+        bool vsyncEnabled() const;
+
     private:
         std::string sfWindowTitle;
         sf::VideoMode windowMode;
         sf::Uint32 sfWindowStyle;
         std::string iconPath;
         bool letterBoxVal;
+        sf::Vector2f viewSize;
+        bool vsync;
     };
 
-    static constexpr float DefaultUpdateInterval       = 1.f / 120.f;
-    static constexpr float DefaultMaximumFramerate     = 0.f;
-    static constexpr bool DefaultAllowVariableTimestep = true;
-    static constexpr bool DefaultCreateWindow          = true;
-    static constexpr bool DefaultLogFps                = false;
+    static constexpr float DefaultUpdateInterval        = 1.f / 120.f;
+    static constexpr float DefaultMaximumFramerate      = 0.f;
+    static constexpr bool DefaultAllowVariableTimestep  = true;
+    static constexpr bool DefaultCreateWindow           = true;
+    static constexpr bool DefaultLogFps                 = false;
     static constexpr unsigned int DefaultMaxEntityCount = 2000;
 
     /**
@@ -246,7 +279,7 @@ public:
 
     /**
      * @brief Returns the maximum number of entities in the ECS
-     * 
+     *
      */
     unsigned int maximumEntityCount() const;
 

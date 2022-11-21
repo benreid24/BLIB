@@ -15,17 +15,21 @@ const std::string VariableTimestepKey = "blib.engine.variable_timestep";
 const std::string LogFpsKey           = "blib.engine.log_fps";
 const std::string MaxEntityKey        = "blib.engine.ecs_entity_count";
 
-const std::string WindowWidthKey     = "blib.engine.window_width";
-const std::string WindowHeightKey    = "blib.engine.window_height";
-const std::string WindowBitDepthKey  = "blib.engine.window_bit_depth";
-const std::string WindowStyleKey     = "blib.engine.window_style";
-const std::string WindowTitleKey     = "blib.engine.window_title";
-const std::string WindowLetterboxKey = "blib.engine.leterbox";
-const std::string WindowIconKey      = "blib.engine.window_icon";
+const std::string WindowWidthKey      = "blib.engine.window_width";
+const std::string WindowHeightKey     = "blib.engine.window_height";
+const std::string WindowBitDepthKey   = "blib.engine.window_bit_depth";
+const std::string WindowStyleKey      = "blib.engine.window_style";
+const std::string WindowTitleKey      = "blib.engine.window_title";
+const std::string WindowLetterboxKey  = "blib.engine.leterbox";
+const std::string WindowIconKey       = "blib.engine.window_icon";
+const std::string WindowViewWidthKey  = "blib.engine.view_width";
+const std::string WindowViewHeightKey = "blib.engine.view_height";
+const std::string VSyncKey            = "blib.engine.window_vsync";
 } // namespace
 
 const sf::VideoMode Settings::WindowParameters::DefaultVideoMode(800, 600, 32);
 const std::string Settings::WindowParameters::DefaultWindowTitle = "BLIB Engine Window";
+const sf::Vector2f Settings::WindowParameters::DefaultViewSize(0.f, 0.f);
 
 Settings::Settings()
 : updateTime(DefaultUpdateInterval)
@@ -112,7 +116,9 @@ Settings::WindowParameters::WindowParameters()
 , windowMode(DefaultVideoMode)
 , sfWindowStyle(DefaultWindowStyle)
 , iconPath()
-, letterBoxVal(DefaultLetterBoxOnResize) {}
+, letterBoxVal(DefaultLetterBoxOnResize)
+, viewSize(DefaultViewSize)
+, vsync(DefaultVSyncEnabled) {}
 
 Settings::WindowParameters& Settings::WindowParameters::withTitle(const std::string& title) {
     sfWindowTitle = title;
@@ -139,6 +145,16 @@ Settings::WindowParameters& Settings::WindowParameters::withIcon(const std::stri
     return *this;
 }
 
+Settings::WindowParameters& Settings::WindowParameters::withInitialViewSize(const sf::Vector2f& s) {
+    viewSize = s;
+    return *this;
+}
+
+Settings::WindowParameters& Settings::WindowParameters::withVSyncEnabled(bool enabled) {
+    vsync = enabled;
+    return *this;
+}
+
 Settings::WindowParameters& Settings::WindowParameters::fromConfig() {
     sfWindowTitle    = Configuration::getOrDefault<std::string>(WindowTitleKey, sfWindowTitle);
     windowMode.width = Configuration::getOrDefault<unsigned int>(WindowWidthKey, windowMode.width);
@@ -149,6 +165,9 @@ Settings::WindowParameters& Settings::WindowParameters::fromConfig() {
     sfWindowStyle = Configuration::getOrDefault<unsigned int>(WindowStyleKey, sfWindowStyle);
     letterBoxVal  = Configuration::getOrDefault<bool>(WindowLetterboxKey, letterBoxVal);
     iconPath      = Configuration::getOrDefault<std::string>(WindowIconKey, iconPath);
+    viewSize.x    = Configuration::getOrDefault<float>(WindowViewWidthKey, viewSize.x);
+    viewSize.y    = Configuration::getOrDefault<float>(WindowViewHeightKey, viewSize.y);
+    vsync         = Configuration::getOrDefault<bool>(VSyncKey, vsync);
 
     return *this;
 }
@@ -161,6 +180,9 @@ void Settings::WindowParameters::syncToConfig() const {
     Configuration::set<unsigned int>(WindowStyleKey, sfWindowStyle);
     Configuration::set<bool>(WindowLetterboxKey, letterBoxVal);
     Configuration::set<std::string>(WindowIconKey, iconPath);
+    Configuration::set<float>(WindowViewWidthKey, viewSize.x);
+    Configuration::set<float>(WindowViewHeightKey, viewSize.y);
+    Configuration::set<bool>(VSyncKey, vsync);
 }
 
 const std::string& Settings::WindowParameters::icon() const { return iconPath; }
@@ -172,6 +194,10 @@ const sf::VideoMode& Settings::WindowParameters::videoMode() const { return wind
 sf::Uint32 Settings::WindowParameters::style() const { return sfWindowStyle; }
 
 bool Settings::WindowParameters::letterBox() const { return letterBoxVal; }
+
+const sf::Vector2f& Settings::WindowParameters::initialViewSize() const { return viewSize; }
+
+bool Settings::WindowParameters::vsyncEnabled() const { return vsync; }
 
 } // namespace engine
 } // namespace bl

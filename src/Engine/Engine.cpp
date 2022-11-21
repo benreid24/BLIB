@@ -301,32 +301,62 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
         }
     }
 
-    engineSettings.withWindowParameters(Settings::WindowParameters(params));
-    params.syncToConfig();
+    // also saves to config
+    updateExistingWindow(params);
 
     return true;
 }
 
+void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
+    if (!renderWindow) {
+        BL_LOG_ERROR << "Attempting to update non-existant window";
+        return;
+    }
+
+    renderWindow->setTitle(params.title());
+    renderWindow->setVerticalSyncEnabled(params.vsyncEnabled());
+
+    engineSettings.withWindowParameters(params);
+    params.syncToConfig();
+
+    if (params.initialViewSize().x > 0.f) {
+        sf::View view = renderWindow->getView();
+        view.setSize(params.initialViewSize());
+        view.setCenter(params.initialViewSize() * 0.5f);
+        renderWindow->setView(view);
+    }
+
+    if (params.letterBox()) {
+        sf::Event::SizeEvent e;
+        e.width  = renderWindow->getSize().x;
+        e.height = renderWindow->getSize().y;
+        handleResize(e);
+    }
+}
+
 void Engine::handleResize(const sf::Event::SizeEvent& resize) {
-    const float ogWidth  = static_cast<float>(engineSettings.windowParameters().videoMode().width);
-    const float ogHeight = static_cast<float>(engineSettings.windowParameters().videoMode().height);
+    const sf::Vector2f modeSize(sf::Vector2u(engineSettings.windowParameters().videoMode().width,
+                                             engineSettings.windowParameters().videoMode().height));
+    const sf::Vector2f& ogSize = engineSettings.windowParameters().initialViewSize().x > 0.f ?
+                                     engineSettings.windowParameters().initialViewSize() :
+                                     modeSize;
 
     const float newWidth  = static_cast<float>(resize.width);
     const float newHeight = static_cast<float>(resize.height);
 
-    const float xScale = newWidth / ogWidth;
-    const float yScale = newHeight / ogHeight;
+    const float xScale = newWidth / ogSize.x;
+    const float yScale = newHeight / ogSize.y;
 
     // it's ok to change view size here, cameras reset it every frame anyways
-    sf::View view(sf::FloatRect(0.f, 0.f, ogWidth, ogHeight));
+    sf::View view(sf::FloatRect(0.f, 0.f, ogSize.x, ogSize.y));
     sf::FloatRect viewPort(0.f, 0.f, 1.f, 1.f);
 
     if (xScale >= yScale) { // constrained by height, bars on sides
-        viewPort.width = ogWidth * yScale / newWidth;
+        viewPort.width = ogSize.x * yScale / newWidth;
         viewPort.left  = (1.f - viewPort.width) * 0.5f;
     }
     else { // constrained by width, bars on top and bottom
-        viewPort.height = ogHeight * xScale / newHeight;
+        viewPort.height = ogSize.y * xScale / newHeight;
         viewPort.top    = (1.f - viewPort.height) * 0.5f;
     }
 

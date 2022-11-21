@@ -29,8 +29,11 @@ int main() {
 
     SubmenuItem::Ptr submenu = SubmenuItem::create(
         menu, TextItem::create("Open me", font, sf::Color::White), Item::Right, Item::Bottom);
+    ToggleTextItem::Ptr toggleItem = ToggleTextItem::create("Check me", font, sf::Color::White);
+    toggleItem->setBoxProperties(sf::Color(50, 50, 50), sf::Color::White, 20.f, 2.f, 12.f, false);
     submenu->addOption(TextItem::create("Submenu option 1", font, sf::Color::White));
     submenu->addOption(TextItem::create("Submenu option 2", font, sf::Color::White));
+    submenu->addOption(toggleItem);
     submenu->addOption(TextItem::create("Back", font, sf::Color::White), true);
 
     Item::Ptr quit     = TextItem::create("Quit", font, sf::Color::White);
@@ -45,7 +48,7 @@ int main() {
     menu.addItem(skipDemo, title.get(), Item::AttachPoint::Top);
     menu.addItem(upHere, skipDemo.get(), Item::AttachPoint::Top);
     menu.setSelectedItem(newGame.get());
-    menu.setPosition({320.f, 150.f});
+    menu.setPosition({320.f, 100.f});
     menu.setPadding({30.f, 8.f});
 
     KeyboardDriver keyboardEventGenerator(menu);

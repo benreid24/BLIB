@@ -17,6 +17,7 @@
 #include <BLIB/Interfaces/Menu/Items/ImageItem.hpp>
 #include <BLIB/Interfaces/Menu/Items/SubmenuItem.hpp>
 #include <BLIB/Interfaces/Menu/Items/TextItem.hpp>
+#include <BLIB/Interfaces/Menu/Items/ToggleTextItem.hpp>
 #include <BLIB/Interfaces/Menu/Menu.hpp>
 #include <BLIB/Interfaces/Menu/Selector.hpp>
 #include <BLIB/Interfaces/Menu/Selectors/ArrowSelector.hpp>
