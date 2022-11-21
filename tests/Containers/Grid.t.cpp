@@ -127,6 +127,18 @@ TEST(Grid, IterateEndEarly) {
     EXPECT_EQ(lastSeen, 10);
 }
 
+TEST(Grid, Pointer) {
+    std::vector<std::vector<long*>> tvec(32);
+
+    Grid<int*> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
+
+    int val = 55;
+    grid.add({55.f, 55.f}, &val);
+    auto& cell = grid.getCell({55.f, 55.f});
+    ASSERT_EQ(cell.size(), 1);
+    EXPECT_EQ(*cell.front(), val);
+}
+
 } // namespace unittest
 } // namespace container
 } // namespace bl
