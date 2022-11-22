@@ -93,7 +93,7 @@ private:
  * @ingroup JSON
  */
 template<typename T>
-class SerializableObject : public SerializableObjectBase {
+struct SerializableObject : public SerializableObjectBase {
     template<typename U>
     struct MakeError : std::false_type {};
 

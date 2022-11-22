@@ -31,6 +31,12 @@ public:
                       const sf::Color& color = sf::Color::Black, unsigned int fontSize = 30);
 
     /**
+     * @brief Destroy the Text Item object
+     *
+     */
+    virtual ~TextItem() = default;
+
+    /**
      * @brief Returns a modifiable reference to the Text object
      *
      */

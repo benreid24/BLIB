@@ -8,7 +8,7 @@ namespace bl
 {
 namespace menu
 {
-    class Menu;
+class Menu;
 
 /**
  * @brief Wrapper item that serves as a dropdown menu of sorts. A base item is used to provide the
@@ -33,7 +33,14 @@ public:
      * @param submenuDirection Which direction options should be added to each other in
      * @return Ptr The new menu item
      */
-    static Ptr create(Menu& parent, const Item::Ptr& item, AttachPoint spawnSide, AttachPoint submenuDirection);
+    static Ptr create(Menu& parent, const Item::Ptr& item, AttachPoint spawnSide,
+                      AttachPoint submenuDirection);
+
+    /**
+     * @brief Destroy the Submenu Item object
+     *
+     */
+    virtual ~SubmenuItem() = default;
 
     /**
      * @brief Add a new item to the submenu. Items are shown in the order they are added
@@ -58,7 +65,7 @@ public:
 
     /**
      * @brief Returns whether or not the menu is currently open
-     * 
+     *
      * @return True if the menu is open, false otherwise
      */
     constexpr bool isOpen() const;
@@ -80,7 +87,8 @@ protected:
      * @param spawnSide Which direction to add the option items on open
      * @param submenuDirection Which direction options should be added to each other in
      */
-    SubmenuItem(Menu& parent, const Item::Ptr& item, AttachPoint spawnSide, AttachPoint submenuDirection);
+    SubmenuItem(Menu& parent, const Item::Ptr& item, AttachPoint spawnSide,
+                AttachPoint submenuDirection);
 
     /**
      * @brief Calls render on the base item. Submenu items are added to the menu directly and are

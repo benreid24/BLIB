@@ -135,7 +135,9 @@ bool Engine::run(State::Ptr initialState) {
                     break;
 
                 case sf::Event::Resized:
-                    if (engineSettings.windowParameters().letterBox()) { handleResize(event.size); }
+                    if (engineSettings.windowParameters().letterBox()) {
+                        handleResize(event.size, true);
+                    }
                     break;
 
                 default:
@@ -296,9 +298,7 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
         if (icon.loadFromFile(params.icon())) {
             renderWindow->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
         }
-        else {
-            BL_LOG_WARN << "Failed to load icon: " << params.icon();
-        }
+        else { BL_LOG_WARN << "Failed to load icon: " << params.icon(); }
     }
 
     // also saves to config
@@ -330,11 +330,11 @@ void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
         sf::Event::SizeEvent e;
         e.width  = renderWindow->getSize().x;
         e.height = renderWindow->getSize().y;
-        handleResize(e);
+        handleResize(e, false);
     }
 }
 
-void Engine::handleResize(const sf::Event::SizeEvent& resize) {
+void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
     const sf::Vector2f modeSize(sf::Vector2u(engineSettings.windowParameters().videoMode().width,
                                              engineSettings.windowParameters().videoMode().height));
     const sf::Vector2f& ogSize = engineSettings.windowParameters().initialViewSize().x > 0.f ?
@@ -362,6 +362,15 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize) {
 
     view.setViewport(viewPort);
     renderWindow->setView(view);
+
+    if (ss) {
+        Settings::WindowParameters params = engineSettings.windowParameters();
+        params.withVideoMode(
+            sf::VideoMode(resize.width, resize.height, params.videoMode().bitsPerPixel));
+        engineSettings.withWindowParameters(params);
+        params.syncToConfig();
+        bl::event::Dispatcher::dispatch<event::WindowResized>({*renderWindow});
+    }
 }
 
 } // namespace engine

@@ -130,12 +130,10 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
         for (const Element::Ptr& e : elems) {
             const sf::Vector2f req = e->getRequisition();
             if (dir == Horizontal && req.x > size.x) { size.x -= (req.x - size.x) / enf; }
-            else if (dir == Vertical && req.y > size.y) {
-                size.y -= (req.y - size.y) / enf;
-            }
+            else if (dir == Vertical && req.y > size.y) { size.y -= (req.y - size.y) / enf; }
         }
 
-        const auto computeElementSize = [&elems, &size](const Element::Ptr& e) -> sf::Vector2f {
+        const auto computeElementSize = [&size](const Element::Ptr& e) -> sf::Vector2f {
             const sf::Vector2f req = e->getRequisition();
             return sf::Vector2f(std::max(size.x, req.x), std::max(size.y, req.y));
         };

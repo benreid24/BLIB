@@ -151,7 +151,7 @@ private:
     input::InputSystem input;
 
     bool awaitFocus();
-    void handleResize(const sf::Event::SizeEvent& resize);
+    void handleResize(const sf::Event::SizeEvent& resize, bool saveAndSend);
 };
 
 } // namespace engine

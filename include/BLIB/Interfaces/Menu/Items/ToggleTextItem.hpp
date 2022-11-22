@@ -27,6 +27,12 @@ public:
                       const sf::Color& color = sf::Color::Black, unsigned int fontSize = 30);
 
     /**
+     * @brief Destroy the Toggle Text Item object
+     *
+     */
+    virtual ~ToggleTextItem() = default;
+
+    /**
      * @brief Returns whether or not the toggle is currently in the checked state
      *
      * @return True if the box is checked, false otherwise
