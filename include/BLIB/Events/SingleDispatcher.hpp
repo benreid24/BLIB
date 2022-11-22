@@ -71,6 +71,8 @@ class SingleDispatcher : private SingleDispatcherBase {
 
         for (ListenerBase<T>* listener : toAdd) { doAdd(listener); }
         for (ListenerBase<T>* listener : toRemove) { doRemove(listener); }
+        toAdd.clear();
+        toRemove.clear();
     }
 
     virtual void clear() override {
