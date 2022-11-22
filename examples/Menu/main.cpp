@@ -1,5 +1,5 @@
 #include <BLIB/Engine/Resources.hpp>
-#include <BLIB/Events/Dispatcher.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics.hpp>

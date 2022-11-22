@@ -1,8 +1,7 @@
 #ifndef BLIB_GUI_GUI_HPP
 #define BLIB_GUI_GUI_HPP
 
-#include <BLIB/Events/Dispatcher.hpp>
-#include <BLIB/Events/Listener.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 #include <SFML/Graphics.hpp>
 

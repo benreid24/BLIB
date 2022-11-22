@@ -1,7 +1,7 @@
 #ifndef BLIB_MENU_DRIVERS_KEYBOARDDRIVER_HPP
 #define BLIB_MENU_DRIVERS_KEYBOARDDRIVER_HPP
 
-#include <BLIB/Events/Listener.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
 #include <BLIB/Interfaces/Menu/Menu.hpp>
 #include <SFML/Window.hpp>
@@ -51,13 +51,13 @@ public:
 
     /**
      * @brief Destroy the Keyboard Driver object
-     * 
+     *
      */
     virtual ~KeyboardDriver() = default;
 
     /**
      * @brief Processes the given window event and drives the menu if relevant
-     * 
+     *
      * @param event The window event to process
      */
     virtual void observe(const sf::Event& event) override;

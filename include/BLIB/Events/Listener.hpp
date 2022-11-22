@@ -1,6 +1,12 @@
 #ifndef BLIB_EVENTS_LISTENER_HPP
 #define BLIB_EVENTS_LISTENER_HPP
 
+#ifndef BLIB_EVENTS_HPP
+#ifndef BLIB_EVENTS_DISPATCHER_HPP
+#error "Event listener may only be used by including BLIB/Events.hpp"
+#endif
+#endif
+
 namespace bl
 {
 namespace event

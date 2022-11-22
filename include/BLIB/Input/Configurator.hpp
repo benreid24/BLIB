@@ -1,8 +1,7 @@
 #ifndef BLIB_INPUT_CONFIGURATOR_HPP
 #define BLIB_INPUT_CONFIGURATOR_HPP
 
-#include <BLIB/Events/Dispatcher.hpp>
-#include <BLIB/Events/Listener.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Input/Joystick.hpp>
 #include <BLIB/Input/Trigger.hpp>
 #include <SFML/Window/Event.hpp>

@@ -1,7 +1,7 @@
 #ifndef BLIB_INPUT_INPUTSYSTEM_HPP
 #define BLIB_INPUT_INPUTSYSTEM_HPP
 
-#include <BLIB/Events/Listener.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Input/Actor.hpp>
 #include <memory>
 

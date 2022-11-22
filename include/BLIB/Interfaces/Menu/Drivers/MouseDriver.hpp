@@ -1,7 +1,7 @@
 #ifndef BLIB_MENU_DRIVERS_MOUSEDRIVER_HPP
 #define BLIB_MENU_DRIVERS_MOUSEDRIVER_HPP
 
-#include <BLIB/Events/Listener.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
 #include <BLIB/Interfaces/Menu/Menu.hpp>
 #include <SFML/Window.hpp>

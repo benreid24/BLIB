@@ -1,4 +1,4 @@
-#include <BLIB/Events/Dispatcher.hpp>
+#include <BLIB/Events.hpp>
 
 namespace bl
 {

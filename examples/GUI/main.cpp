@@ -1,4 +1,4 @@
-#include <BLIB/Events/Dispatcher.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/GUI.hpp>
 #include <BLIB/Resources.hpp>
 
@@ -180,7 +180,7 @@ int main() {
     testWindow            = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                      "Notebook Window",
                                      gui::Window::Default,
-                                     {10, 200});
+                                                {10, 200});
     gui::Notebook::Ptr nb = gui::Notebook::create();
     nb->addPage("page1", "Page 1", gui::Label::create("Content goes here"));
     gui::Box::Ptr box = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Vertical));
