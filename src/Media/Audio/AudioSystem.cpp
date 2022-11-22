@@ -168,9 +168,7 @@ bool AudioSystem::playSound(Handle sound, float fadeIn, bool loop) {
         r.fadingSounds.emplace_back(it->second.sound, 100.f / fadeIn);
         r.fadingSounds.back().me = --r.fadingSounds.end();
     }
-    else {
-        it->second.sound.setVolume(100.f);
-    }
+    else { it->second.sound.setVolume(100.f); }
 
     it->second.sound.play();
     return true;
@@ -227,7 +225,7 @@ AudioSystem::Handle AudioSystem::getOrLoadPlaylist(const std::string& path) {
     if (res.data->getSongList().empty()) return AudioSystem::InvalidHandle;
 
     const Handle handle = makeHandle();
-    Runner::get().playlists.try_emplace(handle, res.getWeakRef()).first;
+    Runner::get().playlists.try_emplace(handle, res.getWeakRef());
     Runner::get().playlistHandles.emplace(path, handle);
     Runner::get().playlistSources.emplace(handle, path);
     return handle;
@@ -526,9 +524,7 @@ void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime)
             Runner::get().fadeIn.fvel     = 100.f / inTime;
             in->setVolume(0.f);
         }
-        else {
-            in->setVolume(100.f);
-        }
+        else { in->setVolume(100.f); }
         if (!Runner::get().paused) in->play();
     }
 
@@ -541,9 +537,7 @@ void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime)
             Runner::get().fadeOut.playlist = out;
             Runner::get().fadeOut.fvel     = -out->getVolume() / outTime;
         }
-        else {
-            out->pause();
-        }
+        else { out->pause(); }
     }
 }
 
@@ -560,9 +554,7 @@ void PlaylistFader::update() {
             playlist->setVolume(100.f);
             playlist = nullptr;
         }
-        else {
-            playlist->setVolume(vol);
-        }
+        else { playlist->setVolume(vol); }
     }
 }
 
@@ -581,9 +573,7 @@ void SoundFader::update() {
         sound.setVolume(100.f);
         Runner::get().fadingSounds.erase(me);
     }
-    else {
-        sound.setVolume(v);
-    }
+    else { sound.setVolume(v); }
 }
 
 } // namespace
