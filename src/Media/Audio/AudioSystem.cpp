@@ -1,5 +1,6 @@
 #include <BLIB/Media/Audio/AudioSystem.hpp>
 
+#include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Util/Random.hpp>
@@ -91,6 +92,18 @@ private:
     void run();
     void shutdown();
 };
+
+struct SystemSettings {
+    const std::string MuteKey   = "blib.audio.muted";
+    const std::string VolumeKey = "blib.audio.volume";
+
+    bool muted;
+    float volume;
+
+    SystemSettings()
+    : muted(false)
+    , volume(100.f) {}
+} Settings;
 
 std::atomic<bool> Runner::started = false;
 
@@ -292,7 +305,31 @@ void AudioSystem::stopAllPlaylists(float outTime) {
     }
 }
 
-void AudioSystem::setVolume(float vol) { sf::Listener::setGlobalVolume(vol); }
+void AudioSystem::setVolume(float vol) {
+    Settings.volume = vol;
+    if (!Settings.muted) { sf::Listener::setGlobalVolume(vol); }
+}
+
+float AudioSystem::getVolume() { return Settings.volume; }
+
+void AudioSystem::setMuted(bool m) {
+    Settings.muted = m;
+    sf::Listener::setGlobalVolume(m ? 0.f : Settings.volume);
+}
+
+bool AudioSystem::getMuted() { return Settings.muted; }
+
+void AudioSystem::loadFromConfig() {
+    Settings.muted = engine::Configuration::getOrDefault<bool>(Settings.MuteKey, Settings.muted);
+    Settings.volume =
+        engine::Configuration::getOrDefault<float>(Settings.VolumeKey, Settings.volume);
+    sf::Listener::setGlobalVolume(Settings.muted ? 0.f : Settings.volume);
+}
+
+void AudioSystem::saveToConfig() {
+    engine::Configuration::set<bool>(Settings.MuteKey, Settings.muted);
+    engine::Configuration::set<float>(Settings.VolumeKey, Settings.volume);
+}
 
 void AudioSystem::pause() {
     std::unique_lock lock(Runner::get().pauseMutex);

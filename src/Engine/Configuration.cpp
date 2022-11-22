@@ -1,4 +1,6 @@
 #include <BLIB/Engine/Configuration.hpp>
+
+#include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <fstream>
 
 namespace bl
@@ -109,12 +111,16 @@ bool Configuration::load(const std::string& file) {
         ++lineNo;
     }
 
+    audio::AudioSystem::loadFromConfig();
+
     return true;
 }
 
 bool Configuration::save(const std::string& file) {
     std::ofstream output(file.c_str(), std::ios::out);
     if (!output.good()) return false;
+
+    audio::AudioSystem::saveToConfig();
 
     saveValues<bool>(output, 'b', get().config);
     saveValues<int>(output, 'i', get().config);
