@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['debugrenderer',['DebugRenderer',['../a01247.html#a3acc558cc7ff57a405b5073cd1eb7e3a',1,'bl::gui::Renderer']]],
-  ['dispatcherscopeguard',['DispatcherScopeGuard',['../a01091.html#a6947217ec9323301d105214296a77b04',1,'bl::event::Dispatcher']]],
-  ['dynamicobjectpool',['DynamicObjectPool',['../a00907.html#a160fce7459a78c991f2c66f1bfd56fec',1,'bl::container::DynamicObjectPool::IteratorType']]]
+  ['actor',['Actor',['../a01314.html#ae4af50bf1743d112cb2c2c784bea21c8',1,'bl::input::Listener::Actor()'],['../a01322.html#ae4af50bf1743d112cb2c2c784bea21c8',1,'bl::input::MovementControl::Actor()']]],
+  ['animation',['Animation',['../a01582.html#af47625f50036c466946f960db7320bcf',1,'bl::gfx::AnimationData']]]
 ];

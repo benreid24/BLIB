@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keyboardeventgenerator',['KeyboardEventGenerator',['../a01279.html',1,'bl::menu']]]
+  ['joystick',['Joystick',['../a01310.html',1,'bl::input']]]
 ];

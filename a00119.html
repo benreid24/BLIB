@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Events/SingleDispatcher.hpp File Reference</title>
+<title>BLIB: include/BLIB/Engine/State.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,50 +63,42 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_b1ab5f494aad7f0e2da16d9fefe047e9.html">Events</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">SingleDispatcher.hpp File Reference</div>  </div>
+<div class="title">State.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00125_source.html">BLIB/Events/SingleListener.hpp</a>&gt;</code><br />
-<code>#include &lt;mutex&gt;</code><br />
-<code>#include &lt;shared_mutex&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00563_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div>
 <p><a href="a00119_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01111.html">bl::event::SingleDispatcher&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to dispatch events of a single type to a set of listeners.  <a href="a01111.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01226.html">bl::engine::State</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base interface for all engine states. The <a class="el" href="a01182.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a> class manages the main game loop, application logic should be implemented in a set of EngineState classes which can be plugged into the <a class="el" href="a01182.html" title="Core engine class that owns engine resources and the main game loop. ">Engine</a>.  <a href="a01226.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00822"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00822.html">bl</a></td></tr>
-<tr class="memdesc:a00822"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a00961"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00961.html">bl</a></td></tr>
+<tr class="memdesc:a00961"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00830"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html">bl::event</a></td></tr>
-<tr class="memdesc:a00830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes providing different types of publisher/consumer event queues. <br /></td></tr>
+<tr class="memitem:a00967"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00967.html">bl::engine</a></td></tr>
+<tr class="memdesc:a00967"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a3f96c0e79041dddef412f9ac5174c313"><td class="memItemLeft" align="right" valign="top">typedef SingleDispatcher&lt; sf::Event &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00830.html#a3f96c0e79041dddef412f9ac5174c313">bl::event::WindowEventDispatcher</a></td></tr>
-<tr class="memdesc:a3f96c0e79041dddef412f9ac5174c313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special instantiation of <a class="el" href="a01111.html" title="Utility class to dispatch events of a single type to a set of listeners. ">SingleDispatcher</a> for sf::Event window events.  <a href="a00830.html#a3f96c0e79041dddef412f9ac5174c313">More...</a><br /></td></tr>
-<tr class="separator:a3f96c0e79041dddef412f9ac5174c313"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 29 2022 01:47:12 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 22 2022 21:50:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
