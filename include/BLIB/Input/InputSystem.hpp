@@ -3,6 +3,7 @@
 
 #include <BLIB/Events/Listener.hpp>
 #include <BLIB/Input/Actor.hpp>
+#include <memory>
 
 namespace bl
 {
