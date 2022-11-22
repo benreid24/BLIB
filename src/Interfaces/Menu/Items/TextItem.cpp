@@ -20,7 +20,8 @@ TextItem::TextItem(const std::string& t, const sf::Font& font, const sf::Color& 
 sf::Text& TextItem::getTextObject() { return text; }
 
 sf::Vector2f TextItem::getSize() const {
-    return {text.getGlobalBounds().width, text.getGlobalBounds().height};
+    const sf::FloatRect gb = text.getGlobalBounds();
+    return {gb.left + gb.width, gb.top + gb.height};
 }
 
 void TextItem::render(sf::RenderTarget& target, sf::RenderStates states,

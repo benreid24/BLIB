@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics/Image.hpp>
 #include <SFML/Window.hpp>
+#include <optional>
 #include <string>
 
 namespace bl
@@ -17,14 +18,155 @@ namespace engine
  */
 class Settings {
 public:
-    static constexpr float DefaultUpdateInterval       = 1.f / 120.f;
-    static constexpr float DefaultMaximumFramerate     = 0.f;
-    static constexpr bool DefaultAllowVariableTimestep = true;
-    static const std::string DefaultWindowTitle;
-    static const sf::VideoMode DefaultVideoMode;
-    static constexpr sf::Uint32 DefaultWindowStyle = sf::Style::Titlebar | sf::Style::Close;
-    static constexpr bool DefaultCreateWindow      = true;
-    static constexpr bool DefaultLogFps            = false;
+    /**
+     * @brief Collection of settings for creating (or re-creating) the game window
+     *
+     * @ingroup Engine
+     *
+     */
+    class WindowParameters {
+    public:
+        static constexpr sf::Uint32 DefaultWindowStyle = sf::Style::Titlebar | sf::Style::Close;
+        static const sf::VideoMode DefaultVideoMode;
+        static const std::string DefaultWindowTitle;
+        static constexpr bool DefaultLetterBoxOnResize = true;
+        static const sf::Vector2f DefaultViewSize;
+        static constexpr bool DefaultVSyncEnabled = true;
+
+        /**
+         * @brief Construct a new WindowParameters with default settings
+         *
+         */
+        WindowParameters();
+
+        /**
+         * @brief Sets the title to create the window with
+         *
+         * @param title The title to create the window with
+         * @return WindowParameters& A reference to this object
+         */
+        WindowParameters& withTitle(const std::string& title);
+
+        /**
+         * @brief Sets the video mode to create the engine window with
+         *
+         * @param mode The window resolution and color depth
+         * @return WindowParameters& A reference to this object
+         */
+        WindowParameters& withVideoMode(const sf::VideoMode& mode);
+
+        /**
+         * @brief Sets the style to create the engine window with
+         *
+         * @param style The style to create the window with
+         * @return WindowParameters& A reference to this object
+         */
+        WindowParameters& withStyle(sf::Uint32 style);
+
+        /**
+         * @brief Sets the path to an image to use as the window icon
+         *
+         * @param iconPath Path to the image to use
+         * @return Settings& A reference to this object
+         */
+        WindowParameters& withIcon(const std::string& iconPath);
+
+        /**
+         * @brief Sets whether or not to letterbox when the window is resized
+         *
+         * @param letterBox True to letterbox, false to keep the full view
+         * @return WindowParameters& A reference to this object
+         */
+        WindowParameters& withLetterBoxOnResize(bool letterBox);
+
+        /**
+         * @brief Size to set the view to when the window is created. If this is unspecified then
+         *        the video mode size is used. The size specified here is used for letterboxing
+         *
+         * @param viewSize The initial size of the window view
+         * @return WindowParameters& A reference to this object
+         */
+        WindowParameters& withInitialViewSize(const sf::Vector2f& viewSize);
+
+        /**
+         * @brief Sets whether or not to enable vsync
+         *
+         * @param enabled True to enable, false to disable
+         * @return WindowParameters& A reference to this object
+         */
+        WindowParameters& withVSyncEnabled(bool enabled);
+
+        /**
+         * @brief Loads the settings from the global engine config. See Settings.cpp for keys
+         *
+         * @return Settings& A reference to this object
+         */
+        WindowParameters& fromConfig();
+
+        /**
+         * @brief Saves the settings to the global engine config
+         *
+         */
+        void syncToConfig() const;
+
+        /**
+         * @brief Returns the title to create the window with
+         *
+         */
+        const std::string& title() const;
+
+        /**
+         * @brief Returns the video mode the engine window is created with
+         *
+         */
+        const sf::VideoMode& videoMode() const;
+
+        /**
+         * @brief Returns the window style the window is created with
+         *
+         */
+        sf::Uint32 style() const;
+
+        /**
+         * @brief Returns the window icon to use
+         *
+         */
+        const std::string& icon() const;
+
+        /**
+         * @brief Returns whether or not to letterbox on Window resize
+         *
+         */
+        bool letterBox() const;
+
+        /**
+         * @brief Returns the view size the window is created with
+         *
+         */
+        const sf::Vector2f& initialViewSize() const;
+
+        /**
+         * @brief Returns whether or not to enable vsync on the window
+         *
+         */
+        bool vsyncEnabled() const;
+
+    private:
+        std::string sfWindowTitle;
+        sf::VideoMode windowMode;
+        sf::Uint32 sfWindowStyle;
+        std::string iconPath;
+        bool letterBoxVal;
+        sf::Vector2f viewSize;
+        bool vsync;
+    };
+
+    static constexpr float DefaultUpdateInterval        = 1.f / 120.f;
+    static constexpr float DefaultMaximumFramerate      = 0.f;
+    static constexpr bool DefaultAllowVariableTimestep  = true;
+    static constexpr bool DefaultCreateWindow           = true;
+    static constexpr bool DefaultLogFps                 = false;
+    static constexpr unsigned int DefaultMaxEntityCount = 2000;
 
     /**
      * @brief Creates a new settings object with all default settings
@@ -61,45 +203,13 @@ public:
     Settings& withAllowVariableTimestep(bool allow);
 
     /**
-     * @brief Sets the title to create the window with
+     * @brief Sets the parameters to create the game window with. Does not create a window if not
+     *        called at least once.
      *
-     * @param title The title to create the window with
+     * @param parameters The parameters to create the game window with
      * @return Settings& A reference to this object
      */
-    Settings& withWindowTitle(const std::string& title);
-
-    /**
-     * @brief Sets the video mode to create the engine window with
-     *
-     * @param mode The window resolution and color depth
-     * @return Settings& A reference to this object
-     */
-    Settings& withVideoMode(const sf::VideoMode& mode);
-
-    /**
-     * @brief Sets the style to create the engine window with
-     *
-     * @param style The style to create the window with
-     * @return Settgins& A reference to this object
-     */
-    Settings& withWindowStyle(sf::Uint32 style);
-
-    /**
-     * @brief Sets whether or not the engine creates a sf::RenderWindow. Set to false for test
-     *        environments or other cases where a window is not desired
-     *
-     * @param create True to create a window, false to run windowless
-     * @return Settings& A reference to this object
-     */
-    Settings& withCreateWindow(bool create);
-
-    /**
-     * @brief Sets the path to an image to use as the window icon
-     *
-     * @param iconPath Path to the image to use
-     * @return Settings& A reference to this object
-     */
-    Settings& withWindowIcon(const std::string& iconPath);
+    Settings& withWindowParameters(const WindowParameters& parameters);
 
     /**
      * @brief Sets whether or not to log FPS
@@ -110,11 +220,25 @@ public:
     Settings& withLogFps(bool log);
 
     /**
-     * @brief Pulls settings from the Configuration store. See Settings.cpp for config paths
+     * @brief Sets the maximum number of entities to allocate for in the ECS
+     *
+     * @param maxEntities The number of entities to allocate memory for
+     * @return Settings& A reference to this object
+     */
+    Settings& withMaxEntityCount(unsigned int maxEntities);
+
+    /**
+     * @brief Loads the settings from the global engine config. See Settings.cpp for keys
      *
      * @return Settings& A reference to this object
      */
     Settings& fromConfig();
+
+    /**
+     * @brief Saves the settings to the global engine config
+     *
+     */
+    void syncToConfig() const;
 
     /**
      * @brief Returns the fixed physics update interval, in seconds
@@ -135,34 +259,17 @@ public:
     bool allowVariableTimestep() const;
 
     /**
-     * @brief Returns the title to create the window with
-     *
-     */
-    const std::string& windowTitle() const;
-
-    /**
-     * @brief Returns the video mode the engine window is created with
-     *
-     */
-    const sf::VideoMode& videoMode() const;
-
-    /**
-     * @brief Returns the window style the window is created with
-     *
-     */
-    sf::Uint32 windowStyle() const;
-
-    /**
-     * @brief Returns the window icon to use
-     *
-     */
-    const sf::Image& windowIcon() const;
-
-    /**
      * @brief Returns whether or not a window should be created
      *
      */
     bool createWindow() const;
+
+    /**
+     * @brief Returns the parameters to create the window with. Undefined behavior if createWindow()
+     *        returns false
+     *
+     */
+    const WindowParameters& windowParameters() const;
 
     /**
      * @brief Returns whether or not the engine should log the fps
@@ -170,16 +277,19 @@ public:
      */
     bool logFps() const;
 
+    /**
+     * @brief Returns the maximum number of entities in the ECS
+     *
+     */
+    unsigned int maximumEntityCount() const;
+
 private:
     float updateTime;
     float maxFps;
     bool allowVariableInterval;
-    std::string sfWindowTitle;
-    sf::VideoMode windowMode;
-    sf::Uint32 sfWindowStyle;
-    bool createSfWindow;
-    sf::Image icon;
+    std::optional<WindowParameters> windowParams;
     bool loggingFps;
+    unsigned int maxEntities;
 };
 
 } // namespace engine

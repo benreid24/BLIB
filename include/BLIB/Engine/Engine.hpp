@@ -4,12 +4,14 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <stack>
 
+#include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Engine/Events.hpp>
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
-#include <BLIB/Entities/Registry.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
+#include <BLIB/Input.hpp>
+#include <BLIB/Render.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
 
@@ -43,14 +45,7 @@ public:
      * @brief Returns a reference to the engine wide entity registry
      *
      */
-    entity::Registry& entities();
-
-    /**
-     * @brief Returns a reference to the primary engine event dispatcher. Engine events and window
-     *        events are pushed through this bus
-     *
-     */
-    bl::event::Dispatcher& eventBus();
+    ecs::Registry& ecs();
 
     /**
      * @brief Returns a reference to the engine's script Manager
@@ -59,10 +54,40 @@ public:
     script::Manager& scriptManager();
 
     /**
+     * @brief Returns the rendering system of the engine
+     *
+     * @return render::RenderSystem& The rendering system
+     */
+    render::RenderSystem& renderSystem();
+
+    /**
+     * @brief Returns the user input sysem of the engine
+     *
+     * @return input::InputSystem& The user input system
+     */
+    input::InputSystem& inputSystem();
+
+    /**
      * @brief Returns the settings the engine is using
      *
      */
     const Settings& settings() const;
+
+    /**
+     * @brief Re-creates the game window from the new settings
+     *
+     * @param parameters The new settings to create the window with
+     * @return bool True on success, false on error
+     */
+    bool reCreateWindow(const Settings::WindowParameters& parameters);
+
+    /**
+     * @brief Updates settings on the window without recreating it. Settings that require a new
+     *        window are not applied, but do get saved to the configuration store
+     *
+     * @param parameters The settings to apply
+     */
+    void updateExistingWindow(const Settings::WindowParameters& parameters);
 
     /**
      * @brief Returns the flags that can be set to control Engine behavior
@@ -113,17 +138,20 @@ public:
     void popState();
 
 private:
-    const Settings engineSettings;
+    Settings engineSettings;
     Flags engineFlags;
     std::stack<State::Ptr> states;
     State::Ptr newState;
 
-    std::shared_ptr<sf::RenderWindow> renderWindow;
-    bl::event::Dispatcher engineEventBus;
+    std::unique_ptr<sf::RenderWindow> renderWindow;
+    std::unique_ptr<sf::Context> renderContext;
     script::Manager engineScriptManager;
-    entity::Registry entityRegistry;
+    ecs::Registry entityRegistry;
+    render::RenderSystem renderingSystem;
+    input::InputSystem input;
 
     bool awaitFocus();
+    void handleResize(const sf::Event::SizeEvent& resize, bool saveAndSend);
 };
 
 } // namespace engine

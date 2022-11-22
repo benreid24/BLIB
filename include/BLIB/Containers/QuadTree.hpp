@@ -18,7 +18,7 @@ namespace container
  */
 template<typename TCoord, typename TPayload>
 class QuadTree {
-    class Partition;
+    struct Partition;
 
 public:
     struct Area;
@@ -316,7 +316,7 @@ private:
     static constexpr std::size_t TopRight    = 2;
     static constexpr std::size_t BottomRight = 3;
 
-    friend class Partition;
+    friend struct Partition;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

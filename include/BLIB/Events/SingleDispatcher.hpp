@@ -1,78 +1,123 @@
 #ifndef BLIB_EVENTS_SINGLEDISPATCHER_HPP
 #define BLIB_EVENTS_SINGLEDISPATCHER_HPP
 
-#include <BLIB/Events/SingleListener.hpp>
-#include <mutex>
-#include <shared_mutex>
+#include <BLIB/Events/Listener.hpp>
+#include <BLIB/Util/ReadWriteLock.hpp>
+#include <unordered_set>
+#include <vector>
 
 namespace bl
 {
 namespace event
 {
-/**
- * @brief Utility class to dispatch events of a single type to a set of listeners
- * @see SingleListener
- *
- * @tparam T The type of event
- * @ingroup Events
- */
-template<typename T>
-class SingleDispatcher {
-public:
-    /**
-     * @brief Subscribe the given listener to receive events. Listener must not go out of scope
-     *
-     * @param listener The listener to start notifying
-     */
-    void subscribe(SingleListener<T>* listener);
+class Dispatcher;
 
-    /**
-     * @brief Removes the given listener from the dispatcher queue. No effect if not present
-     *
-     * @param listener The listener to remove
-     */
-    void remove(SingleListener<T>* listener);
+/// @brief Private namespace. Contained classes are internal implementation details
+namespace priv
+{
+class SingleDispatcherBase {
+    virtual void syncListeners() = 0;
+    virtual void clear()         = 0;
 
-    /**
-     * @brief Dispatches the event to the queue of listeners
-     *
-     * @param event The event to dispatch
-     */
-    void dispatch(const T& event);
-
-private:
-    std::shared_mutex mutex;
-    std::vector<SingleListener<T>*> listeners;
+    friend class ::bl::event::Dispatcher;
 };
 
-/// Special instantiation of SingleDispatcher for sf::Event window events
-typedef SingleDispatcher<sf::Event> WindowEventDispatcher;
-
-//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
-
 template<typename T>
-void SingleDispatcher<T>::subscribe(SingleListener<T>* listener) {
-    std::unique_lock lock(mutex);
-    listeners.push_back(listener);
-}
+class SingleDispatcher : private SingleDispatcherBase {
+    static SingleDispatcher& get(std::vector<SingleDispatcherBase*>& dlist, std::mutex& dlock) {
+        static SingleDispatcher d(dlist, dlock);
+        return d;
+    }
 
-template<typename T>
-void SingleDispatcher<T>::dispatch(const T& event) {
-    std::shared_lock lock(mutex);
-    for (SingleListener<T>* listener : listeners) { listener->observe(event); }
-}
+    SingleDispatcher(std::vector<SingleDispatcherBase*>& dlist, std::mutex& dlock) {
+        listeners.reserve(256);
+        toAdd.reserve(32);
+        toRemove.reserve(32);
 
-template<typename T>
-void SingleDispatcher<T>::remove(SingleListener<T>* listener) {
-    std::unique_lock lock(mutex);
-    for (unsigned int i = 0; i < listeners.size(); ++i) {
-        if (listeners[i] == listener) {
-            listeners.erase(listeners.begin() + i);
-            --i;
+        std::lock_guard lock(dlock);
+        dlist.push_back(this);
+    }
+
+    void dispatch(const T& event) {
+        util::ReadWriteLock::ReadScopeGuard lock(busLock);
+        for (ListenerBase<T>* l : listeners) { l->observe(event); }
+    }
+
+    void addListener(ListenerBase<T>* listener, bool defer) {
+        if (defer) {
+            std::lock_guard lock(deferLock);
+            toAdd.emplace_back(listener);
+        }
+        else {
+            util::ReadWriteLock::WriteScopeGuard lock(busLock);
+            doAdd(listener);
         }
     }
-}
 
+    void removeListener(ListenerBase<T>* listener, bool defer) {
+        if (defer) {
+            std::lock_guard lock(deferLock);
+            toRemove.emplace_back(listener);
+        }
+        else {
+            util::ReadWriteLock::WriteScopeGuard lock(busLock);
+            doRemove(listener);
+        }
+    }
+
+    virtual void syncListeners() override {
+        util::ReadWriteLock::WriteScopeGuard lock(busLock);
+        std::lock_guard lock2(deferLock);
+
+        for (ListenerBase<T>* listener : toAdd) { doAdd(listener); }
+        for (ListenerBase<T>* listener : toRemove) { doRemove(listener); }
+        toAdd.clear();
+        toRemove.clear();
+    }
+
+    virtual void clear() override {
+        util::ReadWriteLock::WriteScopeGuard lock(busLock);
+        std::lock_guard lock2(deferLock);
+        listeners.clear();
+        toAdd.clear();
+        toRemove.clear();
+    }
+
+    void doAdd(ListenerBase<T>* listener) {
+        if (dedup.emplace(listener).second) { listeners.emplace_back(listener); }
+    }
+
+    void doRemove(ListenerBase<T>* listener) {
+        if (dedup.erase(listener) > 0) {
+            for (auto it = listeners.begin(); it != listeners.end(); ++it) {
+                if (*it == listener) {
+                    listeners.erase(it);
+                    break;
+                }
+            }
+        }
+    }
+
+    util::ReadWriteLock busLock;
+    std::vector<ListenerBase<T>*> listeners;
+    std::unordered_set<ListenerBase<T>*> dedup;
+
+    std::mutex deferLock;
+    std::vector<ListenerBase<T>*> toAdd;
+    std::vector<ListenerBase<T>*> toRemove;
+
+    friend class ::bl::event::Dispatcher;
+    template<typename U>
+    friend class SubscriberBase;
+    template<typename... U>
+    friend class SubscriberHelper;
+    template<typename U>
+    friend class UnSubscriberBase;
+    template<typename... U>
+    friend class UnSubscriberHelper;
+};
+
+} // namespace priv
 } // namespace event
 } // namespace bl
 

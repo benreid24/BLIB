@@ -58,7 +58,7 @@ public:
      * @param overwrite Set to true to overwrite existing value
      */
     template<typename T>
-    static void set(const std::string& key, const T& value, bool overwrite = false);
+    static void set(const std::string& key, const T& value, bool overwrite = true);
 
     /**
      * @brief Loads the configuration from the given file. Default values should be set for all
@@ -128,11 +128,6 @@ T Configuration::getOrDefault(const std::string& key, const T& d) {
         if (jit != it->second.end()) { return *std::any_cast<T>(&jit->second); }
     }
 
-    static std::unordered_set<std::string> warned;
-    if (warned.find(key) == warned.end()) {
-        warned.insert(key);
-        BL_LOG_WARN << "Using default value for unset config: " << key << " value: " << d;
-    }
     return d;
 }
 

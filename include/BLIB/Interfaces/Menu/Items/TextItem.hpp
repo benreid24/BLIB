@@ -31,6 +31,12 @@ public:
                       const sf::Color& color = sf::Color::Black, unsigned int fontSize = 30);
 
     /**
+     * @brief Destroy the Text Item object
+     *
+     */
+    virtual ~TextItem() = default;
+
+    /**
      * @brief Returns a modifiable reference to the Text object
      *
      */
@@ -44,6 +50,17 @@ public:
 
 protected:
     /**
+     * @brief Create a new TextItem from the sf::Text object
+     *
+     * @param text The string to display
+     * @param font The font to use
+     * @param color The color of the text
+     * @param fontSize The font size
+     */
+    TextItem(const std::string& text, const sf::Font& font, const sf::Color& color,
+             unsigned int fontSize);
+
+    /**
      * @see Item::render
      *
      */
@@ -52,9 +69,6 @@ protected:
 
 private:
     sf::Text text;
-
-    TextItem(const std::string& text, const sf::Font& font, const sf::Color& color,
-             unsigned int fontSize);
 };
 
 } // namespace menu

@@ -9,8 +9,8 @@ namespace binary
 OutputFile::OutputFile(const std::string& path)
 : OutputStream(buffer)
 , file(path)
-, buffer(output)
-, output(path.c_str(), std::ios::out | std::ios::binary) {}
+, output(path.c_str(), std::ios::out | std::ios::binary)
+, buffer(output) {}
 
 const std::string& OutputFile::filename() const { return file; }
 

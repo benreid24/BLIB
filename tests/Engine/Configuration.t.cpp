@@ -47,8 +47,8 @@ TEST(EngineConfiguration, DefaultValues) {
 TEST(EngineConfiguration, NoOverwrite) {
     Configuration::clear();
 
-    Configuration::set<int>("key", 5);
-    Configuration::set<int>("key", 10);
+    Configuration::set<int>("key", 5, false);
+    Configuration::set<int>("key", 10, false);
 
     EXPECT_EQ(Configuration::get<int>("key"), 5);
 }

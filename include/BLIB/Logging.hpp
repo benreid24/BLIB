@@ -10,5 +10,6 @@
 
 #include <BLIB/Logging/Config.hpp>
 #include <BLIB/Logging/Logger.hpp>
+#include <BLIB/Logging/Outputters.hpp>
 
 #endif

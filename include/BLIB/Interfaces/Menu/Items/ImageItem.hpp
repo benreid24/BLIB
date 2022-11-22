@@ -26,6 +26,12 @@ public:
     static Ptr create(const resource::Resource<sf::Texture>::Ref& texture);
 
     /**
+     * @brief Destroy the Image Item object
+     *
+     */
+    virtual ~ImageItem() = default;
+
+    /**
      * @brief Returns a modifiable reference to the contained sprite
      *
      */

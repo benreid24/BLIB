@@ -34,8 +34,8 @@ public:
 
 private:
     const std::string file;
-    StreamOutputBuffer buffer;
     std::ofstream output;
+    StreamOutputBuffer buffer;
 };
 
 } // namespace binary

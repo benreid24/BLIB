@@ -1,5 +1,6 @@
 #include <BLIB/Serialization/Binary.hpp>
 #include <gtest/gtest.h>
+#include <BLIB/Logging.hpp>
 
 namespace bl
 {

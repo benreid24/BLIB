@@ -34,8 +34,8 @@ target_link_libraries(BLIB.t PRIVATE
 
 add_subdirectory(AI)
 add_subdirectory(Containers)
+add_subdirectory(ECS)
 add_subdirectory(Engine)
-add_subdirectory(Entities)
 add_subdirectory(Events)
 add_subdirectory(Math)
 add_subdirectory(Parser)

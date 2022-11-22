@@ -15,6 +15,10 @@ namespace event
 template<typename T>
 class ListenerBase {
 public:
+    /**
+     * @brief Destroy the Listener Base object
+     *
+     */
     virtual ~ListenerBase() = default;
 
     /**
@@ -38,7 +42,22 @@ public:
 template<typename... TEvents>
 class Listener : public ListenerBase<TEvents>... {
 public:
-    virtual ~Listener() = default;
+    /**
+     * @brief Construct a new Listener object
+     *
+     */
+    Listener();
+
+    /**
+     * @brief Destroy the Listener. Unsubscribes if still subscribed
+     *
+     */
+    virtual ~Listener();
+
+private:
+    bool subscribed;
+
+    friend class Dispatcher;
 };
 
 } // namespace event

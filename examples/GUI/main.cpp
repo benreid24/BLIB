@@ -66,12 +66,10 @@ int main() {
 
     resource::Manager<sf::Texture> textureManager(textureLoader);
 
-    event::Dispatcher dispatcher;
     gui::GUI::Ptr gui = gui::GUI::create(
         gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
         {200, 100, 400, 400});
     gui::DebugRenderer::Ptr renderer = gui::DebugRenderer::create();
-    gui->subscribe(dispatcher);
     gui->setRenderer(renderer);
 
     gui->setOutlineThickness(1);
@@ -220,7 +218,7 @@ int main() {
                     renderer->showAcquisitions(showBoxes);
                 }
             }
-            dispatcher.dispatch(event);
+            gui->observe(event);
         }
 
         progressBar->setProgress(progressBar->getProgress() +

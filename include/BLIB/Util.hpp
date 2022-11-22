@@ -9,6 +9,7 @@
 #include <BLIB/Util/FileUtil.hpp>
 #include <BLIB/Util/HashCombine.hpp>
 #include <BLIB/Util/Hashes.hpp>
+#include <BLIB/Util/IdAllocator.hpp>
 #include <BLIB/Util/LastVariadic.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/Random.hpp>

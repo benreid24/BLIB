@@ -1,7 +1,6 @@
 #include <BLIB/Events/Dispatcher.hpp>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
 #include <thread>
 
 namespace bl
@@ -22,50 +21,49 @@ public:
 
 class NestedListenerDispatcher : public Listener<int> {
 public:
-    NestedListenerDispatcher(Dispatcher& bus)
-    : bus(bus) {}
-
     virtual ~NestedListenerDispatcher() = default;
 
-    virtual void observe(const int&) override { bus.dispatch<char>('a'); }
-
-private:
-    Dispatcher& bus;
+    virtual void observe(const int&) override { bl::event::Dispatcher::dispatch<char>('a'); }
 };
 
 void nestedTester(bool& markTrue) {
-    Dispatcher bus;
+    NestedListenerDispatcher guy;
+    bl::event::Dispatcher::subscribe(&guy);
 
-    NestedListenerDispatcher guy(bus);
-    bus.subscribe(&guy);
-
-    bus.dispatch<int>(5); // to catch deadlocks
+    bl::event::Dispatcher::dispatch<int>(5); // to catch deadlocks
     markTrue = true;
+
+    // cleanup
+    bl::event::Dispatcher::clearAllListeners();
 }
 
 } // namespace
 
 TEST(Dispatcher, DispatchEventsDifferentTypes) {
-    Dispatcher dispatch;
     MockListener listener;
-    dispatch.subscribe(&listener);
+    bl::event::Dispatcher::subscribe(&listener);
+    bl::event::Dispatcher::syncListeners();
 
     EXPECT_CALL(listener, observe(5));
     EXPECT_CALL(listener, observe("Hello"));
 
-    dispatch.dispatch<int>(5);
-    dispatch.dispatch<std::string>("Hello");
+    bl::event::Dispatcher::dispatch<int>(5);
+    bl::event::Dispatcher::dispatch<std::string>("Hello");
+
+    // cleanup
+    bl::event::Dispatcher::clearAllListeners();
 }
 
 TEST(Dispatcher, Unsubscribe) {
-    Dispatcher dispatch;
-
     ::testing::StrictMock<MockListener> listener;
-    dispatch.subscribe(&listener);
-    dispatch.unsubscribe(&listener);
+    bl::event::Dispatcher::subscribe(&listener);
+    bl::event::Dispatcher::unsubscribe(&listener);
 
-    dispatch.dispatch<int>(5);
-    dispatch.dispatch<std::string>("Hello");
+    bl::event::Dispatcher::dispatch<int>(5);
+    bl::event::Dispatcher::dispatch<std::string>("Hello");
+
+    // cleanup
+    bl::event::Dispatcher::clearAllListeners();
 }
 
 TEST(Dispatcher, NestedDispatch) {
@@ -74,6 +72,9 @@ TEST(Dispatcher, NestedDispatch) {
     runner.detach();
     std::this_thread::sleep_for(std::chrono::milliseconds(250));
     EXPECT_TRUE(threadFinished);
+
+    // cleanup
+    bl::event::Dispatcher::clearAllListeners();
 }
 
 } // namespace unittest

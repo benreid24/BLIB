@@ -54,7 +54,7 @@ private:
 } // namespace
 
 TEST(Engine, Terminate) {
-    Engine engine(Settings().withCreateWindow(false));
+    Engine engine(Settings{});
 
     FlagTestState* state = new FlagTestState(Flags::Terminate);
     State::Ptr ptr(state);
@@ -64,7 +64,7 @@ TEST(Engine, Terminate) {
 }
 
 TEST(Engine, PopState) {
-    Engine engine(Settings().withCreateWindow(false));
+    Engine engine(Settings{});
 
     FlagTestState* state = new FlagTestState(Flags::PopState);
     State::Ptr ptr(state);
@@ -74,7 +74,7 @@ TEST(Engine, PopState) {
 }
 
 TEST(Engine, ReplaceState) {
-    Engine engine(Settings().withCreateWindow(false));
+    Engine engine(Settings{});
 
     FlagTestState* second = new FlagTestState(Flags::PopState);
     State::Ptr secondPtr(second);
@@ -88,7 +88,7 @@ TEST(Engine, ReplaceState) {
 }
 
 TEST(Engine, PushState) {
-    Engine engine(Settings().withCreateWindow(false));
+    Engine engine(Settings{});
 
     FlagTestState* second = new FlagTestState(Flags::PopState);
     State::Ptr secondPtr(second);
@@ -127,7 +127,7 @@ private:
 } // namespace
 
 TEST(Engine, FixedTimestep) {
-    Engine engine(Settings().withAllowVariableTimestep(false).withCreateWindow(false));
+    Engine engine(Settings{}.withAllowVariableTimestep(false));
 
     FixedTimestepTestState* state = new FixedTimestepTestState();
     State::Ptr ptr(state);
@@ -156,10 +156,10 @@ private:
 } // namespace
 
 TEST(Engine, EventsStartShutdownStateChanges) {
-    Engine engine(Settings().withCreateWindow(false));
+    Engine engine(Settings{});
     std::vector<std::any> events;
     EventReceiver listener(events);
-    engine.eventBus().subscribe(&listener);
+    bl::event::Dispatcher::subscribe(&listener);
 
     FlagTestState* first = new FlagTestState(Flags::PopState);
     State::Ptr firstPtr(first);
@@ -174,13 +174,15 @@ TEST(Engine, EventsStartShutdownStateChanges) {
     EXPECT_EQ(events[2].type(), typeid(event::StateChange));
     EXPECT_EQ(events[3].type(), typeid(event::Shutdown));
     EXPECT_EQ(std::any_cast<event::Shutdown>(events[3]).cause, event::Shutdown::FinalStatePopped);
+
+    bl::event::Dispatcher::clearAllListeners();
 }
 
 TEST(Engine, TerminateEvent) {
-    Engine engine(Settings().withCreateWindow(false));
+    Engine engine(Settings{});
     std::vector<std::any> events;
     EventReceiver listener(events);
-    engine.eventBus().subscribe(&listener);
+    bl::event::Dispatcher::subscribe(&listener);
 
     FlagTestState* first = new FlagTestState(Flags::Terminate);
     State::Ptr firstPtr(first);
@@ -190,6 +192,8 @@ TEST(Engine, TerminateEvent) {
     EXPECT_EQ(events[0].type(), typeid(event::Startup));
     EXPECT_EQ(events[1].type(), typeid(event::Shutdown));
     EXPECT_EQ(std::any_cast<event::Shutdown>(events[1]).cause, event::Shutdown::Terminated);
+
+    bl::event::Dispatcher::clearAllListeners();
 }
 
 namespace
@@ -220,7 +224,7 @@ private:
 } // namespace
 
 TEST(Engine, TimeElapsedParity) {
-    Engine engine(Settings().withCreateWindow(false));
+    Engine engine(Settings{});
     TimeTestState* state = new TimeTestState();
     State::Ptr ptr(state);
 

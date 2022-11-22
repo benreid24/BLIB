@@ -1,5 +1,6 @@
 #include <BLIB/Media/Audio/AudioSystem.hpp>
 
+#include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Util/Random.hpp>
@@ -92,6 +93,18 @@ private:
     void shutdown();
 };
 
+struct SystemSettings {
+    const std::string MuteKey   = "blib.audio.muted";
+    const std::string VolumeKey = "blib.audio.volume";
+
+    bool muted;
+    float volume;
+
+    SystemSettings()
+    : muted(false)
+    , volume(100.f) {}
+} Settings;
+
 std::atomic<bool> Runner::started = false;
 
 inline AudioSystem::Handle makeHandle() {
@@ -155,9 +168,7 @@ bool AudioSystem::playSound(Handle sound, float fadeIn, bool loop) {
         r.fadingSounds.emplace_back(it->second.sound, 100.f / fadeIn);
         r.fadingSounds.back().me = --r.fadingSounds.end();
     }
-    else {
-        it->second.sound.setVolume(100.f);
-    }
+    else { it->second.sound.setVolume(100.f); }
 
     it->second.sound.play();
     return true;
@@ -214,7 +225,7 @@ AudioSystem::Handle AudioSystem::getOrLoadPlaylist(const std::string& path) {
     if (res.data->getSongList().empty()) return AudioSystem::InvalidHandle;
 
     const Handle handle = makeHandle();
-    Runner::get().playlists.try_emplace(handle, res.getWeakRef()).first;
+    Runner::get().playlists.try_emplace(handle, res.getWeakRef());
     Runner::get().playlistHandles.emplace(path, handle);
     Runner::get().playlistSources.emplace(handle, path);
     return handle;
@@ -292,7 +303,31 @@ void AudioSystem::stopAllPlaylists(float outTime) {
     }
 }
 
-void AudioSystem::setVolume(float vol) { sf::Listener::setGlobalVolume(vol); }
+void AudioSystem::setVolume(float vol) {
+    Settings.volume = vol;
+    if (!Settings.muted) { sf::Listener::setGlobalVolume(vol); }
+}
+
+float AudioSystem::getVolume() { return Settings.volume; }
+
+void AudioSystem::setMuted(bool m) {
+    Settings.muted = m;
+    sf::Listener::setGlobalVolume(m ? 0.f : Settings.volume);
+}
+
+bool AudioSystem::getMuted() { return Settings.muted; }
+
+void AudioSystem::loadFromConfig() {
+    Settings.muted = engine::Configuration::getOrDefault<bool>(Settings.MuteKey, Settings.muted);
+    Settings.volume =
+        engine::Configuration::getOrDefault<float>(Settings.VolumeKey, Settings.volume);
+    sf::Listener::setGlobalVolume(Settings.muted ? 0.f : Settings.volume);
+}
+
+void AudioSystem::saveToConfig() {
+    engine::Configuration::set<bool>(Settings.MuteKey, Settings.muted);
+    engine::Configuration::set<float>(Settings.VolumeKey, Settings.volume);
+}
 
 void AudioSystem::pause() {
     std::unique_lock lock(Runner::get().pauseMutex);
@@ -489,9 +524,7 @@ void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime)
             Runner::get().fadeIn.fvel     = 100.f / inTime;
             in->setVolume(0.f);
         }
-        else {
-            in->setVolume(100.f);
-        }
+        else { in->setVolume(100.f); }
         if (!Runner::get().paused) in->play();
     }
 
@@ -504,9 +537,7 @@ void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime)
             Runner::get().fadeOut.playlist = out;
             Runner::get().fadeOut.fvel     = -out->getVolume() / outTime;
         }
-        else {
-            out->pause();
-        }
+        else { out->pause(); }
     }
 }
 
@@ -523,9 +554,7 @@ void PlaylistFader::update() {
             playlist->setVolume(100.f);
             playlist = nullptr;
         }
-        else {
-            playlist->setVolume(vol);
-        }
+        else { playlist->setVolume(vol); }
     }
 }
 
@@ -544,9 +573,7 @@ void SoundFader::update() {
         sound.setVolume(100.f);
         Runner::get().fadingSounds.erase(me);
     }
-    else {
-        sound.setVolume(v);
-    }
+    else { sound.setVolume(v); }
 }
 
 } // namespace

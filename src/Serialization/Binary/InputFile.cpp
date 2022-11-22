@@ -9,8 +9,8 @@ namespace binary
 InputFile::InputFile(const std::string& path)
 : InputStream(buffer)
 , file(path)
-, buffer(input)
-, input(path.c_str(), std::ios::in | std::ios::binary) {}
+, input(path.c_str(), std::ios::in | std::ios::binary)
+, buffer(input) {}
 
 const std::string& InputFile::filename() const { return file; }
 

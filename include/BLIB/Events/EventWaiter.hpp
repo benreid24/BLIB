@@ -35,7 +35,7 @@ public:
      * @param bus The event bus to wait on
      * @return const std::optional<T>& The captured event if one was fired
      */
-    const std::optional<T>& wait(Dispatcher& bus);
+    const std::optional<T>& wait();
 
 private:
     util::Waiter blocker;
@@ -45,11 +45,11 @@ private:
 };
 
 template<typename T>
-const std::optional<T>& EventWaiter<T>::wait(Dispatcher& bus) {
+const std::optional<T>& EventWaiter<T>::wait() {
     blocker.reset();
-    bus.subscribe(this);
+    Dispatcher::subscribe(this);
     blocker.wait();
-    bus.unsubscribe(this);
+    Dispatcher::unsubscribe(this);
     return event;
 }
 

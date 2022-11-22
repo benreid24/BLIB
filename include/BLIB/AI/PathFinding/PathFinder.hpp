@@ -2,7 +2,7 @@
 #define BLIB_AI_PATHFINDING_PATHFINDER_HPP
 
 #include <BLIB/AI/PathFinding/PathMap.hpp>
-#include <BLIB/Entities/Entity.hpp>
+#include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Util/Hashes.hpp>
 
 #include <SFML/System/Vector2.hpp>
@@ -39,7 +39,7 @@ namespace helpers
  * @return int The distance between the points
  */
 template<typename T>
-int Vector2ManhattanDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, entity::Entity) {
+int Vector2ManhattanDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, ecs::Entity) {
     return std::abs(from.x - to.x) + std::abs(from.y - to.y);
 }
 
@@ -53,7 +53,7 @@ int Vector2ManhattanDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, e
  * @return int The distance between the points
  */
 template<typename T>
-int Vector2RealDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, entity::Entity) {
+int Vector2RealDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, ecs::Entity) {
     const int dx = from.x - to.x;
     const int dy = from.y - to.y;
     return std::sqrt(dx * dx + dy * dy);
@@ -69,7 +69,7 @@ int Vector2RealDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, entity
  * @return int The distance between the points
  */
 template<typename T>
-int Vector3ManhattanDist(const sf::Vector3<T>& from, const sf::Vector3<T>& to, entity::Entity) {
+int Vector3ManhattanDist(const sf::Vector3<T>& from, const sf::Vector3<T>& to, ecs::Entity) {
     return std::abs(from.x - to.x) + std::abs(from.y - to.y) + std::abs(from.z - to.z);
 }
 
@@ -83,7 +83,7 @@ int Vector3ManhattanDist(const sf::Vector3<T>& from, const sf::Vector3<T>& to, e
  * @return int The distance between the points
  */
 template<typename T>
-int Vector3RealDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, entity::Entity) {
+int Vector3RealDist(const sf::Vector2<T>& from, const sf::Vector2<T>& to, ecs::Entity) {
     const int dx = from.x - to.x;
     const int dy = from.y - to.y;
     const int dz = from.z - to.z;
@@ -102,8 +102,7 @@ template<typename TCoord, typename CoordHash>
 class PathFinder {
 public:
     /// Distance estimation function signature
-    using Heuristic =
-        std::function<int(const TCoord& from, const TCoord& to, entity::Entity mover)>;
+    using Heuristic = std::function<int(const TCoord& from, const TCoord& to, ecs::Entity mover)>;
 
     /**
      * @brief Builds the PathFinder with the given distance estimation heuristic
@@ -130,7 +129,7 @@ public:
      * @param result vector to store the calculated path in
      * @return True if a path was found, false if a path was not found
      */
-    bool findPath(const TCoord& start, const TCoord& destination, entity::Entity mover,
+    bool findPath(const TCoord& start, const TCoord& destination, ecs::Entity mover,
                   const PathMap<TCoord>& map, std::vector<TCoord>& result) const;
 
 private:
@@ -150,7 +149,7 @@ void PathFinder<TCoord, CHash>::setHeuristic(Heuristic h) {
 
 template<typename TCoord, typename CHash>
 bool PathFinder<TCoord, CHash>::findPath(const TCoord& start, const TCoord& destination,
-                                         entity::Entity mover, const PathMap<TCoord>& map,
+                                         ecs::Entity mover, const PathMap<TCoord>& map,
                                          std::vector<TCoord>& result) const {
     if (start == destination) return true;
 

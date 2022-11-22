@@ -8,12 +8,16 @@
  *
  */
 
+#include <BLIB/Interfaces/Menu/Drivers/KeyboardDriver.hpp>
+#include <BLIB/Interfaces/Menu/Drivers/MouseDriver.hpp>
+#include <BLIB/Interfaces/Menu/Drivers/MovementDriver.hpp>
+#include <BLIB/Interfaces/Menu/Drivers/TriggerDriver.hpp>
 #include <BLIB/Interfaces/Menu/Event.hpp>
-#include <BLIB/Interfaces/Menu/EventGenerators/KeyboardEventGenerator.hpp>
-#include <BLIB/Interfaces/Menu/EventGenerators/MouseEventGenerator.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
 #include <BLIB/Interfaces/Menu/Items/ImageItem.hpp>
+#include <BLIB/Interfaces/Menu/Items/SubmenuItem.hpp>
 #include <BLIB/Interfaces/Menu/Items/TextItem.hpp>
+#include <BLIB/Interfaces/Menu/Items/ToggleTextItem.hpp>
 #include <BLIB/Interfaces/Menu/Menu.hpp>
 #include <BLIB/Interfaces/Menu/Selector.hpp>
 #include <BLIB/Interfaces/Menu/Selectors/ArrowSelector.hpp>

@@ -8,203 +8,135 @@ namespace container
 {
 namespace unittest
 {
-TEST(Grid, IterateAll) {
-    Grid<int> grid(100, 100, 10, 10);
+TEST(Grid, Add) {
+    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
 
-    grid.add(5, 5, 52);
-    grid.add(95, 64, 23);
-    grid.add(99, 23, 87);
-
-    std::unordered_set<int> found;
-    auto range = grid.getAll();
-    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
-
-    EXPECT_NE(found.find(52), found.end());
-    EXPECT_NE(found.find(23), found.end());
-    EXPECT_NE(found.find(87), found.end());
-}
-
-TEST(Grid, IterateArea) {
-    Grid<int> grid(100, 100, 10, 10);
-
-    grid.add(5, 5, 52);
-    grid.add(95, 64, 23);
-    grid.emplace(99, 23, 87);
-
-    std::unordered_set<int> found;
-    auto range = grid.getArea(90, 20, 12, 15);
-    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
-
-    EXPECT_NE(found.find(87), found.end());
-}
-
-TEST(Grid, IterateCell) {
-    Grid<int> grid(100, 100, 10, 10);
-
-    grid.add(5, 5, 52);
-    grid.add(95, 64, 23);
-    grid.emplace(99, 23, 87);
-
-    std::unordered_set<int> found;
-    auto range = grid.getCell(3, 8);
-    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
-
-    EXPECT_NE(found.find(52), found.end());
-}
-
-TEST(Grid, IterateCellAndNeighbors) {
-    Grid<int> grid(100, 100, 10, 10);
-
-    // not neighbor
-    grid.add(5, 5, 52);
-    grid.add(95, 64, 23);
-    grid.emplace(99, 23, 87);
-
-    // neighbors
-    grid.add(51, 51, 1);
-    grid.add(61, 51, 2);
-    grid.add(41, 51, 3);
-    grid.add(51, 61, 4);
-    grid.add(51, 41, 5);
-
-    std::unordered_set<int> found;
-    auto range = grid.getCellAndNeighbors(55, 55);
-    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
-
-    EXPECT_NE(found.find(1), found.end());
-    EXPECT_NE(found.find(2), found.end());
-    EXPECT_NE(found.find(3), found.end());
-    EXPECT_NE(found.find(4), found.end());
-    EXPECT_NE(found.find(5), found.end());
-}
-
-TEST(Grid, CellAndNeighborsOutOfBounds) {
-    Grid<int> grid(100, 100, 10, 10);
-
-    // not neighbor
-    grid.add(5, 5, 52);
-    grid.emplace(99, 23, 87);
-    grid.add(51, 51, 1);
-    grid.add(61, 51, 2);
-    grid.add(41, 51, 3);
-    grid.add(51, 61, 4);
-    grid.add(51, 41, 5);
-
-    // neighbor
-    grid.add(95, 64, 23);
-
-    std::unordered_set<int> found;
-    auto range = grid.getCellAndNeighbors(95, 55);
-    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
-
-    EXPECT_NE(found.find(23), found.end());
-}
-
-TEST(Grid, EndOverflow) {
-    Grid<int> grid(100, 100, 10, 10);
-
-    // not neighbor
-    grid.add(5, 5, 52);
-    grid.add(51, 51, 1);
-    grid.add(61, 51, 2);
-    grid.add(41, 51, 3);
-    grid.add(51, 61, 4);
-    grid.add(51, 41, 5);
-
-    // neighbor
-    grid.add(95, 94, 23);
-    grid.emplace(99, 93, 87);
-
-    std::unordered_set<int> found;
-    auto range = grid.getCellAndNeighbors(95, 95);
-    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
-
-    EXPECT_NE(found.find(23), found.end());
-    EXPECT_NE(found.find(87), found.end());
-}
-
-TEST(Grid, Clear) {
-    Grid<int> grid(100, 100, 10, 10);
-
-    grid.add(5, 5, 52);
-    grid.add(95, 64, 23);
-    grid.emplace(99, 23, 87);
-
-    std::vector<std::weak_ptr<Grid<int>::Payload>> payloads;
-    for (Grid<int>::Payload& p : grid.getAll()) { payloads.push_back(p.weak_from_this()); }
-    grid.clear();
-
-    for (auto& p : payloads) { EXPECT_TRUE(p.expired()); }
-    EXPECT_EQ(grid.getAll().begin(), grid.getAll().end());
+    grid.add({55.f, 55.f}, 15);
+    const auto& cell = grid.getCell({55.f, 55.f});
+    ASSERT_EQ(cell.size(), 1);
+    EXPECT_EQ(cell[0], 15);
 }
 
 TEST(Grid, Move) {
-    Grid<int> grid(100, 100, 10, 10);
+    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
 
-    auto p = grid.add(5, 5, 10);
-    p->move(55, 55);
+    grid.add({55.f, 55.f}, 15);
+    const auto& cell = grid.getCell({55.f, 55.f});
+    ASSERT_EQ(cell.size(), 1);
+    EXPECT_EQ(cell[0], 15);
 
-    EXPECT_EQ(grid.getCell(5, 5).begin(), grid.getCell(5, 5).end());
-    ASSERT_NE(grid.getCell(55, 55).begin(), grid.getCell(55, 55).end());
-    EXPECT_EQ(grid.getCell(55, 55).begin()->get(), 10);
+    grid.move({55.f, 55.f}, {25.f, 25.f}, 15);
+    EXPECT_TRUE(cell.empty());
+
+    auto& newCell = grid.getCell({25.f, 25.f});
+    ASSERT_EQ(newCell.size(), 1);
+    EXPECT_EQ(newCell[0], 15);
 }
 
-TEST(Grid, RemoveOnly) {
-    Grid<int> grid(100, 100, 10, 10);
+TEST(Grid, Remove) {
+    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
 
-    auto p = grid.add(5, 5, 10);
-    p->remove();
+    grid.add({55.f, 55.f}, 15);
+    const auto& cell = grid.getCell({55.f, 55.f});
+    ASSERT_EQ(cell.size(), 1);
+    EXPECT_EQ(cell[0], 15);
 
-    EXPECT_EQ(grid.getCell(5, 5).begin(), grid.getCell(5, 5).end());
-    EXPECT_EQ(grid.getAll().begin(), grid.getAll().end());
+    grid.remove({55.f, 55.f}, 15);
+    EXPECT_TRUE(cell.empty());
 }
 
-TEST(Grid, RemoveHead) {
-    Grid<int> grid(100, 100, 10, 10);
+TEST(Grid, Clear) {
+    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
 
-    auto p1 = grid.add(5, 5, 5);
-    auto p2 = grid.add(5, 5, 10);
-    auto p3 = grid.add(5, 5, 15);
-    p3->remove();
+    grid.add({55.f, 55.f}, 15);
+    const auto& cell = grid.getCell({55.f, 55.f});
+    ASSERT_EQ(cell.size(), 1);
+    EXPECT_EQ(cell[0], 15);
 
-    std::unordered_set<int> found;
-    auto range = grid.getCell(3, 8);
-    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
-
-    EXPECT_NE(found.find(5), found.end());
-    EXPECT_NE(found.find(10), found.end());
+    grid.clear();
+    EXPECT_TRUE(cell.empty());
 }
 
-TEST(Grid, RemoveMiddle) {
-    Grid<int> grid(100, 100, 10, 10);
+TEST(Grid, IterateRegion) {
+    std::unordered_set<int> inRegion({15, 10, 30});
+    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
 
-    auto p1 = grid.add(5, 5, 5);
-    auto p2 = grid.add(5, 5, 10);
-    auto p3 = grid.add(5, 5, 15);
-    p2->remove();
+    // in region
+    grid.add({35.f, 35.f}, 15);
+    grid.add({20.f, 25.f}, 10);
+    grid.add({11.f, 39.f}, 30);
 
-    std::unordered_set<int> found;
-    auto range = grid.getCell(3, 8);
-    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
+    // outside of region
+    grid.add({41.f, 25.f}, 11);
+    grid.add({5.f, 25.f}, 45);
+    grid.add({20.f, 75.f}, 76);
 
-    EXPECT_NE(found.find(5), found.end());
-    EXPECT_NE(found.find(15), found.end());
+    const auto visitor = [&inRegion](int val) {
+        const auto it = inRegion.find(val);
+        ASSERT_NE(it, inRegion.end()) << "Failed to find " + std::to_string(val);
+        inRegion.erase(it);
+    };
+    grid.forAllInRegion({10.f, 10.f, 29.f, 29.f}, visitor);
+    EXPECT_TRUE(inRegion.empty());
 }
 
-TEST(Grid, RemoveEnd) {
-    Grid<int> grid(100, 100, 10, 10);
+TEST(Grid, IterateCells) {
+    std::unordered_set<int> inRegion({15, 10, 30});
+    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
 
-    auto p1 = grid.add(5, 5, 5);
-    auto p2 = grid.add(5, 5, 10);
-    auto p3 = grid.add(5, 5, 15);
-    p1->remove();
+    // in region
+    grid.add({45.f, 45.f}, 15);
+    grid.add({55.f, 55.f}, 10);
+    grid.add({65.f, 65.f}, 30);
 
-    std::unordered_set<int> found;
-    auto range = grid.getCell(3, 8);
-    for (const Grid<int>::Payload& i : range) { found.insert(i.get()); }
+    // outside of region
+    grid.add({41.f, 25.f}, 11);
+    grid.add({5.f, 25.f}, 45);
+    grid.add({20.f, 75.f}, 76);
 
-    EXPECT_NE(found.find(15), found.end());
-    EXPECT_NE(found.find(10), found.end());
+    const auto visitor = [&inRegion](int val) {
+        const auto it = inRegion.find(val);
+        ASSERT_NE(it, inRegion.end()) << "Failed to find " + std::to_string(val);
+        inRegion.erase(it);
+    };
+    grid.forAllInCellAndNeighbors({55.f, 55.f}, visitor);
+    EXPECT_TRUE(inRegion.empty());
+}
+
+TEST(Grid, IterateEndEarly) {
+    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
+
+    // in region
+    grid.add({45.f, 45.f}, 15);
+    grid.add({55.f, 55.f}, 10);
+    grid.add({65.f, 65.f}, 30);
+
+    // outside of region
+    grid.add({41.f, 25.f}, 11);
+    grid.add({5.f, 25.f}, 45);
+    grid.add({20.f, 75.f}, 76);
+
+    int lastSeen = 0;
+
+    const auto visitor = [&lastSeen](int val) {
+        lastSeen = val;
+        return val == 10;
+    };
+
+    grid.forAllInCellAndNeighbors({55.f, 55.f}, visitor);
+    EXPECT_EQ(lastSeen, 10);
+}
+
+TEST(Grid, Pointer) {
+    std::vector<std::vector<long*>> tvec(32);
+
+    Grid<int*> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
+
+    int val = 55;
+    grid.add({55.f, 55.f}, &val);
+    auto& cell = grid.getCell({55.f, 55.f});
+    ASSERT_EQ(cell.size(), 1);
+    EXPECT_EQ(*cell.front(), val);
 }
 
 } // namespace unittest

@@ -2,6 +2,8 @@
 #define BLIB_EVENTS_DISPATCHER_HPP
 
 #include <BLIB/Events/Listener.hpp>
+#include <BLIB/Events/SingleDispatcher.hpp>
+#include <BLIB/Events/SubscribeHelpers.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/ReadWriteLock.hpp>
 
@@ -9,13 +11,17 @@
 #include <shared_mutex>
 #include <typeindex>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace bl
 {
 namespace event
 {
-class DispatcherScopeGuard;
+namespace priv
+{
+struct ReserveOnStartupHelper;
+}
 
 /**
  * @brief Event dispatcher capable of handling events of many different types. The dispatcher is
@@ -34,18 +40,22 @@ public:
      *
      * @tparam TEvents The types of events to subscribe to
      * @param listener The listener to receive events as they are dispatched
+     * @param defer True to defer adding until syncListeners() is called. May miss events but can be
+     *              called from within event listener observe() methods
      */
     template<typename... TEvents>
-    void subscribe(Listener<TEvents...>* listener);
+    static void subscribe(Listener<TEvents...>* listener, bool defer = false);
 
     /**
      * @brief Removes the given listener and prevents it from receiving any more events
      *
      * @tparam TEvents The types of events the listener is subscribed to
      * @param listener The listener to remove
+     * @param defer True to defer adding until syncListeners() is called. May receive extra events
+     *              but can be called from within event listener observe() methods
      */
     template<typename... TEvents>
-    void unsubscribe(Listener<TEvents...>* listener);
+    static void unsubscribe(Listener<TEvents...>* listener, bool defer = false);
 
     /**
      * @brief Dispatches the given event to each listener that is subscribed to that type of event
@@ -54,57 +64,50 @@ public:
      * @param event The event to dispatch
      */
     template<typename T>
-    void dispatch(const T& event) const;
+    static void dispatch(const T& event);
+
+    /**
+     * @brief Synchronizes the listener buses. Called once per update cycle by the engine
+     *
+     */
+    static void syncListeners();
+
+    /**
+     * @brief Removes all listeners from the subscription queues. Meant mostly for unit test cleanup
+     *        but may have other applications
+     *
+     */
+    static void clearAllListeners();
 
 private:
-    mutable util::ReadWriteLock readWriteLock;
-    std::unordered_map<std::type_index, std::vector<void*>> listeners;
+    static std::mutex dispatcherLock;
+    static std::vector<priv::SingleDispatcherBase*> dispatchers;
 
-    void remove(const std::type_index& t, void* val);
-
-    friend class DispatcherScopeGuard;
+    friend struct priv::ReserveOnStartupHelper;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename... TEvents>
-void Dispatcher::subscribe(Listener<TEvents...>* listener) {
-    std::type_index types[]  = {std::type_index(typeid(TEvents))...};
-    void* const pointers[]   = {static_cast<ListenerBase<TEvents>*>(listener)...};
-    constexpr std::size_t nt = sizeof...(TEvents);
-
-    util::ReadWriteLock::WriteScopeGuard lock(readWriteLock);
-    for (std::size_t i = 0; i < nt; ++i) {
-        auto lit = listeners.find(types[i]);
-        if (lit == listeners.end()) { lit = listeners.try_emplace(types[i]).first; }
-        lit->second.emplace_back(pointers[i]);
-    }
+void Dispatcher::subscribe(Listener<TEvents...>* listener, bool defer) {
+    priv::SubscriberHelper<TEvents...> subscriber(dispatchers, dispatcherLock, listener, defer);
+    listener->subscribed = true;
 }
 
 template<typename T>
-void Dispatcher::dispatch(const T& event) const {
-    const std::type_index type(typeid(T));
-    util::ReadWriteLock::ReadScopeGuard lock(readWriteLock);
-
-    auto lit = listeners.find(type);
-    if (lit != listeners.end()) {
-        for (void* listener : lit->second) {
-            static_cast<ListenerBase<T>*>(listener)->observe(event);
-        }
-    }
+void Dispatcher::dispatch(const T& event) {
+    priv::SingleDispatcher<T>::get(dispatchers, dispatcherLock).dispatch(event);
 }
 
 template<typename... TEvents>
-void Dispatcher::unsubscribe(Listener<TEvents...>* listener) {
-    std::type_index types[]  = {std::type_index(typeid(TEvents))...};
-    void* const pointers[]   = {static_cast<ListenerBase<TEvents>*>(listener)...};
-    constexpr std::size_t nt = sizeof...(TEvents);
-
-    util::ReadWriteLock::WriteScopeGuard lock(readWriteLock);
-    for (std::size_t i = 0; i < nt; ++i) { remove(types[i], pointers[i]); }
+void Dispatcher::unsubscribe(Listener<TEvents...>* listener, bool defer) {
+    priv::UnSubscriberHelper<TEvents...> subscriber(dispatchers, dispatcherLock, listener, defer);
+    listener->subscribed = false;
 }
 
 } // namespace event
 } // namespace bl
+
+#include <BLIB/Events/ListenerImpl.hpp>
 
 #endif

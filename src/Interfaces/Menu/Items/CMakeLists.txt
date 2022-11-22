@@ -1,4 +1,6 @@
 target_sources(BLIB PRIVATE
-    TextItem.cpp
     ImageItem.cpp
+    SubmenuItem.cpp
+    TextItem.cpp
+    ToggleTextItem.cpp
 )

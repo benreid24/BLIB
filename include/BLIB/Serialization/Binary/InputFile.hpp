@@ -34,8 +34,8 @@ public:
 
 private:
     const std::string file;
-    StreamInputBuffer buffer;
     std::ifstream input;
+    StreamInputBuffer buffer;
 };
 
 } // namespace binary

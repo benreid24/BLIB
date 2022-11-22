@@ -1,14 +1,16 @@
 target_sources(BLIB PUBLIC
     AI.hpp
     Containers.hpp
+    ECS.hpp
     Engine.hpp
-    Entities.hpp
     Events.hpp
+    Input.hpp
     Interfaces.hpp
     Logging.hpp
     Media.hpp
     Parser.hpp
     Particles.hpp
+    Render.hpp
     Resources.hpp
     Scripts.hpp
     Serialization.hpp
@@ -17,15 +19,17 @@ target_sources(BLIB PUBLIC
 
 add_subdirectory(AI)
 add_subdirectory(Containers)
+add_subdirectory(ECS)
 add_subdirectory(Engine)
-add_subdirectory(Entities)
 add_subdirectory(Events)
+add_subdirectory(Input)
 add_subdirectory(Interfaces)
 add_subdirectory(Logging)
 add_subdirectory(Math)
 add_subdirectory(Media)
 add_subdirectory(Parser)
 add_subdirectory(Particles)
+add_subdirectory(Render)
 add_subdirectory(Scripts)
 add_subdirectory(Serialization)
 add_subdirectory(Util)

@@ -12,11 +12,15 @@ namespace engine
 {
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
-, renderWindow(nullptr) {
-    entityRegistry.setEventDispatcher(engineEventBus);
+, renderWindow(nullptr)
+, entityRegistry(settings.maximumEntityCount())
+, input(*this) {
+    settings.syncToConfig();
+    bl::event::Dispatcher::subscribe(&input);
 }
 
 Engine::~Engine() {
+    bl::event::Dispatcher::clearAllListeners();
     while (!states.empty()) { states.pop(); }
     newState.reset();
     renderWindow.reset();
@@ -27,11 +31,13 @@ Engine::~Engine() {
 #endif
 }
 
-bl::event::Dispatcher& Engine::eventBus() { return engineEventBus; }
-
-entity::Registry& Engine::entities() { return entityRegistry; }
+ecs::Registry& Engine::ecs() { return entityRegistry; }
 
 script::Manager& Engine::scriptManager() { return engineScriptManager; }
+
+render::RenderSystem& Engine::renderSystem() { return renderingSystem; }
+
+input::InputSystem& Engine::inputSystem() { return input; }
 
 const Settings& Engine::settings() const { return engineSettings; }
 
@@ -88,27 +94,15 @@ bool Engine::run(State::Ptr initialState) {
         }
     };
 
-    std::shared_ptr<sf::Context> renderContext; // ensure this thread has active context
     if (engineSettings.createWindow()) {
-        renderContext = std::make_shared<sf::Context>();
-        renderWindow  = std::make_shared<sf::RenderWindow>(
-            engineSettings.videoMode(), engineSettings.windowTitle(), engineSettings.windowStyle());
-        if (!renderWindow->isOpen()) {
-            BL_LOG_ERROR << "Failed to create window";
-            return false;
-        }
-        if (engineSettings.windowIcon().getSize().x > 0) {
-            renderWindow->setIcon(engineSettings.windowIcon().getSize().x,
-                                  engineSettings.windowIcon().getSize().y,
-                                  engineSettings.windowIcon().getPixelsPtr());
-        }
+        if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
     }
 
     sf::Clock fpsTimer;
     float frameCount = 0.f;
 
     initialState->activate(*this);
-    engineEventBus.dispatch<event::Startup>({initialState});
+    bl::event::Dispatcher::dispatch<event::Startup>({initialState});
 
     while (true) {
         // Clear flags from last loop
@@ -118,25 +112,37 @@ bool Engine::run(State::Ptr initialState) {
         if (renderWindow) {
             sf::Event event;
             while (renderWindow->pollEvent(event)) {
-                engineEventBus.dispatch<sf::Event>(event);
+                bl::event::Dispatcher::dispatch<sf::Event>(event);
 
-                if (event.type == sf::Event::Closed) {
-                    engineEventBus.dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
+                switch (event.type) {
+                case sf::Event::Closed:
+                    bl::event::Dispatcher::dispatch<event::Shutdown>(
+                        {event::Shutdown::WindowClosed});
                     renderWindow->close();
                     return true;
-                }
-                else if (event.type == sf::Event::LostFocus) {
-                    engineEventBus.dispatch<event::Paused>({});
+
+                case sf::Event::LostFocus:
+                    bl::event::Dispatcher::dispatch<event::Paused>({});
                     if (!awaitFocus()) {
-                        engineEventBus.dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
+                        bl::event::Dispatcher::dispatch<event::Shutdown>(
+                            {event::Shutdown::WindowClosed});
                         renderWindow->close();
                         return true;
                     }
-                    engineEventBus.dispatch<event::Resumed>({});
+                    bl::event::Dispatcher::dispatch<event::Resumed>({});
                     updateOuterTimer.restart();
                     loopTimer.restart();
+                    break;
+
+                case sf::Event::Resized:
+                    if (engineSettings.windowParameters().letterBox()) {
+                        handleResize(event.size, true);
+                    }
+                    break;
+
+                default:
+                    break;
                 }
-                // more events?
             }
         }
 
@@ -145,14 +151,25 @@ bool Engine::run(State::Ptr initialState) {
         updateOuterTimer.restart();
         const float startingLag = lag;
         updateMeasureTimer.restart();
+
+        // update until caught up
         while (lag >= updateTimestep) {
             const float updateStart = updateMeasureTimer.getElapsedTime().asSeconds();
+
+            // core update game logic
+            renderingSystem.update(updateTimestep);
+            input.update();
             states.top()->update(*this, updateTimestep);
+            bl::event::Dispatcher::syncListeners();
+
+            // check if we should end early
             if (engineFlags.active(Flags::PopState) || engineFlags.active(Flags::Terminate) ||
                 newState) {
                 lag = 0.f;
                 break;
             }
+
+            // handle timing
             lag -= updateTimestep;
             averageUpdateTime =
                 0.8f * averageUpdateTime +
@@ -172,6 +189,8 @@ bool Engine::run(State::Ptr initialState) {
                 }
             }
         }
+
+        // update timing
         if (averageUpdateTime < updateTimestep * 0.9f &&
             updateTimestep > engineSettings.updateTimestep()) {
             const float newTs = std::max(engineSettings.updateTimestep(), updateTimestep * 0.95f);
@@ -179,11 +198,17 @@ bool Engine::run(State::Ptr initialState) {
                         << "s to " << newTs << "s";
             updateTimestep = newTs;
         }
-        states.top()->render(*this, lag);
+
+        // do render
+        if (!engineFlags.active(Flags::PopState) && !engineFlags.active(Flags::Terminate) &&
+            !newState) {
+            if (renderWindow) { renderingSystem.cameras().configureView(*renderWindow); }
+            states.top()->render(*this, lag);
+        }
 
         // Process flags
         if (engineFlags.active(Flags::Terminate)) {
-            engineEventBus.dispatch<event::Shutdown>({event::Shutdown::Terminated});
+            bl::event::Dispatcher::dispatch<event::Shutdown>({event::Shutdown::Terminated});
             if (renderWindow) renderWindow->close();
             return true;
         }
@@ -194,20 +219,21 @@ bool Engine::run(State::Ptr initialState) {
             states.pop();
             if (states.empty() && !newState) { // exit if no states left
                 BL_LOG_INFO << "Final state popped, exiting";
-                engineEventBus.dispatch<event::Shutdown>({event::Shutdown::FinalStatePopped});
+                bl::event::Dispatcher::dispatch<event::Shutdown>(
+                    {event::Shutdown::FinalStatePopped});
                 if (renderWindow) renderWindow->close();
                 return true;
             }
             else if (!newState) { // plain pop state
                 BL_LOG_INFO << "New engine state (popped): " << states.top()->name();
                 states.top()->activate(*this);
-                engineEventBus.dispatch<event::StateChange>({states.top(), prev});
+                bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
             }
             else { // replace state
                 BL_LOG_INFO << "New engine state (replaced): " << newState->name();
                 states.push(newState);
                 states.top()->activate(*this);
-                engineEventBus.dispatch<event::StateChange>({states.top(), prev});
+                bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
                 newState = nullptr;
             }
             updateOuterTimer.restart();
@@ -221,7 +247,7 @@ bool Engine::run(State::Ptr initialState) {
             prev->deactivate(*this);
             states.push(newState);
             states.top()->activate(*this);
-            engineEventBus.dispatch<event::StateChange>({states.top(), prev});
+            bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
             newState = nullptr;
             updateOuterTimer.restart();
             loopTimer.restart();
@@ -253,6 +279,98 @@ bool Engine::awaitFocus() {
         if (event.type == sf::Event::GainedFocus) return true;
     }
     return false;
+}
+
+bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
+    if (!renderContext) { renderContext = std::make_unique<sf::Context>(); }
+
+    if (renderWindow) { renderWindow->create(params.videoMode(), params.title(), params.style()); }
+    else {
+        renderWindow =
+            std::make_unique<sf::RenderWindow>(params.videoMode(), params.title(), params.style());
+    }
+    if (!renderWindow->isOpen()) {
+        BL_LOG_ERROR << "Failed to create window";
+        return false;
+    }
+    if (!params.icon().empty()) {
+        sf::Image icon;
+        if (icon.loadFromFile(params.icon())) {
+            renderWindow->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+        }
+        else { BL_LOG_WARN << "Failed to load icon: " << params.icon(); }
+    }
+
+    // also saves to config
+    updateExistingWindow(params);
+
+    return true;
+}
+
+void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
+    if (!renderWindow) {
+        BL_LOG_ERROR << "Attempting to update non-existant window";
+        return;
+    }
+
+    renderWindow->setTitle(params.title());
+    renderWindow->setVerticalSyncEnabled(params.vsyncEnabled());
+
+    engineSettings.withWindowParameters(params);
+    params.syncToConfig();
+
+    if (params.initialViewSize().x > 0.f) {
+        sf::View view = renderWindow->getView();
+        view.setSize(params.initialViewSize());
+        view.setCenter(params.initialViewSize() * 0.5f);
+        renderWindow->setView(view);
+    }
+
+    if (params.letterBox()) {
+        sf::Event::SizeEvent e;
+        e.width  = renderWindow->getSize().x;
+        e.height = renderWindow->getSize().y;
+        handleResize(e, false);
+    }
+}
+
+void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
+    const sf::Vector2f modeSize(sf::Vector2u(engineSettings.windowParameters().videoMode().width,
+                                             engineSettings.windowParameters().videoMode().height));
+    const sf::Vector2f& ogSize = engineSettings.windowParameters().initialViewSize().x > 0.f ?
+                                     engineSettings.windowParameters().initialViewSize() :
+                                     modeSize;
+
+    const float newWidth  = static_cast<float>(resize.width);
+    const float newHeight = static_cast<float>(resize.height);
+
+    const float xScale = newWidth / ogSize.x;
+    const float yScale = newHeight / ogSize.y;
+
+    // it's ok to change view size here, cameras reset it every frame anyways
+    sf::View view(sf::FloatRect(0.f, 0.f, ogSize.x, ogSize.y));
+    sf::FloatRect viewPort(0.f, 0.f, 1.f, 1.f);
+
+    if (xScale >= yScale) { // constrained by height, bars on sides
+        viewPort.width = ogSize.x * yScale / newWidth;
+        viewPort.left  = (1.f - viewPort.width) * 0.5f;
+    }
+    else { // constrained by width, bars on top and bottom
+        viewPort.height = ogSize.y * xScale / newHeight;
+        viewPort.top    = (1.f - viewPort.height) * 0.5f;
+    }
+
+    view.setViewport(viewPort);
+    renderWindow->setView(view);
+
+    if (ss) {
+        Settings::WindowParameters params = engineSettings.windowParameters();
+        params.withVideoMode(
+            sf::VideoMode(resize.width, resize.height, params.videoMode().bitsPerPixel));
+        engineSettings.withWindowParameters(params);
+        params.syncToConfig();
+        bl::event::Dispatcher::dispatch<event::WindowResized>({*renderWindow});
+    }
 }
 
 } // namespace engine

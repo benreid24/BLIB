@@ -173,7 +173,7 @@ private:
 
     void shuffle();
 
-    friend class serial::SerializableObject<audio::Playlist>;
+    friend struct serial::SerializableObject<audio::Playlist>;
 };
 
 } // namespace audio

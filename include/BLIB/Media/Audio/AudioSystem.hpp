@@ -1,7 +1,7 @@
 #ifndef BLIB_MEDIA_AUDIO_AUDIOSYSTEM_HPP
 #define BLIB_MEDIA_AUDIO_AUDIOSYSTEM_HPP
 
-#include <BLIB/Containers/DynamicObjectPool.hpp>
+#include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Media/Audio/Playlist.hpp>
 #include <SFML/Audio.hpp>
 #include <cstdint>
@@ -130,6 +130,39 @@ public:
      * @param volume The global volume, in the range [0, 100]
      */
     static void setVolume(float volume);
+
+    /**
+     * @brief Returns the global volume
+     *
+     * @return float The global volume, in range [0, 100]
+     */
+    static float getVolume();
+
+    /**
+     * @brief Sets whether or not audio is muted
+     *
+     * @param muted True to mute, false to play audio at the previously set volume
+     */
+    static void setMuted(bool muted);
+
+    /**
+     * @brief Returns whether or not audio is muted. Volume of 0 does not count as muted
+     *
+     * @return True if audio is muted, false if it is not
+     */
+    static bool getMuted();
+
+    /**
+     * @brief Loads system settings from the engine config
+     *
+     */
+    static void loadFromConfig();
+
+    /**
+     * @brief Saves system settings to the engine config
+     *
+     */
+    static void saveToConfig();
 
     /**
      * @brief Pauses all sounds and playlists

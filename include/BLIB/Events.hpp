@@ -7,13 +7,9 @@
  *
  */
 
-#include <BLIB/Events/ClassGuard.hpp>
-#include <BLIB/Events/DelayedDispatcher.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Events/EventWaiter.hpp>
 #include <BLIB/Events/Listener.hpp>
-#include <BLIB/Events/SingleDispatcher.hpp>
-#include <BLIB/Events/SingleDispatcherScopeGuard.hpp>
-#include <BLIB/Events/SingleListener.hpp>
+#include <BLIB/Events/ListenerGuard.hpp>
 
 #endif

@@ -33,7 +33,7 @@ GUI::GUI(const gui::Packer::Ptr& packer, const sf::RenderWindow& window)
 
 void GUI::setRegion(const sf::FloatRect& area) { assignAcquisition(area); }
 
-void GUI::subscribe(event::Dispatcher& d) { d.subscribe(this); }
+void GUI::subscribe() { bl::event::Dispatcher::subscribe(this); }
 
 void GUI::observe(const sf::Event& event) {
     if (event.type == sf::Event::MouseEntered) return;

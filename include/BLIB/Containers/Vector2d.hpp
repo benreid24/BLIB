@@ -76,7 +76,7 @@ public:
      * @param h The height of the vector
      * @param val The value to fill the vector with
      */
-    Vector2D(unsigned int w, unsigned int h, const T& val = {}) { setSize(w, h, val); }
+    Vector2D(unsigned int w, unsigned int h, const T& val = T{}) { setSize(w, h, val); }
 
     /**
      * @brief Returns a reference to the element at the given position
@@ -102,7 +102,7 @@ public:
      * @param x The new width
      * @param y The new height
      */
-    void setSize(unsigned int x, unsigned int y, const T& val = {}) {
+    void setSize(unsigned int x, unsigned int y, const T& val = T{}) {
         W = x;
         H = y;
         data.resize(W * H, val);
@@ -122,6 +122,22 @@ public:
      * @brief Clears all memory used by the vector, erasing all elements
      */
     void clear() { data.clear(); }
+
+    /**
+     * @brief Provides a raw iterator to the underlying data. Useful for iterating all elements
+     *        efficiently without needing pointer arithmetic or nested loops
+     *
+     * @return std::vector<T>::iterator Iterator to the front of the stored data
+     */
+    typename std::vector<T>::iterator begin() { return data.begin(); }
+
+    /**
+     * @brief Provides a raw iterator to the underlying data. Useful for iterating all elements
+     *        efficiently without needing pointer arithmetic or nested loops
+     *
+     * @return std::vector<T>::iterator Iterator to the end of the stored data
+     */
+    typename std::vector<T>::iterator end() { return data.end(); }
 
 private:
     std::vector<T> data;

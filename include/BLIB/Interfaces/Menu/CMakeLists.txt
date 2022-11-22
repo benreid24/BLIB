@@ -5,6 +5,6 @@ target_sources(BLIB PUBLIC
     Selector.hpp
 )
 
-add_subdirectory(EventGenerators)
+add_subdirectory(Drivers)
 add_subdirectory(Items)
 add_subdirectory(Selectors)

@@ -70,10 +70,8 @@ public:
 
     /**
      * @brief Subscribes the GUI to the event dispatcher to start receiving window events
-     *
-     * @param dispatcher The event dispatcher to get events from
      */
-    void subscribe(event::Dispatcher& dispatcher);
+    void subscribe();
 
     /**
      * @brief Updates all child elements and runs any queud actions
