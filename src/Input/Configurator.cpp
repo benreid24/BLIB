@@ -24,7 +24,7 @@ void Configurator::start(Trigger& t) {
     }
     state   = WaitingTrigger;
     trigger = &t;
-    bl::event::Dispatcher::subscribe(this);
+    bl::event::Dispatcher::subscribe(this, true);
 }
 
 void Configurator::start(Joystick& js) {
@@ -35,7 +35,7 @@ void Configurator::start(Joystick& js) {
     state    = WaitingHorAxis;
     joystick = &js;
     jsState  = JoystickState::WaitingPositive;
-    bl::event::Dispatcher::subscribe(this);
+    bl::event::Dispatcher::subscribe(this, true);
 }
 
 bool Configurator::finished() const { return state == Finished; }

@@ -323,9 +323,7 @@ void AudioSystem::loadFromConfig() {
     Settings.muted = engine::Configuration::getOrDefault<bool>(Settings.MuteKey, Settings.muted);
     Settings.volume =
         engine::Configuration::getOrDefault<float>(Settings.VolumeKey, Settings.volume);
-#ifndef ON_CI
     sf::Listener::setGlobalVolume(Settings.muted ? 0.f : Settings.volume);
-#endif
 }
 
 void AudioSystem::saveToConfig() {
