@@ -5,7 +5,7 @@ namespace bl
 {
 namespace input
 {
-constexpr float StickThreshold = 60.f;
+constexpr float StickThreshold = 85.f;
 }
 } // namespace bl
 

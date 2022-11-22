@@ -178,7 +178,7 @@ bool Trigger::configureFromEvent(const sf::Event& event) {
             joystickAxis = event.joystickMove.axis;
             return true;
         }
-        else if (event.joystickMove.position <= StickThreshold) {
+        else if (event.joystickMove.position <= -StickThreshold) {
             type         = Type::JoystickNegative;
             joystickAxis = event.joystickMove.axis;
             return true;
