@@ -10,6 +10,7 @@ namespace
 {
 std::unordered_set<Waiter*> table;
 std::mutex tableMutex;
+std::atomic_bool ended = false;
 } // namespace
 
 Waiter::Waiter()
@@ -34,15 +35,21 @@ void Waiter::unblock() {
 bool Waiter::wasUnblocked() const { return unblocked; }
 
 void Waiter::wait() {
+    if (allUnblocked()) {
+        BL_LOG_ERROR << "wait() called during shutdown. Threads should be exiting";
+        return;
+    }
     if (!unblocked) {
         std::unique_lock lock(waitMutex);
-        waitVar.wait(lock);
+        if (!unblocked) { waitVar.wait(lock); }
     }
 }
 
 void Waiter::reset() { unblocked = false; }
 
 void Waiter::unblockAll() {
+    ended = true;
+
     const auto checkDone = []() -> bool {
         std::unique_lock lock(tableMutex);
         return table.empty();
@@ -61,6 +68,8 @@ void Waiter::unblockAll() {
         }
     }
 }
+
+bool Waiter::allUnblocked() { return ended; }
 
 } // namespace util
 } // namespace bl
