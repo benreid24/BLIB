@@ -13,6 +13,8 @@ namespace math
  *
  * @param degrees The angle in degrees
  * @return float The cosine of the angle
+ *
+ * @ingroup Math
  */
 float cos(float degrees);
 
@@ -22,6 +24,8 @@ float cos(float degrees);
  *
  * @param degrees The angle in degrees
  * @return float The sine of the angle
+ *
+ * @ingroup Math
  */
 float sin(float degrees);
 
@@ -30,6 +34,8 @@ float sin(float degrees);
  *
  * @param radians The angle in radians
  * @return float The angle in degrees
+ *
+ * @ingroup Math
  */
 inline float radiansToDegrees(float radians) { return radians * 180.f / Pi; }
 
@@ -38,6 +44,8 @@ inline float radiansToDegrees(float radians) { return radians * 180.f / Pi; }
  *
  * @param radians The angle in degrees
  * @return float The angle in radians
+ *
+ * @ingroup Math
  */
 inline float degreesToRadians(float degrees) { return degrees / 180.f * Pi; }
 

@@ -1,4 +1,5 @@
-#include <BLIB/AI/PathFinding.hpp>
+#include <BLIB/AI/PathFinder.hpp>
+#include <BLIB/Math.hpp>
 #include <BLIB/Util/Hashes.hpp>
 #include <gtest/gtest.h>
 
@@ -17,42 +18,42 @@ const int map[6][6] = {{0, 1, 0, 0, 0, 0},
                        {0, 1, 1, 1, 1, 0},
                        {0, 0, 0, 0, 0, 0}};
 
-struct TestMap : public PathMap<sf::Vector2i> {
-    virtual ~TestMap() = default;
-
-    virtual int movementCost(const sf::Vector2i&, const sf::Vector2i& to,
-                             ecs::Entity) const override {
-        if (to.x < 0 || to.x >= 6 || to.y < 0 || to.y >= 6) return -1;
-        if (map[to.y][to.x] == 0) return 1;
-        return -1;
-    }
-
-    virtual void getAdjacentNodes(const sf::Vector2i& node,
-                                  std::vector<sf::Vector2i>& result) const override {
-        result.push_back({node.x, node.y - 1});
-        result.push_back({node.x, node.y + 1});
-        result.push_back({node.x - 1, node.y});
-        result.push_back({node.x + 1, node.y});
+const auto nodeCallback = [](const sf::Vector2i& node,
+                             std::vector<std::pair<sf::Vector2i, int>>& adj) {
+    adj.reserve(4);
+    adj.emplace_back(sf::Vector2i{node.x, node.y - 1}, 1);
+    adj.emplace_back(sf::Vector2i{node.x, node.y + 1}, 1);
+    adj.emplace_back(sf::Vector2i{node.x - 1, node.y}, 1);
+    adj.emplace_back(sf::Vector2i{node.x + 1, node.y}, 1);
+    for (int i = 3; i >= 0; --i) {
+        const auto& p = adj[i].first;
+        if (p.x < 0 || p.y < 0 || p.x >= 6 || p.y >= 6) {
+            adj.erase(adj.begin() + i);
+            continue;
+        }
+        if (map[p.y][p.x] != 0) { adj.erase(adj.begin() + i); }
     }
 };
+
+int (*const distCallback)(const sf::Vector2i&, const sf::Vector2i&) = &math::manhattanDistance<int>;
+
+using TestFinder = PathFinder<sf::Vector2i, util::Vector2Hash<int>>;
+
 } // namespace
 
 TEST(PathFinding, FindPath) {
-    PathFinder<sf::Vector2i, util::Vector2Hash<int>> finder(helpers::Vector2ManhattanDist<int>);
     std::vector<sf::Vector2i> path;
-    EXPECT_TRUE(finder.findPath({0, 2}, {0, 5}, 5, TestMap(), path));
+    EXPECT_TRUE(TestFinder::findPath({0, 2}, {0, 5}, nodeCallback, distCallback, path));
 }
 
 TEST(PathFinding, NoPath) {
-    PathFinder<sf::Vector2i, util::Vector2Hash<int>> finder(helpers::Vector2ManhattanDist<int>);
     std::vector<sf::Vector2i> path;
-    EXPECT_FALSE(finder.findPath({0, 0}, {1, 5}, 5, TestMap(), path));
+    EXPECT_FALSE(TestFinder::findPath({0, 0}, {1, 5}, nodeCallback, distCallback, path));
 }
 
 TEST(PathFinding, SpecificPath) {
-    PathFinder<sf::Vector2i, util::Vector2Hash<int>> finder(helpers::Vector2ManhattanDist<int>);
     std::vector<sf::Vector2i> path;
-    EXPECT_TRUE(finder.findPath({0, 2}, {5, 1}, 5, TestMap(), path));
+    EXPECT_TRUE(TestFinder::findPath({0, 2}, {5, 1}, nodeCallback, distCallback, path));
     ASSERT_EQ(path.size(), 20);
     EXPECT_EQ(path[0], sf::Vector2i(0, 3));
     EXPECT_EQ(path[1], sf::Vector2i(0, 4));
