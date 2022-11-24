@@ -92,6 +92,17 @@ public:
     template<typename TCallback>
     void forEach(const TCallback& cb);
 
+    /**
+     * @brief Iterates over all contained components and triggers the callback for each. Acquires a
+     *        write lock on the pool. Use this if the callback may remove components, otherwise
+     *        prefer forEach()
+     *
+     * @tparam TCallback The callback type to invoke
+     * @param cb The handler for each component. Takes the entity id and the component
+     */
+    template<typename TCallback>
+    void forEachWithWrites(const TCallback& cb);
+
 private:
     std::vector<container::ObjectWrapper<T>> pool;
     std::vector<typename std::vector<container::ObjectWrapper<T>>::iterator> entityToIter;
@@ -223,6 +234,26 @@ void ComponentPool<T>::forEach(const TCallback& cb) {
                   "Visitor signature is void(Entity, T&)");
 
     util::ReadWriteLock::ReadScopeGuard lock(poolLock);
+
+    std::uint16_t i = 0;
+    auto poolIt     = pool.begin();
+    auto entIt      = indexToEntity.begin();
+    while (i <= indexAllocator.highestId()) {
+        if (indexAllocator.isAllocated(i)) { cb(*entIt, poolIt->get()); }
+
+        ++i;
+        ++poolIt;
+        ++entIt;
+    }
+}
+
+template<typename T>
+template<typename TCallback>
+void ComponentPool<T>::forEachWithWrites(const TCallback& cb) {
+    static_assert(std::is_invocable<TCallback, Entity, T&>::value,
+                  "Visitor signature is void(Entity, T&)");
+
+    util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
     std::uint16_t i = 0;
     auto poolIt     = pool.begin();
