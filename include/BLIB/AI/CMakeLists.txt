@@ -1,5 +1,3 @@
 target_sources(BLIB PUBLIC
-    PathFinding.hpp
+    PathFinder.hpp
 )
-
-add_subdirectory(PathFinding)

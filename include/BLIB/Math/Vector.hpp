@@ -16,6 +16,8 @@ namespace math
  * @tparam T The type of vector components
  * @param vec The vector to get the squared magnitude of
  * @return T The squared magnitude of the vector
+ *
+ * @ingroup Math
  */
 template<typename T>
 T magnitudeSquared(const sf::Vector2<T>& vec) {
@@ -28,6 +30,8 @@ T magnitudeSquared(const sf::Vector2<T>& vec) {
  * @tparam T The type of vector components
  * @param vec The vector to get the magnitude of
  * @return T The magnitude of the vector
+ *
+ * @ingroup Math
  */
 template<typename T>
 T magnitude(const sf::Vector2<T>& vec) {
@@ -35,10 +39,57 @@ T magnitude(const sf::Vector2<T>& vec) {
 }
 
 /**
+ * @brief Returns the squared distance between the two vectors
+ *
+ * @tparam T The type of vector components
+ * @param v1 The first vector
+ * @param v2 The second vector
+ * @return T The square of the distance between them
+ *
+ * @ingroup Math
+ */
+template<typename T>
+T distanceSquared(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) {
+    return magnitudeSquared(v1 - v2);
+}
+
+/**
+ * @brief Returns the distance between two vectors
+ *
+ * @tparam T The type of vector components
+ * @param v1 The first vector
+ * @param v2 The second vector
+ * @return T The distance between them
+ *
+ * @ingroup Math
+ */
+template<typename T>
+T distance(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) {
+    return std::sqrt(distanceSquared(v1, v2));
+}
+
+/**
+ * @brief Returns the manhattan distance between two vectors
+ *
+ * @tparam T The type of vector components
+ * @param v1 The first vector
+ * @param v2 The second vector
+ * @return T The manhattan distance between them
+ *
+ * @ingroup Math
+ */
+template<typename T>
+T manhattanDistance(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) {
+    return std::abs(v1.x - v2.x) + std::abs(v1.y - v2.y);
+}
+
+/**
  * @brief Normalizes the given vector in place
  *
  * @tparam T The type of vector components
  * @param vec The vector to normalize
+ *
+ * @ingroup Math
  */
 template<typename T>
 void normalize(sf::Vector2<T>& vec) {
@@ -53,6 +104,8 @@ void normalize(sf::Vector2<T>& vec) {
  * @tparam T The type of vector components
  * @param vec The vector to normalize
  * @return sf::Vector2<T> The normalized vector
+ *
+ * @ingroup Math
  */
 template<typename T>
 sf::Vector2<T> normalized(const sf::Vector2<T>& vec) {
@@ -67,6 +120,8 @@ sf::Vector2<T> normalized(const sf::Vector2<T>& vec) {
  * @param v1 The left vector
  * @param v2 The right vector
  * @return T The dot product of v1 and v2
+ *
+ * @ingroup Math
  */
 template<typename T>
 T dot(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) {
@@ -79,6 +134,8 @@ T dot(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) {
  * @tparam T The type of vector components
  * @param vec The vector to get the angle of
  * @return T The angle the vector is pointing
+ *
+ * @ingroup Math
  */
 template<typename T>
 T vectorToAngle(const sf::Vector2<T>& vec) {
@@ -91,6 +148,8 @@ T vectorToAngle(const sf::Vector2<T>& vec) {
  * @tparam TThe type of vector components
  * @param degrees The angle to convert, in degrees
  * @return sf::Vector2<T> The unit vector facing the given angle
+ *
+ * @ingroup Math
  */
 template<typename T>
 sf::Vector2<T> angleToVector(T degrees) {
@@ -103,6 +162,8 @@ sf::Vector2<T> angleToVector(T degrees) {
  * @tparam T The type of vector components
  * @param vec The vector to get the squared magnitude of
  * @return T The squared magnitude of the vector
+ *
+ * @ingroup Math
  */
 template<typename T>
 T magnitudeSquared(const sf::Vector3<T>& vec) {
@@ -115,6 +176,8 @@ T magnitudeSquared(const sf::Vector3<T>& vec) {
  * @tparam T The type of vector components
  * @param vec The vector to get the magnitude of
  * @return T The magnitude of the vector
+ *
+ * @ingroup Math
  */
 template<typename T>
 T magnitude(const sf::Vector3<T>& vec) {
@@ -122,10 +185,57 @@ T magnitude(const sf::Vector3<T>& vec) {
 }
 
 /**
+ * @brief Returns the squared distance between the two vectors
+ *
+ * @tparam T The type of vector components
+ * @param v1 The first vector
+ * @param v2 The second vector
+ * @return T The square of the distance between them
+ *
+ * @ingroup Math
+ */
+template<typename T>
+T distanceSquared(const sf::Vector3<T>& v1, const sf::Vector3<T>& v2) {
+    return magnitudeSquared(v1 - v2);
+}
+
+/**
+ * @brief Returns the distance between two vectors
+ *
+ * @tparam T The type of vector components
+ * @param v1 The first vector
+ * @param v2 The second vector
+ * @return T The distance between them
+ *
+ * @ingroup Math
+ */
+template<typename T>
+T distance(const sf::Vector3<T>& v1, const sf::Vector3<T>& v2) {
+    return std::sqrt(distanceSquared(v1, v2));
+}
+
+/**
+ * @brief Returns the manhattan distance between two vectors
+ *
+ * @tparam T The type of vector components
+ * @param v1 The first vector
+ * @param v2 The second vector
+ * @return T The manhattan distance between them
+ *
+ * @ingroup Math
+ */
+template<typename T>
+T manhattanDistance(const sf::Vector3<T>& v1, const sf::Vector3<T>& v2) {
+    return std::abs(v1.x - v2.x) + std::abs(v1.y - v2.y) + std::abs(v1.z - v2.z);
+}
+
+/**
  * @brief Normalizes the given vector in place
  *
  * @tparam T The type of vector components
  * @param vec The vector to normalize
+ *
+ * @ingroup Math
  */
 template<typename T>
 void normalize(sf::Vector3<T>& vec) {
@@ -141,6 +251,8 @@ void normalize(sf::Vector3<T>& vec) {
  * @tparam T The type of vector components
  * @param vec The vector to normalize
  * @return sf::Vector3<T> The normalized vector
+ *
+ * @ingroup Math
  */
 template<typename T>
 sf::Vector3<T> normalized(const sf::Vector3<T>& vec) {
@@ -155,6 +267,8 @@ sf::Vector3<T> normalized(const sf::Vector3<T>& vec) {
  * @param v1 The left vector
  * @param v2 The right vector
  * @return T The dot product of v1 and v2
+ *
+ * @ingroup Math
  */
 template<typename T>
 T dot(const sf::Vector3<T>& v1, const sf::Vector3<T>& v2) {

@@ -7,6 +7,6 @@
  *
  */
 
-#include <BLIB/AI/PathFinding.hpp>
+#include <BLIB/AI/PathFinder.hpp>
 
 #endif

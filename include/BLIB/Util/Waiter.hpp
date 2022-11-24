@@ -1,6 +1,7 @@
 #ifndef BLIB_UTIL_WAITER_HPP
 #define BLIB_UTIL_WAITER_HPP
 
+#include <BLIB/Logging.hpp>
 #include <atomic>
 #include <chrono>
 #include <condition_variable>
@@ -72,6 +73,14 @@ public:
      */
     static void unblockAll();
 
+    /**
+     * @brief Returns whether or not unblockAll() has been called. This is to signal threads to
+     *        avoid calling wait() again during shutdown.
+     *
+     * @return True if unblockAll() was called and threads should wait, false otherwise
+     */
+    static bool allUnblocked();
+
 private:
     std::atomic<bool> unblocked;
     std::mutex waitMutex;
@@ -82,9 +91,13 @@ private:
 
 template<class Rep, class Period>
 void Waiter::waitFor(const std::chrono::duration<Rep, Period>& timeout) {
+    if (allUnblocked()) {
+        BL_LOG_ERROR << "waitFor() called during shutdown. Threads should be exiting";
+        return;
+    }
     if (!unblocked) {
         std::unique_lock lock(waitMutex);
-        waitVar.wait_for(lock, timeout);
+        if (!unblocked) { waitVar.wait_for(lock, timeout); }
     }
 }
 

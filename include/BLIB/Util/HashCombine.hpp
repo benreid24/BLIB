@@ -1,6 +1,7 @@
 #ifndef BLIB_UTIL_HASHCOMBINE_HPP
 #define BLIB_UTIL_HASHCOMBINE_HPP
 
+#include <cstddef>
 #include <cstdint>
 
 namespace bl
