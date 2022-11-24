@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Parser</title>
+<title>BLIB: Util</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,40 +64,130 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Parser</div>  </div>
+<div class="title">Util</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes implementing a generic LR0 parser.  
+<p>Miscellaneous set of classes that provide common functionality.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01634.html">bl::parser::ISkipper</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.  <a href="a01634.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02025.html">bl::util::FileUtil</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Common utility functions for dealing with files and filenames.  <a href="a02025.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01638.html">bl::parser::Node</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.  <a href="a01638.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02029.html">bl::util::PairHash&lt; T1, T2, T1Hash, T2Hash &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility struct to allow hashing of std::pair objects.  <a href="a02029.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01646.html">bl::parser::Parser</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level <a class="el" href="a01646.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> class. Implements a basic LR0 parser from a <a class="el" href="a01618.html" title="Represents a grammar for a Parser to build a parse tree with from a token sequence. ">Grammar</a> and <a class="el" href="a01662.html" title="Utility class for a Parser to break down an input string into tokens. ">Tokenizer</a>.  <a href="a01646.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02033.html">bl::util::Vector2Hash&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized hash for sf::Vector2.  <a href="a02033.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01658.html">bl::parser::Stream</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.  <a href="a01658.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02037.html">bl::util::Vector3Hash&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized hash for sf::Vector3.  <a href="a02037.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01662.html">bl::parser::Tokenizer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for a <a class="el" href="a01646.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer. ">Parser</a> to break down an input string into tokens.  <a href="a01662.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02041.html">bl::util::IdAllocator&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks the current highest id to allow for tighter iteration over the id range. Ids are allocated in linear order.  <a href="a02041.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02045.html">bl::util::LastVariadic&lt; Ts &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a typedef for the last type in a variadic template parameter list.  <a href="a02045.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02053.html">bl::util::NonCopyable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to make derived classes impossible for user to copy directly.  <a href="a02053.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02057.html">bl::util::Random</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02057.html" title="Random number generator for integral and floating point numbers. ">Random</a> number generator for integral and floating point numbers.  <a href="a02057.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02065.html">bl::util::ReadWriteLock::ReadScopeGuard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII helper to acquire a read lock and release it when the scope is exited.  <a href="a02065.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02069.html">bl::util::ReadWriteLock::WriteScopeGuard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAII helper to acquire a write lock and release it when the scope is exited.  <a href="a02069.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02061.html">bl::util::ReadWriteLock</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockRead and lockWrite do not deadlock if called by the same thread more than once. Note that calling one and then the other will still deadlock.  <a href="a02061.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02073.html">bl::util::Signal&lt; CallbackArgs &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class perform callback actions on events. Can be configured to perform multiple callbacks. Includes a helper method to simply set a boolean variable.  <a href="a02073.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02089.html">bl::util::Timer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global class for tracking time. Implemented over the top of sf::Clock to allow for pausing.  <a href="a02089.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02093.html">bl::util::UnderlyingType&lt; T, bool &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides the underlying type of an enum with the added benefit of allow integral types to pass-through instead of throwing errors.  <a href="a02093.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02105.html">bl::util::Waiter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic utility class to pause a thread while waiting for a specific event.  <a href="a02105.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga5d5816901da87f0dd35b765c5ab2639e"><td class="memTemplParams" colspan="2">template&lt;std::size_t I = 0, typename FuncT , typename... Tp&gt; </td></tr>
+<tr class="memitem:ga5d5816901da87f0dd35b765c5ab2639e"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; I==sizeof...(Tp), void &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00942.html#ga5d5816901da87f0dd35b765c5ab2639e">bl::util::TupleLoop</a> (std::tuple&lt; Tp... &gt; &amp;, FuncT)</td></tr>
+<tr class="memdesc:ga5d5816901da87f0dd35b765c5ab2639e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base case for TupleLoop utility.  <a href="a00942.html#ga5d5816901da87f0dd35b765c5ab2639e">More...</a><br /></td></tr>
+<tr class="separator:ga5d5816901da87f0dd35b765c5ab2639e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of classes implementing a generic LR0 parser. </p>
+<p>Miscellaneous set of classes that provide common functionality. </p>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga5d5816901da87f0dd35b765c5ab2639e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5d5816901da87f0dd35b765c5ab2639e">&#9670;&nbsp;</a></span>TupleLoop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t I = 0, typename FuncT , typename... Tp&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if&lt;I == sizeof...(Tp), void&gt;::type bl::util::TupleLoop </td>
+          <td>(</td>
+          <td class="paramtype">std::tuple&lt; Tp... &gt; &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FuncT&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Base case for TupleLoop utility. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">I</td><td>Last index </td></tr>
+    <tr><td class="paramname">FuncT</td><td>callback method type </td></tr>
+    <tr><td class="paramname">Tp</td><td>Tuple types </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::enable_if&lt;I == sizeof...(Tp), void&gt;::type False type </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00022">22</a> of file <a class="el" href="a00572_source.html">TupleLoop.hpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 22 2022 23:58:11 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 24 2022 03:49:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

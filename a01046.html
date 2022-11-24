@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ai::PathMap&lt; TCoord &gt; Class Template Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,186 +63,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00961.html">bl</a></li><li class="navelem"><a class="el" href="a00962.html">ai</a></li><li class="navelem"><a class="el" href="a01046.html">PathMap</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00953.html">bl</a></li><li class="navelem"><a class="el" href="a00955.html">container</a></li><li class="navelem"><a class="el" href="a01049.html">FastQueue</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a01043.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::ai::PathMap&lt; TCoord &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00932.html">AI</a> &raquo; <a class="el" href="a00950.html">PathFinding</a></div></div>  </div>
+<div class="title">bl::container::FastQueue&lt; T &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>An interface for a traversable map meant to be navigated by a <a class="el" href="a01042.html" title="Class for calculating paths between arbitrary points in a PathMap. ">PathFinder</a>.  
- <a href="a01046.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00008_source.html">PathMap.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a484743533d130aebb4a0d60b1262e543"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01046.html#a484743533d130aebb4a0d60b1262e543">~PathMap</a> ()=default</td></tr>
-<tr class="separator:a484743533d130aebb4a0d60b1262e543"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1f3a8e92be480d4112dd1b5a68a094f"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01046.html#ac1f3a8e92be480d4112dd1b5a68a094f">movementCost</a> (const TCoord &amp;from, const TCoord &amp;to, <a class="el" href="a00965.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a> mover) const =0</td></tr>
-<tr class="memdesc:ac1f3a8e92be480d4112dd1b5a68a094f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the cost for the given entity to move from one position to another. A negative result indicates that the movement is impossible.  <a href="#ac1f3a8e92be480d4112dd1b5a68a094f">More...</a><br /></td></tr>
-<tr class="separator:ac1f3a8e92be480d4112dd1b5a68a094f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73b053225fcfcac442fd79fe5abd064c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01046.html#a73b053225fcfcac442fd79fe5abd064c">getAdjacentNodes</a> (const TCoord &amp;node, std::vector&lt; TCoord &gt; &amp;result) const =0</td></tr>
-<tr class="memdesc:a73b053225fcfcac442fd79fe5abd064c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates the result array with the list of adjacent positions.  <a href="#a73b053225fcfcac442fd79fe5abd064c">More...</a><br /></td></tr>
-<tr class="separator:a73b053225fcfcac442fd79fe5abd064c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename TCoord&gt;<br />
-class bl::ai::PathMap&lt; TCoord &gt;</h3>
-
-<p>An interface for a traversable map meant to be navigated by a <a class="el" href="a01042.html" title="Class for calculating paths between arbitrary points in a PathMap. ">PathFinder</a>. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TCoord</td><td>The coordinate type being used for position </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00008_source.html#l00018">18</a> of file <a class="el" href="a00008_source.html">PathMap.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a484743533d130aebb4a0d60b1262e543"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a484743533d130aebb4a0d60b1262e543">&#9670;&nbsp;</a></span>~PathMap()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="a01046.html">bl::ai::PathMap</a>&lt; TCoord &gt;::~<a class="el" href="a01046.html">PathMap</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a73b053225fcfcac442fd79fe5abd064c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73b053225fcfcac442fd79fe5abd064c">&#9670;&nbsp;</a></span>getAdjacentNodes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void <a class="el" href="a01046.html">bl::ai::PathMap</a>&lt; TCoord &gt;::getAdjacentNodes </td>
-          <td>(</td>
-          <td class="paramtype">const TCoord &amp;&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; TCoord &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Populates the result array with the list of adjacent positions. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">node</td><td>The position to get neighbors for </td></tr>
-    <tr><td class="paramname">result</td><td>A vector to populate with the adjacent nodes </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ac1f3a8e92be480d4112dd1b5a68a094f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1f3a8e92be480d4112dd1b5a68a094f">&#9670;&nbsp;</a></span>movementCost()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int <a class="el" href="a01046.html">bl::ai::PathMap</a>&lt; TCoord &gt;::movementCost </td>
-          <td>(</td>
-          <td class="paramtype">const TCoord &amp;&#160;</td>
-          <td class="paramname"><em>from</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const TCoord &amp;&#160;</td>
-          <td class="paramname"><em>to</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00965.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>mover</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the cost for the given entity to move from one position to another. A negative result indicates that the movement is impossible. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">from</td><td>The entity's current position </td></tr>
-    <tr><td class="paramname">to</td><td>The position the entity is trying to move to </td></tr>
-    <tr><td class="paramname">mover</td><td>The entity trying to move </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>int The cost to traverse the positions, or a negative number if not traversable </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/AI/PathFinding/<a class="el" href="a00008_source.html">PathMap.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01049.html">bl::container::FastQueue&lt; T &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01049.html#a6039f142f63a1d033880ba6f309d7273">back</a>() const</td><td class="entry"><a class="el" href="a01049.html">bl::container::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01049.html#a5a75051722fb4261307f0e6302acb3e5">clear</a>()</td><td class="entry"><a class="el" href="a01049.html">bl::container::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01049.html#a12a8af102b1626247396935388632321">empty</a>() const</td><td class="entry"><a class="el" href="a01049.html">bl::container::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01049.html#a70ebab907610612e57b5020acace4886">pop_back</a>(T &amp;value)</td><td class="entry"><a class="el" href="a01049.html">bl::container::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01049.html#af44d25a6e30490b8aa39a04a207ea8fa">pop_back</a>()</td><td class="entry"><a class="el" href="a01049.html">bl::container::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01049.html#a4ef8f35cfaba2e507f801839b0ae4c84">promote_front</a>(const T &amp;value, bool addIfNotFound=false)</td><td class="entry"><a class="el" href="a01049.html">bl::container::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01049.html#aa4170049efe4338f520d7287b040e271">push_front</a>(const T &amp;value)</td><td class="entry"><a class="el" href="a01049.html">bl::container::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01049.html#a0c18c152a6a2feb1c92758ca16529475">remove</a>(const T &amp;value)</td><td class="entry"><a class="el" href="a01049.html">bl::container::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01049.html#a18c39d0be3e9371d28a90237d4c9739e">size</a>() const</td><td class="entry"><a class="el" href="a01049.html">bl::container::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 22 2022 23:58:11 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 24 2022 03:49:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

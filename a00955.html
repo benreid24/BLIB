@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: InterfaceUtilities</title>
+<title>BLIB: bl::container Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,7 +47,6 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,80 +61,65 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="a00953.html">bl</a></li><li class="navelem"><a class="el" href="a00955.html">container</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">InterfaceUtilities<div class="ingroups"><a class="el" href="a00938.html">Interface</a></div></div>  </div>
+<div class="title">bl::container Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of helpers and utilities for interfaces in general.  
+<p>Collection of containers and container like classes more specialized than the STL.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01550.html">bl::interface::GhostWriter</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic string wrapper that allows for text to be unhidden over time.  <a href="a01550.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01037.html">Any</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed size equivalent of std::any. Specified size is for in place storage. Stored objects smaller than that size will be stored in place, which allows sequential storage for cache locality optimization. Larger objects will require allocations. In place storage size is always used, even for types requiring allocation. Care must be taken to balance trying to fit many types inplace while minimizing waste for unused inplace storage.  <a href="a01037.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html">bl::interface::ViewUtil</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of helper functions for computing views for various constraints. Most utilities are primarily for computing views to render menus.  <a href="a01554.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01041.html">Cache</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto-evicting cache with several policy options and programmable watermarks.  <a href="a01041.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga9d8f6970c459e4acf9ad6adac4e1592b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00955.html#ga9d8f6970c459e4acf9ad6adac4e1592b">bl::interface::wordWrap</a> (sf::Text &amp;<a class="el" href="a00737.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a>, float maxWidth)</td></tr>
-<tr class="memdesc:ga9d8f6970c459e4acf9ad6adac4e1592b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic helper function to wrap text to fit within a specified maximum width.  <a href="a00955.html#ga9d8f6970c459e4acf9ad6adac4e1592b">More...</a><br /></td></tr>
-<tr class="separator:ga9d8f6970c459e4acf9ad6adac4e1592b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01045.html">FastEraseVector</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a01045.html#ac6424078bf8566ee5aab963214fc288f" title="Erase a single element using an iterator. ">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy.  <a href="a01045.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01049.html">FastQueue</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO Container class similar to std::queue but allows promoting an element back to the front in O(1) time. Values contained must be unique.  <a href="a01049.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01053.html">Grid</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic spatial partioning grid class for breaking down areas into equal sized boxes. <a class="el" href="a01053.html" title="Basic spatial partioning grid class for breaking down areas into equal sized boxes. Grid is meant only to point to objects stored elsewhere, however all trivial types are allowed. Contained values should be unique, otherwise move() and remove() may behave unexpectedly. ">Grid</a> is meant only to point to objects stored elsewhere, however all trivial types are allowed. Contained values should be unique, otherwise <a class="el" href="a01053.html#a2fa5322d0450317c1b4c59727f33a7d7" title="Moves the given value from it&#39;s old position in the grid to the new position. ">move()</a> and <a class="el" href="a01053.html#a055247b0a6e8184e08841cabd6a995fc" title="Removes an entity to the grid at the given position. ">remove()</a> may behave unexpectedly.  <a href="a01053.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html">ObjectPool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic object pool that may vary in size. Similar to <a class="el" href="a01045.html" title="A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...">FastEraseVector</a> in that erase is O(1), however objects in the pool maintain their indices in the <a class="el" href="a01057.html" title="Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1)...">ObjectPool</a>. Object slots are marked free on <a class="el" href="a01057.html#ab442aaa73233ff5659c828b7cfc9d228" title="Removes the given iterator from the pool and marks the object slot for resuse. All iterators remain v...">erase()</a>, reused on <a class="el" href="a01057.html#a058a31d48e47bf82c5739ba9f83234b0" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a>, and the pool grows in size if no slot is when <a class="el" href="a01057.html#a058a31d48e47bf82c5739ba9f83234b0" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a> is called. Objects must implement a default constructor and copy constructor.  <a href="a01057.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01073.html">ObjectWrapper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thin wrapper over objects that functions similar to std::optional but does not have any overhead. Does not store the presence state of the object contained. That must be done by the user. Intended to be used within other datastructures that can know if elements are constructed or not.  <a href="a01073.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01077.html">QuadTree</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently if the payload type is trivially movable. Stored objects are keyed on position.  <a href="a01077.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01097.html">RingBuffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple circular buffer implementation for small objects. Underlying storage is a std::vector of buffers. Objects are constructed with placement new and destructors are called when erased, cleared, or overwritten.  <a href="a01097.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01105.html">RingQueue</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queue that uses a fixed size buffer internally to maintain contiguous storage and avoid allocations. The queue cannot hold more elements than it's capacity.  <a href="a01105.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01109.html">Vector2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class that wraps std::vector, making it indexable in two dimensions.  <a href="a01109.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of helpers and utilities for interfaces in general. </p>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="ga9d8f6970c459e4acf9ad6adac4e1592b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9d8f6970c459e4acf9ad6adac4e1592b">&#9670;&nbsp;</a></span>wordWrap()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::interface::wordWrap </td>
-          <td>(</td>
-          <td class="paramtype">sf::Text &amp;&#160;</td>
-          <td class="paramname"><em>text</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>maxWidth</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Basic helper function to wrap text to fit within a specified maximum width. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">text</td><td>The text to wrap. Must be initialized with font and size. Modifed in place </td></tr>
-    <tr><td class="paramname">maxWidth</td><td>The width to constrain the text to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00782_source.html#l00007">7</a> of file <a class="el" href="a00782_source.html">WordWrap.cpp</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Collection of containers and container like classes more specialized than the STL. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 22 2022 23:58:11 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 24 2022 03:49:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

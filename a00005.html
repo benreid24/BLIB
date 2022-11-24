@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/AI/PathFinding/PathFinder.hpp File Reference</title>
+<title>BLIB: include/BLIB/AI/PathFinder.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,26 +63,22 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_291eb07325221967c936384631cb9ac5.html">AI</a></li><li class="navelem"><a class="el" href="dir_66c428579e1992a5289247780864eb33.html">PathFinding</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_291eb07325221967c936384631cb9ac5.html">AI</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">PathFinder.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00008_source.html">BLIB/AI/PathFinding/PathMap.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00068_source.html">BLIB/ECS/Entity.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00554_source.html">BLIB/Util/Hashes.hpp</a>&gt;</code><br />
-<code>#include &lt;SFML/System/Vector2.hpp&gt;</code><br />
-<code>#include &lt;SFML/System/Vector3.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00548_source.html">BLIB/Util/Hashes.hpp</a>&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;queue&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div>
@@ -90,46 +86,24 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01042.html">bl::ai::PathFinder&lt; TCoord, CoordHash &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class for calculating paths between arbitrary points in a <a class="el" href="a01046.html" title="An interface for a traversable map meant to be navigated by a PathFinder. ">PathMap</a>.  <a href="a01042.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01033.html">bl::ai::PathFinder&lt; TNode, CoordHash &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class for calculating paths between arbitrary points in a PathMap.  <a href="a01033.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00961"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00961.html">bl</a></td></tr>
-<tr class="memdesc:a00961"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a00953"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00953.html">bl</a></td></tr>
+<tr class="memdesc:a00953"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00962"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00962.html">bl::ai</a></td></tr>
-<tr class="memdesc:a00962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of utilities to aid in the development of game AI. <br /></td></tr>
+<tr class="memitem:a00954"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00954.html">bl::ai</a></td></tr>
+<tr class="memdesc:a00954"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of utilities to aid in the development of game AI. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00963"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00963.html">bl::ai::helpers</a></td></tr>
-<tr class="memdesc:a00963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper methods and classes for use with AI features. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga72dfc325907fdc037df765860eac4992"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga72dfc325907fdc037df765860eac4992"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00949.html#ga72dfc325907fdc037df765860eac4992">bl::ai::helpers::Vector2ManhattanDist</a> (const sf::Vector2&lt; T &gt; &amp;from, const sf::Vector2&lt; T &gt; &amp;to, ecs::Entity)</td></tr>
-<tr class="memdesc:ga72dfc325907fdc037df765860eac4992"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the manhattan distance between two points.  <a href="a00949.html#ga72dfc325907fdc037df765860eac4992">More...</a><br /></td></tr>
-<tr class="separator:ga72dfc325907fdc037df765860eac4992"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4151d9c50c75b592ab4cf9eb41eccac6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga4151d9c50c75b592ab4cf9eb41eccac6"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00949.html#ga4151d9c50c75b592ab4cf9eb41eccac6">bl::ai::helpers::Vector2RealDist</a> (const sf::Vector2&lt; T &gt; &amp;from, const sf::Vector2&lt; T &gt; &amp;to, ecs::Entity)</td></tr>
-<tr class="memdesc:ga4151d9c50c75b592ab4cf9eb41eccac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the real distance between two points.  <a href="a00949.html#ga4151d9c50c75b592ab4cf9eb41eccac6">More...</a><br /></td></tr>
-<tr class="separator:ga4151d9c50c75b592ab4cf9eb41eccac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga61e437a5825eaadc5b49a6df8516929c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga61e437a5825eaadc5b49a6df8516929c"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00949.html#ga61e437a5825eaadc5b49a6df8516929c">bl::ai::helpers::Vector3ManhattanDist</a> (const sf::Vector3&lt; T &gt; &amp;from, const sf::Vector3&lt; T &gt; &amp;to, ecs::Entity)</td></tr>
-<tr class="memdesc:ga61e437a5825eaadc5b49a6df8516929c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the manhattan distance between two points.  <a href="a00949.html#ga61e437a5825eaadc5b49a6df8516929c">More...</a><br /></td></tr>
-<tr class="separator:ga61e437a5825eaadc5b49a6df8516929c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0e8d337c917d15acf2054971e31f4611"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga0e8d337c917d15acf2054971e31f4611"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00949.html#ga0e8d337c917d15acf2054971e31f4611">bl::ai::helpers::Vector3RealDist</a> (const sf::Vector2&lt; T &gt; &amp;from, const sf::Vector2&lt; T &gt; &amp;to, ecs::Entity)</td></tr>
-<tr class="memdesc:ga0e8d337c917d15acf2054971e31f4611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the real distance between two points.  <a href="a00949.html#ga0e8d337c917d15acf2054971e31f4611">More...</a><br /></td></tr>
-<tr class="separator:ga0e8d337c917d15acf2054971e31f4611"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 22 2022 23:58:11 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 24 2022 03:49:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

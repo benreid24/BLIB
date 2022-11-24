@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS.hpp Source File</title>
+<title>BLIB: include/BLIB/Engine.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,22 +68,21 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ECS.hpp</div>  </div>
+<div class="title">Engine.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00083.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_HPP</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_HPP</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00053.html">BLIB/ECS/Cleaner.hpp</a>&gt;</span></div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00056.html">BLIB/ECS/ComponentMask.hpp</a>&gt;</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00059.html">BLIB/ECS/ComponentPool.hpp</a>&gt;</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00062.html">BLIB/ECS/ComponentSet.hpp</a>&gt;</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00068.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02580.html">BLIB/ECS/Events.hpp</a>&gt;</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00074.html">BLIB/ECS/Registry.hpp</a>&gt;</span></div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00077.html">BLIB/ECS/View.hpp</a>&gt;</span></div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="a02580_html"><div class="ttname"><a href="a02580.html">Events.hpp</a></div></div>
-<div class="ttc" id="a00068_html"><div class="ttname"><a href="a00068.html">Entity.hpp</a></div></div>
-<div class="ttc" id="a00056_html"><div class="ttname"><a href="a00056.html">ComponentMask.hpp</a></div></div>
-<div class="ttc" id="a00059_html"><div class="ttname"><a href="a00059.html">ComponentPool.hpp</a></div></div>
-<div class="ttc" id="a00062_html"><div class="ttname"><a href="a00062.html">ComponentSet.hpp</a></div></div>
-<div class="ttc" id="a00074_html"><div class="ttname"><a href="a00074.html">Registry.hpp</a></div></div>
-<div class="ttc" id="a00077_html"><div class="ttname"><a href="a00077.html">View.hpp</a></div></div>
-<div class="ttc" id="a00053_html"><div class="ttname"><a href="a00053.html">Cleaner.hpp</a></div></div>
+<a href="a00083.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_HPP</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_HPP</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00080.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02570.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02567.html">BLIB/Engine/Events.hpp</a>&gt;</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00104.html">BLIB/Engine/Flags.hpp</a>&gt;</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02573.html">BLIB/Engine/Resources.hpp</a>&gt;</span></div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00110.html">BLIB/Engine/Settings.hpp</a>&gt;</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00113.html">BLIB/Engine/State.hpp</a>&gt;</span></div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="a00110_html"><div class="ttname"><a href="a00110.html">Settings.hpp</a></div></div>
+<div class="ttc" id="a02573_html"><div class="ttname"><a href="a02573.html">Resources.hpp</a></div></div>
+<div class="ttc" id="a02567_html"><div class="ttname"><a href="a02567.html">Events.hpp</a></div></div>
+<div class="ttc" id="a02570_html"><div class="ttname"><a href="a02570.html">Engine.hpp</a></div></div>
+<div class="ttc" id="a00113_html"><div class="ttname"><a href="a00113.html">State.hpp</a></div></div>
+<div class="ttc" id="a00080_html"><div class="ttname"><a href="a00080.html">Configuration.hpp</a></div></div>
+<div class="ttc" id="a00104_html"><div class="ttname"><a href="a00104.html">Flags.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 22 2022 23:58:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 24 2022 03:49:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
