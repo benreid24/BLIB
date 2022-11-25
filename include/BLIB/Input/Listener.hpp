@@ -41,6 +41,12 @@ public:
     Listener(Listener&& moved);
 
     /**
+     * @brief Unsubscribes the listener if subscribed
+     *
+     */
+    virtual ~Listener();
+
+    /**
      * @brief Notifies the listener of an input event. Listeners are notified in the reverse order
      *        of when they subscribed to the Actor
      *

@@ -1,4 +1,5 @@
 #include <BLIB/Engine/Flags.hpp>
+#include <array>
 #include <gtest/gtest.h>
 
 namespace bl
