@@ -3,6 +3,7 @@
 
 #include <BLIB/Util/NonCopyable.hpp>
 
+#include <algorithm>
 #include <chrono>
 #include <limits>
 #include <random>
@@ -61,9 +62,9 @@ public:
     template<typename T>
     static std::enable_if_t<std::is_floating_point_v<T>, T> get(T min, T max) {
         if (min > max) std::swap(min, max);
-        const uint32_t range = std::numeric_limits<uint32_t>::max();
-        const T point        = get<uint32_t>(0, range);
-        return min + point / static_cast<T>(range) * (max - min);
+        constexpr std::uint32_t range = std::numeric_limits<std::uint32_t>::max();
+        const std::uint32_t point     = get<uint32_t>(0, range);
+        return min + static_cast<T>(point / range) * (max - min);
     }
 
     /**
@@ -77,15 +78,36 @@ public:
         return get<int>(0, denominator) > numerator;
     }
 
+    /**
+     * @brief Helper function that utilizes the random number generation of this module to shuffle a
+     *        sequence of values. Affected iterators are [begin, end)
+     *
+     * @tparam RandomIter Iterator type. Must be passable to std::shuffle
+     * @param begin The begin iterator of the container to shuffle
+     * @param end The end iterator of the container to shuffle
+     */
+    template<typename RandomIter>
+    static void shuffle(RandomIter begin, RandomIter end) {
+        std::shuffle(begin, end, Shuffler());
+    }
+
 private:
     Random()
     : rng(rngdev()) {
         rng.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
     }
+
     static Random& _priv() {
         static Random rng;
         return rng;
     }
+
+    struct Shuffler {
+        using result_type = std::uint32_t;
+        constexpr static result_type min() { return std::numeric_limits<result_type>::min(); }
+        constexpr static result_type max() { return std::numeric_limits<result_type>::max(); }
+        result_type operator()() const { return Random::get<result_type>(min(), max()); }
+    };
 
     std::random_device rngdev;
     std::mt19937 rng;
