@@ -64,7 +64,8 @@ public:
         if (min > max) std::swap(min, max);
         constexpr std::uint32_t range = std::numeric_limits<std::uint32_t>::max();
         const std::uint32_t point     = get<uint32_t>(0, range);
-        return min + static_cast<T>(point / range) * (max - min);
+        const T p                     = static_cast<T>(point) / static_cast<T>(range);
+        return min + p * (max - min);
     }
 
     /**
