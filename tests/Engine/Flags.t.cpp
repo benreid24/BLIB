@@ -14,15 +14,17 @@ namespace unittest
 {
 TEST(EngineFlags, FlagSet) {
     Engine engine;
+    const std::array<Flags::Flag, 4> allFlags{
+        Flags::Terminate, Flags::PopState, Flags::_priv_PushState, Flags::_priv_ReplaceState};
 
-    for (int flag = 0; flag < engine::Flags::_NUM_FLAGS; ++flag) {
+    for (const Flags::Flag flag : allFlags) {
         EXPECT_FALSE(engine.flags.active(engine::Flags::Flag(flag)));
         engine.flags.set(engine::Flags::Flag(flag));
         EXPECT_TRUE(engine.flags.active(engine::Flags::Flag(flag)));
     }
 
     engine.clear();
-    for (int flag = 0; flag < engine::Flags::_NUM_FLAGS; ++flag) {
+    for (const Flags::Flag flag : allFlags) {
         EXPECT_FALSE(engine.flags.active(engine::Flags::Flag(flag)));
     }
 }
