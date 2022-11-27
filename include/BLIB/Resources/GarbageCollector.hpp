@@ -12,7 +12,7 @@ namespace bl
 {
 namespace resource
 {
-class ManagerBase;
+class ResourceManagerBase;
 
 /**
  * @brief Instantiates the garbage collector and starts resource cleanup in the background
@@ -21,11 +21,8 @@ class ManagerBase;
  *
  */
 class GarbageCollector : private util::NonCopyable {
-public:
-    static void shutdown();
-
 private:
-    using MP = std::pair<ManagerBase*, unsigned int>;
+    using MP = std::pair<ResourceManagerBase*, unsigned int>;
     std::thread thread;
     std::atomic_bool quitFlag;
     std::condition_variable quitCv;
@@ -38,12 +35,16 @@ private:
     void runner();
     unsigned int soonestIndex() const;
 
-    void registerManager(ManagerBase* manager);
-    void unregisterManager(ManagerBase* manager);
-    friend class ManagerBase;
+    void registerManager(ResourceManagerBase* manager);
+    void unregisterManager(ResourceManagerBase* manager);
+    void managerPeriodChanged(ResourceManagerBase* manager);
+    friend class ResourceManagerBase;
+
+    // TODO - register bundles as well
 
     static GarbageCollector& get();
 };
+
 } // namespace resource
 } // namespace bl
 

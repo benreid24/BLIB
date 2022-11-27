@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
-    Manager.cpp
+    FileSystem.cpp
     GarbageCollector.cpp
+    ResourceManager.cpp
 )

@@ -1,7 +1,7 @@
 #include <BLIB/Resources/GarbageCollector.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Resources/Manager.hpp>
+#include <BLIB/Resources/ResourceManager.hpp>
 #include <optional>
 #include <vector>
 
@@ -26,10 +26,6 @@ GarbageCollector::~GarbageCollector() {
     if (!stopped) { stop(); }
 }
 
-void GarbageCollector::shutdown() {
-    if (started && !stopped) { get().stop(); }
-}
-
 void GarbageCollector::stop() {
     if (thread.joinable()) {
         BL_LOG_INFO << "Terminating GarbageCollector";
@@ -39,9 +35,7 @@ void GarbageCollector::stop() {
         stopped = true;
         BL_LOG_INFO << "GarbageCollector terminated";
     }
-    else {
-        BL_LOG_ERROR << "GarbageCollector already shutdown";
-    }
+    else { BL_LOG_ERROR << "GarbageCollector already shutdown"; }
 }
 
 GarbageCollector& GarbageCollector::get() {
@@ -49,14 +43,23 @@ GarbageCollector& GarbageCollector::get() {
     return gc;
 }
 
-void GarbageCollector::registerManager(ManagerBase* m) {
+void GarbageCollector::registerManager(ResourceManagerBase* m) {
     std::unique_lock lock(managerLock);
     managers.emplace_back(m, m->gcPeriod);
     lock.unlock();
     quitCv.notify_all();
 }
 
-void GarbageCollector::unregisterManager(ManagerBase* m) {
+void GarbageCollector::managerPeriodChanged(ResourceManagerBase* m) {
+    std::unique_lock lock(managerLock);
+    for (auto& rm : managers) {
+        if (rm.first == m) { rm.second = m->gcPeriod; }
+    }
+    lock.unlock();
+    quitCv.notify_all();
+}
+
+void GarbageCollector::unregisterManager(ResourceManagerBase* m) {
     std::unique_lock lock(managerLock);
 
     for (unsigned int i = 0; i < managers.size(); ++i) {
@@ -94,9 +97,7 @@ void GarbageCollector::runner() {
                 omp.first->doClean();
                 omp.second = omp.first->gcPeriod;
             }
-            else {
-                omp.second -= sleptTime;
-            }
+            else { omp.second -= sleptTime; }
         }
     }
 }

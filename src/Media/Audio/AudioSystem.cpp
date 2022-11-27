@@ -1,7 +1,6 @@
 #include <BLIB/Media/Audio/AudioSystem.hpp>
 
 #include <BLIB/Engine/Configuration.hpp>
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <SFML/Audio.hpp>
@@ -138,7 +137,7 @@ AudioSystem::Handle AudioSystem::getOrLoadSound(const std::string& path) {
     auto sit = r.sounds.find(handle);
     if (sit == r.sounds.end()) {
         sit                = r.sounds.try_emplace(handle).first;
-        sit->second.buffer = engine::Resources::sounds().load(path).data;
+        sit->second.buffer = resource::ResourceManager<sf::SoundBuffer>::load(path).data;
         if (sit->second.buffer->getSampleCount() == 0) {
             r.sounds.erase(sit);
             BL_LOG_ERROR << "Failed to load sound: " << path;
@@ -221,7 +220,7 @@ AudioSystem::Handle AudioSystem::getOrLoadPlaylist(const std::string& path) {
     const auto it = Runner::get().playlistHandles.find(path);
     if (it != Runner::get().playlistHandles.end()) return it->second;
 
-    resource::Resource<Playlist> res = engine::Resources::playlists().load(path);
+    resource::Resource<Playlist> res = resource::ResourceManager<Playlist>::load(path);
     if (res.data->getSongList().empty()) return AudioSystem::InvalidHandle;
 
     const Handle handle = makeHandle();
@@ -486,7 +485,7 @@ std::unordered_map<AudioSystem::Handle, Sound>::iterator Runner::validateAndLoad
         auto hit = soundSources.find(sound);
         if (hit == soundSources.end()) return sounds.end();
         it                = sounds.try_emplace(sound).first;
-        it->second.buffer = engine::Resources::sounds().load(hit->second).data;
+        it->second.buffer = resource::ResourceManager<sf::SoundBuffer>::load(hit->second).data;
         if (it->second.buffer->getSampleCount() == 0) {
             sounds.erase(it);
             return sounds.end();
@@ -507,7 +506,7 @@ PlaylistHandle Runner::validateAndLoadPlaylist(AudioSystem::Handle handle) {
 
     if (sit == playlistSources.end()) return {};
 
-    const auto res = engine::Resources::playlists().load(sit->second);
+    const auto res = resource::ResourceManager<Playlist>::load(sit->second);
     if (res.data->getSongList().empty()) return {};
     playlists.emplace(handle, res.getWeakRef());
     return res.data;

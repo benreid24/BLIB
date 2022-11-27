@@ -7,11 +7,10 @@
  *        lifetimes
  */
 
-#include <BLIB/Resources/AsyncLoader.hpp>
-#include <BLIB/Resources/BackgroundLoader.hpp>
+#include <BLIB/Resources/FileSystem.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
 #include <BLIB/Resources/Loader.hpp>
-#include <BLIB/Resources/Manager.hpp>
 #include <BLIB/Resources/Resource.hpp>
+#include <BLIB/Resources/ResourceManager.hpp>
 
 #endif

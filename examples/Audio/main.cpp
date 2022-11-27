@@ -1,4 +1,3 @@
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Media/Audio.hpp>
 #include <BLIB/Serialization/Binary.hpp>
 
@@ -12,13 +11,13 @@ int main() {
     // We will use these later for demonstrating AudioSystem
     bl::audio::Playlist list1;
     list1.addSong("resources/song1.ogg");
-    list1.save("list1.plst");
+    list1.saveToFile("list1.plst");
     bl::audio::Playlist list2;
     list2.addSong("resources/song2.ogg");
-    list2.save("list2.plst");
+    list2.saveToFile("list2.plst");
     bl::audio::Playlist list3;
     list3.addSong("resources/song3.ogg");
-    list3.save("list3.plst");
+    list3.saveToFile("list3.plst");
 
     // playlists may be created manually
     bl::audio::Playlist playlist;

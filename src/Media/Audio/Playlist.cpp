@@ -2,6 +2,8 @@
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Media/Audio/Playlist.hpp>
+#include <BLIB/Resources.hpp>
+#include <BLIB/Serialization.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <BLIB/Util/Random.hpp>
 
@@ -28,10 +30,12 @@ Playlist::Playlist()
 
 Playlist::Playlist(const std::string& file)
 : Playlist() {
-    serial::binary::InputFile input(file);
-    if (!Serializer::deserialize(input, *this)) {
-        BL_LOG_ERROR << "Failed to load playlist from file: " << file;
-    }
+    loadFromFile(file);
+}
+
+Playlist::Playlist(const std::vector<char>& data)
+: Playlist() {
+    loadFromMemory(data);
 }
 
 Playlist::Playlist(const Playlist& copy)
@@ -41,14 +45,30 @@ Playlist::Playlist(const Playlist& copy)
     shuffleOnLoop = copy.shuffleOnLoop;
 }
 
-bool Playlist::save(const std::string& path) const {
+bool Playlist::saveToFile(const std::string& path) const {
     serial::binary::OutputFile out(path);
     return Serializer::serialize(out, *this);
 }
 
-bool Playlist::load(const std::string& path) {
+bool Playlist::loadFromFile(const std::string& path) {
     serial::binary::InputFile in(path);
-    if (!Serializer::deserialize(in, *this)) return false;
+    if (!Serializer::deserialize(in, *this)) {
+        BL_LOG_ERROR << "Failed to load playlist from file: " << path;
+        return false;
+    }
+    playing      = false;
+    paused       = false;
+    currentIndex = 0;
+    return true;
+}
+
+bool Playlist::loadFromMemory(const std::vector<char>& data) {
+    serial::MemoryInputBuffer buf(data);
+    serial::binary::InputStream in(buf);
+    if (!Serializer::deserialize(in, *this)) {
+        BL_LOG_ERROR << "Failed to load playlist from memory";
+        return false;
+    }
     playing      = false;
     paused       = false;
     currentIndex = 0;
@@ -70,7 +90,7 @@ void Playlist::play() {
         if (!paused) {
             if (_shuffle) shuffle();
             currentIndex = 0;
-            while (!current.openFromFile(songfile(songs[currentIndex]))) {
+            while (!openMusic(currentIndex)) {
                 currentIndex = (currentIndex + 1) % songs.size();
                 if (currentIndex == 0) {
                     playing = false;
@@ -82,6 +102,11 @@ void Playlist::play() {
         paused = false;
         if (playing) current.play();
     }
+}
+
+bool Playlist::openMusic(unsigned int i) {
+    if (!resource::FileSystem::getData(songfile(songs[i]), buffer)) return false;
+    return current.openFromMemory(buffer.data(), buffer.size());
 }
 
 void Playlist::pause() {
@@ -104,7 +129,7 @@ void Playlist::update() {
         if (current.getStatus() == sf::Music::Stopped) {
             unsigned int newI = (currentIndex + 1) % songs.size();
             if (newI == startIndex && shuffleOnLoop) shuffle();
-            while (!current.openFromFile(songfile(songs[newI]))) {
+            while (!openMusic(newI)) {
                 newI = (newI + 1) % songs.size();
                 if (newI == currentIndex) break;
             }

@@ -27,7 +27,6 @@ Engine::~Engine() {
 
 #ifndef ON_CI
     audio::AudioSystem::shutdown();
-    resource::GarbageCollector::shutdown();
 #endif
 }
 

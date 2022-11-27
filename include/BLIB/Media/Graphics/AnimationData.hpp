@@ -2,13 +2,12 @@
 #define BLIB_MEDIA_ANIMATIONDATA_HPP
 
 #include <BLIB/Media/Graphics/VertexBuffer.hpp>
-#include <BLIB/Resources.hpp>
-
+#include <BLIB/Resources/Resource.hpp>
+#include <BLIB/Serialization.hpp>
+#include <SFML/Graphics.hpp>
 #include <memory>
 #include <string>
 #include <vector>
-
-#include <SFML/Graphics.hpp>
 
 namespace bl
 {
@@ -41,6 +40,16 @@ public:
     AnimationData(const std::string& filename);
 
     /**
+     * @brief Loads the AnimationData from the given file. Spritesheets are searched for in the
+     *        same directory as the animation file. If not found then
+     *        engine::Configuration::get("blib.animation.spritesheet_path") is used
+     *
+     * @param data The memory buffer to load from
+     * @param originalPath The original file path of the animation. Used to help locate spritesheet
+     */
+    AnimationData(const std::vector<char>& data, const std::string& originalPath);
+
+    /**
      * @brief Loads the animation from the given file, overwriting internal data
      *        Spritesheets are searched for in the same directory as the file. If not found then
      *        engine::Configuration::get("blib.animation.spritesheet_path") is used
@@ -49,7 +58,18 @@ public:
      * @param spritesheetDir Optional additional directory to search for spritesheets
      * @return bool True if the animation could be loaded, false otherwise
      */
-    bool load(const std::string& filename);
+    bool loadFromFile(const std::string& filename);
+
+    /**
+     * @brief Loads the AnimationData from the given file. Spritesheets are searched for in the
+     *        same directory as the animation file. If not found then
+     *        engine::Configuration::get("blib.animation.spritesheet_path") is used
+     *
+     * @param data The memory buffer to load from
+     * @param originalPath The original file path of the animation. Used to help locate spritesheet
+     * @return True if the animation could be loaded, false on error
+     */
+    bool loadFromMemory(const std::vector<char>& data, const std::string& originalPath);
 
     /**
      * @brief Returns the filename of the spritesheet
@@ -115,8 +135,8 @@ private:
 
     void render(sf::RenderTarget& target, sf::RenderStates states, const sf::Vector2f& position,
                 const sf::Vector2f& scale, float rotation, unsigned int frame) const;
-
     sf::Vector2f computeFrameSize(unsigned int i) const;
+    bool doLoad(serial::binary::InputStream& input, const std::string& path);
 
     friend class Animation;
 };

@@ -33,6 +33,13 @@ public:
     Playlist(const std::string& source);
 
     /**
+     * @brief Loads the playlist from the given data
+     *
+     * @param data The data to load from
+     */
+    Playlist(const std::vector<char>& data);
+
+    /**
      * @brief Copies the song list and shuffle setting from the given playlist, but not it's state
      *
      * @param copy The playlist to duplicate
@@ -54,7 +61,15 @@ public:
      * @param path The file to load from
      * @return True on success, false on error
      */
-    bool load(const std::string& path);
+    bool loadFromFile(const std::string& path);
+
+    /**
+     * @brief Loads the playlist from the given memory buffer
+     *
+     * @param data The memory buffer to load from
+     * @return True if the playlist could be loaded, false otherwise
+     */
+    bool loadFromMemory(const std::vector<char>& data);
 
     /**
      * @brief Saves the conversation to the given binary file
@@ -62,7 +77,7 @@ public:
      * @param path The file to save to
      * @return True if the conversation could be saved, false on error
      */
-    bool save(const std::string& path) const;
+    bool saveToFile(const std::string& path) const;
 
     /**
      * @brief Returns whether or not the playlist is playing
@@ -166,12 +181,14 @@ private:
     bool _shuffle;
     bool shuffleOnLoop;
 
+    std::vector<char> buffer;
     sf::Music current;
     unsigned int currentIndex;
     unsigned int startIndex;
     bool playing, paused;
 
     void shuffle();
+    bool openMusic(unsigned int i);
 
     friend struct serial::SerializableObject<audio::Playlist>;
 };
