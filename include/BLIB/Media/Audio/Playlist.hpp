@@ -56,7 +56,7 @@ public:
     Playlist& operator=(const Playlist& copy);
 
     /**
-     * @brief Loads the playlist from the given binary file
+     * @brief Loads the playlist from the given JSON file
      *
      * @param path The file to load from
      * @return True on success, false on error
@@ -64,7 +64,7 @@ public:
     bool loadFromFile(const std::string& path);
 
     /**
-     * @brief Loads the playlist from the given memory buffer
+     * @brief Loads the playlist from the given memory buffer. Expects the binary format
      *
      * @param data The memory buffer to load from
      * @return True if the playlist could be loaded, false otherwise
@@ -72,12 +72,20 @@ public:
     bool loadFromMemory(const std::vector<char>& data);
 
     /**
-     * @brief Saves the conversation to the given binary file
+     * @brief Saves the conversation to the given JSON file
      *
      * @param path The file to save to
      * @return True if the conversation could be saved, false on error
      */
     bool saveToFile(const std::string& path) const;
+
+    /**
+     * @brief Saves the playlist in binary format to the given stream
+     * 
+     * @param output The stream to save to
+     * @return True if the data could be saved, false otherwise
+     */
+    bool saveToMemory(serial::binary::OutputStream& output) const;
 
     /**
      * @brief Returns whether or not the playlist is playing

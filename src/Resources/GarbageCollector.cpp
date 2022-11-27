@@ -62,9 +62,9 @@ void GarbageCollector::managerPeriodChanged(ResourceManagerBase* m) {
 void GarbageCollector::unregisterManager(ResourceManagerBase* m) {
     std::unique_lock lock(managerLock);
 
-    for (unsigned int i = 0; i < managers.size(); ++i) {
-        if (managers[i].first == m) {
-            managers.erase(managers.begin() + i);
+    for (auto it = managers.begin(); it != managers.end(); ++it) {
+        if (it->first == m) {
+            managers.erase(it);
             break;
         }
     }

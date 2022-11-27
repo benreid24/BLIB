@@ -18,7 +18,8 @@ inline std::string songfile(const std::string& path) {
         engine::Configuration::get<std::string>("blib.playlist.song_path"), path);
 }
 
-using Serializer = serial::binary::Serializer<Playlist>;
+using BinarySerializer = serial::binary::Serializer<Playlist>;
+using JsonSerializer   = serial::json::Serializer<Playlist>;
 } // namespace
 
 Playlist::Playlist()
@@ -47,12 +48,14 @@ Playlist::Playlist(const Playlist& copy)
 
 bool Playlist::saveToFile(const std::string& path) const {
     serial::binary::OutputFile out(path);
-    return Serializer::serialize(out, *this);
+    const auto blob = JsonSerializer::serialize(*this);
+    serial::json::saveToFile(path, *blob.getAsGroup());
+    return true;
 }
 
 bool Playlist::loadFromFile(const std::string& path) {
-    serial::binary::InputFile in(path);
-    if (!Serializer::deserialize(in, *this)) {
+    const auto blob = serial::json::loadFromFile(path);
+    if (!JsonSerializer::deserialize(*this, blob)) {
         BL_LOG_ERROR << "Failed to load playlist from file: " << path;
         return false;
     }
@@ -65,7 +68,7 @@ bool Playlist::loadFromFile(const std::string& path) {
 bool Playlist::loadFromMemory(const std::vector<char>& data) {
     serial::MemoryInputBuffer buf(data);
     serial::binary::InputStream in(buf);
-    if (!Serializer::deserialize(in, *this)) {
+    if (!BinarySerializer::deserialize(in, *this)) {
         BL_LOG_ERROR << "Failed to load playlist from memory";
         return false;
     }
