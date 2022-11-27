@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['gcperiod',['gcPeriod',['../a01697.html#aa3d5867d6ffc2cd353d4e345bb641229',1,'bl::resource::ManagerBase']]],
+  ['gcperiod',['gcPeriod',['../a01698.html#aa3d5867d6ffc2cd353d4e345bb641229',1,'bl::resource::ManagerBase']]],
   ['gpython2name',['gPython2Name',['../a00965.html#abe095f32b2711ae168b765c506deef3f',1,'bl::dialog']]],
   ['gpython3name',['gPython3Name',['../a00965.html#a4486fb04306132248e549a4a8982dcb8',1,'bl::dialog']]],
   ['gpythonname',['gPythonName',['../a00965.html#af7a093009af2131bd2e391bf47875b14',1,'bl::dialog']]],
