@@ -29,9 +29,7 @@ public:
                 engine.pushState(n);
             n.reset();
         }
-        else {
-            engine.flags().set(flag);
-        }
+        else { engine.flags().set(flag); }
         ++callCount;
     }
 
@@ -161,19 +159,17 @@ TEST(Engine, EventsStartShutdownStateChanges) {
     EventReceiver listener(events);
     bl::event::Dispatcher::subscribe(&listener);
 
-    FlagTestState* first = new FlagTestState(Flags::PopState);
-    State::Ptr firstPtr(first);
     FlagTestState* second = new FlagTestState(Flags::PopState);
     State::Ptr secondPtr(second);
-    engine.pushState(secondPtr);
+    FlagTestState* first = new FlagTestState(Flags::PopState, secondPtr, true);
+    State::Ptr firstPtr(first);
     ASSERT_EQ(engine.run(firstPtr), true);
 
-    ASSERT_EQ(events.size(), 4);
+    ASSERT_EQ(events.size(), 3);
     EXPECT_EQ(events[0].type(), typeid(event::Startup));
     EXPECT_EQ(events[1].type(), typeid(event::StateChange));
-    EXPECT_EQ(events[2].type(), typeid(event::StateChange));
-    EXPECT_EQ(events[3].type(), typeid(event::Shutdown));
-    EXPECT_EQ(std::any_cast<event::Shutdown>(events[3]).cause, event::Shutdown::FinalStatePopped);
+    EXPECT_EQ(events[2].type(), typeid(event::Shutdown));
+    EXPECT_EQ(std::any_cast<event::Shutdown>(events[2]).cause, event::Shutdown::FinalStatePopped);
 
     bl::event::Dispatcher::clearAllListeners();
 }

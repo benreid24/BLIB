@@ -46,6 +46,7 @@ Flags& Engine::flags() { return engineFlags; }
 sf::RenderWindow& Engine::window() { return *renderWindow; }
 
 void Engine::pushState(State::Ptr next) {
+    flags().set(Flags::_priv_PushState);
     if (newState) {
         BL_LOG_WARN << "pushState called with state " << next->name()
                     << " replaces currently queued next state " << newState->name();
@@ -54,7 +55,7 @@ void Engine::pushState(State::Ptr next) {
 }
 
 void Engine::replaceState(State::Ptr next) {
-    flags().set(Flags::PopState);
+    flags().set(Flags::_priv_ReplaceState);
     if (newState) {
         BL_LOG_WARN << "replaceState called with state " << next->name()
                     << " replaces currently queued next state " << newState->name();
@@ -163,8 +164,7 @@ bool Engine::run(State::Ptr initialState) {
             bl::event::Dispatcher::syncListeners();
 
             // check if we should end early
-            if (engineFlags.active(Flags::PopState) || engineFlags.active(Flags::Terminate) ||
-                newState) {
+            if (engineFlags.stateChangeReady()) {
                 lag = 0.f;
                 break;
             }
@@ -207,48 +207,51 @@ bool Engine::run(State::Ptr initialState) {
         }
 
         // Process flags
-        if (engineFlags.active(Flags::Terminate)) {
-            bl::event::Dispatcher::dispatch<event::Shutdown>({event::Shutdown::Terminated});
-            if (renderWindow) renderWindow->close();
-            return true;
-        }
-        else if (engineFlags.active(Flags::PopState)) {
-            BL_LOG_INFO << "Popping state: " << states.top()->name();
-            auto prev = states.top();
-            prev->deactivate(*this);
-            states.pop();
-            if (states.empty() && !newState) { // exit if no states left
-                BL_LOG_INFO << "Final state popped, exiting";
-                bl::event::Dispatcher::dispatch<event::Shutdown>(
-                    {event::Shutdown::FinalStatePopped});
+        while (engineFlags.stateChangeReady()) {
+            if (engineFlags.active(Flags::Terminate)) {
+                bl::event::Dispatcher::dispatch<event::Shutdown>({event::Shutdown::Terminated});
                 if (renderWindow) renderWindow->close();
                 return true;
             }
-            else if (!newState) { // plain pop state
+            else if (engineFlags.active(Flags::PopState)) {
+                BL_LOG_INFO << "Popping state: " << states.top()->name();
+                auto prev = states.top();
+                prev->deactivate(*this);
+                states.pop();
+                if (states.empty()) { // exit if no states left
+                    BL_LOG_INFO << "Final state popped, exiting";
+                    bl::event::Dispatcher::dispatch<event::Shutdown>(
+                        {event::Shutdown::FinalStatePopped});
+                    if (renderWindow) renderWindow->close();
+                    return true;
+                }
                 BL_LOG_INFO << "New engine state (popped): " << states.top()->name();
+                engineFlags.clear();
                 states.top()->activate(*this);
                 bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
             }
-            else { // replace state
+            else if (engineFlags.active(Flags::_priv_ReplaceState)) {
                 BL_LOG_INFO << "New engine state (replaced): " << newState->name();
+                auto prev = states.top();
+                prev->deactivate(*this);
+                states.pop();
                 states.push(newState);
+                engineFlags.clear();
+                newState.reset();
                 states.top()->activate(*this);
                 bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
-                newState = nullptr;
             }
-            updateOuterTimer.restart();
-            loopTimer.restart();
-        }
+            else if (engineFlags.active(Flags::_priv_PushState)) {
+                BL_LOG_INFO << "New engine state (pushed): " << newState->name();
+                auto prev = states.top();
+                prev->deactivate(*this);
+                states.push(newState);
+                engineFlags.clear();
+                newState.reset();
+                states.top()->activate(*this);
+                bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
+            }
 
-        // Handle state push
-        if (newState) {
-            BL_LOG_INFO << "New engine state (pushed): " << newState->name();
-            auto prev = states.top();
-            prev->deactivate(*this);
-            states.push(newState);
-            states.top()->activate(*this);
-            bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
-            newState = nullptr;
             updateOuterTimer.restart();
             loopTimer.restart();
         }

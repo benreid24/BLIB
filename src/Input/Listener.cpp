@@ -21,5 +21,9 @@ Listener::Listener(Listener&& l)
     l.owner = nullptr;
 }
 
+Listener::~Listener() {
+    if (owner) { owner->removeListener(*this); }
+}
+
 } // namespace input
 } // namespace bl
