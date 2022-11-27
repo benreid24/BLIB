@@ -93,6 +93,8 @@ void GarbageCollector::runner() {
 
         // proceed through and clean managers that need it
         for (auto& omp : managers) {
+            if (quitFlag) return;
+
             if (omp.second <= sleptTime) {
                 omp.first->doClean();
                 omp.second = omp.first->gcPeriod;
