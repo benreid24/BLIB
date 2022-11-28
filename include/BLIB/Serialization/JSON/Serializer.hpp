@@ -301,6 +301,7 @@ struct Serializer<std::string, false> {
 
     static bool serializeStream(std::ostream& stream, const std::string& value, unsigned int,
                                 unsigned int) {
+        stream << '"';
         for (const char c : value) {
             switch (c) {
             case '\n':
@@ -317,6 +318,7 @@ struct Serializer<std::string, false> {
                 break;
             }
         }
+        stream << '"';
         return stream.good();
     }
 };
@@ -672,8 +674,10 @@ struct Serializer<std::unordered_map<std::string, U>, false> {
             if (!Serializer<U>::serializeStream(stream, pair.second, tabSize, sc)) return false;
             if (i < value.size() - 1) stream << ',';
             if (tabSize > 0) stream << "\n";
+            ++i;
         }
         util::StreamUtil::writeRepeated(stream, ' ', currentIndent);
+        stream << "}";
         return stream.good();
     }
 };
@@ -735,11 +739,13 @@ struct Serializer<std::unordered_map<U, V>, false> {
         for (const auto& pair : value) {
             if (!util::StreamUtil::writeRepeated(stream, ' ', sc)) return false;
             stream << '"' << pair.first << "\": ";
-            if (!Serializer<U>::serializeStream(stream, pair.second, tabSize, sc)) return false;
+            if (!Serializer<V>::serializeStream(stream, pair.second, tabSize, sc)) return false;
             if (i < value.size() - 1) stream << ',';
             if (tabSize > 0) stream << "\n";
+            ++i;
         }
         util::StreamUtil::writeRepeated(stream, ' ', currentIndent);
+        stream << "}";
         return stream.good();
     }
 };

@@ -180,7 +180,7 @@ private:
     bool b;
     std::string newfield;
 
-    friend class SerializableObject<TestyBoi2>;
+    friend struct SerializableObject<TestyBoi2>;
 };
 
 template<>
