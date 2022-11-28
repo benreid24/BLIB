@@ -47,15 +47,13 @@ Playlist::Playlist(const Playlist& copy)
 }
 
 bool Playlist::saveToFile(const std::string& path) const {
-    serial::binary::OutputFile out(path);
-    const auto blob = JsonSerializer::serialize(*this);
-    serial::json::saveToFile(path, *blob.getAsGroup());
-    return true;
+    std::ofstream file(path.c_str());
+    return JsonSerializer::serializeStream(file, *this, 4, 0);
 }
 
 bool Playlist::loadFromFile(const std::string& path) {
-    const auto blob = serial::json::loadFromFile(path);
-    if (!JsonSerializer::deserialize(*this, blob)) {
+    std::ifstream file(path.c_str());
+    if (!JsonSerializer::deserializeStream(file, *this)) {
         BL_LOG_ERROR << "Failed to load playlist from file: " << path;
         return false;
     }

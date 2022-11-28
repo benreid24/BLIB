@@ -2,6 +2,8 @@
 #include <BLIB/Serialization/SerializableObject.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Serialization/JSON/JSONLoader.hpp>
+#include <BLIB/Util/StreamUtil.hpp>
 
 namespace bl
 {
@@ -13,12 +15,8 @@ bool SerializableObjectBase::deserializeJSON(const json::Group& val, void* obj) 
         if (f != nullptr) {
             if (!field.second->deserializeJSON(*f, obj)) { return false; }
         }
-        else if (!field.second->optional()) {
-            return false;
-        }
-        else {
-            field.second->makeDefault(obj);
-        }
+        else if (!field.second->optional()) { return false; }
+        else { field.second->makeDefault(obj); }
     }
     // never care about extra fields
     return true;
@@ -72,11 +70,78 @@ bool SerializableObjectBase::deserializeBinary(binary::InputStream& stream, void
 
 std::size_t SerializableObjectBase::binarySize(const void* obj) const {
     std::size_t s = sizeof(std::uint16_t);
-    for (const auto f : fieldsBinary) {
+    for (const auto& f : fieldsBinary) {
         s += sizeof(std::uint16_t) + sizeof(std::uint32_t);
         s += f.second->binarySize(obj);
     }
     return s;
+}
+
+bool SerializableObjectBase::serializeJsonStream(std::ostream& stream, const void* obj,
+                                                 unsigned int ts, unsigned int ilvl) {
+    stream << "{";
+    if (ts > 0) stream << '\n';
+
+    const unsigned int sc = ilvl + ts;
+    unsigned int i        = 0;
+    for (const auto& field : fieldsJson) {
+        util::StreamUtil::writeRepeated(stream, ' ', sc);
+        stream << '"' << field.first << "\": ";
+        field.second->serializeJsonStream(stream, obj, ts, sc);
+        if (i < fieldsJson.size() - 1) stream << ",";
+        ++i;
+        if (ts > 0) stream << '\n';
+    }
+
+    util::StreamUtil::writeRepeated(stream, ' ', ilvl);
+    stream << "}";
+
+    return stream.good();
+}
+
+bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* obj) {
+    auto fields = fieldsJson;
+
+    util::StreamUtil::skipWhitespace(stream);
+    if (stream.peek() != '{') return false;
+    stream.get();
+
+    while (stream.good()) {
+        util::StreamUtil::skipWhitespace(stream);
+        if (stream.peek() != '"') return false;
+        stream.get();
+
+        std::string name;
+        std::getline(stream, name, '"');
+        if (!stream.good()) return false;
+        if (!util::StreamUtil::skipUntil(stream, ':')) return false;
+        stream.get();
+
+        const auto it = fields.find(name);
+        if (it != fields.end()) {
+            if (!it->second->deserializeJsonStream(stream, obj)) return false;
+            fields.erase(it);
+        }
+        else {
+            json::Loader loader(stream);
+            json::Value trash(false);
+            if (!loader.loadValue(trash)) return false;
+        }
+
+        util::StreamUtil::skipWhitespace(stream);
+        const char c = stream.get();
+        if (c == '}') {
+            // check fields not found for required
+            for (const auto& field : fields) {
+                if (!field.second->optional()) return false;
+                field.second->makeDefault(obj);
+            }
+            return true;
+        }
+        else if (c == ',') { continue; }
+        return false;
+    }
+    return false;
 }
 
 } // namespace serial

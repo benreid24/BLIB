@@ -78,7 +78,8 @@ TEST(JSON, BasicGroup) {
     const std::string json = "{ \"num\": 123.45, \"str\": \"hello\", \"b\": true }";
     std::stringstream stream(json);
 
-    Group root = loadFromStream(stream);
+    Group root;
+    ASSERT_TRUE(loadFromStream(stream, root));
     EXPECT_TRUE(root.hasField("num"));
     EXPECT_TRUE(root.hasField("str"));
     EXPECT_TRUE(root.hasField("b"));
@@ -90,9 +91,10 @@ TEST(JSON, BasicGroup) {
 }
 
 TEST(JSON, NestedGroup) {
-    const std::string json = "{\"grp\":{\"deep\":{\"wogh\":12},\"list\": [1,2,3]}, \"b\": false}";
+    std::stringstream json("{\"grp\":{\"deep\":{\"wogh\":12},\"list\": [1,2,3]}, \"b\": false}");
 
-    Group root = loadFromString(json);
+    Group root;
+    ASSERT_TRUE(loadFromStream(json, root));
     ASSERT_TRUE(root.getGroup("grp"));
     ASSERT_TRUE(root.getGroup("grp/deep"));
     ASSERT_TRUE(root.getList("grp/list"));
@@ -107,9 +109,10 @@ TEST(JSON, NestedGroup) {
 }
 
 TEST(JSON, GroupList) {
-    const std::string json = "{\"l\":[{\"name\": 15}]}";
+    std::stringstream json("{\"l\":[{\"name\": 15}]}");
 
-    Group root = loadFromString(json);
+    Group root;
+    ASSERT_TRUE(loadFromStream(json, root));
     ASSERT_TRUE(root.hasField("l"));
     ASSERT_NE(root.getField("l")->getAsList(), nullptr);
     const List& list = *root.getField("l")->getAsList();
@@ -121,14 +124,15 @@ TEST(JSON, GroupList) {
 }
 
 TEST(JSON, Files) {
-    const std::string json =
-        "{ \"num\": 123.45, \"str\": \"hello\", \"b\": true, \"ls\": [1,2,3] }";
+    std::stringstream json("{ \"num\": 123.45, \"str\": \"hello\", \"b\": true, \"ls\": [1,2,3] }");
     const std::string filename = util::FileUtil::genTempName("json", "json");
 
-    Group goodRoot = loadFromString(json);
+    Group goodRoot;
+    ASSERT_TRUE(loadFromStream(json, goodRoot));
     util::FileUtil::createDirectory("json");
-    saveToFile(filename, goodRoot);
-    Group root = loadFromFile(filename);
+    ASSERT_TRUE(saveToFile(filename, goodRoot));
+    Group root;
+    ASSERT_TRUE(loadFromFile(filename, root));
     util::FileUtil::deleteFile(filename);
 
     EXPECT_TRUE(root.hasField("num"));

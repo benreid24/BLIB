@@ -397,41 +397,37 @@ std::ostream& operator<<(std::ostream& stream, const List& list);
  * @brief Loads json data from the given stream and returns the constructed Group
  *
  * @param stream Stream containing valid json
- * @return json::Group Group containing loaded data. Empty on error
+ * @param result JSON Group to read into
+ * @return True on success, false on error
  */
-json::Group loadFromStream(std::istream& stream);
+bool loadFromStream(std::istream& stream, json::Group& result);
 
 /**
  * @brief Loads json data from the given file
  *
  * @param file Filename to load from
- * @return json::Group Group containing loaded data. Empty on error
+ * @param result Group to read into
+ * @return True on success, false on error
  */
-json::Group loadFromFile(const std::string& file);
-
-/**
- * @brief Loads json from the supplied string
- *
- * @param data String containing valid json
- * @return json::Group Group containing loaded data. Empty on error
- */
-json::Group loadFromString(const std::string& data);
+bool loadFromFile(const std::string& file, json::Group& result);
 
 /**
  * @brief Saves a json::Group to the given file
  *
  * @param file Filename to save to
  * @param data The top level json data to save
+ * @return True on success, false on error
  */
-void saveToFile(const std::string& file, const json::Group& data);
+bool saveToFile(const std::string& file, const json::Group& data);
 
 /**
  * @brief Writes a json::Group to the given stream
  *
  * @param stream The stream to write to
  * @param data The top level json data to write
+ * @return True on success, false on error
  */
-void saveToStream(std::ostream& stream, const json::Group& data);
+bool saveToStream(std::ostream& stream, const json::Group& data);
 
 } // namespace json
 } // namespace serial

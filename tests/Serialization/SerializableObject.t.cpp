@@ -103,7 +103,9 @@ TEST(JsonSerializableObject, Nested) {
 }
 
 TEST(JsonSerializableObject, DefaultValue) {
-    const auto data = json::loadFromString("{\"one\": 5, \"three\": 6}");
+    std::stringstream input("{\"one\": 5, \"three\": 6}");
+    json::Group data;
+    ASSERT_TRUE(json::loadFromStream(input, data));
     ASSERT_EQ(data.getInteger("one"), 5);
     Relaxed result;
     EXPECT_TRUE(RelazedSerializer::deserialize(result, data));
@@ -113,7 +115,9 @@ TEST(JsonSerializableObject, DefaultValue) {
 }
 
 TEST(JsonSerializableObject, RequiredField) {
-    const auto data = json::loadFromString("{\"one\": 5}");
+    std::stringstream ss("{\"one\": 5}");
+    json::Group data;
+    ASSERT_TRUE(json::loadFromStream(ss, data));
     Relaxed result;
     ASSERT_FALSE(RelazedSerializer::deserialize(result, data));
 }

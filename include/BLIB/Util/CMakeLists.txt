@@ -8,6 +8,7 @@ target_sources(BLIB PUBLIC
     Random.hpp
     ReadWriteLock.hpp
     Signal.hpp
+    StreamUtil.hpp
     TemplateLogic.hpp
     Timer.hpp
     TupleLoop.hpp

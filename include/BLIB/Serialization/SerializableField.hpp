@@ -53,6 +53,27 @@ public:
     virtual json::Value serializeJSON(const void* object) const = 0;
 
     /**
+     * @brief Serializes the given object directly into the given stream as json
+     *
+     * @param stream The stream to serialize into
+     * @param object The object to serialize
+     * @param tabSize Spaces to indent per level
+     * @param currentIndent Current level of indentation in spaces
+     * @return True on success, false on error
+     */
+    virtual bool serializeJsonStream(std::ostream& stream, const void* object, unsigned int tabSize,
+                                     unsigned int currentIndent = 0) const = 0;
+
+    /**
+     * @brief Deserializes the given object directly from the given stream as json
+     *
+     * @param stream The stream to read json from
+     * @param object The object to deserialize
+     * @return True on success, false on error
+     */
+    virtual bool deserializeJsonStream(std::istream& stream, void* object) const = 0;
+
+    /**
      * @brief Serializes the object at the given address to the given stream
      *
      * @param stream The stream to serialize to
@@ -192,6 +213,27 @@ public:
     virtual json::Value serializeJSON(const void* object) const override;
 
     /**
+     * @brief Serializes the given object directly into the given stream as json
+     *
+     * @param stream The stream to serialize into
+     * @param object The object to serialize
+     * @param tabSize Spaces to indent per level
+     * @param currentIndent Current level of indentation in spaces
+     * @return True on success, false on error
+     */
+    virtual bool serializeJsonStream(std::ostream& stream, const void* object, unsigned int tabSize,
+                                     unsigned int currentIndent = 0) const override;
+
+    /**
+     * @brief Deserializes the given object directly from the given stream as json
+     *
+     * @param stream The stream to read json from
+     * @param object The object to deserialize
+     * @return True on success, false on error
+     */
+    virtual bool deserializeJsonStream(std::istream& stream, void* object) const override;
+
+    /**
      * @brief Serializes the object at the given address to the given stream
      *
      * @param stream The stream to serialize to
@@ -262,6 +304,20 @@ template<std::uint16_t Id, typename C, typename T, bool AD>
 json::Value SerializableField<Id, C, T, AD>::serializeJSON(const void* obj) const {
     const C& o = *static_cast<const C*>(obj);
     return json::Serializer<T>::serialize(o.*member);
+}
+
+template<std::uint16_t Id, typename C, typename T, bool AD>
+bool SerializableField<Id, C, T, AD>::deserializeJsonStream(std::istream& s, void* obj) const {
+    C& o = *static_cast<C*>(obj);
+    return json::Serializer<T>::deserializeStream(s, o.*member);
+}
+
+template<std::uint16_t Id, typename C, typename T, bool AD>
+bool SerializableField<Id, C, T, AD>::serializeJsonStream(std::ostream& s, const void* obj,
+                                                          unsigned int tabSize,
+                                                          unsigned int currentIndent) const {
+    const C& o = *static_cast<const C*>(obj);
+    return json::Serializer<T>::serializeStream(s, o.*member, tabSize, currentIndent);
 }
 
 template<std::uint16_t Id, typename C, typename T, bool AD>

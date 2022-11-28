@@ -1,6 +1,6 @@
 #include <BLIB/Serialization/JSON/JSON.hpp>
 
-#include <Serialization/JSON/JSONLoader.hpp>
+#include <BLIB/Serialization/JSON/JSONLoader.hpp>
 #include <fstream>
 
 namespace bl
@@ -321,27 +321,26 @@ std::ostream& operator<<(std::ostream& stream, const List& list) {
     return stream;
 }
 
-Group loadFromStream(std::istream& stream) {
+bool loadFromStream(std::istream& stream, Group& result) {
     Loader loader(stream);
-    return loader.load();
+    return loader.loadGroup(result);
 }
 
-Group loadFromString(const std::string& data) {
-    std::stringstream stream(data);
-    return loadFromStream(stream);
-}
-
-Group loadFromFile(const std::string& file) {
+bool loadFromFile(const std::string& file, Group& result) {
     Loader loader(file);
-    return loader.load();
+    return loader.loadGroup(result);
 }
 
-void saveToFile(const std::string& file, const Group& group) {
+bool saveToFile(const std::string& file, const Group& group) {
     std::ofstream out(file.c_str());
     out << group;
+    return out.good();
 }
 
-void saveToStream(std::ostream& stream, const Group& group) { stream << group; }
+bool saveToStream(std::ostream& stream, const Group& group) {
+    stream << group;
+    return stream.good();
+}
 
 } // namespace json
 } // namespace serial

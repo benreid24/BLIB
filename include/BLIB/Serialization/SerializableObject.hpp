@@ -37,6 +37,27 @@ struct SerializableObjectBase : private util::NonCopyable {
     json::Group serializeJSON(const void* object) const;
 
     /**
+     * @brief Serializes the given object directly into the given stream as json
+     *
+     * @param stream The stream to serialize into
+     * @param object The object to serialize
+     * @param tabSize Spaces to indent per level
+     * @param currentIndent Current level of indentation in spaces
+     * @return True on success, false on error
+     */
+    bool serializeJsonStream(std::ostream& stream, const void* object, unsigned int tabSize,
+                             unsigned int currentIndent = 0);
+
+    /**
+     * @brief Deserializes the given object directly from the given stream as json
+     *
+     * @param stream The stream to read json from
+     * @param object The object to deserialize
+     * @return True on success, false on error
+     */
+    bool deserializeJsonStream(std::istream& stream, void* object);
+
+    /**
      * @brief Serializes the given object to the given stream
      *
      * @param stream The stream to serialize to

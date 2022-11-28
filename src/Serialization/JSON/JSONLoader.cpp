@@ -1,4 +1,4 @@
-#include <Serialization/JSON/JSONLoader.hpp>
+#include <BLIB/Serialization/JSON/JSONLoader.hpp>
 
 #include <BLIB/Logging.hpp>
 #include <fstream>
@@ -10,36 +10,21 @@ namespace serial
 namespace json
 {
 Loader::Loader(const std::string& filename)
-: valid(true)
+: input(fileInput)
+, valid(true)
 , filename(filename)
 , currentLine(0) {
-    std::ifstream data(filename.c_str());
-    std::string buffer;
-
-    data.seekg(0, std::ios::end);
-    buffer.reserve(data.tellg());
-    data.seekg(0, std::ios::beg);
-    buffer.assign((std::istreambuf_iterator<char>(data)), std::istreambuf_iterator<char>());
-
-    input.str(buffer);
+    fileInput.open(filename.c_str());
     skipWhitespace();
 }
 
 Loader::Loader(std::istream& stream)
-: valid(true)
+: input(stream)
+, valid(true)
 , filename("memory")
 , currentLine(0) {
-    std::string buffer;
-    stream.seekg(0, std::ios::end);
-    buffer.reserve(stream.tellg());
-    stream.seekg(0, std::ios::beg);
-    buffer.assign((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
-
-    input.str(buffer);
     skipWhitespace();
 }
-
-Group Loader::load() { return loadGroup(); }
 
 std::string Loader::error() {
     valid = false;
@@ -70,51 +55,54 @@ bool Loader::isNumber(char c) const { return c >= '0' && c <= '9'; }
 
 bool Loader::isNumeric(char c) const { return isNumber(c) || c == '-'; }
 
-Value Loader::loadValue() {
+bool Loader::loadValue(Value& result) {
     const SourceInfo source = {filename, currentLine};
+    result.setSource(source);
 
-    if (isNumeric(input.peek())) {
-        Value val(0);
-        loadNumeric(val);
-        val.setSource(source);
-        return val;
-    }
+    if (isNumeric(input.peek())) { return loadNumeric(result); }
     if (input.peek() == '"') {
-        Value val = loadString();
-        val.setSource(source);
-        return val;
+        std::string str;
+        if (!loadString(str)) return false;
+        result = str;
+        return true;
     }
     if (input.peek() == 't' || input.peek() == 'f') {
-        Value val = Value(loadBool());
-        val.setSource(source);
-        return val;
+        bool rb = false;
+        if (!loadBool(rb)) return false;
+        result = rb;
+        return true;
     }
     if (input.peek() == '{') {
-        Value val = loadGroup();
-        val.setSource(source);
-        return val;
+        Group grp;
+        if (!loadGroup(grp)) return false;
+        result = grp;
+        return true;
     }
     if (input.peek() == '[') {
-        Value val = loadList();
-        val.setSource(source);
-        return val;
+        List list;
+        if (!loadList(list)) return false;
+        result = list;
+        return true;
     }
     BL_LOG_ERROR << error() << "Unexpected character '" << input.peek() << "'\n";
-    return Value(false);
+    return false;
 }
 
-bool Loader::loadBool() {
+bool Loader::loadBool(bool& result) {
     if (input.peek() == 't' || input.peek() == 'f') {
         std::string word;
-        while (!isWhitespace(input.peek()) && input.good()) {
+        word.reserve(5);
+        while (std::isalpha(input.peek()) && input.good()) {
             word.push_back(input.get());
             if (word == "true") {
                 skipWhitespace();
+                result = true;
                 return true;
             }
             if (word == "false") {
                 skipWhitespace();
-                return false;
+                result = false;
+                return true;
             }
             if (word.size() > 5) {
                 BL_LOG_ERROR << error() << "Expected boolean value but too many characters";
@@ -138,7 +126,7 @@ bool Loader::loadBool() {
     return false;
 }
 
-void Loader::loadNumeric(Value& val) {
+bool Loader::loadNumeric(Value& val) {
     if (isValid()) {
         const char c = input.peek();
         if (c == '-' || (c >= '0' && c <= '9')) {
@@ -149,7 +137,7 @@ void Loader::loadNumeric(Value& val) {
             while (isNumber(input.peek()) || input.peek() == '.') {
                 if (input.peek() == '.' && decimal) {
                     BL_LOG_ERROR << error() << "Too many decimal points in number";
-                    return;
+                    return false;
                 }
                 else if (input.peek() == '.')
                     decimal = true;
@@ -158,108 +146,121 @@ void Loader::loadNumeric(Value& val) {
                 if (!input.good()) {
                     BL_LOG_ERROR << error() << "Unexpected end of file";
                     valid = false;
-                    return;
+                    return false;
                 }
             }
             skipWhitespace();
             if (decimal) { val = std::stof(num.c_str()); }
-            else {
-                val = std::stol(num.c_str());
-            }
+            else { val = std::stol(num.c_str()); }
+            return true;
         }
         else {
             BL_LOG_ERROR << error() << "Invalid numeric symbol " << c;
             valid = false;
+            return false;
         }
     }
+    return false;
 }
 
-std::string Loader::loadString() {
+bool Loader::loadString(std::string& result) {
     if (isValid()) {
         if (input.peek() == '"') {
-            std::string ret;
             input.get();
             while (input.peek() != '"') {
                 if (input.peek() == '\n') currentLine += 1;
 
                 if (input.peek() == '\\') {
-                    input.get(); // skip \ to allow escaped quotes. does not support \n or \t
+                    const char c = input.get();
+                    switch (c) {
+                    case 'n':
+                        result.push_back('\n');
+                        break;
+                    case 't':
+                        result.push_back('\t');
+                        break;
+                    default:
+                        result.push_back(c);
+                        break;
+                    }
                 }
-                ret.push_back(input.get());
+                else { result.push_back(input.get()); }
                 if (!input.good()) {
                     valid = false;
                     BL_LOG_ERROR << "Unexpected end of file";
-                    return "";
+                    return false;
                 }
             }
             skipSymbol(); // closing quote
-            return ret;
+            return true;
         }
         BL_LOG_ERROR << error() << "Unxpected symbol '" << input.peek() << "' expecting '\"'";
         valid = false;
     }
-    return "";
+    return false;
 }
 
-List Loader::loadList() {
-    List ret;
-    if (!isValid()) return ret;
+bool Loader::loadList(List& result) {
+    if (!isValid()) return false;
 
     if (input.peek() != '[') {
         valid = false;
         BL_LOG_ERROR << error() << "Expected '[' got " << input.peek();
-        return ret;
+        return false;
     }
     skipSymbol();
 
     while (input.peek() != ']' && isValid()) {
-        ret.push_back(loadValue());
+        result.emplace_back(0);
+        if (!loadValue(result.back())) return false;
         if (input.peek() == ',')
             skipSymbol();
         else if (input.peek() != ']') {
             valid = false;
             BL_LOG_ERROR << error() << "Expecting ',' got '" << input.peek() << "'\n";
-            return ret;
+            return false;
         }
     }
     skipSymbol();
 
-    return ret;
+    return true;
 }
 
-Group Loader::loadGroup() {
-    Group group;
-    if (!isValid()) return group;
+bool Loader::loadGroup(Group& result) {
+    if (!isValid()) return false;
 
     if (input.peek() != '{') {
         valid = false;
         BL_LOG_ERROR << error() << "Expecting '{' but got '" << input.peek() << "'\n";
-        return group;
+        return false;
     }
     skipSymbol();
 
     while (input.peek() != '}' && isValid()) {
-        const std::string name = loadString();
+        std::string name;
+        if (!loadString(name)) return false;
         if (input.peek() != ':') {
             valid = false;
             BL_LOG_ERROR << error() << "Expecting ':' after field name got '" << input.peek()
                          << "'\n";
-            return group;
+            return false;
         }
         skipSymbol();
 
-        group.addField(name, loadValue());
+        result.addField(name, Value{false});
+        Value& val = *result.getField(name);
+        if (!loadValue(val)) return false;
         if (input.peek() == ',')
             skipSymbol();
         else if (input.peek() != '}') {
             valid = false;
             BL_LOG_ERROR << error() << "Expecting ',' got '" << input.peek() << "'\n";
-            return group;
+            return false;
         }
     }
     skipSymbol();
 
-    return group;
+    return true;
 }
 
 } // namespace json
