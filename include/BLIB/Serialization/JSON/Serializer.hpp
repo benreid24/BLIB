@@ -882,7 +882,7 @@ struct Serializer<sf::Rect<U>, false> {
 
     static bool deserializeStream(std::istream& stream, sf::Rect<U>& result) {
         json::Loader loader(stream);
-        Value val;
+        Value val(0);
         if (!loader.loadValue(val)) return false;
         return deserialize(result, val);
     }
@@ -1098,7 +1098,7 @@ struct Serializer<container::Vector2D<U>, false> {
     }
 
     static bool serializeStream(std::ostream& stream, const container::Vector2D<U>& value,
-                                unsigned int tabSize, unsigned int currentIndent) {
+                                unsigned int, unsigned int) {
         const Value val = serialize(value);
         stream << val;
         return stream.good();
