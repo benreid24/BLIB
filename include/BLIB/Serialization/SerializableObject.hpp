@@ -76,6 +76,26 @@ struct SerializableObjectBase : private util::NonCopyable {
     bool deserializeBinary(binary::InputStream& stream, void* object) const;
 
     /**
+     * @brief Serializes the given object to the given stream without writing any additional
+     *        metadata. Use this when you for sure know the object format will not change and also
+     *        need a smaller representation
+     *
+     * @param stream The stream to serialize to
+     * @param object The object to serialize
+     * @return True on success, false on error
+     */
+    bool serializePackedBinary(binary::OutputStream& stream, const void* object) const;
+
+    /**
+     * @brief Deserializes from the packed binary data into the given object
+     *
+     * @param stream The stream to read from
+     * @param object The object to read into
+     * @return True on success, false on error
+     */
+    bool deserializePackedBinary(binary::InputStream& stream, void* object) const;
+
+    /**
      * @brief Returns the size of the object when serialized, in bytes
      *
      * @param object The object to serialize
@@ -96,6 +116,7 @@ protected:
     SerializableObjectBase() = default;
 
 private:
+    std::vector<std::pair<std::uint16_t, const SerializableFieldBase*>> sortedFields;
     std::unordered_map<std::uint16_t, const SerializableFieldBase*> fieldsBinary;
     std::unordered_map<std::string, const SerializableFieldBase*> fieldsJson;
 

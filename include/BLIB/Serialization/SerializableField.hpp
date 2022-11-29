@@ -151,6 +151,18 @@ protected:
         }
         owner.fieldsJson[name] = this;
         owner.fieldsBinary[id] = this;
+
+        owner.sortedFields.emplace(
+            std::upper_bound(
+                owner.sortedFields.begin(),
+                owner.sortedFields.end(),
+                id,
+                [](std::uint16_t val,
+                   const std::pair<std::uint16_t, const SerializableFieldBase*>& elem) {
+                    return val < elem.first;
+                }),
+            id,
+            this);
     }
 
 private:

@@ -77,6 +77,21 @@ std::size_t SerializableObjectBase::binarySize(const void* obj) const {
     return s;
 }
 
+bool SerializableObjectBase::serializePackedBinary(binary::OutputStream& stream,
+                                                   const void* obj) const {
+    for (const auto& field : sortedFields) {
+        if (!field.second->serializeBinary(stream, obj)) return false;
+    }
+    return true;
+}
+
+bool SerializableObjectBase::deserializePackedBinary(binary::InputStream& stream, void* obj) const {
+    for (const auto& field : sortedFields) {
+        if (!field.second->deserializeBinary(stream, obj)) return false;
+    }
+    return true;
+}
+
 bool SerializableObjectBase::serializeJsonStream(std::ostream& stream, const void* obj,
                                                  unsigned int ts, unsigned int ilvl) {
     stream << "{";

@@ -274,6 +274,30 @@ TEST(BinarySerializableObject, OldReadNew) {
     EXPECT_EQ(boi.bF(), read.bF());
 }
 
+TEST(BinarySerializableObject, SerializePackedObject) {
+    TestyBoi boi;
+    boi.strF()     = "hello world";
+    boi.u32F()     = 5634533;
+    boi.nowidthF() = -4534;
+    boi.bF()       = true;
+    boi.fF()       = 0.55f;
+
+    MemoryOutputBuffer outbuf;
+    binary::OutputStream stream(outbuf);
+    ASSERT_TRUE(binary::Serializer<TestyBoi>::serializePacked(stream, boi));
+
+    TestyBoi read;
+    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
+    binary::InputStream in(inbuf);
+    ASSERT_TRUE(binary::Serializer<TestyBoi>::deserializePacked(in, read));
+
+    EXPECT_EQ(boi.strF(), read.strF());
+    EXPECT_EQ(boi.u32F(), read.u32F());
+    EXPECT_EQ(boi.nowidthF(), read.nowidthF());
+    EXPECT_EQ(boi.bF(), read.bF());
+    EXPECT_FLOAT_EQ(boi.fF(), 0.55f);
+}
+
 } // namespace unittest
 } // namespace serial
 } // namespace bl

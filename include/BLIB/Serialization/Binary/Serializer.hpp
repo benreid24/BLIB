@@ -71,6 +71,14 @@ struct Serializer<T, false> {
         return SerializableObjectBase::get<T>().deserializeBinary(input, &result);
     }
 
+    static bool serializePacked(OutputStream& output, const T& value) {
+        return SerializableObjectBase::get<T>().serializePackedBinary(output, &value);
+    }
+
+    static bool deserializePacked(InputStream& input, T& result) {
+        return SerializableObjectBase::get<T>().deserializePackedBinary(input, &result);
+    }
+
     static std::uint32_t size(const T& value) {
         return SerializableObjectBase::get<T>().binarySize(&value);
     }
@@ -85,12 +93,8 @@ struct Serializer<T, true> {
             return output.write<std::underlying_type_t<T>>(
                 static_cast<std::underlying_type_t<T>>(value));
         }
-        else if constexpr (std::is_same_v<T, bool>) {
-            return output.write<std::uint8_t>(value);
-        }
-        else {
-            return output.write<T>(value);
-        }
+        else if constexpr (std::is_same_v<T, bool>) { return output.write<std::uint8_t>(value); }
+        else { return output.write<T>(value); }
     }
 
     static bool deserialize(InputStream& input, T& result) {
@@ -104,9 +108,7 @@ struct Serializer<T, true> {
             result = v != 0;
             return true;
         }
-        else {
-            return input.read<T>(result);
-        }
+        else { return input.read<T>(result); }
     }
 
     static std::uint32_t size(const T&) { return sizeof(T); }
