@@ -1,6 +1,7 @@
 #ifndef BLIB_UTIL_FILEUTIL_HPP
 #define BLIB_UTIL_FILEUTIL_HPP
 
+#include <ctime>
 #include <string>
 #include <vector>
 
@@ -14,6 +15,16 @@ namespace util
  * @ingroup Util
  */
 struct FileUtil {
+    /**
+     * @brief Basic struct containing some file info
+     *
+     */
+    struct FileInfo {
+        std::time_t creationTime;
+        std::time_t modifiedTime;
+        std::size_t size;
+    };
+
     /**
      * @brief Test whether the given file exists
      *
@@ -162,6 +173,15 @@ struct FileUtil {
      * @return True if the file was read, false on error
      */
     static bool readFile(const std::string& filename, std::string& output);
+
+    /**
+     * @brief Queries the given file for its basic info
+     *
+     * @param path The file path to query
+     * @param result Info struct to populate
+     * @return True if the file could be queries, false otherwise
+     */
+    static bool queryFileInfo(const std::string& path, FileInfo& result);
 };
 
 } // namespace util

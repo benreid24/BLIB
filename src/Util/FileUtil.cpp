@@ -228,5 +228,14 @@ bool FileUtil::readFile(const std::string& filename, std::string& out) {
     return true;
 }
 
+bool FileUtil::queryFileInfo(const std::string& path, FileInfo& result) {
+    struct stat info;
+    if (stat(path.c_str(), &info) != 0) return false;
+    result.creationTime = info.st_ctime;
+    result.modifiedTime = info.st_mtime;
+    result.size         = info.st_size;
+    return true;
+}
+
 } // namespace util
 } // namespace bl
