@@ -66,7 +66,7 @@ public:
     bool save() const;
 
 private:
-    const std::string& manifestFile;
+    const std::string manifestFile;
     std::unordered_map<std::string, std::string> manifest;
 
     friend struct serial::SerializableObject<Manifest>;
