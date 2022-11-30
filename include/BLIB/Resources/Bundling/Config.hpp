@@ -2,9 +2,12 @@
 #define BLIB_RESOURCES_BUNDLING_CONFIG_HPP
 
 #include <BLIB/Resources/Bundling/BundleSource.hpp>
+#include <BLIB/Resources/Bundling/FileHandler.hpp>
 #include <memory>
+#include <regex>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 /**
@@ -21,7 +24,7 @@ namespace resource
 /// @brief Resource bundling utility for combining external files into bundles
 namespace bundle
 {
-struct FileHandler;
+class BundleCreator;
 
 /**
  * @brief Bundler configuration class. This determines the behavior of the bundler
@@ -103,6 +106,15 @@ public:
     bool includeFile(const std::string& path) const;
 
     /**
+     * @brief Returns whether or not the given file should be excluded. This is when file handlers
+     *        set files to be excluded and is separate from the exclude patterns
+     *
+     * @param path The file to check
+     * @return True if the file should be excluded, false otherwise
+     */
+    bool excludeFile(const std::string& path) const;
+
+    /**
      * @brief Returns the file handler to use for the given file. Files not matching any handler
      *        will use DefaultFileHandler
      *
@@ -115,9 +127,20 @@ private:
     const std::string outDir;
     std::string allFilesDir;
     std::vector<BundleSource> sources;
-    std::vector<std::string> excludePatterns;
+    std::vector<std::pair<std::string, std::regex>> excludePatterns;
+    std::unordered_set<std::string> excludeFiles;
     std::unordered_map<std::string, std::unique_ptr<FileHandler>> handlers;
+
+    friend class BundleCreator;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename THandler, typename... TArgs>
+Config& Config::addFileHandler(const std::string& pattern, TArgs&&... args) {
+    handlers.emplace(pattern, std::make_unique<THandler>(std::forward<TArgs>(args)...));
+    return *this;
+}
 
 } // namespace bundle
 } // namespace resource

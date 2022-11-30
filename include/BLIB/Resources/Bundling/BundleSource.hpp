@@ -24,8 +24,8 @@ struct BundleSource {
         /// @brief All files are placed in the same bundle
         BundleAllFiles,
 
-        /// @brief Each file gets its own bundle
-        CreateBundleForEachFile
+        /// @brief Each contained file/folder gets its own bundle
+        CreateBundleForEachContained
     } policy;
 };
 
