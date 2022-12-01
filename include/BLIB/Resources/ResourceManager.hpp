@@ -4,6 +4,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Resources/FileSystem.hpp>
 #include <BLIB/Resources/Loader.hpp>
+#include <BLIB/Util/BufferIstreamBuf.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
 #include <atomic>
@@ -122,7 +123,9 @@ Resource<T>& ResourceManager<T>::load(const std::string& uri) {
     if (it == m.resources.end()) {
         std::vector<char> data;
         if (!FileSystem::getData(uri, data)) { BL_LOG_ERROR << "Failed to load resource: " << uri; }
-        it = m.resources.insert(std::make_pair(uri, m.loader->load(uri, data))).first;
+        util::BufferIstreamBuf buf(data);
+        std::istream stream(&buf);
+        it = m.resources.insert(std::make_pair(uri, m.loader->load(uri, data, stream))).first;
     }
     return it->second;
 }

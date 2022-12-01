@@ -11,7 +11,9 @@ struct Character {
     unsigned int hp;
 
     bool loadFromJsonFile(const std::string& path);
+    bool loadFromJson(std::istream& stream);
     bool saveToBinary(std::ostream& output) const;
+    bool loadFromBinary(std::istream& stream);
 };
 
 namespace bl

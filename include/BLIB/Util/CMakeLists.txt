@@ -1,5 +1,6 @@
 target_sources(BLIB PUBLIC
     AngularVector.hpp
+    BufferIstreamBuf.hpp
     FileUtil.hpp
     Hashes.hpp
     HashCombine.hpp
