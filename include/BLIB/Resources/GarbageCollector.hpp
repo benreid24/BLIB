@@ -1,6 +1,7 @@
 #ifndef BLIB_RESOURCES_GARBAGECOLLECTOR_HPP
 #define BLIB_RESOURCES_GARBAGECOLLECTOR_HPP
 
+#include <BLIB/Resources/Bundling/BundleRuntime.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <atomic>
 #include <condition_variable>
@@ -28,6 +29,7 @@ private:
     std::condition_variable quitCv;
     std::mutex managerLock;
     std::vector<MP> managers;
+    bundle::BundleRuntime* bundleRuntime;
 
     GarbageCollector();
     ~GarbageCollector();
@@ -40,7 +42,8 @@ private:
     void managerPeriodChanged(ResourceManagerBase* manager);
     friend class ResourceManagerBase;
 
-    // TODO - register bundles as well
+    void registerBundleRuntime(bundle::BundleRuntime* runtime);
+    friend class FileSystem;
 
     static GarbageCollector& get();
 };

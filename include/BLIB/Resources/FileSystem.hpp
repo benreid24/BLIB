@@ -1,7 +1,9 @@
 #ifndef BLIB_RESOURCES_FILESYSTEM_HPP
 #define BLIB_RESOURCES_FILESYSTEM_HPP
 
+#include <BLIB/Resources/Bundling/BundleRuntime.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -21,10 +23,10 @@ public:
     /**
      * @brief Configure the bundle set to use
      *
-     * @param manifestPath Path to the bundle manifest file created by the Bundler
+     * @param bundlePath Path to the directory containing the bundles
      * @return True if the bundle set is valid, false on error
      */
-    static bool useBundle(const std::string& manifestPath);
+    static bool useBundle(const std::string& bundlePath);
 
     /**
      * @brief Loads the data for the given path. Either loads from the underlying file system or
@@ -44,12 +46,6 @@ public:
      * @return True if there is a resource, false otherwise
      */
     static bool resourceExists(const std::string& path);
-
-private:
-    // TODO - data for bundles
-
-    FileSystem() = default;
-    static FileSystem& get();
 };
 
 } // namespace resource

@@ -1,8 +1,10 @@
 target_sources(BLIB PUBLIC
+    Bundle.hpp
     BundledFileMetadata.hpp
     BundleMetadata.hpp
-    Config.hpp
+    BundleRuntime.hpp
     BundleSource.hpp
+    Config.hpp
     FileHandler.hpp
     FileHandlerContext.hpp
     Manifest.hpp

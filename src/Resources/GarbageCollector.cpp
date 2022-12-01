@@ -35,7 +35,9 @@ void GarbageCollector::stop() {
         stopped = true;
         BL_LOG_INFO << "GarbageCollector terminated";
     }
-    else { BL_LOG_ERROR << "GarbageCollector already shutdown"; }
+    else {
+        BL_LOG_ERROR << "GarbageCollector already shutdown";
+    }
 }
 
 GarbageCollector& GarbageCollector::get() {
@@ -70,9 +72,19 @@ void GarbageCollector::unregisterManager(ResourceManagerBase* m) {
     }
 }
 
+void GarbageCollector::registerBundleRuntime(bundle::BundleRuntime* br) {
+    std::unique_lock lock(managerLock);
+    bundleRuntime = br;
+}
+
 void GarbageCollector::runner() {
     while (!quitFlag) {
         std::unique_lock lock(managerLock);
+
+        // purge expired bundles
+        if (bundleRuntime) { bundleRuntime->clean(); }
+
+        // block if no managers to clean
         if (managers.empty()) {
             quitCv.wait_for(lock, std::chrono::seconds(60));
             continue;
@@ -99,7 +111,9 @@ void GarbageCollector::runner() {
                 omp.first->doClean();
                 omp.second = omp.first->gcPeriod;
             }
-            else { omp.second -= sleptTime; }
+            else {
+                omp.second -= sleptTime;
+            }
         }
     }
 }
