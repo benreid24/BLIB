@@ -53,7 +53,7 @@ bool FileUtil::isBigEndian() {
 }
 
 std::string FileUtil::getExtension(const std::string& file) {
-    size_t i = file.find_last_of(".");
+    std::size_t i = file.find_last_of(".");
     if (i != std::string::npos) return file.substr(i + 1);
     i = file.find_last_of("/\\");
     if (i != std::string::npos) return file.substr(i + 1);
@@ -62,19 +62,19 @@ std::string FileUtil::getExtension(const std::string& file) {
 
 std::string FileUtil::getBaseName(const std::string& file) {
     std::string base = getFilename(file);
-    size_t i         = base.find_last_of(".");
+    std::size_t i         = base.find_last_of(".");
     if (i != std::string::npos) base.erase(i);
     return base;
 }
 
 std::string FileUtil::getFilename(const std::string& file) {
-    const size_t i = file.find_last_of("/\\");
+    const std::size_t i = file.find_last_of("/\\");
     if (i != std::string::npos) return file.substr(i + 1);
     return file;
 }
 
 std::string FileUtil::getPath(const std::string& file) {
-    const size_t i = file.find_last_of("/\\");
+    const std::size_t i = file.find_last_of("/\\");
     return file.substr(0, (i != std::string::npos) ? (i + 1) : (i));
 }
 
@@ -82,10 +82,10 @@ std::string FileUtil::joinPath(const std::string& l, const std::string& r) {
     if (l.empty()) return r;
     if (r.empty()) return l;
 
-    size_t ls = std::string::npos;
+    std::size_t ls = std::string::npos;
     if (l[l.size() - 1] == '/' || l[l.size() - 1] == '\\') ls = l.size() - 1;
 
-    size_t rs = 0;
+    std::size_t rs = 0;
     if (r[0] == '/' || r[0] == '\\') rs = 1;
 
     return l.substr(0, ls) + "/" + r.substr(rs);

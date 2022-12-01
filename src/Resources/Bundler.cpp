@@ -67,7 +67,9 @@ std::string formatSize(unsigned int byteCount) {
         const float kb = static_cast<float>(byteCount) / static_cast<float>(KB);
         ss << std::fixed << kb << " KB";
     }
-    else { ss << byteCount << " bytes"; }
+    else {
+        ss << byteCount << " bytes";
+    }
     return ss.str();
 }
 } // namespace
@@ -130,7 +132,7 @@ bool Bundler::createBundles() {
 
     BL_LOG_INFO << "Bundled " << stats.fileCount << " files into " << stats.bundleCount
                 << " bundles with a total size of " << formatSize(stats.outputSize)
-                << ". Input files total size: " << stats.inputSize;
+                << ". Input files total size: " << formatSize(stats.inputSize);
 
     if (!manifest.save()) {
         BL_LOG_ERROR << "Failed to save manifest";
@@ -144,7 +146,7 @@ namespace bundle
 {
 BundleCreator::BundleCreator(const std::string& path, Config& cfg)
 : bundlePath(nextBundleName(cfg.outputDirectory(), path))
-, tempPath(util::FileUtil::joinPath(config.outputDirectory(), "temp.bundle"))
+, tempPath(util::FileUtil::joinPath(cfg.outputDirectory(), "temp.bundle"))
 , config(cfg) {
     BL_LOG_INFO << "Starting bundle creation from path: " << path;
     if (util::FileUtil::directoryExists(path)) {

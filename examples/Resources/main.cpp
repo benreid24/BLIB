@@ -14,7 +14,8 @@ void createBundles() {
             .addExcludePattern(".*\\.temp")
             .addFileHandler<MapHandler>(".*/maps/.*\\.json")
             .addFileHandler<CharacterHandler>(".*/characters/.*\\.json")
-            .withCatchAllDirectory("game_data"));
+            .withCatchAllDirectory("game_data")
+            .build());
 
     if (!bundler.createBundles()) {
         BL_LOG_ERROR << "Failed to create bundles!";
@@ -24,7 +25,11 @@ void createBundles() {
 
 int main() {
     // Load a managed texture from disk (default state)
-    Resource<sf::Texture> texture = ResourceManager<sf::Texture>::load("game_dataimage.png");
+    Resource<sf::Texture> texture =
+        ResourceManager<sf::Texture>::load("game_data/images/image.png");
+
+    // create bundles from from our raw resources
+    createBundles();
 
     return 0;
 }

@@ -17,19 +17,19 @@ DefaultHandler defaultHandler;
 Config::Config(const std::string& outpath)
 : outDir(outpath) {}
 
-Config&& Config::withCatchAllDirectory(const std::string& call) {
+Config& Config::withCatchAllDirectory(const std::string& call) {
     allFilesDir = call;
-    return std::move(*this);
+    return *this;
 }
 
-Config&& Config::addBundleSource(BundleSource&& src) {
+Config& Config::addBundleSource(BundleSource&& src) {
     sources.emplace_back(std::forward<BundleSource>(src));
-    return std::move(*this);
+    return *this;
 }
 
-Config&& Config::addExcludePattern(const std::string& pattern) {
+Config& Config::addExcludePattern(const std::string& pattern) {
     excludePatterns.emplace_back(pattern, pattern.c_str());
-    return std::move(*this);
+    return *this;
 }
 
 const std::string& Config::outputDirectory() const { return outDir; }

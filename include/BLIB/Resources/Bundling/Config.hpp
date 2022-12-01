@@ -48,7 +48,7 @@ public:
      * @param path The catch-all directory
      * @return Config& A reference to this object
      */
-    Config&& withCatchAllDirectory(const std::string& path);
+    Config& withCatchAllDirectory(const std::string& path);
 
     /**
      * @brief Adds an explicit bundle source to the config
@@ -56,7 +56,7 @@ public:
      * @param source The source of a bundle to create
      * @return Config& A reference to this object
      */
-    Config&& addBundleSource(BundleSource&& source);
+    Config& addBundleSource(BundleSource&& source);
 
     /**
      * @brief Adds a regex pattern to exclude files from directory listings. Files explicitly
@@ -65,7 +65,7 @@ public:
      * @param pattern The regex pattern to exclude based on
      * @return Config& A reference to this object
      */
-    Config&& addExcludePattern(const std::string& pattern);
+    Config& addExcludePattern(const std::string& pattern);
 
     /**
      * @brief Adds a file handler to the config
@@ -77,7 +77,14 @@ public:
      * @return Config& A reference to this object
      */
     template<typename THandler, typename... TArgs>
-    Config&& addFileHandler(const std::string& pattern, TArgs&&... args);
+    Config& addFileHandler(const std::string& pattern, TArgs&&... args);
+
+    /**
+     * @brief Convenience method to get the rvalue ref required by the bundler
+     *
+     * @return Config&& A reference to this object
+     */
+    constexpr inline Config&& build();
 
     /**
      * @brief Returns the directory where bundles are created
@@ -128,11 +135,13 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename THandler, typename... TArgs>
-Config&& Config::addFileHandler(const std::string& pattern, TArgs&&... args) {
+Config& Config::addFileHandler(const std::string& pattern, TArgs&&... args) {
     handlers.emplace_back(pattern.c_str(),
                           std::make_unique<THandler>(std::forward<TArgs>(args)...));
-    return std::move(*this);
+    return *this;
 }
+
+constexpr inline Config&& Config::build() { return std::move(*this); }
 
 } // namespace bundle
 } // namespace resource
