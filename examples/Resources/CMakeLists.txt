@@ -1,4 +1,8 @@
-add_executable(resources main.cpp)
+add_executable(resources
+    main.cpp
+    Character.cpp
+    Map.cpp
+)
 
 target_link_libraries(resources
     BLIB

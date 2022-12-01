@@ -34,6 +34,7 @@ public:
 
 private:
     const std::string bundlePath;
+    const std::string tempPath;
     Config& config;
     std::stack<std::string, std::vector<std::string>> toBundle;
 };
@@ -143,6 +144,7 @@ namespace bundle
 {
 BundleCreator::BundleCreator(const std::string& path, Config& cfg)
 : bundlePath(nextBundleName(cfg.outputDirectory(), path))
+, tempPath(util::FileUtil::joinPath(config.outputDirectory(), "temp.bundle"))
 , config(cfg) {
     BL_LOG_INFO << "Starting bundle creation from path: " << path;
     if (util::FileUtil::directoryExists(path)) {
@@ -158,8 +160,9 @@ BundleCreator::BundleCreator(const std::string& path, Config& cfg)
     }
 }
 
+BundleCreator::~BundleCreator() { util::FileUtil::deleteFile(tempPath); }
+
 bool BundleCreator::create(Stats& stats, Manifest& manifest) {
-    const std::string tempPath = util::FileUtil::joinPath(config.outputDirectory(), "temp.bundle");
     std::fstream tempfile(tempPath.c_str(), std::ios::binary | std::ios::out);
 
     BundleMetadata bundleManifest;
@@ -168,10 +171,6 @@ bool BundleCreator::create(Stats& stats, Manifest& manifest) {
         const std::string path = toBundle.top();
         toBundle.pop();
 
-        if (config.excludeFile(path)) {
-            BL_LOG_INFO << "Skipping excluded file: " << path;
-            continue;
-        }
         if (manifest.containsFile(path)) {
             BL_LOG_DEBUG << "Skipping already bundled file: " << path;
             continue;
@@ -212,9 +211,6 @@ bool BundleCreator::create(Stats& stats, Manifest& manifest) {
     std::istreambuf_iterator<char> end_source;
     std::ostreambuf_iterator<char> begin_dest(bundle);
     std::copy(begin_source, end_source, begin_dest);
-    // cleanup
-    tempfile.close();
-    util::FileUtil::deleteFile(tempPath);
 
     if (!bundle.good()) {
         BL_LOG_ERROR << "Failed to save final bundle";

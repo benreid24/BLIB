@@ -17,19 +17,19 @@ DefaultHandler defaultHandler;
 Config::Config(const std::string& outpath)
 : outDir(outpath) {}
 
-Config& Config::withCatchAllDirectory(const std::string& call) {
+Config&& Config::withCatchAllDirectory(const std::string& call) {
     allFilesDir = call;
-    return *this;
+    return std::move(*this);
 }
 
-Config& Config::addBundleSource(BundleSource&& src) {
+Config&& Config::addBundleSource(BundleSource&& src) {
     sources.emplace_back(std::forward<BundleSource>(src));
-    return *this;
+    return std::move(*this);
 }
 
-Config& Config::addExcludePattern(const std::string& pattern) {
+Config&& Config::addExcludePattern(const std::string& pattern) {
     excludePatterns.emplace_back(pattern, pattern.c_str());
-    return *this;
+    return std::move(*this);
 }
 
 const std::string& Config::outputDirectory() const { return outDir; }
@@ -39,7 +39,10 @@ const std::string& Config::catchAllDirectory() const { return allFilesDir; }
 const std::vector<BundleSource>& Config::bundleSources() const { return sources; }
 
 bool Config::includeFile(const std::string& path) const {
-    if (excludeFile(path)) return false;
+    if (excludeFiles.find(path) != excludeFiles.end()) {
+        BL_LOG_DEBUG << "Excluding " << path << " based on handler-made exclude list";
+        return false;
+    }
 
     for (const auto& pattern : excludePatterns) {
         if (std::regex_match(path.c_str(), pattern.second)) {
@@ -52,8 +55,10 @@ bool Config::includeFile(const std::string& path) const {
 }
 
 FileHandler& Config::getFileHandler(const std::string& path) const {
-    const auto it = handlers.find(path);
-    return it != handlers.end() ? *it->second : defaultHandler;
+    for (const auto& hp : handlers) {
+        if (std::regex_match(path.c_str(), hp.first)) { return *hp.second; }
+    }
+    return defaultHandler;
 }
 
 } // namespace bundle

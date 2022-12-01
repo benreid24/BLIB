@@ -4,3 +4,5 @@ target_sources(BLIB PRIVATE
     FileHandlerContext.cpp
     Manifest.cpp
 )
+
+add_subdirectory(FileHandlers)

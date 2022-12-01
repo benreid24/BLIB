@@ -33,7 +33,7 @@ public:
     template<typename T>
     static std::enable_if_t<std::is_integral_v<T>, T> get(T min, T max) {
         if (min > max) std::swap(min, max);
-        std::uniform_int_distribution<std::mt19937::result_type> rgen(min, max);
+        std::uniform_int_distribution<T> rgen(min, max);
         return rgen(_priv().rng);
     }
 
@@ -62,10 +62,8 @@ public:
     template<typename T>
     static std::enable_if_t<std::is_floating_point_v<T>, T> get(T min, T max) {
         if (min > max) std::swap(min, max);
-        constexpr std::uint32_t range = std::numeric_limits<std::uint32_t>::max();
-        const std::uint32_t point     = get<uint32_t>(0, range);
-        const T p                     = static_cast<T>(point) / static_cast<T>(range);
-        return min + p * (max - min);
+        std::uniform_real_distribution<T> rgen(min, max);
+        return rgen(_priv().rng);
     }
 
     /**
@@ -94,9 +92,7 @@ public:
 
 private:
     Random()
-    : rng(rngdev()) {
-        rng.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
-    }
+    : rng(rngdev()) {}
 
     static Random& _priv() {
         static Random rng;

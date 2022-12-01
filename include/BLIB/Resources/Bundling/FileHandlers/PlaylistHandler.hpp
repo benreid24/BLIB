@@ -17,8 +17,17 @@ namespace bundle
  *
  */
 struct PlaylistHandler : public FileHandler {
+    /**
+     * @brief Construct a new Playlist Handler
+     *
+     * @param bundleMusicFiles True to bundle music with the playlist file, false to leave be
+     */
+    PlaylistHandler(bool bundleMusicFiles = false);
+
     virtual bool processFile(const std::string& path, std::ostream& output,
                              FileHandlerContext& context) override;
+
+    const bool bundleMusicFiles;
 };
 
 } // namespace bundle
