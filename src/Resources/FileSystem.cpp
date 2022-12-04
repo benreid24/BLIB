@@ -10,7 +10,8 @@ namespace resource
 namespace
 {
 std::optional<bundle::BundleRuntime> bundles;
-}
+std::unordered_map<std::string, std::vector<char>> persistentBuffers;
+} // namespace
 
 bool FileSystem::useBundle(const std::string& bundlePath) {
     bundles.emplace(bundlePath);
@@ -32,6 +33,15 @@ bool FileSystem::getData(const std::string& path, std::vector<char>& data) {
         return true;
     }
 }
+
+bool FileSystem::getPersistentData(const std::string& path, std::vector<char>** data) {
+    auto it = persistentBuffers.find(path);
+    if (it == persistentBuffers.end()) { it = persistentBuffers.try_emplace(path).first; }
+    *data = &it->second;
+    return getData(path, it->second);
+}
+
+void FileSystem::purgePersistentData(const std::string& path) { persistentBuffers.erase(path); }
 
 bool FileSystem::resourceExists(const std::string& path) {
     return bundles.has_value() ? bundles.value().resourceExists(path) :

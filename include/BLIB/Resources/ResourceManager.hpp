@@ -122,10 +122,20 @@ Resource<T>& ResourceManager<T>::load(const std::string& uri) {
     auto it = m.resources.find(uri);
     if (it == m.resources.end()) {
         std::vector<char> data;
-        if (!FileSystem::getData(uri, data)) { BL_LOG_ERROR << "Failed to load resource: " << uri; }
-        util::BufferIstreamBuf buf(data);
+        std::vector<char>* actual = &data;
+        if constexpr (std::is_same_v<T, sf::Font>) {
+            if (!FileSystem::getPersistentData(uri, &actual)) {
+                BL_LOG_ERROR << "Failed to load resource: " << uri;
+            }
+        }
+        else {
+            if (!FileSystem::getData(uri, data)) {
+                BL_LOG_ERROR << "Failed to load resource: " << uri;
+            }
+        }
+        util::BufferIstreamBuf buf(*actual);
         std::istream stream(&buf);
-        it = m.resources.insert(std::make_pair(uri, m.loader->load(uri, data, stream))).first;
+        it = m.resources.insert(std::make_pair(uri, m.loader->load(uri, *actual, stream))).first;
     }
     return it->second;
 }
@@ -141,7 +151,11 @@ void ResourceManager<T>::doClean() {
     std::unique_lock lock(mapLock);
     for (auto i = resources.begin(); i != resources.end();) {
         auto j = i++;
-        if (j->second.data.unique() && !j->second.forceInCache) resources.erase(j);
+        if (j->second.data.unique() && !j->second.forceInCache) {
+            resources.erase(j);
+            FileSystem::purgePersistentData(j->first);
+            BL_LOG_DEBUG << "Purged expired resource: " << j->first;
+        }
     }
 }
 

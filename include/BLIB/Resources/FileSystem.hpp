@@ -39,6 +39,25 @@ public:
     static bool getData(const std::string& path, std::vector<char>& output);
 
     /**
+     * @brief Loads the data for the given path. Either loads from the underlying file system or
+     *        from the active bundle. Keeps the buffer in memory until it is purged. Required for
+     *        sf::Font which needs to continually read from the buffer
+     *
+     * @param path The resource path to load
+     * @param output Vector pointer to point to the loaded data buffer
+     * @return True if the resource was found and loaded, false otherwise
+     */
+    static bool getPersistentData(const std::string& path, std::vector<char>** output);
+
+    /**
+     * @brief Purges the persistent data buffer for the given resource. Noop if the resource did not
+     *        have a persistent buffer
+     *
+     * @param path Resource path of the memory buffer to clear
+     */
+    static void purgePersistentData(const std::string& path);
+
+    /**
      * @brief Returns whether or not the given path points to a valid resource. Essentially a
      *        bundle-aware version of FileUtil::exists
      *
