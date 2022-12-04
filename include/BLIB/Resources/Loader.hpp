@@ -2,13 +2,16 @@
 #define BLIB_RESOURCES_RESOURCELOADER_HPP
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Media/Audio/Playlist.hpp>
 #include <BLIB/Media/Graphics/AnimationData.hpp>
 #include <BLIB/Resources/Resource.hpp>
-#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <istream>
 #include <string>
+
+#ifndef BLIB_TEST_TARGGET
+#include <BLIB/Media/Audio/Playlist.hpp>
+#include <SFML/Audio.hpp>
+#endif
 
 namespace bl
 {
@@ -71,6 +74,7 @@ struct DefaultLoader<sf::Texture> : public LoaderBase<sf::Texture> {
     }
 };
 
+#ifndef BLIB_TEST_TARGET
 template<>
 struct DefaultLoader<sf::SoundBuffer> : public LoaderBase<sf::SoundBuffer> {
     virtual ~DefaultLoader() = default;
@@ -85,6 +89,20 @@ struct DefaultLoader<sf::SoundBuffer> : public LoaderBase<sf::SoundBuffer> {
         return res;
     }
 };
+
+template<>
+struct DefaultLoader<audio::Playlist> : public LoaderBase<audio::Playlist> {
+    virtual ~DefaultLoader() = default;
+
+    virtual Resource<audio::Playlist>::Ref load(const std::string& path,
+                                                const std::vector<char>& data,
+                                                std::istream&) override {
+        Resource<audio::Playlist>::Ref res = std::make_shared<audio::Playlist>();
+        if (!res->loadFromMemory(data)) { BL_LOG_ERROR << "Failed to load playlist: " << path; }
+        return res;
+    }
+};
+#endif
 
 template<>
 struct DefaultLoader<sf::Font> : public LoaderBase<sf::Font> {
@@ -110,19 +128,6 @@ struct DefaultLoader<sf::Image> : public LoaderBase<sf::Image> {
         if (!res->loadFromMemory(data.data(), data.size())) {
             BL_LOG_ERROR << "Failed to load image: " << path;
         }
-        return res;
-    }
-};
-
-template<>
-struct DefaultLoader<audio::Playlist> : public LoaderBase<audio::Playlist> {
-    virtual ~DefaultLoader() = default;
-
-    virtual Resource<audio::Playlist>::Ref load(const std::string& path,
-                                                const std::vector<char>& data,
-                                                std::istream&) override {
-        Resource<audio::Playlist>::Ref res = std::make_shared<audio::Playlist>();
-        if (!res->loadFromMemory(data)) { BL_LOG_ERROR << "Failed to load playlist: " << path; }
         return res;
     }
 };

@@ -1,3 +1,4 @@
+#ifndef BLIB_TEST_TARGET
 #include <BLIB/Media/Audio/Playlist.hpp>
 #include <BLIB/Resources/Bundling/FileHandlers/PlaylistHandler.hpp>
 
@@ -28,3 +29,5 @@ bool PlaylistHandler::processFile(const std::string& path, std::ostream& output,
 } // namespace bundle
 } // namespace resource
 } // namespace bl
+
+#endif

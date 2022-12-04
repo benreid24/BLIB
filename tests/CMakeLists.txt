@@ -10,7 +10,7 @@ endif()
 
 set(BUILD_SHARED_LIBS Off)
 set(SFML_USE_STATIC_STD_LIBS On)
-target_compile_definitions(BLIB.t PUBLIC SFML_STATIC)
+target_compile_definitions(BLIB.t PUBLIC SFML_STATIC BLIB_TEST_TARGET)
 set_target_properties(sfml-audio PROPERTIES CXX_STANDARD 98 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
 if (CMAKE_HOST_WIN32)
     SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
@@ -24,7 +24,6 @@ target_link_libraries(BLIB.t PRIVATE
     sfml-graphics
     sfml-window
     sfml-network
-    sfml-audio
     sfml-system
     
     gtest

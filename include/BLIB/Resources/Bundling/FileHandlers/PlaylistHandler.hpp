@@ -1,3 +1,4 @@
+#ifndef BLIB_TEST_TARGET
 #ifndef BLIB_RESOURCES_BUNDLING_FILEHANDLERS_PLAYLISTHANDLER_HPP
 #define BLIB_RESOURCES_BUNDLING_FILEHANDLERS_PLAYLISTHANDLER_HPP
 
@@ -34,4 +35,5 @@ struct PlaylistHandler : public FileHandler {
 } // namespace resource
 } // namespace bl
 
+#endif
 #endif
