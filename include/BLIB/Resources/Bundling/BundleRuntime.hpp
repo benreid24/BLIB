@@ -22,7 +22,7 @@ class BundleRuntime {
 public:
     /**
      * @brief Construct a new Bundle Runtime in an empty state
-     * 
+     *
      * @param bundlePath The path where the bundles and manifest are
      */
     BundleRuntime(const std::string& bundlePath);
@@ -38,10 +38,11 @@ public:
      * @brief Fetch the given resource from the bundles
      *
      * @param path The resource path to get
-     * @param data The buffer to populate
+     * @param buffer The buffer to populate
+     * @param len The length to populate
      * @return True if the resource was loaded, false otherwise
      */
-    bool getResource(const std::string& path, std::vector<char>& data);
+    bool getResource(const std::string& path, char** buffer, std::size_t& len);
 
     /**
      * @brief Returns whether or not a resource with the given path exists

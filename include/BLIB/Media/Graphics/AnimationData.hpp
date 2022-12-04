@@ -31,25 +31,6 @@ public:
     AnimationData();
 
     /**
-     * @brief Loads the AnimationData from the given file. Spritesheets are searched for in the
-     *        same directory as the animation file. If not found then
-     *        engine::Configuration::get("blib.animation.spritesheet_path") is used
-     *
-     * @param filename File to laod from
-     */
-    AnimationData(const std::string& filename);
-
-    /**
-     * @brief Loads the AnimationData from the given file. Spritesheets are searched for in the
-     *        same directory as the animation file. If not found then
-     *        engine::Configuration::get("blib.animation.spritesheet_path") is used
-     *
-     * @param data The memory buffer to load from
-     * @param originalPath The original file path of the animation. Used to help locate spritesheet
-     */
-    AnimationData(const std::vector<char>& data, const std::string& originalPath);
-
-    /**
      * @brief Loads the animation from the given file, overwriting internal data
      *        Spritesheets are searched for in the same directory as the file. If not found then
      *        engine::Configuration::get("blib.animation.spritesheet_path") is used
@@ -65,11 +46,12 @@ public:
      *        same directory as the animation file. If not found then
      *        engine::Configuration::get("blib.animation.spritesheet_path") is used
      *
-     * @param data The memory buffer to load from
+     * @param buffer The memory buffer to load from
+     * @param len Size of the buffer to load from
      * @param originalPath The original file path of the animation. Used to help locate spritesheet
      * @return True if the animation could be loaded, false on error
      */
-    bool loadFromMemory(const std::vector<char>& data, const std::string& originalPath);
+    bool loadFromMemory(const char* buffer, std::size_t len, const std::string& originalPath);
 
     /**
      * @brief Returns the filename of the spritesheet

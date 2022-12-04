@@ -15,11 +15,11 @@ bool BundleRuntime::initialize() {
     return manifest.load();
 }
 
-bool BundleRuntime::getResource(const std::string& path, std::vector<char>& data) {
+bool BundleRuntime::getResource(const std::string& path, char** buf, std::size_t& len) {
     std::unique_lock lock(cleanMutex);
 
     Bundle* bundle = getOrLoadBundle(path);
-    if (bundle) { return bundle->getResource(path, data); }
+    if (bundle) { return bundle->getResource(path, buf, len); }
     else {
         BL_LOG_ERROR << "Resource '" << path << "' not bundled";
         return false;

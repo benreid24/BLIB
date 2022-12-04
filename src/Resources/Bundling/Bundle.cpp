@@ -13,9 +13,17 @@ namespace
 Bundle::Bundle(const std::string& path)
 : source(path)
 , touchTime(std::chrono::steady_clock::now()) {
-    fileHandle.open(path.c_str(), std::ios::binary);
+    std::ifstream fileHandle(path.c_str(), std::ios::binary);
     if (fileHandle.good()) {
-        if (manifest.load(fileHandle)) { BL_LOG_INFO << "Loaded bundle '" << path << "'"; }
+        if (manifest.load(fileHandle)) {
+            const std::streampos cpos = fileHandle.tellg();
+            fileHandle.seekg(0, std::ios_base::end);
+            const std::streampos dataSize = fileHandle.tellg() - cpos;
+            fileHandle.seekg(cpos);
+            data.resize(dataSize);
+            fileHandle.read(data.data(), dataSize);
+            BL_LOG_INFO << "Loaded bundle '" << path << "'";
+        }
         else {
             BL_LOG_ERROR << "Failed to load bundle '" << path << "'";
         }
@@ -25,7 +33,7 @@ Bundle::Bundle(const std::string& path)
     }
 }
 
-bool Bundle::getResource(const std::string& path, std::vector<char>& buffer) {
+bool Bundle::getResource(const std::string& path, char** buf, std::size_t& len) {
     touchTime = std::chrono::steady_clock::now();
 
     const BundledFileMetadata info = manifest.getFileInfo(path);
@@ -33,15 +41,18 @@ bool Bundle::getResource(const std::string& path, std::vector<char>& buffer) {
         BL_LOG_ERROR << "Resource '" << path << "' not found in bundle '" << source << "'";
         return false;
     }
-
-    fileHandle.seekg(info.offset);
-    if (!fileHandle.good()) {
+    if (!info.offset >= data.size()) {
         BL_LOG_ERROR << "Resource '" << path << "' has invalid offset " << info.offset
                      << " in bundle '" << source << "'";
         return false;
     }
-    buffer.resize(info.length);
-    return fileHandle.read(buffer.data(), info.length).good();
+    if (info.offset + info.length >= data.size()) {
+        BL_LOG_ERROR << "Resource '" << path << "' has invalid offset + size (" << info.offset
+                     << " + " << info.length << ") in bundle '" << source << "'";
+        return false;
+    }
+    *buf = &data[info.offset];
+    len  = info.length;
 }
 
 bool Bundle::expired() const {

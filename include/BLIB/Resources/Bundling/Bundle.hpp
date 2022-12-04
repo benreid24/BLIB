@@ -35,10 +35,11 @@ public:
      * @brief Loads the given resource from the bundle
      *
      * @param path The resource path to load
-     * @param data The buffer to populate
+     * @param buffer Pointer to buffer to point to the resource data
+     * @param len Length variable to populate with resource data length
      * @return True if the resource could be loaded, false otherwise
      */
-    bool getResource(const std::string& path, std::vector<char>& data);
+    bool getResource(const std::string& path, char** buffer, std::size_t& len);
 
     /**
      * @brief Returns whether or not this bundle has expired and should be purged
@@ -50,8 +51,8 @@ public:
 private:
     const std::string source;
     BundleMetadata manifest;
-    std::ifstream fileHandle;
     std::chrono::steady_clock::time_point touchTime;
+    std::vector<char> data;
 };
 
 } // namespace bundle

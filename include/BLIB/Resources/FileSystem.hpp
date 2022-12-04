@@ -33,21 +33,11 @@ public:
      *        from the active bundle
      *
      * @param path The resource path to load
-     * @param output The raw data of the given resource
+     * @param buffer The buffer to point to the raw data of the given resource
+     * @param len Will be populated with the size of the buffer
      * @return True if the resource was found and loaded, false otherwise
      */
-    static bool getData(const std::string& path, std::vector<char>& output);
-
-    /**
-     * @brief Loads the data for the given path. Either loads from the underlying file system or
-     *        from the active bundle. Keeps the buffer in memory until it is purged. Required for
-     *        sf::Font which needs to continually read from the buffer
-     *
-     * @param path The resource path to load
-     * @param output Vector pointer to point to the loaded data buffer
-     * @return True if the resource was found and loaded, false otherwise
-     */
-    static bool getPersistentData(const std::string& path, std::vector<char>** output);
+    static bool getData(const std::string& path, char** buffer, std::size_t& len);
 
     /**
      * @brief Purges the persistent data buffer for the given resource. Noop if the resource did not

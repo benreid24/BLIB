@@ -20,25 +20,24 @@ bool FileSystem::useBundle(const std::string& bundlePath) {
     return true;
 }
 
-bool FileSystem::getData(const std::string& path, std::vector<char>& data) {
-    if (bundles.has_value()) { return bundles.value().getResource(path, data); }
+bool FileSystem::getData(const std::string& path, char** buffer, std::size_t& len) {
+    if (bundles.has_value()) { return bundles.value().getResource(path, buffer, len); }
     else {
+        // keep buffer in memory
+        auto it = persistentBuffers.find(path);
+        if (it == persistentBuffers.end()) { it = persistentBuffers.try_emplace(path).first; }
+
         std::ifstream input(path.c_str(), std::ios::in | std::ios::binary);
         if (!input.good()) return false;
         input.seekg(0, std::ios_base::end);
         const std::streampos fileSize = input.tellg();
-        data.resize(fileSize);
+        it->second.resize(fileSize);
         input.seekg(0, std::ios_base::beg);
-        input.read(data.data(), fileSize);
+        input.read(it->second.data(), fileSize);
+        *buffer = it->second.data();
+        len     = fileSize;
         return true;
     }
-}
-
-bool FileSystem::getPersistentData(const std::string& path, std::vector<char>** data) {
-    auto it = persistentBuffers.find(path);
-    if (it == persistentBuffers.end()) { it = persistentBuffers.try_emplace(path).first; }
-    *data = &it->second;
-    return getData(path, it->second);
 }
 
 void FileSystem::purgePersistentData(const std::string& path) { persistentBuffers.erase(path); }

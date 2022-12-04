@@ -20,10 +20,9 @@ struct BufferIstreamBuf : public std::basic_streambuf<char, std::char_traits<cha
      * @brief Construct a new Buffer Istream Buf from the given buffer
      *
      * @param buffer The buffer to wrap
+     * @param length The size of the buffer to wrap
      */
-    BufferIstreamBuf(std::vector<char>& buffer) {
-        setg(buffer.data(), buffer.data(), buffer.data() + buffer.size());
-    }
+    BufferIstreamBuf(char* buffer, std::size_t length) { setg(buffer, buffer, buffer + length); }
 };
 
 } // namespace util

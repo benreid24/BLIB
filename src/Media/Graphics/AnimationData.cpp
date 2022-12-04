@@ -17,16 +17,6 @@ AnimationData::AnimationData()
 , loop(false)
 , centerShards(true) {}
 
-AnimationData::AnimationData(const std::string& filename)
-: AnimationData() {
-    loadFromFile(filename);
-}
-
-AnimationData::AnimationData(const std::vector<char>& data, const std::string& originalPath)
-: AnimationData() {
-    loadFromMemory(data, originalPath);
-}
-
 bool AnimationData::loadFromFile(const std::string& filename) {
     frames.clear();
     totalLength = 0;
@@ -35,7 +25,7 @@ bool AnimationData::loadFromFile(const std::string& filename) {
     return doLoad(file, filename);
 }
 
-bool AnimationData::loadFromMemory(const std::vector<char>& data, const std::string& path) {
+bool AnimationData::loadFromMemory(const char* buffer, std::size_t len, const std::string& path) {
     frames.clear();
     totalLength = 0;
 

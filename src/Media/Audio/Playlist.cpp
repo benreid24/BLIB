@@ -34,16 +34,18 @@ Playlist::Playlist(const std::string& file)
     loadFromFile(file);
 }
 
-Playlist::Playlist(const std::vector<char>& data)
-: Playlist() {
-    loadFromMemory(data);
-}
-
 Playlist::Playlist(const Playlist& copy)
 : Playlist() {
     songs         = copy.songs;
     _shuffle      = copy._shuffle;
     shuffleOnLoop = copy.shuffleOnLoop;
+}
+
+Playlist::~Playlist() {
+    if (!songs.empty()) {
+        stop();
+        resource::FileSystem::purgePersistentData(songfile(songs[currentIndex]));
+    }
 }
 
 bool Playlist::saveToFile(const std::string& path) const {
@@ -63,10 +65,23 @@ bool Playlist::loadFromFile(const std::string& path) {
     return true;
 }
 
-bool Playlist::loadFromMemory(const std::vector<char>& data) {
-    serial::MemoryInputBuffer buf(data);
+bool Playlist::loadBinary(const char* buffer, std::size_t len) {
+    serial::MemoryInputBuffer buf(buffer, len);
     serial::binary::InputStream in(buf);
     if (!BinarySerializer::deserialize(in, *this)) {
+        BL_LOG_ERROR << "Failed to load playlist from memory";
+        return false;
+    }
+    playing      = false;
+    paused       = false;
+    currentIndex = 0;
+    return true;
+}
+
+bool Playlist::loadJson(const char* buffer, std::size_t len) {
+    util::BufferIstreamBuf buf(const_cast<char*>(buffer), len);
+    std::istream is(&buf);
+    if (!JsonSerializer::deserializeStream(is, *this)) {
         BL_LOG_ERROR << "Failed to load playlist from memory";
         return false;
     }
@@ -106,8 +121,14 @@ void Playlist::play() {
 }
 
 bool Playlist::openMusic(unsigned int i) {
-    if (!resource::FileSystem::getData(songfile(songs[i]), buffer)) return false;
-    return current.openFromMemory(buffer.data(), buffer.size());
+    if (i != currentIndex) {
+        current.stop();
+        resource::FileSystem::purgePersistentData(songfile(songs[currentIndex]));
+    }
+    char* buffer    = nullptr;
+    std::size_t len = 0;
+    if (!resource::FileSystem::getData(songfile(songs[i]), &buffer, len)) return false;
+    return current.openFromMemory(buffer, len);
 }
 
 void Playlist::pause() {

@@ -33,19 +33,18 @@ public:
     Playlist(const std::string& source);
 
     /**
-     * @brief Loads the playlist from the given data
-     *
-     * @param data The data to load from
-     */
-    Playlist(const std::vector<char>& data);
-
-    /**
      * @brief Copies the song list and shuffle setting from the given playlist, but not it's state
      *
      * @param copy The playlist to duplicate
      *
      */
     Playlist(const Playlist& copy);
+
+    /**
+     * @brief Stops the music and cleans up resources
+     * 
+     */
+    ~Playlist();
 
     /**
      * @brief Copies the song list and shuffle setting from the given playlist, but not it's state
@@ -64,12 +63,22 @@ public:
     bool loadFromFile(const std::string& path);
 
     /**
-     * @brief Loads the playlist from the given memory buffer. Expects the binary format
+     * @brief Loads the playlist from the given memory buffer. Expects the json format
      *
-     * @param data The memory buffer to load from
+     * @param buffer The memory buffer to load from
+     * @param len Size of the buffer to load from
      * @return True if the playlist could be loaded, false otherwise
      */
-    bool loadFromMemory(const std::vector<char>& data);
+    bool loadJson(const char* buffer, std::size_t len);
+
+    /**
+     * @brief Loads the playlist from the given memory buffer. Expects the binary format
+     *
+     * @param buffer The memory buffer to load from
+     * @param len Size of the buffer to load from
+     * @return True if the playlist could be loaded, false otherwise
+     */
+    bool loadBinary(const char* buffer, std::size_t len);
 
     /**
      * @brief Saves the conversation to the given JSON file
@@ -189,7 +198,6 @@ private:
     bool _shuffle;
     bool shuffleOnLoop;
 
-    std::vector<char> buffer;
     sf::Music current;
     unsigned int currentIndex;
     unsigned int startIndex;
