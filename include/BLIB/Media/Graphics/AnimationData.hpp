@@ -42,6 +42,15 @@ public:
     bool loadFromFile(const std::string& filename);
 
     /**
+     * @brief Same as loadFromFile, but rewrites the spritesheet source to be the full path to the
+     *        spritesheet so that it may be directly added to the bundle
+     *
+     * @param filename Path to the animation to load
+     * @return True if the animation could be loaded, false otherwise
+     */
+    bool loadFromFileForBundling(const std::string& filename);
+
+    /**
      * @brief Loads the AnimationData from the given file. Spritesheets are searched for in the
      *        same directory as the animation file. If not found then
      *        engine::Configuration::get("blib.animation.spritesheet_path") is used
@@ -118,7 +127,7 @@ private:
     void render(sf::RenderTarget& target, sf::RenderStates states, const sf::Vector2f& position,
                 const sf::Vector2f& scale, float rotation, unsigned int frame) const;
     sf::Vector2f computeFrameSize(unsigned int i) const;
-    bool doLoad(serial::binary::InputStream& input, const std::string& path);
+    bool doLoad(serial::binary::InputStream& input, const std::string& path, bool forBundle);
 
     friend class Animation;
 };

@@ -22,7 +22,15 @@ bool AnimationData::loadFromFile(const std::string& filename) {
     totalLength = 0;
 
     serial::binary::InputFile file(filename);
-    return doLoad(file, filename);
+    return doLoad(file, filename, false);
+}
+
+bool AnimationData::loadFromFileForBundling(const std::string& filename) {
+    frames.clear();
+    totalLength = 0;
+
+    serial::binary::InputFile file(filename);
+    return doLoad(file, filename, true);
 }
 
 bool AnimationData::loadFromMemory(const char* buffer, std::size_t len, const std::string& path) {
@@ -31,10 +39,11 @@ bool AnimationData::loadFromMemory(const char* buffer, std::size_t len, const st
 
     serial::MemoryInputBuffer buf(buffer, len);
     serial::binary::InputStream stream(buf);
-    return doLoad(stream, path);
+    return doLoad(stream, path, false);
 }
 
-bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string& ogPath) {
+bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string& ogPath,
+                           bool forBundle) {
     const std::string path = util::FileUtil::getPath(ogPath);
     const std::string& spritesheetDir =
         engine::Configuration::get<std::string>("blib.animation.spritesheet_path");
@@ -43,13 +52,14 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
     if (!input.read(sheet)) return false;
     spritesheetSource = sheet;
     if (!resource::FileSystem::resourceExists(sheet)) {
-        if (resource::FileSystem::resourceExists(util::FileUtil::joinPath(path, sheet)))
-            sheet = util::FileUtil::joinPath(path, sheet);
-        else if (resource::FileSystem::resourceExists(
-                     util::FileUtil::joinPath(spritesheetDir, sheet)))
-            sheet = util::FileUtil::joinPath(spritesheetDir, sheet);
-        else
-            return false;
+        const std::string localSheet = util::FileUtil::joinPath(path, sheet);
+        const std::string dirSheet   = util::FileUtil::joinPath(spritesheetDir, sheet);
+
+        if (resource::FileSystem::resourceExists(localSheet)) { sheet = localSheet; }
+        else if (resource::FileSystem::resourceExists(dirSheet)) { sheet = dirSheet; }
+        else { return false; }
+
+        if (forBundle) { spritesheetSource = sheet; }
     }
     spritesheet = resource::ResourceManager<sf::Texture>::load(sheet).data;
     if (!input.read(loop)) return false;
