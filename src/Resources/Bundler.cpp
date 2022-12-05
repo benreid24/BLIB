@@ -1,5 +1,6 @@
 #include <BLIB/Resources/Bundler.hpp>
 
+#include "Bundling/Utils.hpp"
 #include <BLIB/Logging.hpp>
 #include <BLIB/Resources/Bundling/BundleMetadata.hpp>
 #include <BLIB/Resources/Bundling/Manifest.hpp>
@@ -47,30 +48,6 @@ std::string nextBundleName(const std::string& outDir, const std::string& sourceP
     std::stringstream ss;
     ss << std::hex << (cb++) << std::hash<std::string>()(sourcePath) << ".bpack";
     return util::FileUtil::joinPath(outDir, ss.str());
-}
-
-std::string formatSize(unsigned int byteCount) {
-    constexpr unsigned int KB = 1000;
-    constexpr unsigned int MB = KB * 1000;
-    constexpr unsigned int GB = MB * 1000;
-
-    std::stringstream ss;
-    if (byteCount > GB) {
-        const float gb = static_cast<float>(byteCount) / static_cast<float>(GB);
-        ss << std::fixed << gb << " GB";
-    }
-    else if (byteCount > MB) {
-        const float mb = static_cast<float>(byteCount) / static_cast<float>(MB);
-        ss << std::fixed << mb << " MB";
-    }
-    else if (byteCount > KB) {
-        const float kb = static_cast<float>(byteCount) / static_cast<float>(KB);
-        ss << std::fixed << kb << " KB";
-    }
-    else {
-        ss << byteCount << " bytes";
-    }
-    return ss.str();
 }
 } // namespace
 
@@ -203,7 +180,6 @@ bool BundleCreator::create(Stats& stats, Manifest& manifest) {
     std::ofstream bundle(bundlePath.c_str(), std::ios::binary);
 
     // write bundle metadata
-    bundleManifest.applyOffset();
     if (!bundleManifest.save(bundle)) {
         BL_LOG_ERROR << "Failed to write bundle manifest";
         return false;

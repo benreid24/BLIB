@@ -35,12 +35,6 @@ public:
     void addFileInfo(const std::string& path, const BundledFileMetadata& info);
 
     /**
-     * @brief Offsets all file info by the encoded size of the metadata. This is used when
-     *        finalizing bundles
-     */
-    void applyOffset();
-
-    /**
      * @brief Get the information locating a specific file in the bundle
      *
      * @param path The original resource path

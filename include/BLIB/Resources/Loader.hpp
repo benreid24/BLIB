@@ -143,7 +143,7 @@ struct DefaultLoader<gfx::AnimationData> : public LoaderBase<gfx::AnimationData>
     virtual Resource<gfx::AnimationData>::Ref load(const std::string& path, const char* buffer,
                                                    std::size_t len, std::istream&) override {
         Resource<gfx::AnimationData>::Ref res = std::make_shared<gfx::AnimationData>();
-        if (!res->loadFromMemory(data, path)) {
+        if (!res->loadFromMemory(buffer, len, path)) {
             BL_LOG_ERROR << "Failed to load animation: " << path;
         }
         return res;

@@ -15,7 +15,7 @@ struct MockLoader : public LoaderBase<int> {
     MockLoader()
     : val(0) {}
 
-    virtual Resource<int>::Ref load(const std::string&, const std::vector<char>&,
+    virtual Resource<int>::Ref load(const std::string&, const char*, std::size_t,
                                     std::istream&) override {
         return std::make_shared<int>(val++);
     }
@@ -27,7 +27,7 @@ struct MockLoader2 : public LoaderBase<char> {
     MockLoader2()
     : val('a') {}
 
-    virtual Resource<char>::Ref load(const std::string&, const std::vector<char>&,
+    virtual Resource<char>::Ref load(const std::string&, const char*, std::size_t,
                                      std::istream&) override {
         return std::make_shared<char>(val++);
     }

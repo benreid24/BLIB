@@ -12,14 +12,9 @@ void BundleMetadata::addFileInfo(const std::string& path, const BundledFileMetad
     manifest[path] = info;
 }
 
-void BundleMetadata::applyOffset() {
-    const std::size_t size = Serializer::size(*this);
-    for (auto& pair : manifest) { pair.second.offset += size; }
-}
-
 BundledFileMetadata BundleMetadata::getFileInfo(const std::string& path) const {
     const auto it = manifest.find(path);
-    return it != manifest.end() ? it->second : BundledFileMetadata{};
+    return it != manifest.end() ? it->second : BundledFileMetadata{-1, -1};
 }
 
 bool BundleMetadata::save(std::ostream& stream) const {

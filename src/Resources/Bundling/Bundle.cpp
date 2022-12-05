@@ -1,5 +1,7 @@
-#include <BLIB/Logging.hpp>
 #include <BLIB/Resources/Bundling/Bundle.hpp>
+
+#include "Utils.hpp"
+#include <BLIB/Logging.hpp>
 
 namespace bl
 {
@@ -18,41 +20,38 @@ Bundle::Bundle(const std::string& path)
         if (manifest.load(fileHandle)) {
             const std::streampos cpos = fileHandle.tellg();
             fileHandle.seekg(0, std::ios_base::end);
-            const std::streampos dataSize = fileHandle.tellg() - cpos;
+            const std::streamoff dataSize = fileHandle.tellg() - cpos;
             fileHandle.seekg(cpos);
             data.resize(dataSize);
             fileHandle.read(data.data(), dataSize);
-            BL_LOG_INFO << "Loaded bundle '" << path << "'";
+            BL_LOG_INFO << "Loaded bundle '" << path << "' size=" << formatSize(data.size());
         }
-        else {
-            BL_LOG_ERROR << "Failed to load bundle '" << path << "'";
-        }
+        else { BL_LOG_ERROR << "Failed to load bundle '" << path << "'"; }
     }
-    else {
-        BL_LOG_ERROR << "Failed to open bundle file: '" << path << "'";
-    }
+    else { BL_LOG_ERROR << "Failed to open bundle file: '" << path << "'"; }
 }
 
 bool Bundle::getResource(const std::string& path, char** buf, std::size_t& len) {
     touchTime = std::chrono::steady_clock::now();
 
     const BundledFileMetadata info = manifest.getFileInfo(path);
-    if (info.offset == 0) {
+    if (info.length < 0) {
         BL_LOG_ERROR << "Resource '" << path << "' not found in bundle '" << source << "'";
         return false;
     }
-    if (!info.offset >= data.size()) {
+    if (info.offset >= static_cast<std::int64_t>(data.size())) {
         BL_LOG_ERROR << "Resource '" << path << "' has invalid offset " << info.offset
                      << " in bundle '" << source << "'";
         return false;
     }
-    if (info.offset + info.length >= data.size()) {
+    if (info.offset + info.length >= static_cast<std::int64_t>(data.size())) {
         BL_LOG_ERROR << "Resource '" << path << "' has invalid offset + size (" << info.offset
                      << " + " << info.length << ") in bundle '" << source << "'";
         return false;
     }
     *buf = &data[info.offset];
     len  = info.length;
+    return true;
 }
 
 bool Bundle::expired() const {

@@ -29,7 +29,7 @@ bool AnimationData::loadFromMemory(const char* buffer, std::size_t len, const st
     frames.clear();
     totalLength = 0;
 
-    serial::MemoryInputBuffer buf(data);
+    serial::MemoryInputBuffer buf(buffer, len);
     serial::binary::InputStream stream(buf);
     return doLoad(stream, path);
 }
