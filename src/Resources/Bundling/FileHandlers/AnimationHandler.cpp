@@ -7,7 +7,7 @@ namespace resource
 {
 namespace bundle
 {
-bool AnimationHandler::processFile(const std::string& path, std::ostream& output,
+bool AnimationHandler::processFile(const std::string& path, std::ostream&,
                                    FileHandlerContext& ctx) {
     gfx::AnimationData anim;
     if (!anim.loadFromFileForBundling(path)) {
