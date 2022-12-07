@@ -118,10 +118,23 @@ struct DefaultLoader<sf::Font> : public LoaderBase<sf::Font> {
 
     virtual Resource<sf::Font>::Ref load(const std::string& path, const char* buffer,
                                          std::size_t len, std::istream&) override {
-        Resource<sf::Font>::Ref res = std::make_shared<sf::Font>();
-        if (!res->loadFromMemory(buffer, len)) { BL_LOG_ERROR << "Failed to load font: " << path; }
+        std::vector<char>* bufCopy = new std::vector<char>(len);
+        std::memcpy(bufCopy->data(), buffer, len);
+        Resource<sf::Font>::Ref res = Resource<sf::Font>::Ref(new sf::Font(), FontDeleter{bufCopy});
+        if (!res->loadFromMemory(bufCopy->data(), len)) {
+            BL_LOG_ERROR << "Failed to load font: " << path;
+        }
         return res;
     }
+
+private:
+    struct FontDeleter {
+        std::vector<char>* buffer;
+        void operator()(sf::Font* font) {
+            delete font;
+            delete buffer;
+        }
+    };
 };
 
 template<>
