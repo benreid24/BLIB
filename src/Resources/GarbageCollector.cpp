@@ -35,9 +35,7 @@ void GarbageCollector::stop() {
         stopped = true;
         BL_LOG_INFO << "GarbageCollector terminated";
     }
-    else {
-        BL_LOG_ERROR << "GarbageCollector already shutdown";
-    }
+    else { BL_LOG_ERROR << "GarbageCollector already shutdown"; }
 }
 
 GarbageCollector& GarbageCollector::get() {
@@ -90,14 +88,18 @@ void GarbageCollector::runner() {
             continue;
         }
 
+        BL_LOG_INFO << "Processing when to sleep";
+
         // determine the next time we need to clean and sleep until then
         auto& mp                     = managers[soonestIndex()];
         const unsigned int sleepTime = mp.second;
-        const auto startTime         = std::chrono::steady_clock::now();
+        BL_LOG_INFO << "sleeping for " << sleepTime;
+        const auto startTime = std::chrono::steady_clock::now();
         quitCv.wait_for(lock, std::chrono::seconds(sleepTime));
         const unsigned int sleptTime = std::chrono::duration_cast<std::chrono::seconds>(
                                            std::chrono::steady_clock::now() - startTime)
                                            .count();
+        BL_LOG_INFO << "slept for " << sleptTime;
 
         // check if we need to bail
         if (quitFlag) return;
@@ -108,12 +110,11 @@ void GarbageCollector::runner() {
             if (quitFlag) return;
 
             if (omp.second <= sleptTime) {
+                BL_LOG_INFO << "cleaning";
                 omp.first->doClean();
                 omp.second = omp.first->gcPeriod;
             }
-            else {
-                omp.second -= sleptTime;
-            }
+            else { omp.second -= sleptTime; }
         }
     }
 }

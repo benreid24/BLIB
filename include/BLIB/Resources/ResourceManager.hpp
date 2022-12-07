@@ -84,6 +84,17 @@ public:
      */
     static Resource<TResourceType>& load(const std::string& uri);
 
+    /**
+     * @brief Uses the underlying FileSystem and loader to initialize the existing resource. The
+     *        resource will not be managed. This is useful when dynamic management is not necessary
+     *         but you still want the resource loading to be bundle and loader aware
+     *
+     * @param uri The resource path to initialize from
+     * @param resource The resource to initialize
+     * @return True if the resource could be initialized, false otherwise
+     */
+    static bool initializeExisting(const std::string& uri, TResourceType& resource);
+
 private:
     std::unique_ptr<LoaderBase<TResourceType>> loader;
     std::unordered_map<std::string, Resource<TResourceType>> resources;
@@ -121,18 +132,28 @@ Resource<T>& ResourceManager<T>::load(const std::string& uri) {
     std::unique_lock lock(m.mapLock);
     auto it = m.resources.find(uri);
     if (it == m.resources.end()) {
-        char* buffer    = nullptr;
-        std::size_t len = 0;
-        if (!FileSystem::getData(uri, &buffer, len)) {
-            BL_LOG_ERROR << "Failed to load resource: " << uri;
-        }
-        util::BufferIstreamBuf buf(buffer, len);
-        std::istream stream(&buf);
-        it =
-            m.resources.insert(std::make_pair(uri, m.loader->load(uri, buffer, len, stream))).first;
-        FileSystem::purgePersistentData(uri);
+        it = m.resources.insert(std::make_pair(uri, m.loader->createEmpty())).first;
+        initializeExisting(uri, *it->second.data);
     }
     return it->second;
+}
+
+template<typename T>
+bool ResourceManager<T>::initializeExisting(const std::string& uri, T& result) {
+    ResourceManager& m = get();
+
+    char* buffer    = nullptr;
+    std::size_t len = 0;
+    if (!FileSystem::getData(uri, &buffer, len)) {
+        BL_LOG_ERROR << "Failed to load resource: " << uri;
+        return false;
+    }
+    util::BufferIstreamBuf buf(buffer, len);
+    std::istream stream(&buf);
+    const bool success = m.loader->load(uri, buffer, len, stream, result);
+    FileSystem::purgePersistentData(uri);
+
+    return success;
 }
 
 template<typename T>

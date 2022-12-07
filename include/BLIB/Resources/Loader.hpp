@@ -25,7 +25,21 @@ namespace resource
  */
 template<typename TResourceType>
 struct LoaderBase {
+    /**
+     * @brief Destroy the Loader Base object
+     *
+     */
     virtual ~LoaderBase() = default;
+
+    /**
+     * @brief Creates a new resource object to be managed. Uses default constructor. Override this
+     *        if your type is not default constructable
+     *
+     * @return Resource<TResourceType>::Ref The newly created resource
+     */
+    virtual typename Resource<TResourceType>::Ref createEmpty() {
+        return std::make_shared<TResourceType>();
+    }
 
     /**
      * @brief Load the resource as identified by the uri
@@ -33,10 +47,11 @@ struct LoaderBase {
      * @param path Path to the resource to load
      * @param source The raw data of the resource to load
      * @param input istream wrapper around the source buffer
-     * @return Resource<TResourceType>::Ref The loaded resource
+     * @param result The resource object to initialize
+     * @return True if the resource could be loaded, false otherwise
      */
-    virtual typename Resource<TResourceType>::Ref load(const std::string& path, const char* buffer,
-                                                       std::size_t len, std::istream& input) = 0;
+    virtual bool load(const std::string& path, const char* buffer, std::size_t len,
+                      std::istream& input, TResourceType& result) = 0;
 };
 
 /**
@@ -50,10 +65,9 @@ template<typename T>
 struct DefaultLoader : public LoaderBase<T> {
     virtual ~DefaultLoader() = default;
 
-    virtual typename Resource<T>::Ref load(const std::string&, const char*, std::size_t,
-                                           std::istream&) override {
+    virtual bool load(const std::string&, const char*, std::size_t, std::istream&, T&) override {
         BL_LOG_CRITICAL << "DefaultLoader being used for resource " << typeid(T).name();
-        return {};
+        return false;
     }
 };
 
@@ -63,13 +77,13 @@ template<>
 struct DefaultLoader<sf::Texture> : public LoaderBase<sf::Texture> {
     virtual ~DefaultLoader() = default;
 
-    virtual Resource<sf::Texture>::Ref load(const std::string& path, const char* buffer,
-                                            std::size_t len, std::istream&) override {
-        Resource<sf::Texture>::Ref res = std::make_shared<sf::Texture>();
-        if (!res->loadFromMemory(buffer, len)) {
+    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
+                      sf::Texture& result) override {
+        if (!result.loadFromMemory(buffer, len)) {
             BL_LOG_ERROR << "Failed to load texture: " << path;
+            return false;
         }
-        return res;
+        return true;
     }
 };
 
@@ -78,11 +92,13 @@ template<>
 struct DefaultLoader<sf::SoundBuffer> : public LoaderBase<sf::SoundBuffer> {
     virtual ~DefaultLoader() = default;
 
-    virtual Resource<sf::SoundBuffer>::Ref load(const std::string& path, const char* buffer,
-                                                std::size_t len, std::istream&) override {
-        Resource<sf::SoundBuffer>::Ref res = std::make_shared<sf::SoundBuffer>();
-        if (!res->loadFromMemory(buffer, len)) { BL_LOG_ERROR << "Failed to load sound: " << path; }
-        return res;
+    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
+                      sf::SoundBuffer& result) override {
+        if (!result.loadFromMemory(buffer, len)) {
+            BL_LOG_ERROR << "Failed to load sound: " << path;
+            return false;
+        }
+        return true;
     }
 };
 
@@ -90,11 +106,13 @@ template<>
 struct DefaultLoader<audio::Playlist> : public LoaderBase<audio::Playlist> {
     virtual ~DefaultLoader() = default;
 
-    virtual Resource<audio::Playlist>::Ref load(const std::string& path, const char* buffer,
-                                                std::size_t len, std::istream&) override {
-        Resource<audio::Playlist>::Ref res = std::make_shared<audio::Playlist>();
-        if (!res->loadJson(buffer, len)) { BL_LOG_ERROR << "Failed to load playlist: " << path; }
-        return res;
+    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
+                      audio::Playlist& result) override {
+        if (!result.loadJson(buffer, len)) {
+            BL_LOG_ERROR << "Failed to load playlist: " << path;
+            return false;
+        }
+        return true;
     }
 };
 
@@ -103,11 +121,13 @@ using RawPlaylistLoader = DefaultLoader<audio::Playlist>;
 struct BundledPlaylistLoader : public LoaderBase<audio::Playlist> {
     virtual ~BundledPlaylistLoader() = default;
 
-    virtual Resource<audio::Playlist>::Ref load(const std::string& path, const char* buffer,
-                                                std::size_t len, std::istream&) override {
-        Resource<audio::Playlist>::Ref res = std::make_shared<audio::Playlist>();
-        if (!res->loadBinary(buffer, len)) { BL_LOG_ERROR << "Failed to load playlist: " << path; }
-        return res;
+    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
+                      audio::Playlist& result) override {
+        if (!result.loadBinary(buffer, len)) {
+            BL_LOG_ERROR << "Failed to load playlist: " << path;
+            return false;
+        }
+        return true;
     }
 };
 #endif
@@ -116,18 +136,34 @@ template<>
 struct DefaultLoader<sf::Font> : public LoaderBase<sf::Font> {
     virtual ~DefaultLoader() = default;
 
-    virtual Resource<sf::Font>::Ref load(const std::string& path, const char* buffer,
-                                         std::size_t len, std::istream&) override {
-        std::vector<char>* bufCopy = new std::vector<char>(len);
-        std::memcpy(bufCopy->data(), buffer, len);
-        Resource<sf::Font>::Ref res = Resource<sf::Font>::Ref(new sf::Font(), FontDeleter{bufCopy});
-        if (!res->loadFromMemory(bufCopy->data(), len)) {
-            BL_LOG_ERROR << "Failed to load font: " << path;
+    virtual Resource<sf::Font>::Ref createEmpty() override {
+        std::vector<char>* bufCopy = new std::vector<char>();
+        Resource<sf::Font>::Ref font(new sf::Font(), FontDeleter{bufCopy});
+        bufferMap.emplace(font.get(), bufCopy);
+        return font;
+    }
+
+    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
+                      sf::Font& result) override {
+        const auto it = bufferMap.find(&result);
+        if (it == bufferMap.end()) {
+            BL_LOG_ERROR << "Could not find buffer for font '" << path << "'";
+            return false;
         }
-        return res;
+        std::vector<char>* bufCopy = it->second;
+        bufferMap.erase(it);
+        bufCopy->resize(len);
+        std::memcpy(bufCopy->data(), buffer, len);
+        if (!result.loadFromMemory(bufCopy->data(), len)) {
+            BL_LOG_ERROR << "Failed to load font: " << path;
+            return false;
+        }
+        return true;
     }
 
 private:
+    std::unordered_map<sf::Font*, std::vector<char>*> bufferMap;
+
     struct FontDeleter {
         std::vector<char>* buffer;
         void operator()(sf::Font* font) {
@@ -141,11 +177,13 @@ template<>
 struct DefaultLoader<sf::Image> : public LoaderBase<sf::Image> {
     virtual ~DefaultLoader() = default;
 
-    virtual Resource<sf::Image>::Ref load(const std::string& path, const char* buffer,
-                                          std::size_t len, std::istream&) override {
-        Resource<sf::Image>::Ref res = std::make_shared<sf::Image>();
-        if (!res->loadFromMemory(buffer, len)) { BL_LOG_ERROR << "Failed to load image: " << path; }
-        return res;
+    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
+                      sf::Image& result) override {
+        if (!result.loadFromMemory(buffer, len)) {
+            BL_LOG_ERROR << "Failed to load image: " << path;
+            return false;
+        }
+        return true;
     }
 };
 
@@ -153,13 +191,13 @@ template<>
 struct DefaultLoader<gfx::AnimationData> : public LoaderBase<gfx::AnimationData> {
     virtual ~DefaultLoader() = default;
 
-    virtual Resource<gfx::AnimationData>::Ref load(const std::string& path, const char* buffer,
-                                                   std::size_t len, std::istream&) override {
-        Resource<gfx::AnimationData>::Ref res = std::make_shared<gfx::AnimationData>();
-        if (!res->loadFromMemory(buffer, len, path)) {
+    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
+                      gfx::AnimationData& result) override {
+        if (!result.loadFromMemory(buffer, len, path)) {
             BL_LOG_ERROR << "Failed to load animation: " << path;
+            return false;
         }
-        return res;
+        return true;
     }
 };
 
