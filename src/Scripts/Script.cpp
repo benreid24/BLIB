@@ -3,6 +3,7 @@
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Resources.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <Scripts/Parser.hpp>
 #include <Scripts/ScriptImpl.hpp>
@@ -17,7 +18,7 @@ namespace
 {
 bool prepScript(std::string& script) {
     static const auto exists = [](const std::string& v) {
-        if (util::FileUtil::exists(v)) {
+        if (resource::FileSystem::resourceExists(v)) {
             if (util::FileUtil::getExtension(v) != "bs") {
                 BL_LOG_WARN << "bScript files should have '.bs' extension: " << v;
             }
@@ -40,9 +41,10 @@ Script::Script(const std::string& data, bool addDefaults)
     std::string input = data;
     if (prepScript(input)) {
         BL_LOG_DEBUG << "Loading bScript: " << input;
-        std::string content;
-        util::FileUtil::readFile(input, content);
-        root = script::Parser::parse(content, &error);
+        char* buf = nullptr;
+        std::size_t len = 0;
+        resource::FileSystem::getData(input, &buf, len);
+        root = script::Parser::parse(std::string{buf, len}, &error);
     }
     else {
         BL_LOG_DEBUG << "Loading bScript: " << data;
