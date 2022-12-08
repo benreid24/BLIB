@@ -62,7 +62,7 @@ std::string FileUtil::getExtension(const std::string& file) {
 
 std::string FileUtil::getBaseName(const std::string& file) {
     std::string base = getFilename(file);
-    std::size_t i         = base.find_last_of(".");
+    std::size_t i    = base.find_last_of(".");
     if (i != std::string::npos) base.erase(i);
     return base;
 }
@@ -89,6 +89,11 @@ std::string FileUtil::joinPath(const std::string& l, const std::string& r) {
     if (r[0] == '/' || r[0] == '\\') rs = 1;
 
     return l.substr(0, ls) + "/" + r.substr(rs);
+}
+
+bool FileUtil::startsWithPath(const std::string& file, const std::string& path) {
+    const std::string_view fileStart(file.c_str(), std::min(file.size(), path.size()));
+    return fileStart == path;
 }
 
 std::string FileUtil::genTempName(const std::string& path, const std::string& ext) {
