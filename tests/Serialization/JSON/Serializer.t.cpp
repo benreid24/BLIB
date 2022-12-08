@@ -57,7 +57,8 @@ struct SerializableObject<json::unittest::TestBoi> : public SerializableObjectBa
     SerializableField<7, T, std::unordered_map<int, std::string>> imfield;
 
     SerializableObject()
-    : bfield("bfield", *this, &T::bfield, SerializableFieldBase::Required{})
+    : SerializableObjectBase("TestBoi")
+    , bfield("bfield", *this, &T::bfield, SerializableFieldBase::Required{})
     , ifield("ifield", *this, &T::ifield, SerializableFieldBase::Required{})
     , ffield("ffield", *this, &T::ffield, SerializableFieldBase::Required{})
     , sfield("sfield", *this, &T::sfield, SerializableFieldBase::Required{})

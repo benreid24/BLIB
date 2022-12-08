@@ -84,7 +84,8 @@ struct SerializableObject<resource::bundle::Manifest> : public SerializableObjec
     SerializableField<1, T, std::unordered_map<std::string, std::string>> manifest;
 
     SerializableObject()
-    : manifest("manifest", *this, &T::manifest, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("BundleManifest")
+    , manifest("manifest", *this, &T::manifest, SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
 

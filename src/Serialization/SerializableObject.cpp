@@ -9,13 +9,24 @@ namespace bl
 {
 namespace serial
 {
+SerializableObjectBase::SerializableObjectBase(const std::string& name)
+: debugName(name) {}
+
 bool SerializableObjectBase::deserializeJSON(const json::Group& val, void* obj) const {
     for (const auto& field : fieldsJson) {
         const auto* f = val.getField(field.first);
         if (f != nullptr) {
-            if (!field.second->deserializeJSON(*f, obj)) { return false; }
+            if (!field.second->deserializeJSON(*f, obj)) {
+                BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', field failed: '"
+                             << field.first << "'";
+                return false;
+            }
         }
-        else if (!field.second->optional()) { return false; }
+        else if (!field.second->optional()) {
+            BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', required field '"
+                         << field.first << "' missing";
+            return false;
+        }
         else { field.second->makeDefault(obj); }
     }
     // never care about extra fields
@@ -41,28 +52,59 @@ bool SerializableObjectBase::serializeBinary(binary::OutputStream& stream, const
 }
 
 bool SerializableObjectBase::deserializeBinary(binary::InputStream& stream, void* obj) const {
-    std::unordered_map<std::uint16_t, const SerializableFieldBase*> fields = fieldsBinary;
+    constexpr unsigned int FieldN = 128;
+    char foundFields[FieldN];
+    std::memset(foundFields, 0, FieldN);
+
+    const auto logReadError = [this]() {
+        BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', bad read";
+    };
 
     std::uint16_t n = 0;
-    if (!stream.read<std::uint16_t>(n)) return false;
+    if (!stream.read<std::uint16_t>(n)) {
+        logReadError();
+        return false;
+    }
     for (std::uint16_t i = 0; i < n; ++i) {
         std::uint16_t id    = 0;
         std::uint32_t fsize = 0;
-        if (!stream.read<std::uint16_t>(id)) return false;
-        if (!stream.read<std::uint32_t>(fsize)) return false;
-        const auto it = fields.find(id);
-        if (it != fields.end()) {
-            if (!it->second->deserializeBinary(stream, obj)) return false;
-            fields.erase(it);
+        if (!stream.read<std::uint16_t>(id)) {
+            logReadError();
+            return false;
+        }
+        if (!stream.read<std::uint32_t>(fsize)) {
+            logReadError();
+            return false;
+        }
+        const auto it = fieldsBinary.find(id);
+        if (it != fieldsBinary.end()) {
+            if (id >= FieldN) {
+                BL_LOG_CRITICAL << "Field id cannot be greater than " << FieldN
+                                << ". Message type: " << debugName;
+                return false;
+            }
+            if (!it->second->deserializeBinary(stream, obj)) {
+                BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "' field failed: " << id;
+                return false;
+            }
+            foundFields[id] = 1;
         }
         else {
-            if (!stream.skip(fsize)) return false;
+            if (!stream.skip(fsize)) {
+                logReadError();
+                return false;
+            }
         }
     }
 
     // default fields not found and fail if any are required
-    for (const auto& field : fields) {
-        if (!field.second->optional()) { return false; }
+    for (const auto& field : fieldsBinary) {
+        if (foundFields[field.first] != 0) continue;
+        if (!field.second->optional()) {
+            BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', missing required field "
+                         << field.first;
+            return false;
+        }
         field.second->makeDefault(obj);
     }
     return true;
@@ -117,30 +159,53 @@ bool SerializableObjectBase::serializeJsonStream(std::ostream& stream, const voi
 bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* obj) {
     auto fields = fieldsJson;
 
+    const auto logParseError = [this]() {
+        BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', parse error";
+    };
+
     util::StreamUtil::skipWhitespace(stream);
-    if (stream.peek() != '{') return false;
+    if (stream.peek() != '{') {
+        logParseError();
+        return false;
+    }
     stream.get();
 
     while (stream.good()) {
         util::StreamUtil::skipWhitespace(stream);
-        if (stream.peek() != '"') return false;
+        if (stream.peek() != '"') {
+            logParseError();
+            return false;
+        }
         stream.get();
 
         std::string name;
         std::getline(stream, name, '"');
-        if (!stream.good()) return false;
-        if (!util::StreamUtil::skipUntil(stream, ':')) return false;
+        if (!stream.good()) {
+            logParseError();
+            return false;
+        }
+        if (!util::StreamUtil::skipUntil(stream, ':')) {
+            logParseError();
+            return false;
+        }
         stream.get();
 
         const auto it = fields.find(name);
         if (it != fields.end()) {
-            if (!it->second->deserializeJsonStream(stream, obj)) return false;
+            if (!it->second->deserializeJsonStream(stream, obj)) {
+                BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', field failed '"
+                             << it->first << "'";
+                return false;
+            }
             fields.erase(it);
         }
         else {
             json::Loader loader(stream);
             json::Value trash(false);
-            if (!loader.loadValue(trash)) return false;
+            if (!loader.loadValue(trash)) {
+                logParseError();
+                return false;
+            }
         }
 
         util::StreamUtil::skipWhitespace(stream);
@@ -148,14 +213,20 @@ bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* o
         if (c == '}') {
             // check fields not found for required
             for (const auto& field : fields) {
-                if (!field.second->optional()) return false;
+                if (!field.second->optional()) {
+                    BL_LOG_DEBUG << "Failed to deserialize '" << debugName
+                                 << "', missing required field '" << field.first << "'";
+                    return false;
+                }
                 field.second->makeDefault(obj);
             }
             return true;
         }
         else if (c == ',') { continue; }
+        logParseError();
         return false;
     }
+    logParseError();
     return false;
 }
 

@@ -22,7 +22,8 @@ struct SerializableObject<Nested> : public SerializableObjectBase {
     SerializableField<2, Nested, float> floatValue;
 
     SerializableObject()
-    : boolValue("bval", *this, &Nested::boolValue, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Nested")
+    , boolValue("bval", *this, &Nested::boolValue, SerializableFieldBase::Required{})
     , floatValue("fval", *this, &Nested::floatValue, SerializableFieldBase::Required{}) {}
 };
 
@@ -44,7 +45,8 @@ struct SerializableObject<Data> : public SerializableObjectBase {
     SerializableField<3, Data, std::vector<Nested>> nestedValue;
 
     SerializableObject()
-    : intValue("ival", *this, &Data::intValue, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Data")
+    , intValue("ival", *this, &Data::intValue, SerializableFieldBase::Required{})
     , stringValue("sval", *this, &Data::stringValue, SerializableFieldBase::Required{})
     , nestedValue("nval", *this, &Data::nestedValue, SerializableFieldBase::Required{}) {}
 };
@@ -62,7 +64,8 @@ struct SerializableObject<Relaxed> : SerializableObjectBase {
     SerializableField<3, Relaxed, int> three;
 
     SerializableObject()
-    : one("one", *this, &Relaxed::one, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Relaxed")
+    , one("one", *this, &Relaxed::one, SerializableFieldBase::Required{})
     , two("two", *this, &Relaxed::two, SerializableFieldBase::Optional{})
     , three("three", *this, &Relaxed::three, SerializableFieldBase::Required{}) {
         two.setDefault(56);
@@ -154,7 +157,8 @@ struct SerializableObject<TestyBoi> : public SerializableObjectBase {
     SerializableField<5, TestyBoi, float> f;
 
     SerializableObject()
-    : str("str", *this, &TestyBoi::str, SerializableFieldBase::Required{})
+    : SerializableObjectBase("TestyBoi")
+    , str("str", *this, &TestyBoi::str, SerializableFieldBase::Required{})
     , u32("u32", *this, &TestyBoi::u32, SerializableFieldBase::Required{})
     , nowidth("nowidth", *this, &TestyBoi::nowidth, SerializableFieldBase::Required{})
     , b("b", *this, &TestyBoi::b, SerializableFieldBase::Required{})
@@ -192,7 +196,8 @@ struct SerializableObject<TestyBoi2> : public SerializableObjectBase {
     SerializableField<6, TestyBoi2, std::string> newfield;
 
     SerializableObject()
-    : str("str", *this, &TestyBoi2::str, SerializableFieldBase::Required{})
+    : SerializableObjectBase("TestyBoi2")
+    , str("str", *this, &TestyBoi2::str, SerializableFieldBase::Required{})
     , u32("u32", *this, &TestyBoi2::u32, SerializableFieldBase::Required{})
     , nowidth("nowidth", *this, &TestyBoi2::nowidth, SerializableFieldBase::Required{})
     , b("b", *this, &TestyBoi2::b, SerializableFieldBase::Required{})

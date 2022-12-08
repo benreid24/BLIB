@@ -42,7 +42,7 @@ public:
 
     /**
      * @brief Stops the music and cleans up resources
-     * 
+     *
      */
     ~Playlist();
 
@@ -90,7 +90,7 @@ public:
 
     /**
      * @brief Saves the playlist in binary format to the given stream
-     * 
+     *
      * @param output The stream to save to
      * @return True if the data could be saved, false otherwise
      */
@@ -220,7 +220,8 @@ struct SerializableObject<audio::Playlist> : public SerializableObjectBase {
     SerializableField<3, audio::Playlist, bool> shuffleOnLoop;
 
     SerializableObject()
-    : songs("songs", *this, &audio::Playlist::songs, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Playlist")
+    , songs("songs", *this, &audio::Playlist::songs, SerializableFieldBase::Required{})
     , shuffle("shuffle", *this, &audio::Playlist::_shuffle, SerializableFieldBase::Optional{})
     , shuffleOnLoop("shuffleOnLoop", *this, &audio::Playlist::shuffleOnLoop,
                     SerializableFieldBase::Optional{}) {

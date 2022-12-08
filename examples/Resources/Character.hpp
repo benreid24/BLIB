@@ -27,7 +27,8 @@ struct SerializableObject<Character> : public SerializableObjectBase {
     SerializableField<3, Character, unsigned int> hp;
 
     SerializableObject()
-    : name("name", *this, &Character::name, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Character")
+    , name("name", *this, &Character::name, SerializableFieldBase::Required{})
     , position("position", *this, &Character::position, SerializableFieldBase::Required{})
     , hp("hp", *this, &Character::hp, SerializableFieldBase::Required{}) {}
 };

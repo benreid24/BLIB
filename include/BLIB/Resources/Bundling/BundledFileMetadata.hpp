@@ -55,7 +55,8 @@ struct SerializableObject<resource::bundle::BundledFileMetadata> : public Serial
     SerializableField<2, T, std::int64_t> length;
 
     SerializableObject()
-    : offset("offset", *this, &T::offset, SerializableFieldBase::Required{})
+    : SerializableObjectBase("BundleHeader")
+    , offset("offset", *this, &T::offset, SerializableFieldBase::Required{})
     , length("length", *this, &T::length, SerializableFieldBase::Required{}) {}
 };
 

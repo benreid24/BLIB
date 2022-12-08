@@ -113,9 +113,15 @@ struct SerializableObjectBase : private util::NonCopyable {
     static SerializableObjectBase& get();
 
 protected:
-    SerializableObjectBase() = default;
+    /**
+     * @brief Construct a new Serializable Object
+     * 
+     * @param debugName The name to output in debug logs
+     */
+    SerializableObjectBase(const std::string& debugName);
 
 private:
+    const std::string debugName;
     std::vector<std::pair<std::uint16_t, const SerializableFieldBase*>> sortedFields;
     std::unordered_map<std::uint16_t, const SerializableFieldBase*> fieldsBinary;
     std::unordered_map<std::string, const SerializableFieldBase*> fieldsJson;

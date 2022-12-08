@@ -29,7 +29,8 @@ struct SerializableObject<Map> : public SerializableObjectBase {
     SerializableField<3, Map, std::vector<std::string>> npcs;
 
     SerializableObject()
-    : name("name", *this, &Map::name, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Map")
+    , name("name", *this, &Map::name, SerializableFieldBase::Required{})
     , size("size", *this, &Map::size, SerializableFieldBase::Required{})
     , npcs("npcs", *this, &Map::npcs, SerializableFieldBase::Required{}) {}
 };
