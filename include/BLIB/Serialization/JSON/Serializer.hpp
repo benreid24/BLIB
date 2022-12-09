@@ -229,7 +229,14 @@ struct Serializer<T, true> {
 
     static bool serializeStream(std::ostream& stream, T value, unsigned int, unsigned int) {
         if constexpr (std::is_enum_v<T>) {
-            stream << static_cast<std::underlying_type_t<T>>(value);
+            using U = std::underlying_type_t<T>;
+            if constexpr (std::is_same_v<T, std::uint8_t>) {
+                stream << static_cast<unsigned int>(value);
+            }
+            else if constexpr (std::is_same_v<T, std::int8_t>) {
+                stream << static_cast<int>(value);
+            }
+            else { stream << static_cast<U>(value); }
         }
         else if constexpr (std::is_floating_point_v<T>) { stream << std::fixed << value; }
         else if constexpr (std::is_same_v<T, std::uint8_t>) {
