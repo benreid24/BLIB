@@ -9,6 +9,11 @@ namespace bl
 {
 namespace serial
 {
+namespace
+{
+constexpr unsigned int MaxFieldCount = 128;
+}
+
 SerializableObjectBase::SerializableObjectBase(const std::string& name)
 : debugName(name) {}
 
@@ -52,9 +57,8 @@ bool SerializableObjectBase::serializeBinary(binary::OutputStream& stream, const
 }
 
 bool SerializableObjectBase::deserializeBinary(binary::InputStream& stream, void* obj) const {
-    constexpr unsigned int FieldN = 128;
-    char foundFields[FieldN];
-    std::memset(foundFields, 0, FieldN);
+    char foundFields[MaxFieldCount];
+    std::memset(foundFields, 0, MaxFieldCount);
 
     const auto logReadError = [this]() {
         BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', bad read";
@@ -78,8 +82,8 @@ bool SerializableObjectBase::deserializeBinary(binary::InputStream& stream, void
         }
         const auto it = fieldsBinary.find(id);
         if (it != fieldsBinary.end()) {
-            if (id >= FieldN) {
-                BL_LOG_CRITICAL << "Field id cannot be greater than " << FieldN
+            if (id >= MaxFieldCount) {
+                BL_LOG_CRITICAL << "Field id cannot be greater than " << MaxFieldCount
                                 << ". Message type: " << debugName;
                 return false;
             }
@@ -157,7 +161,23 @@ bool SerializableObjectBase::serializeJsonStream(std::ostream& stream, const voi
 }
 
 bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* obj) {
-    auto fields = fieldsJson;
+    using FIter = decltype(fieldsJson)::iterator;
+    std::pair<bool, FIter> fields[MaxFieldCount];
+    unsigned int fieldCount = 0;
+    for (auto it = fieldsJson.begin(); it != fieldsJson.end(); ++it) {
+        fields[fieldCount].first  = false;
+        fields[fieldCount].second = it;
+        ++fieldCount;
+    }
+
+    const auto markVisited = [&fields, fieldCount](FIter it) {
+        for (unsigned int i = 0; i < fieldCount; ++i) {
+            if (fields[i].second == it) {
+                fields[i].first = true;
+                break;
+            }
+        }
+    };
 
     const auto logParseError = [this]() {
         BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', parse error";
@@ -190,14 +210,14 @@ bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* o
         }
         stream.get();
 
-        const auto it = fields.find(name);
-        if (it != fields.end()) {
+        const auto it = fieldsJson.find(name);
+        if (it != fieldsJson.end()) {
             if (!it->second->deserializeJsonStream(stream, obj)) {
                 BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', field failed '"
                              << it->first << "'";
                 return false;
             }
-            fields.erase(it);
+            markVisited(it);
         }
         else {
             json::Loader loader(stream);
@@ -212,13 +232,16 @@ bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* o
         const char c = stream.get();
         if (c == '}') {
             // check fields not found for required
-            for (const auto& field : fields) {
-                if (!field.second->optional()) {
-                    BL_LOG_DEBUG << "Failed to deserialize '" << debugName
-                                 << "', missing required field '" << field.first << "'";
-                    return false;
+            for (unsigned int i = 0; i < fieldCount; ++i) {
+                if (!fields[i].first) {
+                    const auto& field = fields[i].second;
+                    if (!field->second->optional()) {
+                        BL_LOG_DEBUG << "Failed to deserialize '" << debugName
+                                     << "', missing required field '" << field->first << "'";
+                        return false;
+                    }
+                    field->second->makeDefault(obj);
                 }
-                field.second->makeDefault(obj);
             }
             return true;
         }
