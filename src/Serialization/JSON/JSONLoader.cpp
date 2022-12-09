@@ -1,7 +1,7 @@
 #include <BLIB/Serialization/JSON/JSONLoader.hpp>
 
-#include <BLIB/Util/StreamUtil.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Util/StreamUtil.hpp>
 #include <fstream>
 
 namespace bl
@@ -86,7 +86,7 @@ bool Loader::loadValue(Value& result) {
         result = list;
         return true;
     }
-    BL_LOG_ERROR << error() << "Unexpected character '" << input.peek() << "'\n";
+    BL_LOG_ERROR << error() << "Unexpected character '" << static_cast<char>(input.peek()) << "'\n";
     return false;
 }
 
@@ -121,7 +121,8 @@ bool Loader::loadBool(bool& result) {
     }
     else {
         valid = false;
-        BL_LOG_ERROR << error() << "Unexpected character '" << input.peek() << "'";
+        BL_LOG_ERROR << error() << "Unexpected character '" << static_cast<char>(input.peek())
+                     << "'";
         return false;
     }
     valid = false;
@@ -173,9 +174,10 @@ bool Loader::loadString(std::string& result) {
         if (input.peek() == '"') {
             input.get();
             while (input.peek() != '"') {
-                if (input.peek() == '\n') currentLine += 1;
+                const char n = input.get();
+                if (n == '\n') currentLine += 1;
 
-                if (input.peek() == '\\') {
+                if (n == '\\') {
                     const char c = input.get();
                     switch (c) {
                     case 'n':
@@ -189,7 +191,7 @@ bool Loader::loadString(std::string& result) {
                         break;
                     }
                 }
-                else { result.push_back(input.get()); }
+                else { result.push_back(n); }
                 if (!input.good()) {
                     valid = false;
                     BL_LOG_ERROR << "Unexpected end of file";
@@ -199,7 +201,8 @@ bool Loader::loadString(std::string& result) {
             skipSymbol(); // closing quote
             return true;
         }
-        BL_LOG_ERROR << error() << "Unxpected symbol '" << input.peek() << "' expecting '\"'";
+        BL_LOG_ERROR << error() << "Unxpected symbol '" << static_cast<char>(input.peek())
+                     << "' expecting '\"'";
         valid = false;
     }
     return false;
@@ -211,7 +214,7 @@ bool Loader::loadList(List& result) {
 
     if (input.peek() != '[') {
         valid = false;
-        BL_LOG_ERROR << error() << "Expected '[' got " << input.peek();
+        BL_LOG_ERROR << error() << "Expected '[' got " << static_cast<char>(input.peek());
         return false;
     }
     skipSymbol();
@@ -223,7 +226,8 @@ bool Loader::loadList(List& result) {
             skipSymbol();
         else if (input.peek() != ']') {
             valid = false;
-            BL_LOG_ERROR << error() << "Expecting ',' got '" << input.peek() << "'\n";
+            BL_LOG_ERROR << error() << "Expecting ',' got '" << static_cast<char>(input.peek())
+                         << "'\n";
             return false;
         }
     }
@@ -238,7 +242,8 @@ bool Loader::loadGroup(Group& result) {
     util::StreamUtil::skipWhitespace(input);
     if (input.peek() != '{') {
         valid = false;
-        BL_LOG_ERROR << error() << "Expecting '{' but got '" << input.peek() << "'\n";
+        BL_LOG_ERROR << error() << "Expecting '{' but got '" << static_cast<char>(input.peek())
+                     << "'\n";
         return false;
     }
     skipSymbol();
@@ -248,8 +253,8 @@ bool Loader::loadGroup(Group& result) {
         if (!loadString(name)) return false;
         if (input.peek() != ':') {
             valid = false;
-            BL_LOG_ERROR << error() << "Expecting ':' after field name got '" << input.peek()
-                         << "'\n";
+            BL_LOG_ERROR << error() << "Expecting ':' after field name got '"
+                         << static_cast<char>(input.peek()) << "'\n";
             return false;
         }
         skipSymbol();
@@ -261,7 +266,8 @@ bool Loader::loadGroup(Group& result) {
             skipSymbol();
         else if (input.peek() != '}') {
             valid = false;
-            BL_LOG_ERROR << error() << "Expecting ',' got '" << input.peek() << "'\n";
+            BL_LOG_ERROR << error() << "Expecting ',' got '" << static_cast<char>(input.peek())
+                         << "'\n";
             return false;
         }
     }
