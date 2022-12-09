@@ -232,6 +232,10 @@ struct Serializer<T, true> {
             stream << static_cast<std::underlying_type_t<T>>(value);
         }
         else if constexpr (std::is_floating_point_v<T>) { stream << std::fixed << value; }
+        else if constexpr (std::is_same_v<T, std::uint8_t>) {
+            stream << static_cast<unsigned int>(value);
+        }
+        else if constexpr (std::is_same_v<T, std::int8_t>) { stream << static_cast<int>(value); }
         else { stream << value; }
         return stream.good();
     }
