@@ -168,8 +168,8 @@ void ResourceManager<T>::doClean() {
     for (auto i = resources.begin(); i != resources.end();) {
         auto j = i++;
         if (j->second.data.unique() && !j->second.forceInCache) {
-            resources.erase(j);
             BL_LOG_DEBUG << "Purged expired resource: " << j->first;
+            resources.erase(j);
         }
     }
 }
