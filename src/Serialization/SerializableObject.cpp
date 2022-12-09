@@ -179,13 +179,13 @@ bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* o
         }
     };
 
-    const auto logParseError = [this]() {
-        BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', parse error";
+    const auto logParseError = [this](const std::string& err) {
+        BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', parse error: " << err;
     };
 
     util::StreamUtil::skipWhitespace(stream);
     if (stream.peek() != '{') {
-        logParseError();
+        logParseError(std::string("Expected '{' but got ") + static_cast<char>(stream.peek()));
         return false;
     }
     stream.get();
@@ -193,7 +193,7 @@ bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* o
     while (stream.good()) {
         util::StreamUtil::skipWhitespace(stream);
         if (stream.peek() != '"') {
-            logParseError();
+            logParseError(std::string("Expected '\"' but got ") + static_cast<char>(stream.peek()));
             return false;
         }
         stream.get();
@@ -201,11 +201,11 @@ bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* o
         std::string name;
         std::getline(stream, name, '"');
         if (!stream.good()) {
-            logParseError();
+            logParseError("End of stream while reading field name");
             return false;
         }
         if (!util::StreamUtil::skipUntil(stream, ':')) {
-            logParseError();
+            logParseError("End of stream while reading to ':'");
             return false;
         }
         stream.get();
@@ -223,7 +223,7 @@ bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* o
             json::Loader loader(stream);
             json::Value trash(false);
             if (!loader.loadValue(trash)) {
-                logParseError();
+                logParseError("Failed to skip past unknown json data");
                 return false;
             }
         }
@@ -246,10 +246,10 @@ bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* o
             return true;
         }
         else if (c == ',') { continue; }
-        logParseError();
+        logParseError(std::string("Expected ',' but got ") + c);
         return false;
     }
-    logParseError();
+    logParseError("Unexpected end of stream");
     return false;
 }
 

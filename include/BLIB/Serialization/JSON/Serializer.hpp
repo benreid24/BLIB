@@ -515,6 +515,10 @@ struct Serializer<std::vector<U>, false> {
         if (!util::StreamUtil::skipWhitespace(stream)) return false;
 
         while (stream.good()) {
+            if (stream.peek() == ']') {
+                stream.get();
+                return true;
+            }
             result.emplace_back();
             if (!Serializer<U>::deserializeStream(stream, result.back())) return false;
             if (!util::StreamUtil::skipWhitespace(stream)) return false;
