@@ -171,51 +171,56 @@ bool BundleCreator::create(Stats& stats, Manifest& manifest) {
             continue;
         }
 
-        BL_LOG_DEBUG << "Adding " << path << " to " << bundlePath;
-        manifest.registerFileBundle(path, bundlePath);
-
-        util::FileUtil::FileInfo info;
-        ++fileCount;
-        if (util::FileUtil::queryFileInfo(path, info)) { stats.inputSize += info.size; }
-
         FileHandler& handler = config.getFileHandler(path);
         FileHandlerContext ctx(config.excludeFiles, toBundle);
         const std::int64_t offset = tempfile.tellp();
-        if (!handler.processFile(path, tempfile, ctx)) {
+        if (handler.processFile(path, tempfile, ctx)) {
+            BL_LOG_DEBUG << "Added " << path << " to " << bundlePath;
+            manifest.registerFileBundle(path, bundlePath);
+
+            util::FileUtil::FileInfo info;
+            ++fileCount;
+            if (util::FileUtil::queryFileInfo(path, info)) { stats.inputSize += info.size; }
+
+            const std::int64_t len = tempfile.tellp() - offset;
+            bundleManifest.addFileInfo(path, {offset, len});
+        }
+        else {
             BL_LOG_ERROR << "Failed to process file: " << path;
+            tempfile.seekp(offset);
+        }
+    }
+
+    if (fileCount > 0) {
+        BL_LOG_INFO << "Finalizing bundle " << bundlePath;
+
+        tempfile.close();
+        tempfile.open(tempPath.c_str(), std::ios::binary | std::ios::in);
+        std::ofstream bundle(bundlePath.c_str(), std::ios::binary);
+
+        // write bundle metadata
+        if (!bundleManifest.save(bundle)) {
+            BL_LOG_ERROR << "Failed to write bundle manifest";
             return false;
         }
-        const std::int64_t len = tempfile.tellp() - offset;
-        bundleManifest.addFileInfo(path, {offset, len});
+        // copy bundled files from temp file
+        std::istreambuf_iterator<char> begin_source(tempfile);
+        std::istreambuf_iterator<char> end_source;
+        std::ostreambuf_iterator<char> begin_dest(bundle);
+        std::copy(begin_source, end_source, begin_dest);
+
+        if (!bundle.good()) {
+            BL_LOG_ERROR << "Failed to save final bundle";
+            return false;
+        }
+
+        ++stats.bundleCount;
+        stats.fileCount += fileCount;
+        stats.outputSize += bundle.tellp();
+        BL_LOG_INFO << "Completed bundle " << bundlePath << ". Bundled " << fileCount
+                    << " files. Bundle size: " << formatSize(bundle.tellp());
     }
-
-    BL_LOG_INFO << "Finalizing bundle " << bundlePath;
-
-    tempfile.close();
-    tempfile.open(tempPath.c_str(), std::ios::binary | std::ios::in);
-    std::ofstream bundle(bundlePath.c_str(), std::ios::binary);
-
-    // write bundle metadata
-    if (!bundleManifest.save(bundle)) {
-        BL_LOG_ERROR << "Failed to write bundle manifest";
-        return false;
-    }
-    // copy bundled files from temp file
-    std::istreambuf_iterator<char> begin_source(tempfile);
-    std::istreambuf_iterator<char> end_source;
-    std::ostreambuf_iterator<char> begin_dest(bundle);
-    std::copy(begin_source, end_source, begin_dest);
-
-    if (!bundle.good()) {
-        BL_LOG_ERROR << "Failed to save final bundle";
-        return false;
-    }
-
-    ++stats.bundleCount;
-    stats.fileCount += fileCount;
-    stats.outputSize += bundle.tellp();
-    BL_LOG_INFO << "Completed bundle " << bundlePath << ". Bundled " << fileCount
-                << " files. Bundle size: " << formatSize(bundle.tellp());
+    else { BL_LOG_WARN << "Skipping empty bundle '" << bundlePath << "'"; }
 
     return true;
 }
