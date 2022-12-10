@@ -53,6 +53,10 @@ bool Playlist::saveToFile(const std::string& path) const {
     return JsonSerializer::serializeStream(file, *this, 4, 0);
 }
 
+bool Playlist::saveToMemory(serial::binary::OutputStream& os) const {
+    return serial::binary::Serializer<Playlist>::serialize(os, *this);
+}
+
 bool Playlist::loadFromFile(const std::string& path) {
     std::ifstream file(path.c_str());
     if (!JsonSerializer::deserializeStream(file, *this)) {
