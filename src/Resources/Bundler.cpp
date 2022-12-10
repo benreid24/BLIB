@@ -158,6 +158,8 @@ BundleCreator::BundleCreator(const std::string& path, Config& cfg)
 BundleCreator::~BundleCreator() { util::FileUtil::deleteFile(tempPath); }
 
 bool BundleCreator::create(Stats& stats, Manifest& manifest) {
+    static std::unordered_set<std::string> failed;
+
     std::fstream tempfile(tempPath.c_str(), std::ios::binary | std::ios::out);
 
     BundleMetadata bundleManifest;
@@ -186,8 +188,11 @@ bool BundleCreator::create(Stats& stats, Manifest& manifest) {
             bundleManifest.addFileInfo(path, {offset, len});
         }
         else {
-            BL_LOG_ERROR << "Failed to process file: " << path;
-            tempfile.seekp(offset);
+            if (failed.find(path) == failed.end()) {
+                failed.insert(path);
+                BL_LOG_ERROR << "Failed to process file: " << path;
+                tempfile.seekp(offset);
+            }
         }
     }
 

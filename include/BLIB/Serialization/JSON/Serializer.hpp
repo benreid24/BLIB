@@ -1096,10 +1096,11 @@ struct Serializer<container::Vector2D<U>, false> {
         const unsigned int mx = *w->getAsInteger();
         const unsigned int my = *h->getAsInteger();
         const List& d         = *data->getAsList();
+        if (d.size() != mx * my) return false;
         result.setSize(mx, my);
         for (unsigned int x = 0; x < mx; ++x) {
             for (unsigned int y = 0; y < my; ++y) {
-                if (!Serializer<U>::deserialize(result(x, y), d[x * mx + y])) return false;
+                if (!Serializer<U>::deserialize(result(x, y), d[x * my + y])) return false;
             }
         }
         return true;
