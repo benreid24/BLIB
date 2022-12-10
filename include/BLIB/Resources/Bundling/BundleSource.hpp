@@ -25,7 +25,10 @@ struct BundleSource {
         BundleAllFiles,
 
         /// @brief Each contained file/folder gets its own bundle
-        CreateBundleForEachContained
+        CreateBundleForEachContained,
+
+        /// @brief Every file gets its own bundle, including files in folders
+        CreateBundleForEachContainedRecursive
     } policy;
 };
 

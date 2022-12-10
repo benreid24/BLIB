@@ -70,27 +70,43 @@ bool Bundler::createBundles() {
 
     bundle::Manifest manifest(config.outputDirectory());
     bundle::Stats stats;
+    const auto doCreate = [this, &stats, &manifest](const std::string& path,
+                                                    const std::string& og) -> bool {
+        bundle::BundleCreator creator(path, config);
+        if (!creator.create(stats, manifest)) {
+            BL_LOG_ERROR << "Failed to create bundle for " << og << ", terminating";
+            return false;
+        }
+        return true;
+    };
+
     for (const bundle::BundleSource& src : config.bundleSources()) {
         if (src.policy == bundle::BundleSource::BundleAllFiles) {
-            bundle::BundleCreator creator(src.sourcePath, config);
-            if (!creator.create(stats, manifest)) {
-                BL_LOG_ERROR << "Failed to create bundle for " << src.sourcePath << ", terminating";
-                return false;
+            if (!doCreate(src.sourcePath, src.sourcePath)) { return false; }
+        }
+        else if (src.policy == bundle::BundleSource::CreateBundleForEachContainedRecursive) {
+            const std::vector<std::string> all = util::FileUtil::listDirectory(src.sourcePath);
+            for (const std::string& path : all) {
+                if (config.includeFile(path)) {
+                    if (!doCreate(path, src.sourcePath)) { return false; }
+                }
+            }
+        }
+        else if (src.policy == bundle::BundleSource::CreateBundleForEachContained) {
+            const std::vector<std::string> folders =
+                util::FileUtil::listDirectoryFolders(src.sourcePath);
+            for (const std::string& dir : folders) {
+                if (!doCreate(dir, src.sourcePath)) { return false; }
+            }
+            const std::vector<std::string> files =
+                util::FileUtil::listDirectory(src.sourcePath, "", false);
+            for (const std::string& file : files) {
+                if (!doCreate(file, src.sourcePath)) { return false; }
             }
         }
         else {
-            const std::vector<std::string> all =
-                util::FileUtil::listDirectory(src.sourcePath, "", false);
-            for (const std::string& path : all) {
-                if (config.includeFile(path)) {
-                    bundle::BundleCreator creator(path, config);
-                    if (!creator.create(stats, manifest)) {
-                        BL_LOG_ERROR << "Failed to create bundle for " << src.sourcePath
-                                     << ", terminating";
-                        return false;
-                    }
-                }
-            }
+            BL_LOG_ERROR << "Bad bundle source policy: " << src.policy << ", skipping '"
+                         << src.sourcePath << "'";
         }
     }
 

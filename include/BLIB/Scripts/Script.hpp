@@ -30,6 +30,16 @@ class Manager;
 class Script {
 public:
     /**
+     * @brief Modifies the given script to its full file path and returns true if the script points
+     *        to a file. If the file is not found then the input is not modified and false is
+     *        returned
+     *
+     * @param path The script to try and find the full path for
+     * @return True if the script points to a file, false otherwise
+     */
+    static bool getFullScriptPath(std::string& path);
+
+    /**
      * @brief Determines if the input is a file, then loads the script from the file or from
      *        the input directly
      *
