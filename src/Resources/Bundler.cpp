@@ -96,7 +96,9 @@ bool Bundler::createBundles() {
             const std::vector<std::string> folders =
                 util::FileUtil::listDirectoryFolders(src.sourcePath);
             for (const std::string& dir : folders) {
-                if (!doCreate(dir, src.sourcePath)) { return false; }
+                if (!doCreate(bl::util::FileUtil::joinPath(src.sourcePath, dir), src.sourcePath)) {
+                    return false;
+                }
             }
             const std::vector<std::string> files =
                 util::FileUtil::listDirectory(src.sourcePath, "", false);
@@ -120,7 +122,7 @@ bool Bundler::createBundles() {
         }
     }
     else if (!config.catchAllDirectory().empty()) {
-        BL_LOG_WARN << "Catch-all director " << config.catchAllDirectory() << " does not exist";
+        BL_LOG_WARN << "Catch-all directory " << config.catchAllDirectory() << " does not exist";
     }
 
     BL_LOG_INFO << "Bundled " << stats.fileCount << " files into " << stats.bundleCount
