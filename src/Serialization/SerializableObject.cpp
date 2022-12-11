@@ -60,24 +60,24 @@ bool SerializableObjectBase::deserializeBinary(binary::InputStream& stream, void
     char foundFields[MaxFieldCount];
     std::memset(foundFields, 0, MaxFieldCount);
 
-    const auto logReadError = [this]() {
-        BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', bad read";
+    const auto logReadError = [this](const std::string& step) {
+        BL_LOG_DEBUG << "Failed to deserialize '" << debugName << "', bad read on: " << step;
     };
 
     std::uint16_t n = 0;
     if (!stream.read<std::uint16_t>(n)) {
-        logReadError();
+        logReadError("field count");
         return false;
     }
     for (std::uint16_t i = 0; i < n; ++i) {
         std::uint16_t id    = 0;
         std::uint32_t fsize = 0;
         if (!stream.read<std::uint16_t>(id)) {
-            logReadError();
+            logReadError("field id");
             return false;
         }
         if (!stream.read<std::uint32_t>(fsize)) {
-            logReadError();
+            logReadError("field size");
             return false;
         }
         const auto it = fieldsBinary.find(id);
@@ -95,7 +95,7 @@ bool SerializableObjectBase::deserializeBinary(binary::InputStream& stream, void
         }
         else {
             if (!stream.skip(fsize)) {
-                logReadError();
+                logReadError("skip field");
                 return false;
             }
         }

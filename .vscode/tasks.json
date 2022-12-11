@@ -13,7 +13,7 @@
         {
             "label": "cmake generate",
             "type": "shell",
-            "command": "cmake -G \"Unix Makefiles\" -S . -B ./build",
+            "command": "cmake -S . -B ./build",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -22,7 +22,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "cd build && make",
+            "command": "cd build && cmake --build .",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -34,7 +34,7 @@
         {
             "label": "unit test",
             "type": "shell",
-            "command": "cd build/tests && ./BLIB.t --gtest_color=no",
+            "command": "cd build/tests && ./BLIB.t",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -46,7 +46,7 @@
         {
             "label": "filtered tests",
             "type": "shell",
-            "command": "cd build/tests && ./BLIB.t --gtest_filter=${input:tfilter} -v --gtest_color=no",
+            "command": "cd build/tests && ./BLIB.t --gtest_filter=${input:tfilter} -v",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -74,7 +74,7 @@
         },
     ],
     "problemMatcher": {
-        "base": "$gcc",
+        "base": "$msCompile",
         "fileLocation": [
             "absolute"
         ]

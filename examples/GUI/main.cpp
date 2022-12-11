@@ -86,7 +86,7 @@ int main() {
     row->pack(combo);
     gui->pack(row);
 
-    const float ProgressPerSecond     = 0.1;
+    const float ProgressPerSecond     = 0.1f;
     gui::ProgressBar::Ptr progressBar = gui::ProgressBar::create();
     progressBar->setRequisition({10, 20});
     gui->pack(progressBar, true, false);

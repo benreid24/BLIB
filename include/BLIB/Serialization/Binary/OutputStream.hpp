@@ -75,7 +75,7 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type OutputStream::write(c
 
 inline bool OutputStream::write(const std::string& data) {
     if (!buffer.good()) return false;
-    if (!write<uint32_t>(data.size())) return false;
+    if (!write<std::uint32_t>(static_cast<std::uint32_t>(data.size()))) return false;
     return buffer.write(data.c_str(), data.size());
 }
 

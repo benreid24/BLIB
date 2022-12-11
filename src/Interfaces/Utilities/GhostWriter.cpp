@@ -32,7 +32,7 @@ bool GhostWriter::update(float dt) {
     if (finished()) return false;
 
     residual += dt;
-    const unsigned int a = std::floor(residual * speed);
+    const unsigned int a = static_cast<int>(std::floor(residual * speed));
     residual -= static_cast<float>(a) / speed;
 
     for (unsigned int i = 0; i < a; ++i) {
@@ -45,7 +45,7 @@ bool GhostWriter::update(float dt) {
 
 bool GhostWriter::finished() const { return showing >= content.size(); }
 
-void GhostWriter::showAll() { showing = content.size(); }
+void GhostWriter::showAll() { showing = static_cast<unsigned int>(content.size()); }
 
 } // namespace interface
 } // namespace bl

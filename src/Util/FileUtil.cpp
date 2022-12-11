@@ -1,19 +1,25 @@
+#ifdef BLIB_WINDOWS
+#define NOMINMAX
+#endif
+
 #include <BLIB/Util/FileUtil.hpp>
 
 #include <BLIB/Util/Random.hpp>
+#include <algorithm>
 #include <cstdio>
 #include <cstdlib>
-#include <dirent.h>
 #include <fstream>
 #include <sstream>
 #include <stack>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <unistd.h>
 
 #ifdef BLIB_WINDOWS
+#include "dirent_windows.h"
+#include <direct.h>
 #include <shlobj.h>
 #else
+#include <dirent.h>
 #include <pwd.h>
 #include <unistd.h>
 #endif
@@ -26,7 +32,7 @@ namespace
 {
 void createDir(const std::string& path) {
 #ifdef BLIB_WINDOWS
-    mkdir(path.c_str());
+    _mkdir(path.c_str());
 #else
     mkdir(path.c_str(), 0755);
 #endif
@@ -200,7 +206,11 @@ bool FileUtil::deleteDirectory(const std::string& path) {
         if (!deleteFile(file)) { return false; }
     }
 
+#ifdef BLIB_WINDOWS
+    return 0 == _rmdir(path.c_str());
+#else
     return 0 == rmdir(path.c_str());
+#endif
 }
 
 std::string FileUtil::getDataDirectory(const std::string& appName) {

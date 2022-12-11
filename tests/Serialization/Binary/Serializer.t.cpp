@@ -1,6 +1,6 @@
+#include <BLIB/Logging.hpp>
 #include <BLIB/Serialization/Binary.hpp>
 #include <gtest/gtest.h>
-#include <BLIB/Logging.hpp>
 
 namespace bl
 {
@@ -17,11 +17,11 @@ TEST(BinarySerializer, Integers) {
     const std::uint8_t u8   = 123;
     const std::uint16_t u16 = 8734;
     const std::uint32_t u32 = 342432;
-    const std::uint64_t u64 = 874657842353;
+    const std::uint64_t u64 = 874657842353ULL;
     const std::int8_t i8    = -23;
     const std::int16_t i16  = -2342;
     const std::int32_t i32  = -2423232;
-    const std::int64_t i64  = -2342323221;
+    const std::int64_t i64  = -2342323221LL;
 
     ASSERT_TRUE(Serializer<std::uint8_t>::serialize(stream, u8));
     ASSERT_TRUE(Serializer<std::uint16_t>::serialize(stream, u16));
@@ -38,11 +38,11 @@ TEST(BinarySerializer, Integers) {
     std::uint8_t u8a   = 123;
     std::uint16_t u16a = 8734;
     std::uint32_t u32a = 342432;
-    std::uint64_t u64a = 874657842353;
+    std::uint64_t u64a = 874657842353ULL;
     std::int8_t i8a    = -23;
     std::int16_t i16a  = -2342;
     std::int32_t i32a  = -2423232;
-    std::int64_t i64a  = -2342323221;
+    std::int64_t i64a  = -2342323221LL;
 
     ASSERT_TRUE(Serializer<std::uint8_t>::deserialize(in, u8a));
     ASSERT_TRUE(Serializer<std::uint16_t>::deserialize(in, u16a));
@@ -130,8 +130,8 @@ TEST(BinarySerializer, Vector2D) {
 
     container::Vector2D<std::uint8_t> read;
     ASSERT_TRUE(Serializer<container::Vector2D<std::uint8_t>>::deserialize(in, read));
-    ASSERT_EQ(read.getWidth(), 2);
-    ASSERT_EQ(read.getHeight(), 2);
+    ASSERT_EQ(read.getWidth(), 2u);
+    ASSERT_EQ(read.getHeight(), 2u);
     EXPECT_EQ(arr(0, 0), read(0, 0));
     EXPECT_EQ(arr(0, 1), read(0, 1));
     EXPECT_EQ(arr(1, 0), read(1, 0));

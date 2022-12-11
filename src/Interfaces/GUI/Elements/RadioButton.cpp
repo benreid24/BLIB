@@ -68,13 +68,13 @@ void RadioButton::Group::removeButton(RadioButton* but) {
 
     if (but == owner && buttons.size() > 1) {
         RadioButton* newOwner = owner;
-        for (RadioButton* but : buttons) {
+        for (RadioButton* b : buttons) {
             if (newOwner != owner) break;
-            newOwner = but;
+            newOwner = b;
         }
         if (newOwner != owner) {
             newOwner->myGroup.buttons = buttons;
-            for (RadioButton* but : buttons) { but->rgroup = &newOwner->myGroup; }
+            for (RadioButton* b : buttons) { b->rgroup = &newOwner->myGroup; }
         }
     }
 }

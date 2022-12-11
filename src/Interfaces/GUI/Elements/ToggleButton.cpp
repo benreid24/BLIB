@@ -19,8 +19,8 @@ ToggleButton::ToggleButton(const Element::Ptr& c)
     child->setExpandsWidth(true);
     getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) { onClick(); });
 
-    Element* children[3] = {child.get(), activeButton.get(), inactiveButton.get()};
-    registerChildren(children);
+    Element* childs[3] = {child.get(), activeButton.get(), inactiveButton.get()};
+    registerChildren(childs);
 }
 
 const Canvas::Ptr& ToggleButton::getVisibleButton() const {

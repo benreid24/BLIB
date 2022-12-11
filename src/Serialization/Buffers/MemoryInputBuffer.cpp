@@ -34,7 +34,7 @@ std::size_t MemoryInputBuffer::size() const { return len; }
 
 bool MemoryInputBuffer::seekg(std::size_t p) {
     pos = std::min(p, len);
-    return pos < len;
+    return pos <= len;
 }
 
 char MemoryInputBuffer::peek() const { return pos < len ? buffer[pos] : EOF; }

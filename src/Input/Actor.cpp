@@ -159,7 +159,7 @@ void Actor::addListener(Listener& l) {
 }
 
 void Actor::removeListener(Listener& l) {
-    for (int i = listeners.size(); i >= 0; --i) {
+    for (int i = static_cast<int>(listeners.size()); i >= 0; --i) {
         if (listeners[i] == &l) {
             listeners.erase(listeners.begin() + i);
             break;

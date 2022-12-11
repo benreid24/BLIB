@@ -147,7 +147,7 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
         }
 
         // Pack elements
-        float spacing = 0;
+        float space = 0.f;
         for (const Element::Ptr& e : elems) {
             if (!e->packable()) continue;
 
@@ -157,15 +157,15 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
             // Update position
             if (dir == Horizontal) {
                 if (start == LeftAlign)
-                    pos.x += eSize.x + spacing;
+                    pos.x += eSize.x + space;
                 else
-                    pos.x -= eSize.x + spacing;
+                    pos.x -= eSize.x + space;
             }
             else {
                 if (start == LeftAlign)
-                    pos.y += eSize.y + spacing;
+                    pos.y += eSize.y + space;
                 else
-                    pos.y -= eSize.y + spacing;
+                    pos.y -= eSize.y + space;
             }
         }
     }

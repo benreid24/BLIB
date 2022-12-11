@@ -138,7 +138,9 @@ struct Serializer<std::string> {
 
     static bool deserialize(InputStream& input, std::string& result) { return input.read(result); }
 
-    static std::uint32_t size(const std::string& s) { return sizeof(std::uint32_t) + s.size(); }
+    static std::uint32_t size(const std::string& s) {
+        return static_cast<std::uint32_t>(sizeof(std::uint32_t) + s.size());
+    }
 };
 
 template<>
@@ -497,7 +499,10 @@ struct Serializer<script::Value, false> {
             if (!Serializer<std::string>::serialize(output, value.getAsString())) return false;
             break;
         case script::PrimitiveValue::TArray:
-            if (!output.write<std::uint32_t>(value.getAsArray().size())) return false;
+            if (!output.write<std::uint32_t>(
+                    static_cast<std::uint32_t>(value.getAsArray().size()))) {
+                return false;
+            }
             for (const script::Value& av : value.getAsArray()) {
                 if (!serialize(output, av)) return false;
             }

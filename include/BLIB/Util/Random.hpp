@@ -21,6 +21,11 @@ namespace util
  * @ingroup Util
  */
 class Random : private util::NonCopyable {
+    template<typename U>
+    struct CharHelper {
+        using T = U;
+    };
+
 public:
     /**
      * @brief Returns a random number in the given range of an integral type
@@ -33,7 +38,7 @@ public:
     template<typename T>
     static std::enable_if_t<std::is_integral_v<T>, T> get(T min, T max) {
         if (min > max) std::swap(min, max);
-        std::uniform_int_distribution<T> rgen(min, max);
+        std::uniform_int_distribution<CharHelper<T>::T> rgen(min, max);
         return rgen(_priv().rng);
     }
 
@@ -108,6 +113,18 @@ private:
 
     std::random_device rngdev;
     std::mt19937 rng;
+};
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<>
+struct Random::CharHelper<char> {
+    using T = short;
+};
+
+template<>
+struct Random::CharHelper<unsigned char> {
+    using T = unsigned short;
 };
 
 } // namespace util

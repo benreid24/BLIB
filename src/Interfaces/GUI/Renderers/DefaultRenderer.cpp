@@ -301,8 +301,8 @@ void DefaultRenderer::renderProgressBar(sf::RenderTarget& target, sf::RenderStat
         rect.top += rect.height - ys;
         rect.height = ys;
     }
-    const int spacing =
-        settings.secondaryOutlineThickness.value_or(1) + settings.outlineThickness.value_or(1);
+    const float spacing =
+        settings.secondaryOutlineThickness.value_or(1.f) + settings.outlineThickness.value_or(1.f);
     rect.left += spacing;
     rect.top += spacing;
     rect.width -= spacing * 2;
@@ -408,7 +408,7 @@ void DefaultRenderer::renderTextEntry(sf::RenderTarget& target, sf::RenderStates
     states.transform.translate(-entry.getTextOffset());
 
     sf::FloatRect textArea = entry.getAcquisition();
-    const int thickness    = settings.outlineThickness.value_or(2);
+    const float thickness  = settings.outlineThickness.value_or(2.f);
     textArea.left += thickness;
     textArea.top += thickness;
     textArea.width -= thickness * 2;
@@ -475,16 +475,16 @@ void DefaultRenderer::renderWindow(sf::RenderTarget& target, sf::RenderStates st
 
     RendererUtil::renderRectangle(target, states, window.getAcquisition(), settings, defaults);
     if (titlebar) {
-        const RenderSettings settings        = getSettings(titlebar);
-        static const RenderSettings defaults = getTitlebarDefaults();
+        const RenderSettings tsettings        = getSettings(titlebar);
+        static const RenderSettings tdefaults = getTitlebarDefaults();
         RendererUtil::renderRectangle(target,
                                       states,
                                       {window.getAcquisition().left,
                                        window.getAcquisition().top,
                                        titlebar->getAcquisition().width,
                                        titlebar->getAcquisition().height},
-                                      settings,
-                                      defaults);
+                                      tsettings,
+                                      tdefaults);
     }
 }
 
@@ -533,7 +533,7 @@ void DefaultRenderer::renderTooltip(sf::RenderTarget& target, sf::RenderStates s
     content.reserve(t.size() + 4);
     word.reserve(12);
     rt.setPosition(0.f, 0.f);
-    const auto addWord = [&word, &content, &rt, hs]() {
+    const auto addWord = [&word, &content, &rt, hs, Padding]() {
         const std::string attempt = content + " " + word;
         rt.setString(attempt);
         char sep = ' ';
@@ -546,9 +546,7 @@ void DefaultRenderer::renderTooltip(sf::RenderTarget& target, sf::RenderStates s
     };
     for (char c : t) {
         if (std::isspace(c)) { addWord(); }
-        else {
-            word.push_back(c);
-        }
+        else { word.push_back(c); }
     }
     if (!word.empty()) { addWord(); }
     rt.setString(content);

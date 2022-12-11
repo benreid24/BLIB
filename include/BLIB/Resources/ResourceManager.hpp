@@ -167,7 +167,7 @@ void ResourceManager<T>::doClean() {
     std::unique_lock lock(mapLock);
     for (auto i = resources.begin(); i != resources.end();) {
         auto j = i++;
-        if (j->second.data.unique() && !j->second.forceInCache) {
+        if (j->second.data.use_count() == 1 && !j->second.forceInCache) {
             BL_LOG_DEBUG << "Purged expired resource: " << j->first;
             resources.erase(j);
         }

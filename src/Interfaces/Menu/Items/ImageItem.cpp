@@ -24,8 +24,8 @@ sf::Vector2f ImageItem::getSize() const {
 }
 
 void ImageItem::render(sf::RenderTarget& target, sf::RenderStates states,
-                       const sf::Vector2f& position) const {
-    states.transform.translate(position);
+                       const sf::Vector2f& pos) const {
+    states.transform.translate(pos);
     target.draw(sprite, states);
 }
 

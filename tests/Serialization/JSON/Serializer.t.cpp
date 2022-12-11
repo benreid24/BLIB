@@ -82,7 +82,7 @@ TEST(JsonSerializer, BasicTypes) {
     EXPECT_TRUE(Serializer<int>::deserialize(i, Serializer<int>::serialize(123456)));
     EXPECT_EQ(i, 123456);
 
-    float f = 24243.24;
+    float f = 24243.24f;
     EXPECT_TRUE(Serializer<float>::deserialize(f, Serializer<float>::serialize(-123.5f)));
     EXPECT_LE(std::abs(f + 123.5), 0.1f);
 
@@ -138,7 +138,7 @@ TEST(JsonSerializer, SerializeFromTo) {
     EXPECT_TRUE(Serializer<int>::deserializeFrom(val, "int", i));
     EXPECT_EQ(i, 8237);
 
-    float f = 34324.3434;
+    float f = 34324.3434f;
     EXPECT_TRUE(Serializer<float>::deserializeFrom(val, "float", f));
     EXPECT_LE(std::abs(f + 45.75), 0.1f);
 

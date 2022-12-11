@@ -145,7 +145,7 @@ private:
     bool b;
     float f;
 
-    friend class SerializableObject<TestyBoi>;
+    friend struct SerializableObject<TestyBoi>;
 };
 
 template<>

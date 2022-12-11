@@ -95,9 +95,9 @@ private:
     void skipWhitespace();
     void skipSymbol();
 
-    bool isNumber(char c) const;
-    bool isNumeric(char c) const;
-    bool isWhitespace(char c) const;
+    bool isNumber(int c) const;
+    bool isNumeric(int c) const;
+    bool isWhitespace(int c) const;
 
     std::string error();
 };

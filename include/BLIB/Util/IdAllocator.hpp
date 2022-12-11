@@ -77,6 +77,8 @@ private:
     container::RingQueue<T> freeIds;
 };
 
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
 template<typename T>
 IdAllocator<T>::IdAllocator(std::size_t maxIdCount)
 : nextId(0)

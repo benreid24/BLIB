@@ -6,15 +6,15 @@ namespace bl
 {
 namespace engine
 {
-struct Engine {
+namespace unittest
+{
+struct FlagTestEngine {
     engine::Flags flags;
     void clear() { flags.clear(); }
 };
 
-namespace unittest
-{
 TEST(EngineFlags, FlagSet) {
-    Engine engine;
+    FlagTestEngine engine;
     const std::array<Flags::Flag, 4> allFlags{
         Flags::Terminate, Flags::PopState, Flags::_priv_PushState, Flags::_priv_ReplaceState};
 

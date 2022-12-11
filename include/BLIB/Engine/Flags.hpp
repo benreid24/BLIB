@@ -7,6 +7,10 @@ namespace bl
 {
 namespace engine
 {
+namespace unittest
+{
+struct FlagTestEngine;
+}
 class Engine;
 /**
  * @brief Collection of flags that can be set to modify or control the behavior of the Engine.
@@ -55,6 +59,7 @@ private:
     void clear();
 
     friend class Engine;
+    friend struct ::bl::engine::unittest::FlagTestEngine;
 };
 
 } // namespace engine

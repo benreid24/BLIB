@@ -74,7 +74,7 @@ TEST(EngineConfiguration, SaveAndLoad) {
     Configuration::clear();
 
     Configuration::set<int>("int", -54);
-    Configuration::set<unsigned int>("uint", 100);
+    Configuration::set<unsigned int>("uint", 100u);
     Configuration::set<float>("float", -563.5);
     Configuration::set<bool>("BLIB.cool", true);
     Configuration::set<std::string>("str", "some value");
@@ -84,7 +84,7 @@ TEST(EngineConfiguration, SaveAndLoad) {
     ASSERT_TRUE(Configuration::load("config.cfg"));
 
     EXPECT_EQ(Configuration::get<int>("int"), -54);
-    EXPECT_EQ(Configuration::get<unsigned int>("uint"), 100);
+    EXPECT_EQ(Configuration::get<unsigned int>("uint"), 100u);
     EXPECT_EQ(Configuration::get<float>("float"), -563.5);
     EXPECT_EQ(Configuration::get<bool>("BLIB.cool"), true);
     EXPECT_EQ(Configuration::get<std::string>("str"), "some value");

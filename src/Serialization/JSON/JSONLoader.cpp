@@ -50,11 +50,11 @@ void Loader::skipSymbol() {
 
 bool Loader::isValid() const { return input.good() && valid; }
 
-bool Loader::isWhitespace(char c) const { return c == '\n' || c == ' ' || c == '\r' || c == '\t'; }
+bool Loader::isWhitespace(int c) const { return c == '\n' || c == ' ' || c == '\r' || c == '\t'; }
 
-bool Loader::isNumber(char c) const { return c >= '0' && c <= '9'; }
+bool Loader::isNumber(int c) const { return c >= '0' && c <= '9'; }
 
-bool Loader::isNumeric(char c) const { return isNumber(c) || c == '-'; }
+bool Loader::isNumeric(int c) const { return isNumber(c) || c == '-'; }
 
 bool Loader::loadValue(Value& result) {
     const SourceInfo source = {filename, currentLine};
@@ -136,23 +136,27 @@ bool Loader::loadNumeric(Value& val) {
         const char c = input.peek();
         if (c == '-' || (c >= '0' && c <= '9')) {
             std::string num;
-            num.push_back(input.get());
+            num.push_back(c);
+            input.get();
             bool decimal = false;
 
-            while (isNumber(input.peek()) || input.peek() == '.') {
-                if (input.peek() == '.' && decimal) {
+            char n = static_cast<char>(input.peek());
+            while (isNumber(n) || n == '.') {
+                if (n == '.' && decimal) {
                     BL_LOG_ERROR << error() << "Too many decimal points in number";
                     return false;
                 }
-                else if (input.peek() == '.')
+                else if (n == '.')
                     decimal = true;
 
-                num.push_back(input.get());
+                num.push_back(n);
+                input.get();
                 if (!input.good()) {
                     BL_LOG_ERROR << error() << "Unexpected end of file";
                     valid = false;
                     return false;
                 }
+                n = static_cast<char>(input.peek());
             }
             util::StreamUtil::skipWhitespace(input);
             if (decimal) { val = std::stof(num.c_str()); }

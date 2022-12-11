@@ -4075,7 +4075,7 @@ const size_t fontSize = sizeof(font);
 
 resource::Resource<sf::Font>::Ref load() {
     resource::Resource<sf::Font>::Ref sf = std::make_shared<sf::Font>();
-    if (fontSize > 0) {
+    if constexpr (fontSize > 0) {
         if (sf->loadFromMemory(font, fontSize)) return sf;
     }
     return nullptr;

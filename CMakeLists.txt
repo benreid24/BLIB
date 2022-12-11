@@ -10,7 +10,6 @@ endif()
 
 project(BLIB C CXX)
 
-option(STATIC_LINK "On to link statically" On)
 option(BUILD_TESTS "On to build unit tests" On)
 option(BUILD_EXAMPLES "On to build examples" On)
 option(ON_CI "True when on CI, false when local" Off)
@@ -25,11 +24,7 @@ endif()
 
 set(CMAKE_INSTALL_PREFIX .)
 
-if (STATIC_LINK)
-    add_library(BLIB STATIC)
-else()
-    add_library(BLIB SHARED)
-endif()
+add_library(BLIB STATIC)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(BLIB PUBLIC BLIB_DEBUG)
@@ -37,27 +32,12 @@ else()
     target_compile_definitions(BLIB PUBLIC BLIB_RELEASE)
 endif()
 
-if (APPLE)
-    target_compile_definitions(BLIB PUBLIC BLIB_APPLE=1)
-elseif(WIN32)
-    target_compile_definitions(BLIB PUBLIC BLIB_WINDOWS=1)
-else()
-    target_compile_definitions(BLIB PUBLIC BLIB_LINUX=1) # we don't really care about Sun/IBM/etc
-endif()
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(blib_helpers)
+configure_target(BLIB)
 
-if (MSVC)
-    # warning level 4 and all warnings as errors
-    target_compile_options(BLIB PUBLIC /W4 /WX)
-else()
-    # lots of warnings and all warnings as errors
-    target_compile_options(BLIB PUBLIC -Wall -Wextra -pedantic)
-endif()
-
-if (STATIC_LINK)
-    set(BUILD_SHARED_LIBS Off)
-    set(SFML_USE_STATIC_STD_LIBS On)
-    target_compile_definitions(BLIB PUBLIC SFML_STATIC)
-endif()
+set(BUILD_SHARED_LIBS Off)
+set(SFML_USE_STATIC_STD_LIBS On)
 
 include_directories(lib/SFML/include)
 add_subdirectory(lib/SFML)

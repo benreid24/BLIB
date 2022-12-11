@@ -29,6 +29,12 @@ struct FileHandler {
      */
     virtual bool processFile(const std::string& path, std::ostream& output,
                              FileHandlerContext& context) = 0;
+
+    /**
+     * @brief Destroy the File Handler object
+     *
+     */
+    virtual ~FileHandler() = default;
 };
 
 } // namespace bundle

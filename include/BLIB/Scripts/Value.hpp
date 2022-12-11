@@ -22,12 +22,6 @@ class SymbolTable;
 class Value : public std::enable_shared_from_this<Value> {
 public:
     /**
-     * @brief Makes a void type value
-     *
-     */
-    Value() = default;
-
-    /**
      * @brief Copies a value
      *
      */
