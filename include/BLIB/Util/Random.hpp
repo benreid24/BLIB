@@ -38,7 +38,7 @@ public:
     template<typename T>
     static std::enable_if_t<std::is_integral_v<T>, T> get(T min, T max) {
         if (min > max) std::swap(min, max);
-        using U = CharHelper<T>::T;
+        using U = typename CharHelper<T>::T;
         std::uniform_int_distribution<U> rgen(static_cast<U>(min), static_cast<U>(max));
         return rgen(_priv().rng);
     }
