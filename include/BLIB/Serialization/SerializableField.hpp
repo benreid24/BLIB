@@ -372,7 +372,7 @@ void SerializableField<Id, C, T, AD>::makeDefault(void* obj) const {
 
 template<std::uint16_t Id, typename C, typename T, bool AD>
 void SerializableField<Id, C, T, AD>::setDefault(T&& d) {
-    defVal.reset(new T(std::forward<T>(d)));
+    defVal = std::make_unique<T>(std::forward<T>(d));
 }
 
 } // namespace serial
