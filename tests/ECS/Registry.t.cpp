@@ -1,4 +1,4 @@
-#include "testRegistry.hpp"
+#include "TestRegistry.hpp"
 #include <BLIB/ECS.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <gtest/gtest.h>
@@ -132,7 +132,8 @@ TEST(ECS, ComponentDestroyed) {
     EXPECT_TRUE(destroyed);
 
     destroyed = false;
-    testRegistry().addComponent<DestroyTestComponent>(e, std::move(DestroyTestComponent{destroyed}));
+    testRegistry().addComponent<DestroyTestComponent>(e,
+                                                      std::move(DestroyTestComponent{destroyed}));
     testRegistry().destroyEntity(e);
     EXPECT_TRUE(destroyed);
 
@@ -183,13 +184,9 @@ TEST(ECS, ViewIterate) {
             testRegistry().addComponent<char>(e, cv);
             ogValues.emplace(e, std::make_pair(v, cv));
             if (util::Random::get<int>(0, 100) < 50) { toRemove.push_back(e); }
-            else {
-                afterRmValues.emplace(e, std::make_pair(v, cv));
-            }
+            else { afterRmValues.emplace(e, std::make_pair(v, cv)); }
         }
-        else {
-            toAdd.push_back(e);
-        }
+        else { toAdd.push_back(e); }
     }
     afterAddValues = ogValues;
 
@@ -226,9 +223,7 @@ TEST(ECS, ViewIterate) {
     // remove components and entities and retest view
     for (const Entity ent : toRemove) {
         if (util::Random::get<int>(0, 100) < 50) { testRegistry().removeComponent<char>(ent); }
-        else {
-            testRegistry().destroyEntity(ent);
-        }
+        else { testRegistry().destroyEntity(ent); }
     }
     view->forEach(std::bind(visitor, std::ref(afterRmValues), std::placeholders::_1));
     EXPECT_TRUE(afterRmValues.empty());
