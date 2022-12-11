@@ -32,8 +32,8 @@ function(configure_target target_name)
         LINK_SEARCH_START_STATIC ON
         LINK_SEARCH_END_STATIC ON
     )
-    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    if (CMAKE_COMPILER_IS_GNUXX)
         set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
-        set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
+        target_link_options(${target_name} PUBLIC -static -static-libgcc -static-libstdc++)
     endif()
 endfunction()
