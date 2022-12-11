@@ -27,10 +27,12 @@ function(configure_target target_name)
 
     # Static link everything
     target_compile_definitions(${target_name} PUBLIC SFML_STATIC)
-    set(CMAKE_FIND_LIBRARY_SUFFIXES ".a") # correct?
     set(BUILD_SHARED_LIBRARIES OFF)
     set_target_properties(${target_name} PROPERTIES
         LINK_SEARCH_START_STATIC ON
         LINK_SEARCH_END_STATIC ON
     )
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
+    endif()
 endfunction()
