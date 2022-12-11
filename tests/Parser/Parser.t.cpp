@@ -84,7 +84,7 @@ TEST(Parser, Table) {
     Production r1 = {S, {A, B}};
     Production r2 = {A, {x}};
     Production r3 = {B, {y}};
-    ASSERT_EQ(table.stateCount(), 6);
+    ASSERT_EQ(table.stateCount(), 6u);
 
     // State 0
     std::optional<ItemSet> s0 = table.getState(0);
