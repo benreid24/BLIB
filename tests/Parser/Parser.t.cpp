@@ -98,9 +98,9 @@ TEST(Parser, Table) {
     ASSERT_TRUE(gotos.value().find(S) != gotos.value().end());
     EXPECT_TRUE(gotos.value().find(B) == gotos.value().end());
     EXPECT_TRUE(gotos.value().find(y) == gotos.value().end());
-    EXPECT_EQ(gotos.value().at(x), 3);
-    EXPECT_EQ(gotos.value().at(S), 1);
-    EXPECT_EQ(gotos.value().at(A), 2);
+    EXPECT_EQ(gotos.value().at(x), 3u);
+    EXPECT_EQ(gotos.value().at(S), 1u);
+    EXPECT_EQ(gotos.value().at(A), 2u);
 
     action = table.getAction(0, x);
     ASSERT_TRUE(action.has_value());

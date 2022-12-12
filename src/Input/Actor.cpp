@@ -159,9 +159,9 @@ void Actor::addListener(Listener& l) {
 }
 
 void Actor::removeListener(Listener& l) {
-    for (int i = static_cast<int>(listeners.size()); i >= 0; --i) {
-        if (listeners[i] == &l) {
-            listeners.erase(listeners.begin() + i);
+    for (auto it = listeners.rbegin(); it != listeners.rend(); ++it) {
+        if (*it == &l) {
+            listeners.erase(--(it.base()));
             break;
         }
     }
@@ -169,9 +169,9 @@ void Actor::removeListener(Listener& l) {
 }
 
 void Actor::replaceListener(Listener& old, Listener& l) {
-    for (int i = listeners.size(); i >= 0; --i) {
-        if (listeners[i] == &old) {
-            listeners[i] = &l;
+    for (auto it = listeners.rbegin(); it != listeners.rend(); ++it) {
+        if (*it == &old) {
+            *it = &l;
             break;
         }
     }

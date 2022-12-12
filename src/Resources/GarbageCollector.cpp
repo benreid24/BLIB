@@ -17,13 +17,18 @@ std::atomic_bool stopped = false;
 
 GarbageCollector::GarbageCollector()
 : thread(&GarbageCollector::runner, this)
-, quitFlag(false) {
+, quitFlag(false)
+, bundleRuntime(nullptr) {
     started = true;
     BL_LOG_INFO << "GarbageCollector online";
 }
 
 GarbageCollector::~GarbageCollector() {
     if (!stopped) { stop(); }
+}
+
+void GarbageCollector::freeAllAndShutdown() {
+    if (started && !stopped) { get().stop(); }
 }
 
 void GarbageCollector::stop() {
@@ -36,6 +41,11 @@ void GarbageCollector::stop() {
         BL_LOG_INFO << "GarbageCollector terminated";
     }
     else { BL_LOG_ERROR << "GarbageCollector already shutdown"; }
+    freeAll();
+}
+
+void GarbageCollector::freeAll() {
+    for (auto& mp : managers) { mp.first->clearAll(); }
 }
 
 GarbageCollector& GarbageCollector::get() {
