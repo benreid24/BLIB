@@ -136,8 +136,8 @@ TEST(Parser, Table) {
     ASSERT_TRUE(gotos.value().find(S) == gotos.value().end());
     EXPECT_TRUE(gotos.value().find(B) != gotos.value().end());
     EXPECT_TRUE(gotos.value().find(y) != gotos.value().end());
-    EXPECT_EQ(gotos.value().at(B), 4);
-    EXPECT_EQ(gotos.value().at(y), 5);
+    EXPECT_EQ(gotos.value().at(B), 4u);
+    EXPECT_EQ(gotos.value().at(y), 5u);
 
     action = table.getAction(2, y);
     ASSERT_TRUE(action.has_value());

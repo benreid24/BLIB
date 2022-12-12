@@ -307,6 +307,8 @@ private:
         void make(TArgs&&... args);
 
         void assign(T& result) const;
+
+        T* get();
     };
 
     T C::*const member;
@@ -328,6 +330,8 @@ struct SerializableField<Id, C, T>::DefaultHolder<U, true> {
     void assign(T& result) const {
         if (defVal) { result = *defVal; }
     }
+
+    T get() { return defVal.get(); }
 };
 
 template<std::uint16_t Id, typename C, typename T>
@@ -349,11 +353,13 @@ struct SerializableField<Id, C, T>::DefaultHolder<U, false> {
                         << " but copy assignment is not allowed";
         }
     }
+
+    T* get() { return nullptr; }
 };
 
 template<std::uint16_t Id, typename C, typename T>
 template<typename U, std::size_t N>
-struct SerializableField<Id, C, T>::DefaultHolder<U[N], false> {
+struct SerializableField<Id, C, T>::DefaultHolder<U[N], true> {
     std::unique_ptr<U[]> defVal;
 
     template<typename... TArgs>
@@ -364,6 +370,8 @@ struct SerializableField<Id, C, T>::DefaultHolder<U[N], false> {
     void assign(U* result) const {
         for (unsigned int i = 0; i < N; ++i) { result[i] = defVal[i]; }
     }
+
+    T* get() { return defVal.get(); }
 };
 
 template<std::uint16_t Id, typename C, typename T>
@@ -443,7 +451,7 @@ void SerializableField<Id, C, T>::createDefault() {
 
 template<std::uint16_t Id, typename C, typename T>
 T& SerializableField<Id, C, T>::getDefault() {
-    return *defVal.defVal;
+    return *defVal.get();
 }
 
 } // namespace serial

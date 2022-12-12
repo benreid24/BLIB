@@ -32,8 +32,4 @@ function(configure_target target_name)
     if (NOT APPLE AND NOT WIN32)
         set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
     endif()
-    set_target_properties(${target_name} PROPERTIES
-        LINK_SEARCH_START_STATIC ON
-        LINK_SEARCH_END_STATIC ON
-    )
 endfunction()
