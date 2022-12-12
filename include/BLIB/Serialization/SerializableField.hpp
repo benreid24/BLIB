@@ -18,17 +18,17 @@ namespace serial
 /// @brief Private namespace containing internal implementation. Do not use
 namespace priv
 {
-template<std::size_t Id, typename C, typename U, bool = std::is_copy_assignable_v<U> && !std::is_array_v<U>>
-    struct DefaultHolder {
-        std::unique_ptr<U> defVal;
+template<typename C, typename U, bool = std::is_copy_assignable_v<U> && !std::is_array_v<U>>
+struct DefaultHolder {
+    std::unique_ptr<U> defVal;
 
-        template<typename... TArgs>
-        void make(TArgs&&... args);
+    template<typename... TArgs>
+    void make(TArgs&&... args);
 
-        void assign(U& result) const;
+    void assign(U& result) const;
 
-        U* get();
-    };
+    U* get();
+};
 }
 
 /**
@@ -316,15 +316,15 @@ public:
 
 private:
     T C::*const member;
-    priv::DefaultHolder<Id, C, T> defVal;
+    priv::DefaultHolder<C, T> defVal;
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
 namespace priv
 {
-template<std::uint16_t Id, typename C, typename U>
-struct DefaultHolder<Id, C, U, true> {
+template<typename C, typename U>
+struct DefaultHolder<C, U, true> {
     std::unique_ptr<U> defVal;
 
     template<typename... TArgs>
@@ -339,8 +339,8 @@ struct DefaultHolder<Id, C, U, true> {
     U* get() { return defVal.get(); }
 };
 
-template<std::uint16_t Id, typename C, typename U>
-struct DefaultHolder<Id, C, U, false> {
+template<typename C, typename U>
+struct DefaultHolder<C, U, false> {
     bool set;
 
     DefaultHolder()
@@ -353,7 +353,7 @@ struct DefaultHolder<Id, C, U, false> {
 
     void assign(U&) const {
         if (set) {
-            BL_LOG_WARN << "Tried to default field " << Id << " on object " << typeid(C).name()
+            BL_LOG_WARN << "Tried to default field " << typeid(U).name() << " on object " << typeid(C).name()
                         << " but copy assignment is not allowed";
         }
     }
@@ -361,8 +361,8 @@ struct DefaultHolder<Id, C, U, false> {
     U* get() { return nullptr; }
 };
 
-template<std::uint16_t Id, typename C, typename U, std::size_t N>
-struct DefaultHolder<Id, C, U[N], false> {
+template<typename C, typename U, std::size_t N>
+struct DefaultHolder<C, U[N], false> {
     std::unique_ptr<U[]> defVal;
 
     template<typename... TArgs>
