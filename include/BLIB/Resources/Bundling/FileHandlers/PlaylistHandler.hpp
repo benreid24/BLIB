@@ -25,6 +25,8 @@ struct PlaylistHandler : public FileHandler {
      */
     PlaylistHandler(bool bundleMusicFiles = false);
 
+    virtual ~PlaylistHandler() = default;
+
     virtual bool processFile(const std::string& path, std::ostream& output,
                              FileHandlerContext& context) override;
 

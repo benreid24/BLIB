@@ -17,6 +17,7 @@ namespace bundle
  *
  */
 struct AnimationHandler : public FileHandler {
+    virtual ~AnimationHandler() = default;
     virtual bool processFile(const std::string& path, std::ostream& output,
                              FileHandlerContext& context) override;
 };

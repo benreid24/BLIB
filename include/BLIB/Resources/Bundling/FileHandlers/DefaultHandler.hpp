@@ -17,6 +17,7 @@ namespace bundle
  *
  */
 struct DefaultHandler : public FileHandler {
+    virtual ~DefaultHandler() = default;
     virtual bool processFile(const std::string& path, std::ostream& output,
                              FileHandlerContext& context) override;
 };

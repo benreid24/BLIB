@@ -51,6 +51,14 @@ public:
     bool loadFromFileForBundling(const std::string& filename);
 
     /**
+     * @brief Saves the animation data to the bundle
+     *
+     * @param output The bundle to save to
+     * @return True if the data was written, false on error
+     */
+    bool saveToBundle(std::ostream& output) const;
+
+    /**
      * @brief Loads the AnimationData from the given file. Spritesheets are searched for in the
      *        same directory as the animation file. If not found then
      *        engine::Configuration::get("blib.animation.spritesheet_path") is used
@@ -117,6 +125,7 @@ private:
 
     std::string spritesheetSource;
     resource::Resource<sf::Texture>::Ref spritesheet;
+    std::vector<Frame> frameData;
     std::vector<VertexBuffer> frames;
     std::vector<sf::Vector2f> sizes;
     std::vector<float> lengths;

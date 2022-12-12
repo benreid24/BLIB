@@ -33,6 +33,34 @@ bool AnimationData::loadFromFileForBundling(const std::string& filename) {
     return doLoad(file, filename, true);
 }
 
+bool AnimationData::saveToBundle(std::ostream& os) const {
+    serial::StreamOutputBuffer wrapper(os);
+    bl::serial::binary::OutputStream output(wrapper);
+
+    output.write(spritesheetSource);
+    output.write(loop);
+    output.write<std::uint16_t>(frames.size());
+    for (unsigned int i = 0; i < frameData.size(); ++i) {
+        const Frame& frame = frameData[i];
+        output.write<std::uint32_t>(static_cast<std::uint32_t>(lengths[i] * 1000.f));
+        output.write<std::uint16_t>(frame.shards.size());
+        for (const Frame::Shard& shard : frame.shards) {
+            output.write<std::uint32_t>(shard.source.left);
+            output.write<std::uint32_t>(shard.source.top);
+            output.write<std::uint32_t>(shard.source.width);
+            output.write<std::uint32_t>(shard.source.height);
+            output.write<std::uint32_t>(static_cast<std::uint32_t>(shard.scale.x * 100.f));
+            output.write<std::uint32_t>(static_cast<std::uint32_t>(shard.scale.y * 100.f));
+            output.write<std::int32_t>(shard.posOffset.x);
+            output.write<std::int32_t>(shard.posOffset.y);
+            output.write<std::uint32_t>(shard.rotation);
+            output.write<std::uint8_t>(shard.alpha);
+        }
+    }
+
+    return output.good();
+}
+
 bool AnimationData::loadFromMemory(const char* buffer, std::size_t len, const std::string& path) {
     frames.clear();
     totalLength = 0;
@@ -65,7 +93,6 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
     if (!input.read(loop)) return false;
 
     uint16_t nFrames = 0;
-    std::vector<Frame> frameData;
     if (!input.read(nFrames)) return false;
     frameData.reserve(nFrames);
     lengths.reserve(nFrames);
@@ -132,6 +159,11 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
 
     sizes.reserve(frames.size());
     for (unsigned int i = 0; i < frames.size(); ++i) { sizes.emplace_back(computeFrameSize(i)); }
+
+    if (!forBundle) {
+        frameData.clear();
+        frameData.shrink_to_fit();
+    }
 
     return true;
 }

@@ -44,7 +44,7 @@ bool Bundle::getResource(const std::string& path, char** buf, std::size_t& len) 
                      << " in bundle '" << source << "'";
         return false;
     }
-    if (info.offset + info.length >= static_cast<std::int64_t>(data.size())) {
+    if (info.offset + info.length > static_cast<std::int64_t>(data.size())) {
         BL_LOG_ERROR << "Resource '" << path << "' has invalid offset + size (" << info.offset
                      << " + " << info.length << ") in bundle '" << source << "'";
         return false;
