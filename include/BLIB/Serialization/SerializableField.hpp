@@ -15,6 +15,22 @@ namespace bl
 {
 namespace serial
 {
+/// @brief Private namespace containing internal implementation. Do not use
+namespace priv
+{
+template<std::size_t Id, typename C, typename U, bool = std::is_copy_assignable_v<U> && !std::is_array_v<U>>
+    struct DefaultHolder {
+        std::unique_ptr<U> defVal;
+
+        template<typename... TArgs>
+        void make(TArgs&&... args);
+
+        void assign(U& result) const;
+
+        U* get();
+    };
+}
+
 /**
  * @brief Base class for SerializableField objects. Not to be used directly
  *
@@ -299,27 +315,16 @@ public:
     T& getDefault();
 
 private:
-    template<typename U, bool = std::is_copy_assignable_v<U> && !std::is_array_v<U>>
-    struct DefaultHolder {
-        std::unique_ptr<U> defVal;
-
-        template<typename... TArgs>
-        void make(TArgs&&... args);
-
-        void assign(T& result) const;
-
-        T* get();
-    };
-
     T C::*const member;
-    DefaultHolder<T> defVal;
+    priv::DefaultHolder<Id, C, T> defVal;
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
-template<std::uint16_t Id, typename C, typename T>
-template<typename U>
-struct SerializableField<Id, C, T>::DefaultHolder<U, true> {
+namespace priv
+{
+template<std::uint16_t Id, typename C, typename U>
+struct DefaultHolder<Id, C, U, true> {
     std::unique_ptr<U> defVal;
 
     template<typename... TArgs>
@@ -327,16 +332,15 @@ struct SerializableField<Id, C, T>::DefaultHolder<U, true> {
         defVal = std::make_unique<U>(std::forward<TArgs>(args)...);
     }
 
-    void assign(T& result) const {
+    void assign(U& result) const {
         if (defVal) { result = *defVal; }
     }
 
-    T get() { return defVal.get(); }
+    U* get() { return defVal.get(); }
 };
 
-template<std::uint16_t Id, typename C, typename T>
-template<typename U>
-struct SerializableField<Id, C, T>::DefaultHolder<U, false> {
+template<std::uint16_t Id, typename C, typename U>
+struct DefaultHolder<Id, C, U, false> {
     bool set;
 
     DefaultHolder()
@@ -347,19 +351,18 @@ struct SerializableField<Id, C, T>::DefaultHolder<U, false> {
         set = true;
     }
 
-    void assign(T&) const {
+    void assign(U&) const {
         if (set) {
-            BL_LOG_WARN << "Tried to default field " << Id << " on object " << typeid(T).name()
+            BL_LOG_WARN << "Tried to default field " << Id << " on object " << typeid(C).name()
                         << " but copy assignment is not allowed";
         }
     }
 
-    T* get() { return nullptr; }
+    U* get() { return nullptr; }
 };
 
-template<std::uint16_t Id, typename C, typename T>
-template<typename U, std::size_t N>
-struct SerializableField<Id, C, T>::DefaultHolder<U[N], false> {
+template<std::uint16_t Id, typename C, typename U, std::size_t N>
+struct DefaultHolder<Id, C, U[N], false> {
     std::unique_ptr<U[]> defVal;
 
     template<typename... TArgs>
@@ -371,8 +374,9 @@ struct SerializableField<Id, C, T>::DefaultHolder<U[N], false> {
         for (unsigned int i = 0; i < N; ++i) { result[i] = defVal[i]; }
     }
 
-    T* get() { return defVal.get(); }
+    U* get() { return *defVal.get(); }
 };
+}
 
 template<std::uint16_t Id, typename C, typename T>
 SerializableField<Id, C, T>::SerializableField(const std::string& name,
