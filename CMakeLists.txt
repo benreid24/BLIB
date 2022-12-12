@@ -39,6 +39,11 @@ configure_target(BLIB)
 set(BUILD_SHARED_LIBS Off)
 set(SFML_USE_STATIC_STD_LIBS On)
 add_compile_definitions(SFML_STATIC)
+
+# shouldn't need this but...
+target_compile_definitions(BLIB PUBLIC SFML_STATIC)
+set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
+
 include_directories(lib/SFML/include)
 add_subdirectory(lib/SFML)
 set_target_properties(sfml-audio PROPERTIES CXX_STANDARD 98 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
