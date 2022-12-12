@@ -35,9 +35,9 @@ function(configure_target target_name)
         target_link_options(${target_name} PUBLIC -static -static-libgcc -static-libstdc++)
         set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
     else()
-        #set_target_properties(${target_name} PROPERTIES
-        #    LINK_SEARCH_START_STATIC ON
-        #    LINK_SEARCH_END_STATIC ON
-        #)
+        set_target_properties(${target_name} PROPERTIES
+            LINK_SEARCH_START_STATIC ON
+            LINK_SEARCH_END_STATIC ON
+        )
     endif()
 endfunction()
