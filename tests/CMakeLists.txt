@@ -2,7 +2,7 @@ add_executable(BLIB.t)
 
 include(blib_helpers)
 configure_target(BLIB.t)
-
+target_compile_options(BLIB.t PUBLIC /wd4389)
 target_compile_definitions(BLIB.t PUBLIC BLIB_TEST_TARGET)
 
 target_link_libraries(BLIB.t PRIVATE

@@ -26,7 +26,6 @@ function(configure_target target_name)
     endif()
 
     # Static link everything
-    set(SFML_USE_STATIC_STD_LIBS On)
     target_compile_definitions(${target_name} PUBLIC SFML_STATIC)
     set(BUILD_SHARED_LIBRARIES OFF)
     if (NOT APPLE AND NOT WIN32)

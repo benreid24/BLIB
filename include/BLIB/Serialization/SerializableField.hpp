@@ -359,7 +359,7 @@ struct SerializableField<Id, C, T>::DefaultHolder<U, false> {
 
 template<std::uint16_t Id, typename C, typename T>
 template<typename U, std::size_t N>
-struct SerializableField<Id, C, T>::DefaultHolder<U[N], true> {
+struct SerializableField<Id, C, T>::DefaultHolder<U[N], false> {
     std::unique_ptr<U[]> defVal;
 
     template<typename... TArgs>
