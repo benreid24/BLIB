@@ -181,10 +181,9 @@ private:
  * @tparam Id Integer id of this field
  * @tparam C The object type the field belongs to
  * @tparam T The underlying type of the field
- * @tparam AllowDefault True to allow defaulting, false to disable
  * @ingroup JSON
  */
-template<std::uint16_t Id, typename C, typename T, bool AllowDefault = true>
+template<std::uint16_t Id, typename C, typename T>
 class SerializableField : public SerializableFieldBase {
 public:
     /**
@@ -279,100 +278,172 @@ public:
     virtual void makeDefault(void* object) const override;
 
     /**
+     * @brief Sets the default value for deserialization to a default-constructed value
+     *
+     */
+    void createDefault();
+
+    /**
      * @brief Set the default value for deserialization if the field is not present
      *
      * @param defaultValue The value to default to
      */
     void setDefault(T&& defaultValue);
 
+    /**
+     * @brief Returns a modifiable reference to the default value for more fine-grained control.
+     *        createDefault() or setDefault() should be called first
+     *
+     * @return T&
+     */
+    T& getDefault();
+
 private:
+    template<typename U, bool = std::is_copy_assignable_v<U> && !std::is_array_v<U>>
+    struct DefaultHolder {
+        std::unique_ptr<U> defVal;
+
+        template<typename... TArgs>
+        void make(TArgs&&... args);
+
+        void assign(T& result) const;
+    };
+
     T C::*const member;
-    std::unique_ptr<T> defVal;
+    DefaultHolder<T> defVal;
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
-template<std::uint16_t Id, typename C, typename T, bool AD>
-SerializableField<Id, C, T, AD>::SerializableField(const std::string& name,
-                                                   SerializableObjectBase& owner, T C::*member,
-                                                   SerializableFieldBase::Required&&)
+template<std::uint16_t Id, typename C, typename T>
+template<typename U>
+struct SerializableField<Id, C, T>::DefaultHolder<U, true> {
+    std::unique_ptr<U> defVal;
+
+    template<typename... TArgs>
+    void make(TArgs&&... args) {
+        defVal = std::make_unique<U>(std::forward<TArgs>(args)...);
+    }
+
+    void assign(T& result) const {
+        if (defVal) { result = *defVal; }
+    }
+};
+
+template<std::uint16_t Id, typename C, typename T>
+template<typename U>
+struct SerializableField<Id, C, T>::DefaultHolder<U, false> {
+    bool set;
+
+    DefaultHolder()
+    : set(false) {}
+
+    template<typename... TArgs>
+    void make(TArgs&&...) {
+        set = true;
+    }
+
+    void assign(T&) const {
+        if (set) {
+            BL_LOG_WARN << "Tried to default field " << Id << " on object " << typeid(T).name()
+                        << " but copy assignment is not allowed";
+        }
+    }
+};
+
+template<std::uint16_t Id, typename C, typename T>
+template<typename U, std::size_t N>
+struct SerializableField<Id, C, T>::DefaultHolder<U[N], false> {
+    std::unique_ptr<U[]> defVal;
+
+    template<typename... TArgs>
+    void make(TArgs&&... args) {
+        defVal = std::make_unique<U[]>(std::forward<TArgs>(args)...);
+    }
+
+    void assign(U* result) const {
+        for (unsigned int i = 0; i < N; ++i) { result[i] = defVal[i]; }
+    }
+};
+
+template<std::uint16_t Id, typename C, typename T>
+SerializableField<Id, C, T>::SerializableField(const std::string& name,
+                                               SerializableObjectBase& owner, T C::*member,
+                                               SerializableFieldBase::Required&&)
 : SerializableFieldBase(Id, name, owner, member, false)
 , member(member) {}
 
-template<std::uint16_t Id, typename C, typename T, bool AD>
-SerializableField<Id, C, T, AD>::SerializableField(const std::string& name,
-                                                   SerializableObjectBase& owner, T C::*member,
-                                                   SerializableFieldBase::Optional&&)
+template<std::uint16_t Id, typename C, typename T>
+SerializableField<Id, C, T>::SerializableField(const std::string& name,
+                                               SerializableObjectBase& owner, T C::*member,
+                                               SerializableFieldBase::Optional&&)
 : SerializableFieldBase(Id, name, owner, member, true)
 , member(member) {}
 
-template<std::uint16_t Id, typename C, typename T, bool AD>
-bool SerializableField<Id, C, T, AD>::deserializeJSON(const json::Value& v, void* obj) const {
+template<std::uint16_t Id, typename C, typename T>
+bool SerializableField<Id, C, T>::deserializeJSON(const json::Value& v, void* obj) const {
     C& o = *static_cast<C*>(obj);
     return json::Serializer<T>::deserialize(o.*member, v);
 }
 
-template<std::uint16_t Id, typename C, typename T, bool AD>
-json::Value SerializableField<Id, C, T, AD>::serializeJSON(const void* obj) const {
+template<std::uint16_t Id, typename C, typename T>
+json::Value SerializableField<Id, C, T>::serializeJSON(const void* obj) const {
     const C& o = *static_cast<const C*>(obj);
     return json::Serializer<T>::serialize(o.*member);
 }
 
-template<std::uint16_t Id, typename C, typename T, bool AD>
-bool SerializableField<Id, C, T, AD>::deserializeJsonStream(std::istream& s, void* obj) const {
+template<std::uint16_t Id, typename C, typename T>
+bool SerializableField<Id, C, T>::deserializeJsonStream(std::istream& s, void* obj) const {
     C& o = *static_cast<C*>(obj);
     return json::Serializer<T>::deserializeStream(s, o.*member);
 }
 
-template<std::uint16_t Id, typename C, typename T, bool AD>
-bool SerializableField<Id, C, T, AD>::serializeJsonStream(std::ostream& s, const void* obj,
-                                                          unsigned int tabSize,
-                                                          unsigned int currentIndent) const {
+template<std::uint16_t Id, typename C, typename T>
+bool SerializableField<Id, C, T>::serializeJsonStream(std::ostream& s, const void* obj,
+                                                      unsigned int tabSize,
+                                                      unsigned int currentIndent) const {
     const C& o = *static_cast<const C*>(obj);
     return json::Serializer<T>::serializeStream(s, o.*member, tabSize, currentIndent);
 }
 
-template<std::uint16_t Id, typename C, typename T, bool AD>
-bool SerializableField<Id, C, T, AD>::serializeBinary(binary::OutputStream& out,
-                                                      const void* obj) const {
+template<std::uint16_t Id, typename C, typename T>
+bool SerializableField<Id, C, T>::serializeBinary(binary::OutputStream& out,
+                                                  const void* obj) const {
     const C& o = *static_cast<const C*>(obj);
     return binary::Serializer<T>::serialize(out, o.*member);
 }
 
-template<std::uint16_t Id, typename C, typename T, bool AD>
-bool SerializableField<Id, C, T, AD>::deserializeBinary(binary::InputStream& in, void* obj) const {
+template<std::uint16_t Id, typename C, typename T>
+bool SerializableField<Id, C, T>::deserializeBinary(binary::InputStream& in, void* obj) const {
     C& o = *static_cast<C*>(obj);
     return binary::Serializer<T>::deserialize(in, o.*member);
 }
 
-template<std::uint16_t Id, typename C, typename T, bool AD>
-std::uint32_t SerializableField<Id, C, T, AD>::binarySize(const void* obj) const {
+template<std::uint16_t Id, typename C, typename T>
+std::uint32_t SerializableField<Id, C, T>::binarySize(const void* obj) const {
     const C& o = *static_cast<const C*>(obj);
     return binary::Serializer<T>::size(o.*member);
 }
 
-template<std::uint16_t Id, typename C, typename T, bool AD>
-void SerializableField<Id, C, T, AD>::makeDefault(void* obj) const {
-    // TODO - remove the AD workaround for copy assignment check
-    if constexpr (AD) {
-        if (defVal) {
-            C& o = *static_cast<C*>(obj);
-            if constexpr (!std::is_array_v<T>) { o.*member = *defVal; }
-            else {
-                for (unsigned int i = 0; i < sizeof(o.*member); ++i) {
-                    (o.*member)[i] = (*defVal)[i];
-                }
-            }
-        }
-    }
-    else {
-        (void)obj; // prevent warning
-    }
+template<std::uint16_t Id, typename C, typename T>
+void SerializableField<Id, C, T>::makeDefault(void* obj) const {
+    C& o = *static_cast<C*>(obj);
+    defVal.assign(o.*member);
 }
 
-template<std::uint16_t Id, typename C, typename T, bool AD>
-void SerializableField<Id, C, T, AD>::setDefault(T&& d) {
-    defVal = std::make_unique<T>(std::forward<T>(d));
+template<std::uint16_t Id, typename C, typename T>
+void SerializableField<Id, C, T>::setDefault(T&& d) {
+    defVal.make(std::forward<T>(d));
+}
+
+template<std::uint16_t Id, typename C, typename T>
+void SerializableField<Id, C, T>::createDefault() {
+    defVal.make(std::make_unique<T>());
+}
+
+template<std::uint16_t Id, typename C, typename T>
+T& SerializableField<Id, C, T>::getDefault() {
+    return *defVal.defVal;
 }
 
 } // namespace serial
