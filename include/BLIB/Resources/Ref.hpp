@@ -124,6 +124,12 @@ public:
      */
     void forceInCache(bool force = true);
 
+    /**
+     * @brief Releases the held resource
+     *
+     */
+    void release();
+
 private:
     Resource<TResourceType>* resource;
 
@@ -159,12 +165,12 @@ Ref<T>::Ref(Ref&& copy)
 
 template<typename T>
 Ref<T>::~Ref() {
-    if (resource) { --resource->refCount; }
+    release();
 }
 
 template<typename T>
 Ref<T>& Ref<T>::operator=(const Ref& copy) {
-    if (resource) { --resource->refCount; }
+    release();
     resource = copy.resource;
     ++resource->refCount;
     return *this;
@@ -172,7 +178,7 @@ Ref<T>& Ref<T>::operator=(const Ref& copy) {
 
 template<typename T>
 Ref<T>& Ref<T>::operator=(Ref&& copy) {
-    if (resource) { --resource->refCount; }
+    release();
     resource      = copy.resource;
     copy.resource = nullptr;
     return *this;
@@ -216,6 +222,14 @@ Ref<T>::operator bool() const {
 template<typename T>
 void Ref<T>::forceInCache(bool f) {
     resource->forceInCache = f;
+}
+
+template<typename T>
+void Ref<T>::release() {
+    if (resource) {
+        --resource->refCount;
+        resource = nullptr;
+    }
 }
 
 } // namespace resource
