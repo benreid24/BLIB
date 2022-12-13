@@ -3,6 +3,7 @@
 
 #include <BLIB/Serialization/Buffers/OutputBuffer.hpp>
 #include <BLIB/Util/FileUtil.hpp>
+#include <cstring>
 #include <string>
 #include <type_traits>
 
