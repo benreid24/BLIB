@@ -10,6 +10,7 @@ Animation::Ptr Animation::create(resource::Resource<gfx::AnimationData>::Ref ani
 
 Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim)
 : Element()
+, centered(false)
 , source(anim)
 , animation(*anim) {
     animation.setIsLoop(true);

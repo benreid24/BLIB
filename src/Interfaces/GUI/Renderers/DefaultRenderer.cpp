@@ -257,7 +257,7 @@ void DefaultRenderer::renderNotebookTabs(sf::RenderTarget& target, sf::RenderSta
     RendererUtil::renderRectangle(target, states, nb.getTabAcquisition(), settings, defaults, true);
 
     const sf::View oldView = target.getView();
-    target.setView(interface::ViewUtil::computeSubView(nb.getTabAcquisition(), getOriginalView()));
+    target.setView(interface::ViewUtil::computeSubView(nb.getTabAcquisition(), oldView));
     states.transform.translate(-scroll, 0.f);
 
     for (const Notebook::Page& page : nb.getPages()) {
