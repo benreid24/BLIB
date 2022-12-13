@@ -40,8 +40,9 @@ void createDir(const std::string& path) {
 } // namespace
 
 bool FileUtil::exists(const std::string& file) {
-    std::ifstream test(file.c_str());
-    return test.good();
+    struct stat info;
+    if (stat(file.c_str(), &info) != 0) return false;
+    return info.st_mode & S_IFREG;
 }
 
 bool FileUtil::directoryExists(const std::string& file) {

@@ -23,6 +23,8 @@ bool FileSystem::useBundle(const std::string& bundlePath) {
 bool FileSystem::getData(const std::string& path, char** buffer, std::size_t& len) {
     if (bundles.has_value()) { return bundles.value().getResource(path, buffer, len); }
     else {
+        if (!util::FileUtil::exists(path)) return false;
+
         // keep buffer in memory
         auto it = persistentBuffers.find(path);
         if (it == persistentBuffers.end()) { it = persistentBuffers.try_emplace(path).first; }
