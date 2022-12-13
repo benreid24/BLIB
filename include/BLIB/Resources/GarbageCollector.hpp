@@ -22,6 +22,7 @@ class ResourceManagerBase;
  *
  */
 class GarbageCollector : private util::NonCopyable {
+public:
     /**
      * @brief Shuts down the GC if running and frees all remaining resources. Call at the end of
      *        main()
