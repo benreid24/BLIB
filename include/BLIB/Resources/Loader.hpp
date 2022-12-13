@@ -123,32 +123,12 @@ struct DefaultLoader<sf::Font> : public LoaderBase<sf::Font> {
 
     virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
                       sf::Font& result) override {
-        const auto it = bufferMap.find(&result);
-        if (it == bufferMap.end()) {
-            BL_LOG_ERROR << "Could not find buffer for font '" << path << "'";
-            return false;
-        }
-        std::vector<char>* bufCopy = it->second;
-        bufferMap.erase(it);
-        bufCopy->resize(len);
-        std::memcpy(bufCopy->data(), buffer, len);
-        if (!result.loadFromMemory(bufCopy->data(), len)) {
+        if (!result.loadFromMemory(buffer, len)) {
             BL_LOG_ERROR << "Failed to load font: " << path;
             return false;
         }
         return true;
     }
-
-private:
-    std::unordered_map<sf::Font*, std::vector<char>*> bufferMap;
-
-    struct FontDeleter {
-        std::vector<char>* buffer;
-        void operator()(sf::Font* font) {
-            delete font;
-            delete buffer;
-        }
-    };
 };
 
 template<>

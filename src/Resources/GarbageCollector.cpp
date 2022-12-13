@@ -26,6 +26,9 @@ GarbageCollector::GarbageCollector()
 GarbageCollector::~GarbageCollector() {
     if (!stopped) { stop(); }
 }
+void GarbageCollector::shutdownAndClear() {
+    if (started && !stopped) { get().stop(); }
+}
 
 void GarbageCollector::stop() {
     if (thread.joinable()) {
