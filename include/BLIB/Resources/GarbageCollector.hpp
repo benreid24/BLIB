@@ -22,6 +22,13 @@ class ResourceManagerBase;
  *
  */
 class GarbageCollector : private util::NonCopyable {
+    /**
+     * @brief Shuts down the GC if running and frees all remaining resources. Call at the end of
+     *        main()
+     *
+     */
+    static void shutdownAndClear();
+
 private:
     using MP = std::pair<ResourceManagerBase*, unsigned int>;
     std::thread thread;

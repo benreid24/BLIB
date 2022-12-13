@@ -37,6 +37,10 @@ void GarbageCollector::stop() {
         BL_LOG_INFO << "GarbageCollector terminated";
     }
     else { BL_LOG_ERROR << "GarbageCollector already shutdown"; }
+
+    BL_LOG_INFO << "Freeing remaining resources";
+    std::unique_lock lock(managerLock);
+    for (auto& mp : managers) { mp.first->freeAll(); }
 }
 
 GarbageCollector& GarbageCollector::get() {

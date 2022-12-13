@@ -38,6 +38,8 @@ private:
     virtual void doClean() = 0;
     unsigned int gcPeriod;
 
+    virtual void freeAll() = 0;
+
     friend class GarbageCollector;
 };
 
@@ -106,6 +108,7 @@ private:
     ResourceManager();
     virtual void doClean() override;
     bool doInit(const std::string& uri, char* buf, std::size_t len, TResourceType& result);
+    virtual void freeAll() override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -198,6 +201,12 @@ void ResourceManager<T>::doClean() {
             resources.erase(j);
         }
     }
+}
+
+template<typename T>
+void ResourceManager<T>::freeAll() {
+    std::unique_lock lock(mapLock);
+    resources.clear();
 }
 
 template<typename T>
