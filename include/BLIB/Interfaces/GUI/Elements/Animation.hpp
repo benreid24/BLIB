@@ -28,14 +28,14 @@ public:
      * @param anim The animation to use
      * @return Ptr The new Animation
      */
-    static Ptr create(resource::Resource<gfx::AnimationData>::Ref anim);
+    static Ptr create(resource::Ref<gfx::AnimationData> anim);
 
     /**
      * @brief Sets the animation to render. Does not reset any applied size
      *
      * @param anim The animation to render
      */
-    void setAnimation(resource::Resource<gfx::AnimationData>::Ref anim);
+    void setAnimation(resource::Ref<gfx::AnimationData> anim);
 
     /**
      * @brief Scales the rendered animation to the given size
@@ -57,7 +57,7 @@ protected:
      *
      * @param anim The animation to use
      */
-    Animation(resource::Resource<gfx::AnimationData>::Ref anim);
+    Animation(resource::Ref<gfx::AnimationData> anim);
 
     /**
      * @brief Returns the size required to render the animation
@@ -77,7 +77,7 @@ protected:
 
 private:
     bool centered;
-    resource::Resource<gfx::AnimationData>::Ref source;
+    resource::Ref<gfx::AnimationData> source;
     gfx::Animation animation;
     std::optional<sf::Vector2f> size;
 };

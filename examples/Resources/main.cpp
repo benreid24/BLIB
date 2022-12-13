@@ -40,16 +40,14 @@ void useBundles() {
 
 int main() {
     // Load a managed texture from disk (default state)
-    Resource<sf::Texture> texture =
-        ResourceManager<sf::Texture>::load("game_data/images/image.png");
+    Ref<sf::Texture> texture = ResourceManager<sf::Texture>::load("game_data/images/image.png");
 
     // use custom loaders for our custom types
     ResourceManager<Character>::installLoader<CharacterLoaderDevMode>();
     ResourceManager<Map>::installLoader<MapLoaderDevMode>();
 
     // load json resources from disk
-    Resource<Character>::Ref npc =
-        ResourceManager<Character>::load("game_data/characters/npc1.json").data;
+    Ref<Character> npc = ResourceManager<Character>::load("game_data/characters/npc1.json");
     BL_LOG_INFO << "NPC name from disk: " << npc->name;
 
     // create bundles from from our raw resources
@@ -59,7 +57,7 @@ int main() {
     useBundles();
 
     // load a resource from a bundle
-    Resource<Map>::Ref map = ResourceManager<Map>::load("game_data/maps/map.json").data;
+    Ref<Map> map = ResourceManager<Map>::load("game_data/maps/map.json");
     BL_LOG_INFO << "Map name from bundle: " << map->name;
 
     return 0;

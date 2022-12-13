@@ -7,7 +7,7 @@ bl::engine::State::Ptr RebindState::create(bl::engine::Engine& engine, unsigned 
 
 RebindState::RebindState(bl::engine::Engine& engine, unsigned int ctrl)
 : configurator() {
-    font = bl::resource::ResourceManager<sf::Font>::load("font.ttf").data;
+    font = bl::resource::ResourceManager<sf::Font>::load("font.ttf");
     text.setFont(*font);
     text.setPosition(50.f, 300.f);
     text.setFillColor(sf::Color(20, 170, 55));

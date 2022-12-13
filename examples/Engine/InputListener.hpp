@@ -18,7 +18,7 @@ public:
     bool shouldRebindMovement();
 
 private:
-    bl::resource::Resource<sf::Font>::Ref font;
+    bl::resource::Ref<sf::Font> font;
     sf::Text text;
     bool rebindExample;
     bool rebindMovement;

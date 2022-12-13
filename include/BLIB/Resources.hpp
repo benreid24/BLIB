@@ -10,6 +10,7 @@
 #include <BLIB/Resources/FileSystem.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
 #include <BLIB/Resources/Loader.hpp>
+#include <BLIB/Resources/Ref.hpp>
 #include <BLIB/Resources/Resource.hpp>
 #include <BLIB/Resources/ResourceManager.hpp>
 

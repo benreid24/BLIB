@@ -10,8 +10,8 @@ int main() {
     sf::Font font;
     font.loadFromFile("font.ttf");
 
-    bl::resource::Resource<sf::Texture>::Ref texture =
-        bl::resource::ResourceManager<sf::Texture>::load("title.png").data;
+    bl::resource::Ref<sf::Texture> texture =
+        bl::resource::ResourceManager<sf::Texture>::load("title.png");
 
     ArrowSelector::Ptr selector = ArrowSelector::create(12);
     Menu menu(selector);

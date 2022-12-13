@@ -2,7 +2,7 @@
 #define BLIB_MEDIA_ANIMATIONDATA_HPP
 
 #include <BLIB/Media/Graphics/VertexBuffer.hpp>
-#include <BLIB/Resources/Resource.hpp>
+#include <BLIB/Resources/Ref.hpp>
 #include <BLIB/Serialization.hpp>
 #include <SFML/Graphics.hpp>
 #include <memory>
@@ -124,7 +124,7 @@ private:
     };
 
     std::string spritesheetSource;
-    resource::Resource<sf::Texture>::Ref spritesheet;
+    resource::Ref<sf::Texture> spritesheet;
     std::vector<Frame> frameData;
     std::vector<VertexBuffer> frames;
     std::vector<sf::Vector2f> sizes;

@@ -298,7 +298,7 @@ public:
      *
      * @param font Resource managed font to use
      */
-    void setFont(bl::resource::Resource<sf::Font>::Ref font);
+    void setFont(bl::resource::Ref<sf::Font> font);
 
     /**
      * @brief Set the horizontal alignment. Doesn't apply to all Element types

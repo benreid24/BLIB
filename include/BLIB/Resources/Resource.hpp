@@ -1,37 +1,50 @@
 #ifndef BLIB_RESOURCES_RESOURCE_HPP
 #define BLIB_RESOURCES_RESOURCE_HPP
 
+#include <SFML/Graphics.hpp>
 #include <memory>
+#include <vector>
 
 namespace bl
 {
 namespace resource
 {
 /**
- * @brief Base level struct representing a resource that can be loaded and managed by the
- *        resource system
+ * @brief Internal struct used by ResourceManager. Use Ref externally
  *
  * @tparam TResourceType the type
  * @ingroup Resources
  */
 template<typename TResourceType>
 struct Resource {
-    typedef std::shared_ptr<TResourceType> Ref;
-    typedef std::weak_ptr<TResourceType> WeakRef;
+    TResourceType data;
+    bool forceInCache;
+    unsigned int refCount;
 
-    Ref data;          /// The resource itself. May not be null
-    bool forceInCache; /// True to keep in cache even if no references remain
+    Resource()
+    : forceInCache(false)
+    , refCount(1) {}
 
-    Resource(Ref data)
-    : data(data)
-    , forceInCache(false) {}
+    bool readyForPurge() const { return !forceInCache && refCount == 1; }
+};
 
-    /**
-     * @brief Creates a new weak reference to the underlying resource
-     *
-     * @return WeakRef A reference that can be held without keeping the resource in memory
-     */
-    WeakRef getWeakRef() const { return WeakRef(data); }
+/**
+ * @brief Specialized Resource for sf::Font. Stores the data buffer required by the font to work
+ *
+ * @ingroup Resources
+ */
+template<>
+struct Resource<sf::Font> {
+    sf::Font data;
+    bool forceInCache;
+    unsigned int refCount;
+    std::vector<char> buffer;
+
+    Resource()
+    : forceInCache(false)
+    , refCount(1) {}
+
+    bool readyForPurge() const { return !forceInCache && refCount == 1; }
 };
 
 } // namespace resource

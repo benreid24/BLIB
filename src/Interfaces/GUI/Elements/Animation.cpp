@@ -4,11 +4,11 @@ namespace bl
 {
 namespace gui
 {
-Animation::Ptr Animation::create(resource::Resource<gfx::AnimationData>::Ref anim) {
+Animation::Ptr Animation::create(resource::Ref<gfx::AnimationData> anim) {
     return Ptr(new Animation(anim));
 }
 
-Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim)
+Animation::Animation(resource::Ref<gfx::AnimationData> anim)
 : Element()
 , centered(false)
 , source(anim)
@@ -26,8 +26,8 @@ Animation::Animation(resource::Resource<gfx::AnimationData>::Ref anim)
     getSignal(Event::Moved).willAlwaysCall(updatePos);
 }
 
-void Animation::setAnimation(resource::Resource<gfx::AnimationData>::Ref src) {
-    source   = src;
+void Animation::setAnimation(resource::Ref<gfx::AnimationData> src) {
+    source = src;
     animation.setData(*source);
     animation.setIsLoop(true);
     animation.play();

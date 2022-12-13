@@ -47,16 +47,16 @@ TEST(ResourceManager, TimeoutAndForceCache) {
 
     ResourceManager<char>::installLoader<MockLoader2>();
     ResourceManager<char>::setGarbageCollectionPeriod(1);
-    const char first = *ResourceManager<char>::load("uri").data;
+    const char first = *ResourceManager<char>::load("uri");
     std::this_thread::sleep_for(std::chrono::seconds(3));
-    const Resource<char>::Ref second = ResourceManager<char>::load("uri").data;
+    const Ref<char> second = ResourceManager<char>::load("uri");
     EXPECT_NE(first, *second);
 
     // test force in cache
-    const char value                                = *ResourceManager<char>::load("uri").data;
-    ResourceManager<char>::load("uri").forceInCache = true;
+    const char value = *ResourceManager<char>::load("uri");
+    ResourceManager<char>::load("uri").forceInCache();
     std::this_thread::sleep_for(std::chrono::seconds(3));
-    EXPECT_EQ(value, *ResourceManager<char>::load("uri").data);
+    EXPECT_EQ(value, *ResourceManager<char>::load("uri"));
 }
 
 TEST(ResourceManager, NoTimeout) {
@@ -64,9 +64,9 @@ TEST(ResourceManager, NoTimeout) {
 
     ResourceManager<int>::installLoader<MockLoader>();
     ResourceManager<int>::setGarbageCollectionPeriod(2);
-    const Resource<int>::Ref first = ResourceManager<int>::load("uri").data;
+    const Ref<int> first = ResourceManager<int>::load("uri");
     std::this_thread::sleep_for(std::chrono::seconds(1));
-    const Resource<int>::Ref second = ResourceManager<int>::load("uri").data;
+    const Ref<int> second = ResourceManager<int>::load("uri");
     EXPECT_EQ(*first, *second);
 }
 

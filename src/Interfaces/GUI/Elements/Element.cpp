@@ -330,7 +330,7 @@ void Element::render(sf::RenderTarget& target, sf::RenderStates states,
 
 const RenderSettings& Element::renderSettings() const { return settings; }
 
-void Element::setFont(bl::resource::Resource<sf::Font>::Ref f) {
+void Element::setFont(bl::resource::Ref<sf::Font> f) {
     settings.font = f;
     fireSignal(Event(Event::RenderSettingsChanged));
 }
@@ -398,9 +398,7 @@ const std::string& Element::getTooltip() const { return tooltip; }
 void Element::queueUpdateAction(const QueuedAction& a) {
     GUI* g = getTopParent();
     if (g) { g->queueAction(a); }
-    else {
-        BL_LOG_ERROR << "Element " << this << " is not a child of GUI";
-    }
+    else { BL_LOG_ERROR << "Element " << this << " is not a child of GUI"; }
 }
 
 GUI* Element::getTopParent() {

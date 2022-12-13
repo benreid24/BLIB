@@ -4,6 +4,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Resources/FileSystem.hpp>
 #include <BLIB/Resources/Loader.hpp>
+#include <BLIB/Resources/Ref.hpp>
 #include <BLIB/Util/BufferIstreamBuf.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
@@ -82,7 +83,7 @@ public:
      * @param uri Some unique string that a Loader can load the resource with
      * @return Pointer to the requested resource
      */
-    static Resource<TResourceType>& load(const std::string& uri);
+    static Ref<TResourceType> load(const std::string& uri);
 
     /**
      * @brief Uses the underlying FileSystem and loader to initialize the existing resource. The
@@ -104,6 +105,7 @@ private:
 
     ResourceManager();
     virtual void doClean() override;
+    bool doInit(const std::string& uri, char* buf, std::size_t len, TResourceType& result);
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -127,15 +129,34 @@ void ResourceManager<T>::setGarbageCollectionPeriod(unsigned int gc) {
 }
 
 template<typename T>
-Resource<T>& ResourceManager<T>::load(const std::string& uri) {
+Ref<T> ResourceManager<T>::load(const std::string& uri) {
     ResourceManager& m = get();
     std::unique_lock lock(m.mapLock);
     auto it = m.resources.find(uri);
     if (it == m.resources.end()) {
-        it = m.resources.insert(std::make_pair(uri, m.loader->createEmpty())).first;
-        initializeExisting(uri, *it->second.data);
+        it = m.resources.try_emplace(uri).first;
+
+        char* buffer    = nullptr;
+        std::size_t len = 0;
+        if (!FileSystem::getData(uri, &buffer, len)) {
+            BL_LOG_ERROR << "Failed to find resource: " << uri;
+            return {&it->second};
+        }
+
+        // copy buffer for font
+        if constexpr (std::is_same_v<T, sf::Font>) {
+            std::vector<char>& rbuf = it->second.buffer;
+            rbuf.resize(len);
+            std::memcpy(rbuf.data(), buffer, len);
+            buffer = rbuf.data();
+        }
+
+        if (!m.doInit(uri, buffer, len, it->second.data)) {
+            BL_LOG_ERROR << "Failed to load resource: " << uri;
+        }
     }
-    return it->second;
+
+    return {&it->second};
 }
 
 template<typename T>
@@ -145,12 +166,17 @@ bool ResourceManager<T>::initializeExisting(const std::string& uri, T& result) {
     char* buffer    = nullptr;
     std::size_t len = 0;
     if (!FileSystem::getData(uri, &buffer, len)) {
-        BL_LOG_ERROR << "Failed to load resource: " << uri;
+        BL_LOG_ERROR << "Failed to find resource: " << uri;
         return false;
     }
+    return m.doInit(uri, buffer, len, result);
+}
+
+template<typename T>
+bool ResourceManager<T>::doInit(const std::string& uri, char* buffer, std::size_t len, T& result) {
     util::BufferIstreamBuf buf(buffer, len);
     std::istream stream(&buf);
-    const bool success = m.loader->load(uri, buffer, len, stream, result);
+    const bool success = loader->load(uri, buffer, len, stream, result);
     FileSystem::purgePersistentData(uri);
 
     return success;
@@ -167,7 +193,7 @@ void ResourceManager<T>::doClean() {
     std::unique_lock lock(mapLock);
     for (auto i = resources.begin(); i != resources.end();) {
         auto j = i++;
-        if (j->second.data.use_count() == 1 && !j->second.forceInCache) {
+        if (j->second.readyForPurge()) {
             BL_LOG_DEBUG << "Purged expired resource: " << j->first;
             resources.erase(j);
         }

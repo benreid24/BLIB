@@ -6,7 +6,7 @@
 InputListener::InputListener()
 : rebindExample(false)
 , rebindMovement(false) {
-    font = bl::resource::ResourceManager<sf::Font>::load("font.ttf").data;
+    font = bl::resource::ResourceManager<sf::Font>::load("font.ttf");
     text.setFont(*font);
     text.setFillColor(sf::Color(0, 50, 185));
     text.setPosition(10.f, 50.f);

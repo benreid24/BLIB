@@ -89,7 +89,7 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
 
         if (forBundle) { spritesheetSource = sheet; }
     }
-    spritesheet = resource::ResourceManager<sf::Texture>::load(sheet).data;
+    spritesheet = resource::ResourceManager<sf::Texture>::load(sheet);
     if (!input.read(loop)) return false;
 
     uint16_t nFrames = 0;

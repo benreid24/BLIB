@@ -3,6 +3,7 @@ target_sources(BLIB PUBLIC
     FileSystem.hpp
     GarbageCollector.hpp
     Loader.hpp
+    Ref.hpp
     Resource.hpp
     ResourceManager.hpp
 )

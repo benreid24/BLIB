@@ -2,16 +2,13 @@
 #define BLIB_RESOURCES_RESOURCELOADER_HPP
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Media/Audio/Playlist.hpp>
 #include <BLIB/Media/Graphics/AnimationData.hpp>
 #include <BLIB/Resources/Resource.hpp>
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <istream>
 #include <string>
-
-#ifndef BLIB_TEST_TARGGET
-#include <BLIB/Media/Audio/Playlist.hpp>
-#include <SFML/Audio.hpp>
-#endif
 
 namespace bl
 {
@@ -30,16 +27,6 @@ struct LoaderBase {
      *
      */
     virtual ~LoaderBase() = default;
-
-    /**
-     * @brief Creates a new resource object to be managed. Uses default constructor. Override this
-     *        if your type is not default constructable
-     *
-     * @return Resource<TResourceType>::Ref The newly created resource
-     */
-    virtual typename Resource<TResourceType>::Ref createEmpty() {
-        return std::make_shared<TResourceType>();
-    }
 
     /**
      * @brief Load the resource as identified by the uri
@@ -87,7 +74,6 @@ struct DefaultLoader<sf::Texture> : public LoaderBase<sf::Texture> {
     }
 };
 
-#ifndef BLIB_TEST_TARGET
 template<>
 struct DefaultLoader<sf::SoundBuffer> : public LoaderBase<sf::SoundBuffer> {
     virtual ~DefaultLoader() = default;
@@ -130,18 +116,10 @@ struct BundledPlaylistLoader : public LoaderBase<audio::Playlist> {
         return true;
     }
 };
-#endif
 
 template<>
 struct DefaultLoader<sf::Font> : public LoaderBase<sf::Font> {
     virtual ~DefaultLoader() = default;
-
-    virtual Resource<sf::Font>::Ref createEmpty() override {
-        std::vector<char>* bufCopy = new std::vector<char>();
-        Resource<sf::Font>::Ref font(new sf::Font(), FontDeleter{bufCopy});
-        bufferMap.emplace(font.get(), bufCopy);
-        return font;
-    }
 
     virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
                       sf::Font& result) override {
