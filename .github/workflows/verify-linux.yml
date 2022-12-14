@@ -27,5 +27,8 @@ jobs:
     - name: make
       run: cd build && cmake --build .
 
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
+
     - name: test
       run: build/tests/BLIB.t 
