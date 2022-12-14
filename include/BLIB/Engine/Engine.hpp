@@ -143,11 +143,8 @@ private:
     std::stack<State::Ptr> states;
     State::Ptr newState;
 
-#ifndef ON_CI
     sf::RenderWindow renderWindow;
     sf::Context renderContext;
-#endif
-
     script::Manager engineScriptManager;
     ecs::Registry entityRegistry;
     render::RenderSystem renderingSystem;

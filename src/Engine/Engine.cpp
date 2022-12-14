@@ -40,9 +40,7 @@ const Settings& Engine::settings() const { return engineSettings; }
 
 Flags& Engine::flags() { return engineFlags; }
 
-#ifndef ON_CI
 sf::RenderWindow& Engine::window() { return renderWindow; }
-#endif
 
 void Engine::pushState(State::Ptr next) {
     flags().set(Flags::_priv_PushState);
@@ -277,7 +275,6 @@ bool Engine::run(State::Ptr initialState) {
     return false; // shouldn't be able to get here
 }
 
-#ifndef ON_CI
 bool Engine::awaitFocus() {
     sf::Event event;
     while (renderWindow.waitEvent(event)) {
@@ -367,7 +364,6 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
         bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
     }
 }
-#endif
 
 } // namespace engine
 } // namespace bl
