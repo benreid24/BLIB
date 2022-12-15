@@ -28,12 +28,13 @@ struct Stats {
 
 class BundleCreator {
 public:
-    BundleCreator(const std::string& path, Config& config);
+    BundleCreator(const std::string& path, Config& config, const BundleSource& bundleSource);
     ~BundleCreator();
 
     bool create(Stats& stats, Manifest& manifest);
 
 private:
+    const BundleSource& bundleSource;
     const std::string bundlePath;
     const std::string tempPath;
     Config& config;
@@ -70,9 +71,11 @@ bool Bundler::createBundles() {
 
     bundle::Manifest manifest(config.outputDirectory());
     bundle::Stats stats;
-    const auto doCreate = [this, &stats, &manifest](const std::string& path,
-                                                    const std::string& og) -> bool {
-        bundle::BundleCreator creator(path, config);
+    const auto doCreate =
+        [this, &stats, &manifest](const std::string& path,
+                                  const std::string& og,
+                                  const bundle::BundleSource& bundleSource) -> bool {
+        bundle::BundleCreator creator(path, config, bundleSource);
         if (!creator.create(stats, manifest)) {
             BL_LOG_ERROR << "Failed to create bundle for " << og << ", terminating";
             return false;
@@ -82,13 +85,13 @@ bool Bundler::createBundles() {
 
     for (const bundle::BundleSource& src : config.bundleSources()) {
         if (src.policy == bundle::BundleSource::BundleAllFiles) {
-            if (!doCreate(src.sourcePath, src.sourcePath)) { return false; }
+            if (!doCreate(src.sourcePath, src.sourcePath, src)) { return false; }
         }
         else if (src.policy == bundle::BundleSource::CreateBundleForEachContainedRecursive) {
             const std::vector<std::string> all = util::FileUtil::listDirectory(src.sourcePath);
             for (const std::string& path : all) {
-                if (config.includeFile(path)) {
-                    if (!doCreate(path, src.sourcePath)) { return false; }
+                if (config.includeFile(path) && src.includeFile(path)) {
+                    if (!doCreate(path, src.sourcePath, src)) { return false; }
                 }
             }
         }
@@ -96,14 +99,17 @@ bool Bundler::createBundles() {
             const std::vector<std::string> folders =
                 util::FileUtil::listDirectoryFolders(src.sourcePath);
             for (const std::string& dir : folders) {
-                if (!doCreate(bl::util::FileUtil::joinPath(src.sourcePath, dir), src.sourcePath)) {
+                if (!doCreate(
+                        bl::util::FileUtil::joinPath(src.sourcePath, dir), src.sourcePath, src)) {
                     return false;
                 }
             }
             const std::vector<std::string> files =
                 util::FileUtil::listDirectory(src.sourcePath, "", false);
             for (const std::string& file : files) {
-                if (!doCreate(file, src.sourcePath)) { return false; }
+                if (config.includeFile(file) && src.includeFile(file)) {
+                    if (!doCreate(file, src.sourcePath, src)) { return false; }
+                }
             }
         }
         else {
@@ -115,7 +121,8 @@ bool Bundler::createBundles() {
     if (util::FileUtil::directoryExists(config.catchAllDirectory())) {
         BL_LOG_INFO << "Bundling remaining files in top level directory: "
                     << config.catchAllDirectory();
-        bundle::BundleCreator finalCreator(config.catchAllDirectory(), config);
+        bundle::BundleSource src(config.catchAllDirectory(), bundle::BundleSource::BundleAllFiles);
+        bundle::BundleCreator finalCreator(config.catchAllDirectory(), config, src);
         if (!finalCreator.create(stats, manifest)) {
             BL_LOG_ERROR << "Failed to bundle remaining files";
             return false;
@@ -139,15 +146,18 @@ bool Bundler::createBundles() {
 
 namespace bundle
 {
-BundleCreator::BundleCreator(const std::string& path, Config& cfg)
-: bundlePath(nextBundleName(cfg.outputDirectory(), path))
+BundleCreator::BundleCreator(const std::string& path, Config& cfg, const BundleSource& bundleSource)
+: bundleSource(bundleSource)
+, bundlePath(nextBundleName(cfg.outputDirectory(), path))
 , tempPath(util::FileUtil::joinPath(cfg.outputDirectory(), "temp.bundle"))
 , config(cfg) {
     BL_LOG_INFO << "Starting bundle creation from path: " << path;
     if (util::FileUtil::directoryExists(path)) {
         std::vector<std::string> all = util::FileUtil::listDirectory(path);
         for (std::string& file : all) {
-            if (config.includeFile(file)) { toBundle.emplace(std::move(file)); }
+            if (config.includeFile(file) && bundleSource.includeFile(file)) {
+                toBundle.emplace(std::move(file));
+            }
         }
         BL_LOG_INFO << "Found " << toBundle.size() << " files to bundle";
     }
