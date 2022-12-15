@@ -82,7 +82,7 @@ void TextEntry::update(float dt) {
 }
 
 sf::Vector2f TextEntry::minimumRequisition() const {
-    resource::Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
+    resource::Ref<sf::Font> font = renderSettings().font.value_or(Font::get());
     const int csize     = renderSettings().characterSize.value_or(TextEntry::DefaultCharacterSize);
     const float spacing = font ? std::ceil(font->getLineSpacing(csize)) : csize;
     const float paddedSpacing = spacing * 1.2f;
@@ -289,9 +289,7 @@ void TextEntry::recalcOffset() {
 
     const float right = getAcquisition().left + getAcquisition().width;
     if (cpos.x < getAcquisition().left) { textOffset.x = cpos.x - renderText.getPosition().x; }
-    else if (cpos.x > right) {
-        textOffset.x += cpos.x - right + g.bounds.width + g.advance + 1.5f;
-    }
+    else if (cpos.x > right) { textOffset.x += cpos.x - right + g.bounds.width + g.advance + 1.5f; }
 
     const float lineHeight = renderText.getFont()->getLineSpacing(renderText.getCharacterSize()) *
                              renderText.getLineSpacing();

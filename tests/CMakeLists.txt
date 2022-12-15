@@ -1,22 +1,11 @@
 add_executable(BLIB.t)
 
+include(blib_helpers)
+configure_target(BLIB.t)
 if (MSVC)
-    # warning level 4 and all warnings as errors
-    target_compile_options(BLIB.t PUBLIC /W4 /WX)
-else()
-    # lots of warnings and all warnings as errors
-    target_compile_options(BLIB.t PUBLIC -Wall -Wextra -pedantic)
+    target_compile_options(BLIB.t PUBLIC /wd4389)
 endif()
-
-set(BUILD_SHARED_LIBS Off)
-set(SFML_USE_STATIC_STD_LIBS On)
-target_compile_definitions(BLIB.t PUBLIC SFML_STATIC)
-set_target_properties(sfml-audio PROPERTIES CXX_STANDARD 98 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
-if (CMAKE_HOST_WIN32)
-    SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
-    set(BUILD_SHARED_LIBRARIES OFF)
-    set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
-endif()
+target_compile_definitions(BLIB.t PUBLIC BLIB_TEST_TARGET)
 
 target_link_libraries(BLIB.t PRIVATE
     BLIB
@@ -24,7 +13,6 @@ target_link_libraries(BLIB.t PRIVATE
     sfml-graphics
     sfml-window
     sfml-network
-    sfml-audio
     sfml-system
     
     gtest
@@ -48,4 +36,10 @@ target_include_directories(BLIB.t PRIVATE ${PROJECT_SOURCE_DIR}/src)
 target_include_directories(BLIB.t PRIVATE ${PROJECT_SOURCE_DIR}/lib/gtest/googletest/include)
 target_include_directories(BLIB.t PRIVATE ${PROJECT_SOURCE_DIR}/lib/gtest/googlemock/include)
 
-add_test(NAME UnitTests COMMAND BLIB.T)
+set_target_properties(BLIB.t
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_BINARY_DIR}"
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_BINARY_DIR}"
+)
+
+add_test(NAME UnitTests COMMAND BLIB.t)

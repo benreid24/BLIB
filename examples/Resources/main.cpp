@@ -1,59 +1,64 @@
+#include "CharacterHandler.hpp"
+#include "CharacterLoaders.hpp"
+#include "MapHandler.hpp"
+#include "MapLoaders.hpp"
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
-struct TextureLoader : public bl::resource::Loader<sf::Texture> {
-    virtual ~TextureLoader() = default;
+using namespace bl::resource;
 
-    virtual bl::resource::Resource<sf::Texture>::Ref load(const std::string& uri) override {
-        bl::resource::Resource<sf::Texture>::Ref ref(new sf::Texture());
-        if (!ref->loadFromFile(uri)) {
-            BL_LOG_ERROR << "Failed to load texture from file: " << uri;
-        }
-        return ref;
+const std::string BundlePath = "bundles";
+
+void createBundles() {
+    Bundler bundler(
+        bundle::Config(BundlePath)
+            .addBundleSource({"game_data/maps", bundle::BundleSource::CreateBundleForEachContained})
+            .addBundleSource({"game_data/audio", bundle::BundleSource::BundleAllFiles})
+            .addBundleSource({"game_data/images", bundle::BundleSource::BundleAllFiles})
+            .addExcludePattern(".*\\.temp")
+            .addFileHandler<MapHandler>(".*/maps/.*\\.json")
+            .addFileHandler<CharacterHandler>(".*/characters/.*\\.json")
+            .withCatchAllDirectory("game_data")
+            .build());
+
+    if (!bundler.createBundles()) {
+        BL_LOG_ERROR << "Failed to create bundles!";
+        std::exit(1);
     }
-} textureLoader;
+}
 
-// Example custom async loader for heavy resources
-struct SlowTextureLoader : public bl::resource::AsyncLoader<sf::Texture> {
-    virtual void load(bl::resource::Manager<sf::Texture>& manager, const std::string& uri,
-                      float& progress) override {
-        // Pretend this is a heavy resource and takes time to load
-        for (int i = 0; i <= 1000; ++i) {
-            progress = static_cast<float>(i) / 1000.f;
-            sf::sleep(sf::milliseconds(3));
-        }
-
-        // The resource must be available in the manager when we complete
-        manager.load(uri);
+void useBundles() {
+    if (!FileSystem::useBundle(BundlePath)) {
+        BL_LOG_CRITICAL << "Failed to attach bundles!";
+        std::exit(1);
     }
-};
 
-// Provide a callback for BackgroundLoader to report progress to
-// This can be any method, including a method in a class with plenty of state information
-void progressCallback(float progress) { std::cout << "Loading: " << (progress * 100.f) << "%\n"; }
+    // in release mode we want to use the proper loaders
+    ResourceManager<Character>::installLoader<CharacterLoaderProdMode>();
+    ResourceManager<Map>::installLoader<MapLoaderProdMode>();
+}
 
 int main() {
-    // Create the resource manager for textures
-    bl::resource::Manager<sf::Texture> textureManager(textureLoader);
+    // Load a managed texture from disk (default state)
+    Ref<sf::Texture> texture = ResourceManager<sf::Texture>::load("game_data/images/image.png");
 
-    // Load a managed texture using the new resource manager
-    bl::resource::Resource<sf::Texture> texture = textureManager.load("image.png");
+    // use custom loaders for our custom types
+    ResourceManager<Character>::installLoader<CharacterLoaderDevMode>();
+    ResourceManager<Map>::installLoader<MapLoaderDevMode>();
 
-    // Pretend we are loading a heavy resource(s)
-    // Background loaders should be created on the fly before loading screens
-    SlowTextureLoader slowLoader;
-    bl::resource::BackgroundLoader<sf::Texture> backgroundLoader(
-        textureManager, slowLoader, &progressCallback, 0.01f);
+    // load json resources from disk
+    Ref<Character> npc = ResourceManager<Character>::load("game_data/characters/npc1.json");
+    BL_LOG_INFO << "NPC name from disk: " << npc->name;
 
-    // Add each uri we want to load in the background
-    backgroundLoader.addResourceToQueue("image.png", 1);
-    // This one is longer to load (pretending)
-    backgroundLoader.addResourceToQueue("image.png", 5);
+    // create bundles from from our raw resources
+    createBundles();
 
-    // Do the load. This will block until loading is complete
-    // A background thread will call our monitoring function, which can update loading screen
-    backgroundLoader.load();
+    // in release mode we want to use our bundles and release loaders
+    useBundles();
+
+    // load a resource from a bundle
+    Ref<Map> map = ResourceManager<Map>::load("game_data/maps/map.json");
+    BL_LOG_INFO << "Map name from bundle: " << map->name;
 
     return 0;
 }

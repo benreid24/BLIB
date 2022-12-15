@@ -47,6 +47,7 @@ Thanks for contributions, bug corrections & thorough testing to:
 - Paul Rouget
 */
 
+#pragma warning(push, 0)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 #pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -7763,3 +7764,4 @@ tinyfd_messageBox("The selected hexcolor is",
 }
 
 #pragma GCC diagnostic pop
+#pragma warning(pop, 0)

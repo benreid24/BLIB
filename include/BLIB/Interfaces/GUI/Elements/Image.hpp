@@ -27,7 +27,7 @@ public:
      * @param texture The texture of the image to render
      * @return Ptr The new image
      */
-    static Ptr create(resource::Resource<sf::Texture>::Ref texture);
+    static Ptr create(resource::Ref<sf::Texture> texture);
 
     /**
      * @brief Create a new Image from a non managed texture
@@ -73,7 +73,7 @@ public:
      * @param texture The new texture to display
      * @param resetScale True to reset the display size, false to keep it
      */
-    void setImage(const resource::Resource<sf::Texture>::Ref& texture, bool resetScale);
+    void setImage(const resource::Ref<sf::Texture>& texture, bool resetScale);
 
 protected:
     /**
@@ -82,7 +82,7 @@ protected:
      * @param texture The texture of the image to render
      * @return Ptr The new image
      */
-    Image(resource::Resource<sf::Texture>::Ref texture);
+    Image(resource::Ref<sf::Texture> texture);
 
     /**
      * @brief Create a new Image from a non managed texture
@@ -109,7 +109,7 @@ protected:
                           const Renderer& renderer) const override;
 
 private:
-    resource::Resource<sf::Texture>::Ref textureHandle;
+    resource::Ref<sf::Texture> textureHandle;
     const sf::Texture* texture;
     sf::Sprite sprite;
     std::optional<sf::Vector2f> size;

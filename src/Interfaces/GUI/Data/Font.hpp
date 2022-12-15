@@ -20,7 +20,7 @@ struct Font {
      * @brief Returns a loaded sf::Font resource from the built in font
      *
      */
-    static resource::Resource<sf::Font>::Ref get();
+    static resource::Ref<sf::Font> get();
 };
 
 } // namespace gui

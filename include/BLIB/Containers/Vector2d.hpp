@@ -28,20 +28,14 @@ public:
      *
      * @param copy The vector to copy from
      */
-    Vector2D(const Vector2D& copy)
-    : data(copy.data)
-    , W(copy.W)
-    , H(copy.H) {}
+    Vector2D(const Vector2D& copy) = default;
 
     /**
      * @brief Move construct a new Vector2D
      *
      * @param move The vector to move from
      */
-    Vector2D(Vector2D&& move)
-    : data(std::move<std::vector<T>>(move.data))
-    , W(move.W)
-    , H(move.H) {}
+    Vector2D(Vector2D&& move) = default;
 
     /**
      * @brief Copies into this vector from the given vector

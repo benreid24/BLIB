@@ -37,6 +37,27 @@ struct SerializableObjectBase : private util::NonCopyable {
     json::Group serializeJSON(const void* object) const;
 
     /**
+     * @brief Serializes the given object directly into the given stream as json
+     *
+     * @param stream The stream to serialize into
+     * @param object The object to serialize
+     * @param tabSize Spaces to indent per level
+     * @param currentIndent Current level of indentation in spaces
+     * @return True on success, false on error
+     */
+    bool serializeJsonStream(std::ostream& stream, const void* object, unsigned int tabSize,
+                             unsigned int currentIndent = 0);
+
+    /**
+     * @brief Deserializes the given object directly from the given stream as json
+     *
+     * @param stream The stream to read json from
+     * @param object The object to deserialize
+     * @return True on success, false on error
+     */
+    bool deserializeJsonStream(std::istream& stream, void* object);
+
+    /**
      * @brief Serializes the given object to the given stream
      *
      * @param stream The stream to serialize to
@@ -53,6 +74,26 @@ struct SerializableObjectBase : private util::NonCopyable {
      * @return True on success, false on error
      */
     bool deserializeBinary(binary::InputStream& stream, void* object) const;
+
+    /**
+     * @brief Serializes the given object to the given stream without writing any additional
+     *        metadata. Use this when you for sure know the object format will not change and also
+     *        need a smaller representation
+     *
+     * @param stream The stream to serialize to
+     * @param object The object to serialize
+     * @return True on success, false on error
+     */
+    bool serializePackedBinary(binary::OutputStream& stream, const void* object) const;
+
+    /**
+     * @brief Deserializes from the packed binary data into the given object
+     *
+     * @param stream The stream to read from
+     * @param object The object to read into
+     * @return True on success, false on error
+     */
+    bool deserializePackedBinary(binary::InputStream& stream, void* object) const;
 
     /**
      * @brief Returns the size of the object when serialized, in bytes
@@ -72,9 +113,16 @@ struct SerializableObjectBase : private util::NonCopyable {
     static SerializableObjectBase& get();
 
 protected:
-    SerializableObjectBase() = default;
+    /**
+     * @brief Construct a new Serializable Object
+     * 
+     * @param debugName The name to output in debug logs
+     */
+    SerializableObjectBase(const std::string& debugName);
 
 private:
+    const std::string debugName;
+    std::vector<std::pair<std::uint16_t, const SerializableFieldBase*>> sortedFields;
     std::unordered_map<std::uint16_t, const SerializableFieldBase*> fieldsBinary;
     std::unordered_map<std::string, const SerializableFieldBase*> fieldsJson;
 

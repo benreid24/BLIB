@@ -23,7 +23,7 @@ public:
      * @brief Create the render item from a sprite
      *
      */
-    static Ptr create(const resource::Resource<sf::Texture>::Ref& texture);
+    static Ptr create(const resource::Ref<sf::Texture>& texture);
 
     /**
      * @brief Destroy the Image Item object
@@ -41,7 +41,7 @@ public:
      * @brief Changes the texture of this image. Does not trigger a menu refresh
      *
      */
-    void setTexture(const resource::Resource<sf::Texture>::Ref& texture);
+    void setTexture(const resource::Ref<sf::Texture>& texture);
 
     /**
      * @see Item::getSize
@@ -58,10 +58,10 @@ protected:
                         const sf::Vector2f& position) const override;
 
 private:
-    resource::Resource<sf::Texture>::Ref texture;
+    resource::Ref<sf::Texture> texture;
     sf::Sprite sprite;
 
-    ImageItem(const resource::Resource<sf::Texture>::Ref& texture);
+    ImageItem(const resource::Ref<sf::Texture>& texture);
 };
 
 } // namespace menu

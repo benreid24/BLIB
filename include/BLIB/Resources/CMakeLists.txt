@@ -1,8 +1,11 @@
 target_sources(BLIB PUBLIC
-    AsyncLoader.hpp
-    BackgroundLoader.hpp
+    Bundler.hpp
+    FileSystem.hpp
     GarbageCollector.hpp
     Loader.hpp
-    Manager.hpp
+    Ref.hpp
     Resource.hpp
+    ResourceManager.hpp
 )
+
+add_subdirectory(Bundling)

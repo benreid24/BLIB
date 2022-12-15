@@ -4,13 +4,11 @@ namespace bl
 {
 namespace gui
 {
-Image::Ptr Image::create(resource::Resource<sf::Texture>::Ref texture) {
-    return Ptr(new Image(texture));
-}
+Image::Ptr Image::create(resource::Ref<sf::Texture> texture) { return Ptr(new Image(texture)); }
 
 Image::Ptr Image::create(const sf::Texture& texture) { return Ptr(new Image(texture)); }
 
-Image::Image(resource::Resource<sf::Texture>::Ref th)
+Image::Image(resource::Ref<sf::Texture> th)
 : Element()
 , textureHandle(th)
 , texture(th.get())
@@ -41,7 +39,7 @@ void Image::setImage(const sf::Texture& txtr, bool rs) {
     setScale();
 }
 
-void Image::setImage(const resource::Resource<sf::Texture>::Ref& txtr, bool rs) {
+void Image::setImage(const resource::Ref<sf::Texture>& txtr, bool rs) {
     textureHandle = txtr;
     texture       = txtr.get();
     sprite.setTexture(*texture, true);

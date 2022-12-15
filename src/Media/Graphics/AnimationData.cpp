@@ -1,7 +1,7 @@
 #include <BLIB/Media/Graphics/AnimationData.hpp>
 
 #include <BLIB/Engine/Configuration.hpp>
-#include <BLIB/Engine/Resources.hpp>
+#include <BLIB/Resources.hpp>
 #include <BLIB/Serialization/Binary.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <cmath>
@@ -17,37 +17,83 @@ AnimationData::AnimationData()
 , loop(false)
 , centerShards(true) {}
 
-AnimationData::AnimationData(const std::string& filename)
-: AnimationData() {
-    load(filename);
-}
-
-bool AnimationData::load(const std::string& filename) {
+bool AnimationData::loadFromFile(const std::string& filename) {
     frames.clear();
     totalLength = 0;
 
     serial::binary::InputFile file(filename);
-    const std::string path = util::FileUtil::getPath(filename);
+    return doLoad(file, filename, false);
+}
+
+bool AnimationData::loadFromFileForBundling(const std::string& filename) {
+    frames.clear();
+    totalLength = 0;
+
+    serial::binary::InputFile file(filename);
+    return doLoad(file, filename, true);
+}
+
+bool AnimationData::saveToBundle(std::ostream& os) const {
+    serial::StreamOutputBuffer wrapper(os);
+    bl::serial::binary::OutputStream output(wrapper);
+
+    output.write(spritesheetSource);
+    output.write(loop);
+    output.write<std::uint16_t>(frames.size());
+    for (unsigned int i = 0; i < frameData.size(); ++i) {
+        const Frame& frame = frameData[i];
+        output.write<std::uint32_t>(static_cast<std::uint32_t>(lengths[i] * 1000.f));
+        output.write<std::uint16_t>(frame.shards.size());
+        for (const Frame::Shard& shard : frame.shards) {
+            output.write<std::uint32_t>(shard.source.left);
+            output.write<std::uint32_t>(shard.source.top);
+            output.write<std::uint32_t>(shard.source.width);
+            output.write<std::uint32_t>(shard.source.height);
+            output.write<std::uint32_t>(static_cast<std::uint32_t>(shard.scale.x * 100.f));
+            output.write<std::uint32_t>(static_cast<std::uint32_t>(shard.scale.y * 100.f));
+            output.write<std::int32_t>(shard.posOffset.x);
+            output.write<std::int32_t>(shard.posOffset.y);
+            output.write<std::uint32_t>(shard.rotation);
+            output.write<std::uint8_t>(shard.alpha);
+        }
+    }
+
+    return output.good();
+}
+
+bool AnimationData::loadFromMemory(const char* buffer, std::size_t len, const std::string& path) {
+    frames.clear();
+    totalLength = 0;
+
+    serial::MemoryInputBuffer buf(buffer, len);
+    serial::binary::InputStream stream(buf);
+    return doLoad(stream, path, false);
+}
+
+bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string& ogPath,
+                           bool forBundle) {
+    const std::string path = util::FileUtil::getPath(ogPath);
     const std::string& spritesheetDir =
         engine::Configuration::get<std::string>("blib.animation.spritesheet_path");
 
     std::string sheet;
-    if (!file.read(sheet)) return false;
+    if (!input.read(sheet)) return false;
     spritesheetSource = sheet;
-    if (!util::FileUtil::exists(sheet)) {
-        if (util::FileUtil::exists(util::FileUtil::joinPath(path, sheet)))
-            sheet = util::FileUtil::joinPath(path, sheet);
-        else if (util::FileUtil::exists(util::FileUtil::joinPath(spritesheetDir, sheet)))
-            sheet = util::FileUtil::joinPath(spritesheetDir, sheet);
-        else
-            return false;
+    if (!resource::FileSystem::resourceExists(sheet)) {
+        const std::string localSheet = util::FileUtil::joinPath(path, sheet);
+        const std::string dirSheet   = util::FileUtil::joinPath(spritesheetDir, sheet);
+
+        if (resource::FileSystem::resourceExists(localSheet)) { sheet = localSheet; }
+        else if (resource::FileSystem::resourceExists(dirSheet)) { sheet = dirSheet; }
+        else { return false; }
+
+        if (forBundle) { spritesheetSource = sheet; }
     }
-    spritesheet = engine::Resources::textures().load(sheet).data;
-    if (!file.read(loop)) return false;
+    spritesheet = resource::ResourceManager<sf::Texture>::load(sheet);
+    if (!input.read(loop)) return false;
 
     uint16_t nFrames = 0;
-    std::vector<Frame> frameData;
-    if (!file.read(nFrames)) return false;
+    if (!input.read(nFrames)) return false;
     frameData.reserve(nFrames);
     lengths.reserve(nFrames);
     for (unsigned int i = 0; i < nFrames; ++i) {
@@ -55,11 +101,11 @@ bool AnimationData::load(const std::string& filename) {
         Frame& frame = frameData.back();
 
         uint32_t length;
-        if (!file.read(length)) return false;
+        if (!input.read(length)) return false;
         lengths.emplace_back(static_cast<float>(length) / 1000.0f);
 
         uint16_t nShards = 0;
-        if (!file.read(nShards)) return false;
+        if (!input.read(nShards)) return false;
         frame.shards.reserve(nShards);
 
         for (unsigned int j = 0; j < nShards; ++j) {
@@ -68,25 +114,25 @@ bool AnimationData::load(const std::string& filename) {
 
             uint32_t u32;
             int32_t s32;
-            if (!file.read(u32)) return false;
+            if (!input.read(u32)) return false;
             shard.source.left = u32;
-            if (!file.read(u32)) return false;
+            if (!input.read(u32)) return false;
             shard.source.top = u32;
-            if (!file.read(u32)) return false;
+            if (!input.read(u32)) return false;
             shard.source.width = u32;
-            if (!file.read(u32)) return false;
+            if (!input.read(u32)) return false;
             shard.source.height = u32;
-            if (!file.read(u32)) return false;
+            if (!input.read(u32)) return false;
             shard.scale.x = static_cast<float>(u32) / 100.0f;
-            if (!file.read(u32)) return false;
+            if (!input.read(u32)) return false;
             shard.scale.y = static_cast<float>(u32) / 100.0f;
-            if (!file.read(s32)) return false;
+            if (!input.read(s32)) return false;
             shard.posOffset.x = s32;
-            if (!file.read(s32)) return false;
+            if (!input.read(s32)) return false;
             shard.posOffset.y = s32;
-            if (!file.read(u32)) return false;
+            if (!input.read(u32)) return false;
             shard.rotation = u32;
-            if (!file.read(shard.alpha)) return false;
+            if (!input.read(shard.alpha)) return false;
             frame.shards.push_back(shard);
         }
         totalLength += lengths.back();
@@ -94,7 +140,7 @@ bool AnimationData::load(const std::string& filename) {
 
     // bool value not present in legacy files
     std::uint8_t u8;
-    if (!file.read(u8))
+    if (!input.read(u8))
         centerShards = false;
     else
         centerShards = u8 == 1;
@@ -113,6 +159,11 @@ bool AnimationData::load(const std::string& filename) {
 
     sizes.reserve(frames.size());
     for (unsigned int i = 0; i < frames.size(); ++i) { sizes.emplace_back(computeFrameSize(i)); }
+
+    if (!forBundle) {
+        frameData.clear();
+        frameData.shrink_to_fit();
+    }
 
     return true;
 }

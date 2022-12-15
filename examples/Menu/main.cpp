@@ -1,4 +1,3 @@
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
@@ -11,8 +10,8 @@ int main() {
     sf::Font font;
     font.loadFromFile("font.ttf");
 
-    bl::resource::Resource<sf::Texture>::Ref texture =
-        bl::engine::Resources::textures().load("title.png").data;
+    bl::resource::Ref<sf::Texture> texture =
+        bl::resource::ResourceManager<sf::Texture>::load("title.png");
 
     ArrowSelector::Ptr selector = ArrowSelector::create(12);
     Menu menu(selector);

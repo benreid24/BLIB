@@ -41,6 +41,12 @@ public:
     Playlist(const Playlist& copy);
 
     /**
+     * @brief Stops the music and cleans up resources
+     *
+     */
+    ~Playlist();
+
+    /**
      * @brief Copies the song list and shuffle setting from the given playlist, but not it's state
      *
      * @param copy The playlist to duplicate
@@ -49,20 +55,46 @@ public:
     Playlist& operator=(const Playlist& copy);
 
     /**
-     * @brief Loads the playlist from the given binary file
+     * @brief Loads the playlist from the given JSON file
      *
      * @param path The file to load from
      * @return True on success, false on error
      */
-    bool load(const std::string& path);
+    bool loadFromFile(const std::string& path);
 
     /**
-     * @brief Saves the conversation to the given binary file
+     * @brief Loads the playlist from the given memory buffer. Expects the json format
+     *
+     * @param buffer The memory buffer to load from
+     * @param len Size of the buffer to load from
+     * @return True if the playlist could be loaded, false otherwise
+     */
+    bool loadJson(const char* buffer, std::size_t len);
+
+    /**
+     * @brief Loads the playlist from the given memory buffer. Expects the binary format
+     *
+     * @param buffer The memory buffer to load from
+     * @param len Size of the buffer to load from
+     * @return True if the playlist could be loaded, false otherwise
+     */
+    bool loadBinary(const char* buffer, std::size_t len);
+
+    /**
+     * @brief Saves the conversation to the given JSON file
      *
      * @param path The file to save to
      * @return True if the conversation could be saved, false on error
      */
-    bool save(const std::string& path) const;
+    bool saveToFile(const std::string& path) const;
+
+    /**
+     * @brief Saves the playlist in binary format to the given stream
+     *
+     * @param output The stream to save to
+     * @return True if the data could be saved, false otherwise
+     */
+    bool saveToMemory(serial::binary::OutputStream& output) const;
 
     /**
      * @brief Returns whether or not the playlist is playing
@@ -172,6 +204,7 @@ private:
     bool playing, paused;
 
     void shuffle();
+    bool openMusic(unsigned int i);
 
     friend struct serial::SerializableObject<audio::Playlist>;
 };
@@ -187,7 +220,8 @@ struct SerializableObject<audio::Playlist> : public SerializableObjectBase {
     SerializableField<3, audio::Playlist, bool> shuffleOnLoop;
 
     SerializableObject()
-    : songs("songs", *this, &audio::Playlist::songs, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Playlist")
+    , songs("songs", *this, &audio::Playlist::songs, SerializableFieldBase::Required{})
     , shuffle("shuffle", *this, &audio::Playlist::_shuffle, SerializableFieldBase::Optional{})
     , shuffleOnLoop("shuffleOnLoop", *this, &audio::Playlist::shuffleOnLoop,
                     SerializableFieldBase::Optional{}) {

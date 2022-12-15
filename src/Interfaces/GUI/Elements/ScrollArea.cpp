@@ -13,10 +13,10 @@ constexpr float PixelsPerClick = 10;
 
 float computeButtonSize(float totalSize, float availableSize) {
     float s = availableSize / totalSize;
-    if (s > 1)
-        s = 1;
-    else if (s < 0.14)
-        s = 0.14;
+    if (s > 1.f)
+        s = 1.f;
+    else if (s < 0.14f)
+        s = 0.14f;
     return s;
 }
 
@@ -56,8 +56,8 @@ ScrollArea::ScrollArea(const Packer::Ptr& packer)
     content->computeView = false;
     content->setOutlineThickness(0.f);
 
-    Element* children[3] = {content.get(), horScrollbar.get(), vertScrollbar.get()};
-    registerChildren(children);
+    Element* childs[3] = {content.get(), horScrollbar.get(), vertScrollbar.get()};
+    registerChildren(childs);
 }
 
 void ScrollArea::pack(const Element::Ptr& e) { content->pack(e); }
@@ -193,9 +193,7 @@ bool ScrollArea::handleScroll(const Event& scroll) {
                 sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
                 horScrollbar->incrementValue(-scroll.scrollDelta());
             }
-            else {
-                vertScrollbar->incrementValue(-scroll.scrollDelta());
-            }
+            else { vertScrollbar->incrementValue(-scroll.scrollDelta()); }
         }
         return true;
     }

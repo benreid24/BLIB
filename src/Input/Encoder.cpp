@@ -26,7 +26,7 @@ void init() {
     // Letters
     for (int i = 0; i < 26; ++i) {
         const sf::Keyboard::Key k = static_cast<sf::Keyboard::Key>(sf::Keyboard::A + i);
-        keymap[k]                 = 'A' + i;
+        keymap[k]                 = std::string(1, 'A' + i);
     }
 
     // Numbers

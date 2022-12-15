@@ -1,7 +1,6 @@
 #include <BLIB/Media/Audio/AudioSystem.hpp>
 
 #include <BLIB/Engine/Configuration.hpp>
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <SFML/Audio.hpp>
@@ -19,9 +18,8 @@ namespace audio
 {
 namespace
 {
-using SoundHandle    = resource::Resource<sf::SoundBuffer>::Ref;
-using PlaylistRef    = resource::Resource<Playlist>::WeakRef;
-using PlaylistHandle = resource::Resource<Playlist>::Ref;
+using SoundHandle    = resource::Ref<sf::SoundBuffer>;
+using PlaylistHandle = resource::Ref<Playlist>;
 
 struct Sound {
     SoundHandle buffer;
@@ -70,7 +68,6 @@ public:
 
     std::unordered_map<std::string, AudioSystem::Handle> playlistHandles;
     std::unordered_map<AudioSystem::Handle, std::string> playlistSources;
-    std::unordered_map<AudioSystem::Handle, PlaylistRef> playlists;
     std::vector<PlaylistHandle> playlistStack;
     sf::Clock fadeTimer;
     PlaylistFader fadeIn;
@@ -138,7 +135,7 @@ AudioSystem::Handle AudioSystem::getOrLoadSound(const std::string& path) {
     auto sit = r.sounds.find(handle);
     if (sit == r.sounds.end()) {
         sit                = r.sounds.try_emplace(handle).first;
-        sit->second.buffer = engine::Resources::sounds().load(path).data;
+        sit->second.buffer = resource::ResourceManager<sf::SoundBuffer>::load(path);
         if (sit->second.buffer->getSampleCount() == 0) {
             r.sounds.erase(sit);
             BL_LOG_ERROR << "Failed to load sound: " << path;
@@ -221,11 +218,10 @@ AudioSystem::Handle AudioSystem::getOrLoadPlaylist(const std::string& path) {
     const auto it = Runner::get().playlistHandles.find(path);
     if (it != Runner::get().playlistHandles.end()) return it->second;
 
-    resource::Resource<Playlist> res = engine::Resources::playlists().load(path);
-    if (res.data->getSongList().empty()) return AudioSystem::InvalidHandle;
+    resource::Ref<Playlist> res = resource::ResourceManager<Playlist>::load(path);
+    if (res->getSongList().empty()) return AudioSystem::InvalidHandle;
 
     const Handle handle = makeHandle();
-    Runner::get().playlists.try_emplace(handle, res.getWeakRef());
     Runner::get().playlistHandles.emplace(path, handle);
     Runner::get().playlistSources.emplace(handle, path);
     return handle;
@@ -486,7 +482,7 @@ std::unordered_map<AudioSystem::Handle, Sound>::iterator Runner::validateAndLoad
         auto hit = soundSources.find(sound);
         if (hit == soundSources.end()) return sounds.end();
         it                = sounds.try_emplace(sound).first;
-        it->second.buffer = engine::Resources::sounds().load(hit->second).data;
+        it->second.buffer = resource::ResourceManager<sf::SoundBuffer>::load(hit->second);
         if (it->second.buffer->getSampleCount() == 0) {
             sounds.erase(it);
             return sounds.end();
@@ -497,20 +493,12 @@ std::unordered_map<AudioSystem::Handle, Sound>::iterator Runner::validateAndLoad
 }
 
 PlaylistHandle Runner::validateAndLoadPlaylist(AudioSystem::Handle handle) {
-    const auto it  = playlists.find(handle);
     const auto sit = playlistSources.find(handle);
-
-    if (it != playlists.end()) {
-        const PlaylistHandle h = it->second.lock();
-        if (h) return h;
-    }
-
     if (sit == playlistSources.end()) return {};
 
-    const auto res = engine::Resources::playlists().load(sit->second);
-    if (res.data->getSongList().empty()) return {};
-    playlists.emplace(handle, res.getWeakRef());
-    return res.data;
+    PlaylistHandle res = resource::ResourceManager<Playlist>::load(sit->second);
+    if (res->getSongList().empty()) return {};
+    return res;
 }
 
 void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime) {

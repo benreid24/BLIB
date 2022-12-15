@@ -71,6 +71,14 @@ struct Serializer<T, false> {
         return SerializableObjectBase::get<T>().deserializeBinary(input, &result);
     }
 
+    static bool serializePacked(OutputStream& output, const T& value) {
+        return SerializableObjectBase::get<T>().serializePackedBinary(output, &value);
+    }
+
+    static bool deserializePacked(InputStream& input, T& result) {
+        return SerializableObjectBase::get<T>().deserializePackedBinary(input, &result);
+    }
+
     static std::uint32_t size(const T& value) {
         return SerializableObjectBase::get<T>().binarySize(&value);
     }
@@ -85,12 +93,8 @@ struct Serializer<T, true> {
             return output.write<std::underlying_type_t<T>>(
                 static_cast<std::underlying_type_t<T>>(value));
         }
-        else if constexpr (std::is_same_v<T, bool>) {
-            return output.write<std::uint8_t>(value);
-        }
-        else {
-            return output.write<T>(value);
-        }
+        else if constexpr (std::is_same_v<T, bool>) { return output.write<std::uint8_t>(value); }
+        else { return output.write<T>(value); }
     }
 
     static bool deserialize(InputStream& input, T& result) {
@@ -104,9 +108,7 @@ struct Serializer<T, true> {
             result = v != 0;
             return true;
         }
-        else {
-            return input.read<T>(result);
-        }
+        else { return input.read<T>(result); }
     }
 
     static std::uint32_t size(const T&) { return sizeof(T); }
@@ -136,7 +138,9 @@ struct Serializer<std::string> {
 
     static bool deserialize(InputStream& input, std::string& result) { return input.read(result); }
 
-    static std::uint32_t size(const std::string& s) { return sizeof(std::uint32_t) + s.size(); }
+    static std::uint32_t size(const std::string& s) {
+        return static_cast<std::uint32_t>(sizeof(std::uint32_t) + s.size());
+    }
 };
 
 template<>
@@ -495,7 +499,10 @@ struct Serializer<script::Value, false> {
             if (!Serializer<std::string>::serialize(output, value.getAsString())) return false;
             break;
         case script::PrimitiveValue::TArray:
-            if (!output.write<std::uint32_t>(value.getAsArray().size())) return false;
+            if (!output.write<std::uint32_t>(
+                    static_cast<std::uint32_t>(value.getAsArray().size()))) {
+                return false;
+            }
             for (const script::Value& av : value.getAsArray()) {
                 if (!serialize(output, av)) return false;
             }

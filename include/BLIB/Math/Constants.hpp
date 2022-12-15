@@ -7,7 +7,7 @@ namespace bl
 namespace math
 {
 /// It's pi
-constexpr float Pi = 3.14159265359;
+constexpr float Pi = 3.14159265359f;
 
 } // namespace math
 } // namespace bl

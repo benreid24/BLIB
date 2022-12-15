@@ -1,19 +1,25 @@
+#ifdef BLIB_WINDOWS
+#define NOMINMAX
+#endif
+
 #include <BLIB/Util/FileUtil.hpp>
 
 #include <BLIB/Util/Random.hpp>
+#include <algorithm>
 #include <cstdio>
 #include <cstdlib>
-#include <dirent.h>
 #include <fstream>
 #include <sstream>
 #include <stack>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <unistd.h>
 
 #ifdef BLIB_WINDOWS
+#include "dirent_windows.h"
+#include <direct.h>
 #include <shlobj.h>
 #else
+#include <dirent.h>
 #include <pwd.h>
 #include <unistd.h>
 #endif
@@ -26,7 +32,7 @@ namespace
 {
 void createDir(const std::string& path) {
 #ifdef BLIB_WINDOWS
-    mkdir(path.c_str());
+    _mkdir(path.c_str());
 #else
     mkdir(path.c_str(), 0755);
 #endif
@@ -34,8 +40,9 @@ void createDir(const std::string& path) {
 } // namespace
 
 bool FileUtil::exists(const std::string& file) {
-    std::ifstream test(file.c_str());
-    return test.good();
+    struct stat info;
+    if (stat(file.c_str(), &info) != 0) return false;
+    return info.st_mode & S_IFREG;
 }
 
 bool FileUtil::directoryExists(const std::string& file) {
@@ -53,7 +60,7 @@ bool FileUtil::isBigEndian() {
 }
 
 std::string FileUtil::getExtension(const std::string& file) {
-    size_t i = file.find_last_of(".");
+    std::size_t i = file.find_last_of(".");
     if (i != std::string::npos) return file.substr(i + 1);
     i = file.find_last_of("/\\");
     if (i != std::string::npos) return file.substr(i + 1);
@@ -62,19 +69,19 @@ std::string FileUtil::getExtension(const std::string& file) {
 
 std::string FileUtil::getBaseName(const std::string& file) {
     std::string base = getFilename(file);
-    size_t i         = base.find_last_of(".");
+    std::size_t i    = base.find_last_of(".");
     if (i != std::string::npos) base.erase(i);
     return base;
 }
 
 std::string FileUtil::getFilename(const std::string& file) {
-    const size_t i = file.find_last_of("/\\");
+    const std::size_t i = file.find_last_of("/\\");
     if (i != std::string::npos) return file.substr(i + 1);
     return file;
 }
 
 std::string FileUtil::getPath(const std::string& file) {
-    const size_t i = file.find_last_of("/\\");
+    const std::size_t i = file.find_last_of("/\\");
     return file.substr(0, (i != std::string::npos) ? (i + 1) : (i));
 }
 
@@ -82,13 +89,18 @@ std::string FileUtil::joinPath(const std::string& l, const std::string& r) {
     if (l.empty()) return r;
     if (r.empty()) return l;
 
-    size_t ls = std::string::npos;
+    std::size_t ls = std::string::npos;
     if (l[l.size() - 1] == '/' || l[l.size() - 1] == '\\') ls = l.size() - 1;
 
-    size_t rs = 0;
+    std::size_t rs = 0;
     if (r[0] == '/' || r[0] == '\\') rs = 1;
 
     return l.substr(0, ls) + "/" + r.substr(rs);
+}
+
+bool FileUtil::startsWithPath(const std::string& file, const std::string& path) {
+    const std::string_view fileStart(file.c_str(), std::min(file.size(), path.size()));
+    return fileStart == path;
 }
 
 std::string FileUtil::genTempName(const std::string& path, const std::string& ext) {
@@ -195,7 +207,11 @@ bool FileUtil::deleteDirectory(const std::string& path) {
         if (!deleteFile(file)) { return false; }
     }
 
+#ifdef BLIB_WINDOWS
+    return 0 == _rmdir(path.c_str());
+#else
     return 0 == rmdir(path.c_str());
+#endif
 }
 
 std::string FileUtil::getDataDirectory(const std::string& appName) {
@@ -225,6 +241,15 @@ bool FileUtil::readFile(const std::string& filename, std::string& out) {
     out.reserve(file.tellg());
     file.seekg(0, std::ios::beg);
     out.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    return true;
+}
+
+bool FileUtil::queryFileInfo(const std::string& path, FileInfo& result) {
+    struct stat info;
+    if (stat(path.c_str(), &info) != 0) return false;
+    result.creationTime = info.st_ctime;
+    result.modifiedTime = info.st_mtime;
+    result.size         = info.st_size;
     return true;
 }
 

@@ -18,7 +18,7 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    bl::resource::Resource<sf::Font>::Ref font;
+    bl::resource::Ref<sf::Font> font;
     sf::Text kbmControls;
     sf::Text jsControls;
     sf::RectangleShape cover;

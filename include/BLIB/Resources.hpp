@@ -7,11 +7,23 @@
  *        lifetimes
  */
 
-#include <BLIB/Resources/AsyncLoader.hpp>
-#include <BLIB/Resources/BackgroundLoader.hpp>
+#include <BLIB/Resources/FileSystem.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
 #include <BLIB/Resources/Loader.hpp>
-#include <BLIB/Resources/Manager.hpp>
+#include <BLIB/Resources/Ref.hpp>
 #include <BLIB/Resources/Resource.hpp>
+#include <BLIB/Resources/ResourceManager.hpp>
+
+#include <BLIB/Resources/Bundler.hpp>
+#include <BLIB/Resources/Bundling/BundleMetadata.hpp>
+#include <BLIB/Resources/Bundling/BundleSource.hpp>
+#include <BLIB/Resources/Bundling/BundledFileMetadata.hpp>
+#include <BLIB/Resources/Bundling/Config.hpp>
+#include <BLIB/Resources/Bundling/FileHandler.hpp>
+#include <BLIB/Resources/Bundling/FileHandlerContext.hpp>
+#include <BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp>
+#include <BLIB/Resources/Bundling/FileHandlers/DefaultHandler.hpp>
+#include <BLIB/Resources/Bundling/FileHandlers/PlaylistHandler.hpp>
+#include <BLIB/Resources/Bundling/Manifest.hpp>
 
 #endif

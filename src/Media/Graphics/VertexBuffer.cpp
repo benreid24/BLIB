@@ -29,7 +29,7 @@ void VertexBuffer::update(unsigned int i, unsigned int c) {
 }
 
 void VertexBuffer::update() {
-    if (sf::VertexBuffer::isAvailable()) { buffer.update(&array[0]); }
+    if (sf::VertexBuffer::isAvailable() && array.getVertexCount() > 0) { buffer.update(&array[0]); }
 }
 
 void VertexBuffer::draw(sf::RenderTarget& target, sf::RenderStates states) const {

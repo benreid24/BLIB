@@ -4,17 +4,17 @@ namespace bl
 {
 namespace menu
 {
-ImageItem::Ptr ImageItem::create(const resource::Resource<sf::Texture>::Ref& texture) {
+ImageItem::Ptr ImageItem::create(const resource::Ref<sf::Texture>& texture) {
     return Ptr(new ImageItem(texture));
 }
 
-ImageItem::ImageItem(const resource::Resource<sf::Texture>::Ref& texture)
+ImageItem::ImageItem(const resource::Ref<sf::Texture>& texture)
 : texture(texture)
 , sprite(*texture) {}
 
 sf::Sprite& ImageItem::getSprite() { return sprite; }
 
-void ImageItem::setTexture(const resource::Resource<sf::Texture>::Ref& t) {
+void ImageItem::setTexture(const resource::Ref<sf::Texture>& t) {
     texture = t;
     sprite.setTexture(*texture, true);
 }
@@ -24,8 +24,8 @@ sf::Vector2f ImageItem::getSize() const {
 }
 
 void ImageItem::render(sf::RenderTarget& target, sf::RenderStates states,
-                       const sf::Vector2f& position) const {
-    states.transform.translate(position);
+                       const sf::Vector2f& pos) const {
+    states.transform.translate(pos);
     target.draw(sprite, states);
 }
 

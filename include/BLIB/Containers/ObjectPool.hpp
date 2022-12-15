@@ -303,10 +303,9 @@ private:
     std::size_t trackedSize;
     long next;
     long oldest;
-    long leastOldest;
 
-    constexpr Entry* endPointer() { return &pool.back() + 1; }
-    constexpr const Entry* endPointer() const { return &pool.back() + 1; }
+    constexpr Entry* endPointer() { return pool.data() + pool.size(); }
+    constexpr const Entry* endPointer() const { return pool.data() + pool.size(); }
     Entry* doAdd();
 };
 
@@ -317,8 +316,7 @@ ObjectPool<T>::ObjectPool(GrowthPolicy pl, std::size_t cap)
 : policy(pl)
 , trackedSize(0)
 , next(-1)
-, oldest(-1)
-, leastOldest(-1) {
+, oldest(-1) {
     pool.reserve(cap);
 }
 
@@ -391,17 +389,17 @@ void ObjectPool<T>::erase(const Iterator& i) {
     i.pos->destroy();
     i.pos->next() = -1;
     if (next >= 0) { i.pos->next() = next; }
-    next = i.pos - &pool.front();
+    next = i.pos - pool.data();
 }
 
 template<typename T>
 typename ObjectPool<T>::Iterator ObjectPool<T>::begin() {
-    return {&pool.front(), endPointer()};
+    return {pool.data(), endPointer()};
 }
 
 template<typename T>
 typename ObjectPool<T>::ConstIterator ObjectPool<T>::begin() const {
-    return {&pool.front(), endPointer()};
+    return {pool.data(), endPointer()};
 }
 
 template<typename T>

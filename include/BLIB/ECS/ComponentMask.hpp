@@ -29,7 +29,9 @@ struct ComponentMask {
      * @param mask The mask to add to
      * @param componentIndex The component to add
      */
-    static void add(Value& mask, unsigned int componentIndex) { mask |= (0x1 << componentIndex); }
+    static void add(Value& mask, unsigned int componentIndex) {
+        mask |= (static_cast<Value>(0x1) << componentIndex);
+    }
 
     /**
      * @brief Removes the given component index from the existing mask
@@ -38,7 +40,7 @@ struct ComponentMask {
      * @param componentIndex The component to remove
      */
     static void remove(Value& mask, unsigned int componentIndex) {
-        mask &= ~(0x1 << componentIndex);
+        mask &= ~(static_cast<Value>(0x1) << componentIndex);
     }
 
     /**
@@ -49,7 +51,7 @@ struct ComponentMask {
      * @return True if the component is contained, false otherwise
      */
     static bool has(Value mask, unsigned int componentIndex) {
-        return (mask & (0x1 << componentIndex)) != 0;
+        return (mask & (static_cast<Value>(0x1) << componentIndex)) != 0;
     }
 
     /**

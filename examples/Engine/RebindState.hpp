@@ -21,7 +21,7 @@ public:
 private:
     bl::input::Configurator configurator;
 
-    bl::resource::Resource<sf::Font>::Ref font;
+    bl::resource::Ref<sf::Font> font;
     sf::Text text;
 
     RebindState(bl::engine::Engine& engine, unsigned int ctrl);

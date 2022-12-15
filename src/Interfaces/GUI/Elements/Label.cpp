@@ -34,7 +34,7 @@ sf::Vector2f Label::minimumRequisition() const {
 }
 
 void Label::settingsChanged() {
-    bl::resource::Resource<sf::Font>::Ref font = renderSettings().font.value_or(Font::get());
+    bl::resource::Ref<sf::Font> font = renderSettings().font.value_or(Font::get());
     if (font) renderText.setFont(*font);
     renderText.setString(text);
     renderText.setCharacterSize(renderSettings().characterSize.value_or(DefaultFontSize));

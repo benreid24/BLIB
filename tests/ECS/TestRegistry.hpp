@@ -10,7 +10,7 @@ namespace ecs
 namespace unittest
 {
 constexpr unsigned int MaxEntities = 100;
-extern Registry& testRegistry;
+Registry& testRegistry();
 }
 } // namespace ecs
 } // namespace bl

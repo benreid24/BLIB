@@ -1,4 +1,8 @@
-add_executable(resources main.cpp)
+add_executable(resources
+    main.cpp
+    Character.cpp
+    Map.cpp
+)
 
 target_link_libraries(resources
     BLIB
@@ -8,5 +12,6 @@ target_link_libraries(resources
 
 set_target_properties(resources
     PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}"
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}"
 )

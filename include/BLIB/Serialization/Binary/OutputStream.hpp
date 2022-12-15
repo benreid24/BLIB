@@ -4,6 +4,8 @@
 #include <BLIB/Serialization/Buffers/OutputBuffer.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <cstring>
+#include <string>
+#include <type_traits>
 
 namespace bl
 {
@@ -64,18 +66,22 @@ template<typename T>
 typename std::enable_if<std::is_integral_v<T>, bool>::type OutputStream::write(const T& data) {
     if (!buffer.good()) return false;
 
-    const std::size_t size = sizeof(T);
+    constexpr std::size_t size = sizeof(T);
     char bytes[size];
     std::memcpy(bytes, &data, size);
-    if (util::FileUtil::isBigEndian()) {
-        for (unsigned int i = 0; i < size / 2; ++i) { std::swap(bytes[i], bytes[size - i - 1]); }
+    if constexpr (size > 1) {
+        if (util::FileUtil::isBigEndian()) {
+            for (unsigned int i = 0; i < size / 2; ++i) {
+                std::swap(bytes[i], bytes[size - i - 1]);
+            }
+        }
     }
     return buffer.write(bytes, size);
 }
 
 inline bool OutputStream::write(const std::string& data) {
     if (!buffer.good()) return false;
-    if (!write<uint32_t>(data.size())) return false;
+    if (!write<std::uint32_t>(static_cast<std::uint32_t>(data.size()))) return false;
     return buffer.write(data.c_str(), data.size());
 }
 

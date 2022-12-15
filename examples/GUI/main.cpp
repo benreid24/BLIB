@@ -6,18 +6,6 @@
 #include <cmath>
 #include <iostream>
 
-struct TextureLoader : public bl::resource::Loader<sf::Texture> {
-    virtual ~TextureLoader() = default;
-
-    virtual bl::resource::Resource<sf::Texture>::Ref load(const std::string& uri) override {
-        bl::resource::Resource<sf::Texture>::Ref ref(new sf::Texture());
-        if (!ref->loadFromFile(uri)) {
-            BL_LOG_ERROR << "Failed to load texture from file: " << uri;
-        }
-        return ref;
-    }
-} textureLoader;
-
 void b1click(const bl::gui::Event&, bl::gui::Element*) { std::cout << "Button b1 was clicked\n"; }
 
 void b2click(const bl::gui::Event&, bl::gui::Element*) { std::cout << "Button b2 was clicked\n"; }
@@ -64,8 +52,6 @@ int main() {
     sf::RenderWindow window(
         sf::VideoMode(800, 600, 32), "BLIB GUI Demo", sf::Style::Close | sf::Style::Titlebar);
 
-    resource::Manager<sf::Texture> textureManager(textureLoader);
-
     gui::GUI::Ptr gui = gui::GUI::create(
         gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
         {200, 100, 400, 400});
@@ -75,7 +61,8 @@ int main() {
     gui->setOutlineThickness(1);
     gui->setColor(sf::Color::Transparent, sf::Color::Red);
 
-    gui::Image::Ptr image = gui::Image::create(textureManager.load("image.png").data);
+    gui::Image::Ptr image =
+        gui::Image::create(resource::ResourceManager<sf::Texture>::load("image.png"));
     image->setFillAcquisition(true, true);
     gui->pack(image, true, true);
 
@@ -99,7 +86,7 @@ int main() {
     row->pack(combo);
     gui->pack(row);
 
-    const float ProgressPerSecond     = 0.1;
+    const float ProgressPerSecond     = 0.1f;
     gui::ProgressBar::Ptr progressBar = gui::ProgressBar::create();
     progressBar->setRequisition({10, 20});
     gui->pack(progressBar, true, false);

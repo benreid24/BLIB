@@ -9,28 +9,28 @@ namespace ecs
 namespace unittest
 {
 TEST(EntityCleaner, Disarmed) {
-    testRegistry.destroyAllEntities();
+    testRegistry().destroyAllEntities();
 
     Entity e = InvalidEntity;
     {
-        e = testRegistry.createEntity();
-        Cleaner cleaner(testRegistry, e);
+        e = testRegistry().createEntity();
+        Cleaner cleaner(testRegistry(), e);
         cleaner.disarm();
     }
 
-    EXPECT_TRUE(testRegistry.entityExists(e));
+    EXPECT_TRUE(testRegistry().entityExists(e));
 }
 
 TEST(EntityCleaner, Armed) {
-    testRegistry.destroyAllEntities();
+    testRegistry().destroyAllEntities();
 
     Entity e = InvalidEntity;
     {
-        e = testRegistry.createEntity();
-        Cleaner cleaner(testRegistry, e);
+        e = testRegistry().createEntity();
+        Cleaner cleaner(testRegistry(), e);
     }
 
-    EXPECT_FALSE(testRegistry.entityExists(e));
+    EXPECT_FALSE(testRegistry().entityExists(e));
 }
 
 } // namespace unittest

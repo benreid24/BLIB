@@ -4071,19 +4071,19 @@ const uint8_t font[] = {
 const uint8_t[] font = {};
 #endif
 
-const size_t fontSize = sizeof(font);
+constexpr std::size_t fontSize = sizeof(font);
 
-resource::Resource<sf::Font>::Ref load() {
-    resource::Resource<sf::Font>::Ref sf = std::make_shared<sf::Font>();
-    if (fontSize > 0) {
-        if (sf->loadFromMemory(font, fontSize)) return sf;
+resource::Resource<sf::Font>* load() {
+    static resource::Resource<sf::Font> sf;
+    if constexpr (fontSize > 0) {
+        if (sf.data.loadFromMemory(font, fontSize)) return &sf;
     }
     return nullptr;
 }
 } // namespace
 
-resource::Resource<sf::Font>::Ref Font::get() {
-    static resource::Resource<sf::Font>::Ref f = load();
+resource::Ref<sf::Font> Font::get() {
+    static resource::Ref<sf::Font> f(load());
     return f;
 }
 

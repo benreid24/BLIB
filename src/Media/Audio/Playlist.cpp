@@ -2,6 +2,8 @@
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Media/Audio/Playlist.hpp>
+#include <BLIB/Resources.hpp>
+#include <BLIB/Serialization.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <BLIB/Util/Random.hpp>
 
@@ -16,7 +18,8 @@ inline std::string songfile(const std::string& path) {
         engine::Configuration::get<std::string>("blib.playlist.song_path"), path);
 }
 
-using Serializer = serial::binary::Serializer<Playlist>;
+using BinarySerializer = serial::binary::Serializer<Playlist>;
+using JsonSerializer   = serial::json::Serializer<Playlist>;
 } // namespace
 
 Playlist::Playlist()
@@ -28,10 +31,7 @@ Playlist::Playlist()
 
 Playlist::Playlist(const std::string& file)
 : Playlist() {
-    serial::binary::InputFile input(file);
-    if (!Serializer::deserialize(input, *this)) {
-        BL_LOG_ERROR << "Failed to load playlist from file: " << file;
-    }
+    loadFromFile(file);
 }
 
 Playlist::Playlist(const Playlist& copy)
@@ -41,14 +41,54 @@ Playlist::Playlist(const Playlist& copy)
     shuffleOnLoop = copy.shuffleOnLoop;
 }
 
-bool Playlist::save(const std::string& path) const {
-    serial::binary::OutputFile out(path);
-    return Serializer::serialize(out, *this);
+Playlist::~Playlist() {
+    if (!songs.empty()) {
+        stop();
+        resource::FileSystem::purgePersistentData(songfile(songs[currentIndex]));
+    }
 }
 
-bool Playlist::load(const std::string& path) {
-    serial::binary::InputFile in(path);
-    if (!Serializer::deserialize(in, *this)) return false;
+bool Playlist::saveToFile(const std::string& path) const {
+    std::ofstream file(path.c_str());
+    return JsonSerializer::serializeStream(file, *this, 4, 0);
+}
+
+bool Playlist::saveToMemory(serial::binary::OutputStream& os) const {
+    return serial::binary::Serializer<Playlist>::serialize(os, *this);
+}
+
+bool Playlist::loadFromFile(const std::string& path) {
+    std::ifstream file(path.c_str());
+    if (!JsonSerializer::deserializeStream(file, *this)) {
+        BL_LOG_ERROR << "Failed to load playlist from file: " << path;
+        return false;
+    }
+    playing      = false;
+    paused       = false;
+    currentIndex = 0;
+    return true;
+}
+
+bool Playlist::loadBinary(const char* buffer, std::size_t len) {
+    serial::MemoryInputBuffer buf(buffer, len);
+    serial::binary::InputStream in(buf);
+    if (!BinarySerializer::deserialize(in, *this)) {
+        BL_LOG_ERROR << "Failed to load playlist from memory";
+        return false;
+    }
+    playing      = false;
+    paused       = false;
+    currentIndex = 0;
+    return true;
+}
+
+bool Playlist::loadJson(const char* buffer, std::size_t len) {
+    util::BufferIstreamBuf buf(const_cast<char*>(buffer), len);
+    std::istream is(&buf);
+    if (!JsonSerializer::deserializeStream(is, *this)) {
+        BL_LOG_ERROR << "Failed to load playlist from memory";
+        return false;
+    }
     playing      = false;
     paused       = false;
     currentIndex = 0;
@@ -70,7 +110,7 @@ void Playlist::play() {
         if (!paused) {
             if (_shuffle) shuffle();
             currentIndex = 0;
-            while (!current.openFromFile(songfile(songs[currentIndex]))) {
+            while (!openMusic(currentIndex)) {
                 currentIndex = (currentIndex + 1) % songs.size();
                 if (currentIndex == 0) {
                     playing = false;
@@ -82,6 +122,17 @@ void Playlist::play() {
         paused = false;
         if (playing) current.play();
     }
+}
+
+bool Playlist::openMusic(unsigned int i) {
+    if (i != currentIndex) {
+        current.stop();
+        resource::FileSystem::purgePersistentData(songfile(songs[currentIndex]));
+    }
+    char* buffer    = nullptr;
+    std::size_t len = 0;
+    if (!resource::FileSystem::getData(songfile(songs[i]), &buffer, len)) return false;
+    return current.openFromMemory(buffer, len);
 }
 
 void Playlist::pause() {
@@ -104,7 +155,7 @@ void Playlist::update() {
         if (current.getStatus() == sf::Music::Stopped) {
             unsigned int newI = (currentIndex + 1) % songs.size();
             if (newI == startIndex && shuffleOnLoop) shuffle();
-            while (!current.openFromFile(songfile(songs[newI]))) {
+            while (!openMusic(newI)) {
                 newI = (newI + 1) % songs.size();
                 if (newI == currentIndex) break;
             }

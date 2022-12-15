@@ -1,4 +1,4 @@
-#include <BLIB/Serialization/JSON.hpp>
+#include <BLIB/Serialization.hpp>
 #include <gtest/gtest.h>
 
 namespace bl
@@ -9,6 +9,70 @@ namespace json
 {
 namespace unittest
 {
+namespace
+{
+struct TestBoi {
+    bool bfield;
+    int ifield;
+    float ffield;
+    std::string sfield;
+    std::vector<int> vfield;
+    std::unordered_map<std::string, std::string> smfield;
+    std::unordered_map<int, std::string> imfield;
+
+    TestBoi() = default;
+
+    TestBoi(int)
+    : bfield(true)
+    , ifield(56)
+    , ffield(-123.5f)
+    , sfield("test string") {
+        vfield.reserve(4);
+        vfield.push_back(1);
+        vfield.push_back(-6);
+        vfield.push_back(17);
+        vfield.push_back(13343);
+
+        smfield["df1"] = "test value 1";
+        smfield["df2"] = "test value 2";
+
+        imfield[5] = "field 5";
+        imfield[-5] = "field -5";
+    }
+};
+} // namespace
+} // namespace unittest
+} // namespace json
+
+template<>
+struct SerializableObject<json::unittest::TestBoi> : public SerializableObjectBase {
+    using T = json::unittest::TestBoi;
+
+    SerializableField<1, T, bool> bfield;
+    SerializableField<2, T, int> ifield;
+    SerializableField<3, T, float> ffield;
+    SerializableField<4, T, std::string> sfield;
+    SerializableField<5, T, std::vector<int>> vfield;
+    SerializableField<6, T, std::unordered_map<std::string, std::string>> smfield;
+    SerializableField<7, T, std::unordered_map<int, std::string>> imfield;
+
+    SerializableObject()
+    : SerializableObjectBase("TestBoi")
+    , bfield("bfield", *this, &T::bfield, SerializableFieldBase::Required{})
+    , ifield("ifield", *this, &T::ifield, SerializableFieldBase::Required{})
+    , ffield("ffield", *this, &T::ffield, SerializableFieldBase::Required{})
+    , sfield("sfield", *this, &T::sfield, SerializableFieldBase::Required{})
+    , vfield("vfield", *this, &T::vfield, SerializableFieldBase::Required{})
+    , smfield("smfield", *this, &T::smfield, SerializableFieldBase::Required{})
+    , imfield("imfield", *this, &T::imfield, SerializableFieldBase::Required{}) {}
+};
+namespace json
+{
+namespace unittest
+{
+
+using TestySerial = Serializer<TestBoi>;
+
 TEST(JsonSerializer, BasicTypes) {
     bool b = true;
     EXPECT_TRUE(Serializer<bool>::deserialize(b, Serializer<bool>::serialize(true)));
@@ -18,7 +82,7 @@ TEST(JsonSerializer, BasicTypes) {
     EXPECT_TRUE(Serializer<int>::deserialize(i, Serializer<int>::serialize(123456)));
     EXPECT_EQ(i, 123456);
 
-    float f = 24243.24;
+    float f = 24243.24f;
     EXPECT_TRUE(Serializer<float>::deserialize(f, Serializer<float>::serialize(-123.5f)));
     EXPECT_LE(std::abs(f + 123.5), 0.1f);
 
@@ -74,7 +138,7 @@ TEST(JsonSerializer, SerializeFromTo) {
     EXPECT_TRUE(Serializer<int>::deserializeFrom(val, "int", i));
     EXPECT_EQ(i, 8237);
 
-    float f = 34324.3434;
+    float f = 34324.3434f;
     EXPECT_TRUE(Serializer<float>::deserializeFrom(val, "float", f));
     EXPECT_LE(std::abs(f + 45.75), 0.1f);
 
@@ -157,6 +221,37 @@ TEST(JsonSerializer, Pointers) {
     EXPECT_TRUE(Serializer<std::string*>::deserialize(
         &readString, Serializer<std::string*>::serialize(&testString)));
     EXPECT_EQ(readString, testString);
+}
+
+TEST(JsonSerializer, DirectSerialization) {
+    std::stringstream out;
+
+    TestBoi good(5);
+    ASSERT_TRUE(TestySerial::serializeStream(out, good, 4, 0));
+    BL_LOG_INFO << out.str();
+
+    std::stringstream in(out.str());
+    TestBoi read;
+    ASSERT_TRUE(TestySerial::deserializeStream(in, read));
+
+    EXPECT_EQ(good.bfield, read.bfield);
+    EXPECT_EQ(good.ifield, read.ifield);
+    EXPECT_EQ(good.ffield, read.ffield);
+    EXPECT_EQ(good.sfield, read.sfield);
+
+    EXPECT_EQ(good.smfield.size(), read.smfield.size());
+    for (const auto& pair : good.smfield) {
+        const auto it = read.smfield.find(pair.first);
+        ASSERT_NE(it, read.smfield.end()) << pair.first;
+        EXPECT_EQ(pair.second, it->second);
+    }
+
+    EXPECT_EQ(good.imfield.size(), read.imfield.size());
+    for (const auto& pair : good.imfield) {
+        const auto it = read.imfield.find(pair.first);
+        ASSERT_NE(it, read.imfield.end()) << pair.first;
+        EXPECT_EQ(pair.second, it->second);
+    }
 }
 
 } // namespace unittest

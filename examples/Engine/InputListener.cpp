@@ -1,13 +1,12 @@
 #include "InputListener.hpp"
 #include "Controls.hpp"
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Input.hpp>
 #include <BLIB/Logging.hpp>
 
 InputListener::InputListener()
 : rebindExample(false)
 , rebindMovement(false) {
-    font = bl::engine::Resources::fonts().load("font.ttf").data;
+    font = bl::resource::ResourceManager<sf::Font>::load("font.ttf");
     text.setFont(*font);
     text.setFillColor(sf::Color(0, 50, 185));
     text.setPosition(10.f, 50.f);

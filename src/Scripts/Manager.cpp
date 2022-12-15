@@ -31,6 +31,7 @@ bool Manager::terminateAll(float timeout) {
             else
                 i = scripts.erase(i);
         }
+        if (i == scripts.end()) break; // break before ++i
     }
     const int ms = static_cast<int>(timeout * 1000.0f);
     for (int t = 0; t < ms; t += 30) {
@@ -54,6 +55,7 @@ void Manager::clean() {
             auto ptr = i->lock();
             if (!ptr || !ptr->running) i = scripts.erase(i);
         }
+        if (i == scripts.end()) break; // break before ++i
     }
 }
 

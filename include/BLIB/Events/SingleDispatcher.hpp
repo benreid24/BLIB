@@ -108,13 +108,13 @@ class SingleDispatcher : private SingleDispatcherBase {
 
     friend class ::bl::event::Dispatcher;
     template<typename U>
-    friend class SubscriberBase;
+    friend struct SubscriberBase;
     template<typename... U>
-    friend class SubscriberHelper;
+    friend struct SubscriberHelper;
     template<typename U>
-    friend class UnSubscriberBase;
+    friend struct UnSubscriberBase;
     template<typename... U>
-    friend class UnSubscriberHelper;
+    friend struct UnSubscriberHelper;
 };
 
 } // namespace priv

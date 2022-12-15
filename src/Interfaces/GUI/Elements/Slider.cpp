@@ -12,9 +12,9 @@ Slider::Ptr Slider::create(Direction dir) { return Ptr(new Slider(dir)); }
 Slider::Slider(Direction d)
 : CompositeElement<3>()
 , dir(d)
-, sliderSizeRatio(0.2)
-, value(0)
-, increment(0.1)
+, sliderSizeRatio(0.2f)
+, value(0.f)
+, increment(0.1f)
 , increaseImg(Canvas::create(64, 64))
 , increaseBut(Button::create(increaseImg))
 , decreaseImg(Canvas::create(64, 64))
@@ -39,8 +39,8 @@ Slider::Slider(Direction d)
     decreaseBut->getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&Slider::incrementValue, this, -1));
 
-    Element* children[3] = {increaseBut.get(), decreaseBut.get(), slider.get()};
-    registerChildren(children);
+    Element* childs[3] = {increaseBut.get(), decreaseBut.get(), slider.get()};
+    registerChildren(childs);
 }
 
 float Slider::getValue() const { return value; }
@@ -54,10 +54,10 @@ void Slider::setValue(float v, bool fire) {
 
 void Slider::setSliderSize(float s) {
     sliderSizeRatio = s;
-    if (sliderSizeRatio <= 0)
-        sliderSizeRatio = 0.01;
-    else if (sliderSizeRatio > 1)
-        sliderSizeRatio = 1;
+    if (sliderSizeRatio <= 0.f)
+        sliderSizeRatio = 0.01f;
+    else if (sliderSizeRatio > 1.f)
+        sliderSizeRatio = 1.f;
     onAcquisition();
 }
 
@@ -194,9 +194,7 @@ void Slider::updateSliderPos() {
     const float pos = offset + freeSpace * value;
 
     if (dir == Horizontal) { slider->setPosition(getPosition() + sf::Vector2f{pos, 0}); }
-    else {
-        slider->setPosition(getPosition() + sf::Vector2f{0, pos});
-    }
+    else { slider->setPosition(getPosition() + sf::Vector2f{0, pos}); }
 }
 
 bool Slider::propagateEvent(const Event& e) { return sendEventToChildren(e); }

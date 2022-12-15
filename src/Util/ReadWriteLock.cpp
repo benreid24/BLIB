@@ -8,8 +8,10 @@ namespace util
 {
 namespace
 {
-thread_local std::unordered_map<ReadWriteLock*, bool> readLockFlags;
-thread_local std::unordered_map<ReadWriteLock*, bool> writeLockFlags;
+thread_local std::unordered_map<ReadWriteLock*, bool>* readLockFlags =
+    new std::unordered_map<ReadWriteLock*, bool>();
+thread_local std::unordered_map<ReadWriteLock*, bool>* writeLockFlags =
+    new std::unordered_map<ReadWriteLock*, bool>();
 } // namespace
 
 void ReadWriteLock::lockRead() {
@@ -36,9 +38,9 @@ void ReadWriteLock::unlockWrite() {
     mutex.unlock();
 }
 
-bool& ReadWriteLock::readLockFlag() { return readLockFlags[this]; }
+bool& ReadWriteLock::readLockFlag() { return (*readLockFlags)[this]; }
 
-bool& ReadWriteLock::writeLockFlag() { return writeLockFlags[this]; }
+bool& ReadWriteLock::writeLockFlag() { return (*writeLockFlags)[this]; }
 
 ReadWriteLock::ReadScopeGuard::ReadScopeGuard(ReadWriteLock& lock)
 : lock(lock)

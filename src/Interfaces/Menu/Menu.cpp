@@ -125,20 +125,19 @@ void Menu::attachExisting(Item* item, Item* parent, Item::AttachPoint ap, bool r
 }
 
 void Menu::removeItem(Item* item, bool c) {
-    unsigned int i;
+    unsigned int i = items.size();
     for (unsigned int j = 0; j < items.size(); ++j) {
         if (items[j].get() == item) { i = j; }
         else {
             for (unsigned int k = 0; k < Item::AttachPoint::_NUM_ATTACHPOINTS; ++k) {
                 if (items[j]->attachments[k] == item) {
                     if (c) { items[j]->attachments[k] = item->attachments[k]; }
-                    else {
-                        items[j]->attachments[k] = nullptr;
-                    }
+                    else { items[j]->attachments[k] = nullptr; }
                 }
             }
         }
     }
+    if (i == items.size()) return;
     items.erase(items.begin() + i);
     if (selectedItem == item) {
         selectedItem = nullptr;
@@ -191,9 +190,7 @@ void Menu::processEvent(const Event& event) {
             }
             playSound(ogSel != selectedItem ? moveSound : failSound);
         }
-        else {
-            playSound(failSound);
-        }
+        else { playSound(failSound); }
     } break;
     case Event::Activate:
         selectedItem->getSignal(Item::Activated)();

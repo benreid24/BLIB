@@ -22,7 +22,8 @@ struct SerializableObject<Nested> : public SerializableObjectBase {
     SerializableField<2, Nested, float> floatValue;
 
     SerializableObject()
-    : boolValue("bval", *this, &Nested::boolValue, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Nested")
+    , boolValue("bval", *this, &Nested::boolValue, SerializableFieldBase::Required{})
     , floatValue("fval", *this, &Nested::floatValue, SerializableFieldBase::Required{}) {}
 };
 
@@ -44,7 +45,8 @@ struct SerializableObject<Data> : public SerializableObjectBase {
     SerializableField<3, Data, std::vector<Nested>> nestedValue;
 
     SerializableObject()
-    : intValue("ival", *this, &Data::intValue, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Data")
+    , intValue("ival", *this, &Data::intValue, SerializableFieldBase::Required{})
     , stringValue("sval", *this, &Data::stringValue, SerializableFieldBase::Required{})
     , nestedValue("nval", *this, &Data::nestedValue, SerializableFieldBase::Required{}) {}
 };
@@ -62,7 +64,8 @@ struct SerializableObject<Relaxed> : SerializableObjectBase {
     SerializableField<3, Relaxed, int> three;
 
     SerializableObject()
-    : one("one", *this, &Relaxed::one, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Relaxed")
+    , one("one", *this, &Relaxed::one, SerializableFieldBase::Required{})
     , two("two", *this, &Relaxed::two, SerializableFieldBase::Optional{})
     , three("three", *this, &Relaxed::three, SerializableFieldBase::Required{}) {
         two.setDefault(56);
@@ -103,7 +106,9 @@ TEST(JsonSerializableObject, Nested) {
 }
 
 TEST(JsonSerializableObject, DefaultValue) {
-    const auto data = json::loadFromString("{\"one\": 5, \"three\": 6}");
+    std::stringstream input("{\"one\": 5, \"three\": 6}");
+    json::Group data;
+    ASSERT_TRUE(json::loadFromStream(input, data));
     ASSERT_EQ(data.getInteger("one"), 5);
     Relaxed result;
     EXPECT_TRUE(RelazedSerializer::deserialize(result, data));
@@ -113,7 +118,9 @@ TEST(JsonSerializableObject, DefaultValue) {
 }
 
 TEST(JsonSerializableObject, RequiredField) {
-    const auto data = json::loadFromString("{\"one\": 5}");
+    std::stringstream ss("{\"one\": 5}");
+    json::Group data;
+    ASSERT_TRUE(json::loadFromStream(ss, data));
     Relaxed result;
     ASSERT_FALSE(RelazedSerializer::deserialize(result, data));
 }
@@ -138,7 +145,7 @@ private:
     bool b;
     float f;
 
-    friend class SerializableObject<TestyBoi>;
+    friend struct SerializableObject<TestyBoi>;
 };
 
 template<>
@@ -150,7 +157,8 @@ struct SerializableObject<TestyBoi> : public SerializableObjectBase {
     SerializableField<5, TestyBoi, float> f;
 
     SerializableObject()
-    : str("str", *this, &TestyBoi::str, SerializableFieldBase::Required{})
+    : SerializableObjectBase("TestyBoi")
+    , str("str", *this, &TestyBoi::str, SerializableFieldBase::Required{})
     , u32("u32", *this, &TestyBoi::u32, SerializableFieldBase::Required{})
     , nowidth("nowidth", *this, &TestyBoi::nowidth, SerializableFieldBase::Required{})
     , b("b", *this, &TestyBoi::b, SerializableFieldBase::Required{})
@@ -176,7 +184,7 @@ private:
     bool b;
     std::string newfield;
 
-    friend class SerializableObject<TestyBoi2>;
+    friend struct SerializableObject<TestyBoi2>;
 };
 
 template<>
@@ -188,7 +196,8 @@ struct SerializableObject<TestyBoi2> : public SerializableObjectBase {
     SerializableField<6, TestyBoi2, std::string> newfield;
 
     SerializableObject()
-    : str("str", *this, &TestyBoi2::str, SerializableFieldBase::Required{})
+    : SerializableObjectBase("TestyBoi2")
+    , str("str", *this, &TestyBoi2::str, SerializableFieldBase::Required{})
     , u32("u32", *this, &TestyBoi2::u32, SerializableFieldBase::Required{})
     , nowidth("nowidth", *this, &TestyBoi2::nowidth, SerializableFieldBase::Required{})
     , b("b", *this, &TestyBoi2::b, SerializableFieldBase::Required{})
@@ -268,6 +277,30 @@ TEST(BinarySerializableObject, OldReadNew) {
     EXPECT_EQ(boi.u32F(), read.u32F());
     EXPECT_EQ(boi.nowidthF(), read.nowidthF());
     EXPECT_EQ(boi.bF(), read.bF());
+}
+
+TEST(BinarySerializableObject, SerializePackedObject) {
+    TestyBoi boi;
+    boi.strF()     = "hello world";
+    boi.u32F()     = 5634533;
+    boi.nowidthF() = -4534;
+    boi.bF()       = true;
+    boi.fF()       = 0.55f;
+
+    MemoryOutputBuffer outbuf;
+    binary::OutputStream stream(outbuf);
+    ASSERT_TRUE(binary::Serializer<TestyBoi>::serializePacked(stream, boi));
+
+    TestyBoi read;
+    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
+    binary::InputStream in(inbuf);
+    ASSERT_TRUE(binary::Serializer<TestyBoi>::deserializePacked(in, read));
+
+    EXPECT_EQ(boi.strF(), read.strF());
+    EXPECT_EQ(boi.u32F(), read.u32F());
+    EXPECT_EQ(boi.nowidthF(), read.nowidthF());
+    EXPECT_EQ(boi.bF(), read.bF());
+    EXPECT_FLOAT_EQ(boi.fF(), 0.55f);
 }
 
 } // namespace unittest

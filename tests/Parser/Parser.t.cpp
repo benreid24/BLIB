@@ -84,7 +84,7 @@ TEST(Parser, Table) {
     Production r1 = {S, {A, B}};
     Production r2 = {A, {x}};
     Production r3 = {B, {y}};
-    ASSERT_EQ(table.stateCount(), 6);
+    ASSERT_EQ(table.stateCount(), 6u);
 
     // State 0
     std::optional<ItemSet> s0 = table.getState(0);
@@ -98,9 +98,9 @@ TEST(Parser, Table) {
     ASSERT_TRUE(gotos.value().find(S) != gotos.value().end());
     EXPECT_TRUE(gotos.value().find(B) == gotos.value().end());
     EXPECT_TRUE(gotos.value().find(y) == gotos.value().end());
-    EXPECT_EQ(gotos.value().at(x), 3);
-    EXPECT_EQ(gotos.value().at(S), 1);
-    EXPECT_EQ(gotos.value().at(A), 2);
+    EXPECT_EQ(gotos.value().at(x), 3u);
+    EXPECT_EQ(gotos.value().at(S), 1u);
+    EXPECT_EQ(gotos.value().at(A), 2u);
 
     action = table.getAction(0, x);
     ASSERT_TRUE(action.has_value());
@@ -136,8 +136,8 @@ TEST(Parser, Table) {
     ASSERT_TRUE(gotos.value().find(S) == gotos.value().end());
     EXPECT_TRUE(gotos.value().find(B) != gotos.value().end());
     EXPECT_TRUE(gotos.value().find(y) != gotos.value().end());
-    EXPECT_EQ(gotos.value().at(B), 4);
-    EXPECT_EQ(gotos.value().at(y), 5);
+    EXPECT_EQ(gotos.value().at(B), 4u);
+    EXPECT_EQ(gotos.value().at(y), 5u);
 
     action = table.getAction(2, y);
     ASSERT_TRUE(action.has_value());

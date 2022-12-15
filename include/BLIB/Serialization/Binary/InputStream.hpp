@@ -89,13 +89,17 @@ template<typename T>
 typename std::enable_if<std::is_integral_v<T>, bool>::type InputStream::read(T& output) {
     if (!underlying.good()) return false;
 
-    const std::size_t size = sizeof(output);
+    constexpr std::size_t size = sizeof(T);
     char* bytes            = static_cast<char*>(static_cast<void*>(&output));
 
     output       = 0;
     const bool r = underlying.read(bytes, size);
-    if (util::FileUtil::isBigEndian()) {
-        for (unsigned int i = 0; i < size / 2; ++i) { std::swap(bytes[i], bytes[size - i - 1]); }
+    if constexpr (size > 1) {
+        if (util::FileUtil::isBigEndian()) {
+            for (unsigned int i = 0; i < size / 2; ++i) {
+                std::swap(bytes[i], bytes[size - i - 1]);
+            }
+        }
     }
     return r;
 }

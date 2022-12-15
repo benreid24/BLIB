@@ -51,8 +51,8 @@ sf::Vector2f ToggleTextItem::getSize() const {
 }
 
 void ToggleTextItem::render(sf::RenderTarget& target, sf::RenderStates states,
-                            const sf::Vector2f& position) const {
-    states.transform.translate(position);
+                            const sf::Vector2f& pos) const {
+    states.transform.translate(pos);
     target.draw(box, states);
     if (checked) { target.draw(innerBox, states); }
     states.transform.translate(textOffset, 0.f);

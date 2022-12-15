@@ -1,7 +1,7 @@
 #include <BLIB/Resources/GarbageCollector.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Resources/Manager.hpp>
+#include <BLIB/Resources/ResourceManager.hpp>
 #include <optional>
 #include <vector>
 
@@ -17,7 +17,8 @@ std::atomic_bool stopped = false;
 
 GarbageCollector::GarbageCollector()
 : thread(&GarbageCollector::runner, this)
-, quitFlag(false) {
+, quitFlag(false)
+, bundleRuntime(nullptr) {
     started = true;
     BL_LOG_INFO << "GarbageCollector online";
 }
@@ -25,8 +26,7 @@ GarbageCollector::GarbageCollector()
 GarbageCollector::~GarbageCollector() {
     if (!stopped) { stop(); }
 }
-
-void GarbageCollector::shutdown() {
+void GarbageCollector::shutdownAndClear() {
     if (started && !stopped) { get().stop(); }
 }
 
@@ -39,9 +39,11 @@ void GarbageCollector::stop() {
         stopped = true;
         BL_LOG_INFO << "GarbageCollector terminated";
     }
-    else {
-        BL_LOG_ERROR << "GarbageCollector already shutdown";
-    }
+    else { BL_LOG_ERROR << "GarbageCollector already shutdown"; }
+
+    BL_LOG_INFO << "Freeing remaining resources";
+    std::unique_lock lock(managerLock);
+    for (auto& mp : managers) { mp.first->freeAll(); }
 }
 
 GarbageCollector& GarbageCollector::get() {
@@ -49,27 +51,46 @@ GarbageCollector& GarbageCollector::get() {
     return gc;
 }
 
-void GarbageCollector::registerManager(ManagerBase* m) {
+void GarbageCollector::registerManager(ResourceManagerBase* m) {
     std::unique_lock lock(managerLock);
     managers.emplace_back(m, m->gcPeriod);
     lock.unlock();
     quitCv.notify_all();
 }
 
-void GarbageCollector::unregisterManager(ManagerBase* m) {
+void GarbageCollector::managerPeriodChanged(ResourceManagerBase* m) {
+    std::unique_lock lock(managerLock);
+    for (auto& rm : managers) {
+        if (rm.first == m) { rm.second = m->gcPeriod; }
+    }
+    lock.unlock();
+    quitCv.notify_all();
+}
+
+void GarbageCollector::unregisterManager(ResourceManagerBase* m) {
     std::unique_lock lock(managerLock);
 
-    for (unsigned int i = 0; i < managers.size(); ++i) {
-        if (managers[i].first == m) {
-            managers.erase(managers.begin() + i);
+    for (auto it = managers.begin(); it != managers.end(); ++it) {
+        if (it->first == m) {
+            managers.erase(it);
             break;
         }
     }
 }
 
+void GarbageCollector::registerBundleRuntime(bundle::BundleRuntime* br) {
+    std::unique_lock lock(managerLock);
+    bundleRuntime = br;
+}
+
 void GarbageCollector::runner() {
     while (!quitFlag) {
         std::unique_lock lock(managerLock);
+
+        // purge expired bundles
+        if (bundleRuntime) { bundleRuntime->clean(); }
+
+        // block if no managers to clean
         if (managers.empty()) {
             quitCv.wait_for(lock, std::chrono::seconds(60));
             continue;
@@ -90,13 +111,13 @@ void GarbageCollector::runner() {
 
         // proceed through and clean managers that need it
         for (auto& omp : managers) {
+            if (quitFlag) return;
+
             if (omp.second <= sleptTime) {
                 omp.first->doClean();
                 omp.second = omp.first->gcPeriod;
             }
-            else {
-                omp.second -= sleptTime;
-            }
+            else { omp.second -= sleptTime; }
         }
     }
 }

@@ -1,11 +1,12 @@
 #include "MainState.hpp"
 #include "Controls.hpp"
 #include "RebindState.hpp"
+#include <BLIB/Resources.hpp>
 
 bl::engine::State::Ptr MainState::create() { return Ptr{new MainState()}; }
 
 MainState::MainState() {
-    font = bl::engine::Resources::fonts().load("font.ttf").data;
+    font = bl::resource::ResourceManager<sf::Font>::load("font.ttf");
 
     kbmControls.setFont(*font);
     kbmControls.setFillColor(sf::Color::Black);
