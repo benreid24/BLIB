@@ -90,8 +90,11 @@ bool Bundler::createBundles() {
         else if (src.policy == bundle::BundleSource::CreateBundleForEachContainedRecursive) {
             const std::vector<std::string> all = util::FileUtil::listDirectory(src.sourcePath);
             for (const std::string& path : all) {
-                if (config.includeFile(path) && src.includeFile(path)) {
-                    if (!doCreate(path, src.sourcePath, src)) { return false; }
+                if (config.includeFile(path)) {
+                    if (src.includeFile(path)) {
+                        if (!doCreate(path, src.sourcePath, src)) { return false; }
+                    }
+                    else { config.addExcludeFile(path); }
                 }
             }
         }
@@ -107,8 +110,11 @@ bool Bundler::createBundles() {
             const std::vector<std::string> files =
                 util::FileUtil::listDirectory(src.sourcePath, "", false);
             for (const std::string& file : files) {
-                if (config.includeFile(file) && src.includeFile(file)) {
-                    if (!doCreate(file, src.sourcePath, src)) { return false; }
+                if (config.includeFile(file)) {
+                    if (src.includeFile(file)) {
+                        if (!doCreate(file, src.sourcePath, src)) { return false; }
+                    }
+                    else { config.addExcludeFile(file); }
                 }
             }
         }
@@ -155,8 +161,9 @@ BundleCreator::BundleCreator(const std::string& path, Config& cfg, const BundleS
     if (util::FileUtil::directoryExists(path)) {
         std::vector<std::string> all = util::FileUtil::listDirectory(path);
         for (std::string& file : all) {
-            if (config.includeFile(file) && bundleSource.includeFile(file)) {
-                toBundle.emplace(std::move(file));
+            if (config.includeFile(file)) {
+                if (bundleSource.includeFile(file)) { toBundle.emplace(std::move(file)); }
+                else { config.addExcludeFile(file); }
             }
         }
         BL_LOG_INFO << "Found " << toBundle.size() << " files to bundle";

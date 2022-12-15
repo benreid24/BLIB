@@ -68,6 +68,14 @@ public:
     Config& addExcludePattern(const std::string& pattern);
 
     /**
+     * @brief Adds a file path to be specifically excluded from bundling
+     *
+     * @param path The file to exclude
+     * @return Config& A reference to this object
+     */
+    Config& addExcludeFile(const std::string& path);
+
+    /**
      * @brief Adds a file handler to the config
      *
      * @tparam THandler The type of handler to create and add

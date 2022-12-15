@@ -32,6 +32,11 @@ Config& Config::addExcludePattern(const std::string& pattern) {
     return *this;
 }
 
+Config& Config::addExcludeFile(const std::string& file) {
+    excludeFiles.emplace(file);
+    return *this;
+}
+
 const std::string& Config::outputDirectory() const { return outDir; }
 
 const std::string& Config::catchAllDirectory() const { return allFilesDir; }
