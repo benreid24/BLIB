@@ -54,8 +54,8 @@ struct BundleSource {
     , policy(policy)
     , whitelistPattern(whitelistPattern)
     , blacklistPattern(blacklistPattern)
-    , whitelist(whitelistPattern)
-    , blacklist(blacklistPattern) {}
+    , whitelist(whitelistPattern.empty() ? ".*" : whitelistPattern)
+    , blacklist(blacklistPattern.empty() ? "^\\b$" : blacklistPattern) {}
 
     /**
      * @brief Returns whether or not the given file within this bundle source should be bundled
