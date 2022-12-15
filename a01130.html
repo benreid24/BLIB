@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ecs::ComponentPool&lt; T &gt; Class Template Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,373 +63,38 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00953.html">bl</a></li><li class="navelem"><a class="el" href="a00956.html">ecs</a></li><li class="navelem"><a class="el" href="a01130.html">ComponentPool</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01038.html">bl</a></li><li class="navelem"><a class="el" href="a01040.html">container</a></li><li class="navelem"><a class="el" href="a01133.html">Cache</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
-<a href="a01127.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::ecs::ComponentPool&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00928.html">ECS</a></div></div>  </div>
+<div class="title">bl::container::Cache&lt; TKey, TPayload &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Provides storage and management for components in the ECS. Used internally in the <a class="el" href="a01158.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a>.  
- <a href="a01130.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00053_source.html">ComponentPool.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::ecs::ComponentPool&lt; T &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01130.png" usemap="#bl::ecs::ComponentPool_3C_20T_20_3E_map" alt=""/>
-  <map id="bl::ecs::ComponentPool_3C_20T_20_3E_map" name="bl::ecs::ComponentPool_3C_20T_20_3E_map">
-<area href="a01126.html" title="Base class for component pools. Not intended to be used directly. " alt="bl::ecs::ComponentPoolBase" shape="rect" coords="0,56,173,80"/>
-<area href="a02054.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::util::NonCopyable" shape="rect" coords="0,0,173,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a38c3153517119dae98fdeb12ddf112de"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01130.html#a38c3153517119dae98fdeb12ddf112de">get</a> (<a class="el" href="a00956.html#a4b70a57ed7e0341145b4320b1f460a62">Entity</a> entity)</td></tr>
-<tr class="memdesc:a38c3153517119dae98fdeb12ddf112de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the component for the given entity if it exists.  <a href="#a38c3153517119dae98fdeb12ddf112de">More...</a><br /></td></tr>
-<tr class="separator:a38c3153517119dae98fdeb12ddf112de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a557e314ff3e797220cca51606d535aaf"><td class="memTemplParams" colspan="2">template&lt;typename TCallback &gt; </td></tr>
-<tr class="memitem:a557e314ff3e797220cca51606d535aaf"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01130.html#a557e314ff3e797220cca51606d535aaf">forEach</a> (const TCallback &amp;cb)</td></tr>
-<tr class="memdesc:a557e314ff3e797220cca51606d535aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates over all contained components and triggers the callback for each.  <a href="#a557e314ff3e797220cca51606d535aaf">More...</a><br /></td></tr>
-<tr class="separator:a557e314ff3e797220cca51606d535aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31c431802172eead09ac8af1ec1f97d2"><td class="memTemplParams" colspan="2">template&lt;typename TCallback &gt; </td></tr>
-<tr class="memitem:a31c431802172eead09ac8af1ec1f97d2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01130.html#a31c431802172eead09ac8af1ec1f97d2">forEachWithWrites</a> (const TCallback &amp;cb)</td></tr>
-<tr class="memdesc:a31c431802172eead09ac8af1ec1f97d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates over all contained components and triggers the callback for each. Acquires a write lock on the pool. Use this if the callback may remove components, otherwise prefer <a class="el" href="a01130.html#a557e314ff3e797220cca51606d535aaf" title="Iterates over all contained components and triggers the callback for each. ">forEach()</a>  <a href="#a31c431802172eead09ac8af1ec1f97d2">More...</a><br /></td></tr>
-<tr class="separator:a31c431802172eead09ac8af1ec1f97d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a357efea1bef7ca632a14b1d1a2723d5e"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01126.html#a357efea1bef7ca632a14b1d1a2723d5e">ComponentCount</a> ()</td></tr>
-<tr class="memdesc:a357efea1bef7ca632a14b1d1a2723d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of different component types that exist.  <a href="#a357efea1bef7ca632a14b1d1a2723d5e">More...</a><br /></td></tr>
-<tr class="separator:a357efea1bef7ca632a14b1d1a2723d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ad02dec455621513fe0ca58d746015c26"><td class="memItemLeft" align="right" valign="top">const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01126.html#ad02dec455621513fe0ca58d746015c26">ComponentIndex</a></td></tr>
-<tr class="memdesc:ad02dec455621513fe0ca58d746015c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">The 0-based index of this component pool.  <a href="#ad02dec455621513fe0ca58d746015c26">More...</a><br /></td></tr>
-<tr class="separator:ad02dec455621513fe0ca58d746015c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a43f41625c6b290dd658328e245116fb3"><td class="memItemLeft" align="right" valign="top">static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01126.html#a43f41625c6b290dd658328e245116fb3">MaximumComponentCount</a> = std::numeric_limits&lt;std::uint16_t&gt;::max()</td></tr>
-<tr class="memdesc:a43f41625c6b290dd658328e245116fb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum number of components a pool can hold.  <a href="#a43f41625c6b290dd658328e245116fb3">More...</a><br /></td></tr>
-<tr class="separator:a43f41625c6b290dd658328e245116fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:af268b3204ff2d2d74b15ca8347bcb05f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02066.html">util::ReadWriteLock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01126.html#af268b3204ff2d2d74b15ca8347bcb05f">poolLock</a></td></tr>
-<tr class="separator:af268b3204ff2d2d74b15ca8347bcb05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
-Static Protected Attributes</h2></td></tr>
-<tr class="memitem:afc2628139f0d6027b28449287876e612"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01126.html#afc2628139f0d6027b28449287876e612">nextComponentIndex</a> = 0</td></tr>
-<tr class="separator:afc2628139f0d6027b28449287876e612"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:ac7b716e6d41ff508ad2d8e5dad655d72"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01130.html#ac7b716e6d41ff508ad2d8e5dad655d72">Registry</a></td></tr>
-<tr class="separator:ac7b716e6d41ff508ad2d8e5dad655d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-class bl::ecs::ComponentPool&lt; T &gt;</h3>
-
-<p>Provides storage and management for components in the ECS. Used internally in the <a class="el" href="a01158.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a>. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of component to store </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00053_source.html#l00076">76</a> of file <a class="el" href="a00053_source.html">ComponentPool.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a357efea1bef7ca632a14b1d1a2723d5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a357efea1bef7ca632a14b1d1a2723d5e">&#9670;&nbsp;</a></span>ComponentCount()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static unsigned int bl::ecs::ComponentPoolBase::ComponentCount </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the number of different component types that exist. </p>
-<dl class="section return"><dt>Returns</dt><dd>unsigned int The number of unique component types </dd></dl>
-
-</div>
-</div>
-<a id="a557e314ff3e797220cca51606d535aaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a557e314ff3e797220cca51606d535aaf">&#9670;&nbsp;</a></span>forEach()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename TCallback &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01130.html">bl::ecs::ComponentPool</a>&lt; T &gt;::forEach </td>
-          <td>(</td>
-          <td class="paramtype">const TCallback &amp;&#160;</td>
-          <td class="paramname"><em>cb</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Iterates over all contained components and triggers the callback for each. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TCallback</td><td>The callback type to invoke </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cb</td><td>The handler for each component. Takes the entity id and the component </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00053_source.html#l00232">232</a> of file <a class="el" href="a00053_source.html">ComponentPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a31c431802172eead09ac8af1ec1f97d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31c431802172eead09ac8af1ec1f97d2">&#9670;&nbsp;</a></span>forEachWithWrites()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename TCallback &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01130.html">bl::ecs::ComponentPool</a>&lt; T &gt;::forEachWithWrites </td>
-          <td>(</td>
-          <td class="paramtype">const TCallback &amp;&#160;</td>
-          <td class="paramname"><em>cb</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Iterates over all contained components and triggers the callback for each. Acquires a write lock on the pool. Use this if the callback may remove components, otherwise prefer <a class="el" href="a01130.html#a557e314ff3e797220cca51606d535aaf" title="Iterates over all contained components and triggers the callback for each. ">forEach()</a> </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TCallback</td><td>The callback type to invoke </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cb</td><td>The handler for each component. Takes the entity id and the component </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00053_source.html#l00252">252</a> of file <a class="el" href="a00053_source.html">ComponentPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a38c3153517119dae98fdeb12ddf112de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38c3153517119dae98fdeb12ddf112de">&#9670;&nbsp;</a></span>get()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">T * <a class="el" href="a01130.html">bl::ecs::ComponentPool</a>&lt; T &gt;::get </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00956.html#a4b70a57ed7e0341145b4320b1f460a62">Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fetches the component for the given entity if it exists. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td>The entity to get the component for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>T* Pointer to the component or nullptr if the entity does not have one </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00053_source.html#l00271">271</a> of file <a class="el" href="a00053_source.html">ComponentPool.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="ac7b716e6d41ff508ad2d8e5dad655d72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7b716e6d41ff508ad2d8e5dad655d72">&#9670;&nbsp;</a></span>Registry</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="a01158.html">Registry</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00053_source.html#l00124">124</a> of file <a class="el" href="a00053_source.html">ComponentPool.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ad02dec455621513fe0ca58d746015c26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad02dec455621513fe0ca58d746015c26">&#9670;&nbsp;</a></span>ComponentIndex</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const unsigned int bl::ecs::ComponentPoolBase::ComponentIndex</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The 0-based index of this component pool. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00053_source.html#l00038">38</a> of file <a class="el" href="a00053_source.html">ComponentPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a43f41625c6b290dd658328e245116fb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43f41625c6b290dd658328e245116fb3">&#9670;&nbsp;</a></span>MaximumComponentCount</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::size_t bl::ecs::ComponentPoolBase::MaximumComponentCount = std::numeric_limits&lt;std::uint16_t&gt;::max()</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The maximum number of components a pool can hold. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00053_source.html#l00035">35</a> of file <a class="el" href="a00053_source.html">ComponentPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afc2628139f0d6027b28449287876e612"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc2628139f0d6027b28449287876e612">&#9670;&nbsp;</a></span>nextComponentIndex</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int bl::ecs::ComponentPoolBase::nextComponentIndex = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00053_source.html#l00062">62</a> of file <a class="el" href="a00053_source.html">ComponentPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af268b3204ff2d2d74b15ca8347bcb05f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af268b3204ff2d2d74b15ca8347bcb05f">&#9670;&nbsp;</a></span>poolLock</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02066.html">util::ReadWriteLock</a> bl::ecs::ComponentPoolBase::poolLock</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00053_source.html#l00054">54</a> of file <a class="el" href="a00053_source.html">ComponentPool.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/ECS/<a class="el" href="a00053_source.html">ComponentPool.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01133.html#a42258d412b11eca29c06766fc1f717b6">add</a>(const TKey &amp;key, const Item &amp;item)</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01133.html#a54301ae131ca13c02a876fb7c17bb72a">add</a>(const TKey &amp;key, const TPayload &amp;item)</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01133.html#a834faa74376a89ec68a0532840bb628c">begin</a>()</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01133.html#a470ebf16afe2c467f8fc54fabd87423c">Cache</a>(EvictionPolicy policy=LeastRecentlyAccessed, unsigned int lowWatermark=1000, unsigned int highWatermark=2000)</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01133.html#aab8ff5bd100975f39e9e7fa63cf3a6c9">empty</a>() const</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01133.html#a0d09a7e61521ad5e3856af4c93c480be">end</a>()</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01133.html#a5fe1c61e2f9f6efa54e60e666b9ae9a3">erase</a>(const TKey &amp;key)</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01133.html#af0f51604e771b69b5595e11c19126fcf">EvictionPolicy</a> enum name</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01133.html#af0f51604e771b69b5595e11c19126fcfaedec20fdc29e75a7c16654f870fa26cd">FirstInFirstOut</a> enum value</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01133.html#a4af79d5af5a577bbf874623fa94df3b5">getForOwn</a>(const TKey &amp;key)</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01133.html#a6383ea1e0f0c3bdb61dfb87a7ce9452e">getForRead</a>(const TKey &amp;key) const</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01133.html#a69f1d8cc001ca72384a09625b1c56989">getForWrite</a>(const TKey &amp;key)</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01133.html#a577da758160e325cc40a371857918e9b">Item</a> typedef</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01133.html#af0f51604e771b69b5595e11c19126fcfa4841f8e74b0955ac898fa812b7c5486d">LeastRecentlyAccessed</a> enum value</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01133.html#af0f51604e771b69b5595e11c19126fcfa87d5300a872272a46ab174bef47fae54">LeastRecentlyModified</a> enum value</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01133.html#a45243153ced33927910efff250ebf994">size</a>() const</td><td class="entry"><a class="el" href="a01133.html">bl::container::Cache&lt; TKey, TPayload &gt;</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 27 2022 00:18:30 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 15 2022 03:22:47 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

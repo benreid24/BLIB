@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['debugrenderer',['DebugRenderer',['../a01454.html#a3acc558cc7ff57a405b5073cd1eb7e3a',1,'bl::gui::Renderer']]],
-  ['dispatcher',['Dispatcher',['../a01230.html#ad90424f003fc2afb836709cbffa47e2c',1,'bl::event::Listener']]]
+  ['bundlecreator',['BundleCreator',['../a01801.html#a2c77eea2703c7bf82d1fe4619558cd6b',1,'bl::resource::bundle::Config::BundleCreator()'],['../a01809.html#a2c77eea2703c7bf82d1fe4619558cd6b',1,'bl::resource::bundle::FileHandlerContext::BundleCreator()']]]
 ];

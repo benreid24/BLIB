@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ai::PathFinder&lt; TNode, CoordHash &gt; Struct Template Reference</title>
+<title>BLIB: Shapes</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,6 +47,7 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,192 +62,36 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a00953.html">bl</a></li><li class="navelem"><a class="el" href="a00954.html">ai</a></li><li class="navelem"><a class="el" href="a01034.html">PathFinder</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="a01031.html">List of all members</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::ai::PathFinder&lt; TNode, CoordHash &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a00926.html">AI</a></div></div>  </div>
+<div class="title">Shapes<div class="ingroups"><a class="el" href="a01019.html">Media</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class for calculating paths between arbitrary points in a PathMap.  
- <a href="a01034.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00005_source.html">PathFinder.hpp</a>&gt;</code></p>
+<p>Collection of shapes to add to the functionality provided by SFML.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:aa7f7fda9fb55ab275e59b100a12c1602"><td class="memTemplParams" colspan="2">template&lt;typename TMapCb , typename TDistFunc &gt; </td></tr>
-<tr class="memitem:aa7f7fda9fb55ab275e59b100a12c1602"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01034.html#aa7f7fda9fb55ab275e59b100a12c1602">findPath</a> (const TNode &amp;start, const TNode &amp;destination, TMapCb &amp;&amp;nodeCb, TDistFunc &amp;&amp;distCb, std::vector&lt; TNode &gt; &amp;result)</td></tr>
-<tr class="separator:aa7f7fda9fb55ab275e59b100a12c1602"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:acf1db4fbab14c3a131d71e937d019a89"><td class="memTemplParams" colspan="2">template&lt;typename TMapCallback , typename TDistFunc &gt; </td></tr>
-<tr class="memitem:acf1db4fbab14c3a131d71e937d019a89"><td class="memTemplItemLeft" align="right" valign="top">static bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01034.html#acf1db4fbab14c3a131d71e937d019a89">findPath</a> (const TNode &amp;start, const TNode &amp;destination, TMapCallback &amp;&amp;adjacentNodeCb, TDistFunc &amp;&amp;distCb, std::vector&lt; TNode &gt; &amp;result)</td></tr>
-<tr class="memdesc:acf1db4fbab14c3a131d71e937d019a89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the shortest path between the two points using the map callback. Map callback signature should be void(const TNode&amp;, std::vector&lt;std::pair&lt;TNode, int&gt;&gt;&amp;). The vector should be populated with nodes adjacent to the given node along with the cost to move to those nodes from the given node. Distance estimator signature should be int(const TNode&amp; from, const TNode&amp; to)  <a href="#acf1db4fbab14c3a131d71e937d019a89">More...</a><br /></td></tr>
-<tr class="separator:acf1db4fbab14c3a131d71e937d019a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01677.html">bl::shapes::Ellipse</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01677.html" title="Ellipse shape defined by it&#39;s major and minor axes. The elipse is horizontal. ">Ellipse</a> shape defined by it's major and minor axes. The elipse is horizontal.  <a href="a01677.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01681.html">bl::shapes::GradientCircle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A circle, similar to sf::CircleShape, but with a color gradient between the circumfrence and center.  <a href="a01681.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01685.html">bl::shapes::Triangle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic triangle comprised of 3 points (which must not be colinear)  <a href="a01685.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename TNode, typename CoordHash&gt;<br />
-struct bl::ai::PathFinder&lt; TNode, CoordHash &gt;</h3>
-
-<p>Class for calculating paths between arbitrary points in a PathMap. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TNode</td><td>The type of coordinate/node used to index the map </td></tr>
-    <tr><td class="paramname">CoordHash</td><td>A hasher for the given coordinate type </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00005_source.html#l00025">25</a> of file <a class="el" href="a00005_source.html">PathFinder.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="acf1db4fbab14c3a131d71e937d019a89"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf1db4fbab14c3a131d71e937d019a89">&#9670;&nbsp;</a></span>findPath() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TNode , typename CoordHash &gt; </div>
-<div class="memtemplate">
-template&lt;typename TMapCallback , typename TDistFunc &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool <a class="el" href="a01034.html">bl::ai::PathFinder</a>&lt; TNode, CoordHash &gt;::findPath </td>
-          <td>(</td>
-          <td class="paramtype">const TNode &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const TNode &amp;&#160;</td>
-          <td class="paramname"><em>destination</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TMapCallback &amp;&amp;&#160;</td>
-          <td class="paramname"><em>adjacentNodeCb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TDistFunc &amp;&amp;&#160;</td>
-          <td class="paramname"><em>distCb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; TNode &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Calculates the shortest path between the two points using the map callback. Map callback signature should be void(const TNode&amp;, std::vector&lt;std::pair&lt;TNode, int&gt;&gt;&amp;). The vector should be populated with nodes adjacent to the given node along with the cost to move to those nodes from the given node. Distance estimator signature should be int(const TNode&amp; from, const TNode&amp; to) </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TMapCallback</td><td>Callback to get adjacent nodes and their movement cost </td></tr>
-    <tr><td class="paramname">TDistFunc</td><td>Callback to estimate distance between two non-adjacent nodes </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The point to start at </td></tr>
-    <tr><td class="paramname">destination</td><td>The point to end at </td></tr>
-    <tr><td class="paramname">adjacentNodeCb</td><td>Callback to get travel nodes for a given node </td></tr>
-    <tr><td class="paramname">distCb</td><td>Callback to estimate distance between two non-adjacent nodes </td></tr>
-    <tr><td class="paramname">result</td><td>The vector to store the calculated path in </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if a path was found, false if a path was not found </dd></dl>
-
-</div>
-</div>
-<a id="aa7f7fda9fb55ab275e59b100a12c1602"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7f7fda9fb55ab275e59b100a12c1602">&#9670;&nbsp;</a></span>findPath() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TNode , typename CoordHash &gt; </div>
-<div class="memtemplate">
-template&lt;typename TMapCb , typename TDistFunc &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a01034.html">bl::ai::PathFinder</a>&lt; TNode, CoordHash &gt;::findPath </td>
-          <td>(</td>
-          <td class="paramtype">const TNode &amp;&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const TNode &amp;&#160;</td>
-          <td class="paramname"><em>destination</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TMapCb &amp;&amp;&#160;</td>
-          <td class="paramname"><em>nodeCb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TDistFunc &amp;&amp;&#160;</td>
-          <td class="paramname"><em>distCb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; TNode &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00005_source.html#l00052">52</a> of file <a class="el" href="a00005_source.html">PathFinder.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/AI/<a class="el" href="a00005_source.html">PathFinder.hpp</a></li>
-</ul>
+<p>Collection of shapes to add to the functionality provided by SFML. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 27 2022 00:18:30 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 15 2022 03:22:47 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['engine',['Engine',['../a01198.html#a3e1914489e4bed4f9f23cdeab34a43dc',1,'bl::engine::Flags::Engine()'],['../a01158.html#a9129d0ec30349438c5a9e611fd5d232a',1,'bl::ecs::Registry::Engine()']]]
+  ['debugrenderer',['DebugRenderer',['../a01541.html#a3acc558cc7ff57a405b5073cd1eb7e3a',1,'bl::gui::Renderer']]],
+  ['dispatcher',['Dispatcher',['../a01317.html#ad90424f003fc2afb836709cbffa47e2c',1,'bl::event::Listener']]]
 ];

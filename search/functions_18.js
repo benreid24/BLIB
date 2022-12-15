@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['zoom',['zoom',['../a01662.html#a3a62d3487363e7ea5cd96c5efb7d83a0',1,'bl::render::camera::Camera']]]
+  ['xdialogpresent',['xdialogPresent',['../a01051.html#a362dc138b397eea67a6d9345dbc74c17',1,'bl::dialog']]],
+  ['xmessagepresent',['xmessagePresent',['../a01051.html#a190de3e17c25ab4d5fe0f29db0ab3613',1,'bl::dialog']]]
 ];

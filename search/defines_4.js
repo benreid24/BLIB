@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['slash',['SLASH',['../a00650.html#a69eb17477fd6f6af2c9ca2d5f4c7df3c',1,'tinyfiledialogs.cpp']]]
+  ['iftodt',['IFTODT',['../a00992.html#af862352847d1b389ef162ec1222130a8',1,'dirent_windows.h']]]
 ];

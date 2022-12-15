@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['g',['G',['../a00982.html#af98b10434d6862ecf69f33b6b5b25f27',1,'bl::script']]]
+  ['dir',['DIR',['../a00992.html#a805632179a707f8794b35f089c940cb3',1,'dirent_windows.h']]],
+  ['dirent',['dirent',['../a00992.html#ae50c911db67dfb4b55fbfc97a557f6f2',1,'dirent_windows.h']]]
 ];

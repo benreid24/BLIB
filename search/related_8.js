@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['objectpool',['ObjectPool',['../a01062.html#ac11347654b8fc761e209cd36a6253c10',1,'bl::container::ObjectPool::IteratorType']]]
+  ['logger',['Logger',['../a01633.html#a6ef866033498134ea52d9c9ea8072a29',1,'bl::logging::Config']]]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::event::EventWaiter&lt; T &gt; Class Template Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,164 +63,24 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00953.html">bl</a></li><li class="navelem"><a class="el" href="a00960.html">event</a></li><li class="navelem"><a class="el" href="a01222.html">EventWaiter</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01038.html">bl</a></li><li class="navelem"><a class="el" href="a01041.html">ecs</a></li><li class="navelem"><a class="el" href="a01225.html">ComponentSetMember</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a01219.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::event::EventWaiter&lt; T &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00930.html">Events</a></div></div>  </div>
+<div class="title">bl::ecs::ComponentSetMember&lt; T &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Utility class to block until a specific event is fired on the bus.  
- <a href="a01222.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00119_source.html">EventWaiter.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::event::EventWaiter&lt; T &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01222.png" usemap="#bl::event::EventWaiter_3C_20T_20_3E_map" alt=""/>
-  <map id="bl::event::EventWaiter_3C_20T_20_3E_map" name="bl::event::EventWaiter_3C_20T_20_3E_map">
-<area href="a01230.html" alt="bl::event::Listener&lt; T &gt;" shape="rect" coords="0,56,207,80"/>
-<area href="a02054.html" title="Helper class to make derived classes impossible for user to copy directly. " alt="bl::util::NonCopyable" shape="rect" coords="217,56,424,80"/>
-<area href="a01226.html" alt="bl::event::ListenerBase&lt; TEvents &gt;" shape="rect" coords="0,0,207,24"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a3eea54c1bb8adc793799fc7f80aae755"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01222.html#a3eea54c1bb8adc793799fc7f80aae755">EventWaiter</a> ()=default</td></tr>
-<tr class="memdesc:a3eea54c1bb8adc793799fc7f80aae755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Event Waiter object.  <a href="#a3eea54c1bb8adc793799fc7f80aae755">More...</a><br /></td></tr>
-<tr class="separator:a3eea54c1bb8adc793799fc7f80aae755"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e8fb6d84260f47fa02fdc1ac3fb432e"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01222.html#a2e8fb6d84260f47fa02fdc1ac3fb432e">wait</a> ()</td></tr>
-<tr class="memdesc:a2e8fb6d84260f47fa02fdc1ac3fb432e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Block until the correct type of event is fired. May be unblocked early on program termination if <a class="el" href="a02110.html#a8e35bb3db177d9587407b6baefcbaf1d" title="Unblocks all waiting threads. A program leveraging the Waiter class should call this before exit...">util::Waiter::unblockAll()</a> is called.  <a href="#a2e8fb6d84260f47fa02fdc1ac3fb432e">More...</a><br /></td></tr>
-<tr class="separator:a2e8fb6d84260f47fa02fdc1ac3fb432e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5297276cfbb757ede3391eb9d525832"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01226.html#ae5297276cfbb757ede3391eb9d525832">observe</a> (const TEvents &amp;event)=0</td></tr>
-<tr class="memdesc:ae5297276cfbb757ede3391eb9d525832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observe the given.  <a href="#ae5297276cfbb757ede3391eb9d525832">More...</a><br /></td></tr>
-<tr class="separator:ae5297276cfbb757ede3391eb9d525832"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-class bl::event::EventWaiter&lt; T &gt;</h3>
-
-<p>Utility class to block until a specific event is fired on the bus. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of event to block for </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00021">21</a> of file <a class="el" href="a00119_source.html">EventWaiter.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3eea54c1bb8adc793799fc7f80aae755"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3eea54c1bb8adc793799fc7f80aae755">&#9670;&nbsp;</a></span>EventWaiter()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01222.html">bl::event::EventWaiter</a>&lt; T &gt;::<a class="el" href="a01222.html">EventWaiter</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct a new Event Waiter object. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae5297276cfbb757ede3391eb9d525832"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5297276cfbb757ede3391eb9d525832">&#9670;&nbsp;</a></span>observe()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void <a class="el" href="a01226.html">bl::event::ListenerBase</a>&lt; TEvents  &gt;::observe </td>
-          <td>(</td>
-          <td class="paramtype">const TEvents  &amp;&#160;</td>
-          <td class="paramname"><em>event</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Observe the given. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">event</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a2e8fb6d84260f47fa02fdc1ac3fb432e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e8fb6d84260f47fa02fdc1ac3fb432e">&#9670;&nbsp;</a></span>wait()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::optional&lt; T &gt; &amp; <a class="el" href="a01222.html">bl::event::EventWaiter</a>&lt; T &gt;::wait </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Block until the correct type of event is fired. May be unblocked early on program termination if <a class="el" href="a02110.html#a8e35bb3db177d9587407b6baefcbaf1d" title="Unblocks all waiting threads. A program leveraging the Waiter class should call this before exit...">util::Waiter::unblockAll()</a> is called. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">bus</td><td>The event bus to wait on </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>const std::optional&lt;T&gt;&amp; The captured event if one was fired </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00048">48</a> of file <a class="el" href="a00119_source.html">EventWaiter.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Events/<a class="el" href="a00119_source.html">EventWaiter.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01225.html">bl::ecs::ComponentSetMember&lt; T &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01225.html#a3fa07bfb11ee552acad0efeff9653fa2">component</a></td><td class="entry"><a class="el" href="a01225.html">bl::ecs::ComponentSetMember&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01225.html#aefe8bb7b3962cc3219324276e445762e">ComponentSetMember</a>(Registry &amp;registry, Entity owner)</td><td class="entry"><a class="el" href="a01225.html">bl::ecs::ComponentSetMember&lt; T &gt;</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 27 2022 00:18:31 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 15 2022 03:22:47 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
