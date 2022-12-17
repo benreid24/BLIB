@@ -2,6 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 
+#include <BLIB/Util/FileUtil.hpp>
 #include <ctime>
 #include <iomanip>
 #include <iostream>
@@ -14,6 +15,13 @@ namespace logging
 namespace
 {
 const char* levels[] = {"TRACE", "DEBUG", "INFO", "WARN", "ERROR", "CRITICAL"};
+
+std::string logName(const std::string& base, int i) {
+    std::stringstream ss;
+    ss << base << "." << i << ".log";
+    return ss.str();
+}
+
 } // namespace
 
 Config::Config()
@@ -24,6 +32,16 @@ Config& Config::get() {
     // log in static/global destructors
     static Config* config = new Config();
     return *config;
+}
+
+void Config::rollLogs(const std::string& path, const std::string& name, unsigned int n) {
+    util::FileUtil::createDirectory(path);
+
+    const std::string base = util::FileUtil::joinPath(path, name);
+    for (int i = n; i > 1; --i) {
+        util::FileUtil::copyFile(logName(base, i), logName(base, i + 1));
+    }
+    util::FileUtil::copyFile(base + ".log", logName(base, 2));
 }
 
 void Config::configureOutput(std::ostream& s, int level) {
