@@ -38,10 +38,12 @@ void Config::rollLogs(const std::string& path, const std::string& name, unsigned
     util::FileUtil::createDirectory(path);
 
     const std::string base = util::FileUtil::joinPath(path, name);
-    for (int i = n; i > 1; --i) {
-        util::FileUtil::copyFile(logName(base, i), logName(base, i + 1));
+    for (int i = n - 1; i > 1; --i) {
+        const std::string src = logName(base, i);
+        if (util::FileUtil::exists(src)) { util::FileUtil::copyFile(src, logName(base, i + 1)); }
     }
-    util::FileUtil::copyFile(base + ".log", logName(base, 2));
+    const std::string og = base + ".log";
+    if (util::FileUtil::exists(og)) { util::FileUtil::copyFile(og, logName(base, 2)); }
 }
 
 void Config::configureOutput(std::ostream& s, int level) {
