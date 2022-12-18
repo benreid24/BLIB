@@ -1,9 +1,9 @@
 #ifndef BLIB_SHAPES_GRADIENTCIRCLE_HPP
 #define BLIB_SHAPES_GRADIENTCIRCLE_HPP
 
+#include <BLIB/Media/Graphics/VertexBuffer.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
-#include <SFML/Graphics/VertexArray.hpp>
 
 namespace bl
 {
@@ -79,7 +79,7 @@ protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-    sf::VertexArray points;
+    gfx::VertexBuffer points;
     float radius;
 
     void updatePoints();
