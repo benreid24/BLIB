@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['eventtype',['EventType',['../a01589.html#a0bae0491b79706cac6c93b58cfeb5ec5',1,'bl::menu::Item']]],
-  ['evictionpolicy',['EvictionPolicy',['../a01133.html#af0f51604e771b69b5595e11c19126fcf',1,'bl::container::Cache']]]
+  ['eventtype',['EventType',['../a01607.html#a0bae0491b79706cac6c93b58cfeb5ec5',1,'bl::menu::Item']]],
+  ['evictionpolicy',['EvictionPolicy',['../a01147.html#af0f51604e771b69b5595e11c19126fcf',1,'bl::container::Cache']]]
 ];
