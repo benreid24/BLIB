@@ -4,6 +4,7 @@ target_sources(BLIB PUBLIC
     Flags.hpp
     Settings.hpp
     State.hpp
+    Worker.hpp
 )
 
 add_subdirectory(Events)

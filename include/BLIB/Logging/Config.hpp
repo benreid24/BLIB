@@ -72,17 +72,14 @@ public:
     static void timeInUTC(bool utc);
 
 private:
-    mutable std::mutex mutex;
+    std::mutex mutex;
     bool utc;
-    mutable std::vector<std::pair<std::ostream*, int>> outputs;
+    std::vector<std::pair<std::ostream*, int>> outputs;
     std::list<std::fstream> files;
 
-    void doWrite(const std::string& content, int level) const;
+    void doWrite(const std::string& content, int level);
 
     std::string genPrefix(int level) const;
-
-    void lock() const;
-    void unlock() const;
 
     Config();
     static Config& get();

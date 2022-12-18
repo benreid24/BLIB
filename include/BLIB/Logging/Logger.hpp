@@ -80,9 +80,8 @@ struct Logger : public util::NonCopyable {
     static Logger trace();
 
 private:
-    Logger(const Config& config, int level);
+    Logger(int level);
 
-    const Config& config;
     const int level;
     mutable std::stringstream ss;
 };

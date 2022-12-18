@@ -1,31 +1,30 @@
 #include <BLIB/Logging.hpp>
 
+#include <BLIB/Engine/Worker.hpp>
+
 namespace bl
 {
 namespace logging
 {
-Logger Logger::critical() { return Logger(Config::get(), Config::Critical); }
+Logger Logger::critical() { return Logger(Config::Critical); }
 
-Logger Logger::error() { return Logger(Config::get(), Config::Error); }
+Logger Logger::error() { return Logger(Config::Error); }
 
-Logger Logger::warn() { return Logger(Config::get(), Config::Warn); }
+Logger Logger::warn() { return Logger(Config::Warn); }
 
-Logger Logger::info() { return Logger(Config::get(), Config::Info); }
+Logger Logger::info() { return Logger(Config::Info); }
 
-Logger Logger::debug() { return Logger(Config::get(), Config::Debug); }
+Logger Logger::debug() { return Logger(Config::Debug); }
 
-Logger Logger::trace() { return Logger(Config::get(), Config::Trace); }
+Logger Logger::trace() { return Logger(Config::Trace); }
 
-Logger::Logger(const Config& config, int level)
-: config(config)
-, level(level) {
-    ss << config.genPrefix(level);
+Logger::Logger(int level)
+: level(level) {
+    ss << Config::get().genPrefix(level);
 }
 
 Logger::~Logger() {
-    config.lock();
-    config.doWrite(ss.str(), level);
-    config.unlock();
+    engine::Worker::submit(std::bind(&Config::doWrite, &Config::get(), ss.str(), level));
 }
 
 } // namespace logging

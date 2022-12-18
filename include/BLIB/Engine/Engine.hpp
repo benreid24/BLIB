@@ -9,6 +9,7 @@
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
+#include <BLIB/Engine/Worker.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Input.hpp>
 #include <BLIB/Render.hpp>
@@ -138,6 +139,7 @@ public:
     void popState();
 
 private:
+    Worker worker;
     Settings engineSettings;
     Flags engineFlags;
     std::stack<State::Ptr> states;

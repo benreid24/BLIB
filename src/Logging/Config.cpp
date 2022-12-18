@@ -25,7 +25,10 @@ std::string logName(const std::string& base, int i) {
 } // namespace
 
 Config::Config()
-: utc(false) {}
+: utc(false) {
+    outputs.reserve(4);
+    outputs.emplace_back(&std::cout, Info);
+}
 
 Config& Config::get() {
     // yes this is a "leak" but we never want to destruct this, otherwise we cannot
@@ -54,7 +57,7 @@ void Config::configureOutput(std::ostream& s, int level) {
             return;
         }
     }
-    c.outputs.push_back(std::make_pair(&s, level));
+    c.outputs.emplace_back(&s, level);
 }
 
 void Config::addFileOutput(const std::string& file, int level) {
@@ -67,8 +70,6 @@ void Config::addFileOutput(const std::string& file, int level) {
 void Config::timeInUTC(bool utc) { get().utc = utc; }
 
 std::string Config::genPrefix(int level) const {
-    if (outputs.empty()) outputs.push_back(std::make_pair(&std::cout, Info));
-
     std::stringstream ss;
     const std::time_t now = std::time(nullptr);
     const auto time       = utc ? *std::gmtime(&now) : *std::localtime(&now);
@@ -83,15 +84,11 @@ std::string Config::genPrefix(int level) const {
     return ss.str();
 }
 
-void Config::doWrite(const std::string& data, int level) const {
+void Config::doWrite(const std::string& data, int level) {
     for (const auto& log : outputs) {
         if (log.second <= level) (*log.first) << data << std::endl;
     }
 }
-
-void Config::lock() const { mutex.lock(); }
-
-void Config::unlock() const { mutex.unlock(); }
 
 } // namespace logging
 } // namespace bl
