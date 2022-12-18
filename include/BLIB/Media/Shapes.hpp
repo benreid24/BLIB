@@ -10,6 +10,7 @@
 
 #include <BLIB/Media/Shapes/Ellipse.hpp>
 #include <BLIB/Media/Shapes/GradientCircle.hpp>
+#include <BLIB/Media/Shapes/GradientRectangle.hpp>
 #include <BLIB/Media/Shapes/Triangle.hpp>
 
 #endif

@@ -53,6 +53,18 @@ public:
     static void addFileOutput(const std::string& file, int logLevel = Info);
 
     /**
+     * @brief Rolls logs in the given directory. Files in the form "{name}.log" are rolled into
+     *        "{name}.{n}.log" and logs of the form "{name}.{n}.log" are rolled into
+     *        "{name}.{n+1}.log". Logs where n >= keepCount are deleted
+     *
+     * @param dir The directory to roll logs in
+     * @param name The base filename of the log files to roll, excluding extension
+     * @param keepCount How many logs to keep, including the current log file
+     */
+    static void rollLogs(const std::string& dir, const std::string& name,
+                         unsigned int keepCount = 3);
+
+    /**
      * @brief Set whether to log times in UTC or local time. Default is local time
      *
      * @param utc True to log in UTC, false for local time
@@ -60,17 +72,14 @@ public:
     static void timeInUTC(bool utc);
 
 private:
-    mutable std::mutex mutex;
+    std::mutex mutex;
     bool utc;
-    mutable std::vector<std::pair<std::ostream*, int>> outputs;
+    std::vector<std::pair<std::ostream*, int>> outputs;
     std::list<std::fstream> files;
 
-    void doWrite(const std::string& content, int level) const;
+    void doWrite(const std::string& content, int level);
 
     std::string genPrefix(int level) const;
-
-    void lock() const;
-    void unlock() const;
 
     Config();
     static Config& get();

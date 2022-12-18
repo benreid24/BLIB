@@ -18,14 +18,14 @@ struct Payload {
     std::string newerString;
 };
 
-struct DefaultLoader : public SerializerVersion<Payload> {
-    virtual bool read(Payload& result, InputStream& input) const override {
+struct DefaultLoader {
+    static bool read(Payload& result, InputStream& input) {
         if (!input.read(result.ogField)) return false;
         if (!input.read(result.ogString)) return false;
         return true;
     }
 
-    virtual bool write(const Payload& value, OutputStream& output) const override {
+    static bool write(const Payload& value, OutputStream& output) {
         if (!output.write(value.ogField)) return false;
         if (!output.write(value.ogString)) return false;
         return true;
@@ -34,28 +34,28 @@ struct DefaultLoader : public SerializerVersion<Payload> {
 
 using Version0 = DefaultLoader;
 
-struct Version1 : public Version0 {
-    virtual bool read(Payload& result, InputStream& input) const override {
+struct Version1 {
+    static bool read(Payload& result, InputStream& input) {
         if (!Version0::read(result, input)) return false;
         if (!input.read(result.newInt)) return false;
         return true;
     }
 
-    virtual bool write(const Payload& value, OutputStream& output) const override {
+    static bool write(const Payload& value, OutputStream& output) {
         if (!Version0::write(value, output)) return false;
         if (!output.write(value.newInt)) return false;
         return true;
     }
 };
 
-struct Version2 : public Version1 {
-    virtual bool read(Payload& result, InputStream& input) const override {
+struct Version2 {
+    static bool read(Payload& result, InputStream& input) {
         if (!Version1::read(result, input)) return false;
         if (!input.read(result.newerString)) return false;
         return true;
     }
 
-    virtual bool write(const Payload& value, OutputStream& output) const override {
+    static bool write(const Payload& value, OutputStream& output) {
         if (!Version1::write(value, output)) return false;
         if (!output.write(value.newerString)) return false;
         return true;
@@ -68,14 +68,14 @@ TEST(BinaryVersionedSerializer, DefaultLoader) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedSerializer<Payload, DefaultLoader> file;
+    using TestLoader = VersionedSerializer<Payload, DefaultLoader, DefaultLoader>;
     MemoryOutputBuffer outbuf;
     OutputStream out(outbuf);
-    ASSERT_TRUE(file.write(out, orig));
+    ASSERT_TRUE(TestLoader::write(out, orig));
 
     MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
     InputStream in(inbuf);
-    ASSERT_TRUE(file.read(in, loaded));
+    ASSERT_TRUE(TestLoader::read(in, loaded));
 
     EXPECT_EQ(loaded.ogField, 42);
     EXPECT_EQ(loaded.ogString, "hello");
@@ -87,14 +87,14 @@ TEST(BinaryVersionedSerializer, MultipleVersions) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2> file;
+    using TestLoader = VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2>;
     MemoryOutputBuffer outbuf;
     OutputStream out(outbuf);
-    ASSERT_TRUE(file.write(out, orig));
+    ASSERT_TRUE(TestLoader::write(out, orig));
 
     MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
     InputStream in(inbuf);
-    ASSERT_TRUE(file.read(in, loaded));
+    ASSERT_TRUE(TestLoader::read(in, loaded));
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
     EXPECT_EQ(loaded.ogString, orig.ogString);
@@ -106,15 +106,15 @@ TEST(BinaryVersionedSerializer, LoadOldVersion) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedSerializer<Payload, DefaultLoader, Version0, Version1> oldfile;
+    using OldLoader = VersionedSerializer<Payload, DefaultLoader, Version0, Version1>;
     MemoryOutputBuffer outbuf;
     OutputStream out(outbuf);
-    ASSERT_TRUE(oldfile.write(out, orig));
+    ASSERT_TRUE(OldLoader::write(out, orig));
 
-    VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
+    using NewLoader = VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2>;
     MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
     InputStream in(inbuf);
-    ASSERT_TRUE(newfile.read(in, loaded));
+    ASSERT_TRUE(NewLoader::read(in, loaded));
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
     EXPECT_EQ(loaded.ogString, orig.ogString);
@@ -126,15 +126,15 @@ TEST(BinaryVersionedSerializer, LoadNoVersion) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedSerializer<Payload, DefaultLoader> oldfile;
+    using OldLoader = VersionedSerializer<Payload, DefaultLoader, DefaultLoader>;
     MemoryOutputBuffer outbuf;
     OutputStream out(outbuf);
-    ASSERT_TRUE(oldfile.write(out, orig));
+    ASSERT_TRUE(OldLoader::write(out, orig));
 
-    VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
+    using NewLoader = VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2>;
     MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
     InputStream in(inbuf);
-    ASSERT_TRUE(newfile.read(in, loaded));
+    ASSERT_TRUE(NewLoader::read(in, loaded));
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
     EXPECT_EQ(loaded.ogString, orig.ogString);
@@ -146,16 +146,34 @@ TEST(BinaryVersionedSerializer, BadVersion) {
     const Payload orig = {42, "hello", 55, "goodbye"};
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
-    VersionedSerializer<Payload, DefaultLoader, Version0> oldfile;
-    VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2> newfile;
+    using OldLoader = VersionedSerializer<Payload, DefaultLoader, Version0>;
+    using NewLoader = VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2>;
 
     MemoryOutputBuffer outbuf;
     OutputStream out(outbuf);
-    ASSERT_TRUE(newfile.write(out, orig));
+    ASSERT_TRUE(NewLoader::write(out, orig));
 
     MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
     InputStream in(inbuf);
-    ASSERT_FALSE(oldfile.read(in, loaded));
+    ASSERT_FALSE(OldLoader::read(in, loaded));
+}
+
+TEST(BinaryVersionedSerializer, EnsureVersionOrder) {
+    using VS = VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2>;
+
+    Payload value = {1234, "oh no", 77, "not goodbye"};
+    MemoryOutputBuffer outbuf;
+    OutputStream out(outbuf);
+    ASSERT_TRUE(VS::write(out, value));
+
+    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
+    InputStream in(inbuf);
+
+    std::uint32_t header;
+    ASSERT_TRUE(in.read<std::uint32_t>(header));
+    std::uint32_t version;
+    ASSERT_TRUE(in.read<std::uint32_t>(version));
+    EXPECT_EQ(version, 2);
 }
 
 } // namespace unittest

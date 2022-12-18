@@ -8,7 +8,7 @@ namespace bl
 namespace shapes
 {
 GradientCircle::GradientCircle(float r, bool co, unsigned int pc)
-: points(sf::PrimitiveType::TrianglesFan, std::max(pc + 2, 10u)) {
+: points(sf::PrimitiveType::TrianglesFan, sf::VertexBuffer::Dynamic, std::max(pc + 2, 10u)) {
     setRadius(r, co);
 }
 
@@ -20,12 +20,16 @@ void GradientCircle::setRadius(float r, bool co) {
 
 float GradientCircle::getRadius() const { return radius; }
 
-void GradientCircle::setCenterColor(const sf::Color& color) { points[0].color = color; }
+void GradientCircle::setCenterColor(const sf::Color& color) {
+    points[0].color = color;
+    points.update(0, 1);
+}
 
 sf::Color GradientCircle::getCenterColor() const { return points[0].color; }
 
 void GradientCircle::setOuterColor(const sf::Color& color) {
-    for (unsigned int i = 1; i < points.getVertexCount(); ++i) { points[i].color = color; }
+    for (unsigned int i = 1; i < points.size(); ++i) { points[i].color = color; }
+    points.update();
 }
 
 sf::Color GradientCircle::getOuterColor() const { return points[1].color; }
@@ -39,14 +43,15 @@ void GradientCircle::updatePoints() {
     static const float pi = 3.151492654f;
 
     points[0].position = {radius, radius};
-    for (unsigned int i = 1; i < points.getVertexCount() - 1; ++i) {
-        const float ratio =
-            static_cast<float>(i - 1) / static_cast<float>(points.getVertexCount() - 1);
+    for (unsigned int i = 1; i < points.size() - 1; ++i) {
+        const float ratio    = static_cast<float>(i - 1) / static_cast<float>(points.size() - 1);
         const float angle    = 2 * pi * ratio;
         points[i].position.x = radius * std::cos(angle) + radius;
         points[i].position.y = radius * std::sin(angle) + radius;
     }
-    points[points.getVertexCount() - 1].position = points[1].position;
+    points[points.size() - 1].position = points[1].position;
+
+    points.update();
 }
 
 } // namespace shapes
