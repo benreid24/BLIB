@@ -232,15 +232,24 @@ std::string FileUtil::getDataDirectory(const std::string& appName) {
 }
 
 bool FileUtil::readFile(const std::string& filename, std::string& out) {
-    out.clear();
-
     std::ifstream file(filename.c_str());
     if (!file.good()) return false;
 
     file.seekg(0, std::ios::end);
-    out.reserve(file.tellg());
+    out.resize(file.tellg());
     file.seekg(0, std::ios::beg);
-    out.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    file.read(out.data(), out.size());
+    return true;
+}
+
+bool FileUtil::readFile(const std::string& filename, std::vector<char>& out) {
+    std::ifstream file(filename.c_str(), std::ios::binary);
+    if (!file.good()) return false;
+
+    file.seekg(0, std::ios::end);
+    out.resize(file.tellg());
+    file.seekg(0, std::ios::beg);
+    file.read(out.data(), out.size());
     return true;
 }
 

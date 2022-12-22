@@ -28,16 +28,9 @@ bool FileSystem::getData(const std::string& path, char** buffer, std::size_t& le
         // keep buffer in memory
         auto it = persistentBuffers.find(path);
         if (it == persistentBuffers.end()) { it = persistentBuffers.try_emplace(path).first; }
-
-        std::ifstream input(path.c_str(), std::ios::in | std::ios::binary);
-        if (!input.good()) return false;
-        input.seekg(0, std::ios_base::end);
-        const std::streampos fileSize = input.tellg();
-        it->second.resize(fileSize);
-        input.seekg(0, std::ios_base::beg);
-        input.read(it->second.data(), fileSize);
+        if (!util::FileUtil::readFile(path, it->second)) return false;
         *buffer = it->second.data();
-        len     = fileSize;
+        len     = it->second.size();
         return true;
     }
 }
