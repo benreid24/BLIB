@@ -7,6 +7,8 @@ function(configure_target target_name)
         target_compile_definitions(${target_name} PUBLIC BLIB_LINUX=1) # we don't really care about Sun/IBM/etc
     endif()
 
+    target_compile_definitions(${target_name} PUBLIC GLAD_VULKAN_IMPLEMENTATION)
+
     if (MSVC)
         # warning level 4
         target_compile_options(${target_name} PUBLIC /W4)
@@ -23,6 +25,20 @@ function(configure_target target_name)
     else()
         # lots of warnings
         target_compile_options(${target_name} PUBLIC -Wall -Wextra -pedantic)
+    endif()
+
+    # Include directories
+    target_include_directories(${target_name} PUBLIC 
+        "${BLIB_CMAKE_PATH}/include"
+        "${BLIB_CMAKE_PATH}/lib/SFML/include"
+        "${BLIB_CMAKE_PATH}/lib/glm"
+    )
+    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+        target_compile_definitions(${target_name} PUBLIC BLIB_DEBUG)
+        target_include_directories(${target_name} PUBLIC "lib/glad/glad_debug/include")
+    else()
+        target_compile_definitions(${target_name} PUBLIC BLIB_RELEASE)
+        target_include_directories(${target_name} PUBLIC  "${CMAKE_CURRENT_SOURCE_DIR}/glad_release/include")
     endif()
 
     # Static link everything

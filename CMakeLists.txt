@@ -26,12 +26,7 @@ set(CMAKE_INSTALL_PREFIX .)
 
 add_library(BLIB STATIC)
 
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_definitions(BLIB PUBLIC BLIB_DEBUG)
-else()
-    target_compile_definitions(BLIB PUBLIC BLIB_RELEASE)
-endif()
-
+set(BLIB_CMAKE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(blib_helpers)
 configure_target(BLIB)
@@ -39,13 +34,13 @@ configure_target(BLIB)
 set(BUILD_SHARED_LIBS Off)
 add_compile_definitions(SFML_STATIC)
 set(SFML_USE_STATIC_STD_LIBS On)
-include_directories(lib/SFML/include)
 add_subdirectory(lib/SFML)
 set_target_properties(sfml-audio PROPERTIES CXX_STANDARD 98 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
 
+add_subdirectory(lib/glad)
+
 add_subdirectory(include/BLIB)
 add_subdirectory(src)
-include_directories(include)
 
 target_link_libraries(BLIB PRIVATE
     sfml-graphics
