@@ -20,6 +20,12 @@ struct RendererState {
     RenderSwapFrame* beginFrame(VkRenderPassBeginInfo& renderPassInfo);
     void completeFrame();
 
+    std::uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
+
+    void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties,
+                      VkBuffer& buffer, VkDeviceMemory& bufferMemory);
+    void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
+
     VkInstance instance;
 #ifdef BLIB_DEBUG
     VkDebugUtilsMessengerEXT debugMessenger;
@@ -36,6 +42,7 @@ struct RendererState {
     std::vector<VkImageView> swapChainImageViews;
     std::vector<VkFramebuffer> swapChainFramebuffers;
     VkCommandPool commandPool;
+    VkCommandBuffer transferCommandBuffer;
     std::array<RenderSwapFrame, MaxConcurrentFrames> renderFrames;
 
 private:

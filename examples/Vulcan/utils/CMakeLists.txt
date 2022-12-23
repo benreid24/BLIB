@@ -7,4 +7,8 @@ target_sources(bvulkan PRIVATE
     RenderSwapFrame.cpp
     SwapChainSupportDetails.hpp
     SwapChainSupportDetails.cpp
+    Vertex.hpp
+    Vertex.cpp
+    VertexBuffer.hpp
+    VertexBuffer.cpp
 )

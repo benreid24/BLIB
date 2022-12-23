@@ -1,5 +1,7 @@
 #include "Renderer.hpp"
 
+#include "utils/Vertex.hpp"
+#include "utils/VertexBuffer.hpp"
 #include <BLIB/Util/FileUtil.hpp>
 
 namespace
@@ -26,6 +28,9 @@ Renderer::Renderer(sf::WindowBase& window)
 
 Renderer::~Renderer() {
     vkDeviceWaitIdle(state.device);
+
+    for (VertexBufferBase* vb : vertexBuffers) { vb->destroy(); }
+
     vkDestroyPipeline(state.device, graphicsPipeline, nullptr);
     vkDestroyPipelineLayout(state.device, pipelineLayout, nullptr);
     vkDestroyRenderPass(state.device, renderPass, nullptr);
@@ -47,6 +52,7 @@ void Renderer::render() {
 }
 
 void Renderer::doRender(VkRenderPassBeginInfo& renderPassInfo, RenderSwapFrame& frame) {
+    // setup
     VkClearValue clearColor        = {{{0.0f, 0.0f, 0.0f, 1.0f}}};
     renderPassInfo.clearValueCount = 1;
     renderPassInfo.pClearValues    = &clearColor;
@@ -68,9 +74,10 @@ void Renderer::doRender(VkRenderPassBeginInfo& renderPassInfo, RenderSwapFrame& 
     scissor.extent = state.swapChainExtent;
     vkCmdSetScissor(frame.commandBuffer, 0, 1, &scissor);
 
-    // actual draw command
-    vkCmdDraw(frame.commandBuffer, 3, 1, 0, 0);
+    // actual draw commands
+    for (VertexBufferBase* vb : vertexBuffers) { vb->render(frame.commandBuffer); }
 
+    // end pass
     vkCmdEndRenderPass(frame.commandBuffer);
     if (vkEndCommandBuffer(frame.commandBuffer) != VK_SUCCESS) {
         throw std::runtime_error("Failed to record command buffer");
@@ -151,12 +158,14 @@ void Renderer::createPipeline() {
     dynamicState.pDynamicStates    = dynamicStates;
 
     // configure vertex attributes
+    VkVertexInputBindingDescription bindingDescription = Vertex::bindingDescription();
+    const auto attributeDescriptions                   = Vertex::attributeDescriptions();
     VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-    vertexInputInfo.vertexBindingDescriptionCount   = 0;
-    vertexInputInfo.pVertexBindingDescriptions      = nullptr; // Optional
-    vertexInputInfo.vertexAttributeDescriptionCount = 0;
-    vertexInputInfo.pVertexAttributeDescriptions    = nullptr; // Optional
+    vertexInputInfo.vertexBindingDescriptionCount   = 1;
+    vertexInputInfo.pVertexBindingDescriptions      = &bindingDescription;
+    vertexInputInfo.vertexAttributeDescriptionCount = attributeDescriptions.size();
+    vertexInputInfo.pVertexAttributeDescriptions    = attributeDescriptions.data();
 
     // setup primitive type
     VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
@@ -258,3 +267,7 @@ void Renderer::createPipeline() {
     vkDestroyShaderModule(state.device, fragShaderModule, nullptr);
     vkDestroyShaderModule(state.device, vertShaderModule, nullptr);
 }
+
+void Renderer::registerVertexBuffer(VertexBufferBase* vb) { vertexBuffers.emplace(vb); }
+
+void Renderer::unregisterVertexBuffer(VertexBufferBase* vb) { vertexBuffers.erase(vb); }

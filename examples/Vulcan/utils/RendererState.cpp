@@ -122,6 +122,7 @@ RendererState::RendererState(sf::WindowBase& window)
 }
 
 RendererState::~RendererState() {
+    vkFreeCommandBuffers(device, commandPool, 1, &transferCommandBuffer);
     cleanupSwapchain();
     for (RenderSwapFrame& frame : renderFrames) { frame.cleanup(device); }
     vkDestroyCommandPool(device, commandPool, nullptr);
@@ -312,6 +313,7 @@ void RendererState::createInstance() {
     }
 }
 
+#ifdef BLIB_DEBUG
 void RendererState::setupDebugMessenger() {
     VkDebugUtilsMessengerCreateInfoEXT createInfo{};
     createInfo.sType           = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
@@ -332,6 +334,7 @@ void RendererState::setupDebugMessenger() {
     }
     else { throw std::runtime_error("Failed to load vkCreateDebugUtilsMessengerEXT"); }
 }
+#endif
 
 void RendererState::createSurface() {
     if (!window.createVulkanSurface(instance, surface)) {
@@ -508,6 +511,14 @@ void RendererState::createCommandPool() {
     if (vkCreateCommandPool(device, &poolInfo, nullptr, &commandPool) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create command pool");
     }
+
+    // create long-lived command-buffer for memory transfers
+    VkCommandBufferAllocateInfo allocInfo{};
+    allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+    allocInfo.commandPool        = commandPool;
+    allocInfo.commandBufferCount = 1;
+    vkAllocateCommandBuffers(device, &allocInfo, &transferCommandBuffer);
 }
 
 void RendererState::createRenderFrames() {
@@ -556,8 +567,75 @@ void RendererState::cleanupSwapchain() {
     vkDestroySwapchainKHR(device, swapChain, nullptr);
 }
 
+#ifdef BLIB_DEBUG
 void RendererState::cleanupDebugMessenger() {
     auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
         instance, "vkDestroyDebugUtilsMessengerEXT");
     if (func != nullptr) { func(instance, debugMessenger, nullptr); }
+}
+#endif
+
+std::uint32_t RendererState::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
+    VkPhysicalDeviceMemoryProperties memProperties;
+    vkGetPhysicalDeviceMemoryProperties(physicalDevice, &memProperties);
+    for (std::uint32_t i = 0; i < memProperties.memoryTypeCount; i++) {
+        if ((typeFilter & (1 << i)) &&
+            (memProperties.memoryTypes[i].propertyFlags & properties) == properties) {
+            return i;
+        }
+    }
+
+    throw std::runtime_error("failed to find suitable memory type!");
+}
+
+void RendererState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
+                                 VkMemoryPropertyFlags properties, VkBuffer& buffer,
+                                 VkDeviceMemory& bufferMemory) {
+    VkBufferCreateInfo bufferInfo{};
+    bufferInfo.sType       = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+    bufferInfo.size        = size;
+    bufferInfo.usage       = usage;
+    bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+
+    if (vkCreateBuffer(device, &bufferInfo, nullptr, &buffer) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create buffer!");
+    }
+
+    VkMemoryRequirements memRequirements;
+    vkGetBufferMemoryRequirements(device, buffer, &memRequirements);
+
+    VkMemoryAllocateInfo allocInfo{};
+    allocInfo.sType           = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+    allocInfo.allocationSize  = memRequirements.size;
+    allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
+
+    if (vkAllocateMemory(device, &allocInfo, nullptr, &bufferMemory) != VK_SUCCESS) {
+        throw std::runtime_error("failed to allocate buffer memory!");
+    }
+
+    vkBindBufferMemory(device, buffer, bufferMemory, 0);
+}
+
+void RendererState::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
+    VkCommandBufferBeginInfo beginInfo{};
+    beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+    beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
+    vkBeginCommandBuffer(transferCommandBuffer, &beginInfo);
+
+    VkBufferCopy copyRegion{};
+    copyRegion.srcOffset = 0; // Optional
+    copyRegion.dstOffset = 0; // Optional
+    copyRegion.size      = size;
+    vkCmdCopyBuffer(transferCommandBuffer, srcBuffer, dstBuffer, 1, &copyRegion);
+
+    vkEndCommandBuffer(transferCommandBuffer);
+
+    // submit and wait
+    VkSubmitInfo submitInfo{};
+    submitInfo.sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+    submitInfo.commandBufferCount = 1;
+    submitInfo.pCommandBuffers    = &transferCommandBuffer;
+
+    vkQueueSubmit(graphicsQueue, 1, &submitInfo, VK_NULL_HANDLE);
+    vkQueueWaitIdle(graphicsQueue);
 }

@@ -2,6 +2,8 @@
 #include "utils/QueueFamilyLocator.hpp"
 #include "utils/RenderSwapFrame.hpp"
 #include "utils/SwapChainSupportDetails.hpp"
+#include "utils/Vertex.hpp"
+#include "utils/VertexBuffer.hpp"
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <SFML/Graphics.hpp>
@@ -14,11 +16,19 @@
 #include <set>
 #include <unordered_set>
 
+const std::vector<Vertex> vertices = {{{0.0f, -0.5f}, {0.3f, 0.8f, 0.8f}},
+                                      {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
+                                      {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}};
+
 class VulkanSandbox {
 public:
     VulkanSandbox(sf::WindowBase& window)
     : window(window)
-    , renderer(window) {}
+    , renderer(window)
+    , vertexBuffer(renderer, vertices.size()) {
+        std::memcpy(vertexBuffer.data(), vertices.data(), sizeof(Vertex) * vertices.size());
+        vertexBuffer.sendToGPU();
+    }
 
     void run() {
         while (window.isOpen()) {
@@ -41,6 +51,8 @@ public:
 private:
     sf::WindowBase& window;
     Renderer renderer;
+
+    VertexBuffer<Vertex> vertexBuffer;
 
     bool awaitFocus() {
         sf::Event event;
