@@ -24,4 +24,6 @@ void VertexBufferBase::destroy() {
     if (!vertexBuffer || !vertexBufferMemory) return;
     vkDestroyBuffer(owner.state.device, vertexBuffer, nullptr);
     vkFreeMemory(owner.state.device, vertexBufferMemory, nullptr);
+    vertexBuffer       = nullptr;
+    vertexBufferMemory = nullptr;
 }

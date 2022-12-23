@@ -1,4 +1,5 @@
 #include "Renderer.hpp"
+#include "utils/IndexBuffer.hpp"
 #include "utils/QueueFamilyLocator.hpp"
 #include "utils/RenderSwapFrame.hpp"
 #include "utils/SwapChainSupportDetails.hpp"
@@ -20,14 +21,26 @@ const std::vector<Vertex> vertices = {{{0.0f, -0.5f}, {0.3f, 0.8f, 0.8f}},
                                       {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
                                       {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}};
 
+const std::vector<Vertex> ibufVertices   = {{{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+                                            {{0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}},
+                                            {{0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}},
+                                            {{-0.5f, 0.5f}, {1.0f, 1.0f, 1.0f}}};
+const std::vector<std::uint32_t> indices = {0, 1, 2, 2, 3, 0};
+
 class VulkanSandbox {
 public:
     VulkanSandbox(sf::WindowBase& window)
     : window(window)
     , renderer(window)
-    , vertexBuffer(renderer, vertices.size()) {
+    , vertexBuffer(renderer, vertices.size())
+    , indexBuffer(renderer, ibufVertices.size(), indices.size()) {
         std::memcpy(vertexBuffer.data(), vertices.data(), sizeof(Vertex) * vertices.size());
         vertexBuffer.sendToGPU();
+
+        std::memcpy(indexBuffer.data(), ibufVertices.data(), sizeof(Vertex) * ibufVertices.size());
+        std::memcpy(
+            indexBuffer.indiceData(), indices.data(), sizeof(std::uint32_t) * indices.size());
+        indexBuffer.sendToGPU();
     }
 
     void run() {
@@ -42,7 +55,12 @@ public:
                 }
             }
 
-            renderer.render();
+            const auto doRender = [this](VkCommandBuffer commandBuffer) {
+                vertexBuffer.render(commandBuffer);
+                indexBuffer.render(commandBuffer);
+            };
+
+            renderer.render(doRender);
 
             sf::sleep(sf::milliseconds(16));
         }
@@ -53,6 +71,7 @@ private:
     Renderer renderer;
 
     VertexBuffer<Vertex> vertexBuffer;
+    IndexBuffer<Vertex> indexBuffer;
 
     bool awaitFocus() {
         sf::Event event;

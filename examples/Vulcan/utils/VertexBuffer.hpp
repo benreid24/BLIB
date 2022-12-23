@@ -2,28 +2,34 @@
 #define VERTEXBUFFER_HPP
 
 #include <glad/vulkan.h>
+#include <initializer_list>
 #include <vector>
+
+#include <BLIB/Logging.hpp>
 
 class Renderer;
 
-struct VertexBufferBase {
+class VertexBufferBase {
+public:
+    VertexBufferBase(Renderer& owner);
+    virtual ~VertexBufferBase();
+
+    void render(VkCommandBuffer commandBuffer);
+    virtual void destroy();
+
+protected:
     Renderer& owner;
     VkBuffer vertexBuffer;
     VkDeviceMemory vertexBufferMemory;
     std::uint32_t vertexCount;
-
-    VertexBufferBase(Renderer& owner);
-    ~VertexBufferBase();
-
-    void render(VkCommandBuffer commandBuffer);
-    void destroy();
 };
 
 template<typename T>
-class VertexBuffer : private VertexBufferBase {
+class VertexBuffer : public VertexBufferBase {
 public:
     VertexBuffer(Renderer& owner);
     VertexBuffer(Renderer& owner, unsigned int size);
+    virtual ~VertexBuffer() = default;
 
     void create(unsigned int size);
 
