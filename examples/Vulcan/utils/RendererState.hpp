@@ -2,6 +2,7 @@
 #define RENDERERSTATE_HPP
 
 #include "RenderSwapFrame.hpp"
+#include "TransformUniform.hpp"
 #include <SFML/Window.hpp>
 #include <array>
 #include <cstdint>
@@ -15,9 +16,11 @@ struct RendererState {
     ~RendererState();
 
     void finalizeInitialization(VkRenderPass renderPass);
+
     void invalidateSwapChain();
 
-    RenderSwapFrame* beginFrame(VkRenderPassBeginInfo& renderPassInfo);
+    void updateUniforms(const TransformUniform& tform);
+    RenderSwapFrame* beginFrame(VkRenderPassBeginInfo& renderPassInfo, VkDescriptorSet& descriptorSet);
     void completeFrame();
 
     std::uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
@@ -45,6 +48,13 @@ struct RendererState {
     VkCommandBuffer transferCommandBuffer;
     std::array<RenderSwapFrame, MaxConcurrentFrames> renderFrames;
 
+    VkDescriptorSetLayout descriptorSetLayout;
+    std::array<VkBuffer, MaxConcurrentFrames> uniformBuffers;
+    std::array<VkDeviceMemory, MaxConcurrentFrames> uniformBuffersMemory;
+    std::array<void*, MaxConcurrentFrames> uniformBuffersMapped;
+    VkDescriptorPool descriptorPool;
+    std::array<VkDescriptorSet, MaxConcurrentFrames> descriptorSets;
+
 private:
     sf::WindowBase& window;
     VkRenderPass renderPass;
@@ -62,6 +72,10 @@ private:
     void createFramebuffers();
     void createCommandPool();
     void createRenderFrames();
+    void createDescriptorSetLayout();
+    void createUniformBuffers();
+    void createDescriptorPool();
+    void createDescriptorSets();
 
     void recreateSwapChain();
 

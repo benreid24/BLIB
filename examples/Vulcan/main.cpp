@@ -1,3 +1,7 @@
+#define GLM_FORCE_RADIANS
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "Renderer.hpp"
 #include "utils/IndexBuffer.hpp"
 #include "utils/QueueFamilyLocator.hpp"
@@ -17,9 +21,9 @@
 #include <set>
 #include <unordered_set>
 
-const std::vector<Vertex> vertices = {{{0.0f, -0.5f}, {0.3f, 0.8f, 0.8f}},
-                                      {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
-                                      {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}};
+const std::vector<Vertex> vertices = {{{0.0f, -0.75f}, {0.3f, 0.8f, 0.8f}},
+                                      {{0.5f, 0.f}, {0.0f, 1.0f, 0.0f}},
+                                      {{-0.5f, 0.f}, {0.0f, 0.0f, 1.0f}}};
 
 const std::vector<Vertex> ibufVertices   = {{{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}},
                                             {{0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}},
@@ -41,6 +45,15 @@ public:
         std::memcpy(
             indexBuffer.indiceData(), indices.data(), sizeof(std::uint32_t) * indices.size());
         indexBuffer.sendToGPU();
+
+        transform.view = glm::lookAt(
+            glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        transform.proj = glm::perspective(glm::radians(45.0f),
+                                          static_cast<float>(window.getSize().x) /
+                                              static_cast<float>(window.getSize().y),
+                                          0.1f,
+                                          10.0f);
+        transform.proj[1][1] *= -1.f;
     }
 
     void run() {
@@ -48,18 +61,33 @@ public:
             sf::Event event;
             while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed) { return; }
-                else if (event.type == sf::Event::Resized) { renderer.invalidateSwapChain(); }
+                else if (event.type == sf::Event::Resized) {
+                    renderer.invalidateSwapChain();
+                    transform.proj = glm::perspective(glm::radians(45.0f),
+                                                      static_cast<float>(window.getSize().x) /
+                                                          static_cast<float>(window.getSize().y),
+                                                      0.1f,
+                                                      10.0f);
+                    transform.proj[1][1] *= -1.f;
+                }
                 else if (event.type == sf::Event::LostFocus) {
                     if (!awaitFocus()) { return; }
                     renderer.invalidateSwapChain();
                 }
             }
 
+            // update spinning transform
+            transform.model = glm::rotate(glm::mat4(1.0f),
+                                          timer.getElapsedTime().asSeconds() * glm::radians(90.0f),
+                                          glm::vec3(0.0f, 0.0f, 1.0f));
+
+            // render
             const auto doRender = [this](VkCommandBuffer commandBuffer) {
                 vertexBuffer.render(commandBuffer);
                 indexBuffer.render(commandBuffer);
             };
 
+            renderer.state.updateUniforms(transform);
             renderer.render(doRender);
 
             sf::sleep(sf::milliseconds(16));
@@ -70,6 +98,8 @@ private:
     sf::WindowBase& window;
     Renderer renderer;
 
+    sf::Clock timer;
+    TransformUniform transform;
     VertexBuffer<Vertex> vertexBuffer;
     IndexBuffer<Vertex> indexBuffer;
 

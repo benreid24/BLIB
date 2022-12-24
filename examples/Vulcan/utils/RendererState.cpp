@@ -2,6 +2,7 @@
 
 #include "QueueFamilyLocator.hpp"
 #include "SwapChainSupportDetails.hpp"
+#include "TransformUniform.hpp"
 #include <BLIB/Logging.hpp>
 #include <set>
 #include <string>
@@ -119,9 +120,19 @@ RendererState::RendererState(sf::WindowBase& window)
     createImageViews();
     createCommandPool();
     createRenderFrames();
+    createDescriptorSetLayout();
+    createUniformBuffers();
+    createDescriptorPool();
+    createDescriptorSets();
 }
 
 RendererState::~RendererState() {
+    for (unsigned int i = 0; i < uniformBuffers.size(); ++i) {
+        vkDestroyBuffer(device, uniformBuffers[i], nullptr);
+        vkFreeMemory(device, uniformBuffersMemory[i], nullptr);
+    }
+    vkDestroyDescriptorPool(device, descriptorPool, nullptr);
+    vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
     vkFreeCommandBuffers(device, commandPool, 1, &transferCommandBuffer);
     cleanupSwapchain();
     for (RenderSwapFrame& frame : renderFrames) { frame.cleanup(device); }
@@ -141,8 +152,10 @@ void RendererState::finalizeInitialization(VkRenderPass rp) {
 
 void RendererState::invalidateSwapChain() { swapChainOutOfDate = true; }
 
-RenderSwapFrame* RendererState::beginFrame(VkRenderPassBeginInfo& renderPassInfo) {
+RenderSwapFrame* RendererState::beginFrame(VkRenderPassBeginInfo& renderPassInfo,
+                                           VkDescriptorSet& descriptorSet) {
     RenderSwapFrame& frame = renderFrames[currentFrame];
+    descriptorSet          = descriptorSets[currentFrame];
 
     // wait for previous frame
     vkWaitForFences(device, 1, &frame.inFlightFence, VK_TRUE, UINT64_MAX);
@@ -546,6 +559,88 @@ void RendererState::createFramebuffers() {
     }
 }
 
+void RendererState::createDescriptorSetLayout() {
+    VkDescriptorSetLayoutBinding uboLayoutBinding{};
+    uboLayoutBinding.binding            = 0;
+    uboLayoutBinding.descriptorType     = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    uboLayoutBinding.descriptorCount    = 1;
+    uboLayoutBinding.stageFlags         = VK_SHADER_STAGE_VERTEX_BIT;
+    uboLayoutBinding.pImmutableSamplers = nullptr; // Optional
+
+    VkDescriptorSetLayoutCreateInfo layoutInfo{};
+    layoutInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+    layoutInfo.bindingCount = 1;
+    layoutInfo.pBindings    = &uboLayoutBinding;
+    if (vkCreateDescriptorSetLayout(device, &layoutInfo, nullptr, &descriptorSetLayout) !=
+        VK_SUCCESS) {
+        throw std::runtime_error("Failed to create descriptor set layout");
+    }
+}
+
+void RendererState::createUniformBuffers() {
+    VkDeviceSize bufferSize = sizeof(TransformUniform);
+
+    for (size_t i = 0; i < MaxConcurrentFrames; i++) {
+        createBuffer(bufferSize,
+                     VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+                     VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+                     uniformBuffers[i],
+                     uniformBuffersMemory[i]);
+
+        vkMapMemory(device, uniformBuffersMemory[i], 0, bufferSize, 0, &uniformBuffersMapped[i]);
+    }
+}
+
+void RendererState::createDescriptorPool() {
+    VkDescriptorPoolSize poolSize{};
+    poolSize.type            = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    poolSize.descriptorCount = static_cast<std::uint32_t>(MaxConcurrentFrames);
+
+    VkDescriptorPoolCreateInfo poolInfo{};
+    poolInfo.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+    poolInfo.poolSizeCount = 1;
+    poolInfo.pPoolSizes    = &poolSize;
+    poolInfo.maxSets       = static_cast<std::uint32_t>(MaxConcurrentFrames);
+
+    if (vkCreateDescriptorPool(device, &poolInfo, nullptr, &descriptorPool) != VK_SUCCESS) {
+        throw std::runtime_error("Failed to create descriptor pool");
+    }
+}
+
+void RendererState::createDescriptorSets() {
+    std::array<VkDescriptorSetLayout, MaxConcurrentFrames> layouts{descriptorSetLayout,
+                                                                   descriptorSetLayout};
+    VkDescriptorSetAllocateInfo allocInfo{};
+    allocInfo.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+    allocInfo.descriptorPool     = descriptorPool;
+    allocInfo.descriptorSetCount = static_cast<std::uint32_t>(MaxConcurrentFrames);
+    allocInfo.pSetLayouts        = layouts.data();
+
+    if (vkAllocateDescriptorSets(device, &allocInfo, descriptorSets.data()) != VK_SUCCESS) {
+        throw std::runtime_error("Failed to allocate descriptor sets");
+    }
+
+    for (unsigned int i = 0; i < descriptorSets.size(); ++i) {
+        VkDescriptorBufferInfo bufferInfo{};
+        bufferInfo.buffer = uniformBuffers[i];
+        bufferInfo.offset = 0;
+        bufferInfo.range  = sizeof(TransformUniform);
+
+        VkWriteDescriptorSet descriptorWrite{};
+        descriptorWrite.sType            = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+        descriptorWrite.dstSet           = descriptorSets[i];
+        descriptorWrite.dstBinding       = 0;
+        descriptorWrite.dstArrayElement  = 0;
+        descriptorWrite.descriptorType   = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+        descriptorWrite.descriptorCount  = 1;
+        descriptorWrite.pBufferInfo      = &bufferInfo;
+        descriptorWrite.pImageInfo       = nullptr; // Optional
+        descriptorWrite.pTexelBufferView = nullptr; // Optional
+
+        vkUpdateDescriptorSets(device, 1, &descriptorWrite, 0, nullptr);
+    }
+}
+
 void RendererState::recreateSwapChain() {
     swapChainOutOfDate = false;
     vkDeviceWaitIdle(device);
@@ -638,4 +733,8 @@ void RendererState::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceS
 
     vkQueueSubmit(graphicsQueue, 1, &submitInfo, VK_NULL_HANDLE);
     vkQueueWaitIdle(graphicsQueue);
+}
+
+void RendererState::updateUniforms(const TransformUniform& tform) {
+    memcpy(uniformBuffersMapped[currentFrame], &tform, sizeof(tform));
 }

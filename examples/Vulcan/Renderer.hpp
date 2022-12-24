@@ -2,6 +2,7 @@
 #define RENDERER_HPP
 
 #include "utils/RendererState.hpp"
+#include "utils/TransformUniform.hpp"
 #include <unordered_set>
 
 class VertexBufferBase;
@@ -18,6 +19,7 @@ public:
 
     RendererState state;
     VkRenderPass renderPass;
+
     VkPipelineLayout pipelineLayout;
     VkPipeline graphicsPipeline;
 
@@ -43,8 +45,19 @@ template<typename T>
 void Renderer::render(const T& cb) {
     // begin render frame
     VkRenderPassBeginInfo renderPassInfo{};
-    RenderSwapFrame* frame = state.beginFrame(renderPassInfo);
+    VkDescriptorSet descriptorSet;
+    RenderSwapFrame* frame = state.beginFrame(renderPassInfo, descriptorSet);
     if (!frame) return;
+
+    // bind uniform descriptors
+    vkCmdBindDescriptorSets(frame->commandBuffer,
+                            VK_PIPELINE_BIND_POINT_GRAPHICS,
+                            pipelineLayout,
+                            0,
+                            1,
+                            &descriptorSet,
+                            0,
+                            nullptr);
 
     // record render commands
     doRender(renderPassInfo, *frame, cb);
