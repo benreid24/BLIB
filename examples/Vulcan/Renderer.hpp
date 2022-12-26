@@ -15,7 +15,7 @@ public:
     template<typename T>
     void render(const T& cb);
 
-    void invalidateSwapChain();
+    void invalidateSwapChain(); // TODO - subscribe to window events instead
 
     RendererState state;
     VkRenderPass renderPass;

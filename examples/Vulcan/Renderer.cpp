@@ -1,7 +1,9 @@
 #include "Renderer.hpp"
 
+#include "utils/Texture.hpp"
 #include "utils/Vertex.hpp"
 #include "utils/VertexBuffer.hpp"
+#include <BLIB/Resources.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 
 namespace
@@ -24,10 +26,14 @@ Renderer::Renderer(sf::WindowBase& window)
     createRenderPass();
     createPipeline();
     state.finalizeInitialization(renderPass);
+    TextureManager::installLoader<TextureLoader>(*this);
 }
 
 Renderer::~Renderer() {
     vkDeviceWaitIdle(state.device);
+
+    TextureManager::installLoader<bl::resource::NullLoader<Texture>>();
+    TextureManager::freeAndDestroyAll();
 
     for (VertexBufferBase* vb : vertexBuffers) { vb->destroy(); }
 

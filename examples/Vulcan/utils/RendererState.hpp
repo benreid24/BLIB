@@ -20,14 +20,26 @@ struct RendererState {
     void invalidateSwapChain();
 
     void updateUniforms(const TransformUniform& tform);
-    RenderSwapFrame* beginFrame(VkRenderPassBeginInfo& renderPassInfo, VkDescriptorSet& descriptorSet);
+    RenderSwapFrame* beginFrame(VkRenderPassBeginInfo& renderPassInfo,
+                                VkDescriptorSet& descriptorSet);
     void completeFrame();
 
     std::uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 
+    VkCommandBuffer beginSingleTimeCommands();
+    void endSingleTimeCommands(VkCommandBuffer commandBuffer);
+
     void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties,
                       VkBuffer& buffer, VkDeviceMemory& bufferMemory);
     void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
+
+    void createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
+                     VkImageTiling tiling, VkImageUsageFlags usage,
+                     VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
+    void transitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout,
+                               VkImageLayout newLayout);
+    void copyBufferToImage(VkBuffer buffer, VkImage image, std::uint32_t width, std::uint32_t height);
+    VkImageView createImageView(VkImage image, VkFormat format);
 
     VkInstance instance;
 #ifdef BLIB_DEBUG

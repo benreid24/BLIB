@@ -42,6 +42,35 @@ struct LoaderBase {
 };
 
 /**
+ * @brief Helper loader to use if no more of a given resource type should be loaded. Does not
+ *        perform any loading and logs warnings when resource loading is attempted
+ *
+ * @tparam TResourceType The resource type to not load
+ * @ingroup Resources
+ */
+template<typename TResourceType>
+struct NullLoader : public LoaderBase<TResourceType> {
+    /**
+     * @brief Destroy the Null Loader object
+     *
+     */
+    virtual ~NullLoader() = default;
+
+    /**
+     * @brief Logs a warning if called
+     *
+     * @param path Path to the resource to load
+     * @return False always
+     */
+    virtual bool load(const std::string& path, const char*, std::size_t, std::istream&,
+                      TResourceType&) override {
+        BL_LOG_WARN << "Attempted to load '" << path << ' (' << typeid(TResourceType).name()
+                    << ") with NullLoader";
+        return false;
+    }
+};
+
+/**
  * @brief Default loaders provided for types: sf::Texture, sf::Image, sf::Font, sf::SoundBuffer,
  *        bl::audio::Playlist, bl::gfx::AnimationData
  *

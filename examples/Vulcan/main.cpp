@@ -7,6 +7,7 @@
 #include "utils/QueueFamilyLocator.hpp"
 #include "utils/RenderSwapFrame.hpp"
 #include "utils/SwapChainSupportDetails.hpp"
+#include "utils/Texture.hpp"
 #include "utils/Vertex.hpp"
 #include "utils/VertexBuffer.hpp"
 #include <BLIB/Logging.hpp>
@@ -53,7 +54,10 @@ public:
                                               static_cast<float>(window.getSize().y),
                                           0.1f,
                                           10.0f);
+        //
         transform.proj[1][1] *= -1.f;
+
+        texture = TextureManager::load("textures/example.jpg");
     }
 
     void run() {
@@ -97,6 +101,8 @@ public:
 private:
     sf::WindowBase& window;
     Renderer renderer;
+
+    bl::resource::Ref<Texture> texture;
 
     sf::Clock timer;
     TransformUniform transform;
