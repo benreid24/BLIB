@@ -7,7 +7,7 @@
 
 /**
  * @addtogroup Cameras
- * @ingroup RenderSystem
+ * @ingroup Renderer
  * @brief Collection of cameras and utilities for controlling what is rendered
  *
  */
@@ -20,7 +20,7 @@ namespace render
 /**
  * @brief Manages the currently active camera and the stack of previously active cameras
  *
- * @ingroup RenderSystem
+ * @ingroup Renderer
  * @ingroup Cameras
  *
  */

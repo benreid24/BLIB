@@ -25,13 +25,13 @@ MainState::MainState() {
 const char* MainState::name() const { return "MainState"; }
 
 void MainState::activate(bl::engine::Engine& engine) {
-    engine.renderSystem().cameras().pushCamera(
+    engine.renderer().cameras().pushCamera(
         bl::render::camera::StaticCamera::create({800.f, 600.f}));
     engine.inputSystem().getActor().addListener(listener);
 }
 
 void MainState::deactivate(bl::engine::Engine& engine) {
-    engine.renderSystem().cameras().popCamera();
+    engine.renderer().cameras().popCamera();
     engine.inputSystem().getActor().removeListener(listener);
 }
 

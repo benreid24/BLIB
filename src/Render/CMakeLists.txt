@@ -1,6 +1,9 @@
 target_sources(BLIB PRIVATE
     Cameras.cpp
-    RenderSystem.cpp
+    Renderer.cpp
 )
 
 add_subdirectory(Cameras)
+add_subdirectory(Components)
+add_subdirectory(Renderer)
+add_subdirectory(Vulkan)

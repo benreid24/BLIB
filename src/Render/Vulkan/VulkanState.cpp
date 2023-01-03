@@ -1,13 +1,17 @@
-#include "RendererState.hpp"
+#include <BLIB/Render/Vulkan/VulkanState.hpp>
 
-#include "QueueFamilyLocator.hpp"
-#include "SwapChainSupportDetails.hpp"
-#include "TransformUniform.hpp"
 #include <BLIB/Logging.hpp>
+#include <BLIB/Resources/FileSystem.hpp>
+#include <Render/Vulkan/Utils/QueueFamilyLocator.hpp>
+#include <Render/Vulkan/Utils/SwapChainSupportDetails.hpp>
 #include <set>
 #include <string>
 #include <unordered_set>
 
+namespace bl
+{
+namespace render
+{
 namespace
 {
 #ifdef BLIB_DEBUG
@@ -16,6 +20,9 @@ const std::unordered_set<std::string> RequestedValidationLayers{"VK_LAYER_KHRONO
 #endif
 
 const std::vector<const char*> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME};
+
+constexpr std::uint32_t SPIRVMagicNumber         = 0x07230203;
+constexpr std::uint32_t SPIRVMagicNumberReversed = 0x03022307;
 
 #ifdef BLIB_DEBUG
 VKAPI_ATTR VkBool32 VKAPI_CALL
@@ -102,7 +109,7 @@ int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDevicePropertie
 }
 } // namespace
 
-RendererState::RendererState(sf::WindowBase& window)
+VulkanState::VulkanState(sf::WindowBase& window)
 : window(window)
 , currentFrame(0)
 , swapChainOutOfDate(false) {
@@ -121,22 +128,12 @@ RendererState::RendererState(sf::WindowBase& window)
     createImageViews();
     createCommandPool();
     createRenderFrames();
-    createDescriptorSetLayout();
-    createUniformBuffers();
-    createDescriptorPool();
-    createDescriptorSets();
 }
 
-RendererState::~RendererState() {
-    for (unsigned int i = 0; i < uniformBuffers.size(); ++i) {
-        vkDestroyBuffer(device, uniformBuffers[i], nullptr);
-        vkFreeMemory(device, uniformBuffersMemory[i], nullptr);
-    }
-    vkDestroyDescriptorPool(device, descriptorPool, nullptr);
-    vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
+VulkanState::~VulkanState() {
     vkFreeCommandBuffers(device, commandPool, 1, &transferCommandBuffer);
     cleanupSwapchain();
-    for (RenderSwapFrame& frame : renderFrames) { frame.cleanup(device); }
+    for (SwapFrame& frame : renderFrames) { frame.cleanup(); }
     vkDestroyCommandPool(device, commandPool, nullptr);
     vkDestroyDevice(device, nullptr);
 #ifdef BLIB_DEBUG
@@ -146,17 +143,15 @@ RendererState::~RendererState() {
     vkDestroyInstance(instance, nullptr);
 }
 
-void RendererState::finalizeInitialization(VkRenderPass rp) {
+void VulkanState::finalizeInitialization(VkRenderPass rp) {
     renderPass = rp;
     createFramebuffers();
 }
 
-void RendererState::invalidateSwapChain() { swapChainOutOfDate = true; }
+void VulkanState::invalidateSwapChain() { swapChainOutOfDate = true; }
 
-RenderSwapFrame* RendererState::beginFrame(VkRenderPassBeginInfo& renderPassInfo,
-                                           VkDescriptorSet& descriptorSet) {
-    RenderSwapFrame& frame = renderFrames[currentFrame];
-    descriptorSet          = descriptorSets[currentFrame];
+SwapFrame* VulkanState::beginFrame(VkRenderPassBeginInfo& renderPassInfo) {
+    SwapFrame& frame = renderFrames[currentFrame];
 
     // wait for previous frame
     vkWaitForFences(device, 1, &frame.inFlightFence, VK_TRUE, UINT64_MAX);
@@ -202,8 +197,8 @@ RenderSwapFrame* RendererState::beginFrame(VkRenderPassBeginInfo& renderPassInfo
     return &frame;
 }
 
-void RendererState::completeFrame() {
-    RenderSwapFrame& frame = renderFrames[currentFrame];
+void VulkanState::completeFrame() {
+    SwapFrame& frame = renderFrames[currentFrame];
 
     // submit command buffer
     VkSubmitInfo submitInfo{};
@@ -250,10 +245,10 @@ void RendererState::completeFrame() {
     }
     if (swapChainOutOfDate) { recreateSwapChain(); }
 
-    currentFrame = (currentFrame + 1) % MaxConcurrentFrames;
+    currentFrame = (currentFrame + 1) % Config::MaxConcurrentFrames;
 }
 
-void RendererState::createInstance() {
+void VulkanState::createInstance() {
     // app info
     VkApplicationInfo appInfo{};
     appInfo.sType              = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -328,7 +323,7 @@ void RendererState::createInstance() {
 }
 
 #ifdef BLIB_DEBUG
-void RendererState::setupDebugMessenger() {
+void VulkanState::setupDebugMessenger() {
     VkDebugUtilsMessengerCreateInfoEXT createInfo{};
     createInfo.sType           = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
     createInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT |
@@ -350,13 +345,13 @@ void RendererState::setupDebugMessenger() {
 }
 #endif
 
-void RendererState::createSurface() {
+void VulkanState::createSurface() {
     if (!window.createVulkanSurface(instance, surface)) {
         throw std::runtime_error("Failed to create Vulkcan surface");
     }
 }
 
-void RendererState::pickPhysicalDevice() {
+void VulkanState::pickPhysicalDevice() {
     std::uint32_t deviceCount = 0;
     vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
     if (deviceCount == 0) { throw std::runtime_error("Failed to find GPUs with Vulkan support"); }
@@ -386,7 +381,7 @@ void RendererState::pickPhysicalDevice() {
     }
 }
 
-void RendererState::createLogicalDevice() {
+void VulkanState::createLogicalDevice() {
     QueueFamilyLocator indices;
     indices.populate(physicalDevice, surface);
 
@@ -427,7 +422,7 @@ void RendererState::createLogicalDevice() {
     vkGetDeviceQueue(device, indices.presentFamily.value(), 0, &presentQueue);
 }
 
-void RendererState::createSwapChain() {
+void VulkanState::createSwapChain() {
     // get supported swap chain details
     SwapChainSupportDetails swapChainSupport;
     swapChainSupport.populate(physicalDevice, surface);
@@ -489,7 +484,7 @@ void RendererState::createSwapChain() {
     swapChainExtent      = createInfo.imageExtent;
 }
 
-void RendererState::createImageViews() {
+void VulkanState::createImageViews() {
     swapChainImageViews.resize(swapChainImages.size());
 
     for (std::size_t i = 0; i < swapChainImages.size(); i++) {
@@ -497,7 +492,7 @@ void RendererState::createImageViews() {
     }
 }
 
-void RendererState::createCommandPool() {
+void VulkanState::createCommandPool() {
     QueueFamilyLocator QueueFamilyLocator;
     QueueFamilyLocator.populate(physicalDevice, surface);
 
@@ -519,11 +514,11 @@ void RendererState::createCommandPool() {
     vkAllocateCommandBuffers(device, &allocInfo, &transferCommandBuffer);
 }
 
-void RendererState::createRenderFrames() {
-    for (RenderSwapFrame& frame : renderFrames) { frame.initialize(device, commandPool); }
+void VulkanState::createRenderFrames() {
+    for (SwapFrame& frame : renderFrames) { frame.initialize(device, commandPool); }
 }
 
-void RendererState::createFramebuffers() {
+void VulkanState::createFramebuffers() {
     swapChainFramebuffers.resize(swapChainImageViews.size());
     for (std::size_t i = 0; i < swapChainImageViews.size(); i++) {
         VkImageView attachments[] = {swapChainImageViews[i]};
@@ -544,117 +539,7 @@ void RendererState::createFramebuffers() {
     }
 }
 
-void RendererState::createDescriptorSetLayout() {
-    VkDescriptorSetLayoutBinding uboLayoutBinding{};
-    uboLayoutBinding.binding            = 0;
-    uboLayoutBinding.descriptorType     = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    uboLayoutBinding.descriptorCount    = 1;
-    uboLayoutBinding.stageFlags         = VK_SHADER_STAGE_VERTEX_BIT;
-    uboLayoutBinding.pImmutableSamplers = nullptr; // Optional
-
-    VkDescriptorSetLayoutBinding samplerLayoutBinding{};
-    samplerLayoutBinding.binding            = 1;
-    samplerLayoutBinding.descriptorCount    = 1;
-    samplerLayoutBinding.descriptorType     = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    samplerLayoutBinding.pImmutableSamplers = nullptr;
-    samplerLayoutBinding.stageFlags         = VK_SHADER_STAGE_FRAGMENT_BIT;
-
-    const std::array<VkDescriptorSetLayoutBinding, 2> bindings = {uboLayoutBinding,
-                                                                  samplerLayoutBinding};
-    VkDescriptorSetLayoutCreateInfo layoutInfo{};
-    layoutInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-    layoutInfo.bindingCount = static_cast<std::uint32_t>(bindings.size());
-    layoutInfo.pBindings    = bindings.data();
-    if (vkCreateDescriptorSetLayout(device, &layoutInfo, nullptr, &descriptorSetLayout) !=
-        VK_SUCCESS) {
-        throw std::runtime_error("Failed to create descriptor set layout");
-    }
-}
-
-void RendererState::createUniformBuffers() {
-    VkDeviceSize bufferSize = sizeof(TransformUniform);
-
-    for (size_t i = 0; i < MaxConcurrentFrames; i++) {
-        createBuffer(bufferSize,
-                     VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-                     VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-                     uniformBuffers[i],
-                     uniformBuffersMemory[i]);
-
-        vkMapMemory(device, uniformBuffersMemory[i], 0, bufferSize, 0, &uniformBuffersMapped[i]);
-    }
-}
-
-void RendererState::createDescriptorPool() {
-    std::array<VkDescriptorPoolSize, 2> poolSizes{};
-    poolSizes[0].type            = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    poolSizes[0].descriptorCount = static_cast<uint32_t>(MaxConcurrentFrames);
-    poolSizes[1].type            = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    poolSizes[1].descriptorCount = static_cast<uint32_t>(MaxConcurrentFrames);
-
-    VkDescriptorPoolCreateInfo poolInfo{};
-    poolInfo.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-    poolInfo.poolSizeCount = poolSizes.size();
-    poolInfo.pPoolSizes    = poolSizes.data();
-    poolInfo.maxSets       = static_cast<std::uint32_t>(MaxConcurrentFrames);
-
-    if (vkCreateDescriptorPool(device, &poolInfo, nullptr, &descriptorPool) != VK_SUCCESS) {
-        throw std::runtime_error("Failed to create descriptor pool");
-    }
-}
-
-void RendererState::createDescriptorSets() {
-    std::array<VkDescriptorSetLayout, MaxConcurrentFrames> layouts{descriptorSetLayout,
-                                                                   descriptorSetLayout};
-    VkDescriptorSetAllocateInfo allocInfo{};
-    allocInfo.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-    allocInfo.descriptorPool     = descriptorPool;
-    allocInfo.descriptorSetCount = static_cast<std::uint32_t>(MaxConcurrentFrames);
-    allocInfo.pSetLayouts        = layouts.data();
-
-    if (vkAllocateDescriptorSets(device, &allocInfo, descriptorSets.data()) != VK_SUCCESS) {
-        throw std::runtime_error("Failed to allocate descriptor sets");
-    }
-
-    for (unsigned int i = 0; i < descriptorSets.size(); ++i) {
-        VkDescriptorBufferInfo bufferInfo{};
-        bufferInfo.buffer = uniformBuffers[i];
-        bufferInfo.offset = 0;
-        bufferInfo.range  = sizeof(TransformUniform);
-
-        VkWriteDescriptorSet descriptorWrite{};
-        descriptorWrite.sType            = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-        descriptorWrite.dstSet           = descriptorSets[i];
-        descriptorWrite.dstBinding       = 0;
-        descriptorWrite.dstArrayElement  = 0;
-        descriptorWrite.descriptorType   = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-        descriptorWrite.descriptorCount  = 1;
-        descriptorWrite.pBufferInfo      = &bufferInfo;
-        descriptorWrite.pImageInfo       = nullptr; // Optional
-        descriptorWrite.pTexelBufferView = nullptr; // Optional
-
-        // TODO - would need to write texture uniform here as well for example to work
-        /*
-        VkDescriptorImageInfo imageInfo{};
-        imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-        imageInfo.imageView = textureImageView;
-        imageInfo.sampler = textureSampler;
-
-        descriptorWrites[1].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-        descriptorWrites[1].dstSet = descriptorSets[i];
-        descriptorWrites[1].dstBinding = 1;
-        descriptorWrites[1].dstArrayElement = 0;
-        descriptorWrites[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-        descriptorWrites[1].descriptorCount = 1;
-        descriptorWrites[1].pImageInfo = &imageInfo;
-
-        */
-
-        vkUpdateDescriptorSets(device, 1, &descriptorWrite, 0, nullptr);
-    }
-}
-
-void RendererState::recreateSwapChain() {
+void VulkanState::recreateSwapChain() {
     swapChainOutOfDate = false;
     vkDeviceWaitIdle(device);
 
@@ -665,7 +550,7 @@ void RendererState::recreateSwapChain() {
     createFramebuffers();
 }
 
-void RendererState::cleanupSwapchain() {
+void VulkanState::cleanupSwapchain() {
     for (VkFramebuffer framebuffer : swapChainFramebuffers) {
         vkDestroyFramebuffer(device, framebuffer, nullptr);
     }
@@ -676,14 +561,14 @@ void RendererState::cleanupSwapchain() {
 }
 
 #ifdef BLIB_DEBUG
-void RendererState::cleanupDebugMessenger() {
+void VulkanState::cleanupDebugMessenger() {
     auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
         instance, "vkDestroyDebugUtilsMessengerEXT");
     if (func != nullptr) { func(instance, debugMessenger, nullptr); }
 }
 #endif
 
-std::uint32_t RendererState::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
+std::uint32_t VulkanState::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
     VkPhysicalDeviceMemoryProperties memProperties;
     vkGetPhysicalDeviceMemoryProperties(physicalDevice, &memProperties);
     for (std::uint32_t i = 0; i < memProperties.memoryTypeCount; i++) {
@@ -696,9 +581,9 @@ std::uint32_t RendererState::findMemoryType(uint32_t typeFilter, VkMemoryPropert
     throw std::runtime_error("failed to find suitable memory type!");
 }
 
-void RendererState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
-                                 VkMemoryPropertyFlags properties, VkBuffer& buffer,
-                                 VkDeviceMemory& bufferMemory) {
+void VulkanState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
+                               VkMemoryPropertyFlags properties, VkBuffer& buffer,
+                               VkDeviceMemory& bufferMemory) {
     VkBufferCreateInfo bufferInfo{};
     bufferInfo.sType       = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     bufferInfo.size        = size;
@@ -724,7 +609,7 @@ void RendererState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
     vkBindBufferMemory(device, buffer, bufferMemory, 0);
 }
 
-void RendererState::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
+void VulkanState::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
     VkCommandBuffer commandBuffer = beginSingleTimeCommands();
 
     VkBufferCopy copyRegion{};
@@ -736,14 +621,10 @@ void RendererState::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceS
     endSingleTimeCommands(commandBuffer);
 }
 
-void RendererState::updateUniforms(const TransformUniform& tform) {
-    memcpy(uniformBuffersMapped[currentFrame], &tform, sizeof(tform));
-}
-
-void RendererState::createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
-                                VkImageTiling tiling, VkImageUsageFlags usage,
-                                VkMemoryPropertyFlags properties, VkImage& image,
-                                VkDeviceMemory& imageMemory) {
+void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
+                              VkImageTiling tiling, VkImageUsageFlags usage,
+                              VkMemoryPropertyFlags properties, VkImage& image,
+                              VkDeviceMemory& imageMemory) {
     VkImageCreateInfo imageInfo{};
     imageInfo.sType         = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     imageInfo.imageType     = VK_IMAGE_TYPE_2D;
@@ -778,7 +659,7 @@ void RendererState::createImage(std::uint32_t width, std::uint32_t height, VkFor
     vkBindImageMemory(device, image, imageMemory, 0);
 }
 
-VkCommandBuffer RendererState::beginSingleTimeCommands() {
+VkCommandBuffer VulkanState::beginSingleTimeCommands() {
     VkCommandBufferAllocateInfo allocInfo{};
     allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
@@ -797,7 +678,7 @@ VkCommandBuffer RendererState::beginSingleTimeCommands() {
     return commandBuffer;
 }
 
-void RendererState::endSingleTimeCommands(VkCommandBuffer commandBuffer) {
+void VulkanState::endSingleTimeCommands(VkCommandBuffer commandBuffer) {
     vkEndCommandBuffer(commandBuffer);
 
     VkSubmitInfo submitInfo{};
@@ -811,8 +692,8 @@ void RendererState::endSingleTimeCommands(VkCommandBuffer commandBuffer) {
     vkFreeCommandBuffers(device, commandPool, 1, &commandBuffer);
 }
 
-void RendererState::transitionImageLayout(VkImage image, VkFormat, VkImageLayout oldLayout,
-                                          VkImageLayout newLayout) {
+void VulkanState::transitionImageLayout(VkImage image, VkFormat, VkImageLayout oldLayout,
+                                        VkImageLayout newLayout) {
     VkCommandBuffer commandBuffer = beginSingleTimeCommands();
 
     VkImageMemoryBarrier barrier{};
@@ -856,8 +737,8 @@ void RendererState::transitionImageLayout(VkImage image, VkFormat, VkImageLayout
     endSingleTimeCommands(commandBuffer);
 }
 
-void RendererState::copyBufferToImage(VkBuffer buffer, VkImage image, std::uint32_t width,
-                                      std::uint32_t height) {
+void VulkanState::copyBufferToImage(VkBuffer buffer, VkImage image, std::uint32_t width,
+                                    std::uint32_t height) {
     VkCommandBuffer commandBuffer = beginSingleTimeCommands();
 
     VkBufferImageCopy region{};
@@ -879,7 +760,7 @@ void RendererState::copyBufferToImage(VkBuffer buffer, VkImage image, std::uint3
     endSingleTimeCommands(commandBuffer);
 }
 
-VkImageView RendererState::createImageView(VkImage image, VkFormat format) {
+VkImageView VulkanState::createImageView(VkImage image, VkFormat format) {
     VkImageViewCreateInfo viewInfo{};
     viewInfo.sType                           = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     viewInfo.image                           = image;
@@ -898,3 +779,49 @@ VkImageView RendererState::createImageView(VkImage image, VkFormat format) {
 
     return imageView;
 }
+
+VkShaderModule VulkanState::createShaderModule(const std::string& path) {
+    char* data;
+    std::size_t len = 0;
+
+    if (path[0] <= Config::BuiltInshaderIds::MaxId) {
+        switch (path[0]) {
+        case Config::BuiltInshaderIds::TestVertexShader:
+            // TODO
+            break;
+        case Config::BuiltInshaderIds::TestFragmentShader:
+            // TODO
+            break;
+        default:
+            BL_LOG_ERROR << "Invalid built-in shader id: " << static_cast<int>(path[0]);
+            throw std::runtime_error("Invalid built-in shader id");
+        }
+    }
+    else {
+        if (!resource::FileSystem::getData(path, &data, len) || len < 4) {
+            BL_LOG_ERROR << "Failed to load shader: " << path;
+            throw std::runtime_error("Failed to load shader");
+        }
+    }
+
+    const std::uint32_t* u32data = reinterpret_cast<const std::uint32_t*>(data);
+    if (u32data[0] != SPIRVMagicNumber && u32data[0] != SPIRVMagicNumberReversed) {
+        // TODO - support shader compilation
+        BL_LOG_ERROR << "Shader '" << path
+                     << "' is not compiled. Shader compilation is not yet supported";
+        throw std::runtime_error("Shader compilation is not yet supported");
+    }
+
+    VkShaderModuleCreateInfo createInfo{};
+    createInfo.sType    = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+    createInfo.codeSize = len;
+    createInfo.pCode    = u32data;
+    VkShaderModule shaderModule;
+    if (vkCreateShaderModule(device, &createInfo, nullptr, &shaderModule) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create shader module!");
+    }
+    return shaderModule;
+}
+
+} // namespace render
+} // namespace bl

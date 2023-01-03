@@ -32,7 +32,7 @@ ecs::Registry& Engine::ecs() { return entityRegistry; }
 
 script::Manager& Engine::scriptManager() { return engineScriptManager; }
 
-render::RenderSystem& Engine::renderSystem() { return renderingSystem; }
+render::Renderer& Engine::renderer() { return renderingSystem; }
 
 input::InputSystem& Engine::inputSystem() { return input; }
 

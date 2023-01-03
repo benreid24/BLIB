@@ -57,9 +57,9 @@ public:
     /**
      * @brief Returns the rendering system of the engine
      *
-     * @return render::RenderSystem& The rendering system
+     * @return render::Renderer& The rendering system
      */
-    render::RenderSystem& renderSystem();
+    render::Renderer& renderer();
 
     /**
      * @brief Returns the user input sysem of the engine
@@ -149,7 +149,7 @@ private:
     sf::Context renderContext;
     script::Manager engineScriptManager;
     ecs::Registry entityRegistry;
-    render::RenderSystem renderingSystem;
+    render::Renderer renderingSystem;
     input::InputSystem input;
 
     bool awaitFocus();
