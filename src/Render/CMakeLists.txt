@@ -5,5 +5,6 @@ target_sources(BLIB PRIVATE
 
 add_subdirectory(Cameras)
 add_subdirectory(Components)
+add_subdirectory(Renderables)
 add_subdirectory(Renderer)
 add_subdirectory(Vulkan)

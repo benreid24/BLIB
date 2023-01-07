@@ -25,7 +25,7 @@ public:
      * @brief Construct a new Render System
      *
      */
-    Renderer();
+    Renderer(sf::WindowBase& window);
 
     /**
      * @brief The cameras in use by the render system

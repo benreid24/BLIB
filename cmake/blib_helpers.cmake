@@ -32,19 +32,19 @@ function(configure_target target_name)
     endif()
 
     # Include directories
+    target_include_directories(${target_name} PUBLIC ${BLIB_CMAKE_PATH}/include)
     target_include_directories(${target_name} SYSTEM PUBLIC 
-        "${BLIB_CMAKE_PATH}/include"
-        "${BLIB_CMAKE_PATH}/lib/SFML/include"
-        "${BLIB_CMAKE_PATH}/lib/glm"
+        ${BLIB_CMAKE_PATH}/lib/SFML/include
+        ${BLIB_CMAKE_PATH}/lib/glm
     )
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_definitions(${target_name} PUBLIC BLIB_DEBUG)
-        target_include_directories(${target_name} SYSTEM PUBLIC "lib/glad/glad_debug/include")
+        target_include_directories(${target_name} SYSTEM PUBLIC lib/glad/glad_debug/include)
     else()
         target_compile_definitions(${target_name} PUBLIC BLIB_RELEASE)
-        target_include_directories(${target_name} SYSTEM PUBLIC  "${CMAKE_CURRENT_SOURCE_DIR}/glad_release/include")
+        target_include_directories(${target_name} SYSTEM PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/glad_release/include)
     endif()
-
+    
     # Static link everything
     target_compile_definitions(${target_name} PUBLIC SFML_STATIC)
     set(BUILD_SHARED_LIBRARIES OFF)

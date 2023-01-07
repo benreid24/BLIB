@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_REF_HPP
-#define BLIB_RENDER_REF_HPP
+#ifndef BLIB_RENDER_UTIL_REF_HPP
+#define BLIB_RENDER_UTIL_REF_HPP
 
 #include <vector>
 

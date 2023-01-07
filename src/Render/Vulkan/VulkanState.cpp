@@ -1,6 +1,7 @@
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Vulkan/SwapFrame.hpp>
 #include <BLIB/Resources/FileSystem.hpp>
 #include <Render/Vulkan/Utils/QueueFamilyLocator.hpp>
 #include <Render/Vulkan/Utils/SwapChainSupportDetails.hpp>
@@ -126,15 +127,15 @@ VulkanState::VulkanState(sf::WindowBase& window)
     createLogicalDevice();
     createSwapChain();
     createImageViews();
-    createCommandPool();
+    createCommandPoolAndTransferBuffer();
     createRenderFrames();
 }
 
 VulkanState::~VulkanState() {
-    vkFreeCommandBuffers(device, commandPool, 1, &transferCommandBuffer);
+    vkFreeCommandBuffers(device, sharedCommandPool, 1, &transferCommandBuffer);
     cleanupSwapchain();
-    for (SwapFrame& frame : renderFrames) { frame.cleanup(); }
-    vkDestroyCommandPool(device, commandPool, nullptr);
+    renderFrames.cleanup([](SwapFrame& frame) { frame.cleanup(); });
+    vkDestroyCommandPool(device, sharedCommandPool, nullptr);
     vkDestroyDevice(device, nullptr);
 #ifdef BLIB_DEBUG
     cleanupDebugMessenger();
@@ -151,7 +152,7 @@ void VulkanState::finalizeInitialization(VkRenderPass rp) {
 void VulkanState::invalidateSwapChain() { swapChainOutOfDate = true; }
 
 SwapFrame* VulkanState::beginFrame(VkRenderPassBeginInfo& renderPassInfo) {
-    SwapFrame& frame = renderFrames[currentFrame];
+    SwapFrame& frame = renderFrames.current();
 
     // wait for previous frame
     vkWaitForFences(device, 1, &frame.inFlightFence, VK_TRUE, UINT64_MAX);
@@ -198,7 +199,7 @@ SwapFrame* VulkanState::beginFrame(VkRenderPassBeginInfo& renderPassInfo) {
 }
 
 void VulkanState::completeFrame() {
-    SwapFrame& frame = renderFrames[currentFrame];
+    SwapFrame& frame = renderFrames.current();
 
     // submit command buffer
     VkSubmitInfo submitInfo{};
@@ -492,30 +493,36 @@ void VulkanState::createImageViews() {
     }
 }
 
-void VulkanState::createCommandPool() {
-    QueueFamilyLocator QueueFamilyLocator;
-    QueueFamilyLocator.populate(physicalDevice, surface);
+VkCommandPool VulkanState::createCommandPool(VkCommandPoolCreateFlags flags) {
+    QueueFamilyLocator queueFamilyLocator;
+    queueFamilyLocator.populate(physicalDevice, surface);
 
     VkCommandPoolCreateInfo poolInfo{};
     poolInfo.sType            = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
-    poolInfo.flags            = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
-    poolInfo.queueFamilyIndex = QueueFamilyLocator.graphicsFamily.value();
+    poolInfo.flags            = flags;
+    poolInfo.queueFamilyIndex = queueFamilyLocator.graphicsFamily.value();
 
+    VkCommandPool commandPool;
     if (vkCreateCommandPool(device, &poolInfo, nullptr, &commandPool) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create command pool");
     }
+    return commandPool;
+}
+
+void VulkanState::createCommandPoolAndTransferBuffer() {
+    sharedCommandPool = createCommandPool(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
 
     // create long-lived command-buffer for memory transfers
     VkCommandBufferAllocateInfo allocInfo{};
     allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-    allocInfo.commandPool        = commandPool;
+    allocInfo.commandPool        = sharedCommandPool;
     allocInfo.commandBufferCount = 1;
     vkAllocateCommandBuffers(device, &allocInfo, &transferCommandBuffer);
 }
 
 void VulkanState::createRenderFrames() {
-    for (SwapFrame& frame : renderFrames) { frame.initialize(device, commandPool); }
+    renderFrames.init(*this, [this](SwapFrame& frame) { frame.initialize(*this); });
 }
 
 void VulkanState::createFramebuffers() {
@@ -546,6 +553,8 @@ void VulkanState::recreateSwapChain() {
     cleanupSwapchain();
 
     createSwapChain();
+
+    // TODO - these may not go here?
     createImageViews();
     createFramebuffers();
 }
@@ -659,11 +668,11 @@ void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkForma
     vkBindImageMemory(device, image, imageMemory, 0);
 }
 
-VkCommandBuffer VulkanState::beginSingleTimeCommands() {
+VkCommandBuffer VulkanState::beginSingleTimeCommands(VkCommandPool pool) {
     VkCommandBufferAllocateInfo allocInfo{};
     allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-    allocInfo.commandPool        = commandPool;
+    allocInfo.commandPool        = pool != nullptr ? pool : sharedCommandPool;
     allocInfo.commandBufferCount = 1;
 
     VkCommandBuffer commandBuffer;
@@ -678,7 +687,7 @@ VkCommandBuffer VulkanState::beginSingleTimeCommands() {
     return commandBuffer;
 }
 
-void VulkanState::endSingleTimeCommands(VkCommandBuffer commandBuffer) {
+void VulkanState::endSingleTimeCommands(VkCommandBuffer commandBuffer, VkCommandPool pool) {
     vkEndCommandBuffer(commandBuffer);
 
     VkSubmitInfo submitInfo{};
@@ -689,7 +698,7 @@ void VulkanState::endSingleTimeCommands(VkCommandBuffer commandBuffer) {
     vkQueueSubmit(graphicsQueue, 1, &submitInfo, VK_NULL_HANDLE);
     vkQueueWaitIdle(graphicsQueue);
 
-    vkFreeCommandBuffers(device, commandPool, 1, &commandBuffer);
+    vkFreeCommandBuffers(device, pool != nullptr ? pool : sharedCommandPool, 1, &commandBuffer);
 }
 
 void VulkanState::transitionImageLayout(VkImage image, VkFormat, VkImageLayout oldLayout,

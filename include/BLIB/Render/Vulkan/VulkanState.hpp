@@ -2,11 +2,13 @@
 #define BLIB_RENDER_VULKAN_VULKANSTATE_HPP
 
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Util/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/SwapFrame.hpp>
 #include <SFML/Window.hpp>
 #include <array>
 #include <cstdint>
 #include <glad/vulkan.h>
+#include <stdexcept>
 #include <vector>
 
 namespace bl
@@ -55,19 +57,29 @@ struct VulkanState {
     std::uint32_t findMemoryType(std::uint32_t typeFilter, VkMemoryPropertyFlags properties);
 
     /**
+     * @brief Helper method to create a command pool for graphics queue commands
+     *
+     * @param flags The flags to create the pool with
+     * @return VkCommandPool The new command pool
+     */
+    VkCommandPool createCommandPool(VkCommandPoolCreateFlags flags);
+
+    /**
      * @brief Helper function to create a command buffer optimized for one-off single commands such
      *        as transfers
      *
+     * @param commandPool Optional command pool to use to allocate the command buffer
      * @return VkCommandBuffer A new command buffer for one-off commands
      */
-    VkCommandBuffer beginSingleTimeCommands();
+    VkCommandBuffer beginSingleTimeCommands(VkCommandPool commandPool = nullptr);
 
     /**
      * @brief Finalizes the given command buffer and frees it
      *
      * @param commandBuffer The command buffer to submit and free
+     * @param commandPool The command pool used to allocate the buffer
      */
-    void endSingleTimeCommands(VkCommandBuffer commandBuffer);
+    void endSingleTimeCommands(VkCommandBuffer commandBuffer, VkCommandPool commandPool = nullptr);
 
     /**
      * @brief Helper function to create a VkBuffer with some parameters
@@ -139,11 +151,18 @@ struct VulkanState {
 
     /**
      * @brief Creates a shader module from the given shader path
-     * 
+     *
      * @param path The resource path of the shader to load
      * @return VkShaderModule The created shader module
      */
     VkShaderModule createShaderModule(const std::string& path);
+
+    /**
+     * @brief Returns the current frame index. Used by PerFrame to return correct data
+     *
+     * @return constexpr std::uint32_t The current index of the frame being worked on
+     */
+    constexpr std::uint32_t currentFrameIndex() const;
 
     VkInstance instance;
 #ifdef BLIB_DEBUG
@@ -160,9 +179,9 @@ struct VulkanState {
     VkExtent2D swapChainExtent;
     std::vector<VkImageView> swapChainImageViews;
     std::vector<VkFramebuffer> swapChainFramebuffers;
-    VkCommandPool commandPool;
+    VkCommandPool sharedCommandPool;
     VkCommandBuffer transferCommandBuffer;
-    std::array<SwapFrame, Config::MaxConcurrentFrames> renderFrames;
+    PerFrame<SwapFrame> renderFrames;
 
 private:
     sf::WindowBase& window;
@@ -179,7 +198,7 @@ private:
     void createSwapChain();
     void createImageViews();
     void createFramebuffers();
-    void createCommandPool();
+    void createCommandPoolAndTransferBuffer();
     void createRenderFrames();
 
     void recreateSwapChain();
@@ -187,6 +206,43 @@ private:
     void cleanupSwapchain();
     void cleanupDebugMessenger();
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline constexpr std::uint32_t VulkanState::currentFrameIndex() const { return currentFrame; }
+
+template<typename T>
+PerFrame<T>::PerFrame()
+: vs(nullptr) {}
+
+template<typename T>
+template<typename U>
+void PerFrame<T>::init(VulkanState& v, const U& visitor) {
+    vs = &v;
+    for (T& o : data) { visitor(o); }
+}
+
+template<typename T>
+template<typename U>
+void PerFrame<T>::cleanup(const U& visitor) {
+    for (T& o : data) { visitor(o); }
+}
+
+template<typename T>
+constexpr T& PerFrame<T>::current() {
+#ifdef BLIB_DEBUG
+    if (!vs) { throw std::runtime_error("PerFrame has not been inited with VulkanInstance"); }
+#endif
+    return data[vs->currentFrameIndex()];
+}
+
+template<typename T>
+constexpr const T& PerFrame<T>::current() const {
+#ifdef BLIB_DEBUG
+    if (!vs) { throw std::runtime_error("PerFrame has not been inited with VulkanInstance"); }
+#endif
+    return data[vs->currentFrameIndex()];
+}
 
 } // namespace render
 } // namespace bl

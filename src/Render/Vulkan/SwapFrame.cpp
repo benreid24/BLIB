@@ -1,19 +1,19 @@
 #include <BLIB/Render/Vulkan/SwapFrame.hpp>
 
+#include <BLIB/Render/Vulkan/VulkanState.hpp>
+
 namespace bl
 {
 namespace render
 {
-SwapFrame::SwapFrame(VkDevice device, VkCommandPool commandPool) {
-    initialize(device, commandPool);
-}
-
 SwapFrame::~SwapFrame() {
     if (deviceInitedWith) { cleanup(); }
 }
 
-void SwapFrame::initialize(VkDevice device, VkCommandPool commandPool) {
-    deviceInitedWith = device;
+void SwapFrame::initialize(VulkanState& vs) {
+    deviceInitedWith = vs.device;
+
+    commandPool = vs.createCommandPool(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
 
     VkCommandBufferAllocateInfo allocInfo{};
     allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -21,7 +21,7 @@ void SwapFrame::initialize(VkDevice device, VkCommandPool commandPool) {
     allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
     allocInfo.commandBufferCount = 1;
 
-    if (vkAllocateCommandBuffers(device, &allocInfo, &commandBuffer) != VK_SUCCESS) {
+    if (vkAllocateCommandBuffers(deviceInitedWith, &allocInfo, &commandBuffer) != VK_SUCCESS) {
         throw std::runtime_error("Failed to allocate command buffers");
     }
 
@@ -32,11 +32,11 @@ void SwapFrame::initialize(VkDevice device, VkCommandPool commandPool) {
     fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
     fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 
-    if (vkCreateSemaphore(device, &semaphoreInfo, nullptr, &imageAvailableSemaphore) !=
+    if (vkCreateSemaphore(deviceInitedWith, &semaphoreInfo, nullptr, &imageAvailableSemaphore) !=
             VK_SUCCESS ||
-        vkCreateSemaphore(device, &semaphoreInfo, nullptr, &renderFinishedSemaphore) !=
+        vkCreateSemaphore(deviceInitedWith, &semaphoreInfo, nullptr, &renderFinishedSemaphore) !=
             VK_SUCCESS ||
-        vkCreateFence(device, &fenceInfo, nullptr, &inFlightFence) != VK_SUCCESS) {
+        vkCreateFence(deviceInitedWith, &fenceInfo, nullptr, &inFlightFence) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create semaphores");
     }
 }

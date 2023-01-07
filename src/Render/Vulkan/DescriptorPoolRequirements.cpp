@@ -18,7 +18,9 @@ void DescriptorPoolRequirements::registerDescriptorType(VkDescriptorType t, std:
             return;
         }
     }
-    descriptorCounts.emplace_back(t, c);
+    descriptorCounts.emplace_back();
+    descriptorCounts.back().type            = t;
+    descriptorCounts.back().descriptorCount = c;
 }
 
 VkDescriptorPoolCreateInfo DescriptorPoolRequirements::buildRequirements() const {

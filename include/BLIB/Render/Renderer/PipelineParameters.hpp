@@ -163,6 +163,12 @@ private:
         std::string path;
         VkShaderStageFlagBits stage;
         std::string entrypoint;
+
+        ShaderInfo() = default;
+        ShaderInfo(const std::string& p, VkShaderStageFlagBits s, const std::string& e)
+        : path(p)
+        , stage(s)
+        , entrypoint(e) {}
     };
 
     std::vector<ShaderInfo> shaders;

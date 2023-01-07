@@ -13,6 +13,7 @@ namespace engine
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , entityRegistry(settings.maximumEntityCount())
+, renderingSystem(renderWindow)
 , input(*this) {
     settings.syncToConfig();
     bl::event::Dispatcher::subscribe(&input);

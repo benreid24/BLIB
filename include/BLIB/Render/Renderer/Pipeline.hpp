@@ -35,6 +35,13 @@ public:
      */
     void bindPipelineAndDescriptors(VkCommandBuffer commandBuffer);
 
+    /**
+     * @brief Returns the layout of this pipeline
+     *
+     * @return constexpr VkPipelineLayout The layout of this pipeline
+     */
+    constexpr VkPipelineLayout pipelineLayout() const;
+
 private:
     Renderer& renderer;
     VkPipelineLayout layout;
@@ -46,6 +53,10 @@ private:
 
     friend class PipelineCache;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline constexpr VkPipelineLayout Pipeline::pipelineLayout() const { return layout; }
 
 } // namespace render
 } // namespace bl

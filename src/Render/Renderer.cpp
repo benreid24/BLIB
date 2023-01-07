@@ -4,7 +4,12 @@ namespace bl
 {
 namespace render
 {
-Renderer::Renderer() {}
+Renderer::Renderer(sf::WindowBase& window)
+: state(window)
+, textures(state)
+, materials(state)
+, renderPasses(*this)
+, pipelines(*this) {}
 
 void Renderer::update(float dt) { cameraSystem.update(dt); }
 

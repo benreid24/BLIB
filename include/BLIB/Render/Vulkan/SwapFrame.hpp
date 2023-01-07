@@ -8,14 +8,18 @@ namespace bl
 {
 namespace render
 {
+struct VulkanState;
+
 /**
  * @brief Utility struct that represents a swap frame in the window's swap chain. Manages
- *        synchronization primitives and resource cleanup
+ *        synchronization primitives and resource cleanup. Also owns per-frame resources such as
+ *        command pools and buffers to aid in thread safety for multi-threaded rendering
  *
  * @ingroup Renderer
  */
 struct SwapFrame {
     VkDevice deviceInitedWith;
+    VkCommandPool commandPool;
     VkCommandBuffer commandBuffer;
     VkSemaphore imageAvailableSemaphore;
     VkSemaphore renderFinishedSemaphore;
@@ -25,30 +29,21 @@ struct SwapFrame {
     SwapFrame() = default;
 
     /**
-     * @brief Construct a new Swap Frame 
-     * 
-     * @param device The Vulkan device to use
-     * @param commandPool The command pool to create the primary command buffer with
-     */
-    SwapFrame(VkDevice device, VkCommandPool commandPool);
-
-    /**
      * @brief Destroy the Swap Frame object
-     * 
+     *
      */
     ~SwapFrame();
 
     /**
-     * @brief Construct a new Swap Frame 
-     * 
-     * @param device The Vulkan device to use
-     * @param commandPool The command pool to create the primary command buffer with
+     * @brief Construct a new Swap Frame
+     *
+     * @param vulkanState The engine Vulkan state
      */
-    void initialize(VkDevice device, VkCommandPool commandPool);
+    void initialize(VulkanState& vulkanState);
 
     /**
      * @brief Frees owned resources
-     * 
+     *
      */
     void cleanup();
 };
