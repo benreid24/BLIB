@@ -3,5 +3,6 @@ target_sources(BLIB PRIVATE
     PipelineBatch.cpp
     PipelineParameters.cpp
     RenderPass.cpp
+    RenderPassBatch.cpp
     RenderPassParameters.cpp
 )

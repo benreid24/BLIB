@@ -10,7 +10,8 @@ namespace bl
 namespace render
 {
 PipelineBatch::PipelineBatch(Renderer& renderer, std::uint32_t pid, bool po)
-: preserveObjectOrder(po)
+: pipelineId(pid)
+, preserveObjectOrder(po)
 , pipeline(renderer.pipelineCache().getPipeline(pid)) {
     if (!pipeline) {
         BL_LOG_CRITICAL << "Failed to find pipeline: " << pid;

@@ -6,7 +6,7 @@ target_sources(BLIB PUBLIC
     PipelineBatch.hpp
     PipelineParameters.hpp
     RenderPass.hpp
-    RenderPassInstance.hpp
+    RenderPassBatch.hpp
     RenderPassParameters.hpp
     Scene.hpp
 )

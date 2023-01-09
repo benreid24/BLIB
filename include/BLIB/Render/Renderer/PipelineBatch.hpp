@@ -22,6 +22,8 @@ class Renderer;
  */
 class PipelineBatch {
 public:
+    const std::uint32_t pipelineId;
+
     /**
      * @brief Construct a new Pipeline Instance
      *
