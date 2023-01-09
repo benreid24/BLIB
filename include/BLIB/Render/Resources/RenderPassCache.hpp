@@ -1,8 +1,9 @@
 #ifndef BLIB_RENDER_RESOURCES_RENDERPASSCACHE_HPP
 #define BLIB_RENDER_RESOURCES_RENDERPASSCACHE_HPP
 
+#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Renderer/RenderPass.hpp>
-#include <unordered_map>
+#include <array>
 
 namespace bl
 {
@@ -20,7 +21,7 @@ public:
 
 private:
     Renderer& renderer;
-    std::unordered_map<std::uint32_t, RenderPass> cache;
+    std::array<RenderPass, Config::RenderPassIds::Count> cache;
 };
 
 } // namespace render

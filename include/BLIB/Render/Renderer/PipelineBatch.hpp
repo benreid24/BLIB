@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_RENDERER_PIPELINEINSTANCE_HPP
-#define BLIB_RENDER_RENDERER_PIPELINEINSTANCE_HPP
+#ifndef BLIB_RENDER_RENDERER_PIPELINEBATCH_HPP
+#define BLIB_RENDER_RENDERER_PIPELINEBATCH_HPP
 
 #include <BLIB/Render/Renderer/Object.hpp>
 #include <BLIB/Render/Renderer/Pipeline.hpp>
@@ -20,7 +20,7 @@ class Renderer;
  *
  * @ingroup Renderer
  */
-class PipelineInstance {
+class PipelineBatch {
 public:
     /**
      * @brief Construct a new Pipeline Instance
@@ -29,13 +29,7 @@ public:
      * @param pipelineId The id of the pipeline to use
      * @param preserveObjectOrder True to keep objects in the order in which they are added
      */
-    PipelineInstance(Renderer& renderer, std::uint32_t pipelineId, bool preserveObjectOrder);
-
-    /**
-     * @brief Releases resources
-     *
-     */
-    ~PipelineInstance();
+    PipelineBatch(Renderer& renderer, std::uint32_t pipelineId, bool preserveObjectOrder);
 
     /**
      * @brief Records the commands necessary to render the pipeline and its objects. Called once per
@@ -48,10 +42,9 @@ public:
     /**
      * @brief Creates a new object to be rendered with the pipeline
      *
-     * @param owner The Renderable which will own the Object
-     * @return Object* The newly created object
+     * @param object The object to add to this pipeline batch
      */
-    Object* createAndAddObject(Renderable* owner);
+    void addObject(const Object::Handle& object);
 
     /**
      * @brief Removes the given object from the render batch. May reorder the remaining objects
@@ -59,14 +52,12 @@ public:
      *
      * @param object The object to remove
      */
-    void removeObject(Object* object);
+    void removeObject(const Object::Handle& object);
 
 private:
-    VulkanState& vulkanState;
     const bool preserveObjectOrder;
     Pipeline* pipeline;
-    std::vector<Object> objects;
-    std::mutex mutex;
+    std::vector<Object::Handle> objects;
 };
 
 } // namespace render

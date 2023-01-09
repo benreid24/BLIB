@@ -1,8 +1,9 @@
 target_sources(BLIB PUBLIC
+    DrawParameters.hpp
     Object.hpp
     ObjectFlags.hpp
     Pipeline.hpp
-    PipelineInstance.hpp
+    PipelineBatch.hpp
     PipelineParameters.hpp
     RenderPass.hpp
     RenderPassInstance.hpp

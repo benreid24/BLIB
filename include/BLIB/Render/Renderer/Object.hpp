@@ -1,6 +1,8 @@
 #ifndef BLIB_RENDER_RENDERER_OBJECT_HPP
 #define BLIB_RENDER_RENDERER_OBJECT_HPP
 
+#include <BLIB/Containers/ObjectPool.hpp>
+#include <BLIB/Render/Renderer/DrawParameters.hpp>
 #include <BLIB/Render/Renderer/ObjectFlags.hpp>
 #include <BLIB/Render/Uniforms/PushConstants.hpp>
 #include <glad/vulkan.h>
@@ -20,17 +22,13 @@ class Renderable;
  * @ingroup Renderer
  */
 struct Object {
+    using Handle = container::ObjectPool<Object>::FixedRef;
+
     Renderable* owner;
+    bool hidden;
     ObjectFlags flags;
     PushConstants frameData; // TODO - put in buffer and index into it?
-    bool hidden;
-
-    VkBuffer vertexBuffer;
-    VkBuffer indexBuffer;
-    std::uint32_t indexCount;
-    std::uint32_t indexOffset;
-    std::uint32_t vertexOffset;
-    // TODO - support instancing here?
+    DrawParameters drawParams;
 };
 
 } // namespace render

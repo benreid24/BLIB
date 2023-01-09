@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_UTIL_REF_HPP
-#define BLIB_RENDER_UTIL_REF_HPP
+#ifndef BLIB_UTIL_VECTORREF_HPP
+#define BLIB_UTIL_VECTORREF_HPP
 
 #include <vector>
 
@@ -11,13 +11,13 @@ namespace render
  * @brief Utility struct to provide a stable iterator into a vector where indices do not change
  *
  * @tparam T The type contained within the vector to index into
- * @ingroup Renderer
+ * @ingroup Util
  */
 template<typename T>
-class Ref {
+class VectorRef {
 public:
     /// @brief Deleted
-    Ref() = delete;
+    VectorRef() = delete;
 
     /**
      * @brief Construct a new from a vector and index
@@ -25,19 +25,19 @@ public:
      * @param storage The vector to index into
      * @param index The index to refer to
      */
-    Ref(std::vector<T>& storage, std::size_t index);
+    VectorRef(std::vector<T>& storage, std::size_t index);
 
-    /// @brief Copy the Ref
-    Ref(const Ref&) = default;
+    /// @brief Copy the VectorRef
+    VectorRef(const VectorRef&) = default;
 
-    /// @brief Copy the Ref
-    Ref(Ref&&) = default;
+    /// @brief Copy the VectorRef
+    VectorRef(VectorRef&&) = default;
 
-    /// @brief Copy the Ref
-    Ref& operator=(const Ref&) = default;
+    /// @brief Copy the VectorRef
+    VectorRef& operator=(const VectorRef&) = default;
 
-    /// @brief Copy the Ref
-    Ref& operator=(Ref&&) = default;
+    /// @brief Copy the VectorRef
+    VectorRef& operator=(VectorRef&&) = default;
 
     /**
      * @brief Returns the value from the underlying array
@@ -68,7 +68,7 @@ public:
     constexpr const T* operator->() const;
 
     /**
-     * @brief Returns the index of this Ref
+     * @brief Returns the index of this VectorRef
      *
      * @return constexpr std::size_t The index into the underlying vector
      */
@@ -82,32 +82,32 @@ private:
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
 template<typename T>
-Ref<T>::Ref(std::vector<T>& s, std::size_t i)
+VectorRef<T>::VectorRef(std::vector<T>& s, std::size_t i)
 : storage(&s)
 , i(i) {}
 
 template<typename T>
-constexpr T& Ref<T>::operator*() {
+constexpr T& VectorRef<T>::operator*() {
     return (*storage)[i];
 }
 
 template<typename T>
-constexpr const T& Ref<T>::operator*() const {
+constexpr const T& VectorRef<T>::operator*() const {
     return (*storage)[i];
 }
 
 template<typename T>
-constexpr T* Ref<T>::operator->() {
+constexpr T* VectorRef<T>::operator->() {
     return &(*storage)[i];
 }
 
 template<typename T>
-constexpr const T* Ref<T>::operator->() const {
+constexpr const T* VectorRef<T>::operator->() const {
     return &(*storage)[i];
 }
 
 template<typename T>
-constexpr std::size_t Ref<T>::index() const {
+constexpr std::size_t VectorRef<T>::index() const {
     return i;
 }
 

@@ -122,10 +122,80 @@ public:
         Entry* end;
 
         friend class ObjectPool;
+        friend class FixedRef;
     };
 
     using Iterator      = IteratorType<T>;
     using ConstIterator = IteratorType<const T>;
+
+    /**
+     * @brief Represents a stable reference into the object pool that remains valid even if the pool
+     *        is resized. May become invalid if the object pointed to is erased
+     *
+     */
+    class FixedRef {
+    public:
+        /**
+         * @brief Creates an invalid FixedRef
+         *
+         */
+        FixedRef();
+
+        /**
+         * @brief Returns the underlying object
+         *
+         */
+        T& operator*();
+
+        /**
+         * @brief Returns the underlying object
+         *
+         */
+        const T& operator*() const;
+
+        /**
+         * @brief Returns the underlying object
+         *
+         */
+        T* operator->();
+
+        /**
+         * @brief Returns the underlying object
+         *
+         */
+        const T* operator->() const;
+
+        /**
+         * @brief Erases the underlying object from the pool. Invalidates the reference
+         *
+         */
+        void erase();
+
+        /**
+         * @brief Returns whether or not the underlying object still exists. This is always safe to
+         *        call if the underlying object pool is still around
+         *
+         */
+        bool valid() const;
+
+        /**
+         * @brief Returns the unique id of the underlying object
+         *
+         */
+        std::size_t id() const;
+
+        /**
+         * @brief Invalidates this ref entirely. Does not erase the underlying object
+         *
+         */
+        void release();
+
+    private:
+        ObjectPool* owner;
+        std::size_t index;
+
+        FixedRef(ObjectPool* owner, std::size_t index);
+    };
 
     /**
      * @brief Initializes the object pool with the growth policy and initial capacity. Not that,
@@ -165,6 +235,14 @@ public:
      */
     template<typename... TArgs>
     Iterator emplace(TArgs&&... args);
+
+    /**
+     * @brief Returns a stable reference to an object from its iterator
+     *
+     * @param it Iterator pointing to the object a reference is needed for
+     * @return FixedRef A stable reference to the given object
+     */
+    FixedRef getStableRef(Iterator it);
 
     /**
      * @brief Removes the given iterator from the pool and marks the object slot for resuse. All
@@ -273,9 +351,7 @@ private:
         template<typename... TArgs>
         void emplace(TArgs&&... args) {
             if (_alive) { payload.destroy(); }
-            else {
-                _alive = true;
-            }
+            else { _alive = true; }
             payload.emplace(std::forward<TArgs>(args)...);
         }
 
@@ -349,6 +425,12 @@ typename ObjectPool<T>::Iterator ObjectPool<T>::emplace(TArgs&&... args) {
         return {e, endPointer()};
     }
     return end();
+}
+
+template<typename T>
+typename ObjectPool<T>::FixedRef ObjectPool<T>::getStableRef(Iterator it) {
+    const std::size_t i = it.pos - pool.data();
+    return {this, i};
 }
 
 template<typename T>
@@ -437,9 +519,7 @@ void ObjectPool<T>::clear(bool s) {
     trackedSize = 0;
     for (Entry& entry : pool) {
         if (entry.alive()) { entry.destroy(); }
-        else {
-            entry.next() = -1;
-        }
+        else { entry.next() = -1; }
     }
     pool.clear();
     next = -1;
@@ -516,6 +596,51 @@ template<typename T>
 template<typename ET>
 bool ObjectPool<T>::IteratorType<ET>::operator!=(const IteratorType<ET>& right) const {
     return pos != right.pos;
+}
+
+template<typename T>
+ObjectPool<T>::FixedRef::FixedRef()
+: owner(nullptr)
+, index(0) {}
+
+template<typename T>
+ObjectPool<T>::FixedRef::FixedRef(ObjectPool<T>* p, std::size_t i)
+: owner(p)
+, index(i) {}
+
+template<typename T>
+T& ObjectPool<T>::FixedRef::operator*() {
+    return owner->pool[index].get();
+}
+
+template<typename T>
+const T& ObjectPool<T>::FixedRef::operator*() const {
+    return owner->pool[index].get();
+}
+
+template<typename T>
+T* ObjectPool<T>::FixedRef::operator->() {
+    return &owner->pool[index].get();
+}
+
+template<typename T>
+const T* ObjectPool<T>::FixedRef::operator->() const {
+    return &owner->pool[index].get();
+}
+
+template<typename T>
+bool ObjectPool<T>::FixedRef::valid() const {
+    return owner && owner->pool[index].alive();
+}
+
+template<typename T>
+void ObjectPool<T>::FixedRef::release() {
+    owner = nullptr;
+}
+
+template<typename T>
+std::size_t ObjectPool<T>::FixedRef::id() const {
+    return index;
 }
 
 } // namespace container
