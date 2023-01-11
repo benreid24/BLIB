@@ -99,11 +99,11 @@ inline void ObjectFlags::markDrawParamsDirty() { value |= DP; }
 
 inline void ObjectFlags::markAllDirty() { value = std::numeric_limits<decltype(value)>::max(); }
 
-inline constexpr bool ObjectFlags::isPCDirty() const { return value & PC != 0; }
+inline constexpr bool ObjectFlags::isPCDirty() const { return (value & PC) != 0; }
 
-inline constexpr bool ObjectFlags::isRenderPassDirty() const { return value & RP != 0; }
+inline constexpr bool ObjectFlags::isRenderPassDirty() const { return (value & RP) != 0; }
 
-inline constexpr bool ObjectFlags::isDrawParamsDirty() const { return value & DP != 0; }
+inline constexpr bool ObjectFlags::isDrawParamsDirty() const { return (value & DP) != 0; }
 
 inline void ObjectFlags::reset() { value = 0; }
 

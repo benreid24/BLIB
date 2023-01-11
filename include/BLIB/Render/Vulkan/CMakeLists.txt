@@ -1,5 +1,6 @@
 target_sources(BLIB PUBLIC
     DescriptorPoolRequirements.hpp
-    SwapFrame.hpp
+    Framebuffer.hpp
+    Swapchain.hpp
     VulkanState.hpp
 )

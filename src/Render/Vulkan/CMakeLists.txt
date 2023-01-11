@@ -1,6 +1,7 @@
 target_sources(BLIB PRIVATE
     DescriptorPoolRequirements.cpp
-    SwapFrame.cpp
+    Framebuffer.cpp
+    Swapchain.cpp
     VulkanState.cpp
 )
 

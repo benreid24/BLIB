@@ -3,6 +3,7 @@
 
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Render/Renderer/Object.hpp>
+#include <BLIB/Render/Renderer/RenderPassBatch.hpp>
 #include <array>
 #include <glad/vulkan.h>
 #include <mutex>
@@ -33,9 +34,12 @@ public:
      */
     void removeObject(const Object::Handle& object);
 
+    void recordRenderCommands();
+
 private:
     std::mutex mutex;
     container::ObjectPool<Object> objects;
+    std::array<RenderPassBatch, Config::RenderPassIds::Count> renderPasses;
 };
 
 } // namespace render

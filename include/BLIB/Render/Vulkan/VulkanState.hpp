@@ -3,7 +3,8 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
-#include <BLIB/Render/Vulkan/SwapFrame.hpp>
+#include <BLIB/Render/Vulkan/Framebuffer.hpp>
+#include <BLIB/Render/Vulkan/Swapchain.hpp>
 #include <SFML/Window.hpp>
 #include <array>
 #include <cstdint>
@@ -34,17 +35,25 @@ struct VulkanState {
      */
     ~VulkanState();
 
-    // TODO - should the final render pass come down here?
-    void finalizeInitialization(VkRenderPass renderPass);
-
     /**
      * @brief Marks the swap chain as invalid. Called when the window is resized or recreated
      *
      */
     void invalidateSwapChain();
 
-    // TODO - still need these?
-    SwapFrame* beginFrame(VkRenderPassBeginInfo& renderPassInfo);
+    /**
+     * @brief Begins a render pass on the current swap chain image. Returns the commanf buffer to
+     *        use for rendering
+     *
+     * @return VkCommandBuffer The primary command buffer to use for rendering
+     */
+    VkCommandBuffer beginFrame();
+
+    /**
+     * @brief Finalizes the render pass and command buffer for the current frame and submits it.
+     *        Also triggers the swap chain present operation
+     *
+     */
     void completeFrame();
 
     /**
@@ -173,37 +182,22 @@ struct VulkanState {
     VkDevice device;
     VkQueue graphicsQueue;
     VkQueue presentQueue;
-    VkSwapchainKHR swapChain;
-    std::vector<VkImage> swapChainImages;
-    VkFormat swapChainImageFormat;
-    VkExtent2D swapChainExtent;
-    std::vector<VkImageView> swapChainImageViews;
-    std::vector<VkFramebuffer> swapChainFramebuffers;
     VkCommandPool sharedCommandPool;
     VkCommandBuffer transferCommandBuffer;
-    PerFrame<SwapFrame> renderFrames;
 
 private:
     sf::WindowBase& window;
     VkRenderPass renderPass;
+    Swapchain swapchain;
     std::uint32_t currentFrame;
-    std::uint32_t currentRenderImageIndex;
-    bool swapChainOutOfDate;
 
     void createInstance();
     void setupDebugMessenger();
     void createSurface();
     void pickPhysicalDevice();
     void createLogicalDevice();
-    void createSwapChain();
-    void createImageViews();
-    void createFramebuffers();
     void createCommandPoolAndTransferBuffer();
-    void createRenderFrames();
 
-    void recreateSwapChain();
-
-    void cleanupSwapchain();
     void cleanupDebugMessenger();
 };
 
