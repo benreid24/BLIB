@@ -13,16 +13,12 @@ PipelineBatch::PipelineBatch(Renderer& renderer, std::uint32_t pid, bool po)
 : pipelineId(pid)
 , preserveObjectOrder(po)
 , pipeline(renderer.pipelineCache().getPipeline(pid)) {
-    if (!pipeline) {
-        BL_LOG_CRITICAL << "Failed to find pipeline: " << pid;
-        throw std::runtime_error("Failed to find pipeline by id during instance creation");
-    }
     objects.reserve(128);
 }
 
 void PipelineBatch::recordRenderCommands(VkCommandBuffer cb) {
-    pipeline->bindPipelineAndDescriptors(cb);
-    VkPipelineLayout layout = pipeline->pipelineLayout();
+    pipeline.bindPipelineAndDescriptors(cb);
+    VkPipelineLayout layout = pipeline.pipelineLayout();
 
     VkBuffer prevVB = nullptr;
     VkBuffer prevIB = nullptr;

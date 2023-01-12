@@ -2,6 +2,7 @@
 #define BLIB_RENDER_RENDERER_OBJECTFLAGS_HPP
 
 #include <cstdint>
+#include <limits>
 
 namespace bl
 {

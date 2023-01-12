@@ -22,11 +22,7 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
     }
 
     // Get render pass from cache
-    RenderPass* renderPass = renderer.renderPassCache().getRenderPass(params.renderPassId);
-    if (!renderPass) {
-        BL_LOG_ERROR << "Failed to load render pass with id " << params.renderPassId;
-        throw std::runtime_error("Failed to load render pass");
-    }
+    RenderPass& renderPass = renderer.renderPassCache().getRenderPass(params.renderPassId);
 
     // Configure vertices
     VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
@@ -79,7 +75,7 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
     pipelineInfo.pColorBlendState    = &params.colorBlending;
     pipelineInfo.pDynamicState       = &dynamicState;
     pipelineInfo.layout              = layout;
-    pipelineInfo.renderPass          = renderPass->rawPass();
+    pipelineInfo.renderPass          = renderPass.rawPass();
     pipelineInfo.subpass             = 0;
     pipelineInfo.basePipelineHandle  = VK_NULL_HANDLE; // Optional
     pipelineInfo.basePipelineIndex   = -1;             // Optional

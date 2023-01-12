@@ -10,12 +10,7 @@ namespace render
 {
 RenderPassBatch::RenderPassBatch(Renderer& renderer, std::uint32_t id)
 : renderer(renderer) {
-    RenderPass* pass = renderer.renderPassCache().getRenderPass(id);
-    if (!pass) {
-        BL_LOG_CRITICAL << "Failed to find render pass with id: " << id;
-        throw std::runtime_error("Failed to find render pass");
-    }
-    renderPass = pass->rawPass();
+    renderPass = renderer.renderPassCache().getRenderPass(id).rawPass();
     batches.reserve(16);
 }
 

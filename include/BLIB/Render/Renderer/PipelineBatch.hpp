@@ -58,7 +58,7 @@ public:
 
 private:
     const bool preserveObjectOrder;
-    Pipeline* pipeline;
+    Pipeline& pipeline;
     std::vector<Object::Handle> objects;
 };
 

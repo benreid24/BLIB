@@ -8,8 +8,6 @@ namespace bl
 {
 namespace render
 {
-class RenderPassCache;
-
 /**
  * @brief Represents a render pass in the renderer. A scene is comprised of a sequence of render
  *        passes and each render pass is comprised of a set of Pipelines and their renderables
@@ -18,6 +16,14 @@ class RenderPassCache;
  */
 class RenderPass {
 public:
+    /**
+     * @brief Construct a new Render Pass
+     *
+     * @param vulkanState The renderer Vulkan state
+     * @param params The parameters to create the pass with
+     */
+    RenderPass(VulkanState& vulkanState, RenderPassParameters&& params);
+
     /**
      * @brief Destroy the Render Pass object
      *
@@ -34,10 +40,6 @@ public:
 private:
     VulkanState& vulkanState;
     VkRenderPass renderPass;
-
-    RenderPass(VulkanState& vulkanState, RenderPassParameters&& params);
-
-    friend class RenderPassCache;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
