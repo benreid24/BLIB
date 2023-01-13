@@ -23,6 +23,14 @@ class PipelineCache;
 class Pipeline {
 public:
     /**
+     * @brief Construct a new Pipeline
+     *
+     * @param renderer The renderer the pipeline will belong to
+     * @param params The parameters to create the pipeline with
+     */
+    Pipeline(Renderer& renderer, PipelineParameters&& params);
+
+    /**
      * @brief Destroy the Pipeline and frees Vulkan resources
      *
      */
@@ -48,8 +56,6 @@ private:
     VkPipeline pipeline;
     std::vector<PipelineParameters::DescriptorSetRetriever> descriptorGetters;
     std::vector<VkDescriptorSet> descriptorSets;
-
-    Pipeline(Renderer& renderer, PipelineParameters&& params);
 
     friend class PipelineCache;
 };

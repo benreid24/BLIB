@@ -3,6 +3,7 @@
 
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics.hpp>
+#include <array>
 #include <glad/vulkan.h>
 #include <string>
 
@@ -21,6 +22,12 @@ class TexturePool;
  */
 class Texture {
 public:
+    /**
+     * @brief Creates an empty Texture
+     *
+     */
+    Texture();
+
     /**
      * @brief Destroy the Texture object
      *

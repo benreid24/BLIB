@@ -13,7 +13,8 @@ PipelineCache::PipelineCache(Renderer& r)
 }
 
 Pipeline& PipelineCache::createPipline(std::uint32_t id, PipelineParameters&& params) {
-    const auto insertResult = cache.try_emplace(id, std::forward<PipelineParameters>(params));
+    const auto insertResult =
+        cache.try_emplace(id, renderer, std::forward<PipelineParameters>(params));
     if (!insertResult.second) { BL_LOG_WARN << "Pipeline with id " << id << " already exists"; }
     return insertResult.first->second;
 }
