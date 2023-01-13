@@ -195,6 +195,8 @@ public:
         std::size_t index;
 
         FixedRef(ObjectPool* owner, std::size_t index);
+
+        friend class ObjectPool<T>;
     };
 
     /**

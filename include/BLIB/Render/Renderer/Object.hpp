@@ -24,6 +24,13 @@ class Renderable;
 struct Object {
     using Handle = container::ObjectPool<Object>::FixedRef;
 
+    /**
+     * @brief Construct a new Object with the given owner
+     *
+     * @param owner The owner of this object
+     */
+    Object(Renderable* owner);
+
     Renderable* owner;
     bool hidden;
     ObjectFlags flags;

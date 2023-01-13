@@ -13,11 +13,11 @@ namespace bl
 {
 namespace render
 {
+class Renderer;
+
 class Scene {
 public:
-    Scene();
-
-    ~Scene();
+    Scene(Renderer& renderer);
 
     /**
      * @brief Creates a new object to be rendered in the scene
@@ -38,8 +38,18 @@ public:
 
 private:
     std::mutex mutex;
+    Renderer& renderer;
     container::ObjectPool<Object> objects;
-    std::array<RenderPassBatch, Config::RenderPassIds::Count> renderPasses;
+    std::array<RenderPassBatch*, Config::RenderPassIds::Count> renderPasses;
+    RenderPassBatch shadowPass;
+    RenderPassBatch opaquePass;
+    RenderPassBatch transparencyPass;
+    RenderPassBatch postFxPass;
+    RenderPassBatch overlayPass;
+
+    std::mutex eraseMutex;
+    std::vector<Object::Handle> toRemove;
+    void performRemovals();
 };
 
 } // namespace render
