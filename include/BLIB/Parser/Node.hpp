@@ -39,9 +39,11 @@ namespace std
 {
 template<>
 struct hash<bl::parser::Node::Sequence> {
-    size_t operator()(const bl::parser::Node::Sequence& key) const {
-        size_t seed = key.size();
-        for (const auto& i : key) { seed ^= i + 0x9e3779b9 + (seed << 6) + (seed >> 2); }
+    std::size_t operator()(const bl::parser::Node::Sequence& key) const {
+        std::size_t seed = key.size();
+        for (const auto& i : key) {
+            seed ^= static_cast<std::size_t>(i) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+        }
         return seed;
     }
 };

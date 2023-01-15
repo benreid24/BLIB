@@ -33,10 +33,10 @@ RenderPassMembership::Diff RenderPassMembership::nextDiff() {
     diff.renderPassId = i;
     diff.pipelineId   = next[i];
 
-    pipelines[i] = next[i];
-
     return diff;
 }
+
+void RenderPassMembership::applyDiff(const Diff& d) { pipelines[d.renderPassId] = d.pipelineId; }
 
 void RenderPassMembership::addOrSetPassPipeline(std::uint32_t renderPassId,
                                                 std::uint32_t pipelineId) {

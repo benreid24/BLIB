@@ -344,6 +344,7 @@ private:
         Entry(Entry&& copy)
         : _alive(copy._alive) {
             if (copy._alive) { payload.emplace(std::forward<T>(copy.payload.getRValue())); }
+            else { _next = copy._next; }
         }
 
         ~Entry() {

@@ -1,6 +1,7 @@
 #include <BLIB/Render/Renderer/Scene.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Renderables/Renderable.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -36,15 +37,49 @@ void Scene::removeObject(const Object::Handle& obj) {
 }
 
 void Scene::recordRenderCommands() {
-    // TODO
+    std::unique_lock lock(mutex);
+    performRemovals();
+
+    for (auto it = objects.begin(); it != objects.end(); ++it) {
+        if (it->flags.isRenderPassDirty()) {
+            updatePassMembership(objects.getStableRef(it));
+            it->flags.markRenderPassesClean();
+        }
+    }
+
+    // TODO - draw and shit
 }
 
 void Scene::performRemovals() {
     std::unique_lock lock(eraseMutex);
     for (Object::Handle& obj : toRemove) {
+        for (std::uint32_t rpid = 0; rpid < RpId::Count; ++rpid) {
+            const std::uint32_t pid = obj->owner->passMembership.getPipelineForRenderPass(rpid);
+            if (pid != Config::PipelineIds::None) { renderPasses[rpid]->removeObject(obj, pid); }
+        }
         obj.erase();
     }
     toRemove.clear();
+}
+
+void Scene::updatePassMembership(Object::Handle& obj) {
+    auto& passes = obj->owner->passMembership;
+    while (passes.hasDiff()) {
+        const auto diff = passes.nextDiff();
+        switch (diff.type) {
+        case RenderPassMembership::Diff::Add:
+            renderPasses[diff.renderPassId]->addObject(obj, diff.pipelineId);
+            break;
+        case RenderPassMembership::Diff::Edit:
+            renderPasses[diff.renderPassId]->changePipeline(
+                obj, passes.getPipelineForRenderPass(diff.renderPassId), diff.pipelineId);
+            break;
+        case RenderPassMembership::Diff::Remove:
+            renderPasses[diff.renderPassId]->removeObject(obj, diff.pipelineId);
+            break;
+        }
+        passes.applyDiff(diff); 
+    }
 }
 
 } // namespace render

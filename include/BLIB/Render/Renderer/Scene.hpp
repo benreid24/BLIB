@@ -50,6 +50,8 @@ private:
     std::mutex eraseMutex;
     std::vector<Object::Handle> toRemove;
     void performRemovals();
+
+    void updatePassMembership(Object::Handle& object);
 };
 
 } // namespace render

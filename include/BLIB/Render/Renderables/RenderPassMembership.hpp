@@ -45,11 +45,18 @@ public:
     bool hasDiff() const;
 
     /**
-     * @brief Returns the next diff to be applied and applies it to this object before returning
+     * @brief Returns the next diff to be applied
      *
      * @return Diff The next diff to be applied. Undefined if no diffs are to be applied
      */
     Diff nextDiff();
+
+    /**
+     * @brief Applies the diff to the pass membership
+     * 
+     * @param diff The diff to apply
+     */
+    void applyDiff(const Diff& diff);
 
     /**
      * @brief Modifies which pipeline to use for the given render pass. Use to add to a renderpass
