@@ -45,9 +45,10 @@ struct VulkanState {
      * @brief Begins a render pass on the current swap chain image. Returns the commanf buffer to
      *        use for rendering
      *
-     * @return VkCommandBuffer The primary command buffer to use for rendering
+     * @param renderFrame A reference to a pointer to populate with the active chain image
+     * @param commandBuffer A command buffer reference to populate with the primary CB to use
      */
-    VkCommandBuffer beginFrame();
+    void beginFrame(SwapRenderFrame*& renderFrame, VkCommandBuffer& commandBuffer);
 
     /**
      * @brief Finalizes the render pass and command buffer for the current frame and submits it.
@@ -187,7 +188,6 @@ struct VulkanState {
 
 private:
     sf::WindowBase& window;
-    VkRenderPass renderPass;
     Swapchain swapchain;
     std::uint32_t currentFrame;
 

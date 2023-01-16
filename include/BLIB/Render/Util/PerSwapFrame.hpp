@@ -16,7 +16,7 @@ class Swapchain;
  * @ingroup Renderer
  */
 template<typename T>
-class PerSwapFrame {
+class PerSwapFrame { // TODO - remake this into SwapchainFramebuffers and add recreate logic to chain
 public:
     /**
      * @brief Creates an empty structure

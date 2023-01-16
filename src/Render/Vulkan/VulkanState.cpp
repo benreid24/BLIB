@@ -126,8 +126,7 @@ VulkanState::VulkanState(sf::WindowBase& window)
     gladLoadVulkan(physicalDevice, sf::Vulkan::getFunction); // reload with extensions
     createLogicalDevice();
     createCommandPoolAndTransferBuffer();
-    // TODO - create render pass
-    swapchain.create(surface, renderPass);
+    swapchain.create(surface);
 }
 
 VulkanState::~VulkanState() {
@@ -145,7 +144,10 @@ VulkanState::~VulkanState() {
 
 void VulkanState::invalidateSwapChain() { swapchain.invalidate(); }
 
-VkCommandBuffer VulkanState::beginFrame() { return swapchain.beginFrame(); }
+void VulkanState::beginFrame(SwapRenderFrame*& renderFrame,
+                                        VkCommandBuffer& commandBuffer) {
+    swapchain.beginFrame(renderFrame, commandBuffer);
+}
 
 void VulkanState::completeFrame() {
     swapchain.completeFrame();

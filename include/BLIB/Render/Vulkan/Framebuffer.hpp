@@ -3,17 +3,17 @@
 
 #include <glad/vulkan.h>
 #include <stdexcept>
+#include <BLIB/Render/Vulkan/RenderFrame.hpp>
 
 namespace bl
 {
 namespace render
 {
 struct VulkanState;
+class Swapchain;
 
 /**
- * @brief Utility struct that represents a swap frame in the window's swap chain. Manages
- *        synchronization primitives and resource cleanup. Also owns per-frame resources such as
- *        command pools and buffers to aid in thread safety for multi-threaded rendering
+ * @brief Utility struct that wraps a Vulkan framebuffer. 
  *
  * @ingroup Renderer
  */
@@ -36,12 +36,9 @@ public:
      * @brief Creates (or recreates) the framebuffer
      *
      * @param renderPass The render pass that will be used with the frame buffer
-     * @param extent The size of the framebuffer render target area
-     * @param attachments Pointer to the sequence of image views the framebuffer should wrap
-     * @param attachmentCount The number of attachments in the sequence
+     * @param target The frame to render to
      */
-    void create(VkRenderPass renderPass, VkExtent2D extent, VkImageView* attachments,
-                std::uint32_t attachmentCount);
+    void create(VkRenderPass renderPass, const RenderFrame& target);
 
     /**
      * @brief Frees owned resources and invalidates this object
@@ -50,35 +47,24 @@ public:
     void cleanup();
 
     /**
-     * @brief Blocks until prior render is complete. Creates new primary command buffer and begins
-     *        the render pass init. Also sets the viewport and scissor to sane defaults
+     * @brief Begins the render pass and sets the viewport and scissor to sane defaults
      *
-     * @return VkCommandBuffer The primary command buffer to issue commands into
+     * @param commandBuffer The primary command buffer to issue commands into
      */
-    VkCommandBuffer beginRender();
+    void beginRender(VkCommandBuffer commandBuffer);
 
     /**
-     * @brief Ends the render pass and command buffer. Submits the generated render commands to the
-     *        given queue to be executed. Must only be called with beginPrimaryRender()
+     * @brief Ends the render pass
      *
-     * @param waitSemaphore Semaphore to block GPU with before beginning rendering
-     * @param finishedSemaphore Semaphore to signal when rendering is completed
-     * @param finishedFence Fence to signal when rendering is completed
+     * @param commandBuffer The primary command buffer to issue commands into
      */
-    void finishRender(VkSemaphore waitSemaphore, VkSemaphore finishedSemaphore,
-                      VkFence finishedFence);
+    void finishRender(VkCommandBuffer commandBuffer);
 
 private:
     VulkanState& vulkanState;
     VkRenderPass renderPass;
-
-    // owned
-    VkCommandPool commandPool;
-    VkCommandBuffer commandBuffer;
-    VkExtent2D extent;
+    const RenderFrame* target;
     VkFramebuffer framebuffer;
-
-    void beginCommon();
 };
 
 } // namespace render

@@ -8,45 +8,54 @@ namespace bl
 {
 namespace render
 {
+void Swapchain::Frame::init(VulkanState& vulkanState) {
+    VkSemaphoreCreateInfo semaphoreInfo{};
+    semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+    if (vkCreateSemaphore(vulkanState.device, &semaphoreInfo, nullptr, &imageAvailableSemaphore) !=
+        VK_SUCCESS) {
+        throw std::runtime_error("Failed to create semaphore");
+    }
+    if (vkCreateSemaphore(vulkanState.device, &semaphoreInfo, nullptr, &renderFinishedSemaphore) !=
+        VK_SUCCESS) {
+        throw std::runtime_error("Failed to create semaphore");
+    }
+
+    VkFenceCreateInfo fenceInfo{};
+    fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+    if (vkCreateFence(vulkanState.device, &fenceInfo, nullptr, &commandBufferFence) != VK_SUCCESS) {
+        throw std::runtime_error("Failed to create fence");
+    }
+
+    commandPool = vulkanState.createCommandPool(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
+
+    VkCommandBufferAllocateInfo allocInfo{};
+    allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    allocInfo.commandPool        = commandPool;
+    allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+    allocInfo.commandBufferCount = 1;
+    if (vkAllocateCommandBuffers(vulkanState.device, &allocInfo, &commandBuffer) != VK_SUCCESS) {
+        throw std::runtime_error("Failed to allocate command buffers");
+    }
+}
+
 Swapchain::Swapchain(VulkanState& state, sf::WindowBase& w)
 : vulkanState(state)
 , window(w)
+, currentImageIndex(0)
 , outOfDate(true) {
-    const auto createSem = [this](VkSemaphore& sem) {
-        VkSemaphoreCreateInfo semaphoreInfo{};
-        semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
-        if (vkCreateSemaphore(vulkanState.device, &semaphoreInfo, nullptr, &sem) != VK_SUCCESS) {
-            throw std::runtime_error("Failed to create semaphore");
-        }
-    };
-
-    imageAvailableSemaphores.init(vulkanState, createSem);
-    frameFinishedSemaphores.init(vulkanState, createSem);
-    frameFences.init(vulkanState, [this](VkFence& fence) {
-        VkFenceCreateInfo fenceInfo{};
-        fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
-        if (vkCreateFence(vulkanState.device, &fenceInfo, nullptr, &fence) != VK_SUCCESS) {
-            throw std::runtime_error("Failed to create fence");
-        }
-    });
+    frameData.init(state, [&state](Frame& frame) { frame.init(state); });
 }
 
 void Swapchain::destroy() {
     cleanup();
-
-    const auto destroySem = [this](VkSemaphore sem) {
-        vkDestroySemaphore(vulkanState.device, sem, nullptr);
-    };
-    imageAvailableSemaphores.cleanup(destroySem);
-    frameFinishedSemaphores.cleanup(destroySem);
-    frameFences.cleanup(
-        [this](VkFence fence) { vkDestroyFence(vulkanState.device, fence, nullptr); });
+    frameData.cleanup([this](Frame& frame) { frame.cleanup(vulkanState); });
 }
 
-VkCommandBuffer Swapchain::beginFrame() {
+void Swapchain::beginFrame(SwapRenderFrame*& renderFrame, VkCommandBuffer& cb) {
     // wait for prior frame
-    vkWaitForFences(vulkanState.device, 1, &frameFences.current(), VK_TRUE, UINT64_MAX);
-    vkResetFences(vulkanState.device, 1, &frameFences.current());
+    vkWaitForFences(
+        vulkanState.device, 1, &frameData.current().commandBufferFence, VK_TRUE, UINT64_MAX);
+    vkResetFences(vulkanState.device, 1, &frameData.current().commandBufferFence);
 
     // recreate if out of date
     if (outOfDate) { recreate(); }
@@ -57,7 +66,7 @@ VkCommandBuffer Swapchain::beginFrame() {
         acquireResult = vkAcquireNextImageKHR(vulkanState.device,
                                               swapchain,
                                               UINT64_MAX,
-                                              imageAvailableSemaphores.current(),
+                                              frameData.current().imageAvailableSemaphore,
                                               VK_NULL_HANDLE,
                                               &currentImageIndex);
         if (acquireResult == VK_ERROR_OUT_OF_DATE_KHR) { recreate(); }
@@ -66,24 +75,66 @@ VkCommandBuffer Swapchain::beginFrame() {
         throw std::runtime_error("Failed to acquire swapchain image");
     }
 
-    return framebuffers[currentImageIndex].beginRender();
+    // create command buffer
+    VkCommandBufferAllocateInfo allocInfo{};
+    allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    allocInfo.commandPool        = frameData.current().commandPool;
+    allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+    allocInfo.commandBufferCount = 1;
+    if (vkAllocateCommandBuffers(
+            vulkanState.device, &allocInfo, &frameData.current().commandBuffer) != VK_SUCCESS) {
+        throw std::runtime_error("Failed to allocate command buffers");
+    }
+
+    // begin command buffer
+    VkCommandBufferBeginInfo beginInfo{};
+    beginInfo.sType            = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+    beginInfo.flags            = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT; // Optional
+    beginInfo.pInheritanceInfo = nullptr;                                     // Optional
+    if (vkBeginCommandBuffer(frameData.current().commandBuffer, &beginInfo) != VK_SUCCESS) {
+        throw std::runtime_error("Failed to begin recording command buffer");
+    }
+
+    // copy output
+    renderFrame = &renderFrames[currentImageIndex];
+    cb          = frameData.current().commandBuffer;
 }
 
 void Swapchain::completeFrame() {
-    // submit render commands
-    framebuffers[currentImageIndex].finishRender(imageAvailableSemaphores.current(),
-                                                 frameFinishedSemaphores.current(),
-                                                 frameFences.current());
+    // TODO - may want to make it easy to submit per render pass
+
+    // end command buffer
+    vkEndCommandBuffer(frameData.current().commandBuffer);
+
+    // submit to queue
+    VkSemaphore waitSemaphores[]      = {frameData.current().imageAvailableSemaphore};
+    VkSemaphore signalSemaphores[]    = {frameData.current().renderFinishedSemaphore};
+    VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
+
+    VkSubmitInfo submitInfo{};
+    submitInfo.sType                = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+    submitInfo.waitSemaphoreCount   = std::size(waitSemaphores);
+    submitInfo.pWaitSemaphores      = waitSemaphores;
+    submitInfo.pWaitDstStageMask    = waitStages;
+    submitInfo.signalSemaphoreCount = std::size(signalSemaphores);
+    submitInfo.pSignalSemaphores    = signalSemaphores;
+    submitInfo.commandBufferCount   = 1;
+    submitInfo.pCommandBuffers      = &frameData.current().commandBuffer;
+    if (vkQueueSubmit(
+            vulkanState.graphicsQueue, 1, &submitInfo, frameData.current().commandBufferFence) !=
+        VK_SUCCESS) {
+        throw std::runtime_error("Failed to submit draw command buffer");
+    }
 
     // trigger swap chain
     VkPresentInfoKHR presentInfo{};
     presentInfo.sType              = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
     presentInfo.waitSemaphoreCount = 1;
-    presentInfo.pWaitSemaphores    = &frameFinishedSemaphores.current();
-    presentInfo.swapchainCount  = 1;
-    presentInfo.pSwapchains     = &swapchain;
-    presentInfo.pImageIndices   = &currentImageIndex;
-    presentInfo.pResults        = nullptr; // Optional
+    presentInfo.pWaitSemaphores    = &frameData.current().renderFinishedSemaphore;
+    presentInfo.swapchainCount     = 1;
+    presentInfo.pSwapchains        = &swapchain;
+    presentInfo.pImageIndices      = &currentImageIndex;
+    presentInfo.pResults           = nullptr; // Optional
 
     const VkResult presentResult = vkQueuePresentKHR(vulkanState.presentQueue, &presentInfo);
     switch (presentResult) {
@@ -99,20 +150,17 @@ void Swapchain::completeFrame() {
 }
 
 void Swapchain::cleanup() {
-    framebuffers.clear();
-    for (VkImageView imageView : imageViews) {
-        vkDestroyImageView(vulkanState.device, imageView, nullptr);
+    for (SwapRenderFrame& frame : renderFrames) {
+        vkDestroyImageView(vulkanState.device, frame.colorImageView(), nullptr);
     }
     vkDestroySwapchainKHR(vulkanState.device, swapchain, nullptr);
 }
 
-void Swapchain::create(VkSurfaceKHR s, VkRenderPass r) {
-    surface    = s;
-    renderPass = r;
+void Swapchain::create(VkSurfaceKHR s) {
+    surface = s;
 
     createSwapchain();
     createImageViews();
-    createFramebuffers();
 }
 
 void Swapchain::recreate() {
@@ -123,7 +171,6 @@ void Swapchain::recreate() {
 
     createSwapchain();
     createImageViews();
-    createFramebuffers();
 }
 
 void Swapchain::invalidate() { outOfDate = true; }
@@ -182,28 +229,21 @@ void Swapchain::createSwapchain() {
         throw std::runtime_error("Failed to create swap chain");
     }
 
-    vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, nullptr);
-    images.resize(imageCount);
-    vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, images.data());
+    // Fetch images
+    VkImage images[8];
+    vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, nullptr); // count
+    renderFrames.resize(imageCount);
+    vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, images); // fetch
+    for (unsigned int i = 0; i < imageCount; ++i) { renderFrames[i].colorImageHandle = images[i]; }
 
     imageFormat = surfaceFormat.format;
-    extent      = createInfo.imageExtent;
+    for (SwapRenderFrame& frame : renderFrames) { frame.extent = createInfo.imageExtent; }
 }
 
 void Swapchain::createImageViews() {
-    imageViews.resize(imageViews.size());
-
-    for (std::size_t i = 0; i < images.size(); i++) {
-        imageViews[i] = vulkanState.createImageView(images[i], imageFormat);
-    }
-}
-
-void Swapchain::createFramebuffers() {
-    framebuffers.reserve(imageViews.size());
-    for (unsigned int i = 0; i < imageViews.size(); ++i) {
-        VkImageView attachments[] = {imageViews[i]};
-        framebuffers.emplace_back(vulkanState);
-        framebuffers.back().create(renderPass, extent, attachments, std::size(attachments));
+    for (std::size_t i = 0; i < renderFrames.size(); i++) {
+        renderFrames[i].colorImageViewHandle =
+            vulkanState.createImageView(renderFrames[i].colorImage(), imageFormat);
     }
 }
 
