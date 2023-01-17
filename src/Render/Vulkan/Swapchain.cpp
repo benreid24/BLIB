@@ -26,16 +26,7 @@ void Swapchain::Frame::init(VulkanState& vulkanState) {
         throw std::runtime_error("Failed to create fence");
     }
 
-    commandPool = vulkanState.createCommandPool(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
-
-    VkCommandBufferAllocateInfo allocInfo{};
-    allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-    allocInfo.commandPool        = commandPool;
-    allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-    allocInfo.commandBufferCount = 1;
-    if (vkAllocateCommandBuffers(vulkanState.device, &allocInfo, &commandBuffer) != VK_SUCCESS) {
-        throw std::runtime_error("Failed to allocate command buffers");
-    }
+    commandPool = vulkanState.createCommandPool(VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);
 }
 
 Swapchain::Swapchain(VulkanState& state, sf::WindowBase& w)
@@ -74,6 +65,9 @@ void Swapchain::beginFrame(SwapRenderFrame*& renderFrame, VkCommandBuffer& cb) {
     if (acquireResult != VK_SUCCESS && acquireResult != VK_SUBOPTIMAL_KHR) {
         throw std::runtime_error("Failed to acquire swapchain image");
     }
+
+    // reset prior command buffer
+    vkResetCommandPool(vulkanState.device, frameData.current().commandPool, 0);
 
     // create command buffer
     VkCommandBufferAllocateInfo allocInfo{};

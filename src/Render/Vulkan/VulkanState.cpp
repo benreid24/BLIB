@@ -577,7 +577,7 @@ VkImageView VulkanState::createImageView(VkImage image, VkFormat format) {
 }
 
 VkShaderModule VulkanState::createShaderModule(const std::string& path) {
-    char* data;
+    char* data = nullptr;
     std::size_t len = 0;
 
     if (path[0] <= Config::BuiltInshaderIds::MaxId) {
