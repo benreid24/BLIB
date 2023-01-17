@@ -3,6 +3,8 @@
 
 #include <BLIB/Render/Renderer/PipelineBatch.hpp>
 #include <BLIB/Render/Renderer/RenderPass.hpp>
+#include <BLIB/Render/Util/PerSwapFrame.hpp>
+#include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <vector>
 
@@ -58,13 +60,17 @@ public:
      *        renders all contained objects with their respective pipelines
      *
      * @param commandBuffer The command buffer to record to
-     * @param passInfo Partially configured struct to begin the render pass. Will be modified
+     * @param target The target that will be rendered to
+     * @param clearColors The colors to clear the framebuffer with initially
+     * @param clearColorCount The number of clear colors
      */
-    void recordRenderCommands(VkCommandBuffer commandBuffer, VkRenderPassBeginInfo& passInfo);
+    void recordRenderCommands(VkCommandBuffer commandBuffer, const RenderFrame& target,
+                              VkClearValue* clearColors, std::uint32_t clearColorCount);
 
 private:
     Renderer& renderer;
     VkRenderPass renderPass;
+    PerSwapFrame<Framebuffer> framebuffers;
     std::vector<PipelineBatch> batches;
 };
 

@@ -185,10 +185,10 @@ struct VulkanState {
     VkQueue presentQueue;
     VkCommandPool sharedCommandPool;
     VkCommandBuffer transferCommandBuffer;
+    Swapchain swapchain;
 
 private:
     sf::WindowBase& window;
-    Swapchain swapchain;
     std::uint32_t currentFrame;
 
     void createInstance();

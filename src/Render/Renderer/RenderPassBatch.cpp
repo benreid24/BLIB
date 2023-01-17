@@ -12,6 +12,14 @@ RenderPassBatch::RenderPassBatch(Renderer& renderer, std::uint32_t id)
 : renderer(renderer) {
     renderPass = renderer.renderPassCache().getRenderPass(id).rawPass();
     batches.reserve(16);
+
+    unsigned int i = 0;
+    framebuffers.init(renderer.vulkanState().swapchain, [this, &renderer, &i](Framebuffer& fb) {
+        fb.create(renderer.vulkanState(),
+                  renderPass,
+                  renderer.vulkanState().swapchain.swapFrameAtIndex(i));
+        ++i;
+    });
 }
 
 void RenderPassBatch::addObject(const Object::Handle& obj, std::uint32_t pid) {
@@ -40,16 +48,14 @@ void RenderPassBatch::removeObject(const Object::Handle& obj, std::uint32_t pid)
     }
 }
 
-void RenderPassBatch::recordRenderCommands(VkCommandBuffer cb, VkRenderPassBeginInfo& beginInfo) {
-    beginInfo.renderPass = renderPass;
+void RenderPassBatch::recordRenderCommands(VkCommandBuffer cb, const RenderFrame& target,
+                                           VkClearValue* clearColors,
+                                           std::uint32_t clearColorCount) {
+    framebuffers.current().recreateIfChanged(target);
 
-    // TODO - VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS for multithreading
-    vkCmdBeginRenderPass(cb, &beginInfo, VK_SUBPASS_CONTENTS_INLINE);
-    // TODO - subpasses? viewport and scissor from camera
-    // vkCmdSetViewport(frame.commandBuffer, 0, 1, &viewport);
-    // vkCmdSetScissor(frame.commandBuffer, 0, 1, &scissor);
+    framebuffers.current().beginRender(cb, clearColors, clearColorCount);
     for (PipelineBatch& p : batches) { p.recordRenderCommands(cb); }
-    vkCmdEndRenderPass(cb);
+    framebuffers.current().finishRender(cb);
 }
 
 } // namespace render

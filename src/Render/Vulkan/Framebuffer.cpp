@@ -6,8 +6,8 @@ namespace bl
 {
 namespace render
 {
-Framebuffer::Framebuffer(VulkanState& vulkanState)
-: vulkanState(vulkanState)
+Framebuffer::Framebuffer()
+: vulkanState(nullptr)
 , renderPass(nullptr)
 , target(nullptr)
 , framebuffer(nullptr) {}
@@ -16,7 +16,9 @@ Framebuffer::~Framebuffer() {
     if (renderPass) { cleanup(); }
 }
 
-void Framebuffer::create(VkRenderPass rp, const RenderFrame& frame) {
+void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const RenderFrame& frame) {
+    vulkanState = &vs;
+
     // cleanup and block if recreating
     if (renderPass) {
         // TODO - may need to sync here?
@@ -37,13 +39,18 @@ void Framebuffer::create(VkRenderPass rp, const RenderFrame& frame) {
     framebufferInfo.width           = frame.renderExtent().width;
     framebufferInfo.height          = frame.renderExtent().height;
     framebufferInfo.layers          = 1;
-    if (vkCreateFramebuffer(vulkanState.device, &framebufferInfo, nullptr, &framebuffer) !=
+    if (vkCreateFramebuffer(vulkanState->device, &framebufferInfo, nullptr, &framebuffer) !=
         VK_SUCCESS) {
         throw std::runtime_error("Failed to create framebuffer");
     }
 }
 
-void Framebuffer::beginRender(VkCommandBuffer commandBuffer) {
+void Framebuffer::recreateIfChanged(const RenderFrame& t) {
+    if (t.colorImageView() != target->colorImageView()) { create(*vulkanState, renderPass, t); }
+}
+
+void Framebuffer::beginRender(VkCommandBuffer commandBuffer, VkClearValue* clearColors,
+                              std::uint32_t clearColorCount) const {
 #ifndef BLIB_DEBUG
     if (target == nullptr) {
         throw std::runtime_error("Framebuffer render started without specifiying target");
@@ -51,15 +58,14 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer) {
 #endif
 
     // begin render pass
-    VkClearValue clearColor = {{{0.0f, 0.0f, 0.0f, 1.0f}}};
     VkRenderPassBeginInfo renderPassInfo;
     renderPassInfo.sType             = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass        = renderPass;
     renderPassInfo.framebuffer       = framebuffer;
     renderPassInfo.renderArea.offset = {0, 0};
     renderPassInfo.renderArea.extent = target->renderExtent();
-    renderPassInfo.clearValueCount   = 1;
-    renderPassInfo.pClearValues      = &clearColor;
+    renderPassInfo.clearValueCount   = clearColorCount;
+    renderPassInfo.pClearValues      = clearColors;
     vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
     // set scissor and viewport to default
@@ -78,10 +84,12 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer) {
     vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 }
 
-void Framebuffer::finishRender(VkCommandBuffer commandBuffer) { vkCmdEndRenderPass(commandBuffer); }
+void Framebuffer::finishRender(VkCommandBuffer commandBuffer) const {
+    vkCmdEndRenderPass(commandBuffer);
+}
 
 void Framebuffer::cleanup() {
-    vkDestroyFramebuffer(vulkanState.device, framebuffer, nullptr);
+    vkDestroyFramebuffer(vulkanState->device, framebuffer, nullptr);
     renderPass = nullptr;
 }
 

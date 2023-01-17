@@ -2,6 +2,7 @@
 #define BLIB_RENDER_VULKAN_SWAPRENDERFRAME_HPP
 
 #include <BLIB/Render/Vulkan/RenderFrame.hpp>
+#include <BLIB/Render/Vulkan/Framebuffer.hpp>
 
 namespace bl
 {

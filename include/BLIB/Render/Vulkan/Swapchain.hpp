@@ -63,17 +63,25 @@ public:
 
     /**
      * @brief Returns the current swap chain image index
-     * 
+     *
      * @return The current swap chain image index
-    */
+     */
     constexpr std::uint32_t currentIndex() const;
 
     /**
      * @brief Returns the number of images in the swap chain
-     * 
+     *
      * @return The number of images in the swap chain
-    */
-    constexpr std::size_t length() const;
+     */
+    std::size_t length() const;
+
+    /**
+     * @brief Returns the SwapRenderFrame of the swap chain at the given index
+     *
+     * @param i The index to get. UB if out of bounds
+     * @return The swapchain image at the given index
+     */
+    const SwapRenderFrame& swapFrameAtIndex(unsigned int i) const;
 
 private:
     struct Frame {
@@ -108,6 +116,12 @@ private:
 
 inline constexpr std::uint32_t Swapchain::currentIndex() const { return currentImageIndex; }
 
+inline std::size_t Swapchain::length() const { return renderFrames.size(); }
+
+inline const SwapRenderFrame& Swapchain::swapFrameAtIndex(unsigned int i) const {
+    return renderFrames[i];
+}
+
 template<typename T>
 PerSwapFrame<T>::PerSwapFrame()
 : chain(nullptr) {}
@@ -117,7 +131,7 @@ template<typename TCb>
 void PerSwapFrame<T>::init(Swapchain& c, const TCb& visitor) {
     chain = &c;
     data.clear();
-    data.reserve(chain.length());
+    data.reserve(chain->length());
     for (unsigned int i = 0; i < chain->length(); ++i) {
         data.emplace_back();
         visitor(data.back());
