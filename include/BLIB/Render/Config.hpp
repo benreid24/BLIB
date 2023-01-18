@@ -40,9 +40,9 @@ struct Config {
         }
     };
 
-    struct BuiltInshaderIds {
-        static constexpr char TestVertexShader   = 0;
-        static constexpr char TestFragmentShader = 1;
+    struct BuiltInShaderIds {
+        static constexpr char TestVertexShader[]   = {0};
+        static constexpr char TestFragmentShader[] = {1};
 
         static constexpr std::uint32_t MaxId = 31;
     };

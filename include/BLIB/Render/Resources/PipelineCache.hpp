@@ -42,6 +42,7 @@ private:
 
     PipelineCache(Renderer& renderer);
     void cleanup();
+    void createBuiltins();
 
     friend class Renderer;
 };

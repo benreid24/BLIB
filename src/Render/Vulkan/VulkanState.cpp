@@ -580,14 +580,14 @@ VkShaderModule VulkanState::createShaderModule(const std::string& path) {
     char* data = nullptr;
     std::size_t len = 0;
 
-    if (path[0] <= Config::BuiltInshaderIds::MaxId) {
+    if (path[0] <= Config::BuiltInShaderIds::MaxId) {
         switch (path[0]) {
-        case Config::BuiltInshaderIds::TestVertexShader:
-            // TODO
-            break;
-        case Config::BuiltInshaderIds::TestFragmentShader:
-            // TODO
-            break;
+        case Config::BuiltInShaderIds::TestVertexShader[0]:
+            // TODO - properly include shaders in binary
+            return createShaderModule("shaders/testVert.spv");
+        case Config::BuiltInShaderIds::TestFragmentShader[0]:
+            // TODO - properly include shaders in binary
+            return createShaderModule("shaders/testFrag.spv");
         default:
             BL_LOG_ERROR << "Invalid built-in shader id: " << static_cast<int>(path[0]);
             throw std::runtime_error("Invalid built-in shader id");

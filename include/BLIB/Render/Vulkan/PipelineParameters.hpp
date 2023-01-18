@@ -76,7 +76,8 @@ public:
         const std::array<VkVertexInputAttributeDescription, N>& attributes);
 
     /**
-     * @brief Sets the primitive type that the vertices within this pipeline represent
+     * @brief Sets the primitive type that the vertices within this pipeline represent. Defaults to
+     *        triangle list
      *
      * @param primitiveType The primitive type to be rendered
      * @return PipelineParameters& A reference to this object
