@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_RESOURCES_RENDERPASSCACHE_HPP
 #define BLIB_RENDER_RESOURCES_RENDERPASSCACHE_HPP
 
-#include <BLIB/Render/Renderer/RenderPass.hpp>
+#include <BLIB/Render/Vulkan/RenderPass.hpp>
 #include <cstdint>
 #include <unordered_map>
 

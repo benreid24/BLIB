@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_RESOURCES_PIPELINECACHE_HPP
 #define BLIB_RENDER_RESOURCES_PIPELINECACHE_HPP
 
-#include <BLIB/Render/Renderer/Pipeline.hpp>
+#include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <cstdint>
 #include <unordered_map>
 

@@ -1,7 +1,7 @@
-#ifndef BLIB_RENDER_RENDERER_RENDERPASS_HPP
-#define BLIB_RENDER_RENDERER_RENDERPASS_HPP
+#ifndef BLIB_RENDER_VULKAN_RENDERPASS_HPP
+#define BLIB_RENDER_VULKAN_RENDERPASS_HPP
 
-#include <BLIB/Render/Renderer/RenderPassParameters.hpp>
+#include <BLIB/Render/Vulkan/RenderPassParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 
 namespace bl

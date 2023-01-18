@@ -1,4 +1,4 @@
-#include <BLIB/Render/Renderer/RenderPassParameters.hpp>
+#include <BLIB/Render/Vulkan/RenderPassParameters.hpp>
 
 #include <stdexcept>
 #include <utility>

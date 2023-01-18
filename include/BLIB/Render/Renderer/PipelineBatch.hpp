@@ -2,8 +2,8 @@
 #define BLIB_RENDER_RENDERER_PIPELINEBATCH_HPP
 
 #include <BLIB/Render/Renderer/Object.hpp>
-#include <BLIB/Render/Renderer/Pipeline.hpp>
-#include <BLIB/Render/Renderer/PipelineParameters.hpp>
+#include <BLIB/Render/Vulkan/Pipeline.hpp>
+#include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <mutex>
 #include <vector>

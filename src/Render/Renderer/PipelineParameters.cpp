@@ -1,4 +1,4 @@
-#include <BLIB/Render/Renderer/PipelineParameters.hpp>
+#include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Components/Vertex.hpp>

@@ -2,7 +2,7 @@
 #define BLIB_RENDER_RENDERER_RENDERPASSBATCH_HPP
 
 #include <BLIB/Render/Renderer/PipelineBatch.hpp>
-#include <BLIB/Render/Renderer/RenderPass.hpp>
+#include <BLIB/Render/Vulkan/RenderPass.hpp>
 #include <BLIB/Render/Util/PerSwapFrame.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>

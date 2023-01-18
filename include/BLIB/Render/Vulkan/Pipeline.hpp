@@ -1,7 +1,7 @@
-#ifndef BLIB_RENDER_RENDERER_PIPELINE_HP
-#define BLIB_RENDER_RENDERER_PIPELINE_HP
+#ifndef BLIB_RENDER_VULKAN_PIPELINE_HPP
+#define BLIB_RENDER_VULKAN_PIPELINE_HPP
 
-#include <BLIB/Render/Renderer/PipelineParameters.hpp>
+#include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glad/vulkan.h>
 #include <string>
