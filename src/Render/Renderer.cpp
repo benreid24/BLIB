@@ -11,6 +11,20 @@ Renderer::Renderer(sf::WindowBase& window)
 , renderPasses(*this)
 , pipelines(*this) {}
 
+Renderer::~Renderer() {
+    if (state.device != nullptr) { cleanup(); }
+}
+
+void Renderer::cleanup() {
+    vkDeviceWaitIdle(state.device);
+
+    // TODO - free textures and materials
+    pipelines.cleanup();
+    renderPasses.cleanup();
+    state.cleanup();
+    state.device = nullptr;
+}
+
 void Renderer::update(float dt) { cameraSystem.update(dt); }
 
 Cameras& Renderer::cameras() { return cameraSystem; }

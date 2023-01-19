@@ -24,6 +24,9 @@ Engine::~Engine() {
     while (!states.empty()) { states.pop(); }
     newState.reset();
 
+    renderingSystem.cleanup();
+    renderWindow.close();
+
 #ifndef ON_CI
     audio::AudioSystem::shutdown();
 #endif

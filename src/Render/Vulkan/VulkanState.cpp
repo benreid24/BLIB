@@ -130,8 +130,11 @@ VulkanState::VulkanState(sf::WindowBase& window)
 }
 
 VulkanState::~VulkanState() {
+    if (device != nullptr) { cleanup(); }
+}
+
+void VulkanState::cleanup() {
     swapchain.destroy();
-    // TODO - destroy render pass
     vkFreeCommandBuffers(device, sharedCommandPool, 1, &transferCommandBuffer);
     vkDestroyCommandPool(device, sharedCommandPool, nullptr);
     vkDestroyDevice(device, nullptr);
@@ -140,12 +143,12 @@ VulkanState::~VulkanState() {
 #endif
     vkDestroySurfaceKHR(instance, surface, nullptr);
     vkDestroyInstance(instance, nullptr);
+    device = nullptr;
 }
 
 void VulkanState::invalidateSwapChain() { swapchain.invalidate(); }
 
-void VulkanState::beginFrame(SwapRenderFrame*& renderFrame,
-                                        VkCommandBuffer& commandBuffer) {
+void VulkanState::beginFrame(SwapRenderFrame*& renderFrame, VkCommandBuffer& commandBuffer) {
     swapchain.beginFrame(renderFrame, commandBuffer);
 }
 
@@ -577,7 +580,7 @@ VkImageView VulkanState::createImageView(VkImage image, VkFormat format) {
 }
 
 VkShaderModule VulkanState::createShaderModule(const std::string& path) {
-    char* data = nullptr;
+    char* data      = nullptr;
     std::size_t len = 0;
 
     if (path[0] <= Config::BuiltInShaderIds::MaxId) {

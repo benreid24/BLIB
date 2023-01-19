@@ -36,6 +36,12 @@ struct VulkanState {
     ~VulkanState();
 
     /**
+     * @brief Destroy the Vulkan State object
+     *
+     */
+    void cleanup();
+
+    /**
      * @brief Marks the swap chain as invalid. Called when the window is resized or recreated
      *
      */

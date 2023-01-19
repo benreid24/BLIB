@@ -43,6 +43,7 @@ private:
 
     RenderPassCache(Renderer& renderer);
     void cleanup();
+    void addDefaults();
 
     friend class Renderer;
 };

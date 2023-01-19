@@ -28,6 +28,18 @@ public:
     Renderer(sf::WindowBase& window);
 
     /**
+     * @brief Destroys the renderer and frees owned resources
+     * 
+    */
+    ~Renderer();
+
+    /**
+     * @brief Destroys the renderer and frees owned resources
+     *
+     */
+    void cleanup();
+
+    /**
      * @brief The cameras in use by the render system
      *
      */

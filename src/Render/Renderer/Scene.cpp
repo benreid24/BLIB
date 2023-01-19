@@ -36,7 +36,7 @@ void Scene::removeObject(const Object::Handle& obj) {
     toRemove.emplace_back(obj);
 }
 
-void Scene::recordRenderCommands() {
+void Scene::recordRenderCommands(const RenderFrame& target, VkCommandBuffer commandBuffer) {
     std::unique_lock lock(mutex);
     performRemovals();
 
@@ -47,7 +47,10 @@ void Scene::recordRenderCommands() {
         }
     }
 
-    // TODO - draw and shit
+    // TODO - perform actual rendering of each pass and stage
+    VkClearValue clearColors[1];
+    clearColors[0].color = {0.f, 0.f, 0.f, 1.f};
+    opaquePass.recordRenderCommands(commandBuffer, target, clearColors, std::size(clearColors));
 }
 
 void Scene::performRemovals() {
@@ -78,7 +81,7 @@ void Scene::updatePassMembership(Object::Handle& obj) {
             renderPasses[diff.renderPassId]->removeObject(obj, diff.pipelineId);
             break;
         }
-        passes.applyDiff(diff); 
+        passes.applyDiff(diff);
     }
 }
 

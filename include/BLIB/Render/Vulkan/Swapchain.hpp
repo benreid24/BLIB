@@ -83,6 +83,13 @@ public:
      */
     const SwapRenderFrame& swapFrameAtIndex(unsigned int i) const;
 
+    /**
+     * @brief Returns the image format of images in the swap chain
+     * 
+     * @return The format of images in the swap chain
+    */
+    constexpr VkFormat swapImageFormat() const;
+
 private:
     struct Frame {
         VkSemaphore imageAvailableSemaphore;
@@ -121,6 +128,8 @@ inline std::size_t Swapchain::length() const { return renderFrames.size(); }
 inline const SwapRenderFrame& Swapchain::swapFrameAtIndex(unsigned int i) const {
     return renderFrames[i];
 }
+
+inline constexpr VkFormat Swapchain::swapImageFormat() const { return imageFormat; }
 
 template<typename T>
 PerSwapFrame<T>::PerSwapFrame()

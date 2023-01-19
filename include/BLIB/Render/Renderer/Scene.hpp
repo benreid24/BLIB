@@ -4,6 +4,7 @@
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Render/Renderer/Object.hpp>
 #include <BLIB/Render/Renderer/RenderPassBatch.hpp>
+#include <BLIB/Render/Vulkan/RenderFrame.hpp>
 #include <array>
 #include <glad/vulkan.h>
 #include <mutex>
@@ -14,10 +15,11 @@ namespace bl
 namespace render
 {
 class Renderer;
+class ScenePool;
 
 class Scene {
 public:
-    Scene(Renderer& renderer);
+    
 
     /**
      * @brief Creates a new object to be rendered in the scene
@@ -34,7 +36,13 @@ public:
      */
     void removeObject(const Object::Handle& object);
 
-    void recordRenderCommands();
+    /**
+     * @brief Records the commands to render this scene into the given command buffer
+     * 
+     * @param target The target to render to
+     * @param commandBuffer The command buffer to record commands into
+    */
+    void recordRenderCommands(const RenderFrame& target, VkCommandBuffer commandBuffer);
 
 private:
     std::mutex mutex;
@@ -46,12 +54,14 @@ private:
     RenderPassBatch transparencyPass;
     RenderPassBatch postFxPass;
     RenderPassBatch overlayPass;
-
     std::mutex eraseMutex;
     std::vector<Object::Handle> toRemove;
-    void performRemovals();
 
+    Scene(Renderer& renderer);
+    void performRemovals();
     void updatePassMembership(Object::Handle& object);
+
+    friend class ScenePool;
 };
 
 } // namespace render
