@@ -19,8 +19,6 @@ class ScenePool;
 
 class Scene {
 public:
-    
-
     /**
      * @brief Creates a new object to be rendered in the scene
      *

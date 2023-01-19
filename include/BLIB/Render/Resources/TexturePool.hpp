@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 #define BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 
-#include <BLIB/Render/Resources/Texture.hpp>
+#include <BLIB/Render/Renderer/Texture.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPoolRequirements.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>

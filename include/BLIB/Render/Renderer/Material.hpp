@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_COMPONENTS_MATERIAL_HPP
-#define BLIB_RENDER_COMPONENTS_MATERIAL_HPP
+#ifndef BLIB_RENDER_RENDERER_MATERIAL_HPP
+#define BLIB_RENDER_RENDERER_MATERIAL_HPP
 
 #include <BLIB/Render/Uniforms/MaterialUniform.hpp>
 #include <cstdint>
