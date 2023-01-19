@@ -8,6 +8,7 @@
 #include <BLIB/Render/Resources/TexturePool.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <BLIB/Render/Resources/ScenePool.hpp>
 
 namespace bl
 {
@@ -93,6 +94,13 @@ public:
      */
     constexpr PipelineCache& pipelineCache();
 
+    /**
+     * @brief Returns the scene pool of the renderer
+     * 
+     * @return The scene pool belonging to this renderer
+    */
+    constexpr ScenePool& scenePool();
+
 private:
     VulkanState state;
     TexturePool textures;
@@ -100,6 +108,7 @@ private:
     RenderPassCache renderPasses;
     PipelineCache pipelines;
     Cameras cameraSystem;
+    ScenePool scenes;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -113,6 +122,8 @@ inline constexpr MaterialPool& Renderer::materialPool() { return materials; }
 inline constexpr RenderPassCache& Renderer::renderPassCache() { return renderPasses; }
 
 inline constexpr PipelineCache& Renderer::pipelineCache() { return pipelines; }
+
+inline constexpr ScenePool& Renderer::scenePool() { return scenes; }
 
 } // namespace render
 } // namespace bl

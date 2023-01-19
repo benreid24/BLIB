@@ -2,6 +2,7 @@
 #define BLIB_RENDER_RENDERER_SCENE_HPP
 
 #include <BLIB/Containers/ObjectPool.hpp>
+#include <BLIB/Containers/ObjectWrapper.hpp>
 #include <BLIB/Render/Renderer/Object.hpp>
 #include <BLIB/Render/Renderer/RenderPassBatch.hpp>
 #include <BLIB/Render/Vulkan/RenderFrame.hpp>
@@ -15,7 +16,6 @@ namespace bl
 namespace render
 {
 class Renderer;
-class ScenePool;
 
 class Scene {
 public:
@@ -36,10 +36,10 @@ public:
 
     /**
      * @brief Records the commands to render this scene into the given command buffer
-     * 
+     *
      * @param target The target to render to
      * @param commandBuffer The command buffer to record commands into
-    */
+     */
     void recordRenderCommands(const RenderFrame& target, VkCommandBuffer commandBuffer);
 
 private:
@@ -59,7 +59,7 @@ private:
     void performRemovals();
     void updatePassMembership(Object::Handle& object);
 
-    friend class ScenePool;
+    friend class container::ObjectWrapper<Scene>;
 };
 
 } // namespace render

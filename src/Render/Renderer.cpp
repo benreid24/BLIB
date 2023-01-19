@@ -9,7 +9,8 @@ Renderer::Renderer(sf::WindowBase& window)
 , textures(state)
 , materials(state)
 , renderPasses(*this)
-, pipelines(*this) {}
+, pipelines(*this)
+, scenes(*this) {}
 
 Renderer::~Renderer() {
     if (state.device != nullptr) { cleanup(); }
@@ -19,6 +20,7 @@ void Renderer::cleanup() {
     vkDeviceWaitIdle(state.device);
 
     // TODO - free textures and materials
+    scenes.cleanup();
     pipelines.cleanup();
     renderPasses.cleanup();
     state.cleanup();

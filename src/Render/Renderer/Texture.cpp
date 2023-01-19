@@ -1,4 +1,4 @@
-#include <BLIB/Render/Resources/Texture.hpp>
+#include <BLIB/Render/Renderer/Texture.hpp>
 
 namespace bl
 {

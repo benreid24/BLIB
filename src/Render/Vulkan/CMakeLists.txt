@@ -1,6 +1,10 @@
 target_sources(BLIB PRIVATE
     DescriptorPoolRequirements.cpp
     Framebuffer.cpp
+    Pipeline.cpp
+    PipelineParameters.cpp
+    RenderPass.cpp
+    RenderPassParameters.cpp
     Swapchain.cpp
     VulkanState.cpp
 )
