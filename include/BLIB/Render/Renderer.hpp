@@ -5,13 +5,19 @@
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <BLIB/Render/Resources/PipelineCache.hpp>
 #include <BLIB/Render/Resources/RenderPassCache.hpp>
+#include <BLIB/Render/Resources/ScenePool.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
-#include <BLIB/Render/Resources/ScenePool.hpp>
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+class RendererCleaner;
+}
+
 namespace render
 {
 /**
@@ -23,24 +29,6 @@ namespace render
 class Renderer : private util::NonCopyable {
 public:
     /**
-     * @brief Construct a new Render System
-     *
-     */
-    Renderer(sf::WindowBase& window);
-
-    /**
-     * @brief Destroys the renderer and frees owned resources
-     * 
-    */
-    ~Renderer();
-
-    /**
-     * @brief Destroys the renderer and frees owned resources
-     *
-     */
-    void cleanup();
-
-    /**
      * @brief Updates the cameras
      *
      * @param dt Time elapsed in seconds
@@ -49,8 +37,8 @@ public:
 
     /**
      * @brief Renders a frame to the window and presents it
-     * 
-    */
+     *
+     */
     void renderFrame();
 
     /**
@@ -96,9 +84,9 @@ public:
 
     /**
      * @brief Returns the scene pool of the renderer
-     * 
+     *
      * @return The scene pool belonging to this renderer
-    */
+     */
     constexpr ScenePool& scenePool();
 
     Scene* testScene;
@@ -111,6 +99,14 @@ private:
     PipelineCache pipelines;
     Cameras cameraSystem;
     ScenePool scenes;
+
+    Renderer(sf::WindowBase& window);
+    ~Renderer();
+    void initialize();
+    void cleanup();
+
+    friend class engine::Engine;
+    friend class engine::RendererCleaner;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

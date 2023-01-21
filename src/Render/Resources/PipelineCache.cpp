@@ -11,7 +11,6 @@ namespace render
 PipelineCache::PipelineCache(Renderer& r)
 : renderer(r) {
     // TODO - leverage VkPipelineCache?
-    createBuiltins();
 }
 
 void PipelineCache::cleanup() { cache.clear(); }

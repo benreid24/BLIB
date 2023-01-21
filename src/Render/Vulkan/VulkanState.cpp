@@ -116,7 +116,13 @@ VulkanState::VulkanState(sf::WindowBase& window)
 , currentFrame(0) {
     gladLoadVulkan(0, sf::Vulkan::getFunction);
     if (!vkCreateInstance) { throw std::runtime_error("Failed to load Vulkan"); }
+}
 
+VulkanState::~VulkanState() {
+    if (device != nullptr) { cleanup(); }
+}
+
+void VulkanState::init() {
     createInstance();
 #ifdef BLIB_DEBUG
     setupDebugMessenger();
@@ -127,10 +133,6 @@ VulkanState::VulkanState(sf::WindowBase& window)
     createLogicalDevice();
     createCommandPoolAndTransferBuffer();
     swapchain.create(surface);
-}
-
-VulkanState::~VulkanState() {
-    if (device != nullptr) { cleanup(); }
 }
 
 void VulkanState::cleanup() {

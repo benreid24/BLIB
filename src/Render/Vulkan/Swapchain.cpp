@@ -29,13 +29,18 @@ void Swapchain::Frame::init(VulkanState& vulkanState) {
     commandPool = vulkanState.createCommandPool(VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);
 }
 
+void Swapchain::Frame::cleanup(VulkanState& vulkanState) {
+    vkDestroySemaphore(vulkanState.device, imageAvailableSemaphore, nullptr);
+    vkDestroySemaphore(vulkanState.device, renderFinishedSemaphore, nullptr);
+    vkDestroyFence(vulkanState.device, commandBufferFence, nullptr);
+    vkDestroyCommandPool(vulkanState.device, commandPool, nullptr);
+}
+
 Swapchain::Swapchain(VulkanState& state, sf::WindowBase& w)
 : vulkanState(state)
 , window(w)
 , currentImageIndex(0)
-, outOfDate(true) {
-    frameData.init(state, [&state](Frame& frame) { frame.init(state); });
-}
+, outOfDate(true) {}
 
 void Swapchain::destroy() {
     cleanup();
@@ -152,9 +157,11 @@ void Swapchain::cleanup() {
 
 void Swapchain::create(VkSurfaceKHR s) {
     surface = s;
+    frameData.init(vulkanState, [this](Frame& frame) { frame.init(vulkanState); });
 
     createSwapchain();
     createImageViews();
+    outOfDate = false;
 }
 
 void Swapchain::recreate() {

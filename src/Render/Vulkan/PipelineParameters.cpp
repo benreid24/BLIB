@@ -56,7 +56,7 @@ PipelineParameters& PipelineParameters::withShaders(const std::string& vert,
     shaders.front().stage      = VK_SHADER_STAGE_VERTEX_BIT;
     shaders.front().entrypoint = "main";
 
-    shaders.back().path       = vert;
+    shaders.back().path       = frag;
     shaders.back().stage      = VK_SHADER_STAGE_FRAGMENT_BIT;
     shaders.back().entrypoint = "main";
 

@@ -23,23 +23,10 @@ namespace render
  */
 struct VulkanState {
     /**
-     * @brief Create and initialize the Vulkan renderer
-     *
-     * @param window The window to attach to
-     */
-    VulkanState(sf::WindowBase& window);
-
-    /**
      * @brief Destroy the Vulkan State object
      *
      */
     ~VulkanState();
-
-    /**
-     * @brief Destroy the Vulkan State object
-     *
-     */
-    void cleanup();
 
     /**
      * @brief Marks the swap chain as invalid. Called when the window is resized or recreated
@@ -188,6 +175,10 @@ private:
     sf::WindowBase& window;
     std::uint32_t currentFrame;
 
+    VulkanState(sf::WindowBase& window);
+    void init();
+    void cleanup();
+
     void createInstance();
     void setupDebugMessenger();
     void createSurface();
@@ -196,6 +187,8 @@ private:
     void createCommandPoolAndTransferBuffer();
 
     void cleanupDebugMessenger();
+
+    friend class Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

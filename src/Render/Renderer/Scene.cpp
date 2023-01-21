@@ -42,7 +42,8 @@ void Scene::recordRenderCommands(const RenderFrame& target, VkCommandBuffer comm
 
     for (auto it = objects.begin(); it != objects.end(); ++it) {
         if (it->flags.isRenderPassDirty()) {
-            updatePassMembership(objects.getStableRef(it));
+            Object::Handle handle = objects.getStableRef(it);
+            updatePassMembership(handle);
             it->flags.markRenderPassesClean();
         }
     }

@@ -10,6 +10,29 @@ namespace bl
 {
 namespace engine
 {
+class RendererCleaner {
+public:
+    RendererCleaner()
+    : window(nullptr)
+    , renderer(nullptr) {}
+
+    ~RendererCleaner() {
+        if (renderer) {
+            renderer->cleanup();
+            window->close();
+        }
+    }
+
+    void arm(sf::WindowBase& w, render::Renderer& r) {
+        window   = &w;
+        renderer = &r;
+    }
+
+private:
+    sf::WindowBase* window;
+    render::Renderer* renderer;
+};
+
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , entityRegistry(settings.maximumEntityCount())
@@ -23,9 +46,6 @@ Engine::~Engine() {
     bl::event::Dispatcher::clearAllListeners();
     while (!states.empty()) { states.pop(); }
     newState.reset();
-
-    renderingSystem.cleanup();
-    renderWindow.close();
 
 #ifndef ON_CI
     audio::AudioSystem::shutdown();
@@ -96,8 +116,11 @@ bool Engine::run(State::Ptr initialState) {
         }
     };
 
+    RendererCleaner rendererCleaner;
     if (engineSettings.createWindow()) {
         if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
+        renderingSystem.initialize();
+        rendererCleaner.arm(renderWindow, renderingSystem);
     }
 
     sf::Clock fpsTimer;
@@ -118,7 +141,6 @@ bool Engine::run(State::Ptr initialState) {
             switch (event.type) {
             case sf::Event::Closed:
                 bl::event::Dispatcher::dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
-                renderWindow.close();
                 return true;
 
             case sf::Event::LostFocus:
@@ -126,7 +148,6 @@ bool Engine::run(State::Ptr initialState) {
                 if (!awaitFocus()) {
                     bl::event::Dispatcher::dispatch<event::Shutdown>(
                         {event::Shutdown::WindowClosed});
-                    renderWindow.close();
                     return true;
                 }
                 bl::event::Dispatcher::dispatch<event::Resumed>({});
@@ -199,8 +220,7 @@ bool Engine::run(State::Ptr initialState) {
         }
 
 #ifndef ON_CI // do render
-        if (!engineFlags.active(Flags::PopState) && !engineFlags.active(Flags::Terminate) &&
-            !newState) {
+        if (!engineFlags.stateChangeReady()) {
             renderingSystem.cameras().configureView(renderWindow);
             states.top()->render(*this, lag);
         }
@@ -210,9 +230,6 @@ bool Engine::run(State::Ptr initialState) {
         while (engineFlags.stateChangeReady()) {
             if (engineFlags.active(Flags::Terminate)) {
                 bl::event::Dispatcher::dispatch<event::Shutdown>({event::Shutdown::Terminated});
-#ifndef ON_CI
-                renderWindow.close();
-#endif
                 return true;
             }
             else if (engineFlags.active(Flags::PopState)) {
@@ -224,9 +241,6 @@ bool Engine::run(State::Ptr initialState) {
                     BL_LOG_INFO << "Final state popped, exiting";
                     bl::event::Dispatcher::dispatch<event::Shutdown>(
                         {event::Shutdown::FinalStatePopped});
-#ifndef ON_CI
-                    renderWindow.close();
-#endif
                     return true;
                 }
                 BL_LOG_INFO << "New engine state (popped): " << states.top()->name();

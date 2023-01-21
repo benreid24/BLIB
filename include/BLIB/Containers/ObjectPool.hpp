@@ -632,6 +632,11 @@ const T* ObjectPool<T>::FixedRef::operator->() const {
 }
 
 template<typename T>
+void ObjectPool<T>::FixedRef::erase() {
+    owner->erase(ObjectPool<T>::Iterator{owner->pool.data() + index, nullptr});
+}
+
+template<typename T>
 bool ObjectPool<T>::FixedRef::valid() const {
     return owner && owner->pool[index].alive();
 }

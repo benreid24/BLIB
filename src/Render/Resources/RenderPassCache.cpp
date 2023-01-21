@@ -8,9 +8,9 @@ namespace bl
 namespace render
 {
 RenderPassCache::RenderPassCache(Renderer& r)
-: renderer(r) {
-    addDefaults();
-}
+: renderer(r) {}
+
+void RenderPassCache::cleanup() { cache.clear(); }
 
 RenderPass& RenderPassCache::createRenderPass(std::uint32_t id, RenderPassParameters&& params) {
     const auto insertResult =

@@ -11,10 +11,17 @@ Renderer::Renderer(sf::WindowBase& window)
 , renderPasses(*this)
 , pipelines(*this)
 , scenes(*this)
-, testScene(scenes.allocateScene()) {}
+, testScene(nullptr) {}
 
 Renderer::~Renderer() {
     if (state.device != nullptr) { cleanup(); }
+}
+
+void Renderer::initialize() {
+    state.init();
+    renderPasses.addDefaults();
+    pipelines.createBuiltins();
+    testScene = scenes.allocateScene();
 }
 
 void Renderer::cleanup() {
