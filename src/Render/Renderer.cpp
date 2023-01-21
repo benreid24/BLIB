@@ -10,7 +10,8 @@ Renderer::Renderer(sf::WindowBase& window)
 , materials(state)
 , renderPasses(*this)
 , pipelines(*this)
-, scenes(*this) {}
+, scenes(*this)
+, testScene(scenes.allocateScene()) {}
 
 Renderer::~Renderer() {
     if (state.device != nullptr) { cleanup(); }
@@ -19,8 +20,8 @@ Renderer::~Renderer() {
 void Renderer::cleanup() {
     vkDeviceWaitIdle(state.device);
 
-    // TODO - free textures and materials
     scenes.cleanup();
+    // TODO - free textures and materials
     pipelines.cleanup();
     renderPasses.cleanup();
     state.cleanup();
@@ -29,9 +30,14 @@ void Renderer::cleanup() {
 
 void Renderer::update(float dt) { cameraSystem.update(dt); }
 
-Cameras& Renderer::cameras() { return cameraSystem; }
-
-const Cameras& Renderer::cameras() const { return cameraSystem; }
+void Renderer::renderFrame() {
+    SwapRenderFrame* currentFrame = nullptr;
+    VkCommandBuffer commandBuffer = nullptr;
+    state.beginFrame(currentFrame, commandBuffer);
+    // TODO - scene stack and observers
+    testScene->recordRenderCommands(*currentFrame, commandBuffer);
+    state.completeFrame();
+}
 
 } // namespace render
 } // namespace bl

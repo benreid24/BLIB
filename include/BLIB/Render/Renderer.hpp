@@ -41,23 +41,23 @@ public:
     void cleanup();
 
     /**
-     * @brief The cameras in use by the render system
-     *
-     */
-    Cameras& cameras();
-
-    /**
-     * @brief The cameras in use by the render system
-     *
-     */
-    const Cameras& cameras() const;
-
-    /**
      * @brief Updates the cameras
      *
      * @param dt Time elapsed in seconds
      */
     void update(float dt);
+
+    /**
+     * @brief Renders a frame to the window and presents it
+     * 
+    */
+    void renderFrame();
+
+    /**
+     * @brief The cameras in use by the render system
+     *
+     */
+    constexpr Cameras& cameras();
 
     /**
      * @brief Returns the Vulkan state of the renderer
@@ -101,6 +101,8 @@ public:
     */
     constexpr ScenePool& scenePool();
 
+    Scene* testScene;
+
 private:
     VulkanState state;
     TexturePool textures;
@@ -124,6 +126,8 @@ inline constexpr RenderPassCache& Renderer::renderPassCache() { return renderPas
 inline constexpr PipelineCache& Renderer::pipelineCache() { return pipelines; }
 
 inline constexpr ScenePool& Renderer::scenePool() { return scenes; }
+
+inline constexpr Cameras& Renderer::cameras() { return cameraSystem; }
 
 } // namespace render
 } // namespace bl

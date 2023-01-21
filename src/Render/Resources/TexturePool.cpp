@@ -6,6 +6,7 @@ namespace render
 {
 TexturePool::TexturePool(VulkanState& vs)
 : vulkanState(vs)
+, textures(MaxTextureCount)
 , freeSlots(MaxTextureCount) {
     // TODO
 }

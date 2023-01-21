@@ -46,8 +46,8 @@ public:
 
 private:
     VulkanState& vulkanState;
-    std::array<Material, MaxMaterialCount> materials;
-    std::array<MaterialUniform, MaxMaterialCount> materialUniforms;
+    std::vector<Material> materials;
+    std::vector<MaterialUniform> materialUniforms;
     util::IdAllocator<std::size_t> freeSlots;
 
     std::unordered_map<std::string, std::uint32_t> materialFileMap;
@@ -57,7 +57,7 @@ private:
     VkDescriptorSet descriptorSet;
     VkWriteDescriptorSet descriptorUpdateCommand;
 
-    VkDescriptorImageInfo textureImageWriteInfo[MaxMaterialCount];
+    std::vector<VkDescriptorImageInfo> textureImageWriteInfo;
     VkBuffer materialDeviceBuffer;
 
     void resetMaterial(std::uint32_t materialId);

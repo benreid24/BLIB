@@ -1,4 +1,4 @@
-#include <BLIB/Render/Components/Vertex.hpp>
+#include <BLIB/Render/Primitives/Vertex.hpp>
 
 namespace bl
 {

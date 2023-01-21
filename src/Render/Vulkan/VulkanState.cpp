@@ -408,18 +408,6 @@ void VulkanState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
     vkBindBufferMemory(device, buffer, bufferMemory, 0);
 }
 
-void VulkanState::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
-    VkCommandBuffer commandBuffer = beginSingleTimeCommands();
-
-    VkBufferCopy copyRegion{};
-    copyRegion.srcOffset = 0; // Optional
-    copyRegion.dstOffset = 0; // Optional
-    copyRegion.size      = size;
-    vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, 1, &copyRegion);
-
-    endSingleTimeCommands(commandBuffer);
-}
-
 void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
                               VkImageTiling tiling, VkImageUsageFlags usage,
                               VkMemoryPropertyFlags properties, VkImage& image,

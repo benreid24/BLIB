@@ -6,6 +6,7 @@ namespace render
 {
 ScenePool::ScenePool(Renderer& r)
 : renderer(r)
+, pool(MaxSceneCount)
 , freeSlots(MaxSceneCount) {}
 
 void ScenePool::cleanup() {

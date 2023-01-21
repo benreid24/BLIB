@@ -6,9 +6,10 @@ namespace render
 {
 MaterialPool::MaterialPool(VulkanState& vs)
 : vulkanState(vs)
-, freeSlots(MaxMaterialCount) {
-    // TODO
-}
+, materials(MaxMaterialCount)
+, materialUniforms(MaxMaterialCount)
+, freeSlots(MaxMaterialCount)
+, textureImageWriteInfo(MaxMaterialCount) {}
 
 MaterialPool::~MaterialPool() {
     // TODO

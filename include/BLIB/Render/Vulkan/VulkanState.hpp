@@ -110,15 +110,6 @@ struct VulkanState {
                       VkBuffer& buffer, VkDeviceMemory& bufferMemory);
 
     /**
-     * @brief Helper function to copy one buffer to another. The copy operation must be valid
-     *
-     * @param srcBuffer The buffer to copy from
-     * @param dstBuffer The buffer to copy to
-     * @param size The size of the data to copy
-     */
-    void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
-
-    /**
      * @brief Helper function to create an image
      *
      * @param width The width of the image in pixels

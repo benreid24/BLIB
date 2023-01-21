@@ -53,7 +53,7 @@ public:
 
 private:
     Renderer& renderer;
-    std::array<container::ObjectWrapper<Scene>, MaxSceneCount> pool;
+    std::vector<container::ObjectWrapper<Scene>> pool;
     util::IdAllocator<std::uint32_t> freeSlots;
     std::mutex mutex;
 };

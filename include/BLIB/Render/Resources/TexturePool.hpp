@@ -42,7 +42,7 @@ public:
 
 private:
     VulkanState& vulkanState;
-    std::array<Texture, MaxTextureCount> textures;
+    std::vector<Texture> textures;
     util::IdAllocator<std::uint32_t> freeSlots;
     std::unordered_map<std::string, std::uint32_t> fileMap;
 
