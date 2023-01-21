@@ -1,7 +1,7 @@
 #ifndef BLIB_ENGINE_ENGINE_HPP
 #define BLIB_ENGINE_ENGINE_HPP
 
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/WindowBase.hpp>
 #include <stack>
 
 #include <BLIB/ECS/Registry.hpp>
@@ -101,12 +101,12 @@ public:
      *        is created when run() is called
      *
      */
-    sf::RenderWindow& window();
+    sf::WindowBase& window();
 
     /**
      * @brief Runs the main game loop starting in the given initial state. This is the main
      *        application loop and runs for the duration of the program. All setup should be
-     *        performed prior to calling this. The sf::RenderWindow is created in here
+     *        performed prior to calling this. The sf::WindowBase is created in here
      *
      * @param initialState The starting engine state
      * @return bool True if the engine exited cleanly, false if exiting due to error
@@ -145,7 +145,7 @@ private:
     std::stack<State::Ptr> states;
     State::Ptr newState;
 
-    sf::RenderWindow renderWindow;
+    sf::WindowBase renderWindow;
     sf::Context renderContext;
     script::Manager engineScriptManager;
     ecs::Registry entityRegistry;

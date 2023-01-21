@@ -10,7 +10,7 @@ Object::Object(Renderable* o)
 , hidden(false)
 , drawParams{} {
     frameData.transform = glm::mat4(1.f);
-    frameData.index     = 0; // TODO - which value for null?
+    //frameData.index     = 0; // TODO - which value for null?
 }
 
 } // namespace render

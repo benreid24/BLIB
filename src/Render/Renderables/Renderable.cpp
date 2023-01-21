@@ -78,12 +78,12 @@ void Renderable::setDrawParameters(const DrawParameters& dp) {
 }
 
 void Renderable::setTextureId(std::uint32_t tid) {
-    frameData.index = tid;
+    // frameData.index = tid;
     markPCDirty();
 }
 
 void Renderable::setMaterialId(std::uint32_t mid) {
-    frameData.index = mid;
+    // frameData.index = mid;
     markPCDirty();
 }
 

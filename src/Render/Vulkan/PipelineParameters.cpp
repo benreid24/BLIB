@@ -1,8 +1,8 @@
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Render/Uniforms/PushConstants.hpp>
 #include <stdexcept>
 
@@ -12,7 +12,10 @@ namespace render
 {
 PipelineParameters::PipelineParameters(std::uint32_t rpid)
 : renderPassId(rpid)
-, primitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST) {
+, primitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+, rasterizer{}
+, msaa{}
+, colorBlending{} {
     shaders.reserve(4);
     descriptorSets.reserve(4);
 
@@ -46,6 +49,8 @@ PipelineParameters::PipelineParameters(std::uint32_t rpid)
     colorBlending.blendConstants[1] = 0.0f;             // Optional
     colorBlending.blendConstants[2] = 0.0f;             // Optional
     colorBlending.blendConstants[3] = 0.0f;             // Optional
+
+    withDynamicStates({VK_DYNAMIC_STATE_SCISSOR, VK_DYNAMIC_STATE_VIEWPORT});
 }
 
 PipelineParameters& PipelineParameters::withShaders(const std::string& vert,
@@ -103,9 +108,6 @@ PipelineParameters& PipelineParameters::addDescriptorSet(VkDescriptorSetLayout l
 PipelineParameters& PipelineParameters::addPushConstantRange(std::uint32_t offset,
                                                              std::uint32_t len,
                                                              VkShaderStageFlags stages) {
-    if (offset < Config::CustomPushConstantOffsetStart) {
-        throw std::runtime_error("Custom push constant offset is too low");
-    }
     if (offset % 4 != 0) {
         throw std::runtime_error("Custom push constant offset must be a multiple of 4");
     }

@@ -64,7 +64,7 @@ const Settings& Engine::settings() const { return engineSettings; }
 
 Flags& Engine::flags() { return engineFlags; }
 
-sf::RenderWindow& Engine::window() { return renderWindow; }
+sf::WindowBase& Engine::window() { return renderWindow; }
 
 void Engine::pushState(State::Ptr next) {
     flags().set(Flags::_priv_PushState);
@@ -221,7 +221,6 @@ bool Engine::run(State::Ptr initialState) {
 
 #ifndef ON_CI // do render
         if (!engineFlags.stateChangeReady()) {
-            renderingSystem.cameras().configureView(renderWindow);
             states.top()->render(*this, lag);
         }
 #endif
@@ -324,17 +323,17 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
 
 void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
     renderWindow.setTitle(params.title());
-    renderWindow.setVerticalSyncEnabled(params.vsyncEnabled());
+    //renderWindow.setVerticalSyncEnabled(params.vsyncEnabled());
 
     engineSettings.withWindowParameters(params);
     params.syncToConfig();
 
-    if (params.initialViewSize().x > 0.f) {
+    /* if (params.initialViewSize().x > 0.f) {
         sf::View view = renderWindow.getView();
         view.setSize(params.initialViewSize());
         view.setCenter(params.initialViewSize() * 0.5f);
         renderWindow.setView(view);
-    }
+    }*/
 
     if (params.letterBox()) {
         sf::Event::SizeEvent e;
@@ -371,7 +370,7 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
     }
 
     view.setViewport(viewPort);
-    renderWindow.setView(view);
+    //renderWindow.setView(view);
 
     if (ss) {
         Settings::WindowParameters params = engineSettings.windowParameters();
@@ -379,7 +378,7 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
             sf::VideoMode(resize.width, resize.height, params.videoMode().bitsPerPixel));
         engineSettings.withWindowParameters(params);
         params.syncToConfig();
-        bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
+        //bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
     }
 }
 

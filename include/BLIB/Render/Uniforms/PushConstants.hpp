@@ -15,7 +15,7 @@ namespace render
  */
 struct PushConstants {
     glm::mat4 transform;
-    std::uint32_t index;
+    //std::uint32_t index;
 };
 
 } // namespace render
