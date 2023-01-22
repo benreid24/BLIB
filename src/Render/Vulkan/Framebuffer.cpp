@@ -58,7 +58,7 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, VkClearValue* clear
 #endif
 
     // begin render pass
-    VkRenderPassBeginInfo renderPassInfo;
+    VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType             = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass        = renderPass;
     renderPassInfo.framebuffer       = framebuffer;

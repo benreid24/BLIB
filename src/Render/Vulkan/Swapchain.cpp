@@ -22,11 +22,22 @@ void Swapchain::Frame::init(VulkanState& vulkanState) {
 
     VkFenceCreateInfo fenceInfo{};
     fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+    fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
     if (vkCreateFence(vulkanState.device, &fenceInfo, nullptr, &commandBufferFence) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create fence");
     }
 
     commandPool = vulkanState.createCommandPool(VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);
+
+    // create command buffer
+    VkCommandBufferAllocateInfo allocInfo{};
+    allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    allocInfo.commandPool        = commandPool;
+    allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+    allocInfo.commandBufferCount = 1;
+    if (vkAllocateCommandBuffers(vulkanState.device, &allocInfo, &commandBuffer) != VK_SUCCESS) {
+        throw std::runtime_error("Failed to allocate command buffers");
+    }
 }
 
 void Swapchain::Frame::cleanup(VulkanState& vulkanState) {
@@ -73,17 +84,6 @@ void Swapchain::beginFrame(SwapRenderFrame*& renderFrame, VkCommandBuffer& cb) {
 
     // reset prior command buffer
     vkResetCommandPool(vulkanState.device, frameData.current().commandPool, 0);
-
-    // create command buffer
-    VkCommandBufferAllocateInfo allocInfo{};
-    allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-    allocInfo.commandPool        = frameData.current().commandPool;
-    allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-    allocInfo.commandBufferCount = 1;
-    if (vkAllocateCommandBuffers(
-            vulkanState.device, &allocInfo, &frameData.current().commandBuffer) != VK_SUCCESS) {
-        throw std::runtime_error("Failed to allocate command buffers");
-    }
 
     // begin command buffer
     VkCommandBufferBeginInfo beginInfo{};
