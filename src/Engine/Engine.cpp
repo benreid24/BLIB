@@ -142,6 +142,9 @@ bool Engine::run(State::Ptr initialState) {
                 if (engineSettings.windowParameters().letterBox()) {
                     handleResize(event.size, true);
                 }
+                if (renderingSystem.vulkanState().device) {
+                    renderingSystem.vulkanState().swapchain.invalidate();
+                }
                 break;
 
             default:

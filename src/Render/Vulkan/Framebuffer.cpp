@@ -28,6 +28,7 @@ void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const RenderFrame& fr
     // copy create params
     renderPass = rp;
     target     = &frame;
+    cachedAttachment = frame.colorImageView();
 
     // create framebuffer
     VkImageView attachments[] = {frame.colorImageView()};
@@ -46,7 +47,7 @@ void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const RenderFrame& fr
 }
 
 void Framebuffer::recreateIfChanged(const RenderFrame& t) {
-    if (t.colorImageView() != target->colorImageView()) { create(*vulkanState, renderPass, t); }
+    if (t.colorImageView() != cachedAttachment) { create(*vulkanState, renderPass, t); }
 }
 
 void Framebuffer::beginRender(VkCommandBuffer commandBuffer, VkClearValue* clearColors,

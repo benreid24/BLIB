@@ -75,6 +75,7 @@ private:
     VkRenderPass renderPass;
     const RenderFrame* target;
     VkFramebuffer framebuffer;
+    VkImageView cachedAttachment;
 };
 
 } // namespace render

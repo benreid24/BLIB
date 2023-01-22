@@ -100,8 +100,6 @@ void Swapchain::beginFrame(SwapRenderFrame*& renderFrame, VkCommandBuffer& cb) {
 }
 
 void Swapchain::completeFrame() {
-    // TODO - may want to make it easy to submit per render pass
-
     // end command buffer
     vkEndCommandBuffer(frameData.current().commandBuffer);
 
@@ -235,10 +233,11 @@ void Swapchain::createSwapchain() {
     vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, nullptr); // count
     renderFrames.resize(imageCount);
     vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, images); // fetch
-    for (unsigned int i = 0; i < imageCount; ++i) { renderFrames[i].colorImageHandle = images[i]; }
-
+    for (unsigned int i = 0; i < imageCount; ++i) {
+        renderFrames[i].colorImageHandle = images[i];
+        renderFrames[i].extent           = createInfo.imageExtent;
+    }
     imageFormat = surfaceFormat.format;
-    for (SwapRenderFrame& frame : renderFrames) { frame.extent = createInfo.imageExtent; }
 }
 
 void Swapchain::createImageViews() {

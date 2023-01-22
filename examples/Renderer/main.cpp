@@ -52,7 +52,7 @@ int main() {
     const bl::engine::Settings engineSettings = bl::engine::Settings().withWindowParameters(
         bl::engine::Settings::WindowParameters()
             .withVideoMode(sf::VideoMode(1920, 1080, 32))
-            .withStyle(sf::Style::Close | sf::Style::Titlebar)
+            .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
             .withTitle("Renderer Demo")
             .withIcon("vulkan.png"));
     bl::engine::Engine engine(engineSettings);
