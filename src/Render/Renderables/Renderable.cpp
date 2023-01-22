@@ -22,7 +22,9 @@ Renderable::Renderable(Renderable&& copy)
     copy.object.release();
 }
 
-Renderable::~Renderable() { removeFromScene(); }
+Renderable::~Renderable() {
+    if (owner) { removeFromScene(); }
+}
 
 void Renderable::addToScene(Scene& scene) {
     if (owner) { removeFromScene(); }

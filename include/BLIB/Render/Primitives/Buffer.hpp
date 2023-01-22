@@ -4,6 +4,7 @@
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glad/vulkan.h>
 #include <vector>
+#include <initializer_list>
 
 namespace bl
 {
@@ -74,6 +75,16 @@ public:
      * @return A reference to the element at the given index
      */
     constexpr const T& operator[](std::size_t i) const;
+
+    /**
+     * @brief Convenience method to assign a set of values all at once
+     * 
+     * @tparam U The type of value to use for assignment
+     * @param values The values to assign to
+     * @param start The index of the first buffer value to write to
+    */
+    template<typename U>
+    void assign(std::initializer_list<U> values, std::size_t start = 0);
 
     /**
      * @brief Syncs the CPU buffer to the GPU
@@ -152,6 +163,16 @@ constexpr const T& Buffer<T>::operator[](std::size_t i) const {
 }
 
 template<typename T>
+template<typename U>
+void Buffer<T>::assign(std::initializer_list<U> values, std::size_t start) {
+    std::size_t i = start;
+    for (const U& v : values) {
+        cpuBuffer[i] = v;
+        ++i;
+    }
+}
+
+template<typename T>
 inline void Buffer<T>::sendToGPU() const {
     const VkDeviceSize size = sizeof(T) * cpuBuffer.size();
 
@@ -180,6 +201,10 @@ inline void Buffer<T>::sendToGPU() const {
     copyRegion.size      = size;
     vkCmdCopyBuffer(commandBuffer, stagingBuffer, gpuBuffer, 1, &copyRegion);
     vulkanState->endSingleTimeCommands(commandBuffer);
+
+    // release staging buffer
+    vkDestroyBuffer(vulkanState->device, stagingBuffer, nullptr);
+    vkFreeMemory(vulkanState->device, stagingMemory, nullptr);
 }
 
 template<typename T>

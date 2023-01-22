@@ -16,8 +16,8 @@ namespace render
  * @tparam T The type of vertex to index into. Defaults to Vertex
  * @ingroup Renderer
  */
-template<typename T = Vertex>
-class IndexBuffer {
+template<typename T>
+class IndexBufferT {
 public:
     /**
      * @brief Creates the vertex and index buffers
@@ -71,46 +71,46 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-void IndexBuffer<T>::create(VulkanState& vulkanState, std::uint32_t vertexCount,
+void IndexBufferT<T>::create(VulkanState& vulkanState, std::uint32_t vertexCount,
                             std::uint32_t indexCount) {
     vertexBuffer.create(vulkanState, vertexCount, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
     indexBuffer.create(vulkanState, indexCount, VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
 }
 
 template<typename T>
-void IndexBuffer<T>::destroy() {
+void IndexBufferT<T>::destroy() {
     vertexBuffer.destroy();
     indexBuffer.destroy();
 }
 
 template<typename T>
-constexpr Buffer<T>& IndexBuffer<T>::vertices() {
+constexpr Buffer<T>& IndexBufferT<T>::vertices() {
     return vertexBuffer;
 }
 
 template<typename T>
-constexpr const Buffer<T>& IndexBuffer<T>::vertices() const {
+constexpr const Buffer<T>& IndexBufferT<T>::vertices() const {
     return vertexBuffer;
 }
 
 template<typename T>
-constexpr Buffer<std::uint32_t>& IndexBuffer<T>::indices() {
+constexpr Buffer<std::uint32_t>& IndexBufferT<T>::indices() {
     return indexBuffer;
 }
 
 template<typename T>
-constexpr const Buffer<std::uint32_t>& IndexBuffer<T>::indices() const {
+constexpr const Buffer<std::uint32_t>& IndexBufferT<T>::indices() const {
     return indexBuffer;
 }
 
 template<typename T>
-void IndexBuffer<T>::sendToGPU() {
+void IndexBufferT<T>::sendToGPU() {
     vertexBuffer.sendToGPU();
     indexBuffer.sendToGPU();
 }
 
 template<typename T>
-inline DrawParameters IndexBuffer<T>::getDrawParameters() const {
+inline DrawParameters IndexBufferT<T>::getDrawParameters() const {
     DrawParameters params;
     params.indexBuffer  = indexBuffer.handle();
     params.indexCount   = indexBuffer.size();
@@ -119,6 +119,12 @@ inline DrawParameters IndexBuffer<T>::getDrawParameters() const {
     params.vertexOffset = 0;
     return params;
 }
+
+/**
+ * @brief Convenience alias for a standard index buffer
+ * @ingroup Renderer
+*/
+using IndexBuffer = IndexBufferT<Vertex>;
 
 } // namespace render
 } // namespace bl

@@ -1,9 +1,74 @@
 #include <BLIB/Render/Primitives/Vertex.hpp>
 
+#include <BLIB/Logging.hpp>
+
 namespace bl
 {
 namespace render
 {
+Vertex ::Vertex(const glm::vec3& pos)
+: pos(pos)
+, color()
+, texCoord() {}
+
+Vertex ::Vertex(const glm::vec3& position, const glm::vec3& color)
+: pos(position)
+, color(color)
+, texCoord() {}
+
+Vertex ::Vertex(const glm::vec3& position, const glm::vec2& texCoord)
+: pos(position)
+, color()
+, texCoord(texCoord) {}
+
+Vertex ::Vertex(const glm::vec3& position, const glm::vec3& color, const glm::vec2& texCoord)
+: pos(position)
+, color(color)
+, texCoord(texCoord) {}
+
+Vertex::Vertex(std::initializer_list<float> fl)
+: Vertex() {
+    switch (fl.size()) {
+    case 3: // position only
+        pos.x = *fl.begin();
+        pos.y = *(fl.begin() + 1);
+        pos.z = *(fl.begin() + 2);
+        break;
+
+    case 5: // position + texture coord
+        pos.x      = *fl.begin();
+        pos.y      = *(fl.begin() + 1);
+        pos.z      = *(fl.begin() + 2);
+        texCoord.x = *(fl.begin() + 3);
+        texCoord.y = *(fl.begin() + 4);
+        break;
+
+    case 6: // position + color
+        pos.x   = *fl.begin();
+        pos.y   = *(fl.begin() + 1);
+        pos.z   = *(fl.begin() + 2);
+        color.x = *(fl.begin() + 3);
+        color.y = *(fl.begin() + 4);
+        color.z = *(fl.begin() + 5);
+        break;
+
+    case 8: // position + color + texture coord
+        pos.x      = *fl.begin();
+        pos.y      = *(fl.begin() + 1);
+        pos.z      = *(fl.begin() + 2);
+        color.x    = *(fl.begin() + 3);
+        color.y    = *(fl.begin() + 4);
+        color.z    = *(fl.begin() + 5);
+        texCoord.x = *(fl.begin() + 6);
+        texCoord.y = *(fl.begin() + 7);
+        break;
+
+    default:
+        BL_LOG_ERROR << "Invalid number of elements to construct vertex: " << fl.size();
+        break;
+    }
+}
+
 VkVertexInputBindingDescription Vertex::bindingDescription() {
     VkVertexInputBindingDescription bindingDescription{};
     bindingDescription.binding   = 0;

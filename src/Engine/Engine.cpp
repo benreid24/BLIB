@@ -10,29 +10,6 @@ namespace bl
 {
 namespace engine
 {
-class RendererCleaner {
-public:
-    RendererCleaner()
-    : window(nullptr)
-    , renderer(nullptr) {}
-
-    ~RendererCleaner() {
-        if (renderer) {
-            renderer->cleanup();
-            window->close();
-        }
-    }
-
-    void arm(sf::WindowBase& w, render::Renderer& r) {
-        window   = &w;
-        renderer = &r;
-    }
-
-private:
-    sf::WindowBase* window;
-    render::Renderer* renderer;
-};
-
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , entityRegistry(settings.maximumEntityCount())
@@ -44,8 +21,15 @@ Engine::Engine(const Settings& settings)
 
 Engine::~Engine() {
     bl::event::Dispatcher::clearAllListeners();
+    if (renderingSystem.vulkanState().device) {
+        vkDeviceWaitIdle(renderingSystem.vulkanState().device);
+    }
     while (!states.empty()) { states.pop(); }
     newState.reset();
+    if (renderWindow.isOpen()) {
+        renderingSystem.cleanup();
+        renderWindow.close();
+    }
 
 #ifndef ON_CI
     audio::AudioSystem::shutdown();
@@ -89,6 +73,7 @@ void Engine::popState() { flags().set(Flags::PopState); }
 bool Engine::run(State::Ptr initialState) {
     BL_LOG_INFO << "Starting engine with state: " << initialState->name();
     states.push(initialState);
+    initialState.reset();
 
     sf::Clock loopTimer;
     sf::Clock updateOuterTimer;
@@ -116,18 +101,16 @@ bool Engine::run(State::Ptr initialState) {
         }
     };
 
-    RendererCleaner rendererCleaner;
     if (engineSettings.createWindow()) {
         if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
         renderingSystem.initialize();
-        rendererCleaner.arm(renderWindow, renderingSystem);
     }
 
     sf::Clock fpsTimer;
     float frameCount = 0.f;
 
-    initialState->activate(*this);
-    bl::event::Dispatcher::dispatch<event::Startup>({initialState});
+    states.top()->activate(*this);
+    bl::event::Dispatcher::dispatch<event::Startup>({states.top()});
 
     while (true) {
         // Clear flags from last loop

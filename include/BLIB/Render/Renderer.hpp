@@ -15,7 +15,6 @@ namespace bl
 namespace engine
 {
 class Engine;
-class RendererCleaner;
 }
 
 namespace render
@@ -106,7 +105,6 @@ private:
     void cleanup();
 
     friend class engine::Engine;
-    friend class engine::RendererCleaner;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

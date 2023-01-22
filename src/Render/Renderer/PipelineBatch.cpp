@@ -3,6 +3,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Renderables/Renderable.hpp>
 #include <BLIB/Render/Renderer.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <stdexcept>
 
 namespace bl
@@ -23,14 +24,19 @@ void PipelineBatch::recordRenderCommands(VkCommandBuffer cb) {
     VkBuffer prevVB = nullptr;
     VkBuffer prevIB = nullptr;
 
+    // TODO - make actual camera
+    const glm::mat4 view = glm::lookAt(
+        glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::mat4 proj = glm::perspective(glm::radians(45.0f), 1920.f / 1080.f, 0.1f, 10.0f);
+    proj[1][1] *= -1.f;
+
     for (Object::Handle& handle : objects) {
         Object& object = *handle;
         if (object.hidden) continue;
 
-        // TODO - move this to scene render start
         if (object.flags.isDirty()) {
             if (object.flags.isPCDirty()) { object.owner->syncPC(); }
-            // TODO - other flags
+            if (object.flags.isDrawParamsDirty()) { object.owner->syncDrawParams(); }
             object.flags.reset();
         }
 
@@ -46,8 +52,9 @@ void PipelineBatch::recordRenderCommands(VkCommandBuffer cb) {
             vkCmdBindIndexBuffer(cb, object.drawParams.indexBuffer, 0, VK_INDEX_TYPE_UINT32);
         }
 
-        vkCmdPushConstants(
-            cb, layout, VK_SHADER_STAGE_ALL_GRAPHICS, 0, sizeof(PushConstants), &object.frameData);
+        PushConstants pc = object.frameData;
+        pc.transform     = proj * view * pc.transform; // TODO - put camera params in descriptor set?
+        vkCmdPushConstants(cb, layout, VK_SHADER_STAGE_ALL_GRAPHICS, 0, sizeof(PushConstants), &pc);
         vkCmdDrawIndexed(cb,
                          object.drawParams.indexCount,
                          1,

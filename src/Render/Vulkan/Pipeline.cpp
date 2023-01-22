@@ -103,14 +103,16 @@ void Pipeline::bindPipelineAndDescriptors(VkCommandBuffer commandBuffer) {
     }
 
     vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
-    vkCmdBindDescriptorSets(commandBuffer,
-                            VK_PIPELINE_BIND_POINT_GRAPHICS,
-                            layout,
-                            0,
-                            descriptorSets.size(),
-                            descriptorSets.data(),
-                            0,
-                            nullptr);
+    if (!descriptorSets.empty()) {
+        vkCmdBindDescriptorSets(commandBuffer,
+                                VK_PIPELINE_BIND_POINT_GRAPHICS,
+                                layout,
+                                0,
+                                descriptorSets.size(),
+                                descriptorSets.data(),
+                                0,
+                                nullptr);
+    }
 }
 
 } // namespace render
