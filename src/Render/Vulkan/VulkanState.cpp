@@ -150,7 +150,7 @@ void VulkanState::cleanup() {
 
 void VulkanState::invalidateSwapChain() { swapchain.invalidate(); }
 
-void VulkanState::beginFrame(SwapRenderFrame*& renderFrame, VkCommandBuffer& commandBuffer) {
+void VulkanState::beginFrame(StandardAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer) {
     swapchain.beginFrame(renderFrame, commandBuffer);
 }
 

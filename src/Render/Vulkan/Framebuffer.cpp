@@ -16,7 +16,7 @@ Framebuffer::~Framebuffer() {
     if (renderPass) { cleanup(); }
 }
 
-void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const RenderFrame& frame) {
+void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const AttachmentSet& frame) {
     vulkanState = &vs;
 
     // cleanup and block if recreating
@@ -26,17 +26,16 @@ void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const RenderFrame& fr
     }
 
     // copy create params
-    renderPass = rp;
-    target     = &frame;
-    cachedAttachment = frame.colorImageView();
+    renderPass       = rp;
+    target           = &frame;
+    cachedAttachment = *frame.imageViews();
 
     // create framebuffer
-    VkImageView attachments[] = {frame.colorImageView()};
     VkFramebufferCreateInfo framebufferInfo{};
     framebufferInfo.sType           = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
     framebufferInfo.renderPass      = renderPass;
-    framebufferInfo.attachmentCount = std::size(attachments);
-    framebufferInfo.pAttachments    = attachments;
+    framebufferInfo.attachmentCount = frame.size();
+    framebufferInfo.pAttachments    = frame.imageViews();
     framebufferInfo.width           = frame.renderExtent().width;
     framebufferInfo.height          = frame.renderExtent().height;
     framebufferInfo.layers          = 1;
@@ -46,8 +45,8 @@ void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const RenderFrame& fr
     }
 }
 
-void Framebuffer::recreateIfChanged(const RenderFrame& t) {
-    if (t.colorImageView() != cachedAttachment) { create(*vulkanState, renderPass, t); }
+void Framebuffer::recreateIfChanged(const AttachmentSet& t) {
+    if (*t.imageViews() != cachedAttachment) { create(*vulkanState, renderPass, t); }
 }
 
 void Framebuffer::beginRender(VkCommandBuffer commandBuffer, VkClearValue* clearColors,

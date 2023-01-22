@@ -5,7 +5,7 @@
 #include <BLIB/Containers/ObjectWrapper.hpp>
 #include <BLIB/Render/Renderer/Object.hpp>
 #include <BLIB/Render/Renderer/RenderPassBatch.hpp>
-#include <BLIB/Render/Vulkan/RenderFrame.hpp>
+#include <BLIB/Render/Vulkan/AttachmentSet.hpp>
 #include <array>
 #include <glad/vulkan.h>
 #include <mutex>
@@ -40,7 +40,7 @@ public:
      * @param target The target to render to
      * @param commandBuffer The command buffer to record commands into
      */
-    void recordRenderCommands(const RenderFrame& target, VkCommandBuffer commandBuffer);
+    void recordRenderCommands(const AttachmentSet& target, VkCommandBuffer commandBuffer);
 
 private:
     std::mutex mutex;

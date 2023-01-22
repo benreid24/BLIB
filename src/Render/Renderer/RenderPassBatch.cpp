@@ -48,7 +48,7 @@ void RenderPassBatch::removeObject(const Object::Handle& obj, std::uint32_t pid)
     }
 }
 
-void RenderPassBatch::recordRenderCommands(VkCommandBuffer cb, const RenderFrame& target,
+void RenderPassBatch::recordRenderCommands(VkCommandBuffer cb, const AttachmentSet& target,
                                            VkClearValue* clearColors,
                                            std::uint32_t clearColorCount) {
     framebuffers.current().recreateIfChanged(target);

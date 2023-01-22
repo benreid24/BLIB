@@ -38,7 +38,7 @@ void Renderer::cleanup() {
 void Renderer::update(float dt) { cameraSystem.update(dt); }
 
 void Renderer::renderFrame() {
-    SwapRenderFrame* currentFrame = nullptr;
+    StandardAttachmentSet* currentFrame = nullptr;
     VkCommandBuffer commandBuffer = nullptr;
     state.beginFrame(currentFrame, commandBuffer);
     // TODO - scene stack and observers

@@ -64,7 +64,7 @@ public:
      * @param clearColors The colors to clear the framebuffer with initially
      * @param clearColorCount The number of clear colors
      */
-    void recordRenderCommands(VkCommandBuffer commandBuffer, const RenderFrame& target,
+    void recordRenderCommands(VkCommandBuffer commandBuffer, const AttachmentSet& target,
                               VkClearValue* clearColors, std::uint32_t clearColorCount);
 
 private:

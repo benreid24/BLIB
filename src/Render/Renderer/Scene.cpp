@@ -36,7 +36,7 @@ void Scene::removeObject(const Object::Handle& obj) {
     toRemove.emplace_back(obj);
 }
 
-void Scene::recordRenderCommands(const RenderFrame& target, VkCommandBuffer commandBuffer) {
+void Scene::recordRenderCommands(const AttachmentSet& target, VkCommandBuffer commandBuffer) {
     std::unique_lock lock(mutex);
     performRemovals();
 

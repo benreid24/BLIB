@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_FRAMEBUFFER_HPP
 #define BLIB_RENDER_VULKAN_FRAMEBUFFER_HPP
 
-#include <BLIB/Render/Vulkan/RenderFrame.hpp>
+#include <BLIB/Render/Vulkan/AttachmentSet.hpp>
 #include <glad/vulkan.h>
 #include <stdexcept>
 
@@ -38,14 +38,14 @@ public:
      * @param renderPass The render pass that will be used with the frame buffer
      * @param target The frame to render to
      */
-    void create(VulkanState& vulkanState, VkRenderPass renderPass, const RenderFrame& target);
+    void create(VulkanState& vulkanState, VkRenderPass renderPass, const AttachmentSet& target);
 
     /**
      * @brief Recreates the framebuffer if the underlying target has changed
      *
      * @param target The (potentially different) underlying target
      */
-    void recreateIfChanged(const RenderFrame& target);
+    void recreateIfChanged(const AttachmentSet& target);
 
     /**
      * @brief Frees owned resources and invalidates this object
@@ -73,7 +73,7 @@ public:
 private:
     VulkanState* vulkanState;
     VkRenderPass renderPass;
-    const RenderFrame* target;
+    const AttachmentSet* target;
     VkFramebuffer framebuffer;
     VkImageView cachedAttachment;
 };

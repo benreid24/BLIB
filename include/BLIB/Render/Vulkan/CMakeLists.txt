@@ -1,9 +1,9 @@
 target_sources(BLIB PUBLIC
+    AttachmentSet.hpp
     DescriptorPoolRequirements.hpp
     Framebuffer.hpp
     Pipeline.hpp
     PipelineParameters.hpp
-    RenderFrame.hpp
     RenderPass.hpp
     RenderPassParameters.hpp
     Swapchain.hpp
