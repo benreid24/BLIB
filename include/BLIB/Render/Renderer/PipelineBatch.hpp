@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_PIPELINEBATCH_HPP
 #define BLIB_RENDER_RENDERER_PIPELINEBATCH_HPP
 
-#include <BLIB/Render/Renderer/Object.hpp>
+#include <BLIB/Render/Renderer/SceneObject.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
@@ -29,9 +29,8 @@ public:
      *
      * @param renderer The Renderer the instance belongs to
      * @param pipelineId The id of the pipeline to use
-     * @param preserveObjectOrder True to keep objects in the order in which they are added
      */
-    PipelineBatch(Renderer& renderer, std::uint32_t pipelineId, bool preserveObjectOrder);
+    PipelineBatch(Renderer& renderer, std::uint32_t pipelineId);
 
     /**
      * @brief Records the commands necessary to render the pipeline and its objects. Called once per
@@ -46,7 +45,7 @@ public:
      *
      * @param object The object to add to this pipeline batch
      */
-    void addObject(const Object::Handle& object);
+    void addObject(const SceneObject::Handle& object);
 
     /**
      * @brief Removes the given object from the render batch. May reorder the remaining objects
@@ -54,12 +53,11 @@ public:
      *
      * @param object The object to remove
      */
-    void removeObject(const Object::Handle& object);
+    void removeObject(const SceneObject::Handle& object);
 
 private:
-    const bool preserveObjectOrder;
     Pipeline& pipeline;
-    std::vector<Object::Handle> objects;
+    std::vector<SceneObject::Handle> objects;
 };
 
 } // namespace render

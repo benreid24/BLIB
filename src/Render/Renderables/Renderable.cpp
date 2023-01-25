@@ -1,7 +1,7 @@
 #include <BLIB/Render/Renderables/Renderable.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Renderer/Object.hpp>
+#include <BLIB/Render/Renderer/SceneObject.hpp>
 #include <BLIB/Render/Renderer/Scene.hpp>
 
 namespace bl
@@ -17,7 +17,7 @@ Renderable::Renderable(Renderable&& copy)
 , object(copy.object)
 , frameData(copy.frameData)
 , hidden(copy.hidden)
-, passMembership(copy.passMembership) {
+, stageMembership(copy.stageMembership) {
     copy.owner = nullptr;
     copy.object.release();
 }
@@ -32,7 +32,7 @@ void Renderable::addToScene(Scene& scene) {
     std::unique_lock lock(mutex);
     object = scene.createAndAddObject(this);
     onSceneAdd();
-    passMembership.prepareForNewScene();
+    stageMembership.prepareForNewScene();
     object->flags.markAllDirty();
     object->hidden = hidden;
 }
@@ -61,16 +61,16 @@ void Renderable::markPCDirty() {
     if (object.valid()) { object->flags.markPCDirty(); }
 }
 
-void Renderable::addOrSetPassPipeline(std::uint32_t renderPassId, std::uint32_t pipelineId) {
+void Renderable::addOrSetStagePipeline(std::uint32_t renderStageId, std::uint32_t pipelineId) {
     std::unique_lock lock(mutex);
-    passMembership.addOrSetPassPipeline(renderPassId, pipelineId);
-    if (object.valid() && passMembership.hasDiff()) { object->flags.markRenderPassesDirty(); }
+    stageMembership.addOrSetStagePipeline(renderStageId, pipelineId);
+    if (object.valid() && stageMembership.hasDiff()) { object->flags.markRenderStagesDirty(); }
 }
 
-void Renderable::removeFromPass(std::uint32_t pass) {
+void Renderable::removeFromStage(std::uint32_t stage) {
     std::unique_lock lock(mutex);
-    passMembership.removeFromPass(pass);
-    if (object.valid() && passMembership.hasDiff()) { object->flags.markRenderPassesDirty(); }
+    stageMembership.removeFromStage(stage);
+    if (object.valid() && stageMembership.hasDiff()) { object->flags.markRenderStagesDirty(); }
 }
 
 void Renderable::setDrawParameters(const DrawParameters& dp) {

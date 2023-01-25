@@ -15,32 +15,19 @@ struct Config {
     static constexpr std::uint32_t CustomPushConstantOffsetStart  = sizeof(PushConstants);
     static constexpr std::uint32_t CustomPushConstantMinAvailSize = 128 - sizeof(PushConstants);
 
-    struct RenderPassIds {
-        static constexpr std::uint32_t Shadow      = 0;
-        static constexpr std::uint32_t Opaque      = 1;
-        static constexpr std::uint32_t Transparent = 2;
-        static constexpr std::uint32_t PostFX      = 3;
-        static constexpr std::uint32_t Overlay     = 4;
-        static constexpr std::uint32_t Count       = 5;
+    struct Stage { // does not include postfx stage as objects do not belong in there
+        enum : std::size_t {
+            ShadowMapping      = 0,
+            PrimaryOpaque      = 1,
+            PrimaryTransparent = 2,
+            SceneOverlay       = 3,
+            ObserverOverlay    = 4,
+            TopOverlay         = 5,
+            Count
+        };
     };
 
-    struct RenderPassBits {
-        static constexpr std::uint32_t None        = 0;
-        static constexpr std::uint32_t Shadow      = 0x1 << 0;
-        static constexpr std::uint32_t Opaque      = 0x1 << 1;
-        static constexpr std::uint32_t Transparent = 0x1 << 2;
-        static constexpr std::uint32_t PostFX      = 0x1 << 3;
-        static constexpr std::uint32_t Overlay     = 0x1 << 4;
-
-        static constexpr std::uint32_t bitFromId(std::uint32_t id) {
-#ifdef BLIB_DEBUG
-            if (id >= RenderPassIds::Count) { BL_LOG_CRITICAL << "Invalid render pass id: " << id; }
-#endif
-            return 0x1 << id;
-        }
-    };
-
-    struct BuiltInShaderIds {
+    struct ShaderIds {
         static constexpr char TestVertexShader[]   = {0};
         static constexpr char TestFragmentShader[] = {1};
 
@@ -57,6 +44,10 @@ struct Config {
         static constexpr std::uint32_t OpaqueSkinnedMeshes = 4;
 
         static constexpr std::uint32_t TransparentSkinnedMeshes = 5;
+    };
+
+    struct RenderPassIds {
+        static constexpr std::uint32_t PrimaryScene = 0;
     };
 };
 

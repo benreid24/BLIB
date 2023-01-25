@@ -57,11 +57,7 @@ void RenderPassCache::addDefaults() {
     params.addSubpassDependency(dependency);
 
     // TODO - make actual render passes
-    createRenderPass(Config::RenderPassIds::Shadow, params.build());
-    createRenderPass(Config::RenderPassIds::Opaque, params.build());
-    createRenderPass(Config::RenderPassIds::Transparent, params.build());
-    createRenderPass(Config::RenderPassIds::PostFX, params.build());
-    createRenderPass(Config::RenderPassIds::Overlay, params.build());
+    createRenderPass(Config::RenderPassIds::PrimaryScene, params.build());
 }
 
 } // namespace render

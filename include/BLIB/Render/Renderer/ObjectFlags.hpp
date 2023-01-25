@@ -16,7 +16,7 @@ namespace render
 class ObjectFlags {
 public:
     /**
-     * @brief Construct new Object Flags with no flags set
+     * @brief Construct new SceneObject Flags with no flags set
      *
      */
     ObjectFlags();
@@ -31,12 +31,12 @@ public:
      * @brief Marks the object as having its render pass membership needing updating
      *
      */
-    void markRenderPassesDirty();
+    void markRenderStagesDirty();
 
     /**
      * @brief Marks the render pass as being clean
      */
-    void markRenderPassesClean();
+    void markRenderStagesClean();
 
     /**
      * @brief Marks the object as needing to refresh its draw parameters
@@ -99,9 +99,9 @@ inline ObjectFlags::ObjectFlags()
 
 inline void ObjectFlags::markPCDirty() { value |= PC; }
 
-inline void ObjectFlags::markRenderPassesDirty() { value |= RP; }
+inline void ObjectFlags::markRenderStagesDirty() { value |= RP; }
 
-inline void ObjectFlags::markRenderPassesClean() { value &= ~RP; }
+inline void ObjectFlags::markRenderStagesClean() { value &= ~RP; }
 
 inline void ObjectFlags::markDrawParamsDirty() { value |= DP; }
 

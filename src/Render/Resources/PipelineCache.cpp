@@ -34,9 +34,9 @@ Pipeline& PipelineCache::getPipeline(std::uint32_t id) {
 void PipelineCache::createBuiltins() {
     // TODO - create actual built-in pipelines
     createPipline(Config::PipelineIds::OpaqueMeshes,
-                  PipelineParameters(Config::RenderPassIds::Opaque)
-                      .withShaders(Config::BuiltInShaderIds::TestVertexShader,
-                                   Config::BuiltInShaderIds::TestFragmentShader)
+                  PipelineParameters(Config::RenderPassIds::PrimaryScene)
+                      .withShaders(Config::ShaderIds::TestVertexShader,
+                                   Config::ShaderIds::TestFragmentShader)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .build());
 }

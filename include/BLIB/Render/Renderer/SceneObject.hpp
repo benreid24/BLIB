@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_RENDERER_OBJECT_HPP
-#define BLIB_RENDER_RENDERER_OBJECT_HPP
+#ifndef BLIB_RENDER_RENDERER_SCENEOBJECT_HPP
+#define BLIB_RENDER_RENDERER_SCENEOBJECT_HPP
 
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Render/Renderer/DrawParameters.hpp>
@@ -21,15 +21,15 @@ class Renderable;
  *
  * @ingroup Renderer
  */
-struct Object {
-    using Handle = container::ObjectPool<Object>::FixedRef;
+struct SceneObject {
+    using Handle = container::ObjectPool<SceneObject>::FixedRef;
 
     /**
-     * @brief Construct a new Object with the given owner
+     * @brief Construct a new SceneObject with the given owner
      *
      * @param owner The owner of this object
      */
-    Object(Renderable* owner);
+    SceneObject(Renderable* owner);
 
     Renderable* owner;
     bool hidden;

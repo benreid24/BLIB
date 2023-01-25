@@ -3,9 +3,10 @@
 
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Containers/ObjectWrapper.hpp>
-#include <BLIB/Render/Renderer/Object.hpp>
-#include <BLIB/Render/Renderer/RenderPassBatch.hpp>
+#include <BLIB/Render/Renderer/SceneObject.hpp>
+#include <BLIB/Render/Renderer/ObjectBatch.hpp>
 #include <BLIB/Render/Vulkan/AttachmentSet.hpp>
+#include <BLIB/Render/Renderer/Stages/PrimaryScene.hpp>
 #include <array>
 #include <glad/vulkan.h>
 #include <mutex>
@@ -22,17 +23,17 @@ public:
     /**
      * @brief Creates a new object to be rendered in the scene
      *
-     * @param owner The Renderable which will own the Object
-     * @return Object* The newly created object
+     * @param owner The Renderable which will own the SceneObject
+     * @return SceneObject* The newly created object
      */
-    Object::Handle createAndAddObject(Renderable* owner);
+    SceneObject::Handle createAndAddObject(Renderable* owner);
 
     /**
      * @brief Removes the given object from the scene
      *
      * @param object The object to remove
      */
-    void removeObject(const Object::Handle& object);
+    void removeObject(const SceneObject::Handle& object);
 
     /**
      * @brief Records the commands to render this scene into the given command buffer
@@ -45,19 +46,17 @@ public:
 private:
     std::mutex mutex;
     Renderer& renderer;
-    container::ObjectPool<Object> objects;
-    std::array<RenderPassBatch*, Config::RenderPassIds::Count> renderPasses;
-    RenderPassBatch shadowPass;
-    RenderPassBatch opaquePass;
-    RenderPassBatch transparencyPass;
-    RenderPassBatch postFxPass;
-    RenderPassBatch overlayPass;
+    container::ObjectPool<SceneObject> objects;
+
+    stage::PrimaryScene primaryStage;
+    std::array<ObjectBatch*, Config::Stage::Count> stageBatches;
+
     std::mutex eraseMutex;
-    std::vector<Object::Handle> toRemove;
+    std::vector<SceneObject::Handle> toRemove;
 
     Scene(Renderer& renderer);
     void performRemovals();
-    void updatePassMembership(Object::Handle& object);
+    void updateStageMembership(SceneObject::Handle& object);
 
     friend class container::ObjectWrapper<Scene>;
 };

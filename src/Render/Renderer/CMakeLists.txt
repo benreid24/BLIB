@@ -1,7 +1,10 @@
 target_sources(BLIB PRIVATE
-    Object.cpp
+    ObjectBatch.cpp
     PipelineBatch.cpp
-    RenderPassBatch.cpp
     Scene.cpp
+    SceneObject.cpp
+    StagePipelines.cpp
     Texture.cpp
 )
+
+add_subdirectory(Stages)

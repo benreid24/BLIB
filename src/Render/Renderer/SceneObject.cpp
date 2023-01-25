@@ -1,11 +1,11 @@
 #include <BLIB/Render/Renderables/Renderable.hpp>
-#include <BLIB/Render/Renderer/Object.hpp>
+#include <BLIB/Render/Renderer/SceneObject.hpp>
 
 namespace bl
 {
 namespace render
 {
-Object::Object(Renderable* o)
+SceneObject::SceneObject(Renderable* o)
 : owner(o)
 , hidden(false)
 , drawParams{} {

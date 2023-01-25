@@ -10,9 +10,8 @@ namespace bl
 {
 namespace render
 {
-PipelineBatch::PipelineBatch(Renderer& renderer, std::uint32_t pid, bool po)
+PipelineBatch::PipelineBatch(Renderer& renderer, std::uint32_t pid)
 : pipelineId(pid)
-, preserveObjectOrder(po)
 , pipeline(renderer.pipelineCache().getPipeline(pid)) {
     objects.reserve(128);
 }
@@ -25,13 +24,15 @@ void PipelineBatch::recordRenderCommands(VkCommandBuffer cb) {
     VkBuffer prevIB = nullptr;
 
     // TODO - make actual camera
-    const glm::mat4 view = glm::lookAt(
+    glm::mat4 view = glm::lookAt(
         glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-    glm::mat4 proj = glm::perspective(glm::radians(45.0f), 1920.f / 1080.f, 0.1f, 10.0f);
+    view = glm::mat4(1.f);
+    //    glm::mat4 proj = glm::perspective(glm::radians(45.0f), 1920.f / 1080.f, 0.1f, 10.0f);
+    glm::mat4 proj = glm::ortho(-1.f, 1.f, -1.f, 1.f);
     proj[1][1] *= -1.f;
 
-    for (Object::Handle& handle : objects) {
-        Object& object = *handle;
+    for (SceneObject::Handle& handle : objects) {
+        SceneObject& object = *handle;
         if (object.hidden) continue;
 
         if (object.flags.isDirty()) {
@@ -53,7 +54,7 @@ void PipelineBatch::recordRenderCommands(VkCommandBuffer cb) {
         }
 
         PushConstants pc = object.frameData;
-        pc.transform     = proj * view * pc.transform; // TODO - put camera params in descriptor set?
+        pc.transform = proj * view * pc.transform; // TODO - put camera params in descriptor set?
         vkCmdPushConstants(cb, layout, VK_SHADER_STAGE_ALL_GRAPHICS, 0, sizeof(PushConstants), &pc);
         vkCmdDrawIndexed(cb,
                          object.drawParams.indexCount,
@@ -64,12 +65,12 @@ void PipelineBatch::recordRenderCommands(VkCommandBuffer cb) {
     }
 }
 
-void PipelineBatch::addObject(const Object::Handle& object) { objects.emplace_back(object); }
+void PipelineBatch::addObject(const SceneObject::Handle& object) { objects.emplace_back(object); }
 
-void PipelineBatch::removeObject(const Object::Handle& object) {
+void PipelineBatch::removeObject(const SceneObject::Handle& object) {
     for (auto it = objects.begin(); it != objects.end(); ++it) {
         if (it->id() == object.id()) {
-            if (preserveObjectOrder || objects.size() == 1) { objects.erase(it); }
+            if (pipeline.preserveObjectOrder() || objects.size() == 1) { objects.erase(it); }
             else {
                 *it = objects.back();
                 objects.pop_back();

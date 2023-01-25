@@ -8,30 +8,21 @@ namespace bl
 {
 namespace render
 {
-using RpId = Config::RenderPassIds;
-
 Scene::Scene(Renderer& r)
 : renderer(r)
-, objects(container::ObjectPool<Object>::GrowthPolicy::ExpandBuffer, 256)
-, shadowPass(renderer, RpId::Shadow)
-, opaquePass(renderer, RpId::Opaque)
-, transparencyPass(renderer, RpId::Transparent)
-, postFxPass(renderer, RpId::PostFX)
-, overlayPass(renderer, RpId::Overlay) {
-    renderPasses[RpId::Shadow]      = &shadowPass;
-    renderPasses[RpId::Opaque]      = &opaquePass;
-    renderPasses[RpId::Transparent] = &transparencyPass;
-    renderPasses[RpId::PostFX]      = &postFxPass;
-    renderPasses[RpId::Overlay]     = &overlayPass;
-    toRemove.reserve(64);
+, objects(container::ObjectPool<SceneObject>::GrowthPolicy::ExpandBuffer, 256)
+, primaryStage(r) {
+    toRemove.reserve(32);
+    stageBatches[Config::Stage::PrimaryOpaque]      = &primaryStage.opaqueObjects;
+    stageBatches[Config::Stage::PrimaryTransparent] = &primaryStage.transparentObjects;
 }
 
-Object::Handle Scene::createAndAddObject(Renderable* owner) {
+SceneObject::Handle Scene::createAndAddObject(Renderable* owner) {
     std::unique_lock lock(mutex);
     return objects.getStableRef(objects.emplace(owner));
 }
 
-void Scene::removeObject(const Object::Handle& obj) {
+void Scene::removeObject(const SceneObject::Handle& obj) {
     std::unique_lock lock(eraseMutex);
     toRemove.emplace_back(obj);
 }
@@ -42,47 +33,45 @@ void Scene::recordRenderCommands(const AttachmentSet& target, VkCommandBuffer co
 
     for (auto it = objects.begin(); it != objects.end(); ++it) {
         if (it->flags.isRenderPassDirty()) {
-            Object::Handle handle = objects.getStableRef(it);
-            updatePassMembership(handle);
-            it->flags.markRenderPassesClean();
+            SceneObject::Handle handle = objects.getStableRef(it);
+            updateStageMembership(handle);
+            it->flags.markRenderStagesClean();
         }
+        // TODO - sync other flags
     }
 
-    // TODO - perform actual rendering of each pass and stage
-    VkClearValue clearColors[1];
-    clearColors[0].color = {0.f, 0.f, 0.f, 1.f};
-    opaquePass.recordRenderCommands(commandBuffer, target, clearColors, std::size(clearColors));
+    primaryStage.recordRenderCommands(target, commandBuffer);
 }
 
 void Scene::performRemovals() {
     std::unique_lock lock(eraseMutex);
-    for (Object::Handle& obj : toRemove) {
-        for (std::uint32_t rpid = 0; rpid < RpId::Count; ++rpid) {
-            const std::uint32_t pid = obj->owner->passMembership.getPipelineForRenderPass(rpid);
-            if (pid != Config::PipelineIds::None) { renderPasses[rpid]->removeObject(obj, pid); }
+    for (SceneObject::Handle& obj : toRemove) {
+        for (std::uint32_t stage = 0; stage < Config::Stage::Count; ++stage) {
+            const std::uint32_t pid = obj->owner->stageMembership.getPipelineForRenderStage(stage);
+            if (pid != Config::PipelineIds::None) { stageBatches[stage]->removeObject(obj, pid); }
         }
         obj.erase();
     }
     toRemove.clear();
 }
 
-void Scene::updatePassMembership(Object::Handle& obj) {
-    auto& passes = obj->owner->passMembership;
-    while (passes.hasDiff()) {
-        const auto diff = passes.nextDiff();
+void Scene::updateStageMembership(SceneObject::Handle& obj) {
+    auto& stages = obj->owner->stageMembership;
+    while (stages.hasDiff()) {
+        const auto diff = stages.nextDiff();
         switch (diff.type) {
-        case RenderPassMembership::Diff::Add:
-            renderPasses[diff.renderPassId]->addObject(obj, diff.pipelineId);
+        case StagePipelines::Diff::Add:
+            stageBatches[diff.renderStageId]->addObject(obj, diff.pipelineId);
             break;
-        case RenderPassMembership::Diff::Edit:
-            renderPasses[diff.renderPassId]->changePipeline(
-                obj, passes.getPipelineForRenderPass(diff.renderPassId), diff.pipelineId);
+        case StagePipelines::Diff::Edit:
+            stageBatches[diff.renderStageId]->changePipeline(
+                obj, stages.getPipelineForRenderStage(diff.renderStageId), diff.pipelineId);
             break;
-        case RenderPassMembership::Diff::Remove:
-            renderPasses[diff.renderPassId]->removeObject(obj, diff.pipelineId);
+        case StagePipelines::Diff::Remove:
+            stageBatches[diff.renderStageId]->removeObject(obj, diff.pipelineId);
             break;
         }
-        passes.applyDiff(diff);
+        stages.applyDiff(diff);
     }
 }
 

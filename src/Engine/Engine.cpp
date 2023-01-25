@@ -21,6 +21,7 @@ Engine::Engine(const Settings& settings)
 
 Engine::~Engine() {
     bl::event::Dispatcher::clearAllListeners();
+    entityRegistry.destroyAllEntities();
     if (renderingSystem.vulkanState().device) {
         vkDeviceWaitIdle(renderingSystem.vulkanState().device);
     }

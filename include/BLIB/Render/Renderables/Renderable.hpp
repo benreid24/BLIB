@@ -2,8 +2,8 @@
 #define BLIB_RENDER_RENDERABLES_RENDERABLE_HPP
 
 #include <BLIB/Render/Config.hpp>
-#include <BLIB/Render/Renderables/RenderPassMembership.hpp>
-#include <BLIB/Render/Renderer/Object.hpp>
+#include <BLIB/Render/Renderer/StagePipelines.hpp>
+#include <BLIB/Render/Renderer/SceneObject.hpp>
 #include <BLIB/Render/Uniforms/PushConstants.hpp>
 #include <array>
 #include <cstdint>
@@ -15,7 +15,7 @@ namespace bl
 namespace render
 {
 class Scene;
-struct Object;
+struct SceneObject;
 class Scene;
 
 /**
@@ -35,7 +35,7 @@ public:
     Renderable(Renderable&& copy);
 
     /**
-     * @brief Destroy the Renderable. Removes the owned Object from the renderer if it has one
+     * @brief Destroy the Renderable. Removes the owned SceneObject from the renderer if it has one
      *
      */
     virtual ~Renderable();
@@ -73,21 +73,6 @@ public:
     const glm::mat4& getTransform() const;
 
     /**
-     * @brief Configures rendering during a given render pass with a given pipeline
-     *
-     * @param renderPassId The render pass to add to
-     * @param pipelineId The pipeline for the given render pass
-     */
-    void addOrSetPassPipeline(std::uint32_t renderPassId, std::uint32_t pipelineId);
-
-    /**
-     * @brief Removes the renderable from being rendered during the given render pass
-     *
-     * @param renderPassId The render pass to remove from
-     */
-    void removeFromPass(std::uint32_t renderPassId);
-
-    /**
      * @brief Sets the texture index in the renderables push constant data
      *
      * @param textureId The id of the texture
@@ -107,8 +92,6 @@ public:
      * @param transform The model transform to apply
      */
     void setTransform(const glm::mat4& transform);
-
-    // TODO - transform helpers
 
 protected:
     /**
@@ -137,13 +120,28 @@ protected:
      */
     void setDrawParameters(const DrawParameters& params);
 
+    /**
+     * @brief Configures rendering during a given render stage with a given pipeline
+     *
+     * @param stageId The render stage to add to
+     * @param pipelineId The pipeline for the given render pass
+     */
+    void addOrSetStagePipeline(std::uint32_t stageId, std::uint32_t pipelineId);
+
+    /**
+     * @brief Removes the renderable from being rendered during the given render pass
+     *
+     * @param renderStageId The render pass to remove from
+     */
+    void removeFromStage(std::uint32_t renderStageId);
+
 private:
     Scene* owner;
     std::mutex mutex;
-    Object::Handle object;
+    SceneObject::Handle object;
     PushConstants frameData;
     bool hidden;
-    RenderPassMembership passMembership;
+    StagePipelines stageMembership;
     DrawParameters drawParams;
 
     void syncPC();

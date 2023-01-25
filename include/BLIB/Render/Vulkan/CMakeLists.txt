@@ -7,5 +7,6 @@ target_sources(BLIB PUBLIC
     RenderPass.hpp
     RenderPassParameters.hpp
     Swapchain.hpp
+    Viewport.hpp
     VulkanState.hpp
 )

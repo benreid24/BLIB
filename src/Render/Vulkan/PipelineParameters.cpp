@@ -15,7 +15,9 @@ PipelineParameters::PipelineParameters(std::uint32_t rpid)
 , primitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
 , rasterizer{}
 , msaa{}
-, colorBlending{} {
+, colorBlending{}
+, subpass(0)
+, preserveOrder(false) {
     shaders.reserve(4);
     descriptorSets.reserve(4);
 
@@ -51,6 +53,11 @@ PipelineParameters::PipelineParameters(std::uint32_t rpid)
     colorBlending.blendConstants[3] = 0.0f;             // Optional
 
     withDynamicStates({VK_DYNAMIC_STATE_SCISSOR, VK_DYNAMIC_STATE_VIEWPORT});
+}
+
+PipelineParameters& PipelineParameters::forSubpass(std::uint32_t i) {
+    subpass = i;
+    return *this;
 }
 
 PipelineParameters& PipelineParameters::withShaders(const std::string& vert,
@@ -171,6 +178,11 @@ PipelineParameters&& PipelineParameters::build() {
     colorBlending.attachmentCount = colorAttachmentBlendStates.size();
 
     return std::move(*this);
+}
+
+PipelineParameters& PipelineParameters::withPreserveObjectOrder(bool po) {
+    preserveOrder = po;
+    return *this;
 }
 
 } // namespace render

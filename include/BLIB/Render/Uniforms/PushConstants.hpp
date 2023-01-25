@@ -9,7 +9,7 @@ namespace bl
 namespace render
 {
 /**
- * @brief Universal push-constant struct that is sent with every Object that is rendered
+ * @brief Universal push-constant struct that is sent with every SceneObject that is rendered
  *
  * @ingroup Renderer
  */

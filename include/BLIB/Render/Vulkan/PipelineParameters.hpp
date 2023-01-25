@@ -34,6 +34,14 @@ public:
     PipelineParameters(std::uint32_t renderPassId);
 
     /**
+     * @brief Configures which subpass this pipeline is for. Default is 0
+     *
+     * @param subpassIndex The subpass this pipeline is for
+     * @return A reference to this object
+     */
+    PipelineParameters& forSubpass(std::uint32_t subpassIndex);
+
+    /**
      * @brief Helper method to setup vertex and fragment shaders for the pipeline
      *
      * @param vertexPath The resource path of the vertex shader
@@ -152,6 +160,16 @@ public:
                                                   float blendConstant3);
 
     /**
+     * @brief Set whether or not batched objects will have their order preserved as objects are
+     *        added and removed. Allowing objects to be reordered is more efficient, but may change
+     *        renderer output if depth testing is not used. Defaults to false
+     * 
+     * @param preserveOrder True to preserve object orders, false otherwise
+     * @return A reference to this object
+     */
+    PipelineParameters& withPreserveObjectOrder(bool preserveOrder);
+
+    /**
      * @brief Performs final validation and defaulting, then returns an rvalue reference to this
      *        object to be used for pipeline creation
      *
@@ -185,6 +203,8 @@ private:
     std::vector<VkPipelineColorBlendAttachmentState> colorAttachmentBlendStates;
     VkPipelineColorBlendStateCreateInfo colorBlending;
     std::uint32_t renderPassId;
+    std::uint32_t subpass;
+    bool preserveOrder;
 
     friend class Pipeline;
 };

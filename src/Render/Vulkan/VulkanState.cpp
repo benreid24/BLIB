@@ -573,12 +573,12 @@ VkShaderModule VulkanState::createShaderModule(const std::string& path) {
     char* data      = nullptr;
     std::size_t len = 0;
 
-    if (path[0] <= Config::BuiltInShaderIds::MaxId) {
+    if (path[0] <= Config::ShaderIds::MaxId) {
         switch (path[0]) {
-        case Config::BuiltInShaderIds::TestVertexShader[0]:
+        case Config::ShaderIds::TestVertexShader[0]:
             // TODO - properly include shaders in binary
             return createShaderModule("shaders/testVert.spv");
-        case Config::BuiltInShaderIds::TestFragmentShader[0]:
+        case Config::ShaderIds::TestFragmentShader[0]:
             // TODO - properly include shaders in binary
             return createShaderModule("shaders/testFrag.spv");
         default:

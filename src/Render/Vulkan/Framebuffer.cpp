@@ -20,10 +20,7 @@ void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const AttachmentSet& 
     vulkanState = &vs;
 
     // cleanup and block if recreating
-    if (renderPass) {
-        // TODO - may need to sync here?
-        cleanup();
-    }
+    if (renderPass) { cleanup(); }
 
     // copy create params
     renderPass       = rp;
@@ -51,7 +48,7 @@ void Framebuffer::recreateIfChanged(const AttachmentSet& t) {
 
 void Framebuffer::beginRender(VkCommandBuffer commandBuffer, VkClearValue* clearColors,
                               std::uint32_t clearColorCount) const {
-#ifndef BLIB_DEBUG
+#ifdef BLIB_DEBUG
     if (target == nullptr) {
         throw std::runtime_error("Framebuffer render started without specifiying target");
     }

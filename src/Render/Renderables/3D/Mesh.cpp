@@ -7,7 +7,7 @@ namespace render
 namespace r3d
 {
 Mesh::Mesh() {
-    addOrSetPassPipeline(Config::RenderPassIds::Opaque, Config::PipelineIds::OpaqueMeshes);
+    addOrSetStagePipeline(Config::Stage::PrimaryOpaque, Config::PipelineIds::OpaqueMeshes);
 }
 
 void Mesh::attachBuffer() { setDrawParameters(indices.getDrawParameters()); }

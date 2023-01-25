@@ -50,12 +50,19 @@ public:
      */
     constexpr VkPipelineLayout pipelineLayout() const;
 
+    /**
+     * @brief Returns whether or not batched objects in this pipeline should have their order
+     *        preserved as objects are added and removed
+     */
+    constexpr bool preserveObjectOrder() const;
+
 private:
     Renderer& renderer;
     VkPipelineLayout layout;
     VkPipeline pipeline;
     std::vector<PipelineParameters::DescriptorSetRetriever> descriptorGetters;
     std::vector<VkDescriptorSet> descriptorSets;
+    bool preserveOrder;
 
     friend class PipelineCache;
 };
@@ -63,6 +70,8 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline constexpr VkPipelineLayout Pipeline::pipelineLayout() const { return layout; }
+
+inline constexpr bool Pipeline::preserveObjectOrder() const { return preserveOrder; }
 
 } // namespace render
 } // namespace bl

@@ -76,7 +76,7 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
     pipelineInfo.pDynamicState       = &dynamicState;
     pipelineInfo.layout              = layout;
     pipelineInfo.renderPass          = renderPass.rawPass();
-    pipelineInfo.subpass             = 0;              // TODO - move to parameters
+    pipelineInfo.subpass             = params.subpass;
     pipelineInfo.basePipelineHandle  = VK_NULL_HANDLE; // Optional
     pipelineInfo.basePipelineIndex   = -1;             // Optional
 
