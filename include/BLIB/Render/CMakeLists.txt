@@ -1,5 +1,4 @@
 target_sources(BLIB PUBLIC
-    Cameras.hpp
     Config.hpp
     Renderer.hpp
 )

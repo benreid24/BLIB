@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_CONFIG_HPP
 #define BLIB_RENDER_CONFIG_HPP
 
+#include <glm/glm.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Uniforms/PushConstants.hpp>
 #include <cstdint>
@@ -14,6 +15,8 @@ struct Config {
 
     static constexpr std::uint32_t CustomPushConstantOffsetStart  = sizeof(PushConstants);
     static constexpr std::uint32_t CustomPushConstantMinAvailSize = 128 - sizeof(PushConstants);
+
+    static constexpr glm::vec3 UpDirection = {0.f, 1.f, 0.f};
 
     struct Stage { // does not include postfx stage as objects do not belong in there
         enum : std::size_t {

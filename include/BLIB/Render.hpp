@@ -7,10 +7,9 @@
  *
  */
 
-#include <BLIB/Render/Cameras.hpp>
 #include <BLIB/Render/Cameras/Camera.hpp>
-#include <BLIB/Render/Cameras/FollowCamera.hpp>
-#include <BLIB/Render/Cameras/StaticCamera.hpp>
 #include <BLIB/Render/Renderer.hpp>
+
+// TODO - add more includes
 
 #endif

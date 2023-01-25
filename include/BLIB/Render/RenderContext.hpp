@@ -10,7 +10,6 @@ namespace bl
 {
 namespace render
 {
-class Observer;
 class Renderer;
 
 class RenderContext {
@@ -18,14 +17,14 @@ public:
     // TODO
 
 private:
-    Observer& observer;
     const AttachmentSet& target;
     VkCommandBuffer commandBuffer;
     Viewport viewport;
     glm::mat4 viewMatrix;
     glm::mat4 cachedTransform;
 
-    RenderContext(Observer& observer, VkCommandBuffer commandBuffer, const VkRect2D& initialArea);
+    RenderContext(const AttachmentSet& target, VkCommandBuffer commandBuffer,
+                  const VkRect2D& initialArea);
 
     friend class Renderer;
 };

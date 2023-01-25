@@ -1,5 +1,5 @@
 target_sources(BLIB PUBLIC
     Camera.hpp
-    FollowCamera.hpp
-    StaticCamera.hpp
 )
+
+add_subdirectory(3D)

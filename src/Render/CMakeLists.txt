@@ -1,5 +1,4 @@
 target_sources(BLIB PRIVATE
-    Cameras.cpp
     Renderer.cpp
 )
 

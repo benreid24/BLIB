@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_RENDERER_HPP
 #define BLIB_RENDER_RENDERER_HPP
 
-#include <BLIB/Render/Cameras.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <BLIB/Render/Resources/PipelineCache.hpp>
 #include <BLIB/Render/Resources/RenderPassCache.hpp>
@@ -39,12 +38,6 @@ public:
      *
      */
     void renderFrame();
-
-    /**
-     * @brief The cameras in use by the render system
-     *
-     */
-    constexpr Cameras& cameras();
 
     /**
      * @brief Returns the Vulkan state of the renderer
@@ -96,7 +89,6 @@ private:
     MaterialPool materials;
     RenderPassCache renderPasses;
     PipelineCache pipelines;
-    Cameras cameraSystem;
     ScenePool scenes;
 
     Renderer(sf::WindowBase& window);
@@ -120,8 +112,6 @@ inline constexpr RenderPassCache& Renderer::renderPassCache() { return renderPas
 inline constexpr PipelineCache& Renderer::pipelineCache() { return pipelines; }
 
 inline constexpr ScenePool& Renderer::scenePool() { return scenes; }
-
-inline constexpr Cameras& Renderer::cameras() { return cameraSystem; }
 
 } // namespace render
 } // namespace bl

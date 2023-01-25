@@ -35,11 +35,13 @@ void Renderer::cleanup() {
     state.device = nullptr;
 }
 
-void Renderer::update(float dt) { cameraSystem.update(dt); }
+void Renderer::update(float dt) {
+    // TODO
+}
 
 void Renderer::renderFrame() {
     StandardAttachmentSet* currentFrame = nullptr;
-    VkCommandBuffer commandBuffer = nullptr;
+    VkCommandBuffer commandBuffer       = nullptr;
     state.beginFrame(currentFrame, commandBuffer);
     // TODO - scene stack and observers
     testScene->recordRenderCommands(*currentFrame, commandBuffer);
