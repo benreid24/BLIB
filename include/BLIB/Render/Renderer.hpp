@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_HPP
 #define BLIB_RENDER_RENDERER_HPP
 
+#include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <BLIB/Render/Resources/PipelineCache.hpp>
 #include <BLIB/Render/Resources/RenderPassCache.hpp>
@@ -26,8 +27,10 @@ namespace render
  */
 class Renderer : private util::NonCopyable {
 public:
+    enum struct SplitscreenDirection { TopAndBottom, LeftAndRight };
+
     /**
-     * @brief Updates the cameras
+     * @brief Updates the renderer
      *
      * @param dt Time elapsed in seconds
      */
@@ -38,6 +41,45 @@ public:
      *
      */
     void renderFrame();
+
+    Observer& addObserver();
+
+    Observer& getObserver(unsigned int i = 0);
+
+    void removeObserver(unsigned int i = 4);
+
+    unsigned int observerCount() const;
+
+    Scene* pushSceneToAllObservers();
+
+    void popSceneFromAllObservers(bool popCameras = true);
+
+    Scene* popSceneFromAllObserversNoRelease(bool popCameras = true);
+
+    /**
+     * @brief Sets the default near and far values to be used for all cameras
+     * 
+     * @param near The distance of the near plane
+     * @param Far The distance of the far plane
+    */
+    void setDefaultNearAndFar(float near, float far);
+
+    /**
+     * @brief Returns the common observer for the renderer. Use this to render scenes that should be
+     *        fullscreen regardless of the observer count (ie cutscenes). If the common observer has
+     *        any active scenes then the other observers will not render their scenes
+     *
+     * @return A reference to the common observer
+     */
+    constexpr Observer& getCommonObserver(); // TODO - common overlay will live in here
+
+    /**
+     * @brief Sets the direction the screen will split if there is more than one observer. Default
+     *        is SplitscreenDirection::TopAndBottom
+     *
+     * @param direction Whether to split horizontally or vertically
+     */
+    void setSplitscreenDirection(SplitscreenDirection direction);
 
     /**
      * @brief Returns the Vulkan state of the renderer
@@ -81,22 +123,30 @@ public:
      */
     constexpr ScenePool& scenePool();
 
-    Scene* testScene;
-
 private:
+    std::mutex mutex;
+    sf::WindowBase& window;
     VulkanState state;
     TexturePool textures;
     MaterialPool materials;
     RenderPassCache renderPasses;
     PipelineCache pipelines;
     ScenePool scenes;
+    SplitscreenDirection splitscreenDirection;
+    Observer commonObserver;
+    std::vector<std::unique_ptr<Observer>> observers;
+    float defaultNear, defaultFar;
 
     Renderer(sf::WindowBase& window);
     ~Renderer();
     void initialize();
     void cleanup();
+    void processResize();
+
+    void assignObserverRegions();
 
     friend class engine::Engine;
+    friend class Observer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -112,6 +162,10 @@ inline constexpr RenderPassCache& Renderer::renderPassCache() { return renderPas
 inline constexpr PipelineCache& Renderer::pipelineCache() { return pipelines; }
 
 inline constexpr ScenePool& Renderer::scenePool() { return scenes; }
+
+inline constexpr Observer& Renderer::getCommonObserver() { return commonObserver; }
+
+inline Observer& Renderer::getObserver(unsigned int i) { return *observers[i]; }
 
 } // namespace render
 } // namespace bl

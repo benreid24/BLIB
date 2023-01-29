@@ -1,17 +1,25 @@
 #include <BLIB/Render/Renderer.hpp>
 
+#include <cmath>
+
 namespace bl
 {
 namespace render
 {
 Renderer::Renderer(sf::WindowBase& window)
-: state(window)
+: window(window)
+, state(window)
 , textures(state)
 , materials(state)
 , renderPasses(*this)
 , pipelines(*this)
 , scenes(*this)
-, testScene(nullptr) {}
+, splitscreenDirection(SplitscreenDirection::TopAndBottom)
+, commonObserver(*this)
+, defaultNear(0.1f)
+, defaultFar(100.f) {
+    commonObserver.setDefaultNearFar(defaultNear, defaultFar);
+}
 
 Renderer::~Renderer() {
     if (state.device != nullptr) { cleanup(); }
@@ -21,7 +29,9 @@ void Renderer::initialize() {
     state.init();
     renderPasses.addDefaults();
     pipelines.createBuiltins();
-    testScene = scenes.allocateScene();
+
+    addObserver();
+    commonObserver.assignRegion(window, 1, 0, true);
 }
 
 void Renderer::cleanup() {
@@ -35,17 +45,105 @@ void Renderer::cleanup() {
     state.device = nullptr;
 }
 
+void Renderer::processResize() {
+    std::unique_lock lock(mutex);
+
+    state.swapchain.invalidate();
+    assignObserverRegions();
+    commonObserver.assignRegion(window, 1, 0, true);
+}
+
 void Renderer::update(float dt) {
-    // TODO
+    std::unique_lock lock(mutex);
+    for (auto& o : observers) { o->update(dt); }
 }
 
 void Renderer::renderFrame() {
+    std::unique_lock lock(mutex);
+
     StandardAttachmentSet* currentFrame = nullptr;
     VkCommandBuffer commandBuffer       = nullptr;
     state.beginFrame(currentFrame, commandBuffer);
-    // TODO - scene stack and observers
-    testScene->recordRenderCommands(*currentFrame, commandBuffer);
+
+    if (commonObserver.hasScene()) {
+        commonObserver.recordRenderCommands(*currentFrame, commandBuffer);
+    }
+    else {
+        for (auto& o : observers) { o->recordRenderCommands(*currentFrame, commandBuffer); }
+        // TODO - common overlay from common observer
+    }
+
     state.completeFrame();
+}
+
+void Renderer::setDefaultNearAndFar(float n, float f) {
+    std::unique_lock lock(mutex);
+
+    defaultNear = n;
+    defaultFar  = f;
+    for (auto& o : observers) { o->setDefaultNearFar(n, f); }
+}
+
+Observer& Renderer::addObserver() {
+    std::unique_lock lock(mutex);
+
+#ifdef BLIB_DEBUG
+    if (observers.size() == 4) {
+        BL_LOG_CRITICAL << "Cannot add more than 4 observers";
+        return *observers.back();
+    }
+#endif
+
+    observers.emplace_back(new Observer(*this));
+    assignObserverRegions();
+    observers.back()->setDefaultNearFar(defaultNear, defaultFar);
+    return *observers.back();
+}
+
+void Renderer::removeObserver(unsigned int i) {
+    std::unique_lock lock(mutex);
+    i = std::min(i, static_cast<unsigned int>(observers.size()) - 1);
+    observers.erase(observers.begin() + i);
+    assignObserverRegions();
+}
+
+Scene* Renderer::pushSceneToAllObservers() {
+    std::unique_lock lock(mutex);
+
+    Scene* s = scenes.allocateScene();
+    for (auto& o : observers) { o->pushScene(s); }
+    return s;
+}
+
+void Renderer::popSceneFromAllObservers(bool cams) {
+    std::unique_lock lock(mutex);
+    for (auto& o : observers) { o->popScene(cams); }
+}
+
+Scene* Renderer::popSceneFromAllObserversNoRelease(bool cams) {
+    std::unique_lock lock(mutex);
+    Scene* s = nullptr;
+    for (auto& o : observers) {
+        Scene* ns = o->popSceneNoRelease(cams);
+#ifdef BLIB_DEBUG
+        if (s != nullptr && ns != s) {
+            BL_LOG_ERROR << "Popping scene without release but observers have different scenes";
+        }
+#endif
+        s = ns;
+    }
+    return s;
+}
+
+void Renderer::assignObserverRegions() {
+    unsigned int i = 0;
+    for (auto& o : observers) {
+        o->assignRegion(window,
+                        observers.size(),
+                        i,
+                        splitscreenDirection == SplitscreenDirection::TopAndBottom);
+        ++i;
+    }
 }
 
 } // namespace render

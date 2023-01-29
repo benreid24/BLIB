@@ -27,20 +27,28 @@ void Scene::removeObject(const SceneObject::Handle& obj) {
     toRemove.emplace_back(obj);
 }
 
-void Scene::recordRenderCommands(const AttachmentSet& target, VkCommandBuffer commandBuffer) {
+void Scene::recordRenderCommands(const SceneRenderContext& ctx) {
+    std::unique_lock lock(mutex);
+
+    primaryStage.recordRenderCommands(ctx);
+}
+
+void Scene::sync() {
     std::unique_lock lock(mutex);
     performRemovals();
 
     for (auto it = objects.begin(); it != objects.end(); ++it) {
-        if (it->flags.isRenderPassDirty()) {
-            SceneObject::Handle handle = objects.getStableRef(it);
-            updateStageMembership(handle);
-            it->flags.markRenderStagesClean();
+        if (it->flags.isDirty()) {
+            SceneObject& object = *it;
+            if (object.flags.isRenderPassDirty()) {
+                SceneObject::Handle handle = objects.getStableRef(it);
+                updateStageMembership(handle);
+            }
+            if (object.flags.isPCDirty()) { object.owner->syncPC(); }
+            if (object.flags.isDrawParamsDirty()) { object.owner->syncDrawParams(); }
+            object.flags.reset();
         }
-        // TODO - sync other flags
     }
-
-    primaryStage.recordRenderCommands(target, commandBuffer);
 }
 
 void Scene::performRemovals() {

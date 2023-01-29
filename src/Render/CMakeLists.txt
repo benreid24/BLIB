@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
+    Observer.cpp
     Renderer.cpp
 )
 

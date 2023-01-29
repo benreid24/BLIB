@@ -6,6 +6,7 @@
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/RenderPass.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Renderer/SceneRenderContext.hpp>
 #include <vector>
 
 namespace bl
@@ -59,9 +60,9 @@ public:
      * @brief Records the commands necessary to complete this render pass. Binds the render pass and
      *        renders all contained objects with their respective pipelines
      *
-     * @param commandBuffer The command buffer to record to
+     * @param context Rendering context containing parameters for the render
      */
-    void recordRenderCommands(VkCommandBuffer commandBuffer);
+    void recordRenderCommands(const SceneRenderContext& context);
 
 private:
     Renderer& renderer;

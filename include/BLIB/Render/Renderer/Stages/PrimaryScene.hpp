@@ -4,6 +4,8 @@
 #include <BLIB/Render/Renderer/ObjectBatch.hpp>
 #include <BLIB/Render/Util/PerSwapFrame.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
+#include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
+#include <BLIB/Render/Renderer/SceneRenderContext.hpp>
 
 namespace bl
 {
@@ -29,7 +31,7 @@ private:
     ObjectBatch transparentObjects;
 
     PrimaryScene(Renderer& renderer);
-    void recordRenderCommands(const AttachmentSet& target, VkCommandBuffer commandBuffer);
+    void recordRenderCommands(const SceneRenderContext& context);
 
     friend class Scene;
 };

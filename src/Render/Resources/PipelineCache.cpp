@@ -33,12 +33,27 @@ Pipeline& PipelineCache::getPipeline(std::uint32_t id) {
 
 void PipelineCache::createBuiltins() {
     // TODO - create actual built-in pipelines
-    createPipline(Config::PipelineIds::OpaqueMeshes,
-                  PipelineParameters(Config::RenderPassIds::PrimaryScene)
-                      .withShaders(Config::ShaderIds::TestVertexShader,
-                                   Config::ShaderIds::TestFragmentShader)
-                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                      .build());
+
+    VkPipelineRasterizationStateCreateInfo rasterizer{};
+    rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+    rasterizer.depthClampEnable        = VK_FALSE;
+    rasterizer.rasterizerDiscardEnable = VK_FALSE;
+    rasterizer.polygonMode             = VK_POLYGON_MODE_FILL;
+    rasterizer.lineWidth               = 1.0f;
+    rasterizer.cullMode                = VK_CULL_MODE_NONE;
+    rasterizer.frontFace               = VK_FRONT_FACE_COUNTER_CLOCKWISE;
+    rasterizer.depthBiasEnable         = VK_FALSE;
+    rasterizer.depthBiasConstantFactor = 0.0f; // Optional
+    rasterizer.depthBiasClamp          = 0.0f; // Optional
+    rasterizer.depthBiasSlopeFactor    = 0.0f; // Optional
+
+    createPipline(
+        Config::PipelineIds::OpaqueMeshes,
+        PipelineParameters(Config::RenderPassIds::PrimaryScene)
+            .withShaders(Config::ShaderIds::TestVertexShader, Config::ShaderIds::TestFragmentShader)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withRasterizer(rasterizer)
+            .build());
 }
 
 } // namespace render

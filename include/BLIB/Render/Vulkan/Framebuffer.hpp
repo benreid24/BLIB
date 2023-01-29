@@ -54,14 +54,15 @@ public:
     void cleanup();
 
     /**
-     * @brief Begins the render pass and sets the viewport and scissor to sane defaults
+     * @brief Begins the render pass, recreating the framebuffer if necessary
      *
      * @param commandBuffer The primary command buffer to issue commands into
+     * @param region The region of the framebuffer to render to
      * @param clearColors The colors to clear the framebuffer with on render pass begin
      * @param clearColorCount The number of clear colors
      */
-    void beginRender(VkCommandBuffer commandBuffer, VkClearValue* clearColors,
-                     std::uint32_t clearColorCount) const;
+    void beginRender(VkCommandBuffer commandBuffer, const VkRect2D& region,
+                     VkClearValue* clearColors, std::uint32_t clearColorCount) const;
 
     /**
      * @brief Ends the render pass

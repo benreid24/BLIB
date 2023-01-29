@@ -16,9 +16,21 @@ Camera3D::Camera3D(const glm::vec3& pos, float yaw, float pitch, float fov)
 , yaw(yaw)
 , fov(fov) {}
 
+Camera3D::Camera3D(const glm::vec3& pos, const glm::vec3& look, float fov)
+: position(pos)
+, fov(fov) {
+    lookAt(look);
+}
+
 void Camera3D::setPosition(const glm::vec3& pos) {
     position = pos;
     markViewDirty();
+}
+
+void Camera3D::lookAt(const glm::vec3& pos) {
+    const glm::vec3 dir = glm::normalize(pos - position); // correct order?
+    setYaw(glm::degrees(std::atan2(dir.z, dir.x)));
+    setPitch(glm::degrees(std::asin(dir.y)));
 }
 
 void Camera3D::move(const glm::vec3& offset) {
@@ -53,8 +65,11 @@ void Camera3D::setFov(float f) {
 
 glm::vec3 Camera3D::getDirection() const {
     // TODO - should we just cache this?
-    return glm::normalize(glm::vec3{
-        math::cos(yaw) * math::cos(pitch), math::sin(pitch), math::sin(yaw) * math::cos(pitch)});
+    const float yawRad   = glm::radians(yaw);
+    const float pitchRad = glm::radians(pitch);
+    return glm::normalize(glm::vec3{std::cos(yawRad) * std::cos(pitchRad),
+                                    std::sin(pitchRad),
+                                    std::sin(yawRad) * std::cos(pitchRad)});
 }
 
 void Camera3D::refreshViewMatrix(glm::mat4& view) {
@@ -62,8 +77,13 @@ void Camera3D::refreshViewMatrix(glm::mat4& view) {
 }
 
 void Camera3D::refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) {
-    // TODO - where to get far value?
-    proj = glm::perspective(glm::radians(fov), viewport.width / viewport.height, 0.1f, 10.f);
+    proj = glm::perspective(
+        glm::radians(fov), viewport.width / viewport.height, viewport.minDepth, viewport.maxDepth);
+}
+
+void Camera3D::update(float dt) {
+    if (controller) { controller->update(dt); }
+    // TODO - affectors
 }
 
 } // namespace r3d

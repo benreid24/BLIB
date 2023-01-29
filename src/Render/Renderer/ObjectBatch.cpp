@@ -39,8 +39,8 @@ void ObjectBatch::removeObject(const SceneObject::Handle& obj, std::uint32_t pid
     }
 }
 
-void ObjectBatch::recordRenderCommands(VkCommandBuffer cb) {
-    for (PipelineBatch& p : batches) { p.recordRenderCommands(cb); }
+void ObjectBatch::recordRenderCommands(const SceneRenderContext& context) {
+    for (PipelineBatch& p : batches) { p.recordRenderCommands(context); }
 }
 
 } // namespace render

@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
     PipelineBatch.hpp
     Scene.hpp
     SceneObject.hpp
+    SceneRenderContext.hpp
     StagePipelines.hpp
     Texture.hpp
 )

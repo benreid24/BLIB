@@ -1,5 +1,6 @@
 target_sources(BLIB PUBLIC
     Config.hpp
+    Observer.hpp
     Renderer.hpp
 )
 

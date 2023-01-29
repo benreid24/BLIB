@@ -27,17 +27,17 @@ PrimaryScene::PrimaryScene(Renderer& r)
     });
 }
 
-void PrimaryScene::recordRenderCommands(const AttachmentSet& target,
-                                        VkCommandBuffer commandBuffer) {
-    framebuffers.current().recreateIfChanged(target);
+void PrimaryScene::recordRenderCommands(const SceneRenderContext& context) {
+    framebuffers.current().recreateIfChanged(context.target);
 
     VkClearValue clearColors[1];
     clearColors[0] = {{{0.f, 0.f, 0.f, 1.f}}};
 
-    framebuffers.current().beginRender(commandBuffer, clearColors, std::size(clearColors));
-    opaqueObjects.recordRenderCommands(commandBuffer);
-    transparentObjects.recordRenderCommands(commandBuffer);
-    framebuffers.current().finishRender(commandBuffer);
+    framebuffers.current().beginRender(
+        context.commandBuffer, context.renderRegion, clearColors, std::size(clearColors));
+    opaqueObjects.recordRenderCommands(context);
+    transparentObjects.recordRenderCommands(context);
+    framebuffers.current().finishRender(context.commandBuffer);
 }
 
 } // namespace stage

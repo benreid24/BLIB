@@ -34,11 +34,6 @@ public:
     void markRenderStagesDirty();
 
     /**
-     * @brief Marks the render pass as being clean
-     */
-    void markRenderStagesClean();
-
-    /**
      * @brief Marks the object as needing to refresh its draw parameters
      *
      */
@@ -100,8 +95,6 @@ inline ObjectFlags::ObjectFlags()
 inline void ObjectFlags::markPCDirty() { value |= PC; }
 
 inline void ObjectFlags::markRenderStagesDirty() { value |= RP; }
-
-inline void ObjectFlags::markRenderStagesClean() { value &= ~RP; }
 
 inline void ObjectFlags::markDrawParamsDirty() { value |= DP; }
 

@@ -41,11 +41,10 @@ void ScenePool::destroyScene(Scene* scene) {
         BL_LOG_CRITICAL << "Out of bounds scene: " << i;
         throw std::runtime_error("Out of bounds scene during scene destruction");
     }
-    if (!freeSlots.isAllocated(i)) {
-        BL_LOG_CRITICAL << "Double freeing scene: " << i;
-        throw std::runtime_error("Double-free scene");
-    }
 #endif
+
+    // handle double-free to make shared scenes easier to release
+    if (!freeSlots.isAllocated(i)) { return; }
 
     pool[i].destroy();
     freeSlots.release(i);

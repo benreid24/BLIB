@@ -2,6 +2,7 @@
 #define BLIB_RENDER_RENDERER_PIPELINEBATCH_HPP
 
 #include <BLIB/Render/Renderer/SceneObject.hpp>
+#include <BLIB/Render/Renderer/SceneRenderContext.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
@@ -36,9 +37,9 @@ public:
      * @brief Records the commands necessary to render the pipeline and its objects. Called once per
      *        rendered frame
      *
-     * @param commandBuffer The primary command buffer to render to
+     * @param context Render context containing the parameters to render with
      */
-    void recordRenderCommands(VkCommandBuffer commandBuffer);
+    void recordRenderCommands(const SceneRenderContext& context);
 
     /**
      * @brief Creates a new object to be rendered with the pipeline

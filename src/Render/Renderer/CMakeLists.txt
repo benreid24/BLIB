@@ -3,6 +3,7 @@ target_sources(BLIB PRIVATE
     PipelineBatch.cpp
     Scene.cpp
     SceneObject.cpp
+    SceneRenderContext.cpp
     StagePipelines.cpp
     Texture.cpp
 )

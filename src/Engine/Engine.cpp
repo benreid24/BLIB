@@ -143,8 +143,9 @@ bool Engine::run(State::Ptr initialState) {
                 if (engineSettings.windowParameters().letterBox()) {
                     handleResize(event.size, true);
                 }
-                if (renderingSystem.vulkanState().device) {
-                    renderingSystem.vulkanState().swapchain.invalidate();
+                if (renderingSystem.vulkanState()
+                        .device) { // TODO - cut out window with preprocessor, not runtime
+                    renderingSystem.processResize();
                 }
                 break;
 
@@ -207,9 +208,7 @@ bool Engine::run(State::Ptr initialState) {
         }
 
 #ifndef ON_CI // do render
-        if (!engineFlags.stateChangeReady()) {
-            states.top()->render(*this, lag);
-        }
+        if (!engineFlags.stateChangeReady()) { states.top()->render(*this, lag); }
 #endif
 
         // Process flags
@@ -310,7 +309,7 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
 
 void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
     renderWindow.setTitle(params.title());
-    //renderWindow.setVerticalSyncEnabled(params.vsyncEnabled());
+    // renderWindow.setVerticalSyncEnabled(params.vsyncEnabled());
 
     engineSettings.withWindowParameters(params);
     params.syncToConfig();
@@ -357,7 +356,7 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
     }
 
     view.setViewport(viewPort);
-    //renderWindow.setView(view);
+    // renderWindow.setView(view);
 
     if (ss) {
         Settings::WindowParameters params = engineSettings.windowParameters();
@@ -365,7 +364,7 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
             sf::VideoMode(resize.width, resize.height, params.videoMode().bitsPerPixel));
         engineSettings.withWindowParameters(params);
         params.syncToConfig();
-        //bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
+        // bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
     }
 }
 

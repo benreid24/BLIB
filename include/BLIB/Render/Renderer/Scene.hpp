@@ -3,9 +3,9 @@
 
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Containers/ObjectWrapper.hpp>
-#include <BLIB/Render/Renderer/SceneObject.hpp>
 #include <BLIB/Render/Renderer/ObjectBatch.hpp>
-#include <BLIB/Render/Vulkan/AttachmentSet.hpp>
+#include <BLIB/Render/Renderer/SceneObject.hpp>
+#include <BLIB/Render/Renderer/SceneRenderContext.hpp>
 #include <BLIB/Render/Renderer/Stages/PrimaryScene.hpp>
 #include <array>
 #include <glad/vulkan.h>
@@ -36,12 +36,16 @@ public:
     void removeObject(const SceneObject::Handle& object);
 
     /**
+     * @brief Syncs object additions, removals, and state changes. Call once per frame
+    */
+    void sync();
+
+    /**
      * @brief Records the commands to render this scene into the given command buffer
      *
-     * @param target The target to render to
-     * @param commandBuffer The command buffer to record commands into
+     * @param context Render context containing the parameters to render with
      */
-    void recordRenderCommands(const AttachmentSet& target, VkCommandBuffer commandBuffer);
+    void recordRenderCommands(const SceneRenderContext& context);
 
 private:
     std::mutex mutex;
