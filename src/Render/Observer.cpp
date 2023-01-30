@@ -13,6 +13,12 @@ Observer::Observer(Renderer& r)
     viewport.maxDepth = 1.f;
 }
 
+Observer::~Observer() { cleanup(); }
+
+void Observer::cleanup() {
+    renderFrames.cleanup([](StandardImageBuffer& frame) { frame.destroy(); });
+}
+
 void Observer::update(float dt) {
     std::unique_lock lock(mutex);
 
@@ -79,23 +85,30 @@ void Observer::clearCameras() {
     while (!cameras.empty()) { cameras.pop(); }
 }
 
-void Observer::recordRenderCommands(const StandardAttachmentSet& target,
-                                    VkCommandBuffer commandBuffer) {
+void Observer::renderScene(VkCommandBuffer commandBuffer) {
     std::unique_lock lock(mutex);
-
-    vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
-    vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 
     if (hasScene()) {
         const glm::mat4 projView =
             !cameras.empty() ?
                 cameras.top()->getProjectionMatrix(viewport) * cameras.top()->getViewMatrix() :
                 glm::perspective(75.f, viewport.width / viewport.height, 0.1f, 100.f);
-        const SceneRenderContext ctx(target, commandBuffer, projView, scissor);
-        scenes.top()->recordRenderCommands(ctx);
+        const VkRect2D renderRegion{{0, 0}, renderFrames.current().bufferSize()};
+        // TODO - begin render pass here from framebuffer
+        const SceneRenderContext ctx(
+            renderFrames.current().attachmentSet(), commandBuffer, projView, renderRegion);
+        scenes.top()->renderScene(ctx);
+        // TODO - finish render pass
     }
+}
 
-    // TODO - overlay
+void Observer::compositeSceneWithEffects(VkCommandBuffer commandBuffer) {
+    std::unique_lock lock(mutex);
+
+    vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
+    vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
+
+    // TODO - copy over
 }
 
 void Observer::assignRegion(const sf::WindowBase& window, unsigned int count, unsigned int i,
@@ -179,6 +192,16 @@ void Observer::assignRegion(const sf::WindowBase& window, unsigned int count, un
     default:
         BL_LOG_ERROR << "Invalid observer count: " << count;
         break;
+    }
+
+    if (!renderFrames.valid() ||
+        (scissor.extent.width != renderFrames.current().bufferSize().width ||
+         scissor.extent.height != renderFrames.current().bufferSize().height)) {
+        vkDeviceWaitIdle(renderer.vulkanState().device);
+
+        renderFrames.init(renderer.vulkanState(), [this](StandardImageBuffer& frame) {
+            frame.create(renderer.vulkanState(), scissor.extent);
+        });
     }
 }
 

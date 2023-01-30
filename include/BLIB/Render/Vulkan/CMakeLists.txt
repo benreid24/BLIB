@@ -6,7 +6,11 @@ target_sources(BLIB PUBLIC
     PipelineParameters.hpp
     RenderPass.hpp
     RenderPassParameters.hpp
+    StandardAttachmentSet.hpp
+    StandardImageBuffer.hpp
     Swapchain.hpp
+    Transferable.hpp
+    TransferEngine.hpp
     Viewport.hpp
     VulkanState.hpp
 )

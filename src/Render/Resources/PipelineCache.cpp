@@ -49,7 +49,7 @@ void PipelineCache::createBuiltins() {
 
     createPipline(
         Config::PipelineIds::OpaqueMeshes,
-        PipelineParameters(Config::RenderPassIds::PrimaryScene)
+        PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
             .withShaders(Config::ShaderIds::TestVertexShader, Config::ShaderIds::TestFragmentShader)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)

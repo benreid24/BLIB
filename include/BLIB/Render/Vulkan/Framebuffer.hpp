@@ -60,9 +60,11 @@ public:
      * @param region The region of the framebuffer to render to
      * @param clearColors The colors to clear the framebuffer with on render pass begin
      * @param clearColorCount The number of clear colors
+     * @param setViewportAndScissor True to set viewport/scissor to region, false to leave unset
      */
     void beginRender(VkCommandBuffer commandBuffer, const VkRect2D& region,
-                     VkClearValue* clearColors, std::uint32_t clearColorCount) const;
+                     VkClearValue* clearColors, std::uint32_t clearColorCount,
+                     bool setViewportAndScissor = true) const;
 
     /**
      * @brief Ends the render pass

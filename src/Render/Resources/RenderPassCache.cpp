@@ -12,9 +12,10 @@ RenderPassCache::RenderPassCache(Renderer& r)
 
 void RenderPassCache::cleanup() { cache.clear(); }
 
-RenderPass& RenderPassCache::createRenderPass(std::uint32_t id, RenderPassParameters&& params) {
-    const auto insertResult =
-        cache.try_emplace(id, renderer.vulkanState(), std::forward<RenderPassParameters>(params));
+RenderPass& RenderPassCache::createRenderPass(std::uint32_t id,
+                                              RenderPassParameters&& sceneParams) {
+    const auto insertResult = cache.try_emplace(
+        id, renderer.vulkanState(), std::forward<RenderPassParameters>(sceneParams));
     if (!insertResult.second) {
         BL_LOG_WARN << "Duplicate creation of render pass with id: " << id;
     }
@@ -31,33 +32,51 @@ RenderPass& RenderPassCache::getRenderPass(std::uint32_t id) {
 }
 
 void RenderPassCache::addDefaults() {
-    VkAttachmentDescription colorAttachment{};
-    colorAttachment.format         = renderer.vulkanState().swapchain.swapImageFormat();
-    colorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
-    colorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    colorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
-    colorAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    colorAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
-    colorAttachment.finalLayout    = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+    // scene render pass for observers
+    VkAttachmentDescription sceneColorAttachment{};
+    // TODO - determine and store in vulkan state
+    sceneColorAttachment.format         = VK_FORMAT_R8G8B8A8_SRGB;
+    sceneColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
+    sceneColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    sceneColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
+    sceneColorAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    sceneColorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    sceneColorAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
+    sceneColorAttachment.finalLayout    = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
-    VkSubpassDependency dependency{}; // block until image is done being used in swap chain
-    dependency.srcSubpass    = VK_SUBPASS_EXTERNAL;
-    dependency.dstSubpass    = 0;
-    dependency.srcStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-    dependency.srcAccessMask = 0;
-    dependency.dstStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-    dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+    RenderPassParameters sceneParams;
+    sceneParams.addAttachment(sceneColorAttachment);
+    sceneParams.addSubpass(RenderPassParameters::SubPass()
+                               .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
+                               .build());
+    createRenderPass(Config::RenderPassIds::OffScreenSceneRender, sceneParams.build());
 
-    RenderPassParameters params;
-    params.addAttachment(colorAttachment);
-    params.addSubpass(RenderPassParameters::SubPass()
-                          .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
-                          .build());
-    params.addSubpassDependency(dependency);
+    // primary render pass for final swapchain compositing
+    VkAttachmentDescription swapColorAttachment{};
+    swapColorAttachment.format         = renderer.vulkanState().swapchain.swapImageFormat();
+    swapColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
+    swapColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    swapColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
+    swapColorAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    swapColorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    swapColorAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
+    swapColorAttachment.finalLayout    = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 
-    // TODO - make actual render passes
-    createRenderPass(Config::RenderPassIds::PrimaryScene, params.build());
+    VkSubpassDependency primaryRenderWaitImage{}; // wait for image to be available
+    primaryRenderWaitImage.srcSubpass    = VK_SUBPASS_EXTERNAL;
+    primaryRenderWaitImage.dstSubpass    = 0;
+    primaryRenderWaitImage.srcStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+    primaryRenderWaitImage.srcAccessMask = 0;
+    primaryRenderWaitImage.dstStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+    primaryRenderWaitImage.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+
+    RenderPassParameters primaryParams;
+    primaryParams.addAttachment(swapColorAttachment);
+    primaryParams.addSubpass(RenderPassParameters::SubPass()
+                                 .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
+                                 .build());
+    primaryParams.addSubpassDependency(primaryRenderWaitImage);
+    createRenderPass(Config::RenderPassIds::SwapchainPrimaryRender, primaryParams.build());
 }
 
 } // namespace render

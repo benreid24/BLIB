@@ -9,6 +9,7 @@ namespace bl
 namespace render
 {
 class Swapchain;
+class StandardImageBuffer;
 
 /**
  * @brief Attachment set containing the standard attachments for render frames in the engine
@@ -41,6 +42,7 @@ protected:
 
 private:
     friend class Swapchain;
+    friend class StandardImageBuffer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

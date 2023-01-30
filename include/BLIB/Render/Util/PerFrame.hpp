@@ -61,6 +61,11 @@ public:
      */
     constexpr const T& current() const;
 
+    /**
+     * @brief Returns whether or not the PerFrame has been initialized yet
+    */
+    constexpr bool valid() const;
+
 private:
     VulkanState* vs;
     std::array<T, Config::MaxConcurrentFrames> data;

@@ -47,7 +47,8 @@ void Framebuffer::recreateIfChanged(const AttachmentSet& t) {
 }
 
 void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& region,
-                              VkClearValue* clearColors, std::uint32_t clearColorCount) const {
+                              VkClearValue* clearColors, std::uint32_t clearColorCount,
+                              bool vp) const {
 #ifdef BLIB_DEBUG
     if (target == nullptr) {
         throw std::runtime_error("Framebuffer render started without specifiying target");
@@ -63,6 +64,19 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
     renderPassInfo.clearValueCount = clearColorCount;
     renderPassInfo.pClearValues    = clearColors;
     vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+
+    if (vp) {
+        VkViewport viewport;
+        viewport.x = static_cast<float>(region.offset.x);
+        viewport.y = static_cast<float>(region.offset.y);
+        viewport.width = static_cast<float>(region.extent.width);
+        viewport.height = static_cast<float>(region.extent.height);
+        viewport.minDepth = 0.f;
+        viewport.maxDepth = 1.f;
+
+        vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
+        vkCmdSetScissor(commandBuffer, 0, 1, &region);
+    }
 }
 
 void Framebuffer::finishRender(VkCommandBuffer commandBuffer) const {

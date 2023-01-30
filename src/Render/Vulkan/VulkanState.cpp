@@ -113,6 +113,7 @@ int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDevicePropertie
 VulkanState::VulkanState(sf::WindowBase& window)
 : window(window)
 , swapchain(*this, window)
+, transferEngine(*this)
 , currentFrame(0) {
     gladLoadVulkan(0, sf::Vulkan::getFunction);
     if (!vkCreateInstance) { throw std::runtime_error("Failed to load Vulkan"); }
@@ -131,13 +132,14 @@ void VulkanState::init() {
     pickPhysicalDevice();
     gladLoadVulkan(physicalDevice, sf::Vulkan::getFunction); // reload with extensions
     createLogicalDevice();
-    createCommandPoolAndTransferBuffer();
+    createSharedCommandPool();
     swapchain.create(surface);
+    transferEngine.init();
 }
 
 void VulkanState::cleanup() {
+    transferEngine.cleanup();
     swapchain.destroy();
-    vkFreeCommandBuffers(device, sharedCommandPool, 1, &transferCommandBuffer);
     vkDestroyCommandPool(device, sharedCommandPool, nullptr);
     vkDestroyDevice(device, nullptr);
 #ifdef BLIB_DEBUG
@@ -163,7 +165,7 @@ void VulkanState::createInstance() {
     // app info
     VkApplicationInfo appInfo{};
     appInfo.sType              = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName   = "Vulkan Sandbox";
+    appInfo.pApplicationName   = "Vulkan Sandbox"; // TODO - from config
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.pEngineName        = "BLIB";
     appInfo.engineVersion      = VK_MAKE_VERSION(1, 0, 0);
@@ -258,7 +260,7 @@ void VulkanState::setupDebugMessenger() {
 
 void VulkanState::createSurface() {
     if (!window.createVulkanSurface(instance, surface)) {
-        throw std::runtime_error("Failed to create Vulkcan surface");
+        throw std::runtime_error("Failed to create Vulkan surface");
     }
 }
 
@@ -290,6 +292,8 @@ void VulkanState::pickPhysicalDevice() {
     if (pscore < 0 || physicalDevice == VK_NULL_HANDLE) {
         throw std::runtime_error("Failed to find a suitable GPU");
     }
+
+    vkGetPhysicalDeviceProperties(physicalDevice, &physicalDeviceProperties);
 }
 
 void VulkanState::createLogicalDevice() {
@@ -314,6 +318,9 @@ void VulkanState::createLogicalDevice() {
     // required features
     VkPhysicalDeviceFeatures deviceFeatures{};
     deviceFeatures.samplerAnisotropy = VK_TRUE;
+#ifdef BLIB_DEBUG
+    deviceFeatures.robustBufferAccess = VK_TRUE;
+#endif
 
     // logical device creation
     VkDeviceCreateInfo createInfo{};
@@ -349,16 +356,8 @@ VkCommandPool VulkanState::createCommandPool(VkCommandPoolCreateFlags flags) {
     return commandPool;
 }
 
-void VulkanState::createCommandPoolAndTransferBuffer() {
+void VulkanState::createSharedCommandPool() {
     sharedCommandPool = createCommandPool(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
-
-    // create long-lived command-buffer for memory transfers
-    VkCommandBufferAllocateInfo allocInfo{};
-    allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-    allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-    allocInfo.commandPool        = sharedCommandPool;
-    allocInfo.commandBufferCount = 1;
-    vkAllocateCommandBuffers(device, &allocInfo, &transferCommandBuffer);
 }
 
 #ifdef BLIB_DEBUG

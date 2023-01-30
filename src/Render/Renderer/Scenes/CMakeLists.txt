@@ -1,3 +1,3 @@
 target_sources(BLIB PRIVATE
-	PrimaryScene.cpp
+	PrimaryObjectStage.cpp
 )

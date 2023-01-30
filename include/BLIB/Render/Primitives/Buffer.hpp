@@ -1,10 +1,12 @@
 #ifndef BLIB_RENDER_PRIMITIVES_BUFFER_HPP
 #define BLIB_RENDER_PRIMITIVES_BUFFER_HPP
 
+#include <BLIB/Render/Vulkan/TransferEngine.hpp>
+#include <BLIB/Render/Vulkan/Transferable.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glad/vulkan.h>
-#include <vector>
 #include <initializer_list>
+#include <vector>
 
 namespace bl
 {
@@ -18,7 +20,7 @@ namespace render
  * @ingroup Renderer
  */
 template<typename T>
-class Buffer {
+class Buffer : public Transferable {
 public:
     /**
      * @brief Creates an empty buffer
@@ -28,12 +30,12 @@ public:
     /**
      * @brief Destroys the buffer and frees resources
      */
-    ~Buffer();
+    virtual ~Buffer();
 
     /**
      * @brief Destroys the existing buffer, if any, then creates a new one on both the CPU and GPU.
      *        Does not initialize data on either device
-     * 
+     *
      * @param vulkanState The Vulkan state of the renderer
      * @param size The number of elements in the buffer
      * @param usage How the buffer will be used
@@ -47,12 +49,12 @@ public:
 
     /**
      * @brief Returns the number of elements in the buffer
-    */
+     */
     constexpr std::size_t size() const;
 
     /**
      * @brief Returns a pointer to the start of the CPU data
-    */
+     */
     constexpr T* data();
 
     /**
@@ -62,10 +64,10 @@ public:
 
     /**
      * @brief Access a specific element in the CPU buffer
-     * 
+     *
      * @param i The index of the element to access
      * @return A reference to the element at the given index
-    */
+     */
     constexpr T& operator[](std::size_t i);
 
     /**
@@ -78,39 +80,35 @@ public:
 
     /**
      * @brief Convenience method to assign a set of values all at once
-     * 
+     *
      * @tparam U The type of value to use for assignment
      * @param values The values to assign to
      * @param start The index of the first buffer value to write to
-    */
+     */
     template<typename U>
     void assign(std::initializer_list<U> values, std::size_t start = 0);
 
     /**
-     * @brief Syncs the CPU buffer to the GPU
-    */
-    void sendToGPU() const;
-
-    /**
      * @brief Returns the Vulkan handle to the GPU buffer
-    */
+     */
     constexpr VkBuffer handle() const;
 
 private:
-    VulkanState* vulkanState;
     std::vector<T> cpuBuffer;
     VkBuffer gpuBuffer;
     VkDeviceMemory gpuMemory;
+
+    virtual void executeTransfer(VkCommandBuffer cb, TransferEngine& engine) override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
 Buffer<T>::Buffer()
-: vulkanState(nullptr) {}
+: Transferable() {}
 
 template<typename T>
-inline Buffer<T>::~Buffer() {
+Buffer<T>::~Buffer() {
     destroy();
 }
 
@@ -128,7 +126,7 @@ void Buffer<T>::create(VulkanState& vs, std::uint32_t size, VkBufferUsageFlags u
 }
 
 template<typename T>
-inline void Buffer<T>::destroy() {
+void Buffer<T>::destroy() {
     if (vulkanState != nullptr) {
         vkDestroyBuffer(vulkanState->device, gpuBuffer, nullptr);
         vkFreeMemory(vulkanState->device, gpuMemory, nullptr);
@@ -173,19 +171,14 @@ void Buffer<T>::assign(std::initializer_list<U> values, std::size_t start) {
 }
 
 template<typename T>
-inline void Buffer<T>::sendToGPU() const {
+void Buffer<T>::executeTransfer(VkCommandBuffer commandBuffer, TransferEngine& engine) {
     const VkDeviceSize size = sizeof(T) * cpuBuffer.size();
 
     // TODO - keep staging buffer around?
-    // may want to build a transfer engine
+    // create staging buffer
     VkBuffer stagingBuffer;
     VkDeviceMemory stagingMemory;
-    vulkanState->createBuffer(size,
-                              VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
-                              VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
-                                  VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-                              stagingBuffer,
-                              stagingMemory);
+    engine.createStagingBuffer(size, stagingBuffer, stagingMemory);
 
     // map and copy to staging
     void* mappedAddress = nullptr;
@@ -194,17 +187,23 @@ inline void Buffer<T>::sendToGPU() const {
     vkUnmapMemory(vulkanState->device, stagingMemory);
 
     // copy staging -> gpu
-    VkCommandBuffer commandBuffer = vulkanState->beginSingleTimeCommands();
     VkBufferCopy copyRegion{};
     copyRegion.srcOffset = 0;
     copyRegion.dstOffset = 0;
     copyRegion.size      = size;
     vkCmdCopyBuffer(commandBuffer, stagingBuffer, gpuBuffer, 1, &copyRegion);
-    vulkanState->endSingleTimeCommands(commandBuffer);
 
-    // release staging buffer
-    vkDestroyBuffer(vulkanState->device, stagingBuffer, nullptr);
-    vkFreeMemory(vulkanState->device, stagingMemory, nullptr);
+    // insert pipeline barrier
+    VkBufferMemoryBarrier barrier{};
+    barrier.sType               = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+    barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    barrier.srcAccessMask       = VK_ACCESS_TRANSFER_WRITE_BIT;
+    barrier.dstAccessMask       = VK_ACCESS_MEMORY_READ_BIT;
+    barrier.buffer              = gpuBuffer;
+    barrier.offset              = 0;
+    barrier.size                = size;
+    engine.registerBufferBarrier(barrier);
 }
 
 template<typename T>

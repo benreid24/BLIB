@@ -6,7 +6,7 @@
 #include <BLIB/Render/Renderer/ObjectBatch.hpp>
 #include <BLIB/Render/Renderer/SceneObject.hpp>
 #include <BLIB/Render/Renderer/SceneRenderContext.hpp>
-#include <BLIB/Render/Renderer/Stages/PrimaryScene.hpp>
+#include <BLIB/Render/Renderer/Scenes/PrimaryObjectStage.hpp>
 #include <array>
 #include <glad/vulkan.h>
 #include <mutex>
@@ -37,7 +37,7 @@ public:
 
     /**
      * @brief Syncs object additions, removals, and state changes. Call once per frame
-    */
+     */
     void sync();
 
     /**
@@ -45,15 +45,28 @@ public:
      *
      * @param context Render context containing the parameters to render with
      */
-    void recordRenderCommands(const SceneRenderContext& context);
+    void renderScene(const SceneRenderContext& context);
+
+    /**
+     * @brief Composites the scene with its active postfx pipeline into the swap chain image. This
+     *        must be called inside of the proper render pass and with the scissor and viewport
+     *        already set
+     * 
+     * @param commandBuffer The command buffer to record into
+     */
+    void compositeScene(VkCommandBuffer commandBuffer);
+
+    // TODO - overlay method
 
 private:
     std::mutex mutex;
     Renderer& renderer;
     container::ObjectPool<SceneObject> objects;
 
-    stage::PrimaryScene primaryStage;
-    std::array<ObjectBatch*, Config::Stage::Count> stageBatches;
+    scene::PrimaryObjectStage primaryObjectStage;
+    std::array<ObjectBatch*, Config::SceneObjectStage::Count> stageBatches;
+
+    // TODO - postfx stage with pipeline
 
     std::mutex eraseMutex;
     std::vector<SceneObject::Handle> toRemove;

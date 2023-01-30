@@ -1,10 +1,10 @@
 #ifndef BLIB_RENDER_CONFIG_HPP
 #define BLIB_RENDER_CONFIG_HPP
 
-#include <glm/glm.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Uniforms/PushConstants.hpp>
 #include <cstdint>
+#include <glm/glm.hpp>
 
 namespace bl
 {
@@ -18,7 +18,7 @@ struct Config {
 
     static constexpr glm::vec3 UpDirection = {0.f, 1.f, 0.f};
 
-    struct Stage { // does not include postfx stage as objects do not belong in there
+    struct SceneObjectStage { // does not include postfx stage as objects do not belong in there
         enum : std::size_t {
             ShadowMapping      = 0,
             PrimaryOpaque      = 1,
@@ -50,7 +50,8 @@ struct Config {
     };
 
     struct RenderPassIds {
-        static constexpr std::uint32_t PrimaryScene = 0;
+        static constexpr std::uint32_t OffScreenSceneRender   = 0;
+        static constexpr std::uint32_t SwapchainPrimaryRender = 1;
     };
 };
 

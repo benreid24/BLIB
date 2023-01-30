@@ -1,3 +1,3 @@
 target_sources(BLIB PUBLIC
-	PrimaryScene.hpp
+	PrimaryObjectstage.hpp
 )

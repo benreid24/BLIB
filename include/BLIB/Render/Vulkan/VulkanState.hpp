@@ -5,6 +5,7 @@
 #include <BLIB/Render/Util/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
+#include <BLIB/Render/Vulkan/TransferEngine.hpp>
 #include <SFML/Window.hpp>
 #include <array>
 #include <cstdint>
@@ -164,12 +165,13 @@ struct VulkanState {
 #endif
     VkSurfaceKHR surface;
     VkPhysicalDevice physicalDevice;
+    VkPhysicalDeviceProperties physicalDeviceProperties;
     VkDevice device;
     VkQueue graphicsQueue;
     VkQueue presentQueue;
     VkCommandPool sharedCommandPool;
-    VkCommandBuffer transferCommandBuffer;
     Swapchain swapchain;
+    TransferEngine transferEngine;
 
 private:
     sf::WindowBase& window;
@@ -184,7 +186,7 @@ private:
     void createSurface();
     void pickPhysicalDevice();
     void createLogicalDevice();
-    void createCommandPoolAndTransferBuffer();
+    void createSharedCommandPool();
 
     void cleanupDebugMessenger();
 
@@ -226,6 +228,11 @@ constexpr const T& PerFrame<T>::current() const {
     if (!vs) { throw std::runtime_error("PerFrame has not been inited with VulkanInstance"); }
 #endif
     return data[vs->currentFrameIndex()];
+}
+
+template<typename T>
+constexpr bool PerFrame<T>::valid() const {
+    return vs != nullptr;
 }
 
 } // namespace render

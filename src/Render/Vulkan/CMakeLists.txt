@@ -5,7 +5,10 @@ target_sources(BLIB PRIVATE
     PipelineParameters.cpp
     RenderPass.cpp
     RenderPassParameters.cpp
+    StandardImageBuffer.cpp
     Swapchain.cpp
+    Transferable.cpp
+    TransferEngine.cpp
     VulkanState.cpp
 )
 

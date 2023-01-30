@@ -8,4 +8,4 @@ target_sources(BLIB PRIVATE
     Texture.cpp
 )
 
-add_subdirectory(Stages)
+add_subdirectory(Scenes)

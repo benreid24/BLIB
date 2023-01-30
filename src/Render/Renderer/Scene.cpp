@@ -11,10 +11,10 @@ namespace render
 Scene::Scene(Renderer& r)
 : renderer(r)
 , objects(container::ObjectPool<SceneObject>::GrowthPolicy::ExpandBuffer, 256)
-, primaryStage(r) {
+, primaryObjectStage(r) {
     toRemove.reserve(32);
-    stageBatches[Config::Stage::PrimaryOpaque]      = &primaryStage.opaqueObjects;
-    stageBatches[Config::Stage::PrimaryTransparent] = &primaryStage.transparentObjects;
+    stageBatches[Config::SceneObjectStage::PrimaryOpaque]      = &primaryObjectStage.opaqueObjects;
+    stageBatches[Config::SceneObjectStage::PrimaryTransparent] = &primaryObjectStage.transparentObjects;
 }
 
 SceneObject::Handle Scene::createAndAddObject(Renderable* owner) {
@@ -27,10 +27,14 @@ void Scene::removeObject(const SceneObject::Handle& obj) {
     toRemove.emplace_back(obj);
 }
 
-void Scene::recordRenderCommands(const SceneRenderContext& ctx) {
+void Scene::renderScene(const SceneRenderContext& ctx) {
     std::unique_lock lock(mutex);
+    primaryObjectStage.recordRenderCommands(ctx);
+}
 
-    primaryStage.recordRenderCommands(ctx);
+void Scene::compositeScene(VkCommandBuffer commandBuffer) {
+    std::unique_lock lock(mutex);
+    // TODO - compositor stage
 }
 
 void Scene::sync() {
@@ -54,7 +58,7 @@ void Scene::sync() {
 void Scene::performRemovals() {
     std::unique_lock lock(eraseMutex);
     for (SceneObject::Handle& obj : toRemove) {
-        for (std::uint32_t stage = 0; stage < Config::Stage::Count; ++stage) {
+        for (std::uint32_t stage = 0; stage < Config::SceneObjectStage::Count; ++stage) {
             const std::uint32_t pid = obj->owner->stageMembership.getPipelineForRenderStage(stage);
             if (pid != Config::PipelineIds::None) { stageBatches[stage]->removeObject(obj, pid); }
         }

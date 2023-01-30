@@ -1,6 +1,8 @@
 #ifndef BLIB_RENDER_OBSERVER_HPP
 #define BLIB_RENDER_OBSERVER_HPP
 
+#include <BLIB/Render/Util/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/StandardImageBuffer.hpp>
 #include <BLIB/Render/Cameras/Camera.hpp>
 #include <BLIB/Render/Renderer/Scene.hpp>
 #include <SFML/Window.hpp>
@@ -26,6 +28,11 @@ class Renderer;
  */
 class Observer {
 public:
+    /**
+     * @brief Releases resources
+    */
+    ~Observer();
+
     /**
      * @brief Creates a new scene on top the Observer's scene stack and returns it
      *
@@ -110,17 +117,27 @@ public:
     void clearCameras();
 
     /**
-     * @brief Records the commands to render this observer's scene and overlay into the given
-     *        command buffer
-     *
-     * @param target The target to render to
-     * @param commandBuffer The command buffer to record commands into
-     */
-    void recordRenderCommands(const StandardAttachmentSet& target, VkCommandBuffer commandBuffer);
+     * @brief Records commands to render the observer's active scene to its internal image
+     * 
+     * @param commandBuffer Command buffer to record into
+    */
+    void renderScene(VkCommandBuffer commandBuffer);
+
+    /**
+     * @brief Records commands to render the rendered scene onto the given swapchain image, applying
+     *        postfx if any are active. Must be called with an active render pass
+     * 
+     * @param commandBuffer Command buffer to record into
+    */
+    void compositeSceneWithEffects(VkCommandBuffer commandBuffer);
+
+    // TODO - overlay render method
 
 private:
     Renderer& renderer;
     std::mutex mutex;
+    PerFrame<StandardImageBuffer> renderFrames;
+    // TODO - create framebuffers for above frames
     VkRect2D scissor;    // refreshed on window resize and observer add/remove
     VkViewport viewport; // derived from scissor. depth should be set by caller
     std::stack<Scene*, std::vector<Scene*>> scenes;
@@ -133,6 +150,7 @@ private:
     void assignRegion(const sf::WindowBase& window, unsigned int observerCount, unsigned int index,
                       bool topBottomFirst);
     void setDefaultNearFar(float near, float far);
+    void cleanup();
 
     template<typename TCamera, typename... TArgs>
     TCamera* constructCamera(TArgs&&... args);

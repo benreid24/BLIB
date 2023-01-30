@@ -30,7 +30,7 @@ public:
     };
 
     /**
-     * @brief Construct a new Render Stage Membership with no stagees being active
+     * @brief Construct a new Render SceneObjectStage Membership with no stagees being active
      *
      */
     StagePipelines();
@@ -88,8 +88,8 @@ public:
     std::uint32_t getPipelineForRenderStage(std::uint32_t renderStageId) const;
 
 private:
-    std::array<std::uint32_t, Config::Stage::Count> pipelines;
-    std::array<std::uint32_t, Config::Stage::Count> next;
+    std::array<std::uint32_t, Config::SceneObjectStage::Count> pipelines;
+    std::array<std::uint32_t, Config::SceneObjectStage::Count> next;
 };
 
 } // namespace render

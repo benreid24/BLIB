@@ -11,4 +11,4 @@ target_sources(BLIB PUBLIC
     Texture.hpp
 )
 
-add_subdirectory(Stages)
+add_subdirectory(Scenes)

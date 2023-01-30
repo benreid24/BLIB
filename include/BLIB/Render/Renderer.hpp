@@ -127,6 +127,7 @@ private:
     std::mutex mutex;
     sf::WindowBase& window;
     VulkanState state;
+    PerSwapFrame<Framebuffer> framebuffers;
     TexturePool textures;
     MaterialPool materials;
     RenderPassCache renderPasses;

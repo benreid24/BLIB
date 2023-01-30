@@ -30,6 +30,15 @@ void Renderer::initialize() {
     renderPasses.addDefaults();
     pipelines.createBuiltins();
 
+    // swapchain framebuffers
+    VkRenderPass renderPass =
+        renderPasses.getRenderPass(Config::RenderPassIds::SwapchainPrimaryRender).rawPass();
+    unsigned int i = 0;
+    framebuffers.init(state.swapchain, [this, &i, renderPass](Framebuffer& fb) {
+        fb.create(state, renderPass, state.swapchain.swapFrameAtIndex(i));
+        ++i;
+    });
+
     addObserver();
     commonObserver.assignRegion(window, 1, 0, true);
 }
@@ -37,9 +46,12 @@ void Renderer::initialize() {
 void Renderer::cleanup() {
     vkDeviceWaitIdle(state.device);
 
+    observers.clear();
+    commonObserver.cleanup();
     scenes.cleanup();
     // TODO - free textures and materials
     pipelines.cleanup();
+    framebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
     renderPasses.cleanup();
     state.cleanup();
     state.device = nullptr;
@@ -55,23 +67,45 @@ void Renderer::processResize() {
 
 void Renderer::update(float dt) {
     std::unique_lock lock(mutex);
+    commonObserver.update(dt);
     for (auto& o : observers) { o->update(dt); }
 }
 
 void Renderer::renderFrame() {
     std::unique_lock lock(mutex);
 
+    // execute transfers
+    state.transferEngine.executeTransfers(); 
+
+    // begin frame
     StandardAttachmentSet* currentFrame = nullptr;
     VkCommandBuffer commandBuffer       = nullptr;
     state.beginFrame(currentFrame, commandBuffer);
+    framebuffers.current().recreateIfChanged(*currentFrame);
 
-    if (commonObserver.hasScene()) {
-        commonObserver.recordRenderCommands(*currentFrame, commandBuffer);
-    }
+    // record commands to render scenes
+    if (commonObserver.hasScene()) { commonObserver.renderScene(commandBuffer); }
     else {
-        for (auto& o : observers) { o->recordRenderCommands(*currentFrame, commandBuffer); }
-        // TODO - common overlay from common observer
+        // record all before blocking to apply postfx
+        for (auto& o : observers) { o->renderScene(commandBuffer); }
     }
+
+    // begin render pass to composite content into swapchain image
+    VkClearValue clearColors[1];
+    clearColors[0] = {{{0.f, 0.f, 0.f, 1.f}}};
+    framebuffers.current().beginRender(commandBuffer,
+                                       {{0, 0}, currentFrame->renderExtent()},
+                                       clearColors,
+                                       std::size(clearColors),
+                                       true);
+
+    // apply rendered scenes to swap image with postfx
+    if (commonObserver.hasScene()) { commonObserver.compositeSceneWithEffects(commandBuffer); }
+    else {
+        for (auto& o : observers) { o->compositeSceneWithEffects(commandBuffer); }
+    }
+
+    // TODO - render overlays
 
     state.completeFrame();
 }
