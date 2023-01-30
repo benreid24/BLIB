@@ -135,9 +135,10 @@ public:
 
 private:
     Renderer& renderer;
+    bool resourcesFreed;
     std::mutex mutex;
     PerFrame<StandardImageBuffer> renderFrames;
-    // TODO - create framebuffers for above frames
+    PerFrame<Framebuffer> sceneFramebuffers;
     VkRect2D scissor;    // refreshed on window resize and observer add/remove
     VkViewport viewport; // derived from scissor. depth should be set by caller
     std::stack<Scene*, std::vector<Scene*>> scenes;

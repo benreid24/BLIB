@@ -12,25 +12,20 @@ namespace render
 {
 /**
  * @brief Container struct that holds the required parameters to render a scene
- * 
+ *
  * @ingroup Renderer
-*/
+ */
 struct SceneRenderContext {
     /**
      * @brief Creates a scene render context
-     * 
-     * @param target The target to render to
+     *
      * @param commandBuffer The command buffer to record commands into
      * @param projView The projection matrix multiplied by the view matrix
-     * @param renderRegion Scissor of the area being rendered to
-    */
-    SceneRenderContext(const StandardAttachmentSet& target, VkCommandBuffer commandBuffer,
-                       const glm::mat4& projView, const VkRect2D& renderRegion);
+     */
+    SceneRenderContext(VkCommandBuffer commandBuffer, const glm::mat4& projView);
 
     const VkCommandBuffer commandBuffer;
-    const StandardAttachmentSet& target;
     const glm::mat4 projView;
-    const VkRect2D& renderRegion;
 };
 
 } // namespace render

@@ -28,18 +28,19 @@ public:
      * @brief Creates a staging buffer of the given size. Should only be called from
      *        Transferable::executeTransferAndInsertBarriers. Staging buffers are freed at the end
      *        of the frame after queue submission
-     * 
+     *
      * @param size Size of the staging buffer to create
      * @param bufferResult Buffer handle to populate
      * @param memoryResult Memory handle to populate
      */
-    void createStagingBuffer(VkDeviceSize size, VkBuffer& bufferResult, VkDeviceMemory& memoryResult);
+    void createStagingBuffer(VkDeviceSize size, VkBuffer& bufferResult,
+                             VkDeviceMemory& memoryResult);
 
     /**
      * @brief Registers the given barrier to be recorded after all transfers are started
-     * 
+     *
      * @param barrier The barrier to add
-    */
+     */
     void registerMemoryBarrier(const VkMemoryBarrier& barrier);
 
     /**
@@ -61,6 +62,7 @@ private:
     std::mutex mutex;
     std::vector<Transferable*> queuedItems;
 
+    VkCommandBuffer commandBuffer;
     VkFence fence;
     std::vector<VkBuffer> stagingBuffers;
     std::vector<VkDeviceMemory> stagingMemory;

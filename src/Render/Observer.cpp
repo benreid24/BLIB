@@ -8,7 +8,8 @@ namespace bl
 namespace render
 {
 Observer::Observer(Renderer& r)
-: renderer(r) {
+: renderer(r)
+, resourcesFreed(false) {
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
 }
@@ -16,7 +17,11 @@ Observer::Observer(Renderer& r)
 Observer::~Observer() { cleanup(); }
 
 void Observer::cleanup() {
-    renderFrames.cleanup([](StandardImageBuffer& frame) { frame.destroy(); });
+    if (!resourcesFreed) {
+        sceneFramebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
+        renderFrames.cleanup([](StandardImageBuffer& frame) { frame.destroy(); });
+        resourcesFreed = true;
+    }
 }
 
 void Observer::update(float dt) {
@@ -94,11 +99,14 @@ void Observer::renderScene(VkCommandBuffer commandBuffer) {
                 cameras.top()->getProjectionMatrix(viewport) * cameras.top()->getViewMatrix() :
                 glm::perspective(75.f, viewport.width / viewport.height, 0.1f, 100.f);
         const VkRect2D renderRegion{{0, 0}, renderFrames.current().bufferSize()};
-        // TODO - begin render pass here from framebuffer
-        const SceneRenderContext ctx(
-            renderFrames.current().attachmentSet(), commandBuffer, projView, renderRegion);
+        const SceneRenderContext ctx(commandBuffer, projView);
+        VkClearValue clearColors[1];
+        clearColors[0] = {{{0.f, 0.f, 0.f, 1.f}}};
+
+        sceneFramebuffers.current().beginRender(
+            commandBuffer, renderRegion, clearColors, std::size(clearColors), true);
         scenes.top()->renderScene(ctx);
-        // TODO - finish render pass
+        sceneFramebuffers.current().finishRender(commandBuffer);
     }
 }
 
@@ -201,6 +209,16 @@ void Observer::assignRegion(const sf::WindowBase& window, unsigned int count, un
 
         renderFrames.init(renderer.vulkanState(), [this](StandardImageBuffer& frame) {
             frame.create(renderer.vulkanState(), scissor.extent);
+        });
+
+        // scene frame buffers
+        VkRenderPass scenePass = renderer.renderPassCache()
+                                     .getRenderPass(Config::RenderPassIds::OffScreenSceneRender)
+                                     .rawPass();
+        unsigned int i = 0;
+        sceneFramebuffers.init(renderer.vulkanState(), [this, &i, scenePass](Framebuffer& fb) {
+            fb.create(renderer.vulkanState(), scenePass, renderFrames.getRaw(i).attachmentSet());
+            ++i;
         });
     }
 }

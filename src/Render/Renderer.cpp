@@ -75,7 +75,7 @@ void Renderer::renderFrame() {
     std::unique_lock lock(mutex);
 
     // execute transfers
-    state.transferEngine.executeTransfers(); 
+    state.transferEngine.executeTransfers();
 
     // begin frame
     StandardAttachmentSet* currentFrame = nullptr;
@@ -106,6 +106,8 @@ void Renderer::renderFrame() {
     }
 
     // TODO - render overlays
+
+    framebuffers.current().finishRender(commandBuffer);
 
     state.completeFrame();
 }

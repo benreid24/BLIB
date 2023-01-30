@@ -12,24 +12,12 @@ namespace scene
 {
 
 PrimaryObjectStage::PrimaryObjectStage(Renderer& r)
-: renderer(r)
-, renderPass(renderer.renderPassCache()
-                 .getRenderPass(Config::RenderPassIds::OffScreenSceneRender)
-                 .rawPass())
-, opaqueObjects(renderer)
-, transparentObjects(renderer) {}
+: opaqueObjects(r)
+, transparentObjects(r) {}
 
 void PrimaryObjectStage::recordRenderCommands(const SceneRenderContext& context) {
-    framebuffers.current().recreateIfChanged(context.target);
-
-    VkClearValue clearColors[1];
-    clearColors[0] = {{{0.f, 0.f, 0.f, 1.f}}};
-
-    framebuffers.current().beginRender(
-        context.commandBuffer, context.renderRegion, clearColors, std::size(clearColors), true);
     opaqueObjects.recordRenderCommands(context);
     transparentObjects.recordRenderCommands(context);
-    framebuffers.current().finishRender(context.commandBuffer);
 }
 
 } // namespace scene

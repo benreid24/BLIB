@@ -24,9 +24,6 @@ namespace scene
 */
 class PrimaryObjectStage {
 private:
-    Renderer& renderer;
-    VkRenderPass renderPass;
-    PerSwapFrame<Framebuffer> framebuffers;
     ObjectBatch opaqueObjects;
     ObjectBatch transparentObjects;
 

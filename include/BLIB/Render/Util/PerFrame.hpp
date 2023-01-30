@@ -62,9 +62,30 @@ public:
     constexpr const T& current() const;
 
     /**
+     * @brief Provides direct access to the contained values
+     * 
+     * @param i Index to access
+     * @return Object at that index
+    */
+    constexpr T& getRaw(unsigned int i);
+
+    /**
+     * @brief Provides direct access to the contained values
+     *
+     * @param i Index to access
+     * @return Object at that index
+     */
+    constexpr const T& getRaw(unsigned int i) const;
+
+    /**
      * @brief Returns whether or not the PerFrame has been initialized yet
     */
     constexpr bool valid() const;
+
+    /**
+     * @brief Returns the number of contained objects
+    */
+    constexpr std::size_t size() const;
 
 private:
     VulkanState* vs;

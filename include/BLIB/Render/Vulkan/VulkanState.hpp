@@ -231,8 +231,23 @@ constexpr const T& PerFrame<T>::current() const {
 }
 
 template<typename T>
+constexpr T& PerFrame<T>::getRaw(unsigned int i) {
+    return data[i];
+}
+
+template<typename T>
+constexpr const T& PerFrame<T>::getRaw(unsigned int i) const {
+    return data[i];
+}
+
+template<typename T>
 constexpr bool PerFrame<T>::valid() const {
     return vs != nullptr;
+}
+
+template<typename T>
+constexpr std::size_t PerFrame<T>::size() const {
+    return data.size();
 }
 
 } // namespace render

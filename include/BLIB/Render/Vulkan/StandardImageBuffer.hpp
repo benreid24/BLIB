@@ -74,7 +74,6 @@ public:
 
 private:
     VulkanState* owner;
-    VkExtent2D imageExtent;
     StandardAttachmentSet attachments;
     VkDeviceMemory gpuMemory;
     VkSampler colorSampler;
@@ -89,7 +88,9 @@ inline constexpr const StandardAttachmentSet& StandardImageBuffer::attachmentSet
 
 inline constexpr VkSampler StandardImageBuffer::colorImageSampler() const { return colorSampler; }
 
-inline constexpr const VkExtent2D& StandardImageBuffer::bufferSize() const { return imageExtent; }
+inline constexpr const VkExtent2D& StandardImageBuffer::bufferSize() const {
+    return attachments.extent;
+}
 
 } // namespace render
 } // namespace bl

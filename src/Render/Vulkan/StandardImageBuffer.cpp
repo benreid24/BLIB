@@ -11,8 +11,8 @@ StandardImageBuffer::~StandardImageBuffer() { destroy(); }
 
 void StandardImageBuffer::create(VulkanState& vs, const VkExtent2D& size) {
     destroy();
-    owner       = &vs;
-    imageExtent = size;
+    owner              = &vs;
+    attachments.extent = size;
 
     VkImage& colorImage         = attachments.imageHandles[StandardAttachmentSet::ColorIndex];
     VkImageView& colorImageView = attachments.imageViewHandles[StandardAttachmentSet::ColorIndex];

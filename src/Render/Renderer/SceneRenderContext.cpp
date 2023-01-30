@@ -4,13 +4,9 @@ namespace bl
 {
 namespace render
 {
-SceneRenderContext::SceneRenderContext(const StandardAttachmentSet& target,
-                                       VkCommandBuffer commandBuffer, const glm::mat4& projView,
-                                       const VkRect2D& region)
+SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, const glm::mat4& projView)
 : commandBuffer(commandBuffer)
-, target(target)
-, projView(projView)
-, renderRegion(region) {}
+, projView(projView) {}
 
 } // namespace render
 } // namespace bl

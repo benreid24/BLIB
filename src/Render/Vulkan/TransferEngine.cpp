@@ -6,7 +6,8 @@ namespace bl
 namespace render
 {
 TransferEngine::TransferEngine(VulkanState& vs)
-: vulkanState(vs) {
+: vulkanState(vs)
+, commandBuffer(nullptr) {
     queuedItems.reserve(32);
     stagingBuffers.reserve(32);
     stagingMemory.reserve(32);
@@ -29,11 +30,15 @@ void TransferEngine::executeTransfers() {
 
     // wait for prior transfers to complete before freeing resources
     vkWaitForFences(vulkanState.device, 1, &fence, VK_TRUE, 0);
+    vkResetFences(vulkanState.device, 1, &fence);
     releaseStagingBuffers();
+    if (commandBuffer) {
+        vkFreeCommandBuffers(vulkanState.device, vulkanState.sharedCommandPool, 1, &commandBuffer);
+        commandBuffer = nullptr;
+    }
 
     if (!queuedItems.empty()) {
         // create one time command buffer
-        VkCommandBuffer commandBuffer;
         VkCommandBufferAllocateInfo alloc{};
         alloc.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
         alloc.commandPool        = vulkanState.sharedCommandPool;
@@ -63,6 +68,7 @@ void TransferEngine::executeTransfers() {
                              imageBarriers.data());
 
         // submit transfer commands
+        vkEndCommandBuffer(commandBuffer);
         VkSubmitInfo submit{};
         submit.sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO;
         submit.pCommandBuffers    = &commandBuffer;
@@ -70,7 +76,6 @@ void TransferEngine::executeTransfers() {
         vkQueueSubmit(vulkanState.graphicsQueue, 1, &submit, fence);
 
         // cleanup
-        vkFreeCommandBuffers(vulkanState.device, vulkanState.sharedCommandPool, 1, &commandBuffer);
         memoryBarriers.clear();
         bufferBarriers.clear();
         imageBarriers.clear();
