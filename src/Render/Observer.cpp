@@ -18,6 +18,7 @@ Observer::~Observer() { cleanup(); }
 
 void Observer::cleanup() {
     if (!resourcesFreed) {
+        sceneImages.cleanup([](overlay::Image& img) { img.cleanup(); });
         sceneFramebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
         renderFrames.cleanup([](StandardImageBuffer& frame) { frame.destroy(); });
         resourcesFreed = true;
@@ -110,13 +111,17 @@ void Observer::renderScene(VkCommandBuffer commandBuffer) {
     }
 }
 
-void Observer::compositeSceneWithEffects(VkCommandBuffer commandBuffer) {
-    std::unique_lock lock(mutex);
+void Observer::insertSceneBarriers(VkCommandBuffer commandBuffer) {
+    // wait for scene render (pipeline barrier)
+    renderFrames.current().prepareForSampling(commandBuffer);
+}
 
+void Observer::compositeSceneWithEffects(VkCommandBuffer commandBuffer) {
     vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
     vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 
-    // TODO - copy over
+    overlay::OverlayRenderContext ctx(commandBuffer);
+    sceneImages.current().doRender(ctx);
 }
 
 void Observer::assignRegion(const sf::WindowBase& window, unsigned int count, unsigned int i,
@@ -218,6 +223,13 @@ void Observer::assignRegion(const sf::WindowBase& window, unsigned int count, un
         unsigned int i = 0;
         sceneFramebuffers.init(renderer.vulkanState(), [this, &i, scenePass](Framebuffer& fb) {
             fb.create(renderer.vulkanState(), scenePass, renderFrames.getRaw(i).attachmentSet());
+            ++i;
+        });
+
+        // scene images
+        i = 0;
+        sceneImages.init(renderer.vulkanState(), [this, &i](overlay::Image& img) {
+            img.setImage(renderer, renderFrames.getRaw(i).attachmentSet().colorImageView());
             ++i;
         });
     }

@@ -5,6 +5,7 @@ target_sources(BLIB PUBLIC
 )
 
 add_subdirectory(Cameras)
+add_subdirectory(Overlays)
 add_subdirectory(Primitives)
 add_subdirectory(Renderables)
 add_subdirectory(Renderer)

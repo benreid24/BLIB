@@ -56,6 +56,11 @@ public:
      */
     constexpr bool preserveObjectOrder() const;
 
+    /**
+     * @brief Returns the underlying Vulkan pipeline handle
+     */
+    constexpr VkPipeline rawPipeline() const;
+
 private:
     Renderer& renderer;
     VkPipelineLayout layout;
@@ -72,6 +77,8 @@ private:
 inline constexpr VkPipelineLayout Pipeline::pipelineLayout() const { return layout; }
 
 inline constexpr bool Pipeline::preserveObjectOrder() const { return preserveOrder; }
+
+inline constexpr VkPipeline Pipeline::rawPipeline() const { return pipeline; }
 
 } // namespace render
 } // namespace bl

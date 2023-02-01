@@ -31,7 +31,7 @@ public:
      * @brief Frees prior images, if any, and creates a new color and depth image
      *
      * @param vulkaState Renderer vulkan state
-     * @param size The size of the color and deptch attachments to create
+     * @param size The size of the color and depth attachments to create
      */
     void create(VulkanState& vulkaState, const VkExtent2D& size);
 
@@ -63,11 +63,6 @@ public:
     constexpr const StandardAttachmentSet& attachmentSet() const;
 
     /**
-     * @brief Returns the sampler to use to sample from this target
-     */
-    constexpr VkSampler colorImageSampler() const;
-
-    /**
      * @brief Returns the size of the images contained in the buffer
      */
     constexpr const VkExtent2D& bufferSize() const;
@@ -76,7 +71,6 @@ private:
     VulkanState* owner;
     StandardAttachmentSet attachments;
     VkDeviceMemory gpuMemory;
-    VkSampler colorSampler;
     VkImageLayout currentColorLayout;
 };
 
@@ -85,8 +79,6 @@ private:
 inline constexpr const StandardAttachmentSet& StandardImageBuffer::attachmentSet() const {
     return attachments;
 }
-
-inline constexpr VkSampler StandardImageBuffer::colorImageSampler() const { return colorSampler; }
 
 inline constexpr const VkExtent2D& StandardImageBuffer::bufferSize() const {
     return attachments.extent;

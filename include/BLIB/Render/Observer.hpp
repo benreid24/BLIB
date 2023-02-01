@@ -1,10 +1,11 @@
 #ifndef BLIB_RENDER_OBSERVER_HPP
 #define BLIB_RENDER_OBSERVER_HPP
 
+#include <BLIB/Render/Cameras/Camera.hpp>
+#include <BLIB/Render/Overlays/Drawables/Image.hpp>
+#include <BLIB/Render/Renderer/Scene.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/StandardImageBuffer.hpp>
-#include <BLIB/Render/Cameras/Camera.hpp>
-#include <BLIB/Render/Renderer/Scene.hpp>
 #include <SFML/Window.hpp>
 #include <glad/vulkan.h>
 #include <memory>
@@ -30,7 +31,7 @@ class Observer {
 public:
     /**
      * @brief Releases resources
-    */
+     */
     ~Observer();
 
     /**
@@ -118,17 +119,19 @@ public:
 
     /**
      * @brief Records commands to render the observer's active scene to its internal image
-     * 
+     *
      * @param commandBuffer Command buffer to record into
-    */
+     */
     void renderScene(VkCommandBuffer commandBuffer);
+
+    void insertSceneBarriers(VkCommandBuffer commandBuffer);
 
     /**
      * @brief Records commands to render the rendered scene onto the given swapchain image, applying
      *        postfx if any are active. Must be called with an active render pass
-     * 
+     *
      * @param commandBuffer Command buffer to record into
-    */
+     */
     void compositeSceneWithEffects(VkCommandBuffer commandBuffer);
 
     // TODO - overlay render method
@@ -139,6 +142,7 @@ private:
     std::mutex mutex;
     PerFrame<StandardImageBuffer> renderFrames;
     PerFrame<Framebuffer> sceneFramebuffers;
+    PerFrame<overlay::Image> sceneImages;
     VkRect2D scissor;    // refreshed on window resize and observer add/remove
     VkViewport viewport; // derived from scissor. depth should be set by caller
     std::stack<Scene*, std::vector<Scene*>> scenes;

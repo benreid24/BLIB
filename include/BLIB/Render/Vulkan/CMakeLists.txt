@@ -1,5 +1,6 @@
 target_sources(BLIB PUBLIC
     AttachmentSet.hpp
+    CommonDescriptorSetLayouts.hpp
     DescriptorPoolRequirements.hpp
     Framebuffer.hpp
     Pipeline.hpp

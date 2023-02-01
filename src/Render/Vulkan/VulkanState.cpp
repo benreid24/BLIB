@@ -135,9 +135,11 @@ void VulkanState::init() {
     createSharedCommandPool();
     swapchain.create(surface);
     transferEngine.init();
+    descriptorSetLayouts.init(*this);
 }
 
 void VulkanState::cleanup() {
+    descriptorSetLayouts.cleanup(*this);
     transferEngine.cleanup();
     swapchain.destroy();
     vkDestroyCommandPool(device, sharedCommandPool, nullptr);
@@ -580,6 +582,11 @@ VkShaderModule VulkanState::createShaderModule(const std::string& path) {
         case Config::ShaderIds::TestFragmentShader[0]:
             // TODO - properly include shaders in binary
             return createShaderModule("shaders/testFrag.spv");
+        case Config::ShaderIds::EmptyVertex[0]:
+            // TODO - properly include shaders in binary
+            return createShaderModule("shaders/emptyVert.spv");
+        case Config::ShaderIds::ImageOverlayFragment[0]:
+            return createShaderModule("shaders/imageOverlayFrag.spv");
         default:
             BL_LOG_ERROR << "Invalid built-in shader id: " << static_cast<int>(path[0]);
             throw std::runtime_error("Invalid built-in shader id");

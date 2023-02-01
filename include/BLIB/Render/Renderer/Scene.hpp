@@ -47,15 +47,6 @@ public:
      */
     void renderScene(const SceneRenderContext& context);
 
-    /**
-     * @brief Composites the scene with its active postfx pipeline into the swap chain image. This
-     *        must be called inside of the proper render pass and with the scissor and viewport
-     *        already set
-     * 
-     * @param commandBuffer The command buffer to record into
-     */
-    void compositeScene(VkCommandBuffer commandBuffer);
-
     // TODO - overlay method
 
 private:

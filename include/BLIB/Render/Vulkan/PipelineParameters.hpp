@@ -62,7 +62,7 @@ public:
                                   const std::string& entrypoint = "main");
 
     /**
-     * @brief Configures which pipeline states are dyanmic. Viewport and scissor are always dynamic
+     * @brief Configures which pipeline states are dynamic. Viewport and scissor are always dynamic
      *
      * @param states A set of states to be made dynamic in this pipeline
      * @return PipelineParameters& A reference to this object
@@ -109,8 +109,8 @@ public:
     PipelineParameters& withMSAA(const VkPipelineMultisampleStateCreateInfo& msaaParams);
 
     /**
-     * @brief Adds a descriptor set layout and retriver to this pipeline. Set numbers start at 0 and
-     *        added sets are numbered by the order this method is called in.
+     * @brief Adds a descriptor set layout and retriever to this pipeline. Set numbers start at 0
+     * and added sets are numbered by the order this method is called in.
      *
      * @param layout The layout of the descriptor set
      * @param retriever Callback that will be called at pipeline bind time to get the set to bind
@@ -118,6 +118,16 @@ public:
      */
     PipelineParameters& addDescriptorSet(VkDescriptorSetLayout layout,
                                          DescriptorSetRetriever&& retriever);
+
+    /**
+     * @brief Adds a descriptor set layout with no retriever. Code rendering with this pipeline will
+     *        have to manually bind the descriptor sets
+     *
+     * @param layout The layout of the descriptor set
+     * @param retriever Callback that will be called at pipeline bind time to get the set to bind
+     * @return PipelineParameters& A reference to this object
+     */
+    PipelineParameters& addDescriptorSet(VkDescriptorSetLayout layout);
 
     /**
      * @brief Adds a push constant range config to this pipeline. All pipelines are configured to
@@ -136,7 +146,7 @@ public:
     /**
      * @brief Adds an alpha blending config for a color attachment for this pipeline. Blend configs
      *        are ordered by the order that this method is called in. Defaults to a single blend
-     *        config with standard alpha blending if not overriden.
+     *        config with standard alpha blending if not overridden.
      *
      * @param blendState The blend config to add
      * @return PipelineParameters& A reference to this object
@@ -163,7 +173,7 @@ public:
      * @brief Set whether or not batched objects will have their order preserved as objects are
      *        added and removed. Allowing objects to be reordered is more efficient, but may change
      *        renderer output if depth testing is not used. Defaults to false
-     * 
+     *
      * @param preserveOrder True to preserve object orders, false otherwise
      * @return A reference to this object
      */

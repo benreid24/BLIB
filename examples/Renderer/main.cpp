@@ -18,14 +18,14 @@ public:
         if (mesh.buffer().indices().size() == 0) {
             mesh.buffer().create(engine.renderer().vulkanState(), 7, 9);
             mesh.buffer().vertices().assign<std::initializer_list<float>>(
-                {{-0.5f, -0.5f, 0.f, 1.0f, 0.0f, 0.0f},
-                 {0.5f, -0.5f, 0.f, 0.0f, 1.0f, 0.0f},
-                 {0.5f, 0.5f, 0.f, 0.0f, 0.0f, 1.0f},
-                 {-0.5f, 0.5f, 0.f, 1.0f, 1.0f, 1.0f},
+                {{-0.5f, -0.5f, 0.f, 1.0f, 0.0f, 0.0f, 1.f},
+                 {0.5f, -0.5f, 0.f, 0.0f, 1.0f, 0.0f, 1.f},
+                 {0.5f, 0.5f, 0.f, 0.0f, 0.0f, 1.0f, 1.f},
+                 {-0.5f, 0.5f, 0.f, 1.0f, 1.0f, 1.0f, 1.f},
 
-                 {1.f, 0.f, 0.5f, 1.0f, 0.0f, 0.0f},
-                 {1.f, 0.1f, -0.5f, 0.0f, 1.0f, 0.0f},
-                 {0.75f, 0.7f, 0.5f, 0.0f, 0.0f, 1.0f}});
+                 {1.f, 0.f, 0.5f, 1.0f, 0.0f, 0.0f, 1.f},
+                 {1.f, 0.1f, -0.5f, 0.0f, 1.0f, 0.0f, 1.f},
+                 {0.75f, 0.7f, 0.5f, 0.0f, 0.0f, 1.0f, 1.f}});
             mesh.buffer().indices().assign({0, 1, 2, 2, 3, 0, 4, 5, 6});
             mesh.buffer().sendToGPU();
             mesh.attachBuffer();
@@ -43,7 +43,7 @@ public:
             glm::vec3{0.f, 0.f, 1.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
 
         bl::render::Scene* scene = engine.renderer().getObserver().pushScene();
-        // o.pushScene(scene);
+        o.pushScene(scene);
         mesh.addToScene(*scene);
         mesh.setHidden(false);
     }

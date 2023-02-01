@@ -6,22 +6,22 @@ namespace bl
 {
 namespace render
 {
-Vertex ::Vertex(const glm::vec3& pos)
+Vertex::Vertex(const glm::vec3& pos)
 : pos(pos)
-, color()
+, color(1.f, 1.f, 1.f, 1.f)
 , texCoord() {}
 
-Vertex ::Vertex(const glm::vec3& position, const glm::vec3& color)
+Vertex::Vertex(const glm::vec3& position, const glm::vec4& color)
 : pos(position)
 , color(color)
 , texCoord() {}
 
-Vertex ::Vertex(const glm::vec3& position, const glm::vec2& texCoord)
+Vertex::Vertex(const glm::vec3& position, const glm::vec2& texCoord)
 : pos(position)
-, color()
+, color(1.f, 1.f, 1.f, 1.f)
 , texCoord(texCoord) {}
 
-Vertex ::Vertex(const glm::vec3& position, const glm::vec3& color, const glm::vec2& texCoord)
+Vertex::Vertex(const glm::vec3& position, const glm::vec4& color, const glm::vec2& texCoord)
 : pos(position)
 , color(color)
 , texCoord(texCoord) {}
@@ -43,24 +43,26 @@ Vertex::Vertex(std::initializer_list<float> fl)
         texCoord.y = *(fl.begin() + 4);
         break;
 
-    case 6: // position + color
+    case 7: // position + color
         pos.x   = *fl.begin();
         pos.y   = *(fl.begin() + 1);
         pos.z   = *(fl.begin() + 2);
         color.x = *(fl.begin() + 3);
         color.y = *(fl.begin() + 4);
         color.z = *(fl.begin() + 5);
+        color.w = *(fl.begin() + 6);
         break;
 
-    case 8: // position + color + texture coord
+    case 9: // position + color + texture coord
         pos.x      = *fl.begin();
         pos.y      = *(fl.begin() + 1);
         pos.z      = *(fl.begin() + 2);
         color.x    = *(fl.begin() + 3);
         color.y    = *(fl.begin() + 4);
         color.z    = *(fl.begin() + 5);
-        texCoord.x = *(fl.begin() + 6);
-        texCoord.y = *(fl.begin() + 7);
+        color.w    = *(fl.begin() + 6);
+        texCoord.x = *(fl.begin() + 7);
+        texCoord.y = *(fl.begin() + 8);
         break;
 
     default:
@@ -96,7 +98,7 @@ std::array<VkVertexInputAttributeDescription, 3> Vertex::attributeDescriptions()
     // color attributes
     attributeDescriptions[1].binding  = 0;
     attributeDescriptions[1].location = 1;
-    attributeDescriptions[1].format   = VK_FORMAT_R32G32B32_SFLOAT;
+    attributeDescriptions[1].format   = VK_FORMAT_R32G32B32A32_SFLOAT;
     attributeDescriptions[1].offset   = offsetof(Vertex, color);
 
     // texCoord

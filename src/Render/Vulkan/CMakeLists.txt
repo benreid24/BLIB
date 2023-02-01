@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
+    CommonDescriptorSetLayouts.cpp
     DescriptorPoolRequirements.cpp
     Framebuffer.cpp
     Pipeline.cpp

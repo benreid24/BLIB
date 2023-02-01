@@ -99,7 +99,7 @@ Pipeline::~Pipeline() {
 
 void Pipeline::bindPipelineAndDescriptors(VkCommandBuffer commandBuffer) {
     for (unsigned int i = 0; i < descriptorGetters.size(); ++i) {
-        descriptorSets[i] = descriptorGetters[i]();
+        if (descriptorGetters[i]) { descriptorSets[i] = descriptorGetters[i](); }
     }
 
     vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);

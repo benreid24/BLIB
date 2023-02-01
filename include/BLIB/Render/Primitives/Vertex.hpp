@@ -18,7 +18,7 @@ namespace render
  */
 struct Vertex {
     glm::vec3 pos;
-    glm::vec3 color;
+    glm::vec4 color;
     glm::vec2 texCoord;
 
     /**
@@ -39,7 +39,7 @@ struct Vertex {
      * @param position The position of the vertex
      * @param color The color of the vertex
      */
-    Vertex(const glm::vec3& position, const glm::vec3& color);
+    Vertex(const glm::vec3& position, const glm::vec4& color);
 
     /**
      * @brief Create a vertex from a position and texture coordinate
@@ -56,10 +56,10 @@ struct Vertex {
      * @param color The color of the vertex
      * @param texCoord The texture coordinate of the vertex
      */
-    Vertex(const glm::vec3& position, const glm::vec3& color, const glm::vec2& texCoord);
+    Vertex(const glm::vec3& position, const glm::vec4& color, const glm::vec2& texCoord);
 
     /**
-     * @brief Creates a vertex from a set of float values. Must be 3, 5, 6, or 8 floats to init the
+     * @brief Creates a vertex from a set of float values. Must be 3, 5, 7, or 9 floats to init the
      *        various permutations of vertex properties
      *
      * @param values The values to init from. Properties in order: pos, color, texCoord

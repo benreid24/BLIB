@@ -5,12 +5,8 @@ layout(location = 1) in vec2 texCoords;
 
 layout(location = 0) out vec4 outColor;
 
-layout(push_constant) uniform constants
-{
-	mat4 transform;
-	// uint index;
-} PushConstants;
+layout(binding = 0) uniform sampler2D texSampler;
 
 void main() {
-	outColor = fragColor;
+	outColor = fragColor * texture(texSampler, texCoords);
 }

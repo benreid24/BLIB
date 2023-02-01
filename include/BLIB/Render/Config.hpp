@@ -31,8 +31,10 @@ struct Config {
     };
 
     struct ShaderIds {
-        static constexpr char TestVertexShader[]   = {0};
-        static constexpr char TestFragmentShader[] = {1};
+        static constexpr char TestVertexShader[]     = {0};
+        static constexpr char TestFragmentShader[]   = {1};
+        static constexpr char EmptyVertex[]          = {2};
+        static constexpr char ImageOverlayFragment[] = {3};
 
         static constexpr std::uint32_t MaxId = 31;
     };
@@ -47,6 +49,8 @@ struct Config {
         static constexpr std::uint32_t OpaqueSkinnedMeshes = 4;
 
         static constexpr std::uint32_t TransparentSkinnedMeshes = 5;
+
+        static constexpr std::uint32_t ImageOverlay = 6;
     };
 
     struct RenderPassIds {

@@ -13,8 +13,9 @@ Scene::Scene(Renderer& r)
 , objects(container::ObjectPool<SceneObject>::GrowthPolicy::ExpandBuffer, 256)
 , primaryObjectStage(r) {
     toRemove.reserve(32);
-    stageBatches[Config::SceneObjectStage::PrimaryOpaque]      = &primaryObjectStage.opaqueObjects;
-    stageBatches[Config::SceneObjectStage::PrimaryTransparent] = &primaryObjectStage.transparentObjects;
+    stageBatches[Config::SceneObjectStage::PrimaryOpaque] = &primaryObjectStage.opaqueObjects;
+    stageBatches[Config::SceneObjectStage::PrimaryTransparent] =
+        &primaryObjectStage.transparentObjects;
 }
 
 SceneObject::Handle Scene::createAndAddObject(Renderable* owner) {
@@ -30,11 +31,6 @@ void Scene::removeObject(const SceneObject::Handle& obj) {
 void Scene::renderScene(const SceneRenderContext& ctx) {
     std::unique_lock lock(mutex);
     primaryObjectStage.recordRenderCommands(ctx);
-}
-
-void Scene::compositeScene(VkCommandBuffer commandBuffer) {
-    std::unique_lock lock(mutex);
-    // TODO - compositor stage
 }
 
 void Scene::sync() {

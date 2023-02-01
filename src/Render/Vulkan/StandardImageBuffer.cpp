@@ -60,34 +60,10 @@ void StandardImageBuffer::create(VulkanState& vs, const VkExtent2D& size) {
     // create image views
     colorImageView = vs.createImageView(colorImage, colorImageCreate.format);
     // TODO - depth buffer view
-
-    // TODO - even have sampler here?
-    // create sampler
-    VkSamplerCreateInfo samplerInfo{};
-    samplerInfo.sType                   = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
-    samplerInfo.magFilter               = VK_FILTER_NEAREST;
-    samplerInfo.minFilter               = VK_FILTER_NEAREST;
-    samplerInfo.addressModeU            = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-    samplerInfo.addressModeV            = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-    samplerInfo.addressModeW            = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-    samplerInfo.anisotropyEnable        = VK_TRUE;
-    samplerInfo.maxAnisotropy           = vs.physicalDeviceProperties.limits.maxSamplerAnisotropy;
-    samplerInfo.borderColor             = VK_BORDER_COLOR_INT_TRANSPARENT_BLACK;
-    samplerInfo.unnormalizedCoordinates = VK_FALSE; // TODO - correct?
-    samplerInfo.compareEnable           = VK_FALSE;
-    samplerInfo.compareOp               = VK_COMPARE_OP_ALWAYS;
-    samplerInfo.mipmapMode              = VK_SAMPLER_MIPMAP_MODE_LINEAR;
-    samplerInfo.mipLodBias              = 0.0f;
-    samplerInfo.minLod                  = 0.0f;
-    samplerInfo.maxLod                  = 0.0f;
-    if (vkCreateSampler(vs.device, &samplerInfo, nullptr, &colorSampler) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create texture sampler!");
-    }
 }
 
 void StandardImageBuffer::destroy() {
     if (owner != nullptr) {
-        vkDestroySampler(owner->device, colorSampler, nullptr);
         vkDestroyImageView(owner->device, attachments.colorImageView(), nullptr);
         vkDestroyImage(owner->device, attachments.colorImage(), nullptr);
         vkFreeMemory(owner->device, gpuMemory, nullptr);

@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/CommonDescriptorSetLayouts.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
 #include <BLIB/Render/Vulkan/TransferEngine.hpp>
@@ -172,6 +173,7 @@ struct VulkanState {
     VkCommandPool sharedCommandPool;
     Swapchain swapchain;
     TransferEngine transferEngine;
+    CommonDescriptorSetLayouts descriptorSetLayouts;
 
 private:
     sf::WindowBase& window;
@@ -248,6 +250,11 @@ constexpr bool PerFrame<T>::valid() const {
 template<typename T>
 constexpr std::size_t PerFrame<T>::size() const {
     return data.size();
+}
+
+template<typename T>
+constexpr const T* PerFrame<T>::rawData() const {
+    return data.data();
 }
 
 } // namespace render

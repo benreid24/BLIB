@@ -19,6 +19,8 @@ namespace render
 template<typename T>
 class IndexBufferT {
 public:
+    static constexpr VkIndexType IndexType = VK_INDEX_TYPE_UINT32;
+
     /**
      * @brief Creates the vertex and index buffers
      *
@@ -72,7 +74,7 @@ private:
 
 template<typename T>
 void IndexBufferT<T>::create(VulkanState& vulkanState, std::uint32_t vertexCount,
-                            std::uint32_t indexCount) {
+                             std::uint32_t indexCount) {
     vertexBuffer.create(vulkanState, vertexCount, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
     indexBuffer.create(vulkanState, indexCount, VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
 }
@@ -123,7 +125,7 @@ inline DrawParameters IndexBufferT<T>::getDrawParameters() const {
 /**
  * @brief Convenience alias for a standard index buffer
  * @ingroup Renderer
-*/
+ */
 using IndexBuffer = IndexBufferT<Vertex>;
 
 } // namespace render

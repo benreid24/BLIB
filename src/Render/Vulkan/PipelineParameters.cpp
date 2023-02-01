@@ -112,6 +112,12 @@ PipelineParameters& PipelineParameters::addDescriptorSet(VkDescriptorSetLayout l
     return *this;
 }
 
+PipelineParameters& PipelineParameters::addDescriptorSet(VkDescriptorSetLayout layout) {
+    descriptorSets.emplace_back(layout);
+    descriptorSetRetrievers.emplace_back();
+    return *this;
+}
+
 PipelineParameters& PipelineParameters::addPushConstantRange(std::uint32_t offset,
                                                              std::uint32_t len,
                                                              VkShaderStageFlags stages) {

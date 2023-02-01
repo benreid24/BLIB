@@ -90,6 +90,13 @@ void Renderer::renderFrame() {
         for (auto& o : observers) { o->renderScene(commandBuffer); }
     }
 
+    // wait for scenes to complete rendering
+    if (commonObserver.hasScene()) { commonObserver.insertSceneBarriers(commandBuffer); }
+    else {
+        // record all before blocking to apply postfx
+        for (auto& o : observers) { o->insertSceneBarriers(commandBuffer); }
+    }
+
     // begin render pass to composite content into swapchain image
     VkClearValue clearColors[1];
     clearColors[0] = {{{0.f, 0.f, 0.f, 1.f}}};

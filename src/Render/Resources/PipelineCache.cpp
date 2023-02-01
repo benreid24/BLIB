@@ -54,6 +54,15 @@ void PipelineCache::createBuiltins() {
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
             .build());
+
+    createPipline(
+        Config::PipelineIds::ImageOverlay,
+        PipelineParameters(Config::RenderPassIds::SwapchainPrimaryRender)
+            .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::ImageOverlayFragment)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withRasterizer(rasterizer)
+            .addDescriptorSet(renderer.vulkanState().descriptorSetLayouts.imageOverlay)
+            .build());
 }
 
 } // namespace render
