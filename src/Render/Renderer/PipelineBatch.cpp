@@ -37,7 +37,7 @@ void PipelineBatch::recordRenderCommands(const SceneRenderContext& context) {
         if (prevIB != object.drawParams.indexBuffer) {
             prevIB = object.drawParams.indexBuffer;
             vkCmdBindIndexBuffer(
-                context.commandBuffer, object.drawParams.indexBuffer, 0, VK_INDEX_TYPE_UINT32);
+                context.commandBuffer, object.drawParams.indexBuffer, 0, IndexBuffer::IndexType);
         }
 
         PushConstants pc = object.frameData;

@@ -15,6 +15,8 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
+        time = 0.f;
+
         if (mesh.buffer().indices().size() == 0) {
             mesh.buffer().create(engine.renderer().vulkanState(), 7, 9);
             mesh.buffer().vertices().assign<std::initializer_list<float>>(
@@ -39,8 +41,8 @@ public:
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
 
         bl::render::Observer& o = engine.renderer().addObserver();
-        o.pushCamera<bl::render::r3d::Camera3D>(
-            glm::vec3{0.f, 0.f, 1.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
+        player2Cam              = o.pushCamera<bl::render::r3d::Camera3D>(
+            glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
 
         bl::render::Scene* scene = engine.renderer().getObserver().pushScene();
         o.pushScene(scene);
@@ -54,7 +56,10 @@ public:
         engine.renderer().removeObserver(1);
     }
 
-    virtual void update(bl::engine::Engine&, float) override {}
+    virtual void update(bl::engine::Engine&, float dt) override {
+        time += dt;
+        player2Cam->setPosition({0.f, 0.f, 2.f + std::cos(time)});
+    }
 
     virtual void render(bl::engine::Engine& engine, float) override {
         engine.renderer().renderFrame();
@@ -62,6 +67,8 @@ public:
 
 private:
     bl::render::r3d::Mesh mesh;
+    bl::render::r3d::Camera3D* player2Cam;
+    float time;
 };
 
 int main() {
