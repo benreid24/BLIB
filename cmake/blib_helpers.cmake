@@ -11,6 +11,7 @@ function(configure_target target_name)
     target_compile_definitions(${target_name} PUBLIC
         GLAD_VULKAN_IMPLEMENTATION
         GLM_FORCE_DEFAULT_ALIGNED_GENTYPES
+        GLM_FORCE_DEPTH_ZERO_TO_ONE
     )
 
     if (MSVC)

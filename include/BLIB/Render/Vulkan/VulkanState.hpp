@@ -11,6 +11,7 @@
 #include <array>
 #include <cstdint>
 #include <glad/vulkan.h>
+#include <initializer_list>
 #include <stdexcept>
 #include <vector>
 
@@ -37,13 +38,13 @@ struct VulkanState {
     void invalidateSwapChain();
 
     /**
-     * @brief Begins a render pass on the current swap chain image. Returns the commanf buffer to
+     * @brief Begins a render pass on the current swap chain image. Returns the command buffer to
      *        use for rendering
      *
      * @param renderFrame A reference to a pointer to populate with the active chain image
      * @param commandBuffer A command buffer reference to populate with the primary CB to use
      */
-    void beginFrame(StandardAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer);
+    void beginFrame(ColorAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer);
 
     /**
      * @brief Finalizes the render pass and command buffer for the current frame and submits it.
@@ -99,6 +100,18 @@ struct VulkanState {
                       VkBuffer& buffer, VkDeviceMemory& bufferMemory);
 
     /**
+     * @brief Helper function to find the best-suited image format given the requested format and
+     *        current hardware support
+     *
+     * @param candidates Acceptable image formats ordered by preference
+     * @param tiling The tiling mode of the image
+     * @param features Required features of the format
+     * @return The best format available
+     */
+    VkFormat findSupportedFormat(const std::initializer_list<VkFormat>& candidates,
+                                 VkImageTiling tiling, VkFormatFeatureFlags features);
+
+    /**
      * @brief Helper function to create an image
      *
      * @param width The width of the image in pixels
@@ -141,9 +154,11 @@ struct VulkanState {
      *
      * @param image The image to create the view on
      * @param format The format of the image
+     * @param aspectFlags Flags to use when creating the view
      * @return VkImageView The created image view
      */
-    VkImageView createImageView(VkImage image, VkFormat format);
+    VkImageView createImageView(VkImage image, VkFormat format,
+                                VkImageAspectFlags aspectFlags = VK_IMAGE_ASPECT_COLOR_BIT);
 
     /**
      * @brief Creates a shader module from the given shader path

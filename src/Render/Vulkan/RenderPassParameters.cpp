@@ -48,6 +48,14 @@ RenderPassParameters::SubPass& RenderPassParameters::SubPass::withAttachment(std
     return *this;
 }
 
+RenderPassParameters::SubPass& RenderPassParameters::SubPass::withDepthAttachment(
+    std::uint32_t i, VkImageLayout layout) {
+    depthAttachment.emplace();
+    depthAttachment.value().layout     = layout;
+    depthAttachment.value().attachment = i;
+    return *this;
+}
+
 RenderPassParameters::SubPass&& RenderPassParameters::SubPass::build() {
     if (colorAttachments.empty()) {
         throw std::runtime_error("SubPass must have at least one color attachment");

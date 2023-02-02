@@ -78,7 +78,7 @@ void Camera3D::refreshViewMatrix(glm::mat4& view) {
 
 void Camera3D::refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) {
     proj = glm::perspective(
-        glm::radians(fov), viewport.width / viewport.height, viewport.minDepth, viewport.maxDepth);
+        glm::radians(fov), viewport.width / viewport.height, nearPlane(), farPlane());
 }
 
 void Camera3D::update(float dt) {

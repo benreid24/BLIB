@@ -78,8 +78,8 @@ void Renderer::renderFrame() {
     state.transferEngine.executeTransfers();
 
     // begin frame
-    StandardAttachmentSet* currentFrame = nullptr;
-    VkCommandBuffer commandBuffer       = nullptr;
+    ColorAttachmentSet* currentFrame = nullptr;
+    VkCommandBuffer commandBuffer    = nullptr;
     state.beginFrame(currentFrame, commandBuffer);
     framebuffers.current().recreateIfChanged(*currentFrame);
 

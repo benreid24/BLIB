@@ -13,7 +13,9 @@ RenderPass::RenderPass(VulkanState& vs, RenderPassParameters&& params)
         subpasses.back().pipelineBindPoint    = VK_PIPELINE_BIND_POINT_GRAPHICS;
         subpasses.back().colorAttachmentCount = sp.colorAttachments.size();
         subpasses.back().pColorAttachments    = sp.colorAttachments.data();
-        // TODO - other attachment types
+        if (sp.depthAttachment.has_value()) {
+            subpasses.back().pDepthStencilAttachment = &sp.depthAttachment.value();
+        }
     }
 
     VkRenderPassCreateInfo renderPassInfo{};

@@ -116,8 +116,9 @@ void Observer::renderScene(VkCommandBuffer commandBuffer) {
                 glm::perspective(75.f, viewport.width / viewport.height, 0.1f, 100.f);
         const VkRect2D renderRegion{{0, 0}, renderFrames.current().bufferSize()};
         const SceneRenderContext ctx(commandBuffer, projView);
-        VkClearValue clearColors[1];
-        clearColors[0] = {{{0.f, 0.f, 0.f, 1.f}}};
+        VkClearValue clearColors[2];
+        clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
+        clearColors[1].depthStencil = {1.f, 0};
 
         sceneFramebuffers.current().beginRender(
             commandBuffer, renderRegion, clearColors, std::size(clearColors), true);

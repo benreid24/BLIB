@@ -16,6 +16,7 @@ PipelineParameters::PipelineParameters(std::uint32_t rpid)
 , rasterizer{}
 , msaa{}
 , colorBlending{}
+, depthStencil(nullptr)
 , subpass(0)
 , preserveOrder(false) {
     shaders.reserve(4);
@@ -158,6 +159,12 @@ PipelineParameters& PipelineParameters::withColorBlendStateConfig(VkLogicOp oper
     colorBlending.blendConstants[1] = blendConstant1;
     colorBlending.blendConstants[2] = blendConstant2;
     colorBlending.blendConstants[3] = blendConstant3;
+    return *this;
+}
+
+PipelineParameters& PipelineParameters::withDepthStencilState(
+    VkPipelineDepthStencilStateCreateInfo* ds) {
+    depthStencil = ds;
     return *this;
 }
 

@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <glad/vulkan.h>
+#include <optional>
 #include <vector>
 
 namespace bl
@@ -41,6 +42,15 @@ public:
         SubPass& withAttachment(std::uint32_t index, VkImageLayout layout);
 
         /**
+         * @brief Adds a depth attachment to this subpass
+         *
+         * @param index The index of the attachment
+         * @param layout The layout of the depth attachment
+         * @return A reference to this object
+         */
+        SubPass& withDepthAttachment(std::uint32_t index, VkImageLayout layout);
+
+        /**
          * @brief Performs validation and returns a usable rvalue reference to this object
          *
          * @return SubPass&& An rvalue reference to this object
@@ -49,6 +59,7 @@ public:
 
     private:
         std::vector<VkAttachmentReference> colorAttachments;
+        std::optional<VkAttachmentReference> depthAttachment;
 
         friend class RenderPass;
     };

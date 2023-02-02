@@ -58,7 +58,7 @@ void Swapchain::destroy() {
     frameData.cleanup([this](Frame& frame) { frame.cleanup(vulkanState); });
 }
 
-void Swapchain::beginFrame(StandardAttachmentSet*& renderFrame, VkCommandBuffer& cb) {
+void Swapchain::beginFrame(ColorAttachmentSet*& renderFrame, VkCommandBuffer& cb) {
     // wait for prior frame
     vkWaitForFences(
         vulkanState.device, 1, &frameData.current().commandBufferFence, VK_TRUE, UINT64_MAX);
@@ -147,7 +147,7 @@ void Swapchain::completeFrame() {
 }
 
 void Swapchain::cleanup() {
-    for (StandardAttachmentSet& frame : renderFrames) {
+    for (ColorAttachmentSet& frame : renderFrames) {
         vkDestroyImageView(vulkanState.device, frame.colorImageView(), nullptr);
     }
     vkDestroySwapchainKHR(vulkanState.device, swapchain, nullptr);
@@ -234,15 +234,15 @@ void Swapchain::createSwapchain() {
     renderFrames.resize(imageCount);
     vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, images); // fetch
     for (unsigned int i = 0; i < imageCount; ++i) {
-        renderFrames[i].imageHandles[StandardAttachmentSet::ColorIndex] = images[i];
-        renderFrames[i].extent                                          = createInfo.imageExtent;
+        renderFrames[i].imageHandles[0] = images[i];
+        renderFrames[i].extent          = createInfo.imageExtent;
     }
     imageFormat = surfaceFormat.format;
 }
 
 void Swapchain::createImageViews() {
     for (std::size_t i = 0; i < renderFrames.size(); i++) {
-        renderFrames[i].imageViewHandles[StandardAttachmentSet::ColorIndex] =
+        renderFrames[i].imageViewHandles[0] =
             vulkanState.createImageView(renderFrames[i].colorImage(), imageFormat);
     }
 }

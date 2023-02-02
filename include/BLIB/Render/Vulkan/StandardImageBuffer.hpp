@@ -41,15 +41,6 @@ public:
     void destroy();
 
     /**
-     * @brief Performs a layout transition and inserts a barrier to ensure that the buffers are
-     *        ready to be rendered to before draw commands are executed. This does not synchronize
-     *        whether or not the image is done being sampled from. That must be handled externally
-     *
-     * @param commandBuffer Command buffer to record into
-     */
-    void prepareForRendering(VkCommandBuffer commandBuffer);
-
-    /**
      * @brief Call after rendering is completed. This records a barrier to block and transition to a
      *        layout suitable for sampling
      *
@@ -67,11 +58,20 @@ public:
      */
     constexpr const VkExtent2D& bufferSize() const;
 
+    /**
+     * @brief Helper function find the proper format to use for the depth buffer
+     *
+     * @param vulkanState Renderer Vulkan state
+     * @return The format to use for the depth attachment
+     */
+    static VkFormat findDepthFormat(VulkanState& vulkanState);
+
 private:
     VulkanState* owner;
     StandardAttachmentSet attachments;
     VkDeviceMemory gpuMemory;
     VkImageLayout currentColorLayout;
+    VkImageLayout currentDepthLayout;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

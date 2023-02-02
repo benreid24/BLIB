@@ -180,6 +180,14 @@ public:
     PipelineParameters& withPreserveObjectOrder(bool preserveOrder);
 
     /**
+     * @brief Configures depth and stencil testing for this pipeline
+     *
+     * @param depthStencil Pointer to the depth/stencil config. Must remain valid until created
+     * @return A reference to this object
+     */
+    PipelineParameters& withDepthStencilState(VkPipelineDepthStencilStateCreateInfo* depthStencil);
+
+    /**
      * @brief Performs final validation and defaulting, then returns an rvalue reference to this
      *        object to be used for pipeline creation
      *
@@ -212,6 +220,7 @@ private:
     std::vector<VkPushConstantRange> pushConstants;
     std::vector<VkPipelineColorBlendAttachmentState> colorAttachmentBlendStates;
     VkPipelineColorBlendStateCreateInfo colorBlending;
+    VkPipelineDepthStencilStateCreateInfo* depthStencil;
     std::uint32_t renderPassId;
     std::uint32_t subpass;
     bool preserveOrder;

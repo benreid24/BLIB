@@ -71,7 +71,7 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
     pipelineInfo.pViewportState      = &viewportState;
     pipelineInfo.pRasterizationState = &params.rasterizer;
     pipelineInfo.pMultisampleState   = &params.msaa;
-    pipelineInfo.pDepthStencilState  = nullptr; // Optional
+    pipelineInfo.pDepthStencilState  = params.depthStencil;
     pipelineInfo.pColorBlendState    = &params.colorBlending;
     pipelineInfo.pDynamicState       = &dynamicState;
     pipelineInfo.layout              = layout;

@@ -34,6 +34,18 @@ Pipeline& PipelineCache::getPipeline(std::uint32_t id) {
 void PipelineCache::createBuiltins() {
     // TODO - create actual built-in pipelines
 
+    VkPipelineDepthStencilStateCreateInfo depthStencil{};
+    depthStencil.sType                 = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+    depthStencil.depthTestEnable       = VK_TRUE;
+    depthStencil.depthWriteEnable      = VK_TRUE;
+    depthStencil.depthCompareOp        = VK_COMPARE_OP_LESS;
+    depthStencil.depthBoundsTestEnable = VK_FALSE;
+    depthStencil.minDepthBounds        = 0.0f; // Optional
+    depthStencil.maxDepthBounds        = 1.0f; // Optional
+    depthStencil.stencilTestEnable     = VK_FALSE;
+    depthStencil.front                 = {}; // Optional (Stencil)
+    depthStencil.back                  = {}; // Optional (Stencil)
+
     VkPipelineRasterizationStateCreateInfo rasterizer{};
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     rasterizer.depthClampEnable        = VK_FALSE;
@@ -53,6 +65,7 @@ void PipelineCache::createBuiltins() {
             .withShaders(Config::ShaderIds::TestVertexShader, Config::ShaderIds::TestFragmentShader)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
+            .withDepthStencilState(&depthStencil)
             .build());
 
     createPipline(
