@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Cameras/Camera.hpp>
 #include <BLIB/Render/Overlays/Drawables/Image.hpp>
+#include <BLIB/Render/Renderer/PostFX.hpp>
 #include <BLIB/Render/Renderer/Scene.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/StandardImageBuffer.hpp>
@@ -118,12 +119,36 @@ public:
     void clearCameras();
 
     /**
+     * @brief Sets the post processing to be used when compositing the rendered scene. PostFX are
+     *        only applied to the current scene. New scenes start with plain PostFX. Popping a scene
+     *        will result in the prior scene using the same postFX it was using before
+     *
+     * @tparam FX Type of post processing to create
+     * @tparam ...TArgs Argument types to create the new object
+     * @param ...args Arguments to the constructor of the postfx object
+     * @return The new post processing object
+     */
+    template<typename FX, typename... TArgs>
+    FX* setPostFX(TArgs&&... args);
+
+    /**
+     * @brief Reverts the current scene's post processing to a standard copy
+     */
+    void removePostFX();
+
+    /**
      * @brief Records commands to render the observer's active scene to its internal image
      *
      * @param commandBuffer Command buffer to record into
      */
     void renderScene(VkCommandBuffer commandBuffer);
 
+    /**
+     * @brief Inserts pipeline barriers as required to ensure scene rendering is complete before the
+     *        results are composited
+     *
+     * @param commandBuffer Command buffer to record into
+     */
     void insertSceneBarriers(VkCommandBuffer commandBuffer);
 
     /**
@@ -142,11 +167,11 @@ private:
     std::mutex mutex;
     PerFrame<StandardImageBuffer> renderFrames;
     PerFrame<Framebuffer> sceneFramebuffers;
-    PerFrame<overlay::Image> sceneImages;
     VkRect2D scissor;    // refreshed on window resize and observer add/remove
     VkViewport viewport; // derived from scissor. depth should be set by caller
     std::stack<Scene*, std::vector<Scene*>> scenes;
     std::stack<std::unique_ptr<Camera>, std::vector<std::unique_ptr<Camera>>> cameras;
+    std::stack<std::unique_ptr<PostFX>, std::vector<std::unique_ptr<PostFX>>> postFX;
     float defaultNear, defaultFar;
     // TODO - 2d overlay for observer
 
@@ -156,6 +181,9 @@ private:
                       bool topBottomFirst);
     void setDefaultNearFar(float near, float far);
     void cleanup();
+
+    void onSceneAdd();
+    void onScenePop();
 
     template<typename TCamera, typename... TArgs>
     TCamera* constructCamera(TArgs&&... args);
@@ -193,6 +221,13 @@ TCamera* Observer::replaceCamera(TArgs&&... args) {
     if (!cameras.empty()) { cameras.top().reset(cam); }
     else { cameras.emplace(cam); }
     return cam;
+}
+
+template<typename FX, typename... TArgs>
+FX* Observer::setPostFX(TArgs&&... args) {
+    FX* fx = new FX(std::forward<TArgs>(args)...);
+    postFX.top().reset(fx);
+    return fx;
 }
 
 } // namespace render

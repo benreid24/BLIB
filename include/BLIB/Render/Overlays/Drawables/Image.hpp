@@ -45,7 +45,7 @@ public:
 
 private:
     Renderer* renderer;
-    VkSampler sampler;               // get from standard image buffer
+    VkSampler sampler;
     VkDescriptorPool descriptorPool; // TODO - move this somewhere shared or into a pool allocator
     VkDescriptorSet descriptorSet;
 

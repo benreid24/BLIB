@@ -4,6 +4,7 @@ target_sources(BLIB PUBLIC
     ObjectBatch.hpp
     ObjectFlags.hpp
     PipelineBatch.hpp
+    PostFX.hpp
     Scene.hpp
     SceneObject.hpp
     SceneRenderContext.hpp

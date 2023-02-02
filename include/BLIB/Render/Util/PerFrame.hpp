@@ -90,6 +90,11 @@ public:
     /**
      * @brief Returns a pointer to the underlying data as an array
      */
+    constexpr T* rawData();
+
+    /**
+     * @brief Returns a pointer to the underlying data as an array
+     */
     constexpr const T* rawData() const;
 
 private:

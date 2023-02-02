@@ -253,6 +253,11 @@ constexpr std::size_t PerFrame<T>::size() const {
 }
 
 template<typename T>
+constexpr T* PerFrame<T>::rawData() {
+    return data.data();
+}
+
+template<typename T>
 constexpr const T* PerFrame<T>::rawData() const {
     return data.data();
 }

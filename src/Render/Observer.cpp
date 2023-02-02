@@ -18,7 +18,7 @@ Observer::~Observer() { cleanup(); }
 
 void Observer::cleanup() {
     if (!resourcesFreed) {
-        sceneImages.cleanup([](overlay::Image& img) { img.cleanup(); });
+        while (!postFX.empty()) { postFX.pop(); }
         sceneFramebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
         renderFrames.cleanup([](StandardImageBuffer& frame) { frame.destroy(); });
         resourcesFreed = true;
@@ -37,12 +37,14 @@ Scene* Observer::pushScene() {
 
     Scene* s = renderer.scenePool().allocateScene();
     scenes.push(s);
+    onSceneAdd();
     return s;
 }
 
 void Observer::pushScene(Scene* s) {
     std::unique_lock lock(mutex);
     scenes.push(s);
+    onSceneAdd();
 }
 
 Scene* Observer::popSceneNoRelease(bool cam) {
@@ -51,6 +53,7 @@ Scene* Observer::popSceneNoRelease(bool cam) {
     Scene* s = scenes.top();
     scenes.pop();
     if (cam) { cameras.pop(); }
+    onScenePop();
     return s;
 }
 
@@ -61,6 +64,7 @@ void Observer::popScene(bool cam) {
     scenes.pop();
     renderer.scenePool().destroyScene(s);
     if (cam) { cameras.pop(); }
+    onScenePop();
 }
 
 void Observer::clearScenes() {
@@ -72,6 +76,7 @@ void Observer::clearScenes() {
         renderer.scenePool().destroyScene(s);
     }
     while (!cameras.empty()) { cameras.pop(); }
+    while (!postFX.empty()) { postFX.pop(); }
 }
 
 void Observer::clearScenesNoRelease() {
@@ -79,7 +84,15 @@ void Observer::clearScenesNoRelease() {
 
     while (!scenes.empty()) { scenes.pop(); }
     while (!cameras.empty()) { cameras.pop(); }
+    while (!postFX.empty()) { postFX.pop(); }
 }
+
+void Observer::onSceneAdd() {
+    postFX.emplace(std::make_unique<PostFX>(renderer));
+    postFX.top()->bindImages(renderFrames);
+}
+
+void Observer::onScenePop() { postFX.pop(); }
 
 void Observer::popCamera() {
     std::unique_lock lock(mutex);
@@ -90,6 +103,8 @@ void Observer::clearCameras() {
     std::unique_lock lock(mutex);
     while (!cameras.empty()) { cameras.pop(); }
 }
+
+void Observer::removePostFX() { setPostFX<PostFX>(renderer); }
 
 void Observer::renderScene(VkCommandBuffer commandBuffer) {
     std::unique_lock lock(mutex);
@@ -117,11 +132,11 @@ void Observer::insertSceneBarriers(VkCommandBuffer commandBuffer) {
 }
 
 void Observer::compositeSceneWithEffects(VkCommandBuffer commandBuffer) {
-    vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
-    vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
-
-    overlay::OverlayRenderContext ctx(commandBuffer);
-    sceneImages.current().doRender(ctx);
+    if (hasScene()) {
+        vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
+        vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
+        postFX.top()->compositeScene(commandBuffer);
+    }
 }
 
 void Observer::assignRegion(const sf::WindowBase& window, unsigned int count, unsigned int i,
@@ -226,12 +241,8 @@ void Observer::assignRegion(const sf::WindowBase& window, unsigned int count, un
             ++i;
         });
 
-        // scene images
-        i = 0;
-        sceneImages.init(renderer.vulkanState(), [this, &i](overlay::Image& img) {
-            img.setImage(renderer, renderFrames.getRaw(i).attachmentSet().colorImageView());
-            ++i;
-        });
+        // post fx image descriptors
+        if (!postFX.empty()) { postFX.top()->bindImages(renderFrames); }
     }
 }
 
