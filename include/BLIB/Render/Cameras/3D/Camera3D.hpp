@@ -1,10 +1,13 @@
 #ifndef BLIB_RENDER_CAMERAS_3D_CAMERA3D_HPP
 #define BLIB_RENDER_CAMERAS_3D_CAMERA3D_HPP
 
+#include <BLIB/Render/Cameras/3D/CameraAffector3D.hpp>
 #include <BLIB/Render/Cameras/3D/CameraController3D.hpp>
 #include <BLIB/Render/Cameras/Camera.hpp>
 #include <BLIB/Transforms/3D/Orientation3D.hpp>
 #include <memory>
+#include <type_traits>
+#include <vector>
 
 namespace bl
 {
@@ -108,13 +111,56 @@ public:
     template<typename TController>
     TController* setController(std::unique_ptr<TController>&& controller);
 
+    /**
+     * @brief Creates and adds an affector to the camera
+     *
+     * @tparam TAffector The type of affector to create
+     * @tparam ...TArgs Argument types to the affector's constructor
+     * @param ...args Arguments to the affector's constructor
+     * @return A pointer to the new affector
+     */
+    template<typename TAffector, typename... TArgs>
+    TAffector* addAffector(TArgs&&... args);
+
+    /**
+     * @brief Helper function to fetch a particular affector on this camera
+     *
+     * @tparam TAffector The type of affector to get
+     * @return A pointer to the first affector of the given type, nullptr if not found
+     */
+    template<typename TAffector>
+    TAffector* getAffector() const;
+
+    /**
+     * @brief Removes the first affector found of the given type from this camera
+     *
+     * @tparam TAffector The type of affector to remove
+     */
+    template<typename TAffector>
+    void removeAffector();
+
+    /**
+     * @brief Removes all affectors of the given type from the camera
+     *
+     * @tparam TAffector The type of affectors to remove
+     */
+    template<typename TAffector>
+    void removeAffectors();
+
+    /**
+     * @brief Removes the given affector from this camera
+     *
+     * @param affector Pointer to the affector to remove
+     */
+    void removeAffector(const CameraAffector3D* affector);
+
 private:
     glm::vec3 position;
     t3d::Orientation3D orientation;
     float fov;
 
     std::unique_ptr<CameraController3D> controller;
-    // TODO -  affectors
+    std::vector<std::unique_ptr<CameraAffector3D>> affectors;
 
     virtual void refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) override;
     virtual void refreshViewMatrix(glm::mat4& view) override;
@@ -129,6 +175,9 @@ inline constexpr float Camera3D::getFov() const { return fov; }
 
 template<typename TController, typename... TArgs>
 TController* Camera3D::setController(TArgs&&... args) {
+    static_assert(std::is_base_of<CameraController3D, TController>::value,
+                  "Controller must inherit from CameraController3D");
+
     TController* c = new TController(std::forward<TArgs>(args)...);
     controller.reset(c);
     controller->setCam(*this);
@@ -137,6 +186,9 @@ TController* Camera3D::setController(TArgs&&... args) {
 
 template<typename TController>
 TController* Camera3D::setController(std::unique_ptr<TController>&& c) {
+    static_assert(std::is_base_of<CameraController3D, TController>::value,
+                  "Controller must inherit from CameraController3D");
+
     TController* cr = c.get();
     controller.release();
     controller.swap(c);
@@ -145,6 +197,53 @@ TController* Camera3D::setController(std::unique_ptr<TController>&& c) {
 }
 
 inline constexpr const t3d::Orientation3D& Camera3D::getOrientation() const { return orientation; }
+
+template<typename TAffector, typename... TArgs>
+TAffector* Camera3D::addAffector(TArgs&&... args) {
+    static_assert(std::is_base_of<CameraAffector3D, TAffector>::value,
+                  "Affector must inherit from CameraAffector3D");
+
+    TAffector* a = new TAffector(std::forward<TArgs>(args)...);
+    affectors.emplace_back(a);
+    return a;
+}
+
+template<typename TAffector>
+TAffector* Camera3D::getAffector() const {
+    static_assert(std::is_base_of<CameraAffector3D, TAffector>::value,
+                  "Affector must inherit from CameraAffector3D");
+
+    for (auto& a : affectors) {
+        TAffector* af = dynamic_cast<TAffector*>(a.get());
+        if (af) { return af; }
+    }
+    return nullptr;
+}
+
+template<typename TAffector>
+void Camera3D::removeAffector() {
+    static_assert(std::is_base_of<CameraAffector3D, TAffector>::value,
+                  "Affector must inherit from CameraAffector3D");
+
+    for (auto it = affectors.begin(); it != affectors.end(); ++it) {
+        TAffector* a = dynamic_cast<TAffector*>(it->get());
+        if (a) {
+            affectors.erase(it);
+            break;
+        }
+    }
+}
+
+template<typename TAffector>
+void Camera3D::removeAffectors() {
+    static_assert(std::is_base_of<CameraAffector3D, TAffector>::value,
+                  "Affector must inherit from CameraAffector3D");
+
+    for (int i = affectors.size(); i >= 0; --i) {
+        TAffector* a = dynamic_cast<TAffector*>(affectors[i].get());
+        if (a) { affectors.erase(affectors.begin() + i); }
+    }
+}
 
 } // namespace r3d
 } // namespace render

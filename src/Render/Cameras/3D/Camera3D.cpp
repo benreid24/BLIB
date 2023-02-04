@@ -3,6 +3,7 @@
 #include <BLIB/Math/Trig.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
 
 namespace bl
 {
@@ -41,19 +42,43 @@ void Camera3D::setFov(float f) {
 }
 
 void Camera3D::refreshViewMatrix(glm::mat4& view) {
-    // TODO - affectors
-    view = glm::lookAt(position, position + orientation.getFaceDirection(), Config::UpDirection);
+    glm::vec3 pos             = position;
+    t3d::Orientation3D orient = orientation;
+    for (auto& a : affectors) { a->applyOnView(pos, orient); }
+
+    // roll by rotating up vector around look vector
+    const glm::vec3 up =
+        glm::mat3(glm::rotate(glm::radians(orient.getRoll()), orient.getFaceDirection())) *
+        Config::UpDirection;
+
+    view = glm::lookAt(pos, pos + orient.getFaceDirection(), up);
 }
 
 void Camera3D::refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) {
-    // TODO - affectors
-    proj = glm::perspective(
-        glm::radians(fov), viewport.width / viewport.height, nearPlane(), farPlane());
+    float f    = fov;
+    float near = nearPlane();
+    float far  = farPlane();
+    for (auto& a : affectors) { a->applyOnProjection(f, near, far); }
+
+    proj = glm::perspective(glm::radians(f), viewport.width / viewport.height, near, far);
 }
 
 void Camera3D::update(float dt) {
     if (controller) { controller->update(dt); }
-    // TODO - affectors
+    bool view = false;
+    bool proj = false;
+    for (auto& a : affectors) { a->update(dt, view, proj); }
+    if (view) { markViewDirty(); }
+    if (proj) { markProjDirty(); }
+}
+
+void Camera3D::removeAffector(const CameraAffector3D* a) {
+    for (auto it = affectors.begin(); it != affectors.end(); ++it) {
+        if (static_cast<CameraAffector3D*>(it->get()) == a) {
+            affectors.erase(it);
+            break;
+        }
+    }
 }
 
 } // namespace r3d

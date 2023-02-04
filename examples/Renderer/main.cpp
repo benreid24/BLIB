@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <BLIB/Math.hpp>
+#include <BLIB/Render/Cameras/3D/Affectors/CameraShake.hpp>
 #include <BLIB/Render/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Render/Cameras/3D/Controllers/OrbiterController.hpp>
 
@@ -43,6 +44,7 @@ public:
         bl::render::Observer& o = engine.renderer().addObserver();
         player2Cam              = o.pushCamera<bl::render::r3d::Camera3D>(
             glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
+        player2Cam->addAffector<bl::render::r3d::CameraShake>(0.1f, 7.f);
 
         bl::render::Scene* scene = engine.renderer().getObserver().pushScene();
         o.pushScene(scene);
@@ -59,6 +61,7 @@ public:
     virtual void update(bl::engine::Engine&, float dt) override {
         time += dt;
         player2Cam->setPosition({0.f, 0.f, 2.f + std::cos(time)});
+        player2Cam->getOrientationForChange().applyRoll(90.f * dt);
     }
 
     virtual void render(bl::engine::Engine& engine, float) override {

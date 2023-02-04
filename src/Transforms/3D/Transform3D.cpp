@@ -41,7 +41,7 @@ void Transform3D::scale(const glm::vec3& f) {
 
 void Transform3D::computeTransform(glm::mat4& result) {
     result = glm::translate(position);
-    result *= glm::rotate(orientation.getRoll(), orientation.getFaceDirection());
+    result *= glm::rotate(glm::radians(orientation.getRoll()), orientation.getFaceDirection());
     result *= glm::scale(scaleFactors);
     dirty = false;
 }
