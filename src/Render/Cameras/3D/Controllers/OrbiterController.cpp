@@ -46,12 +46,13 @@ void OrbiterController::update(float dt) {
     const float cos     = std::cos(radians);
     const float sin     = std::sin(radians);
 
-    const float r      = radiusCenter + cos * radiusFluc;
-    const glm::vec3 v1 = r * cos * a;
-    const glm::vec3 v2 = r * sin * b;
+    const float r          = radiusCenter + cos * radiusFluc;
+    const glm::vec3 v1     = r * cos * a;
+    const glm::vec3 v2     = r * sin * b;
+    const glm::vec3 newPos = center + v1 + v2;
 
-    camera().setPosition(center + v1 + v2);
-    camera().lookAt(center);
+    camera().setPosition(newPos);
+    camera().getOrientationForChange().lookAt(center, newPos);
 }
 
 } // namespace r3d

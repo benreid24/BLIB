@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Cameras/3D/CameraController3D.hpp>
 #include <BLIB/Render/Cameras/Camera.hpp>
+#include <BLIB/Transforms/3D/Orientation3D.hpp>
 #include <memory>
 
 namespace bl
@@ -26,7 +27,8 @@ public:
      * @param pitch The pitch angle of the camera in degrees
      * @param fov The field of view of the camera
      */
-    Camera3D(const glm::vec3& pos = {}, float yaw = 0.f, float pitch = 0.f, float fov = 75.f);
+    Camera3D(const glm::vec3& pos = {}, float yaw = 0.f, float pitch = 0.f, float fov = 75.f,
+             float roll = 0.f);
 
     /**
      * @brief Creates a new camera
@@ -34,8 +36,9 @@ public:
      * @param pos The position of the camera
      * @param lookAt The position the camera should look at
      * @param fov The field of view of the camera
+     * @param roll The roll of the camera
      */
-    Camera3D(const glm::vec3& pos, const glm::vec3& lookAt, float fov = 75.f);
+    Camera3D(const glm::vec3& pos, const glm::vec3& lookAt, float fov = 75.f, float roll = 0.f);
 
     /**
      * @brief Destroys the camera
@@ -50,13 +53,6 @@ public:
     void setPosition(const glm::vec3& pos);
 
     /**
-     * @brief Orients the camera to look at the given position from its current position
-     *
-     * @param pos The position to look at
-     */
-    void lookAt(const glm::vec3& pos);
-
-    /**
      * @brief Applies an offset to the camera's position
      *
      * @param offset World space units to add to the position
@@ -69,42 +65,15 @@ public:
     constexpr const glm::vec3& getPosition() const;
 
     /**
-     * @brief Sets the pitch angle of the camera
-     *
-     * @param pitch The pitch of the camera in degrees
+     * @brief Returns the orientation of the camera
      */
-    void setPitch(float pitch);
+    constexpr const t3d::Orientation3D& getOrientation() const;
 
     /**
-     * @brief Adds the given offset to the pitch of the camera
-     *
-     * @param offset Offset to apply in degrees
+     * @brief Returns the orientation of the camera and marks the camera as needing to refresh the
+     *        view matrix. Use this method to change the orientation of the camera
      */
-    void applyPitch(float offset);
-
-    /**
-     * @brief Returns the pitch of the camera in degrees
-     */
-    constexpr float getPitch() const;
-
-    /**
-     * @brief Sets the yaw angle of the camera
-     *
-     * @param yaw The yaw of the camera in degrees
-     */
-    void setYaw(float yaw);
-
-    /**
-     * @brief Adds the given offset to the yaw of the camera
-     *
-     * @param offset Offset to apply in degrees
-     */
-    void applyYaw(float offset);
-
-    /**
-     * @brief Returns the yaw of the camera in degrees
-     */
-    constexpr float getYaw() const;
+    t3d::Orientation3D& getOrientationForChange();
 
     /**
      * @brief Set the FOV of the camera
@@ -117,11 +86,6 @@ public:
      * @brief Returns the FOV of the camera
      */
     constexpr float getFov() const;
-
-    /**
-     * @brief Returns a normalized direction vector that the camera is facing
-     */
-    glm::vec3 getDirection() const;
 
     /**
      * @brief Sets the controller of this camera, freeing the previous controller, if any
@@ -146,7 +110,7 @@ public:
 
 private:
     glm::vec3 position;
-    float pitch, yaw;
+    t3d::Orientation3D orientation;
     float fov;
 
     std::unique_ptr<CameraController3D> controller;
@@ -160,10 +124,6 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline constexpr const glm::vec3& Camera3D::getPosition() const { return position; }
-
-inline constexpr float Camera3D::getPitch() const { return pitch; }
-
-inline constexpr float Camera3D::getYaw() const { return yaw; }
 
 inline constexpr float Camera3D::getFov() const { return fov; }
 
@@ -183,6 +143,8 @@ TController* Camera3D::setController(std::unique_ptr<TController>&& c) {
     controller->setCam(*this);
     return c;
 }
+
+inline constexpr const t3d::Orientation3D& Camera3D::getOrientation() const { return orientation; }
 
 } // namespace r3d
 } // namespace render
