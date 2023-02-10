@@ -7,26 +7,6 @@ namespace bl
 {
 namespace engine
 {
-namespace
-{
-const std::string UpdatePeriodKey     = "blib.engine.update_period";
-const std::string MaxFpsKey           = "blib.engine.max_fps";
-const std::string VariableTimestepKey = "blib.engine.variable_timestep";
-const std::string LogFpsKey           = "blib.engine.log_fps";
-const std::string MaxEntityKey        = "blib.engine.ecs_entity_count";
-
-const std::string WindowWidthKey      = "blib.engine.window_width";
-const std::string WindowHeightKey     = "blib.engine.window_height";
-const std::string WindowBitDepthKey   = "blib.engine.window_bit_depth";
-const std::string WindowStyleKey      = "blib.engine.window_style";
-const std::string WindowTitleKey      = "blib.engine.window_title";
-const std::string WindowLetterboxKey  = "blib.engine.leterbox";
-const std::string WindowIconKey       = "blib.engine.window_icon";
-const std::string WindowViewWidthKey  = "blib.engine.view_width";
-const std::string WindowViewHeightKey = "blib.engine.view_height";
-const std::string VSyncKey            = "blib.engine.window_vsync";
-} // namespace
-
 const sf::VideoMode Settings::WindowParameters::DefaultVideoMode(800, 600, 32);
 const std::string Settings::WindowParameters::DefaultWindowTitle = "BLIB Engine Window";
 const sf::Vector2f Settings::WindowParameters::DefaultViewSize(0.f, 0.f);
@@ -77,7 +57,7 @@ Settings& Settings::fromConfig() {
     loggingFps  = Configuration::getOrDefault<bool>(LogFpsKey, loggingFps);
     maxEntities = Configuration::getOrDefault<unsigned int>(MaxEntityKey, maxEntities);
 
-    if (Configuration::getOrDefault<unsigned int>(WindowWidthKey, 0) != 0 ||
+    if (Configuration::getOrDefault<unsigned int>(WindowParameters::WindowWidthKey, 0) != 0 ||
         windowParams.has_value()) {
         if (!windowParams.has_value()) { windowParams.emplace(); }
         windowParams.value().fromConfig();

@@ -1,5 +1,7 @@
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
 
+#include <BLIB/Engine/Configuration.hpp>
+#include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <Render/Vulkan/Utils/QueueFamilyLocator.hpp>
 #include <Render/Vulkan/Utils/SwapChainSupportDetails.hpp>
@@ -217,9 +219,11 @@ void Swapchain::createSwapchain() {
     // more create params
     createInfo.preTransform   = swapChainSupport.capabilities.currentTransform;
     createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR; // for other windows/applications
-    createInfo.presentMode    = swapChainSupport.presentationMode();
-    createInfo.clipped        = VK_TRUE;
-    createInfo.oldSwapchain   = VK_NULL_HANDLE;
+    createInfo.presentMode =
+        swapChainSupport.presentationMode(!engine::Configuration::getOrDefault<bool>(
+            engine::Settings::WindowParameters::VSyncKey, true));
+    createInfo.clipped      = VK_TRUE;
+    createInfo.oldSwapchain = VK_NULL_HANDLE;
 
     const VkResult result =
         vkCreateSwapchainKHR(vulkanState.device, &createInfo, nullptr, &swapchain);

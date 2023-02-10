@@ -54,10 +54,8 @@ private:
     Renderer& renderer;
     container::ObjectPool<SceneObject> objects;
 
-    scene::PrimaryObjectStage primaryObjectStage;
+    scene::PrimaryObjectStage primaryObjectStage; // TODO - generisize stages
     std::array<ObjectBatch*, Config::SceneObjectStage::Count> stageBatches;
-
-    // TODO - postfx stage with pipeline
 
     std::mutex eraseMutex;
     std::vector<SceneObject::Handle> toRemove;

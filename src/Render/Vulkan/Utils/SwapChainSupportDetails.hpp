@@ -19,7 +19,7 @@ struct SwapChainSupportDetails {
 
     void populate(VkPhysicalDevice device, VkSurfaceKHR surface);
     const VkSurfaceFormatKHR& swapSurfaceFormat() const;
-    VkPresentModeKHR presentationMode() const;
+    VkPresentModeKHR presentationMode(bool disableVsync) const;
     VkExtent2D swapExtent(const sf::Vector2u& windowSize) const;
 };
 

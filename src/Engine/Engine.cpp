@@ -309,7 +309,9 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
 
 void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
     renderWindow.setTitle(params.title());
-    // renderWindow.setVerticalSyncEnabled(params.vsyncEnabled());
+    if (params.vsyncEnabled() != engineSettings.windowParameters().vsyncEnabled()) {
+        renderingSystem.vulkanState().swapchain.invalidate();
+    }
 
     engineSettings.withWindowParameters(params);
     params.syncToConfig();

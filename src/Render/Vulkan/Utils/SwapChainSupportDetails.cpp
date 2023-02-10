@@ -38,9 +38,12 @@ const VkSurfaceFormatKHR& SwapChainSupportDetails::swapSurfaceFormat() const {
     return formats.front();
 }
 
-VkPresentModeKHR SwapChainSupportDetails::presentationMode() const {
+VkPresentModeKHR SwapChainSupportDetails::presentationMode(bool noVsync) const {
+    const auto requestedMode =
+        noVsync ? VK_PRESENT_MODE_IMMEDIATE_KHR :
+                  VK_PRESENT_MODE_MAILBOX_KHR;
     for (const VkPresentModeKHR& mode : presentModes) {
-        if (mode == VK_PRESENT_MODE_MAILBOX_KHR) { return mode; }
+        if (mode == requestedMode) { return mode; }
     }
     BL_LOG_DEBUG << "VK_PRESENT_MODE_MAILBOX_KHR not supported, falling back to "
                     "VK_PRESENT_MODE_FIFO_KHR";

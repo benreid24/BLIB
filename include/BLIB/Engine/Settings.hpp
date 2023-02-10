@@ -151,6 +151,17 @@ public:
          */
         bool vsyncEnabled() const;
 
+        static constexpr const char* WindowWidthKey      = "blib.engine.window_width";
+        static constexpr const char* WindowHeightKey     = "blib.engine.window_height";
+        static constexpr const char* WindowBitDepthKey   = "blib.engine.window_bit_depth";
+        static constexpr const char* WindowStyleKey      = "blib.engine.window_style";
+        static constexpr const char* WindowTitleKey      = "blib.engine.window_title";
+        static constexpr const char* WindowLetterboxKey  = "blib.engine.leterbox";
+        static constexpr const char* WindowIconKey       = "blib.engine.window_icon";
+        static constexpr const char* WindowViewWidthKey  = "blib.engine.view_width";
+        static constexpr const char* WindowViewHeightKey = "blib.engine.view_height";
+        static constexpr const char* VSyncKey            = "blib.engine.window_vsync";
+
     private:
         std::string sfWindowTitle;
         sf::VideoMode windowMode;
@@ -167,6 +178,12 @@ public:
     static constexpr bool DefaultCreateWindow           = true;
     static constexpr bool DefaultLogFps                 = false;
     static constexpr unsigned int DefaultMaxEntityCount = 2000;
+
+    static constexpr const char* UpdatePeriodKey     = "blib.engine.update_period";
+    static constexpr const char* MaxFpsKey           = "blib.engine.max_fps";
+    static constexpr const char* VariableTimestepKey = "blib.engine.variable_timestep";
+    static constexpr const char* LogFpsKey           = "blib.engine.log_fps";
+    static constexpr const char* MaxEntityKey        = "blib.engine.ecs_entity_count";
 
     /**
      * @brief Creates a new settings object with all default settings
