@@ -71,7 +71,7 @@ protected:
 private:
     Renderer& renderer;
     VkSampler sampler;
-    VkDescriptorPool descriptorPool; // TODO - move this somewhere shared or into a pool allocator
+    DescriptorPool::AllocationHandle descriptorSetAllocHandle;
     PerFrame<VkDescriptorSet> descriptorSets;
     IndexBuffer indexBuffer;
     Pipeline* pipeline;

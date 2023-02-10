@@ -43,29 +43,10 @@ void Image::setImage(Renderer& r, VkImageView imageView) {
             throw std::runtime_error("failed to create texture sampler!");
         }
 
-        // create descriptor pool
-        VkDescriptorPoolSize samplerPoolSize;
-        samplerPoolSize.type            = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-        samplerPoolSize.descriptorCount = 1;
-
-        VkDescriptorPoolCreateInfo poolInfo{};
-        poolInfo.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-        poolInfo.poolSizeCount = 1;
-        poolInfo.pPoolSizes    = &samplerPoolSize;
-        poolInfo.maxSets       = 1;
-        if (vkCreateDescriptorPool(vs.device, &poolInfo, nullptr, &descriptorPool) != VK_SUCCESS) {
-            throw std::runtime_error("Failed to create descriptor pool");
-        }
-
         // allocate descriptor set
-        VkDescriptorSetAllocateInfo allocInfo{};
-        allocInfo.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-        allocInfo.descriptorPool     = descriptorPool;
-        allocInfo.descriptorSetCount = 1;
-        allocInfo.pSetLayouts        = &vs.descriptorSetLayouts.imageOverlay;
-        if (vkAllocateDescriptorSets(vs.device, &allocInfo, &descriptorSet) != VK_SUCCESS) {
-            throw std::runtime_error("Failed to allocate descriptor sets");
-        }
+        const auto* createInfo = &vs.descriptorSetLayouts.imageOverlay.createInfo;
+        setHandle              = vs.descriptorPool.allocate(
+            &createInfo, &vs.descriptorSetLayouts.imageOverlay.layout, &descriptorSet, 1);
 
         // create index buffer
         indexBuffer.create(vs, 4, 6);
@@ -99,9 +80,15 @@ void Image::setImage(Renderer& r, VkImageView imageView) {
 
 void Image::cleanup() {
     if (sampler != nullptr) {
-        const VkDevice device = renderer->vulkanState().device;
-        vkDestroyDescriptorPool(device, descriptorPool, nullptr);
-        vkDestroySampler(device, sampler, nullptr);
+        VulkanState& vs        = renderer->vulkanState();
+        const auto* createInfo = &vs.descriptorSetLayouts.imageOverlay.createInfo;
+
+        vs.descriptorPool.release(setHandle,
+                                  &createInfo,
+                                  &vs.descriptorSetLayouts.imageOverlay.layout,
+                                  &descriptorSet,
+                                  1);
+        vkDestroySampler(vs.device, sampler, nullptr);
         indexBuffer.destroy();
         sampler = nullptr;
     }

@@ -37,32 +37,17 @@ PostFX::PostFX(Renderer& renderer)
         throw std::runtime_error("failed to create texture sampler!");
     }
 
-    // create descriptor pool
-    VkDescriptorPoolSize samplerPoolSize;
-    samplerPoolSize.type            = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    samplerPoolSize.descriptorCount = 1;
-
-    VkDescriptorPoolCreateInfo poolInfo{};
-    poolInfo.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-    poolInfo.poolSizeCount = 1;
-    poolInfo.pPoolSizes    = &samplerPoolSize;
-    poolInfo.maxSets       = Config::MaxConcurrentFrames;
-    if (vkCreateDescriptorPool(vs.device, &poolInfo, nullptr, &descriptorPool) != VK_SUCCESS) {
-        throw std::runtime_error("Failed to create descriptor pool");
-    }
-
     // allocate descriptor sets
     descriptorSets.init(renderer.vulkanState(), [](VkDescriptorSet&) {});
     std::array<VkDescriptorSetLayout, Config::MaxConcurrentFrames> descriptorLayouts;
-    descriptorLayouts.fill(vs.descriptorSetLayouts.imageOverlay);
-    VkDescriptorSetAllocateInfo allocInfo{};
-    allocInfo.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-    allocInfo.descriptorPool     = descriptorPool;
-    allocInfo.descriptorSetCount = descriptorLayouts.size();
-    allocInfo.pSetLayouts        = descriptorLayouts.data();
-    if (vkAllocateDescriptorSets(vs.device, &allocInfo, descriptorSets.rawData()) != VK_SUCCESS) {
-        throw std::runtime_error("Failed to allocate descriptor sets");
-    }
+    descriptorLayouts.fill(vs.descriptorSetLayouts.imageOverlay.layout);
+    std::array<const VkDescriptorSetLayoutCreateInfo*, Config::MaxConcurrentFrames>
+        descriptorCreateInfos;
+    descriptorCreateInfos.fill(&vs.descriptorSetLayouts.imageOverlay.createInfo);
+    descriptorSetAllocHandle = vs.descriptorPool.allocate(descriptorCreateInfos.data(),
+                                                          descriptorLayouts.data(),
+                                                          descriptorSets.rawData(),
+                                                          Config::MaxConcurrentFrames);
 
     // create index buffer
     indexBuffer.create(vs, 4, 6);
@@ -104,10 +89,19 @@ void PostFX::bindImages(PerFrame<StandardImageBuffer>& images) {
 }
 
 PostFX::~PostFX() {
-    const VkDevice device = renderer.vulkanState().device;
+    VulkanState& vs = renderer.vulkanState();
 
-    vkDestroyDescriptorPool(device, descriptorPool, nullptr);
-    vkDestroySampler(device, sampler, nullptr);
+    std::array<VkDescriptorSetLayout, Config::MaxConcurrentFrames> descriptorLayouts;
+    descriptorLayouts.fill(vs.descriptorSetLayouts.imageOverlay.layout);
+    std::array<const VkDescriptorSetLayoutCreateInfo*, Config::MaxConcurrentFrames>
+        descriptorCreateInfos;
+    descriptorCreateInfos.fill(&vs.descriptorSetLayouts.imageOverlay.createInfo);
+    vs.descriptorPool.release(descriptorSetAllocHandle,
+                              descriptorCreateInfos.data(),
+                              descriptorLayouts.data(),
+                              descriptorSets.rawData(),
+                              Config::MaxConcurrentFrames);
+    vkDestroySampler(vs.device, sampler, nullptr);
     indexBuffer.destroy();
 }
 

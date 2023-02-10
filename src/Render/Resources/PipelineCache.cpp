@@ -74,7 +74,7 @@ void PipelineCache::createBuiltins() {
             .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::ImageOverlayFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
-            .addDescriptorSet(renderer.vulkanState().descriptorSetLayouts.imageOverlay)
+            .addDescriptorSet(renderer.vulkanState().descriptorSetLayouts.imageOverlay.layout)
             .build());
 }
 

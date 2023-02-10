@@ -38,20 +38,20 @@ void DescriptorPool::cleanup() {
     foreverPools.clear();
 }
 
-void DescriptorPool::allocateForever(const VkDescriptorSetLayoutCreateInfo* createInfos,
+void DescriptorPool::allocateForever(const VkDescriptorSetLayoutCreateInfo** createInfos,
                                      const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
                                      std::size_t setCount) {
     doAllocate(foreverPools, createInfos, layouts, sets, setCount);
 }
 
 DescriptorPool::AllocationHandle DescriptorPool::allocate(
-    const VkDescriptorSetLayoutCreateInfo* createInfos, const VkDescriptorSetLayout* layouts,
+    const VkDescriptorSetLayoutCreateInfo** createInfos, const VkDescriptorSetLayout* layouts,
     VkDescriptorSet* sets, std::size_t setCount) {
     return doAllocate(pools, createInfos, layouts, sets, setCount);
 }
 
 void DescriptorPool::release(AllocationHandle handle,
-                             const VkDescriptorSetLayoutCreateInfo* createInfos,
+                             const VkDescriptorSetLayoutCreateInfo** createInfos,
                              const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
                              std::size_t setCount) {
     handle->release(createInfos, layouts, sets, setCount);
@@ -59,7 +59,7 @@ void DescriptorPool::release(AllocationHandle handle,
 }
 
 DescriptorPool::AllocationHandle DescriptorPool::doAllocate(
-    std::list<Subpool>& poolList, const VkDescriptorSetLayoutCreateInfo* createInfos,
+    std::list<Subpool>& poolList, const VkDescriptorSetLayoutCreateInfo** createInfos,
     const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets, std::size_t setCount) {
 // test that allocation is possible
 #ifdef BLIB_DEBUG
@@ -70,8 +70,8 @@ DescriptorPool::AllocationHandle DescriptorPool::doAllocate(
     }
 
     for (unsigned int i = 0; i < setCount; ++i) {
-        for (unsigned int j = 0; j < createInfos[i].bindingCount; ++j) {
-            const auto& binding = createInfos[i].pBindings[j];
+        for (unsigned int j = 0; j < createInfos[i]->bindingCount; ++j) {
+            const auto& binding = createInfos[i]->pBindings[j];
             if (binding.descriptorType >= PoolSizes.size()) {
                 BL_LOG_CRITICAL << "Trying to allocate unsupported descriptor type: "
                                 << binding.descriptorType;
@@ -124,13 +124,13 @@ DescriptorPool::Subpool::Subpool(VulkanState& vs, bool allowFree)
 
 DescriptorPool::Subpool::~Subpool() { vkDestroyDescriptorPool(vulkanState.device, pool, nullptr); }
 
-bool DescriptorPool::Subpool::canAllocate(const VkDescriptorSetLayoutCreateInfo* createInfos,
+bool DescriptorPool::Subpool::canAllocate(const VkDescriptorSetLayoutCreateInfo** createInfos,
                                           std::size_t setCount) const {
     if (freeSets < setCount) { return false; }
 
     for (std::size_t i = 0; i < setCount; ++i) {
-        for (std::size_t j = 0; j < createInfos[i].bindingCount; ++j) {
-            const auto& binding = createInfos[i].pBindings[j];
+        for (std::size_t j = 0; j < createInfos[i]->bindingCount; ++j) {
+            const auto& binding = createInfos[i]->pBindings[j];
             if (available[binding.descriptorType] < binding.descriptorCount) { return false; }
         }
     }
@@ -138,14 +138,14 @@ bool DescriptorPool::Subpool::canAllocate(const VkDescriptorSetLayoutCreateInfo*
     return true;
 }
 
-void DescriptorPool::Subpool::allocate(const VkDescriptorSetLayoutCreateInfo* createInfos,
+void DescriptorPool::Subpool::allocate(const VkDescriptorSetLayoutCreateInfo** createInfos,
                                        const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
                                        std::size_t setCount) {
     // update metadata
     freeSets -= setCount;
     for (std::size_t i = 0; i < setCount; ++i) {
-        for (std::size_t j = 0; j < createInfos[i].bindingCount; ++j) {
-            const auto& binding = createInfos[i].pBindings[j];
+        for (std::size_t j = 0; j < createInfos[i]->bindingCount; ++j) {
+            const auto& binding = createInfos[i]->pBindings[j];
             available[binding.descriptorType] -= binding.descriptorCount;
         }
     }
@@ -161,14 +161,14 @@ void DescriptorPool::Subpool::allocate(const VkDescriptorSetLayoutCreateInfo* cr
     }
 }
 
-void DescriptorPool::Subpool::release(const VkDescriptorSetLayoutCreateInfo* createInfos,
+void DescriptorPool::Subpool::release(const VkDescriptorSetLayoutCreateInfo** createInfos,
                                       const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
                                       std::size_t setCount) {
     // update metadata
     freeSets += setCount;
     for (std::size_t i = 0; i < setCount; ++i) {
-        for (std::size_t j = 0; j < createInfos[i].bindingCount; ++j) {
-            const auto& binding = createInfos[i].pBindings[j];
+        for (std::size_t j = 0; j < createInfos[i]->bindingCount; ++j) {
+            const auto& binding = createInfos[i]->pBindings[j];
             available[binding.descriptorType] += binding.descriptorCount;
         }
     }

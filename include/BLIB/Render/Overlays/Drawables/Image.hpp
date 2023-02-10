@@ -4,6 +4,7 @@
 #include <BLIB/Render/Overlays/Drawable.hpp>
 #include <BLIB/Render/Primitives/IndexBuffer.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <array>
@@ -46,7 +47,7 @@ public:
 private:
     Renderer* renderer;
     VkSampler sampler;
-    VkDescriptorPool descriptorPool; // TODO - move this somewhere shared or into a pool allocator
+    DescriptorPool::AllocationHandle setHandle;
     VkDescriptorSet descriptorSet;
 
     IndexBuffer indexBuffer;

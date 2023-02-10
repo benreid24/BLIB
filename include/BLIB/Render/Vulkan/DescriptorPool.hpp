@@ -34,7 +34,7 @@ public:
      * @param sets Pointer to the set handles to populate
      * @param setCount The number of descriptor sets to allocate
      */
-    void allocateForever(const VkDescriptorSetLayoutCreateInfo* createInfos,
+    void allocateForever(const VkDescriptorSetLayoutCreateInfo** createInfos,
                          const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
                          std::size_t setCount);
 
@@ -49,7 +49,7 @@ public:
      * @param setCount The number of descriptor sets to allocate
      * @return A handle that may be used to release the allocated sets
      */
-    AllocationHandle allocate(const VkDescriptorSetLayoutCreateInfo* createInfos,
+    AllocationHandle allocate(const VkDescriptorSetLayoutCreateInfo** createInfos,
                               const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
                               std::size_t setCount);
 
@@ -62,7 +62,7 @@ public:
      * @param sets The sets to release
      * @param setCount The number of sets to release
      */
-    void release(AllocationHandle handle, const VkDescriptorSetLayoutCreateInfo* createInfos,
+    void release(AllocationHandle handle, const VkDescriptorSetLayoutCreateInfo** createInfos,
                  const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets, std::size_t setCount);
 
 private:
@@ -70,12 +70,12 @@ private:
         Subpool(VulkanState& vulkanState, bool allowFree);
         ~Subpool();
 
-        bool canAllocate(const VkDescriptorSetLayoutCreateInfo* createInfos,
+        bool canAllocate(const VkDescriptorSetLayoutCreateInfo** createInfos,
                          std::size_t setCount) const;
-        void allocate(const VkDescriptorSetLayoutCreateInfo* createInfos,
+        void allocate(const VkDescriptorSetLayoutCreateInfo** createInfos,
                       const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
                       std::size_t setCount);
-        void release(const VkDescriptorSetLayoutCreateInfo* createInfos,
+        void release(const VkDescriptorSetLayoutCreateInfo** createInfos,
                      const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
                      std::size_t setCount);
         bool inUse() const;
@@ -94,7 +94,7 @@ private:
     void init();
     void cleanup();
     AllocationHandle doAllocate(std::list<Subpool>& pools,
-                                const VkDescriptorSetLayoutCreateInfo* createInfos,
+                                const VkDescriptorSetLayoutCreateInfo** createInfos,
                                 const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
                                 std::size_t setCount);
 

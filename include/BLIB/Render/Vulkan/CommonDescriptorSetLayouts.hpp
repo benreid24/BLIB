@@ -15,7 +15,14 @@ struct VulkanState;
  * @ingroup Renderer
  */
 struct CommonDescriptorSetLayouts {
-    VkDescriptorSetLayout imageOverlay;
+    struct Layout {
+        Layout();
+
+        VkDescriptorSetLayoutCreateInfo createInfo;
+        VkDescriptorSetLayout layout;
+    };
+
+    Layout imageOverlay;
 
 private:
     void init(VulkanState& vulkanState);
