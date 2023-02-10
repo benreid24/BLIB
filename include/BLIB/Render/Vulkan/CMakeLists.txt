@@ -2,6 +2,7 @@ target_sources(BLIB PUBLIC
     AttachmentSet.hpp
     ColorAttachmentSet.hpp
     CommonDescriptorSetLayouts.hpp
+    DescriptorPool.hpp
     DescriptorPoolRequirements.hpp
     Framebuffer.hpp
     Pipeline.hpp

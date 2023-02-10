@@ -4,6 +4,7 @@
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/CommonDescriptorSetLayouts.hpp>
+#include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
 #include <BLIB/Render/Vulkan/TransferEngine.hpp>
@@ -188,6 +189,7 @@ struct VulkanState {
     VkCommandPool sharedCommandPool;
     Swapchain swapchain;
     TransferEngine transferEngine;
+    DescriptorPool descriptorPool;
     CommonDescriptorSetLayouts descriptorSetLayouts;
 
 private:

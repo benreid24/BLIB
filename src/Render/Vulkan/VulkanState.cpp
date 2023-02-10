@@ -114,6 +114,7 @@ VulkanState::VulkanState(sf::WindowBase& window)
 : window(window)
 , swapchain(*this, window)
 , transferEngine(*this)
+, descriptorPool(*this)
 , currentFrame(0) {
     gladLoadVulkan(0, sf::Vulkan::getFunction);
     if (!vkCreateInstance) { throw std::runtime_error("Failed to load Vulkan"); }
@@ -135,11 +136,13 @@ void VulkanState::init() {
     createSharedCommandPool();
     swapchain.create(surface);
     transferEngine.init();
+    descriptorPool.init();
     descriptorSetLayouts.init(*this);
 }
 
 void VulkanState::cleanup() {
     descriptorSetLayouts.cleanup(*this);
+    descriptorPool.cleanup();
     transferEngine.cleanup();
     swapchain.destroy();
     vkDestroyCommandPool(device, sharedCommandPool, nullptr);

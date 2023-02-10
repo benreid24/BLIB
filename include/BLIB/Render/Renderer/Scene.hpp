@@ -54,7 +54,7 @@ private:
     Renderer& renderer;
     container::ObjectPool<SceneObject> objects;
 
-    scene::PrimaryObjectStage primaryObjectStage; // TODO - generisize stages
+    scene::PrimaryObjectStage primaryObjectStage; // TODO - generalize stages
     std::array<ObjectBatch*, Config::SceneObjectStage::Count> stageBatches;
 
     std::mutex eraseMutex;
