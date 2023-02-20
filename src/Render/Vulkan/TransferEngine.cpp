@@ -58,7 +58,7 @@ void TransferEngine::executeTransfers() {
         // one unified sync
         vkCmdPipelineBarrier(commandBuffer,
                              VK_PIPELINE_STAGE_TRANSFER_BIT,
-                             VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT,
+                             VK_PIPELINE_STAGE_VERTEX_SHADER_BIT, // correct?
                              0,
                              memoryBarriers.size(),
                              memoryBarriers.data(),
@@ -119,6 +119,8 @@ void TransferEngine::registerBufferBarrier(const VkBufferMemoryBarrier& barrier)
 void TransferEngine::registerImageBarrier(const VkImageMemoryBarrier& barrier) {
     imageBarriers.emplace_back(barrier);
 }
+
+VkDevice TransferEngine::device() const { return vulkanState.device; }
 
 } // namespace render
 } // namespace bl

@@ -3,7 +3,6 @@
 
 #include <BLIB/Render/Renderer/Material.hpp>
 #include <BLIB/Render/Uniforms/MaterialUniform.hpp>
-#include <BLIB/Render/Vulkan/DescriptorPoolRequirements.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <array>
@@ -23,8 +22,6 @@ public:
     MaterialPool(VulkanState& vulkanState);
 
     ~MaterialPool();
-
-    void addDescriptorPoolRequirements(DescriptorPoolRequirements& requirements) const;
 
     VkDescriptorSetLayout getDescriptorLayout();
 

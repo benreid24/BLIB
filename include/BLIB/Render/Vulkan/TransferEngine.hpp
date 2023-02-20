@@ -11,7 +11,7 @@ namespace bl
 namespace render
 {
 /**
- * @brief Utility class to manage the synchornized transfer of data to the GPU
+ * @brief Utility class to manage the synchronized transfer of data to the GPU
  *
  * @ingroup Renderer
  */
@@ -23,6 +23,12 @@ public:
      * @param item The item to queue. Must remain valid until drained
      */
     void queueTransfer(Transferable& item);
+
+    /**
+     * @brief Executes the queued transfers, potentially blocking on the prior set of transfers if
+     *        not yet complete. This is called automatically each frame, but may be called as needed
+     */
+    void executeTransfers();
 
     /**
      * @brief Creates a staging buffer of the given size. Should only be called from
@@ -57,6 +63,11 @@ public:
      */
     void registerImageBarrier(const VkImageMemoryBarrier& barrier);
 
+    /**
+     * @brief Returns the logical device to be used
+     */
+    VkDevice device() const;
+
 private:
     VulkanState& vulkanState;
     std::mutex mutex;
@@ -67,6 +78,7 @@ private:
     std::vector<VkBuffer> stagingBuffers;
     std::vector<VkDeviceMemory> stagingMemory;
 
+    // TODO - bucket by dest stage?
     std::vector<VkMemoryBarrier> memoryBarriers;
     std::vector<VkBufferMemoryBarrier> bufferBarriers;
     std::vector<VkImageMemoryBarrier> imageBarriers;
@@ -76,7 +88,6 @@ private:
     void cleanup();
 
     void releaseStagingBuffers();
-    void executeTransfers();
 
     friend class Renderer;
     friend struct VulkanState;

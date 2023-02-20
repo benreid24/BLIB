@@ -68,6 +68,17 @@ void PipelineCache::createBuiltins() {
             .withDepthStencilState(&depthStencil)
             .build());
 
+    createPipline(Config::PipelineIds::OpaqueSkinnedMeshes,
+                  PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
+                      .withShaders(Config::ShaderIds::TestVertexShader,
+                                   Config::ShaderIds::TestSkinnedFragmentShader)
+                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                      .withRasterizer(rasterizer)
+                      .withDepthStencilState(&depthStencil)
+                      .addDescriptorSet(renderer.texturePool().getDescriptorLayout(),
+                                        renderer.texturePool().getDescriptorSet())
+                      .build());
+
     createPipline(
         Config::PipelineIds::ImageOverlay,
         PipelineParameters(Config::RenderPassIds::SwapchainPrimaryRender)

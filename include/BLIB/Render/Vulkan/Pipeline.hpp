@@ -5,6 +5,7 @@
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glad/vulkan.h>
 #include <string>
+#include <variant>
 #include <vector>
 
 namespace bl
@@ -65,8 +66,10 @@ private:
     Renderer& renderer;
     VkPipelineLayout layout;
     VkPipeline pipeline;
-    std::vector<PipelineParameters::DescriptorSetRetriever> descriptorGetters;
-    std::vector<VkDescriptorSet> descriptorSets;
+    std::vector<
+        std::variant<std::monostate, PipelineParameters::DescriptorSetRetriever, VkDescriptorSet>>
+        descriptorSets;
+    std::uint32_t setBindCount;
     bool preserveOrder;
 
     friend class PipelineCache;

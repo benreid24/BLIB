@@ -10,7 +10,6 @@ layout(location = 1) out vec2 fragTexCoords;
 layout(push_constant) uniform constants
 {
 	mat4 transform;
-	// uint index;
 } PushConstants;
 
 void main() {

@@ -115,6 +115,7 @@ VulkanState::VulkanState(sf::WindowBase& window)
 , swapchain(*this, window)
 , transferEngine(*this)
 , descriptorPool(*this)
+, samplerCache(*this)
 , currentFrame(0) {
     gladLoadVulkan(0, sf::Vulkan::getFunction);
     if (!vkCreateInstance) { throw std::runtime_error("Failed to load Vulkan"); }
@@ -138,9 +139,11 @@ void VulkanState::init() {
     transferEngine.init();
     descriptorPool.init();
     descriptorSetLayouts.init(*this);
+    samplerCache.init();
 }
 
 void VulkanState::cleanup() {
+    samplerCache.cleanup();
     descriptorSetLayouts.cleanup(*this);
     descriptorPool.cleanup();
     transferEngine.cleanup();
@@ -605,6 +608,9 @@ VkShaderModule VulkanState::createShaderModule(const std::string& path) {
         case Config::ShaderIds::TestFragmentShader[0]:
             // TODO - properly include shaders in binary
             return createShaderModule("shaders/testFrag.spv");
+        case Config::ShaderIds::TestSkinnedFragmentShader[0]:
+            // TODO - properly include shaders in binary
+            return createShaderModule("shaders/testSkinnedFrag.spv");
         case Config::ShaderIds::EmptyVertex[0]:
             // TODO - properly include shaders in binary
             return createShaderModule("shaders/emptyVert.spv");

@@ -54,7 +54,7 @@ void DescriptorPool::release(AllocationHandle handle,
                              const VkDescriptorSetLayoutCreateInfo** createInfos,
                              const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
                              std::size_t setCount) {
-    handle->release(createInfos, layouts, sets, setCount);
+    handle->release(createInfos, sets, setCount);
     if (pools.size() > 1 && !handle->inUse()) { pools.erase(std::next(handle).base()); }
 }
 
@@ -64,7 +64,7 @@ DescriptorPool::AllocationHandle DescriptorPool::doAllocate(
 // test that allocation is possible
 #ifdef BLIB_DEBUG
     if (setCount > MaxSets) {
-        BL_LOG_CRITICAL << "Attemptiing to allocate " << setCount
+        BL_LOG_CRITICAL << "Attempting to allocate " << setCount
                         << " descriptor sets but pools can only allocate " << MaxSets;
         throw std::runtime_error("Trying to allocate too many descriptor sets");
     }
@@ -162,8 +162,7 @@ void DescriptorPool::Subpool::allocate(const VkDescriptorSetLayoutCreateInfo** c
 }
 
 void DescriptorPool::Subpool::release(const VkDescriptorSetLayoutCreateInfo** createInfos,
-                                      const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
-                                      std::size_t setCount) {
+                                      VkDescriptorSet* sets, std::size_t setCount) {
     // update metadata
     freeSets += setCount;
     for (std::size_t i = 0; i < setCount; ++i) {

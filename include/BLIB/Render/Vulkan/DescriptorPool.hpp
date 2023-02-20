@@ -75,8 +75,7 @@ private:
         void allocate(const VkDescriptorSetLayoutCreateInfo** createInfos,
                       const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
                       std::size_t setCount);
-        void release(const VkDescriptorSetLayoutCreateInfo** createInfos,
-                     const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
+        void release(const VkDescriptorSetLayoutCreateInfo** createInfos, VkDescriptorSet* sets,
                      std::size_t setCount);
         bool inUse() const;
 

@@ -11,8 +11,8 @@ struct VulkanState;
 class TransferEngine;
 
 /**
- * @brief Base class for objects that transfer state or data to the GPU. Used in conjuction with the
- *        TransferEngine to execute and synchornous resource transfers and subsequent access
+ * @brief Base class for objects that transfer state or data to the GPU. Used in conjunction with
+ *        the TransferEngine to execute and synchronous resource transfers and subsequent access
  *
  * @ingroup Renderer
  */

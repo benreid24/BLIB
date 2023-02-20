@@ -42,26 +42,64 @@ public:
      */
     void renderFrame();
 
+    /**
+     * @brief Adds an observer to the renderer. By default there is a single observer already. Call
+     *        this for splitscreen
+     *
+     * @return A reference to the new observer
+     */
     Observer& addObserver();
 
+    /**
+     * @brief Returns the observer at the given index
+     *
+     * @param i The index of the observer to get
+     * @return The observer at the given index
+     */
     Observer& getObserver(unsigned int i = 0);
 
+    /**
+     * @brief Removes the observer at the given index
+     *
+     * @param i The index of the observer to remove
+     */
     void removeObserver(unsigned int i = 4);
 
+    /**
+     * @brief Returns the number of observers in the renderer, excluding the common observer
+     */
     unsigned int observerCount() const;
 
+    /**
+     * @brief Allocates a single scene, pushes it to all observers, and returns it
+     *
+     * @return A pointer to the new scene active in all observers
+     */
     Scene* pushSceneToAllObservers();
 
+    /**
+     * @brief Removes the current scene from all observers
+     *
+     * @param popCameras True to also remove their current cameras, false to leave them
+     */
     void popSceneFromAllObservers(bool popCameras = true);
 
+    /**
+     * @brief Pops the current scene from all observers and returns it without releasing it from the
+     *        scene pool. Note that only a single scene is returned, so care should be taken to only
+     *        call this when all observers are using the same scene
+     *
+     * @param popCameras True to also pop cameras from the observers, false to leave them
+     * @return The scene that was removed
+     */
     Scene* popSceneFromAllObserversNoRelease(bool popCameras = true);
 
     /**
      * @brief Sets the default near and far values to be used for all cameras
-     * 
+     *
      * @param near The distance of the near plane
      * @param Far The distance of the far plane
-    */
+     */
     void setDefaultNearAndFar(float near, float far);
 
     /**

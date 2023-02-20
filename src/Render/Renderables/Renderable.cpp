@@ -1,8 +1,8 @@
 #include <BLIB/Render/Renderables/Renderable.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Renderer/SceneObject.hpp>
 #include <BLIB/Render/Renderer/Scene.hpp>
+#include <BLIB/Render/Renderer/SceneObject.hpp>
 
 namespace bl
 {
@@ -80,12 +80,12 @@ void Renderable::setDrawParameters(const DrawParameters& dp) {
 }
 
 void Renderable::setTextureId(std::uint32_t tid) {
-    // frameData.index = tid;
+    frameData.index = tid;
     markPCDirty();
 }
 
 void Renderable::setMaterialId(std::uint32_t mid) {
-    // frameData.index = mid;
+    frameData.index = mid;
     markPCDirty();
 }
 

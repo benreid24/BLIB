@@ -28,6 +28,7 @@ Renderer::~Renderer() {
 void Renderer::initialize() {
     state.init();
     renderPasses.addDefaults();
+    textures.init();
     pipelines.createBuiltins();
 
     // swapchain framebuffers
@@ -49,8 +50,8 @@ void Renderer::cleanup() {
     observers.clear();
     commonObserver.cleanup();
     scenes.cleanup();
-    // TODO - free textures and materials
     pipelines.cleanup();
+    textures.cleanup();
     framebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
     renderPasses.cleanup();
     state.cleanup();
@@ -178,6 +179,8 @@ Scene* Renderer::popSceneFromAllObserversNoRelease(bool cams) {
     return s;
 }
 
+unsigned int Renderer::observerCount() const { return observers.size(); }
+
 void Renderer::assignObserverRegions() {
     unsigned int i = 0;
     for (auto& o : observers) {
@@ -188,6 +191,8 @@ void Renderer::assignObserverRegions() {
         ++i;
     }
 }
+
+void Renderer::setSplitscreenDirection(SplitscreenDirection d) { splitscreenDirection = d; }
 
 } // namespace render
 } // namespace bl

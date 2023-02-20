@@ -4,6 +4,7 @@
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/CommonDescriptorSetLayouts.hpp>
+#include <BLIB/Render/Vulkan/CommonSamplers.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
@@ -191,6 +192,7 @@ struct VulkanState {
     TransferEngine transferEngine;
     DescriptorPool descriptorPool;
     CommonDescriptorSetLayouts descriptorSetLayouts;
+    CommonSamplers samplerCache;
 
 private:
     sf::WindowBase& window;

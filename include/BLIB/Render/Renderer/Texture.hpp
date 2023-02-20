@@ -1,11 +1,10 @@
 #ifndef BLIB_RENDER_RENDERER_TEXTURE_HPP
 #define BLIB_RENDER_RENDERER_TEXTURE_HPP
 
-#include <BLIB/Resources.hpp>
-#include <SFML/Graphics.hpp>
-#include <array>
+#include <BLIB/Render/Vulkan/Transferable.hpp>
+#include <SFML/Graphics/Image.hpp>
 #include <glad/vulkan.h>
-#include <string>
+#include <glm/glm.hpp>
 
 namespace bl
 {
@@ -20,8 +19,7 @@ class TexturePool;
  *
  * @ingroup Renderer
  */
-class Texture {
-public:
+struct Texture : public Transferable {
     /**
      * @brief Creates an empty Texture
      *
@@ -29,46 +27,29 @@ public:
     Texture();
 
     /**
-     * @brief Destroy the Texture object
-     *
+     * @brief Does nothing
      */
-    ~Texture();
+    virtual ~Texture() = default;
 
-    /**
-     * @brief Creates (or recreates) the sampler for shaders to use with this texture
-     *
-     * @param addressMode How to handle sampling out-of-bounds coordinates
-     * @param magFilter The filter to use when magnifying
-     * @param minFilter The filter to use when minifying
-     */
-    void createSampler(VkSamplerAddressMode addressMode = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER,
-                       VkFilter magFilter               = VK_FILTER_LINEAR,
-                       VkFilter minFilter               = VK_FILTER_LINEAR);
-
-    /**
-     * @brief Creates (or recreates) the sampler for shaders to use with this texture
-     *
-     * @param addressModeU How to handle sampling out-of-bounds X coordinates
-     * @param addressModeV How to handle sampling out-of-bounds Y coordinates
-     * @param addressModeW How to handle sampling out-of-bounds Z coordinates
-     * @param magFilter The filter to use when magnifying
-     * @param minFilter The filter to use when minifying
-     */
-    void createSampler(VkSamplerAddressMode addressModeU, VkSamplerAddressMode addressModeV,
-                       VkSamplerAddressMode addressModeW, VkFilter magFilter = VK_FILTER_LINEAR,
-                       VkFilter minFilter = VK_FILTER_LINEAR);
-
-    VkImage textureImage;
-    VkDeviceMemory textureImageMemory;
-    VkImageView textureImageView;
-    VkSampler textureSampler;
+    VkImage image;
+    VkDeviceMemory memory;
+    std::uint32_t memoryOffset;
+    VkDeviceSize memorySize;
+    VkImageView view;
+    VkSampler sampler;
+    glm::u32vec2 size;
+    glm::vec2 sizeF;
 
 private:
-    Texture(VulkanState& rendererState);
+    sf::Image contents;          // only filled until transfer
+    sf::Image* externalContents; // used if not nullptr. Not cleared
 
-    void destroy(VkDevice device);
-    bool create(const std::string& imagePath);
-    bool create(const sf::Image& image);
+    void createFromContentsAndQueue(VulkanState& vs);
+    virtual void executeTransfer(VkCommandBuffer commandBuffer,
+                                 TransferEngine& transferEngine) override;
+    void cleanup(VulkanState& vs);
+
+    friend class TexturePool;
 };
 
 } // namespace render

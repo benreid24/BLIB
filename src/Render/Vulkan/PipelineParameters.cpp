@@ -22,8 +22,12 @@ PipelineParameters::PipelineParameters(std::uint32_t rpid)
     shaders.reserve(4);
     descriptorSets.reserve(4);
 
-    pushConstants.reserve(2);
-    addPushConstantRange(0, sizeof(PushConstants), VK_SHADER_STAGE_ALL_GRAPHICS);
+    // TODO - rethink this
+    pushConstants.reserve(4);
+    addPushConstantRange(0, sizeof(PushConstants::transform), VK_SHADER_STAGE_VERTEX_BIT);
+    addPushConstantRange(sizeof(PushConstants::transform),
+                         sizeof(PushConstants::index),
+                         VK_SHADER_STAGE_FRAGMENT_BIT);
 
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     rasterizer.depthClampEnable        = VK_FALSE;
@@ -108,14 +112,18 @@ PipelineParameters& PipelineParameters::withMSAA(const VkPipelineMultisampleStat
 
 PipelineParameters& PipelineParameters::addDescriptorSet(VkDescriptorSetLayout layout,
                                                          DescriptorSetRetriever&& retriever) {
-    descriptorSets.emplace_back(layout);
-    descriptorSetRetrievers.emplace_back(std::forward<DescriptorSetRetriever>(retriever));
+    descriptorSets.emplace_back(layout, std::forward<DescriptorSetRetriever>(retriever));
     return *this;
 }
 
 PipelineParameters& PipelineParameters::addDescriptorSet(VkDescriptorSetLayout layout) {
     descriptorSets.emplace_back(layout);
-    descriptorSetRetrievers.emplace_back();
+    return *this;
+}
+
+PipelineParameters& PipelineParameters::addDescriptorSet(VkDescriptorSetLayout layout,
+                                                         VkDescriptorSet set) {
+    descriptorSets.emplace_back(layout, set);
     return *this;
 }
 
@@ -197,6 +205,22 @@ PipelineParameters& PipelineParameters::withPreserveObjectOrder(bool po) {
     preserveOrder = po;
     return *this;
 }
+
+PipelineParameters::DescriptorSet::DescriptorSet(VkDescriptorSetLayout layout)
+: layout(layout)
+, getter()
+, fixedSet(nullptr) {}
+
+PipelineParameters::DescriptorSet::DescriptorSet(VkDescriptorSetLayout layout, VkDescriptorSet set)
+: layout(layout)
+, getter()
+, fixedSet(set) {}
+
+PipelineParameters::DescriptorSet::DescriptorSet(VkDescriptorSetLayout layout,
+                                                 DescriptorSetRetriever&& getter)
+: layout(layout)
+, getter(std::forward<DescriptorSetRetriever>(getter))
+, fixedSet(nullptr) {}
 
 } // namespace render
 } // namespace bl

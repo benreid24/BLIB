@@ -44,10 +44,16 @@ void PipelineBatch::recordRenderCommands(const SceneRenderContext& context) {
         pc.transform     = context.projView * pc.transform;
         vkCmdPushConstants(context.commandBuffer,
                            layout,
-                           VK_SHADER_STAGE_ALL_GRAPHICS,
+                           VK_SHADER_STAGE_VERTEX_BIT,
                            0,
-                           sizeof(PushConstants),
-                           &pc);
+                           sizeof(pc.transform),
+                           &pc.transform);
+        vkCmdPushConstants(context.commandBuffer,
+                           layout,
+                           VK_SHADER_STAGE_FRAGMENT_BIT,
+                           sizeof(pc.transform),
+                           sizeof(pc.index),
+                           &pc.index);
         vkCmdDrawIndexed(context.commandBuffer,
                          object.drawParams.indexCount,
                          1,

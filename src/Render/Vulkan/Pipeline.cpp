@@ -6,10 +6,49 @@ namespace bl
 {
 namespace render
 {
+namespace
+{
+struct DescriptorSetGetter {
+    VkDescriptorSet operator()(std::monostate) const { return nullptr; }
+
+    VkDescriptorSet operator()(const PipelineParameters::DescriptorSetRetriever& getter) const {
+        return getter();
+    }
+
+    VkDescriptorSet operator()(VkDescriptorSet set) const { return set; }
+};
+} // namespace
+
 Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
 : renderer(renderer)
-, descriptorGetters(std::move(params.descriptorSetRetrievers))
-, descriptorSets(params.descriptorSets.size(), nullptr) {
+, descriptorSets(params.descriptorSets.size())
+, setBindCount(0)
+, preserveOrder(params.preserveOrder) {
+    // Configure descriptor sets
+    std::vector<VkDescriptorSetLayout> descriptorLayouts;
+    descriptorLayouts.reserve(descriptorSets.size());
+    for (unsigned int i = 0; i < descriptorSets.size(); ++i) {
+        if (params.descriptorSets[i].fixedSet) {
+#ifdef BLIB_DEBUG
+            if (setBindCount != 0) {
+                throw std::runtime_error("User bound descriptor sets must be last in sequence");
+            }
+#endif
+            descriptorSets[i].emplace<VkDescriptorSet>(params.descriptorSets[i].fixedSet);
+        }
+        else if (params.descriptorSets[i].getter) {
+#ifdef BLIB_DEBUG
+            if (setBindCount != 0) {
+                throw std::runtime_error("User bound descriptor sets must be last in sequence");
+            }
+#endif
+            descriptorSets[i].emplace<PipelineParameters::DescriptorSetRetriever>(
+                std::move(params.descriptorSets[i].getter));
+        }
+        else { setBindCount = i; }
+        descriptorLayouts.emplace_back(params.descriptorSets[i].layout);
+    }
+
     // Load shaders
     std::vector<VkPipelineShaderStageCreateInfo> shaderStages;
     shaderStages.reserve(params.shaders.size());
@@ -53,10 +92,10 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
     // create pipeline layout
     VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
     pipelineLayoutInfo.sType                  = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-    pipelineLayoutInfo.setLayoutCount         = params.descriptorSets.size(); // Optional
-    pipelineLayoutInfo.pSetLayouts            = params.descriptorSets.data(); // Optional
-    pipelineLayoutInfo.pushConstantRangeCount = params.pushConstants.size();  // Optional
-    pipelineLayoutInfo.pPushConstantRanges    = params.pushConstants.data();  // Optional
+    pipelineLayoutInfo.setLayoutCount         = descriptorLayouts.size();
+    pipelineLayoutInfo.pSetLayouts            = descriptorLayouts.data();
+    pipelineLayoutInfo.pushConstantRangeCount = params.pushConstants.size();
+    pipelineLayoutInfo.pPushConstantRanges    = params.pushConstants.data();
     if (vkCreatePipelineLayout(
             renderer.vulkanState().device, &pipelineLayoutInfo, nullptr, &layout) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create pipeline layout");
@@ -98,18 +137,19 @@ Pipeline::~Pipeline() {
 }
 
 void Pipeline::bindPipelineAndDescriptors(VkCommandBuffer commandBuffer) {
-    for (unsigned int i = 0; i < descriptorGetters.size(); ++i) {
-        if (descriptorGetters[i]) { descriptorSets[i] = descriptorGetters[i](); }
+    VkDescriptorSet setsToBind[4]{};
+    for (unsigned int i = 0; i < setBindCount; ++i) {
+        setsToBind[i] = std::visit(DescriptorSetGetter{}, descriptorSets[i]);
     }
 
     vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
-    if (!descriptorSets.empty()) {
+    if (setBindCount > 0) {
         vkCmdBindDescriptorSets(commandBuffer,
                                 VK_PIPELINE_BIND_POINT_GRAPHICS,
                                 layout,
                                 0,
-                                descriptorSets.size(),
-                                descriptorSets.data(),
+                                setBindCount,
+                                setsToBind,
                                 0,
                                 nullptr);
     }

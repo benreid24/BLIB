@@ -130,6 +130,17 @@ public:
     PipelineParameters& addDescriptorSet(VkDescriptorSetLayout layout);
 
     /**
+     * @brief Adds a fixed descriptor set to this pipeline. Primarily meant to be used with
+     *        TexturePool and similar use-cases
+     *
+     * @param layout The layout of the descriptor set
+     * @param descriptorSet The descriptor set to use
+     * @return A reference to this object
+     */
+    PipelineParameters& addDescriptorSet(VkDescriptorSetLayout layout,
+                                         VkDescriptorSet descriptorSet);
+
+    /**
      * @brief Adds a push constant range config to this pipeline. All pipelines are configured to
      *        accept PushConstants at the beginning of the range. This may be called to allow custom
      *        push constants to be used in addition to the defaults.
@@ -208,6 +219,16 @@ private:
         , entrypoint(e) {}
     };
 
+    struct DescriptorSet {
+        VkDescriptorSetLayout layout;
+        DescriptorSetRetriever getter;
+        VkDescriptorSet fixedSet;
+
+        DescriptorSet(VkDescriptorSetLayout layout);
+        DescriptorSet(VkDescriptorSetLayout layout, DescriptorSetRetriever&& getter);
+        DescriptorSet(VkDescriptorSetLayout layout, VkDescriptorSet set);
+    };
+
     std::vector<ShaderInfo> shaders;
     std::vector<VkDynamicState> dynamicStates;
     VkVertexInputBindingDescription vertexBinding;
@@ -215,12 +236,11 @@ private:
     VkPrimitiveTopology primitiveType;
     VkPipelineRasterizationStateCreateInfo rasterizer;
     VkPipelineMultisampleStateCreateInfo msaa;
-    std::vector<VkDescriptorSetLayout> descriptorSets;
-    std::vector<DescriptorSetRetriever> descriptorSetRetrievers;
     std::vector<VkPushConstantRange> pushConstants;
     std::vector<VkPipelineColorBlendAttachmentState> colorAttachmentBlendStates;
     VkPipelineColorBlendStateCreateInfo colorBlending;
     VkPipelineDepthStencilStateCreateInfo* depthStencil;
+    std::vector<DescriptorSet> descriptorSets;
     std::uint32_t renderPassId;
     std::uint32_t subpass;
     bool preserveOrder;
