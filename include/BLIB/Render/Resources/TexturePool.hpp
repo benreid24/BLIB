@@ -32,11 +32,11 @@ public:
     void bindDescriptors(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout,
                          std::uint32_t setIndex = 0);
 
-    TextureRef createTexture(glm::u32vec2 size);
+    TextureRef createTexture(glm::u32vec2 size, VkSampler sampler = nullptr);
 
-    TextureRef createTexture(const sf::Image& image);
+    TextureRef createTexture(const sf::Image& image, VkSampler sampler = nullptr);
 
-    TextureRef getOrLoadTexture(const std::string& filePath);
+    TextureRef getOrLoadTexture(const std::string& filePath, VkSampler sampler = nullptr);
 
     void releaseUnused();
 
@@ -61,7 +61,7 @@ private:
     void cleanup();
 
     TextureRef allocateTexture();
-    void finalizeNewTexture(std::uint32_t i);
+    void finalizeNewTexture(std::uint32_t i, VkSampler sampler);
 
     void writeAllDescriptors();
     void writeDescriptor(std::uint32_t index);

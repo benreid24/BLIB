@@ -42,6 +42,7 @@ void Texture::createFromContentsAndQueue(VulkanState& vs) {
                              VK_FORMAT_R8G8B8A8_UNORM,
                              VK_IMAGE_LAYOUT_UNDEFINED,
                              VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+    vs.transferEngine.queueTransfer(*this);
 }
 
 void Texture::executeTransfer(VkCommandBuffer cb, TransferEngine& engine) {

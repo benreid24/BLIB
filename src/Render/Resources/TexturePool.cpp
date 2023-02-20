@@ -7,6 +7,7 @@ namespace render
 TexturePool::TexturePool(VulkanState& vs)
 : vulkanState(vs)
 , textures(MaxTextureCount)
+, refCounts(MaxTextureCount)
 , freeSlots(MaxTextureCount)
 , reverseFileMap(MaxTextureCount) {
     toRelease.reserve(64);
@@ -179,29 +180,36 @@ TextureRef TexturePool::allocateTexture() {
     return TextureRef{*this, textures[i]};
 }
 
-void TexturePool::finalizeNewTexture(std::uint32_t i) {
+void TexturePool::finalizeNewTexture(std::uint32_t i, VkSampler sampler) {
+    textures[i].sampler = sampler;
     textures[i].createFromContentsAndQueue(vulkanState);
     writeDescriptor(i);
 }
 
-TextureRef TexturePool::createTexture(glm::u32vec2 size) {
+TextureRef TexturePool::createTexture(glm::u32vec2 size, VkSampler sampler) {
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+
     std::unique_lock lock(mutex);
 
     // TODO - create empty texture of size
     return allocateTexture();
 }
 
-TextureRef TexturePool::createTexture(const sf::Image& src) {
+TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+
     std::unique_lock lock(mutex);
 
     TextureRef txtr        = allocateTexture();
     txtr.texture->contents = src;
-    finalizeNewTexture(txtr.id());
+    finalizeNewTexture(txtr.id(), sampler);
 
     return txtr;
 }
 
-TextureRef TexturePool::getOrLoadTexture(const std::string& path) {
+TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler sampler) {
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+
     std::unique_lock lock(mutex);
 
     auto it = fileMap.find(path);
@@ -213,7 +221,7 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path) {
     }
     it                        = fileMap.try_emplace(path, txtr.id()).first;
     reverseFileMap[txtr.id()] = &it->first;
-    finalizeNewTexture(txtr.id());
+    finalizeNewTexture(txtr.id(), sampler);
 
     return txtr;
 }

@@ -13,7 +13,7 @@ namespace r3d
 {
 class Mesh : public Renderable {
 public:
-    Mesh();
+    Mesh(std::uint32_t pipelineId = Config::PipelineIds::OpaqueMeshes, bool transparent = false);
 
     constexpr IndexBuffer& buffer();
 

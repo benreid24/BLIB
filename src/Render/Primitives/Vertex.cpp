@@ -6,6 +6,11 @@ namespace bl
 {
 namespace render
 {
+Vertex::Vertex()
+: pos()
+, color(1.f, 1.f, 1.f, 1.f)
+, texCoord() {}
+
 Vertex::Vertex(const glm::vec3& pos)
 : pos(pos)
 , color(1.f, 1.f, 1.f, 1.f)

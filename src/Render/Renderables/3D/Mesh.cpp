@@ -6,8 +6,10 @@ namespace render
 {
 namespace r3d
 {
-Mesh::Mesh() {
-    addOrSetStagePipeline(Config::SceneObjectStage::PrimaryOpaque, Config::PipelineIds::OpaqueMeshes);
+Mesh::Mesh(std::uint32_t pid, bool transparent) {
+    addOrSetStagePipeline(transparent ? Config::SceneObjectStage::PrimaryTransparent :
+                                        Config::SceneObjectStage::PrimaryOpaque,
+                          pid);
 }
 
 void Mesh::attachBuffer() { setDrawParameters(indices.getDrawParameters()); }

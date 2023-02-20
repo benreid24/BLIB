@@ -22,9 +22,9 @@ struct Vertex {
     glm::vec2 texCoord;
 
     /**
-     * @brief Creates a zero-initialized vertex
+     * @brief Creates a white vertex
      */
-    Vertex() = default;
+    Vertex();
 
     /**
      * @brief Create a vertex from just a position

@@ -9,7 +9,8 @@
 
 class DemoState : public bl::engine::State {
 public:
-    DemoState() {}
+    DemoState()
+    : mesh(bl::render::Config::PipelineIds::OpaqueSkinnedMeshes) {}
 
     virtual ~DemoState() = default;
 
@@ -19,16 +20,19 @@ public:
         time = 0.f;
 
         if (mesh.buffer().indices().size() == 0) {
+            texture = engine.renderer().texturePool().getOrLoadTexture("textures/texture.png");
+
+            mesh.setTextureId(texture.id());
             mesh.buffer().create(engine.renderer().vulkanState(), 7, 9);
             mesh.buffer().vertices().assign<std::initializer_list<float>>(
-                {{-0.5f, -0.5f, 0.f, 1.0f, 0.0f, 0.0f, 1.f},
-                 {0.5f, -0.5f, 0.f, 0.0f, 1.0f, 0.0f, 1.f},
-                 {0.5f, 0.5f, 0.f, 0.0f, 0.0f, 1.0f, 1.f},
-                 {-0.5f, 0.5f, 0.f, 1.0f, 1.0f, 1.0f, 1.f},
+                {{-0.5f, -0.5f, 1.f, 0.0f, 1.f},
+                 {0.5f, -0.5f, 1.f, 1.0f, 1.f},
+                 {0.5f, 0.5f, 1.f, 1.0f, 0.f},
+                 {-0.5f, 0.5f, 1.f, 0.0f, 0.f},
 
-                 {1.f, 0.f, 0.5f, 1.0f, 0.0f, 0.0f, 1.f},
-                 {1.f, 0.1f, -0.5f, 0.0f, 1.0f, 0.0f, 1.f},
-                 {0.75f, 0.7f, 0.5f, 0.0f, 0.0f, 1.0f, 1.f}});
+                 {1.f, 0.f, 0.5f, 0.0f, 0.f},
+                 {1.f, 0.1f, -0.5f, 0.0f, 1.f},
+                 {0.75f, 0.7f, 0.5f, 1.0f, 1.f}});
             mesh.buffer().indices().assign({0, 1, 2, 2, 3, 0, 4, 5, 6});
             mesh.buffer().sendToGPU();
             mesh.attachBuffer();
@@ -69,6 +73,7 @@ public:
     }
 
 private:
+    bl::render::TextureRef texture;
     bl::render::r3d::Mesh mesh;
     bl::render::r3d::Camera3D* player2Cam;
     float time;

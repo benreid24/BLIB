@@ -7,8 +7,12 @@ namespace bl
 {
 namespace render
 {
+TextureRef::TextureRef()
+: owner(nullptr)
+, texture(nullptr) {}
+
 TextureRef::TextureRef(TexturePool& owner, Texture& texture)
-: owner(owner)
+: owner(&owner)
 , texture(&texture) {
     addRef();
 }
@@ -25,29 +29,21 @@ TextureRef::TextureRef(TextureRef&& m)
     m.texture = nullptr;
 }
 
-TextureRef::~TextureRef() {
-    if (texture) { release(); }
-}
+TextureRef::~TextureRef() { release(); }
 
 TextureRef& TextureRef::operator=(const TextureRef& copy) {
-#ifdef BLIB_DEBUG
-    if (&owner != &copy.owner) {
-        throw std::runtime_error("Cannot copy TextureRef between TexturePools");
-    }
-#endif
+    release();
 
+    owner   = copy.owner;
     texture = copy.texture;
     addRef();
     return *this;
 }
 
 TextureRef& TextureRef::operator=(TextureRef&& copy) {
-#ifdef BLIB_DEBUG
-    if (&owner != &copy.owner) {
-        throw std::runtime_error("Cannot copy TextureRef between TexturePools");
-    }
-#endif
+    release();
 
+    owner        = copy.owner;
     texture      = copy.texture;
     copy.texture = nullptr;
     return *this;
@@ -55,17 +51,21 @@ TextureRef& TextureRef::operator=(TextureRef&& copy) {
 
 void TextureRef::addRef() {
     const std::size_t i = id();
-    ++owner.refCounts[i];
+    ++owner->refCounts[i];
 }
 
 void TextureRef::release() {
+    if (!texture) return;
+
     const std::size_t i = id();
-    --owner.refCounts[i];
+    --owner->refCounts[i];
     texture = nullptr;
-    if (owner.refCounts[i].load() == 0) { owner.queueForRelease(i); }
+    if (owner->refCounts[i].load() == 0) { owner->queueForRelease(i); }
 }
 
-std::uint32_t TextureRef::id() const { return texture - owner.textures.data(); }
+std::uint32_t TextureRef::id() const { return texture - owner->textures.data(); }
+
+TextureRef::operator bool() const { return texture != nullptr; }
 
 } // namespace render
 } // namespace bl

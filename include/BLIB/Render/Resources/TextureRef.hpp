@@ -19,6 +19,11 @@ struct Texture;
 class TextureRef {
 public:
     /**
+     * @brief Create an empty TextureRef
+     */
+    TextureRef();
+
+    /**
      * @brief Copies from the given reference. Increments the reference count
      *
      * @param copy The reference to copy from
@@ -56,6 +61,11 @@ public:
     TextureRef& operator=(TextureRef&& move);
 
     /**
+     * @brief Returns whether the ref points to a texture or not
+     */
+    operator bool() const;
+
+    /**
      * @brief Releases this reference to the underlying texture
      */
     void release();
@@ -76,10 +86,9 @@ public:
     constexpr const Texture* operator->() const;
 
 private:
-    TexturePool& owner;
+    TexturePool* owner;
     Texture* texture;
 
-    TextureRef() = delete;
     TextureRef(TexturePool& owner, Texture& texture);
 
     void addRef();

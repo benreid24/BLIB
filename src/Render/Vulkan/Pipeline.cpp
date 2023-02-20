@@ -27,25 +27,24 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
     // Configure descriptor sets
     std::vector<VkDescriptorSetLayout> descriptorLayouts;
     descriptorLayouts.reserve(descriptorSets.size());
-    for (unsigned int i = 0; i < descriptorSets.size(); ++i) {
+    bool hitUserSet = false;
+    for (unsigned int i = 0; i < params.descriptorSets.size(); ++i) {
         if (params.descriptorSets[i].fixedSet) {
-#ifdef BLIB_DEBUG
-            if (setBindCount != 0) {
+            setBindCount = i + 1;
+            if (hitUserSet) {
                 throw std::runtime_error("User bound descriptor sets must be last in sequence");
             }
-#endif
             descriptorSets[i].emplace<VkDescriptorSet>(params.descriptorSets[i].fixedSet);
         }
         else if (params.descriptorSets[i].getter) {
-#ifdef BLIB_DEBUG
-            if (setBindCount != 0) {
+            setBindCount = i + 1;
+            if (hitUserSet) {
                 throw std::runtime_error("User bound descriptor sets must be last in sequence");
             }
-#endif
             descriptorSets[i].emplace<PipelineParameters::DescriptorSetRetriever>(
                 std::move(params.descriptorSets[i].getter));
         }
-        else { setBindCount = i; }
+        else { hitUserSet = true; }
         descriptorLayouts.emplace_back(params.descriptorSets[i].layout);
     }
 
@@ -137,7 +136,7 @@ Pipeline::~Pipeline() {
 }
 
 void Pipeline::bindPipelineAndDescriptors(VkCommandBuffer commandBuffer) {
-    VkDescriptorSet setsToBind[4]{};
+    VkDescriptorSet setsToBind[4];
     for (unsigned int i = 0; i < setBindCount; ++i) {
         setsToBind[i] = std::visit(DescriptorSetGetter{}, descriptorSets[i]);
     }
