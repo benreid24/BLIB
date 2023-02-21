@@ -135,8 +135,8 @@ TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
 
     std::unique_lock lock(mutex);
 
-    TextureRef txtr        = allocateTexture();
-    txtr.texture->contents = src;
+    TextureRef txtr      = allocateTexture();
+    txtr.texture->altImg = &src;
     finalizeNewTexture(txtr.id(), sampler);
 
     return txtr;
@@ -151,9 +151,7 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler samp
     if (it != fileMap.end()) { return TextureRef{*this, textures.getTexture(it->second)}; }
 
     TextureRef txtr = allocateTexture();
-    if (!txtr.texture->contents.loadFromFile(path)) {
-        txtr.texture->externalContents = &textures.getErrorPattern();
-    }
+    textures.prepareTextureUpdate(txtr.id(), path);
     it                        = fileMap.try_emplace(path, txtr.id()).first;
     reverseFileMap[txtr.id()] = &it->first;
     finalizeNewTexture(txtr.id(), sampler);

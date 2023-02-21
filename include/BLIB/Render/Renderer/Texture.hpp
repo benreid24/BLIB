@@ -2,6 +2,7 @@
 #define BLIB_RENDER_RENDERER_TEXTURE_HPP
 
 #include <BLIB/Render/Vulkan/Transferable.hpp>
+#include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <glad/vulkan.h>
 #include <glm/glm.hpp>
@@ -41,8 +42,8 @@ struct Texture : public Transferable {
     glm::vec2 sizeF;
 
 private:
-    sf::Image contents;          // only filled until transfer
-    sf::Image* externalContents; // used if not nullptr. Not cleared
+    const sf::Image* altImg;
+    resource::Ref<sf::Image> transferImg;
 
     void createFromContentsAndQueue(VulkanState& vs);
     virtual void executeTransfer(VkCommandBuffer commandBuffer,

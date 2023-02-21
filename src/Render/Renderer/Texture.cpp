@@ -17,7 +17,7 @@ Texture::Texture()
 , sizeF(0.f, 0.f) {}
 
 void Texture::createFromContentsAndQueue(VulkanState& vs) {
-    sf::Image& src = externalContents ? *externalContents : contents;
+    const sf::Image& src = altImg ? *altImg : *transferImg;
 
     size.x  = src.getSize().x;
     size.y  = src.getSize().y;
@@ -46,7 +46,7 @@ void Texture::createFromContentsAndQueue(VulkanState& vs) {
 }
 
 void Texture::executeTransfer(VkCommandBuffer cb, TransferEngine& engine) {
-    sf::Image& src = externalContents ? *externalContents : contents;
+    const sf::Image& src = altImg ? *altImg : *transferImg;
 
     // create staging buffer
     VkBuffer stagingBuffer;
@@ -91,8 +91,8 @@ void Texture::executeTransfer(VkCommandBuffer cb, TransferEngine& engine) {
     engine.registerImageBarrier(barrier);
 
     // cleanup
-    if (!externalContents) { contents.create(0, 0, nullptr); }
-    else { externalContents = nullptr; }
+    if (!altImg) { transferImg.release(); }
+    else { altImg = nullptr; }
 }
 
 void Texture::cleanup(VulkanState& vs) {

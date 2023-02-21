@@ -21,22 +21,60 @@ namespace bl
 {
 namespace render
 {
+/**
+ * @brief Resource manager for textures on the GPU. Utilizes BindlessTextureArray to provide a large
+ *        array, in a single descriptor set, of Sampler2D instances for each texture
+ *
+ * @ingroup Renderer
+ */
 class TexturePool {
 public:
     static constexpr std::uint32_t MaxTextureCount       = 4096;
     static constexpr std::uint32_t TextureArrayBindIndex = 0;
 
+    /**
+     * @brief Returns the layout of the descriptor set containing the textures
+     */
     constexpr VkDescriptorSetLayout getDescriptorLayout() const;
 
+    /**
+     * @brief Returns the descriptor set containing the textures
+     */
     constexpr VkDescriptorSet getDescriptorSet() const;
 
+    /**
+     * @brief Helper method to bind the descriptor set
+     *
+     * @param commandBuffer Command buffer to issue bind command into
+     * @param pipelineLayout The layout of the active pipeline
+     * @param setIndex The index to bind to
+     */
     void bindDescriptors(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout,
                          std::uint32_t setIndex = 0);
 
+    /**
+     * @brief Creates a new texture from the given contents and sampler
+     *
+     * @param image The contents to fill the texture with
+     * @param sampler The sampler the texture should use
+     * @return A reference to the new texture
+     */
     TextureRef createTexture(const sf::Image& image, VkSampler sampler = nullptr);
 
+    /**
+     * @brief Potentially creates a new texture and returns it. The texture contents are loaded from
+     *        the given resource id. If a texture for the given resource id already exists then it
+     *        is returned immediately.
+     *
+     * @param filePath The resource id to load the contents from
+     * @param sampler The sampler to use
+     * @return A ref to the new or existing texture
+     */
     TextureRef getOrLoadTexture(const std::string& filePath, VkSampler sampler = nullptr);
 
+    /**
+     * @brief Frees all textures that no longer have any valid refs pointing to them
+     */
     void releaseUnused();
 
 private:

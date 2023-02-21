@@ -154,7 +154,7 @@ Ref<T>::Ref(Resource<T>* r)
 template<typename T>
 Ref<T>::Ref(const Ref& copy)
 : resource(copy.resource) {
-    ++resource->refCount;
+    if (resource) { ++resource->refCount; }
 }
 
 template<typename T>
@@ -172,7 +172,7 @@ template<typename T>
 Ref<T>& Ref<T>::operator=(const Ref& copy) {
     release();
     resource = copy.resource;
-    ++resource->refCount;
+    if (resource) { ++resource->refCount; }
     return *this;
 }
 

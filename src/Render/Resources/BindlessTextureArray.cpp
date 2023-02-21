@@ -14,7 +14,7 @@ void BindlessTextureArray::init(VkDescriptorSet descriptorSet) {
     if (errorPattern.getSize().x == 0) { errorPattern.create(32, 32, sf::Color(245, 66, 242)); }
 
     // init error pattern texture
-    errorTexture.externalContents = &errorPattern;
+    errorTexture.altImg = &errorPattern;
     errorTexture.createFromContentsAndQueue(vulkanState);
     errorTexture.sampler = vulkanState.samplerCache.filteredRepeated();
     vulkanState.transferEngine.executeTransfers();
@@ -56,6 +56,12 @@ VkDescriptorSetLayoutBinding BindlessTextureArray::getLayoutBinding() const {
     binding.descriptorType     = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     binding.pImmutableSamplers = 0;
     return binding;
+}
+
+void BindlessTextureArray::prepareTextureUpdate(std::uint32_t i, const std::string& path) {
+    auto img = resource::ResourceManager<sf::Image>::load(path);
+    if (img->getSize().x > 0) { textures[i].transferImg = img; }
+    else { textures[i].altImg = &errorPattern; }
 }
 
 } // namespace render
