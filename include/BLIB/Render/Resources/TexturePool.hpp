@@ -2,6 +2,7 @@
 #define BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 
 #include <BLIB/Render/Renderer/Texture.hpp>
+#include <BLIB/Render/Resources/BindlessTextureArray.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
@@ -32,8 +33,6 @@ public:
     void bindDescriptors(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout,
                          std::uint32_t setIndex = 0);
 
-    TextureRef createTexture(glm::u32vec2 size, VkSampler sampler = nullptr);
-
     TextureRef createTexture(const sf::Image& image, VkSampler sampler = nullptr);
 
     TextureRef getOrLoadTexture(const std::string& filePath, VkSampler sampler = nullptr);
@@ -43,9 +42,7 @@ public:
 private:
     std::mutex mutex;
     VulkanState& vulkanState;
-    sf::Image errorPattern;
-    Texture errorTexture;
-    std::vector<Texture> textures;
+    BindlessTextureArray textures;
     std::vector<std::atomic<std::uint32_t>> refCounts;
     util::IdAllocator<std::uint32_t> freeSlots;
     std::unordered_map<std::string, std::uint32_t> fileMap;
@@ -63,8 +60,6 @@ private:
     TextureRef allocateTexture();
     void finalizeNewTexture(std::uint32_t i, VkSampler sampler);
 
-    void writeAllDescriptors();
-    void writeDescriptor(std::uint32_t index);
     void queueForRelease(std::uint32_t i);
     void releaseUnusedLocked();
 

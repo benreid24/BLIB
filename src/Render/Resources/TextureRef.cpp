@@ -63,7 +63,7 @@ void TextureRef::release() {
     if (owner->refCounts[i].load() == 0) { owner->queueForRelease(i); }
 }
 
-std::uint32_t TextureRef::id() const { return texture - owner->textures.data(); }
+std::uint32_t TextureRef::id() const { return texture - &(owner->textures.getTexture(0)); }
 
 TextureRef::operator bool() const { return texture != nullptr; }
 

@@ -50,6 +50,7 @@ private:
     void cleanup(VulkanState& vs);
 
     friend class TexturePool;
+    friend class BindlessTextureArray;
 };
 
 } // namespace render
