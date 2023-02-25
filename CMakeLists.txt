@@ -13,6 +13,9 @@ project(BLIB C CXX)
 option(BUILD_TESTS "On to build unit tests" On)
 option(BUILD_EXAMPLES "On to build examples" On)
 option(ON_CI "True when on CI, false when local" Off)
+option(COMPILE_SHADERS "True to build built-in shaders, off to skip" On)
+set(RUN_PATH ${PROJECT_SOURCE_DIR} CACHE PATH "Working directory of the final built executables")
+set(SHADER_PATH "Resources/Shaders" CACHE PATH "Path where compiled shaders should go")
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
@@ -26,7 +29,7 @@ set(CMAKE_INSTALL_PREFIX .)
 
 add_library(BLIB STATIC)
 
-set(BLIB_CMAKE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(blib_helpers)
 configure_target(BLIB)

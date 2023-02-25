@@ -9,6 +9,10 @@
 #include <string>
 #include <unordered_set>
 
+#define STRINGIFY_HELPER(X) #X
+#define STRINGIFY(x) STRINGIFY_HELPER(x)
+#define BUILTIN_SHADER(path) STRINGIFY(SHADER_PATH) "/" path
+
 namespace bl
 {
 namespace render
@@ -603,19 +607,15 @@ VkShaderModule VulkanState::createShaderModule(const std::string& path) {
     if (path[0] <= Config::ShaderIds::MaxId) {
         switch (path[0]) {
         case Config::ShaderIds::TestVertexShader[0]:
-            // TODO - properly include shaders in binary
-            return createShaderModule("shaders/testVert.spv");
+            return createShaderModule(BUILTIN_SHADER("test.vert.spv"));
         case Config::ShaderIds::TestFragmentShader[0]:
-            // TODO - properly include shaders in binary
-            return createShaderModule("shaders/testFrag.spv");
+            return createShaderModule(BUILTIN_SHADER("test.frag.spv"));
         case Config::ShaderIds::TestSkinnedFragmentShader[0]:
-            // TODO - properly include shaders in binary
-            return createShaderModule("shaders/testSkinnedFrag.spv");
+            return createShaderModule(BUILTIN_SHADER("testSkinned.frag.spv"));
         case Config::ShaderIds::EmptyVertex[0]:
-            // TODO - properly include shaders in binary
-            return createShaderModule("shaders/emptyVert.spv");
+            return createShaderModule(BUILTIN_SHADER("empty.vert.spv"));
         case Config::ShaderIds::ImageOverlayFragment[0]:
-            return createShaderModule("shaders/imageOverlayFrag.spv");
+            return createShaderModule(BUILTIN_SHADER("imageOverlay.frag.spv"));
         default:
             BL_LOG_ERROR << "Invalid built-in shader id: " << static_cast<int>(path[0]);
             throw std::runtime_error("Invalid built-in shader id");
@@ -630,10 +630,8 @@ VkShaderModule VulkanState::createShaderModule(const std::string& path) {
 
     const std::uint32_t* u32data = reinterpret_cast<const std::uint32_t*>(data);
     if (u32data[0] != SPIRVMagicNumber && u32data[0] != SPIRVMagicNumberReversed) {
-        // TODO - support shader compilation
-        BL_LOG_ERROR << "Shader '" << path
-                     << "' is not compiled. Shader compilation is not yet supported";
-        throw std::runtime_error("Shader compilation is not yet supported");
+        BL_LOG_ERROR << "Shader '" << path << "' is not compiled";
+        throw std::runtime_error("Shader compilation is not supported");
     }
 
     VkShaderModuleCreateInfo createInfo{};

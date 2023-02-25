@@ -20,7 +20,8 @@ public:
         time = 0.f;
 
         if (mesh.buffer().indices().size() == 0) {
-            texture = engine.renderer().texturePool().getOrLoadTexture("textures/texture.png");
+            texture =
+                engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/texture.png");
 
             mesh.setTextureId(texture.id());
             mesh.buffer().create(engine.renderer().vulkanState(), 7, 9);

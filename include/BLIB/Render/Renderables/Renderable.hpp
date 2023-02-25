@@ -2,8 +2,8 @@
 #define BLIB_RENDER_RENDERABLES_RENDERABLE_HPP
 
 #include <BLIB/Render/Config.hpp>
-#include <BLIB/Render/Renderer/StagePipelines.hpp>
 #include <BLIB/Render/Renderer/SceneObject.hpp>
+#include <BLIB/Render/Renderer/StagePipelines.hpp>
 #include <BLIB/Render/Uniforms/PushConstants.hpp>
 #include <array>
 #include <cstdint>
@@ -56,7 +56,7 @@ public:
     /**
      * @brief Show or hide this renderable
      *
-     * @param hidden True to hide, false to sho
+     * @param hidden True to hide, false to show
      */
     void setHidden(bool hidden);
 
@@ -101,7 +101,7 @@ protected:
     Renderable();
 
     /**
-     * @brief Child classes should implment this to perform custom logic when this renderable is
+     * @brief Child classes should implement this to perform custom logic when this renderable is
      *        added to a scene
      *
      */
