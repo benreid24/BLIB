@@ -1,4 +1,4 @@
-#include <BLIB/Render/Renderer/StagePipelines.hpp>
+#include <BLIB/Render/Scenes/StagePipelines.hpp>
 
 #include <BLIB/Render/Config.hpp>
 #include <stdexcept>
@@ -38,8 +38,7 @@ StagePipelines::Diff StagePipelines::nextDiff() {
 
 void StagePipelines::applyDiff(const Diff& d) { pipelines[d.renderStageId] = d.pipelineId; }
 
-void StagePipelines::addOrSetStagePipeline(std::uint32_t renderStageId,
-                                             std::uint32_t pipelineId) {
+void StagePipelines::addOrSetStagePipeline(std::uint32_t renderStageId, std::uint32_t pipelineId) {
     if (pipelines[renderStageId] != pipelineId) { next[renderStageId] = pipelineId; }
 }
 

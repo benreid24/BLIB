@@ -1,12 +1,12 @@
 #ifndef BLIB_RENDER_RENDERER_OBJECTBATCH_HPP
 #define BLIB_RENDER_RENDERER_OBJECTBATCH_HPP
 
-#include <BLIB/Render/Renderer/PipelineBatch.hpp>
+#include <BLIB/Render/Scenes/PipelineBatch.hpp>
+#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <BLIB/Render/Util/PerSwapFrame.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/RenderPass.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
-#include <BLIB/Render/Renderer/SceneRenderContext.hpp>
 #include <vector>
 
 namespace bl
@@ -21,14 +21,14 @@ class Renderer;
  *
  * @ingroup Renderer
  */
-class ObjectBatch {
+class StageBatch {
 public:
     /**
-     * @brief Construct a new ObjectBatch
+     * @brief Construct a new StageBatch
      *
      * @param renderer The renderer the pass belongs to
      */
-    ObjectBatch(Renderer& renderer);
+    StageBatch(Renderer& renderer);
 
     /**
      * @brief Creates a new object to be rendered in the pass

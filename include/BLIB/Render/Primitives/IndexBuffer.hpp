@@ -3,7 +3,7 @@
 
 #include <BLIB/Render/Primitives/Buffer.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
-#include <BLIB/Render/Renderer/DrawParameters.hpp>
+#include <BLIB/Render/Scenes/DrawParameters.hpp>
 
 namespace bl
 {

@@ -2,7 +2,7 @@
 #define BLIB_RENDER_RESOURCES_SCENEPOOL_HPP
 
 #include <BLIB/Containers/ObjectWrapper.hpp>
-#include <BLIB/Render/Renderer/Scene.hpp>
+#include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <array>
 #include <cstdint>

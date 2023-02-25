@@ -1,4 +1,4 @@
-#include <BLIB/Render/Renderer/ObjectBatch.hpp>
+#include <BLIB/Render/Scenes/StageBatch.hpp>
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -8,12 +8,12 @@ namespace bl
 {
 namespace render
 {
-ObjectBatch::ObjectBatch(Renderer& renderer)
+StageBatch::StageBatch(Renderer& renderer)
 : renderer(renderer) {
     batches.reserve(16);
 }
 
-void ObjectBatch::addObject(const SceneObject::Handle& obj, std::uint32_t pid) {
+void StageBatch::addObject(const SceneObject::Handle& obj, std::uint32_t pid) {
     for (PipelineBatch& p : batches) {
         if (p.pipelineId == pid) {
             p.addObject(obj);
@@ -24,13 +24,13 @@ void ObjectBatch::addObject(const SceneObject::Handle& obj, std::uint32_t pid) {
     batches.back().addObject(obj);
 }
 
-void ObjectBatch::changePipeline(const SceneObject::Handle& obj, std::uint32_t og,
-                                 std::uint32_t pid) {
+void StageBatch::changePipeline(const SceneObject::Handle& obj, std::uint32_t og,
+                                std::uint32_t pid) {
     removeObject(obj, og);
     addObject(obj, pid);
 }
 
-void ObjectBatch::removeObject(const SceneObject::Handle& obj, std::uint32_t pid) {
+void StageBatch::removeObject(const SceneObject::Handle& obj, std::uint32_t pid) {
     for (PipelineBatch& p : batches) {
         if (p.pipelineId == pid) {
             p.removeObject(obj);
@@ -39,7 +39,7 @@ void ObjectBatch::removeObject(const SceneObject::Handle& obj, std::uint32_t pid
     }
 }
 
-void ObjectBatch::recordRenderCommands(const SceneRenderContext& context) {
+void StageBatch::recordRenderCommands(const SceneRenderContext& context) {
     for (PipelineBatch& p : batches) { p.recordRenderCommands(context); }
 }
 

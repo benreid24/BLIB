@@ -1,5 +1,5 @@
 #include <BLIB/Render/Renderables/Renderable.hpp>
-#include <BLIB/Render/Renderer/SceneObject.hpp>
+#include <BLIB/Render/Scenes/SceneObject.hpp>
 
 namespace bl
 {
@@ -10,7 +10,7 @@ SceneObject::SceneObject(Renderable* o)
 , hidden(false)
 , drawParams{} {
     frameData.transform = glm::mat4(1.f);
-    //frameData.index     = 0; // TODO - which value for null?
+    // frameData.index     = 0; // TODO - which value for null?
 }
 
 } // namespace render

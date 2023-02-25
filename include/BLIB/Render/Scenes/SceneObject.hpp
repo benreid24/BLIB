@@ -2,8 +2,8 @@
 #define BLIB_RENDER_RENDERER_SCENEOBJECT_HPP
 
 #include <BLIB/Containers/ObjectPool.hpp>
-#include <BLIB/Render/Renderer/DrawParameters.hpp>
-#include <BLIB/Render/Renderer/ObjectFlags.hpp>
+#include <BLIB/Render/Scenes/DrawParameters.hpp>
+#include <BLIB/Render/Scenes/ObjectFlags.hpp>
 #include <BLIB/Render/Uniforms/PushConstants.hpp>
 #include <glad/vulkan.h>
 #include <glm/glm.hpp>

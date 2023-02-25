@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 #define BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 
-#include <BLIB/Render/Renderer/Texture.hpp>
+#include <BLIB/Render/Scenes/Texture.hpp>
 #include <BLIB/Render/Resources/BindlessTextureArray.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>

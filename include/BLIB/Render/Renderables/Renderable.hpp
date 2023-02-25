@@ -2,8 +2,8 @@
 #define BLIB_RENDER_RENDERABLES_RENDERABLE_HPP
 
 #include <BLIB/Render/Config.hpp>
-#include <BLIB/Render/Renderer/SceneObject.hpp>
-#include <BLIB/Render/Renderer/StagePipelines.hpp>
+#include <BLIB/Render/Scenes/SceneObject.hpp>
+#include <BLIB/Render/Scenes/StagePipelines.hpp>
 #include <BLIB/Render/Uniforms/PushConstants.hpp>
 #include <array>
 #include <cstdint>

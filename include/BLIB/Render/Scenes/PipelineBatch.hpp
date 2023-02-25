@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_RENDERER_PIPELINEBATCH_HPP
 #define BLIB_RENDER_RENDERER_PIPELINEBATCH_HPP
 
-#include <BLIB/Render/Renderer/SceneObject.hpp>
-#include <BLIB/Render/Renderer/SceneRenderContext.hpp>
+#include <BLIB/Render/Scenes/SceneObject.hpp>
+#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>

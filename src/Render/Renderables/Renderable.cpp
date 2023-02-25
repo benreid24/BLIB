@@ -1,8 +1,8 @@
 #include <BLIB/Render/Renderables/Renderable.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Renderer/Scene.hpp>
-#include <BLIB/Render/Renderer/SceneObject.hpp>
+#include <BLIB/Render/Scenes/Scene.hpp>
+#include <BLIB/Render/Scenes/SceneObject.hpp>
 
 namespace bl
 {

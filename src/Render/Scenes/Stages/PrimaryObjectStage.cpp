@@ -1,4 +1,4 @@
-#include <BLIB/Render/Renderer/Scenes/PrimaryObjectStage.hpp>
+#include <BLIB/Render/Scenes/Stages/PrimaryObjectStage.hpp>
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Renderer.hpp>

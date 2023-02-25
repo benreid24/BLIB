@@ -1,4 +1,4 @@
-#include <BLIB/Render/Renderer/SceneRenderContext.hpp>
+#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 
 namespace bl
 {

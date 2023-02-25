@@ -3,8 +3,8 @@
 
 #include <BLIB/Render/Cameras/Camera.hpp>
 #include <BLIB/Render/Overlays/Drawables/Image.hpp>
-#include <BLIB/Render/Renderer/PostFX.hpp>
-#include <BLIB/Render/Renderer/Scene.hpp>
+#include <BLIB/Render/Scenes/PostFX.hpp>
+#include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/StandardImageBuffer.hpp>
 #include <SFML/Window.hpp>

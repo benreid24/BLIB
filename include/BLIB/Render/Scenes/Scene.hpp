@@ -3,10 +3,10 @@
 
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Containers/ObjectWrapper.hpp>
-#include <BLIB/Render/Renderer/ObjectBatch.hpp>
-#include <BLIB/Render/Renderer/SceneObject.hpp>
-#include <BLIB/Render/Renderer/SceneRenderContext.hpp>
-#include <BLIB/Render/Renderer/Scenes/PrimaryObjectStage.hpp>
+#include <BLIB/Render/Scenes/SceneObject.hpp>
+#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
+#include <BLIB/Render/Scenes/StageBatch.hpp>
+#include <BLIB/Render/Scenes/Stages/PrimaryObjectStage.hpp>
 #include <array>
 #include <glad/vulkan.h>
 #include <mutex>
@@ -55,7 +55,7 @@ private:
     container::ObjectPool<SceneObject> objects;
 
     scene::PrimaryObjectStage primaryObjectStage; // TODO - generalize stages
-    std::array<ObjectBatch*, Config::SceneObjectStage::Count> stageBatches;
+    std::array<StageBatch*, Config::SceneObjectStage::Count> stageBatches;
 
     std::mutex eraseMutex;
     std::vector<SceneObject::Handle> toRemove;

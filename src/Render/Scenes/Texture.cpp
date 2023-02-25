@@ -1,4 +1,4 @@
-#include <BLIB/Render/Renderer/Texture.hpp>
+#include <BLIB/Render/Scenes/Texture.hpp>
 
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 
