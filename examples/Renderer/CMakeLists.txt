@@ -1,7 +1,7 @@
 add_executable(renderer main.cpp)
 
-include(blib_helpers)
-configure_target(renderer)
+include(configure_blib_target)
+configure_blib_target(renderer)
 
 target_link_libraries(renderer
     BLIB

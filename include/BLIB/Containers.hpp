@@ -6,7 +6,6 @@
  * @brief Different containers meant to add to what's available in the standard library
  */
 
-#include <BLIB/Containers/Any.hpp>
 #include <BLIB/Containers/Cache.hpp>
 #include <BLIB/Containers/FastQueue.hpp>
 #include <BLIB/Containers/Grid.hpp>

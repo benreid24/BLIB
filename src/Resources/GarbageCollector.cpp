@@ -16,10 +16,10 @@ std::atomic_bool stopped = false;
 } // namespace
 
 GarbageCollector::GarbageCollector()
-: thread(&GarbageCollector::runner, this)
-, quitFlag(false)
+: quitFlag(false)
 , bundleRuntime(nullptr) {
     started = true;
+    thread  = std::move(std::thread(&GarbageCollector::runner, this));
     BL_LOG_INFO << "GarbageCollector online";
 }
 

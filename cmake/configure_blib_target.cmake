@@ -1,4 +1,5 @@
-function(configure_target target_name)
+function(configure_blib_target target_name)
+    # Platform detection
     if (APPLE)
         target_compile_definitions(${target_name} PUBLIC BLIB_APPLE=1)
     elseif(WIN32)
@@ -14,6 +15,7 @@ function(configure_target target_name)
         GLM_FORCE_DEPTH_ZERO_TO_ONE
     )
 
+    # Warnings
     if (MSVC)
         # warning level 4
         target_compile_options(${target_name} PUBLIC /W4)
@@ -56,4 +58,11 @@ function(configure_target target_name)
     # Expose shader directory
     file(RELATIVE_PATH BLIB_SHADER_PATH ${PROJECT_SOURCE_DIR} "${BLIB_PATH}/src/Render/Shaders") # hopefully relative to top level
     target_compile_definitions(${target_name} PUBLIC BLIB_SHADER_PATH=${BLIB_SHADER_PATH})
+
+    # ECS ComponentMask type
+    if(${BLIB_ECS_USE_WIDE_MASK})
+        target_compile_definitions(${target_name} PUBLIC BLIB_ECS_MASK_TYPE=std::uint128_t)
+    else()
+        target_compile_definitions(${target_name} PUBLIC BLIB_ECS_MASK_TYPE=std::uint64_t)
+    endif()
 endfunction()

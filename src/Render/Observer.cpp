@@ -14,7 +14,9 @@ Observer::Observer(Renderer& r)
     viewport.maxDepth = 1.f;
 }
 
-Observer::~Observer() { cleanup(); }
+Observer::~Observer() {
+    if (renderer.vulkanState().device != nullptr) { cleanup(); }
+}
 
 void Observer::cleanup() {
     if (!resourcesFreed) {

@@ -1,4 +1,3 @@
-#include <BLIB/Containers/Any.hpp>
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <gtest/gtest.h>
 #include <unordered_set>
@@ -247,16 +246,6 @@ TEST(ObjectPool, MultipleObjects) {
     EXPECT_EQ(pool.begin()->value, 5);
     EXPECT_EQ((iterPos(pool, 1))->value, 10);
     EXPECT_EQ((iterPos(pool, 2))->value, 15);
-}
-
-TEST(ObjectPool, Any) {
-    ObjectPool<Any<32>> pool(ObjectPool<Any<32>>::GrowthPolicy::ExpandBuffer, 1);
-
-    pool.add(Data(5));
-    pool.add(Data(10));
-
-    EXPECT_EQ(pool.begin()->get<Data>().value, 5);
-    EXPECT_EQ((iterPos(pool, 1))->get<Data>().value, 10);
 }
 
 TEST(ObjectPool, Iterate) {

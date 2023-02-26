@@ -15,10 +15,10 @@ namespace ecs
  */
 struct ComponentMask {
     /// @brief The type of the bitmask itself
-    using Value = std::uint64_t;
+    using Value = BLIB_ECS_MASK_TYPE;
 
     /// @brief Maximum number of component types supported by the ECS
-    static constexpr unsigned int MaxComponentTypeCount = 64;
+    static constexpr unsigned int MaxComponentTypeCount = sizeof(Value) * 8;
 
     /// @brief A mask with no components
     static constexpr Value EmptyMask = 0;

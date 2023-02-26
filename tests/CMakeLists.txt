@@ -1,7 +1,7 @@
 add_executable(BLIB.t)
 
-include(blib_helpers)
-configure_target(BLIB.t)
+include(configure_blib_target)
+configure_blib_target(BLIB.t)
 if (MSVC)
     target_compile_options(BLIB.t PUBLIC /wd4389)
 endif()

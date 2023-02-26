@@ -30,6 +30,13 @@ namespace ecs
 class Registry : private util::NonCopyable {
 public:
     /**
+     * @brief Creates a new entity registry with space for entityCount entities
+     *
+     * @param entityCount The maximum number of entities to store
+     */
+    Registry(std::size_t entityCount);
+
+    /**
      * @brief Creates a new entity and returns its id. May fail if full
      *
      * @return Entity The new entity id, or InvalidEntity if full
@@ -61,7 +68,7 @@ public:
      * @brief Adds a new component of the given type to the given entity
      *
      * @tparam T The type of component to add
-     * @param entity Thje entity to add it to
+     * @param entity The entity to add it to
      * @param value The initial component value
      * @return T* Pointer to the new component
      */
@@ -72,7 +79,7 @@ public:
      * @brief Adds a new component of the given type to the given entity
      *
      * @tparam T The type of component to add
-     * @param entity Thje entity to add it to
+     * @param entity The entity to add it to
      * @param value The initial component value
      * @return T* Pointer to the new component
      */
@@ -84,7 +91,7 @@ public:
      *
      * @tparam T The type of component to add
      * @tparam TArgs The constructor parameter types
-     * @param entity Thje entity to add it to
+     * @param entity The entity to add it to
      * @param args The arguments to the component's constructor
      * @return T* Pointer to the new component
      */
@@ -159,11 +166,10 @@ private:
 
     // components
     std::vector<ComponentPoolBase*> componentPools;
+    std::unordered_map<std::type_index, std::unique_ptr<ComponentPoolBase>> poolMap;
 
     // views
     std::vector<std::unique_ptr<ViewBase>> views;
-
-    Registry(std::size_t entityCount);
 
     template<typename T>
     ComponentPool<T>& getPool();
@@ -276,26 +282,31 @@ View<TComponents...>* Registry::getOrCreateView() {
 
     // find existing view
     for (auto& view : views) {
-        if (view->mask == mask) return dynamic_cast<View<TComponents...>*>(view.get());
+        if (view->mask == mask) return static_cast<View<TComponents...>*>(view.get());
     }
 
     // create new view
     views.emplace_back(new View<TComponents...>(*this, maxEntities, mask));
-    return dynamic_cast<View<TComponents...>*>(views.back().get());
+    return static_cast<View<TComponents...>*>(views.back().get());
 }
 
 template<typename T>
 ComponentPool<T>& Registry::getPool() {
-    ComponentPool<T>& pool = ComponentPool<T>::get(maxEntities);
-    if (pool.ComponentIndex == componentPools.size()) {
-        if (pool.ComponentIndex >= ComponentPoolBase::MaximumComponentCount) {
-            BL_LOG_CRITICAL << "Maximum component type count reached on component: "
-                            << typeid(T).name();
+    const std::type_index tid = typeid(T);
+    auto it                   = poolMap.find(tid);
+    if (it == poolMap.end()) {
+#ifdef BLIB_DEBUG
+        if (poolMap.size() >= ComponentMask::MaxComponentTypeCount) {
+            BL_LOG_CRITICAL << "Maximum component types reached with component: " << tid.name()
+                            << ". Specify BLIB_ECS_USE_WIDE_MASK to increase max allowed.";
             std::exit(1);
         }
-        componentPools.emplace_back(&pool);
+#endif
+        it = poolMap.try_emplace(tid, new ComponentPool<T>(poolMap.size(), maxEntities)).first;
+        componentPools.emplace_back(it->second.get());
     }
-    return pool;
+
+    return *static_cast<ComponentPool<T>*>(componentPools[it->second->ComponentIndex]);
 }
 
 template<typename... TComponents>

@@ -4,13 +4,11 @@ namespace bl
 {
 namespace ecs
 {
-unsigned int ComponentPoolBase::nextComponentIndex = 0;
-
 Registry::Registry(std::size_t ec)
 : maxEntities(ec)
 , entityAllocator(ec)
 , entityMasks(ec, ComponentMask::EmptyMask) {
-    componentPools.reserve(ComponentPoolBase::MaximumComponentCount);
+    componentPools.reserve(ComponentMask::MaxComponentTypeCount);
     views.reserve(32);
 }
 

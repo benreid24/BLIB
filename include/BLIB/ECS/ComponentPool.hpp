@@ -35,7 +35,7 @@ public:
     static constexpr std::size_t MaximumComponentCount = std::numeric_limits<std::uint16_t>::max();
 
     /// @brief The 0-based index of this component pool
-    const unsigned int ComponentIndex;
+    const std::uint16_t ComponentIndex;
 
     /**
      * @brief Destroy the Component Pool Base object
@@ -43,23 +43,14 @@ public:
      */
     virtual ~ComponentPoolBase() = default;
 
-    /**
-     * @brief Returns the number of different component types that exist
-     *
-     * @return unsigned int The number of unique component types
-     */
-    static unsigned int ComponentCount();
-
 protected:
     util::ReadWriteLock poolLock;
 
-    ComponentPoolBase()
-    : ComponentIndex(nextComponentIndex++) {}
+    ComponentPoolBase(std::uint16_t index)
+    : ComponentIndex(index) {}
 
     virtual void remove(Entity entity) = 0;
     virtual void clear()               = 0;
-
-    static unsigned int nextComponentIndex;
 
     template<typename... TComponents>
     friend class View;
@@ -109,8 +100,7 @@ private:
     std::vector<Entity> indexToEntity;
     util::IdAllocator<std::uint16_t> indexAllocator;
 
-    ComponentPool(std::size_t poolSize);
-    static ComponentPool& get(std::size_t poolSize);
+    ComponentPool(std::uint16_t index, std::size_t poolSize);
 
     typename std::vector<container::ObjectWrapper<T>>::iterator addLogic(Entity entity);
     T* add(Entity entity, const T& component);
@@ -127,18 +117,12 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-ComponentPool<T>::ComponentPool(std::size_t ps)
-: ComponentPoolBase()
+ComponentPool<T>::ComponentPool(std::uint16_t index, std::size_t ps)
+: ComponentPoolBase(index)
 , pool(ps)
 , entityToIter(ps, pool.end())
 , indexToEntity(ps, InvalidEntity)
 , indexAllocator(ps) {}
-
-template<typename T>
-ComponentPool<T>& ComponentPool<T>::get(std::size_t ps) {
-    static ComponentPool<T> pool(ps);
-    return pool;
-}
 
 template<typename T>
 typename std::vector<container::ObjectWrapper<T>>::iterator ComponentPool<T>::addLogic(Entity ent) {

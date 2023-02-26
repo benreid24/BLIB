@@ -4,8 +4,8 @@ add_executable(bvulkan
     Renderer.cpp
 )
 
-include(blib_helpers)
-configure_target(bvulkan)
+include(configure_blib_target)
+configure_blib_target(bvulkan)
 
 add_subdirectory(utils)
 
