@@ -1,6 +1,7 @@
 #ifndef BLIB_ENGINE_STATE_HPP
 #define BLIB_ENGINE_STATE_HPP
 
+#include <BLIB/Engine/StateMask.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <memory>
 
@@ -21,7 +22,22 @@ class State : private util::NonCopyable {
 public:
     using Ptr = std::shared_ptr<State>;
 
+    /**
+     * @brief Creates a new engine state
+     *
+     * @param mask Mask to use when selecting which systems to run
+     */
+    State(StateMask::V mask);
+
+    /**
+     * @brief Destroys the state
+     */
     virtual ~State() = default;
+
+    /**
+     * @brief Returns the mask to use when selecting which systems to run
+     */
+    constexpr StateMask::V systemsMask() const;
 
     /**
      * @brief A human readable name of the state for logging
@@ -57,7 +73,17 @@ public:
      *                    graphical interpolation
      */
     virtual void render(Engine& engine, float residualLag) = 0;
+
+private:
+    const StateMask::V mask;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline State::State(StateMask::V m)
+: mask(m) {}
+
+inline constexpr StateMask::V State::systemsMask() const { return mask; }
 
 } // namespace engine
 } // namespace bl

@@ -10,7 +10,8 @@
 class DemoState : public bl::engine::State {
 public:
     DemoState()
-    : mesh(bl::render::Config::PipelineIds::OpaqueSkinnedMeshes) {}
+    : State(bl::engine::StateMask::All)
+    , mesh(bl::render::Config::PipelineIds::OpaqueSkinnedMeshes) {}
 
     virtual ~DemoState() = default;
 

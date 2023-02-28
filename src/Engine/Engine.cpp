@@ -12,6 +12,7 @@ namespace engine
 {
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
+, ecsSystems(*this)
 , entityRegistry(settings.maximumEntityCount())
 , renderingSystem(renderWindow)
 , input(*this) {
@@ -36,20 +37,6 @@ Engine::~Engine() {
     audio::AudioSystem::shutdown();
 #endif
 }
-
-ecs::Registry& Engine::ecs() { return entityRegistry; }
-
-script::Manager& Engine::scriptManager() { return engineScriptManager; }
-
-render::Renderer& Engine::renderer() { return renderingSystem; }
-
-input::InputSystem& Engine::inputSystem() { return input; }
-
-const Settings& Engine::settings() const { return engineSettings; }
-
-Flags& Engine::flags() { return engineFlags; }
-
-sf::WindowBase& Engine::window() { return renderWindow; }
 
 void Engine::pushState(State::Ptr next) {
     flags().set(Flags::_priv_PushState);
@@ -159,6 +146,7 @@ bool Engine::run(State::Ptr initialState) {
         lag += updateOuterTimer.getElapsedTime().asSeconds();
         updateOuterTimer.restart();
         const float startingLag = lag;
+        float totalDt           = 0.f;
         updateMeasureTimer.restart();
 
         // update until caught up
@@ -166,9 +154,14 @@ bool Engine::run(State::Ptr initialState) {
             const float updateStart = updateMeasureTimer.getElapsedTime().asSeconds();
 
             // core update game logic
-            renderingSystem.update(updateTimestep);
+            totalDt += updateTimestep;
+            renderingSystem.update(updateTimestep); // TODO - put into Systems
             input.update();
             states.top()->update(*this, updateTimestep);
+            ecsSystems.update(FrameStage::FrameStart,
+                              FrameStage::MARKER_OncePerFrame,
+                              states.top()->systemsMask(),
+                              updateTimestep);
             bl::event::Dispatcher::syncListeners();
 
             // check if we should end early
@@ -208,7 +201,13 @@ bool Engine::run(State::Ptr initialState) {
         }
 
 #ifndef ON_CI // do render
-        if (!engineFlags.stateChangeReady()) { states.top()->render(*this, lag); }
+        if (!engineFlags.stateChangeReady()) {
+            states.top()->render(*this, lag); // TODO - move into systems
+            ecsSystems.update(FrameStage::MARKER_OncePerFrame,
+                              FrameStage::COUNT,
+                              states.top()->systemsMask(),
+                              totalDt);
+        }
 #endif
 
         // Process flags

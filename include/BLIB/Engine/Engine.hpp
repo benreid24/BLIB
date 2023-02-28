@@ -9,6 +9,7 @@
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
+#include <BLIB/Engine/Systems.hpp>
 #include <BLIB/Engine/Worker.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Input.hpp>
@@ -49,6 +50,11 @@ public:
     ecs::Registry& ecs();
 
     /**
+     * @brief Returns the systems registry of the engine
+     */
+    Systems& systems();
+
+    /**
      * @brief Returns a reference to the engine's script Manager
      *
      */
@@ -62,7 +68,7 @@ public:
     render::Renderer& renderer();
 
     /**
-     * @brief Returns the user input sysem of the engine
+     * @brief Returns the user input system of the engine
      *
      * @return input::InputSystem& The user input system
      */
@@ -116,7 +122,7 @@ public:
     /**
      * @brief Sets the next state for the following engine update loop. May be called at any
      *        time, the next state will not be transitioned to until the start of main loop. If
-     *        the Popstate flag is set, that will be evaluated before the new state is pushed
+     *        the PopState flag is set, that will be evaluated before the new state is pushed
      *
      * @param next Next state to enter on the following main loop run
      */
@@ -146,7 +152,7 @@ private:
     State::Ptr newState;
 
     sf::WindowBase renderWindow;
-    sf::Context renderContext;
+    Systems ecsSystems;
     script::Manager engineScriptManager;
     ecs::Registry entityRegistry;
     render::Renderer renderingSystem;
@@ -155,6 +161,24 @@ private:
     bool awaitFocus();
     void handleResize(const sf::Event::SizeEvent& resize, bool saveAndSend);
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline ecs::Registry& Engine::ecs() { return entityRegistry; }
+
+inline Systems& Engine::systems() { return ecsSystems; }
+
+inline script::Manager& Engine::scriptManager() { return engineScriptManager; }
+
+inline render::Renderer& Engine::renderer() { return renderingSystem; }
+
+inline input::InputSystem& Engine::inputSystem() { return input; }
+
+inline const Settings& Engine::settings() const { return engineSettings; }
+
+inline Flags& Engine::flags() { return engineFlags; }
+
+inline sf::WindowBase& Engine::window() { return renderWindow; }
 
 } // namespace engine
 } // namespace bl

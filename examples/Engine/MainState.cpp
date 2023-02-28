@@ -5,7 +5,8 @@
 
 bl::engine::State::Ptr MainState::create() { return Ptr{new MainState()}; }
 
-MainState::MainState() {
+MainState::MainState()
+: State(bl::engine::StateMask::All) {
     font = bl::resource::ResourceManager<sf::Font>::load("font.ttf");
 
     kbmControls.setFont(*font);
@@ -25,13 +26,14 @@ MainState::MainState() {
 const char* MainState::name() const { return "MainState"; }
 
 void MainState::activate(bl::engine::Engine& engine) {
-    engine.renderer().cameras().pushCamera(
+    /* engine.renderer().cameras().pushCamera(
         bl::render::camera::StaticCamera::create({800.f, 600.f}));
-    engine.inputSystem().getActor().addListener(listener);
+    engine.inputSystem().getActor().addListener(listener);*/
+    // TODO - update example
 }
 
 void MainState::deactivate(bl::engine::Engine& engine) {
-    engine.renderer().cameras().popCamera();
+    // engine.renderer().cameras().popCamera();
     engine.inputSystem().getActor().removeListener(listener);
 }
 
@@ -68,10 +70,11 @@ void MainState::update(bl::engine::Engine& engine, float) {
 }
 
 void MainState::render(bl::engine::Engine& engine, float) {
-    engine.window().clear(sf::Color::Black);
+    /* engine.window().clear(sf::Color::Black);
     engine.window().draw(cover);
     engine.window().draw(kbmControls);
     engine.window().draw(jsControls);
     listener.render(engine.window());
-    engine.window().display();
+    engine.window().display();*/
+    // TODO - update example
 }
