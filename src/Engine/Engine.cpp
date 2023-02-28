@@ -313,6 +313,7 @@ void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
     engineSettings.withWindowParameters(params);
     params.syncToConfig();
 
+    // TODO - add concept of scaling to cameras
     /* if (params.initialViewSize().x > 0.f) {
         sf::View view = renderWindow.getView();
         view.setSize(params.initialViewSize());
@@ -356,6 +357,7 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
 
     view.setViewport(viewPort);
     // renderWindow.setView(view);
+    // TODO - add concept of top-level viewport/size to renderer (currently is derived from window)
 
     if (ss) {
         Settings::WindowParameters params = engineSettings.windowParameters();
@@ -363,7 +365,7 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
             sf::VideoMode(resize.width, resize.height, params.videoMode().bitsPerPixel));
         engineSettings.withWindowParameters(params);
         params.syncToConfig();
-        // bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
+        bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
     }
 }
 

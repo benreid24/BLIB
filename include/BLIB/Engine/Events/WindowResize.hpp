@@ -16,14 +16,14 @@ namespace event
  *
  */
 struct WindowResized {
-    sf::RenderWindow& window;
+    sf::WindowBase& window;
 
     /**
      * @brief Construct a new Window Resized object
      *
      * @param w The engine window
      */
-    WindowResized(sf::RenderWindow& w)
+    WindowResized(sf::WindowBase& w)
     : window(w) {}
 };
 
