@@ -1,6 +1,6 @@
 #include <BLIB/Engine/Configuration.hpp>
 
-#ifndef ON_CI
+#ifndef BLIB_HEADLESS_FOR_CI_TESTING
 #include <BLIB/Media/Audio/AudioSystem.hpp>
 #endif
 #include <fstream>
@@ -113,7 +113,7 @@ bool Configuration::load(const std::string& file) {
         ++lineNo;
     }
 
-#ifndef ON_CI
+#ifndef BLIB_HEADLESS_FOR_CI_TESTING
     audio::AudioSystem::loadFromConfig();
 #endif
 
@@ -124,7 +124,7 @@ bool Configuration::save(const std::string& file) {
     std::ofstream output(file.c_str(), std::ios::out);
     if (!output.good()) return false;
 
-#ifndef ON_CI
+#ifndef BLIB_HEADLESS_FOR_CI_TESTING
     audio::AudioSystem::saveToConfig();
 #endif
 

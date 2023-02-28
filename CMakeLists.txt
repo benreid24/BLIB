@@ -12,7 +12,7 @@ project(BLIB C CXX)
 
 option(BUILD_TESTS "On to build unit tests" On)
 option(BUILD_EXAMPLES "On to build examples" On)
-option(ON_CI "True when on CI, false when local" Off)
+option(BLIB_HEADLESS_FOR_CI_TESTING "True when on CI, false when local" Off)
 
 option(BLIB_ECS_USE_WIDE_MASK "True to use 128 bit component mask, false for 64 bit component mask" Off)
 option(COMPILE_SHADERS "True to build built-in shaders, off to skip" On)
@@ -21,10 +21,6 @@ set(SHADER_PATH "Resources/Shaders" CACHE PATH "Path where compiled shaders shou
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
-endif()
-
-if (ON_CI)
-    add_compile_definitions(ON_CI)
 endif()
 
 set(CMAKE_INSTALL_PREFIX .)

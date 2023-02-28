@@ -28,12 +28,12 @@ Engine::~Engine() {
     }
     while (!states.empty()) { states.pop(); }
     newState.reset();
+
+#ifndef BLIB_HEADLESS_FOR_CI_TESTING
     if (renderWindow.isOpen()) {
         renderingSystem.cleanup();
         renderWindow.close();
     }
-
-#ifndef ON_CI
     audio::AudioSystem::shutdown();
 #endif
 }
@@ -93,6 +93,7 @@ bool Engine::run(State::Ptr initialState) {
         if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
         renderingSystem.initialize();
     }
+    ecsSystems.init();
 
     sf::Clock fpsTimer;
     float frameCount = 0.f;
@@ -104,7 +105,7 @@ bool Engine::run(State::Ptr initialState) {
         // Clear flags from last loop
         engineFlags.clear();
 
-#ifndef ON_CI // Process window events
+#ifndef BLIB_HEADLESS_FOR_CI_TESTING // Process window events
         sf::Event event;
         while (renderWindow.pollEvent(event)) {
             bl::event::Dispatcher::dispatch<sf::Event>(event);
@@ -130,10 +131,7 @@ bool Engine::run(State::Ptr initialState) {
                 if (engineSettings.windowParameters().letterBox()) {
                     handleResize(event.size, true);
                 }
-                if (renderingSystem.vulkanState()
-                        .device) { // TODO - cut out window with preprocessor, not runtime
-                    renderingSystem.processResize();
-                }
+                renderingSystem.processResize();
                 break;
 
             default:
@@ -200,7 +198,7 @@ bool Engine::run(State::Ptr initialState) {
             updateTimestep = newTs;
         }
 
-#ifndef ON_CI // do render
+#ifndef BLIB_HEADLESS_FOR_CI_TESTING // do render
         if (!engineFlags.stateChangeReady()) {
             states.top()->render(*this, lag); // TODO - move into systems
             ecsSystems.update(FrameStage::MARKER_OncePerFrame,

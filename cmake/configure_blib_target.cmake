@@ -15,6 +15,11 @@ function(configure_blib_target target_name)
         GLM_FORCE_DEPTH_ZERO_TO_ONE
     )
 
+    # Add preprocessor def for when on CI for testing
+    if (BLIB_HEADLESS_FOR_CI_TESTING)
+        target_compile_definitions(${target_name} PUBLIC BLIB_HEADLESS_FOR_CI_TESTING)
+    endif()
+
     # Warnings
     if (MSVC)
         # warning level 4
