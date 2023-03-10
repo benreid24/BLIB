@@ -116,10 +116,12 @@ public:
         bool operator!=(const IteratorType<EType>& iterator) const;
 
     private:
-        IteratorType(Entry* e, Entry* end);
+        using EP = std::conditional_t<std::is_same_v<EType, T>, Entry*, const Entry*>;
 
-        Entry* pos;
-        Entry* end;
+        IteratorType(EP e, EP end);
+
+        EP pos;
+        EP end;
 
         friend class ObjectPool;
         friend class FixedRef;
@@ -229,7 +231,7 @@ public:
     Iterator add(T&& obj);
 
     /**
-     * @brief Constructs a new object inplace in the pool
+     * @brief Constructs a new object in-place in the pool
      *
      * @tparam TArgs The types of arguments
      * @param args The arguments to construct the new object with
@@ -247,7 +249,15 @@ public:
     FixedRef getStableRef(Iterator it);
 
     /**
-     * @brief Removes the given iterator from the pool and marks the object slot for resuse. All
+     * @brief Direct accessor used to index into the pool
+     *
+     * @param id The index of the object to access
+     * @return A reference to the object at the given index
+     */
+    T& getWithId(std::size_t id);
+
+    /**
+     * @brief Removes the given iterator from the pool and marks the object slot for reuse. All
      *        iterators remain valid except for the one removed. The erased iterator is partially
      *        invalidated. It may not be dereferenced but it may still be incremented
      *
@@ -437,6 +447,11 @@ typename ObjectPool<T>::FixedRef ObjectPool<T>::getStableRef(Iterator it) {
 }
 
 template<typename T>
+T& ObjectPool<T>::getWithId(std::size_t i) {
+    return pool[i].get();
+}
+
+template<typename T>
 typename ObjectPool<T>::Entry* ObjectPool<T>::doAdd() {
     ++trackedSize;
     if (next >= 0) {
@@ -545,7 +560,7 @@ void ObjectPool<T>::shrink() {
 
 template<typename T>
 template<typename ET>
-ObjectPool<T>::IteratorType<ET>::IteratorType(ObjectPool<T>::Entry* e, ObjectPool<T>::Entry* end)
+ObjectPool<T>::IteratorType<ET>::IteratorType(EP e, EP end)
 : pos(e)
 , end(end) {}
 

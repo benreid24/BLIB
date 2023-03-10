@@ -39,11 +39,13 @@ void Transform3D::scale(const glm::vec3& f) {
     dirty = true;
 }
 
-void Transform3D::computeTransform(glm::mat4& result) {
-    result = glm::translate(position);
-    result *= glm::rotate(glm::radians(orientation.getRoll()), orientation.getFaceDirection());
-    result *= glm::scale(scaleFactors);
-    dirty = false;
+void Transform3D::computeTransform() {
+    if (dest) {
+        *dest = glm::translate(position);
+        *dest *= glm::rotate(glm::radians(orientation.getRoll()), orientation.getFaceDirection());
+        *dest *= glm::scale(scaleFactors);
+        dirty = false;
+    }
 }
 
 } // namespace t3d

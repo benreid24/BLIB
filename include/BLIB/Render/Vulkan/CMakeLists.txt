@@ -12,8 +12,5 @@ target_sources(BLIB PUBLIC
     StandardAttachmentSet.hpp
     StandardImageBuffer.hpp
     Swapchain.hpp
-    Transferable.hpp
-    TransferEngine.hpp
-    Viewport.hpp
     VulkanState.hpp
 )

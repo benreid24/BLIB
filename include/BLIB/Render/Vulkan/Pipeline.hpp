@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_PIPELINE_HPP
 #define BLIB_RENDER_VULKAN_PIPELINE_HPP
 
+#include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glad/vulkan.h>
@@ -38,13 +39,6 @@ public:
     ~Pipeline();
 
     /**
-     * @brief Binds the pipeline and its descriptor sets
-     *
-     * @param commandBuffer The command buffer to perform the bind in
-     */
-    void bindPipelineAndDescriptors(VkCommandBuffer commandBuffer);
-
-    /**
      * @brief Returns the layout of this pipeline
      *
      * @return constexpr VkPipelineLayout The layout of this pipeline
@@ -62,14 +56,20 @@ public:
      */
     constexpr VkPipeline rawPipeline() const;
 
+    /**
+     * @brief Creates descriptor set instances for this pipeline
+     *
+     * @param cache Descriptor set cache to use when creating or fetching sets
+     * @param descriptors Vector of descriptor sets to populate
+     */
+    void createDescriptorSets(ds::DescriptorSetInstanceCache& cache,
+                              std::vector<ds::DescriptorSetInstance*>& descriptors);
+
 private:
     Renderer& renderer;
     VkPipelineLayout layout;
     VkPipeline pipeline;
-    std::vector<
-        std::variant<std::monostate, PipelineParameters::DescriptorSetRetriever, VkDescriptorSet>>
-        descriptorSets;
-    std::uint32_t setBindCount;
+    std::vector<ds::DescriptorSetFactory*> descriptorSets;
     bool preserveOrder;
 
     friend class PipelineCache;

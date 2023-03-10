@@ -1,12 +1,15 @@
 #ifndef BLIB_RENDER_VULKAN_PIPELINEPARAMETERS_HPP
 #define BLIB_RENDER_VULKAN_PIPELINEPARAMETERS_HPP
 
+#include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <array>
 #include <cstdint>
 #include <functional>
 #include <glad/vulkan.h>
 #include <initializer_list>
+#include <memory>
 #include <string>
+#include <typeindex>
 #include <vector>
 
 namespace bl
@@ -23,9 +26,6 @@ class Pipeline;
  */
 class PipelineParameters {
 public:
-    /// @brief Callback used to retrieve a descriptor set at pipeline bind time
-    using DescriptorSetRetriever = std::function<VkDescriptorSet()>;
-
     /**
      * @brief Construct new Pipeline Parameters for a given render pass
      *
@@ -109,36 +109,17 @@ public:
     PipelineParameters& withMSAA(const VkPipelineMultisampleStateCreateInfo& msaaParams);
 
     /**
-     * @brief Adds a descriptor set layout and retriever to this pipeline. Set numbers start at 0
-     * and added sets are numbered by the order this method is called in.
+     * @brief Adds a descriptor set factory to the pipeline. The factory is allocated here and then
+     *        deduped on actual pipeline creation. Descriptor set indices are determined by the
+     *        order they are added in
      *
-     * @param layout The layout of the descriptor set
-     * @param retriever Callback that will be called at pipeline bind time to get the set to bind
-     * @return PipelineParameters& A reference to this object
-     */
-    PipelineParameters& addDescriptorSet(VkDescriptorSetLayout layout,
-                                         DescriptorSetRetriever&& retriever);
-
-    /**
-     * @brief Adds a descriptor set layout with no retriever. Code rendering with this pipeline will
-     *        have to manually bind the descriptor sets
-     *
-     * @param layout The layout of the descriptor set
-     * @param retriever Callback that will be called at pipeline bind time to get the set to bind
-     * @return PipelineParameters& A reference to this object
-     */
-    PipelineParameters& addDescriptorSet(VkDescriptorSetLayout layout);
-
-    /**
-     * @brief Adds a fixed descriptor set to this pipeline. Primarily meant to be used with
-     *        TexturePool and similar use-cases
-     *
-     * @param layout The layout of the descriptor set
-     * @param descriptorSet The descriptor set to use
+     * @tparam TFactory The type of descriptor set factory to create and add
+     * @tparam ...TArgs Types of arguments to the factory's constructor
+     * @param ...args Arguments to the factory's constructor
      * @return A reference to this object
      */
-    PipelineParameters& addDescriptorSet(VkDescriptorSetLayout layout,
-                                         VkDescriptorSet descriptorSet);
+    template<typename TFactory, typename... TArgs>
+    PipelineParameters& addDescriptorSet(TArgs&&... args);
 
     /**
      * @brief Adds a push constant range config to this pipeline. All pipelines are configured to
@@ -220,13 +201,12 @@ private:
     };
 
     struct DescriptorSet {
-        VkDescriptorSetLayout layout;
-        DescriptorSetRetriever getter;
-        VkDescriptorSet fixedSet;
+        std::type_index factoryType;
+        std::unique_ptr<ds::DescriptorSetFactory> factory;
 
-        DescriptorSet(VkDescriptorSetLayout layout);
-        DescriptorSet(VkDescriptorSetLayout layout, DescriptorSetRetriever&& getter);
-        DescriptorSet(VkDescriptorSetLayout layout, VkDescriptorSet set);
+        DescriptorSet(std::type_index tid, std::unique_ptr<ds::DescriptorSetFactory>&& factory)
+        : factoryType(tid)
+        , factory(std::forward<std::unique_ptr<ds::DescriptorSetFactory>>(factory)) {}
     };
 
     std::vector<ShaderInfo> shaders;
@@ -257,6 +237,12 @@ PipelineParameters& PipelineParameters::withVertexFormat(
     vertexBinding = binding;
     vertexAttributes.resize(N);
     std::copy(attributes.begin(), attributes.end(), vertexAttributes.begin());
+    return *this;
+}
+
+template<typename T, typename... TArgs>
+PipelineParameters& PipelineParameters::addDescriptorSet(TArgs&&... args) {
+    descriptorSets.emplace_back(typeid(T), std::make_unique<T>(std::forward<TArgs>(args)...);
     return *this;
 }
 

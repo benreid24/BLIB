@@ -10,64 +10,40 @@ namespace bl
 {
 namespace render
 {
-PipelineBatch::PipelineBatch(Renderer& renderer, std::uint32_t pid)
+PipelineBatch::PipelineBatch(Renderer& renderer, std::uint32_t maxObjects,
+                             ds::DescriptorSetInstanceCache& descriptorCache, std::uint32_t pid)
 : pipelineId(pid)
 , pipeline(renderer.pipelineCache().getPipeline(pid)) {
-    objects.reserve(128);
+    pipeline.createDescriptorSets(descriptorCache, descriptors);
+    objects.reserve(maxObjects);
 }
 
-void PipelineBatch::recordRenderCommands(const SceneRenderContext& context) {
-    pipeline.bindPipelineAndDescriptors(context.commandBuffer);
-    VkPipelineLayout layout = pipeline.pipelineLayout();
+void PipelineBatch::recordRenderCommands(SceneRenderContext& context) {
+    const VkPipelineLayout pipelineLayout = pipeline.pipelineLayout();
+    context.bindPipeline(pipeline.rawPipeline());
+    context.bindDescriptors(pipelineLayout, descriptors);
 
-    VkBuffer prevVB = nullptr;
-    VkBuffer prevIB = nullptr;
-
-    for (SceneObject::Handle& handle : objects) {
-        SceneObject& object = *handle;
-        if (object.hidden) continue;
-
-        if (prevVB != object.drawParams.vertexBuffer) {
-            prevVB = object.drawParams.vertexBuffer;
-
-            VkBuffer vertexBuffers[] = {object.drawParams.vertexBuffer};
-            VkDeviceSize offsets[]   = {0};
-            vkCmdBindVertexBuffers(context.commandBuffer, 0, 1, vertexBuffers, offsets);
-        }
-        if (prevIB != object.drawParams.indexBuffer) {
-            prevIB = object.drawParams.indexBuffer;
-            vkCmdBindIndexBuffer(
-                context.commandBuffer, object.drawParams.indexBuffer, 0, IndexBuffer::IndexType);
-        }
-
-        PushConstants pc = object.frameData;
-        pc.transform     = context.projView * pc.transform;
-        vkCmdPushConstants(context.commandBuffer,
-                           layout,
-                           VK_SHADER_STAGE_VERTEX_BIT,
-                           0,
-                           sizeof(pc.transform),
-                           &pc.transform);
-        vkCmdPushConstants(context.commandBuffer,
-                           layout,
-                           VK_SHADER_STAGE_FRAGMENT_BIT,
-                           sizeof(pc.transform),
-                           sizeof(pc.index),
-                           &pc.index);
-        vkCmdDrawIndexed(context.commandBuffer,
-                         object.drawParams.indexCount,
-                         1,
-                         object.drawParams.indexOffset,
-                         object.drawParams.vertexOffset,
-                         0);
+    for (SceneObject* object : objects) {
+        if (object->hidden) continue;
+        context.renderObject(pipelineLayout, *object);
     }
 }
 
-void PipelineBatch::addObject(const SceneObject::Handle& object) { objects.emplace_back(object); }
+void PipelineBatch::addObject(SceneObject* object, ecs::Entity entity,
+                              SceneObject::UpdateSpeed updateFreq) {
+    objects.emplace_back(object);
+    for (ds::DescriptorSetInstance* set : descriptors) {
+        set->allocateObject(object->sceneId, entity, updateFreq);
+    }
+}
 
-void PipelineBatch::removeObject(const SceneObject::Handle& object) {
+void PipelineBatch::removeObject(SceneObject* object, ecs::Entity entity) {
+    for (ds::DescriptorSetInstance* set : descriptors) {
+        set->releaseObject(object->sceneId, entity);
+    }
+
     for (auto it = objects.begin(); it != objects.end(); ++it) {
-        if (it->id() == object.id()) {
+        if (*it == object) {
             if (pipeline.preserveObjectOrder() || objects.size() == 1) { objects.erase(it); }
             else {
                 *it = objects.back();

@@ -8,5 +8,3 @@ target_sources(BLIB PRIVATE
     StagePipelines.cpp
     Texture.cpp
 )
-
-add_subdirectory(Stages)

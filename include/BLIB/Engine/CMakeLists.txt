@@ -5,6 +5,7 @@ target_sources(BLIB PUBLIC
     FrameStage.hpp
     Settings.hpp
     State.hpp
+    System.hpp
     Systems.hpp
     Worker.hpp
 )

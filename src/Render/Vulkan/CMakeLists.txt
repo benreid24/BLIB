@@ -9,8 +9,6 @@ target_sources(BLIB PRIVATE
     RenderPassParameters.cpp
     StandardImageBuffer.cpp
     Swapchain.cpp
-    Transferable.cpp
-    TransferEngine.cpp
     VulkanState.cpp
 )
 

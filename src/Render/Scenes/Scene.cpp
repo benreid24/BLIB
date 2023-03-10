@@ -8,79 +8,87 @@ namespace bl
 {
 namespace render
 {
-Scene::Scene(Renderer& r)
-: renderer(r)
-, objects(container::ObjectPool<SceneObject>::GrowthPolicy::ExpandBuffer, 256)
-, primaryObjectStage(r) {
-    toRemove.reserve(32);
-    stageBatches[Config::SceneObjectStage::PrimaryOpaque] = &primaryObjectStage.opaqueObjects;
-    stageBatches[Config::SceneObjectStage::PrimaryTransparent] =
-        &primaryObjectStage.transparentObjects;
-}
+Scene::Scene(Renderer& r, std::uint32_t maxStatic, std::uint32_t maxDynamic)
+: maxStatic(maxStatic)
+, renderer(r)
+, objects(maxStatic + maxDynamic)
+, staticIds(maxStatic)
+, dynamicIds(maxDynamic)
+, entityMap(maxStatic + maxDynamic, ecs::InvalidEntity)
+, objectPipelines(maxStatic + maxDynamic)
+, descriptorSets(maxStatic, maxDynamic)
+, opaqueObjects(r, maxStatic + maxDynamic, descriptorSets)
+, transparentObjects(r, maxStatic + maxDynamic, descriptorSets) {}
 
-SceneObject::Handle Scene::createAndAddObject(Renderable* owner) {
-    std::unique_lock lock(mutex);
-    return objects.getStableRef(objects.emplace(owner));
-}
-
-void Scene::removeObject(const SceneObject::Handle& obj) {
-    std::unique_lock lock(eraseMutex);
-    toRemove.emplace_back(obj);
-}
-
-void Scene::renderScene(const SceneRenderContext& ctx) {
-    std::unique_lock lock(mutex);
-    primaryObjectStage.recordRenderCommands(ctx);
-}
-
-void Scene::sync() {
-    std::unique_lock lock(mutex);
-    performRemovals();
-
-    for (auto it = objects.begin(); it != objects.end(); ++it) {
-        if (it->flags.isDirty()) {
-            SceneObject& object = *it;
-            if (object.flags.isRenderPassDirty()) {
-                SceneObject::Handle handle = objects.getStableRef(it);
-                updateStageMembership(handle);
-            }
-            if (object.flags.isPCDirty()) { object.owner->syncPC(); }
-            if (object.flags.isDrawParamsDirty()) { object.owner->syncDrawParams(); }
-            object.flags.reset();
+Scene::~Scene() {
+    for (std::uint32_t i = 0; i < objects.size(); ++i) {
+        if (entityMap[i] != ecs::InvalidEntity) {
+            descriptorSets.unlinkSceneObject(i, entityMap[i]);
         }
     }
 }
 
-void Scene::performRemovals() {
-    std::unique_lock lock(eraseMutex);
-    for (SceneObject::Handle& obj : toRemove) {
-        for (std::uint32_t stage = 0; stage < Config::SceneObjectStage::Count; ++stage) {
-            const std::uint32_t pid = obj->owner->stageMembership.getPipelineForRenderStage(stage);
-            if (pid != Config::PipelineIds::None) { stageBatches[stage]->removeObject(obj, pid); }
-        }
-        obj.erase();
+SceneObject* Scene::createAndAddObject(ecs::Entity entity, const DrawParameters& drawParams,
+                                       SceneObject::UpdateSpeed updateFreq,
+                                       const scene::StagePipelines& pipelines) {
+    auto& ids = updateFreq == SceneObject::UpdateSpeed::Dynamic ? dynamicIds : staticIds;
+    const std::uint32_t offset = updateFreq == SceneObject::UpdateSpeed::Dynamic ? maxStatic : 0;
+    if (!ids.available()) {
+        BL_LOG_ERROR << "Scene " << this << " out of static or dynamic object space";
+        return nullptr;
     }
-    toRemove.clear();
+    const std::uint32_t i = ids.allocate();
+    SceneObject* object   = &objects[i];
+    object->hidden        = false;
+    object->sceneId       = i;
+    object->drawParams    = drawParams;
+
+    entityMap[i]       = entity;
+    objectPipelines[i] = pipelines;
+
+    if (pipelines[Config::SceneObjectStage::OpaquePass] != Config::PipelineIds::None) {
+        opaqueObjects.addObject(
+            object, pipelines[Config::SceneObjectStage::OpaquePass], entity, updateFreq);
+    }
+    if (pipelines[Config::SceneObjectStage::TransparentPass] != Config::PipelineIds::None) {
+        transparentObjects.addObject(
+            object, pipelines[Config::SceneObjectStage::TransparentPass], entity, updateFreq);
+    }
+
+    // TODO - account for object add failure and remove
 }
 
-void Scene::updateStageMembership(SceneObject::Handle& obj) {
-    auto& stages = obj->owner->stageMembership;
-    while (stages.hasDiff()) {
-        const auto diff = stages.nextDiff();
-        switch (diff.type) {
-        case StagePipelines::Diff::Add:
-            stageBatches[diff.renderStageId]->addObject(obj, diff.pipelineId);
-            break;
-        case StagePipelines::Diff::Edit:
-            stageBatches[diff.renderStageId]->changePipeline(
-                obj, stages.getPipelineForRenderStage(diff.renderStageId), diff.pipelineId);
-            break;
-        case StagePipelines::Diff::Remove:
-            stageBatches[diff.renderStageId]->removeObject(obj, diff.pipelineId);
-            break;
-        }
-        stages.applyDiff(diff);
+void Scene::removeObject(SceneObject* obj) {
+    const std::size_t i                    = obj - objects.data();
+    const ecs::Entity ent                  = entityMap[i];
+    const scene::StagePipelines& pipelines = objectPipelines[i];
+
+    entityMap[i] = ecs::InvalidEntity;
+    if (i < maxStatic) { staticIds.release(i); }
+    else { dynamicIds.release(i - maxStatic); }
+
+    if (pipelines[Config::SceneObjectStage::OpaquePass] != Config::PipelineIds::None) {
+        opaqueObjects.removeObject(obj, pipelines[Config::SceneObjectStage::OpaquePass], ent);
     }
+    if (pipelines[Config::SceneObjectStage::TransparentPass] != Config::PipelineIds::None) {
+        transparentObjects.removeObject(
+            obj, pipelines[Config::SceneObjectStage::TransparentPass], ent);
+    }
+}
+
+void Scene::removeObject(ecs::Entity ent) {
+    for (unsigned int i = 0; i < entityMap.size(); ++i) {
+        if (entityMap[i] == ent) {
+            removeObject(&objects[i]);
+            return;
+        }
+    }
+}
+
+void Scene::renderScene(SceneRenderContext& ctx) {
+    // TODO - support additional steps here, like recording to off-screen textures
+    opaqueObjects.recordRenderCommands(ctx);
+    transparentObjects.recordRenderCommands(ctx);
 }
 
 } // namespace render

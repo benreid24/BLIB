@@ -31,7 +31,6 @@ void Observer::update(float dt) {
     std::unique_lock lock(mutex);
 
     if (!cameras.empty()) { cameras.top()->update(dt); }
-    if (hasScene()) { scenes.top()->sync(); }
 }
 
 Scene* Observer::pushScene() {
@@ -117,7 +116,7 @@ void Observer::renderScene(VkCommandBuffer commandBuffer) {
                 cameras.top()->getProjectionMatrix(viewport) * cameras.top()->getViewMatrix() :
                 glm::perspective(75.f, viewport.width / viewport.height, 0.1f, 100.f);
         const VkRect2D renderRegion{{0, 0}, renderFrames.current().bufferSize()};
-        const SceneRenderContext ctx(commandBuffer, projView);
+        SceneRenderContext ctx(commandBuffer, projView);
         VkClearValue clearColors[2];
         clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
         clearColors[1].depthStencil = {1.f, 0};

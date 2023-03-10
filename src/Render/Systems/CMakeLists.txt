@@ -1,3 +1,3 @@
 target_sources(BLIB PRIVATE
-	PrimaryObjectStage.cpp
+	Transform3DSystem.cpp
 )

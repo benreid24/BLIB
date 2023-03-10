@@ -3,13 +3,15 @@
 
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Containers/ObjectWrapper.hpp>
+#include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <BLIB/Render/Scenes/StageBatch.hpp>
-#include <BLIB/Render/Scenes/Stages/PrimaryObjectStage.hpp>
+#include <BLIB/Render/Scenes/StagePipelines.hpp>
+#include <BLIB/Util/IdAllocator.hpp>
 #include <array>
 #include <glad/vulkan.h>
-#include <mutex>
 #include <vector>
 
 namespace bl
@@ -17,53 +19,48 @@ namespace bl
 namespace render
 {
 class Renderer;
+namespace sys
+{
+template<typename T>
+class GenericDrawableSystem;
+}
 
 class Scene {
 public:
-    /**
-     * @brief Creates a new object to be rendered in the scene
-     *
-     * @param owner The Renderable which will own the SceneObject
-     * @return SceneObject* The newly created object
-     */
-    SceneObject::Handle createAndAddObject(Renderable* owner);
-
-    /**
-     * @brief Removes the given object from the scene
-     *
-     * @param object The object to remove
-     */
-    void removeObject(const SceneObject::Handle& object);
-
-    /**
-     * @brief Syncs object additions, removals, and state changes. Call once per frame
-     */
-    void sync();
-
     /**
      * @brief Records the commands to render this scene into the given command buffer
      *
      * @param context Render context containing the parameters to render with
      */
-    void renderScene(const SceneRenderContext& context);
+    void renderScene(SceneRenderContext& context);
 
     // TODO - overlay method
 
 private:
-    std::mutex mutex;
+    const std::uint32_t maxStatic;
     Renderer& renderer;
-    container::ObjectPool<SceneObject> objects;
+    std::vector<SceneObject> objects;
+    util::IdAllocator<std::uint32_t> staticIds;
+    util::IdAllocator<std::uint32_t> dynamicIds;
+    std::vector<ecs::Entity> entityMap;
+    std::vector<scene::StagePipelines> objectPipelines;
+    ds::DescriptorSetInstanceCache descriptorSets;
 
-    scene::PrimaryObjectStage primaryObjectStage; // TODO - generalize stages
-    std::array<StageBatch*, Config::SceneObjectStage::Count> stageBatches;
+    StageBatch opaqueObjects;
+    StageBatch transparentObjects;
 
-    std::mutex eraseMutex;
-    std::vector<SceneObject::Handle> toRemove;
+    Scene(Renderer& renderer, std::uint32_t maxStatic, std::uint32_t maxDynamic);
+    ~Scene();
 
-    Scene(Renderer& renderer);
-    void performRemovals();
-    void updateStageMembership(SceneObject::Handle& object);
+    // called by sys::GenericDrawableSystem in locked context
+    SceneObject* createAndAddObject(ecs::Entity entity, const DrawParameters& drawParams,
+                                    SceneObject::UpdateSpeed updateFreq,
+                                    const scene::StagePipelines& pipelines);
+    void removeObject(SceneObject* object);
+    void removeObject(ecs::Entity entity);
 
+    template<typename T>
+    friend class sys::GenericDrawableSystem;
     friend class container::ObjectWrapper<Scene>;
 };
 

@@ -3,7 +3,6 @@
 
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Render/Scenes/DrawParameters.hpp>
-#include <BLIB/Render/Scenes/ObjectFlags.hpp>
 #include <BLIB/Render/Uniforms/PushConstants.hpp>
 #include <glad/vulkan.h>
 #include <glm/glm.hpp>
@@ -12,8 +11,6 @@ namespace bl
 {
 namespace render
 {
-class Renderable;
-
 /**
  * @brief Base renderable object. Everything that is rendered will reference an instance of this.
  *        Exists within the renderer and is batched per pipeline. Other classes reference into the
@@ -22,19 +19,16 @@ class Renderable;
  * @ingroup Renderer
  */
 struct SceneObject {
-    using Handle = container::ObjectPool<SceneObject>::FixedRef;
+    /// Enum representing how frequently an object is expected to be updated
+    enum struct UpdateSpeed : std::uint8_t { Static, Dynamic };
 
     /**
-     * @brief Construct a new SceneObject with the given owner
-     *
-     * @param owner The owner of this object
+     * @brief Construct a new SceneObject
      */
-    SceneObject(Renderable* owner);
+    SceneObject();
 
-    Renderable* owner;
     bool hidden;
-    ObjectFlags flags;
-    PushConstants frameData; // TODO - put in buffer and index into it?
+    std::uint32_t sceneId;
     DrawParameters drawParams;
 };
 

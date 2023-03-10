@@ -2,13 +2,13 @@
 #define BLIB_RENDER_VULKAN_VULKANSTATE_HPP
 
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Transfers/TransferEngine.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/CommonDescriptorSetLayouts.hpp>
 #include <BLIB/Render/Vulkan/CommonSamplers.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
-#include <BLIB/Render/Vulkan/TransferEngine.hpp>
 #include <SFML/Window.hpp>
 #include <array>
 #include <cstdint>
@@ -189,7 +189,7 @@ struct VulkanState {
     VkQueue presentQueue;
     VkCommandPool sharedCommandPool;
     Swapchain swapchain;
-    TransferEngine transferEngine;
+    tfr::TransferEngine transferEngine;
     DescriptorPool descriptorPool;
     CommonDescriptorSetLayouts descriptorSetLayouts;
     CommonSamplers samplerCache;

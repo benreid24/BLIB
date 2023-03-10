@@ -27,34 +27,31 @@ public:
      * @brief Construct a new StageBatch
      *
      * @param renderer The renderer the pass belongs to
+     * @param maxObjects The maximum number of objects in the scene
+     * @param descriptorCache Descriptor set cache for the scene this stage is a member of
      */
-    StageBatch(Renderer& renderer);
+    StageBatch(Renderer& renderer, std::uint32_t maxObjects,
+               ds::DescriptorSetInstanceCache& descriptorCache);
 
     /**
      * @brief Creates a new object to be rendered in the pass
      *
      * @param object The object to add
      * @param pipelineId The pipeline to render the object with
+     * @param entity The ECS id of the entity of this object
+     * @param updateFreq How often the object is expected to be changed
      */
-    void addObject(const SceneObject::Handle& object, std::uint32_t pipelineId);
-
-    /**
-     * @brief Changes which pipeline is used to render the given object
-     *
-     * @param object The object to swap pipelines for
-     * @param oldPipeline The pipeline the object is currently being rendered with
-     * @param newPipeline The pipeline the object should be rendered with
-     */
-    void changePipeline(const SceneObject::Handle& object, std::uint32_t oldPipeline,
-                        std::uint32_t newPipeline);
+    void addObject(SceneObject* object, std::uint32_t pipelineId, ecs::Entity entity,
+                   SceneObject::UpdateSpeed updateFreq);
 
     /**
      * @brief Removes the given object from the render pass
      *
      * @param object The object to remove
      * @param pipelineId The pipeline the object is being rendered with
+     * @param entity The ECS id of the object to remove
      */
-    void removeObject(const SceneObject::Handle& object, std::uint32_t pipelineId);
+    void removeObject(SceneObject* object, std::uint32_t pipelineId, ecs::Entity entity);
 
     /**
      * @brief Records the commands necessary to complete this render pass. Binds the render pass and
@@ -62,10 +59,12 @@ public:
      *
      * @param context Rendering context containing parameters for the render
      */
-    void recordRenderCommands(const SceneRenderContext& context);
+    void recordRenderCommands(SceneRenderContext& context);
 
 private:
+    const std::uint32_t maxObjects;
     Renderer& renderer;
+    ds::DescriptorSetInstanceCache& descriptorCache;
     std::vector<PipelineBatch> batches;
 };
 

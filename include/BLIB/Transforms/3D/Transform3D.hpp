@@ -76,17 +76,24 @@ public:
     constexpr bool isDirty() const;
 
     /**
-     * @brief Recomputes the transformation matrix of this transform
+     * @brief Set the matrix to populate with the computed transform. Used by the renderer to
+     *        populate scene buffers
      *
-     * @param result The matrix to populate with this transform
+     * @param dest Pointer to the matrix to populate. Nullptr to disable
      */
-    void computeTransform(glm::mat4& result);
+    void setDest(glm::mat4* dest);
+
+    /**
+     * @brief Recomputes the transformation matrix and stores in the dest matrix, if any
+     */
+    void computeTransform();
 
 private:
     glm::vec3 position;
     Orientation3D orientation;
     glm::vec3 scaleFactors;
     bool dirty;
+    glm::mat4* dest;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -97,7 +104,9 @@ inline constexpr const Orientation3D& Transform3D::getOrientation() const { retu
 
 inline constexpr const glm::vec3& Transform3D::getScale() const { return scaleFactors; }
 
-inline constexpr bool Transform3D::isDirty() const { return dirty; }
+inline constexpr bool Transform3D::isDirty() const { return dirty && dest != nullptr; }
+
+inline void Transform3D::setDest(glm::mat4* d) { dest = d; }
 
 } // namespace t3d
 } // namespace bl

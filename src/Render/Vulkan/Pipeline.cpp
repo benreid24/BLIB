@@ -6,46 +6,18 @@ namespace bl
 {
 namespace render
 {
-namespace
-{
-struct DescriptorSetGetter {
-    VkDescriptorSet operator()(std::monostate) const { return nullptr; }
-
-    VkDescriptorSet operator()(const PipelineParameters::DescriptorSetRetriever& getter) const {
-        return getter();
-    }
-
-    VkDescriptorSet operator()(VkDescriptorSet set) const { return set; }
-};
-} // namespace
-
 Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
 : renderer(renderer)
 , descriptorSets(params.descriptorSets.size())
-, setBindCount(0)
 , preserveOrder(params.preserveOrder) {
     // Configure descriptor sets
     std::vector<VkDescriptorSetLayout> descriptorLayouts;
     descriptorLayouts.reserve(descriptorSets.size());
     bool hitUserSet = false;
     for (unsigned int i = 0; i < params.descriptorSets.size(); ++i) {
-        if (params.descriptorSets[i].fixedSet) {
-            setBindCount = i + 1;
-            if (hitUserSet) {
-                throw std::runtime_error("User bound descriptor sets must be last in sequence");
-            }
-            descriptorSets[i].emplace<VkDescriptorSet>(params.descriptorSets[i].fixedSet);
-        }
-        else if (params.descriptorSets[i].getter) {
-            setBindCount = i + 1;
-            if (hitUserSet) {
-                throw std::runtime_error("User bound descriptor sets must be last in sequence");
-            }
-            descriptorSets[i].emplace<PipelineParameters::DescriptorSetRetriever>(
-                std::move(params.descriptorSets[i].getter));
-        }
-        else { hitUserSet = true; }
-        descriptorLayouts.emplace_back(params.descriptorSets[i].layout);
+        descriptorLayouts.emplace_back(params.descriptorSets[i].factory->getDescriptorLayout());
+        descriptorSets[i] = renderer.descriptorFactoryCache().getFactory(
+            params.descriptorSets[i].factoryType, std::move(params.descriptorSets[i].factory));
     }
 
     // Load shaders
@@ -135,22 +107,11 @@ Pipeline::~Pipeline() {
     vkDestroyPipelineLayout(renderer.vulkanState().device, layout, nullptr);
 }
 
-void Pipeline::bindPipelineAndDescriptors(VkCommandBuffer commandBuffer) {
-    VkDescriptorSet setsToBind[4];
-    for (unsigned int i = 0; i < setBindCount; ++i) {
-        setsToBind[i] = std::visit(DescriptorSetGetter{}, descriptorSets[i]);
-    }
-
-    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
-    if (setBindCount > 0) {
-        vkCmdBindDescriptorSets(commandBuffer,
-                                VK_PIPELINE_BIND_POINT_GRAPHICS,
-                                layout,
-                                0,
-                                setBindCount,
-                                setsToBind,
-                                0,
-                                nullptr);
+void Pipeline::createDescriptorSets(ds::DescriptorSetInstanceCache& cache,
+                                    std::vector<ds::DescriptorSetInstance*>& descriptors) {
+    descriptors.resize(descriptorSets.size());
+    for (unsigned int i = 0; i < descriptorSets.size(); ++i) {
+        descriptors[i] = cache.getDescriptorSet(descriptorSets[i]);
     }
 }
 

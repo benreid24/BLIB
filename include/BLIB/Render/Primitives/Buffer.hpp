@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_PRIMITIVES_BUFFER_HPP
 #define BLIB_RENDER_PRIMITIVES_BUFFER_HPP
 
-#include <BLIB/Render/Vulkan/TransferEngine.hpp>
-#include <BLIB/Render/Vulkan/Transferable.hpp>
+#include <BLIB/Render/Transfers/TransferEngine.hpp>
+#include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glad/vulkan.h>
 #include <initializer_list>
@@ -20,7 +20,7 @@ namespace render
  * @ingroup Renderer
  */
 template<typename T>
-class Buffer : public Transferable {
+class Buffer : public tfr::Transferable {
 public:
     /**
      * @brief Creates an empty buffer
@@ -98,7 +98,7 @@ private:
     VkBuffer gpuBuffer;
     VkDeviceMemory gpuMemory;
 
-    virtual void executeTransfer(VkCommandBuffer cb, TransferEngine& engine) override;
+    virtual void executeTransfer(VkCommandBuffer cb, tfr::TransferEngine& engine) override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -171,7 +171,7 @@ void Buffer<T>::assign(std::initializer_list<U> values, std::size_t start) {
 }
 
 template<typename T>
-void Buffer<T>::executeTransfer(VkCommandBuffer commandBuffer, TransferEngine& engine) {
+void Buffer<T>::executeTransfer(VkCommandBuffer commandBuffer, tfr::TransferEngine& engine) {
     const VkDeviceSize size = sizeof(T) * cpuBuffer.size();
 
     // TODO - keep staging buffer around?

@@ -8,38 +8,36 @@ namespace bl
 {
 namespace render
 {
-StageBatch::StageBatch(Renderer& renderer)
-: renderer(renderer) {
+StageBatch::StageBatch(Renderer& renderer, std::uint32_t maxObjects,
+                       ds::DescriptorSetInstanceCache& descriptorCache)
+: maxObjects(maxObjects)
+, renderer(renderer)
+, descriptorCache(descriptorCache) {
     batches.reserve(16);
 }
 
-void StageBatch::addObject(const SceneObject::Handle& obj, std::uint32_t pid) {
+void StageBatch::addObject(SceneObject* object, std::uint32_t pipelineId, ecs::Entity entity,
+                           SceneObject::UpdateSpeed updateFreq) {
     for (PipelineBatch& p : batches) {
-        if (p.pipelineId == pid) {
-            p.addObject(obj);
+        if (p.pipelineId == pipelineId) {
+            p.addObject(object, entity, updateFreq);
             return;
         }
     }
-    batches.emplace_back(renderer, pid);
-    batches.back().addObject(obj);
+    batches.emplace_back(renderer, maxObjects, descriptorCache, pipelineId);
+    batches.back().addObject(object, entity, updateFreq);
 }
 
-void StageBatch::changePipeline(const SceneObject::Handle& obj, std::uint32_t og,
-                                std::uint32_t pid) {
-    removeObject(obj, og);
-    addObject(obj, pid);
-}
-
-void StageBatch::removeObject(const SceneObject::Handle& obj, std::uint32_t pid) {
+void StageBatch::removeObject(SceneObject* object, std::uint32_t pipelineId, ecs::Entity entity) {
     for (PipelineBatch& p : batches) {
-        if (p.pipelineId == pid) {
-            p.removeObject(obj);
+        if (p.pipelineId == pipelineId) {
+            p.removeObject(object, entity);
             return;
         }
     }
 }
 
-void StageBatch::recordRenderCommands(const SceneRenderContext& context) {
+void StageBatch::recordRenderCommands(SceneRenderContext& context) {
     for (PipelineBatch& p : batches) { p.recordRenderCommands(context); }
 }
 

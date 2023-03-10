@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_HPP
 #define BLIB_RENDER_RENDERER_HPP
 
+#include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <BLIB/Render/Resources/PipelineCache.hpp>
@@ -161,13 +162,22 @@ public:
      */
     constexpr ScenePool& scenePool();
 
+    /**
+     * @brief Returns a reference to the descriptor set factory cache used by this renderer
+     *
+     * @return A reference to the descriptor set factory cache used by this renderer
+     */
+    constexpr ds::DescriptorSetFactoryCache& descriptorFactoryCache();
+
 private:
     std::mutex mutex;
+    engine::Engine& engine;
     sf::WindowBase& window;
     VulkanState state;
     PerSwapFrame<Framebuffer> framebuffers;
     TexturePool textures;
     MaterialPool materials;
+    ds::DescriptorSetFactoryCache descriptorSetFactoryCache;
     RenderPassCache renderPasses;
     PipelineCache pipelines;
     ScenePool scenes;
@@ -176,7 +186,7 @@ private:
     std::vector<std::unique_ptr<Observer>> observers;
     float defaultNear, defaultFar;
 
-    Renderer(sf::WindowBase& window);
+    Renderer(engine::Engine& engine, sf::WindowBase& window);
     ~Renderer();
     void initialize();
     void cleanup();
@@ -201,6 +211,10 @@ inline constexpr RenderPassCache& Renderer::renderPassCache() { return renderPas
 inline constexpr PipelineCache& Renderer::pipelineCache() { return pipelines; }
 
 inline constexpr ScenePool& Renderer::scenePool() { return scenes; }
+
+inline constexpr ds::DescriptorSetFactoryCache& Renderer::descriptorFactoryCache() {
+    return descriptorSetFactoryCache;
+}
 
 inline constexpr Observer& Renderer::getCommonObserver() { return commonObserver; }
 

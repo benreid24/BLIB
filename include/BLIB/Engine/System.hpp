@@ -1,5 +1,5 @@
-#ifndef BLIB_ECS_SYSTEM_HPP
-#define BLIB_ECS_SYSTEM_HPP
+#ifndef BLIB_ENGINE_SYSTEM_HPP
+#define BLIB_ENGINE_SYSTEM_HPP
 
 #include <cstdint>
 
@@ -8,14 +8,11 @@ namespace bl
 namespace engine
 {
 class Engine;
-}
 
-namespace ecs
-{
 /**
- * @brief Base class for ECS systems which can be registered in the engine::Systems registry
+ * @brief Base class for Engine systems which can be registered in the Systems registry
  *
- * @ingroup ECS
+ * @ingroup Engine
  */
 class System {
 public:
@@ -34,12 +31,14 @@ public:
     /**
      * @brief This is called each frame with the time to simulate
      *
+     * @param stageMutex Reference to a mutex that can be used to synchronize systems in the same
+     *                   stage that run in parallel
      * @param dt Time to simulate in seconds
      */
-    virtual void update(float dt) = 0;
+    virtual void update(std::mutex& stageMutex, float dt) = 0;
 };
 
-} // namespace ecs
+} // namespace engine
 } // namespace bl
 
 #endif

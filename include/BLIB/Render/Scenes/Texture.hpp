@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_TEXTURE_HPP
 #define BLIB_RENDER_RENDERER_TEXTURE_HPP
 
-#include <BLIB/Render/Vulkan/Transferable.hpp>
+#include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <glad/vulkan.h>
@@ -20,7 +20,7 @@ class TexturePool;
  *
  * @ingroup Renderer
  */
-struct Texture : public Transferable {
+struct Texture : public tfr::Transferable {
     /**
      * @brief Creates an empty Texture
      *
@@ -47,7 +47,7 @@ private:
 
     void createFromContentsAndQueue(VulkanState& vs);
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
-                                 TransferEngine& transferEngine) override;
+                                 tfr::TransferEngine& transferEngine) override;
     void cleanup(VulkanState& vs);
 
     friend class TexturePool;

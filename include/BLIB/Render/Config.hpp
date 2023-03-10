@@ -19,15 +19,7 @@ struct Config {
     static constexpr glm::vec3 UpDirection = {0.f, 1.f, 0.f};
 
     struct SceneObjectStage { // does not include postfx stage as objects do not belong in there
-        enum : std::size_t {
-            ShadowMapping      = 0,
-            PrimaryOpaque      = 1,
-            PrimaryTransparent = 2,
-            SceneOverlay       = 3,
-            ObserverOverlay    = 4,
-            TopOverlay         = 5,
-            Count
-        };
+        enum : std::size_t { ShadowMapping = 0, OpaquePass = 1, TransparentPass = 2, Count };
     };
 
     struct ShaderIds {

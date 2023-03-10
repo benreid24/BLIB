@@ -17,6 +17,9 @@ Engine::Engine(const Settings& settings)
 , renderingSystem(renderWindow)
 , input(*this) {
     settings.syncToConfig();
+
+    // TODO - register built-in systems
+
     bl::event::Dispatcher::subscribe(&input);
 }
 

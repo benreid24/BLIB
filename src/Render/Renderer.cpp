@@ -1,17 +1,21 @@
 #include <BLIB/Render/Renderer.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Render/Systems/Transform3DSystem.hpp>
 #include <cmath>
 
 namespace bl
 {
 namespace render
 {
-Renderer::Renderer(sf::WindowBase& window)
-: window(window)
+Renderer::Renderer(engine::Engine& engine, sf::WindowBase& window)
+: engine(engine)
+, window(window)
 , state(window)
 , textures(state)
 , materials(state)
 , renderPasses(*this)
+, descriptorSetFactoryCache(*this)
 , pipelines(*this)
 , scenes(*this)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
@@ -26,6 +30,11 @@ Renderer::~Renderer() {
 }
 
 void Renderer::initialize() {
+    // register systems
+    engine.systems().registerSystem<sys::Transform3DSystem>(engine::FrameStage::RefreshTransforms,
+                                                            engine::StateMask::All);
+
+    // create renderer instance data
     state.init();
     renderPasses.addDefaults();
     textures.init();
@@ -40,6 +49,7 @@ void Renderer::initialize() {
         ++i;
     });
 
+    // initialize observers
     addObserver();
     commonObserver.assignRegion(window, 1, 0, true);
 }
@@ -51,6 +61,7 @@ void Renderer::cleanup() {
     commonObserver.cleanup();
     scenes.cleanup();
     pipelines.cleanup();
+    descriptorSetFactoryCache.cleanup();
     textures.cleanup();
     framebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
     renderPasses.cleanup();

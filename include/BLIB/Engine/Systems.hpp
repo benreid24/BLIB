@@ -1,9 +1,9 @@
 #ifndef BLIB_ENGINE_SYSTEMS_HPP
 #define BLIB_ENGINE_SYSTEMS_HPP
 
-#include <BLIB/ECS/System.hpp>
 #include <BLIB/Engine/FrameStage.hpp>
 #include <BLIB/Engine/StateMask.hpp>
+#include <BLIB/Engine/System.hpp>
 #include <BLIB/Logging.hpp>
 #include <array>
 #include <memory>
@@ -49,11 +49,25 @@ public:
     T& getSystem();
 
 private:
+    struct SystemInstance {
+        StateMask::V mask;
+        std::unique_ptr<System> system;
+
+        SystemInstance(StateMask::V mask, std::unique_ptr<System>&& sys)
+        : mask(mask)
+        , system(std::forward<std::unique_ptr<System>>(sys)) {}
+    };
+
+    struct StageSet {
+        std::mutex mutex;
+        std::vector<SystemInstance> systems;
+
+        StageSet();
+    };
+
     Engine& engine;
-    std::array<std::vector<std::pair<StateMask::V, std::unique_ptr<ecs::System>>>,
-               FrameStage::COUNT>
-        systems;
-    std::unordered_map<std::type_index, ecs::System*> typeMap;
+    std::array<StageSet, FrameStage::COUNT> systems;
+    std::unordered_map<std::type_index, System*> typeMap;
 
     Systems(Engine& engine);
     void init();
@@ -79,9 +93,9 @@ void Systems::registerSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&
     }
 #endif
 
-    systems[stage].emplace_back(stateMask,
-                                std::move(std::make_unique<T>(std::forward<TArgs>(args)...)));
-    typeMap[typeid(T)] = systems[stage].back().get();
+    systems[stage].systems.emplace_back(
+        stateMask, std::move(std::make_unique<T>(std::forward<TArgs>(args)...)));
+    typeMap[typeid(T)] = systems[stage].systems.back().system.get();
 }
 
 template<typename T>
@@ -90,7 +104,7 @@ T& Systems::getSystem() {
 #ifdef BLIB_DEBUG
     if (it == typeMap.end()) {
         BL_LOG_CRITICAL << "System not found: " << typeid(T).name();
-        throw std::runtime_error("Systems not found");
+        throw std::runtime_error("System not found");
     }
 #endif
 

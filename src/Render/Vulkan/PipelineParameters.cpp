@@ -110,23 +110,6 @@ PipelineParameters& PipelineParameters::withMSAA(const VkPipelineMultisampleStat
     return *this;
 }
 
-PipelineParameters& PipelineParameters::addDescriptorSet(VkDescriptorSetLayout layout,
-                                                         DescriptorSetRetriever&& retriever) {
-    descriptorSets.emplace_back(layout, std::forward<DescriptorSetRetriever>(retriever));
-    return *this;
-}
-
-PipelineParameters& PipelineParameters::addDescriptorSet(VkDescriptorSetLayout layout) {
-    descriptorSets.emplace_back(layout);
-    return *this;
-}
-
-PipelineParameters& PipelineParameters::addDescriptorSet(VkDescriptorSetLayout layout,
-                                                         VkDescriptorSet set) {
-    descriptorSets.emplace_back(layout, set);
-    return *this;
-}
-
 PipelineParameters& PipelineParameters::addPushConstantRange(std::uint32_t offset,
                                                              std::uint32_t len,
                                                              VkShaderStageFlags stages) {
@@ -205,22 +188,6 @@ PipelineParameters& PipelineParameters::withPreserveObjectOrder(bool po) {
     preserveOrder = po;
     return *this;
 }
-
-PipelineParameters::DescriptorSet::DescriptorSet(VkDescriptorSetLayout layout)
-: layout(layout)
-, getter()
-, fixedSet(nullptr) {}
-
-PipelineParameters::DescriptorSet::DescriptorSet(VkDescriptorSetLayout layout, VkDescriptorSet set)
-: layout(layout)
-, getter()
-, fixedSet(set) {}
-
-PipelineParameters::DescriptorSet::DescriptorSet(VkDescriptorSetLayout layout,
-                                                 DescriptorSetRetriever&& getter)
-: layout(layout)
-, getter(std::forward<DescriptorSetRetriever>(getter))
-, fixedSet(nullptr) {}
 
 } // namespace render
 } // namespace bl

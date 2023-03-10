@@ -1,5 +1,8 @@
 #include <BLIB/Render/Resources/ScenePool.hpp>
 
+#include <BLIB/Events.hpp>
+#include <BLIB/Render/Events/SceneDestroyed.hpp>
+
 namespace bl
 {
 namespace render
@@ -46,6 +49,7 @@ void ScenePool::destroyScene(Scene* scene) {
     // handle double-free to make shared scenes easier to release
     if (!freeSlots.isAllocated(i)) { return; }
 
+    bl::event::Dispatcher::dispatch<render::event::SceneDestroyed>({scene});
     pool[i].destroy();
     freeSlots.release(i);
 }

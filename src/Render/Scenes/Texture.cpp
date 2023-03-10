@@ -42,16 +42,16 @@ void Texture::createFromContentsAndQueue(VulkanState& vs) {
                              VK_FORMAT_R8G8B8A8_UNORM,
                              VK_IMAGE_LAYOUT_UNDEFINED,
                              VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-    vs.transferEngine.queueTransfer(*this);
+    vs.transferEngine.queueOneTimeTransfer(*this);
 }
 
-void Texture::executeTransfer(VkCommandBuffer cb, TransferEngine& engine) {
+void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferEngine& engine) {
     const sf::Image& src = altImg ? *altImg : *transferImg;
 
     // create staging buffer
     VkBuffer stagingBuffer;
     VkDeviceMemory stagingMemory;
-    engine.createStagingBuffer(memorySize, stagingBuffer, stagingMemory);
+    engine.createTemporaryStagingBuffer(memorySize, stagingBuffer, stagingMemory);
 
     // copy data to staging buffer
     void* data;
