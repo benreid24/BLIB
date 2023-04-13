@@ -40,9 +40,11 @@ public:
     /**
      * @brief Allocates a new scene from the pool and returns it
      *
+     * @param maxStaticObjectCount The maximum number of static objects in the scene
+     * @param maxStaticObjectCount The maximum number of dynamic objects in the scene
      * @return The new scene
      */
-    Scene* allocateScene();
+    Scene* allocateScene(std::uint32_t maxStaticObjectCount, std::uint32_t maxDynamicObjectCount);
 
     /**
      * @brief Destroys the given scene and returns it to the pool

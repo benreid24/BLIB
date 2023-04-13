@@ -28,6 +28,11 @@ class GenericDrawableSystem;
 class Scene {
 public:
     /**
+     * @brief Called once prior to TransferEngine kicking off
+     */
+    void handleDescriptorSync();
+
+    /**
      * @brief Records the commands to render this scene into the given command buffer
      *
      * @param context Render context containing the parameters to render with

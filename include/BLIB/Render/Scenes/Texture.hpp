@@ -47,7 +47,7 @@ private:
 
     void createFromContentsAndQueue(VulkanState& vs);
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
-                                 tfr::TransferEngine& transferEngine) override;
+                                 tfr::TransferContext& transferEngine) override;
     void cleanup(VulkanState& vs);
 
     friend class TexturePool;

@@ -17,6 +17,7 @@ Texture::Texture()
 , sizeF(0.f, 0.f) {}
 
 void Texture::createFromContentsAndQueue(VulkanState& vs) {
+    vulkanState          = &vs;
     const sf::Image& src = altImg ? *altImg : *transferImg;
 
     size.x  = src.getSize().x;
@@ -42,10 +43,11 @@ void Texture::createFromContentsAndQueue(VulkanState& vs) {
                              VK_FORMAT_R8G8B8A8_UNORM,
                              VK_IMAGE_LAYOUT_UNDEFINED,
                              VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-    vs.transferEngine.queueOneTimeTransfer(*this);
+
+    queueTransfer(SyncRequirement::Immediate);
 }
 
-void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferEngine& engine) {
+void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) {
     const sf::Image& src = altImg ? *altImg : *transferImg;
 
     // create staging buffer

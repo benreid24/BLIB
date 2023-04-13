@@ -77,12 +77,8 @@ void TransferEngine::Bucket::executeTransfers() {
     vkBeginCommandBuffer(commandBuffer, &begin);
 
     // queue transfer commands
-    TransferContext context(vulkanState.device,
-                            stagingBuffers,
-                            stagingMemory,
-                            memoryBarriers,
-                            bufferBarriers,
-                            imageBarriers);
+    TransferContext context(
+        vulkanState, stagingBuffers, stagingMemory, memoryBarriers, bufferBarriers, imageBarriers);
     for (Transferable* item : everyFrameItems) { item->executeTransfer(commandBuffer, context); }
     for (Transferable* item : oneTimeItems) { item->executeTransfer(commandBuffer, context); }
     oneTimeItems.clear();

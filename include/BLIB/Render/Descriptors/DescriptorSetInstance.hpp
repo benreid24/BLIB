@@ -21,6 +21,12 @@ namespace ds
  */
 class DescriptorSetInstance {
 public:
+    /*
+        TODO - Should consider breaking this down into DescriptorInstances that are deduped per
+       scene. Reason: Allow same component to be used across different descriptor sets (ie Transform
+       if object uses different descriptor set for shadow pass than render pass)
+    */
+
     /**
      * @brief Destroys the descriptor set instance
      */
@@ -37,7 +43,7 @@ public:
      * @param maxStaticObjects The maximum number of static objects in the owning scene
      * @param maxDynamicObjects The maximum number of dynamic objects in the owning scene
      */
-    virtual void init(std::uint32_t maxStaticObjects, std::uint32_t maxDynamicObjects) = 0;
+    void init(std::uint32_t maxStaticObjects, std::uint32_t maxDynamicObjects);
 
     /**
      * @brief Called once after the pipeline is bound. This should bind the descriptor set
@@ -68,8 +74,8 @@ public:
      * @param updateSpeed Whether the object is expected to be static or dynamic
      * @return True if the object could be added, false otherwise
      */
-    virtual bool allocateObject(std::uint32_t sceneId, ecs::Entity entity,
-                                SceneObject::UpdateSpeed updateSpeed) = 0;
+    bool allocateObject(std::uint32_t sceneId, ecs::Entity entity,
+                        SceneObject::UpdateSpeed updateSpeed);
 
     /**
      * @brief Called by the scene when an object is destroyed
@@ -79,6 +85,18 @@ public:
      */
     virtual void releaseObject(std::uint32_t sceneId, ecs::Entity entity) = 0;
 
+    /**
+     * @brief Marks the given object's descriptors dirty for this frame
+     *
+     * @param sceneId The scene id of the object that refreshed descriptors
+     */
+    void markObjectDirty(std::uint32_t sceneId);
+
+    /**
+     * @brief Called once before the TransferEngine starts to send sync commands to buffers
+     */
+    void handleFrameStart();
+
 protected:
     /**
      * @brief Creates a new DescriptorSetInstance
@@ -87,13 +105,46 @@ protected:
      */
     DescriptorSetInstance(bool perObject);
 
+    /**
+     * @brief Called by scene once after the instance is created
+     *
+     * @param maxStaticObjects The maximum number of static objects in the owning scene
+     * @param maxDynamicObjects The maximum number of dynamic objects in the owning scene
+     */
+    virtual void doInit(std::uint32_t maxStaticObjects, std::uint32_t maxDynamicObjects) = 0;
+
+    /**
+     * @brief Called by the scene when new objects are created that require this set
+     *
+     * @param sceneId The 0-based index of this object in the scene
+     * @param entity The entity id of this object in the ECS
+     * @param updateSpeed Whether the object is expected to be static or dynamic
+     * @return True if the object could be added, false otherwise
+     */
+    virtual bool doAllocateObject(std::uint32_t sceneId, ecs::Entity entity,
+                                  SceneObject::UpdateSpeed updateSpeed) = 0;
+
+    /**
+     * @brief Called once each frame before the TransferEngine is kicked off. Use this to
+     *        appropriately handle sending descriptor data to the GPU
+     *
+     * @param staticObjectsChanged True if any static objects were changed, false otherwise
+     */
+    virtual void beginSync(bool staticObjectsChanged) = 0;
+
 private:
     const bool perObject;
+    std::uint32_t maxStatic;
+    bool staticChanged;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline constexpr bool DescriptorSetInstance::isPerObject() const { return perObject; }
+
+inline void DescriptorSetInstance::markObjectDirty(std::uint32_t si) {
+    staticChanged = staticChanged || si < maxStatic;
+}
 
 } // namespace ds
 } // namespace render

@@ -18,6 +18,14 @@ DescriptorSetInstance* DescriptorSetInstanceCache::getDescriptorSet(DescriptorSe
     return it->second.get();
 }
 
+void DescriptorSetInstanceCache::unlinkSceneObject(std::uint32_t sceneId, ecs::Entity ent) {
+    for (auto& pair : cache) { pair.second->releaseObject(sceneId, ent); }
+}
+
+void DescriptorSetInstanceCache::handleDescriptorSync() {
+    for (auto& pair : cache) { pair.second->handleFrameStart(); }
+}
+
 } // namespace ds
 } // namespace render
 } // namespace bl

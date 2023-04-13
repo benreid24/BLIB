@@ -1,7 +1,7 @@
 #include <BLIB/Render/Renderer.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Render/Systems/Transform3DSystem.hpp>
+#include <BLIB/Render/Systems/BuiltinDescriptorComponentSystems.hpp>
 #include <cmath>
 
 namespace bl
@@ -15,7 +15,7 @@ Renderer::Renderer(engine::Engine& engine, sf::WindowBase& window)
 , textures(state)
 , materials(state)
 , renderPasses(*this)
-, descriptorSetFactoryCache(*this)
+, descriptorSetFactoryCache(engine, *this)
 , pipelines(*this)
 , scenes(*this)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
@@ -31,8 +31,8 @@ Renderer::~Renderer() {
 
 void Renderer::initialize() {
     // register systems
-    engine.systems().registerSystem<sys::Transform3DSystem>(engine::FrameStage::RefreshTransforms,
-                                                            engine::StateMask::All);
+    engine.systems().registerSystem<sys::Transform3DDescriptorSystem>(
+        engine::FrameStage::RenderDescriptorRefresh, engine::StateMask::All);
 
     // create renderer instance data
     state.init();
@@ -87,6 +87,10 @@ void Renderer::renderFrame() {
     std::unique_lock lock(mutex);
 
     // execute transfers
+    if (commonObserver.hasScene()) { commonObserver.handleDescriptorSync(); }
+    else {
+        for (auto& o : observers) { o->handleDescriptorSync(); }
+    }
     state.transferEngine.executeTransfers();
 
     // begin frame
@@ -162,10 +166,11 @@ void Renderer::removeObserver(unsigned int i) {
     assignObserverRegions();
 }
 
-Scene* Renderer::pushSceneToAllObservers() {
+Scene* Renderer::pushSceneToAllObservers(std::uint32_t maxStaticObjectCount,
+                                         std::uint32_t maxDynamicObjectCount) {
     std::unique_lock lock(mutex);
 
-    Scene* s = scenes.allocateScene();
+    Scene* s = scenes.allocateScene(maxStaticObjectCount, maxDynamicObjectCount);
     for (auto& o : observers) { o->pushScene(s); }
     return s;
 }

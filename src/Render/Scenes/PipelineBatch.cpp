@@ -1,7 +1,6 @@
 #include <BLIB/Render/Scenes/PipelineBatch.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Renderables/Renderable.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <stdexcept>

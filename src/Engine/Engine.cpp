@@ -14,7 +14,7 @@ Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , ecsSystems(*this)
 , entityRegistry(settings.maximumEntityCount())
-, renderingSystem(renderWindow)
+, renderingSystem(*this, renderWindow)
 , input(*this) {
     settings.syncToConfig();
 

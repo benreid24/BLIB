@@ -74,9 +74,12 @@ public:
     /**
      * @brief Allocates a single scene, pushes it to all observers, and returns it
      *
+     * @param maxStaticObjectCount The maximum number of static objects in the scene
+     * @param maxStaticObjectCount The maximum number of dynamic objects in the scene
      * @return A pointer to the new scene active in all observers
      */
-    Scene* pushSceneToAllObservers();
+    Scene* pushSceneToAllObservers(std::uint32_t maxStaticObjectCount,
+                                   std::uint32_t maxDynamicObjectCount);
 
     /**
      * @brief Removes the current scene from all observers

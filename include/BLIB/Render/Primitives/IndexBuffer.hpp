@@ -107,8 +107,8 @@ constexpr const Buffer<std::uint32_t>& IndexBufferT<T>::indices() const {
 
 template<typename T>
 void IndexBufferT<T>::sendToGPU() {
-    vertexBuffer.queueTransfer();
-    indexBuffer.queueTransfer();
+    // vertexBuffer.queueTransfer();
+    // indexBuffer.queueTransfer();
 }
 
 template<typename T>

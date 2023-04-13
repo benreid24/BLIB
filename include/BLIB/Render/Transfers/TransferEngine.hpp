@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_TRANSFERENGINE_HPP
 #define BLIB_RENDER_VULKAN_TRANSFERENGINE_HPP
 
+#include <BLIB/Render/Transfers/TransferContext.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <glad/vulkan.h>
 #include <mutex>

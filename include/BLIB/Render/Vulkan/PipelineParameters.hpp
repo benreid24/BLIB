@@ -242,7 +242,7 @@ PipelineParameters& PipelineParameters::withVertexFormat(
 
 template<typename T, typename... TArgs>
 PipelineParameters& PipelineParameters::addDescriptorSet(TArgs&&... args) {
-    descriptorSets.emplace_back(typeid(T), std::make_unique<T>(std::forward<TArgs>(args)...);
+    descriptorSets.emplace_back(typeid(T), std::make_unique<T>(std::forward<TArgs>(args)...));
     return *this;
 }
 

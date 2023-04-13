@@ -2,6 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Descriptors/Builtin/DefaultObjectDescriptorSetFactory.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -75,18 +76,17 @@ void PipelineCache::createBuiltins() {
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencil)
-                      .addDescriptorSet(renderer.texturePool().getDescriptorLayout(),
-                                        renderer.texturePool().getDescriptorSet())
+                      .addDescriptorSet<ds::DefaultObjectDescriptorSetFactory>()
                       .build());
 
-    createPipline(
+    /* createPipline(
         Config::PipelineIds::ImageOverlay,
         PipelineParameters(Config::RenderPassIds::SwapchainPrimaryRender)
             .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::ImageOverlayFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
             .addDescriptorSet(renderer.vulkanState().descriptorSetLayouts.imageOverlay.layout)
-            .build());
+            .build());*/
 }
 
 } // namespace render

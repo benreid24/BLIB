@@ -98,7 +98,8 @@ private:
     VkBuffer gpuBuffer;
     VkDeviceMemory gpuMemory;
 
-    virtual void executeTransfer(VkCommandBuffer cb, tfr::TransferEngine& engine) override;
+    virtual void executeTransfer(VkCommandBuffer commandBuffer,
+                                 tfr::TransferContext& context) override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -171,14 +172,14 @@ void Buffer<T>::assign(std::initializer_list<U> values, std::size_t start) {
 }
 
 template<typename T>
-void Buffer<T>::executeTransfer(VkCommandBuffer commandBuffer, tfr::TransferEngine& engine) {
+void Buffer<T>::executeTransfer(VkCommandBuffer commandBuffer, tfr::TransferContext& context) {
     const VkDeviceSize size = sizeof(T) * cpuBuffer.size();
 
     // TODO - keep staging buffer around?
     // create staging buffer
     VkBuffer stagingBuffer;
     VkDeviceMemory stagingMemory;
-    engine.createStagingBuffer(size, stagingBuffer, stagingMemory);
+    context.createTemporaryStagingBuffer(size, stagingBuffer, stagingMemory);
 
     // map and copy to staging
     void* mappedAddress = nullptr;
@@ -203,7 +204,7 @@ void Buffer<T>::executeTransfer(VkCommandBuffer commandBuffer, tfr::TransferEngi
     barrier.buffer              = gpuBuffer;
     barrier.offset              = 0;
     barrier.size                = size;
-    engine.registerBufferBarrier(barrier);
+    context.registerBufferBarrier(barrier);
 }
 
 template<typename T>

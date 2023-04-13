@@ -21,7 +21,8 @@ void ScenePool::cleanup() {
     freeSlots.releaseAll();
 }
 
-Scene* ScenePool::allocateScene() {
+Scene* ScenePool::allocateScene(std::uint32_t maxStaticObjectCount,
+                                std::uint32_t maxDynamicObjectCount) {
     std::unique_lock lock(mutex);
 
     if (!freeSlots.available()) {
@@ -30,7 +31,7 @@ Scene* ScenePool::allocateScene() {
     }
 
     const std::uint32_t i = freeSlots.allocate();
-    pool[i].emplace(renderer);
+    pool[i].emplace(renderer, maxStaticObjectCount, maxDynamicObjectCount);
     return &pool[i].get();
 }
 

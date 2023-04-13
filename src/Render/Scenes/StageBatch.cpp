@@ -24,6 +24,8 @@ void StageBatch::addObject(SceneObject* object, std::uint32_t pipelineId, ecs::E
             return;
         }
     }
+
+    // not found, create new pipeline batch
     batches.emplace_back(renderer, maxObjects, descriptorCache, pipelineId);
     batches.back().addObject(object, entity, updateFreq);
 }

@@ -1,5 +1,4 @@
 #include <BLIB/Engine.hpp>
-#include <BLIB/Render/Renderables/3D/Mesh.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <BLIB/Math.hpp>
@@ -10,8 +9,7 @@
 class DemoState : public bl::engine::State {
 public:
     DemoState()
-    : State(bl::engine::StateMask::All)
-    , mesh(bl::render::Config::PipelineIds::OpaqueSkinnedMeshes) {}
+    : State(bl::engine::StateMask::All) {}
 
     virtual ~DemoState() = default;
 
@@ -19,27 +17,6 @@ public:
 
     virtual void activate(bl::engine::Engine& engine) override {
         time = 0.f;
-
-        if (mesh.buffer().indices().size() == 0) {
-            texture =
-                engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/texture.png");
-
-            mesh.setTextureId(texture.id());
-            mesh.buffer().create(engine.renderer().vulkanState(), 7, 9);
-            mesh.buffer().vertices().assign<std::initializer_list<float>>(
-                {{-0.5f, -0.5f, 1.f, 0.0f, 1.f},
-                 {0.5f, -0.5f, 1.f, 1.0f, 1.f},
-                 {0.5f, 0.5f, 1.f, 1.0f, 0.f},
-                 {-0.5f, 0.5f, 1.f, 0.0f, 0.f},
-
-                 {1.f, 0.f, 0.5f, 0.0f, 0.f},
-                 {1.f, 0.1f, -0.5f, 0.0f, 1.f},
-                 {0.75f, 0.7f, 0.5f, 1.0f, 1.f}});
-            mesh.buffer().indices().assign({0, 1, 2, 2, 3, 0, 4, 5, 6});
-            mesh.buffer().sendToGPU();
-            mesh.attachBuffer();
-            mesh.setTransform(glm::mat4(1.0f));
-        }
 
         bl::render::r3d::Camera3D* camera =
             engine.renderer().getObserver().pushCamera<bl::render::r3d::Camera3D>(
@@ -52,14 +29,11 @@ public:
             glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
         player2Cam->addAffector<bl::render::r3d::CameraShake>(0.1f, 7.f);
 
-        bl::render::Scene* scene = engine.renderer().getObserver().pushScene();
+        bl::render::Scene* scene = engine.renderer().getObserver().pushScene(10, 10);
         o.pushScene(scene);
-        mesh.addToScene(*scene);
-        mesh.setHidden(false);
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
-        mesh.removeFromScene();
         engine.renderer().getObserver().popScene();
         engine.renderer().removeObserver(1);
     }
@@ -76,7 +50,6 @@ public:
 
 private:
     bl::render::TextureRef texture;
-    bl::render::r3d::Mesh mesh;
     bl::render::r3d::Camera3D* player2Cam;
     float time;
 };

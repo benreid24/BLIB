@@ -5,6 +5,5 @@ target_sources(BLIB PRIVATE
     SceneObject.cpp
     SceneRenderContext.cpp
     StageBatch.cpp
-    StagePipelines.cpp
     Texture.cpp
 )

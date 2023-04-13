@@ -36,11 +36,11 @@ struct FrameStage {
         /// Synchronizes objects from the ECS into the scene-local object buffers
         RenderObjectSync = 5,
 
-        /// Recomputes 2D and 3D transforms into scene buffers as needed
-        RefreshTransforms = 6,
+        /// Syncs dirty descriptor components (ie transforms) into scene-local descriptor sets
+        RenderDescriptorRefresh = 6,
 
         /// Waits for the GPU to complete the prior frame, then kicks off the renderer thread
-        RendererFrameSync = 7,
+        Render = 7,
 
         /// Slot for more user-defined operations
         FrameEnd = 8,

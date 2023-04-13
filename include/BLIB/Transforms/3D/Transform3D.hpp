@@ -1,6 +1,7 @@
 #ifndef BLIB_TRANSFORMS_3D_TRANSFORM3D_HPP
 #define BLIB_TRANSFORMS_3D_TRANSFORM3D_HPP
 
+#include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Transforms/3D/Orientation3D.hpp>
 #include <glm/glm.hpp>
 
@@ -14,7 +15,7 @@ namespace t3d
  *
  * @ingroup Transforms
  */
-class Transform3D {
+class Transform3D : public render::com::DescriptorComponentBase<Transform3D, glm::mat4> {
 public:
     /**
      * @brief Creates a new transform with no scaling and sane defaults
@@ -71,29 +72,14 @@ public:
     constexpr const glm::vec3& getScale() const;
 
     /**
-     * @brief Returns whether or not the transform needs to be recomputed
+     * @brief Computes the transform and populates the given transform matrix
      */
-    constexpr bool isDirty() const;
-
-    /**
-     * @brief Set the matrix to populate with the computed transform. Used by the renderer to
-     *        populate scene buffers
-     *
-     * @param dest Pointer to the matrix to populate. Nullptr to disable
-     */
-    void setDest(glm::mat4* dest);
-
-    /**
-     * @brief Recomputes the transformation matrix and stores in the dest matrix, if any
-     */
-    void computeTransform();
+    void refreshDescriptor(glm::mat4& dest);
 
 private:
     glm::vec3 position;
     Orientation3D orientation;
     glm::vec3 scaleFactors;
-    bool dirty;
-    glm::mat4* dest;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -103,10 +89,6 @@ inline constexpr const glm::vec3& Transform3D::getPosition() const { return posi
 inline constexpr const Orientation3D& Transform3D::getOrientation() const { return orientation; }
 
 inline constexpr const glm::vec3& Transform3D::getScale() const { return scaleFactors; }
-
-inline constexpr bool Transform3D::isDirty() const { return dirty && dest != nullptr; }
-
-inline void Transform3D::setDest(glm::mat4* d) { dest = d; }
 
 } // namespace t3d
 } // namespace bl

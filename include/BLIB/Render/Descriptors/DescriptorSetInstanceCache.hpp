@@ -45,6 +45,11 @@ public:
      */
     void unlinkSceneObject(std::uint32_t sceneId, ecs::Entity entity);
 
+    /**
+     * @brief Called once prior to TransferEngine kicking off
+     */
+    void handleDescriptorSync();
+
 private:
     const std::uint32_t maxStatic;
     const std::uint32_t maxDynamic;

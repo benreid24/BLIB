@@ -2,6 +2,7 @@
 #define BLIB_ENGINE_SYSTEM_HPP
 
 #include <cstdint>
+#include <mutex>
 
 namespace bl
 {

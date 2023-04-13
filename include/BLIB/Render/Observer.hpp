@@ -38,9 +38,11 @@ public:
     /**
      * @brief Creates a new scene on top the Observer's scene stack and returns it
      *
+     * @param maxStaticObjectCount The maximum number of static objects in the scene
+     * @param maxStaticObjectCount The maximum number of dynamic objects in the scene
      * @return The newly created, now active, scene
      */
-    Scene* pushScene();
+    Scene* pushScene(std::uint32_t maxStaticObjectCount, std::uint32_t maxDynamicObjectCount);
 
     /**
      * @brief Pushes an existing scene onto the Observer's scene stack
@@ -135,6 +137,11 @@ public:
      * @brief Reverts the current scene's post processing to a standard copy
      */
     void removePostFX();
+
+    /**
+     * @brief Called once prior to the TransferEngine kicking off
+     */
+    void handleDescriptorSync();
 
     /**
      * @brief Records commands to render the observer's active scene to its internal image

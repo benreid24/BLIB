@@ -8,12 +8,12 @@ namespace render
 {
 namespace tfr
 {
-TransferContext::TransferContext(VkDevice dev, std::vector<VkBuffer>& stagingBuffers,
+TransferContext::TransferContext(VulkanState& vs, std::vector<VkBuffer>& stagingBuffers,
                                  std::vector<VkDeviceMemory>& stagingMemory,
                                  std::vector<VkMemoryBarrier>& memoryBarriers,
                                  std::vector<VkBufferMemoryBarrier>& bufferBarriers,
                                  std::vector<VkImageMemoryBarrier>& imageBarriers)
-: vkdev(dev)
+: vulkanState(vs)
 , stagingBuffers(stagingBuffers)
 , stagingMemory(stagingMemory)
 , memoryBarriers(memoryBarriers)
@@ -43,6 +43,8 @@ void TransferContext::registerBufferBarrier(const VkBufferMemoryBarrier& barrier
 void TransferContext::registerImageBarrier(const VkImageMemoryBarrier& barrier) {
     imageBarriers.emplace_back(barrier);
 }
+
+VkDevice TransferContext::device() const { return vulkanState.device; }
 
 } // namespace tfr
 } // namespace render

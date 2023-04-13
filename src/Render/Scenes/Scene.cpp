@@ -1,7 +1,6 @@
 #include <BLIB/Render/Scenes/Scene.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Renderables/Renderable.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -90,6 +89,8 @@ void Scene::renderScene(SceneRenderContext& ctx) {
     opaqueObjects.recordRenderCommands(ctx);
     transparentObjects.recordRenderCommands(ctx);
 }
+
+void Scene::handleDescriptorSync() { descriptorSets.handleDescriptorSync(); }
 
 } // namespace render
 } // namespace bl

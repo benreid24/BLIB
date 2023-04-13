@@ -49,7 +49,7 @@ public:
 
     /**
      * @brief Adds the component for the given entity to the scene using the default pipelines for
-     *        this type of object
+     *        this type of object. Component must already exist in the ECS
      *
      * @param entity The entity to add to the scene
      * @param scene The scene to add the entity to
@@ -236,7 +236,10 @@ void GenericDrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
             }
             c->sceneRef.object =
                 add.scene->createAndAddObject(add.entity, add.updateFreq, add.pipelines);
-            if (c->sceneRef.object) { c->sceneRef.scene = add.scene; }
+            if (c->sceneRef.object) {
+                c->sceneRef.scene                       = add.scene;
+                c->sceneRef.sceneObject->drawParameters = c->drawParams;
+            }
             else {
                 BL_LOG_WARN << "Failed to add entity " << add.entity << " to scene " << add.scene;
             }

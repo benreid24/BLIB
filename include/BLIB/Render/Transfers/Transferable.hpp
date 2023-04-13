@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_TRANSFERABLE_HPP
 #define BLIB_RENDER_VULKAN_TRANSFERABLE_HPP
 
+#include <BLIB/Render/Transfers/TransferContext.hpp>
 #include <glad/vulkan.h>
 
 namespace bl
@@ -12,8 +13,6 @@ struct VulkanState;
 /// Module wrapping the TransferEngine and related mechanisms for moving data to the GPU
 namespace tfr
 {
-class TransferContext;
-
 /**
  * @brief Base class for objects that transfer state or data to the GPU. Used in conjunction with
  *        the TransferEngine to execute and synchronous resource transfers and subsequent access

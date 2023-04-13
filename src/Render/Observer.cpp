@@ -33,10 +33,11 @@ void Observer::update(float dt) {
     if (!cameras.empty()) { cameras.top()->update(dt); }
 }
 
-Scene* Observer::pushScene() {
+Scene* Observer::pushScene(std::uint32_t maxStaticObjectCount,
+                           std::uint32_t maxDynamicObjectCount) {
     std::unique_lock lock(mutex);
 
-    Scene* s = renderer.scenePool().allocateScene();
+    Scene* s = renderer.scenePool().allocateScene(maxStaticObjectCount, maxDynamicObjectCount);
     scenes.push(s);
     onSceneAdd();
     return s;
@@ -107,8 +108,10 @@ void Observer::clearCameras() {
 
 void Observer::removePostFX() { setPostFX<PostFX>(renderer); }
 
+void Observer::handleDescriptorSync() { scenes.top()->handleDescriptorSync(); }
+
 void Observer::renderScene(VkCommandBuffer commandBuffer) {
-    std::unique_lock lock(mutex);
+    std::unique_lock lock(mutex); // TODO - not needed?
 
     if (hasScene()) {
         const glm::mat4 projView =

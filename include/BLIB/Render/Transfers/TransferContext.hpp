@@ -8,11 +8,10 @@ namespace bl
 {
 namespace render
 {
+struct VulkanState;
+
 namespace tfr
 {
-class TransferEngine;
-class TransferEngine::Bucket;
-
 class TransferContext {
 public:
     /**
@@ -53,28 +52,25 @@ public:
     /**
      * @brief Returns the logical device to be used
      */
-    constexpr VkDevice device() const;
+    VkDevice device() const;
 
-private:
-    const VkDevice vkdev;
-    std::vector<VkBuffer>& stagingBuffers;
-    std::vector<VkDeviceMemory>& stagingMemory;
-    std::vector<VkMemoryBarrier>& memoryBarriers;
-    std::vector<VkBufferMemoryBarrier>& bufferBarriers;
-    std::vector<VkImageMemoryBarrier>& imageBarriers;
-
-    TransferContext(VkDevice dev, std::vector<VkBuffer>& stagingBuffers,
+    /**
+     * @brief Internal constructor, do not use
+     */
+    TransferContext(VulkanState& vulkanState, std::vector<VkBuffer>& stagingBuffers,
                     std::vector<VkDeviceMemory>& stagingMemory,
                     std::vector<VkMemoryBarrier>& memoryBarriers,
                     std::vector<VkBufferMemoryBarrier>& bufferBarriers,
                     std::vector<VkImageMemoryBarrier>& imageBarriers);
 
-    friend class TransferEngine::Bucket;
+private:
+    VulkanState& vulkanState;
+    std::vector<VkBuffer>& stagingBuffers;
+    std::vector<VkDeviceMemory>& stagingMemory;
+    std::vector<VkMemoryBarrier>& memoryBarriers;
+    std::vector<VkBufferMemoryBarrier>& bufferBarriers;
+    std::vector<VkImageMemoryBarrier>& imageBarriers;
 };
-
-//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
-
-inline constexpr VkDevice TransferContext::device() const { return vkdev; }
 
 } // namespace tfr
 } // namespace render
