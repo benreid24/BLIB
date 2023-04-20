@@ -441,6 +441,45 @@ void VulkanState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
     vkBindBufferMemory(device, buffer, bufferMemory, 0);
 }
 
+VkDeviceSize VulkanState::createDoubleBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
+                                             VkMemoryPropertyFlags properties,
+                                             PerFrame<VkBuffer>& buffers,
+                                             VkDeviceMemory& bufferMemory) {
+    const VkDeviceSize totalSize = size * Config::MaxConcurrentFrames;
+
+    VkBufferCreateInfo bufferInfo{};
+    bufferInfo.sType       = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+    bufferInfo.size        = size;
+    bufferInfo.usage       = usage;
+    bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+
+    buffers.init(*this, [this, &bufferInfo](VkBuffer& buffer) {
+        if (vkCreateBuffer(device, &bufferInfo, nullptr, &buffer) != VK_SUCCESS) {
+            throw std::runtime_error("failed to create buffer!");
+        }
+    });
+
+    VkMemoryRequirements memRequirements;
+    vkGetBufferMemoryRequirements(device, buffers.current(), &memRequirements);
+    const VkDeviceSize ogSize = memRequirements.size;
+    memRequirements.size *= Config::MaxConcurrentFrames; // correct? alignment?
+
+    VkMemoryAllocateInfo allocInfo{};
+    allocInfo.sType           = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+    allocInfo.allocationSize  = memRequirements.size;
+    allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
+
+    if (vkAllocateMemory(device, &allocInfo, nullptr, &bufferMemory) != VK_SUCCESS) {
+        throw std::runtime_error("failed to allocate buffer memory!");
+    }
+
+    for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
+        vkBindBufferMemory(device, buffers.getRaw(i), bufferMemory, ogSize * i);
+    }
+
+    return ogSize;
+}
+
 void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
                               VkImageTiling tiling, VkImageUsageFlags usage,
                               VkMemoryPropertyFlags properties, VkImage& image,

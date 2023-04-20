@@ -102,6 +102,20 @@ struct VulkanState {
                       VkBuffer& buffer, VkDeviceMemory& bufferMemory);
 
     /**
+     * @brief Helper function to create a PerFrame<VkBuffer> with some parameters
+     *
+     * @param size The size of the buffer to create
+     * @param usage How the buffer will be used
+     * @param properties Requested properties of the buffer memory
+     * @param buffer The buffers to populate
+     * @param bufferMemory The buffer memory to populate
+     * @return The padded and aligned size of each buffer in the memory allocation
+     */
+    VkDeviceSize createDoubleBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
+                                    VkMemoryPropertyFlags properties, PerFrame<VkBuffer>& buffers,
+                                    VkDeviceMemory& bufferMemory);
+
+    /**
      * @brief Helper function to find the best-suited image format given the requested format and
      *        current hardware support
      *
