@@ -71,10 +71,10 @@ void SceneRenderContext::renderObject(VkPipelineLayout layout, const SceneObject
 
     vkCmdDrawIndexed(commandBuffer,
                      object.drawParams.indexCount,
-                     1,
+                     object.drawParams.instanceCount,
                      object.drawParams.indexOffset,
                      object.drawParams.vertexOffset,
-                     0);
+                     object.drawParams.firstInstance);
 }
 
 } // namespace render

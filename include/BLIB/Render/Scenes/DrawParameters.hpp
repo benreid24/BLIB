@@ -10,7 +10,7 @@ namespace render
 {
 /**
  * @brief Collection of the required parameters to issue draw commands per object
- * 
+ *
  * @ingroup Renderer
  */
 struct DrawParameters {
@@ -19,7 +19,8 @@ struct DrawParameters {
     std::uint32_t indexCount;
     std::uint32_t indexOffset;
     std::uint32_t vertexOffset;
-    // TODO - support instancing here?
+    std::uint32_t firstInstance;
+    std::uint32_t instanceCount;
 };
 
 } // namespace render
