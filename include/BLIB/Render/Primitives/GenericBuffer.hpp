@@ -60,6 +60,11 @@ public:
      */
     constexpr VkBuffer handle() const;
 
+    /**
+     * @brief Returns the number of elements in the buffer
+     */
+    constexpr std::uint32_t size() const;
+
 protected:
     /**
      * @brief Transfers queued writes to the buffer
@@ -71,9 +76,9 @@ protected:
                                  tfr::TransferContext& context) override;
 
 private:
-    VulkanState* vulkanState;
     priv::GenericBufferStorage<DoubleBuffer, StageRequired> storage;
-    T* queuedWrite;
+    std::uint32_t len;
+    const T* queuedWrite;
     std::uint32_t writeOff;
     std::uint32_t writeLen;
 };
@@ -82,7 +87,7 @@ private:
 
 template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
 GenericBuffer<T, Memory, DoubleBuffer>::GenericBuffer()
-: vulkanState(nullptr) {}
+: Transferable() {}
 
 template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
 GenericBuffer<T, Memory, DoubleBuffer>::~GenericBuffer() {
@@ -117,10 +122,15 @@ constexpr VkBuffer GenericBuffer<T, Memory, DoubleBuffer>::handle() const {
 }
 
 template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
+constexpr std::uint32_t GenericBuffer<T, Memory, DoubleBuffer>::size() const {
+    return len;
+}
+
+template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
 void GenericBuffer<T, Memory, DoubleBuffer>::executeTransfer(VkCommandBuffer cb,
                                                              tfr::TransferContext& ctx) {
     if (queuedWrite) {
-        storage.doWrite(cb, ctx, queuedWrite, offset, writeLen);
+        storage.doWrite(cb, ctx, queuedWrite, writeOff, writeLen);
         queuedWrite = nullptr; // TODO - maybe keep this for per-frame writes?
 
         VkBufferMemoryBarrier barrier{};
@@ -130,7 +140,7 @@ void GenericBuffer<T, Memory, DoubleBuffer>::executeTransfer(VkCommandBuffer cb,
         barrier.srcAccessMask       = VK_ACCESS_TRANSFER_WRITE_BIT;
         barrier.dstAccessMask       = VK_ACCESS_MEMORY_READ_BIT;
         barrier.buffer              = storage.current();
-        barrier.offset              = writeOffset;
+        barrier.offset              = writeOff;
         barrier.size                = writeLen;
         ctx.registerBufferBarrier(barrier);
     }

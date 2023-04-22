@@ -50,7 +50,7 @@ private:
     DescriptorPool::AllocationHandle setHandle;
     VkDescriptorSet descriptorSet;
 
-    IndexBuffer indexBuffer;
+    prim::IndexBuffer indexBuffer;
     Pipeline* pipeline;
 };
 

@@ -7,6 +7,16 @@ namespace bl
 {
 namespace render
 {
+namespace
+{
+const Vertex vertices[4] = {Vertex({-1.f, -1.f, 0.f}, {0.f, 0.f}),
+                            Vertex({1.f, -1.f, 0.f}, {1.f, 0.f}),
+                            Vertex({1.f, 1.f, 0.f}, {1.f, 1.f}),
+                            Vertex({-1.f, 1.f, 0.f}, {0.f, 1.f})};
+
+const std::uint32_t indices[6] = {0, 1, 3, 1, 2, 3};
+} // namespace
+
 std::array<VkDescriptorSetLayoutBinding, 1> PostFX::DescriptorLayoutBindings() {
     return overlay::Image::DescriptorLayoutBindings();
 }
@@ -51,11 +61,8 @@ PostFX::PostFX(Renderer& renderer)
 
     // create index buffer
     indexBuffer.create(vs, 4, 6);
-    indexBuffer.indices().assign({0, 1, 3, 1, 2, 3}, 0);
-    indexBuffer.vertices()[0] = Vertex({-1.f, -1.f, 0.f}, {0.f, 0.f});
-    indexBuffer.vertices()[1] = Vertex({1.f, -1.f, 0.f}, {1.f, 0.f});
-    indexBuffer.vertices()[2] = Vertex({1.f, 1.f, 0.f}, {1.f, 1.f});
-    indexBuffer.vertices()[3] = Vertex({-1.f, 1.f, 0.f}, {0.f, 1.f});
+    indexBuffer.indices().write(indices, 0, 6);
+    indexBuffer.vertices().write(vertices, 0, 4);
     indexBuffer.sendToGPU();
 
     // fetch initial pipeline
@@ -127,7 +134,7 @@ void PostFX::compositeScene(VkCommandBuffer cb) {
     VkBuffer vertices[]    = {indexBuffer.vertices().handle()};
     VkDeviceSize offsets[] = {0};
     vkCmdBindVertexBuffers(cb, 0, 1, vertices, offsets);
-    vkCmdBindIndexBuffer(cb, indexBuffer.indices().handle(), 0, IndexBuffer::IndexType);
+    vkCmdBindIndexBuffer(cb, indexBuffer.indices().handle(), 0, prim::IndexBuffer::IndexType);
 
     onRender(cb);
     vkCmdDrawIndexed(cb, indexBuffer.indices().size(), 1, 0, 0, 0);

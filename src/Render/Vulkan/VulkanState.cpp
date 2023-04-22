@@ -445,8 +445,6 @@ VkDeviceSize VulkanState::createDoubleBuffer(VkDeviceSize size, VkBufferUsageFla
                                              VkMemoryPropertyFlags properties,
                                              PerFrame<VkBuffer>& buffers,
                                              VkDeviceMemory& bufferMemory) {
-    const VkDeviceSize totalSize = size * Config::MaxConcurrentFrames;
-
     VkBufferCreateInfo bufferInfo{};
     bufferInfo.sType       = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     bufferInfo.size        = size;

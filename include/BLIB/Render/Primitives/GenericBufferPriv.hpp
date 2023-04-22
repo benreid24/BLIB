@@ -14,18 +14,11 @@ namespace prim
 {
 namespace priv
 {
-/*
-4 permutations:
-  - Double-buffered staged: Persistent stage buffers
-  - doubled-buffered unstaged: Direct writes
-  - Single-buffered staged: One-time stage buffers
-  - Single-buffered unstaged: Direct writes
-*/
 template<bool DoubleBuffer, bool StagingRequired>
 struct GenericBufferStorage {
     void create(VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
                 VkBufferUsageFlags usage);
-    void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext& ctx, void* data,
+    void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext& ctx, const void* data,
                  std::uint32_t offset, std::uint32_t len);
     void destroy(VulkanState& vulkanState);
     constexpr VkBuffer current() const;
@@ -44,19 +37,19 @@ struct GenericBufferStorage<true, true> {
             stagingBuffers,
             stagingMemory);
         unsigned int i = 0;
-        mappedStaging.init(vulkanState, [this, &vulkanState, &i](void*& dest) {
+        mappedStaging.init(vulkanState, [this, &vulkanState, &i, offset, size](void*& dest) {
             vkMapMemory(vulkanState.device, stagingMemory, i * offset, size, 0, &dest);
             ++i;
         });
     }
 
-    void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext&, void* data,
+    void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext&, const void* data,
                  std::uint32_t offset, std::uint32_t len) {
-        std::memcpy(mappedStaging.current() + offset, data, len);
+        std::memcpy(static_cast<char*>(mappedStaging.current()) + offset, data, len);
         VkBufferCopy copyRegion{};
         copyRegion.srcOffset = offset;
         copyRegion.dstOffset = offset;
-        copyRegion.size      = size;
+        copyRegion.size      = len;
         vkCmdCopyBuffer(commandBuffer, stagingBuffers.current(), buffers.current(), 1, &copyRegion);
     }
 
@@ -85,17 +78,18 @@ template<>
 struct GenericBufferStorage<true, false> {
     void create(VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
                 VkBufferUsageFlags usage) {
-        vulkanState.createDoubleBuffer(size, usage, memProps, buffers, memory);
+        const VkDeviceSize offset =
+            vulkanState.createDoubleBuffer(size, usage, memProps, buffers, memory);
         unsigned int i = 0;
-        mappedBuffers.init(vulkanState, [this, &vulkanState, &i](void*& dest) {
+        mappedBuffers.init(vulkanState, [this, &vulkanState, &i, offset, size](void*& dest) {
             vkMapMemory(vulkanState.device, memory, i * offset, size, 0, &dest);
             ++i;
         });
     }
 
-    void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext&, void* data,
+    void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext&, const void* data,
                  std::uint32_t offset, std::uint32_t len) {
-        std::memcpy(mappedBuffers.current() + offset, data, len);
+        std::memcpy(static_cast<char*>(mappedBuffers.current()) + offset, data, len);
     }
 
     void destroy(VulkanState& vulkanState) {
@@ -121,16 +115,16 @@ struct GenericBufferStorage<false, true> {
             size, usage | VK_BUFFER_USAGE_TRANSFER_DST_BIT, memProps, buffer, gpuMemory);
     }
 
-    void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext& ctx, void* data,
+    void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext& ctx, const void* data,
                  std::uint32_t offset, std::uint32_t len) {
         VkBuffer stagingBuffer;
         VkDeviceMemory stagingMemory;
         ctx.createTemporaryStagingBuffer(len, stagingBuffer, stagingMemory);
 
         void* dest = nullptr;
-        vkMapMemory(ctx.device, stagingMemory, 0, len, 0, &dest);
+        vkMapMemory(ctx.device(), stagingMemory, 0, len, 0, &dest);
         std::memcpy(dest, data, len);
-        vkUnmapMemory(ctx.device, stagingMemory);
+        vkUnmapMemory(ctx.device(), stagingMemory);
 
         VkBufferCopy copyCmd{};
         copyCmd.dstOffset = offset;
@@ -158,9 +152,9 @@ struct GenericBufferStorage<false, false> {
         vkMapMemory(vulkanState.device, memory, 0, size, 0, &mappedBuffer);
     }
 
-    void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext& ctx, void* data,
+    void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext& ctx, const void* data,
                  std::uint32_t offset, std::uint32_t len) {
-        std::memcpy(mappedBuffer + offset, data, len);
+        std::memcpy(static_cast<char*>(mappedBuffer) + offset, data, len);
     }
 
     void destroy(VulkanState& vulkanState) {

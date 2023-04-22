@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_PRIMITIVES_INDEXBUFFER_HPP
 #define BLIB_RENDER_PRIMITIVES_INDEXBUFFER_HPP
 
-#include <BLIB/Render/Primitives/Buffer.hpp>
+#include <BLIB/Render/Primitives/GenericBuffer.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Render/Scenes/DrawParameters.hpp>
 
@@ -9,9 +9,11 @@ namespace bl
 {
 namespace render
 {
+namespace prim
+{
 
 /**
- * @brief Basic index buffer class built on top of Buffer
+ * @brief Basic index buffer class built on top of GenericBuffer. Intended for static mesh data
  *
  * @tparam T The type of vertex to index into. Defaults to Vertex
  * @ingroup Renderer
@@ -20,6 +22,8 @@ template<typename T>
 class IndexBufferT {
 public:
     static constexpr VkIndexType IndexType = VK_INDEX_TYPE_UINT32;
+    using TVertexBuffer = GenericBuffer<T, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false>;
+    using TIndexBuffer  = GenericBuffer<std::uint32_t, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false>;
 
     /**
      * @brief Creates the vertex and index buffers
@@ -38,22 +42,22 @@ public:
     /**
      * @brief Returns the vertex buffer
      */
-    constexpr Buffer<T>& vertices();
+    constexpr TVertexBuffer& vertices();
 
     /**
      * @brief Returns the vertex buffer
      */
-    constexpr const Buffer<T>& vertices() const;
+    constexpr const TVertexBuffer& vertices() const;
 
     /**
      * @brief Returns the index buffer
      */
-    constexpr Buffer<std::uint32_t>& indices();
+    constexpr TIndexBuffer& indices();
 
     /**
      * @brief Returns the index buffer
      */
-    constexpr const Buffer<std::uint32_t>& indices() const;
+    constexpr const TIndexBuffer& indices() const;
 
     /**
      * @brief Sends both buffers to the GPU
@@ -66,8 +70,8 @@ public:
     DrawParameters getDrawParameters() const;
 
 private:
-    Buffer<T> vertexBuffer;
-    Buffer<std::uint32_t> indexBuffer;
+    TVertexBuffer vertexBuffer;
+    TIndexBuffer indexBuffer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -86,29 +90,29 @@ void IndexBufferT<T>::destroy() {
 }
 
 template<typename T>
-constexpr Buffer<T>& IndexBufferT<T>::vertices() {
+constexpr IndexBufferT<T>::TVertexBuffer& IndexBufferT<T>::vertices() {
     return vertexBuffer;
 }
 
 template<typename T>
-constexpr const Buffer<T>& IndexBufferT<T>::vertices() const {
+constexpr const IndexBufferT<T>::TVertexBuffer& IndexBufferT<T>::vertices() const {
     return vertexBuffer;
 }
 
 template<typename T>
-constexpr Buffer<std::uint32_t>& IndexBufferT<T>::indices() {
+constexpr IndexBufferT<T>::TIndexBuffer& IndexBufferT<T>::indices() {
     return indexBuffer;
 }
 
 template<typename T>
-constexpr const Buffer<std::uint32_t>& IndexBufferT<T>::indices() const {
+constexpr const IndexBufferT<T>::TIndexBuffer& IndexBufferT<T>::indices() const {
     return indexBuffer;
 }
 
 template<typename T>
 void IndexBufferT<T>::sendToGPU() {
-    // vertexBuffer.queueTransfer();
-    // indexBuffer.queueTransfer();
+    vertexBuffer.queueTransfer(tfr::Transferable::SyncRequirement::DeviceIdle);
+    indexBuffer.queueTransfer(tfr::Transferable::SyncRequirement::DeviceIdle);
 }
 
 template<typename T>
@@ -128,6 +132,7 @@ inline DrawParameters IndexBufferT<T>::getDrawParameters() const {
  */
 using IndexBuffer = IndexBufferT<Vertex>;
 
+} // namespace prim
 } // namespace render
 } // namespace bl
 

@@ -73,7 +73,7 @@ private:
     VkSampler sampler;
     DescriptorPool::AllocationHandle descriptorSetAllocHandle;
     PerFrame<VkDescriptorSet> descriptorSets;
-    IndexBuffer indexBuffer;
+    prim::IndexBuffer indexBuffer;
     Pipeline* pipeline;
 
     void bindImages(PerFrame<StandardImageBuffer>& sceneImages);

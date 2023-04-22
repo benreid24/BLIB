@@ -9,6 +9,16 @@ namespace render
 {
 namespace overlay
 {
+namespace
+{
+const Vertex vertices[4] = {Vertex({-1.f, -1.f, 0.f}, {0.f, 0.f}),
+                            Vertex({1.f, -1.f, 0.f}, {1.f, 0.f}),
+                            Vertex({1.f, 1.f, 0.f}, {1.f, 1.f}),
+                            Vertex({-1.f, 1.f, 0.f}, {0.f, 1.f})};
+
+const std::uint32_t indices[6] = {0, 1, 3, 1, 2, 3};
+} // namespace
+
 Image::Image()
 : renderer(nullptr)
 , sampler(nullptr) {}
@@ -50,11 +60,8 @@ void Image::setImage(Renderer& r, VkImageView imageView) {
 
         // create index buffer
         indexBuffer.create(vs, 4, 6);
-        indexBuffer.indices().assign({0, 1, 3, 1, 2, 3}, 0);
-        indexBuffer.vertices()[0] = Vertex({-1.f, -1.f, 0.f}, {0.f, 0.f});
-        indexBuffer.vertices()[1] = Vertex({1.f, -1.f, 0.f}, {1.f, 0.f});
-        indexBuffer.vertices()[2] = Vertex({1.f, 1.f, 0.f}, {1.f, 1.f});
-        indexBuffer.vertices()[3] = Vertex({-1.f, 1.f, 0.f}, {0.f, 1.f});
+        indexBuffer.indices().write(indices, 0, 6);
+        indexBuffer.vertices().write(vertices, 0, 4);
         indexBuffer.sendToGPU();
 
         // fetch initial pipeline
@@ -115,7 +122,7 @@ void Image::doRender(OverlayRenderContext& ctx) {
     VkDeviceSize offsets[] = {0};
     vkCmdBindVertexBuffers(ctx.commandBuffer, 0, 1, vertices, offsets);
     vkCmdBindIndexBuffer(
-        ctx.commandBuffer, indexBuffer.indices().handle(), 0, IndexBuffer::IndexType);
+        ctx.commandBuffer, indexBuffer.indices().handle(), 0, prim::IndexBuffer::IndexType);
 
     vkCmdDrawIndexed(ctx.commandBuffer, indexBuffer.indices().size(), 1, 0, 0, 0);
 }

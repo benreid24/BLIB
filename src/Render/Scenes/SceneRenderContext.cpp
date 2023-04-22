@@ -62,7 +62,7 @@ void SceneRenderContext::renderObject(VkPipelineLayout layout, const SceneObject
     if (prevIB != object.drawParams.indexBuffer) {
         prevIB = object.drawParams.indexBuffer;
         vkCmdBindIndexBuffer(
-            commandBuffer, object.drawParams.indexBuffer, 0, IndexBuffer::IndexType);
+            commandBuffer, object.drawParams.indexBuffer, 0, prim::IndexBuffer::IndexType);
     }
 
     for (unsigned int i = perObjStart; i < perObjStart + perObjCount; ++i) {
