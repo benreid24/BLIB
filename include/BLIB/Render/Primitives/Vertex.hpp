@@ -10,6 +10,8 @@ namespace bl
 {
 namespace render
 {
+namespace prim
+{
 /**
  * @brief Base Vertex primitive for the renderer
  *
@@ -81,6 +83,7 @@ struct Vertex {
     static std::array<VkVertexInputAttributeDescription, 3> attributeDescriptions();
 };
 
+} // namespace prim
 } // namespace render
 } // namespace bl
 

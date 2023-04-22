@@ -9,10 +9,10 @@ namespace render
 {
 namespace
 {
-const Vertex vertices[4] = {Vertex({-1.f, -1.f, 0.f}, {0.f, 0.f}),
-                            Vertex({1.f, -1.f, 0.f}, {1.f, 0.f}),
-                            Vertex({1.f, 1.f, 0.f}, {1.f, 1.f}),
-                            Vertex({-1.f, 1.f, 0.f}, {0.f, 1.f})};
+const prim::Vertex vertices[4] = {prim::Vertex({-1.f, -1.f, 0.f}, {0.f, 0.f}),
+                                  prim::Vertex({1.f, -1.f, 0.f}, {1.f, 0.f}),
+                                  prim::Vertex({1.f, 1.f, 0.f}, {1.f, 1.f}),
+                                  prim::Vertex({-1.f, 1.f, 0.f}, {0.f, 1.f})};
 
 const std::uint32_t indices[6] = {0, 1, 3, 1, 2, 3};
 } // namespace

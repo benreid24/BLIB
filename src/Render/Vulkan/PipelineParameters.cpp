@@ -162,7 +162,7 @@ PipelineParameters& PipelineParameters::withDepthStencilState(
 PipelineParameters&& PipelineParameters::build() {
     if (shaders.empty()) { throw std::runtime_error("Pipeline creation must have shaders"); }
     if (vertexAttributes.empty()) {
-        withVertexFormat(Vertex::bindingDescription(), Vertex::attributeDescriptions());
+        withVertexFormat(prim::Vertex::bindingDescription(), prim::Vertex::attributeDescriptions());
     }
     if (descriptorSets.empty()) { BL_LOG_WARN << "Pipeline being created with 0 descriptor sets"; }
     if (colorAttachmentBlendStates.empty()) {

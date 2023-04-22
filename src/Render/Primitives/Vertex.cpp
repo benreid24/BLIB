@@ -6,6 +6,8 @@ namespace bl
 {
 namespace render
 {
+namespace prim
+{
 Vertex::Vertex()
 : pos()
 , color(1.f, 1.f, 1.f, 1.f)
@@ -115,5 +117,6 @@ std::array<VkVertexInputAttributeDescription, 3> Vertex::attributeDescriptions()
     return attributeDescriptions;
 }
 
+} // namespace prim
 } // namespace render
 } // namespace bl
