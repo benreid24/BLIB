@@ -135,7 +135,7 @@ protected:
 private:
     const bool perObject;
     std::uint32_t maxStatic;
-    bool staticChanged;
+    int staticChanged;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -143,7 +143,7 @@ private:
 inline constexpr bool DescriptorSetInstance::isPerObject() const { return perObject; }
 
 inline void DescriptorSetInstance::markObjectDirty(std::uint32_t si) {
-    staticChanged = staticChanged || si < maxStatic;
+    staticChanged = si < maxStatic ? 2 : staticChanged;
 }
 
 } // namespace ds

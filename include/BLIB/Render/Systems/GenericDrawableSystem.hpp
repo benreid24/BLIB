@@ -27,8 +27,8 @@ struct DrawSystemBase {
     static std::mutex sceneSyncMutex; // TODO - better way to sync all changes? Systems itself can
                                       // provide mutex for each frame stage?
 };
-
 } // namespace priv
+
 /**
  * @brief Base class for renderer systems that manage scene objects in the ECS. Custom renderable
  *        types should have a system that inherits from this class that manages their membership

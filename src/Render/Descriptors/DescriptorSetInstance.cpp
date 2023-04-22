@@ -9,7 +9,7 @@ namespace ds
 DescriptorSetInstance::DescriptorSetInstance(bool po)
 : perObject(po)
 , maxStatic(0)
-, staticChanged(false) {}
+, staticChanged(0) {}
 
 void DescriptorSetInstance::init(std::uint32_t ms, std::uint32_t md) {
     maxStatic = ms;
@@ -18,13 +18,13 @@ void DescriptorSetInstance::init(std::uint32_t ms, std::uint32_t md) {
 
 bool DescriptorSetInstance::allocateObject(std::uint32_t sceneId, ecs::Entity entity,
                                            SceneObject::UpdateSpeed updateSpeed) {
-    staticChanged = staticChanged || sceneId < maxStatic;
+    markObjectDirty(sceneId);
     return doAllocateObject(sceneId, entity, updateSpeed);
 }
 
 void DescriptorSetInstance::handleFrameStart() {
-    beginSync(staticChanged);
-    staticChanged = false;
+    beginSync(staticChanged > 0);
+    staticChanged = staticChanged >> 1; // 2 -> 1 -> 0 -> 0 ...
 }
 
 } // namespace ds
