@@ -28,7 +28,7 @@ struct GenericBufferStorage {
     void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext& ctx, void* data,
                  std::uint32_t offset, std::uint32_t len);
     void destroy(VulkanState& vulkanState);
-    constexpr VkBuffer current();
+    constexpr VkBuffer current() const;
 };
 
 template<>
@@ -72,7 +72,7 @@ struct GenericBufferStorage<true, true> {
         vkFreeMemory(vulkanState.device, stagingMemory, nullptr);
     }
 
-    constexpr VkBuffer current() { return buffers.current(); }
+    constexpr VkBuffer current() const { return buffers.current(); }
 
     PerFrame<VkBuffer> buffers;
     VkDeviceMemory gpuMemory;
@@ -106,7 +106,7 @@ struct GenericBufferStorage<true, false> {
         vkFreeMemory(vulkanState.device, memory, nullptr);
     }
 
-    constexpr VkBuffer current() { return buffers.current(); }
+    constexpr VkBuffer current() const { return buffers.current(); }
 
     PerFrame<VkBuffer> buffers;
     VkDeviceMemory memory;
@@ -144,7 +144,7 @@ struct GenericBufferStorage<false, true> {
         vkFreeMemory(vulkanState.device, gpuMemory, nullptr);
     }
 
-    constexpr VkBuffer current() { return buffer; }
+    constexpr VkBuffer current() const { return buffer; }
 
     VkBuffer buffer;
     VkDeviceMemory gpuMemory;
@@ -168,7 +168,7 @@ struct GenericBufferStorage<false, false> {
         vkFreeMemory(vulkanState.device, memory, nullptr);
     }
 
-    constexpr VkBuffer current() { return buffer; }
+    constexpr VkBuffer current() const { return buffer; }
 
     VkBuffer buffer;
     VkDeviceMemory memory;

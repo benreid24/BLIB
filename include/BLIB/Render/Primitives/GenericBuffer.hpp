@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_PRIMITIVES_GENERICBUFFER_HPP
 #define BLIB_RENDER_PRIMITIVES_GENERICBUFFER_HPP
 
+#include <BLIB/Render/Primitives/GenericBufferPriv.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <glad/vulkan.h>
 
@@ -47,14 +48,10 @@ public:
      * @brief Queues the given data to be written to the buffer. Pointer must stay valid
      *
      * @param data Pointer to the data to write
+     * @param offset Offset into the buffer to write at
      * @param len Number of elements to write
      */
-    void write(const T* data, std::size_t len);
-
-    /**
-     * @brief Returns the number of elements in the buffer
-     */
-    constexpr std::size_t size() const;
+    void write(const T* data, std::uint32_t offset, std::uint32_t len);
 
     /**
      * @brief Returns the Vulkan handle to the GPU buffer
@@ -62,8 +59,50 @@ public:
     constexpr VkBuffer handle() const;
 
 private:
-    //
+    VulkanState* vulkanState;
+    priv::GenericBufferStorage<DoubleBuffer, StageRequired> storage;
+    T* queuedWrite;
+    std::uint32_t writeOff;
+    std::uint32_t writeLen;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
+GenericBuffer<T, Memory, DoubleBuffer>::GenericBuffer()
+: vulkanState(nullptr) {}
+
+template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
+GenericBuffer<T, Memory, DoubleBuffer>::~GenericBuffer() {
+    if (vulkanState) { destroy(); }
+}
+
+template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
+void GenericBuffer<T, Memory, DoubleBuffer>::create(VulkanState& vs, std::uint32_t len,
+                                                    VkBufferUsageFlags usage) {
+    if (vulkanState) { destroy(); }
+    vulkanState = &vs;
+    storage.create(vs, len, Memory, usage);
+}
+
+template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
+void GenericBuffer<T, Memory, DoubleBuffer>::destroy() {
+    storage.destroy(*vulkanState);
+    vulkanState = nullptr;
+}
+
+template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
+void GenericBuffer<T, Memory, DoubleBuffer>::write(const T* data, std::uint32_t offset,
+                                                   std::uint32_t len) {
+    queuedWrite = data;
+    writeOff    = offset;
+    writeLen    = len;
+}
+
+template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
+constexpr VkBuffer GenericBuffer<T, Memory, DoubleBuffer>::handle() const {
+    return storage.current();
+}
 
 } // namespace prim
 } // namespace render
