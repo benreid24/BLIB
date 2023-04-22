@@ -191,6 +191,15 @@ struct VulkanState {
      */
     constexpr std::uint32_t currentFrameIndex() const;
 
+    /**
+     * @brief Computes the aligned size of data given its actual size and alignment requirement
+     *
+     * @param dataSize The size of the data to align
+     * @param alignment The alignment the data needs
+     * @return The aligned size of the data
+     */
+    static VkDeviceSize computeAlignedSize(VkDeviceSize dataSize, VkDeviceSize alignment);
+
     VkInstance instance;
 #ifdef BLIB_DEBUG
     VkDebugUtilsMessengerEXT debugMessenger;

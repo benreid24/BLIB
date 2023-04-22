@@ -45,10 +45,12 @@ public:
     void destroy();
 
     /**
-     * @brief Queues the given data to be written to the buffer. Pointer must stay valid
+     * @brief Queues the given data to be written to the buffer. Pointer must stay valid. Writes are
+     *        performed by the TransferEngine on frame start. Call one of the queue methods on
+     *        Transferable to configure the buffer to transfer as needed
      *
      * @param data Pointer to the data to write
-     * @param offset Offset into the buffer to write at
+     * @param offset Offset into the buffer to write at in terms of T indices
      * @param len Number of elements to write
      */
     void write(const T* data, std::uint32_t offset, std::uint32_t len);
@@ -57,6 +59,16 @@ public:
      * @brief Returns the Vulkan handle to the GPU buffer
      */
     constexpr VkBuffer handle() const;
+
+protected:
+    /**
+     * @brief Transfers queued writes to the buffer
+     *
+     * @param commandBuffer Command buffer to record into
+     * @param context Transfer context to use
+     */
+    virtual void executeTransfer(VkCommandBuffer commandBuffer,
+                                 tfr::TransferContext& context) override;
 
 private:
     VulkanState* vulkanState;
@@ -82,7 +94,7 @@ void GenericBuffer<T, Memory, DoubleBuffer>::create(VulkanState& vs, std::uint32
                                                     VkBufferUsageFlags usage) {
     if (vulkanState) { destroy(); }
     vulkanState = &vs;
-    storage.create(vs, len, Memory, usage);
+    storage.create(vs, len * sizeof(T), Memory, usage);
 }
 
 template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
@@ -95,13 +107,33 @@ template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
 void GenericBuffer<T, Memory, DoubleBuffer>::write(const T* data, std::uint32_t offset,
                                                    std::uint32_t len) {
     queuedWrite = data;
-    writeOff    = offset;
-    writeLen    = len;
+    writeOff    = offset * sizeof(T);
+    writeLen    = len * sizeof(T);
 }
 
 template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
 constexpr VkBuffer GenericBuffer<T, Memory, DoubleBuffer>::handle() const {
     return storage.current();
+}
+
+template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
+void GenericBuffer<T, Memory, DoubleBuffer>::executeTransfer(VkCommandBuffer cb,
+                                                             tfr::TransferContext& ctx) {
+    if (queuedWrite) {
+        storage.doWrite(cb, ctx, queuedWrite, offset, writeLen);
+        queuedWrite = nullptr; // TODO - maybe keep this for per-frame writes?
+
+        VkBufferMemoryBarrier barrier{};
+        barrier.sType               = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+        barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+        barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+        barrier.srcAccessMask       = VK_ACCESS_TRANSFER_WRITE_BIT;
+        barrier.dstAccessMask       = VK_ACCESS_MEMORY_READ_BIT;
+        barrier.buffer              = storage.current();
+        barrier.offset              = writeOffset;
+        barrier.size                = writeLen;
+        ctx.registerBufferBarrier(barrier);
+    }
 }
 
 } // namespace prim

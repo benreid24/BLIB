@@ -461,12 +461,14 @@ VkDeviceSize VulkanState::createDoubleBuffer(VkDeviceSize size, VkBufferUsageFla
 
     VkMemoryRequirements memRequirements;
     vkGetBufferMemoryRequirements(device, buffers.current(), &memRequirements);
-    const VkDeviceSize ogSize = memRequirements.size;
-    memRequirements.size *= Config::MaxConcurrentFrames; // correct? alignment?
+    const VkDeviceSize padding =
+        computeAlignedSize(memRequirements.size, memRequirements.alignment);
+    const VkDeviceSize offset    = memRequirements.size + padding;
+    const VkDeviceSize totalSize = offset * Config::MaxConcurrentFrames;
 
     VkMemoryAllocateInfo allocInfo{};
     allocInfo.sType           = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-    allocInfo.allocationSize  = memRequirements.size;
+    allocInfo.allocationSize  = totalSize;
     allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
 
     if (vkAllocateMemory(device, &allocInfo, nullptr, &bufferMemory) != VK_SUCCESS) {
@@ -474,10 +476,10 @@ VkDeviceSize VulkanState::createDoubleBuffer(VkDeviceSize size, VkBufferUsageFla
     }
 
     for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
-        vkBindBufferMemory(device, buffers.getRaw(i), bufferMemory, ogSize * i);
+        vkBindBufferMemory(device, buffers.getRaw(i), bufferMemory, offset * i);
     }
 
-    return ogSize;
+    return offset;
 }
 
 void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
@@ -683,6 +685,10 @@ VkShaderModule VulkanState::createShaderModule(const std::string& path) {
         throw std::runtime_error("failed to create shader module!");
     }
     return shaderModule;
+}
+
+VkDeviceSize VulkanState::computeAlignedSize(VkDeviceSize len, VkDeviceSize align) {
+    return (len + align - 1) & ~(align - 1);
 }
 
 } // namespace render
