@@ -1,0 +1,8 @@
+target_sources(BLIB PRIVATE
+	CommonSceneDescriptorSetFactory.cpp
+	CommonSceneDescriptorSetInstance.cpp
+	DefaultObjectDescriptorSetFactory.cpp
+	DefaultObjectDescriptorSetInstance.cpp
+	TexturesDescriptorSetFactory.cpp
+	TexturesDescriptorSetInstance.cpp
+)

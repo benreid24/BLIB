@@ -2,7 +2,9 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/DefaultObjectDescriptorSetFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/TexturesDescriptorSetFactory.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -67,6 +69,8 @@ void PipelineCache::createBuiltins() {
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
             .withDepthStencilState(&depthStencil)
+            .addDescriptorSet<ds::CommonSceneDescriptorSetFactory>()
+            .addDescriptorSet<ds::DefaultObjectDescriptorSetFactory>()
             .build());
 
     createPipline(Config::PipelineIds::OpaqueSkinnedMeshes,
@@ -76,6 +80,8 @@ void PipelineCache::createBuiltins() {
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencil)
+                      .addDescriptorSet<ds::TexturesDescriptorSetFactory>()
+                      .addDescriptorSet<ds::CommonSceneDescriptorSetFactory>()
                       .addDescriptorSet<ds::DefaultObjectDescriptorSetFactory>()
                       .build());
 

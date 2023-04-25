@@ -6,9 +6,9 @@ namespace bl
 {
 namespace render
 {
-SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, const glm::mat4& projView)
+SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex)
 : commandBuffer(commandBuffer)
-, projView(projView)
+, observerIndex(observerIndex)
 , prevVB(nullptr)
 , prevIB(nullptr)
 , perObjStart(0)
@@ -29,7 +29,7 @@ void SceneRenderContext::bindDescriptors(
         if (bind || descriptors[i] != boundDescriptors[i]) {
             bind                = true;
             boundDescriptors[i] = descriptors[i];
-            descriptors[i]->bindForPipeline(commandBuffer, layout, i);
+            descriptors[i]->bindForPipeline(commandBuffer, layout, observerIndex, i);
         }
 
         if (descriptors[i]->isPerObject()) {

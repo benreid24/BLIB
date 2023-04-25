@@ -7,7 +7,7 @@ namespace render
 MaterialPool::MaterialPool(VulkanState& vs)
 : vulkanState(vs)
 , materials(MaxMaterialCount)
-, materialUniforms(MaxMaterialCount)
+//, materialUniforms(MaxMaterialCount)
 , freeSlots(MaxMaterialCount)
 , textureImageWriteInfo(MaxMaterialCount) {}
 

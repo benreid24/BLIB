@@ -91,6 +91,7 @@ void Renderer::renderFrame() {
     else {
         for (auto& o : observers) { o->handleDescriptorSync(); }
     }
+    scenes.handleDescriptorSync();
     state.transferEngine.executeTransfers();
 
     // begin frame

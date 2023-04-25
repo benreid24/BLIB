@@ -52,7 +52,7 @@ void Observer::pushScene(Scene* s) {
 Scene* Observer::popSceneNoRelease(bool cam) {
     std::unique_lock lock(mutex);
 
-    Scene* s = scenes.top();
+    Scene* s = scenes.top().scene;
     scenes.pop();
     if (cam) { cameras.pop(); }
     onScenePop();
@@ -62,7 +62,7 @@ Scene* Observer::popSceneNoRelease(bool cam) {
 void Observer::popScene(bool cam) {
     std::unique_lock lock(mutex);
 
-    Scene* s = scenes.top();
+    Scene* s = scenes.top().scene;
     scenes.pop();
     renderer.scenePool().destroyScene(s);
     if (cam) { cameras.pop(); }
@@ -73,7 +73,7 @@ void Observer::clearScenes() {
     std::unique_lock lock(mutex);
 
     while (!scenes.empty()) {
-        Scene* s = scenes.top();
+        Scene* s = scenes.top().scene;
         scenes.pop();
         renderer.scenePool().destroyScene(s);
     }
@@ -92,6 +92,7 @@ void Observer::clearScenesNoRelease() {
 void Observer::onSceneAdd() {
     postFX.emplace(std::make_unique<PostFX>(renderer));
     postFX.top()->bindImages(renderFrames);
+    scenes.top().observerIndex = scenes.top().scene->registerObserver();
 }
 
 void Observer::onScenePop() { postFX.pop(); }
@@ -108,25 +109,25 @@ void Observer::clearCameras() {
 
 void Observer::removePostFX() { setPostFX<PostFX>(renderer); }
 
-void Observer::handleDescriptorSync() { scenes.top()->handleDescriptorSync(); }
+void Observer::handleDescriptorSync() {
+    const glm::mat4 projView =
+        !cameras.empty() ?
+            cameras.top()->getProjectionMatrix(viewport) * cameras.top()->getViewMatrix() :
+            glm::perspective(75.f, viewport.width / viewport.height, 0.1f, 100.f);
+    scenes.top().scene->updateObserverCamera(scenes.top().observerIndex, projView);
+}
 
 void Observer::renderScene(VkCommandBuffer commandBuffer) {
-    std::unique_lock lock(mutex); // TODO - not needed?
-
     if (hasScene()) {
-        const glm::mat4 projView =
-            !cameras.empty() ?
-                cameras.top()->getProjectionMatrix(viewport) * cameras.top()->getViewMatrix() :
-                glm::perspective(75.f, viewport.width / viewport.height, 0.1f, 100.f);
         const VkRect2D renderRegion{{0, 0}, renderFrames.current().bufferSize()};
-        SceneRenderContext ctx(commandBuffer, projView);
+        SceneRenderContext ctx(commandBuffer, scenes.top().observerIndex);
         VkClearValue clearColors[2];
         clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
         clearColors[1].depthStencil = {1.f, 0};
 
         sceneFramebuffers.current().beginRender(
             commandBuffer, renderRegion, clearColors, std::size(clearColors), true);
-        scenes.top()->renderScene(ctx);
+        scenes.top().scene->renderScene(ctx);
         sceneFramebuffers.current().finishRender(commandBuffer);
     }
 }

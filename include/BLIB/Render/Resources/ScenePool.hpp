@@ -53,6 +53,11 @@ public:
      */
     void destroyScene(Scene* scene);
 
+    /**
+     * @brief Called once prior to TransferEngine kicking off
+     */
+    void handleDescriptorSync();
+
 private:
     Renderer& renderer;
     std::vector<container::ObjectWrapper<Scene>> pool;

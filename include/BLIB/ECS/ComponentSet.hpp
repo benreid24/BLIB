@@ -67,7 +67,7 @@ public:
     /**
      * @brief Returns whether or not all components are present and non-null
      *
-     * @return True if all components were foumd, false if some were not
+     * @return True if all components were found, false if some were not
      */
     constexpr bool isValid() const;
 

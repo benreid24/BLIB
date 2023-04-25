@@ -15,9 +15,9 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
     descriptorLayouts.reserve(descriptorSets.size());
     bool hitUserSet = false;
     for (unsigned int i = 0; i < params.descriptorSets.size(); ++i) {
-        descriptorLayouts.emplace_back(params.descriptorSets[i].factory->getDescriptorLayout());
         descriptorSets[i] = renderer.descriptorFactoryCache().getFactory(
             params.descriptorSets[i].factoryType, std::move(params.descriptorSets[i].factory));
+        descriptorLayouts.emplace_back(descriptorSets[i]->getDescriptorLayout());
     }
 
     // Load shaders

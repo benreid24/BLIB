@@ -1,6 +1,8 @@
 #include <BLIB/Render/Scenes/Scene.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -10,6 +12,7 @@ namespace render
 Scene::Scene(Renderer& r, std::uint32_t maxStatic, std::uint32_t maxDynamic)
 : maxStatic(maxStatic)
 , renderer(r)
+, descriptorFactories(r.descriptorFactoryCache())
 , objects(maxStatic + maxDynamic)
 , staticIds(maxStatic)
 , dynamicIds(maxDynamic)
@@ -17,7 +20,10 @@ Scene::Scene(Renderer& r, std::uint32_t maxStatic, std::uint32_t maxDynamic)
 , objectPipelines(maxStatic + maxDynamic)
 , descriptorSets(maxStatic, maxDynamic)
 , opaqueObjects(r, maxStatic + maxDynamic, descriptorSets)
-, transparentObjects(r, maxStatic + maxDynamic, descriptorSets) {}
+, transparentObjects(r, maxStatic + maxDynamic, descriptorSets) {
+    useSceneDescriptorSet<ds::CommonSceneDescriptorSetFactory,
+                          ds::CommonSceneDescriptorSetInstance>();
+}
 
 Scene::~Scene() {
     for (std::uint32_t i = 0; i < objects.size(); ++i) {
@@ -25,6 +31,12 @@ Scene::~Scene() {
             descriptorSets.unlinkSceneObject(i, entityMap[i]);
         }
     }
+}
+
+std::uint32_t Scene::registerObserver() { return sceneDescriptors->registerObserver(); }
+
+void Scene::updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView) {
+    sceneDescriptors->updateObserverCamera(observerIndex, projView);
 }
 
 SceneObject* Scene::createAndAddObject(ecs::Entity entity, const DrawParameters& drawParams,

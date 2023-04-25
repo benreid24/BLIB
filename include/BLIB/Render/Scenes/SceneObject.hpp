@@ -3,7 +3,6 @@
 
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Render/Scenes/DrawParameters.hpp>
-#include <BLIB/Render/Uniforms/PushConstants.hpp>
 #include <glad/vulkan.h>
 #include <glm/glm.hpp>
 

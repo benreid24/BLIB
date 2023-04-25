@@ -169,6 +169,15 @@ public:
     // TODO - overlay render method
 
 private:
+    struct ScenePair {
+        Scene* scene;
+        std::uint32_t observerIndex;
+
+        ScenePair(Scene* s)
+        : scene(s)
+        , observerIndex(0) {}
+    };
+
     Renderer& renderer;
     bool resourcesFreed;
     std::mutex mutex;
@@ -176,7 +185,7 @@ private:
     PerFrame<Framebuffer> sceneFramebuffers;
     VkRect2D scissor;    // refreshed on window resize and observer add/remove
     VkViewport viewport; // derived from scissor. depth should be set by caller
-    std::stack<Scene*, std::vector<Scene*>> scenes;
+    std::stack<ScenePair, std::vector<ScenePair>> scenes;
     std::stack<std::unique_ptr<Camera>, std::vector<std::unique_ptr<Camera>>> cameras;
     std::stack<std::unique_ptr<PostFX>, std::vector<std::unique_ptr<PostFX>>> postFX;
     float defaultNear, defaultFar;

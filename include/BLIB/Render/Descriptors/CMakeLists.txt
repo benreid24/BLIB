@@ -3,6 +3,7 @@ target_sources(BLIB PUBLIC
 	DescriptorSetFactoryCache.hpp
 	DescriptorSetInstance.hpp
 	DescriptorSetInstanceCache.hpp
+	SceneDescriptorSetInstance.hpp
 )
 
 add_subdirectory(Builtin)

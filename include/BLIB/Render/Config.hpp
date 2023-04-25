@@ -2,7 +2,6 @@
 #define BLIB_RENDER_CONFIG_HPP
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Uniforms/PushConstants.hpp>
 #include <cstdint>
 #include <glm/glm.hpp>
 
@@ -13,8 +12,7 @@ namespace render
 struct Config {
     static constexpr unsigned int MaxConcurrentFrames = 2;
 
-    static constexpr std::uint32_t CustomPushConstantOffsetStart  = sizeof(PushConstants);
-    static constexpr std::uint32_t CustomPushConstantMinAvailSize = 128 - sizeof(PushConstants);
+    static constexpr unsigned int MaxSceneObservers = 5;
 
     static constexpr glm::vec3 UpDirection = {0.f, 1.f, 0.f};
 

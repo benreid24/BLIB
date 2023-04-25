@@ -25,9 +25,9 @@ public:
      * @brief Creates a scene render context
      *
      * @param commandBuffer The command buffer to record commands into
-     * @param projView The projection matrix multiplied by the view matrix
+     * @param observerIndex Index of the observer currently rendering the scene
      */
-    SceneRenderContext(VkCommandBuffer commandBuffer, const glm::mat4& projView);
+    SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex);
 
     /**
      * @brief Binds the given pipeline
@@ -56,7 +56,7 @@ public:
 
 private:
     const VkCommandBuffer commandBuffer;
-    const glm::mat4& projView;
+    const std::uint32_t observerIndex;
     VkBuffer prevVB;
     VkBuffer prevIB;
     std::array<ds::DescriptorSetInstance*, 4> boundDescriptors;

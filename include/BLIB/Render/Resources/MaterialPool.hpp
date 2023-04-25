@@ -2,7 +2,6 @@
 #define BLIB_RENDER_MATERIALCACHE_HPP
 
 #include <BLIB/Render/Scenes/Material.hpp>
-#include <BLIB/Render/Uniforms/MaterialUniform.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <array>
@@ -44,7 +43,7 @@ public:
 private:
     VulkanState& vulkanState;
     std::vector<Material> materials;
-    std::vector<MaterialUniform> materialUniforms;
+    // std::vector<MaterialUniform> materialUniforms;
     util::IdAllocator<std::size_t> freeSlots;
 
     std::unordered_map<std::string, std::uint32_t> materialFileMap;

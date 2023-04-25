@@ -2,6 +2,7 @@
 #define BLIB_RENDER_DESCRIPTORS_DESCRIPTORSETINSTANCE_HPP
 
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <cstdint>
 #include <glad/vulkan.h>
@@ -53,7 +54,7 @@ public:
      * @param setIndex The index of the descriptor set in the owning scene
      */
     virtual void bindForPipeline(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
-                                 std::uint32_t setIndex) const = 0;
+                                 std::uint32_t observerIndex, std::uint32_t setIndex) const = 0;
 
     /**
      * @brief Called per-object by the scene if this instance has per-object logic
@@ -143,7 +144,7 @@ private:
 inline constexpr bool DescriptorSetInstance::isPerObject() const { return perObject; }
 
 inline void DescriptorSetInstance::markObjectDirty(std::uint32_t si) {
-    staticChanged = si < maxStatic ? 2 : staticChanged;
+    staticChanged = si < maxStatic ? Config::MaxConcurrentFrames : staticChanged;
 }
 
 } // namespace ds

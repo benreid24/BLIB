@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_RENDERER_MATERIAL_HPP
 #define BLIB_RENDER_RENDERER_MATERIAL_HPP
 
-#include <BLIB/Render/Uniforms/MaterialUniform.hpp>
 #include <cstdint>
 
 namespace bl
@@ -16,7 +15,7 @@ namespace render
  */
 struct Material {
     std::uint32_t textureId;
-    MaterialUniform parameters;
+    // MaterialUniform parameters;
 };
 
 } // namespace render

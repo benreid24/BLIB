@@ -40,6 +40,11 @@ public:
     void link(ds::DescriptorSetInstance* descriptorSet, std::uint32_t sceneId, TPayload* payload);
 
     /**
+     * @brief Unlinks the component from a scene object
+     */
+    void unlink();
+
+    /**
      * @brief Returns whether or not this component is dirty and needs to be synced
      */
     constexpr bool isDirty() const;
@@ -88,6 +93,11 @@ void DescriptorComponentBase<TCom, TPayload>::link(ds::DescriptorSetInstance* se
     sceneId       = sid;
     payload       = p;
     dirty         = true;
+}
+
+template<typename TCom, typename TPayload>
+inline void DescriptorComponentBase<TCom, TPayload>::unlink() {
+    descriptorSet = nullptr;
 }
 
 template<typename TCom, typename TPayload>

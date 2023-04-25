@@ -38,6 +38,18 @@ public:
     DescriptorSetFactory* getFactory(std::type_index derivedType,
                                      std::unique_ptr<DescriptorSetFactory>&& factory);
 
+    /**
+     * @brief Helper method for fetching or creating a factory without unnecessarily allocating a
+     *        new factory if one is already in the cache
+     *
+     * @tparam T Type of factory to create
+     * @tparam ...TArgs Argument types to factory constructor
+     * @param ...args Arguments to factory constructor
+     * @return Pointer to a factory of type T in the cache
+     */
+    template<typename T, typename... TArgs>
+    T* getOrCreateFactory(TArgs&&... args);
+
 private:
     engine::Engine& engine;
     Renderer& renderer;
@@ -48,6 +60,17 @@ private:
 
     friend class Renderer;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename T, typename... TArgs>
+T* DescriptorSetFactoryCache::getOrCreateFactory(TArgs&&... args) {
+    auto it = cache.find(typeid(T));
+    if (it == cache.end()) {
+        it = cache.try_emplace(typeid(T), std::make_unique<T>(std::forward<TArgs>(args)...)).first;
+    }
+    return static_cast<T*>(it->second.get());
+}
 
 } // namespace ds
 } // namespace render

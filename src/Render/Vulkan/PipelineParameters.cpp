@@ -3,7 +3,6 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
-#include <BLIB/Render/Uniforms/PushConstants.hpp>
 #include <stdexcept>
 
 namespace bl
@@ -21,13 +20,7 @@ PipelineParameters::PipelineParameters(std::uint32_t rpid)
 , preserveOrder(false) {
     shaders.reserve(4);
     descriptorSets.reserve(4);
-
-    // TODO - rethink this
     pushConstants.reserve(4);
-    addPushConstantRange(0, sizeof(PushConstants::transform), VK_SHADER_STAGE_VERTEX_BIT);
-    addPushConstantRange(sizeof(PushConstants::transform),
-                         sizeof(PushConstants::index),
-                         VK_SHADER_STAGE_FRAGMENT_BIT);
 
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     rasterizer.depthClampEnable        = VK_FALSE;

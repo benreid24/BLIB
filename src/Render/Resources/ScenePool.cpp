@@ -55,5 +55,11 @@ void ScenePool::destroyScene(Scene* scene) {
     freeSlots.release(i);
 }
 
+void ScenePool::handleDescriptorSync() {
+    for (std::uint32_t i = 0; i < pool.size(); ++i) {
+        if (freeSlots.isAllocated(i)) { pool[i].get().handleDescriptorSync(); }
+    }
+}
+
 } // namespace render
 } // namespace bl
