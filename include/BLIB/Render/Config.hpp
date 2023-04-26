@@ -21,11 +21,12 @@ struct Config {
     };
 
     struct ShaderIds {
-        static constexpr char TestVertexShader[]          = {0};
-        static constexpr char TestFragmentShader[]        = {1};
-        static constexpr char TestSkinnedFragmentShader[] = {2};
-        static constexpr char EmptyVertex[]               = {3};
-        static constexpr char ImageOverlayFragment[]      = {4};
+        static constexpr char OpaqueVertexShader[]    = {0};
+        static constexpr char OpaqueFragmentShader[]  = {1};
+        static constexpr char SkinnedVertexShader[]   = {2};
+        static constexpr char SkinnedFragmentShader[] = {3};
+        static constexpr char EmptyVertex[]           = {4};
+        static constexpr char ImageOverlayFragment[]  = {5};
 
         static constexpr std::uint32_t MaxId = 31;
     };

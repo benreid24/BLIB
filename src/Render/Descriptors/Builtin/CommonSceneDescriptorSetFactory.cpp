@@ -10,11 +10,13 @@ namespace render
 namespace ds
 {
 CommonSceneDescriptorSetFactory::~CommonSceneDescriptorSetFactory() {
-    vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
+    if (vulkanState) {
+        vkDestroyDescriptorSetLayout(vulkanState->device, descriptorSetLayout, nullptr);
+    }
 }
 
 void CommonSceneDescriptorSetFactory::init(engine::Engine&, Renderer& renderer) {
-    device = renderer.vulkanState().device;
+    vulkanState = &renderer.vulkanState();
 
     VkDescriptorSetLayoutBinding cameraBinding{};
     cameraBinding.binding         = 0;
@@ -28,14 +30,15 @@ void CommonSceneDescriptorSetFactory::init(engine::Engine&, Renderer& renderer) 
     descriptorCreateInfo.bindingCount = std::size(setBindings);
     descriptorCreateInfo.pBindings    = setBindings;
     if (VK_SUCCESS !=
-        vkCreateDescriptorSetLayout(device, &descriptorCreateInfo, nullptr, &descriptorSetLayout)) {
+        vkCreateDescriptorSetLayout(
+            vulkanState->device, &descriptorCreateInfo, nullptr, &descriptorSetLayout)) {
         throw std::runtime_error("Failed to create descriptor set layout");
     }
 }
 
 std::unique_ptr<DescriptorSetInstance> CommonSceneDescriptorSetFactory::createDescriptorSet()
     const {
-    return std::make_unique<CommonSceneDescriptorSetInstance>(descriptorSetLayout);
+    return std::make_unique<CommonSceneDescriptorSetInstance>(*vulkanState, descriptorSetLayout);
 }
 
 } // namespace ds

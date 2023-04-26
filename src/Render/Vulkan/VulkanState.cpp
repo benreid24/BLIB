@@ -646,12 +646,14 @@ VkShaderModule VulkanState::createShaderModule(const std::string& path) {
 
     if (path[0] <= Config::ShaderIds::MaxId) {
         switch (path[0]) {
-        case Config::ShaderIds::TestVertexShader[0]:
-            return createShaderModule(BUILTIN_SHADER("test.vert.spv"));
-        case Config::ShaderIds::TestFragmentShader[0]:
-            return createShaderModule(BUILTIN_SHADER("test.frag.spv"));
-        case Config::ShaderIds::TestSkinnedFragmentShader[0]:
-            return createShaderModule(BUILTIN_SHADER("testSkinned.frag.spv"));
+        case Config::ShaderIds::OpaqueVertexShader[0]:
+            return createShaderModule(BUILTIN_SHADER("opaque.vert.spv"));
+        case Config::ShaderIds::OpaqueFragmentShader[0]:
+            return createShaderModule(BUILTIN_SHADER("opaque.frag.spv"));
+        case Config::ShaderIds::SkinnedVertexShader[0]:
+            return createShaderModule(BUILTIN_SHADER("skinned.vert.spv"));
+        case Config::ShaderIds::SkinnedFragmentShader[0]:
+            return createShaderModule(BUILTIN_SHADER("skinned.frag.spv"));
         case Config::ShaderIds::EmptyVertex[0]:
             return createShaderModule(BUILTIN_SHADER("empty.vert.spv"));
         case Config::ShaderIds::ImageOverlayFragment[0]:

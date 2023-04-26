@@ -37,6 +37,7 @@ struct GenericBufferStorage<true, true> {
             stagingBuffers,
             stagingMemory);
         unsigned int i = 0;
+        // TODO - reduce to single memory map and use offset based on current frame
         mappedStaging.init(vulkanState, [this, &vulkanState, &i, offset, size](void*& dest) {
             vkMapMemory(vulkanState.device, stagingMemory, i * offset, size, 0, &dest);
             ++i;

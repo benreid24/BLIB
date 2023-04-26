@@ -7,13 +7,16 @@ layout(location = 2) in vec2 inTexCoords;
 layout(location = 0) out vec4 fragColor;
 layout(location = 1) out vec2 fragTexCoords;
 
-layout(push_constant) uniform constants
-{
-	mat4 transform;
-} PushConstants;
+layout(set = 0, binding = 0) uniform cam {
+    mat4 viewProj;
+} camera;
+
+layout(set = 1, binding = 0) uniform obj {
+    mat4 model;
+} object;
 
 void main() {
-	gl_Position = PushConstants.transform * vec4(inPosition, 1.0);
+	gl_Position = camera.viewProj * object.model * vec4(inPosition, 1.0);
 	fragColor = inColor;
 	fragTexCoords = inTexCoords;
 }

@@ -10,7 +10,8 @@ namespace render
 namespace ds
 {
 void ds::TexturesDescriptorSetFactory::init(engine::Engine&, Renderer& renderer) {
-    texturePool = &renderer.texturePool();
+    texturePool         = &renderer.texturePool();
+    descriptorSetLayout = renderer.texturePool().getDescriptorLayout();
 }
 
 std::unique_ptr<DescriptorSetInstance> TexturesDescriptorSetFactory::createDescriptorSet() const {

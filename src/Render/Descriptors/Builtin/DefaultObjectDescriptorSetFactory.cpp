@@ -11,8 +11,10 @@ namespace render
 namespace ds
 {
 DefaultObjectDescriptorSetFactory::~DefaultObjectDescriptorSetFactory() {
-    vkDestroyDescriptorSetLayout(
-        engine->renderer().vulkanState().device, descriptorSetLayout, nullptr);
+    if (engine) {
+        vkDestroyDescriptorSetLayout(
+            engine->renderer().vulkanState().device, descriptorSetLayout, nullptr);
+    }
 }
 
 void DefaultObjectDescriptorSetFactory::init(engine::Engine& e, Renderer& renderer) {

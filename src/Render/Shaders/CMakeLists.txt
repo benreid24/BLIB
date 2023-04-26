@@ -6,7 +6,8 @@ compile_shaders(
     SHADERS
 	empty.vert
     imageOverlay.frag
-    test.frag
-    test.vert
-    testSkinned.frag
+    opaque.frag
+    opaque.vert
+    skinned.vert
+    skinned.frag
 )

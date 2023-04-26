@@ -13,19 +13,24 @@ namespace bl
 {
 namespace render
 {
+struct VulkanState;
+
 namespace ds
 {
 class CommonSceneDescriptorSetInstance : public SceneDescriptorSetInstance {
 public:
-    CommonSceneDescriptorSetInstance(VkDescriptorSetLayout layout);
+    CommonSceneDescriptorSetInstance(VulkanState& vulkanState, VkDescriptorSetLayout layout);
 
     virtual ~CommonSceneDescriptorSetInstance();
 
 private:
+    VulkanState& vulkanState;
     const VkDescriptorSetLayout setLayout;
     prim::GenericBuffer<glm::mat4, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, true> viewProjBuf;
     std::array<PerFrame<VkDescriptorSet>, Config::MaxSceneObservers> descriptorSets;
     std::array<DescriptorPool::AllocationHandle, Config::MaxSceneObservers> descriptorHandles;
+    VkDescriptorSetLayoutBinding setBinding[1];
+    VkDescriptorSetLayoutCreateInfo createInfo;
 
     virtual void bindForPipeline(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
                                  std::uint32_t observerIndex,

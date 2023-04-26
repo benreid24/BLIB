@@ -62,21 +62,21 @@ void PipelineCache::createBuiltins() {
     rasterizer.depthBiasClamp          = 0.0f; // Optional
     rasterizer.depthBiasSlopeFactor    = 0.0f; // Optional
 
-    createPipline(
-        Config::PipelineIds::OpaqueMeshes,
-        PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
-            .withShaders(Config::ShaderIds::TestVertexShader, Config::ShaderIds::TestFragmentShader)
-            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-            .withRasterizer(rasterizer)
-            .withDepthStencilState(&depthStencil)
-            .addDescriptorSet<ds::CommonSceneDescriptorSetFactory>()
-            .addDescriptorSet<ds::DefaultObjectDescriptorSetFactory>()
-            .build());
+    createPipline(Config::PipelineIds::OpaqueMeshes,
+                  PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
+                      .withShaders(Config::ShaderIds::OpaqueVertexShader,
+                                   Config::ShaderIds::OpaqueFragmentShader)
+                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                      .withRasterizer(rasterizer)
+                      .withDepthStencilState(&depthStencil)
+                      .addDescriptorSet<ds::CommonSceneDescriptorSetFactory>()
+                      .addDescriptorSet<ds::DefaultObjectDescriptorSetFactory>()
+                      .build());
 
     createPipline(Config::PipelineIds::OpaqueSkinnedMeshes,
                   PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
-                      .withShaders(Config::ShaderIds::TestVertexShader,
-                                   Config::ShaderIds::TestSkinnedFragmentShader)
+                      .withShaders(Config::ShaderIds::SkinnedVertexShader,
+                                   Config::ShaderIds::SkinnedFragmentShader)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencil)
