@@ -134,13 +134,7 @@ template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
 constexpr std::uint32_t GenericBuffer<T, Memory, DoubleBuffer>::size() const {
     return len;
 }
-/*
-template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
-constexpr std::enable_if<DoubleBuffer, PerFrame<VkBuffer>&>::type
-GenericBuffer<T, Memory, DoubleBuffer>::handles() {
-    return storage.buffers;
-}
-*/
+
 template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
 void GenericBuffer<T, Memory, DoubleBuffer>::executeTransfer(VkCommandBuffer cb,
                                                              tfr::TransferContext& ctx) {

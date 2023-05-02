@@ -37,9 +37,15 @@ struct GenericBufferStorage<true, true> {
             stagingBuffers,
             stagingMemory);
         unsigned int i = 0;
-        // TODO - reduce to single memory map and use offset based on current frame
-        mappedStaging.init(vulkanState, [this, &vulkanState, &i, offset, size](void*& dest) {
-            vkMapMemory(vulkanState.device, stagingMemory, i * offset, size, 0, &dest);
+        void* memoryMap;
+        vkMapMemory(vulkanState.device,
+                    stagingMemory,
+                    0,
+                    offset * Config::MaxConcurrentFrames,
+                    0,
+                    &memoryMap);
+        mappedStaging.init(vulkanState, [this, memoryMap, &i, offset, size](void*& dest) {
+            dest = static_cast<char*>(memoryMap) + offset * i;
             ++i;
         });
     }
@@ -82,8 +88,11 @@ struct GenericBufferStorage<true, false> {
         const VkDeviceSize offset =
             vulkanState.createDoubleBuffer(size, usage, memProps, buffers, memory);
         unsigned int i = 0;
-        mappedBuffers.init(vulkanState, [this, &vulkanState, &i, offset, size](void*& dest) {
-            vkMapMemory(vulkanState.device, memory, i * offset, size, 0, &dest);
+        void* memoryMap;
+        vkMapMemory(
+            vulkanState.device, memory, 0, offset * Config::MaxConcurrentFrames, 0, &memoryMap);
+        mappedBuffers.init(vulkanState, [this, memoryMap, &i, offset, size](void*& dest) {
+            dest = static_cast<char*>(memoryMap) + offset * i;
             ++i;
         });
     }
