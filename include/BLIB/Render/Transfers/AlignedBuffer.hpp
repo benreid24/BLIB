@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_PRIMITIVES_UNIFORMBUFFER_HPP
-#define BLIB_RENDER_PRIMITIVES_UNIFORMBUFFER_HPP
+#ifndef BLIB_RENDER_TRANSFERS_ALIGNEDBUFFER_HPP
+#define BLIB_RENDER_TRANSFERS_ALIGNEDBUFFER_HPP
 
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glad/vulkan.h>
@@ -9,7 +9,7 @@ namespace bl
 {
 namespace render
 {
-namespace prim
+namespace tfr
 {
 /**
  * @brief Utility class to store a buffer of PODs on the CPU aligned for the UBO requirements of the
@@ -249,7 +249,7 @@ void AlignedBuffer<T>::emplace(TArgs&&... args) {
     ++storedElements;
 }
 
-} // namespace prim
+} // namespace tfr
 } // namespace render
 } // namespace bl
 

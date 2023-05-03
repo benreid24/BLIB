@@ -1,9 +1,9 @@
 #ifndef BLIB_RENDER_PRIMITIVES_INDEXBUFFER_HPP
 #define BLIB_RENDER_PRIMITIVES_INDEXBUFFER_HPP
 
-#include <BLIB/Render/Primitives/GenericBuffer.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Render/Scenes/DrawParameters.hpp>
+#include <BLIB/Render/Transfers/GenericBuffer.hpp>
 
 namespace bl
 {
@@ -22,8 +22,9 @@ template<typename T>
 class IndexBufferT {
 public:
     static constexpr VkIndexType IndexType = VK_INDEX_TYPE_UINT32;
-    using TVertexBuffer = GenericBuffer<T, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false>;
-    using TIndexBuffer  = GenericBuffer<std::uint32_t, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false>;
+    using TVertexBuffer = tfr::GenericBuffer<T, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false>;
+    using TIndexBuffer =
+        tfr::GenericBuffer<std::uint32_t, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false>;
 
     /**
      * @brief Creates the vertex and index buffers

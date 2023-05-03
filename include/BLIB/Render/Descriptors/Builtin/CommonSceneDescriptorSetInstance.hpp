@@ -3,7 +3,7 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
-#include <BLIB/Render/Primitives/GenericBuffer.hpp>
+#include <BLIB/Render/Transfers/GenericBuffer.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <array>
@@ -26,7 +26,7 @@ public:
 private:
     VulkanState& vulkanState;
     const VkDescriptorSetLayout setLayout;
-    prim::GenericBuffer<glm::mat4, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, true> viewProjBuf;
+    tfr::GenericBuffer<glm::mat4, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, true> viewProjBuf;
     std::array<PerFrame<VkDescriptorSet>, Config::MaxSceneObservers> descriptorSets;
     std::array<DescriptorPool::AllocationHandle, Config::MaxSceneObservers> descriptorHandles;
     VkDescriptorSetLayoutBinding setBinding[1];

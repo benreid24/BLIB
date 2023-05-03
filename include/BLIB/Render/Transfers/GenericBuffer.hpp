@@ -1,7 +1,7 @@
-#ifndef BLIB_RENDER_PRIMITIVES_GENERICBUFFER_HPP
-#define BLIB_RENDER_PRIMITIVES_GENERICBUFFER_HPP
+#ifndef BLIB_RENDER_TRANSFERS_GENERICBUFFER_HPP
+#define BLIB_RENDER_TRANSFERS_GENERICBUFFER_HPP
 
-#include <BLIB/Render/Primitives/GenericBufferPriv.hpp>
+#include <BLIB/Render/Transfers/GenericBufferPriv.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <glad/vulkan.h>
 #include <type_traits>
@@ -12,11 +12,10 @@ namespace render
 {
 struct VulkanState;
 
-/// Collection of renderer primitives
-namespace prim
+namespace tfr
 {
 template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
-class GenericBuffer : public tfr::Transferable {
+class GenericBuffer : public Transferable {
     static constexpr bool StageRequired = Memory & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT != 0;
 
 public:
@@ -81,8 +80,7 @@ protected:
      * @param commandBuffer Command buffer to record into
      * @param context Transfer context to use
      */
-    virtual void executeTransfer(VkCommandBuffer commandBuffer,
-                                 tfr::TransferContext& context) override;
+    virtual void executeTransfer(VkCommandBuffer commandBuffer, TransferContext& context) override;
 
 private:
     priv::GenericBufferStorage<DoubleBuffer, StageRequired> storage;
@@ -137,7 +135,7 @@ constexpr std::uint32_t GenericBuffer<T, Memory, DoubleBuffer>::size() const {
 
 template<typename T, VkMemoryPropertyFlags Memory, bool DoubleBuffer>
 void GenericBuffer<T, Memory, DoubleBuffer>::executeTransfer(VkCommandBuffer cb,
-                                                             tfr::TransferContext& ctx) {
+                                                             TransferContext& ctx) {
     if (queuedWrite) {
         storage.doWrite(cb, ctx, queuedWrite, writeOff, writeLen);
         queuedWrite = nullptr; // TODO - maybe keep this for per-frame writes?
@@ -155,7 +153,7 @@ void GenericBuffer<T, Memory, DoubleBuffer>::executeTransfer(VkCommandBuffer cb,
     }
 }
 
-} // namespace prim
+} // namespace tfr
 } // namespace render
 } // namespace bl
 

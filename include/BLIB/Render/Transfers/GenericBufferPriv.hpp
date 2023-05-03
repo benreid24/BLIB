@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_PRIMITIVES_GENERICBUFFERPRIV_HPP
-#define BLIB_RENDER_PRIMITIVES_GENERICBUFFERPRIV_HPP
+#ifndef BLIB_RENDER_TRANSFERS_GENERICBUFFERPRIV_HPP
+#define BLIB_RENDER_TRANSFERS_GENERICBUFFERPRIV_HPP
 
 #include <BLIB/Render/Transfers/TransferContext.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
@@ -10,7 +10,7 @@ namespace bl
 {
 namespace render
 {
-namespace prim
+namespace tfr
 {
 namespace priv
 {
@@ -180,7 +180,7 @@ struct GenericBufferStorage<false, false> {
 };
 
 } // namespace priv
-} // namespace prim
+} // namespace tfr
 } // namespace render
 } // namespace bl
 

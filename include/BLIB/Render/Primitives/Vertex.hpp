@@ -10,6 +10,7 @@ namespace bl
 {
 namespace render
 {
+/// Collection of renderer primitives
 namespace prim
 {
 /**

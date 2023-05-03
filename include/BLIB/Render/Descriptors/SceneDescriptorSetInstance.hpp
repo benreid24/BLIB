@@ -3,7 +3,7 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Primitives/GenericBuffer.hpp>
+#include <BLIB/Render/Transfers/GenericBuffer.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
 #include <array>
 #include <glm/glm.hpp>

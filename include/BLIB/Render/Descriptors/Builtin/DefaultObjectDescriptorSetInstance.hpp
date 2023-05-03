@@ -3,7 +3,7 @@
 
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Primitives/GenericBuffer.hpp>
+#include <BLIB/Render/Transfers/GenericBuffer.hpp>
 #include <cstdint>
 #include <glm/glm.hpp>
 #include <vector>
@@ -51,8 +51,8 @@ private:
     std::vector<PerFrame<VkDescriptorSet>> descriptorSets;
     std::vector<glm::mat4> transforms;
     std::vector<std::uint32_t> textures;
-    prim::GenericBuffer<glm::mat4, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, true> transformBuffer;
-    prim::GenericBuffer<std::uint32_t, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, true> textureBuffer;
+    tfr::GenericBuffer<glm::mat4, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, true> transformBuffer;
+    tfr::GenericBuffer<std::uint32_t, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, true> textureBuffer;
     std::uint32_t staticObjectCount;
     std::uint32_t dynamicObjectCount;
 
