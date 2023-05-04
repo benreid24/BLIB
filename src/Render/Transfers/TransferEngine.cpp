@@ -61,7 +61,7 @@ void TransferEngine::executeTransfers() {
     else { immediateBucket.resetResourcesWithSync(); }
 
     if (frameBucket.hasTransfers()) {
-        vkDeviceWaitIdle(vulkanState.device); // TODO - would pipeline barriers work instead?
+        vkDeviceWaitIdle(vulkanState.device);
         frameBucket.executeTransfers();
     }
     else { frameBucket.resetResourcesWithSync(); }
@@ -84,16 +84,16 @@ void TransferEngine::Bucket::executeTransfers() {
     oneTimeItems.clear();
 
     // one unified sync
-    vkCmdPipelineBarrier(commandBuffer,
+    /* vkCmdPipelineBarrier(commandBuffer,
                          VK_PIPELINE_STAGE_TRANSFER_BIT,
-                         VK_PIPELINE_STAGE_VERTEX_SHADER_BIT, // correct?
+                         VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT,
                          0,
                          memoryBarriers.size(),
                          memoryBarriers.data(),
                          bufferBarriers.size(),
                          bufferBarriers.data(),
                          imageBarriers.size(),
-                         imageBarriers.data());
+                         imageBarriers.data());*/
 
     // submit transfer commands
     vkEndCommandBuffer(commandBuffer);
@@ -110,7 +110,7 @@ void TransferEngine::Bucket::executeTransfers() {
 }
 
 void TransferEngine::Bucket::resetResourcesWithSync() {
-    vkWaitForFences(vulkanState.device, 1, &fence, VK_TRUE, 0);
+    vkWaitForFences(vulkanState.device, 1, &fence, VK_TRUE, UINT64_MAX);
     vkResetFences(vulkanState.device, 1, &fence);
     vkResetCommandBuffer(commandBuffer, 0);
 

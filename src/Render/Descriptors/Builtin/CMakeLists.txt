@@ -3,6 +3,7 @@ target_sources(BLIB PRIVATE
 	CommonSceneDescriptorSetInstance.cpp
 	DefaultObjectDescriptorSetFactory.cpp
 	DefaultObjectDescriptorSetInstance.cpp
+	PostFXDescriptorSetFactory.cpp
 	TexturesDescriptorSetFactory.cpp
 	TexturesDescriptorSetInstance.cpp
 )

@@ -26,7 +26,7 @@ struct Config {
         static constexpr char SkinnedVertexShader[]   = {2};
         static constexpr char SkinnedFragmentShader[] = {3};
         static constexpr char EmptyVertex[]           = {4};
-        static constexpr char ImageOverlayFragment[]  = {5};
+        static constexpr char DefaultPostFXFragment[] = {5};
 
         static constexpr std::uint32_t MaxId = 31;
     };
@@ -42,7 +42,7 @@ struct Config {
 
         static constexpr std::uint32_t TransparentSkinnedMeshes = 5;
 
-        static constexpr std::uint32_t ImageOverlay = 6;
+        static constexpr std::uint32_t PostFXBase = 6;
     };
 
     struct RenderPassIds {

@@ -4,6 +4,7 @@
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/DefaultObjectDescriptorSetFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/PostFXDescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/TexturesDescriptorSetFactory.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -85,14 +86,14 @@ void PipelineCache::createBuiltins() {
                       .addDescriptorSet<ds::DefaultObjectDescriptorSetFactory>()
                       .build());
 
-    /* createPipline(
-        Config::PipelineIds::ImageOverlay,
+    createPipline(
+        Config::PipelineIds::PostFXBase,
         PipelineParameters(Config::RenderPassIds::SwapchainPrimaryRender)
-            .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::ImageOverlayFragment)
+            .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::DefaultPostFXFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
-            .addDescriptorSet(renderer.vulkanState().descriptorSetLayouts.imageOverlay.layout)
-            .build());*/
+            .addDescriptorSet<ds::PostFXDescriptorSetFactory>()
+            .build());
 }
 
 } // namespace render

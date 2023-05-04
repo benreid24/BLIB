@@ -1,6 +1,6 @@
 #include <BLIB/Render/Scenes/PostFX.hpp>
 
-#include <BLIB/Render/Overlays/Drawables/Image.hpp>
+#include <BLIB/Render/Descriptors/Builtin/PostFXDescriptorSetFactory.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -15,10 +15,25 @@ const prim::Vertex vertices[4] = {prim::Vertex({-1.f, -1.f, 0.f}, {0.f, 0.f}),
                                   prim::Vertex({-1.f, 1.f, 0.f}, {0.f, 1.f})};
 
 const std::uint32_t indices[6] = {0, 1, 3, 1, 2, 3};
+
+VkDescriptorSetLayoutCreateInfo makeCreateInfo() {
+    static const auto layoutBindings = PostFX::DescriptorLayoutBindings();
+    VkDescriptorSetLayoutCreateInfo createInfo{};
+    createInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+    createInfo.bindingCount = static_cast<std::uint32_t>(layoutBindings.size());
+    createInfo.pBindings    = layoutBindings.data();
+    return createInfo;
+}
 } // namespace
 
 std::array<VkDescriptorSetLayoutBinding, 1> PostFX::DescriptorLayoutBindings() {
-    return overlay::Image::DescriptorLayoutBindings();
+    std::array<VkDescriptorSetLayoutBinding, 1> layout{};
+    layout[0].binding            = 0;
+    layout[0].descriptorCount    = 1;
+    layout[0].descriptorType     = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    layout[0].pImmutableSamplers = nullptr;
+    layout[0].stageFlags         = VK_SHADER_STAGE_FRAGMENT_BIT;
+    return layout;
 }
 
 PostFX::PostFX(Renderer& renderer)
@@ -48,12 +63,16 @@ PostFX::PostFX(Renderer& renderer)
     }
 
     // allocate descriptor sets
+    const VkDescriptorSetLayout setLayout = renderer.descriptorFactoryCache()
+                                                .getFactory<ds::PostFXDescriptorSetFactory>()
+                                                ->getDescriptorLayout();
+    const VkDescriptorSetLayoutCreateInfo createInfo = makeCreateInfo();
     descriptorSets.init(renderer.vulkanState(), [](VkDescriptorSet&) {});
     std::array<VkDescriptorSetLayout, Config::MaxConcurrentFrames> descriptorLayouts;
-    descriptorLayouts.fill(vs.descriptorSetLayouts.imageOverlay.layout);
+    descriptorLayouts.fill(setLayout);
     std::array<const VkDescriptorSetLayoutCreateInfo*, Config::MaxConcurrentFrames>
         descriptorCreateInfos;
-    descriptorCreateInfos.fill(&vs.descriptorSetLayouts.imageOverlay.createInfo);
+    descriptorCreateInfos.fill(&createInfo);
     descriptorSetAllocHandle = vs.descriptorPool.allocate(descriptorCreateInfos.data(),
                                                           descriptorLayouts.data(),
                                                           descriptorSets.rawData(),
@@ -66,7 +85,7 @@ PostFX::PostFX(Renderer& renderer)
     indexBuffer.sendToGPU();
 
     // fetch initial pipeline
-    //usePipeline(Config::PipelineIds::ImageOverlay);
+    usePipeline(Config::PipelineIds::PostFXBase);
 }
 
 void PostFX::bindImages(PerFrame<StandardImageBuffer>& images) {
@@ -98,11 +117,15 @@ void PostFX::bindImages(PerFrame<StandardImageBuffer>& images) {
 PostFX::~PostFX() {
     VulkanState& vs = renderer.vulkanState();
 
+    const VkDescriptorSetLayout setLayout = renderer.descriptorFactoryCache()
+                                                .getFactory<ds::PostFXDescriptorSetFactory>()
+                                                ->getDescriptorLayout();
+    const VkDescriptorSetLayoutCreateInfo createInfo = makeCreateInfo();
     std::array<VkDescriptorSetLayout, Config::MaxConcurrentFrames> descriptorLayouts;
-    descriptorLayouts.fill(vs.descriptorSetLayouts.imageOverlay.layout);
+    descriptorLayouts.fill(setLayout);
     std::array<const VkDescriptorSetLayoutCreateInfo*, Config::MaxConcurrentFrames>
         descriptorCreateInfos;
-    descriptorCreateInfos.fill(&vs.descriptorSetLayouts.imageOverlay.createInfo);
+    descriptorCreateInfos.fill(&createInfo);
     vs.descriptorPool.release(descriptorSetAllocHandle,
                               descriptorCreateInfos.data(),
                               descriptorLayouts.data(),
@@ -137,7 +160,7 @@ void PostFX::compositeScene(VkCommandBuffer cb) {
     vkCmdBindIndexBuffer(cb, indexBuffer.indices().handle(), 0, prim::IndexBuffer::IndexType);
 
     onRender(cb);
-    vkCmdDrawIndexed(cb, indexBuffer.indices().size(), 1, 0, 0, 0);
+    vkCmdDrawIndexed(cb, indexBuffer.indexCount(), 1, 0, 0, 0);
 }
 
 void PostFX::onRender(VkCommandBuffer) {

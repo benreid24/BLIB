@@ -12,7 +12,7 @@ DescriptorSetFactoryCache::DescriptorSetFactoryCache(engine::Engine& engine, Ren
 
 void DescriptorSetFactoryCache::cleanup() { cache.clear(); }
 
-DescriptorSetFactory* DescriptorSetFactoryCache::getFactory(
+DescriptorSetFactory* DescriptorSetFactoryCache::getOrAddFactory(
     std::type_index tid, std::unique_ptr<DescriptorSetFactory>&& factory) {
     auto it = cache.find(tid);
     if (it != cache.end()) { return it->second.get(); }

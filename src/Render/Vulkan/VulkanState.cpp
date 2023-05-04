@@ -143,13 +143,11 @@ void VulkanState::init() {
     swapchain.create(surface);
     transferEngine.init();
     descriptorPool.init();
-    descriptorSetLayouts.init(*this);
     samplerCache.init();
 }
 
 void VulkanState::cleanup() {
     samplerCache.cleanup();
-    descriptorSetLayouts.cleanup(*this);
     descriptorPool.cleanup();
     transferEngine.cleanup();
     swapchain.destroy();
@@ -656,7 +654,7 @@ VkShaderModule VulkanState::createShaderModule(const std::string& path) {
             return createShaderModule(BUILTIN_SHADER("skinned.frag.spv"));
         case Config::ShaderIds::EmptyVertex[0]:
             return createShaderModule(BUILTIN_SHADER("empty.vert.spv"));
-        case Config::ShaderIds::ImageOverlayFragment[0]:
+        case Config::ShaderIds::DefaultPostFXFragment[0]:
             return createShaderModule(BUILTIN_SHADER("imageOverlay.frag.spv"));
         default:
             BL_LOG_ERROR << "Invalid built-in shader id: " << static_cast<int>(path[0]);

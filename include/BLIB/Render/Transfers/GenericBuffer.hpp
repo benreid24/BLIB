@@ -110,9 +110,10 @@ GenericBuffer<Memory, DoubleBuffer>::~GenericBuffer() {
 }
 
 template<VkMemoryPropertyFlags Memory, bool DoubleBuffer>
-void GenericBuffer<Memory, DoubleBuffer>::create(VulkanState& vs, std::uint32_t len,
+void GenericBuffer<Memory, DoubleBuffer>::create(VulkanState& vs, std::uint32_t bytes,
                                                  VkBufferUsageFlags usage) {
     if (vulkanState) { destroy(); }
+    len         = bytes;
     vulkanState = &vs;
     storage.create(vs, len, Memory, usage);
 }

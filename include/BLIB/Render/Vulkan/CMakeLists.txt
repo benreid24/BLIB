@@ -2,7 +2,6 @@ target_sources(BLIB PUBLIC
     AlignedBuffer.hpp
     AttachmentSet.hpp
     ColorAttachmentSet.hpp
-    CommonDescriptorSetLayouts.hpp
     CommonSamplers.hpp
     DescriptorPool.hpp
     Framebuffer.hpp

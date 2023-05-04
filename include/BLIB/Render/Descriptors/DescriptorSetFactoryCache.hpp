@@ -28,6 +28,15 @@ namespace ds
 class DescriptorSetFactoryCache {
 public:
     /**
+     * @brief Returns a pointer to a contained factory of the given type, or nullptr if not found
+     *
+     * @tparam T The factory type to fetch
+     * @return Pointer to the contained factory or nullptr if not found
+     */
+    template<typename T>
+    T* getFactory();
+
+    /**
      * @brief Returns a pointer to the correct instance of the factory to use for the given derived
      *        type. Takes ownership and initializes the passed in factory if it is the first copy
      *
@@ -35,8 +44,8 @@ public:
      * @param factory An instance of the factory. May or may not take ownership
      * @return A pointer to the instance of the factory to use
      */
-    DescriptorSetFactory* getFactory(std::type_index derivedType,
-                                     std::unique_ptr<DescriptorSetFactory>&& factory);
+    DescriptorSetFactory* getOrAddFactory(std::type_index derivedType,
+                                          std::unique_ptr<DescriptorSetFactory>&& factory);
 
     /**
      * @brief Helper method for fetching or creating a factory without unnecessarily allocating a
@@ -62,6 +71,13 @@ private:
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename T>
+inline T* DescriptorSetFactoryCache::getFactory() {
+    auto it = cache.find(typeid(T));
+    if (it == cache.end()) { return nullptr; }
+    return static_cast<T*>(it->second.get());
+}
 
 template<typename T, typename... TArgs>
 T* DescriptorSetFactoryCache::getOrCreateFactory(TArgs&&... args) {

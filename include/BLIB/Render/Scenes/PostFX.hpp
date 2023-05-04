@@ -56,7 +56,7 @@ protected:
      * @brief Configures which pipeline to use for rendering. Vertex is what is passed in. set=0
      *        binding=0 is a combined image sampler with normalized coordinates. If other
      *        descriptors are required then onRender() may be overridden to provide them. The
-     *        default pipeline is Config::PipelineIds::ImageOverlay
+     *        default pipeline is Config::PipelineIds::PostFXBase
      */
     void usePipeline(std::uint32_t pipelineId);
 

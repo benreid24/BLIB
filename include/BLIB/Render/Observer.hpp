@@ -2,7 +2,6 @@
 #define BLIB_RENDER_OBSERVER_HPP
 
 #include <BLIB/Render/Cameras/Camera.hpp>
-#include <BLIB/Render/Overlays/Drawables/Image.hpp>
 #include <BLIB/Render/Scenes/PostFX.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>

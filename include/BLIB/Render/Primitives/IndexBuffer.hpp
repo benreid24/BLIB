@@ -69,18 +69,31 @@ public:
      */
     DrawParameters getDrawParameters() const;
 
+    /**
+     * @brief Returns the number of indices in the buffer
+     */
+    constexpr std::uint32_t indexCount() const;
+
+    /**
+     * @brief Returns the number of vertices in the buffer
+     */
+    constexpr std::uint32_t vertexCount() const;
+
 private:
     TVertexBuffer vertexBuffer;
     TIndexBuffer indexBuffer;
+    std::uint32_t nIndices;
+    std::uint32_t nVertices;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-void IndexBufferT<T>::create(VulkanState& vulkanState, std::uint32_t vertexCount,
-                             std::uint32_t indexCount) {
-    vertexBuffer.create(vulkanState, vertexCount, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
-    indexBuffer.create(vulkanState, indexCount, VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
+void IndexBufferT<T>::create(VulkanState& vulkanState, std::uint32_t vc, std::uint32_t ic) {
+    nVertices = vc;
+    nIndices  = ic;
+    vertexBuffer.create(vulkanState, vc * sizeof(T), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
+    indexBuffer.create(vulkanState, ic * sizeof(std::uint32_t), VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
 }
 
 template<typename T>
@@ -119,11 +132,21 @@ template<typename T>
 inline DrawParameters IndexBufferT<T>::getDrawParameters() const {
     DrawParameters params;
     params.indexBuffer  = indexBuffer.handle();
-    params.indexCount   = indexBuffer.size();
+    params.indexCount   = nIndices;
     params.indexOffset  = 0;
     params.vertexBuffer = vertexBuffer.handle();
     params.vertexOffset = 0;
     return params;
+}
+
+template<typename T>
+inline constexpr std::uint32_t IndexBufferT<T>::indexCount() const {
+    return nIndices;
+}
+
+template<typename T>
+inline constexpr std::uint32_t IndexBufferT<T>::vertexCount() const {
+    return nVertices;
 }
 
 /**
