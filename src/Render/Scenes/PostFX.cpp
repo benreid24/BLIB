@@ -61,12 +61,12 @@ PostFX::PostFX(Renderer& renderer)
 
     // create index buffer
     indexBuffer.create(vs, 4, 6);
-    indexBuffer.indices().write(indices, 0, 6);
-    indexBuffer.vertices().write(vertices, 0, 4);
+    indexBuffer.indices().configureWrite(indices, 0, 6);
+    indexBuffer.vertices().configureWrite(vertices, 0, 4);
     indexBuffer.sendToGPU();
 
     // fetch initial pipeline
-    usePipeline(Config::PipelineIds::ImageOverlay);
+    //usePipeline(Config::PipelineIds::ImageOverlay);
 }
 
 void PostFX::bindImages(PerFrame<StandardImageBuffer>& images) {

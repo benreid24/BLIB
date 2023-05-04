@@ -22,9 +22,8 @@ template<typename T>
 class IndexBufferT {
 public:
     static constexpr VkIndexType IndexType = VK_INDEX_TYPE_UINT32;
-    using TVertexBuffer = tfr::GenericBuffer<T, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false>;
-    using TIndexBuffer =
-        tfr::GenericBuffer<std::uint32_t, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false>;
+    using TVertexBuffer = tfr::GenericBuffer<VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false>;
+    using TIndexBuffer  = tfr::GenericBuffer<VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false>;
 
     /**
      * @brief Creates the vertex and index buffers

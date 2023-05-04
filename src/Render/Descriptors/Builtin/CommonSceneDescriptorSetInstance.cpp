@@ -67,9 +67,9 @@ void CommonSceneDescriptorSetInstance::releaseObject(std::uint32_t sceneId, ecs:
 void CommonSceneDescriptorSetInstance::doInit(std::uint32_t maxStaticObjects,
                                               std::uint32_t maxDynamicObjects) {
     // allocate memory
-    viewProjBuf.create(vulkanState, observerCameras.size(), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
+    viewProjBuf.create(vulkanState, observerCameras.size());
 
-    // create and write descriptors
+    // create and configureWrite descriptors
     for (std::uint32_t i = 0; i < descriptorSets.size(); ++i) {
         // allocate descriptors
         std::array<VkDescriptorSetLayout, Config::MaxConcurrentFrames> layouts;
@@ -80,12 +80,12 @@ void CommonSceneDescriptorSetInstance::doInit(std::uint32_t maxStaticObjects,
                                                                    layouts.data(),
                                                                    descriptorSets[i].rawData(),
                                                                    Config::MaxConcurrentFrames);
-        // write descriptors
+        // configureWrite descriptors
         for (std::uint32_t j = 0; j < Config::MaxConcurrentFrames; ++j) {
             VkDescriptorBufferInfo bufferWrite{};
-            bufferWrite.buffer = viewProjBuf.handles().getRaw(j);
-            bufferWrite.offset = i * sizeof(glm::mat4);
-            bufferWrite.range  = sizeof(glm::mat4);
+            bufferWrite.buffer = viewProjBuf.gpuBufferHandles().getRaw(j);
+            bufferWrite.offset = i * viewProjBuf.alignedUniformSize();
+            bufferWrite.range  = viewProjBuf.alignedUniformSize();
 
             VkWriteDescriptorSet setWrite{};
             setWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -100,6 +100,7 @@ void CommonSceneDescriptorSetInstance::doInit(std::uint32_t maxStaticObjects,
     }
 
     viewProjBuf.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
+    viewProjBuf.configureTransferAll();
 }
 
 bool CommonSceneDescriptorSetInstance::doAllocateObject(std::uint32_t sceneId, ecs::Entity entity,
@@ -109,7 +110,7 @@ bool CommonSceneDescriptorSetInstance::doAllocateObject(std::uint32_t sceneId, e
 }
 
 void CommonSceneDescriptorSetInstance::beginSync(bool) {
-    viewProjBuf.write(observerCameras.data(), 0, observerCount());
+    // noop
 }
 
 } // namespace ds

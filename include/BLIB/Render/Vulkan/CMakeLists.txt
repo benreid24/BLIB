@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+    AlignedBuffer.hpp
     AttachmentSet.hpp
     ColorAttachmentSet.hpp
     CommonDescriptorSetLayouts.hpp

@@ -28,8 +28,8 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
     // allocate memory
     transforms.resize(objectCount);
     textures.resize(objectCount);
-    transformBuffer.create(vulkanState, objectCount, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
-    textureBuffer.create(vulkanState, objectCount, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
+    transformBuffer.create(vulkanState, objectCount);
+    textureBuffer.create(vulkanState, objectCount);
     descriptorSets.resize(objectCount);
 
     // create dedicated descriptor pool
@@ -63,14 +63,14 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
         });
     }
 
-    // write descriptor sets
+    // configureWrite descriptor sets
     for (unsigned int i = 0; i < objectCount; ++i) {
         for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
-            // transform buffer write
+            // transform buffer configureWrite
             VkDescriptorBufferInfo bufferWrite{};
-            bufferWrite.buffer = transformBuffer.handles().getRaw(j);
-            bufferWrite.offset = i * sizeof(glm::mat4);
-            bufferWrite.range  = sizeof(glm::mat4);
+            bufferWrite.buffer = transformBuffer.gpuBufferHandles().getRaw(j);
+            bufferWrite.offset = i * transformBuffer.alignedUniformSize();
+            bufferWrite.range  = transformBuffer.alignedUniformSize();
 
             VkWriteDescriptorSet setWrite{};
             setWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -82,10 +82,10 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
             setWrite.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
             vkUpdateDescriptorSets(vulkanState.device, 1, &setWrite, 0, nullptr);
 
-            // texture buffer write
-            bufferWrite.buffer = textureBuffer.handles().getRaw(j);
-            bufferWrite.offset = i * sizeof(std::uint32_t);
-            bufferWrite.range  = sizeof(std::uint32_t);
+            // texture buffer configureWrite
+            bufferWrite.buffer = textureBuffer.gpuBufferHandles().getRaw(j);
+            bufferWrite.offset = i * textureBuffer.alignedUniformSize();
+            bufferWrite.range  = textureBuffer.alignedUniformSize();
 
             setWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
             setWrite.descriptorCount = 1;
@@ -145,13 +145,11 @@ bool bl::render::ds::DefaultObjectDescriptorSetInstance::doAllocateObject(
 
 void bl::render::ds::DefaultObjectDescriptorSetInstance::beginSync(bool staticObjectsChanged) {
     if (staticObjectsChanged) {
-        transformBuffer.write(transforms.data(), 0, transforms.size());
-        textureBuffer.write(textures.data(), 0, textures.size());
+        transformBuffer.configureTransferAll();
+        textureBuffer.configureTransferAll();
     }
     else {
-        transformBuffer.write(
-            transforms.data() + staticObjectCount, staticObjectCount, dynamicObjectCount);
-        textureBuffer.write(
-            textures.data() + staticObjectCount, staticObjectCount, dynamicObjectCount);
+        transformBuffer.configureTransferRange(staticObjectCount, dynamicObjectCount);
+        textureBuffer.configureTransferRange(staticObjectCount, dynamicObjectCount);
     }
 }

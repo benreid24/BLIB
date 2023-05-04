@@ -60,15 +60,15 @@ void Image::setImage(Renderer& r, VkImageView imageView) {
 
         // create index buffer
         indexBuffer.create(vs, 4, 6);
-        indexBuffer.indices().write(indices, 0, 6);
-        indexBuffer.vertices().write(vertices, 0, 4);
+        indexBuffer.indices().configureWrite(indices, 0, 6);
+        indexBuffer.vertices().configureWrite(vertices, 0, 4);
         indexBuffer.sendToGPU();
 
         // fetch initial pipeline
         usePipeline(Config::PipelineIds::ImageOverlay);
     }
 
-    // write descriptor sets
+    // configureWrite descriptor sets
     VkDescriptorImageInfo imageInfo{};
     imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     imageInfo.imageView   = imageView;

@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_TRANSFERS_ALIGNEDBUFFER_HPP
-#define BLIB_RENDER_TRANSFERS_ALIGNEDBUFFER_HPP
+#ifndef BLIB_RENDER_VULKAN_ALIGNEDBUFFER_HPP
+#define BLIB_RENDER_VULKAN_ALIGNEDBUFFER_HPP
 
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glad/vulkan.h>
@@ -9,7 +9,8 @@ namespace bl
 {
 namespace render
 {
-namespace tfr
+/// Collection of interfaces and utilities directly related to Vulkan
+namespace vk
 {
 /**
  * @brief Utility class to store a buffer of PODs on the CPU aligned for the UBO requirements of the
@@ -122,6 +123,11 @@ public:
      */
     constexpr std::uint32_t alignedSize() const;
 
+    /**
+     * @brief Returns the space used by each element in the aligned storage
+     */
+    constexpr std::uint32_t elementSize() const;
+
 private:
     std::vector<char> storage;
     std::uint32_t alignment;
@@ -203,7 +209,7 @@ void AlignedBuffer<T>::resize(std::uint32_t size) {
 
 template<typename T>
 void AlignedBuffer<T>::fill(const T& value) {
-    for (std::uint32_t j = 0; j < storedElements; ++j) { new (cast(j) T(value)); }
+    for (std::uint32_t j = 0; j < storedElements; ++j) { new (cast(j)) T(value); }
 }
 
 template<typename T>
@@ -213,12 +219,17 @@ constexpr std::uint32_t AlignedBuffer<T>::size() const {
 
 template<typename T>
 inline constexpr const void* AlignedBuffer<T>::data() const {
-    return static_cast<void*>(storage.data());
+    return static_cast<const void*>(storage.data());
 }
 
 template<typename T>
 inline constexpr std::uint32_t AlignedBuffer<T>::alignedSize() const {
-    return containedElements * alignment;
+    return storedElements * alignment;
+}
+
+template<typename T>
+constexpr std::uint32_t AlignedBuffer<T>::elementSize() const {
+    return alignment;
 }
 
 template<typename T>
@@ -249,7 +260,7 @@ void AlignedBuffer<T>::emplace(TArgs&&... args) {
     ++storedElements;
 }
 
-} // namespace tfr
+} // namespace vk
 } // namespace render
 } // namespace bl
 
