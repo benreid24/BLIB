@@ -3,6 +3,7 @@
 
 #include <BLIB/ECS.hpp>
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Engine/System.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
@@ -20,15 +21,6 @@ namespace render
 {
 namespace sys
 {
-/// Private namespace, do not use
-namespace priv
-{
-struct DrawSystemBase {
-    static std::mutex sceneSyncMutex; // TODO - better way to sync all changes? Systems itself can
-                                      // provide mutex for each frame stage?
-};
-} // namespace priv
-
 /**
  * @brief Base class for renderer systems that manage scene objects in the ECS. Custom renderable
  *        types should have a system that inherits from this class that manages their membership
@@ -39,8 +31,8 @@ struct DrawSystemBase {
  */
 template<typename T>
 class GenericDrawableSystem
-: public ecs::System
-, public event::Listener<ecs::event::ComponentRemoved<T>, event::SceneDestroyed> {
+: public engine::System
+, public bl::event::Listener<ecs::event::ComponentRemoved<T>, render::event::SceneDestroyed> {
 public:
     /**
      * @brief Destroys the system
@@ -193,7 +185,7 @@ void GenericDrawableSystem<T>::observe(const event::SceneDestroyed& rm) {
 template<typename T>
 void GenericDrawableSystem<T>::init(engine::Engine& engine) {
     registry = &engine.ecs();
-    event::Dispatcher::subscribe(this);
+    bl::event::Dispatcher::subscribe(this);
     doInit(engine);
 }
 
@@ -214,16 +206,7 @@ void GenericDrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
         }
         toRemove.clear();
 
-        for (const com::SceneObjectRef& ref : erased) {
-            T* c = registry->getComponent<T>(ent);
-            if (!c) {
-#ifdef BLIB_DEBUG
-                BL_LOG_WARN << "Entity erased before it could be removed from scene";
-#endif
-                continue;
-            }
-            ref.scene->removeObject(ref.object);
-        }
+        for (const com::SceneObjectRef& ref : erased) { ref.scene->removeObject(ref.object); }
         erased.clear();
 
         for (const auto& add : toAdd) {
@@ -249,9 +232,6 @@ void GenericDrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
 
     doUpdate(dt);
 }
-
-template<typename T>
-void GenericDrawableSystem<T>::doUpdate(std::mutex&, float) {}
 
 } // namespace sys
 } // namespace render

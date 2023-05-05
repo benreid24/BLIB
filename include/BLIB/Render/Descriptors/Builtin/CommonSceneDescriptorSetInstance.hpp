@@ -17,10 +17,24 @@ struct VulkanState;
 
 namespace ds
 {
+/**
+ * @brief Descriptor set instance for common scene data
+ *
+ * @ingroup Renderer
+ */
 class CommonSceneDescriptorSetInstance : public SceneDescriptorSetInstance {
 public:
+    /**
+     * @brief Creates a new instance of the descriptor set
+     *
+     * @param vulkanState Renderer Vulkan state
+     * @param layout The layout of the descriptor set
+     */
     CommonSceneDescriptorSetInstance(VulkanState& vulkanState, VkDescriptorSetLayout layout);
 
+    /**
+     * @brief Destroys the descriptor set
+     */
     virtual ~CommonSceneDescriptorSetInstance();
 
 private:

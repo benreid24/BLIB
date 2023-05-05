@@ -23,7 +23,7 @@ struct DrawableBase {
     /**
      * @brief Helper method to sync this component's draw parameters to the scene it is in
      */
-    void syncToScene();
+    void syncToScene() { sceneRef.object->drawParams = drawParams; }
 };
 
 } // namespace com
