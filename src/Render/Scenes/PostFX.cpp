@@ -80,8 +80,8 @@ PostFX::PostFX(Renderer& renderer)
 
     // create index buffer
     indexBuffer.create(vs, 4, 6);
-    indexBuffer.indices().configureWrite(indices, 0, 6);
-    indexBuffer.vertices().configureWrite(vertices, 0, 4);
+    indexBuffer.indices().configureWrite(indices, 0, 6 * sizeof(std::uint32_t));
+    indexBuffer.vertices().configureWrite(vertices, 0, 4 * sizeof(prim::Vertex));
     indexBuffer.sendToGPU();
 
     // fetch initial pipeline

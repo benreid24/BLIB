@@ -84,7 +84,7 @@ void TransferEngine::Bucket::executeTransfers() {
     oneTimeItems.clear();
 
     // one unified sync
-    /* vkCmdPipelineBarrier(commandBuffer,
+    vkCmdPipelineBarrier(commandBuffer,
                          VK_PIPELINE_STAGE_TRANSFER_BIT,
                          VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT,
                          0,
@@ -93,7 +93,7 @@ void TransferEngine::Bucket::executeTransfers() {
                          bufferBarriers.size(),
                          bufferBarriers.data(),
                          imageBarriers.size(),
-                         imageBarriers.data());*/
+                         imageBarriers.data());
 
     // submit transfer commands
     vkEndCommandBuffer(commandBuffer);
@@ -101,6 +101,7 @@ void TransferEngine::Bucket::executeTransfers() {
     submit.sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO;
     submit.pCommandBuffers    = &commandBuffer;
     submit.commandBufferCount = 1;
+    vkResetFences(vulkanState.device, 1, &fence);
     vkQueueSubmit(vulkanState.graphicsQueue, 1, &submit, fence);
 
     // cleanup
@@ -111,7 +112,6 @@ void TransferEngine::Bucket::executeTransfers() {
 
 void TransferEngine::Bucket::resetResourcesWithSync() {
     vkWaitForFences(vulkanState.device, 1, &fence, VK_TRUE, UINT64_MAX);
-    vkResetFences(vulkanState.device, 1, &fence);
     vkResetCommandBuffer(commandBuffer, 0);
 
     for (VkBuffer buffer : stagingBuffers) { vkDestroyBuffer(vulkanState.device, buffer, nullptr); }
