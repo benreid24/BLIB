@@ -19,6 +19,39 @@ namespace scene
  */
 using StagePipelines = std::array<std::uint32_t, Config::SceneObjectStage::Count>;
 
+/**
+ * @brief Helper class to create stage pipeline configs in a convenient manner
+ *
+ * @ingroup Renderer
+ */
+class StagePipelineBuilder {
+public:
+    /**
+     * @brief Creates an empty StagePipelines config
+     */
+    StagePipelineBuilder() { value.fill(Config::PipelineIds::None); }
+
+    /**
+     * @brief Sets the pipeline for the given renderer stage
+     *
+     * @param stage The renderer stage to set the pipeline for
+     * @param pipelineId The pipeline to use for the given stage
+     * @return A reference to this builder
+     */
+    StagePipelineBuilder& withPipeline(std::uint32_t stage, std::uint32_t pipelineId) {
+        value[stage] = pipelineId;
+        return *this;
+    }
+
+    /**
+     * @brief Returns the created stage pipeline config
+     */
+    const StagePipelines& build() const { return value; }
+
+private:
+    StagePipelines value;
+};
+
 } // namespace scene
 } // namespace render
 } // namespace bl

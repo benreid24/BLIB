@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Transfers/TransferContext.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
+#include <BLIB/Render/Util/PerFrame.hpp>
 #include <glad/vulkan.h>
 #include <mutex>
 #include <vector>
@@ -29,10 +30,10 @@ public:
 private:
     struct Bucket {
         VulkanState& vulkanState;
-        VkCommandBuffer commandBuffer;
-        VkFence fence;
-        std::vector<VkBuffer> stagingBuffers;
-        std::vector<VkDeviceMemory> stagingMemory;
+        PerFrame<VkCommandBuffer> commandBuffer;
+        PerFrame<VkFence> fence;
+        PerFrame<std::vector<VkBuffer>> stagingBuffers;
+        PerFrame<std::vector<VkDeviceMemory>> stagingMemory;
         std::vector<VkMemoryBarrier> memoryBarriers; // TODO - bucket by dest stage?
         std::vector<VkBufferMemoryBarrier> bufferBarriers;
         std::vector<VkImageMemoryBarrier> imageBarriers;

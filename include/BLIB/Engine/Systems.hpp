@@ -108,7 +108,7 @@ T& Systems::getSystem() {
     }
 #endif
 
-    return *static_cast<T*>(it->second.get());
+    return *static_cast<T*>(it->second);
 }
 
 } // namespace engine

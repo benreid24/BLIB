@@ -71,6 +71,9 @@ void CommonSceneDescriptorSetInstance::doInit(std::uint32_t maxStaticObjects,
 
     // create and configureWrite descriptors
     for (std::uint32_t i = 0; i < descriptorSets.size(); ++i) {
+        // init descriptor set object
+        descriptorSets[i].emptyInit(vulkanState);
+
         // allocate descriptors
         std::array<VkDescriptorSetLayout, Config::MaxConcurrentFrames> layouts;
         layouts.fill(setLayout);

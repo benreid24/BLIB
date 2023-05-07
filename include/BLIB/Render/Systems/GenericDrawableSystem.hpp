@@ -35,6 +35,13 @@ class GenericDrawableSystem
 , public bl::event::Listener<ecs::event::ComponentRemoved<T>, render::event::SceneDestroyed> {
 public:
     /**
+     * @brief Initializes the system internals
+     *
+     * @param pipelines The pipelines to use by default for rendering these types of objects
+     */
+    GenericDrawableSystem(const scene::StagePipelines& pipelines);
+
+    /**
      * @brief Destroys the system
      */
     virtual ~GenericDrawableSystem() = default;
@@ -71,13 +78,6 @@ public:
     void removeFromScene(ecs::Entity entity);
 
 protected:
-    /**
-     * @brief Initializes the system internals
-     *
-     * @param pipelines The pipelines to use by default for rendering these types of objects
-     */
-    GenericDrawableSystem(const scene::StagePipelines& pipelines);
-
     /**
      * @brief Does nothing. Derived classes should override this if they need custom init logic
      *
@@ -177,7 +177,7 @@ void GenericDrawableSystem<T>::observe(const ecs::event::ComponentRemoved<T>& rm
 
 template<typename T>
 void GenericDrawableSystem<T>::observe(const event::SceneDestroyed& rm) {
-    registry->getAllComponents<T>().forEach([&rm](T& c) {
+    registry->getAllComponents<T>().forEach([&rm](ecs::Entity, T& c) {
         if (c.sceneRef.scene == rm.scene) { c.sceneRef.scene = nullptr; }
     });
 }
@@ -217,12 +217,9 @@ void GenericDrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
 #endif
                 continue;
             }
-            c->sceneRef.object =
-                add.scene->createAndAddObject(add.entity, add.updateFreq, add.pipelines);
-            if (c->sceneRef.object) {
-                c->sceneRef.scene                       = add.scene;
-                c->sceneRef.sceneObject->drawParameters = c->drawParams;
-            }
+            c->sceneRef.object = add.scene->createAndAddObject(
+                add.entity, c->drawParams, add.updateFreq, add.pipelines);
+            if (c->sceneRef.object) { c->sceneRef.scene = add.scene; }
             else {
                 BL_LOG_WARN << "Failed to add entity " << add.entity << " to scene " << add.scene;
             }
@@ -230,7 +227,7 @@ void GenericDrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
         toAdd.clear();
     }
 
-    doUpdate(dt);
+    doUpdate(frameMutex, dt);
 }
 
 } // namespace sys

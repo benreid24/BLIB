@@ -244,6 +244,11 @@ PerFrame<T>::PerFrame()
 : vs(nullptr) {}
 
 template<typename T>
+void PerFrame<T>::emptyInit(VulkanState& v) {
+    vs = &v;
+}
+
+template<typename T>
 template<typename U>
 void PerFrame<T>::init(VulkanState& v, const U& visitor) {
     vs = &v;

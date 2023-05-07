@@ -13,30 +13,36 @@ TransferEngine::Bucket::Bucket(VulkanState& vs)
 : vulkanState(vs) {
     oneTimeItems.reserve(32);
     everyFrameItems.reserve(32);
-    stagingBuffers.reserve(32);
-    stagingMemory.reserve(32);
+    stagingBuffers.init(vs, [](std::vector<VkBuffer>& bufs) { bufs.reserve(32); });
+    stagingMemory.init(vs, [](std::vector<VkDeviceMemory>& mems) { mems.reserve(32); });
     memoryBarriers.reserve(32);
     bufferBarriers.reserve(32);
     imageBarriers.reserve(32);
 }
 
 void TransferEngine::Bucket::init() {
-    VkFenceCreateInfo create{};
-    create.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
-    create.flags = VK_FENCE_CREATE_SIGNALED_BIT;
-    vkCreateFence(vulkanState.device, &create, nullptr, &fence);
+    fence.init(vulkanState, [this](VkFence& f) {
+        VkFenceCreateInfo create{};
+        create.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+        create.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+        vkCreateFence(vulkanState.device, &create, nullptr, &f);
+    });
 
+    commandBuffer.emptyInit(vulkanState);
     VkCommandBufferAllocateInfo alloc{};
     alloc.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     alloc.commandPool        = vulkanState.sharedCommandPool;
     alloc.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-    alloc.commandBufferCount = 1;
-    vkAllocateCommandBuffers(vulkanState.device, &alloc, &commandBuffer);
+    alloc.commandBufferCount = Config::MaxConcurrentFrames;
+    vkAllocateCommandBuffers(vulkanState.device, &alloc, commandBuffer.rawData());
 }
 
 void TransferEngine::Bucket::cleanup() {
-    vkDestroyFence(vulkanState.device, fence, nullptr);
-    vkFreeCommandBuffers(vulkanState.device, vulkanState.sharedCommandPool, 1, &commandBuffer);
+    fence.cleanup([this](VkFence f) { vkDestroyFence(vulkanState.device, f, nullptr); });
+    vkFreeCommandBuffers(vulkanState.device,
+                         vulkanState.sharedCommandPool,
+                         Config::MaxConcurrentFrames,
+                         commandBuffer.rawData());
 }
 
 TransferEngine::TransferEngine(VulkanState& vs)
@@ -74,17 +80,25 @@ void TransferEngine::Bucket::executeTransfers() {
     VkCommandBufferBeginInfo begin{};
     begin.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
     begin.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
-    vkBeginCommandBuffer(commandBuffer, &begin);
+    vkBeginCommandBuffer(commandBuffer.current(), &begin);
 
     // queue transfer commands
-    TransferContext context(
-        vulkanState, stagingBuffers, stagingMemory, memoryBarriers, bufferBarriers, imageBarriers);
-    for (Transferable* item : everyFrameItems) { item->executeTransfer(commandBuffer, context); }
-    for (Transferable* item : oneTimeItems) { item->executeTransfer(commandBuffer, context); }
+    TransferContext context(vulkanState,
+                            stagingBuffers.current(),
+                            stagingMemory.current(),
+                            memoryBarriers,
+                            bufferBarriers,
+                            imageBarriers);
+    for (Transferable* item : everyFrameItems) {
+        item->executeTransfer(commandBuffer.current(), context);
+    }
+    for (Transferable* item : oneTimeItems) {
+        item->executeTransfer(commandBuffer.current(), context);
+    }
     oneTimeItems.clear();
 
     // one unified sync
-    vkCmdPipelineBarrier(commandBuffer,
+    vkCmdPipelineBarrier(commandBuffer.current(),
                          VK_PIPELINE_STAGE_TRANSFER_BIT,
                          VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT,
                          0,
@@ -96,13 +110,13 @@ void TransferEngine::Bucket::executeTransfers() {
                          imageBarriers.data());
 
     // submit transfer commands
-    vkEndCommandBuffer(commandBuffer);
+    vkEndCommandBuffer(commandBuffer.current());
     VkSubmitInfo submit{};
     submit.sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-    submit.pCommandBuffers    = &commandBuffer;
+    submit.pCommandBuffers    = &commandBuffer.current();
     submit.commandBufferCount = 1;
-    vkResetFences(vulkanState.device, 1, &fence);
-    vkQueueSubmit(vulkanState.graphicsQueue, 1, &submit, fence);
+    vkResetFences(vulkanState.device, 1, &fence.current());
+    vkQueueSubmit(vulkanState.graphicsQueue, 1, &submit, fence.current());
 
     // cleanup
     memoryBarriers.clear();
@@ -111,15 +125,17 @@ void TransferEngine::Bucket::executeTransfers() {
 }
 
 void TransferEngine::Bucket::resetResourcesWithSync() {
-    vkWaitForFences(vulkanState.device, 1, &fence, VK_TRUE, UINT64_MAX);
-    vkResetCommandBuffer(commandBuffer, 0);
+    vkWaitForFences(vulkanState.device, 1, &fence.current(), VK_TRUE, UINT64_MAX);
+    vkResetCommandBuffer(commandBuffer.current(), 0);
 
-    for (VkBuffer buffer : stagingBuffers) { vkDestroyBuffer(vulkanState.device, buffer, nullptr); }
-    for (VkDeviceMemory memory : stagingMemory) {
+    for (VkBuffer buffer : stagingBuffers.current()) {
+        vkDestroyBuffer(vulkanState.device, buffer, nullptr);
+    }
+    for (VkDeviceMemory memory : stagingMemory.current()) {
         vkFreeMemory(vulkanState.device, memory, nullptr);
     }
-    stagingBuffers.clear();
-    stagingMemory.clear();
+    stagingBuffers.current().clear();
+    stagingMemory.current().clear();
 }
 
 void TransferEngine::queueOneTimeTransfer(Transferable* item,

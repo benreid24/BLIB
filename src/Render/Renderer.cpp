@@ -1,7 +1,9 @@
 #include <BLIB/Render/Renderer.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Render/Scenes/StagePipelines.hpp>
 #include <BLIB/Render/Systems/BuiltinDescriptorComponentSystems.hpp>
+#include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
 #include <cmath>
 
 namespace bl
@@ -33,6 +35,17 @@ void Renderer::initialize() {
     // register systems
     engine.systems().registerSystem<sys::Transform3DDescriptorSystem>(
         engine::FrameStage::RenderDescriptorRefresh, engine::StateMask::All);
+    engine.systems().registerSystem<sys::TextureDescriptorSystem>(
+        engine::FrameStage::RenderDescriptorRefresh, engine::StateMask::All);
+    engine.systems().registerSystem<sys::MeshSystem>(
+        engine::FrameStage::RenderObjectSync,
+        engine::StateMask::All,
+        scene::StagePipelineBuilder()
+            .withPipeline(Config::SceneObjectStage::OpaquePass,
+                          Config::PipelineIds::OpaqueSkinnedMeshes)
+            .withPipeline(Config::SceneObjectStage::TransparentPass, // TODO
+                          Config::PipelineIds::None)
+            .build());
 
     // create renderer instance data
     state.init();

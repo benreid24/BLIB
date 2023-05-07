@@ -29,7 +29,8 @@ void Swapchain::Frame::init(VulkanState& vulkanState) {
         throw std::runtime_error("Failed to create fence");
     }
 
-    commandPool = vulkanState.createCommandPool(VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);
+    commandPool = vulkanState.createCommandPool(VK_COMMAND_POOL_CREATE_TRANSIENT_BIT |
+                                                VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
 
     // create command buffer
     VkCommandBufferAllocateInfo allocInfo{};
@@ -85,13 +86,13 @@ void Swapchain::beginFrame(ColorAttachmentSet*& renderFrame, VkCommandBuffer& cb
     }
 
     // reset prior command buffer
-    vkResetCommandPool(vulkanState.device, frameData.current().commandPool, 0);
+    // vkResetCommandPool(vulkanState.device, frameData.current().commandPool, 0);
+    vkResetCommandBuffer(frameData.current().commandBuffer, 0);
 
     // begin command buffer
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType            = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-    beginInfo.flags            = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT; // Optional
-    beginInfo.pInheritanceInfo = nullptr;                                     // Optional
+    beginInfo.flags            = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT; 
     if (vkBeginCommandBuffer(frameData.current().commandBuffer, &beginInfo) != VK_SUCCESS) {
         throw std::runtime_error("Failed to begin recording command buffer");
     }

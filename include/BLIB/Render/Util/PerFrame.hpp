@@ -28,6 +28,13 @@ public:
     PerFrame();
 
     /**
+     * @brief Initializes the PerFrame object without initializing the wrapped values
+     *
+     * @param vulkanState Renderer Vulkan state
+     */
+    void emptyInit(VulkanState& vulkanState);
+
+    /**
      * @brief Initialize the buffer and each contained object
      *
      * @tparam U The callback type to init each object with

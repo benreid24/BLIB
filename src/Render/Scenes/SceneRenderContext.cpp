@@ -66,7 +66,7 @@ void SceneRenderContext::renderObject(VkPipelineLayout layout, const SceneObject
     }
 
     for (unsigned int i = perObjStart; i < perObjStart + perObjCount; ++i) {
-        perObjDescriptors[i]->bindForObject(commandBuffer, layout, i, object.sceneId);
+        perObjDescriptors[i - perObjStart]->bindForObject(commandBuffer, layout, i, object.sceneId);
     }
 
     vkCmdDrawIndexed(commandBuffer,
