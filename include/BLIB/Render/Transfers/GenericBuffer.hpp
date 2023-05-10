@@ -26,7 +26,7 @@ template<VkMemoryPropertyFlags Memory, bool DoubleBuffer>
 class GenericBuffer : public Transferable {
 public:
     /// Whether or not the buffer requires a staging buffer for transfers
-    static constexpr bool StageRequired = Memory & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT != 0;
+    static constexpr bool StageRequired = (Memory & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT) != 0;
 
     /**
      * @brief Creates an empty buffer

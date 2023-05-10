@@ -26,13 +26,10 @@ CommonSceneDescriptorSetInstance::CommonSceneDescriptorSetInstance(VulkanState& 
 CommonSceneDescriptorSetInstance::~CommonSceneDescriptorSetInstance() {
     viewProjBuf.stopTransferringEveryFrame();
     for (std::uint32_t i = 0; i < descriptorSets.size(); ++i) {
-        std::array<VkDescriptorSetLayout, Config::MaxConcurrentFrames> layouts;
-        layouts.fill(setLayout);
         std::array<const VkDescriptorSetLayoutCreateInfo*, Config::MaxConcurrentFrames> createInfos;
         createInfos.fill(&createInfo);
         vulkanState.descriptorPool.release(descriptorHandles[i],
                                            createInfos.data(),
-                                           layouts.data(),
                                            descriptorSets[i].rawData(),
                                            Config::MaxConcurrentFrames);
     }
@@ -53,19 +50,16 @@ void CommonSceneDescriptorSetInstance::bindForPipeline(VkCommandBuffer commandBu
                             nullptr);
 }
 
-void CommonSceneDescriptorSetInstance::bindForObject(VkCommandBuffer commandBuffer,
-                                                     VkPipelineLayout layout,
-                                                     std::uint32_t setIndex,
-                                                     std::uint32_t objectId) const {
+void CommonSceneDescriptorSetInstance::bindForObject(VkCommandBuffer, VkPipelineLayout,
+                                                     std::uint32_t, std::uint32_t) const {
     // n/a
 }
 
-void CommonSceneDescriptorSetInstance::releaseObject(std::uint32_t sceneId, ecs::Entity entity) {
+void CommonSceneDescriptorSetInstance::releaseObject(std::uint32_t, ecs::Entity) {
     // n/a
 }
 
-void CommonSceneDescriptorSetInstance::doInit(std::uint32_t maxStaticObjects,
-                                              std::uint32_t maxDynamicObjects) {
+void CommonSceneDescriptorSetInstance::doInit(std::uint32_t, std::uint32_t) {
     // allocate memory
     viewProjBuf.create(vulkanState, observerCameras.size());
     viewProjBuf.configureTransferAll();
@@ -105,8 +99,8 @@ void CommonSceneDescriptorSetInstance::doInit(std::uint32_t maxStaticObjects,
     }
 }
 
-bool CommonSceneDescriptorSetInstance::doAllocateObject(std::uint32_t sceneId, ecs::Entity entity,
-                                                        SceneObject::UpdateSpeed updateSpeed) {
+bool CommonSceneDescriptorSetInstance::doAllocateObject(std::uint32_t, ecs::Entity,
+                                                        SceneObject::UpdateSpeed) {
     // n/a
     return true;
 }

@@ -33,6 +33,7 @@ function(configure_blib_target target_name)
             /wd4456
             /wd4457
             /wd4706
+            /wd26495
         )
     else()
         # lots of warnings

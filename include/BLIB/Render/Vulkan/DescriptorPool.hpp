@@ -58,12 +58,11 @@ public:
      *
      * @param handle Allocation handle of the sets to release
      * @param createInfos Information containing the set layout parameters
-     * @param layouts Layouts of the sets to release
      * @param sets The sets to release
      * @param setCount The number of sets to release
      */
     void release(AllocationHandle handle, const VkDescriptorSetLayoutCreateInfo** createInfos,
-                 const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets, std::size_t setCount);
+                 VkDescriptorSet* sets, std::size_t setCount);
 
 private:
     struct Subpool {

@@ -117,18 +117,12 @@ void PostFX::bindImages(PerFrame<StandardImageBuffer>& images) {
 PostFX::~PostFX() {
     VulkanState& vs = renderer.vulkanState();
 
-    const VkDescriptorSetLayout setLayout = renderer.descriptorFactoryCache()
-                                                .getFactory<ds::PostFXDescriptorSetFactory>()
-                                                ->getDescriptorLayout();
     const VkDescriptorSetLayoutCreateInfo createInfo = makeCreateInfo();
-    std::array<VkDescriptorSetLayout, Config::MaxConcurrentFrames> descriptorLayouts;
-    descriptorLayouts.fill(setLayout);
     std::array<const VkDescriptorSetLayoutCreateInfo*, Config::MaxConcurrentFrames>
         descriptorCreateInfos;
     descriptorCreateInfos.fill(&createInfo);
     vs.descriptorPool.release(descriptorSetAllocHandle,
                               descriptorCreateInfos.data(),
-                              descriptorLayouts.data(),
                               descriptorSets.rawData(),
                               Config::MaxConcurrentFrames);
     vkDestroySampler(vs.device, sampler, nullptr);
@@ -154,9 +148,9 @@ void PostFX::compositeScene(VkCommandBuffer cb) {
                             0,
                             nullptr);
 
-    VkBuffer vertices[]    = {indexBuffer.vertices().handle()};
-    VkDeviceSize offsets[] = {0};
-    vkCmdBindVertexBuffers(cb, 0, 1, vertices, offsets);
+    VkBuffer vertexBuffer[] = {indexBuffer.vertices().handle()};
+    VkDeviceSize offsets[]  = {0};
+    vkCmdBindVertexBuffers(cb, 0, 1, vertexBuffer, offsets);
     vkCmdBindIndexBuffer(cb, indexBuffer.indices().handle(), 0, prim::IndexBuffer::IndexType);
 
     onRender(cb);

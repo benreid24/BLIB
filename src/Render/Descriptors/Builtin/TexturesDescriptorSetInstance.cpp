@@ -11,8 +11,7 @@ TexturesDescriptorSetInstance::TexturesDescriptorSetInstance(TexturePool& textur
 , texturePool(texturePool) {}
 
 void TexturesDescriptorSetInstance::bindForPipeline(VkCommandBuffer commandBuffer,
-                                                    VkPipelineLayout layout,
-                                                    std::uint32_t observerIndex,
+                                                    VkPipelineLayout layout, std::uint32_t,
                                                     std::uint32_t setIndex) const {
     texturePool.bindDescriptors(commandBuffer, layout, setIndex);
 }

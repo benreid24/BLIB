@@ -123,7 +123,7 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::bindForObject(
                             nullptr);
 }
 
-void bl::render::ds::DefaultObjectDescriptorSetInstance::releaseObject(std::uint32_t sceneId,
+void bl::render::ds::DefaultObjectDescriptorSetInstance::releaseObject(std::uint32_t,
                                                                        ecs::Entity entity) {
     auto components = registry.getComponentSet<t3d::Transform3D, com::Texture>(entity);
     if (components.get<t3d::Transform3D>()) { components.get<t3d::Transform3D>()->unlink(); }
@@ -131,7 +131,7 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::releaseObject(std::uint
 }
 
 bool bl::render::ds::DefaultObjectDescriptorSetInstance::doAllocateObject(
-    std::uint32_t sceneId, ecs::Entity entity, SceneObject::UpdateSpeed updateSpeed) {
+    std::uint32_t sceneId, ecs::Entity entity, SceneObject::UpdateSpeed) {
     auto components = registry.getComponentSet<t3d::Transform3D, com::Texture>(entity);
     if (!components.get<t3d::Transform3D>()) {
 #ifdef BLIB_DEBUG

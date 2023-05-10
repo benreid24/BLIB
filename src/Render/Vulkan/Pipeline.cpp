@@ -13,7 +13,6 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
     // Configure descriptor sets
     std::vector<VkDescriptorSetLayout> descriptorLayouts;
     descriptorLayouts.reserve(descriptorSets.size());
-    bool hitUserSet = false;
     for (unsigned int i = 0; i < params.descriptorSets.size(); ++i) {
         descriptorSets[i] = renderer.descriptorFactoryCache().getOrAddFactory(
             params.descriptorSets[i].factoryType, std::move(params.descriptorSets[i].factory));

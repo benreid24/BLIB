@@ -52,8 +52,7 @@ DescriptorPool::AllocationHandle DescriptorPool::allocate(
 
 void DescriptorPool::release(AllocationHandle handle,
                              const VkDescriptorSetLayoutCreateInfo** createInfos,
-                             const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
-                             std::size_t setCount) {
+                             VkDescriptorSet* sets, std::size_t setCount) {
     handle->release(createInfos, sets, setCount);
     if (pools.size() > 1 && !handle->inUse()) { pools.erase(std::next(handle).base()); }
 }

@@ -97,8 +97,8 @@ struct GenericBufferStorage<true, false> {
         });
     }
 
-    void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext&, const void* data,
-                 std::uint32_t offset, std::uint32_t len) {
+    void doWrite(VkCommandBuffer, tfr::TransferContext&, const void* data, std::uint32_t offset,
+                 std::uint32_t len) {
         std::memcpy(static_cast<char*>(mappedBuffers.current()) + offset, data, len);
     }
 
@@ -162,8 +162,8 @@ struct GenericBufferStorage<false, false> {
         vkCheck(vkMapMemory(vulkanState.device, memory, 0, size, 0, &mappedBuffer));
     }
 
-    void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext& ctx, const void* data,
-                 std::uint32_t offset, std::uint32_t len) {
+    void doWrite(VkCommandBuffer, tfr::TransferContext&, const void* data, std::uint32_t offset,
+                 std::uint32_t len) {
         std::memcpy(static_cast<char*>(mappedBuffer) + offset, data, len);
     }
 

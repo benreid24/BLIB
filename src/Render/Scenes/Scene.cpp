@@ -48,7 +48,7 @@ SceneObject* Scene::createAndAddObject(ecs::Entity entity, const DrawParameters&
         BL_LOG_ERROR << "Scene " << this << " out of static or dynamic object space";
         return nullptr;
     }
-    const std::uint32_t i = ids.allocate();
+    const std::uint32_t i = ids.allocate() + offset;
     SceneObject* object   = &objects[i];
     object->hidden        = false;
     object->sceneId       = i;
@@ -67,6 +67,7 @@ SceneObject* Scene::createAndAddObject(ecs::Entity entity, const DrawParameters&
     }
 
     // TODO - account for object add failure and remove
+    return object;
 }
 
 void Scene::removeObject(SceneObject* obj) {
