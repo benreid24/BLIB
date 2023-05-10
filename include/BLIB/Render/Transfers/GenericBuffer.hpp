@@ -102,11 +102,12 @@ private:
 
 template<VkMemoryPropertyFlags Memory, bool DoubleBuffer>
 GenericBuffer<Memory, DoubleBuffer>::GenericBuffer()
-: Transferable() {}
+: Transferable()
+, len(0) {}
 
 template<VkMemoryPropertyFlags Memory, bool DoubleBuffer>
 GenericBuffer<Memory, DoubleBuffer>::~GenericBuffer() {
-    if (vulkanState) { destroy(); }
+    if (len > 0) { destroy(); }
 }
 
 template<VkMemoryPropertyFlags Memory, bool DoubleBuffer>
@@ -121,7 +122,7 @@ void GenericBuffer<Memory, DoubleBuffer>::create(VulkanState& vs, std::uint32_t 
 template<VkMemoryPropertyFlags Memory, bool DoubleBuffer>
 void GenericBuffer<Memory, DoubleBuffer>::destroy() {
     storage.destroy(*vulkanState);
-    vulkanState = nullptr;
+    len = 0;
 }
 
 template<VkMemoryPropertyFlags Memory, bool DoubleBuffer>

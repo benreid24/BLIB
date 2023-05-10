@@ -40,14 +40,14 @@ public:
      *
      * @param syncReq Synchronization requirements for the transfer
      */
-    void queueTransfer(SyncRequirement syncReq);
+    void queueTransfer(SyncRequirement syncReq = SyncRequirement::Immediate);
 
     /**
      * @brief Configures this Transferable to transfer every frame with the given sync requirement
      *
      * @param syncReq Synchronization requirements for the transfer
      */
-    void transferEveryFrame(SyncRequirement syncReq);
+    void transferEveryFrame(SyncRequirement syncReq = SyncRequirement::Immediate);
 
     /**
      * @brief Removes this Transferable from the queue that gets transferred every frame
