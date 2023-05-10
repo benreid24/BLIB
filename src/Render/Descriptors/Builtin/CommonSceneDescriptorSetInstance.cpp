@@ -68,6 +68,8 @@ void CommonSceneDescriptorSetInstance::doInit(std::uint32_t maxStaticObjects,
                                               std::uint32_t maxDynamicObjects) {
     // allocate memory
     viewProjBuf.create(vulkanState, observerCameras.size());
+    viewProjBuf.configureTransferAll();
+    viewProjBuf.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
 
     // create and configureWrite descriptors
     for (std::uint32_t i = 0; i < descriptorSets.size(); ++i) {
@@ -101,9 +103,6 @@ void CommonSceneDescriptorSetInstance::doInit(std::uint32_t maxStaticObjects,
             vkUpdateDescriptorSets(vulkanState.device, 1, &setWrite, 0, nullptr);
         }
     }
-
-    viewProjBuf.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
-    viewProjBuf.configureTransferAll();
 }
 
 bool CommonSceneDescriptorSetInstance::doAllocateObject(std::uint32_t sceneId, ecs::Entity entity,

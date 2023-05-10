@@ -86,7 +86,6 @@ void Swapchain::beginFrame(ColorAttachmentSet*& renderFrame, VkCommandBuffer& cb
     }
 
     // reset prior command buffer
-    // vkResetCommandPool(vulkanState.device, frameData.current().commandPool, 0);
     vkResetCommandBuffer(frameData.current().commandBuffer, 0);
 
     // begin command buffer

@@ -26,11 +26,15 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
     dynamicObjectCount              = maxDynamicObjects;
 
     // allocate memory
-    transforms.resize(objectCount);
-    textures.resize(objectCount);
     transformBuffer.create(vulkanState, objectCount);
     textureBuffer.create(vulkanState, objectCount);
     descriptorSets.resize(objectCount);
+
+    // configure data transfers
+    textureBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
+    transformBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
+    transformBuffer.configureTransferAll();
+    textureBuffer.configureTransferAll();
 
     // create dedicated descriptor pool
     VkDescriptorPoolSize poolSize{};
@@ -135,11 +139,11 @@ bool bl::render::ds::DefaultObjectDescriptorSetInstance::doAllocateObject(
 #endif
         return false;
     }
-    components.get<t3d::Transform3D>()->link(this, sceneId, &transforms[sceneId]);
+    components.get<t3d::Transform3D>()->link(this, sceneId, &transformBuffer[sceneId]);
     if (components.get<com::Texture>()) {
-        components.get<com::Texture>()->link(this, sceneId, &textures[sceneId]);
+        components.get<com::Texture>()->link(this, sceneId, &textureBuffer[sceneId]);
     }
-    else { textures[sceneId] = 0; }
+    else { textureBuffer[sceneId] = 0; }
     return true;
 }
 
