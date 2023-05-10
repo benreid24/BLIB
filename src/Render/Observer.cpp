@@ -231,7 +231,7 @@ void Observer::assignRegion(const sf::WindowBase& window, unsigned int count, un
     if (!renderFrames.valid() ||
         (scissor.extent.width != renderFrames.current().bufferSize().width ||
          scissor.extent.height != renderFrames.current().bufferSize().height)) {
-        vkDeviceWaitIdle(renderer.vulkanState().device);
+        vkCheck(vkDeviceWaitIdle(renderer.vulkanState().device));
 
         renderFrames.init(renderer.vulkanState(), [this](StandardImageBuffer& frame) {
             frame.create(renderer.vulkanState(), scissor.extent);

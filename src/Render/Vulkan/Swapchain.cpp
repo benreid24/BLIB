@@ -63,9 +63,9 @@ void Swapchain::destroy() {
 
 void Swapchain::beginFrame(ColorAttachmentSet*& renderFrame, VkCommandBuffer& cb) {
     // wait for prior frame
-    vkWaitForFences(
-        vulkanState.device, 1, &frameData.current().commandBufferFence, VK_TRUE, UINT64_MAX);
-    vkResetFences(vulkanState.device, 1, &frameData.current().commandBufferFence);
+    vkCheck(vkWaitForFences(
+        vulkanState.device, 1, &frameData.current().commandBufferFence, VK_TRUE, UINT64_MAX));
+    vkCheck(vkResetFences(vulkanState.device, 1, &frameData.current().commandBufferFence));
 
     // recreate if out of date
     if (outOfDate) { recreate(); }
@@ -86,12 +86,12 @@ void Swapchain::beginFrame(ColorAttachmentSet*& renderFrame, VkCommandBuffer& cb
     }
 
     // reset prior command buffer
-    vkResetCommandBuffer(frameData.current().commandBuffer, 0);
+    vkCheck(vkResetCommandBuffer(frameData.current().commandBuffer, 0));
 
     // begin command buffer
     VkCommandBufferBeginInfo beginInfo{};
-    beginInfo.sType            = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-    beginInfo.flags            = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT; 
+    beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+    beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
     if (vkBeginCommandBuffer(frameData.current().commandBuffer, &beginInfo) != VK_SUCCESS) {
         throw std::runtime_error("Failed to begin recording command buffer");
     }
@@ -103,7 +103,7 @@ void Swapchain::beginFrame(ColorAttachmentSet*& renderFrame, VkCommandBuffer& cb
 
 void Swapchain::completeFrame() {
     // end command buffer
-    vkEndCommandBuffer(frameData.current().commandBuffer);
+    vkCheck(vkEndCommandBuffer(frameData.current().commandBuffer));
 
     // submit to queue
     VkSemaphore waitSemaphores[]      = {frameData.current().imageAvailableSemaphore};
@@ -166,7 +166,7 @@ void Swapchain::create(VkSurfaceKHR s) {
 
 void Swapchain::recreate() {
     outOfDate = false;
-    vkDeviceWaitIdle(vulkanState.device);
+    vkCheck(vkDeviceWaitIdle(vulkanState.device));
 
     cleanup();
 
@@ -234,9 +234,9 @@ void Swapchain::createSwapchain() {
 
     // Fetch images
     VkImage images[8];
-    vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, nullptr); // count
+    vkCheck(vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, nullptr)); // count
     renderFrames.resize(imageCount);
-    vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, images); // fetch
+    vkCheck(vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, images)); // fetch
     for (unsigned int i = 0; i < imageCount; ++i) {
         renderFrames[i].imageHandles[0] = images[i];
         renderFrames[i].extent          = createInfo.imageExtent;

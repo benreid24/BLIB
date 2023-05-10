@@ -78,8 +78,8 @@ void StandardImageBuffer::create(VulkanState& vs, const VkExtent2D& size) {
         throw std::runtime_error("failed to allocate image memory!");
     }
 
-    vkBindImageMemory(vs.device, colorImage, gpuMemory, 0);
-    vkBindImageMemory(vs.device, depthImage, gpuMemory, colorImageMemReqs.size);
+    vkCheck(vkBindImageMemory(vs.device, colorImage, gpuMemory, 0));
+    vkCheck(vkBindImageMemory(vs.device, depthImage, gpuMemory, colorImageMemReqs.size));
 
     // create image views
     colorImageView = vs.createImageView(colorImage, colorImageCreate.format);

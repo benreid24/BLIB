@@ -1,5 +1,6 @@
 #include <Render/Vulkan/Utils/QueueFamilyLocator.hpp>
 
+#include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <vector>
 
 namespace bl
@@ -24,7 +25,7 @@ void QueueFamilyLocator::populate(VkPhysicalDevice device, VkSurfaceKHR surface)
 
         // presentation support
         VkBool32 presentSupport = false;
-        vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &presentSupport);
+        vkCheck(vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &presentSupport));
         if (presentSupport) { presentFamily = i; }
 
         if (complete()) break;

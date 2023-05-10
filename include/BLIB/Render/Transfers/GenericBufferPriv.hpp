@@ -38,12 +38,12 @@ struct GenericBufferStorage<true, true> {
             stagingMemory);
         unsigned int i = 0;
         void* memoryMap;
-        vkMapMemory(vulkanState.device,
-                    stagingMemory,
-                    0,
-                    offset * Config::MaxConcurrentFrames,
-                    0,
-                    &memoryMap);
+        vkCheck(vkMapMemory(vulkanState.device,
+                            stagingMemory,
+                            0,
+                            offset * Config::MaxConcurrentFrames,
+                            0,
+                            &memoryMap));
         mappedStaging.init(vulkanState, [this, memoryMap, &i, offset, size](void*& dest) {
             dest = static_cast<char*>(memoryMap) + offset * i;
             ++i;
@@ -89,8 +89,8 @@ struct GenericBufferStorage<true, false> {
             vulkanState.createDoubleBuffer(size, usage, memProps, buffers, memory);
         unsigned int i = 0;
         void* memoryMap;
-        vkMapMemory(
-            vulkanState.device, memory, 0, offset * Config::MaxConcurrentFrames, 0, &memoryMap);
+        vkCheck(vkMapMemory(
+            vulkanState.device, memory, 0, offset * Config::MaxConcurrentFrames, 0, &memoryMap));
         mappedBuffers.init(vulkanState, [this, memoryMap, &i, offset, size](void*& dest) {
             dest = static_cast<char*>(memoryMap) + offset * i;
             ++i;
@@ -132,7 +132,7 @@ struct GenericBufferStorage<false, true> {
         ctx.createTemporaryStagingBuffer(len, stagingBuffer, stagingMemory);
 
         void* dest = nullptr;
-        vkMapMemory(ctx.device(), stagingMemory, 0, len, 0, &dest);
+        vkCheck(vkMapMemory(ctx.device(), stagingMemory, 0, len, 0, &dest));
         std::memcpy(dest, data, len);
         vkUnmapMemory(ctx.device(), stagingMemory);
 
@@ -159,7 +159,7 @@ struct GenericBufferStorage<false, false> {
     void create(VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
                 VkBufferUsageFlags usage) {
         vulkanState.createBuffer(size, usage, memProps, buffer, memory);
-        vkMapMemory(vulkanState.device, memory, 0, size, 0, &mappedBuffer);
+        vkCheck(vkMapMemory(vulkanState.device, memory, 0, size, 0, &mappedBuffer));
     }
 
     void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext& ctx, const void* data,

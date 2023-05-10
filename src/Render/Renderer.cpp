@@ -68,7 +68,7 @@ void Renderer::initialize() {
 }
 
 void Renderer::cleanup() {
-    vkDeviceWaitIdle(state.device);
+    vkCheck(vkDeviceWaitIdle(state.device));
 
     observers.clear();
     commonObserver.cleanup();

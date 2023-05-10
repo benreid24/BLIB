@@ -51,7 +51,7 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
                               bool vp) const {
 #ifdef BLIB_DEBUG
     if (target == nullptr) {
-        throw std::runtime_error("Framebuffer render started without specifiying target");
+        throw std::runtime_error("Framebuffer render started without specifying target");
     }
 #endif
 
@@ -67,10 +67,10 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
 
     if (vp) {
         VkViewport viewport;
-        viewport.x = static_cast<float>(region.offset.x);
-        viewport.y = static_cast<float>(region.offset.y);
-        viewport.width = static_cast<float>(region.extent.width);
-        viewport.height = static_cast<float>(region.extent.height);
+        viewport.x        = static_cast<float>(region.offset.x);
+        viewport.y        = static_cast<float>(region.offset.y);
+        viewport.width    = static_cast<float>(region.extent.width);
+        viewport.height   = static_cast<float>(region.extent.height);
         viewport.minDepth = 0.f;
         viewport.maxDepth = 1.f;
 

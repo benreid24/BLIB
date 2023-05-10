@@ -73,11 +73,11 @@ debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
 
 bool deviceHasRequiredExtensions(VkPhysicalDevice device, const char* name) {
     std::uint32_t extensionCount;
-    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
+    vkCheck(vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr));
 
     std::vector<VkExtensionProperties> availableExtensions(extensionCount);
-    vkEnumerateDeviceExtensionProperties(
-        device, nullptr, &extensionCount, availableExtensions.data());
+    vkCheck(vkEnumerateDeviceExtensionProperties(
+        device, nullptr, &extensionCount, availableExtensions.data()));
 
     std::unordered_set<std::string> extensionSet;
     for (const VkExtensionProperties& ext : availableExtensions) {
@@ -214,9 +214,9 @@ void VulkanState::createInstance() {
 
     // query valid extensions
     std::uint32_t extensionCount = 0;
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
+    vkCheck(vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr));
     std::vector<VkExtensionProperties> extensions(extensionCount);
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
+    vkCheck(vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data()));
     std::unordered_set<std::string> extensionsSet;
     for (const VkExtensionProperties& ext : extensions) {
         extensionsSet.emplace(ext.extensionName);
@@ -277,10 +277,10 @@ void VulkanState::createSurface() {
 
 void VulkanState::pickPhysicalDevice() {
     std::uint32_t deviceCount = 0;
-    vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
+    vkCheck(vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr));
     if (deviceCount == 0) { throw std::runtime_error("Failed to find GPUs with Vulkan support"); }
     std::vector<VkPhysicalDevice> devices(deviceCount);
-    vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
+    vkCheck(vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data()));
 
     int pscore = -1;
     for (const auto& device : devices) {
@@ -436,7 +436,7 @@ void VulkanState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
         throw std::runtime_error("failed to allocate buffer memory!");
     }
 
-    vkBindBufferMemory(device, buffer, bufferMemory, 0);
+    vkCheck(vkBindBufferMemory(device, buffer, bufferMemory, 0));
 }
 
 VkDeviceSize VulkanState::createDoubleBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
@@ -472,7 +472,7 @@ VkDeviceSize VulkanState::createDoubleBuffer(VkDeviceSize size, VkBufferUsageFla
     }
 
     for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
-        vkBindBufferMemory(device, buffers.getRaw(i), bufferMemory, offset * i);
+        vkCheck(vkBindBufferMemory(device, buffers.getRaw(i), bufferMemory, offset * i));
     }
 
     return offset;
@@ -513,7 +513,7 @@ void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkForma
         throw std::runtime_error("failed to allocate image memory!");
     }
 
-    vkBindImageMemory(device, image, imageMemory, 0);
+    vkCheck(vkBindImageMemory(device, image, imageMemory, 0));
 }
 
 VkCommandBuffer VulkanState::beginSingleTimeCommands(VkCommandPool pool) {
@@ -524,27 +524,27 @@ VkCommandBuffer VulkanState::beginSingleTimeCommands(VkCommandPool pool) {
     allocInfo.commandBufferCount = 1;
 
     VkCommandBuffer commandBuffer;
-    vkAllocateCommandBuffers(device, &allocInfo, &commandBuffer);
+    vkCheck(vkAllocateCommandBuffers(device, &allocInfo, &commandBuffer));
 
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
     beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
 
-    vkBeginCommandBuffer(commandBuffer, &beginInfo);
+    vkCheck(vkBeginCommandBuffer(commandBuffer, &beginInfo));
 
     return commandBuffer;
 }
 
 void VulkanState::endSingleTimeCommands(VkCommandBuffer commandBuffer, VkCommandPool pool) {
-    vkEndCommandBuffer(commandBuffer);
+    vkCheck(vkEndCommandBuffer(commandBuffer));
 
     VkSubmitInfo submitInfo{};
     submitInfo.sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO;
     submitInfo.commandBufferCount = 1;
     submitInfo.pCommandBuffers    = &commandBuffer;
 
-    vkQueueSubmit(graphicsQueue, 1, &submitInfo, VK_NULL_HANDLE);
-    vkQueueWaitIdle(graphicsQueue);
+    vkCheck(vkQueueSubmit(graphicsQueue, 1, &submitInfo, VK_NULL_HANDLE));
+    vkCheck(vkQueueWaitIdle(graphicsQueue));
 
     vkFreeCommandBuffers(device, pool != nullptr ? pool : sharedCommandPool, 1, &commandBuffer);
 }

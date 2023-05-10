@@ -27,7 +27,7 @@ Engine::~Engine() {
     bl::event::Dispatcher::clearAllListeners();
     entityRegistry.destroyAllEntities();
     if (renderingSystem.vulkanState().device) {
-        vkDeviceWaitIdle(renderingSystem.vulkanState().device);
+        vkCheck(vkDeviceWaitIdle(renderingSystem.vulkanState().device));
     }
     while (!states.empty()) { states.pop(); }
     newState.reset();

@@ -1,5 +1,7 @@
 #include <BLIB/Render/Overlays/OverlayRenderContext.hpp>
 
+#include <BLIB/Render/Vulkan/VkCheck.hpp>
+
 namespace bl
 {
 namespace render

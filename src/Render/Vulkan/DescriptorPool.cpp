@@ -173,7 +173,7 @@ void DescriptorPool::Subpool::release(const VkDescriptorSetLayoutCreateInfo** cr
     }
 
     // free sets
-    vkFreeDescriptorSets(vulkanState.device, pool, setCount, sets);
+    vkCheck(vkFreeDescriptorSets(vulkanState.device, pool, setCount, sets));
 }
 
 bool DescriptorPool::Subpool::inUse() const {

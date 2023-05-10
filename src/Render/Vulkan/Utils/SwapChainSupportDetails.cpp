@@ -40,8 +40,7 @@ const VkSurfaceFormatKHR& SwapChainSupportDetails::swapSurfaceFormat() const {
 
 VkPresentModeKHR SwapChainSupportDetails::presentationMode(bool noVsync) const {
     const auto requestedMode =
-        noVsync ? VK_PRESENT_MODE_IMMEDIATE_KHR :
-                  VK_PRESENT_MODE_MAILBOX_KHR;
+        noVsync ? VK_PRESENT_MODE_IMMEDIATE_KHR : VK_PRESENT_MODE_MAILBOX_KHR;
     for (const VkPresentModeKHR& mode : presentModes) {
         if (mode == requestedMode) { return mode; }
     }

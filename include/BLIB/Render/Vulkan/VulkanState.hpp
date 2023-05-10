@@ -8,6 +8,7 @@
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
+#include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <SFML/Window.hpp>
 #include <array>
 #include <cstdint>
