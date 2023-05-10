@@ -16,18 +16,15 @@ StageBatch::StageBatch(Renderer& renderer, std::uint32_t maxObjects,
     batches.reserve(16);
 }
 
-void StageBatch::addObject(SceneObject* object, std::uint32_t pipelineId, ecs::Entity entity,
+bool StageBatch::addObject(SceneObject* object, std::uint32_t pipelineId, ecs::Entity entity,
                            SceneObject::UpdateSpeed updateFreq) {
     for (PipelineBatch& p : batches) {
-        if (p.pipelineId == pipelineId) {
-            p.addObject(object, entity, updateFreq);
-            return;
-        }
+        if (p.pipelineId == pipelineId) { return p.addObject(object, entity, updateFreq); }
     }
 
     // not found, create new pipeline batch
     batches.emplace_back(renderer, maxObjects, descriptorCache, pipelineId);
-    batches.back().addObject(object, entity, updateFreq);
+    return batches.back().addObject(object, entity, updateFreq);
 }
 
 void StageBatch::removeObject(SceneObject* object, std::uint32_t pipelineId, ecs::Entity entity) {

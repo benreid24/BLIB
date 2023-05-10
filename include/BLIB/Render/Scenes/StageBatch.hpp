@@ -40,8 +40,9 @@ public:
      * @param pipelineId The pipeline to render the object with
      * @param entity The ECS id of the entity of this object
      * @param updateFreq How often the object is expected to be changed
+     * @return Whether or not the object could be added
      */
-    void addObject(SceneObject* object, std::uint32_t pipelineId, ecs::Entity entity,
+    bool addObject(SceneObject* object, std::uint32_t pipelineId, ecs::Entity entity,
                    SceneObject::UpdateSpeed updateFreq);
 
     /**

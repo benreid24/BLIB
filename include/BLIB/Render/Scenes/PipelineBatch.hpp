@@ -50,8 +50,9 @@ public:
      * @param object The object to add to this pipeline batch
      * @param entity The ECS id of the entity of this object
      * @param updateFreq How often the object is expected to be changed
+     * @return Whether or not the object could be added
      */
-    void addObject(SceneObject* object, ecs::Entity entity, SceneObject::UpdateSpeed updateFreq);
+    bool addObject(SceneObject* object, ecs::Entity entity, SceneObject::UpdateSpeed updateFreq);
 
     /**
      * @brief Removes the given object from the render batch. May reorder the remaining objects

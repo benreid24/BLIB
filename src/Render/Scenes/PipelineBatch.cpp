@@ -28,12 +28,13 @@ void PipelineBatch::recordRenderCommands(SceneRenderContext& context) {
     }
 }
 
-void PipelineBatch::addObject(SceneObject* object, ecs::Entity entity,
+bool PipelineBatch::addObject(SceneObject* object, ecs::Entity entity,
                               SceneObject::UpdateSpeed updateFreq) {
     objects.emplace_back(object);
     for (ds::DescriptorSetInstance* set : descriptors) {
-        set->allocateObject(object->sceneId, entity, updateFreq);
+        if (!set->allocateObject(object->sceneId, entity, updateFreq)) { return false; }
     }
+    return true;
 }
 
 void PipelineBatch::removeObject(SceneObject* object, ecs::Entity entity) {

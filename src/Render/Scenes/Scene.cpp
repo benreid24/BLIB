@@ -58,15 +58,22 @@ SceneObject* Scene::createAndAddObject(ecs::Entity entity, const DrawParameters&
     objectPipelines[i] = pipelines;
 
     if (pipelines[Config::SceneObjectStage::OpaquePass] != Config::PipelineIds::None) {
-        opaqueObjects.addObject(
-            object, pipelines[Config::SceneObjectStage::OpaquePass], entity, updateFreq);
+        if (!opaqueObjects.addObject(
+                object, pipelines[Config::SceneObjectStage::OpaquePass], entity, updateFreq)) {
+            BL_LOG_ERROR << "Failed to add " << entity << " to scene " << this;
+            removeObject(object);
+            return nullptr;
+        }
     }
     if (pipelines[Config::SceneObjectStage::TransparentPass] != Config::PipelineIds::None) {
-        transparentObjects.addObject(
-            object, pipelines[Config::SceneObjectStage::TransparentPass], entity, updateFreq);
+        if (!transparentObjects.addObject(
+                object, pipelines[Config::SceneObjectStage::TransparentPass], entity, updateFreq)) {
+            BL_LOG_ERROR << "Failed to add " << entity << " to scene " << this;
+            removeObject(object);
+            return nullptr;
+        }
     }
 
-    // TODO - account for object add failure and remove
     return object;
 }
 
