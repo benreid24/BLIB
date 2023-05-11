@@ -21,6 +21,18 @@ struct DrawParameters {
     std::uint32_t vertexOffset;
     std::uint32_t firstInstance;
     std::uint32_t instanceCount;
+
+    /**
+     * @brief Initializes the draw parameters to reasonable defaults
+     */
+    DrawParameters()
+    : vertexBuffer(nullptr)
+    , indexBuffer(nullptr)
+    , indexCount(0)
+    , indexOffset(0)
+    , vertexOffset(0)
+    , firstInstance(0)
+    , instanceCount(1) {}
 };
 
 } // namespace render

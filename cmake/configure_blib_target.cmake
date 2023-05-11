@@ -5,7 +5,7 @@ function(configure_blib_target target_name)
     elseif(WIN32)
         target_compile_definitions(${target_name} PUBLIC BLIB_WINDOWS=1)
     else()
-        target_compile_definitions(${target_name} PUBLIC BLIB_LINUX=1) # we don't really care about Sun/IBM/etc
+        target_compile_definitions(${target_name} PUBLIC BLIB_LINUX=1)
     endif()
 
     # compile defs for Vulkan

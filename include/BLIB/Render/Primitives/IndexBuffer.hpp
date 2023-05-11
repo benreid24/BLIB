@@ -131,11 +131,13 @@ void IndexBufferT<T>::sendToGPU() {
 template<typename T>
 inline DrawParameters IndexBufferT<T>::getDrawParameters() const {
     DrawParameters params;
-    params.indexBuffer  = indexBuffer.handle();
-    params.indexCount   = nIndices;
-    params.indexOffset  = 0;
-    params.vertexBuffer = vertexBuffer.handle();
-    params.vertexOffset = 0;
+    params.indexBuffer   = indexBuffer.handle();
+    params.indexCount    = nIndices;
+    params.indexOffset   = 0;
+    params.vertexBuffer  = vertexBuffer.handle();
+    params.vertexOffset  = 0;
+    params.firstInstance = 0;
+    params.instanceCount = 1;
     return params;
 }
 

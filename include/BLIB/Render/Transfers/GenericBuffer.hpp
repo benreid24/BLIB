@@ -153,7 +153,7 @@ void GenericBuffer<Memory, DoubleBuffer>::executeTransfer(VkCommandBuffer cb,
         barrier.sType               = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
         barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
         barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-        barrier.srcAccessMask       = VK_ACCESS_TRANSFER_WRITE_BIT;
+        barrier.srcAccessMask       = VK_ACCESS_MEMORY_WRITE_BIT;
         barrier.dstAccessMask       = VK_ACCESS_MEMORY_READ_BIT;
         barrier.buffer              = storage.current();
         barrier.offset              = writeOff;

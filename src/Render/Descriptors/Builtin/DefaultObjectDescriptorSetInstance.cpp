@@ -70,35 +70,40 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
     // configureWrite descriptor sets
     for (unsigned int i = 0; i < objectCount; ++i) {
         for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
-            // transform buffer configureWrite
-            VkDescriptorBufferInfo bufferWrite{};
-            bufferWrite.buffer = transformBuffer.gpuBufferHandles().getRaw(j);
-            bufferWrite.offset = i * transformBuffer.alignedUniformSize();
-            bufferWrite.range  = transformBuffer.alignedUniformSize();
+            VkWriteDescriptorSet setWrites[2] = {VkWriteDescriptorSet{}, VkWriteDescriptorSet{}};
 
-            VkWriteDescriptorSet setWrite{};
-            setWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-            setWrite.descriptorCount = 1;
-            setWrite.dstBinding      = 0;
-            setWrite.dstArrayElement = 0;
-            setWrite.dstSet          = descriptorSets[i].getRaw(j);
-            setWrite.pBufferInfo     = &bufferWrite;
-            setWrite.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-            vkUpdateDescriptorSets(vulkanState.device, 1, &setWrite, 0, nullptr);
+            // transform buffer configureWrite
+            VkDescriptorBufferInfo transformBufferWrite{};
+            transformBufferWrite.buffer = transformBuffer.gpuBufferHandles().getRaw(j);
+            transformBufferWrite.offset = i * transformBuffer.alignedUniformSize();
+            transformBufferWrite.range  = transformBuffer.alignedUniformSize();
+
+            VkWriteDescriptorSet& transformWrite = setWrites[0];
+            transformWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+            transformWrite.descriptorCount       = 1;
+            transformWrite.dstBinding            = 0;
+            transformWrite.dstArrayElement       = 0;
+            transformWrite.dstSet                = descriptorSets[i].getRaw(j);
+            transformWrite.pBufferInfo           = &transformBufferWrite;
+            transformWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 
             // texture buffer configureWrite
-            bufferWrite.buffer = textureBuffer.gpuBufferHandles().getRaw(j);
-            bufferWrite.offset = i * textureBuffer.alignedUniformSize();
-            bufferWrite.range  = textureBuffer.alignedUniformSize();
+            VkDescriptorBufferInfo textureBufferWrite{};
+            textureBufferWrite.buffer = textureBuffer.gpuBufferHandles().getRaw(j);
+            textureBufferWrite.offset = i * textureBuffer.alignedUniformSize();
+            textureBufferWrite.range  = textureBuffer.alignedUniformSize();
 
-            setWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-            setWrite.descriptorCount = 1;
-            setWrite.dstBinding      = 1;
-            setWrite.dstArrayElement = 0;
-            setWrite.dstSet          = descriptorSets[i].getRaw(j);
-            setWrite.pBufferInfo     = &bufferWrite;
-            setWrite.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-            vkUpdateDescriptorSets(vulkanState.device, 1, &setWrite, 0, nullptr);
+            VkWriteDescriptorSet& textureWrite = setWrites[1];
+            textureWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+            textureWrite.descriptorCount       = 1;
+            textureWrite.dstBinding            = 1;
+            textureWrite.dstArrayElement       = 0;
+            textureWrite.dstSet                = descriptorSets[i].getRaw(j);
+            textureWrite.pBufferInfo           = &textureBufferWrite;
+            textureWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+
+            // perform write
+            vkUpdateDescriptorSets(vulkanState.device, std::size(setWrites), setWrites, 0, nullptr);
         }
     }
 }

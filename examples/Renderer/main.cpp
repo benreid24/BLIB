@@ -70,8 +70,7 @@ public:
         mesh->vertices = Vertices;
         mesh->indices  = Indices;
         mesh->gpuBuffer.sendToGPU();
-        // TODO - causes sync/hang issues when added
-        // meshSystem.addToScene(entity, scene, bl::render::SceneObject::UpdateSpeed::Static);
+        meshSystem.addToScene(entity, scene, bl::render::SceneObject::UpdateSpeed::Static);
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {

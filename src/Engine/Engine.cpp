@@ -25,10 +25,10 @@ Engine::Engine(const Settings& settings)
 
 Engine::~Engine() {
     bl::event::Dispatcher::clearAllListeners();
-    entityRegistry.destroyAllEntities();
     if (renderingSystem.vulkanState().device) {
         vkCheck(vkDeviceWaitIdle(renderingSystem.vulkanState().device));
     }
+    entityRegistry.destroyAllEntities();
     while (!states.empty()) { states.pop(); }
     newState.reset();
 
