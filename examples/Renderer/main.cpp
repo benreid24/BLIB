@@ -13,10 +13,10 @@
 namespace
 {
 const std::vector<bl::render::prim::Vertex> Vertices = {
-    bl::render::prim::Vertex{-0.5f, -0.5f, 1.f, 0.0f, 1.f},
-    bl::render::prim::Vertex{0.5f, -0.5f, 1.f, 1.0f, 1.f},
-    bl::render::prim::Vertex{0.5f, 0.5f, 1.f, 1.0f, 0.f},
-    bl::render::prim::Vertex{-0.5f, 0.5f, 1.f, 0.0f, 0.f},
+    bl::render::prim::Vertex{-0.5f, -0.5f, 0.f, 0.0f, 1.f},
+    bl::render::prim::Vertex{0.5f, -0.5f, 0.f, 1.0f, 1.f},
+    bl::render::prim::Vertex{0.5f, 0.5f, 0.f, 1.0f, 0.f},
+    bl::render::prim::Vertex{-0.5f, 0.5f, 0.f, 0.0f, 0.f},
 
     bl::render::prim::Vertex{1.f, 0.f, 0.5f, 0.0f, 0.f},
     bl::render::prim::Vertex{1.f, 0.1f, -0.5f, 0.0f, 1.f},

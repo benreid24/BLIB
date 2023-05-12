@@ -3,7 +3,7 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Transfers/GenericBuffer.hpp>
+#include <BLIB/Render/Transfers/UniformBuffer.hpp>
 #include <BLIB/Render/Util/PerFrame.hpp>
 #include <array>
 #include <glm/glm.hpp>
@@ -47,8 +47,7 @@ public:
     void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
 
 protected:
-    std::array<glm::mat4, Config::MaxSceneObservers> observerCameras;
-    // TODO - other common scene data
+    tfr::UniformBuffer<glm::mat4> cameraBuffer;
 
     /**
      * @brief Returns the number of observers currently in the scene

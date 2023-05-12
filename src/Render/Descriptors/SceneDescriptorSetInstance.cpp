@@ -20,12 +20,12 @@ std::uint32_t SceneDescriptorSetInstance::registerObserver() {
     }
 #endif
 
-    return ++nextObserverIndex;
+    return nextObserverIndex++;
 }
 
 void SceneDescriptorSetInstance::updateObserverCamera(std::uint32_t observerIndex,
                                                       const glm::mat4& cam) {
-    observerCameras[observerIndex] = cam;
+    cameraBuffer[observerIndex] = cam;
 }
 
 } // namespace ds

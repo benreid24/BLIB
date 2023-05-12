@@ -1,5 +1,6 @@
 #include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetInstance.hpp>
 
+#include <BLIB/Render/Config.hpp>
 #include <array>
 
 namespace bl
@@ -24,7 +25,7 @@ CommonSceneDescriptorSetInstance::CommonSceneDescriptorSetInstance(VulkanState& 
 }
 
 CommonSceneDescriptorSetInstance::~CommonSceneDescriptorSetInstance() {
-    viewProjBuf.stopTransferringEveryFrame();
+    cameraBuffer.stopTransferringEveryFrame();
     for (std::uint32_t i = 0; i < descriptorSets.size(); ++i) {
         std::array<const VkDescriptorSetLayoutCreateInfo*, Config::MaxConcurrentFrames> createInfos;
         createInfos.fill(&createInfo);
@@ -33,7 +34,7 @@ CommonSceneDescriptorSetInstance::~CommonSceneDescriptorSetInstance() {
                                            descriptorSets[i].rawData(),
                                            Config::MaxConcurrentFrames);
     }
-    viewProjBuf.destroy();
+    cameraBuffer.destroy();
 }
 
 void CommonSceneDescriptorSetInstance::bindForPipeline(VkCommandBuffer commandBuffer,
@@ -61,9 +62,9 @@ void CommonSceneDescriptorSetInstance::releaseObject(std::uint32_t, ecs::Entity)
 
 void CommonSceneDescriptorSetInstance::doInit(std::uint32_t, std::uint32_t) {
     // allocate memory
-    viewProjBuf.create(vulkanState, observerCameras.size());
-    viewProjBuf.configureTransferAll();
-    viewProjBuf.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
+    cameraBuffer.create(vulkanState, Config::MaxSceneObservers);
+    cameraBuffer.configureTransferAll();
+    cameraBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
 
     // create and configureWrite descriptors
     for (std::uint32_t i = 0; i < descriptorSets.size(); ++i) {
@@ -79,12 +80,12 @@ void CommonSceneDescriptorSetInstance::doInit(std::uint32_t, std::uint32_t) {
                                                                    layouts.data(),
                                                                    descriptorSets[i].rawData(),
                                                                    Config::MaxConcurrentFrames);
-        // configureWrite descriptors
+        // write descriptors
         for (std::uint32_t j = 0; j < Config::MaxConcurrentFrames; ++j) {
             VkDescriptorBufferInfo bufferWrite{};
-            bufferWrite.buffer = viewProjBuf.gpuBufferHandles().getRaw(j);
-            bufferWrite.offset = i * viewProjBuf.alignedUniformSize();
-            bufferWrite.range  = viewProjBuf.alignedUniformSize();
+            bufferWrite.buffer = cameraBuffer.gpuBufferHandles().getRaw(j);
+            bufferWrite.offset = i * cameraBuffer.alignedUniformSize();
+            bufferWrite.range  = cameraBuffer.alignedUniformSize();
 
             VkWriteDescriptorSet setWrite{};
             setWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;

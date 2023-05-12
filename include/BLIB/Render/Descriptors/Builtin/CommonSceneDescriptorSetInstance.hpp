@@ -40,7 +40,6 @@ public:
 private:
     VulkanState& vulkanState;
     const VkDescriptorSetLayout setLayout;
-    tfr::UniformBuffer<glm::mat4> viewProjBuf;
     std::array<PerFrame<VkDescriptorSet>, Config::MaxSceneObservers> descriptorSets;
     std::array<DescriptorPool::AllocationHandle, Config::MaxSceneObservers> descriptorHandles;
     VkDescriptorSetLayoutBinding setBinding[1];
