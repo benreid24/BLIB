@@ -131,10 +131,7 @@ bool Engine::run(State::Ptr initialState) {
                 break;
 
             case sf::Event::Resized:
-                if (engineSettings.windowParameters().letterBox()) {
-                    handleResize(event.size, true);
-                }
-                renderingSystem.processResize();
+                handleResize(event.size, false);
                 break;
 
             default:
@@ -316,14 +313,6 @@ void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
     engineSettings.withWindowParameters(params);
     params.syncToConfig();
 
-    // TODO - add concept of scaling to cameras
-    /* if (params.initialViewSize().x > 0.f) {
-        sf::View view = renderWindow.getView();
-        view.setSize(params.initialViewSize());
-        view.setCenter(params.initialViewSize() * 0.5f);
-        renderWindow.setView(view);
-    }*/
-
     if (params.letterBox()) {
         sf::Event::SizeEvent e;
         e.width  = renderWindow.getSize().x;
@@ -342,25 +331,27 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
     const float newWidth  = static_cast<float>(resize.width);
     const float newHeight = static_cast<float>(resize.height);
 
-    const float xScale = newWidth / ogSize.x;
-    const float yScale = newHeight / ogSize.y;
+    sf::FloatRect viewport(0.f, 0.f, 1.f, 1.f);
+    if (engineSettings.windowParameters().letterBox()) {
+        const float xScale = newWidth / ogSize.x;
+        const float yScale = newHeight / ogSize.y;
 
-    // it's ok to change view size here, cameras reset it every frame anyways
-    sf::View view(sf::FloatRect(0.f, 0.f, ogSize.x, ogSize.y));
-    sf::FloatRect viewPort(0.f, 0.f, 1.f, 1.f);
-
-    if (xScale >= yScale) { // constrained by height, bars on sides
-        viewPort.width = ogSize.x * yScale / newWidth;
-        viewPort.left  = (1.f - viewPort.width) * 0.5f;
+        if (xScale >= yScale) { // constrained by height, bars on sides
+            viewport.width = ogSize.x * yScale / newWidth;
+            viewport.left  = (1.f - viewport.width) * 0.5f;
+        }
+        else { // constrained by width, bars on top and bottom
+            viewport.height = ogSize.y * xScale / newHeight;
+            viewport.top    = (1.f - viewport.height) * 0.5f;
+        }
     }
-    else { // constrained by width, bars on top and bottom
-        viewPort.height = ogSize.y * xScale / newHeight;
-        viewPort.top    = (1.f - viewPort.height) * 0.5f;
-    }
 
-    view.setViewport(viewPort);
-    // renderWindow.setView(view);
-    // TODO - add concept of top-level viewport/size to renderer (currently is derived from window)
+    if (renderingSystem.vulkanState().device) {
+        renderingSystem.processResize(sf::Rect<std::uint32_t>(newWidth * viewport.left,
+                                                              newHeight * viewport.top,
+                                                              newWidth * viewport.width,
+                                                              newHeight * viewport.height));
+    }
 
     if (ss) {
         Settings::WindowParameters params = engineSettings.windowParameters();
@@ -368,8 +359,9 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
             sf::VideoMode(resize.width, resize.height, params.videoMode().bitsPerPixel));
         engineSettings.withWindowParameters(params);
         params.syncToConfig();
-        bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
     }
+
+    bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
 }
 
 } // namespace engine

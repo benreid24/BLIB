@@ -165,6 +165,13 @@ public:
      */
     void compositeSceneWithEffects(VkCommandBuffer commandBuffer);
 
+    /**
+     * @brief Sets the color to clear the observer's render region to prior to rendering
+     *
+     * @param color The color to clear with
+     */
+    void setClearColor(const VkClearColorValue& color);
+
     // TODO - overlay render method
 
 private:
@@ -188,12 +195,13 @@ private:
     std::stack<std::unique_ptr<Camera>, std::vector<std::unique_ptr<Camera>>> cameras;
     std::stack<std::unique_ptr<PostFX>, std::vector<std::unique_ptr<PostFX>>> postFX;
     float defaultNear, defaultFar;
+    VkClearValue clearColors[2];
     // TODO - 2d overlay for observer
 
     Observer(Renderer& renderer);
     void update(float dt);
-    void assignRegion(const sf::WindowBase& window, unsigned int observerCount, unsigned int index,
-                      bool topBottomFirst);
+    void assignRegion(const sf::Vector2u& windowSize, const sf::Rect<std::uint32_t>& parentRegion,
+                      unsigned int observerCount, unsigned int index, bool topBottomFirst);
     void setDefaultNearFar(float near, float far);
     void cleanup();
 

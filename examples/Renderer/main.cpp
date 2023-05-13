@@ -47,9 +47,10 @@ public:
         camera->setController<bl::render::r3d::OrbiterController>(
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
 
-        // create observer with camera
+        // create second observer with camera
         bl::render::Observer& o = engine.renderer().addObserver();
-        player2Cam              = o.pushCamera<bl::render::r3d::Camera3D>(
+        o.setClearColor({0.f, 1.f, 0.f});
+        player2Cam = o.pushCamera<bl::render::r3d::Camera3D>(
             glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
         player2Cam->addAffector<bl::render::r3d::CameraShake>(0.1f, 7.f);
 
@@ -103,7 +104,8 @@ int main() {
             .withVideoMode(sf::VideoMode(1920, 1080, 32))
             .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
             .withTitle("Renderer Demo")
-            .withIcon("vulkan.png"));
+            .withIcon("vulkan.png")
+            .withLetterBoxOnResize(true));
     bl::engine::Engine engine(engineSettings);
 
     engine.run(std::make_shared<DemoState>());

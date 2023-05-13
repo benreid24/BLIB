@@ -172,10 +172,18 @@ public:
      */
     constexpr ds::DescriptorSetFactoryCache& descriptorFactoryCache();
 
+    /**
+     * @brief Sets the color to clear the window with prior to rendering
+     *
+     * @param color The color to clear with
+     */
+    void setClearColor(const VkClearColorValue& color);
+
 private:
     std::mutex mutex;
     engine::Engine& engine;
     sf::WindowBase& window;
+    sf::Rect<std::uint32_t> renderRegion;
     VulkanState state;
     PerSwapFrame<Framebuffer> framebuffers;
     TexturePool textures;
@@ -188,12 +196,13 @@ private:
     Observer commonObserver;
     std::vector<std::unique_ptr<Observer>> observers;
     float defaultNear, defaultFar;
+    VkClearValue clearColor;
 
     Renderer(engine::Engine& engine, sf::WindowBase& window);
     ~Renderer();
     void initialize();
     void cleanup();
-    void processResize();
+    void processResize(const sf::Rect<std::uint32_t>& region);
 
     void assignObserverRegions();
 

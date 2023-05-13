@@ -25,6 +25,7 @@ Renderer::Renderer(engine::Engine& engine, sf::WindowBase& window)
 , defaultNear(0.1f)
 , defaultFar(100.f) {
     commonObserver.setDefaultNearFar(defaultNear, defaultFar);
+    clearColor = {{{0.f, 0.f, 0.f, 1.f}}};
 }
 
 Renderer::~Renderer() {
@@ -32,6 +33,9 @@ Renderer::~Renderer() {
 }
 
 void Renderer::initialize() {
+    renderRegion.width  = window.getSize().x;
+    renderRegion.height = window.getSize().y;
+
     // register systems
     engine.systems().registerSystem<sys::Transform3DDescriptorSystem>(
         engine::FrameStage::RenderDescriptorRefresh, engine::StateMask::All);
@@ -43,7 +47,7 @@ void Renderer::initialize() {
         scene::StagePipelineBuilder()
             .withPipeline(Config::SceneObjectStage::OpaquePass,
                           Config::PipelineIds::OpaqueSkinnedMeshes)
-            .withPipeline(Config::SceneObjectStage::TransparentPass, // TODO
+            .withPipeline(Config::SceneObjectStage::TransparentPass, // TODO - opaque mesh pipeline
                           Config::PipelineIds::None)
             .build());
 
@@ -64,7 +68,7 @@ void Renderer::initialize() {
 
     // initialize observers
     addObserver();
-    commonObserver.assignRegion(window, 1, 0, true);
+    commonObserver.assignRegion(window.getSize(), renderRegion, 1, 0, true);
 }
 
 void Renderer::cleanup() {
@@ -82,12 +86,13 @@ void Renderer::cleanup() {
     state.device = nullptr;
 }
 
-void Renderer::processResize() {
+void Renderer::processResize(const sf::Rect<std::uint32_t>& region) {
     std::unique_lock lock(mutex);
 
+    renderRegion = region;
     state.swapchain.invalidate();
     assignObserverRegions();
-    commonObserver.assignRegion(window, 1, 0, true);
+    commonObserver.assignRegion(window.getSize(), renderRegion, 1, 0, true);
 }
 
 void Renderer::update(float dt) {
@@ -128,13 +133,8 @@ void Renderer::renderFrame() {
     }
 
     // begin render pass to composite content into swapchain image
-    VkClearValue clearColors[1];
-    clearColors[0] = {{{0.f, 0.f, 0.f, 1.f}}};
-    framebuffers.current().beginRender(commandBuffer,
-                                       {{0, 0}, currentFrame->renderExtent()},
-                                       clearColors,
-                                       std::size(clearColors),
-                                       true);
+    framebuffers.current().beginRender(
+        commandBuffer, {{0, 0}, currentFrame->renderExtent()}, &clearColor, 1, true);
 
     // apply rendered scenes to swap image with postfx
     if (commonObserver.hasScene()) { commonObserver.compositeSceneWithEffects(commandBuffer); }
@@ -214,7 +214,8 @@ unsigned int Renderer::observerCount() const { return observers.size(); }
 void Renderer::assignObserverRegions() {
     unsigned int i = 0;
     for (auto& o : observers) {
-        o->assignRegion(window,
+        o->assignRegion(window.getSize(),
+                        renderRegion,
                         observers.size(),
                         i,
                         splitscreenDirection == SplitscreenDirection::TopAndBottom);
@@ -223,6 +224,8 @@ void Renderer::assignObserverRegions() {
 }
 
 void Renderer::setSplitscreenDirection(SplitscreenDirection d) { splitscreenDirection = d; }
+
+void Renderer::setClearColor(const VkClearColorValue& color) { clearColor.color = color; }
 
 } // namespace render
 } // namespace bl

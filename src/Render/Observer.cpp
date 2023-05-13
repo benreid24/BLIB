@@ -12,6 +12,9 @@ Observer::Observer(Renderer& r)
 , resourcesFreed(false) {
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
+
+    clearColors[0].color        = {{0.f, 1.f, 0.f, 1.f}};
+    clearColors[1].depthStencil = {1.f, 0};
 }
 
 Observer::~Observer() {
@@ -121,9 +124,6 @@ void Observer::renderScene(VkCommandBuffer commandBuffer) {
     if (hasScene()) {
         const VkRect2D renderRegion{{0, 0}, renderFrames.current().bufferSize()};
         SceneRenderContext ctx(commandBuffer, scenes.top().observerIndex);
-        VkClearValue clearColors[2];
-        clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
-        clearColors[1].depthStencil = {1.f, 0};
 
         sceneFramebuffers.current().beginRender(
             commandBuffer, renderRegion, clearColors, std::size(clearColors), true);
@@ -145,11 +145,14 @@ void Observer::compositeSceneWithEffects(VkCommandBuffer commandBuffer) {
     }
 }
 
-void Observer::assignRegion(const sf::WindowBase& window, unsigned int count, unsigned int i,
-                            bool topBottomFirst) {
+void Observer::assignRegion(const sf::Vector2u& windowSize,
+                            const sf::Rect<std::uint32_t>& renderRegion, unsigned int count,
+                            unsigned int i, bool topBottomFirst) {
     std::unique_lock lock(mutex);
 
-    const sf::Vector2u uSize = window.getSize();
+    const std::uint32_t offsetX = (windowSize.x - renderRegion.width) / 2;
+    const std::uint32_t offsetY = (windowSize.y - renderRegion.height) / 2;
+    const sf::Vector2u uSize(renderRegion.getSize());
     const sf::Vector2f fSize(uSize);
     const sf::Vector2f fHalf(fSize * 0.5f);
     const sf::Vector2u uHalf(fHalf);
@@ -228,6 +231,12 @@ void Observer::assignRegion(const sf::WindowBase& window, unsigned int count, un
         break;
     }
 
+    // add offsets for letterboxing
+    viewport.x += offsetX;
+    viewport.y += offsetY;
+    scissor.offset.x += offsetX;
+    scissor.offset.y += offsetY;
+
     if (!renderFrames.valid() ||
         (scissor.extent.width != renderFrames.current().bufferSize().width ||
          scissor.extent.height != renderFrames.current().bufferSize().height)) {
@@ -256,6 +265,8 @@ void Observer::setDefaultNearFar(float n, float f) {
     defaultNear = n;
     defaultFar  = f;
 }
+
+void Observer::setClearColor(const VkClearColorValue& color) { clearColors[0].color = color; }
 
 } // namespace render
 } // namespace bl
