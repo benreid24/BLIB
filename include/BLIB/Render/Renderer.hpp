@@ -20,6 +20,11 @@ class Engine;
 
 namespace render
 {
+namespace sys
+{
+class CameraUpdateSystem;
+}
+
 /**
  * @brief Top level rendering system of the game engine
  *
@@ -29,13 +34,6 @@ namespace render
 class Renderer : private util::NonCopyable {
 public:
     enum struct SplitscreenDirection { TopAndBottom, LeftAndRight };
-
-    /**
-     * @brief Updates the renderer
-     *
-     * @param dt Time elapsed in seconds
-     */
-    void update(float dt);
 
     /**
      * @brief Renders a frame to the window and presents it
@@ -203,11 +201,13 @@ private:
     void initialize();
     void cleanup();
     void processResize(const sf::Rect<std::uint32_t>& region);
+    void updateCameras(float dt);
 
     void assignObserverRegions();
 
     friend class engine::Engine;
     friend class Observer;
+    friend class sys::CameraUpdateSystem;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

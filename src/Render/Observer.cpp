@@ -30,9 +30,7 @@ void Observer::cleanup() {
     }
 }
 
-void Observer::update(float dt) {
-    std::unique_lock lock(mutex);
-
+void Observer::updateCamera(float dt) {
     if (!cameras.empty()) { cameras.top()->update(dt); }
 }
 

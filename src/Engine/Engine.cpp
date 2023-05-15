@@ -153,7 +153,6 @@ bool Engine::run(State::Ptr initialState) {
 
             // core update game logic
             totalDt += updateTimestep;
-            renderingSystem.update(updateTimestep); // TODO - put into Systems
             input.update();
             states.top()->update(*this, updateTimestep);
             ecsSystems.update(FrameStage::FrameStart,

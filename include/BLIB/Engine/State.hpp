@@ -58,7 +58,7 @@ public:
     virtual void deactivate(Engine& engine) = 0;
 
     /**
-     * @brief Perform logic updates
+     * @brief Perform logic updates. This is called before any systems are invoked once per tick
      *
      * @param engine Reference to the main Engine
      * @param dt Elapsed time since last update

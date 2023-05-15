@@ -199,7 +199,7 @@ private:
     // TODO - 2d overlay for observer
 
     Observer(Renderer& renderer);
-    void update(float dt);
+    void updateCamera(float dt);
     void assignRegion(const sf::Vector2u& windowSize, const sf::Rect<std::uint32_t>& parentRegion,
                       unsigned int observerCount, unsigned int index, bool topBottomFirst);
     void setDefaultNearFar(float near, float far);

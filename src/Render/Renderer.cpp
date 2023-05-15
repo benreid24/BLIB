@@ -4,6 +4,7 @@
 #include <BLIB/Render/Scenes/StagePipelines.hpp>
 #include <BLIB/Render/Systems/BuiltinDescriptorComponentSystems.hpp>
 #include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
+#include <BLIB/Render/Systems/CameraUpdateSystem.hpp>
 #include <cmath>
 
 namespace bl
@@ -37,6 +38,8 @@ void Renderer::initialize() {
     renderRegion.height = window.getSize().y;
 
     // register systems
+    engine.systems().registerSystem<sys::CameraUpdateSystem>(
+        engine::FrameStage::RendererTailSync, engine::StateMask::All, *this);
     engine.systems().registerSystem<sys::Transform3DDescriptorSystem>(
         engine::FrameStage::RenderDescriptorRefresh, engine::StateMask::All);
     engine.systems().registerSystem<sys::TextureDescriptorSystem>(
@@ -95,10 +98,9 @@ void Renderer::processResize(const sf::Rect<std::uint32_t>& region) {
     commonObserver.assignRegion(window.getSize(), renderRegion, 1, 0, true);
 }
 
-void Renderer::update(float dt) {
-    std::unique_lock lock(mutex);
-    commonObserver.update(dt);
-    for (auto& o : observers) { o->update(dt); }
+void Renderer::updateCameras(float dt) {
+    commonObserver.updateCamera(dt);
+    for (auto& o : observers) { o->updateCamera(dt); }
 }
 
 void Renderer::renderFrame() {
