@@ -39,20 +39,21 @@ void Scene::updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& p
     sceneDescriptors->updateObserverCamera(observerIndex, projView);
 }
 
-SceneObject* Scene::createAndAddObject(ecs::Entity entity, const DrawParameters& drawParams,
-                                       SceneObject::UpdateSpeed updateFreq,
-                                       const scene::StagePipelines& pipelines) {
-    auto& ids = updateFreq == SceneObject::UpdateSpeed::Dynamic ? dynamicIds : staticIds;
-    const std::uint32_t offset = updateFreq == SceneObject::UpdateSpeed::Dynamic ? maxStatic : 0;
+scene::SceneObject* Scene::createAndAddObject(ecs::Entity entity,
+                                              const prim::DrawParameters& drawParams,
+                                              UpdateSpeed updateFreq,
+                                              const scene::StagePipelines& pipelines) {
+    auto& ids                  = updateFreq == UpdateSpeed::Dynamic ? dynamicIds : staticIds;
+    const std::uint32_t offset = updateFreq == UpdateSpeed::Dynamic ? maxStatic : 0;
     if (!ids.available()) {
         BL_LOG_ERROR << "Scene " << this << " out of static or dynamic object space";
         return nullptr;
     }
-    const std::uint32_t i = ids.allocate() + offset;
-    SceneObject* object   = &objects[i];
-    object->hidden        = false;
-    object->sceneId       = i;
-    object->drawParams    = drawParams;
+    const std::uint32_t i      = ids.allocate() + offset;
+    scene::SceneObject* object = &objects[i];
+    object->hidden             = false;
+    object->sceneId            = i;
+    object->drawParams         = drawParams;
 
     entityMap[i]       = entity;
     objectPipelines[i] = pipelines;
@@ -77,7 +78,7 @@ SceneObject* Scene::createAndAddObject(ecs::Entity entity, const DrawParameters&
     return object;
 }
 
-void Scene::removeObject(SceneObject* obj) {
+void Scene::removeObject(scene::SceneObject* obj) {
     const std::size_t i                    = obj - objects.data();
     const ecs::Entity ent                  = entityMap[i];
     const scene::StagePipelines& pipelines = objectPipelines[i];
@@ -104,7 +105,7 @@ void Scene::removeObject(ecs::Entity ent) {
     }
 }
 
-void Scene::renderScene(SceneRenderContext& ctx) {
+void Scene::renderScene(scene::SceneRenderContext& ctx) {
     // TODO - support additional steps here, like recording to off-screen textures
     opaqueObjects.recordRenderCommands(ctx);
     transparentObjects.recordRenderCommands(ctx);

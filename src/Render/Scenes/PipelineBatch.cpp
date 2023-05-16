@@ -9,6 +9,8 @@ namespace bl
 {
 namespace render
 {
+namespace scene
+{
 PipelineBatch::PipelineBatch(Renderer& renderer, std::uint32_t maxObjects,
                              ds::DescriptorSetInstanceCache& descriptorCache, std::uint32_t pid)
 : pipelineId(pid)
@@ -29,7 +31,7 @@ void PipelineBatch::recordRenderCommands(SceneRenderContext& context) {
 }
 
 bool PipelineBatch::addObject(SceneObject* object, ecs::Entity entity,
-                              SceneObject::UpdateSpeed updateFreq) {
+                              UpdateSpeed updateFreq) {
     objects.emplace_back(object);
     for (ds::DescriptorSetInstance* set : descriptors) {
         if (!set->allocateObject(object->sceneId, entity, updateFreq)) { return false; }
@@ -54,5 +56,6 @@ void PipelineBatch::removeObject(SceneObject* object, ecs::Entity entity) {
     }
 }
 
+} // namespace scene
 } // namespace render
 } // namespace bl

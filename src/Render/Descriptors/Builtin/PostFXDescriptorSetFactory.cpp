@@ -19,7 +19,7 @@ PostFXDescriptorSetFactory::~PostFXDescriptorSetFactory() {
 void PostFXDescriptorSetFactory::init(engine::Engine&, Renderer& renderer) {
     device = renderer.vulkanState().device;
 
-    static const auto layoutBindings = PostFX::DescriptorLayoutBindings();
+    static const auto layoutBindings = scene::PostFX::DescriptorLayoutBindings();
     VkDescriptorSetLayoutCreateInfo createInfo{};
     createInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     createInfo.bindingCount = static_cast<std::uint32_t>(layoutBindings.size());

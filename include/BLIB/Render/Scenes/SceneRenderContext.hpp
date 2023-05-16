@@ -2,7 +2,7 @@
 #define BLIB_RENDER_RENDERER_SCENERENDERCONTEXT_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Scenes/DrawParameters.hpp>
+#include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <array>
@@ -12,6 +12,8 @@
 namespace bl
 {
 namespace render
+{
+namespace scene
 {
 /**
  * @brief Container class that holds the required parameters to render a scene and provides methods
@@ -64,6 +66,7 @@ private:
     std::uint32_t perObjStart, perObjCount;
 };
 
+} // namespace scene
 } // namespace render
 } // namespace bl
 

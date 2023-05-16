@@ -91,7 +91,7 @@ void Observer::clearScenesNoRelease() {
 }
 
 void Observer::onSceneAdd() {
-    postFX.emplace(std::make_unique<PostFX>(renderer));
+    postFX.emplace(std::make_unique<scene::PostFX>(renderer));
     postFX.top()->bindImages(renderFrames);
     scenes.top().observerIndex = scenes.top().scene->registerObserver();
 }
@@ -108,7 +108,7 @@ void Observer::clearCameras() {
     while (!cameras.empty()) { cameras.pop(); }
 }
 
-void Observer::removePostFX() { setPostFX<PostFX>(renderer); }
+void Observer::removePostFX() { setPostFX<scene::PostFX>(renderer); }
 
 void Observer::handleDescriptorSync() {
     const glm::mat4 projView =
@@ -121,7 +121,7 @@ void Observer::handleDescriptorSync() {
 void Observer::renderScene(VkCommandBuffer commandBuffer) {
     if (hasScene()) {
         const VkRect2D renderRegion{{0, 0}, renderFrames.current().bufferSize()};
-        SceneRenderContext ctx(commandBuffer, scenes.top().observerIndex);
+        scene::SceneRenderContext ctx(commandBuffer, scenes.top().observerIndex);
 
         sceneFramebuffers.current().beginRender(
             commandBuffer, renderRegion, clearColors, std::size(clearColors), true);

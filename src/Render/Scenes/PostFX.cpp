@@ -7,6 +7,8 @@ namespace bl
 {
 namespace render
 {
+namespace scene
+{
 namespace
 {
 const prim::Vertex vertices[4] = {prim::Vertex({-1.f, -1.f, 0.f}, {0.f, 0.f}),
@@ -161,5 +163,6 @@ void PostFX::onRender(VkCommandBuffer) {
     // do nothing
 }
 
+} // namespace scene
 } // namespace render
 } // namespace bl

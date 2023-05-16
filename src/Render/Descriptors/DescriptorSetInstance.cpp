@@ -17,7 +17,7 @@ void DescriptorSetInstance::init(std::uint32_t ms, std::uint32_t md) {
 }
 
 bool DescriptorSetInstance::allocateObject(std::uint32_t sceneId, ecs::Entity entity,
-                                           SceneObject::UpdateSpeed updateSpeed) {
+                                           UpdateSpeed updateSpeed) {
     markObjectDirty(sceneId);
     return doAllocateObject(sceneId, entity, updateSpeed);
 }

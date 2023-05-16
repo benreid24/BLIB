@@ -3,8 +3,8 @@
 
 #include <BLIB/Render/Scenes/PipelineBatch.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
-#include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
+#include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
 #include <BLIB/Render/Vulkan/RenderPass.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <vector>
@@ -15,6 +15,8 @@ namespace render
 {
 class Renderer;
 
+namespace scene
+{
 /**
  * @brief Collection of objects to be rendered, batched per pipeline. ObjectBatches should exist
  *        entirely within a subpass of a render pass
@@ -43,7 +45,7 @@ public:
      * @return Whether or not the object could be added
      */
     bool addObject(SceneObject* object, std::uint32_t pipelineId, ecs::Entity entity,
-                   SceneObject::UpdateSpeed updateFreq);
+                   UpdateSpeed updateFreq);
 
     /**
      * @brief Removes the given object from the render pass
@@ -69,6 +71,7 @@ private:
     std::vector<PipelineBatch> batches;
 };
 
+} // namespace scene
 } // namespace render
 } // namespace bl
 

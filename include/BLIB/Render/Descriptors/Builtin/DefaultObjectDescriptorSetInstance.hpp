@@ -62,7 +62,7 @@ private:
     virtual void releaseObject(std::uint32_t sceneId, ecs::Entity entity) override;
     virtual void doInit(std::uint32_t maxStaticObjects, std::uint32_t maxDynamicObjects) override;
     virtual bool doAllocateObject(std::uint32_t sceneId, ecs::Entity entity,
-                                  SceneObject::UpdateSpeed updateSpeed) override;
+                                  UpdateSpeed updateSpeed) override;
     virtual void beginSync(bool staticObjectsChanged) override;
 };
 

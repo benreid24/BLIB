@@ -6,6 +6,8 @@ namespace bl
 {
 namespace render
 {
+namespace scene
+{
 SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex)
 : commandBuffer(commandBuffer)
 , observerIndex(observerIndex)
@@ -77,5 +79,6 @@ void SceneRenderContext::renderObject(VkPipelineLayout layout, const SceneObject
                      object.drawParams.firstInstance);
 }
 
+} // namespace scene
 } // namespace render
 } // namespace bl

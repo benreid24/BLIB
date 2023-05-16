@@ -100,8 +100,7 @@ void CommonSceneDescriptorSetInstance::doInit(std::uint32_t, std::uint32_t) {
     }
 }
 
-bool CommonSceneDescriptorSetInstance::doAllocateObject(std::uint32_t, ecs::Entity,
-                                                        SceneObject::UpdateSpeed) {
+bool CommonSceneDescriptorSetInstance::doAllocateObject(std::uint32_t, ecs::Entity, UpdateSpeed) {
     // n/a
     return true;
 }

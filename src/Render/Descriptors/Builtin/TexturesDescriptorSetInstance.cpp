@@ -29,8 +29,7 @@ void TexturesDescriptorSetInstance::doInit(std::uint32_t, std::uint32_t) {
     // noop
 }
 
-bool TexturesDescriptorSetInstance::doAllocateObject(std::uint32_t, ecs::Entity,
-                                                     SceneObject::UpdateSpeed) {
+bool TexturesDescriptorSetInstance::doAllocateObject(std::uint32_t, ecs::Entity, UpdateSpeed) {
     // noop
     return true;
 }

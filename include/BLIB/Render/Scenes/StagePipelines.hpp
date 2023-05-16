@@ -9,6 +9,7 @@ namespace bl
 {
 namespace render
 {
+/// Collection of core rendering functionality for rendering scenes
 namespace scene
 {
 /**

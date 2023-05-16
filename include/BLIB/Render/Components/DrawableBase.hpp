@@ -2,7 +2,7 @@
 #define BLIB_RENDER_COMPONENTS_DRAWABLEBASE_HPP
 
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
-#include <BLIB/Render/Scenes/DrawParameters.hpp>
+#include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <cstdint>
 
 namespace bl
@@ -18,7 +18,7 @@ namespace com
  */
 struct DrawableBase {
     SceneObjectRef sceneRef;
-    DrawParameters drawParams;
+    prim::DrawParameters drawParams;
 
     /**
      * @brief Helper method to sync this component's draw parameters to the scene it is in

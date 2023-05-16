@@ -8,6 +8,8 @@ namespace bl
 {
 namespace render
 {
+namespace scene
+{
 StageBatch::StageBatch(Renderer& renderer, std::uint32_t maxObjects,
                        ds::DescriptorSetInstanceCache& descriptorCache)
 : maxObjects(maxObjects)
@@ -17,7 +19,7 @@ StageBatch::StageBatch(Renderer& renderer, std::uint32_t maxObjects,
 }
 
 bool StageBatch::addObject(SceneObject* object, std::uint32_t pipelineId, ecs::Entity entity,
-                           SceneObject::UpdateSpeed updateFreq) {
+                           UpdateSpeed updateFreq) {
     for (PipelineBatch& p : batches) {
         if (p.pipelineId == pipelineId) { return p.addObject(object, entity, updateFreq); }
     }
@@ -40,5 +42,6 @@ void StageBatch::recordRenderCommands(SceneRenderContext& context) {
     for (PipelineBatch& p : batches) { p.recordRenderCommands(context); }
 }
 
+} // namespace scene
 } // namespace render
 } // namespace bl

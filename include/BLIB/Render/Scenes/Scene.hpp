@@ -70,7 +70,7 @@ public:
      *
      * @param context Render context containing the parameters to render with
      */
-    void renderScene(SceneRenderContext& context);
+    void renderScene(scene::SceneRenderContext& context);
 
     // TODO - overlay method
 
@@ -78,7 +78,7 @@ private:
     const std::uint32_t maxStatic;
     Renderer& renderer;
     ds::DescriptorSetFactoryCache& descriptorFactories;
-    std::vector<SceneObject> objects;
+    std::vector<scene::SceneObject> objects;
     util::IdAllocator<std::uint32_t> staticIds;
     util::IdAllocator<std::uint32_t> dynamicIds;
     std::vector<ecs::Entity> entityMap;
@@ -86,17 +86,18 @@ private:
     ds::DescriptorSetInstanceCache descriptorSets;
     ds::SceneDescriptorSetInstance* sceneDescriptors;
 
-    StageBatch opaqueObjects;
-    StageBatch transparentObjects;
+    scene::StageBatch opaqueObjects;
+    scene::StageBatch transparentObjects;
 
     Scene(Renderer& renderer, std::uint32_t maxStatic, std::uint32_t maxDynamic);
     ~Scene();
 
     // called by sys::GenericDrawableSystem in locked context
-    SceneObject* createAndAddObject(ecs::Entity entity, const DrawParameters& drawParams,
-                                    SceneObject::UpdateSpeed updateFreq,
-                                    const scene::StagePipelines& pipelines);
-    void removeObject(SceneObject* object);
+    scene::SceneObject* createAndAddObject(ecs::Entity entity,
+                                           const prim::DrawParameters& drawParams,
+                                           UpdateSpeed updateFreq,
+                                           const scene::StagePipelines& pipelines);
+    void removeObject(scene::SceneObject* object);
     void removeObject(ecs::Entity entity);
 
     template<typename T>

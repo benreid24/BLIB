@@ -193,7 +193,7 @@ private:
     VkViewport viewport; // derived from scissor. depth should be set by caller
     std::stack<ScenePair, std::vector<ScenePair>> scenes;
     std::stack<std::unique_ptr<Camera>, std::vector<std::unique_ptr<Camera>>> cameras;
-    std::stack<std::unique_ptr<PostFX>, std::vector<std::unique_ptr<PostFX>>> postFX;
+    std::stack<std::unique_ptr<scene::PostFX>, std::vector<std::unique_ptr<scene::PostFX>>> postFX;
     float defaultNear, defaultFar;
     VkClearValue clearColors[2];
     // TODO - 2d overlay for observer

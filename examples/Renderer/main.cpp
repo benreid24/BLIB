@@ -71,7 +71,7 @@ public:
         mesh->vertices = Vertices;
         mesh->indices  = Indices;
         mesh->gpuBuffer.sendToGPU();
-        meshSystem.addToScene(entity, scene, bl::render::SceneObject::UpdateSpeed::Static);
+        meshSystem.addToScene(entity, scene, bl::render::UpdateSpeed::Static);
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {

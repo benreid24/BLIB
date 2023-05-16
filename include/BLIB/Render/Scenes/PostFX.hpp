@@ -16,6 +16,8 @@ namespace render
 class Observer;
 class Renderer;
 
+namespace scene
+{
 /**
  * @brief Base class for post-processing of rendered scenes. This class simply copies the scene
  *        unaffected by default but a different pipeline may be specified to affect the behavior. If
@@ -82,6 +84,7 @@ private:
     friend class Observer;
 };
 
+} // namespace scene
 } // namespace render
 } // namespace bl
 

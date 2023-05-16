@@ -2,7 +2,7 @@
 #define BLIB_RENDER_PRIMITIVES_INDEXBUFFER_HPP
 
 #include <BLIB/Render/Primitives/Vertex.hpp>
-#include <BLIB/Render/Scenes/DrawParameters.hpp>
+#include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Transfers/GenericBuffer.hpp>
 
 namespace bl

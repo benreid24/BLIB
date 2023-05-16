@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_COMPONENTS_SCENEOBJECTREF_HPP
 #define BLIB_RENDER_COMPONENTS_SCENEOBJECTREF_HPP
 
-#include <BLIB/Render/Scenes/DrawParameters.hpp>
+#include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <cstdint>
 
@@ -10,7 +10,10 @@ namespace bl
 namespace render
 {
 class Scene;
+namespace scene
+{
 struct SceneObject;
+}
 
 /// Collection of ECS components for the renderer
 namespace com
@@ -22,7 +25,7 @@ namespace com
  */
 struct SceneObjectRef {
     Scene* scene;
-    SceneObject* object;
+    scene::SceneObject* object;
 };
 
 } // namespace com

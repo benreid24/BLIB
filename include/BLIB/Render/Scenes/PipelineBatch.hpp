@@ -15,6 +15,8 @@ namespace render
 {
 class Renderer;
 
+namespace scene
+{
 /**
  * @brief Concrete instance of a rendering pipeline which exists within a scene. Owns the Objects to
  *        be rendered within it
@@ -52,7 +54,7 @@ public:
      * @param updateFreq How often the object is expected to be changed
      * @return Whether or not the object could be added
      */
-    bool addObject(SceneObject* object, ecs::Entity entity, SceneObject::UpdateSpeed updateFreq);
+    bool addObject(SceneObject* object, ecs::Entity entity, UpdateSpeed updateFreq);
 
     /**
      * @brief Removes the given object from the render batch. May reorder the remaining objects
@@ -69,6 +71,7 @@ private:
     std::vector<SceneObject*> objects;
 };
 
+} // namespace scene
 } // namespace render
 } // namespace bl
 

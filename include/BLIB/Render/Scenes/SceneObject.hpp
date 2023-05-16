@@ -2,13 +2,16 @@
 #define BLIB_RENDER_RENDERER_SCENEOBJECT_HPP
 
 #include <BLIB/Containers/ObjectPool.hpp>
-#include <BLIB/Render/Scenes/DrawParameters.hpp>
+#include <BLIB/Render/Primitives/DrawParameters.hpp>
+#include <BLIB/Render/UpdateSpeed.hpp>
 #include <glad/vulkan.h>
 #include <glm/glm.hpp>
 
 namespace bl
 {
 namespace render
+{
+namespace scene
 {
 /**
  * @brief Base renderable object. Everything that is rendered will reference an instance of this.
@@ -18,9 +21,6 @@ namespace render
  * @ingroup Renderer
  */
 struct SceneObject {
-    /// Enum representing how frequently an object is expected to be updated
-    enum struct UpdateSpeed : std::uint8_t { Static, Dynamic };
-
     /**
      * @brief Construct a new SceneObject
      */
@@ -28,9 +28,10 @@ struct SceneObject {
 
     bool hidden;
     std::uint32_t sceneId;
-    DrawParameters drawParams;
+    prim::DrawParameters drawParams;
 };
 
+} // namespace scene
 } // namespace render
 } // namespace bl
 

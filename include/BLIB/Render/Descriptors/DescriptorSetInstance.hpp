@@ -75,8 +75,7 @@ public:
      * @param updateSpeed Whether the object is expected to be static or dynamic
      * @return True if the object could be added, false otherwise
      */
-    bool allocateObject(std::uint32_t sceneId, ecs::Entity entity,
-                        SceneObject::UpdateSpeed updateSpeed);
+    bool allocateObject(std::uint32_t sceneId, ecs::Entity entity, UpdateSpeed updateSpeed);
 
     /**
      * @brief Called by the scene when an object is destroyed
@@ -123,7 +122,7 @@ protected:
      * @return True if the object could be added, false otherwise
      */
     virtual bool doAllocateObject(std::uint32_t sceneId, ecs::Entity entity,
-                                  SceneObject::UpdateSpeed updateSpeed) = 0;
+                                  UpdateSpeed updateSpeed) = 0;
 
     /**
      * @brief Called once each frame before the TransferEngine is kicked off. Use this to

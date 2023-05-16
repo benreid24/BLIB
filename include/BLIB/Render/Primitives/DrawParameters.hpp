@@ -8,6 +8,8 @@ namespace bl
 {
 namespace render
 {
+namespace prim
+{
 /**
  * @brief Collection of the required parameters to issue draw commands per object
  *
@@ -35,6 +37,7 @@ struct DrawParameters {
     , instanceCount(1) {}
 };
 
+} // namespace prim
 } // namespace render
 } // namespace bl
 
