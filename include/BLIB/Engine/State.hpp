@@ -66,7 +66,7 @@ public:
     virtual void update(Engine& engine, float dt) = 0;
 
     /**
-     * @brief Render the application to the window owned by the Engine
+     * @brief Render the application to the window owned by the Engine. Deprecated. Use Renderer
      *
      * @param engine The main Engine managing the window to render to
      * @param residualLag Residual elapsed time between calls to update(). May be used for
@@ -81,7 +81,14 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline State::State(StateMask::V m)
-: mask(m) {}
+: mask(m) {
+#ifdef BLIB_DEBUG
+    if (m == 0) {
+        BL_LOG_CRITICAL << "StateMask of 0 is not supported";
+        throw std::runtime_error("StateMask of 0 is not supported");
+    }
+#endif
+}
 
 inline constexpr StateMask::V State::systemsMask() const { return mask; }
 

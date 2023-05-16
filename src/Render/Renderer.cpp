@@ -5,6 +5,7 @@
 #include <BLIB/Render/Systems/BuiltinDescriptorComponentSystems.hpp>
 #include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
 #include <BLIB/Render/Systems/CameraUpdateSystem.hpp>
+#include <BLIB/Render/Systems/RenderSystem.hpp>
 #include <cmath>
 
 namespace bl
@@ -37,21 +38,29 @@ void Renderer::initialize() {
     renderRegion.width  = window.getSize().x;
     renderRegion.height = window.getSize().y;
 
-    // register systems
+    constexpr engine::StateMask::V StateMask = engine::StateMask::All;
+    using engine::FrameStage;
+
+    // core renderer systems
     engine.systems().registerSystem<sys::CameraUpdateSystem>(
-        engine::FrameStage::RendererTailSync, engine::StateMask::All, *this);
+        FrameStage::RenderObjectSync, StateMask, *this);
+    engine.systems().registerSystem<sys::RenderSystem>(FrameStage::Render, StateMask, *this);
+
+    // descriptor systems
     engine.systems().registerSystem<sys::Transform3DDescriptorSystem>(
-        engine::FrameStage::RenderDescriptorRefresh, engine::StateMask::All);
+        FrameStage::RenderDescriptorRefresh, StateMask);
     engine.systems().registerSystem<sys::TextureDescriptorSystem>(
-        engine::FrameStage::RenderDescriptorRefresh, engine::StateMask::All);
+        FrameStage::RenderDescriptorRefresh, StateMask);
+
+    // drawable systems
     engine.systems().registerSystem<sys::MeshSystem>(
-        engine::FrameStage::RenderObjectSync,
-        engine::StateMask::All,
+        FrameStage::RenderObjectSync,
+        StateMask,
         scene::StagePipelineBuilder()
             .withPipeline(Config::SceneObjectStage::OpaquePass,
                           Config::PipelineIds::OpaqueSkinnedMeshes)
-            .withPipeline(Config::SceneObjectStage::TransparentPass, // TODO - opaque mesh pipeline
-                          Config::PipelineIds::None)
+            .withPipeline(Config::SceneObjectStage::TransparentPass,
+                          Config::PipelineIds::OpaqueSkinnedMeshes)
             .build());
 
     // create renderer instance data
@@ -90,8 +99,6 @@ void Renderer::cleanup() {
 }
 
 void Renderer::processResize(const sf::Rect<std::uint32_t>& region) {
-    std::unique_lock lock(mutex);
-
     renderRegion = region;
     state.swapchain.invalidate();
     assignObserverRegions();
@@ -104,9 +111,7 @@ void Renderer::updateCameras(float dt) {
 }
 
 void Renderer::renderFrame() {
-    std::unique_lock lock(mutex);
-
-    // execute transfers
+    // kick off transfers
     if (commonObserver.hasScene()) { commonObserver.handleDescriptorSync(); }
     else {
         for (auto& o : observers) { o->handleDescriptorSync(); }
@@ -152,16 +157,12 @@ void Renderer::renderFrame() {
 }
 
 void Renderer::setDefaultNearAndFar(float n, float f) {
-    std::unique_lock lock(mutex);
-
     defaultNear = n;
     defaultFar  = f;
     for (auto& o : observers) { o->setDefaultNearFar(n, f); }
 }
 
 Observer& Renderer::addObserver() {
-    std::unique_lock lock(mutex);
-
 #ifdef BLIB_DEBUG
     if (observers.size() == 4) {
         BL_LOG_CRITICAL << "Cannot add more than 4 observers";
@@ -176,7 +177,6 @@ Observer& Renderer::addObserver() {
 }
 
 void Renderer::removeObserver(unsigned int i) {
-    std::unique_lock lock(mutex);
     i = std::min(i, static_cast<unsigned int>(observers.size()) - 1);
     observers.erase(observers.begin() + i);
     assignObserverRegions();
@@ -184,20 +184,16 @@ void Renderer::removeObserver(unsigned int i) {
 
 Scene* Renderer::pushSceneToAllObservers(std::uint32_t maxStaticObjectCount,
                                          std::uint32_t maxDynamicObjectCount) {
-    std::unique_lock lock(mutex);
-
     Scene* s = scenes.allocateScene(maxStaticObjectCount, maxDynamicObjectCount);
     for (auto& o : observers) { o->pushScene(s); }
     return s;
 }
 
 void Renderer::popSceneFromAllObservers(bool cams) {
-    std::unique_lock lock(mutex);
     for (auto& o : observers) { o->popScene(cams); }
 }
 
 Scene* Renderer::popSceneFromAllObserversNoRelease(bool cams) {
-    std::unique_lock lock(mutex);
     Scene* s = nullptr;
     for (auto& o : observers) {
         Scene* ns = o->popSceneNoRelease(cams);

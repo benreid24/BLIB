@@ -30,16 +30,13 @@ struct FrameStage {
         /// This stage and later are called once per frame
         MARKER_OncePerFrame = 4,
 
-        /// Wait for the renderer thread to complete the prior frame
-        RendererTailSync = 4,
-
         /// Synchronizes objects from the ECS into the scene-local object buffers
         RenderObjectSync = 5,
 
         /// Syncs dirty descriptor components (ie transforms) into scene-local descriptor sets
         RenderDescriptorRefresh = 6,
 
-        /// Waits for the GPU to complete the prior frame, then kicks off the renderer thread
+        /// Records command buffers and submits to the GPU
         Render = 7,
 
         /// Slot for more user-defined operations

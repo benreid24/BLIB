@@ -23,7 +23,8 @@ namespace render
 namespace sys
 {
 class CameraUpdateSystem;
-}
+class RenderSystem;
+} // namespace sys
 
 /**
  * @brief Top level rendering system of the game engine
@@ -34,12 +35,6 @@ class CameraUpdateSystem;
 class Renderer : private util::NonCopyable {
 public:
     enum struct SplitscreenDirection { TopAndBottom, LeftAndRight };
-
-    /**
-     * @brief Renders a frame to the window and presents it
-     *
-     */
-    void renderFrame();
 
     /**
      * @brief Adds an observer to the renderer. By default there is a single observer already. Call
@@ -178,7 +173,6 @@ public:
     void setClearColor(const VkClearColorValue& color);
 
 private:
-    std::mutex mutex;
     engine::Engine& engine;
     sf::WindowBase& window;
     sf::Rect<std::uint32_t> renderRegion;
@@ -201,13 +195,17 @@ private:
     void initialize();
     void cleanup();
     void processResize(const sf::Rect<std::uint32_t>& region);
+
+    // render stages
     void updateCameras(float dt);
+    void renderFrame();
 
     void assignObserverRegions();
 
     friend class engine::Engine;
     friend class Observer;
     friend class sys::CameraUpdateSystem;
+    friend class sys::RenderSystem;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

@@ -87,8 +87,8 @@ public:
         player2Cam->getOrientationForChange().applyRoll(90.f * dt);
     }
 
-    virtual void render(bl::engine::Engine& engine, float) override {
-        engine.renderer().renderFrame();
+    virtual void render(bl::engine::Engine&, float) override {
+        // deprecated
     }
 
 private:

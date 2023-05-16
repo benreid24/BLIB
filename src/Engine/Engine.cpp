@@ -199,7 +199,7 @@ bool Engine::run(State::Ptr initialState) {
 
 #ifndef BLIB_HEADLESS_FOR_CI_TESTING // do render
         if (!engineFlags.stateChangeReady()) {
-            states.top()->render(*this, lag); // TODO - move into systems
+            states.top()->render(*this, lag);
             ecsSystems.update(FrameStage::MARKER_OncePerFrame,
                               FrameStage::COUNT,
                               states.top()->systemsMask(),
