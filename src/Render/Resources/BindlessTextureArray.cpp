@@ -4,6 +4,8 @@ namespace bl
 {
 namespace render
 {
+namespace res
+{
 BindlessTextureArray::BindlessTextureArray(vk::VulkanState& vs, std::uint32_t size,
                                            std::uint32_t bind)
 : bindIndex(bind)
@@ -65,5 +67,6 @@ void BindlessTextureArray::prepareTextureUpdate(std::uint32_t i, const std::stri
     else { textures[i].altImg = &errorPattern; }
 }
 
+} // namespace res
 } // namespace render
 } // namespace bl

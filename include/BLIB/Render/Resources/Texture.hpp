@@ -15,6 +15,8 @@ namespace vk
 {
 struct VulkanState;
 }
+namespace res
+{
 class TexturePool;
 
 /**
@@ -57,6 +59,7 @@ private:
     friend class BindlessTextureArray;
 };
 
+} // namespace res
 } // namespace render
 } // namespace bl
 

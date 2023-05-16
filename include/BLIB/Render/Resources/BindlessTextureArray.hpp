@@ -12,6 +12,9 @@ namespace bl
 {
 namespace render
 {
+/// Collection of classes for renderer resource management
+namespace res
+{
 /**
  * @brief Utility class to help manage an array of Sampler2D as part of a descriptor set. Utilized
  *        by TexturePool and MaterialPool. The expectation is that the user manages lifetime, index
@@ -164,6 +167,7 @@ void BindlessTextureArray::resetTexture(VkDescriptorSet descriptorSet,
     commitTexture(descriptorSet, arrays, i);
 }
 
+} // namespace res
 } // namespace render
 } // namespace bl
 

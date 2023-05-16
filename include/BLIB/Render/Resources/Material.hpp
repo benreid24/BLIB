@@ -7,6 +7,8 @@ namespace bl
 {
 namespace render
 {
+namespace res
+{
 /**
  * @brief Basic structure representing a material. A material is a combination of a texture with
  *        lighting properties. Materials are managed by the MaterialPool
@@ -18,6 +20,7 @@ struct Material {
     // MaterialUniform parameters;
 };
 
+} // namespace res
 } // namespace render
 } // namespace bl
 

@@ -12,6 +12,8 @@ namespace bl
 {
 namespace render
 {
+namespace res
+{
 PipelineCache::PipelineCache(Renderer& r)
 : renderer(r) {
     // TODO - leverage VkPipelineCache?
@@ -96,5 +98,6 @@ void PipelineCache::createBuiltins() {
             .build());
 }
 
+} // namespace res
 } // namespace render
 } // namespace bl

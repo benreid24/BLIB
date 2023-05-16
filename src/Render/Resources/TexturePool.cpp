@@ -4,6 +4,8 @@ namespace bl
 {
 namespace render
 {
+namespace res
+{
 TexturePool::TexturePool(vk::VulkanState& vs)
 : vulkanState(vs)
 , textures(vs, MaxTextureCount, TextureArrayBindIndex)
@@ -159,5 +161,6 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler samp
     return txtr;
 }
 
+} // namespace res
 } // namespace render
 } // namespace bl

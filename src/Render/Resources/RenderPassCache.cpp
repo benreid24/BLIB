@@ -8,6 +8,8 @@ namespace bl
 {
 namespace render
 {
+namespace res
+{
 RenderPassCache::RenderPassCache(Renderer& r)
 : renderer(r) {}
 
@@ -104,5 +106,6 @@ void RenderPassCache::addDefaults() {
     createRenderPass(Config::RenderPassIds::SwapchainPrimaryRender, primaryParams.build());
 }
 
+} // namespace res
 } // namespace render
 } // namespace bl

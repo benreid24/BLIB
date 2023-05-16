@@ -7,6 +7,8 @@ namespace bl
 {
 namespace render
 {
+namespace res
+{
 ScenePool::ScenePool(Renderer& r)
 : renderer(r)
 , pool(MaxSceneCount)
@@ -61,5 +63,6 @@ void ScenePool::handleDescriptorSync() {
     }
 }
 
+} // namespace res
 } // namespace render
 } // namespace bl

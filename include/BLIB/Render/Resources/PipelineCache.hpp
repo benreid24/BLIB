@@ -11,6 +11,8 @@ namespace render
 {
 class Renderer;
 
+namespace res
+{
 /**
  * @brief Basic cache to own and manage pipelines. Owned by the renderer
  *
@@ -47,6 +49,7 @@ private:
     friend class Renderer;
 };
 
+} // namespace res
 } // namespace render
 } // namespace bl
 

@@ -6,6 +6,8 @@ namespace bl
 {
 namespace render
 {
+namespace res
+{
 Texture::Texture()
 : image(nullptr)
 , memory(nullptr)
@@ -103,5 +105,6 @@ void Texture::cleanup(vk::VulkanState& vs) {
     vkFreeMemory(vs.device, memory, nullptr);
 }
 
+} // namespace res
 } // namespace render
 } // namespace bl

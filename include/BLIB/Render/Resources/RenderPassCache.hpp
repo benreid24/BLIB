@@ -10,6 +10,8 @@ namespace bl
 namespace render
 {
 class Renderer;
+namespace res
+{
 
 /**
  * @brief Basic cache to manage render passes. Stores them and provides access. Owned by the
@@ -48,6 +50,7 @@ private:
     friend class Renderer;
 };
 
+} // namespace res
 } // namespace render
 } // namespace bl
 

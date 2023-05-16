@@ -22,7 +22,7 @@ public:
      *
      * @param texturePool Texture pool to bind
      */
-    TexturesDescriptorSetInstance(TexturePool& texturePool);
+    TexturesDescriptorSetInstance(res::TexturePool& texturePool);
 
     /**
      * @brief Destroys the descriptor set instance
@@ -30,7 +30,7 @@ public:
     virtual ~TexturesDescriptorSetInstance() = default;
 
 private:
-    TexturePool& texturePool;
+    res::TexturePool& texturePool;
 
     virtual void bindForPipeline(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
                                  std::uint32_t observerIndex,

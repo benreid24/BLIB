@@ -7,7 +7,10 @@ namespace bl
 {
 namespace render
 {
+namespace res
+{
 class TexturePool;
+}
 
 namespace ds
 {
@@ -29,7 +32,7 @@ public:
     virtual ~TexturesDescriptorSetFactory() = default;
 
 private:
-    TexturePool* texturePool;
+    res::TexturePool* texturePool;
 
     virtual void init(engine::Engine& engine, Renderer& renderer) override;
     virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;

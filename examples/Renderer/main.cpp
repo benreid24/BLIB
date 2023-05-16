@@ -93,7 +93,7 @@ public:
 
 private:
     bl::ecs::Entity entity;
-    bl::render::TextureRef texture;
+    bl::render::res::TextureRef texture;
     bl::render::r3d::Camera3D* player2Cam;
     float time;
 };

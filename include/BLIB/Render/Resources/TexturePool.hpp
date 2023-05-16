@@ -2,8 +2,8 @@
 #define BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 
 #include <BLIB/Render/Resources/BindlessTextureArray.hpp>
-#include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Resources/Texture.hpp>
+#include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <SFML/Graphics/Image.hpp>
@@ -20,6 +20,8 @@
 namespace bl
 {
 namespace render
+{
+namespace res
 {
 /**
  * @brief Resource manager for textures on the GPU. Utilizes BindlessTextureArray to provide a large
@@ -113,6 +115,7 @@ inline constexpr VkDescriptorSetLayout TexturePool::getDescriptorLayout() const 
 
 inline constexpr VkDescriptorSet TexturePool::getDescriptorSet() const { return descriptorSet; }
 
+} // namespace res
 } // namespace render
 } // namespace bl
 

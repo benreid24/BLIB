@@ -14,6 +14,8 @@ namespace bl
 {
 namespace render
 {
+namespace res
+{
 class MaterialPool {
 public:
     static constexpr std::uint32_t MaxMaterialCount = 4096;
@@ -59,6 +61,7 @@ private:
     void resetMaterial(std::uint32_t materialId);
 };
 
+} // namespace res
 } // namespace render
 } // namespace bl
 

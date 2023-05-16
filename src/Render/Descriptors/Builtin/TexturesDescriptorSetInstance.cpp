@@ -6,7 +6,7 @@ namespace render
 {
 namespace ds
 {
-TexturesDescriptorSetInstance::TexturesDescriptorSetInstance(TexturePool& texturePool)
+TexturesDescriptorSetInstance::TexturesDescriptorSetInstance(res::TexturePool& texturePool)
 : DescriptorSetInstance(false)
 , texturePool(texturePool) {}
 

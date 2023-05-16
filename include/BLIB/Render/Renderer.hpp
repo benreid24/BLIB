@@ -128,35 +128,35 @@ public:
      *
      * @return constexpr TexturePool& The texture pool of this renderer
      */
-    constexpr TexturePool& texturePool();
+    constexpr res::TexturePool& texturePool();
 
     /**
      * @brief Returns the material pool of this renderer
      *
      * @return constexpr MaterialPool& The material pool of this renderer
      */
-    constexpr MaterialPool& materialPool();
+    constexpr res::MaterialPool& materialPool();
 
     /**
      * @brief Returns the render pass cache of this renderer
      *
      * @return constexpr RenderPassCache& The render pass cache of this renderer
      */
-    constexpr RenderPassCache& renderPassCache();
+    constexpr res::RenderPassCache& renderPassCache();
 
     /**
      * @brief Returns the pipeline cache of this renderer
      *
      * @return constexpr PipelineCache& The pipeline cache of this renderer
      */
-    constexpr PipelineCache& pipelineCache();
+    constexpr res::PipelineCache& pipelineCache();
 
     /**
      * @brief Returns the scene pool of the renderer
      *
      * @return The scene pool belonging to this renderer
      */
-    constexpr ScenePool& scenePool();
+    constexpr res::ScenePool& scenePool();
 
     /**
      * @brief Returns a reference to the descriptor set factory cache used by this renderer
@@ -178,12 +178,12 @@ private:
     sf::Rect<std::uint32_t> renderRegion;
     vk::VulkanState state;
     vk::PerSwapFrame<vk::Framebuffer> framebuffers;
-    TexturePool textures;
-    MaterialPool materials;
+    res::TexturePool textures;
+    res::MaterialPool materials;
     ds::DescriptorSetFactoryCache descriptorSetFactoryCache;
-    RenderPassCache renderPasses;
-    PipelineCache pipelines;
-    ScenePool scenes;
+    res::RenderPassCache renderPasses;
+    res::PipelineCache pipelines;
+    res::ScenePool scenes;
     SplitscreenDirection splitscreenDirection;
     Observer commonObserver;
     std::vector<std::unique_ptr<Observer>> observers;
@@ -212,15 +212,15 @@ private:
 
 inline constexpr vk::VulkanState& Renderer::vulkanState() { return state; }
 
-inline constexpr TexturePool& Renderer::texturePool() { return textures; }
+inline constexpr res::TexturePool& Renderer::texturePool() { return textures; }
 
-inline constexpr MaterialPool& Renderer::materialPool() { return materials; }
+inline constexpr res::MaterialPool& Renderer::materialPool() { return materials; }
 
-inline constexpr RenderPassCache& Renderer::renderPassCache() { return renderPasses; }
+inline constexpr res::RenderPassCache& Renderer::renderPassCache() { return renderPasses; }
 
-inline constexpr PipelineCache& Renderer::pipelineCache() { return pipelines; }
+inline constexpr res::PipelineCache& Renderer::pipelineCache() { return pipelines; }
 
-inline constexpr ScenePool& Renderer::scenePool() { return scenes; }
+inline constexpr res::ScenePool& Renderer::scenePool() { return scenes; }
 
 inline constexpr ds::DescriptorSetFactoryCache& Renderer::descriptorFactoryCache() {
     return descriptorSetFactoryCache;

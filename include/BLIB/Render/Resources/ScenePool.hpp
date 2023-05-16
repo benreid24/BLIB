@@ -13,6 +13,8 @@ namespace bl
 namespace render
 {
 class Renderer;
+namespace res
+{
 
 /**
  * @brief Utility class that manages a fixed size pool of scenes that can be allocated from. Owned
@@ -65,6 +67,7 @@ private:
     std::mutex mutex;
 };
 
+} // namespace res
 } // namespace render
 } // namespace bl
 

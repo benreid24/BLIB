@@ -7,6 +7,8 @@ namespace bl
 {
 namespace render
 {
+namespace res
+{
 class TexturePool;
 struct Texture;
 
@@ -102,6 +104,7 @@ inline constexpr const Texture& TextureRef::operator*() const { return *texture;
 
 inline constexpr const Texture* TextureRef::operator->() const { return texture; }
 
+} // namespace res
 } // namespace render
 } // namespace bl
 

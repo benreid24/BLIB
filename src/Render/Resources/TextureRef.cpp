@@ -7,6 +7,8 @@ namespace bl
 {
 namespace render
 {
+namespace res
+{
 TextureRef::TextureRef()
 : owner(nullptr)
 , texture(nullptr) {}
@@ -67,5 +69,6 @@ std::uint32_t TextureRef::id() const { return texture - &(owner->textures.getTex
 
 TextureRef::operator bool() const { return texture != nullptr; }
 
+} // namespace res
 } // namespace render
 } // namespace bl
