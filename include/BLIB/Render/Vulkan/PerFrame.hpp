@@ -11,6 +11,8 @@ namespace render
 {
 struct VulkanState;
 
+namespace vk
+{
 /**
  * @brief Utility struct to easily double-buffer objects and data on a per-frame basis. One object
  *        of type T will exists per concurrent frame and the current will be accessible
@@ -109,6 +111,7 @@ private:
     std::array<T, Config::MaxConcurrentFrames> data;
 };
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

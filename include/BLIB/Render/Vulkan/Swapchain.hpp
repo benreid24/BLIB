@@ -1,10 +1,10 @@
 #ifndef BLIB_RENDER_VULKAN_SWAPCHAIN_HPP
 #define BLIB_RENDER_VULKAN_SWAPCHAIN_HPP
 
-#include <BLIB/Render/Util/PerFrame.hpp>
-#include <BLIB/Render/Util/PerSwapFrame.hpp>
 #include <BLIB/Render/Vulkan/ColorAttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
+#include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
 #include <SFML/Window/WindowBase.hpp>
 #include <glad/vulkan.h>
 #include <vector>
@@ -109,7 +109,7 @@ private:
     VkSwapchainKHR swapchain;
     VkFormat imageFormat;
     std::vector<ColorAttachmentSet> renderFrames;
-    PerFrame<Frame> frameData;
+    vk::PerFrame<Frame> frameData;
     std::uint32_t currentImageIndex;
     bool outOfDate;
 
@@ -131,6 +131,8 @@ inline const ColorAttachmentSet& Swapchain::swapFrameAtIndex(unsigned int i) con
 
 inline constexpr VkFormat Swapchain::swapImageFormat() const { return imageFormat; }
 
+namespace vk
+{
 template<typename T>
 PerSwapFrame<T>::PerSwapFrame()
 : chain(nullptr) {}
@@ -163,6 +165,7 @@ constexpr const T& PerSwapFrame<T>::current() const {
     return data[chain->currentIndex()];
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

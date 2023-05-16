@@ -3,10 +3,10 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
-#include <BLIB/Render/Util/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/CommonSamplers.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
+#include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <SFML/Window.hpp>
@@ -102,7 +102,7 @@ struct VulkanState {
                       VkBuffer& buffer, VkDeviceMemory& bufferMemory);
 
     /**
-     * @brief Helper function to create a PerFrame<VkBuffer> with some parameters
+     * @brief Helper function to create a vk::PerFrame<VkBuffer> with some parameters
      *
      * @param size The size of the buffer to create
      * @param usage How the buffer will be used
@@ -112,8 +112,8 @@ struct VulkanState {
      * @return The padded and aligned size of each buffer in the memory allocation
      */
     VkDeviceSize createDoubleBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
-                                    VkMemoryPropertyFlags properties, PerFrame<VkBuffer>& buffers,
-                                    VkDeviceMemory& bufferMemory);
+                                    VkMemoryPropertyFlags properties,
+                                    vk::PerFrame<VkBuffer>& buffers, VkDeviceMemory& bufferMemory);
 
     /**
      * @brief Helper function to find the best-suited image format given the requested format and
@@ -240,6 +240,9 @@ private:
 
 inline constexpr std::uint32_t VulkanState::currentFrameIndex() const { return currentFrame; }
 
+namespace vk
+{
+
 template<typename T>
 PerFrame<T>::PerFrame()
 : vs(nullptr) {}
@@ -308,6 +311,7 @@ constexpr const T* PerFrame<T>::rawData() const {
     return data.data();
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

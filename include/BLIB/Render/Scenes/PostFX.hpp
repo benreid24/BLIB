@@ -3,7 +3,7 @@
 
 #include <BLIB/Render/Overlays/Drawable.hpp>
 #include <BLIB/Render/Primitives/IndexBuffer.hpp>
-#include <BLIB/Render/Util/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <array>
@@ -72,11 +72,11 @@ private:
     Renderer& renderer;
     VkSampler sampler;
     DescriptorPool::AllocationHandle descriptorSetAllocHandle;
-    PerFrame<VkDescriptorSet> descriptorSets;
+    vk::PerFrame<VkDescriptorSet> descriptorSets;
     prim::IndexBuffer indexBuffer;
     Pipeline* pipeline;
 
-    void bindImages(PerFrame<StandardImageBuffer>& sceneImages);
+    void bindImages(vk::PerFrame<StandardImageBuffer>& sceneImages);
     void compositeScene(VkCommandBuffer commandBuffer);
 
     friend class Observer;

@@ -441,7 +441,7 @@ void VulkanState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
 
 VkDeviceSize VulkanState::createDoubleBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
                                              VkMemoryPropertyFlags properties,
-                                             PerFrame<VkBuffer>& buffers,
+                                             vk::PerFrame<VkBuffer>& buffers,
                                              VkDeviceMemory& bufferMemory) {
     VkBufferCreateInfo bufferInfo{};
     bufferInfo.sType       = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;

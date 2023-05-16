@@ -84,7 +84,7 @@ void CommonSceneDescriptorSetInstance::doInit(std::uint32_t, std::uint32_t) {
         for (std::uint32_t j = 0; j < Config::MaxConcurrentFrames; ++j) {
             VkDescriptorBufferInfo bufferWrite{};
             bufferWrite.buffer = cameraBuffer.gpuBufferHandles().getRaw(j);
-            bufferWrite.offset = i * cameraBuffer.alignedUniformSize();
+            bufferWrite.offset = static_cast<VkDeviceSize>(i) * cameraBuffer.alignedUniformSize();
             bufferWrite.range  = cameraBuffer.alignedUniformSize();
 
             VkWriteDescriptorSet setWrite{};

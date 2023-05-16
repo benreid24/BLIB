@@ -77,8 +77,8 @@ public:
     /**
      * @brief Returns the PerFrame buffer handles for double buffers
      */
-    template<typename = typename std::enable_if<DoubleBuffer, PerFrame<VkBuffer>&>::type>
-    constexpr PerFrame<VkBuffer>& handles() {
+    template<typename = typename std::enable_if<DoubleBuffer, vk::PerFrame<VkBuffer>&>::type>
+    constexpr vk::PerFrame<VkBuffer>& handles() {
         return storage.buffers;
     }
 

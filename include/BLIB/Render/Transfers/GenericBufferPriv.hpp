@@ -2,7 +2,7 @@
 #define BLIB_RENDER_TRANSFERS_GENERICBUFFERPRIV_HPP
 
 #include <BLIB/Render/Transfers/TransferContext.hpp>
-#include <BLIB/Render/Util/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glad/vulkan.h>
 
@@ -74,10 +74,10 @@ struct GenericBufferStorage<true, true> {
 
     constexpr VkBuffer current() const { return buffers.current(); }
 
-    PerFrame<VkBuffer> buffers;
+    vk::PerFrame<VkBuffer> buffers;
     VkDeviceMemory gpuMemory;
-    PerFrame<VkBuffer> stagingBuffers;
-    PerFrame<void*> mappedStaging;
+    vk::PerFrame<VkBuffer> stagingBuffers;
+    vk::PerFrame<void*> mappedStaging;
     VkDeviceMemory stagingMemory;
 };
 
@@ -112,9 +112,9 @@ struct GenericBufferStorage<true, false> {
 
     constexpr VkBuffer current() const { return buffers.current(); }
 
-    PerFrame<VkBuffer> buffers;
+    vk::PerFrame<VkBuffer> buffers;
     VkDeviceMemory memory;
-    PerFrame<void*> mappedBuffers;
+    vk::PerFrame<void*> mappedBuffers;
 };
 
 template<>

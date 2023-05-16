@@ -48,7 +48,7 @@ private:
     VulkanState& vulkanState;
     VkDescriptorPool descriptorPool;
     const VkDescriptorSetLayout descriptorSetLayout;
-    std::vector<PerFrame<VkDescriptorSet>> descriptorSets;
+    std::vector<vk::PerFrame<VkDescriptorSet>> descriptorSets;
     tfr::UniformBuffer<glm::mat4> transformBuffer;
     tfr::UniformBuffer<std::uint32_t> textureBuffer;
     std::uint32_t staticObjectCount;

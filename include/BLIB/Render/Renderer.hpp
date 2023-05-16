@@ -177,7 +177,7 @@ private:
     sf::WindowBase& window;
     sf::Rect<std::uint32_t> renderRegion;
     VulkanState state;
-    PerSwapFrame<Framebuffer> framebuffers;
+    vk::PerSwapFrame<Framebuffer> framebuffers;
     TexturePool textures;
     MaterialPool materials;
     ds::DescriptorSetFactoryCache descriptorSetFactoryCache;

@@ -1,12 +1,16 @@
 #ifndef BLIB_RENDER_UTIL_PERSWAPFRAME_HPP
 #define BLIB_RENDER_UTIL_PERSWAPFRAME_HPP
 
+#include <vector>
+
 namespace bl
 {
 namespace render
 {
 class Swapchain;
 
+namespace vk
+{
 /**
  * @brief Utility class to manage objects where one instance is needed per image in the swap chain.
  *        Provides init and cleanup helpers as well as an accessor for the current object based on
@@ -27,7 +31,7 @@ public:
     /**
      * @brief Initializes the contained objects. Clears the underlying storage before creating new
      *        objects
-     * 
+     *
      * @tparam TCb Signature of the callback to invoke per object. Should have signature void(T&)
      * @param swapchain The swapchain to pair with
      * @param visitor The visitor to initialize contained objects with
@@ -37,10 +41,10 @@ public:
 
     /**
      * @brief Runs a cleanup visitor per-object
-     * 
+     *
      * @tparam TCb Visitor signature
      * @param visitor Cleanup visitor. Must have signature void(T&)
-    */
+     */
     template<typename TCb>
     void cleanup(const TCb& visitor);
 
@@ -48,7 +52,7 @@ public:
      * @brief Returns a reference to the currently active object
      *
      * @return The currently active object
-    */
+     */
     constexpr T& current();
 
     /**
@@ -63,6 +67,7 @@ private:
     std::vector<T> data;
 };
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

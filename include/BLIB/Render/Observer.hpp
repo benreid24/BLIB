@@ -4,7 +4,7 @@
 #include <BLIB/Render/Cameras/Camera.hpp>
 #include <BLIB/Render/Scenes/PostFX.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
-#include <BLIB/Render/Util/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/StandardImageBuffer.hpp>
 #include <SFML/Window.hpp>
 #include <glad/vulkan.h>
@@ -187,8 +187,8 @@ private:
     Renderer& renderer;
     bool resourcesFreed;
     std::mutex mutex;
-    PerFrame<StandardImageBuffer> renderFrames;
-    PerFrame<Framebuffer> sceneFramebuffers;
+    vk::PerFrame<StandardImageBuffer> renderFrames;
+    vk::PerFrame<Framebuffer> sceneFramebuffers;
     VkRect2D scissor;    // refreshed on window resize and observer add/remove
     VkViewport viewport; // derived from scissor. depth should be set by caller
     std::stack<ScenePair, std::vector<ScenePair>> scenes;

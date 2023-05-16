@@ -97,7 +97,7 @@ public:
     /**
      * @brief Returns the VkBuffer handles of the GPU buffers
      */
-    constexpr PerFrame<VkBuffer>& gpuBufferHandles();
+    constexpr vk::PerFrame<VkBuffer>& gpuBufferHandles();
 
     /**
      * @brief Returns the aligned size of contained uniforms
@@ -174,7 +174,7 @@ inline void UniformBuffer<T>::destroy() {
 }
 
 template<typename T>
-inline constexpr PerFrame<VkBuffer>& UniformBuffer<T>::gpuBufferHandles() {
+inline constexpr vk::PerFrame<VkBuffer>& UniformBuffer<T>::gpuBufferHandles() {
     return gpuBuffer.handles();
 }
 

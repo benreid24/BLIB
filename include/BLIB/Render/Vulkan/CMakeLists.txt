@@ -5,6 +5,8 @@ target_sources(BLIB PUBLIC
     CommonSamplers.hpp
     DescriptorPool.hpp
     Framebuffer.hpp
+    PerFrame.hpp
+    PerSwapFrame.hpp
     Pipeline.hpp
     PipelineParameters.hpp
     RenderPass.hpp

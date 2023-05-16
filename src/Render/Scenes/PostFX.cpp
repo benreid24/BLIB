@@ -88,7 +88,7 @@ PostFX::PostFX(Renderer& renderer)
     usePipeline(Config::PipelineIds::PostFXBase);
 }
 
-void PostFX::bindImages(PerFrame<StandardImageBuffer>& images) {
+void PostFX::bindImages(vk::PerFrame<StandardImageBuffer>& images) {
     std::array<VkDescriptorImageInfo, Config::MaxConcurrentFrames> imageInfos{};
     for (unsigned int i = 0; i < images.size(); ++i) {
         imageInfos[i].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;

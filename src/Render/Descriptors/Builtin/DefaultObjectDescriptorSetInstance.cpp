@@ -75,8 +75,9 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
             // transform buffer configureWrite
             VkDescriptorBufferInfo transformBufferWrite{};
             transformBufferWrite.buffer = transformBuffer.gpuBufferHandles().getRaw(j);
-            transformBufferWrite.offset = i * transformBuffer.alignedUniformSize();
-            transformBufferWrite.range  = transformBuffer.alignedUniformSize();
+            transformBufferWrite.offset =
+                static_cast<VkDeviceSize>(i) * transformBuffer.alignedUniformSize();
+            transformBufferWrite.range = transformBuffer.alignedUniformSize();
 
             VkWriteDescriptorSet& transformWrite = setWrites[0];
             transformWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
