@@ -187,8 +187,8 @@ private:
     Renderer& renderer;
     bool resourcesFreed;
     std::mutex mutex;
-    vk::PerFrame<StandardImageBuffer> renderFrames;
-    vk::PerFrame<Framebuffer> sceneFramebuffers;
+    vk::PerFrame<vk::StandardImageBuffer> renderFrames;
+    vk::PerFrame<vk::Framebuffer> sceneFramebuffers;
     VkRect2D scissor;    // refreshed on window resize and observer add/remove
     VkViewport viewport; // derived from scissor. depth should be set by caller
     std::stack<ScenePair, std::vector<ScenePair>> scenes;

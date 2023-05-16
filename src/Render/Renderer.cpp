@@ -73,7 +73,7 @@ void Renderer::initialize() {
     VkRenderPass renderPass =
         renderPasses.getRenderPass(Config::RenderPassIds::SwapchainPrimaryRender).rawPass();
     unsigned int i = 0;
-    framebuffers.init(state.swapchain, [this, &i, renderPass](Framebuffer& fb) {
+    framebuffers.init(state.swapchain, [this, &i, renderPass](vk::Framebuffer& fb) {
         fb.create(state, renderPass, state.swapchain.swapFrameAtIndex(i));
         ++i;
     });
@@ -92,7 +92,7 @@ void Renderer::cleanup() {
     pipelines.cleanup();
     descriptorSetFactoryCache.cleanup();
     textures.cleanup();
-    framebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
+    framebuffers.cleanup([](vk::Framebuffer& fb) { fb.cleanup(); });
     renderPasses.cleanup();
     state.cleanup();
     state.device = nullptr;
@@ -120,8 +120,8 @@ void Renderer::renderFrame() {
     state.transferEngine.executeTransfers();
 
     // begin frame
-    ColorAttachmentSet* currentFrame = nullptr;
-    VkCommandBuffer commandBuffer    = nullptr;
+    vk::ColorAttachmentSet* currentFrame = nullptr;
+    VkCommandBuffer commandBuffer        = nullptr;
     state.beginFrame(currentFrame, commandBuffer);
     framebuffers.current().recreateIfChanged(*currentFrame);
 

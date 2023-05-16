@@ -7,7 +7,10 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 struct VulkanState;
+}
 
 namespace ds
 {
@@ -25,7 +28,7 @@ public:
     virtual ~CommonSceneDescriptorSetFactory();
 
 private:
-    VulkanState* vulkanState;
+    vk::VulkanState* vulkanState;
 
     virtual void init(engine::Engine&, Renderer& renderer) override;
     virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;

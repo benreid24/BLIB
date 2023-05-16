@@ -26,7 +26,7 @@ public:
      * @param params The parameters to create the pass with
      * @return RenderPass& The new render pass
      */
-    RenderPass& createRenderPass(std::uint32_t renderPassId, RenderPassParameters&& params);
+    vk::RenderPass& createRenderPass(std::uint32_t renderPassId, vk::RenderPassParameters&& params);
 
     /**
      * @brief Fetches the render pass with the given id. Throws an exception if the id does not
@@ -35,11 +35,11 @@ public:
      * @param renderPassId The id of the render pass to fetch
      * @return RenderPass& The render pass with the given id
      */
-    RenderPass& getRenderPass(std::uint32_t renderPassId);
+    vk::RenderPass& getRenderPass(std::uint32_t renderPassId);
 
 private:
     Renderer& renderer;
-    std::unordered_map<std::uint32_t, RenderPass> cache;
+    std::unordered_map<std::uint32_t, vk::RenderPass> cache;
 
     RenderPassCache(Renderer& renderer);
     void cleanup();

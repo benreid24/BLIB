@@ -13,7 +13,10 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 struct VulkanState;
+}
 
 namespace ds
 {
@@ -30,7 +33,7 @@ public:
      * @param vulkanState Renderer Vulkan state
      * @param layout The layout of the descriptor set
      */
-    CommonSceneDescriptorSetInstance(VulkanState& vulkanState, VkDescriptorSetLayout layout);
+    CommonSceneDescriptorSetInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout);
 
     /**
      * @brief Destroys the descriptor set
@@ -38,10 +41,10 @@ public:
     virtual ~CommonSceneDescriptorSetInstance();
 
 private:
-    VulkanState& vulkanState;
+    vk::VulkanState& vulkanState;
     const VkDescriptorSetLayout setLayout;
     std::array<vk::PerFrame<VkDescriptorSet>, Config::MaxSceneObservers> descriptorSets;
-    std::array<DescriptorPool::AllocationHandle, Config::MaxSceneObservers> descriptorHandles;
+    std::array<vk::DescriptorPool::AllocationHandle, Config::MaxSceneObservers> descriptorHandles;
     VkDescriptorSetLayoutBinding setBinding[1];
     VkDescriptorSetLayoutCreateInfo createInfo;
 

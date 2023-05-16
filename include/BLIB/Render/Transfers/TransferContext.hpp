@@ -8,7 +8,10 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 struct VulkanState;
+}
 
 namespace tfr
 {
@@ -57,14 +60,14 @@ public:
     /**
      * @brief Internal constructor, do not use
      */
-    TransferContext(VulkanState& vulkanState, std::vector<VkBuffer>& stagingBuffers,
+    TransferContext(vk::VulkanState& vulkanState, std::vector<VkBuffer>& stagingBuffers,
                     std::vector<VkDeviceMemory>& stagingMemory,
                     std::vector<VkMemoryBarrier>& memoryBarriers,
                     std::vector<VkBufferMemoryBarrier>& bufferBarriers,
                     std::vector<VkImageMemoryBarrier>& imageBarriers);
 
 private:
-    VulkanState& vulkanState;
+    vk::VulkanState& vulkanState;
     std::vector<VkBuffer>& stagingBuffers;
     std::vector<VkDeviceMemory>& stagingMemory;
     std::vector<VkMemoryBarrier>& memoryBarriers;

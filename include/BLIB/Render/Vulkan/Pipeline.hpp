@@ -16,6 +16,8 @@ namespace render
 class Renderer;
 class PipelineCache;
 
+namespace vk
+{
 /**
  * @brief Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are
  *        managed by the Renderer's PipelineCache and should not be created directly
@@ -83,6 +85,7 @@ inline constexpr bool Pipeline::preserveObjectOrder() const { return preserveOrd
 
 inline constexpr VkPipeline Pipeline::rawPipeline() const { return pipeline; }
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

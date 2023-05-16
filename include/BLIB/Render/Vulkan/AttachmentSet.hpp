@@ -8,6 +8,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 /**
  * @brief Base class representing an attachment set that can be rendered to. Derived classes can
  *        provide additional functionality
@@ -76,6 +78,7 @@ inline AttachmentSet::AttachmentSet(std::array<VkImage, N>& images,
 , viewsPointer(views.data())
 , n(N) {}
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

@@ -13,17 +13,17 @@ RenderPassCache::RenderPassCache(Renderer& r)
 
 void RenderPassCache::cleanup() { cache.clear(); }
 
-RenderPass& RenderPassCache::createRenderPass(std::uint32_t id,
-                                              RenderPassParameters&& sceneParams) {
+vk::RenderPass& RenderPassCache::createRenderPass(std::uint32_t id,
+                                                  vk::RenderPassParameters&& sceneParams) {
     const auto insertResult = cache.try_emplace(
-        id, renderer.vulkanState(), std::forward<RenderPassParameters>(sceneParams));
+        id, renderer.vulkanState(), std::forward<vk::RenderPassParameters>(sceneParams));
     if (!insertResult.second) {
         BL_LOG_WARN << "Duplicate creation of render pass with id: " << id;
     }
     return insertResult.first->second;
 }
 
-RenderPass& RenderPassCache::getRenderPass(std::uint32_t id) {
+vk::RenderPass& RenderPassCache::getRenderPass(std::uint32_t id) {
     auto it = cache.find(id);
     if (it == cache.end()) {
         BL_LOG_CRITICAL << "Failed to find render pass with id: " << id;
@@ -45,7 +45,7 @@ void RenderPassCache::addDefaults() {
     sceneColorAttachment.finalLayout    = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
     VkAttachmentDescription sceneDepthAttachment{};
-    sceneDepthAttachment.format  = StandardImageBuffer::findDepthFormat(renderer.vulkanState());
+    sceneDepthAttachment.format  = vk::StandardImageBuffer::findDepthFormat(renderer.vulkanState());
     sceneDepthAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
     sceneDepthAttachment.loadOp  = VK_ATTACHMENT_LOAD_OP_CLEAR;
     sceneDepthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
@@ -65,11 +65,11 @@ void RenderPassCache::addDefaults() {
     sceneDepthDependency.dstAccessMask =
         VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
 
-    RenderPassParameters sceneParams;
+    vk::RenderPassParameters sceneParams;
     sceneParams.addAttachment(sceneColorAttachment);
     sceneParams.addAttachment(sceneDepthAttachment);
     sceneParams.addSubpass(
-        RenderPassParameters::SubPass()
+        vk::RenderPassParameters::SubPass()
             .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
             .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
             .build());
@@ -95,9 +95,9 @@ void RenderPassCache::addDefaults() {
     primaryRenderWaitImage.dstStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
     primaryRenderWaitImage.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
 
-    RenderPassParameters primaryParams;
+    vk::RenderPassParameters primaryParams;
     primaryParams.addAttachment(swapColorAttachment);
-    primaryParams.addSubpass(RenderPassParameters::SubPass()
+    primaryParams.addSubpass(vk::RenderPassParameters::SubPass()
                                  .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
                                  .build());
     primaryParams.addSubpassDependency(primaryRenderWaitImage);

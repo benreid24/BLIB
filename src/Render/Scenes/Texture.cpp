@@ -16,7 +16,7 @@ Texture::Texture()
 , size(0, 0)
 , sizeF(0.f, 0.f) {}
 
-void Texture::createFromContentsAndQueue(VulkanState& vs) {
+void Texture::createFromContentsAndQueue(vk::VulkanState& vs) {
     vulkanState          = &vs;
     const sf::Image& src = altImg ? *altImg : *transferImg;
 
@@ -97,7 +97,7 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
     else { altImg = nullptr; }
 }
 
-void Texture::cleanup(VulkanState& vs) {
+void Texture::cleanup(vk::VulkanState& vs) {
     vkDestroyImageView(vs.device, view, nullptr);
     vkDestroyImage(vs.device, image, nullptr);
     vkFreeMemory(vs.device, memory, nullptr);

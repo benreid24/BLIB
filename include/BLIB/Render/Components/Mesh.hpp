@@ -28,7 +28,7 @@ struct Mesh : public DrawableBase {
      * @param vertexCount Number of vertices to create
      * @param indexCount Number of indices to create
      */
-    void create(VulkanState& vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount);
+    void create(vk::VulkanState& vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount);
 };
 
 } // namespace com

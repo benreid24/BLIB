@@ -6,6 +6,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 Framebuffer::Framebuffer()
 : vulkanState(nullptr)
 , renderPass(nullptr)
@@ -88,5 +90,6 @@ void Framebuffer::cleanup() {
     renderPass = nullptr;
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl

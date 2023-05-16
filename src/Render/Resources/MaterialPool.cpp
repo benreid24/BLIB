@@ -4,7 +4,7 @@ namespace bl
 {
 namespace render
 {
-MaterialPool::MaterialPool(VulkanState& vs)
+MaterialPool::MaterialPool(vk::VulkanState& vs)
 : vulkanState(vs)
 , materials(MaxMaterialCount)
 //, materialUniforms(MaxMaterialCount)

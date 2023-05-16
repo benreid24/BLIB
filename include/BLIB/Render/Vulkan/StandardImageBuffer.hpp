@@ -9,6 +9,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 /**
  * @brief Resource class that can create renderable target images that are compatible with most
  *        rendering flows. Contains a depth buffer and color attachment
@@ -84,6 +86,7 @@ inline constexpr const VkExtent2D& StandardImageBuffer::bufferSize() const {
     return attachments.extent;
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

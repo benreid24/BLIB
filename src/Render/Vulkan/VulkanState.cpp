@@ -17,6 +17,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 namespace
 {
 #ifdef BLIB_DEBUG
@@ -689,5 +691,6 @@ VkDeviceSize VulkanState::computeAlignedSize(VkDeviceSize len, VkDeviceSize alig
     return (len + align - 1) & ~(align - 1);
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl

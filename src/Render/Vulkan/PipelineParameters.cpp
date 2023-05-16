@@ -9,6 +9,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 PipelineParameters::PipelineParameters(std::uint32_t rpid)
 : renderPassId(rpid)
 , primitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
@@ -182,5 +184,6 @@ PipelineParameters& PipelineParameters::withPreserveObjectOrder(bool po) {
     return *this;
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl

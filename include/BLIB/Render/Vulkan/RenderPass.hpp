@@ -8,6 +8,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 /**
  * @brief Represents a render pass in the renderer. A scene is comprised of a sequence of render
  *        passes and each render pass is comprised of a set of Pipelines and their renderables
@@ -46,6 +48,7 @@ private:
 
 constexpr VkRenderPass RenderPass::rawPass() { return renderPass; }
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

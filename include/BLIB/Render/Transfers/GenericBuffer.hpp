@@ -10,7 +10,10 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 struct VulkanState;
+}
 
 namespace tfr
 {
@@ -46,7 +49,7 @@ public:
      * @param size The number of bytes in the buffer
      * @param usage How the buffer will be used
      */
-    void create(VulkanState& vulkanState, std::uint32_t size, VkBufferUsageFlags usage);
+    void create(vk::VulkanState& vulkanState, std::uint32_t size, VkBufferUsageFlags usage);
 
     /**
      * @brief Destroys the buffer and frees resources
@@ -111,7 +114,7 @@ GenericBuffer<Memory, DoubleBuffer>::~GenericBuffer() {
 }
 
 template<VkMemoryPropertyFlags Memory, bool DoubleBuffer>
-void GenericBuffer<Memory, DoubleBuffer>::create(VulkanState& vs, std::uint32_t bytes,
+void GenericBuffer<Memory, DoubleBuffer>::create(vk::VulkanState& vs, std::uint32_t bytes,
                                                  VkBufferUsageFlags usage) {
     if (vulkanState) { destroy(); }
     len         = bytes;

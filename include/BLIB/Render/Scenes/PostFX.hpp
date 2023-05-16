@@ -71,12 +71,12 @@ protected:
 private:
     Renderer& renderer;
     VkSampler sampler;
-    DescriptorPool::AllocationHandle descriptorSetAllocHandle;
+    vk::DescriptorPool::AllocationHandle descriptorSetAllocHandle;
     vk::PerFrame<VkDescriptorSet> descriptorSets;
     prim::IndexBuffer indexBuffer;
-    Pipeline* pipeline;
+    vk::Pipeline* pipeline;
 
-    void bindImages(vk::PerFrame<StandardImageBuffer>& sceneImages);
+    void bindImages(vk::PerFrame<vk::StandardImageBuffer>& sceneImages);
     void compositeScene(VkCommandBuffer commandBuffer);
 
     friend class Observer;

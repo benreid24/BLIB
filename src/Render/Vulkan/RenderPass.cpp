@@ -4,6 +4,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 RenderPass::RenderPass(VulkanState& vs, RenderPassParameters&& params)
 : vulkanState(vs) {
     std::vector<VkSubpassDescription> subpasses;
@@ -35,5 +37,6 @@ RenderPass::RenderPass(VulkanState& vs, RenderPassParameters&& params)
 
 RenderPass::~RenderPass() { vkDestroyRenderPass(vulkanState.device, renderPass, nullptr); }
 
+} // namespace vk
 } // namespace render
 } // namespace bl

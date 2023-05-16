@@ -13,6 +13,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 struct VulkanState;
 
 /**
@@ -131,8 +133,6 @@ inline const ColorAttachmentSet& Swapchain::swapFrameAtIndex(unsigned int i) con
 
 inline constexpr VkFormat Swapchain::swapImageFormat() const { return imageFormat; }
 
-namespace vk
-{
 template<typename T>
 PerSwapFrame<T>::PerSwapFrame()
 : chain(nullptr) {}

@@ -10,6 +10,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 struct VulkanState;
 
 /**
@@ -99,6 +101,7 @@ private:
     friend struct VulkanState;
 };
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

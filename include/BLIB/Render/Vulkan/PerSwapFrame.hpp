@@ -7,10 +7,10 @@ namespace bl
 {
 namespace render
 {
-class Swapchain;
-
 namespace vk
 {
+class Swapchain;
+
 /**
  * @brief Utility class to manage objects where one instance is needed per image in the swap chain.
  *        Provides init and cleanup helpers as well as an accessor for the current object based on

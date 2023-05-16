@@ -7,6 +7,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 struct VulkanState;
 
 /**
@@ -68,6 +70,7 @@ inline constexpr VkSampler CommonSamplers::filteredEdgeClamped() const { return 
 
 inline constexpr VkSampler CommonSamplers::filteredRepeated() const { return filteredTiled; }
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

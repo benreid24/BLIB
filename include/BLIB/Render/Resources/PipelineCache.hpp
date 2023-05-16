@@ -25,7 +25,7 @@ public:
      * @param params The parameters to create the pipeline with
      * @return Pipeline& The newly created pipeline
      */
-    Pipeline& createPipline(std::uint32_t pipelineId, PipelineParameters&& params);
+    vk::Pipeline& createPipline(std::uint32_t pipelineId, vk::PipelineParameters&& params);
 
     /**
      * @brief Returns the pipeline with the given id. Throws an exception if not found. Pipelines
@@ -34,11 +34,11 @@ public:
      * @param pipelineId The id of the pipeline to fetch
      * @return Pipeline& The pipeline with the given id
      */
-    Pipeline& getPipeline(std::uint32_t pipelineId);
+    vk::Pipeline& getPipeline(std::uint32_t pipelineId);
 
 private:
     Renderer& renderer;
-    std::unordered_map<std::uint32_t, Pipeline> cache;
+    std::unordered_map<std::uint32_t, vk::Pipeline> cache;
 
     PipelineCache(Renderer& renderer);
     void cleanup();

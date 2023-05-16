@@ -29,7 +29,7 @@ public:
 
 private:
     struct Bucket {
-        VulkanState& vulkanState;
+        vk::VulkanState& vulkanState;
         vk::PerFrame<VkCommandBuffer> commandBuffer;
         vk::PerFrame<VkFence> fence;
         vk::PerFrame<std::vector<VkBuffer>> stagingBuffers;
@@ -40,7 +40,7 @@ private:
         std::vector<Transferable*> oneTimeItems;
         std::vector<Transferable*> everyFrameItems;
 
-        Bucket(VulkanState& vs);
+        Bucket(vk::VulkanState& vs);
         void init();
         void cleanup();
         constexpr bool hasTransfers() const;
@@ -48,12 +48,12 @@ private:
         void resetResourcesWithSync();
     };
 
-    VulkanState& vulkanState;
+    vk::VulkanState& vulkanState;
     std::mutex mutex;
     Bucket immediateBucket;
     Bucket frameBucket;
 
-    TransferEngine(VulkanState& vulkanState);
+    TransferEngine(vk::VulkanState& vulkanState);
     void init();
     void cleanup();
 
@@ -63,7 +63,7 @@ private:
     void unregisterPerFrameTransfer(Transferable* item, Transferable::SyncRequirement syncReq);
 
     friend class Renderer;
-    friend struct VulkanState;
+    friend struct vk::VulkanState;
     friend class Transferable;
 };
 

@@ -19,14 +19,14 @@ PipelineCache::PipelineCache(Renderer& r)
 
 void PipelineCache::cleanup() { cache.clear(); }
 
-Pipeline& PipelineCache::createPipline(std::uint32_t id, PipelineParameters&& params) {
+vk::Pipeline& PipelineCache::createPipline(std::uint32_t id, vk::PipelineParameters&& params) {
     const auto insertResult =
-        cache.try_emplace(id, renderer, std::forward<PipelineParameters>(params));
+        cache.try_emplace(id, renderer, std::forward<vk::PipelineParameters>(params));
     if (!insertResult.second) { BL_LOG_WARN << "Pipeline with id " << id << " already exists"; }
     return insertResult.first->second;
 }
 
-Pipeline& PipelineCache::getPipeline(std::uint32_t id) {
+vk::Pipeline& PipelineCache::getPipeline(std::uint32_t id) {
     auto it = cache.find(id);
     if (it == cache.end()) {
         BL_LOG_CRITICAL << "Failed to find pipeline with id: " << id;
@@ -64,7 +64,7 @@ void PipelineCache::createBuiltins() {
     rasterizer.depthBiasSlopeFactor    = 0.0f; // Optional
 
     createPipline(Config::PipelineIds::OpaqueMeshes,
-                  PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
+                  vk::PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
                       .withShaders(Config::ShaderIds::OpaqueVertexShader,
                                    Config::ShaderIds::OpaqueFragmentShader)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
@@ -75,7 +75,7 @@ void PipelineCache::createBuiltins() {
                       .build());
 
     createPipline(Config::PipelineIds::OpaqueSkinnedMeshes,
-                  PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
+                  vk::PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
                       .withShaders(Config::ShaderIds::SkinnedVertexShader,
                                    Config::ShaderIds::SkinnedFragmentShader)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
@@ -88,7 +88,7 @@ void PipelineCache::createBuiltins() {
 
     createPipline(
         Config::PipelineIds::PostFXBase,
-        PipelineParameters(Config::RenderPassIds::SwapchainPrimaryRender)
+        vk::PipelineParameters(Config::RenderPassIds::SwapchainPrimaryRender)
             .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::DefaultPostFXFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)

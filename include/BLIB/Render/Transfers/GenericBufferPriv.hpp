@@ -16,17 +16,17 @@ namespace priv
 {
 template<bool DoubleBuffer, bool StagingRequired>
 struct GenericBufferStorage {
-    void create(VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
+    void create(vk::VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
                 VkBufferUsageFlags usage);
     void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext& ctx, const void* data,
                  std::uint32_t offset, std::uint32_t len);
-    void destroy(VulkanState& vulkanState);
+    void destroy(vk::VulkanState& vulkanState);
     constexpr VkBuffer current() const;
 };
 
 template<>
 struct GenericBufferStorage<true, true> {
-    void create(VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
+    void create(vk::VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
                 VkBufferUsageFlags usage) {
         vulkanState.createDoubleBuffer(
             size, usage | VK_BUFFER_USAGE_TRANSFER_DST_BIT, memProps, buffers, gpuMemory);
@@ -60,7 +60,7 @@ struct GenericBufferStorage<true, true> {
         vkCmdCopyBuffer(commandBuffer, stagingBuffers.current(), buffers.current(), 1, &copyRegion);
     }
 
-    void destroy(VulkanState& vulkanState) {
+    void destroy(vk::VulkanState& vulkanState) {
         vkUnmapMemory(vulkanState.device, stagingMemory);
         buffers.cleanup([&vulkanState, this](VkBuffer& buffer) {
             vkDestroyBuffer(vulkanState.device, buffer, nullptr);
@@ -83,7 +83,7 @@ struct GenericBufferStorage<true, true> {
 
 template<>
 struct GenericBufferStorage<true, false> {
-    void create(VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
+    void create(vk::VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
                 VkBufferUsageFlags usage) {
         const VkDeviceSize offset =
             vulkanState.createDoubleBuffer(size, usage, memProps, buffers, memory);
@@ -102,7 +102,7 @@ struct GenericBufferStorage<true, false> {
         std::memcpy(static_cast<char*>(mappedBuffers.current()) + offset, data, len);
     }
 
-    void destroy(VulkanState& vulkanState) {
+    void destroy(vk::VulkanState& vulkanState) {
         vkUnmapMemory(vulkanState.device, memory);
         buffers.cleanup([&vulkanState, this](VkBuffer& buffer) {
             vkDestroyBuffer(vulkanState.device, buffer, nullptr);
@@ -119,7 +119,7 @@ struct GenericBufferStorage<true, false> {
 
 template<>
 struct GenericBufferStorage<false, true> {
-    void create(VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
+    void create(vk::VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
                 VkBufferUsageFlags usage) {
         vulkanState.createBuffer(
             size, usage | VK_BUFFER_USAGE_TRANSFER_DST_BIT, memProps, buffer, gpuMemory);
@@ -143,7 +143,7 @@ struct GenericBufferStorage<false, true> {
         vkCmdCopyBuffer(commandBuffer, stagingBuffer, buffer, 1, &copyCmd);
     }
 
-    void destroy(VulkanState& vulkanState) {
+    void destroy(vk::VulkanState& vulkanState) {
         vkDestroyBuffer(vulkanState.device, buffer, nullptr);
         vkFreeMemory(vulkanState.device, gpuMemory, nullptr);
     }
@@ -156,7 +156,7 @@ struct GenericBufferStorage<false, true> {
 
 template<>
 struct GenericBufferStorage<false, false> {
-    void create(VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
+    void create(vk::VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
                 VkBufferUsageFlags usage) {
         vulkanState.createBuffer(size, usage, memProps, buffer, memory);
         vkCheck(vkMapMemory(vulkanState.device, memory, 0, size, 0, &mappedBuffer));
@@ -167,7 +167,7 @@ struct GenericBufferStorage<false, false> {
         std::memcpy(static_cast<char*>(mappedBuffer) + offset, data, len);
     }
 
-    void destroy(VulkanState& vulkanState) {
+    void destroy(vk::VulkanState& vulkanState) {
         vkDestroyBuffer(vulkanState.device, buffer, nullptr);
         vkFreeMemory(vulkanState.device, memory, nullptr);
     }

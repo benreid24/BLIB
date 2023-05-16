@@ -64,7 +64,7 @@ public:
      * @param copy The Ref to copy and invalidate
      * @return Ref& A reference to this object
      */
-    Ref& operator=(Ref&& copy);
+    Ref& operator=(Ref&& copy) noexcept;
 
     /**
      * @brief Dereference the ref into the underlying resource
@@ -177,7 +177,7 @@ Ref<T>& Ref<T>::operator=(const Ref& copy) {
 }
 
 template<typename T>
-Ref<T>& Ref<T>::operator=(Ref&& copy) {
+Ref<T>& Ref<T>::operator=(Ref&& copy) noexcept {
     release();
     resource      = copy.resource;
     copy.resource = nullptr;

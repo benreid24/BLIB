@@ -1,9 +1,9 @@
 #ifndef BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 #define BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 
-#include <BLIB/Render/Scenes/Texture.hpp>
 #include <BLIB/Render/Resources/BindlessTextureArray.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
+#include <BLIB/Render/Scenes/Texture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <SFML/Graphics/Image.hpp>
@@ -79,7 +79,7 @@ public:
 
 private:
     std::mutex mutex;
-    VulkanState& vulkanState;
+    vk::VulkanState& vulkanState;
     BindlessTextureArray textures;
     std::vector<std::atomic<std::uint32_t>> refCounts;
     util::IdAllocator<std::uint32_t> freeSlots;
@@ -91,7 +91,7 @@ private:
     VkDescriptorSetLayout descriptorSetLayout;
     VkDescriptorSet descriptorSet;
 
-    TexturePool(VulkanState& vulkanState);
+    TexturePool(vk::VulkanState& vulkanState);
     void init();
     void cleanup();
 

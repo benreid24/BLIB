@@ -24,8 +24,8 @@ Observer::~Observer() {
 void Observer::cleanup() {
     if (!resourcesFreed) {
         while (!postFX.empty()) { postFX.pop(); }
-        sceneFramebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
-        renderFrames.cleanup([](StandardImageBuffer& frame) { frame.destroy(); });
+        sceneFramebuffers.cleanup([](vk::Framebuffer& fb) { fb.cleanup(); });
+        renderFrames.cleanup([](vk::StandardImageBuffer& frame) { frame.destroy(); });
         resourcesFreed = true;
     }
 }
@@ -240,7 +240,7 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
          scissor.extent.height != renderFrames.current().bufferSize().height)) {
         vkCheck(vkDeviceWaitIdle(renderer.vulkanState().device));
 
-        renderFrames.init(renderer.vulkanState(), [this](StandardImageBuffer& frame) {
+        renderFrames.init(renderer.vulkanState(), [this](vk::StandardImageBuffer& frame) {
             frame.create(renderer.vulkanState(), scissor.extent);
         });
 
@@ -249,7 +249,7 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
                                      .getRenderPass(Config::RenderPassIds::OffScreenSceneRender)
                                      .rawPass();
         unsigned int i = 0;
-        sceneFramebuffers.init(renderer.vulkanState(), [this, &i, scenePass](Framebuffer& fb) {
+        sceneFramebuffers.init(renderer.vulkanState(), [this, &i, scenePass](vk::Framebuffer& fb) {
             fb.create(renderer.vulkanState(), scenePass, renderFrames.getRaw(i).attachmentSet());
             ++i;
         });

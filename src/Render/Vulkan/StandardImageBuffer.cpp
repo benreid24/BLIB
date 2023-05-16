@@ -4,6 +4,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 StandardImageBuffer::StandardImageBuffer()
 : owner(nullptr) {}
 
@@ -136,5 +138,6 @@ VkFormat StandardImageBuffer::findDepthFormat(VulkanState& vs) {
         VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl

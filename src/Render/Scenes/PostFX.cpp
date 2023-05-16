@@ -38,7 +38,7 @@ std::array<VkDescriptorSetLayoutBinding, 1> PostFX::DescriptorLayoutBindings() {
 
 PostFX::PostFX(Renderer& renderer)
 : renderer(renderer) {
-    VulkanState& vs = renderer.vulkanState();
+    vk::VulkanState& vs = renderer.vulkanState();
 
     // create sampler
     VkSamplerCreateInfo samplerInfo{};
@@ -88,7 +88,7 @@ PostFX::PostFX(Renderer& renderer)
     usePipeline(Config::PipelineIds::PostFXBase);
 }
 
-void PostFX::bindImages(vk::PerFrame<StandardImageBuffer>& images) {
+void PostFX::bindImages(vk::PerFrame<vk::StandardImageBuffer>& images) {
     std::array<VkDescriptorImageInfo, Config::MaxConcurrentFrames> imageInfos{};
     for (unsigned int i = 0; i < images.size(); ++i) {
         imageInfos[i].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
@@ -115,7 +115,7 @@ void PostFX::bindImages(vk::PerFrame<StandardImageBuffer>& images) {
 }
 
 PostFX::~PostFX() {
-    VulkanState& vs = renderer.vulkanState();
+    vk::VulkanState& vs = renderer.vulkanState();
 
     const VkDescriptorSetLayoutCreateInfo createInfo = makeCreateInfo();
     std::array<const VkDescriptorSetLayoutCreateInfo*, Config::MaxConcurrentFrames>

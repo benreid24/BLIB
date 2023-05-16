@@ -9,7 +9,7 @@ namespace render
 {
 namespace tfr
 {
-TransferEngine::Bucket::Bucket(VulkanState& vs)
+TransferEngine::Bucket::Bucket(vk::VulkanState& vs)
 : vulkanState(vs) {
     oneTimeItems.reserve(32);
     everyFrameItems.reserve(32);
@@ -45,7 +45,7 @@ void TransferEngine::Bucket::cleanup() {
                          commandBuffer.rawData());
 }
 
-TransferEngine::TransferEngine(VulkanState& vs)
+TransferEngine::TransferEngine(vk::VulkanState& vs)
 : vulkanState(vs)
 , immediateBucket(vs)
 , frameBucket(vs) {}

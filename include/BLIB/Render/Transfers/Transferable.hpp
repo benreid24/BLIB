@@ -8,7 +8,10 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 struct VulkanState;
+}
 
 /// Module wrapping the TransferEngine and related mechanisms for moving data to the GPU
 namespace tfr
@@ -55,7 +58,7 @@ public:
     void stopTransferringEveryFrame();
 
 protected:
-    VulkanState* vulkanState;
+    vk::VulkanState* vulkanState;
 
     /**
      * @brief Sets vulkanState to nullptr
@@ -67,7 +70,7 @@ protected:
      *
      * @param vs Renderer VulkanState
      */
-    Transferable(VulkanState& vs);
+    Transferable(vk::VulkanState& vs);
 
     /**
      * @brief Derived classes should perform their transfers here. Barriers should be registered

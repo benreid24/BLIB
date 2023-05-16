@@ -32,7 +32,7 @@ public:
      * @param vertexCount The number of vertices
      * @param indexCount The number of indices
      */
-    void create(VulkanState& vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount);
+    void create(vk::VulkanState& vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount);
 
     /**
      * @brief Frees both the vertex buffer and index buffer
@@ -89,7 +89,7 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-void IndexBufferT<T>::create(VulkanState& vulkanState, std::uint32_t vc, std::uint32_t ic) {
+void IndexBufferT<T>::create(vk::VulkanState& vulkanState, std::uint32_t vc, std::uint32_t ic) {
     nVertices = vc;
     nIndices  = ic;
     vertexBuffer.create(vulkanState, vc * sizeof(T), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);

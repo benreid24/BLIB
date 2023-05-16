@@ -28,7 +28,7 @@ public:
      * @param arraySize The size of the array descriptor item
      * @param bindIndex The bind index for shaders in the descriptor set
      */
-    BindlessTextureArray(VulkanState& vulkanState, std::uint32_t arraySize,
+    BindlessTextureArray(vk::VulkanState& vulkanState, std::uint32_t arraySize,
                          std::uint32_t bindIndex);
 
     /**
@@ -84,13 +84,12 @@ public:
      *        textures. This method sends over updated texture contents from prepareTextureUpdate()
      *
      * @tparam N The number of arrays to update the given index across
-     * @param vulkanState The renderer Vulkan state
      * @param descriptorSet The descriptor set to update
      * @param arrays A set of texture arrays to use to update
      * @param i The id of the texture across the arrays to update
      */
     template<std::size_t N>
-    static void commitTexture(VulkanState& vulkanState, VkDescriptorSet descriptorSet,
+    static void commitTexture(VkDescriptorSet descriptorSet,
                               const std::array<BindlessTextureArray*, N>& arrays, std::uint32_t i);
 
     /**
@@ -99,18 +98,17 @@ public:
      *        textures. This method resets the texture to the error image for each array
      *
      * @tparam N The number of arrays to update the given index across
-     * @param vulkanState The renderer Vulkan state
      * @param descriptorSet The descriptor set to update
      * @param arrays A set of texture arrays to use to update
      * @param i The id of the texture across the arrays to reset
      */
     template<std::size_t N>
-    static void resetTexture(VulkanState& vulkanState, VkDescriptorSet descriptorSet,
+    static void resetTexture(VkDescriptorSet descriptorSet,
                              const std::array<BindlessTextureArray*, N>& arrays, std::uint32_t i);
 
 private:
     const std::uint32_t bindIndex;
-    VulkanState& vulkanState;
+    vk::VulkanState& vulkanState;
     sf::Image errorPattern;
     Texture errorTexture;
     std::vector<Texture> textures;
@@ -125,9 +123,11 @@ inline constexpr sf::Image& BindlessTextureArray::getErrorPattern() { return err
 inline Texture& BindlessTextureArray::getTexture(std::uint32_t i) { return textures[i]; }
 
 template<std::size_t N>
-void BindlessTextureArray::commitTexture(VulkanState& vulkanState, VkDescriptorSet descriptorSet,
+void BindlessTextureArray::commitTexture(VkDescriptorSet descriptorSet,
                                          const std::array<BindlessTextureArray*, N>& arrays,
                                          std::uint32_t i) {
+    vk::VulkanState& vulkanState = arrays[0]->vulkanState;
+
     for (BindlessTextureArray* array : arrays) {
         array->textures[i].createFromContentsAndQueue(vulkanState);
     }
@@ -153,14 +153,15 @@ void BindlessTextureArray::commitTexture(VulkanState& vulkanState, VkDescriptorS
 }
 
 template<std::size_t N>
-void BindlessTextureArray::resetTexture(VulkanState& vulkanState, VkDescriptorSet descriptorSet,
+void BindlessTextureArray::resetTexture(VkDescriptorSet descriptorSet,
                                         const std::array<BindlessTextureArray*, N>& arrays,
                                         std::uint32_t i) {
+    vk::VulkanState& vulkanState = arrays[0]->vulkanState;
     for (BindlessTextureArray* array : arrays) {
         array->textures[i].cleanup(vulkanState);
         array->textures[i] = array->errorTexture;
     }
-    commitTexture(vulkanState, descriptorSet, arrays, i);
+    commitTexture(descriptorSet, arrays, i);
 }
 
 } // namespace render

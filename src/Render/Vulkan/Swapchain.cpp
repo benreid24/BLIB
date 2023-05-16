@@ -10,6 +10,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 void Swapchain::Frame::init(VulkanState& vulkanState) {
     VkSemaphoreCreateInfo semaphoreInfo{};
     semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -251,5 +253,6 @@ void Swapchain::createImageViews() {
     }
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl

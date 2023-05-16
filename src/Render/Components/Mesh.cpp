@@ -6,7 +6,8 @@ namespace render
 {
 namespace com
 {
-void Mesh::create(VulkanState& vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount) {
+void Mesh::create(vk::VulkanState& vulkanState, std::uint32_t vertexCount,
+                  std::uint32_t indexCount) {
     vertices.resize(vertexCount);
     indices.resize(indexCount);
     gpuBuffer.create(vulkanState, vertexCount, indexCount);

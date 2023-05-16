@@ -8,6 +8,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 class Swapchain;
 class StandardImageBuffer;
 
@@ -76,6 +78,7 @@ inline constexpr VkImageView StandardAttachmentSet::depthImageView() const {
     return imageViewHandles[DepthIndex];
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

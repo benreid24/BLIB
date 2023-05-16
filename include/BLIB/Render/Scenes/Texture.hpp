@@ -11,7 +11,10 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 struct VulkanState;
+}
 class TexturePool;
 
 /**
@@ -45,10 +48,10 @@ private:
     const sf::Image* altImg;
     resource::Ref<sf::Image> transferImg;
 
-    void createFromContentsAndQueue(VulkanState& vs);
+    void createFromContentsAndQueue(vk::VulkanState& vs);
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& transferEngine) override;
-    void cleanup(VulkanState& vs);
+    void cleanup(vk::VulkanState& vs);
 
     friend class TexturePool;
     friend class BindlessTextureArray;

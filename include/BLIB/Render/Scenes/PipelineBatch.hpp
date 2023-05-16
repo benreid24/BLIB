@@ -64,7 +64,7 @@ public:
     void removeObject(SceneObject* object, ecs::Entity entity);
 
 private:
-    Pipeline& pipeline;
+    vk::Pipeline& pipeline;
     std::vector<ds::DescriptorSetInstance*> descriptors;
     std::vector<SceneObject*> objects;
 };

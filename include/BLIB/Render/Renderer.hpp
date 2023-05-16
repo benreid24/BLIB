@@ -121,7 +121,7 @@ public:
      *
      * @return constexpr VulkanState& The Vulkan instance state
      */
-    constexpr VulkanState& vulkanState();
+    constexpr vk::VulkanState& vulkanState();
 
     /**
      * @brief Returns the texture pool of this renderer
@@ -176,8 +176,8 @@ private:
     engine::Engine& engine;
     sf::WindowBase& window;
     sf::Rect<std::uint32_t> renderRegion;
-    VulkanState state;
-    vk::PerSwapFrame<Framebuffer> framebuffers;
+    vk::VulkanState state;
+    vk::PerSwapFrame<vk::Framebuffer> framebuffers;
     TexturePool textures;
     MaterialPool materials;
     ds::DescriptorSetFactoryCache descriptorSetFactoryCache;
@@ -210,7 +210,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr VulkanState& Renderer::vulkanState() { return state; }
+inline constexpr vk::VulkanState& Renderer::vulkanState() { return state; }
 
 inline constexpr TexturePool& Renderer::texturePool() { return textures; }
 

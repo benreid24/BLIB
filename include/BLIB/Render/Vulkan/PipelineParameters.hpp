@@ -16,6 +16,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 class Pipeline;
 
 /**
@@ -246,6 +248,7 @@ PipelineParameters& PipelineParameters::addDescriptorSet(TArgs&&... args) {
     return *this;
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

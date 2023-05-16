@@ -7,6 +7,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 namespace
 {
 constexpr std::array<unsigned int, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT + 1> PoolSizes = {
@@ -185,5 +187,6 @@ bool DescriptorPool::Subpool::inUse() const {
     return false;
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl

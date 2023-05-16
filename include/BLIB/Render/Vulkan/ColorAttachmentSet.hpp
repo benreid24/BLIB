@@ -8,6 +8,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 class Swapchain;
 class StandardImageBuffer;
 
@@ -53,6 +55,7 @@ inline constexpr VkImageView ColorAttachmentSet::colorImageView() const {
     return imageViewHandles[0];
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

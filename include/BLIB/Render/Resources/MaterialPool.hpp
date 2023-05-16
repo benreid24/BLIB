@@ -18,7 +18,7 @@ class MaterialPool {
 public:
     static constexpr std::uint32_t MaxMaterialCount = 4096;
 
-    MaterialPool(VulkanState& vulkanState);
+    MaterialPool(vk::VulkanState& vulkanState);
 
     ~MaterialPool();
 
@@ -41,7 +41,7 @@ public:
     // TODO - lifetime management
 
 private:
-    VulkanState& vulkanState;
+    vk::VulkanState& vulkanState;
     std::vector<Material> materials;
     // std::vector<MaterialUniform> materialUniforms;
     util::IdAllocator<std::size_t> freeSlots;

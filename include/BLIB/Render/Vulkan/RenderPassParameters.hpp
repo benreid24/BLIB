@@ -10,6 +10,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 class RenderPass;
 
 /**
@@ -95,7 +97,7 @@ public:
     RenderPassParameters& addAttachment(VkAttachmentDescription attachment);
 
     /**
-     * @brief Performs validation and returna a usable rvalue reference to this object
+     * @brief Performs validation and returns a usable rvalue reference to this object
      *
      * @return RenderPassParameters&& An rvalue reference to this object
      */
@@ -109,6 +111,7 @@ private:
     friend class RenderPass;
 };
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

@@ -91,8 +91,9 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
             // texture buffer configureWrite
             VkDescriptorBufferInfo textureBufferWrite{};
             textureBufferWrite.buffer = textureBuffer.gpuBufferHandles().getRaw(j);
-            textureBufferWrite.offset = i * textureBuffer.alignedUniformSize();
-            textureBufferWrite.range  = textureBuffer.alignedUniformSize();
+            textureBufferWrite.offset =
+                static_cast<VkDeviceSize>(i) * textureBuffer.alignedUniformSize();
+            textureBufferWrite.range = textureBuffer.alignedUniformSize();
 
             VkWriteDescriptorSet& textureWrite = setWrites[1];
             textureWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;

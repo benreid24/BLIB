@@ -7,6 +7,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 CommonSamplers::CommonSamplers(VulkanState& vs)
 : vulkanState(vs) {}
 
@@ -77,5 +79,6 @@ void CommonSamplers::cleanup() {
     vkDestroySampler(vulkanState.device, filteredTiled, nullptr);
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl

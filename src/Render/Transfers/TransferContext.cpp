@@ -8,7 +8,7 @@ namespace render
 {
 namespace tfr
 {
-TransferContext::TransferContext(VulkanState& vs, std::vector<VkBuffer>& stagingBuffers,
+TransferContext::TransferContext(vk::VulkanState& vs, std::vector<VkBuffer>& stagingBuffers,
                                  std::vector<VkDeviceMemory>& stagingMemory,
                                  std::vector<VkMemoryBarrier>& memoryBarriers,
                                  std::vector<VkBufferMemoryBarrier>& bufferBarriers,

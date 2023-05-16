@@ -21,6 +21,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 /**
  * @brief Primary owner and manager of the Vulkan renderer's state
  *
@@ -239,9 +241,6 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline constexpr std::uint32_t VulkanState::currentFrameIndex() const { return currentFrame; }
-
-namespace vk
-{
 
 template<typename T>
 PerFrame<T>::PerFrame()

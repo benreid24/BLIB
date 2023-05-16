@@ -9,6 +9,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 struct VulkanState;
 class Swapchain;
 
@@ -38,14 +40,14 @@ public:
      * @param renderPass The render pass that will be used with the frame buffer
      * @param target The frame to render to
      */
-    void create(VulkanState& vulkanState, VkRenderPass renderPass, const AttachmentSet& target);
+    void create(VulkanState& vulkanState, VkRenderPass renderPass, const vk::AttachmentSet& target);
 
     /**
      * @brief Recreates the framebuffer if the underlying target has changed
      *
      * @param target The (potentially different) underlying target
      */
-    void recreateIfChanged(const AttachmentSet& target);
+    void recreateIfChanged(const vk::AttachmentSet& target);
 
     /**
      * @brief Frees owned resources and invalidates this object
@@ -76,11 +78,12 @@ public:
 private:
     VulkanState* vulkanState;
     VkRenderPass renderPass;
-    const AttachmentSet* target;
+    const vk::AttachmentSet* target;
     VkFramebuffer framebuffer;
     VkImageView cachedAttachment;
 };
 
+} // namespace vk
 } // namespace render
 } // namespace bl
 

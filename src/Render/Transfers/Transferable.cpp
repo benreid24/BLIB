@@ -11,7 +11,7 @@ Transferable::Transferable()
 : vulkanState(nullptr)
 , perFrame(NotPerFrame) {}
 
-Transferable::Transferable(VulkanState& vs)
+Transferable::Transferable(vk::VulkanState& vs)
 : vulkanState(&vs)
 , perFrame(NotPerFrame) {}
 

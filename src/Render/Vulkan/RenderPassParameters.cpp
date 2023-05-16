@@ -7,6 +7,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 RenderPassParameters::RenderPassParameters() {
     attachments.reserve(4);
     subpasses.reserve(4);
@@ -63,5 +65,6 @@ RenderPassParameters::SubPass&& RenderPassParameters::SubPass::build() {
     return std::move(*this);
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl

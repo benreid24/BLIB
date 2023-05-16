@@ -9,7 +9,7 @@ namespace render
 {
 namespace ds
 {
-CommonSceneDescriptorSetInstance::CommonSceneDescriptorSetInstance(VulkanState& vulkanState,
+CommonSceneDescriptorSetInstance::CommonSceneDescriptorSetInstance(vk::VulkanState& vulkanState,
                                                                    VkDescriptorSetLayout layout)
 : vulkanState(vulkanState)
 , setLayout(layout)

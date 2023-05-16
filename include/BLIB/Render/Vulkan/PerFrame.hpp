@@ -9,10 +9,10 @@ namespace bl
 {
 namespace render
 {
-struct VulkanState;
-
 namespace vk
 {
+struct VulkanState;
+
 /**
  * @brief Utility struct to easily double-buffer objects and data on a per-frame basis. One object
  *        of type T will exists per concurrent frame and the current will be accessible

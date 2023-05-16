@@ -6,6 +6,8 @@ namespace bl
 {
 namespace render
 {
+namespace vk
+{
 Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
 : renderer(renderer)
 , descriptorSets(params.descriptorSets.size())
@@ -114,5 +116,6 @@ void Pipeline::createDescriptorSets(ds::DescriptorSetInstanceCache& cache,
     }
 }
 
+} // namespace vk
 } // namespace render
 } // namespace bl

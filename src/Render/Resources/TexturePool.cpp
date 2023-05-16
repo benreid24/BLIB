@@ -4,7 +4,7 @@ namespace bl
 {
 namespace render
 {
-TexturePool::TexturePool(VulkanState& vs)
+TexturePool::TexturePool(vk::VulkanState& vs)
 : vulkanState(vs)
 , textures(vs, MaxTextureCount, TextureArrayBindIndex)
 , refCounts(MaxTextureCount)
@@ -89,7 +89,7 @@ void TexturePool::releaseUnusedLocked() {
             fileMap.erase(*reverseFileMap[i]);
             reverseFileMap[i] = nullptr;
         }
-        BindlessTextureArray::resetTexture(vulkanState, descriptorSet, arrays, i);
+        BindlessTextureArray::resetTexture(descriptorSet, arrays, i);
     }
     toRelease.clear();
 }
@@ -127,7 +127,7 @@ TextureRef TexturePool::allocateTexture() {
 void TexturePool::finalizeNewTexture(std::uint32_t i, VkSampler sampler) {
     std::array<BindlessTextureArray*, 1> arrays = {&textures};
     textures.getTexture(i).sampler              = sampler;
-    BindlessTextureArray::commitTexture(vulkanState, descriptorSet, arrays, i);
+    BindlessTextureArray::commitTexture(descriptorSet, arrays, i);
 }
 
 TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {

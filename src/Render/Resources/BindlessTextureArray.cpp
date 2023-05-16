@@ -4,7 +4,8 @@ namespace bl
 {
 namespace render
 {
-BindlessTextureArray::BindlessTextureArray(VulkanState& vs, std::uint32_t size, std::uint32_t bind)
+BindlessTextureArray::BindlessTextureArray(vk::VulkanState& vs, std::uint32_t size,
+                                           std::uint32_t bind)
 : bindIndex(bind)
 , vulkanState(vs)
 , textures(size) {}

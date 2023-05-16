@@ -45,7 +45,7 @@ public:
 
 private:
     ecs::Registry& registry;
-    VulkanState& vulkanState;
+    vk::VulkanState& vulkanState;
     VkDescriptorPool descriptorPool;
     const VkDescriptorSetLayout descriptorSetLayout;
     std::vector<vk::PerFrame<VkDescriptorSet>> descriptorSets;
