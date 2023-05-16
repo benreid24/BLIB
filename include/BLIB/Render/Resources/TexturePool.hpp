@@ -3,7 +3,7 @@
 
 #include <BLIB/Render/Resources/BindlessTextureArray.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
-#include <BLIB/Render/Scenes/Texture.hpp>
+#include <BLIB/Render/Resources/Texture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <SFML/Graphics/Image.hpp>

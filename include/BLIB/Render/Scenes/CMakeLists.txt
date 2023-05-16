@@ -1,6 +1,5 @@
 target_sources(BLIB PUBLIC
     DrawParameters.hpp
-    Material.hpp
     PipelineBatch.hpp
     PostFX.hpp
     Scene.hpp
@@ -8,5 +7,4 @@ target_sources(BLIB PUBLIC
     SceneRenderContext.hpp
     StageBatch.hpp
     StagePipelines.hpp
-    Texture.hpp
 )

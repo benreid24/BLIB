@@ -1,4 +1,4 @@
-#include <BLIB/Render/Scenes/Texture.hpp>
+#include <BLIB/Render/Resources/Texture.hpp>
 
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 
@@ -26,7 +26,7 @@ void Texture::createFromContentsAndQueue(vk::VulkanState& vs) {
     sizeF.y = static_cast<float>(size.y);
 
     // TODO - avoid single allocations per texture
-    memorySize   = src.getSize().x * src.getSize().y * sizeof(sf::Color);
+    memorySize   = static_cast<VkDeviceSize>(src.getSize().x) * src.getSize().y * sizeof(sf::Color);
     memoryOffset = 0;
     vs.createImage(src.getSize().x,
                    src.getSize().y,

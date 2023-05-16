@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_MATERIALCACHE_HPP
 #define BLIB_RENDER_MATERIALCACHE_HPP
 
-#include <BLIB/Render/Scenes/Material.hpp>
+#include <BLIB/Render/Resources/Material.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <array>

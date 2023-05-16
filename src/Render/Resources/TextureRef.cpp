@@ -1,6 +1,6 @@
 #include <BLIB/Render/Resources/TextureRef.hpp>
 
-#include <BLIB/Render/Scenes/Texture.hpp>
+#include <BLIB/Render/Resources/Texture.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
 
 namespace bl

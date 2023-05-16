@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_RESOURCES_BINDLESSTEXTUREARRAY_HPP
 #define BLIB_RENDER_RESOURCES_BINDLESSTEXTUREARRAY_HPP
 
+#include <BLIB/Render/Resources/Texture.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
-#include <BLIB/Render/Scenes/Texture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <array>
