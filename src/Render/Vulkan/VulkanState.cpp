@@ -456,31 +456,21 @@ VkFormat VulkanState::findSupportedFormat(const std::initializer_list<VkFormat>&
 }
 
 void VulkanState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
-                               VkMemoryPropertyFlags properties, VkBuffer& buffer,
-                               VkDeviceMemory& bufferMemory) {
+                               VmaAllocationCreateFlags allocFlags,
+                               VkMemoryPropertyFlags properties, VkBuffer* buffer,
+                               VmaAllocation* vmaAlloc, VmaAllocationInfo* vmaAllocInfo) {
     VkBufferCreateInfo bufferInfo{};
     bufferInfo.sType       = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     bufferInfo.size        = size;
     bufferInfo.usage       = usage;
     bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
-    if (vkCreateBuffer(device, &bufferInfo, nullptr, &buffer) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create buffer!");
-    }
+    VmaAllocationCreateInfo allocInfo{};
+    allocInfo.requiredFlags = properties;
+    allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;
+    allocInfo.flags         = allocFlags;
 
-    VkMemoryRequirements memRequirements;
-    vkGetBufferMemoryRequirements(device, buffer, &memRequirements);
-
-    VkMemoryAllocateInfo allocInfo{};
-    allocInfo.sType           = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-    allocInfo.allocationSize  = memRequirements.size;
-    allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
-
-    if (vkAllocateMemory(device, &allocInfo, nullptr, &bufferMemory) != VK_SUCCESS) {
-        throw std::runtime_error("failed to allocate buffer memory!");
-    }
-
-    vkCheck(vkBindBufferMemory(device, buffer, bufferMemory, 0));
+    vmaCreateBuffer(vmaAllocator, &bufferInfo, &allocInfo, buffer, vmaAlloc, vmaAllocInfo);
 }
 
 VkDeviceSize VulkanState::createDoubleBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
@@ -545,27 +535,7 @@ void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkForma
     allocInfo.requiredFlags = properties;
     allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;
 
-    vmaCreateImage(vmaAllocator, &imageInfo, &allocInfo, image, vmaAlloc, vmaAllocInfo);
-
-    /*
-    if (vkCreateImage(device, &imageInfo, nullptr, image) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create image!");
-    }
-
-    VkMemoryRequirements memRequirements;
-    vkGetImageMemoryRequirements(device, *image, &memRequirements);
-
-    VkMemoryAllocateInfo allocInfo{};
-    allocInfo.sType           = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-    allocInfo.allocationSize  = memRequirements.size;
-    allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
-
-
-    if (vkAllocateMemory(device, &allocInfo, nullptr, &imageMemory) != VK_SUCCESS) {
-        throw std::runtime_error("failed to allocate image memory!");
-    }
-
-    vkCheck(vkBindImageMemory(device, image, imageMemory, 0));*/
+    vkCheck(vmaCreateImage(vmaAllocator, &imageInfo, &allocInfo, image, vmaAlloc, vmaAllocInfo));
 }
 
 VkCommandBuffer VulkanState::beginSingleTimeCommands(VkCommandPool pool) {

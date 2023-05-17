@@ -14,7 +14,7 @@ TransferEngine::Bucket::Bucket(vk::VulkanState& vs)
     oneTimeItems.reserve(32);
     everyFrameItems.reserve(32);
     stagingBuffers.init(vs, [](std::vector<VkBuffer>& bufs) { bufs.reserve(32); });
-    stagingMemory.init(vs, [](std::vector<VkDeviceMemory>& mems) { mems.reserve(32); });
+    stagingAllocs.init(vs, [](std::vector<VmaAllocation>& mems) { mems.reserve(32); });
     memoryBarriers.reserve(32);
     bufferBarriers.reserve(32);
     imageBarriers.reserve(32);
@@ -85,7 +85,7 @@ void TransferEngine::Bucket::executeTransfers() {
     // queue transfer commands
     TransferContext context(vulkanState,
                             stagingBuffers.current(),
-                            stagingMemory.current(),
+                            stagingAllocs.current(),
                             memoryBarriers,
                             bufferBarriers,
                             imageBarriers);
@@ -128,14 +128,12 @@ void TransferEngine::Bucket::resetResourcesWithSync() {
     vkCheck(vkWaitForFences(vulkanState.device, 1, &fence.current(), VK_TRUE, UINT64_MAX));
     vkCheck(vkResetCommandBuffer(commandBuffer.current(), 0));
 
-    for (VkBuffer buffer : stagingBuffers.current()) {
-        vkDestroyBuffer(vulkanState.device, buffer, nullptr);
-    }
-    for (VkDeviceMemory memory : stagingMemory.current()) {
-        vkFreeMemory(vulkanState.device, memory, nullptr);
+    for (unsigned int i = 0; i < stagingBuffers.current().size(); ++i) {
+        vmaDestroyBuffer(
+            vulkanState.vmaAllocator, stagingBuffers.current()[i], stagingAllocs.current()[i]);
     }
     stagingBuffers.current().clear();
-    stagingMemory.current().clear();
+    stagingAllocs.current().clear();
 }
 
 void TransferEngine::queueOneTimeTransfer(Transferable* item,

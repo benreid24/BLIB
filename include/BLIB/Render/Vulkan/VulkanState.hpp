@@ -97,12 +97,15 @@ struct VulkanState {
      *
      * @param size The size of the buffer to create
      * @param usage How the buffer will be used
+     * @param allocFlags Extra flags to pass into VMA when the allocation is created
      * @param properties Requested properties of the buffer memory
      * @param buffer The buffer to populate
-     * @param bufferMemory The buffer memory to populate
+     * @param vmaAlloc VMA allocation to be populated
+     * @param vmaAllocInfo VMA allocation info to be populated
      */
-    void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties,
-                      VkBuffer& buffer, VkDeviceMemory& bufferMemory);
+    void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
+                      VmaAllocationCreateFlags allocFlags, VkMemoryPropertyFlags properties,
+                      VkBuffer* buffer, VmaAllocation* vmaAlloc, VmaAllocationInfo* vmaAllocInfo);
 
     /**
      * @brief Helper function to create a vk::PerFrame<VkBuffer> with some parameters

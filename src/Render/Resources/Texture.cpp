@@ -48,14 +48,9 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
 
     // create staging buffer
     VkBuffer stagingBuffer;
-    VkDeviceMemory stagingMemory;
-    engine.createTemporaryStagingBuffer(allocInfo.size, stagingBuffer, stagingMemory);
-
-    // copy data to staging buffer
     void* data;
-    vkCheck(vkMapMemory(engine.device(), stagingMemory, 0, allocInfo.size, 0, &data));
+    engine.createTemporaryStagingBuffer(allocInfo.size, stagingBuffer, &data);
     std::memcpy(data, src.getPixelsPtr(), allocInfo.size);
-    vkUnmapMemory(engine.device(), stagingMemory);
 
     // issue copy command
     VkBufferImageCopy copyInfo{};

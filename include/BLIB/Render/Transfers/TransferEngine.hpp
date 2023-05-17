@@ -33,8 +33,8 @@ private:
         vk::PerFrame<VkCommandBuffer> commandBuffer;
         vk::PerFrame<VkFence> fence;
         vk::PerFrame<std::vector<VkBuffer>> stagingBuffers;
-        vk::PerFrame<std::vector<VkDeviceMemory>> stagingMemory;
-        std::vector<VkMemoryBarrier> memoryBarriers; // TODO - bucket by dest stage?
+        vk::PerFrame<std::vector<VmaAllocation>> stagingAllocs;
+        std::vector<VkMemoryBarrier> memoryBarriers;
         std::vector<VkBufferMemoryBarrier> bufferBarriers;
         std::vector<VkImageMemoryBarrier> imageBarriers;
         std::vector<Transferable*> oneTimeItems;

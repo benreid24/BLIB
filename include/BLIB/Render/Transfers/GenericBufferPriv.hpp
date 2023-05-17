@@ -5,6 +5,7 @@
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glad/vulkan.h>
+#include <vk_mem_alloc.h>
 
 namespace bl
 {
@@ -121,20 +122,21 @@ template<>
 struct GenericBufferStorage<false, true> {
     void create(vk::VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
                 VkBufferUsageFlags usage) {
-        vulkanState.createBuffer(
-            size, usage | VK_BUFFER_USAGE_TRANSFER_DST_BIT, memProps, buffer, gpuMemory);
+        vulkanState.createBuffer(size,
+                                 usage | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
+                                 0,
+                                 memProps,
+                                 &buffer,
+                                 &alloc,
+                                 &allocInfo);
     }
 
     void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext& ctx, const void* data,
                  std::uint32_t offset, std::uint32_t len) {
         VkBuffer stagingBuffer;
-        VkDeviceMemory stagingMemory;
-        ctx.createTemporaryStagingBuffer(len, stagingBuffer, stagingMemory);
-
-        void* dest = nullptr;
-        vkCheck(vkMapMemory(ctx.device(), stagingMemory, 0, len, 0, &dest));
+        void* dest;
+        ctx.createTemporaryStagingBuffer(len, stagingBuffer, &dest);
         std::memcpy(dest, data, len);
-        vkUnmapMemory(ctx.device(), stagingMemory);
 
         VkBufferCopy copyCmd{};
         copyCmd.dstOffset = offset;
@@ -144,39 +146,39 @@ struct GenericBufferStorage<false, true> {
     }
 
     void destroy(vk::VulkanState& vulkanState) {
-        vkDestroyBuffer(vulkanState.device, buffer, nullptr);
-        vkFreeMemory(vulkanState.device, gpuMemory, nullptr);
+        vmaDestroyBuffer(vulkanState.vmaAllocator, buffer, alloc);
     }
 
     constexpr VkBuffer current() const { return buffer; }
 
     VkBuffer buffer;
-    VkDeviceMemory gpuMemory;
+    VmaAllocation alloc;
+    VmaAllocationInfo allocInfo;
 };
 
 template<>
 struct GenericBufferStorage<false, false> {
     void create(vk::VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
                 VkBufferUsageFlags usage) {
-        vulkanState.createBuffer(size, usage, memProps, buffer, memory);
-        vkCheck(vkMapMemory(vulkanState.device, memory, 0, size, 0, &mappedBuffer));
+        vulkanState.createBuffer(
+            size, usage, VMA_ALLOCATION_CREATE_MAPPED_BIT, memProps, &buffer, &alloc, &allocInfo);
     }
 
     void doWrite(VkCommandBuffer, tfr::TransferContext&, const void* data, std::uint32_t offset,
                  std::uint32_t len) {
-        std::memcpy(static_cast<char*>(mappedBuffer) + offset, data, len);
+        std::memcpy(static_cast<char*>(allocInfo.pMappedData) + offset, data, len);
     }
 
     void destroy(vk::VulkanState& vulkanState) {
-        vkDestroyBuffer(vulkanState.device, buffer, nullptr);
-        vkFreeMemory(vulkanState.device, memory, nullptr);
+        // think vma handles unmapping?
+        vmaDestroyBuffer(vulkanState.vmaAllocator, buffer, alloc);
     }
 
     constexpr VkBuffer current() const { return buffer; }
 
     VkBuffer buffer;
-    VkDeviceMemory memory;
-    void* mappedBuffer;
+    VmaAllocation alloc;
+    VmaAllocationInfo allocInfo;
 };
 
 } // namespace priv

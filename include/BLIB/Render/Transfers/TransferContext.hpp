@@ -3,6 +3,7 @@
 
 #include <glad/vulkan.h>
 #include <vector>
+#include <vk_mem_alloc.h>
 
 namespace bl
 {
@@ -24,12 +25,10 @@ public:
      *
      * @param size Size of the staging buffer to create
      * @param bufferResult Buffer handle to populate
-     * @param memoryResult Memory handle to populate
+     * @param mappedMemory Pointer to a void pointer which will be populated with the write address
      */
     void createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer& bufferResult,
-                                      VkDeviceMemory& memoryResult);
-    // TODO - provide persistent buffers here too?
-    // TODO - prepass to determine stage buf reqs and create one big one?
+                                      void** mappedMemory);
 
     /**
      * @brief Registers the given barrier to be recorded after all transfers are started
@@ -61,7 +60,7 @@ public:
      * @brief Internal constructor, do not use
      */
     TransferContext(vk::VulkanState& vulkanState, std::vector<VkBuffer>& stagingBuffers,
-                    std::vector<VkDeviceMemory>& stagingMemory,
+                    std::vector<VmaAllocation>& stagingAllocs,
                     std::vector<VkMemoryBarrier>& memoryBarriers,
                     std::vector<VkBufferMemoryBarrier>& bufferBarriers,
                     std::vector<VkImageMemoryBarrier>& imageBarriers);
@@ -69,7 +68,7 @@ public:
 private:
     vk::VulkanState& vulkanState;
     std::vector<VkBuffer>& stagingBuffers;
-    std::vector<VkDeviceMemory>& stagingMemory;
+    std::vector<VmaAllocation>& stagingAllocs;
     std::vector<VkMemoryBarrier>& memoryBarriers;
     std::vector<VkBufferMemoryBarrier>& bufferBarriers;
     std::vector<VkImageMemoryBarrier>& imageBarriers;

@@ -9,27 +9,32 @@ namespace render
 namespace tfr
 {
 TransferContext::TransferContext(vk::VulkanState& vs, std::vector<VkBuffer>& stagingBuffers,
-                                 std::vector<VkDeviceMemory>& stagingMemory,
+                                 std::vector<VmaAllocation>& stagingAllocs,
                                  std::vector<VkMemoryBarrier>& memoryBarriers,
                                  std::vector<VkBufferMemoryBarrier>& bufferBarriers,
                                  std::vector<VkImageMemoryBarrier>& imageBarriers)
 : vulkanState(vs)
 , stagingBuffers(stagingBuffers)
-, stagingMemory(stagingMemory)
+, stagingAllocs(stagingAllocs)
 , memoryBarriers(memoryBarriers)
 , bufferBarriers(bufferBarriers)
 , imageBarriers(imageBarriers) {}
 
 void TransferContext::createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer& bufferHandle,
-                                                   VkDeviceMemory& memoryHandle) {
+                                                   void** mapped) {
+    VmaAllocation alloc;
+    VmaAllocationInfo allocInfo;
     vulkanState.createBuffer(size,
                              VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+        VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT | VMA_ALLOCATION_CREATE_MAPPED_BIT,
                              VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
                                  VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-                             bufferHandle,
-                             memoryHandle);
+                             &bufferHandle,
+                             &alloc,
+                             &allocInfo);
     stagingBuffers.emplace_back(bufferHandle);
-    stagingMemory.emplace_back(memoryHandle);
+    stagingAllocs.emplace_back(alloc);
+    *mapped = allocInfo.pMappedData;
 }
 
 void TransferContext::registerMemoryBarrier(const VkMemoryBarrier& barrier) {
