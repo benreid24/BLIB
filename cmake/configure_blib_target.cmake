@@ -15,6 +15,13 @@ function(configure_blib_target target_name)
         GLM_FORCE_DEPTH_ZERO_TO_ONE
     )
 
+    # VMA setup
+    target_compile_definitions(${target_name} PUBLIC
+        VMA_STATIC_VULKAN_FUNCTIONS=0
+        VMA_DYNAMIC_VULKAN_FUNCTIONS=0
+    )
+    target_include_directories(${target_name} PUBLIC ${BLIB_PATH}/lib/VulkanMemoryAllocator/include)
+
     # Add preprocessor def for when on CI for testing
     if (BLIB_HEADLESS_FOR_CI_TESTING)
         target_compile_definitions(${target_name} PUBLIC BLIB_HEADLESS_FOR_CI_TESTING)
@@ -41,6 +48,7 @@ function(configure_blib_target target_name)
     endif()
 
     # Include directories
+    target_include_directories(${target_name} PUBLIC ${BLIB_TEMP_INCLUDE_DIR})
     target_include_directories(${target_name} PUBLIC ${BLIB_PATH}/include)
     target_include_directories(${target_name} SYSTEM PUBLIC 
         ${BLIB_PATH}/lib/SFML/include
@@ -48,10 +56,12 @@ function(configure_blib_target target_name)
     )
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_definitions(${target_name} PUBLIC BLIB_DEBUG)
-        target_include_directories(${target_name} SYSTEM PUBLIC lib/glad/glad_debug/include)
+        target_include_directories(${target_name} SYSTEM PUBLIC ${BLIB_PATH}/lib/glad/glad_debug/include)
+        file(COPY ${BLIB_PATH}/lib/glad/glad_debug/include/glad/vulkan.h DESTINATION ${BLIB_TEMP_INCLUDE_DIR}/vulkan)
     else()
         target_compile_definitions(${target_name} PUBLIC BLIB_RELEASE)
-        target_include_directories(${target_name} SYSTEM PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/glad_release/include)
+        target_include_directories(${target_name} SYSTEM PUBLIC  ${BLIB_PATH}lib/glad/glad_release/include)
+        file(COPY ${BLIB_PATH}/lib/glad/glad_release/include/glad/vulkan.h DESTINATION ${BLIB_TEMP_INCLUDE_DIR}/vulkan)
     endif()
     
     # Static link everything

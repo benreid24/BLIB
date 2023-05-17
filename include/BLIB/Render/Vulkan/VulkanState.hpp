@@ -16,6 +16,7 @@
 #include <initializer_list>
 #include <stdexcept>
 #include <vector>
+#include <vk_mem_alloc.h>
 
 namespace bl
 {

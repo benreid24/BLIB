@@ -27,6 +27,10 @@ set(CMAKE_INSTALL_PREFIX .)
 
 add_library(BLIB STATIC)
 
+# Make vulkan dir in build dir to fix vma include
+set(BLIB_TEMP_INCLUDE_DIR ${CMAKE_BINARY_DIR}/blib_temp_includes)
+file(MAKE_DIRECTORY ${BLIB_TEMP_INCLUDE_DIR})
+
 set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(configure_blib_target)
