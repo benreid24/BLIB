@@ -524,8 +524,8 @@ VkDeviceSize VulkanState::createDoubleBuffer(VkDeviceSize size, VkBufferUsageFla
 
 void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
                               VkImageTiling tiling, VkImageUsageFlags usage,
-                              VkMemoryPropertyFlags properties, VkImage& image,
-                              VkDeviceMemory& imageMemory) {
+                              VkMemoryPropertyFlags properties, VkImage* image,
+                              VmaAllocation* vmaAlloc, VmaAllocationInfo* vmaAllocInfo) {
     VkImageCreateInfo imageInfo{};
     imageInfo.sType         = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     imageInfo.imageType     = VK_IMAGE_TYPE_2D;
@@ -541,23 +541,31 @@ void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkForma
     imageInfo.samples       = VK_SAMPLE_COUNT_1_BIT;
     imageInfo.sharingMode   = VK_SHARING_MODE_EXCLUSIVE;
 
-    if (vkCreateImage(device, &imageInfo, nullptr, &image) != VK_SUCCESS) {
+    VmaAllocationCreateInfo allocInfo{};
+    allocInfo.requiredFlags = properties;
+    allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;
+
+    vmaCreateImage(vmaAllocator, &imageInfo, &allocInfo, image, vmaAlloc, vmaAllocInfo);
+
+    /*
+    if (vkCreateImage(device, &imageInfo, nullptr, image) != VK_SUCCESS) {
         throw std::runtime_error("failed to create image!");
     }
 
     VkMemoryRequirements memRequirements;
-    vkGetImageMemoryRequirements(device, image, &memRequirements);
+    vkGetImageMemoryRequirements(device, *image, &memRequirements);
 
     VkMemoryAllocateInfo allocInfo{};
     allocInfo.sType           = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
     allocInfo.allocationSize  = memRequirements.size;
     allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
 
+
     if (vkAllocateMemory(device, &allocInfo, nullptr, &imageMemory) != VK_SUCCESS) {
         throw std::runtime_error("failed to allocate image memory!");
     }
 
-    vkCheck(vkBindImageMemory(device, image, imageMemory, 0));
+    vkCheck(vkBindImageMemory(device, image, imageMemory, 0));*/
 }
 
 VkCommandBuffer VulkanState::beginSingleTimeCommands(VkCommandPool pool) {

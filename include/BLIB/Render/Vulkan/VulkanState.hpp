@@ -140,11 +140,13 @@ struct VulkanState {
      * @param usage How the image will be used
      * @param properties Requested memory properties for where the image is stored
      * @param image The image to be populated
-     * @param imageMemory The device memory to be populated
+     * @param vmaAlloc VMA allocation to be populated
+     * @param vmaAllocInfo VMA allocation info to be populated
      */
     void createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
                      VkImageTiling tiling, VkImageUsageFlags usage,
-                     VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
+                     VkMemoryPropertyFlags properties, VkImage* image, VmaAllocation* vmaAlloc,
+                     VmaAllocationInfo* vmaAllocInfo);
 
     /**
      * @brief Converts an image from one layout to another

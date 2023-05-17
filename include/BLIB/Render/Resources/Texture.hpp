@@ -6,6 +6,7 @@
 #include <SFML/Graphics/Image.hpp>
 #include <glad/vulkan.h>
 #include <glm/glm.hpp>
+#include <vk_mem_alloc.h>
 
 namespace bl
 {
@@ -38,9 +39,8 @@ struct Texture : public tfr::Transferable {
     virtual ~Texture() = default;
 
     VkImage image;
-    VkDeviceMemory memory;
-    std::uint32_t memoryOffset;
-    VkDeviceSize memorySize;
+    VmaAllocation alloc;
+    VmaAllocationInfo allocInfo;
     VkImageView view;
     VkSampler sampler;
     glm::u32vec2 size;

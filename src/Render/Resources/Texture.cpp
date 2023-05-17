@@ -10,9 +10,6 @@ namespace res
 {
 Texture::Texture()
 : image(nullptr)
-, memory(nullptr)
-, memoryOffset(0)
-, memorySize(0)
 , view(nullptr)
 , sampler(nullptr)
 , size(0, 0)
@@ -27,20 +24,17 @@ void Texture::createFromContentsAndQueue(vk::VulkanState& vs) {
     sizeF.x = static_cast<float>(size.x);
     sizeF.y = static_cast<float>(size.y);
 
-    // TODO - avoid single allocations per texture
-    memorySize   = static_cast<VkDeviceSize>(src.getSize().x) * src.getSize().y * sizeof(sf::Color);
-    memoryOffset = 0;
     vs.createImage(src.getSize().x,
                    src.getSize().y,
                    VK_FORMAT_R8G8B8A8_UNORM,
                    VK_IMAGE_TILING_OPTIMAL,
                    VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
                    VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                   image,
-                   memory);
+                   &image,
+                   &alloc,
+                   &allocInfo);
     view = vs.createImageView(image, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
 
-    // barrier + transition to dest format. is this best way?
     vs.transitionImageLayout(image,
                              VK_FORMAT_R8G8B8A8_UNORM,
                              VK_IMAGE_LAYOUT_UNDEFINED,
@@ -55,12 +49,12 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
     // create staging buffer
     VkBuffer stagingBuffer;
     VkDeviceMemory stagingMemory;
-    engine.createTemporaryStagingBuffer(memorySize, stagingBuffer, stagingMemory);
+    engine.createTemporaryStagingBuffer(allocInfo.size, stagingBuffer, stagingMemory);
 
     // copy data to staging buffer
     void* data;
-    vkCheck(vkMapMemory(engine.device(), stagingMemory, 0, memorySize, 0, &data));
-    std::memcpy(data, src.getPixelsPtr(), memorySize);
+    vkCheck(vkMapMemory(engine.device(), stagingMemory, 0, allocInfo.size, 0, &data));
+    std::memcpy(data, src.getPixelsPtr(), allocInfo.size);
     vkUnmapMemory(engine.device(), stagingMemory);
 
     // issue copy command
@@ -101,8 +95,7 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
 
 void Texture::cleanup(vk::VulkanState& vs) {
     vkDestroyImageView(vs.device, view, nullptr);
-    vkDestroyImage(vs.device, image, nullptr);
-    vkFreeMemory(vs.device, memory, nullptr);
+    vmaDestroyImage(vs.vmaAllocator, image, alloc);
 }
 
 } // namespace res
