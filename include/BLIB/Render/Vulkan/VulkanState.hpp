@@ -211,6 +211,7 @@ struct VulkanState {
     VkPhysicalDevice physicalDevice;
     VkPhysicalDeviceProperties physicalDeviceProperties;
     VkDevice device;
+    VmaAllocator vmaAllocator;
     VkQueue graphicsQueue;
     VkQueue presentQueue;
     VkCommandPool sharedCommandPool;
@@ -232,6 +233,7 @@ private:
     void createSurface();
     void pickPhysicalDevice();
     void createLogicalDevice();
+    void createVmaAllocator();
     void createSharedCommandPool();
 
     void cleanupDebugMessenger();

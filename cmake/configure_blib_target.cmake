@@ -42,9 +42,22 @@ function(configure_blib_target target_name)
             /wd4706
             /wd26495
         )
+
+        # No warnings from VMA
+        set_source_files_properties(
+            ${BLIB_PATH}/lib/VulkanMemoryAllocator/include/vk_mem_alloc.h
+            PROPERTIES
+            COMPILE_OPTIONS /w
+        )
     else()
         # lots of warnings
         target_compile_options(${target_name} PUBLIC -Wall -Wextra -pedantic)
+        # No warnings from VMA
+        set_source_files_properties(
+            ${BLIB_PATH}/lib/VulkanMemoryAllocator/include/vk_mem_alloc.h
+            PROPERTIES
+            COMPILE_OPTIONS -w
+        )
     endif()
 
     # Include directories

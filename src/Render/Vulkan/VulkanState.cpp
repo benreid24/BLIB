@@ -1,5 +1,8 @@
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 
+#define VMA_IMPLEMENTATION
+#include "vk_mem_alloc.h"
+
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Resources/FileSystem.hpp>
@@ -141,6 +144,7 @@ void VulkanState::init() {
     pickPhysicalDevice();
     gladLoadVulkan(physicalDevice, sf::Vulkan::getFunction); // reload with extensions
     createLogicalDevice();
+    createVmaAllocator();
     createSharedCommandPool();
     swapchain.create(surface);
     transferEngine.init();
@@ -154,6 +158,7 @@ void VulkanState::cleanup() {
     transferEngine.cleanup();
     swapchain.destroy();
     vkDestroyCommandPool(device, sharedCommandPool, nullptr);
+    vmaDestroyAllocator(vmaAllocator);
     vkDestroyDevice(device, nullptr);
 #ifdef BLIB_DEBUG
     cleanupDebugMessenger();
@@ -351,6 +356,43 @@ void VulkanState::createLogicalDevice() {
 
     vkGetDeviceQueue(device, indices.graphicsFamily.value(), 0, &graphicsQueue);
     vkGetDeviceQueue(device, indices.presentFamily.value(), 0, &presentQueue);
+}
+
+void VulkanState::createVmaAllocator() {
+    VmaVulkanFunctions funcs{};
+    funcs.vkGetPhysicalDeviceProperties           = vkGetPhysicalDeviceProperties;
+    funcs.vkGetPhysicalDeviceMemoryProperties     = vkGetPhysicalDeviceMemoryProperties;
+    funcs.vkAllocateMemory                        = vkAllocateMemory;
+    funcs.vkFreeMemory                            = vkFreeMemory;
+    funcs.vkMapMemory                             = vkMapMemory;
+    funcs.vkUnmapMemory                           = vkUnmapMemory;
+    funcs.vkFlushMappedMemoryRanges               = vkFlushMappedMemoryRanges;
+    funcs.vkInvalidateMappedMemoryRanges          = vkInvalidateMappedMemoryRanges;
+    funcs.vkBindBufferMemory                      = vkBindBufferMemory;
+    funcs.vkBindImageMemory                       = vkBindImageMemory;
+    funcs.vkGetBufferMemoryRequirements           = vkGetBufferMemoryRequirements;
+    funcs.vkGetImageMemoryRequirements            = vkGetImageMemoryRequirements;
+    funcs.vkCreateBuffer                          = vkCreateBuffer;
+    funcs.vkDestroyBuffer                         = vkDestroyBuffer;
+    funcs.vkCreateImage                           = vkCreateImage;
+    funcs.vkDestroyImage                          = vkDestroyImage;
+    funcs.vkCmdCopyBuffer                         = vkCmdCopyBuffer;
+    funcs.vkGetBufferMemoryRequirements2KHR       = vkGetBufferMemoryRequirements2KHR;
+    funcs.vkGetImageMemoryRequirements2KHR        = vkGetImageMemoryRequirements2KHR;
+    funcs.vkBindBufferMemory2KHR                  = vkBindBufferMemory2KHR;
+    funcs.vkBindImageMemory2KHR                   = vkBindImageMemory2KHR;
+    funcs.vkGetPhysicalDeviceMemoryProperties2KHR = vkGetPhysicalDeviceMemoryProperties2KHR;
+    funcs.vkGetDeviceBufferMemoryRequirements     = vkGetDeviceBufferMemoryRequirements;
+    funcs.vkGetDeviceImageMemoryRequirements      = vkGetDeviceImageMemoryRequirements;
+
+    VmaAllocatorCreateInfo createInfo{};
+    createInfo.instance         = instance;
+    createInfo.device           = device;
+    createInfo.physicalDevice   = physicalDevice;
+    createInfo.vulkanApiVersion = VK_API_VERSION_1_3;
+    createInfo.pVulkanFunctions = &funcs;
+
+    vmaCreateAllocator(&createInfo, &vmaAllocator);
 }
 
 VkCommandPool VulkanState::createCommandPool(VkCommandPoolCreateFlags flags) {
