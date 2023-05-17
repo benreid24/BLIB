@@ -29,73 +29,86 @@ template<>
 struct GenericBufferStorage<true, true> {
     void create(vk::VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
                 VkBufferUsageFlags usage) {
-        vulkanState.createDoubleBuffer(
-            size, usage | VK_BUFFER_USAGE_TRANSFER_DST_BIT, memProps, buffers, gpuMemory);
-        const VkDeviceSize offset = vulkanState.createDoubleBuffer(
-            size,
-            VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
-            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-            stagingBuffers,
-            stagingMemory);
-        unsigned int i = 0;
-        void* memoryMap;
-        vkCheck(vkMapMemory(vulkanState.device,
-                            stagingMemory,
-                            0,
-                            offset * Config::MaxConcurrentFrames,
-                            0,
-                            &memoryMap));
-        mappedStaging.init(vulkanState, [this, memoryMap, &i, offset, size](void*& dest) {
-            dest = static_cast<char*>(memoryMap) + offset * i;
-            ++i;
+        buffers.emptyInit(vulkanState);
+        allocs.emptyInit(vulkanState);
+        for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
+            vulkanState.createBuffer(size,
+                                     usage | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
+                                     0,
+                                     memProps,
+                                     &buffers.getRaw(i),
+                                     &allocs.getRaw(i),
+                                     nullptr);
+        }
+        stagingBuffers.init(vulkanState, [this, &vulkanState, size](StagingBuffer& buf) {
+            VmaAllocationInfo allocInfo;
+            vulkanState.createBuffer(size,
+                                     VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+                                     VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT |
+                                         VMA_ALLOCATION_CREATE_MAPPED_BIT,
+                                     VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
+                                         VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+                                     &buf.buffer,
+                                     &buf.alloc,
+                                     &allocInfo);
+            buf.mapped = allocInfo.pMappedData;
         });
     }
 
     void doWrite(VkCommandBuffer commandBuffer, tfr::TransferContext&, const void* data,
                  std::uint32_t offset, std::uint32_t len) {
-        std::memcpy(static_cast<char*>(mappedStaging.current()) + offset, data, len);
+        std::memcpy(static_cast<char*>(stagingBuffers.current().mapped) + offset, data, len);
+
         VkBufferCopy copyRegion{};
         copyRegion.srcOffset = offset;
         copyRegion.dstOffset = offset;
         copyRegion.size      = len;
-        vkCmdCopyBuffer(commandBuffer, stagingBuffers.current(), buffers.current(), 1, &copyRegion);
+        vkCmdCopyBuffer(
+            commandBuffer, stagingBuffers.current().buffer, buffers.current(), 1, &copyRegion);
     }
 
     void destroy(vk::VulkanState& vulkanState) {
-        vkUnmapMemory(vulkanState.device, stagingMemory);
-        buffers.cleanup([&vulkanState, this](VkBuffer& buffer) {
-            vkDestroyBuffer(vulkanState.device, buffer, nullptr);
+        for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
+            vmaDestroyBuffer(vulkanState.vmaAllocator, buffers.getRaw(i), allocs.getRaw(i));
+        }
+        stagingBuffers.cleanup([&vulkanState](StagingBuffer& buf) {
+            vmaDestroyBuffer(vulkanState.vmaAllocator, buf.buffer, buf.alloc);
         });
-        stagingBuffers.cleanup([&vulkanState, this](VkBuffer& buffer) {
-            vkDestroyBuffer(vulkanState.device, buffer, nullptr);
-        });
-        vkFreeMemory(vulkanState.device, gpuMemory, nullptr);
-        vkFreeMemory(vulkanState.device, stagingMemory, nullptr);
     }
 
     constexpr VkBuffer current() const { return buffers.current(); }
 
+    struct StagingBuffer {
+        VmaAllocation alloc;
+        VkBuffer buffer;
+        void* mapped;
+    };
+
     vk::PerFrame<VkBuffer> buffers;
-    VkDeviceMemory gpuMemory;
-    vk::PerFrame<VkBuffer> stagingBuffers;
-    vk::PerFrame<void*> mappedStaging;
-    VkDeviceMemory stagingMemory;
+    vk::PerFrame<VmaAllocation> allocs;
+    vk::PerFrame<StagingBuffer> stagingBuffers;
 };
 
 template<>
 struct GenericBufferStorage<true, false> {
     void create(vk::VulkanState& vulkanState, std::uint32_t size, VkMemoryPropertyFlags memProps,
                 VkBufferUsageFlags usage) {
-        const VkDeviceSize offset =
-            vulkanState.createDoubleBuffer(size, usage, memProps, buffers, memory);
-        unsigned int i = 0;
-        void* memoryMap;
-        vkCheck(vkMapMemory(
-            vulkanState.device, memory, 0, offset * Config::MaxConcurrentFrames, 0, &memoryMap));
-        mappedBuffers.init(vulkanState, [this, memoryMap, &i, offset, size](void*& dest) {
-            dest = static_cast<char*>(memoryMap) + offset * i;
-            ++i;
-        });
+        buffers.emptyInit(vulkanState);
+        allocs.emptyInit(vulkanState);
+        mappedBuffers.emptyInit(vulkanState);
+
+        for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
+            VmaAllocationInfo allocInfo;
+            vulkanState.createBuffer(size,
+                                     usage,
+                                     VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT |
+                                         VMA_ALLOCATION_CREATE_MAPPED_BIT,
+                                     memProps,
+                                     &buffers.getRaw(i),
+                                     &allocs.getRaw(i),
+                                     &allocInfo);
+            mappedBuffers.getRaw(i) = allocInfo.pMappedData;
+        }
     }
 
     void doWrite(VkCommandBuffer, tfr::TransferContext&, const void* data, std::uint32_t offset,
@@ -104,17 +117,15 @@ struct GenericBufferStorage<true, false> {
     }
 
     void destroy(vk::VulkanState& vulkanState) {
-        vkUnmapMemory(vulkanState.device, memory);
-        buffers.cleanup([&vulkanState, this](VkBuffer& buffer) {
-            vkDestroyBuffer(vulkanState.device, buffer, nullptr);
-        });
-        vkFreeMemory(vulkanState.device, memory, nullptr);
+        for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
+            vmaDestroyBuffer(vulkanState.vmaAllocator, buffers.getRaw(i), allocs.getRaw(i));
+        }
     }
 
     constexpr VkBuffer current() const { return buffers.current(); }
 
     vk::PerFrame<VkBuffer> buffers;
-    VkDeviceMemory memory;
+    vk::PerFrame<VmaAllocation> allocs;
     vk::PerFrame<void*> mappedBuffers;
 };
 
