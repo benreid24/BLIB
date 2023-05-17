@@ -4,6 +4,7 @@
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glad/vulkan.h>
+#include <vk_mem_alloc.h>
 
 namespace bl
 {
@@ -71,7 +72,8 @@ public:
 private:
     VulkanState* owner;
     StandardAttachmentSet attachments;
-    VkDeviceMemory gpuMemory;
+    VmaAllocation colorAlloc;
+    VmaAllocation depthAlloc;
     VkImageLayout currentColorLayout;
     VkImageLayout currentDepthLayout;
 };

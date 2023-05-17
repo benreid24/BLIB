@@ -21,7 +21,13 @@ void StandardImageBuffer::create(VulkanState& vs, const VkExtent2D& size) {
     VkImage& depthImage         = attachments.imageHandles[StandardAttachmentSet::DepthIndex];
     VkImageView& depthImageView = attachments.imageViewHandles[StandardAttachmentSet::DepthIndex];
 
-    // create color image handle
+    // alloc info is same for both color and depth images
+    VmaAllocationCreateInfo allocInfo{};
+    allocInfo.requiredFlags = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
+    allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;
+    allocInfo.flags         = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT;
+
+    // create color image
     VkImageCreateInfo colorImageCreate{};
     colorImageCreate.sType         = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     colorImageCreate.imageType     = VK_IMAGE_TYPE_2D;
@@ -37,7 +43,9 @@ void StandardImageBuffer::create(VulkanState& vs, const VkExtent2D& size) {
     colorImageCreate.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
     colorImageCreate.samples     = VK_SAMPLE_COUNT_1_BIT;
     colorImageCreate.flags       = 0; // Optional
-    if (vkCreateImage(vs.device, &colorImageCreate, nullptr, &colorImage) != VK_SUCCESS) {
+    if (vmaCreateImage(
+            vs.vmaAllocator, &colorImageCreate, &allocInfo, &colorImage, &colorAlloc, nullptr) !=
+        VK_SUCCESS) {
         throw std::runtime_error("failed to create image!");
     }
     currentColorLayout = colorImageCreate.initialLayout;
@@ -58,30 +66,12 @@ void StandardImageBuffer::create(VulkanState& vs, const VkExtent2D& size) {
     depthImageCreate.sharingMode   = VK_SHARING_MODE_EXCLUSIVE;
     depthImageCreate.samples       = VK_SAMPLE_COUNT_1_BIT;
     depthImageCreate.flags         = 0; // Optional
-    if (vkCreateImage(vs.device, &depthImageCreate, nullptr, &depthImage) != VK_SUCCESS) {
+    if (vmaCreateImage(
+            vs.vmaAllocator, &depthImageCreate, &allocInfo, &depthImage, &depthAlloc, nullptr) !=
+        VK_SUCCESS) {
         throw std::runtime_error("failed to create image!");
     }
     currentDepthLayout = depthImageCreate.initialLayout;
-
-    // allocate memory
-    VkMemoryRequirements colorImageMemReqs;
-    vkGetImageMemoryRequirements(vs.device, colorImage, &colorImageMemReqs);
-    VkMemoryRequirements depthImageMemReqs;
-    vkGetImageMemoryRequirements(vs.device, depthImage, &depthImageMemReqs);
-
-    VkMemoryAllocateInfo allocInfo{};
-    allocInfo.sType          = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-    allocInfo.allocationSize = colorImageMemReqs.size + depthImageMemReqs.size;
-    allocInfo.memoryTypeIndex =
-        vs.findMemoryType(colorImageMemReqs.memoryTypeBits | depthImageMemReqs.memoryTypeBits,
-                          VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-
-    if (vkAllocateMemory(vs.device, &allocInfo, nullptr, &gpuMemory) != VK_SUCCESS) {
-        throw std::runtime_error("failed to allocate image memory!");
-    }
-
-    vkCheck(vkBindImageMemory(vs.device, colorImage, gpuMemory, 0));
-    vkCheck(vkBindImageMemory(vs.device, depthImage, gpuMemory, colorImageMemReqs.size));
 
     // create image views
     colorImageView = vs.createImageView(colorImage, colorImageCreate.format);
@@ -92,10 +82,9 @@ void StandardImageBuffer::create(VulkanState& vs, const VkExtent2D& size) {
 void StandardImageBuffer::destroy() {
     if (owner != nullptr) {
         vkDestroyImageView(owner->device, attachments.colorImageView(), nullptr);
-        vkDestroyImage(owner->device, attachments.colorImage(), nullptr);
         vkDestroyImageView(owner->device, attachments.depthImageView(), nullptr);
-        vkDestroyImage(owner->device, attachments.depthImage(), nullptr);
-        vkFreeMemory(owner->device, gpuMemory, nullptr);
+        vmaDestroyImage(owner->vmaAllocator, attachments.colorImage(), colorAlloc);
+        vmaDestroyImage(owner->vmaAllocator, attachments.depthImage(), depthAlloc);
         owner = nullptr;
     }
 }
