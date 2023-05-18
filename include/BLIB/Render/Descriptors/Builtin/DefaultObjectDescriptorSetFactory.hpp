@@ -19,7 +19,7 @@ public:
     /**
      * @brief Destroys the factory
      */
-    virtual ~DefaultObjectDescriptorSetFactory();
+    virtual ~DefaultObjectDescriptorSetFactory() = default;
 
     /**
      * @brief Initializes the factory and creates the descriptor set layout

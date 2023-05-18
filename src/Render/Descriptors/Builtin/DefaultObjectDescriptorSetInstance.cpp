@@ -14,7 +14,7 @@ bl::render::ds::DefaultObjectDescriptorSetInstance::DefaultObjectDescriptorSetIn
 , descriptorSetLayout(descriptorSetLayout) {}
 
 bl::render::ds::DefaultObjectDescriptorSetInstance::~DefaultObjectDescriptorSetInstance() {
-    vkDestroyDescriptorPool(vulkanState.device, descriptorPool, nullptr);
+    vulkanState.descriptorPool.release(alloc);
     transformBuffer.destroy();
     textureBuffer.destroy();
 }
@@ -36,34 +36,14 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
     transformBuffer.configureTransferAll();
     textureBuffer.configureTransferAll();
 
-    // create dedicated descriptor pool
-    VkDescriptorPoolSize poolSize{};
-    poolSize.type            = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    poolSize.descriptorCount = objectCount * Config::MaxConcurrentFrames;
-
-    VkDescriptorPoolSize poolSizes[] = {poolSize, poolSize};
-    VkDescriptorPoolCreateInfo poolCreate{};
-    poolCreate.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-    poolCreate.maxSets       = objectCount * Config::MaxConcurrentFrames;
-    poolCreate.poolSizeCount = std::size(poolSizes);
-    poolCreate.pPoolSizes    = poolSizes;
-    if (VK_SUCCESS !=
-        vkCreateDescriptorPool(vulkanState.device, &poolCreate, nullptr, &descriptorPool)) {
-        throw std::runtime_error("Failed to create descriptor pool");
-    }
-
     // allocate descriptor sets
+    std::vector<VkDescriptorSet> sets(objectCount * Config::MaxConcurrentFrames);
+    alloc = vulkanState.descriptorPool.allocate(descriptorSetLayout, sets.data(), sets.size());
+    unsigned int i = 0;
     for (auto& perFrameSet : descriptorSets) {
-        perFrameSet.init(vulkanState, [this](VkDescriptorSet& descriptorSet) {
-            VkDescriptorSetAllocateInfo setAlloc{};
-            setAlloc.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-            setAlloc.descriptorPool     = descriptorPool;
-            setAlloc.descriptorSetCount = 1;
-            setAlloc.pSetLayouts        = &descriptorSetLayout;
-            if (VK_SUCCESS !=
-                vkAllocateDescriptorSets(vulkanState.device, &setAlloc, &descriptorSet)) {
-                throw std::runtime_error("Failed to allocate descriptor set");
-            }
+        perFrameSet.init(vulkanState, [&sets, &i](VkDescriptorSet& descriptorSet) {
+            descriptorSet = sets[i];
+            ++i;
         });
     }
 

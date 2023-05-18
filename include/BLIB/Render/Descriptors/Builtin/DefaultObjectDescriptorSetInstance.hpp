@@ -46,7 +46,7 @@ public:
 private:
     ecs::Registry& registry;
     vk::VulkanState& vulkanState;
-    VkDescriptorPool descriptorPool;
+    vk::DescriptorPool::AllocationHandle alloc;
     const VkDescriptorSetLayout descriptorSetLayout;
     std::vector<vk::PerFrame<VkDescriptorSet>> descriptorSets;
     tfr::UniformBuffer<glm::mat4> transformBuffer;
