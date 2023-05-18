@@ -44,9 +44,7 @@ private:
     vk::VulkanState& vulkanState;
     const VkDescriptorSetLayout setLayout;
     std::array<vk::PerFrame<VkDescriptorSet>, Config::MaxSceneObservers> descriptorSets;
-    std::array<vk::DescriptorPool::AllocationHandle, Config::MaxSceneObservers> descriptorHandles;
-    VkDescriptorSetLayoutBinding setBinding[1];
-    VkDescriptorSetLayoutCreateInfo createInfo;
+    vk::DescriptorPool::AllocationHandle allocHandle;
 
     virtual void bindForPipeline(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
                                  std::uint32_t observerIndex,

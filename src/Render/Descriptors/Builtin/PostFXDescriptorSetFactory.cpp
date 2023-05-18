@@ -9,25 +9,12 @@ namespace render
 {
 namespace ds
 {
-PostFXDescriptorSetFactory::PostFXDescriptorSetFactory()
-: device(nullptr) {}
-
-PostFXDescriptorSetFactory::~PostFXDescriptorSetFactory() {
-    vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
-}
 
 void PostFXDescriptorSetFactory::init(engine::Engine&, Renderer& renderer) {
-    device = renderer.vulkanState().device;
-
-    static const auto layoutBindings = scene::PostFX::DescriptorLayoutBindings();
-    VkDescriptorSetLayoutCreateInfo createInfo{};
-    createInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-    createInfo.bindingCount = static_cast<std::uint32_t>(layoutBindings.size());
-    createInfo.pBindings    = layoutBindings.data();
-    if (vkCreateDescriptorSetLayout(device, &createInfo, nullptr, &descriptorSetLayout) !=
-        VK_SUCCESS) {
-        throw std::runtime_error("Failed to create PostFX descriptor set layout");
-    }
+    vk::DescriptorPool::SetBindingInfo bindingInfo;
+    bindingInfo.bindings[0]  = scene::PostFX::DescriptorLayoutBindings()[0];
+    bindingInfo.bindingCount = 1;
+    descriptorSetLayout      = renderer.vulkanState().descriptorPool.createLayout(bindingInfo);
 }
 std::unique_ptr<DescriptorSetInstance> PostFXDescriptorSetFactory::createDescriptorSet() const {
     throw std::runtime_error("No instances should be created for PostFXDescriptorSetFactory");

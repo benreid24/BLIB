@@ -94,4 +94,7 @@ function(configure_blib_target target_name)
     else()
         target_compile_definitions(${target_name} PUBLIC BLIB_ECS_MASK_TYPE=std::uint64_t)
     endif()
+
+    # Descriptor set binding count
+    target_compile_definitions(${target_name} PUBLIC BLIB_MAX_DESCRIPTOR_BINDINGS=${MAX_DESCRIPTOR_BINDINGS})
 endfunction()

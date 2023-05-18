@@ -12,28 +12,17 @@ namespace ds
 CommonSceneDescriptorSetInstance::CommonSceneDescriptorSetInstance(vk::VulkanState& vulkanState,
                                                                    VkDescriptorSetLayout layout)
 : vulkanState(vulkanState)
-, setLayout(layout)
-, createInfo{} {
-    setBinding[0].binding         = 0;
-    setBinding[0].descriptorCount = 1;
-    setBinding[0].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    setBinding[0].stageFlags      = VK_SHADER_STAGE_VERTEX_BIT;
-
-    createInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-    createInfo.bindingCount = std::size(setBinding);
-    createInfo.pBindings    = setBinding;
-}
+, setLayout(layout) {}
 
 CommonSceneDescriptorSetInstance::~CommonSceneDescriptorSetInstance() {
     cameraBuffer.stopTransferringEveryFrame();
-    for (std::uint32_t i = 0; i < descriptorSets.size(); ++i) {
-        std::array<const VkDescriptorSetLayoutCreateInfo*, Config::MaxConcurrentFrames> createInfos;
-        createInfos.fill(&createInfo);
-        vulkanState.descriptorPool.release(descriptorHandles[i],
-                                           createInfos.data(),
-                                           descriptorSets[i].rawData(),
-                                           Config::MaxConcurrentFrames);
+    std::array<VkDescriptorSet, Config::MaxConcurrentFrames * Config::MaxSceneObservers> sets;
+    for (unsigned int i = 0; i < Config::MaxSceneObservers; ++i) {
+        for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
+            sets[i * Config::MaxConcurrentFrames + j] = descriptorSets[i].getRaw(j);
+        }
     }
+    vulkanState.descriptorPool.release(allocHandle, sets.data());
     cameraBuffer.destroy();
 }
 
@@ -66,20 +55,23 @@ void CommonSceneDescriptorSetInstance::doInit(std::uint32_t, std::uint32_t) {
     cameraBuffer.configureTransferAll();
     cameraBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
 
+    // allocate descriptors
+    std::array<VkDescriptorSet, Config::MaxConcurrentFrames * Config::MaxSceneObservers> sets;
+    for (unsigned int i = 0; i < Config::MaxSceneObservers; ++i) {
+        for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
+            sets[i * Config::MaxConcurrentFrames + j] = descriptorSets[i].getRaw(j);
+        }
+    }
+    allocHandle = vulkanState.descriptorPool.allocate(setLayout, sets.data(), sets.size());
+
     // create and configureWrite descriptors
     for (std::uint32_t i = 0; i < descriptorSets.size(); ++i) {
         // init descriptor set object
         descriptorSets[i].emptyInit(vulkanState);
+        for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
+            descriptorSets[i].getRaw(j) = sets[i * Config::MaxConcurrentFrames + j];
+        }
 
-        // allocate descriptors
-        std::array<VkDescriptorSetLayout, Config::MaxConcurrentFrames> layouts;
-        layouts.fill(setLayout);
-        std::array<const VkDescriptorSetLayoutCreateInfo*, Config::MaxConcurrentFrames> createInfos;
-        createInfos.fill(&createInfo);
-        descriptorHandles[i] = vulkanState.descriptorPool.allocate(createInfos.data(),
-                                                                   layouts.data(),
-                                                                   descriptorSets[i].rawData(),
-                                                                   Config::MaxConcurrentFrames);
         // write descriptors
         for (std::uint32_t j = 0; j < Config::MaxConcurrentFrames; ++j) {
             VkDescriptorBufferInfo bufferWrite{};

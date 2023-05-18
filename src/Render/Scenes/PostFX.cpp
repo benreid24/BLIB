@@ -17,15 +17,6 @@ const prim::Vertex vertices[4] = {prim::Vertex({-1.f, -1.f, 0.f}, {0.f, 0.f}),
                                   prim::Vertex({-1.f, 1.f, 0.f}, {0.f, 1.f})};
 
 const std::uint32_t indices[6] = {0, 1, 3, 1, 2, 3};
-
-VkDescriptorSetLayoutCreateInfo makeCreateInfo() {
-    static const auto layoutBindings = PostFX::DescriptorLayoutBindings();
-    VkDescriptorSetLayoutCreateInfo createInfo{};
-    createInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-    createInfo.bindingCount = static_cast<std::uint32_t>(layoutBindings.size());
-    createInfo.pBindings    = layoutBindings.data();
-    return createInfo;
-}
 } // namespace
 
 std::array<VkDescriptorSetLayoutBinding, 1> PostFX::DescriptorLayoutBindings() {
@@ -68,17 +59,9 @@ PostFX::PostFX(Renderer& renderer)
     const VkDescriptorSetLayout setLayout = renderer.descriptorFactoryCache()
                                                 .getFactory<ds::PostFXDescriptorSetFactory>()
                                                 ->getDescriptorLayout();
-    const VkDescriptorSetLayoutCreateInfo createInfo = makeCreateInfo();
-    descriptorSets.init(renderer.vulkanState(), [](VkDescriptorSet&) {});
-    std::array<VkDescriptorSetLayout, Config::MaxConcurrentFrames> descriptorLayouts;
-    descriptorLayouts.fill(setLayout);
-    std::array<const VkDescriptorSetLayoutCreateInfo*, Config::MaxConcurrentFrames>
-        descriptorCreateInfos;
-    descriptorCreateInfos.fill(&createInfo);
-    descriptorSetAllocHandle = vs.descriptorPool.allocate(descriptorCreateInfos.data(),
-                                                          descriptorLayouts.data(),
-                                                          descriptorSets.rawData(),
-                                                          Config::MaxConcurrentFrames);
+    descriptorSets.emptyInit(vs);
+    descriptorSetAllocHandle = vs.descriptorPool.allocate(
+        setLayout, descriptorSets.rawData(), Config::MaxConcurrentFrames);
 
     // create index buffer
     indexBuffer.create(vs, 4, 6);
@@ -118,15 +101,7 @@ void PostFX::bindImages(vk::PerFrame<vk::StandardImageBuffer>& images) {
 
 PostFX::~PostFX() {
     vk::VulkanState& vs = renderer.vulkanState();
-
-    const VkDescriptorSetLayoutCreateInfo createInfo = makeCreateInfo();
-    std::array<const VkDescriptorSetLayoutCreateInfo*, Config::MaxConcurrentFrames>
-        descriptorCreateInfos;
-    descriptorCreateInfos.fill(&createInfo);
-    vs.descriptorPool.release(descriptorSetAllocHandle,
-                              descriptorCreateInfos.data(),
-                              descriptorSets.rawData(),
-                              Config::MaxConcurrentFrames);
+    vs.descriptorPool.release(descriptorSetAllocHandle);
     vkDestroySampler(vs.device, sampler, nullptr);
     indexBuffer.destroy();
 }

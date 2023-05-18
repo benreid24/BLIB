@@ -11,14 +11,14 @@ namespace vk
 {
 namespace
 {
-constexpr std::array<unsigned int, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT + 1> PoolSizes = {
+constexpr std::array<unsigned int, DescriptorPool::BindingTypeCount> PoolSizes = {
     20,  // VK_DESCRIPTOR_TYPE_SAMPLER
-    500, // VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER
+    200, // VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER
     20,  // VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE
     20,  // VK_DESCRIPTOR_TYPE_STORAGE_IMAGE
     20,  // VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER
     20,  // VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER
-    200, // VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER
+    500, // VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER
     50,  // VK_DESCRIPTOR_TYPE_STORAGE_BUFFER
     50,  // VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC
     50,  // VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC
@@ -27,82 +27,98 @@ constexpr std::array<unsigned int, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT + 1> Pool
 constexpr unsigned int MaxSets = 500;
 } // namespace
 
+DescriptorPool::SetBindingInfo::SetBindingInfo()
+: bindingCount(0) {}
+
 DescriptorPool::DescriptorPool(VulkanState& vs)
 : vulkanState(vs) {}
 
-void DescriptorPool::init() {
-    pools.emplace_back(vulkanState, true);
-    foreverPools.emplace_back(vulkanState, false);
-}
+void DescriptorPool::init() { pools.emplace_back(vulkanState); }
 
 void DescriptorPool::cleanup() {
     pools.clear();
-    foreverPools.clear();
+    for (auto& pair : layoutMap) {
+        vkDestroyDescriptorSetLayout(vulkanState.device, pair.first, nullptr);
+    }
 }
 
-void DescriptorPool::allocateForever(const VkDescriptorSetLayoutCreateInfo** createInfos,
-                                     const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
-                                     std::size_t setCount) {
-    doAllocate(foreverPools, createInfos, layouts, sets, setCount);
+VkDescriptorSetLayout DescriptorPool::createLayout(const SetBindingInfo& allocInfo) {
+    VkDescriptorSetLayout layout;
+
+    VkDescriptorSetLayoutCreateInfo descriptorCreateInfo{};
+    descriptorCreateInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+    descriptorCreateInfo.bindingCount = allocInfo.bindingCount;
+    descriptorCreateInfo.pBindings    = allocInfo.bindings.data();
+    if (VK_SUCCESS !=
+        vkCreateDescriptorSetLayout(vulkanState.device, &descriptorCreateInfo, nullptr, &layout)) {
+        throw std::runtime_error("Failed to create descriptor set layout");
+    }
+    layoutMap.try_emplace(layout, allocInfo);
+
+    return layout;
 }
 
-DescriptorPool::AllocationHandle DescriptorPool::allocate(
-    const VkDescriptorSetLayoutCreateInfo** createInfos, const VkDescriptorSetLayout* layouts,
-    VkDescriptorSet* sets, std::size_t setCount) {
-    return doAllocate(pools, createInfos, layouts, sets, setCount);
-}
+DescriptorPool::AllocationHandle DescriptorPool::allocate(VkDescriptorSetLayout layout,
+                                                          VkDescriptorSet* sets,
+                                                          std::size_t setCount, bool dedicated) {
+    // find layout info
+    const auto lit = layoutMap.find(layout);
+    if (lit == layoutMap.end()) {
+        throw std::runtime_error(
+            "Failed to find descriptor set layout. Create the layout with the pool");
+    }
+    const SetBindingInfo& allocInfo = lit->second;
 
-void DescriptorPool::release(AllocationHandle handle,
-                             const VkDescriptorSetLayoutCreateInfo** createInfos,
-                             VkDescriptorSet* sets, std::size_t setCount) {
-    handle->release(createInfos, sets, setCount);
-    if (pools.size() > 1 && !handle->inUse()) { pools.erase(std::next(handle).base()); }
-}
-
-DescriptorPool::AllocationHandle DescriptorPool::doAllocate(
-    std::list<Subpool>& poolList, const VkDescriptorSetLayoutCreateInfo** createInfos,
-    const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets, std::size_t setCount) {
-// test that allocation is possible
-#ifdef BLIB_DEBUG
-    if (setCount > MaxSets) {
-        BL_LOG_CRITICAL << "Attempting to allocate " << setCount
-                        << " descriptor sets but pools can only allocate " << MaxSets;
-        throw std::runtime_error("Trying to allocate too many descriptor sets");
+    // test if requires dedicated pool
+    if (!dedicated) {
+        // TODO - check sets and binding counts
     }
 
-    for (unsigned int i = 0; i < setCount; ++i) {
-        for (unsigned int j = 0; j < createInfos[i]->bindingCount; ++j) {
-            const auto& binding = createInfos[i]->pBindings[j];
-            if (binding.descriptorType >= PoolSizes.size()) {
-                BL_LOG_CRITICAL << "Trying to allocate unsupported descriptor type: "
-                                << binding.descriptorType;
-                throw std::runtime_error("Trying to allocate unsupported descriptor type");
-            }
-            if (binding.descriptorCount > PoolSizes[binding.descriptorType]) {
-                BL_LOG_CRITICAL << "Trying to allocate " << binding.descriptorCount
-                                << " descriptors of type " << binding.descriptorType
-                                << " but the max is " << PoolSizes[binding.descriptorType];
-                throw std::runtime_error("Trying to allocate too many descriptors");
-            }
-        }
+    // create allocation record
+    AllocationHandle handle =
+        allocations.emplace(allocations.begin(), dedicated, layout, setCount, sets);
+
+    // create dedicated pool if required
+    if (dedicated) {
+        handle->pool = pools.emplace(pools.end(), vulkanState, allocInfo, setCount);
+        handle->pool->allocate(allocInfo, layout, sets, setCount);
+        return handle;
     }
-#endif
 
     // see if existing pool can allocate
-    for (auto it = poolList.rbegin(); it != poolList.rend(); ++it) {
-        if (it->canAllocate(createInfos, setCount)) {
-            it->allocate(createInfos, layouts, sets, setCount);
-            return it;
+    for (auto it = pools.begin(); it != pools.end(); ++it) {
+        if (it->canAllocate(allocInfo, setCount)) {
+            handle->pool = it;
+            goto newPoolNotNeeded;
         }
     }
 
     // create new pool to allocate from
-    poolList.emplace_back(vulkanState, &poolList == &pools);
-    poolList.back().allocate(createInfos, layouts, sets, setCount);
-    return poolList.rbegin();
+    handle->pool = pools.emplace(pools.end(), vulkanState);
+
+newPoolNotNeeded:
+    handle->pool->allocate(allocInfo, layout, sets, setCount);
+    return handle;
 }
 
-DescriptorPool::Subpool::Subpool(VulkanState& vs, bool allowFree)
+void DescriptorPool::release(AllocationHandle handle, VkDescriptorSet* sets) {
+    // find layout info
+    const auto lit = layoutMap.find(handle->layout);
+    if (lit == layoutMap.end()) {
+        throw std::runtime_error(
+            "Failed to find descriptor set layout. Create the layout with the pool");
+    }
+    const SetBindingInfo& allocInfo = lit->second;
+
+    // free sets
+    if (handle->dedicated) { pools.erase(handle->pool); }
+    else {
+        handle->pool->release(allocInfo, sets != nullptr ? sets : handle->sets, handle->setCount);
+    }
+    allocations.erase(handle);
+}
+
+DescriptorPool::Subpool::Subpool(VulkanState& vs)
 : vulkanState(vs)
 , freeSets(MaxSets)
 , available(PoolSizes) {
@@ -117,7 +133,30 @@ DescriptorPool::Subpool::Subpool(VulkanState& vs, bool allowFree)
     poolInfo.poolSizeCount = sizes.size();
     poolInfo.pPoolSizes    = sizes.data();
     poolInfo.maxSets       = MaxSets;
-    if (allowFree) { poolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT; }
+    poolInfo.flags         = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
+    if (vkCreateDescriptorPool(vs.device, &poolInfo, nullptr, &pool) != VK_SUCCESS) {
+        throw std::runtime_error("Failed to create descriptor pool");
+    }
+}
+
+DescriptorPool::Subpool::Subpool(VulkanState& vs, const SetBindingInfo& allocInfo,
+                                 std::size_t setCount)
+: vulkanState(vs)
+, freeSets(0) {
+    auto bindings = allocInfo.bindings;
+    for (auto& binding : bindings) { binding.descriptorCount *= setCount; }
+
+    std::array<VkDescriptorPoolSize, BLIB_MAX_DESCRIPTOR_BINDINGS> poolSizes;
+    for (unsigned int i = 0; i < allocInfo.bindingCount; ++i) {
+        poolSizes[i].type            = allocInfo.bindings[i].descriptorType;
+        poolSizes[i].descriptorCount = allocInfo.bindings[i].descriptorCount;
+    }
+
+    VkDescriptorPoolCreateInfo poolInfo{};
+    poolInfo.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+    poolInfo.poolSizeCount = allocInfo.bindingCount;
+    poolInfo.pPoolSizes    = poolSizes.data();
+    poolInfo.maxSets       = setCount;
     if (vkCreateDescriptorPool(vs.device, &poolInfo, nullptr, &pool) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create descriptor pool");
     }
@@ -125,13 +164,13 @@ DescriptorPool::Subpool::Subpool(VulkanState& vs, bool allowFree)
 
 DescriptorPool::Subpool::~Subpool() { vkDestroyDescriptorPool(vulkanState.device, pool, nullptr); }
 
-bool DescriptorPool::Subpool::canAllocate(const VkDescriptorSetLayoutCreateInfo** createInfos,
+bool DescriptorPool::Subpool::canAllocate(const SetBindingInfo& allocInfo,
                                           std::size_t setCount) const {
     if (freeSets < setCount) { return false; }
 
     for (std::size_t i = 0; i < setCount; ++i) {
-        for (std::size_t j = 0; j < createInfos[i]->bindingCount; ++j) {
-            const auto& binding = createInfos[i]->pBindings[j];
+        for (std::size_t j = 0; j < allocInfo.bindingCount; ++j) {
+            const auto& binding = allocInfo.bindings[j];
             if (available[binding.descriptorType] < binding.descriptorCount) { return false; }
         }
     }
@@ -139,52 +178,51 @@ bool DescriptorPool::Subpool::canAllocate(const VkDescriptorSetLayoutCreateInfo*
     return true;
 }
 
-void DescriptorPool::Subpool::allocate(const VkDescriptorSetLayoutCreateInfo** createInfos,
-                                       const VkDescriptorSetLayout* layouts, VkDescriptorSet* sets,
+void DescriptorPool::Subpool::allocate(const SetBindingInfo& allocInfo,
+                                       VkDescriptorSetLayout layout, VkDescriptorSet* sets,
                                        std::size_t setCount) {
     // update metadata
     freeSets -= setCount;
-    for (std::size_t i = 0; i < setCount; ++i) {
-        for (std::size_t j = 0; j < createInfos[i]->bindingCount; ++j) {
-            const auto& binding = createInfos[i]->pBindings[j];
-            available[binding.descriptorType] -= binding.descriptorCount;
-        }
+    for (std::size_t j = 0; j < allocInfo.bindingCount; ++j) {
+        const auto& binding = allocInfo.bindings[j];
+        available[binding.descriptorType] -= binding.descriptorCount * setCount;
+    }
+
+    // duplicate layout for vulkan api
+    std::array<VkDescriptorSetLayout, 128> layoutsArray;
+    std::vector<VkDescriptorSetLayout> layoutsVector;
+    VkDescriptorSetLayout* pLayouts;
+    if (setCount <= layoutsArray.size()) {
+        for (unsigned int i = 0; i < setCount; ++i) { layoutsArray[i] = layout; }
+        pLayouts = layoutsArray.data();
+    }
+    else {
+        layoutsVector.resize(setCount, layout);
+        pLayouts = layoutsVector.data();
     }
 
     // allocate sets
-    VkDescriptorSetAllocateInfo allocInfo{};
-    allocInfo.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-    allocInfo.descriptorPool     = pool;
-    allocInfo.descriptorSetCount = setCount;
-    allocInfo.pSetLayouts        = layouts;
-    if (vkAllocateDescriptorSets(vulkanState.device, &allocInfo, sets) != VK_SUCCESS) {
+    VkDescriptorSetAllocateInfo setAllocInfo{};
+    setAllocInfo.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+    setAllocInfo.descriptorPool     = pool;
+    setAllocInfo.descriptorSetCount = setCount;
+    setAllocInfo.pSetLayouts        = pLayouts;
+    if (vkAllocateDescriptorSets(vulkanState.device, &setAllocInfo, sets) != VK_SUCCESS) {
         throw std::runtime_error("Failed to allocate descriptor sets");
     }
 }
 
-void DescriptorPool::Subpool::release(const VkDescriptorSetLayoutCreateInfo** createInfos,
-                                      VkDescriptorSet* sets, std::size_t setCount) {
+void DescriptorPool::Subpool::release(const SetBindingInfo& allocInfo, VkDescriptorSet* sets,
+                                      std::size_t setCount) {
     // update metadata
     freeSets += setCount;
-    for (std::size_t i = 0; i < setCount; ++i) {
-        for (std::size_t j = 0; j < createInfos[i]->bindingCount; ++j) {
-            const auto& binding = createInfos[i]->pBindings[j];
-            available[binding.descriptorType] += binding.descriptorCount;
-        }
+    for (std::size_t j = 0; j < allocInfo.bindingCount; ++j) {
+        const auto& binding = allocInfo.bindings[j];
+        available[binding.descriptorType] += binding.descriptorCount * setCount;
     }
 
     // free sets
     vkCheck(vkFreeDescriptorSets(vulkanState.device, pool, setCount, sets));
-}
-
-bool DescriptorPool::Subpool::inUse() const {
-    if (freeSets != MaxSets) { return true; }
-
-    for (std::size_t i = 0; i < PoolSizes.size(); ++i) {
-        if (available[i] != PoolSizes[i]) { return true; }
-    }
-
-    return false;
 }
 
 } // namespace vk

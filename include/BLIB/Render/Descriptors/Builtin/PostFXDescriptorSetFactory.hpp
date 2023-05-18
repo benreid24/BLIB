@@ -17,18 +17,11 @@ namespace ds
 class PostFXDescriptorSetFactory : public DescriptorSetFactory {
 public:
     /**
-     * @brief Creates a new factory
-     */
-    PostFXDescriptorSetFactory();
-
-    /**
      * @brief Frees resources
      */
-    virtual ~PostFXDescriptorSetFactory();
+    virtual ~PostFXDescriptorSetFactory() = default;
 
 private:
-    VkDevice device;
-
     virtual void init(engine::Engine& engine, Renderer& renderer) override;
     virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;
 };

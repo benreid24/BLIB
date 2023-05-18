@@ -16,6 +16,7 @@ option(BLIB_HEADLESS_FOR_CI_TESTING "True when on CI, false when local" Off)
 
 option(BLIB_ECS_USE_WIDE_MASK "True to use 128 bit component mask, false for 64 bit component mask" Off)
 option(COMPILE_SHADERS "True to build built-in shaders, off to skip" On)
+set(MAX_DESCRIPTOR_BINDINGS "8" CACHE STRING "Maximum number of bindings in a descriptor set")
 set(RUN_PATH ${PROJECT_SOURCE_DIR} CACHE PATH "Working directory of the final built executables")
 set(SHADER_PATH "Resources/Shaders" CACHE PATH "Path where compiled shaders should go")
 
