@@ -1,12 +1,14 @@
 #ifndef BLIB_RENDER_VULKAN_VULKANSTATE_HPP
 #define BLIB_RENDER_VULKAN_VULKANSTATE_HPP
 
+#include "PerFrameVector.hpp"
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
 #include <BLIB/Render/Vulkan/CommonSamplers.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/PerFrameVector.hpp>
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <SFML/Window.hpp>
@@ -302,6 +304,74 @@ constexpr T* PerFrame<T>::rawData() {
 template<typename T>
 constexpr const T* PerFrame<T>::rawData() const {
     return data.data();
+}
+
+template<typename T>
+PerFrameVector<T>::PerFrameVector()
+: vs(nullptr) {}
+
+template<typename T>
+void PerFrameVector<T>::emptyInit(VulkanState& vulkanState, std::uint32_t capacity) {
+    vs = &vulkanState;
+    cap = capacity;
+    items.resize(capacity * Config::MaxConcurrentFrames);
+}
+
+template<typename T>
+template<typename U>
+void PerFrameVector<T>::init(VulkanState& vulkanState, std::uint32_t capacity, const U& visitor) {
+    emptyInit(vulkanState, capacity);
+    cleanup(visitor);
+}
+
+template<typename T>
+template<typename U>
+void PerFrameVector<T>::cleanup(const U& visitor) {
+    for (std::uint32_t i = 0; i < cap; ++i) {
+        for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
+            visitor(i, j, getRaw(i, j));
+        }
+    }
+}
+
+template<typename T>
+T& PerFrameVector<T>::current(std::uint32_t i) {
+    return items[i * Config::MaxConcurrentFrames + vs->currentFrameIndex()];
+}
+
+template<typename T>
+const T& PerFrameVector<T>::current(std::uint32_t i) const {
+    return items[i * Config::MaxConcurrentFrames + vs->currentFrameIndex()];
+}
+
+template<typename T>
+T& PerFrameVector<T>::getRaw(std::uint32_t i, std::uint32_t frame) {
+    return items[i * Config::MaxConcurrentFrames + frame];
+}
+
+template<typename T>
+const T& PerFrameVector<T>::getRaw(std::uint32_t i, std::uint32_t frame) const {
+    return items[i * Config::MaxConcurrentFrames + frame];
+}
+
+template<typename T>
+constexpr std::uint32_t PerFrameVector<T>::size() const {
+    return cap;
+}
+
+template<typename T>
+constexpr std::uint32_t PerFrameVector<T>::totalSize() const {
+    return items.size();
+}
+
+template<typename T>
+constexpr T* PerFrameVector<T>::data() {
+    return items.data();
+}
+
+template<typename T>
+constexpr const T* PerFrameVector<T>::data() const {
+    return items.data();
 }
 
 } // namespace vk

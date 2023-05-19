@@ -1,8 +1,8 @@
 target_sources(BLIB PRIVATE
 	CommonSceneDescriptorSetFactory.cpp
 	CommonSceneDescriptorSetInstance.cpp
-	DefaultObjectDescriptorSetFactory.cpp
-	DefaultObjectDescriptorSetInstance.cpp
+	MeshDescriptorSetFactory.cpp
+	MeshDescriptorSetInstance.cpp
 	PostFXDescriptorSetFactory.cpp
 	TexturesDescriptorSetFactory.cpp
 	TexturesDescriptorSetInstance.cpp

@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_DEFAULTOBJECTDESCRIPTORSETFACTORY_HPP
-#define BLIB_RENDER_DESCRIPTORS_BUILTIN_DEFAULTOBJECTDESCRIPTORSETFACTORY_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_MESHDESCRIPTORSETFACTORY_HPP
+#define BLIB_RENDER_DESCRIPTORS_BUILTIN_MESHDESCRIPTORSETFACTORY_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 
@@ -10,16 +10,16 @@ namespace render
 namespace ds
 {
 /**
- * @brief Descriptor set factory used by objects rendered using default built-in pipelines
+ * @brief Descriptor set factory used by meshes rendered using default built-in pipelines
  *
  * @ingroup Renderer
  */
-class DefaultObjectDescriptorSetFactory : public DescriptorSetFactory {
+class MeshDescriptorSetFactory : public DescriptorSetFactory {
 public:
     /**
      * @brief Destroys the factory
      */
-    virtual ~DefaultObjectDescriptorSetFactory() = default;
+    virtual ~MeshDescriptorSetFactory() = default;
 
     /**
      * @brief Initializes the factory and creates the descriptor set layout
@@ -32,7 +32,7 @@ public:
     /**
      * @brief Creates an instance of the descriptor set for this factory
      *
-     * @return A DefaultObjectDescriptorSetInstance instance
+     * @return A MeshDescriptorSetInstance instance
      */
     virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;
 

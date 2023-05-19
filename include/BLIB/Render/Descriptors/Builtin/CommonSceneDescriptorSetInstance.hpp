@@ -6,6 +6,7 @@
 #include <BLIB/Render/Transfers/UniformBuffer.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/PerFrameVector.hpp>
 #include <array>
 #include <glm/glm.hpp>
 
@@ -43,7 +44,7 @@ public:
 private:
     vk::VulkanState& vulkanState;
     const VkDescriptorSetLayout setLayout;
-    std::array<vk::PerFrame<VkDescriptorSet>, Config::MaxSceneObservers> descriptorSets;
+    vk::PerFrameVector<VkDescriptorSet> descriptorSets;
     vk::DescriptorPool::AllocationHandle allocHandle;
 
     virtual void bindForPipeline(VkCommandBuffer commandBuffer, VkPipelineLayout layout,

@@ -1,4 +1,4 @@
-#include <BLIB/Render/Descriptors/Builtin/DefaultObjectDescriptorSetInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/MeshDescriptorSetInstance.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Components/Texture.hpp>
@@ -6,21 +6,21 @@
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Transforms/3D.hpp>
 
-bl::render::ds::DefaultObjectDescriptorSetInstance::DefaultObjectDescriptorSetInstance(
+bl::render::ds::MeshDescriptorSetInstance::MeshDescriptorSetInstance(
     engine::Engine& engine, VkDescriptorSetLayout descriptorSetLayout)
 : DescriptorSetInstance(true)
 , registry(engine.ecs())
 , vulkanState(engine.renderer().vulkanState())
 , descriptorSetLayout(descriptorSetLayout) {}
 
-bl::render::ds::DefaultObjectDescriptorSetInstance::~DefaultObjectDescriptorSetInstance() {
+bl::render::ds::MeshDescriptorSetInstance::~MeshDescriptorSetInstance() {
     vulkanState.descriptorPool.release(alloc);
     transformBuffer.destroy();
     textureBuffer.destroy();
 }
 
-void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t maxStaticObjects,
-                                                                std::uint32_t maxDynamicObjects) {
+void bl::render::ds::MeshDescriptorSetInstance::doInit(std::uint32_t maxStaticObjects,
+                                                       std::uint32_t maxDynamicObjects) {
     const std::uint32_t objectCount = maxStaticObjects + maxDynamicObjects;
     staticObjectCount               = maxStaticObjects;
     dynamicObjectCount              = maxDynamicObjects;
@@ -28,7 +28,6 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
     // allocate memory
     transformBuffer.create(vulkanState, objectCount);
     textureBuffer.create(vulkanState, objectCount);
-    descriptorSets.resize(objectCount);
 
     // configure data transfers
     textureBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
@@ -37,15 +36,9 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
     textureBuffer.configureTransferAll();
 
     // allocate descriptor sets
-    std::vector<VkDescriptorSet> sets(objectCount * Config::MaxConcurrentFrames);
-    alloc = vulkanState.descriptorPool.allocate(descriptorSetLayout, sets.data(), sets.size());
-    unsigned int i = 0;
-    for (auto& perFrameSet : descriptorSets) {
-        perFrameSet.init(vulkanState, [&sets, &i](VkDescriptorSet& descriptorSet) {
-            descriptorSet = sets[i];
-            ++i;
-        });
-    }
+    descriptorSets.emptyInit(vulkanState, objectCount);
+    alloc = vulkanState.descriptorPool.allocate(
+        descriptorSetLayout, descriptorSets.data(), descriptorSets.totalSize());
 
     // configureWrite descriptor sets
     for (unsigned int i = 0; i < objectCount; ++i) {
@@ -64,7 +57,7 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
             transformWrite.descriptorCount       = 1;
             transformWrite.dstBinding            = 0;
             transformWrite.dstArrayElement       = 0;
-            transformWrite.dstSet                = descriptorSets[i].getRaw(j);
+            transformWrite.dstSet                = descriptorSets.getRaw(i, j);
             transformWrite.pBufferInfo           = &transformBufferWrite;
             transformWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 
@@ -80,7 +73,7 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
             textureWrite.descriptorCount       = 1;
             textureWrite.dstBinding            = 1;
             textureWrite.dstArrayElement       = 0;
-            textureWrite.dstSet                = descriptorSets[i].getRaw(j);
+            textureWrite.dstSet                = descriptorSets.getRaw(i, j);
             textureWrite.pBufferInfo           = &textureBufferWrite;
             textureWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 
@@ -90,36 +83,34 @@ void bl::render::ds::DefaultObjectDescriptorSetInstance::doInit(std::uint32_t ma
     }
 }
 
-void bl::render::ds::DefaultObjectDescriptorSetInstance::bindForPipeline(VkCommandBuffer,
-                                                                         VkPipelineLayout,
-                                                                         std::uint32_t,
-                                                                         std::uint32_t) const {
+void bl::render::ds::MeshDescriptorSetInstance::bindForPipeline(VkCommandBuffer, VkPipelineLayout,
+                                                                std::uint32_t,
+                                                                std::uint32_t) const {
     // noop
 }
 
-void bl::render::ds::DefaultObjectDescriptorSetInstance::bindForObject(
-    VkCommandBuffer commandBuffer, VkPipelineLayout layout, std::uint32_t setIndex,
-    std::uint32_t objectId) const {
+void bl::render::ds::MeshDescriptorSetInstance::bindForObject(VkCommandBuffer commandBuffer,
+                                                              VkPipelineLayout layout,
+                                                              std::uint32_t setIndex,
+                                                              std::uint32_t objectId) const {
     vkCmdBindDescriptorSets(commandBuffer,
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
                             setIndex,
                             1,
-                            &descriptorSets[objectId].current(),
+                            &descriptorSets.current(objectId),
                             0,
                             nullptr);
 }
 
-void bl::render::ds::DefaultObjectDescriptorSetInstance::releaseObject(std::uint32_t,
-                                                                       ecs::Entity entity) {
+void bl::render::ds::MeshDescriptorSetInstance::releaseObject(std::uint32_t, ecs::Entity entity) {
     auto components = registry.getComponentSet<t3d::Transform3D, com::Texture>(entity);
     if (components.get<t3d::Transform3D>()) { components.get<t3d::Transform3D>()->unlink(); }
     if (components.get<com::Texture>()) { components.get<com::Texture>()->unlink(); }
 }
 
-bool bl::render::ds::DefaultObjectDescriptorSetInstance::doAllocateObject(std::uint32_t sceneId,
-                                                                          ecs::Entity entity,
-                                                                          UpdateSpeed) {
+bool bl::render::ds::MeshDescriptorSetInstance::doAllocateObject(std::uint32_t sceneId,
+                                                                 ecs::Entity entity, UpdateSpeed) {
     auto components = registry.getComponentSet<t3d::Transform3D, com::Texture>(entity);
     if (!components.get<t3d::Transform3D>()) {
 #ifdef BLIB_DEBUG
@@ -135,12 +126,13 @@ bool bl::render::ds::DefaultObjectDescriptorSetInstance::doAllocateObject(std::u
     return true;
 }
 
-void bl::render::ds::DefaultObjectDescriptorSetInstance::beginSync(bool staticObjectsChanged) {
+void bl::render::ds::MeshDescriptorSetInstance::beginSync(bool staticObjectsChanged) {
     if (staticObjectsChanged) {
         transformBuffer.configureTransferAll();
         textureBuffer.configureTransferAll();
     }
     else {
+        // TODO - try to track used space to minimize transfer
         transformBuffer.configureTransferRange(staticObjectCount, dynamicObjectCount);
         textureBuffer.configureTransferRange(staticObjectCount, dynamicObjectCount);
     }

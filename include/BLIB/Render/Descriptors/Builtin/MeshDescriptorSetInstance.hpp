@@ -4,6 +4,7 @@
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Transfers/UniformBuffer.hpp>
+#include <BLIB/Render/Vulkan/PerFrameVector.hpp>
 #include <cstdint>
 #include <glm/glm.hpp>
 #include <vector>
@@ -22,12 +23,12 @@ class Renderer;
 namespace ds
 {
 /**
- * @brief Descriptor set instance used by all objects in the engine default pipelines. Contains the
+ * @brief Descriptor set instance used by all meshes in the engine default pipelines. Contains the
  *        object transform matrix and texture id
  *
  * @ingroup Renderer
  */
-class DefaultObjectDescriptorSetInstance : public DescriptorSetInstance {
+class MeshDescriptorSetInstance : public DescriptorSetInstance {
 public:
     /**
      * @brief Create a new set instance
@@ -35,20 +36,19 @@ public:
      * @param engine Game engine instance
      * @param descriptorSetLayout Layout of the descriptor set
      */
-    DefaultObjectDescriptorSetInstance(engine::Engine& engine,
-                                       VkDescriptorSetLayout descriptorSetLayout);
+    MeshDescriptorSetInstance(engine::Engine& engine, VkDescriptorSetLayout descriptorSetLayout);
 
     /**
      * @brief Frees resources
      */
-    virtual ~DefaultObjectDescriptorSetInstance();
+    virtual ~MeshDescriptorSetInstance();
 
 private:
     ecs::Registry& registry;
     vk::VulkanState& vulkanState;
     vk::DescriptorPool::AllocationHandle alloc;
     const VkDescriptorSetLayout descriptorSetLayout;
-    std::vector<vk::PerFrame<VkDescriptorSet>> descriptorSets;
+    vk::PerFrameVector<VkDescriptorSet> descriptorSets;
     tfr::UniformBuffer<glm::mat4> transformBuffer;
     tfr::UniformBuffer<std::uint32_t> textureBuffer;
     std::uint32_t staticObjectCount;

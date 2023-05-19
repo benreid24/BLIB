@@ -3,7 +3,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/DefaultObjectDescriptorSetFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/MeshDescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/PostFXDescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/TexturesDescriptorSetFactory.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -73,7 +73,7 @@ void PipelineCache::createBuiltins() {
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencil)
                       .addDescriptorSet<ds::CommonSceneDescriptorSetFactory>()
-                      .addDescriptorSet<ds::DefaultObjectDescriptorSetFactory>()
+                      .addDescriptorSet<ds::MeshDescriptorSetFactory>()
                       .build());
 
     createPipline(Config::PipelineIds::OpaqueSkinnedMeshes,
@@ -85,7 +85,7 @@ void PipelineCache::createBuiltins() {
                       .withDepthStencilState(&depthStencil)
                       .addDescriptorSet<ds::TexturesDescriptorSetFactory>()
                       .addDescriptorSet<ds::CommonSceneDescriptorSetFactory>()
-                      .addDescriptorSet<ds::DefaultObjectDescriptorSetFactory>()
+                      .addDescriptorSet<ds::MeshDescriptorSetFactory>()
                       .build());
 
     createPipline(

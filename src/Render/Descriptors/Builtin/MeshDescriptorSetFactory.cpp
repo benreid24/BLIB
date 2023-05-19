@@ -1,7 +1,7 @@
-#include <BLIB/Render/Descriptors/Builtin/DefaultObjectDescriptorSetFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/MeshDescriptorSetFactory.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Render/Descriptors/Builtin/DefaultObjectDescriptorSetInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/MeshDescriptorSetInstance.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -10,7 +10,7 @@ namespace render
 {
 namespace ds
 {
-void DefaultObjectDescriptorSetFactory::init(engine::Engine& e, Renderer& renderer) {
+void MeshDescriptorSetFactory::init(engine::Engine& e, Renderer& renderer) {
     engine = &e;
 
     // create descriptor layout
@@ -30,9 +30,8 @@ void DefaultObjectDescriptorSetFactory::init(engine::Engine& e, Renderer& render
     descriptorSetLayout = renderer.vulkanState().descriptorPool.createLayout(bindings);
 }
 
-std::unique_ptr<DescriptorSetInstance> DefaultObjectDescriptorSetFactory::createDescriptorSet()
-    const {
-    return std::make_unique<DefaultObjectDescriptorSetInstance>(*engine, descriptorSetLayout);
+std::unique_ptr<DescriptorSetInstance> MeshDescriptorSetFactory::createDescriptorSet() const {
+    return std::make_unique<MeshDescriptorSetInstance>(*engine, descriptorSetLayout);
 }
 
 } // namespace ds
