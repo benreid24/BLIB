@@ -8,7 +8,7 @@ namespace bl
 {
 namespace render
 {
-namespace r3d
+namespace c3d
 {
 /**
  * @brief Base class for affectors that can be applied to 3d cameras. An affecter modifies the
@@ -52,7 +52,7 @@ struct CameraAffector3D {
     virtual void applyOnProjection(float& fov, float& near, float& far);
 };
 
-} // namespace r3d
+} // namespace c3d
 } // namespace render
 } // namespace bl
 

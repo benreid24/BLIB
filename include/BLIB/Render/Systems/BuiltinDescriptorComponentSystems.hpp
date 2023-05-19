@@ -4,6 +4,7 @@
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Components/Texture.hpp>
 #include <BLIB/Render/Systems/GenericDescriptorComponentSystem.hpp>
+#include <BLIB/Transforms/2D/Transform2D.hpp>
 #include <BLIB/Transforms/3D/Transform3D.hpp>
 
 namespace bl
@@ -12,6 +13,12 @@ namespace render
 {
 namespace sys
 {
+/**
+ * @brief Descriptor component system for 2d transforms
+ * @ingroup Renderer
+ */
+using Transform2DDescriptorSystem = GenericDescriptorComponentSystem<t2d::Transform2D, glm::mat4>;
+
 /**
  * @brief Descriptor component system for 3d transforms
  * @ingroup Renderer

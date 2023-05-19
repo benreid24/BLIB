@@ -1,5 +1,6 @@
 #include <BLIB/Transforms/2D/Transform2D.hpp>
 
+#include <BLIB/Render/Config.hpp>
 #include <glm/gtx/transform.hpp>
 
 namespace bl
@@ -27,8 +28,6 @@ void Transform2D::move(const glm::vec2& delta) {
     position += delta;
     markDirty();
 }
-
-const glm::vec2& Transform2D::getPosition() const { return position; }
 
 void Transform2D::setDepth(float d) {
     depth = d;
@@ -65,8 +64,6 @@ void Transform2D::scale(float factor) {
     markDirty();
 }
 
-const glm::vec2& Transform2D::getScale() const { return scaleFactors; }
-
 void Transform2D::setRotation(float angle) {
     rotation = angle;
     markDirty();
@@ -77,11 +74,9 @@ void Transform2D::rotate(float delta) {
     markDirty();
 }
 
-float Transform2D::getRotation() const { return rotation; }
-
 void Transform2D::refreshDescriptor(glm::mat4& dest) {
     dest = glm::translate(glm::vec3(position, depth));
-    dest *= glm::rotate(glm::radians(rotation), glm::vec3(0.f, 0.f, -1.f)); // +/-?
+    dest *= glm::rotate(glm::radians(rotation), render::Config::Rotate2DAxis);
     dest *= glm::scale(glm::vec3(scaleFactors, 1.f));
 }
 

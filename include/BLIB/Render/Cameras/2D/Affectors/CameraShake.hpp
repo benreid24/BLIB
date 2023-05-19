@@ -1,20 +1,20 @@
-#ifndef BLIB_RENDER_CAMERAS_3D_AFFECTORS_HPP
-#define BLIB_RENDER_CAMERAS_3D_AFFECTORS_HPP
+#ifndef BLIB_RENDER_CAMERAS_2D_AFFECTORS_HPP
+#define BLIB_RENDER_CAMERAS_2D_AFFECTORS_HPP
 
-#include <BLIB/Render/Cameras/3D/CameraAffector3D.hpp>
+#include <BLIB/Render/Cameras/2D/CameraAffector2D.hpp>
 
 namespace bl
 {
 namespace render
 {
-namespace c3d
+namespace c2d
 {
 /**
  * @brief Camera affector that shakes the view
  *
  * @ingroup Renderer
  */
-class CameraShake : public CameraAffector3D {
+class CameraShake : public CameraAffector2D {
 public:
     /**
      * @brief Creates a new camera shake affector
@@ -51,19 +51,19 @@ public:
     /**
      * @brief Modifies the camera view matrix with the shake
      *
-     * @param position Camera position to modify
-     * @param orientation Ignored
+     * @param center The center of the camera. May be modified
+     * @param size The size of the region the camera is showing
+     * @param rotation The rotation of the camera
      */
-    virtual void applyOnView(glm::vec3& position, t3d::Orientation3D& orientation) override;
+    virtual void applyOnView(glm::vec2& center, glm::vec2& size, float& rotation) override;
 
     /**
      * @brief Updates the camera shaking
      *
      * @param dt Time elapsed in seconds
      * @param view Flag to set to true to mark the view matrix dirty
-     * @param proj Ignored
      */
-    virtual void update(float dt, bool& view, bool& proj);
+    virtual void update(float dt, bool& view) override;
 
 private:
     float time;
@@ -75,7 +75,7 @@ private:
 
 inline constexpr float CameraShake::getMagnitude() const { return mag; }
 
-} // namespace c3d
+} // namespace c2d
 } // namespace render
 } // namespace bl
 

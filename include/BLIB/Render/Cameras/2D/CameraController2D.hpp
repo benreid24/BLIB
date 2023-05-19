@@ -1,24 +1,24 @@
-#ifndef BLIB_RENDER_CAMERAS_3D_CAMERACONTROLLER3D_HPP
-#define BLIB_RENDER_CAMERAS_3D_CAMERACONTROLLER3D_HPP
+#ifndef BLIB_RENDER_CAMERAS_2D_CAMERACONTROLLER2D_HPP
+#define BLIB_RENDER_CAMERAS_2D_CAMERACONTROLLER2D_HPP
 
 namespace bl
 {
 namespace render
 {
-namespace c3d
+namespace c2d
 {
-class Camera3D;
+class Camera2D;
 
 /**
- * @brief Base class for 3d camera controllers
+ * @brief Base class for 2d camera controllers
  *
  * @ingroup Renderer
  */
-struct CameraController3D {
+struct CameraController2D {
     /**
      * @brief Destroy the controller
      */
-    virtual ~CameraController3D() = default;
+    virtual ~CameraController2D() = default;
 
     /**
      * @brief Override this to provide functionality to the camera
@@ -32,23 +32,23 @@ protected:
      * @brief Returns the camera that owns this controller. Undefined behavior if not currently
      * owned
      */
-    constexpr Camera3D& camera();
+    constexpr Camera2D& camera();
 
 private:
-    Camera3D* cam;
+    Camera2D* cam;
 
-    void setCam(Camera3D& cam);
+    void setCam(Camera2D& cam);
 
-    friend class Camera3D;
+    friend class Camera2D;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr Camera3D& CameraController3D::camera() { return *cam; }
+inline constexpr Camera2D& CameraController2D::camera() { return *cam; }
 
-inline void CameraController3D::setCam(Camera3D& c) { cam = &c; }
+inline void CameraController2D::setCam(Camera2D& c) { cam = &c; }
 
-} // namespace c3d
+} // namespace c2d
 } // namespace render
 } // namespace bl
 

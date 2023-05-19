@@ -14,7 +14,8 @@ struct Config {
 
     static constexpr unsigned int MaxSceneObservers = 5;
 
-    static constexpr glm::vec3 UpDirection = {0.f, 1.f, 0.f};
+    static constexpr glm::vec3 UpDirection  = {0.f, 1.f, 0.f};
+    static constexpr glm::vec3 Rotate2DAxis = {0.f, 0.f, -1.f}; // +/-?
 
     struct SceneObjectStage { // does not include postfx stage as objects do not belong in there
         enum : std::size_t { ShadowMapping = 0, OpaquePass = 1, TransparentPass = 2, Count };
@@ -37,12 +38,10 @@ struct Config {
         static constexpr std::uint32_t ShadowPassMeshes        = 1;
         static constexpr std::uint32_t ShadowPassSkinnedMeshes = 2;
 
-        static constexpr std::uint32_t OpaqueMeshes        = 3;
-        static constexpr std::uint32_t OpaqueSkinnedMeshes = 4;
+        static constexpr std::uint32_t Meshes        = 3;
+        static constexpr std::uint32_t SkinnedMeshes = 4;
 
-        static constexpr std::uint32_t TransparentSkinnedMeshes = 5;
-
-        static constexpr std::uint32_t PostFXBase = 6;
+        static constexpr std::uint32_t PostFXBase = 5;
     };
 
     struct RenderPassIds {

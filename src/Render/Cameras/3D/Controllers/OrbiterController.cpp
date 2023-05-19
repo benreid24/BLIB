@@ -8,7 +8,7 @@ namespace bl
 {
 namespace render
 {
-namespace r3d
+namespace c3d
 {
 OrbiterController::OrbiterController(const glm::vec3& center, float p, const glm::vec3& normal,
                                      float minRadius, float maxRadius)
@@ -55,6 +55,6 @@ void OrbiterController::update(float dt) {
     camera().getOrientationForChange().lookAt(center, newPos);
 }
 
-} // namespace r3d
+} // namespace c3d
 } // namespace render
 } // namespace bl

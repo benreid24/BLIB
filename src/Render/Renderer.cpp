@@ -47,6 +47,8 @@ void Renderer::initialize() {
     engine.systems().registerSystem<sys::RenderSystem>(FrameStage::Render, StateMask, *this);
 
     // descriptor systems
+    engine.systems().registerSystem<sys::Transform2DDescriptorSystem>(
+        FrameStage::RenderDescriptorRefresh, StateMask);
     engine.systems().registerSystem<sys::Transform3DDescriptorSystem>(
         FrameStage::RenderDescriptorRefresh, StateMask);
     engine.systems().registerSystem<sys::TextureDescriptorSystem>(
@@ -57,10 +59,9 @@ void Renderer::initialize() {
         FrameStage::RenderObjectSync,
         StateMask,
         scene::StagePipelineBuilder()
-            .withPipeline(Config::SceneObjectStage::OpaquePass,
-                          Config::PipelineIds::OpaqueSkinnedMeshes)
+            .withPipeline(Config::SceneObjectStage::OpaquePass, Config::PipelineIds::SkinnedMeshes)
             .withPipeline(Config::SceneObjectStage::TransparentPass,
-                          Config::PipelineIds::OpaqueSkinnedMeshes)
+                          Config::PipelineIds::SkinnedMeshes)
             .build());
 
     // create renderer instance data

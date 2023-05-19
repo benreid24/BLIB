@@ -9,7 +9,7 @@ namespace bl
 {
 namespace render
 {
-namespace r3d
+namespace c3d
 {
 Camera3D::Camera3D(const glm::vec3& pos, float yaw, float pitch, float fov, float roll)
 : position(pos)
@@ -81,6 +81,6 @@ void Camera3D::removeAffector(const CameraAffector3D* a) {
     }
 }
 
-} // namespace r3d
+} // namespace c3d
 } // namespace render
 } // namespace bl

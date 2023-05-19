@@ -1,4 +1,4 @@
-#include <BLIB/Render/Cameras/3D/Affectors/CameraShake.hpp>
+#include <BLIB/Render/Cameras/2D/Affectors/CameraShake.hpp>
 
 #include <BLIB/Math.hpp>
 #include <cmath>
@@ -7,7 +7,7 @@ namespace bl
 {
 namespace render
 {
-namespace c3d
+namespace c2d
 {
 CameraShake::CameraShake(float m, float s)
 : time(0.f)
@@ -19,19 +19,18 @@ void CameraShake::setMagnitude(float m) { mag = m; }
 
 void CameraShake::setShakesPerSecond(float s) { speed = 2.f * math::Pi * s; }
 
-void CameraShake::applyOnView(glm::vec3& pos, t3d::Orientation3D&) {
+void CameraShake::applyOnView(glm::vec2& pos, glm::vec2&, float&) {
     const float t = time * speed;
 
     pos.x += mag * std::cos(t);
-    pos.y += mag * std::cos(t);
-    pos.z += mag * std::cos(-t);
+    pos.y -= mag * std::cos(t);
 }
 
-void CameraShake::update(float dt, bool& view, bool&) {
+void CameraShake::update(float dt, bool& view) {
     time += dt;
     view = true;
 }
 
-} // namespace c3d
+} // namespace c2d
 } // namespace render
 } // namespace bl

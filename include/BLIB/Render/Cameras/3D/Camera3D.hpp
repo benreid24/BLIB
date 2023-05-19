@@ -13,7 +13,8 @@ namespace bl
 {
 namespace render
 {
-namespace r3d
+/// Collection of classes for 3d cameras
+namespace c3d
 {
 /**
  * @brief Camera for 3d scenes
@@ -245,7 +246,7 @@ void Camera3D::removeAffectors() {
     }
 }
 
-} // namespace r3d
+} // namespace c3d
 } // namespace render
 } // namespace bl
 

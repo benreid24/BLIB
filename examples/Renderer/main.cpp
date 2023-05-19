@@ -41,18 +41,18 @@ public:
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/texture.png");
 
         // create camera
-        bl::render::r3d::Camera3D* camera =
-            engine.renderer().getObserver().pushCamera<bl::render::r3d::Camera3D>(
+        bl::render::c3d::Camera3D* camera =
+            engine.renderer().getObserver().pushCamera<bl::render::c3d::Camera3D>(
                 glm::vec3{0.f, 1.f, 1.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
-        camera->setController<bl::render::r3d::OrbiterController>(
+        camera->setController<bl::render::c3d::OrbiterController>(
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
 
         // create second observer with camera
         bl::render::Observer& o = engine.renderer().addObserver();
         o.setClearColor({0.f, 1.f, 0.f});
-        player2Cam = o.pushCamera<bl::render::r3d::Camera3D>(
+        player2Cam = o.pushCamera<bl::render::c3d::Camera3D>(
             glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
-        player2Cam->addAffector<bl::render::r3d::CameraShake>(0.1f, 7.f);
+        player2Cam->addAffector<bl::render::c3d::CameraShake>(0.1f, 7.f);
 
         // create scene
         bl::render::Scene* scene = engine.renderer().getObserver().pushScene(10, 10);
@@ -94,7 +94,7 @@ public:
 private:
     bl::ecs::Entity entity;
     bl::render::res::TextureRef texture;
-    bl::render::r3d::Camera3D* player2Cam;
+    bl::render::c3d::Camera3D* player2Cam;
     float time;
 };
 

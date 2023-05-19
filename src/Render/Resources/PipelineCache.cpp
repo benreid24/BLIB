@@ -65,7 +65,7 @@ void PipelineCache::createBuiltins() {
     rasterizer.depthBiasClamp          = 0.0f; // Optional
     rasterizer.depthBiasSlopeFactor    = 0.0f; // Optional
 
-    createPipline(Config::PipelineIds::OpaqueMeshes,
+    createPipline(Config::PipelineIds::Meshes,
                   vk::PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
                       .withShaders(Config::ShaderIds::OpaqueVertexShader,
                                    Config::ShaderIds::OpaqueFragmentShader)
@@ -76,7 +76,7 @@ void PipelineCache::createBuiltins() {
                       .addDescriptorSet<ds::MeshDescriptorSetFactory>()
                       .build());
 
-    createPipline(Config::PipelineIds::OpaqueSkinnedMeshes,
+    createPipline(Config::PipelineIds::SkinnedMeshes,
                   vk::PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
                       .withShaders(Config::ShaderIds::SkinnedVertexShader,
                                    Config::ShaderIds::SkinnedFragmentShader)

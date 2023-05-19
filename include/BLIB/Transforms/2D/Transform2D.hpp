@@ -46,7 +46,7 @@ public:
     /**
      * @brief Returns the current position
      */
-    const glm::vec2& getPosition() const;
+    constexpr const glm::vec2& getPosition() const;
 
     /**
      * @brief Sets the depth of the transform on the z-axis. Affects render order only. Default is 0
@@ -98,7 +98,7 @@ public:
     /**
      * @brief Returns the scale factors of the transform
      */
-    const glm::vec2& getScale() const;
+    constexpr const glm::vec2& getScale() const;
 
     /**
      * @brief Sets the rotation of the transform
@@ -117,7 +117,7 @@ public:
     /**
      * @brief Returns the current rotation in degrees
      */
-    float getRotation() const;
+    constexpr float getRotation() const;
 
     /**
      * @brief Populates the given 4x4 matrix to apply this transform
@@ -132,6 +132,14 @@ private:
     float rotation;
     float depth;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline constexpr float Transform2D::getRotation() const { return rotation; }
+
+inline constexpr const glm::vec2& Transform2D::getScale() const { return scaleFactors; }
+
+inline constexpr const glm::vec2& Transform2D::getPosition() const { return position; }
 
 } // namespace t2d
 } // namespace bl
