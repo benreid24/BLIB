@@ -73,6 +73,8 @@ public:
 
     /**
      * @brief Computes the transform and populates the given transform matrix
+     *
+     * @param dest The matrix to populate
      */
     void refreshDescriptor(glm::mat4& dest);
 
