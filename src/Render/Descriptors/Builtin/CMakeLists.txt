@@ -1,6 +1,8 @@
 target_sources(BLIB PRIVATE
-	BasicObjectFactory.cpp
-	BasicObjectInstance.cpp
+	Object2DFactory.cpp
+	Object2DInstance.cpp
+	Object3DFactory.cpp
+	Object3DInstance.cpp
 	PostFXFactory.cpp
 	Scene2DLitFactory.cpp
 	Scene2DLitInstance.cpp

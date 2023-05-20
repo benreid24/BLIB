@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_BASICOBJECTINSTANCE_HPP
-#define BLIB_RENDER_DESCRIPTORS_BUILTIN_BASICOBJECTINSTANCE_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT2DINSTANCE_HPP
+#define BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT2DINSTANCE_HPP
 
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
@@ -23,12 +23,12 @@ class Renderer;
 namespace ds
 {
 /**
- * @brief Descriptor set instance used by all meshes in the engine default pipelines. Contains the
- *        object transform matrix and texture id
+ * @brief Descriptor set instance used by all 2d objects in the engine default pipelines. Contains
+ *        the object transform matrix and texture id
  *
  * @ingroup Renderer
  */
-class BasicObjectInstance : public DescriptorSetInstance {
+class Object2DInstance : public DescriptorSetInstance {
 public:
     /**
      * @brief Create a new set instance
@@ -36,12 +36,12 @@ public:
      * @param engine Game engine instance
      * @param descriptorSetLayout Layout of the descriptor set
      */
-    BasicObjectInstance(engine::Engine& engine, VkDescriptorSetLayout descriptorSetLayout);
+    Object2DInstance(engine::Engine& engine, VkDescriptorSetLayout descriptorSetLayout);
 
     /**
      * @brief Frees resources
      */
-    virtual ~BasicObjectInstance();
+    virtual ~Object2DInstance();
 
 private:
     ecs::Registry& registry;

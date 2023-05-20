@@ -2,7 +2,8 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config.hpp>
-#include <BLIB/Render/Descriptors/Builtin/BasicObjectFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/PostFXFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DLitFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DUnlitFactory.hpp>
@@ -71,7 +72,7 @@ void PipelineCache::createBuiltins() {
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencil)
                       .addDescriptorSet<ds::Scene3DUnlitFactory>()
-                      .addDescriptorSet<ds::BasicObjectFactory>()
+                      .addDescriptorSet<ds::Object3DFactory>()
                       .build());
 
     createPipline(Config::PipelineIds::SkinnedMeshes,
@@ -83,7 +84,7 @@ void PipelineCache::createBuiltins() {
                       .withDepthStencilState(&depthStencil)
                       .addDescriptorSet<ds::TexturePoolFactory>()
                       .addDescriptorSet<ds::Scene3DUnlitFactory>()
-                      .addDescriptorSet<ds::BasicObjectFactory>()
+                      .addDescriptorSet<ds::Object3DFactory>()
                       .build());
 
     createPipline(Config::PipelineIds::LitSkinned2DGeometry,
@@ -95,7 +96,7 @@ void PipelineCache::createBuiltins() {
                       .withDepthStencilState(&depthStencil)
                       .addDescriptorSet<ds::TexturePoolFactory>()
                       .addDescriptorSet<ds::Scene2DLitFactory>()
-                      .addDescriptorSet<ds::BasicObjectFactory>()
+                      .addDescriptorSet<ds::Object2DFactory>()
                       .build());
 
     // TODO - other 2d pipelines

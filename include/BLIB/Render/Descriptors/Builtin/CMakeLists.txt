@@ -1,6 +1,8 @@
 target_sources(BLIB PUBLIC
-	BasicObjectFactory.hpp
-	BasicObjectInstance.hpp
+	Object2DFactory.hpp
+	Object2DInstance.hpp
+	Object3DFactory.hpp
+	Object3DInstance.hpp
 	PostFXFactory.hpp
 	Scene2DLitFactory.hpp
 	Scene2DLitInstance.hpp

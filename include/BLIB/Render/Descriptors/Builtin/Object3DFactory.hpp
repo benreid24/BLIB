@@ -14,12 +14,12 @@ namespace ds
  *
  * @ingroup Renderer
  */
-class BasicObjectFactory : public DescriptorSetFactory {
+class Object3DFactory : public DescriptorSetFactory {
 public:
     /**
      * @brief Destroys the factory
      */
-    virtual ~BasicObjectFactory() = default;
+    virtual ~Object3DFactory() = default;
 
     /**
      * @brief Initializes the factory and creates the descriptor set layout
@@ -32,7 +32,7 @@ public:
     /**
      * @brief Creates an instance of the descriptor set for this factory
      *
-     * @return A BasicObjectInstance instance
+     * @return A Object3DInstance instance
      */
     virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;
 
