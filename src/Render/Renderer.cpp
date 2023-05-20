@@ -231,7 +231,10 @@ void Renderer::assignObserverRegions() {
     }
 }
 
-void Renderer::setSplitscreenDirection(SplitscreenDirection d) { splitscreenDirection = d; }
+void Renderer::setSplitscreenDirection(SplitscreenDirection d) {
+    splitscreenDirection = d;
+    assignObserverRegions();
+}
 
 void Renderer::setClearColor(const VkClearColorValue& color) { clearColor.color = color; }
 

@@ -13,7 +13,7 @@ Observer::Observer(Renderer& r)
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
 
-    clearColors[0].color        = {{0.f, 1.f, 0.f, 1.f}};
+    clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
     clearColors[1].depthStencil = {1.f, 0};
 }
 
@@ -264,7 +264,9 @@ void Observer::setDefaultNearFar(float n, float f) {
     defaultFar  = f;
 }
 
-void Observer::setClearColor(const VkClearColorValue& color) { clearColors[0].color = color; }
+void Observer::setClearColor(const glm::vec3& color) {
+    clearColors[0].color = {color.x, color.y, color.z, 1.f};
+}
 
 } // namespace render
 } // namespace bl

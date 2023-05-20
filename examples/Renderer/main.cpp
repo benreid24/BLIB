@@ -24,7 +24,9 @@ const std::vector<bl::render::prim::Vertex> Vertices = {
 const std::vector<std::uint32_t> Indices = {0, 1, 2, 2, 3, 0, 4, 5, 6};
 } // namespace
 
-class DemoState : public bl::engine::State {
+class DemoState
+: public bl::engine::State
+, bl::event::Listener<sf::Event> {
 public:
     DemoState()
     : State(bl::engine::StateMask::All) {}
@@ -34,7 +36,8 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
-        time = 0.f;
+        time     = 0.f;
+        renderer = &engine.renderer();
 
         // load texture
         texture =
@@ -72,9 +75,17 @@ public:
         mesh->indices  = Indices;
         mesh->gpuBuffer.sendToGPU();
         meshSystem.addToScene(entity, scene, bl::render::UpdateSpeed::Static);
+
+        // change first observer's background color
+        bl::render::Observer& p1 = engine.renderer().getObserver(0);
+        p1.setClearColor({0.f, 0.f, 1.f});
+
+        // subscribe to window events
+        bl::event::Dispatcher::subscribe(this);
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
+        bl::event::Dispatcher::unsubscribe(this);
         texture.release();
         engine.renderer().texturePool().releaseUnused();
         engine.renderer().getObserver().popScene();
@@ -92,10 +103,26 @@ public:
     }
 
 private:
+    bl::render::Renderer* renderer;
     bl::ecs::Entity entity;
     bl::render::res::TextureRef texture;
     bl::render::c3d::Camera3D* player2Cam;
     float time;
+
+    virtual void observe(const sf::Event& event) override {
+        if (event.type == sf::Event::KeyPressed) {
+            switch (event.key.code) {
+            case sf::Keyboard::Z:
+                renderer->setSplitscreenDirection(
+                    bl::render::Renderer::SplitscreenDirection::LeftAndRight);
+                break;
+            case sf::Keyboard::X:
+                renderer->setSplitscreenDirection(
+                    bl::render::Renderer::SplitscreenDirection::TopAndBottom);
+                break;
+            }
+        }
+    }
 };
 
 int main() {

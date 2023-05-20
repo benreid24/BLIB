@@ -170,7 +170,7 @@ public:
      *
      * @param color The color to clear with
      */
-    void setClearColor(const VkClearColorValue& color);
+    void setClearColor(const glm::vec3& color);
 
     // TODO - overlay render method
 
