@@ -52,7 +52,7 @@ public:
     /**
      * @brief Creates and uses the given descriptor set for the scene data. Scene descriptor sets
      *        must derive from SceneDescriptorSetInstance. Default is
-     *        CommonSceneDescriptorSetInstance. Only one may be used per scene. Calling multiple
+     *        Scene3DUnlitInstance. Only one may be used per scene. Calling multiple
      *        times will replace prior instances. Objects rendered using prior scene descriptor sets
      *        will have stale camera data
      *

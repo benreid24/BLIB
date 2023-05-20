@@ -2,10 +2,11 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config.hpp>
-#include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/MeshDescriptorSetFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/PostFXDescriptorSetFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/TexturesDescriptorSetFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/BasicObjectFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/PostFXFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene2DLitFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene3DUnlitFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -38,8 +39,6 @@ vk::Pipeline& PipelineCache::getPipeline(std::uint32_t id) {
 }
 
 void PipelineCache::createBuiltins() {
-    // TODO - create actual built-in pipelines
-
     VkPipelineDepthStencilStateCreateInfo depthStencil{};
     depthStencil.sType                 = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
     depthStencil.depthTestEnable       = VK_TRUE;
@@ -67,26 +66,39 @@ void PipelineCache::createBuiltins() {
 
     createPipline(Config::PipelineIds::Meshes,
                   vk::PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
-                      .withShaders(Config::ShaderIds::OpaqueVertexShader,
-                                   Config::ShaderIds::OpaqueFragmentShader)
+                      .withShaders(Config::ShaderIds::MeshVertex, Config::ShaderIds::MeshFragment)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencil)
-                      .addDescriptorSet<ds::CommonSceneDescriptorSetFactory>()
-                      .addDescriptorSet<ds::MeshDescriptorSetFactory>()
+                      .addDescriptorSet<ds::Scene3DUnlitFactory>()
+                      .addDescriptorSet<ds::BasicObjectFactory>()
                       .build());
 
     createPipline(Config::PipelineIds::SkinnedMeshes,
                   vk::PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
-                      .withShaders(Config::ShaderIds::SkinnedVertexShader,
-                                   Config::ShaderIds::SkinnedFragmentShader)
+                      .withShaders(Config::ShaderIds::SkinnedMeshVertex,
+                                   Config::ShaderIds::SkinnedMeshFragment)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencil)
-                      .addDescriptorSet<ds::TexturesDescriptorSetFactory>()
-                      .addDescriptorSet<ds::CommonSceneDescriptorSetFactory>()
-                      .addDescriptorSet<ds::MeshDescriptorSetFactory>()
+                      .addDescriptorSet<ds::TexturePoolFactory>()
+                      .addDescriptorSet<ds::Scene3DUnlitFactory>()
+                      .addDescriptorSet<ds::BasicObjectFactory>()
                       .build());
+
+    createPipline(Config::PipelineIds::LitSkinned2DGeometry,
+                  vk::PipelineParameters(Config::RenderPassIds::OffScreenSceneRender)
+                      .withShaders(Config::ShaderIds::LitSkinned2DVertex,
+                                   Config::ShaderIds::LitSkinned2DFragment)
+                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                      .withRasterizer(rasterizer)
+                      .withDepthStencilState(&depthStencil)
+                      .addDescriptorSet<ds::TexturePoolFactory>()
+                      .addDescriptorSet<ds::Scene2DLitFactory>()
+                      .addDescriptorSet<ds::BasicObjectFactory>()
+                      .build());
+
+    // TODO - other 2d pipelines
 
     createPipline(
         Config::PipelineIds::PostFXBase,
@@ -94,7 +106,7 @@ void PipelineCache::createBuiltins() {
             .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::DefaultPostFXFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
-            .addDescriptorSet<ds::PostFXDescriptorSetFactory>()
+            .addDescriptorSet<ds::PostFXFactory>()
             .build());
 }
 

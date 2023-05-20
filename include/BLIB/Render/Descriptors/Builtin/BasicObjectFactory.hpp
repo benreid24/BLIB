@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_MESHDESCRIPTORSETFACTORY_HPP
-#define BLIB_RENDER_DESCRIPTORS_BUILTIN_MESHDESCRIPTORSETFACTORY_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT3DFACTORY_HPP
+#define BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT3DFACTORY_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 
@@ -14,12 +14,12 @@ namespace ds
  *
  * @ingroup Renderer
  */
-class MeshDescriptorSetFactory : public DescriptorSetFactory {
+class BasicObjectFactory : public DescriptorSetFactory {
 public:
     /**
      * @brief Destroys the factory
      */
-    virtual ~MeshDescriptorSetFactory() = default;
+    virtual ~BasicObjectFactory() = default;
 
     /**
      * @brief Initializes the factory and creates the descriptor set layout
@@ -32,7 +32,7 @@ public:
     /**
      * @brief Creates an instance of the descriptor set for this factory
      *
-     * @return A MeshDescriptorSetInstance instance
+     * @return A BasicObjectInstance instance
      */
     virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;
 

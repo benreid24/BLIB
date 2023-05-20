@@ -15,19 +15,19 @@ namespace ds
  *
  * @ingroup Renderer
  */
-class TexturesDescriptorSetInstance : public DescriptorSetInstance {
+class TexturePoolInstance : public DescriptorSetInstance {
 public:
     /**
      * @brief Creates the descriptor set instance
      *
      * @param texturePool Texture pool to bind
      */
-    TexturesDescriptorSetInstance(res::TexturePool& texturePool);
+    TexturePoolInstance(res::TexturePool& texturePool);
 
     /**
      * @brief Destroys the descriptor set instance
      */
-    virtual ~TexturesDescriptorSetInstance() = default;
+    virtual ~TexturePoolInstance() = default;
 
 private:
     res::TexturePool& texturePool;

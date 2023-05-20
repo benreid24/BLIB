@@ -22,12 +22,24 @@ struct Config {
     };
 
     struct ShaderIds {
-        static constexpr char OpaqueVertexShader[]    = {0};
-        static constexpr char OpaqueFragmentShader[]  = {1};
-        static constexpr char SkinnedVertexShader[]   = {2};
-        static constexpr char SkinnedFragmentShader[] = {3};
-        static constexpr char EmptyVertex[]           = {4};
-        static constexpr char DefaultPostFXFragment[] = {5};
+        static constexpr char EmptyVertex[] = {0};
+
+        static constexpr char MeshVertex[]          = {1};
+        static constexpr char MeshFragment[]        = {2};
+        static constexpr char SkinnedMeshVertex[]   = {3};
+        static constexpr char SkinnedMeshFragment[] = {4};
+
+        static constexpr char Lit2DVertex[]          = {5};
+        static constexpr char Lit2DFragment[]        = {6};
+        static constexpr char LitSkinned2DVertex[]   = {7};
+        static constexpr char LitSkinned2DFragment[] = {8};
+
+        static constexpr char Unlit2DVertex[]          = {9};
+        static constexpr char Unlit2DFragment[]        = {10};
+        static constexpr char UnlitSkinned2DVertex[]   = {11};
+        static constexpr char UnlitSkinned2DFragment[] = {12};
+
+        static constexpr char DefaultPostFXFragment[] = {31};
 
         static constexpr std::uint32_t MaxId = 31;
     };
@@ -41,7 +53,12 @@ struct Config {
         static constexpr std::uint32_t Meshes        = 3;
         static constexpr std::uint32_t SkinnedMeshes = 4;
 
-        static constexpr std::uint32_t PostFXBase = 5;
+        static constexpr std::uint32_t Lit2DGeometry          = 5;
+        static constexpr std::uint32_t Unlit2DGeometry        = 6;
+        static constexpr std::uint32_t LitSkinned2DGeometry   = 7;
+        static constexpr std::uint32_t UnlitSkinned2DGeometry = 8;
+
+        static constexpr std::uint32_t PostFXBase = 100;
     };
 
     struct RenderPassIds {

@@ -1,4 +1,4 @@
-#include <BLIB/Render/Descriptors/Builtin/MeshDescriptorSetInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/BasicObjectInstance.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Components/Texture.hpp>
@@ -6,21 +6,21 @@
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Transforms/3D.hpp>
 
-bl::render::ds::MeshDescriptorSetInstance::MeshDescriptorSetInstance(
-    engine::Engine& engine, VkDescriptorSetLayout descriptorSetLayout)
+bl::render::ds::BasicObjectInstance::BasicObjectInstance(engine::Engine& engine,
+                                                         VkDescriptorSetLayout descriptorSetLayout)
 : DescriptorSetInstance(true)
 , registry(engine.ecs())
 , vulkanState(engine.renderer().vulkanState())
 , descriptorSetLayout(descriptorSetLayout) {}
 
-bl::render::ds::MeshDescriptorSetInstance::~MeshDescriptorSetInstance() {
+bl::render::ds::BasicObjectInstance::~BasicObjectInstance() {
     vulkanState.descriptorPool.release(alloc);
     transformBuffer.destroy();
     textureBuffer.destroy();
 }
 
-void bl::render::ds::MeshDescriptorSetInstance::doInit(std::uint32_t maxStaticObjects,
-                                                       std::uint32_t maxDynamicObjects) {
+void bl::render::ds::BasicObjectInstance::doInit(std::uint32_t maxStaticObjects,
+                                                 std::uint32_t maxDynamicObjects) {
     const std::uint32_t objectCount = maxStaticObjects + maxDynamicObjects;
     staticObjectCount               = maxStaticObjects;
     dynamicObjectCount              = maxDynamicObjects;
@@ -83,16 +83,15 @@ void bl::render::ds::MeshDescriptorSetInstance::doInit(std::uint32_t maxStaticOb
     }
 }
 
-void bl::render::ds::MeshDescriptorSetInstance::bindForPipeline(VkCommandBuffer, VkPipelineLayout,
-                                                                std::uint32_t,
-                                                                std::uint32_t) const {
+void bl::render::ds::BasicObjectInstance::bindForPipeline(VkCommandBuffer, VkPipelineLayout,
+                                                          std::uint32_t, std::uint32_t) const {
     // noop
 }
 
-void bl::render::ds::MeshDescriptorSetInstance::bindForObject(VkCommandBuffer commandBuffer,
-                                                              VkPipelineLayout layout,
-                                                              std::uint32_t setIndex,
-                                                              std::uint32_t objectId) const {
+void bl::render::ds::BasicObjectInstance::bindForObject(VkCommandBuffer commandBuffer,
+                                                        VkPipelineLayout layout,
+                                                        std::uint32_t setIndex,
+                                                        std::uint32_t objectId) const {
     vkCmdBindDescriptorSets(commandBuffer,
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
@@ -103,14 +102,14 @@ void bl::render::ds::MeshDescriptorSetInstance::bindForObject(VkCommandBuffer co
                             nullptr);
 }
 
-void bl::render::ds::MeshDescriptorSetInstance::releaseObject(std::uint32_t, ecs::Entity entity) {
+void bl::render::ds::BasicObjectInstance::releaseObject(std::uint32_t, ecs::Entity entity) {
     auto components = registry.getComponentSet<t3d::Transform3D, com::Texture>(entity);
     if (components.get<t3d::Transform3D>()) { components.get<t3d::Transform3D>()->unlink(); }
     if (components.get<com::Texture>()) { components.get<com::Texture>()->unlink(); }
 }
 
-bool bl::render::ds::MeshDescriptorSetInstance::doAllocateObject(std::uint32_t sceneId,
-                                                                 ecs::Entity entity, UpdateSpeed) {
+bool bl::render::ds::BasicObjectInstance::doAllocateObject(std::uint32_t sceneId,
+                                                           ecs::Entity entity, UpdateSpeed) {
     auto components = registry.getComponentSet<t3d::Transform3D, com::Texture>(entity);
     if (!components.get<t3d::Transform3D>()) {
 #ifdef BLIB_DEBUG
@@ -126,7 +125,7 @@ bool bl::render::ds::MeshDescriptorSetInstance::doAllocateObject(std::uint32_t s
     return true;
 }
 
-void bl::render::ds::MeshDescriptorSetInstance::beginSync(bool staticObjectsChanged) {
+void bl::render::ds::BasicObjectInstance::beginSync(bool staticObjectsChanged) {
     if (staticObjectsChanged) {
         transformBuffer.configureTransferAll();
         textureBuffer.configureTransferAll();

@@ -1,6 +1,6 @@
 #include <BLIB/Render/Scenes/PostFX.hpp>
 
-#include <BLIB/Render/Descriptors/Builtin/PostFXDescriptorSetFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/PostFXFactory.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -57,7 +57,7 @@ PostFX::PostFX(Renderer& renderer)
 
     // allocate descriptor sets
     const VkDescriptorSetLayout setLayout = renderer.descriptorFactoryCache()
-                                                .getFactory<ds::PostFXDescriptorSetFactory>()
+                                                .getFactory<ds::PostFXFactory>()
                                                 ->getDescriptorLayout();
     descriptorSets.emptyInit(vs);
     descriptorSetAllocHandle = vs.descriptorPool.allocate(

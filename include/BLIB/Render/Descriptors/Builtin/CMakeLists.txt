@@ -1,9 +1,11 @@
 target_sources(BLIB PUBLIC
-	CommonSceneDescriptorSetFactory.hpp
-	CommonSceneDescriptorSetInstance.hpp
-	MeshDescriptorSetFactory.hpp
-	MeshDescriptorSetInstance.hpp
-	PostFXDescriptorSetFactory.hpp
-	TexturesDescriptorSetFactory.hpp
-	TexturesDescriptorSetInstance.hpp
+	BasicObjectFactory.hpp
+	BasicObjectInstance.hpp
+	PostFXFactory.hpp
+	Scene2DLitFactory.hpp
+	Scene2DLitInstance.hpp
+	Scene3DUnlitFactory.hpp
+	Scene3DUnlitInstance.hpp
+	TexturePoolFactory.hpp
+	TexturePoolInstance.hpp
 )

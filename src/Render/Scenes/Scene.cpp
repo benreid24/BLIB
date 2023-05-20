@@ -1,8 +1,8 @@
 #include <BLIB/Render/Scenes/Scene.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene3DUnlitFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene3DUnlitInstance.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -21,8 +21,7 @@ Scene::Scene(Renderer& r, std::uint32_t maxStatic, std::uint32_t maxDynamic)
 , descriptorSets(maxStatic, maxDynamic)
 , opaqueObjects(r, maxStatic + maxDynamic, descriptorSets)
 , transparentObjects(r, maxStatic + maxDynamic, descriptorSets) {
-    useSceneDescriptorSet<ds::CommonSceneDescriptorSetFactory,
-                          ds::CommonSceneDescriptorSetInstance>();
+    useSceneDescriptorSet<ds::Scene3DUnlitFactory, ds::Scene3DUnlitInstance>();
 }
 
 Scene::~Scene() {

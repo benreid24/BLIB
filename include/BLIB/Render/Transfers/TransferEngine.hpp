@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_TRANSFERENGINE_HPP
 #define BLIB_RENDER_VULKAN_TRANSFERENGINE_HPP
 
+#include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Render/Transfers/TransferContext.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -27,6 +28,26 @@ public:
      */
     void executeTransfers();
 
+    /**
+     * @brief Creates CPU storage for vertices for a single frame. Useful for firing data to GPU
+     *        that does not otherwise need to be kept around. Returned storage is invalidated after
+     *        executeTransfers() is called
+     *
+     * @param count The number of vertices to create
+     * @return A pointer to the beginning of the temporary vertices
+     */
+    prim::Vertex* createOneTimeVertexStorage(std::uint32_t count);
+
+    /**
+     * @brief Creates CPU storage for indices for a single frame. Useful for firing data to GPU
+     *        that does not otherwise need to be kept around. Returned storage is invalidated after
+     *        executeTransfers() is called
+     *
+     * @param count The number of indices to create
+     * @return A pointer to the beginning of the temporary indices
+     */
+    std::uint32_t* createOneTimeIndexStorage(std::uint32_t count);
+
 private:
     struct Bucket {
         vk::VulkanState& vulkanState;
@@ -52,6 +73,9 @@ private:
     std::mutex mutex;
     Bucket immediateBucket;
     Bucket frameBucket;
+
+    std::vector<prim::Vertex> tempVertices;
+    std::vector<std::uint32_t> tempIndices;
 
     TransferEngine(vk::VulkanState& vulkanState);
     void init();

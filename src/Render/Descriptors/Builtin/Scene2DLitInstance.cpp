@@ -1,4 +1,4 @@
-#include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene2DLitInstance.hpp>
 
 #include <BLIB/Render/Config.hpp>
 #include <array>
@@ -9,21 +9,19 @@ namespace render
 {
 namespace ds
 {
-CommonSceneDescriptorSetInstance::CommonSceneDescriptorSetInstance(vk::VulkanState& vulkanState,
-                                                                   VkDescriptorSetLayout layout)
+Scene2DLitInstance::Scene2DLitInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout)
 : vulkanState(vulkanState)
 , setLayout(layout) {}
 
-CommonSceneDescriptorSetInstance::~CommonSceneDescriptorSetInstance() {
+Scene2DLitInstance::~Scene2DLitInstance() {
     cameraBuffer.stopTransferringEveryFrame();
     vulkanState.descriptorPool.release(allocHandle);
     cameraBuffer.destroy();
 }
 
-void CommonSceneDescriptorSetInstance::bindForPipeline(VkCommandBuffer commandBuffer,
-                                                       VkPipelineLayout layout,
-                                                       std::uint32_t observerIndex,
-                                                       std::uint32_t setIndex) const {
+void Scene2DLitInstance::bindForPipeline(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
+                                         std::uint32_t observerIndex,
+                                         std::uint32_t setIndex) const {
     vkCmdBindDescriptorSets(commandBuffer,
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
@@ -34,16 +32,16 @@ void CommonSceneDescriptorSetInstance::bindForPipeline(VkCommandBuffer commandBu
                             nullptr);
 }
 
-void CommonSceneDescriptorSetInstance::bindForObject(VkCommandBuffer, VkPipelineLayout,
-                                                     std::uint32_t, std::uint32_t) const {
+void Scene2DLitInstance::bindForObject(VkCommandBuffer, VkPipelineLayout, std::uint32_t,
+                                       std::uint32_t) const {
     // n/a
 }
 
-void CommonSceneDescriptorSetInstance::releaseObject(std::uint32_t, ecs::Entity) {
+void Scene2DLitInstance::releaseObject(std::uint32_t, ecs::Entity) {
     // n/a
 }
 
-void CommonSceneDescriptorSetInstance::doInit(std::uint32_t, std::uint32_t) {
+void Scene2DLitInstance::doInit(std::uint32_t, std::uint32_t) {
     // allocate memory
     cameraBuffer.create(vulkanState, Config::MaxSceneObservers);
     cameraBuffer.configureTransferAll();
@@ -76,12 +74,12 @@ void CommonSceneDescriptorSetInstance::doInit(std::uint32_t, std::uint32_t) {
     }
 }
 
-bool CommonSceneDescriptorSetInstance::doAllocateObject(std::uint32_t, ecs::Entity, UpdateSpeed) {
+bool Scene2DLitInstance::doAllocateObject(std::uint32_t, ecs::Entity, UpdateSpeed) {
     // n/a
     return true;
 }
 
-void CommonSceneDescriptorSetInstance::beginSync(bool) {
+void Scene2DLitInstance::beginSync(bool) {
     // noop
 }
 

@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_BUILTINT_TEXTURESDESCRIPTORSETFACTORY_HPP
-#define BLIB_RENDER_DESCRIPTORS_BUILTINT_TEXTURESDESCRIPTORSETFACTORY_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_BUILTINT_TEXTUREPOOLFACTORY_HPP
+#define BLIB_RENDER_DESCRIPTORS_BUILTINT_TEXTUREPOOLFACTORY_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 
@@ -19,17 +19,17 @@ namespace ds
  *
  * @ingroup Renderer
  */
-class TexturesDescriptorSetFactory : public DescriptorSetFactory {
+class TexturePoolFactory : public DescriptorSetFactory {
 public:
     /**
      * @brief Creates the factory
      */
-    TexturesDescriptorSetFactory() = default;
+    TexturePoolFactory() = default;
 
     /**
      * @brief Destroys the factory
      */
-    virtual ~TexturesDescriptorSetFactory() = default;
+    virtual ~TexturePoolFactory() = default;
 
 private:
     res::TexturePool* texturePool;

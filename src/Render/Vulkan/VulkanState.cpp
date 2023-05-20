@@ -627,16 +627,36 @@ VkShaderModule VulkanState::createShaderModule(const std::string& path) {
 
     if (path[0] <= Config::ShaderIds::MaxId) {
         switch (path[0]) {
-        case Config::ShaderIds::OpaqueVertexShader[0]:
-            return createShaderModule(BUILTIN_SHADER("opaque.vert.spv"));
-        case Config::ShaderIds::OpaqueFragmentShader[0]:
-            return createShaderModule(BUILTIN_SHADER("opaque.frag.spv"));
-        case Config::ShaderIds::SkinnedVertexShader[0]:
-            return createShaderModule(BUILTIN_SHADER("skinned.vert.spv"));
-        case Config::ShaderIds::SkinnedFragmentShader[0]:
-            return createShaderModule(BUILTIN_SHADER("skinned.frag.spv"));
         case Config::ShaderIds::EmptyVertex[0]:
             return createShaderModule(BUILTIN_SHADER("empty.vert.spv"));
+
+        case Config::ShaderIds::MeshVertex[0]:
+            return createShaderModule(BUILTIN_SHADER("mesh.vert.spv"));
+        case Config::ShaderIds::MeshFragment[0]:
+            return createShaderModule(BUILTIN_SHADER("mesh.frag.spv"));
+        case Config::ShaderIds::SkinnedMeshVertex[0]:
+            return createShaderModule(BUILTIN_SHADER("skinnedMesh.vert.spv"));
+        case Config::ShaderIds::SkinnedMeshFragment[0]:
+            return createShaderModule(BUILTIN_SHADER("skinnedMesh.frag.spv"));
+
+        case Config::ShaderIds::Lit2DVertex[0]:
+            return createShaderModule(BUILTIN_SHADER("2dlit.vert.spv"));
+        case Config::ShaderIds::Lit2DFragment[0]:
+            return createShaderModule(BUILTIN_SHADER("2dlit.frag.spv"));
+        case Config::ShaderIds::LitSkinned2DVertex[0]:
+            return createShaderModule(BUILTIN_SHADER("skinned2dlit.vert.spv"));
+        case Config::ShaderIds::LitSkinned2DFragment[0]:
+            return createShaderModule(BUILTIN_SHADER("skinned2dlit.frag.spv"));
+
+        case Config::ShaderIds::Unlit2DVertex[0]:
+            return createShaderModule(BUILTIN_SHADER("2d.vert.spv"));
+        case Config::ShaderIds::Unlit2DFragment[0]:
+            return createShaderModule(BUILTIN_SHADER("2d.frag.spv"));
+        case Config::ShaderIds::UnlitSkinned2DVertex[0]:
+            return createShaderModule(BUILTIN_SHADER("skinned2d.vert.spv"));
+        case Config::ShaderIds::UnlitSkinned2DFragment[0]:
+            return createShaderModule(BUILTIN_SHADER("skinned2d.frag.spv"));
+
         case Config::ShaderIds::DefaultPostFXFragment[0]:
             return createShaderModule(BUILTIN_SHADER("imageOverlay.frag.spv"));
         default:

@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_STATICDESCRIPTORSETFACTORY_HPP
-#define BLIB_RENDER_DESCRIPTORS_STATICDESCRIPTORSETFACTORY_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_POSTFXFACTORY_HPP
+#define BLIB_RENDER_DESCRIPTORS_POSTFXFACTORY_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 
@@ -14,12 +14,12 @@ namespace ds
  *
  * @ingroup Renderer
  */
-class PostFXDescriptorSetFactory : public DescriptorSetFactory {
+class PostFXFactory : public DescriptorSetFactory {
 public:
     /**
      * @brief Frees resources
      */
-    virtual ~PostFXDescriptorSetFactory() = default;
+    virtual ~PostFXFactory() = default;
 
 private:
     virtual void init(engine::Engine& engine, Renderer& renderer) override;

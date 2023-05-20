@@ -48,7 +48,10 @@ void TransferEngine::Bucket::cleanup() {
 TransferEngine::TransferEngine(vk::VulkanState& vs)
 : vulkanState(vs)
 , immediateBucket(vs)
-, frameBucket(vs) {}
+, frameBucket(vs) {
+    tempVertices.reserve(64);
+    tempIndices.reserve(64);
+}
 
 void TransferEngine::init() {
     frameBucket.init();
@@ -58,6 +61,18 @@ void TransferEngine::init() {
 void TransferEngine::cleanup() {
     frameBucket.cleanup();
     immediateBucket.cleanup();
+}
+
+prim::Vertex* TransferEngine::createOneTimeVertexStorage(std::uint32_t count) {
+    const std::uint32_t start = tempVertices.size();
+    tempVertices.resize(tempVertices.size() + count);
+    return &tempVertices[start];
+}
+
+std::uint32_t* TransferEngine::createOneTimeIndexStorage(std::uint32_t count) {
+    const std::uint32_t start = tempIndices.size();
+    tempIndices.resize(tempIndices.size() + count);
+    return &tempIndices[start];
 }
 
 void TransferEngine::executeTransfers() {
@@ -71,6 +86,9 @@ void TransferEngine::executeTransfers() {
         frameBucket.executeTransfers();
     }
     else { frameBucket.resetResourcesWithSync(); }
+
+    tempVertices.clear();
+    tempIndices.clear();
 }
 
 void TransferEngine::Bucket::executeTransfers() {

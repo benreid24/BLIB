@@ -1,58 +1,51 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_DEFAULTOBJECTDESCRIPTORSETINSTANCE_HPP
-#define BLIB_RENDER_DESCRIPTORS_BUILTIN_DEFAULTOBJECTDESCRIPTORSETINSTANCE_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_SCENE3DUNLITINSTANCE_HPP
+#define BLIB_RENDER_DESCRIPTORS_SCENE3DUNLITINSTANCE_HPP
 
-#include <BLIB/ECS/Registry.hpp>
-#include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
+#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Transfers/UniformBuffer.hpp>
+#include <BLIB/Render/Vulkan/DescriptorPool.hpp>
+#include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
-#include <cstdint>
+#include <array>
 #include <glm/glm.hpp>
-#include <vector>
 
 namespace bl
 {
-namespace engine
-{
-class Engine;
-}
-
 namespace render
 {
-class Renderer;
+namespace vk
+{
+struct VulkanState;
+}
 
 namespace ds
 {
 /**
- * @brief Descriptor set instance used by all meshes in the engine default pipelines. Contains the
- *        object transform matrix and texture id
+ * @brief Descriptor set instance for common scene data
  *
  * @ingroup Renderer
  */
-class MeshDescriptorSetInstance : public DescriptorSetInstance {
+class Scene3DUnlitInstance : public SceneDescriptorSetInstance {
 public:
     /**
-     * @brief Create a new set instance
+     * @brief Creates a new instance of the descriptor set
      *
-     * @param engine Game engine instance
-     * @param descriptorSetLayout Layout of the descriptor set
+     * @param vulkanState Renderer Vulkan state
+     * @param layout The layout of the descriptor set
      */
-    MeshDescriptorSetInstance(engine::Engine& engine, VkDescriptorSetLayout descriptorSetLayout);
+    Scene3DUnlitInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout);
 
     /**
-     * @brief Frees resources
+     * @brief Destroys the descriptor set
      */
-    virtual ~MeshDescriptorSetInstance();
+    virtual ~Scene3DUnlitInstance();
 
 private:
-    ecs::Registry& registry;
     vk::VulkanState& vulkanState;
-    vk::DescriptorPool::AllocationHandle alloc;
-    const VkDescriptorSetLayout descriptorSetLayout;
+    const VkDescriptorSetLayout setLayout;
     vk::PerFrameVector<VkDescriptorSet> descriptorSets;
-    tfr::UniformBuffer<glm::mat4> transformBuffer;
-    tfr::UniformBuffer<std::uint32_t> textureBuffer;
-    std::uint32_t staticObjectCount;
-    std::uint32_t dynamicObjectCount;
+    vk::DescriptorPool::AllocationHandle allocHandle;
 
     virtual void bindForPipeline(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
                                  std::uint32_t observerIndex,

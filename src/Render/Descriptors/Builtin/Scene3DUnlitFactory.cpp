@@ -1,6 +1,6 @@
-#include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene3DUnlitFactory.hpp>
 
-#include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene3DUnlitInstance.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -9,9 +9,9 @@ namespace render
 {
 namespace ds
 {
-CommonSceneDescriptorSetFactory::~CommonSceneDescriptorSetFactory() {}
+Scene3DUnlitFactory::~Scene3DUnlitFactory() {}
 
-void CommonSceneDescriptorSetFactory::init(engine::Engine&, Renderer& renderer) {
+void Scene3DUnlitFactory::init(engine::Engine&, Renderer& renderer) {
     vulkanState = &renderer.vulkanState();
 
     vk::DescriptorPool::SetBindingInfo bindingInfo;
@@ -25,9 +25,8 @@ void CommonSceneDescriptorSetFactory::init(engine::Engine&, Renderer& renderer) 
     descriptorSetLayout = vulkanState->descriptorPool.createLayout(bindingInfo);
 }
 
-std::unique_ptr<DescriptorSetInstance> CommonSceneDescriptorSetFactory::createDescriptorSet()
-    const {
-    return std::make_unique<CommonSceneDescriptorSetInstance>(*vulkanState, descriptorSetLayout);
+std::unique_ptr<DescriptorSetInstance> Scene3DUnlitFactory::createDescriptorSet() const {
+    return std::make_unique<Scene3DUnlitInstance>(*vulkanState, descriptorSetLayout);
 }
 
 } // namespace ds

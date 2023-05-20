@@ -6,8 +6,16 @@ compile_shaders(
     SHADERS
 	empty.vert
     imageOverlay.frag
-    opaque.frag
-    opaque.vert
-    skinned.vert
-    skinned.frag
+    mesh.frag
+    mesh.vert
+    skinnedMesh.vert
+    skinnedMesh.frag
+    2d.vert
+    2d.frag
+    skinned2d.vert
+    skinned2d.frag
+    2dlit.vert
+    2dlit.frag
+    skinned2dlit.vert
+    skinned2dlit.frag
 )

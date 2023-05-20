@@ -3,5 +3,6 @@ target_sources(BLIB PUBLIC
 	DrawableBase.hpp
 	Mesh.hpp
 	SceneObjectRef.hpp
+	Sprite.hpp
 	Texture.hpp
 )

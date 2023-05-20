@@ -1,4 +1,4 @@
-#include <BLIB/Render/Descriptors/Builtin/CommonSceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene3DUnlitInstance.hpp>
 
 #include <BLIB/Render/Config.hpp>
 

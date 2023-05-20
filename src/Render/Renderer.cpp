@@ -63,6 +63,15 @@ void Renderer::initialize() {
             .withPipeline(Config::SceneObjectStage::TransparentPass,
                           Config::PipelineIds::SkinnedMeshes)
             .build());
+    engine.systems().registerSystem<sys::SpriteSystem>(
+        FrameStage::RenderObjectSync,
+        StateMask,
+        scene::StagePipelineBuilder()
+            .withPipeline(Config::SceneObjectStage::OpaquePass,
+                          Config::PipelineIds::LitSkinned2DGeometry)
+            .withPipeline(Config::SceneObjectStage::TransparentPass,
+                          Config::PipelineIds::LitSkinned2DGeometry)
+            .build());
 
     // create renderer instance data
     state.init();
