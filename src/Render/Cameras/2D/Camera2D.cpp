@@ -88,31 +88,36 @@ void Camera2D::removeAffector(const CameraAffector2D* a) {
     }
 }
 
-void Camera2D::refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) {
-    proj = glm::ortho(viewport.x,
-                      viewport.x + viewport.width,
-                      viewport.y + viewport.height,
-                      viewport.y,
+void Camera2D::refreshProjMatrix(glm::mat4& proj, const VkViewport&) {
+    // TODO - letterbox here as well?
+    glm::vec2 c = center;
+    glm::vec2 s = size;
+    for (auto& a : affectors) { a->applyOnProj(c, s); }
+
+    proj = glm::ortho(c.x - s.x * 0.5f,
+                      c.x + s.x * 0.5f,
+                      c.y - s.y * 0.5f,
+                      c.y + s.y * 0.5f,
                       nearPlane(),
                       farPlane());
 }
 
 void Camera2D::refreshViewMatrix(glm::mat4& view) {
-    glm::vec2 c = center;
-    glm::vec2 s = size;
-    float r     = rotation;
-    for (auto& affector : affectors) { affector->applyOnView(c, s, r); }
+    float r = rotation;
+    for (auto& affector : affectors) { affector->applyOnView(r); }
 
-    const glm::vec2 offset = c - s * 0.5f;
-    view                   = glm::rotate(r, Config::Rotate2DAxis);
-    view                   = glm::translate(view, glm::vec3{-offset, 0.f});
+    view = glm::translate(glm::vec3(center, 0.f));
+    view = glm::rotate(view, glm::radians(r), Config::Rotate2DAxis);
+    view = glm::translate(view, glm::vec3(-center, 0.f));
 }
 
 void Camera2D::update(float dt) {
     if (controller) { controller->update(dt); }
     bool view = false;
-    for (auto& a : affectors) { a->update(dt, view); }
+    bool proj = false;
+    for (auto& a : affectors) { a->update(dt, view, proj); }
     if (view) { markViewDirty(); }
+    if (proj) { markProjDirty(); }
 }
 
 } // namespace c2d

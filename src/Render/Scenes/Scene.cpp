@@ -20,9 +20,8 @@ Scene::Scene(Renderer& r, std::uint32_t maxStatic, std::uint32_t maxDynamic)
 , objectPipelines(maxStatic + maxDynamic)
 , descriptorSets(maxStatic, maxDynamic)
 , opaqueObjects(r, maxStatic + maxDynamic, descriptorSets)
-, transparentObjects(r, maxStatic + maxDynamic, descriptorSets) {
-    useSceneDescriptorSet<ds::Scene3DUnlitFactory, ds::Scene3DUnlitInstance>();
-}
+, transparentObjects(r, maxStatic + maxDynamic, descriptorSets)
+, nextObserverIndex(0) {}
 
 Scene::~Scene() {
     for (std::uint32_t i = 0; i < objects.size(); ++i) {
@@ -32,10 +31,18 @@ Scene::~Scene() {
     }
 }
 
-std::uint32_t Scene::registerObserver() { return sceneDescriptors->registerObserver(); }
+std::uint32_t Scene::registerObserver() {
+#ifdef BLIB_DEBUG
+    if (nextObserverIndex >= Config::MaxSceneObservers) {
+        BL_LOG_CRITICAL << "Max observer count for scene reached";
+        throw std::runtime_error("Max observer count for scene reached");
+    }
+#endif
+    return nextObserverIndex++;
+}
 
 void Scene::updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView) {
-    sceneDescriptors->updateObserverCamera(observerIndex, projView);
+    descriptorSets.updateObserverCamera(observerIndex, projView);
 }
 
 scene::SceneObject* Scene::createAndAddObject(ecs::Entity entity,

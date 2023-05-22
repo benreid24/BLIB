@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
+#include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <memory>
 #include <typeindex>
 #include <unordered_map>
@@ -38,6 +39,14 @@ public:
     DescriptorSetInstance* getDescriptorSet(DescriptorSetFactory* factory);
 
     /**
+     * @brief Updates the camera value for the given observer in each contained scene descriptor set
+     *
+     * @param observerIndex Index of the observer to update
+     * @param projView Camera matrix for the given observer
+     */
+    void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
+
+    /**
      * @brief Goes through all descriptor set instances and calls removeObject for the given object
      *
      * @param sceneId The id of the object within the scene it belongs to
@@ -54,6 +63,7 @@ private:
     const std::uint32_t maxStatic;
     const std::uint32_t maxDynamic;
     std::unordered_map<DescriptorSetFactory*, std::unique_ptr<DescriptorSetInstance>> cache;
+    std::vector<ds::SceneDescriptorSetInstance*> sceneSets;
 };
 
 } // namespace ds

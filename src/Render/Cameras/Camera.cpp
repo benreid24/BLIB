@@ -43,7 +43,6 @@ const glm::mat4& Camera::getViewMatrix() {
 const glm::mat4& Camera::getProjectionMatrix(const VkViewport& viewport) {
     if (projDirty || vpWidth != viewport.width || vpHeight != viewport.height) {
         refreshProjMatrix(proj, viewport);
-        proj[1][1] *= -1.f;
         projDirty = false;
         vpWidth   = viewport.width;
         vpHeight  = viewport.height;

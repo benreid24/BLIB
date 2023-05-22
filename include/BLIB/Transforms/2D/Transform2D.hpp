@@ -30,6 +30,18 @@ public:
     Transform2D(const glm::vec2& position);
 
     /**
+     * @brief Sets the origin to perform transforms around
+     *
+     * @param origin The origin to rotate around
+     */
+    void setOrigin(const glm::vec2& origin);
+
+    /**
+     * @brief Returns the origin of the transform
+     */
+    constexpr const glm::vec2& getOrigin() const;
+
+    /**
      * @brief Sets the position of this transform
      *
      * @param position The new position to transform to
@@ -127,6 +139,7 @@ public:
     void refreshDescriptor(glm::mat4& dest);
 
 private:
+    glm::vec2 origin;
     glm::vec2 position;
     glm::vec2 scaleFactors;
     float rotation;
@@ -140,6 +153,8 @@ inline constexpr float Transform2D::getRotation() const { return rotation; }
 inline constexpr const glm::vec2& Transform2D::getScale() const { return scaleFactors; }
 
 inline constexpr const glm::vec2& Transform2D::getPosition() const { return position; }
+
+inline constexpr const glm::vec2& Transform2D::getOrigin() const { return origin; }
 
 } // namespace t2d
 } // namespace bl

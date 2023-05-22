@@ -19,16 +19,16 @@ void CameraShake::setMagnitude(float m) { mag = m; }
 
 void CameraShake::setShakesPerSecond(float s) { speed = 2.f * math::Pi * s; }
 
-void CameraShake::applyOnView(glm::vec2& pos, glm::vec2&, float&) {
+void CameraShake::applyOnProj(glm::vec2& pos, glm::vec2&) {
     const float t = time * speed;
 
     pos.x += mag * std::cos(t);
     pos.y -= mag * std::cos(t);
 }
 
-void CameraShake::update(float dt, bool& view) {
+void CameraShake::update(float dt, bool&, bool& proj) {
     time += dt;
-    view = true;
+    proj = true;
 }
 
 } // namespace c2d

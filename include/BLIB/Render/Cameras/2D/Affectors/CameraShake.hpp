@@ -53,17 +53,17 @@ public:
      *
      * @param center The center of the camera. May be modified
      * @param size The size of the region the camera is showing
-     * @param rotation The rotation of the camera
      */
-    virtual void applyOnView(glm::vec2& center, glm::vec2& size, float& rotation) override;
+    virtual void applyOnProj(glm::vec2& center, glm::vec2& size) override;
 
     /**
      * @brief Updates the camera shaking
      *
      * @param dt Time elapsed in seconds
      * @param view Flag to set to true to mark the view matrix dirty
+     * @param view Flag to set to true to mark the projection matrix dirty
      */
-    virtual void update(float dt, bool& view) override;
+    virtual void update(float dt, bool& view, bool& proj) override;
 
 private:
     float time;

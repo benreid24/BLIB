@@ -50,22 +50,6 @@ public:
     void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
 
     /**
-     * @brief Creates and uses the given descriptor set for the scene data. Scene descriptor sets
-     *        must derive from SceneDescriptorSetInstance. Default is
-     *        Scene3DUnlitInstance. Only one may be used per scene. Calling multiple
-     *        times will replace prior instances. Objects rendered using prior scene descriptor sets
-     *        will have stale camera data
-     *
-     * @tparam TFactory Factory type to use to create the set
-     * @tparam TSet Descriptor set type. Must be returned by the factory
-     * @tparam ...TArgs Argument types to factory constructor
-     * @param ...args Arguments to factory constructor
-     * @return Pointer to the scene descriptor set instance
-     */
-    template<typename TFactory, typename TSet, typename... TArgs>
-    TSet* useSceneDescriptorSet(TArgs&&... args);
-
-    /**
      * @brief Records the commands to render this scene into the given command buffer
      *
      * @param context Render context containing the parameters to render with
@@ -84,7 +68,7 @@ private:
     std::vector<ecs::Entity> entityMap;
     std::vector<scene::StagePipelines> objectPipelines;
     ds::DescriptorSetInstanceCache descriptorSets;
-    ds::SceneDescriptorSetInstance* sceneDescriptors;
+    std::uint32_t nextObserverIndex;
 
     scene::StageBatch opaqueObjects;
     scene::StageBatch transparentObjects;
@@ -104,19 +88,6 @@ private:
     friend class sys::GenericDrawableSystem;
     friend class container::ObjectWrapper<Scene>;
 };
-
-//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
-
-template<typename TFactory, typename TSet, typename... TArgs>
-TSet* Scene::useSceneDescriptorSet(TArgs&&... args) {
-    static_assert(std::is_base_of_v<ds::SceneDescriptorSetInstance, TSet>,
-                  "Scene descriptor set must derive from SceneDescriptorSetInstance");
-
-    auto* factory =
-        descriptorFactories.getOrCreateFactory<TFactory, TArgs...>(std::forward<TArgs>(args)...);
-    sceneDescriptors = static_cast<TSet*>(descriptorSets.getDescriptorSet(factory));
-    return static_cast<TSet*>(sceneDescriptors);
-}
 
 } // namespace render
 } // namespace bl

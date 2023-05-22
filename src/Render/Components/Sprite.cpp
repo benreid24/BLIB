@@ -35,21 +35,25 @@ void Sprite::create(Renderer& renderer, const res::TextureRef& txtr, sf::FloatRe
     indices[4] = 2;
     indices[5] = 3;
 
-    vertices[0].texCoord.x = region.left;
-    vertices[0].texCoord.y = region.top;
-    vertices[0].pos        = {vertices[0].texCoord, 0.f};
+    const float leftX   = region.left / texture->sizeF.x;
+    const float topY    = region.top / texture->sizeF.y;
+    const float rightX  = (region.left + region.width) / texture->sizeF.x;
+    const float bottomY = (region.top + region.height) / texture->sizeF.y;
 
-    vertices[1].texCoord.x = region.left + region.width;
-    vertices[1].texCoord.y = region.top;
-    vertices[1].pos        = {vertices[0].texCoord, 0.f};
+    vertices[0].texCoord = {leftX, topY};
+    vertices[0].pos      = {0.f, 0.f, 0.f};
 
-    vertices[2].texCoord.x = region.left + region.width;
-    vertices[2].texCoord.y = region.top + region.height;
-    vertices[2].pos        = {vertices[0].texCoord, 0.f};
+    vertices[1].texCoord = {rightX, topY};
+    vertices[1].pos      = {region.width, 0.f, 0.f};
 
-    vertices[3].texCoord.x = region.left;
-    vertices[3].texCoord.y = region.top + region.height;
-    vertices[3].pos        = {vertices[0].texCoord, 0.f};
+    vertices[2].texCoord = {rightX, bottomY};
+    vertices[2].pos      = {region.width, region.height, 0.f};
+
+    vertices[3].texCoord = {leftX, bottomY};
+    vertices[3].pos      = {0.f, region.height, 0.f};
+
+    drawParams = buffer.getDrawParameters();
+    buffer.sendToGPU();
 }
 
 void Sprite::setTexture(const res::TextureRef& txtr) { texture = txtr; }

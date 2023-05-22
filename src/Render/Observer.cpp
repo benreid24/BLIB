@@ -111,23 +111,26 @@ void Observer::clearCameras() {
 void Observer::removePostFX() { setPostFX<scene::PostFX>(renderer); }
 
 void Observer::handleDescriptorSync() {
-    const glm::mat4 projView =
-        !cameras.empty() ?
-            cameras.top()->getProjectionMatrix(viewport) * cameras.top()->getViewMatrix() :
-            glm::perspective(75.f, viewport.width / viewport.height, 0.1f, 100.f);
-    scenes.top().scene->updateObserverCamera(scenes.top().observerIndex, projView);
+    if (hasScene()) {
+        const glm::mat4 projView =
+            !cameras.empty() ?
+                cameras.top()->getProjectionMatrix(viewport) * cameras.top()->getViewMatrix() :
+                glm::perspective(75.f, viewport.width / viewport.height, 0.1f, 100.f);
+        scenes.top().scene->updateObserverCamera(scenes.top().observerIndex, projView);
+    }
 }
 
 void Observer::renderScene(VkCommandBuffer commandBuffer) {
-    if (hasScene()) {
-        const VkRect2D renderRegion{{0, 0}, renderFrames.current().bufferSize()};
-        scene::SceneRenderContext ctx(commandBuffer, scenes.top().observerIndex);
+    const VkRect2D renderRegion{{0, 0}, renderFrames.current().bufferSize()};
+    sceneFramebuffers.current().beginRender(
+        commandBuffer, renderRegion, clearColors, std::size(clearColors), true);
 
-        sceneFramebuffers.current().beginRender(
-            commandBuffer, renderRegion, clearColors, std::size(clearColors), true);
+    if (hasScene()) {
+        scene::SceneRenderContext ctx(commandBuffer, scenes.top().observerIndex);
         scenes.top().scene->renderScene(ctx);
-        sceneFramebuffers.current().finishRender(commandBuffer);
     }
+
+    sceneFramebuffers.current().finishRender(commandBuffer);
 }
 
 void Observer::insertSceneBarriers(VkCommandBuffer commandBuffer) {
@@ -136,18 +139,19 @@ void Observer::insertSceneBarriers(VkCommandBuffer commandBuffer) {
 }
 
 void Observer::compositeSceneWithEffects(VkCommandBuffer commandBuffer) {
-    if (hasScene()) {
-        vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
-        vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
-        postFX.top()->compositeScene(commandBuffer);
+    if (postFX.empty()) {
+        postFX.emplace(std::make_unique<scene::PostFX>(renderer));
+        postFX.top()->bindImages(renderFrames);
     }
+
+    vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
+    vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
+    postFX.top()->compositeScene(commandBuffer);
 }
 
 void Observer::assignRegion(const sf::Vector2u& windowSize,
                             const sf::Rect<std::uint32_t>& renderRegion, unsigned int count,
                             unsigned int i, bool topBottomFirst) {
-    std::unique_lock lock(mutex);
-
     const std::uint32_t offsetX = (windowSize.x - renderRegion.width) / 2;
     const std::uint32_t offsetY = (windowSize.y - renderRegion.height) / 2;
     const sf::Vector2u uSize(renderRegion.getSize());

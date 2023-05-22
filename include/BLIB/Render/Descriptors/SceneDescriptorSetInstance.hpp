@@ -32,13 +32,6 @@ public:
     virtual ~SceneDescriptorSetInstance() = default;
 
     /**
-     * @brief Called by Scene when a new observer is added to it
-     *
-     * @return Index of the new observer
-     */
-    std::uint32_t registerObserver();
-
-    /**
      * @brief Updates the camera value for the given observer
      *
      * @param observerIndex Index of the observer to update
@@ -48,21 +41,7 @@ public:
 
 protected:
     tfr::UniformBuffer<glm::mat4> cameraBuffer;
-
-    /**
-     * @brief Returns the number of observers currently in the scene
-     */
-    constexpr std::uint32_t observerCount() const;
-
-private:
-    std::uint32_t nextObserverIndex;
 };
-
-//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
-
-inline constexpr std::uint32_t SceneDescriptorSetInstance::observerCount() const {
-    return nextObserverIndex;
-}
 
 } // namespace ds
 } // namespace render

@@ -15,7 +15,7 @@ struct Config {
     static constexpr unsigned int MaxSceneObservers = 5;
 
     static constexpr glm::vec3 UpDirection  = {0.f, 1.f, 0.f};
-    static constexpr glm::vec3 Rotate2DAxis = {0.f, 0.f, -1.f}; // +/-?
+    static constexpr glm::vec3 Rotate2DAxis = {0.f, 0.f, 1.f};
 
     struct SceneObjectStage { // does not include postfx stage as objects do not belong in there
         enum : std::size_t { ShadowMapping = 0, OpaquePass = 1, TransparentPass = 2, Count };

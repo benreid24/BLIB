@@ -61,6 +61,7 @@ void Camera3D::refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) {
     for (auto& a : affectors) { a->applyOnProjection(f, near, far); }
 
     proj = glm::perspective(glm::radians(f), viewport.width / viewport.height, near, far);
+    proj[1][1] *= -1.f;
 }
 
 void Camera3D::update(float dt) {

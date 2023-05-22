@@ -8,16 +8,23 @@ namespace bl
 namespace t2d
 {
 Transform2D::Transform2D()
-: position(0.f, 0.f)
+: origin(0.f, 0.f)
+, position(0.f, 0.f)
 , scaleFactors(1.f, 1.f)
 , rotation(0.f)
 , depth(0.f) {}
 
 Transform2D::Transform2D(const glm::vec2& pos)
-: position(pos)
+: origin(0.f, 0.f)
+, position(pos)
 , scaleFactors(1.f, 1.f)
 , rotation(0.f)
 , depth(0.f) {}
+
+void Transform2D::setOrigin(const glm::vec2& o) {
+    origin = o;
+    markDirty();
+}
 
 void Transform2D::setPosition(const glm::vec2& pos) {
     position = pos;
@@ -76,8 +83,9 @@ void Transform2D::rotate(float delta) {
 
 void Transform2D::refreshDescriptor(glm::mat4& dest) {
     dest = glm::translate(glm::vec3(position, depth));
-    dest *= glm::rotate(glm::radians(rotation), render::Config::Rotate2DAxis);
-    dest *= glm::scale(glm::vec3(scaleFactors, 1.f));
+    dest = glm::scale(dest, glm::vec3(scaleFactors, 1.f));
+    dest = glm::rotate(dest, glm::radians(rotation), render::Config::Rotate2DAxis);
+    dest = glm::translate(dest, glm::vec3(-origin, 0.f));
 }
 
 } // namespace t2d

@@ -2,13 +2,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <BLIB/Math.hpp>
+#include <BLIB/Render/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Render/Cameras/3D/Affectors/CameraShake.hpp>
 #include <BLIB/Render/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Render/Cameras/3D/Controllers/OrbiterController.hpp>
 #include <BLIB/Render/Components/Mesh.hpp>
 #include <BLIB/Render/Components/Texture.hpp>
 #include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
-#include <BLIB/Transforms/3D.hpp>
+#include <BLIB/Transforms.hpp>
 
 namespace
 {
@@ -43,42 +44,55 @@ public:
         texture =
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/texture.png");
 
-        // create camera
-        bl::render::c3d::Camera3D* camera =
-            engine.renderer().getObserver().pushCamera<bl::render::c3d::Camera3D>(
-                glm::vec3{0.f, 1.f, 1.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
-        camera->setController<bl::render::c3d::OrbiterController>(
-            glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
+        // get first observer and set background color
+        bl::render::Observer& p1 = engine.renderer().getObserver(0);
+        p1.setClearColor({0.f, 0.f, 1.f});
+
+        // create 2d scene and camera for observer 1
+        bl::render::Scene* scene = p1.pushScene(10, 10);
+        auto* p1cam              = p1.pushCamera<bl::render::c2d::Camera2D>(
+            sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
+        p1cam->setNearAndFarPlanes(-100000.f, 100000.f);
+        p1cam->setRotation(15.f);
+
+        // create sprite in scene
+        spriteEntity   = engine.ecs().createEntity();
+        spritePosition = engine.ecs().emplaceComponent<bl::t2d::Transform2D>(spriteEntity);
+        engine.ecs().emplaceComponent<bl::render::com::Sprite>(
+            spriteEntity, engine.renderer(), texture);
+        engine.systems().getSystem<bl::render::sys::SpriteSystem>().addToScene(
+            spriteEntity, scene, bl::render::UpdateSpeed::Dynamic);
+        spritePosition->setPosition({1920.f * 0.5f, 1080.f * 0.25f});
+        spritePosition->setScale({100.f / texture->sizeF.x, 100.f / texture->sizeF.y});
+        spritePosition->setOrigin(texture->sizeF * 0.5f);
 
         // create second observer with camera
         bl::render::Observer& o = engine.renderer().addObserver();
         o.setClearColor({0.f, 1.f, 0.f});
-        player2Cam = o.pushCamera<bl::render::c3d::Camera3D>(
+        bl::render::c3d::Camera3D* player2Cam = o.pushCamera<bl::render::c3d::Camera3D>(
             glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
+        player2Cam->setController<bl::render::c3d::OrbiterController>(
+            glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
         player2Cam->addAffector<bl::render::c3d::CameraShake>(0.1f, 7.f);
 
-        // create scene
-        bl::render::Scene* scene = engine.renderer().getObserver().pushScene(10, 10);
-        o.pushScene(scene);
+        // create 3d scene for observer 2
+        scene = o.pushScene(10, 10);
 
         // get handle to mesh system
         bl::render::sys::MeshSystem& meshSystem =
             engine.systems().getSystem<bl::render::sys::MeshSystem>();
 
         // create object in scene
-        entity = engine.ecs().createEntity();
-        engine.ecs().emplaceComponent<bl::t3d::Transform3D>(entity);
-        engine.ecs().emplaceComponent<bl::render::com::Texture>(entity, texture.id());
-        bl::render::com::Mesh* mesh = engine.ecs().emplaceComponent<bl::render::com::Mesh>(entity);
+        meshEntity = engine.ecs().createEntity();
+        engine.ecs().emplaceComponent<bl::t3d::Transform3D>(meshEntity);
+        engine.ecs().emplaceComponent<bl::render::com::Texture>(meshEntity, texture.id());
+        bl::render::com::Mesh* mesh =
+            engine.ecs().emplaceComponent<bl::render::com::Mesh>(meshEntity);
         mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
         mesh->vertices = Vertices;
         mesh->indices  = Indices;
         mesh->gpuBuffer.sendToGPU();
-        meshSystem.addToScene(entity, scene, bl::render::UpdateSpeed::Static);
-
-        // change first observer's background color
-        bl::render::Observer& p1 = engine.renderer().getObserver(0);
-        p1.setClearColor({0.f, 0.f, 1.f});
+        meshSystem.addToScene(meshEntity, scene, bl::render::UpdateSpeed::Static);
 
         // subscribe to window events
         bl::event::Dispatcher::subscribe(this);
@@ -90,12 +104,18 @@ public:
         engine.renderer().texturePool().releaseUnused();
         engine.renderer().getObserver().popScene();
         engine.renderer().removeObserver(1);
+        engine.ecs().destroyAllEntities();
     }
 
     virtual void update(bl::engine::Engine&, float dt) override {
         time += dt;
-        player2Cam->setPosition({0.f, 0.f, 2.f + std::cos(time)});
-        player2Cam->getOrientationForChange().applyRoll(90.f * dt);
+        if (time > 1.f) {
+            time = 0.f;
+            BL_LOG_INFO << "(" << spritePosition->getPosition().x << ", "
+                        << spritePosition->getPosition().y << ")";
+        }
+
+        spritePosition->rotate(180.f * dt);
     }
 
     virtual void render(bl::engine::Engine&, float) override {
@@ -104,9 +124,10 @@ public:
 
 private:
     bl::render::Renderer* renderer;
-    bl::ecs::Entity entity;
+    bl::ecs::Entity spriteEntity;
+    bl::t2d::Transform2D* spritePosition;
+    bl::ecs::Entity meshEntity;
     bl::render::res::TextureRef texture;
-    bl::render::c3d::Camera3D* player2Cam;
     float time;
 
     virtual void observe(const sf::Event& event) override {
@@ -119,6 +140,19 @@ private:
             case sf::Keyboard::X:
                 renderer->setSplitscreenDirection(
                     bl::render::Renderer::SplitscreenDirection::TopAndBottom);
+                break;
+
+            case sf::Keyboard::Up:
+                spritePosition->move({0.f, -10.f});
+                break;
+            case sf::Keyboard::Right:
+                spritePosition->move({10.f, 0.f});
+                break;
+            case sf::Keyboard::Down:
+                spritePosition->move({0.f, 10.f});
+                break;
+            case sf::Keyboard::Left:
+                spritePosition->move({-10.f, 0.f});
                 break;
             }
         }
