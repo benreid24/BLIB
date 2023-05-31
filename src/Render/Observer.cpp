@@ -1,5 +1,7 @@
 #include <BLIB/Render/Observer.hpp>
 
+#include <BLIB/Render/Cameras/2D/Camera2D.hpp>
+#include <BLIB/Render/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -23,7 +25,8 @@ Observer::~Observer() {
 
 void Observer::cleanup() {
     if (!resourcesFreed) {
-        while (!postFX.empty()) { postFX.pop(); }
+        scenes.clear();
+        defaultPostFX.reset();
         sceneFramebuffers.cleanup([](vk::Framebuffer& fb) { fb.cleanup(); });
         renderFrames.cleanup([](vk::StandardImageBuffer& frame) { frame.destroy(); });
         resourcesFreed = true;
@@ -31,92 +34,63 @@ void Observer::cleanup() {
 }
 
 void Observer::updateCamera(float dt) {
-    if (!cameras.empty()) { cameras.top()->update(dt); }
+    if (!scenes.empty()) { scenes.back().camera->update(dt); }
 }
 
 Scene* Observer::pushScene(std::uint32_t maxStaticObjectCount,
                            std::uint32_t maxDynamicObjectCount) {
-    std::unique_lock lock(mutex);
-
     Scene* s = renderer.scenePool().allocateScene(maxStaticObjectCount, maxDynamicObjectCount);
-    scenes.push(s);
+    scenes.emplace_back(renderer, s);
     onSceneAdd();
     return s;
 }
 
 void Observer::pushScene(Scene* s) {
-    std::unique_lock lock(mutex);
-    scenes.push(s);
+    scenes.emplace_back(renderer, s);
     onSceneAdd();
 }
 
-Scene* Observer::popSceneNoRelease(bool cam) {
-    std::unique_lock lock(mutex);
-
-    Scene* s = scenes.top().scene;
-    scenes.pop();
-    if (cam) { cameras.pop(); }
-    onScenePop();
+Scene* Observer::popSceneNoRelease() {
+    Scene* s = scenes.back().scene;
+    scenes.pop_back();
     return s;
 }
 
-void Observer::popScene(bool cam) {
-    std::unique_lock lock(mutex);
-
-    Scene* s = scenes.top().scene;
-    scenes.pop();
+void Observer::popScene() {
+    Scene* s = scenes.back().scene;
     renderer.scenePool().destroyScene(s);
-    if (cam) { cameras.pop(); }
-    onScenePop();
+    scenes.pop_back();
 }
 
 void Observer::clearScenes() {
-    std::unique_lock lock(mutex);
-
     while (!scenes.empty()) {
-        Scene* s = scenes.top().scene;
-        scenes.pop();
+        Scene* s = scenes.back().scene;
+        scenes.pop_back();
         renderer.scenePool().destroyScene(s);
     }
-    while (!cameras.empty()) { cameras.pop(); }
-    while (!postFX.empty()) { postFX.pop(); }
 }
 
-void Observer::clearScenesNoRelease() {
-    std::unique_lock lock(mutex);
-
-    while (!scenes.empty()) { scenes.pop(); }
-    while (!cameras.empty()) { cameras.pop(); }
-    while (!postFX.empty()) { postFX.pop(); }
-}
+void Observer::clearScenesNoRelease() { scenes.clear(); }
 
 void Observer::onSceneAdd() {
-    postFX.emplace(std::make_unique<scene::PostFX>(renderer));
-    postFX.top()->bindImages(renderFrames);
-    scenes.top().observerIndex = scenes.top().scene->registerObserver();
-}
-
-void Observer::onScenePop() { postFX.pop(); }
-
-void Observer::popCamera() {
-    std::unique_lock lock(mutex);
-    cameras.pop();
-}
-
-void Observer::clearCameras() {
-    std::unique_lock lock(mutex);
-    while (!cameras.empty()) { cameras.pop(); }
+    scenes.back().postfx->bindImages(renderFrames);
+    scenes.back().observerIndex = scenes.back().scene->registerObserver();
+#if SCENE_DEFAULT_CAMERA == 2
+    setCamera<c2d::Camera2D>(
+        glm::vec2{viewport.x + viewport.width * 0.5f, viewport.y + viewport.height * 0.5f},
+        glm::vec2{viewport.width, viewport.height});
+#else
+    setCamera<c3d::Camera3D>();
+#endif
 }
 
 void Observer::removePostFX() { setPostFX<scene::PostFX>(renderer); }
 
 void Observer::handleDescriptorSync() {
     if (hasScene()) {
-        const glm::mat4 projView =
-            !cameras.empty() ?
-                cameras.top()->getProjectionMatrix(viewport) * cameras.top()->getViewMatrix() :
-                glm::perspective(75.f, viewport.width / viewport.height, 0.1f, 100.f);
-        scenes.top().scene->updateObserverCamera(scenes.top().observerIndex, projView);
+        const glm::mat4 projView = scenes.back().camera->getProjectionMatrix(viewport) *
+                                   scenes.back().camera->getViewMatrix();
+        scenes.back().scene->updateObserverCamera(scenes.back().observerIndex, projView);
     }
 }
 
@@ -126,8 +100,14 @@ void Observer::renderScene(VkCommandBuffer commandBuffer) {
         commandBuffer, renderRegion, clearColors, std::size(clearColors), true);
 
     if (hasScene()) {
-        scene::SceneRenderContext ctx(commandBuffer, scenes.top().observerIndex);
-        scenes.top().scene->renderScene(ctx);
+#ifdef BLIB_DEBUG
+        if (!scenes.back().camera) {
+            BL_LOG_ERROR << "Scene pushed to Observer without calling setCamera()";
+        }
+#endif
+
+        scene::SceneRenderContext ctx(commandBuffer, scenes.back().observerIndex);
+        scenes.back().scene->renderScene(ctx);
     }
 
     sceneFramebuffers.current().finishRender(commandBuffer);
@@ -139,14 +119,17 @@ void Observer::insertSceneBarriers(VkCommandBuffer commandBuffer) {
 }
 
 void Observer::compositeSceneWithEffects(VkCommandBuffer commandBuffer) {
-    if (postFX.empty()) {
-        postFX.emplace(std::make_unique<scene::PostFX>(renderer));
-        postFX.top()->bindImages(renderFrames);
+    scene::PostFX* fx;
+    if (!hasScene()) {
+        if (!defaultPostFX) { defaultPostFX = std::make_unique<scene::PostFX>(renderer); }
+        defaultPostFX->bindImages(renderFrames);
+        fx = defaultPostFX.get();
     }
+    else { fx = scenes.back().postfx.get(); }
 
     vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
     vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
-    postFX.top()->compositeScene(commandBuffer);
+    fx->compositeScene(commandBuffer);
 }
 
 void Observer::assignRegion(const sf::Vector2u& windowSize,
@@ -259,7 +242,7 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
         });
 
         // post fx image descriptors
-        if (!postFX.empty()) { postFX.top()->bindImages(renderFrames); }
+        for (SceneInstance& scene : scenes) { scene.postfx->bindImages(renderFrames); }
     }
 }
 

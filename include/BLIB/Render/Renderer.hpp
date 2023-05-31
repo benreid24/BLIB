@@ -76,20 +76,17 @@ public:
 
     /**
      * @brief Removes the current scene from all observers
-     *
-     * @param popCameras True to also remove their current cameras, false to leave them
      */
-    void popSceneFromAllObservers(bool popCameras = true);
+    void popSceneFromAllObservers();
 
     /**
      * @brief Pops the current scene from all observers and returns it without releasing it from the
      *        scene pool. Note that only a single scene is returned, so care should be taken to only
      *        call this when all observers are using the same scene
      *
-     * @param popCameras True to also pop cameras from the observers, false to leave them
      * @return The scene that was removed
      */
-    Scene* popSceneFromAllObserversNoRelease(bool popCameras = true);
+    Scene* popSceneFromAllObserversNoRelease();
 
     /**
      * @brief Sets the default near and far values to be used for all cameras

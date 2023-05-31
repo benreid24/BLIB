@@ -17,25 +17,25 @@ namespace bl
 {
 namespace render
 {
+/// Namespace containing render targets for the renderer
+namespace tgt
+{
 class Renderer;
 
 /**
- * @brief Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer
- *        may have it's own scene stack and overlay, but the Renderer may also have a common
- *        scene and overlay for all observers. Observers may use the same scene amongst
- *        themselves and simply render it from different perspectives
+ * @brief
  *
  * @ingroup Renderer
  */
-class Observer {
+class RenderTarget {
 public:
     /**
      * @brief Releases resources
      */
-    ~Observer();
+    ~RenderTarget();
 
     /**
-     * @brief Creates a new scene on top the Observer's scene stack and returns it
+     * @brief Creates a new scene on top the RenderTarget's scene stack and returns it
      *
      * @param maxStaticObjectCount The maximum number of static objects in the scene
      * @param maxStaticObjectCount The maximum number of dynamic objects in the scene
@@ -44,7 +44,7 @@ public:
     Scene* pushScene(std::uint32_t maxStaticObjectCount, std::uint32_t maxDynamicObjectCount);
 
     /**
-     * @brief Pushes an existing scene onto the Observer's scene stack
+     * @brief Pushes an existing scene onto the RenderTarget's scene stack
      *
      * @param scene The scene to make active
      */
@@ -54,14 +54,17 @@ public:
      * @brief Removes the top scene from the observer's scene stack and returns it. Does not release
      *        the scene back into the scene pool
      *
+     * @param popCamera True to also pop the top-most camera, false to leave it
      * @return The scene that was removed
      */
-    Scene* popSceneNoRelease();
+    Scene* popSceneNoRelease(bool popCamera = true);
 
     /**
      * @brief Removes and releases the current active scene to the scene pool
+     *
+     * @param popCamera True to also pop the top-most camera, false to leave it
      */
-    void popScene();
+    void popScene(bool popCamera = true);
 
     /**
      * @brief Removes all scenes from the observer and returns them to the scene pool. Also clears
@@ -86,7 +89,17 @@ public:
     bool hasScene() const;
 
     /**
-     * @brief Replaces the camera to render the current scene with
+     * @brief Installs the given camera to render scenes with
+     *
+     * @tparam TCamera The type of camera to install
+     * @tparam ...TArgs Argument types to the camera's constructor
+     * @param ...args Arguments to the camera's constructor
+     * @return
+     */
+    template<typename TCamera, typename... TArgs>
+    TCamera* pushCamera(TArgs&&... args);
+    /**
+     * @brief Replaces the current camera to render scenes with
      *
      * @tparam TCamera The type of camera to install
      * @tparam ...TArgs Argument types to the camera's constructor
@@ -95,6 +108,16 @@ public:
      */
     template<typename TCamera, typename... TArgs>
     TCamera* setCamera(TArgs&&... args);
+
+    /**
+     * @brief Removes the top-most camera
+     */
+    void popCamera();
+
+    /**
+     * @brief Removes all cameras
+     */
+    void clearCameras();
 
     /**
      * @brief Sets the post processing to be used when compositing the rendered scene. PostFX are
@@ -113,6 +136,11 @@ public:
      * @brief Reverts the current scene's post processing to a standard copy
      */
     void removePostFX();
+
+    /**
+     * @brief Called once prior to the TransferEngine kicking off
+     */
+    void handleDescriptorSync();
 
     /**
      * @brief Records commands to render the observer's active scene to its internal image
@@ -150,29 +178,27 @@ private:
     struct SceneInstance {
         Scene* scene;
         std::uint32_t observerIndex;
-        std::unique_ptr<Camera> camera;
-        std::unique_ptr<scene::PostFX> postfx;
 
-        SceneInstance(Renderer& r, Scene* s)
+        SceneInstance(Scene* s)
         : scene(s)
-        , observerIndex(0)
-        , postfx(std::make_unique<scene::PostFX>(r)) {}
+        , observerIndex(0) {}
     };
 
     Renderer& renderer;
     bool resourcesFreed;
+    std::mutex mutex;
     vk::PerFrame<vk::StandardImageBuffer> renderFrames;
     vk::PerFrame<vk::Framebuffer> sceneFramebuffers;
-    VkRect2D scissor;
-    VkViewport viewport;
-    std::vector<SceneInstance> scenes;
-    std::unique_ptr<scene::PostFX> defaultPostFX;
+    VkRect2D scissor;    // refreshed on window resize and observer add/remove
+    VkViewport viewport; // derived from scissor. depth should be set by caller
+    std::stack<SceneInstance, std::vector<SceneInstance>> scenes;
+    std::stack<std::unique_ptr<Camera>, std::vector<std::unique_ptr<Camera>>> cameras;
+    std::stack<std::unique_ptr<scene::PostFX>, std::vector<std::unique_ptr<scene::PostFX>>> postFX;
     float defaultNear, defaultFar;
     VkClearValue clearColors[2];
     // TODO - 2d overlay for observer
 
-    Observer(Renderer& renderer);
-    void handleDescriptorSync();
+    RenderTarget(Renderer& renderer);
     void updateCamera(float dt);
     void assignRegion(const sf::Vector2u& windowSize, const sf::Rect<std::uint32_t>& parentRegion,
                       unsigned int observerCount, unsigned int index, bool topBottomFirst);
@@ -182,35 +208,52 @@ private:
     void onSceneAdd();
     void onScenePop();
 
+    template<typename TCamera, typename... TArgs>
+    TCamera* constructCamera(TArgs&&... args);
+
     friend class Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline std::size_t Observer::sceneCount() const { return scenes.size(); }
+inline std::size_t RenderTarget::sceneCount() const { return scenes.size(); }
 
-inline bool Observer::hasScene() const { return !scenes.empty(); }
+inline bool RenderTarget::hasScene() const { return !scenes.empty(); }
 
 template<typename TCamera, typename... TArgs>
-TCamera* Observer::setCamera(TArgs&&... args) {
-    if (hasScene()) {
-        TCamera* cam = new TCamera(std::forward<TArgs>(args)...);
-        static_cast<Camera*>(cam)->setNearAndFarPlanes(defaultNear, defaultFar);
-        scenes.back().camera.reset(cam);
-        return cam;
-    }
+TCamera* RenderTarget::constructCamera(TArgs&&... args) {
+    TCamera* cam = new TCamera(std::forward<TArgs>(args)...);
+    static_cast<Camera*>(cam)->setNearAndFarPlanes(defaultNear, defaultFar);
+    return cam;
+}
 
-    BL_LOG_ERROR << "Tried to set camera for observer with no current scene";
-    return nullptr;
+template<typename TCamera, typename... TArgs>
+TCamera* RenderTarget::pushCamera(TArgs&&... args) {
+    std::unique_lock lock(mutex);
+
+    TCamera* cam = constructCamera<TCamera>(std::forward<TArgs>(args)...);
+    cameras.emplace(cam);
+    return cam;
+}
+
+template<typename TCamera, typename... TArgs>
+TCamera* RenderTarget::setCamera(TArgs&&... args) {
+    std::unique_lock lock(mutex);
+
+    TCamera* cam = constructCamera<TCamera>(std::forward<TArgs>(args)...);
+    if (!cameras.empty()) { cameras.top().reset(cam); }
+    else { cameras.emplace(cam); }
+    return cam;
 }
 
 template<typename FX, typename... TArgs>
-FX* Observer::setPostFX(TArgs&&... args) {
+FX* RenderTarget::setPostFX(TArgs&&... args) {
     FX* fx = new FX(std::forward<TArgs>(args)...);
-    scenes.back().postfx.reset(fx);
+    postFX.top().reset(fx);
     return fx;
 }
 
+} // namespace tgt
 } // namespace render
 } // namespace bl
 

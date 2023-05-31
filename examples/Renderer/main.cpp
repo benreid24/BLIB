@@ -50,8 +50,8 @@ public:
 
         // create 2d scene and camera for observer 1
         bl::render::Scene* scene = p1.pushScene(10, 10);
-        auto* p1cam              = p1.pushCamera<bl::render::c2d::Camera2D>(
-            sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
+        auto* p1cam =
+            p1.setCamera<bl::render::c2d::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
         p1cam->setNearAndFarPlanes(-100000.f, 100000.f);
         p1cam->setRotation(15.f);
 
@@ -66,17 +66,17 @@ public:
         spritePosition->setScale({100.f / texture->sizeF.x, 100.f / texture->sizeF.y});
         spritePosition->setOrigin(texture->sizeF * 0.5f);
 
-        // create second observer with camera
+        // create 3d scene for observer 2
         bl::render::Observer& o = engine.renderer().addObserver();
+        scene                   = o.pushScene(10, 10);
+
+        // create second observer with camera
         o.setClearColor({0.f, 1.f, 0.f});
-        bl::render::c3d::Camera3D* player2Cam = o.pushCamera<bl::render::c3d::Camera3D>(
+        bl::render::c3d::Camera3D* player2Cam = o.setCamera<bl::render::c3d::Camera3D>(
             glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
         player2Cam->setController<bl::render::c3d::OrbiterController>(
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
         player2Cam->addAffector<bl::render::c3d::CameraShake>(0.1f, 7.f);
-
-        // create 3d scene for observer 2
-        scene = o.pushScene(10, 10);
 
         // get handle to mesh system
         bl::render::sys::MeshSystem& meshSystem =

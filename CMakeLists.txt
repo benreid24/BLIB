@@ -19,6 +19,7 @@ option(COMPILE_SHADERS "True to build built-in shaders, off to skip" On)
 set(MAX_DESCRIPTOR_BINDINGS "8" CACHE STRING "Maximum number of bindings in a descriptor set")
 set(RUN_PATH ${PROJECT_SOURCE_DIR} CACHE PATH "Working directory of the final built executables")
 set(SHADER_PATH "Resources/Shaders" CACHE PATH "Path where compiled shaders should go")
+set(SCENE_DEFAULT_CAMERA "2d" CACHE STRING "Either '2d' or '3d'. Determines which type of camera is created for scenes by default")
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)

@@ -199,14 +199,14 @@ Scene* Renderer::pushSceneToAllObservers(std::uint32_t maxStaticObjectCount,
     return s;
 }
 
-void Renderer::popSceneFromAllObservers(bool cams) {
-    for (auto& o : observers) { o->popScene(cams); }
+void Renderer::popSceneFromAllObservers() {
+    for (auto& o : observers) { o->popScene(); }
 }
 
-Scene* Renderer::popSceneFromAllObserversNoRelease(bool cams) {
+Scene* Renderer::popSceneFromAllObserversNoRelease() {
     Scene* s = nullptr;
     for (auto& o : observers) {
-        Scene* ns = o->popSceneNoRelease(cams);
+        Scene* ns = o->popSceneNoRelease();
 #ifdef BLIB_DEBUG
         if (s != nullptr && ns != s) {
             BL_LOG_ERROR << "Popping scene without release but observers have different scenes";

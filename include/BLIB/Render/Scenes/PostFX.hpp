@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_RENDERER_POSTFX_HPP
 #define BLIB_RENDER_RENDERER_POSTFX_HPP
 
-#include <BLIB/Render/Overlays/Drawable.hpp>
 #include <BLIB/Render/Primitives/IndexBuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
