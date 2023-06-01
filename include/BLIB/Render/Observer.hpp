@@ -115,36 +115,11 @@ public:
     void removePostFX();
 
     /**
-     * @brief Records commands to render the observer's active scene to its internal image
-     *
-     * @param commandBuffer Command buffer to record into
-     */
-    void renderScene(VkCommandBuffer commandBuffer);
-
-    /**
-     * @brief Inserts pipeline barriers as required to ensure scene rendering is complete before the
-     *        results are composited
-     *
-     * @param commandBuffer Command buffer to record into
-     */
-    void insertSceneBarriers(VkCommandBuffer commandBuffer);
-
-    /**
-     * @brief Records commands to render the rendered scene onto the given swapchain image, applying
-     *        postfx if any are active. Must be called with an active render pass
-     *
-     * @param commandBuffer Command buffer to record into
-     */
-    void compositeSceneWithEffects(VkCommandBuffer commandBuffer);
-
-    /**
      * @brief Sets the color to clear the observer's render region to prior to rendering
      *
      * @param color The color to clear with
      */
     void setClearColor(const glm::vec3& color);
-
-    // TODO - overlay render method
 
 private:
     struct SceneInstance {
@@ -181,6 +156,11 @@ private:
 
     void onSceneAdd();
     void onScenePop();
+
+    // called by Renderer
+    void renderScene(VkCommandBuffer commandBuffer);
+    void insertSceneBarriers(VkCommandBuffer commandBuffer);
+    void compositeSceneWithEffects(VkCommandBuffer commandBuffer);
 
     friend class Renderer;
 };
