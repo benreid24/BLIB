@@ -111,7 +111,6 @@ private:
     ecs::Registry* registry;
     scene::StagePipelines stagePipelines;
     std::vector<AddCommand> toAdd;
-    std::vector<ecs::Entity> toRemove;
     std::vector<com::SceneObjectRef> erased;
 
     virtual void observe(const ecs::event::ComponentRemoved<T>& rm) override;
@@ -127,7 +126,6 @@ GenericDrawableSystem<T>::GenericDrawableSystem(const scene::StagePipelines& pip
 : registry(nullptr)
 , stagePipelines(pipelines) {
     toAdd.reserve(64);
-    toRemove.reserve(64);
     erased.reserve(64);
 }
 
@@ -151,7 +149,7 @@ void GenericDrawableSystem<T>::addToSceneWithCustomPipelines(
     }
     if (c->sceneRef.scene) {
         if (c->sceneRef.scene == scene) { return; }
-        toRemove.emplace_back(entity);
+        erased.emplace_back(c->sceneRef);
     }
     toAdd.emplace_back(entity, scene, descriptorUpdateFreq, pipelines);
 }
@@ -161,12 +159,6 @@ void GenericDrawableSystem<T>::doInit(engine::Engine&) {}
 
 template<typename T>
 void GenericDrawableSystem<T>::doUpdate(std::mutex&, float) {}
-
-template<typename T>
-void GenericDrawableSystem<T>::removeFromScene(ecs::Entity ent) {
-    std::unique_lock lock(mutex);
-    toRemove.emplace_back(ent);
-}
 
 template<typename T>
 void GenericDrawableSystem<T>::observe(const ecs::event::ComponentRemoved<T>& rm) {
@@ -190,20 +182,8 @@ void GenericDrawableSystem<T>::init(engine::Engine& engine) {
 
 template<typename T>
 void GenericDrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
-    if (!toAdd.empty() || !toRemove.empty() || !erased.empty()) {
+    if (!toAdd.empty() || !erased.empty()) {
         std::unique_lock lock(frameMutex);
-
-        for (ecs::Entity ent : toRemove) {
-            T* c = registry->getComponent<T>(ent);
-            if (!c) {
-#ifdef BLIB_DEBUG
-                BL_LOG_WARN << "Entity erased before it could be removed from scene";
-#endif
-                continue;
-            }
-            c->sceneRef.scene->removeObject(ent);
-        }
-        toRemove.clear();
 
         for (const com::SceneObjectRef& ref : erased) { ref.scene->removeObject(ref.object); }
         erased.clear();

@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_RENDERER_SCENE_HPP
-#define BLIB_RENDER_RENDERER_SCENE_HPP
+#ifndef BLIB_RENDER_RENDERER_SCENEBASE_HPP
+#define BLIB_RENDER_RENDERER_SCENEBASE_HPP
 
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Containers/ObjectWrapper.hpp>
@@ -30,46 +30,49 @@ namespace res
 {
 class ScenePool;
 }
+namespace scene
+{
+class SceneBase {
+protected:
+    SceneBase(Renderer& renderer, std::uint32_t maxStatic, std::uint32_t maxDynamic);
 
-class Scene {
+    virtual ~SceneBase();
+
+    virtual void renderScene(SceneRenderContext& context) = 0;
+
+    virtual SceneObject* doAdd(ecs::Entity entity, std::uint32_t sceneId,
+                               const prim::DrawParameters& drawParams,
+                               const StagePipelines& pipelines) = 0;
+
+    virtual void doRemove(ecs::Entity entity, SceneObject* object) = 0;
+
 private:
     const std::uint32_t maxStatic;
     Renderer& renderer;
     ds::DescriptorSetFactoryCache& descriptorFactories;
-    std::vector<scene::SceneObject> objects;
     util::IdAllocator<std::uint32_t> staticIds;
     util::IdAllocator<std::uint32_t> dynamicIds;
     std::vector<ecs::Entity> entityMap;
-    std::vector<scene::StagePipelines> objectPipelines;
+    std::vector<StagePipelines> objectPipelines;
     ds::DescriptorSetInstanceCache descriptorSets;
     std::uint32_t nextObserverIndex;
 
-    scene::StageBatch opaqueObjects;
-    scene::StageBatch transparentObjects;
-
-    Scene(Renderer& renderer, std::uint32_t maxStatic, std::uint32_t maxDynamic);
-    ~Scene();
-
     // called by sys::GenericDrawableSystem in locked context
-    scene::SceneObject* createAndAddObject(ecs::Entity entity,
-                                           const prim::DrawParameters& drawParams,
-                                           UpdateSpeed updateFreq,
-                                           const scene::StagePipelines& pipelines);
-    void removeObject(scene::SceneObject* object);
+    SceneObject* createAndAddObject(ecs::Entity entity, const prim::DrawParameters& drawParams,
+                                    UpdateSpeed updateFreq, const StagePipelines& pipelines);
+    void removeObject(SceneObject* object);
 
     // called by Observer
     void handleDescriptorSync();
     std::uint32_t registerObserver();
     void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
-    void renderScene(scene::SceneRenderContext& context);
 
     template<typename T>
     friend class sys::GenericDrawableSystem;
-    friend class container::ObjectWrapper<Scene>;
     friend class Observer;
-    friend class res::ScenePool;
 };
 
+} // namespace scene
 } // namespace render
 } // namespace bl
 

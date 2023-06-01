@@ -102,15 +102,6 @@ void Scene::removeObject(scene::SceneObject* obj) {
     }
 }
 
-void Scene::removeObject(ecs::Entity ent) {
-    for (unsigned int i = 0; i < entityMap.size(); ++i) {
-        if (entityMap[i] == ent) {
-            removeObject(&objects[i]);
-            return;
-        }
-    }
-}
-
 void Scene::renderScene(scene::SceneRenderContext& ctx) {
     // TODO - support additional steps here, like recording to off-screen textures
     opaqueObjects.recordRenderCommands(ctx);
