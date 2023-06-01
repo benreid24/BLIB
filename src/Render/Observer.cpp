@@ -91,6 +91,7 @@ void Observer::handleDescriptorSync() {
         const glm::mat4 projView = scenes.back().camera->getProjectionMatrix(viewport) *
                                    scenes.back().camera->getViewMatrix();
         scenes.back().scene->updateObserverCamera(scenes.back().observerIndex, projView);
+        scenes.back().scene->handleDescriptorSync();
     }
 }
 
