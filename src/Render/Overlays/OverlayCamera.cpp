@@ -15,7 +15,7 @@ OverlayCamera::OverlayCamera()
     markProjDirty();
 }
 
-void OverlayCamera::update(float dt) {}
+void OverlayCamera::update(float) {}
 
 void OverlayCamera::refreshViewMatrix(glm::mat4& view) { view = glm::mat4(1.f); }
 

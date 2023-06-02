@@ -25,7 +25,7 @@ Observer::~Observer() {
 
 void Observer::cleanup() {
     if (!resourcesFreed) {
-        scenes.clear();
+        clearScenes();
         defaultPostFX.reset();
         sceneFramebuffers.cleanup([](vk::Framebuffer& fb) { fb.cleanup(); });
         renderFrames.cleanup([](vk::StandardImageBuffer& frame) { frame.destroy(); });
@@ -42,8 +42,35 @@ void Observer::pushScene(Scene* s) {
     onSceneAdd();
 }
 
+Overlay* Observer::createSceneOverlay(std::uint32_t ms, std::uint32_t md) {
+    if (scenes.empty()) {
+        BL_LOG_ERROR << "Tried to create Overlay with no current scene";
+        throw std::runtime_error("Tried to create Overlay with no current scene");
+    }
+
+    if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
+    scenes.back().overlay = renderer.scenePool().allocateScene<Overlay>(ms, md);
+    return scenes.back().overlay;
+}
+
+Overlay* Observer::getOrCreateSceneOverlay(std::uint32_t ms, std::uint32_t md) {
+    if (scenes.empty()) {
+        BL_LOG_ERROR << "Tried to create Overlay with no current scene";
+        throw std::runtime_error("Tried to create Overlay with no current scene");
+    }
+
+    return scenes.back().overlay ? scenes.back().overlay : createSceneOverlay(ms, md);
+}
+
+Overlay* Observer::getCurrentOverlay() { return scenes.empty() ? nullptr : scenes.back().overlay; }
+
+void Observer::setApplyPostFXToOverlay(bool apply) {
+    if (!scenes.empty()) { scenes.back().overlayPostFX = apply; }
+}
+
 Scene* Observer::popSceneNoRelease() {
     Scene* s = scenes.back().scene;
+    if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
     scenes.pop_back();
     return s;
 }
@@ -51,18 +78,25 @@ Scene* Observer::popSceneNoRelease() {
 void Observer::popScene() {
     Scene* s = scenes.back().scene;
     renderer.scenePool().destroyScene(s);
+    if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
     scenes.pop_back();
 }
 
 void Observer::clearScenes() {
     while (!scenes.empty()) {
         Scene* s = scenes.back().scene;
+        if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
         scenes.pop_back();
         renderer.scenePool().destroyScene(s);
     }
 }
 
-void Observer::clearScenesNoRelease() { scenes.clear(); }
+void Observer::clearScenesNoRelease() {
+    for (auto& scene : scenes) {
+        if (scene.overlay) { renderer.scenePool().destroyScene(scene.overlay); }
+    }
+    scenes.clear();
+}
 
 void Observer::onSceneAdd() {
     scenes.back().postfx->bindImages(renderFrames);

@@ -2,6 +2,8 @@
 #define BLIB_RENDER_OBSERVER_HPP
 
 #include <BLIB/Render/Cameras/Camera.hpp>
+#include <BLIB/Render/Overlays/Overlay.hpp>
+#include <BLIB/Render/Overlays/OverlayCamera.hpp>
 #include <BLIB/Render/Scenes/PostFX.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -52,6 +54,37 @@ public:
      * @param scene The scene to make active
      */
     void pushScene(Scene* scene);
+
+    /**
+     * @brief Creates a new Overlay for the current scene for this Observer. Replaces the existing
+     *        Overlay if one was present
+     *
+     * @param maxStatic The maximum number of static objects in the overlay
+     * @param maxDynamic The maximum number of dynamic objects in the overlay
+     * @return A pointer to the new Overlay
+     */
+    Overlay* createSceneOverlay(std::uint32_t maxStatic, std::uint32_t maxDynamic);
+
+    /**
+     * @brief Returns the current overlay, creating a new one if necessary
+     *
+     * @param maxStatic The maximum number of static objects in the overlay
+     * @param maxDynamic The maximum number of dynamic objects in the overlay
+     * @return A pointer to the new Overlay
+     */
+    Overlay* getOrCreateSceneOverlay(std::uint32_t maxStatic, std::uint32_t maxDynamic);
+
+    /**
+     * @brief Returns the current Overlay. Will be nullptr if one has not been created
+     */
+    Overlay* getCurrentOverlay();
+
+    /**
+     * @brief Sets whether or not to apply the current PostFX to the Overlay. Default is false
+     *
+     * @param overlayPostFX True to apply PostFX to overlay, false to render directly
+     */
+    void setApplyPostFXToOverlay(bool overlayPostFX);
 
     /**
      * @brief Removes the top scene from the observer's scene stack and returns it. Does not release
@@ -127,14 +160,20 @@ public:
 private:
     struct SceneInstance {
         Scene* scene;
+        Overlay* overlay;
         std::uint32_t observerIndex;
+        std::uint32_t overlayIndex;
         std::unique_ptr<Camera> camera;
         std::unique_ptr<scene::PostFX> postfx;
+        bool overlayPostFX;
 
         SceneInstance(Renderer& r, Scene* s)
         : scene(s)
+        , overlay(nullptr)
         , observerIndex(0)
-        , postfx(std::make_unique<scene::PostFX>(r)) {}
+        , overlayIndex(0)
+        , postfx(std::make_unique<scene::PostFX>(r))
+        , overlayPostFX(false) {}
     };
 
     Renderer& renderer;
