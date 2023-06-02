@@ -67,6 +67,16 @@ public:
     void createDescriptorSets(ds::DescriptorSetInstanceCache& cache,
                               std::vector<ds::DescriptorSetInstance*>& descriptors);
 
+    /**
+     * @brief Initializes the given array of descriptor sets and returns the number of sets
+     *
+     * @param cache Descriptor set cache to use when creating or fetching sets
+     * @param sets Pointer to an array of descriptor set pointers
+     * @return The number of descriptor sets used by this pipeline
+     */
+    std::uint32_t initDescriptorSets(ds::DescriptorSetInstanceCache& cache,
+                                     ds::DescriptorSetInstance** sets);
+
 private:
     Renderer& renderer;
     VkPipelineLayout layout;

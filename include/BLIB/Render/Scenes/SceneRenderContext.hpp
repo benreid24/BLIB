@@ -44,9 +44,10 @@ public:
      *
      * @param layout Layout of the pipeline the descriptors are being bound to
      * @param descriptors The list of descriptor sets to bind
+     * @param descriptorCount The number of descriptors to bind
      */
-    void bindDescriptors(VkPipelineLayout layout,
-                         const std::vector<ds::DescriptorSetInstance*>& descriptors);
+    void bindDescriptors(VkPipelineLayout layout, ds::DescriptorSetInstance** descriptors,
+                         std::uint32_t descriptorCount);
 
     /**
      * @brief Issues the required commands to render the given scene object
@@ -61,9 +62,10 @@ private:
     const std::uint32_t observerIndex;
     VkBuffer prevVB;
     VkBuffer prevIB;
-    std::array<ds::DescriptorSetInstance*, 4> boundDescriptors;
-    std::array<ds::DescriptorSetInstance*, 4> perObjDescriptors;
+    std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> boundDescriptors;
+    std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> perObjDescriptors;
     std::uint32_t perObjStart, perObjCount;
+    // TODO - add parent viewport/scissor
 };
 
 } // namespace scene

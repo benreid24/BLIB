@@ -23,11 +23,12 @@ void SceneRenderContext::bindPipeline(VkPipeline pipeline) {
     vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
 }
 
-void SceneRenderContext::bindDescriptors(
-    VkPipelineLayout layout, const std::vector<ds::DescriptorSetInstance*>& descriptors) {
+void SceneRenderContext::bindDescriptors(VkPipelineLayout layout,
+                                         ds::DescriptorSetInstance** descriptors,
+                                         std::uint32_t descriptorCount) {
     bool bind   = false;
     perObjCount = 0;
-    for (unsigned int i = 0; i < descriptors.size(); ++i) {
+    for (unsigned int i = 0; i < descriptorCount; ++i) {
         if (bind || descriptors[i] != boundDescriptors[i]) {
             bind                = true;
             boundDescriptors[i] = descriptors[i];

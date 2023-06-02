@@ -1,8 +1,6 @@
 #ifndef BLIB_RENDER_RENDERER_SCENEBASE_HPP
 #define BLIB_RENDER_RENDERER_SCENEBASE_HPP
 
-#include <BLIB/Containers/ObjectPool.hpp>
-#include <BLIB/Containers/ObjectWrapper.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
@@ -81,12 +79,21 @@ protected:
 
     /**
      * @brief Called when an object is removed from the scene. Unlink from descriptors here
-     * @param entity
-     * @param object
-     * @param pipelines
+     *
+     * @param entity The ECS entity being removed
+     * @param object The object being removed
+     * @param pipelines The pipelines used to render the object being removed
      */
     virtual void doRemove(ecs::Entity entity, scene::SceneObject* object,
                           const scene::StagePipelines& pipelines) = 0;
+
+    /**
+     * @brief Intended to be called by GenericDrawableSystem. Can be used by derived classes to
+     *        remove child objects
+     *
+     * @param object The object to remove
+     */
+    void removeObject(scene::SceneObject* object);
 
 private:
     util::IdAllocator<std::uint32_t> staticIds;
@@ -100,7 +107,6 @@ private:
                                            const prim::DrawParameters& drawParams,
                                            UpdateSpeed updateFreq,
                                            const scene::StagePipelines& pipelines);
-    void removeObject(scene::SceneObject* object);
 
     // called by Observer
     void handleDescriptorSync();
@@ -109,7 +115,6 @@ private:
 
     template<typename T>
     friend class sys::GenericDrawableSystem;
-    friend class container::ObjectWrapper<Scene>;
     friend class Observer;
     friend class res::ScenePool;
 };

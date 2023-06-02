@@ -22,7 +22,7 @@ PipelineBatch::PipelineBatch(Renderer& renderer, std::uint32_t maxObjects,
 void PipelineBatch::recordRenderCommands(SceneRenderContext& context) {
     const VkPipelineLayout pipelineLayout = pipeline.pipelineLayout();
     context.bindPipeline(pipeline.rawPipeline());
-    context.bindDescriptors(pipelineLayout, descriptors);
+    context.bindDescriptors(pipelineLayout, descriptors.data(), descriptors.size());
 
     for (SceneObject* object : objects) {
         if (object->hidden) continue;

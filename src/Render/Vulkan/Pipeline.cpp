@@ -111,9 +111,15 @@ Pipeline::~Pipeline() {
 void Pipeline::createDescriptorSets(ds::DescriptorSetInstanceCache& cache,
                                     std::vector<ds::DescriptorSetInstance*>& descriptors) {
     descriptors.resize(descriptorSets.size());
+    initDescriptorSets(cache, descriptors.data());
+}
+
+std::uint32_t Pipeline::initDescriptorSets(ds::DescriptorSetInstanceCache& cache,
+                                           ds::DescriptorSetInstance** sets) {
     for (unsigned int i = 0; i < descriptorSets.size(); ++i) {
-        descriptors[i] = cache.getDescriptorSet(descriptorSets[i]);
+        sets[i] = cache.getDescriptorSet(descriptorSets[i]);
     }
+    return descriptorSets.size();
 }
 
 } // namespace vk
