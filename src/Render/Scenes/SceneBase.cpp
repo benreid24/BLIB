@@ -7,8 +7,6 @@ namespace bl
 {
 namespace render
 {
-namespace scene
-{
 SceneBase::SceneBase(Renderer& r, std::uint32_t maxStatic, std::uint32_t maxDynamic)
 : maxStatic(maxStatic)
 , renderer(r)
@@ -44,10 +42,10 @@ void SceneBase::updateObserverCamera(std::uint32_t observerIndex, const glm::mat
 
 void SceneBase::handleDescriptorSync() { descriptorSets.handleDescriptorSync(); }
 
-SceneObject* SceneBase::createAndAddObject(ecs::Entity entity,
-                                           const prim::DrawParameters& drawParams,
-                                           UpdateSpeed updateFreq,
-                                           const StagePipelines& pipelines) {
+scene::SceneObject* SceneBase::createAndAddObject(ecs::Entity entity,
+                                                  const prim::DrawParameters& drawParams,
+                                                  UpdateSpeed updateFreq,
+                                                  const scene::StagePipelines& pipelines) {
     auto& ids                  = updateFreq == UpdateSpeed::Dynamic ? dynamicIds : staticIds;
     const std::uint32_t offset = updateFreq == UpdateSpeed::Dynamic ? maxStatic : 0;
     if (!ids.available()) {
@@ -81,6 +79,5 @@ void SceneBase::removeObject(scene::SceneObject* obj) {
     doRemove(ent, obj, pipelines);
 }
 
-} // namespace scene
 } // namespace render
 } // namespace bl

@@ -7,6 +7,7 @@
 #include <array>
 #include <cstdint>
 #include <mutex>
+#include <type_traits>
 
 namespace bl
 {
@@ -24,9 +25,6 @@ namespace res
  */
 class ScenePool {
 public:
-    /// The maximum number of scenes that may exist at once
-    static constexpr std::uint32_t MaxSceneCount = 16;
-
     /**
      * @brief Creates a new scene pool
      *
@@ -42,25 +40,41 @@ public:
     /**
      * @brief Allocates a new scene from the pool and returns it
      *
-     * @param maxStaticObjectCount The maximum number of static objects in the scene
-     * @param maxStaticObjectCount The maximum number of dynamic objects in the scene
+     * @tparam TScene The type of scene to create
+     * @tparam TArgs Argument types to the scene's constructor
+     * @param args Arguments to the scene's constructor
      * @return The new scene
      */
-    Scene* allocateScene(std::uint32_t maxStaticObjectCount, std::uint32_t maxDynamicObjectCount);
+    template<typename TScene, typename... TArgs>
+    TScene* allocateScene(TArgs&&... args);
 
     /**
      * @brief Destroys the given scene and returns it to the pool
      *
      * @param scene The scene to destroy and reuse
      */
-    void destroyScene(Scene* scene);
+    void destroyScene(SceneBase* scene);
 
 private:
     Renderer& renderer;
-    std::vector<container::ObjectWrapper<Scene>> pool;
-    util::IdAllocator<std::uint32_t> freeSlots;
+    std::vector<std::unique_ptr<SceneBase>> scenes;
     std::mutex mutex;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename TScene, typename... TArgs>
+TScene* ScenePool::allocateScene(TArgs&&... args) {
+    static_assert(std::is_base_of_v<SceneBase, TScene>, "TScene must derive from SceneBase");
+    static_assert(std::is_constructible_v<TScene, Renderer&, TArgs...>,
+                  "TScene constructor must accept a Renderer& as the first parameter");
+
+    std::unique_lock lock(mutex);
+
+    TScene* ns = new TScene(renderer, std::forward<TArgs>(args)...);
+    scenes.emplace_back(ns);
+    return ns;
+}
 
 } // namespace res
 } // namespace render

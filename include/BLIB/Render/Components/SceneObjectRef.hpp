@@ -9,7 +9,7 @@ namespace bl
 {
 namespace render
 {
-class Scene;
+class SceneBase;
 namespace scene
 {
 struct SceneObject;
@@ -24,7 +24,7 @@ namespace com
  * @ingroup Renderer
  */
 struct SceneObjectRef {
-    Scene* scene;
+    SceneBase* scene;
     scene::SceneObject* object;
 };
 

@@ -67,12 +67,13 @@ public:
     /**
      * @brief Allocates a single scene, pushes it to all observers, and returns it
      *
-     * @param maxStaticObjectCount The maximum number of static objects in the scene
-     * @param maxStaticObjectCount The maximum number of dynamic objects in the scene
+     * @tparam TScene The type of scene to create
+     * @tparam TArgs Argument types to the scene's constructor
+     * @param args Arguments to the scene's constructor
      * @return A pointer to the new scene active in all observers
      */
-    Scene* pushSceneToAllObservers(std::uint32_t maxStaticObjectCount,
-                                   std::uint32_t maxDynamicObjectCount);
+    template<typename TScene, typename... TArgs>
+    TScene* pushSceneToAllObservers(TArgs&&... args);
 
     /**
      * @brief Removes the current scene from all observers
@@ -86,7 +87,7 @@ public:
      *
      * @return The scene that was removed
      */
-    Scene* popSceneFromAllObserversNoRelease();
+    SceneBase* popSceneFromAllObserversNoRelease();
 
     /**
      * @brief Sets the default near and far values to be used for all cameras
@@ -103,7 +104,7 @@ public:
      *
      * @return A reference to the common observer
      */
-    constexpr Observer& getCommonObserver(); // TODO - common overlay will live in here
+    constexpr Observer& getCommonObserver();
 
     /**
      * @brief Sets the direction the screen will split if there is more than one observer. Default
@@ -226,6 +227,21 @@ inline constexpr ds::DescriptorSetFactoryCache& Renderer::descriptorFactoryCache
 inline constexpr Observer& Renderer::getCommonObserver() { return commonObserver; }
 
 inline Observer& Renderer::getObserver(unsigned int i) { return *observers[i]; }
+
+template<typename TScene, typename... TArgs>
+TScene* Renderer::pushSceneToAllObservers(TArgs&&... args) {
+    TScene* s = scenes.allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
+    for (auto& o : observers) { o->pushScene(s); }
+    return s;
+}
+
+template<typename TScene, typename... TArgs>
+TScene* Observer::pushScene(TArgs&&... args) {
+    TScene* s = renderer.scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
+    scenes.emplace_back(renderer, s);
+    onSceneAdd();
+    return s;
+}
 
 } // namespace render
 } // namespace bl

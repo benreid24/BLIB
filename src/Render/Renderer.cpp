@@ -191,21 +191,14 @@ void Renderer::removeObserver(unsigned int i) {
     assignObserverRegions();
 }
 
-Scene* Renderer::pushSceneToAllObservers(std::uint32_t maxStaticObjectCount,
-                                         std::uint32_t maxDynamicObjectCount) {
-    Scene* s = scenes.allocateScene(maxStaticObjectCount, maxDynamicObjectCount);
-    for (auto& o : observers) { o->pushScene(s); }
-    return s;
-}
-
 void Renderer::popSceneFromAllObservers() {
     for (auto& o : observers) { o->popScene(); }
 }
 
-Scene* Renderer::popSceneFromAllObserversNoRelease() {
-    Scene* s = nullptr;
+SceneBase* Renderer::popSceneFromAllObserversNoRelease() {
+    SceneBase* s = nullptr;
     for (auto& o : observers) {
-        Scene* ns = o->popSceneNoRelease();
+        SceneBase* ns = o->popSceneNoRelease();
 #ifdef BLIB_DEBUG
         if (s != nullptr && ns != s) {
             BL_LOG_ERROR << "Popping scene without release but observers have different scenes";

@@ -5,7 +5,7 @@ namespace bl
 {
 namespace render
 {
-class Scene;
+class SceneBase;
 
 /// Collection of events related to the renderer
 namespace event
@@ -17,7 +17,7 @@ namespace event
  * @ingroup Renderer
  */
 struct SceneDestroyed {
-    Scene* scene;
+    SceneBase* scene;
 };
 
 } // namespace event

@@ -37,34 +37,26 @@ void Observer::updateCamera(float dt) {
     if (!scenes.empty()) { scenes.back().camera->update(dt); }
 }
 
-Scene* Observer::pushScene(std::uint32_t maxStaticObjectCount,
-                           std::uint32_t maxDynamicObjectCount) {
-    Scene* s = renderer.scenePool().allocateScene(maxStaticObjectCount, maxDynamicObjectCount);
-    scenes.emplace_back(renderer, s);
-    onSceneAdd();
-    return s;
-}
-
-void Observer::pushScene(Scene* s) {
+void Observer::pushScene(SceneBase* s) {
     scenes.emplace_back(renderer, s);
     onSceneAdd();
 }
 
-Scene* Observer::popSceneNoRelease() {
-    Scene* s = scenes.back().scene;
+SceneBase* Observer::popSceneNoRelease() {
+    SceneBase* s = scenes.back().scene;
     scenes.pop_back();
     return s;
 }
 
 void Observer::popScene() {
-    Scene* s = scenes.back().scene;
+    SceneBase* s = scenes.back().scene;
     renderer.scenePool().destroyScene(s);
     scenes.pop_back();
 }
 
 void Observer::clearScenes() {
     while (!scenes.empty()) {
-        Scene* s = scenes.back().scene;
+        SceneBase* s = scenes.back().scene;
         scenes.pop_back();
         renderer.scenePool().destroyScene(s);
     }

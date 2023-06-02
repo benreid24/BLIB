@@ -17,15 +17,16 @@ namespace res
 {
 class ScenePool;
 }
-
+namespace scene
+{
 /**
  * @brief Primary scene class for the renderer. Provides batched rendering of objects by pipeline.
  *        Renders transparent objects after rendering all opaque objects
  *
  * @ingroup Renderer
  */
-class Scene : public scene::SceneBase {
-protected:
+class Scene : public SceneBase {
+public:
     /**
      * @brief Initializes the Scene
      *
@@ -40,10 +41,11 @@ protected:
      */
     virtual ~Scene() = default;
 
+protected:
     /**
      * @brief Derived classes should record render commands in here
      *
-     * @param context Context containing scene render data
+     * @param context Render context containing scene render data
      */
     virtual void renderScene(scene::SceneRenderContext& context) override;
 
@@ -82,6 +84,7 @@ private:
     friend class res::ScenePool;
 };
 
+} // namespace scene
 } // namespace render
 } // namespace bl
 

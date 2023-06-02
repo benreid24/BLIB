@@ -3,7 +3,7 @@
 
 #include <BLIB/Render/Cameras/Camera.hpp>
 #include <BLIB/Render/Scenes/PostFX.hpp>
-#include <BLIB/Render/Scenes/Scene.hpp>
+#include <BLIB/Render/Scenes/SceneBase.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/StandardImageBuffer.hpp>
 #include <SFML/Window.hpp>
@@ -11,6 +11,7 @@
 #include <memory>
 #include <mutex>
 #include <stack>
+#include <utility>
 #include <vector>
 
 namespace bl
@@ -37,18 +38,20 @@ public:
     /**
      * @brief Creates a new scene on top the Observer's scene stack and returns it
      *
-     * @param maxStaticObjectCount The maximum number of static objects in the scene
-     * @param maxStaticObjectCount The maximum number of dynamic objects in the scene
+     * @tparam TScene The type of scene to create
+     * @tparam TArgs Argument types to the scene's constructor
+     * @param args Arguments to the scene's constructor
      * @return The newly created, now active, scene
      */
-    Scene* pushScene(std::uint32_t maxStaticObjectCount, std::uint32_t maxDynamicObjectCount);
+    template<typename TScene, typename... TArgs>
+    TScene* pushScene(TArgs&&... args);
 
     /**
      * @brief Pushes an existing scene onto the Observer's scene stack
      *
      * @param scene The scene to make active
      */
-    void pushScene(Scene* scene);
+    void pushScene(SceneBase* scene);
 
     /**
      * @brief Removes the top scene from the observer's scene stack and returns it. Does not release
@@ -56,7 +59,7 @@ public:
      *
      * @return The scene that was removed
      */
-    Scene* popSceneNoRelease();
+    SceneBase* popSceneNoRelease();
 
     /**
      * @brief Removes and releases the current active scene to the scene pool
@@ -123,12 +126,12 @@ public:
 
 private:
     struct SceneInstance {
-        Scene* scene;
+        SceneBase* scene;
         std::uint32_t observerIndex;
         std::unique_ptr<Camera> camera;
         std::unique_ptr<scene::PostFX> postfx;
 
-        SceneInstance(Renderer& r, Scene* s)
+        SceneInstance(Renderer& r, SceneBase* s)
         : scene(s)
         , observerIndex(0)
         , postfx(std::make_unique<scene::PostFX>(r)) {}

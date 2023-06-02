@@ -30,8 +30,6 @@ namespace res
 {
 class ScenePool;
 }
-namespace scene
-{
 /**
  * @brief Base class for all scene types and overlays. Provides common scene logic and object
  *        management. Derived classes must provide storage for SceneObject (or derived)
@@ -39,6 +37,12 @@ namespace scene
  * @ingroup Renderer
  */
 class SceneBase {
+public:
+    /**
+     * @brief Unlinks allocated objects from ECS descriptor linkages
+     */
+    virtual ~SceneBase();
+
 protected:
     const std::uint32_t maxStatic;
     Renderer& renderer;
@@ -55,16 +59,11 @@ protected:
     SceneBase(Renderer& renderer, std::uint32_t maxStatic, std::uint32_t maxDynamic);
 
     /**
-     * @brief Unlinks allocated objects from ECS descriptor linkages
-     */
-    virtual ~SceneBase();
-
-    /**
      * @brief Derived classes should record render commands in here
      *
      * @param context Context containing scene render data
      */
-    virtual void renderScene(SceneRenderContext& context) = 0;
+    virtual void renderScene(scene::SceneRenderContext& context) = 0;
 
     /**
      * @brief Called when an object is added to the scene. Derived should create the SceneObject
@@ -76,8 +75,9 @@ protected:
      * @param pipelines Which pipelines to use to render the object
      * @return A pointer to the new scene object
      */
-    virtual SceneObject* doAdd(ecs::Entity entity, std::uint32_t sceneId, UpdateSpeed updateFreq,
-                               const StagePipelines& pipelines) = 0;
+    virtual scene::SceneObject* doAdd(ecs::Entity entity, std::uint32_t sceneId,
+                                      UpdateSpeed updateFreq,
+                                      const scene::StagePipelines& pipelines) = 0;
 
     /**
      * @brief Called when an object is removed from the scene. Unlink from descriptors here
@@ -85,20 +85,22 @@ protected:
      * @param object
      * @param pipelines
      */
-    virtual void doRemove(ecs::Entity entity, SceneObject* object,
-                          const StagePipelines& pipelines) = 0;
+    virtual void doRemove(ecs::Entity entity, scene::SceneObject* object,
+                          const scene::StagePipelines& pipelines) = 0;
 
 private:
     util::IdAllocator<std::uint32_t> staticIds;
     util::IdAllocator<std::uint32_t> dynamicIds;
     std::vector<ecs::Entity> entityMap;
-    std::vector<StagePipelines> objectPipelines;
+    std::vector<scene::StagePipelines> objectPipelines;
     std::uint32_t nextObserverIndex;
 
     // called by sys::GenericDrawableSystem in locked context
-    SceneObject* createAndAddObject(ecs::Entity entity, const prim::DrawParameters& drawParams,
-                                    UpdateSpeed updateFreq, const StagePipelines& pipelines);
-    void removeObject(SceneObject* object);
+    scene::SceneObject* createAndAddObject(ecs::Entity entity,
+                                           const prim::DrawParameters& drawParams,
+                                           UpdateSpeed updateFreq,
+                                           const scene::StagePipelines& pipelines);
+    void removeObject(scene::SceneObject* object);
 
     // called by Observer
     void handleDescriptorSync();
@@ -112,7 +114,6 @@ private:
     friend class res::ScenePool;
 };
 
-} // namespace scene
 } // namespace render
 } // namespace bl
 

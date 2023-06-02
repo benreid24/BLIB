@@ -7,6 +7,8 @@ namespace bl
 {
 namespace render
 {
+namespace scene
+{
 Scene::Scene(Renderer& r, std::uint32_t maxStatic, std::uint32_t maxDynamic)
 : SceneBase(r, maxStatic, maxDynamic)
 , objects(maxStatic + maxDynamic)
@@ -54,5 +56,6 @@ void Scene::renderScene(scene::SceneRenderContext& ctx) {
     transparentObjects.recordRenderCommands(ctx);
 }
 
+} // namespace scene
 } // namespace render
 } // namespace bl
