@@ -195,10 +195,10 @@ void Renderer::popSceneFromAllObservers() {
     for (auto& o : observers) { o->popScene(); }
 }
 
-SceneBase* Renderer::popSceneFromAllObserversNoRelease() {
-    SceneBase* s = nullptr;
+Scene* Renderer::popSceneFromAllObserversNoRelease() {
+    Scene* s = nullptr;
     for (auto& o : observers) {
-        SceneBase* ns = o->popSceneNoRelease();
+        Scene* ns = o->popSceneNoRelease();
 #ifdef BLIB_DEBUG
         if (s != nullptr && ns != s) {
             BL_LOG_ERROR << "Popping scene without release but observers have different scenes";

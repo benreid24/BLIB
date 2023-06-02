@@ -2,7 +2,7 @@
 #define BLIB_RENDER_RESOURCES_SCENEPOOL_HPP
 
 #include <BLIB/Containers/ObjectWrapper.hpp>
-#include <BLIB/Render/Scenes/Scene.hpp>
+#include <BLIB/Render/Scenes/BasicScene.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <array>
 #include <cstdint>
@@ -53,11 +53,11 @@ public:
      *
      * @param scene The scene to destroy and reuse
      */
-    void destroyScene(SceneBase* scene);
+    void destroyScene(Scene* scene);
 
 private:
     Renderer& renderer;
-    std::vector<std::unique_ptr<SceneBase>> scenes;
+    std::vector<std::unique_ptr<Scene>> scenes;
     std::mutex mutex;
 };
 
@@ -65,7 +65,7 @@ private:
 
 template<typename TScene, typename... TArgs>
 TScene* ScenePool::allocateScene(TArgs&&... args) {
-    static_assert(std::is_base_of_v<SceneBase, TScene>, "TScene must derive from SceneBase");
+    static_assert(std::is_base_of_v<Scene, TScene>, "TScene must derive from Scene");
     static_assert(std::is_constructible_v<TScene, Renderer&, TArgs...>,
                   "TScene constructor must accept a Renderer& as the first parameter");
 

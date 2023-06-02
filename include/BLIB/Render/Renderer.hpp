@@ -87,7 +87,7 @@ public:
      *
      * @return The scene that was removed
      */
-    SceneBase* popSceneFromAllObserversNoRelease();
+    Scene* popSceneFromAllObserversNoRelease();
 
     /**
      * @brief Sets the default near and far values to be used for all cameras

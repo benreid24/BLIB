@@ -1,7 +1,20 @@
-#ifndef BLIB_RENDER_RENDERER_SCENE_HPP
-#define BLIB_RENDER_RENDERER_SCENE_HPP
+#ifndef BLIB_RENDER_RENDERER_SCENEBASE_HPP
+#define BLIB_RENDER_RENDERER_SCENEBASE_HPP
 
-#include <BLIB/Render/Scenes/SceneBase.hpp>
+#include <BLIB/Containers/ObjectPool.hpp>
+#include <BLIB/Containers/ObjectWrapper.hpp>
+#include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
+#include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
+#include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Scenes/SceneObject.hpp>
+#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
+#include <BLIB/Render/Scenes/StageBatch.hpp>
+#include <BLIB/Render/Scenes/StagePipelines.hpp>
+#include <BLIB/Util/IdAllocator.hpp>
+#include <array>
+#include <glad/vulkan.h>
+#include <vector>
 
 namespace bl
 {
@@ -17,16 +30,25 @@ namespace res
 {
 class ScenePool;
 }
-namespace scene
-{
 /**
- * @brief Primary scene class for the renderer. Provides batched rendering of objects by pipeline.
- *        Renders transparent objects after rendering all opaque objects
+ * @brief Base class for all scene types and overlays. Provides common scene logic and object
+ *        management. Derived classes must provide storage for SceneObject (or derived)
  *
  * @ingroup Renderer
  */
-class Scene : public SceneBase {
+class Scene {
 public:
+    /**
+     * @brief Unlinks allocated objects from ECS descriptor linkages
+     */
+    virtual ~Scene();
+
+protected:
+    const std::uint32_t maxStatic;
+    Renderer& renderer;
+    ds::DescriptorSetFactoryCache& descriptorFactories;
+    ds::DescriptorSetInstanceCache descriptorSets;
+
     /**
      * @brief Initializes the Scene
      *
@@ -37,17 +59,11 @@ public:
     Scene(Renderer& renderer, std::uint32_t maxStatic, std::uint32_t maxDynamic);
 
     /**
-     * @brief Unlinks allocated objects from ECS descriptor linkages
-     */
-    virtual ~Scene() = default;
-
-protected:
-    /**
      * @brief Derived classes should record render commands in here
      *
-     * @param context Render context containing scene render data
+     * @param context Context containing scene render data
      */
-    virtual void renderScene(scene::SceneRenderContext& context) override;
+    virtual void renderScene(scene::SceneRenderContext& context) = 0;
 
     /**
      * @brief Called when an object is added to the scene. Derived should create the SceneObject
@@ -61,7 +77,7 @@ protected:
      */
     virtual scene::SceneObject* doAdd(ecs::Entity entity, std::uint32_t sceneId,
                                       UpdateSpeed updateFreq,
-                                      const scene::StagePipelines& pipelines) override;
+                                      const scene::StagePipelines& pipelines) = 0;
 
     /**
      * @brief Called when an object is removed from the scene. Unlink from descriptors here
@@ -70,12 +86,26 @@ protected:
      * @param pipelines
      */
     virtual void doRemove(ecs::Entity entity, scene::SceneObject* object,
-                          const scene::StagePipelines& pipelines) override;
+                          const scene::StagePipelines& pipelines) = 0;
 
 private:
-    std::vector<scene::SceneObject> objects;
-    scene::StageBatch opaqueObjects;
-    scene::StageBatch transparentObjects;
+    util::IdAllocator<std::uint32_t> staticIds;
+    util::IdAllocator<std::uint32_t> dynamicIds;
+    std::vector<ecs::Entity> entityMap;
+    std::vector<scene::StagePipelines> objectPipelines;
+    std::uint32_t nextObserverIndex;
+
+    // called by sys::GenericDrawableSystem in locked context
+    scene::SceneObject* createAndAddObject(ecs::Entity entity,
+                                           const prim::DrawParameters& drawParams,
+                                           UpdateSpeed updateFreq,
+                                           const scene::StagePipelines& pipelines);
+    void removeObject(scene::SceneObject* object);
+
+    // called by Observer
+    void handleDescriptorSync();
+    std::uint32_t registerObserver();
+    void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
 
     template<typename T>
     friend class sys::GenericDrawableSystem;
@@ -84,7 +114,6 @@ private:
     friend class res::ScenePool;
 };
 
-} // namespace scene
 } // namespace render
 } // namespace bl
 

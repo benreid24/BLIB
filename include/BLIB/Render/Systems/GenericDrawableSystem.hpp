@@ -9,7 +9,7 @@
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
-#include <BLIB/Render/Scenes/SceneBase.hpp>
+#include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/StagePipelines.hpp>
 #include <mutex>
@@ -54,7 +54,7 @@ public:
      * @param scene The scene to add the entity to
      * @param descriptorUpdateFreq Expected update frequency of descriptors for this entity
      */
-    void addToScene(ecs::Entity entity, SceneBase* scene, UpdateSpeed descriptorUpdateFreq);
+    void addToScene(ecs::Entity entity, Scene* scene, UpdateSpeed descriptorUpdateFreq);
 
     /**
      * @brief Adds the component for the given entity to the scene using custom pipelines for that
@@ -65,7 +65,7 @@ public:
      * @param descriptorUpdateFreq Expected update frequency of descriptors for this entity
      * @param pipelines The pipelines to use for each scene stage when rendering this object
      */
-    void addToSceneWithCustomPipelines(ecs::Entity entity, SceneBase* scene,
+    void addToSceneWithCustomPipelines(ecs::Entity entity, Scene* scene,
                                        UpdateSpeed descriptorUpdateFreq,
                                        const scene::StagePipelines& pipelines);
 
@@ -95,11 +95,11 @@ protected:
 private:
     struct AddCommand {
         ecs::Entity entity;
-        SceneBase* scene;
+        Scene* scene;
         UpdateSpeed updateFreq;
         scene::StagePipelines pipelines;
 
-        AddCommand(ecs::Entity ent, SceneBase* s, UpdateSpeed us,
+        AddCommand(ecs::Entity ent, Scene* s, UpdateSpeed us,
                    const scene::StagePipelines& pipelines)
         : entity(ent)
         , scene(s)
@@ -130,14 +130,14 @@ GenericDrawableSystem<T>::GenericDrawableSystem(const scene::StagePipelines& pip
 }
 
 template<typename T>
-void GenericDrawableSystem<T>::addToScene(ecs::Entity ent, SceneBase* scene,
+void GenericDrawableSystem<T>::addToScene(ecs::Entity ent, Scene* scene,
                                           UpdateSpeed descriptorUpdateFreq) {
     addToSceneWithCustomPipelines(ent, scene, descriptorUpdateFreq, stagePipelines);
 }
 
 template<typename T>
 void GenericDrawableSystem<T>::addToSceneWithCustomPipelines(
-    ecs::Entity entity, SceneBase* scene, UpdateSpeed descriptorUpdateFreq,
+    ecs::Entity entity, Scene* scene, UpdateSpeed descriptorUpdateFreq,
     const scene::StagePipelines& pipelines) {
     std::unique_lock lock(mutex);
     T* c = registry->getComponent<T>(entity);

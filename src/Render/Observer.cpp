@@ -37,26 +37,26 @@ void Observer::updateCamera(float dt) {
     if (!scenes.empty()) { scenes.back().camera->update(dt); }
 }
 
-void Observer::pushScene(SceneBase* s) {
+void Observer::pushScene(Scene* s) {
     scenes.emplace_back(renderer, s);
     onSceneAdd();
 }
 
-SceneBase* Observer::popSceneNoRelease() {
-    SceneBase* s = scenes.back().scene;
+Scene* Observer::popSceneNoRelease() {
+    Scene* s = scenes.back().scene;
     scenes.pop_back();
     return s;
 }
 
 void Observer::popScene() {
-    SceneBase* s = scenes.back().scene;
+    Scene* s = scenes.back().scene;
     renderer.scenePool().destroyScene(s);
     scenes.pop_back();
 }
 
 void Observer::clearScenes() {
     while (!scenes.empty()) {
-        SceneBase* s = scenes.back().scene;
+        Scene* s = scenes.back().scene;
         scenes.pop_back();
         renderer.scenePool().destroyScene(s);
     }

@@ -19,7 +19,7 @@ void ScenePool::cleanup() {
     scenes.clear();
 }
 
-void ScenePool::destroyScene(SceneBase* scene) {
+void ScenePool::destroyScene(Scene* scene) {
     std::unique_lock lock(mutex);
 
     bl::event::Dispatcher::dispatch<render::event::SceneDestroyed>({scene});

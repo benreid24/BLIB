@@ -3,7 +3,7 @@
 
 #include <BLIB/Render/Cameras/Camera.hpp>
 #include <BLIB/Render/Scenes/PostFX.hpp>
-#include <BLIB/Render/Scenes/SceneBase.hpp>
+#include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/StandardImageBuffer.hpp>
 #include <SFML/Window.hpp>
@@ -51,7 +51,7 @@ public:
      *
      * @param scene The scene to make active
      */
-    void pushScene(SceneBase* scene);
+    void pushScene(Scene* scene);
 
     /**
      * @brief Removes the top scene from the observer's scene stack and returns it. Does not release
@@ -59,7 +59,7 @@ public:
      *
      * @return The scene that was removed
      */
-    SceneBase* popSceneNoRelease();
+    Scene* popSceneNoRelease();
 
     /**
      * @brief Removes and releases the current active scene to the scene pool
@@ -126,12 +126,12 @@ public:
 
 private:
     struct SceneInstance {
-        SceneBase* scene;
+        Scene* scene;
         std::uint32_t observerIndex;
         std::unique_ptr<Camera> camera;
         std::unique_ptr<scene::PostFX> postfx;
 
-        SceneInstance(Renderer& r, SceneBase* s)
+        SceneInstance(Renderer& r, Scene* s)
         : scene(s)
         , observerIndex(0)
         , postfx(std::make_unique<scene::PostFX>(r)) {}

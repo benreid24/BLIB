@@ -16,7 +16,6 @@ class Engine;
 namespace render
 {
 class Renderer;
-class Scene;
 
 namespace com
 {
