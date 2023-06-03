@@ -49,7 +49,11 @@ Overlay* Observer::createSceneOverlay(std::uint32_t ms, std::uint32_t md) {
     }
 
     if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
-    scenes.back().overlay = renderer.scenePool().allocateScene<Overlay>(ms, md);
+    scenes.back().overlay      = renderer.scenePool().allocateScene<Overlay>(ms, md);
+    scenes.back().overlayIndex = scenes.back().overlay->registerObserver();
+    scenes.back().overlay->updateObserverCamera(scenes.back().overlayIndex,
+                                                overlayCamera.getProjectionMatrix(viewport) *
+                                                    overlayCamera.getViewMatrix());
     return scenes.back().overlay;
 }
 
@@ -118,6 +122,7 @@ void Observer::handleDescriptorSync() {
                                    scenes.back().camera->getViewMatrix();
         scenes.back().scene->updateObserverCamera(scenes.back().observerIndex, projView);
         scenes.back().scene->handleDescriptorSync();
+        if (scenes.back().overlay) { scenes.back().overlay->handleDescriptorSync(); }
     }
 }
 
@@ -135,6 +140,12 @@ void Observer::renderScene(VkCommandBuffer commandBuffer) {
 
         scene::SceneRenderContext ctx(commandBuffer, scenes.back().observerIndex);
         scenes.back().scene->renderScene(ctx);
+
+        if (scenes.back().overlay && scenes.back().overlayPostFX) {
+            scene::SceneRenderContext ctx(commandBuffer, scenes.back().overlayIndex);
+            // TODO - parent viewport in context
+            scenes.back().overlay->renderScene(ctx);
+        }
     }
 
     sceneFramebuffers.current().finishRender(commandBuffer);
@@ -157,6 +168,15 @@ void Observer::compositeSceneWithEffects(VkCommandBuffer commandBuffer) {
     vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
     vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
     fx->compositeScene(commandBuffer);
+}
+
+void Observer::renderOverlay(VkCommandBuffer commandBuffer) {
+    // TODO - viewport set
+    if (scenes.back().overlay && scenes.back().overlayPostFX) {
+        scene::SceneRenderContext ctx(commandBuffer, scenes.back().overlayIndex);
+        // TODO - parent viewport in context
+        scenes.back().overlay->renderScene(ctx);
+    }
 }
 
 void Observer::assignRegion(const sf::Vector2u& windowSize,

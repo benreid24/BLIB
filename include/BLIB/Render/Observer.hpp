@@ -186,7 +186,7 @@ private:
     std::unique_ptr<scene::PostFX> defaultPostFX;
     float defaultNear, defaultFar;
     VkClearValue clearColors[2];
-    // TODO - 2d overlay for observer
+    ovy::OverlayCamera overlayCamera;
 
     Observer(Renderer& renderer);
     void handleDescriptorSync();
@@ -203,6 +203,7 @@ private:
     void renderScene(VkCommandBuffer commandBuffer);
     void insertSceneBarriers(VkCommandBuffer commandBuffer);
     void compositeSceneWithEffects(VkCommandBuffer commandBuffer);
+    void renderOverlay(VkCommandBuffer commandBuffer);
 
     friend class Renderer;
 };
