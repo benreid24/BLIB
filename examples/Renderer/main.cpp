@@ -40,9 +40,11 @@ public:
         time     = 0.f;
         renderer = &engine.renderer();
 
-        // load texture
+        // load textures
         texture =
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/texture.png");
+        messageBoxTxtr =
+            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/messageBox.png");
 
         // get first observer and set background color
         bl::render::Observer& p1 = engine.renderer().getObserver(0);
@@ -67,12 +69,12 @@ public:
         spritePosition->setOrigin(texture->sizeF * 0.5f);
 
         // create 3d scene for observer 2
-        bl::render::Observer& o = engine.renderer().addObserver();
-        scene                   = o.pushScene<bl::render::scene::BasicScene>(10, 10);
+        bl::render::Observer& p2 = engine.renderer().addObserver();
+        scene                    = p2.pushScene<bl::render::scene::BasicScene>(10, 10);
 
-        // create second observer with camera
-        o.setClearColor({0.f, 1.f, 0.f});
-        bl::render::c3d::Camera3D* player2Cam = o.setCamera<bl::render::c3d::Camera3D>(
+        // create camera for observer 2
+        p2.setClearColor({0.f, 1.f, 0.f});
+        bl::render::c3d::Camera3D* player2Cam = p2.setCamera<bl::render::c3d::Camera3D>(
             glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
         player2Cam->setController<bl::render::c3d::OrbiterController>(
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
@@ -93,6 +95,19 @@ public:
         mesh->indices  = Indices;
         mesh->gpuBuffer.sendToGPU();
         meshSystem.addToScene(meshEntity, scene, bl::render::UpdateSpeed::Static);
+
+        // create overlay and add sprite for observer 2
+        bl::render::Overlay* overlay = p2.getOrCreateSceneOverlay(10, 10);
+        const auto ent               = engine.ecs().createEntity();
+        auto* entPos                 = engine.ecs().emplaceComponent<bl::t2d::Transform2D>(ent);
+        engine.ecs().emplaceComponent<bl::render::com::Sprite>(
+            ent, engine.renderer(), messageBoxTxtr);
+        engine.systems().getSystem<bl::render::sys::SpriteSystem>().addToOverlay(
+            ent, overlay, bl::render::UpdateSpeed::Static);
+        const float scale = 0.1f / messageBoxTxtr->sizeF.y;
+        entPos->setPosition({0.5f, 0.95f});
+        entPos->setScale({scale, 100.f / scale});
+        entPos->setOrigin(messageBoxTxtr->sizeF * 0.5f);
 
         // subscribe to window events
         bl::event::Dispatcher::subscribe(this);
@@ -128,6 +143,7 @@ private:
     bl::t2d::Transform2D* spritePosition;
     bl::ecs::Entity meshEntity;
     bl::render::res::TextureRef texture;
+    bl::render::res::TextureRef messageBoxTxtr;
     float time;
 
     virtual void observe(const sf::Event& event) override {

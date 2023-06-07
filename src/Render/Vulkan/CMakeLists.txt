@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
+    AttachmentBuffer.cpp
     CommonSamplers.cpp
     DescriptorPool.cpp
     Framebuffer.cpp
@@ -6,7 +7,7 @@ target_sources(BLIB PRIVATE
     PipelineParameters.cpp
     RenderPass.cpp
     RenderPassParameters.cpp
-    StandardImageBuffer.cpp
+    StandardAttachmentBuffers.cpp
     Swapchain.cpp
     VulkanState.cpp
 )

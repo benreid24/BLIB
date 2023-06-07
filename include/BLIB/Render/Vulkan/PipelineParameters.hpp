@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_PIPELINEPARAMETERS_HPP
 #define BLIB_RENDER_VULKAN_PIPELINEPARAMETERS_HPP
 
+#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <array>
 #include <cstdint>
@@ -31,9 +32,9 @@ public:
     /**
      * @brief Construct new Pipeline Parameters for a given render pass
      *
-     * @param renderPassId The id of the render pass the pipeline will be used with
+     * @param renderPassIds The ids of the render passes the pipeline will be used with
      */
-    PipelineParameters(std::uint32_t renderPassId);
+    PipelineParameters(const std::initializer_list<std::uint32_t>& renderPassIds);
 
     /**
      * @brief Configures which subpass this pipeline is for. Default is 0
@@ -223,7 +224,8 @@ private:
     VkPipelineColorBlendStateCreateInfo colorBlending;
     VkPipelineDepthStencilStateCreateInfo* depthStencil;
     std::vector<DescriptorSet> descriptorSets;
-    std::uint32_t renderPassId;
+    std::array<std::uint32_t, Config::MaxRenderPasses> renderPassIds;
+    std::uint32_t renderPassCount;
     std::uint32_t subpass;
     bool preserveOrder;
 

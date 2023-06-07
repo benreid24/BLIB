@@ -1,9 +1,11 @@
 #ifndef BLIB_RENDER_VULKAN_PIPELINE_HPP
 #define BLIB_RENDER_VULKAN_PIPELINE_HPP
 
+#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <array>
 #include <glad/vulkan.h>
 #include <string>
 #include <variant>
@@ -55,8 +57,10 @@ public:
 
     /**
      * @brief Returns the underlying Vulkan pipeline handle
+     *
+     * @param renderPassId The render pass to use to get the specific pipeline
      */
-    constexpr VkPipeline rawPipeline() const;
+    VkPipeline rawPipeline(std::uint32_t renderPassId) const;
 
     /**
      * @brief Creates descriptor set instances for this pipeline
@@ -77,10 +81,18 @@ public:
     std::uint32_t initDescriptorSets(ds::DescriptorSetInstanceCache& cache,
                                      ds::DescriptorSetInstance** sets);
 
+    /**
+     * @brief Issues the command to bind the pipeline
+     *
+     * @param commandBuffer The command buffer to record into
+     * @param renderPassId The current render pass
+     */
+    void bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId);
+
 private:
     Renderer& renderer;
     VkPipelineLayout layout;
-    VkPipeline pipeline;
+    std::array<VkPipeline, Config::MaxRenderPasses> pipelines;
     std::vector<ds::DescriptorSetFactory*> descriptorSets;
     bool preserveOrder;
 
@@ -93,7 +105,7 @@ inline constexpr VkPipelineLayout Pipeline::pipelineLayout() const { return layo
 
 inline constexpr bool Pipeline::preserveObjectOrder() const { return preserveOrder; }
 
-inline constexpr VkPipeline Pipeline::rawPipeline() const { return pipeline; }
+inline VkPipeline Pipeline::rawPipeline(std::uint32_t rpid) const { return pipelines[rpid]; }
 
 } // namespace vk
 } // namespace render

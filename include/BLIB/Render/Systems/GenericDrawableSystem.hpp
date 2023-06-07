@@ -125,10 +125,10 @@ private:
         Scene* scene;
         UpdateSpeed updateFreq;
         scene::StagePipelines pipelines;
-        ecs::Entity parent;
+        std::uint32_t parent;
 
         AddCommand(ecs::Entity ent, Scene* s, UpdateSpeed us,
-                   const scene::StagePipelines& pipelines, ecs::Entity parent = ecs::InvalidEntity)
+                   const scene::StagePipelines& pipelines, std::uint32_t parent = Overlay::NoParent)
         : entity(ent)
         , scene(s)
         , updateFreq(us)
@@ -192,7 +192,7 @@ void GenericDrawableSystem<T>::addToOverlay(ecs::Entity ent, Overlay* scene,
 template<typename T>
 void GenericDrawableSystem<T>::addToOverlayWithCustomPipelines(
     ecs::Entity entity, Overlay* scene, UpdateSpeed descriptorUpdateFreq,
-    const scene::StagePipelines& pipelines, ecs::Entity parent) {
+    const scene::StagePipelines& pipelines, ecs::Entity ecsParent) {
     std::unique_lock lock(mutex);
     T* c = registry->getComponent<T>(entity);
     if (!c) {
@@ -204,6 +204,14 @@ void GenericDrawableSystem<T>::addToOverlayWithCustomPipelines(
     if (c->sceneRef.scene) {
         if (c->sceneRef.scene == scene) { return; }
         erased.emplace_back(c->sceneRef);
+    }
+    std::uint32_t parent = Overlay::NoParent;
+    if (ecsParent != ecs::InvalidEntity) {
+        T* pc = registry->getComponent<T>(ecsParent);
+        if (!pc || !pc->sceneRef.scene) {
+            BL_LOG_ERROR << "Invalid parent " << ecsParent << " for entity " << entity;
+        }
+        else { parent = pc->sceneRef.object->sceneId; }
     }
     toAdd.emplace_back(entity, scene, descriptorUpdateFreq, pipelines, parent);
 }
@@ -256,19 +264,9 @@ void GenericDrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
                 add.entity, c->drawParams, add.updateFreq, add.pipelines);
             if (c->sceneRef.object) {
                 c->sceneRef.scene = add.scene;
-                if (add.parent != ecs::InvalidEntity) {
-#ifdef BLIB_DEBUG
-                    Overlay* ov = dynamic_cast<Overlay*>(add.scene);
-                    if (!ov) {
-                        BL_LOG_ERROR << "Parent set for non-Overlay scene";
-                        continue;
-                    }
-#else
-                    Overlay* ov = static_cast<Overlay*>(add.scene);
-#endif
 
-                    ov->setParent(add.entity, add.parent);
-                }
+                Overlay* ov = dynamic_cast<Overlay*>(add.scene);
+                if (ov) { ov->setParent(c->sceneRef.object->sceneId, add.parent); }
             }
             else {
                 BL_LOG_WARN << "Failed to add entity " << add.entity << " to scene " << add.scene;

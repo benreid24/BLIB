@@ -11,8 +11,8 @@ namespace render
 {
 namespace vk
 {
-PipelineParameters::PipelineParameters(std::uint32_t rpid)
-: renderPassId(rpid)
+PipelineParameters::PipelineParameters(const std::initializer_list<std::uint32_t>& rpids)
+: renderPassCount(rpids.size())
 , primitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
 , rasterizer{}
 , msaa{}
@@ -20,6 +20,11 @@ PipelineParameters::PipelineParameters(std::uint32_t rpid)
 , depthStencil(nullptr)
 , subpass(0)
 , preserveOrder(false) {
+    if (renderPassCount > Config::MaxRenderPasses) {
+        throw std::runtime_error("Too many render passes");
+    }
+    std::copy(rpids.begin(), rpids.end(), renderPassIds.begin());
+
     shaders.reserve(4);
     descriptorSets.reserve(4);
     pushConstants.reserve(4);

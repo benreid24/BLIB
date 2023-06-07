@@ -168,7 +168,7 @@ public:
      *
      * @param color The color to clear with
      */
-    void setClearColor(const VkClearColorValue& color);
+    void setClearColor(const glm::vec3& color);
 
 private:
     engine::Engine& engine;
@@ -186,7 +186,7 @@ private:
     Observer commonObserver;
     std::vector<std::unique_ptr<Observer>> observers;
     float defaultNear, defaultFar;
-    VkClearValue clearColor;
+    VkClearValue clearColors[2];
 
     Renderer(engine::Engine& engine, sf::WindowBase& window);
     ~Renderer();

@@ -7,7 +7,7 @@
 #include <BLIB/Render/Scenes/PostFX.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
-#include <BLIB/Render/Vulkan/StandardImageBuffer.hpp>
+#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 #include <SFML/Window.hpp>
 #include <glad/vulkan.h>
 #include <memory>
@@ -178,7 +178,7 @@ private:
 
     Renderer& renderer;
     bool resourcesFreed;
-    vk::PerFrame<vk::StandardImageBuffer> renderFrames;
+    vk::PerFrame<vk::StandardAttachmentBuffers> renderFrames;
     vk::PerFrame<vk::Framebuffer> sceneFramebuffers;
     VkRect2D scissor;
     VkViewport viewport;

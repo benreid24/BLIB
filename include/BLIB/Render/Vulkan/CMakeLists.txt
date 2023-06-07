@@ -1,7 +1,7 @@
 target_sources(BLIB PUBLIC
     AlignedBuffer.hpp
+    AttachmentBuffer.hpp
     AttachmentSet.hpp
-    ColorAttachmentSet.hpp
     CommonSamplers.hpp
     DescriptorPool.hpp
     Framebuffer.hpp
@@ -12,7 +12,7 @@ target_sources(BLIB PUBLIC
     RenderPass.hpp
     RenderPassParameters.hpp
     StandardAttachmentSet.hpp
-    StandardImageBuffer.hpp
+    StandardAttachmentBuffers.hpp
     Swapchain.hpp
     VulkanState.hpp
 )

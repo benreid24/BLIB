@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_STANDARDIMAGEBUFFER_HPP
 #define BLIB_RENDER_VULKAN_STANDARDIMAGEBUFFER_HPP
 
+#include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glad/vulkan.h>
@@ -18,17 +19,17 @@ namespace vk
  *
  * @ingroup Renderer
  */
-class StandardImageBuffer {
+class StandardAttachmentBuffers {
 public:
     /**
      * @brief Creates an empty render buffer with no resources
      */
-    StandardImageBuffer();
+    StandardAttachmentBuffers();
 
     /**
      * @brief Frees resources if not already destroyed
      */
-    ~StandardImageBuffer();
+    ~StandardAttachmentBuffers();
 
     /**
      * @brief Frees prior images, if any, and creates a new color and depth image
@@ -72,19 +73,17 @@ public:
 private:
     VulkanState* owner;
     StandardAttachmentSet attachments;
-    VmaAllocation colorAlloc;
-    VmaAllocation depthAlloc;
-    VkImageLayout currentColorLayout;
-    VkImageLayout currentDepthLayout;
+    AttachmentBuffer colorAttachment;
+    AttachmentBuffer depthAttachment;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const StandardAttachmentSet& StandardImageBuffer::attachmentSet() const {
+inline constexpr const StandardAttachmentSet& StandardAttachmentBuffers::attachmentSet() const {
     return attachments;
 }
 
-inline constexpr const VkExtent2D& StandardImageBuffer::bufferSize() const {
+inline constexpr const VkExtent2D& StandardAttachmentBuffers::bufferSize() const {
     return attachments.extent;
 }
 

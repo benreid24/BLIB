@@ -3,12 +3,14 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
+#include <BLIB/Render/Overlays/Viewport.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <array>
 #include <cstdint>
 #include <glad/vulkan.h>
+#include <optional>
 #include <vector>
 
 namespace bl
@@ -39,9 +41,7 @@ struct OverlayObject : public scene::SceneObject {
     void removeChild(std::uint32_t childId);
 
     std::vector<std::uint32_t> children;
-
-    // TODO - viewport/scissor
-
+    std::optional<Viewport> viewport;
     vk::Pipeline* pipeline;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
     std::uint8_t descriptorCount;

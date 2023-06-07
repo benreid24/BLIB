@@ -2,7 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Renderer.hpp>
-#include <BLIB/Render/Vulkan/StandardImageBuffer.hpp>
+#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 
 namespace bl
 {
@@ -37,7 +37,7 @@ vk::RenderPass& RenderPassCache::getRenderPass(std::uint32_t id) {
 void RenderPassCache::addDefaults() {
     // scene render pass for observers
     VkAttachmentDescription sceneColorAttachment{};
-    sceneColorAttachment.format         = VK_FORMAT_R8G8B8A8_SRGB;
+    sceneColorAttachment.format = VK_FORMAT_R8G8B8A8_SRGB;
     sceneColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
     sceneColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;
     sceneColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
@@ -46,15 +46,15 @@ void RenderPassCache::addDefaults() {
     sceneColorAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
     sceneColorAttachment.finalLayout    = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
-    VkAttachmentDescription sceneDepthAttachment{};
-    sceneDepthAttachment.format  = vk::StandardImageBuffer::findDepthFormat(renderer.vulkanState());
-    sceneDepthAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
-    sceneDepthAttachment.loadOp  = VK_ATTACHMENT_LOAD_OP_CLEAR;
-    sceneDepthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    sceneDepthAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    sceneDepthAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    sceneDepthAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
-    sceneDepthAttachment.finalLayout    = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+    VkAttachmentDescription depthAttachment{};
+    depthAttachment.format = vk::StandardAttachmentBuffers::findDepthFormat(renderer.vulkanState());
+    depthAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
+    depthAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    depthAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    depthAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    depthAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    depthAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
+    depthAttachment.finalLayout    = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
     VkSubpassDependency sceneDepthDependency{}; // dont clear depth too soon
     sceneDepthDependency.srcSubpass = VK_SUBPASS_EXTERNAL;
@@ -69,7 +69,7 @@ void RenderPassCache::addDefaults() {
 
     vk::RenderPassParameters sceneParams;
     sceneParams.addAttachment(sceneColorAttachment);
-    sceneParams.addAttachment(sceneDepthAttachment);
+    sceneParams.addAttachment(depthAttachment);
     sceneParams.addSubpass(
         vk::RenderPassParameters::SubPass()
             .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
@@ -99,10 +99,14 @@ void RenderPassCache::addDefaults() {
 
     vk::RenderPassParameters primaryParams;
     primaryParams.addAttachment(swapColorAttachment);
-    primaryParams.addSubpass(vk::RenderPassParameters::SubPass()
-                                 .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
-                                 .build());
+    primaryParams.addAttachment(depthAttachment);
+    primaryParams.addSubpass(
+        vk::RenderPassParameters::SubPass()
+            .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
+            .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
+            .build());
     primaryParams.addSubpassDependency(primaryRenderWaitImage);
+    // primaryParams.addSubpassDependency(sceneDepthDependency); // necessary?
     createRenderPass(Config::RenderPassIds::SwapchainPrimaryRender, primaryParams.build());
 }
 

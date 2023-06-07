@@ -27,7 +27,8 @@ Renderer::Renderer(engine::Engine& engine, sf::WindowBase& window)
 , defaultNear(0.1f)
 , defaultFar(100.f) {
     commonObserver.setDefaultNearFar(defaultNear, defaultFar);
-    clearColor = {{{0.f, 0.f, 0.f, 1.f}}};
+    clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
+    clearColors[1].depthStencil = {1.f, 0};
 }
 
 Renderer::~Renderer() {
@@ -129,8 +130,8 @@ void Renderer::renderFrame() {
     state.transferEngine.executeTransfers();
 
     // begin frame
-    vk::ColorAttachmentSet* currentFrame = nullptr;
-    VkCommandBuffer commandBuffer        = nullptr;
+    vk::StandardAttachmentSet* currentFrame = nullptr;
+    VkCommandBuffer commandBuffer           = nullptr;
     state.beginFrame(currentFrame, commandBuffer);
     framebuffers.current().recreateIfChanged(*currentFrame);
 
@@ -149,8 +150,11 @@ void Renderer::renderFrame() {
     }
 
     // begin render pass to composite content into swapchain image
-    framebuffers.current().beginRender(
-        commandBuffer, {{0, 0}, currentFrame->renderExtent()}, &clearColor, 1, true);
+    framebuffers.current().beginRender(commandBuffer,
+                                       {{0, 0}, currentFrame->renderExtent()},
+                                       clearColors,
+                                       std::size(clearColors),
+                                       true);
 
     // apply rendered scenes to swap image with postfx
     if (commonObserver.hasScene()) { commonObserver.compositeSceneWithEffects(commandBuffer); }
@@ -158,10 +162,12 @@ void Renderer::renderFrame() {
         for (auto& o : observers) { o->compositeSceneWithEffects(commandBuffer); }
     }
 
-    // TODO - render overlays
+    // render overlays
+    for (auto& o : observers) { o->renderOverlay(commandBuffer); }
+    commonObserver.renderOverlay(commandBuffer);
 
+    // complete frame
     framebuffers.current().finishRender(commandBuffer);
-
     state.completeFrame();
 }
 
@@ -228,7 +234,9 @@ void Renderer::setSplitscreenDirection(SplitscreenDirection d) {
     assignObserverRegions();
 }
 
-void Renderer::setClearColor(const VkClearColorValue& color) { clearColor.color = color; }
+void Renderer::setClearColor(const glm::vec3& color) {
+    clearColors[0].color = {color.x, color.y, color.z, 1.f};
+}
 
 } // namespace render
 } // namespace bl

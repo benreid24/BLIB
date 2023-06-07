@@ -1,10 +1,11 @@
 #ifndef BLIB_RENDER_VULKAN_SWAPCHAIN_HPP
 #define BLIB_RENDER_VULKAN_SWAPCHAIN_HPP
 
-#include <BLIB/Render/Vulkan/ColorAttachmentSet.hpp>
+#include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
+#include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <SFML/Window/WindowBase.hpp>
 #include <glad/vulkan.h>
 #include <vector>
@@ -56,7 +57,7 @@ public:
      * @param renderFrame A reference to a pointer to populate with the active chain image
      * @param commandBuffer A command buffer reference to populate with the primary CB to use
      */
-    void beginFrame(ColorAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer);
+    void beginFrame(StandardAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer);
 
     /**
      * @brief Finalizes the command buffer and submits it. Also triggers swap chain presentation
@@ -78,12 +79,12 @@ public:
     std::size_t length() const;
 
     /**
-     * @brief Returns the ColorAttachmentSet of the swap chain at the given index
+     * @brief Returns the StandardAttachmentSet of the swap chain at the given index
      *
      * @param i The index to get. UB if out of bounds
      * @return The swapchain image at the given index
      */
-    const ColorAttachmentSet& swapFrameAtIndex(unsigned int i) const;
+    const StandardAttachmentSet& swapFrameAtIndex(unsigned int i) const;
 
     /**
      * @brief Returns the image format of images in the swap chain
@@ -110,7 +111,8 @@ private:
 
     VkSwapchainKHR swapchain;
     VkFormat imageFormat;
-    std::vector<ColorAttachmentSet> renderFrames;
+    std::vector<StandardAttachmentSet> renderFrames;
+    std::vector<AttachmentBuffer> depthBuffers;
     vk::PerFrame<Frame> frameData;
     std::uint32_t currentImageIndex;
     bool outOfDate;
@@ -118,7 +120,6 @@ private:
     void cleanup();
     void recreate();
     void createSwapchain();
-    void createImageViews();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -127,7 +128,7 @@ inline constexpr std::uint32_t Swapchain::currentIndex() const { return currentI
 
 inline std::size_t Swapchain::length() const { return renderFrames.size(); }
 
-inline const ColorAttachmentSet& Swapchain::swapFrameAtIndex(unsigned int i) const {
+inline const StandardAttachmentSet& Swapchain::swapFrameAtIndex(unsigned int i) const {
     return renderFrames[i];
 }
 

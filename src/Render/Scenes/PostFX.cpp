@@ -56,9 +56,8 @@ PostFX::PostFX(Renderer& renderer)
     }
 
     // allocate descriptor sets
-    const VkDescriptorSetLayout setLayout = renderer.descriptorFactoryCache()
-                                                .getFactory<ds::PostFXFactory>()
-                                                ->getDescriptorLayout();
+    const VkDescriptorSetLayout setLayout =
+        renderer.descriptorFactoryCache().getFactory<ds::PostFXFactory>()->getDescriptorLayout();
     descriptorSets.emptyInit(vs);
     descriptorSetAllocHandle = vs.descriptorPool.allocate(
         setLayout, descriptorSets.rawData(), Config::MaxConcurrentFrames);
@@ -73,7 +72,7 @@ PostFX::PostFX(Renderer& renderer)
     usePipeline(Config::PipelineIds::PostFXBase);
 }
 
-void PostFX::bindImages(vk::PerFrame<vk::StandardImageBuffer>& images) {
+void PostFX::bindImages(vk::PerFrame<vk::StandardAttachmentBuffers>& images) {
     std::array<VkDescriptorImageInfo, Config::MaxConcurrentFrames> imageInfos{};
     for (unsigned int i = 0; i < images.size(); ++i) {
         imageInfos[i].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
@@ -115,7 +114,9 @@ void PostFX::update(float) {
 }
 
 void PostFX::compositeScene(VkCommandBuffer cb) {
-    vkCmdBindPipeline(cb, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->rawPipeline());
+    vkCmdBindPipeline(cb,
+                      VK_PIPELINE_BIND_POINT_GRAPHICS,
+                      pipeline->rawPipeline(Config::RenderPassIds::SwapchainPrimaryRender));
     vkCmdBindDescriptorSets(cb,
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             pipeline->pipelineLayout(),

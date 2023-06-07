@@ -4,6 +4,7 @@
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
+#include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <array>
 #include <glad/vulkan.h>
@@ -28,15 +29,18 @@ public:
      *
      * @param commandBuffer The command buffer to record commands into
      * @param observerIndex Index of the observer currently rendering the scene
+     * @param viewport The current viewport
+     * @param renderPassId The id of the render pass that is currently active
      */
-    SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex);
+    SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,
+                       const VkViewport& viewport, std::uint32_t renderPassId);
 
     /**
      * @brief Binds the given pipeline
      *
      * @param pipeline The pipeline to bind
      */
-    void bindPipeline(VkPipeline pipeline);
+    void bindPipeline(vk::Pipeline& pipeline);
 
     /**
      * @brief Binds the given descriptors. Only issues bind commands for descriptors that changed
@@ -57,6 +61,21 @@ public:
      */
     void renderObject(VkPipelineLayout layout, const SceneObject& object);
 
+    /**
+     * @brief Returns the command buffer to use for rendering
+     */
+    constexpr VkCommandBuffer getCommandBuffer() const;
+
+    /**
+     * @brief Returns the viewport the scene is being rendered to
+     */
+    constexpr const VkViewport& parentViewport() const;
+
+    /**
+     * @brief Returns the id of the active render pass
+     */
+    constexpr std::uint32_t currentRenderPass() const;
+
 private:
     const VkCommandBuffer commandBuffer;
     const std::uint32_t observerIndex;
@@ -65,8 +84,21 @@ private:
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> boundDescriptors;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> perObjDescriptors;
     std::uint32_t perObjStart, perObjCount;
-    // TODO - add parent viewport/scissor
+    const VkViewport viewport;
+    const std::uint32_t renderPassId;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline constexpr VkCommandBuffer SceneRenderContext::getCommandBuffer() const {
+    return commandBuffer;
+}
+
+inline constexpr const VkViewport& SceneRenderContext::parentViewport() const { return viewport; }
+
+inline constexpr std::uint32_t SceneRenderContext::currentRenderPass() const {
+    return renderPassId;
+}
 
 } // namespace scene
 } // namespace render

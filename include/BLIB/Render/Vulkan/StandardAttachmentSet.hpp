@@ -11,7 +11,7 @@ namespace render
 namespace vk
 {
 class Swapchain;
-class StandardImageBuffer;
+class StandardAttachmentBuffers;
 
 /**
  * @brief Attachment set containing the standard attachments for render frames in the engine
@@ -54,7 +54,7 @@ protected:
 
 private:
     friend class Swapchain;
-    friend class StandardImageBuffer;
+    friend class StandardAttachmentBuffers;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

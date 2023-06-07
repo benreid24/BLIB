@@ -12,6 +12,8 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
 : renderer(renderer)
 , descriptorSets(params.descriptorSets.size())
 , preserveOrder(params.preserveOrder) {
+    pipelines.fill(nullptr);
+
     // Configure descriptor sets
     std::vector<VkDescriptorSetLayout> descriptorLayouts;
     descriptorLayouts.reserve(descriptorSets.size());
@@ -31,9 +33,6 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
         shaderStages.back().module = renderer.vulkanState().createShaderModule(shader.path);
         shaderStages.back().pName  = shader.entrypoint.c_str();
     }
-
-    // Get render pass from cache
-    RenderPass& renderPass = renderer.renderPassCache().getRenderPass(params.renderPassId);
 
     // Configure vertices
     VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
@@ -86,15 +85,24 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
     pipelineInfo.pColorBlendState    = &params.colorBlending;
     pipelineInfo.pDynamicState       = &dynamicState;
     pipelineInfo.layout              = layout;
-    pipelineInfo.renderPass          = renderPass.rawPass();
     pipelineInfo.subpass             = params.subpass;
     pipelineInfo.basePipelineHandle  = VK_NULL_HANDLE; // Optional
     pipelineInfo.basePipelineIndex   = -1;             // Optional
 
-    if (vkCreateGraphicsPipelines(
-            renderer.vulkanState().device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &pipeline) !=
-        VK_SUCCESS) {
-        throw std::runtime_error("Failed to create graphics pipeline");
+    for (std::uint32_t i = 0; i < params.renderPassCount; ++i) {
+        const auto rpid = params.renderPassIds[i];
+        if (rpid >= Config::MaxRenderPasses) { throw std::runtime_error("Invalid RenderPAss id"); }
+        RenderPass& renderPass  = renderer.renderPassCache().getRenderPass(rpid);
+        pipelineInfo.renderPass = renderPass.rawPass();
+
+        if (vkCreateGraphicsPipelines(renderer.vulkanState().device,
+                                      VK_NULL_HANDLE,
+                                      1,
+                                      &pipelineInfo,
+                                      nullptr,
+                                      &pipelines[rpid]) != VK_SUCCESS) {
+            throw std::runtime_error("Failed to create graphics pipeline");
+        }
     }
 
     // Cleanup shader modules
@@ -104,7 +112,11 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
 }
 
 Pipeline::~Pipeline() {
-    vkDestroyPipeline(renderer.vulkanState().device, pipeline, nullptr);
+    for (auto pipeline : pipelines) {
+        if (pipeline != nullptr) {
+            vkDestroyPipeline(renderer.vulkanState().device, pipeline, nullptr);
+        }
+    }
     vkDestroyPipelineLayout(renderer.vulkanState().device, layout, nullptr);
 }
 
@@ -120,6 +132,10 @@ std::uint32_t Pipeline::initDescriptorSets(ds::DescriptorSetInstanceCache& cache
         sets[i] = cache.getDescriptorSet(descriptorSets[i]);
     }
     return descriptorSets.size();
+}
+
+void Pipeline::bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId) {
+    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelines[renderPassId]);
 }
 
 } // namespace vk

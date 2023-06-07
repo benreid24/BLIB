@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_VULKAN_VULKANSTATE_HPP
 #define BLIB_RENDER_VULKAN_VULKANSTATE_HPP
 
-#include "PerFrameVector.hpp"
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
 #include <BLIB/Render/Vulkan/CommonSamplers.hpp>
@@ -51,7 +50,7 @@ struct VulkanState {
      * @param renderFrame A reference to a pointer to populate with the active chain image
      * @param commandBuffer A command buffer reference to populate with the primary CB to use
      */
-    void beginFrame(ColorAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer);
+    void beginFrame(StandardAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer);
 
     /**
      * @brief Finalizes the render pass and command buffer for the current frame and submits it.
@@ -312,7 +311,7 @@ PerFrameVector<T>::PerFrameVector()
 
 template<typename T>
 void PerFrameVector<T>::emptyInit(VulkanState& vulkanState, std::uint32_t capacity) {
-    vs = &vulkanState;
+    vs  = &vulkanState;
     cap = capacity;
     items.resize(capacity * Config::MaxConcurrentFrames);
 }

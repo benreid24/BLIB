@@ -13,10 +13,13 @@ Overlay::Overlay(Renderer& r, std::uint32_t ms, std::uint32_t md)
 , parentMap(ms + md, NoParent) {
     roots.reserve(std::max((ms + md) / 4, 4u));
     renderStack.reserve(roots.capacity() * 2);
+    viewportStack.reserve(renderStack.capacity());
 }
 
 void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
+    viewportStack.clear();
+    viewportStack.emplace_back(ctx.parentViewport());
 
     VkPipeline currentPipeline = nullptr;
     while (!renderStack.empty()) {
@@ -24,16 +27,25 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
         renderStack.pop_back();
 
         if (oid == PopViewport) {
-            // TODO - pop viewort
+            viewportStack.pop_back();
+            viewportStack.back().apply(ctx.getCommandBuffer());
             continue;
         }
 
         ovy::OverlayObject& obj = objects[oid];
+        if (obj.hidden) { continue; }
 
-        // TODO - set/push scissor/viewport
+        if (obj.viewport.has_value()) {
+            viewportStack.emplace_back(obj.viewport.value().createViewport(
+                ctx.parentViewport(), viewportStack.back().viewport));
+            viewportStack.back().apply(ctx.getCommandBuffer());
+            renderStack.emplace_back(PopViewport);
+        }
 
-        if (obj.pipeline->rawPipeline() != currentPipeline) {
-            currentPipeline = obj.pipeline->rawPipeline();
+        const VkPipeline np = obj.pipeline->rawPipeline(ctx.currentRenderPass());
+        if (np != currentPipeline) {
+            currentPipeline = np;
+            ctx.bindPipeline(*obj.pipeline);
             ctx.bindDescriptors(
                 obj.pipeline->pipelineLayout(), obj.descriptors.data(), obj.descriptorCount);
         }
@@ -91,6 +103,15 @@ void Overlay::setParent(std::uint32_t child, std::uint32_t parent) {
     parentMap[child] = parent;
     if (parent != NoParent) { objects[parent].registerChild(child); }
     else { roots.emplace_back(child); }
+}
+
+Overlay::ViewportPair::ViewportPair(const VkViewport& vp)
+: viewport(vp)
+, scissor(ovy::Viewport::viewportToScissor(vp)) {}
+
+void Overlay::ViewportPair::apply(VkCommandBuffer commandBuffer) {
+    vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
+    vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 }
 
 } // namespace render

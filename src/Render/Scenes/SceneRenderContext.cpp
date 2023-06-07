@@ -8,19 +8,22 @@ namespace render
 {
 namespace scene
 {
-SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex)
+SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,
+                                       const VkViewport& vp, std::uint32_t rpid)
 : commandBuffer(commandBuffer)
 , observerIndex(observerIndex)
 , prevVB(nullptr)
 , prevIB(nullptr)
 , perObjStart(0)
-, perObjCount(0) {
+, perObjCount(0)
+, viewport(vp)
+, renderPassId(rpid) {
     boundDescriptors.fill(nullptr);
     perObjDescriptors.fill(nullptr);
 }
 
-void SceneRenderContext::bindPipeline(VkPipeline pipeline) {
-    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
+void SceneRenderContext::bindPipeline(vk::Pipeline& pipeline) {
+    pipeline.bind(commandBuffer, renderPassId);
 }
 
 void SceneRenderContext::bindDescriptors(VkPipelineLayout layout,

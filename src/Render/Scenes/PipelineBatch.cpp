@@ -21,7 +21,7 @@ PipelineBatch::PipelineBatch(Renderer& renderer, std::uint32_t maxObjects,
 
 void PipelineBatch::recordRenderCommands(SceneRenderContext& context) {
     const VkPipelineLayout pipelineLayout = pipeline.pipelineLayout();
-    context.bindPipeline(pipeline.rawPipeline());
+    context.bindPipeline(pipeline);
     context.bindDescriptors(pipelineLayout, descriptors.data(), descriptors.size());
 
     for (SceneObject* object : objects) {
@@ -30,8 +30,7 @@ void PipelineBatch::recordRenderCommands(SceneRenderContext& context) {
     }
 }
 
-bool PipelineBatch::addObject(SceneObject* object, ecs::Entity entity,
-                              UpdateSpeed updateFreq) {
+bool PipelineBatch::addObject(SceneObject* object, ecs::Entity entity, UpdateSpeed updateFreq) {
     objects.emplace_back(object);
     for (ds::DescriptorSetInstance* set : descriptors) {
         if (!set->allocateObject(object->sceneId, entity, updateFreq)) { return false; }

@@ -77,7 +77,7 @@ private:
     prim::IndexBuffer indexBuffer;
     vk::Pipeline* pipeline;
 
-    void bindImages(vk::PerFrame<vk::StandardImageBuffer>& sceneImages);
+    void bindImages(vk::PerFrame<vk::StandardAttachmentBuffers>& sceneImages);
     void compositeScene(VkCommandBuffer commandBuffer);
 
     friend class Observer;

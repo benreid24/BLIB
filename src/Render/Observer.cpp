@@ -28,7 +28,7 @@ void Observer::cleanup() {
         clearScenes();
         defaultPostFX.reset();
         sceneFramebuffers.cleanup([](vk::Framebuffer& fb) { fb.cleanup(); });
-        renderFrames.cleanup([](vk::StandardImageBuffer& frame) { frame.destroy(); });
+        renderFrames.cleanup([](vk::StandardAttachmentBuffers& frame) { frame.destroy(); });
         resourcesFreed = true;
     }
 }
@@ -138,12 +138,18 @@ void Observer::renderScene(VkCommandBuffer commandBuffer) {
         }
 #endif
 
-        scene::SceneRenderContext ctx(commandBuffer, scenes.back().observerIndex);
+        const VkViewport parentViewport = ovy::Viewport::scissorToViewport(renderRegion);
+        scene::SceneRenderContext ctx(commandBuffer,
+                                      scenes.back().observerIndex,
+                                      parentViewport,
+                                      Config::RenderPassIds::OffScreenSceneRender);
         scenes.back().scene->renderScene(ctx);
 
         if (scenes.back().overlay && scenes.back().overlayPostFX) {
-            scene::SceneRenderContext ctx(commandBuffer, scenes.back().overlayIndex);
-            // TODO - parent viewport in context
+            scene::SceneRenderContext ctx(commandBuffer,
+                                          scenes.back().overlayIndex,
+                                          parentViewport,
+                                          Config::RenderPassIds::OffScreenSceneRender);
             scenes.back().overlay->renderScene(ctx);
         }
     }
@@ -171,10 +177,14 @@ void Observer::compositeSceneWithEffects(VkCommandBuffer commandBuffer) {
 }
 
 void Observer::renderOverlay(VkCommandBuffer commandBuffer) {
-    // TODO - viewport set
-    if (scenes.back().overlay && scenes.back().overlayPostFX) {
-        scene::SceneRenderContext ctx(commandBuffer, scenes.back().overlayIndex);
-        // TODO - parent viewport in context
+    if (!scenes.empty() && scenes.back().overlay && !scenes.back().overlayPostFX) {
+        vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
+        vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
+
+        scene::SceneRenderContext ctx(commandBuffer,
+                                      scenes.back().overlayIndex,
+                                      viewport,
+                                      Config::RenderPassIds::SwapchainPrimaryRender);
         scenes.back().overlay->renderScene(ctx);
     }
 }
@@ -274,7 +284,7 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
          scissor.extent.height != renderFrames.current().bufferSize().height)) {
         vkCheck(vkDeviceWaitIdle(renderer.vulkanState().device));
 
-        renderFrames.init(renderer.vulkanState(), [this](vk::StandardImageBuffer& frame) {
+        renderFrames.init(renderer.vulkanState(), [this](vk::StandardAttachmentBuffers& frame) {
             frame.create(renderer.vulkanState(), scissor.extent);
         });
 

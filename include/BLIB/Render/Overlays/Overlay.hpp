@@ -47,7 +47,7 @@ protected:
     /**
      * @brief Derived classes should record render commands in here
      *
-     * @param context Context containing scene render data
+     * @param context Render context containing scene render data
      */
     virtual void renderScene(scene::SceneRenderContext& context) override;
 
@@ -85,10 +85,20 @@ protected:
     void setParent(std::uint32_t child, std::uint32_t parent = NoParent);
 
 private:
+    struct ViewportPair {
+        ViewportPair(const VkViewport& viewport);
+        void apply(VkCommandBuffer commandBuffer);
+
+        VkViewport viewport;
+        VkRect2D scissor;
+    };
+
     std::vector<ovy::OverlayObject> objects;
     std::vector<std::uint32_t> roots;
     std::vector<std::uint32_t> parentMap;
+
     std::vector<std::uint32_t> renderStack;
+    std::vector<ViewportPair> viewportStack;
 
     template<typename T>
     friend class sys::GenericDrawableSystem;
