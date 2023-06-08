@@ -126,6 +126,10 @@ ComponentPool<T>::ComponentPool(std::uint16_t index, std::size_t ps)
 
 template<typename T>
 typename std::vector<container::ObjectWrapper<T>>::iterator ComponentPool<T>::addLogic(Entity ent) {
+    // prevent duplicate add
+    auto it = entityToIter[ent];
+    if (it != pool.end()) { return it; }
+
     // check not full
     if (!indexAllocator.available()) {
         BL_LOG_CRITICAL << "Ran out of storage in component pool. Increase allocation. Capacity: "
@@ -135,7 +139,7 @@ typename std::vector<container::ObjectWrapper<T>>::iterator ComponentPool<T>::ad
 
     // perform insertion
     const std::uint16_t i = indexAllocator.allocate();
-    auto it               = pool.begin() + i;
+    it                    = pool.begin() + i;
     entityToIter[ent]     = it;
     indexToEntity[i]      = ent;
 
@@ -156,7 +160,7 @@ T* ComponentPool<T>::add(Entity ent, T&& c) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
     auto it = addLogic(ent);
-    it->emplace(c);
+    it->emplace(std::forward<T>(c));
     return &it->get();
 }
 

@@ -102,12 +102,12 @@ public:
         auto* entPos                 = engine.ecs().emplaceComponent<bl::t2d::Transform2D>(ent);
         engine.ecs().emplaceComponent<bl::render::com::Sprite>(
             ent, engine.renderer(), messageBoxTxtr);
-        engine.systems().getSystem<bl::render::sys::SpriteSystem>().addToOverlay(
-            ent, overlay, bl::render::UpdateSpeed::Static);
-        const float scale = 0.1f / messageBoxTxtr->sizeF.y;
-        entPos->setPosition({0.5f, 0.95f});
-        entPos->setScale({scale, 100.f / scale});
+        const float scale = 0.2f / messageBoxTxtr->sizeF.y;
+        entPos->setPosition({0.5f, 0.90f});
+        entPos->setScale({scale, scale});
         entPos->setOrigin(messageBoxTxtr->sizeF * 0.5f);
+        engine.systems().getSystem<bl::render::sys::SpriteSystem>().addToOverlay(
+            ent, overlay, bl::render::UpdateSpeed::Dynamic);
 
         // subscribe to window events
         bl::event::Dispatcher::subscribe(this);

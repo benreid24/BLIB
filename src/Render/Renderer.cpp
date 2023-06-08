@@ -147,7 +147,7 @@ void Renderer::renderFrame() {
                                        {{0, 0}, currentFrame->renderExtent()},
                                        clearColors,
                                        std::size(clearColors),
-                                       true);
+                                       false);
 
     // apply rendered scenes to swap image with postfx
     if (commonObserver.hasScene()) { commonObserver.compositeSceneWithEffects(commandBuffer); }

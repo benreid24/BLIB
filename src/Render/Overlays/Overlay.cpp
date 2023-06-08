@@ -57,8 +57,8 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     }
 }
 
-scene::SceneObject* Overlay::doAdd(ecs::Entity, std::uint32_t sceneId, UpdateSpeed,
-                                   const scene::StagePipelines& pipelines) {
+scene::SceneObject* Overlay::doAdd(ecs::Entity entity, std::uint32_t sceneId,
+                                   UpdateSpeed updateFreq, const scene::StagePipelines& pipelines) {
     ovy::OverlayObject& obj = objects[sceneId];
     const auto pid          = pipelines[Config::SceneObjectStage::OpaquePass];
 
@@ -71,6 +71,9 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity, std::uint32_t sceneId, UpdateSpe
 
     obj.pipeline        = &renderer.pipelineCache().getPipeline(pid);
     obj.descriptorCount = obj.pipeline->initDescriptorSets(descriptorSets, obj.descriptors.data());
+    for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
+        obj.descriptors[i]->allocateObject(sceneId, entity, updateFreq);
+    }
 
     return &obj;
 }

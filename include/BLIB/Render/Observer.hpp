@@ -187,6 +187,7 @@ private:
     float defaultNear, defaultFar;
     VkClearValue clearColors[2];
     ovy::OverlayCamera overlayCamera;
+    glm::mat4 overlayProjView;
 
     Observer(Renderer& renderer);
     void handleDescriptorSync();

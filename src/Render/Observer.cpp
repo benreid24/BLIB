@@ -17,6 +17,8 @@ Observer::Observer(Renderer& r)
 
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
     clearColors[1].depthStencil = {1.f, 0};
+
+    overlayProjView = overlayCamera.getProjectionMatrix(viewport) * overlayCamera.getViewMatrix();
 }
 
 Observer::~Observer() {
@@ -51,9 +53,6 @@ Overlay* Observer::createSceneOverlay(std::uint32_t ms, std::uint32_t md) {
     if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
     scenes.back().overlay      = renderer.scenePool().allocateScene<Overlay>(ms, md);
     scenes.back().overlayIndex = scenes.back().overlay->registerObserver();
-    scenes.back().overlay->updateObserverCamera(scenes.back().overlayIndex,
-                                                overlayCamera.getProjectionMatrix(viewport) *
-                                                    overlayCamera.getViewMatrix());
     return scenes.back().overlay;
 }
 
@@ -122,7 +121,11 @@ void Observer::handleDescriptorSync() {
                                    scenes.back().camera->getViewMatrix();
         scenes.back().scene->updateObserverCamera(scenes.back().observerIndex, projView);
         scenes.back().scene->handleDescriptorSync();
-        if (scenes.back().overlay) { scenes.back().overlay->handleDescriptorSync(); }
+        if (scenes.back().overlay) {
+            scenes.back().overlay->updateObserverCamera(scenes.back().overlayIndex,
+                                                        overlayProjView);
+            scenes.back().overlay->handleDescriptorSync();
+        }
     }
 }
 
