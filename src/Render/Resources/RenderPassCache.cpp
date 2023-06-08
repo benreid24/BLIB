@@ -37,7 +37,7 @@ vk::RenderPass& RenderPassCache::getRenderPass(std::uint32_t id) {
 void RenderPassCache::addDefaults() {
     // scene render pass for observers
     VkAttachmentDescription sceneColorAttachment{};
-    sceneColorAttachment.format = VK_FORMAT_R8G8B8A8_SRGB;
+    sceneColorAttachment.format         = VK_FORMAT_R8G8B8A8_SRGB;
     sceneColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
     sceneColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;
     sceneColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
@@ -56,17 +56,6 @@ void RenderPassCache::addDefaults() {
     depthAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
     depthAttachment.finalLayout    = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
-    VkSubpassDependency sceneDepthDependency{}; // dont clear depth too soon
-    sceneDepthDependency.srcSubpass = VK_SUBPASS_EXTERNAL;
-    sceneDepthDependency.dstSubpass = 0;
-    sceneDepthDependency.srcStageMask =
-        VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
-    sceneDepthDependency.srcAccessMask = 0;
-    sceneDepthDependency.dstStageMask =
-        VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
-    sceneDepthDependency.dstAccessMask =
-        VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-
     vk::RenderPassParameters sceneParams;
     sceneParams.addAttachment(sceneColorAttachment);
     sceneParams.addAttachment(depthAttachment);
@@ -75,7 +64,6 @@ void RenderPassCache::addDefaults() {
             .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
             .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
             .build());
-    sceneParams.addSubpassDependency(sceneDepthDependency);
     createRenderPass(Config::RenderPassIds::OffScreenSceneRender, sceneParams.build());
 
     // primary render pass for final swapchain compositing
@@ -106,7 +94,6 @@ void RenderPassCache::addDefaults() {
             .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
             .build());
     primaryParams.addSubpassDependency(primaryRenderWaitImage);
-    // primaryParams.addSubpassDependency(sceneDepthDependency); // necessary?
     createRenderPass(Config::RenderPassIds::SwapchainPrimaryRender, primaryParams.build());
 }
 

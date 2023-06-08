@@ -52,6 +52,12 @@ void PipelineCache::createBuiltins() {
     depthStencil.front                 = {}; // Optional (Stencil)
     depthStencil.back                  = {}; // Optional (Stencil)
 
+    VkPipelineDepthStencilStateCreateInfo postFxDepth{};
+    postFxDepth.sType             = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+    postFxDepth.depthTestEnable   = VK_FALSE;
+    postFxDepth.depthWriteEnable  = VK_FALSE;
+    postFxDepth.stencilTestEnable = VK_FALSE;
+
     VkPipelineRasterizationStateCreateInfo rasterizer{};
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     rasterizer.depthClampEnable        = VK_FALSE;
@@ -110,7 +116,7 @@ void PipelineCache::createBuiltins() {
             .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::DefaultPostFXFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
-            .withDepthStencilState(&depthStencil)
+            .withDepthStencilState(&postFxDepth)
             .addDescriptorSet<ds::PostFXFactory>()
             .build());
 }

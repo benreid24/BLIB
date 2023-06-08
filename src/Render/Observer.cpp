@@ -157,11 +157,6 @@ void Observer::renderScene(VkCommandBuffer commandBuffer) {
     sceneFramebuffers.current().finishRender(commandBuffer);
 }
 
-void Observer::insertSceneBarriers(VkCommandBuffer commandBuffer) {
-    // wait for scene render (pipeline barrier)
-    renderFrames.current().prepareForSampling(commandBuffer);
-}
-
 void Observer::compositeSceneWithEffects(VkCommandBuffer commandBuffer) {
     scene::PostFX* fx;
     if (!hasScene()) {

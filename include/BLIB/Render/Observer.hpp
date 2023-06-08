@@ -201,7 +201,6 @@ private:
 
     // called by Renderer
     void renderScene(VkCommandBuffer commandBuffer);
-    void insertSceneBarriers(VkCommandBuffer commandBuffer);
     void compositeSceneWithEffects(VkCommandBuffer commandBuffer);
     void renderOverlay(VkCommandBuffer commandBuffer);
 

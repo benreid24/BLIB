@@ -142,13 +142,6 @@ void Renderer::renderFrame() {
         for (auto& o : observers) { o->renderScene(commandBuffer); }
     }
 
-    // wait for scenes to complete rendering
-    if (commonObserver.hasScene()) { commonObserver.insertSceneBarriers(commandBuffer); }
-    else {
-        // record all before blocking to apply postfx
-        for (auto& o : observers) { o->insertSceneBarriers(commandBuffer); }
-    }
-
     // begin render pass to composite content into swapchain image
     framebuffers.current().beginRender(commandBuffer,
                                        {{0, 0}, currentFrame->renderExtent()},

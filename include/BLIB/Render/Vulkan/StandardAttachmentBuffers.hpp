@@ -45,14 +45,6 @@ public:
     void destroy();
 
     /**
-     * @brief Call after rendering is completed. This records a barrier to block and transition to a
-     *        layout suitable for sampling
-     *
-     * @param commandBuffer Command buffer to record to
-     */
-    void prepareForSampling(VkCommandBuffer commandBuffer);
-
-    /**
      * @brief Returns the attachment set to use to render to this target
      */
     constexpr const StandardAttachmentSet& attachmentSet() const;
