@@ -8,6 +8,7 @@ target_sources(BLIB PUBLIC
 add_subdirectory(Cameras)
 add_subdirectory(Components)
 add_subdirectory(Descriptors)
+add_subdirectory(Drawables)
 add_subdirectory(Events)
 add_subdirectory(Primitives)
 add_subdirectory(Resources)

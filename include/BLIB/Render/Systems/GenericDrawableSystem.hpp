@@ -217,6 +217,20 @@ void GenericDrawableSystem<T>::addToOverlayWithCustomPipelines(
 }
 
 template<typename T>
+void GenericDrawableSystem<T>::removeFromScene(ecs::Entity entity) {
+    std::unique_lock lock(mutex);
+
+    T* c = registry->getComponent<T>(entity);
+    if (!c) {
+#ifdef BLIB_DEBUG
+        BL_LOG_WARN << "Entity " << entity << " is missing component: " << typeid(T).name();
+#endif
+        return;
+    }
+    if (c->sceneRef.scene) { erased.emplace_back(c->sceneRef); }
+}
+
+template<typename T>
 void GenericDrawableSystem<T>::doInit(engine::Engine&) {}
 
 template<typename T>
