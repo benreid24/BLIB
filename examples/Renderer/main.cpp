@@ -60,6 +60,7 @@ public:
         // create sprite in scene
         spriteEntity   = engine.ecs().createEntity();
         spritePosition = engine.ecs().emplaceComponent<bl::t2d::Transform2D>(spriteEntity);
+        engine.ecs().emplaceComponent<bl::render::com::Texture>(spriteEntity, texture.id());
         engine.ecs().emplaceComponent<bl::render::com::Sprite>(
             spriteEntity, engine.renderer(), texture);
         engine.systems().getSystem<bl::render::sys::SpriteSystem>().addToScene(
@@ -100,6 +101,7 @@ public:
         bl::render::Overlay* overlay = p2.getOrCreateSceneOverlay(10, 10);
         const auto ent               = engine.ecs().createEntity();
         auto* entPos                 = engine.ecs().emplaceComponent<bl::t2d::Transform2D>(ent);
+        engine.ecs().emplaceComponent<bl::render::com::Texture>(ent, messageBoxTxtr.id());
         engine.ecs().emplaceComponent<bl::render::com::Sprite>(
             ent, engine.renderer(), messageBoxTxtr);
         const float scale = 0.2f / messageBoxTxtr->sizeF.y;
