@@ -2,6 +2,7 @@
 #define BLIB_RENDER_COMPONENTS_TEXTURE_HPP
 
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
+#include <BLIB/Render/Resources/TextureRef.hpp>
 #include <cstdint>
 
 namespace bl
@@ -19,36 +20,40 @@ struct Texture : public DescriptorComponentBase<Texture, std::uint32_t> {
     /**
      * @brief Creates a texture component with no associated texture
      */
-    Texture()
-    : textureId(0) {}
+    Texture() = default;
 
     /**
-     * @brief Creates a texture component with the given texture id
+     * @brief Creates a texture component with the given texture
      *
-     * @param textureId Texture id from a TexturePool
+     * @param texture A reference to a TexturePool Texture
      */
-    Texture(std::uint32_t textureId)
-    : textureId(textureId) {}
+    Texture(const res::TextureRef& texture)
+    : texture(texture) {}
 
     /**
-     * @brief Modifies the texture of the object this component belongs to
+     * @brief Sets the texture that this component points to
      *
-     * @param tid The texture id from a TexturePool
+     * @param texture The texture to change to
      */
-    void setTextureId(std::uint32_t tid) {
-        textureId = tid;
+    void setTexture(const res::TextureRef& texture) {
+        this->texture = texture;
         markDirty();
     }
+
+    /**
+     * @brief Returns the associated texture for this component
+     */
+    const res::TextureRef& getTexture() const { return texture; }
 
     /**
      * @brief Syncs the texture id to a scene buffer
      *
      * @param sceneTextureId Texture id contained in a scene buffer
      */
-    void refreshDescriptor(std::uint32_t& sceneTextureId) { sceneTextureId = textureId; }
+    void refreshDescriptor(std::uint32_t& sceneTextureId) { sceneTextureId = texture.id(); }
 
 private:
-    std::uint32_t textureId;
+    res::TextureRef texture;
 };
 
 } // namespace com

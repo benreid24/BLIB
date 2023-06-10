@@ -25,14 +25,16 @@ public:
     Textured() = default;
 
     /**
-     * @brief Returns the texture. Must only be called after create()
+     * @brief Changes the texture for this drawable
+     *
+     * @param texture The new texture to use
      */
-    com::Texture& getTexture();
+    void setTexture(const res::TextureRef& texture);
 
     /**
      * @brief Returns the texture. Must only be called after create()
      */
-    const com::Texture& getTexture() const;
+    const res::TextureRef& getTexture() const;
 
 protected:
     /**
@@ -52,9 +54,9 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline com::Texture& Textured::getTexture() { return handle.get(); }
+inline void Textured::setTexture(const res::TextureRef& t) { handle.get().setTexture(t); }
 
-inline const com::Texture& Textured::getTexture() const { return handle.get(); }
+inline const res::TextureRef& Textured::getTexture() const { return handle.get().getTexture(); }
 
 template<typename... TArgs>
 void Textured::create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args) {

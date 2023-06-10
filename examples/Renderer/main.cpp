@@ -61,7 +61,7 @@ public:
         // create sprite in scene
         spriteEntity   = engine.ecs().createEntity();
         spritePosition = engine.ecs().emplaceComponent<bl::t2d::Transform2D>(spriteEntity);
-        engine.ecs().emplaceComponent<bl::render::com::Texture>(spriteEntity, texture.id());
+        engine.ecs().emplaceComponent<bl::render::com::Texture>(spriteEntity, texture);
         engine.ecs().emplaceComponent<bl::render::com::Sprite>(
             spriteEntity, engine.renderer(), texture);
         engine.systems().getSystem<bl::render::sys::SpriteSystem>().addToScene(
@@ -96,7 +96,7 @@ public:
         // create object in scene
         meshEntity = engine.ecs().createEntity();
         engine.ecs().emplaceComponent<bl::t3d::Transform3D>(meshEntity);
-        engine.ecs().emplaceComponent<bl::render::com::Texture>(meshEntity, texture.id());
+        engine.ecs().emplaceComponent<bl::render::com::Texture>(meshEntity, texture);
         bl::render::com::Mesh* mesh =
             engine.ecs().emplaceComponent<bl::render::com::Mesh>(meshEntity);
         mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
@@ -107,17 +107,11 @@ public:
 
         // create overlay and add sprite for observer 2
         bl::render::Overlay* overlay = p2.getOrCreateSceneOverlay(10, 10);
-        const auto ent               = engine.ecs().createEntity();
-        auto* entPos                 = engine.ecs().emplaceComponent<bl::t2d::Transform2D>(ent);
-        engine.ecs().emplaceComponent<bl::render::com::Texture>(ent, messageBoxTxtr.id());
-        engine.ecs().emplaceComponent<bl::render::com::Sprite>(
-            ent, engine.renderer(), messageBoxTxtr);
-        const float scale = 0.2f / messageBoxTxtr->sizeF.y;
-        entPos->setPosition({0.5f, 0.90f});
-        entPos->setScale({scale, scale});
-        entPos->setOrigin(messageBoxTxtr->sizeF * 0.5f);
-        engine.systems().getSystem<bl::render::sys::SpriteSystem>().addToOverlay(
-            ent, overlay, bl::render::UpdateSpeed::Dynamic);
+        messageBox.create(engine, messageBoxTxtr);
+        messageBox.getTransform().setPosition({0.5f, 0.9f});
+        messageBox.getTransform().setOrigin(messageBox.getTexture()->sizeF * 0.5f);
+        messageBox.scaleWidthToOverlay(0.3f);
+        messageBox.addToOverlay(overlay, bl::render::UpdateSpeed::Dynamic);
 
         // subscribe to window events
         bl::event::Dispatcher::subscribe(this);
@@ -150,6 +144,7 @@ public:
 private:
     bl::render::Renderer* renderer;
     bl::render::draw::Sprite sprite;
+    bl::render::draw::Sprite messageBox;
     bl::ecs::Entity spriteEntity;
     bl::t2d::Transform2D* spritePosition;
     bl::ecs::Entity meshEntity;
