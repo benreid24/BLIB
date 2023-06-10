@@ -106,7 +106,7 @@ public:
         meshSystem.addToScene(meshEntity, scene, bl::render::UpdateSpeed::Static);
 
         // create overlay and add sprite for observer 2
-        bl::render::Overlay* overlay = p2.getOrCreateSceneOverlay(10, 10);
+        bl::render::Overlay* overlay = p2.getOrCreateSceneOverlay(engine, 10, 10);
         messageBox.create(engine, messageBoxTxtr);
         messageBox.getTransform().setPosition({0.5f, 0.9f});
         messageBox.getTransform().setOrigin(messageBox.getTexture()->sizeF * 0.5f);

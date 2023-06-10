@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_OVERLAYS_OVERLAYOBJECT_HPP
 #define BLIB_RENDER_OVERLAYS_OVERLAYOBJECT_HPP
 
+#include <BLIB/ECS.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
@@ -10,7 +11,6 @@
 #include <array>
 #include <cstdint>
 #include <glad/vulkan.h>
-#include <optional>
 #include <vector>
 
 namespace bl
@@ -41,7 +41,7 @@ struct OverlayObject : public scene::SceneObject {
     void removeChild(std::uint32_t childId);
 
     std::vector<std::uint32_t> children;
-    std::optional<Viewport> viewport;
+    ecs::StableHandle<Viewport> viewport;
     vk::Pipeline* pipeline;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
     std::uint8_t descriptorCount;

@@ -1,5 +1,6 @@
 #include <BLIB/Render/Overlays/Overlay.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -7,8 +8,9 @@ namespace bl
 {
 namespace render
 {
-Overlay::Overlay(Renderer& r, std::uint32_t ms, std::uint32_t md)
+Overlay::Overlay(Renderer& r, engine::Engine& e, std::uint32_t ms, std::uint32_t md)
 : Scene(r, ms, md)
+, engine(e)
 , objects(ms + md)
 , parentMap(ms + md, NoParent) {
     roots.reserve(std::max((ms + md) / 4, 4u));
@@ -35,8 +37,8 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
         ovy::OverlayObject& obj = objects[oid];
         if (obj.hidden) { continue; }
 
-        if (obj.viewport.has_value()) {
-            viewportStack.emplace_back(obj.viewport.value().createViewport(
+        if (obj.viewport.valid()) {
+            viewportStack.emplace_back(obj.viewport.get().createViewport(
                 ctx.parentViewport(), viewportStack.back().viewport));
             viewportStack.back().apply(ctx.getCommandBuffer());
             renderStack.emplace_back(PopViewport);
@@ -74,6 +76,7 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, std::uint32_t sceneId,
     for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
         obj.descriptors[i]->allocateObject(sceneId, entity, updateFreq);
     }
+    obj.viewport.assign(engine.ecs(), entity);
 
     return &obj;
 }
@@ -86,6 +89,7 @@ void Overlay::doRemove(ecs::Entity entity, scene::SceneObject* object,
     for (unsigned int i = 0; i < obj->descriptorCount; ++i) {
         obj->descriptors[i]->releaseObject(id, entity);
     }
+    obj->viewport.release();
 
     for (std::uint32_t child : obj->children) { removeObject(&objects[child]); }
     obj->children.clear();

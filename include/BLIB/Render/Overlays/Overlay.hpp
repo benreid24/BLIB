@@ -14,6 +14,11 @@
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+}
+
 namespace render
 {
 class Renderer;
@@ -33,10 +38,12 @@ public:
      * @brief Creates a new overlay scene
      *
      * @param renderer The renderer instance
+     * @param engine The game engine instance
      * @param maxStatic The maximum number of static objects
      * @param maxDynamic The maximum number of dynamic objects
      */
-    Overlay(Renderer& renderer, std::uint32_t maxStatic, std::uint32_t maxDynamic);
+    Overlay(Renderer& renderer, engine::Engine& engine, std::uint32_t maxStatic,
+            std::uint32_t maxDynamic);
 
     /**
      * @brief Frees resources
@@ -93,6 +100,7 @@ private:
         VkRect2D scissor;
     };
 
+    engine::Engine& engine;
     std::vector<ovy::OverlayObject> objects;
     std::vector<std::uint32_t> roots;
     std::vector<std::uint32_t> parentMap;
