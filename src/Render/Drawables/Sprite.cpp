@@ -18,6 +18,7 @@ void Sprite::create(engine::Engine& engine, res::TextureRef texture, const sf::F
     Drawable::create(engine, engine.renderer(), texture, region);
     Textured::create(engine.ecs(), entity(), texture);
     Transformable::create(engine.ecs(), entity());
+    Viewport::create(engine.ecs(), entity());
 }
 
 void Sprite::destroy() { Drawable::destroy(); }

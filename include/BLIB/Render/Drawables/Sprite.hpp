@@ -4,6 +4,7 @@
 #include <BLIB/Render/Components/Sprite.hpp>
 #include <BLIB/Render/Drawables/Components/Textured.hpp>
 #include <BLIB/Render/Drawables/Components/Transformable.hpp>
+#include <BLIB/Render/Drawables/Components/Viewport.hpp>
 #include <BLIB/Render/Drawables/Drawable.hpp>
 
 namespace bl
@@ -25,7 +26,8 @@ namespace draw
 class Sprite
 : public Drawable<com::Sprite>
 , public base::Textured
-, public base::Transformable {
+, public base::Transformable
+, public base::Viewport {
 public:
     /**
      * @brief Creates an uninitialized sprite
