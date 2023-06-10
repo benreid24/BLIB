@@ -8,6 +8,7 @@
 #include <BLIB/Render/Cameras/3D/Controllers/OrbiterController.hpp>
 #include <BLIB/Render/Components/Mesh.hpp>
 #include <BLIB/Render/Components/Texture.hpp>
+#include <BLIB/Render/Drawables/Sprite.hpp>
 #include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
 #include <BLIB/Transforms.hpp>
 
@@ -68,6 +69,13 @@ public:
         spritePosition->setPosition({1920.f * 0.5f, 1080.f * 0.25f});
         spritePosition->setScale({100.f / texture->sizeF.x, 100.f / texture->sizeF.y});
         spritePosition->setOrigin(texture->sizeF * 0.5f);
+
+        // use SFML-like class to make another
+        sprite.create(engine, texture);
+        sprite.getTransform().setPosition({1920.f * 0.75f, 1080.f * 0.25f});
+        sprite.getTransform().setScale({150.f / texture->sizeF.x, 150.f / texture->sizeF.y});
+        sprite.getTransform().setOrigin(texture->sizeF * 0.5f);
+        sprite.addToScene(scene, bl::render::UpdateSpeed::Static);
 
         // create 3d scene for observer 2
         bl::render::Observer& p2 = engine.renderer().addObserver();
@@ -141,6 +149,7 @@ public:
 
 private:
     bl::render::Renderer* renderer;
+    bl::render::draw::Sprite sprite;
     bl::ecs::Entity spriteEntity;
     bl::t2d::Transform2D* spritePosition;
     bl::ecs::Entity meshEntity;

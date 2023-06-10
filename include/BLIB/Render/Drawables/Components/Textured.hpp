@@ -10,7 +10,7 @@ namespace render
 {
 namespace draw
 {
-namespace com
+namespace base
 {
 /**
  * @brief Base component class for textured Drawables
@@ -27,12 +27,12 @@ public:
     /**
      * @brief Returns the texture. Must only be called after create()
      */
-    render::com::Texture& getTexture();
+    com::Texture& getTexture();
 
     /**
      * @brief Returns the texture. Must only be called after create()
      */
-    const render::com::Texture& getTexture() const;
+    const com::Texture& getTexture() const;
 
 protected:
     /**
@@ -47,22 +47,22 @@ protected:
     void create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args);
 
 private:
-    ecs::StableHandle<render::com::Texture> handle;
+    ecs::StableHandle<com::Texture> handle;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline render::com::Texture& Textured::getTexture() { return handle.get(); }
+inline com::Texture& Textured::getTexture() { return handle.get(); }
 
-inline const render::com::Texture& Textured::getTexture() const { return handle.get(); }
+inline const com::Texture& Textured::getTexture() const { return handle.get(); }
 
 template<typename... TArgs>
 void Textured::create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args) {
-    registry.emplaceComponent<render::com::Texture>(entity, std::forward<TArgs>(args)...);
+    registry.emplaceComponent<com::Texture>(entity, std::forward<TArgs>(args)...);
     handle.assign(registry, entity);
 }
 
-} // namespace com
+} // namespace base
 } // namespace draw
 } // namespace render
 } // namespace bl

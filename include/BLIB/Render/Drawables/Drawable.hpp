@@ -155,7 +155,7 @@ Drawable<TCom, TSys>::~Drawable() {
 template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::addToScene(Scene* scene, UpdateSpeed updateFreq) {
 #ifdef BLIB_DEBUG
-    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle->valid()) {
+    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle.valid()) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 #endif
@@ -167,7 +167,7 @@ template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::addToSceneWithCustomPipelines(Scene* scene, UpdateSpeed updateFreq,
                                                          const scene::StagePipelines& pipelines) {
 #ifdef BLIB_DEBUG
-    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle->valid()) {
+    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle.valid()) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 #endif
@@ -179,12 +179,12 @@ template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::addToOverlay(Overlay* overlay, UpdateSpeed descriptorUpdateFreq,
                                         ecs::Entity parent) {
 #ifdef BLIB_DEBUG
-    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle->valid()) {
+    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle.valid()) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 #endif
 
-    system().addToOverlay(ecsId, overlay, updateFreq, parent);
+    system().addToOverlay(ecsId, overlay, descriptorUpdateFreq, parent);
 }
 
 template<typename TCom, typename TSys>
@@ -193,21 +193,22 @@ void Drawable<TCom, TSys>::addToOverlayWithCustomPipelines(Overlay* overlay,
                                                            const scene::StagePipelines& pipelines,
                                                            ecs::Entity parent) {
 #ifdef BLIB_DEBUG
-    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle->valid()) {
+    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle.valid()) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 #endif
 
-    system().addToOverlayWithCustomPipelines(ecsId, overlay, updateFreq, pipelines, parent);
+    system().addToOverlayWithCustomPipelines(
+        ecsId, overlay, descriptorUpdateFreq, pipelines, parent);
 }
 
 template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::setHidden(bool hide) {
 #ifdef BLIB_DEBUG
-    if (!handle->valid()) { throw std::runtime_error("Cannot hide un-created entity"); }
+    if (!handle.valid()) { throw std::runtime_error("Cannot hide un-created entity"); }
 #endif
 
-    component().setHiden(hide);
+    component().setHidden(hide);
 }
 
 template<typename TCom, typename TSys>
@@ -249,7 +250,7 @@ TSys& Drawable<TCom, TSys>::system() {
     }
 #endif
 
-    return *enginePtr->systems().getSystem<TSys>();
+    return enginePtr->systems().getSystem<TSys>();
 }
 
 template<typename TCom, typename TSys>

@@ -11,7 +11,7 @@ namespace render
 namespace draw
 {
 /// Base component classes for Drawable objects
-namespace com
+namespace base
 {
 /**
  * @brief Base component class for Drawables that require a 2d transform
@@ -63,7 +63,7 @@ inline void Transformable::create(ecs::Registry& registry, ecs::Entity entity, T
     handle.assign(registry, entity);
 }
 
-} // namespace com
+} // namespace base
 } // namespace draw
 } // namespace render
 } // namespace bl

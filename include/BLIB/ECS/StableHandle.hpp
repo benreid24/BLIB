@@ -100,7 +100,7 @@ const T& StableHandle<T>::get() const {
 
 template<typename T>
 void StableHandle<T>::assign(Registry& registry, Entity ent) {
-    pool   = registry.getAllComponents<T>();
+    pool   = &registry.getAllComponents<T>();
     entity = ent;
     if (!valid()) { release(); }
 }
