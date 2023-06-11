@@ -4,3 +4,4 @@ target_sources(BLIB PUBLIC
 )
 
 add_subdirectory(Components)
+add_subdirectory(Text)
