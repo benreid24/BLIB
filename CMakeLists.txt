@@ -34,7 +34,12 @@ set(BLIB_TEMP_INCLUDE_DIR ${CMAKE_BINARY_DIR}/blib_temp_includes)
 file(MAKE_DIRECTORY ${BLIB_TEMP_INCLUDE_DIR})
 
 set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR})
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+set(
+    CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} 
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
+    "${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML/cmake"
+    "${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML/cmake/modules"
+)
 include(configure_blib_target)
 configure_blib_target(BLIB)
 
@@ -55,6 +60,7 @@ target_link_libraries(BLIB PRIVATE
     sfml-network
     sfml-audio
     sfml-system
+    Freetype
 )
 
 if (BUILD_EXAMPLES)

@@ -27,7 +27,6 @@
 // Headers
 ////////////////////////////////////////////////////////////
 #include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
-#include <SFML/Graphics/GLCheck.hpp>
 #ifdef SFML_SYSTEM_ANDROID
 #include <SFML/System/Android/ResourceStream.hpp>
 #endif
@@ -80,7 +79,7 @@ sf::Uint64 combine(float outlineThickness, bool bold, sf::Uint32 index) {
 namespace sf
 {
 ////////////////////////////////////////////////////////////
-Font::Font()
+VulkanFont::VulkanFont()
 : m_library(NULL)
 , m_face(NULL)
 , m_streamRec(NULL)
@@ -94,7 +93,7 @@ Font::Font()
 }
 
 ////////////////////////////////////////////////////////////
-Font::Font(const Font& copy)
+VulkanFont::VulkanFont(const VulkanFont& copy)
 : m_library(copy.m_library)
 , m_face(copy.m_face)
 , m_streamRec(copy.m_streamRec)
@@ -115,7 +114,7 @@ Font::Font(const Font& copy)
 }
 
 ////////////////////////////////////////////////////////////
-Font::~Font() {
+VulkanFont::~VulkanFont() {
     cleanup();
 
 #ifdef SFML_SYSTEM_ANDROID
@@ -126,7 +125,7 @@ Font::~Font() {
 }
 
 ////////////////////////////////////////////////////////////
-bool Font::loadFromFile(const std::string& filename) {
+bool VulkanFont::loadFromFile(const std::string& filename) {
 #ifndef SFML_SYSTEM_ANDROID
 
     // Cleanup the previous resources
@@ -190,7 +189,7 @@ bool Font::loadFromFile(const std::string& filename) {
 }
 
 ////////////////////////////////////////////////////////////
-bool Font::loadFromMemory(const void* data, std::size_t sizeInBytes) {
+bool VulkanFont::loadFromMemory(const void* data, std::size_t sizeInBytes) {
     // Cleanup the previous resources
     cleanup();
     m_refCount = new int(1);
@@ -244,7 +243,7 @@ bool Font::loadFromMemory(const void* data, std::size_t sizeInBytes) {
 }
 
 ////////////////////////////////////////////////////////////
-bool Font::loadFromStream(InputStream& stream) {
+bool VulkanFont::loadFromStream(InputStream& stream) {
     // Cleanup the previous resources
     cleanup();
     m_refCount = new int(1);
@@ -317,11 +316,11 @@ bool Font::loadFromStream(InputStream& stream) {
 }
 
 ////////////////////////////////////////////////////////////
-const Font::Info& Font::getInfo() const { return m_info; }
+const VulkanFont::Info& VulkanFont::getInfo() const { return m_info; }
 
 ////////////////////////////////////////////////////////////
-const Glyph& Font::getGlyph(Uint32 codePoint, unsigned int characterSize, bool bold,
-                            float outlineThickness) const {
+const Glyph& VulkanFont::getGlyph(Uint32 codePoint, unsigned int characterSize, bool bold,
+                                  float outlineThickness) const {
     // Get the page corresponding to the character size
     GlyphTable& glyphs = loadPage(characterSize).glyphs;
 
@@ -344,12 +343,13 @@ const Glyph& Font::getGlyph(Uint32 codePoint, unsigned int characterSize, bool b
 }
 
 ////////////////////////////////////////////////////////////
-bool Font::hasGlyph(Uint32 codePoint) const {
+bool VulkanFont::hasGlyph(Uint32 codePoint) const {
     return FT_Get_Char_Index(static_cast<FT_Face>(m_face), codePoint) != 0;
 }
 
 ////////////////////////////////////////////////////////////
-float Font::getKerning(Uint32 first, Uint32 second, unsigned int characterSize, bool bold) const {
+float VulkanFont::getKerning(Uint32 first, Uint32 second, unsigned int characterSize,
+                             bool bold) const {
     // Special case where first or second is 0 (null character)
     if (first == 0 || second == 0) return 0.f;
 
@@ -386,7 +386,7 @@ float Font::getKerning(Uint32 first, Uint32 second, unsigned int characterSize, 
 }
 
 ////////////////////////////////////////////////////////////
-float Font::getLineSpacing(unsigned int characterSize) const {
+float VulkanFont::getLineSpacing(unsigned int characterSize) const {
     FT_Face face = static_cast<FT_Face>(m_face);
 
     if (face && setCurrentSize(characterSize)) {
@@ -396,7 +396,7 @@ float Font::getLineSpacing(unsigned int characterSize) const {
 }
 
 ////////////////////////////////////////////////////////////
-float Font::getUnderlinePosition(unsigned int characterSize) const {
+float VulkanFont::getUnderlinePosition(unsigned int characterSize) const {
     FT_Face face = static_cast<FT_Face>(m_face);
 
     if (face && setCurrentSize(characterSize)) {
@@ -411,7 +411,7 @@ float Font::getUnderlinePosition(unsigned int characterSize) const {
 }
 
 ////////////////////////////////////////////////////////////
-float Font::getUnderlineThickness(unsigned int characterSize) const {
+float VulkanFont::getUnderlineThickness(unsigned int characterSize) const {
     FT_Face face = static_cast<FT_Face>(m_face);
 
     if (face && setCurrentSize(characterSize)) {
@@ -426,27 +426,13 @@ float Font::getUnderlineThickness(unsigned int characterSize) const {
 }
 
 ////////////////////////////////////////////////////////////
-const Texture& Font::getTexture(unsigned int characterSize) const {
+const Image& VulkanFont::getTexture(unsigned int characterSize) const {
     return loadPage(characterSize).texture;
 }
 
 ////////////////////////////////////////////////////////////
-void Font::setSmooth(bool smooth) {
-    if (smooth != m_isSmooth) {
-        m_isSmooth = smooth;
-
-        for (sf::Font::PageTable::iterator page = m_pages.begin(); page != m_pages.end(); ++page) {
-            page->second.texture.setSmooth(m_isSmooth);
-        }
-    }
-}
-
-////////////////////////////////////////////////////////////
-bool Font::isSmooth() const { return m_isSmooth; }
-
-////////////////////////////////////////////////////////////
-Font& Font::operator=(const Font& right) {
-    Font temp(right);
+VulkanFont& VulkanFont::operator=(const VulkanFont& right) {
+    VulkanFont temp(right);
 
     std::swap(m_library, temp.m_library);
     std::swap(m_face, temp.m_face);
@@ -466,7 +452,7 @@ Font& Font::operator=(const Font& right) {
 }
 
 ////////////////////////////////////////////////////////////
-void Font::cleanup() {
+void VulkanFont::cleanup() {
     // Check if we must destroy the FreeType pointers
     if (m_refCount) {
         // Decrease the reference counter
@@ -502,18 +488,13 @@ void Font::cleanup() {
 }
 
 ////////////////////////////////////////////////////////////
-Font::Page& Font::loadPage(unsigned int characterSize) const {
-    // TODO: Remove this method and use try_emplace instead when updating to C++17
-    PageTable::iterator pageIterator = m_pages.find(characterSize);
-    if (pageIterator == m_pages.end())
-        pageIterator = m_pages.insert(std::make_pair(characterSize, Page(m_isSmooth))).first;
-
-    return pageIterator->second;
+VulkanFont::Page& VulkanFont::loadPage(unsigned int characterSize) const {
+    return m_pages.try_emplace(characterSize).first->second;
 }
 
 ////////////////////////////////////////////////////////////
-Glyph Font::loadGlyph(Uint32 codePoint, unsigned int characterSize, bool bold,
-                      float outlineThickness) const {
+Glyph VulkanFont::loadGlyph(Uint32 codePoint, unsigned int characterSize, bool bold,
+                            float outlineThickness) const {
     // The glyph to return
     Glyph glyph;
 
@@ -651,7 +632,13 @@ Glyph Font::loadGlyph(Uint32 codePoint, unsigned int characterSize, bool bold,
         unsigned int y = static_cast<unsigned int>(glyph.textureRect.top) - padding;
         unsigned int w = static_cast<unsigned int>(glyph.textureRect.width) + 2 * padding;
         unsigned int h = static_cast<unsigned int>(glyph.textureRect.height) + 2 * padding;
-        page.texture.update(&m_pixelBuffer[0], w, h, x, y);
+        for (unsigned int xi = 0; xi < w; ++xi) {
+            for (unsigned int yi = 0; yi < h; ++yi) {
+                std::size_t index = x + y * width;
+                page.texture.setPixel(
+                    x + xi, y + yi, sf::Color{255, 255, 255, m_pixelBuffer[index * 4 + 3]});
+            }
+        }
     }
 
     // Delete the FT glyph
@@ -662,7 +649,7 @@ Glyph Font::loadGlyph(Uint32 codePoint, unsigned int characterSize, bool bold,
 }
 
 ////////////////////////////////////////////////////////////
-IntRect Font::findGlyphRect(Page& page, unsigned int width, unsigned int height) const {
+IntRect VulkanFont::findGlyphRect(Page& page, unsigned int width, unsigned int height) const {
     // Find the line that fits well the glyph
     Row* row        = NULL;
     float bestRatio = 0;
@@ -691,22 +678,12 @@ IntRect Font::findGlyphRect(Page& page, unsigned int width, unsigned int height)
             // Not enough space: resize the texture if possible
             unsigned int textureWidth  = page.texture.getSize().x;
             unsigned int textureHeight = page.texture.getSize().y;
-            if ((textureWidth * 2 <= Texture::getMaximumSize()) &&
-                (textureHeight * 2 <= Texture::getMaximumSize())) {
-                // Make the texture 2 times bigger
-                Texture newTexture;
-                newTexture.create(textureWidth * 2, textureHeight * 2);
-                newTexture.setSmooth(m_isSmooth);
-                newTexture.update(page.texture);
-                page.texture.swap(newTexture);
-            }
-            else {
-                // Oops, we've reached the maximum texture size...
-                err() << "Failed to add a new character to the font: the maximum texture size has "
-                         "been reached"
-                      << std::endl;
-                return IntRect(0, 0, 2, 2);
-            }
+
+            // Make the texture 2 times bigger
+            Image newTexture;
+            newTexture.create(textureWidth * 2, textureHeight * 2);
+            newTexture.copy(page.texture, 0, 0);
+            page.texture = std::move(newTexture);
         }
 
         // We can now create the new row
@@ -725,7 +702,7 @@ IntRect Font::findGlyphRect(Page& page, unsigned int width, unsigned int height)
 }
 
 ////////////////////////////////////////////////////////////
-bool Font::setCurrentSize(unsigned int characterSize) const {
+bool VulkanFont::setCurrentSize(unsigned int characterSize) const {
     // FT_Set_Pixel_Sizes is an expensive function, so we must call it
     // only when necessary to avoid killing performances
 
@@ -757,19 +734,15 @@ bool Font::setCurrentSize(unsigned int characterSize) const {
 }
 
 ////////////////////////////////////////////////////////////
-Font::Page::Page(bool smooth)
+VulkanFont::Page::Page()
 : nextRow(3) {
     // Make sure that the texture is initialized by default
-    sf::Image image;
-    image.create(128, 128, Color(255, 255, 255, 0));
+    texture.create(128, 128, Color(255, 255, 255, 0));
 
     // Reserve a 2x2 white square for texturing underlines
-    for (unsigned int x = 0; x < 2; ++x)
-        for (unsigned int y = 0; y < 2; ++y) image.setPixel(x, y, Color(255, 255, 255, 255));
-
-    // Create the texture
-    texture.loadFromImage(image);
-    texture.setSmooth(smooth);
+    for (unsigned int x = 0; x < 2; ++x) {
+        for (unsigned int y = 0; y < 2; ++y) { texture.setPixel(x, y, Color(255, 255, 255, 255)); }
+    }
 }
 
 } // namespace sf

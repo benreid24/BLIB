@@ -83,11 +83,7 @@ public:
 
     const Image& getTexture(unsigned int characterSize) const;
 
-    void setSmooth(bool smooth);
-
-    bool isSmooth() const;
-
-    VulkanFont& operator=(const Font& right);
+    VulkanFont& operator=(const VulkanFont& right);
 
 private:
     struct Row {
@@ -104,7 +100,7 @@ private:
     typedef std::map<Uint64, Glyph> GlyphTable; //!< Table mapping a codepoint to its glyph
 
     struct Page {
-        explicit Page(bool smooth);
+        explicit Page();
 
         GlyphTable glyphs;     //!< Table mapping code points to their corresponding glyph
         Image texture;         //!< Image containing the pixels of the glyphs
