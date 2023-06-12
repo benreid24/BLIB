@@ -4,6 +4,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Media/Audio/Playlist.hpp>
 #include <BLIB/Media/Graphics/AnimationData.hpp>
+#include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
 #include <BLIB/Resources/Resource.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -72,7 +73,7 @@ struct NullLoader : public LoaderBase<TResourceType> {
 
 /**
  * @brief Default loaders provided for types: sf::Texture, sf::Image, sf::Font, sf::SoundBuffer,
- *        bl::audio::Playlist, bl::gfx::AnimationData
+ *        bl::audio::Playlist, bl::gfx::AnimationData, sf::VulkanFont
  *
  * @tparam T One of the above listed types
  * @ingroup Resources
@@ -154,6 +155,20 @@ struct DefaultLoader<sf::Font> : public LoaderBase<sf::Font> {
 
     virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
                       sf::Font& result) override {
+        if (!result.loadFromMemory(buffer, len)) {
+            BL_LOG_ERROR << "Failed to load font: " << path;
+            return false;
+        }
+        return true;
+    }
+};
+
+template<>
+struct DefaultLoader<sf::VulkanFont> : public LoaderBase<sf::VulkanFont> {
+    virtual ~DefaultLoader() = default;
+
+    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
+                      sf::VulkanFont& result) override {
         if (!result.loadFromMemory(buffer, len)) {
             BL_LOG_ERROR << "Failed to load font: " << path;
             return false;
