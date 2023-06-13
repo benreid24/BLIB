@@ -18,6 +18,8 @@ namespace render
 {
 namespace draw
 {
+class Text;
+
 namespace txt
 {
 /**
@@ -116,7 +118,8 @@ private:
     bool refreshNeeded;
     sf::FloatRect cachedBounds;
 
-    std::uint32_t refreshVertices(const sf::VulkanFont& font, prim::Vertex* vertices);
+    std::uint32_t refreshVertices(const sf::VulkanFont& font, prim::Vertex* vertices,
+                                  const glm::vec2& cornerPos);
     glm::vec2 findCharacterPos(const sf::VulkanFont& font, std::uint32_t index) const;
     const sf::FloatRect& getBounds() const;
 

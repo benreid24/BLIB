@@ -126,7 +126,8 @@ void BasicText::setOutlineThickness(unsigned int t) {
     refreshNeeded    = true;
 }
 
-std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Vertex* vertices) {
+std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Vertex* vertices,
+                                         const glm::vec2& cornerPos) {
     // Mark geometry as updated
     refreshNeeded = false;
 
@@ -155,8 +156,8 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Verte
     const float letterSpacing   = (glyphWidth / 3.f) * (letterSpacingFactor - 1.f);
     const float whitespaceWidth = glyphWidth + letterSpacing;
     const float lineSpacing     = font.getLineSpacing(fontSize) * lineSpacingFactor;
-    float x                     = 0.f;
-    float y                     = static_cast<float>(fontSize);
+    float x                     = cornerPos.x;
+    float y                     = cornerPos.y + static_cast<float>(fontSize);
 
     // Create one quad for each character
     float minX             = static_cast<float>(fontSize);

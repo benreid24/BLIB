@@ -80,7 +80,8 @@ namespace sf
 {
 ////////////////////////////////////////////////////////////
 VulkanFont::VulkanFont()
-: m_library(NULL)
+: needsUpload(true)
+, m_library(NULL)
 , m_face(NULL)
 , m_streamRec(NULL)
 , m_stroker(NULL)
@@ -94,7 +95,8 @@ VulkanFont::VulkanFont()
 
 ////////////////////////////////////////////////////////////
 VulkanFont::VulkanFont(const VulkanFont& copy)
-: m_library(copy.m_library)
+: needsUpload(true)
+, m_library(copy.m_library)
 , m_face(copy.m_face)
 , m_streamRec(copy.m_streamRec)
 , m_stroker(copy.m_stroker)
@@ -126,6 +128,8 @@ VulkanFont::~VulkanFont() {
 
 ////////////////////////////////////////////////////////////
 bool VulkanFont::loadFromFile(const std::string& filename) {
+    needsUpload = true;
+
 #ifndef SFML_SYSTEM_ANDROID
 
     // Cleanup the previous resources
@@ -190,6 +194,8 @@ bool VulkanFont::loadFromFile(const std::string& filename) {
 
 ////////////////////////////////////////////////////////////
 bool VulkanFont::loadFromMemory(const void* data, std::size_t sizeInBytes) {
+    needsUpload = true;
+
     // Cleanup the previous resources
     cleanup();
     m_refCount = new int(1);
@@ -244,6 +250,8 @@ bool VulkanFont::loadFromMemory(const void* data, std::size_t sizeInBytes) {
 
 ////////////////////////////////////////////////////////////
 bool VulkanFont::loadFromStream(InputStream& stream) {
+    needsUpload = true;
+
     // Cleanup the previous resources
     cleanup();
     m_refCount = new int(1);
@@ -337,6 +345,7 @@ const Glyph& VulkanFont::getGlyph(Uint32 codePoint, unsigned int characterSize, 
     }
     else {
         // Not found: we have to load it
+        needsUpload = true;
         Glyph glyph = loadGlyph(codePoint, characterSize, bold, outlineThickness);
         return glyphs.insert(std::make_pair(key, glyph)).first->second;
     }
@@ -744,5 +753,7 @@ VulkanFont::Page::Page()
         for (unsigned int y = 0; y < 2; ++y) { texture.setPixel(x, y, Color(255, 255, 255, 255)); }
     }
 }
+
+void VulkanFont::notifyUploaded() { needsUpload = false; }
 
 } // namespace sf

@@ -85,6 +85,10 @@ public:
 
     VulkanFont& operator=(const VulkanFont& right);
 
+    constexpr bool uploadRequired() const;
+
+    void notifyUploaded();
+
 private:
     struct Row {
         Row(unsigned int rowTop, unsigned int rowHeight)
@@ -109,14 +113,10 @@ private:
     };
 
     void cleanup();
-
     Page& loadPage(unsigned int characterSize) const;
-
     Glyph loadGlyph(Uint32 codePoint, unsigned int characterSize, bool bold,
                     float outlineThickness) const;
-
     IntRect findGlyphRect(Page& page, unsigned int width, unsigned int height) const;
-
     bool setCurrentSize(unsigned int characterSize) const;
 
     typedef std::map<unsigned int, Page> PageTable;
@@ -124,6 +124,7 @@ private:
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
+    bool needsUpload;
     void* m_library;   //!< Pointer to the internal library interface (it is typeless to avoid
                        //!< exposing implementation details)
     void* m_face;      //!< Pointer to the internal font face (it is typeless to avoid exposing
@@ -142,6 +143,10 @@ private:
     void* m_stream; //!< Asset file streamer (if loaded from file)
 #endif
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline constexpr bool VulkanFont::uploadRequired() const { return needsUpload; }
 
 } // namespace sf
 

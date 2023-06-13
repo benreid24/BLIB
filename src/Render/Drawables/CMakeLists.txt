@@ -1,5 +1,6 @@
 target_sources(BLIB PRIVATE
 	Sprite.cpp
+	Text.cpp
 )
 
 add_subdirectory(Components)
