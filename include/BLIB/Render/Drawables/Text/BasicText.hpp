@@ -3,10 +3,11 @@
 
 #include <BLIB/Render/Components/Mesh.hpp>
 #include <BLIB/Render/Drawables/Drawable.hpp>
-#include <BLIB/Render/Drawables/Text/Style.hpp>
+#include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <glm/glm.hpp>
 #include <string>
 
@@ -22,24 +23,32 @@ class BasicText {
 public:
     BasicText();
 
-    glm::vec2 findCharacterPos(std::uint32_t index) const;
-
-    const sf::FloatRect& getBounds();
-
 private:
     std::string content;
-    Style style;
+    std::uint32_t style;
+    glm::vec4 fillColor;
+    glm::vec4 outlineColor;
+    unsigned int fontSize;
+    unsigned int outlineThickness;
 
     bool refreshNeeded;
     sf::FloatRect cachedBounds;
-    prim::Vertex* vertices;
-    std::uint32_t vertexCount;
 
-    std::uint32_t requiredVertexCount() const;
-    void refreshVertices();
+    std::uint32_t refreshVertices(const sf::VulkanFont& font, prim::Vertex* vertices);
+    glm::vec2 findCharacterPos(const sf::VulkanFont& font, std::uint32_t index) const;
+    const sf::FloatRect& getBounds() const;
 
     friend class Text;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline const sf::FloatRect& BasicText::getBounds() const {
+#ifdef BLIB_DEBUG
+    if (refreshNeeded) { BL_LOG_ERROR << "Querying bounds of stale text"; }
+#endif
+    return cachedBounds;
+}
 
 } // namespace txt
 } // namespace draw
