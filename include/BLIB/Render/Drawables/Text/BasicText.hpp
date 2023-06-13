@@ -8,6 +8,7 @@
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/System/String.hpp>
 #include <glm/glm.hpp>
 #include <string>
 
@@ -19,12 +20,93 @@ namespace draw
 {
 namespace txt
 {
+/**
+ * @brief Drawable for a single section of text. Similar to sf::Text. Do not use directly, use Text
+ *        class to create and manage BasicText segments
+ *
+ * @ingroup Renderer
+ */
 class BasicText {
 public:
+    /**
+     * @brief Creates empty text with sane defaults
+     */
     BasicText();
 
+    /**
+     * @brief Sets the content of this text
+     *
+     * @param content The content to render
+     */
+    void setString(const sf::String& content);
+
+    /**
+     * @brief Returns the string that will be rendered
+     */
+    constexpr const sf::String& getString() const;
+
+    /**
+     * @brief Sets the style of the text. See sf::Text::Style
+     *
+     * @param style A combination of sf::Text::Style flags
+     */
+    void setStyle(std::uint32_t style);
+
+    /**
+     * @brief Returns the style of the rendered text
+     */
+    constexpr std::uint32_t getStyle() const;
+
+    /**
+     * @brief Sets the color of the text
+     *
+     * @param color The color of the rendered text
+     */
+    void setFillColor(const glm::vec4& color);
+
+    /**
+     * @brief Returns the color of the text
+     */
+    constexpr const glm::vec4& getFillColor() const;
+
+    /**
+     * @brief Sets the color of the outline around the text
+     *
+     * @param color The color of the outline if the thickness is greater than 0
+     */
+    void setOutlineColor(const glm::vec4& color);
+
+    /**
+     * @brief Returns the color of the text outline
+     */
+    constexpr const glm::vec4& getOutlineColor() const;
+
+    /**
+     * @brief Sets the character size of the text
+     *
+     * @param size Point size of the rendered text
+     */
+    void setCharacterSize(unsigned int size);
+
+    /**
+     * @brief Returns the character size of the text
+     */
+    constexpr unsigned int getCharacterSize() const;
+
+    /**
+     * @brief Set the outline thickness in pixels
+     *
+     * @param thickness The outline thickness in pixels
+     */
+    void setOutlineThickness(unsigned int thickness);
+
+    /**
+     * @brief Returns the outline thickness of the text in pixels
+     */
+    constexpr unsigned int getOutlineThickness() const;
+
 private:
-    std::string content;
+    sf::String content;
     std::uint32_t style;
     glm::vec4 fillColor;
     glm::vec4 outlineColor;
@@ -42,6 +124,18 @@ private:
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline constexpr const sf::String& BasicText::getString() const { return content; }
+
+inline constexpr std::uint32_t BasicText::getStyle() const { return style; }
+
+inline constexpr const glm::vec4& BasicText::getFillColor() const { return fillColor; }
+
+inline constexpr const glm::vec4& BasicText::getOutlineColor() const { return outlineColor; }
+
+inline constexpr unsigned int BasicText::getCharacterSize() const { return fontSize; }
+
+inline constexpr unsigned int BasicText::getOutlineThickness() const { return outlineThickness; }
 
 inline const sf::FloatRect& BasicText::getBounds() const {
 #ifdef BLIB_DEBUG

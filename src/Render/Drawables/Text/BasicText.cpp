@@ -96,6 +96,36 @@ BasicText::BasicText()
 , outlineThickness(0)
 , refreshNeeded(true) {}
 
+void BasicText::setString(const sf::String& s) {
+    content       = s;
+    refreshNeeded = true;
+}
+
+void BasicText::setStyle(std::uint32_t s) {
+    style         = s;
+    refreshNeeded = true;
+}
+
+void BasicText::setFillColor(const glm::vec4& c) {
+    fillColor     = c;
+    refreshNeeded = true;
+}
+
+void BasicText::setOutlineColor(const glm::vec4& c) {
+    outlineColor  = c;
+    refreshNeeded = true;
+}
+
+void BasicText::setCharacterSize(unsigned int s) {
+    fontSize      = s;
+    refreshNeeded = true;
+}
+
+void BasicText::setOutlineThickness(unsigned int t) {
+    outlineThickness = t;
+    refreshNeeded    = true;
+}
+
 std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Vertex* vertices) {
     // Mark geometry as updated
     refreshNeeded = false;
@@ -104,7 +134,7 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Verte
     cachedBounds = sf::FloatRect();
 
     // No text: nothing to draw
-    if (content.empty()) return 0;
+    if (content.isEmpty()) return 0;
 
     // Compute values related to the text style
     const bool isBold          = style & sf::Text::Bold;
@@ -135,7 +165,7 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Verte
     float maxY             = 0.f;
     std::uint32_t prevChar = 0;
     std::uint32_t vi       = 0;
-    for (std::size_t i = 0; i < content.size(); ++i) {
+    for (std::size_t i = 0; i < content.getSize(); ++i) {
         const std::uint32_t curChar = content[i];
 
         // Skip the \r char to avoid weird graphical issues
@@ -284,7 +314,7 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Verte
 }
 
 glm::vec2 BasicText::findCharacterPos(const sf::VulkanFont& font, std::uint32_t index) const {
-    if (index > content.size()) { index = content.size(); }
+    if (index > content.getSize()) { index = content.getSize(); }
 
     // Precompute the variables needed by the algorithm
     const bool isBold           = style & sf::Text::Bold;
