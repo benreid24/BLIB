@@ -2,7 +2,8 @@
 #define BLIB_RENDER_DRAWABLES_TEXT_HPP
 
 #include <BLIB/Render/Components/Mesh.hpp>
-#include <BLIB/Render/Drawables/Components/Textured2D.hpp>
+#include <BLIB/Render/Drawables/Components/Textured.hpp>
+#include <BLIB/Render/Drawables/Components/Transform2D.hpp>
 #include <BLIB/Render/Drawables/Components/Viewport.hpp>
 #include <BLIB/Render/Drawables/Drawable.hpp>
 #include <BLIB/Render/Drawables/Text/BasicText.hpp>
@@ -23,7 +24,8 @@ namespace draw
 {
 class Text
 : public Drawable<com::Mesh>
-, public base::Textured2D
+, public base::Textured
+, public base::Transform2D
 , public base::Viewport {
 public:
     Text();

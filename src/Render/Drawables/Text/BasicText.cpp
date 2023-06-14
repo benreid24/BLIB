@@ -325,7 +325,7 @@ glm::vec2 BasicText::findCharacterPos(const sf::VulkanFont& font, std::uint32_t 
     const float lineSpacing     = font.getLineSpacing(fontSize) * lineSpacingFactor;
 
     // Compute the position
-    glm::vec2 position;
+    glm::vec2 position(0.f, 0.f);
     std::uint32_t prevChar = 0;
     for (std::size_t i = 0; i < index; ++i) {
         const std::uint32_t curChar = content[i];

@@ -1,4 +1,4 @@
 target_sources(BLIB PRIVATE
-	Textured2D.cpp
+	Transform2D.cpp
 	Viewport.cpp
 )

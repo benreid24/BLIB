@@ -62,14 +62,22 @@ public:
      */
     constexpr const res::TextureRef& getTexture() const;
 
+    /**
+     * @brief Returns the pre-transform size of the Sprite
+     */
+    constexpr const glm::vec2& getSize() const;
+
 private:
     prim::IndexBuffer buffer;
     res::TextureRef texture;
+    glm::vec2 size;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline constexpr const res::TextureRef& Sprite::getTexture() const { return texture; }
+
+inline constexpr const glm::vec2& Sprite::getSize() const { return size; }
 
 } // namespace com
 } // namespace render

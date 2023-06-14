@@ -24,7 +24,8 @@ void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::Str
     needsCommit = true;
 
     Drawable::create(engine);
-    Textured2D::create(engine.ecs(), entity(), {}); // TODO - texture
+    Transform2D::create(engine.ecs(), entity());
+    // Textured::create(engine.ecs(), entity(), {}); // TODO - texture
 
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
     component().create(engine.renderer().vulkanState(), vc, vc);

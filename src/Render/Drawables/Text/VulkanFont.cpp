@@ -345,7 +345,7 @@ const Glyph& VulkanFont::getGlyph(Uint32 codePoint, unsigned int characterSize, 
     }
     else {
         // Not found: we have to load it
-        needsUpload = true;
+        const_cast<sf::VulkanFont*>(this)->needsUpload = true;
         Glyph glyph = loadGlyph(codePoint, characterSize, bold, outlineThickness);
         return glyphs.insert(std::make_pair(key, glyph)).first->second;
     }

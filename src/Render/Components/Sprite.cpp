@@ -20,6 +20,8 @@ void Sprite::create(Renderer& renderer, const res::TextureRef& txtr, sf::FloatRe
         region.width  = texture->sizeF.x;
         region.height = texture->sizeF.y;
     }
+    size.x = region.width;
+    size.y = region.height;
 
     if (buffer.vertexCount() == 0) { buffer.create(renderer.vulkanState(), 4, 6); }
 

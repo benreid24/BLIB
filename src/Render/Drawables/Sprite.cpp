@@ -16,7 +16,9 @@ Sprite::~Sprite() { destroy(); }
 
 void Sprite::create(engine::Engine& engine, res::TextureRef texture, const sf::FloatRect& region) {
     Drawable::create(engine, engine.renderer(), texture, region);
-    Textured2D::create(engine.ecs(), entity(), texture);
+    Textured::create(engine.ecs(), entity(), texture);
+    Transform2D::create(engine.ecs(), entity());
+    Transform2D::setLocalSize(component().getSize());
     Viewport::create(engine.ecs(), entity());
 }
 

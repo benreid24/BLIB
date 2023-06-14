@@ -2,7 +2,8 @@
 #define BLIB_RENDER_DRAWABLES_SPRITE_HPP
 
 #include <BLIB/Render/Components/Sprite.hpp>
-#include <BLIB/Render/Drawables/Components/Textured2D.hpp>
+#include <BLIB/Render/Drawables/Components/Textured.hpp>
+#include <BLIB/Render/Drawables/Components/Transform2D.hpp>
 #include <BLIB/Render/Drawables/Components/Viewport.hpp>
 #include <BLIB/Render/Drawables/Drawable.hpp>
 
@@ -24,7 +25,8 @@ namespace draw
  */
 class Sprite
 : public Drawable<com::Sprite>
-, public base::Textured2D
+, public base::Transform2D
+, public base::Textured
 , public base::Viewport {
 public:
     /**
