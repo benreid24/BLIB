@@ -77,8 +77,8 @@ void TexturePool::cleanup() {
 }
 
 void TexturePool::releaseUnused() {
-    // TODO - gpu sync
     std::unique_lock lock(mutex);
+    vkDeviceWaitIdle(vulkanState.device);
     releaseUnusedLocked();
 }
 
@@ -140,6 +140,19 @@ TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
     TextureRef txtr      = allocateTexture();
     txtr.texture->altImg = &src;
     finalizeNewTexture(txtr.id(), sampler);
+
+    return txtr;
+}
+
+TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkSampler sampler) {
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+
+    std::unique_lock lock(mutex);
+
+    TextureRef txtr = allocateTexture();
+    txtr->create(size);
+    txtr->sampler = sampler;
+    textures.updateTexture(txtr.get());
 
     return txtr;
 }

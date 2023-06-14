@@ -96,6 +96,13 @@ public:
                               const std::array<BindlessTextureArray*, N>& arrays, std::uint32_t i);
 
     /**
+     * @brief Updates the descriptor set for the given texture
+     *
+     * @param texture The texture to update descriptors for
+     */
+    void updateTexture(Texture* texture);
+
+    /**
      * @brief Helper method to send descriptor writes for the given texture across a batch of
      *        texture arrays. Useful for uses like MaterialPool where each id has several associated
      *        textures. This method resets the texture to the error image for each array
@@ -115,6 +122,9 @@ private:
     sf::Image errorPattern;
     Texture errorTexture;
     std::vector<Texture> textures;
+    VkDescriptorSet descriptorSet;
+
+    friend class Texture;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -131,9 +141,7 @@ void BindlessTextureArray::commitTexture(VkDescriptorSet descriptorSet,
                                          std::uint32_t i) {
     vk::VulkanState& vulkanState = arrays[0]->vulkanState;
 
-    for (BindlessTextureArray* array : arrays) {
-        array->textures[i].createFromContentsAndQueue(vulkanState);
-    }
+    for (BindlessTextureArray* array : arrays) { array->textures[i].createFromContentsAndQueue(); }
 
     VkDescriptorImageInfo imageInfos[N]{};
     for (std::size_t j = 0; j < N; ++j) {
@@ -159,9 +167,8 @@ template<std::size_t N>
 void BindlessTextureArray::resetTexture(VkDescriptorSet descriptorSet,
                                         const std::array<BindlessTextureArray*, N>& arrays,
                                         std::uint32_t i) {
-    vk::VulkanState& vulkanState = arrays[0]->vulkanState;
     for (BindlessTextureArray* array : arrays) {
-        array->textures[i].cleanup(vulkanState);
+        array->textures[i].cleanup();
         array->textures[i] = array->errorTexture;
     }
     commitTexture(descriptorSet, arrays, i);

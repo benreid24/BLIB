@@ -10,7 +10,7 @@ namespace render
 namespace res
 {
 class TexturePool;
-struct Texture;
+class Texture;
 
 /**
  * @brief Lightweight reference to a texture inside of a TexturePool. Once all references to a
@@ -85,7 +85,27 @@ public:
     /**
      * @brief Access the underlying texture
      */
+    constexpr Texture& operator*();
+
+    /**
+     * @brief Access the underlying texture
+     */
     constexpr const Texture* operator->() const;
+
+    /**
+     * @brief Access the underlying texture
+     */
+    constexpr Texture* operator->();
+
+    /**
+     * @brief Access the underlying texture
+     */
+    constexpr Texture* get();
+
+    /**
+     * @brief Access the underlying texture
+     */
+    constexpr const Texture* get() const;
 
 private:
     TexturePool* owner;
@@ -103,6 +123,14 @@ private:
 inline constexpr const Texture& TextureRef::operator*() const { return *texture; }
 
 inline constexpr const Texture* TextureRef::operator->() const { return texture; }
+
+inline constexpr Texture& TextureRef::operator*() { return *texture; }
+
+inline constexpr Texture* TextureRef::operator->() { return texture; }
+
+inline constexpr Texture* TextureRef::get() { return texture; }
+
+inline constexpr const Texture* TextureRef::get() const { return texture; }
 
 } // namespace res
 } // namespace render

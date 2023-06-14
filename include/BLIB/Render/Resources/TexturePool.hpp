@@ -55,6 +55,15 @@ public:
                          std::uint32_t setIndex = 0);
 
     /**
+     * @brief Creates an empty texture of the given size
+     *
+     * @param size The size of the texture to create
+     * @param sampler The sampler to use
+     * @return A reference to the new texture
+     */
+    TextureRef createTexture(const glm::u32vec2& size, VkSampler sampler = nullptr);
+
+    /**
      * @brief Creates a new texture from the given contents and sampler
      *
      * @param image The contents to fill the texture with

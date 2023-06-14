@@ -67,14 +67,14 @@ public:
         engine.systems().getSystem<bl::render::sys::SpriteSystem>().addToScene(
             spriteEntity, scene, bl::render::UpdateSpeed::Dynamic);
         spritePosition->setPosition({1920.f * 0.5f, 1080.f * 0.25f});
-        spritePosition->setScale({100.f / texture->sizeF.x, 100.f / texture->sizeF.y});
-        spritePosition->setOrigin(texture->sizeF * 0.5f);
+        spritePosition->setScale({100.f / texture->size().x, 100.f / texture->size().y});
+        spritePosition->setOrigin(texture->size() * 0.5f);
 
         // use SFML-like class to make another
         sprite.create(engine, texture);
         sprite.getTransform().setPosition({1920.f * 0.75f, 1080.f * 0.25f});
-        sprite.getTransform().setScale({150.f / texture->sizeF.x, 150.f / texture->sizeF.y});
-        sprite.getTransform().setOrigin(texture->sizeF * 0.5f);
+        sprite.getTransform().setScale({150.f / texture->size().x, 150.f / texture->size().y});
+        sprite.getTransform().setOrigin(texture->size() * 0.5f);
         sprite.addToScene(scene, bl::render::UpdateSpeed::Static);
 
         // create 3d scene for observer 2
@@ -109,7 +109,7 @@ public:
         bl::render::Overlay* overlay = p2.getOrCreateSceneOverlay(engine, 10, 10);
         messageBox.create(engine, messageBoxTxtr);
         messageBox.getTransform().setPosition({0.5f, 0.9f});
-        messageBox.getTransform().setOrigin(messageBox.getTexture()->sizeF * 0.5f);
+        messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
         messageBox.scaleWidthToOverlay(0.3f);
         messageBox.addToOverlay(overlay, bl::render::UpdateSpeed::Dynamic);
 

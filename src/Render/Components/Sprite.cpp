@@ -17,8 +17,8 @@ void Sprite::create(Renderer& renderer, const res::TextureRef& txtr, sf::FloatRe
     if (region.width == 0.f || region.height == 0.f) {
         region.left   = 0.f;
         region.height = 0.f;
-        region.width  = texture->sizeF.x;
-        region.height = texture->sizeF.y;
+        region.width  = texture->size().x;
+        region.height = texture->size().y;
     }
     size.x = region.width;
     size.y = region.height;
@@ -37,10 +37,10 @@ void Sprite::create(Renderer& renderer, const res::TextureRef& txtr, sf::FloatRe
     indices[4] = 2;
     indices[5] = 3;
 
-    const float leftX   = region.left / texture->sizeF.x;
-    const float topY    = region.top / texture->sizeF.y;
-    const float rightX  = (region.left + region.width) / texture->sizeF.x;
-    const float bottomY = (region.top + region.height) / texture->sizeF.y;
+    const float leftX   = region.left / texture->size().x;
+    const float topY    = region.top / texture->size().y;
+    const float rightX  = (region.left + region.width) / texture->size().x;
+    const float bottomY = (region.top + region.height) / texture->size().y;
 
     vertices[0].texCoord = {leftX, topY};
     vertices[0].pos      = {0.f, 0.f, 0.f};

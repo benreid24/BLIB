@@ -61,7 +61,7 @@ unsigned long read(FT_Stream rec, unsigned long offset, unsigned char* buffer,
 }
 void close(FT_Stream) {}
 
-// Helper to intepret memory as a specific type
+// Helper to interpret memory as a specific type
 template<typename T, typename U>
 inline T reinterpret(const U& input) {
     T output;

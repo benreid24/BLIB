@@ -10,15 +10,24 @@ BindlessTextureArray::BindlessTextureArray(vk::VulkanState& vs, std::uint32_t si
                                            std::uint32_t bind)
 : bindIndex(bind)
 , vulkanState(vs)
-, textures(size) {}
+, textures(size) {
+    errorTexture.vulkanState = &vs;
+    errorTexture.parent      = this;
+    for (auto& t : textures) {
+        t.parent      = this;
+        t.vulkanState = &vs;
+    }
+}
 
-void BindlessTextureArray::init(VkDescriptorSet descriptorSet) {
+void BindlessTextureArray::init(VkDescriptorSet ds) {
+    descriptorSet = ds;
+
     // ensure an error pattern exists
     if (errorPattern.getSize().x == 0) { errorPattern.create(32, 32, sf::Color(245, 66, 242)); }
 
     // init error pattern texture
     errorTexture.altImg = &errorPattern;
-    errorTexture.createFromContentsAndQueue(vulkanState);
+    errorTexture.createFromContentsAndQueue();
     errorTexture.sampler = vulkanState.samplerCache.filteredRepeated();
     vulkanState.transferEngine.executeTransfers();
 
@@ -46,9 +55,9 @@ void BindlessTextureArray::init(VkDescriptorSet descriptorSet) {
 
 void BindlessTextureArray::cleanup() {
     for (Texture& txtr : textures) {
-        if (txtr.view != errorTexture.view) { txtr.cleanup(vulkanState); }
+        if (txtr.view != errorTexture.view) { txtr.cleanup(); }
     }
-    errorTexture.cleanup(vulkanState);
+    errorTexture.cleanup();
 }
 
 VkDescriptorSetLayoutBinding BindlessTextureArray::getLayoutBinding() const {
@@ -65,6 +74,23 @@ void BindlessTextureArray::prepareTextureUpdate(std::uint32_t i, const std::stri
     auto img = resource::ResourceManager<sf::Image>::load(path);
     if (img->getSize().x > 0) { textures[i].transferImg = img; }
     else { textures[i].altImg = &errorPattern; }
+}
+
+void BindlessTextureArray::updateTexture(Texture* texture) {
+    VkDescriptorImageInfo imageInfo{};
+    imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    imageInfo.imageView   = texture->view;
+    imageInfo.sampler     = texture->sampler;
+
+    VkWriteDescriptorSet setWrite{};
+    setWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    setWrite.descriptorCount = 1;
+    setWrite.dstBinding      = bindIndex;
+    setWrite.dstArrayElement = texture - textures.data();
+    setWrite.dstSet          = descriptorSet;
+    setWrite.pImageInfo      = &imageInfo;
+    setWrite.descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    vkUpdateDescriptorSets(vulkanState.device, 1, &setWrite, 0, nullptr);
 }
 
 } // namespace res
