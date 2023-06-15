@@ -59,23 +59,23 @@ std::uint32_t addGlyphQuad(prim::Vertex* vertices, std::uint32_t i, glm::vec2 po
             prim::Vertex(glm::vec3(position.x + left - italicShear * top, position.y + top, 0.f),
                          color,
                          glm::vec2(u1, v1));
-        vertices[i] =
+        vertices[i + 1] =
             prim::Vertex(glm::vec3(position.x + right - italicShear * top, position.y + top, 0.f),
                          color,
                          glm::vec2(u2, v1));
-        vertices[i] = prim::Vertex(
+        vertices[i + 2] = prim::Vertex(
             glm::vec3(position.x + left - italicShear * bottom, position.y + bottom, 0.f),
             color,
             glm::vec2(u1, v2));
-        vertices[i] = prim::Vertex(
+        vertices[i + 3] = prim::Vertex(
             glm::vec3(position.x + left - italicShear * bottom, position.y + bottom, 0.f),
             color,
             glm::vec2(u1, v2));
-        vertices[i] =
+        vertices[i + 4] =
             prim::Vertex(glm::vec3(position.x + right - italicShear * top, position.y + top, 0.f),
                          color,
                          glm::vec2(u2, v1));
-        vertices[i] = prim::Vertex(
+        vertices[i + 5] = prim::Vertex(
             glm::vec3(position.x + right - italicShear * bottom, position.y + bottom, 0.f),
             color,
             glm::vec2(u2, v2));

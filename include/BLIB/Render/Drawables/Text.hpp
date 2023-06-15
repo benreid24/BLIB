@@ -24,7 +24,7 @@ namespace draw
 {
 class Text
 : public Drawable<com::Mesh>
-, public base::Textured
+, private base::Textured
 , public base::Transform2D
 , public base::Viewport {
 public:
@@ -47,6 +47,16 @@ public:
     txt::BasicText& addSection(const sf::String& content = {}, unsigned int fontSize = 18,
                                const glm::vec4& color = {0.f, 0.f, 0.f, 1.f},
                                std::uint32_t style    = sf::Text::Regular);
+
+    /**
+     * @brief Adds this entity to the given overlay
+     *
+     * @param overlay The overlay to add to
+     * @param descriptorUpdateFreq Whether the entity is expected to be dynamic or static
+     * @param parent The parent entity or InvalidEntity to make a root
+     */
+    void addTextToOverlay(Overlay* overlay, UpdateSpeed descriptorUpdateFreq,
+                          ecs::Entity parent = ecs::InvalidEntity);
 
     void commit();
 

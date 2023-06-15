@@ -9,6 +9,7 @@
 #include <BLIB/Render/Components/Mesh.hpp>
 #include <BLIB/Render/Components/Texture.hpp>
 #include <BLIB/Render/Drawables/Sprite.hpp>
+#include <BLIB/Render/Drawables/Text.hpp>
 #include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
 #include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
 #include <BLIB/Transforms.hpp>
@@ -39,7 +40,6 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
-        time     = 0.f;
         renderer = &engine.renderer();
 
         // load resources
@@ -110,10 +110,17 @@ public:
         // create overlay and add sprite for observer 2
         bl::render::Overlay* overlay = p2.getOrCreateSceneOverlay(engine, 10, 10);
         messageBox.create(engine, messageBoxTxtr);
-        messageBox.getTransform().setPosition({0.5f, 0.9f});
+        messageBox.getTransform().setPosition({0.5f, 0.85f});
         messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
-        messageBox.scaleWidthToOverlay(0.3f);
-        messageBox.addToOverlay(overlay, bl::render::UpdateSpeed::Dynamic);
+        messageBox.scaleHeightToOverlay(0.3f);
+        messageBox.addToOverlay(overlay, bl::render::UpdateSpeed::Static);
+
+        // add text to overlay
+        text.create(engine, font, "Text can now be rendered");
+        text.getTransform().setPosition({0.05f, 0.05f});
+        text.commit(); // TODO - how can we avoid this?
+        text.scaleWidthToOverlay(0.3f);
+        text.addTextToOverlay(overlay, bl::render::UpdateSpeed::Static);
 
         // subscribe to window events
         bl::event::Dispatcher::subscribe(this);
@@ -129,13 +136,6 @@ public:
     }
 
     virtual void update(bl::engine::Engine&, float dt) override {
-        time += dt;
-        if (time > 1.f) {
-            time = 0.f;
-            BL_LOG_INFO << "(" << spritePosition->getPosition().x << ", "
-                        << spritePosition->getPosition().y << ")";
-        }
-
         spritePosition->rotate(180.f * dt);
     }
 
@@ -153,7 +153,7 @@ private:
     bl::render::res::TextureRef texture;
     bl::render::res::TextureRef messageBoxTxtr;
     sf::VulkanFont font;
-    float time;
+    bl::render::draw::Text text;
 
     virtual void observe(const sf::Event& event) override {
         if (event.type == sf::Event::KeyPressed) {

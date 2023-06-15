@@ -16,6 +16,7 @@
 #include <BLIB/Render.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
+#include <BLIB/Util/NonCopyable.hpp>
 
 namespace bl
 {
@@ -28,7 +29,7 @@ namespace engine
  * @ingroup Engine
  *
  */
-class Engine {
+class Engine : private util::NonCopyable {
 public:
     /**
      * @brief Creates the game engine from the given settings

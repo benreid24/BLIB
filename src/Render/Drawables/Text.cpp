@@ -1,6 +1,7 @@
 #include <BLIB/Render/Drawables/Text.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Render/Scenes/StagePipelines.hpp>
 
 namespace bl
 {
@@ -8,6 +9,15 @@ namespace render
 {
 namespace draw
 {
+namespace
+{
+const scene::StagePipelines Pipelines =
+    scene::StagePipelineBuilder()
+        .withPipeline(Config::SceneObjectStage::OpaquePass,
+                      Config::PipelineIds::UnlitSkinned2DGeometry)
+        .build();
+}
+
 Text::Text()
 : font(nullptr) {
     sections.reserve(4);
@@ -60,49 +70,62 @@ bool Text::refreshRequired() const {
 }
 
 void Text::commit() {
-    if (!refreshRequired()) return;
+    if (refreshRequired()) {
+        needsCommit = false;
 
-    needsCommit = false;
+        // count required vertex amount
+        std::uint32_t vertexCount = 0;
+        for (auto& section : sections) {
+            vertexCount += section.refreshVertices(*font, nullptr, {});
+        }
 
-    // count required vertex amount
-    std::uint32_t vertexCount = 0;
-    for (auto& section : sections) { vertexCount += section.refreshVertices(*font, nullptr, {}); }
+        // create larger buffer if required
+        // TODO - sync destruction?
+        if (component().vertices.size() < vertexCount) {
+            component().create(engine().renderer().vulkanState(), vertexCount * 2, vertexCount * 2);
+        }
 
-    // create larger buffer if required
-    // TODO - sync destruction?
-    if (component().vertices.size() < vertexCount) {
-        component().create(engine().renderer().vulkanState(), vertexCount * 2, vertexCount * 2);
+        // assign indices
+        for (unsigned int i = 0; i < component().indices.size(); ++i) {
+            component().indices[i] = i;
+        }
+
+        // assign vertices
+        std::uint32_t vi = 0;
+        glm::vec2 cornerPos(0.f, 0.f);
+        txt::BasicText* prevSection = nullptr;
+        for (auto& section : sections) {
+            const std::uint32_t prevChar =
+                prevSection ? (prevSection->content.isEmpty() ?
+                                   0 :
+                                   prevSection->content[prevSection->content.getSize() - 1]) :
+                              0;
+            const unsigned int fontSize =
+                std::max(section.fontSize, prevSection ? prevSection->fontSize : 0);
+            const bool isBold = (prevSection && (prevSection->style & sf::Text ::Bold) != 0) ||
+                                (section.style & sf::Text::Bold) != 0;
+            cornerPos.x += font->getKerning(
+                prevChar, section.content.isEmpty() ? 0 : section.content[0], fontSize, isBold);
+
+            vi += section.refreshVertices(*font, &component().vertices[vi], cornerPos);
+            cornerPos.x += section.getBounds().width;
+        }
+
+        // upload vertices
+        component().gpuBuffer.sendToGPU();
+
+        // TODO - get full bounds
+        const auto bounds = getSection().getBounds();
+        Transform2D::setLocalSize({bounds.width, bounds.height});
     }
 
-    // assign indices
-    for (unsigned int i = 0; i < component().indices.size(); ++i) { component().indices[i] = i; }
-
-    // assign vertices
-    std::uint32_t vi = 0;
-    glm::vec2 cornerPos(0.f, 0.f);
-    txt::BasicText* prevSection = nullptr;
-    for (auto& section : sections) {
-        const std::uint32_t prevChar =
-            prevSection ? (prevSection->content.isEmpty() ?
-                               0 :
-                               prevSection->content[prevSection->content.getSize() - 1]) :
-                          0;
-        const unsigned int fontSize =
-            std::max(section.fontSize, prevSection ? prevSection->fontSize : 0);
-        const bool isBold = (prevSection && (prevSection->style & sf::Text ::Bold) != 0) ||
-                            (section.style & sf::Text::Bold) != 0;
-        cornerPos.x += font->getKerning(
-            prevChar, section.content.isEmpty() ? 0 : section.content[0], fontSize, isBold);
-
-        vi += section.refreshVertices(*font, &component().vertices[vi], cornerPos);
-        cornerPos.x += section.getBounds().width;
-    }
-
-    // upload vertices
-    component().gpuBuffer.sendToGPU();
-
-    // upload new font atlas if required
+    // always upload new font atlas if required
     font->syncTexture(engine().renderer());
+}
+
+void Text::addTextToOverlay(Overlay* overlay, UpdateSpeed descriptorUpdateFreq,
+                            ecs::Entity parent) {
+    Drawable::addToOverlayWithCustomPipelines(overlay, descriptorUpdateFreq, Pipelines, parent);
 }
 
 } // namespace draw

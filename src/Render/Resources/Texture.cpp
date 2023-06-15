@@ -116,7 +116,8 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
     // copy image contents if required
     if (altImg || transferImg) {
         const sf::Image& src = altImg ? *altImg : *transferImg;
-        bool fullImage       = false;
+
+        bool fullImage = false;
         if (source.width == 0 || source.height == 0) {
             fullImage     = true;
             source.left   = 0;
@@ -174,8 +175,8 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         engine.registerImageBarrier(barrier);
 
         // cleanup
-        if (!altImg) { transferImg.release(); }
-        else { altImg = nullptr; }
+        transferImg.release();
+        altImg        = nullptr;
         destPos.x     = 0;
         destPos.y     = 0;
         source.left   = 0;
