@@ -13,8 +13,7 @@ namespace
 {
 const scene::StagePipelines Pipelines =
     scene::StagePipelineBuilder()
-        .withPipeline(Config::SceneObjectStage::OpaquePass,
-                      Config::PipelineIds::UnlitSkinned2DGeometry)
+        .withPipeline(Config::SceneObjectStage::OpaquePass, Config::PipelineIds::Text)
         .build();
 }
 
@@ -117,6 +116,11 @@ void Text::commit() {
         // TODO - get full bounds
         const auto bounds = getSection().getBounds();
         Transform2D::setLocalSize({bounds.width, bounds.height});
+
+        // update draw parameters
+        component().drawParams            = component().gpuBuffer.getDrawParameters();
+        component().drawParams.indexCount = vi;
+        if (component().sceneRef.object) { component().syncToScene(); }
     }
 
     // always upload new font atlas if required

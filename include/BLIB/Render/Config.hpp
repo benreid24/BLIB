@@ -42,6 +42,7 @@ struct Config {
         static constexpr char Unlit2DFragment[]        = {10};
         static constexpr char UnlitSkinned2DVertex[]   = {11};
         static constexpr char UnlitSkinned2DFragment[] = {12};
+        static constexpr char TextFragment[]           = {13};
 
         static constexpr char DefaultPostFXFragment[] = {31};
 
@@ -61,6 +62,7 @@ struct Config {
         static constexpr std::uint32_t Unlit2DGeometry        = 6;
         static constexpr std::uint32_t LitSkinned2DGeometry   = 7;
         static constexpr std::uint32_t UnlitSkinned2DGeometry = 8;
+        static constexpr std::uint32_t Text                   = 9;
 
         static constexpr std::uint32_t PostFXBase = 100;
     };

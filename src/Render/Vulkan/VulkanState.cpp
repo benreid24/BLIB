@@ -656,6 +656,8 @@ VkShaderModule VulkanState::createShaderModule(const std::string& path) {
             return createShaderModule(BUILTIN_SHADER("skinned2d.vert.spv"));
         case Config::ShaderIds::UnlitSkinned2DFragment[0]:
             return createShaderModule(BUILTIN_SHADER("skinned2d.frag.spv"));
+        case Config::ShaderIds::TextFragment[0]:
+            return createShaderModule(BUILTIN_SHADER("text.frag.spv"));
 
         case Config::ShaderIds::DefaultPostFXFragment[0]:
             return createShaderModule(BUILTIN_SHADER("imageOverlay.frag.spv"));

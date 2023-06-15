@@ -121,6 +121,19 @@ void PipelineCache::createBuiltins() {
                       .addDescriptorSet<ds::Object2DFactory>()
                       .build());
 
+    createPipline(
+        Config::PipelineIds::Text,
+        vk::PipelineParameters({Config::RenderPassIds::OffScreenSceneRender,
+                                Config::RenderPassIds::SwapchainPrimaryRender})
+            .withShaders(Config::ShaderIds::UnlitSkinned2DVertex, Config::ShaderIds::TextFragment)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withRasterizer(rasterizer)
+            .withDepthStencilState(&depthStencil)
+            .addDescriptorSet<ds::TexturePoolFactory>()
+            .addDescriptorSet<ds::Scene2DLitFactory>()
+            .addDescriptorSet<ds::Object2DFactory>()
+            .build());
+
     // TODO - other 2d pipelines
 
     createPipline(

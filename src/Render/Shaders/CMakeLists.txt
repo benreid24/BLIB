@@ -18,4 +18,5 @@ compile_shaders(
     2dlit.frag
     skinned2dlit.vert
     skinned2dlit.frag
+    text.frag
 )

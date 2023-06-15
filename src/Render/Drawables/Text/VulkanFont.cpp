@@ -697,7 +697,7 @@ IntRect VulkanFont::findGlyphRect(unsigned int width, unsigned int height) const
 
             // Make the texture 2 times bigger
             Image newTexture;
-            newTexture.create(textureWidth * 2, textureHeight * 2);
+            newTexture.create(textureWidth * 2, textureHeight * 2, sf::Color(255, 255, 255, 0));
             newTexture.copy(texture, 0, 0);
             texture = std::move(newTexture);
         }

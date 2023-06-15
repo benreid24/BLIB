@@ -31,11 +31,11 @@ void TexturePool::init() {
     // create descriptor pool
     VkDescriptorPoolSize poolSize{};
     poolSize.type            = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    poolSize.descriptorCount = MaxTextureCount; // double?
+    poolSize.descriptorCount = MaxTextureCount;
 
     VkDescriptorPoolCreateInfo poolCreate{};
     poolCreate.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-    poolCreate.maxSets       = 1; // double buffer?
+    poolCreate.maxSets       = 1;
     poolCreate.poolSizeCount = 1;
     poolCreate.pPoolSizes    = &poolSize;
     if (VK_SUCCESS !=
