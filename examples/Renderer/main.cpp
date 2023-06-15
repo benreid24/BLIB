@@ -9,6 +9,7 @@
 #include <BLIB/Render/Components/Mesh.hpp>
 #include <BLIB/Render/Components/Texture.hpp>
 #include <BLIB/Render/Drawables/Sprite.hpp>
+#include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
 #include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
 #include <BLIB/Transforms.hpp>
 
@@ -41,11 +42,12 @@ public:
         time     = 0.f;
         renderer = &engine.renderer();
 
-        // load textures
+        // load resources
         texture =
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/texture.png");
         messageBoxTxtr =
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/messageBox.png");
+        font.loadFromFile("Resources/Fonts/font.ttf");
 
         // get first observer and set background color
         bl::render::Observer& p1 = engine.renderer().getObserver(0);
@@ -150,6 +152,7 @@ private:
     bl::ecs::Entity meshEntity;
     bl::render::res::TextureRef texture;
     bl::render::res::TextureRef messageBoxTxtr;
+    sf::VulkanFont font;
     float time;
 
     virtual void observe(const sf::Event& event) override {

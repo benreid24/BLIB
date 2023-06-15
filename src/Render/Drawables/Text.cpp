@@ -25,7 +25,7 @@ void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::Str
 
     Drawable::create(engine);
     Transform2D::create(engine.ecs(), entity());
-    // Textured::create(engine.ecs(), entity(), {}); // TODO - texture
+    Textured::create(engine.ecs(), entity(), font->syncTexture(engine.renderer()));
 
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
     component().create(engine.renderer().vulkanState(), vc, vc);
@@ -102,10 +102,7 @@ void Text::commit() {
     component().gpuBuffer.sendToGPU();
 
     // upload new font atlas if required
-    if (font->uploadRequired()) {
-        // TODO - manage texture in VulkanFont to reuse
-        // TODO - upload to texture from here though
-    }
+    font->syncTexture(engine().renderer());
 }
 
 } // namespace draw

@@ -27,6 +27,7 @@
 // Headers
 ////////////////////////////////////////////////////////////
 #include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
+#include <BLIB/Render/Renderer.hpp>
 #ifdef SFML_SYSTEM_ANDROID
 #include <SFML/System/Android/ResourceStream.hpp>
 #endif
@@ -70,9 +71,9 @@ inline T reinterpret(const U& input) {
 }
 
 // Combine outline thickness, boldness and font glyph index into a single 64-bit key
-sf::Uint64 combine(float outlineThickness, bool bold, sf::Uint32 index) {
+sf::Uint64 combine(sf::Uint8 size, float outlineThickness, bool bold, sf::Uint32 index) {
     return (static_cast<sf::Uint64>(reinterpret<sf::Uint32>(outlineThickness)) << 32) |
-           (static_cast<sf::Uint64>(bold) << 31) | index;
+           (static_cast<sf::Uint64>(bold) << 31) | (static_cast<sf::Uint64>(size) << 32) | index;
 }
 } // namespace
 
@@ -87,7 +88,15 @@ VulkanFont::VulkanFont()
 , m_stroker(NULL)
 , m_refCount(NULL)
 , m_isSmooth(true)
-, m_info() {
+, m_info()
+, nextRow(3) {
+    texture.create(128, 128, Color(255, 255, 255, 0));
+
+    // Reserve a 2x2 white square for texturing underlines
+    for (unsigned int x = 0; x < 2; ++x) {
+        for (unsigned int y = 0; y < 2; ++y) { texture.setPixel(x, y, Color(255, 255, 255, 255)); }
+    }
+
 #ifdef SFML_SYSTEM_ANDROID
     m_stream = NULL;
 #endif
@@ -103,7 +112,10 @@ VulkanFont::VulkanFont(const VulkanFont& copy)
 , m_refCount(copy.m_refCount)
 , m_isSmooth(copy.m_isSmooth)
 , m_info(copy.m_info)
-, m_pages(copy.m_pages)
+, glyphs(copy.glyphs)
+, texture(copy.texture)
+, nextRow(copy.nextRow)
+, rows(copy.rows)
 , m_pixelBuffer(copy.m_pixelBuffer) {
 #ifdef SFML_SYSTEM_ANDROID
     m_stream = NULL;
@@ -329,13 +341,12 @@ const VulkanFont::Info& VulkanFont::getInfo() const { return m_info; }
 ////////////////////////////////////////////////////////////
 const Glyph& VulkanFont::getGlyph(Uint32 codePoint, unsigned int characterSize, bool bold,
                                   float outlineThickness) const {
-    // Get the page corresponding to the character size
-    GlyphTable& glyphs = loadPage(characterSize).glyphs;
-
     // Build the key by combining the glyph index (based on code point), bold flag, and outline
     // thickness
-    Uint64 key =
-        combine(outlineThickness, bold, FT_Get_Char_Index(static_cast<FT_Face>(m_face), codePoint));
+    Uint64 key = combine(characterSize,
+                         outlineThickness,
+                         bold,
+                         FT_Get_Char_Index(static_cast<FT_Face>(m_face), codePoint));
 
     // Search the glyph into the cache
     GlyphTable::const_iterator it = glyphs.find(key);
@@ -435,14 +446,13 @@ float VulkanFont::getUnderlineThickness(unsigned int characterSize) const {
 }
 
 ////////////////////////////////////////////////////////////
-const Image& VulkanFont::getTexture(unsigned int characterSize) const {
-    return loadPage(characterSize).texture;
-}
+const Image& VulkanFont::getGlyphAtlas() const { return texture; }
 
 ////////////////////////////////////////////////////////////
 VulkanFont& VulkanFont::operator=(const VulkanFont& right) {
     VulkanFont temp(right);
 
+    needsUpload = true;
     std::swap(m_library, temp.m_library);
     std::swap(m_face, temp.m_face);
     std::swap(m_streamRec, temp.m_streamRec);
@@ -450,7 +460,9 @@ VulkanFont& VulkanFont::operator=(const VulkanFont& right) {
     std::swap(m_refCount, temp.m_refCount);
     std::swap(m_isSmooth, temp.m_isSmooth);
     std::swap(m_info, temp.m_info);
-    std::swap(m_pages, temp.m_pages);
+    std::swap(glyphs, temp.glyphs);
+    std::swap(texture, temp.texture);
+    std::swap(rows, temp.rows);
     std::swap(m_pixelBuffer, temp.m_pixelBuffer);
 
 #ifdef SFML_SYSTEM_ANDROID
@@ -492,13 +504,12 @@ void VulkanFont::cleanup() {
     m_stroker   = NULL;
     m_streamRec = NULL;
     m_refCount  = NULL;
-    m_pages.clear();
+    glyphs.clear();
+    rows.clear();
+    nextRow     = 3;
+    needsUpload = true;
+    vulkanTexture.release();
     std::vector<Uint8>().swap(m_pixelBuffer);
-}
-
-////////////////////////////////////////////////////////////
-VulkanFont::Page& VulkanFont::loadPage(unsigned int characterSize) const {
-    return m_pages.try_emplace(characterSize).first->second;
 }
 
 ////////////////////////////////////////////////////////////
@@ -578,11 +589,8 @@ Glyph VulkanFont::loadGlyph(Uint32 codePoint, unsigned int characterSize, bool b
         width += 2 * padding;
         height += 2 * padding;
 
-        // Get the glyphs page corresponding to the character size
-        Page& page = loadPage(characterSize);
-
         // Find a good position for the new glyph into the texture
-        glyph.textureRect = findGlyphRect(page, width, height);
+        glyph.textureRect = findGlyphRect(width, height);
 
         // Make sure the texture data is positioned in the center
         // of the allocated texture rectangle
@@ -643,8 +651,8 @@ Glyph VulkanFont::loadGlyph(Uint32 codePoint, unsigned int characterSize, bool b
         unsigned int h = static_cast<unsigned int>(glyph.textureRect.height) + 2 * padding;
         for (unsigned int xi = 0; xi < w; ++xi) {
             for (unsigned int yi = 0; yi < h; ++yi) {
-                std::size_t index = x + y * width;
-                page.texture.setPixel(
+                std::size_t index = xi + yi * width;
+                texture.setPixel(
                     x + xi, y + yi, sf::Color{255, 255, 255, m_pixelBuffer[index * 4 + 3]});
             }
         }
@@ -658,18 +666,18 @@ Glyph VulkanFont::loadGlyph(Uint32 codePoint, unsigned int characterSize, bool b
 }
 
 ////////////////////////////////////////////////////////////
-IntRect VulkanFont::findGlyphRect(Page& page, unsigned int width, unsigned int height) const {
+IntRect VulkanFont::findGlyphRect(unsigned int width, unsigned int height) const {
     // Find the line that fits well the glyph
     Row* row        = NULL;
     float bestRatio = 0;
-    for (std::vector<Row>::iterator it = page.rows.begin(); it != page.rows.end() && !row; ++it) {
+    for (std::vector<Row>::iterator it = rows.begin(); it != rows.end() && !row; ++it) {
         float ratio = static_cast<float>(height) / static_cast<float>(it->height);
 
         // Ignore rows that are either too small or too high
         if ((ratio < 0.7f) || (ratio > 1.f)) continue;
 
         // Check if there's enough horizontal space left in the row
-        if (width > page.texture.getSize().x - it->width) continue;
+        if (width > texture.getSize().x - it->width) continue;
 
         // Make sure that this new row is the best found so far
         if (ratio < bestRatio) continue;
@@ -682,23 +690,22 @@ IntRect VulkanFont::findGlyphRect(Page& page, unsigned int width, unsigned int h
     // If we didn't find a matching row, create a new one (10% taller than the glyph)
     if (!row) {
         unsigned int rowHeight = height + height / 10;
-        while ((page.nextRow + rowHeight >= page.texture.getSize().y) ||
-               (width >= page.texture.getSize().x)) {
+        while ((nextRow + rowHeight >= texture.getSize().y) || (width >= texture.getSize().x)) {
             // Not enough space: resize the texture if possible
-            unsigned int textureWidth  = page.texture.getSize().x;
-            unsigned int textureHeight = page.texture.getSize().y;
+            unsigned int textureWidth  = texture.getSize().x;
+            unsigned int textureHeight = texture.getSize().y;
 
             // Make the texture 2 times bigger
             Image newTexture;
             newTexture.create(textureWidth * 2, textureHeight * 2);
-            newTexture.copy(page.texture, 0, 0);
-            page.texture = std::move(newTexture);
+            newTexture.copy(texture, 0, 0);
+            texture = std::move(newTexture);
         }
 
         // We can now create the new row
-        page.rows.push_back(Row(page.nextRow, rowHeight));
-        page.nextRow += rowHeight;
-        row = &page.rows.back();
+        rows.emplace_back(nextRow, rowHeight);
+        nextRow += rowHeight;
+        row = &rows.back();
     }
 
     // Find the glyph's rectangle on the selected row
@@ -742,18 +749,14 @@ bool VulkanFont::setCurrentSize(unsigned int characterSize) const {
     return true;
 }
 
-////////////////////////////////////////////////////////////
-VulkanFont::Page::Page()
-: nextRow(3) {
-    // Make sure that the texture is initialized by default
-    texture.create(128, 128, Color(255, 255, 255, 0));
-
-    // Reserve a 2x2 white square for texturing underlines
-    for (unsigned int x = 0; x < 2; ++x) {
-        for (unsigned int y = 0; y < 2; ++y) { texture.setPixel(x, y, Color(255, 255, 255, 255)); }
+bl::render::res::TextureRef VulkanFont::syncTexture(bl::render::Renderer& renderer) const {
+    if (!vulkanTexture) { vulkanTexture = renderer.texturePool().createTexture(texture); }
+    else if (needsUpload) {
+        needsUpload = false;
+        vulkanTexture->ensureSize({texture.getSize().x, texture.getSize().y});
+        vulkanTexture->update(texture);
     }
+    return vulkanTexture;
 }
-
-void VulkanFont::notifyUploaded() { needsUpload = false; }
 
 } // namespace sf
