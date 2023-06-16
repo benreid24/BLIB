@@ -114,8 +114,8 @@ void Text::commit() {
         component().gpuBuffer.sendToGPU();
 
         // TODO - get full bounds
-        const auto bounds = getSection().getBounds();
-        Transform2D::setLocalSize({bounds.width, bounds.height});
+        const auto& bounds = getSection().getBounds();
+        Transform2D::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
 
         // update draw parameters
         component().drawParams            = component().gpuBuffer.getDrawParameters();

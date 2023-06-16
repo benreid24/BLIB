@@ -116,10 +116,10 @@ public:
         messageBox.addToOverlay(overlay, bl::render::UpdateSpeed::Static);
 
         // add text to overlay
-        text.create(engine, font, "Text can now be rendered");
+        text.create(engine, font, "Text can now be rendered x X", 32);
         text.getTransform().setPosition({0.05f, 0.05f});
         text.commit(); // TODO - how can we avoid this?
-        text.scaleWidthToOverlay(0.3f);
+        text.getTransform().setScale({0.001f, 0.002f});
         text.addTextToOverlay(overlay, bl::render::UpdateSpeed::Static);
 
         // subscribe to window events

@@ -35,7 +35,8 @@ void Texture::create(const glm::u32vec2& s) {
                              s.y,
                              VK_FORMAT_R8G8B8A8_UNORM,
                              VK_IMAGE_TILING_OPTIMAL,
-                             VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+                             VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT |
+                                 VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
                              VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                              &image,
                              &alloc,
@@ -74,6 +75,12 @@ void Texture::ensureSize(const glm::u32vec2& s) {
     // cache data needed to delete original image
     queueCleanup();
 
+    // transition original image to transfer source layout
+    vulkanState->transitionImageLayout(image,
+                                       VK_FORMAT_R8G8B8A8_UNORM,
+                                       VK_IMAGE_LAYOUT_UNDEFINED,
+                                       VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+
     // create new image
     const glm::u32vec2 oldSize = sizeRaw;
     create(s);
@@ -84,6 +91,7 @@ void Texture::ensureSize(const glm::u32vec2& s) {
     VkImageCopy copyInfo{};
     copyInfo.extent.width                  = oldSize.x;
     copyInfo.extent.height                 = oldSize.y;
+    copyInfo.extent.depth                  = 1;
     copyInfo.srcSubresource.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
     copyInfo.srcSubresource.mipLevel       = 0;
     copyInfo.srcSubresource.baseArrayLayer = 0;
@@ -92,7 +100,7 @@ void Texture::ensureSize(const glm::u32vec2& s) {
 
     vkCmdCopyImage(cb,
                    oldImage,
-                   VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
+                   VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
                    image,
                    VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
                    1,

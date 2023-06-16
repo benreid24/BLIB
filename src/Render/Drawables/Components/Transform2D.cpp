@@ -14,6 +14,7 @@ void Transform2D::scaleWidthToOverlay(float w, float ow) {
     getTransform().setScale({xs, xs * ar});
 }
 
+// TODO - replace with overlay scaler. these dont actually work
 void Transform2D::scaleHeightToOverlay(float h, float oh) {
     const float ar = localSize.y / localSize.x;
     const float xy = h / localSize.y * oh;
