@@ -1,6 +1,7 @@
 #include <BLIB/Render/Drawables/Text.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Scenes/StagePipelines.hpp>
 
 namespace bl
@@ -33,8 +34,8 @@ void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::Str
     needsCommit = true;
 
     Drawable::create(engine);
-    Transform2D::create(engine.ecs(), entity());
     Textured::create(engine.ecs(), entity(), font->syncTexture(engine.renderer()));
+    OverlayScalable::create(engine, entity());
 
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
     component().create(engine.renderer().vulkanState(), vc, vc);
@@ -67,6 +68,13 @@ bool Text::refreshRequired() const {
 
     return false;
 }
+
+void Text::onAdd(const com::SceneObjectRef& si) {
+    commit(); // TODO - need to sync on change too
+    OverlayScalable::notifySceneAdd(si);
+}
+
+void Text::onRemove() { OverlayScalable::notifySceneRemove(); }
 
 void Text::commit() {
     if (refreshRequired()) {
@@ -115,7 +123,7 @@ void Text::commit() {
 
         // TODO - get full bounds
         const auto& bounds = getSection().getBounds();
-        Transform2D::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
+        OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
 
         // update draw parameters
         component().drawParams            = component().gpuBuffer.getDrawParameters();

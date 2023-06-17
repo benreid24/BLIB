@@ -2,6 +2,7 @@
 #define BLIB_RENDER_OVERLAYS_OVERLAYOBJECT_HPP
 
 #include <BLIB/ECS.hpp>
+#include <BLIB/Render/Components/OverlayScaler.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
@@ -40,11 +41,30 @@ struct OverlayObject : public scene::SceneObject {
      */
     void removeChild(std::uint32_t childId);
 
+    /**
+     * @brief Recomputes the target-space viewport
+     *
+     * @param overlay The top-level viewport of the entire overlay
+     * @param parent The parent viewport of this object
+     */
+    void refreshViewport(const VkViewport& overlay, const VkViewport& parent);
+
+    /**
+     * @brief Issues the commands to set the viewport and scissor
+     *
+     * @param commandBuffer The command buffer to issue commands into
+     */
+    void applyViewport(VkCommandBuffer commandBuffer);
+
     std::vector<std::uint32_t> children;
+    ecs::StableHandle<com::OverlayScaler> scaler;
     ecs::StableHandle<Viewport> viewport;
     vk::Pipeline* pipeline;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
     std::uint8_t descriptorCount;
+
+    VkViewport cachedViewport;
+    VkRect2D cachedScissor;
 };
 
 } // namespace ovy

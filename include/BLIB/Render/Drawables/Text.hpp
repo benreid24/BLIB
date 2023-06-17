@@ -2,9 +2,9 @@
 #define BLIB_RENDER_DRAWABLES_TEXT_HPP
 
 #include <BLIB/Render/Components/Mesh.hpp>
+#include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
 #include <BLIB/Render/Drawables/Components/Textured.hpp>
 #include <BLIB/Render/Drawables/Components/Transform2D.hpp>
-#include <BLIB/Render/Drawables/Components/Viewport.hpp>
 #include <BLIB/Render/Drawables/Drawable.hpp>
 #include <BLIB/Render/Drawables/Text/BasicText.hpp>
 #include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
@@ -25,8 +25,7 @@ namespace draw
 class Text
 : public Drawable<com::Mesh>
 , private base::Textured
-, public base::Transform2D
-, public base::Viewport {
+, public base::OverlayScalable {
 public:
     Text();
 
@@ -70,6 +69,9 @@ private:
     bool needsCommit;
 
     bool refreshRequired() const;
+
+    virtual void onAdd(const com::SceneObjectRef& sceneRef) override;
+    virtual void onRemove() override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

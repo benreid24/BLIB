@@ -3,4 +3,5 @@ target_sources(BLIB PUBLIC
 	OverlayCamera.hpp
 	OverlayObject.hpp
 	Viewport.hpp
+	ViewportChanged.hpp
 )

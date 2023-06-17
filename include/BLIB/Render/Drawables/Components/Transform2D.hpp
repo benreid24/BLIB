@@ -35,37 +35,6 @@ public:
      */
     const t2d::Transform2D& getTransform() const;
 
-    /**
-     * @brief Scales the transform to take up a percentage of the given overlay width. Maintains
-     *        aspect ratio
-     *
-     * @param ratio Percentage of overlay width to take up, in range [0, 1]
-     * @param overlayWidth Width of the overlay
-     */
-    void scaleWidthToOverlay(float ratio, float overlayWidth = 1.f);
-
-    /**
-     * @brief Scales the transform to take up a percentage of the given overlay height. Maintains
-     *        aspect ratio
-     *
-     * @param ratio Percentage of overlay height to take up, in range [0, 1]
-     * @param overlayHeight Height of the overlay
-     */
-    void scaleHeightToOverlay(float ratio, float overlayHeigt = 1.f);
-
-    /**
-     * @brief Scales to take up a percentage of overlay width and height. Does not maintain AR
-     *
-     * @param ratios Width and height percentages in ranges [0, 1]
-     * @param overlaySize Width and height of the overlay
-     */
-    void scaleToOverlay(const glm::vec2& ratios, const glm::vec2& overlaySize = {1.f, 1.f});
-
-    /**
-     * @brief Returns the pre-transform size of this entity
-     */
-    constexpr const glm::vec2& getLocalSize() const;
-
 protected:
     /**
      * @brief Creates the transform in the ECS
@@ -78,16 +47,8 @@ protected:
     template<typename... TArgs>
     void create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args);
 
-    /**
-     * @brief Sets the pre-transform size of this entity. Used for overlay scale helpers
-     *
-     * @param size The pre-transform size to use
-     */
-    void setLocalSize(const glm::vec2& size);
-
 private:
     ecs::StableHandle<t2d::Transform2D> handle;
-    glm::vec2 localSize;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -101,8 +62,6 @@ inline void Transform2D::create(ecs::Registry& registry, ecs::Entity entity, TAr
     registry.emplaceComponent<t2d::Transform2D>(entity, std::forward<TArgs>(args)...);
     handle.assign(registry, entity);
 }
-
-inline constexpr const glm::vec2& Transform2D::getLocalSize() const { return localSize; }
 
 } // namespace base
 } // namespace draw

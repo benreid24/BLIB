@@ -33,17 +33,20 @@ struct FrameStage {
         /// Synchronizes objects from the ECS into the scene-local object buffers
         RenderObjectSync = 5,
 
+        /// Separate stage for descriptors to be modified prior to syncing into scene buffers
+        RenderIntermediateRefresh = 6,
+
         /// Syncs dirty descriptor components (ie transforms) into scene-local descriptor sets
-        RenderDescriptorRefresh = 6,
+        RenderDescriptorRefresh = 7,
 
         /// Records command buffers and submits to the GPU
-        Render = 7,
+        Render = 8,
 
         /// Slot for more user-defined operations
-        FrameEnd = 8,
+        FrameEnd = 9,
 
         /// The number of engine stages
-        COUNT = 9
+        COUNT = 10
     };
 };
 

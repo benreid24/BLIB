@@ -1,6 +1,7 @@
 #include <BLIB/Render/Drawables/Sprite.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Render/Overlays/Overlay.hpp>
 
 namespace bl
 {
@@ -17,12 +18,15 @@ Sprite::~Sprite() { destroy(); }
 void Sprite::create(engine::Engine& engine, res::TextureRef texture, const sf::FloatRect& region) {
     Drawable::create(engine, engine.renderer(), texture, region);
     Textured::create(engine.ecs(), entity(), texture);
-    Transform2D::create(engine.ecs(), entity());
-    Transform2D::setLocalSize(component().getSize());
-    Viewport::create(engine.ecs(), entity());
+    OverlayScalable::create(engine, entity());
+    OverlayScalable::setLocalSize(component().getSize()); // TODO - need to sync maybe
 }
 
 void Sprite::destroy() { Drawable::destroy(); }
+
+void Sprite::onAdd(const com::SceneObjectRef& si) { OverlayScalable::notifySceneAdd(si); }
+
+void Sprite::onRemove() { OverlayScalable::notifySceneRemove(); }
 
 } // namespace draw
 } // namespace render

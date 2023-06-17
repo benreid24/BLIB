@@ -2,9 +2,9 @@
 #define BLIB_RENDER_DRAWABLES_SPRITE_HPP
 
 #include <BLIB/Render/Components/Sprite.hpp>
+#include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
 #include <BLIB/Render/Drawables/Components/Textured.hpp>
 #include <BLIB/Render/Drawables/Components/Transform2D.hpp>
-#include <BLIB/Render/Drawables/Components/Viewport.hpp>
 #include <BLIB/Render/Drawables/Drawable.hpp>
 
 namespace bl
@@ -25,9 +25,8 @@ namespace draw
  */
 class Sprite
 : public Drawable<com::Sprite>
-, public base::Transform2D
-, public base::Textured
-, public base::Viewport {
+, public base::OverlayScalable
+, public base::Textured {
 public:
     /**
      * @brief Creates an uninitialized sprite
@@ -61,6 +60,10 @@ public:
      * @brief Destroys the ECS entity of this sprite
      */
     void destroy();
+
+private:
+    virtual void onAdd(const com::SceneObjectRef& sceneRef) override;
+    virtual void onRemove() override;
 };
 
 } // namespace draw

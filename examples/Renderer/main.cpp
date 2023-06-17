@@ -112,14 +112,13 @@ public:
         messageBox.create(engine, messageBoxTxtr);
         messageBox.getTransform().setPosition({0.5f, 0.85f});
         messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
-        messageBox.scaleHeightToOverlay(0.3f);
+        messageBox.getOverlayScaler().scaleToHeightPercent(0.3f);
         messageBox.addToOverlay(overlay, bl::render::UpdateSpeed::Static);
 
         // add text to overlay
-        text.create(engine, font, "Text can now be rendered x X", 32);
+        text.create(engine, font, "Text can now be rendered x X", 64);
         text.getTransform().setPosition({0.05f, 0.05f});
-        text.commit(); // TODO - how can we avoid this?
-        text.getTransform().setScale({0.001f, 0.002f});
+        text.getOverlayScaler().scaleToHeightRatio(64.f, 0.1f);
         text.addTextToOverlay(overlay, bl::render::UpdateSpeed::Static);
 
         // subscribe to window events

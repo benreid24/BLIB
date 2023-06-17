@@ -134,6 +134,18 @@ protected:
      */
     void destroy();
 
+    /**
+     * @brief Called after the entity is added to a scene. Allows derived to sync data if required
+     *
+     * @param sceneRef The scene object information
+     */
+    virtual void onAdd(const com::SceneObjectRef& sceneRef);
+
+    /**
+     * @brief Called after the entity is removed from a scene
+     */
+    virtual void onRemove();
+
 private:
     engine::Engine* enginePtr;
     ecs::Entity ecsId;
@@ -161,6 +173,7 @@ void Drawable<TCom, TSys>::addToScene(Scene* scene, UpdateSpeed updateFreq) {
 #endif
 
     system().addToScene(ecsId, scene, updateFreq);
+    onAdd(component().sceneRef);
 }
 
 template<typename TCom, typename TSys>
@@ -173,6 +186,7 @@ void Drawable<TCom, TSys>::addToSceneWithCustomPipelines(Scene* scene, UpdateSpe
 #endif
 
     system().addToSceneWithCustomPipelines(ecsId, scene, updateFreq, pipelines);
+    onAdd(component().sceneRef);
 }
 
 template<typename TCom, typename TSys>
@@ -185,6 +199,7 @@ void Drawable<TCom, TSys>::addToOverlay(Overlay* overlay, UpdateSpeed descriptor
 #endif
 
     system().addToOverlay(ecsId, overlay, descriptorUpdateFreq, parent);
+    onAdd(component().sceneRef);
 }
 
 template<typename TCom, typename TSys>
@@ -200,6 +215,7 @@ void Drawable<TCom, TSys>::addToOverlayWithCustomPipelines(Overlay* overlay,
 
     system().addToOverlayWithCustomPipelines(
         ecsId, overlay, descriptorUpdateFreq, pipelines, parent);
+    onAdd(component().sceneRef);
 }
 
 template<typename TCom, typename TSys>
@@ -220,6 +236,7 @@ void Drawable<TCom, TSys>::removeFromScene() {
 #endif
 
     system().removeFromScene(ecsId);
+    onRemove();
 }
 
 template<typename TCom, typename TSys>
@@ -263,6 +280,12 @@ void Drawable<TCom, TSys>::destroy() {
     ecsId = ecs::InvalidEntity;
     handle.release();
 }
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::onAdd(const com::SceneObjectRef&) {}
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::onRemove() {}
 
 template<typename TCom, typename TSys>
 template<typename... TArgs>

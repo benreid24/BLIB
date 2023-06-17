@@ -26,6 +26,16 @@ void OverlayObject::removeChild(std::uint32_t cid) {
     }
 }
 
+void OverlayObject::refreshViewport(const VkViewport& global, const VkViewport& parent) {
+    cachedViewport = viewport.valid() ? viewport.get().createViewport(global, parent) : parent;
+    cachedScissor  = ovy::Viewport::viewportToScissor(cachedViewport);
+}
+
+void OverlayObject::applyViewport(VkCommandBuffer commandBuffer) {
+    vkCmdSetViewport(commandBuffer, 0, 1, &cachedViewport);
+    vkCmdSetScissor(commandBuffer, 0, 1, &cachedScissor);
+}
+
 } // namespace ovy
 } // namespace render
 } // namespace bl

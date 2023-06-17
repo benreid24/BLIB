@@ -5,6 +5,7 @@
 #include <BLIB/Render/Systems/BuiltinDescriptorComponentSystems.hpp>
 #include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
 #include <BLIB/Render/Systems/CameraUpdateSystem.hpp>
+#include <BLIB/Render/Systems/OverlayScaler.hpp>
 #include <BLIB/Render/Systems/RenderSystem.hpp>
 #include <cmath>
 
@@ -46,6 +47,8 @@ void Renderer::initialize() {
     engine.systems().registerSystem<sys::CameraUpdateSystem>(
         FrameStage::RenderObjectSync, StateMask, *this);
     engine.systems().registerSystem<sys::RenderSystem>(FrameStage::Render, StateMask, *this);
+    engine.systems().registerSystem<sys::OverlayScaler>(FrameStage::RenderIntermediateRefresh,
+                                                        StateMask);
 
     // descriptor systems
     engine.systems().registerSystem<sys::Transform2DDescriptorSystem>(

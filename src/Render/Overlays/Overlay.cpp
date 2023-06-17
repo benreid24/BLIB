@@ -12,37 +12,33 @@ Overlay::Overlay(Renderer& r, engine::Engine& e, std::uint32_t ms, std::uint32_t
 : Scene(r, ms, md)
 , engine(e)
 , objects(ms + md)
-, parentMap(ms + md, NoParent) {
+, parentMap(ms + md, NoParent)
+, cachedParentViewport{} {
     roots.reserve(std::max((ms + md) / 4, 4u));
     renderStack.reserve(roots.capacity() * 2);
-    viewportStack.reserve(renderStack.capacity());
+    event::Dispatcher::subscribe(this);
 }
 
 void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
-    viewportStack.clear();
-    viewportStack.emplace_back(ctx.parentViewport());
+
+    if (static_cast<std::uint32_t>(ctx.parentViewport().width) != cachedTargetSize.x ||
+        static_cast<std::uint32_t>(ctx.parentViewport().height) != cachedTargetSize.y) {
+        cachedParentViewport = ctx.parentViewport();
+        cachedTargetSize.x   = static_cast<std::uint32_t>(ctx.parentViewport().width);
+        cachedTargetSize.y   = static_cast<std::uint32_t>(ctx.parentViewport().height);
+        refreshAll();
+    }
 
     VkPipeline currentPipeline = nullptr;
     while (!renderStack.empty()) {
         const std::uint32_t oid = renderStack.back();
         renderStack.pop_back();
 
-        if (oid == PopViewport) {
-            viewportStack.pop_back();
-            viewportStack.back().apply(ctx.getCommandBuffer());
-            continue;
-        }
-
         ovy::OverlayObject& obj = objects[oid];
         if (obj.hidden) { continue; }
 
-        if (obj.viewport.valid()) {
-            viewportStack.emplace_back(obj.viewport.get().createViewport(
-                ctx.parentViewport(), viewportStack.back().viewport));
-            viewportStack.back().apply(ctx.getCommandBuffer());
-            renderStack.emplace_back(PopViewport);
-        }
+        obj.applyViewport(ctx.getCommandBuffer());
 
         const VkPipeline np = obj.pipeline->rawPipeline(ctx.currentRenderPass());
         if (np != currentPipeline) {
@@ -77,6 +73,8 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, std::uint32_t sceneId,
         obj.descriptors[i]->allocateObject(sceneId, entity, updateFreq);
     }
     obj.viewport.assign(engine.ecs(), entity);
+    obj.scaler.assign(engine.ecs(), entity);
+    entityToSceneId.try_emplace(entity, sceneId);
 
     return &obj;
 }
@@ -89,7 +87,9 @@ void Overlay::doRemove(ecs::Entity entity, scene::SceneObject* object,
     for (unsigned int i = 0; i < obj->descriptorCount; ++i) {
         obj->descriptors[i]->releaseObject(id, entity);
     }
+
     obj->viewport.release();
+    obj->scaler.release();
 
     for (std::uint32_t child : obj->children) { removeObject(&objects[child]); }
     obj->children.clear();
@@ -104,21 +104,48 @@ void Overlay::doRemove(ecs::Entity entity, scene::SceneObject* object,
         }
     }
     else { objects[parent].removeChild(id); }
+    entityToSceneId.erase(entity);
 }
 
 void Overlay::setParent(std::uint32_t child, std::uint32_t parent) {
     parentMap[child] = parent;
-    if (parent != NoParent) { objects[parent].registerChild(child); }
-    else { roots.emplace_back(child); }
+    if (parent != NoParent) {
+        objects[parent].registerChild(child);
+        objects[child].refreshViewport(cachedParentViewport, objects[parent].cachedViewport);
+    }
+    else {
+        roots.emplace_back(child);
+        objects[child].refreshViewport(cachedParentViewport, cachedParentViewport);
+    }
 }
 
-Overlay::ViewportPair::ViewportPair(const VkViewport& vp)
-: viewport(vp)
-, scissor(ovy::Viewport::viewportToScissor(vp)) {}
+void Overlay::refreshAll() {
+    for (std::uint32_t o : roots) { refreshObjectAndChildren(o); }
+}
 
-void Overlay::ViewportPair::apply(VkCommandBuffer commandBuffer) {
-    vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
-    vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
+void Overlay::refreshObjectAndChildren(std::uint32_t id) {
+    const std::uint32_t pid = parentMap[id];
+    ovy::OverlayObject& obj = objects[id];
+    const VkViewport& vp    = pid != NoParent ? obj.cachedViewport : cachedParentViewport;
+    obj.refreshViewport(cachedParentViewport, vp);
+    if (obj.scaler.valid()) {
+        obj.scaler.get().setTargetSize({obj.cachedViewport.width, obj.cachedViewport.height});
+    }
+    for (std::uint32_t child : obj.children) { refreshObjectAndChildren(child); }
+}
+
+void Overlay::observe(const ecs::event::ComponentAdded<ovy::Viewport>& event) {
+    const auto it = entityToSceneId.find(event.entity);
+    if (it != entityToSceneId.end()) { refreshObjectAndChildren(it->second); }
+}
+
+void Overlay::observe(const ecs::event::ComponentRemoved<ovy::Viewport>& event) {
+    const auto it = entityToSceneId.find(event.entity);
+    if (it != entityToSceneId.end()) { refreshObjectAndChildren(it->second); }
+}
+
+void Overlay::observe(const ovy::ViewportChanged& event) {
+    if (event.overlay == this) { refreshObjectAndChildren(event.sceneId); }
 }
 
 } // namespace render

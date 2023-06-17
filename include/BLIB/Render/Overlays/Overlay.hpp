@@ -2,11 +2,14 @@
 #define BLIB_RENDER_OVERLAYS_OVERLAY_HPP
 
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
+#include <BLIB/Render/Overlays/ViewportChanged.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
+#include <BLIB/Render/Systems/OverlayScaler.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <limits>
 #include <unordered_map>
@@ -29,10 +32,12 @@ class Renderer;
  *
  * @ingroup Renderer
  */
-class Overlay : public Scene {
+class Overlay
+: public Scene
+, public bl::event::Listener<ecs::event::ComponentAdded<ovy::Viewport>,
+                             ecs::event::ComponentRemoved<ovy::Viewport>, ovy::ViewportChanged> {
 public:
-    static constexpr std::uint32_t NoParent    = std::numeric_limits<std::uint32_t>::max();
-    static constexpr std::uint32_t PopViewport = NoParent;
+    static constexpr std::uint32_t NoParent = std::numeric_limits<std::uint32_t>::max();
 
     /**
      * @brief Creates a new overlay scene
@@ -92,21 +97,22 @@ protected:
     void setParent(std::uint32_t child, std::uint32_t parent = NoParent);
 
 private:
-    struct ViewportPair {
-        ViewportPair(const VkViewport& viewport);
-        void apply(VkCommandBuffer commandBuffer);
-
-        VkViewport viewport;
-        VkRect2D scissor;
-    };
-
     engine::Engine& engine;
     std::vector<ovy::OverlayObject> objects;
     std::vector<std::uint32_t> roots;
     std::vector<std::uint32_t> parentMap;
+    std::unordered_map<ecs::Entity, std::uint32_t> entityToSceneId;
 
     std::vector<std::uint32_t> renderStack;
-    std::vector<ViewportPair> viewportStack;
+    VkViewport cachedParentViewport;
+    glm::u32vec2 cachedTargetSize;
+
+    void refreshObjectAndChildren(std::uint32_t id);
+    void refreshAll();
+
+    virtual void observe(const ecs::event::ComponentAdded<ovy::Viewport>& event) override;
+    virtual void observe(const ecs::event::ComponentRemoved<ovy::Viewport>& event) override;
+    virtual void observe(const ovy::ViewportChanged& event) override;
 
     template<typename T>
     friend class sys::GenericDrawableSystem;
