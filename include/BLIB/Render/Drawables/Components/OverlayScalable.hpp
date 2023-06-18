@@ -61,6 +61,11 @@ public:
     void setViewport(const ovy::Viewport& viewport);
 
     /**
+     * @brief Helper method to set the viewport to the region the drawable is in
+     */
+    void setViewportToSelf();
+
+    /**
      * @brief Removes any viewport for this drawable
      */
     void clearViewport();

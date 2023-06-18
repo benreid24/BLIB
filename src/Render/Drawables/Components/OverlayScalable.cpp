@@ -24,6 +24,31 @@ void OverlayScalable::setViewport(const ovy::Viewport& vp) {
     if (overlay) { event::Dispatcher::dispatch(ovy::ViewportChanged(overlay, sceneId)); }
 }
 
+void OverlayScalable::setViewportToSelf() {
+    auto cs = registry->getComponentSet<com::OverlayScaler, t2d::Transform2D>(ecsId);
+#ifdef BLIB_DEBUG
+    if (!cs.isValid()) {
+        BL_LOG_ERROR << "Tried to set viewport to self for un-initialized entity";
+        return;
+    }
+#endif
+    scalerSystem->processEntity(cs);
+
+    com::OverlayScaler& c  = handle.get();
+    const glm::vec2& pos   = Transform2D::getTransform().getPosition();
+    const glm::vec2& scale = Transform2D::getTransform().getScale();
+    setViewport(
+        ovy::Viewport::relative({pos.x / c.cachedOverlaySize.x,
+                                 pos.y / c.cachedOverlaySize.y,
+                                 (c.cachedObjectSize.x * scale.x) / c.cachedOverlaySize.x,
+                                 (c.cachedObjectSize.y * scale.y) / c.cachedOverlaySize.y}));
+
+    // TODO - account for origin
+    Transform2D::getTransform().setPosition({0.f, 0.f});
+    Transform2D::getTransform().setScale({c.cachedOverlaySize.x / c.cachedObjectSize.x,
+                                          c.cachedOverlaySize.y / c.cachedObjectSize.y});
+}
+
 void OverlayScalable::clearViewport() { registry->removeComponent<ovy::Viewport>(ecsId); }
 
 glm::vec2 OverlayScalable::getOverlaySize() const {

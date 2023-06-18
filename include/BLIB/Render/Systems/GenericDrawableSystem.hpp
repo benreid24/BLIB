@@ -125,10 +125,10 @@ private:
         Scene* scene;
         UpdateSpeed updateFreq;
         scene::StagePipelines pipelines;
-        std::uint32_t parent;
+        ecs::Entity parent;
 
         AddCommand(ecs::Entity ent, Scene* s, UpdateSpeed us,
-                   const scene::StagePipelines& pipelines, std::uint32_t parent = Overlay::NoParent)
+                   const scene::StagePipelines& pipelines, ecs::Entity parent = ecs::InvalidEntity)
         : entity(ent)
         , scene(s)
         , updateFreq(us)
@@ -192,7 +192,7 @@ void GenericDrawableSystem<T>::addToOverlay(ecs::Entity ent, Overlay* scene,
 template<typename T>
 void GenericDrawableSystem<T>::addToOverlayWithCustomPipelines(
     ecs::Entity entity, Overlay* scene, UpdateSpeed descriptorUpdateFreq,
-    const scene::StagePipelines& pipelines, ecs::Entity ecsParent) {
+    const scene::StagePipelines& pipelines, ecs::Entity parent) {
     std::unique_lock lock(mutex);
     T* c = registry->getComponent<T>(entity);
     if (!c) {
@@ -204,14 +204,6 @@ void GenericDrawableSystem<T>::addToOverlayWithCustomPipelines(
     if (c->sceneRef.scene) {
         if (c->sceneRef.scene == scene) { return; }
         erased.emplace_back(c->sceneRef);
-    }
-    std::uint32_t parent = Overlay::NoParent;
-    if (ecsParent != ecs::InvalidEntity) {
-        T* pc = registry->getComponent<T>(ecsParent);
-        if (!pc || !pc->sceneRef.scene) {
-            BL_LOG_ERROR << "Invalid parent " << ecsParent << " for entity " << entity;
-        }
-        else { parent = pc->sceneRef.object->sceneId; }
     }
     toAdd.emplace_back(entity, scene, descriptorUpdateFreq, pipelines, parent);
 }

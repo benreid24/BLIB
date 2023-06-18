@@ -16,10 +16,15 @@ Overlay::Overlay(Renderer& r, engine::Engine& e, std::uint32_t ms, std::uint32_t
 , cachedParentViewport{} {
     roots.reserve(std::max((ms + md) / 4, 4u));
     renderStack.reserve(roots.capacity() * 2);
+    toParent.reserve(32);
     event::Dispatcher::subscribe(this);
 }
 
 void Overlay::renderScene(scene::SceneRenderContext& ctx) {
+    // ensure parent-child relationships are applied
+    for (const auto& pp : toParent) { applyParent(pp.first, pp.second); }
+    toParent.clear();
+
     std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
 
     if (static_cast<std::uint32_t>(ctx.parentViewport().width) != cachedTargetSize.x ||
@@ -107,16 +112,22 @@ void Overlay::doRemove(ecs::Entity entity, scene::SceneObject* object,
     entityToSceneId.erase(entity);
 }
 
-void Overlay::setParent(std::uint32_t child, std::uint32_t parent) {
-    parentMap[child] = parent;
-    if (parent != NoParent) {
-        objects[parent].registerChild(child);
-        objects[child].refreshViewport(cachedParentViewport, objects[parent].cachedViewport);
+void Overlay::setParent(std::uint32_t child, ecs::Entity parent) {
+    toParent.emplace_back(child, parent);
+}
+
+void Overlay::applyParent(std::uint32_t child, ecs::Entity parent) {
+    const auto it = entityToSceneId.find(parent);
+    if (parent != ecs::InvalidEntity && it == entityToSceneId.end()) {
+        BL_LOG_WARN << "Invalid parent " << parent << " for entity " << getEntityFromId(child)
+                    << " (scene id: " << child << ")";
     }
-    else {
-        roots.emplace_back(child);
-        objects[child].refreshViewport(cachedParentViewport, cachedParentViewport);
-    }
+    const std::uint32_t pid = it != entityToSceneId.end() ? it->second : NoParent;
+
+    parentMap[child] = pid;
+    if (pid != NoParent) { objects[pid].registerChild(child); }
+    else { roots.emplace_back(child); }
+    refreshObjectAndChildren(child);
 }
 
 void Overlay::refreshAll() {
@@ -126,7 +137,7 @@ void Overlay::refreshAll() {
 void Overlay::refreshObjectAndChildren(std::uint32_t id) {
     const std::uint32_t pid = parentMap[id];
     ovy::OverlayObject& obj = objects[id];
-    const VkViewport& vp    = pid != NoParent ? obj.cachedViewport : cachedParentViewport;
+    const VkViewport& vp    = pid != NoParent ? objects[pid].cachedViewport : cachedParentViewport;
     obj.refreshViewport(cachedParentViewport, vp);
     if (obj.scaler.valid()) {
         obj.scaler.get().setTargetSize({obj.cachedViewport.width, obj.cachedViewport.height});

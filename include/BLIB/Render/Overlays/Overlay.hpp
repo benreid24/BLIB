@@ -94,7 +94,7 @@ protected:
      * @param child The object to set the parent of
      * @param parent The parent object, or NoParent to make root
      */
-    void setParent(std::uint32_t child, std::uint32_t parent = NoParent);
+    void setParent(std::uint32_t child, ecs::Entity parent = ecs::InvalidEntity);
 
 private:
     engine::Engine& engine;
@@ -102,11 +102,13 @@ private:
     std::vector<std::uint32_t> roots;
     std::vector<std::uint32_t> parentMap;
     std::unordered_map<ecs::Entity, std::uint32_t> entityToSceneId;
+    std::vector<std::pair<std::uint32_t, ecs::Entity>> toParent;
 
     std::vector<std::uint32_t> renderStack;
     VkViewport cachedParentViewport;
     glm::u32vec2 cachedTargetSize;
 
+    void applyParent(std::uint32_t child, ecs::Entity parent);
     void refreshObjectAndChildren(std::uint32_t id);
     void refreshAll();
 

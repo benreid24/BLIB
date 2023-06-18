@@ -88,16 +88,16 @@ public:
      */
     void removeFromScene();
 
+    /**
+     * @brief Returns the ECS entity of this drawable
+     */
+    constexpr ecs::Entity entity() const;
+
 protected:
     /**
      * @brief Initializes the drawable
      */
     Drawable();
-
-    /**
-     * @brief Returns the ECS entity of this drawable
-     */
-    constexpr ecs::Entity entity() const;
 
     /**
      * @brief Returns the drawable component. Only call after create()

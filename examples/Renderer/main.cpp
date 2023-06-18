@@ -113,13 +113,14 @@ public:
         messageBox.getTransform().setPosition({0.5f, 0.85f});
         messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
         messageBox.getOverlayScaler().scaleToHeightPercent(0.3f);
+        messageBox.setViewportToSelf();
         messageBox.addToOverlay(overlay, bl::render::UpdateSpeed::Static);
 
         // add text to overlay
         text.create(engine, font, "Text can now be rendered x X", 64);
         text.getTransform().setPosition({0.05f, 0.05f});
         text.getOverlayScaler().scaleToHeightRatio(64.f, 0.1f);
-        text.addTextToOverlay(overlay, bl::render::UpdateSpeed::Static);
+        text.addTextToOverlay(overlay, bl::render::UpdateSpeed::Static, messageBox.entity());
 
         // subscribe to window events
         bl::event::Dispatcher::subscribe(this);

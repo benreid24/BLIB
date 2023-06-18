@@ -95,6 +95,14 @@ protected:
      */
     void removeObject(scene::SceneObject* object);
 
+    /**
+     * @brief Returns the ECS id for the object with the given scene id
+     *
+     * @param sceneId The scene id of the object to lookup
+     * @return The ECS id of the entity
+     */
+    constexpr ecs::Entity getEntityFromId(std::uint32_t sceneId) const;
+
 private:
     util::IdAllocator<std::uint32_t> staticIds;
     util::IdAllocator<std::uint32_t> dynamicIds;
@@ -118,6 +126,12 @@ private:
     friend class Observer;
     friend class res::ScenePool;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline constexpr ecs::Entity Scene::getEntityFromId(std::uint32_t sceneId) const {
+    return entityMap[sceneId];
+}
 
 } // namespace render
 } // namespace bl
