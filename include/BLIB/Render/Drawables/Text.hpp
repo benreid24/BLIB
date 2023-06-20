@@ -20,6 +20,11 @@ class Engine;
 
 namespace render
 {
+namespace sys
+{
+class TextSyncSystem;
+}
+
 namespace draw
 {
 class Text
@@ -112,6 +117,7 @@ private:
         , i(i) {}
     };
 
+    sys::TextSyncSystem* textSystem;
     const sf::VulkanFont* font;
     std::vector<txt::BasicText> sections;
     float wordWrapWidth;
@@ -120,6 +126,9 @@ private:
     bool refreshRequired() const;
     void computeWordWrap();
     virtual void onAdd(const com::SceneObjectRef& sceneRef) override;
+    virtual void onRemove() override;
+
+    friend class sys::TextSyncSystem;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

@@ -118,7 +118,8 @@ public:
 
         // add text to overlay
         text.create(engine, font, "Text can now be", 64);
-        text.addSection("rendered", 64, {0.f, 0.8f, 0.6f, 1.f}, sf::Text::Italic);
+        text.addSection("rendered.", 64, {0.f, 0.8f, 0.6f, 1.f}, sf::Text::Italic);
+        text.addSection("What a great time to be alive. I wonder if this will wrap properly.", 64);
         text.getTransform().setPosition({0.03f, 0.05f});
         text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
         text.wordWrap(0.9f);

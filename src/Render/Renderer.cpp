@@ -7,6 +7,7 @@
 #include <BLIB/Render/Systems/CameraUpdateSystem.hpp>
 #include <BLIB/Render/Systems/OverlayScaler.hpp>
 #include <BLIB/Render/Systems/RenderSystem.hpp>
+#include <BLIB/Render/Systems/TextSyncSystem.hpp>
 #include <cmath>
 
 namespace bl
@@ -49,6 +50,8 @@ void Renderer::initialize() {
     engine.systems().registerSystem<sys::RenderSystem>(FrameStage::Render, StateMask, *this);
     engine.systems().registerSystem<sys::OverlayScaler>(FrameStage::RenderIntermediateRefresh,
                                                         StateMask);
+    engine.systems().registerSystem<sys::TextSyncSystem>(FrameStage::RenderIntermediateRefresh,
+                                                         StateMask);
 
     // descriptor systems
     engine.systems().registerSystem<sys::Transform2DDescriptorSystem>(

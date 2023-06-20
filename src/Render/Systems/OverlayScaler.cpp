@@ -1,7 +1,9 @@
 #include <BLIB/Render/Systems/OverlayScaler.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
+#include <BLIB/Render/Events/OverlayEntityScaled.hpp>
 
 namespace bl
 {
@@ -13,7 +15,7 @@ void OverlayScaler::init(engine::Engine& engine) {
     ignoredEntity = ecs::InvalidEntity;
     registry      = &engine.ecs();
     overlays.reserve(4);
-    event::Dispatcher::subscribe(this);
+    bl::event::Dispatcher::subscribe(this);
 }
 
 void OverlayScaler::update(std::mutex&, float) {
@@ -95,6 +97,8 @@ void OverlayScaler::refreshEntity(ecs::Entity entity, const glm::vec2& targetSiz
         ignoredEntity = ecs::InvalidEntity;
     }
     else { transform.setScale({xScale, yScale}); }
+
+    bl::event::Dispatcher::dispatch<event::OverlayEntityScaled>({entity});
 }
 
 void OverlayScaler::observe(const ecs::event::ComponentAdded<ovy::Viewport>& event) {

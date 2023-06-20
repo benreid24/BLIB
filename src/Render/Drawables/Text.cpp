@@ -3,6 +3,7 @@
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Scenes/StagePipelines.hpp>
+#include <BLIB/Render/Systems/TextSyncSystem.hpp>
 
 namespace bl
 {
@@ -19,7 +20,8 @@ const scene::StagePipelines Pipelines =
 }
 
 Text::Text()
-: font(nullptr)
+: textSystem(nullptr)
+, font(nullptr)
 , wordWrapWidth(-1.f) {
     sections.reserve(4);
 }
@@ -31,6 +33,7 @@ Text::Text(const sf::VulkanFont& f)
 
 void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::String& content,
                   unsigned int fontSize, const glm::vec4& color, std::uint32_t style) {
+    textSystem  = &engine.systems().getSystem<sys::TextSyncSystem>();
     font        = &f;
     needsCommit = true;
 
@@ -71,7 +74,12 @@ bool Text::refreshRequired() const {
 }
 
 void Text::onAdd(const com::SceneObjectRef&) {
-    commit(); // TODO - need to sync on change too
+    textSystem->registerText(this);
+    commit();
+}
+
+void Text::onRemove() {
+    if (textSystem) { textSystem->removeText(this); }
 }
 
 void Text::commit() {
@@ -145,8 +153,7 @@ void Text::computeWordWrap() {
     }
     if (wordWrapWidth <= 0.f) { return; }
 
-    // TODO - word wrap again on transform change
-    const float maxWidth = 350.f; // wordWrapWidth / getTransform().getScale().x;
+    const float maxWidth = wordWrapWidth / getTransform().getScale().x;
     const Iter EndIter   = Iter::end(sections);
 
     glm::vec2 nextPos(0.f, 0.f);

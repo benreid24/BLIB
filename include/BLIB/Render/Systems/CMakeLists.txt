@@ -6,4 +6,5 @@ target_sources(BLIB PUBLIC
 	GenericDrawableSystem.hpp
 	OverlayScaler.hpp
 	RenderSystem.hpp
+	TextSyncSystem.hpp
 )
