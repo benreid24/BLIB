@@ -170,10 +170,9 @@ void Text::computeWordWrap() {
             it.getText().advanceCharacterPos(*font, nextPos, it.getChar(), prevChar);
         prevChar = it.getChar();
 
-        // TODO - how to handle tabs?
         if (it.getChar() == ' ') {
             if (lineOnNextSpace) {
-                it.set('\n');
+                it.makeNewline();
                 resetLine(it);
                 wordStartPos = glm::vec2{0.f, advance.y + maxLineHeight};
             }
@@ -189,7 +188,7 @@ void Text::computeWordWrap() {
         else {
             if (nextPos.x > maxWidth) { // nextPos == prevPos here
                 if (prevSpace != EndIter) {
-                    prevSpace.set('\n');
+                    prevSpace.makeNewline();
                     resetLine(it);
                     const float wordWidth = advance.x - wordStartPos.x;
                     advance               = glm::vec2{wordWidth, advance.y + maxLineHeight};

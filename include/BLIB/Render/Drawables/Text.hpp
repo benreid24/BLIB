@@ -96,9 +96,9 @@ private:
             return i < section->content.getSize() ? section->content[i] : ' ';
         }
         constexpr std::uint32_t index() const { return i; }
-        void set(std::uint32_t code) {
+        void makeNewline() {
             if (i < section->wordWrappedContent.getSize()) {
-                section->wordWrappedContent[i] = code;
+                section->wordWrappedContent[i] = '\n';
             }
             else { section->wordWrappedContent += "\n"; }
         }
