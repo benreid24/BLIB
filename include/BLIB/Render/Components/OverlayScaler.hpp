@@ -108,7 +108,7 @@ public:
 private:
     enum ScaleType { None, WidthPercent, HeightPercent, SizePercent, PixelRatio, LineHeight };
 
-    glm::u32vec2 cachedTargetSize;
+    glm::vec2 cachedTargetSize; // TODO - update to rect?
     glm::vec2 cachedObjectSize;
     ScaleType scaleType;
     union {

@@ -83,9 +83,6 @@ std::uint32_t addGlyphQuad(prim::Vertex* vertices, std::uint32_t i, glm::vec2 po
 
     return i + 6;
 }
-
-constexpr float letterSpacingFactor = 1.f;
-constexpr float lineSpacingFactor   = 1.f;
 } // namespace
 
 BasicText::BasicText()
@@ -94,6 +91,8 @@ BasicText::BasicText()
 , outlineColor(fillColor)
 , fontSize(18)
 , outlineThickness(0)
+, letterSpacingFactor(1.f)
+, lineSpacingFactor(1.f)
 , refreshNeeded(true) {}
 
 void BasicText::setString(const sf::String& s) {
@@ -127,7 +126,7 @@ void BasicText::setOutlineThickness(unsigned int t) {
 }
 
 std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Vertex* vertices,
-                                         const glm::vec2& cornerPos) {
+                                         glm::vec2& cornerPos) {
     // Mark geometry as updated
     refreshNeeded = false;
 
@@ -136,6 +135,9 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Verte
 
     // No text: nothing to draw
     if (content.isEmpty()) return 0;
+
+    // use word wrapped content
+    if (wordWrappedContent.isEmpty()) { wordWrappedContent = content; }
 
     // Compute values related to the text style
     const bool isBold          = style & sf::Text::Bold;
@@ -152,10 +154,9 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Verte
     const float strikeThroughOffset = xBounds.top + xBounds.height / 2.f;
 
     // Precompute the variables needed by the algorithm
-    const float glyphWidth      = font.getGlyph(L' ', fontSize, isBold).advance;
-    const float letterSpacing   = (glyphWidth / 3.f) * (letterSpacingFactor - 1.f);
-    const float whitespaceWidth = glyphWidth + letterSpacing;
-    const float lineSpacing     = font.getLineSpacing(fontSize) * lineSpacingFactor;
+    const float letterSpacing   = computeLetterSpacing(font);
+    const float whitespaceWidth = computeWhitespaceWidth(font);
+    const float lineSpacing     = cachedLineHeight;
     float x                     = cornerPos.x;
     float y                     = cornerPos.y + static_cast<float>(fontSize);
 
@@ -166,8 +167,8 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Verte
     float maxY             = 0.f;
     std::uint32_t prevChar = 0;
     std::uint32_t vi       = 0;
-    for (std::size_t i = 0; i < content.getSize(); ++i) {
-        const std::uint32_t curChar = content[i];
+    for (std::size_t i = 0; i < wordWrappedContent.getSize(); ++i) {
+        const std::uint32_t curChar = wordWrappedContent[i];
 
         // Skip the \r char to avoid weird graphical issues
         if (curChar == L'\r') continue;
@@ -311,48 +312,51 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Verte
     cachedBounds.width  = maxX - minX;
     cachedBounds.height = maxY - minY;
 
+    // store next character pos
+    cornerPos.x = x;
+    cornerPos.y = y - static_cast<float>(fontSize);
+    switch (wordWrappedContent[wordWrappedContent.getSize() - 1]) {
+    case ' ':
+    case '\t':
+    case '\n':
+        break;
+    default:
+        cornerPos.x += whitespaceWidth;
+    }
+
     return vi;
 }
 
-glm::vec2 BasicText::findCharacterPos(const sf::VulkanFont& font, std::uint32_t index) const {
-    if (index > content.getSize()) { index = content.getSize(); }
-
+glm::vec2 BasicText::advanceCharacterPos(const sf::VulkanFont& font, glm::vec2 pos,
+                                         std::uint32_t curChar, std::uint32_t prevChar) const {
     // Precompute the variables needed by the algorithm
     const bool isBold           = style & sf::Text::Bold;
-    const float glyphWidth      = font.getGlyph(L' ', fontSize, isBold).advance;
-    const float letterSpacing   = (glyphWidth / 3.f) * (letterSpacingFactor - 1.f);
-    const float whitespaceWidth = glyphWidth + letterSpacing;
-    const float lineSpacing     = font.getLineSpacing(fontSize) * lineSpacingFactor;
+    const float letterSpacing   = computeLetterSpacing(font);
+    const float whitespaceWidth = computeWhitespaceWidth(font);
+    const float lineSpacing     = cachedLineHeight;
 
-    // Compute the position
-    glm::vec2 position(0.f, 0.f);
-    std::uint32_t prevChar = 0;
-    for (std::size_t i = 0; i < index; ++i) {
-        const std::uint32_t curChar = content[i];
+    // Apply the kerning offset
+    pos.x += font.getKerning(prevChar, curChar, fontSize, isBold);
 
-        // Apply the kerning offset
-        position.x += font.getKerning(prevChar, curChar, fontSize, isBold);
-        prevChar = curChar;
-
-        // Handle special characters
-        switch (curChar) {
-        case ' ':
-            position.x += whitespaceWidth;
-            continue;
-        case '\t':
-            position.x += whitespaceWidth * 4;
-            continue;
-        case '\n':
-            position.y += lineSpacing;
-            position.x = 0;
-            continue;
-        }
-
+    // Handle special characters
+    switch (curChar) {
+    case ' ':
+        pos.x += whitespaceWidth;
+        break;
+    case '\t':
+        pos.x += whitespaceWidth * 4.f;
+        break;
+    case '\n':
+        pos.y += lineSpacing;
+        pos.x = 0.f;
+        break;
+    default:
         // For regular characters, add the advance offset of the glyph
-        position.x += font.getGlyph(curChar, fontSize, isBold).advance + letterSpacing;
+        pos.x += font.getGlyph(curChar, fontSize, isBold).advance + letterSpacing;
+        break;
     }
 
-    return position;
+    return pos;
 }
 
 } // namespace txt

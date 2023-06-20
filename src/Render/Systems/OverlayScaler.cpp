@@ -31,6 +31,7 @@ void OverlayScaler::refreshEntity(ecs::Entity entity, const glm::vec2& targetSiz
     com::OverlayScaler& scaler  = *cset.get<com::OverlayScaler>();
     t2d::Transform2D& transform = *cset.get<t2d::Transform2D>();
     scaler.dirty                = false;
+    scaler.cachedTargetSize     = targetSize;
 
     float xScale = 1.f;
     float yScale = 1.f;

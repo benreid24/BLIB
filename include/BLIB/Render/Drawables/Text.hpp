@@ -47,6 +47,8 @@ public:
                                const glm::vec4& color = {0.f, 0.f, 0.f, 1.f},
                                std::uint32_t style    = sf::Text::Regular);
 
+    // TODO - helper to create sections from formatted string
+
     /**
      * @brief Adds this entity to the given overlay
      *
@@ -61,15 +63,62 @@ public:
 
     // TODO - methods for bounds, character pos
 
-    // TODO - word wrap here or in BasicText
+    void wordWrap(float width);
+
+    void stopWordWrap();
 
 private:
+    class Iter {
+    public:
+        static Iter begin(std::vector<txt::BasicText>& sections) {
+            return Iter{&sections.front(), 0};
+        }
+
+        static Iter end(std::vector<txt::BasicText>& sections) {
+            return Iter{&sections.back() + 1, 0};
+        }
+
+        Iter& operator++() {
+            ++i;
+            if (i > section->content.getSize()) {
+                ++section;
+                i = 0;
+            }
+            return *this;
+        }
+
+        constexpr bool operator==(const Iter& right) const {
+            return section == right.section && i == right.i;
+        }
+
+        constexpr txt::BasicText& getText() { return *section; }
+        std::uint32_t getChar() const {
+            return i < section->content.getSize() ? section->content[i] : ' ';
+        }
+        constexpr std::uint32_t index() const { return i; }
+        void set(std::uint32_t code) {
+            if (i < section->wordWrappedContent.getSize()) {
+                section->wordWrappedContent[i] = code;
+            }
+            else { section->wordWrappedContent += "\n"; }
+        }
+
+    private:
+        txt::BasicText* section;
+        std::size_t i;
+
+        Iter(txt::BasicText* section, std::size_t i)
+        : section(section)
+        , i(i) {}
+    };
+
     const sf::VulkanFont* font;
     std::vector<txt::BasicText> sections;
+    float wordWrapWidth;
     bool needsCommit;
 
     bool refreshRequired() const;
-
+    void computeWordWrap();
     virtual void onAdd(const com::SceneObjectRef& sceneRef) override;
 };
 

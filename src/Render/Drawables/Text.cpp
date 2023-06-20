@@ -19,7 +19,8 @@ const scene::StagePipelines Pipelines =
 }
 
 Text::Text()
-: font(nullptr) {
+: font(nullptr)
+, wordWrapWidth(-1.f) {
     sections.reserve(4);
 }
 
@@ -69,7 +70,7 @@ bool Text::refreshRequired() const {
     return false;
 }
 
-void Text::onAdd(const com::SceneObjectRef& si) {
+void Text::onAdd(const com::SceneObjectRef&) {
     commit(); // TODO - need to sync on change too
 }
 
@@ -77,10 +78,14 @@ void Text::commit() {
     if (refreshRequired()) {
         needsCommit = false;
 
+        // word wrap
+        computeWordWrap();
+
         // count required vertex amount
         std::uint32_t vertexCount = 0;
+        glm::vec2 trash;
         for (auto& section : sections) {
-            vertexCount += section.refreshVertices(*font, nullptr, {});
+            vertexCount += section.refreshVertices(*font, nullptr, trash);
         }
 
         // create larger buffer if required
@@ -97,22 +102,8 @@ void Text::commit() {
         // assign vertices
         std::uint32_t vi = 0;
         glm::vec2 cornerPos(0.f, 0.f);
-        txt::BasicText* prevSection = nullptr;
         for (auto& section : sections) {
-            const std::uint32_t prevChar =
-                prevSection ? (prevSection->content.isEmpty() ?
-                                   0 :
-                                   prevSection->content[prevSection->content.getSize() - 1]) :
-                              0;
-            const unsigned int fontSize =
-                std::max(section.fontSize, prevSection ? prevSection->fontSize : 0);
-            const bool isBold = (prevSection && (prevSection->style & sf::Text ::Bold) != 0) ||
-                                (section.style & sf::Text::Bold) != 0;
-            cornerPos.x += font->getKerning(
-                prevChar, section.content.isEmpty() ? 0 : section.content[0], fontSize, isBold);
-
             vi += section.refreshVertices(*font, &component().vertices[vi], cornerPos);
-            cornerPos.x += section.getBounds().width;
         }
 
         // upload vertices
@@ -135,6 +126,81 @@ void Text::commit() {
 void Text::addTextToOverlay(Overlay* overlay, UpdateSpeed descriptorUpdateFreq,
                             ecs::Entity parent) {
     Drawable::addToOverlayWithCustomPipelines(overlay, descriptorUpdateFreq, Pipelines, parent);
+}
+
+void Text::wordWrap(float w) {
+    wordWrapWidth = w;
+    needsCommit   = true;
+}
+
+void Text::stopWordWrap() {
+    wordWrapWidth = -1.f;
+    needsCommit   = true;
+}
+
+void Text::computeWordWrap() {
+    for (auto& section : sections) {
+        section.wordWrappedContent = section.content;
+        section.cachedLineHeight   = section.computeLineSpacing(*font);
+    }
+    if (wordWrapWidth <= 0.f) { return; }
+
+    // TODO - word wrap again on transform change
+    const float maxWidth = 350.f; // wordWrapWidth / getTransform().getScale().x;
+    const Iter EndIter   = Iter::end(sections);
+
+    glm::vec2 nextPos(0.f, 0.f);
+    float maxLineHeight = 0.f;
+    Iter prevSpace      = EndIter;
+    glm::vec2 wordStartPos(0.f, 0.f);
+    bool lineOnNextSpace   = false;
+    std::uint32_t prevChar = 0;
+
+    const auto resetLine = [this, &maxLineHeight, &prevSpace, &lineOnNextSpace, EndIter](Iter it) {
+        prevSpace                     = EndIter;
+        lineOnNextSpace               = false;
+        it.getText().cachedLineHeight = it.getText().computeLineSpacing(*font);
+        maxLineHeight                 = it.getText().cachedLineHeight;
+    };
+
+    for (Iter it = Iter::begin(sections); it != EndIter; ++it) {
+        maxLineHeight = std::max(it.getText().computeLineSpacing(*font), maxLineHeight);
+        it.getText().cachedLineHeight = maxLineHeight;
+        glm::vec2 advance =
+            it.getText().advanceCharacterPos(*font, nextPos, it.getChar(), prevChar);
+        prevChar = it.getChar();
+
+        // TODO - how to handle tabs?
+        if (it.getChar() == ' ') {
+            if (lineOnNextSpace) {
+                it.set('\n');
+                resetLine(it);
+                wordStartPos = glm::vec2{0.f, advance.y + maxLineHeight};
+            }
+            else {
+                prevSpace    = it;
+                wordStartPos = advance;
+            }
+        }
+        else if (it.getChar() == '\n') {
+            resetLine(it);
+            wordStartPos = advance;
+        }
+        else {
+            if (nextPos.x > maxWidth) { // nextPos == prevPos here
+                if (prevSpace != EndIter) {
+                    prevSpace.set('\n');
+                    resetLine(it);
+                    const float wordWidth = advance.x - wordStartPos.x;
+                    advance               = glm::vec2{wordWidth, advance.y + maxLineHeight};
+                    wordStartPos          = advance;
+                }
+                else { lineOnNextSpace = true; }
+            }
+        }
+
+        nextPos = advance;
+    }
 }
 
 } // namespace draw
