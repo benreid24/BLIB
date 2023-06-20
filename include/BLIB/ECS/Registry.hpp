@@ -235,7 +235,7 @@ void Registry::finishComponentAdd(Entity ent, unsigned int cIndex, T* component)
     ComponentMask::Value& mask = entityMasks[ent];
     ComponentMask::add(mask, cIndex);
     for (auto& view : views) {
-        if (ComponentMask::completelyContains(mask, view->mask)) { view->tryAddEntity(*this, ent); }
+        if (ComponentMask::completelyContains(mask, view->mask)) { view->tryAddEntity(ent); }
     }
 }
 
@@ -312,7 +312,7 @@ ComponentPool<T>& Registry::getPool() {
 template<typename... TComponents>
 void Registry::populateView(View<TComponents...>& view) {
     for (Entity ent = 0; ent <= entityAllocator.highestId(); ++ent) {
-        if (entityMasks[ent] == view.mask) { view.tryAddEntity(*this, ent); }
+        if (entityMasks[ent] == view.mask) { view.tryAddEntity(ent); }
     }
 }
 

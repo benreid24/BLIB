@@ -7,7 +7,6 @@
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
-#include <BLIB/Render/Overlays/ViewportChanged.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Systems/OverlayScaler.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
@@ -26,16 +25,18 @@ namespace render
 {
 class Renderer;
 
+namespace sys
+{
+class OverlayScaler;
+}
+
 /**
  * @brief Special type of scene specialized for 2d overlays with fixed cameras. Objects are
  *        organized into a tree and rendered in tree order
  *
  * @ingroup Renderer
  */
-class Overlay
-: public Scene
-, public bl::event::Listener<ecs::event::ComponentAdded<ovy::Viewport>,
-                             ecs::event::ComponentRemoved<ovy::Viewport>, ovy::ViewportChanged> {
+class Overlay : public Scene {
 public:
     static constexpr std::uint32_t NoParent = std::numeric_limits<std::uint32_t>::max();
 
@@ -53,7 +54,7 @@ public:
     /**
      * @brief Frees resources
      */
-    virtual ~Overlay() = default;
+    virtual ~Overlay();
 
 protected:
     /**
@@ -98,6 +99,7 @@ protected:
 
 private:
     engine::Engine& engine;
+    sys::OverlayScaler& scaler;
     std::vector<ovy::OverlayObject> objects;
     std::vector<std::uint32_t> roots;
     std::vector<std::uint32_t> parentMap;
@@ -108,18 +110,16 @@ private:
     VkViewport cachedParentViewport;
     glm::u32vec2 cachedTargetSize;
 
+    void refreshScales();
     void applyParent(std::uint32_t child, ecs::Entity parent);
     void refreshObjectAndChildren(std::uint32_t id);
     void refreshAll();
-
-    virtual void observe(const ecs::event::ComponentAdded<ovy::Viewport>& event) override;
-    virtual void observe(const ecs::event::ComponentRemoved<ovy::Viewport>& event) override;
-    virtual void observe(const ovy::ViewportChanged& event) override;
 
     template<typename T>
     friend class sys::GenericDrawableSystem;
     friend class Observer;
     friend class res::ScenePool;
+    friend class sys::OverlayScaler;
 };
 
 } // namespace render

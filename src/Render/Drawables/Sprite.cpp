@@ -24,10 +24,6 @@ void Sprite::create(engine::Engine& engine, res::TextureRef texture, const sf::F
 
 void Sprite::destroy() { Drawable::destroy(); }
 
-void Sprite::onAdd(const com::SceneObjectRef& si) { OverlayScalable::notifySceneAdd(si); }
-
-void Sprite::onRemove() { OverlayScalable::notifySceneRemove(); }
-
 } // namespace draw
 } // namespace render
 } // namespace bl

@@ -65,7 +65,7 @@ void Registry::destroyAllEntities() {
     entityAllocator.releaseAll();
 
     // clear views
-    for (auto& view : views) { view->clearAndRefresh(*this); }
+    for (auto& view : views) { view->clearAndRefresh(); }
 }
 
 } // namespace ecs

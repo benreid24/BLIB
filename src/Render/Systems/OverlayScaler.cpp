@@ -10,76 +10,55 @@ namespace render
 namespace sys
 {
 void OverlayScaler::init(engine::Engine& engine) {
-    registry = &engine.ecs();
-    entities = engine.ecs().getOrCreateView<com::OverlayScaler, t2d::Transform2D>();
-    deferredSets.reserve(32);
+    ignoredEntity = ecs::InvalidEntity;
+    registry      = &engine.ecs();
+    overlays.reserve(4);
+    event::Dispatcher::subscribe(this);
 }
 
 void OverlayScaler::update(std::mutex&, float) {
-    entities->forEach([this](ecs::ComponentSet<com::OverlayScaler, t2d::Transform2D>& ent) {
-        if (ent.get<com::OverlayScaler>()->dirty) { processEntity(ent); }
-    });
-    for (SceneSet& set : deferredSets) {
-        if (set.sceneRef.object) {
-            set.scaler->overlay = dynamic_cast<Overlay*>(set.sceneRef.scene);
-            set.scaler->sceneId = set.sceneRef.object->sceneId;
-        }
-    }
-    deferredSets.clear();
+    for (Overlay* o : overlays) { o->refreshScales(); }
 }
 
-void OverlayScaler::processOverlaySize(ecs::Entity entity, const glm::u32vec2& targetSize,
-                                       const glm::vec2& overlaySize) {
-    auto cset = registry->getComponentSet<com::OverlayScaler, t2d::Transform2D>(entity);
-    if (cset.isValid()) {
-        com::OverlayScaler* scaler = cset.get<com::OverlayScaler>();
-        scaler->cachedOverlaySize  = overlaySize;
-        scaler->cachedTargetSize =
-            glm::vec2(static_cast<float>(targetSize.x), static_cast<float>(targetSize.y));
-        processEntity(cset);
+void OverlayScaler::refreshEntity(ecs::Entity entity, const glm::vec2& targetSize) {
+    ecs::ComponentSet<com::OverlayScaler, t2d::Transform2D> cset =
+        registry->getComponentSet<com::OverlayScaler, t2d::Transform2D>(entity);
+    if (!cset.isValid()) {
+        BL_LOG_ERROR << "Missing components for entity: " << entity;
+        return;
     }
-}
 
-void OverlayScaler::processEntity(ecs::ComponentSet<com::OverlayScaler, t2d::Transform2D>& ent) {
-    com::OverlayScaler& scaler  = *ent.get<com::OverlayScaler>();
-    t2d::Transform2D& transform = *ent.get<t2d::Transform2D>();
+    com::OverlayScaler& scaler  = *cset.get<com::OverlayScaler>();
+    t2d::Transform2D& transform = *cset.get<t2d::Transform2D>();
     scaler.dirty                = false;
 
     float xScale = 1.f;
     float yScale = 1.f;
-    const glm::vec2 targetSize(static_cast<float>(scaler.cachedTargetSize.x),
-                               static_cast<float>(scaler.cachedTargetSize.y));
 
     switch (scaler.scaleType) {
     case com::OverlayScaler::WidthPercent:
-        xScale = scaler.cachedOverlaySize.x * scaler.widthPercent / scaler.cachedObjectSize.x;
-        yScale =
-            targetSize.x * scaler.cachedOverlaySize.y / (targetSize.y * scaler.cachedOverlaySize.x);
-
+        xScale = scaler.widthPercent / scaler.cachedObjectSize.x;
+        yScale = xScale * targetSize.x / targetSize.y;
         break;
 
     case com::OverlayScaler::HeightPercent:
-        yScale = scaler.cachedOverlaySize.y * scaler.heightPercent / scaler.cachedObjectSize.y;
-        xScale = yScale * targetSize.y * scaler.cachedOverlaySize.x /
-                 (targetSize.x * scaler.cachedOverlaySize.y);
+        yScale = scaler.heightPercent / scaler.cachedObjectSize.y;
+        xScale = yScale * targetSize.y / targetSize.x;
         break;
 
     case com::OverlayScaler::SizePercent:
-        xScale = scaler.cachedOverlaySize.x * scaler.widthPercent / scaler.cachedObjectSize.x;
-        yScale = scaler.cachedOverlaySize.y * scaler.heightPercent / scaler.cachedObjectSize.y;
+        xScale = scaler.widthPercent / scaler.cachedObjectSize.x;
+        yScale = scaler.heightPercent / scaler.cachedObjectSize.y;
         break;
 
     case com::OverlayScaler::PixelRatio:
-        xScale = scaler.cachedObjectSize.x * scaler.pixelRatio / targetSize.x *
-                 scaler.cachedOverlaySize.x;
-        yScale = scaler.cachedObjectSize.y * scaler.pixelRatio / targetSize.y *
-                 scaler.cachedOverlaySize.y;
+        xScale = scaler.cachedObjectSize.x * scaler.pixelRatio / targetSize.x;
+        yScale = scaler.cachedObjectSize.y * scaler.pixelRatio / targetSize.y;
         break;
 
     case com::OverlayScaler::LineHeight:
         yScale = scaler.overlayRatio;
-        xScale = yScale * targetSize.y * scaler.cachedOverlaySize.x /
-                 (targetSize.x * scaler.cachedOverlaySize.y);
+        xScale = yScale * targetSize.y / targetSize.x;
         break;
 
     case com::OverlayScaler::None:
@@ -87,13 +66,57 @@ void OverlayScaler::processEntity(ecs::ComponentSet<com::OverlayScaler, t2d::Tra
         return;
     }
 
-    transform.setScale({xScale, yScale});
+    if (scaler.useViewport) {
+        ignoredEntity = entity;
+
+        const bool storePos     = !scaler.ogPos.has_value();
+        const glm::vec2 pos     = scaler.ogPos.value_or(transform.getPosition());
+        const glm::vec2& origin = transform.getOrigin();
+        const glm::vec2 offset(origin.x * xScale, origin.y * yScale);
+        const glm::vec2 corner = pos - offset;
+
+        if (storePos) {
+            // TODO - how to handle setPosition now?
+            // possible: use existing viewport to map back into parent space
+            scaler.ogPos = transform.getPosition();
+        }
+
+        registry->emplaceComponent<ovy::Viewport>(
+            entity,
+            ovy::Viewport::relative({corner.x,
+                                     corner.y,
+                                     scaler.cachedObjectSize.x * xScale,
+                                     scaler.cachedObjectSize.y * yScale}));
+
+        const glm::vec2 newScale{1.f / scaler.cachedObjectSize.x, 1.f / scaler.cachedObjectSize.y};
+        transform.setPosition({origin.x * newScale.x, origin.y * newScale.y});
+        transform.setScale(newScale);
+        ignoredEntity = ecs::InvalidEntity;
+    }
+    else { transform.setScale({xScale, yScale}); }
 }
 
-void OverlayScaler::queueScalerSceneAdd(draw::base::OverlayScalable* scaler,
-                                        const com::SceneObjectRef& sceneRef) {
-    // this is a little fragile, ECS may re-alloc pool and invalidate sceneRef before update()
-    deferredSets.emplace_back(scaler, sceneRef);
+void OverlayScaler::observe(const ecs::event::ComponentAdded<ovy::Viewport>& event) {
+    if (event.entity == ignoredEntity) return;
+    com::OverlayScaler* c = registry->getComponent<com::OverlayScaler>(event.entity);
+    if (c) { c->dirty = true; }
+}
+
+void OverlayScaler::observe(const ecs::event::ComponentRemoved<ovy::Viewport>& event) {
+    if (event.entity == ignoredEntity) return;
+    com::OverlayScaler* c = registry->getComponent<com::OverlayScaler>(event.entity);
+    if (c) { c->dirty = true; }
+}
+
+void OverlayScaler::registerOverlay(Overlay* ov) { overlays.emplace_back(ov); }
+
+void OverlayScaler::removeOverlay(Overlay* ov) {
+    for (auto it = overlays.begin(); it != overlays.end(); ++it) {
+        if (*it == ov) {
+            overlays.erase(it);
+            return;
+        }
+    }
 }
 
 } // namespace sys

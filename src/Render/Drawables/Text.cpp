@@ -71,10 +71,7 @@ bool Text::refreshRequired() const {
 
 void Text::onAdd(const com::SceneObjectRef& si) {
     commit(); // TODO - need to sync on change too
-    OverlayScalable::notifySceneAdd(si);
 }
-
-void Text::onRemove() { OverlayScalable::notifySceneRemove(); }
 
 void Text::commit() {
     if (refreshRequired()) {

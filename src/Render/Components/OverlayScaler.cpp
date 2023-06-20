@@ -8,7 +8,6 @@ namespace com
 {
 OverlayScaler::OverlayScaler()
 : cachedTargetSize(1920.f, 1080.f)
-, cachedOverlaySize(1.f, 1.f)
 , cachedObjectSize(50.f, 50.f)
 , scaleType(None)
 , sizePercent(0.1f, 0.1f)
@@ -57,6 +56,11 @@ void OverlayScaler::setEntitySize(const glm::vec2& s) {
 void OverlayScaler::setTargetSize(const glm::vec2& s) {
     cachedTargetSize = s;
     dirty            = scaleType != None;
+}
+
+void OverlayScaler::setViewportToSelf(bool s) {
+    useViewport = s;
+    dirty       = scaleType != None;
 }
 
 } // namespace com

@@ -2,6 +2,7 @@
 #define BLIB_RENDER_COMPONENTS_OVERLAYSCALER_HPP
 
 #include <glm/glm.hpp>
+#include <optional>
 
 namespace bl
 {
@@ -99,11 +100,15 @@ public:
      */
     constexpr const glm::vec2& getEntitySize() const;
 
+    /**
+     * @brief Returns whether or not the scale needs to be re-computed
+     */
+    constexpr bool isDirty() const;
+
 private:
     enum ScaleType { None, WidthPercent, HeightPercent, SizePercent, PixelRatio, LineHeight };
 
     glm::u32vec2 cachedTargetSize;
-    glm::vec2 cachedOverlaySize;
     glm::vec2 cachedObjectSize;
     ScaleType scaleType;
     union {
@@ -113,7 +118,11 @@ private:
         glm::vec2 sizePercent;
         float overlayRatio;
     };
+    bool useViewport;
+    std::optional<glm::vec2> ogPos;
     bool dirty;
+
+    void setViewportToSelf(bool setToSelf);
 
     friend class sys::OverlayScaler;
     friend class draw::base::OverlayScalable;
@@ -122,6 +131,8 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline constexpr const glm::vec2& OverlayScaler::getEntitySize() const { return cachedObjectSize; }
+
+inline constexpr bool OverlayScaler::isDirty() const { return dirty && scaleType != None; }
 
 } // namespace com
 } // namespace render

@@ -62,8 +62,10 @@ public:
 
     /**
      * @brief Helper method to set the viewport to the region the drawable is in
+     *
+     * @param setToSelf True to create and use a viewport, false to render normally
      */
-    void setViewportToSelf();
+    void setViewportToSelf(bool setToSelf = true);
 
     /**
      * @brief Removes any viewport for this drawable
@@ -91,24 +93,10 @@ protected:
      */
     void setLocalSize(const glm::vec2& size);
 
-    /**
-     * @brief Call after the entity is added to a scene
-     *
-     * @param sceneRef The scene object information
-     */
-    void notifySceneAdd(const com::SceneObjectRef& sceneRef);
-
-    /**
-     * @brief Call after the entity is removed from a scene
-     */
-    void notifySceneRemove();
-
 private:
     sys::OverlayScaler* scalerSystem;
     ecs::Registry* registry;
     ecs::Entity ecsId;
-    Overlay* overlay;
-    std::uint32_t sceneId;
     ecs::StableHandle<com::OverlayScaler> handle;
 
     friend class sys::OverlayScaler;

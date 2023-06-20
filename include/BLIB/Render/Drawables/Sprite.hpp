@@ -60,10 +60,6 @@ public:
      * @brief Destroys the ECS entity of this sprite
      */
     void destroy();
-
-private:
-    virtual void onAdd(const com::SceneObjectRef& sceneRef) override;
-    virtual void onRemove() override;
 };
 
 } // namespace draw

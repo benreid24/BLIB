@@ -119,7 +119,7 @@ public:
         // add text to overlay
         text.create(engine, font, "Text can now be rendered x X", 64);
         text.getTransform().setPosition({0.05f, 0.05f});
-        text.getOverlayScaler().scaleToHeightRatio(64.f, 0.1f);
+        text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
         text.addTextToOverlay(overlay, bl::render::UpdateSpeed::Static, messageBox.entity());
 
         // subscribe to window events

@@ -5,6 +5,7 @@
 #include <BLIB/Engine/System.hpp>
 #include <BLIB/Render/Components/OverlayScaler.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
+#include <BLIB/Render/Overlays/Viewport.hpp>
 #include <BLIB/Transforms/2D/Transform2D.hpp>
 #include <vector>
 
@@ -12,13 +13,7 @@ namespace bl
 {
 namespace render
 {
-namespace draw
-{
-namespace base
-{
-class OverlayScalable;
-}
-} // namespace draw
+class Overlay;
 
 namespace sys
 {
@@ -28,7 +23,10 @@ namespace sys
  *
  * @ingroup Renderer
  */
-class OverlayScaler : public engine::System {
+class OverlayScaler
+: public engine::System
+, public bl::event::Listener<ecs::event::ComponentAdded<ovy::Viewport>,
+                             ecs::event::ComponentRemoved<ovy::Viewport>> {
 public:
     /**
      * @brief Creates the system
@@ -40,38 +38,23 @@ public:
      */
     virtual ~OverlayScaler() = default;
 
-    /**
-     * @brief Handles a resize of an overlay. Intended to be called by Overlay
-     *
-     * @param overlay The entity that is affected
-     * @param targetSize The size of target area being rendered to
-     * @param overlaySize The virtual coordinate size of the overlay camera
-     */
-    void processOverlaySize(ecs::Entity entity, const glm::u32vec2& targetSize,
-                            const glm::vec2& overlaySize);
-
 private:
-    struct SceneSet {
-        SceneSet(draw::base::OverlayScalable* scaler, const com::SceneObjectRef& sceneRef)
-        : scaler(scaler)
-        , sceneRef(sceneRef) {}
-
-        draw::base::OverlayScalable* scaler;
-        const com::SceneObjectRef& sceneRef;
-    };
-
     ecs::Registry* registry;
-    ecs::View<com::OverlayScaler, t2d::Transform2D>* entities;
-    std::vector<SceneSet> deferredSets;
+    std::vector<Overlay*> overlays;
+    ecs::Entity ignoredEntity;
 
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt) override;
 
-    void processEntity(ecs::ComponentSet<com::OverlayScaler, t2d::Transform2D>& entity);
-    void queueScalerSceneAdd(draw::base::OverlayScalable* scaler,
-                             const com::SceneObjectRef& sceneRef);
+    // called by Overlay
+    void registerOverlay(Overlay* overlay);
+    void removeOverlay(Overlay* overlay);
+    void refreshEntity(ecs::Entity entity, const glm::vec2& targetSize);
 
-    friend class draw::base::OverlayScalable;
+    virtual void observe(const ecs::event::ComponentAdded<ovy::Viewport>& event) override;
+    virtual void observe(const ecs::event::ComponentRemoved<ovy::Viewport>& event) override;
+
+    friend class Overlay;
 };
 
 } // namespace sys

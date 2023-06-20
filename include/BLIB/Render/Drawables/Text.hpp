@@ -71,7 +71,6 @@ private:
     bool refreshRequired() const;
 
     virtual void onAdd(const com::SceneObjectRef& sceneRef) override;
-    virtual void onRemove() override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
