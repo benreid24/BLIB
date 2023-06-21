@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace res
 {
@@ -207,5 +207,5 @@ void Texture::queueCleanup() {
 }
 
 } // namespace res
-} // namespace render
+} // namespace gfx
 } // namespace bl

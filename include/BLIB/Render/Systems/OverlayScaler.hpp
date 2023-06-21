@@ -11,7 +11,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 class Overlay;
 
@@ -58,7 +58,7 @@ private:
 };
 
 } // namespace sys
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

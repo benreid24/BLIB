@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 Observer::Observer(Renderer& r)
 : renderer(r)
@@ -311,5 +311,5 @@ void Observer::setClearColor(const glm::vec3& color) {
     clearColors[0].color = {color.x, color.y, color.z, 1.f};
 }
 
-} // namespace render
+} // namespace gfx
 } // namespace bl

@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace draw
 {
@@ -40,5 +40,5 @@ glm::vec2 OverlayScalable::getTargetSize() const {
 
 } // namespace base
 } // namespace draw
-} // namespace render
+} // namespace gfx
 } // namespace bl

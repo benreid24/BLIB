@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -79,7 +79,7 @@ inline constexpr VkImageView StandardAttachmentSet::depthImageView() const {
 }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

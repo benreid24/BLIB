@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ovy
 {
@@ -33,7 +33,7 @@ private:
 };
 
 } // namespace ovy
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

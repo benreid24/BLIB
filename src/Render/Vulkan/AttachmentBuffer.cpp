@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -67,5 +67,5 @@ void AttachmentBuffer::destroy() {
 }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl

@@ -15,7 +15,7 @@ namespace t3d
  *
  * @ingroup Transforms
  */
-class Transform3D : public render::com::DescriptorComponentBase<Transform3D, glm::mat4> {
+class Transform3D : public gfx::com::DescriptorComponentBase<Transform3D, glm::mat4> {
 public:
     /**
      * @brief Creates a new transform with no scaling and sane defaults

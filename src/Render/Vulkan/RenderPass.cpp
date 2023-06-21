@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -31,12 +31,12 @@ RenderPass::RenderPass(VulkanState& vs, RenderPassParameters&& params)
 
     if (vkCreateRenderPass(vulkanState.device, &renderPassInfo, nullptr, &renderPass) !=
         VK_SUCCESS) {
-        throw std::runtime_error("Failed to create render pass");
+        throw std::runtime_error("Failed to create gfx pass");
     }
 }
 
 RenderPass::~RenderPass() { vkDestroyRenderPass(vulkanState.device, renderPass, nullptr); }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl

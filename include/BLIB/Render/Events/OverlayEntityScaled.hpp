@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace event
 {
@@ -27,7 +27,7 @@ struct OverlayEntityScaled {
 };
 
 } // namespace event
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

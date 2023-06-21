@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ovy
 {
@@ -50,5 +50,5 @@ VkViewport Viewport::scissorToViewport(const VkRect2D& scissor) {
 }
 
 } // namespace ovy
-} // namespace render
+} // namespace gfx
 } // namespace bl

@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace draw
 {
@@ -65,7 +65,7 @@ inline void Transform2D::create(ecs::Registry& registry, ecs::Entity entity, TAr
 
 } // namespace base
 } // namespace draw
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

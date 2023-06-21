@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace tfr
 {
@@ -189,7 +189,7 @@ void UniformBuffer<T>::executeTransfer(VkCommandBuffer commandBuffer, TransferCo
 }
 
 } // namespace tfr
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

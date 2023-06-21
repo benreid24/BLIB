@@ -13,7 +13,7 @@ namespace engine
 class Engine;
 }
 
-namespace render
+namespace gfx
 {
 class Renderer;
 
@@ -80,7 +80,7 @@ inline constexpr const res::TextureRef& Sprite::getTexture() const { return text
 inline constexpr const glm::vec2& Sprite::getSize() const { return size; }
 
 } // namespace com
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

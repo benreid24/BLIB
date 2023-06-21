@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ds
 {
@@ -22,5 +22,5 @@ DescriptorSetFactory* DescriptorSetFactoryCache::getOrAddFactory(
 }
 
 } // namespace ds
-} // namespace render
+} // namespace gfx
 } // namespace bl

@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace prim
 {
@@ -38,7 +38,7 @@ struct DrawParameters {
 };
 
 } // namespace prim
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

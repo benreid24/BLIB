@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace c2d
 {
@@ -55,7 +55,7 @@ private:
 };
 
 } // namespace c2d
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

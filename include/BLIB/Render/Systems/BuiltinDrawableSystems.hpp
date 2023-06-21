@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace sys
 {
@@ -26,7 +26,7 @@ using MeshSystem = GenericDrawableSystem<com::Mesh>;
 using SpriteSystem = GenericDrawableSystem<com::Sprite>;
 
 } // namespace sys
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

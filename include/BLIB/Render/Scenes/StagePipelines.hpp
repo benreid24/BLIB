@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 /// Collection of core rendering functionality for rendering scenes
 namespace scene
@@ -54,7 +54,7 @@ private:
 };
 
 } // namespace scene
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

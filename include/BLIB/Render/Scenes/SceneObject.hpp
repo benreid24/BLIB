@@ -9,7 +9,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace scene
 {
@@ -32,7 +32,7 @@ struct SceneObject {
 };
 
 } // namespace scene
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

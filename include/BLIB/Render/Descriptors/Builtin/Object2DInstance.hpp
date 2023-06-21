@@ -16,7 +16,7 @@ namespace engine
 class Engine;
 }
 
-namespace render
+namespace gfx
 {
 class Renderer;
 
@@ -67,7 +67,7 @@ private:
 };
 
 } // namespace ds
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

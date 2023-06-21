@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace tfr
 {
@@ -24,14 +24,14 @@ void TransferContext::createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer& 
                                                    void** mapped) {
     VmaAllocation alloc;
     VmaAllocationInfo allocInfo;
-    vulkanState.createBuffer(size,
-                             VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+    vulkanState.createBuffer(
+        size,
+        VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
         VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT | VMA_ALLOCATION_CREATE_MAPPED_BIT,
-                             VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
-                                 VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-                             &bufferHandle,
-                             &alloc,
-                             &allocInfo);
+        VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+        &bufferHandle,
+        &alloc,
+        &allocInfo);
     stagingBuffers.emplace_back(bufferHandle);
     stagingAllocs.emplace_back(alloc);
     *mapped = allocInfo.pMappedData;
@@ -52,5 +52,5 @@ void TransferContext::registerImageBarrier(const VkImageMemoryBarrier& barrier) 
 VkDevice TransferContext::device() const { return vulkanState.device; }
 
 } // namespace tfr
-} // namespace render
+} // namespace gfx
 } // namespace bl

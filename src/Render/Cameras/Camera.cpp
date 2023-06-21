@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 Camera::Camera()
 : view(1.f)
@@ -54,5 +54,5 @@ void Camera::markViewDirty() { viewDirty = true; }
 
 void Camera::markProjDirty() { projDirty = true; }
 
-} // namespace render
+} // namespace gfx
 } // namespace bl

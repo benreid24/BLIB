@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 Overlay::Overlay(Renderer& r, engine::Engine& e, std::uint32_t ms, std::uint32_t md)
 : Scene(r, ms, md)
@@ -165,5 +165,5 @@ void Overlay::refreshScales() {
     }
 }
 
-} // namespace render
+} // namespace gfx
 } // namespace bl

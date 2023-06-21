@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace res
 {
@@ -70,5 +70,5 @@ std::uint32_t TextureRef::id() const { return texture - &(owner->textures.getTex
 TextureRef::operator bool() const { return texture != nullptr; }
 
 } // namespace res
-} // namespace render
+} // namespace gfx
 } // namespace bl

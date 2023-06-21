@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace res
 {
@@ -19,17 +19,15 @@ vk::RenderPass& RenderPassCache::createRenderPass(std::uint32_t id,
                                                   vk::RenderPassParameters&& sceneParams) {
     const auto insertResult = cache.try_emplace(
         id, renderer.vulkanState(), std::forward<vk::RenderPassParameters>(sceneParams));
-    if (!insertResult.second) {
-        BL_LOG_WARN << "Duplicate creation of render pass with id: " << id;
-    }
+    if (!insertResult.second) { BL_LOG_WARN << "Duplicate creation of gfx pass with id: " << id; }
     return insertResult.first->second;
 }
 
 vk::RenderPass& RenderPassCache::getRenderPass(std::uint32_t id) {
     auto it = cache.find(id);
     if (it == cache.end()) {
-        BL_LOG_CRITICAL << "Failed to find render pass with id: " << id;
-        throw std::runtime_error("Failed to find render pass");
+        BL_LOG_CRITICAL << "Failed to find gfx pass with id: " << id;
+        throw std::runtime_error("Failed to find gfx pass");
     }
     return it->second;
 }
@@ -98,5 +96,5 @@ void RenderPassCache::addDefaults() {
 }
 
 } // namespace res
-} // namespace render
+} // namespace gfx
 } // namespace bl

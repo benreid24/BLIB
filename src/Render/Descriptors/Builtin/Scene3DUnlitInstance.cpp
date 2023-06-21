@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ds
 {
@@ -85,5 +85,5 @@ void Scene3DUnlitInstance::beginSync(bool) {
 }
 
 } // namespace ds
-} // namespace render
+} // namespace gfx
 } // namespace bl

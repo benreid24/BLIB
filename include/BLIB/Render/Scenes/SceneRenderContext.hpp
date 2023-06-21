@@ -12,7 +12,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace scene
 {
@@ -101,7 +101,7 @@ inline constexpr std::uint32_t SceneRenderContext::currentRenderPass() const {
 }
 
 } // namespace scene
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

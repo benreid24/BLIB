@@ -11,7 +11,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace tfr
 {
@@ -98,7 +98,7 @@ inline constexpr bool TransferEngine::Bucket::hasTransfers() const {
 }
 
 } // namespace tfr
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

@@ -10,7 +10,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -126,7 +126,7 @@ inline constexpr const glm::u32vec2& Texture::rawSize() const { return sizeRaw; 
 inline constexpr const glm::vec2& Texture::size() const { return sizeF; }
 
 } // namespace res
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

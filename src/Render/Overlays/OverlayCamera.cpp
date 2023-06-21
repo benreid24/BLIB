@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ovy
 {
@@ -24,5 +24,5 @@ void OverlayCamera::refreshProjMatrix(glm::mat4& proj, const VkViewport&) {
 }
 
 } // namespace ovy
-} // namespace render
+} // namespace gfx
 } // namespace bl

@@ -11,7 +11,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 class Renderer;
 namespace res
@@ -77,7 +77,7 @@ TScene* ScenePool::allocateScene(TArgs&&... args) {
 }
 
 } // namespace res
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

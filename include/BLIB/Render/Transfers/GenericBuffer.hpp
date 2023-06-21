@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -166,7 +166,7 @@ void GenericBuffer<Memory, DoubleBuffer>::executeTransfer(VkCommandBuffer cb,
 }
 
 } // namespace tfr
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

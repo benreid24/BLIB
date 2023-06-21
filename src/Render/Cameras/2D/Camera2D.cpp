@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace c2d
 {
@@ -121,5 +121,5 @@ void Camera2D::update(float dt) {
 }
 
 } // namespace c2d
-} // namespace render
+} // namespace gfx
 } // namespace bl

@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -68,7 +68,7 @@ private:
 };
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

@@ -16,7 +16,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 class Renderer;
 namespace sys
@@ -133,7 +133,7 @@ inline constexpr ecs::Entity Scene::getEntityFromId(std::uint32_t sceneId) const
     return entityMap[sceneId];
 }
 
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

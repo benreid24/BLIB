@@ -9,7 +9,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace tfr
 {
@@ -194,7 +194,7 @@ struct GenericBufferStorage<false, false> {
 
 } // namespace priv
 } // namespace tfr
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

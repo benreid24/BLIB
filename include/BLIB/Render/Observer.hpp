@@ -18,7 +18,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 class Renderer;
 
@@ -238,7 +238,7 @@ FX* Observer::setPostFX(TArgs&&... args) {
     return fx;
 }
 
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

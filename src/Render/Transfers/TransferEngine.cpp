@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace tfr
 {
@@ -194,5 +194,5 @@ void TransferEngine::unregisterPerFrameTransfer(Transferable* item,
 }
 
 } // namespace tfr
-} // namespace render
+} // namespace gfx
 } // namespace bl

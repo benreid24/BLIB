@@ -9,7 +9,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ds
 {
@@ -147,7 +147,7 @@ inline void DescriptorSetInstance::markObjectDirty(std::uint32_t si) {
 }
 
 } // namespace ds
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace c3d
 {
@@ -79,7 +79,7 @@ private:
 };
 
 } // namespace c3d
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -21,7 +21,7 @@ PipelineParameters::PipelineParameters(const std::initializer_list<std::uint32_t
 , subpass(0)
 , preserveOrder(false) {
     if (renderPassCount > Config::MaxRenderPasses) {
-        throw std::runtime_error("Too many render passes");
+        throw std::runtime_error("Too many gfx passes");
     }
     std::copy(rpids.begin(), rpids.end(), renderPassIds.begin());
 
@@ -190,5 +190,5 @@ PipelineParameters& PipelineParameters::withPreserveObjectOrder(bool po) {
 }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl

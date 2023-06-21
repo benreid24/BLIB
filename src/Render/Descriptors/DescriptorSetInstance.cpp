@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ds
 {
@@ -28,5 +28,5 @@ void DescriptorSetInstance::handleFrameStart() {
 }
 
 } // namespace ds
-} // namespace render
+} // namespace gfx
 } // namespace bl

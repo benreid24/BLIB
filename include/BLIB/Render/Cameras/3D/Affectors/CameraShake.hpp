@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace c3d
 {
@@ -76,7 +76,7 @@ private:
 inline constexpr float CameraShake::getMagnitude() const { return mag; }
 
 } // namespace c3d
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

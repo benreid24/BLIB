@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ds
 {
@@ -19,5 +19,5 @@ std::unique_ptr<DescriptorSetInstance> TexturePoolFactory::createDescriptorSet()
 }
 
 } // namespace ds
-} // namespace render
+} // namespace gfx
 } // namespace bl

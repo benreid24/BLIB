@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 class Renderer;
 namespace sys
@@ -86,7 +86,7 @@ private:
 };
 
 } // namespace scene
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

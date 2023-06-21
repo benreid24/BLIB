@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace scene
 {
@@ -58,5 +58,5 @@ void BasicScene::renderScene(scene::SceneRenderContext& ctx) {
 }
 
 } // namespace scene
-} // namespace render
+} // namespace gfx
 } // namespace bl

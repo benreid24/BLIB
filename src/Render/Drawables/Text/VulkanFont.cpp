@@ -749,7 +749,7 @@ bool VulkanFont::setCurrentSize(unsigned int characterSize) const {
     return true;
 }
 
-bl::render::res::TextureRef VulkanFont::syncTexture(bl::render::Renderer& renderer) const {
+bl::gfx::res::TextureRef VulkanFont::syncTexture(bl::gfx::Renderer& renderer) const {
     if (!vulkanTexture) { vulkanTexture = renderer.texturePool().createTexture(texture); }
     else if (needsUpload) {
         needsUpload = false;

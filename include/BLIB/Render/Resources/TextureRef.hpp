@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace res
 {
@@ -133,7 +133,7 @@ inline constexpr Texture* TextureRef::get() { return texture; }
 inline constexpr const Texture* TextureRef::get() const { return texture; }
 
 } // namespace res
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

@@ -15,7 +15,7 @@ namespace t2d
  *
  * @ingroup Transforms
  */
-class Transform2D : public render::com::DescriptorComponentBase<Transform2D, glm::mat4> {
+class Transform2D : public gfx::com::DescriptorComponentBase<Transform2D, glm::mat4> {
 public:
     /**
      * @brief Creates a new transform with sane defaults

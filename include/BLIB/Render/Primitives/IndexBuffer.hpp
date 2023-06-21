@@ -1,13 +1,13 @@
 #ifndef BLIB_RENDER_PRIMITIVES_INDEXBUFFER_HPP
 #define BLIB_RENDER_PRIMITIVES_INDEXBUFFER_HPP
 
-#include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
+#include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Render/Transfers/GenericBuffer.hpp>
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace prim
 {
@@ -158,7 +158,7 @@ inline constexpr std::uint32_t IndexBufferT<T>::vertexCount() const {
 using IndexBuffer = IndexBufferT<Vertex>;
 
 } // namespace prim
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

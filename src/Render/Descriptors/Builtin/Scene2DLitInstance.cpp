@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ds
 {
@@ -84,5 +84,5 @@ void Scene2DLitInstance::beginSync(bool) {
 }
 
 } // namespace ds
-} // namespace render
+} // namespace gfx
 } // namespace bl

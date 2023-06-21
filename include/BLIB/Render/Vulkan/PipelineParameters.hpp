@@ -15,7 +15,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -251,7 +251,7 @@ PipelineParameters& PipelineParameters::addDescriptorSet(TArgs&&... args) {
 }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

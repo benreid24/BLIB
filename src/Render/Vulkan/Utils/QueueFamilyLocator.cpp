@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 QueueFamilyLocator::QueueFamilyLocator(VkPhysicalDevice device, VkSurfaceKHR surface) {
     populate(device, surface);
@@ -36,5 +36,5 @@ bool QueueFamilyLocator::complete() const {
     return graphicsFamily.has_value() && presentFamily.has_value();
 }
 
-} // namespace render
+} // namespace gfx
 } // namespace bl

@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace com
 {
@@ -61,5 +61,5 @@ void Sprite::create(Renderer& renderer, const res::TextureRef& txtr, sf::FloatRe
 void Sprite::setTexture(const res::TextureRef& txtr) { texture = txtr; }
 
 } // namespace com
-} // namespace render
+} // namespace gfx
 } // namespace bl

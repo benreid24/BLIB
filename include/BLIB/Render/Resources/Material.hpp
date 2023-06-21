@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace res
 {
@@ -21,7 +21,7 @@ struct Material {
 };
 
 } // namespace res
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

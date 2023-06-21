@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace scene
 {
@@ -84,5 +84,5 @@ void SceneRenderContext::renderObject(VkPipelineLayout layout, const SceneObject
 }
 
 } // namespace scene
-} // namespace render
+} // namespace gfx
 } // namespace bl

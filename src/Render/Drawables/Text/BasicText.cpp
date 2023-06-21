@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace draw
 {
@@ -366,5 +366,5 @@ const sf::Glyph& BasicText::getGlyph(const sf::VulkanFont& font, std::uint32_t c
 
 } // namespace txt
 } // namespace draw
-} // namespace render
+} // namespace gfx
 } // namespace bl

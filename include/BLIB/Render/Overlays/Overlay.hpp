@@ -21,7 +21,7 @@ namespace engine
 class Engine;
 }
 
-namespace render
+namespace gfx
 {
 class Renderer;
 
@@ -122,7 +122,7 @@ private:
     friend class sys::OverlayScaler;
 };
 
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

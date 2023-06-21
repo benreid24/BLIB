@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -80,5 +80,5 @@ void CommonSamplers::cleanup() {
 }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl

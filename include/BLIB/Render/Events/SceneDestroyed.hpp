@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 class Scene;
 
@@ -21,7 +21,7 @@ struct SceneDestroyed {
 };
 
 } // namespace event
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

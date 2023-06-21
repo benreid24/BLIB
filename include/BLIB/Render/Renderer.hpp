@@ -18,7 +18,7 @@ namespace engine
 class Engine;
 }
 
-namespace render
+namespace gfx
 {
 namespace sys
 {
@@ -243,7 +243,7 @@ TScene* Observer::pushScene(TArgs&&... args) {
     return s;
 }
 
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

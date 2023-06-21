@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace c3d
 {
@@ -56,5 +56,5 @@ void OrbiterController::update(float dt) {
 }
 
 } // namespace c3d
-} // namespace render
+} // namespace gfx
 } // namespace bl

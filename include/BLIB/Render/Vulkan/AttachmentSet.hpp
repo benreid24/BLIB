@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -79,7 +79,7 @@ inline AttachmentSet::AttachmentSet(std::array<VkImage, N>& images,
 , n(N) {}
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

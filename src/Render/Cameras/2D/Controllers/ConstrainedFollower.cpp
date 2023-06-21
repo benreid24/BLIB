@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace c2d
 {
@@ -62,5 +62,5 @@ void ConstrainedFollower::update(float) {
 }
 
 } // namespace c2d
-} // namespace render
+} // namespace gfx
 } // namespace bl

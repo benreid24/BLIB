@@ -11,7 +11,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 /// Collection of classes for 3d cameras
 namespace c3d
@@ -247,7 +247,7 @@ void Camera3D::removeAffectors() {
 }
 
 } // namespace c3d
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

@@ -13,7 +13,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 class Renderer;
 class PipelineCache;
@@ -108,7 +108,7 @@ inline constexpr bool Pipeline::preserveObjectOrder() const { return preserveOrd
 inline VkPipeline Pipeline::rawPipeline(std::uint32_t rpid) const { return pipelines[rpid]; }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

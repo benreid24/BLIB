@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -53,7 +53,7 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
                               bool vp) const {
 #ifdef BLIB_DEBUG
     if (target == nullptr) {
-        throw std::runtime_error("Framebuffer render started without specifying target");
+        throw std::runtime_error("Framebuffer gfx started without specifying target");
     }
 #endif
 
@@ -91,5 +91,5 @@ void Framebuffer::cleanup() {
 }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl

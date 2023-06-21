@@ -86,7 +86,7 @@ void Transform2D::refreshDescriptor(glm::mat4& dest) { dest = getMatrix(); }
 glm::mat4 Transform2D::getMatrix() const {
     glm::mat4 result = glm::translate(glm::vec3(position, depth));
     result           = glm::scale(result, glm::vec3(scaleFactors, 1.f));
-    result           = glm::rotate(result, glm::radians(rotation), render::Config::Rotate2DAxis);
+    result           = glm::rotate(result, glm::radians(rotation), gfx::Config::Rotate2DAxis);
     result           = glm::translate(result, glm::vec3(-origin, 0.f));
     return result;
 }

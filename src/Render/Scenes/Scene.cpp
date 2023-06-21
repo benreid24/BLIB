@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 Scene::Scene(Renderer& r, std::uint32_t maxStatic, std::uint32_t maxDynamic)
 : maxStatic(maxStatic)
@@ -79,5 +79,5 @@ void Scene::removeObject(scene::SceneObject* obj) {
     doRemove(ent, obj, pipelines);
 }
 
-} // namespace render
+} // namespace gfx
 } // namespace bl

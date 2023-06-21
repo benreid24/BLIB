@@ -18,7 +18,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace sys
 {
@@ -33,7 +33,7 @@ namespace sys
 template<typename T>
 class GenericDrawableSystem
 : public engine::System
-, public bl::event::Listener<ecs::event::ComponentRemoved<T>, render::event::SceneDestroyed> {
+, public bl::event::Listener<ecs::event::ComponentRemoved<T>, gfx::event::SceneDestroyed> {
 public:
     /**
      * @brief Initializes the system internals
@@ -285,7 +285,7 @@ void GenericDrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
 }
 
 } // namespace sys
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

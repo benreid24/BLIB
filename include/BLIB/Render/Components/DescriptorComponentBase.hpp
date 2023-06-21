@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ds
 {
@@ -120,7 +120,7 @@ void DescriptorComponentBase<TCom, TPayload>::markDirty() {
 }
 
 } // namespace com
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

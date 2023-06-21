@@ -19,7 +19,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace res
 {
@@ -125,7 +125,7 @@ inline constexpr VkDescriptorSetLayout TexturePool::getDescriptorLayout() const 
 inline constexpr VkDescriptorSet TexturePool::getDescriptorSet() const { return descriptorSet; }
 
 } // namespace res
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

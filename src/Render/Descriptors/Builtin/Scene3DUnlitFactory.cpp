@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ds
 {
@@ -30,5 +30,5 @@ std::unique_ptr<DescriptorSetInstance> Scene3DUnlitFactory::createDescriptorSet(
 }
 
 } // namespace ds
-} // namespace render
+} // namespace gfx
 } // namespace bl

@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace sys
 {
@@ -39,7 +39,6 @@ void OverlayScaler::refreshEntity(ecs::Entity entity, const VkViewport& viewport
     float xScale = 1.f;
     float yScale = 1.f;
 
-    bool returnEarly = false;
     switch (scaler.scaleType) {
     case com::OverlayScaler::WidthPercent:
         xScale = scaler.widthPercent / scaler.cachedObjectSize.x;
@@ -125,5 +124,5 @@ void OverlayScaler::removeOverlay(Overlay* ov) {
 }
 
 } // namespace sys
-} // namespace render
+} // namespace gfx
 } // namespace bl

@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ds
 {
@@ -22,5 +22,5 @@ std::unique_ptr<DescriptorSetInstance> PostFXFactory::createDescriptorSet() cons
 
 //
 } // namespace ds
-} // namespace render
+} // namespace gfx
 } // namespace bl

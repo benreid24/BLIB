@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace scene
 {
@@ -56,5 +56,5 @@ void PipelineBatch::removeObject(SceneObject* object, ecs::Entity entity) {
 }
 
 } // namespace scene
-} // namespace render
+} // namespace gfx
 } // namespace bl

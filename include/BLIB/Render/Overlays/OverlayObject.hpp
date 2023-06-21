@@ -16,7 +16,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 /// Classes for Observer overlays
 namespace ovy
@@ -68,7 +68,7 @@ struct OverlayObject : public scene::SceneObject {
 };
 
 } // namespace ovy
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

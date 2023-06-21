@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -44,5 +44,5 @@ VkFormat StandardAttachmentBuffers::findDepthFormat(VulkanState& vs) {
 }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl

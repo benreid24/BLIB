@@ -9,7 +9,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -260,5 +260,5 @@ void Swapchain::createSwapchain() {
 }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl

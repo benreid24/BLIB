@@ -66,7 +66,7 @@ public:
      *
      * @return render::Renderer& The rendering system
      */
-    render::Renderer& renderer();
+    gfx::Renderer& renderer();
 
     /**
      * @brief Returns the user input system of the engine
@@ -156,7 +156,7 @@ private:
     Systems ecsSystems;
     script::Manager engineScriptManager;
     ecs::Registry entityRegistry;
-    render::Renderer renderingSystem;
+    gfx::Renderer renderingSystem;
     input::InputSystem input;
 
     bool awaitFocus();
@@ -171,7 +171,7 @@ inline Systems& Engine::systems() { return ecsSystems; }
 
 inline script::Manager& Engine::scriptManager() { return engineScriptManager; }
 
-inline render::Renderer& Engine::renderer() { return renderingSystem; }
+inline gfx::Renderer& Engine::renderer() { return renderingSystem; }
 
 inline input::InputSystem& Engine::inputSystem() { return input; }
 

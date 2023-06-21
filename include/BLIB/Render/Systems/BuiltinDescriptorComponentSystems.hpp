@@ -9,7 +9,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace sys
 {
@@ -32,7 +32,7 @@ using Transform3DDescriptorSystem = GenericDescriptorComponentSystem<t3d::Transf
 using TextureDescriptorSystem = GenericDescriptorComponentSystem<com::Texture, std::uint32_t>;
 
 } // namespace sys
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

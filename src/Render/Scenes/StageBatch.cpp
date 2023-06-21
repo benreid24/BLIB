@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace scene
 {
@@ -43,5 +43,5 @@ void StageBatch::recordRenderCommands(SceneRenderContext& context) {
 }
 
 } // namespace scene
-} // namespace render
+} // namespace gfx
 } // namespace bl

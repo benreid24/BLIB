@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 /// Collection of renderer primitives
 namespace prim
@@ -85,7 +85,7 @@ struct Vertex {
 };
 
 } // namespace prim
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

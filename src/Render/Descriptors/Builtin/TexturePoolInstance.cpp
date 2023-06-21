@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ds
 {
@@ -38,5 +38,5 @@ void TexturePoolInstance::beginSync(bool) {
 }
 
 } // namespace ds
-} // namespace render
+} // namespace gfx
 } // namespace bl

@@ -12,7 +12,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 Renderer::Renderer(engine::Engine& engine, sf::WindowBase& window)
 : engine(engine)
@@ -237,5 +237,5 @@ void Renderer::setClearColor(const glm::vec3& color) {
     clearColors[0].color = {color.x, color.y, color.z, 1.f};
 }
 
-} // namespace render
+} // namespace gfx
 } // namespace bl

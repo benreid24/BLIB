@@ -12,7 +12,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -167,7 +167,7 @@ constexpr const T& PerSwapFrame<T>::current() const {
 }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

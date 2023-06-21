@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ovy
 {
@@ -37,5 +37,5 @@ void OverlayObject::applyViewport(VkCommandBuffer commandBuffer) {
 }
 
 } // namespace ovy
-} // namespace render
+} // namespace gfx
 } // namespace bl

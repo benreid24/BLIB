@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 /**
  * @brief Base class for all cameras
@@ -42,9 +42,9 @@ public:
 
     /**
      * @brief Sets the near plane distance
-     * 
+     *
      * @param near The near plane distance
-    */
+     */
     void setNearPlane(float near);
 
     /**
@@ -56,10 +56,10 @@ public:
 
     /**
      * @brief Sets the distance to the near and far planes
-     * 
+     *
      * @param near Distance to the near plane
      * @param far Distance to the far plane
-    */
+     */
     void setNearAndFarPlanes(float near, float far);
 
 protected:
@@ -119,7 +119,7 @@ inline constexpr float Camera::nearPlane() const { return near; }
 
 inline constexpr float Camera::farPlane() const { return far; }
 
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

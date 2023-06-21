@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace c3d
 {
@@ -13,5 +13,5 @@ void CameraAffector3D::applyOnView(glm::vec3&, t3d::Orientation3D&) {}
 void CameraAffector3D::applyOnProjection(float&, float&, float&) {}
 
 } // namespace c3d
-} // namespace render
+} // namespace gfx
 } // namespace bl

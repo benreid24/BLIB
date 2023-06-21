@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace com
 {
@@ -59,5 +59,5 @@ void OverlayScaler::setViewportToSelf(bool s) {
 }
 
 } // namespace com
-} // namespace render
+} // namespace gfx
 } // namespace bl

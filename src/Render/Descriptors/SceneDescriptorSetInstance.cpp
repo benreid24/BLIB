@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace ds
 {
@@ -17,5 +17,5 @@ void SceneDescriptorSetInstance::updateObserverCamera(std::uint32_t observerInde
 }
 
 } // namespace ds
-} // namespace render
+} // namespace gfx
 } // namespace bl

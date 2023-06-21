@@ -18,7 +18,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -703,5 +703,5 @@ VkDeviceSize VulkanState::computeAlignedSize(VkDeviceSize len, VkDeviceSize alig
 }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl

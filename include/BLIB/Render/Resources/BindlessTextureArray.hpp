@@ -10,7 +10,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 /// Collection of classes for renderer resource management
 namespace res
@@ -175,7 +175,7 @@ void BindlessTextureArray::resetTexture(VkDescriptorSet descriptorSet,
 }
 
 } // namespace res
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

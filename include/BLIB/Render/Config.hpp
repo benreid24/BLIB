@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 struct Config {
     static constexpr unsigned int MaxConcurrentFrames = 2;
@@ -73,7 +73,7 @@ struct Config {
     };
 };
 
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

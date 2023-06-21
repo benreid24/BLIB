@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -71,7 +71,7 @@ inline constexpr VkSampler CommonSamplers::filteredEdgeClamped() const { return 
 inline constexpr VkSampler CommonSamplers::filteredRepeated() const { return filteredTiled; }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

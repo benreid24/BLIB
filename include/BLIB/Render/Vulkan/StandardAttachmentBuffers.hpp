@@ -9,7 +9,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -80,7 +80,7 @@ inline constexpr const VkExtent2D& StandardAttachmentBuffers::bufferSize() const
 }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

@@ -6,21 +6,21 @@
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Transforms/2D.hpp>
 
-bl::render::ds::Object2DInstance::Object2DInstance(engine::Engine& engine,
-                                                   VkDescriptorSetLayout descriptorSetLayout)
+bl::gfx::ds::Object2DInstance::Object2DInstance(engine::Engine& engine,
+                                                VkDescriptorSetLayout descriptorSetLayout)
 : DescriptorSetInstance(true)
 , registry(engine.ecs())
 , vulkanState(engine.renderer().vulkanState())
 , descriptorSetLayout(descriptorSetLayout) {}
 
-bl::render::ds::Object2DInstance::~Object2DInstance() {
+bl::gfx::ds::Object2DInstance::~Object2DInstance() {
     vulkanState.descriptorPool.release(alloc);
     transformBuffer.destroy();
     textureBuffer.destroy();
 }
 
-void bl::render::ds::Object2DInstance::doInit(std::uint32_t maxStaticObjects,
-                                              std::uint32_t maxDynamicObjects) {
+void bl::gfx::ds::Object2DInstance::doInit(std::uint32_t maxStaticObjects,
+                                           std::uint32_t maxDynamicObjects) {
     const std::uint32_t objectCount = maxStaticObjects + maxDynamicObjects;
     staticObjectCount               = maxStaticObjects;
     dynamicObjectCount              = maxDynamicObjects;
@@ -83,15 +83,14 @@ void bl::render::ds::Object2DInstance::doInit(std::uint32_t maxStaticObjects,
     }
 }
 
-void bl::render::ds::Object2DInstance::bindForPipeline(VkCommandBuffer, VkPipelineLayout,
-                                                       std::uint32_t, std::uint32_t) const {
+void bl::gfx::ds::Object2DInstance::bindForPipeline(VkCommandBuffer, VkPipelineLayout,
+                                                    std::uint32_t, std::uint32_t) const {
     // noop
 }
 
-void bl::render::ds::Object2DInstance::bindForObject(VkCommandBuffer commandBuffer,
-                                                     VkPipelineLayout layout,
-                                                     std::uint32_t setIndex,
-                                                     std::uint32_t objectId) const {
+void bl::gfx::ds::Object2DInstance::bindForObject(VkCommandBuffer commandBuffer,
+                                                  VkPipelineLayout layout, std::uint32_t setIndex,
+                                                  std::uint32_t objectId) const {
     vkCmdBindDescriptorSets(commandBuffer,
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
@@ -102,14 +101,14 @@ void bl::render::ds::Object2DInstance::bindForObject(VkCommandBuffer commandBuff
                             nullptr);
 }
 
-void bl::render::ds::Object2DInstance::releaseObject(std::uint32_t, ecs::Entity entity) {
+void bl::gfx::ds::Object2DInstance::releaseObject(std::uint32_t, ecs::Entity entity) {
     auto components = registry.getComponentSet<t2d::Transform2D, com::Texture>(entity);
     if (components.get<t2d::Transform2D>()) { components.get<t2d::Transform2D>()->unlink(); }
     if (components.get<com::Texture>()) { components.get<com::Texture>()->unlink(); }
 }
 
-bool bl::render::ds::Object2DInstance::doAllocateObject(std::uint32_t sceneId, ecs::Entity entity,
-                                                        UpdateSpeed) {
+bool bl::gfx::ds::Object2DInstance::doAllocateObject(std::uint32_t sceneId, ecs::Entity entity,
+                                                     UpdateSpeed) {
     auto components = registry.getComponentSet<t2d::Transform2D, com::Texture>(entity);
     if (!components.get<t2d::Transform2D>()) {
 #ifdef BLIB_DEBUG
@@ -125,7 +124,7 @@ bool bl::render::ds::Object2DInstance::doAllocateObject(std::uint32_t sceneId, e
     return true;
 }
 
-void bl::render::ds::Object2DInstance::beginSync(bool staticObjectsChanged) {
+void bl::gfx::ds::Object2DInstance::beginSync(bool staticObjectsChanged) {
     if (staticObjectsChanged) {
         transformBuffer.configureTransferAll();
         textureBuffer.configureTransferAll();

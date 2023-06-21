@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace c2d
 {
@@ -32,5 +32,5 @@ void CameraShake::update(float dt, bool&, bool& proj) {
 }
 
 } // namespace c2d
-} // namespace render
+} // namespace gfx
 } // namespace bl

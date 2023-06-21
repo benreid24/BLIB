@@ -21,7 +21,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace vk
 {
@@ -374,7 +374,7 @@ constexpr const T* PerFrameVector<T>::data() const {
 }
 
 } // namespace vk
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif

@@ -14,7 +14,7 @@
 
 namespace bl
 {
-namespace render
+namespace gfx
 {
 namespace draw
 {
@@ -220,7 +220,7 @@ inline float BasicText::computeLineSpacing(const sf::VulkanFont& font) const {
 
 } // namespace txt
 } // namespace draw
-} // namespace render
+} // namespace gfx
 } // namespace bl
 
 #endif
