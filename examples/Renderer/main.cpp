@@ -184,6 +184,14 @@ private:
                 break;
             }
         }
+        else if (event.type == sf::Event::MouseButtonPressed) {
+            const glm::vec2 mpos(event.mouseButton.x, event.mouseButton.y);
+            const auto ir = text.findCharacterAtPosition(mpos);
+            BL_LOG_INFO << "Clicked: (" << ir.sectionIndex << ", " << ir.characterIndex << ") => '"
+                        << static_cast<char>(text.getSection(ir.sectionIndex)
+                                                 .getWordWrappedString()[ir.characterIndex])
+                        << "'";
+        }
     }
 };
 

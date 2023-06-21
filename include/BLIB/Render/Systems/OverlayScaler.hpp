@@ -49,7 +49,7 @@ private:
     // called by Overlay
     void registerOverlay(Overlay* overlay);
     void removeOverlay(Overlay* overlay);
-    void refreshEntity(ecs::Entity entity, const glm::vec2& targetSize);
+    void refreshEntity(ecs::Entity entity, const VkViewport& viewport);
 
     virtual void observe(const ecs::event::ComponentAdded<ovy::Viewport>& event) override;
     virtual void observe(const ecs::event::ComponentRemoved<ovy::Viewport>& event) override;

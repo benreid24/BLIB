@@ -138,6 +138,16 @@ public:
      */
     void refreshDescriptor(glm::mat4& dest);
 
+    /**
+     * @brief Returns the transform matrix
+     */
+    glm::mat4 getMatrix() const;
+
+    /**
+     * @brief Returns the inverse transform matrix
+     */
+    glm::mat4 getInverse() const;
+
 private:
     glm::vec2 origin;
     glm::vec2 position;

@@ -7,7 +7,7 @@ namespace render
 namespace com
 {
 OverlayScaler::OverlayScaler()
-: cachedTargetSize(1920.f, 1080.f)
+: cachedTargetRegion()
 , cachedObjectSize(50.f, 50.f)
 , scaleType(None)
 , sizePercent(0.1f, 0.1f)
@@ -50,11 +50,6 @@ void OverlayScaler::stopScaling() {
 
 void OverlayScaler::setEntitySize(const glm::vec2& s) {
     cachedObjectSize = s;
-    dirty            = scaleType != None;
-}
-
-void OverlayScaler::setTargetSize(const glm::vec2& s) {
-    cachedTargetSize = s;
     dirty            = scaleType != None;
 }
 

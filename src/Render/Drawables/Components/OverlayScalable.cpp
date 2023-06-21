@@ -33,10 +33,9 @@ glm::vec2 OverlayScalable::getOverlaySize() const {
     return {ls.x * scale.x, ls.y * scale.y};
 }
 
-glm::vec2 OverlayScalable::getScreenSize() const {
-    const glm::vec2 os          = getOverlaySize();
+glm::vec2 OverlayScalable::getTargetSize() const {
     const com::OverlayScaler& c = handle.get();
-    return {os.x * c.cachedTargetSize.x, os.y * c.cachedTargetSize.y};
+    return {c.cachedTargetRegion.width, c.cachedTargetRegion.height};
 }
 
 } // namespace base

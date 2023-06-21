@@ -27,32 +27,91 @@ class TextSyncSystem;
 
 namespace draw
 {
+/**
+ * @brief Drawable component for format-able text. Similar to sf::Text except that multiple
+ * formatted sections are able to be handled by a single instance
+ *
+ * @ingroup Renderer
+ */
 class Text
 : public Drawable<com::Mesh>
 , private base::Textured
 , public base::OverlayScalable {
 public:
+    /**
+     * @brief Basic struct representing a lookup from position to character
+     */
+    struct CharSearchResult {
+        CharSearchResult(std::uint32_t sectionIndex, std::uint32_t characterIndex)
+        : sectionIndex(sectionIndex)
+        , characterIndex(characterIndex) {}
+
+        std::uint32_t sectionIndex;
+        std::uint32_t characterIndex;
+    };
+
+    /**
+     * @brief Creates an empty Text
+     */
     Text();
 
-    Text(const sf::VulkanFont& font);
-
+    /**
+     * @brief Creates the text entity and components in the ECS and creates a section using the
+     *        given settings. This must be called before using any other method on the Text object
+     *
+     * @param engine The game engine instance
+     * @param font The font to use
+     * @param content The string to render
+     * @param fontSize The font size of the text
+     * @param color The color of the text
+     * @param style The style of the text
+     */
     void create(engine::Engine& engine, const sf::VulkanFont& font, const sf::String& content = {},
                 unsigned int fontSize = 18, const glm::vec4& color = {0.f, 0.f, 0.f, 1.f},
                 std::uint32_t style = sf::Text::Regular);
 
+    /**
+     * @brief Changes the font used to render the text
+     *
+     * @param font The new font to use
+     */
     void setFont(const sf::VulkanFont& font);
 
+    /**
+     * @brief Returns the font used by the text
+     */
     constexpr const sf::VulkanFont& getFont() const;
 
+    /**
+     * @brief Returns a section of formatted text within this text
+     *
+     * @param i The section index
+     * @return The section of formatted text
+     */
     constexpr txt::BasicText& getSection(unsigned int i = 0);
 
+    /**
+     * @brief Returns a section of formatted text within this text
+     *
+     * @param i The section index
+     * @return The section of formatted text
+     */
     constexpr const txt::BasicText& getSection(unsigned int i = 0) const;
 
+    /**
+     * @brief Creates a section using the given settings
+     *
+     * @param engine The game engine instance
+     * @param font The font to use
+     * @param content The string to render
+     * @param fontSize The font size of the text
+     * @param color The color of the text
+     * @param style The style of the text
+     * @return A reference to the new text section
+     */
     txt::BasicText& addSection(const sf::String& content = {}, unsigned int fontSize = 18,
                                const glm::vec4& color = {0.f, 0.f, 0.f, 1.f},
                                std::uint32_t style    = sf::Text::Regular);
-
-    // TODO - helper to create sections from formatted string
 
     /**
      * @brief Adds this entity to the given overlay
@@ -64,13 +123,35 @@ public:
     void addTextToOverlay(Overlay* overlay, UpdateSpeed descriptorUpdateFreq,
                           ecs::Entity parent = ecs::InvalidEntity);
 
-    void commit();
+    /**
+     * @brief Returns the bounding rectangle of the text in pre-transform space
+     */
+    sf::FloatRect getLocalBounds() const;
 
-    // TODO - methods for bounds, character pos
+    /**
+     * @brief Searches for the character that contains the given position
+     *
+     * @param targetPos Position to search for. In window space
+     * @return The found character index and section index
+     */
+    CharSearchResult findCharacterAtPosition(const glm::vec2& targetPos) const;
 
+    /**
+     * @brief Adds newlines as required to limit the text width. Adjusts as scale and content change
+     *
+     * @param width The post-transform max width to take up
+     */
     void wordWrap(float width);
 
+    /**
+     * @brief Stops word wrapping the text. Reverts to the original content
+     */
     void stopWordWrap();
+
+    /**
+     * @brief Updates the text vertices. Called automatically as required
+     */
+    void commit();
 
 private:
     class Iter {

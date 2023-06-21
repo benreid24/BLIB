@@ -48,6 +48,11 @@ public:
     constexpr const sf::String& getString() const;
 
     /**
+     * @brief Returns the string that will be rendered, including newlines added for wrapping
+     */
+    constexpr const sf::String& getWordWrappedString() const;
+
+    /**
      * @brief Sets the style of the text. See sf::Text::Style
      *
      * @param style A combination of sf::Text::Style flags
@@ -139,6 +144,15 @@ public:
      */
     float computeLineSpacing(const sf::VulkanFont& font) const;
 
+    /**
+     * @brief Returns the glyph for the given character using the settings from this text
+     *
+     * @param font The font to use
+     * @param code The character to get the glyph for
+     * @return The glyph of the given character
+     */
+    const sf::Glyph& getGlyph(const sf::VulkanFont& font, std::uint32_t code) const;
+
 private:
     sf::String content;
     sf::String wordWrappedContent;
@@ -166,6 +180,10 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline constexpr const sf::String& BasicText::getString() const { return content; }
+
+inline constexpr const sf::String& BasicText::getWordWrappedString() const {
+    return wordWrappedContent;
+}
 
 inline constexpr std::uint32_t BasicText::getStyle() const { return style; }
 

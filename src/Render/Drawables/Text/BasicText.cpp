@@ -359,6 +359,11 @@ glm::vec2 BasicText::advanceCharacterPos(const sf::VulkanFont& font, glm::vec2 p
     return pos;
 }
 
+const sf::Glyph& BasicText::getGlyph(const sf::VulkanFont& font, std::uint32_t code) const {
+    return font.getGlyph(
+        code, fontSize, (style & sf::Text::Bold) != 0, static_cast<float>(outlineThickness));
+}
+
 } // namespace txt
 } // namespace draw
 } // namespace render

@@ -22,7 +22,7 @@ void OverlayScaler::update(std::mutex&, float) {
     for (Overlay* o : overlays) { o->refreshScales(); }
 }
 
-void OverlayScaler::refreshEntity(ecs::Entity entity, const glm::vec2& targetSize) {
+void OverlayScaler::refreshEntity(ecs::Entity entity, const VkViewport& viewport) {
     ecs::ComponentSet<com::OverlayScaler, t2d::Transform2D> cset =
         registry->getComponentSet<com::OverlayScaler, t2d::Transform2D>(entity);
     if (!cset.isValid()) {
@@ -33,20 +33,22 @@ void OverlayScaler::refreshEntity(ecs::Entity entity, const glm::vec2& targetSiz
     com::OverlayScaler& scaler  = *cset.get<com::OverlayScaler>();
     t2d::Transform2D& transform = *cset.get<t2d::Transform2D>();
     scaler.dirty                = false;
-    scaler.cachedTargetSize     = targetSize;
+    scaler.cachedTargetRegion =
+        sf::FloatRect{viewport.x, viewport.y, viewport.width, viewport.height};
 
     float xScale = 1.f;
     float yScale = 1.f;
 
+    bool returnEarly = false;
     switch (scaler.scaleType) {
     case com::OverlayScaler::WidthPercent:
         xScale = scaler.widthPercent / scaler.cachedObjectSize.x;
-        yScale = xScale * targetSize.x / targetSize.y;
+        yScale = xScale * viewport.width / viewport.height;
         break;
 
     case com::OverlayScaler::HeightPercent:
         yScale = scaler.heightPercent / scaler.cachedObjectSize.y;
-        xScale = yScale * targetSize.y / targetSize.x;
+        xScale = yScale * viewport.height / viewport.width;
         break;
 
     case com::OverlayScaler::SizePercent:
@@ -55,13 +57,13 @@ void OverlayScaler::refreshEntity(ecs::Entity entity, const glm::vec2& targetSiz
         break;
 
     case com::OverlayScaler::PixelRatio:
-        xScale = scaler.cachedObjectSize.x * scaler.pixelRatio / targetSize.x;
-        yScale = scaler.cachedObjectSize.y * scaler.pixelRatio / targetSize.y;
+        xScale = scaler.cachedObjectSize.x * scaler.pixelRatio / viewport.width;
+        yScale = scaler.cachedObjectSize.y * scaler.pixelRatio / viewport.height;
         break;
 
     case com::OverlayScaler::LineHeight:
         yScale = scaler.overlayRatio;
-        xScale = yScale * targetSize.y / targetSize.x;
+        xScale = yScale * viewport.height / viewport.width;
         break;
 
     case com::OverlayScaler::None:
@@ -70,15 +72,13 @@ void OverlayScaler::refreshEntity(ecs::Entity entity, const glm::vec2& targetSiz
     }
 
     if (scaler.useViewport) {
-        ignoredEntity = entity;
-
-        const bool storePos     = !scaler.ogPos.has_value();
+        ignoredEntity           = entity;
         const glm::vec2 pos     = scaler.ogPos.value_or(transform.getPosition());
         const glm::vec2& origin = transform.getOrigin();
         const glm::vec2 offset(origin.x * xScale, origin.y * yScale);
         const glm::vec2 corner = pos - offset;
 
-        if (storePos) {
+        if (!scaler.ogPos.has_value()) {
             // TODO - how to handle setPosition now?
             // possible: use existing viewport to map back into parent space
             scaler.ogPos = transform.getPosition();

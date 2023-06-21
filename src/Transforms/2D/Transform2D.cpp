@@ -81,12 +81,17 @@ void Transform2D::rotate(float delta) {
     markDirty();
 }
 
-void Transform2D::refreshDescriptor(glm::mat4& dest) {
-    dest = glm::translate(glm::vec3(position, depth));
-    dest = glm::scale(dest, glm::vec3(scaleFactors, 1.f));
-    dest = glm::rotate(dest, glm::radians(rotation), render::Config::Rotate2DAxis);
-    dest = glm::translate(dest, glm::vec3(-origin, 0.f));
+void Transform2D::refreshDescriptor(glm::mat4& dest) { dest = getMatrix(); }
+
+glm::mat4 Transform2D::getMatrix() const {
+    glm::mat4 result = glm::translate(glm::vec3(position, depth));
+    result           = glm::scale(result, glm::vec3(scaleFactors, 1.f));
+    result           = glm::rotate(result, glm::radians(rotation), render::Config::Rotate2DAxis);
+    result           = glm::translate(result, glm::vec3(-origin, 0.f));
+    return result;
 }
+
+glm::mat4 Transform2D::getInverse() const { return glm::inverse(getMatrix()); }
 
 } // namespace t2d
 } // namespace bl

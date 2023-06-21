@@ -26,11 +26,6 @@ Text::Text()
     sections.reserve(4);
 }
 
-Text::Text(const sf::VulkanFont& f)
-: Text() {
-    font = &f;
-}
-
 void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::String& content,
                   unsigned int fontSize, const glm::vec4& color, std::uint32_t style) {
     textSystem  = &engine.systems().getSystem<sys::TextSyncSystem>();
@@ -117,8 +112,7 @@ void Text::commit() {
         // upload vertices
         component().gpuBuffer.sendToGPU();
 
-        // TODO - get full bounds
-        const auto& bounds = getSection().getBounds();
+        const auto bounds = getLocalBounds();
         OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
 
         // update draw parameters
@@ -207,6 +201,68 @@ void Text::computeWordWrap() {
 
         nextPos = advance;
     }
+}
+
+sf::FloatRect Text::getLocalBounds() const {
+    float minX = 0.f;
+    float maxX = 0.f;
+    float minY = 0.f;
+    float maxY = 0.f;
+
+    for (const auto& section : sections) {
+        const sf::FloatRect& bounds = section.getBounds();
+        minX                        = std::min(bounds.left, minX);
+        maxX                        = std::max(bounds.left + bounds.width, maxX);
+        minY                        = std::min(bounds.top, minY);
+        maxY                        = std::max(bounds.top + bounds.height, maxY);
+    }
+
+    return sf::FloatRect(minX, minY, maxX - minX, maxY - minY);
+}
+
+Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos) const {
+    const sf::FloatRect& targetBounds = getTargetRegion();
+    if (!targetBounds.contains({targetPos.x, targetPos.y})) { return {0, 0}; }
+
+    const glm::vec4 overlayPos((targetPos.x - targetBounds.left) / targetBounds.width,
+                               (targetPos.y - targetBounds.top) / targetBounds.height,
+                               0.f,
+                               1.f);
+    const glm::vec2 localPosGlm = getTransform().getInverse() * overlayPos;
+    const sf::Vector2f localPos(localPosGlm.x, localPosGlm.y);
+
+    glm::vec2 nextPos(0.f, 0.f);
+    std::uint32_t prevChar = 0;
+    for (std::uint32_t si = 0; si < sections.size(); ++si) {
+        for (std::uint32_t i = 0; i < sections[si].wordWrappedContent.getSize(); ++i) {
+            const std::uint32_t curChar = sections[si].wordWrappedContent[i];
+            const glm::vec2 advance =
+                sections[si].advanceCharacterPos(*font, nextPos, curChar, prevChar);
+            const sf::FloatRect bounds(nextPos.x,
+                                       nextPos.y,
+                                       advance.x - nextPos.x,
+                                       sections[si].computeLineSpacing(*font));
+
+            if (bounds.contains(localPos)) { return {si, i}; }
+
+            nextPos  = advance;
+            prevChar = curChar;
+        }
+
+        // transition to next section
+        switch (prevChar) {
+        case ' ':
+        case '\t':
+        case '\n':
+            break;
+        default:
+            nextPos.x += sections[si].computeWhitespaceWidth(*font);
+            break;
+        }
+    }
+
+    BL_LOG_WARN << "Could not find character position";
+    return {0, 0};
 }
 
 } // namespace draw

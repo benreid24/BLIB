@@ -141,7 +141,7 @@ void Overlay::refreshObjectAndChildren(std::uint32_t id) {
     const std::uint32_t pid = parentMap[id];
     ovy::OverlayObject& obj = objects[id];
     const VkViewport& vp    = pid != NoParent ? objects[pid].cachedViewport : cachedParentViewport;
-    scaler.refreshEntity(getEntityFromId(id), {vp.width, vp.height});
+    scaler.refreshEntity(getEntityFromId(id), vp);
     obj.refreshViewport(cachedParentViewport, vp);
     for (std::uint32_t child : obj.children) { refreshObjectAndChildren(child); }
 }

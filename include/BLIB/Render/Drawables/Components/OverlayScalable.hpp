@@ -51,7 +51,12 @@ public:
     /**
      * @brief Returns the post-transform and post-viewport size in target space
      */
-    glm::vec2 getScreenSize() const;
+    glm::vec2 getTargetSize() const;
+
+    /**
+     * @brief Returns the viewport this entity is rendered to in target space
+     */
+    const sf::FloatRect& getTargetRegion() const;
 
     /**
      * @brief Creates or updates the viewport of this drawable
@@ -123,6 +128,10 @@ inline void OverlayScalable::setLocalSize(const glm::vec2& size) {
 
 inline const glm::vec2& OverlayScalable::getLocalSize() const {
     return handle.get().getEntitySize();
+}
+
+inline const sf::FloatRect& OverlayScalable::getTargetRegion() const {
+    return handle.get().cachedTargetRegion;
 }
 
 } // namespace base

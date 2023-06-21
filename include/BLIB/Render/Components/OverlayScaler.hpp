@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_COMPONENTS_OVERLAYSCALER_HPP
 #define BLIB_RENDER_COMPONENTS_OVERLAYSCALER_HPP
 
+#include <SFML/Graphics/Rect.hpp>
 #include <glm/glm.hpp>
 #include <optional>
 
@@ -89,13 +90,6 @@ public:
     void setEntitySize(const glm::vec2& size);
 
     /**
-     * @brief Sets the size of the target region that the overlay space is mapped to
-     *
-     * @param size The render target region size in pixels
-     */
-    void setTargetSize(const glm::vec2& size);
-
-    /**
      * @brief Returns the pre-transform size of the entity
      */
     constexpr const glm::vec2& getEntitySize() const;
@@ -108,7 +102,7 @@ public:
 private:
     enum ScaleType { None, WidthPercent, HeightPercent, SizePercent, PixelRatio, LineHeight };
 
-    glm::vec2 cachedTargetSize; // TODO - update to rect?
+    sf::FloatRect cachedTargetRegion;
     glm::vec2 cachedObjectSize;
     ScaleType scaleType;
     union {
