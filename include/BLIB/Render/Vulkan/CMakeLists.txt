@@ -11,8 +11,10 @@ target_sources(BLIB PUBLIC
     PipelineParameters.hpp
     RenderPass.hpp
     RenderPassParameters.hpp
+    RenderTexture.hpp
     StandardAttachmentSet.hpp
     StandardAttachmentBuffers.hpp
     Swapchain.hpp
+    Texture.hpp
     VulkanState.hpp
 )

@@ -7,8 +7,10 @@ target_sources(BLIB PRIVATE
     PipelineParameters.cpp
     RenderPass.cpp
     RenderPassParameters.cpp
+    RenderTexture.cpp
     StandardAttachmentBuffers.cpp
     Swapchain.cpp
+    Texture.cpp
     VulkanState.cpp
 )
 

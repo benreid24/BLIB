@@ -12,14 +12,15 @@ namespace bl
 {
 namespace gfx
 {
-namespace vk
-{
-struct VulkanState;
-}
 namespace res
 {
 class TexturePool;
 class BindlessTextureArray;
+} // namespace res
+
+namespace vk
+{
+struct VulkanState;
 
 /**
  * @brief Helper struct to manage a texture in Vulkan. Textures are managed and owned by the
@@ -85,7 +86,7 @@ public:
     constexpr const glm::vec2& size() const;
 
 private:
-    BindlessTextureArray* parent;
+    res::BindlessTextureArray* parent;
 
     // transfer data
     const sf::Image* altImg;
@@ -115,8 +116,8 @@ private:
     void cleanup();
     void queueCleanup();
 
-    friend class TexturePool;
-    friend class BindlessTextureArray;
+    friend class res::TexturePool;
+    friend class res::BindlessTextureArray;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -125,7 +126,7 @@ inline constexpr const glm::u32vec2& Texture::rawSize() const { return sizeRaw; 
 
 inline constexpr const glm::vec2& Texture::size() const { return sizeF; }
 
-} // namespace res
+} // namespace vk
 } // namespace gfx
 } // namespace bl
 

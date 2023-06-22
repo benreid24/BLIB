@@ -1,7 +1,7 @@
 #include <BLIB/Render/Resources/TextureRef.hpp>
 
-#include <BLIB/Render/Resources/Texture.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
+#include <BLIB/Render/Vulkan/Texture.hpp>
 
 namespace bl
 {
@@ -13,7 +13,7 @@ TextureRef::TextureRef()
 : owner(nullptr)
 , texture(nullptr) {}
 
-TextureRef::TextureRef(TexturePool& owner, Texture& texture)
+TextureRef::TextureRef(TexturePool& owner, vk::Texture& texture)
 : owner(&owner)
 , texture(&texture) {
     addRef();

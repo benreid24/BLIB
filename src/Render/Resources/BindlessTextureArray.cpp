@@ -32,7 +32,7 @@ void BindlessTextureArray::init(VkDescriptorSet ds) {
     vulkanState.transferEngine.executeTransfers();
 
     // init all textures to error pattern
-    for (Texture& txtr : textures) { txtr = errorTexture; }
+    for (vk::Texture& txtr : textures) { txtr = errorTexture; }
 
     // fill descriptor set
     std::vector<VkDescriptorImageInfo> imageInfos(textures.size(), VkDescriptorImageInfo{});
@@ -54,7 +54,7 @@ void BindlessTextureArray::init(VkDescriptorSet ds) {
 }
 
 void BindlessTextureArray::cleanup() {
-    for (Texture& txtr : textures) {
+    for (vk::Texture& txtr : textures) {
         if (txtr.view != errorTexture.view) { txtr.cleanup(); }
     }
     errorTexture.cleanup();
@@ -76,7 +76,7 @@ void BindlessTextureArray::prepareTextureUpdate(std::uint32_t i, const std::stri
     else { textures[i].altImg = &errorPattern; }
 }
 
-void BindlessTextureArray::updateTexture(Texture* texture) {
+void BindlessTextureArray::updateTexture(vk::Texture* texture) {
     VkDescriptorImageInfo imageInfo{};
     imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     imageInfo.imageView   = texture->view;

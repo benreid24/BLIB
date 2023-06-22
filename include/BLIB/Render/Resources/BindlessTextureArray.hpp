@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_RESOURCES_BINDLESSTEXTUREARRAY_HPP
 #define BLIB_RENDER_RESOURCES_BINDLESSTEXTUREARRAY_HPP
 
-#include <BLIB/Render/Resources/Texture.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
+#include <BLIB/Render/Vulkan/Texture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <array>
@@ -58,7 +58,7 @@ public:
      * @param i The index of the texture to fetch
      * @return The texture at the given index
      */
-    Texture& getTexture(std::uint32_t i);
+    vk::Texture& getTexture(std::uint32_t i);
 
     /**
      * @brief Loads the texture contents for the given texture from the given resource id. Utilizes
@@ -100,7 +100,7 @@ public:
      *
      * @param texture The texture to update descriptors for
      */
-    void updateTexture(Texture* texture);
+    void updateTexture(vk::Texture* texture);
 
     /**
      * @brief Helper method to send descriptor writes for the given texture across a batch of
@@ -120,11 +120,11 @@ private:
     const std::uint32_t bindIndex;
     vk::VulkanState& vulkanState;
     sf::Image errorPattern;
-    Texture errorTexture;
-    std::vector<Texture> textures;
+    vk::Texture errorTexture;
+    std::vector<vk::Texture> textures;
     VkDescriptorSet descriptorSet;
 
-    friend class Texture;
+    friend class vk::Texture;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -133,7 +133,7 @@ inline constexpr std::uint32_t BindlessTextureArray::getBindIndex() const { retu
 
 inline constexpr sf::Image& BindlessTextureArray::getErrorPattern() { return errorPattern; }
 
-inline Texture& BindlessTextureArray::getTexture(std::uint32_t i) { return textures[i]; }
+inline vk::Texture& BindlessTextureArray::getTexture(std::uint32_t i) { return textures[i]; }
 
 template<std::size_t N>
 void BindlessTextureArray::commitTexture(VkDescriptorSet descriptorSet,

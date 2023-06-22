@@ -3,9 +3,7 @@ target_sources(BLIB PRIVATE
     MaterialPool.cpp
     PipelineCache.cpp
     RenderPassCache.cpp
-    RenderTexture.cpp
     ScenePool.cpp
-    Texture.cpp
     TexturePool.cpp
     TextureRef.cpp
 )

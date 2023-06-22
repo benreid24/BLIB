@@ -15,7 +15,7 @@ namespace gfx
 {
 class Renderer;
 
-namespace res
+namespace vk
 {
 /**
  * @brief Represents textures that can be rendered to and then sampled from. Render textures get
@@ -52,7 +52,7 @@ public:
     /**
      * @brief Returns the textures in the texture pool that are being rendered to
      */
-    constexpr const vk::PerFrame<TextureRef>& getTextures() const;
+    constexpr const vk::PerFrame<res::TextureRef>& getTextures() const;
 
     /**
      * @brief Sets the color to clear the texture to prior to rendering
@@ -107,7 +107,7 @@ public:
 
 private:
     Renderer* renderer;
-    vk::PerFrame<TextureRef> textures;
+    vk::PerFrame<res::TextureRef> textures;
     vk::PerFrame<vk::AttachmentBuffer> depthBuffers;
     vk::PerFrame<vk::StandardAttachmentSet> attachmentSets;
     vk::PerFrame<vk::Framebuffer> framebuffers;
@@ -129,7 +129,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const vk::PerFrame<TextureRef>& RenderTexture::getTextures() const {
+inline constexpr const vk::PerFrame<res::TextureRef>& RenderTexture::getTextures() const {
     return textures;
 }
 
@@ -139,7 +139,7 @@ inline constexpr glm::u32vec2 RenderTexture::getSize() const {
     return {scissor.extent.width, scissor.extent.height};
 }
 
-} // namespace res
+} // namespace vk
 } // namespace gfx
 } // namespace bl
 

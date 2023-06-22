@@ -1,5 +1,7 @@
-#include <BLIB/Render/Resources/RenderTexture.hpp>
+#include <BLIB/Render/Vulkan/RenderTexture.hpp>
 
+#include <BLIB/Render/Cameras/2D/Camera2D.hpp>
+#include <BLIB/Render/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
@@ -8,7 +10,7 @@ namespace bl
 {
 namespace gfx
 {
-namespace res
+namespace vk
 {
 RenderTexture::RenderTexture()
 : renderer(nullptr)
@@ -38,10 +40,10 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
     ensureCamera();
 
     // allocate textures and depth buffers
-    textures.init(r.vulkanState(), [this, &size](TextureRef& txtr) {
+    textures.init(r.vulkanState(), [this, &size, sampler](res::TextureRef& txtr) {
         txtr = renderer->texturePool().createTexture(size, sampler);
     });
-    depthBuffers.init(r.vulkanState(), [this](vk::AttachmentBuffer& db) {
+    depthBuffers.init(r.vulkanState(), [this, &size](vk::AttachmentBuffer& db) {
         db.create(renderer->vulkanState(),
                   StandardAttachmentBuffers::findDepthFormat(renderer->vulkanState()),
                   VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
@@ -63,6 +65,6 @@ void RenderTexture::ensureCamera() {
     }
 }
 
-} // namespace res
+} // namespace vk
 } // namespace gfx
 } // namespace bl

@@ -7,10 +7,14 @@ namespace bl
 {
 namespace gfx
 {
+namespace vk
+{
+class Texture;
+}
+
 namespace res
 {
 class TexturePool;
-class Texture;
 
 /**
  * @brief Lightweight reference to a texture inside of a TexturePool. Once all references to a
@@ -80,38 +84,38 @@ public:
     /**
      * @brief Access the underlying texture
      */
-    constexpr const Texture& operator*() const;
+    constexpr const vk::Texture& operator*() const;
 
     /**
      * @brief Access the underlying texture
      */
-    constexpr Texture& operator*();
+    constexpr vk::Texture& operator*();
 
     /**
      * @brief Access the underlying texture
      */
-    constexpr const Texture* operator->() const;
+    constexpr const vk::Texture* operator->() const;
 
     /**
      * @brief Access the underlying texture
      */
-    constexpr Texture* operator->();
+    constexpr vk::Texture* operator->();
 
     /**
      * @brief Access the underlying texture
      */
-    constexpr Texture* get();
+    constexpr vk::Texture* get();
 
     /**
      * @brief Access the underlying texture
      */
-    constexpr const Texture* get() const;
+    constexpr const vk::Texture* get() const;
 
 private:
     TexturePool* owner;
-    Texture* texture;
+    vk::Texture* texture;
 
-    TextureRef(TexturePool& owner, Texture& texture);
+    TextureRef(TexturePool& owner, vk::Texture& texture);
 
     void addRef();
 
@@ -120,17 +124,17 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const Texture& TextureRef::operator*() const { return *texture; }
+inline constexpr const vk::Texture& TextureRef::operator*() const { return *texture; }
 
-inline constexpr const Texture* TextureRef::operator->() const { return texture; }
+inline constexpr const vk::Texture* TextureRef::operator->() const { return texture; }
 
-inline constexpr Texture& TextureRef::operator*() { return *texture; }
+inline constexpr vk::Texture& TextureRef::operator*() { return *texture; }
 
-inline constexpr Texture* TextureRef::operator->() { return texture; }
+inline constexpr vk::Texture* TextureRef::operator->() { return texture; }
 
-inline constexpr Texture* TextureRef::get() { return texture; }
+inline constexpr vk::Texture* TextureRef::get() { return texture; }
 
-inline constexpr const Texture* TextureRef::get() const { return texture; }
+inline constexpr const vk::Texture* TextureRef::get() const { return texture; }
 
 } // namespace res
 } // namespace gfx

@@ -2,7 +2,7 @@
 #define BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 
 #include <BLIB/Render/Resources/BindlessTextureArray.hpp>
-#include <BLIB/Render/Resources/Texture.hpp>
+#include <BLIB/Render/Vulkan/Texture.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>

@@ -1,4 +1,4 @@
-#include <BLIB/Render/Resources/Texture.hpp>
+#include <BLIB/Render/Vulkan/Texture.hpp>
 
 #include <BLIB/Render/Resources/BindlessTextureArray.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
@@ -7,7 +7,7 @@ namespace bl
 {
 namespace gfx
 {
-namespace res
+namespace vk
 {
 Texture::Texture()
 : parent(nullptr)
@@ -206,6 +206,6 @@ void Texture::queueCleanup() {
     oldView      = view;
 }
 
-} // namespace res
+} // namespace vk
 } // namespace gfx
 } // namespace bl
