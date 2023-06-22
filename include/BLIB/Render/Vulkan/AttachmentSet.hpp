@@ -50,6 +50,13 @@ public:
      */
     constexpr const VkExtent2D& renderExtent() const;
 
+    /**
+     * @brief Sets the render extent of this attachment set
+     *
+     * @param extent The extent of rendering for this attachment set
+     */
+    void setRenderExtent(const VkExtent2D& extent);
+
 protected:
     VkExtent2D extent;
 
@@ -77,6 +84,8 @@ inline AttachmentSet::AttachmentSet(std::array<VkImage, N>& images,
 : imagesPointer(images.data())
 , viewsPointer(views.data())
 , n(N) {}
+
+inline void AttachmentSet::setRenderExtent(const VkExtent2D& e) { extent = e; }
 
 } // namespace vk
 } // namespace gfx

@@ -12,20 +12,19 @@ StandardAttachmentBuffers::StandardAttachmentBuffers()
 StandardAttachmentBuffers::~StandardAttachmentBuffers() { destroy(); }
 
 void StandardAttachmentBuffers::create(VulkanState& vs, const VkExtent2D& size) {
-    owner              = &vs;
-    attachments.extent = size;
+    owner = &vs;
+    attachments.setRenderExtent(size);
 
     colorAttachment.create(vs,
                            VK_FORMAT_R8G8B8A8_SRGB,
                            VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
                            size);
-    attachments.imageHandles[StandardAttachmentSet::ColorIndex]     = colorAttachment.image();
-    attachments.imageViewHandles[StandardAttachmentSet::ColorIndex] = colorAttachment.view();
-
     depthAttachment.create(
         vs, findDepthFormat(vs), VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, size);
-    attachments.imageHandles[StandardAttachmentSet::DepthIndex]     = depthAttachment.image();
-    attachments.imageViewHandles[StandardAttachmentSet::DepthIndex] = depthAttachment.view();
+    attachments.setAttachments(colorAttachment.image(),
+                               colorAttachment.view(),
+                               depthAttachment.image(),
+                               depthAttachment.view());
 }
 
 void StandardAttachmentBuffers::destroy() {

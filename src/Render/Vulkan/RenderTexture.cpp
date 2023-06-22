@@ -50,7 +50,19 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
                   {size.x, size.y});
     });
 
-    // TODO - init rest
+    // set attachment sets and bind framebuffers
+    VkRenderPass renderPass =
+        r.renderPassCache().getRenderPass(Config::RenderPassIds::OffScreenSceneRender).rawPass();
+    attachmentSets.emptyInit(r.vulkanState());
+    framebuffers.emptyInit(r.vulkanState());
+    for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
+        attachmentSets.getRaw(i).setRenderExtent(scissor.extent);
+        attachmentSets.getRaw(i).setAttachments(textures.getRaw(i)->getImage(),
+                                                textures.getRaw(i)->getView(),
+                                                depthBuffers.getRaw(i).image(),
+                                                depthBuffers.getRaw(i).view());
+        framebuffers.getRaw(i).create(r.vulkanState(), renderPass, attachmentSets.getRaw(i));
+    }
 }
 
 void RenderTexture::ensureCamera() {

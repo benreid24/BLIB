@@ -76,7 +76,7 @@ inline constexpr const StandardAttachmentSet& StandardAttachmentBuffers::attachm
 }
 
 inline constexpr const VkExtent2D& StandardAttachmentBuffers::bufferSize() const {
-    return attachments.extent;
+    return attachments.renderExtent();
 }
 
 } // namespace vk

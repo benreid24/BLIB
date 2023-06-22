@@ -45,16 +45,23 @@ public:
      */
     constexpr VkImageView depthImageView() const;
 
+    /**
+     * @brief Sets the attachments of this attachment set
+     *
+     * @param colorImage The image of the color attachment
+     * @param colorImageView The image view of the color attachment
+     * @param depthImage The image of the depth attachment
+     * @param depthImageview The image view of the depth attachment
+     */
+    void setAttachments(VkImage colorImage, VkImageView colorImageView, VkImage depthImage,
+                        VkImageView depthImageview);
+
 protected:
     std::array<VkImage, 2> imageHandles;
     std::array<VkImageView, 2> imageViewHandles;
 
     static constexpr unsigned int ColorIndex = 0;
     static constexpr unsigned int DepthIndex = 1;
-
-private:
-    friend class Swapchain;
-    friend class StandardAttachmentBuffers;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -76,6 +83,14 @@ inline constexpr VkImage StandardAttachmentSet::depthImage() const {
 
 inline constexpr VkImageView StandardAttachmentSet::depthImageView() const {
     return imageViewHandles[DepthIndex];
+}
+
+inline void StandardAttachmentSet::setAttachments(VkImage ci, VkImageView civ, VkImage di,
+                                                  VkImageView div) {
+    imageHandles[ColorIndex]     = ci;
+    imageHandles[DepthIndex]     = di;
+    imageViewHandles[ColorIndex] = civ;
+    imageViewHandles[DepthIndex] = div;
 }
 
 } // namespace vk

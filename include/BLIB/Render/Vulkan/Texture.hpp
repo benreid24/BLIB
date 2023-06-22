@@ -85,6 +85,16 @@ public:
      */
     constexpr const glm::vec2& size() const;
 
+    /**
+     * @brief Returns the Vulkan image handle
+     */
+    constexpr VkImage getImage() const;
+
+    /**
+     * @brief Returns the Vulkan image view handle
+     */
+    constexpr VkImageView getView() const;
+
 private:
     res::BindlessTextureArray* parent;
 
@@ -125,6 +135,10 @@ private:
 inline constexpr const glm::u32vec2& Texture::rawSize() const { return sizeRaw; }
 
 inline constexpr const glm::vec2& Texture::size() const { return sizeF; }
+
+inline constexpr VkImage Texture::getImage() const { return image; }
+
+inline constexpr VkImageView Texture::getView() const { return view; }
 
 } // namespace vk
 } // namespace gfx

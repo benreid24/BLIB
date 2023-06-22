@@ -234,18 +234,7 @@ void Swapchain::createSwapchain() {
     // Fetch images
     VkImage images[8];
     vkCheck(vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &imageCount, images));
-    renderFrames.resize(imageCount);
-    for (unsigned int i = 0; i < imageCount; ++i) {
-        renderFrames[i].imageHandles[0] = images[i];
-        renderFrames[i].extent          = createInfo.imageExtent;
-    }
     imageFormat = surfaceFormat.format;
-
-    // create color views
-    for (std::size_t i = 0; i < renderFrames.size(); i++) {
-        renderFrames[i].imageViewHandles[StandardAttachmentSet::ColorIndex] =
-            vulkanState.createImageView(renderFrames[i].colorImage(), imageFormat);
-    }
 
     // create depth buffers
     depthBuffers.resize(imageCount);
@@ -254,8 +243,16 @@ void Swapchain::createSwapchain() {
                                StandardAttachmentBuffers::findDepthFormat(vulkanState),
                                VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
                                createInfo.imageExtent);
-        renderFrames[i].imageViewHandles[StandardAttachmentSet::DepthIndex] =
-            depthBuffers[i].view();
+    }
+
+    // assign attachment sets
+    renderFrames.resize(imageCount);
+    for (unsigned int i = 0; i < imageCount; ++i) {
+        renderFrames[i].setRenderExtent(createInfo.imageExtent);
+        renderFrames[i].setAttachments(images[i],
+                                       vulkanState.createImageView(images[i], imageFormat),
+                                       depthBuffers[i].image(),
+                                       depthBuffers[i].view());
     }
 }
 
