@@ -131,7 +131,7 @@ public:
      * @tparam TCamera The type of camera to install
      * @tparam ...TArgs Argument types to the camera's constructor
      * @param ...args Arguments to the camera's constructor
-     * @return
+     * @return A pointer to the new camera
      */
     template<typename TCamera, typename... TArgs>
     TCamera* setCamera(TArgs&&... args);
@@ -200,9 +200,7 @@ private:
                       unsigned int observerCount, unsigned int index, bool topBottomFirst);
     void setDefaultNearFar(float near, float far);
     void cleanup();
-
     void onSceneAdd();
-    void onScenePop();
 
     // called by Renderer
     void renderScene(VkCommandBuffer commandBuffer);
