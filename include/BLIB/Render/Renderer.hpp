@@ -8,6 +8,7 @@
 #include <BLIB/Render/Resources/RenderPassCache.hpp>
 #include <BLIB/Render/Resources/ScenePool.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
+#include <BLIB/Render/Vulkan/RenderTexture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
@@ -170,6 +171,16 @@ public:
      */
     void setClearColor(const glm::vec3& color);
 
+    /**
+     * @brief Returns the distance of the default near plane for observers and cameras
+     */
+    constexpr float defaultNearPlane() const;
+
+    /**
+     * @brief Returns the distance of the default far plane for observers and cameras
+     */
+    constexpr float defaultFarPlane() const;
+
 private:
     engine::Engine& engine;
     sf::WindowBase& window;
@@ -242,6 +253,18 @@ TScene* Observer::pushScene(TArgs&&... args) {
     onSceneAdd();
     return s;
 }
+
+template<typename TScene, typename... TArgs>
+TScene* vk::RenderTexture::setScene(TArgs&&... args) {
+    TScene* s = renderer.scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
+    scene     = s;
+    onSceneSet();
+    return s;
+}
+
+inline constexpr float Renderer::defaultNearPlane() const { return defaultNear; }
+
+inline constexpr float Renderer::defaultFarPlane() const { return defaultFar; }
 
 } // namespace gfx
 } // namespace bl

@@ -82,18 +82,31 @@ void TexturePool::releaseUnused() {
     releaseUnusedLocked();
 }
 
-void TexturePool::releaseUnusedLocked() {
-    std::array<BindlessTextureArray*, 1> arrays = {&textures};
-    for (std::uint32_t i : toRelease) {
-        refCounts[i] = 0;
-        freeSlots.release(i);
-        if (reverseFileMap[i]) {
-            fileMap.erase(*reverseFileMap[i]);
-            reverseFileMap[i] = nullptr;
-        }
-        BindlessTextureArray::resetTexture(descriptorSet, arrays, i);
+void TexturePool::releaseTexture(const TextureRef& ref) {
+    std::unique_lock lock(mutex);
+
+    if (refCounts[ref.id()] > 1) {
+        BL_LOG_WARN << "Releasing texture " << ref.id() << " which still has "
+                    << refCounts[ref.id()] << " references";
     }
+
+    doRelease(ref.id());
+}
+
+void TexturePool::releaseUnusedLocked() {
+    for (std::uint32_t i : toRelease) { doRelease(i); }
     toRelease.clear();
+}
+
+void TexturePool::doRelease(std::uint32_t i) {
+    refCounts[i] = 0;
+    freeSlots.release(i);
+    if (reverseFileMap[i]) {
+        fileMap.erase(*reverseFileMap[i]);
+        reverseFileMap[i] = nullptr;
+    }
+    std::array<BindlessTextureArray*, 1> arrays = {&textures};
+    BindlessTextureArray::resetTexture(descriptorSet, arrays, i);
 }
 
 void TexturePool::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pipelineLayout,

@@ -19,6 +19,12 @@ namespace bl
 namespace gfx
 {
 class Renderer;
+
+namespace vk
+{
+class RenderTexture;
+}
+
 namespace sys
 {
 template<typename T>
@@ -125,6 +131,7 @@ private:
     friend class sys::GenericDrawableSystem;
     friend class Observer;
     friend class res::ScenePool;
+    friend class vk::RenderTexture;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

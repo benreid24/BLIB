@@ -2,8 +2,8 @@
 #define BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 
 #include <BLIB/Render/Resources/BindlessTextureArray.hpp>
-#include <BLIB/Render/Vulkan/Texture.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
+#include <BLIB/Render/Vulkan/Texture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <SFML/Graphics/Image.hpp>
@@ -88,6 +88,13 @@ public:
      */
     void releaseUnused();
 
+    /**
+     * @brief Manually releases the given texture, even if other locations are still pointing to it
+     *
+     * @param ref The texture to release
+     */
+    void releaseTexture(const TextureRef& ref);
+
 private:
     std::mutex mutex;
     vk::VulkanState& vulkanState;
@@ -111,6 +118,7 @@ private:
 
     void queueForRelease(std::uint32_t i);
     void releaseUnusedLocked();
+    void doRelease(std::uint32_t i);
 
     friend class TextureRef;
     friend class Renderer;

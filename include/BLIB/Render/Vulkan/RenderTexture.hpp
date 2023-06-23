@@ -7,6 +7,7 @@
 #include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
+#include <BLIB/Util/NonCopyable.hpp>
 #include <memory>
 
 namespace bl
@@ -23,7 +24,7 @@ namespace vk
  *
  * @ingroup Renderer
  */
-class RenderTexture {
+class RenderTexture : private util::NonCopyable {
 public:
     /**
      * @brief Empty initialization
@@ -97,8 +98,10 @@ public:
 
     /**
      * @brief Removes the current scene. Textures are still cleared each frame
+     *
+     * @ingroup clearCamera True to also free the camera, false to keep it
      */
-    void removeScene();
+    void removeScene(bool clearCamera = true);
 
     /**
      * @brief Returns the size of the textures in pixels
@@ -107,22 +110,26 @@ public:
 
 private:
     Renderer* renderer;
-    vk::PerFrame<res::TextureRef> textures;
-    vk::PerFrame<vk::AttachmentBuffer> depthBuffers;
-    vk::PerFrame<vk::StandardAttachmentSet> attachmentSets;
-    vk::PerFrame<vk::Framebuffer> framebuffers;
+    PerFrame<res::TextureRef> textures;
+    PerFrame<AttachmentBuffer> depthBuffers;
+    PerFrame<StandardAttachmentSet> attachmentSets;
+    PerFrame<Framebuffer> framebuffers;
     VkRect2D scissor;
     VkViewport viewport;
     VkClearValue clearColors[2];
+    float defaultNear, defaultFar;
 
     Scene* scene;
     std::unique_ptr<Camera> camera;
     std::uint32_t observerIndex;
 
+    void ensureCamera();
+    void onSceneSet();
+
+    // called by renderer
     void handleDescriptorSync();
     void updateCamera(float dt);
     void renderScene(VkCommandBuffer commandBuffer);
-    void ensureCamera();
 
     friend class Renderer;
 };
@@ -137,6 +144,14 @@ inline constexpr bool RenderTexture::hasScene() const { return scene != nullptr;
 
 inline constexpr glm::u32vec2 RenderTexture::getSize() const {
     return {scissor.extent.width, scissor.extent.height};
+}
+
+template<typename TCamera, typename... TArgs>
+TCamera* RenderTexture::setCamera(TArgs&&... args) {
+    TCamera* cam = new TCamera(std::forward<TArgs>(args)...);
+    static_cast<Camera*>(cam)->setNearAndFarPlanes(defaultNear, defaultFar);
+    camera.reset(cam);
+    return cam;
 }
 
 } // namespace vk

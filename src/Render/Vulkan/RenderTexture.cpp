@@ -14,7 +14,9 @@ namespace vk
 {
 RenderTexture::RenderTexture()
 : renderer(nullptr)
-, scene(nullptr) {
+, scene(nullptr)
+, defaultNear(0.1f)
+, defaultFar(100.f) {
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
 
@@ -28,7 +30,9 @@ RenderTexture::~RenderTexture() {
 
 void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler sampler) {
     if (renderer != nullptr) { destroy(); }
-    renderer = &r;
+    renderer    = &r;
+    defaultNear = r.defaultNearPlane();
+    defaultFar  = r.defaultFarPlane();
 
     // viewport and scissor come from size
     scissor.extent.width  = size.x;
@@ -65,6 +69,33 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
     }
 }
 
+void RenderTexture::destroy() {
+    framebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
+    depthBuffers.cleanup([](AttachmentBuffer& db) { db.destroy(); });
+    textures.cleanup([this](res::TextureRef& t) { renderer->texturePool().releaseTexture(t); });
+    renderer = nullptr;
+    // TODO - should we refcount scenes?
+}
+
+void RenderTexture::setScene(Scene* s) {
+    scene = s;
+    onSceneSet();
+}
+
+void RenderTexture::onSceneSet() {
+    observerIndex = scene->registerObserver();
+    ensureCamera();
+}
+
+void RenderTexture::removeScene(bool cam) {
+    scene = nullptr;
+    if (cam) { camera.release(); }
+}
+
+void RenderTexture::setClearColor(const glm::vec3& color) {
+    clearColors[0].color = {color.x, color.y, color.z, 1.f};
+}
+
 void RenderTexture::ensureCamera() {
     if (!camera) {
 #if SCENE_DEFAULT_CAMERA == 2
@@ -75,6 +106,32 @@ void RenderTexture::ensureCamera() {
         setCamera<c3d::Camera3D>();
 #endif
     }
+}
+
+void RenderTexture::handleDescriptorSync() {
+    if (hasScene()) {
+        const glm::mat4 projView = camera->getProjectionMatrix(viewport) * camera->getViewMatrix();
+        scene->updateObserverCamera(observerIndex, projView);
+        scene->handleDescriptorSync();
+    }
+}
+
+void RenderTexture::updateCamera(float dt) {
+    if (camera) { camera->update(dt); }
+}
+
+void RenderTexture::renderScene(VkCommandBuffer commandBuffer) {
+    const VkRect2D renderRegion{{0, 0}, attachmentSets.current().renderExtent()};
+    framebuffers.current().beginRender(
+        commandBuffer, renderRegion, clearColors, std::size(clearColors), true);
+
+    if (hasScene()) {
+        scene::SceneRenderContext ctx(
+            commandBuffer, observerIndex, viewport, Config::RenderPassIds::OffScreenSceneRender);
+        scene->renderScene(ctx);
+    }
+
+    framebuffers.current().finishRender(commandBuffer);
 }
 
 } // namespace vk
