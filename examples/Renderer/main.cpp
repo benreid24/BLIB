@@ -124,6 +124,23 @@ public:
         text.wordWrap(0.9f);
         text.addTextToOverlay(overlay, bl::gfx::UpdateSpeed::Static, messageBox.entity());
 
+        // setup render texture
+        renderTexture.create(engine.renderer(), {128, 128});
+        bl::gfx::Overlay* rto =
+            engine.renderer().scenePool().allocateScene<bl::gfx::Overlay>(engine, 1, 1);
+        renderTexture.setScene(rto);
+        renderTexture.setCamera<bl::gfx::ovy::OverlayCamera>();
+
+        renderTextureInnerSprite.create(engine, texture);
+        renderTextureInnerSprite.getOverlayScaler().scaleToWidthPercent(1.f);
+        renderTextureInnerSprite.getTransform().setPosition({0.f, 0.f});
+        renderTextureInnerSprite.addToOverlay(rto, bl::gfx::UpdateSpeed::Static);
+
+        renderTextureOuterSprite.create(engine, renderTexture.getTextures());
+        renderTextureOuterSprite.getTransform().setPosition({0.05f, 0.1f});
+        renderTextureOuterSprite.getOverlayScaler().scaleToHeightPercent(0.15f);
+        renderTextureOuterSprite.addToOverlay(overlay, bl::gfx::UpdateSpeed::Static);
+
         // subscribe to window events
         bl::event::Dispatcher::subscribe(this);
     }
@@ -156,6 +173,9 @@ private:
     bl::gfx::res::TextureRef messageBoxTxtr;
     sf::VulkanFont font;
     bl::gfx::draw::Text text;
+    bl::gfx::vk::RenderTexture renderTexture;
+    bl::gfx::draw::Sprite renderTextureInnerSprite;
+    bl::gfx::draw::Sprite renderTextureOuterSprite;
 
     virtual void observe(const sf::Event& event) override {
         if (event.type == sf::Event::KeyPressed) {

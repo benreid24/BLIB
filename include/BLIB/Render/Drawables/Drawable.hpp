@@ -93,6 +93,11 @@ public:
      */
     constexpr ecs::Entity entity() const;
 
+    /**
+     * @brief Destroys the ECS entity and component
+     */
+    void destroy();
+
 protected:
     /**
      * @brief Initializes the drawable
@@ -128,11 +133,6 @@ protected:
      */
     template<typename... TArgs>
     void create(engine::Engine& engine, TArgs&&... args);
-
-    /**
-     * @brief Destroys the ECS entity and component
-     */
-    void destroy();
 
     /**
      * @brief Called after the entity is added to a scene. Allows derived to sync data if required

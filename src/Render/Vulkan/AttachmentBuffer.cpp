@@ -33,30 +33,29 @@ void AttachmentBuffer::create(VulkanState& vs, VkFormat format, VkImageUsageFlag
     allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;
     allocInfo.flags         = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT;
 
-    VkImageCreateInfo depthImageCreate{};
-    depthImageCreate.sType         = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
-    depthImageCreate.imageType     = VK_IMAGE_TYPE_2D;
-    depthImageCreate.extent.width  = size.width;
-    depthImageCreate.extent.height = size.height;
-    depthImageCreate.extent.depth  = 1;
-    depthImageCreate.mipLevels     = 1;
-    depthImageCreate.arrayLayers   = 1;
-    depthImageCreate.format        = format;
-    depthImageCreate.tiling        = VK_IMAGE_TILING_OPTIMAL;
-    depthImageCreate.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-    depthImageCreate.usage         = usage;
-    depthImageCreate.sharingMode   = VK_SHARING_MODE_EXCLUSIVE;
-    depthImageCreate.samples       = VK_SAMPLE_COUNT_1_BIT;
-    depthImageCreate.flags         = 0; // Optional
-    if (vmaCreateImage(
-            vs.vmaAllocator, &depthImageCreate, &allocInfo, &imageHandle, &alloc, nullptr) !=
+    VkImageCreateInfo createInfo{};
+    createInfo.sType         = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
+    createInfo.imageType     = VK_IMAGE_TYPE_2D;
+    createInfo.extent.width  = size.width;
+    createInfo.extent.height = size.height;
+    createInfo.extent.depth  = 1;
+    createInfo.mipLevels     = 1;
+    createInfo.arrayLayers   = 1;
+    createInfo.format        = format;
+    createInfo.tiling        = VK_IMAGE_TILING_OPTIMAL;
+    createInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    createInfo.usage         = usage;
+    createInfo.sharingMode   = VK_SHARING_MODE_EXCLUSIVE;
+    createInfo.samples       = VK_SAMPLE_COUNT_1_BIT;
+    createInfo.flags         = 0; // Optional
+    if (vmaCreateImage(vs.vmaAllocator, &createInfo, &allocInfo, &imageHandle, &alloc, nullptr) !=
         VK_SUCCESS) {
         throw std::runtime_error("failed to create depth buffer");
     }
 
     const bool depth = (usage & VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT) != 0;
     viewHandle       = vs.createImageView(imageHandle,
-                                    depthImageCreate.format,
+                                    createInfo.format,
                                     depth ? VK_IMAGE_ASPECT_DEPTH_BIT : VK_IMAGE_ASPECT_COLOR_BIT);
 }
 

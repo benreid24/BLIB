@@ -16,7 +16,7 @@ void StandardAttachmentBuffers::create(VulkanState& vs, const VkExtent2D& size) 
     attachments.setRenderExtent(size);
 
     colorAttachment.create(vs,
-                           VK_FORMAT_R8G8B8A8_SRGB,
+                           DefaultColorFormat,
                            VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
                            size);
     depthAttachment.create(

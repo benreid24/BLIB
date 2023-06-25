@@ -141,8 +141,6 @@ void BindlessTextureArray::commitTexture(VkDescriptorSet descriptorSet,
                                          std::uint32_t i) {
     vk::VulkanState& vulkanState = arrays[0]->vulkanState;
 
-    for (BindlessTextureArray* array : arrays) { array->textures[i].createFromContentsAndQueue(); }
-
     VkDescriptorImageInfo imageInfos[N]{};
     for (std::size_t j = 0; j < N; ++j) {
         imageInfos[j].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
@@ -169,7 +167,8 @@ void BindlessTextureArray::resetTexture(VkDescriptorSet descriptorSet,
                                         std::uint32_t i) {
     for (BindlessTextureArray* array : arrays) {
         array->textures[i].cleanup();
-        array->textures[i] = array->errorTexture;
+        array->textures[i]        = array->errorTexture;
+        array->textures[i].altImg = &array->errorPattern;
     }
     commitTexture(descriptorSet, arrays, i);
 }

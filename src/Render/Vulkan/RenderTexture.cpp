@@ -27,7 +27,7 @@ RenderTexture::RenderTexture()
 RenderTexture::~RenderTexture() { destroy(); }
 
 void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler sampler) {
-    const bool firstInit = renderer != nullptr;
+    const bool firstInit = renderer == nullptr;
 
     renderer = &r;
     r.registerRenderTexture(this);
@@ -46,7 +46,7 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
     // allocate textures and depth buffers
     if (firstInit) {
         textures.init(r.vulkanState(), [this, &size, sampler](res::TextureRef& txtr) {
-            txtr = renderer->texturePool().createTexture(size, sampler);
+            txtr = renderer->texturePool().createRenderTexture(size, sampler);
         });
     }
     else {

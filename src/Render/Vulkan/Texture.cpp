@@ -22,31 +22,33 @@ Texture::Texture()
 
 void Texture::createFromContentsAndQueue() {
     const sf::Image& src = altImg ? *altImg : *transferImg;
-    create({src.getSize().x, src.getSize().y});
+    create({src.getSize().x, src.getSize().y}, DefaultFormat, 0);
     queueTransfer(SyncRequirement::Immediate);
 }
 
-void Texture::create(const glm::u32vec2& s) {
+void Texture::create(const glm::u32vec2& s, VkFormat f, VkImageUsageFlags u) {
+    usage   = u;
+    format  = f;
     sizeRaw = s;
     sizeF.x = static_cast<float>(sizeRaw.x);
     sizeF.y = static_cast<float>(sizeRaw.y);
 
     vulkanState->createImage(s.x,
                              s.y,
-                             VK_FORMAT_R8G8B8A8_UNORM,
+                             format,
                              VK_IMAGE_TILING_OPTIMAL,
                              VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT |
-                                 VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
+                                 VK_IMAGE_USAGE_TRANSFER_SRC_BIT | usage,
                              VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                              &image,
                              &alloc,
                              &allocInfo);
-    view = vulkanState->createImageView(image, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
+    view = vulkanState->createImageView(image, format, VK_IMAGE_ASPECT_COLOR_BIT);
 
-    vulkanState->transitionImageLayout(image,
-                                       VK_FORMAT_R8G8B8A8_UNORM,
-                                       VK_IMAGE_LAYOUT_UNDEFINED,
-                                       VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+    if ((u & VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT) == 0) {
+        vulkanState->transitionImageLayout(
+            image, format, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+    }
 }
 
 void Texture::setSampler(VkSampler s) {
@@ -76,14 +78,12 @@ void Texture::ensureSize(const glm::u32vec2& s) {
     queueCleanup();
 
     // transition original image to transfer source layout
-    vulkanState->transitionImageLayout(image,
-                                       VK_FORMAT_R8G8B8A8_UNORM,
-                                       VK_IMAGE_LAYOUT_UNDEFINED,
-                                       VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+    vulkanState->transitionImageLayout(
+        image, format, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
 
     // create new image
     const glm::u32vec2 oldSize = sizeRaw;
-    create(s);
+    create(s, format, usage);
 
     // copy from old to new
     VkCommandBuffer cb = vulkanState->beginSingleTimeCommands();

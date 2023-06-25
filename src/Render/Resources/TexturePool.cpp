@@ -1,5 +1,7 @@
 #include <BLIB/Render/Resources/TexturePool.hpp>
 
+#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
+
 namespace bl
 {
 namespace gfx
@@ -142,6 +144,7 @@ TextureRef TexturePool::allocateTexture() {
 void TexturePool::finalizeNewTexture(std::uint32_t i, VkSampler sampler) {
     std::array<BindlessTextureArray*, 1> arrays = {&textures};
     textures.getTexture(i).sampler              = sampler;
+    textures.getTexture(i).createFromContentsAndQueue();
     BindlessTextureArray::commitTexture(descriptorSet, arrays, i);
 }
 
@@ -163,7 +166,22 @@ TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkSampler sample
     std::unique_lock lock(mutex);
 
     TextureRef txtr = allocateTexture();
-    txtr->create(size);
+    txtr->create(size, vk::Texture::DefaultFormat, 0);
+    txtr->sampler = sampler;
+    textures.updateTexture(txtr.get());
+
+    return txtr;
+}
+
+TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkSampler sampler) {
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+
+    std::unique_lock lock(mutex);
+
+    TextureRef txtr = allocateTexture();
+    txtr->create(size,
+                 vk::StandardAttachmentBuffers::DefaultColorFormat,
+                 VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT);
     txtr->sampler = sampler;
     textures.updateTexture(txtr.get());
 

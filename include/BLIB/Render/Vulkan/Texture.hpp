@@ -30,6 +30,8 @@ struct VulkanState;
  */
 class Texture : public tfr::Transferable {
 public:
+    static constexpr VkFormat DefaultFormat = VK_FORMAT_R8G8B8A8_UNORM;
+
     /**
      * @brief Creates an empty Texture
      *
@@ -105,6 +107,8 @@ private:
     sf::IntRect source;
 
     // texture data
+    VkFormat format;
+    VkImageUsageFlags usage;
     VkImage image;
     VmaAllocation alloc;
     VmaAllocationInfo allocInfo;
@@ -119,7 +123,7 @@ private:
     VmaAllocation oldAlloc;
     VkImageView oldView;
 
-    void create(const glm::u32vec2& size);
+    void create(const glm::u32vec2& size, VkFormat format, VkImageUsageFlags usage);
     void createFromContentsAndQueue();
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& transferEngine) override;

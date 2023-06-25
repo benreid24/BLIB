@@ -43,9 +43,14 @@ public:
     Sprite(engine::Engine& engine, res::TextureRef texture, const sf::FloatRect& region = {});
 
     /**
-     * @brief Destroys the ECS entity of this sprite
+     * @brief Creates the ECS backing for the sprite
+     *
+     * @param engine The game engine instance
+     * @param textures The textures for the sprite
+     * @param region The region to render from the texture
      */
-    ~Sprite();
+    Sprite(engine::Engine& engine, const vk::PerFrame<res::TextureRef>& textures,
+           const sf::FloatRect& region = {});
 
     /**
      * @brief Creates the ECS backing for the sprite
@@ -57,9 +62,14 @@ public:
     void create(engine::Engine& engine, res::TextureRef texture, const sf::FloatRect& region = {});
 
     /**
-     * @brief Destroys the ECS entity of this sprite
+     * @brief Creates the ECS backing for the sprite
+     *
+     * @param engine The game engine instance
+     * @param textures The textures for the sprite
+     * @param region The region to render from the texture
      */
-    void destroy();
+    void create(engine::Engine& engine, const vk::PerFrame<res::TextureRef>& textures,
+                const sf::FloatRect& region = {});
 };
 
 } // namespace draw
