@@ -198,12 +198,16 @@ private:
     std::vector<std::unique_ptr<Observer>> observers;
     float defaultNear, defaultFar;
     VkClearValue clearColors[2];
+    std::vector<vk::RenderTexture*> renderTextures;
 
     Renderer(engine::Engine& engine, sf::WindowBase& window);
     ~Renderer();
     void initialize();
     void cleanup();
     void processResize(const sf::Rect<std::uint32_t>& region);
+
+    void registerRenderTexture(vk::RenderTexture* rt);
+    void removeRenderTexture(vk::RenderTexture* rt);
 
     // render stages
     void updateCameras(float dt);
@@ -215,6 +219,7 @@ private:
     friend class Observer;
     friend class sys::CameraUpdateSystem;
     friend class sys::RenderSystem;
+    friend class vk::RenderTexture;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

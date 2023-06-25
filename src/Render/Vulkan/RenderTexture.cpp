@@ -30,7 +30,8 @@ RenderTexture::~RenderTexture() {
 
 void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler sampler) {
     if (renderer != nullptr) { destroy(); }
-    renderer    = &r;
+    renderer = &r;
+    r.registerRenderTexture(this);
     defaultNear = r.defaultNearPlane();
     defaultFar  = r.defaultFarPlane();
 
@@ -70,6 +71,7 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
 }
 
 void RenderTexture::destroy() {
+    renderer->removeRenderTexture(this);
     framebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
     depthBuffers.cleanup([](AttachmentBuffer& db) { db.destroy(); });
     textures.cleanup([this](res::TextureRef& t) { renderer->texturePool().releaseTexture(t); });

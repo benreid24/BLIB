@@ -28,6 +28,7 @@ Renderer::Renderer(engine::Engine& engine, sf::WindowBase& window)
 , commonObserver(*this)
 , defaultNear(0.1f)
 , defaultFar(100.f) {
+    renderTextures.reserve(16);
     commonObserver.setDefaultNearFar(defaultNear, defaultFar);
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
     clearColors[1].depthStencil = {1.f, 0};
@@ -103,6 +104,7 @@ void Renderer::initialize() {
 void Renderer::cleanup() {
     vkCheck(vkDeviceWaitIdle(state.device));
 
+    for (vk::RenderTexture* rt : renderTextures) { rt->destroy(); }
     observers.clear();
     commonObserver.cleanup();
     scenes.cleanup();
@@ -123,12 +125,14 @@ void Renderer::processResize(const sf::Rect<std::uint32_t>& region) {
 }
 
 void Renderer::updateCameras(float dt) {
+    for (vk::RenderTexture* rt : renderTextures) { rt->updateCamera(dt); }
     commonObserver.updateCamera(dt);
     for (auto& o : observers) { o->updateCamera(dt); }
 }
 
 void Renderer::renderFrame() {
     // kick off transfers
+    for (vk::RenderTexture* rt : renderTextures) { rt->handleDescriptorSync(); }
     if (commonObserver.hasScene()) { commonObserver.handleDescriptorSync(); }
     else {
         for (auto& o : observers) { o->handleDescriptorSync(); }
@@ -140,6 +144,9 @@ void Renderer::renderFrame() {
     VkCommandBuffer commandBuffer           = nullptr;
     state.beginFrame(currentFrame, commandBuffer);
     framebuffers.current().recreateIfChanged(*currentFrame);
+
+    // begin render texture rendering
+    for (vk::RenderTexture* rt : renderTextures) { rt->renderScene(commandBuffer); }
 
     // record commands to render scenes
     if (commonObserver.hasScene()) { commonObserver.renderScene(commandBuffer); }
@@ -235,6 +242,17 @@ void Renderer::setSplitscreenDirection(SplitscreenDirection d) {
 
 void Renderer::setClearColor(const glm::vec3& color) {
     clearColors[0].color = {color.x, color.y, color.z, 1.f};
+}
+
+void Renderer::registerRenderTexture(vk::RenderTexture* rt) { renderTextures.emplace_back(rt); }
+
+void Renderer::removeRenderTexture(vk::RenderTexture* rt) {
+    for (auto it = renderTextures.begin(); it != renderTextures.end(); ++it) {
+        if (*it == rt) {
+            renderTextures.erase(it);
+            return;
+        }
+    }
 }
 
 } // namespace gfx
