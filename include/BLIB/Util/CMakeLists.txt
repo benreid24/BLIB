@@ -15,5 +15,6 @@ target_sources(BLIB PUBLIC
     TupleLoop.hpp
     UnderlyingType.hpp
     VectorRef.hpp
+    Visitor.hpp
     Waiter.hpp
 )

@@ -24,12 +24,11 @@ RenderTexture::RenderTexture()
     clearColors[1].depthStencil = {1.f, 0};
 }
 
-RenderTexture::~RenderTexture() {
-    if (renderer != nullptr) { destroy(); }
-}
+RenderTexture::~RenderTexture() { destroy(); }
 
 void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler sampler) {
-    if (renderer != nullptr) { destroy(); }
+    const bool firstInit = renderer != nullptr;
+
     renderer = &r;
     r.registerRenderTexture(this);
     defaultNear = r.defaultNearPlane();
@@ -45,9 +44,14 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
     ensureCamera();
 
     // allocate textures and depth buffers
-    textures.init(r.vulkanState(), [this, &size, sampler](res::TextureRef& txtr) {
-        txtr = renderer->texturePool().createTexture(size, sampler);
-    });
+    if (firstInit) {
+        textures.init(r.vulkanState(), [this, &size, sampler](res::TextureRef& txtr) {
+            txtr = renderer->texturePool().createTexture(size, sampler);
+        });
+    }
+    else {
+        textures.cleanup([&size](res::TextureRef& txtr) { txtr->ensureSize(size); });
+    }
     depthBuffers.init(r.vulkanState(), [this, &size](vk::AttachmentBuffer& db) {
         db.create(renderer->vulkanState(),
                   StandardAttachmentBuffers::findDepthFormat(renderer->vulkanState()),
@@ -71,12 +75,14 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
 }
 
 void RenderTexture::destroy() {
-    renderer->removeRenderTexture(this);
-    framebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
-    depthBuffers.cleanup([](AttachmentBuffer& db) { db.destroy(); });
-    textures.cleanup([this](res::TextureRef& t) { renderer->texturePool().releaseTexture(t); });
-    renderer = nullptr;
-    // TODO - should we refcount scenes?
+    if (renderer) {
+        renderer->removeRenderTexture(this);
+        framebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
+        depthBuffers.cleanup([](AttachmentBuffer& db) { db.destroy(); });
+        textures.cleanup([this](res::TextureRef& t) { renderer->texturePool().releaseTexture(t); });
+        renderer = nullptr;
+        // TODO - should we refcount scenes?
+    }
 }
 
 void RenderTexture::setScene(Scene* s) {
