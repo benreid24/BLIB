@@ -1,6 +1,7 @@
 #include <BLIB/Transforms/2D/Transform2D.hpp>
 
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glm/gtx/transform.hpp>
 
 namespace bl

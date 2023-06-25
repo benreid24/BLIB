@@ -116,11 +116,12 @@ bool bl::gfx::ds::Object2DInstance::doAllocateObject(std::uint32_t sceneId, ecs:
 #endif
         return false;
     }
-    components.get<t2d::Transform2D>()->link(this, sceneId, &transformBuffer[sceneId]);
+    components.get<t2d::Transform2D>()->link(vulkanState, this, sceneId, &transformBuffer[sceneId]);
     if (components.get<com::Texture>()) {
-        components.get<com::Texture>()->link(this, sceneId, &textureBuffer[sceneId]);
+        components.get<com::Texture>()->link(
+            vulkanState, this, sceneId, textureBuffer.getWriteLocations(sceneId));
     }
-    else { textureBuffer[sceneId] = 0; }
+    else { textureBuffer.write(sceneId, 0); }
     return true;
 }
 

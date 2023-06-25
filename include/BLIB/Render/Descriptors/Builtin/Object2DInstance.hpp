@@ -4,6 +4,7 @@
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Transfers/UniformBuffer.hpp>
+#include <BLIB/Render/Transfers/UniformBufferDouble.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
 #include <cstdint>
 #include <glm/glm.hpp>
@@ -50,7 +51,7 @@ private:
     const VkDescriptorSetLayout descriptorSetLayout;
     vk::PerFrameVector<VkDescriptorSet> descriptorSets;
     tfr::UniformBuffer<glm::mat4> transformBuffer;
-    tfr::UniformBuffer<std::uint32_t> textureBuffer;
+    tfr::UniformBufferDouble<std::uint32_t> textureBuffer;
     std::uint32_t staticObjectCount;
     std::uint32_t dynamicObjectCount;
 
