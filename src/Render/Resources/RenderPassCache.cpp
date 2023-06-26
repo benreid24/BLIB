@@ -54,6 +54,15 @@ void RenderPassCache::addDefaults() {
     depthAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
     depthAttachment.finalLayout    = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
+    VkSubpassDependency renderCompleteDep{};
+    renderCompleteDep.srcSubpass      = 0;
+    renderCompleteDep.dstSubpass      = VK_SUBPASS_EXTERNAL;
+    renderCompleteDep.srcStageMask    = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+    renderCompleteDep.dstStageMask    = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+    renderCompleteDep.srcAccessMask   = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+    renderCompleteDep.dstAccessMask   = VK_ACCESS_SHADER_READ_BIT;
+    renderCompleteDep.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
+
     vk::RenderPassParameters sceneParams;
     sceneParams.addAttachment(sceneColorAttachment);
     sceneParams.addAttachment(depthAttachment);
@@ -62,6 +71,7 @@ void RenderPassCache::addDefaults() {
             .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
             .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
             .build());
+    sceneParams.addSubpassDependency(renderCompleteDep);
     createRenderPass(Config::RenderPassIds::OffScreenSceneRender, sceneParams.build());
 
     // primary render pass for final swapchain compositing

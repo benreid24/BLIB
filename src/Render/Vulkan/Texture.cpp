@@ -49,6 +49,10 @@ void Texture::create(const glm::u32vec2& s, VkFormat f, VkImageUsageFlags u) {
         vulkanState->transitionImageLayout(
             image, format, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
     }
+    else {
+        vulkanState->transitionImageLayout(
+            image, format, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    }
 }
 
 void Texture::setSampler(VkSampler s) {

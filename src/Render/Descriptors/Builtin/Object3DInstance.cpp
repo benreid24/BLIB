@@ -4,6 +4,7 @@
 #include <BLIB/Render/Components/Texture.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Renderer.hpp>
+#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <BLIB/Transforms/3D.hpp>
 
 bl::gfx::ds::Object3DInstance::Object3DInstance(engine::Engine& engine,
@@ -83,15 +84,15 @@ void bl::gfx::ds::Object3DInstance::doInit(std::uint32_t maxStaticObjects,
     }
 }
 
-void bl::gfx::ds::Object3DInstance::bindForPipeline(VkCommandBuffer, VkPipelineLayout,
-                                                    std::uint32_t, std::uint32_t) const {
+void bl::gfx::ds::Object3DInstance::bindForPipeline(scene::SceneRenderContext&, VkPipelineLayout,
+                                                    std::uint32_t) const {
     // noop
 }
 
-void bl::gfx::ds::Object3DInstance::bindForObject(VkCommandBuffer commandBuffer,
+void bl::gfx::ds::Object3DInstance::bindForObject(scene::SceneRenderContext& ctx,
                                                   VkPipelineLayout layout, std::uint32_t setIndex,
                                                   std::uint32_t objectId) const {
-    vkCmdBindDescriptorSets(commandBuffer,
+    vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
                             setIndex,

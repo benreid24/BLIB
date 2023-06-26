@@ -1,6 +1,7 @@
 #include <BLIB/Render/Descriptors/Builtin/Scene2DLitInstance.hpp>
 
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <array>
 
 namespace bl
@@ -19,20 +20,19 @@ Scene2DLitInstance::~Scene2DLitInstance() {
     cameraBuffer.destroy();
 }
 
-void Scene2DLitInstance::bindForPipeline(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
-                                         std::uint32_t observerIndex,
+void Scene2DLitInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                          std::uint32_t setIndex) const {
-    vkCmdBindDescriptorSets(commandBuffer,
+    vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
                             setIndex,
                             1,
-                            &descriptorSets.current(observerIndex),
+                            &descriptorSets.current(ctx.currentObserverIndex()),
                             0,
                             nullptr);
 }
 
-void Scene2DLitInstance::bindForObject(VkCommandBuffer, VkPipelineLayout, std::uint32_t,
+void Scene2DLitInstance::bindForObject(scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
                                        std::uint32_t) const {
     // n/a
 }

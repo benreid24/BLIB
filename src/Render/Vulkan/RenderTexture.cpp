@@ -100,8 +100,8 @@ void RenderTexture::removeScene(bool cam) {
     if (cam) { camera.release(); }
 }
 
-void RenderTexture::setClearColor(const glm::vec3& color) {
-    clearColors[0].color = {color.x, color.y, color.z, 1.f};
+void RenderTexture::setClearColor(const glm::vec4& color) {
+    clearColors[0].color = {color.x, color.y, color.z, color.w};
 }
 
 void RenderTexture::ensureCamera() {
@@ -134,8 +134,11 @@ void RenderTexture::renderScene(VkCommandBuffer commandBuffer) {
         commandBuffer, renderRegion, clearColors, std::size(clearColors), true);
 
     if (hasScene()) {
-        scene::SceneRenderContext ctx(
-            commandBuffer, observerIndex, viewport, Config::RenderPassIds::OffScreenSceneRender);
+        scene::SceneRenderContext ctx(commandBuffer,
+                                      observerIndex,
+                                      viewport,
+                                      Config::RenderPassIds::OffScreenSceneRender,
+                                      true);
         scene->renderScene(ctx);
     }
 

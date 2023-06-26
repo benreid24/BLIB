@@ -31,9 +31,11 @@ public:
      * @param observerIndex Index of the observer currently rendering the scene
      * @param viewport The current viewport
      * @param renderPassId The id of the render pass that is currently active
+     * @param renderingToRenderTexture True if target is render texture, false otherwise
      */
     SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,
-                       const VkViewport& viewport, std::uint32_t renderPassId);
+                       const VkViewport& viewport, std::uint32_t renderPassId,
+                       bool renderingToRenderTexture);
 
     /**
      * @brief Binds the given pipeline
@@ -76,6 +78,16 @@ public:
      */
     constexpr std::uint32_t currentRenderPass() const;
 
+    /**
+     * @brief Returns whether or not the current target is a render texture
+     */
+    constexpr bool targetIsRenderTexture() const;
+
+    /**
+     * @brief Returns the scene index of the current observer
+     */
+    constexpr std::uint32_t currentObserverIndex() const;
+
 private:
     const VkCommandBuffer commandBuffer;
     const std::uint32_t observerIndex;
@@ -86,6 +98,7 @@ private:
     std::uint32_t perObjStart, perObjCount;
     const VkViewport viewport;
     const std::uint32_t renderPassId;
+    const bool isRenderTexture;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -98,6 +111,12 @@ inline constexpr const VkViewport& SceneRenderContext::parentViewport() const { 
 
 inline constexpr std::uint32_t SceneRenderContext::currentRenderPass() const {
     return renderPassId;
+}
+
+inline constexpr bool SceneRenderContext::targetIsRenderTexture() const { return isRenderTexture; }
+
+inline constexpr std::uint32_t SceneRenderContext::currentObserverIndex() const {
+    return observerIndex;
 }
 
 } // namespace scene

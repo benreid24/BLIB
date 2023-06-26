@@ -24,6 +24,8 @@ namespace res
  */
 class BindlessTextureArray {
 public:
+    static constexpr std::uint32_t MaxRenderTextures = 32;
+
     /**
      * @brief Creates a new bindless texture array manager
      *
@@ -44,8 +46,9 @@ public:
      *        custom error texture is desired, otherwise it is filled with a bright purple
      *
      * @param descriptorSet The descriptor set to write to
+     * @param rtDescriptorSet Descriptor set to write to for render texture rendering
      */
-    void init(VkDescriptorSet descriptorSet);
+    void init(VkDescriptorSet descriptorSet, VkDescriptorSet rtDescriptorSet);
 
     /**
      * @brief Destroys the array and frees all textures
@@ -92,7 +95,7 @@ public:
      * @param i The id of the texture across the arrays to update
      */
     template<std::size_t N>
-    static void commitTexture(VkDescriptorSet descriptorSet,
+    static void commitTexture(VkDescriptorSet descriptorSet, VkDescriptorSet rtDescriptorSet,
                               const std::array<BindlessTextureArray*, N>& arrays, std::uint32_t i);
 
     /**
@@ -113,16 +116,18 @@ public:
      * @param i The id of the texture across the arrays to reset
      */
     template<std::size_t N>
-    static void resetTexture(VkDescriptorSet descriptorSet,
+    static void resetTexture(VkDescriptorSet descriptorSet, VkDescriptorSet rtDescriptorSet,
                              const std::array<BindlessTextureArray*, N>& arrays, std::uint32_t i);
 
 private:
     const std::uint32_t bindIndex;
+    const std::uint32_t firstRtId;
     vk::VulkanState& vulkanState;
     sf::Image errorPattern;
     vk::Texture errorTexture;
     std::vector<vk::Texture> textures;
     VkDescriptorSet descriptorSet;
+    VkDescriptorSet rtDescriptorSet;
 
     friend class vk::Texture;
 };
@@ -137,18 +142,28 @@ inline vk::Texture& BindlessTextureArray::getTexture(std::uint32_t i) { return t
 
 template<std::size_t N>
 void BindlessTextureArray::commitTexture(VkDescriptorSet descriptorSet,
+                                         VkDescriptorSet rtDescriptorSet,
                                          const std::array<BindlessTextureArray*, N>& arrays,
                                          std::uint32_t i) {
     vk::VulkanState& vulkanState = arrays[0]->vulkanState;
+    const bool isRT              = i >= arrays.front()->firstRtId;
 
-    VkDescriptorImageInfo imageInfos[N]{};
+    VkDescriptorImageInfo imageInfos[N * 2]{};
     for (std::size_t j = 0; j < N; ++j) {
+        // always write texture for non-RT descriptor set
         imageInfos[j].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
         imageInfos[j].imageView   = arrays[j]->textures[i].view;
         imageInfos[j].sampler     = arrays[j]->textures[i].sampler;
+
+        // write error texture for RT if texture is RT itself
+        const std::size_t nj       = j + N;
+        const vk::Texture& txtr    = isRT ? arrays[j]->errorTexture : arrays[j]->textures[i];
+        imageInfos[nj].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+        imageInfos[nj].imageView   = txtr.view;
+        imageInfos[nj].sampler     = txtr.sampler;
     }
 
-    VkWriteDescriptorSet setWrites[N]{};
+    VkWriteDescriptorSet setWrites[N * 2]{};
     for (std::size_t j = 0; j < N; ++j) {
         setWrites[j].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
         setWrites[j].descriptorCount = 1;
@@ -157,12 +172,22 @@ void BindlessTextureArray::commitTexture(VkDescriptorSet descriptorSet,
         setWrites[j].dstSet          = descriptorSet;
         setWrites[j].pImageInfo      = &imageInfos[j];
         setWrites[j].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+
+        const std::size_t nj          = j + N;
+        setWrites[nj].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+        setWrites[nj].descriptorCount = 1;
+        setWrites[nj].dstBinding      = arrays[j]->bindIndex;
+        setWrites[nj].dstArrayElement = i;
+        setWrites[nj].dstSet          = rtDescriptorSet;
+        setWrites[nj].pImageInfo      = &imageInfos[nj];
+        setWrites[nj].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     }
-    vkUpdateDescriptorSets(vulkanState.device, N, setWrites, 0, nullptr);
+    vkUpdateDescriptorSets(vulkanState.device, N * 2, setWrites, 0, nullptr);
 }
 
 template<std::size_t N>
 void BindlessTextureArray::resetTexture(VkDescriptorSet descriptorSet,
+                                        VkDescriptorSet rtDescriptorSet,
                                         const std::array<BindlessTextureArray*, N>& arrays,
                                         std::uint32_t i) {
     for (BindlessTextureArray* array : arrays) {
@@ -170,7 +195,7 @@ void BindlessTextureArray::resetTexture(VkDescriptorSet descriptorSet,
         array->textures[i]        = array->errorTexture;
         array->textures[i].altImg = &array->errorPattern;
     }
-    commitTexture(descriptorSet, arrays, i);
+    commitTexture(descriptorSet, rtDescriptorSet, arrays, i);
 }
 
 } // namespace res

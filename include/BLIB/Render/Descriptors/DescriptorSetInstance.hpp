@@ -11,6 +11,11 @@ namespace bl
 {
 namespace gfx
 {
+namespace scene
+{
+class SceneRenderContext;
+}
+
 namespace ds
 {
 /**
@@ -49,22 +54,22 @@ public:
     /**
      * @brief Called once after the pipeline is bound. This should bind the descriptor set
      *
-     * @param commandBuffer The command buffer to issue bind commands into
+     * @param ctx Render context containing necessary data
      * @param layout Pipeline layout of the currently bound pipeline
      * @param setIndex The index of the descriptor set in the owning scene
      */
-    virtual void bindForPipeline(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
-                                 std::uint32_t observerIndex, std::uint32_t setIndex) const = 0;
+    virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
+                                 std::uint32_t setIndex) const = 0;
 
     /**
      * @brief Called per-object by the scene if this instance has per-object logic
      *
-     * @param commandBuffer The command buffer to issue bind commands into
+     * @param ctx Render context containing necessary data
      * @param layout Pipeline layout of the currently bound pipeline
      * @param setIndex The index of the descriptor set in the owning scene
      * @param objectId The object id of the current object
      */
-    virtual void bindForObject(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
+    virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                std::uint32_t setIndex, std::uint32_t objectId) const = 0;
 
     /**

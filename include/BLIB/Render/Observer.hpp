@@ -159,7 +159,7 @@ public:
      *
      * @param color The color to clear with
      */
-    void setClearColor(const glm::vec3& color);
+    void setClearColor(const glm::vec4& color);
 
 private:
     struct SceneInstance {

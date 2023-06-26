@@ -146,14 +146,16 @@ void Observer::renderScene(VkCommandBuffer commandBuffer) {
         scene::SceneRenderContext ctx(commandBuffer,
                                       scenes.back().observerIndex,
                                       parentViewport,
-                                      Config::RenderPassIds::OffScreenSceneRender);
+                                      Config::RenderPassIds::OffScreenSceneRender,
+                                      false);
         scenes.back().scene->renderScene(ctx);
 
         if (scenes.back().overlay && scenes.back().overlayPostFX) {
             scene::SceneRenderContext ctx(commandBuffer,
                                           scenes.back().overlayIndex,
                                           parentViewport,
-                                          Config::RenderPassIds::OffScreenSceneRender);
+                                          Config::RenderPassIds::OffScreenSceneRender,
+                                          false);
             scenes.back().overlay->renderScene(ctx);
         }
     }
@@ -183,7 +185,8 @@ void Observer::renderOverlay(VkCommandBuffer commandBuffer) {
         scene::SceneRenderContext ctx(commandBuffer,
                                       scenes.back().overlayIndex,
                                       viewport,
-                                      Config::RenderPassIds::SwapchainPrimaryRender);
+                                      Config::RenderPassIds::SwapchainPrimaryRender,
+                                      false);
         scenes.back().overlay->renderScene(ctx);
     }
 }
@@ -307,8 +310,8 @@ void Observer::setDefaultNearFar(float n, float f) {
     defaultFar  = f;
 }
 
-void Observer::setClearColor(const glm::vec3& color) {
-    clearColors[0].color = {color.x, color.y, color.z, 1.f};
+void Observer::setClearColor(const glm::vec4& color) {
+    clearColors[0].color = {color.x, color.y, color.z, color.w};
 }
 
 } // namespace gfx

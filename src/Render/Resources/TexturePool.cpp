@@ -12,8 +12,9 @@ TexturePool::TexturePool(vk::VulkanState& vs)
 : vulkanState(vs)
 , textures(vs, MaxTextureCount, TextureArrayBindIndex)
 , refCounts(MaxTextureCount)
-, freeSlots(MaxTextureCount)
-, reverseFileMap(MaxTextureCount) {
+, freeSlots(MaxTextureCount - BindlessTextureArray::MaxRenderTextures)
+, freeRtSlots(BindlessTextureArray::MaxRenderTextures)
+, reverseFileMap(MaxTextureCount - BindlessTextureArray::MaxRenderTextures) {
     toRelease.reserve(64);
 }
 
@@ -33,11 +34,11 @@ void TexturePool::init() {
     // create descriptor pool
     VkDescriptorPoolSize poolSize{};
     poolSize.type            = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    poolSize.descriptorCount = MaxTextureCount;
+    poolSize.descriptorCount = MaxTextureCount * 2;
 
     VkDescriptorPoolCreateInfo poolCreate{};
     poolCreate.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-    poolCreate.maxSets       = 1;
+    poolCreate.maxSets       = 2;
     poolCreate.poolSizeCount = 1;
     poolCreate.pPoolSizes    = &poolSize;
     if (VK_SUCCESS !=
@@ -46,14 +47,18 @@ void TexturePool::init() {
     }
 
     // allocate descriptor set
+    VkDescriptorSet allocatedSets[2];
+    VkDescriptorSetLayout setLayouts[2] = {descriptorSetLayout, descriptorSetLayout};
     VkDescriptorSetAllocateInfo setAlloc{};
     setAlloc.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
     setAlloc.descriptorPool     = descriptorPool;
-    setAlloc.descriptorSetCount = 1;
-    setAlloc.pSetLayouts        = &descriptorSetLayout;
-    if (VK_SUCCESS != vkAllocateDescriptorSets(vulkanState.device, &setAlloc, &descriptorSet)) {
+    setAlloc.descriptorSetCount = 2;
+    setAlloc.pSetLayouts        = setLayouts;
+    if (VK_SUCCESS != vkAllocateDescriptorSets(vulkanState.device, &setAlloc, allocatedSets)) {
         throw std::runtime_error("Failed to allocate texture descriptor set");
     }
+    descriptorSet   = allocatedSets[0];
+    rtDescriptorSet = allocatedSets[1];
 
     // create error texture pattern and init texture array
     constexpr unsigned int ErrorSize    = 1024;
@@ -69,7 +74,7 @@ void TexturePool::init() {
             else { textures.getErrorPattern().setPixel(x, y, sf::Color(255, 254, 196)); }
         }
     }
-    textures.init(descriptorSet);
+    textures.init(descriptorSet, rtDescriptorSet);
 }
 
 void TexturePool::cleanup() {
@@ -102,25 +107,25 @@ void TexturePool::releaseUnusedLocked() {
 
 void TexturePool::doRelease(std::uint32_t i) {
     refCounts[i] = 0;
-    freeSlots.release(i);
-    if (reverseFileMap[i]) {
-        fileMap.erase(*reverseFileMap[i]);
-        reverseFileMap[i] = nullptr;
+
+    if (i < reverseFileMap.size()) {
+        freeSlots.release(i);
+        if (reverseFileMap[i]) {
+            fileMap.erase(*reverseFileMap[i]);
+            reverseFileMap[i] = nullptr;
+        }
     }
+    else { freeRtSlots.release(i - reverseFileMap.size()); }
+
     std::array<BindlessTextureArray*, 1> arrays = {&textures};
-    BindlessTextureArray::resetTexture(descriptorSet, arrays, i);
+    BindlessTextureArray::resetTexture(descriptorSet, rtDescriptorSet, arrays, i);
 }
 
 void TexturePool::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pipelineLayout,
-                                  std::uint32_t setIndex) {
-    vkCmdBindDescriptorSets(cb,
-                            VK_PIPELINE_BIND_POINT_GRAPHICS,
-                            pipelineLayout,
-                            setIndex,
-                            1,
-                            &descriptorSet,
-                            0,
-                            nullptr);
+                                  std::uint32_t setIndex, bool forRt) {
+    const VkDescriptorSet ds = forRt ? rtDescriptorSet : descriptorSet;
+    vkCmdBindDescriptorSets(
+        cb, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, setIndex, 1, &ds, 0, nullptr);
 }
 
 void TexturePool::queueForRelease(std::uint32_t i) {
@@ -145,7 +150,7 @@ void TexturePool::finalizeNewTexture(std::uint32_t i, VkSampler sampler) {
     std::array<BindlessTextureArray*, 1> arrays = {&textures};
     textures.getTexture(i).sampler              = sampler;
     textures.getTexture(i).createFromContentsAndQueue();
-    BindlessTextureArray::commitTexture(descriptorSet, arrays, i);
+    BindlessTextureArray::commitTexture(descriptorSet, rtDescriptorSet, arrays, i);
 }
 
 TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
@@ -178,7 +183,19 @@ TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkSampler 
 
     std::unique_lock lock(mutex);
 
-    TextureRef txtr = allocateTexture();
+    // allocate id
+    if (!freeRtSlots.available()) {
+        releaseUnusedLocked();
+        if (!freeRtSlots.available()) {
+            throw std::runtime_error("All render texture slots in use!");
+        }
+    }
+
+    const std::uint32_t i = freeRtSlots.allocate() + reverseFileMap.size();
+    refCounts[i].store(0);
+
+    // init texture
+    TextureRef txtr{*this, textures.getTexture(i)};
     txtr->create(size,
                  vk::StandardAttachmentBuffers::DefaultColorFormat,
                  VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT);

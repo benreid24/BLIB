@@ -1,5 +1,7 @@
 #include <BLIB/Render/Descriptors/Builtin/TexturePoolInstance.hpp>
 
+#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
+
 namespace bl
 {
 namespace gfx
@@ -10,12 +12,13 @@ TexturePoolInstance::TexturePoolInstance(res::TexturePool& texturePool)
 : DescriptorSetInstance(false)
 , texturePool(texturePool) {}
 
-void TexturePoolInstance::bindForPipeline(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
-                                          std::uint32_t, std::uint32_t setIndex) const {
-    texturePool.bindDescriptors(commandBuffer, layout, setIndex);
+void TexturePoolInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
+                                          std::uint32_t setIndex) const {
+    texturePool.bindDescriptors(
+        ctx.getCommandBuffer(), layout, setIndex, ctx.targetIsRenderTexture());
 }
 
-void TexturePoolInstance::bindForObject(VkCommandBuffer, VkPipelineLayout, std::uint32_t,
+void TexturePoolInstance::bindForObject(scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
                                         std::uint32_t) const {
     // noop
 }

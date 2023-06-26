@@ -1,4 +1,5 @@
 #include <BLIB/Render/Descriptors/Builtin/Scene3DUnlitInstance.hpp>
+#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 
 #include <BLIB/Render/Config.hpp>
 #include <array>
@@ -20,21 +21,20 @@ Scene3DUnlitInstance::~Scene3DUnlitInstance() {
     cameraBuffer.destroy();
 }
 
-void Scene3DUnlitInstance::bindForPipeline(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
-                                           std::uint32_t observerIndex,
+void Scene3DUnlitInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                            std::uint32_t setIndex) const {
-    vkCmdBindDescriptorSets(commandBuffer,
+    vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
                             setIndex,
                             1,
-                            &descriptorSets.current(observerIndex),
+                            &descriptorSets.current(ctx.currentObserverIndex()),
                             0,
                             nullptr);
 }
 
-void Scene3DUnlitInstance::bindForObject(VkCommandBuffer, VkPipelineLayout, std::uint32_t,
-                                         std::uint32_t) const {
+void Scene3DUnlitInstance::bindForObject(scene::SceneRenderContext&, VkPipelineLayout,
+                                         std::uint32_t, std::uint32_t) const {
     // n/a
 }
 

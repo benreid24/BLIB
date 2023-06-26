@@ -9,7 +9,7 @@ namespace gfx
 namespace scene
 {
 SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,
-                                       const VkViewport& vp, std::uint32_t rpid)
+                                       const VkViewport& vp, std::uint32_t rpid, bool isrt)
 : commandBuffer(commandBuffer)
 , observerIndex(observerIndex)
 , prevVB(nullptr)
@@ -17,7 +17,8 @@ SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, std::uint3
 , perObjStart(0)
 , perObjCount(0)
 , viewport(vp)
-, renderPassId(rpid) {
+, renderPassId(rpid)
+, isRenderTexture(isrt) {
     boundDescriptors.fill(nullptr);
     perObjDescriptors.fill(nullptr);
 }
@@ -35,7 +36,7 @@ void SceneRenderContext::bindDescriptors(VkPipelineLayout layout,
         if (bind || descriptors[i] != boundDescriptors[i]) {
             bind                = true;
             boundDescriptors[i] = descriptors[i];
-            descriptors[i]->bindForPipeline(commandBuffer, layout, observerIndex, i);
+            descriptors[i]->bindForPipeline(*this, layout, i);
         }
 
         if (descriptors[i]->isPerObject()) {
@@ -72,7 +73,7 @@ void SceneRenderContext::renderObject(VkPipelineLayout layout, const SceneObject
     }
 
     for (unsigned int i = perObjStart; i < perObjStart + perObjCount; ++i) {
-        perObjDescriptors[i - perObjStart]->bindForObject(commandBuffer, layout, i, object.sceneId);
+        perObjDescriptors[i - perObjStart]->bindForObject(*this, layout, i, object.sceneId);
     }
 
     vkCmdDrawIndexed(commandBuffer,

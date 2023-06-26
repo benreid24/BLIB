@@ -51,7 +51,7 @@ public:
 
         // get first observer and set background color
         bl::gfx::Observer& p1 = engine.renderer().getObserver(0);
-        p1.setClearColor({0.f, 0.f, 1.f});
+        p1.setClearColor({0.f, 0.f, 1.f, 1.f});
 
         // create 2d scene and camera for observer 1
         bl::gfx::Scene* scene = p1.pushScene<bl::gfx::scene::BasicScene>(10, 10);
@@ -84,7 +84,7 @@ public:
         scene                 = p2.pushScene<bl::gfx::scene::BasicScene>(10, 10);
 
         // create camera for observer 2
-        p2.setClearColor({0.f, 1.f, 0.f});
+        p2.setClearColor({0.f, 1.f, 0.f, 1.f});
         bl::gfx::c3d::Camera3D* player2Cam = p2.setCamera<bl::gfx::c3d::Camera3D>(
             glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
         player2Cam->setController<bl::gfx::c3d::OrbiterController>(

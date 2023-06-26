@@ -32,10 +32,9 @@ public:
 private:
     res::TexturePool& texturePool;
 
-    virtual void bindForPipeline(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
-                                 std::uint32_t observerIndex,
+    virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex) const override;
-    virtual void bindForObject(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
+    virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                std::uint32_t setIndex, std::uint32_t objectId) const override;
     virtual void releaseObject(std::uint32_t sceneId, ecs::Entity entity) override;
     virtual void doInit(std::uint32_t maxStaticObjects, std::uint32_t maxDynamicObjects) override;

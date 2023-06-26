@@ -45,14 +45,21 @@ public:
     constexpr VkDescriptorSet getDescriptorSet() const;
 
     /**
+     * @brief Returns the descriptor set with render textures omitted. Used for rendering to render
+     *        textures to avoid validation errors with expected image layouts
+     */
+    constexpr VkDescriptorSet getRenderTextureDescriptorSet() const;
+
+    /**
      * @brief Helper method to bind the descriptor set
      *
      * @param commandBuffer Command buffer to issue bind command into
      * @param pipelineLayout The layout of the active pipeline
      * @param setIndex The index to bind to
+     * @param forRenderTexture True to omit RT images, false to bind all
      */
     void bindDescriptors(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout,
-                         std::uint32_t setIndex = 0);
+                         std::uint32_t setIndex, bool forRenderTexture);
 
     /**
      * @brief Creates an empty texture of the given size
@@ -110,6 +117,7 @@ private:
     BindlessTextureArray textures;
     std::vector<std::atomic<std::uint32_t>> refCounts;
     util::IdAllocator<std::uint32_t> freeSlots;
+    util::IdAllocator<std::uint32_t> freeRtSlots;
     std::unordered_map<std::string, std::uint32_t> fileMap;
     std::vector<const std::string*> reverseFileMap;
     std::vector<std::uint32_t> toRelease;
@@ -117,6 +125,7 @@ private:
     VkDescriptorPool descriptorPool;
     VkDescriptorSetLayout descriptorSetLayout;
     VkDescriptorSet descriptorSet;
+    VkDescriptorSet rtDescriptorSet;
 
     TexturePool(vk::VulkanState& vulkanState);
     void init();
@@ -140,6 +149,10 @@ inline constexpr VkDescriptorSetLayout TexturePool::getDescriptorLayout() const 
 }
 
 inline constexpr VkDescriptorSet TexturePool::getDescriptorSet() const { return descriptorSet; }
+
+inline constexpr VkDescriptorSet TexturePool::getRenderTextureDescriptorSet() const {
+    return rtDescriptorSet;
+}
 
 } // namespace res
 } // namespace gfx
