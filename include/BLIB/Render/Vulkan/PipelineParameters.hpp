@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
+#include <BLIB/Render/Vulkan/PipelineLayout.hpp>
 #include <array>
 #include <cstdint>
 #include <functional>
@@ -165,16 +166,6 @@ public:
                                                   float blendConstant3);
 
     /**
-     * @brief Set whether or not batched objects will have their order preserved as objects are
-     *        added and removed. Allowing objects to be reordered is more efficient, but may change
-     *        renderer output if depth testing is not used. Defaults to false
-     *
-     * @param preserveOrder True to preserve object orders, false otherwise
-     * @return A reference to this object
-     */
-    PipelineParameters& withPreserveObjectOrder(bool preserveOrder);
-
-    /**
      * @brief Configures depth and stencil testing for this pipeline
      *
      * @param depthStencil Pointer to the depth/stencil config. Must remain valid until created
@@ -212,6 +203,7 @@ private:
         , factory(std::forward<std::unique_ptr<ds::DescriptorSetFactory>>(factory)) {}
     };
 
+    PipelineLayout::LayoutParams layoutParams;
     std::vector<ShaderInfo> shaders;
     std::vector<VkDynamicState> dynamicStates;
     VkVertexInputBindingDescription vertexBinding;
@@ -219,15 +211,12 @@ private:
     VkPrimitiveTopology primitiveType;
     VkPipelineRasterizationStateCreateInfo rasterizer;
     VkPipelineMultisampleStateCreateInfo msaa;
-    std::vector<VkPushConstantRange> pushConstants;
     std::vector<VkPipelineColorBlendAttachmentState> colorAttachmentBlendStates;
     VkPipelineColorBlendStateCreateInfo colorBlending;
     VkPipelineDepthStencilStateCreateInfo* depthStencil;
-    std::vector<DescriptorSet> descriptorSets;
     std::array<std::uint32_t, Config::MaxRenderPasses> renderPassIds;
     std::uint32_t renderPassCount;
     std::uint32_t subpass;
-    bool preserveOrder;
 
     friend class Pipeline;
 };
@@ -246,7 +235,7 @@ PipelineParameters& PipelineParameters::withVertexFormat(
 
 template<typename T, typename... TArgs>
 PipelineParameters& PipelineParameters::addDescriptorSet(TArgs&&... args) {
-    descriptorSets.emplace_back(typeid(T), std::make_unique<T>(std::forward<TArgs>(args)...));
+    layoutParams.addDescriptorSet<T>(std::forward<TArgs>(args)...);
     return *this;
 }
 

@@ -3,6 +3,7 @@ target_sources(BLIB PUBLIC
     Material.hpp
     MaterialPool.hpp
     PipelineCache.hpp
+    PipelineLayoutCache.hpp
     RenderPassCache.hpp
     ScenePool.hpp
     TexturePool.hpp

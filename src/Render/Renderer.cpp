@@ -22,6 +22,7 @@ Renderer::Renderer(engine::Engine& engine, sf::WindowBase& window)
 , materials(state)
 , renderPasses(*this)
 , descriptorSetFactoryCache(engine, *this)
+, pipelineLayouts(*this)
 , pipelines(*this)
 , scenes(*this)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
@@ -109,6 +110,7 @@ void Renderer::cleanup() {
     commonObserver.cleanup();
     scenes.cleanup();
     pipelines.cleanup();
+    pipelineLayouts.cleanup();
     descriptorSetFactoryCache.cleanup();
     textures.cleanup();
     framebuffers.cleanup([](vk::Framebuffer& fb) { fb.cleanup(); });

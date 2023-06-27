@@ -18,16 +18,13 @@ PipelineParameters::PipelineParameters(const std::initializer_list<std::uint32_t
 , msaa{}
 , colorBlending{}
 , depthStencil(nullptr)
-, subpass(0)
-, preserveOrder(false) {
+, subpass(0) {
     if (renderPassCount > Config::MaxRenderPasses) {
         throw std::runtime_error("Too many gfx passes");
     }
     std::copy(rpids.begin(), rpids.end(), renderPassIds.begin());
 
     shaders.reserve(4);
-    descriptorSets.reserve(4);
-    pushConstants.reserve(4);
 
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     rasterizer.depthClampEnable        = VK_FALSE;
@@ -113,6 +110,7 @@ PipelineParameters& PipelineParameters::withMSAA(const VkPipelineMultisampleStat
 PipelineParameters& PipelineParameters::addPushConstantRange(std::uint32_t offset,
                                                              std::uint32_t len,
                                                              VkShaderStageFlags stages) {
+#ifdef BLIB_DEBUG
     if (offset % 4 != 0) {
         throw std::runtime_error("Custom push constant offset must be a multiple of 4");
     }
@@ -124,11 +122,9 @@ PipelineParameters& PipelineParameters::addPushConstantRange(std::uint32_t offse
             << "Custom push constant exceeds the guaranteed available size of 128 bytes. Offset = "
             << offset << " | len = " << len;
     }
+#endif
 
-    pushConstants.emplace_back();
-    pushConstants.back().offset     = offset;
-    pushConstants.back().size       = len;
-    pushConstants.back().stageFlags = stages;
+    layoutParams.addPushConstantRange(offset, len, stages);
 
     return *this;
 }
@@ -164,7 +160,6 @@ PipelineParameters&& PipelineParameters::build() {
     if (vertexAttributes.empty()) {
         withVertexFormat(prim::Vertex::bindingDescription(), prim::Vertex::attributeDescriptions());
     }
-    if (descriptorSets.empty()) { BL_LOG_WARN << "Pipeline being created with 0 descriptor sets"; }
     if (colorAttachmentBlendStates.empty()) {
         colorAttachmentBlendStates.emplace_back();
         auto& ca          = colorAttachmentBlendStates.back();
@@ -182,11 +177,6 @@ PipelineParameters&& PipelineParameters::build() {
     colorBlending.attachmentCount = colorAttachmentBlendStates.size();
 
     return std::move(*this);
-}
-
-PipelineParameters& PipelineParameters::withPreserveObjectOrder(bool po) {
-    preserveOrder = po;
-    return *this;
 }
 
 } // namespace vk

@@ -8,6 +8,7 @@ target_sources(BLIB PUBLIC
     PerFrame.hpp
     PerSwapFrame.hpp
     Pipeline.hpp
+    PipelineLayout.hpp
     PipelineParameters.hpp
     RenderPass.hpp
     RenderPassParameters.hpp

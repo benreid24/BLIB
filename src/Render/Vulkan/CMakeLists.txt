@@ -4,6 +4,7 @@ target_sources(BLIB PRIVATE
     DescriptorPool.cpp
     Framebuffer.cpp
     Pipeline.cpp
+    PipelineLayout.cpp
     PipelineParameters.cpp
     RenderPass.cpp
     RenderPassParameters.cpp

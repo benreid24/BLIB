@@ -9,19 +9,11 @@ namespace gfx
 namespace vk
 {
 Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
-: renderer(renderer)
-, descriptorSets(params.descriptorSets.size())
-, preserveOrder(params.preserveOrder) {
+: renderer(renderer) {
     pipelines.fill(nullptr);
 
-    // Configure descriptor sets
-    std::vector<VkDescriptorSetLayout> descriptorLayouts;
-    descriptorLayouts.reserve(descriptorSets.size());
-    for (unsigned int i = 0; i < params.descriptorSets.size(); ++i) {
-        descriptorSets[i] = renderer.descriptorFactoryCache().getOrAddFactory(
-            params.descriptorSets[i].factoryType, std::move(params.descriptorSets[i].factory));
-        descriptorLayouts.emplace_back(descriptorSets[i]->getDescriptorLayout());
-    }
+    // create or fetch layout
+    layout = renderer.pipelineLayoutCache().getLayout(std::move(params.layoutParams));
 
     // Load shaders
     std::vector<VkPipelineShaderStageCreateInfo> shaderStages;
@@ -60,18 +52,6 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
     dynamicState.dynamicStateCount = params.dynamicStates.size();
     dynamicState.pDynamicStates    = params.dynamicStates.data();
 
-    // create pipeline layout
-    VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
-    pipelineLayoutInfo.sType                  = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-    pipelineLayoutInfo.setLayoutCount         = descriptorLayouts.size();
-    pipelineLayoutInfo.pSetLayouts            = descriptorLayouts.data();
-    pipelineLayoutInfo.pushConstantRangeCount = params.pushConstants.size();
-    pipelineLayoutInfo.pPushConstantRanges    = params.pushConstants.data();
-    if (vkCreatePipelineLayout(
-            renderer.vulkanState().device, &pipelineLayoutInfo, nullptr, &layout) != VK_SUCCESS) {
-        throw std::runtime_error("Failed to create pipeline layout");
-    }
-
     VkGraphicsPipelineCreateInfo pipelineInfo{};
     pipelineInfo.sType               = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
     pipelineInfo.stageCount          = shaderStages.size();
@@ -84,7 +64,7 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
     pipelineInfo.pDepthStencilState  = params.depthStencil;
     pipelineInfo.pColorBlendState    = &params.colorBlending;
     pipelineInfo.pDynamicState       = &dynamicState;
-    pipelineInfo.layout              = layout;
+    pipelineInfo.layout              = layout->rawLayout();
     pipelineInfo.subpass             = params.subpass;
     pipelineInfo.basePipelineHandle  = VK_NULL_HANDLE; // Optional
     pipelineInfo.basePipelineIndex   = -1;             // Optional
@@ -117,21 +97,6 @@ Pipeline::~Pipeline() {
             vkDestroyPipeline(renderer.vulkanState().device, pipeline, nullptr);
         }
     }
-    vkDestroyPipelineLayout(renderer.vulkanState().device, layout, nullptr);
-}
-
-void Pipeline::createDescriptorSets(ds::DescriptorSetInstanceCache& cache,
-                                    std::vector<ds::DescriptorSetInstance*>& descriptors) {
-    descriptors.resize(descriptorSets.size());
-    initDescriptorSets(cache, descriptors.data());
-}
-
-std::uint32_t Pipeline::initDescriptorSets(ds::DescriptorSetInstanceCache& cache,
-                                           ds::DescriptorSetInstance** sets) {
-    for (unsigned int i = 0; i < descriptorSets.size(); ++i) {
-        sets[i] = cache.getDescriptorSet(descriptorSets[i]);
-    }
-    return descriptorSets.size();
 }
 
 void Pipeline::bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId) {

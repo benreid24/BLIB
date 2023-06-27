@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
+#include <BLIB/Render/Vulkan/PipelineLayout.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <array>
@@ -47,13 +48,7 @@ public:
      *
      * @return constexpr VkPipelineLayout The layout of this pipeline
      */
-    constexpr VkPipelineLayout pipelineLayout() const;
-
-    /**
-     * @brief Returns whether or not batched objects in this pipeline should have their order
-     *        preserved as objects are added and removed
-     */
-    constexpr bool preserveObjectOrder() const;
+    constexpr const PipelineLayout& pipelineLayout() const;
 
     /**
      * @brief Returns the underlying Vulkan pipeline handle
@@ -61,25 +56,6 @@ public:
      * @param renderPassId The render pass to use to get the specific pipeline
      */
     VkPipeline rawPipeline(std::uint32_t renderPassId) const;
-
-    /**
-     * @brief Creates descriptor set instances for this pipeline
-     *
-     * @param cache Descriptor set cache to use when creating or fetching sets
-     * @param descriptors Vector of descriptor sets to populate
-     */
-    void createDescriptorSets(ds::DescriptorSetInstanceCache& cache,
-                              std::vector<ds::DescriptorSetInstance*>& descriptors);
-
-    /**
-     * @brief Initializes the given array of descriptor sets and returns the number of sets
-     *
-     * @param cache Descriptor set cache to use when creating or fetching sets
-     * @param sets Pointer to an array of descriptor set pointers
-     * @return The number of descriptor sets used by this pipeline
-     */
-    std::uint32_t initDescriptorSets(ds::DescriptorSetInstanceCache& cache,
-                                     ds::DescriptorSetInstance** sets);
 
     /**
      * @brief Issues the command to bind the pipeline
@@ -91,19 +67,15 @@ public:
 
 private:
     Renderer& renderer;
-    VkPipelineLayout layout;
+    PipelineLayout* layout;
     std::array<VkPipeline, Config::MaxRenderPasses> pipelines;
-    std::vector<ds::DescriptorSetFactory*> descriptorSets;
-    bool preserveOrder;
 
     friend class PipelineCache;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr VkPipelineLayout Pipeline::pipelineLayout() const { return layout; }
-
-inline constexpr bool Pipeline::preserveObjectOrder() const { return preserveOrder; }
+inline constexpr const PipelineLayout& Pipeline::pipelineLayout() const { return *layout; }
 
 inline VkPipeline Pipeline::rawPipeline(std::uint32_t rpid) const { return pipelines[rpid]; }
 

@@ -52,10 +52,11 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
         if (np != currentPipeline) {
             currentPipeline = np;
             ctx.bindPipeline(*obj.pipeline);
-            ctx.bindDescriptors(
-                obj.pipeline->pipelineLayout(), obj.descriptors.data(), obj.descriptorCount);
+            ctx.bindDescriptors(obj.pipeline->pipelineLayout().rawLayout(),
+                                obj.descriptors.data(),
+                                obj.descriptorCount);
         }
-        ctx.renderObject(obj.pipeline->pipelineLayout(), obj);
+        ctx.renderObject(obj.pipeline->pipelineLayout().rawLayout(), obj);
 
         std::copy(obj.children.begin(),
                   obj.children.end(),
@@ -75,8 +76,9 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, std::uint32_t sceneId,
     }
 #endif
 
-    obj.pipeline        = &renderer.pipelineCache().getPipeline(pid);
-    obj.descriptorCount = obj.pipeline->initDescriptorSets(descriptorSets, obj.descriptors.data());
+    obj.pipeline = &renderer.pipelineCache().getPipeline(pid);
+    obj.descriptorCount =
+        obj.pipeline->pipelineLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
     for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
         obj.descriptors[i]->allocateObject(sceneId, entity, updateFreq);
     }

@@ -5,6 +5,7 @@
 #include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <BLIB/Render/Resources/PipelineCache.hpp>
+#include <BLIB/Render/Resources/PipelineLayoutCache.hpp>
 #include <BLIB/Render/Resources/RenderPassCache.hpp>
 #include <BLIB/Render/Resources/ScenePool.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
@@ -117,50 +118,41 @@ public:
 
     /**
      * @brief Returns the Vulkan state of the renderer
-     *
-     * @return constexpr VulkanState& The Vulkan instance state
      */
     constexpr vk::VulkanState& vulkanState();
 
     /**
      * @brief Returns the texture pool of this renderer
-     *
-     * @return constexpr TexturePool& The texture pool of this renderer
      */
     constexpr res::TexturePool& texturePool();
 
     /**
      * @brief Returns the material pool of this renderer
-     *
-     * @return constexpr MaterialPool& The material pool of this renderer
      */
     constexpr res::MaterialPool& materialPool();
 
     /**
      * @brief Returns the render pass cache of this renderer
-     *
-     * @return constexpr RenderPassCache& The render pass cache of this renderer
      */
     constexpr res::RenderPassCache& renderPassCache();
 
     /**
      * @brief Returns the pipeline cache of this renderer
-     *
-     * @return constexpr PipelineCache& The pipeline cache of this renderer
      */
     constexpr res::PipelineCache& pipelineCache();
 
     /**
+     * @brief Returns the pipeline layout cache of this renderer
+     */
+    constexpr res::PipelineLayoutCache& pipelineLayoutCache();
+
+    /**
      * @brief Returns the scene pool of the renderer
-     *
-     * @return The scene pool belonging to this renderer
      */
     constexpr res::ScenePool& scenePool();
 
     /**
      * @brief Returns a reference to the descriptor set factory cache used by this renderer
-     *
-     * @return A reference to the descriptor set factory cache used by this renderer
      */
     constexpr ds::DescriptorSetFactoryCache& descriptorFactoryCache();
 
@@ -191,6 +183,7 @@ private:
     res::MaterialPool materials;
     ds::DescriptorSetFactoryCache descriptorSetFactoryCache;
     res::RenderPassCache renderPasses;
+    res::PipelineLayoutCache pipelineLayouts;
     res::PipelineCache pipelines;
     res::ScenePool scenes;
     SplitscreenDirection splitscreenDirection;
@@ -233,6 +226,10 @@ inline constexpr res::MaterialPool& Renderer::materialPool() { return materials;
 inline constexpr res::RenderPassCache& Renderer::renderPassCache() { return renderPasses; }
 
 inline constexpr res::PipelineCache& Renderer::pipelineCache() { return pipelines; }
+
+inline constexpr res::PipelineLayoutCache& Renderer::pipelineLayoutCache() {
+    return pipelineLayouts;
+}
 
 inline constexpr res::ScenePool& Renderer::scenePool() { return scenes; }
 
