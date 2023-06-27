@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_SYSTEMS_GENERICDRAWABLESYSTEM_HPP
-#define BLIB_RENDER_SYSTEMS_GENERICDRAWABLESYSTEM_HPP
+#ifndef BLIB_RENDER_SYSTEMS_DRAWABLESYSTEM_HPP
+#define BLIB_RENDER_SYSTEMS_DRAWABLESYSTEM_HPP
 
 #include <BLIB/ECS.hpp>
 #include <BLIB/Engine/Engine.hpp>
@@ -30,7 +30,7 @@ namespace sys
  * @ingroup Renderer
  */
 template<typename T>
-class GenericDrawableSystem
+class DrawableSystem
 : public engine::System
 , public bl::event::Listener<ecs::event::ComponentRemoved<T>, gfx::event::SceneDestroyed> {
 public:
@@ -39,12 +39,12 @@ public:
      *
      * @param defaultPipeline The pipeline to use by default for rendering these types of objects
      */
-    GenericDrawableSystem(std::uint32_t defaultPipeline);
+    DrawableSystem(std::uint32_t defaultPipeline);
 
     /**
      * @brief Destroys the system
      */
-    virtual ~GenericDrawableSystem() = default;
+    virtual ~DrawableSystem() = default;
 
     /**
      * @brief Adds the component for the given entity to the scene using the default pipelines for
@@ -148,7 +148,7 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-GenericDrawableSystem<T>::GenericDrawableSystem(std::uint32_t defaultPipeline)
+DrawableSystem<T>::DrawableSystem(std::uint32_t defaultPipeline)
 : registry(nullptr)
 , defaultPipeline(defaultPipeline) {
     toAdd.reserve(64);
@@ -156,15 +156,15 @@ GenericDrawableSystem<T>::GenericDrawableSystem(std::uint32_t defaultPipeline)
 }
 
 template<typename T>
-void GenericDrawableSystem<T>::addToScene(ecs::Entity ent, Scene* scene,
-                                          UpdateSpeed descriptorUpdateFreq) {
+void DrawableSystem<T>::addToScene(ecs::Entity ent, Scene* scene,
+                                   UpdateSpeed descriptorUpdateFreq) {
     addToSceneWithCustomPipeline(ent, scene, descriptorUpdateFreq, defaultPipeline);
 }
 
 template<typename T>
-void GenericDrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, Scene* scene,
-                                                            UpdateSpeed descriptorUpdateFreq,
-                                                            std::uint32_t pipeline) {
+void DrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, Scene* scene,
+                                                     UpdateSpeed descriptorUpdateFreq,
+                                                     std::uint32_t pipeline) {
     std::unique_lock lock(mutex);
     T* c = registry->getComponent<T>(entity);
     if (!c) {
@@ -181,16 +181,16 @@ void GenericDrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, 
 }
 
 template<typename T>
-void GenericDrawableSystem<T>::addToOverlay(ecs::Entity ent, Overlay* scene,
-                                            UpdateSpeed descriptorUpdateFreq, ecs::Entity parent) {
+void DrawableSystem<T>::addToOverlay(ecs::Entity ent, Overlay* scene,
+                                     UpdateSpeed descriptorUpdateFreq, ecs::Entity parent) {
     addToOverlayWithCustomPipeline(ent, scene, descriptorUpdateFreq, defaultPipeline, parent);
 }
 
 template<typename T>
-void GenericDrawableSystem<T>::addToOverlayWithCustomPipeline(ecs::Entity entity, Overlay* scene,
-                                                              UpdateSpeed descriptorUpdateFreq,
-                                                              std::uint32_t pipelines,
-                                                              ecs::Entity parent) {
+void DrawableSystem<T>::addToOverlayWithCustomPipeline(ecs::Entity entity, Overlay* scene,
+                                                       UpdateSpeed descriptorUpdateFreq,
+                                                       std::uint32_t pipelines,
+                                                       ecs::Entity parent) {
     std::unique_lock lock(mutex);
     T* c = registry->getComponent<T>(entity);
     if (!c) {
@@ -207,7 +207,7 @@ void GenericDrawableSystem<T>::addToOverlayWithCustomPipeline(ecs::Entity entity
 }
 
 template<typename T>
-void GenericDrawableSystem<T>::removeFromScene(ecs::Entity entity) {
+void DrawableSystem<T>::removeFromScene(ecs::Entity entity) {
     std::unique_lock lock(mutex);
 
     T* c = registry->getComponent<T>(entity);
@@ -221,33 +221,33 @@ void GenericDrawableSystem<T>::removeFromScene(ecs::Entity entity) {
 }
 
 template<typename T>
-void GenericDrawableSystem<T>::doInit(engine::Engine&) {}
+void DrawableSystem<T>::doInit(engine::Engine&) {}
 
 template<typename T>
-void GenericDrawableSystem<T>::doUpdate(std::mutex&, float) {}
+void DrawableSystem<T>::doUpdate(std::mutex&, float) {}
 
 template<typename T>
-void GenericDrawableSystem<T>::observe(const ecs::event::ComponentRemoved<T>& rm) {
+void DrawableSystem<T>::observe(const ecs::event::ComponentRemoved<T>& rm) {
     std::unique_lock lock(mutex);
     erased.emplace_back(rm.component.sceneRef);
 }
 
 template<typename T>
-void GenericDrawableSystem<T>::observe(const event::SceneDestroyed& rm) {
+void DrawableSystem<T>::observe(const event::SceneDestroyed& rm) {
     registry->getAllComponents<T>().forEach([&rm](ecs::Entity, T& c) {
         if (c.sceneRef.scene == rm.scene) { c.sceneRef.scene = nullptr; }
     });
 }
 
 template<typename T>
-void GenericDrawableSystem<T>::init(engine::Engine& engine) {
+void DrawableSystem<T>::init(engine::Engine& engine) {
     registry = &engine.ecs();
     bl::event::Dispatcher::subscribe(this);
     doInit(engine);
 }
 
 template<typename T>
-void GenericDrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
+void DrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
     std::unique_lock lock(mutex);
 
     if (!toAdd.empty() || !erased.empty()) {

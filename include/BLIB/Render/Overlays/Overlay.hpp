@@ -115,7 +115,7 @@ private:
     void refreshAll();
 
     template<typename T>
-    friend class sys::GenericDrawableSystem;
+    friend class sys::DrawableSystem;
     friend class Observer;
     friend class res::ScenePool;
     friend class sys::OverlayScaler;

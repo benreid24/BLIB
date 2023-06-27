@@ -2,8 +2,8 @@ target_sources(BLIB PUBLIC
     BuiltinDrawableSystems.hpp
 	BuiltinDescriptorComponentSystems.hpp
 	CameraUpdateSystem.hpp
-	GenericDescriptorComponentSystem.hpp
-	GenericDrawableSystem.hpp
+	DescriptorComponentSystem.hpp
+	DrawableSystem.hpp
 	OverlayScaler.hpp
 	RenderSystem.hpp
 	TextSyncSystem.hpp

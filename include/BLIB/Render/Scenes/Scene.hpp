@@ -27,7 +27,7 @@ class RenderTexture;
 namespace sys
 {
 template<typename T>
-class GenericDrawableSystem;
+class DrawableSystem;
 }
 namespace res
 {
@@ -64,7 +64,7 @@ protected:
     /**
      * @brief Derived classes should record render commands in here
      *
-     * @param context Context containing scene render data
+     * @param context Render context containing scene render data
      */
     virtual void renderScene(scene::SceneRenderContext& context) = 0;
 
@@ -92,7 +92,7 @@ protected:
                           std::uint32_t pipeline) = 0;
 
     /**
-     * @brief Intended to be called by GenericDrawableSystem. Can be used by derived classes to
+     * @brief Intended to be called by DrawableSystem. Can be used by derived classes to
      *        remove child objects
      *
      * @param object The object to remove
@@ -114,7 +114,7 @@ private:
     std::vector<std::uint32_t> objectPipelines;
     std::uint32_t nextObserverIndex;
 
-    // called by sys::GenericDrawableSystem in locked context
+    // called by sys::DrawableSystem in locked context
     scene::SceneObject* createAndAddObject(ecs::Entity entity,
                                            const prim::DrawParameters& drawParams,
                                            UpdateSpeed updateFreq, std::uint32_t pipeline);
@@ -125,7 +125,7 @@ private:
     void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
 
     template<typename T>
-    friend class sys::GenericDrawableSystem;
+    friend class sys::DrawableSystem;
     friend class Observer;
     friend class res::ScenePool;
     friend class vk::RenderTexture;

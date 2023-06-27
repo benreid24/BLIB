@@ -130,6 +130,7 @@ public:
             engine.renderer().scenePool().allocateScene<bl::gfx::Overlay>(engine, 1, 1);
         renderTexture.setScene(rto);
         renderTexture.setCamera<bl::gfx::ovy::OverlayCamera>();
+        renderTexture.setClearColor({0.f, 0.0f, 0.7f, 0.4f});
 
         renderTextureInnerSprite.create(engine, texture);
         renderTextureInnerSprite.getOverlayScaler().scaleToWidthPercent(1.f);

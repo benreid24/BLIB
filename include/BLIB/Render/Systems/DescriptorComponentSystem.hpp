@@ -20,7 +20,7 @@ namespace sys
  * @ingroup Renderer
  */
 template<typename TCom, typename TPayload>
-class GenericDescriptorComponentSystem : public engine::System {
+class DescriptorComponentSystem : public engine::System {
     static_assert(std::is_base_of_v<com::DescriptorComponentBase<TCom, TPayload>, TCom>,
                   "Component must derive from DescriptorComponentBase");
 
@@ -28,7 +28,7 @@ public:
     /**
      * @brief Destroys the system
      */
-    virtual ~GenericDescriptorComponentSystem() = default;
+    virtual ~DescriptorComponentSystem() = default;
 
     /**
      * @brief Refreshes dirty components and synchronizes them to scene buffers
@@ -52,14 +52,14 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T, typename TP>
-void GenericDescriptorComponentSystem<T, TP>::update(std::mutex&, float) {
+void DescriptorComponentSystem<T, TP>::update(std::mutex&, float) {
     pool->forEach([](ecs::Entity, T& component) {
         if (component.isDirty()) { component.refresh(); }
     });
 }
 
 template<typename T, typename TP>
-void GenericDescriptorComponentSystem<T, TP>::init(engine::Engine& engine) {
+void DescriptorComponentSystem<T, TP>::init(engine::Engine& engine) {
     pool = &engine.ecs().getAllComponents<T>();
 }
 

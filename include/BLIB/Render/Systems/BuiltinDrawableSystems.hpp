@@ -3,7 +3,7 @@
 
 #include <BLIB/Render/Components/Mesh.hpp>
 #include <BLIB/Render/Components/Sprite.hpp>
-#include <BLIB/Render/Systems/GenericDrawableSystem.hpp>
+#include <BLIB/Render/Systems/DrawableSystem.hpp>
 
 namespace bl
 {
@@ -16,14 +16,14 @@ namespace sys
  *
  * @ingroup Renderer
  */
-using MeshSystem = GenericDrawableSystem<com::Mesh>;
+using MeshSystem = DrawableSystem<com::Mesh>;
 
 /**
  * @brief Engine system for managing entity sprites
  *
  * @ingroup Renderer
  */
-using SpriteSystem = GenericDrawableSystem<com::Sprite>;
+using SpriteSystem = DrawableSystem<com::Sprite>;
 
 } // namespace sys
 } // namespace gfx

@@ -3,7 +3,7 @@
 
 #include <BLIB/ECS.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
-#include <BLIB/Render/Systems/GenericDrawableSystem.hpp>
+#include <BLIB/Render/Systems/DrawableSystem.hpp>
 #include <type_traits>
 
 namespace bl
@@ -23,10 +23,10 @@ namespace draw
  *        drawable component that it wraps
  *
  * @tparam TCom The drawable component type (ie Sprite)
- * @tparam TSys The drawable system. Must implement GenericDrawableSystem interface
+ * @tparam TSys The drawable system. Must implement DrawableSystem interface
  * @ingroup Renderer
  */
-template<typename TCom, typename TSys = sys::GenericDrawableSystem<TCom>>
+template<typename TCom, typename TSys = sys::DrawableSystem<TCom>>
 class Drawable {
     static_assert(std::is_base_of_v<com::DrawableBase, TCom>, "TCom must derive from DrawableBase");
 

@@ -11,7 +11,7 @@ class Renderer;
 namespace sys
 {
 template<typename T>
-class GenericDrawableSystem;
+class DrawableSystem;
 }
 namespace res
 {
@@ -78,7 +78,7 @@ private:
     scene::StageBatch transparentObjects;
 
     template<typename T>
-    friend class sys::GenericDrawableSystem;
+    friend class sys::DrawableSystem;
     friend class container::ObjectWrapper<BasicScene>;
     friend class Observer;
     friend class res::ScenePool;
