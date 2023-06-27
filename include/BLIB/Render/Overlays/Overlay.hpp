@@ -71,22 +71,21 @@ protected:
      * @param entity The ECS entity of the new object
      * @param sceneId The id of the new object in this scene
      * @param updateFreq Whether the object is static or dynamic
-     * @param pipelines Which pipelines to use to render the object
+     * @param pipeline Which pipeline to use to render the object
      * @return A pointer to the new scene object
      */
     virtual scene::SceneObject* doAdd(ecs::Entity entity, std::uint32_t sceneId,
-                                      UpdateSpeed updateFreq,
-                                      const scene::StagePipelines& pipelines) override;
+                                      UpdateSpeed updateFreq, std::uint32_t pipeline) override;
 
     /**
      * @brief Called when an object is removed from the scene. Unlink from descriptors here
      *
      * @param entity The ECS entity being removed
      * @param object The object being removed
-     * @param pipelines The pipelines used to render the object being removed
+     * @param pipeline The pipeline used to render the object being removed
      */
     virtual void doRemove(ecs::Entity entity, scene::SceneObject* object,
-                          const scene::StagePipelines& pipelines) override;
+                          std::uint32_t pipeline) override;
 
     /**
      * @brief Sets the parent object of the given child. Must be called after object add for an

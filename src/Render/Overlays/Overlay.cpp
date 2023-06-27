@@ -65,18 +65,9 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
 }
 
 scene::SceneObject* Overlay::doAdd(ecs::Entity entity, std::uint32_t sceneId,
-                                   UpdateSpeed updateFreq, const scene::StagePipelines& pipelines) {
+                                   UpdateSpeed updateFreq, std::uint32_t pipeline) {
     ovy::OverlayObject& obj = objects[sceneId];
-    const auto pid          = pipelines[Config::SceneObjectStage::OpaquePass];
-
-#ifdef BLIB_DEBUG
-    if (pid == Config::PipelineIds::None) {
-        BL_LOG_ERROR << "Use OpaquePass for overlay pipelines";
-        throw std::runtime_error("Use OpaquePass for overlay pipelines");
-    }
-#endif
-
-    obj.pipeline = &renderer.pipelineCache().getPipeline(pid);
+    obj.pipeline            = &renderer.pipelineCache().getPipeline(pipeline);
     obj.descriptorCount =
         obj.pipeline->pipelineLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
     for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
@@ -89,8 +80,7 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, std::uint32_t sceneId,
     return &obj;
 }
 
-void Overlay::doRemove(ecs::Entity entity, scene::SceneObject* object,
-                       const scene::StagePipelines&) {
+void Overlay::doRemove(ecs::Entity entity, scene::SceneObject* object, std::uint32_t) {
     ovy::OverlayObject* obj = static_cast<ovy::OverlayObject*>(object);
     const std::uint32_t id  = obj - objects.data();
 

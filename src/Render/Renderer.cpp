@@ -1,7 +1,6 @@
 #include <BLIB/Render/Renderer.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Render/Scenes/StagePipelines.hpp>
 #include <BLIB/Render/Systems/BuiltinDescriptorComponentSystems.hpp>
 #include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
 #include <BLIB/Render/Systems/CameraUpdateSystem.hpp>
@@ -65,22 +64,9 @@ void Renderer::initialize() {
 
     // drawable systems
     engine.systems().registerSystem<sys::MeshSystem>(
-        FrameStage::RenderObjectSync,
-        StateMask,
-        scene::StagePipelineBuilder()
-            .withPipeline(Config::SceneObjectStage::OpaquePass, Config::PipelineIds::SkinnedMeshes)
-            .withPipeline(Config::SceneObjectStage::TransparentPass,
-                          Config::PipelineIds::SkinnedMeshes)
-            .build());
+        FrameStage::RenderObjectSync, StateMask, Config::PipelineIds::SkinnedMeshes);
     engine.systems().registerSystem<sys::SpriteSystem>(
-        FrameStage::RenderObjectSync,
-        StateMask,
-        scene::StagePipelineBuilder()
-            .withPipeline(Config::SceneObjectStage::OpaquePass,
-                          Config::PipelineIds::LitSkinned2DGeometry)
-            .withPipeline(Config::SceneObjectStage::TransparentPass,
-                          Config::PipelineIds::LitSkinned2DGeometry)
-            .build());
+        FrameStage::RenderObjectSync, StateMask, Config::PipelineIds::LitSkinned2DGeometry);
 
     // create renderer instance data
     state.init();

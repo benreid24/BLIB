@@ -44,8 +44,7 @@ void Scene::handleDescriptorSync() { descriptorSets.handleDescriptorSync(); }
 
 scene::SceneObject* Scene::createAndAddObject(ecs::Entity entity,
                                               const prim::DrawParameters& drawParams,
-                                              UpdateSpeed updateFreq,
-                                              const scene::StagePipelines& pipelines) {
+                                              UpdateSpeed updateFreq, std::uint32_t pipeline) {
     auto& ids                  = updateFreq == UpdateSpeed::Dynamic ? dynamicIds : staticIds;
     const std::uint32_t offset = updateFreq == UpdateSpeed::Dynamic ? maxStatic : 0;
     if (!ids.available()) {
@@ -53,14 +52,14 @@ scene::SceneObject* Scene::createAndAddObject(ecs::Entity entity,
         return nullptr;
     }
     const std::uint32_t i      = ids.allocate() + offset;
-    scene::SceneObject* object = doAdd(entity, i, updateFreq, pipelines);
+    scene::SceneObject* object = doAdd(entity, i, updateFreq, pipeline);
     if (object) {
         object->hidden     = false;
         object->sceneId    = i;
         object->drawParams = drawParams;
 
         entityMap[i]       = entity;
-        objectPipelines[i] = pipelines;
+        objectPipelines[i] = pipeline;
     }
     else { ids.release(i - offset); }
 
@@ -68,15 +67,15 @@ scene::SceneObject* Scene::createAndAddObject(ecs::Entity entity,
 }
 
 void Scene::removeObject(scene::SceneObject* obj) {
-    const std::size_t i                    = obj->sceneId;
-    const ecs::Entity ent                  = entityMap[i];
-    const scene::StagePipelines& pipelines = objectPipelines[i];
+    const std::size_t i    = obj->sceneId;
+    const ecs::Entity ent  = entityMap[i];
+    std::uint32_t pipeline = objectPipelines[i];
 
     entityMap[i] = ecs::InvalidEntity;
     if (i < maxStatic) { staticIds.release(i); }
     else { dynamicIds.release(i - maxStatic); }
 
-    doRemove(ent, obj, pipelines);
+    doRemove(ent, obj, pipeline);
 }
 
 } // namespace gfx

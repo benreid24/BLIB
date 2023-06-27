@@ -2,7 +2,6 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
-#include <BLIB/Render/Scenes/StagePipelines.hpp>
 #include <BLIB/Render/Systems/TextSyncSystem.hpp>
 
 namespace bl
@@ -11,14 +10,6 @@ namespace gfx
 {
 namespace draw
 {
-namespace
-{
-const scene::StagePipelines Pipelines =
-    scene::StagePipelineBuilder()
-        .withPipeline(Config::SceneObjectStage::OpaquePass, Config::PipelineIds::Text)
-        .build();
-}
-
 Text::Text()
 : textSystem(nullptr)
 , font(nullptr)
@@ -127,7 +118,8 @@ void Text::commit() {
 
 void Text::addTextToOverlay(Overlay* overlay, UpdateSpeed descriptorUpdateFreq,
                             ecs::Entity parent) {
-    Drawable::addToOverlayWithCustomPipelines(overlay, descriptorUpdateFreq, Pipelines, parent);
+    Drawable::addToOverlayWithCustomPipeline(
+        overlay, descriptorUpdateFreq, Config::PipelineIds::Text, parent);
 }
 
 void Text::wordWrap(float w) {

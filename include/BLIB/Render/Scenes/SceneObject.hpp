@@ -11,6 +11,7 @@ namespace bl
 {
 namespace gfx
 {
+/// Collection of core rendering functionality for rendering scenes
 namespace scene
 {
 /**

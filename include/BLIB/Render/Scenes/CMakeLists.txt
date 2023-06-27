@@ -6,5 +6,4 @@ target_sources(BLIB PUBLIC
     SceneObject.hpp
     SceneRenderContext.hpp
     StageBatch.hpp
-    StagePipelines.hpp
 )

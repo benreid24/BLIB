@@ -8,7 +8,6 @@
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <BLIB/Render/Scenes/StageBatch.hpp>
-#include <BLIB/Render/Scenes/StagePipelines.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <array>
 #include <glad/vulkan.h>
@@ -76,22 +75,21 @@ protected:
      * @param entity The ECS entity of the new object
      * @param sceneId The id of the new object in this scene
      * @param updateFreq Whether the object is static or dynamic
-     * @param pipelines Which pipelines to use to render the object
+     * @param pipeline The pipeline to use to render the object
      * @return A pointer to the new scene object
      */
     virtual scene::SceneObject* doAdd(ecs::Entity entity, std::uint32_t sceneId,
-                                      UpdateSpeed updateFreq,
-                                      const scene::StagePipelines& pipelines) = 0;
+                                      UpdateSpeed updateFreq, std::uint32_t pipeline) = 0;
 
     /**
      * @brief Called when an object is removed from the scene. Unlink from descriptors here
      *
      * @param entity The ECS entity being removed
      * @param object The object being removed
-     * @param pipelines The pipelines used to render the object being removed
+     * @param pipeline The pipeline used to render the object being removed
      */
     virtual void doRemove(ecs::Entity entity, scene::SceneObject* object,
-                          const scene::StagePipelines& pipelines) = 0;
+                          std::uint32_t pipeline) = 0;
 
     /**
      * @brief Intended to be called by GenericDrawableSystem. Can be used by derived classes to
@@ -113,14 +111,13 @@ private:
     util::IdAllocator<std::uint32_t> staticIds;
     util::IdAllocator<std::uint32_t> dynamicIds;
     std::vector<ecs::Entity> entityMap;
-    std::vector<scene::StagePipelines> objectPipelines;
+    std::vector<std::uint32_t> objectPipelines;
     std::uint32_t nextObserverIndex;
 
     // called by sys::GenericDrawableSystem in locked context
     scene::SceneObject* createAndAddObject(ecs::Entity entity,
                                            const prim::DrawParameters& drawParams,
-                                           UpdateSpeed updateFreq,
-                                           const scene::StagePipelines& pipelines);
+                                           UpdateSpeed updateFreq, std::uint32_t pipeline);
 
     // called by Observer
     void handleDescriptorSync();

@@ -16,40 +16,26 @@ BasicScene::BasicScene(Renderer& r, std::uint32_t maxStatic, std::uint32_t maxDy
 , transparentObjects(r, maxStatic + maxDynamic, descriptorSets) {}
 
 scene::SceneObject* BasicScene::doAdd(ecs::Entity entity, std::uint32_t sceneId,
-                                      UpdateSpeed updateFreq,
-                                      const scene::StagePipelines& pipelines) {
+                                      UpdateSpeed updateFreq, std::uint32_t pipeline) {
     scene::SceneObject* object = &objects[sceneId];
     object->sceneId            = sceneId;
 
-    if (pipelines[Config::SceneObjectStage::OpaquePass] != Config::PipelineIds::None) {
-        if (!opaqueObjects.addObject(
-                object, pipelines[Config::SceneObjectStage::OpaquePass], entity, updateFreq)) {
-            BL_LOG_ERROR << "Failed to add " << entity << " to scene " << this;
-            return nullptr;
-        }
-    }
-    if (pipelines[Config::SceneObjectStage::TransparentPass] != Config::PipelineIds::None) {
-        if (!transparentObjects.addObject(
-                object, pipelines[Config::SceneObjectStage::TransparentPass], entity, updateFreq)) {
-            BL_LOG_ERROR << "Failed to add " << entity << " to scene " << this;
-            opaqueObjects.removeObject(
-                object, pipelines[Config::SceneObjectStage::OpaquePass], entity);
-            return nullptr;
-        }
+    // TODO - transparency from object
+    const bool isTransparent = false;
+    auto& batch              = isTransparent ? transparentObjects : opaqueObjects;
+    if (!batch.addObject(object, pipeline, entity, updateFreq)) {
+        BL_LOG_ERROR << "Failed to add " << entity << " to scene " << this;
+        return nullptr;
     }
 
     return object;
 }
 
-void BasicScene::doRemove(ecs::Entity ent, scene::SceneObject* obj,
-                          const scene::StagePipelines& pipelines) {
-    if (pipelines[Config::SceneObjectStage::OpaquePass] != Config::PipelineIds::None) {
-        opaqueObjects.removeObject(obj, pipelines[Config::SceneObjectStage::OpaquePass], ent);
-    }
-    if (pipelines[Config::SceneObjectStage::TransparentPass] != Config::PipelineIds::None) {
-        transparentObjects.removeObject(
-            obj, pipelines[Config::SceneObjectStage::TransparentPass], ent);
-    }
+void BasicScene::doRemove(ecs::Entity ent, scene::SceneObject* obj, std::uint32_t pipeline) {
+    // TODO - transparency from object
+    const bool isTransparent = false;
+    auto& batch              = isTransparent ? transparentObjects : opaqueObjects;
+    batch.removeObject(obj, pipeline, ent);
 }
 
 void BasicScene::renderScene(scene::SceneRenderContext& ctx) {

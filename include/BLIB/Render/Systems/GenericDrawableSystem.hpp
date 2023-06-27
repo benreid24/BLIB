@@ -12,7 +12,6 @@
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
-#include <BLIB/Render/Scenes/StagePipelines.hpp>
 #include <mutex>
 #include <vector>
 
@@ -38,9 +37,9 @@ public:
     /**
      * @brief Initializes the system internals
      *
-     * @param pipelines The pipelines to use by default for rendering these types of objects
+     * @param defaultPipeline The pipeline to use by default for rendering these types of objects
      */
-    GenericDrawableSystem(const scene::StagePipelines& pipelines);
+    GenericDrawableSystem(std::uint32_t defaultPipeline);
 
     /**
      * @brief Destroys the system
@@ -64,11 +63,10 @@ public:
      * @param entity The entity to add to the scene
      * @param scene The scene to add the entity to
      * @param descriptorUpdateFreq Expected update frequency of descriptors for this entity
-     * @param pipelines The pipelines to use for each scene stage when rendering this object
+     * @param pipeline The pipeline to use for each scene stage when rendering this object
      */
-    void addToSceneWithCustomPipelines(ecs::Entity entity, Scene* scene,
-                                       UpdateSpeed descriptorUpdateFreq,
-                                       const scene::StagePipelines& pipelines);
+    void addToSceneWithCustomPipeline(ecs::Entity entity, Scene* scene,
+                                      UpdateSpeed descriptorUpdateFreq, std::uint32_t pipeline);
 
     /**
      * @brief Adds the component for the given entity to the overlay using the default pipelines
@@ -88,13 +86,12 @@ public:
      * @param entity The entity to add to the scene
      * @param scene The scene to add the entity to
      * @param descriptorUpdateFreq Expected update frequency of descriptors for this entity
-     * @param pipelines The pipelines to use for each scene stage when rendering this object
+     * @param pipeline The pipeline to use for each scene stage when rendering this object
      * @param parent The entity to be the parent of the new overlay object
      */
-    void addToOverlayWithCustomPipelines(ecs::Entity, Overlay* overlay,
-                                         UpdateSpeed descriptorUpdateFreq,
-                                         const scene::StagePipelines& pipelines,
-                                         ecs::Entity parent = ecs::InvalidEntity);
+    void addToOverlayWithCustomPipeline(ecs::Entity, Overlay* overlay,
+                                        UpdateSpeed descriptorUpdateFreq, std::uint32_t pipeline,
+                                        ecs::Entity parent = ecs::InvalidEntity);
 
     /**
      * @brief Removes the entity from the scene that it is currently in
@@ -124,21 +121,21 @@ private:
         ecs::Entity entity;
         Scene* scene;
         UpdateSpeed updateFreq;
-        scene::StagePipelines pipelines;
+        std::uint32_t pipeline;
         ecs::Entity parent;
 
-        AddCommand(ecs::Entity ent, Scene* s, UpdateSpeed us,
-                   const scene::StagePipelines& pipelines, ecs::Entity parent = ecs::InvalidEntity)
+        AddCommand(ecs::Entity ent, Scene* s, UpdateSpeed us, std::uint32_t pipeline,
+                   ecs::Entity parent = ecs::InvalidEntity)
         : entity(ent)
         , scene(s)
         , updateFreq(us)
-        , pipelines(pipelines)
+        , pipeline(pipeline)
         , parent(parent) {}
     };
 
     std::mutex mutex;
     ecs::Registry* registry;
-    scene::StagePipelines stagePipelines;
+    const std::uint32_t defaultPipeline;
     std::vector<AddCommand> toAdd;
     std::vector<com::SceneObjectRef> erased;
 
@@ -151,9 +148,9 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-GenericDrawableSystem<T>::GenericDrawableSystem(const scene::StagePipelines& pipelines)
+GenericDrawableSystem<T>::GenericDrawableSystem(std::uint32_t defaultPipeline)
 : registry(nullptr)
-, stagePipelines(pipelines) {
+, defaultPipeline(defaultPipeline) {
     toAdd.reserve(64);
     erased.reserve(64);
 }
@@ -161,13 +158,13 @@ GenericDrawableSystem<T>::GenericDrawableSystem(const scene::StagePipelines& pip
 template<typename T>
 void GenericDrawableSystem<T>::addToScene(ecs::Entity ent, Scene* scene,
                                           UpdateSpeed descriptorUpdateFreq) {
-    addToSceneWithCustomPipelines(ent, scene, descriptorUpdateFreq, stagePipelines);
+    addToSceneWithCustomPipeline(ent, scene, descriptorUpdateFreq, defaultPipeline);
 }
 
 template<typename T>
-void GenericDrawableSystem<T>::addToSceneWithCustomPipelines(
-    ecs::Entity entity, Scene* scene, UpdateSpeed descriptorUpdateFreq,
-    const scene::StagePipelines& pipelines) {
+void GenericDrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, Scene* scene,
+                                                            UpdateSpeed descriptorUpdateFreq,
+                                                            std::uint32_t pipeline) {
     std::unique_lock lock(mutex);
     T* c = registry->getComponent<T>(entity);
     if (!c) {
@@ -180,19 +177,20 @@ void GenericDrawableSystem<T>::addToSceneWithCustomPipelines(
         if (c->sceneRef.scene == scene) { return; }
         erased.emplace_back(c->sceneRef);
     }
-    toAdd.emplace_back(entity, scene, descriptorUpdateFreq, pipelines);
+    toAdd.emplace_back(entity, scene, descriptorUpdateFreq, pipeline);
 }
 
 template<typename T>
 void GenericDrawableSystem<T>::addToOverlay(ecs::Entity ent, Overlay* scene,
                                             UpdateSpeed descriptorUpdateFreq, ecs::Entity parent) {
-    addToOverlayWithCustomPipelines(ent, scene, descriptorUpdateFreq, stagePipelines, parent);
+    addToOverlayWithCustomPipeline(ent, scene, descriptorUpdateFreq, defaultPipeline, parent);
 }
 
 template<typename T>
-void GenericDrawableSystem<T>::addToOverlayWithCustomPipelines(
-    ecs::Entity entity, Overlay* scene, UpdateSpeed descriptorUpdateFreq,
-    const scene::StagePipelines& pipelines, ecs::Entity parent) {
+void GenericDrawableSystem<T>::addToOverlayWithCustomPipeline(ecs::Entity entity, Overlay* scene,
+                                                              UpdateSpeed descriptorUpdateFreq,
+                                                              std::uint32_t pipelines,
+                                                              ecs::Entity parent) {
     std::unique_lock lock(mutex);
     T* c = registry->getComponent<T>(entity);
     if (!c) {
@@ -267,7 +265,7 @@ void GenericDrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
                 continue;
             }
             c->sceneRef.object = add.scene->createAndAddObject(
-                add.entity, c->drawParams, add.updateFreq, add.pipelines);
+                add.entity, c->drawParams, add.updateFreq, add.pipeline);
             if (c->sceneRef.object) {
                 c->sceneRef.scene = add.scene;
 

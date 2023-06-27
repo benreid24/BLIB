@@ -49,10 +49,9 @@ public:
      *
      * @param scene The scene to add to
      * @param updateFreq Whether the entity is expected to be dynamic or static
-     * @param pipelines The pipelines to render with
+     * @param pipeline The pipeline to render with
      */
-    void addToSceneWithCustomPipelines(Scene* scene, UpdateSpeed updateFreq,
-                                       const scene::StagePipelines& pipelines);
+    void addToSceneWithCustomPipeline(Scene* scene, UpdateSpeed updateFreq, std::uint32_t pipeline);
 
     /**
      * @brief Adds this entity to the given overlay
@@ -69,12 +68,12 @@ public:
      *
      * @param overlay The scene to add to
      * @param descriptorUpdateFreq Whether the entity is expected to be dynamic or static
-     * @param pipelines The pipelines to render with
+     * @param pipeline The pipeline to render with
      * @param parent The parent entity or InvalidEntity to make a root
      */
-    void addToOverlayWithCustomPipelines(Overlay* overlay, UpdateSpeed descriptorUpdateFreq,
-                                         const scene::StagePipelines& pipelines,
-                                         ecs::Entity parent = ecs::InvalidEntity);
+    void addToOverlayWithCustomPipeline(Overlay* overlay, UpdateSpeed descriptorUpdateFreq,
+                                        std::uint32_t pipeline,
+                                        ecs::Entity parent = ecs::InvalidEntity);
 
     /**
      * @brief Set whether the entity is hidden or not. May only be called on entities in a scene
@@ -180,15 +179,15 @@ void Drawable<TCom, TSys>::addToScene(Scene* scene, UpdateSpeed updateFreq) {
 }
 
 template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::addToSceneWithCustomPipelines(Scene* scene, UpdateSpeed updateFreq,
-                                                         const scene::StagePipelines& pipelines) {
+void Drawable<TCom, TSys>::addToSceneWithCustomPipeline(Scene* scene, UpdateSpeed updateFreq,
+                                                        std::uint32_t pipeline) {
 #ifdef BLIB_DEBUG
     if (!enginePtr || ecsId == ecs::InvalidEntity || !handle.valid()) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 #endif
 
-    system().addToSceneWithCustomPipelines(ecsId, scene, updateFreq, pipelines);
+    system().addToSceneWithCustomPipeline(ecsId, scene, updateFreq, pipeline);
     onAdd(component().sceneRef);
 }
 
@@ -206,18 +205,17 @@ void Drawable<TCom, TSys>::addToOverlay(Overlay* overlay, UpdateSpeed descriptor
 }
 
 template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::addToOverlayWithCustomPipelines(Overlay* overlay,
-                                                           UpdateSpeed descriptorUpdateFreq,
-                                                           const scene::StagePipelines& pipelines,
-                                                           ecs::Entity parent) {
+void Drawable<TCom, TSys>::addToOverlayWithCustomPipeline(Overlay* overlay,
+                                                          UpdateSpeed descriptorUpdateFreq,
+                                                          std::uint32_t pipeline,
+                                                          ecs::Entity parent) {
 #ifdef BLIB_DEBUG
     if (!enginePtr || ecsId == ecs::InvalidEntity || !handle.valid()) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 #endif
 
-    system().addToOverlayWithCustomPipelines(
-        ecsId, overlay, descriptorUpdateFreq, pipelines, parent);
+    system().addToOverlayWithCustomPipeline(ecsId, overlay, descriptorUpdateFreq, pipeline, parent);
     onAdd(component().sceneRef);
 }
 
