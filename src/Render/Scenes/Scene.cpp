@@ -75,7 +75,10 @@ void Scene::createAndAddObject(ecs::Entity entity, com::DrawableBase& object,
         entityMap[i]       = entity;
         objectPipelines[i] = object.pipeline;
     }
-    else { ids.release(i - offset); }
+    else {
+        ids.release(i - offset);
+        BL_LOG_ERROR << "Failed to add " << entity << " to scene " << this;
+    }
 }
 
 void Scene::removeObject(scene::SceneObject* obj) {

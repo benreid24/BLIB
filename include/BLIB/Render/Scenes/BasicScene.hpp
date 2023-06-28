@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_RENDERER_BASICSCENE_HPP
 #define BLIB_RENDER_RENDERER_BASICSCENE_HPP
 
-#include <BLIB/Render/Scenes/ObjectBatch.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 
 namespace bl
@@ -82,9 +81,46 @@ protected:
     virtual void doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) override;
 
 private:
+    struct PipelineBatch {
+        PipelineBatch(vk::Pipeline& pipeline, std::uint32_t maxObjects)
+        : pipeline(pipeline) {
+            objects.reserve(maxObjects / 2);
+        }
+
+        vk::Pipeline& pipeline;
+        std::vector<SceneObject*> objects;
+    };
+
+    struct LayoutBatch {
+        LayoutBatch(ds::DescriptorSetInstanceCache& descriptorCache,
+                    const vk::PipelineLayout& layout)
+        : layout(layout)
+        , descriptorCount(layout.initDescriptorSets(descriptorCache, descriptors.data()))
+        , perObjStart(descriptorCount) {
+            batches.reserve(8);
+            for (std::uint8_t i = 0; i < descriptorCount; ++i) {
+                if (descriptors[i]->isPerObject()) {
+                    perObjStart = i;
+                    break;
+                }
+            }
+        }
+
+        const vk::PipelineLayout& layout;
+        std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
+        std::uint8_t descriptorCount;
+        std::uint8_t perObjStart;
+        std::vector<PipelineBatch> batches;
+    };
+
+    struct ObjectBatch {
+        ObjectBatch() { batches.reserve(8); }
+        std::vector<LayoutBatch> batches;
+    };
+
     std::vector<scene::SceneObject> objects;
-    scene::ObjectBatch opaqueObjects;
-    scene::ObjectBatch transparentObjects;
+    ObjectBatch opaqueObjects;
+    ObjectBatch transparentObjects;
     std::vector<bool> transCache;
 
     template<typename T>
