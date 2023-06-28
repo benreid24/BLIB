@@ -16,7 +16,9 @@ Scene::Scene(Renderer& r, std::uint32_t maxStatic, std::uint32_t maxDynamic)
 , entityMap(maxStatic + maxDynamic, ecs::InvalidEntity)
 , objectPipelines(maxStatic + maxDynamic)
 , descriptorSets(maxStatic, maxDynamic)
-, nextObserverIndex(0) {}
+, nextObserverIndex(0) {
+    batchChanges.reserve(32);
+}
 
 Scene::~Scene() {
     for (std::uint32_t i = 0; i < entityMap.size(); ++i) {
@@ -40,30 +42,40 @@ void Scene::updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& p
     descriptorSets.updateObserverCamera(observerIndex, projView);
 }
 
-void Scene::handleDescriptorSync() { descriptorSets.handleDescriptorSync(); }
+void Scene::handleDescriptorSync() {
+    if (!batchChanges.empty()) {
+        std::unique_lock lock(batchMutex);
+        for (const auto& change : batchChanges) {
+            doBatchChange(change, objectPipelines[change.changed->sceneId]);
+            objectPipelines[change.changed->sceneId] = change.newPipeline;
+        }
+        batchChanges.clear();
+    }
+    descriptorSets.handleDescriptorSync();
+}
 
-scene::SceneObject* Scene::createAndAddObject(ecs::Entity entity,
-                                              const prim::DrawParameters& drawParams,
-                                              UpdateSpeed updateFreq, std::uint32_t pipeline) {
+void Scene::createAndAddObject(ecs::Entity entity, com::DrawableBase& object,
+                               UpdateSpeed updateFreq) {
     auto& ids                  = updateFreq == UpdateSpeed::Dynamic ? dynamicIds : staticIds;
     const std::uint32_t offset = updateFreq == UpdateSpeed::Dynamic ? maxStatic : 0;
     if (!ids.available()) {
         BL_LOG_ERROR << "BasicScene " << this << " out of static or dynamic object space";
-        return nullptr;
+        return;
     }
-    const std::uint32_t i      = ids.allocate() + offset;
-    scene::SceneObject* object = doAdd(entity, i, updateFreq, pipeline);
-    if (object) {
-        object->hidden     = false;
-        object->sceneId    = i;
-        object->drawParams = drawParams;
+    const std::uint32_t i    = ids.allocate() + offset;
+    scene::SceneObject* sobj = doAdd(entity, object, i, updateFreq);
+    if (sobj) {
+        object.sceneRef.object = sobj;
+        object.sceneRef.scene  = this;
+
+        sobj->hidden     = false;
+        sobj->sceneId    = i;
+        sobj->drawParams = object.drawParams;
 
         entityMap[i]       = entity;
-        objectPipelines[i] = pipeline;
+        objectPipelines[i] = object.pipeline;
     }
     else { ids.release(i - offset); }
-
-    return object;
 }
 
 void Scene::removeObject(scene::SceneObject* obj) {
@@ -76,6 +88,12 @@ void Scene::removeObject(scene::SceneObject* obj) {
     else { dynamicIds.release(i - maxStatic); }
 
     doRemove(ent, obj, pipeline);
+}
+
+void Scene::rebucketObject(com::DrawableBase& obj) {
+    std::unique_lock lock(batchMutex);
+    batchChanges.emplace_back(
+        BatchChange{obj.sceneRef.object, obj.pipeline, obj.containsTransparency});
 }
 
 } // namespace gfx

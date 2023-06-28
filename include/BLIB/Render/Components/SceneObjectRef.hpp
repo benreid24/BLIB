@@ -26,6 +26,13 @@ namespace com
 struct SceneObjectRef {
     Scene* scene;
     scene::SceneObject* object;
+
+    /**
+     * @brief Creates an empty ref
+     */
+    SceneObjectRef()
+    : scene(nullptr)
+    , object(nullptr) {}
 };
 
 } // namespace com

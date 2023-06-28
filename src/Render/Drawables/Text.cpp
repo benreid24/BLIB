@@ -26,6 +26,7 @@ void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::Str
     Drawable::create(engine);
     Textured::create(engine.ecs(), entity(), font->syncTexture(engine.renderer()));
     OverlayScalable::create(engine, entity());
+    component().pipeline = Config::PipelineIds::Text;
 
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
     component().create(engine.renderer().vulkanState(), vc, vc);
@@ -109,17 +110,11 @@ void Text::commit() {
         // update draw parameters
         component().drawParams            = component().gpuBuffer.getDrawParameters();
         component().drawParams.indexCount = vi;
-        if (component().sceneRef.object) { component().syncToScene(); }
+        if (component().sceneRef.object) { component().syncDrawParamsToScene(); }
     }
 
     // always upload new font atlas if required
     font->syncTexture(engine().renderer());
-}
-
-void Text::addTextToOverlay(Overlay* overlay, UpdateSpeed descriptorUpdateFreq,
-                            ecs::Entity parent) {
-    Drawable::addToOverlayWithCustomPipeline(
-        overlay, descriptorUpdateFreq, Config::PipelineIds::Text, parent);
 }
 
 void Text::wordWrap(float w) {

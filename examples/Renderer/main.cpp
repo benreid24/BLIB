@@ -122,7 +122,7 @@ public:
         text.getTransform().setPosition({0.03f, 0.05f});
         text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
         text.wordWrap(0.9f);
-        text.addTextToOverlay(overlay, bl::gfx::UpdateSpeed::Static, messageBox.entity());
+        text.addToOverlay(overlay, bl::gfx::UpdateSpeed::Static, messageBox.entity());
 
         // setup render texture
         renderTexture.create(engine.renderer(), {128, 128});

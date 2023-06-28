@@ -63,14 +63,29 @@ public:
     constexpr const res::TextureRef& getTexture() const;
 
     /**
+     * @brief Sets the color to multiply the texture color by
+     *
+     * @param color The color to multiply with
+     */
+    void setColor(const glm::vec4& color);
+
+    /**
+     * @brief Returns the color that is being applied
+     */
+    constexpr const glm::vec4& getColor() const;
+
+    /**
      * @brief Returns the pre-transform size of the Sprite
      */
     constexpr const glm::vec2& getSize() const;
 
 private:
+    std::array<prim::Vertex, 4> vertices;
     prim::IndexBuffer buffer;
     res::TextureRef texture;
     glm::vec2 size;
+
+    void refreshTrans();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -78,6 +93,8 @@ private:
 inline constexpr const res::TextureRef& Sprite::getTexture() const { return texture; }
 
 inline constexpr const glm::vec2& Sprite::getSize() const { return size; }
+
+inline constexpr const glm::vec4& Sprite::getColor() const { return vertices[0].color; }
 
 } // namespace com
 } // namespace gfx

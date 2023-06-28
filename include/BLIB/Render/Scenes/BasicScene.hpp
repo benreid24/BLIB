@@ -54,13 +54,13 @@ protected:
      *        here and initialize descriptor sets
      *
      * @param entity The ECS entity of the new object
+     * @param object The ECS component being added
      * @param sceneId The id of the new object in this scene
      * @param updateFreq Whether the object is static or dynamic
-     * @param pipeline Which pipeline to use to render the object
      * @return A pointer to the new scene object
      */
-    virtual scene::SceneObject* doAdd(ecs::Entity entity, std::uint32_t sceneId,
-                                      UpdateSpeed updateFreq, std::uint32_t pipeline) override;
+    virtual scene::SceneObject* doAdd(ecs::Entity entity, com::DrawableBase& object,
+                                      std::uint32_t sceneId, UpdateSpeed updateFreq) override;
 
     /**
      * @brief Called when an object is removed from the scene. Unlink from descriptors here
@@ -72,10 +72,19 @@ protected:
     virtual void doRemove(ecs::Entity entity, scene::SceneObject* object,
                           std::uint32_t pipeline) override;
 
+    /**
+     * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
+     *
+     * @param change Details of the change
+     * @param ogPipeline The original pipeline of the object being changed
+     */
+    virtual void doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) override;
+
 private:
     std::vector<scene::SceneObject> objects;
     scene::StageBatch opaqueObjects;
     scene::StageBatch transparentObjects;
+    std::vector<bool> transCache;
 
     template<typename T>
     friend class sys::DrawableSystem;

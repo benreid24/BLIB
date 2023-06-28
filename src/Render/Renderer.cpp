@@ -63,10 +63,14 @@ void Renderer::initialize() {
         FrameStage::RenderDescriptorRefresh, StateMask);
 
     // drawable systems
-    engine.systems().registerSystem<sys::MeshSystem>(
-        FrameStage::RenderObjectSync, StateMask, Config::PipelineIds::SkinnedMeshes);
-    engine.systems().registerSystem<sys::SpriteSystem>(
-        FrameStage::RenderObjectSync, StateMask, Config::PipelineIds::LitSkinned2DGeometry);
+    engine.systems().registerSystem<sys::MeshSystem>(FrameStage::RenderObjectSync,
+                                                     StateMask,
+                                                     Config::PipelineIds::SkinnedMeshes,
+                                                     Config::PipelineIds::SkinnedMeshes);
+    engine.systems().registerSystem<sys::SpriteSystem>(FrameStage::RenderObjectSync,
+                                                       StateMask,
+                                                       Config::PipelineIds::LitSkinned2DGeometry,
+                                                       Config::PipelineIds::UnlitSkinned2DGeometry);
 
     // create renderer instance data
     state.init();

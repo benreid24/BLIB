@@ -2,6 +2,7 @@
 #define BLIB_RENDER_RENDERER_SCENEBASE_HPP
 
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
@@ -47,6 +48,15 @@ public:
     virtual ~Scene();
 
 protected:
+    /**
+     * @brief POD containing data for when an object needs to be re-batched
+     */
+    struct BatchChange {
+        scene::SceneObject* changed;
+        std::uint32_t newPipeline;
+        bool newTrans;
+    };
+
     const std::uint32_t maxStatic;
     Renderer& renderer;
     ds::DescriptorSetFactoryCache& descriptorFactories;
@@ -73,13 +83,13 @@ protected:
      *        here and initialize descriptor sets
      *
      * @param entity The ECS entity of the new object
+     * @param object The ECS component being added
      * @param sceneId The id of the new object in this scene
      * @param updateFreq Whether the object is static or dynamic
-     * @param pipeline The pipeline to use to render the object
      * @return A pointer to the new scene object
      */
-    virtual scene::SceneObject* doAdd(ecs::Entity entity, std::uint32_t sceneId,
-                                      UpdateSpeed updateFreq, std::uint32_t pipeline) = 0;
+    virtual scene::SceneObject* doAdd(ecs::Entity entity, com::DrawableBase& object,
+                                      std::uint32_t sceneId, UpdateSpeed updateFreq) = 0;
 
     /**
      * @brief Called when an object is removed from the scene. Unlink from descriptors here
@@ -90,6 +100,14 @@ protected:
      */
     virtual void doRemove(ecs::Entity entity, scene::SceneObject* object,
                           std::uint32_t pipeline) = 0;
+
+    /**
+     * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
+     *
+     * @param change Details of the change
+     * @param ogPipeline The original pipeline of the object being changed
+     */
+    virtual void doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) = 0;
 
     /**
      * @brief Intended to be called by DrawableSystem. Can be used by derived classes to
@@ -107,6 +125,14 @@ protected:
      */
     constexpr ecs::Entity getEntityFromId(std::uint32_t sceneId) const;
 
+    /**
+     * @brief Returns the update speed of the given object
+     *
+     * @param sceneId The scene id of the object
+     * @return The update speed the object was created with
+     */
+    UpdateSpeed getObjectSpeed(std::uint32_t sceneId) const;
+
 private:
     util::IdAllocator<std::uint32_t> staticIds;
     util::IdAllocator<std::uint32_t> dynamicIds;
@@ -114,10 +140,14 @@ private:
     std::vector<std::uint32_t> objectPipelines;
     std::uint32_t nextObserverIndex;
 
+    std::mutex batchMutex;
+    std::vector<BatchChange> batchChanges;
+
     // called by sys::DrawableSystem in locked context
-    scene::SceneObject* createAndAddObject(ecs::Entity entity,
-                                           const prim::DrawParameters& drawParams,
-                                           UpdateSpeed updateFreq, std::uint32_t pipeline);
+    void createAndAddObject(ecs::Entity entity, com::DrawableBase& object, UpdateSpeed updateFreq);
+
+    // called by DrawableBase
+    void rebucketObject(com::DrawableBase& object);
 
     // called by Observer
     void handleDescriptorSync();
@@ -129,12 +159,17 @@ private:
     friend class Observer;
     friend class res::ScenePool;
     friend class vk::RenderTexture;
+    friend struct com::DrawableBase;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline constexpr ecs::Entity Scene::getEntityFromId(std::uint32_t sceneId) const {
     return entityMap[sceneId];
+}
+
+inline UpdateSpeed Scene::getObjectSpeed(std::uint32_t sceneId) const {
+    return sceneId >= staticIds.totalIds() ? UpdateSpeed::Dynamic : UpdateSpeed::Static;
 }
 
 } // namespace gfx

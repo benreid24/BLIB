@@ -38,8 +38,9 @@ public:
      * @brief Initializes the system internals
      *
      * @param defaultPipeline The pipeline to use by default for rendering these types of objects
+     * @param overlayPipeline The pipeline to use when rendering in an overlay
      */
-    DrawableSystem(std::uint32_t defaultPipeline);
+    DrawableSystem(std::uint32_t defaultPipeline, std::uint32_t overlayPipeline);
 
     /**
      * @brief Destroys the system
@@ -136,6 +137,7 @@ private:
     std::mutex mutex;
     ecs::Registry* registry;
     const std::uint32_t defaultPipeline;
+    const std::uint32_t overlayPipeline;
     std::vector<AddCommand> toAdd;
     std::vector<com::SceneObjectRef> erased;
 
@@ -148,9 +150,10 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-DrawableSystem<T>::DrawableSystem(std::uint32_t defaultPipeline)
+DrawableSystem<T>::DrawableSystem(std::uint32_t defaultPipeline, std::uint32_t overlayPipeline)
 : registry(nullptr)
-, defaultPipeline(defaultPipeline) {
+, defaultPipeline(defaultPipeline)
+, overlayPipeline(overlayPipeline) {
     toAdd.reserve(64);
     erased.reserve(64);
 }
@@ -158,7 +161,19 @@ DrawableSystem<T>::DrawableSystem(std::uint32_t defaultPipeline)
 template<typename T>
 void DrawableSystem<T>::addToScene(ecs::Entity ent, Scene* scene,
                                    UpdateSpeed descriptorUpdateFreq) {
-    addToSceneWithCustomPipeline(ent, scene, descriptorUpdateFreq, defaultPipeline);
+    T* c = registry->getComponent<T>(ent);
+    if (!c) {
+#ifdef BLIB_DEBUG
+        BL_LOG_WARN << "Entity " << ent << " is missing component: " << typeid(T).name();
+#endif
+        return;
+    }
+
+    addToSceneWithCustomPipeline(
+        ent,
+        scene,
+        descriptorUpdateFreq,
+        c->pipeline != com::DrawableBase::PipelineNotSet ? c->pipeline : defaultPipeline);
 }
 
 template<typename T>
@@ -183,7 +198,20 @@ void DrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, Scene* 
 template<typename T>
 void DrawableSystem<T>::addToOverlay(ecs::Entity ent, Overlay* scene,
                                      UpdateSpeed descriptorUpdateFreq, ecs::Entity parent) {
-    addToOverlayWithCustomPipeline(ent, scene, descriptorUpdateFreq, defaultPipeline, parent);
+    T* c = registry->getComponent<T>(ent);
+    if (!c) {
+#ifdef BLIB_DEBUG
+        BL_LOG_WARN << "Entity " << ent << " is missing component: " << typeid(T).name();
+#endif
+        return;
+    }
+
+    addToOverlayWithCustomPipeline(
+        ent,
+        scene,
+        descriptorUpdateFreq,
+        c->pipeline != com::DrawableBase::PipelineNotSet ? c->pipeline : overlayPipeline,
+        parent);
 }
 
 template<typename T>
@@ -264,11 +292,9 @@ void DrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
 #endif
                 continue;
             }
-            c->sceneRef.object = add.scene->createAndAddObject(
-                add.entity, c->drawParams, add.updateFreq, add.pipeline);
+            c->pipeline = add.pipeline;
+            add.scene->createAndAddObject(add.entity, *c, add.updateFreq);
             if (c->sceneRef.object) {
-                c->sceneRef.scene = add.scene;
-
                 Overlay* ov = dynamic_cast<Overlay*>(add.scene);
                 if (ov) { ov->setParent(c->sceneRef.object->sceneId, add.parent); }
             }

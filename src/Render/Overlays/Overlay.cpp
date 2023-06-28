@@ -64,10 +64,10 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     }
 }
 
-scene::SceneObject* Overlay::doAdd(ecs::Entity entity, std::uint32_t sceneId,
-                                   UpdateSpeed updateFreq, std::uint32_t pipeline) {
+scene::SceneObject* Overlay::doAdd(ecs::Entity entity, com::DrawableBase& object,
+                                   std::uint32_t sceneId, UpdateSpeed updateFreq) {
     ovy::OverlayObject& obj = objects[sceneId];
-    obj.pipeline            = &renderer.pipelineCache().getPipeline(pipeline);
+    obj.pipeline            = &renderer.pipelineCache().getPipeline(object.pipeline);
     obj.descriptorCount =
         obj.pipeline->pipelineLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
     for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
@@ -105,6 +105,43 @@ void Overlay::doRemove(ecs::Entity entity, scene::SceneObject* object, std::uint
     }
     else { objects[parent].removeChild(id); }
     entityToSceneId.erase(entity);
+}
+
+void Overlay::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {
+    if (ogPipeline != change.newPipeline) {
+        ovy::OverlayObject& object = *static_cast<ovy::OverlayObject*>(change.changed);
+        object.pipeline            = &renderer.pipelineCache().getPipeline(change.newPipeline);
+
+        auto ogDescriptors      = object.descriptors;
+        const std::uint8_t ogdc = object.descriptorCount;
+
+        const ecs::Entity entity = getEntityFromId(object.sceneId);
+        const UpdateSpeed speed  = getObjectSpeed(object.sceneId);
+        object.descriptorCount   = object.pipeline->pipelineLayout().initDescriptorSets(
+            descriptorSets, object.descriptors.data());
+
+        // call allocate for new descriptor sets
+        for (std::uint8_t i = 0; i < object.descriptorCount; ++i) {
+            for (std::uint8_t j = 0; j < ogdc; ++j) {
+                if (ogDescriptors[j] == object.descriptors[i]) {
+                    ogDescriptors[j] = nullptr;
+                    goto noAdd;
+                }
+            }
+
+            object.descriptors[i]->allocateObject(object.sceneId, entity, speed);
+
+        noAdd:
+            continue;
+        }
+
+        // call remove for ones we no longer use
+        for (std::uint8_t i = 0; i < ogdc; ++i) {
+            if (ogDescriptors[i] != nullptr) {
+                ogDescriptors[i]->releaseObject(object.sceneId, entity);
+            }
+        }
+    }
 }
 
 void Overlay::setParent(std::uint32_t child, ecs::Entity parent) {

@@ -114,16 +114,6 @@ public:
                                std::uint32_t style    = sf::Text::Regular);
 
     /**
-     * @brief Adds this entity to the given overlay
-     *
-     * @param overlay The overlay to add to
-     * @param descriptorUpdateFreq Whether the entity is expected to be dynamic or static
-     * @param parent The parent entity or InvalidEntity to make a root
-     */
-    void addTextToOverlay(Overlay* overlay, UpdateSpeed descriptorUpdateFreq,
-                          ecs::Entity parent = ecs::InvalidEntity);
-
-    /**
      * @brief Returns the bounding rectangle of the text in pre-transform space
      */
     sf::FloatRect getLocalBounds() const;

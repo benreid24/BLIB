@@ -70,6 +70,11 @@ public:
      */
     void releaseAll();
 
+    /**
+     * @brief Returns the total number of ids that can be allocated
+     */
+    constexpr std::size_t totalIds() const;
+
 private:
     T nextId;
     T maxId;
@@ -108,9 +113,7 @@ T IdAllocator<T>::allocate() {
         id = freeIds.front();
         freeIds.pop();
     }
-    else if (nextId < freeIds.capacity()) {
-        ++nextId;
-    }
+    else if (nextId < freeIds.capacity()) { ++nextId; }
 
     maxId       = std::max(maxId, id);
     usedIds[id] = true;
@@ -131,6 +134,11 @@ void IdAllocator<T>::releaseAll() {
     maxId  = 0;
     usedIds.clear();
     usedIds.resize(freeIds.capacity(), false);
+}
+
+template<typename T>
+constexpr std::size_t IdAllocator<T>::totalIds() const {
+    return usedIds.size();
 }
 
 } // namespace util

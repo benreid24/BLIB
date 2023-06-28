@@ -97,6 +97,12 @@ public:
      */
     constexpr VkImageView getView() const;
 
+    /**
+     * @brief Returns whether or not this texture contains significant transparency (more than 10%).
+     *        Only valid for textures loaded from static data, not render textures
+     */
+    constexpr bool containsTransparency() const;
+
 private:
     res::BindlessTextureArray* parent;
 
@@ -116,6 +122,7 @@ private:
     VkSampler sampler;
     glm::u32vec2 sizeRaw;
     glm::vec2 sizeF;
+    bool hasTransparency;
 
     // resize data
     bool needsCleanup;
@@ -129,6 +136,7 @@ private:
                                  tfr::TransferContext& transferEngine) override;
     void cleanup();
     void queueCleanup();
+    void updateTrans(const sf::Image& data);
 
     friend class res::TexturePool;
     friend class res::BindlessTextureArray;
@@ -143,6 +151,8 @@ inline constexpr const glm::vec2& Texture::size() const { return sizeF; }
 inline constexpr VkImage Texture::getImage() const { return image; }
 
 inline constexpr VkImageView Texture::getView() const { return view; }
+
+inline constexpr bool Texture::containsTransparency() const { return hasTransparency; }
 
 } // namespace vk
 } // namespace gfx

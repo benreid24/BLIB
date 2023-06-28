@@ -64,6 +64,7 @@ void Texture::update(const sf::Image& content, const glm::u32vec2& dp, const sf:
     altImg  = &content;
     destPos = dp;
     source  = s;
+    updateTrans(content);
     queueTransfer(SyncRequirement::Immediate);
 }
 
@@ -72,6 +73,7 @@ void Texture::update(const resource::Ref<sf::Image>& content, const glm::u32vec2
     transferImg = content;
     destPos     = dp;
     source      = s;
+    updateTrans(*content);
     queueTransfer(SyncRequirement::Immediate);
 }
 
@@ -208,6 +210,27 @@ void Texture::queueCleanup() {
     oldImage     = image;
     oldAlloc     = alloc;
     oldView      = view;
+}
+
+void Texture::updateTrans(const sf::Image& content) {
+    const std::uint32_t s      = content.getSize().x * content.getSize().y;
+    const std::uint32_t ds     = s * 4;
+    const std::uint32_t thresh = s / 10;
+    std::uint32_t t            = 0;
+
+    // jump directly from alpha to alpha
+    const std::uint8_t* end = content.getPixelsPtr() + s * 4;
+    for (const std::uint8_t* a = content.getPixelsPtr() + 3; a < end; a += 4) {
+        if (*a > 0 || *a < 255) {
+            ++t;
+            if (t >= thresh) {
+                hasTransparency = true;
+                return;
+            }
+        }
+    }
+
+    hasTransparency = false;
 }
 
 } // namespace vk
