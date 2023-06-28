@@ -111,36 +111,15 @@ void Overlay::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline)
     if (ogPipeline != change.newPipeline) {
         ovy::OverlayObject& object = *static_cast<ovy::OverlayObject*>(change.changed);
         object.pipeline            = &renderer.pipelineCache().getPipeline(change.newPipeline);
-
-        auto ogDescriptors      = object.descriptors;
-        const std::uint8_t ogdc = object.descriptorCount;
-
-        const ecs::Entity entity = getEntityFromId(object.sceneId);
-        const UpdateSpeed speed  = getObjectSpeed(object.sceneId);
-        object.descriptorCount   = object.pipeline->pipelineLayout().initDescriptorSets(
-            descriptorSets, object.descriptors.data());
-
-        // call allocate for new descriptor sets
-        for (std::uint8_t i = 0; i < object.descriptorCount; ++i) {
-            for (std::uint8_t j = 0; j < ogdc; ++j) {
-                if (ogDescriptors[j] == object.descriptors[i]) {
-                    ogDescriptors[j] = nullptr;
-                    goto noAdd;
-                }
-            }
-
-            object.descriptors[i]->allocateObject(object.sceneId, entity, speed);
-
-        noAdd:
-            continue;
-        }
-
-        // call remove for ones we no longer use
-        for (std::uint8_t i = 0; i < ogdc; ++i) {
-            if (ogDescriptors[i] != nullptr) {
-                ogDescriptors[i]->releaseObject(object.sceneId, entity);
-            }
-        }
+        const ecs::Entity entity   = getEntityFromId(object.sceneId);
+        const UpdateSpeed speed    = getObjectSpeed(object.sceneId);
+        object.descriptorCount =
+            object.pipeline->pipelineLayout().updateDescriptorSets(descriptorSets,
+                                                                   object.descriptors.data(),
+                                                                   object.descriptorCount,
+                                                                   entity,
+                                                                   object.sceneId,
+                                                                   speed);
     }
 }
 

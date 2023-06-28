@@ -87,7 +87,89 @@ void BasicScene::doRemove(ecs::Entity, scene::SceneObject* obj, std::uint32_t pi
 }
 
 void BasicScene::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {
-    // TODO - impl after refactor to batch by layout
+    const bool wasTrans = transCache[change.changed->sceneId];
+
+    vk::Pipeline& newPipeline = renderer.pipelineCache().getPipeline(change.newPipeline);
+    vk::Pipeline& oldPipeline = renderer.pipelineCache().getPipeline(ogPipeline);
+
+    // determine what changed
+    const bool transChanged    = wasTrans != change.newTrans;
+    const bool pipelineChanged = ogPipeline != change.newPipeline;
+    bool layoutChanged         = false;
+
+    // determine if layout changed
+    if (pipelineChanged) {
+        layoutChanged =
+            newPipeline.pipelineLayout().rawLayout() != oldPipeline.pipelineLayout().rawLayout();
+    }
+
+    // re-bucket if trans, layout, or pipeline changed
+    if (transChanged || layoutChanged || pipelineChanged) {
+        // remove from old bucket
+        LayoutBatch* oldLayoutBatch = nullptr;
+        auto& oldObjectBatch        = wasTrans ? transparentObjects : opaqueObjects;
+        for (LayoutBatch& lb : oldObjectBatch.batches) {
+            if (lb.layout.rawLayout() == oldPipeline.pipelineLayout().rawLayout()) {
+                oldLayoutBatch = &lb;
+                for (PipelineBatch& pb : lb.batches) {
+                    if (&pb.pipeline == &oldPipeline) {
+                        for (auto it = pb.objects.begin(); it != pb.objects.end(); ++it) {
+                            if (*it == change.changed) {
+                                pb.objects.erase(it);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        auto& batch = change.newTrans ? transparentObjects : opaqueObjects;
+
+        // find or create new layout batch
+        LayoutBatch* layoutBatch = nullptr;
+        for (LayoutBatch& lb : batch.batches) {
+            if (lb.layout.rawLayout() == newPipeline.pipelineLayout().rawLayout()) {
+                layoutBatch = &lb;
+                break;
+            }
+        }
+        if (!layoutBatch) {
+            batch.batches.emplace_back(descriptorSets, newPipeline.pipelineLayout());
+            layoutBatch = &batch.batches.back();
+        }
+
+        // find or create pipeline batch
+        PipelineBatch* pipelineBatch = nullptr;
+        for (PipelineBatch& pb : layoutBatch->batches) {
+            if (&pb.pipeline == &newPipeline) {
+                pipelineBatch = &pb;
+                break;
+            }
+        }
+        if (!pipelineBatch) {
+            layoutBatch->batches.emplace_back(newPipeline, objects.size());
+            pipelineBatch = &layoutBatch->batches.back();
+        }
+
+        // add to pipeline batch
+        pipelineBatch->objects.emplace_back(change.changed);
+
+        // update descriptors if layout changed
+        if (layoutChanged) {
+            SceneObject& object      = *change.changed;
+            const ecs::Entity entity = getEntityFromId(object.sceneId);
+            const UpdateSpeed speed  = getObjectSpeed(object.sceneId);
+            newPipeline.pipelineLayout().updateDescriptorSets(descriptorSets,
+                                                              oldLayoutBatch->descriptors.data(),
+                                                              oldLayoutBatch->descriptorCount,
+                                                              entity,
+                                                              object.sceneId,
+                                                              speed);
+        }
+    }
 }
 
 void BasicScene::renderScene(scene::SceneRenderContext& ctx) {
