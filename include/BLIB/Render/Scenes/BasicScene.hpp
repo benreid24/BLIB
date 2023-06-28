@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_BASICSCENE_HPP
 #define BLIB_RENDER_RENDERER_BASICSCENE_HPP
 
+#include <BLIB/Render/Scenes/ObjectBatch.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 
 namespace bl
@@ -82,8 +83,8 @@ protected:
 
 private:
     std::vector<scene::SceneObject> objects;
-    scene::StageBatch opaqueObjects;
-    scene::StageBatch transparentObjects;
+    scene::ObjectBatch opaqueObjects;
+    scene::ObjectBatch transparentObjects;
     std::vector<bool> transCache;
 
     template<typename T>

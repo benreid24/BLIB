@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_OBJECTBATCH_HPP
 #define BLIB_RENDER_RENDERER_OBJECTBATCH_HPP
 
-#include <BLIB/Render/Scenes/PipelineBatch.hpp>
+#include <BLIB/Render/Scenes/LayoutBatch.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
@@ -23,17 +23,17 @@ namespace scene
  *
  * @ingroup Renderer
  */
-class StageBatch {
+class ObjectBatch {
 public:
     /**
-     * @brief Construct a new StageBatch
+     * @brief Construct a new ObjectBatch
      *
      * @param renderer The renderer the pass belongs to
      * @param maxObjects The maximum number of objects in the scene
      * @param descriptorCache Descriptor set cache for the scene this stage is a member of
      */
-    StageBatch(Renderer& renderer, std::uint32_t maxObjects,
-               ds::DescriptorSetInstanceCache& descriptorCache);
+    ObjectBatch(Renderer& renderer, std::uint32_t maxObjects,
+                ds::DescriptorSetInstanceCache& descriptorCache);
 
     /**
      * @brief Creates a new object to be rendered in the pass
@@ -68,7 +68,7 @@ private:
     const std::uint32_t maxObjects;
     Renderer& renderer;
     ds::DescriptorSetInstanceCache& descriptorCache;
-    std::vector<PipelineBatch> batches;
+    std::vector<LayoutBatch> batches;
 };
 
 } // namespace scene

@@ -8,7 +8,6 @@
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
-#include <BLIB/Render/Scenes/StageBatch.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <array>
 #include <glad/vulkan.h>
