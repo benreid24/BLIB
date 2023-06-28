@@ -178,13 +178,17 @@ void BasicScene::renderScene(scene::SceneRenderContext& ctx) {
             const VkPipelineLayout layout = lb.layout.rawLayout();
 
             // bind layout descriptors
-            ctx.bindDescriptors(lb.layout.rawLayout(), lb.descriptors.data(), lb.descriptorCount);
+            ctx.bindDescriptors(layout, lb.descriptors.data(), lb.descriptorCount);
 
             // render each pipeline
             for (PipelineBatch& pb : lb.batches) {
                 ctx.bindPipeline(pb.pipeline);
-                // TODO - bind per-object here after updating Overlay
-                for (SceneObject* obj : pb.objects) { ctx.renderObject(layout, *obj); }
+                for (SceneObject* obj : pb.objects) {
+                    for (std::uint8_t i = lb.perObjStart; i < lb.descriptorCount; ++i) {
+                        lb.descriptors[i]->bindForObject(ctx, layout, i, obj->sceneId);
+                    }
+                    ctx.renderObject(*obj);
+                }
             }
         }
     }

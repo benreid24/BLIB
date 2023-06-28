@@ -56,7 +56,11 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
                                 obj.descriptors.data(),
                                 obj.descriptorCount);
         }
-        ctx.renderObject(obj.pipeline->pipelineLayout().rawLayout(), obj);
+        for (std::uint8_t i = obj.perObjStart; i < obj.descriptorCount; ++i) {
+            obj.descriptors[i]->bindForObject(
+                ctx, obj.pipeline->pipelineLayout().rawLayout(), i, obj.sceneId);
+        }
+        ctx.renderObject(obj);
 
         std::copy(obj.children.begin(),
                   obj.children.end(),
@@ -70,8 +74,12 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, com::DrawableBase& object
     obj.pipeline            = &renderer.pipelineCache().getPipeline(object.pipeline);
     obj.descriptorCount =
         obj.pipeline->pipelineLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
+    obj.perObjStart = obj.descriptorCount;
     for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
         obj.descriptors[i]->allocateObject(sceneId, entity, updateFreq);
+        if (!obj.descriptors[i]->isBindless()) {
+            obj.perObjStart = std::min(obj.perObjStart, static_cast<std::uint8_t>(i));
+        }
     }
     obj.scaler.assign(engine.ecs(), entity);
     obj.viewport.assign(engine.ecs(), entity);

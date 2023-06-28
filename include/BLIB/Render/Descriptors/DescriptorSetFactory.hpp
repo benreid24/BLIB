@@ -50,8 +50,6 @@ public:
      */
     constexpr VkDescriptorSetLayout getDescriptorLayout() const;
 
-    // TODO - support push constants with these classes?
-
     /**
      * @brief Called when a descriptor set instance of this type is needed for a scene
      *

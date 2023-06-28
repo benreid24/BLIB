@@ -62,6 +62,7 @@ struct OverlayObject : public scene::SceneObject {
     vk::Pipeline* pipeline;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
     std::uint8_t descriptorCount;
+    std::uint8_t perObjStart;
 
     VkViewport cachedViewport;
     VkRect2D cachedScissor;

@@ -31,6 +31,17 @@ public:
         TODO - Should consider breaking this down into DescriptorInstances that are deduped per
        scene. Reason: Allow same component to be used across different descriptor sets (ie Transform
        if object uses different descriptor set for shadow pass than render pass)
+
+       Problems:
+         - Same object rendered with multiple pipelines using diff sets that use same component
+            Issue: Component may only be linked to one set
+
+         - Different objects, different sets, same component
+            Issue: Memory is allocated for all objects for component in each set, wasted
+
+        Solutions:
+          - Design/use descriptor sets so components only appear in one set
+          - Above descriptor instance/buffer solution to allow sets to share component buffers
     */
 
     /**

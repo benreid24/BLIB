@@ -58,10 +58,9 @@ public:
     /**
      * @brief Issues the required commands to render the given scene object
      *
-     * @param layout Layout of the currently bound pipeline
      * @param object The object to render
      */
-    void renderObject(VkPipelineLayout layout, const SceneObject& object);
+    void renderObject(const SceneObject& object);
 
     /**
      * @brief Returns the command buffer to use for rendering
@@ -94,8 +93,6 @@ private:
     VkBuffer prevVB;
     VkBuffer prevIB;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> boundDescriptors;
-    std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> perObjDescriptors;
-    std::uint32_t perObjStart, perObjCount;
     const VkViewport viewport;
     const std::uint32_t renderPassId;
     const bool isRenderTexture;

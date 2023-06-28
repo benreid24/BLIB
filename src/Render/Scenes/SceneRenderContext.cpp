@@ -14,13 +14,10 @@ SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, std::uint3
 , observerIndex(observerIndex)
 , prevVB(nullptr)
 , prevIB(nullptr)
-, perObjStart(0)
-, perObjCount(0)
 , viewport(vp)
 , renderPassId(rpid)
 , isRenderTexture(isrt) {
     boundDescriptors.fill(nullptr);
-    perObjDescriptors.fill(nullptr);
 }
 
 void SceneRenderContext::bindPipeline(vk::Pipeline& pipeline) {
@@ -30,35 +27,17 @@ void SceneRenderContext::bindPipeline(vk::Pipeline& pipeline) {
 void SceneRenderContext::bindDescriptors(VkPipelineLayout layout,
                                          ds::DescriptorSetInstance** descriptors,
                                          std::uint32_t descriptorCount) {
-    bool bind   = false;
-    perObjCount = 0;
+    bool bind = false;
     for (unsigned int i = 0; i < descriptorCount; ++i) {
         if (bind || descriptors[i] != boundDescriptors[i]) {
             bind                = true;
             boundDescriptors[i] = descriptors[i];
             descriptors[i]->bindForPipeline(*this, layout, i);
         }
-
-        if (!descriptors[i]->isBindless()) {
-            perObjDescriptors[perObjCount] = descriptors[i];
-            if (perObjCount == 0) {
-                perObjStart = i;
-                perObjCount = 1;
-            }
-            else { ++perObjCount; }
-        }
-#ifdef BLIB_DEBUG
-        else if (perObjCount > 0) {
-            BL_LOG_CRITICAL
-                << "Per-object descriptors must be contiguous in layout and be at the end";
-            throw std::runtime_error(
-                "Per-object descriptors must be contiguous in layout and be at the end");
-        }
-#endif
     }
 }
 
-void SceneRenderContext::renderObject(VkPipelineLayout layout, const SceneObject& object) {
+void SceneRenderContext::renderObject(const SceneObject& object) {
     if (prevVB != object.drawParams.vertexBuffer) {
         prevVB = object.drawParams.vertexBuffer;
 
@@ -70,10 +49,6 @@ void SceneRenderContext::renderObject(VkPipelineLayout layout, const SceneObject
         prevIB = object.drawParams.indexBuffer;
         vkCmdBindIndexBuffer(
             commandBuffer, object.drawParams.indexBuffer, 0, prim::IndexBuffer::IndexType);
-    }
-
-    for (unsigned int i = perObjStart; i < perObjStart + perObjCount; ++i) {
-        perObjDescriptors[i - perObjStart]->bindForObject(*this, layout, i, object.sceneId);
     }
 
     vkCmdDrawIndexed(commandBuffer,
