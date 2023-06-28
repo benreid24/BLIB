@@ -9,7 +9,7 @@ namespace gfx
 namespace ds
 {
 SceneDescriptorSetInstance::SceneDescriptorSetInstance()
-: DescriptorSetInstance(false) {}
+: DescriptorSetInstance(true) {}
 
 void SceneDescriptorSetInstance::updateObserverCamera(std::uint32_t observerIndex,
                                                       const glm::mat4& cam) {

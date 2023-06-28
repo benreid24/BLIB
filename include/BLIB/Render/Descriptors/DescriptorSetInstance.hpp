@@ -41,7 +41,7 @@ public:
     /**
      * @brief Returns whether or not this descriptor set needs to be bound per-object
      */
-    constexpr bool isPerObject() const;
+    constexpr bool isBindless() const;
 
     /**
      * @brief Called by scene once after the instance is created
@@ -106,9 +106,9 @@ protected:
     /**
      * @brief Creates a new DescriptorSetInstance
      *
-     * @param perObject True if the instance has per-object logic, false if only per-pipeline
+     * @param bindless True if the descriptor set is bindless for objects, false otherwise
      */
-    DescriptorSetInstance(bool perObject);
+    DescriptorSetInstance(bool bindless);
 
     /**
      * @brief Called by scene once after the instance is created
@@ -138,14 +138,14 @@ protected:
     virtual void beginSync(bool staticObjectsChanged) = 0;
 
 private:
-    const bool perObject;
+    const bool bindless;
     std::uint32_t maxStatic;
     int staticChanged;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr bool DescriptorSetInstance::isPerObject() const { return perObject; }
+inline constexpr bool DescriptorSetInstance::isBindless() const { return bindless; }
 
 inline void DescriptorSetInstance::markObjectDirty(std::uint32_t si) {
     staticChanged = si < maxStatic ? Config::MaxConcurrentFrames : staticChanged;

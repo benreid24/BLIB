@@ -6,8 +6,8 @@ namespace gfx
 {
 namespace ds
 {
-DescriptorSetInstance::DescriptorSetInstance(bool po)
-: perObject(po)
+DescriptorSetInstance::DescriptorSetInstance(bool bindless)
+: bindless(bindless)
 , maxStatic(0)
 , staticChanged(0) {}
 

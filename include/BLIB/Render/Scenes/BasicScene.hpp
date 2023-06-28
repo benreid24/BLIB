@@ -99,7 +99,7 @@ private:
         , perObjStart(descriptorCount) {
             batches.reserve(8);
             for (std::uint8_t i = 0; i < descriptorCount; ++i) {
-                if (descriptors[i]->isPerObject()) {
+                if (!descriptors[i]->isBindless()) {
                     perObjStart = i;
                     break;
                 }

@@ -9,7 +9,7 @@
 
 bl::gfx::ds::Object2DInstance::Object2DInstance(engine::Engine& engine,
                                                 VkDescriptorSetLayout descriptorSetLayout)
-: DescriptorSetInstance(true)
+: DescriptorSetInstance(false)
 , registry(engine.ecs())
 , vulkanState(engine.renderer().vulkanState())
 , descriptorSetLayout(descriptorSetLayout) {}

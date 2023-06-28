@@ -9,7 +9,7 @@
 
 bl::gfx::ds::Object3DInstance::Object3DInstance(engine::Engine& engine,
                                                 VkDescriptorSetLayout descriptorSetLayout)
-: DescriptorSetInstance(true)
+: DescriptorSetInstance(false)
 , registry(engine.ecs())
 , vulkanState(engine.renderer().vulkanState())
 , descriptorSetLayout(descriptorSetLayout) {}

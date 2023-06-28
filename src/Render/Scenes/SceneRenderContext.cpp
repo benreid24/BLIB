@@ -39,7 +39,7 @@ void SceneRenderContext::bindDescriptors(VkPipelineLayout layout,
             descriptors[i]->bindForPipeline(*this, layout, i);
         }
 
-        if (descriptors[i]->isPerObject()) {
+        if (!descriptors[i]->isBindless()) {
             perObjDescriptors[perObjCount] = descriptors[i];
             if (perObjCount == 0) {
                 perObjStart = i;

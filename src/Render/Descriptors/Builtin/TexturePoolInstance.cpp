@@ -9,7 +9,7 @@ namespace gfx
 namespace ds
 {
 TexturePoolInstance::TexturePoolInstance(res::TexturePool& texturePool)
-: DescriptorSetInstance(false)
+: DescriptorSetInstance(true)
 , texturePool(texturePool) {}
 
 void TexturePoolInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
