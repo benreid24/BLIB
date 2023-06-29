@@ -96,11 +96,13 @@ private:
                     const vk::PipelineLayout& layout)
         : layout(layout)
         , descriptorCount(layout.initDescriptorSets(descriptorCache, descriptors.data()))
-        , perObjStart(descriptorCount) {
+        , perObjStart(descriptorCount)
+        , bindless(true) {
             batches.reserve(8);
             for (std::uint8_t i = 0; i < descriptorCount; ++i) {
                 if (!descriptors[i]->isBindless()) {
                     perObjStart = i;
+                    bindless    = false;
                     break;
                 }
             }
@@ -111,6 +113,7 @@ private:
         std::uint8_t descriptorCount;
         std::uint8_t perObjStart;
         std::vector<PipelineBatch> batches;
+        bool bindless;
     };
 
     struct ObjectBatch {

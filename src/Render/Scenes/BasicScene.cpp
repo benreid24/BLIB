@@ -181,13 +181,21 @@ void BasicScene::renderScene(scene::SceneRenderContext& ctx) {
             ctx.bindDescriptors(layout, lb.descriptors.data(), lb.descriptorCount);
 
             // render each pipeline
-            for (PipelineBatch& pb : lb.batches) {
-                ctx.bindPipeline(pb.pipeline);
-                for (SceneObject* obj : pb.objects) {
-                    for (std::uint8_t i = lb.perObjStart; i < lb.descriptorCount; ++i) {
-                        lb.descriptors[i]->bindForObject(ctx, layout, i, obj->sceneId);
+            if (!lb.bindless) {
+                for (PipelineBatch& pb : lb.batches) {
+                    ctx.bindPipeline(pb.pipeline);
+                    for (SceneObject* obj : pb.objects) {
+                        for (std::uint8_t i = lb.perObjStart; i < lb.descriptorCount; ++i) {
+                            lb.descriptors[i]->bindForObject(ctx, layout, i, obj->sceneId);
+                        }
+                        ctx.renderObject(*obj);
                     }
-                    ctx.renderObject(*obj);
+                }
+            }
+            else {
+                for (PipelineBatch& pb : lb.batches) {
+                    ctx.bindPipeline(pb.pipeline);
+                    for (SceneObject* obj : pb.objects) { ctx.renderObject(*obj); }
                 }
             }
         }
