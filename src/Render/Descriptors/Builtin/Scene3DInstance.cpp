@@ -1,4 +1,4 @@
-#include <BLIB/Render/Descriptors/Builtin/Scene2DLitInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp>
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
@@ -10,18 +10,18 @@ namespace gfx
 {
 namespace ds
 {
-Scene2DLitInstance::Scene2DLitInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout)
+Scene3DInstance::Scene3DInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout)
 : vulkanState(vulkanState)
 , setLayout(layout) {}
 
-Scene2DLitInstance::~Scene2DLitInstance() {
+Scene3DInstance::~Scene3DInstance() {
     cameraBuffer.stopTransferringEveryFrame();
     vulkanState.descriptorPool.release(allocHandle);
     cameraBuffer.destroy();
 }
 
-void Scene2DLitInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
-                                         std::uint32_t setIndex) const {
+void Scene3DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
+                                      std::uint32_t setIndex) const {
     vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
@@ -32,16 +32,16 @@ void Scene2DLitInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipel
                             nullptr);
 }
 
-void Scene2DLitInstance::bindForObject(scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
-                                       std::uint32_t) const {
+void Scene3DInstance::bindForObject(scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
+                                    std::uint32_t) const {
     // n/a
 }
 
-void Scene2DLitInstance::releaseObject(std::uint32_t, ecs::Entity) {
+void Scene3DInstance::releaseObject(std::uint32_t, ecs::Entity) {
     // n/a
 }
 
-void Scene2DLitInstance::doInit(std::uint32_t, std::uint32_t) {
+void Scene3DInstance::doInit(std::uint32_t, std::uint32_t) {
     // allocate memory
     cameraBuffer.create(vulkanState, Config::MaxSceneObservers);
     cameraBuffer.configureTransferAll();
@@ -74,12 +74,12 @@ void Scene2DLitInstance::doInit(std::uint32_t, std::uint32_t) {
     }
 }
 
-bool Scene2DLitInstance::doAllocateObject(std::uint32_t, ecs::Entity, UpdateSpeed) {
+bool Scene3DInstance::doAllocateObject(std::uint32_t, ecs::Entity, UpdateSpeed) {
     // n/a
     return true;
 }
 
-void Scene2DLitInstance::beginSync(bool) {
+void Scene3DInstance::beginSync(bool) {
     // noop
 }
 

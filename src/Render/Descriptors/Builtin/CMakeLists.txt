@@ -4,10 +4,10 @@ target_sources(BLIB PRIVATE
 	Object3DFactory.cpp
 	Object3DInstance.cpp
 	PostFXFactory.cpp
-	Scene2DLitFactory.cpp
-	Scene2DLitInstance.cpp
-	Scene3DUnlitFactory.cpp
-	Scene3DUnlitInstance.cpp
+	Scene2DFactory.cpp
+	Scene2DInstance.cpp
+	Scene3DFactory.cpp
+	Scene3DInstance.cpp
 	TexturePoolFactory.cpp
 	TexturePoolInstance.cpp
 )

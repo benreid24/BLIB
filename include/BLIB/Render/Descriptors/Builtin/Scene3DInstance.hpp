@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_SCENE3DUNLITINSTANCE_HPP
-#define BLIB_RENDER_DESCRIPTORS_SCENE3DUNLITINSTANCE_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
+#define BLIB_RENDER_DESCRIPTORS_SCENE3DINSTANCE_HPP
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
@@ -26,7 +26,7 @@ namespace ds
  *
  * @ingroup Renderer
  */
-class Scene3DUnlitInstance : public SceneDescriptorSetInstance {
+class Scene3DInstance : public SceneDescriptorSetInstance {
 public:
     /**
      * @brief Creates a new instance of the descriptor set
@@ -34,12 +34,12 @@ public:
      * @param vulkanState Renderer Vulkan state
      * @param layout The layout of the descriptor set
      */
-    Scene3DUnlitInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout);
+    Scene3DInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout);
 
     /**
      * @brief Destroys the descriptor set
      */
-    virtual ~Scene3DUnlitInstance();
+    virtual ~Scene3DInstance();
 
 private:
     vk::VulkanState& vulkanState;

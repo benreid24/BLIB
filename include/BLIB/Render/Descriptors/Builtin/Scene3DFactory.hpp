@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_SCENE2DLITFACTORY_HPP
-#define BLIB_RENDER_DESCRIPTORS_BUILTIN_SCENE2DLITFACTORY_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_SCENE3DFACTORY_HPP
+#define BLIB_RENDER_DESCRIPTORS_BUILTIN_SCENE3DFACTORY_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 
@@ -20,12 +20,12 @@ namespace ds
  *
  * @ingroup Renderer
  */
-class Scene2DLitFactory : public DescriptorSetFactory {
+class Scene3DFactory : public DescriptorSetFactory {
 public:
     /**
      * @brief Destroys the factory
      */
-    virtual ~Scene2DLitFactory();
+    virtual ~Scene3DFactory();
 
 private:
     vk::VulkanState* vulkanState;

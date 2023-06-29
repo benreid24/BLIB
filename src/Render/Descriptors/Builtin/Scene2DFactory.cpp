@@ -1,6 +1,6 @@
-#include <BLIB/Render/Descriptors/Builtin/Scene2DLitFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
 
-#include <BLIB/Render/Descriptors/Builtin/Scene2DLitInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -9,9 +9,9 @@ namespace gfx
 {
 namespace ds
 {
-Scene2DLitFactory::~Scene2DLitFactory() {}
+Scene2DFactory::~Scene2DFactory() {}
 
-void Scene2DLitFactory::init(engine::Engine&, Renderer& renderer) {
+void Scene2DFactory::init(engine::Engine&, Renderer& renderer) {
     vulkanState = &renderer.vulkanState();
 
     vk::DescriptorPool::SetBindingInfo bindingInfo;
@@ -25,8 +25,8 @@ void Scene2DLitFactory::init(engine::Engine&, Renderer& renderer) {
     descriptorSetLayout = vulkanState->descriptorPool.createLayout(bindingInfo);
 }
 
-std::unique_ptr<DescriptorSetInstance> Scene2DLitFactory::createDescriptorSet() const {
-    return std::make_unique<Scene2DLitInstance>(*vulkanState, descriptorSetLayout);
+std::unique_ptr<DescriptorSetInstance> Scene2DFactory::createDescriptorSet() const {
+    return std::make_unique<Scene2DInstance>(*vulkanState, descriptorSetLayout);
 }
 
 } // namespace ds

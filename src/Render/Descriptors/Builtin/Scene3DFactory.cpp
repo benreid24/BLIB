@@ -1,6 +1,6 @@
-#include <BLIB/Render/Descriptors/Builtin/Scene3DUnlitFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
 
-#include <BLIB/Render/Descriptors/Builtin/Scene3DUnlitInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -9,9 +9,9 @@ namespace gfx
 {
 namespace ds
 {
-Scene3DUnlitFactory::~Scene3DUnlitFactory() {}
+Scene3DFactory::~Scene3DFactory() {}
 
-void Scene3DUnlitFactory::init(engine::Engine&, Renderer& renderer) {
+void Scene3DFactory::init(engine::Engine&, Renderer& renderer) {
     vulkanState = &renderer.vulkanState();
 
     vk::DescriptorPool::SetBindingInfo bindingInfo;
@@ -25,8 +25,8 @@ void Scene3DUnlitFactory::init(engine::Engine&, Renderer& renderer) {
     descriptorSetLayout = vulkanState->descriptorPool.createLayout(bindingInfo);
 }
 
-std::unique_ptr<DescriptorSetInstance> Scene3DUnlitFactory::createDescriptorSet() const {
-    return std::make_unique<Scene3DUnlitInstance>(*vulkanState, descriptorSetLayout);
+std::unique_ptr<DescriptorSetInstance> Scene3DFactory::createDescriptorSet() const {
+    return std::make_unique<Scene3DInstance>(*vulkanState, descriptorSetLayout);
 }
 
 } // namespace ds

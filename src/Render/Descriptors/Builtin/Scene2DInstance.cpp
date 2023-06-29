@@ -1,7 +1,7 @@
-#include <BLIB/Render/Descriptors/Builtin/Scene3DUnlitInstance.hpp>
-#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp>
 
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <array>
 
 namespace bl
@@ -10,19 +10,18 @@ namespace gfx
 {
 namespace ds
 {
-Scene3DUnlitInstance::Scene3DUnlitInstance(vk::VulkanState& vulkanState,
-                                           VkDescriptorSetLayout layout)
+Scene2DInstance::Scene2DInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout)
 : vulkanState(vulkanState)
 , setLayout(layout) {}
 
-Scene3DUnlitInstance::~Scene3DUnlitInstance() {
+Scene2DInstance::~Scene2DInstance() {
     cameraBuffer.stopTransferringEveryFrame();
     vulkanState.descriptorPool.release(allocHandle);
     cameraBuffer.destroy();
 }
 
-void Scene3DUnlitInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
-                                           std::uint32_t setIndex) const {
+void Scene2DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
+                                      std::uint32_t setIndex) const {
     vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
@@ -33,16 +32,16 @@ void Scene3DUnlitInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPip
                             nullptr);
 }
 
-void Scene3DUnlitInstance::bindForObject(scene::SceneRenderContext&, VkPipelineLayout,
-                                         std::uint32_t, std::uint32_t) const {
+void Scene2DInstance::bindForObject(scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
+                                    std::uint32_t) const {
     // n/a
 }
 
-void Scene3DUnlitInstance::releaseObject(std::uint32_t, ecs::Entity) {
+void Scene2DInstance::releaseObject(std::uint32_t, ecs::Entity) {
     // n/a
 }
 
-void Scene3DUnlitInstance::doInit(std::uint32_t, std::uint32_t) {
+void Scene2DInstance::doInit(std::uint32_t, std::uint32_t) {
     // allocate memory
     cameraBuffer.create(vulkanState, Config::MaxSceneObservers);
     cameraBuffer.configureTransferAll();
@@ -75,12 +74,12 @@ void Scene3DUnlitInstance::doInit(std::uint32_t, std::uint32_t) {
     }
 }
 
-bool Scene3DUnlitInstance::doAllocateObject(std::uint32_t, ecs::Entity, UpdateSpeed) {
+bool Scene2DInstance::doAllocateObject(std::uint32_t, ecs::Entity, UpdateSpeed) {
     // n/a
     return true;
 }
 
-void Scene3DUnlitInstance::beginSync(bool) {
+void Scene2DInstance::beginSync(bool) {
     // noop
 }
 

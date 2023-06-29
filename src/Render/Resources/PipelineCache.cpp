@@ -5,8 +5,8 @@
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/PostFXFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/Scene2DLitFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/Scene3DUnlitFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -78,7 +78,7 @@ void PipelineCache::createBuiltins() {
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencil)
-                      .addDescriptorSet<ds::Scene3DUnlitFactory>()
+                      .addDescriptorSet<ds::Scene3DFactory>()
                       .addDescriptorSet<ds::Object3DFactory>()
                       .build());
 
@@ -91,7 +91,7 @@ void PipelineCache::createBuiltins() {
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencil)
                       .addDescriptorSet<ds::TexturePoolFactory>()
-                      .addDescriptorSet<ds::Scene3DUnlitFactory>()
+                      .addDescriptorSet<ds::Scene3DFactory>()
                       .addDescriptorSet<ds::Object3DFactory>()
                       .build());
 
@@ -104,7 +104,7 @@ void PipelineCache::createBuiltins() {
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencil)
                       .addDescriptorSet<ds::TexturePoolFactory>()
-                      .addDescriptorSet<ds::Scene2DLitFactory>()
+                      .addDescriptorSet<ds::Scene2DFactory>()
                       .addDescriptorSet<ds::Object2DFactory>()
                       .build());
 
@@ -117,7 +117,7 @@ void PipelineCache::createBuiltins() {
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencil)
                       .addDescriptorSet<ds::TexturePoolFactory>()
-                      .addDescriptorSet<ds::Scene2DLitFactory>()
+                      .addDescriptorSet<ds::Scene2DFactory>()
                       .addDescriptorSet<ds::Object2DFactory>()
                       .build());
 
@@ -130,7 +130,7 @@ void PipelineCache::createBuiltins() {
             .withRasterizer(rasterizer)
             .withDepthStencilState(&depthStencil)
             .addDescriptorSet<ds::TexturePoolFactory>()
-            .addDescriptorSet<ds::Scene2DLitFactory>()
+            .addDescriptorSet<ds::Scene2DFactory>()
             .addDescriptorSet<ds::Object2DFactory>()
             .build());
 

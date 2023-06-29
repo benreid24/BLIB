@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_SCENE2DLITINSTANCE_HPP
-#define BLIB_RENDER_DESCRIPTORS_SCENE2DLITINSTANCE_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_SCENE2DINSTANCE_HPP
+#define BLIB_RENDER_DESCRIPTORS_SCENE2DINSTANCE_HPP
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
@@ -22,11 +22,11 @@ struct VulkanState;
 namespace ds
 {
 /**
- * @brief Descriptor set instance for lighted 2d scenes
+ * @brief Descriptor set instance for 2d scene data
  *
  * @ingroup Renderer
  */
-class Scene2DLitInstance : public SceneDescriptorSetInstance {
+class Scene2DInstance : public SceneDescriptorSetInstance {
 public:
     /**
      * @brief Creates a new instance of the descriptor set
@@ -34,12 +34,12 @@ public:
      * @param vulkanState Renderer Vulkan state
      * @param layout The layout of the descriptor set
      */
-    Scene2DLitInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout);
+    Scene2DInstance(vk::VulkanState& vulkanState, VkDescriptorSetLayout layout);
 
     /**
      * @brief Destroys the descriptor set
      */
-    virtual ~Scene2DLitInstance();
+    virtual ~Scene2DInstance();
 
 private:
     vk::VulkanState& vulkanState;
