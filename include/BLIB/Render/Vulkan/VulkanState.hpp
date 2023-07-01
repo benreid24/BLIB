@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
+#include <BLIB/Render/Vulkan/CleanupManager.hpp>
 #include <BLIB/Render/Vulkan/CommonSamplers.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
@@ -211,6 +212,7 @@ struct VulkanState {
     tfr::TransferEngine transferEngine;
     DescriptorPool descriptorPool;
     CommonSamplers samplerCache;
+    CleanupManager cleanupManager;
 
 private:
     sf::WindowBase& window;

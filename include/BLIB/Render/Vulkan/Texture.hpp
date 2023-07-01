@@ -124,18 +124,11 @@ private:
     glm::vec2 sizeF;
     bool hasTransparency;
 
-    // resize data
-    bool needsCleanup;
-    VkImage oldImage;
-    VmaAllocation oldAlloc;
-    VkImageView oldView;
-
     void create(const glm::u32vec2& size, VkFormat format, VkImageUsageFlags usage);
     void createFromContentsAndQueue();
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& transferEngine) override;
     void cleanup();
-    void queueCleanup();
     void updateTrans(const sf::Image& data);
 
     friend class res::TexturePool;

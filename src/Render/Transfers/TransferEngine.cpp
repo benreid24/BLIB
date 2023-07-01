@@ -119,7 +119,7 @@ void TransferEngine::Bucket::executeTransfers() {
     vkCmdPipelineBarrier(commandBuffer.current(),
                          VK_PIPELINE_STAGE_TRANSFER_BIT,
                          VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT,
-                         0,
+                         VK_DEPENDENCY_BY_REGION_BIT,
                          memoryBarriers.size(),
                          memoryBarriers.data(),
                          bufferBarriers.size(),

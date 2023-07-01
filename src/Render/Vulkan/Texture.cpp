@@ -17,8 +17,7 @@ Texture::Texture()
 , view(nullptr)
 , sampler(nullptr)
 , sizeRaw(0, 0)
-, sizeF(0.f, 0.f)
-, needsCleanup(false) {}
+, sizeF(0.f, 0.f) {}
 
 void Texture::createFromContentsAndQueue() {
     const sf::Image& src = altImg ? *altImg : *transferImg;
@@ -81,7 +80,14 @@ void Texture::ensureSize(const glm::u32vec2& s) {
     if (s.x <= sizeRaw.x && s.y <= sizeRaw.y) return;
 
     // cache data needed to delete original image
-    queueCleanup();
+    VkImage oldImage = image;
+
+    // queue deletion of original resources
+    vulkanState->cleanupManager.add(
+        [vulkanState = vulkanState, oldImage, oldAlloc = alloc, oldView = view]() {
+            vkDestroyImageView(vulkanState->device, oldView, nullptr);
+            vmaDestroyImage(vulkanState->vmaAllocator, oldImage, oldAlloc);
+        });
 
     // transition original image to transfer source layout
     vulkanState->transitionImageLayout(
@@ -114,19 +120,10 @@ void Texture::ensureSize(const glm::u32vec2& s) {
 
     vulkanState->endSingleTimeCommands(cb);
 
-    // clean up old image once transfer is complete via transfer engine
-    queueTransfer(SyncRequirement::DeviceIdle);
+    parent->updateTexture(this);
 }
 
 void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) {
-    // clean up origin texture if required
-    if (needsCleanup) {
-        needsCleanup = false;
-        vkDestroyImageView(vulkanState->device, oldView, nullptr);
-        vmaDestroyImage(vulkanState->vmaAllocator, oldImage, oldAlloc);
-        parent->updateTexture(this);
-    }
-
     // copy image contents if required
     if (altImg || transferImg) {
         const sf::Image& src = altImg ? *altImg : *transferImg;
@@ -205,16 +202,8 @@ void Texture::cleanup() {
     vmaDestroyImage(vulkanState->vmaAllocator, image, alloc);
 }
 
-void Texture::queueCleanup() {
-    needsCleanup = true;
-    oldImage     = image;
-    oldAlloc     = alloc;
-    oldView      = view;
-}
-
 void Texture::updateTrans(const sf::Image& content) {
     const std::uint32_t s      = content.getSize().x * content.getSize().y;
-    const std::uint32_t ds     = s * 4;
     const std::uint32_t thresh = s / 10;
     std::uint32_t t            = 0;
 

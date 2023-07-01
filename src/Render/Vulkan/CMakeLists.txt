@@ -1,5 +1,7 @@
 target_sources(BLIB PRIVATE
     AttachmentBuffer.cpp
+    Buffer.cpp
+    CleanupManager.cpp
     CommonSamplers.cpp
     DescriptorPool.cpp
     Framebuffer.cpp

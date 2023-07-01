@@ -153,6 +153,7 @@ void VulkanState::init() {
 }
 
 void VulkanState::cleanup() {
+    cleanupManager.flush();
     samplerCache.cleanup();
     descriptorPool.cleanup();
     transferEngine.cleanup();
@@ -172,6 +173,7 @@ void VulkanState::invalidateSwapChain() { swapchain.invalidate(); }
 
 void VulkanState::beginFrame(StandardAttachmentSet*& renderFrame, VkCommandBuffer& commandBuffer) {
     swapchain.beginFrame(renderFrame, commandBuffer);
+    cleanupManager.onFrameStart();
 }
 
 void VulkanState::completeFrame() {

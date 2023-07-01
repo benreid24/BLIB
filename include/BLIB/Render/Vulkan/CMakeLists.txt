@@ -2,6 +2,8 @@ target_sources(BLIB PUBLIC
     AlignedBuffer.hpp
     AttachmentBuffer.hpp
     AttachmentSet.hpp
+    Buffer.hpp
+    CleanupManager.hpp
     CommonSamplers.hpp
     DescriptorPool.hpp
     Framebuffer.hpp

@@ -137,7 +137,7 @@ public:
     constexpr std::uint32_t alignedUniformSize() const;
 
 private:
-    vk::PerFrame<vk::AlignedBuffer<T>> cpuBuffer; // TODO - update class and getters
+    vk::PerFrame<vk::AlignedBuffer<T>> cpuBuffer;
     GenericBuffer<VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, true> gpuBuffer;
 
     virtual void executeTransfer(VkCommandBuffer commandBuffer, TransferContext& context) override;
