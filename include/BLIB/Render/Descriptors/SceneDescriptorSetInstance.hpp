@@ -1,9 +1,9 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_SCENEDESCRIPTORSETINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_SCENEDESCRIPTORSETINSTANCE_HPP
 
+#include <BLIB/Render/Buffers/UniformBuffer.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Transfers/UniformBuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <array>
 #include <glm/glm.hpp>
@@ -40,7 +40,7 @@ public:
     void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
 
 protected:
-    tfr::UniformBuffer<glm::mat4> cameraBuffer;
+    buf::UniformBuffer<glm::mat4> cameraBuffer;
 };
 
 } // namespace ds

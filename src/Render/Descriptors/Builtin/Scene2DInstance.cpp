@@ -44,7 +44,6 @@ void Scene2DInstance::releaseObject(std::uint32_t, ecs::Entity) {
 void Scene2DInstance::doInit(std::uint32_t, std::uint32_t) {
     // allocate memory
     cameraBuffer.create(vulkanState, Config::MaxSceneObservers);
-    cameraBuffer.configureTransferAll();
     cameraBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
 
     // allocate descriptors
@@ -57,7 +56,7 @@ void Scene2DInstance::doInit(std::uint32_t, std::uint32_t) {
         // write descriptors
         for (std::uint32_t j = 0; j < Config::MaxConcurrentFrames; ++j) {
             VkDescriptorBufferInfo bufferWrite{};
-            bufferWrite.buffer = cameraBuffer.gpuBufferHandles().getRaw(j);
+            bufferWrite.buffer = cameraBuffer.gpuBufferHandles().getRaw(j).getBuffer();
             bufferWrite.offset = static_cast<VkDeviceSize>(i) * cameraBuffer.alignedUniformSize();
             bufferWrite.range  = cameraBuffer.alignedUniformSize();
 

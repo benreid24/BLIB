@@ -107,6 +107,7 @@ public:
      * @param sceneId The scene id of the object that refreshed descriptors
      */
     void markObjectDirty(std::uint32_t sceneId);
+    // TODO - refactor from static/dynamic to range and split instances by static/dynamic
 
     /**
      * @brief Called once before the TransferEngine starts to send sync commands to buffers

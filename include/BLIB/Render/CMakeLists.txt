@@ -5,6 +5,7 @@ target_sources(BLIB PUBLIC
     UpdateSpeed.hpp
 )
 
+add_subdirectory(Buffers)
 add_subdirectory(Cameras)
 add_subdirectory(Components)
 add_subdirectory(Descriptors)
