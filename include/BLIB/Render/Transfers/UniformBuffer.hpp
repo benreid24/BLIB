@@ -121,7 +121,7 @@ UniformBuffer<T>::UniformBuffer(vk::VulkanState& vulkanState, std::uint32_t size
 template<typename T>
 void UniformBuffer<T>::create(vk::VulkanState& vs, std::uint32_t size) {
     vulkanState = &vs;
-    cpuBuffer.create(vs, size);
+    cpuBuffer.create(vs, vk::AlignedBuffer<T>::UniformBuffer, size);
     gpuBuffer.create(vs, cpuBuffer.alignedSize(), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
     configureTransferAll();
 }

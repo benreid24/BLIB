@@ -97,12 +97,6 @@ public:
      */
     void destroy();
 
-protected:
-    /**
-     * @brief Initializes the drawable
-     */
-    Drawable();
-
     /**
      * @brief Returns the drawable component. Only call after create()
      */
@@ -112,6 +106,12 @@ protected:
      * @brief Returns the drawable component. Only call after create()
      */
     const TCom& component() const;
+
+protected:
+    /**
+     * @brief Initializes the drawable
+     */
+    Drawable();
 
     /**
      * @brief Returns the game engine instance. Only call after create()

@@ -12,7 +12,7 @@ TexturePool::TexturePool(vk::VulkanState& vs)
 : vulkanState(vs)
 , textures(vs, MaxTextureCount, TextureArrayBindIndex)
 , refCounts(MaxTextureCount)
-, freeSlots(MaxTextureCount - BindlessTextureArray::MaxRenderTextures)
+, freeSlots(MaxTextureCount - BindlessTextureArray::MaxRenderTextures - 1)
 , freeRtSlots(BindlessTextureArray::MaxRenderTextures)
 , reverseFileMap(MaxTextureCount - BindlessTextureArray::MaxRenderTextures) {
     toRelease.reserve(64);
@@ -90,6 +90,8 @@ void TexturePool::releaseUnused() {
 }
 
 void TexturePool::releaseTexture(const TextureRef& ref) {
+    if (ref.id() == ErrorTextureId) return;
+
     std::unique_lock lock(mutex);
 
     if (refCounts[ref.id()] > 1) {

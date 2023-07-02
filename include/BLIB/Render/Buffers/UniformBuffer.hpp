@@ -2,9 +2,9 @@
 #define BLIB_RENDER_BUFFERS_UNIFORMBUFFER_HPP
 
 #include <BLIB/Render/Transfers/Transferable.hpp>
-#include <BLIB/Render/Vulkan/AlignedBuffer.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/VulkanState.hpp>
 
 namespace bl
 {
@@ -98,6 +98,8 @@ private:
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& context) override;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
 UniformBuffer<T>::UniformBuffer(vk::VulkanState& vulkanState, std::uint32_t size) {

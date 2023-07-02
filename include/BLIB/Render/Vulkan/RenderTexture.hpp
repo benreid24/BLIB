@@ -51,9 +51,9 @@ public:
     void destroy();
 
     /**
-     * @brief Returns the textures in the texture pool that are being rendered to
+     * @brief Returns the texture in the texture pool that are being rendered to
      */
-    constexpr const vk::PerFrame<res::TextureRef>& getTextures() const;
+    constexpr const res::TextureRef& getTexture() const;
 
     /**
      * @brief Sets the color to clear the texture to prior to rendering
@@ -109,11 +109,13 @@ public:
     constexpr glm::u32vec2 getSize() const;
 
 private:
+    // TODO - consider separate storage in TexturePool for double-buffering
+    // or allow Texture to double-buffer
     Renderer* renderer;
-    PerFrame<res::TextureRef> textures;
-    PerFrame<AttachmentBuffer> depthBuffers;
-    PerFrame<StandardAttachmentSet> attachmentSets;
-    PerFrame<Framebuffer> framebuffers;
+    res::TextureRef texture;
+    AttachmentBuffer depthBuffer;
+    StandardAttachmentSet attachmentSet;
+    Framebuffer framebuffer;
     VkRect2D scissor;
     VkViewport viewport;
     VkClearValue clearColors[2];
@@ -136,9 +138,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const vk::PerFrame<res::TextureRef>& RenderTexture::getTextures() const {
-    return textures;
-}
+inline constexpr const res::TextureRef& RenderTexture::getTexture() const { return texture; }
 
 inline constexpr bool RenderTexture::hasScene() const { return scene != nullptr; }
 

@@ -22,6 +22,8 @@ namespace vk
 template<typename T>
 class AlignedBuffer {
 public:
+    enum Usage { UniformBuffer, StorageBuffer };
+
     /**
      * @brief Creates an empty buffer
      */
@@ -41,18 +43,25 @@ public:
      * @brief Creates a new buffer of the given size
      *
      * @param vulkanState Renderer vulkan state
+     * @param usage The use-case to align for
      * @param size Number of elements in the buffer
      */
-    AlignedBuffer(VulkanState& vulkanState, std::uint32_t size);
+    AlignedBuffer(VulkanState& vulkanState, Usage usage, std::uint32_t size);
 
     /**
      * @brief Creates a new buffer of the given size. Must be called before any operations may be
      *        performed
      *
      * @param vulkanState Renderer vulkan state
+     * @param usage The use-case to align for
      * @param size Number of elements in the buffer
      */
-    void create(VulkanState& vulkanState, std::uint32_t size);
+    void create(VulkanState& vulkanState, Usage usage, std::uint32_t size);
+
+    /**
+     * @brief Empties the CPU buffer
+     */
+    void clear();
 
     /**
      * @brief Returns the element at the given index
@@ -146,14 +155,17 @@ AlignedBuffer<T>::AlignedBuffer()
 , storedElements(0) {}
 
 template<typename T>
-AlignedBuffer<T>::AlignedBuffer(VulkanState& vulkanState, std::uint32_t size) {
-    create(vulkanState, size);
+AlignedBuffer<T>::AlignedBuffer(VulkanState& vulkanState, Usage use, std::uint32_t size) {
+    create(vulkanState, use, size);
 }
 
 template<typename T>
-void AlignedBuffer<T>::create(VulkanState& vulkanState, std::uint32_t size) {
-    alignment = vulkanState.computeAlignedSize(
-        sizeof(T), vulkanState.physicalDeviceProperties.limits.minUniformBufferOffsetAlignment);
+void AlignedBuffer<T>::create(VulkanState& vulkanState, Usage use, std::uint32_t size) {
+    const auto align =
+        use == Usage::UniformBuffer ?
+            vulkanState.physicalDeviceProperties.limits.minUniformBufferOffsetAlignment :
+            vulkanState.physicalDeviceProperties.limits.minStorageBufferOffsetAlignment;
+    alignment = vulkanState.computeAlignedSize(sizeof(T), align);
     resize(size);
 }
 
@@ -205,6 +217,12 @@ void AlignedBuffer<T>::resize(std::uint32_t size) {
 
     ensureCapacity(size);
     storedElements = std::max(storedElements, size);
+}
+
+template<typename T>
+void AlignedBuffer<T>::clear() {
+    storage.clear();
+    storedElements = 0;
 }
 
 template<typename T>

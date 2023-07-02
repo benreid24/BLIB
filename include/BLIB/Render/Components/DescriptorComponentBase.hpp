@@ -1,11 +1,11 @@
 #ifndef BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP
 #define BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP
 
-#include <BLIB/Render/Config.hpp>
-#include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <array>
 #include <cstdint>
 #include <type_traits>
+
+#include <BLIB/Logging.hpp>
 
 namespace bl
 {
@@ -41,25 +41,11 @@ public:
     /**
      * @brief Links this component to an object in a scene
      *
-     * @param vulkanState Renderer Vulkan state
      * @param descriptorSet The descriptor set to link to
      * @param sceneId The id of the object in the scene
      * @param payload Pointer to the data to manage in the descriptor set buffer
      */
-    void link(vk::VulkanState& vulkanState, ds::DescriptorSetInstance* descriptorSet,
-              std::uint32_t sceneId, TPayload* payload);
-
-    /**
-     * @brief Links this component to an object in a scene
-     *
-     * @param vulkanState Renderer Vulkan state
-     * @param descriptorSet The descriptor set to link to
-     * @param sceneId The id of the object in the scene
-     * @param payload Pointers to the data to manage in the descriptor set buffer
-     */
-    void link(vk::VulkanState& vulkanState, ds::DescriptorSetInstance* descriptorSet,
-              std::uint32_t sceneId,
-              const std::array<TPayload*, Config::MaxConcurrentFrames>& payload);
+    void link(ds::DescriptorSetInstance* descriptorSet, std::uint32_t sceneId, TPayload* payload);
 
     /**
      * @brief Unlinks the component from a scene object
@@ -92,8 +78,8 @@ protected:
 private:
     ds::DescriptorSetInstance* descriptorSet;
     std::uint32_t sceneId;
-    vk::PerFrame<TPayload*> payload;
-    int dirty;
+    TPayload* payload;
+    bool dirty;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -108,25 +94,12 @@ DescriptorComponentBase<TCom, TPayload>::DescriptorComponentBase()
 }
 
 template<typename TCom, typename TPayload>
-void DescriptorComponentBase<TCom, TPayload>::link(vk::VulkanState& vs,
-                                                   ds::DescriptorSetInstance* set,
+void DescriptorComponentBase<TCom, TPayload>::link(ds::DescriptorSetInstance* set,
                                                    std::uint32_t sid, TPayload* p) {
     descriptorSet = set;
     sceneId       = sid;
-    payload.init(vs, [&vs, p](TPayload*& ap) { ap = p; });
-    dirty = Config::MaxConcurrentFrames;
-}
-
-template<typename TCom, typename TPayload>
-void DescriptorComponentBase<TCom, TPayload>::link(
-    vk::VulkanState& vs, ds::DescriptorSetInstance* set, std::uint32_t sid,
-    const std::array<TPayload*, Config::MaxConcurrentFrames>& p) {
-    descriptorSet = set;
-    sceneId       = sid;
-    dirty         = Config::MaxConcurrentFrames;
-
-    payload.emptyInit(vs);
-    for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) { payload.getRaw(i) = p[i]; }
+    payload       = p;
+    dirty         = true;
 }
 
 template<typename TCom, typename TPayload>
@@ -136,7 +109,7 @@ inline void DescriptorComponentBase<TCom, TPayload>::unlink() {
 
 template<typename TCom, typename TPayload>
 constexpr bool DescriptorComponentBase<TCom, TPayload>::isDirty() const {
-    return dirty > 0 && descriptorSet != nullptr;
+    return dirty && descriptorSet != nullptr;
 }
 
 template<typename TCom, typename TPayload>
@@ -145,13 +118,13 @@ void DescriptorComponentBase<TCom, TPayload>::refresh() {
                   "Descriptor components must provide a method void refreshDescriptor(TPayload&)");
 
     descriptorSet->markObjectDirty(sceneId);
-    static_cast<TCom*>(this)->refreshDescriptor(*payload.current());
-    dirty = dirty >> 1; // 2 -> 1 -> 0 -> 0 ...
+    static_cast<TCom*>(this)->refreshDescriptor(*payload);
+    dirty = false;
 }
 
 template<typename TCom, typename TPayload>
 void DescriptorComponentBase<TCom, TPayload>::markDirty() {
-    dirty = Config::MaxConcurrentFrames;
+    dirty = true;
 }
 
 } // namespace com

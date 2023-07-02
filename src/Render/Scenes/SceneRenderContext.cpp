@@ -56,7 +56,8 @@ void SceneRenderContext::renderObject(const SceneObject& object) {
                      object.drawParams.instanceCount,
                      object.drawParams.indexOffset,
                      object.drawParams.vertexOffset,
-                     object.drawParams.firstInstance);
+                     object.drawParams.instanceCount == 1 ? object.sceneId :
+                                                            object.drawParams.firstInstance);
 }
 
 } // namespace scene

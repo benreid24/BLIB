@@ -134,8 +134,6 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::Object2DFactory>()
             .build());
 
-    // TODO - other 2d pipelines
-
     createPipline(
         Config::PipelineIds::PostFXBase,
         vk::PipelineParameters({Config::RenderPassIds::SwapchainPrimaryRender})

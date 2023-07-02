@@ -7,109 +7,108 @@
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <BLIB/Transforms/2D.hpp>
 
-bl::gfx::ds::Object2DInstance::Object2DInstance(engine::Engine& engine,
-                                                VkDescriptorSetLayout descriptorSetLayout)
-: DescriptorSetInstance(false)
+namespace bl
+{
+namespace gfx
+{
+namespace ds
+{
+
+Object2DInstance::Object2DInstance(engine::Engine& engine,
+                                   VkDescriptorSetLayout descriptorSetLayout)
+: DescriptorSetInstance(true)
 , registry(engine.ecs())
 , vulkanState(engine.renderer().vulkanState())
 , descriptorSetLayout(descriptorSetLayout) {}
 
-bl::gfx::ds::Object2DInstance::~Object2DInstance() {
+Object2DInstance::~Object2DInstance() {
     vulkanState.descriptorPool.release(alloc);
     transformBuffer.destroy();
     textureBuffer.destroy();
 }
 
-void bl::gfx::ds::Object2DInstance::doInit(std::uint32_t maxStaticObjects,
-                                           std::uint32_t maxDynamicObjects) {
+void Object2DInstance::doInit(std::uint32_t maxStaticObjects, std::uint32_t maxDynamicObjects) {
     const std::uint32_t objectCount = maxStaticObjects + maxDynamicObjects;
-    staticObjectCount               = maxStaticObjects;
-    dynamicObjectCount              = maxDynamicObjects;
 
     // allocate memory
     transformBuffer.create(vulkanState, objectCount);
     textureBuffer.create(vulkanState, objectCount);
 
-    // configure data transfers
-    textureBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
-    transformBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
-    transformBuffer.configureTransferAll();
-    textureBuffer.configureTransferAll();
-
     // allocate descriptor sets
-    descriptorSets.emptyInit(vulkanState, objectCount);
+    descriptorSets.emptyInit(vulkanState);
     alloc = vulkanState.descriptorPool.allocate(
-        descriptorSetLayout, descriptorSets.data(), descriptorSets.totalSize());
+        descriptorSetLayout, descriptorSets.rawData(), Config::MaxConcurrentFrames);
 
     // configureWrite descriptor sets
-    for (unsigned int i = 0; i < objectCount; ++i) {
-        for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
-            VkWriteDescriptorSet setWrites[2] = {VkWriteDescriptorSet{}, VkWriteDescriptorSet{}};
+    updateStaticDescriptors();
+}
 
-            // transform buffer configureWrite
-            VkDescriptorBufferInfo transformBufferWrite{};
-            transformBufferWrite.buffer = transformBuffer.gpuBufferHandles().getRaw(j);
-            transformBufferWrite.offset =
-                static_cast<VkDeviceSize>(i) * transformBuffer.alignedUniformSize();
-            transformBufferWrite.range = transformBuffer.alignedUniformSize();
+void Object2DInstance::updateStaticDescriptors() {
+    for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
+        VkWriteDescriptorSet setWrites[2] = {VkWriteDescriptorSet{}, VkWriteDescriptorSet{}};
 
-            VkWriteDescriptorSet& transformWrite = setWrites[0];
-            transformWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-            transformWrite.descriptorCount       = 1;
-            transformWrite.dstBinding            = 0;
-            transformWrite.dstArrayElement       = 0;
-            transformWrite.dstSet                = descriptorSets.getRaw(i, j);
-            transformWrite.pBufferInfo           = &transformBufferWrite;
-            transformWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+        // transform buffer configureWrite
+        VkDescriptorBufferInfo transformBufferWrite{};
+        transformBufferWrite.buffer = transformBuffer.gpuBufferHandle().getBuffer();
+        transformBufferWrite.offset = 0;
+        transformBufferWrite.range  = transformBuffer.getTotalRange();
 
-            // texture buffer configureWrite
-            VkDescriptorBufferInfo textureBufferWrite{};
-            textureBufferWrite.buffer = textureBuffer.gpuBufferHandles().getRaw(j);
-            textureBufferWrite.offset =
-                static_cast<VkDeviceSize>(i) * textureBuffer.alignedUniformSize();
-            textureBufferWrite.range = textureBuffer.alignedUniformSize();
+        VkWriteDescriptorSet& transformWrite = setWrites[0];
+        transformWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+        transformWrite.descriptorCount       = 1;
+        transformWrite.dstBinding            = 0;
+        transformWrite.dstArrayElement       = 0;
+        transformWrite.dstSet                = descriptorSets.getRaw(j);
+        transformWrite.pBufferInfo           = &transformBufferWrite;
+        transformWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
-            VkWriteDescriptorSet& textureWrite = setWrites[1];
-            textureWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-            textureWrite.descriptorCount       = 1;
-            textureWrite.dstBinding            = 1;
-            textureWrite.dstArrayElement       = 0;
-            textureWrite.dstSet                = descriptorSets.getRaw(i, j);
-            textureWrite.pBufferInfo           = &textureBufferWrite;
-            textureWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+        // texture buffer configureWrite
+        VkDescriptorBufferInfo textureBufferWrite{};
+        textureBufferWrite.buffer = textureBuffer.gpuBufferHandle().getBuffer();
+        textureBufferWrite.offset = 0;
+        textureBufferWrite.range  = textureBuffer.getTotalRange();
 
-            // perform write
-            vkUpdateDescriptorSets(vulkanState.device, std::size(setWrites), setWrites, 0, nullptr);
-        }
+        VkWriteDescriptorSet& textureWrite = setWrites[1];
+        textureWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+        textureWrite.descriptorCount       = 1;
+        textureWrite.dstBinding            = 1;
+        textureWrite.dstArrayElement       = 0;
+        textureWrite.dstSet                = descriptorSets.getRaw(j);
+        textureWrite.pBufferInfo           = &textureBufferWrite;
+        textureWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+
+        // perform write
+        vkUpdateDescriptorSets(vulkanState.device, std::size(setWrites), setWrites, 0, nullptr);
     }
 }
 
-void bl::gfx::ds::Object2DInstance::bindForPipeline(scene::SceneRenderContext&, VkPipelineLayout,
-                                                    std::uint32_t) const {
-    // noop
-}
-
-void bl::gfx::ds::Object2DInstance::bindForObject(scene::SceneRenderContext& ctx,
-                                                  VkPipelineLayout layout, std::uint32_t setIndex,
-                                                  std::uint32_t objectId) const {
+void Object2DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
+                                       std::uint32_t setIndex) const {
     vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
                             setIndex,
                             1,
-                            &descriptorSets.current(objectId),
+                            &descriptorSets.current(),
                             0,
                             nullptr);
 }
 
-void bl::gfx::ds::Object2DInstance::releaseObject(std::uint32_t, ecs::Entity entity) {
+void Object2DInstance::bindForObject(scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
+                                     std::uint32_t) const {
+    // noop
+}
+
+void Object2DInstance::releaseObject(std::uint32_t, ecs::Entity entity) {
     auto components = registry.getComponentSet<t2d::Transform2D, com::Texture>(entity);
     if (components.get<t2d::Transform2D>()) { components.get<t2d::Transform2D>()->unlink(); }
     if (components.get<com::Texture>()) { components.get<com::Texture>()->unlink(); }
 }
 
-bool bl::gfx::ds::Object2DInstance::doAllocateObject(std::uint32_t sceneId, ecs::Entity entity,
-                                                     UpdateSpeed) {
+bool Object2DInstance::doAllocateObject(std::uint32_t sceneId, ecs::Entity entity, UpdateSpeed) {
+    transformBuffer.ensureSize(sceneId + 1);
+    textureBuffer.ensureSize(sceneId + 1);
+
     auto components = registry.getComponentSet<t2d::Transform2D, com::Texture>(entity);
     if (!components.get<t2d::Transform2D>()) {
 #ifdef BLIB_DEBUG
@@ -117,23 +116,26 @@ bool bl::gfx::ds::Object2DInstance::doAllocateObject(std::uint32_t sceneId, ecs:
 #endif
         return false;
     }
-    components.get<t2d::Transform2D>()->link(vulkanState, this, sceneId, &transformBuffer[sceneId]);
+    components.get<t2d::Transform2D>()->link(this, sceneId, &transformBuffer[sceneId]);
     if (components.get<com::Texture>()) {
-        components.get<com::Texture>()->link(
-            vulkanState, this, sceneId, textureBuffer.getWriteLocations(sceneId));
+        components.get<com::Texture>()->link(this, sceneId, &textureBuffer[sceneId]);
     }
-    else { textureBuffer.write(sceneId, 0); }
+    else { textureBuffer[sceneId] = res::TexturePool::ErrorTextureId; }
     return true;
 }
 
-void bl::gfx::ds::Object2DInstance::beginSync(bool staticObjectsChanged) {
+void Object2DInstance::beginSync(bool staticObjectsChanged) {
     if (staticObjectsChanged) {
-        transformBuffer.configureTransferAll();
-        textureBuffer.configureTransferAll();
+        transformBuffer.transferAll();
+        textureBuffer.transferAll();
     }
     else {
-        // TODO - try to track used space to minimize transfer
-        transformBuffer.configureTransferRange(staticObjectCount, dynamicObjectCount);
-        textureBuffer.configureTransferRange(staticObjectCount, dynamicObjectCount);
+        // TODO - track used space to minimize transfer
+        transformBuffer.transferAll();
+        textureBuffer.transferAll();
     }
 }
+
+} // namespace ds
+} // namespace gfx
+} // namespace bl

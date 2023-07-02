@@ -2,9 +2,9 @@
 #define BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT2DINSTANCE_HPP
 
 #include <BLIB/ECS/Registry.hpp>
+#include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Transfers/UniformBuffer.hpp>
-#include <BLIB/Render/Transfers/UniformBufferDouble.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
 #include <cstdint>
 #include <glm/glm.hpp>
@@ -49,11 +49,11 @@ private:
     vk::VulkanState& vulkanState;
     vk::DescriptorPool::AllocationHandle alloc;
     const VkDescriptorSetLayout descriptorSetLayout;
-    vk::PerFrameVector<VkDescriptorSet> descriptorSets;
-    tfr::UniformBuffer<glm::mat4> transformBuffer;
-    tfr::UniformBufferDouble<std::uint32_t> textureBuffer;
-    std::uint32_t staticObjectCount;
-    std::uint32_t dynamicObjectCount;
+    vk::PerFrame<VkDescriptorSet> descriptorSets;
+
+    buf::StaticSSBO<glm::mat4> transformBuffer;
+    buf::StaticSSBO<std::uint32_t> textureBuffer;
+    // TODO - dynamic ssbo
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex) const override;
@@ -64,6 +64,8 @@ private:
     virtual bool doAllocateObject(std::uint32_t sceneId, ecs::Entity entity,
                                   UpdateSpeed updateSpeed) override;
     virtual void beginSync(bool staticObjectsChanged) override;
+
+    void updateStaticDescriptors();
 };
 
 } // namespace ds

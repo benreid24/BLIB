@@ -54,7 +54,7 @@ public:
         p1.setClearColor({0.f, 0.f, 1.f, 1.f});
 
         // create 2d scene and camera for observer 1
-        bl::gfx::Scene* scene = p1.pushScene<bl::gfx::scene::BasicScene>(10, 10);
+        bl::gfx::Scene* scene = p1.pushScene<bl::gfx::scene::BasicScene>(2, 2);
         auto* p1cam =
             p1.setCamera<bl::gfx::c2d::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
         p1cam->setNearAndFarPlanes(-100000.f, 100000.f);
@@ -81,7 +81,7 @@ public:
 
         // create 3d scene for observer 2
         bl::gfx::Observer& p2 = engine.renderer().addObserver();
-        scene                 = p2.pushScene<bl::gfx::scene::BasicScene>(10, 10);
+        scene                 = p2.pushScene<bl::gfx::scene::BasicScene>(1, 1);
 
         // create camera for observer 2
         p2.setClearColor({0.f, 1.f, 0.f, 1.f});
@@ -137,7 +137,7 @@ public:
         renderTextureInnerSprite.getTransform().setPosition({0.f, 0.f});
         renderTextureInnerSprite.addToOverlay(rto, bl::gfx::UpdateSpeed::Static);
 
-        renderTextureOuterSprite.create(engine, renderTexture.getTextures());
+        renderTextureOuterSprite.create(engine, renderTexture.getTexture());
         renderTextureOuterSprite.getTransform().setPosition({0.05f, 0.1f});
         renderTextureOuterSprite.getOverlayScaler().scaleToHeightPercent(0.15f);
         renderTextureOuterSprite.addToOverlay(overlay, bl::gfx::UpdateSpeed::Static);

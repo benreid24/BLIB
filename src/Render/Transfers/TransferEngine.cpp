@@ -9,6 +9,7 @@ namespace gfx
 {
 namespace tfr
 {
+
 TransferEngine::Bucket::Bucket(vk::VulkanState& vs)
 : vulkanState(vs) {
     oneTimeItems.reserve(32);
@@ -38,6 +39,12 @@ void TransferEngine::Bucket::init() {
 }
 
 void TransferEngine::Bucket::cleanup() {
+    for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
+        for (unsigned int i = 0; i < stagingBuffers.getRaw(j).size(); ++i) {
+            vmaDestroyBuffer(
+                vulkanState.vmaAllocator, stagingBuffers.getRaw(j)[i], stagingAllocs.getRaw(j)[i]);
+        }
+    }
     fence.cleanup([this](VkFence f) { vkDestroyFence(vulkanState.device, f, nullptr); });
     vkFreeCommandBuffers(vulkanState.device,
                          vulkanState.sharedCommandPool,

@@ -44,42 +44,28 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
     ensureCamera();
 
     // allocate textures and depth buffers
-    if (firstInit) {
-        textures.init(r.vulkanState(), [this, &size, sampler](res::TextureRef& txtr) {
-            txtr = renderer->texturePool().createRenderTexture(size, sampler);
-        });
-    }
-    else {
-        textures.cleanup([&size](res::TextureRef& txtr) { txtr->ensureSize(size); });
-    }
-    depthBuffers.init(r.vulkanState(), [this, &size](vk::AttachmentBuffer& db) {
-        db.create(renderer->vulkanState(),
-                  StandardAttachmentBuffers::findDepthFormat(renderer->vulkanState()),
-                  VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-                  {size.x, size.y});
-    });
+    if (firstInit) { texture = renderer->texturePool().createRenderTexture(size, sampler); }
+    else { texture->ensureSize(size); }
+    depthBuffer.create(renderer->vulkanState(),
+                       StandardAttachmentBuffers::findDepthFormat(renderer->vulkanState()),
+                       VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
+                       {size.x, size.y});
 
     // set attachment sets and bind framebuffers
     VkRenderPass renderPass =
         r.renderPassCache().getRenderPass(Config::RenderPassIds::OffScreenSceneRender).rawPass();
-    attachmentSets.emptyInit(r.vulkanState());
-    framebuffers.emptyInit(r.vulkanState());
-    for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
-        attachmentSets.getRaw(i).setRenderExtent(scissor.extent);
-        attachmentSets.getRaw(i).setAttachments(textures.getRaw(i)->getImage(),
-                                                textures.getRaw(i)->getView(),
-                                                depthBuffers.getRaw(i).image(),
-                                                depthBuffers.getRaw(i).view());
-        framebuffers.getRaw(i).create(r.vulkanState(), renderPass, attachmentSets.getRaw(i));
-    }
+    attachmentSet.setRenderExtent(scissor.extent);
+    attachmentSet.setAttachments(
+        texture->getImage(), texture->getView(), depthBuffer.image(), depthBuffer.view());
+    framebuffer.create(r.vulkanState(), renderPass, attachmentSet);
 }
 
 void RenderTexture::destroy() {
     if (renderer) {
         renderer->removeRenderTexture(this);
-        framebuffers.cleanup([](Framebuffer& fb) { fb.cleanup(); });
-        depthBuffers.cleanup([](AttachmentBuffer& db) { db.destroy(); });
-        textures.cleanup([this](res::TextureRef& t) { renderer->texturePool().releaseTexture(t); });
+        framebuffer.cleanup();
+        depthBuffer.destroy();
+        renderer->texturePool().releaseTexture(texture);
         renderer = nullptr;
         // TODO - should we refcount scenes?
     }
@@ -129,9 +115,8 @@ void RenderTexture::updateCamera(float dt) {
 }
 
 void RenderTexture::renderScene(VkCommandBuffer commandBuffer) {
-    const VkRect2D renderRegion{{0, 0}, attachmentSets.current().renderExtent()};
-    framebuffers.current().beginRender(
-        commandBuffer, renderRegion, clearColors, std::size(clearColors), true);
+    const VkRect2D renderRegion{{0, 0}, attachmentSet.renderExtent()};
+    framebuffer.beginRender(commandBuffer, renderRegion, clearColors, std::size(clearColors), true);
 
     if (hasScene()) {
         scene::SceneRenderContext ctx(commandBuffer,
@@ -142,7 +127,7 @@ void RenderTexture::renderScene(VkCommandBuffer commandBuffer) {
         scene->renderScene(ctx);
     }
 
-    framebuffers.current().finishRender(commandBuffer);
+    framebuffer.finishRender(commandBuffer);
 }
 
 } // namespace vk

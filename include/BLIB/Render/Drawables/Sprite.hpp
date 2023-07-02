@@ -46,30 +46,10 @@ public:
      * @brief Creates the ECS backing for the sprite
      *
      * @param engine The game engine instance
-     * @param textures The textures for the sprite
-     * @param region The region to render from the texture
-     */
-    Sprite(engine::Engine& engine, const vk::PerFrame<res::TextureRef>& textures,
-           const sf::FloatRect& region = {});
-
-    /**
-     * @brief Creates the ECS backing for the sprite
-     *
-     * @param engine The game engine instance
      * @param texture The texture for the sprite
      * @param region The region to render from the texture
      */
     void create(engine::Engine& engine, res::TextureRef texture, const sf::FloatRect& region = {});
-
-    /**
-     * @brief Creates the ECS backing for the sprite
-     *
-     * @param engine The game engine instance
-     * @param textures The textures for the sprite
-     * @param region The region to render from the texture
-     */
-    void create(engine::Engine& engine, const vk::PerFrame<res::TextureRef>& textures,
-                const sf::FloatRect& region = {});
 };
 
 } // namespace draw

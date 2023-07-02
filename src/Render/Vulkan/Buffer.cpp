@@ -87,12 +87,9 @@ void Buffer::doDefer() {
     }
 }
 
-bool Buffer::ensureSize(VkDeviceSize desiredSize) {
-    if (desiredSize > size) {
+bool Buffer::ensureSize(VkDeviceSize newSize) {
+    if (newSize > size) {
         doDefer();
-
-        VkDeviceSize newSize = size * 2;
-        while (newSize < desiredSize) { newSize *= 2; }
 
         const VkDeviceSize oldSize = size;
         const VkBuffer oldBuffer   = buffer;

@@ -63,6 +63,14 @@ void RenderPassCache::addDefaults() {
     renderCompleteDep.dstAccessMask   = VK_ACCESS_SHADER_READ_BIT;
     renderCompleteDep.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
+    VkSubpassDependency primaryRenderWaitImage{}; // wait for image to be available
+    primaryRenderWaitImage.srcSubpass    = VK_SUBPASS_EXTERNAL;
+    primaryRenderWaitImage.dstSubpass    = 0;
+    primaryRenderWaitImage.srcStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+    primaryRenderWaitImage.srcAccessMask = 0;
+    primaryRenderWaitImage.dstStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+    primaryRenderWaitImage.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+
     vk::RenderPassParameters sceneParams;
     sceneParams.addAttachment(sceneColorAttachment);
     sceneParams.addAttachment(depthAttachment);
@@ -72,6 +80,7 @@ void RenderPassCache::addDefaults() {
             .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
             .build());
     sceneParams.addSubpassDependency(renderCompleteDep);
+    sceneParams.addSubpassDependency(primaryRenderWaitImage);
     createRenderPass(Config::RenderPassIds::OffScreenSceneRender, sceneParams.build());
 
     // primary render pass for final swapchain compositing
@@ -84,14 +93,6 @@ void RenderPassCache::addDefaults() {
     swapColorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     swapColorAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;
     swapColorAttachment.finalLayout    = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
-
-    VkSubpassDependency primaryRenderWaitImage{}; // wait for image to be available
-    primaryRenderWaitImage.srcSubpass    = VK_SUBPASS_EXTERNAL;
-    primaryRenderWaitImage.dstSubpass    = 0;
-    primaryRenderWaitImage.srcStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-    primaryRenderWaitImage.srcAccessMask = 0;
-    primaryRenderWaitImage.dstStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-    primaryRenderWaitImage.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
 
     vk::RenderPassParameters primaryParams;
     primaryParams.addAttachment(swapColorAttachment);

@@ -31,68 +31,33 @@ struct Texture : public DescriptorComponentBase<Texture, std::uint32_t> {
      *
      * @param texture A reference to a TexturePool Texture
      */
-    Texture(const res::TextureRef& texture)
-    : payload(texture) {}
-
-    /**
-     * @brief Creates a texture component with the given textures
-     *
-     * @param texture A reference to a TexturePool Texture
-     */
-    Texture(const vk::PerFrame<res::TextureRef>& textures)
-    : payload(textures) {}
+    Texture(const res::TextureRef& t)
+    : texture(t) {}
 
     /**
      * @brief Sets the texture that this component points to
      *
      * @param texture The texture to change to
      */
-    void setTexture(const res::TextureRef& texture) {
-        payload = texture;
-        markDirty();
-    }
-
-    /**
-     * @brief Sets the texture that this component points to
-     *
-     * @param texture The texture to change to
-     */
-    void setTexture(const vk::PerFrame<res::TextureRef>& texture) {
-        payload = texture;
+    void setTexture(const res::TextureRef& t) {
+        texture = t;
         markDirty();
     }
 
     /**
      * @brief Returns the associated texture for this component
      */
-    const res::TextureRef& getTexture() const {
-        return std::visit(util::Visitor{
-                              [](const res::TextureRef& t) -> const res::TextureRef& { return t; },
-                              [](const vk::PerFrame<res::TextureRef>& t) -> const res::TextureRef& {
-                                  return t.current();
-                              },
-                          },
-                          payload);
-    }
+    const res::TextureRef& getTexture() const { return texture; }
 
     /**
      * @brief Syncs the texture id to a scene buffer
      *
      * @param sceneTextureId Texture id contained in a scene buffer
      */
-    void refreshDescriptor(std::uint32_t& sceneTextureId) {
-        sceneTextureId =
-            std::visit(util::Visitor{
-                           [](const res::TextureRef& t) -> std::uint32_t { return t.id(); },
-                           [](const vk::PerFrame<res::TextureRef>& t) -> std::uint32_t {
-                               return t.current().id();
-                           },
-                       },
-                       payload);
-    }
+    void refreshDescriptor(std::uint32_t& sceneTextureId) { sceneTextureId = texture.id(); }
 
 private:
-    std::variant<res::TextureRef, vk::PerFrame<res::TextureRef>> payload;
+    res::TextureRef texture;
 };
 
 } // namespace com
