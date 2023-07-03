@@ -2,6 +2,7 @@
 #define BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP
 
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Logging.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <array>
 #include <cstdint>
@@ -95,6 +96,11 @@ DescriptorComponentBase<TCom, TPayload>::DescriptorComponentBase()
 template<typename TCom, typename TPayload>
 void DescriptorComponentBase<TCom, TPayload>::link(ds::DescriptorSetInstance* set, scene::Key k,
                                                    TPayload* p) {
+#ifdef BLIB_DEBUG
+    if (descriptorSet != nullptr && descriptorSet != set) {
+        BL_LOG_ERROR << "Component is used in more than one descriptor set";
+    }
+#endif
     descriptorSet = set;
     payload       = p;
     if (k.sceneId != ecs::InvalidEntity) {
