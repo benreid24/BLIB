@@ -7,6 +7,7 @@
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
+#include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <array>
@@ -32,14 +33,14 @@ struct OverlayObject : public scene::SceneObject {
      *
      * @param childId The id of the child to add
      */
-    void registerChild(std::uint32_t childId);
+    void registerChild(scene::Key childId);
 
     /**
      * @brief Removes the given child from this object's child array
      *
      * @param childId The child id to remove
      */
-    void removeChild(std::uint32_t childId);
+    void removeChild(scene::Key childId);
 
     /**
      * @brief Recomputes the target-space viewport
@@ -56,7 +57,7 @@ struct OverlayObject : public scene::SceneObject {
      */
     void applyViewport(VkCommandBuffer commandBuffer);
 
-    std::vector<std::uint32_t> children;
+    std::vector<scene::Key> children;
     ecs::StableHandle<com::OverlayScaler> scaler;
     ecs::StableHandle<Viewport> viewport;
     vk::Pipeline* pipeline;

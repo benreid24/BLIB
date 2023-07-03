@@ -60,12 +60,25 @@ public:
     ecs::Entity getObjectEntity(Key key) const;
 
     /**
+     * @brief Fetches the object with the given key
+     *
+     * @param key The key of the object to fetch
+     * @return A reference to the given object
+     */
+    T& getObject(Key key);
+
+    /**
      * @brief Marks the given key as being free. Allows future allocation to reuse it
      *
      * @param key The key to release
      */
     void release(Key key);
 
+    /**
+     * @brief Unlinks created objects
+     *
+     * @param descriptors The descriptor sets to unbind
+     */
     void unlinkAll(ds::DescriptorSetInstanceCache& descriptors);
 
 private:
@@ -119,6 +132,12 @@ template<typename T>
 ecs::Entity SceneObjectStorage<T>::getObjectEntity(Key key) const {
     const Bucket& bucket = key.updateFreq == UpdateSpeed::Static ? staticBucket : dynamicBucket;
     return bucket.entityMap[key.sceneId];
+}
+
+template<typename T>
+inline T& SceneObjectStorage<T>::getObject(Key key) {
+    const Bucket& bucket = key.updateFreq == UpdateSpeed::Static ? staticBucket : dynamicBucket;
+    return bucket.objects[key.sceneId];
 }
 
 template<typename T>

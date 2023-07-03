@@ -15,6 +15,8 @@ BasicScene::BasicScene(Renderer& r)
 , staticTransCache(DefaultObjectCapacity, false)
 , dynamicTransCache(DefaultObjectCapacity, false) {}
 
+BasicScene::~BasicScene() { objects.unlinkAll(descriptorSets); }
+
 scene::SceneObject* BasicScene::doAdd(ecs::Entity entity, com::DrawableBase& obj,
                                       UpdateSpeed updateFreq) {
     const auto alloc            = objects.allocate(updateFreq, entity);

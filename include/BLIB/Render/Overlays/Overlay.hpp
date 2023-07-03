@@ -46,11 +46,8 @@ public:
      *
      * @param renderer The renderer instance
      * @param engine The game engine instance
-     * @param maxStatic The maximum number of static objects
-     * @param maxDynamic The maximum number of dynamic objects
      */
-    Overlay(Renderer& renderer, engine::Engine& engine, std::uint32_t maxStatic,
-            std::uint32_t maxDynamic);
+    Overlay(Renderer& renderer, engine::Engine& engine);
 
     /**
      * @brief Frees resources
@@ -102,30 +99,37 @@ protected:
      * @param child The object to set the parent of
      * @param parent The parent object, or NoParent to make root
      */
-    void setParent(std::uint32_t child, ecs::Entity parent = ecs::InvalidEntity);
+    void setParent(scene::Key child, ecs::Entity parent = ecs::InvalidEntity);
 
 private:
+    struct TreeIndex {
+        std::vector<scene::Key> parentMap;
+
+        TreeIndex() {
+            parentMap.resize(Scene::DefaultObjectCapacity, {UpdateSpeed::Static, NoParent});
+        }
+    };
+
     engine::Engine& engine;
     sys::OverlayScaler& scaler;
     scene::SceneObjectStorage<ovy::OverlayObject> objects;
-    std::vector<std::uint32_t> roots;
-    std::vector<std::uint32_t> parentMap;
-    std::unordered_map<ecs::Entity, std::uint32_t> entityToSceneId;
-    std::vector<std::pair<std::uint32_t, ecs::Entity>> toParent;
+    TreeIndex staticIndex;
+    TreeIndex dynamicIndex;
+    std::vector<scene::Key> roots;
+    std::unordered_map<ecs::Entity, scene::Key> entityToSceneId;
+    std::vector<std::pair<scene::Key, ecs::Entity>> toParent;
 
-    std::vector<std::uint32_t> renderStack;
+    std::vector<scene::Key> renderStack;
     VkViewport cachedParentViewport;
     glm::u32vec2 cachedTargetSize;
 
     void refreshScales();
-    void applyParent(std::uint32_t child, ecs::Entity parent);
-    void refreshObjectAndChildren(std::uint32_t id);
+    void applyParent(scene::Key child, ecs::Entity parent);
+    void refreshObjectAndChildren(scene::Key id);
     void refreshAll();
 
     template<typename T>
     friend class sys::DrawableSystem;
-    friend class Observer;
-    friend class res::ScenePool;
     friend class sys::OverlayScaler;
 };
 
