@@ -19,7 +19,9 @@ Object2DInstance::Object2DInstance(engine::Engine& engine,
 : DescriptorSetInstance(Bindless, RebindForNewSpeed)
 , registry(engine.ecs())
 , vulkanState(engine.renderer().vulkanState())
-, descriptorSetLayout(descriptorSetLayout) {}
+, descriptorSetLayout(descriptorSetLayout)
+, staticEntitySlots(Scene::DefaultObjectCapacity, ecs::InvalidEntity)
+, dynamicEntitySlots(Scene::DefaultObjectCapacity, ecs::InvalidEntity) {}
 
 Object2DInstance::~Object2DInstance() {
     vulkanState.descriptorPool.release(alloc);
@@ -158,19 +160,51 @@ bool Object2DInstance::doAllocateObject(ecs::Entity entity, scene::Key key) {
     std::uint32_t* texture = nullptr;
 
     if (key.updateFreq == UpdateSpeed::Dynamic) {
-        transformBufferDynamic.ensureSize(key.sceneId + 1);
+        dynamicEntitySlots.resize(key.sceneId + 1, ecs::InvalidEntity);
+        const bool grew = transformBufferDynamic.ensureSize(key.sceneId + 1);
         textureBufferDynamic.ensureSize(key.sceneId + 1);
-        transform = &transformBufferDynamic[key.sceneId];
-        texture   = &textureBufferDynamic[key.sceneId];
+        dynamicEntitySlots[key.sceneId] = entity;
+        transform                       = &transformBufferDynamic[key.sceneId];
+        texture                         = &textureBufferDynamic[key.sceneId];
+
+        if (grew) {
+            for (unsigned int i = 0; i < dynamicEntitySlots.size(); ++i) {
+                if (dynamicEntitySlots[i] != ecs::InvalidEntity) {
+                    doLink(dynamicEntitySlots[i],
+                           {UpdateSpeed::Static, ecs::InvalidEntity},
+                           &transformBufferDynamic[i],
+                           &textureBufferDynamic[i]);
+                }
+            }
+            updateDynamicDescriptors();
+        }
     }
     else {
-        transformBufferStatic.ensureSize(key.sceneId + 1);
+        staticEntitySlots.resize(key.sceneId + 1, ecs::InvalidEntity);
+        const bool grew = transformBufferStatic.ensureSize(key.sceneId + 1);
         textureBufferStatic.ensureSize(key.sceneId + 1);
-        transform = &transformBufferStatic[key.sceneId];
-        texture   = &textureBufferStatic[key.sceneId];
-    }
-    // TODO - reset ECS payload pointers on grow and update descriptor sets
+        staticEntitySlots[key.sceneId] = entity;
+        transform                      = &transformBufferStatic[key.sceneId];
+        texture                        = &textureBufferStatic[key.sceneId];
 
+        if (grew) {
+            for (unsigned int i = 0; i < staticEntitySlots.size(); ++i) {
+                if (staticEntitySlots[i] != ecs::InvalidEntity) {
+                    doLink(staticEntitySlots[i],
+                           {UpdateSpeed::Static, ecs::InvalidEntity},
+                           &transformBufferStatic[i],
+                           &textureBufferStatic[i]);
+                }
+            }
+            updateStaticDescriptors();
+        }
+    }
+
+    return doLink(entity, key, transform, texture);
+}
+
+bool Object2DInstance::doLink(ecs::Entity entity, scene::Key key, glm::mat4* transform,
+                              std::uint32_t* texture) {
     auto components = registry.getComponentSet<t2d::Transform2D, com::Texture>(entity);
     if (!components.get<t2d::Transform2D>()) {
 #ifdef BLIB_DEBUG

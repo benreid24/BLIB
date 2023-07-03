@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP
 #define BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP
 
+#include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <array>
 #include <cstdint>
@@ -95,9 +96,11 @@ template<typename TCom, typename TPayload>
 void DescriptorComponentBase<TCom, TPayload>::link(ds::DescriptorSetInstance* set, scene::Key k,
                                                    TPayload* p) {
     descriptorSet = set;
-    sceneKey      = k;
     payload       = p;
-    dirty         = true;
+    if (k.sceneId != ecs::InvalidEntity) {
+        dirty    = true;
+        sceneKey = k;
+    }
 }
 
 template<typename TCom, typename TPayload>

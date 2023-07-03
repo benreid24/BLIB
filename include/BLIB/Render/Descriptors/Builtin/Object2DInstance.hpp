@@ -52,9 +52,11 @@ private:
     VkDescriptorSet allocatedSets[Config::MaxConcurrentFrames + 1];
     vk::PerFrame<VkDescriptorSet> dynamicDescriptorSets;
 
+    std::vector<ecs::Entity> staticEntitySlots;
     buf::StaticSSBO<glm::mat4> transformBufferStatic;
     buf::StaticSSBO<std::uint32_t> textureBufferStatic;
     // TODO - dynamic ssbo
+    std::vector<ecs::Entity> dynamicEntitySlots;
     buf::StaticSSBO<glm::mat4> transformBufferDynamic;
     buf::StaticSSBO<std::uint32_t> textureBufferDynamic;
 
@@ -69,6 +71,7 @@ private:
 
     void updateStaticDescriptors();
     void updateDynamicDescriptors();
+    bool doLink(ecs::Entity entity, scene::Key key, glm::mat4* transform, std::uint32_t* texture);
 };
 
 } // namespace ds
