@@ -97,7 +97,7 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, com::DrawableBase& object
     return &obj;
 }
 
-void Overlay::doRemove(scene::SceneObject* object, std::uint32_t pipeline) {
+void Overlay::doRemove(scene::SceneObject* object, std::uint32_t) {
     ovy::OverlayObject* obj  = static_cast<ovy::OverlayObject*>(object);
     const ecs::Entity entity = objects.getObjectEntity(obj->sceneKey);
 

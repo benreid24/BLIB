@@ -71,17 +71,6 @@ void PipelineCache::createBuiltins() {
     rasterizer.depthBiasClamp          = 0.0f; // Optional
     rasterizer.depthBiasSlopeFactor    = 0.0f; // Optional
 
-    createPipline(Config::PipelineIds::Meshes,
-                  vk::PipelineParameters({Config::RenderPassIds::OffScreenSceneRender,
-                                          Config::RenderPassIds::SwapchainPrimaryRender})
-                      .withShaders(Config::ShaderIds::MeshVertex, Config::ShaderIds::MeshFragment)
-                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-                      .withRasterizer(rasterizer)
-                      .withDepthStencilState(&depthStencil)
-                      .addDescriptorSet<ds::Scene3DFactory>()
-                      .addDescriptorSet<ds::Object3DFactory>()
-                      .build());
-
     createPipline(Config::PipelineIds::SkinnedMeshes,
                   vk::PipelineParameters({Config::RenderPassIds::OffScreenSceneRender,
                                           Config::RenderPassIds::SwapchainPrimaryRender})

@@ -25,7 +25,7 @@ scene::SceneObject* BasicScene::doAdd(ecs::Entity entity, com::DrawableBase& obj
 
     if (alloc.addressesChanged) {
         transCache.resize(alloc.newCapacity);
-        handleAddressChange(updateFreq);
+        handleAddressChange(updateFreq, alloc.originalBaseAddress);
     }
 
     transCache[sceneId]    = obj.containsTransparency;
@@ -224,6 +224,17 @@ void BasicScene::renderScene(scene::SceneRenderContext& ctx) {
                 }
 
                 speed = UpdateSpeed::Static;
+            }
+        }
+    }
+}
+
+void BasicScene::handleAddressChange(UpdateSpeed speed, SceneObject* base) {
+    for (ObjectBatch* ob : {&opaqueObjects, &transparentObjects}) {
+        for (LayoutBatch& lb : ob->batches) {
+            auto& pbs = speed == UpdateSpeed::Static ? lb.staticBatches : lb.dynamicBatches;
+            for (PipelineBatch& pb : pbs) {
+                for (SceneObject*& so : pb.objects) { so = objects.rebase(speed, so, base); }
             }
         }
     }

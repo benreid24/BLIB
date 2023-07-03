@@ -126,7 +126,7 @@ private:
     std::vector<bool> staticTransCache;
     std::vector<bool> dynamicTransCache;
 
-    void handleAddressChange(UpdateSpeed speed);
+    void handleAddressChange(UpdateSpeed speed, SceneObject* oldBase);
 };
 
 } // namespace scene

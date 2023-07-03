@@ -81,6 +81,16 @@ public:
      */
     void unlinkAll(ds::DescriptorSetInstanceCache& descriptors);
 
+    /**
+     * @brief Gets a new pointer from an old pointer. Call after a pool grows
+     *
+     * @param speed The object pool to rebase on
+     * @param original The original pointer
+     * @param oldBase The original pool base pointer
+     * @return The new object pointer
+     */
+    T* rebase(UpdateSpeed speed, T* original, T* oldBase);
+
 private:
     struct Bucket {
         std::vector<T> objects;
@@ -117,8 +127,9 @@ SceneObjectStorage<T>::AllocateResult SceneObjectStorage<T>::allocate(UpdateSpee
     else {
         const std::uint32_t id  = bucket.objects.size();
         result.addressesChanged = bucket.objects.size() == bucket.objects.capacity();
-        bucket.entityMap.emplace_back(entity);
         result.newObject                   = &bucket.objects.emplace_back();
+        bucket.entityMap.resize(bucket.objects.capacity(), ecs::InvalidEntity);
+        bucket.entityMap[id]               = entity;
         result.newObject->sceneKey.sceneId = id;
     }
 
@@ -136,7 +147,7 @@ ecs::Entity SceneObjectStorage<T>::getObjectEntity(Key key) const {
 
 template<typename T>
 inline T& SceneObjectStorage<T>::getObject(Key key) {
-    const Bucket& bucket = key.updateFreq == UpdateSpeed::Static ? staticBucket : dynamicBucket;
+    Bucket& bucket = key.updateFreq == UpdateSpeed::Static ? staticBucket : dynamicBucket;
     return bucket.objects[key.sceneId];
 }
 
@@ -150,14 +161,20 @@ void SceneObjectStorage<T>::release(Key key) {
 template<typename T>
 void SceneObjectStorage<T>::unlinkAll(ds::DescriptorSetInstanceCache& descriptors) {
     UpdateSpeed speed = UpdateSpeed::Static;
-    for (Bucket& bucket : {staticBucket, dynamicBucket}) {
-        for (unsigned int i = 0; i < bucket.objects.size(); ++i) {
-            if (bucket.entityMap[i] != ecs::InvalidEntity) {
-                descriptors.unlinkSceneObject(bucket.entityMap[i], {speed, i});
+    for (Bucket* bucket : {&staticBucket, &dynamicBucket}) {
+        for (unsigned int i = 0; i < bucket->objects.size(); ++i) {
+            if (bucket->entityMap[i] != ecs::InvalidEntity) {
+                descriptors.unlinkSceneObject(bucket->entityMap[i], {speed, i});
             }
         }
         speed = UpdateSpeed::Dynamic;
     }
+}
+
+template<typename T>
+T* SceneObjectStorage<T>::rebase(UpdateSpeed speed, T* og, T* ob) {
+    auto& bucket = speed == UpdateSpeed::Static ? staticBucket : dynamicBucket;
+    return bucket.objects.data() + (og - ob);
 }
 
 } // namespace scene

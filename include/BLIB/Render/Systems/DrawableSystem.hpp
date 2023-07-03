@@ -296,7 +296,7 @@ void DrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
             add.scene->createAndAddObject(add.entity, *c, add.updateFreq);
             if (c->sceneRef.object) {
                 Overlay* ov = dynamic_cast<Overlay*>(add.scene);
-                if (ov) { ov->setParent(c->sceneRef.object->sceneKey.sceneId, add.parent); }
+                if (ov) { ov->setParent(c->sceneRef.object->sceneKey, add.parent); }
             }
             else {
                 BL_LOG_WARN << "Failed to add entity " << add.entity << " to scene " << add.scene;

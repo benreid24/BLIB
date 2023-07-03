@@ -25,6 +25,7 @@ class Engine;
 namespace gfx
 {
 class Renderer;
+class Observer;
 
 namespace sys
 {
@@ -131,6 +132,7 @@ private:
     template<typename T>
     friend class sys::DrawableSystem;
     friend class sys::OverlayScaler;
+    friend class Observer;
 };
 
 } // namespace gfx

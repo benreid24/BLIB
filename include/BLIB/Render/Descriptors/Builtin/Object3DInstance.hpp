@@ -49,7 +49,7 @@ private:
     vk::VulkanState& vulkanState;
     vk::DescriptorPool::AllocationHandle alloc;
     const VkDescriptorSetLayout descriptorSetLayout;
-    vk::PerFrame<VkDescriptorSet> staticDescriptorSets;
+    VkDescriptorSet allocatedSets[Config::MaxConcurrentFrames + 1];
     vk::PerFrame<VkDescriptorSet> dynamicDescriptorSets;
 
     buf::StaticSSBO<glm::mat4> transformBufferStatic;

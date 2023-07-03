@@ -55,14 +55,13 @@ struct Config {
         static constexpr std::uint32_t ShadowPassMeshes        = 1;
         static constexpr std::uint32_t ShadowPassSkinnedMeshes = 2;
 
-        static constexpr std::uint32_t Meshes        = 3;
-        static constexpr std::uint32_t SkinnedMeshes = 4;
+        static constexpr std::uint32_t SkinnedMeshes = 3;
 
-        static constexpr std::uint32_t Lit2DGeometry          = 5;
-        static constexpr std::uint32_t Unlit2DGeometry        = 6;
-        static constexpr std::uint32_t LitSkinned2DGeometry   = 7;
-        static constexpr std::uint32_t UnlitSkinned2DGeometry = 8;
-        static constexpr std::uint32_t Text                   = 9;
+        static constexpr std::uint32_t Lit2DGeometry          = 4;
+        static constexpr std::uint32_t Unlit2DGeometry        = 5;
+        static constexpr std::uint32_t LitSkinned2DGeometry   = 6;
+        static constexpr std::uint32_t UnlitSkinned2DGeometry = 7;
+        static constexpr std::uint32_t Text                   = 8;
 
         static constexpr std::uint32_t PostFXBase = 100;
     };
