@@ -262,6 +262,12 @@ void PerFrame<T>::cleanup(const U& visitor) {
 }
 
 template<typename T>
+template<typename U>
+void PerFrame<T>::visit(const U& visitor) {
+    for (T& o : data) { visitor(o); }
+}
+
+template<typename T>
 constexpr T& PerFrame<T>::current() {
 #ifdef BLIB_DEBUG
     if (!vs) { throw std::runtime_error("PerFrame has not been inited with VulkanInstance"); }

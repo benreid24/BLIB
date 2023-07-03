@@ -57,6 +57,15 @@ public:
     void cleanup(const U& visitor);
 
     /**
+     * @brief General buffered object visitor
+     *
+     * @tparam U The callback type
+     * @param visitor The callback to invoke for each buffered object
+     */
+    template<typename U>
+    void visit(const U& visitor);
+
+    /**
      * @brief Returns the active buffered object for the current frame
      *
      * @return constexpr T& The active buffered object for the current frame

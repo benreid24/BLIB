@@ -95,7 +95,8 @@ void Object2DInstance::updateDynamicDescriptors() {
     for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
         // transform buffer configureWrite
         VkDescriptorBufferInfo transformBufferWrite{};
-        transformBufferWrite.buffer = transformBufferDynamic.gpuBufferHandle().getBuffer();
+        transformBufferWrite.buffer =
+            transformBufferDynamic.gpuBufferHandles().getRaw(j).getBuffer();
         transformBufferWrite.offset = 0;
         transformBufferWrite.range  = transformBufferDynamic.getTotalRange();
 
@@ -226,7 +227,7 @@ void Object2DInstance::beginSync(DirtyRange dirtyStatic, DirtyRange dirtyDynamic
         textureBufferStatic.transferRange(dirtyStatic.start, dirtyStatic.size);
     }
     if (dirtyDynamic.size > 0) {
-        transformBufferDynamic.transferRange(dirtyDynamic.start, dirtyDynamic.size);
+        transformBufferDynamic.updateDirtyRange(dirtyDynamic.start, dirtyDynamic.size);
         textureBufferDynamic.transferRange(dirtyDynamic.start, dirtyDynamic.size);
     }
 }
