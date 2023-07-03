@@ -1,11 +1,10 @@
 #ifndef BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP
 #define BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP
 
+#include <BLIB/Render/Scenes/Key.hpp>
 #include <array>
 #include <cstdint>
 #include <type_traits>
-
-#include <BLIB/Logging.hpp>
 
 namespace bl
 {
@@ -42,10 +41,10 @@ public:
      * @brief Links this component to an object in a scene
      *
      * @param descriptorSet The descriptor set to link to
-     * @param sceneId The id of the object in the scene
+     * @param sceneKeyh The key of the object in the scene
      * @param payload Pointer to the data to manage in the descriptor set buffer
      */
-    void link(ds::DescriptorSetInstance* descriptorSet, std::uint32_t sceneId, TPayload* payload);
+    void link(ds::DescriptorSetInstance* descriptorSet, scene::Key sceneKey, TPayload* payload);
 
     /**
      * @brief Unlinks the component from a scene object
@@ -77,7 +76,7 @@ protected:
 
 private:
     ds::DescriptorSetInstance* descriptorSet;
-    std::uint32_t sceneId;
+    scene::Key sceneKey;
     TPayload* payload;
     bool dirty;
 };
@@ -87,17 +86,16 @@ private:
 template<typename TCom, typename TPayload>
 DescriptorComponentBase<TCom, TPayload>::DescriptorComponentBase()
 : descriptorSet(nullptr)
-, sceneId(0)
 , dirty(0) {
     static_assert(std::is_base_of_v<DescriptorComponentBase<TCom, TPayload>, TCom>,
                   "Descriptor component must inherit DescriptorComponentBase");
 }
 
 template<typename TCom, typename TPayload>
-void DescriptorComponentBase<TCom, TPayload>::link(ds::DescriptorSetInstance* set,
-                                                   std::uint32_t sid, TPayload* p) {
+void DescriptorComponentBase<TCom, TPayload>::link(ds::DescriptorSetInstance* set, scene::Key k,
+                                                   TPayload* p) {
     descriptorSet = set;
-    sceneId       = sid;
+    sceneKey      = k;
     payload       = p;
     dirty         = true;
 }
@@ -117,7 +115,7 @@ void DescriptorComponentBase<TCom, TPayload>::refresh() {
     static_assert(std::is_invocable<decltype(&TCom::refreshDescriptor), TCom&, TPayload&>::value,
                   "Descriptor components must provide a method void refreshDescriptor(TPayload&)");
 
-    descriptorSet->markObjectDirty(sceneId);
+    descriptorSet->markObjectDirty(sceneKey);
     static_cast<TCom*>(this)->refreshDescriptor(*payload);
     dirty = false;
 }

@@ -7,25 +7,14 @@ namespace bl
 {
 namespace gfx
 {
-Scene::Scene(Renderer& r, std::uint32_t maxStatic, std::uint32_t maxDynamic)
-: maxStatic(maxStatic)
-, renderer(r)
+Scene::Scene(Renderer& r)
+: renderer(r)
 , descriptorFactories(r.descriptorFactoryCache())
-, staticIds(maxStatic)
-, dynamicIds(maxDynamic)
-, entityMap(maxStatic + maxDynamic, ecs::InvalidEntity)
-, objectPipelines(maxStatic + maxDynamic)
-, descriptorSets(maxStatic, maxDynamic)
+, staticPipelines(DefaultObjectCapacity)
+, dynamicPipelines(DefaultObjectCapacity)
+, descriptorSets()
 , nextObserverIndex(0) {
     batchChanges.reserve(32);
-}
-
-Scene::~Scene() {
-    for (std::uint32_t i = 0; i < entityMap.size(); ++i) {
-        if (entityMap[i] != ecs::InvalidEntity) {
-            descriptorSets.unlinkSceneObject(i, entityMap[i]);
-        }
-    }
 }
 
 std::uint32_t Scene::registerObserver() {
@@ -46,8 +35,11 @@ void Scene::handleDescriptorSync() {
     if (!batchChanges.empty()) {
         std::unique_lock lock(batchMutex);
         for (const auto& change : batchChanges) {
-            doBatchChange(change, objectPipelines[change.changed->sceneId]);
-            objectPipelines[change.changed->sceneId] = change.newPipeline;
+            auto& objectPipelines = change.changed->sceneKey.updateFreq == UpdateSpeed::Static ?
+                                        staticPipelines :
+                                        dynamicPipelines;
+            doBatchChange(change, objectPipelines[change.changed->sceneKey.sceneId]);
+            objectPipelines[change.changed->sceneKey.sceneId] = change.newPipeline;
         }
         batchChanges.clear();
     }
@@ -56,41 +48,26 @@ void Scene::handleDescriptorSync() {
 
 void Scene::createAndAddObject(ecs::Entity entity, com::DrawableBase& object,
                                UpdateSpeed updateFreq) {
-    auto& ids                  = updateFreq == UpdateSpeed::Dynamic ? dynamicIds : staticIds;
-    const std::uint32_t offset = updateFreq == UpdateSpeed::Dynamic ? maxStatic : 0;
-    if (!ids.available()) {
-        BL_LOG_ERROR << "BasicScene " << this << " out of static or dynamic object space";
-        return;
-    }
-    const std::uint32_t i    = ids.allocate() + offset;
-    scene::SceneObject* sobj = doAdd(entity, object, i, updateFreq);
+    scene::SceneObject* sobj = doAdd(entity, object, updateFreq);
     if (sobj) {
         object.sceneRef.object = sobj;
         object.sceneRef.scene  = this;
 
         sobj->hidden     = false;
-        sobj->sceneId    = i;
         sobj->drawParams = object.drawParams;
 
-        entityMap[i]       = entity;
-        objectPipelines[i] = object.pipeline;
+        auto& objectPipelines =
+            sobj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;
+        objectPipelines[sobj->sceneKey.sceneId] = object.pipeline;
     }
-    else {
-        ids.release(i - offset);
-        BL_LOG_ERROR << "Failed to add " << entity << " to scene " << this;
-    }
+    else { BL_LOG_ERROR << "Failed to add " << entity << " to scene " << this; }
 }
 
 void Scene::removeObject(scene::SceneObject* obj) {
-    const std::size_t i    = obj->sceneId;
-    const ecs::Entity ent  = entityMap[i];
-    std::uint32_t pipeline = objectPipelines[i];
-
-    entityMap[i] = ecs::InvalidEntity;
-    if (i < maxStatic) { staticIds.release(i); }
-    else { dynamicIds.release(i - maxStatic); }
-
-    doRemove(ent, obj, pipeline);
+    auto& objectPipelines =
+        obj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;
+    std::uint32_t pipeline = objectPipelines[obj->sceneKey.sceneId];
+    doRemove(obj, pipeline);
 }
 
 void Scene::rebucketObject(com::DrawableBase& obj) {

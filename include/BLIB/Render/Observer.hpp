@@ -60,23 +60,17 @@ public:
      *        Overlay if one was present
      *
      * @param engine The game engine instance
-     * @param maxStatic The maximum number of static objects in the overlay
-     * @param maxDynamic The maximum number of dynamic objects in the overlay
      * @return A pointer to the new Overlay
      */
-    Overlay* createSceneOverlay(engine::Engine& engine, std::uint32_t maxStatic,
-                                std::uint32_t maxDynamic);
+    Overlay* createSceneOverlay(engine::Engine& engine);
 
     /**
      * @brief Returns the current overlay, creating a new one if necessary
      *
      * @param engine The game engine instance
-     * @param maxStatic The maximum number of static objects in the overlay
-     * @param maxDynamic The maximum number of dynamic objects in the overlay
      * @return A pointer to the new Overlay
      */
-    Overlay* getOrCreateSceneOverlay(engine::Engine& engine, std::uint32_t maxStatic,
-                                     std::uint32_t maxDynamic);
+    Overlay* getOrCreateSceneOverlay(engine::Engine& engine);
 
     /**
      * @brief Returns the current Overlay. Will be nullptr if one has not been created

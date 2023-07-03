@@ -1,11 +1,8 @@
 #ifndef BLIB_RENDER_RENDERER_SCENEOBJECT_HPP
 #define BLIB_RENDER_RENDERER_SCENEOBJECT_HPP
 
-#include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
-#include <BLIB/Render/UpdateSpeed.hpp>
-#include <glad/vulkan.h>
-#include <glm/glm.hpp>
+#include <BLIB/Render/Scenes/Key.hpp>
 
 namespace bl
 {
@@ -28,7 +25,7 @@ struct SceneObject {
     SceneObject();
 
     bool hidden;
-    std::uint32_t sceneId;
+    Key sceneKey;
     prim::DrawParameters drawParams;
 };
 

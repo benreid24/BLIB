@@ -49,11 +49,12 @@ public:
      *        from the last call to bindDescriptors()
      *
      * @param layout Layout of the pipeline the descriptors are being bound to
+     * @param updateFreq The update speed of the descriptors to bind
      * @param descriptors The list of descriptor sets to bind
      * @param descriptorCount The number of descriptors to bind
      */
-    void bindDescriptors(VkPipelineLayout layout, ds::DescriptorSetInstance** descriptors,
-                         std::uint32_t descriptorCount);
+    void bindDescriptors(VkPipelineLayout layout, UpdateSpeed updateFreq,
+                         ds::DescriptorSetInstance** descriptors, std::uint32_t descriptorCount);
 
     /**
      * @brief Issues the required commands to render the given scene object
@@ -92,6 +93,7 @@ private:
     const std::uint32_t observerIndex;
     VkBuffer prevVB;
     VkBuffer prevIB;
+    UpdateSpeed boundSpeed;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> boundDescriptors;
     const VkViewport viewport;
     const std::uint32_t renderPassId;

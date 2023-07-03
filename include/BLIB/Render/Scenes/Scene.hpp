@@ -41,10 +41,12 @@ class ScenePool;
  */
 class Scene {
 public:
+    static constexpr std::uint32_t DefaultObjectCapacity = 128;
+
     /**
-     * @brief Unlinks allocated objects from ECS descriptor linkages
+     * @brief Destroys the Scene
      */
-    virtual ~Scene();
+    virtual ~Scene() = default;
 
 protected:
     /**
@@ -56,7 +58,6 @@ protected:
         bool newTrans;
     };
 
-    const std::uint32_t maxStatic;
     Renderer& renderer;
     ds::DescriptorSetFactoryCache& descriptorFactories;
     ds::DescriptorSetInstanceCache descriptorSets;
@@ -65,10 +66,8 @@ protected:
      * @brief Initializes the Scene
      *
      * @param renderer The renderer instance
-     * @param maxStatic The maximum number of static objects in the scene
-     * @param maxDynamic The maximum number of dynamic objects in the scene
      */
-    Scene(Renderer& renderer, std::uint32_t maxStatic, std::uint32_t maxDynamic);
+    Scene(Renderer& renderer);
 
     /**
      * @brief Derived classes should record render commands in here
@@ -83,22 +82,19 @@ protected:
      *
      * @param entity The ECS entity of the new object
      * @param object The ECS component being added
-     * @param sceneId The id of the new object in this scene
-     * @param updateFreq Whether the object is static or dynamic
+     * @param updateFreq The update speed of the new object
      * @return A pointer to the new scene object
      */
     virtual scene::SceneObject* doAdd(ecs::Entity entity, com::DrawableBase& object,
-                                      std::uint32_t sceneId, UpdateSpeed updateFreq) = 0;
+                                      UpdateSpeed updateFreq) = 0;
 
     /**
      * @brief Called when an object is removed from the scene. Unlink from descriptors here
      *
-     * @param entity The ECS entity being removed
      * @param object The object being removed
      * @param pipeline The pipeline used to render the object being removed
      */
-    virtual void doRemove(ecs::Entity entity, scene::SceneObject* object,
-                          std::uint32_t pipeline) = 0;
+    virtual void doRemove(scene::SceneObject* object, std::uint32_t pipeline) = 0;
 
     /**
      * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
@@ -124,23 +120,12 @@ protected:
      */
     constexpr ecs::Entity getEntityFromId(std::uint32_t sceneId) const;
 
-    /**
-     * @brief Returns the update speed of the given object
-     *
-     * @param sceneId The scene id of the object
-     * @return The update speed the object was created with
-     */
-    UpdateSpeed getObjectSpeed(std::uint32_t sceneId) const;
-
 private:
-    util::IdAllocator<std::uint32_t> staticIds;
-    util::IdAllocator<std::uint32_t> dynamicIds;
-    std::vector<ecs::Entity> entityMap;
-    std::vector<std::uint32_t> objectPipelines;
     std::uint32_t nextObserverIndex;
-
     std::mutex batchMutex;
     std::vector<BatchChange> batchChanges;
+    std::vector<std::uint32_t> staticPipelines;
+    std::vector<std::uint32_t> dynamicPipelines;
 
     // called by sys::DrawableSystem in locked context
     void createAndAddObject(ecs::Entity entity, com::DrawableBase& object, UpdateSpeed updateFreq);
@@ -160,16 +145,6 @@ private:
     friend class vk::RenderTexture;
     friend struct com::DrawableBase;
 };
-
-//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
-
-inline constexpr ecs::Entity Scene::getEntityFromId(std::uint32_t sceneId) const {
-    return entityMap[sceneId];
-}
-
-inline UpdateSpeed Scene::getObjectSpeed(std::uint32_t sceneId) const {
-    return sceneId >= staticIds.totalIds() ? UpdateSpeed::Dynamic : UpdateSpeed::Static;
-}
 
 } // namespace gfx
 } // namespace bl

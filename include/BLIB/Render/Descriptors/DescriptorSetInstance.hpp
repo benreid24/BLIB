@@ -3,6 +3,7 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <cstdint>
 #include <glad/vulkan.h>
@@ -27,6 +28,12 @@ namespace ds
  */
 class DescriptorSetInstance {
 public:
+    /// Bind mode of the descriptor set
+    enum BindMode { Bindless, Bindful };
+
+    /// Whether or not the descriptor set needs to be re-bound for different update speeds
+    enum SpeedBucketSetting { RebindForNewSpeed, SpeedAgnostic };
+
     /**
      * @brief Destroys the descriptor set instance
      */
@@ -38,12 +45,14 @@ public:
     constexpr bool isBindless() const;
 
     /**
-     * @brief Called by scene once after the instance is created
-     *
-     * @param maxStaticObjects The maximum number of static objects in the owning scene
-     * @param maxDynamicObjects The maximum number of dynamic objects in the owning scene
+     * @brief Returns whether or not the descriptor set needs to be re-bound for new speed
      */
-    void init(std::uint32_t maxStaticObjects, std::uint32_t maxDynamicObjects);
+    constexpr bool needsRebindForNewSpeed() const;
+
+    /**
+     * @brief Called by scene once after the instance is created
+     */
+    virtual void init() = 0;
 
     /**
      * @brief Called once after the pipeline is bound. This should bind the descriptor set
@@ -51,9 +60,10 @@ public:
      * @param ctx Render context containing necessary data
      * @param layout Pipeline layout of the currently bound pipeline
      * @param setIndex The index of the descriptor set in the owning scene
+     * @param updateFreq The update frequency of the descriptors to bind
      */
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
-                                 std::uint32_t setIndex) const = 0;
+                                 std::uint32_t setIndex, UpdateSpeed updateFreq) const = 0;
 
     /**
      * @brief Called per-object by the scene if this instance has per-object logic
@@ -61,36 +71,34 @@ public:
      * @param ctx Render context containing necessary data
      * @param layout Pipeline layout of the currently bound pipeline
      * @param setIndex The index of the descriptor set in the owning scene
-     * @param objectId The object id of the current object
+     * @param objectKey The key of the current object
      */
     virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
-                               std::uint32_t setIndex, std::uint32_t objectId) const = 0;
+                               std::uint32_t setIndex, scene::Key objectKey) const = 0;
 
     /**
      * @brief Called by the scene when new objects are created that require this set
      *
-     * @param sceneId The 0-based index of this object in the scene
      * @param entity The entity id of this object in the ECS
-     * @param updateSpeed Whether the object is expected to be static or dynamic
+     * @param key The scene key of the new object
      * @return True if the object could be added, false otherwise
      */
-    bool allocateObject(std::uint32_t sceneId, ecs::Entity entity, UpdateSpeed updateSpeed);
+    bool allocateObject(ecs::Entity entity, scene::Key key);
 
     /**
      * @brief Called by the scene when an object is destroyed
      *
-     * @param sceneId The scene id of the removed object
      * @param entity The ECS id of the object being removed
+     * @param key The scene key of the object being removed
      */
-    virtual void releaseObject(std::uint32_t sceneId, ecs::Entity entity) = 0;
+    virtual void releaseObject(ecs::Entity entity, scene::Key key) = 0;
 
     /**
      * @brief Marks the given object's descriptors dirty for this frame
      *
-     * @param sceneId The scene id of the object that refreshed descriptors
+     * @param key The scene key of the object that refreshed descriptors
      */
-    void markObjectDirty(std::uint32_t sceneId);
-    // TODO - refactor from static/dynamic to range and split instances by static/dynamic
+    void markObjectDirty(scene::Key key);
 
     /**
      * @brief Called once before the TransferEngine starts to send sync commands to buffers
@@ -98,52 +106,54 @@ public:
     void handleFrameStart();
 
 protected:
+    struct DirtyRange {
+        std::uint32_t start;
+        std::uint32_t size;
+    };
+
     /**
      * @brief Creates a new DescriptorSetInstance
      *
-     * @param bindless True if the descriptor set is bindless for objects, false otherwise
+     * @param bindMode The bind mode of the descriptor set
+     * @param speedSetting The speed re-bind setting of the descriptor set
      */
-    DescriptorSetInstance(bool bindless);
-
-    /**
-     * @brief Called by scene once after the instance is created
-     *
-     * @param maxStaticObjects The maximum number of static objects in the owning scene
-     * @param maxDynamicObjects The maximum number of dynamic objects in the owning scene
-     */
-    virtual void doInit(std::uint32_t maxStaticObjects, std::uint32_t maxDynamicObjects) = 0;
+    DescriptorSetInstance(BindMode bindMode, SpeedBucketSetting speedSetting);
 
     /**
      * @brief Called by the scene when new objects are created that require this set
      *
-     * @param sceneId The 0-based index of this object in the scene
      * @param entity The entity id of this object in the ECS
-     * @param updateSpeed Whether the object is expected to be static or dynamic
+     * @param key The scene key of the new object
      * @return True if the object could be added, false otherwise
      */
-    virtual bool doAllocateObject(std::uint32_t sceneId, ecs::Entity entity,
-                                  UpdateSpeed updateSpeed) = 0;
+    virtual bool doAllocateObject(ecs::Entity entity, scene::Key key) = 0;
 
     /**
      * @brief Called once each frame before the TransferEngine is kicked off. Use this to
      *        appropriately handle sending descriptor data to the GPU
      *
-     * @param staticObjectsChanged True if any static objects were changed, false otherwise
+     * @param dirtyStatic The range of static objects that need to be synced
+     * @param dirtyDynamic The range of dynamic objects that need to be synced
      */
-    virtual void beginSync(bool staticObjectsChanged) = 0;
+    virtual void beginSync(DirtyRange dirtyStatic, DirtyRange dirtyDynamic) = 0;
 
 private:
     const bool bindless;
-    std::uint32_t maxStatic;
-    int staticChanged;
+    const bool speedBind;
+    DirtyRange dirtyStatic;
+    DirtyRange dirtyDynamic;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline constexpr bool DescriptorSetInstance::isBindless() const { return bindless; }
 
-inline void DescriptorSetInstance::markObjectDirty(std::uint32_t si) {
-    staticChanged = si < maxStatic ? Config::MaxConcurrentFrames : staticChanged;
+inline constexpr bool DescriptorSetInstance::needsRebindForNewSpeed() const { return speedBind; }
+
+inline void DescriptorSetInstance::markObjectDirty(scene::Key key) {
+    auto& range = key.updateFreq == UpdateSpeed::Static ? dirtyStatic : dirtyDynamic;
+    range.start = key.sceneId < range.start ? key.sceneId : range.start;
+    range.size  = key.sceneId > range.size ? key.sceneId : range.size; // use as end here
 }
 
 } // namespace ds

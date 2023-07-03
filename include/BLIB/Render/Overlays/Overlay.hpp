@@ -8,6 +8,7 @@
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
+#include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
 #include <BLIB/Render/Systems/OverlayScaler.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <limits>
@@ -75,7 +76,7 @@ protected:
      * @return A pointer to the new scene object
      */
     virtual scene::SceneObject* doAdd(ecs::Entity entity, com::DrawableBase& object,
-                                      std::uint32_t sceneId, UpdateSpeed updateFreq) override;
+                                      UpdateSpeed updateFreq) override;
 
     /**
      * @brief Called when an object is removed from the scene. Unlink from descriptors here
@@ -84,8 +85,7 @@ protected:
      * @param object The object being removed
      * @param pipeline The pipeline used to render the object being removed
      */
-    virtual void doRemove(ecs::Entity entity, scene::SceneObject* object,
-                          std::uint32_t pipeline) override;
+    virtual void doRemove(scene::SceneObject* object, std::uint32_t pipeline) override;
 
     /**
      * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
@@ -107,7 +107,7 @@ protected:
 private:
     engine::Engine& engine;
     sys::OverlayScaler& scaler;
-    std::vector<ovy::OverlayObject> objects;
+    scene::SceneObjectStorage<ovy::OverlayObject> objects;
     std::vector<std::uint32_t> roots;
     std::vector<std::uint32_t> parentMap;
     std::unordered_map<ecs::Entity, std::uint32_t> entityToSceneId;

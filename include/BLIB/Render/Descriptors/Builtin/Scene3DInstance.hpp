@@ -48,14 +48,13 @@ private:
     vk::DescriptorPool::AllocationHandle allocHandle;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
-                                 std::uint32_t setIndex) const override;
+                                 std::uint32_t setIndex, UpdateSpeed updateFreq) const override;
     virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
-                               std::uint32_t setIndex, std::uint32_t objectId) const override;
-    virtual void releaseObject(std::uint32_t sceneId, ecs::Entity entity) override;
-    virtual void doInit(std::uint32_t maxStaticObjects, std::uint32_t maxDynamicObjects) override;
-    virtual bool doAllocateObject(std::uint32_t sceneId, ecs::Entity entity,
-                                  UpdateSpeed updateSpeed) override;
-    virtual void beginSync(bool staticObjectsChanged) override;
+                               std::uint32_t setIndex, scene::Key objectKey) const override;
+    virtual void releaseObject(ecs::Entity entity, scene::Key objectKey) override;
+    virtual void init() override;
+    virtual bool doAllocateObject(ecs::Entity entity, scene::Key key) override;
+    virtual void beginSync(DirtyRange dirtyStatic, DirtyRange dirtyDynamic) override;
 };
 
 } // namespace ds

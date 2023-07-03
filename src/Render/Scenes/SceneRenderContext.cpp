@@ -14,6 +14,7 @@ SceneRenderContext::SceneRenderContext(VkCommandBuffer commandBuffer, std::uint3
 , observerIndex(observerIndex)
 , prevVB(nullptr)
 , prevIB(nullptr)
+, boundSpeed(std::numeric_limits<UpdateSpeed>::max())
 , viewport(vp)
 , renderPassId(rpid)
 , isRenderTexture(isrt) {
@@ -24,17 +25,20 @@ void SceneRenderContext::bindPipeline(vk::Pipeline& pipeline) {
     pipeline.bind(commandBuffer, renderPassId);
 }
 
-void SceneRenderContext::bindDescriptors(VkPipelineLayout layout,
+void SceneRenderContext::bindDescriptors(VkPipelineLayout layout, UpdateSpeed speed,
                                          ds::DescriptorSetInstance** descriptors,
                                          std::uint32_t descriptorCount) {
-    bool bind = false;
+    const bool speedChange = speed != boundSpeed;
+    bool bind              = false;
     for (unsigned int i = 0; i < descriptorCount; ++i) {
-        if (bind || descriptors[i] != boundDescriptors[i]) {
+        if (bind || descriptors[i] != boundDescriptors[i] ||
+            (descriptors[i]->needsRebindForNewSpeed() && speedChange)) {
             bind                = true;
             boundDescriptors[i] = descriptors[i];
-            descriptors[i]->bindForPipeline(*this, layout, i);
+            descriptors[i]->bindForPipeline(*this, layout, i, speed);
         }
     }
+    boundSpeed = speed;
 }
 
 void SceneRenderContext::renderObject(const SceneObject& object) {
@@ -56,7 +60,7 @@ void SceneRenderContext::renderObject(const SceneObject& object) {
                      object.drawParams.instanceCount,
                      object.drawParams.indexOffset,
                      object.drawParams.vertexOffset,
-                     object.drawParams.instanceCount == 1 ? object.sceneId :
+                     object.drawParams.instanceCount == 1 ? object.sceneKey.sceneId :
                                                             object.drawParams.firstInstance);
 }
 

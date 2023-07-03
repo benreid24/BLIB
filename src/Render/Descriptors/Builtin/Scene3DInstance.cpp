@@ -21,7 +21,7 @@ Scene3DInstance::~Scene3DInstance() {
 }
 
 void Scene3DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
-                                      std::uint32_t setIndex) const {
+                                      std::uint32_t setIndex, UpdateSpeed) const {
     vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
@@ -33,15 +33,15 @@ void Scene3DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipeline
 }
 
 void Scene3DInstance::bindForObject(scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
-                                    std::uint32_t) const {
+                                    scene::Key) const {
     // n/a
 }
 
-void Scene3DInstance::releaseObject(std::uint32_t, ecs::Entity) {
+void Scene3DInstance::releaseObject(ecs::Entity, scene::Key) {
     // n/a
 }
 
-void Scene3DInstance::doInit(std::uint32_t, std::uint32_t) {
+void Scene3DInstance::init() {
     // allocate memory
     cameraBuffer.create(vulkanState, Config::MaxSceneObservers);
     cameraBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
@@ -73,12 +73,12 @@ void Scene3DInstance::doInit(std::uint32_t, std::uint32_t) {
     }
 }
 
-bool Scene3DInstance::doAllocateObject(std::uint32_t, ecs::Entity, UpdateSpeed) {
+bool Scene3DInstance::doAllocateObject(ecs::Entity, scene::Key) {
     // n/a
     return true;
 }
 
-void Scene3DInstance::beginSync(bool) {
+void Scene3DInstance::beginSync(DirtyRange, DirtyRange) {
     // noop
 }
 

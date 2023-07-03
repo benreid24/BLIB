@@ -56,6 +56,8 @@ std::uint32_t PipelineLayout::updateDescriptorSets(ds::DescriptorSetInstanceCach
                                                    std::uint32_t descriptorCount,
                                                    ecs::Entity entity, std::uint32_t sceneId,
                                                    UpdateSpeed updateSpeed) const {
+    const scene::Key key{updateSpeed, sceneId};
+
     // capture old sets
     std::array<ds::DescriptorSetInstance*, 4> ogSets{nullptr, nullptr, nullptr, nullptr};
     for (std::uint32_t i = 0; i < descriptorCount; ++i) { ogSets[i] = sets[i]; }
@@ -72,7 +74,7 @@ std::uint32_t PipelineLayout::updateDescriptorSets(ds::DescriptorSetInstanceCach
             }
         }
 
-        if (!sets[i]->allocateObject(sceneId, entity, updateSpeed)) {
+        if (!sets[i]->allocateObject(entity, key)) {
             BL_LOG_ERROR << "Unable to update entity " << entity << " (scene id: " << sceneId
                          << ") to new layout due to descriptor data missing";
         }
@@ -83,7 +85,7 @@ std::uint32_t PipelineLayout::updateDescriptorSets(ds::DescriptorSetInstanceCach
 
     // call remove for ones we no longer use
     for (std::uint8_t i = 0; i < descriptorCount; ++i) {
-        if (ogSets[i] != nullptr) { ogSets[i]->releaseObject(sceneId, entity); }
+        if (ogSets[i] != nullptr) { ogSets[i]->releaseObject(entity, key); }
     }
 
     return newSetCount;

@@ -9,34 +9,34 @@ namespace gfx
 namespace ds
 {
 TexturePoolInstance::TexturePoolInstance(res::TexturePool& texturePool)
-: DescriptorSetInstance(true)
+: DescriptorSetInstance(Bindless, SpeedAgnostic)
 , texturePool(texturePool) {}
 
 void TexturePoolInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
-                                          std::uint32_t setIndex) const {
+                                          std::uint32_t setIndex, UpdateSpeed) const {
     texturePool.bindDescriptors(
         ctx.getCommandBuffer(), layout, setIndex, ctx.targetIsRenderTexture());
 }
 
 void TexturePoolInstance::bindForObject(scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
-                                        std::uint32_t) const {
+                                        scene::Key) const {
     // noop
 }
 
-void TexturePoolInstance::releaseObject(std::uint32_t, ecs::Entity) {
+void TexturePoolInstance::releaseObject(ecs::Entity, scene::Key) {
     // noop
 }
 
-void TexturePoolInstance::doInit(std::uint32_t, std::uint32_t) {
+void TexturePoolInstance::init() {
     // noop
 }
 
-bool TexturePoolInstance::doAllocateObject(std::uint32_t, ecs::Entity, UpdateSpeed) {
+bool TexturePoolInstance::doAllocateObject(ecs::Entity, scene::Key) {
     // noop
     return true;
 }
 
-void TexturePoolInstance::beginSync(bool) {
+void TexturePoolInstance::beginSync(DirtyRange, DirtyRange) {
     // noop
 }
 

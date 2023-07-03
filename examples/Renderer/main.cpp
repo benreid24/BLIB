@@ -54,7 +54,7 @@ public:
         p1.setClearColor({0.f, 0.f, 1.f, 1.f});
 
         // create 2d scene and camera for observer 1
-        bl::gfx::Scene* scene = p1.pushScene<bl::gfx::scene::BasicScene>(2, 2);
+        bl::gfx::Scene* scene = p1.pushScene<bl::gfx::scene::BasicScene>();
         auto* p1cam =
             p1.setCamera<bl::gfx::c2d::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
         p1cam->setNearAndFarPlanes(-100000.f, 100000.f);
@@ -81,7 +81,7 @@ public:
 
         // create 3d scene for observer 2
         bl::gfx::Observer& p2 = engine.renderer().addObserver();
-        scene                 = p2.pushScene<bl::gfx::scene::BasicScene>(1, 1);
+        scene                 = p2.pushScene<bl::gfx::scene::BasicScene>();
 
         // create camera for observer 2
         p2.setClearColor({0.f, 1.f, 0.f, 1.f});
@@ -107,7 +107,7 @@ public:
         meshSystem.addToScene(meshEntity, scene, bl::gfx::UpdateSpeed::Static);
 
         // create overlay and add sprite for observer 2
-        bl::gfx::Overlay* overlay = p2.getOrCreateSceneOverlay(engine, 10, 10);
+        bl::gfx::Overlay* overlay = p2.getOrCreateSceneOverlay(engine);
         messageBox.create(engine, messageBoxTxtr);
         messageBox.getTransform().setPosition({0.5f, 0.85f});
         messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
@@ -127,7 +127,7 @@ public:
         // setup render texture
         renderTexture.create(engine.renderer(), {128, 128});
         bl::gfx::Overlay* rto =
-            engine.renderer().scenePool().allocateScene<bl::gfx::Overlay>(engine, 1, 1);
+            engine.renderer().scenePool().allocateScene<bl::gfx::Overlay>(engine);
         renderTexture.setScene(rto);
         renderTexture.setCamera<bl::gfx::ovy::OverlayCamera>();
         renderTexture.setClearColor({0.f, 0.0f, 0.7f, 0.4f});

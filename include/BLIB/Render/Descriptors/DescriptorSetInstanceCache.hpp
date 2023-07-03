@@ -24,11 +24,8 @@ class DescriptorSetInstanceCache {
 public:
     /**
      * @brief Creates the descriptor set cache
-     *
-     * @param maxStatic The maximum number of static objects contained sets should allow
-     * @param maxDynamic The maximum number of dynamic objects contained sets should allow
      */
-    DescriptorSetInstanceCache(std::uint32_t maxStatic, std::uint32_t maxDynamic);
+    DescriptorSetInstanceCache();
 
     /**
      * @brief Fetches or creates a descriptor set for the given descriptor set factory
@@ -49,10 +46,10 @@ public:
     /**
      * @brief Goes through all descriptor set instances and calls removeObject for the given object
      *
-     * @param sceneId The id of the object within the scene it belongs to
      * @param entity The ECS id of the object to unlink
+     * @param key The key of the object within the scene it belongs to
      */
-    void unlinkSceneObject(std::uint32_t sceneId, ecs::Entity entity);
+    void unlinkSceneObject(ecs::Entity entity, scene::Key key);
 
     /**
      * @brief Called once prior to TransferEngine kicking off
@@ -60,8 +57,6 @@ public:
     void handleDescriptorSync();
 
 private:
-    const std::uint32_t maxStatic;
-    const std::uint32_t maxDynamic;
     std::unordered_map<DescriptorSetFactory*, std::unique_ptr<DescriptorSetInstance>> cache;
     std::vector<ds::SceneDescriptorSetInstance*> sceneSets;
 };

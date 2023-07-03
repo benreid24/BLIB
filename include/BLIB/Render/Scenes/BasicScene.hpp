@@ -2,6 +2,7 @@
 #define BLIB_RENDER_RENDERER_BASICSCENE_HPP
 
 #include <BLIB/Render/Scenes/Scene.hpp>
+#include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
 
 namespace bl
 {
@@ -31,15 +32,13 @@ public:
      * @brief Initializes the BasicScene
      *
      * @param renderer The renderer instance
-     * @param maxStatic The maximum number of static objects in the scene
-     * @param maxDynamic The maximum number of dynamic objects in the scene
      */
-    BasicScene(Renderer& renderer, std::uint32_t maxStatic, std::uint32_t maxDynamic);
+    BasicScene(Renderer& renderer);
 
     /**
      * @brief Unlinks allocated objects from ECS descriptor linkages
      */
-    virtual ~BasicScene() = default;
+    virtual ~BasicScene();
 
 protected:
     /**
@@ -60,17 +59,15 @@ protected:
      * @return A pointer to the new scene object
      */
     virtual scene::SceneObject* doAdd(ecs::Entity entity, com::DrawableBase& object,
-                                      std::uint32_t sceneId, UpdateSpeed updateFreq) override;
+                                      UpdateSpeed updateFreq) override;
 
     /**
      * @brief Called when an object is removed from the scene. Unlink from descriptors here
      *
-     * @param entity The ECS id of the entity being removed
      * @param object The scene object being removed
      * @param pipeline The pipeline the object was being rendered with
      */
-    virtual void doRemove(ecs::Entity entity, scene::SceneObject* object,
-                          std::uint32_t pipeline) override;
+    virtual void doRemove(scene::SceneObject* object, std::uint32_t pipeline) override;
 
     /**
      * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
@@ -82,9 +79,9 @@ protected:
 
 private:
     struct PipelineBatch {
-        PipelineBatch(vk::Pipeline& pipeline, std::uint32_t maxObjects)
+        PipelineBatch(vk::Pipeline& pipeline)
         : pipeline(pipeline) {
-            objects.reserve(maxObjects / 2);
+            objects.reserve(Scene::DefaultObjectCapacity / 2);
         }
 
         vk::Pipeline& pipeline;
@@ -98,7 +95,8 @@ private:
         , descriptorCount(layout.initDescriptorSets(descriptorCache, descriptors.data()))
         , perObjStart(descriptorCount)
         , bindless(true) {
-            batches.reserve(8);
+            staticBatches.reserve(8);
+            dynamicBatches.reserve(8);
             for (std::uint8_t i = 0; i < descriptorCount; ++i) {
                 if (!descriptors[i]->isBindless()) {
                     perObjStart = i;
@@ -112,7 +110,8 @@ private:
         std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
         std::uint8_t descriptorCount;
         std::uint8_t perObjStart;
-        std::vector<PipelineBatch> batches;
+        std::vector<PipelineBatch> staticBatches;
+        std::vector<PipelineBatch> dynamicBatches;
         bool bindless;
     };
 
@@ -121,16 +120,13 @@ private:
         std::vector<LayoutBatch> batches;
     };
 
-    std::vector<scene::SceneObject> objects;
+    SceneObjectStorage<SceneObject> objects;
     ObjectBatch opaqueObjects;
     ObjectBatch transparentObjects;
-    std::vector<bool> transCache;
+    std::vector<bool> staticTransCache;
+    std::vector<bool> dynamicTransCache;
 
-    template<typename T>
-    friend class sys::DrawableSystem;
-    friend class container::ObjectWrapper<BasicScene>;
-    friend class Observer;
-    friend class res::ScenePool;
+    void handleAddressChange(UpdateSpeed speed);
 };
 
 } // namespace scene

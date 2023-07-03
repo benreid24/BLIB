@@ -6,24 +6,20 @@ namespace gfx
 {
 namespace ds
 {
-DescriptorSetInstanceCache::DescriptorSetInstanceCache(std::uint32_t ms, std::uint32_t md)
-: maxStatic(ms)
-, maxDynamic(md) {
-    sceneSets.reserve(4);
-}
+DescriptorSetInstanceCache::DescriptorSetInstanceCache() { sceneSets.reserve(8); }
 
 DescriptorSetInstance* DescriptorSetInstanceCache::getDescriptorSet(DescriptorSetFactory* factory) {
     auto it = cache.find(factory);
     if (it != cache.end()) { return it->second.get(); }
     it = cache.try_emplace(factory, std::move(factory->createDescriptorSet())).first;
-    it->second->init(maxStatic, maxDynamic);
+    it->second->init();
     SceneDescriptorSetInstance* scene = dynamic_cast<SceneDescriptorSetInstance*>(it->second.get());
     if (scene) { sceneSets.push_back(scene); }
     return it->second.get();
 }
 
-void DescriptorSetInstanceCache::unlinkSceneObject(std::uint32_t sceneId, ecs::Entity ent) {
-    for (auto& pair : cache) { pair.second->releaseObject(sceneId, ent); }
+void DescriptorSetInstanceCache::unlinkSceneObject(ecs::Entity ent, scene::Key key) {
+    for (auto& pair : cache) { pair.second->releaseObject(ent, key); }
 }
 
 void DescriptorSetInstanceCache::handleDescriptorSync() {
