@@ -9,16 +9,6 @@ namespace gfx
 {
 namespace scene
 {
-namespace
-{
-const prim::Vertex vertices[4] = {prim::Vertex({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
-                                  prim::Vertex({1.f, -1.f, 1.0f}, {1.f, 0.f}),
-                                  prim::Vertex({1.f, 1.f, 1.0f}, {1.f, 1.f}),
-                                  prim::Vertex({-1.f, 1.f, 1.0f}, {0.f, 1.f})};
-
-const std::uint32_t indices[6] = {0, 1, 3, 1, 2, 3};
-} // namespace
-
 std::array<VkDescriptorSetLayoutBinding, 1> PostFX::DescriptorLayoutBindings() {
     std::array<VkDescriptorSetLayoutBinding, 1> layout{};
     layout[0].binding            = 0;
@@ -64,9 +54,12 @@ PostFX::PostFX(Renderer& renderer)
 
     // create index buffer
     indexBuffer.create(vs, 4, 6);
-    indexBuffer.indices().configureWrite(indices, 0, 6 * sizeof(std::uint32_t));
-    indexBuffer.vertices().configureWrite(vertices, 0, 4 * sizeof(prim::Vertex));
-    indexBuffer.sendToGPU();
+    indexBuffer.indices()  = {0, 1, 3, 1, 2, 3};
+    indexBuffer.vertices() = {prim::Vertex({-1.f, -1.f, 1.0f}, {0.f, 0.f}),
+                              prim::Vertex({1.f, -1.f, 1.0f}, {1.f, 0.f}),
+                              prim::Vertex({1.f, 1.f, 1.0f}, {1.f, 1.f}),
+                              prim::Vertex({-1.f, 1.f, 1.0f}, {0.f, 1.f})};
+    indexBuffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
 
     // fetch initial pipeline
     usePipeline(Config::PipelineIds::PostFXBase);
@@ -126,10 +119,10 @@ void PostFX::compositeScene(VkCommandBuffer cb) {
                             0,
                             nullptr);
 
-    VkBuffer vertexBuffer[] = {indexBuffer.vertices().handle()};
+    VkBuffer vertexBuffer[] = {indexBuffer.vertexBufferHandle()};
     VkDeviceSize offsets[]  = {0};
     vkCmdBindVertexBuffers(cb, 0, 1, vertexBuffer, offsets);
-    vkCmdBindIndexBuffer(cb, indexBuffer.indices().handle(), 0, prim::IndexBuffer::IndexType);
+    vkCmdBindIndexBuffer(cb, indexBuffer.indexBufferHandle(), 0, prim::IndexBuffer::IndexType);
 
     onRender(cb);
     vkCmdDrawIndexed(cb, indexBuffer.indexCount(), 1, 0, 0, 0);

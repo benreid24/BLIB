@@ -8,10 +8,6 @@ namespace gfx
 {
 namespace com
 {
-namespace
-{
-constexpr std::array<std::uint32_t, 6> Indices = {0, 1, 2, 0, 2, 3};
-}
 
 Sprite::Sprite(Renderer& renderer, const res::TextureRef& texture, const sf::FloatRect& region) {
     create(renderer, texture, region);
@@ -30,10 +26,10 @@ void Sprite::create(Renderer& renderer, const res::TextureRef& txtr, sf::FloatRe
 
     if (buffer.vertexCount() == 0) {
         buffer.create(renderer.vulkanState(), 4, 6);
-        buffer.vertices().configureWrite(vertices.data(), 0, 4 * sizeof(prim::Vertex));
-        buffer.indices().configureWrite(Indices.data(), 0, 6 * sizeof(std::uint32_t));
+        buffer.indices() = {0, 1, 2, 0, 2, 3};
     }
 
+    auto& vertices      = buffer.vertices();
     const float leftX   = region.left / texture->size().x;
     const float topY    = region.top / texture->size().y;
     const float rightX  = (region.left + region.width) / texture->size().x;
@@ -57,7 +53,7 @@ void Sprite::create(Renderer& renderer, const res::TextureRef& txtr, sf::FloatRe
 
     refreshTrans();
     drawParams = buffer.getDrawParameters();
-    buffer.sendToGPU();
+    buffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
 }
 
 void Sprite::setTexture(const res::TextureRef& txtr) {
@@ -66,15 +62,17 @@ void Sprite::setTexture(const res::TextureRef& txtr) {
 }
 
 void Sprite::setColor(const glm::vec4& color) {
-    for (auto& v : vertices) { v.color = color; }
-    if (buffer.vertexCount() > 0) { buffer.sendToGPU(); }
+    for (auto& v : buffer.vertices()) { v.color = color; }
+    if (buffer.vertexCount() > 0) {
+        buffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
+    }
     refreshTrans();
 }
 
 void Sprite::refreshTrans() {
-    const bool wasTrans = containsTransparency;
-    containsTransparency =
-        texture->containsTransparency() || (vertices[0].color.a > 0.f && vertices[0].color.a < 1.f);
+    const bool wasTrans  = containsTransparency;
+    containsTransparency = texture->containsTransparency() || (buffer.vertices()[0].color.a > 0.f &&
+                                                               buffer.vertices()[0].color.a < 1.f);
     if (containsTransparency != wasTrans) { rebucket(); }
 }
 

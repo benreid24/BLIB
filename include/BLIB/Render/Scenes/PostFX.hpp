@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_POSTFX_HPP
 #define BLIB_RENDER_RENDERER_POSTFX_HPP
 
-#include <BLIB/Render/Primitives/IndexBuffer.hpp>
+#include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/Pipeline.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
@@ -74,7 +74,7 @@ private:
     VkSampler sampler;
     vk::DescriptorPool::AllocationHandle descriptorSetAllocHandle;
     vk::PerFrame<VkDescriptorSet> descriptorSets;
-    prim::IndexBuffer indexBuffer;
+    buf::IndexBuffer indexBuffer;
     vk::Pipeline* pipeline;
 
     void bindImages(vk::PerFrame<vk::StandardAttachmentBuffers>& sceneImages);

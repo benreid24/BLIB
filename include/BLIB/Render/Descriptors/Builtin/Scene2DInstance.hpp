@@ -3,7 +3,6 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
-#include <BLIB/Render/Transfers/UniformBuffer.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>

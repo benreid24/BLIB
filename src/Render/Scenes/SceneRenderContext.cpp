@@ -1,6 +1,6 @@
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 
-#include <BLIB/Render/Primitives/IndexBuffer.hpp>
+#include <BLIB/Render/Buffers/IndexBuffer.hpp>
 
 namespace bl
 {
@@ -52,7 +52,7 @@ void SceneRenderContext::renderObject(const SceneObject& object) {
     if (prevIB != object.drawParams.indexBuffer) {
         prevIB = object.drawParams.indexBuffer;
         vkCmdBindIndexBuffer(
-            commandBuffer, object.drawParams.indexBuffer, 0, prim::IndexBuffer::IndexType);
+            commandBuffer, object.drawParams.indexBuffer, 0, buf::IndexBuffer::IndexType);
     }
 
     vkCmdDrawIndexed(commandBuffer,

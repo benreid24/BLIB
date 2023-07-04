@@ -2,9 +2,9 @@
 #define BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT3DINSTANCE_HPP
 
 #include <BLIB/ECS/Registry.hpp>
+#include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Transfers/UniformBuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
 #include <cstdint>
 #include <glm/glm.hpp>
@@ -55,9 +55,9 @@ private:
     std::vector<ecs::Entity> staticEntitySlots;
     buf::StaticSSBO<glm::mat4> transformBufferStatic;
     buf::StaticSSBO<std::uint32_t> textureBufferStatic;
-    // TODO - dynamic ssbo
+
     std::vector<ecs::Entity> dynamicEntitySlots;
-    buf::StaticSSBO<glm::mat4> transformBufferDynamic;
+    buf::DynamicSSBO<glm::mat4> transformBufferDynamic;
     buf::StaticSSBO<std::uint32_t> textureBufferDynamic;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,

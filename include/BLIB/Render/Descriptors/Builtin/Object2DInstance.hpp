@@ -5,7 +5,6 @@
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Transfers/UniformBuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
 #include <cstdint>
 #include <glm/glm.hpp>

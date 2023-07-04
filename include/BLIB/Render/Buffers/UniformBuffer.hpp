@@ -183,7 +183,7 @@ void UniformBuffer<T>::executeTransfer(VkCommandBuffer commandBuffer,
 
     VkBufferMemoryBarrier bufBarrier{};
     bufBarrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
-    bufBarrier.srcAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;
+    bufBarrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
     bufBarrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
     bufBarrier.buffer        = gpuBuffers.current().getBuffer();
     bufBarrier.offset        = 0;

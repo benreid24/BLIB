@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_COMPONENTS_SPRITE_HPP
 #define BLIB_RENDER_COMPONENTS_SPRITE_HPP
 
+#include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
-#include <BLIB/Render/Primitives/IndexBuffer.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
@@ -80,8 +80,7 @@ public:
     constexpr const glm::vec2& getSize() const;
 
 private:
-    std::array<prim::Vertex, 4> vertices;
-    prim::IndexBuffer buffer;
+    buf::IndexBuffer buffer;
     res::TextureRef texture;
     glm::vec2 size;
 
@@ -94,7 +93,7 @@ inline constexpr const res::TextureRef& Sprite::getTexture() const { return text
 
 inline constexpr const glm::vec2& Sprite::getSize() const { return size; }
 
-inline constexpr const glm::vec4& Sprite::getColor() const { return vertices[0].color; }
+inline constexpr const glm::vec4& Sprite::getColor() const { return buffer.vertices()[0].color; }
 
 } // namespace com
 } // namespace gfx

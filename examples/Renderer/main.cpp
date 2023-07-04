@@ -101,9 +101,9 @@ public:
         engine.ecs().emplaceComponent<bl::gfx::com::Texture>(meshEntity, texture);
         bl::gfx::com::Mesh* mesh = engine.ecs().emplaceComponent<bl::gfx::com::Mesh>(meshEntity);
         mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
-        mesh->vertices = Vertices;
-        mesh->indices  = Indices;
-        mesh->gpuBuffer.sendToGPU();
+        mesh->gpuBuffer.vertices() = Vertices;
+        mesh->gpuBuffer.indices()  = Indices;
+        mesh->gpuBuffer.queueTransfer(bl::gfx::tfr::Transferable::SyncRequirement::Immediate);
         meshSystem.addToScene(meshEntity, scene, bl::gfx::UpdateSpeed::Static);
 
         // create overlay and add sprite for observer 2

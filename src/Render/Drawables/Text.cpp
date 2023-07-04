@@ -85,24 +85,22 @@ void Text::commit() {
 
         // create larger buffer if required
         // TODO - sync destruction?
-        if (component().vertices.size() < vertexCount) {
+        if (component().gpuBuffer.vertices().size() < vertexCount) {
             component().create(engine().renderer().vulkanState(), vertexCount * 2, vertexCount * 2);
-        }
-
-        // assign indices
-        for (unsigned int i = 0; i < component().indices.size(); ++i) {
-            component().indices[i] = i;
+            for (unsigned int i = 0; i < component().gpuBuffer.indices().size(); ++i) {
+                component().gpuBuffer.indices()[i] = i;
+            }
         }
 
         // assign vertices
         std::uint32_t vi = 0;
         glm::vec2 cornerPos(0.f, 0.f);
         for (auto& section : sections) {
-            vi += section.refreshVertices(*font, &component().vertices[vi], cornerPos);
+            vi += section.refreshVertices(*font, &component().gpuBuffer.vertices()[vi], cornerPos);
         }
 
         // upload vertices
-        component().gpuBuffer.sendToGPU();
+        component().gpuBuffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
 
         const auto bounds = getLocalBounds();
         OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
