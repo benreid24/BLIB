@@ -22,7 +22,7 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
         shaderStages.emplace_back();
         shaderStages.back().sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
         shaderStages.back().stage  = shader.stage;
-        shaderStages.back().module = renderer.vulkanState().createShaderModule(shader.path);
+        shaderStages.back().module = renderer.vulkanState().shaderCache.loadShader(shader.path);
         shaderStages.back().pName  = shader.entrypoint.c_str();
     }
 
@@ -83,11 +83,6 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
                                       &pipelines[rpid]) != VK_SUCCESS) {
             throw std::runtime_error("Failed to create graphics pipeline");
         }
-    }
-
-    // Cleanup shader modules
-    for (VkPipelineShaderStageCreateInfo shader : shaderStages) {
-        vkDestroyShaderModule(renderer.vulkanState().device, shader.module, nullptr);
     }
 }
 

@@ -72,6 +72,8 @@ struct Config {
         static constexpr std::uint32_t OffScreenSceneRender   = 0;
         static constexpr std::uint32_t SwapchainPrimaryRender = 1;
     };
+
+    static constexpr std::uint32_t SPIRVMagicNumber = 0x07230203;
 };
 
 } // namespace gfx

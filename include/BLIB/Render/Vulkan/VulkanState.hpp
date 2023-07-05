@@ -2,6 +2,7 @@
 #define BLIB_RENDER_VULKAN_VULKANSTATE_HPP
 
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Resources/ShaderModuleCache.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
 #include <BLIB/Render/Vulkan/CleanupManager.hpp>
 #include <BLIB/Render/Vulkan/CommonSamplers.hpp>
@@ -175,14 +176,6 @@ struct VulkanState {
                                 VkImageAspectFlags aspectFlags = VK_IMAGE_ASPECT_COLOR_BIT);
 
     /**
-     * @brief Creates a shader module from the given shader path
-     *
-     * @param path The resource path of the shader to load
-     * @return VkShaderModule The created shader module
-     */
-    VkShaderModule createShaderModule(const std::string& path);
-
-    /**
      * @brief Returns the current frame index. Used by PerFrame to return correct data
      *
      * @return constexpr std::uint32_t The current index of the frame being worked on
@@ -211,6 +204,7 @@ struct VulkanState {
     VkQueue presentQueue;
     VkCommandPool sharedCommandPool;
     Swapchain swapchain;
+    res::ShaderModuleCache shaderCache;
     tfr::TransferEngine transferEngine;
     DescriptorPool descriptorPool;
     CommonSamplers samplerCache;

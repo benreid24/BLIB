@@ -5,6 +5,7 @@ target_sources(BLIB PRIVATE
     PipelineLayoutCache.cpp
     RenderPassCache.cpp
     ScenePool.cpp
+    ShaderModuleCache.cpp
     TexturePool.cpp
     TextureRef.cpp
 )
