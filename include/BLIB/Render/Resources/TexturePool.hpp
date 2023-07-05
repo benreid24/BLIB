@@ -10,7 +10,7 @@
 #include <array>
 #include <atomic>
 #include <cstdint>
-#include <glad/vulkan.h>
+#include <volk.h>
 #include <glm/glm.hpp>
 #include <mutex>
 #include <string>

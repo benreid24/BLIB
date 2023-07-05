@@ -146,7 +146,7 @@ DescriptorPool::Subpool::Subpool(VulkanState& vs, const SetBindingInfo& allocInf
     auto bindings = allocInfo.bindings;
     for (auto& binding : bindings) { binding.descriptorCount *= setCount; }
 
-    std::array<VkDescriptorPoolSize, BLIB_MAX_DESCRIPTOR_BINDINGS> poolSizes;
+    std::array<VkDescriptorPoolSize, Config::MaxDescriptorSets> poolSizes;
     for (unsigned int i = 0; i < allocInfo.bindingCount; ++i) {
         poolSizes[i].type            = allocInfo.bindings[i].descriptorType;
         poolSizes[i].descriptorCount = allocInfo.bindings[i].descriptorCount;

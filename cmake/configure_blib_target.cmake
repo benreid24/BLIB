@@ -2,15 +2,17 @@ function(configure_blib_target target_name)
     # Platform detection
     if (APPLE)
         target_compile_definitions(${target_name} PUBLIC BLIB_APPLE=1)
+        set(VOLK_STATIC_DEFINES VK_USE_PLATFORM_MACOS_MVK)
     elseif(WIN32)
         target_compile_definitions(${target_name} PUBLIC BLIB_WINDOWS=1)
+        set(VOLK_STATIC_DEFINES VK_USE_PLATFORM_WIN32_KHR)
     else()
         target_compile_definitions(${target_name} PUBLIC BLIB_LINUX=1)
+        set(VOLK_STATIC_DEFINES VK_USE_PLATFORM_XLIB_KHR)
     endif()
 
     # compile defs for Vulkan
     target_compile_definitions(${target_name} PUBLIC
-        GLAD_VULKAN_IMPLEMENTATION
         GLM_FORCE_DEFAULT_ALIGNED_GENTYPES
         GLM_FORCE_DEPTH_ZERO_TO_ONE
     )
@@ -72,14 +74,12 @@ function(configure_blib_target target_name)
         ${BLIB_PATH}/lib/SFML/include
         ${BLIB_PATH}/lib/glm
     )
+    target_include_directories(${target_name} SYSTEM PUBLIC ${BLIB_PATH}/lib/Vulkan-Headers/include)
+    target_include_directories(${target_name} SYSTEM PUBLIC ${BLIB_PATH}/lib/volk)
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_definitions(${target_name} PUBLIC BLIB_DEBUG)
-        target_include_directories(${target_name} SYSTEM PUBLIC ${BLIB_PATH}/lib/glad/glad_debug/include)
-        file(COPY ${BLIB_PATH}/lib/glad/glad_debug/include/glad/vulkan.h DESTINATION ${BLIB_TEMP_INCLUDE_DIR}/vulkan)
     else()
         target_compile_definitions(${target_name} PUBLIC BLIB_RELEASE)
-        target_include_directories(${target_name} SYSTEM PUBLIC  ${BLIB_PATH}lib/glad/glad_release/include)
-        file(COPY ${BLIB_PATH}/lib/glad/glad_release/include/glad/vulkan.h DESTINATION ${BLIB_TEMP_INCLUDE_DIR}/vulkan)
     endif()
     
     # Static link everything
@@ -99,7 +99,4 @@ function(configure_blib_target target_name)
     else()
         target_compile_definitions(${target_name} PUBLIC BLIB_ECS_MASK_TYPE=std::uint64_t)
     endif()
-
-    # Descriptor set binding count
-    target_compile_definitions(${target_name} PUBLIC BLIB_MAX_DESCRIPTOR_BINDINGS=${MAX_DESCRIPTOR_BINDINGS})
 endfunction()

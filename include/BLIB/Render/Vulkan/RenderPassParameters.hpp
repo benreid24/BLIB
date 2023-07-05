@@ -2,7 +2,7 @@
 #define BLIB_RENDER_VULKAN_RENDERPASSPARAMETERS_HPP
 
 #include <cstdint>
-#include <glad/vulkan.h>
+#include <volk.h>
 #include <optional>
 #include <vector>
 

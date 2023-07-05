@@ -15,10 +15,12 @@
 #include <SFML/Window.hpp>
 #include <array>
 #include <cstdint>
-#include <glad/vulkan.h>
 #include <initializer_list>
 #include <stdexcept>
 #include <vector>
+#include <volk.h>
+
+// needs to be after volk.h
 #include <vk_mem_alloc.h>
 
 namespace bl

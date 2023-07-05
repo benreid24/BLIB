@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Fix behavior of CMAKE_CXX_STANDARD when targeting macOS.
 if (POLICY CMP0025)
-  cmake_policy(SET CMP0025 NEW)
+    cmake_policy(SET CMP0025 NEW)
 endif()
 
 project(BLIB C CXX)
@@ -16,7 +16,6 @@ option(BLIB_HEADLESS_FOR_CI_TESTING "True when on CI, false when local" Off)
 
 option(BLIB_ECS_USE_WIDE_MASK "True to use 128 bit component mask, false for 64 bit component mask" Off)
 option(COMPILE_SHADERS "True to build built-in shaders, off to skip" On)
-set(MAX_DESCRIPTOR_BINDINGS "8" CACHE STRING "Maximum number of bindings in a descriptor set")
 set(RUN_PATH ${PROJECT_SOURCE_DIR} CACHE PATH "Working directory of the final built executables")
 set(SHADER_PATH "Resources/Shaders" CACHE PATH "Path where compiled shaders should go")
 set(SCENE_DEFAULT_CAMERA "2d" CACHE STRING "Either '2d' or '3d'. Determines which type of camera is created for scenes by default")
@@ -49,7 +48,7 @@ set(SFML_USE_STATIC_STD_LIBS On)
 add_subdirectory(lib/SFML)
 set_target_properties(sfml-audio PROPERTIES CXX_STANDARD 98 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
 
-add_subdirectory(lib/glad)
+add_subdirectory(lib/volk)
 
 add_subdirectory(include/BLIB)
 add_subdirectory(src)

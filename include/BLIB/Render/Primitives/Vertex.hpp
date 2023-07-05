@@ -2,7 +2,7 @@
 #define BLIB_RENDER_PRIMITIVES_VERTEX_HPP
 
 #include <array>
-#include <glad/vulkan.h>
+#include <volk.h>
 #include <glm/glm.hpp>
 #include <initializer_list>
 

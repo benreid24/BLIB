@@ -1,8 +1,10 @@
 #ifndef BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP
 #define BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP
 
-#include <glad/vulkan.h>
 #include <vector>
+#include <volk.h>
+
+// needs to be after volk.h
 #include <vk_mem_alloc.h>
 
 namespace bl

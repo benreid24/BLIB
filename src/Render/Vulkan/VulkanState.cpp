@@ -25,7 +25,7 @@ const std::unordered_set<std::string> RequestedValidationLayers{"VK_LAYER_KHRONO
                                                                 "VK_LAYER_LUNARG_monitor"};
 #endif
 
-const std::vector<const char*> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME};
+constexpr std::array<const char*, 1> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME};
 
 #ifdef BLIB_DEBUG
 VKAPI_ATTR VkBool32 VKAPI_CALL
@@ -106,7 +106,7 @@ int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDevicePropertie
     // preferred optional features
     int score = 0;
     score += deviceProperties.limits.maxImageDimension2D;
-    if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) { score += 5000; }
+    if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) { score += 50000; }
 
     return score;
 }
@@ -119,24 +119,24 @@ VulkanState::VulkanState(sf::WindowBase& window)
 , transferEngine(*this)
 , descriptorPool(*this)
 , samplerCache(*this)
-, currentFrame(0) {
-    gladLoadVulkan(0, sf::Vulkan::getFunction);
-    if (!vkCreateInstance) { throw std::runtime_error("Failed to load Vulkan"); }
-}
+, currentFrame(0) {}
 
 VulkanState::~VulkanState() {
     if (device != nullptr) { cleanup(); }
 }
 
 void VulkanState::init() {
+    if (volkInitialize() != VK_SUCCESS) { throw std::runtime_error("Failed to get Vulkan loader"); }
+
     createInstance();
+    volkLoadInstance(instance);
 #ifdef BLIB_DEBUG
     setupDebugMessenger();
 #endif
     createSurface();
     pickPhysicalDevice();
-    gladLoadVulkan(physicalDevice, sf::Vulkan::getFunction); // reload with extensions
     createLogicalDevice();
+    // volkLoadDevice(device);
     createVmaAllocator();
     createSharedCommandPool();
     swapchain.create(surface);
@@ -184,7 +184,7 @@ void VulkanState::createInstance() {
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.pEngineName        = "BLIB";
     appInfo.engineVersion      = VK_MAKE_VERSION(1, 0, 0);
-    appInfo.apiVersion         = VK_API_VERSION_1_2;
+    appInfo.apiVersion         = VK_API_VERSION_1_3;
 
     // instance data to populate
     VkInstanceCreateInfo createInfo{};
@@ -374,11 +374,11 @@ void VulkanState::createVmaAllocator() {
     funcs.vkCreateImage                           = vkCreateImage;
     funcs.vkDestroyImage                          = vkDestroyImage;
     funcs.vkCmdCopyBuffer                         = vkCmdCopyBuffer;
-    funcs.vkGetBufferMemoryRequirements2KHR       = vkGetBufferMemoryRequirements2KHR;
-    funcs.vkGetImageMemoryRequirements2KHR        = vkGetImageMemoryRequirements2KHR;
-    funcs.vkBindBufferMemory2KHR                  = vkBindBufferMemory2KHR;
-    funcs.vkBindImageMemory2KHR                   = vkBindImageMemory2KHR;
-    funcs.vkGetPhysicalDeviceMemoryProperties2KHR = vkGetPhysicalDeviceMemoryProperties2KHR;
+    funcs.vkGetBufferMemoryRequirements2KHR       = vkGetBufferMemoryRequirements2;
+    funcs.vkGetImageMemoryRequirements2KHR        = vkGetImageMemoryRequirements2;
+    funcs.vkBindBufferMemory2KHR                  = vkBindBufferMemory2;
+    funcs.vkBindImageMemory2KHR                   = vkBindImageMemory2;
+    funcs.vkGetPhysicalDeviceMemoryProperties2KHR = vkGetPhysicalDeviceMemoryProperties2;
     funcs.vkGetDeviceBufferMemoryRequirements     = vkGetDeviceBufferMemoryRequirements;
     funcs.vkGetDeviceImageMemoryRequirements      = vkGetDeviceImageMemoryRequirements;
 

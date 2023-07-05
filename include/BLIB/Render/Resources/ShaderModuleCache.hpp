@@ -1,9 +1,9 @@
 #ifndef BLIB_RENDER_RESOURCES_SHADERMODULECACHE_HPP
 #define BLIB_RENDER_RESOURCES_SHADERMODULECACHE_HPP
 
-#include <glad/vulkan.h>
 #include <string>
 #include <unordered_map>
+#include <volk.h>
 
 namespace bl
 {

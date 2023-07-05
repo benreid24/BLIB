@@ -1,13 +1,10 @@
 add_executable(renderer main.cpp)
 
 include(configure_blib_target)
+include(link_blib_target)
 configure_blib_target(renderer)
 
-target_link_libraries(renderer
-    BLIB
-    sfml-graphics
-    sfml-window
-)
+link_blib_target(renderer)
 
 set_target_properties(renderer
     PROPERTIES

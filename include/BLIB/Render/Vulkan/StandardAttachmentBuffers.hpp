@@ -4,7 +4,9 @@
 #include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
-#include <glad/vulkan.h>
+#include <volk.h>
+
+// needs to be after volk.h
 #include <vk_mem_alloc.h>
 
 namespace bl

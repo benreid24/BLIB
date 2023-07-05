@@ -1,5 +1,0 @@
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_sources(BLIB PRIVATE glad_debug/src/vulkan.c)
-else()
-    target_sources(BLIB PRIVATE glad_release/src/vulkan.c)
-endif()

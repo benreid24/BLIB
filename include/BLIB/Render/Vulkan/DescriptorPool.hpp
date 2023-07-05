@@ -1,12 +1,13 @@
 #ifndef BLIB_RENDER_VULKAN_DESCRIPTORPOOL_HPP
 #define BLIB_RENDER_VULKAN_DESCRIPTORPOOL_HPP
 
+#include <BLIB/Render/Config.hpp>
 #include <array>
 #include <cstdint>
-#include <glad/vulkan.h>
 #include <list>
 #include <unordered_map>
 #include <vector>
+#include <volk.h>
 
 namespace bl
 {
@@ -34,7 +35,7 @@ public:
     struct SetBindingInfo {
         SetBindingInfo();
 
-        std::array<VkDescriptorSetLayoutBinding, BLIB_MAX_DESCRIPTOR_BINDINGS> bindings;
+        std::array<VkDescriptorSetLayoutBinding, Config::MaxDescriptorSets> bindings;
         std::uint32_t bindingCount;
     };
 

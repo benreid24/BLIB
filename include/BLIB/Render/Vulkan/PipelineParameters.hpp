@@ -7,7 +7,7 @@
 #include <array>
 #include <cstdint>
 #include <functional>
-#include <glad/vulkan.h>
+#include <volk.h>
 #include <initializer_list>
 #include <memory>
 #include <string>
