@@ -59,18 +59,16 @@ public:
      * @brief Creates a new Overlay for the current scene for this Observer. Replaces the existing
      *        Overlay if one was present
      *
-     * @param engine The game engine instance
      * @return A pointer to the new Overlay
      */
-    Overlay* createSceneOverlay(engine::Engine& engine);
+    Overlay* createSceneOverlay();
 
     /**
      * @brief Returns the current overlay, creating a new one if necessary
      *
-     * @param engine The game engine instance
      * @return A pointer to the new Overlay
      */
-    Overlay* getOrCreateSceneOverlay(engine::Engine& engine);
+    Overlay* getOrCreateSceneOverlay();
 
     /**
      * @brief Returns the current Overlay. Will be nullptr if one has not been created

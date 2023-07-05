@@ -1,11 +1,9 @@
 #include <BLIB/Render/Descriptors/Builtin/Object3DInstance.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Render/Components/Texture.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
-#include <BLIB/Transforms/3D.hpp>
 
 namespace bl
 {
@@ -19,24 +17,20 @@ Object3DInstance::Object3DInstance(engine::Engine& engine,
 : DescriptorSetInstance(Bindless, RebindForNewSpeed)
 , registry(engine.ecs())
 , vulkanState(engine.renderer().vulkanState())
-, descriptorSetLayout(descriptorSetLayout)
-, staticEntitySlots(Scene::DefaultObjectCapacity, ecs::InvalidEntity)
-, dynamicEntitySlots(Scene::DefaultObjectCapacity, ecs::InvalidEntity) {}
+, descriptorSetLayout(descriptorSetLayout) {}
 
-Object3DInstance::~Object3DInstance() {
-    vulkanState.descriptorPool.release(alloc);
-    transformBufferStatic.destroy();
-    textureBufferStatic.destroy();
-    transformBufferDynamic.destroy();
-    textureBufferDynamic.destroy();
-}
+Object3DInstance::~Object3DInstance() { vulkanState.descriptorPool.release(alloc); }
 
-void Object3DInstance::init() {
-    // allocate memory
-    transformBufferStatic.create(vulkanState, Scene::DefaultObjectCapacity);
-    textureBufferStatic.create(vulkanState, Scene::DefaultObjectCapacity);
-    transformBufferDynamic.create(vulkanState, Scene::DefaultObjectCapacity);
-    textureBufferDynamic.create(vulkanState, Scene::DefaultObjectCapacity);
+void Object3DInstance::init(DescriptorComponentStorageCache& storageCache) {
+    // create/fetch storage modules
+    transforms = storageCache.getComponentStorage<t3d::Transform3D,
+                                                  glm::mat4,
+                                                  buf::DynamicSSBO<glm::mat4>,
+                                                  buf::StaticSSBO<glm::mat4>>();
+    textures   = storageCache.getComponentStorage<com::Texture,
+                                                std::uint32_t,
+                                                buf::StaticSSBO<std::uint32_t>,
+                                                buf::StaticSSBO<std::uint32_t>>();
 
     // allocate descriptor sets
     dynamicDescriptorSets.emptyInit(vulkanState);
@@ -56,9 +50,9 @@ void Object3DInstance::updateStaticDescriptors() {
 
     // transform buffer configureWrite
     VkDescriptorBufferInfo transformBufferStaticWrite{};
-    transformBufferStaticWrite.buffer = transformBufferStatic.gpuBufferHandle().getBuffer();
+    transformBufferStaticWrite.buffer = transforms->getStaticBuffer().gpuBufferHandle().getBuffer();
     transformBufferStaticWrite.offset = 0;
-    transformBufferStaticWrite.range  = transformBufferStatic.getTotalRange();
+    transformBufferStaticWrite.range  = transforms->getStaticBuffer().getTotalRange();
 
     VkWriteDescriptorSet& transformWrite = setWrites[0];
     transformWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -71,9 +65,9 @@ void Object3DInstance::updateStaticDescriptors() {
 
     // texture buffer configureWrite
     VkDescriptorBufferInfo textureBufferStaticWrite{};
-    textureBufferStaticWrite.buffer = textureBufferStatic.gpuBufferHandle().getBuffer();
+    textureBufferStaticWrite.buffer = textures->getStaticBuffer().gpuBufferHandle().getBuffer();
     textureBufferStaticWrite.offset = 0;
-    textureBufferStaticWrite.range  = textureBufferStatic.getTotalRange();
+    textureBufferStaticWrite.range  = textures->getStaticBuffer().getTotalRange();
 
     VkWriteDescriptorSet& textureWrite = setWrites[1];
     textureWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -96,9 +90,9 @@ void Object3DInstance::updateDynamicDescriptors() {
         // transform buffer configureWrite
         VkDescriptorBufferInfo transformBufferWrite{};
         transformBufferWrite.buffer =
-            transformBufferDynamic.gpuBufferHandles().getRaw(j).getBuffer();
+            transforms->getDynamicBuffer().gpuBufferHandles().getRaw(j).getBuffer();
         transformBufferWrite.offset = 0;
-        transformBufferWrite.range  = transformBufferDynamic.getTotalRange();
+        transformBufferWrite.range  = transforms->getDynamicBuffer().getTotalRange();
 
         VkWriteDescriptorSet& transformWrite = setWrites[i];
         transformWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -111,9 +105,9 @@ void Object3DInstance::updateDynamicDescriptors() {
 
         // texture buffer configureWrite
         VkDescriptorBufferInfo textureBufferWrite{};
-        textureBufferWrite.buffer = textureBufferDynamic.gpuBufferHandle().getBuffer();
+        textureBufferWrite.buffer = textures->getDynamicBuffer().gpuBufferHandle().getBuffer();
         textureBufferWrite.offset = 0;
-        textureBufferWrite.range  = textureBufferDynamic.getTotalRange();
+        textureBufferWrite.range  = textures->getDynamicBuffer().getTotalRange();
 
         VkWriteDescriptorSet& textureWrite = setWrites[i + 1];
         textureWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -150,87 +144,22 @@ void Object3DInstance::bindForObject(scene::SceneRenderContext&, VkPipelineLayou
     // noop
 }
 
-void Object3DInstance::releaseObject(ecs::Entity entity, scene::Key) {
-    auto components = registry.getComponentSet<t3d::Transform3D, com::Texture>(entity);
-    if (components.get<t3d::Transform3D>()) { components.get<t3d::Transform3D>()->unlink(); }
-    if (components.get<com::Texture>()) { components.get<com::Texture>()->unlink(); }
+void Object3DInstance::releaseObject(ecs::Entity entity, scene::Key key) {
+    transforms->releaseObject(entity, key);
+    textures->releaseObject(entity, key);
 }
 
-bool Object3DInstance::doAllocateObject(ecs::Entity entity, scene::Key key) {
-    glm::mat4* transform   = nullptr;
-    std::uint32_t* texture = nullptr;
-
-    if (key.updateFreq == UpdateSpeed::Dynamic) {
-        dynamicEntitySlots.resize(key.sceneId + 1, ecs::InvalidEntity);
-        const bool grew = transformBufferDynamic.ensureSize(key.sceneId + 1);
-        textureBufferDynamic.ensureSize(key.sceneId + 1);
-        dynamicEntitySlots[key.sceneId] = entity;
-        transform                       = &transformBufferDynamic[key.sceneId];
-        texture                         = &textureBufferDynamic[key.sceneId];
-
-        if (grew) {
-            for (unsigned int i = 0; i < dynamicEntitySlots.size(); ++i) {
-                if (dynamicEntitySlots[i] != ecs::InvalidEntity) {
-                    doLink(dynamicEntitySlots[i],
-                           {UpdateSpeed::Static, ecs::InvalidEntity},
-                           &transformBufferDynamic[i],
-                           &textureBufferDynamic[i]);
-                }
-            }
-            updateDynamicDescriptors();
-        }
-    }
-    else {
-        staticEntitySlots.resize(key.sceneId + 1, ecs::InvalidEntity);
-        const bool grew = transformBufferStatic.ensureSize(key.sceneId + 1);
-        textureBufferStatic.ensureSize(key.sceneId + 1);
-        staticEntitySlots[key.sceneId] = entity;
-        transform                      = &transformBufferStatic[key.sceneId];
-        texture                        = &textureBufferStatic[key.sceneId];
-
-        if (grew) {
-            for (unsigned int i = 0; i < staticEntitySlots.size(); ++i) {
-                if (staticEntitySlots[i] != ecs::InvalidEntity) {
-                    doLink(staticEntitySlots[i],
-                           {UpdateSpeed::Static, ecs::InvalidEntity},
-                           &transformBufferStatic[i],
-                           &textureBufferStatic[i]);
-                }
-            }
-            updateStaticDescriptors();
-        }
-    }
-
-    return doLink(entity, key, transform, texture);
-}
-
-bool Object3DInstance::doLink(ecs::Entity entity, scene::Key key, glm::mat4* transform,
-                              std::uint32_t* texture) {
-    auto components = registry.getComponentSet<t3d::Transform3D, com::Texture>(entity);
-    if (!components.get<t3d::Transform3D>()) {
-#ifdef BLIB_DEBUG
-        BL_LOG_ERROR << "Failed to create scene object for " << entity << ": Missing transform";
-#endif
+bool Object3DInstance::allocateObject(ecs::Entity entity, scene::Key key) {
+    if (!transforms->allocateObject(entity, key)) return false;
+    if (!textures->allocateObject(entity, key)) {
+        transforms->releaseObject(entity, key);
         return false;
     }
-    components.get<t3d::Transform3D>()->link(this, key, transform);
-    if (components.get<com::Texture>()) {
-        components.get<com::Texture>()->link(this, key, texture);
-    }
-    else { *texture = res::TexturePool::ErrorTextureId; }
     return true;
 }
 
-void Object3DInstance::beginSync(DirtyRange dirtyStatic, DirtyRange dirtyDynamic) {
-    if (dirtyStatic.size > 0) {
-        transformBufferStatic.transferRange(dirtyStatic.start, dirtyStatic.size);
-        textureBufferStatic.transferRange(dirtyStatic.start, dirtyStatic.size);
-    }
-    if (dirtyDynamic.size > 0) {
-        transformBufferDynamic.updateDirtyRange(dirtyDynamic.start, dirtyDynamic.size);
-        // TODO - dirty-by-component so we dont re-transfer textures that havent changed
-        textureBufferDynamic.transferRange(dirtyDynamic.start, dirtyDynamic.size);
-    }
+void Object3DInstance::handleFrameStart() {
+    // handled by component cache
 }
 
 } // namespace ds

@@ -9,8 +9,8 @@ namespace gfx
 {
 namespace res
 {
-ScenePool::ScenePool(Renderer& r)
-: renderer(r) {
+ScenePool::ScenePool(engine::Engine& e)
+: engine(e) {
     scenes.reserve(16);
 }
 

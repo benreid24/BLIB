@@ -24,8 +24,10 @@ class DescriptorSetInstanceCache {
 public:
     /**
      * @brief Creates the descriptor set cache
+     *
+     * @param storageCache Descriptor set storage module cache
      */
-    DescriptorSetInstanceCache();
+    DescriptorSetInstanceCache(DescriptorComponentStorageCache& storageCache);
 
     /**
      * @brief Fetches or creates a descriptor set for the given descriptor set factory
@@ -57,6 +59,7 @@ public:
     void handleDescriptorSync();
 
 private:
+    DescriptorComponentStorageCache& storageCache;
     std::unordered_map<DescriptorSetFactory*, std::unique_ptr<DescriptorSetInstance>> cache;
     std::vector<ds::SceneDescriptorSetInstance*> sceneSets;
 };

@@ -4,8 +4,10 @@
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
+#include <BLIB/Render/Components/Texture.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
+#include <BLIB/Transforms/2D.hpp>
 #include <cstdint>
 #include <glm/glm.hpp>
 #include <vector>
@@ -51,27 +53,21 @@ private:
     const VkDescriptorSetLayout descriptorSetLayout;
     VkDescriptorSet allocatedSets[Config::MaxConcurrentFrames + 1];
     vk::PerFrame<VkDescriptorSet> dynamicDescriptorSets;
-
-    std::vector<ecs::Entity> staticEntitySlots;
-    buf::StaticSSBO<glm::mat4> transformBufferStatic;
-    buf::StaticSSBO<std::uint32_t> textureBufferStatic;
-
-    std::vector<ecs::Entity> dynamicEntitySlots;
-    buf::DynamicSSBO<glm::mat4> transformBufferDynamic;
-    buf::StaticSSBO<std::uint32_t> textureBufferDynamic;
+    ds::DescriptorComponentStorage<t2d::Transform2D, glm::mat4>* transforms;
+    ds::DescriptorComponentStorage<com::Texture, std::uint32_t, buf::StaticSSBO<std::uint32_t>,
+                                   buf::StaticSSBO<std::uint32_t>>* textures;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;
     virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                std::uint32_t setIndex, scene::Key objectKey) const override;
     virtual void releaseObject(ecs::Entity entity, scene::Key objectKey) override;
-    virtual void init() override;
-    virtual bool doAllocateObject(ecs::Entity entity, scene::Key key) override;
-    virtual void beginSync(DirtyRange dirtyStatic, DirtyRange dirtyDynamic) override;
+    virtual void init(DescriptorComponentStorageCache& storageCache) override;
+    virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
+    virtual void handleFrameStart() override;
 
     void updateStaticDescriptors();
     void updateDynamicDescriptors();
-    bool doLink(ecs::Entity entity, scene::Key key, glm::mat4* transform, std::uint32_t* texture);
 };
 
 } // namespace ds

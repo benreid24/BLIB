@@ -107,7 +107,7 @@ public:
         meshSystem.addToScene(meshEntity, scene, bl::gfx::UpdateSpeed::Static);
 
         // create overlay and add sprite for observer 2
-        bl::gfx::Overlay* overlay = p2.getOrCreateSceneOverlay(engine);
+        bl::gfx::Overlay* overlay = p2.getOrCreateSceneOverlay();
         messageBox.create(engine, messageBoxTxtr);
         messageBox.getTransform().setPosition({0.5f, 0.85f});
         messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
@@ -126,8 +126,7 @@ public:
 
         // setup render texture
         renderTexture.create(engine.renderer(), {128, 128});
-        bl::gfx::Overlay* rto =
-            engine.renderer().scenePool().allocateScene<bl::gfx::Overlay>(engine);
+        bl::gfx::Overlay* rto = engine.renderer().scenePool().allocateScene<bl::gfx::Overlay>();
         renderTexture.setScene(rto);
         renderTexture.setCamera<bl::gfx::ovy::OverlayCamera>();
         renderTexture.setClearColor({0.f, 0.0f, 0.7f, 0.4f});

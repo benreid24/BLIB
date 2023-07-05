@@ -3,6 +3,7 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
@@ -41,7 +42,7 @@ class ScenePool;
  */
 class Scene {
 public:
-    static constexpr std::uint32_t DefaultObjectCapacity = 128;
+    static constexpr std::uint32_t DefaultSceneObjectCapacity = 128;
 
     /**
      * @brief Destroys the Scene
@@ -61,13 +62,16 @@ protected:
     Renderer& renderer;
     ds::DescriptorSetFactoryCache& descriptorFactories;
     ds::DescriptorSetInstanceCache descriptorSets;
+    ds::DescriptorComponentStorageCache descriptorComponents;
 
     /**
      * @brief Initializes the Scene
      *
-     * @param renderer The renderer instance
+     * @param engine The engine instance
+     * @param entityCb Callback to map scene id to ECS id
      */
-    Scene(Renderer& renderer);
+    Scene(engine::Engine& engine,
+          const ds::DescriptorComponentStorageBase::EntityCallback& entityCb);
 
     /**
      * @brief Derived classes should record render commands in here

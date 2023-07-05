@@ -1,5 +1,6 @@
 #include <BLIB/Render/Scenes/Scene.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -7,12 +8,14 @@ namespace bl
 {
 namespace gfx
 {
-Scene::Scene(Renderer& r)
-: renderer(r)
-, descriptorFactories(r.descriptorFactoryCache())
-, staticPipelines(DefaultObjectCapacity)
-, dynamicPipelines(DefaultObjectCapacity)
-, descriptorSets()
+Scene::Scene(engine::Engine& engine,
+             const ds::DescriptorComponentStorageBase::EntityCallback& entityCb)
+: renderer(engine.renderer())
+, descriptorFactories(renderer.descriptorFactoryCache())
+, descriptorSets(descriptorComponents)
+, descriptorComponents(engine.ecs(), renderer.vulkanState(), entityCb)
+, staticPipelines(DefaultSceneObjectCapacity)
+, dynamicPipelines(DefaultSceneObjectCapacity)
 , nextObserverIndex(0) {
     batchChanges.reserve(32);
 }
@@ -43,6 +46,7 @@ void Scene::handleDescriptorSync() {
         }
         batchChanges.clear();
     }
+    descriptorComponents.syncDescriptors();
     descriptorSets.handleDescriptorSync();
 }
 

@@ -24,6 +24,8 @@ namespace bl
 {
 namespace gfx
 {
+class Renderer;
+
 namespace vk
 {
 /**

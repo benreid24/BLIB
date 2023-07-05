@@ -41,7 +41,7 @@ void Scene3DInstance::releaseObject(ecs::Entity, scene::Key) {
     // n/a
 }
 
-void Scene3DInstance::init() {
+void Scene3DInstance::init(DescriptorComponentStorageCache&) {
     // allocate memory
     cameraBuffer.create(vulkanState, Config::MaxSceneObservers);
     cameraBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
@@ -73,12 +73,12 @@ void Scene3DInstance::init() {
     }
 }
 
-bool Scene3DInstance::doAllocateObject(ecs::Entity, scene::Key) {
+bool Scene3DInstance::allocateObject(ecs::Entity, scene::Key) {
     // n/a
     return true;
 }
 
-void Scene3DInstance::beginSync(DirtyRange, DirtyRange) {
+void Scene3DInstance::handleFrameStart() {
     // noop
 }
 

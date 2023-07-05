@@ -45,10 +45,9 @@ public:
     /**
      * @brief Creates a new overlay scene
      *
-     * @param renderer The renderer instance
      * @param engine The game engine instance
      */
-    Overlay(Renderer& renderer, engine::Engine& engine);
+    Overlay(engine::Engine& engine);
 
     /**
      * @brief Frees resources
@@ -107,7 +106,7 @@ private:
         std::vector<scene::Key> parentMap;
 
         TreeIndex() {
-            parentMap.resize(Scene::DefaultObjectCapacity, {UpdateSpeed::Static, NoParent});
+            parentMap.resize(Config::DefaultSceneObjectCapacity, {UpdateSpeed::Static, NoParent});
         }
     };
 

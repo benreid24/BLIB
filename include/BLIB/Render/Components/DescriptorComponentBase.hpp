@@ -19,7 +19,7 @@ struct VulkanState;
 
 namespace ds
 {
-class DescriptorSetInstance;
+class DescriptorComponentStorageBase;
 }
 
 namespace com
@@ -42,11 +42,12 @@ public:
     /**
      * @brief Links this component to an object in a scene
      *
-     * @param descriptorSet The descriptor set to link to
+     * @param descriptorSet The descriptor set module to link to
      * @param sceneKeyh The key of the object in the scene
      * @param payload Pointer to the data to manage in the descriptor set buffer
      */
-    void link(ds::DescriptorSetInstance* descriptorSet, scene::Key sceneKey, TPayload* payload);
+    void link(ds::DescriptorComponentStorageBase* descriptorSet, scene::Key sceneKey,
+              TPayload* payload);
 
     /**
      * @brief Unlinks the component from a scene object
@@ -77,7 +78,7 @@ protected:
     void refreshDescriptor(TPayload& payload);
 
 private:
-    ds::DescriptorSetInstance* descriptorSet;
+    ds::DescriptorComponentStorageBase* descriptorSet;
     scene::Key sceneKey;
     TPayload* payload;
     bool dirty;
@@ -94,11 +95,11 @@ DescriptorComponentBase<TCom, TPayload>::DescriptorComponentBase()
 }
 
 template<typename TCom, typename TPayload>
-void DescriptorComponentBase<TCom, TPayload>::link(ds::DescriptorSetInstance* set, scene::Key k,
-                                                   TPayload* p) {
+void DescriptorComponentBase<TCom, TPayload>::link(ds::DescriptorComponentStorageBase* set,
+                                                   scene::Key k, TPayload* p) {
 #ifdef BLIB_DEBUG
     if (descriptorSet != nullptr && descriptorSet != set) {
-        BL_LOG_ERROR << "Component is used in more than one descriptor set";
+        BL_LOG_ERROR << "Component is used in more than one descriptor set component module";
     }
 #endif
     descriptorSet = set;

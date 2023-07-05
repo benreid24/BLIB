@@ -31,9 +31,9 @@ public:
     /**
      * @brief Initializes the BasicScene
      *
-     * @param renderer The renderer instance
+     * @param engine The engine instance
      */
-    BasicScene(Renderer& renderer);
+    BasicScene(engine::Engine& engine);
 
     /**
      * @brief Unlinks allocated objects from ECS descriptor linkages
@@ -81,7 +81,7 @@ private:
     struct PipelineBatch {
         PipelineBatch(vk::Pipeline& pipeline)
         : pipeline(pipeline) {
-            objects.reserve(Scene::DefaultObjectCapacity / 2);
+            objects.reserve(Config::DefaultSceneObjectCapacity / 2);
         }
 
         vk::Pipeline& pipeline;

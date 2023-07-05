@@ -8,14 +8,14 @@ namespace bl
 {
 namespace gfx
 {
-Overlay::Overlay(Renderer& r, engine::Engine& e)
-: Scene(r)
+Overlay::Overlay(engine::Engine& e)
+: Scene(e, objects.makeEntityCallback())
 , engine(e)
 , scaler(engine.systems().getSystem<sys::OverlayScaler>())
 , objects()
 , cachedParentViewport{} {
-    roots.reserve(Scene::DefaultObjectCapacity / 4);
-    renderStack.reserve(Scene::DefaultObjectCapacity / 2);
+    roots.reserve(Config::DefaultSceneObjectCapacity / 4);
+    renderStack.reserve(Config::DefaultSceneObjectCapacity / 2);
     toParent.reserve(32);
     scaler.registerOverlay(this);
 }

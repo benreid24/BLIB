@@ -3,6 +3,7 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <cstdint>
@@ -51,8 +52,10 @@ public:
 
     /**
      * @brief Called by scene once after the instance is created
+     *
+     * @param storageCache Descriptor component module cache
      */
-    virtual void init() = 0;
+    virtual void init(DescriptorComponentStorageCache& storageCache) = 0;
 
     /**
      * @brief Called once after the pipeline is bound. This should bind the descriptor set
@@ -83,7 +86,7 @@ public:
      * @param key The scene key of the new object
      * @return True if the object could be added, false otherwise
      */
-    bool allocateObject(ecs::Entity entity, scene::Key key);
+    virtual bool allocateObject(ecs::Entity entity, scene::Key key) = 0;
 
     /**
      * @brief Called by the scene when an object is destroyed
@@ -94,23 +97,13 @@ public:
     virtual void releaseObject(ecs::Entity entity, scene::Key key) = 0;
 
     /**
-     * @brief Marks the given object's descriptors dirty for this frame
+     * @brief Called once each frame before the TransferEngine is kicked off. Use this to
+     *        appropriately handle sending descriptor data to the GPU
      *
-     * @param key The scene key of the object that refreshed descriptors
      */
-    void markObjectDirty(scene::Key key);
-
-    /**
-     * @brief Called once before the TransferEngine starts to send sync commands to buffers
-     */
-    void handleFrameStart();
+    virtual void handleFrameStart() = 0;
 
 protected:
-    struct DirtyRange {
-        std::uint32_t start;
-        std::uint32_t size;
-    };
-
     /**
      * @brief Creates a new DescriptorSetInstance
      *
@@ -119,29 +112,9 @@ protected:
      */
     DescriptorSetInstance(BindMode bindMode, SpeedBucketSetting speedSetting);
 
-    /**
-     * @brief Called by the scene when new objects are created that require this set
-     *
-     * @param entity The entity id of this object in the ECS
-     * @param key The scene key of the new object
-     * @return True if the object could be added, false otherwise
-     */
-    virtual bool doAllocateObject(ecs::Entity entity, scene::Key key) = 0;
-
-    /**
-     * @brief Called once each frame before the TransferEngine is kicked off. Use this to
-     *        appropriately handle sending descriptor data to the GPU
-     *
-     * @param dirtyStatic The range of static objects that need to be synced
-     * @param dirtyDynamic The range of dynamic objects that need to be synced
-     */
-    virtual void beginSync(DirtyRange dirtyStatic, DirtyRange dirtyDynamic) = 0;
-
 private:
     const bool bindless;
     const bool speedBind;
-    DirtyRange dirtyStatic;
-    DirtyRange dirtyDynamic;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -149,12 +122,6 @@ private:
 inline constexpr bool DescriptorSetInstance::isBindless() const { return bindless; }
 
 inline constexpr bool DescriptorSetInstance::needsRebindForNewSpeed() const { return speedBind; }
-
-inline void DescriptorSetInstance::markObjectDirty(scene::Key key) {
-    auto& range = key.updateFreq == UpdateSpeed::Static ? dirtyStatic : dirtyDynamic;
-    range.start = key.sceneId < range.start ? key.sceneId : range.start;
-    range.size  = key.sceneId > range.size ? key.sceneId : range.size; // use as end here
-}
 
 } // namespace ds
 } // namespace gfx

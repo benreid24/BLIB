@@ -2,6 +2,7 @@
 #define BLIB_RENDER_SCENES_SCENEOBJECTSTORAGE_HPP
 
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Render/Descriptors/DescriptorComponentStorage.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
@@ -91,6 +92,11 @@ public:
      */
     T* rebase(UpdateSpeed speed, T* original, T* oldBase);
 
+    /**
+     * @brief Returns a usable callback to map scene key to ECS id
+     */
+    ds::DescriptorComponentStorageBase::EntityCallback makeEntityCallback() const;
+
 private:
     struct Bucket {
         std::vector<T> objects;
@@ -98,8 +104,8 @@ private:
         std::vector<ecs::Entity> entityMap;
 
         Bucket() {
-            objects.reserve(Scene::DefaultObjectCapacity);
-            entityMap.resize(Scene::DefaultObjectCapacity, ecs::InvalidEntity);
+            objects.reserve(Config::DefaultSceneObjectCapacity);
+            entityMap.resize(Config::DefaultSceneObjectCapacity, ecs::InvalidEntity);
         }
     };
 
@@ -127,7 +133,7 @@ SceneObjectStorage<T>::AllocateResult SceneObjectStorage<T>::allocate(UpdateSpee
     else {
         const std::uint32_t id  = bucket.objects.size();
         result.addressesChanged = bucket.objects.size() == bucket.objects.capacity();
-        result.newObject                   = &bucket.objects.emplace_back();
+        result.newObject        = &bucket.objects.emplace_back();
         bucket.entityMap.resize(bucket.objects.capacity(), ecs::InvalidEntity);
         bucket.entityMap[id]               = entity;
         result.newObject->sceneKey.sceneId = id;
@@ -175,6 +181,12 @@ template<typename T>
 T* SceneObjectStorage<T>::rebase(UpdateSpeed speed, T* og, T* ob) {
     auto& bucket = speed == UpdateSpeed::Static ? staticBucket : dynamicBucket;
     return bucket.objects.data() + (og - ob);
+}
+
+template<typename T>
+ds::DescriptorComponentStorageBase::EntityCallback SceneObjectStorage<T>::makeEntityCallback()
+    const {
+    return [this](scene::Key key) { return getObjectEntity(key); };
 }
 
 } // namespace scene

@@ -11,9 +11,12 @@
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+}
 namespace gfx
 {
-class Renderer;
 namespace res
 {
 
@@ -28,9 +31,9 @@ public:
     /**
      * @brief Creates a new scene pool
      *
-     * @param renderer The renderer that owns this pool
+     * @param engine The engine instance
      */
-    ScenePool(Renderer& renderer);
+    ScenePool(engine::Engine& engine);
 
     /**
      * @brief Destroys all scenes
@@ -56,7 +59,7 @@ public:
     void destroyScene(Scene* scene);
 
 private:
-    Renderer& renderer;
+    engine::Engine& engine;
     std::vector<std::unique_ptr<Scene>> scenes;
     std::mutex mutex;
 };
@@ -66,12 +69,12 @@ private:
 template<typename TScene, typename... TArgs>
 TScene* ScenePool::allocateScene(TArgs&&... args) {
     static_assert(std::is_base_of_v<Scene, TScene>, "TScene must derive from Scene");
-    static_assert(std::is_constructible_v<TScene, Renderer&, TArgs...>,
-                  "TScene constructor must accept a Renderer& as the first parameter");
+    static_assert(std::is_constructible_v<TScene, engine::Engine&, TArgs...>,
+                  "TScene constructor must accept an Engine& as the first parameter");
 
     std::unique_lock lock(mutex);
 
-    TScene* ns = new TScene(renderer, std::forward<TArgs>(args)...);
+    TScene* ns = new TScene(engine, std::forward<TArgs>(args)...);
     scenes.emplace_back(ns);
     return ns;
 }

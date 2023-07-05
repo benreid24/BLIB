@@ -44,25 +44,25 @@ void Observer::pushScene(Scene* s) {
     onSceneAdd();
 }
 
-Overlay* Observer::createSceneOverlay(engine::Engine& engine) {
+Overlay* Observer::createSceneOverlay() {
     if (scenes.empty()) {
         BL_LOG_ERROR << "Tried to create Overlay with no current scene";
         throw std::runtime_error("Tried to create Overlay with no current scene");
     }
 
     if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
-    scenes.back().overlay      = renderer.scenePool().allocateScene<Overlay>(engine);
+    scenes.back().overlay      = renderer.scenePool().allocateScene<Overlay>();
     scenes.back().overlayIndex = scenes.back().overlay->registerObserver();
     return scenes.back().overlay;
 }
 
-Overlay* Observer::getOrCreateSceneOverlay(engine::Engine& engine) {
+Overlay* Observer::getOrCreateSceneOverlay() {
     if (scenes.empty()) {
         BL_LOG_ERROR << "Tried to create Overlay with no current scene";
         throw std::runtime_error("Tried to create Overlay with no current scene");
     }
 
-    return scenes.back().overlay ? scenes.back().overlay : createSceneOverlay(engine);
+    return scenes.back().overlay ? scenes.back().overlay : createSceneOverlay();
 }
 
 Overlay* Observer::getCurrentOverlay() { return scenes.empty() ? nullptr : scenes.back().overlay; }

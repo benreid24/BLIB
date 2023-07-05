@@ -27,16 +27,16 @@ void TexturePoolInstance::releaseObject(ecs::Entity, scene::Key) {
     // noop
 }
 
-void TexturePoolInstance::init() {
+void TexturePoolInstance::init(DescriptorComponentStorageCache&) {
     // noop
 }
 
-bool TexturePoolInstance::doAllocateObject(ecs::Entity, scene::Key) {
+bool TexturePoolInstance::allocateObject(ecs::Entity, scene::Key) {
     // noop
     return true;
 }
 
-void TexturePoolInstance::beginSync(DirtyRange, DirtyRange) {
+void TexturePoolInstance::handleFrameStart() {
     // noop
 }
 

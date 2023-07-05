@@ -97,7 +97,7 @@ public:
      * @param start The first element to copy
      * @param numElements The number of elements to copy
      */
-    void updateDirtyRange(std::uint32_t start, std::uint32_t numElements);
+    void transferRange(std::uint32_t start, std::uint32_t numElements);
 
     /**
      * @brief Returns the size of the SSBO on the device
@@ -198,7 +198,7 @@ bool DynamicSSBO<T>::ensureSize(std::uint32_t desiredSize) {
 }
 
 template<typename T>
-void DynamicSSBO<T>::updateDirtyRange(std::uint32_t start, std::uint32_t numElements) {
+void DynamicSSBO<T>::transferRange(std::uint32_t start, std::uint32_t numElements) {
     dirtyRanges[vulkanState->currentFrameIndex()] = DirtyRange{start, numElements};
 
     // determine if we should copy ranges or just copy entire buffer

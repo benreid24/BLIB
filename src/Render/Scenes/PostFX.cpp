@@ -122,7 +122,7 @@ void PostFX::compositeScene(VkCommandBuffer cb) {
     VkBuffer vertexBuffer[] = {indexBuffer.vertexBufferHandle()};
     VkDeviceSize offsets[]  = {0};
     vkCmdBindVertexBuffers(cb, 0, 1, vertexBuffer, offsets);
-    vkCmdBindIndexBuffer(cb, indexBuffer.indexBufferHandle(), 0, prim::IndexBuffer::IndexType);
+    vkCmdBindIndexBuffer(cb, indexBuffer.indexBufferHandle(), 0, buf::IndexBuffer::IndexType);
 
     onRender(cb);
     vkCmdDrawIndexed(cb, indexBuffer.indexCount(), 1, 0, 0, 0);

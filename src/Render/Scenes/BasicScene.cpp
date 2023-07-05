@@ -1,5 +1,6 @@
 #include <BLIB/Render/Scenes/BasicScene.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -9,11 +10,11 @@ namespace gfx
 {
 namespace scene
 {
-BasicScene::BasicScene(Renderer& r)
-: Scene(r)
+BasicScene::BasicScene(engine::Engine& engine)
+: Scene(engine, objects.makeEntityCallback())
 , objects()
-, staticTransCache(DefaultObjectCapacity, false)
-, dynamicTransCache(DefaultObjectCapacity, false) {}
+, staticTransCache(Config::DefaultSceneObjectCapacity, false)
+, dynamicTransCache(Config::DefaultSceneObjectCapacity, false) {}
 
 BasicScene::~BasicScene() { objects.unlinkAll(descriptorSets); }
 
