@@ -8,7 +8,7 @@ namespace ecs
 namespace unittest
 {
 TEST(EntityCleaner, Disarmed) {
-    Registry testRegistry(100);
+    Registry testRegistry;
 
     Entity e = InvalidEntity;
     {
@@ -21,7 +21,7 @@ TEST(EntityCleaner, Disarmed) {
 }
 
 TEST(EntityCleaner, Armed) {
-    Registry testRegistry(100);
+    Registry testRegistry;
 
     Entity e = InvalidEntity;
     {

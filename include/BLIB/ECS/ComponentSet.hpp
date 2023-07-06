@@ -9,6 +9,8 @@ namespace ecs
 {
 class Registry;
 
+namespace priv
+{
 /**
  * @brief Helper class to compose component sets
  *
@@ -18,8 +20,10 @@ class Registry;
 template<typename T>
 struct ComponentSetMember {
     T* component;
-    ComponentSetMember(Registry& registry, Entity owner);
+    ComponentSetMember();
+    T* populate(Registry& registry, Entity owner);
 };
+} // namespace priv
 
 /**
  * @brief Contains a set of components for a single entity. May not always be valid. Does not update
@@ -29,7 +33,7 @@ struct ComponentSetMember {
  * @ingroup ECS
  */
 template<typename... TComponents>
-class ComponentSet : private ComponentSetMember<TComponents>... {
+class ComponentSet : private priv::ComponentSetMember<TComponents>... {
 public:
     /**
      * @brief Creates the set and fetches each component type
@@ -38,6 +42,14 @@ public:
      * @param owner The entity to get components for
      */
     ComponentSet(Registry& registry, Entity owner);
+
+    /**
+     * @brief Refreshes the components in the set. Call when pools resize
+     *
+     * @param registry The ECS registry
+     * @return True if the set is still valid, false otherwise
+     */
+    bool refresh(Registry& registry);
 
     /**
      * @brief Returns the entity that the components belong to

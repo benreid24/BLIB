@@ -5,7 +5,7 @@
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/View.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
-#include <BLIB/Util/IdAllocator.hpp>
+#include <BLIB/Util/IdAllocatorUnbounded.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <cstdlib>
 #include <memory>
@@ -25,21 +25,22 @@ namespace ecs
  *        views and serves as the primary interface to be used.
  *
  * @ingroup ECS
- *
  */
-class Registry : private util::NonCopyable {
+class Registry
+: private util::NonCopyable
+, public bl::event::Listener<event::ComponentPoolResized> {
 public:
-    /**
-     * @brief Creates a new entity registry with space for entityCount entities
-     *
-     * @param entityCount The maximum number of entities to store
-     */
-    Registry(std::size_t entityCount);
+    static constexpr std::size_t DefaultCapacity = 512;
 
     /**
-     * @brief Creates a new entity and returns its id. May fail if full
+     * @brief Creates a new entity registry
+     */
+    Registry();
+
+    /**
+     * @brief Creates a new entity and returns its id
      *
-     * @return Entity The new entity id, or InvalidEntity if full
+     * @return Entity The new entity id
      */
     Entity createEntity();
 
@@ -157,11 +158,9 @@ public:
     View<TComponents...>* getOrCreateView();
 
 private:
-    const std::size_t maxEntities;
-
     // entity id management
     std::mutex entityLock;
-    util::IdAllocator<Entity> entityAllocator;
+    util::IdAllocatorUnbounded<Entity> entityAllocator;
     std::vector<ComponentMask::Value> entityMasks;
 
     // components
@@ -169,7 +168,7 @@ private:
     std::unordered_map<std::type_index, std::unique_ptr<ComponentPoolBase>> poolMap;
 
     // views
-    std::vector<std::unique_ptr<ViewBase>> views;
+    std::vector<std::unique_ptr<priv::ViewBase>> views;
 
     template<typename T>
     ComponentPool<T>& getPool();
@@ -181,6 +180,8 @@ private:
 
     template<typename T>
     void finishComponentAdd(Entity ent, unsigned int cindex, T* component);
+
+    virtual void observe(const event::ComponentPoolResized& resize) override;
 
     template<typename... TComponents>
     friend class View;
@@ -286,7 +287,7 @@ View<TComponents...>* Registry::getOrCreateView() {
     }
 
     // create new view
-    views.emplace_back(new View<TComponents...>(*this, maxEntities, mask));
+    views.emplace_back(new View<TComponents...>(*this, mask));
     return static_cast<View<TComponents...>*>(views.back().get());
 }
 
@@ -302,7 +303,7 @@ ComponentPool<T>& Registry::getPool() {
             std::exit(1);
         }
 #endif
-        it = poolMap.try_emplace(tid, new ComponentPool<T>(poolMap.size(), maxEntities)).first;
+        it = poolMap.try_emplace(tid, new ComponentPool<T>(poolMap.size())).first;
         componentPools.emplace_back(it->second.get());
     }
 
@@ -311,7 +312,7 @@ ComponentPool<T>& Registry::getPool() {
 
 template<typename... TComponents>
 void Registry::populateView(View<TComponents...>& view) {
-    for (Entity ent = 0; ent <= entityAllocator.highestId(); ++ent) {
+    for (Entity ent = 0; ent < entityAllocator.endId(); ++ent) {
         if (entityMasks[ent] == view.mask) { view.tryAddEntity(ent); }
     }
 }

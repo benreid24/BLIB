@@ -1,11 +1,12 @@
 #ifndef BLIB_ECS_COMPONENTPOOL_HPP
 #define BLIB_ECS_COMPONENTPOOL_HPP
 
+#include <BLIB/Containers/ObjectWrapper.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Events.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Util/IdAllocator.hpp>
+#include <BLIB/Util/IdAllocatorUnbounded.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/ReadWriteLock.hpp>
 #include <cstdlib>
@@ -31,9 +32,6 @@ class View;
  */
 class ComponentPoolBase : private util::NonCopyable {
 public:
-    /// @brief The maximum number of components a pool can hold
-    static constexpr std::size_t MaximumComponentCount = std::numeric_limits<std::uint16_t>::max();
-
     /// @brief The 0-based index of this component pool
     const std::uint16_t ComponentIndex;
 
@@ -95,14 +93,18 @@ public:
     void forEachWithWrites(const TCallback& cb);
 
 private:
+    static constexpr std::size_t DefaultCapacity = 64;
+    static constexpr std::size_t InvalidIndex    = std::numeric_limits<std::size_t>::max();
+
     std::vector<container::ObjectWrapper<T>> pool;
-    std::vector<typename std::vector<container::ObjectWrapper<T>>::iterator> entityToIter;
+    std::vector<std::size_t> entityToIndex;
     std::vector<Entity> indexToEntity;
-    util::IdAllocator<std::uint16_t> indexAllocator;
+    util::IdAllocatorUnbounded<std::size_t> indexAllocator;
 
-    ComponentPool(std::uint16_t index, std::size_t poolSize);
+    ComponentPool(std::uint16_t index);
+    virtual ~ComponentPool();
 
-    typename std::vector<container::ObjectWrapper<T>>::iterator addLogic(Entity entity);
+    std::size_t addLogic(Entity entity);
     T* add(Entity entity, const T& component);
     T* add(Entity entity, T&& component);
     template<typename... TArgs>
@@ -117,51 +119,55 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-ComponentPool<T>::ComponentPool(std::uint16_t index, std::size_t ps)
+ComponentPool<T>::ComponentPool(std::uint16_t index)
 : ComponentPoolBase(index)
-, pool(ps)
-, entityToIter(ps, pool.end())
-, indexToEntity(ps, InvalidEntity)
-, indexAllocator(ps) {}
+, pool(DefaultCapacity)
+, entityToIndex(DefaultCapacity, InvalidIndex)
+, indexToEntity(DefaultCapacity, InvalidEntity)
+, indexAllocator(DefaultCapacity) {}
 
 template<typename T>
-typename std::vector<container::ObjectWrapper<T>>::iterator ComponentPool<T>::addLogic(Entity ent) {
-    // prevent duplicate add
-    auto it = entityToIter[ent];
-    if (it != pool.end()) { return it; }
+ComponentPool<T>::~ComponentPool() {
+    clear();
+}
 
-    // check not full
-    if (!indexAllocator.available()) {
-        BL_LOG_CRITICAL << "Ran out of storage in component pool. Increase allocation. Capacity: "
-                        << pool.size() << " Pool: " << typeid(T).name();
-        std::exit(1);
-    }
+template<typename T>
+std::size_t ComponentPool<T>::addLogic(Entity ent) {
+    if (ent + 1 >= entityToIndex.size()) { entityToIndex.resize(ent + 1, InvalidIndex); }
+
+    // prevent duplicate add
+    const std::size_t existing = entityToIndex[ent];
+    if (existing != InvalidIndex) { return existing; }
 
     // perform insertion
-    const std::uint16_t i = indexAllocator.allocate();
-    it                    = pool.begin() + i;
-    entityToIter[ent]     = it;
-    indexToEntity[i]      = ent;
+    const std::size_t i = indexAllocator.allocate();
+    if (i + 1 >= pool.size()) {
+        pool.resize(i + 1);
+        indexToEntity.resize(i + 1, InvalidEntity);
+        bl::event::Dispatcher::dispatch<event::ComponentPoolResized>({ComponentIndex});
+    }
+    entityToIndex[ent] = i;
+    indexToEntity[i]   = ent;
 
-    return it;
+    return i;
 }
 
 template<typename T>
 T* ComponentPool<T>::add(Entity ent, const T& c) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
-    auto it = addLogic(ent);
-    it->emplace(c);
-    return &it->get();
+    auto& slot = pool[addLogic(ent)];
+    slot.emplace(c);
+    return &slot.get();
 }
 
 template<typename T>
 T* ComponentPool<T>::add(Entity ent, T&& c) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
-    auto it = addLogic(ent);
-    it->emplace(std::forward<T>(c));
-    return &it->get();
+    auto& slot = pool[addLogic(ent)];
+    slot.emplace(std::forward<T>(c));
+    return &slot.get();
 }
 
 template<typename T>
@@ -169,9 +175,9 @@ template<typename... TArgs>
 T* ComponentPool<T>::emplace(Entity ent, TArgs&&... args) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
-    auto it = addLogic(ent);
-    it->emplace(std::forward<TArgs>(args)...);
-    return &it->get();
+    auto& slot = pool[addLogic(ent)];
+    slot.emplace(std::forward<TArgs>(args)...);
+    return &slot.get();
 }
 
 template<typename T>
@@ -179,18 +185,19 @@ void ComponentPool<T>::remove(Entity ent) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
     // determine if present
-    auto it = entityToIter[ent];
-    if (it == pool.end()) return;
+    if (ent >= entityToIndex.size()) return;
+    const auto index = entityToIndex[ent];
+    if (index == InvalidIndex) return;
 
     // send event
-    bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>({ent, it->get()});
+    auto& slot = pool[index];
+    bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>({ent, slot.get()});
 
     // perform removal
-    const std::uint16_t i = it - pool.begin();
-    it->destroy();
-    entityToIter[ent] = pool.end();
-    indexToEntity[i]  = InvalidEntity;
-    indexAllocator.release(i);
+    slot.destroy();
+    entityToIndex[ent]   = InvalidIndex;
+    indexToEntity[index] = InvalidEntity;
+    indexAllocator.release(index);
 }
 
 template<typename T>
@@ -198,20 +205,18 @@ void ComponentPool<T>::clear() {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
     // destroy components
-    Entity ent = 0;
-    for (auto& it : entityToIter) {
-        if (it != pool.end()) {
-            bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>({ent, it->get()});
-            it->destroy();
-            it = pool.end();
+    for (std::size_t i = 0; i < indexAllocator.poolSize(); ++i) {
+        if (indexAllocator.isAllocated(i)) {
+            auto& slot = pool[i];
+            bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>(
+                {indexToEntity[i], slot.get()});
+            pool[i].destroy();
         }
-        ++ent;
     }
 
     // reset metadata
-    for (auto entIt = indexToEntity.begin(); entIt != indexToEntity.end(); ++entIt) {
-        *entIt = InvalidEntity;
-    }
+    std::fill(indexToEntity.begin(), indexToEntity.end(), InvalidEntity);
+    std::fill(entityToIndex.begin(), entityToIndex.end(), InvalidIndex);
     indexAllocator.releaseAll();
 }
 
@@ -223,11 +228,11 @@ void ComponentPool<T>::forEach(const TCallback& cb) {
 
     util::ReadWriteLock::ReadScopeGuard lock(poolLock);
 
-    std::uint16_t i = 0;
-    auto poolIt     = pool.begin();
-    auto entIt      = indexToEntity.begin();
-    while (i <= indexAllocator.highestId()) {
-        if (indexAllocator.isAllocated(i)) { cb(*entIt, poolIt->get()); }
+    std::size_t i = 0;
+    auto poolIt   = pool.begin();
+    auto entIt    = indexToEntity.begin();
+    while (i < indexAllocator.endId()) {
+        if (*entIt != InvalidEntity) { cb(*entIt, poolIt->get()); }
 
         ++i;
         ++poolIt;
@@ -243,11 +248,11 @@ void ComponentPool<T>::forEachWithWrites(const TCallback& cb) {
 
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
-    std::uint16_t i = 0;
-    auto poolIt     = pool.begin();
-    auto entIt      = indexToEntity.begin();
-    while (i <= indexAllocator.highestId()) {
-        if (indexAllocator.isAllocated(i)) { cb(*entIt, poolIt->get()); }
+    std::size_t i = 0;
+    auto poolIt   = pool.begin();
+    auto entIt    = indexToEntity.begin();
+    while (i < indexAllocator.endId()) {
+        if (*entIt != InvalidEntity) { cb(*entIt, poolIt->get()); }
 
         ++i;
         ++poolIt;
@@ -259,8 +264,8 @@ template<typename T>
 T* ComponentPool<T>::get(Entity ent) {
     util::ReadWriteLock::ReadScopeGuard lock(poolLock);
 
-    auto it = entityToIter[ent];
-    return it != pool.end() ? &it->get() : nullptr;
+    const std::size_t index = ent < entityToIndex.size() ? entityToIndex[ent] : InvalidEntity;
+    return index != InvalidIndex ? &pool[index].get() : nullptr;
 }
 
 } // namespace ecs

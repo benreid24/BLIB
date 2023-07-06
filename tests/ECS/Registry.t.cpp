@@ -25,7 +25,7 @@ struct DestroyTestComponent {
 } // namespace
 
 TEST(ECS, EntityCreateAndDestroy) {
-    Registry testRegistry(MaxEntities);
+    Registry testRegistry;
 
     Entity e = testRegistry.createEntity();
     ASSERT_TRUE(testRegistry.entityExists(e));
@@ -35,7 +35,7 @@ TEST(ECS, EntityCreateAndDestroy) {
 }
 
 TEST(ECS, EntitySingleComponent) {
-    Registry testRegistry(MaxEntities);
+    Registry testRegistry;
 
     Entity e = testRegistry.createEntity();
     int* c   = testRegistry.addComponent<int>(e, 5);
@@ -52,7 +52,7 @@ TEST(ECS, EntitySingleComponent) {
 }
 
 TEST(ECS, MultipleEntitiesSingleComponent) {
-    Registry testRegistry(MaxEntities);
+    Registry testRegistry;
 
     Entity e1 = testRegistry.createEntity();
     Entity e2 = testRegistry.createEntity();
@@ -70,7 +70,7 @@ TEST(ECS, MultipleEntitiesSingleComponent) {
 }
 
 TEST(ECS, EntityMultipleComponents) {
-    Registry testRegistry(MaxEntities);
+    Registry testRegistry;
 
     Entity e = testRegistry.createEntity();
     int* ca  = testRegistry.addComponent<int>(e, 5);
@@ -97,7 +97,7 @@ TEST(ECS, EntityMultipleComponents) {
 }
 
 TEST(ECS, MultipleEntitiesMultipleComponents) {
-    Registry testRegistry(MaxEntities);
+    Registry testRegistry;
 
     Entity e1 = testRegistry.createEntity();
     Entity e2 = testRegistry.createEntity();
@@ -124,7 +124,7 @@ TEST(ECS, MultipleEntitiesMultipleComponents) {
 }
 
 TEST(ECS, ComponentDestroyed) {
-    Registry testRegistry(MaxEntities);
+    Registry testRegistry;
 
     bool destroyed = false;
     Entity e       = testRegistry.createEntity();
@@ -145,7 +145,7 @@ TEST(ECS, ComponentDestroyed) {
 }
 
 TEST(ECS, ComponentIterate) {
-    Registry testRegistry(MaxEntities);
+    Registry testRegistry;
 
     std::unordered_map<Entity, int> values;
     for (unsigned int i = 0; i < MaxEntities; ++i) {
@@ -167,7 +167,7 @@ TEST(ECS, ComponentIterate) {
 }
 
 TEST(ECS, ViewIterate) {
-    Registry testRegistry(MaxEntities);
+    Registry testRegistry;
 
     // create entities and components
     std::unordered_map<Entity, std::pair<int, char>> ogValues;
@@ -230,7 +230,7 @@ TEST(ECS, ViewIterate) {
 }
 
 TEST(ECS, FillComponentSet) {
-    Registry testRegistry(MaxEntities);
+    Registry testRegistry;
 
     Entity e = testRegistry.createEntity();
     testRegistry.addComponent<int>(e, 5);
@@ -243,7 +243,7 @@ TEST(ECS, FillComponentSet) {
 }
 
 TEST(ECS, ClearRegistry) {
-    Registry testRegistry(MaxEntities);
+    Registry testRegistry;
 
     std::vector<Entity> ents;
     ents.reserve(MaxEntities);
@@ -257,14 +257,6 @@ TEST(ECS, ClearRegistry) {
         EXPECT_FALSE(testRegistry.entityExists(ent));
         EXPECT_EQ(testRegistry.getComponent<int>(ent), nullptr);
     }
-}
-
-TEST(ECS, ExitOnFull) {
-    Registry testRegistry(MaxEntities);
-
-    for (unsigned int i = 0; i < MaxEntities; ++i) { testRegistry.createEntity(); }
-
-    ASSERT_DEATH(testRegistry.createEntity(), "");
 }
 
 } // namespace unittest

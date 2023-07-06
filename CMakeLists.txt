@@ -60,6 +60,7 @@ target_link_libraries(BLIB PRIVATE
     sfml-audio
     sfml-system
     Freetype
+    volk
 )
 
 if (BUILD_EXAMPLES)

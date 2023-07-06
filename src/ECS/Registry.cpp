@@ -4,23 +4,19 @@ namespace bl
 {
 namespace ecs
 {
-Registry::Registry(std::size_t ec)
-: maxEntities(ec)
-, entityAllocator(ec)
-, entityMasks(ec, ComponentMask::EmptyMask) {
+Registry::Registry()
+: entityAllocator(DefaultCapacity)
+, entityMasks(DefaultCapacity, ComponentMask::EmptyMask) {
     componentPools.reserve(ComponentMask::MaxComponentTypeCount);
     views.reserve(32);
+    bl::event::Dispatcher::subscribe(this);
 }
 
 Entity Registry::createEntity() {
     std::lock_guard lock(entityLock);
 
-    if (!entityAllocator.available()) {
-        BL_LOG_CRITICAL << "Out of entity storage. Increase entity allocation in engine settings";
-        std::exit(1);
-    }
-
-    Entity ent       = entityAllocator.allocate();
+    const Entity ent = entityAllocator.allocate();
+    if (ent + 1 >= entityMasks.size()) { entityMasks.resize(ent + 1, ComponentMask::EmptyMask); }
     entityMasks[ent] = ComponentMask::EmptyMask;
     bl::event::Dispatcher::dispatch<event::EntityCreated>({ent});
     return ent;
@@ -49,7 +45,7 @@ void Registry::destroyAllEntities() {
     std::lock_guard lock(entityLock);
 
     // send entity events
-    for (Entity ent = 0; ent <= entityAllocator.highestId(); ++ent) {
+    for (Entity ent = 0; ent < entityAllocator.poolSize(); ++ent) {
         if (entityAllocator.isAllocated(ent)) {
             bl::event::Dispatcher::dispatch<event::EntityDestroyed>({ent});
         }
@@ -59,13 +55,17 @@ void Registry::destroyAllEntities() {
     for (ComponentPoolBase* pool : componentPools) { pool->clear(); }
 
     // reset entity id management
-    for (auto maskIt = entityMasks.begin(); maskIt != entityMasks.end(); ++maskIt) {
-        *maskIt = ComponentMask::EmptyMask;
-    }
     entityAllocator.releaseAll();
+    std::fill(entityMasks.begin(), entityMasks.end(), ComponentMask::EmptyMask);
 
     // clear views
     for (auto& view : views) { view->clearAndRefresh(); }
+}
+
+void Registry::observe(const event::ComponentPoolResized& resize) {
+    for (auto& view : views) {
+        if (ComponentMask::has(view->mask, resize.poolIndex)) { view->needsAddressReload = true; }
+    }
 }
 
 } // namespace ecs

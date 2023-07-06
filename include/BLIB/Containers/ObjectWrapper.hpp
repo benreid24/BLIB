@@ -1,7 +1,9 @@
 #ifndef BLIB_CONTAINERS_OBJECTWRAPPER_HPP
 #define BLIB_CONTAINERS_OBJECTWRAPPER_HPP
 
-#include <cstdint>
+#include <cstdlib>
+#include <cstring>
+#include <type_traits>
 #include <utility>
 
 namespace bl
@@ -11,7 +13,7 @@ namespace container
 /**
  * @brief Thin wrapper over objects that functions similar to std::optional but does not have any
  *        overhead. Does not store the presence state of the object contained. That must be done by
- *        the user. Intended to be used within other datastructures that can know if elements are
+ *        the user. Intended to be used within other data structures that can know if elements are
  *        constructed or not
  *
  * @tparam T The type of object to wrap
@@ -27,13 +29,30 @@ public:
     ObjectWrapper() = default;
 
     /**
+     * @brief Copies the raw data from the given object wrapper. Does not call copy constructor of
+     *        contained value
+     *
+     * @param copy The value to copy from
+     */
+    ObjectWrapper(const ObjectWrapper& copy);
+
+    /**
+     * @brief Copies the raw data from the given object wrapper. Does not call move constructor of
+     *        contained value
+     *
+     * @param copy The value to copy from
+     */
+    ObjectWrapper(ObjectWrapper&& copy);
+
+    /**
      * @brief Constructs the contained value
      *
      * @tparam TArgs The argument types to the contained type's constructor
+     * @param tag Dummy tag to disambiguate this constructor
      * @param args The arguments to construct with
      */
     template<typename... TArgs>
-    ObjectWrapper(TArgs&&... args);
+    ObjectWrapper(std::in_place_t tag, TArgs&&... args);
 
     /**
      * @brief Access the wrapped value. Undefined behavior if not constructed
@@ -72,54 +91,64 @@ public:
     void destroy();
 
 private:
-    std::uint8_t buffer[sizeof(T)];
+    union Buffer {
+        std::uint8_t dummy;
+        T object;
 
-    constexpr T* cast();
-    constexpr const T* cast() const;
+        Buffer()
+        : dummy(0) {}
+        Buffer(const Buffer& buf)
+        : dummy(0) {
+            std::memcpy(&object, &buf.object, sizeof(T));
+        }
+        Buffer(Buffer&& buf)
+        : dummy(0) {
+            std::memcpy(&object, &buf.object, sizeof(T));
+        }
+        ~Buffer() {}
+    } buffer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
+ObjectWrapper<T>::ObjectWrapper(const ObjectWrapper& copy)
+: buffer(copy.buffer) {}
+
+template<typename T>
+ObjectWrapper<T>::ObjectWrapper(ObjectWrapper&& copy)
+: buffer(std::forward<Buffer>(copy.buffer)) {}
+
+template<typename T>
 template<typename... TArgs>
-ObjectWrapper<T>::ObjectWrapper(TArgs&&... args) {
-    new (cast()) T(std::forward<TArgs>(args)...);
+ObjectWrapper<T>::ObjectWrapper(std::in_place_t, TArgs&&... args) {
+    new (&buffer.object) T(std::forward<TArgs>(args)...);
 }
 
 template<typename T>
 constexpr T& ObjectWrapper<T>::get() {
-    return *cast();
+    return buffer.object;
 }
 
 template<typename T>
 constexpr const T& ObjectWrapper<T>::get() const {
-    return *cast();
+    return buffer.object;
 }
 
 template<typename T>
 constexpr T&& ObjectWrapper<T>::getRValue() {
-    return static_cast<T&&>(get());
+    return std::move(buffer.object);
 }
 
 template<typename T>
 template<typename... TArgs>
 void ObjectWrapper<T>::emplace(TArgs&&... args) {
-    new (cast()) T(std::forward<TArgs>(args)...);
+    new (&buffer.object) T(std::forward<TArgs>(args)...);
 }
 
 template<typename T>
 void ObjectWrapper<T>::destroy() {
-    cast()->~T();
-}
-
-template<typename T>
-constexpr T* ObjectWrapper<T>::cast() {
-    return static_cast<T*>(static_cast<void*>(buffer));
-}
-
-template<typename T>
-constexpr const T* ObjectWrapper<T>::cast() const {
-    return static_cast<const T*>(static_cast<const void*>(buffer));
+    buffer.object.~T();
 }
 
 } // namespace container

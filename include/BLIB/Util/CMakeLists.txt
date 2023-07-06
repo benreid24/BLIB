@@ -4,6 +4,8 @@ target_sources(BLIB PUBLIC
     FileUtil.hpp
     Hashes.hpp
     HashCombine.hpp
+    IdAllocator.hpp
+    IdAllocatorUnbounded.hpp
     LastVariadic.hpp
     NonCopyable.hpp
     Random.hpp

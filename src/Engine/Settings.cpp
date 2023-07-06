@@ -16,8 +16,7 @@ Settings::Settings()
 , maxFps(DefaultMaximumFramerate)
 , allowVariableInterval(DefaultAllowVariableTimestep)
 , windowParams()
-, loggingFps(DefaultLogFps)
-, maxEntities(DefaultMaxEntityCount) {}
+, loggingFps(DefaultLogFps) {}
 
 Settings& Settings::withMaxFramerate(float fps) {
     maxFps = fps;
@@ -44,18 +43,12 @@ Settings& Settings::withLogFps(bool log) {
     return *this;
 }
 
-Settings& Settings::withMaxEntityCount(unsigned int m) {
-    maxEntities = m;
-    return *this;
-}
-
 Settings& Settings::fromConfig() {
     updateTime = Configuration::getOrDefault<float>(UpdatePeriodKey, updateTime);
     maxFps     = Configuration::getOrDefault<float>(MaxFpsKey, maxFps);
     allowVariableInterval =
         Configuration::getOrDefault<bool>(VariableTimestepKey, allowVariableInterval);
-    loggingFps  = Configuration::getOrDefault<bool>(LogFpsKey, loggingFps);
-    maxEntities = Configuration::getOrDefault<unsigned int>(MaxEntityKey, maxEntities);
+    loggingFps = Configuration::getOrDefault<bool>(LogFpsKey, loggingFps);
 
     if (Configuration::getOrDefault<unsigned int>(WindowParameters::WindowWidthKey, 0) != 0 ||
         windowParams.has_value()) {
@@ -71,7 +64,6 @@ void Settings::syncToConfig() const {
     Configuration::set<float>(MaxFpsKey, maxFps);
     Configuration::set<bool>(VariableTimestepKey, allowVariableInterval);
     Configuration::set<bool>(LogFpsKey, loggingFps);
-    Configuration::set<unsigned int>(MaxEntityKey, maxEntities);
     if (windowParams.has_value()) { windowParams.value().syncToConfig(); }
 }
 
@@ -88,8 +80,6 @@ const Settings::WindowParameters& Settings::windowParameters() const {
 }
 
 bool Settings::logFps() const { return loggingFps; }
-
-unsigned int Settings::maximumEntityCount() const { return maxEntities; }
 
 Settings::WindowParameters::WindowParameters()
 : sfWindowTitle(DefaultWindowTitle)

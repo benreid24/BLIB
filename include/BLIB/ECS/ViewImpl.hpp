@@ -10,15 +10,16 @@ namespace bl
 namespace ecs
 {
 template<typename... TComponents>
-View<TComponents...>::View(Registry& reg, std::size_t ec, ComponentMask::Value mask)
+View<TComponents...>::View(Registry& reg, ComponentMask::Value mask)
 : ViewBase(mask)
 , registry(reg)
-, pools({&reg.getPool<TComponents>()...})
-, containedEntities(ec, false) {
-    results.reserve(ec / 2);
+, pools({&reg.getPool<TComponents>()...}) {
+    results.reserve(256);
+    entityToIndex.resize(256, InvalidIndex);
+    toAdd.reserve(128);
+    toRemove.reserve(128);
     reg.populateViewWithLock(*this);
-    toAdd.reserve(32);
-    toRemove.reserve(32);
+    ensureUpdated();
 }
 
 template<typename... TComponents>
@@ -53,22 +54,33 @@ void View<TComponents...>::ensureUpdated() {
     std::unique_lock lock(queueLock);
     lockWrite();
 
+    if (needsAddressReload) {
+        needsAddressReload = false;
+        for (auto& set : results) { set.refresh(registry); }
+    }
+
     for (Entity ent : toAdd) {
-        if (containedEntities[ent]) { continue; }
+        if (ent + 1 >= entityToIndex.size()) { entityToIndex.resize(ent + 1, InvalidIndex); }
+
+        if (entityToIndex[ent] != InvalidIndex) { continue; }
+        const std::size_t ni = results.size();
         results.emplace_back(registry, ent);
         if (!results.back().isValid()) { results.pop_back(); }
-        else { containedEntities[ent] = true; }
+        else { entityToIndex[ent] = ni; }
     }
     toAdd.clear();
 
     for (Entity ent : toRemove) {
-        containedEntities[ent] = false;
-        for (auto it = results.begin(); it != results.end(); ++it) {
-            if (it->entity() == ent) {
-                results.erase(it);
-                break;
-            }
+        if (ent + 1 >= entityToIndex.size()) { entityToIndex.resize(ent + 1, InvalidIndex); }
+
+        std::size_t& index = entityToIndex[ent];
+        if (index != results.size() - 1) {
+            std::size_t& backIndex = entityToIndex[results.back().entity()];
+            results[index]         = results.back();
+            backIndex              = index;
         }
+        results.pop_back();
+        index = InvalidIndex;
     }
     toRemove.clear();
 
@@ -79,9 +91,10 @@ template<typename... TComponents>
 void View<TComponents...>::clearAndRefresh() {
     lockWrite();
     results.clear();
-    for (auto it = containedEntities.begin(); it != containedEntities.end(); ++it) { *it = false; }
+    std::fill(entityToIndex.begin(), entityToIndex.end(), InvalidIndex);
     registry.populateView(*this);
     unlockWrite();
+    ensureUpdated();
 }
 
 template<typename... TComponents>
