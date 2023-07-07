@@ -140,12 +140,13 @@ public:
     /**
      * @brief Gets a set of components for the given entity
      *
-     * @tparam TComponents The types of components to fetch
+     * @tparam TRequire Required tagged components. ie Require<int, char>
+     * @tparam TOptional Optional tagged components. ie Optional<bool>
      * @param entity The entity to get the components from
      * @return ComponentSet<TComponents...> The set of fetched components. May be invalid
      */
-    template<typename... TComponents>
-    ComponentSet<TComponents...> getComponentSet(Entity entity);
+    template<typename TRequire, typename TOptional = Optional<>>
+    ComponentSet<TRequire, TOptional> getComponentSet(Entity entity);
 
     /**
      * @brief Fetches or creates a view that returns an iterable set of entities that contain the
@@ -154,14 +155,14 @@ public:
      * @tparam TComponents The components to filter on
      * @return View<TComponents...>* A pointer to a view that returns all matching entities
      */
-    template<typename... TComponents>
-    View<TComponents...>* getOrCreateView();
+    template<typename TRequire, typename TOptional = Optional<>, typename TExclude = Exclude<>>
+    View<TRequire, TOptional, TExclude>* getOrCreateView();
 
 private:
     // entity id management
     std::mutex entityLock;
     util::IdAllocatorUnbounded<Entity> entityAllocator;
-    std::vector<ComponentMask::Value> entityMasks;
+    std::vector<ComponentMask::SimpleMask> entityMasks;
 
     // components
     std::vector<ComponentPoolBase*> componentPools;
@@ -173,17 +174,17 @@ private:
     template<typename T>
     ComponentPool<T>& getPool();
 
-    template<typename... TComponents>
-    void populateView(View<TComponents...>& view);
-    template<typename... TComponents>
-    void populateViewWithLock(View<TComponents...>& view);
+    template<typename TRequire, typename TOptional, typename TExclude>
+    void populateView(View<TRequire, TOptional, TExclude>& view);
+    template<typename TRequire, typename TOptional, typename TExclude>
+    void populateViewWithLock(View<TRequire, TOptional, TExclude>& view);
 
     template<typename T>
     void finishComponentAdd(Entity ent, unsigned int cindex, T* component);
 
     virtual void observe(const event::ComponentPoolResized& resize) override;
 
-    template<typename... TComponents>
+    template<typename TRequire, typename TOptional, typename TExclude>
     friend class View;
     friend class engine::Engine;
 };
@@ -192,6 +193,7 @@ private:
 } // namespace bl
 
 #include <BLIB/ECS/ComponentSetImpl.hpp>
+#include <BLIB/ECS/TagsImpl.hpp>
 #include <BLIB/ECS/ViewImpl.hpp>
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -233,10 +235,14 @@ T* Registry::emplaceComponent(Entity ent, TArgs&&... args) {
 template<typename T>
 void Registry::finishComponentAdd(Entity ent, unsigned int cIndex, T* component) {
     bl::event::Dispatcher::dispatch<event::ComponentAdded<T>>({ent, *component});
-    ComponentMask::Value& mask = entityMasks[ent];
+    ComponentMask::SimpleMask& mask        = entityMasks[ent];
+    const ComponentMask::SimpleMask ogMask = mask;
     ComponentMask::add(mask, cIndex);
     for (auto& view : views) {
-        if (ComponentMask::completelyContains(mask, view->mask)) { view->tryAddEntity(ent); }
+        if (view->mask.passes(mask)) { view->tryAddEntity(ent); }
+        else if (view->mask.passes(ogMask) && ComponentMask::has(view->mask.excluded, cIndex)) {
+            view->removeEntity(ent);
+        }
     }
 }
 
@@ -256,9 +262,9 @@ void Registry::removeComponent(Entity ent) {
 
     auto& pool = getPool<T>();
     pool.remove(ent);
-    ComponentMask::Value& mask = entityMasks[ent];
+    ComponentMask::SimpleMask& mask = entityMasks[ent];
     for (auto& view : views) {
-        if (ComponentMask::completelyContains(mask, view->mask)) { view->removeEntity(ent); }
+        if (view->mask.passes(mask)) { view->removeEntity(ent); }
     }
     ComponentMask::remove(mask, pool.ComponentIndex);
 }
@@ -268,27 +274,24 @@ ComponentPool<T>& Registry::getAllComponents() {
     return getPool<T>();
 }
 
-template<typename... TComponents>
-ComponentSet<TComponents...> Registry::getComponentSet(Entity ent) {
-    return ComponentSet<TComponents...>(*this, ent);
+template<typename TRequire, typename TOptional>
+ComponentSet<TRequire, TOptional> Registry::getComponentSet(Entity ent) {
+    return ComponentSet<TRequire, TOptional>(*this, ent);
 }
 
-template<typename... TComponents>
-View<TComponents...>* Registry::getOrCreateView() {
-    // calculate component mask
-    const std::array<std::uint8_t, sizeof...(TComponents)> indices(
-        {static_cast<std::uint8_t>(getPool<TComponents>().ComponentIndex)...});
-    ComponentMask::Value mask = ComponentMask::EmptyMask;
-    for (const std::uint8_t i : indices) { ComponentMask::add(mask, i); }
+template<typename TRequire, typename TOptional, typename TExclude>
+View<TRequire, TOptional, TExclude>* Registry::getOrCreateView() {
+    using TView = View<TRequire, TOptional, TExclude>;
 
     // find existing view
+    const std::type_index viewId = typeid(TView);
     for (auto& view : views) {
-        if (view->mask == mask) return static_cast<View<TComponents...>*>(view.get());
+        if (view->id == viewId) return static_cast<TView*>(view.get());
     }
 
     // create new view
-    views.emplace_back(new View<TComponents...>(*this, mask));
-    return static_cast<View<TComponents...>*>(views.back().get());
+    views.emplace_back(new TView(*this));
+    return static_cast<TView*>(views.back().get());
 }
 
 template<typename T>
@@ -310,15 +313,15 @@ ComponentPool<T>& Registry::getPool() {
     return *static_cast<ComponentPool<T>*>(componentPools[it->second->ComponentIndex]);
 }
 
-template<typename... TComponents>
-void Registry::populateView(View<TComponents...>& view) {
+template<typename TRequire, typename TOptional, typename TExclude>
+void Registry::populateView(View<TRequire, TOptional, TExclude>& view) {
     for (Entity ent = 0; ent < entityAllocator.endId(); ++ent) {
-        if (entityMasks[ent] == view.mask) { view.tryAddEntity(ent); }
+        if (view.mask.passes(entityMasks[ent])) { view.tryAddEntity(ent); }
     }
 }
 
-template<typename... TComponents>
-void Registry::populateViewWithLock(View<TComponents...>& view) {
+template<typename TRequire, typename TOptional, typename TExclude>
+void Registry::populateViewWithLock(View<TRequire, TOptional, TExclude>& view) {
     std::lock_guard lock(entityLock);
     populateView(view);
 }

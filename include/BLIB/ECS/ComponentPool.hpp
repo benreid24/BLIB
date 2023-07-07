@@ -21,7 +21,7 @@ namespace bl
 namespace ecs
 {
 class Registry;
-template<typename... TComponents>
+template<typename TRequire, typename TOptional, typename TExclude>
 class View;
 
 /**
@@ -50,7 +50,7 @@ protected:
     virtual void remove(Entity entity) = 0;
     virtual void clear()               = 0;
 
-    template<typename... TComponents>
+    template<typename TRequire, typename TOptional, typename TExclude>
     friend class View;
     friend class Registry;
 };
@@ -264,8 +264,10 @@ template<typename T>
 T* ComponentPool<T>::get(Entity ent) {
     util::ReadWriteLock::ReadScopeGuard lock(poolLock);
 
-    const std::size_t index = ent < entityToIndex.size() ? entityToIndex[ent] : InvalidEntity;
-    return index != InvalidIndex ? &pool[index].get() : nullptr;
+    if (ent < entityToIndex.size()) {
+        if (entityToIndex[ent] != InvalidIndex) { return &pool[entityToIndex[ent]].get(); }
+    }
+    return nullptr;
 }
 
 } // namespace ecs

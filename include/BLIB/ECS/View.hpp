@@ -5,12 +5,14 @@
 #include <BLIB/ECS/ComponentSet.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Events.hpp>
+#include <BLIB/ECS/Tags.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Events/Listener.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <array>
 #include <limits>
 #include <queue>
+#include <typeindex>
 #include <vector>
 
 namespace bl
@@ -29,15 +31,17 @@ namespace priv
  */
 class ViewBase : private util::NonCopyable {
 public:
-    const ComponentMask::Value mask;
+    const std::type_index id;
+    const ComponentMask mask;
 
     virtual ~ViewBase() = default;
 
 protected:
     bool needsAddressReload;
 
-    ViewBase(ComponentMask::Value mask)
-    : mask(mask)
+    ViewBase(ComponentMask mask, std::type_index id)
+    : id(id)
+    , mask(mask)
     , needsAddressReload(false) {}
 
     virtual void removeEntity(Entity entity) = 0;
@@ -49,56 +53,18 @@ protected:
 } // namespace priv
 
 /**
- * @brief A view into the ECS providing fast iteration over entities with the given set of
- *        components. View results stay up to date as the component and entity data change
+ * @brief Base definition of the View class. Use the tagged specialization
  *
- * @tparam TComponents The components that must all be present in the results
+ * @tparam TRequire Required tagged components. ie Require<int, char>
+ * @tparam TOptional Optional tagged components. ie Optional<bool>
+ * @tparam TExclude Excluded tagged components. ie Exclude<std::string, unsigned>
  * @ingroup ECS
  */
-template<typename... TComponents>
+template<typename TRequire, typename TOptional = Optional<>, typename TExclude = Exclude<>>
 class View : public priv::ViewBase {
-public:
-    /**
-     * @brief Destroy the View object
-     *
-     */
-    virtual ~View() = default;
-
-    /**
-     * @brief Iterates over all results of the view
-     *
-     * @tparam TCallback The callback type to invoke
-     * @param cb Handler for each entity result in the view
-     */
-    template<typename TCallback>
-    void forEach(const TCallback& cb);
-
-private:
-    static constexpr std::size_t InvalidIndex = std::numeric_limits<std::size_t>::max();
-
-    Registry& registry;
-    util::ReadWriteLock viewLock;
-    std::array<ComponentPoolBase*, sizeof...(TComponents)> pools;
-    std::vector<ComponentSet<TComponents...>> results;
-    std::vector<std::size_t> entityToIndex;
-
-    std::mutex queueLock;
-    std::vector<Entity> toAdd;
-    std::vector<Entity> toRemove;
-
-    View(Registry& reg, ComponentMask::Value mask);
-    virtual void removeEntity(Entity entity) override;
-    virtual void tryAddEntity(Entity entity) override;
-    virtual void clearAndRefresh() override;
-
-    void ensureUpdated();
-
-    void lockPoolsRead();
-    void unlockPoolsRead();
-    void lockWrite();
-    void unlockWrite();
-
-    friend class Registry;
+    static_assert(std::is_same_v<TRequire, void>,
+                  "View must use tags. Example: View<Require<int, char>, "
+                  "Optional<std::string>, Exclude<unsigned>>");
 };
 
 } // namespace ecs

@@ -26,11 +26,11 @@ bool Registry::entityExists(Entity ent) const { return entityAllocator.isAllocat
 
 void Registry::destroyEntity(Entity ent) {
     std::lock_guard lock(entityLock);
-    const ComponentMask::Value mask = entityMasks[ent];
+    const ComponentMask::SimpleMask mask = entityMasks[ent];
 
     bl::event::Dispatcher::dispatch<event::EntityDestroyed>({ent});
     for (auto& view : views) {
-        if (ComponentMask::completelyContains(mask, view->mask)) { view->removeEntity(ent); }
+        if (view->mask.passes(mask)) { view->removeEntity(ent); }
     }
 
     for (ComponentPoolBase* pool : componentPools) {
@@ -64,7 +64,7 @@ void Registry::destroyAllEntities() {
 
 void Registry::observe(const event::ComponentPoolResized& resize) {
     for (auto& view : views) {
-        if (ComponentMask::has(view->mask, resize.poolIndex)) { view->needsAddressReload = true; }
+        if (view->mask.contains(resize.poolIndex)) { view->needsAddressReload = true; }
     }
 }
 

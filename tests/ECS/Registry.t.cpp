@@ -191,12 +191,12 @@ TEST(ECS, ViewIterate) {
     afterAddValues = ogValues;
 
     // create view
-    auto* view      = testRegistry.getOrCreateView<int, char>();
-    auto* viewCheck = testRegistry.getOrCreateView<int, char>();
+    auto* view      = testRegistry.getOrCreateView<Require<int, char>>();
+    auto* viewCheck = testRegistry.getOrCreateView<Require<int, char>>();
     ASSERT_EQ(view, viewCheck);
 
     const auto visitor = [](std::unordered_map<Entity, std::pair<int, char>>& values,
-                            ComponentSet<int, char>& cs) {
+                            ComponentSet<Require<int, char>>& cs) {
         const auto it = values.find(cs.entity());
         ASSERT_NE(it, values.end());
         EXPECT_EQ(it->second.first, *cs.get<int>());
@@ -229,6 +229,50 @@ TEST(ECS, ViewIterate) {
     EXPECT_TRUE(afterRmValues.empty());
 }
 
+TEST(ECS, ViewOptionalExclude) {
+    Registry testRegistry;
+
+    auto* view = testRegistry.getOrCreateView<Require<int>, Optional<char>, Exclude<short>>();
+    using CSet = typename std::remove_pointer_t<decltype(view)>::TRow;
+
+    // req and opt
+    const Entity e1 = testRegistry.createEntity();
+    testRegistry.addComponent<int>(e1, 5);
+    testRegistry.addComponent<char>(e1, 'a');
+
+    // req but excluded
+    const Entity e2 = testRegistry.createEntity();
+    testRegistry.addComponent<int>(e2, 10);
+    testRegistry.addComponent<short>(e2, 4);
+
+    // req no opt
+    const Entity e3 = testRegistry.createEntity();
+    testRegistry.addComponent<int>(e3, 15);
+
+    // verify e1 and e3 are in view
+    view->forEach([e1, e3](CSet& cset) {
+        ASSERT_TRUE(cset.entity() == e1 || cset.entity() == e3);
+        if (cset.entity() == e1) {
+            EXPECT_EQ(*cset.get<int>(), 5);
+            EXPECT_EQ(*cset.get<char>(), 'a');
+        }
+        else {
+            EXPECT_EQ(*cset.get<int>(), 15);
+            EXPECT_EQ(cset.get<char>(), nullptr);
+        }
+    });
+
+    // add exclude to e3 to remove it
+    testRegistry.addComponent<short>(e3, 45);
+    view->forEach([e1](CSet& cset) {
+        ASSERT_EQ(cset.entity(), e1);
+        if (cset.entity() == e1) {
+            EXPECT_EQ(*cset.get<int>(), 5);
+            EXPECT_EQ(*cset.get<char>(), 'a');
+        }
+    });
+}
+
 TEST(ECS, FillComponentSet) {
     Registry testRegistry;
 
@@ -236,10 +280,22 @@ TEST(ECS, FillComponentSet) {
     testRegistry.addComponent<int>(e, 5);
     testRegistry.addComponent<char>(e, 'g');
 
-    ComponentSet<int, char> cs = testRegistry.getComponentSet<int, char>(e);
+    auto cs = testRegistry.getComponentSet<Require<int, char>>(e);
     ASSERT_TRUE(cs.isValid());
     EXPECT_EQ(*cs.get<int>(), 5);
     EXPECT_EQ(*cs.get<char>(), 'g');
+}
+
+TEST(ECS, ComponentSetOptional) {
+    Registry testRegistry;
+
+    Entity e = testRegistry.createEntity();
+    testRegistry.addComponent<int>(e, 5);
+
+    auto cs = testRegistry.getComponentSet<Require<int>, Optional<char>>(e);
+    ASSERT_TRUE(cs.isValid());
+    EXPECT_EQ(*cs.get<int>(), 5);
+    EXPECT_EQ(cs.get<char>(), nullptr);
 }
 
 TEST(ECS, ClearRegistry) {

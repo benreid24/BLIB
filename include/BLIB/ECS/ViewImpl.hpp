@@ -5,119 +5,161 @@
 #error "Internal file included out of order"
 #endif
 
+#include <BLIB/ECS/TagsImpl.hpp>
+
 namespace bl
 {
 namespace ecs
 {
-template<typename... TComponents>
-View<TComponents...>::View(Registry& reg, ComponentMask::Value mask)
-: ViewBase(mask)
-, registry(reg)
-, pools({&reg.getPool<TComponents>()...}) {
-    results.reserve(256);
-    entityToIndex.resize(256, InvalidIndex);
-    toAdd.reserve(128);
-    toRemove.reserve(128);
-    reg.populateViewWithLock(*this);
-    ensureUpdated();
-}
 
-template<typename... TComponents>
-template<typename TCallback>
-void View<TComponents...>::forEach(const TCallback& cb) {
-    static_assert(std::is_invocable<TCallback, ComponentSet<TComponents...>&>::value,
-                  "visitor must have signature void(ComponentSet<TComponents...>&)");
+/**
+ * @brief A view into the ECS providing fast iteration over entities with the given set of
+ *        components. View results stay up to date as the component and entity data change
+ *
+ * @tparam ...TReqComs List of components that must be on an entity for the view to capture it
+ * @tparam ...TOptComs List of extra components to fetch that do not affect filtering
+ * @tparam ...TExcComs List of components to exclude entities that contain them
+ * @ingroup ECS
+ */
+template<typename... TReqComs, typename... TOptComs, typename... TExcComs>
+class View<Require<TReqComs...>, Optional<TOptComs...>, Exclude<TExcComs...>>
+: public priv::ViewBase {
+private:
+    using ViewTags = Tags<Require<TReqComs...>, Optional<TOptComs...>, Exclude<TExcComs...>>;
+    static constexpr std::size_t InvalidIndex = std::numeric_limits<std::size_t>::max();
 
-    ensureUpdated();
+public:
+    /// The ComponentSet type contained in this View
+    using TRow = ViewTags::TComponentSet;
 
-    viewLock.lockRead();
-    lockPoolsRead();
-    for (auto& set : results) { cb(set); }
-    unlockPoolsRead();
-    viewLock.unlockRead();
-}
+    /**
+     * @brief Destroy the View object
+     *
+     */
+    virtual ~View() = default;
 
-template<typename... TComponents>
-void View<TComponents...>::removeEntity(Entity entity) {
-    std::unique_lock lock(queueLock);
-    toRemove.emplace_back(entity);
-}
+    /**
+     * @brief Iterates over all results of the view
+     *
+     * @tparam TCallback The callback type to invoke
+     * @param cb Handler for each entity result in the view
+     */
+    template<typename TCallback>
+    void forEach(const TCallback& cb) {
+        static_assert(std::is_invocable<TCallback, typename ViewTags::TComponentSet&>::value,
+                      "visitor must have signature void(ComponentSet<...>&)");
 
-template<typename... TComponents>
-void View<TComponents...>::tryAddEntity(Entity ent) {
-    std::unique_lock lock(queueLock);
-    toAdd.emplace_back(ent);
-}
+        ensureUpdated();
 
-template<typename... TComponents>
-void View<TComponents...>::ensureUpdated() {
-    std::unique_lock lock(queueLock);
-    lockWrite();
-
-    if (needsAddressReload) {
-        needsAddressReload = false;
-        for (auto& set : results) { set.refresh(registry); }
+        viewLock.lockRead();
+        lockPoolsRead();
+        for (auto& set : results) { cb(set); }
+        unlockPoolsRead();
+        viewLock.unlockRead();
     }
 
-    for (Entity ent : toAdd) {
-        if (ent + 1 >= entityToIndex.size()) { entityToIndex.resize(ent + 1, InvalidIndex); }
+private:
+    Registry& registry;
+    util::ReadWriteLock viewLock;
+    std::array<ComponentPoolBase*, ViewTags::NumComponents> pools;
+    std::vector<typename ViewTags::TComponentSet> results;
+    std::vector<std::size_t> entityToIndex;
 
-        if (entityToIndex[ent] != InvalidIndex) { continue; }
-        const std::size_t ni = results.size();
-        results.emplace_back(registry, ent);
-        if (!results.back().isValid()) { results.pop_back(); }
-        else { entityToIndex[ent] = ni; }
+    std::mutex queueLock;
+    std::vector<Entity> toAdd;
+    std::vector<Entity> toRemove;
+
+    View(Registry& reg)
+    : ViewBase(ViewTags::createMask(reg), typeid(View))
+    , registry(reg)
+    , pools({&reg.getPool<TReqComs>()..., &reg.getPool<TOptComs>()...}) {
+        results.reserve(256);
+        entityToIndex.resize(256, InvalidIndex);
+        toAdd.reserve(128);
+        toRemove.reserve(128);
+        reg.populateViewWithLock(*this);
+        ensureUpdated();
     }
-    toAdd.clear();
 
-    for (Entity ent : toRemove) {
-        if (ent + 1 >= entityToIndex.size()) { entityToIndex.resize(ent + 1, InvalidIndex); }
+    virtual void removeEntity(Entity entity) override {
+        std::unique_lock lock(queueLock);
+        toRemove.emplace_back(entity);
+    }
 
-        std::size_t& index = entityToIndex[ent];
-        if (index != results.size() - 1) {
-            std::size_t& backIndex = entityToIndex[results.back().entity()];
-            results[index]         = results.back();
-            backIndex              = index;
+    virtual void tryAddEntity(Entity entity) override {
+        std::unique_lock lock(queueLock);
+        toAdd.emplace_back(entity);
+    }
+
+    virtual void clearAndRefresh() override {
+        lockWrite();
+        results.clear();
+        std::fill(entityToIndex.begin(), entityToIndex.end(), InvalidIndex);
+        registry.populateView(*this);
+        unlockWrite();
+        ensureUpdated();
+    }
+
+    void ensureUpdated() {
+        std::unique_lock lock(queueLock);
+        lockWrite();
+
+        if (needsAddressReload) {
+            needsAddressReload = false;
+            for (auto& set : results) { set.refresh(registry); }
         }
-        results.pop_back();
-        index = InvalidIndex;
+
+        for (Entity ent : toAdd) {
+            if (ent + 1 >= entityToIndex.size()) { entityToIndex.resize(ent + 1, InvalidIndex); }
+
+            if (entityToIndex[ent] != InvalidIndex) { continue; }
+            if (!mask.passes(registry.entityMasks[ent])) { continue; }
+
+            const std::size_t ni = results.size();
+            results.emplace_back(registry, ent);
+            if (!results.back().isValid()) { results.pop_back(); }
+            else { entityToIndex[ent] = ni; }
+        }
+        toAdd.clear();
+
+        for (Entity ent : toRemove) {
+            if (ent + 1 >= entityToIndex.size()) { continue; }
+
+            std::size_t& index = entityToIndex[ent];
+            if (index == InvalidIndex) { continue; }
+            if (index != results.size() - 1) {
+                std::size_t& backIndex = entityToIndex[results.back().entity()];
+                results[index]         = results.back();
+                backIndex              = index;
+            }
+            results.pop_back();
+            index = InvalidIndex;
+        }
+        toRemove.clear();
+
+        unlockWrite();
     }
-    toRemove.clear();
 
-    unlockWrite();
-}
+    void lockPoolsRead() {
+        for (ComponentPoolBase* pool : pools) { pool->poolLock.lockRead(); }
+    }
 
-template<typename... TComponents>
-void View<TComponents...>::clearAndRefresh() {
-    lockWrite();
-    results.clear();
-    std::fill(entityToIndex.begin(), entityToIndex.end(), InvalidIndex);
-    registry.populateView(*this);
-    unlockWrite();
-    ensureUpdated();
-}
+    void unlockPoolsRead() {
+        for (ComponentPoolBase* pool : pools) { pool->poolLock.unlockRead(); }
+    }
 
-template<typename... TComponents>
-void View<TComponents...>::lockPoolsRead() {
-    for (ComponentPoolBase* pool : pools) { pool->poolLock.lockRead(); }
-}
+    void lockWrite() {
+        viewLock.lockWrite();
+        lockPoolsRead();
+    }
 
-template<typename... TComponents>
-void View<TComponents...>::unlockPoolsRead() {
-    for (ComponentPoolBase* pool : pools) { pool->poolLock.unlockRead(); }
-}
+    void unlockWrite() {
+        viewLock.unlockWrite();
+        unlockPoolsRead();
+    }
 
-template<typename... TComponents>
-void View<TComponents...>::lockWrite() {
-    viewLock.lockWrite();
-    lockPoolsRead();
-}
-
-template<typename... TComponents>
-void View<TComponents...>::unlockWrite() {
-    viewLock.unlockWrite();
-    unlockPoolsRead();
-}
+    friend class Registry;
+};
 
 } // namespace ecs
 } // namespace bl

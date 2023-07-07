@@ -23,8 +23,8 @@ void OverlayScaler::update(std::mutex&, float) {
 }
 
 void OverlayScaler::refreshEntity(ecs::Entity entity, const VkViewport& viewport) {
-    ecs::ComponentSet<com::OverlayScaler, t2d::Transform2D> cset =
-        registry->getComponentSet<com::OverlayScaler, t2d::Transform2D>(entity);
+    auto cset =
+        registry->getComponentSet<ecs::Require<com::OverlayScaler, t2d::Transform2D>>(entity);
     if (!cset.isValid()) {
         BL_LOG_ERROR << "Missing components for entity: " << entity;
         return;
