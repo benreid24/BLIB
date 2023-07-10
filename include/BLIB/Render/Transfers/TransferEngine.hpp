@@ -66,7 +66,7 @@ private:
         Bucket(vk::VulkanState& vs);
         void init();
         void cleanup();
-        constexpr bool hasTransfers() const;
+        bool hasTransfers() const;
         void executeTransfers();
         void resetResourcesWithSync();
     };
@@ -95,7 +95,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr bool TransferEngine::Bucket::hasTransfers() const {
+inline bool TransferEngine::Bucket::hasTransfers() const {
     return !everyFrameItems.empty() || !oneTimeItems.empty();
 }
 
