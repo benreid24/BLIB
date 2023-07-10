@@ -16,7 +16,7 @@ jobs:
         submodules: 'true'
 
     - name: Point to glslc
-      run: export PATH=$PATH:"${{ github.workspace }}/tools/glslc/Macos"
+      run: echo "${{ github.workspace }}/tools/glslc/Macos" >> $GITHUB_PATH
       
     - name: configure
       run: cmake -DON_CI=On -S . -B ./build
