@@ -6,8 +6,8 @@
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Vulkan.hpp>
 #include <array>
-#include <volk.h>
 #include <string>
 #include <variant>
 #include <vector>

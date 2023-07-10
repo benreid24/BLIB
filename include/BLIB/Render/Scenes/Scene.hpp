@@ -10,8 +10,8 @@
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
+#include <BLIB/Vulkan.hpp>
 #include <array>
-#include <volk.h>
 #include <vector>
 
 namespace bl

@@ -12,16 +12,13 @@
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
+#include <BLIB/Vulkan.hpp>
 #include <SFML/Window.hpp>
 #include <array>
 #include <cstdint>
 #include <initializer_list>
 #include <stdexcept>
 #include <vector>
-#include <volk.h>
-
-// needs to be after volk.h
-#include <vk_mem_alloc.h>
 
 namespace bl
 {

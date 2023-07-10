@@ -1,10 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_SWAPDEPTHBUFFERS_HPP
 #define BLIB_RENDER_VULKAN_SWAPDEPTHBUFFERS_HPP
 
-#include <volk.h>
-
-// needs to be after volk.h
-#include <vk_mem_alloc.h>
+#include <BLIB/Vulkan.hpp>
 
 namespace bl
 {

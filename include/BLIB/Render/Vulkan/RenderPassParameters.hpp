@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_VULKAN_RENDERPASSPARAMETERS_HPP
 #define BLIB_RENDER_VULKAN_RENDERPASSPARAMETERS_HPP
 
+#include <BLIB/Vulkan.hpp>
 #include <cstdint>
-#include <volk.h>
 #include <optional>
 #include <vector>
 

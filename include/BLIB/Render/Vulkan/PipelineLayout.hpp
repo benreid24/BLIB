@@ -4,10 +4,10 @@
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Util/HashCombine.hpp>
+#include <BLIB/Vulkan.hpp>
 #include <array>
 #include <cstdint>
 #include <functional>
-#include <volk.h>
 #include <memory>
 #include <stdexcept>
 #include <typeindex>

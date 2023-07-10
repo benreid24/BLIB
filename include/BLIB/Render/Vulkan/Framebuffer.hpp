@@ -2,7 +2,7 @@
 #define BLIB_RENDER_VULKAN_FRAMEBUFFER_HPP
 
 #include <BLIB/Render/Vulkan/AttachmentSet.hpp>
-#include <volk.h>
+#include <BLIB/Vulkan.hpp>
 #include <stdexcept>
 
 namespace bl

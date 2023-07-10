@@ -4,9 +4,9 @@
 #include <BLIB/Render/Resources/Material.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
+#include <BLIB/Vulkan.hpp>
 #include <array>
 #include <cstdint>
-#include <volk.h>
 #include <string>
 #include <unordered_map>
 

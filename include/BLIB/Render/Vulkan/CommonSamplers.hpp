@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_COMMONSAMPLERS_HPP
 #define BLIB_RENDER_VULKAN_COMMONSAMPLERS_HPP
 
-#include <volk.h>
+#include <BLIB/Vulkan.hpp>
 
 namespace bl
 {

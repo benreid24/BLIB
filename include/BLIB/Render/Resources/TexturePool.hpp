@@ -6,11 +6,11 @@
 #include <BLIB/Render/Vulkan/Texture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
+#include <BLIB/Vulkan.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <array>
 #include <atomic>
 #include <cstdint>
-#include <volk.h>
 #include <glm/glm.hpp>
 #include <mutex>
 #include <string>

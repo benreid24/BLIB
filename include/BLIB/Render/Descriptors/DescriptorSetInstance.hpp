@@ -6,8 +6,8 @@
 #include <BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
+#include <BLIB/Vulkan.hpp>
 #include <cstdint>
-#include <volk.h>
 
 namespace bl
 {

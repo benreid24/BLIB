@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_CAMERAS_CAMERA_HPP
 #define BLIB_RENDER_CAMERAS_CAMERA_HPP
 
-#include <volk.h>
+#include <BLIB/Vulkan.hpp>
 #include <glm/glm.hpp>
 
 namespace bl

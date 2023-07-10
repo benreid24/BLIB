@@ -2,7 +2,7 @@
 #define BLIB_RENDER_VULKAN_ALIGNEDBUFFER_HPP
 
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
-#include <volk.h>
+#include <BLIB/Vulkan.hpp>
 #include <vector>
 
 namespace bl

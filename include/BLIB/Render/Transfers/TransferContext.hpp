@@ -2,10 +2,7 @@
 #define BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP
 
 #include <vector>
-#include <volk.h>
-
-// needs to be after volk.h
-#include <vk_mem_alloc.h>
+#include <BLIB/Vulkan.hpp>
 
 namespace bl
 {

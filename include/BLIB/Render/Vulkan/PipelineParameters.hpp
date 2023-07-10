@@ -4,10 +4,10 @@
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
+#include <BLIB/Vulkan.hpp>
 #include <array>
 #include <cstdint>
 #include <functional>
-#include <volk.h>
 #include <initializer_list>
 #include <memory>
 #include <string>

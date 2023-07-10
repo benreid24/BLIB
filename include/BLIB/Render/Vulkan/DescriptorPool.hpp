@@ -2,12 +2,12 @@
 #define BLIB_RENDER_VULKAN_DESCRIPTORPOOL_HPP
 
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Vulkan.hpp>
 #include <array>
 #include <cstdint>
 #include <list>
 #include <unordered_map>
 #include <vector>
-#include <volk.h>
 
 namespace bl
 {

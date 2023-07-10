@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_VULKAN_UTILS_QUEUEFAMILYLOCATOR_HPP
 #define BLIB_RENDER_VULKAN_UTILS_QUEUEFAMILYLOCATOR_HPP
 
+#include <BLIB/Vulkan.hpp>
 #include <cstdint>
-#include <volk.h>
 #include <optional>
 
 namespace bl

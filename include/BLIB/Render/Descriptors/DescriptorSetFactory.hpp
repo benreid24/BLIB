@@ -2,7 +2,7 @@
 #define BLIB_RENDER_DESCRIPTORS_DESCRIPTORSETFACTORY_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <volk.h>
+#include <BLIB/Vulkan.hpp>
 #include <memory>
 
 namespace bl

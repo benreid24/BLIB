@@ -3,12 +3,9 @@
 
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Resources.hpp>
+#include <BLIB/Vulkan.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <glm/glm.hpp>
-#include <volk.h>
-
-// needs to be after volk.h
-#include <vk_mem_alloc.h>
 
 namespace bl
 {

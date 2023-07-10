@@ -2,7 +2,7 @@
 #define BLIB_RENDER_VULKAN_UTILS_SWAPCHAINSUPPORTDETAILS_HPP
 
 #include <BLIB/Logging.hpp>
-#include <volk.h>
+#include <BLIB/Vulkan.hpp>
 #include <vector>
 
 namespace bl

@@ -3,7 +3,7 @@
 
 #include <string>
 #include <unordered_map>
-#include <volk.h>
+#include <BLIB/Vulkan.hpp>
 
 namespace bl
 {
