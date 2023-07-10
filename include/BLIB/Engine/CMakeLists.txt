@@ -7,6 +7,7 @@ target_sources(BLIB PUBLIC
     State.hpp
     System.hpp
     Systems.hpp
+    Window.hpp
     Worker.hpp
 )
 

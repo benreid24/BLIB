@@ -2,7 +2,7 @@ function(configure_blib_target target_name)
     # Platform detection
     if (APPLE)
         target_compile_definitions(${target_name} PUBLIC
-            BLIB_APPLE=1
+            BLIB_MACOS=1
             VK_USE_PLATFORM_MACOS_MVK
         )
 
@@ -82,6 +82,7 @@ function(configure_blib_target target_name)
         ${BLIB_PATH}/lib/glm
         ${BLIB_PATH}/lib/Vulkan-Headers/include
         ${BLIB_PATH}/lib/volk
+        ${BLIB_PATH}/lib/glfw/include
     )
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_definitions(${target_name} PUBLIC BLIB_DEBUG)

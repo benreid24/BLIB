@@ -1,8 +1,10 @@
+#include <BLIB/Engine/Window.hpp>
 #include <BLIB/Media.hpp>
 #include <SFML/Graphics.hpp>
 
 int main() {
-    sf::RenderWindow window(
+    bl::engine::Window<sf::RenderWindow> window;
+    window.create(
         sf::VideoMode(800, 600, 32), "BLIB Shapes Demo", sf::Style::Close | sf::Style::Titlebar);
 
     bl::shapes::Triangle triangle({0.f, 5.f}, {-5.f, 0.f}, {5.f, 0.f});
@@ -36,17 +38,26 @@ int main() {
                 window.close();
                 break;
             }
+            if (event.type == sf::Event::LostFocus) {
+                while (window.waitEvent(event)) {
+                    if (event.type == sf::Event::Closed) {
+                        window.close();
+                        break;
+                    }
+                    if (event.type == sf::Event::GainedFocus) { break; }
+                }
+            }
         }
 
         triangle.rotate(1.f);
         ellipse.rotate(-2.f);
 
-        window.clear(sf::Color::Cyan);
-        window.draw(triangle);
-        window.draw(ellipse);
-        window.draw(circle);
-        window.draw(rect);
-        window.display();
+        window.getSfWindow().clear(sf::Color::Cyan);
+        window.getSfWindow().draw(triangle);
+        window.getSfWindow().draw(ellipse);
+        window.getSfWindow().draw(circle);
+        window.getSfWindow().draw(rect);
+        window.getSfWindow().display();
 
         sf::sleep(sf::milliseconds(16));
     }
