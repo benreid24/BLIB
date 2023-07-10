@@ -533,7 +533,7 @@ void DefaultRenderer::renderTooltip(sf::RenderTarget& target, sf::RenderStates s
     content.reserve(t.size() + 4);
     word.reserve(12);
     rt.setPosition(0.f, 0.f);
-    const auto addWord = [&word, &content, &rt, hs, Padding]() {
+    const auto addWord = [&word, &content, &rt, hs]() {
         const std::string attempt = content + " " + word;
         rt.setString(attempt);
         char sep = ' ';

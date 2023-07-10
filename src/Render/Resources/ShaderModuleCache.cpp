@@ -20,7 +20,7 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
     char* data      = nullptr;
     std::size_t len = 0;
 
-    if (path[0] <= Config::ShaderIds::MaxId) {
+    if (path[0] <= static_cast<int>(Config::ShaderIds::MaxId)) {
         switch (path[0]) {
         case Config::ShaderIds::EmptyVertex[0]:
             return loadShader(BUILTIN_SHADER("empty.vert.spv"));

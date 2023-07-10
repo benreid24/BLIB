@@ -14,9 +14,9 @@ Scene::Scene(engine::Engine& engine,
 , descriptorFactories(renderer.descriptorFactoryCache())
 , descriptorSets(descriptorComponents)
 , descriptorComponents(engine.ecs(), renderer.vulkanState(), entityCb)
+, nextObserverIndex(0)
 , staticPipelines(DefaultSceneObjectCapacity)
-, dynamicPipelines(DefaultSceneObjectCapacity)
-, nextObserverIndex(0) {
+, dynamicPipelines(DefaultSceneObjectCapacity) {
     batchChanges.reserve(32);
 }
 

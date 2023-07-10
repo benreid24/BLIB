@@ -190,6 +190,7 @@ struct VulkanState {
      */
     static VkDeviceSize computeAlignedSize(VkDeviceSize dataSize, VkDeviceSize alignment);
 
+    engine::EngineWindow& window;
     VkInstance instance;
 #ifdef BLIB_DEBUG
     VkDebugUtilsMessengerEXT debugMessenger;
@@ -210,7 +211,6 @@ struct VulkanState {
     CleanupManager cleanupManager;
 
 private:
-    engine::EngineWindow& window;
     std::uint32_t currentFrame;
 
     VulkanState(engine::EngineWindow& window);

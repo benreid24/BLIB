@@ -310,7 +310,7 @@ void Observer::setDefaultNearFar(float n, float f) {
 }
 
 void Observer::setClearColor(const glm::vec4& color) {
-    clearColors[0].color = {color.x, color.y, color.z, color.w};
+    clearColors[0].color = {{color.x, color.y, color.z, color.w}};
 }
 
 } // namespace gfx

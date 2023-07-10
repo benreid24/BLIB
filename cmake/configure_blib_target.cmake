@@ -70,6 +70,13 @@ function(configure_blib_target target_name)
             PROPERTIES
             COMPILE_OPTIONS -w
         )
+        # Disable clang extension warning on MacOS
+        if(APPLE)
+            target_compile_options(${target_name} PUBLIC
+                -Wno-nullability-extension
+                -Wno-nullability-completeness
+            )
+        endif()
     endif()
 
     # Include directories

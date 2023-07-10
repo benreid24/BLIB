@@ -68,15 +68,8 @@ endif()
 add_subdirectory(include/BLIB)
 add_subdirectory(src)
 
-target_link_libraries(BLIB PRIVATE
-    sfml-graphics
-    sfml-window
-    sfml-network
-    sfml-audio
-    sfml-system
-    Freetype
-    volk
-)
+include(link_blib_target)
+link_blib_target(BLIB)
 
 if (BUILD_EXAMPLES)
     add_subdirectory(examples)
