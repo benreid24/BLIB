@@ -13,8 +13,10 @@ set_target_properties(renderer
 )
 
 # Copy compiled shaders. This step is not needed for top-level targets that use BLIB as a module
-add_custom_target(copy_shaders
-    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_LIST_DIR}/copy_shaders.cmake
-    DEPENDS blib_builtin_shaders
-)
-add_dependencies(renderer copy_shaders)
+if(${COMPILE_SHADERS})
+    add_custom_target(copy_shaders
+        COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_LIST_DIR}/copy_shaders.cmake
+        DEPENDS blib_builtin_shaders
+    )
+    add_dependencies(renderer copy_shaders)
+endif()
