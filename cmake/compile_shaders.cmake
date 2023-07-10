@@ -27,6 +27,7 @@ function(compile_shaders)
     # Provide macro for shader path and compute full shader path for build
     target_compile_definitions(${ARG_TARGET} PUBLIC SHADER_PATH=${SHADER_PATH})
     set(shader_dir "${RUN_PATH}/${SHADER_PATH}")
+    file(MAKE_DIRECTORY ${shader_dir})
 
     # Configure build commands for each shader
     set(compiled_files "")

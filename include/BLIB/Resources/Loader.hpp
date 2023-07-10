@@ -65,7 +65,7 @@ struct NullLoader : public LoaderBase<TResourceType> {
      */
     virtual bool load(const std::string& path, const char*, std::size_t, std::istream&,
                       TResourceType&) override {
-        BL_LOG_WARN << "Attempted to load '" << path << ' (' << typeid(TResourceType).name()
+        BL_LOG_WARN << "Attempted to load '" << path << " (" << typeid(TResourceType).name()
                     << ") with NullLoader";
         return false;
     }

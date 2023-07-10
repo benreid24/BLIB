@@ -163,8 +163,11 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         copyInfo.imageSubresource.mipLevel       = 0;
         copyInfo.imageSubresource.baseArrayLayer = 0;
         copyInfo.imageSubresource.layerCount     = 1;
-        copyInfo.imageOffset                     = VkOffset3D(destPos.x, destPos.y, 0);
-        copyInfo.imageExtent                     = VkExtent3D(source.width, source.height, 1);
+        copyInfo.imageOffset.x                   = destPos.x;
+        copyInfo.imageOffset.y                   = destPos.y;
+        copyInfo.imageExtent.width               = source.width;
+        copyInfo.imageExtent.height              = source.height;
+        copyInfo.imageExtent.depth               = 1;
         vkCmdCopyBufferToImage(
             cb, stagingBuffer, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &copyInfo);
 

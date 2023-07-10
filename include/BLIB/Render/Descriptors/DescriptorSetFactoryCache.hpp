@@ -67,7 +67,7 @@ private:
     DescriptorSetFactoryCache(engine::Engine& engine, Renderer& renderer);
     void cleanup();
 
-    friend class Renderer;
+    friend class bl::gfx::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

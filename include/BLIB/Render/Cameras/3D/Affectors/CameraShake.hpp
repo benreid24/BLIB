@@ -63,7 +63,7 @@ public:
      * @param view Flag to set to true to mark the view matrix dirty
      * @param proj Ignored
      */
-    virtual void update(float dt, bool& view, bool& proj);
+    virtual void update(float dt, bool& view, bool& proj) override;
 
 private:
     float time;

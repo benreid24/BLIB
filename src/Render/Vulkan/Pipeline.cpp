@@ -71,7 +71,7 @@ Pipeline::Pipeline(Renderer& renderer, PipelineParameters&& params)
 
     for (std::uint32_t i = 0; i < params.renderPassCount; ++i) {
         const auto rpid = params.renderPassIds[i];
-        if (rpid >= Config::MaxRenderPasses) { throw std::runtime_error("Invalid RenderPAss id"); }
+        if (rpid >= Config::MaxRenderPasses) { throw std::runtime_error("Invalid RenderPass id"); }
         RenderPass& renderPass  = renderer.renderPassCache().getRenderPass(rpid);
         pipelineInfo.renderPass = renderPass.rawPass();
 

@@ -45,14 +45,14 @@ public:
      *
      * @param near The near plane distance
      */
-    void setNearPlane(float near);
+    void setNearPlane(float nearValue);
 
     /**
      * @brief Sets the far plane distance
      *
      * @param far The far plane distance
      */
-    void setFarPlane(float far);
+    void setFarPlane(float farValue);
 
     /**
      * @brief Sets the distance to the near and far planes
@@ -60,7 +60,7 @@ public:
      * @param near Distance to the near plane
      * @param far Distance to the far plane
      */
-    void setNearAndFarPlanes(float near, float far);
+    void setNearAndFarPlanes(float nearValue, float farValue);
 
 protected:
     /**
@@ -110,14 +110,14 @@ private:
     glm::mat4 proj;
     bool projDirty;
     float vpWidth, vpHeight;
-    float near, far;
+    float nearValue, farValue;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr float Camera::nearPlane() const { return near; }
+inline constexpr float Camera::nearPlane() const { return nearValue; }
 
-inline constexpr float Camera::farPlane() const { return far; }
+inline constexpr float Camera::farPlane() const { return farValue; }
 
 } // namespace gfx
 } // namespace bl

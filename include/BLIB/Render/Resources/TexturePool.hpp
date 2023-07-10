@@ -141,7 +141,7 @@ private:
     void doRelease(std::uint32_t i);
 
     friend class TextureRef;
-    friend class Renderer;
+    friend class bl::gfx::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

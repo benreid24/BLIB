@@ -13,6 +13,8 @@ namespace bl
 {
 namespace gfx
 {
+class Renderer;
+
 namespace tfr
 {
 /**
@@ -86,7 +88,7 @@ private:
     void registerPerFrameTransfer(Transferable* item, Transferable::SyncRequirement syncReq);
     void unregisterPerFrameTransfer(Transferable* item, Transferable::SyncRequirement syncReq);
 
-    friend class Renderer;
+    friend class bl::gfx::Renderer;
     friend struct vk::VulkanState;
     friend class Transferable;
 };

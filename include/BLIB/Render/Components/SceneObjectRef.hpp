@@ -10,6 +10,7 @@ namespace bl
 namespace gfx
 {
 class Scene;
+
 namespace scene
 {
 struct SceneObject;

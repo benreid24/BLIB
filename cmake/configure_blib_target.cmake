@@ -1,13 +1,24 @@
 function(configure_blib_target target_name)
     # Platform detection
     if (APPLE)
-        target_compile_definitions(${target_name} PUBLIC BLIB_APPLE=1)
+        target_compile_definitions(${target_name} PUBLIC
+            BLIB_APPLE=1
+            VK_USE_PLATFORM_MACOS_MVK
+        )
+
         set(VOLK_STATIC_DEFINES VK_USE_PLATFORM_MACOS_MVK)
     elseif(WIN32)
-        target_compile_definitions(${target_name} PUBLIC BLIB_WINDOWS=1)
+        target_compile_definitions(${target_name} PUBLIC
+            BLIB_WINDOWS=1
+        )
+
         set(VOLK_STATIC_DEFINES VK_USE_PLATFORM_WIN32_KHR)
     else()
-        target_compile_definitions(${target_name} PUBLIC BLIB_LINUX=1)
+        target_compile_definitions(${target_name} PUBLIC
+            BLIB_LINUX=1
+            VK_USE_PLATFORM_XLIB_KHR
+        )
+
         set(VOLK_STATIC_DEFINES VK_USE_PLATFORM_XLIB_KHR)
     endif()
 
@@ -68,14 +79,16 @@ function(configure_blib_target target_name)
     endif()
 
     # Include directories
-    target_include_directories(${target_name} PUBLIC ${BLIB_TEMP_INCLUDE_DIR})
-    target_include_directories(${target_name} PUBLIC ${BLIB_PATH}/include)
+    target_include_directories(${target_name} PUBLIC
+        ${BLIB_PATH}/include
+        ${BLIB_TEMP_INCLUDE_DIR}
+    )
     target_include_directories(${target_name} SYSTEM PUBLIC 
         ${BLIB_PATH}/lib/SFML/include
         ${BLIB_PATH}/lib/glm
+        ${BLIB_PATH}/lib/Vulkan-Headers/include
+        ${BLIB_PATH}/lib/volk
     )
-    target_include_directories(${target_name} SYSTEM PUBLIC ${BLIB_PATH}/lib/Vulkan-Headers/include)
-    target_include_directories(${target_name} SYSTEM PUBLIC ${BLIB_PATH}/lib/volk)
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_definitions(${target_name} PUBLIC BLIB_DEBUG)
     else()

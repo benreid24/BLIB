@@ -174,7 +174,7 @@ private:
                                   std::uint32_t prevChar) const;
     const sf::FloatRect& getBounds() const;
 
-    friend class Text;
+    friend class bl::gfx::draw::Text;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

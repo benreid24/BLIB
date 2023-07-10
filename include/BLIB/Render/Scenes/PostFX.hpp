@@ -80,7 +80,7 @@ private:
     void bindImages(vk::PerFrame<vk::StandardAttachmentBuffers>& sceneImages);
     void compositeScene(VkCommandBuffer commandBuffer);
 
-    friend class Observer;
+    friend class bl::gfx::Observer;
 };
 
 } // namespace scene

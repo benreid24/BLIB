@@ -13,22 +13,22 @@ Camera::Camera()
 , projDirty(true)
 , vpWidth(0.f)
 , vpHeight(0.f)
-, near(0.1f)
-, far(100.f) {}
+, nearValue(0.1f)
+, farValue(100.f) {}
 
 void Camera::setNearPlane(float n) {
-    near = n;
+    nearValue = n;
     markProjDirty();
 }
 
 void Camera::setFarPlane(float f) {
-    far = f;
+    farValue = f;
     markProjDirty();
 }
 
 void Camera::setNearAndFarPlanes(float n, float f) {
-    near = n;
-    far  = f;
+    nearValue = n;
+    farValue  = f;
     markProjDirty();
 }
 

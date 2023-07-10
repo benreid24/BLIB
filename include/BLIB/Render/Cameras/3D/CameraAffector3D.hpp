@@ -49,7 +49,7 @@ struct CameraAffector3D {
      * @param near Distance of the near plane. May be modified
      * @param far Distance of the far plane. May be modified
      */
-    virtual void applyOnProjection(float& fov, float& near, float& far);
+    virtual void applyOnProjection(float& fov, float& nearValue, float& farValue);
 };
 
 } // namespace c3d

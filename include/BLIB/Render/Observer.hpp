@@ -190,7 +190,7 @@ private:
     void updateCamera(float dt);
     void assignRegion(const sf::Vector2u& windowSize, const sf::Rect<std::uint32_t>& parentRegion,
                       unsigned int observerCount, unsigned int index, bool topBottomFirst);
-    void setDefaultNearFar(float near, float far);
+    void setDefaultNearFar(float nearValue, float farValue);
     void cleanup();
     void onSceneAdd();
 
@@ -199,7 +199,7 @@ private:
     void compositeSceneWithEffects(VkCommandBuffer commandBuffer);
     void renderOverlay(VkCommandBuffer commandBuffer);
 
-    friend class Renderer;
+    friend class bl::gfx::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

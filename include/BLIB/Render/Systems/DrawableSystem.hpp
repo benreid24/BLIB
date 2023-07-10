@@ -143,7 +143,7 @@ private:
 
     virtual void observe(const ecs::event::ComponentRemoved<T>& rm) override;
     virtual void observe(const event::SceneDestroyed& rm) override;
-    virtual void init(engine::Engine& engine);
+    virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& mutex, float dt) override;
 };
 

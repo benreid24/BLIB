@@ -46,7 +46,7 @@ private:
     void cleanup();
     void createBuiltins();
 
-    friend class Renderer;
+    friend class bl::gfx::Renderer;
 };
 
 } // namespace res

@@ -34,7 +34,7 @@ private:
     PipelineLayoutCache(Renderer& renderer);
     void cleanup();
 
-    friend class Renderer;
+    friend class bl::gfx::Renderer;
 };
 
 } // namespace res

@@ -55,12 +55,12 @@ void Camera3D::refreshViewMatrix(glm::mat4& view) {
 }
 
 void Camera3D::refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) {
-    float f    = fov;
-    float near = nearPlane();
-    float far  = farPlane();
-    for (auto& a : affectors) { a->applyOnProjection(f, near, far); }
+    float f         = fov;
+    float nearValue = nearPlane();
+    float farValue  = farPlane();
+    for (auto& a : affectors) { a->applyOnProjection(f, nearValue, farValue); }
 
-    proj = glm::perspective(glm::radians(f), viewport.width / viewport.height, near, far);
+    proj = glm::perspective(glm::radians(f), viewport.width / viewport.height, nearValue, farValue);
     proj[1][1] *= -1.f;
 }
 

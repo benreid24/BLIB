@@ -27,10 +27,10 @@ void OrbiterController::setNormal(const glm::vec3& normal) {
     b = glm::normalize(glm::cross(normal, a));
 }
 
-void OrbiterController::setRadius(float close, float far) {
-    if (far < 0.f) far = close;
-    radiusCenter = (close + far) * 0.5f;
-    radiusFluc   = (far - close) * 0.5f;
+void OrbiterController::setRadius(float close, float farValue) {
+    if (farValue < 0.f) farValue = close;
+    radiusCenter = (close + farValue) * 0.5f;
+    radiusFluc   = (farValue - close) * 0.5f;
 }
 
 void OrbiterController::setPeriod(float p) {

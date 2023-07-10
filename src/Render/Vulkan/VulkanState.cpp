@@ -96,7 +96,6 @@ int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDevicePropertie
                         const VkPhysicalDeviceFeatures& deviceFeatures,
                         const QueueFamilyLocator& queueFamilies, VkSurfaceKHR surface) {
     // requirements
-    if (!deviceFeatures.geometryShader) return -1;
     if (!deviceFeatures.samplerAnisotropy) return -1;
     if (!queueFamilies.complete()) return -1;
     if (!deviceHasRequiredExtensions(device, deviceProperties.deviceName)) return -1;
@@ -233,12 +232,16 @@ void VulkanState::createInstance() {
     requiredExtentions.emplace_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
     requiredExtentions.emplace_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
 #endif
+
+    bool missing = false;
     for (const char* ext : requiredExtentions) {
         if (extensionsSet.find(ext) == extensionsSet.end()) {
             BL_LOG_ERROR << "Missing required extension: " << ext;
-            throw std::runtime_error("Missing required extension");
+            missing = true;
         }
     }
+    if (missing) { throw std::runtime_error("Missing required extension"); }
+
     createInfo.enabledExtensionCount   = requiredExtentions.size();
     createInfo.ppEnabledExtensionNames = requiredExtentions.data();
 

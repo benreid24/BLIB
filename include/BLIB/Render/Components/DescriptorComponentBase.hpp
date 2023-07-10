@@ -3,6 +3,7 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Descriptors/DescriptorComponentStorage.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <array>
 #include <cstdint>
@@ -15,11 +16,6 @@ namespace gfx
 namespace vk
 {
 struct VulkanState;
-}
-
-namespace ds
-{
-class DescriptorComponentStorageBase;
 }
 
 namespace com

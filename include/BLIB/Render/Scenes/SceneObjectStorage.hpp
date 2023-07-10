@@ -116,8 +116,8 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-SceneObjectStorage<T>::AllocateResult SceneObjectStorage<T>::allocate(UpdateSpeed updateFreq,
-                                                                      ecs::Entity entity) {
+typename SceneObjectStorage<T>::AllocateResult SceneObjectStorage<T>::allocate(
+    UpdateSpeed updateFreq, ecs::Entity entity) {
     AllocateResult result{};
 
     Bucket& bucket             = updateFreq == UpdateSpeed::Static ? staticBucket : dynamicBucket;

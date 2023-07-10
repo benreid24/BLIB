@@ -54,7 +54,7 @@ private:
     virtual void observe(const ecs::event::ComponentAdded<ovy::Viewport>& event) override;
     virtual void observe(const ecs::event::ComponentRemoved<ovy::Viewport>& event) override;
 
-    friend class Overlay;
+    friend class bl::gfx::Overlay;
 };
 
 } // namespace sys

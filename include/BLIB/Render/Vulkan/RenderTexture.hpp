@@ -133,7 +133,7 @@ private:
     void updateCamera(float dt);
     void renderScene(VkCommandBuffer commandBuffer);
 
-    friend class Renderer;
+    friend class bl::gfx::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

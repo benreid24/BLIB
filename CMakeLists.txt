@@ -49,6 +49,7 @@ add_subdirectory(lib/SFML)
 set_target_properties(sfml-audio PROPERTIES CXX_STANDARD 98 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
 
 add_subdirectory(lib/volk)
+target_include_directories(volk SYSTEM PUBLIC ${BLIB_PATH}/lib/Vulkan-Headers/include)
 
 add_subdirectory(include/BLIB)
 add_subdirectory(src)

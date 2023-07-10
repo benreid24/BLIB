@@ -48,7 +48,7 @@ protected:
     virtual void tryAddEntity(Entity entity) = 0;
     virtual void clearAndRefresh()           = 0;
 
-    friend class Registry;
+    friend class bl::ecs::Registry;
 };
 } // namespace priv
 

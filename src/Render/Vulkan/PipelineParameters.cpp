@@ -158,7 +158,8 @@ PipelineParameters& PipelineParameters::withDepthStencilState(
 PipelineParameters&& PipelineParameters::build() {
     if (shaders.empty()) { throw std::runtime_error("Pipeline creation must have shaders"); }
     if (vertexAttributes.empty()) {
-        withVertexFormat(prim::Vertex::bindingDescription(), prim::Vertex::attributeDescriptions());
+        withVertexFormat<3>(prim::Vertex::bindingDescription(),
+                            prim::Vertex::attributeDescriptions());
     }
     if (colorAttachmentBlendStates.empty()) {
         colorAttachmentBlendStates.emplace_back();

@@ -97,7 +97,7 @@ public:
      * @param near The distance of the near plane
      * @param Far The distance of the far plane
      */
-    void setDefaultNearAndFar(float near, float far);
+    void setDefaultNearAndFar(float nearValue, float farValue);
 
     /**
      * @brief Returns the common observer for the renderer. Use this to render scenes that should be
@@ -258,7 +258,7 @@ TScene* Observer::pushScene(TArgs&&... args) {
 
 template<typename TScene, typename... TArgs>
 TScene* vk::RenderTexture::setScene(TArgs&&... args) {
-    TScene* s = renderer.scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
+    TScene* s = renderer->scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
     scene     = s;
     onSceneSet();
     return s;
