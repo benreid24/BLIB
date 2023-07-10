@@ -72,7 +72,7 @@ public:
     /**
      * @brief Returns the color that is being applied
      */
-    constexpr const glm::vec4& getColor() const;
+    const glm::vec4& getColor() const;
 
     /**
      * @brief Returns the pre-transform size of the Sprite
@@ -93,7 +93,7 @@ inline constexpr const res::TextureRef& Sprite::getTexture() const { return text
 
 inline constexpr const glm::vec2& Sprite::getSize() const { return size; }
 
-inline constexpr const glm::vec4& Sprite::getColor() const { return buffer.vertices()[0].color; }
+inline const glm::vec4& Sprite::getColor() const { return buffer.vertices()[0].color; }
 
 } // namespace com
 } // namespace gfx
