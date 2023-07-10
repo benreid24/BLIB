@@ -1,8 +1,9 @@
 #ifndef BLIB_RENDER_VULKAN_ATTACHMENTSET_HPP
 #define BLIB_RENDER_VULKAN_ATTACHMENTSET_HPP
 
-#include <array>
 #include <BLIB/Vulkan.hpp>
+#include <array>
+#include <cstdint>
 
 namespace bl
 {
