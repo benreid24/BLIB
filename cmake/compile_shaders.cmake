@@ -2,7 +2,7 @@ function(compile_shaders)
     include(find_glslc)
     find_glslc(glslc_found glslc_binary)
     if(NOT ${glslc_found})
-        message(WARNING "Could not find glslc using path '${GLSLC_PATH}', skipping shader compilation")
+        message(WARNING "Skipping shader compilation")
         return()
     endif()
 
