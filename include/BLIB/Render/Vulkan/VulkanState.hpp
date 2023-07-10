@@ -227,7 +227,7 @@ private:
 
     void cleanupDebugMessenger();
 
-    friend class Renderer;
+    friend class bl::gfx::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

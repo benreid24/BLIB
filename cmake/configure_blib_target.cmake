@@ -16,7 +16,6 @@ function(configure_blib_target target_name)
     else()
         target_compile_definitions(${target_name} PUBLIC
             BLIB_LINUX=1
-            VK_USE_PLATFORM_XLIB_KHR
         )
 
         set(VOLK_STATIC_DEFINES VK_USE_PLATFORM_XLIB_KHR)
