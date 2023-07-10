@@ -65,6 +65,7 @@ public:
         }
         if constexpr (sizeof...(TOptComs) > 0) {
             const bool trash[] = {priv::ComponentSetMember<TOptComs>::populate(registry, owner)...};
+            (void)trash;
         }
 
         return valid;

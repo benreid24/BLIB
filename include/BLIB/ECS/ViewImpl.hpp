@@ -30,7 +30,7 @@ private:
 
 public:
     /// The ComponentSet type contained in this View
-    using TRow = ViewTags::TComponentSet;
+    using TRow = typename ViewTags::TComponentSet;
 
     /**
      * @brief Destroy the View object

@@ -32,7 +32,7 @@ private:
             constexpr ComponentMask::SimpleMask One = 0x1;
             return ((One << registry.getAllComponents<Ts>().ComponentIndex) | ...);
         }
-        return ComponentMask::EmptyMask;
+        else { return ComponentMask::EmptyMask; }
     }
 };
 

@@ -1,6 +1,7 @@
 #ifndef BLIB_CONTAINERS_OBJECTWRAPPER_HPP
 #define BLIB_CONTAINERS_OBJECTWRAPPER_HPP
 
+#include <cstdint>
 #include <cstdlib>
 #include <cstring>
 #include <type_traits>
