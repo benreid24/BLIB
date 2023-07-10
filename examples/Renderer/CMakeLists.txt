@@ -12,11 +12,13 @@ set_target_properties(renderer
     RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
-# Copy compiled shaders. This step is not needed for top-level targets that use BLIB as a module
-if(${COMPILE_SHADERS})
+# Copy compiled shaders. This step is not needed for top-level targets that set SHADER_PATH
+if(TARGET blib_builtin_shaders)
     add_custom_target(copy_shaders
         COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_LIST_DIR}/copy_shaders.cmake
         DEPENDS blib_builtin_shaders
     )
     add_dependencies(renderer copy_shaders)
+else()
+    message(WARNING "Renderer example requires the built-in shaders to be compiled. Specify glslc path in GLSLC_PATH")
 endif()

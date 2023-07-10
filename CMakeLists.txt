@@ -10,14 +10,26 @@ endif()
 
 project(BLIB C CXX)
 
+set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+
+# Determine glslc path
+if(APPLE)
+    set(DEFAULT_GLSLC_PATH "${BLIB_PATH}/tools/glslc/Macos/glslc")
+elseif(WIN32)
+    set(DEFAULT_GLSLC_PATH "${BLIB_PATH}/tools/glslc/Windows/glslc.exe")
+else()
+    # TODO - Pack Linux binary
+    set(DEFAULT_GLSLC_PATH "glslc")
+endif()
+
 option(BUILD_TESTS "On to build unit tests" On)
 option(BUILD_EXAMPLES "On to build examples" On)
 
 option(BLIB_ECS_USE_WIDE_MASK "True to use 128 bit component mask, false for 64 bit component mask" Off)
-option(COMPILE_SHADERS "True to build built-in shaders, off to skip" On)
 set(RUN_PATH ${PROJECT_SOURCE_DIR} CACHE PATH "Working directory of the final built executables")
 set(SHADER_PATH "Resources/Shaders" CACHE PATH "Path where compiled shaders should go")
 set(SCENE_DEFAULT_CAMERA "2d" CACHE STRING "Either '2d' or '3d'. Determines which type of camera is created for scenes by default")
+set(GLSLC_PATH "${DEFAULT_GLSLC_PATH}" CACHE STRING "Path to glslc to use to compile shaders")
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
@@ -31,7 +43,6 @@ add_library(BLIB STATIC)
 set(BLIB_TEMP_INCLUDE_DIR ${CMAKE_BINARY_DIR}/blib_temp_includes)
 file(MAKE_DIRECTORY ${BLIB_TEMP_INCLUDE_DIR})
 
-set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set(
     CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} 
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake"

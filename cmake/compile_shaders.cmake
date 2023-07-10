@@ -1,5 +1,8 @@
 function(compile_shaders)
-    if(NOT ${COMPILE_SHADERS})
+    include(find_glslc)
+    find_glslc(glslc_found glslc_binary)
+    if(NOT ${glslc_found})
+        message(WARNING "Could not find glslc using path '${GLSLC_PATH}', skipping shader compilation")
         return()
     endif()
 
@@ -37,7 +40,7 @@ function(compile_shaders)
         add_custom_command(
             OUTPUT ${compiled_file}
             COMMENT "Compiling shader '${shader_file}'"
-            COMMAND glslc ${shader_file} -o ${compiled_file}
+            COMMAND ${glslc_binary} ${shader_file} -o ${compiled_file}
             DEPENDS ${shader_file}
             MAIN_DEPENDENCY ${shader_file}
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}

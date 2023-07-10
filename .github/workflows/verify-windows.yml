@@ -19,7 +19,7 @@ jobs:
       run: Add-Content $env:GITHUB_PATH "${{ github.workspace }}/tools/glslc/Windows"
       
     - name: configure
-      run: cmake -DON_CI=On -S . -B ./build
+      run: cmake -S . -B ./build
       
     - name: make
       run: |
