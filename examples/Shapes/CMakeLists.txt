@@ -1,10 +1,10 @@
 add_executable(shapes main.cpp)
 
-target_link_libraries(shapes
-    BLIB
-    sfml-graphics
-    sfml-window
-)
+include(configure_blib_target)
+include(link_blib_target)
+
+configure_blib_target(shapes)
+link_blib_target(shapes)
 
 set_target_properties(shapes
     PROPERTIES
