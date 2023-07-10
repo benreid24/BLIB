@@ -2,6 +2,7 @@
 #define BLIB_ENGINE_WINDOW_HPP
 
 #include <BLIB/Util/NonCopyable.hpp>
+#include <BLIB/Vulkan.hpp>
 #include <SFML/Window.hpp>
 #include <cstdint>
 #include <string>
@@ -116,6 +117,20 @@ public:
      */
     constexpr const SfWindow& getSfWindow() const;
 
+    /**
+     * @brief Creates a Vulkan surface for the window
+     *
+     * @param instance The Vulkan instance
+     * @param surface The surface handle to populate
+     * @return True if the surface could be created, false on error
+     */
+    bool createVulkanSurface(VkInstance instance, VkSurfaceKHR& surface);
+
+    /**
+     * @brief Returns the required Vulkan instance extensions
+     */
+    static std::vector<const char*> getRequiredInstanceExtensions();
+
 private:
     SfWindow sfWindow;
 #ifdef BLIB_MACOS
@@ -221,6 +236,30 @@ bool Window<T>::isOpen() const {
     return glfwWindow != nullptr;
 #else
     return sfWindow.isOpen();
+#endif
+}
+template<typename T>
+bool Window<T>::createVulkanSurface(VkInstance instance, VkSurfaceKHR& surface) {
+#ifdef BLIB_MACOS
+    // TODO - export MVK_CONFIG_USE_METAL_ARGUMENT_BUFFERS=1
+    // https://github.com/KhronosGroup/MoltenVK/tree/main#hiding-vulkan-api-symbols
+    vkCheck(glfwCreateWindowSurface(instance, glfwWindow, nullptr, &surface));
+#else
+    return sfWindow.createVulkanSurface(instance, surface);
+#endif
+}
+
+template<typename T>
+std::vector<const char*> Window<T>::getRequiredInstanceExtensions() {
+#ifdef BLIB_MACOS
+    std::uint32_t extensionCount = 0;
+    const char** exts            = glfwGetRequiredInstanceExtensions(&extensionCount);
+    std::vector<const char*> result;
+    result.resize(extensionCount);
+    for (std::uint32_t i = 0; i < extensionCount; ++i) { result[i] = exts[i]; }
+    return result;
+#else
+    return sf::Vulkan::getGraphicsRequiredInstanceExtensions();
 #endif
 }
 

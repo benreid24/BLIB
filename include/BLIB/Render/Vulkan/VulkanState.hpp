@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_VULKAN_VULKANSTATE_HPP
 #define BLIB_RENDER_VULKAN_VULKANSTATE_HPP
 
+#include <BLIB/Engine/Window.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Resources/ShaderModuleCache.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
@@ -13,7 +14,6 @@
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <BLIB/Vulkan.hpp>
-#include <SFML/Window.hpp>
 #include <array>
 #include <cstdint>
 #include <initializer_list>
@@ -210,10 +210,10 @@ struct VulkanState {
     CleanupManager cleanupManager;
 
 private:
-    sf::WindowBase& window;
+    engine::EngineWindow& window;
     std::uint32_t currentFrame;
 
-    VulkanState(sf::WindowBase& window);
+    VulkanState(engine::EngineWindow& window);
     void init();
     void cleanup();
 

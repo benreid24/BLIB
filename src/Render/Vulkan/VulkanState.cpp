@@ -111,10 +111,10 @@ int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDevicePropertie
 }
 } // namespace
 
-VulkanState::VulkanState(sf::WindowBase& window)
+VulkanState::VulkanState(engine::EngineWindow& window)
 : device(nullptr)
 , window(window)
-, swapchain(*this, window)
+, swapchain(*this, window.getSfWindow())
 , transferEngine(*this)
 , descriptorPool(*this)
 , samplerCache(*this)
@@ -227,7 +227,7 @@ void VulkanState::createInstance() {
 
     // required extensions
     std::vector<const char*> requiredExtentions =
-        sf::Vulkan::getGraphicsRequiredInstanceExtensions();
+        engine::EngineWindow::getRequiredInstanceExtensions();
 #ifdef BLIB_DEBUG
     requiredExtentions.emplace_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
     requiredExtentions.emplace_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);

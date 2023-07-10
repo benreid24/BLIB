@@ -1,15 +1,13 @@
 #ifndef BLIB_ENGINE_ENGINE_HPP
 #define BLIB_ENGINE_ENGINE_HPP
 
-#include <SFML/Window/WindowBase.hpp>
-#include <stack>
-
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Engine/Events.hpp>
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
 #include <BLIB/Engine/Systems.hpp>
+#include <BLIB/Engine/Window.hpp>
 #include <BLIB/Engine/Worker.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Input.hpp>
@@ -17,6 +15,7 @@
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <stack>
 
 namespace bl
 {
@@ -108,12 +107,12 @@ public:
      *        is created when run() is called
      *
      */
-    sf::WindowBase& window();
+    EngineWindow& window();
 
     /**
      * @brief Runs the main game loop starting in the given initial state. This is the main
      *        application loop and runs for the duration of the program. All setup should be
-     *        performed prior to calling this. The sf::WindowBase is created in here
+     *        performed prior to calling this. The EngineWindow is created in here
      *
      * @param initialState The starting engine state
      * @return bool True if the engine exited cleanly, false if exiting due to error
@@ -152,7 +151,7 @@ private:
     std::stack<State::Ptr> states;
     State::Ptr newState;
 
-    sf::WindowBase renderWindow;
+    EngineWindow renderWindow;
     Systems ecsSystems;
     script::Manager engineScriptManager;
     ecs::Registry entityRegistry;
@@ -179,7 +178,7 @@ inline const Settings& Engine::settings() const { return engineSettings; }
 
 inline Flags& Engine::flags() { return engineFlags; }
 
-inline sf::WindowBase& Engine::window() { return renderWindow; }
+inline EngineWindow& Engine::window() { return renderWindow; }
 
 } // namespace engine
 } // namespace bl

@@ -82,8 +82,10 @@ function(configure_blib_target target_name)
         ${BLIB_PATH}/lib/glm
         ${BLIB_PATH}/lib/Vulkan-Headers/include
         ${BLIB_PATH}/lib/volk
-        ${BLIB_PATH}/lib/glfw/include
     )
+    if(APPLE)
+        target_include_directories(${target_name} SYSTEM PUBLIC ${BLIB_PATH}/lib/glfw/include)
+    endif()
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_definitions(${target_name} PUBLIC BLIB_DEBUG)
     else()

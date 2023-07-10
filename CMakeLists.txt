@@ -49,8 +49,10 @@ add_subdirectory(lib/SFML)
 add_subdirectory(lib/volk)
 target_include_directories(volk SYSTEM PUBLIC ${BLIB_PATH}/lib/Vulkan-Headers/include)
 
-set(GLFW_LIBRARY_TYPE "STATIC")
-add_subdirectory(lib/glfw)
+if(APPLE)
+    set(GLFW_LIBRARY_TYPE "STATIC")
+    add_subdirectory(lib/glfw)
+endif()
 
 add_subdirectory(include/BLIB)
 add_subdirectory(src)

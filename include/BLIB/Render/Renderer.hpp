@@ -175,7 +175,7 @@ public:
 
 private:
     engine::Engine& engine;
-    sf::WindowBase& window;
+    engine::EngineWindow& window;
     sf::Rect<std::uint32_t> renderRegion;
     vk::VulkanState state;
     vk::PerSwapFrame<vk::Framebuffer> framebuffers;
@@ -193,7 +193,7 @@ private:
     VkClearValue clearColors[2];
     std::vector<vk::RenderTexture*> renderTextures;
 
-    Renderer(engine::Engine& engine, sf::WindowBase& window);
+    Renderer(engine::Engine& engine, engine::EngineWindow& window);
     ~Renderer();
     void initialize();
     void cleanup();

@@ -13,7 +13,7 @@ namespace bl
 {
 namespace gfx
 {
-Renderer::Renderer(engine::Engine& engine, sf::WindowBase& window)
+Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 : engine(engine)
 , window(window)
 , state(window)
@@ -39,8 +39,8 @@ Renderer::~Renderer() {
 }
 
 void Renderer::initialize() {
-    renderRegion.width  = window.getSize().x;
-    renderRegion.height = window.getSize().y;
+    renderRegion.width  = window.getSfWindow().getSize().x;
+    renderRegion.height = window.getSfWindow().getSize().y;
 
     constexpr engine::StateMask::V StateMask = engine::StateMask::All;
     using engine::FrameStage;
@@ -89,7 +89,7 @@ void Renderer::initialize() {
 
     // initialize observers
     addObserver();
-    commonObserver.assignRegion(window.getSize(), renderRegion, 1, 0, true);
+    commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);
 }
 
 void Renderer::cleanup() {
@@ -113,7 +113,7 @@ void Renderer::processResize(const sf::Rect<std::uint32_t>& region) {
     renderRegion = region;
     state.swapchain.invalidate();
     assignObserverRegions();
-    commonObserver.assignRegion(window.getSize(), renderRegion, 1, 0, true);
+    commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);
 }
 
 void Renderer::updateCameras(float dt) {
@@ -218,7 +218,7 @@ unsigned int Renderer::observerCount() const { return observers.size(); }
 void Renderer::assignObserverRegions() {
     unsigned int i = 0;
     for (auto& o : observers) {
-        o->assignRegion(window.getSize(),
+        o->assignRegion(window.getSfWindow().getSize(),
                         renderRegion,
                         observers.size(),
                         i,

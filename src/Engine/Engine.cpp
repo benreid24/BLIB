@@ -288,7 +288,8 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
     if (!params.icon().empty()) {
         sf::Image icon;
         if (resource::ResourceManager<sf::Image>::initializeExisting(params.icon(), icon)) {
-            renderWindow.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+            renderWindow.getSfWindow().setIcon(
+                icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
         }
         else { BL_LOG_WARN << "Failed to load icon: " << params.icon(); }
     }
@@ -300,7 +301,7 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
 }
 
 void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
-    renderWindow.setTitle(params.title());
+    renderWindow.getSfWindow().setTitle(params.title());
     if (params.vsyncEnabled() != engineSettings.windowParameters().vsyncEnabled()) {
         renderingSystem.vulkanState().swapchain.invalidate();
     }
@@ -310,8 +311,8 @@ void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
 
     if (params.letterBox()) {
         sf::Event::SizeEvent e;
-        e.width  = renderWindow.getSize().x;
-        e.height = renderWindow.getSize().y;
+        e.width  = renderWindow.getSfWindow().getSize().x;
+        e.height = renderWindow.getSfWindow().getSize().y;
         handleResize(e, false);
     }
 }
