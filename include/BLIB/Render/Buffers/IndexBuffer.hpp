@@ -5,6 +5,7 @@
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
+#include <cstring>
 #include <vector>
 
 namespace bl
