@@ -88,7 +88,7 @@ public:
      * @param i The section index
      * @return The section of formatted text
      */
-    constexpr txt::BasicText& getSection(unsigned int i = 0);
+    txt::BasicText& getSection(unsigned int i = 0);
 
     /**
      * @brief Returns a section of formatted text within this text
@@ -96,7 +96,7 @@ public:
      * @param i The section index
      * @return The section of formatted text
      */
-    constexpr const txt::BasicText& getSection(unsigned int i = 0) const;
+    const txt::BasicText& getSection(unsigned int i = 0) const;
 
     /**
      * @brief Creates a section using the given settings
@@ -206,11 +206,9 @@ private:
 
 inline constexpr const sf::VulkanFont& Text::getFont() const { return *font; }
 
-inline constexpr txt::BasicText& Text::getSection(unsigned int i) { return sections[i]; }
+inline txt::BasicText& Text::getSection(unsigned int i) { return sections[i]; }
 
-inline constexpr const txt::BasicText& Text::getSection(unsigned int i) const {
-    return sections[i];
-}
+inline const txt::BasicText& Text::getSection(unsigned int i) const { return sections[i]; }
 
 } // namespace draw
 } // namespace gfx
