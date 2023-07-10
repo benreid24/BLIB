@@ -19,8 +19,8 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , state(window)
 , textures(state)
 , materials(state)
-, renderPasses(*this)
 , descriptorSetFactoryCache(engine, *this)
+, renderPasses(*this)
 , pipelineLayouts(*this)
 , pipelines(*this)
 , scenes(engine)
@@ -233,7 +233,7 @@ void Renderer::setSplitscreenDirection(SplitscreenDirection d) {
 }
 
 void Renderer::setClearColor(const glm::vec3& color) {
-    clearColors[0].color = {color.x, color.y, color.z, 1.f};
+    clearColors[0].color = {{color.x, color.y, color.z, 1.f}};
 }
 
 void Renderer::registerRenderTexture(vk::RenderTexture* rt) { renderTextures.emplace_back(rt); }

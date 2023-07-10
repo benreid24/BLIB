@@ -14,9 +14,9 @@ namespace vk
 {
 RenderTexture::RenderTexture()
 : renderer(nullptr)
-, scene(nullptr)
 , defaultNear(0.1f)
-, defaultFar(100.f) {
+, defaultFar(100.f)
+, scene(nullptr) {
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
 
@@ -87,7 +87,7 @@ void RenderTexture::removeScene(bool cam) {
 }
 
 void RenderTexture::setClearColor(const glm::vec4& color) {
-    clearColors[0].color = {color.x, color.y, color.z, color.w};
+    clearColors[0].color = {{color.x, color.y, color.z, color.w}};
 }
 
 void RenderTexture::ensureCamera() {

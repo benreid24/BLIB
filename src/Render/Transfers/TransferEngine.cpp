@@ -192,7 +192,7 @@ void TransferEngine::unregisterPerFrameTransfer(Transferable* item,
     std::unique_lock lock(mutex);
     Bucket& bucket =
         syncReq == Transferable::SyncRequirement::Immediate ? immediateBucket : frameBucket;
-    for (int i = 0; i < bucket.everyFrameItems.size(); ++i) {
+    for (int i = 0; i < static_cast<int>(bucket.everyFrameItems.size()); ++i) {
         if (bucket.everyFrameItems[i] == item) {
             bucket.everyFrameItems.erase(bucket.everyFrameItems.begin() + i);
             --i;

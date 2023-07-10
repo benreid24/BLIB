@@ -15,7 +15,7 @@ DescriptorSetInstanceCache::DescriptorSetInstanceCache(
 DescriptorSetInstance* DescriptorSetInstanceCache::getDescriptorSet(DescriptorSetFactory* factory) {
     auto it = cache.find(factory);
     if (it != cache.end()) { return it->second.get(); }
-    it = cache.try_emplace(factory, std::move(factory->createDescriptorSet())).first;
+    it = cache.try_emplace(factory, factory->createDescriptorSet()).first;
     it->second->init(storageCache);
     SceneDescriptorSetInstance* scene = dynamic_cast<SceneDescriptorSetInstance*>(it->second.get());
     if (scene) { sceneSets.push_back(scene); }

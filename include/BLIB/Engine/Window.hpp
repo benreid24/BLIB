@@ -1,6 +1,7 @@
 #ifndef BLIB_ENGINE_WINDOW_HPP
 #define BLIB_ENGINE_WINDOW_HPP
 
+#include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <SFML/Window.hpp>
@@ -243,7 +244,7 @@ bool Window<T>::createVulkanSurface(VkInstance instance, VkSurfaceKHR& surface) 
 #ifdef BLIB_MACOS
     // TODO - export MVK_CONFIG_USE_METAL_ARGUMENT_BUFFERS=1
     // https://github.com/KhronosGroup/MoltenVK/tree/main#hiding-vulkan-api-symbols
-    vkCheck(glfwCreateWindowSurface(instance, glfwWindow, nullptr, &surface));
+    return VK_SUCCESS == glfwCreateWindowSurface(instance, glfwWindow, nullptr, &surface);
 #else
     return sfWindow.createVulkanSurface(instance, surface);
 #endif

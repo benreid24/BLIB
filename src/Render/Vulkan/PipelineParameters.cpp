@@ -12,12 +12,12 @@ namespace gfx
 namespace vk
 {
 PipelineParameters::PipelineParameters(const std::initializer_list<std::uint32_t>& rpids)
-: renderPassCount(rpids.size())
-, primitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+: primitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
 , rasterizer{}
 , msaa{}
 , colorBlending{}
 , depthStencil(nullptr)
+, renderPassCount(rpids.size())
 , subpass(0) {
     if (renderPassCount > Config::MaxRenderPasses) {
         throw std::runtime_error("Too many gfx passes");

@@ -112,8 +112,8 @@ int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDevicePropertie
 } // namespace
 
 VulkanState::VulkanState(engine::EngineWindow& window)
-: device(nullptr)
-, window(window)
+: window(window)
+, device(nullptr)
 , swapchain(*this, window.getSfWindow())
 , transferEngine(*this)
 , descriptorPool(*this)
