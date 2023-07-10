@@ -29,13 +29,11 @@ Engine::~Engine() {
     while (!states.empty()) { states.pop(); }
     newState.reset();
 
-#ifndef BLIB_HEADLESS_FOR_CI_TESTING
     if (renderWindow.isOpen()) {
         renderingSystem.cleanup();
         renderWindow.close();
     }
     audio::AudioSystem::shutdown();
-#endif
 }
 
 void Engine::pushState(State::Ptr next) {
@@ -105,37 +103,38 @@ bool Engine::run(State::Ptr initialState) {
         // Clear flags from last loop
         engineFlags.clear();
 
-#ifndef BLIB_HEADLESS_FOR_CI_TESTING // Process window events
-        sf::Event event;
-        while (renderWindow.pollEvent(event)) {
-            bl::event::Dispatcher::dispatch<sf::Event>(event);
+        if (renderWindow.isOpen()) {
+            sf::Event event;
+            while (renderWindow.pollEvent(event)) {
+                bl::event::Dispatcher::dispatch<sf::Event>(event);
 
-            switch (event.type) {
-            case sf::Event::Closed:
-                bl::event::Dispatcher::dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
-                return true;
-
-            case sf::Event::LostFocus:
-                bl::event::Dispatcher::dispatch<event::Paused>({});
-                if (!awaitFocus()) {
+                switch (event.type) {
+                case sf::Event::Closed:
                     bl::event::Dispatcher::dispatch<event::Shutdown>(
                         {event::Shutdown::WindowClosed});
                     return true;
+
+                case sf::Event::LostFocus:
+                    bl::event::Dispatcher::dispatch<event::Paused>({});
+                    if (!awaitFocus()) {
+                        bl::event::Dispatcher::dispatch<event::Shutdown>(
+                            {event::Shutdown::WindowClosed});
+                        return true;
+                    }
+                    bl::event::Dispatcher::dispatch<event::Resumed>({});
+                    updateOuterTimer.restart();
+                    loopTimer.restart();
+                    break;
+
+                case sf::Event::Resized:
+                    handleResize(event.size, false);
+                    break;
+
+                default:
+                    break;
                 }
-                bl::event::Dispatcher::dispatch<event::Resumed>({});
-                updateOuterTimer.restart();
-                loopTimer.restart();
-                break;
-
-            case sf::Event::Resized:
-                handleResize(event.size, false);
-                break;
-
-            default:
-                break;
             }
         }
-#endif
 
         // Update and render
         lag += updateOuterTimer.getElapsedTime().asSeconds();
@@ -194,15 +193,15 @@ bool Engine::run(State::Ptr initialState) {
             updateTimestep = newTs;
         }
 
-#ifndef BLIB_HEADLESS_FOR_CI_TESTING // do render
-        if (!engineFlags.stateChangeReady()) {
-            states.top()->render(*this, lag);
-            ecsSystems.update(FrameStage::MARKER_OncePerFrame,
-                              FrameStage::COUNT,
-                              states.top()->systemsMask(),
-                              totalDt);
+        if (renderWindow.isOpen()) {
+            if (!engineFlags.stateChangeReady()) {
+                states.top()->render(*this, lag);
+                ecsSystems.update(FrameStage::MARKER_OncePerFrame,
+                                  FrameStage::COUNT,
+                                  states.top()->systemsMask(),
+                                  totalDt);
+            }
         }
-#endif
 
         // Process flags
         while (engineFlags.stateChangeReady()) {

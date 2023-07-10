@@ -39,11 +39,6 @@ function(configure_blib_target target_name)
     )
     target_include_directories(${target_name} PUBLIC ${BLIB_PATH}/lib/VulkanMemoryAllocator/include)
 
-    # Add preprocessor def for when on CI for testing
-    if (BLIB_HEADLESS_FOR_CI_TESTING)
-        target_compile_definitions(${target_name} PUBLIC BLIB_HEADLESS_FOR_CI_TESTING)
-    endif()
-
     # Warnings
     if (MSVC)
         # warning level 4

@@ -12,7 +12,6 @@ project(BLIB C CXX)
 
 option(BUILD_TESTS "On to build unit tests" On)
 option(BUILD_EXAMPLES "On to build examples" On)
-option(BLIB_HEADLESS_FOR_CI_TESTING "True when on CI, false when local" Off)
 
 option(BLIB_ECS_USE_WIDE_MASK "True to use 128 bit component mask, false for 64 bit component mask" Off)
 option(COMPILE_SHADERS "True to build built-in shaders, off to skip" On)

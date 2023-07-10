@@ -96,12 +96,10 @@ struct DefaultLoader<sf::Texture> : public LoaderBase<sf::Texture> {
 
     virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
                       sf::Texture& result) override {
-#ifndef BLIB_HEADLESS_FOR_CI_TESTING
         if (!result.loadFromMemory(buffer, len)) {
             BL_LOG_ERROR << "Failed to load texture: " << path;
             return false;
         }
-#endif
         return true;
     }
 };

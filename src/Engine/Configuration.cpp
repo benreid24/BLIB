@@ -1,8 +1,6 @@
 #include <BLIB/Engine/Configuration.hpp>
 
-#ifndef BLIB_HEADLESS_FOR_CI_TESTING
 #include <BLIB/Media/Audio/AudioSystem.hpp>
-#endif
 #include <fstream>
 
 namespace bl
@@ -21,9 +19,7 @@ void parseValue(const std::string& type, const std::string& value, const std::st
         BL_LOG_WARN << "Bad " << type << " for key'" << key << "' on line " << line
                     << ". value: " << value;
     }
-    else {
-        Configuration::set<T>(key, parsed, true);
-    }
+    else { Configuration::set<T>(key, parsed, true); }
 }
 
 template<typename T>
@@ -81,12 +77,8 @@ bool Configuration::load(const std::string& file) {
         switch (t) {
         case 'b':
             if (value == "1") { Configuration::set<bool>(key, true); }
-            else if (value == "0") {
-                Configuration::set<bool>(key, false, true);
-            }
-            else {
-                BL_LOG_WARN << "Bad bool value for key '" << key << "' value: " << value;
-            }
+            else if (value == "0") { Configuration::set<bool>(key, false, true); }
+            else { BL_LOG_WARN << "Bad bool value for key '" << key << "' value: " << value; }
             break;
 
         case 'i':
@@ -113,9 +105,7 @@ bool Configuration::load(const std::string& file) {
         ++lineNo;
     }
 
-#ifndef BLIB_HEADLESS_FOR_CI_TESTING
     audio::AudioSystem::loadFromConfig();
-#endif
 
     return true;
 }
@@ -124,9 +114,7 @@ bool Configuration::save(const std::string& file) {
     std::ofstream output(file.c_str(), std::ios::out);
     if (!output.good()) return false;
 
-#ifndef BLIB_HEADLESS_FOR_CI_TESTING
     audio::AudioSystem::saveToConfig();
-#endif
 
     saveValues<bool>(output, 'b', get().config);
     saveValues<int>(output, 'i', get().config);
