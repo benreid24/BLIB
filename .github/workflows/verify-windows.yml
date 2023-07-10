@@ -15,8 +15,8 @@ jobs:
       with:
         submodules: 'true'
     
-    - name: Install Vulkan SDK
-      run: choco install vulkan-sdk
+    - name: Point to glslc
+      run: Add-Content $env:GITHUB_PATH "${{ github.workspace }}/tools/glslc/Windows"
       
     - name: configure
       run: cmake -DON_CI=On -S . -B ./build
