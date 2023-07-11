@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['manager',['Manager',['../a01951.html#adddd5c43ff870a047aa66db4edf82a7e',1,'bl::script::Script']]],
-  ['menu',['Menu',['../a01607.html#a834cec0fab7efabab3cd53540e4d466d',1,'bl::menu::Item']]]
+  ['logger_6538',['Logger',['../a02312.html#a6ef866033498134ea52d9c9ea8072a29',1,'bl::logging::Config']]]
 ];

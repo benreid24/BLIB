@@ -1,4 +1,10 @@
 var searchData=
 [
-  ['type',['Type',['../a01379.html#a998c68f6754c45abe61bec4c145a20eb',1,'bl::input::Control::Type()'],['../a01391.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8',1,'bl::input::DirectionalControl::Type()'],['../a01415.html#af51fc6317d9bc2bfecb33fa0126f3a55',1,'bl::input::MovementControl::Type()'],['../a01427.html#aa19fe4c25677f5642a399d9c5a4afe32',1,'bl::input::Trigger::Type()'],['../a01531.html#a14b67eb968cc68b09a420e989b3a4a54',1,'bl::gui::Event::Type()'],['../a01587.html#a15949041ae1890617fac8f50072a2156',1,'bl::menu::Event::Type()'],['../a01939.html#ae46c56f7af29255ac8f117a0f97d593b',1,'bl::script::PrimitiveValue::Type()'],['../a02123.html#ad11017cf1f678269d054eff8bb9caf6a',1,'bl::serial::json::Value::Type()'],['../a02387.html#a6e51da7bbcf066924bc91010aae6e012',1,'bl::input::Encoder::ControlInfo::Type()']]]
+  ['shutdowntype_6266',['ShutdownType',['../a01920.html#a610f7ea530340c0339eae47bea563204',1,'bl::engine::event::Shutdown']]],
+  ['spacemode_6267',['SpaceMode',['../a02204.html#a7be24b6df8ddd6710ecab4193c7ab781',1,'bl::gui::LinePacker']]],
+  ['speedbucketsetting_6268',['SpeedBucketSetting',['../a02616.html#abd9bd76d7e8ec82948b86332cee02918',1,'bl::gfx::ds::DescriptorSetInstance']]],
+  ['splitscreendirection_6269',['SplitscreenDirection',['../a02720.html#a6f72806cb050138f4bcbea19f22d206f',1,'bl::gfx::Renderer']]],
+  ['state_6270',['State',['../a02032.html#aef25e3f51fd2c7beb576e27e9a30f6be',1,'bl::input::Configurator']]],
+  ['style_6271',['Style',['../a02188.html#ab5ed19ef2dc0fba1a8b63b0d469eca88',1,'bl::gui::Window']]],
+  ['syncrequirement_6272',['SyncRequirement',['../a02848.html#ab18efad7de0c1e2e53a049fe152caf2a',1,'bl::gfx::tfr::Transferable']]]
 ];

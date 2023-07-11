@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logger',['Logger',['../a01651.html#a6ef866033498134ea52d9c9ea8072a29',1,'bl::logging::Config']]]
+  ['inputsystem_6537',['InputSystem',['../a02028.html#a6d6fb929d8afbbe0c165564e9b9ab596',1,'bl::input::Actor']]]
 ];

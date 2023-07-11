@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zoom',['zoom',['../a01771.html#a3a62d3487363e7ea5cd96c5efb7d83a0',1,'bl::render::camera::Camera']]]
+  ['zoom_5721',['zoom',['../a02456.html#af97e55302b8158d248a6e6d76fde3e2d',1,'bl::gfx::c2d::Camera2D::zoom(float factor)'],['../a02456.html#aeada77ab62ea985affa4b5b10d7f145a',1,'bl::gfx::c2d::Camera2D::zoom(const glm::vec2 &amp;factors)']]]
 ];

@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['shutdowntype',['ShutdownType',['../a01287.html#a610f7ea530340c0339eae47bea563204',1,'bl::engine::event::Shutdown']]],
-  ['spacemode',['SpaceMode',['../a01543.html#a7be24b6df8ddd6710ecab4193c7ab781',1,'bl::gui::LinePacker']]],
-  ['state',['State',['../a01371.html#aef25e3f51fd2c7beb576e27e9a30f6be',1,'bl::input::Configurator']]],
-  ['style',['Style',['../a01527.html#ab5ed19ef2dc0fba1a8b63b0d469eca88',1,'bl::gui::Window']]]
+  ['packstart_6264',['PackStart',['../a02204.html#aa93923af9a1d910c135d79afc9dd80e1',1,'bl::gui::LinePacker']]],
+  ['policy_6265',['Policy',['../a03020.html#ad1f5105ed9abad8c4c8bc9f390551583',1,'bl::resource::bundle::BundleSource']]]
 ];

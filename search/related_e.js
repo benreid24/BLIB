@@ -1,13 +1,14 @@
 var searchData=
 [
-  ['script',['Script',['../a01919.html#ae98eaa96d1b24e087f3c3e372fb09dce',1,'bl::script::Context::Script()'],['../a01935.html#ae98eaa96d1b24e087f3c3e372fb09dce',1,'bl::script::Manager::Script()']]],
-  ['scrollarea',['ScrollArea',['../a01443.html#a205734e085e3c78d004c4670b8a48d03',1,'bl::gui::Box']]],
-  ['serializablefieldbase',['SerializableFieldBase',['../a02251.html#ade1750e4bbdaed679daf2d8fe82235d2',1,'bl::serial::SerializableObjectBase']]],
-  ['serializableobject_3c_20audio_3a_3aplaylist_20_3e',['SerializableObject&lt; audio::Playlist &gt;',['../a01663.html#a38061cf4a9c70cf8109c28e36fa50c61',1,'bl::audio::Playlist']]],
-  ['serializableobject_3c_20bundlemetadata_20_3e',['SerializableObject&lt; BundleMetadata &gt;',['../a01807.html#a5a6d0b7252ba89d65dc7ddd77b89dffe',1,'bl::resource::bundle::BundleMetadata']]],
-  ['serializableobject_3c_20manifest_20_3e',['SerializableObject&lt; Manifest &gt;',['../a01847.html#ad134bde82677e5e32d6ee33a6e42c518',1,'bl::resource::bundle::Manifest']]],
-  ['slider',['Slider',['../a01471.html#a610f3c9abc5bb8cdefea67be2f7a7783',1,'bl::gui::Element']]],
-  ['submenuitem',['SubmenuItem',['../a01607.html#ae8455080d0b86b045618069add0a6bf0',1,'bl::menu::Item']]],
-  ['subscriberbase',['SubscriberBase',['../a01347.html#a03307f30a4aeee85bfd6686c800b1d1f',1,'bl::event::priv::SingleDispatcher']]],
-  ['subscriberhelper',['SubscriberHelper',['../a01347.html#a5601c961a11d509db9428514d8fd4829',1,'bl::event::priv::SingleDispatcher']]]
+  ['bindlesstexturearray_6552',['BindlessTextureArray',['../a02984.html#a713c98eafbeaafeac77f2d17326f92b3',1,'bl::gfx::vk::Texture']]],
+  ['radiobutton_6553',['RadioButton',['../a02160.html#a894022a048993dca367ba1a01423b844',1,'bl::gui::RadioButton::Group']]],
+  ['referencevalue_6554',['ReferenceValue',['../a03172.html#a70378810ee0899d883eaa1284b251a4d',1,'bl::script::Value']]],
+  ['registry_6555',['Registry',['../a01828.html#ac7b716e6d41ff508ad2d8e5dad655d72',1,'bl::ecs::ComponentPoolBase::Registry()'],['../a01832.html#ac7b716e6d41ff508ad2d8e5dad655d72',1,'bl::ecs::ComponentPool::Registry()'],['../a01900.html#ac7b716e6d41ff508ad2d8e5dad655d72',1,'bl::ecs::View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;::Registry()']]],
+  ['renderer_6556',['Renderer',['../a02132.html#a70538530bc36e033e360880ef311df61',1,'bl::gui::Element']]],
+  ['renderpass_6557',['RenderPass',['../a02960.html#aa8ab806874e69ead344abef1c5e76aa0',1,'bl::gfx::vk::RenderPassParameters::SubPass::RenderPass()'],['../a02956.html#aa8ab806874e69ead344abef1c5e76aa0',1,'bl::gfx::vk::RenderPassParameters::RenderPass()']]],
+  ['resourcemanager_3c_20tresourcetype_20_3e_6558',['ResourceManager&lt; TResourceType &gt;',['../a03112.html#a2dab980cf405a16640657cc953f8c18f',1,'bl::resource::Ref']]],
+  ['resourcemanagerbase_6559',['ResourceManagerBase',['../a03060.html#af5be73485eb13c38cecd46cdc9d8daf0',1,'bl::resource::GarbageCollector']]],
+  ['resultset_6560',['ResultSet',['../a01788.html#a409719f61e9439051d21243690a5e416',1,'bl::container::QuadTree::ResultSet::Iterator']]],
+  ['scenepool_6561',['ScenePool',['../a02796.html#a5e3e776e6321b85dc4def653bc028051',1,'bl::gfx::Scene']]],
+  ['texturepool_6562',['TexturePool',['../a02984.html#aca1ccc949c6170876ec275e6c3c92a59',1,'bl::gfx::vk::Texture']]]
 ];

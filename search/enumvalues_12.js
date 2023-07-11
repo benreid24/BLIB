@@ -1,15 +1,19 @@
 var searchData=
 [
-  ['scrolled',['Scrolled',['../a01531.html#a14b67eb968cc68b09a420e989b3a4a54addcda45a547ddca8f1de1999468d1143',1,'bl::gui::Event']]],
-  ['selected',['Selected',['../a01607.html#a0bae0491b79706cac6c93b58cfeb5ec5a78269e44a81151f5e3e97a49dc6a2aa3',1,'bl::menu::Item']]],
-  ['selectorlocation',['SelectorLocation',['../a01587.html#a15949041ae1890617fac8f50072a2156addae00ce69d2fe4844914f208ba734bd',1,'bl::menu::Event']]],
-  ['selectormove',['SelectorMove',['../a01587.html#a15949041ae1890617fac8f50072a2156a747f87cb395dc097dc92b3a74bfe913d',1,'bl::menu::Event']]],
-  ['signed',['Signed',['../a01519.html#a7feddc70c7c990ad6bc0b5174d866707a71fed0c3428bf1a2e19af257c4bac379',1,'bl::gui::TextEntry']]],
-  ['singletrigger',['SingleTrigger',['../a01379.html#a998c68f6754c45abe61bec4c145a20eba7dc7083bf437b0baf7fd21162c71d9a3',1,'bl::input::Control']]],
-  ['statement',['Statement',['../a02435.html#aab7cdda02e78cc66c150f58063c8b9e4a0f4797d6d5a69e224b732629a51a7986',1,'bl::script::Parser']]],
-  ['stmtblock',['StmtBlock',['../a02435.html#aab7cdda02e78cc66c150f58063c8b9e4a89b1b78c165f868e68efafc2ab5f6da9',1,'bl::script::Parser']]],
-  ['stmtlist',['StmtList',['../a02435.html#aab7cdda02e78cc66c150f58063c8b9e4af754e2dbcab87813ff01ccd65ff79dd1',1,'bl::script::Parser']]],
-  ['string',['String',['../a02123.html#ad11017cf1f678269d054eff8bb9caf6aa27118326006d3829667a400ad23d5d98',1,'bl::serial::json::Value']]],
-  ['stringlit',['StringLit',['../a02435.html#aab7cdda02e78cc66c150f58063c8b9e4ac3dc755d258c933004d3db7538cf97a5',1,'bl::script::Parser']]],
-  ['sum',['Sum',['../a02435.html#aab7cdda02e78cc66c150f58063c8b9e4a01663334907e9187da45172703abcf2f',1,'bl::script::Parser']]]
+  ['scrolled_6459',['Scrolled',['../a02192.html#a14b67eb968cc68b09a420e989b3a4a54addcda45a547ddca8f1de1999468d1143',1,'bl::gui::Event']]],
+  ['selected_6460',['Selected',['../a02268.html#a0bae0491b79706cac6c93b58cfeb5ec5a78269e44a81151f5e3e97a49dc6a2aa3',1,'bl::menu::Item']]],
+  ['selectorlocation_6461',['SelectorLocation',['../a02248.html#a15949041ae1890617fac8f50072a2156addae00ce69d2fe4844914f208ba734bd',1,'bl::menu::Event']]],
+  ['selectormove_6462',['SelectorMove',['../a02248.html#a15949041ae1890617fac8f50072a2156a747f87cb395dc097dc92b3a74bfe913d',1,'bl::menu::Event']]],
+  ['shadowmapping_6463',['ShadowMapping',['../a02532.html#ac48b6c0cac05db0f60e319727743b2adaa7d3eff9f720edead13ff03ba99cfab0',1,'bl::gfx::Config::SceneObjectStage']]],
+  ['signed_6464',['Signed',['../a02180.html#a7feddc70c7c990ad6bc0b5174d866707a71fed0c3428bf1a2e19af257c4bac379',1,'bl::gui::TextEntry']]],
+  ['singletrigger_6465',['SingleTrigger',['../a02040.html#a998c68f6754c45abe61bec4c145a20eba7dc7083bf437b0baf7fd21162c71d9a3',1,'bl::input::Control']]],
+  ['speedagnostic_6466',['SpeedAgnostic',['../a02616.html#abd9bd76d7e8ec82948b86332cee02918ae6d68083aba8a5e6cd136504ff1994b7',1,'bl::gfx::ds::DescriptorSetInstance']]],
+  ['statement_6467',['Statement',['../a03676.html#aab7cdda02e78cc66c150f58063c8b9e4a0f4797d6d5a69e224b732629a51a7986',1,'bl::script::Parser']]],
+  ['static_6468',['Static',['../a01607.html#gga3f6cc977764514925162c6fd181a261aa84a8921b25f505d0d2077aeb5db4bc16',1,'bl::gfx']]],
+  ['stmtblock_6469',['StmtBlock',['../a03676.html#aab7cdda02e78cc66c150f58063c8b9e4a89b1b78c165f868e68efafc2ab5f6da9',1,'bl::script::Parser']]],
+  ['stmtlist_6470',['StmtList',['../a03676.html#aab7cdda02e78cc66c150f58063c8b9e4af754e2dbcab87813ff01ccd65ff79dd1',1,'bl::script::Parser']]],
+  ['storagebuffer_6471',['StorageBuffer',['../a02864.html#a1e69a58f5e18f338fecf5d0eb9ac4a6caa0e75378bdbd8280828d7dbf9faf30d3',1,'bl::gfx::vk::AlignedBuffer']]],
+  ['string_6472',['String',['../a03332.html#ad11017cf1f678269d054eff8bb9caf6aa27118326006d3829667a400ad23d5d98',1,'bl::serial::json::Value']]],
+  ['stringlit_6473',['StringLit',['../a03676.html#aab7cdda02e78cc66c150f58063c8b9e4ac3dc755d258c933004d3db7538cf97a5',1,'bl::script::Parser']]],
+  ['sum_6474',['Sum',['../a03676.html#aab7cdda02e78cc66c150f58063c8b9e4a01663334907e9187da45172703abcf2f',1,'bl::script::Parser']]]
 ];
