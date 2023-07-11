@@ -1,59 +1,75 @@
 cmake_minimum_required(VERSION 3.15)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Fix behavior of CMAKE_CXX_STANDARD when targeting macOS.
 if (POLICY CMP0025)
-  cmake_policy(SET CMP0025 NEW)
+    cmake_policy(SET CMP0025 NEW)
 endif()
 
 project(BLIB C CXX)
 
+set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+
+# Determine glslc path
+if(APPLE)
+    set(DEFAULT_GLSLC_PATH "${BLIB_PATH}/tools/glslc/Macos/glslc")
+elseif(WIN32)
+    set(DEFAULT_GLSLC_PATH "${BLIB_PATH}/tools/glslc/Windows/glslc.exe")
+else()
+    # TODO - Pack Linux binary
+    set(DEFAULT_GLSLC_PATH "glslc")
+endif()
+
 option(BUILD_TESTS "On to build unit tests" On)
 option(BUILD_EXAMPLES "On to build examples" On)
-option(ON_CI "True when on CI, false when local" Off)
+
+option(BLIB_ECS_USE_WIDE_MASK "True to use 128 bit component mask, false for 64 bit component mask" Off)
+set(RUN_PATH ${PROJECT_SOURCE_DIR} CACHE PATH "Working directory of the final built executables")
+set(SHADER_PATH "Resources/Shaders" CACHE PATH "Path where compiled shaders should go")
+set(SCENE_DEFAULT_CAMERA "2d" CACHE STRING "Either '2d' or '3d'. Determines which type of camera is created for scenes by default")
+set(GLSLC_PATH "${DEFAULT_GLSLC_PATH}" CACHE STRING "Path to glslc to use to compile shaders")
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
-endif()
-
-if (ON_CI)
-    add_compile_definitions(ON_CI)
 endif()
 
 set(CMAKE_INSTALL_PREFIX .)
 
 add_library(BLIB STATIC)
 
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_definitions(BLIB PUBLIC BLIB_DEBUG)
-else()
-    target_compile_definitions(BLIB PUBLIC BLIB_RELEASE)
-endif()
+# Make vulkan dir in build dir to fix vma include
+set(BLIB_TEMP_INCLUDE_DIR ${CMAKE_BINARY_DIR}/blib_temp_includes)
+file(MAKE_DIRECTORY ${BLIB_TEMP_INCLUDE_DIR})
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-include(blib_helpers)
-configure_target(BLIB)
+set(
+    CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} 
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
+    "${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML/cmake"
+    "${CMAKE_CURRENT_SOURCE_DIR}/lib/SFML/cmake/modules"
+)
+include(configure_blib_target)
+configure_blib_target(BLIB)
 
 set(BUILD_SHARED_LIBS Off)
 add_compile_definitions(SFML_STATIC)
 set(SFML_USE_STATIC_STD_LIBS On)
-include_directories(lib/SFML/include)
 add_subdirectory(lib/SFML)
-set_target_properties(sfml-audio PROPERTIES CXX_STANDARD 98 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
+
+add_subdirectory(lib/volk)
+target_include_directories(volk SYSTEM PUBLIC ${BLIB_PATH}/lib/Vulkan-Headers/include)
+
+if(APPLE)
+    set(GLFW_LIBRARY_TYPE "STATIC")
+    add_subdirectory(lib/glfw)
+endif()
 
 add_subdirectory(include/BLIB)
 add_subdirectory(src)
-include_directories(include)
 
-target_link_libraries(BLIB PRIVATE
-    sfml-graphics
-    sfml-window
-    sfml-network
-    sfml-audio
-    sfml-system
-)
+include(link_blib_target)
+link_blib_target(BLIB)
 
 if (BUILD_EXAMPLES)
     add_subdirectory(examples)

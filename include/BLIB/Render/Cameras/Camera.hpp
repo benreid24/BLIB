@@ -1,41 +1,24 @@
 #ifndef BLIB_RENDER_CAMERAS_CAMERA_HPP
 #define BLIB_RENDER_CAMERAS_CAMERA_HPP
 
-#include <SFML/Graphics/Rect.hpp>
-#include <SFML/System/Vector2.hpp>
-#include <memory>
+#include <BLIB/Vulkan.hpp>
+#include <glm/glm.hpp>
 
 namespace bl
 {
-namespace render
-{
-class Cameras;
-
-namespace camera
+namespace gfx
 {
 /**
  * @brief Base class for all cameras
  *
- * @ingroup Cameras
- *
+ * @ingroup Renderer
  */
 class Camera {
 public:
-    /// Pointer type to camera
-    using Ptr = std::shared_ptr<Camera>;
-
     /**
      * @brief Destroy the Camera object
-     *
      */
     virtual ~Camera() = default;
-
-    /**
-     * @brief Returns whether or not the camera is still valid
-     *
-     * @return True if the camera may still be used, false otherwise
-     */
-    virtual bool valid() const = 0;
 
     /**
      * @brief Updates the camera
@@ -45,106 +28,98 @@ public:
     virtual void update(float dt) = 0;
 
     /**
-     * @brief Returns the current viewport that this camera is rendering
-     *
-     * @return const sf::FloatRect& The viewport of this camera
+     * @brief Returns the view matrix of this camera
      */
-    const sf::FloatRect& getViewport() const;
+    const glm::mat4& getViewMatrix();
 
     /**
-     * @brief Returns the center of the camera
+     * @brief Returns the projection matrix of this camera for the given viewport
      *
-     * @return sf::Vector2f The center of the region shown by the camera
+     * @param viewport The viewport to project to
+     * @return The projection matrix to use
      */
-    sf::Vector2f getCenter() const;
+    const glm::mat4& getProjectionMatrix(const VkViewport& viewport);
 
     /**
-     * @brief Returns the size of the camera
+     * @brief Sets the near plane distance
      *
-     * @return sf::Vector2f The size of the area shwon by the camera
+     * @param near The near plane distance
      */
-    sf::Vector2f getSize() const;
+    void setNearPlane(float nearValue);
 
     /**
-     * @brief Returns the rotation of the camera
+     * @brief Sets the far plane distance
      *
-     * @return float The rotation in degrees
+     * @param far The far plane distance
      */
-    float getRotation() const;
+    void setFarPlane(float farValue);
 
     /**
-     * @brief Helper method to position the viewport by its center
+     * @brief Sets the distance to the near and far planes
      *
-     * @param center The center of the camera view
+     * @param near Distance to the near plane
+     * @param far Distance to the far plane
      */
-    void setCenter(const sf::Vector2f& center);
-
-    /**
-     * @brief Helper method to resize the viewport. Maintains the previous center
-     *
-     * @param center The new size of the viewport
-     */
-    void setSize(const sf::Vector2f& center);
-
-    /**
-     * @brief Multiples the current viewport size by the given factor
-     *
-     * @param factor The zoom factor
-     */
-    void zoom(float factor);
-
-    /**
-     * @brief Set the rotation of the camera
-     *
-     * @param degrees The rotation in degrees
-     */
-    void setRotation(float degrees);
-
-    /**
-     * @brief Rotates the camera
-     *
-     * @param degrees The amount of rotation to apply to the current rotation
-     */
-    void rotate(float degrees);
-
-    /**
-     * @brief Helper method to size the viewport using a zoom level and default size
-     *
-     * @param zoomLevel The zoom level to apply
-     * @param baseSize The size of the viewport at a zoom level of 1.0
-     */
-    void setZoomLevel(float zoomLevel, const sf::Vector2f& baseSize);
-
-    /**
-     * @brief Set the viewport of the camera
-     *
-     * @param viewport The new viewport to render
-     */
-    void setViewport(const sf::FloatRect& viewport);
+    void setNearAndFarPlanes(float nearValue, float farValue);
 
 protected:
     /**
-     * @brief Construct a new Camera object with sane defaults
-     *
+     * @brief Construct a new Camera
      */
     Camera();
 
     /**
-     * @brief Creates the camera with the initial viewport
-     *
-     * @param viewport The initial viewport to use
+     * @brief Mark the view matrix as needing to be refreshed on next use
      */
-    Camera(const sf::FloatRect& viewport, float rotation);
+    void markViewDirty();
+
+    /**
+     * @brief Marks the projection matrix as needing to be refreshed on next use
+     */
+    void markProjDirty();
+
+    /**
+     * @brief Called when the view matrix needs to be refreshed
+     *
+     * @param view Reference to the matrix to populate
+     */
+    virtual void refreshViewMatrix(glm::mat4& view) = 0;
+
+    /**
+     * @brief Called when the projection matrix needs to be refreshed
+     *
+     * @param proj Reference to the matrix to populate
+     * @param viewport The viewport to project to
+     */
+    virtual void refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) = 0;
+
+    /**
+     * @brief Returns the distance to the near plane
+     */
+    constexpr float nearPlane() const;
+
+    /**
+     * @brief Returns the distance to the far plane
+     */
+    constexpr float farPlane() const;
 
 private:
-    sf::FloatRect viewport;
-    float rotation;
+    glm::mat4 view;
+    bool viewDirty;
 
-    friend class ::bl::render::Cameras;
+    glm::mat4 proj;
+    bool projDirty;
+    float vpWidth, vpHeight;
+    float nearValue, farValue;
 };
 
-} // namespace camera
-} // namespace render
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline constexpr float Camera::nearPlane() const { return nearValue; }
+
+inline constexpr float Camera::farPlane() const { return farValue; }
+
+} // namespace gfx
 } // namespace bl
 
 #endif

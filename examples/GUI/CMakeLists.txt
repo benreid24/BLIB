@@ -1,10 +1,10 @@
 add_executable(gui main.cpp)
 
-target_link_libraries(gui
-    BLIB
-    sfml-graphics
-    sfml-window
-)
+include(configure_blib_target)
+include(link_blib_target)
+
+configure_blib_target(gui)
+link_blib_target(gui)
 
 set_target_properties(gui
     PROPERTIES

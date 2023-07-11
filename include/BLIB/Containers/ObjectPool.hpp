@@ -116,16 +116,90 @@ public:
         bool operator!=(const IteratorType<EType>& iterator) const;
 
     private:
-        IteratorType(Entry* e, Entry* end);
+        using EP = std::conditional_t<std::is_same_v<EType, T>, Entry*, const Entry*>;
 
-        Entry* pos;
-        Entry* end;
+        IteratorType(EP e, EP end);
+
+        EP pos;
+        EP end;
 
         friend class ObjectPool;
+        friend class FixedRef;
     };
 
     using Iterator      = IteratorType<T>;
     using ConstIterator = IteratorType<const T>;
+
+    /**
+     * @brief Represents a stable reference into the object pool that remains valid even if the pool
+     *        is resized. May become invalid if the object pointed to is erased
+     *
+     */
+    class FixedRef {
+    public:
+        /**
+         * @brief Creates an invalid FixedRef
+         *
+         */
+        FixedRef();
+
+        /**
+         * @brief Returns the underlying object
+         *
+         */
+        T& operator*();
+
+        /**
+         * @brief Returns the underlying object
+         *
+         */
+        const T& operator*() const;
+
+        /**
+         * @brief Returns the underlying object
+         *
+         */
+        T* operator->();
+
+        /**
+         * @brief Returns the underlying object
+         *
+         */
+        const T* operator->() const;
+
+        /**
+         * @brief Erases the underlying object from the pool. Invalidates the reference
+         *
+         */
+        void erase();
+
+        /**
+         * @brief Returns whether or not the underlying object still exists. This is always safe to
+         *        call if the underlying object pool is still around
+         *
+         */
+        bool valid() const;
+
+        /**
+         * @brief Returns the unique id of the underlying object
+         *
+         */
+        std::size_t id() const;
+
+        /**
+         * @brief Invalidates this ref entirely. Does not erase the underlying object
+         *
+         */
+        void release();
+
+    private:
+        ObjectPool* owner;
+        std::size_t index;
+
+        FixedRef(ObjectPool* owner, std::size_t index);
+
+        friend class ObjectPool<T>;
+    };
 
     /**
      * @brief Initializes the object pool with the growth policy and initial capacity. Not that,
@@ -157,7 +231,7 @@ public:
     Iterator add(T&& obj);
 
     /**
-     * @brief Constructs a new object inplace in the pool
+     * @brief Constructs a new object in-place in the pool
      *
      * @tparam TArgs The types of arguments
      * @param args The arguments to construct the new object with
@@ -167,7 +241,23 @@ public:
     Iterator emplace(TArgs&&... args);
 
     /**
-     * @brief Removes the given iterator from the pool and marks the object slot for resuse. All
+     * @brief Returns a stable reference to an object from its iterator
+     *
+     * @param it Iterator pointing to the object a reference is needed for
+     * @return FixedRef A stable reference to the given object
+     */
+    FixedRef getStableRef(Iterator it);
+
+    /**
+     * @brief Direct accessor used to index into the pool
+     *
+     * @param id The index of the object to access
+     * @return A reference to the object at the given index
+     */
+    T& getWithId(std::size_t id);
+
+    /**
+     * @brief Removes the given iterator from the pool and marks the object slot for reuse. All
      *        iterators remain valid except for the one removed. The erased iterator is partially
      *        invalidated. It may not be dereferenced but it may still be incremented
      *
@@ -264,6 +354,7 @@ private:
         Entry(Entry&& copy)
         : _alive(copy._alive) {
             if (copy._alive) { payload.emplace(std::forward<T>(copy.payload.getRValue())); }
+            else { _next = copy._next; }
         }
 
         ~Entry() {
@@ -273,9 +364,7 @@ private:
         template<typename... TArgs>
         void emplace(TArgs&&... args) {
             if (_alive) { payload.destroy(); }
-            else {
-                _alive = true;
-            }
+            else { _alive = true; }
             payload.emplace(std::forward<TArgs>(args)...);
         }
 
@@ -349,6 +438,17 @@ typename ObjectPool<T>::Iterator ObjectPool<T>::emplace(TArgs&&... args) {
         return {e, endPointer()};
     }
     return end();
+}
+
+template<typename T>
+typename ObjectPool<T>::FixedRef ObjectPool<T>::getStableRef(Iterator it) {
+    const std::size_t i = it.pos - pool.data();
+    return {this, i};
+}
+
+template<typename T>
+T& ObjectPool<T>::getWithId(std::size_t i) {
+    return pool[i].get();
 }
 
 template<typename T>
@@ -437,9 +537,7 @@ void ObjectPool<T>::clear(bool s) {
     trackedSize = 0;
     for (Entry& entry : pool) {
         if (entry.alive()) { entry.destroy(); }
-        else {
-            entry.next() = -1;
-        }
+        else { entry.next() = -1; }
     }
     pool.clear();
     next = -1;
@@ -462,7 +560,7 @@ void ObjectPool<T>::shrink() {
 
 template<typename T>
 template<typename ET>
-ObjectPool<T>::IteratorType<ET>::IteratorType(ObjectPool<T>::Entry* e, ObjectPool<T>::Entry* end)
+ObjectPool<T>::IteratorType<ET>::IteratorType(EP e, EP end)
 : pos(e)
 , end(end) {}
 
@@ -516,6 +614,56 @@ template<typename T>
 template<typename ET>
 bool ObjectPool<T>::IteratorType<ET>::operator!=(const IteratorType<ET>& right) const {
     return pos != right.pos;
+}
+
+template<typename T>
+ObjectPool<T>::FixedRef::FixedRef()
+: owner(nullptr)
+, index(0) {}
+
+template<typename T>
+ObjectPool<T>::FixedRef::FixedRef(ObjectPool<T>* p, std::size_t i)
+: owner(p)
+, index(i) {}
+
+template<typename T>
+T& ObjectPool<T>::FixedRef::operator*() {
+    return owner->pool[index].get();
+}
+
+template<typename T>
+const T& ObjectPool<T>::FixedRef::operator*() const {
+    return owner->pool[index].get();
+}
+
+template<typename T>
+T* ObjectPool<T>::FixedRef::operator->() {
+    return &owner->pool[index].get();
+}
+
+template<typename T>
+const T* ObjectPool<T>::FixedRef::operator->() const {
+    return &owner->pool[index].get();
+}
+
+template<typename T>
+void ObjectPool<T>::FixedRef::erase() {
+    owner->erase(ObjectPool<T>::Iterator{owner->pool.data() + index, nullptr});
+}
+
+template<typename T>
+bool ObjectPool<T>::FixedRef::valid() const {
+    return owner && owner->pool[index].alive();
+}
+
+template<typename T>
+void ObjectPool<T>::FixedRef::release() {
+    owner = nullptr;
+}
+
+template<typename T>
+std::size_t ObjectPool<T>::FixedRef::id() const {
+    return index;
 }
 
 } // namespace container

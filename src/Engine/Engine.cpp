@@ -12,7 +12,9 @@ namespace engine
 {
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
-, entityRegistry(settings.maximumEntityCount())
+, ecsSystems(*this)
+, entityRegistry()
+, renderingSystem(*this, renderWindow)
 , input(*this) {
     settings.syncToConfig();
     bl::event::Dispatcher::subscribe(&input);
@@ -20,27 +22,19 @@ Engine::Engine(const Settings& settings)
 
 Engine::~Engine() {
     bl::event::Dispatcher::clearAllListeners();
+    if (renderingSystem.vulkanState().device) {
+        vkCheck(vkDeviceWaitIdle(renderingSystem.vulkanState().device));
+    }
+    entityRegistry.destroyAllEntities();
     while (!states.empty()) { states.pop(); }
     newState.reset();
 
-#ifndef ON_CI
+    if (renderWindow.isOpen()) {
+        renderingSystem.cleanup();
+        renderWindow.close();
+    }
     audio::AudioSystem::shutdown();
-#endif
 }
-
-ecs::Registry& Engine::ecs() { return entityRegistry; }
-
-script::Manager& Engine::scriptManager() { return engineScriptManager; }
-
-render::RenderSystem& Engine::renderSystem() { return renderingSystem; }
-
-input::InputSystem& Engine::inputSystem() { return input; }
-
-const Settings& Engine::settings() const { return engineSettings; }
-
-Flags& Engine::flags() { return engineFlags; }
-
-sf::RenderWindow& Engine::window() { return renderWindow; }
 
 void Engine::pushState(State::Ptr next) {
     flags().set(Flags::_priv_PushState);
@@ -65,6 +59,7 @@ void Engine::popState() { flags().set(Flags::PopState); }
 bool Engine::run(State::Ptr initialState) {
     BL_LOG_INFO << "Starting engine with state: " << initialState->name();
     states.push(initialState);
+    initialState.reset();
 
     sf::Clock loopTimer;
     sf::Clock updateOuterTimer;
@@ -94,58 +89,58 @@ bool Engine::run(State::Ptr initialState) {
 
     if (engineSettings.createWindow()) {
         if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
+        renderingSystem.initialize();
     }
+    ecsSystems.init();
 
     sf::Clock fpsTimer;
     float frameCount = 0.f;
 
-    initialState->activate(*this);
-    bl::event::Dispatcher::dispatch<event::Startup>({initialState});
+    states.top()->activate(*this);
+    bl::event::Dispatcher::dispatch<event::Startup>({states.top()});
 
     while (true) {
         // Clear flags from last loop
         engineFlags.clear();
 
-#ifndef ON_CI // Process window events
-        sf::Event event;
-        while (renderWindow.pollEvent(event)) {
-            bl::event::Dispatcher::dispatch<sf::Event>(event);
+        if (renderWindow.isOpen()) {
+            sf::Event event;
+            while (renderWindow.pollEvent(event)) {
+                bl::event::Dispatcher::dispatch<sf::Event>(event);
 
-            switch (event.type) {
-            case sf::Event::Closed:
-                bl::event::Dispatcher::dispatch<event::Shutdown>({event::Shutdown::WindowClosed});
-                renderWindow.close();
-                return true;
-
-            case sf::Event::LostFocus:
-                bl::event::Dispatcher::dispatch<event::Paused>({});
-                if (!awaitFocus()) {
+                switch (event.type) {
+                case sf::Event::Closed:
                     bl::event::Dispatcher::dispatch<event::Shutdown>(
                         {event::Shutdown::WindowClosed});
-                    renderWindow.close();
                     return true;
-                }
-                bl::event::Dispatcher::dispatch<event::Resumed>({});
-                updateOuterTimer.restart();
-                loopTimer.restart();
-                break;
 
-            case sf::Event::Resized:
-                if (engineSettings.windowParameters().letterBox()) {
-                    handleResize(event.size, true);
-                }
-                break;
+                case sf::Event::LostFocus:
+                    bl::event::Dispatcher::dispatch<event::Paused>({});
+                    if (!awaitFocus()) {
+                        bl::event::Dispatcher::dispatch<event::Shutdown>(
+                            {event::Shutdown::WindowClosed});
+                        return true;
+                    }
+                    bl::event::Dispatcher::dispatch<event::Resumed>({});
+                    updateOuterTimer.restart();
+                    loopTimer.restart();
+                    break;
 
-            default:
-                break;
+                case sf::Event::Resized:
+                    handleResize(event.size, false);
+                    break;
+
+                default:
+                    break;
+                }
             }
         }
-#endif
 
         // Update and render
         lag += updateOuterTimer.getElapsedTime().asSeconds();
         updateOuterTimer.restart();
         const float startingLag = lag;
+        float totalDt           = 0.f;
         updateMeasureTimer.restart();
 
         // update until caught up
@@ -153,9 +148,13 @@ bool Engine::run(State::Ptr initialState) {
             const float updateStart = updateMeasureTimer.getElapsedTime().asSeconds();
 
             // core update game logic
-            renderingSystem.update(updateTimestep);
+            totalDt += updateTimestep;
             input.update();
             states.top()->update(*this, updateTimestep);
+            ecsSystems.update(FrameStage::FrameStart,
+                              FrameStage::MARKER_OncePerFrame,
+                              states.top()->systemsMask(),
+                              updateTimestep);
             bl::event::Dispatcher::syncListeners();
 
             // check if we should end early
@@ -194,21 +193,20 @@ bool Engine::run(State::Ptr initialState) {
             updateTimestep = newTs;
         }
 
-#ifndef ON_CI // do render
-        if (!engineFlags.active(Flags::PopState) && !engineFlags.active(Flags::Terminate) &&
-            !newState) {
-            renderingSystem.cameras().configureView(renderWindow);
-            states.top()->render(*this, lag);
+        if (renderWindow.isOpen()) {
+            if (!engineFlags.stateChangeReady()) {
+                states.top()->render(*this, lag);
+                ecsSystems.update(FrameStage::MARKER_OncePerFrame,
+                                  FrameStage::COUNT,
+                                  states.top()->systemsMask(),
+                                  totalDt);
+            }
         }
-#endif
 
         // Process flags
         while (engineFlags.stateChangeReady()) {
             if (engineFlags.active(Flags::Terminate)) {
                 bl::event::Dispatcher::dispatch<event::Shutdown>({event::Shutdown::Terminated});
-#ifndef ON_CI
-                renderWindow.close();
-#endif
                 return true;
             }
             else if (engineFlags.active(Flags::PopState)) {
@@ -220,9 +218,6 @@ bool Engine::run(State::Ptr initialState) {
                     BL_LOG_INFO << "Final state popped, exiting";
                     bl::event::Dispatcher::dispatch<event::Shutdown>(
                         {event::Shutdown::FinalStatePopped});
-#ifndef ON_CI
-                    renderWindow.close();
-#endif
                     return true;
                 }
                 BL_LOG_INFO << "New engine state (popped): " << states.top()->name();
@@ -293,7 +288,8 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
     if (!params.icon().empty()) {
         sf::Image icon;
         if (resource::ResourceManager<sf::Image>::initializeExisting(params.icon(), icon)) {
-            renderWindow.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+            renderWindow.getSfWindow().setIcon(
+                icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
         }
         else { BL_LOG_WARN << "Failed to load icon: " << params.icon(); }
     }
@@ -305,23 +301,18 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
 }
 
 void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
-    renderWindow.setTitle(params.title());
-    renderWindow.setVerticalSyncEnabled(params.vsyncEnabled());
+    renderWindow.getSfWindow().setTitle(params.title());
+    if (params.vsyncEnabled() != engineSettings.windowParameters().vsyncEnabled()) {
+        renderingSystem.vulkanState().swapchain.invalidate();
+    }
 
     engineSettings.withWindowParameters(params);
     params.syncToConfig();
 
-    if (params.initialViewSize().x > 0.f) {
-        sf::View view = renderWindow.getView();
-        view.setSize(params.initialViewSize());
-        view.setCenter(params.initialViewSize() * 0.5f);
-        renderWindow.setView(view);
-    }
-
     if (params.letterBox()) {
         sf::Event::SizeEvent e;
-        e.width  = renderWindow.getSize().x;
-        e.height = renderWindow.getSize().y;
+        e.width  = renderWindow.getSfWindow().getSize().x;
+        e.height = renderWindow.getSfWindow().getSize().y;
         handleResize(e, false);
     }
 }
@@ -336,24 +327,27 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
     const float newWidth  = static_cast<float>(resize.width);
     const float newHeight = static_cast<float>(resize.height);
 
-    const float xScale = newWidth / ogSize.x;
-    const float yScale = newHeight / ogSize.y;
+    sf::FloatRect viewport(0.f, 0.f, 1.f, 1.f);
+    if (engineSettings.windowParameters().letterBox()) {
+        const float xScale = newWidth / ogSize.x;
+        const float yScale = newHeight / ogSize.y;
 
-    // it's ok to change view size here, cameras reset it every frame anyways
-    sf::View view(sf::FloatRect(0.f, 0.f, ogSize.x, ogSize.y));
-    sf::FloatRect viewPort(0.f, 0.f, 1.f, 1.f);
-
-    if (xScale >= yScale) { // constrained by height, bars on sides
-        viewPort.width = ogSize.x * yScale / newWidth;
-        viewPort.left  = (1.f - viewPort.width) * 0.5f;
+        if (xScale >= yScale) { // constrained by height, bars on sides
+            viewport.width = ogSize.x * yScale / newWidth;
+            viewport.left  = (1.f - viewport.width) * 0.5f;
+        }
+        else { // constrained by width, bars on top and bottom
+            viewport.height = ogSize.y * xScale / newHeight;
+            viewport.top    = (1.f - viewport.height) * 0.5f;
+        }
     }
-    else { // constrained by width, bars on top and bottom
-        viewPort.height = ogSize.y * xScale / newHeight;
-        viewPort.top    = (1.f - viewPort.height) * 0.5f;
-    }
 
-    view.setViewport(viewPort);
-    renderWindow.setView(view);
+    if (renderingSystem.vulkanState().device) {
+        renderingSystem.processResize(sf::Rect<std::uint32_t>(newWidth * viewport.left,
+                                                              newHeight * viewport.top,
+                                                              newWidth * viewport.width,
+                                                              newHeight * viewport.height));
+    }
 
     if (ss) {
         Settings::WindowParameters params = engineSettings.windowParameters();
@@ -361,8 +355,9 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
             sf::VideoMode(resize.width, resize.height, params.videoMode().bitsPerPixel));
         engineSettings.withWindowParameters(params);
         params.syncToConfig();
-        bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
     }
+
+    bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
 }
 
 } // namespace engine

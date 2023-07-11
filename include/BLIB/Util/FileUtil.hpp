@@ -184,6 +184,15 @@ struct FileUtil {
     static bool readFile(const std::string& filename, std::string& output);
 
     /**
+     * @brief Reads the entire file into the destination buffer
+     *
+     * @param filename The path to read
+     * @param output The buffer to store the result in
+     * @return True if the file was read, false on error
+     */
+    static bool readFile(const std::string& filename, std::vector<char>& output);
+
+    /**
      * @brief Queries the given file for its basic info
      *
      * @param path The file path to query

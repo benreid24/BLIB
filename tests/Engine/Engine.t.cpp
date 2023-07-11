@@ -16,7 +16,8 @@ namespace
 class FlagTestState : public State {
 public:
     FlagTestState(Flags::Flag flag, State::Ptr next = {}, bool replace = false)
-    : callCount(0)
+    : State(StateMask::All)
+    , callCount(0)
     , n(next)
     , r(replace)
     , flag(flag) {}
@@ -104,6 +105,9 @@ namespace
 {
 class FixedTimestepTestState : public State {
 public:
+    FixedTimestepTestState()
+    : State(StateMask::All) {}
+
     virtual void update(Engine& engine, float dt) override {
         times.push_back(dt);
         if (times.size() >= 10) engine.flags().set(Flags::Terminate);
@@ -197,7 +201,8 @@ namespace
 class TimeTestState : public bl::engine::State {
 public:
     TimeTestState()
-    : totalTime(0) {}
+    : State(StateMask::All)
+    , totalTime(0) {}
 
     virtual void update(Engine& engine, float dt) override {
         totalTime += dt;

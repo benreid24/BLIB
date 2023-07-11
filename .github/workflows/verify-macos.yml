@@ -8,15 +8,18 @@ on:
 
 jobs:
   verify:
-    runs-on: macOS-latest
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v2
       with:
         submodules: 'true'
+
+    - name: Point to glslc
+      run: echo "${{ github.workspace }}/tools/glslc/Macos" >> $GITHUB_PATH
       
     - name: configure
-      run: cmake -DON_CI=On -S . -B ./build
+      run: cmake -S . -B ./build
       
     - name: make
       run: cd build && cmake --build .

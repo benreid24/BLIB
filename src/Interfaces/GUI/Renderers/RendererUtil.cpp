@@ -15,7 +15,7 @@ sf::Text RendererUtil::buildRenderText(const std::string& text, const sf::FloatR
 
     resource::Ref<sf::Font> font = settings.font.value_or(Font::get());
     if (!font) {
-        BL_LOG_ERROR << "Attempting to render text with no sf::Font";
+        BL_LOG_ERROR << "Attempting to gfx text with no sf::Font";
         return {};
     }
 

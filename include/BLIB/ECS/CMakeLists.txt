@@ -7,6 +7,9 @@ target_sources(BLIB PUBLIC
     Entity.hpp
     Events.hpp
     Registry.hpp
+    StableHandle.hpp
+    Tags.hpp
+    TagsImpl.hpp
     View.hpp
     ViewImpl.hpp
 )

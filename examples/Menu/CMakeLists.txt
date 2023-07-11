@@ -1,10 +1,10 @@
 add_executable(menu main.cpp)
 
-target_link_libraries(menu
-    BLIB
-    sfml-graphics
-    sfml-window
-)
+include(configure_blib_target)
+include(link_blib_target)
+
+configure_blib_target(menu)
+link_blib_target(menu)
 
 set_target_properties(menu
     PROPERTIES

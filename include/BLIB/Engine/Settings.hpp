@@ -151,6 +151,17 @@ public:
          */
         bool vsyncEnabled() const;
 
+        static constexpr const char* WindowWidthKey      = "blib.engine.window_width";
+        static constexpr const char* WindowHeightKey     = "blib.engine.window_height";
+        static constexpr const char* WindowBitDepthKey   = "blib.engine.window_bit_depth";
+        static constexpr const char* WindowStyleKey      = "blib.engine.window_style";
+        static constexpr const char* WindowTitleKey      = "blib.engine.window_title";
+        static constexpr const char* WindowLetterboxKey  = "blib.engine.leterbox";
+        static constexpr const char* WindowIconKey       = "blib.engine.window_icon";
+        static constexpr const char* WindowViewWidthKey  = "blib.engine.view_width";
+        static constexpr const char* WindowViewHeightKey = "blib.engine.view_height";
+        static constexpr const char* VSyncKey            = "blib.engine.window_vsync";
+
     private:
         std::string sfWindowTitle;
         sf::VideoMode windowMode;
@@ -161,12 +172,17 @@ public:
         bool vsync;
     };
 
-    static constexpr float DefaultUpdateInterval        = 1.f / 120.f;
-    static constexpr float DefaultMaximumFramerate      = 0.f;
-    static constexpr bool DefaultAllowVariableTimestep  = true;
-    static constexpr bool DefaultCreateWindow           = true;
-    static constexpr bool DefaultLogFps                 = false;
-    static constexpr unsigned int DefaultMaxEntityCount = 2000;
+    static constexpr float DefaultUpdateInterval       = 1.f / 120.f;
+    static constexpr float DefaultMaximumFramerate     = 0.f;
+    static constexpr bool DefaultAllowVariableTimestep = true;
+    static constexpr bool DefaultCreateWindow          = true;
+    static constexpr bool DefaultLogFps                = false;
+
+    static constexpr const char* UpdatePeriodKey     = "blib.engine.update_period";
+    static constexpr const char* MaxFpsKey           = "blib.engine.max_fps";
+    static constexpr const char* VariableTimestepKey = "blib.engine.variable_timestep";
+    static constexpr const char* LogFpsKey           = "blib.engine.log_fps";
+    static constexpr const char* MaxEntityKey        = "blib.engine.ecs_entity_count";
 
     /**
      * @brief Creates a new settings object with all default settings
@@ -220,14 +236,6 @@ public:
     Settings& withLogFps(bool log);
 
     /**
-     * @brief Sets the maximum number of entities to allocate for in the ECS
-     *
-     * @param maxEntities The number of entities to allocate memory for
-     * @return Settings& A reference to this object
-     */
-    Settings& withMaxEntityCount(unsigned int maxEntities);
-
-    /**
      * @brief Loads the settings from the global engine config. See Settings.cpp for keys
      *
      * @return Settings& A reference to this object
@@ -277,19 +285,12 @@ public:
      */
     bool logFps() const;
 
-    /**
-     * @brief Returns the maximum number of entities in the ECS
-     *
-     */
-    unsigned int maximumEntityCount() const;
-
 private:
     float updateTime;
     float maxFps;
     bool allowVariableInterval;
     std::optional<WindowParameters> windowParams;
     bool loggingFps;
-    unsigned int maxEntities;
 };
 
 } // namespace engine

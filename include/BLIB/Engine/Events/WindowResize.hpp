@@ -1,7 +1,7 @@
 #ifndef BLIB_ENGINE_EVENTS_WINDOWRESIZE_HPP
 #define BLIB_ENGINE_EVENTS_WINDOWRESIZE_HPP
 
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <BLIB/Engine/Window.hpp>
 
 namespace bl
 {
@@ -16,14 +16,14 @@ namespace event
  *
  */
 struct WindowResized {
-    sf::RenderWindow& window;
+    EngineWindow& window;
 
     /**
      * @brief Construct a new Window Resized object
      *
      * @param w The engine window
      */
-    WindowResized(sf::RenderWindow& w)
+    WindowResized(EngineWindow& w)
     : window(w) {}
 };
 

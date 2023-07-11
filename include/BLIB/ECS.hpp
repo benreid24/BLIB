@@ -14,6 +14,7 @@
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Events.hpp>
 #include <BLIB/ECS/Registry.hpp>
+#include <BLIB/ECS/StableHandle.hpp>
 #include <BLIB/ECS/View.hpp>
 
 #endif

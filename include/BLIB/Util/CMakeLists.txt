@@ -4,6 +4,8 @@ target_sources(BLIB PUBLIC
     FileUtil.hpp
     Hashes.hpp
     HashCombine.hpp
+    IdAllocator.hpp
+    IdAllocatorUnbounded.hpp
     LastVariadic.hpp
     NonCopyable.hpp
     Random.hpp
@@ -14,5 +16,7 @@ target_sources(BLIB PUBLIC
     Timer.hpp
     TupleLoop.hpp
     UnderlyingType.hpp
+    VectorRef.hpp
+    Visitor.hpp
     Waiter.hpp
 )

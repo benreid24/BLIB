@@ -5,14 +5,11 @@ add_executable(engine
     RebindState.cpp
 )
 
-target_link_libraries(engine
-    BLIB
-    sfml-graphics
-    sfml-window
-    sfml-network
-    sfml-audio
-    sfml-system
-)
+include(configure_blib_target)
+include(link_blib_target)
+
+configure_blib_target(engine)
+link_blib_target(engine)
 
 set_target_properties(engine
     PROPERTIES

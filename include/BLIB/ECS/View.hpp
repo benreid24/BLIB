@@ -5,10 +5,15 @@
 #include <BLIB/ECS/ComponentSet.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Events.hpp>
+#include <BLIB/ECS/Tags.hpp>
 #include <BLIB/Events.hpp>
+#include <BLIB/Events/Listener.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <array>
+#include <limits>
 #include <queue>
+#include <typeindex>
+#include <vector>
 
 namespace bl
 {
@@ -16,76 +21,50 @@ namespace ecs
 {
 class Registry;
 
+/// Internal implementation
+namespace priv
+{
 /**
  * @brief Helper class not to be used directly
  *
  * @ingroup ECS
- *
  */
 class ViewBase : private util::NonCopyable {
 public:
-    /// @brief The component mask of this view
-    const ComponentMask::Value mask;
+    const std::type_index id;
+    const ComponentMask mask;
 
-    /**
-     * @brief Destroy the View Base object
-     *
-     */
     virtual ~ViewBase() = default;
 
 protected:
-    ViewBase(ComponentMask::Value mask)
-    : mask(mask) {}
+    bool needsAddressReload;
 
-    virtual void removeEntity(Entity entity)                     = 0;
-    virtual void tryAddEntity(Registry& registry, Entity entity) = 0;
-    virtual void clearAndRefresh(Registry& registry)             = 0;
+    ViewBase(ComponentMask mask, std::type_index id)
+    : id(id)
+    , mask(mask)
+    , needsAddressReload(false) {}
 
-    friend class Registry;
+    virtual void removeEntity(Entity entity) = 0;
+    virtual void tryAddEntity(Entity entity) = 0;
+    virtual void clearAndRefresh()           = 0;
+
+    friend class bl::ecs::Registry;
 };
+} // namespace priv
 
 /**
- * @brief A view into the ECS providing fast iteration over entities with the given set of
- *        components. View results stay up to date as the component and entity data change
+ * @brief Base definition of the View class. Use the tagged specialization
  *
- * @tparam TComponents The components that must all be present in the results
+ * @tparam TRequire Required tagged components. ie Require<int, char>
+ * @tparam TOptional Optional tagged components. ie Optional<bool>
+ * @tparam TExclude Excluded tagged components. ie Exclude<std::string, unsigned>
  * @ingroup ECS
  */
-template<typename... TComponents>
-class View : public ViewBase {
-public:
-    /**
-     * @brief Destroy the View object
-     *
-     */
-    virtual ~View() = default;
-
-    /**
-     * @brief Iterates over all results of the view
-     *
-     * @tparam TCallback The callback type to invoke
-     * @param cb Handler for each entity result in the view
-     */
-    template<typename TCallback>
-    void forEach(const TCallback& cb);
-
-private:
-    util::ReadWriteLock viewLock;
-    std::array<ComponentPoolBase*, sizeof...(TComponents)> pools;
-    std::vector<ComponentSet<TComponents...>> results;
-    std::vector<bool> containedEntities;
-
-    View(Registry& reg, std::size_t maxEntityCount, ComponentMask::Value mask);
-    virtual void removeEntity(Entity entity) override;
-    virtual void tryAddEntity(Registry& registry, Entity entity) override;
-    virtual void clearAndRefresh(Registry& registry) override;
-
-    void lockPoolsRead();
-    void unlockPoolsRead();
-    void lockWrite();
-    void unlockWrite();
-
-    friend class Registry;
+template<typename TRequire, typename TOptional = Optional<>, typename TExclude = Exclude<>>
+class View : public priv::ViewBase {
+    static_assert(std::is_same_v<TRequire, void>,
+                  "View must use tags. Example: View<Require<int, char>, "
+                  "Optional<std::string>, Exclude<unsigned>>");
 };
 
 } // namespace ecs

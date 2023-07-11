@@ -92,7 +92,7 @@ private:
 ////////////////////////////////// MACROS //////////////////////////////////////
 
 // clang-format off
-#define __FILENAME__ (std::strrchr(__FILE__, '/') ? std::strrchr(__FILE__, '/') + 1 : __FILE__)
+#define __FILENAME__ (std::strrchr(__FILE__, '/') ? std::strrchr(__FILE__, '/') + 1 : std::strrchr(__FILE__, '\\') ? std::strrchr(__FILE__, '\\') + 1 :  __FILE__)
 
 /// @brief Helper macro to log at critical level and include file, function, and line information
 #define BL_LOG_CRITICAL bl::logging::Logger::critical() << __FILENAME__ << ":" << __LINE__ <<  " " << __FUNCTION__ << "()" << " - "

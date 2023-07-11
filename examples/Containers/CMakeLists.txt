@@ -1,8 +1,10 @@
 add_executable(containers main.cpp)
 
-target_link_libraries(containers
-    BLIB
-)
+include(configure_blib_target)
+include(link_blib_target)
+
+configure_blib_target(containers)
+link_blib_target(containers)
 
 set_target_properties(containers
     PROPERTIES

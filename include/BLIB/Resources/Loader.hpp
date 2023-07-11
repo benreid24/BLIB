@@ -4,6 +4,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Media/Audio/Playlist.hpp>
 #include <BLIB/Media/Graphics/AnimationData.hpp>
+#include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
 #include <BLIB/Resources/Resource.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -42,8 +43,37 @@ struct LoaderBase {
 };
 
 /**
+ * @brief Helper loader to use if no more of a given resource type should be loaded. Does not
+ *        perform any loading and logs warnings when resource loading is attempted
+ *
+ * @tparam TResourceType The resource type to not load
+ * @ingroup Resources
+ */
+template<typename TResourceType>
+struct NullLoader : public LoaderBase<TResourceType> {
+    /**
+     * @brief Destroy the Null Loader object
+     *
+     */
+    virtual ~NullLoader() = default;
+
+    /**
+     * @brief Logs a warning if called
+     *
+     * @param path Path to the resource to load
+     * @return False always
+     */
+    virtual bool load(const std::string& path, const char*, std::size_t, std::istream&,
+                      TResourceType&) override {
+        BL_LOG_WARN << "Attempted to load '" << path << " (" << typeid(TResourceType).name()
+                    << ") with NullLoader";
+        return false;
+    }
+};
+
+/**
  * @brief Default loaders provided for types: sf::Texture, sf::Image, sf::Font, sf::SoundBuffer,
- *        bl::audio::Playlist, bl::gfx::AnimationData
+ *        bl::audio::Playlist, bl::gfx::AnimationData, sf::VulkanFont
  *
  * @tparam T One of the above listed types
  * @ingroup Resources
@@ -66,12 +96,10 @@ struct DefaultLoader<sf::Texture> : public LoaderBase<sf::Texture> {
 
     virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
                       sf::Texture& result) override {
-#ifndef ON_CI
         if (!result.loadFromMemory(buffer, len)) {
             BL_LOG_ERROR << "Failed to load texture: " << path;
             return false;
         }
-#endif
         return true;
     }
 };
@@ -125,6 +153,20 @@ struct DefaultLoader<sf::Font> : public LoaderBase<sf::Font> {
 
     virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
                       sf::Font& result) override {
+        if (!result.loadFromMemory(buffer, len)) {
+            BL_LOG_ERROR << "Failed to load font: " << path;
+            return false;
+        }
+        return true;
+    }
+};
+
+template<>
+struct DefaultLoader<sf::VulkanFont> : public LoaderBase<sf::VulkanFont> {
+    virtual ~DefaultLoader() = default;
+
+    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
+                      sf::VulkanFont& result) override {
         if (!result.loadFromMemory(buffer, len)) {
             BL_LOG_ERROR << "Failed to load font: " << path;
             return false;

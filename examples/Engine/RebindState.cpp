@@ -6,7 +6,8 @@ bl::engine::State::Ptr RebindState::create(bl::engine::Engine& engine, unsigned 
 }
 
 RebindState::RebindState(bl::engine::Engine& engine, unsigned int ctrl)
-: configurator() {
+: State(bl::engine::StateMask::All)
+, configurator() {
     font = bl::resource::ResourceManager<sf::Font>::load("font.ttf");
     text.setFont(*font);
     text.setPosition(50.f, 300.f);
@@ -50,7 +51,9 @@ void RebindState::update(bl::engine::Engine& engine, float) {
 }
 
 void RebindState::render(bl::engine::Engine& engine, float) {
-    engine.window().clear(sf::Color::White);
+    /* engine.window().clear(sf::Color::White);
     engine.window().draw(text);
     engine.window().display();
+    */
+    // TODO - update example
 }

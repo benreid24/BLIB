@@ -7,6 +7,8 @@ namespace bl
 {
 namespace ecs
 {
+class Registry;
+
 /**
  * @brief Helper struct for creating masks representing component types on an entity
  *
@@ -15,13 +17,38 @@ namespace ecs
  */
 struct ComponentMask {
     /// @brief The type of the bitmask itself
-    using Value = std::uint64_t;
+    using SimpleMask = BLIB_ECS_MASK_TYPE;
 
     /// @brief Maximum number of component types supported by the ECS
-    static constexpr unsigned int MaxComponentTypeCount = 64;
+    static constexpr unsigned int MaxComponentTypeCount = sizeof(SimpleMask) * 8;
 
     /// @brief A mask with no components
-    static constexpr Value EmptyMask = 0;
+    static constexpr SimpleMask EmptyMask = 0;
+
+    SimpleMask required;
+    SimpleMask optional;
+    SimpleMask excluded;
+
+    /**
+     * @brief Returns whether or not the given mask passes the tagged filter for this mask
+     *
+     * @param entityMask The mask to check
+     * @return True if the mask satisfies the tagged requirements, false otherwise
+     */
+    bool passes(SimpleMask entityMask) const {
+        return (entityMask & required) != 0 && (entityMask & excluded) == 0;
+    }
+
+    /**
+     * @brief Returns whether or not this mask contains the given index. Uses both required and
+     *        optional masks
+     *
+     * @param index The index to check for
+     * @return True if the given index is contained, false otherwise
+     */
+    bool contains(unsigned int index) const {
+        return ((required | optional) & (static_cast<SimpleMask>(0x1) << index)) != 0;
+    }
 
     /**
      * @brief Adds the given component index to the existing mask
@@ -29,8 +56,8 @@ struct ComponentMask {
      * @param mask The mask to add to
      * @param componentIndex The component to add
      */
-    static void add(Value& mask, unsigned int componentIndex) {
-        mask |= (static_cast<Value>(0x1) << componentIndex);
+    static void add(SimpleMask& mask, unsigned int componentIndex) {
+        mask |= (static_cast<SimpleMask>(0x1) << componentIndex);
     }
 
     /**
@@ -39,8 +66,8 @@ struct ComponentMask {
      * @param mask The mask to remove from
      * @param componentIndex The component to remove
      */
-    static void remove(Value& mask, unsigned int componentIndex) {
-        mask &= ~(static_cast<Value>(0x1) << componentIndex);
+    static void remove(SimpleMask& mask, unsigned int componentIndex) {
+        mask &= ~(static_cast<SimpleMask>(0x1) << componentIndex);
     }
 
     /**
@@ -50,18 +77,9 @@ struct ComponentMask {
      * @param componentIndex The component to test for
      * @return True if the component is contained, false otherwise
      */
-    static bool has(Value mask, unsigned int componentIndex) {
-        return (mask & (static_cast<Value>(0x1) << componentIndex)) != 0;
+    static bool has(SimpleMask mask, unsigned int componentIndex) {
+        return (mask & (static_cast<SimpleMask>(0x1) << componentIndex)) != 0;
     }
-
-    /**
-     * @brief Returns whether or not the outer mask completely contains the inner mask
-     *
-     * @param outer The larger mask to test if it contains the smaller mask
-     * @param inner The mask to see if is fully contained
-     * @return True if the outer mask has all of the components contained in the inner mask
-     */
-    static bool completelyContains(Value outer, Value inner) { return (outer & inner) == inner; }
 };
 
 } // namespace ecs

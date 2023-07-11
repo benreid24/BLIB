@@ -4,11 +4,11 @@ add_executable(resources
     Map.cpp
 )
 
-target_link_libraries(resources
-    BLIB
-    sfml-graphics
-    sfml-window
-)
+include(configure_blib_target)
+include(link_blib_target)
+
+configure_blib_target(resources)
+link_blib_target(resources)
 
 set_target_properties(resources
     PROPERTIES

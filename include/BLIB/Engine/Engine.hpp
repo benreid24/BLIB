@@ -1,20 +1,21 @@
 #ifndef BLIB_ENGINE_ENGINE_HPP
 #define BLIB_ENGINE_ENGINE_HPP
 
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <stack>
-
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Engine/Events.hpp>
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
+#include <BLIB/Engine/Systems.hpp>
+#include <BLIB/Engine/Window.hpp>
 #include <BLIB/Engine/Worker.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Input.hpp>
-#include <BLIB/Render.hpp>
+#include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
+#include <BLIB/Util/NonCopyable.hpp>
+#include <stack>
 
 namespace bl
 {
@@ -27,7 +28,7 @@ namespace engine
  * @ingroup Engine
  *
  */
-class Engine {
+class Engine : private util::NonCopyable {
 public:
     /**
      * @brief Creates the game engine from the given settings
@@ -49,6 +50,11 @@ public:
     ecs::Registry& ecs();
 
     /**
+     * @brief Returns the systems registry of the engine
+     */
+    Systems& systems();
+
+    /**
      * @brief Returns a reference to the engine's script Manager
      *
      */
@@ -57,12 +63,12 @@ public:
     /**
      * @brief Returns the rendering system of the engine
      *
-     * @return render::RenderSystem& The rendering system
+     * @return render::Renderer& The rendering system
      */
-    render::RenderSystem& renderSystem();
+    gfx::Renderer& renderer();
 
     /**
-     * @brief Returns the user input sysem of the engine
+     * @brief Returns the user input system of the engine
      *
      * @return input::InputSystem& The user input system
      */
@@ -101,12 +107,12 @@ public:
      *        is created when run() is called
      *
      */
-    sf::RenderWindow& window();
+    EngineWindow& window();
 
     /**
      * @brief Runs the main game loop starting in the given initial state. This is the main
      *        application loop and runs for the duration of the program. All setup should be
-     *        performed prior to calling this. The sf::RenderWindow is created in here
+     *        performed prior to calling this. The EngineWindow is created in here
      *
      * @param initialState The starting engine state
      * @return bool True if the engine exited cleanly, false if exiting due to error
@@ -116,7 +122,7 @@ public:
     /**
      * @brief Sets the next state for the following engine update loop. May be called at any
      *        time, the next state will not be transitioned to until the start of main loop. If
-     *        the Popstate flag is set, that will be evaluated before the new state is pushed
+     *        the PopState flag is set, that will be evaluated before the new state is pushed
      *
      * @param next Next state to enter on the following main loop run
      */
@@ -145,16 +151,34 @@ private:
     std::stack<State::Ptr> states;
     State::Ptr newState;
 
-    sf::RenderWindow renderWindow;
-    sf::Context renderContext;
+    EngineWindow renderWindow;
+    Systems ecsSystems;
     script::Manager engineScriptManager;
     ecs::Registry entityRegistry;
-    render::RenderSystem renderingSystem;
+    gfx::Renderer renderingSystem;
     input::InputSystem input;
 
     bool awaitFocus();
     void handleResize(const sf::Event::SizeEvent& resize, bool saveAndSend);
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline ecs::Registry& Engine::ecs() { return entityRegistry; }
+
+inline Systems& Engine::systems() { return ecsSystems; }
+
+inline script::Manager& Engine::scriptManager() { return engineScriptManager; }
+
+inline gfx::Renderer& Engine::renderer() { return renderingSystem; }
+
+inline input::InputSystem& Engine::inputSystem() { return input; }
+
+inline const Settings& Engine::settings() const { return engineSettings; }
+
+inline Flags& Engine::flags() { return engineFlags; }
+
+inline EngineWindow& Engine::window() { return renderWindow; }
 
 } // namespace engine
 } // namespace bl

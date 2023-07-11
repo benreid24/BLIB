@@ -1,5 +1,6 @@
 target_sources(BLIB PRIVATE
     Camera.cpp
-    FollowCamera.cpp
-    StaticCamera.cpp
 )
+
+add_subdirectory(2D)
+add_subdirectory(3D)

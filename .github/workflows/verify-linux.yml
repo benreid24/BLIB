@@ -22,7 +22,7 @@ jobs:
       run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
       
     - name: configure
-      run: cmake -DON_CI=ON -S . -B ./build
+      run: cmake -S . -B ./build
       
     - name: make
       run: cd build && cmake --build .

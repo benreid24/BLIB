@@ -36,7 +36,7 @@ TEST(ObjectWrapper, UnInitialized) {
 }
 
 TEST(ObjectWrapper, ConstructAndEmplace) {
-    ObjectWrapper<Object> obj1(5, 2);
+    ObjectWrapper<Object> obj1(std::in_place, 5, 2);
     EXPECT_EQ(obj1.get().data, 10);
 
     ObjectWrapper<Object> obj2;

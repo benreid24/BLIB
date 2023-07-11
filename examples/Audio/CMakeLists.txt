@@ -1,11 +1,10 @@
 add_executable(audio main.cpp)
 
-target_link_libraries(audio
-    BLIB
-    sfml-graphics
-    sfml-audio
-    sfml-window
-)
+include(configure_blib_target)
+include(link_blib_target)
+
+configure_blib_target(audio)
+link_blib_target(audio)
 
 set_target_properties(audio
     PROPERTIES

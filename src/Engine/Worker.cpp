@@ -23,8 +23,8 @@ Worker::~Worker() {
     mutex.lock();
     worker  = nullptr;
     running = false;
-    cv.notify_all();
     mutex.unlock();
+    cv.notify_all();
     runner.join();
     BL_LOG_INFO << "Engine worker shutdown";
 }

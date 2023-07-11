@@ -98,6 +98,13 @@ public:
      */
     static bool initializeExisting(const std::string& uri, TResourceType& resource);
 
+    /**
+     * @brief Explicitly frees and destroys all resources, regardless of ownership state. Be very
+     *        careful with this
+     *
+     */
+    static void freeAndDestroyAll();
+
 private:
     std::unique_ptr<LoaderBase<TResourceType>> loader;
     std::unordered_map<std::string, Resource<TResourceType>> resources;
@@ -213,6 +220,11 @@ template<typename T>
 ResourceManager<T>& ResourceManager<T>::get() {
     static ResourceManager me;
     return me;
+}
+
+template<typename T>
+void ResourceManager<T>::freeAndDestroyAll() {
+    get().freeAll();
 }
 
 } // namespace resource
