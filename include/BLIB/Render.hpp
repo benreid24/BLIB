@@ -6,6 +6,8 @@
  * @brief A streamlined rendering system for the game engine
  */
 
+#include <BLIB/Engine/Engine.hpp>
+
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
@@ -47,10 +49,8 @@
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
-#include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
 #include <BLIB/Render/Drawables/Components/Textured.hpp>
 #include <BLIB/Render/Drawables/Components/Transform2D.hpp>
-#include <BLIB/Render/Drawables/Drawable.hpp>
 #include <BLIB/Render/Drawables/Sprite.hpp>
 #include <BLIB/Render/Drawables/Text.hpp>
 #include <BLIB/Render/Drawables/Text/BasicText.hpp>
@@ -82,11 +82,8 @@
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
-#include <BLIB/Render/Systems/BuiltinDescriptorComponentSystems.hpp>
-#include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
 #include <BLIB/Render/Systems/CameraUpdateSystem.hpp>
 #include <BLIB/Render/Systems/DescriptorComponentSystem.hpp>
-#include <BLIB/Render/Systems/DrawableSystem.hpp>
 #include <BLIB/Render/Systems/OverlayScaler.hpp>
 #include <BLIB/Render/Systems/RenderSystem.hpp>
 #include <BLIB/Render/Systems/TextSyncSystem.hpp>
@@ -117,5 +114,12 @@
 #include <BLIB/Render/Vulkan/Texture.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
+
+// Inline methods in the below
+#include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
+#include <BLIB/Render/Drawables/Drawable.hpp>
+#include <BLIB/Render/Systems/BuiltinDescriptorComponentSystems.hpp>
+#include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
+#include <BLIB/Render/Systems/DrawableSystem.hpp>
 
 #endif
