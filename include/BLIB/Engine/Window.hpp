@@ -256,8 +256,9 @@ std::vector<const char*> Window<T>::getRequiredInstanceExtensions() {
     std::uint32_t extensionCount = 0;
     const char** exts            = glfwGetRequiredInstanceExtensions(&extensionCount);
     std::vector<const char*> result;
-    result.resize(extensionCount);
+    result.resize(extensionCount + 1);
     for (std::uint32_t i = 0; i < extensionCount; ++i) { result[i] = exts[i]; }
+    result.back() = VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME;
     return result;
 #else
     return sf::Vulkan::getGraphicsRequiredInstanceExtensions();

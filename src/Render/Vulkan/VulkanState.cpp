@@ -245,6 +245,10 @@ void VulkanState::createInstance() {
     createInfo.enabledExtensionCount   = requiredExtentions.size();
     createInfo.ppEnabledExtensionNames = requiredExtentions.data();
 
+#ifdef BLIB_MACOS
+    createInfo.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
+#endif
+
     // actual instance creation
     const VkResult result = vkCreateInstance(&createInfo, nullptr, &instance);
     if (result != VK_SUCCESS) {
