@@ -13,7 +13,7 @@ namespace engine
 class Engine;
 }
 
-namespace gfx
+namespace rc
 {
 /// Collection of SFML-like classes for drawing
 namespace draw
@@ -300,7 +300,7 @@ void Drawable<TCom, TSys>::create(engine::Engine& engine, TArgs&&... args) {
 }
 
 } // namespace draw
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

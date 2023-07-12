@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace com
 {
@@ -44,5 +44,5 @@ void DrawableBase::rebucket() {
 }
 
 } // namespace com
-} // namespace gfx
+} // namespace rc
 } // namespace bl

@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace res
 {
@@ -21,5 +21,5 @@ vk::PipelineLayout* PipelineLayoutCache::getLayout(vk::PipelineLayout::LayoutPar
 void PipelineLayoutCache::cleanup() { cache.clear(); }
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl

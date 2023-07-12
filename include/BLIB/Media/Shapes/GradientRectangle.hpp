@@ -90,7 +90,7 @@ protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
-    gfx::VertexBuffer points;
+    rc::VertexBuffer points;
 
     GradientRectangle(const sf::Vector2f& size);
 };

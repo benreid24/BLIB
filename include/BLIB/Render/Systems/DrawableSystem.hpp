@@ -17,7 +17,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace sys
 {
@@ -32,7 +32,7 @@ namespace sys
 template<typename T>
 class DrawableSystem
 : public engine::System
-, public bl::event::Listener<ecs::event::ComponentRemoved<T>, gfx::event::SceneDestroyed> {
+, public bl::event::Listener<ecs::event::ComponentRemoved<T>, rc::event::SceneDestroyed> {
 public:
     /**
      * @brief Initializes the system internals
@@ -309,7 +309,7 @@ void DrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
 }
 
 } // namespace sys
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

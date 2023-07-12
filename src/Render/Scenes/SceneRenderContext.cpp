@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace scene
 {
@@ -65,5 +65,5 @@ void SceneRenderContext::renderObject(const SceneObject& object) {
 }
 
 } // namespace scene
-} // namespace gfx
+} // namespace rc
 } // namespace bl

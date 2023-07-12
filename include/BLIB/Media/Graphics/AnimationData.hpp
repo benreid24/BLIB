@@ -11,7 +11,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Animation;
 
@@ -141,7 +141,7 @@ private:
     friend class Animation;
 };
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

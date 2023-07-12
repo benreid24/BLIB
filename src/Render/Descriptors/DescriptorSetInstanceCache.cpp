@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace ds
 {
@@ -36,5 +36,5 @@ void DescriptorSetInstanceCache::updateObserverCamera(std::uint32_t observerInde
 }
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl

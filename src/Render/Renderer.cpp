@@ -11,7 +11,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 : engine(engine)
@@ -247,5 +247,5 @@ void Renderer::removeRenderTexture(vk::RenderTexture* rt) {
     }
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl

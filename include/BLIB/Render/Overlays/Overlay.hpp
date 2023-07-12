@@ -22,7 +22,7 @@ namespace engine
 class Engine;
 }
 
-namespace gfx
+namespace rc
 {
 class Renderer;
 class Observer;
@@ -134,7 +134,7 @@ private:
     friend class Observer;
 };
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

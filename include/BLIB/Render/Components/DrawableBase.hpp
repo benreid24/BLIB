@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace com
 {
@@ -56,7 +56,7 @@ struct DrawableBase {
 };
 
 } // namespace com
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

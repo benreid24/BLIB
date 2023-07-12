@@ -10,7 +10,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace buf
 {
@@ -218,7 +218,7 @@ void IndexBufferT<T>::executeTransfer(VkCommandBuffer commandBuffer,
 using IndexBuffer = IndexBufferT<prim::Vertex>;
 
 } // namespace buf
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

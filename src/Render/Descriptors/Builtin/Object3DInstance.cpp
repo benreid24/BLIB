@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace ds
 {
@@ -163,5 +163,5 @@ void Object3DInstance::handleFrameStart() {
 }
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl

@@ -14,7 +14,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace draw
 {
@@ -174,7 +174,7 @@ private:
                                   std::uint32_t prevChar) const;
     const sf::FloatRect& getBounds() const;
 
-    friend class bl::gfx::draw::Text;
+    friend class bl::rc::draw::Text;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -220,7 +220,7 @@ inline float BasicText::computeLineSpacing(const sf::VulkanFont& font) const {
 
 } // namespace txt
 } // namespace draw
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

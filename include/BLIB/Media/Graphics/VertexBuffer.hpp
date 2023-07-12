@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 /**
  * @brief Helper class around SFML's vertex buffer system. This class leverages vertex buffers, if
@@ -82,7 +82,7 @@ private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -226,5 +226,5 @@ void DescriptorPool::Subpool::release(const SetBindingInfo& allocInfo, VkDescrip
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl

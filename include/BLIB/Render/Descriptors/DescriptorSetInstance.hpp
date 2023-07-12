@@ -11,7 +11,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace scene
 {
@@ -124,7 +124,7 @@ inline constexpr bool DescriptorSetInstance::isBindless() const { return bindles
 inline constexpr bool DescriptorSetInstance::needsRebindForNewSpeed() const { return speedBind; }
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

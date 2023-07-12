@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -137,7 +137,7 @@ inline constexpr vk::Texture* TextureRef::get() { return texture; }
 inline constexpr const vk::Texture* TextureRef::get() const { return texture; }
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

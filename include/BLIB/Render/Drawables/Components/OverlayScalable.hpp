@@ -10,7 +10,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Overlay;
 
@@ -136,7 +136,7 @@ inline const sf::FloatRect& OverlayScalable::getTargetRegion() const {
 
 } // namespace base
 } // namespace draw
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

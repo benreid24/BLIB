@@ -2,8 +2,7 @@
 
 namespace bl
 {
-/// Collection of graphical utilities and functionality
-namespace gfx
+namespace rc
 {
 Animation::Animation()
 : data(nullptr)
@@ -90,5 +89,5 @@ void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     if (data) { data->render(target, states, position, scale, rotation, frame); }
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl

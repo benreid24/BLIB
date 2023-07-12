@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace scene
 {
@@ -11,5 +11,5 @@ SceneObject::SceneObject()
 , drawParams{} {}
 
 } // namespace scene
-} // namespace gfx
+} // namespace rc
 } // namespace bl

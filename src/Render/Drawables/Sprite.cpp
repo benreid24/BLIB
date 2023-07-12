@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace draw
 {
@@ -21,5 +21,5 @@ void Sprite::create(engine::Engine& engine, res::TextureRef texture, const sf::F
 }
 
 } // namespace draw
-} // namespace gfx
+} // namespace rc
 } // namespace bl

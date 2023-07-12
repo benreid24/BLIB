@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace scene
 {
@@ -133,5 +133,5 @@ void PostFX::onRender(VkCommandBuffer) {
 }
 
 } // namespace scene
-} // namespace gfx
+} // namespace rc
 } // namespace bl

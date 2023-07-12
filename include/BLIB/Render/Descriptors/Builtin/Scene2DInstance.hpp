@@ -11,7 +11,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -57,7 +57,7 @@ private:
 };
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

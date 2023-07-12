@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -131,5 +131,5 @@ void RenderTexture::renderScene(VkCommandBuffer commandBuffer) {
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl

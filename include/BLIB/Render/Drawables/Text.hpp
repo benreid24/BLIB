@@ -18,7 +18,7 @@ namespace engine
 class Engine;
 }
 
-namespace gfx
+namespace rc
 {
 namespace sys
 {
@@ -211,7 +211,7 @@ inline txt::BasicText& Text::getSection(unsigned int i) { return sections[i]; }
 inline const txt::BasicText& Text::getSection(unsigned int i) const { return sections[i]; }
 
 } // namespace draw
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

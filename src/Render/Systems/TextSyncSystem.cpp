@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace sys
 {
@@ -39,5 +39,5 @@ void TextSyncSystem::observe(const event::OverlayEntityScaled& event) {
 }
 
 } // namespace sys
-} // namespace gfx
+} // namespace rc
 } // namespace bl

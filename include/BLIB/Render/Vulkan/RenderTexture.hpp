@@ -12,7 +12,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -133,7 +133,7 @@ private:
     void updateCamera(float dt);
     void renderScene(VkCommandBuffer commandBuffer);
 
-    friend class bl::gfx::Renderer;
+    friend class bl::rc::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -155,7 +155,7 @@ TCamera* RenderTexture::setCamera(TArgs&&... args) {
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

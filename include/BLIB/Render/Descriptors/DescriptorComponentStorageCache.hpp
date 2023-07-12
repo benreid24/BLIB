@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace ds
 {
@@ -78,7 +78,7 @@ DescriptorComponentStorageCache::getComponentStorage() {
 }
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

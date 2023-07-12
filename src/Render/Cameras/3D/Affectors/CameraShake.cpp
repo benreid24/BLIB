@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace c3d
 {
@@ -33,5 +33,5 @@ void CameraShake::update(float dt, bool& view, bool&) {
 }
 
 } // namespace c3d
-} // namespace gfx
+} // namespace rc
 } // namespace bl

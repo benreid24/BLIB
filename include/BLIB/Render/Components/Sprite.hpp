@@ -13,7 +13,7 @@ namespace engine
 class Engine;
 }
 
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -96,7 +96,7 @@ inline constexpr const glm::vec2& Sprite::getSize() const { return size; }
 inline const glm::vec4& Sprite::getColor() const { return buffer.vertices()[0].color; }
 
 } // namespace com
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

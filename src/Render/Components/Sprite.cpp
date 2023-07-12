@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace com
 {
@@ -77,5 +77,5 @@ void Sprite::refreshTrans() {
 }
 
 } // namespace com
-} // namespace gfx
+} // namespace rc
 } // namespace bl

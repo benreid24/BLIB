@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 Flashing::Flashing(sf::Drawable& component, float on, float off)
 : component(component)
@@ -41,5 +41,5 @@ void Flashing::render(sf::RenderTarget& target, sf::RenderStates states, float l
     }
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl

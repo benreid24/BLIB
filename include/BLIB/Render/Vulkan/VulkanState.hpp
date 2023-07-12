@@ -22,7 +22,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -227,7 +227,7 @@ private:
 
     void cleanupDebugMessenger();
 
-    friend class bl::gfx::Renderer;
+    friend class bl::rc::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -377,7 +377,7 @@ constexpr const T* PerFrameVector<T>::data() const {
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

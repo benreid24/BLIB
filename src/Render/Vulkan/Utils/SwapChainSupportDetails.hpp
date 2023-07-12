@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 struct SwapChainSupportDetails {
     VkSurfaceCapabilitiesKHR capabilities;
@@ -23,7 +23,7 @@ struct SwapChainSupportDetails {
     VkExtent2D swapExtent(const sf::Vector2u& windowSize) const;
 };
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

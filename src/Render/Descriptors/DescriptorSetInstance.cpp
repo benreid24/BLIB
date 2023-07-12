@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace ds
 {
@@ -13,5 +13,5 @@ DescriptorSetInstance::DescriptorSetInstance(BindMode bindMode, SpeedBucketSetti
 , speedBind(speedSetting == RebindForNewSpeed) {}
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl

@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -226,5 +226,5 @@ void Texture::updateTrans(const sf::Image& content) {
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl

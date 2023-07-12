@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -39,7 +39,7 @@ private:
 };
 
 } // namespace sys
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

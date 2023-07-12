@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -99,5 +99,5 @@ void Pipeline::bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId) {
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl

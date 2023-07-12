@@ -16,15 +16,15 @@
 
 namespace
 {
-const std::vector<bl::gfx::prim::Vertex> Vertices = {
-    bl::gfx::prim::Vertex{-0.5f, -0.5f, 0.f, 0.0f, 1.f},
-    bl::gfx::prim::Vertex{0.5f, -0.5f, 0.f, 1.0f, 1.f},
-    bl::gfx::prim::Vertex{0.5f, 0.5f, 0.f, 1.0f, 0.f},
-    bl::gfx::prim::Vertex{-0.5f, 0.5f, 0.f, 0.0f, 0.f},
+const std::vector<bl::rc::prim::Vertex> Vertices = {
+    bl::rc::prim::Vertex{-0.5f, -0.5f, 0.f, 0.0f, 1.f},
+    bl::rc::prim::Vertex{0.5f, -0.5f, 0.f, 1.0f, 1.f},
+    bl::rc::prim::Vertex{0.5f, 0.5f, 0.f, 1.0f, 0.f},
+    bl::rc::prim::Vertex{-0.5f, 0.5f, 0.f, 0.0f, 0.f},
 
-    bl::gfx::prim::Vertex{1.f, 0.f, 0.5f, 0.0f, 0.f},
-    bl::gfx::prim::Vertex{1.f, 0.1f, -0.5f, 0.0f, 1.f},
-    bl::gfx::prim::Vertex{0.75f, 0.7f, 0.5f, 1.0f, 1.f}};
+    bl::rc::prim::Vertex{1.f, 0.f, 0.5f, 0.0f, 0.f},
+    bl::rc::prim::Vertex{1.f, 0.1f, -0.5f, 0.0f, 1.f},
+    bl::rc::prim::Vertex{0.75f, 0.7f, 0.5f, 1.0f, 1.f}};
 const std::vector<std::uint32_t> Indices = {0, 1, 2, 2, 3, 0, 4, 5, 6};
 } // namespace
 
@@ -50,24 +50,24 @@ public:
         font.loadFromFile("Resources/Fonts/font.ttf");
 
         // get first observer and set background color
-        bl::gfx::Observer& p1 = engine.renderer().getObserver(0);
+        bl::rc::Observer& p1 = engine.renderer().getObserver(0);
         p1.setClearColor({0.f, 0.f, 1.f, 1.f});
 
         // create 2d scene and camera for observer 1
-        bl::gfx::Scene* scene = p1.pushScene<bl::gfx::scene::BasicScene>();
+        bl::rc::Scene* scene = p1.pushScene<bl::rc::scene::BasicScene>();
         auto* p1cam =
-            p1.setCamera<bl::gfx::c2d::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
+            p1.setCamera<bl::rc::c2d::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
         p1cam->setNearAndFarPlanes(-100000.f, 100000.f);
         p1cam->setRotation(15.f);
 
         // create sprite in scene
         spriteEntity   = engine.ecs().createEntity();
         spritePosition = engine.ecs().emplaceComponent<bl::t2d::Transform2D>(spriteEntity);
-        engine.ecs().emplaceComponent<bl::gfx::com::Texture>(spriteEntity, texture);
-        engine.ecs().emplaceComponent<bl::gfx::com::Sprite>(
+        engine.ecs().emplaceComponent<bl::rc::com::Texture>(spriteEntity, texture);
+        engine.ecs().emplaceComponent<bl::rc::com::Sprite>(
             spriteEntity, engine.renderer(), texture);
-        engine.systems().getSystem<bl::gfx::sys::SpriteSystem>().addToScene(
-            spriteEntity, scene, bl::gfx::UpdateSpeed::Dynamic);
+        engine.systems().getSystem<bl::rc::sys::SpriteSystem>().addToScene(
+            spriteEntity, scene, bl::rc::UpdateSpeed::Dynamic);
         spritePosition->setPosition({1920.f * 0.5f, 1080.f * 0.25f});
         spritePosition->setScale({100.f / texture->size().x, 100.f / texture->size().y});
         spritePosition->setOrigin(texture->size() * 0.5f);
@@ -77,43 +77,42 @@ public:
         sprite.getTransform().setPosition({1920.f * 0.75f, 1080.f * 0.25f});
         sprite.getTransform().setScale({150.f / texture->size().x, 150.f / texture->size().y});
         sprite.getTransform().setOrigin(texture->size() * 0.5f);
-        sprite.addToScene(scene, bl::gfx::UpdateSpeed::Static);
+        sprite.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         // create 3d scene for observer 2
-        bl::gfx::Observer& p2 = engine.renderer().addObserver();
-        scene                 = p2.pushScene<bl::gfx::scene::BasicScene>();
+        bl::rc::Observer& p2 = engine.renderer().addObserver();
+        scene                = p2.pushScene<bl::rc::scene::BasicScene>();
 
         // create camera for observer 2
         p2.setClearColor({0.f, 1.f, 0.f, 1.f});
-        bl::gfx::c3d::Camera3D* player2Cam = p2.setCamera<bl::gfx::c3d::Camera3D>(
+        bl::rc::c3d::Camera3D* player2Cam = p2.setCamera<bl::rc::c3d::Camera3D>(
             glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
-        player2Cam->setController<bl::gfx::c3d::OrbiterController>(
+        player2Cam->setController<bl::rc::c3d::OrbiterController>(
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
-        player2Cam->addAffector<bl::gfx::c3d::CameraShake>(0.1f, 7.f);
+        player2Cam->addAffector<bl::rc::c3d::CameraShake>(0.1f, 7.f);
 
         // get handle to mesh system
-        bl::gfx::sys::MeshSystem& meshSystem =
-            engine.systems().getSystem<bl::gfx::sys::MeshSystem>();
+        bl::rc::sys::MeshSystem& meshSystem = engine.systems().getSystem<bl::rc::sys::MeshSystem>();
 
         // create object in scene
         meshEntity = engine.ecs().createEntity();
         engine.ecs().emplaceComponent<bl::t3d::Transform3D>(meshEntity);
-        engine.ecs().emplaceComponent<bl::gfx::com::Texture>(meshEntity, texture);
-        bl::gfx::com::Mesh* mesh = engine.ecs().emplaceComponent<bl::gfx::com::Mesh>(meshEntity);
+        engine.ecs().emplaceComponent<bl::rc::com::Texture>(meshEntity, texture);
+        bl::rc::com::Mesh* mesh = engine.ecs().emplaceComponent<bl::rc::com::Mesh>(meshEntity);
         mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
         mesh->gpuBuffer.vertices() = Vertices;
         mesh->gpuBuffer.indices()  = Indices;
-        mesh->gpuBuffer.queueTransfer(bl::gfx::tfr::Transferable::SyncRequirement::Immediate);
-        meshSystem.addToScene(meshEntity, scene, bl::gfx::UpdateSpeed::Static);
+        mesh->gpuBuffer.queueTransfer(bl::rc::tfr::Transferable::SyncRequirement::Immediate);
+        meshSystem.addToScene(meshEntity, scene, bl::rc::UpdateSpeed::Static);
 
         // create overlay and add sprite for observer 2
-        bl::gfx::Overlay* overlay = p2.getOrCreateSceneOverlay();
+        bl::rc::Overlay* overlay = p2.getOrCreateSceneOverlay();
         messageBox.create(engine, messageBoxTxtr);
         messageBox.getTransform().setPosition({0.5f, 0.85f});
         messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
         messageBox.getOverlayScaler().scaleToHeightPercent(0.3f);
         messageBox.setViewportToSelf();
-        messageBox.addToOverlay(overlay, bl::gfx::UpdateSpeed::Static);
+        messageBox.addToOverlay(overlay, bl::rc::UpdateSpeed::Static);
 
         // add text to overlay
         text.create(engine, font, "Text can now be", 64);
@@ -122,24 +121,24 @@ public:
         text.getTransform().setPosition({0.03f, 0.05f});
         text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
         text.wordWrap(0.9f);
-        text.addToOverlay(overlay, bl::gfx::UpdateSpeed::Static, messageBox.entity());
+        text.addToOverlay(overlay, bl::rc::UpdateSpeed::Static, messageBox.entity());
 
         // setup render texture
         renderTexture.create(engine.renderer(), {128, 128});
-        bl::gfx::Overlay* rto = engine.renderer().scenePool().allocateScene<bl::gfx::Overlay>();
+        bl::rc::Overlay* rto = engine.renderer().scenePool().allocateScene<bl::rc::Overlay>();
         renderTexture.setScene(rto);
-        renderTexture.setCamera<bl::gfx::ovy::OverlayCamera>();
+        renderTexture.setCamera<bl::rc::ovy::OverlayCamera>();
         renderTexture.setClearColor({0.f, 0.0f, 0.7f, 0.4f});
 
         renderTextureInnerSprite.create(engine, texture);
         renderTextureInnerSprite.getOverlayScaler().scaleToWidthPercent(1.f);
         renderTextureInnerSprite.getTransform().setPosition({0.f, 0.f});
-        renderTextureInnerSprite.addToOverlay(rto, bl::gfx::UpdateSpeed::Static);
+        renderTextureInnerSprite.addToOverlay(rto, bl::rc::UpdateSpeed::Static);
 
         renderTextureOuterSprite.create(engine, renderTexture.getTexture());
         renderTextureOuterSprite.getTransform().setPosition({0.05f, 0.1f});
         renderTextureOuterSprite.getOverlayScaler().scaleToHeightPercent(0.15f);
-        renderTextureOuterSprite.addToOverlay(overlay, bl::gfx::UpdateSpeed::Static);
+        renderTextureOuterSprite.addToOverlay(overlay, bl::rc::UpdateSpeed::Static);
 
         // subscribe to window events
         bl::event::Dispatcher::subscribe(this);
@@ -163,30 +162,30 @@ public:
     }
 
 private:
-    bl::gfx::Renderer* renderer;
-    bl::gfx::draw::Sprite sprite;
-    bl::gfx::draw::Sprite messageBox;
+    bl::rc::Renderer* renderer;
+    bl::rc::draw::Sprite sprite;
+    bl::rc::draw::Sprite messageBox;
     bl::ecs::Entity spriteEntity;
     bl::t2d::Transform2D* spritePosition;
     bl::ecs::Entity meshEntity;
-    bl::gfx::res::TextureRef texture;
-    bl::gfx::res::TextureRef messageBoxTxtr;
+    bl::rc::res::TextureRef texture;
+    bl::rc::res::TextureRef messageBoxTxtr;
     sf::VulkanFont font;
-    bl::gfx::draw::Text text;
-    bl::gfx::vk::RenderTexture renderTexture;
-    bl::gfx::draw::Sprite renderTextureInnerSprite;
-    bl::gfx::draw::Sprite renderTextureOuterSprite;
+    bl::rc::draw::Text text;
+    bl::rc::vk::RenderTexture renderTexture;
+    bl::rc::draw::Sprite renderTextureInnerSprite;
+    bl::rc::draw::Sprite renderTextureOuterSprite;
 
     virtual void observe(const sf::Event& event) override {
         if (event.type == sf::Event::KeyPressed) {
             switch (event.key.code) {
             case sf::Keyboard::Z:
                 renderer->setSplitscreenDirection(
-                    bl::gfx::Renderer::SplitscreenDirection::LeftAndRight);
+                    bl::rc::Renderer::SplitscreenDirection::LeftAndRight);
                 break;
             case sf::Keyboard::X:
                 renderer->setSplitscreenDirection(
-                    bl::gfx::Renderer::SplitscreenDirection::TopAndBottom);
+                    bl::rc::Renderer::SplitscreenDirection::TopAndBottom);
                 break;
 
             case sf::Keyboard::Up:

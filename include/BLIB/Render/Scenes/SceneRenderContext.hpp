@@ -12,7 +12,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace scene
 {
@@ -119,7 +119,7 @@ inline constexpr std::uint32_t SceneRenderContext::currentObserverIndex() const 
 }
 
 } // namespace scene
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

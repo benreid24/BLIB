@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace c2d
 {
@@ -13,5 +13,5 @@ void CameraAffector2D::applyOnView(float&) {}
 void CameraAffector2D::applyOnProj(glm::vec2&, glm::vec2&) {}
 
 } // namespace c2d
-} // namespace gfx
+} // namespace rc
 } // namespace bl

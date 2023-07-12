@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace c3d
 {
@@ -83,5 +83,5 @@ void Camera3D::removeAffector(const CameraAffector3D* a) {
 }
 
 } // namespace c3d
-} // namespace gfx
+} // namespace rc
 } // namespace bl

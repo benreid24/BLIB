@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace sys
 {
@@ -64,7 +64,7 @@ void DescriptorComponentSystem<T, TP>::init(engine::Engine& engine) {
 }
 
 } // namespace sys
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

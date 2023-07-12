@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace draw
 {
@@ -50,7 +50,7 @@ private:
 };
 
 } // namespace sys
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace com
 {
@@ -30,7 +30,7 @@ struct Mesh : public DrawableBase {
 };
 
 } // namespace com
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

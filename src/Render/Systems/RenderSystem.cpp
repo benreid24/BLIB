@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace sys
 {
@@ -16,5 +16,5 @@ void RenderSystem::init(engine::Engine&) {}
 void RenderSystem::update(std::mutex&, float) { renderer.renderFrame(); }
 
 } // namespace sys
-} // namespace gfx
+} // namespace rc
 } // namespace bl

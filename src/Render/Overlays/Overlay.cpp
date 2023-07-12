@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 Overlay::Overlay(engine::Engine& e)
 : Scene(e, objects.makeEntityCallback())
@@ -194,5 +194,5 @@ void Overlay::refreshScales() {
     }
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl

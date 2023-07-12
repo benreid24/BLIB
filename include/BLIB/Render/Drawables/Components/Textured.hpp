@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace draw
 {
@@ -66,7 +66,7 @@ void Textured::create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... ar
 
 } // namespace base
 } // namespace draw
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

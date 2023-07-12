@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 Scene::Scene(engine::Engine& engine,
              const ds::DescriptorComponentStorageBase::EntityCallback& entityCb)
@@ -80,5 +80,5 @@ void Scene::rebucketObject(com::DrawableBase& obj) {
         BatchChange{obj.sceneRef.object, obj.pipeline, obj.containsTransparency});
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl

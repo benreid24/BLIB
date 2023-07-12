@@ -11,7 +11,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Overlay;
 
@@ -54,11 +54,11 @@ private:
     virtual void observe(const ecs::event::ComponentAdded<ovy::Viewport>& event) override;
     virtual void observe(const ecs::event::ComponentRemoved<ovy::Viewport>& event) override;
 
-    friend class bl::gfx::Overlay;
+    friend class bl::rc::Overlay;
 };
 
 } // namespace sys
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

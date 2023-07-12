@@ -40,7 +40,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -48,7 +48,7 @@ namespace res
 {
 class TextureRef;
 }
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 namespace sf
@@ -190,7 +190,7 @@ public:
      * @param renderer The renderer instance
      * @return A handle to the Vulkan texture to use when rendering
      */
-    bl::gfx::res::TextureRef syncTexture(bl::gfx::Renderer& renderer) const;
+    bl::rc::res::TextureRef syncTexture(bl::rc::Renderer& renderer) const;
 
 private:
     struct Row {
@@ -216,7 +216,7 @@ private:
     // Member data
     ////////////////////////////////////////////////////////////
     mutable bool needsUpload;
-    mutable bl::gfx::res::TextureRef vulkanTexture;
+    mutable bl::rc::res::TextureRef vulkanTexture;
 
     void* m_library;   //!< Pointer to the internal library interface (it is typeless to avoid
                        //!< exposing implementation details)

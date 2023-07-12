@@ -19,7 +19,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace res
 {
@@ -141,7 +141,7 @@ private:
     void doRelease(std::uint32_t i);
 
     friend class TextureRef;
-    friend class bl::gfx::Renderer;
+    friend class bl::rc::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -157,7 +157,7 @@ inline constexpr VkDescriptorSet TexturePool::getRenderTextureDescriptorSet() co
 }
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

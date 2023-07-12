@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Scene;
 
@@ -37,7 +37,7 @@ struct SceneObjectRef {
 };
 
 } // namespace com
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

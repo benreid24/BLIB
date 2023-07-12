@@ -20,7 +20,8 @@ namespace engine
 class Engine;
 }
 
-namespace gfx
+/// Renderer core implementation classes and functionality
+namespace rc
 {
 namespace sys
 {
@@ -268,7 +269,7 @@ inline constexpr float Renderer::defaultNearPlane() const { return defaultNear; 
 
 inline constexpr float Renderer::defaultFarPlane() const { return defaultFar; }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

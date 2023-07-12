@@ -11,7 +11,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -88,7 +88,7 @@ private:
     void registerPerFrameTransfer(Transferable* item, Transferable::SyncRequirement syncReq);
     void unregisterPerFrameTransfer(Transferable* item, Transferable::SyncRequirement syncReq);
 
-    friend class bl::gfx::Renderer;
+    friend class bl::rc::Renderer;
     friend struct vk::VulkanState;
     friend class Transferable;
 };
@@ -100,7 +100,7 @@ inline bool TransferEngine::Bucket::hasTransfers() const {
 }
 
 } // namespace tfr
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

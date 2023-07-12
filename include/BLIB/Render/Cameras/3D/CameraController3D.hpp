@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace c3d
 {
@@ -49,7 +49,7 @@ inline constexpr Camera3D& CameraController3D::camera() { return *cam; }
 inline void CameraController3D::setCam(Camera3D& c) { cam = &c; }
 
 } // namespace c3d
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

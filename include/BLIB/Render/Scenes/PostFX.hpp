@@ -10,7 +10,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Observer;
 class Renderer;
@@ -80,11 +80,11 @@ private:
     void bindImages(vk::PerFrame<vk::StandardAttachmentBuffers>& sceneImages);
     void compositeScene(VkCommandBuffer commandBuffer);
 
-    friend class bl::gfx::Observer;
+    friend class bl::rc::Observer;
 };
 
 } // namespace scene
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

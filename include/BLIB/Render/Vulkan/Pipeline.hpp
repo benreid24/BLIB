@@ -14,7 +14,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 class PipelineCache;
@@ -80,7 +80,7 @@ inline constexpr const PipelineLayout& Pipeline::pipelineLayout() const { return
 inline VkPipeline Pipeline::rawPipeline(std::uint32_t rpid) const { return pipelines[rpid]; }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

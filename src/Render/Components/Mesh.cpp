@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace com
 {
@@ -13,5 +13,5 @@ void Mesh::create(vk::VulkanState& vulkanState, std::uint32_t vertexCount,
 }
 
 } // namespace com
-} // namespace gfx
+} // namespace rc
 } // namespace bl

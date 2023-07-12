@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 /**
  * @brief Base class for all cameras
@@ -119,7 +119,7 @@ inline constexpr float Camera::nearPlane() const { return nearValue; }
 
 inline constexpr float Camera::farPlane() const { return farValue; }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

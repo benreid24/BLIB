@@ -9,7 +9,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace res
 {
@@ -94,5 +94,5 @@ void ShaderModuleCache::cleanup() {
 }
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl

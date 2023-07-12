@@ -16,7 +16,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -150,7 +150,7 @@ private:
     friend struct com::DrawableBase;
 };
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

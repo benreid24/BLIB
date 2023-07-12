@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 /**
  * @brief Wrapper class for drawable elements that should flash with a fixed period
@@ -63,7 +63,7 @@ private:
     bool visible;
 };
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

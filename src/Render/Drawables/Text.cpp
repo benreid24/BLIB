@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace draw
 {
@@ -251,5 +251,5 @@ Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos)
 }
 
 } // namespace draw
-} // namespace gfx
+} // namespace rc
 } // namespace bl

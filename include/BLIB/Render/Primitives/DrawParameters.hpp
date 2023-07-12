@@ -1,12 +1,12 @@
 #ifndef BLIB_RENDER_RENDERER_DRAWPARAMETERS_HPP
 #define BLIB_RENDER_RENDERER_DRAWPARAMETERS_HPP
 
-#include <cstdint>
 #include <BLIB/Vulkan.hpp>
+#include <cstdint>
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace prim
 {
@@ -38,7 +38,7 @@ struct DrawParameters {
 };
 
 } // namespace prim
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace sys
 {
@@ -16,5 +16,5 @@ void CameraUpdateSystem::init(engine::Engine&) {}
 void CameraUpdateSystem::update(std::mutex&, float dt) { renderer.updateCameras(dt); }
 
 } // namespace sys
-} // namespace gfx
+} // namespace rc
 } // namespace bl

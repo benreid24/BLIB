@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -81,7 +81,7 @@ inline constexpr const VkExtent2D& StandardAttachmentBuffers::bufferSize() const
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

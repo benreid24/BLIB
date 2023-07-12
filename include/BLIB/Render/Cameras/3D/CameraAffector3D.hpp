@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace c3d
 {
@@ -53,7 +53,7 @@ struct CameraAffector3D {
 };
 
 } // namespace c3d
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

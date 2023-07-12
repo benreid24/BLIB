@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace scene
 {
@@ -242,5 +242,5 @@ void BasicScene::handleAddressChange(UpdateSpeed speed, SceneObject* base) {
 }
 
 } // namespace scene
-} // namespace gfx
+} // namespace rc
 } // namespace bl

@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -92,7 +92,7 @@ private:
 };
 
 } // namespace tfr
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

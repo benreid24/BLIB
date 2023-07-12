@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 /// Collection of core rendering functionality for rendering scenes
 namespace scene
@@ -30,7 +30,7 @@ struct SceneObject {
 };
 
 } // namespace scene
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

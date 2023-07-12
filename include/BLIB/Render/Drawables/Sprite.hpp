@@ -14,7 +14,7 @@ namespace engine
 class Engine;
 }
 
-namespace gfx
+namespace rc
 {
 namespace draw
 {
@@ -53,7 +53,7 @@ public:
 };
 
 } // namespace draw
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

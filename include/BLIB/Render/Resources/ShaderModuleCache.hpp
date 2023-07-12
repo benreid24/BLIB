@@ -1,13 +1,13 @@
 #ifndef BLIB_RENDER_RESOURCES_SHADERMODULECACHE_HPP
 #define BLIB_RENDER_RESOURCES_SHADERMODULECACHE_HPP
 
+#include <BLIB/Vulkan.hpp>
 #include <string>
 #include <unordered_map>
-#include <BLIB/Vulkan.hpp>
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -43,7 +43,7 @@ private:
 };
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

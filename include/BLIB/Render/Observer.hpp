@@ -18,7 +18,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -199,7 +199,7 @@ private:
     void compositeSceneWithEffects(VkCommandBuffer commandBuffer);
     void renderOverlay(VkCommandBuffer commandBuffer);
 
-    friend class bl::gfx::Renderer;
+    friend class bl::rc::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -228,7 +228,7 @@ FX* Observer::setPostFX(TArgs&&... args) {
     return fx;
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

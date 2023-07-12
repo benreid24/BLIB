@@ -12,7 +12,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace scene
 {
@@ -190,7 +190,7 @@ ds::DescriptorComponentStorageBase::EntityCallback SceneObjectStorage<T>::makeEn
 }
 
 } // namespace scene
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

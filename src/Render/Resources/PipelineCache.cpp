@@ -12,7 +12,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace res
 {
@@ -135,5 +135,5 @@ void PipelineCache::createBuiltins() {
 }
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl

@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace sys
 {
@@ -124,5 +124,5 @@ void OverlayScaler::removeOverlay(Overlay* ov) {
 }
 
 } // namespace sys
-} // namespace gfx
+} // namespace rc
 } // namespace bl

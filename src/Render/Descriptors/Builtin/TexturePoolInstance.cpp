@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace ds
 {
@@ -41,5 +41,5 @@ void TexturePoolInstance::handleFrameStart() {
 }
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl
