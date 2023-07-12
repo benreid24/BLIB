@@ -25,11 +25,11 @@
 #include <BLIB/Render/Cameras/Camera.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
-#include <BLIB/Render/Components/Mesh.hpp>
-#include <BLIB/Render/Components/OverlayScaler.hpp>
+#include <BLIB/Components/Mesh.hpp>
+#include <BLIB/Components/OverlayScaler.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
-#include <BLIB/Render/Components/Sprite.hpp>
-#include <BLIB/Render/Components/Texture.hpp>
+#include <BLIB/Components/Sprite.hpp>
+#include <BLIB/Components/Texture.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DInstance.hpp>

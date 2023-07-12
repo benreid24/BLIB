@@ -4,7 +4,7 @@
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
-#include <BLIB/Render/Components/Texture.hpp>
+#include <BLIB/Components/Texture.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
 #include <BLIB/Transforms/3D.hpp>
@@ -54,7 +54,7 @@ private:
     VkDescriptorSet allocatedSets[Config::MaxConcurrentFrames + 1];
     vk::PerFrame<VkDescriptorSet> dynamicDescriptorSets;
     ds::DescriptorComponentStorage<t3d::Transform3D, glm::mat4>* transforms;
-    ds::DescriptorComponentStorage<rcom::Texture, std::uint32_t, buf::StaticSSBO<std::uint32_t>,
+    ds::DescriptorComponentStorage<com::Texture, std::uint32_t, buf::StaticSSBO<std::uint32_t>,
                                    buf::StaticSSBO<std::uint32_t>>* textures;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,

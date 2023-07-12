@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_DRAWABLES_TEXT_HPP
 #define BLIB_RENDER_DRAWABLES_TEXT_HPP
 
-#include <BLIB/Render/Components/Mesh.hpp>
+#include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
 #include <BLIB/Render/Drawables/Components/Textured.hpp>
 #include <BLIB/Render/Drawables/Components/Transform2D.hpp>
@@ -34,7 +34,7 @@ namespace draw
  * @ingroup Renderer
  */
 class Text
-: public Drawable<rcom::Mesh>
+: public Drawable<com::Mesh>
 , private base::Textured
 , public base::OverlayScalable {
 public:

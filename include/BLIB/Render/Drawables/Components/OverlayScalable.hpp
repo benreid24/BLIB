@@ -1,9 +1,9 @@
 #ifndef BLIB_RENDER_DRAWABLES_COMPONENTS_OVERLAYSCALABLE_HPP
 #define BLIB_RENDER_DRAWABLES_COMPONENTS_OVERLAYSCALABLE_HPP
 
+#include <BLIB/Components/OverlayScaler.hpp>
 #include <BLIB/ECS.hpp>
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Render/Components/OverlayScaler.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
 #include <BLIB/Render/Drawables/Components/Transform2D.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
@@ -36,7 +36,7 @@ public:
     /**
      * @brief Returns the OverlayScaler of this entity
      */
-    rcom::OverlayScaler& getOverlayScaler();
+    com::OverlayScaler& getOverlayScaler();
 
     /**
      * @brief Returns the pre-transform size of this entity
@@ -102,14 +102,14 @@ private:
     sys::OverlayScaler* scalerSystem;
     ecs::Registry* registry;
     ecs::Entity ecsId;
-    ecs::StableHandle<rcom::OverlayScaler> handle;
+    ecs::StableHandle<com::OverlayScaler> handle;
 
     friend class sys::OverlayScaler;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline rcom::OverlayScaler& OverlayScalable::getOverlayScaler() { return handle.get(); }
+inline com::OverlayScaler& OverlayScalable::getOverlayScaler() { return handle.get(); }
 
 template<typename... TArgs>
 void OverlayScalable::create(engine::Engine& engine, ecs::Entity entity, TArgs&&... args) {
@@ -118,7 +118,7 @@ void OverlayScalable::create(engine::Engine& engine, ecs::Entity entity, TArgs&&
     ecsId        = entity;
 
     Transform2D::create(*registry, entity, std::forward<TArgs>(args)...);
-    registry->emplaceComponent<rcom::OverlayScaler>(entity);
+    registry->emplaceComponent<com::OverlayScaler>(entity);
     handle.assign(*registry, entity);
 }
 

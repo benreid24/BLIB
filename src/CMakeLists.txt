@@ -1,5 +1,6 @@
 target_include_directories(BLIB PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
+add_subdirectory(Components)
 add_subdirectory(ECS)
 add_subdirectory(Engine)
 add_subdirectory(Events)

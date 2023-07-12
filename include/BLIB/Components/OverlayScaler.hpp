@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_COMPONENTS_OVERLAYSCALER_HPP
-#define BLIB_RENDER_COMPONENTS_OVERLAYSCALER_HPP
+#ifndef BLIB_COMPONENTS_OVERLAYSCALER_HPP
+#define BLIB_COMPONENTS_OVERLAYSCALER_HPP
 
 #include <SFML/Graphics/Rect.hpp>
 #include <glm/glm.hpp>
@@ -23,15 +23,17 @@ namespace base
 class OverlayScalable;
 }
 } // namespace draw
+} // namespace rc
 
-namespace rcom
+namespace com
 {
 /**
  * @brief Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler
  *        ensures that scales are up-to-date as the overlay changes size. Entity transforms should
  *        not be manually scaled if an OverlayScaler is present and active
  *
- * @ingroup Renderer
+ * @ingroup Components
+ * @ingroup Graphics
  */
 class OverlayScaler {
 public:
@@ -118,8 +120,8 @@ private:
 
     void setViewportToSelf(bool setToSelf);
 
-    friend class sys::OverlayScaler;
-    friend class draw::base::OverlayScalable;
+    friend class rc::sys::OverlayScaler;
+    friend class rc::draw::base::OverlayScalable;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -128,8 +130,7 @@ inline constexpr const glm::vec2& OverlayScaler::getEntitySize() const { return 
 
 inline constexpr bool OverlayScaler::isDirty() const { return dirty && scaleType != None; }
 
-} // namespace rcom
-} // namespace rc
+} // namespace com
 } // namespace bl
 
 #endif

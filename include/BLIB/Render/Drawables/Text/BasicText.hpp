@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_DRAWABLES_TEXT_BASICTEXT_HPP
 #define BLIB_RENDER_DRAWABLES_TEXT_BASICTEXT_HPP
 
-#include <BLIB/Render/Components/Mesh.hpp>
+#include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Render/Drawables/Drawable.hpp>
 #include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>

@@ -1,18 +1,7 @@
+#include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
+#include <BLIB/Render.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
-#include <BLIB/Math.hpp>
-#include <BLIB/Render/Cameras/2D/Camera2D.hpp>
-#include <BLIB/Render/Cameras/3D/Affectors/CameraShake.hpp>
-#include <BLIB/Render/Cameras/3D/Camera3D.hpp>
-#include <BLIB/Render/Cameras/3D/Controllers/OrbiterController.hpp>
-#include <BLIB/Render/Components/Mesh.hpp>
-#include <BLIB/Render/Components/Texture.hpp>
-#include <BLIB/Render/Drawables/Sprite.hpp>
-#include <BLIB/Render/Drawables/Text.hpp>
-#include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
-#include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
-#include <BLIB/Transforms.hpp>
 
 namespace
 {
@@ -63,9 +52,8 @@ public:
         // create sprite in scene
         spriteEntity   = engine.ecs().createEntity();
         spritePosition = engine.ecs().emplaceComponent<bl::t2d::Transform2D>(spriteEntity);
-        engine.ecs().emplaceComponent<bl::rc::rcom::Texture>(spriteEntity, texture);
-        engine.ecs().emplaceComponent<bl::rc::rcom::Sprite>(
-            spriteEntity, engine.renderer(), texture);
+        engine.ecs().emplaceComponent<bl::com::Texture>(spriteEntity, texture);
+        engine.ecs().emplaceComponent<bl::com::Sprite>(spriteEntity, engine.renderer(), texture);
         engine.systems().getSystem<bl::rc::sys::SpriteSystem>().addToScene(
             spriteEntity, scene, bl::rc::UpdateSpeed::Dynamic);
         spritePosition->setPosition({1920.f * 0.5f, 1080.f * 0.25f});
@@ -97,8 +85,8 @@ public:
         // create object in scene
         meshEntity = engine.ecs().createEntity();
         engine.ecs().emplaceComponent<bl::t3d::Transform3D>(meshEntity);
-        engine.ecs().emplaceComponent<bl::rc::rcom::Texture>(meshEntity, texture);
-        bl::rc::rcom::Mesh* mesh = engine.ecs().emplaceComponent<bl::rc::rcom::Mesh>(meshEntity);
+        engine.ecs().emplaceComponent<bl::com::Texture>(meshEntity, texture);
+        bl::com::Mesh* mesh = engine.ecs().emplaceComponent<bl::com::Mesh>(meshEntity);
         mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
         mesh->gpuBuffer.vertices() = Vertices;
         mesh->gpuBuffer.indices()  = Indices;

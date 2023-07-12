@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_COMPONENTS_MESH_HPP
-#define BLIB_RENDER_COMPONENTS_MESH_HPP
+#ifndef BLIB_COMPONENTS_MESH_HPP
+#define BLIB_COMPONENTS_MESH_HPP
 
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
@@ -7,17 +7,16 @@
 
 namespace bl
 {
-namespace rc
-{
-namespace rcom
+namespace com
 {
 /**
  * @brief ECS component for a basic mesh from an index buffer
  *
- * @ingroup Renderer
+ * @ingroup Components
+ * @ingroup Graphics
  */
-struct Mesh : public DrawableBase {
-    buf::IndexBuffer gpuBuffer;
+struct Mesh : public rc::rcom::DrawableBase {
+    rc::buf::IndexBuffer gpuBuffer;
 
     /**
      * @brief Helper method to initialize all the mesh data
@@ -26,11 +25,11 @@ struct Mesh : public DrawableBase {
      * @param vertexCount Number of vertices to create
      * @param indexCount Number of indices to create
      */
-    void create(vk::VulkanState& vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount);
+    void create(rc::vk::VulkanState& vulkanState, std::uint32_t vertexCount,
+                std::uint32_t indexCount);
 };
 
-} // namespace rcom
-} // namespace rc
+} // namespace com
 } // namespace bl
 
 #endif

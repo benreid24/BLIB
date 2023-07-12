@@ -27,7 +27,7 @@ void Object3DInstance::init(DescriptorComponentStorageCache& storageCache) {
                                                   glm::mat4,
                                                   buf::DynamicSSBO<glm::mat4>,
                                                   buf::StaticSSBO<glm::mat4>>();
-    textures   = storageCache.getComponentStorage<rcom::Texture,
+    textures   = storageCache.getComponentStorage<com::Texture,
                                                 std::uint32_t,
                                                 buf::StaticSSBO<std::uint32_t>,
                                                 buf::StaticSSBO<std::uint32_t>>();

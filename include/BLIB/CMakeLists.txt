@@ -1,9 +1,11 @@
 target_sources(BLIB PUBLIC
     AI.hpp
     Containers.hpp
+    Components.hpp
     ECS.hpp
     Engine.hpp
     Events.hpp
+    Graphics.hpp
     Input.hpp
     Interfaces.hpp
     Logging.hpp
@@ -19,6 +21,7 @@ target_sources(BLIB PUBLIC
 
 add_subdirectory(AI)
 add_subdirectory(Containers)
+add_subdirectory(Components)
 add_subdirectory(ECS)
 add_subdirectory(Engine)
 add_subdirectory(Events)

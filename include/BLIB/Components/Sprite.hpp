@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_COMPONENTS_SPRITE_HPP
-#define BLIB_RENDER_COMPONENTS_SPRITE_HPP
+#ifndef BLIB_COMPONENTS_SPRITE_HPP
+#define BLIB_COMPONENTS_SPRITE_HPP
 
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
@@ -16,15 +16,17 @@ class Engine;
 namespace rc
 {
 class Renderer;
+}
 
-namespace rcom
+namespace com
 {
 /**
  * @brief Sprite component repersenting a 2d image for an entity
  *
- * @ingroup Renderer
+ * @ingroup Components
+ * @ingroup Graphics
  */
-class Sprite : public DrawableBase {
+class Sprite : public rc::rcom::DrawableBase {
 public:
     /**
      * @brief Creates an empty sprite
@@ -38,7 +40,8 @@ public:
      * @param texture The texture to render
      * @param region The region of the texture to render
      */
-    Sprite(Renderer& renderer, const res::TextureRef& texture, const sf::FloatRect& region = {});
+    Sprite(rc::Renderer& renderer, const rc::res::TextureRef& texture,
+           const sf::FloatRect& region = {});
 
     /**
      * @brief Creates the sprite so that it may be added to a scene
@@ -47,7 +50,8 @@ public:
      * @param texture The texture to render
      * @param region The region of the texture to render
      */
-    void create(Renderer& renderer, const res::TextureRef& texture, sf::FloatRect region = {});
+    void create(rc::Renderer& renderer, const rc::res::TextureRef& texture,
+                sf::FloatRect region = {});
 
     /**
      * @brief Swap out the texture to use. Does not reset texture region. Call create() to reset
@@ -55,12 +59,12 @@ public:
      *
      * @param texture The new texture to render
      */
-    void setTexture(const res::TextureRef& texture);
+    void setTexture(const rc::res::TextureRef& texture);
 
     /**
      * @brief Returns the texture that is rendered by the sprite
      */
-    constexpr const res::TextureRef& getTexture() const;
+    constexpr const rc::res::TextureRef& getTexture() const;
 
     /**
      * @brief Sets the color to multiply the texture color by
@@ -80,8 +84,8 @@ public:
     constexpr const glm::vec2& getSize() const;
 
 private:
-    buf::IndexBuffer buffer;
-    res::TextureRef texture;
+    rc::buf::IndexBuffer buffer;
+    rc::res::TextureRef texture;
     glm::vec2 size;
 
     void refreshTrans();
@@ -89,14 +93,13 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const res::TextureRef& Sprite::getTexture() const { return texture; }
+inline constexpr const rc::res::TextureRef& Sprite::getTexture() const { return texture; }
 
 inline constexpr const glm::vec2& Sprite::getSize() const { return size; }
 
 inline const glm::vec4& Sprite::getColor() const { return buffer.vertices()[0].color; }
 
-} // namespace rcom
-} // namespace rc
+} // namespace com
 } // namespace bl
 
 #endif

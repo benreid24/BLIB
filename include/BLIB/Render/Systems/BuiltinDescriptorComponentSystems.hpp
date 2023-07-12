@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_SYSTEMS_BUILTINDESCRIPTORCOMPONENTSYSTEMS_HPP
 #define BLIB_RENDER_SYSTEMS_BUILTINDESCRIPTORCOMPONENTSYSTEMS_HPP
 
+#include <BLIB/Components/Texture.hpp>
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Render/Components/Texture.hpp>
 #include <BLIB/Render/Systems/DescriptorComponentSystem.hpp>
 #include <BLIB/Transforms/2D/Transform2D.hpp>
 #include <BLIB/Transforms/3D/Transform3D.hpp>
@@ -29,7 +29,7 @@ using Transform3DDescriptorSystem = DescriptorComponentSystem<t3d::Transform3D, 
  * @brief Descriptor component system for textures
  * @ingroup Renderer
  */
-using TextureDescriptorSystem = DescriptorComponentSystem<rcom::Texture, std::uint32_t>;
+using TextureDescriptorSystem = DescriptorComponentSystem<com::Texture, std::uint32_t>;
 
 } // namespace sys
 } // namespace rc

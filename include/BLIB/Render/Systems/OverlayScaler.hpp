@@ -1,9 +1,9 @@
 #ifndef BLIB_RENDER_SYSTEMS_OVERLAYSCALER_HPP
 #define BLIB_RENDER_SYSTEMS_OVERLAYSCALER_HPP
 
+#include <BLIB/Components/OverlayScaler.hpp>
 #include <BLIB/ECS.hpp>
 #include <BLIB/Engine/System.hpp>
-#include <BLIB/Render/Components/OverlayScaler.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
 #include <BLIB/Transforms/2D/Transform2D.hpp>

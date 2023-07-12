@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_COMPONENTS_TEXTURE_HPP
-#define BLIB_RENDER_COMPONENTS_TEXTURE_HPP
+#ifndef BLIB_COMPONENTS_TEXTURE_HPP
+#define BLIB_COMPONENTS_TEXTURE_HPP
 
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
@@ -11,16 +11,15 @@
 
 namespace bl
 {
-namespace rc
-{
-namespace rcom
+namespace com
 {
 /**
  * @brief ECS component to add a texture to an object
  *
- * @ingroup Renderer
+ * @ingroup Components
+ * @ingroup Graphics
  */
-struct Texture : public DescriptorComponentBase<Texture, std::uint32_t> {
+struct Texture : public rc::rcom::DescriptorComponentBase<Texture, std::uint32_t> {
     /**
      * @brief Creates a texture component with no associated texture
      */
@@ -31,7 +30,7 @@ struct Texture : public DescriptorComponentBase<Texture, std::uint32_t> {
      *
      * @param texture A reference to a TexturePool Texture
      */
-    Texture(const res::TextureRef& t)
+    Texture(const rc::res::TextureRef& t)
     : texture(t) {}
 
     /**
@@ -39,7 +38,7 @@ struct Texture : public DescriptorComponentBase<Texture, std::uint32_t> {
      *
      * @param texture The texture to change to
      */
-    void setTexture(const res::TextureRef& t) {
+    void setTexture(const rc::res::TextureRef& t) {
         texture = t;
         markDirty();
     }
@@ -47,7 +46,7 @@ struct Texture : public DescriptorComponentBase<Texture, std::uint32_t> {
     /**
      * @brief Returns the associated texture for this component
      */
-    const res::TextureRef& getTexture() const { return texture; }
+    const rc::res::TextureRef& getTexture() const { return texture; }
 
     /**
      * @brief Syncs the texture id to a scene buffer
@@ -57,11 +56,10 @@ struct Texture : public DescriptorComponentBase<Texture, std::uint32_t> {
     void refreshDescriptor(std::uint32_t& sceneTextureId) { sceneTextureId = texture.id(); }
 
 private:
-    res::TextureRef texture;
+    rc::res::TextureRef texture;
 };
 
-} // namespace rcom
-} // namespace rc
+} // namespace com
 } // namespace bl
 
 #endif

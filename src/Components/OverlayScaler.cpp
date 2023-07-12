@@ -1,10 +1,8 @@
-#include <BLIB/Render/Components/OverlayScaler.hpp>
+#include <BLIB/Components/OverlayScaler.hpp>
 
 namespace bl
 {
-namespace rc
-{
-namespace rcom
+namespace com
 {
 OverlayScaler::OverlayScaler()
 : cachedTargetRegion()
@@ -58,6 +56,5 @@ void OverlayScaler::setViewportToSelf(bool s) {
     dirty       = scaleType != None;
 }
 
-} // namespace rcom
-} // namespace rc
+} // namespace com
 } // namespace bl

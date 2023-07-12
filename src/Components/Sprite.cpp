@@ -1,19 +1,17 @@
-#include <BLIB/Render/Components/Sprite.hpp>
+#include <BLIB/Components/Sprite.hpp>
 
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
 {
-namespace rc
+namespace com
 {
-namespace rcom
-{
-
-Sprite::Sprite(Renderer& renderer, const res::TextureRef& texture, const sf::FloatRect& region) {
+Sprite::Sprite(rc::Renderer& renderer, const rc::res::TextureRef& texture,
+               const sf::FloatRect& region) {
     create(renderer, texture, region);
 }
 
-void Sprite::create(Renderer& renderer, const res::TextureRef& txtr, sf::FloatRect region) {
+void Sprite::create(rc::Renderer& renderer, const rc::res::TextureRef& txtr, sf::FloatRect region) {
     texture = txtr;
     if (region.width == 0.f || region.height == 0.f) {
         region.left   = 0.f;
@@ -53,10 +51,10 @@ void Sprite::create(Renderer& renderer, const res::TextureRef& txtr, sf::FloatRe
 
     refreshTrans();
     drawParams = buffer.getDrawParameters();
-    buffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
+    buffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
 }
 
-void Sprite::setTexture(const res::TextureRef& txtr) {
+void Sprite::setTexture(const rc::res::TextureRef& txtr) {
     texture = txtr;
     refreshTrans();
 }
@@ -64,7 +62,7 @@ void Sprite::setTexture(const res::TextureRef& txtr) {
 void Sprite::setColor(const glm::vec4& color) {
     for (auto& v : buffer.vertices()) { v.color = color; }
     if (buffer.vertexCount() > 0) {
-        buffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
+        buffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
     }
     refreshTrans();
 }
@@ -76,6 +74,5 @@ void Sprite::refreshTrans() {
     if (containsTransparency != wasTrans) { rebucket(); }
 }
 
-} // namespace rcom
-} // namespace rc
+} // namespace com
 } // namespace bl

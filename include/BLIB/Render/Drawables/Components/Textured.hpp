@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_DRAWABLES_COMPONENTS_TEXTURED_HPP
 #define BLIB_RENDER_DRAWABLES_COMPONENTS_TEXTURED_HPP
 
+#include <BLIB/Components/Texture.hpp>
 #include <BLIB/ECS.hpp>
-#include <BLIB/Render/Components/Texture.hpp>
 
 namespace bl
 {
@@ -49,7 +49,7 @@ protected:
     void create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args);
 
 private:
-    ecs::StableHandle<rcom::Texture> handle;
+    ecs::StableHandle<com::Texture> handle;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -60,7 +60,7 @@ inline const res::TextureRef& Textured::getTexture() const { return handle.get()
 
 template<typename... TArgs>
 void Textured::create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args) {
-    registry.emplaceComponent<rcom::Texture>(entity, std::forward<TArgs>(args)...);
+    registry.emplaceComponent<com::Texture>(entity, std::forward<TArgs>(args)...);
     handle.assign(registry, entity);
 }
 

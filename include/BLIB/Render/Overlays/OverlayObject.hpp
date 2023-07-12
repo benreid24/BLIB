@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_OVERLAYS_OVERLAYOBJECT_HPP
 #define BLIB_RENDER_OVERLAYS_OVERLAYOBJECT_HPP
 
+#include <BLIB/Components/OverlayScaler.hpp>
 #include <BLIB/ECS.hpp>
-#include <BLIB/Render/Components/OverlayScaler.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
@@ -58,7 +58,7 @@ struct OverlayObject : public scene::SceneObject {
     void applyViewport(VkCommandBuffer commandBuffer);
 
     std::vector<scene::Key> children;
-    ecs::StableHandle<rcom::OverlayScaler> scaler;
+    ecs::StableHandle<com::OverlayScaler> scaler;
     ecs::StableHandle<Viewport> viewport;
     vk::Pipeline* pipeline;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;

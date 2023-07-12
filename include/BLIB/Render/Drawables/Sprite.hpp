@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_DRAWABLES_SPRITE_HPP
 #define BLIB_RENDER_DRAWABLES_SPRITE_HPP
 
-#include <BLIB/Render/Components/Sprite.hpp>
+#include <BLIB/Components/Sprite.hpp>
 #include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
 #include <BLIB/Render/Drawables/Components/Textured.hpp>
 #include <BLIB/Render/Drawables/Components/Transform2D.hpp>
@@ -24,7 +24,7 @@ namespace draw
  * @ingroup Renderer
  */
 class Sprite
-: public Drawable<rcom::Sprite>
+: public Drawable<com::Sprite>
 , public base::OverlayScalable
 , public base::Textured {
 public:
