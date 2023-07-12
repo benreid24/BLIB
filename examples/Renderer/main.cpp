@@ -63,8 +63,8 @@ public:
         // create sprite in scene
         spriteEntity   = engine.ecs().createEntity();
         spritePosition = engine.ecs().emplaceComponent<bl::t2d::Transform2D>(spriteEntity);
-        engine.ecs().emplaceComponent<bl::rc::com::Texture>(spriteEntity, texture);
-        engine.ecs().emplaceComponent<bl::rc::com::Sprite>(
+        engine.ecs().emplaceComponent<bl::rc::rcom::Texture>(spriteEntity, texture);
+        engine.ecs().emplaceComponent<bl::rc::rcom::Sprite>(
             spriteEntity, engine.renderer(), texture);
         engine.systems().getSystem<bl::rc::sys::SpriteSystem>().addToScene(
             spriteEntity, scene, bl::rc::UpdateSpeed::Dynamic);
@@ -97,8 +97,8 @@ public:
         // create object in scene
         meshEntity = engine.ecs().createEntity();
         engine.ecs().emplaceComponent<bl::t3d::Transform3D>(meshEntity);
-        engine.ecs().emplaceComponent<bl::rc::com::Texture>(meshEntity, texture);
-        bl::rc::com::Mesh* mesh = engine.ecs().emplaceComponent<bl::rc::com::Mesh>(meshEntity);
+        engine.ecs().emplaceComponent<bl::rc::rcom::Texture>(meshEntity, texture);
+        bl::rc::rcom::Mesh* mesh = engine.ecs().emplaceComponent<bl::rc::rcom::Mesh>(meshEntity);
         mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
         mesh->gpuBuffer.vertices() = Vertices;
         mesh->gpuBuffer.indices()  = Indices;

@@ -28,7 +28,8 @@ namespace draw
  */
 template<typename TCom, typename TSys = sys::DrawableSystem<TCom>>
 class Drawable {
-    static_assert(std::is_base_of_v<com::DrawableBase, TCom>, "TCom must derive from DrawableBase");
+    static_assert(std::is_base_of_v<rcom::DrawableBase, TCom>,
+                  "TCom must derive from DrawableBase");
 
 public:
     /**
@@ -138,7 +139,7 @@ protected:
      *
      * @param sceneRef The scene object information
      */
-    virtual void onAdd(const com::SceneObjectRef& sceneRef);
+    virtual void onAdd(const rcom::SceneObjectRef& sceneRef);
 
     /**
      * @brief Called after the entity is removed from a scene
@@ -283,7 +284,7 @@ void Drawable<TCom, TSys>::destroy() {
 }
 
 template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::onAdd(const com::SceneObjectRef&) {}
+void Drawable<TCom, TSys>::onAdd(const rcom::SceneObjectRef&) {}
 
 template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::onRemove() {}

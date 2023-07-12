@@ -24,13 +24,13 @@ void OverlayScaler::update(std::mutex&, float) {
 
 void OverlayScaler::refreshEntity(ecs::Entity entity, const VkViewport& viewport) {
     auto cset =
-        registry->getComponentSet<ecs::Require<com::OverlayScaler, t2d::Transform2D>>(entity);
+        registry->getComponentSet<ecs::Require<rcom::OverlayScaler, t2d::Transform2D>>(entity);
     if (!cset.isValid()) {
         BL_LOG_ERROR << "Missing components for entity: " << entity;
         return;
     }
 
-    com::OverlayScaler& scaler  = *cset.get<com::OverlayScaler>();
+    rcom::OverlayScaler& scaler = *cset.get<rcom::OverlayScaler>();
     t2d::Transform2D& transform = *cset.get<t2d::Transform2D>();
     scaler.dirty                = false;
     scaler.cachedTargetRegion =
@@ -40,32 +40,32 @@ void OverlayScaler::refreshEntity(ecs::Entity entity, const VkViewport& viewport
     float yScale = 1.f;
 
     switch (scaler.scaleType) {
-    case com::OverlayScaler::WidthPercent:
+    case rcom::OverlayScaler::WidthPercent:
         xScale = scaler.widthPercent / scaler.cachedObjectSize.x;
         yScale = xScale * viewport.width / viewport.height;
         break;
 
-    case com::OverlayScaler::HeightPercent:
+    case rcom::OverlayScaler::HeightPercent:
         yScale = scaler.heightPercent / scaler.cachedObjectSize.y;
         xScale = yScale * viewport.height / viewport.width;
         break;
 
-    case com::OverlayScaler::SizePercent:
+    case rcom::OverlayScaler::SizePercent:
         xScale = scaler.widthPercent / scaler.cachedObjectSize.x;
         yScale = scaler.heightPercent / scaler.cachedObjectSize.y;
         break;
 
-    case com::OverlayScaler::PixelRatio:
+    case rcom::OverlayScaler::PixelRatio:
         xScale = scaler.cachedObjectSize.x * scaler.pixelRatio / viewport.width;
         yScale = scaler.cachedObjectSize.y * scaler.pixelRatio / viewport.height;
         break;
 
-    case com::OverlayScaler::LineHeight:
+    case rcom::OverlayScaler::LineHeight:
         yScale = scaler.overlayRatio;
         xScale = yScale * viewport.height / viewport.width;
         break;
 
-    case com::OverlayScaler::None:
+    case rcom::OverlayScaler::None:
     default:
         return;
     }
@@ -102,13 +102,13 @@ void OverlayScaler::refreshEntity(ecs::Entity entity, const VkViewport& viewport
 
 void OverlayScaler::observe(const ecs::event::ComponentAdded<ovy::Viewport>& event) {
     if (event.entity == ignoredEntity) return;
-    com::OverlayScaler* c = registry->getComponent<com::OverlayScaler>(event.entity);
+    rcom::OverlayScaler* c = registry->getComponent<rcom::OverlayScaler>(event.entity);
     if (c) { c->dirty = true; }
 }
 
 void OverlayScaler::observe(const ecs::event::ComponentRemoved<ovy::Viewport>& event) {
     if (event.entity == ignoredEntity) return;
-    com::OverlayScaler* c = registry->getComponent<com::OverlayScaler>(event.entity);
+    rcom::OverlayScaler* c = registry->getComponent<rcom::OverlayScaler>(event.entity);
     if (c) { c->dirty = true; }
 }
 

@@ -24,7 +24,7 @@ class OverlayScalable;
 }
 } // namespace draw
 
-namespace com
+namespace rcom
 {
 /**
  * @brief Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler
@@ -128,7 +128,7 @@ inline constexpr const glm::vec2& OverlayScaler::getEntitySize() const { return 
 
 inline constexpr bool OverlayScaler::isDirty() const { return dirty && scaleType != None; }
 
-} // namespace com
+} // namespace rcom
 } // namespace rc
 } // namespace bl
 

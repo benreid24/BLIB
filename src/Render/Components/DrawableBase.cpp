@@ -6,7 +6,7 @@ namespace bl
 {
 namespace rc
 {
-namespace com
+namespace rcom
 {
 DrawableBase::DrawableBase()
 : pipeline(PipelineNotSet)
@@ -43,6 +43,6 @@ void DrawableBase::rebucket() {
     if (sceneRef.scene) { sceneRef.scene->rebucketObject(*this); }
 }
 
-} // namespace com
+} // namespace rcom
 } // namespace rc
 } // namespace bl

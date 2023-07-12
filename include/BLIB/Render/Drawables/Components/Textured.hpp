@@ -49,7 +49,7 @@ protected:
     void create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args);
 
 private:
-    ecs::StableHandle<com::Texture> handle;
+    ecs::StableHandle<rcom::Texture> handle;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -60,7 +60,7 @@ inline const res::TextureRef& Textured::getTexture() const { return handle.get()
 
 template<typename... TArgs>
 void Textured::create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args) {
-    registry.emplaceComponent<com::Texture>(entity, std::forward<TArgs>(args)...);
+    registry.emplaceComponent<rcom::Texture>(entity, std::forward<TArgs>(args)...);
     handle.assign(registry, entity);
 }
 

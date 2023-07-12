@@ -34,7 +34,7 @@ glm::vec2 OverlayScalable::getOverlaySize() const {
 }
 
 glm::vec2 OverlayScalable::getTargetSize() const {
-    const com::OverlayScaler& c = handle.get();
+    const rcom::OverlayScaler& c = handle.get();
     return {c.cachedTargetRegion.width, c.cachedTargetRegion.height};
 }
 

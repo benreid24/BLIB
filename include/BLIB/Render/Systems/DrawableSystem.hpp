@@ -139,7 +139,7 @@ private:
     const std::uint32_t defaultPipeline;
     const std::uint32_t overlayPipeline;
     std::vector<AddCommand> toAdd;
-    std::vector<com::SceneObjectRef> erased;
+    std::vector<rcom::SceneObjectRef> erased;
 
     virtual void observe(const ecs::event::ComponentRemoved<T>& rm) override;
     virtual void observe(const event::SceneDestroyed& rm) override;
@@ -173,7 +173,7 @@ void DrawableSystem<T>::addToScene(ecs::Entity ent, Scene* scene,
         ent,
         scene,
         descriptorUpdateFreq,
-        c->pipeline != com::DrawableBase::PipelineNotSet ? c->pipeline : defaultPipeline);
+        c->pipeline != rcom::DrawableBase::PipelineNotSet ? c->pipeline : defaultPipeline);
 }
 
 template<typename T>
@@ -210,7 +210,7 @@ void DrawableSystem<T>::addToOverlay(ecs::Entity ent, Overlay* scene,
         ent,
         scene,
         descriptorUpdateFreq,
-        c->pipeline != com::DrawableBase::PipelineNotSet ? c->pipeline : overlayPipeline,
+        c->pipeline != rcom::DrawableBase::PipelineNotSet ? c->pipeline : overlayPipeline,
         parent);
 }
 
@@ -281,7 +281,7 @@ void DrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
     if (!toAdd.empty() || !erased.empty()) {
         std::unique_lock lock(frameMutex);
 
-        for (const com::SceneObjectRef& ref : erased) { ref.scene->removeObject(ref.object); }
+        for (const rcom::SceneObjectRef& ref : erased) { ref.scene->removeObject(ref.object); }
         erased.clear();
 
         for (const auto& add : toAdd) {

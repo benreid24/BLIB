@@ -6,7 +6,7 @@ namespace bl
 {
 namespace rc
 {
-namespace com
+namespace rcom
 {
 
 Sprite::Sprite(Renderer& renderer, const res::TextureRef& texture, const sf::FloatRect& region) {
@@ -76,6 +76,6 @@ void Sprite::refreshTrans() {
     if (containsTransparency != wasTrans) { rebucket(); }
 }
 
-} // namespace com
+} // namespace rcom
 } // namespace rc
 } // namespace bl

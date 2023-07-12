@@ -4,7 +4,7 @@ namespace bl
 {
 namespace rc
 {
-namespace com
+namespace rcom
 {
 OverlayScaler::OverlayScaler()
 : cachedTargetRegion()
@@ -58,6 +58,6 @@ void OverlayScaler::setViewportToSelf(bool s) {
     dirty       = scaleType != None;
 }
 
-} // namespace com
+} // namespace rcom
 } // namespace rc
 } // namespace bl

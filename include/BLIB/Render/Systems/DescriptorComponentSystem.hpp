@@ -21,7 +21,7 @@ namespace sys
  */
 template<typename TCom, typename TPayload>
 class DescriptorComponentSystem : public engine::System {
-    static_assert(std::is_base_of_v<com::DescriptorComponentBase<TCom, TPayload>, TCom>,
+    static_assert(std::is_base_of_v<rcom::DescriptorComponentBase<TCom, TPayload>, TCom>,
                   "Component must derive from DescriptorComponentBase");
 
 public:

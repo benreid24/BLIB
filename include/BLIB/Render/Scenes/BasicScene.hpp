@@ -58,7 +58,7 @@ protected:
      * @param updateFreq Whether the object is static or dynamic
      * @return A pointer to the new scene object
      */
-    virtual scene::SceneObject* doAdd(ecs::Entity entity, com::DrawableBase& object,
+    virtual scene::SceneObject* doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                                       UpdateSpeed updateFreq) override;
 
     /**

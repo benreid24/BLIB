@@ -54,7 +54,7 @@ private:
     VkDescriptorSet allocatedSets[Config::MaxConcurrentFrames + 1];
     vk::PerFrame<VkDescriptorSet> dynamicDescriptorSets;
     ds::DescriptorComponentStorage<t3d::Transform3D, glm::mat4>* transforms;
-    ds::DescriptorComponentStorage<com::Texture, std::uint32_t, buf::StaticSSBO<std::uint32_t>,
+    ds::DescriptorComponentStorage<rcom::Texture, std::uint32_t, buf::StaticSSBO<std::uint32_t>,
                                    buf::StaticSSBO<std::uint32_t>>* textures;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,

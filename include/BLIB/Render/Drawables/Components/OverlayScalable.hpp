@@ -36,7 +36,7 @@ public:
     /**
      * @brief Returns the OverlayScaler of this entity
      */
-    com::OverlayScaler& getOverlayScaler();
+    rcom::OverlayScaler& getOverlayScaler();
 
     /**
      * @brief Returns the pre-transform size of this entity
@@ -102,14 +102,14 @@ private:
     sys::OverlayScaler* scalerSystem;
     ecs::Registry* registry;
     ecs::Entity ecsId;
-    ecs::StableHandle<com::OverlayScaler> handle;
+    ecs::StableHandle<rcom::OverlayScaler> handle;
 
     friend class sys::OverlayScaler;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline com::OverlayScaler& OverlayScalable::getOverlayScaler() { return handle.get(); }
+inline rcom::OverlayScaler& OverlayScalable::getOverlayScaler() { return handle.get(); }
 
 template<typename... TArgs>
 void OverlayScalable::create(engine::Engine& engine, ecs::Entity entity, TArgs&&... args) {
@@ -118,7 +118,7 @@ void OverlayScalable::create(engine::Engine& engine, ecs::Entity entity, TArgs&&
     ecsId        = entity;
 
     Transform2D::create(*registry, entity, std::forward<TArgs>(args)...);
-    registry->emplaceComponent<com::OverlayScaler>(entity);
+    registry->emplaceComponent<rcom::OverlayScaler>(entity);
     handle.assign(*registry, entity);
 }
 

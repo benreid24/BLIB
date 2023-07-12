@@ -58,7 +58,7 @@ struct OverlayObject : public scene::SceneObject {
     void applyViewport(VkCommandBuffer commandBuffer);
 
     std::vector<scene::Key> children;
-    ecs::StableHandle<com::OverlayScaler> scaler;
+    ecs::StableHandle<rcom::OverlayScaler> scaler;
     ecs::StableHandle<Viewport> viewport;
     vk::Pipeline* pipeline;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;

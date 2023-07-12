@@ -71,7 +71,7 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     }
 }
 
-scene::SceneObject* Overlay::doAdd(ecs::Entity entity, com::DrawableBase& object,
+scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                                    UpdateSpeed updateFreq) {
     auto alloc = objects.allocate(updateFreq, entity);
     if (alloc.addressesChanged) {

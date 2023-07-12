@@ -34,7 +34,7 @@ namespace draw
  * @ingroup Renderer
  */
 class Text
-: public Drawable<com::Mesh>
+: public Drawable<rcom::Mesh>
 , private base::Textured
 , public base::OverlayScalable {
 public:
@@ -196,7 +196,7 @@ private:
 
     bool refreshRequired() const;
     void computeWordWrap();
-    virtual void onAdd(const com::SceneObjectRef& sceneRef) override;
+    virtual void onAdd(const rcom::SceneObjectRef& sceneRef) override;
     virtual void onRemove() override;
 
     friend class sys::TextSyncSystem;

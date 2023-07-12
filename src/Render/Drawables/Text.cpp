@@ -60,7 +60,7 @@ bool Text::refreshRequired() const {
     return false;
 }
 
-void Text::onAdd(const com::SceneObjectRef&) {
+void Text::onAdd(const rcom::SceneObjectRef&) {
     textSystem->registerText(this);
     commit();
 }

@@ -13,7 +13,7 @@ namespace bl
 {
 namespace rc
 {
-namespace com
+namespace rcom
 {
 /**
  * @brief ECS component to add a texture to an object
@@ -60,7 +60,7 @@ private:
     res::TextureRef texture;
 };
 
-} // namespace com
+} // namespace rcom
 } // namespace rc
 } // namespace bl
 

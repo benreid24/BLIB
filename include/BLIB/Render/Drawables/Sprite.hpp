@@ -24,7 +24,7 @@ namespace draw
  * @ingroup Renderer
  */
 class Sprite
-: public Drawable<com::Sprite>
+: public Drawable<rcom::Sprite>
 , public base::OverlayScalable
 , public base::Textured {
 public:

@@ -18,7 +18,7 @@ namespace vk
 struct VulkanState;
 }
 
-namespace com
+namespace rcom
 {
 /**
  * @brief Base class for ECS components that map into descriptor sets
@@ -131,7 +131,7 @@ void DescriptorComponentBase<TCom, TPayload>::markDirty() {
     dirty = true;
 }
 
-} // namespace com
+} // namespace rcom
 } // namespace rc
 } // namespace bl
 

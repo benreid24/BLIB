@@ -16,14 +16,14 @@ namespace sys
  *
  * @ingroup Renderer
  */
-using MeshSystem = DrawableSystem<com::Mesh>;
+using MeshSystem = DrawableSystem<rcom::Mesh>;
 
 /**
  * @brief Engine system for managing entity sprites
  *
  * @ingroup Renderer
  */
-using SpriteSystem = DrawableSystem<com::Sprite>;
+using SpriteSystem = DrawableSystem<rcom::Sprite>;
 
 } // namespace sys
 } // namespace rc

@@ -29,7 +29,7 @@ using Transform3DDescriptorSystem = DescriptorComponentSystem<t3d::Transform3D, 
  * @brief Descriptor component system for textures
  * @ingroup Renderer
  */
-using TextureDescriptorSystem = DescriptorComponentSystem<com::Texture, std::uint32_t>;
+using TextureDescriptorSystem = DescriptorComponentSystem<rcom::Texture, std::uint32_t>;
 
 } // namespace sys
 } // namespace rc

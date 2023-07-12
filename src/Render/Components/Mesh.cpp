@@ -4,7 +4,7 @@ namespace bl
 {
 namespace rc
 {
-namespace com
+namespace rcom
 {
 void Mesh::create(vk::VulkanState& vulkanState, std::uint32_t vertexCount,
                   std::uint32_t indexCount) {
@@ -12,6 +12,6 @@ void Mesh::create(vk::VulkanState& vulkanState, std::uint32_t vertexCount,
     drawParams = gpuBuffer.getDrawParameters();
 }
 
-} // namespace com
+} // namespace rcom
 } // namespace rc
 } // namespace bl

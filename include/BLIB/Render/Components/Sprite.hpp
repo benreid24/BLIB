@@ -17,7 +17,7 @@ namespace rc
 {
 class Renderer;
 
-namespace com
+namespace rcom
 {
 /**
  * @brief Sprite component repersenting a 2d image for an entity
@@ -95,7 +95,7 @@ inline constexpr const glm::vec2& Sprite::getSize() const { return size; }
 
 inline const glm::vec4& Sprite::getColor() const { return buffer.vertices()[0].color; }
 
-} // namespace com
+} // namespace rcom
 } // namespace rc
 } // namespace bl
 

@@ -9,7 +9,7 @@ namespace bl
 {
 namespace rc
 {
-namespace com
+namespace rcom
 {
 /**
  * @brief ECS component for a basic mesh from an index buffer
@@ -29,7 +29,7 @@ struct Mesh : public DrawableBase {
     void create(vk::VulkanState& vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount);
 };
 
-} // namespace com
+} // namespace rcom
 } // namespace rc
 } // namespace bl
 
