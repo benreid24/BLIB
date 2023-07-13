@@ -1,12 +1,12 @@
 #ifndef BLIB_RENDER_OVERLAYS_VIEWPORT_HPP
 #define BLIB_RENDER_OVERLAYS_VIEWPORT_HPP
 
-#include <SFML/Graphics/Rect.hpp>
 #include <BLIB/Vulkan.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace ovy
 {
@@ -67,7 +67,7 @@ private:
 };
 
 } // namespace ovy
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

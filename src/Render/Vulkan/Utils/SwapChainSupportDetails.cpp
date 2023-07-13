@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 SwapChainSupportDetails::SwapChainSupportDetails(VkPhysicalDevice device, VkSurfaceKHR surface) {
     populate(device, surface);
@@ -67,5 +67,5 @@ VkExtent2D SwapChainSupportDetails::swapExtent(const sf::Vector2u& windowSize) c
     }
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl

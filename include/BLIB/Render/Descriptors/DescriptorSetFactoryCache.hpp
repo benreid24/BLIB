@@ -12,7 +12,7 @@ namespace engine
 {
 class Engine;
 }
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -67,7 +67,7 @@ private:
     DescriptorSetFactoryCache(engine::Engine& engine, Renderer& renderer);
     void cleanup();
 
-    friend class bl::gfx::Renderer;
+    friend class bl::rc::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -89,7 +89,7 @@ T* DescriptorSetFactoryCache::getOrCreateFactory(TArgs&&... args) {
 }
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

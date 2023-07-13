@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 namespace res
@@ -47,11 +47,11 @@ private:
     void cleanup();
     void addDefaults();
 
-    friend class bl::gfx::Renderer;
+    friend class bl::rc::Renderer;
 };
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

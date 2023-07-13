@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -139,7 +139,7 @@ inline constexpr void* Buffer::getMappedMemory() const { return mapped; }
 inline constexpr VkDeviceSize Buffer::getSize() const { return size; }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

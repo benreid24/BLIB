@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace ds
 {
@@ -18,5 +18,5 @@ void DescriptorComponentStorageCache::syncDescriptors() {
 }
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl

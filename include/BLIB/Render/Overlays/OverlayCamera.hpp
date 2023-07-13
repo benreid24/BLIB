@@ -1,11 +1,11 @@
-#ifndef BLIB_RENDER_CAMERAS_OVERLAYCAMERA_HPP
-#define BLIB_RENDER_CAMERAS_OVERLAYCAMERA_HPP
+#ifndef BLIB_CAMERAS_OVERLAYCAMERA_HPP
+#define BLIB_CAMERAS_OVERLAYCAMERA_HPP
 
-#include <BLIB/Render/Cameras/Camera.hpp>
+#include <BLIB/Cameras/Camera.hpp>
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace ovy
 {
@@ -14,7 +14,7 @@ namespace ovy
  *
  * @ingroup Renderer
  */
-class OverlayCamera : public Camera {
+class OverlayCamera : public cam::Camera {
 public:
     /**
      * @brief Creates the overlay camera
@@ -33,7 +33,7 @@ private:
 };
 
 } // namespace ovy
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

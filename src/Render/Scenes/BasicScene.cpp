@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace scene
 {
@@ -18,7 +18,7 @@ BasicScene::BasicScene(engine::Engine& engine)
 
 BasicScene::~BasicScene() { objects.unlinkAll(descriptorSets); }
 
-scene::SceneObject* BasicScene::doAdd(ecs::Entity entity, com::DrawableBase& obj,
+scene::SceneObject* BasicScene::doAdd(ecs::Entity entity, rcom::DrawableBase& obj,
                                       UpdateSpeed updateFreq) {
     const auto alloc            = objects.allocate(updateFreq, entity);
     const std::uint32_t sceneId = alloc.newObject->sceneKey.sceneId;
@@ -242,5 +242,5 @@ void BasicScene::handleAddressChange(UpdateSpeed speed, SceneObject* base) {
 }
 
 } // namespace scene
-} // namespace gfx
+} // namespace rc
 } // namespace bl

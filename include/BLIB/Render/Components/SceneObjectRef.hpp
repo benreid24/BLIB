@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Scene;
 
@@ -17,7 +17,7 @@ struct SceneObject;
 }
 
 /// Collection of ECS components for the renderer
-namespace com
+namespace rcom
 {
 /**
  * @brief Basic struct representing a link between the ECS and a Scene's object buffer
@@ -36,8 +36,8 @@ struct SceneObjectRef {
     , object(nullptr) {}
 };
 
-} // namespace com
-} // namespace gfx
+} // namespace rcom
+} // namespace rc
 } // namespace bl
 
 #endif

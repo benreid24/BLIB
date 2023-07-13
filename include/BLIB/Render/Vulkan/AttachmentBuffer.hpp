@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -69,7 +69,7 @@ inline constexpr VkImage AttachmentBuffer::image() const { return imageHandle; }
 inline constexpr VkImageView AttachmentBuffer::view() const { return viewHandle; }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

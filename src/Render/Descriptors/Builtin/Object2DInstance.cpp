@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace ds
 {
@@ -23,7 +23,7 @@ Object2DInstance::~Object2DInstance() { vulkanState.descriptorPool.release(alloc
 
 void Object2DInstance::init(DescriptorComponentStorageCache& storageCache) {
     // create/fetch component storage
-    transforms = storageCache.getComponentStorage<t2d::Transform2D,
+    transforms = storageCache.getComponentStorage<com::Transform2D,
                                                   glm::mat4,
                                                   buf::DynamicSSBO<glm::mat4>,
                                                   buf::StaticSSBO<glm::mat4>>();
@@ -163,5 +163,5 @@ void Object2DInstance::handleFrameStart() {
 }
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl

@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 /// Collection of interfaces and utilities directly related to Vulkan
 namespace vk
@@ -279,7 +279,7 @@ void AlignedBuffer<T>::emplace(TArgs&&... args) {
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

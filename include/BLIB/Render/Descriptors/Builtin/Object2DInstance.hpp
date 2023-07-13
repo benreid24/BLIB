@@ -1,13 +1,13 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT2DINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT2DINSTANCE_HPP
 
+#include <BLIB/Components/Texture.hpp>
+#include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
-#include <BLIB/Render/Components/Texture.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
-#include <BLIB/Transforms/2D.hpp>
 #include <cstdint>
 #include <glm/glm.hpp>
 #include <vector>
@@ -19,7 +19,7 @@ namespace engine
 class Engine;
 }
 
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -53,7 +53,7 @@ private:
     const VkDescriptorSetLayout descriptorSetLayout;
     VkDescriptorSet allocatedSets[Config::MaxConcurrentFrames + 1];
     vk::PerFrame<VkDescriptorSet> dynamicDescriptorSets;
-    ds::DescriptorComponentStorage<t2d::Transform2D, glm::mat4>* transforms;
+    ds::DescriptorComponentStorage<com::Transform2D, glm::mat4>* transforms;
     ds::DescriptorComponentStorage<com::Texture, std::uint32_t, buf::StaticSSBO<std::uint32_t>,
                                    buf::StaticSSBO<std::uint32_t>>* textures;
 
@@ -71,7 +71,7 @@ private:
 };
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

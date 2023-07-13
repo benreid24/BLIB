@@ -15,7 +15,7 @@ namespace engine
 {
 class Engine;
 }
-namespace gfx
+namespace rc
 {
 namespace res
 {
@@ -80,7 +80,7 @@ TScene* ScenePool::allocateScene(TArgs&&... args) {
 }
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

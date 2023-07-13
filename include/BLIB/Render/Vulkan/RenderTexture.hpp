@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_RESOURCES_RENDERTEXTURE_HPP
 #define BLIB_RENDER_RESOURCES_RENDERTEXTURE_HPP
 
-#include <BLIB/Render/Cameras/Camera.hpp>
+#include <BLIB/Cameras/Camera.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
@@ -12,7 +12,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -122,7 +122,7 @@ private:
     float defaultNear, defaultFar;
 
     Scene* scene;
-    std::unique_ptr<Camera> camera;
+    std::unique_ptr<cam::Camera> camera;
     std::uint32_t observerIndex;
 
     void ensureCamera();
@@ -133,7 +133,7 @@ private:
     void updateCamera(float dt);
     void renderScene(VkCommandBuffer commandBuffer);
 
-    friend class bl::gfx::Renderer;
+    friend class bl::rc::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -149,13 +149,13 @@ inline constexpr glm::u32vec2 RenderTexture::getSize() const {
 template<typename TCamera, typename... TArgs>
 TCamera* RenderTexture::setCamera(TArgs&&... args) {
     TCamera* cam = new TCamera(std::forward<TArgs>(args)...);
-    static_cast<Camera*>(cam)->setNearAndFarPlanes(defaultNear, defaultFar);
+    static_cast<cam::Camera*>(cam)->setNearAndFarPlanes(defaultNear, defaultFar);
     camera.reset(cam);
     return cam;
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

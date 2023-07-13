@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 /// Collection of common buffer classes
 namespace buf
@@ -192,7 +192,7 @@ void UniformBuffer<T>::executeTransfer(VkCommandBuffer commandBuffer,
 }
 
 } // namespace buf
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

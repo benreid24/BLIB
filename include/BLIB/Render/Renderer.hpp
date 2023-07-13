@@ -19,15 +19,15 @@ namespace engine
 {
 class Engine;
 }
-
-namespace gfx
-{
 namespace sys
 {
 class CameraUpdateSystem;
 class RenderSystem;
 } // namespace sys
 
+/// Renderer core implementation classes and functionality
+namespace rc
+{
 /**
  * @brief Top level rendering system of the game engine
  *
@@ -268,7 +268,7 @@ inline constexpr float Renderer::defaultNearPlane() const { return defaultNear; 
 
 inline constexpr float Renderer::defaultFarPlane() const { return defaultFar; }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

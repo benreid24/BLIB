@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -30,5 +30,5 @@ void CleanupManager::onFrameStart() {
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl

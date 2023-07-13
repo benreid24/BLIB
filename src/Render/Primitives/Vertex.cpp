@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace prim
 {
@@ -118,5 +118,5 @@ std::array<VkVertexInputAttributeDescription, 3> Vertex::attributeDescriptions()
 }
 
 } // namespace prim
-} // namespace gfx
+} // namespace rc
 } // namespace bl

@@ -9,7 +9,7 @@
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
-#include <BLIB/Render/Systems/OverlayScaler.hpp>
+#include <BLIB/Systems/OverlayScalerSystem.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <limits>
 #include <unordered_map>
@@ -22,15 +22,10 @@ namespace engine
 class Engine;
 }
 
-namespace gfx
+namespace rc
 {
 class Renderer;
 class Observer;
-
-namespace sys
-{
-class OverlayScaler;
-}
 
 /**
  * @brief Special type of scene specialized for 2d overlays with fixed cameras. Objects are
@@ -72,7 +67,7 @@ protected:
      * @param updateFreq Whether the object is static or dynamic
      * @return A pointer to the new scene object
      */
-    virtual scene::SceneObject* doAdd(ecs::Entity entity, com::DrawableBase& object,
+    virtual scene::SceneObject* doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                                       UpdateSpeed updateFreq) override;
 
     /**
@@ -111,7 +106,7 @@ private:
     };
 
     engine::Engine& engine;
-    sys::OverlayScaler& scaler;
+    sys::OverlayScalerSystem& scaler;
     scene::SceneObjectStorage<ovy::OverlayObject> objects;
     TreeIndex staticIndex;
     TreeIndex dynamicIndex;
@@ -130,11 +125,11 @@ private:
 
     template<typename T>
     friend class sys::DrawableSystem;
-    friend class sys::OverlayScaler;
+    friend class sys::OverlayScalerSystem;
     friend class Observer;
 };
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

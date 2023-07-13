@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 /**
  * @brief Represents a renderable animation.
@@ -134,7 +134,7 @@ private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

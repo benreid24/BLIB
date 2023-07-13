@@ -6,12 +6,12 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 Overlay::Overlay(engine::Engine& e)
 : Scene(e, objects.makeEntityCallback())
 , engine(e)
-, scaler(engine.systems().getSystem<sys::OverlayScaler>())
+, scaler(engine.systems().getSystem<sys::OverlayScalerSystem>())
 , objects()
 , cachedParentViewport{} {
     roots.reserve(Config::DefaultSceneObjectCapacity / 4);
@@ -71,7 +71,7 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     }
 }
 
-scene::SceneObject* Overlay::doAdd(ecs::Entity entity, com::DrawableBase& object,
+scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                                    UpdateSpeed updateFreq) {
     auto alloc = objects.allocate(updateFreq, entity);
     if (alloc.addressesChanged) {
@@ -194,5 +194,5 @@ void Overlay::refreshScales() {
     }
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl

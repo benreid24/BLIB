@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace buf
 {
@@ -226,7 +226,7 @@ constexpr VkDeviceSize StaticSSBO<T>::getTotalRange() const {
 }
 
 } // namespace buf
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

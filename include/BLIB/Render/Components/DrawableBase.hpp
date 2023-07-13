@@ -8,9 +8,9 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
-namespace com
+namespace rcom
 {
 /**
  * @brief Base class for drawable scene components for the ECS. Provides common members
@@ -55,8 +55,8 @@ struct DrawableBase {
     void rebucket();
 };
 
-} // namespace com
-} // namespace gfx
+} // namespace rcom
+} // namespace rc
 } // namespace bl
 
 #endif

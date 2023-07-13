@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace tfr
 {
@@ -52,5 +52,5 @@ void TransferContext::registerImageBarrier(const VkImageMemoryBarrier& barrier) 
 VkDevice TransferContext::device() const { return vulkanState.device; }
 
 } // namespace tfr
-} // namespace gfx
+} // namespace rc
 } // namespace bl

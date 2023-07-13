@@ -5,12 +5,12 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace event
 {
 /**
- * @brief Fired when OverlayScaler updates an entity
+ * @brief Fired when OverlayScalerSystem updates an entity
  *
  * @ingroup Renderer
  */
@@ -27,7 +27,7 @@ struct OverlayEntityScaled {
 };
 
 } // namespace event
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

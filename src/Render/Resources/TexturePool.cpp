@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace res
 {
@@ -225,5 +225,5 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler samp
 }
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl

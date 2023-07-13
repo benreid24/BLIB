@@ -1,17 +1,17 @@
 #include <BLIB/Render/Renderer.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Render/Systems/BuiltinDescriptorComponentSystems.hpp>
-#include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
-#include <BLIB/Render/Systems/CameraUpdateSystem.hpp>
-#include <BLIB/Render/Systems/OverlayScaler.hpp>
-#include <BLIB/Render/Systems/RenderSystem.hpp>
-#include <BLIB/Render/Systems/TextSyncSystem.hpp>
+#include <BLIB/Systems/BuiltinDescriptorComponentSystems.hpp>
+#include <BLIB/Systems/BuiltinDrawableSystems.hpp>
+#include <BLIB/Systems/CameraUpdateSystem.hpp>
+#include <BLIB/Systems/OverlayScalerSystem.hpp>
+#include <BLIB/Systems/RenderSystem.hpp>
+#include <BLIB/Systems/TextSyncSystem.hpp>
 #include <cmath>
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 : engine(engine)
@@ -49,8 +49,8 @@ void Renderer::initialize() {
     engine.systems().registerSystem<sys::CameraUpdateSystem>(
         FrameStage::RenderObjectSync, StateMask, *this);
     engine.systems().registerSystem<sys::RenderSystem>(FrameStage::Render, StateMask, *this);
-    engine.systems().registerSystem<sys::OverlayScaler>(FrameStage::RenderIntermediateRefresh,
-                                                        StateMask);
+    engine.systems().registerSystem<sys::OverlayScalerSystem>(FrameStage::RenderIntermediateRefresh,
+                                                              StateMask);
     engine.systems().registerSystem<sys::TextSyncSystem>(FrameStage::RenderIntermediateRefresh,
                                                          StateMask);
 
@@ -247,5 +247,5 @@ void Renderer::removeRenderTexture(vk::RenderTexture* rt) {
     }
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl

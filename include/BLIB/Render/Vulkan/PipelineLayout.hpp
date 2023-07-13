@@ -15,7 +15,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -176,14 +176,14 @@ private:
 inline constexpr VkPipelineLayout PipelineLayout::rawLayout() const { return layout; }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 namespace std
 {
 template<>
-struct hash<bl::gfx::vk::PipelineLayout::LayoutParams> {
-    size_t operator()(const bl::gfx::vk::PipelineLayout::LayoutParams& params) const {
+struct hash<bl::rc::vk::PipelineLayout::LayoutParams> {
+    size_t operator()(const bl::rc::vk::PipelineLayout::LayoutParams& params) const {
         size_t result = hash<size_t>()(params.descriptorSets.size());
         for (size_t i = 0; i < params.dsCount; ++i) {
             const size_t nh = hash<type_index>()(params.descriptorSets[i].factoryType);

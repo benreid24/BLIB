@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -92,5 +92,5 @@ std::uint32_t PipelineLayout::updateDescriptorSets(ds::DescriptorSetInstanceCach
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl

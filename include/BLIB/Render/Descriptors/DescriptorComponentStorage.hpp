@@ -13,7 +13,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace ds
 {
@@ -224,7 +224,7 @@ void DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
 }
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

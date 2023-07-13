@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace res
 {
@@ -122,5 +122,5 @@ void BindlessTextureArray::updateTexture(vk::Texture* texture) {
 }
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl

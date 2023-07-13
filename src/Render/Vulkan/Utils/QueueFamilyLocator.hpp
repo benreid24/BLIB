@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 struct QueueFamilyLocator {
     std::optional<std::uint32_t> graphicsFamily;
@@ -20,7 +20,7 @@ struct QueueFamilyLocator {
     bool complete() const;
 };
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

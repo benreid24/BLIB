@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_OBSERVER_HPP
 #define BLIB_RENDER_OBSERVER_HPP
 
-#include <BLIB/Render/Cameras/Camera.hpp>
+#include <BLIB/Cameras/Camera.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Overlays/OverlayCamera.hpp>
 #include <BLIB/Render/Scenes/PostFX.hpp>
@@ -18,7 +18,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -159,7 +159,7 @@ private:
         Overlay* overlay;
         std::uint32_t observerIndex;
         std::uint32_t overlayIndex;
-        std::unique_ptr<Camera> camera;
+        std::unique_ptr<cam::Camera> camera;
         std::unique_ptr<scene::PostFX> postfx;
         bool overlayPostFX;
 
@@ -199,7 +199,7 @@ private:
     void compositeSceneWithEffects(VkCommandBuffer commandBuffer);
     void renderOverlay(VkCommandBuffer commandBuffer);
 
-    friend class bl::gfx::Renderer;
+    friend class bl::rc::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -212,7 +212,7 @@ template<typename TCamera, typename... TArgs>
 TCamera* Observer::setCamera(TArgs&&... args) {
     if (hasScene()) {
         TCamera* cam = new TCamera(std::forward<TArgs>(args)...);
-        static_cast<Camera*>(cam)->setNearAndFarPlanes(defaultNear, defaultFar);
+        static_cast<cam::Camera*>(cam)->setNearAndFarPlanes(defaultNear, defaultFar);
         scenes.back().camera.reset(cam);
         return cam;
     }
@@ -228,7 +228,7 @@ FX* Observer::setPostFX(TArgs&&... args) {
     return fx;
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

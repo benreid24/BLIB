@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace ds
 {
@@ -35,5 +35,5 @@ std::unique_ptr<DescriptorSetInstance> Object3DFactory::createDescriptorSet() co
 }
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl

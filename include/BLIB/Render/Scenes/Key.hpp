@@ -9,7 +9,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace scene
 {
@@ -72,16 +72,16 @@ struct Key {
 };
 
 } // namespace scene
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 namespace std
 {
 template<>
-struct hash<bl::gfx::scene::Key> {
-    std::size_t operator()(const bl::gfx::scene::Key& key) const {
+struct hash<bl::rc::scene::Key> {
+    std::size_t operator()(const bl::rc::scene::Key& key) const {
         return bl::util::hashCombine(hash<uint32_t>()(key.sceneId),
-                                     hash<bl::gfx::UpdateSpeed>()(key.updateFreq));
+                                     hash<bl::rc::UpdateSpeed>()(key.updateFreq));
     }
 };
 } // namespace std

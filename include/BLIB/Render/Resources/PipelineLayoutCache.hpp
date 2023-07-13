@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -34,11 +34,11 @@ private:
     PipelineLayoutCache(Renderer& renderer);
     void cleanup();
 
-    friend class bl::gfx::Renderer;
+    friend class bl::rc::Renderer;
 };
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

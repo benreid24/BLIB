@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -139,5 +139,5 @@ void* Buffer::mapMemory() {
 void Buffer::unMapMemory() { vmaUnmapMemory(vulkanState->vmaAllocator, alloc); }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl

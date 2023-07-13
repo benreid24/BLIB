@@ -1,14 +1,14 @@
 #ifndef BLIB_RENDER_PRIMITIVES_VERTEX_HPP
 #define BLIB_RENDER_PRIMITIVES_VERTEX_HPP
 
-#include <array>
 #include <BLIB/Vulkan.hpp>
+#include <array>
 #include <glm/glm.hpp>
 #include <initializer_list>
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 /// Collection of renderer primitives
 namespace prim
@@ -85,7 +85,7 @@ struct Vertex {
 };
 
 } // namespace prim
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

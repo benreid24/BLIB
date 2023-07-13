@@ -9,7 +9,7 @@ namespace bundle
 {
 bool AnimationHandler::processFile(const std::string& path, std::ostream& output,
                                    FileHandlerContext& ctx) {
-    gfx::AnimationData anim;
+    rc::AnimationData anim;
     if (!anim.loadFromFileForBundling(path)) {
         BL_LOG_ERROR << "Failed to load animation: " << path;
         return false;

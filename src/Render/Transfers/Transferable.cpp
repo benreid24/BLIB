@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace tfr
 {
@@ -52,5 +52,5 @@ void Transferable::stopTransferringEveryFrame() {
 }
 
 } // namespace tfr
-} // namespace gfx
+} // namespace rc
 } // namespace bl

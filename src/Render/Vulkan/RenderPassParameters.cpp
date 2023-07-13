@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -66,5 +66,5 @@ RenderPassParameters::SubPass&& RenderPassParameters::SubPass::build() {
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl

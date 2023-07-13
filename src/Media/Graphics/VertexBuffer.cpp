@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 VertexBuffer::VertexBuffer(sf::PrimitiveType p, sf::VertexBuffer::Usage u, unsigned int c)
 : count(c)
@@ -34,10 +34,8 @@ void VertexBuffer::update() {
 
 void VertexBuffer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     if (sf::VertexBuffer::isAvailable()) { target.draw(buffer, states); }
-    else {
-        target.draw(array, states);
-    }
+    else { target.draw(array, states); }
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl

@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace ds
 {
@@ -30,5 +30,5 @@ std::unique_ptr<DescriptorSetInstance> Scene2DFactory::createDescriptorSet() con
 }
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl

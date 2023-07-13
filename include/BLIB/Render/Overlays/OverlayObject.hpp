@@ -1,8 +1,8 @@
 #ifndef BLIB_RENDER_OVERLAYS_OVERLAYOBJECT_HPP
 #define BLIB_RENDER_OVERLAYS_OVERLAYOBJECT_HPP
 
+#include <BLIB/Components/OverlayScaler.hpp>
 #include <BLIB/ECS.hpp>
-#include <BLIB/Render/Components/OverlayScaler.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
@@ -17,7 +17,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 /// Classes for Observer overlays
 namespace ovy
@@ -70,7 +70,7 @@ struct OverlayObject : public scene::SceneObject {
 };
 
 } // namespace ovy
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

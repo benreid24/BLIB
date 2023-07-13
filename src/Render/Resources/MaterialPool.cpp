@@ -2,7 +2,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace res
 {
@@ -20,5 +20,5 @@ MaterialPool::~MaterialPool() {
 // TODO
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl

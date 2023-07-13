@@ -8,7 +8,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 AnimationData::AnimationData()
 : spritesheet()
@@ -249,5 +249,5 @@ void AnimationData::Frame::Shard::apply(VertexBuffer& buffer, unsigned int offse
     }
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl

@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -89,7 +89,7 @@ inline AttachmentSet::AttachmentSet(std::array<VkImage, N>& images,
 inline void AttachmentSet::setRenderExtent(const VkExtent2D& e) { extent = e; }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

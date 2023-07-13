@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace vk
 {
@@ -94,7 +94,7 @@ inline void StandardAttachmentSet::setAttachments(VkImage ci, VkImageView civ, V
 }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

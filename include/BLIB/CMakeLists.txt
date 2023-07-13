@@ -1,9 +1,12 @@
 target_sources(BLIB PUBLIC
     AI.hpp
+    Cameras.hpp
     Containers.hpp
+    Components.hpp
     ECS.hpp
     Engine.hpp
     Events.hpp
+    Graphics.hpp
     Input.hpp
     Interfaces.hpp
     Logging.hpp
@@ -14,14 +17,18 @@ target_sources(BLIB PUBLIC
     Resources.hpp
     Scripts.hpp
     Serialization.hpp
+    Systems.hpp
     Util.hpp
 )
 
 add_subdirectory(AI)
+add_subdirectory(Cameras)
 add_subdirectory(Containers)
+add_subdirectory(Components)
 add_subdirectory(ECS)
 add_subdirectory(Engine)
 add_subdirectory(Events)
+add_subdirectory(Graphics)
 add_subdirectory(Input)
 add_subdirectory(Interfaces)
 add_subdirectory(Logging)
@@ -32,5 +39,5 @@ add_subdirectory(Particles)
 add_subdirectory(Render)
 add_subdirectory(Scripts)
 add_subdirectory(Serialization)
-add_subdirectory(Transforms)
+add_subdirectory(Systems)
 add_subdirectory(Util)

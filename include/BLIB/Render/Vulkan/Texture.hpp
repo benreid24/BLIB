@@ -9,7 +9,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace res
 {
@@ -147,7 +147,7 @@ inline constexpr VkImageView Texture::getView() const { return view; }
 inline constexpr bool Texture::containsTransparency() const { return hasTransparency; }
 
 } // namespace vk
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

@@ -12,24 +12,9 @@
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Buffers/UniformBuffer.hpp>
-#include <BLIB/Render/Cameras/2D/Affectors/CameraShake.hpp>
-#include <BLIB/Render/Cameras/2D/Camera2D.hpp>
-#include <BLIB/Render/Cameras/2D/CameraAffector2D.hpp>
-#include <BLIB/Render/Cameras/2D/CameraController2D.hpp>
-#include <BLIB/Render/Cameras/2D/Controllers/ConstrainedFollower.hpp>
-#include <BLIB/Render/Cameras/3D/Affectors/CameraShake.hpp>
-#include <BLIB/Render/Cameras/3D/Camera3D.hpp>
-#include <BLIB/Render/Cameras/3D/CameraAffector3D.hpp>
-#include <BLIB/Render/Cameras/3D/CameraController3D.hpp>
-#include <BLIB/Render/Cameras/3D/Controllers/OrbiterController.hpp>
-#include <BLIB/Render/Cameras/Camera.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
-#include <BLIB/Render/Components/Mesh.hpp>
-#include <BLIB/Render/Components/OverlayScaler.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
-#include <BLIB/Render/Components/Sprite.hpp>
-#include <BLIB/Render/Components/Texture.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DInstance.hpp>
@@ -49,12 +34,6 @@
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
-#include <BLIB/Render/Drawables/Components/Textured.hpp>
-#include <BLIB/Render/Drawables/Components/Transform2D.hpp>
-#include <BLIB/Render/Drawables/Sprite.hpp>
-#include <BLIB/Render/Drawables/Text.hpp>
-#include <BLIB/Render/Drawables/Text/BasicText.hpp>
-#include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
 #include <BLIB/Render/Events/OverlayEntityScaled.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
 #include <BLIB/Render/Observer.hpp>
@@ -82,11 +61,6 @@
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
-#include <BLIB/Render/Systems/CameraUpdateSystem.hpp>
-#include <BLIB/Render/Systems/DescriptorComponentSystem.hpp>
-#include <BLIB/Render/Systems/OverlayScaler.hpp>
-#include <BLIB/Render/Systems/RenderSystem.hpp>
-#include <BLIB/Render/Systems/TextSyncSystem.hpp>
 #include <BLIB/Render/Transfers/TransferContext.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
@@ -114,12 +88,5 @@
 #include <BLIB/Render/Vulkan/Texture.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
-
-// Inline methods in the below
-#include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
-#include <BLIB/Render/Drawables/Drawable.hpp>
-#include <BLIB/Render/Systems/BuiltinDescriptorComponentSystems.hpp>
-#include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
-#include <BLIB/Render/Systems/DrawableSystem.hpp>
 
 #endif

@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 /**
  * @brief Utility struct to provide a stable iterator into a vector where indices do not change
@@ -111,7 +111,7 @@ constexpr std::size_t VectorRef<T>::index() const {
     return i;
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

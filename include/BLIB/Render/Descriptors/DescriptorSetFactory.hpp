@@ -12,7 +12,7 @@ namespace engine
 class Engine;
 }
 
-namespace gfx
+namespace rc
 {
 class Renderer;
 
@@ -68,7 +68,7 @@ inline constexpr VkDescriptorSetLayout DescriptorSetFactory::getDescriptorLayout
 }
 
 } // namespace ds
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

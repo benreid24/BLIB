@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 Scene::Scene(engine::Engine& engine,
              const ds::DescriptorComponentStorageBase::EntityCallback& entityCb)
@@ -50,7 +50,7 @@ void Scene::handleDescriptorSync() {
     descriptorSets.handleDescriptorSync();
 }
 
-void Scene::createAndAddObject(ecs::Entity entity, com::DrawableBase& object,
+void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,
                                UpdateSpeed updateFreq) {
     scene::SceneObject* sobj = doAdd(entity, object, updateFreq);
     if (sobj) {
@@ -74,11 +74,11 @@ void Scene::removeObject(scene::SceneObject* obj) {
     doRemove(obj, pipeline);
 }
 
-void Scene::rebucketObject(com::DrawableBase& obj) {
+void Scene::rebucketObject(rcom::DrawableBase& obj) {
     std::unique_lock lock(batchMutex);
     batchChanges.emplace_back(
         BatchChange{obj.sceneRef.object, obj.pipeline, obj.containsTransparency});
 }
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl

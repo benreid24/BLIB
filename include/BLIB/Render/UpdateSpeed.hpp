@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 /**
  * @brief Enum representing how frequently an object is expected to be updated
@@ -19,7 +19,7 @@ enum struct UpdateSpeed : std::uint8_t {
     Dynamic
 };
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

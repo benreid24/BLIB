@@ -6,11 +6,9 @@ int main() {
     sf::RenderWindow window(
         sf::VideoMode(800, 800, 32), "Animation Example", sf::Style::Titlebar | sf::Style::Close);
 
-    bl::gfx::AnimationData src;
-    if (!src.loadFromFile("resources/animation.anim")) {
-        
-    }
-    bl::gfx::Animation anim(src);
+    bl::rc::AnimationData src;
+    if (!src.loadFromFile("resources/animation.anim")) {}
+    bl::rc::Animation anim(src);
 
     anim.setPosition(sf::Vector2f(400, 400));
     anim.setIsLoop(true);

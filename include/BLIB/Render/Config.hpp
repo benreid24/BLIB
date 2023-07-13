@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 struct Config {
     static constexpr unsigned int MaxConcurrentFrames = 2;
@@ -76,7 +76,7 @@ struct Config {
     static constexpr std::uint32_t SPIRVMagicNumber = 0x07230203;
 };
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

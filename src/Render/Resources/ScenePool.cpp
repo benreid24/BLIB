@@ -5,7 +5,7 @@
 
 namespace bl
 {
-namespace gfx
+namespace rc
 {
 namespace res
 {
@@ -22,7 +22,7 @@ void ScenePool::cleanup() {
 void ScenePool::destroyScene(Scene* scene) {
     std::unique_lock lock(mutex);
 
-    bl::event::Dispatcher::dispatch<gfx::event::SceneDestroyed>({scene});
+    bl::event::Dispatcher::dispatch<rc::event::SceneDestroyed>({scene});
     for (auto it = scenes.begin(); it != scenes.end(); ++it) {
         if (it->get() == scene) {
             scenes.erase(it);
@@ -32,5 +32,5 @@ void ScenePool::destroyScene(Scene* scene) {
 }
 
 } // namespace res
-} // namespace gfx
+} // namespace rc
 } // namespace bl

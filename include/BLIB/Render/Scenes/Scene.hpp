@@ -16,7 +16,13 @@
 
 namespace bl
 {
-namespace gfx
+namespace sys
+{
+template<typename T>
+class DrawableSystem;
+}
+
+namespace rc
 {
 class Renderer;
 
@@ -25,11 +31,6 @@ namespace vk
 class RenderTexture;
 }
 
-namespace sys
-{
-template<typename T>
-class DrawableSystem;
-}
 namespace res
 {
 class ScenePool;
@@ -89,7 +90,7 @@ protected:
      * @param updateFreq The update speed of the new object
      * @return A pointer to the new scene object
      */
-    virtual scene::SceneObject* doAdd(ecs::Entity entity, com::DrawableBase& object,
+    virtual scene::SceneObject* doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                                       UpdateSpeed updateFreq) = 0;
 
     /**
@@ -132,10 +133,10 @@ private:
     std::vector<std::uint32_t> dynamicPipelines;
 
     // called by sys::DrawableSystem in locked context
-    void createAndAddObject(ecs::Entity entity, com::DrawableBase& object, UpdateSpeed updateFreq);
+    void createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object, UpdateSpeed updateFreq);
 
     // called by DrawableBase
-    void rebucketObject(com::DrawableBase& object);
+    void rebucketObject(rcom::DrawableBase& object);
 
     // called by Observer
     void handleDescriptorSync();
@@ -147,10 +148,10 @@ private:
     friend class Observer;
     friend class res::ScenePool;
     friend class vk::RenderTexture;
-    friend struct com::DrawableBase;
+    friend struct rcom::DrawableBase;
 };
 
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif

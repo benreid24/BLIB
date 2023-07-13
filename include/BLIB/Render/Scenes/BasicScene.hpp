@@ -6,14 +6,14 @@
 
 namespace bl
 {
-namespace gfx
-{
-class Renderer;
 namespace sys
 {
 template<typename T>
 class DrawableSystem;
 }
+namespace rc
+{
+class Renderer;
 namespace res
 {
 class ScenePool;
@@ -58,7 +58,7 @@ protected:
      * @param updateFreq Whether the object is static or dynamic
      * @return A pointer to the new scene object
      */
-    virtual scene::SceneObject* doAdd(ecs::Entity entity, com::DrawableBase& object,
+    virtual scene::SceneObject* doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                                       UpdateSpeed updateFreq) override;
 
     /**
@@ -130,7 +130,7 @@ private:
 };
 
 } // namespace scene
-} // namespace gfx
+} // namespace rc
 } // namespace bl
 
 #endif
