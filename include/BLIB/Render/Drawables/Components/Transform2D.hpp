@@ -2,7 +2,7 @@
 #define BLIB_RENDER_DRAWABLES_COMPONENTS_TRANSFORM2D_HPP
 
 #include <BLIB/ECS.hpp>
-#include <BLIB/Transforms/2D/Transform2D.hpp>
+#include <BLIB/Components/Transform2D.hpp>
 
 namespace bl
 {
@@ -28,12 +28,12 @@ public:
     /**
      * @brief Returns the transform. Must only be called after create()
      */
-    t2d::Transform2D& getTransform();
+    com::Transform2D& getTransform();
 
     /**
      * @brief Returns the transform. Must only be called after create()
      */
-    const t2d::Transform2D& getTransform() const;
+    const com::Transform2D& getTransform() const;
 
 protected:
     /**
@@ -48,18 +48,18 @@ protected:
     void create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args);
 
 private:
-    ecs::StableHandle<t2d::Transform2D> handle;
+    ecs::StableHandle<com::Transform2D> handle;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline t2d::Transform2D& Transform2D::getTransform() { return handle.get(); }
+inline com::Transform2D& Transform2D::getTransform() { return handle.get(); }
 
-inline const t2d::Transform2D& Transform2D::getTransform() const { return handle.get(); }
+inline const com::Transform2D& Transform2D::getTransform() const { return handle.get(); }
 
 template<typename... TArgs>
 inline void Transform2D::create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args) {
-    registry.emplaceComponent<t2d::Transform2D>(entity, std::forward<TArgs>(args)...);
+    registry.emplaceComponent<com::Transform2D>(entity, std::forward<TArgs>(args)...);
     handle.assign(registry, entity);
 }
 

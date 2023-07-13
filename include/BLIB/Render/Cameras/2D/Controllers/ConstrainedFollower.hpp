@@ -3,7 +3,7 @@
 
 #include <BLIB/ECS.hpp>
 #include <BLIB/Render/Cameras/2D/CameraController2D.hpp>
-#include <BLIB/Transforms/2D/Transform2D.hpp>
+#include <BLIB/Components/Transform2D.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
 namespace bl
@@ -44,7 +44,7 @@ public:
     virtual void update(float dt) override;
 
 private:
-    ecs::ComponentPool<t2d::Transform2D>* pool;
+    ecs::ComponentPool<com::Transform2D>* pool;
     ecs::Entity follow;
     const sf::FloatRect area;
     const bool followRotation;

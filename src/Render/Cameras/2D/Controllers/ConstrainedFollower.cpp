@@ -11,7 +11,7 @@ namespace c2d
 {
 ConstrainedFollower::ConstrainedFollower(ecs::Registry& registry, ecs::Entity follow,
                                          const sf::FloatRect& area, bool fr)
-: pool(&registry.getAllComponents<t2d::Transform2D>())
+: pool(&registry.getAllComponents<com::Transform2D>())
 , follow(follow)
 , area(area)
 , followRotation(fr) {
@@ -21,7 +21,7 @@ ConstrainedFollower::ConstrainedFollower(ecs::Registry& registry, ecs::Entity fo
 }
 
 void ConstrainedFollower::update(float) {
-    t2d::Transform2D* pos = pool->get(follow);
+    com::Transform2D* pos = pool->get(follow);
     if (!pos) {
 #ifdef BLIB_DEBUG
         if (!warned) {

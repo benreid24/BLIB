@@ -1,10 +1,10 @@
 #ifndef BLIB_RENDER_CAMERAS_3D_CAMERA3D_HPP
 #define BLIB_RENDER_CAMERAS_3D_CAMERA3D_HPP
 
+#include <BLIB/Components/Orientation3D.hpp>
 #include <BLIB/Render/Cameras/3D/CameraAffector3D.hpp>
 #include <BLIB/Render/Cameras/3D/CameraController3D.hpp>
 #include <BLIB/Render/Cameras/Camera.hpp>
-#include <BLIB/Transforms/3D/Orientation3D.hpp>
 #include <memory>
 #include <type_traits>
 #include <vector>
@@ -71,13 +71,13 @@ public:
     /**
      * @brief Returns the orientation of the camera
      */
-    constexpr const t3d::Orientation3D& getOrientation() const;
+    constexpr const com::Orientation3D& getOrientation() const;
 
     /**
      * @brief Returns the orientation of the camera and marks the camera as needing to refresh the
      *        view matrix. Use this method to change the orientation of the camera
      */
-    t3d::Orientation3D& getOrientationForChange();
+    com::Orientation3D& getOrientationForChange();
 
     /**
      * @brief Set the FOV of the camera
@@ -157,7 +157,7 @@ public:
 
 private:
     glm::vec3 position;
-    t3d::Orientation3D orientation;
+    com::Orientation3D orientation;
     float fov;
 
     std::unique_ptr<CameraController3D> controller;
@@ -197,7 +197,7 @@ TController* Camera3D::setController(std::unique_ptr<TController>&& c) {
     return c;
 }
 
-inline constexpr const t3d::Orientation3D& Camera3D::getOrientation() const { return orientation; }
+inline constexpr const com::Orientation3D& Camera3D::getOrientation() const { return orientation; }
 
 template<typename TAffector, typename... TArgs>
 TAffector* Camera3D::addAffector(TArgs&&... args) {

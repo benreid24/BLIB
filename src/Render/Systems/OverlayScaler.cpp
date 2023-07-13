@@ -24,14 +24,14 @@ void OverlayScaler::update(std::mutex&, float) {
 
 void OverlayScaler::refreshEntity(ecs::Entity entity, const VkViewport& viewport) {
     auto cset =
-        registry->getComponentSet<ecs::Require<com::OverlayScaler, t2d::Transform2D>>(entity);
+        registry->getComponentSet<ecs::Require<com::OverlayScaler, com::Transform2D>>(entity);
     if (!cset.isValid()) {
         BL_LOG_ERROR << "Missing components for entity: " << entity;
         return;
     }
 
     com::OverlayScaler& scaler  = *cset.get<com::OverlayScaler>();
-    t2d::Transform2D& transform = *cset.get<t2d::Transform2D>();
+    com::Transform2D& transform = *cset.get<com::Transform2D>();
     scaler.dirty                = false;
     scaler.cachedTargetRegion =
         sf::FloatRect{viewport.x, viewport.y, viewport.width, viewport.height};

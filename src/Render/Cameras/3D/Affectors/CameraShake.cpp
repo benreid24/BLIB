@@ -19,7 +19,7 @@ void CameraShake::setMagnitude(float m) { mag = m; }
 
 void CameraShake::setShakesPerSecond(float s) { speed = 2.f * math::Pi * s; }
 
-void CameraShake::applyOnView(glm::vec3& pos, t3d::Orientation3D&) {
+void CameraShake::applyOnView(glm::vec3& pos, com::Orientation3D&) {
     const float t = time * speed;
 
     pos.x += mag * std::cos(t);

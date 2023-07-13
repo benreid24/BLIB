@@ -51,7 +51,7 @@ public:
 
         // create sprite in scene
         spriteEntity   = engine.ecs().createEntity();
-        spritePosition = engine.ecs().emplaceComponent<bl::t2d::Transform2D>(spriteEntity);
+        spritePosition = engine.ecs().emplaceComponent<bl::com::Transform2D>(spriteEntity);
         engine.ecs().emplaceComponent<bl::com::Texture>(spriteEntity, texture);
         engine.ecs().emplaceComponent<bl::com::Sprite>(spriteEntity, engine.renderer(), texture);
         engine.systems().getSystem<bl::rc::sys::SpriteSystem>().addToScene(
@@ -84,7 +84,7 @@ public:
 
         // create object in scene
         meshEntity = engine.ecs().createEntity();
-        engine.ecs().emplaceComponent<bl::t3d::Transform3D>(meshEntity);
+        engine.ecs().emplaceComponent<bl::com::Transform3D>(meshEntity);
         engine.ecs().emplaceComponent<bl::com::Texture>(meshEntity, texture);
         bl::com::Mesh* mesh = engine.ecs().emplaceComponent<bl::com::Mesh>(meshEntity);
         mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
@@ -154,7 +154,7 @@ private:
     bl::rc::draw::Sprite sprite;
     bl::rc::draw::Sprite messageBox;
     bl::ecs::Entity spriteEntity;
-    bl::t2d::Transform2D* spritePosition;
+    bl::com::Transform2D* spritePosition;
     bl::ecs::Entity meshEntity;
     bl::rc::res::TextureRef texture;
     bl::rc::res::TextureRef messageBoxTxtr;

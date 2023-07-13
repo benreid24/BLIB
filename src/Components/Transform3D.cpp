@@ -1,11 +1,11 @@
-#include <BLIB/Transforms/3D/Transform3D.hpp>
+#include <BLIB/Components/Transform3D.hpp>
 
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <glm/gtx/transform.hpp>
 
 namespace bl
 {
-namespace t3d
+namespace com
 {
 Transform3D::Transform3D()
 : position(0.f, 0.f, 0.f)
@@ -45,5 +45,5 @@ void Transform3D::refreshDescriptor(glm::mat4& dest) {
     dest *= glm::scale(scaleFactors);
 }
 
-} // namespace t3d
+} // namespace com
 } // namespace bl

@@ -1,19 +1,18 @@
-#ifndef BLIB_TRANSFORMS_2D_TRANSFORM2D_HPP
-#define BLIB_TRANSFORMS_2D_TRANSFORM2D_HPP
+#ifndef BLIB_COMPONENTS_TRANSFORM2D_HPP
+#define BLIB_COMPONENTS_TRANSFORM2D_HPP
 
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
 {
-/// Collection of classes for 2d transforms
-namespace t2d
+namespace com
 {
 /**
  * @brief Representation of a 2d transform with a depth component to allow the depth buffer to be
  *        used when rendering 2d entities
  *
- * @ingroup Transforms
+ * @ingroup Components
  */
 class Transform2D : public rc::rcom::DescriptorComponentBase<Transform2D, glm::mat4> {
 public:
@@ -166,7 +165,7 @@ inline constexpr const glm::vec2& Transform2D::getPosition() const { return posi
 
 inline constexpr const glm::vec2& Transform2D::getOrigin() const { return origin; }
 
-} // namespace t2d
+} // namespace com
 } // namespace bl
 
 #endif

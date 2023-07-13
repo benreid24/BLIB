@@ -8,7 +8,7 @@ namespace c3d
 {
 void CameraAffector3D::update(float, bool&, bool&) {}
 
-void CameraAffector3D::applyOnView(glm::vec3&, t3d::Orientation3D&) {}
+void CameraAffector3D::applyOnView(glm::vec3&, com::Orientation3D&) {}
 
 void CameraAffector3D::applyOnProjection(float&, float&, float&) {}
 

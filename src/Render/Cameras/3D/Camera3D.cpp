@@ -31,7 +31,7 @@ void Camera3D::move(const glm::vec3& offset) {
     markViewDirty();
 }
 
-t3d::Orientation3D& Camera3D::getOrientationForChange() {
+com::Orientation3D& Camera3D::getOrientationForChange() {
     markViewDirty();
     return orientation;
 }
@@ -43,7 +43,7 @@ void Camera3D::setFov(float f) {
 
 void Camera3D::refreshViewMatrix(glm::mat4& view) {
     glm::vec3 pos             = position;
-    t3d::Orientation3D orient = orientation;
+    com::Orientation3D orient = orientation;
     for (auto& a : affectors) { a->applyOnView(pos, orient); }
 
     // roll by rotating up vector around look vector

@@ -1,16 +1,16 @@
-#ifndef BLIB_TRANSFORMS_3D_ORIENTATION3D_HPP
-#define BLIB_TRANSFORMS_3D_ORIENTATION3D_HPP
+#ifndef BLIB_COMPONENTS_ORIENTATION3D_HPP
+#define BLIB_COMPONENTS_ORIENTATION3D_HPP
 
 #include <glm/glm.hpp>
 
 namespace bl
 {
-namespace t3d
+namespace com
 {
 /**
  * @brief Angle-axis representation of a 3d orientation
  *
- * @ingroup Transforms
+ * @ingroup Components
  */
 class Orientation3D {
 public:
@@ -137,7 +137,7 @@ inline constexpr float Orientation3D::getRoll() const { return roll; }
 
 inline constexpr const glm::vec3& Orientation3D::getFaceDirection() const { return faceDir; }
 
-} // namespace t3d
+} // namespace com
 } // namespace bl
 
 #endif

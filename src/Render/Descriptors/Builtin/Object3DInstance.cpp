@@ -23,7 +23,7 @@ Object3DInstance::~Object3DInstance() { vulkanState.descriptorPool.release(alloc
 
 void Object3DInstance::init(DescriptorComponentStorageCache& storageCache) {
     // create/fetch storage modules
-    transforms = storageCache.getComponentStorage<t3d::Transform3D,
+    transforms = storageCache.getComponentStorage<com::Transform3D,
                                                   glm::mat4,
                                                   buf::DynamicSSBO<glm::mat4>,
                                                   buf::StaticSSBO<glm::mat4>>();

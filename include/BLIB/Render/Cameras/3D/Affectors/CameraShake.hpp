@@ -54,7 +54,7 @@ public:
      * @param position Camera position to modify
      * @param orientation Ignored
      */
-    virtual void applyOnView(glm::vec3& position, t3d::Orientation3D& orientation) override;
+    virtual void applyOnView(glm::vec3& position, com::Orientation3D& orientation) override;
 
     /**
      * @brief Updates the camera shaking

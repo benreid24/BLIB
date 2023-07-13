@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_CAMERAS_3D_CAMERAAFFECTOR3D_HPP
 #define BLIB_RENDER_CAMERAS_3D_CAMERAAFFECTOR3D_HPP
 
-#include <BLIB/Transforms/3D/Orientation3D.hpp>
+#include <BLIB/Components/Orientation3D.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
@@ -39,7 +39,7 @@ struct CameraAffector3D {
      * @param position The position of the camera. May be modified
      * @param orientation The orientation of the camera. May be modified
      */
-    virtual void applyOnView(glm::vec3& position, t3d::Orientation3D& orientation);
+    virtual void applyOnView(glm::vec3& position, com::Orientation3D& orientation);
 
     /**
      * @brief Base method does nothing. Use this to make changes to the parameters used to construct

@@ -1,19 +1,18 @@
-#ifndef BLIB_TRANSFORMS_3D_TRANSFORM3D_HPP
-#define BLIB_TRANSFORMS_3D_TRANSFORM3D_HPP
+#ifndef BLIB_COMPONENTS_TRANSFORM3D_HPP
+#define BLIB_COMPONENTS_TRANSFORM3D_HPP
 
+#include <BLIB/Components/Orientation3D.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
-#include <BLIB/Transforms/3D/Orientation3D.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
 {
-/// Collection of transformations and helpers for 3d space
-namespace t3d
+namespace com
 {
 /**
  * @brief Representation of a full 3d transform. Includes position, orientation, and scale
  *
- * @ingroup Transforms
+ * @ingroup Components
  */
 class Transform3D : public rc::rcom::DescriptorComponentBase<Transform3D, glm::mat4> {
 public:
@@ -92,7 +91,7 @@ inline constexpr const Orientation3D& Transform3D::getOrientation() const { retu
 
 inline constexpr const glm::vec3& Transform3D::getScale() const { return scaleFactors; }
 
-} // namespace t3d
+} // namespace com
 } // namespace bl
 
 #endif

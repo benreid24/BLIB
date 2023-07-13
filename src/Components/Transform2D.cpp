@@ -1,4 +1,4 @@
-#include <BLIB/Transforms/2D/Transform2D.hpp>
+#include <BLIB/Components/Transform2D.hpp>
 
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace t2d
+namespace com
 {
 Transform2D::Transform2D()
 : origin(0.f, 0.f)
@@ -94,5 +94,5 @@ glm::mat4 Transform2D::getMatrix() const {
 
 glm::mat4 Transform2D::getInverse() const { return glm::inverse(getMatrix()); }
 
-} // namespace t2d
+} // namespace com
 } // namespace bl

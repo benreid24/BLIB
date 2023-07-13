@@ -1,8 +1,8 @@
-#include <BLIB/Transforms/3D/Orientation3D.hpp>
+#include <BLIB/Components/Orientation3D.hpp>
 
 namespace bl
 {
-namespace t3d
+namespace com
 {
 Orientation3D::Orientation3D(float yaw, float pitch, float roll)
 : roll(roll) {
@@ -47,5 +47,5 @@ void Orientation3D::setYawAndPitch(float yaw, float pitch) {
 
 void Orientation3D::setFaceDirection(const glm::vec3& f) { faceDir = f; }
 
-} // namespace t3d
+} // namespace com
 } // namespace bl

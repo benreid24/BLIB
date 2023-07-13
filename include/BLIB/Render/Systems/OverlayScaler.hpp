@@ -2,11 +2,11 @@
 #define BLIB_RENDER_SYSTEMS_OVERLAYSCALER_HPP
 
 #include <BLIB/Components/OverlayScaler.hpp>
+#include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/ECS.hpp>
 #include <BLIB/Engine/System.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
-#include <BLIB/Transforms/2D/Transform2D.hpp>
 #include <vector>
 
 namespace bl
