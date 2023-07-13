@@ -6,7 +6,6 @@ target_sources(BLIB PUBLIC
 )
 
 add_subdirectory(Buffers)
-add_subdirectory(Cameras)
 add_subdirectory(Components)
 add_subdirectory(Descriptors)
 add_subdirectory(Drawables)

@@ -3,7 +3,6 @@ target_sources(BLIB PRIVATE
     Renderer.cpp
 )
 
-add_subdirectory(Cameras)
 add_subdirectory(Components)
 add_subdirectory(Descriptors)
 add_subdirectory(Drawables)

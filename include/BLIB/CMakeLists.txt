@@ -1,5 +1,6 @@
 target_sources(BLIB PUBLIC
     AI.hpp
+    Cameras.hpp
     Containers.hpp
     Components.hpp
     ECS.hpp
@@ -20,6 +21,7 @@ target_sources(BLIB PUBLIC
 )
 
 add_subdirectory(AI)
+add_subdirectory(Cameras)
 add_subdirectory(Containers)
 add_subdirectory(Components)
 add_subdirectory(ECS)

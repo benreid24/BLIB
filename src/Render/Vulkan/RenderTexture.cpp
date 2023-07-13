@@ -1,7 +1,7 @@
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
 
-#include <BLIB/Render/Cameras/2D/Camera2D.hpp>
-#include <BLIB/Render/Cameras/3D/Camera3D.hpp>
+#include <BLIB/Cameras/2D/Camera2D.hpp>
+#include <BLIB/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
@@ -93,11 +93,11 @@ void RenderTexture::setClearColor(const glm::vec4& color) {
 void RenderTexture::ensureCamera() {
     if (!camera) {
 #if SCENE_DEFAULT_CAMERA == 2
-        setCamera<c2d::Camera2D>(
+        setCamera<cam::Camera2D>(
             glm::vec2{viewport.x + viewport.width * 0.5f, viewport.y + viewport.height * 0.5f},
             glm::vec2{viewport.width, viewport.height});
 #else
-        setCamera<c3d::Camera3D>();
+        setCamera<cam::Camera3D>();
 #endif
     }
 }

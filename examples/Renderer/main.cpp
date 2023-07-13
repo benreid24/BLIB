@@ -1,3 +1,4 @@
+#include <BLIB/Cameras.hpp>
 #include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
 #include <BLIB/Render.hpp>
@@ -45,7 +46,7 @@ public:
         // create 2d scene and camera for observer 1
         bl::rc::Scene* scene = p1.pushScene<bl::rc::scene::BasicScene>();
         auto* p1cam =
-            p1.setCamera<bl::rc::c2d::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
+            p1.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
         p1cam->setNearAndFarPlanes(-100000.f, 100000.f);
         p1cam->setRotation(15.f);
 
@@ -73,11 +74,11 @@ public:
 
         // create camera for observer 2
         p2.setClearColor({0.f, 1.f, 0.f, 1.f});
-        bl::rc::c3d::Camera3D* player2Cam = p2.setCamera<bl::rc::c3d::Camera3D>(
+        bl::cam::Camera3D* player2Cam = p2.setCamera<bl::cam::Camera3D>(
             glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
-        player2Cam->setController<bl::rc::c3d::OrbiterController>(
+        player2Cam->setController<bl::cam::c3d::OrbiterController>(
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
-        player2Cam->addAffector<bl::rc::c3d::CameraShake>(0.1f, 7.f);
+        player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
 
         // get handle to mesh system
         bl::rc::sys::MeshSystem& meshSystem = engine.systems().getSystem<bl::rc::sys::MeshSystem>();
