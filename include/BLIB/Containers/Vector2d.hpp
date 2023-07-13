@@ -1,10 +1,11 @@
-#ifndef BLIB_CONTAINERS_2DVECTOR_HPP
-#define BLIB_CONTAINERS_2DVECTOR_HPP
+#ifndef BLIB_CONTAINERS_VECTOR2D_HPP
+#define BLIB_CONTAINERS_VECTOR2D_HPP
 
 #include <vector>
 
 namespace bl
 {
+/// Collection of containers to expand upon the STL
 namespace container
 {
 /**

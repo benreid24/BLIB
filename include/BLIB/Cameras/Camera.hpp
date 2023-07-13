@@ -12,7 +12,7 @@ namespace cam
 /**
  * @brief Base class for all cameras
  *
- * @ingroup Renderer
+ * @ingroup Cameras
  */
 class Camera {
 public:

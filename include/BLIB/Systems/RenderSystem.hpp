@@ -10,6 +10,7 @@ namespace rc
 class Renderer;
 }
 
+/// Collection of built-in engine systems
 namespace sys
 {
 /**

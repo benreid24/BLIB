@@ -8,6 +8,7 @@
 
 namespace bl
 {
+/// Audio utilities, tools, and functionality
 namespace audio
 {
 /**
