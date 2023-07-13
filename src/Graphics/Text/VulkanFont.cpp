@@ -26,7 +26,7 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
+#include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #ifdef SFML_SYSTEM_ANDROID
 #include <SFML/System/Android/ResourceStream.hpp>

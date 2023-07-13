@@ -4,7 +4,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Media/Audio/Playlist.hpp>
 #include <BLIB/Media/Graphics/AnimationData.hpp>
-#include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
+#include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Resources/Resource.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>

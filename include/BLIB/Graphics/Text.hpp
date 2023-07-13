@@ -1,13 +1,13 @@
-#ifndef BLIB_RENDER_DRAWABLES_TEXT_HPP
-#define BLIB_RENDER_DRAWABLES_TEXT_HPP
+#ifndef BLIB_GRAPHICS_TEXT_HPP
+#define BLIB_GRAPHICS_TEXT_HPP
 
 #include <BLIB/Components/Mesh.hpp>
-#include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
-#include <BLIB/Render/Drawables/Components/Textured.hpp>
-#include <BLIB/Render/Drawables/Components/Transform2D.hpp>
-#include <BLIB/Render/Drawables/Drawable.hpp>
-#include <BLIB/Render/Drawables/Text/BasicText.hpp>
-#include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
+#include <BLIB/Graphics/Components/OverlayScalable.hpp>
+#include <BLIB/Graphics/Components/Textured.hpp>
+#include <BLIB/Graphics/Components/Transform2D.hpp>
+#include <BLIB/Graphics/Drawable.hpp>
+#include <BLIB/Graphics/Text/BasicText.hpp>
+#include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <vector>
 
@@ -22,9 +22,7 @@ namespace engine
 class Engine;
 }
 
-namespace rc
-{
-namespace draw
+namespace gfx
 {
 /**
  * @brief Drawable component for format-able text. Similar to sf::Text except that multiple
@@ -34,8 +32,8 @@ namespace draw
  */
 class Text
 : public Drawable<com::Mesh>
-, private base::Textured
-, public base::OverlayScalable {
+, private bcom::Textured
+, public bcom::OverlayScalable {
 public:
     /**
      * @brief Basic struct representing a lookup from position to character
@@ -195,7 +193,7 @@ private:
 
     bool refreshRequired() const;
     void computeWordWrap();
-    virtual void onAdd(const rcom::SceneObjectRef& sceneRef) override;
+    virtual void onAdd(const rc::rcom::SceneObjectRef& sceneRef) override;
     virtual void onRemove() override;
 
     friend class sys::TextSyncSystem;
@@ -209,8 +207,7 @@ inline txt::BasicText& Text::getSection(unsigned int i) { return sections[i]; }
 
 inline const txt::BasicText& Text::getSection(unsigned int i) const { return sections[i]; }
 
-} // namespace draw
-} // namespace rc
+} // namespace gfx
 } // namespace bl
 
 #endif

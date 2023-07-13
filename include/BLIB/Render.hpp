@@ -34,12 +34,6 @@
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
-#include <BLIB/Render/Drawables/Components/Textured.hpp>
-#include <BLIB/Render/Drawables/Components/Transform2D.hpp>
-#include <BLIB/Render/Drawables/Sprite.hpp>
-#include <BLIB/Render/Drawables/Text.hpp>
-#include <BLIB/Render/Drawables/Text/BasicText.hpp>
-#include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
 #include <BLIB/Render/Events/OverlayEntityScaled.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
 #include <BLIB/Render/Observer.hpp>
@@ -94,9 +88,5 @@
 #include <BLIB/Render/Vulkan/Texture.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
-
-// Inline methods in the below
-#include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
-#include <BLIB/Render/Drawables/Drawable.hpp>
 
 #endif

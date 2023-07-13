@@ -11,18 +11,19 @@ namespace sys
 {
 class OverlayScalerSystem;
 }
-namespace rc
-{
-class Overlay;
 
-namespace draw
+namespace gfx
 {
-namespace base
+namespace bcom
 {
 class OverlayScalable;
 }
-} // namespace draw
-} // namespace rc
+} // namespace gfx
+
+namespace rc
+{
+class Overlay;
+}
 
 namespace com
 {
@@ -120,7 +121,7 @@ private:
     void setViewportToSelf(bool setToSelf);
 
     friend class sys::OverlayScalerSystem;
-    friend class rc::draw::base::OverlayScalable;
+    friend class gfx::bcom::OverlayScalable;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

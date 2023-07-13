@@ -1,9 +1,9 @@
-#ifndef BLIB_RENDER_DRAWABLES_TEXT_BASICTEXT_HPP
-#define BLIB_RENDER_DRAWABLES_TEXT_BASICTEXT_HPP
+#ifndef BLIB_GRAPHICS_TEXT_BASICTEXT_HPP
+#define BLIB_GRAPHICS_TEXT_BASICTEXT_HPP
 
 #include <BLIB/Components/Mesh.hpp>
-#include <BLIB/Render/Drawables/Drawable.hpp>
-#include <BLIB/Render/Drawables/Text/VulkanFont.hpp>
+#include <BLIB/Graphics/Drawable.hpp>
+#include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Font.hpp>
@@ -14,9 +14,7 @@
 
 namespace bl
 {
-namespace rc
-{
-namespace draw
+namespace gfx
 {
 class Text;
 
@@ -168,13 +166,13 @@ private:
     bool refreshNeeded;
     sf::FloatRect cachedBounds;
 
-    std::uint32_t refreshVertices(const sf::VulkanFont& font, prim::Vertex* vertices,
+    std::uint32_t refreshVertices(const sf::VulkanFont& font, rc::prim::Vertex* vertices,
                                   glm::vec2& cornerPos);
     glm::vec2 advanceCharacterPos(const sf::VulkanFont& font, glm::vec2 pos, std::uint32_t curChar,
                                   std::uint32_t prevChar) const;
     const sf::FloatRect& getBounds() const;
 
-    friend class bl::rc::draw::Text;
+    friend class bl::gfx::Text;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -219,8 +217,7 @@ inline float BasicText::computeLineSpacing(const sf::VulkanFont& font) const {
 }
 
 } // namespace txt
-} // namespace draw
-} // namespace rc
+} // namespace gfx
 } // namespace bl
 
 #endif

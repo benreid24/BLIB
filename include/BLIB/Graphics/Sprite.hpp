@@ -1,11 +1,11 @@
-#ifndef BLIB_RENDER_DRAWABLES_SPRITE_HPP
-#define BLIB_RENDER_DRAWABLES_SPRITE_HPP
+#ifndef BLIB_GRAPHICS_SPRITE_HPP
+#define BLIB_GRAPHICS_SPRITE_HPP
 
 #include <BLIB/Components/Sprite.hpp>
-#include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
-#include <BLIB/Render/Drawables/Components/Textured.hpp>
-#include <BLIB/Render/Drawables/Components/Transform2D.hpp>
-#include <BLIB/Render/Drawables/Drawable.hpp>
+#include <BLIB/Graphics/Components/OverlayScalable.hpp>
+#include <BLIB/Graphics/Components/Textured.hpp>
+#include <BLIB/Graphics/Components/Transform2D.hpp>
+#include <BLIB/Graphics/Drawable.hpp>
 
 namespace bl
 {
@@ -14,9 +14,7 @@ namespace engine
 class Engine;
 }
 
-namespace rc
-{
-namespace draw
+namespace gfx
 {
 /**
  * @brief SFML-like sprite class to render images in scenes or overlays. Wraps the ECS interface
@@ -25,8 +23,8 @@ namespace draw
  */
 class Sprite
 : public Drawable<com::Sprite>
-, public base::OverlayScalable
-, public base::Textured {
+, public bcom::OverlayScalable
+, public bcom::Textured {
 public:
     /**
      * @brief Creates an uninitialized sprite
@@ -40,7 +38,7 @@ public:
      * @param texture The texture for the sprite
      * @param region The region to render from the texture
      */
-    Sprite(engine::Engine& engine, res::TextureRef texture, const sf::FloatRect& region = {});
+    Sprite(engine::Engine& engine, rc::res::TextureRef texture, const sf::FloatRect& region = {});
 
     /**
      * @brief Creates the ECS backing for the sprite
@@ -49,11 +47,11 @@ public:
      * @param texture The texture for the sprite
      * @param region The region to render from the texture
      */
-    void create(engine::Engine& engine, res::TextureRef texture, const sf::FloatRect& region = {});
+    void create(engine::Engine& engine, rc::res::TextureRef texture,
+                const sf::FloatRect& region = {});
 };
 
-} // namespace draw
-} // namespace rc
+} // namespace gfx
 } // namespace bl
 
 #endif

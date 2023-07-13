@@ -2,7 +2,7 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Events.hpp>
-#include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
+#include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Render/Events/OverlayEntityScaled.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 

@@ -1,11 +1,11 @@
-#ifndef BLIB_RENDER_DRAWABLES_COMPONENTS_OVERLAYSCALABLE_HPP
-#define BLIB_RENDER_DRAWABLES_COMPONENTS_OVERLAYSCALABLE_HPP
+#ifndef BLIB_GRAPHICS_COMPONENTS_OVERLAYSCALABLE_HPP
+#define BLIB_GRAPHICS_COMPONENTS_OVERLAYSCALABLE_HPP
 
 #include <BLIB/Components/OverlayScaler.hpp>
 #include <BLIB/ECS.hpp>
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Graphics/Components/Transform2D.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
-#include <BLIB/Render/Drawables/Components/Transform2D.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
 
 namespace bl
@@ -17,10 +17,11 @@ class OverlayScalerSystem;
 namespace rc
 {
 class Overlay;
+}
 
-namespace draw
+namespace gfx
 {
-namespace base
+namespace bcom
 {
 /**
  * @brief Base component that manages and provides a Transform2D, OverlayScaler, and Viewport
@@ -62,7 +63,7 @@ public:
      *
      * @param viewport The viewport to constrain rendering to
      */
-    void setViewport(const ovy::Viewport& viewport);
+    void setViewport(const rc::ovy::Viewport& viewport);
 
     /**
      * @brief Helper method to set the viewport to the region the drawable is in
@@ -133,9 +134,8 @@ inline const sf::FloatRect& OverlayScalable::getTargetRegion() const {
     return handle.get().cachedTargetRegion;
 }
 
-} // namespace base
-} // namespace draw
-} // namespace rc
+} // namespace bcom
+} // namespace gfx
 } // namespace bl
 
 #endif

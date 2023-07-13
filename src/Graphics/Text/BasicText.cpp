@@ -1,16 +1,14 @@
-#include <BLIB/Render/Drawables/Text/BasicText.hpp>
+#include <BLIB/Graphics/Text/BasicText.hpp>
 
 namespace bl
 {
-namespace rc
-{
-namespace draw
+namespace gfx
 {
 namespace txt
 {
 namespace
 {
-std::uint32_t addLine(prim::Vertex* vertices, std::uint32_t i, float lineLength, float lineTop,
+std::uint32_t addLine(rc::prim::Vertex* vertices, std::uint32_t i, float lineLength, float lineTop,
                       const glm::vec4& color, float offset, float thickness,
                       float outlineThickness = 0) {
     const float top    = std::floor(lineTop + offset - (thickness / 2) + 0.5f);
@@ -18,29 +16,29 @@ std::uint32_t addLine(prim::Vertex* vertices, std::uint32_t i, float lineLength,
 
     if (vertices) {
         const glm::vec2 texCoords(1.f, 1.f);
-        vertices[i] = prim::Vertex(
+        vertices[i] = rc::prim::Vertex(
             glm::vec3(-outlineThickness, top - outlineThickness, 0.f), color, glm::vec2(1, 1));
         vertices[i + 1] =
-            prim::Vertex(glm::vec3(lineLength + outlineThickness, top - outlineThickness, 0.f),
-                         color,
-                         texCoords);
-        vertices[i + 2] = prim::Vertex(
+            rc::prim::Vertex(glm::vec3(lineLength + outlineThickness, top - outlineThickness, 0.f),
+                             color,
+                             texCoords);
+        vertices[i + 2] = rc::prim::Vertex(
             glm::vec3(-outlineThickness, bottom + outlineThickness, 0.f), color, texCoords);
-        vertices[i + 3] = prim::Vertex(
+        vertices[i + 3] = rc::prim::Vertex(
             glm::vec3(-outlineThickness, bottom + outlineThickness, 0.f), color, texCoords);
         vertices[i + 4] =
-            prim::Vertex(glm::vec3(lineLength + outlineThickness, top - outlineThickness, 0.f),
-                         color,
-                         texCoords);
-        vertices[i + 5] =
-            prim::Vertex(glm::vec3(lineLength + outlineThickness, bottom + outlineThickness, 0.f),
-                         color,
-                         texCoords);
+            rc::prim::Vertex(glm::vec3(lineLength + outlineThickness, top - outlineThickness, 0.f),
+                             color,
+                             texCoords);
+        vertices[i + 5] = rc::prim::Vertex(
+            glm::vec3(lineLength + outlineThickness, bottom + outlineThickness, 0.f),
+            color,
+            texCoords);
     }
     return i + 6;
 }
 
-std::uint32_t addGlyphQuad(prim::Vertex* vertices, std::uint32_t i, glm::vec2 position,
+std::uint32_t addGlyphQuad(rc::prim::Vertex* vertices, std::uint32_t i, glm::vec2 position,
                            const glm::vec4& color, const sf::Glyph& glyph, float italicShear) {
     constexpr float padding = 1.0;
 
@@ -55,27 +53,27 @@ std::uint32_t addGlyphQuad(prim::Vertex* vertices, std::uint32_t i, glm::vec2 po
     const float v2 = static_cast<float>(glyph.textureRect.top + glyph.textureRect.height) + padding;
 
     if (vertices) {
-        vertices[i] =
-            prim::Vertex(glm::vec3(position.x + left - italicShear * top, position.y + top, 0.f),
-                         color,
-                         glm::vec2(u1, v1));
-        vertices[i + 1] =
-            prim::Vertex(glm::vec3(position.x + right - italicShear * top, position.y + top, 0.f),
-                         color,
-                         glm::vec2(u2, v1));
-        vertices[i + 2] = prim::Vertex(
+        vertices[i] = rc::prim::Vertex(
+            glm::vec3(position.x + left - italicShear * top, position.y + top, 0.f),
+            color,
+            glm::vec2(u1, v1));
+        vertices[i + 1] = rc::prim::Vertex(
+            glm::vec3(position.x + right - italicShear * top, position.y + top, 0.f),
+            color,
+            glm::vec2(u2, v1));
+        vertices[i + 2] = rc::prim::Vertex(
             glm::vec3(position.x + left - italicShear * bottom, position.y + bottom, 0.f),
             color,
             glm::vec2(u1, v2));
-        vertices[i + 3] = prim::Vertex(
+        vertices[i + 3] = rc::prim::Vertex(
             glm::vec3(position.x + left - italicShear * bottom, position.y + bottom, 0.f),
             color,
             glm::vec2(u1, v2));
-        vertices[i + 4] =
-            prim::Vertex(glm::vec3(position.x + right - italicShear * top, position.y + top, 0.f),
-                         color,
-                         glm::vec2(u2, v1));
-        vertices[i + 5] = prim::Vertex(
+        vertices[i + 4] = rc::prim::Vertex(
+            glm::vec3(position.x + right - italicShear * top, position.y + top, 0.f),
+            color,
+            glm::vec2(u2, v1));
+        vertices[i + 5] = rc::prim::Vertex(
             glm::vec3(position.x + right - italicShear * bottom, position.y + bottom, 0.f),
             color,
             glm::vec2(u2, v2));
@@ -125,7 +123,7 @@ void BasicText::setOutlineThickness(unsigned int t) {
     refreshNeeded    = true;
 }
 
-std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, prim::Vertex* vertices,
+std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, rc::prim::Vertex* vertices,
                                          glm::vec2& cornerPos) {
     // Mark geometry as updated
     refreshNeeded = false;
@@ -365,6 +363,5 @@ const sf::Glyph& BasicText::getGlyph(const sf::VulkanFont& font, std::uint32_t c
 }
 
 } // namespace txt
-} // namespace draw
-} // namespace rc
+} // namespace gfx
 } // namespace bl

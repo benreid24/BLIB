@@ -1,6 +1,7 @@
 #include <BLIB/Cameras.hpp>
 #include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Systems.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -153,18 +154,18 @@ public:
 
 private:
     bl::rc::Renderer* renderer;
-    bl::rc::draw::Sprite sprite;
-    bl::rc::draw::Sprite messageBox;
+    bl::gfx::Sprite sprite;
+    bl::gfx::Sprite messageBox;
     bl::ecs::Entity spriteEntity;
     bl::com::Transform2D* spritePosition;
     bl::ecs::Entity meshEntity;
     bl::rc::res::TextureRef texture;
     bl::rc::res::TextureRef messageBoxTxtr;
     sf::VulkanFont font;
-    bl::rc::draw::Text text;
+    bl::gfx::Text text;
     bl::rc::vk::RenderTexture renderTexture;
-    bl::rc::draw::Sprite renderTextureInnerSprite;
-    bl::rc::draw::Sprite renderTextureOuterSprite;
+    bl::gfx::Sprite renderTextureInnerSprite;
+    bl::gfx::Sprite renderTextureOuterSprite;
 
     virtual void observe(const sf::Event& event) override {
         if (event.type == sf::Event::KeyPressed) {

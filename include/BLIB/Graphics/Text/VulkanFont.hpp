@@ -23,8 +23,8 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef BLIB_RENDER_DRAWABLES_TEXT_VULKANFONT_HPP
-#define BLIB_RENDER_DRAWABLES_TEXT_VULKANFONT_HPP
+#ifndef BLIB_GRAPHICS_TEXT_VULKANFONT_HPP
+#define BLIB_GRAPHICS_TEXT_VULKANFONT_HPP
 
 ////////////////////////////////////////////////////////////
 // Headers

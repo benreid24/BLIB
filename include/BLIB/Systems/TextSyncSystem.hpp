@@ -8,13 +8,10 @@
 
 namespace bl
 {
-namespace rc
-{
-namespace draw
+namespace gfx
 {
 class Text;
 }
-} // namespace rc
 
 namespace sys
 {
@@ -38,16 +35,16 @@ public:
     virtual ~TextSyncSystem() = default;
 
 private:
-    std::vector<rc::draw::Text*> texts;
+    std::vector<gfx::Text*> texts;
 
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt) override;
     virtual void observe(const rc::event::OverlayEntityScaled& event) override;
 
-    void registerText(rc::draw::Text* text);
-    void removeText(rc::draw::Text* text);
+    void registerText(gfx::Text* text);
+    void removeText(gfx::Text* text);
 
-    friend class rc::draw::Text;
+    friend class gfx::Text;
 };
 
 } // namespace sys

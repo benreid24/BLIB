@@ -1,16 +1,14 @@
-#ifndef BLIB_RENDER_DRAWABLES_COMPONENTS_TEXTURED_HPP
-#define BLIB_RENDER_DRAWABLES_COMPONENTS_TEXTURED_HPP
+#ifndef BLIB_GRAPHICS_COMPONENTS_TEXTURED_HPP
+#define BLIB_GRAPHICS_COMPONENTS_TEXTURED_HPP
 
 #include <BLIB/Components/Texture.hpp>
 #include <BLIB/ECS.hpp>
 
 namespace bl
 {
-namespace rc
+namespace gfx
 {
-namespace draw
-{
-namespace base
+namespace bcom
 {
 /**
  * @brief Base component class for textured Drawables
@@ -29,12 +27,12 @@ public:
      *
      * @param texture The new texture to use
      */
-    void setTexture(const res::TextureRef& texture);
+    void setTexture(const rc::res::TextureRef& texture);
 
     /**
      * @brief Returns the texture. Must only be called after create()
      */
-    const res::TextureRef& getTexture() const;
+    const rc::res::TextureRef& getTexture() const;
 
 protected:
     /**
@@ -54,9 +52,9 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline void Textured::setTexture(const res::TextureRef& t) { handle.get().setTexture(t); }
+inline void Textured::setTexture(const rc::res::TextureRef& t) { handle.get().setTexture(t); }
 
-inline const res::TextureRef& Textured::getTexture() const { return handle.get().getTexture(); }
+inline const rc::res::TextureRef& Textured::getTexture() const { return handle.get().getTexture(); }
 
 template<typename... TArgs>
 void Textured::create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args) {
@@ -64,9 +62,8 @@ void Textured::create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... ar
     handle.assign(registry, entity);
 }
 
-} // namespace base
-} // namespace draw
-} // namespace rc
+} // namespace bcom
+} // namespace gfx
 } // namespace bl
 
 #endif

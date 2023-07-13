@@ -1,17 +1,15 @@
-#ifndef BLIB_RENDER_DRAWABLES_COMPONENTS_TRANSFORM2D_HPP
-#define BLIB_RENDER_DRAWABLES_COMPONENTS_TRANSFORM2D_HPP
+#ifndef BLIB_GRAPHICS_COMPONENTS_TRANSFORM2D_HPP
+#define BLIB_GRAPHICS_COMPONENTS_TRANSFORM2D_HPP
 
-#include <BLIB/ECS.hpp>
 #include <BLIB/Components/Transform2D.hpp>
+#include <BLIB/ECS.hpp>
 
 namespace bl
 {
-namespace rc
+namespace gfx
 {
-namespace draw
-{
-/// Base component classes for Drawable objects
-namespace base
+/// Base component classes for Graphics objects
+namespace bcom
 {
 /**
  * @brief Base component class for Drawables that require a 2d transform
@@ -63,9 +61,8 @@ inline void Transform2D::create(ecs::Registry& registry, ecs::Entity entity, TAr
     handle.assign(registry, entity);
 }
 
-} // namespace base
-} // namespace draw
-} // namespace rc
+} // namespace bcom
+} // namespace gfx
 } // namespace bl
 
 #endif

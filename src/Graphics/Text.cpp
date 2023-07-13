@@ -1,4 +1,4 @@
-#include <BLIB/Render/Drawables/Text.hpp>
+#include <BLIB/Graphics/Text.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
@@ -6,9 +6,7 @@
 
 namespace bl
 {
-namespace rc
-{
-namespace draw
+namespace gfx
 {
 Text::Text()
 : textSystem(nullptr)
@@ -26,7 +24,7 @@ void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::Str
     Drawable::create(engine);
     Textured::create(engine.ecs(), entity(), font->syncTexture(engine.renderer()));
     OverlayScalable::create(engine, entity());
-    component().pipeline = Config::PipelineIds::Text;
+    component().pipeline = rc::Config::PipelineIds::Text;
 
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
     component().create(engine.renderer().vulkanState(), vc, vc);
@@ -60,7 +58,7 @@ bool Text::refreshRequired() const {
     return false;
 }
 
-void Text::onAdd(const rcom::SceneObjectRef&) {
+void Text::onAdd(const rc::rcom::SceneObjectRef&) {
     textSystem->registerText(this);
     commit();
 }
@@ -100,7 +98,7 @@ void Text::commit() {
         }
 
         // upload vertices
-        component().gpuBuffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
+        component().gpuBuffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
 
         const auto bounds = getLocalBounds();
         OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
@@ -250,6 +248,5 @@ Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos)
     return {0, 0};
 }
 
-} // namespace draw
-} // namespace rc
+} // namespace gfx
 } // namespace bl
