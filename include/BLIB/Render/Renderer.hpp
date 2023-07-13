@@ -19,16 +19,15 @@ namespace engine
 {
 class Engine;
 }
-
-/// Renderer core implementation classes and functionality
-namespace rc
-{
 namespace sys
 {
 class CameraUpdateSystem;
 class RenderSystem;
 } // namespace sys
 
+/// Renderer core implementation classes and functionality
+namespace rc
+{
 /**
  * @brief Top level rendering system of the game engine
  *

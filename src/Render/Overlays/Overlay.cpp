@@ -11,7 +11,7 @@ namespace rc
 Overlay::Overlay(engine::Engine& e)
 : Scene(e, objects.makeEntityCallback())
 , engine(e)
-, scaler(engine.systems().getSystem<sys::OverlayScaler>())
+, scaler(engine.systems().getSystem<sys::OverlayScalerSystem>())
 , objects()
 , cachedParentViewport{} {
     roots.reserve(Config::DefaultSceneObjectCapacity / 4);

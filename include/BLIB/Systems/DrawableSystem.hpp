@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_SYSTEMS_DRAWABLESYSTEM_HPP
-#define BLIB_RENDER_SYSTEMS_DRAWABLESYSTEM_HPP
+#ifndef BLIB_SYSTEMS_DRAWABLESYSTEM_HPP
+#define BLIB_SYSTEMS_DRAWABLESYSTEM_HPP
 
 #include <BLIB/ECS.hpp>
 #include <BLIB/Engine/Engine.hpp>
@@ -17,8 +17,6 @@
 
 namespace bl
 {
-namespace rc
-{
 namespace sys
 {
 /**
@@ -27,7 +25,7 @@ namespace sys
  *        within scenes. These systems should run in the engine::FrameStage::RenderObjectSync step
  *
  * @tparam T The component type in the ECS that is being managed
- * @ingroup Renderer
+ * @ingroup Systems
  */
 template<typename T>
 class DrawableSystem
@@ -55,7 +53,7 @@ public:
      * @param scene The scene to add the entity to
      * @param descriptorUpdateFreq Expected update frequency of descriptors for this entity
      */
-    void addToScene(ecs::Entity entity, Scene* scene, UpdateSpeed descriptorUpdateFreq);
+    void addToScene(ecs::Entity entity, rc::Scene* scene, rc::UpdateSpeed descriptorUpdateFreq);
 
     /**
      * @brief Adds the component for the given entity to the scene using custom pipelines for that
@@ -66,8 +64,8 @@ public:
      * @param descriptorUpdateFreq Expected update frequency of descriptors for this entity
      * @param pipeline The pipeline to use for each scene stage when rendering this object
      */
-    void addToSceneWithCustomPipeline(ecs::Entity entity, Scene* scene,
-                                      UpdateSpeed descriptorUpdateFreq, std::uint32_t pipeline);
+    void addToSceneWithCustomPipeline(ecs::Entity entity, rc::Scene* scene,
+                                      rc::UpdateSpeed descriptorUpdateFreq, std::uint32_t pipeline);
 
     /**
      * @brief Adds the component for the given entity to the overlay using the default pipelines
@@ -77,7 +75,7 @@ public:
      * @param descriptorUpdateFreq Expected update frequency of descriptors for this entity
      * @param parent The entity to be the parent of the new overlay object
      */
-    void addToOverlay(ecs::Entity, Overlay* overlay, UpdateSpeed descriptorUpdateFreq,
+    void addToOverlay(ecs::Entity, rc::Overlay* overlay, rc::UpdateSpeed descriptorUpdateFreq,
                       ecs::Entity parent = ecs::InvalidEntity);
 
     /**
@@ -90,8 +88,9 @@ public:
      * @param pipeline The pipeline to use for each scene stage when rendering this object
      * @param parent The entity to be the parent of the new overlay object
      */
-    void addToOverlayWithCustomPipeline(ecs::Entity, Overlay* overlay,
-                                        UpdateSpeed descriptorUpdateFreq, std::uint32_t pipeline,
+    void addToOverlayWithCustomPipeline(ecs::Entity, rc::Overlay* overlay,
+                                        rc::UpdateSpeed descriptorUpdateFreq,
+                                        std::uint32_t pipeline,
                                         ecs::Entity parent = ecs::InvalidEntity);
 
     /**
@@ -120,12 +119,12 @@ protected:
 private:
     struct AddCommand {
         ecs::Entity entity;
-        Scene* scene;
-        UpdateSpeed updateFreq;
+        rc::Scene* scene;
+        rc::UpdateSpeed updateFreq;
         std::uint32_t pipeline;
         ecs::Entity parent;
 
-        AddCommand(ecs::Entity ent, Scene* s, UpdateSpeed us, std::uint32_t pipeline,
+        AddCommand(ecs::Entity ent, rc::Scene* s, rc::UpdateSpeed us, std::uint32_t pipeline,
                    ecs::Entity parent = ecs::InvalidEntity)
         : entity(ent)
         , scene(s)
@@ -139,10 +138,10 @@ private:
     const std::uint32_t defaultPipeline;
     const std::uint32_t overlayPipeline;
     std::vector<AddCommand> toAdd;
-    std::vector<rcom::SceneObjectRef> erased;
+    std::vector<rc::rcom::SceneObjectRef> erased;
 
     virtual void observe(const ecs::event::ComponentRemoved<T>& rm) override;
-    virtual void observe(const event::SceneDestroyed& rm) override;
+    virtual void observe(const rc::event::SceneDestroyed& rm) override;
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& mutex, float dt) override;
 };
@@ -159,8 +158,8 @@ DrawableSystem<T>::DrawableSystem(std::uint32_t defaultPipeline, std::uint32_t o
 }
 
 template<typename T>
-void DrawableSystem<T>::addToScene(ecs::Entity ent, Scene* scene,
-                                   UpdateSpeed descriptorUpdateFreq) {
+void DrawableSystem<T>::addToScene(ecs::Entity ent, rc::Scene* scene,
+                                   rc::UpdateSpeed descriptorUpdateFreq) {
     T* c = registry->getComponent<T>(ent);
     if (!c) {
 #ifdef BLIB_DEBUG
@@ -173,12 +172,12 @@ void DrawableSystem<T>::addToScene(ecs::Entity ent, Scene* scene,
         ent,
         scene,
         descriptorUpdateFreq,
-        c->pipeline != rcom::DrawableBase::PipelineNotSet ? c->pipeline : defaultPipeline);
+        c->pipeline != rc::rcom::DrawableBase::PipelineNotSet ? c->pipeline : defaultPipeline);
 }
 
 template<typename T>
-void DrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, Scene* scene,
-                                                     UpdateSpeed descriptorUpdateFreq,
+void DrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, rc::Scene* scene,
+                                                     rc::UpdateSpeed descriptorUpdateFreq,
                                                      std::uint32_t pipeline) {
     std::unique_lock lock(mutex);
     T* c = registry->getComponent<T>(entity);
@@ -196,8 +195,8 @@ void DrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, Scene* 
 }
 
 template<typename T>
-void DrawableSystem<T>::addToOverlay(ecs::Entity ent, Overlay* scene,
-                                     UpdateSpeed descriptorUpdateFreq, ecs::Entity parent) {
+void DrawableSystem<T>::addToOverlay(ecs::Entity ent, rc::Overlay* scene,
+                                     rc::UpdateSpeed descriptorUpdateFreq, ecs::Entity parent) {
     T* c = registry->getComponent<T>(ent);
     if (!c) {
 #ifdef BLIB_DEBUG
@@ -210,13 +209,13 @@ void DrawableSystem<T>::addToOverlay(ecs::Entity ent, Overlay* scene,
         ent,
         scene,
         descriptorUpdateFreq,
-        c->pipeline != rcom::DrawableBase::PipelineNotSet ? c->pipeline : overlayPipeline,
+        c->pipeline != rc::rcom::DrawableBase::PipelineNotSet ? c->pipeline : overlayPipeline,
         parent);
 }
 
 template<typename T>
-void DrawableSystem<T>::addToOverlayWithCustomPipeline(ecs::Entity entity, Overlay* scene,
-                                                       UpdateSpeed descriptorUpdateFreq,
+void DrawableSystem<T>::addToOverlayWithCustomPipeline(ecs::Entity entity, rc::Overlay* scene,
+                                                       rc::UpdateSpeed descriptorUpdateFreq,
                                                        std::uint32_t pipelines,
                                                        ecs::Entity parent) {
     std::unique_lock lock(mutex);
@@ -261,7 +260,7 @@ void DrawableSystem<T>::observe(const ecs::event::ComponentRemoved<T>& rm) {
 }
 
 template<typename T>
-void DrawableSystem<T>::observe(const event::SceneDestroyed& rm) {
+void DrawableSystem<T>::observe(const rc::event::SceneDestroyed& rm) {
     registry->getAllComponents<T>().forEach([&rm](ecs::Entity, T& c) {
         if (c.sceneRef.scene == rm.scene) { c.sceneRef.scene = nullptr; }
     });
@@ -281,7 +280,7 @@ void DrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
     if (!toAdd.empty() || !erased.empty()) {
         std::unique_lock lock(frameMutex);
 
-        for (const rcom::SceneObjectRef& ref : erased) { ref.scene->removeObject(ref.object); }
+        for (const rc::rcom::SceneObjectRef& ref : erased) { ref.scene->removeObject(ref.object); }
         erased.clear();
 
         for (const auto& add : toAdd) {
@@ -295,7 +294,7 @@ void DrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
             c->pipeline = add.pipeline;
             add.scene->createAndAddObject(add.entity, *c, add.updateFreq);
             if (c->sceneRef.object) {
-                Overlay* ov = dynamic_cast<Overlay*>(add.scene);
+                rc::Overlay* ov = dynamic_cast<rc::Overlay*>(add.scene);
                 if (ov) { ov->setParent(c->sceneRef.object->sceneKey, add.parent); }
             }
             else {
@@ -309,7 +308,6 @@ void DrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
 }
 
 } // namespace sys
-} // namespace rc
 } // namespace bl
 
 #endif

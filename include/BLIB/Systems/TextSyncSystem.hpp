@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_SYSTEMS_TEXTSYNCSYSTEM_HPP
-#define BLIB_RENDER_SYSTEMS_TEXTSYNCSYSTEM_HPP
+#ifndef BLIB_SYSTEMS_TEXTSYNCSYSTEM_HPP
+#define BLIB_SYSTEMS_TEXTSYNCSYSTEM_HPP
 
 #include <BLIB/Engine/System.hpp>
 #include <BLIB/Events.hpp>
@@ -14,17 +14,18 @@ namespace draw
 {
 class Text;
 }
+} // namespace rc
 
 namespace sys
 {
 /**
- * @brief Simplpe system which ensures that Text geometry stays updated
+ * @brief Simple system which ensures that Text geometry stays updated
  *
- * @ingroup Renderer
+ * @ingroup Systems
  */
 class TextSyncSystem
 : public engine::System
-, public bl::event::Listener<event::OverlayEntityScaled> {
+, public bl::event::Listener<rc::event::OverlayEntityScaled> {
 public:
     /**
      * @brief Initializes the system
@@ -37,20 +38,19 @@ public:
     virtual ~TextSyncSystem() = default;
 
 private:
-    std::vector<draw::Text*> texts;
+    std::vector<rc::draw::Text*> texts;
 
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt) override;
-    virtual void observe(const event::OverlayEntityScaled& event) override;
+    virtual void observe(const rc::event::OverlayEntityScaled& event) override;
 
-    void registerText(draw::Text* text);
-    void removeText(draw::Text* text);
+    void registerText(rc::draw::Text* text);
+    void removeText(rc::draw::Text* text);
 
-    friend class draw::Text;
+    friend class rc::draw::Text;
 };
 
 } // namespace sys
-} // namespace rc
 } // namespace bl
 
 #endif

@@ -4,7 +4,7 @@ target_sources(BLIB PUBLIC
 	CameraUpdateSystem.hpp
 	DescriptorComponentSystem.hpp
 	DrawableSystem.hpp
-	OverlayScaler.hpp
+	OverlayScalerSystem.hpp
 	RenderSystem.hpp
 	TextSyncSystem.hpp
 )

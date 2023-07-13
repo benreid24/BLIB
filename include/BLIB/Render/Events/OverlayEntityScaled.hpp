@@ -10,7 +10,7 @@ namespace rc
 namespace event
 {
 /**
- * @brief Fired when OverlayScaler updates an entity
+ * @brief Fired when OverlayScalerSystem updates an entity
  *
  * @ingroup Renderer
  */

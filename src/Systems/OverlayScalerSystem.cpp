@@ -1,28 +1,27 @@
-#include <BLIB/Render/Systems/OverlayScaler.hpp>
+#include <BLIB/Systems/OverlayScalerSystem.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
 #include <BLIB/Render/Events/OverlayEntityScaled.hpp>
+#include <BLIB/Render/Overlays/Overlay.hpp>
 
 namespace bl
 {
-namespace rc
-{
 namespace sys
 {
-void OverlayScaler::init(engine::Engine& engine) {
+void OverlayScalerSystem::init(engine::Engine& engine) {
     ignoredEntity = ecs::InvalidEntity;
     registry      = &engine.ecs();
     overlays.reserve(4);
     bl::event::Dispatcher::subscribe(this);
 }
 
-void OverlayScaler::update(std::mutex&, float) {
-    for (Overlay* o : overlays) { o->refreshScales(); }
+void OverlayScalerSystem::update(std::mutex&, float) {
+    for (rc::Overlay* o : overlays) { o->refreshScales(); }
 }
 
-void OverlayScaler::refreshEntity(ecs::Entity entity, const VkViewport& viewport) {
+void OverlayScalerSystem::refreshEntity(ecs::Entity entity, const VkViewport& viewport) {
     auto cset =
         registry->getComponentSet<ecs::Require<com::OverlayScaler, com::Transform2D>>(entity);
     if (!cset.isValid()) {
@@ -83,12 +82,12 @@ void OverlayScaler::refreshEntity(ecs::Entity entity, const VkViewport& viewport
             scaler.ogPos = transform.getPosition();
         }
 
-        registry->emplaceComponent<ovy::Viewport>(
+        registry->emplaceComponent<rc::ovy::Viewport>(
             entity,
-            ovy::Viewport::relative({corner.x,
-                                     corner.y,
-                                     scaler.cachedObjectSize.x * xScale,
-                                     scaler.cachedObjectSize.y * yScale}));
+            rc::ovy::Viewport::relative({corner.x,
+                                         corner.y,
+                                         scaler.cachedObjectSize.x * xScale,
+                                         scaler.cachedObjectSize.y * yScale}));
 
         const glm::vec2 newScale{1.f / scaler.cachedObjectSize.x, 1.f / scaler.cachedObjectSize.y};
         transform.setPosition({origin.x * newScale.x, origin.y * newScale.y});
@@ -97,24 +96,24 @@ void OverlayScaler::refreshEntity(ecs::Entity entity, const VkViewport& viewport
     }
     else { transform.setScale({xScale, yScale}); }
 
-    bl::event::Dispatcher::dispatch<event::OverlayEntityScaled>({entity});
+    bl::event::Dispatcher::dispatch<rc::event::OverlayEntityScaled>({entity});
 }
 
-void OverlayScaler::observe(const ecs::event::ComponentAdded<ovy::Viewport>& event) {
+void OverlayScalerSystem::observe(const ecs::event::ComponentAdded<rc::ovy::Viewport>& event) {
     if (event.entity == ignoredEntity) return;
     com::OverlayScaler* c = registry->getComponent<com::OverlayScaler>(event.entity);
     if (c) { c->dirty = true; }
 }
 
-void OverlayScaler::observe(const ecs::event::ComponentRemoved<ovy::Viewport>& event) {
+void OverlayScalerSystem::observe(const ecs::event::ComponentRemoved<rc::ovy::Viewport>& event) {
     if (event.entity == ignoredEntity) return;
     com::OverlayScaler* c = registry->getComponent<com::OverlayScaler>(event.entity);
     if (c) { c->dirty = true; }
 }
 
-void OverlayScaler::registerOverlay(Overlay* ov) { overlays.emplace_back(ov); }
+void OverlayScalerSystem::registerOverlay(rc::Overlay* ov) { overlays.emplace_back(ov); }
 
-void OverlayScaler::removeOverlay(Overlay* ov) {
+void OverlayScalerSystem::removeOverlay(rc::Overlay* ov) {
     for (auto it = overlays.begin(); it != overlays.end(); ++it) {
         if (*it == ov) {
             overlays.erase(it);
@@ -124,5 +123,4 @@ void OverlayScaler::removeOverlay(Overlay* ov) {
 }
 
 } // namespace sys
-} // namespace rc
 } // namespace bl

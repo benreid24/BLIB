@@ -67,11 +67,6 @@
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
-#include <BLIB/Render/Systems/CameraUpdateSystem.hpp>
-#include <BLIB/Render/Systems/DescriptorComponentSystem.hpp>
-#include <BLIB/Render/Systems/OverlayScaler.hpp>
-#include <BLIB/Render/Systems/RenderSystem.hpp>
-#include <BLIB/Render/Systems/TextSyncSystem.hpp>
 #include <BLIB/Render/Transfers/TransferContext.hpp>
 #include <BLIB/Render/Transfers/TransferEngine.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
@@ -103,8 +98,5 @@
 // Inline methods in the below
 #include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
 #include <BLIB/Render/Drawables/Drawable.hpp>
-#include <BLIB/Render/Systems/BuiltinDescriptorComponentSystems.hpp>
-#include <BLIB/Render/Systems/BuiltinDrawableSystems.hpp>
-#include <BLIB/Render/Systems/DrawableSystem.hpp>
 
 #endif

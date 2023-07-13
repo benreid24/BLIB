@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_SYSTEMS_RENDERSYSTEM_HPP
-#define BLIB_RENDER_SYSTEMS_RENDERSYSTEM_HPP
+#ifndef BLIB_SYSTEMS_RENDERSYSTEM_HPP
+#define BLIB_SYSTEMS_RENDERSYSTEM_HPP
 
 #include <BLIB/Engine/System.hpp>
 
@@ -8,13 +8,14 @@ namespace bl
 namespace rc
 {
 class Renderer;
+}
 
 namespace sys
 {
 /**
  * @brief System that triggers the renderer each frame
  *
- * @ingroup Renderer
+ * @ingroup Systems
  */
 class RenderSystem : public engine::System {
 public:
@@ -23,7 +24,7 @@ public:
      *
      * @param renderer The renderer instance
      */
-    RenderSystem(Renderer& renderer);
+    RenderSystem(rc::Renderer& renderer);
 
     /**
      * @brief Destroys the render system
@@ -31,14 +32,13 @@ public:
     virtual ~RenderSystem() = default;
 
 private:
-    Renderer& renderer;
+    rc::Renderer& renderer;
 
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt) override;
 };
 
 } // namespace sys
-} // namespace rc
 } // namespace bl
 
 #endif

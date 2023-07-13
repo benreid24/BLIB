@@ -6,14 +6,14 @@
 
 namespace bl
 {
-namespace rc
-{
-class Renderer;
 namespace sys
 {
 template<typename T>
 class DrawableSystem;
 }
+namespace rc
+{
+class Renderer;
 namespace res
 {
 class ScenePool;

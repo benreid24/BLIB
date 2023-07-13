@@ -13,6 +13,10 @@
 
 namespace bl
 {
+namespace sys
+{
+class TextSyncSystem;
+}
 namespace engine
 {
 class Engine;
@@ -20,11 +24,6 @@ class Engine;
 
 namespace rc
 {
-namespace sys
-{
-class TextSyncSystem;
-}
-
 namespace draw
 {
 /**

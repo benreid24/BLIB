@@ -3,7 +3,7 @@
 
 #include <BLIB/ECS.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
-#include <BLIB/Render/Systems/DrawableSystem.hpp>
+#include <BLIB/Systems/DrawableSystem.hpp>
 #include <type_traits>
 
 namespace bl

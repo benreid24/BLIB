@@ -7,14 +7,13 @@
 
 namespace bl
 {
+namespace sys
+{
+class OverlayScalerSystem;
+}
 namespace rc
 {
 class Overlay;
-
-namespace sys
-{
-class OverlayScaler;
-}
 
 namespace draw
 {
@@ -120,7 +119,7 @@ private:
 
     void setViewportToSelf(bool setToSelf);
 
-    friend class rc::sys::OverlayScaler;
+    friend class sys::OverlayScalerSystem;
     friend class rc::draw::base::OverlayScalable;
 };
 

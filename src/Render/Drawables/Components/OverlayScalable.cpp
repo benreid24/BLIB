@@ -3,7 +3,7 @@
 #include <BLIB/Events.hpp>
 #include <BLIB/Render/Drawables/Components/OverlayScalable.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
-#include <BLIB/Render/Systems/OverlayScaler.hpp>
+#include <BLIB/Systems/OverlayScalerSystem.hpp>
 
 namespace bl
 {

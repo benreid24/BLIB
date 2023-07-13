@@ -2,6 +2,7 @@
 #include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
 #include <BLIB/Render.hpp>
+#include <BLIB/Systems.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace
@@ -55,7 +56,7 @@ public:
         spritePosition = engine.ecs().emplaceComponent<bl::com::Transform2D>(spriteEntity);
         engine.ecs().emplaceComponent<bl::com::Texture>(spriteEntity, texture);
         engine.ecs().emplaceComponent<bl::com::Sprite>(spriteEntity, engine.renderer(), texture);
-        engine.systems().getSystem<bl::rc::sys::SpriteSystem>().addToScene(
+        engine.systems().getSystem<bl::sys::SpriteSystem>().addToScene(
             spriteEntity, scene, bl::rc::UpdateSpeed::Dynamic);
         spritePosition->setPosition({1920.f * 0.5f, 1080.f * 0.25f});
         spritePosition->setScale({100.f / texture->size().x, 100.f / texture->size().y});
@@ -81,7 +82,7 @@ public:
         player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
 
         // get handle to mesh system
-        bl::rc::sys::MeshSystem& meshSystem = engine.systems().getSystem<bl::rc::sys::MeshSystem>();
+        bl::sys::MeshSystem& meshSystem = engine.systems().getSystem<bl::sys::MeshSystem>();
 
         // create object in scene
         meshEntity = engine.ecs().createEntity();

@@ -1,13 +1,11 @@
-#ifndef BLIB_RENDER_SYSTEMS_GENERICDESCRIPTORCOMPONENTSYSTEM_HPP
-#define BLIB_RENDER_SYSTEMS_GENERICDESCRIPTORCOMPONENTSYSTEM_HPP
+#ifndef BLIB_SYSTEMS_GENERICDESCRIPTORCOMPONENTSYSTEM_HPP
+#define BLIB_SYSTEMS_GENERICDESCRIPTORCOMPONENTSYSTEM_HPP
 
 #include <BLIB/ECS/ComponentPool.hpp>
 #include <BLIB/Engine/System.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 
 namespace bl
-{
-namespace rc
 {
 namespace sys
 {
@@ -17,11 +15,11 @@ namespace sys
  *
  * @tparam TCom The type of component to manage
  * @tparam TPayload The type of data stored in the descriptor set buffer
- * @ingroup Renderer
+ * @ingroup Systems
  */
 template<typename TCom, typename TPayload>
 class DescriptorComponentSystem : public engine::System {
-    static_assert(std::is_base_of_v<rcom::DescriptorComponentBase<TCom, TPayload>, TCom>,
+    static_assert(std::is_base_of_v<rc::rcom::DescriptorComponentBase<TCom, TPayload>, TCom>,
                   "Component must derive from DescriptorComponentBase");
 
 public:
@@ -64,7 +62,6 @@ void DescriptorComponentSystem<T, TP>::init(engine::Engine& engine) {
 }
 
 } // namespace sys
-} // namespace rc
 } // namespace bl
 
 #endif

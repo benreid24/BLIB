@@ -10,14 +10,13 @@
 
 namespace bl
 {
+namespace sys
+{
+class OverlayScalerSystem;
+}
 namespace rc
 {
 class Overlay;
-
-namespace sys
-{
-class OverlayScaler;
-}
 
 namespace draw
 {
@@ -99,12 +98,12 @@ protected:
     void setLocalSize(const glm::vec2& size);
 
 private:
-    sys::OverlayScaler* scalerSystem;
+    sys::OverlayScalerSystem* scalerSystem;
     ecs::Registry* registry;
     ecs::Entity ecsId;
     ecs::StableHandle<com::OverlayScaler> handle;
 
-    friend class sys::OverlayScaler;
+    friend class sys::OverlayScalerSystem;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -113,7 +112,7 @@ inline com::OverlayScaler& OverlayScalable::getOverlayScaler() { return handle.g
 
 template<typename... TArgs>
 void OverlayScalable::create(engine::Engine& engine, ecs::Entity entity, TArgs&&... args) {
-    scalerSystem = &engine.systems().getSystem<sys::OverlayScaler>();
+    scalerSystem = &engine.systems().getSystem<sys::OverlayScalerSystem>();
     registry     = &engine.ecs();
     ecsId        = entity;
 
