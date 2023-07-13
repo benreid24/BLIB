@@ -22,7 +22,7 @@ namespace gfx
  *
  * @tparam TCom The drawable component type (ie Sprite)
  * @tparam TSys The drawable system. Must implement DrawableSystem interface
- * @ingroup Renderer
+ * @ingroup Graphics
  */
 template<typename TCom, typename TSys = sys::DrawableSystem<TCom>>
 class Drawable {

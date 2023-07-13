@@ -14,7 +14,7 @@ namespace bcom
 /**
  * @brief Base component class for Drawables that require a 2d transform
  *
- * @ingroup Renderer
+ * @ingroup Graphics
  */
 class Transform2D {
 public:

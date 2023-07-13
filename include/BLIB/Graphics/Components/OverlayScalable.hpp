@@ -25,6 +25,8 @@ namespace bcom
 {
 /**
  * @brief Base component that manages and provides a Transform2D, OverlayScaler, and Viewport
+ *
+ * @ingroup Graphics
  */
 class OverlayScalable : public Transform2D {
 public:

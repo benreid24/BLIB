@@ -24,7 +24,7 @@ namespace txt
  * @brief Drawable for a single section of text. Similar to sf::Text. Do not use directly, use Text
  *        class to create and manage BasicText segments
  *
- * @ingroup Renderer
+ * @ingroup Graphics
  */
 class BasicText {
 public:

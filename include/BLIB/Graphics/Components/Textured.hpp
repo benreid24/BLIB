@@ -13,7 +13,7 @@ namespace bcom
 /**
  * @brief Base component class for textured Drawables
  *
- * @ingroup Renderer
+ * @ingroup Graphics
  */
 class Textured {
 public:

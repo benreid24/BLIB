@@ -28,7 +28,7 @@ namespace gfx
  * @brief Drawable component for format-able text. Similar to sf::Text except that multiple
  * formatted sections are able to be handled by a single instance
  *
- * @ingroup Renderer
+ * @ingroup Graphics
  */
 class Text
 : public Drawable<com::Mesh>

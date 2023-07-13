@@ -19,7 +19,7 @@ namespace gfx
 /**
  * @brief SFML-like sprite class to render images in scenes or overlays. Wraps the ECS interface
  *
- * @ingroup Renderer
+ * @ingroup Graphics
  */
 class Sprite
 : public Drawable<com::Sprite>
