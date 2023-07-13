@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Util/ReadWriteLock.cpp Source File</title>
+<title>BLIB: src/Util/FileUtil.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,103 +71,315 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ReadWriteLock.cpp</div>  </div>
+<div class="title">FileUtil.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01583.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00947.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<a href="a01583.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifdef BLIB_WINDOWS</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define NOMINMAX</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;thread_local std::unordered_map&lt;ReadWriteLock*, bool&gt;* readLockFlags =</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">new</span> std::unordered_map&lt;ReadWriteLock*, bool&gt;();</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;thread_local std::unordered_map&lt;ReadWriteLock*, bool&gt;* writeLockFlags =</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">new</span> std::unordered_map&lt;ReadWriteLock*, bool&gt;();</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00923.html">BLIB/Util/FileUtil.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00944.html">BLIB/Util/Random.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;cstdio&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;stack&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;sys/stat.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;sys/types.h&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03552.html#a71234a7cb8b764c834c02fcdc097a728">   17</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03552.html#a71234a7cb8b764c834c02fcdc097a728">ReadWriteLock::lockRead</a>() {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (readLockFlag()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    readLockFlag() = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    mutex.lock_shared();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03552.html#abcce04734931a45bdeeab0241135133b">   23</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03552.html#abcce04734931a45bdeeab0241135133b">ReadWriteLock::unlockRead</a>() {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> (!readLockFlag()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    readLockFlag() = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    mutex.unlock_shared();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03552.html#ad37b398dbe7861cd2763e20002069263">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03552.html#ad37b398dbe7861cd2763e20002069263">ReadWriteLock::lockWrite</a>() {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (writeLockFlag()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    writeLockFlag() = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    mutex.lock();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a03552.html#a751259f66b9b1aece13bbf155cdd50c5">   35</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03552.html#a751259f66b9b1aece13bbf155cdd50c5">ReadWriteLock::unlockWrite</a>() {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">if</span> (!writeLockFlag()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    writeLockFlag() = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    mutex.unlock();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#ifdef BLIB_WINDOWS</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a01580.html">dirent_windows.h</a>&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;direct.h&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;shlobj.h&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;dirent.h&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;pwd.h&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keywordtype">void</span> createDir(<span class="keyword">const</span> std::string&amp; path) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#ifdef BLIB_WINDOWS</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    _mkdir(path.c_str());</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    mkdir(path.c_str(), 0755);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">bool</span>&amp; ReadWriteLock::readLockFlag() { <span class="keywordflow">return</span> (*readLockFlags)[<span class="keyword">this</span>]; }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">bool</span>&amp; ReadWriteLock::writeLockFlag() { <span class="keywordflow">return</span> (*writeLockFlags)[<span class="keyword">this</span>]; }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a03556.html#ab719cee3c0b58e1166b0cf43cb433005">   45</a></span>&#160;<a class="code" href="a03556.html#ab719cee3c0b58e1166b0cf43cb433005">ReadWriteLock::ReadScopeGuard::ReadScopeGuard</a>(<a class="code" href="a03552.html">ReadWriteLock</a>&amp; lock)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;: lock(lock)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;, unlocked(false) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    lock.<a class="code" href="a03552.html#a71234a7cb8b764c834c02fcdc097a728">lockRead</a>();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a03556.html#a58ede3553dd29824ecaa84a5df69c922">   51</a></span>&#160;<a class="code" href="a03556.html#a58ede3553dd29824ecaa84a5df69c922">ReadWriteLock::ReadScopeGuard::~ReadScopeGuard</a>() { unlock(); }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a03556.html#a10c313a07d4ea8c2534651fb071feca1">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03556.html#a10c313a07d4ea8c2534651fb071feca1">ReadWriteLock::ReadScopeGuard::unlock</a>() {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span> (!unlocked) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        unlocked = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        lock.unlockRead();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a03560.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">   60</a></span>&#160;<a class="code" href="a03560.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">ReadWriteLock::WriteScopeGuard::WriteScopeGuard</a>(<a class="code" href="a03552.html">ReadWriteLock</a>&amp; lock)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;: lock(lock)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;, unlocked(false) {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    lock.<a class="code" href="a03552.html#ad37b398dbe7861cd2763e20002069263">lockWrite</a>();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a03560.html#a571f6359834209775899f3507a549e40">   66</a></span>&#160;<a class="code" href="a03560.html#a571f6359834209775899f3507a549e40">ReadWriteLock::WriteScopeGuard::~WriteScopeGuard</a>() { unlock(); }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a03560.html#a0f80b4382191c0117105c121d0e29b96">   68</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03560.html#a0f80b4382191c0117105c121d0e29b96">ReadWriteLock::WriteScopeGuard::unlock</a>() {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">if</span> (!unlocked) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        unlocked = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        lock.unlockWrite();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00947_html"><div class="ttname"><a href="a00947.html">ReadWriteLock.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03552_html"><div class="ttname"><a href="a03552.html">bl::util::ReadWriteLock</a></div><div class="ttdoc">Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockR...</div><div class="ttdef"><b>Definition:</b> <a href="a00947_source.html#l00020">ReadWriteLock.hpp:20</a></div></div>
-<div class="ttc" id="aa03552_html_a71234a7cb8b764c834c02fcdc097a728"><div class="ttname"><a href="a03552.html#a71234a7cb8b764c834c02fcdc097a728">bl::util::ReadWriteLock::lockRead</a></div><div class="ttdeci">void lockRead()</div><div class="ttdoc">Acquires a lock for reading a shared resource. Multiple threads may acquire a read lock provided that...</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00017">ReadWriteLock.cpp:17</a></div></div>
-<div class="ttc" id="aa03552_html_a751259f66b9b1aece13bbf155cdd50c5"><div class="ttname"><a href="a03552.html#a751259f66b9b1aece13bbf155cdd50c5">bl::util::ReadWriteLock::unlockWrite</a></div><div class="ttdeci">void unlockWrite()</div><div class="ttdoc">Releases the write lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00035">ReadWriteLock.cpp:35</a></div></div>
-<div class="ttc" id="aa03552_html_abcce04734931a45bdeeab0241135133b"><div class="ttname"><a href="a03552.html#abcce04734931a45bdeeab0241135133b">bl::util::ReadWriteLock::unlockRead</a></div><div class="ttdeci">void unlockRead()</div><div class="ttdoc">Releases the read lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00023">ReadWriteLock.cpp:23</a></div></div>
-<div class="ttc" id="aa03552_html_ad37b398dbe7861cd2763e20002069263"><div class="ttname"><a href="a03552.html#ad37b398dbe7861cd2763e20002069263">bl::util::ReadWriteLock::lockWrite</a></div><div class="ttdeci">void lockWrite()</div><div class="ttdoc">Acquires a lock for writing a shared resource. Only one thread may hold this lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00029">ReadWriteLock.cpp:29</a></div></div>
-<div class="ttc" id="aa03556_html_a10c313a07d4ea8c2534651fb071feca1"><div class="ttname"><a href="a03556.html#a10c313a07d4ea8c2534651fb071feca1">bl::util::ReadWriteLock::ReadScopeGuard::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Prematurely unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00053">ReadWriteLock.cpp:53</a></div></div>
-<div class="ttc" id="aa03556_html_a58ede3553dd29824ecaa84a5df69c922"><div class="ttname"><a href="a03556.html#a58ede3553dd29824ecaa84a5df69c922">bl::util::ReadWriteLock::ReadScopeGuard::~ReadScopeGuard</a></div><div class="ttdeci">~ReadScopeGuard()</div><div class="ttdoc">Unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00051">ReadWriteLock.cpp:51</a></div></div>
-<div class="ttc" id="aa03556_html_ab719cee3c0b58e1166b0cf43cb433005"><div class="ttname"><a href="a03556.html#ab719cee3c0b58e1166b0cf43cb433005">bl::util::ReadWriteLock::ReadScopeGuard::ReadScopeGuard</a></div><div class="ttdeci">ReadScopeGuard(ReadWriteLock &amp;lock)</div><div class="ttdoc">Construct a new Read Scope Guard object.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00045">ReadWriteLock.cpp:45</a></div></div>
-<div class="ttc" id="aa03560_html_a0f80b4382191c0117105c121d0e29b96"><div class="ttname"><a href="a03560.html#a0f80b4382191c0117105c121d0e29b96">bl::util::ReadWriteLock::WriteScopeGuard::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Prematurely unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00068">ReadWriteLock.cpp:68</a></div></div>
-<div class="ttc" id="aa03560_html_a571f6359834209775899f3507a549e40"><div class="ttname"><a href="a03560.html#a571f6359834209775899f3507a549e40">bl::util::ReadWriteLock::WriteScopeGuard::~WriteScopeGuard</a></div><div class="ttdeci">~WriteScopeGuard()</div><div class="ttdoc">Unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00066">ReadWriteLock.cpp:66</a></div></div>
-<div class="ttc" id="aa03560_html_aa1c42e9d6b77fc0a8acb1e659ea1a01a"><div class="ttname"><a href="a03560.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">bl::util::ReadWriteLock::WriteScopeGuard::WriteScopeGuard</a></div><div class="ttdeci">WriteScopeGuard(ReadWriteLock &amp;lock)</div><div class="ttdoc">Construct a new Write Scope Guard object.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00060">ReadWriteLock.cpp:60</a></div></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a03497.html#a8566666f9a79d760668664bf7b8c71df">   42</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03497.html#a8566666f9a79d760668664bf7b8c71df">FileUtil::exists</a>(<span class="keyword">const</span> std::string&amp; file) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">struct </span>stat info;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (stat(file.c_str(), &amp;info) != 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> info.st_mode &amp; <a class="code" href="a01580.html#a1aaa48b192a5dd3b6d7ee91fc98cd17d">S_IFREG</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a03497.html#aee074b7d19fd4617d88e65c969c367b1">   48</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03497.html#aee074b7d19fd4617d88e65c969c367b1">FileUtil::directoryExists</a>(<span class="keyword">const</span> std::string&amp; file) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">struct </span>stat info;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">if</span> (stat(file.c_str(), &amp;info) != 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">return</span> info.st_mode &amp; <a class="code" href="a01580.html#a11fb0652b963a735f3377eb1c9239f2d">S_IFDIR</a>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a03497.html#a24bafb4d915943d65df75390c0584fe3">   54</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03497.html#a24bafb4d915943d65df75390c0584fe3">FileUtil::isBigEndian</a>() {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">union </span>{</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        uint32_t i;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">char</span> c[4];</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    } endTest = {0x01020304};</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">return</span> endTest.c[0] == 1;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a03497.html#a2e6063fffb7b61a547b75f37c64c5c87">   62</a></span>&#160;std::string <a class="code" href="a03497.html#a2e6063fffb7b61a547b75f37c64c5c87">FileUtil::getExtension</a>(<span class="keyword">const</span> std::string&amp; file) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    std::size_t i = file.find_last_of(<span class="stringliteral">&quot;.&quot;</span>);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> (i != std::string::npos) <span class="keywordflow">return</span> file.substr(i + 1);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    i = file.find_last_of(<span class="stringliteral">&quot;/\\&quot;</span>);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (i != std::string::npos) <span class="keywordflow">return</span> file.substr(i + 1);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">return</span> file;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a03497.html#a428b8f7739f7a9886cb4c15c60b88a48">   70</a></span>&#160;std::string <a class="code" href="a03497.html#a428b8f7739f7a9886cb4c15c60b88a48">FileUtil::getBaseName</a>(<span class="keyword">const</span> std::string&amp; file) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::string base = <a class="code" href="a03497.html#aad5c0eb8e98fbbe0a4f2db6e08735b99">getFilename</a>(file);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    std::size_t i    = base.find_last_of(<span class="stringliteral">&quot;.&quot;</span>);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span> (i != std::string::npos) base.erase(i);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">return</span> base;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a03497.html#aad5c0eb8e98fbbe0a4f2db6e08735b99">   77</a></span>&#160;std::string <a class="code" href="a03497.html#aad5c0eb8e98fbbe0a4f2db6e08735b99">FileUtil::getFilename</a>(<span class="keyword">const</span> std::string&amp; file) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">const</span> std::size_t i = file.find_last_of(<span class="stringliteral">&quot;/\\&quot;</span>);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">if</span> (i != std::string::npos) <span class="keywordflow">return</span> file.substr(i + 1);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">return</span> file;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a03497.html#a29e0c13dcc16b04b6510caede1879cbd">   83</a></span>&#160;std::string <a class="code" href="a03497.html#a29e0c13dcc16b04b6510caede1879cbd">FileUtil::getPath</a>(<span class="keyword">const</span> std::string&amp; file) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">const</span> std::size_t i = file.find_last_of(<span class="stringliteral">&quot;/\\&quot;</span>);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> file.substr(0, (i != std::string::npos) ? (i + 1) : (i));</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a03497.html#a7b2da3c07d55afdf5faf689ac6503a4c">   88</a></span>&#160;std::string <a class="code" href="a03497.html#a7b2da3c07d55afdf5faf689ac6503a4c">FileUtil::joinPath</a>(<span class="keyword">const</span> std::string&amp; l, <span class="keyword">const</span> std::string&amp; r) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (l.empty()) <span class="keywordflow">return</span> r;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">if</span> (r.empty()) <span class="keywordflow">return</span> l;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    std::size_t ls = std::string::npos;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">if</span> (l[l.size() - 1] == <span class="charliteral">&#39;/&#39;</span> || l[l.size() - 1] == <span class="charliteral">&#39;\\&#39;</span>) ls = l.size() - 1;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    std::size_t rs = 0;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">if</span> (r[0] == <span class="charliteral">&#39;/&#39;</span> || r[0] == <span class="charliteral">&#39;\\&#39;</span>) rs = 1;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> l.substr(0, ls) + <span class="stringliteral">&quot;/&quot;</span> + r.substr(rs);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="a03497.html#a2230065a6b3f3e31006edcb260ca1c50">  101</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03497.html#a2230065a6b3f3e31006edcb260ca1c50">FileUtil::startsWithPath</a>(<span class="keyword">const</span> std::string&amp; file, <span class="keyword">const</span> std::string&amp; path) {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">const</span> std::string_view fileStart(file.c_str(), std::min(file.size(), path.size()));</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">return</span> fileStart == path;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a03497.html#a08974cd7e685d676a6031ea5f62f4ade">  106</a></span>&#160;std::string <a class="code" href="a03497.html#a08974cd7e685d676a6031ea5f62f4ade">FileUtil::genTempName</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> std::string&amp; ext) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    std::string file;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">do</span> {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        std::stringstream ss;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        ss &lt;&lt; <span class="stringliteral">&quot;TEMP_&quot;</span> &lt;&lt; std::hex &lt;&lt; <a class="code" href="a03537.html#a27b767cceb5591cb6e60972235551dec">util::Random::get</a>(1000, 10000000);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">if</span> (!ext.empty()) {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordflow">if</span> (ext[0] != <span class="charliteral">&#39;.&#39;</span>) ss &lt;&lt; <span class="stringliteral">&quot;.&quot;</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            ss &lt;&lt; ext;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        }</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        file = <a class="code" href="a03497.html#a7b2da3c07d55afdf5faf689ac6503a4c">joinPath</a>(path, ss.str());</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    } <span class="keywordflow">while</span> (<a class="code" href="a03497.html#a8566666f9a79d760668664bf7b8c71df">exists</a>(file));</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">return</span> file;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="a03497.html#aec19851e5fc2b9c7f4bdcb7a8a4fb7ac">  120</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03497.html#aec19851e5fc2b9c7f4bdcb7a8a4fb7ac">FileUtil::copyFile</a>(<span class="keyword">const</span> std::string&amp; src, <span class="keyword">const</span> std::string&amp; dest) {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span> (src == dest) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    std::ifstream source(src.c_str(), std::ios::binary);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    std::ofstream dst(dest.c_str(), std::ios::binary);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    std::istreambuf_iterator&lt;char&gt; begin_source(source);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    std::istreambuf_iterator&lt;char&gt; end_source;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    std::ostreambuf_iterator&lt;char&gt; begin_dest(dst);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    std::copy(begin_source, end_source, begin_dest);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="a03497.html#a53980e3058e8169c3a46d4f3042354d7">  132</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03497.html#a53980e3058e8169c3a46d4f3042354d7">FileUtil::createDirectory</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a03497.html#aee074b7d19fd4617d88e65c969c367b1">directoryExists</a>(path)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    std::string cd;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    cd.reserve(path.size());</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; path.size(); ++i) {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">if</span> (path[i] == <span class="charliteral">&#39;/&#39;</span> || path[i] == <span class="charliteral">&#39;\\&#39;</span>) { createDir(cd); }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        cd.push_back(path[i]);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    }</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    createDir(cd);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03497.html#aee074b7d19fd4617d88e65c969c367b1">directoryExists</a>(cd);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;}</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="a03497.html#a54b5f761099ff02cb3fb4ba8bb283b7f">  145</a></span>&#160;std::vector&lt;std::string&gt; <a class="code" href="a03497.html#a54b5f761099ff02cb3fb4ba8bb283b7f">FileUtil::listDirectory</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> std::string&amp; ext,</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                                                 <span class="keywordtype">bool</span> recursive) {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordflow">if</span> (path.empty()) <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keyword">struct </span><a class="code" href="a03705.html">dirent</a>* cfile;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    std::vector&lt;std::string&gt; list;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    std::string folder = path;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">if</span> (folder[folder.size() - 1] != <span class="charliteral">&#39;/&#39;</span> &amp;&amp; folder[folder.size() - 1] != <span class="charliteral">&#39;\\&#39;</span>)</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        folder.push_back(<span class="charliteral">&#39;/&#39;</span>);</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <a class="code" href="a03709.html">DIR</a>* cd = <a class="code" href="a01580.html#a56af8d3cfb4a2b2f44e20b276db71f2a">opendir</a>(folder.c_str());</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> (cd != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">while</span> ((cfile = <a class="code" href="a01580.html#aff48ec2514bda89769c968c66db181f3">readdir</a>(cd))) {</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <span class="keyword">const</span> std::string file = cfile-&gt;<a class="code" href="a03705.html#a2db57e8744079cc6ae87dd367919957a">d_name</a>;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="keyword">const</span> std::string full = <a class="code" href="a03497.html#a7b2da3c07d55afdf5faf689ac6503a4c">joinPath</a>(folder, file);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            <span class="keywordflow">if</span> (!<a class="code" href="a03497.html#aee074b7d19fd4617d88e65c969c367b1">directoryExists</a>(full)) {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                <span class="keywordflow">if</span> (ext.empty() || <a class="code" href="a03497.html#a2e6063fffb7b61a547b75f37c64c5c87">getExtension</a>(file) == ext) list.push_back(full);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (recursive) {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                <span class="keywordflow">if</span> (file != <span class="stringliteral">&quot;.&quot;</span> &amp;&amp; file != <span class="stringliteral">&quot;..&quot;</span>) {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                    <span class="keyword">const</span> std::vector&lt;std::string&gt; files = <a class="code" href="a03497.html#a54b5f761099ff02cb3fb4ba8bb283b7f">listDirectory</a>(full, ext, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                    list.insert(list.end(), files.begin(), files.end());</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            }</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        }</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    }</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordflow">return</span> list;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;}</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="a03497.html#af8507ca6ceb7be247eb244a1473f7d0d">  175</a></span>&#160;std::vector&lt;std::string&gt; <a class="code" href="a03497.html#af8507ca6ceb7be247eb244a1473f7d0d">FileUtil::listDirectoryFolders</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordflow">if</span> (path.empty()) <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <a class="code" href="a03709.html">DIR</a>* cd;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keyword">struct </span><a class="code" href="a03705.html">dirent</a>* cfile;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    std::vector&lt;std::string&gt; list;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    std::string folder = path;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordflow">if</span> (folder[folder.size() - 1] != <span class="charliteral">&#39;/&#39;</span> &amp;&amp; folder[folder.size() - 1] != <span class="charliteral">&#39;\\&#39;</span>)</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        folder.push_back(<span class="charliteral">&#39;/&#39;</span>);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    cd = <a class="code" href="a01580.html#a56af8d3cfb4a2b2f44e20b276db71f2a">opendir</a>(folder.c_str());</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">if</span> (cd != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keywordflow">while</span> ((cfile = <a class="code" href="a01580.html#aff48ec2514bda89769c968c66db181f3">readdir</a>(cd))) {</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <span class="keyword">const</span> std::string file = cfile-&gt;<a class="code" href="a03705.html#a2db57e8744079cc6ae87dd367919957a">d_name</a>;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <span class="keyword">const</span> std::string full = <a class="code" href="a03497.html#a7b2da3c07d55afdf5faf689ac6503a4c">joinPath</a>(folder, file);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            <span class="keywordflow">if</span> (file != <span class="stringliteral">&quot;.&quot;</span> &amp;&amp; file != <span class="stringliteral">&quot;..&quot;</span> &amp;&amp; <a class="code" href="a03497.html#aee074b7d19fd4617d88e65c969c367b1">directoryExists</a>(full)) { list.push_back(file); }</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        }</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    }</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordflow">return</span> list;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;}</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="a03497.html#a5768b74832ef14d2216b879c002f2473">  197</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03497.html#a5768b74832ef14d2216b879c002f2473">FileUtil::deleteFile</a>(<span class="keyword">const</span> std::string&amp; file) { <span class="keywordflow">return</span> 0 == remove(file.c_str()); }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="a03497.html#a3c695eced56a6be91bbfb198aa3b3c42">  199</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03497.html#a3c695eced56a6be91bbfb198aa3b3c42">FileUtil::deleteDirectory</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keyword">const</span> std::vector&lt;std::string&gt; folders = <a class="code" href="a03497.html#af8507ca6ceb7be247eb244a1473f7d0d">listDirectoryFolders</a>(path);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; d : folders) {</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="a03497.html#a3c695eced56a6be91bbfb198aa3b3c42">deleteDirectory</a>(<a class="code" href="a03497.html#a7b2da3c07d55afdf5faf689ac6503a4c">joinPath</a>(path, d))) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    }</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keyword">const</span> std::vector&lt;std::string&gt; files = <a class="code" href="a03497.html#a54b5f761099ff02cb3fb4ba8bb283b7f">listDirectory</a>(path);</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; file : files) {</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="a03497.html#a5768b74832ef14d2216b879c002f2473">deleteFile</a>(file)) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    }</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="preprocessor">#ifdef BLIB_WINDOWS</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keywordflow">return</span> 0 == _rmdir(path.c_str());</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordflow">return</span> 0 == rmdir(path.c_str());</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;}</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00217"></a><span class="lineno"><a class="line" href="a03497.html#add529a7b6d9118c422f9532c2b50187a">  217</a></span>&#160;std::string <a class="code" href="a03497.html#add529a7b6d9118c422f9532c2b50187a">FileUtil::getDataDirectory</a>(<span class="keyword">const</span> std::string&amp; appName) {</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    std::string path;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="preprocessor">#ifdef BLIB_WINDOWS</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keywordtype">char</span> buf[MAX_PATH];</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    SHGetFolderPathA(NULL, CSIDL_MYDOCUMENTS, 0, 0, buf);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    path = <a class="code" href="a03497.html#a7b2da3c07d55afdf5faf689ac6503a4c">joinPath</a>(buf, <span class="stringliteral">&quot;My Games&quot;</span>);</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <a class="code" href="a03497.html#a53980e3058e8169c3a46d4f3042354d7">createDirectory</a>(path);</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keyword">struct </span>passwd* pwd = getpwuid(getuid());</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    path               = pwd ? pwd-&gt;pw_dir : <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    path = <a class="code" href="a03497.html#a7b2da3c07d55afdf5faf689ac6503a4c">joinPath</a>(path, appName);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <a class="code" href="a03497.html#a53980e3058e8169c3a46d4f3042354d7">createDirectory</a>(path);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordflow">return</span> path;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;}</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
+<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="a03497.html#a6f61854f9069441acfc2299d338c751c">  234</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03497.html#a6f61854f9069441acfc2299d338c751c">FileUtil::readFile</a>(<span class="keyword">const</span> std::string&amp; filename, std::string&amp; out) {</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    std::ifstream file(filename.c_str());</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keywordflow">if</span> (!file.good()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    file.seekg(0, std::ios::end);</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    out.resize(file.tellg());</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    file.seekg(0, std::ios::beg);</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    file.read(out.data(), out.size());</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;}</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
+<div class="line"><a name="l00245"></a><span class="lineno"><a class="line" href="a03497.html#a85429136662ccdaefcb2786cde6cd840">  245</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03497.html#a6f61854f9069441acfc2299d338c751c">FileUtil::readFile</a>(<span class="keyword">const</span> std::string&amp; filename, std::vector&lt;char&gt;&amp; out) {</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    std::ifstream file(filename.c_str(), std::ios::binary);</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keywordflow">if</span> (!file.good()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    file.seekg(0, std::ios::end);</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    out.resize(file.tellg());</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    file.seekg(0, std::ios::beg);</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    file.read(out.data(), out.size());</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;}</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
+<div class="line"><a name="l00256"></a><span class="lineno"><a class="line" href="a03497.html#a403eae39a10ed3692af3a7552d11d2b2">  256</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03497.html#a403eae39a10ed3692af3a7552d11d2b2">FileUtil::queryFileInfo</a>(<span class="keyword">const</span> std::string&amp; path, <a class="code" href="a03501.html">FileInfo</a>&amp; result) {</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keyword">struct </span>stat info;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordflow">if</span> (stat(path.c_str(), &amp;info) != 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    result.<a class="code" href="a03501.html#a6564d0faf9d2cfb2b0ad5156615f8726">creationTime</a> = info.st_ctime;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    result.<a class="code" href="a03501.html#aa57a7f6e98983e1f995a920def84a394">modifiedTime</a> = info.st_mtime;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    result.<a class="code" href="a03501.html#a7218c090c6a64c64e01493a4113e83e1">size</a>         = info.st_size;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;}</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00923_html"><div class="ttname"><a href="a00923.html">FileUtil.hpp</a></div></div>
+<div class="ttc" id="aa00944_html"><div class="ttname"><a href="a00944.html">Random.hpp</a></div></div>
+<div class="ttc" id="aa01580_html"><div class="ttname"><a href="a01580.html">dirent_windows.h</a></div></div>
+<div class="ttc" id="aa01580_html_a11fb0652b963a735f3377eb1c9239f2d"><div class="ttname"><a href="a01580.html#a11fb0652b963a735f3377eb1c9239f2d">S_IFDIR</a></div><div class="ttdeci">#define S_IFDIR</div><div class="ttdef"><b>Definition:</b> <a href="a01580_source.html#l00051">dirent_windows.h:51</a></div></div>
+<div class="ttc" id="aa01580_html_a1aaa48b192a5dd3b6d7ee91fc98cd17d"><div class="ttname"><a href="a01580.html#a1aaa48b192a5dd3b6d7ee91fc98cd17d">S_IFREG</a></div><div class="ttdeci">#define S_IFREG</div><div class="ttdef"><b>Definition:</b> <a href="a01580_source.html#l00066">dirent_windows.h:66</a></div></div>
+<div class="ttc" id="aa01580_html_a56af8d3cfb4a2b2f44e20b276db71f2a"><div class="ttname"><a href="a01580.html#a56af8d3cfb4a2b2f44e20b276db71f2a">opendir</a></div><div class="ttdeci">static DIR * opendir(const char *dirname)</div><div class="ttdef"><b>Definition:</b> <a href="a01580_source.html#l00667">dirent_windows.h:667</a></div></div>
+<div class="ttc" id="aa01580_html_aff48ec2514bda89769c968c66db181f3"><div class="ttname"><a href="a01580.html#aff48ec2514bda89769c968c66db181f3">readdir</a></div><div class="ttdeci">static struct dirent * readdir(DIR *dirp)</div><div class="ttdef"><b>Definition:</b> <a href="a01580_source.html#l00728">dirent_windows.h:728</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03497_html_a08974cd7e685d676a6031ea5f62f4ade"><div class="ttname"><a href="a03497.html#a08974cd7e685d676a6031ea5f62f4ade">bl::util::FileUtil::genTempName</a></div><div class="ttdeci">static std::string genTempName(const std::string &amp;path, const std::string &amp;ext=&quot;&quot;)</div><div class="ttdoc">Generates a temporary filename in the given path, guaranteed to not exist.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00106">FileUtil.cpp:106</a></div></div>
+<div class="ttc" id="aa03497_html_a2230065a6b3f3e31006edcb260ca1c50"><div class="ttname"><a href="a03497.html#a2230065a6b3f3e31006edcb260ca1c50">bl::util::FileUtil::startsWithPath</a></div><div class="ttdeci">static bool startsWithPath(const std::string &amp;file, const std::string &amp;path)</div><div class="ttdoc">Returns whether or not the given file path begins with the given directory path.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00101">FileUtil.cpp:101</a></div></div>
+<div class="ttc" id="aa03497_html_a24bafb4d915943d65df75390c0584fe3"><div class="ttname"><a href="a03497.html#a24bafb4d915943d65df75390c0584fe3">bl::util::FileUtil::isBigEndian</a></div><div class="ttdeci">static bool isBigEndian()</div><div class="ttdoc">Returns the endianness of the current system. Endianness is abstracted away by File but may still be ...</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00054">FileUtil.cpp:54</a></div></div>
+<div class="ttc" id="aa03497_html_a29e0c13dcc16b04b6510caede1879cbd"><div class="ttname"><a href="a03497.html#a29e0c13dcc16b04b6510caede1879cbd">bl::util::FileUtil::getPath</a></div><div class="ttdeci">static std::string getPath(const std::string &amp;file)</div><div class="ttdoc">Returns the directory path of the given filename Example: &quot;folder/subfolder/file.txt&quot; path is &quot;folder...</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00083">FileUtil.cpp:83</a></div></div>
+<div class="ttc" id="aa03497_html_a2e6063fffb7b61a547b75f37c64c5c87"><div class="ttname"><a href="a03497.html#a2e6063fffb7b61a547b75f37c64c5c87">bl::util::FileUtil::getExtension</a></div><div class="ttdeci">static std::string getExtension(const std::string &amp;file)</div><div class="ttdoc">Returns the extention of the given filename. Example: &quot;file.tmp.txt&quot; extension is &quot;txt&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00062">FileUtil.cpp:62</a></div></div>
+<div class="ttc" id="aa03497_html_a3c695eced56a6be91bbfb198aa3b3c42"><div class="ttname"><a href="a03497.html#a3c695eced56a6be91bbfb198aa3b3c42">bl::util::FileUtil::deleteDirectory</a></div><div class="ttdeci">static bool deleteDirectory(const std::string &amp;path)</div><div class="ttdoc">Recursively deletes the given directory and all contained files and subdirectories.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00199">FileUtil.cpp:199</a></div></div>
+<div class="ttc" id="aa03497_html_a403eae39a10ed3692af3a7552d11d2b2"><div class="ttname"><a href="a03497.html#a403eae39a10ed3692af3a7552d11d2b2">bl::util::FileUtil::queryFileInfo</a></div><div class="ttdeci">static bool queryFileInfo(const std::string &amp;path, FileInfo &amp;result)</div><div class="ttdoc">Queries the given file for its basic info.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00256">FileUtil.cpp:256</a></div></div>
+<div class="ttc" id="aa03497_html_a428b8f7739f7a9886cb4c15c60b88a48"><div class="ttname"><a href="a03497.html#a428b8f7739f7a9886cb4c15c60b88a48">bl::util::FileUtil::getBaseName</a></div><div class="ttdeci">static std::string getBaseName(const std::string &amp;file)</div><div class="ttdoc">Returns the base name of the given file path Example: &quot;folder/file.txt&quot; base is &quot;file&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00070">FileUtil.cpp:70</a></div></div>
+<div class="ttc" id="aa03497_html_a53980e3058e8169c3a46d4f3042354d7"><div class="ttname"><a href="a03497.html#a53980e3058e8169c3a46d4f3042354d7">bl::util::FileUtil::createDirectory</a></div><div class="ttdeci">static bool createDirectory(const std::string &amp;path)</div><div class="ttdoc">Creates a directory on the file system, creating subdirectories as necessary.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00132">FileUtil.cpp:132</a></div></div>
+<div class="ttc" id="aa03497_html_a54b5f761099ff02cb3fb4ba8bb283b7f"><div class="ttname"><a href="a03497.html#a54b5f761099ff02cb3fb4ba8bb283b7f">bl::util::FileUtil::listDirectory</a></div><div class="ttdeci">static std::vector&lt; std::string &gt; listDirectory(const std::string &amp;path, const std::string &amp;ext=&quot;&quot;, bool recursive=true)</div><div class="ttdoc">Lists files in the given directory and optionally filters by extension.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00145">FileUtil.cpp:145</a></div></div>
+<div class="ttc" id="aa03497_html_a5768b74832ef14d2216b879c002f2473"><div class="ttname"><a href="a03497.html#a5768b74832ef14d2216b879c002f2473">bl::util::FileUtil::deleteFile</a></div><div class="ttdeci">static bool deleteFile(const std::string &amp;file)</div><div class="ttdoc">Delets the file from the file system.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00197">FileUtil.cpp:197</a></div></div>
+<div class="ttc" id="aa03497_html_a6f61854f9069441acfc2299d338c751c"><div class="ttname"><a href="a03497.html#a6f61854f9069441acfc2299d338c751c">bl::util::FileUtil::readFile</a></div><div class="ttdeci">static bool readFile(const std::string &amp;filename, std::string &amp;output)</div><div class="ttdoc">Reads the entire file into the destination string.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00234">FileUtil.cpp:234</a></div></div>
+<div class="ttc" id="aa03497_html_a7b2da3c07d55afdf5faf689ac6503a4c"><div class="ttname"><a href="a03497.html#a7b2da3c07d55afdf5faf689ac6503a4c">bl::util::FileUtil::joinPath</a></div><div class="ttdeci">static std::string joinPath(const std::string &amp;leftPath, const std::string &amp;rightPath)</div><div class="ttdoc">Joins a file path with another path or filename. Takes care of slashes Example: &quot;path/&quot; + &quot;/file....</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00088">FileUtil.cpp:88</a></div></div>
+<div class="ttc" id="aa03497_html_a8566666f9a79d760668664bf7b8c71df"><div class="ttname"><a href="a03497.html#a8566666f9a79d760668664bf7b8c71df">bl::util::FileUtil::exists</a></div><div class="ttdeci">static bool exists(const std::string &amp;file)</div><div class="ttdoc">Test whether the given file exists.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00042">FileUtil.cpp:42</a></div></div>
+<div class="ttc" id="aa03497_html_aad5c0eb8e98fbbe0a4f2db6e08735b99"><div class="ttname"><a href="a03497.html#aad5c0eb8e98fbbe0a4f2db6e08735b99">bl::util::FileUtil::getFilename</a></div><div class="ttdeci">static std::string getFilename(const std::string &amp;file)</div><div class="ttdoc">Returns the filename portion of the given path Example: &quot;folder/file.txt&quot; filename is &quot;file....</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00077">FileUtil.cpp:77</a></div></div>
+<div class="ttc" id="aa03497_html_add529a7b6d9118c422f9532c2b50187a"><div class="ttname"><a href="a03497.html#add529a7b6d9118c422f9532c2b50187a">bl::util::FileUtil::getDataDirectory</a></div><div class="ttdeci">static std::string getDataDirectory(const std::string &amp;appName)</div><div class="ttdoc">Get the directory to save data to. Handles platform specific paths.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00217">FileUtil.cpp:217</a></div></div>
+<div class="ttc" id="aa03497_html_aec19851e5fc2b9c7f4bdcb7a8a4fb7ac"><div class="ttname"><a href="a03497.html#aec19851e5fc2b9c7f4bdcb7a8a4fb7ac">bl::util::FileUtil::copyFile</a></div><div class="ttdeci">static void copyFile(const std::string &amp;src, const std::string &amp;dest)</div><div class="ttdoc">Copies a file from src to dest on the file system.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00120">FileUtil.cpp:120</a></div></div>
+<div class="ttc" id="aa03497_html_aee074b7d19fd4617d88e65c969c367b1"><div class="ttname"><a href="a03497.html#aee074b7d19fd4617d88e65c969c367b1">bl::util::FileUtil::directoryExists</a></div><div class="ttdeci">static bool directoryExists(const std::string &amp;path)</div><div class="ttdoc">Test whether or not the given directory exists.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00048">FileUtil.cpp:48</a></div></div>
+<div class="ttc" id="aa03497_html_af8507ca6ceb7be247eb244a1473f7d0d"><div class="ttname"><a href="a03497.html#af8507ca6ceb7be247eb244a1473f7d0d">bl::util::FileUtil::listDirectoryFolders</a></div><div class="ttdeci">static std::vector&lt; std::string &gt; listDirectoryFolders(const std::string &amp;path)</div><div class="ttdoc">Lists the folders in a given directory. Results are not joined with the root dir.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00175">FileUtil.cpp:175</a></div></div>
+<div class="ttc" id="aa03501_html"><div class="ttname"><a href="a03501.html">bl::util::FileUtil::FileInfo</a></div><div class="ttdoc">Basic struct containing some file info.</div><div class="ttdef"><b>Definition:</b> <a href="a00923_source.html#l00022">FileUtil.hpp:22</a></div></div>
+<div class="ttc" id="aa03501_html_a6564d0faf9d2cfb2b0ad5156615f8726"><div class="ttname"><a href="a03501.html#a6564d0faf9d2cfb2b0ad5156615f8726">bl::util::FileUtil::FileInfo::creationTime</a></div><div class="ttdeci">std::time_t creationTime</div><div class="ttdef"><b>Definition:</b> <a href="a00923_source.html#l00023">FileUtil.hpp:23</a></div></div>
+<div class="ttc" id="aa03501_html_a7218c090c6a64c64e01493a4113e83e1"><div class="ttname"><a href="a03501.html#a7218c090c6a64c64e01493a4113e83e1">bl::util::FileUtil::FileInfo::size</a></div><div class="ttdeci">std::size_t size</div><div class="ttdef"><b>Definition:</b> <a href="a00923_source.html#l00025">FileUtil.hpp:25</a></div></div>
+<div class="ttc" id="aa03501_html_aa57a7f6e98983e1f995a920def84a394"><div class="ttname"><a href="a03501.html#aa57a7f6e98983e1f995a920def84a394">bl::util::FileUtil::FileInfo::modifiedTime</a></div><div class="ttdeci">std::time_t modifiedTime</div><div class="ttdef"><b>Definition:</b> <a href="a00923_source.html#l00024">FileUtil.hpp:24</a></div></div>
+<div class="ttc" id="aa03537_html_a27b767cceb5591cb6e60972235551dec"><div class="ttname"><a href="a03537.html#a27b767cceb5591cb6e60972235551dec">bl::util::Random::get</a></div><div class="ttdeci">static std::enable_if_t&lt; std::is_integral_v&lt; T &gt;, T &gt; get(T min, T max)</div><div class="ttdoc">Returns a random number in the given range of an integral type.</div><div class="ttdef"><b>Definition:</b> <a href="a00944_source.html#l00039">Random.hpp:39</a></div></div>
+<div class="ttc" id="aa03705_html"><div class="ttname"><a href="a03705.html">dirent</a></div><div class="ttdef"><b>Definition:</b> <a href="a01580_source.html#l00255">dirent_windows.h:255</a></div></div>
+<div class="ttc" id="aa03705_html_a2db57e8744079cc6ae87dd367919957a"><div class="ttname"><a href="a03705.html#a2db57e8744079cc6ae87dd367919957a">dirent::d_name</a></div><div class="ttdeci">char d_name[PATH_MAX+1]</div><div class="ttdef"><b>Definition:</b> <a href="a01580_source.html#l00272">dirent_windows.h:272</a></div></div>
+<div class="ttc" id="aa03709_html"><div class="ttname"><a href="a03709.html">DIR</a></div><div class="ttdef"><b>Definition:</b> <a href="a01580_source.html#l00276">dirent_windows.h:276</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

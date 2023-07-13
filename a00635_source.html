@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Scenes/BasicScene.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Resources/ScenePool.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,138 +66,88 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_0f0c454ab916ef2487b68a1bc3be1485.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">BasicScene.hpp</div>  </div>
+<div class="title">ScenePool.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00635.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RENDERER_BASICSCENE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RENDERER_BASICSCENE_HPP</span></div>
+<a href="a00635.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_SCENEPOOL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RESOURCES_SCENEPOOL_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00644.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00650.html">BLIB/Render/Scenes/SceneObjectStorage.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>sys</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00083.html">BLIB/Containers/ObjectWrapper.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00647.html">BLIB/Render/Scenes/BasicScene.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00932.html">BLIB/Util/IdAllocator.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>DrawableSystem;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>res</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span>ScenePool;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>scene</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02768.html">   29</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02768.html">BasicScene</a> : <span class="keyword">public</span> <a class="code" href="a02796.html">Scene</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02765.html">   29</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02765.html">ScenePool</a> {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a02768.html#a03a7a73ec30016c717f293a3de84f6c7">BasicScene</a>(<a class="code" href="a01908.html">engine::Engine</a>&amp; engine);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a02765.html#aca923e993cf4122f317b08d3ea35614c">ScenePool</a>(<a class="code" href="a01989.html">engine::Engine</a>&amp; engine);</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02768.html#ac1c7ccdf510f34b914e3186737ec714c">~BasicScene</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02765.html#af95a257c30a09327e366c659ced32611">cleanup</a>();</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02768.html#ac3bdde1c84eb1470bf1d27a35c0104db">renderScene</a>(<a class="code" href="a02820.html">scene::SceneRenderContext</a>&amp; context) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02804.html">scene::SceneObject</a>* <a class="code" href="a02768.html#adbfaafd80e87525c56a3949b81956cde">doAdd</a>(<a class="code" href="a01626.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a> entity, <a class="code" href="a02500.html">com::DrawableBase</a>&amp; <span class="keywordtype">object</span>,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                      <a class="code" href="a01607.html#ga3f6cc977764514925162c6fd181a261a">UpdateSpeed</a> updateFreq) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02768.html#a52c414c47f4b522fed810e4d36fc6883">doRemove</a>(<a class="code" href="a02804.html">scene::SceneObject</a>* <span class="keywordtype">object</span>, std::uint32_t pipeline) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02768.html#aa58b2952a73415eae087e9ff0e65c2ff">doBatchChange</a>(<span class="keyword">const</span> <a class="code" href="a02800.html">BatchChange</a>&amp; change, std::uint32_t ogPipeline) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">struct </span>PipelineBatch {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        PipelineBatch(<a class="code" href="a02920.html">vk::Pipeline</a>&amp; pipeline)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        : pipeline(pipeline) {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            objects.reserve(<a class="code" href="a02528.html#accbaa81a207b7ed9845624de33a716f8">Config::DefaultSceneObjectCapacity</a> / 2);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        }</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <a class="code" href="a02920.html">vk::Pipeline</a>&amp; pipeline;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        std::vector&lt;SceneObject*&gt; objects;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    };</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">struct </span>LayoutBatch {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        LayoutBatch(<a class="code" href="a02620.html">ds::DescriptorSetInstanceCache</a>&amp; descriptorCache,</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                    <span class="keyword">const</span> <a class="code" href="a02924.html">vk::PipelineLayout</a>&amp; layout)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        : layout(layout)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        , descriptorCount(layout.<a class="code" href="a02924.html#a70c0d47f39ec840b61e0d013bda7d842">initDescriptorSets</a>(descriptorCache, descriptors.data()))</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        , perObjStart(descriptorCount)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        , bindless(<span class="keyword">true</span>) {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            staticBatches.reserve(8);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            dynamicBatches.reserve(8);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordflow">for</span> (std::uint8_t i = 0; i &lt; descriptorCount; ++i) {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="keywordflow">if</span> (!descriptors[i]-&gt;isBindless()) {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                    perObjStart = i;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                    bindless    = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keyword">const</span> <a class="code" href="a02924.html">vk::PipelineLayout</a>&amp; layout;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        std::array&lt;ds::DescriptorSetInstance*, Config::MaxDescriptorSets&gt; descriptors;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        std::uint8_t descriptorCount;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        std::uint8_t perObjStart;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        std::vector&lt;PipelineBatch&gt; staticBatches;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        std::vector&lt;PipelineBatch&gt; dynamicBatches;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordtype">bool</span> bindless;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    };</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">struct </span>ObjectBatch {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        ObjectBatch() { batches.reserve(8); }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        std::vector&lt;LayoutBatch&gt; batches;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    };</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <a class="code" href="a02808.html">SceneObjectStorage&lt;SceneObject&gt;</a> objects;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    ObjectBatch opaqueObjects;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    ObjectBatch transparentObjects;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    std::vector&lt;bool&gt; staticTransCache;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    std::vector&lt;bool&gt; dynamicTransCache;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">void</span> handleAddressChange(<a class="code" href="a01607.html#ga3f6cc977764514925162c6fd181a261a">UpdateSpeed</a> speed, <a class="code" href="a02804.html">SceneObject</a>* oldBase);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;};</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;} <span class="comment">// namespace scene</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00644_html"><div class="ttname"><a href="a00644.html">Scene.hpp</a></div></div>
-<div class="ttc" id="aa00650_html"><div class="ttname"><a href="a00650.html">SceneObjectStorage.hpp</a></div></div>
-<div class="ttc" id="aa01607_html_ga3f6cc977764514925162c6fd181a261a"><div class="ttname"><a href="a01607.html#ga3f6cc977764514925162c6fd181a261a">bl::gfx::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01626_html_a4b70a57ed7e0341145b4320b1f460a62"><div class="ttname"><a href="a01626.html#a4b70a57ed7e0341145b4320b1f460a62">bl::ecs::Entity</a></div><div class="ttdeci">std::uint32_t Entity</div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00059_source.html#l00021">Entity.hpp:21</a></div></div>
-<div class="ttc" id="aa01908_html"><div class="ttname"><a href="a01908.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a04429_source.html#l00031">Engine.hpp:31</a></div></div>
-<div class="ttc" id="aa02500_html"><div class="ttname"><a href="a02500.html">bl::gfx::com::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition:</b> <a href="a00485_source.html#l00020">DrawableBase.hpp:20</a></div></div>
-<div class="ttc" id="aa02528_html_accbaa81a207b7ed9845624de33a716f8"><div class="ttname"><a href="a02528.html#accbaa81a207b7ed9845624de33a716f8">bl::gfx::Config::DefaultSceneObjectCapacity</a></div><div class="ttdeci">static constexpr std::uint32_t DefaultSceneObjectCapacity</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00021">Config.hpp:21</a></div></div>
-<div class="ttc" id="aa02620_html"><div class="ttname"><a href="a02620.html">bl::gfx::ds::DescriptorSetInstanceCache</a></div><div class="ttdoc">Utility class to ensure that descriptor sets are created only once across a set of pipelines present ...</div><div class="ttdef"><b>Definition:</b> <a href="a00551_source.html#l00023">DescriptorSetInstanceCache.hpp:23</a></div></div>
-<div class="ttc" id="aa02768_html"><div class="ttname"><a href="a02768.html">bl::gfx::scene::BasicScene</a></div><div class="ttdoc">Primary scene class for the renderer. Provides batched rendering of objects by pipeline....</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00029">BasicScene.hpp:29</a></div></div>
-<div class="ttc" id="aa02768_html_a03a7a73ec30016c717f293a3de84f6c7"><div class="ttname"><a href="a02768.html#a03a7a73ec30016c717f293a3de84f6c7">bl::gfx::scene::BasicScene::BasicScene</a></div><div class="ttdeci">BasicScene(engine::Engine &amp;engine)</div><div class="ttdoc">Initializes the BasicScene.</div><div class="ttdef"><b>Definition:</b> <a href="a01370_source.html#l00013">BasicScene.cpp:13</a></div></div>
-<div class="ttc" id="aa02768_html_a52c414c47f4b522fed810e4d36fc6883"><div class="ttname"><a href="a02768.html#a52c414c47f4b522fed810e4d36fc6883">bl::gfx::scene::BasicScene::doRemove</a></div><div class="ttdeci">virtual void doRemove(scene::SceneObject *object, std::uint32_t pipeline) override</div><div class="ttdoc">Called when an object is removed from the scene. Unlink from descriptors here.</div><div class="ttdef"><b>Definition:</b> <a href="a01370_source.html#l00080">BasicScene.cpp:80</a></div></div>
-<div class="ttc" id="aa02768_html_aa58b2952a73415eae087e9ff0e65c2ff"><div class="ttname"><a href="a02768.html#aa58b2952a73415eae087e9ff0e65c2ff">bl::gfx::scene::BasicScene::doBatchChange</a></div><div class="ttdeci">virtual void doBatchChange(const BatchChange &amp;change, std::uint32_t ogPipeline) override</div><div class="ttdoc">Called by Scene in handleDescriptorSync for objects that need to be re-batched.</div><div class="ttdef"><b>Definition:</b> <a href="a01370_source.html#l00112">BasicScene.cpp:112</a></div></div>
-<div class="ttc" id="aa02768_html_ac1c7ccdf510f34b914e3186737ec714c"><div class="ttname"><a href="a02768.html#ac1c7ccdf510f34b914e3186737ec714c">bl::gfx::scene::BasicScene::~BasicScene</a></div><div class="ttdeci">virtual ~BasicScene()</div><div class="ttdoc">Unlinks allocated objects from ECS descriptor linkages.</div><div class="ttdef"><b>Definition:</b> <a href="a01370_source.html#l00019">BasicScene.cpp:19</a></div></div>
-<div class="ttc" id="aa02768_html_ac3bdde1c84eb1470bf1d27a35c0104db"><div class="ttname"><a href="a02768.html#ac3bdde1c84eb1470bf1d27a35c0104db">bl::gfx::scene::BasicScene::renderScene</a></div><div class="ttdeci">virtual void renderScene(scene::SceneRenderContext &amp;context) override</div><div class="ttdoc">Derived classes should record render commands in here.</div><div class="ttdef"><b>Definition:</b> <a href="a01370_source.html#l00197">BasicScene.cpp:197</a></div></div>
-<div class="ttc" id="aa02768_html_adbfaafd80e87525c56a3949b81956cde"><div class="ttname"><a href="a02768.html#adbfaafd80e87525c56a3949b81956cde">bl::gfx::scene::BasicScene::doAdd</a></div><div class="ttdeci">virtual scene::SceneObject * doAdd(ecs::Entity entity, com::DrawableBase &amp;object, UpdateSpeed updateFreq) override</div><div class="ttdoc">Called when an object is added to the scene. Derived should create the SceneObject here and initializ...</div><div class="ttdef"><b>Definition:</b> <a href="a01370_source.html#l00021">BasicScene.cpp:21</a></div></div>
-<div class="ttc" id="aa02796_html"><div class="ttname"><a href="a02796.html">bl::gfx::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00644_source.html#l00043">Scene.hpp:43</a></div></div>
-<div class="ttc" id="aa02800_html"><div class="ttname"><a href="a02800.html">bl::gfx::Scene::BatchChange</a></div><div class="ttdoc">POD containing data for when an object needs to be re-batched.</div><div class="ttdef"><b>Definition:</b> <a href="a00644_source.html#l00056">Scene.hpp:56</a></div></div>
-<div class="ttc" id="aa02804_html"><div class="ttname"><a href="a02804.html">bl::gfx::scene::SceneObject</a></div><div class="ttdoc">Base renderable object. Everything that is rendered will reference an instance of this....</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00021">SceneObject.hpp:21</a></div></div>
-<div class="ttc" id="aa02808_html"><div class="ttname"><a href="a02808.html">bl::gfx::scene::SceneObjectStorage</a></div><div class="ttdoc">Storage for scene objects. Splits objects by update frequency.</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00026">SceneObjectStorage.hpp:26</a></div></div>
-<div class="ttc" id="aa02820_html"><div class="ttname"><a href="a02820.html">bl::gfx::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00025">SceneRenderContext.hpp:25</a></div></div>
-<div class="ttc" id="aa02920_html"><div class="ttname"><a href="a02920.html">bl::gfx::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00030">Pipeline.hpp:30</a></div></div>
-<div class="ttc" id="aa02924_html"><div class="ttname"><a href="a02924.html">bl::gfx::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00030">PipelineLayout.hpp:30</a></div></div>
-<div class="ttc" id="aa02924_html_a70c0d47f39ec840b61e0d013bda7d842"><div class="ttname"><a href="a02924.html#a70c0d47f39ec840b61e0d013bda7d842">bl::gfx::vk::PipelineLayout::initDescriptorSets</a></div><div class="ttdeci">std::uint32_t initDescriptorSets(ds::DescriptorSetInstanceCache &amp;cache, ds::DescriptorSetInstance **sets) const</div><div class="ttdoc">Initializes the given array of descriptor sets and returns the number of sets.</div><div class="ttdef"><b>Definition:</b> <a href="a01424_source.html#l00046">PipelineLayout.cpp:46</a></div></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TScene, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    TScene* <a class="code" href="a02765.html#abb5516798ce6417623a75e7f67b255ac">allocateScene</a>(TArgs&amp;&amp;... args);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02765.html#a968f1138c0ac095ff8b180e7cda42555">destroyScene</a>(<a class="code" href="a02813.html">Scene</a>* scene);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a01989.html">engine::Engine</a>&amp; engine;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    std::vector&lt;std::unique_ptr&lt;Scene&gt;&gt; scenes;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    std::mutex mutex;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TScene, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a02765.html#abb5516798ce6417623a75e7f67b255ac">   70</a></span>&#160;TScene* <a class="code" href="a02765.html#abb5516798ce6417623a75e7f67b255ac">ScenePool::allocateScene</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    static_assert(std::is_base_of_v&lt;Scene, TScene&gt;, <span class="stringliteral">&quot;TScene must derive from Scene&quot;</span>);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    static_assert(std::is_constructible_v&lt;TScene, engine::Engine&amp;, TArgs...&gt;,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                  <span class="stringliteral">&quot;TScene constructor must accept an Engine&amp; as the first parameter&quot;</span>);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    TScene* ns = <span class="keyword">new</span> TScene(engine, std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    scenes.emplace_back(ns);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">return</span> ns;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00083_html"><div class="ttname"><a href="a00083.html">ObjectWrapper.hpp</a></div></div>
+<div class="ttc" id="aa00647_html"><div class="ttname"><a href="a00647.html">BasicScene.hpp</a></div></div>
+<div class="ttc" id="aa00932_html"><div class="ttname"><a href="a00932.html">IdAllocator.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01989_html"><div class="ttname"><a href="a01989.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a04446_source.html#l00031">Engine.hpp:31</a></div></div>
+<div class="ttc" id="aa02765_html"><div class="ttname"><a href="a02765.html">bl::rc::res::ScenePool</a></div><div class="ttdoc">Utility class that manages a fixed size pool of scenes that can be allocated from....</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00029">ScenePool.hpp:29</a></div></div>
+<div class="ttc" id="aa02765_html_a968f1138c0ac095ff8b180e7cda42555"><div class="ttname"><a href="a02765.html#a968f1138c0ac095ff8b180e7cda42555">bl::rc::res::ScenePool::destroyScene</a></div><div class="ttdeci">void destroyScene(Scene *scene)</div><div class="ttdoc">Destroys the given scene and returns it to the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01367_source.html#l00022">ScenePool.cpp:22</a></div></div>
+<div class="ttc" id="aa02765_html_abb5516798ce6417623a75e7f67b255ac"><div class="ttname"><a href="a02765.html#abb5516798ce6417623a75e7f67b255ac">bl::rc::res::ScenePool::allocateScene</a></div><div class="ttdeci">TScene * allocateScene(TArgs &amp;&amp;... args)</div><div class="ttdoc">Allocates a new scene from the pool and returns it.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00070">ScenePool.hpp:70</a></div></div>
+<div class="ttc" id="aa02765_html_aca923e993cf4122f317b08d3ea35614c"><div class="ttname"><a href="a02765.html#aca923e993cf4122f317b08d3ea35614c">bl::rc::res::ScenePool::ScenePool</a></div><div class="ttdeci">ScenePool(engine::Engine &amp;engine)</div><div class="ttdoc">Creates a new scene pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01367_source.html#l00012">ScenePool.cpp:12</a></div></div>
+<div class="ttc" id="aa02765_html_af95a257c30a09327e366c659ced32611"><div class="ttname"><a href="a02765.html#af95a257c30a09327e366c659ced32611">bl::rc::res::ScenePool::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Destroys all scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a01367_source.html#l00017">ScenePool.cpp:17</a></div></div>
+<div class="ttc" id="aa02813_html"><div class="ttname"><a href="a02813.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00044">Scene.hpp:44</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -74,52 +74,52 @@ $(function() {
 <div class="title">Error.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01505.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00818.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div>
+<a href="a01505.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00809.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>script</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;std::string buildMsg(<span class="keyword">const</span> std::string&amp; err, <span class="keyword">const</span> <a class="code" href="a02396.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src) {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;std::string buildMsg(<span class="keyword">const</span> std::string&amp; err, <span class="keyword">const</span> <a class="code" href="a02525.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src) {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    std::stringstream ss;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    ss &lt;&lt; <span class="stringliteral">&quot;Line &quot;</span> &lt;&lt; src-&gt;sourceLine &lt;&lt; <span class="stringliteral">&quot; position &quot;</span> &lt;&lt; src-&gt;sourceColumn &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; err;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">return</span> ss.str();</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03132.html#aff6398a2a255bf7a3ad554af2761bc98">   17</a></span>&#160;<a class="code" href="a03132.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg)</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03125.html#aff6398a2a255bf7a3ad554af2761bc98">   17</a></span>&#160;<a class="code" href="a03125.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg)</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;: error(msg)</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, stack(msg) {}</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03132.html#adb15b3075a9c7aeebaa80bf997ea5214">   21</a></span>&#160;<a class="code" href="a03132.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> <a class="code" href="a02396.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src)</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03125.html#adb15b3075a9c7aeebaa80bf997ea5214">   21</a></span>&#160;<a class="code" href="a03125.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> <a class="code" href="a02525.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src)</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: error(buildMsg(msg, src))</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, stack(error) {}</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03132.html#ac99cb5f39c84b2f623ea6f4c49810f3d">   25</a></span>&#160;<a class="code" href="a03132.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> <a class="code" href="a02396.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src, <span class="keyword">const</span> <a class="code" href="a03132.html">Error</a>&amp; prev)</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03125.html#ac99cb5f39c84b2f623ea6f4c49810f3d">   25</a></span>&#160;<a class="code" href="a03125.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> <a class="code" href="a02525.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src, <span class="keyword">const</span> <a class="code" href="a03125.html">Error</a>&amp; prev)</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;: error(buildMsg(msg, src))</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;, stack(error + <span class="stringliteral">&quot;\n    &quot;</span> + prev.stack) {}</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03132.html#a95abc9d3c1314074a22834fa7e6a2dfd">   29</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a03132.html#a95abc9d3c1314074a22834fa7e6a2dfd">Error::message</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> error; }</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03125.html#a95abc9d3c1314074a22834fa7e6a2dfd">   29</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a03125.html#a95abc9d3c1314074a22834fa7e6a2dfd">Error::message</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> error; }</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03132.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">   31</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a03132.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">Error::stacktrace</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> stack; }</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03125.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">   31</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a03125.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">Error::stacktrace</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> stack; }</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace script</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00818_html"><div class="ttname"><a href="a00818.html">Error.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02396_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a02396.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00422_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa03132_html"><div class="ttname"><a href="a03132.html">bl::script::Error</a></div><div class="ttdoc">Script utility class to represent an error. Can be used to build a call stack for script errors.</div><div class="ttdef"><b>Definition:</b> <a href="a00818_source.html#l00017">Error.hpp:17</a></div></div>
-<div class="ttc" id="aa03132_html_a95abc9d3c1314074a22834fa7e6a2dfd"><div class="ttname"><a href="a03132.html#a95abc9d3c1314074a22834fa7e6a2dfd">bl::script::Error::message</a></div><div class="ttdeci">const std::string &amp; message() const</div><div class="ttdoc">Returns the contained error message.</div><div class="ttdef"><b>Definition:</b> <a href="a01505_source.html#l00029">Error.cpp:29</a></div></div>
-<div class="ttc" id="aa03132_html_ab1e1a09a7f8dfda9edcac4bd6d1df391"><div class="ttname"><a href="a03132.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">bl::script::Error::stacktrace</a></div><div class="ttdeci">const std::string &amp; stacktrace() const</div><div class="ttdoc">Returns the full stack trace, formatted.</div><div class="ttdef"><b>Definition:</b> <a href="a01505_source.html#l00031">Error.cpp:31</a></div></div>
-<div class="ttc" id="aa03132_html_aff6398a2a255bf7a3ad554af2761bc98"><div class="ttname"><a href="a03132.html#aff6398a2a255bf7a3ad554af2761bc98">bl::script::Error::Error</a></div><div class="ttdeci">Error(const std::string &amp;error)</div><div class="ttdoc">Constructs a root Error with an empty call stack.</div><div class="ttdef"><b>Definition:</b> <a href="a01505_source.html#l00017">Error.cpp:17</a></div></div>
+<div class="ttc" id="aa00809_html"><div class="ttname"><a href="a00809.html">Error.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02525_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a02525.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00497_source.html#l00024">Node.hpp:24</a></div></div>
+<div class="ttc" id="aa03125_html"><div class="ttname"><a href="a03125.html">bl::script::Error</a></div><div class="ttdoc">Script utility class to represent an error. Can be used to build a call stack for script errors.</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00017">Error.hpp:17</a></div></div>
+<div class="ttc" id="aa03125_html_a95abc9d3c1314074a22834fa7e6a2dfd"><div class="ttname"><a href="a03125.html#a95abc9d3c1314074a22834fa7e6a2dfd">bl::script::Error::message</a></div><div class="ttdeci">const std::string &amp; message() const</div><div class="ttdoc">Returns the contained error message.</div><div class="ttdef"><b>Definition:</b> <a href="a01505_source.html#l00029">Error.cpp:29</a></div></div>
+<div class="ttc" id="aa03125_html_ab1e1a09a7f8dfda9edcac4bd6d1df391"><div class="ttname"><a href="a03125.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">bl::script::Error::stacktrace</a></div><div class="ttdeci">const std::string &amp; stacktrace() const</div><div class="ttdoc">Returns the full stack trace, formatted.</div><div class="ttdef"><b>Definition:</b> <a href="a01505_source.html#l00031">Error.cpp:31</a></div></div>
+<div class="ttc" id="aa03125_html_aff6398a2a255bf7a3ad554af2761bc98"><div class="ttname"><a href="a03125.html#aff6398a2a255bf7a3ad554af2761bc98">bl::script::Error::Error</a></div><div class="ttdeci">Error(const std::string &amp;error)</div><div class="ttdoc">Constructs a root Error with an empty call stack.</div><div class="ttdef"><b>Definition:</b> <a href="a01505_source.html#l00017">Error.cpp:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

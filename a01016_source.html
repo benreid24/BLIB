@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Input/DirectionalControl.cpp Source File</title>
+<title>BLIB: src/Components/Transform2D.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,103 +66,137 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_25af87635f61d97ebff867d1c53b4626.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c610c8504d46288da7634b3c0b18263f.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DirectionalControl.cpp</div>  </div>
+<div class="title">Transform2D.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01016.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00170.html">BLIB/Input/DirectionalControl.hpp</a>&gt;</span></div>
+<a href="a01016.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04434.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00086.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00176.html">BLIB/Input/InputSystem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00368.html">BLIB/Math/Vector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01022.html">Input/Encoder.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>input</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">const</span> std::string MouseStr = <span class="stringliteral">&quot;Mouse&quot;</span>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">const</span> std::string StickStr = <span class="stringliteral">&quot;Joystick&quot;</span>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;std::string typeKey(<span class="keyword">const</span> std::string&amp; prefix) { <span class="keywordflow">return</span> prefix + <span class="stringliteral">&quot;.type&quot;</span>; }</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;std::string stickKey(<span class="keyword">const</span> std::string&amp; prefix) { <span class="keywordflow">return</span> prefix + <span class="stringliteral">&quot;.joystick&quot;</span>; }</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02052.html#ad630bc56babe07939fe19a2298d760f5">   21</a></span>&#160;<a class="code" href="a02052.html#ad630bc56babe07939fe19a2298d760f5">DirectionalControl::DirectionalControl</a>(<span class="keywordtype">bool</span> jm)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: type(jm ? <a class="code" href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8">Type</a>::<a class="code" href="a02064.html">Joystick</a> : <a class="code" href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8">Type</a>::Mouse) {}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02052.html#ab995388a3049a9ac9368ee171bc66436">   24</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02052.html#ab995388a3049a9ac9368ee171bc66436">DirectionalControl::process</a>(<span class="keyword">const</span> <a class="code" href="a02060.html">InputSystem</a>&amp; system, <span class="keyword">const</span> sf::Event&amp; event) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02052.html#aabce71fe4698bbac485b6f6fe08220db">type</a> == <a class="code" href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8af2a47c6809d88e175dade0ef7b16aa13">Type::Mouse</a> &amp;&amp; event.type == sf::Event::MouseMoved) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="a02052.html#a5b31cecc6dc70f1d5cdf64212583f5f8">normalizedDirection</a> = system.<a class="code" href="a02060.html#ac3793a789d990d2c102d402c70282b8e">mouseUnitVector</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="a02052.html#aabce71fe4698bbac485b6f6fe08220db">type</a> == <a class="code" href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8a1162b85b7b993e2edf7da29dd8abf7e2">Type::Joystick</a> &amp;&amp; <a class="code" href="a02052.html#a4fa867882847b1d4d33d9f51f281304f">joystick</a>.<a class="code" href="a02064.html#ad288355081789c3d9fa0328b5cad1c13">process</a>(event)) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="a02052.html#a5b31cecc6dc70f1d5cdf64212583f5f8">normalizedDirection</a> = <a class="code" href="a01603.html#ga256ad8731e4356e845df035c22322e7e">math::normalized</a>(<a class="code" href="a02052.html#a4fa867882847b1d4d33d9f51f281304f">joystick</a>.<a class="code" href="a02064.html#a455471168fb90d1a40d6b0b50c677655">cachedPosition</a>);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02052.html#a1d6214a932ff7956a829cd357a8753e6">   36</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02052.html#a1d6214a932ff7956a829cd357a8753e6">DirectionalControl::saveToConfig</a>(<span class="keyword">const</span> std::string&amp; prefix)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    bl::engine::Configuration::set&lt;std::string&gt;(typeKey(prefix),</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                                                <a class="code" href="a02052.html#aabce71fe4698bbac485b6f6fe08220db">type</a> == <a class="code" href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8af2a47c6809d88e175dade0ef7b16aa13">Type::Mouse</a> ? MouseStr : StickStr);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02052.html#aabce71fe4698bbac485b6f6fe08220db">type</a> == <a class="code" href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8a1162b85b7b993e2edf7da29dd8abf7e2">Type::Joystick</a>) { <a class="code" href="a02052.html#a4fa867882847b1d4d33d9f51f281304f">joystick</a>.<a class="code" href="a02064.html#acad0313b0dd6078d70d5617261970dde">saveToConfig</a>(stickKey(prefix)); }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a02052.html#a356aefe82c54204083ec3bdec3692ba5">   42</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02052.html#a356aefe82c54204083ec3bdec3692ba5">DirectionalControl::loadFromConfig</a>(<span class="keyword">const</span> std::string&amp; prefix) {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a02052.html#aabce71fe4698bbac485b6f6fe08220db">type</a> = bl::engine::Configuration::getOrDefault&lt;std::string&gt;(typeKey(prefix), MouseStr) ==</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                   MouseStr ?</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;               <a class="code" href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8af2a47c6809d88e175dade0ef7b16aa13">Type::Mouse</a> :</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;               <a class="code" href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8a1162b85b7b993e2edf7da29dd8abf7e2">Type::Joystick</a>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02052.html#aabce71fe4698bbac485b6f6fe08220db">type</a> == <a class="code" href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8a1162b85b7b993e2edf7da29dd8abf7e2">Type::Joystick</a>) { <a class="code" href="a02052.html#a4fa867882847b1d4d33d9f51f281304f">joystick</a>.<a class="code" href="a02064.html#a6f9a916bde66a37f73bf6fb9c3633ad4">loadFromConfig</a>(stickKey(prefix)); }</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04506.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00743.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;glm/gtx/transform.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>com</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a01809.html#a141360b9acc8f4e62527411b98636d8b">   11</a></span>&#160;<a class="code" href="a01809.html#a141360b9acc8f4e62527411b98636d8b">Transform2D::Transform2D</a>()</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: origin(0.f, 0.f)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, position(0.f, 0.f)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, scaleFactors(1.f, 1.f)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, rotation(0.f)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, depth(0.f) {}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01809.html#ab3f6e572cbac68be041ee8d99b5ef29c">   18</a></span>&#160;<a class="code" href="a01809.html#a141360b9acc8f4e62527411b98636d8b">Transform2D::Transform2D</a>(<span class="keyword">const</span> glm::vec2&amp; pos)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;: origin(0.f, 0.f)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, position(pos)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, scaleFactors(1.f, 1.f)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, rotation(0.f)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, depth(0.f) {}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01809.html#ae468c9390b5875d960ab40511efe7460">   25</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01809.html#ae468c9390b5875d960ab40511efe7460">Transform2D::setOrigin</a>(<span class="keyword">const</span> glm::vec2&amp; o) {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    origin = o;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a02581.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01809.html#ae3f78fc5d6a6aa93a47dcc96f394e798">   30</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01809.html#ae3f78fc5d6a6aa93a47dcc96f394e798">Transform2D::setPosition</a>(<span class="keyword">const</span> glm::vec2&amp; pos) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    position = pos;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02581.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a01809.html#a0f05c98962f8acfe46a7820f2858e55b">   35</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01809.html#a0f05c98962f8acfe46a7820f2858e55b">Transform2D::move</a>(<span class="keyword">const</span> glm::vec2&amp; delta) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    position += delta;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a02581.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a01809.html#a087f789c35a49955eefa3e33c1e113c3">   40</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01809.html#a087f789c35a49955eefa3e33c1e113c3">Transform2D::setDepth</a>(<span class="keywordtype">float</span> d) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    depth = d;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a02581.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a01809.html#a445fc48d0ff1b5d88cb80b3ee0377151">   45</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01809.html#a445fc48d0ff1b5d88cb80b3ee0377151">Transform2D::addDepth</a>(<span class="keywordtype">float</span> delta) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    depth += delta;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a02581.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a02052.html#aeb5c32964cb8cb5736da9d74d23a2687">   50</a></span>&#160;std::string <a class="code" href="a02052.html#aeb5c32964cb8cb5736da9d74d23a2687">DirectionalControl::toString</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02052.html#aabce71fe4698bbac485b6f6fe08220db">type</a> == <a class="code" href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8a1162b85b7b993e2edf7da29dd8abf7e2">Type::Joystick</a>) { <span class="keywordflow">return</span> <a class="code" href="a02052.html#a4fa867882847b1d4d33d9f51f281304f">joystick</a>.<a class="code" href="a02064.html#a797a39a72bb5c1323c65554132b53782">toString</a>(); }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;Mouse&quot;</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a01809.html#a604e9820df58088511cbf4d824855bf5">   50</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a01809.html#a604e9820df58088511cbf4d824855bf5">Transform2D::getDepth</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> depth; }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a01809.html#a3752902998306ad4fb2daecbfc1dc4e2">   52</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01809.html#a3752902998306ad4fb2daecbfc1dc4e2">Transform2D::setScale</a>(<span class="keyword">const</span> glm::vec2&amp; factors) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    scaleFactors = factors;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="a02581.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace input</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00086_html"><div class="ttname"><a href="a00086.html">Configuration.hpp</a></div></div>
-<div class="ttc" id="aa00170_html"><div class="ttname"><a href="a00170.html">DirectionalControl.hpp</a></div></div>
-<div class="ttc" id="aa00176_html"><div class="ttname"><a href="a00176.html">InputSystem.hpp</a></div></div>
-<div class="ttc" id="aa00368_html"><div class="ttname"><a href="a00368.html">Vector.hpp</a></div></div>
-<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">Encoder.hpp</a></div></div>
-<div class="ttc" id="aa01603_html_ga256ad8731e4356e845df035c22322e7e"><div class="ttname"><a href="a01603.html#ga256ad8731e4356e845df035c22322e7e">bl::math::normalized</a></div><div class="ttdeci">sf::Vector2&lt; T &gt; normalized(const sf::Vector2&lt; T &gt; &amp;vec)</div><div class="ttdoc">Computes and returns the normalization of the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="a00368_source.html#l00111">Vector.hpp:111</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02052_html_a1d6214a932ff7956a829cd357a8753e6"><div class="ttname"><a href="a02052.html#a1d6214a932ff7956a829cd357a8753e6">bl::input::DirectionalControl::saveToConfig</a></div><div class="ttdeci">void saveToConfig(const std::string &amp;prefix) const</div><div class="ttdoc">Saves this control config to the engine configuration store.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00036">DirectionalControl.cpp:36</a></div></div>
-<div class="ttc" id="aa02052_html_a356aefe82c54204083ec3bdec3692ba5"><div class="ttname"><a href="a02052.html#a356aefe82c54204083ec3bdec3692ba5">bl::input::DirectionalControl::loadFromConfig</a></div><div class="ttdeci">void loadFromConfig(const std::string &amp;prefix)</div><div class="ttdoc">Loads this control config from the engine configuration store.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00042">DirectionalControl.cpp:42</a></div></div>
-<div class="ttc" id="aa02052_html_a4fa867882847b1d4d33d9f51f281304f"><div class="ttname"><a href="a02052.html#a4fa867882847b1d4d33d9f51f281304f">bl::input::DirectionalControl::joystick</a></div><div class="ttdeci">Joystick joystick</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00024">DirectionalControl.hpp:24</a></div></div>
-<div class="ttc" id="aa02052_html_a5b31cecc6dc70f1d5cdf64212583f5f8"><div class="ttname"><a href="a02052.html#a5b31cecc6dc70f1d5cdf64212583f5f8">bl::input::DirectionalControl::normalizedDirection</a></div><div class="ttdeci">sf::Vector2f normalizedDirection</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00026">DirectionalControl.hpp:26</a></div></div>
-<div class="ttc" id="aa02052_html_aabce71fe4698bbac485b6f6fe08220db"><div class="ttname"><a href="a02052.html#aabce71fe4698bbac485b6f6fe08220db">bl::input::DirectionalControl::type</a></div><div class="ttdeci">Type type</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00022">DirectionalControl.hpp:22</a></div></div>
-<div class="ttc" id="aa02052_html_ab995388a3049a9ac9368ee171bc66436"><div class="ttname"><a href="a02052.html#ab995388a3049a9ac9368ee171bc66436">bl::input::DirectionalControl::process</a></div><div class="ttdeci">bool process(const InputSystem &amp;system, const sf::Event &amp;event)</div><div class="ttdoc">Processes the given event to potentially update the direction being inputted.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00024">DirectionalControl.cpp:24</a></div></div>
-<div class="ttc" id="aa02052_html_ad11d8007c9ffce98cf9c6f5d2a9d13e8"><div class="ttname"><a href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8">bl::input::DirectionalControl::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of input that drives the control.</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00020">DirectionalControl.hpp:20</a></div></div>
-<div class="ttc" id="aa02052_html_ad11d8007c9ffce98cf9c6f5d2a9d13e8a1162b85b7b993e2edf7da29dd8abf7e2"><div class="ttname"><a href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8a1162b85b7b993e2edf7da29dd8abf7e2">bl::input::DirectionalControl::Type::Joystick</a></div><div class="ttdeci">@ Joystick</div></div>
-<div class="ttc" id="aa02052_html_ad11d8007c9ffce98cf9c6f5d2a9d13e8af2a47c6809d88e175dade0ef7b16aa13"><div class="ttname"><a href="a02052.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8af2a47c6809d88e175dade0ef7b16aa13">bl::input::DirectionalControl::Type::Mouse</a></div><div class="ttdeci">@ Mouse</div></div>
-<div class="ttc" id="aa02052_html_ad630bc56babe07939fe19a2298d760f5"><div class="ttname"><a href="a02052.html#ad630bc56babe07939fe19a2298d760f5">bl::input::DirectionalControl::DirectionalControl</a></div><div class="ttdeci">DirectionalControl(bool joystickMode)</div><div class="ttdoc">Creates the directional control in either mouse or joystick mode.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00021">DirectionalControl.cpp:21</a></div></div>
-<div class="ttc" id="aa02052_html_aeb5c32964cb8cb5736da9d74d23a2687"><div class="ttname"><a href="a02052.html#aeb5c32964cb8cb5736da9d74d23a2687">bl::input::DirectionalControl::toString</a></div><div class="ttdeci">std::string toString() const</div><div class="ttdoc">Returns a user-readable string signifying what this control is.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00050">DirectionalControl.cpp:50</a></div></div>
-<div class="ttc" id="aa02060_html"><div class="ttname"><a href="a02060.html">bl::input::InputSystem</a></div><div class="ttdoc">System for managing complex input workflows and maintaining a stack of subscribers to input based eve...</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00023">InputSystem.hpp:23</a></div></div>
-<div class="ttc" id="aa02060_html_ac3793a789d990d2c102d402c70282b8e"><div class="ttname"><a href="a02060.html#ac3793a789d990d2c102d402c70282b8e">bl::input::InputSystem::mouseUnitVector</a></div><div class="ttdeci">const sf::Vector2f &amp; mouseUnitVector() const</div><div class="ttdoc">Returns a normalized vector representing the direction of the mouse from the window center....</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00047">InputSystem.cpp:47</a></div></div>
-<div class="ttc" id="aa02064_html"><div class="ttname"><a href="a02064.html">bl::input::Joystick</a></div><div class="ttdoc">Helper struct representing a full joystick for inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00018">Joystick.hpp:18</a></div></div>
-<div class="ttc" id="aa02064_html_a455471168fb90d1a40d6b0b50c677655"><div class="ttname"><a href="a02064.html#a455471168fb90d1a40d6b0b50c677655">bl::input::Joystick::cachedPosition</a></div><div class="ttdeci">sf::Vector2f cachedPosition</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00023">Joystick.hpp:23</a></div></div>
-<div class="ttc" id="aa02064_html_a6f9a916bde66a37f73bf6fb9c3633ad4"><div class="ttname"><a href="a02064.html#a6f9a916bde66a37f73bf6fb9c3633ad4">bl::input::Joystick::loadFromConfig</a></div><div class="ttdeci">void loadFromConfig(const std::string &amp;prefix)</div><div class="ttdoc">Loads this control config from the engine configuration store.</div><div class="ttdef"><b>Definition:</b> <a href="a01028_source.html#l00064">Joystick.cpp:64</a></div></div>
-<div class="ttc" id="aa02064_html_a797a39a72bb5c1323c65554132b53782"><div class="ttname"><a href="a02064.html#a797a39a72bb5c1323c65554132b53782">bl::input::Joystick::toString</a></div><div class="ttdeci">std::string toString() const</div><div class="ttdoc">Returns a user-readable string signifying what this control is.</div><div class="ttdef"><b>Definition:</b> <a href="a01028_source.html#l00049">Joystick.cpp:49</a></div></div>
-<div class="ttc" id="aa02064_html_acad0313b0dd6078d70d5617261970dde"><div class="ttname"><a href="a02064.html#acad0313b0dd6078d70d5617261970dde">bl::input::Joystick::saveToConfig</a></div><div class="ttdeci">void saveToConfig(const std::string &amp;prefix) const</div><div class="ttdoc">Saves this control config to the engine configuration store.</div><div class="ttdef"><b>Definition:</b> <a href="a01028_source.html#l00057">Joystick.cpp:57</a></div></div>
-<div class="ttc" id="aa02064_html_ad288355081789c3d9fa0328b5cad1c13"><div class="ttname"><a href="a02064.html#ad288355081789c3d9fa0328b5cad1c13">bl::input::Joystick::process</a></div><div class="ttdeci">bool process(const sf::Event &amp;event)</div><div class="ttdoc">Updates the cached position from the given event.</div><div class="ttdef"><b>Definition:</b> <a href="a01028_source.html#l00033">Joystick.cpp:33</a></div></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a01809.html#a07266bc3c3d31c0738718c357052d22e">   57</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01809.html#a3752902998306ad4fb2daecbfc1dc4e2">Transform2D::setScale</a>(<span class="keywordtype">float</span> factor) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    scaleFactors.x = factor;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    scaleFactors.y = factor;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a02581.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a01809.html#a1f03908098227fb33ab1d5bcf8607929">   63</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01809.html#a1f03908098227fb33ab1d5bcf8607929">Transform2D::scale</a>(<span class="keyword">const</span> glm::vec2&amp; factors) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    scaleFactors.x *= factors.x;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    scaleFactors.y *= factors.y;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a02581.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a01809.html#ade4a13c4a2dce2e570343a3935fa7584">   69</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01809.html#a1f03908098227fb33ab1d5bcf8607929">Transform2D::scale</a>(<span class="keywordtype">float</span> factor) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    scaleFactors.x *= factor;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    scaleFactors.y *= factor;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="a02581.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a01809.html#ad2072ac8f9f3ec43bc98db4c9bab7e65">   75</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01809.html#ad2072ac8f9f3ec43bc98db4c9bab7e65">Transform2D::setRotation</a>(<span class="keywordtype">float</span> angle) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    rotation = angle;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="a02581.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a01809.html#a3eb1b7be8e4f864a3d1257a1c5345879">   80</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01809.html#a3eb1b7be8e4f864a3d1257a1c5345879">Transform2D::rotate</a>(<span class="keywordtype">float</span> delta) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    rotation += delta;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="a02581.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a01809.html#ab9efe7a2fe1e498408e031bddc7379f8">   85</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01809.html#ab9efe7a2fe1e498408e031bddc7379f8">Transform2D::refreshDescriptor</a>(glm::mat4&amp; dest) { dest = <a class="code" href="a01809.html#a7afc4c3ac7380aa7355ad699fbbc00f7">getMatrix</a>(); }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="a01809.html#a7afc4c3ac7380aa7355ad699fbbc00f7">   87</a></span>&#160;glm::mat4 <a class="code" href="a01809.html#a7afc4c3ac7380aa7355ad699fbbc00f7">Transform2D::getMatrix</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    glm::mat4 result = glm::translate(glm::vec3(position, depth));</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    result           = glm::scale(result, glm::vec3(scaleFactors, 1.f));</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    result           = glm::rotate(result, glm::radians(rotation), <a class="code" href="a02593.html#a272158d6c186bc30ed036b51eea99884">rc::Config::Rotate2DAxis</a>);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    result           = glm::translate(result, glm::vec3(-origin, 0.f));</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="a01809.html#a6338af5111299e1290bd1f0d8e6adc12">   95</a></span>&#160;glm::mat4 <a class="code" href="a01809.html#a6338af5111299e1290bd1f0d8e6adc12">Transform2D::getInverse</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> glm::inverse(<a class="code" href="a01809.html#a7afc4c3ac7380aa7355ad699fbbc00f7">getMatrix</a>()); }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;} <span class="comment">// namespace com</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00743_html"><div class="ttname"><a href="a00743.html">VulkanState.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01809_html_a087f789c35a49955eefa3e33c1e113c3"><div class="ttname"><a href="a01809.html#a087f789c35a49955eefa3e33c1e113c3">bl::com::Transform2D::setDepth</a></div><div class="ttdeci">void setDepth(float depth)</div><div class="ttdoc">Sets the depth of the transform on the z-axis. Affects render order only. Default is 0.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00040">Transform2D.cpp:40</a></div></div>
+<div class="ttc" id="aa01809_html_a0f05c98962f8acfe46a7820f2858e55b"><div class="ttname"><a href="a01809.html#a0f05c98962f8acfe46a7820f2858e55b">bl::com::Transform2D::move</a></div><div class="ttdeci">void move(const glm::vec2 &amp;delta)</div><div class="ttdoc">Applies an offset to the current position.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00035">Transform2D.cpp:35</a></div></div>
+<div class="ttc" id="aa01809_html_a141360b9acc8f4e62527411b98636d8b"><div class="ttname"><a href="a01809.html#a141360b9acc8f4e62527411b98636d8b">bl::com::Transform2D::Transform2D</a></div><div class="ttdeci">Transform2D()</div><div class="ttdoc">Creates a new transform with sane defaults.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00011">Transform2D.cpp:11</a></div></div>
+<div class="ttc" id="aa01809_html_a1f03908098227fb33ab1d5bcf8607929"><div class="ttname"><a href="a01809.html#a1f03908098227fb33ab1d5bcf8607929">bl::com::Transform2D::scale</a></div><div class="ttdeci">void scale(const glm::vec2 &amp;factors)</div><div class="ttdoc">Scales the current scale factors by the given amount.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00063">Transform2D.cpp:63</a></div></div>
+<div class="ttc" id="aa01809_html_a3752902998306ad4fb2daecbfc1dc4e2"><div class="ttname"><a href="a01809.html#a3752902998306ad4fb2daecbfc1dc4e2">bl::com::Transform2D::setScale</a></div><div class="ttdeci">void setScale(const glm::vec2 &amp;factors)</div><div class="ttdoc">Sets the scale factors of the transform.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00052">Transform2D.cpp:52</a></div></div>
+<div class="ttc" id="aa01809_html_a3eb1b7be8e4f864a3d1257a1c5345879"><div class="ttname"><a href="a01809.html#a3eb1b7be8e4f864a3d1257a1c5345879">bl::com::Transform2D::rotate</a></div><div class="ttdeci">void rotate(float delta)</div><div class="ttdoc">Applies the given rotation to the current rotation.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00080">Transform2D.cpp:80</a></div></div>
+<div class="ttc" id="aa01809_html_a445fc48d0ff1b5d88cb80b3ee0377151"><div class="ttname"><a href="a01809.html#a445fc48d0ff1b5d88cb80b3ee0377151">bl::com::Transform2D::addDepth</a></div><div class="ttdeci">void addDepth(float delta)</div><div class="ttdoc">Adds the given value to the current depth.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00045">Transform2D.cpp:45</a></div></div>
+<div class="ttc" id="aa01809_html_a604e9820df58088511cbf4d824855bf5"><div class="ttname"><a href="a01809.html#a604e9820df58088511cbf4d824855bf5">bl::com::Transform2D::getDepth</a></div><div class="ttdeci">float getDepth() const</div><div class="ttdoc">Returns the current depth of the transform.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00050">Transform2D.cpp:50</a></div></div>
+<div class="ttc" id="aa01809_html_a6338af5111299e1290bd1f0d8e6adc12"><div class="ttname"><a href="a01809.html#a6338af5111299e1290bd1f0d8e6adc12">bl::com::Transform2D::getInverse</a></div><div class="ttdeci">glm::mat4 getInverse() const</div><div class="ttdoc">Returns the inverse transform matrix.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00095">Transform2D.cpp:95</a></div></div>
+<div class="ttc" id="aa01809_html_a7afc4c3ac7380aa7355ad699fbbc00f7"><div class="ttname"><a href="a01809.html#a7afc4c3ac7380aa7355ad699fbbc00f7">bl::com::Transform2D::getMatrix</a></div><div class="ttdeci">glm::mat4 getMatrix() const</div><div class="ttdoc">Returns the transform matrix.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00087">Transform2D.cpp:87</a></div></div>
+<div class="ttc" id="aa01809_html_ab9efe7a2fe1e498408e031bddc7379f8"><div class="ttname"><a href="a01809.html#ab9efe7a2fe1e498408e031bddc7379f8">bl::com::Transform2D::refreshDescriptor</a></div><div class="ttdeci">void refreshDescriptor(glm::mat4 &amp;dest)</div><div class="ttdoc">Populates the given 4x4 matrix to apply this transform.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00085">Transform2D.cpp:85</a></div></div>
+<div class="ttc" id="aa01809_html_ad2072ac8f9f3ec43bc98db4c9bab7e65"><div class="ttname"><a href="a01809.html#ad2072ac8f9f3ec43bc98db4c9bab7e65">bl::com::Transform2D::setRotation</a></div><div class="ttdeci">void setRotation(float angle)</div><div class="ttdoc">Sets the rotation of the transform.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00075">Transform2D.cpp:75</a></div></div>
+<div class="ttc" id="aa01809_html_ae3f78fc5d6a6aa93a47dcc96f394e798"><div class="ttname"><a href="a01809.html#ae3f78fc5d6a6aa93a47dcc96f394e798">bl::com::Transform2D::setPosition</a></div><div class="ttdeci">void setPosition(const glm::vec2 &amp;position)</div><div class="ttdoc">Sets the position of this transform.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00030">Transform2D.cpp:30</a></div></div>
+<div class="ttc" id="aa01809_html_ae468c9390b5875d960ab40511efe7460"><div class="ttname"><a href="a01809.html#ae468c9390b5875d960ab40511efe7460">bl::com::Transform2D::setOrigin</a></div><div class="ttdeci">void setOrigin(const glm::vec2 &amp;origin)</div><div class="ttdoc">Sets the origin to perform transforms around.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00025">Transform2D.cpp:25</a></div></div>
+<div class="ttc" id="aa02581_html_a285b92a8da73d33a41a29540761d68bf"><div class="ttname"><a href="a02581.html#a285b92a8da73d33a41a29540761d68bf">bl::rc::rcom::DescriptorComponentBase&lt; Transform2D, glm::mat4 &gt;::markDirty</a></div><div class="ttdeci">void markDirty()</div><div class="ttdoc">Call this when the component is modified.</div><div class="ttdef"><b>Definition:</b> <a href="a00527_source.html#l00067">DescriptorComponentBase.hpp:130</a></div></div>
+<div class="ttc" id="aa02593_html_a272158d6c186bc30ed036b51eea99884"><div class="ttname"><a href="a02593.html#a272158d6c186bc30ed036b51eea99884">bl::rc::Config::Rotate2DAxis</a></div><div class="ttdeci">static constexpr glm::vec3 Rotate2DAxis</div><div class="ttdef"><b>Definition:</b> <a href="a04506_source.html#l00024">Config.hpp:24</a></div></div>
+<div class="ttc" id="aa04434_html"><div class="ttname"><a href="a04434.html">Transform2D.hpp</a></div></div>
+<div class="ttc" id="aa04506_html"><div class="ttname"><a href="a04506.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

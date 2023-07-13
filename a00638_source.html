@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Scenes/Key.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Resources/ShaderModuleCache.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,91 +66,62 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_0f0c454ab916ef2487b68a1bc3be1485.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Key.hpp</div>  </div>
+<div class="title">ShaderModuleCache.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00638.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_SCENES_KEY_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_SCENES_KEY_HPP</span></div>
+<a href="a00638.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_SHADERMODULECACHE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RESOURCES_SHADERMODULECACHE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00686.html">BLIB/Render/UpdateSpeed.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00926.html">BLIB/Util/HashCombine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00977.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>vk</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>scene</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02784.html">   22</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02784.html">Key</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">   23</a></span>&#160;    <a class="code" href="a01607.html#ga3f6cc977764514925162c6fd181a261a">UpdateSpeed</a> <a class="code" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">   24</a></span>&#160;    std::uint32_t <a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02784.html#a1869d13538b28d2c38991bca73369cc3">   29</a></span>&#160;    <a class="code" href="a02784.html#a1869d13538b28d2c38991bca73369cc3">Key</a>()</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    : <a class="code" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a>(<a class="code" href="a01607.html#ga3f6cc977764514925162c6fd181a261a">UpdateSpeed</a>::<a class="code" href="a01607.html#gga3f6cc977764514925162c6fd181a261aa971fd8cc345d8bd9f92e9f7d88fdf20c">Dynamic</a>)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    , <a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a>(<a class="code" href="a01649.html">std</a>::numeric_limits&lt;<a class="code" href="a01649.html">std</a>::uint32_t&gt;::max()) {}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02784.html#a6f272b30659d3f2d3bb8512f11ac0e7b">   39</a></span>&#160;    <a class="code" href="a02784.html#a6f272b30659d3f2d3bb8512f11ac0e7b">Key</a>(<a class="code" href="a01607.html#ga3f6cc977764514925162c6fd181a261a">UpdateSpeed</a> <a class="code" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a>, std::uint32_t <a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a>)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    : <a class="code" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a>(<a class="code" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a>)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    , <a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a>(<a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a>) {}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a02784.html#ab3a1dc16a24a5f7870a3bf07c87c8d38">   49</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a02784.html#ab3a1dc16a24a5f7870a3bf07c87c8d38">operator==</a>(<span class="keyword">const</span> <a class="code" href="a02784.html">Key</a>&amp; right)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a> == right.<a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a> &amp;&amp; <a class="code" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a> == right.<a class="code" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02784.html#a16ba075e45e46c85eb1a9a2cec7b814a">   59</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a02784.html#a16ba075e45e46c85eb1a9a2cec7b814a">operator!=</a>(<span class="keyword">const</span> <a class="code" href="a02784.html">Key</a>&amp; right)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a> != right.<a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a> || <a class="code" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a> != right.<a class="code" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a02784.html#a08f7594cce9e9ff5ee6a33f02d00be6d">   69</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a02784.html#a08f7594cce9e9ff5ee6a33f02d00be6d">operator&lt;</a>(<span class="keyword">const</span> <a class="code" href="a02784.html">Key</a>&amp; right)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a> &lt; right.<a class="code" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a> || <a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a> &lt; right.<a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;};</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace scene</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01649.html">std</a></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;{</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a02788.html">   81</a></span>&#160;<span class="keyword">struct </span>hash&lt;<a class="code" href="a01623.html">bl</a>::gfx::scene::Key&gt; {</div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a02788.html#a8a4b546a39576a0f5da23ba81d23e44b">   82</a></span>&#160;    std::size_t <a class="code" href="a02788.html#a8a4b546a39576a0f5da23ba81d23e44b">operator()</a>(<span class="keyword">const</span> <a class="code" href="a02784.html">bl::gfx::scene::Key</a>&amp; key)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a01678.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a>(hash&lt;uint32_t&gt;()(key.<a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a>),</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                     hash&lt;bl::gfx::UpdateSpeed&gt;()(key.<a class="code" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a>));</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    }</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;};</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace std</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00686_html"><div class="ttname"><a href="a00686.html">UpdateSpeed.hpp</a></div></div>
-<div class="ttc" id="aa00926_html"><div class="ttname"><a href="a00926.html">HashCombine.hpp</a></div></div>
-<div class="ttc" id="aa01607_html_ga3f6cc977764514925162c6fd181a261a"><div class="ttname"><a href="a01607.html#ga3f6cc977764514925162c6fd181a261a">bl::gfx::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa01607_html_gga3f6cc977764514925162c6fd181a261aa971fd8cc345d8bd9f92e9f7d88fdf20c"><div class="ttname"><a href="a01607.html#gga3f6cc977764514925162c6fd181a261aa971fd8cc345d8bd9f92e9f7d88fdf20c">bl::gfx::UpdateSpeed::Dynamic</a></div><div class="ttdeci">@ Dynamic</div><div class="ttdoc">Objects or data are expected to update once per frame or similar.</div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01649_html"><div class="ttname"><a href="a01649.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00422_source.html#l00038">Node.hpp:39</a></div></div>
-<div class="ttc" id="aa01678_html_a867dbeaa40c3e27ca66b3217256cd351"><div class="ttname"><a href="a01678.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a></div><div class="ttdeci">std::size_t hashCombine(std::size_t right, std::size_t left)</div><div class="ttdef"><b>Definition:</b> <a href="a00926_source.html#l00011">HashCombine.hpp:11</a></div></div>
-<div class="ttc" id="aa02784_html"><div class="ttname"><a href="a02784.html">bl::gfx::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00022">Key.hpp:22</a></div></div>
-<div class="ttc" id="aa02784_html_a08f7594cce9e9ff5ee6a33f02d00be6d"><div class="ttname"><a href="a02784.html#a08f7594cce9e9ff5ee6a33f02d00be6d">bl::gfx::scene::Key::operator&lt;</a></div><div class="ttdeci">constexpr bool operator&lt;(const Key &amp;right) const</div><div class="ttdoc">Comparator for sorting keys.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00069">Key.hpp:69</a></div></div>
-<div class="ttc" id="aa02784_html_a16ba075e45e46c85eb1a9a2cec7b814a"><div class="ttname"><a href="a02784.html#a16ba075e45e46c85eb1a9a2cec7b814a">bl::gfx::scene::Key::operator!=</a></div><div class="ttdeci">constexpr bool operator!=(const Key &amp;right) const</div><div class="ttdoc">Tests for inequality with the given key.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00059">Key.hpp:59</a></div></div>
-<div class="ttc" id="aa02784_html_a1869d13538b28d2c38991bca73369cc3"><div class="ttname"><a href="a02784.html#a1869d13538b28d2c38991bca73369cc3">bl::gfx::scene::Key::Key</a></div><div class="ttdeci">Key()</div><div class="ttdoc">Creates an invalid key.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00029">Key.hpp:29</a></div></div>
-<div class="ttc" id="aa02784_html_a4445e0360b838111bbb0a3740c3eae5c"><div class="ttname"><a href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">bl::gfx::scene::Key::sceneId</a></div><div class="ttdeci">std::uint32_t sceneId</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00024">Key.hpp:24</a></div></div>
-<div class="ttc" id="aa02784_html_a6a466e339347a8825f0e76e2ea359c4c"><div class="ttname"><a href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">bl::gfx::scene::Key::updateFreq</a></div><div class="ttdeci">UpdateSpeed updateFreq</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00023">Key.hpp:23</a></div></div>
-<div class="ttc" id="aa02784_html_a6f272b30659d3f2d3bb8512f11ac0e7b"><div class="ttname"><a href="a02784.html#a6f272b30659d3f2d3bb8512f11ac0e7b">bl::gfx::scene::Key::Key</a></div><div class="ttdeci">Key(UpdateSpeed updateFreq, std::uint32_t sceneId)</div><div class="ttdoc">Creates the key from the given components.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00039">Key.hpp:39</a></div></div>
-<div class="ttc" id="aa02784_html_ab3a1dc16a24a5f7870a3bf07c87c8d38"><div class="ttname"><a href="a02784.html#ab3a1dc16a24a5f7870a3bf07c87c8d38">bl::gfx::scene::Key::operator==</a></div><div class="ttdeci">constexpr bool operator==(const Key &amp;right) const</div><div class="ttdoc">Tests for equality with the given key.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00049">Key.hpp:49</a></div></div>
-<div class="ttc" id="aa02788_html_a8a4b546a39576a0f5da23ba81d23e44b"><div class="ttname"><a href="a02788.html#a8a4b546a39576a0f5da23ba81d23e44b">std::hash&lt; bl::gfx::scene::Key &gt;::operator()</a></div><div class="ttdeci">std::size_t operator()(const bl::gfx::scene::Key &amp;key) const</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00082">Key.hpp:82</a></div></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02769.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02769.html">ShaderModuleCache</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    VkShaderModule <a class="code" href="a02769.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<span class="keyword">const</span> std::string&amp; path);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    VkDevice device;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    std::unordered_map&lt;std::string, VkShaderModule&gt; cache;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a02769.html">ShaderModuleCache</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> init(VkDevice device);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a02769.html#a6ee612d03dbd6864b495f39f45c05513">   42</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a02981.html">vk::VulkanState</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00977_html"><div class="ttname"><a href="a00977.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02769_html"><div class="ttname"><a href="a02769.html">bl::rc::res::ShaderModuleCache</a></div><div class="ttdoc">Basic cache for shaders to avoid re-loading/re-compiling the same shaders.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00024">ShaderModuleCache.hpp:24</a></div></div>
+<div class="ttc" id="aa02769_html_ad10d56d22b2735a5c105b46130ca3bad"><div class="ttname"><a href="a02769.html#ad10d56d22b2735a5c105b46130ca3bad">bl::rc::res::ShaderModuleCache::loadShader</a></div><div class="ttdeci">VkShaderModule loadShader(const std::string &amp;path)</div><div class="ttdoc">Loads a new shader.</div><div class="ttdef"><b>Definition:</b> <a href="a01370_source.html#l00016">ShaderModuleCache.cpp:16</a></div></div>
+<div class="ttc" id="aa02981_html"><div class="ttname"><a href="a02981.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00036">VulkanState.hpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

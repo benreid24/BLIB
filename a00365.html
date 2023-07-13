@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Math/Trig.hpp File Reference</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderers/RenderSettings.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,50 +66,43 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_cd30ee9e4ae7d59b03a4595496d1006b.html">Renderers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Trig.hpp File Reference</div>  </div>
+<div class="title">RenderSettings.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00359_source.html">BLIB/Math/Constants.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00791_source.html">BLIB/Resources/Loader.hpp</a>&gt;</code><br />
+<code>#include &lt;SFML/Graphics.hpp&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
 </div>
 <p><a href="a00365_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a01623"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01623.html">bl</a></td></tr>
-<tr class="memdesc:a01623"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01643"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01643.html">bl::math</a></td></tr>
-<tr class="memdesc:a01643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of functions and constants for doing math. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02357.html">bl::gui::RenderSettings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data class to override rendering settings for <a class="el" href="a02325.html" title="Top level class for creating a graphical user interface.">GUI</a> Elements. Overrides can be done by group or id. All fields are optional. Fields left empty will be defaulted by the renderer. Not all fields are valid for all <a class="el" href="a02261.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> types.  <a href="a02357.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:gae8e482156412ed87dc2d91572ee817ab"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01603.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a> (float degrees)</td></tr>
-<tr class="memdesc:gae8e482156412ed87dc2d91572ee817ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the cosine of the given angle using cached values. Values are cached in quarter degree increments.  <a href="a01603.html#gae8e482156412ed87dc2d91572ee817ab">More...</a><br /></td></tr>
-<tr class="separator:gae8e482156412ed87dc2d91572ee817ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01603.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a> (float degrees)</td></tr>
-<tr class="memdesc:ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the sine of the given angle using cached values. Values are cached in quarter degree increments.  <a href="a01603.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">More...</a><br /></td></tr>
-<tr class="separator:ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2f1f77fa956c6d37dd2761746ed513d7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01603.html#ga2f1f77fa956c6d37dd2761746ed513d7">bl::math::radiansToDegrees</a> (float radians)</td></tr>
-<tr class="memdesc:ga2f1f77fa956c6d37dd2761746ed513d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an angle in radians to degrees.  <a href="a01603.html#ga2f1f77fa956c6d37dd2761746ed513d7">More...</a><br /></td></tr>
-<tr class="separator:ga2f1f77fa956c6d37dd2761746ed513d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5ba29ca07fceceb0c2753dccbe5d50db"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01603.html#ga5ba29ca07fceceb0c2753dccbe5d50db">bl::math::degreesToRadians</a> (float degrees)</td></tr>
-<tr class="memdesc:ga5ba29ca07fceceb0c2753dccbe5d50db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an angle in degrees to radians.  <a href="a01603.html#ga5ba29ca07fceceb0c2753dccbe5d50db">More...</a><br /></td></tr>
-<tr class="separator:ga5ba29ca07fceceb0c2753dccbe5d50db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a01628"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01628.html">bl</a></td></tr>
+<tr class="memdesc:a01628"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01653"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01653.html">bl::gui</a></td></tr>
+<tr class="memdesc:a01653"><td class="mdescLeft">&#160;</td><td class="mdescRight">A window based graphical user interface. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

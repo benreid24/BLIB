@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::parser::CommentSkipper Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,34 +66,287 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01623.html">bl</a></li><li class="navelem"><a class="el" href="a01646.html">gfx</a></li><li class="navelem"><a class="el" href="a01656.html">com</a></li><li class="navelem"><a class="el" href="a02504.html">Mesh</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01628.html">bl</a></li><li class="navelem"><a class="el" href="a01662.html">parser</a></li><li class="navelem"><a class="el" href="a02501.html">CommentSkipper</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a02498.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gfx::com::Mesh Member List</div>  </div>
+<div class="title">bl::parser::CommentSkipper Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02504.html">bl::gfx::com::Mesh</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02500.html#a459ca8f858db42fbf85c2c15970cb1d8">containsTransparency</a></td><td class="entry"><a class="el" href="a02500.html">bl::gfx::com::DrawableBase</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02504.html#ab6ac64586c48caa716a299297b6bfa48">create</a>(vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</td><td class="entry"><a class="el" href="a02504.html">bl::gfx::com::Mesh</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02500.html#aa474ce857aa6271a55272c8741259b5f">DrawableBase</a>()</td><td class="entry"><a class="el" href="a02500.html">bl::gfx::com::DrawableBase</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02500.html#a901d4c9327c61e3218a5bb20dbb9fa61">drawParams</a></td><td class="entry"><a class="el" href="a02500.html">bl::gfx::com::DrawableBase</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02504.html#aeca9575b33bd0abb36aab6382c11d550">gpuBuffer</a></td><td class="entry"><a class="el" href="a02504.html">bl::gfx::com::Mesh</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02500.html#a67a3b883d6a4f7916ab03cfecc58d5a4">pipeline</a></td><td class="entry"><a class="el" href="a02500.html">bl::gfx::com::DrawableBase</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02500.html#a7407e09e25da3d28d1ba699e66a37fdf">PipelineNotSet</a></td><td class="entry"><a class="el" href="a02500.html">bl::gfx::com::DrawableBase</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02500.html#a3c616f6ba0d3c648f57084ae9e17ed7b">rebucket</a>()</td><td class="entry"><a class="el" href="a02500.html">bl::gfx::com::DrawableBase</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02500.html#ac17a5b5ea596e06510ffbe04bb9367f0">sceneRef</a></td><td class="entry"><a class="el" href="a02500.html">bl::gfx::com::DrawableBase</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02500.html#af03abf51be93bce1bc18c1c01ba1daef">setHidden</a>(bool hide)</td><td class="entry"><a class="el" href="a02500.html">bl::gfx::com::DrawableBase</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02500.html#acf94ffef244786e36e3c4ff834f76c21">setPipeline</a>(std::uint32_t pipeline)</td><td class="entry"><a class="el" href="a02500.html">bl::gfx::com::DrawableBase</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02500.html#afadd89991ac2d6388226fec95e3a595d">syncDrawParamsToScene</a>()</td><td class="entry"><a class="el" href="a02500.html">bl::gfx::com::DrawableBase</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Basic comment and whitespace skipper for more common use cases.  
+ <a href="a02501.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00488_source.html">CommentSkipper.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::parser::CommentSkipper:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02501.png" usemap="#bl::parser::CommentSkipper_map" alt=""/>
+  <map id="bl::parser::CommentSkipper_map" name="bl::parser::CommentSkipper_map">
+<area href="a02553.html" title="Default skipper that skips over all whitespace beginning with the next token Note that this will not ..." alt="bl::parser::WhitespaceSkipper" shape="rect" coords="0,56,179,80"/>
+<area href="a02521.html" title="Interface for custom parsers to skip past unwanted characters such as whitespace or comments." alt="bl::parser::ISkipper" shape="rect" coords="0,0,179,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ac94262dbc4b796277c22a958aa727323"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a02521.html">ISkipper</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02521.html#ac94262dbc4b796277c22a958aa727323">Ptr</a></td></tr>
+<tr class="separator:ac94262dbc4b796277c22a958aa727323"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ace9972e7d2cf601a7050903ff252d590"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02501.html#ace9972e7d2cf601a7050903ff252d590">CommentSkipper</a> (const std::string &amp;lineCommentOpen, const std::string &amp;blockCommentOpen, const std::string &amp;blockCommentClose)</td></tr>
+<tr class="memdesc:ace9972e7d2cf601a7050903ff252d590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Comment Skipper object. Leave arguments blank to ignore.  <a href="a02501.html#ace9972e7d2cf601a7050903ff252d590">More...</a><br /></td></tr>
+<tr class="separator:ace9972e7d2cf601a7050903ff252d590"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01572efe60524d50820add2caa2f8a8c"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02501.html#a01572efe60524d50820add2caa2f8a8c">~CommentSkipper</a> ()=default</td></tr>
+<tr class="memdesc:a01572efe60524d50820add2caa2f8a8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Comment Skipper object.  <a href="a02501.html#a01572efe60524d50820add2caa2f8a8c">More...</a><br /></td></tr>
+<tr class="separator:a01572efe60524d50820add2caa2f8a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8a968db6095fab17e8b637c550671fd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02501.html#ad8a968db6095fab17e8b637c550671fd">skip</a> (<a class="el" href="a02545.html">Stream</a> &amp;stream) const override</td></tr>
+<tr class="memdesc:ad8a968db6095fab17e8b637c550671fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skips whitespace and comments.  <a href="a02501.html#ad8a968db6095fab17e8b637c550671fd">More...</a><br /></td></tr>
+<tr class="separator:ad8a968db6095fab17e8b637c550671fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a02cac5c7b7be1a6a5d90374a2aa295aa"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02521.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02501.html#a02cac5c7b7be1a6a5d90374a2aa295aa">create</a> (const std::string &amp;lineCommentOpen, const std::string &amp;blockCommentOpen, const std::string &amp;blockCommentClose)</td></tr>
+<tr class="memdesc:a02cac5c7b7be1a6a5d90374a2aa295aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to create a <a class="el" href="a02501.html" title="Basic comment and whitespace skipper for more common use cases.">CommentSkipper</a> wrapped in an <a class="el" href="a02521.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a>.  <a href="a02501.html#a02cac5c7b7be1a6a5d90374a2aa295aa">More...</a><br /></td></tr>
+<tr class="separator:a02cac5c7b7be1a6a5d90374a2aa295aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17380f013a7b0b8bca4839683da5742b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02521.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02553.html#a17380f013a7b0b8bca4839683da5742b">create</a> ()</td></tr>
+<tr class="separator:a17380f013a7b0b8bca4839683da5742b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Basic comment and whitespace skipper for more common use cases. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00488_source.html#l00015">15</a> of file <a class="el" href="a00488_source.html">CommentSkipper.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ac94262dbc4b796277c22a958aa727323"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac94262dbc4b796277c22a958aa727323">&#9670;&nbsp;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a02521.html">ISkipper</a>&gt; <a class="el" href="a02521.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00494_source.html#l00019">19</a> of file <a class="el" href="a00494_source.html">ISkipper.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ace9972e7d2cf601a7050903ff252d590"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace9972e7d2cf601a7050903ff252d590">&#9670;&nbsp;</a></span>CommentSkipper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::parser::CommentSkipper::CommentSkipper </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>lineCommentOpen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>blockCommentOpen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>blockCommentClose</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Comment Skipper object. Leave arguments blank to ignore. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lineCommentOpen</td><td>String that identifies the opening of a line comment </td></tr>
+    <tr><td class="paramname">blockCommentOpen</td><td>String that opens a block comment </td></tr>
+    <tr><td class="paramname">blockCommentClose</td><td>String that closes a block comment </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01268_source.html#l00007">7</a> of file <a class="el" href="a01268_source.html">CommentSkipper.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a01572efe60524d50820add2caa2f8a8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01572efe60524d50820add2caa2f8a8c">&#9670;&nbsp;</a></span>~CommentSkipper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::parser::CommentSkipper::~CommentSkipper </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroy the Comment Skipper object. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a17380f013a7b0b8bca4839683da5742b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17380f013a7b0b8bca4839683da5742b">&#9670;&nbsp;</a></span>create() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="a02521.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a> bl::parser::WhitespaceSkipper::create </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00509_source.html#l00020">20</a> of file <a class="el" href="a00509_source.html">WhitespaceSkipper.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a02cac5c7b7be1a6a5d90374a2aa295aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02cac5c7b7be1a6a5d90374a2aa295aa">&#9670;&nbsp;</a></span>create() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02521.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a> bl::parser::CommentSkipper::create </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>lineCommentOpen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>blockCommentOpen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>blockCommentClose</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper function to create a <a class="el" href="a02501.html" title="Basic comment and whitespace skipper for more common use cases.">CommentSkipper</a> wrapped in an <a class="el" href="a02521.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a>. </p>
+<dl class="section see"><dt>See also</dt><dd>CommentSkiper() </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01268_source.html#l00014">14</a> of file <a class="el" href="a01268_source.html">CommentSkipper.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad8a968db6095fab17e8b637c550671fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8a968db6095fab17e8b637c550671fd">&#9670;&nbsp;</a></span>skip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::parser::CommentSkipper::skip </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02545.html">Stream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Skips whitespace and comments. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to update </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="a02553.html#a77fb74e134d21e95a59ef5bb4686dc74">bl::parser::WhitespaceSkipper</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01268_source.html#l00021">21</a> of file <a class="el" href="a01268_source.html">CommentSkipper.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Parser/<a class="el" href="a00488_source.html">CommentSkipper.hpp</a></li>
+<li>src/Parser/<a class="el" href="a01268_source.html">CommentSkipper.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:11 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

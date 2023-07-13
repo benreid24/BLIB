@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Buffers/StaticSSBO.hpp File Reference</title>
+<title>BLIB: include/BLIB/Math/Vector.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,47 +66,113 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_77bce416c82938c0e86eeeeb6fb338bb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">StaticSSBO.hpp File Reference</div>  </div>
+<div class="title">Vector.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00677_source.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00689_source.html">BLIB/Render/Vulkan/AlignedBuffer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00698_source.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00713_source.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00443_source.html">BLIB/Math/Trig.hpp</a>&gt;</code><br />
+<code>#include &lt;SFML/System/Vector2.hpp&gt;</code><br />
+<code>#include &lt;SFML/System/Vector3.hpp&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
 </div>
 <p><a href="a00446_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02444.html">bl::gfx::buf::StaticSSBO&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local SSBO intended for use with per-object data for static objects.  <a href="a02444.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01623"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01623.html">bl</a></td></tr>
-<tr class="memdesc:a01623"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01628"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01628.html">bl</a></td></tr>
+<tr class="memdesc:a01628"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01646"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01646.html">bl::gfx</a></td></tr>
-<tr class="memdesc:a01646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of graphical utilities and functionality. <br /></td></tr>
+<tr class="memitem:a01658"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01658.html">bl::math</a></td></tr>
+<tr class="memdesc:a01658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of functions and constants for doing math. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01652"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01652.html">bl::gfx::buf</a></td></tr>
-<tr class="memdesc:a01652"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of common buffer classes. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga60c0e0ba5e36a075e07f8eee988c0a34"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga60c0e0ba5e36a075e07f8eee988c0a34"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#ga60c0e0ba5e36a075e07f8eee988c0a34">bl::math::magnitudeSquared</a> (const sf::Vector2&lt; T &gt; &amp;vec)</td></tr>
+<tr class="memdesc:ga60c0e0ba5e36a075e07f8eee988c0a34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the squared magnitude of the given vector.  <a href="a01609.html#ga60c0e0ba5e36a075e07f8eee988c0a34">More...</a><br /></td></tr>
+<tr class="separator:ga60c0e0ba5e36a075e07f8eee988c0a34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga79bcdfca01f1876845dd2daef0a7588d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga79bcdfca01f1876845dd2daef0a7588d"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#ga79bcdfca01f1876845dd2daef0a7588d">bl::math::magnitude</a> (const sf::Vector2&lt; T &gt; &amp;vec)</td></tr>
+<tr class="memdesc:ga79bcdfca01f1876845dd2daef0a7588d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the magnitude of the given vector. Uses std::sqrt, prefer squaredMagnitude.  <a href="a01609.html#ga79bcdfca01f1876845dd2daef0a7588d">More...</a><br /></td></tr>
+<tr class="separator:ga79bcdfca01f1876845dd2daef0a7588d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga65094418d25a1c6bc428a338632af7cf"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga65094418d25a1c6bc428a338632af7cf"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#ga65094418d25a1c6bc428a338632af7cf">bl::math::distanceSquared</a> (const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2)</td></tr>
+<tr class="memdesc:ga65094418d25a1c6bc428a338632af7cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the squared distance between the two vectors.  <a href="a01609.html#ga65094418d25a1c6bc428a338632af7cf">More...</a><br /></td></tr>
+<tr class="separator:ga65094418d25a1c6bc428a338632af7cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab0ce3416e1716b4d7d4aed270abb84a8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gab0ce3416e1716b4d7d4aed270abb84a8"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#gab0ce3416e1716b4d7d4aed270abb84a8">bl::math::distance</a> (const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2)</td></tr>
+<tr class="memdesc:gab0ce3416e1716b4d7d4aed270abb84a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the distance between two vectors.  <a href="a01609.html#gab0ce3416e1716b4d7d4aed270abb84a8">More...</a><br /></td></tr>
+<tr class="separator:gab0ce3416e1716b4d7d4aed270abb84a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaab6474ad3fbe3b2b3bb0abcf5dc530fb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaab6474ad3fbe3b2b3bb0abcf5dc530fb"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#gaab6474ad3fbe3b2b3bb0abcf5dc530fb">bl::math::manhattanDistance</a> (const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2)</td></tr>
+<tr class="memdesc:gaab6474ad3fbe3b2b3bb0abcf5dc530fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the manhattan distance between two vectors.  <a href="a01609.html#gaab6474ad3fbe3b2b3bb0abcf5dc530fb">More...</a><br /></td></tr>
+<tr class="separator:gaab6474ad3fbe3b2b3bb0abcf5dc530fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabe5a1e6b62ee715c30c7d49051a8d3fc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gabe5a1e6b62ee715c30c7d49051a8d3fc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">bl::math::normalize</a> (sf::Vector2&lt; T &gt; &amp;vec)</td></tr>
+<tr class="memdesc:gabe5a1e6b62ee715c30c7d49051a8d3fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalizes the given vector in place.  <a href="a01609.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">More...</a><br /></td></tr>
+<tr class="separator:gabe5a1e6b62ee715c30c7d49051a8d3fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga256ad8731e4356e845df035c22322e7e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga256ad8731e4356e845df035c22322e7e"><td class="memTemplItemLeft" align="right" valign="top">sf::Vector2&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#ga256ad8731e4356e845df035c22322e7e">bl::math::normalized</a> (const sf::Vector2&lt; T &gt; &amp;vec)</td></tr>
+<tr class="memdesc:ga256ad8731e4356e845df035c22322e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes and returns the normalization of the given vector.  <a href="a01609.html#ga256ad8731e4356e845df035c22322e7e">More...</a><br /></td></tr>
+<tr class="separator:ga256ad8731e4356e845df035c22322e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac8b2038a9402b7f30b43233c62229a50"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gac8b2038a9402b7f30b43233c62229a50"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#gac8b2038a9402b7f30b43233c62229a50">bl::math::dot</a> (const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2)</td></tr>
+<tr class="memdesc:gac8b2038a9402b7f30b43233c62229a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the dot product of the two given vectors.  <a href="a01609.html#gac8b2038a9402b7f30b43233c62229a50">More...</a><br /></td></tr>
+<tr class="separator:gac8b2038a9402b7f30b43233c62229a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf8e8049c376844d6acecea3eca699d13"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf8e8049c376844d6acecea3eca699d13"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#gaf8e8049c376844d6acecea3eca699d13">bl::math::vectorToAngle</a> (const sf::Vector2&lt; T &gt; &amp;vec)</td></tr>
+<tr class="memdesc:gaf8e8049c376844d6acecea3eca699d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the angle that the given vector is pointing.  <a href="a01609.html#gaf8e8049c376844d6acecea3eca699d13">More...</a><br /></td></tr>
+<tr class="separator:gaf8e8049c376844d6acecea3eca699d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga711610629935049a411c5c8316214dfb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga711610629935049a411c5c8316214dfb"><td class="memTemplItemLeft" align="right" valign="top">sf::Vector2&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#ga711610629935049a411c5c8316214dfb">bl::math::angleToVector</a> (T degrees)</td></tr>
+<tr class="memdesc:ga711610629935049a411c5c8316214dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a unit vector for the given angle. Uses the lookup table trig functions.  <a href="a01609.html#ga711610629935049a411c5c8316214dfb">More...</a><br /></td></tr>
+<tr class="separator:ga711610629935049a411c5c8316214dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaffb7312466591326e7dc1f44be83f478"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaffb7312466591326e7dc1f44be83f478"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#gaffb7312466591326e7dc1f44be83f478">bl::math::magnitudeSquared</a> (const sf::Vector3&lt; T &gt; &amp;vec)</td></tr>
+<tr class="memdesc:gaffb7312466591326e7dc1f44be83f478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the squared magnitude of the given vector.  <a href="a01609.html#gaffb7312466591326e7dc1f44be83f478">More...</a><br /></td></tr>
+<tr class="separator:gaffb7312466591326e7dc1f44be83f478"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga44d6ffcf33ea573b1ef14c48d5dc2be9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga44d6ffcf33ea573b1ef14c48d5dc2be9"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#ga44d6ffcf33ea573b1ef14c48d5dc2be9">bl::math::magnitude</a> (const sf::Vector3&lt; T &gt; &amp;vec)</td></tr>
+<tr class="memdesc:ga44d6ffcf33ea573b1ef14c48d5dc2be9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the magnitude of the given vector. Uses std::sqrt, prefer squaredMagnitude.  <a href="a01609.html#ga44d6ffcf33ea573b1ef14c48d5dc2be9">More...</a><br /></td></tr>
+<tr class="separator:ga44d6ffcf33ea573b1ef14c48d5dc2be9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf1a78e1d5c72d9790ffaeb445e5e3f2e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf1a78e1d5c72d9790ffaeb445e5e3f2e"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#gaf1a78e1d5c72d9790ffaeb445e5e3f2e">bl::math::distanceSquared</a> (const sf::Vector3&lt; T &gt; &amp;v1, const sf::Vector3&lt; T &gt; &amp;v2)</td></tr>
+<tr class="memdesc:gaf1a78e1d5c72d9790ffaeb445e5e3f2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the squared distance between the two vectors.  <a href="a01609.html#gaf1a78e1d5c72d9790ffaeb445e5e3f2e">More...</a><br /></td></tr>
+<tr class="separator:gaf1a78e1d5c72d9790ffaeb445e5e3f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7bcc546934ee6cdd3dacb3c628df8fa4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga7bcc546934ee6cdd3dacb3c628df8fa4"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#ga7bcc546934ee6cdd3dacb3c628df8fa4">bl::math::distance</a> (const sf::Vector3&lt; T &gt; &amp;v1, const sf::Vector3&lt; T &gt; &amp;v2)</td></tr>
+<tr class="memdesc:ga7bcc546934ee6cdd3dacb3c628df8fa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the distance between two vectors.  <a href="a01609.html#ga7bcc546934ee6cdd3dacb3c628df8fa4">More...</a><br /></td></tr>
+<tr class="separator:ga7bcc546934ee6cdd3dacb3c628df8fa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5dc265551d12d3d5514e354b66ea4425"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga5dc265551d12d3d5514e354b66ea4425"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#ga5dc265551d12d3d5514e354b66ea4425">bl::math::manhattanDistance</a> (const sf::Vector3&lt; T &gt; &amp;v1, const sf::Vector3&lt; T &gt; &amp;v2)</td></tr>
+<tr class="memdesc:ga5dc265551d12d3d5514e354b66ea4425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the manhattan distance between two vectors.  <a href="a01609.html#ga5dc265551d12d3d5514e354b66ea4425">More...</a><br /></td></tr>
+<tr class="separator:ga5dc265551d12d3d5514e354b66ea4425"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf8ccfac6129592ef7daee80bd2910012"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf8ccfac6129592ef7daee80bd2910012"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#gaf8ccfac6129592ef7daee80bd2910012">bl::math::normalize</a> (sf::Vector3&lt; T &gt; &amp;vec)</td></tr>
+<tr class="memdesc:gaf8ccfac6129592ef7daee80bd2910012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalizes the given vector in place.  <a href="a01609.html#gaf8ccfac6129592ef7daee80bd2910012">More...</a><br /></td></tr>
+<tr class="separator:gaf8ccfac6129592ef7daee80bd2910012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa60f0bfd74007c04d00ec64a7022ca00"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaa60f0bfd74007c04d00ec64a7022ca00"><td class="memTemplItemLeft" align="right" valign="top">sf::Vector3&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#gaa60f0bfd74007c04d00ec64a7022ca00">bl::math::normalized</a> (const sf::Vector3&lt; T &gt; &amp;vec)</td></tr>
+<tr class="memdesc:gaa60f0bfd74007c04d00ec64a7022ca00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes and returns the normalization of the given vector.  <a href="a01609.html#gaa60f0bfd74007c04d00ec64a7022ca00">More...</a><br /></td></tr>
+<tr class="separator:gaa60f0bfd74007c04d00ec64a7022ca00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadeede977cc22d3529d551358d36f4a78"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gadeede977cc22d3529d551358d36f4a78"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01609.html#gadeede977cc22d3529d551358d36f4a78">bl::math::dot</a> (const sf::Vector3&lt; T &gt; &amp;v1, const sf::Vector3&lt; T &gt; &amp;v2)</td></tr>
+<tr class="memdesc:gadeede977cc22d3529d551358d36f4a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the dot product of the two given vectors.  <a href="a01609.html#gadeede977cc22d3529d551358d36f4a78">More...</a><br /></td></tr>
+<tr class="separator:gadeede977cc22d3529d551358d36f4a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

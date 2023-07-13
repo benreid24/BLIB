@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Descriptors/DescriptorComponentStorageCache.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/Builtin/PostFXFactory.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,48 +66,51 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DescriptorComponentStorageCache.cpp</div>  </div>
+<div class="title">PostFXFactory.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01298.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00539.html">BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp</a>&gt;</span></div>
+<a href="a01298.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00548.html">BLIB/Render/Descriptors/Builtin/PostFXFactory.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>ds</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02604.html#ae43566911242fcdec6e823417930710c">    9</a></span>&#160;<a class="code" href="a02604.html#ae43566911242fcdec6e823417930710c">DescriptorComponentStorageCache::DescriptorComponentStorageCache</a>(</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="a01868.html">ecs::Registry</a>&amp; registry, <a class="code" href="a02988.html">vk::VulkanState</a>&amp; vulkanState,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02592.html#a2894c9a0209e41af22efe9bd99a5a9b0">DescriptorComponentStorageBase::EntityCallback</a>&amp; entityCb)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: registry(registry)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, vulkanState(vulkanState)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, entityCb(entityCb) {}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02604.html#aa754150c9a8229cb3687a79bc0523508">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02604.html#aa754150c9a8229cb3687a79bc0523508">DescriptorComponentStorageCache::syncDescriptors</a>() {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; pair : cache) { pair.second-&gt;performSync(); }</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04491.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00653.html">BLIB/Render/Scenes/PostFX.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> PostFXFactory::init(engine::Engine&amp;, Renderer&amp; renderer) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    vk::DescriptorPool::SetBindingInfo bindingInfo;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    bindingInfo.bindings[0]  = <a class="code" href="a02809.html#acd3b56023cc326f4ff7a18c60b277899">scene::PostFX::DescriptorLayoutBindings</a>()[0];</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    bindingInfo.bindingCount = 1;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a02673.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a>      = renderer.vulkanState().descriptorPool.createLayout(bindingInfo);</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00539_html"><div class="ttname"><a href="a00539.html">DescriptorComponentStorageCache.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01868_html"><div class="ttname"><a href="a01868.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00029">Registry.hpp:31</a></div></div>
-<div class="ttc" id="aa02592_html_a2894c9a0209e41af22efe9bd99a5a9b0"><div class="ttname"><a href="a02592.html#a2894c9a0209e41af22efe9bd99a5a9b0">bl::gfx::ds::DescriptorComponentStorageBase::EntityCallback</a></div><div class="ttdeci">std::function&lt; ecs::Entity(scene::Key)&gt; EntityCallback</div><div class="ttdoc">Callback signature to fetch entities from scene ids.</div><div class="ttdef"><b>Definition:</b> <a href="a00536_source.html#l00028">DescriptorComponentStorage.hpp:28</a></div></div>
-<div class="ttc" id="aa02604_html_aa754150c9a8229cb3687a79bc0523508"><div class="ttname"><a href="a02604.html#aa754150c9a8229cb3687a79bc0523508">bl::gfx::ds::DescriptorComponentStorageCache::syncDescriptors</a></div><div class="ttdeci">void syncDescriptors()</div><div class="ttdoc">Syncs modified descriptor values in the contained storage modules.</div><div class="ttdef"><b>Definition:</b> <a href="a01298_source.html#l00016">DescriptorComponentStorageCache.cpp:16</a></div></div>
-<div class="ttc" id="aa02604_html_ae43566911242fcdec6e823417930710c"><div class="ttname"><a href="a02604.html#ae43566911242fcdec6e823417930710c">bl::gfx::ds::DescriptorComponentStorageCache::DescriptorComponentStorageCache</a></div><div class="ttdeci">DescriptorComponentStorageCache(ecs::Registry &amp;registry, vk::VulkanState &amp;vulkanState, const DescriptorComponentStorageBase::EntityCallback &amp;entityCb)</div><div class="ttdoc">Creates a new storage cache.</div><div class="ttdef"><b>Definition:</b> <a href="a01298_source.html#l00009">DescriptorComponentStorageCache.cpp:9</a></div></div>
-<div class="ttc" id="aa02988_html"><div class="ttname"><a href="a02988.html">bl::gfx::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00036">VulkanState.hpp:36</a></div></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;std::unique_ptr&lt;DescriptorSetInstance&gt; PostFXFactory::createDescriptorSet()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;No instances should be created for PostFXFactory&quot;</span>);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00548_html"><div class="ttname"><a href="a00548.html">PostFXFactory.hpp</a></div></div>
+<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">PostFX.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02673_html_a272948ed73908bcc35626a495366cba6"><div class="ttname"><a href="a02673.html#a272948ed73908bcc35626a495366cba6">bl::rc::ds::DescriptorSetFactory::descriptorSetLayout</a></div><div class="ttdeci">VkDescriptorSetLayout descriptorSetLayout</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00061">DescriptorSetFactory.hpp:61</a></div></div>
+<div class="ttc" id="aa02809_html_acd3b56023cc326f4ff7a18c60b277899"><div class="ttname"><a href="a02809.html#acd3b56023cc326f4ff7a18c60b277899">bl::rc::scene::PostFX::DescriptorLayoutBindings</a></div><div class="ttdeci">static std::array&lt; VkDescriptorSetLayoutBinding, 1 &gt; DescriptorLayoutBindings()</div><div class="ttdoc">Returns the bindings that must be used for pipelines utilized by this class.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00012">PostFX.cpp:12</a></div></div>
+<div class="ttc" id="aa04491_html"><div class="ttname"><a href="a04491.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

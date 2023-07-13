@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Resources/ShaderModuleCache.cpp Source File</title>
+<title>BLIB: src/Render/Resources/PipelineLayoutCache.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,137 +71,43 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ShaderModuleCache.cpp</div>  </div>
+<div class="title">PipelineLayoutCache.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01361.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00626.html">BLIB/Render/Resources/ShaderModuleCache.hpp</a>&gt;</span></div>
+<a href="a01361.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00629.html">BLIB/Render/Resources/PipelineLayoutCache.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04483.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00812.html">BLIB/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="a01361.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d">    6</a></span>&#160;<span class="preprocessor">#define STRINGIFY_HELPER(X) #X</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01361.html#a6df1d22fb5f09eccc23b9f399670cfd7">    7</a></span>&#160;<span class="preprocessor">#define STRINGIFY(x) STRINGIFY_HELPER(x)</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a01361.html#a31fed9a126657d15744fb02db496648e">    8</a></span>&#160;<span class="preprocessor">#define BUILTIN_SHADER(path) STRINGIFY(SHADER_PATH) &quot;/&quot;</span> path</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>res</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">   16</a></span>&#160;VkShaderModule <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">ShaderModuleCache::loadShader</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = cache.find(path);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (it != cache.end()) { <span class="keywordflow">return</span> it-&gt;second; }</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">char</span>* data      = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    std::size_t len = 0;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;PipelineLayoutCache::PipelineLayoutCache(Renderer&amp; renderer)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: renderer(renderer) {}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02757.html#a3d82ee894d5246ffb5422326d659452a">   13</a></span>&#160;<a class="code" href="a02917.html">vk::PipelineLayout</a>* PipelineLayoutCache::getLayout(<a class="code" href="a02921.html">vk::PipelineLayout::LayoutParams</a>&amp;&amp; params) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">return</span> &amp;(cache</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                 .try_emplace(<span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="a02921.html">vk::PipelineLayout::LayoutParams</a>&amp;<span class="keyword">&gt;</span>(params),</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                              renderer,</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                              std::forward&lt;vk::PipelineLayout::LayoutParams&gt;(params))</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                 .first-&gt;second);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> PipelineLayoutCache::cleanup() { cache.clear(); }</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> (path[0] &lt;= <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a02536.html#a7e456db63b004e7b7423dba89425c4ab">Config::ShaderIds::MaxId</a>)) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">switch</span> (path[0]) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#a8d81bb439107d6f5247c10d7c9723180">Config::ShaderIds::EmptyVertex</a>[0]:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;empty.vert.spv&quot;</span>));</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#aac6ab3e84e96610c6d68bc70ed7cd78a">Config::ShaderIds::MeshVertex</a>[0]:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;mesh.vert.spv&quot;</span>));</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#aca220d16d7604f0bc2da85991db67d12">Config::ShaderIds::MeshFragment</a>[0]:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;mesh.frag.spv&quot;</span>));</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#a2473b3ee614a0d169b54fa4c58f4b76b">Config::ShaderIds::SkinnedMeshVertex</a>[0]:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;skinnedMesh.vert.spv&quot;</span>));</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#a09e14145ba2c3e850f7e488ec83927ea">Config::ShaderIds::SkinnedMeshFragment</a>[0]:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;skinnedMesh.frag.spv&quot;</span>));</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#abaaff03e9a459b403d36bda3c0286c57">Config::ShaderIds::Lit2DVertex</a>[0]:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;2dlit.vert.spv&quot;</span>));</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#a3003f7226ff286ee721c5aa865435741">Config::ShaderIds::Lit2DFragment</a>[0]:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;2dlit.frag.spv&quot;</span>));</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#a67a4a6cdbbab7cbace54412425eb3199">Config::ShaderIds::LitSkinned2DVertex</a>[0]:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;skinned2dlit.vert.spv&quot;</span>));</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#a48ca38059626756055ffaf368a1708a2">Config::ShaderIds::LitSkinned2DFragment</a>[0]:</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;skinned2dlit.frag.spv&quot;</span>));</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#a59d1f9f8c0f85ab324ae403801678218">Config::ShaderIds::Unlit2DVertex</a>[0]:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;2d.vert.spv&quot;</span>));</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#a7831275708bdf18f2dbc23f5bf169002">Config::ShaderIds::Unlit2DFragment</a>[0]:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;2d.frag.spv&quot;</span>));</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#ad91d88595790b9789a9d8edb971b270d">Config::ShaderIds::UnlitSkinned2DVertex</a>[0]:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;skinned2d.vert.spv&quot;</span>));</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#ada05bca2538a55274f7c3109df80bf4e">Config::ShaderIds::UnlitSkinned2DFragment</a>[0]:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;skinned2d.frag.spv&quot;</span>));</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#aff6cec6f5edfa24f0b2dff63b7bfed2f">Config::ShaderIds::TextFragment</a>[0]:</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;text.frag.spv&quot;</span>));</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02536.html#aa3337169c3ba18bbb3208d8154360b2d">Config::ShaderIds::DefaultPostFXFragment</a>[0]:</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a02752.html#a251a41d640d3c7f344e8e708acea9550">loadShader</a>(<a class="code" href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;imageOverlay.frag.spv&quot;</span>));</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <a class="code" href="a00350.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Invalid built-in shader id: &quot;</span> &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(path[0]);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Invalid built-in shader id&quot;</span>);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="a03056.html#a4333f7b4fcde422a5a9edccb8af201fb">resource::FileSystem::getData</a>(path, &amp;data, len) || len &lt; 4) {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <a class="code" href="a00350.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load shader: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to load shader&quot;</span>);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">const</span> std::uint32_t* u32data = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>std::uint32_t*<span class="keyword">&gt;</span>(data);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">if</span> (u32data[0] != <a class="code" href="a02528.html#a2b5a078f35d92ed80b03019cb3314002">Config::SPIRVMagicNumber</a>) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="a00350.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Shader &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;&#39; is not compiled&quot;</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Shader compilation is not supported&quot;</span>);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    VkShaderModuleCreateInfo createInfo{};</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    createInfo.sType    = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    createInfo.codeSize = len;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    createInfo.pCode    = u32data;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    VkShaderModule shaderModule;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">if</span> (vkCreateShaderModule(device, &amp;createInfo, <span class="keyword">nullptr</span>, &amp;shaderModule) != VK_SUCCESS) {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create shader module&quot;</span>);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    cache.try_emplace(path, shaderModule);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">return</span> shaderModule;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keywordtype">void</span> ShaderModuleCache::init(VkDevice d) { device = d; }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keywordtype">void</span> ShaderModuleCache::cleanup() {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; pair : cache) { vkDestroyShaderModule(device, pair.second, <span class="keyword">nullptr</span>); }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    cache.clear();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} <span class="comment">// namespace res</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00350_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00350.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00626_html"><div class="ttname"><a href="a00626.html">ShaderModuleCache.hpp</a></div></div>
-<div class="ttc" id="aa00812_html"><div class="ttname"><a href="a00812.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa01361_html_a31fed9a126657d15744fb02db496648e"><div class="ttname"><a href="a01361.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a></div><div class="ttdeci">#define BUILTIN_SHADER(path)</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00008">ShaderModuleCache.cpp:8</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02528_html_a2b5a078f35d92ed80b03019cb3314002"><div class="ttname"><a href="a02528.html#a2b5a078f35d92ed80b03019cb3314002">bl::gfx::Config::SPIRVMagicNumber</a></div><div class="ttdeci">static constexpr std::uint32_t SPIRVMagicNumber</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00076">Config.hpp:76</a></div></div>
-<div class="ttc" id="aa02536_html_a09e14145ba2c3e850f7e488ec83927ea"><div class="ttname"><a href="a02536.html#a09e14145ba2c3e850f7e488ec83927ea">bl::gfx::Config::ShaderIds::SkinnedMeshFragment</a></div><div class="ttdeci">static constexpr char SkinnedMeshFragment[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00036">Config.hpp:36</a></div></div>
-<div class="ttc" id="aa02536_html_a2473b3ee614a0d169b54fa4c58f4b76b"><div class="ttname"><a href="a02536.html#a2473b3ee614a0d169b54fa4c58f4b76b">bl::gfx::Config::ShaderIds::SkinnedMeshVertex</a></div><div class="ttdeci">static constexpr char SkinnedMeshVertex[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00035">Config.hpp:35</a></div></div>
-<div class="ttc" id="aa02536_html_a3003f7226ff286ee721c5aa865435741"><div class="ttname"><a href="a02536.html#a3003f7226ff286ee721c5aa865435741">bl::gfx::Config::ShaderIds::Lit2DFragment</a></div><div class="ttdeci">static constexpr char Lit2DFragment[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00039">Config.hpp:39</a></div></div>
-<div class="ttc" id="aa02536_html_a48ca38059626756055ffaf368a1708a2"><div class="ttname"><a href="a02536.html#a48ca38059626756055ffaf368a1708a2">bl::gfx::Config::ShaderIds::LitSkinned2DFragment</a></div><div class="ttdeci">static constexpr char LitSkinned2DFragment[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00041">Config.hpp:41</a></div></div>
-<div class="ttc" id="aa02536_html_a59d1f9f8c0f85ab324ae403801678218"><div class="ttname"><a href="a02536.html#a59d1f9f8c0f85ab324ae403801678218">bl::gfx::Config::ShaderIds::Unlit2DVertex</a></div><div class="ttdeci">static constexpr char Unlit2DVertex[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00043">Config.hpp:43</a></div></div>
-<div class="ttc" id="aa02536_html_a67a4a6cdbbab7cbace54412425eb3199"><div class="ttname"><a href="a02536.html#a67a4a6cdbbab7cbace54412425eb3199">bl::gfx::Config::ShaderIds::LitSkinned2DVertex</a></div><div class="ttdeci">static constexpr char LitSkinned2DVertex[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00040">Config.hpp:40</a></div></div>
-<div class="ttc" id="aa02536_html_a7831275708bdf18f2dbc23f5bf169002"><div class="ttname"><a href="a02536.html#a7831275708bdf18f2dbc23f5bf169002">bl::gfx::Config::ShaderIds::Unlit2DFragment</a></div><div class="ttdeci">static constexpr char Unlit2DFragment[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00044">Config.hpp:44</a></div></div>
-<div class="ttc" id="aa02536_html_a7e456db63b004e7b7423dba89425c4ab"><div class="ttname"><a href="a02536.html#a7e456db63b004e7b7423dba89425c4ab">bl::gfx::Config::ShaderIds::MaxId</a></div><div class="ttdeci">static constexpr std::uint32_t MaxId</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00051">Config.hpp:51</a></div></div>
-<div class="ttc" id="aa02536_html_a8d81bb439107d6f5247c10d7c9723180"><div class="ttname"><a href="a02536.html#a8d81bb439107d6f5247c10d7c9723180">bl::gfx::Config::ShaderIds::EmptyVertex</a></div><div class="ttdeci">static constexpr char EmptyVertex[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00031">Config.hpp:31</a></div></div>
-<div class="ttc" id="aa02536_html_aa3337169c3ba18bbb3208d8154360b2d"><div class="ttname"><a href="a02536.html#aa3337169c3ba18bbb3208d8154360b2d">bl::gfx::Config::ShaderIds::DefaultPostFXFragment</a></div><div class="ttdeci">static constexpr char DefaultPostFXFragment[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00049">Config.hpp:49</a></div></div>
-<div class="ttc" id="aa02536_html_aac6ab3e84e96610c6d68bc70ed7cd78a"><div class="ttname"><a href="a02536.html#aac6ab3e84e96610c6d68bc70ed7cd78a">bl::gfx::Config::ShaderIds::MeshVertex</a></div><div class="ttdeci">static constexpr char MeshVertex[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00033">Config.hpp:33</a></div></div>
-<div class="ttc" id="aa02536_html_abaaff03e9a459b403d36bda3c0286c57"><div class="ttname"><a href="a02536.html#abaaff03e9a459b403d36bda3c0286c57">bl::gfx::Config::ShaderIds::Lit2DVertex</a></div><div class="ttdeci">static constexpr char Lit2DVertex[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00038">Config.hpp:38</a></div></div>
-<div class="ttc" id="aa02536_html_aca220d16d7604f0bc2da85991db67d12"><div class="ttname"><a href="a02536.html#aca220d16d7604f0bc2da85991db67d12">bl::gfx::Config::ShaderIds::MeshFragment</a></div><div class="ttdeci">static constexpr char MeshFragment[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00034">Config.hpp:34</a></div></div>
-<div class="ttc" id="aa02536_html_ad91d88595790b9789a9d8edb971b270d"><div class="ttname"><a href="a02536.html#ad91d88595790b9789a9d8edb971b270d">bl::gfx::Config::ShaderIds::UnlitSkinned2DVertex</a></div><div class="ttdeci">static constexpr char UnlitSkinned2DVertex[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00045">Config.hpp:45</a></div></div>
-<div class="ttc" id="aa02536_html_ada05bca2538a55274f7c3109df80bf4e"><div class="ttname"><a href="a02536.html#ada05bca2538a55274f7c3109df80bf4e">bl::gfx::Config::ShaderIds::UnlitSkinned2DFragment</a></div><div class="ttdeci">static constexpr char UnlitSkinned2DFragment[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00046">Config.hpp:46</a></div></div>
-<div class="ttc" id="aa02536_html_aff6cec6f5edfa24f0b2dff63b7bfed2f"><div class="ttname"><a href="a02536.html#aff6cec6f5edfa24f0b2dff63b7bfed2f">bl::gfx::Config::ShaderIds::TextFragment</a></div><div class="ttdeci">static constexpr char TextFragment[]</div><div class="ttdef"><b>Definition:</b> <a href="a04483_source.html#l00047">Config.hpp:47</a></div></div>
-<div class="ttc" id="aa02752_html_a251a41d640d3c7f344e8e708acea9550"><div class="ttname"><a href="a02752.html#a251a41d640d3c7f344e8e708acea9550">bl::gfx::res::ShaderModuleCache::loadShader</a></div><div class="ttdeci">VkShaderModule loadShader(const std::string &amp;path)</div><div class="ttdoc">Loads a new shader.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00016">ShaderModuleCache.cpp:16</a></div></div>
-<div class="ttc" id="aa03056_html_a4333f7b4fcde422a5a9edccb8af201fb"><div class="ttname"><a href="a03056.html#a4333f7b4fcde422a5a9edccb8af201fb">bl::resource::FileSystem::getData</a></div><div class="ttdeci">static bool getData(const std::string &amp;path, char **buffer, std::size_t &amp;len)</div><div class="ttdoc">Loads the data for the given path. Either loads from the underlying file system or from the active bu...</div><div class="ttdef"><b>Definition:</b> <a href="a01493_source.html#l00023">FileSystem.cpp:23</a></div></div>
-<div class="ttc" id="aa04483_html"><div class="ttname"><a href="a04483.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00629_html"><div class="ttname"><a href="a00629.html">PipelineLayoutCache.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02917_html"><div class="ttname"><a href="a02917.html">bl::rc::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00030">PipelineLayout.hpp:30</a></div></div>
+<div class="ttc" id="aa02921_html"><div class="ttname"><a href="a02921.html">bl::rc::vk::PipelineLayout::LayoutParams</a></div><div class="ttdoc">Internal struct to manage layout creation and fetching.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00035">PipelineLayout.hpp:35</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

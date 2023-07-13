@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/PipelineLayout.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/RenderPassParameters.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,196 +71,86 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PipelineLayout.hpp</div>  </div>
+<div class="title">RenderPassParameters.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00725.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_PIPELINELAYOUT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_PIPELINELAYOUT_HPP</span></div>
+<a href="a00725.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_RENDERPASSPARAMETERS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_RENDERPASSPARAMETERS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00542.html">BLIB/Render/Descriptors/DescriptorSetFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00551.html">BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00926.html">BLIB/Util/HashCombine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00977.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;typeindex&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02924.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02924.html">PipelineLayout</a> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a02928.html">   35</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a02928.html">LayoutParams</a> {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">struct </span>DescriptorSet {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            std::type_index factoryType;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            std::unique_ptr&lt;ds::DescriptorSetFactory&gt; factory;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            DescriptorSet()</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            : factoryType(<span class="keyword">typeid</span>(<span class="keywordtype">void</span>)) {}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            DescriptorSet(<span class="keyword">const</span> DescriptorSet&amp; c)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            : factoryType(c.factoryType) {}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            DescriptorSet(std::type_index tid, std::unique_ptr&lt;ds::DescriptorSetFactory&gt;&amp;&amp; factory)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            : factoryType(tid)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            , factory(std::forward&lt;std::unique_ptr&lt;ds::DescriptorSetFactory&gt;&gt;(factory)) {}</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        };</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a02928.html#aa4537fc5669817b14f86306c8e83fdba">   50</a></span>&#160;        <a class="code" href="a02928.html#aa4537fc5669817b14f86306c8e83fdba">LayoutParams</a>()</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        : dsCount(0)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        , pcCount(0) {}</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a02928.html#ab4e3f7c40c0ea31dc7091346fa284253">   54</a></span>&#160;        <a class="code" href="a02928.html#ab4e3f7c40c0ea31dc7091346fa284253">LayoutParams</a>(<span class="keyword">const</span> <a class="code" href="a02928.html">LayoutParams</a>&amp; c)</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        : descriptorSets(c.descriptorSets)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        , dsCount(c.dsCount)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        , pushConstants(c.pushConstants)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        , pcCount(c.pcCount) {}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TFactory, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a02928.html#a1e56650e0b745b05bf804ce9d2360b06">   61</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a02928.html#a1e56650e0b745b05bf804ce9d2360b06">addDescriptorSet</a>(TArgs&amp;&amp;... args) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">if</span> (dsCount &gt;= 4) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Exceeded 4 descriptor sets&quot;</span>); }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00977.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>RenderPass;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02949.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02949.html">RenderPassParameters</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02953.html">   29</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a02953.html">SubPass</a> {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="a02953.html#af59febea8d9397a3198fc61db360adf8">SubPass</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="a02953.html">SubPass</a>&amp; <a class="code" href="a02953.html#aceae349a2d8eded2ae0db312d12e2454">withAttachment</a>(std::uint32_t index, VkImageLayout layout);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="a02953.html">SubPass</a>&amp; <a class="code" href="a02953.html#ac686f180eece4c15a8b00e729e608ebb">withDepthAttachment</a>(std::uint32_t index, VkImageLayout layout);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="a02953.html">SubPass</a>&amp;&amp; <a class="code" href="a02953.html#af9dc875ebea2e5f896af0e08934bbfd2">build</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        std::vector&lt;VkAttachmentReference&gt; colorAttachments;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        std::optional&lt;VkAttachmentReference&gt; depthAttachment;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            descriptorSets[dsCount].factoryType = <span class="keyword">typeid</span>(TFactory);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            descriptorSets[dsCount].factory =</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                std::make_unique&lt;TFactory&gt;(std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            ++dsCount;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a02928.html#a0893cfd29eceb95c429d1bf73dbd5f68">   72</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a02928.html#a0893cfd29eceb95c429d1bf73dbd5f68">addPushConstantRange</a>(std::uint32_t offset, std::uint32_t size,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                  VkShaderStageFlags shaderStages = VK_SHADER_STAGE_ALL_GRAPHICS) {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keywordflow">if</span> (pcCount &gt;= 4) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Exceeded 4 push constant ranges&quot;</span>); }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            pushConstants[pcCount] = VkPushConstantRange{shaderStages, offset, size};</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            ++pcCount;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a02928.html#aae8d141fb3ae7ec577bcc2bf8b91ad12">   82</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="a02928.html#aae8d141fb3ae7ec577bcc2bf8b91ad12">operator==</a>(<span class="keyword">const</span> <a class="code" href="a02928.html">LayoutParams</a>&amp; right)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordflow">if</span> (dsCount != right.dsCount || pcCount != right.pcCount) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keywordflow">for</span> (std::uint32_t i = 0; i &lt; dsCount; ++i) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                <span class="keywordflow">if</span> (descriptorSets[i].factoryType != right.descriptorSets[i].factoryType) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            }</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a02953.html#aa8ab806874e69ead344abef1c5e76aa0">   66</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02945.html">RenderPass</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    };</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="a02949.html#a16f52c825c72793c10ab1f356bf4c06c">RenderPassParameters</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="a02949.html">RenderPassParameters</a>&amp; <a class="code" href="a02949.html#ab4a7ac7704ca1b4b6699088ccd8a5d00">addSubpass</a>(<a class="code" href="a02953.html">SubPass</a>&amp;&amp; subpass);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="a02949.html">RenderPassParameters</a>&amp; <a class="code" href="a02949.html#abd6568d1fa4d137ac4f740c4a8392ae3">addSubpassDependency</a>(VkSubpassDependency dependency);</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordflow">for</span> (std::uint32_t i = 0; i &lt; pcCount; ++i) {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="keywordflow">if</span> (pushConstants[i].offset != right.pushConstants[i].offset) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                <span class="keywordflow">if</span> (pushConstants[i].size != right.pushConstants[i].size) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                <span class="keywordflow">if</span> (pushConstants[i].stageFlags != right.pushConstants[i].stageFlags) {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="a02949.html">RenderPassParameters</a>&amp; <a class="code" href="a02949.html#a13dc01b847adb714906ab5a2311d5be4">addAttachment</a>(VkAttachmentDescription attachment);</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        std::array&lt;DescriptorSet, 4&gt; descriptorSets;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        std::size_t dsCount;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        std::array&lt;VkPushConstantRange, 4&gt; pushConstants;</div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a02928.html#adf75121a830e2ed1a166067e1df9d958">  106</a></span>&#160;        std::size_t pcCount;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keyword">friend</span> <span class="keyword">struct </span>std::hash&lt;<a class="code" href="a02928.html">LayoutParams</a>&gt;;</div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="a02928.html#a99aa087a4eadd0c249ff68859b7edbd1">  109</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02924.html">PipelineLayout</a>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    };</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="a02924.html#aec66c72053b70432d72dcaf8cf4e2575">PipelineLayout</a>(<a class="code" href="a02720.html">Renderer</a>&amp; renderer, <a class="code" href="a02928.html">LayoutParams</a>&amp;&amp; params);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <a class="code" href="a02924.html#a5727e93c1bfff02d012e4e9de8c37731">~PipelineLayout</a>();</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    constexpr VkPipelineLayout <a class="code" href="a02924.html#a528aab8ced35bcdb566daa565648dc26">rawLayout</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02924.html#a7e24e2cf83c4e3703117c8bb349fbf17">createDescriptorSets</a>(<a class="code" href="a02620.html">ds::DescriptorSetInstanceCache</a>&amp; cache,</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                              std::vector&lt;ds::DescriptorSetInstance*&gt;&amp; descriptors) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    std::uint32_t <a class="code" href="a02924.html#a70c0d47f39ec840b61e0d013bda7d842">initDescriptorSets</a>(<a class="code" href="a02620.html">ds::DescriptorSetInstanceCache</a>&amp; cache,</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                     <a class="code" href="a02616.html">ds::DescriptorSetInstance</a>** sets) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    std::uint32_t <a class="code" href="a02924.html#af9e44a61a7a9e3caa3fdec1978d1e122">updateDescriptorSets</a>(<a class="code" href="a02620.html">ds::DescriptorSetInstanceCache</a>&amp; cache,</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                                       <a class="code" href="a02616.html">ds::DescriptorSetInstance</a>** sets,</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                                       std::uint32_t descriptorCount, <a class="code" href="a01626.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a> entity,</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                                       std::uint32_t sceneId, <a class="code" href="a01607.html#ga3f6cc977764514925162c6fd181a261a">UpdateSpeed</a> updateSpeed) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <a class="code" href="a02720.html">Renderer</a>&amp; renderer;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    VkPipelineLayout layout;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    std::array&lt;ds::DescriptorSetFactory*, 4&gt; descriptorSets;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keyword">const</span> std::uint32_t dsCount;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;};</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="a02924.html#a528aab8ced35bcdb566daa565648dc26">  176</a></span>&#160;<span class="keyword">inline</span> constexpr VkPipelineLayout <a class="code" href="a02924.html#a528aab8ced35bcdb566daa565648dc26">PipelineLayout::rawLayout</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> layout; }</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01649.html">std</a></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;{</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="a02936.html">  185</a></span>&#160;<span class="keyword">struct </span>hash&lt;<a class="code" href="a01623.html">bl</a>::gfx::vk::PipelineLayout::LayoutParams&gt; {</div>
-<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="a02936.html#af72ad811ce55e4a3062de05c62b87f25">  186</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="a02936.html#af72ad811ce55e4a3062de05c62b87f25">operator()</a>(<span class="keyword">const</span> <a class="code" href="a02928.html">bl::gfx::vk::PipelineLayout::LayoutParams</a>&amp; params)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keywordtype">size_t</span> result = hash&lt;size_t&gt;()(params.descriptorSets.size());</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; params.dsCount; ++i) {</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">size_t</span> nh = hash&lt;type_index&gt;()(params.descriptorSets[i].factoryType);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            result          = <a class="code" href="a01678.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a>(result, nh);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        }</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; params.pcCount; ++i) {</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">size_t</span> nh =</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                <a class="code" href="a01678.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a>(hash&lt;std::uint32_t&gt;()(params.pushConstants[i].offset),</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                                      hash&lt;std::uint32_t&gt;()(params.pushConstants[i].size));</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            result = <a class="code" href="a01678.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a>(result, nh);</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        }</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    }</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;};</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;} <span class="comment">// namespace std</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00542_html"><div class="ttname"><a href="a00542.html">DescriptorSetFactory.hpp</a></div></div>
-<div class="ttc" id="aa00551_html"><div class="ttname"><a href="a00551.html">DescriptorSetInstanceCache.hpp</a></div></div>
-<div class="ttc" id="aa00926_html"><div class="ttname"><a href="a00926.html">HashCombine.hpp</a></div></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="a02949.html">RenderPassParameters</a>&amp;&amp; <a class="code" href="a02949.html#a3e44e61fc730471f14e699f447f6cf84">build</a>();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    std::vector&lt;VkAttachmentDescription&gt; attachments;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    std::vector&lt;SubPass&gt; subpasses;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    std::vector&lt;VkSubpassDependency&gt; dependencies;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a02949.html#aa8ab806874e69ead344abef1c5e76aa0">  111</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02945.html">RenderPass</a>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;};</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00977_html"><div class="ttname"><a href="a00977.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01607_html_ga3f6cc977764514925162c6fd181a261a"><div class="ttname"><a href="a01607.html#ga3f6cc977764514925162c6fd181a261a">bl::gfx::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01626_html_a4b70a57ed7e0341145b4320b1f460a62"><div class="ttname"><a href="a01626.html#a4b70a57ed7e0341145b4320b1f460a62">bl::ecs::Entity</a></div><div class="ttdeci">std::uint32_t Entity</div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00059_source.html#l00021">Entity.hpp:21</a></div></div>
-<div class="ttc" id="aa01649_html"><div class="ttname"><a href="a01649.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00422_source.html#l00038">Node.hpp:39</a></div></div>
-<div class="ttc" id="aa01678_html_a867dbeaa40c3e27ca66b3217256cd351"><div class="ttname"><a href="a01678.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a></div><div class="ttdeci">std::size_t hashCombine(std::size_t right, std::size_t left)</div><div class="ttdef"><b>Definition:</b> <a href="a00926_source.html#l00011">HashCombine.hpp:11</a></div></div>
-<div class="ttc" id="aa02616_html"><div class="ttname"><a href="a02616.html">bl::gfx::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a00548_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
-<div class="ttc" id="aa02620_html"><div class="ttname"><a href="a02620.html">bl::gfx::ds::DescriptorSetInstanceCache</a></div><div class="ttdoc">Utility class to ensure that descriptor sets are created only once across a set of pipelines present ...</div><div class="ttdef"><b>Definition:</b> <a href="a00551_source.html#l00023">DescriptorSetInstanceCache.hpp:23</a></div></div>
-<div class="ttc" id="aa02720_html"><div class="ttname"><a href="a02720.html">bl::gfx::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a04468_source.html#l00037">Renderer.hpp:37</a></div></div>
-<div class="ttc" id="aa02924_html"><div class="ttname"><a href="a02924.html">bl::gfx::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00030">PipelineLayout.hpp:30</a></div></div>
-<div class="ttc" id="aa02924_html_a528aab8ced35bcdb566daa565648dc26"><div class="ttname"><a href="a02924.html#a528aab8ced35bcdb566daa565648dc26">bl::gfx::vk::PipelineLayout::rawLayout</a></div><div class="ttdeci">constexpr VkPipelineLayout rawLayout() const</div><div class="ttdoc">Returns the Vulkan layout handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00176">PipelineLayout.hpp:176</a></div></div>
-<div class="ttc" id="aa02924_html_a5727e93c1bfff02d012e4e9de8c37731"><div class="ttname"><a href="a02924.html#a5727e93c1bfff02d012e4e9de8c37731">bl::gfx::vk::PipelineLayout::~PipelineLayout</a></div><div class="ttdeci">~PipelineLayout()</div><div class="ttdoc">Frees Vulkan resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01424_source.html#l00035">PipelineLayout.cpp:35</a></div></div>
-<div class="ttc" id="aa02924_html_a70c0d47f39ec840b61e0d013bda7d842"><div class="ttname"><a href="a02924.html#a70c0d47f39ec840b61e0d013bda7d842">bl::gfx::vk::PipelineLayout::initDescriptorSets</a></div><div class="ttdeci">std::uint32_t initDescriptorSets(ds::DescriptorSetInstanceCache &amp;cache, ds::DescriptorSetInstance **sets) const</div><div class="ttdoc">Initializes the given array of descriptor sets and returns the number of sets.</div><div class="ttdef"><b>Definition:</b> <a href="a01424_source.html#l00046">PipelineLayout.cpp:46</a></div></div>
-<div class="ttc" id="aa02924_html_a7e24e2cf83c4e3703117c8bb349fbf17"><div class="ttname"><a href="a02924.html#a7e24e2cf83c4e3703117c8bb349fbf17">bl::gfx::vk::PipelineLayout::createDescriptorSets</a></div><div class="ttdeci">void createDescriptorSets(ds::DescriptorSetInstanceCache &amp;cache, std::vector&lt; ds::DescriptorSetInstance * &gt; &amp;descriptors) const</div><div class="ttdoc">Creates descriptor set instances for this layout.</div><div class="ttdef"><b>Definition:</b> <a href="a01424_source.html#l00039">PipelineLayout.cpp:39</a></div></div>
-<div class="ttc" id="aa02924_html_aec66c72053b70432d72dcaf8cf4e2575"><div class="ttname"><a href="a02924.html#aec66c72053b70432d72dcaf8cf4e2575">bl::gfx::vk::PipelineLayout::PipelineLayout</a></div><div class="ttdeci">PipelineLayout(Renderer &amp;renderer, LayoutParams &amp;&amp;params)</div><div class="ttdoc">Creates the new pipeline layout.</div><div class="ttdef"><b>Definition:</b> <a href="a01424_source.html#l00011">PipelineLayout.cpp:11</a></div></div>
-<div class="ttc" id="aa02924_html_af9e44a61a7a9e3caa3fdec1978d1e122"><div class="ttname"><a href="a02924.html#af9e44a61a7a9e3caa3fdec1978d1e122">bl::gfx::vk::PipelineLayout::updateDescriptorSets</a></div><div class="ttdeci">std::uint32_t updateDescriptorSets(ds::DescriptorSetInstanceCache &amp;cache, ds::DescriptorSetInstance **sets, std::uint32_t descriptorCount, ecs::Entity entity, std::uint32_t sceneId, UpdateSpeed updateSpeed) const</div><div class="ttdoc">Updates the existing descriptor sets to the new ones for this layout. Only calls allocate/release for...</div><div class="ttdef"><b>Definition:</b> <a href="a01424_source.html#l00054">PipelineLayout.cpp:54</a></div></div>
-<div class="ttc" id="aa02928_html"><div class="ttname"><a href="a02928.html">bl::gfx::vk::PipelineLayout::LayoutParams</a></div><div class="ttdoc">Internal struct to manage layout creation and fetching.</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00035">PipelineLayout.hpp:35</a></div></div>
-<div class="ttc" id="aa02928_html_a0893cfd29eceb95c429d1bf73dbd5f68"><div class="ttname"><a href="a02928.html#a0893cfd29eceb95c429d1bf73dbd5f68">bl::gfx::vk::PipelineLayout::LayoutParams::addPushConstantRange</a></div><div class="ttdeci">void addPushConstantRange(std::uint32_t offset, std::uint32_t size, VkShaderStageFlags shaderStages=VK_SHADER_STAGE_ALL_GRAPHICS)</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00072">PipelineLayout.hpp:72</a></div></div>
-<div class="ttc" id="aa02928_html_a1e56650e0b745b05bf804ce9d2360b06"><div class="ttname"><a href="a02928.html#a1e56650e0b745b05bf804ce9d2360b06">bl::gfx::vk::PipelineLayout::LayoutParams::addDescriptorSet</a></div><div class="ttdeci">void addDescriptorSet(TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00061">PipelineLayout.hpp:61</a></div></div>
-<div class="ttc" id="aa02928_html_aa4537fc5669817b14f86306c8e83fdba"><div class="ttname"><a href="a02928.html#aa4537fc5669817b14f86306c8e83fdba">bl::gfx::vk::PipelineLayout::LayoutParams::LayoutParams</a></div><div class="ttdeci">LayoutParams()</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00050">PipelineLayout.hpp:50</a></div></div>
-<div class="ttc" id="aa02928_html_aae8d141fb3ae7ec577bcc2bf8b91ad12"><div class="ttname"><a href="a02928.html#aae8d141fb3ae7ec577bcc2bf8b91ad12">bl::gfx::vk::PipelineLayout::LayoutParams::operator==</a></div><div class="ttdeci">bool operator==(const LayoutParams &amp;right) const</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00082">PipelineLayout.hpp:82</a></div></div>
-<div class="ttc" id="aa02928_html_ab4e3f7c40c0ea31dc7091346fa284253"><div class="ttname"><a href="a02928.html#ab4e3f7c40c0ea31dc7091346fa284253">bl::gfx::vk::PipelineLayout::LayoutParams::LayoutParams</a></div><div class="ttdeci">LayoutParams(const LayoutParams &amp;c)</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00054">PipelineLayout.hpp:54</a></div></div>
-<div class="ttc" id="aa02936_html_af72ad811ce55e4a3062de05c62b87f25"><div class="ttname"><a href="a02936.html#af72ad811ce55e4a3062de05c62b87f25">std::hash&lt; bl::gfx::vk::PipelineLayout::LayoutParams &gt;::operator()</a></div><div class="ttdeci">size_t operator()(const bl::gfx::vk::PipelineLayout::LayoutParams &amp;params) const</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00186">PipelineLayout.hpp:186</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02945_html"><div class="ttname"><a href="a02945.html">bl::rc::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00019">RenderPass.hpp:19</a></div></div>
+<div class="ttc" id="aa02949_html"><div class="ttname"><a href="a02949.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
+<div class="ttc" id="aa02949_html_a13dc01b847adb714906ab5a2311d5be4"><div class="ttname"><a href="a02949.html#a13dc01b847adb714906ab5a2311d5be4">bl::rc::vk::RenderPassParameters::addAttachment</a></div><div class="ttdeci">RenderPassParameters &amp; addAttachment(VkAttachmentDescription attachment)</div><div class="ttdoc">Adds an image attachment to this render pass.</div><div class="ttdef"><b>Definition:</b> <a href="a01433_source.html#l00028">RenderPassParameters.cpp:28</a></div></div>
+<div class="ttc" id="aa02949_html_a16f52c825c72793c10ab1f356bf4c06c"><div class="ttname"><a href="a02949.html#a16f52c825c72793c10ab1f356bf4c06c">bl::rc::vk::RenderPassParameters::RenderPassParameters</a></div><div class="ttdeci">RenderPassParameters()</div><div class="ttdoc">Construct a new Render Pass Parameters object.</div><div class="ttdef"><b>Definition:</b> <a href="a01433_source.html#l00012">RenderPassParameters.cpp:12</a></div></div>
+<div class="ttc" id="aa02949_html_a3e44e61fc730471f14e699f447f6cf84"><div class="ttname"><a href="a02949.html#a3e44e61fc730471f14e699f447f6cf84">bl::rc::vk::RenderPassParameters::build</a></div><div class="ttdeci">RenderPassParameters &amp;&amp; build()</div><div class="ttdoc">Performs validation and returns a usable rvalue reference to this object.</div><div class="ttdef"><b>Definition:</b> <a href="a01433_source.html#l00033">RenderPassParameters.cpp:33</a></div></div>
+<div class="ttc" id="aa02949_html_ab4a7ac7704ca1b4b6699088ccd8a5d00"><div class="ttname"><a href="a02949.html#ab4a7ac7704ca1b4b6699088ccd8a5d00">bl::rc::vk::RenderPassParameters::addSubpass</a></div><div class="ttdeci">RenderPassParameters &amp; addSubpass(SubPass &amp;&amp;subpass)</div><div class="ttdoc">Adds a subpass to the render pass to be created.</div><div class="ttdef"><b>Definition:</b> <a href="a01433_source.html#l00018">RenderPassParameters.cpp:18</a></div></div>
+<div class="ttc" id="aa02949_html_abd6568d1fa4d137ac4f740c4a8392ae3"><div class="ttname"><a href="a02949.html#abd6568d1fa4d137ac4f740c4a8392ae3">bl::rc::vk::RenderPassParameters::addSubpassDependency</a></div><div class="ttdeci">RenderPassParameters &amp; addSubpassDependency(VkSubpassDependency dependency)</div><div class="ttdoc">Adds a blocking dependency to block the renderer between subpasses.</div><div class="ttdef"><b>Definition:</b> <a href="a01433_source.html#l00023">RenderPassParameters.cpp:23</a></div></div>
+<div class="ttc" id="aa02953_html"><div class="ttname"><a href="a02953.html">bl::rc::vk::RenderPassParameters::SubPass</a></div><div class="ttdoc">Helper parameter class that represents a subpass within a render pass.</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00029">RenderPassParameters.hpp:29</a></div></div>
+<div class="ttc" id="aa02953_html_ac686f180eece4c15a8b00e729e608ebb"><div class="ttname"><a href="a02953.html#ac686f180eece4c15a8b00e729e608ebb">bl::rc::vk::RenderPassParameters::SubPass::withDepthAttachment</a></div><div class="ttdeci">SubPass &amp; withDepthAttachment(std::uint32_t index, VkImageLayout layout)</div><div class="ttdoc">Adds a depth attachment to this subpass.</div><div class="ttdef"><b>Definition:</b> <a href="a01433_source.html#l00053">RenderPassParameters.cpp:53</a></div></div>
+<div class="ttc" id="aa02953_html_aceae349a2d8eded2ae0db312d12e2454"><div class="ttname"><a href="a02953.html#aceae349a2d8eded2ae0db312d12e2454">bl::rc::vk::RenderPassParameters::SubPass::withAttachment</a></div><div class="ttdeci">SubPass &amp; withAttachment(std::uint32_t index, VkImageLayout layout)</div><div class="ttdoc">Adds an attachment reference to the subpass.</div><div class="ttdef"><b>Definition:</b> <a href="a01433_source.html#l00045">RenderPassParameters.cpp:45</a></div></div>
+<div class="ttc" id="aa02953_html_af59febea8d9397a3198fc61db360adf8"><div class="ttname"><a href="a02953.html#af59febea8d9397a3198fc61db360adf8">bl::rc::vk::RenderPassParameters::SubPass::SubPass</a></div><div class="ttdeci">SubPass()</div><div class="ttdoc">Construct a new Sub Pass object.</div><div class="ttdef"><b>Definition:</b> <a href="a01433_source.html#l00043">RenderPassParameters.cpp:43</a></div></div>
+<div class="ttc" id="aa02953_html_af9dc875ebea2e5f896af0e08934bbfd2"><div class="ttname"><a href="a02953.html#af9dc875ebea2e5f896af0e08934bbfd2">bl::rc::vk::RenderPassParameters::SubPass::build</a></div><div class="ttdeci">SubPass &amp;&amp; build()</div><div class="ttdoc">Performs validation and returns a usable rvalue reference to this object.</div><div class="ttdef"><b>Definition:</b> <a href="a01433_source.html#l00061">RenderPassParameters.cpp:61</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

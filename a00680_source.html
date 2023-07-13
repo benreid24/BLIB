@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Transfers/TransferContext.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/AlignedBuffer.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,79 +66,244 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1371b99667ed992b8332faf3b4f2dec9.html">Transfers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TransferContext.hpp</div>  </div>
+<div class="title">AlignedBuffer.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00680.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP</span></div>
+<a href="a00680.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_ALIGNEDBUFFER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_ALIGNEDBUFFER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00743.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00977.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>tfr</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02852.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02852.html">TransferContext</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02852.html#a7b777daebdc02d52c764b5a16635636a">createTemporaryStagingBuffer</a>(VkDeviceSize size, VkBuffer&amp; bufferResult,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                      <span class="keywordtype">void</span>** mappedMemory);</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02857.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02857.html">AlignedBuffer</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02857.html#a52af95c4518c52c8059292705c707e57a2a5066aabde9ea88da034643cb64eda8">   25</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a02857.html#a52af95c4518c52c8059292705c707e57">Usage</a> { <a class="code" href="a02857.html#a52af95c4518c52c8059292705c707e57a8a7976c710124c83c916034227727ead">UniformBuffer</a>, <a class="code" href="a02857.html#a52af95c4518c52c8059292705c707e57a2a5066aabde9ea88da034643cb64eda8">StorageBuffer</a> };</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02857.html#aaa1851925cfbec76dc50f645c9d6155d">   30</a></span>&#160;    <a class="code" href="a02857.html#aaa1851925cfbec76dc50f645c9d6155d">AlignedBuffer</a>();</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02852.html#a51b19a1030fb458829c61de9c11d96dd">registerMemoryBarrier</a>(<span class="keyword">const</span> VkMemoryBarrier&amp; barrier);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02852.html#ae9488e28d89759b039076b6cd42faa69">registerBufferBarrier</a>(<span class="keyword">const</span> VkBufferMemoryBarrier&amp; barrier);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02852.html#a1ff93d805feda610dc00a9602594b214">registerImageBarrier</a>(<span class="keyword">const</span> VkImageMemoryBarrier&amp; barrier);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    VkDevice <a class="code" href="a02852.html#ac490872587009a9c3f6061f915d106b4">device</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="a02852.html#a414e3e929f2ddb5667bcee3d88a6fb84">TransferContext</a>(<a class="code" href="a02988.html">vk::VulkanState</a>&amp; vulkanState, std::vector&lt;VkBuffer&gt;&amp; stagingBuffers,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                    std::vector&lt;VmaAllocation&gt;&amp; stagingAllocs,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    std::vector&lt;VkMemoryBarrier&gt;&amp; memoryBarriers,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    std::vector&lt;VkBufferMemoryBarrier&gt;&amp; bufferBarriers,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    std::vector&lt;VkImageMemoryBarrier&gt;&amp; imageBarriers);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="a02988.html">vk::VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    std::vector&lt;VkBuffer&gt;&amp; stagingBuffers;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    std::vector&lt;VmaAllocation&gt;&amp; stagingAllocs;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::vector&lt;VkMemoryBarrier&gt;&amp; memoryBarriers;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    std::vector&lt;VkBufferMemoryBarrier&gt;&amp; bufferBarriers;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    std::vector&lt;VkImageMemoryBarrier&gt;&amp; imageBarriers;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace tfr</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a02857.html#aacfff6b80cd881a53f55ddfd1aabd2d0">   35</a></span>&#160;    <a class="code" href="a02857.html#aacfff6b80cd881a53f55ddfd1aabd2d0">AlignedBuffer</a>(<span class="keyword">const</span> <a class="code" href="a02857.html">AlignedBuffer</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02857.html#a159bf984999a0858c51b1a1cddf5f8e2">   40</a></span>&#160;    <a class="code" href="a02857.html#a159bf984999a0858c51b1a1cddf5f8e2">AlignedBuffer</a>(<a class="code" href="a02857.html">AlignedBuffer</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a02857.html#ab5b79d43a775cf69fe07f04ab56f0bc2">   49</a></span>&#160;    <a class="code" href="a02857.html#ab5b79d43a775cf69fe07f04ab56f0bc2">AlignedBuffer</a>(<a class="code" href="a02981.html">VulkanState</a>&amp; vulkanState, <a class="code" href="a02857.html#a52af95c4518c52c8059292705c707e57">Usage</a> usage, std::uint32_t <a class="code" href="a02857.html#a75ef5ea92298441dabbaa1f1d5243f05">size</a>);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02857.html#a716bc60bdb9b145ac917aa0475efc037">   59</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02857.html#a716bc60bdb9b145ac917aa0475efc037">create</a>(<a class="code" href="a02981.html">VulkanState</a>&amp; vulkanState, <a class="code" href="a02857.html#a52af95c4518c52c8059292705c707e57">Usage</a> usage, std::uint32_t <a class="code" href="a02857.html#a75ef5ea92298441dabbaa1f1d5243f05">size</a>);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a02857.html#aef3a51703d7310e3ce6329660b72c369">   64</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02857.html#aef3a51703d7310e3ce6329660b72c369">clear</a>();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a02857.html#a944b2c1bf2f01b923995cea48996fb00">   72</a></span>&#160;    T&amp; <a class="code" href="a02857.html#a944b2c1bf2f01b923995cea48996fb00">operator[]</a>(std::uint32_t i);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a02857.html#a173e4d2190060a24c27434fb4c256407">   80</a></span>&#160;    <span class="keyword">const</span> T&amp; <a class="code" href="a02857.html#a173e4d2190060a24c27434fb4c256407">operator[]</a>(std::uint32_t i) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="a02857.html#ac2c5158d35c35783b54c5e8bb6788f2c">   89</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02857.html#ac2c5158d35c35783b54c5e8bb6788f2c">emplace</a>(TArgs&amp;&amp;... args);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="a02857.html#a55cad2287e4f34245abfc8b7f40d5c93">   96</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02857.html#a55cad2287e4f34245abfc8b7f40d5c93">append</a>(<span class="keyword">const</span> T&amp; value);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a02857.html#ae3e58327823cbb569df920011f249f6b">  104</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02857.html#ae3e58327823cbb569df920011f249f6b">erase</a>(std::uint32_t i);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a02857.html#a85d47b98b866501d44ae81a63b2a7793">  111</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02857.html#a85d47b98b866501d44ae81a63b2a7793">resize</a>(std::uint32_t <a class="code" href="a02857.html#a75ef5ea92298441dabbaa1f1d5243f05">size</a>);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="a02857.html#afcc72b904e31d03a247f44908ef54c66">  118</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02857.html#afcc72b904e31d03a247f44908ef54c66">fill</a>(<span class="keyword">const</span> T&amp; value);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="a02857.html#a75ef5ea92298441dabbaa1f1d5243f05">  123</a></span>&#160;    constexpr std::uint32_t <a class="code" href="a02857.html#a75ef5ea92298441dabbaa1f1d5243f05">size</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="a02857.html#affb05292337d4f8124d76cb523baba28">  128</a></span>&#160;    constexpr <span class="keyword">const</span> <span class="keywordtype">void</span>* <a class="code" href="a02857.html#affb05292337d4f8124d76cb523baba28">data</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="a02857.html#a4b91a7f735bc4906be37693f04390431">  133</a></span>&#160;    constexpr std::uint32_t <a class="code" href="a02857.html#a4b91a7f735bc4906be37693f04390431">alignedSize</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="a02857.html#a7f03597c3e2ad58c838a083e4c84314a">  138</a></span>&#160;    constexpr std::uint32_t <a class="code" href="a02857.html#a7f03597c3e2ad58c838a083e4c84314a">elementSize</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    std::vector&lt;char&gt; storage;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    std::uint32_t alignment;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    std::uint32_t storedElements;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    T* cast(std::size_t i);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">const</span> T* cast(std::size_t i) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordtype">void</span> ensureCapacity(std::size_t <a class="code" href="a02857.html#a75ef5ea92298441dabbaa1f1d5243f05">size</a>);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;};</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="a02857.html#aaa1851925cfbec76dc50f645c9d6155d">  153</a></span>&#160;<a class="code" href="a02857.html#aaa1851925cfbec76dc50f645c9d6155d">AlignedBuffer&lt;T&gt;::AlignedBuffer</a>()</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;: alignment(0)</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;, storedElements(0) {}</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="a02857.html#ab5b79d43a775cf69fe07f04ab56f0bc2">  158</a></span>&#160;<a class="code" href="a02857.html#aaa1851925cfbec76dc50f645c9d6155d">AlignedBuffer&lt;T&gt;::AlignedBuffer</a>(<a class="code" href="a02981.html">VulkanState</a>&amp; vulkanState, <a class="code" href="a02857.html#a52af95c4518c52c8059292705c707e57">Usage</a> use, std::uint32_t size) {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    create(vulkanState, use, size);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;}</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="a02857.html#a716bc60bdb9b145ac917aa0475efc037">  163</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02857.html#a716bc60bdb9b145ac917aa0475efc037">AlignedBuffer&lt;T&gt;::create</a>(<a class="code" href="a02981.html">VulkanState</a>&amp; vulkanState, <a class="code" href="a02857.html#a52af95c4518c52c8059292705c707e57">Usage</a> use, std::uint32_t size) {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> align =</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        use == Usage::UniformBuffer ?</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            vulkanState.<a class="code" href="a02981.html#ab4dc332e9cb03272482bf24e95a1a7ad">physicalDeviceProperties</a>.limits.minUniformBufferOffsetAlignment :</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            vulkanState.<a class="code" href="a02981.html#ab4dc332e9cb03272482bf24e95a1a7ad">physicalDeviceProperties</a>.limits.minStorageBufferOffsetAlignment;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    alignment = vulkanState.<a class="code" href="a02981.html#aa657ce523a4854213de68f7e5f8f6e02">computeAlignedSize</a>(<span class="keyword">sizeof</span>(T), align);</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    resize(size);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;}</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="a02857.html#a944b2c1bf2f01b923995cea48996fb00">  173</a></span>&#160;T&amp; <a class="code" href="a02857.html#a944b2c1bf2f01b923995cea48996fb00">AlignedBuffer&lt;T&gt;::operator[]</a>(std::uint32_t i) {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordflow">if</span> (alignment == 0) {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;AlignedBufer must be initialized from device properties&quot;</span>);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    }</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordflow">return</span> *cast(i);</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;}</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="a02857.html#a173e4d2190060a24c27434fb4c256407">  183</a></span>&#160;<span class="keyword">const</span> T&amp; <a class="code" href="a02857.html#a944b2c1bf2f01b923995cea48996fb00">AlignedBuffer&lt;T&gt;::operator[]</a>(std::uint32_t i)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordflow">if</span> (alignment == 0) {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;AlignedBufer must be initialized from device properties&quot;</span>);</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    }</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">return</span> *cast(i);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;}</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="a02857.html#a55cad2287e4f34245abfc8b7f40d5c93">  193</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02857.html#a55cad2287e4f34245abfc8b7f40d5c93">AlignedBuffer&lt;T&gt;::append</a>(<span class="keyword">const</span> T&amp; value) {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordflow">if</span> (alignment == 0) {</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;AlignedBufer must be initialized from device properties&quot;</span>);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    ensureCapacity(storedElements + 1);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keyword">new</span> (cast(storedElements)) T(value);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    ++storedElements;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;}</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00205"></a><span class="lineno"><a class="line" href="a02857.html#ae3e58327823cbb569df920011f249f6b">  205</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02857.html#ae3e58327823cbb569df920011f249f6b">AlignedBuffer&lt;T&gt;::erase</a>(std::uint32_t i) {</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordflow">if</span> (storedElements &gt; 1 &amp;&amp; i &lt; storedElements - 1) { *cast(i) = *cast(storedElements - 1); }</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    --storedElements;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;}</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00211"></a><span class="lineno"><a class="line" href="a02857.html#a85d47b98b866501d44ae81a63b2a7793">  211</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02857.html#a85d47b98b866501d44ae81a63b2a7793">AlignedBuffer&lt;T&gt;::resize</a>(std::uint32_t size) {</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordflow">if</span> (alignment == 0) {</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;AlignedBufer must be initialized from device properties&quot;</span>);</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    }</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    ensureCapacity(size);</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    storedElements = std::max(storedElements, size);</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;}</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00223"></a><span class="lineno"><a class="line" href="a02857.html#aef3a51703d7310e3ce6329660b72c369">  223</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02857.html#aef3a51703d7310e3ce6329660b72c369">AlignedBuffer&lt;T&gt;::clear</a>() {</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    storage.clear();</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    storedElements = 0;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;}</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00229"></a><span class="lineno"><a class="line" href="a02857.html#afcc72b904e31d03a247f44908ef54c66">  229</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02857.html#afcc72b904e31d03a247f44908ef54c66">AlignedBuffer&lt;T&gt;::fill</a>(<span class="keyword">const</span> T&amp; value) {</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordflow">for</span> (std::uint32_t j = 0; j &lt; storedElements; ++j) { <span class="keyword">new</span> (cast(j)) T(value); }</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;}</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="a02857.html#a75ef5ea92298441dabbaa1f1d5243f05">  234</a></span>&#160;constexpr std::uint32_t <a class="code" href="a02857.html#a75ef5ea92298441dabbaa1f1d5243f05">AlignedBuffer&lt;T&gt;::size</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keywordflow">return</span> storedElements;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;}</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00239"></a><span class="lineno"><a class="line" href="a02857.html#affb05292337d4f8124d76cb523baba28">  239</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> <span class="keywordtype">void</span>* <a class="code" href="a02857.html#affb05292337d4f8124d76cb523baba28">AlignedBuffer&lt;T&gt;::data</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(storage.data());</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;}</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00244"></a><span class="lineno"><a class="line" href="a02857.html#a4b91a7f735bc4906be37693f04390431">  244</a></span>&#160;<span class="keyword">inline</span> constexpr std::uint32_t <a class="code" href="a02857.html#a4b91a7f735bc4906be37693f04390431">AlignedBuffer&lt;T&gt;::alignedSize</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">return</span> storedElements * alignment;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;}</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00249"></a><span class="lineno"><a class="line" href="a02857.html#a7f03597c3e2ad58c838a083e4c84314a">  249</a></span>&#160;constexpr std::uint32_t <a class="code" href="a02857.html#a7f03597c3e2ad58c838a083e4c84314a">AlignedBuffer&lt;T&gt;::elementSize</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordflow">return</span> alignment;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;}</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;T* <a class="code" href="a02857.html">AlignedBuffer&lt;T&gt;::cast</a>(std::size_t i) {</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(storage.data() + alignment * i));</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;}</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<span class="keyword">const</span> T* AlignedBuffer&lt;T&gt;::cast(std::size_t i)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>T*<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(storage.data() + alignment * i));</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;}</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="keywordtype">void</span> AlignedBuffer&lt;T&gt;::ensureCapacity(std::size_t size) {</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    storage.<a class="code" href="a02857.html#a85d47b98b866501d44ae81a63b2a7793">resize</a>(size * alignment);</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;}</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00270"></a><span class="lineno"><a class="line" href="a02857.html#ac2c5158d35c35783b54c5e8bb6788f2c">  270</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02857.html#ac2c5158d35c35783b54c5e8bb6788f2c">AlignedBuffer&lt;T&gt;::emplace</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keywordflow">if</span> (alignment == 0) {</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;AlignedBufer must be initialized from device properties&quot;</span>);</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    }</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    ensureCapacity(storedElements + 1);</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keyword">new</span> (cast(storedElements)) T(std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    ++storedElements;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;}</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00743_html"><div class="ttname"><a href="a00743.html">VulkanState.hpp</a></div></div>
 <div class="ttc" id="aa00977_html"><div class="ttname"><a href="a00977.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02852_html"><div class="ttname"><a href="a02852.html">bl::gfx::tfr::TransferContext</a></div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00018">TransferContext.hpp:18</a></div></div>
-<div class="ttc" id="aa02852_html_a1ff93d805feda610dc00a9602594b214"><div class="ttname"><a href="a02852.html#a1ff93d805feda610dc00a9602594b214">bl::gfx::tfr::TransferContext::registerImageBarrier</a></div><div class="ttdeci">void registerImageBarrier(const VkImageMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00048">TransferContext.cpp:48</a></div></div>
-<div class="ttc" id="aa02852_html_a414e3e929f2ddb5667bcee3d88a6fb84"><div class="ttname"><a href="a02852.html#a414e3e929f2ddb5667bcee3d88a6fb84">bl::gfx::tfr::TransferContext::TransferContext</a></div><div class="ttdeci">TransferContext(vk::VulkanState &amp;vulkanState, std::vector&lt; VkBuffer &gt; &amp;stagingBuffers, std::vector&lt; VmaAllocation &gt; &amp;stagingAllocs, std::vector&lt; VkMemoryBarrier &gt; &amp;memoryBarriers, std::vector&lt; VkBufferMemoryBarrier &gt; &amp;bufferBarriers, std::vector&lt; VkImageMemoryBarrier &gt; &amp;imageBarriers)</div><div class="ttdoc">Internal constructor, do not use.</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00011">TransferContext.cpp:11</a></div></div>
-<div class="ttc" id="aa02852_html_a51b19a1030fb458829c61de9c11d96dd"><div class="ttname"><a href="a02852.html#a51b19a1030fb458829c61de9c11d96dd">bl::gfx::tfr::TransferContext::registerMemoryBarrier</a></div><div class="ttdeci">void registerMemoryBarrier(const VkMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00040">TransferContext.cpp:40</a></div></div>
-<div class="ttc" id="aa02852_html_a7b777daebdc02d52c764b5a16635636a"><div class="ttname"><a href="a02852.html#a7b777daebdc02d52c764b5a16635636a">bl::gfx::tfr::TransferContext::createTemporaryStagingBuffer</a></div><div class="ttdeci">void createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer &amp;bufferResult, void **mappedMemory)</div><div class="ttdoc">Creates a staging buffer of the given size. Should only be called from Transferable::executeTransferA...</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00023">TransferContext.cpp:23</a></div></div>
-<div class="ttc" id="aa02852_html_ac490872587009a9c3f6061f915d106b4"><div class="ttname"><a href="a02852.html#ac490872587009a9c3f6061f915d106b4">bl::gfx::tfr::TransferContext::device</a></div><div class="ttdeci">VkDevice device() const</div><div class="ttdoc">Returns the logical device to be used.</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00052">TransferContext.cpp:52</a></div></div>
-<div class="ttc" id="aa02852_html_ae9488e28d89759b039076b6cd42faa69"><div class="ttname"><a href="a02852.html#ae9488e28d89759b039076b6cd42faa69">bl::gfx::tfr::TransferContext::registerBufferBarrier</a></div><div class="ttdeci">void registerBufferBarrier(const VkBufferMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00044">TransferContext.cpp:44</a></div></div>
-<div class="ttc" id="aa02988_html"><div class="ttname"><a href="a02988.html">bl::gfx::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00036">VulkanState.hpp:36</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02857_html"><div class="ttname"><a href="a02857.html">bl::rc::vk::AlignedBuffer</a></div><div class="ttdoc">Utility class to store a buffer of PODs on the CPU aligned for the UBO requirements of the device bei...</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00023">AlignedBuffer.hpp:23</a></div></div>
+<div class="ttc" id="aa02857_html_a159bf984999a0858c51b1a1cddf5f8e2"><div class="ttname"><a href="a02857.html#a159bf984999a0858c51b1a1cddf5f8e2">bl::rc::vk::AlignedBuffer::AlignedBuffer</a></div><div class="ttdeci">AlignedBuffer(AlignedBuffer &amp;&amp;)=default</div><div class="ttdoc">Copies from the existing buffer.</div></div>
+<div class="ttc" id="aa02857_html_a173e4d2190060a24c27434fb4c256407"><div class="ttname"><a href="a02857.html#a173e4d2190060a24c27434fb4c256407">bl::rc::vk::AlignedBuffer::operator[]</a></div><div class="ttdeci">const T &amp; operator[](std::uint32_t i) const</div><div class="ttdoc">Returns the element at the given index.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00183">AlignedBuffer.hpp:183</a></div></div>
+<div class="ttc" id="aa02857_html_a4b91a7f735bc4906be37693f04390431"><div class="ttname"><a href="a02857.html#a4b91a7f735bc4906be37693f04390431">bl::rc::vk::AlignedBuffer::alignedSize</a></div><div class="ttdeci">constexpr std::uint32_t alignedSize() const</div><div class="ttdoc">Returns the number of bytes to copy when transferring to the GPU.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00244">AlignedBuffer.hpp:244</a></div></div>
+<div class="ttc" id="aa02857_html_a52af95c4518c52c8059292705c707e57"><div class="ttname"><a href="a02857.html#a52af95c4518c52c8059292705c707e57">bl::rc::vk::AlignedBuffer::Usage</a></div><div class="ttdeci">Usage</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00025">AlignedBuffer.hpp:25</a></div></div>
+<div class="ttc" id="aa02857_html_a52af95c4518c52c8059292705c707e57a2a5066aabde9ea88da034643cb64eda8"><div class="ttname"><a href="a02857.html#a52af95c4518c52c8059292705c707e57a2a5066aabde9ea88da034643cb64eda8">bl::rc::vk::AlignedBuffer::StorageBuffer</a></div><div class="ttdeci">@ StorageBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00025">AlignedBuffer.hpp:25</a></div></div>
+<div class="ttc" id="aa02857_html_a52af95c4518c52c8059292705c707e57a8a7976c710124c83c916034227727ead"><div class="ttname"><a href="a02857.html#a52af95c4518c52c8059292705c707e57a8a7976c710124c83c916034227727ead">bl::rc::vk::AlignedBuffer::UniformBuffer</a></div><div class="ttdeci">@ UniformBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00025">AlignedBuffer.hpp:25</a></div></div>
+<div class="ttc" id="aa02857_html_a55cad2287e4f34245abfc8b7f40d5c93"><div class="ttname"><a href="a02857.html#a55cad2287e4f34245abfc8b7f40d5c93">bl::rc::vk::AlignedBuffer::append</a></div><div class="ttdeci">void append(const T &amp;value)</div><div class="ttdoc">Adds a new element to the end of the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00193">AlignedBuffer.hpp:193</a></div></div>
+<div class="ttc" id="aa02857_html_a716bc60bdb9b145ac917aa0475efc037"><div class="ttname"><a href="a02857.html#a716bc60bdb9b145ac917aa0475efc037">bl::rc::vk::AlignedBuffer::create</a></div><div class="ttdeci">void create(VulkanState &amp;vulkanState, Usage usage, std::uint32_t size)</div><div class="ttdoc">Creates a new buffer of the given size. Must be called before any operations may be performed.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00163">AlignedBuffer.hpp:163</a></div></div>
+<div class="ttc" id="aa02857_html_a75ef5ea92298441dabbaa1f1d5243f05"><div class="ttname"><a href="a02857.html#a75ef5ea92298441dabbaa1f1d5243f05">bl::rc::vk::AlignedBuffer::size</a></div><div class="ttdeci">constexpr std::uint32_t size() const</div><div class="ttdoc">Returns the number of elements in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00234">AlignedBuffer.hpp:234</a></div></div>
+<div class="ttc" id="aa02857_html_a7f03597c3e2ad58c838a083e4c84314a"><div class="ttname"><a href="a02857.html#a7f03597c3e2ad58c838a083e4c84314a">bl::rc::vk::AlignedBuffer::elementSize</a></div><div class="ttdeci">constexpr std::uint32_t elementSize() const</div><div class="ttdoc">Returns the space used by each element in the aligned storage.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00249">AlignedBuffer.hpp:249</a></div></div>
+<div class="ttc" id="aa02857_html_a85d47b98b866501d44ae81a63b2a7793"><div class="ttname"><a href="a02857.html#a85d47b98b866501d44ae81a63b2a7793">bl::rc::vk::AlignedBuffer::resize</a></div><div class="ttdeci">void resize(std::uint32_t size)</div><div class="ttdoc">Resizes the buffer to hold the given number of elements. Prior values are preserved.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00211">AlignedBuffer.hpp:211</a></div></div>
+<div class="ttc" id="aa02857_html_a944b2c1bf2f01b923995cea48996fb00"><div class="ttname"><a href="a02857.html#a944b2c1bf2f01b923995cea48996fb00">bl::rc::vk::AlignedBuffer::operator[]</a></div><div class="ttdeci">T &amp; operator[](std::uint32_t i)</div><div class="ttdoc">Returns the element at the given index.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00173">AlignedBuffer.hpp:173</a></div></div>
+<div class="ttc" id="aa02857_html_aaa1851925cfbec76dc50f645c9d6155d"><div class="ttname"><a href="a02857.html#aaa1851925cfbec76dc50f645c9d6155d">bl::rc::vk::AlignedBuffer::AlignedBuffer</a></div><div class="ttdeci">AlignedBuffer()</div><div class="ttdoc">Creates an empty buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00153">AlignedBuffer.hpp:153</a></div></div>
+<div class="ttc" id="aa02857_html_aacfff6b80cd881a53f55ddfd1aabd2d0"><div class="ttname"><a href="a02857.html#aacfff6b80cd881a53f55ddfd1aabd2d0">bl::rc::vk::AlignedBuffer::AlignedBuffer</a></div><div class="ttdeci">AlignedBuffer(const AlignedBuffer &amp;)=default</div><div class="ttdoc">Copies from the existing buffer.</div></div>
+<div class="ttc" id="aa02857_html_ab5b79d43a775cf69fe07f04ab56f0bc2"><div class="ttname"><a href="a02857.html#ab5b79d43a775cf69fe07f04ab56f0bc2">bl::rc::vk::AlignedBuffer::AlignedBuffer</a></div><div class="ttdeci">AlignedBuffer(VulkanState &amp;vulkanState, Usage usage, std::uint32_t size)</div><div class="ttdoc">Creates a new buffer of the given size.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00158">AlignedBuffer.hpp:158</a></div></div>
+<div class="ttc" id="aa02857_html_ac2c5158d35c35783b54c5e8bb6788f2c"><div class="ttname"><a href="a02857.html#ac2c5158d35c35783b54c5e8bb6788f2c">bl::rc::vk::AlignedBuffer::emplace</a></div><div class="ttdeci">void emplace(TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates a new element at the end of the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00270">AlignedBuffer.hpp:270</a></div></div>
+<div class="ttc" id="aa02857_html_ae3e58327823cbb569df920011f249f6b"><div class="ttname"><a href="a02857.html#ae3e58327823cbb569df920011f249f6b">bl::rc::vk::AlignedBuffer::erase</a></div><div class="ttdeci">void erase(std::uint32_t i)</div><div class="ttdoc">Erases the element at the given index. Copies the element from the end of the buffer to save time....</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00205">AlignedBuffer.hpp:205</a></div></div>
+<div class="ttc" id="aa02857_html_aef3a51703d7310e3ce6329660b72c369"><div class="ttname"><a href="a02857.html#aef3a51703d7310e3ce6329660b72c369">bl::rc::vk::AlignedBuffer::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Empties the CPU buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00223">AlignedBuffer.hpp:223</a></div></div>
+<div class="ttc" id="aa02857_html_afcc72b904e31d03a247f44908ef54c66"><div class="ttname"><a href="a02857.html#afcc72b904e31d03a247f44908ef54c66">bl::rc::vk::AlignedBuffer::fill</a></div><div class="ttdeci">void fill(const T &amp;value)</div><div class="ttdoc">Fills the buffer with the given value.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00229">AlignedBuffer.hpp:229</a></div></div>
+<div class="ttc" id="aa02857_html_affb05292337d4f8124d76cb523baba28"><div class="ttname"><a href="a02857.html#affb05292337d4f8124d76cb523baba28">bl::rc::vk::AlignedBuffer::data</a></div><div class="ttdeci">constexpr const void * data() const</div><div class="ttdoc">Returns the memory address to use for copies.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00239">AlignedBuffer.hpp:239</a></div></div>
+<div class="ttc" id="aa02981_html"><div class="ttname"><a href="a02981.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00036">VulkanState.hpp:36</a></div></div>
+<div class="ttc" id="aa02981_html_aa657ce523a4854213de68f7e5f8f6e02"><div class="ttname"><a href="a02981.html#aa657ce523a4854213de68f7e5f8f6e02">bl::rc::vk::VulkanState::computeAlignedSize</a></div><div class="ttdeci">static VkDeviceSize computeAlignedSize(VkDeviceSize dataSize, VkDeviceSize alignment)</div><div class="ttdoc">Computes the aligned size of data given its actual size and alignment requirement.</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00644">VulkanState.cpp:644</a></div></div>
+<div class="ttc" id="aa02981_html_ab4dc332e9cb03272482bf24e95a1a7ad"><div class="ttname"><a href="a02981.html#ab4dc332e9cb03272482bf24e95a1a7ad">bl::rc::vk::VulkanState::physicalDeviceProperties</a></div><div class="ttdeci">VkPhysicalDeviceProperties physicalDeviceProperties</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00200">VulkanState.hpp:200</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Components/DescriptorComponentBase.hpp Source File</title>
+<title>BLIB: include/BLIB/Media/Shapes.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,141 +66,32 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1fe4435017a66f2c0b1af7ce232fd611.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c9bb3a7354e9a8e879b9b4f2f81c7c7f.html">Media</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DescriptorComponentBase.hpp</div>  </div>
+<div class="title">Shapes.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00482.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP</span></div>
+<a href="a00482.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MEDIA_SHAPES_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MEDIA_SHAPES_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00059.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00356.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00536.html">BLIB/Render/Descriptors/DescriptorComponentStorage.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00638.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01655.html">   16</a></span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">struct </span><a class="code" href="a02988.html">VulkanState</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a01656.html">   21</a></span>&#160;<span class="keyword">namespace </span>com</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload = TCom&gt;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02496.html">   31</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02496.html">DescriptorComponentBase</a> {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02496.html#a1adba031fd0dbba609174c3c88c01295">   36</a></span>&#160;    <a class="code" href="a02496.html#a1adba031fd0dbba609174c3c88c01295">DescriptorComponentBase</a>();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a02496.html#afd62ce48bcd19e3b417c1cb35f9b8c84">   45</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02496.html#afd62ce48bcd19e3b417c1cb35f9b8c84">link</a>(<a class="code" href="a02592.html">ds::DescriptorComponentStorageBase</a>* descriptorSet, <a class="code" href="a02784.html">scene::Key</a> sceneKey,</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;              TPayload* payload);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a02496.html#aa037f2a02568b16a90d5dee0b85c00d2">   51</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02496.html#aa037f2a02568b16a90d5dee0b85c00d2">unlink</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a02496.html#a7bb88ae74e515ac5cca445148de96e14">   56</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a02496.html#a7bb88ae74e515ac5cca445148de96e14">isDirty</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a02496.html#a1fcf0e69e0249b3448cccf6058dbe5fe">   61</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02496.html#a1fcf0e69e0249b3448cccf6058dbe5fe">refresh</a>();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a02496.html#a781afe3a6c84017c3c0a14f9fe3b25fd">   67</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02496.html#a781afe3a6c84017c3c0a14f9fe3b25fd">markDirty</a>();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a02496.html#a485ed015717c7dc173158449d0518e76">   74</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02496.html#a485ed015717c7dc173158449d0518e76">refreshDescriptor</a>(TPayload&amp; payload);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="a02592.html">ds::DescriptorComponentStorageBase</a>* descriptorSet;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="a02784.html">scene::Key</a> sceneKey;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    TPayload* payload;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">bool</span> dirty;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a02496.html#a1adba031fd0dbba609174c3c88c01295">   86</a></span>&#160;<a class="code" href="a02496.html#a1adba031fd0dbba609174c3c88c01295">DescriptorComponentBase&lt;TCom, TPayload&gt;::DescriptorComponentBase</a>()</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;: descriptorSet(nullptr)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;, dirty(0) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    static_assert(std::is_base_of_v&lt;<a class="code" href="a02496.html">DescriptorComponentBase&lt;TCom, TPayload&gt;</a>, TCom&gt;,</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                  <span class="stringliteral">&quot;Descriptor component must inherit DescriptorComponentBase&quot;</span>);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a02496.html#afd62ce48bcd19e3b417c1cb35f9b8c84">   94</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02496.html#afd62ce48bcd19e3b417c1cb35f9b8c84">DescriptorComponentBase&lt;TCom, TPayload&gt;::link</a>(<a class="code" href="a02592.html">ds::DescriptorComponentStorageBase</a>* set,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                                   <a class="code" href="a02784.html">scene::Key</a> k, TPayload* p) {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (descriptorSet != <span class="keyword">nullptr</span> &amp;&amp; descriptorSet != set) {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="a00350.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Component is used in more than one descriptor set component module&quot;</span>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    descriptorSet = set;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    payload       = p;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">if</span> (k.<a class="code" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a> != <a class="code" href="a01597.html#ga01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>) {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        dirty    = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        sceneKey = k;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="a02496.html#aa037f2a02568b16a90d5dee0b85c00d2">  110</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="a02496.html#aa037f2a02568b16a90d5dee0b85c00d2">DescriptorComponentBase&lt;TCom, TPayload&gt;::unlink</a>() {</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    descriptorSet = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="a02496.html#a7bb88ae74e515ac5cca445148de96e14">  115</a></span>&#160;constexpr <span class="keywordtype">bool</span> <a class="code" href="a02496.html#a7bb88ae74e515ac5cca445148de96e14">DescriptorComponentBase&lt;TCom, TPayload&gt;::isDirty</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">return</span> dirty &amp;&amp; descriptorSet != <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="a02496.html#a1fcf0e69e0249b3448cccf6058dbe5fe">  120</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02496.html#a1fcf0e69e0249b3448cccf6058dbe5fe">DescriptorComponentBase&lt;TCom, TPayload&gt;::refresh</a>() {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    static_assert(std::is_invocable&lt;decltype(&amp;TCom::refreshDescriptor), TCom&amp;, TPayload&amp;&gt;::value,</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                  <span class="stringliteral">&quot;Descriptor components must provide a method void refreshDescriptor(TPayload&amp;)&quot;</span>);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    descriptorSet-&gt;markObjectDirty(sceneKey);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">static_cast&lt;</span>TCom*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;refreshDescriptor(*payload);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    dirty = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="a02496.html#a781afe3a6c84017c3c0a14f9fe3b25fd">  130</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02496.html#a781afe3a6c84017c3c0a14f9fe3b25fd">DescriptorComponentBase&lt;TCom, TPayload&gt;::markDirty</a>() {</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    dirty = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;} <span class="comment">// namespace com</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00059_html"><div class="ttname"><a href="a00059.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aa00350_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00350.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00356_html"><div class="ttname"><a href="a00356.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa00536_html"><div class="ttname"><a href="a00536.html">DescriptorComponentStorage.hpp</a></div></div>
-<div class="ttc" id="aa00638_html"><div class="ttname"><a href="a00638.html">Key.hpp</a></div></div>
-<div class="ttc" id="aa01597_html_ga01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a01597.html#ga01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00059_source.html#l00029">Entity.hpp:29</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02496_html"><div class="ttname"><a href="a02496.html">bl::gfx::com::DescriptorComponentBase</a></div><div class="ttdoc">Base class for ECS components that map into descriptor sets.</div><div class="ttdef"><b>Definition:</b> <a href="a00482_source.html#l00031">DescriptorComponentBase.hpp:31</a></div></div>
-<div class="ttc" id="aa02496_html_a1adba031fd0dbba609174c3c88c01295"><div class="ttname"><a href="a02496.html#a1adba031fd0dbba609174c3c88c01295">bl::gfx::com::DescriptorComponentBase::DescriptorComponentBase</a></div><div class="ttdeci">DescriptorComponentBase()</div><div class="ttdoc">Performs basic setup.</div><div class="ttdef"><b>Definition:</b> <a href="a00482_source.html#l00086">DescriptorComponentBase.hpp:86</a></div></div>
-<div class="ttc" id="aa02496_html_a1fcf0e69e0249b3448cccf6058dbe5fe"><div class="ttname"><a href="a02496.html#a1fcf0e69e0249b3448cccf6058dbe5fe">bl::gfx::com::DescriptorComponentBase::refresh</a></div><div class="ttdeci">void refresh()</div><div class="ttdoc">Refreshes and syncs the descriptor value and marks as clean.</div><div class="ttdef"><b>Definition:</b> <a href="a00482_source.html#l00120">DescriptorComponentBase.hpp:120</a></div></div>
-<div class="ttc" id="aa02496_html_a485ed015717c7dc173158449d0518e76"><div class="ttname"><a href="a02496.html#a485ed015717c7dc173158449d0518e76">bl::gfx::com::DescriptorComponentBase::refreshDescriptor</a></div><div class="ttdeci">void refreshDescriptor(TPayload &amp;payload)</div><div class="ttdoc">Undefined. Derived classes should implement this to perform refresh+sync logic.</div></div>
-<div class="ttc" id="aa02496_html_a781afe3a6c84017c3c0a14f9fe3b25fd"><div class="ttname"><a href="a02496.html#a781afe3a6c84017c3c0a14f9fe3b25fd">bl::gfx::com::DescriptorComponentBase::markDirty</a></div><div class="ttdeci">void markDirty()</div><div class="ttdoc">Call this when the component is modified.</div><div class="ttdef"><b>Definition:</b> <a href="a00482_source.html#l00130">DescriptorComponentBase.hpp:130</a></div></div>
-<div class="ttc" id="aa02496_html_a7bb88ae74e515ac5cca445148de96e14"><div class="ttname"><a href="a02496.html#a7bb88ae74e515ac5cca445148de96e14">bl::gfx::com::DescriptorComponentBase::isDirty</a></div><div class="ttdeci">constexpr bool isDirty() const</div><div class="ttdoc">Returns whether or not this component is dirty and needs to be synced.</div><div class="ttdef"><b>Definition:</b> <a href="a00482_source.html#l00115">DescriptorComponentBase.hpp:115</a></div></div>
-<div class="ttc" id="aa02496_html_aa037f2a02568b16a90d5dee0b85c00d2"><div class="ttname"><a href="a02496.html#aa037f2a02568b16a90d5dee0b85c00d2">bl::gfx::com::DescriptorComponentBase::unlink</a></div><div class="ttdeci">void unlink()</div><div class="ttdoc">Unlinks the component from a scene object.</div><div class="ttdef"><b>Definition:</b> <a href="a00482_source.html#l00110">DescriptorComponentBase.hpp:110</a></div></div>
-<div class="ttc" id="aa02496_html_afd62ce48bcd19e3b417c1cb35f9b8c84"><div class="ttname"><a href="a02496.html#afd62ce48bcd19e3b417c1cb35f9b8c84">bl::gfx::com::DescriptorComponentBase::link</a></div><div class="ttdeci">void link(ds::DescriptorComponentStorageBase *descriptorSet, scene::Key sceneKey, TPayload *payload)</div><div class="ttdoc">Links this component to an object in a scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00482_source.html#l00094">DescriptorComponentBase.hpp:94</a></div></div>
-<div class="ttc" id="aa02592_html"><div class="ttname"><a href="a02592.html">bl::gfx::ds::DescriptorComponentStorageBase</a></div><div class="ttdoc">Base class for descriptor component storage modules.</div><div class="ttdef"><b>Definition:</b> <a href="a00536_source.html#l00025">DescriptorComponentStorage.hpp:25</a></div></div>
-<div class="ttc" id="aa02784_html"><div class="ttname"><a href="a02784.html">bl::gfx::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00022">Key.hpp:22</a></div></div>
-<div class="ttc" id="aa02784_html_a4445e0360b838111bbb0a3740c3eae5c"><div class="ttname"><a href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">bl::gfx::scene::Key::sceneId</a></div><div class="ttdeci">std::uint32_t sceneId</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00024">Key.hpp:24</a></div></div>
-<div class="ttc" id="aa02988_html"><div class="ttname"><a href="a02988.html">bl::gfx::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00036">VulkanState.hpp:36</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00470.html">BLIB/Media/Shapes/Ellipse.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00473.html">BLIB/Media/Shapes/GradientCircle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00476.html">BLIB/Media/Shapes/GradientRectangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00479.html">BLIB/Media/Shapes/Triangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00470_html"><div class="ttname"><a href="a00470.html">Ellipse.hpp</a></div></div>
+<div class="ttc" id="aa00473_html"><div class="ttname"><a href="a00473.html">GradientCircle.hpp</a></div></div>
+<div class="ttc" id="aa00476_html"><div class="ttname"><a href="a00476.html">GradientRectangle.hpp</a></div></div>
+<div class="ttc" id="aa00479_html"><div class="ttname"><a href="a00479.html">Triangle.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

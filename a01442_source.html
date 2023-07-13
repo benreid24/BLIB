@@ -74,18 +74,18 @@ $(function() {
 <div class="title">Swapchain.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01442.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00746.html">BLIB/Render/Vulkan/Swapchain.hpp</a>&gt;</span></div>
+<a href="a01442.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00737.html">BLIB/Render/Vulkan/Swapchain.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00086.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00116.html">BLIB/Engine/Settings.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00740.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00752.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00143.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00173.html">BLIB/Engine/Settings.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00731.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00743.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01451.html">Render/Vulkan/Utils/QueueFamilyLocator.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01457.html">Render/Vulkan/Utils/SwapChainSupportDetails.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>vk</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
@@ -129,22 +129,22 @@ $(function() {
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    vkDestroyCommandPool(vulkanState.device, commandPool, <span class="keyword">nullptr</span>);</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a02976.html#a26250fc3d7c633a42470c5c17c023270">   56</a></span>&#160;<a class="code" href="a02976.html#a26250fc3d7c633a42470c5c17c023270">Swapchain::Swapchain</a>(<a class="code" href="a02988.html">VulkanState</a>&amp; state, sf::WindowBase&amp; w)</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a02969.html#ab8ed76da73062a60089da1fc207c8b76">   56</a></span>&#160;<a class="code" href="a02969.html#ab8ed76da73062a60089da1fc207c8b76">Swapchain::Swapchain</a>(<a class="code" href="a02981.html">VulkanState</a>&amp; state, sf::WindowBase&amp; w)</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;: vulkanState(state)</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;, window(w)</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;, currentImageIndex(0)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;, outOfDate(true) {}</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a02976.html#a9e2183cad0056b03c58a9f28936978ab">   62</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02976.html#a9e2183cad0056b03c58a9f28936978ab">Swapchain::destroy</a>() {</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a02969.html#a0fea3b5d6041de1702f01ee634376157">   62</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02969.html#a0fea3b5d6041de1702f01ee634376157">Swapchain::destroy</a>() {</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    cleanup();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    frameData.<a class="code" href="a02908.html#a4433e384187e5f4aac37f4f5a869c58f">cleanup</a>([<span class="keyword">this</span>](Frame&amp; frame) { frame.cleanup(vulkanState); });</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    frameData.<a class="code" href="a02901.html#ad0bfc6a2c72077a7f2a11c620acfc68b">cleanup</a>([<span class="keyword">this</span>](Frame&amp; frame) { frame.cleanup(vulkanState); });</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a02976.html#a3a33c1b9ec5f54e9e6ff675a55671c9b">   67</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02976.html#a3a33c1b9ec5f54e9e6ff675a55671c9b">Swapchain::beginFrame</a>(<a class="code" href="a02972.html">StandardAttachmentSet</a>*&amp; renderFrame, VkCommandBuffer&amp; cb) {</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a02969.html#a2c053656606216d2597999d6a934aa79">   67</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02969.html#a2c053656606216d2597999d6a934aa79">Swapchain::beginFrame</a>(<a class="code" href="a02965.html">StandardAttachmentSet</a>*&amp; renderFrame, VkCommandBuffer&amp; cb) {</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// wait for prior frame</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="a00749.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkWaitForFences(</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        vulkanState.device, 1, &amp;frameData.<a class="code" href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">current</a>().commandBufferFence, VK_TRUE, UINT64_MAX));</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="a00749.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkResetFences(vulkanState.device, 1, &amp;frameData.<a class="code" href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">current</a>().commandBufferFence));</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="a00740.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkWaitForFences(</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        vulkanState.device, 1, &amp;frameData.<a class="code" href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">current</a>().commandBufferFence, VK_TRUE, UINT64_MAX));</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="a00740.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkResetFences(vulkanState.device, 1, &amp;frameData.<a class="code" href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">current</a>().commandBufferFence));</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// recreate if out of date</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">if</span> (outOfDate) { recreate(); }</div>
@@ -155,7 +155,7 @@ $(function() {
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        acquireResult = vkAcquireNextImageKHR(vulkanState.device,</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                              swapchain,</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                                              UINT64_MAX,</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                              frameData.<a class="code" href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">current</a>().imageAvailableSemaphore,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                              frameData.<a class="code" href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">current</a>().imageAvailableSemaphore,</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                                              VK_NULL_HANDLE,</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                              &amp;currentImageIndex);</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">if</span> (acquireResult == VK_ERROR_OUT_OF_DATE_KHR) { recreate(); }</div>
@@ -165,28 +165,28 @@ $(function() {
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">// reset prior command buffer</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="a00749.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkResetCommandBuffer(frameData.<a class="code" href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">current</a>().commandBuffer, 0));</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="a00740.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkResetCommandBuffer(frameData.<a class="code" href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">current</a>().commandBuffer, 0));</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="comment">// begin command buffer</span></div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    VkCommandBufferBeginInfo beginInfo{};</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">if</span> (vkBeginCommandBuffer(frameData.<a class="code" href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">current</a>().commandBuffer, &amp;beginInfo) != VK_SUCCESS) {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">if</span> (vkBeginCommandBuffer(frameData.<a class="code" href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">current</a>().commandBuffer, &amp;beginInfo) != VK_SUCCESS) {</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to begin recording command buffer&quot;</span>);</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">// copy output</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    renderFrame = &amp;renderFrames[currentImageIndex];</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    cb          = frameData.<a class="code" href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">current</a>().commandBuffer;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    cb          = frameData.<a class="code" href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">current</a>().commandBuffer;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="a02976.html#a74dd1eee04c3707fbf7243348470b744">  107</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02976.html#a74dd1eee04c3707fbf7243348470b744">Swapchain::completeFrame</a>() {</div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="a02969.html#ad02ae8c6b61bffaa06c09f65aaee9831">  107</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02969.html#ad02ae8c6b61bffaa06c09f65aaee9831">Swapchain::completeFrame</a>() {</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="comment">// end command buffer</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="a00749.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkEndCommandBuffer(frameData.<a class="code" href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">current</a>().commandBuffer));</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="a00740.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkEndCommandBuffer(frameData.<a class="code" href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">current</a>().commandBuffer));</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// submit to queue</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    VkSemaphore waitSemaphores[]      = {frameData.<a class="code" href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">current</a>().imageAvailableSemaphore};</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    VkSemaphore signalSemaphores[]    = {frameData.<a class="code" href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">current</a>().renderFinishedSemaphore};</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    VkSemaphore waitSemaphores[]      = {frameData.<a class="code" href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">current</a>().imageAvailableSemaphore};</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    VkSemaphore signalSemaphores[]    = {frameData.<a class="code" href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">current</a>().renderFinishedSemaphore};</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    VkSubmitInfo submitInfo{};</div>
@@ -197,9 +197,9 @@ $(function() {
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    submitInfo.signalSemaphoreCount = std::size(signalSemaphores);</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    submitInfo.pSignalSemaphores    = signalSemaphores;</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    submitInfo.commandBufferCount   = 1;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    submitInfo.pCommandBuffers      = &amp;frameData.<a class="code" href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">current</a>().commandBuffer;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    submitInfo.pCommandBuffers      = &amp;frameData.<a class="code" href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">current</a>().commandBuffer;</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">if</span> (vkQueueSubmit(</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            vulkanState.graphicsQueue, 1, &amp;submitInfo, frameData.<a class="code" href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">current</a>().commandBufferFence) !=</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            vulkanState.graphicsQueue, 1, &amp;submitInfo, frameData.<a class="code" href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">current</a>().commandBufferFence) !=</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        VK_SUCCESS) {</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to submit draw command buffer&quot;</span>);</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
@@ -208,7 +208,7 @@ $(function() {
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    VkPresentInfoKHR presentInfo{};</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    presentInfo.sType              = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    presentInfo.waitSemaphoreCount = 1;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    presentInfo.pWaitSemaphores    = &amp;frameData.<a class="code" href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">current</a>().renderFinishedSemaphore;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    presentInfo.pWaitSemaphores    = &amp;frameData.<a class="code" href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">current</a>().renderFinishedSemaphore;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    presentInfo.swapchainCount     = 1;</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    presentInfo.pSwapchains        = &amp;swapchain;</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    presentInfo.pImageIndices      = &amp;currentImageIndex;</div>
@@ -228,40 +228,40 @@ $(function() {
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;}</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="keywordtype">void</span> Swapchain::cleanup() {</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a02972.html">StandardAttachmentSet</a>&amp; frame : renderFrames) {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a02965.html">StandardAttachmentSet</a>&amp; frame : renderFrames) {</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        vkDestroyImageView(vulkanState.device, frame.colorImageView(), <span class="keyword">nullptr</span>);</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    }</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">for</span> (AttachmentBuffer&amp; depthBuffer : depthBuffers) { depthBuffer.destroy(); }</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    vkDestroySwapchainKHR(vulkanState.device, swapchain, <span class="keyword">nullptr</span>);</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;}</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="a02976.html#a45de3f54fd0015c46163e50717dd2fe8">  162</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02976.html#a45de3f54fd0015c46163e50717dd2fe8">Swapchain::create</a>(VkSurfaceKHR s) {</div>
+<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="a02969.html#a6513c1505ca5c56697e0d0843e5fe74f">  162</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02969.html#a6513c1505ca5c56697e0d0843e5fe74f">Swapchain::create</a>(VkSurfaceKHR s) {</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    surface = s;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    frameData.<a class="code" href="a02908.html#a09b8dabf41e23128d5437c30bf8ce4e9">init</a>(vulkanState, [<span class="keyword">this</span>](Frame&amp; frame) { frame.init(vulkanState); });</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    frameData.<a class="code" href="a02901.html#a3cfb2b7b7c657e6fe15fab6403d75721">init</a>(vulkanState, [<span class="keyword">this</span>](Frame&amp; frame) { frame.init(vulkanState); });</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    createSwapchain();</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    outOfDate = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keywordtype">void</span> Swapchain::recreate() {</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    outOfDate = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <a class="code" href="a00749.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkDeviceWaitIdle(vulkanState.device));</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <a class="code" href="a00740.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkDeviceWaitIdle(vulkanState.device));</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    cleanup();</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    createSwapchain();</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;}</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="a02976.html#af38dcd6780d1d02da0d971aba304c217">  176</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02976.html#af38dcd6780d1d02da0d971aba304c217">Swapchain::invalidate</a>() { outOfDate = <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="a02969.html#aad29c55b20df3d50e2192404c022c6b7">  176</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02969.html#aad29c55b20df3d50e2192404c022c6b7">Swapchain::invalidate</a>() { outOfDate = <span class="keyword">true</span>; }</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="keywordtype">void</span> Swapchain::createSwapchain() {</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="comment">// get supported swap chain details</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <a class="code" href="a03664.html">SwapChainSupportDetails</a> swapChainSupport;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    swapChainSupport.<a class="code" href="a03664.html#a01befdad94819290f16531bed5681285">populate</a>(vulkanState.physicalDevice, surface);</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keyword">const</span> VkSurfaceFormatKHR&amp; surfaceFormat = swapChainSupport.<a class="code" href="a03664.html#a1dc5fffdc9e0acc0f03b448a430b8ab5">swapSurfaceFormat</a>();</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <a class="code" href="a03669.html">SwapChainSupportDetails</a> swapChainSupport;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    swapChainSupport.<a class="code" href="a03669.html#a538d5c8e88477f1afb804a9d557d4234">populate</a>(vulkanState.physicalDevice, surface);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keyword">const</span> VkSurfaceFormatKHR&amp; surfaceFormat = swapChainSupport.<a class="code" href="a03669.html#a074771ce4af99a010a861cddb901432e">swapSurfaceFormat</a>();</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="comment">// image count in swap chain</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    std::uint32_t imageCount = swapChainSupport.<a class="code" href="a03664.html#ab7160b9ae5009b137a5d4dd4eeb174c3">capabilities</a>.minImageCount + 1;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">if</span> (swapChainSupport.<a class="code" href="a03664.html#ab7160b9ae5009b137a5d4dd4eeb174c3">capabilities</a>.maxImageCount &gt; 0 &amp;&amp;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        imageCount &gt; swapChainSupport.<a class="code" href="a03664.html#ab7160b9ae5009b137a5d4dd4eeb174c3">capabilities</a>.maxImageCount) {</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        imageCount = swapChainSupport.<a class="code" href="a03664.html#ab7160b9ae5009b137a5d4dd4eeb174c3">capabilities</a>.maxImageCount;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    std::uint32_t imageCount = swapChainSupport.<a class="code" href="a03669.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.minImageCount + 1;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">if</span> (swapChainSupport.<a class="code" href="a03669.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.maxImageCount &gt; 0 &amp;&amp;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        imageCount &gt; swapChainSupport.<a class="code" href="a03669.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.maxImageCount) {</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        imageCount = swapChainSupport.<a class="code" href="a03669.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.maxImageCount;</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    }</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="comment">// swap chain create params</span></div>
@@ -271,7 +271,7 @@ $(function() {
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    createInfo.minImageCount    = imageCount;</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    createInfo.imageFormat      = surfaceFormat.format;</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    createInfo.imageColorSpace  = surfaceFormat.colorSpace;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    createInfo.imageExtent      = swapChainSupport.<a class="code" href="a03664.html#a811e71885afa054c40ef649587c18972">swapExtent</a>(window.getSize());</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    createInfo.imageExtent      = swapChainSupport.<a class="code" href="a03669.html#a317e166f325c41fd43b5da49b187e1a0">swapExtent</a>(window.getSize());</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    createInfo.imageArrayLayers = 1;</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    createInfo.imageUsage       = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
@@ -292,31 +292,31 @@ $(function() {
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    }</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="comment">// more create params</span></div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    createInfo.preTransform   = swapChainSupport.<a class="code" href="a03664.html#ab7160b9ae5009b137a5d4dd4eeb174c3">capabilities</a>.currentTransform;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    createInfo.preTransform   = swapChainSupport.<a class="code" href="a03669.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.currentTransform;</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR; <span class="comment">// for other windows/applications</span></div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    createInfo.presentMode =</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        swapChainSupport.<a class="code" href="a03664.html#a3d7f6253049293155f8f0b09be65a733">presentationMode</a>(!engine::Configuration::getOrDefault&lt;bool&gt;(</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            <a class="code" href="a01948.html#a14b6a2504c6cf4a1a3d1c0910fd0c630">engine::Settings::WindowParameters::VSyncKey</a>, <span class="keyword">true</span>));</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        swapChainSupport.<a class="code" href="a03669.html#a2c9d9cd7870d31087ed25d3300044237">presentationMode</a>(!engine::Configuration::getOrDefault&lt;bool&gt;(</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            <a class="code" href="a02029.html#a14b6a2504c6cf4a1a3d1c0910fd0c630">engine::Settings::WindowParameters::VSyncKey</a>, <span class="keyword">true</span>));</div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    createInfo.clipped      = VK_TRUE;</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    createInfo.oldSwapchain = VK_NULL_HANDLE;</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keyword">const</span> VkResult result =</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        vkCreateSwapchainKHR(vulkanState.device, &amp;createInfo, <span class="keyword">nullptr</span>, &amp;swapchain);</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordflow">if</span> (result != VK_SUCCESS) {</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <a class="code" href="a00350.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Swap chain creation failed: &quot;</span> &lt;&lt; result;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <a class="code" href="a00428.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Swap chain creation failed: &quot;</span> &lt;&lt; result;</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create swap chain&quot;</span>);</div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    }</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="comment">// Fetch images</span></div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    VkImage images[8];</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <a class="code" href="a00749.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &amp;imageCount, images));</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <a class="code" href="a00740.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkGetSwapchainImagesKHR(vulkanState.device, swapchain, &amp;imageCount, images));</div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    imageFormat = surfaceFormat.format;</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="comment">// create depth buffers</span></div>
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    depthBuffers.resize(imageCount);</div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; imageCount; ++i) {</div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        depthBuffers[i].create(vulkanState,</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                               <a class="code" href="a02968.html#a6bb44c2f4910f9afe180c7d878b69728">StandardAttachmentBuffers::findDepthFormat</a>(vulkanState),</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                               <a class="code" href="a02961.html#adbaa6e3ac32866a031e9462f5deffe09">StandardAttachmentBuffers::findDepthFormat</a>(vulkanState),</div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                               VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                               createInfo.imageExtent);</div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    }</div>
@@ -333,42 +333,42 @@ $(function() {
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;}</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;} <span class="comment">// namespace rc</span></div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00086_html"><div class="ttname"><a href="a00086.html">Configuration.hpp</a></div></div>
-<div class="ttc" id="aa00116_html"><div class="ttname"><a href="a00116.html">Settings.hpp</a></div></div>
-<div class="ttc" id="aa00350_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00350.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00740_html"><div class="ttname"><a href="a00740.html">StandardAttachmentBuffers.hpp</a></div></div>
-<div class="ttc" id="aa00746_html"><div class="ttname"><a href="a00746.html">Swapchain.hpp</a></div></div>
-<div class="ttc" id="aa00749_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a00749.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00015">VkCheck.hpp:15</a></div></div>
-<div class="ttc" id="aa00752_html"><div class="ttname"><a href="a00752.html">VulkanState.hpp</a></div></div>
+<div class="ttc" id="aa00143_html"><div class="ttname"><a href="a00143.html">Configuration.hpp</a></div></div>
+<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">Settings.hpp</a></div></div>
+<div class="ttc" id="aa00428_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00428.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00428_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa00731_html"><div class="ttname"><a href="a00731.html">StandardAttachmentBuffers.hpp</a></div></div>
+<div class="ttc" id="aa00737_html"><div class="ttname"><a href="a00737.html">Swapchain.hpp</a></div></div>
+<div class="ttc" id="aa00740_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a00740.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00015">VkCheck.hpp:15</a></div></div>
+<div class="ttc" id="aa00743_html"><div class="ttname"><a href="a00743.html">VulkanState.hpp</a></div></div>
 <div class="ttc" id="aa01451_html"><div class="ttname"><a href="a01451.html">QueueFamilyLocator.hpp</a></div></div>
 <div class="ttc" id="aa01457_html"><div class="ttname"><a href="a01457.html">SwapChainSupportDetails.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01948_html_a14b6a2504c6cf4a1a3d1c0910fd0c630"><div class="ttname"><a href="a01948.html#a14b6a2504c6cf4a1a3d1c0910fd0c630">bl::engine::Settings::WindowParameters::VSyncKey</a></div><div class="ttdeci">static constexpr const char * VSyncKey</div><div class="ttdef"><b>Definition:</b> <a href="a00116_source.html#l00163">Settings.hpp:163</a></div></div>
-<div class="ttc" id="aa02908_html_a09b8dabf41e23128d5437c30bf8ce4e9"><div class="ttname"><a href="a02908.html#a09b8dabf41e23128d5437c30bf8ce4e9">bl::gfx::vk::PerFrame::init</a></div><div class="ttdeci">void init(VulkanState &amp;vulkanState, const U &amp;visitor)</div><div class="ttdoc">Initialize the buffer and each contained object.</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00248">VulkanState.hpp:248</a></div></div>
-<div class="ttc" id="aa02908_html_a4433e384187e5f4aac37f4f5a869c58f"><div class="ttname"><a href="a02908.html#a4433e384187e5f4aac37f4f5a869c58f">bl::gfx::vk::PerFrame::cleanup</a></div><div class="ttdeci">void cleanup(const U &amp;visitor)</div><div class="ttdoc">General buffered object visitor intended primarily for cleanup but could be used for anything else re...</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00255">VulkanState.hpp:255</a></div></div>
-<div class="ttc" id="aa02908_html_a9150aaf5e011e5ad71ef0993a2bd11a9"><div class="ttname"><a href="a02908.html#a9150aaf5e011e5ad71ef0993a2bd11a9">bl::gfx::vk::PerFrame::current</a></div><div class="ttdeci">constexpr T &amp; current()</div><div class="ttdoc">Returns the active buffered object for the current frame.</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00266">VulkanState.hpp:266</a></div></div>
-<div class="ttc" id="aa02968_html_a6bb44c2f4910f9afe180c7d878b69728"><div class="ttname"><a href="a02968.html#a6bb44c2f4910f9afe180c7d878b69728">bl::gfx::vk::StandardAttachmentBuffers::findDepthFormat</a></div><div class="ttdeci">static VkFormat findDepthFormat(VulkanState &amp;vulkanState)</div><div class="ttdoc">Helper function find the proper format to use for the depth buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01439_source.html#l00038">StandardAttachmentBuffers.cpp:38</a></div></div>
-<div class="ttc" id="aa02972_html"><div class="ttname"><a href="a02972.html">bl::gfx::vk::StandardAttachmentSet</a></div><div class="ttdoc">Attachment set containing the standard attachments for render frames in the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00021">StandardAttachmentSet.hpp:21</a></div></div>
-<div class="ttc" id="aa02976_html_a26250fc3d7c633a42470c5c17c023270"><div class="ttname"><a href="a02976.html#a26250fc3d7c633a42470c5c17c023270">bl::gfx::vk::Swapchain::Swapchain</a></div><div class="ttdeci">Swapchain(VulkanState &amp;vulkanState, sf::WindowBase &amp;window)</div><div class="ttdoc">Creates a new swap chain.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00056">Swapchain.cpp:56</a></div></div>
-<div class="ttc" id="aa02976_html_a3a33c1b9ec5f54e9e6ff675a55671c9b"><div class="ttname"><a href="a02976.html#a3a33c1b9ec5f54e9e6ff675a55671c9b">bl::gfx::vk::Swapchain::beginFrame</a></div><div class="ttdeci">void beginFrame(StandardAttachmentSet *&amp;renderFrame, VkCommandBuffer &amp;commandBuffer)</div><div class="ttdoc">Begins the rendering of a new frame. May block if the prior submitted frame is not yet done being rea...</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00067">Swapchain.cpp:67</a></div></div>
-<div class="ttc" id="aa02976_html_a45de3f54fd0015c46163e50717dd2fe8"><div class="ttname"><a href="a02976.html#a45de3f54fd0015c46163e50717dd2fe8">bl::gfx::vk::Swapchain::create</a></div><div class="ttdeci">void create(VkSurfaceKHR surface)</div><div class="ttdoc">Creates the swap chain itself.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00162">Swapchain.cpp:162</a></div></div>
-<div class="ttc" id="aa02976_html_a74dd1eee04c3707fbf7243348470b744"><div class="ttname"><a href="a02976.html#a74dd1eee04c3707fbf7243348470b744">bl::gfx::vk::Swapchain::completeFrame</a></div><div class="ttdeci">void completeFrame()</div><div class="ttdoc">Finalizes the command buffer and submits it. Also triggers swap chain presentation.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00107">Swapchain.cpp:107</a></div></div>
-<div class="ttc" id="aa02976_html_a9e2183cad0056b03c58a9f28936978ab"><div class="ttname"><a href="a02976.html#a9e2183cad0056b03c58a9f28936978ab">bl::gfx::vk::Swapchain::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Destroys the swap chain and other held resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00062">Swapchain.cpp:62</a></div></div>
-<div class="ttc" id="aa02976_html_af38dcd6780d1d02da0d971aba304c217"><div class="ttname"><a href="a02976.html#af38dcd6780d1d02da0d971aba304c217">bl::gfx::vk::Swapchain::invalidate</a></div><div class="ttdeci">void invalidate()</div><div class="ttdoc">Invalidates the swap chain. Will cause the swapchain to be recreated on the next rendering.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00176">Swapchain.cpp:176</a></div></div>
-<div class="ttc" id="aa02988_html"><div class="ttname"><a href="a02988.html">bl::gfx::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00036">VulkanState.hpp:36</a></div></div>
-<div class="ttc" id="aa03664_html"><div class="ttname"><a href="a03664.html">bl::gfx::SwapChainSupportDetails</a></div><div class="ttdef"><b>Definition:</b> <a href="a01457_source.html#l00012">SwapChainSupportDetails.hpp:12</a></div></div>
-<div class="ttc" id="aa03664_html_a01befdad94819290f16531bed5681285"><div class="ttname"><a href="a03664.html#a01befdad94819290f16531bed5681285">bl::gfx::SwapChainSupportDetails::populate</a></div><div class="ttdeci">void populate(VkPhysicalDevice device, VkSurfaceKHR surface)</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00011">SwapChainSupportDetails.cpp:11</a></div></div>
-<div class="ttc" id="aa03664_html_a1dc5fffdc9e0acc0f03b448a430b8ab5"><div class="ttname"><a href="a03664.html#a1dc5fffdc9e0acc0f03b448a430b8ab5">bl::gfx::SwapChainSupportDetails::swapSurfaceFormat</a></div><div class="ttdeci">const VkSurfaceFormatKHR &amp; swapSurfaceFormat() const</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00030">SwapChainSupportDetails.cpp:30</a></div></div>
-<div class="ttc" id="aa03664_html_a3d7f6253049293155f8f0b09be65a733"><div class="ttname"><a href="a03664.html#a3d7f6253049293155f8f0b09be65a733">bl::gfx::SwapChainSupportDetails::presentationMode</a></div><div class="ttdeci">VkPresentModeKHR presentationMode(bool disableVsync) const</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00041">SwapChainSupportDetails.cpp:41</a></div></div>
-<div class="ttc" id="aa03664_html_a811e71885afa054c40ef649587c18972"><div class="ttname"><a href="a03664.html#a811e71885afa054c40ef649587c18972">bl::gfx::SwapChainSupportDetails::swapExtent</a></div><div class="ttdeci">VkExtent2D swapExtent(const sf::Vector2u &amp;windowSize) const</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00052">SwapChainSupportDetails.cpp:52</a></div></div>
-<div class="ttc" id="aa03664_html_ab7160b9ae5009b137a5d4dd4eeb174c3"><div class="ttname"><a href="a03664.html#ab7160b9ae5009b137a5d4dd4eeb174c3">bl::gfx::SwapChainSupportDetails::capabilities</a></div><div class="ttdeci">VkSurfaceCapabilitiesKHR capabilities</div><div class="ttdef"><b>Definition:</b> <a href="a01457_source.html#l00013">SwapChainSupportDetails.hpp:13</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02029_html_a14b6a2504c6cf4a1a3d1c0910fd0c630"><div class="ttname"><a href="a02029.html#a14b6a2504c6cf4a1a3d1c0910fd0c630">bl::engine::Settings::WindowParameters::VSyncKey</a></div><div class="ttdeci">static constexpr const char * VSyncKey</div><div class="ttdef"><b>Definition:</b> <a href="a00173_source.html#l00163">Settings.hpp:163</a></div></div>
+<div class="ttc" id="aa02901_html_a3bcf0a2419d7fa159187ff185cc385c1"><div class="ttname"><a href="a02901.html#a3bcf0a2419d7fa159187ff185cc385c1">bl::rc::vk::PerFrame::current</a></div><div class="ttdeci">constexpr T &amp; current()</div><div class="ttdoc">Returns the active buffered object for the current frame.</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00266">VulkanState.hpp:266</a></div></div>
+<div class="ttc" id="aa02901_html_a3cfb2b7b7c657e6fe15fab6403d75721"><div class="ttname"><a href="a02901.html#a3cfb2b7b7c657e6fe15fab6403d75721">bl::rc::vk::PerFrame::init</a></div><div class="ttdeci">void init(VulkanState &amp;vulkanState, const U &amp;visitor)</div><div class="ttdoc">Initialize the buffer and each contained object.</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00248">VulkanState.hpp:248</a></div></div>
+<div class="ttc" id="aa02901_html_ad0bfc6a2c72077a7f2a11c620acfc68b"><div class="ttname"><a href="a02901.html#ad0bfc6a2c72077a7f2a11c620acfc68b">bl::rc::vk::PerFrame::cleanup</a></div><div class="ttdeci">void cleanup(const U &amp;visitor)</div><div class="ttdoc">General buffered object visitor intended primarily for cleanup but could be used for anything else re...</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00255">VulkanState.hpp:255</a></div></div>
+<div class="ttc" id="aa02961_html_adbaa6e3ac32866a031e9462f5deffe09"><div class="ttname"><a href="a02961.html#adbaa6e3ac32866a031e9462f5deffe09">bl::rc::vk::StandardAttachmentBuffers::findDepthFormat</a></div><div class="ttdeci">static VkFormat findDepthFormat(VulkanState &amp;vulkanState)</div><div class="ttdoc">Helper function find the proper format to use for the depth buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01439_source.html#l00038">StandardAttachmentBuffers.cpp:38</a></div></div>
+<div class="ttc" id="aa02965_html"><div class="ttname"><a href="a02965.html">bl::rc::vk::StandardAttachmentSet</a></div><div class="ttdoc">Attachment set containing the standard attachments for render frames in the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00021">StandardAttachmentSet.hpp:21</a></div></div>
+<div class="ttc" id="aa02969_html_a0fea3b5d6041de1702f01ee634376157"><div class="ttname"><a href="a02969.html#a0fea3b5d6041de1702f01ee634376157">bl::rc::vk::Swapchain::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Destroys the swap chain and other held resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00062">Swapchain.cpp:62</a></div></div>
+<div class="ttc" id="aa02969_html_a2c053656606216d2597999d6a934aa79"><div class="ttname"><a href="a02969.html#a2c053656606216d2597999d6a934aa79">bl::rc::vk::Swapchain::beginFrame</a></div><div class="ttdeci">void beginFrame(StandardAttachmentSet *&amp;renderFrame, VkCommandBuffer &amp;commandBuffer)</div><div class="ttdoc">Begins the rendering of a new frame. May block if the prior submitted frame is not yet done being rea...</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00067">Swapchain.cpp:67</a></div></div>
+<div class="ttc" id="aa02969_html_a6513c1505ca5c56697e0d0843e5fe74f"><div class="ttname"><a href="a02969.html#a6513c1505ca5c56697e0d0843e5fe74f">bl::rc::vk::Swapchain::create</a></div><div class="ttdeci">void create(VkSurfaceKHR surface)</div><div class="ttdoc">Creates the swap chain itself.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00162">Swapchain.cpp:162</a></div></div>
+<div class="ttc" id="aa02969_html_aad29c55b20df3d50e2192404c022c6b7"><div class="ttname"><a href="a02969.html#aad29c55b20df3d50e2192404c022c6b7">bl::rc::vk::Swapchain::invalidate</a></div><div class="ttdeci">void invalidate()</div><div class="ttdoc">Invalidates the swap chain. Will cause the swapchain to be recreated on the next rendering.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00176">Swapchain.cpp:176</a></div></div>
+<div class="ttc" id="aa02969_html_ab8ed76da73062a60089da1fc207c8b76"><div class="ttname"><a href="a02969.html#ab8ed76da73062a60089da1fc207c8b76">bl::rc::vk::Swapchain::Swapchain</a></div><div class="ttdeci">Swapchain(VulkanState &amp;vulkanState, sf::WindowBase &amp;window)</div><div class="ttdoc">Creates a new swap chain.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00056">Swapchain.cpp:56</a></div></div>
+<div class="ttc" id="aa02969_html_ad02ae8c6b61bffaa06c09f65aaee9831"><div class="ttname"><a href="a02969.html#ad02ae8c6b61bffaa06c09f65aaee9831">bl::rc::vk::Swapchain::completeFrame</a></div><div class="ttdeci">void completeFrame()</div><div class="ttdoc">Finalizes the command buffer and submits it. Also triggers swap chain presentation.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00107">Swapchain.cpp:107</a></div></div>
+<div class="ttc" id="aa02981_html"><div class="ttname"><a href="a02981.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00036">VulkanState.hpp:36</a></div></div>
+<div class="ttc" id="aa03669_html"><div class="ttname"><a href="a03669.html">bl::rc::SwapChainSupportDetails</a></div><div class="ttdef"><b>Definition:</b> <a href="a01457_source.html#l00012">SwapChainSupportDetails.hpp:12</a></div></div>
+<div class="ttc" id="aa03669_html_a074771ce4af99a010a861cddb901432e"><div class="ttname"><a href="a03669.html#a074771ce4af99a010a861cddb901432e">bl::rc::SwapChainSupportDetails::swapSurfaceFormat</a></div><div class="ttdeci">const VkSurfaceFormatKHR &amp; swapSurfaceFormat() const</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00030">SwapChainSupportDetails.cpp:30</a></div></div>
+<div class="ttc" id="aa03669_html_a2c9d9cd7870d31087ed25d3300044237"><div class="ttname"><a href="a03669.html#a2c9d9cd7870d31087ed25d3300044237">bl::rc::SwapChainSupportDetails::presentationMode</a></div><div class="ttdeci">VkPresentModeKHR presentationMode(bool disableVsync) const</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00041">SwapChainSupportDetails.cpp:41</a></div></div>
+<div class="ttc" id="aa03669_html_a317e166f325c41fd43b5da49b187e1a0"><div class="ttname"><a href="a03669.html#a317e166f325c41fd43b5da49b187e1a0">bl::rc::SwapChainSupportDetails::swapExtent</a></div><div class="ttdeci">VkExtent2D swapExtent(const sf::Vector2u &amp;windowSize) const</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00052">SwapChainSupportDetails.cpp:52</a></div></div>
+<div class="ttc" id="aa03669_html_a538d5c8e88477f1afb804a9d557d4234"><div class="ttname"><a href="a03669.html#a538d5c8e88477f1afb804a9d557d4234">bl::rc::SwapChainSupportDetails::populate</a></div><div class="ttdeci">void populate(VkPhysicalDevice device, VkSurfaceKHR surface)</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00011">SwapChainSupportDetails.cpp:11</a></div></div>
+<div class="ttc" id="aa03669_html_a8ba0581e712e3a075ce750dedca8bf86"><div class="ttname"><a href="a03669.html#a8ba0581e712e3a075ce750dedca8bf86">bl::rc::SwapChainSupportDetails::capabilities</a></div><div class="ttdeci">VkSurfaceCapabilitiesKHR capabilities</div><div class="ttdef"><b>Definition:</b> <a href="a01457_source.html#l00013">SwapChainSupportDetails.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

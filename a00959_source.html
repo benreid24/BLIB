@@ -80,32 +80,32 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;tuple&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>util</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;std::size_t I = 0, <span class="keyword">typename</span> FuncT, <span class="keyword">typename</span>... Tp&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01612.html#ga5d5816901da87f0dd35b765c5ab2639e">   22</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> std::enable_if&lt;I == <span class="keyword">sizeof</span>...(Tp), <span class="keywordtype">void</span>&gt;::type <a class="code" href="a01612.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a>(std::tuple&lt;Tp...&gt;&amp;,</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01618.html#ga5d5816901da87f0dd35b765c5ab2639e">   22</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> std::enable_if&lt;I == <span class="keyword">sizeof</span>...(Tp), <span class="keywordtype">void</span>&gt;::type <a class="code" href="a01618.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a>(std::tuple&lt;Tp...&gt;&amp;,</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                                                                         FuncT) {}</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">template</span>&lt;std::size_t I = 0, <span class="keyword">typename</span> FuncT, <span class="keyword">typename</span>... Tp&gt;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">inline</span> <span class="keyword">typename</span> std::enable_if &lt;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    I&lt;<span class="keyword">sizeof</span>...(Tp), <span class="keywordtype">void</span>&gt;::type <a class="code" href="a01612.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a>(std::tuple&lt;Tp...&gt;&amp; t, FuncT f) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    I&lt;<span class="keyword">sizeof</span>...(Tp), <span class="keywordtype">void</span>&gt;::type <a class="code" href="a01618.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a>(std::tuple&lt;Tp...&gt;&amp; t, FuncT f) {</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    f(I, std::get&lt;I&gt;(t));</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a01612.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a>&lt;I + 1, FuncT, Tp...&gt;(t, f);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a01618.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a>&lt;I + 1, FuncT, Tp...&gt;(t, f);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace util</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01612_html_ga5d5816901da87f0dd35b765c5ab2639e"><div class="ttname"><a href="a01612.html#ga5d5816901da87f0dd35b765c5ab2639e">bl::util::TupleLoop</a></div><div class="ttdeci">std::enable_if&lt; I==sizeof...(Tp), void &gt;::type TupleLoop(std::tuple&lt; Tp... &gt; &amp;, FuncT)</div><div class="ttdoc">Base case for TupleLoop utility.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00022">TupleLoop.hpp:22</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01618_html_ga5d5816901da87f0dd35b765c5ab2639e"><div class="ttname"><a href="a01618.html#ga5d5816901da87f0dd35b765c5ab2639e">bl::util::TupleLoop</a></div><div class="ttdeci">std::enable_if&lt; I==sizeof...(Tp), void &gt;::type TupleLoop(std::tuple&lt; Tp... &gt; &amp;, FuncT)</div><div class="ttdoc">Base case for TupleLoop utility.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00022">TupleLoop.hpp:22</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

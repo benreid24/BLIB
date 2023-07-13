@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Dialogs/FilePicker.hpp Source File</title>
+<title>BLIB: include/BLIB/Events/Dispatcher.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,99 +66,109 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_848dbbb3319d27e30f2e568b661343e7.html">Dialogs</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_b1ab5f494aad7f0e2da16d9fefe047e9.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">FilePicker.hpp</div>  </div>
+<div class="title">Dispatcher.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00194.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INTERFACES_GUI_DIALOGS_FILEPICKER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INTERFACES_GUI_DIALOGS_FILEPICKER_HPP</span></div>
+<a href="a00194.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_EVENTS_DISPATCHER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_EVENTS_DISPATCHER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00254.html">BLIB/Interfaces/GUI/Elements/TextEntry.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04441.html">BLIB/Interfaces/GUI/Elements/Window.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04462.html">BLIB/Interfaces/GUI/GUI.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a01637.html">   10</a></span>&#160;<span class="keyword">namespace </span>gui</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02096.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02096.html">FilePicker</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02096.html#ad99b9ef7e69802a1a4877a138139ff01">   20</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02096.html#ad99b9ef7e69802a1a4877a138139ff01">ChooseCb</a> = std::function&lt;void(<span class="keyword">const</span> std::string&amp;)&gt;;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02096.html#ae2d6cea5ee7827f6b98bd44c8610b772">   21</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02096.html#ae2d6cea5ee7827f6b98bd44c8610b772">CancelCb</a> = std::function&lt;void()&gt;;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02096.html#a3d8d2dab280491a0c844645880dd214dadaf8cfb2616b7734d3a678b1f45f210b">   24</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a02096.html#a3d8d2dab280491a0c844645880dd214d">Mode</a> { <a class="code" href="a02096.html#a3d8d2dab280491a0c844645880dd214dadaf8cfb2616b7734d3a678b1f45f210b">CreateNew</a>, <a class="code" href="a02096.html#a3d8d2dab280491a0c844645880dd214da3afd10eb0b08296feedbbcda55ecedab">PickExisting</a>, <a class="code" href="a02096.html#a3d8d2dab280491a0c844645880dd214da5e6c78a1d4db6a65a9ea964ecf0851c5">CreateOrPick</a> };</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04464.html">BLIB/Events/Listener.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00209.html">BLIB/Events/SingleDispatcher.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00212.html">BLIB/Events/SubscribeHelpers.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00941.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00947.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;shared_mutex&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;typeindex&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01646.html">   19</a></span>&#160;<span class="keyword">namespace </span>event</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a01647.html">   21</a></span>&#160;<span class="keyword">namespace </span>priv</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">struct </span><a class="code" href="a03617.html">ReserveOnStartupHelper</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a02096.html#aaec40a4fd47c00eca12feb83978046be">FilePicker</a>(<span class="keyword">const</span> std::string&amp; rootdir, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; extensions,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;               <span class="keyword">const</span> <a class="code" href="a02096.html#ad99b9ef7e69802a1a4877a138139ff01">ChooseCb</a>&amp; onChoose, <span class="keyword">const</span> <a class="code" href="a02096.html#ae2d6cea5ee7827f6b98bd44c8610b772">CancelCb</a>&amp; onCancel);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02096.html#abeaa864c138e23c026acfc4682348c63">open</a>(<a class="code" href="a02096.html#a3d8d2dab280491a0c844645880dd214d">Mode</a> mode, <span class="keyword">const</span> std::string&amp; title, <a class="code" href="a02196.html#a4b516f7f5cbc3be35d9447d50b77225c">GUI::Ptr</a> parent, <span class="keywordtype">bool</span> resetPath = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02096.html#a9e0b4eb6b447707926e60f7399c14875">close</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="a02096.html#a3d8d2dab280491a0c844645880dd214d">Mode</a> mode;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">const</span> std::string root;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">const</span> std::vector&lt;std::string&gt; extensions;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02096.html#ad99b9ef7e69802a1a4877a138139ff01">ChooseCb</a> onChoose;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    std::vector&lt;std::string&gt; path;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02065.html">   36</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02065.html">Dispatcher</a> : <span class="keyword">private</span> <a class="code" href="a03533.html">util::NonCopyable</a> {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02065.html#a36b6226eb7a776e0fc9c798689725bdc">subscribe</a>(<a class="code" href="a02077.html">Listener&lt;TEvents...&gt;</a>* listener, <span class="keywordtype">bool</span> defer = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02065.html#a7d6b29860c56388036edd8a38f26a4c7">unsubscribe</a>(<a class="code" href="a02077.html">Listener&lt;TEvents...&gt;</a>* listener, <span class="keywordtype">bool</span> defer = <span class="keyword">false</span>);</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a02188.html#aa6964bd74aa8737265265d58cd4398ce">Window::Ptr</a> window;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    sf::RenderTexture folderTexture;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a02104.html#ad3818332d4ae07ebaf60e0458c6b7a57">Box::Ptr</a> pathBox;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    std::vector&lt;Box::Ptr&gt; pathButtons;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a02104.html#ad3818332d4ae07ebaf60e0458c6b7a57">Box::Ptr</a> filesBox;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="a02164.html#a8bd5b26e294fe9ca20730268f8967fbd">ScrollArea::Ptr</a> filesScroll;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    std::unordered_map&lt;std::string, Box::Ptr&gt; fileLabels;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="a02180.html#ad282be9fe710dc878323a91d687e29f9">TextEntry::Ptr</a> fileEntry;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::string clickedFile;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">float</span> fileClickTime;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> onClearPath();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> onPathClick(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> onFolderClick(<span class="keyword">const</span> std::string&amp; folder);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> onFileClick(<span class="keyword">const</span> std::string&amp; file);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> onChooseClicked();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> highlight(<span class="keyword">const</span> std::string&amp; file);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> populateFiles();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    std::string buildPath() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00254_html"><div class="ttname"><a href="a00254.html">TextEntry.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02096_html"><div class="ttname"><a href="a02096.html">bl::gui::FilePicker</a></div><div class="ttdoc">Helper class for picking files limited to subdirectories of the current directory....</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00018">FilePicker.hpp:18</a></div></div>
-<div class="ttc" id="aa02096_html_a3d8d2dab280491a0c844645880dd214d"><div class="ttname"><a href="a02096.html#a3d8d2dab280491a0c844645880dd214d">bl::gui::FilePicker::Mode</a></div><div class="ttdeci">Mode</div><div class="ttdoc">What mode to pick file in.</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00024">FilePicker.hpp:24</a></div></div>
-<div class="ttc" id="aa02096_html_a3d8d2dab280491a0c844645880dd214da3afd10eb0b08296feedbbcda55ecedab"><div class="ttname"><a href="a02096.html#a3d8d2dab280491a0c844645880dd214da3afd10eb0b08296feedbbcda55ecedab">bl::gui::FilePicker::PickExisting</a></div><div class="ttdeci">@ PickExisting</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00024">FilePicker.hpp:24</a></div></div>
-<div class="ttc" id="aa02096_html_a3d8d2dab280491a0c844645880dd214da5e6c78a1d4db6a65a9ea964ecf0851c5"><div class="ttname"><a href="a02096.html#a3d8d2dab280491a0c844645880dd214da5e6c78a1d4db6a65a9ea964ecf0851c5">bl::gui::FilePicker::CreateOrPick</a></div><div class="ttdeci">@ CreateOrPick</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00024">FilePicker.hpp:24</a></div></div>
-<div class="ttc" id="aa02096_html_a3d8d2dab280491a0c844645880dd214dadaf8cfb2616b7734d3a678b1f45f210b"><div class="ttname"><a href="a02096.html#a3d8d2dab280491a0c844645880dd214dadaf8cfb2616b7734d3a678b1f45f210b">bl::gui::FilePicker::CreateNew</a></div><div class="ttdeci">@ CreateNew</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00024">FilePicker.hpp:24</a></div></div>
-<div class="ttc" id="aa02096_html_a9e0b4eb6b447707926e60f7399c14875"><div class="ttname"><a href="a02096.html#a9e0b4eb6b447707926e60f7399c14875">bl::gui::FilePicker::close</a></div><div class="ttdeci">void close()</div><div class="ttdoc">Closes the dialog.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00149">FilePicker.cpp:149</a></div></div>
-<div class="ttc" id="aa02096_html_aaec40a4fd47c00eca12feb83978046be"><div class="ttname"><a href="a02096.html#aaec40a4fd47c00eca12feb83978046be">bl::gui::FilePicker::FilePicker</a></div><div class="ttdeci">FilePicker(const std::string &amp;rootdir, const std::vector&lt; std::string &gt; &amp;extensions, const ChooseCb &amp;onChoose, const CancelCb &amp;onCancel)</div><div class="ttdoc">Construct a new File Picker dialog.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00019">FilePicker.cpp:19</a></div></div>
-<div class="ttc" id="aa02096_html_abeaa864c138e23c026acfc4682348c63"><div class="ttname"><a href="a02096.html#abeaa864c138e23c026acfc4682348c63">bl::gui::FilePicker::open</a></div><div class="ttdeci">void open(Mode mode, const std::string &amp;title, GUI::Ptr parent, bool resetPath=false)</div><div class="ttdoc">Opens the dialog in the given mode with the given settings.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00134">FilePicker.cpp:134</a></div></div>
-<div class="ttc" id="aa02096_html_ad99b9ef7e69802a1a4877a138139ff01"><div class="ttname"><a href="a02096.html#ad99b9ef7e69802a1a4877a138139ff01">bl::gui::FilePicker::ChooseCb</a></div><div class="ttdeci">std::function&lt; void(const std::string &amp;)&gt; ChooseCb</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00020">FilePicker.hpp:20</a></div></div>
-<div class="ttc" id="aa02096_html_ae2d6cea5ee7827f6b98bd44c8610b772"><div class="ttname"><a href="a02096.html#ae2d6cea5ee7827f6b98bd44c8610b772">bl::gui::FilePicker::CancelCb</a></div><div class="ttdeci">std::function&lt; void()&gt; CancelCb</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00021">FilePicker.hpp:21</a></div></div>
-<div class="ttc" id="aa02104_html_ad3818332d4ae07ebaf60e0458c6b7a57"><div class="ttname"><a href="a02104.html#ad3818332d4ae07ebaf60e0458c6b7a57">bl::gui::Box::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Box &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00203_source.html#l00023">Box.hpp:23</a></div></div>
-<div class="ttc" id="aa02164_html_a8bd5b26e294fe9ca20730268f8967fbd"><div class="ttname"><a href="a02164.html#a8bd5b26e294fe9ca20730268f8967fbd">bl::gui::ScrollArea::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ScrollArea &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00024">ScrollArea.hpp:24</a></div></div>
-<div class="ttc" id="aa02180_html_ad282be9fe710dc878323a91d687e29f9"><div class="ttname"><a href="a02180.html#ad282be9fe710dc878323a91d687e29f9">bl::gui::TextEntry::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; TextEntry &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00254_source.html#l00020">TextEntry.hpp:20</a></div></div>
-<div class="ttc" id="aa02188_html_aa6964bd74aa8737265265d58cd4398ce"><div class="ttname"><a href="a02188.html#aa6964bd74aa8737265265d58cd4398ce">bl::gui::Window::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Window &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a04441_source.html#l00022">Window.hpp:22</a></div></div>
-<div class="ttc" id="aa02196_html_a4b516f7f5cbc3be35d9447d50b77225c"><div class="ttname"><a href="a02196.html#a4b516f7f5cbc3be35d9447d50b77225c">bl::gui::GUI::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; GUI &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a04462_source.html#l00030">GUI.hpp:30</a></div></div>
-<div class="ttc" id="aa04441_html"><div class="ttname"><a href="a04441.html">Window.hpp</a></div></div>
-<div class="ttc" id="aa04462_html"><div class="ttname"><a href="a04462.html">GUI.hpp</a></div></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02065.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">dispatch</a>(<span class="keyword">const</span> T&amp; event);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02065.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">syncListeners</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02065.html#a34fde267ef1ef9b3bc71d7233556fd5a">clearAllListeners</a>();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">static</span> std::mutex dispatcherLock;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">static</span> std::vector&lt;priv::SingleDispatcherBase*&gt; dispatchers;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a02065.html#ab2b6a71a292609980a8839f1e83d14c2">   86</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a03617.html">priv::ReserveOnStartupHelper</a>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a02065.html#a36b6226eb7a776e0fc9c798689725bdc">   92</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02065.html#a36b6226eb7a776e0fc9c798689725bdc">Dispatcher::subscribe</a>(<a class="code" href="a02077.html">Listener&lt;TEvents...&gt;</a>* listener, <span class="keywordtype">bool</span> defer) {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="a02097.html">priv::SubscriberHelper</a>&lt;TEvents...&gt; subscriber(dispatchers, dispatcherLock, listener, defer);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    listener-&gt;subscribed = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="a02065.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">   98</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02065.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">Dispatcher::dispatch</a>(<span class="keyword">const</span> T&amp; event) {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="a02089.html">priv::SingleDispatcher&lt;T&gt;::get</a>(dispatchers, dispatcherLock).dispatch(event);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="a02065.html#a7d6b29860c56388036edd8a38f26a4c7">  103</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02065.html#a7d6b29860c56388036edd8a38f26a4c7">Dispatcher::unsubscribe</a>(<a class="code" href="a02077.html">Listener&lt;TEvents...&gt;</a>* listener, <span class="keywordtype">bool</span> defer) {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="a02105.html">priv::UnSubscriberHelper</a>&lt;TEvents...&gt; subscriber(dispatchers, dispatcherLock, listener, defer);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    listener-&gt;subscribed = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;}</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace event</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00206.html">BLIB/Events/ListenerImpl.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00206_html"><div class="ttname"><a href="a00206.html">ListenerImpl.hpp</a></div></div>
+<div class="ttc" id="aa00209_html"><div class="ttname"><a href="a00209.html">SingleDispatcher.hpp</a></div></div>
+<div class="ttc" id="aa00212_html"><div class="ttname"><a href="a00212.html">SubscribeHelpers.hpp</a></div></div>
+<div class="ttc" id="aa00941_html"><div class="ttname"><a href="a00941.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa00947_html"><div class="ttname"><a href="a00947.html">ReadWriteLock.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02065_html"><div class="ttname"><a href="a02065.html">bl::event::Dispatcher</a></div><div class="ttdoc">Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe....</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00036">Dispatcher.hpp:36</a></div></div>
+<div class="ttc" id="aa02065_html_a34fde267ef1ef9b3bc71d7233556fd5a"><div class="ttname"><a href="a02065.html#a34fde267ef1ef9b3bc71d7233556fd5a">bl::event::Dispatcher::clearAllListeners</a></div><div class="ttdeci">static void clearAllListeners()</div><div class="ttdoc">Removes all listeners from the subscription queues. Meant mostly for unit test cleanup but may have o...</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00023">Dispatcher.cpp:23</a></div></div>
+<div class="ttc" id="aa02065_html_a36b6226eb7a776e0fc9c798689725bdc"><div class="ttname"><a href="a02065.html#a36b6226eb7a776e0fc9c798689725bdc">bl::event::Dispatcher::subscribe</a></div><div class="ttdeci">static void subscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Subscribe the given listener to the event stream for the event types given.</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00092">Dispatcher.hpp:92</a></div></div>
+<div class="ttc" id="aa02065_html_a7d6b29860c56388036edd8a38f26a4c7"><div class="ttname"><a href="a02065.html#a7d6b29860c56388036edd8a38f26a4c7">bl::event::Dispatcher::unsubscribe</a></div><div class="ttdeci">static void unsubscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Removes the given listener and prevents it from receiving any more events.</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00103">Dispatcher.hpp:103</a></div></div>
+<div class="ttc" id="aa02065_html_a7e8186fd38d7cf4f57fffaaaf7f8cb80"><div class="ttname"><a href="a02065.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">bl::event::Dispatcher::dispatch</a></div><div class="ttdeci">static void dispatch(const T &amp;event)</div><div class="ttdoc">Dispatches the given event to each listener that is subscribed to that type of event.</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00098">Dispatcher.hpp:98</a></div></div>
+<div class="ttc" id="aa02065_html_ac7b00210042e2dd107ebbbf3ce7a2c8f"><div class="ttname"><a href="a02065.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">bl::event::Dispatcher::syncListeners</a></div><div class="ttdeci">static void syncListeners()</div><div class="ttdoc">Synchronizes the listener buses. Called once per update cycle by the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00017">Dispatcher.cpp:17</a></div></div>
+<div class="ttc" id="aa02077_html"><div class="ttname"><a href="a02077.html">bl::event::Listener&lt; TEvents... &gt;</a></div></div>
+<div class="ttc" id="aa02089_html"><div class="ttname"><a href="a02089.html">bl::event::priv::SingleDispatcher</a></div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00026">SingleDispatcher.hpp:26</a></div></div>
+<div class="ttc" id="aa02097_html"><div class="ttname"><a href="a02097.html">bl::event::priv::SubscriberHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00020">SubscribeHelpers.hpp:20</a></div></div>
+<div class="ttc" id="aa02105_html"><div class="ttname"><a href="a02105.html">bl::event::priv::UnSubscriberHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00035">SubscribeHelpers.hpp:35</a></div></div>
+<div class="ttc" id="aa03533_html"><div class="ttname"><a href="a03533.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00941_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="ttc" id="aa03617_html"><div class="ttname"><a href="a03617.html">bl::event::priv::ReserveOnStartupHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00009">Dispatcher.cpp:9</a></div></div>
+<div class="ttc" id="aa04464_html"><div class="ttname"><a href="a04464.html">Listener.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

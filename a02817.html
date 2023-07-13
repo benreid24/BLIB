@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::Scene::BatchChange Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,31 +66,93 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01623.html">bl</a></li><li class="navelem"><a class="el" href="a01646.html">gfx</a></li><li class="navelem"><a class="el" href="a01660.html">scene</a></li><li class="navelem"><a class="el" href="a02820.html">SceneRenderContext</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01628.html">bl</a></li><li class="navelem"><a class="el" href="a01637.html">rc</a></li><li class="navelem"><a class="el" href="a02813.html">Scene</a></li><li class="navelem"><a class="el" href="a02817.html">BatchChange</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a02814.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gfx::scene::SceneRenderContext Member List</div>  </div>
+<div class="title">bl::rc::Scene::BatchChange Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02820.html">bl::gfx::scene::SceneRenderContext</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02820.html#a412568e396792b810f05b619de70f696">bindDescriptors</a>(VkPipelineLayout layout, UpdateSpeed updateFreq, ds::DescriptorSetInstance **descriptors, std::uint32_t descriptorCount)</td><td class="entry"><a class="el" href="a02820.html">bl::gfx::scene::SceneRenderContext</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02820.html#aebc40b5b6f2af484c450dcddd58e39b5">bindPipeline</a>(vk::Pipeline &amp;pipeline)</td><td class="entry"><a class="el" href="a02820.html">bl::gfx::scene::SceneRenderContext</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02820.html#a7c58547ddefca89d0a54b8555ef1bb78">currentObserverIndex</a>() const</td><td class="entry"><a class="el" href="a02820.html">bl::gfx::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02820.html#a072bb9d053063b6dc72fc5c81ddf9611">currentRenderPass</a>() const</td><td class="entry"><a class="el" href="a02820.html">bl::gfx::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02820.html#acb52b49fc56237a63b7ab070f8db78d6">getCommandBuffer</a>() const</td><td class="entry"><a class="el" href="a02820.html">bl::gfx::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02820.html#a73d4b6be9a798b873c46ac4b6df62eed">parentViewport</a>() const</td><td class="entry"><a class="el" href="a02820.html">bl::gfx::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02820.html#af7f2ec3b00316c72a347f846fa0ffd48">renderObject</a>(const SceneObject &amp;object)</td><td class="entry"><a class="el" href="a02820.html">bl::gfx::scene::SceneRenderContext</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02820.html#a929ceae8a1da5b57e94ca002666c896c">SceneRenderContext</a>(VkCommandBuffer commandBuffer, std::uint32_t observerIndex, const VkViewport &amp;viewport, std::uint32_t renderPassId, bool renderingToRenderTexture)</td><td class="entry"><a class="el" href="a02820.html">bl::gfx::scene::SceneRenderContext</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02820.html#a40273e259e8d907b194b0d27047dfa30">targetIsRenderTexture</a>() const</td><td class="entry"><a class="el" href="a02820.html">bl::gfx::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>POD containing data for when an object needs to be re-batched.  
+ <a href="a02817.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00656_source.html">Scene.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ac44e127149b57ed267bd729f6eb2bb98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02821.html">scene::SceneObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02817.html#ac44e127149b57ed267bd729f6eb2bb98">changed</a></td></tr>
+<tr class="separator:ac44e127149b57ed267bd729f6eb2bb98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a574ef83b9b5c9f1346d6b3abbaa2fdb3"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02817.html#a574ef83b9b5c9f1346d6b3abbaa2fdb3">newPipeline</a></td></tr>
+<tr class="separator:a574ef83b9b5c9f1346d6b3abbaa2fdb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accfd4b1070335558916be7ed72e29271"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02817.html#accfd4b1070335558916be7ed72e29271">newTrans</a></td></tr>
+<tr class="separator:accfd4b1070335558916be7ed72e29271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>POD containing data for when an object needs to be re-batched. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00656_source.html#l00057">57</a> of file <a class="el" href="a00656_source.html">Scene.hpp</a>.</p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac44e127149b57ed267bd729f6eb2bb98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac44e127149b57ed267bd729f6eb2bb98">&#9670;&nbsp;</a></span>changed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02821.html">scene::SceneObject</a>* bl::rc::Scene::BatchChange::changed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00656_source.html#l00058">58</a> of file <a class="el" href="a00656_source.html">Scene.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a574ef83b9b5c9f1346d6b3abbaa2fdb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a574ef83b9b5c9f1346d6b3abbaa2fdb3">&#9670;&nbsp;</a></span>newPipeline</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::Scene::BatchChange::newPipeline</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00656_source.html#l00059">59</a> of file <a class="el" href="a00656_source.html">Scene.hpp</a>.</p>
+
+</div>
+</div>
+<a id="accfd4b1070335558916be7ed72e29271"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accfd4b1070335558916be7ed72e29271">&#9670;&nbsp;</a></span>newTrans</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::Scene::BatchChange::newTrans</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00656_source.html#l00060">60</a> of file <a class="el" href="a00656_source.html">Scene.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Render/Scenes/<a class="el" href="a00656_source.html">Scene.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:11 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::engine::StateMask Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,34 +66,68 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01623.html">bl</a></li><li class="navelem"><a class="el" href="a01635.html">input</a></li><li class="navelem"><a class="el" href="a02040.html">Control</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01628.html">bl</a></li><li class="navelem"><a class="el" href="a01638.html">engine</a></li><li class="navelem"><a class="el" href="a02037.html">StateMask</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="a02034.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::input::Control Member List</div>  </div>
+<div class="title">bl::engine::StateMask Struct Reference<div class="ingroups"><a class="el" href="a01603.html">Engine</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02040.html">bl::input::Control</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02040.html#a6db33fbb248d9800743f6ac355f6ce7e">Control</a>(Type type, bool joystickMode)</td><td class="entry"><a class="el" href="a02040.html">bl::input::Control</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02040.html#a998c68f6754c45abe61bec4c145a20ebab52c5e87803d274795c9c86d466047b4">Directional</a> enum value</td><td class="entry"><a class="el" href="a02040.html">bl::input::Control</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02040.html#ad53a20c2f98e25383af6702e71d9b77b">directionalControl</a></td><td class="entry"><a class="el" href="a02040.html">bl::input::Control</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02040.html#a9fb4ccc6a7b76e31ed419242a8955efe">loadFromConfig</a>(const std::string &amp;prefix)</td><td class="entry"><a class="el" href="a02040.html">bl::input::Control</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02040.html#a998c68f6754c45abe61bec4c145a20eba72b3d62cf75aedaee3e476344d518ce8">Movement</a> enum value</td><td class="entry"><a class="el" href="a02040.html">bl::input::Control</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02040.html#a785ab13a7e401b13ef6dccecff6e0dd2">movementControl</a></td><td class="entry"><a class="el" href="a02040.html">bl::input::Control</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02040.html#aa4c2d1bf6241f30965e66298bd217d82">saveToConfig</a>(const std::string &amp;prefix) const</td><td class="entry"><a class="el" href="a02040.html">bl::input::Control</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02040.html#a998c68f6754c45abe61bec4c145a20eba7dc7083bf437b0baf7fd21162c71d9a3">SingleTrigger</a> enum value</td><td class="entry"><a class="el" href="a02040.html">bl::input::Control</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02040.html#a96317ed408a025d938f49fd7dd7d19c0">toString</a>() const</td><td class="entry"><a class="el" href="a02040.html">bl::input::Control</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02040.html#ade161d0ded63515139be54fc868ad37e">triggerControl</a></td><td class="entry"><a class="el" href="a02040.html">bl::input::Control</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02040.html#a998c68f6754c45abe61bec4c145a20eb">Type</a> enum name</td><td class="entry"><a class="el" href="a02040.html">bl::input::Control</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02040.html#a7d461e06aaee37642fdcd399ccd9aabb">type</a></td><td class="entry"><a class="el" href="a02040.html">bl::input::Control</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Wrapper struct for state masks. An engine state has a mask which determines which systems run while that state is active. Any systems whose mask overlaps the state mask are executed each frame while the others are skipped.  
+ <a href="a02037.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00179_source.html">StateMask.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aae4beb82249d6acee3fae792b71efdd5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02037.html#aae4beb82249d6acee3fae792b71efdd5">V</a> : std::uint32_t { <a class="el" href="a02037.html#aae4beb82249d6acee3fae792b71efdd5a061e0226b11763bbd9894e625bb40e34">None</a> = 0
+, <a class="el" href="a02037.html#aae4beb82249d6acee3fae792b71efdd5a30f2c931501442ac406ae354b8878479">All</a> = 0xFFFFFFFF
+ }</td></tr>
+<tr class="memdesc:aae4beb82249d6acee3fae792b71efdd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the mask.  <a href="a02037.html#aae4beb82249d6acee3fae792b71efdd5">More...</a><br /></td></tr>
+<tr class="separator:aae4beb82249d6acee3fae792b71efdd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Wrapper struct for state masks. An engine state has a mask which determines which systems run while that state is active. Any systems whose mask overlaps the state mask are executed each frame while the others are skipped. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00017">17</a> of file <a class="el" href="a00179_source.html">StateMask.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="aae4beb82249d6acee3fae792b71efdd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae4beb82249d6acee3fae792b71efdd5">&#9670;&nbsp;</a></span>V</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a02037.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a> : std::uint32_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The type of the mask. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aae4beb82249d6acee3fae792b71efdd5a061e0226b11763bbd9894e625bb40e34"></a>None&#160;</td><td class="fielddoc"><p>Special value to use if no systems should execute. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aae4beb82249d6acee3fae792b71efdd5a30f2c931501442ac406ae354b8878479"></a>All&#160;</td><td class="fielddoc"><p>Special value to use if a system should execute regardless of engine state. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00179_source.html#l00019">19</a> of file <a class="el" href="a00179_source.html">StateMask.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Engine/<a class="el" href="a00179_source.html">StateMask.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

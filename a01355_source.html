@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Resources/RenderPassCache.cpp Source File</title>
+<title>BLIB: src/Render/Resources/MaterialPool.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,134 +71,43 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RenderPassCache.cpp</div>  </div>
+<div class="title">MaterialPool.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01355.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00620.html">BLIB/Render/Resources/RenderPassCache.hpp</a>&gt;</span></div>
+<a href="a01355.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00623.html">BLIB/Render/Resources/MaterialPool.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00356.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04468.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00740.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>res</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>res</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;RenderPassCache::RenderPassCache(Renderer&amp; r)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;: renderer(r) {}</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02749.html#a0e7b27b69dc54312733259a191518bcc">    9</a></span>&#160;<a class="code" href="a02749.html#a0e7b27b69dc54312733259a191518bcc">MaterialPool::MaterialPool</a>(<a class="code" href="a02981.html">vk::VulkanState</a>&amp; vs)</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: vulkanState(vs)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, materials(MaxMaterialCount)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">//, materialUniforms(MaxMaterialCount)</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, freeSlots(MaxMaterialCount)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, textureImageWriteInfo(MaxMaterialCount) {}</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> RenderPassCache::cleanup() { cache.clear(); }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02744.html#ab8a58532de9fb71ac402f4174d33f3cf">   18</a></span>&#160;<a class="code" href="a02952.html">vk::RenderPass</a>&amp; RenderPassCache::createRenderPass(std::uint32_t <span class="keywordtype">id</span>,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                                                  <a class="code" href="a02956.html">vk::RenderPassParameters</a>&amp;&amp; sceneParams) {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> insertResult = cache.try_emplace(</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">id</span>, renderer.vulkanState(), std::forward&lt;vk::RenderPassParameters&gt;(sceneParams));</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">if</span> (!insertResult.second) { <a class="code" href="a00350.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Duplicate creation of gfx pass with id: &quot;</span> &lt;&lt; id; }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> insertResult.first-&gt;second;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02744.html#ad1b7a81e1857d38e3e255d498c5a9db7">   26</a></span>&#160;<a class="code" href="a02952.html">vk::RenderPass</a>&amp; RenderPassCache::getRenderPass(std::uint32_t <span class="keywordtype">id</span>) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">auto</span> it = cache.find(<span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">if</span> (it == cache.end()) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <a class="code" href="a00350.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Failed to find gfx pass with id: &quot;</span> &lt;&lt; id;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to find gfx pass&quot;</span>);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">return</span> it-&gt;second;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> RenderPassCache::addDefaults() {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">// scene render pass for observers</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    VkAttachmentDescription sceneColorAttachment{};</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    sceneColorAttachment.format         = VK_FORMAT_R8G8B8A8_SRGB;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    sceneColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    sceneColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    sceneColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    sceneColorAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    sceneColorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    sceneColorAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    sceneColorAttachment.finalLayout    = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    VkAttachmentDescription depthAttachment{};</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    depthAttachment.format = vk::StandardAttachmentBuffers::findDepthFormat(renderer.vulkanState());</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    depthAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    depthAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    depthAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_DONT_CARE;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    depthAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    depthAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    depthAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    depthAttachment.finalLayout    = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    VkSubpassDependency renderCompleteDep{};</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    renderCompleteDep.srcSubpass      = 0;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    renderCompleteDep.dstSubpass      = VK_SUBPASS_EXTERNAL;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    renderCompleteDep.srcStageMask    = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    renderCompleteDep.dstStageMask    = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    renderCompleteDep.srcAccessMask   = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    renderCompleteDep.dstAccessMask   = VK_ACCESS_SHADER_READ_BIT;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    renderCompleteDep.dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    VkSubpassDependency primaryRenderWaitImage{}; <span class="comment">// wait for image to be available</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    primaryRenderWaitImage.srcSubpass    = VK_SUBPASS_EXTERNAL;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    primaryRenderWaitImage.dstSubpass    = 0;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    primaryRenderWaitImage.srcStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    primaryRenderWaitImage.srcAccessMask = 0;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    primaryRenderWaitImage.dstStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    primaryRenderWaitImage.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    vk::RenderPassParameters sceneParams;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    sceneParams.addAttachment(sceneColorAttachment);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    sceneParams.addAttachment(depthAttachment);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    sceneParams.addSubpass(</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        vk::RenderPassParameters::SubPass()</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            .build());</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    sceneParams.addSubpassDependency(renderCompleteDep);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    sceneParams.addSubpassDependency(primaryRenderWaitImage);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    createRenderPass(Config::RenderPassIds::OffScreenSceneRender, sceneParams.build());</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="comment">// primary render pass for final swapchain compositing</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    VkAttachmentDescription swapColorAttachment{};</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    swapColorAttachment.format         = renderer.vulkanState().swapchain.swapImageFormat();</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    swapColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    swapColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    swapColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    swapColorAttachment.stencilLoadOp  = VK_ATTACHMENT_LOAD_OP_DONT_CARE;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    swapColorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    swapColorAttachment.initialLayout  = VK_IMAGE_LAYOUT_UNDEFINED;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    swapColorAttachment.finalLayout    = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    vk::RenderPassParameters primaryParams;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    primaryParams.addAttachment(swapColorAttachment);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    primaryParams.addAttachment(depthAttachment);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    primaryParams.addSubpass(</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        vk::RenderPassParameters::SubPass()</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            .build());</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    primaryParams.addSubpassDependency(primaryRenderWaitImage);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    createRenderPass(Config::RenderPassIds::SwapchainPrimaryRender, primaryParams.build());</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;} <span class="comment">// namespace res</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00350_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a00350.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00098">Logger.hpp:98</a></div></div>
-<div class="ttc" id="aa00350_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00350.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00104">Logger.hpp:104</a></div></div>
-<div class="ttc" id="aa00356_html"><div class="ttname"><a href="a00356.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">RenderPassCache.hpp</a></div></div>
-<div class="ttc" id="aa00740_html"><div class="ttname"><a href="a00740.html">StandardAttachmentBuffers.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02952_html"><div class="ttname"><a href="a02952.html">bl::gfx::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition:</b> <a href="a00731_source.html#l00019">RenderPass.hpp:19</a></div></div>
-<div class="ttc" id="aa02956_html"><div class="ttname"><a href="a02956.html">bl::gfx::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
-<div class="ttc" id="aa04468_html"><div class="ttname"><a href="a04468.html">Renderer.hpp</a></div></div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02749.html#aaea6eb1230adecc080c563c4237889b9">   16</a></span>&#160;<a class="code" href="a02749.html#aaea6eb1230adecc080c563c4237889b9">MaterialPool::~MaterialPool</a>() {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="comment">// TODO</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">// TODO</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00623_html"><div class="ttname"><a href="a00623.html">MaterialPool.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02749_html_a0e7b27b69dc54312733259a191518bcc"><div class="ttname"><a href="a02749.html#a0e7b27b69dc54312733259a191518bcc">bl::rc::res::MaterialPool::MaterialPool</a></div><div class="ttdeci">MaterialPool(vk::VulkanState &amp;vulkanState)</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00009">MaterialPool.cpp:9</a></div></div>
+<div class="ttc" id="aa02749_html_aaea6eb1230adecc080c563c4237889b9"><div class="ttname"><a href="a02749.html#aaea6eb1230adecc080c563c4237889b9">bl::rc::res::MaterialPool::~MaterialPool</a></div><div class="ttdeci">~MaterialPool()</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00016">MaterialPool.cpp:16</a></div></div>
+<div class="ttc" id="aa02981_html"><div class="ttname"><a href="a02981.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00036">VulkanState.hpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

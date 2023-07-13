@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Primitives/Vertex.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Overlays/OverlayCamera.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,69 +66,53 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_b201fd9fa14a04c5ac17d47204a891a8.html">Primitives</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_f985e6d9d3c728bc93d2b173ef2ebe49.html">Overlays</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Vertex.hpp</div>  </div>
+<div class="title">OverlayCamera.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00602.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_PRIMITIVES_VERTEX_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_PRIMITIVES_VERTEX_HPP</span></div>
+<a href="a00602.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_CAMERAS_OVERLAYCAMERA_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_CAMERAS_OVERLAYCAMERA_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00977.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;initializer_list&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>prim</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02716.html">   22</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02716.html">Vertex</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02716.html#aee5ae53cb4b59cb2a59656aa99307680">   23</a></span>&#160;    glm::vec3 <a class="code" href="a02716.html#aee5ae53cb4b59cb2a59656aa99307680">pos</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02716.html#aa6bee8aa85d94cb89d1c49a477fe4b97">   24</a></span>&#160;    glm::vec4 <a class="code" href="a02716.html#aa6bee8aa85d94cb89d1c49a477fe4b97">color</a>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02716.html#af976c43cb9cd3a71b2db58d27b263c45">   25</a></span>&#160;    glm::vec2 <a class="code" href="a02716.html#af976c43cb9cd3a71b2db58d27b263c45">texCoord</a>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02716.html#af59b3c54b43f7da9fb1221e0181e4d4e">Vertex</a>();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a02716.html#af59b3c54b43f7da9fb1221e0181e4d4e">Vertex</a>(<span class="keyword">const</span> glm::vec3&amp; position);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00038.html">BLIB/Cameras/Camera.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a01672.html">   10</a></span>&#160;<span class="keyword">namespace </span>ovy</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02717.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02717.html">OverlayCamera</a> : <span class="keyword">public</span> <a class="code" href="a01781.html">cam::Camera</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a02717.html#a75cdba5020a5e58077452bd99aff98e2">OverlayCamera</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02717.html#a78af666da3c0729b51b0f2e0c9b2f97f">   27</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02717.html#a78af666da3c0729b51b0f2e0c9b2f97f">~OverlayCamera</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> refreshViewMatrix(glm::mat4&amp; view) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> refreshProjMatrix(glm::mat4&amp; proj, <span class="keyword">const</span> VkViewport&amp; viewport) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace ovy</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="a02716.html#af59b3c54b43f7da9fb1221e0181e4d4e">Vertex</a>(<span class="keyword">const</span> glm::vec3&amp; position, <span class="keyword">const</span> glm::vec4&amp; <a class="code" href="a02716.html#aa6bee8aa85d94cb89d1c49a477fe4b97">color</a>);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="a02716.html#af59b3c54b43f7da9fb1221e0181e4d4e">Vertex</a>(<span class="keyword">const</span> glm::vec3&amp; position, <span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02716.html#af976c43cb9cd3a71b2db58d27b263c45">texCoord</a>);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a02716.html#af59b3c54b43f7da9fb1221e0181e4d4e">Vertex</a>(<span class="keyword">const</span> glm::vec3&amp; position, <span class="keyword">const</span> glm::vec4&amp; <a class="code" href="a02716.html#aa6bee8aa85d94cb89d1c49a477fe4b97">color</a>, <span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02716.html#af976c43cb9cd3a71b2db58d27b263c45">texCoord</a>);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="a02716.html#af59b3c54b43f7da9fb1221e0181e4d4e">Vertex</a>(std::initializer_list&lt;float&gt; values);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">static</span> VkVertexInputBindingDescription <a class="code" href="a02716.html#a9bed61805876ae5e17f43d1c5a71de2a">bindingDescription</a>();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">static</span> std::array&lt;VkVertexInputAttributeDescription, 3&gt; <a class="code" href="a02716.html#a0cd475df8eeb95e36241333c1c51687c">attributeDescriptions</a>();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace prim</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00977_html"><div class="ttname"><a href="a00977.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02716_html"><div class="ttname"><a href="a02716.html">bl::gfx::prim::Vertex</a></div><div class="ttdoc">Base Vertex primitive for the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00022">Vertex.hpp:22</a></div></div>
-<div class="ttc" id="aa02716_html_a0cd475df8eeb95e36241333c1c51687c"><div class="ttname"><a href="a02716.html#a0cd475df8eeb95e36241333c1c51687c">bl::gfx::prim::Vertex::attributeDescriptions</a></div><div class="ttdeci">static std::array&lt; VkVertexInputAttributeDescription, 3 &gt; attributeDescriptions()</div><div class="ttdoc">Returns the attribute descriptions for each vertex attribute.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00089">Vertex.cpp:89</a></div></div>
-<div class="ttc" id="aa02716_html_a9bed61805876ae5e17f43d1c5a71de2a"><div class="ttname"><a href="a02716.html#a9bed61805876ae5e17f43d1c5a71de2a">bl::gfx::prim::Vertex::bindingDescription</a></div><div class="ttdeci">static VkVertexInputBindingDescription bindingDescription()</div><div class="ttdoc">Returns the vertex binding description for the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00081">Vertex.cpp:81</a></div></div>
-<div class="ttc" id="aa02716_html_aa6bee8aa85d94cb89d1c49a477fe4b97"><div class="ttname"><a href="a02716.html#aa6bee8aa85d94cb89d1c49a477fe4b97">bl::gfx::prim::Vertex::color</a></div><div class="ttdeci">glm::vec4 color</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00024">Vertex.hpp:24</a></div></div>
-<div class="ttc" id="aa02716_html_aee5ae53cb4b59cb2a59656aa99307680"><div class="ttname"><a href="a02716.html#aee5ae53cb4b59cb2a59656aa99307680">bl::gfx::prim::Vertex::pos</a></div><div class="ttdeci">glm::vec3 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00023">Vertex.hpp:23</a></div></div>
-<div class="ttc" id="aa02716_html_af59b3c54b43f7da9fb1221e0181e4d4e"><div class="ttname"><a href="a02716.html#af59b3c54b43f7da9fb1221e0181e4d4e">bl::gfx::prim::Vertex::Vertex</a></div><div class="ttdeci">Vertex()</div><div class="ttdoc">Creates a white vertex.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00011">Vertex.cpp:11</a></div></div>
-<div class="ttc" id="aa02716_html_af976c43cb9cd3a71b2db58d27b263c45"><div class="ttname"><a href="a02716.html#af976c43cb9cd3a71b2db58d27b263c45">bl::gfx::prim::Vertex::texCoord</a></div><div class="ttdeci">glm::vec2 texCoord</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00025">Vertex.hpp:25</a></div></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00038_html"><div class="ttname"><a href="a00038.html">Camera.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01781_html"><div class="ttname"><a href="a01781.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00038_source.html#l00017">Camera.hpp:17</a></div></div>
+<div class="ttc" id="aa02717_html"><div class="ttname"><a href="a02717.html">bl::rc::ovy::OverlayCamera</a></div><div class="ttdoc">Special camera that provides a fixed view for overlays.</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00017">OverlayCamera.hpp:17</a></div></div>
+<div class="ttc" id="aa02717_html_a75cdba5020a5e58077452bd99aff98e2"><div class="ttname"><a href="a02717.html#a75cdba5020a5e58077452bd99aff98e2">bl::rc::ovy::OverlayCamera::OverlayCamera</a></div><div class="ttdeci">OverlayCamera()</div><div class="ttdoc">Creates the overlay camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00012">OverlayCamera.cpp:12</a></div></div>
+<div class="ttc" id="aa02717_html_a78af666da3c0729b51b0f2e0c9b2f97f"><div class="ttname"><a href="a02717.html#a78af666da3c0729b51b0f2e0c9b2f97f">bl::rc::ovy::OverlayCamera::~OverlayCamera</a></div><div class="ttdeci">virtual ~OverlayCamera()=default</div><div class="ttdoc">Destroys the overlay camera.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

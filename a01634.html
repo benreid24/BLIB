@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::event::priv Namespace Reference</title>
+<title>BLIB: bl::sys Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,65 +66,62 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01623.html">bl</a></li><li class="navelem"><a class="el" href="a01633.html">event</a></li><li class="navelem"><a class="el" href="a01634.html">priv</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01628.html">bl</a></li><li class="navelem"><a class="el" href="a01634.html">sys</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">bl::event::priv Namespace Reference</div>  </div>
+<div class="title">bl::sys Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Private namespace. Contained classes are internal implementation details.  
-<a href="a01634.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02004.html">SingleDispatcherBase</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02781.html">DrawableSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should have a system that inherits from this class that manages their membership within scenes. These systems should run in the <a class="el" href="a02021.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d" title="Synchronizes objects from the ECS into the scene-local object buffers.">engine::FrameStage::RenderObjectSync</a> step.  <a href="a02781.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02008.html">SingleDispatcher</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03465.html">CameraUpdateSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that updates all observer cameras while the renderer is waiting on the prior frame to complete.  <a href="a03465.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02012.html">SubscriberBase</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03469.html">DescriptorComponentSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templated system for managing ECS components that sync into renderer descriptor sets. Components should derive from DescriptorComponentBase.  <a href="a03469.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02016.html">SubscriberHelper</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03477.html">OverlayScalerSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size changes.  <a href="a03477.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02020.html">UnSubscriberBase</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03481.html">RenderSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that triggers the renderer each frame.  <a href="a03481.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02024.html">UnSubscriberHelper</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03612.html">ReserveOnStartupHelper</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03485.html">TextSyncSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple system which ensures that Text geometry stays updated.  <a href="a03485.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a865c966fc289cfc34e75b4070c3e8e63"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a03612.html">bl::event::priv::ReserveOnStartupHelper</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01634.html#a865c966fc289cfc34e75b4070c3e8e63">helper</a></td></tr>
-<tr class="separator:a865c966fc289cfc34e75b4070c3e8e63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01617.html#gac818e5c6ace18f20d9f03da1ad8ebe41">Transform2DDescriptorSystem</a> = <a class="el" href="a03469.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a01809.html">com::Transform2D</a>, glm::mat4 &gt;</td></tr>
+<tr class="memdesc:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for 2d transforms.  <a href="a01617.html#gac818e5c6ace18f20d9f03da1ad8ebe41">More...</a><br /></td></tr>
+<tr class="separator:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8de8e24f3a0b8643626494bcd58a745c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01617.html#ga8de8e24f3a0b8643626494bcd58a745c">Transform3DDescriptorSystem</a> = <a class="el" href="a03469.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a01813.html">com::Transform3D</a>, glm::mat4 &gt;</td></tr>
+<tr class="memdesc:ga8de8e24f3a0b8643626494bcd58a745c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for 3d transforms.  <a href="a01617.html#ga8de8e24f3a0b8643626494bcd58a745c">More...</a><br /></td></tr>
+<tr class="separator:ga8de8e24f3a0b8643626494bcd58a745c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01617.html#ga11d6ea46ca8a7d452ae7049bf7948c21">TextureDescriptorSystem</a> = <a class="el" href="a03469.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a01805.html">com::Texture</a>, std::uint32_t &gt;</td></tr>
+<tr class="memdesc:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for textures.  <a href="a01617.html#ga11d6ea46ca8a7d452ae7049bf7948c21">More...</a><br /></td></tr>
+<tr class="separator:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4477117aea35eeac21751bf038a0098b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01617.html#ga4477117aea35eeac21751bf038a0098b">MeshSystem</a> = <a class="el" href="a02781.html">DrawableSystem</a>&lt; <a class="el" href="a01785.html">com::Mesh</a> &gt;</td></tr>
+<tr class="memdesc:ga4477117aea35eeac21751bf038a0098b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity meshes.  <a href="a01617.html#ga4477117aea35eeac21751bf038a0098b">More...</a><br /></td></tr>
+<tr class="separator:ga4477117aea35eeac21751bf038a0098b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga68bd85b37280b05c447083208d4079f7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01617.html#ga68bd85b37280b05c447083208d4079f7">SpriteSystem</a> = <a class="el" href="a02781.html">DrawableSystem</a>&lt; <a class="el" href="a01801.html">com::Sprite</a> &gt;</td></tr>
+<tr class="memdesc:ga68bd85b37280b05c447083208d4079f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity sprites.  <a href="a01617.html#ga68bd85b37280b05c447083208d4079f7">More...</a><br /></td></tr>
+<tr class="separator:ga68bd85b37280b05c447083208d4079f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Private namespace. Contained classes are internal implementation details. </p>
-</div><h2 class="groupheader">Variable Documentation</h2>
-<a id="a865c966fc289cfc34e75b4070c3e8e63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a865c966fc289cfc34e75b4070c3e8e63">&#9670;&nbsp;</a></span>helper</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="a03612.html">bl::event::priv::ReserveOnStartupHelper</a> bl::event::priv::helper</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:12 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

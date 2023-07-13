@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::event::priv::SubscriberBase&lt; T &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,31 +66,86 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01623.html">bl</a></li><li class="navelem"><a class="el" href="a01637.html">gui</a></li><li class="navelem"><a class="el" href="a02096.html">FilePicker</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01628.html">bl</a></li><li class="navelem"><a class="el" href="a01646.html">event</a></li><li class="navelem"><a class="el" href="a01647.html">priv</a></li><li class="navelem"><a class="el" href="a02093.html">SubscriberBase</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a02090.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gui::FilePicker Member List</div>  </div>
+<div class="title">bl::event::priv::SubscriberBase&lt; T &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02096.html">bl::gui::FilePicker</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02096.html#ae2d6cea5ee7827f6b98bd44c8610b772">CancelCb</a> typedef</td><td class="entry"><a class="el" href="a02096.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02096.html#ad99b9ef7e69802a1a4877a138139ff01">ChooseCb</a> typedef</td><td class="entry"><a class="el" href="a02096.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02096.html#a9e0b4eb6b447707926e60f7399c14875">close</a>()</td><td class="entry"><a class="el" href="a02096.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02096.html#a3d8d2dab280491a0c844645880dd214dadaf8cfb2616b7734d3a678b1f45f210b">CreateNew</a> enum value</td><td class="entry"><a class="el" href="a02096.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02096.html#a3d8d2dab280491a0c844645880dd214da5e6c78a1d4db6a65a9ea964ecf0851c5">CreateOrPick</a> enum value</td><td class="entry"><a class="el" href="a02096.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02096.html#aaec40a4fd47c00eca12feb83978046be">FilePicker</a>(const std::string &amp;rootdir, const std::vector&lt; std::string &gt; &amp;extensions, const ChooseCb &amp;onChoose, const CancelCb &amp;onCancel)</td><td class="entry"><a class="el" href="a02096.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02096.html#a3d8d2dab280491a0c844645880dd214d">Mode</a> enum name</td><td class="entry"><a class="el" href="a02096.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02096.html#abeaa864c138e23c026acfc4682348c63">open</a>(Mode mode, const std::string &amp;title, GUI::Ptr parent, bool resetPath=false)</td><td class="entry"><a class="el" href="a02096.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02096.html#a3d8d2dab280491a0c844645880dd214da3afd10eb0b08296feedbbcda55ecedab">PickExisting</a> enum value</td><td class="entry"><a class="el" href="a02096.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p><code>#include &lt;<a class="el" href="a00212_source.html">SubscribeHelpers.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a02987762042552000db1d92c66b60f79"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02093.html#a02987762042552000db1d92c66b60f79">SubscriberBase</a> (<a class="el" href="a02089.html">SingleDispatcher</a>&lt; T &gt; &amp;bus, <a class="el" href="a02073.html">ListenerBase</a>&lt; T &gt; *l, bool defer)</td></tr>
+<tr class="separator:a02987762042552000db1d92c66b60f79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+struct bl::event::priv::SubscriberBase&lt; T &gt;</h3>
+
+
+<p class="definition">Definition at line <a class="el" href="a00212_source.html#l00013">13</a> of file <a class="el" href="a00212_source.html">SubscribeHelpers.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a02987762042552000db1d92c66b60f79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02987762042552000db1d92c66b60f79">&#9670;&nbsp;</a></span>SubscriberBase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02093.html">bl::event::priv::SubscriberBase</a>&lt; T &gt;::<a class="el" href="a02093.html">SubscriberBase</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02089.html">SingleDispatcher</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>bus</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02073.html">ListenerBase</a>&lt; T &gt; *&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>defer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00212_source.html#l00014">14</a> of file <a class="el" href="a00212_source.html">SubscribeHelpers.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Events/<a class="el" href="a00212_source.html">SubscribeHelpers.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

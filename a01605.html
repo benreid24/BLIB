@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Parser</title>
+<title>BLIB: Graphics</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,38 +69,60 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Parser</div>  </div>
+<div class="title">Graphics<div class="ingroups"><a class="el" href="a01610.html">Media</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes implementing a generic LR0 parser.  
+<p>Graphics primitives and functionality provided by the engine.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02392.html">bl::parser::ISkipper</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.  <a href="a02392.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01785.html">bl::com::Mesh</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECS component for a basic mesh from an index buffer.  <a href="a01785.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02396.html">bl::parser::Node</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.  <a href="a02396.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01793.html">bl::com::OverlayScaler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler ensures that scales are up-to-date as the overlay changes size. Entity transforms should not be manually scaled if an <a class="el" href="a01793.html" title="Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler ensures th...">OverlayScaler</a> is present and active.  <a href="a01793.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02404.html">bl::parser::Parser</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level <a class="el" href="a02404.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer.">Parser</a> class. Implements a basic LR0 parser from a <a class="el" href="a02376.html" title="Represents a grammar for a Parser to build a parse tree with from a token sequence.">Grammar</a> and <a class="el" href="a02420.html" title="Utility class for a Parser to break down an input string into tokens.">Tokenizer</a>.  <a href="a02404.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01801.html">bl::com::Sprite</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01801.html" title="Sprite component repersenting a 2d image for an entity.">Sprite</a> component repersenting a 2d image for an entity.  <a href="a01801.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02416.html">bl::parser::Stream</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.  <a href="a02416.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01805.html">bl::com::Texture</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECS component to add a texture to an object.  <a href="a01805.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02420.html">bl::parser::Tokenizer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for a <a class="el" href="a02404.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer.">Parser</a> to break down an input string into tokens.  <a href="a02420.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02109.html">bl::gfx::bcom::OverlayScalable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base component that manages and provides a <a class="el" href="a02117.html" title="Base component class for Drawables that require a 2d transform.">Transform2D</a>, OverlayScaler, and Viewport.  <a href="a02109.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02113.html">bl::gfx::bcom::Textured</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base component class for textured Drawables.  <a href="a02113.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02117.html">bl::gfx::bcom::Transform2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base component class for Drawables that require a 2d transform.  <a href="a02117.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02121.html">bl::gfx::Drawable&lt; TCom, TSys &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a02121.html" title="Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...">Drawable</a> objects. A <a class="el" href="a02121.html" title="Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...">Drawable</a> object should inherit this class for the drawable component that it wraps.  <a href="a02121.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02125.html">bl::gfx::Sprite</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">SFML-like sprite class to render images in scenes or overlays. Wraps the ECS interface.  <a href="a02125.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02129.html">bl::gfx::txt::BasicText</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02121.html" title="Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...">Drawable</a> for a single section of text. Similar to sf::Text. Do not use directly, use <a class="el" href="a02145.html" title="Drawable component for format-able text. Similar to sf::Text except that multiple formatted sections ...">Text</a> class to create and manage <a class="el" href="a02129.html" title="Drawable for a single section of text. Similar to sf::Text. Do not use directly, use Text class to cr...">BasicText</a> segments.  <a href="a02129.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02145.html">bl::gfx::Text</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02121.html" title="Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...">Drawable</a> component for format-able text. Similar to sf::Text except that multiple formatted sections are able to be handled by a single instance.  <a href="a02145.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02477.html">bl::rc::Flashing</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper class for drawable elements that should flash with a fixed period.  <a href="a02477.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of classes implementing a generic LR0 parser. </p>
+<p>Graphics primitives and functionality provided by the engine. </p>
+<p>Provides several different graphics features such as animations.</p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

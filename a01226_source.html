@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Parser/Tokenizer.cpp Source File</title>
+<title>BLIB: src/Interfaces/Utilities/ViewUtil.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,170 +66,197 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_be6b6bc8933d1b72ef64ada15681fca0.html">Parser</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_eed0eefb63b0ec37b1a5e1e52f21cab7.html">Utilities</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Tokenizer.cpp</div>  </div>
+<div class="title">ViewUtil.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01226.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00431.html">BLIB/Parser/Tokenizer.hpp</a>&gt;</span></div>
+<a href="a01226.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00413.html">BLIB/Interfaces/Utilities/ViewUtil.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00356.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>interface</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>parser</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02420.html#a1b4ba8fa02e93c2a590c1bc761225f7f">    9</a></span>&#160;<a class="code" href="a02420.html#a1b4ba8fa02e93c2a590c1bc761225f7f">Tokenizer::Tokenizer</a>(<a class="code" href="a02392.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a> skipper)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: skipper(skipper) {}</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02420.html#a024c9d395e06f65a505d947a8aef8df3">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02420.html#a024c9d395e06f65a505d947a8aef8df3">Tokenizer::addTokenType</a>(<a class="code" href="a02396.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> type, <span class="keyword">const</span> std::string&amp; regex, <a class="code" href="a02420.html#a43b29344ad055d4107280d40c5788b93">MatchGroup</a> matchGroup) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    matchers[regex]    = std::make_pair(std::regex(regex.c_str()), type);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    matchGroups[regex] = matchGroup;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    recomputeAmbiguous();</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02420.html#af453774ca6f803bac752cef456d31dcb">   18</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02420.html#af453774ca6f803bac752cef456d31dcb">Tokenizer::addEscapeSequence</a>(<span class="keyword">const</span> std::string&amp; sequence, <span class="keywordtype">char</span> c) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    escapeSequences.push_back(std::make_pair(sequence, c));</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02420.html#a948d2c81274b2bfdda2f5943535b6546">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02420.html#a948d2c81274b2bfdda2f5943535b6546">Tokenizer::addSkipperToggleChar</a>(<span class="keywordtype">char</span> c) { togglers.push_back(c); }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02420.html#a07aa4f5c7ee7dadefa7ed62d3ce8649f">   24</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02420.html#a07aa4f5c7ee7dadefa7ed62d3ce8649f">Tokenizer::addKeyword</a>(<a class="code" href="a02396.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> src, <a class="code" href="a02396.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> res, <span class="keyword">const</span> std::string&amp; kword) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    kwords[src].push_back({kword, res});</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02420.html#a13ed392cfebd00ac01d1f96c4c0fae34">   28</a></span>&#160;std::vector&lt;Node::Ptr&gt; <a class="code" href="a02420.html#a13ed392cfebd00ac01d1f96c4c0fae34">Tokenizer::tokenize</a>(<a class="code" href="a02416.html">Stream</a>&amp; input, std::string* err)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::vector&lt;Node::Ptr&gt; tokens;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    std::string current;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">int</span> fLine = 0;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">int</span> fCol  = 0;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">bool</span> skipperActive = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">while</span> (input.<a class="code" href="a02416.html#a18506360239106e7d22e6c8813fd6e9d">valid</a>()) {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> (skipperActive &amp;&amp; skipper) skipper-&gt;skip(input);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> (input.<a class="code" href="a02416.html#a067692cf77ea97b498566a7da9349ab5">peek</a>() == EOF) <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (std::find(togglers.begin(), togglers.end(), input.<a class="code" href="a02416.html#a067692cf77ea97b498566a7da9349ab5">peek</a>()) != togglers.end())</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            skipperActive = !skipperActive;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> (current.empty()) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            fLine = input.<a class="code" href="a02416.html#a6226a1aa345b608ba72896bef6d4fbcb">currentLine</a>();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            fCol  = input.<a class="code" href="a02416.html#a5e9935dd0afe99d67c3d47beb6167814">currentColumn</a>();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        current.push_back(input.<a class="code" href="a02416.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">get</a>());</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; escape : escapeSequences) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">size_t</span> i = current.find(escape.first);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordflow">if</span> (i != std::string::npos) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                current.replace(i, escape.first.size(), std::string(1, escape.second));</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; matcher : matchers) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            std::smatch result;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">if</span> (std::regex_match(current, result, matcher.second.first)) {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                <span class="keywordtype">bool</span> cont = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt;= 3; ++i) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    <span class="keyword">const</span> std::string temp = current + input.<a class="code" href="a02416.html#a51dc5b929d8aad7a3a9e645ec79bb234">peekN</a>(i);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                    <span class="keywordflow">if</span> (std::regex_match(temp, matcher.second.first)) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                        cont = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                <span class="keywordflow">if</span> (cont) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="keyword">auto</span> a = ambiguous.find(matcher.first);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                <span class="keywordflow">if</span> (a != ambiguous.end()) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    <span class="keywordtype">bool</span> skip = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; k : a-&gt;second) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                        <span class="keyword">const</span> std::string check = current + input.<a class="code" href="a02416.html#a51dc5b929d8aad7a3a9e645ec79bb234">peekN</a>(k.size() - current.size());</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                        <span class="keyword">const</span> std::regex&amp; m     = matchers.find(k)-&gt;second.first;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                        <span class="keywordflow">if</span> (std::regex_match(check, m)) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                            skip = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                        }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                    <span class="keywordflow">if</span> (skip) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                }</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;sf::View constructView(<span class="keyword">const</span> sf::Vector2f&amp; size, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> w, <span class="keywordtype">float</span> h) {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    sf::View view(size * 0.5f, size);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    view.setViewport({x, y, w, h});</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> view;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02437.html#a7dcaf25b51426f1384d04c0df15b646d">   16</a></span>&#160;sf::View <a class="code" href="a02437.html#a7dcaf25b51426f1384d04c0df15b646d">ViewUtil::computeSubView</a>(<span class="keyword">const</span> sf::FloatRect&amp; region, <span class="keyword">const</span> sf::View&amp; defaultView) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">const</span> sf::Vector2f corner = defaultView.getCenter() - defaultView.getSize() * 0.5f;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> x =</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        (region.left - corner.x) / defaultView.getSize().x * defaultView.getViewport().width +</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        defaultView.getViewport().left;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> y =</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        (region.top - corner.y) / defaultView.getSize().y * defaultView.getViewport().height +</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        defaultView.getViewport().top;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> w = region.width / defaultView.getSize().x * defaultView.getViewport().width;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> h = region.height / defaultView.getSize().y * defaultView.getViewport().height;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    sf::View result = constructView({region.width, region.height}, x, y, w, h);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    result.move(region.left, region.top);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (x &lt; 0.f) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> shift = defaultView.getSize().x * (-x);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        result.setSize(result.getSize().x - shift, result.getSize().y);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        result.move(shift * 0.5f, 0.f);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        sf::FloatRect t = result.getViewport();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        t.left          = 0.f;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        t.width += x;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        result.setViewport(t);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (y &lt; 0.f) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> shift = defaultView.getSize().y * (-y);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        result.setSize(result.getSize().x, result.getSize().y - shift);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        result.move(0.f, shift * 0.5f);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        sf::FloatRect t = result.getViewport();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        t.top           = 0.f;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        t.height += y;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        result.setViewport(t);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02437.html#a68beb97b689f08633d8c7314f82d3359">   52</a></span>&#160;sf::View <a class="code" href="a02437.html#a68beb97b689f08633d8c7314f82d3359">ViewUtil::computeView</a>(<span class="keyword">const</span> sf::Vector2f&amp; size, <span class="keyword">const</span> sf::View&amp; oldView,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                               <span class="keyword">const</span> sf::FloatRect&amp; coverArea) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> x = oldView.getViewport().left + oldView.getViewport().width * coverArea.left;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> y = oldView.getViewport().top + oldView.getViewport().height * coverArea.top;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> w = oldView.getViewport().width * coverArea.width;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> h = oldView.getViewport().height * coverArea.height;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">return</span> constructView(size, x, y, w, h);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a02437.html#a40a1e98cba5978a7ada799c31de70063">   62</a></span>&#160;sf::View <a class="code" href="a02437.html#a40a1e98cba5978a7ada799c31de70063">ViewUtil::computeViewPreserveAR</a>(<span class="keyword">const</span> sf::Vector2f&amp; size, <span class="keyword">const</span> sf::View&amp; oldView,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                         <span class="keyword">const</span> sf::Vector2f&amp; position, <span class="keywordtype">float</span> width) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> x      = oldView.getViewport().left + oldView.getViewport().width * position.x;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> y      = oldView.getViewport().top + oldView.getViewport().height * position.y;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> w      = oldView.getViewport().width * width;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> height = size.y / size.x * w;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> h      = oldView.getViewport().height * height;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> constructView(size, x, y, w, h);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a02437.html#a78b7c79a01431682d50dd7e96de43c20">   73</a></span>&#160;sf::View <a class="code" href="a02437.html#a78b7c79a01431682d50dd7e96de43c20">ViewUtil::computeViewAnchored</a>(<span class="keyword">const</span> sf::Vector2f&amp; size, <span class="keyword">const</span> sf::View&amp; oldView,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                       <span class="keyword">const</span> sf::Vector2f&amp; viewportSize, <a class="code" href="a02437.html#ac73c55c229947f60eb708d58133a5164">Anchor</a> side) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> w = oldView.getViewport().width * viewportSize.x;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> h = oldView.getViewport().height * viewportSize.y;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">float</span> x       = oldView.getViewport().left + oldView.getViewport().width / 2.f - w / 2.f;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">float</span> y       = oldView.getViewport().top + oldView.getViewport().height / 2.f - h / 2.f;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <a class="code" href="a02396.html#a3f49fe9da8742463aa757f89f67a8827">Node::Ptr</a> token(<span class="keyword">new</span> <a class="code" href="a02396.html">Node</a>());</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> matchGroup = matchGroups.at(matcher.first) &lt; result.size() ?</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                                    matchGroups.at(matcher.first) :</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                                                    0;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                token-&gt;data                   = result[matchGroup].str();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                token-&gt;sourceLine             = input.<a class="code" href="a02416.html#a6226a1aa345b608ba72896bef6d4fbcb">currentLine</a>();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                token-&gt;sourceColumn           = input.<a class="code" href="a02416.html#a5e9935dd0afe99d67c3d47beb6167814">currentColumn</a>() - token-&gt;data.size();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                token-&gt;type                   = matcher.second.second;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                <span class="keyword">auto</span> kiter = kwords.find(token-&gt;type);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keywordflow">if</span> (kiter != kwords.end()) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; t : kiter-&gt;second) {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                        <span class="keywordflow">if</span> (t.first == token-&gt;data) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                            token-&gt;type = t.second;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                        }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                    }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                tokens.push_back(token);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                current.clear();</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        }</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">if</span> (!current.empty()) {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        std::stringstream ss;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        ss &lt;&lt; <span class="stringliteral">&quot;Unexpected character &#39;&quot;</span> &lt;&lt; current[0] &lt;&lt; <span class="stringliteral">&quot;&#39; on line &quot;</span> &lt;&lt; fLine &lt;&lt; <span class="stringliteral">&quot; at position &quot;</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;           &lt;&lt; fCol;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <a class="code" href="a00350.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; ss.str();</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">if</span> (err) *err = ss.str();</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    }</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">return</span> tokens;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keywordtype">void</span> Tokenizer::recomputeAmbiguous() {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    ambiguous.clear();</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; check : matchers) {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sub : matchers) {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">if</span> (sub.first == check.first) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">if</span> (check.first.find(sub.first) != std::string::npos)</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                ambiguous[sub.first].push_back(check.first);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;} <span class="comment">// namespace parser</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00350_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00350.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00356_html"><div class="ttname"><a href="a00356.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa00431_html"><div class="ttname"><a href="a00431.html">Tokenizer.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02392_html_ac94262dbc4b796277c22a958aa727323"><div class="ttname"><a href="a02392.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ISkipper &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00419_source.html#l00019">ISkipper.hpp:19</a></div></div>
-<div class="ttc" id="aa02396_html"><div class="ttname"><a href="a02396.html">bl::parser::Node</a></div><div class="ttdoc">Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.</div><div class="ttdef"><b>Definition:</b> <a href="a00422_source.html#l00018">Node.hpp:18</a></div></div>
-<div class="ttc" id="aa02396_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a02396.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00422_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa02396_html_a7aead111e234327c018e49a75c20f702"><div class="ttname"><a href="a02396.html#a7aead111e234327c018e49a75c20f702">bl::parser::Node::Type</a></div><div class="ttdeci">int Type</div><div class="ttdef"><b>Definition:</b> <a href="a00422_source.html#l00019">Node.hpp:19</a></div></div>
-<div class="ttc" id="aa02416_html"><div class="ttname"><a href="a02416.html">bl::parser::Stream</a></div><div class="ttdoc">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.</div><div class="ttdef"><b>Definition:</b> <a href="a00428_source.html#l00017">Stream.hpp:17</a></div></div>
-<div class="ttc" id="aa02416_html_a067692cf77ea97b498566a7da9349ab5"><div class="ttname"><a href="a02416.html#a067692cf77ea97b498566a7da9349ab5">bl::parser::Stream::peek</a></div><div class="ttdeci">char peek() const</div><div class="ttdoc">Returns the next character without modifying stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01223_source.html#l00020">Stream.cpp:20</a></div></div>
-<div class="ttc" id="aa02416_html_a18506360239106e7d22e6c8813fd6e9d"><div class="ttname"><a href="a02416.html#a18506360239106e7d22e6c8813fd6e9d">bl::parser::Stream::valid</a></div><div class="ttdeci">bool valid() const</div><div class="ttdoc">Tells whether the stream is valid. Takes into account invalidation and internal stream state.</div><div class="ttdef"><b>Definition:</b> <a href="a01223_source.html#l00064">Stream.cpp:64</a></div></div>
-<div class="ttc" id="aa02416_html_a1c866bd84c3c17f230f2e8b6c6d6d3bb"><div class="ttname"><a href="a02416.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">bl::parser::Stream::get</a></div><div class="ttdeci">char get()</div><div class="ttdoc">Returns next character and modifies stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01223_source.html#l00041">Stream.cpp:41</a></div></div>
-<div class="ttc" id="aa02416_html_a51dc5b929d8aad7a3a9e645ec79bb234"><div class="ttname"><a href="a02416.html#a51dc5b929d8aad7a3a9e645ec79bb234">bl::parser::Stream::peekN</a></div><div class="ttdeci">std::string peekN(unsigned int n)</div><div class="ttdoc">Reads N characters ahead and returns the stream to it's prior state.</div><div class="ttdef"><b>Definition:</b> <a href="a01223_source.html#l00022">Stream.cpp:22</a></div></div>
-<div class="ttc" id="aa02416_html_a5e9935dd0afe99d67c3d47beb6167814"><div class="ttname"><a href="a02416.html#a5e9935dd0afe99d67c3d47beb6167814">bl::parser::Stream::currentColumn</a></div><div class="ttdeci">int currentColumn() const</div><div class="ttdoc">Stream internall tracks which column it is on.</div><div class="ttdef"><b>Definition:</b> <a href="a01223_source.html#l00068">Stream.cpp:68</a></div></div>
-<div class="ttc" id="aa02416_html_a6226a1aa345b608ba72896bef6d4fbcb"><div class="ttname"><a href="a02416.html#a6226a1aa345b608ba72896bef6d4fbcb">bl::parser::Stream::currentLine</a></div><div class="ttdeci">int currentLine() const</div><div class="ttdoc">Stream internally tracks which line it is on.</div><div class="ttdef"><b>Definition:</b> <a href="a01223_source.html#l00066">Stream.cpp:66</a></div></div>
-<div class="ttc" id="aa02420_html_a024c9d395e06f65a505d947a8aef8df3"><div class="ttname"><a href="a02420.html#a024c9d395e06f65a505d947a8aef8df3">bl::parser::Tokenizer::addTokenType</a></div><div class="ttdeci">void addTokenType(Node::Type type, const std::string &amp;regex, MatchGroup matchGroup=EntireMatch)</div><div class="ttdoc">Adds a node matcher to the tokenizer. It is important to note that token types are considered in the ...</div><div class="ttdef"><b>Definition:</b> <a href="a01226_source.html#l00012">Tokenizer.cpp:12</a></div></div>
-<div class="ttc" id="aa02420_html_a07aa4f5c7ee7dadefa7ed62d3ce8649f"><div class="ttname"><a href="a02420.html#a07aa4f5c7ee7dadefa7ed62d3ce8649f">bl::parser::Tokenizer::addKeyword</a></div><div class="ttdeci">void addKeyword(Node::Type rootType, Node::Type kwordType, const std::string &amp;kword)</div><div class="ttdoc">Set exact matches of a particular string of one node type to map to another type Meant to do transfor...</div><div class="ttdef"><b>Definition:</b> <a href="a01226_source.html#l00024">Tokenizer.cpp:24</a></div></div>
-<div class="ttc" id="aa02420_html_a13ed392cfebd00ac01d1f96c4c0fae34"><div class="ttname"><a href="a02420.html#a13ed392cfebd00ac01d1f96c4c0fae34">bl::parser::Tokenizer::tokenize</a></div><div class="ttdeci">std::vector&lt; Node::Ptr &gt; tokenize(Stream &amp;input, std::string *err=nullptr) const</div><div class="ttdoc">Parses the input stream into a token list.</div><div class="ttdef"><b>Definition:</b> <a href="a01226_source.html#l00028">Tokenizer.cpp:28</a></div></div>
-<div class="ttc" id="aa02420_html_a1b4ba8fa02e93c2a590c1bc761225f7f"><div class="ttname"><a href="a02420.html#a1b4ba8fa02e93c2a590c1bc761225f7f">bl::parser::Tokenizer::Tokenizer</a></div><div class="ttdeci">Tokenizer(ISkipper::Ptr skipper)</div><div class="ttdoc">Construct a new Tokenizer object.</div><div class="ttdef"><b>Definition:</b> <a href="a01226_source.html#l00009">Tokenizer.cpp:9</a></div></div>
-<div class="ttc" id="aa02420_html_a43b29344ad055d4107280d40c5788b93"><div class="ttname"><a href="a02420.html#a43b29344ad055d4107280d40c5788b93">bl::parser::Tokenizer::MatchGroup</a></div><div class="ttdeci">MatchGroup</div><div class="ttdef"><b>Definition:</b> <a href="a00431_source.html#l00023">Tokenizer.hpp:23</a></div></div>
-<div class="ttc" id="aa02420_html_a948d2c81274b2bfdda2f5943535b6546"><div class="ttname"><a href="a02420.html#a948d2c81274b2bfdda2f5943535b6546">bl::parser::Tokenizer::addSkipperToggleChar</a></div><div class="ttdeci">void addSkipperToggleChar(char c)</div><div class="ttdoc">Specify a character that disables/enables the skipper when encountered Example: '&quot;' for strings.</div><div class="ttdef"><b>Definition:</b> <a href="a01226_source.html#l00022">Tokenizer.cpp:22</a></div></div>
-<div class="ttc" id="aa02420_html_af453774ca6f803bac752cef456d31dcb"><div class="ttname"><a href="a02420.html#af453774ca6f803bac752cef456d31dcb">bl::parser::Tokenizer::addEscapeSequence</a></div><div class="ttdeci">void addEscapeSequence(const std::string &amp;sequence, char c)</div><div class="ttdoc">Adds an escape sequence that replaces matching substrings of the Node.data with c Note that this will...</div><div class="ttdef"><b>Definition:</b> <a href="a01226_source.html#l00018">Tokenizer.cpp:18</a></div></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">switch</span> (side) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a02437.html#ac73c55c229947f60eb708d58133a5164a60261018f1d3a12f51574eaa1654a3b1">Top</a>:</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        y = oldView.getViewport().top;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a02437.html#ac73c55c229947f60eb708d58133a5164ac332568a13d206221c4cec079466c045">Right</a>:</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        x = oldView.getViewport().left + oldView.getViewport().width - w;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a02437.html#ac73c55c229947f60eb708d58133a5164ade69d727bb65fc148b442c6eaf55471a">Bottom</a>:</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        y = oldView.getViewport().top + oldView.getViewport().height - h;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">default</span>: <span class="comment">// Don&#39;t worry about bad values</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        x = oldView.getViewport().left;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">return</span> constructView(size, x, y, w, h);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="a02437.html#af8a541a66b96fb727f23111b9e40c941">   98</a></span>&#160;sf::View <a class="code" href="a02437.html#af8a541a66b96fb727f23111b9e40c941">ViewUtil::computeViewAnchoredPreserveAR</a>(<span class="keyword">const</span> sf::Vector2f&amp; size, <span class="keyword">const</span> sf::View&amp; oldView,</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                                                 <span class="keywordtype">float</span> width, <a class="code" href="a02437.html#ac73c55c229947f60eb708d58133a5164">Anchor</a> side) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> w = oldView.getViewport().width * width;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> h = oldView.getViewport().height * size.y / size.x * width;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">float</span> x       = oldView.getViewport().left + oldView.getViewport().width / 2.f - w / 2.f;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">float</span> y       = oldView.getViewport().top + oldView.getViewport().height / 2.f - h / 2.f;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">switch</span> (side) {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a02437.html#ac73c55c229947f60eb708d58133a5164a60261018f1d3a12f51574eaa1654a3b1">Top</a>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        y = oldView.getViewport().top;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a02437.html#ac73c55c229947f60eb708d58133a5164ac332568a13d206221c4cec079466c045">Right</a>:</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        x = oldView.getViewport().left + oldView.getViewport().width - w;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a02437.html#ac73c55c229947f60eb708d58133a5164ade69d727bb65fc148b442c6eaf55471a">Bottom</a>:</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        y = oldView.getViewport().top + oldView.getViewport().height - h;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">default</span>: <span class="comment">// Don&#39;t worry about bad values</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        x = oldView.getViewport().left;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> constructView(size, x, y, w, h);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="a02437.html#a4a67d87262a5eeb5b2e570b3294dbe45">  123</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02437.html#a4a67d87262a5eeb5b2e570b3294dbe45">ViewUtil::constrainView</a>(sf::View&amp; view, <span class="keyword">const</span> sf::View&amp; oldView) {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">const</span> sf::FloatRect&amp; newPort = view.getViewport();</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">const</span> sf::FloatRect&amp; oldPort = oldView.getViewport();</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keyword">const</span> sf::Vector2f m(view.getSize().x / newPort.width, view.getSize().y / newPort.height);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> oldBottom = oldPort.top + oldPort.height;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> oldRight  = oldPort.left + oldPort.width;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">if</span> (newPort.left &lt; oldPort.left) {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> d = oldPort.left - newPort.left;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> s = d * m.x;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        view.setSize(view.getSize() - sf::Vector2f(s, 0.f));</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        view.move(s * 0.5f, 0.f);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        view.setViewport({oldPort.left, newPort.top, newPort.width - d, newPort.height});</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> newRight = newPort.left + newPort.width;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordflow">if</span> (newRight &gt; oldRight) {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> d = newRight - oldRight;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> s = d * m.x;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        view.setSize(view.getSize() - sf::Vector2f(s, 0.f));</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        view.move(-s * 0.5f, 0.f);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        view.setViewport({newPort.left, newPort.top, newPort.width - d, newPort.height});</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordflow">if</span> (newPort.top &lt; oldPort.top) {</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> d = oldPort.top - newPort.top;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> s = d * m.y;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        view.setSize(view.getSize() - sf::Vector2f(0.f, s));</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        view.move(0.f, s * 0.5f);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        view.setViewport({newPort.left, oldPort.top, newPort.width, newPort.height - d});</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    }</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> newBottom = newPort.top + newPort.height;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> (newBottom &gt; oldBottom) {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> d = newBottom - oldBottom;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> s = d * m.y;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        view.setSize(view.getSize() - sf::Vector2f(0.f, s));</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        view.move(0.f, -s * 0.5f);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        view.setViewport({newPort.left, newPort.top, newPort.width, newPort.height - d});</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;} <span class="comment">// namespace interface</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00413_html"><div class="ttname"><a href="a00413.html">ViewUtil.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02437_html_a40a1e98cba5978a7ada799c31de70063"><div class="ttname"><a href="a02437.html#a40a1e98cba5978a7ada799c31de70063">bl::interface::ViewUtil::computeViewPreserveAR</a></div><div class="ttdeci">static sf::View computeViewPreserveAR(const sf::Vector2f &amp;size, const sf::View &amp;oldView, const sf::Vector2f &amp;viewportPosition, float widthRatio)</div><div class="ttdoc">Helper function to compute a view of the given size that will cover the given area of the original vi...</div><div class="ttdef"><b>Definition:</b> <a href="a01226_source.html#l00062">ViewUtil.cpp:62</a></div></div>
+<div class="ttc" id="aa02437_html_a4a67d87262a5eeb5b2e570b3294dbe45"><div class="ttname"><a href="a02437.html#a4a67d87262a5eeb5b2e570b3294dbe45">bl::interface::ViewUtil::constrainView</a></div><div class="ttdeci">static void constrainView(sf::View &amp;view, const sf::View &amp;oldView)</div><div class="ttdoc">Constrains the viewport of the given view to the area that overlaps with the viewport of the original...</div><div class="ttdef"><b>Definition:</b> <a href="a01226_source.html#l00123">ViewUtil.cpp:123</a></div></div>
+<div class="ttc" id="aa02437_html_a68beb97b689f08633d8c7314f82d3359"><div class="ttname"><a href="a02437.html#a68beb97b689f08633d8c7314f82d3359">bl::interface::ViewUtil::computeView</a></div><div class="ttdeci">static sf::View computeView(const sf::Vector2f &amp;size, const sf::View &amp;oldView, const sf::FloatRect &amp;coverArea)</div><div class="ttdoc">Helper function to compute a view of the given size that will cover the given area of the original vi...</div><div class="ttdef"><b>Definition:</b> <a href="a01226_source.html#l00052">ViewUtil.cpp:52</a></div></div>
+<div class="ttc" id="aa02437_html_a78b7c79a01431682d50dd7e96de43c20"><div class="ttname"><a href="a02437.html#a78b7c79a01431682d50dd7e96de43c20">bl::interface::ViewUtil::computeViewAnchored</a></div><div class="ttdeci">static sf::View computeViewAnchored(const sf::Vector2f &amp;size, const sf::View &amp;oldView, const sf::Vector2f &amp;viewportSize, Anchor side)</div><div class="ttdoc">Computes a view that is anchored to the given side of the existing viewport. The non anchored dimensi...</div><div class="ttdef"><b>Definition:</b> <a href="a01226_source.html#l00073">ViewUtil.cpp:73</a></div></div>
+<div class="ttc" id="aa02437_html_a7dcaf25b51426f1384d04c0df15b646d"><div class="ttname"><a href="a02437.html#a7dcaf25b51426f1384d04c0df15b646d">bl::interface::ViewUtil::computeSubView</a></div><div class="ttdeci">static sf::View computeSubView(const sf::FloatRect &amp;region, const sf::View &amp;defaultView)</div><div class="ttdoc">Helper function to compute a view of the given size that will cover the given area of the original vi...</div><div class="ttdef"><b>Definition:</b> <a href="a01226_source.html#l00016">ViewUtil.cpp:16</a></div></div>
+<div class="ttc" id="aa02437_html_ac73c55c229947f60eb708d58133a5164"><div class="ttname"><a href="a02437.html#ac73c55c229947f60eb708d58133a5164">bl::interface::ViewUtil::Anchor</a></div><div class="ttdeci">Anchor</div><div class="ttdoc">Represents which side to anchor a view to for anchored views.</div><div class="ttdef"><b>Definition:</b> <a href="a00413_source.html#l00022">ViewUtil.hpp:22</a></div></div>
+<div class="ttc" id="aa02437_html_ac73c55c229947f60eb708d58133a5164a60261018f1d3a12f51574eaa1654a3b1"><div class="ttname"><a href="a02437.html#ac73c55c229947f60eb708d58133a5164a60261018f1d3a12f51574eaa1654a3b1">bl::interface::ViewUtil::Top</a></div><div class="ttdeci">@ Top</div><div class="ttdef"><b>Definition:</b> <a href="a00413_source.html#l00022">ViewUtil.hpp:22</a></div></div>
+<div class="ttc" id="aa02437_html_ac73c55c229947f60eb708d58133a5164ac332568a13d206221c4cec079466c045"><div class="ttname"><a href="a02437.html#ac73c55c229947f60eb708d58133a5164ac332568a13d206221c4cec079466c045">bl::interface::ViewUtil::Right</a></div><div class="ttdeci">@ Right</div><div class="ttdef"><b>Definition:</b> <a href="a00413_source.html#l00022">ViewUtil.hpp:22</a></div></div>
+<div class="ttc" id="aa02437_html_ac73c55c229947f60eb708d58133a5164ade69d727bb65fc148b442c6eaf55471a"><div class="ttname"><a href="a02437.html#ac73c55c229947f60eb708d58133a5164ade69d727bb65fc148b442c6eaf55471a">bl::interface::ViewUtil::Bottom</a></div><div class="ttdeci">@ Bottom</div><div class="ttdef"><b>Definition:</b> <a href="a00413_source.html#l00022">ViewUtil.hpp:22</a></div></div>
+<div class="ttc" id="aa02437_html_af8a541a66b96fb727f23111b9e40c941"><div class="ttname"><a href="a02437.html#af8a541a66b96fb727f23111b9e40c941">bl::interface::ViewUtil::computeViewAnchoredPreserveAR</a></div><div class="ttdeci">static sf::View computeViewAnchoredPreserveAR(const sf::Vector2f &amp;size, const sf::View &amp;oldView, float viewportWidth, Anchor side)</div><div class="ttdoc">Computes a view that is anchored to the given side of the existing viewport. The non anchored dimensi...</div><div class="ttdef"><b>Definition:</b> <a href="a01226_source.html#l00098">ViewUtil.cpp:98</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

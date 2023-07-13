@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Cameras/2D/Controllers/ConstrainedFollower.hpp Source File</title>
+<title>BLIB: include/BLIB/Media/Graphics/Flashing.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,70 +66,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1d16b65693999da62b374e3b23f9b15d.html">Cameras</a></li><li class="navelem"><a class="el" href="dir_f119cbcad06924aeb2adc7c600ff8fef.html">2D</a></li><li class="navelem"><a class="el" href="dir_9e7c7069564769e053fa063035e26551.html">Controllers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c9bb3a7354e9a8e879b9b4f2f81c7c7f.html">Media</a></li><li class="navelem"><a class="el" href="dir_22d51790e27f1bcfba63d9f846955faa.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ConstrainedFollower.hpp</div>  </div>
+<div class="title">Flashing.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00464.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_CAMERAS_2D_CONTROLLERS_CONSTRAINEDFOLLOWER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_CAMERAS_2D_CONTROLLERS_CONSTRAINEDFOLLOWER_HPP</span></div>
+<a href="a00464.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MEDIA_GRAPHICS_FLASHING_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MEDIA_GRAPHICS_FLASHING_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00083.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00461.html">BLIB/Render/Cameras/2D/CameraController2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04525.html">BLIB/Transforms/2D/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Drawable.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/RenderTarget.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>c2d</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02468.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02468.html">ConstrainedFollower</a> : <span class="keyword">public</span> <a class="code" href="a02464.html">CameraController2D</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a02468.html#ac84d0120495aebd2ae2348228b721641">ConstrainedFollower</a>(<a class="code" href="a01868.html">ecs::Registry</a>&amp; registry, <a class="code" href="a01626.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a> follow, <span class="keyword">const</span> sf::FloatRect&amp; area,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                        <span class="keywordtype">bool</span> followRotation = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02468.html#a8b12406aa13706fc542096bebf24b090">   37</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02468.html#a8b12406aa13706fc542096bebf24b090">~ConstrainedFollower</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02468.html#a09442a04a91b50b5c7cc98db5b5515cf">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a01832.html">ecs::ComponentPool&lt;t2d::Transform2D&gt;</a>* pool;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="a01626.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a> follow;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">const</span> sf::FloatRect area;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> followRotation;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">bool</span> warned;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace c2d</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00083_html"><div class="ttname"><a href="a00083.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa00461_html"><div class="ttname"><a href="a00461.html">CameraController2D.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01626_html_a4b70a57ed7e0341145b4320b1f460a62"><div class="ttname"><a href="a01626.html#a4b70a57ed7e0341145b4320b1f460a62">bl::ecs::Entity</a></div><div class="ttdeci">std::uint32_t Entity</div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00059_source.html#l00021">Entity.hpp:21</a></div></div>
-<div class="ttc" id="aa01832_html"><div class="ttname"><a href="a01832.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition:</b> <a href="a00050_source.html#l00065">ComponentPool.hpp:65</a></div></div>
-<div class="ttc" id="aa01868_html"><div class="ttname"><a href="a01868.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00029">Registry.hpp:31</a></div></div>
-<div class="ttc" id="aa02464_html"><div class="ttname"><a href="a02464.html">bl::gfx::c2d::CameraController2D</a></div><div class="ttdoc">Base class for 2d camera controllers.</div><div class="ttdef"><b>Definition:</b> <a href="a00461_source.html#l00017">CameraController2D.hpp:17</a></div></div>
-<div class="ttc" id="aa02468_html"><div class="ttname"><a href="a02468.html">bl::gfx::c2d::ConstrainedFollower</a></div><div class="ttdoc">2d camera controller that centers a camera on an entity while keeping the visible region constrained ...</div><div class="ttdef"><b>Definition:</b> <a href="a00464_source.html#l00021">ConstrainedFollower.hpp:21</a></div></div>
-<div class="ttc" id="aa02468_html_a09442a04a91b50b5c7cc98db5b5515cf"><div class="ttname"><a href="a02468.html#a09442a04a91b50b5c7cc98db5b5515cf">bl::gfx::c2d::ConstrainedFollower::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates the controller to keep the camera centered.</div><div class="ttdef"><b>Definition:</b> <a href="a01238_source.html#l00023">ConstrainedFollower.cpp:23</a></div></div>
-<div class="ttc" id="aa02468_html_a8b12406aa13706fc542096bebf24b090"><div class="ttname"><a href="a02468.html#a8b12406aa13706fc542096bebf24b090">bl::gfx::c2d::ConstrainedFollower::~ConstrainedFollower</a></div><div class="ttdeci">virtual ~ConstrainedFollower()=default</div><div class="ttdoc">Destroys the controller.</div></div>
-<div class="ttc" id="aa02468_html_ac84d0120495aebd2ae2348228b721641"><div class="ttname"><a href="a02468.html#ac84d0120495aebd2ae2348228b721641">bl::gfx::c2d::ConstrainedFollower::ConstrainedFollower</a></div><div class="ttdeci">ConstrainedFollower(ecs::Registry &amp;registry, ecs::Entity follow, const sf::FloatRect &amp;area, bool followRotation=false)</div><div class="ttdoc">Creates a new constrained follower controller.</div><div class="ttdef"><b>Definition:</b> <a href="a01238_source.html#l00012">ConstrainedFollower.cpp:12</a></div></div>
-<div class="ttc" id="aa04525_html"><div class="ttname"><a href="a04525.html">Transform2D.hpp</a></div></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02477.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02477.html">Flashing</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a02477.html#a4be5244d69a6bf3ef55897a588177ed6">Flashing</a>(sf::Drawable&amp; component, <span class="keywordtype">float</span> onPeriod, <span class="keywordtype">float</span> offPeriod);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02477.html#ab0deb2faa3b35a1b84b47e038ca912cb">setPeriod</a>(<span class="keywordtype">float</span> onPeriod, <span class="keywordtype">float</span> offPeriod);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02477.html#aedba6fd04f2088abe10240c2e6333d11">reset</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02477.html#ab452de47340ca1789dde198eb340fe2f">update</a>(<span class="keywordtype">float</span> dt);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02477.html#a38ab53bf200295322820ec46af94fabc">render</a>(sf::RenderTarget&amp; target, sf::RenderStates states, <span class="keywordtype">float</span> lag) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">const</span> sf::Drawable&amp; component;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">float</span> onPeriod;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">float</span> offPeriod;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">float</span> time;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">bool</span> visible;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02477_html"><div class="ttname"><a href="a02477.html">bl::rc::Flashing</a></div><div class="ttdoc">Wrapper class for drawable elements that should flash with a fixed period.</div><div class="ttdef"><b>Definition:</b> <a href="a00464_source.html#l00017">Flashing.hpp:17</a></div></div>
+<div class="ttc" id="aa02477_html_a38ab53bf200295322820ec46af94fabc"><div class="ttname"><a href="a02477.html#a38ab53bf200295322820ec46af94fabc">bl::rc::Flashing::render</a></div><div class="ttdeci">void render(sf::RenderTarget &amp;target, sf::RenderStates states, float lag) const</div><div class="ttdoc">Renders the flashing element if it is visible.</div><div class="ttdef"><b>Definition:</b> <a href="a01250_source.html#l00037">Flashing.cpp:37</a></div></div>
+<div class="ttc" id="aa02477_html_a4be5244d69a6bf3ef55897a588177ed6"><div class="ttname"><a href="a02477.html#a4be5244d69a6bf3ef55897a588177ed6">bl::rc::Flashing::Flashing</a></div><div class="ttdeci">Flashing(sf::Drawable &amp;component, float onPeriod, float offPeriod)</div><div class="ttdoc">Construct a new Flashing component.</div><div class="ttdef"><b>Definition:</b> <a href="a01250_source.html#l00007">Flashing.cpp:7</a></div></div>
+<div class="ttc" id="aa02477_html_ab0deb2faa3b35a1b84b47e038ca912cb"><div class="ttname"><a href="a02477.html#ab0deb2faa3b35a1b84b47e038ca912cb">bl::rc::Flashing::setPeriod</a></div><div class="ttdeci">void setPeriod(float onPeriod, float offPeriod)</div><div class="ttdoc">Set the Period object.</div><div class="ttdef"><b>Definition:</b> <a href="a01250_source.html#l00014">Flashing.cpp:14</a></div></div>
+<div class="ttc" id="aa02477_html_ab452de47340ca1789dde198eb340fe2f"><div class="ttname"><a href="a02477.html#ab452de47340ca1789dde198eb340fe2f">bl::rc::Flashing::update</a></div><div class="ttdeci">void update(float dt)</div><div class="ttdoc">Updates the state of the flasher.</div><div class="ttdef"><b>Definition:</b> <a href="a01250_source.html#l00021">Flashing.cpp:21</a></div></div>
+<div class="ttc" id="aa02477_html_aedba6fd04f2088abe10240c2e6333d11"><div class="ttname"><a href="a02477.html#aedba6fd04f2088abe10240c2e6333d11">bl::rc::Flashing::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Resets the flash state to time zero.</div><div class="ttdef"><b>Definition:</b> <a href="a01250_source.html#l00019">Flashing.cpp:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

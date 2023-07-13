@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Input</title>
+<title>BLIB: Components</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,131 +67,46 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#groups">Modules</a> &#124;
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Input</div>  </div>
+<div class="title">Components</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Input system for building event based control systems.  
+<p>ECS components provided by the engine.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
-Modules</h2></td></tr>
-<tr class="memitem:a01614"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01614.html">Controllers</a></td></tr>
-<tr class="memdesc:a01614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of constexpr configs for some common controllers (joysticks) <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02028.html">bl::input::Actor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a single actor (player) that can give input. Listeners subscribe to a single actor for their input. Each actor has it's own control set and scheme.  <a href="a02028.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01785.html">bl::com::Mesh</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECS component for a basic mesh from an index buffer.  <a href="a01785.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02032.html">bl::input::Configurator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to set controls from window events.  <a href="a02032.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01789.html">bl::com::Orientation3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Angle-axis representation of a 3d orientation.  <a href="a01789.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02040.html">bl::input::Control</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a control in the input system. A <a class="el" href="a02040.html" title="Represents a control in the input system. A Control is a Trigger and a DispatchPolicy which fully def...">Control</a> is a <a class="el" href="a02088.html" title="Wrapper around keyboard and mouse buttons. Triggers activate Controls.">Trigger</a> and a DispatchPolicy which fully define the control and its behavior.  <a href="a02040.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01793.html">bl::com::OverlayScaler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler ensures that scales are up-to-date as the overlay changes size. Entity transforms should not be manually scaled if an <a class="el" href="a01793.html" title="Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler ensures th...">OverlayScaler</a> is present and active.  <a href="a01793.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02048.html">bl::input::controllers::Xbox360</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Some constansts for buttons and axes for an Xbox 360 controller. Tested on Windows. For the sticks left and up are negative. For the D-Pad left is negative but up is positive. For the triggers LT is positive and RT is negative.  <a href="a02048.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01801.html">bl::com::Sprite</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01801.html" title="Sprite component repersenting a 2d image for an entity.">Sprite</a> component repersenting a 2d image for an entity.  <a href="a01801.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02052.html">bl::input::DirectionalControl</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02040.html" title="Represents a control in the input system. A Control is a Trigger and a DispatchPolicy which fully def...">Control</a> data for a directional input.  <a href="a02052.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01805.html">bl::com::Texture</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECS component to add a texture to an object.  <a href="a01805.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02060.html">bl::input::InputSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System for managing complex input workflows and maintaining a stack of subscribers to input based events.  <a href="a02060.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01809.html">bl::com::Transform2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Representation of a 2d transform with a depth component to allow the depth buffer to be used when rendering 2d entities.  <a href="a01809.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02064.html">bl::input::Joystick</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct representing a full joystick for inputs.  <a href="a02064.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01813.html">bl::com::Transform3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Representation of a full 3d transform. Includes position, orientation, and scale.  <a href="a01813.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02068.html">bl::input::Listener</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for input listeners that can subscribe to an <a class="el" href="a02028.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a>. The base class keeps the input system updated if it gets copied, moved, or destructed.  <a href="a02068.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02072.html">bl::input::ListenerBoundary</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class that ignores and blocks all inputs. Use this as a backstop between menus/states to avoid inputs from leaking back to inactive listeners.  <a href="a02072.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02076.html">bl::input::MovementControl</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02040.html" title="Represents a control in the input system. A Control is a Trigger and a DispatchPolicy which fully def...">Control</a> data for a movement control (ie WASD or a joystick)  <a href="a02076.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02088.html">bl::input::Trigger</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around keyboard and mouse buttons. Triggers activate Controls.  <a href="a02088.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02240.html">bl::menu::MovementDriver&lt; MovementControl, ActivateTrigger &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to receive user input from the InputSystem and drive a menu with it. Must be subscribed to an <a class="el" href="a02028.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">input::Actor</a> to work.  <a href="a02240.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02244.html">bl::menu::TriggerDriver&lt; UpTrigger, RightTrigger, DownTrigger, LeftTrigger, ActivateTrigger &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to receive user input from the InputSystem and drive a menu with it. Must be subscribed to an <a class="el" href="a02028.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">input::Actor</a> to work.  <a href="a02244.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ga9b480cda76caba52b2ab392fea396ce3"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01600.html#ga9b480cda76caba52b2ab392fea396ce3">bl::input::DispatchType</a> { <br />
-&#160;&#160;<a class="el" href="a01600.html#gga9b480cda76caba52b2ab392fea396ce3a4d96fa471faee72faaa4f964a6ba1a59">bl::input::_INVALID</a>
-, <a class="el" href="a01600.html#gga9b480cda76caba52b2ab392fea396ce3a8fedffe1c43e73f34a3a78a88cef6a2f">bl::input::TriggerActivated</a>
-, <a class="el" href="a01600.html#gga9b480cda76caba52b2ab392fea396ce3af1e3a99580f4887a08a5ed8f06514ca1">bl::input::DirectionChanged</a>
-, <a class="el" href="a01600.html#gga9b480cda76caba52b2ab392fea396ce3a5714712617d87312d28599dbe656c610">bl::input::MovementUp</a>
-, <br />
-&#160;&#160;<a class="el" href="a01600.html#gga9b480cda76caba52b2ab392fea396ce3ac0d5d6c93aa5c0e51810fea4bab6e9dd">bl::input::MovementRight</a>
-, <a class="el" href="a01600.html#gga9b480cda76caba52b2ab392fea396ce3a54b19e0f3ef6c7d6518a228bac33bd19">bl::input::MovementDown</a>
-, <a class="el" href="a01600.html#gga9b480cda76caba52b2ab392fea396ce3a2167767cdca679d310f54992383aa9dc">bl::input::MovementLeft</a>
-<br />
- }</td></tr>
-<tr class="memdesc:ga9b480cda76caba52b2ab392fea396ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if a control notification is the first activation of that control or if it is a repeated signal (ie sent every update loop while active). Also used for breaking down movement control events into directions usable by Menus.  <a href="a01600.html#ga9b480cda76caba52b2ab392fea396ce3">More...</a><br /></td></tr>
-<tr class="separator:ga9b480cda76caba52b2ab392fea396ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Input system for building event based control systems. </p>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="ga9b480cda76caba52b2ab392fea396ce3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9b480cda76caba52b2ab392fea396ce3">&#9670;&nbsp;</a></span>DispatchType</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a01600.html#ga9b480cda76caba52b2ab392fea396ce3">bl::input::DispatchType</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Indicates if a control notification is the first activation of that control or if it is a repeated signal (ie sent every update loop while active). Also used for breaking down movement control events into directions usable by Menus. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3a4d96fa471faee72faaa4f964a6ba1a59"></a>_INVALID&#160;</td><td class="fielddoc"><p>Used internally only. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3a8fedffe1c43e73f34a3a78a88cef6a2f"></a>TriggerActivated&#160;</td><td class="fielddoc"><p>The a trigger control was activated by an event. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3af1e3a99580f4887a08a5ed8f06514ca1"></a>DirectionChanged&#160;</td><td class="fielddoc"><p>The directional control changed values. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3a5714712617d87312d28599dbe656c610"></a>MovementUp&#160;</td><td class="fielddoc"><p>Movement control was activated in the up/forward direction. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3ac0d5d6c93aa5c0e51810fea4bab6e9dd"></a>MovementRight&#160;</td><td class="fielddoc"><p>Movement control was activated in the right direction. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3a54b19e0f3ef6c7d6518a228bac33bd19"></a>MovementDown&#160;</td><td class="fielddoc"><p>Movement control was activated in the down/backward direction. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga9b480cda76caba52b2ab392fea396ce3a2167767cdca679d310f54992383aa9dc"></a>MovementLeft&#160;</td><td class="fielddoc"><p>Movement control was activated in the left direction. </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00173_source.html#l00016">16</a> of file <a class="el" href="a00173_source.html">DispatchType.hpp</a>.</p>
-
-</div>
-</div>
+<p>ECS components provided by the engine. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

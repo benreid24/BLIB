@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::event::Dispatcher Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,28 +66,313 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01623.html">bl</a></li><li class="navelem"><a class="el" href="a01635.html">input</a></li><li class="navelem"><a class="el" href="a02068.html">Listener</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01628.html">bl</a></li><li class="navelem"><a class="el" href="a01646.html">event</a></li><li class="navelem"><a class="el" href="a02065.html">Dispatcher</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a02062.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::input::Listener Member List</div>  </div>
+<div class="title">bl::event::Dispatcher Class Reference<div class="ingroups"><a class="el" href="a01604.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02068.html">bl::input::Listener</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02068.html#ae4af50bf1743d112cb2c2c784bea21c8">Actor</a> class</td><td class="entry"><a class="el" href="a02068.html">bl::input::Listener</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02068.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener</a>()</td><td class="entry"><a class="el" href="a02068.html">bl::input::Listener</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02068.html#ae3540d1af77f94edd329e089eec2da82">Listener</a>(const Listener &amp;copy)</td><td class="entry"><a class="el" href="a02068.html">bl::input::Listener</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02068.html#a29b323fc5a97661724c3a97790d72758">Listener</a>(Listener &amp;&amp;moved)</td><td class="entry"><a class="el" href="a02068.html">bl::input::Listener</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02068.html#a181ea3ab33bd70036b0498cc90198902">observe</a>(const Actor &amp;actor, unsigned int activatedControl, DispatchType eventType, bool eventTriggered)=0</td><td class="entry"><a class="el" href="a02068.html">bl::input::Listener</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02068.html#a483ff531396a8a888ece355a945985cd">~Listener</a>()</td><td class="entry"><a class="el" href="a02068.html">bl::input::Listener</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe. If events are dispatched by multiple threads care should be taken to keep the listeners threadsafe as well. Care must also be taken to not subscribe the same listener more than once or it will get notified more than once per event.  
+ <a href="a02065.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00194_source.html">Dispatcher.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::event::Dispatcher:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02065.png" usemap="#bl::event::Dispatcher_map" alt=""/>
+  <map id="bl::event::Dispatcher_map" name="bl::event::Dispatcher_map">
+<area href="a03533.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,127,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a36b6226eb7a776e0fc9c798689725bdc"><td class="memTemplParams" colspan="2">template&lt;typename... TEvents&gt; </td></tr>
+<tr class="memitem:a36b6226eb7a776e0fc9c798689725bdc"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02065.html#a36b6226eb7a776e0fc9c798689725bdc">subscribe</a> (<a class="el" href="a02077.html">Listener</a>&lt; TEvents... &gt; *listener, bool defer=false)</td></tr>
+<tr class="memdesc:a36b6226eb7a776e0fc9c798689725bdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe the given listener to the event stream for the event types given.  <a href="a02065.html#a36b6226eb7a776e0fc9c798689725bdc">More...</a><br /></td></tr>
+<tr class="separator:a36b6226eb7a776e0fc9c798689725bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d6b29860c56388036edd8a38f26a4c7"><td class="memTemplParams" colspan="2">template&lt;typename... TEvents&gt; </td></tr>
+<tr class="memitem:a7d6b29860c56388036edd8a38f26a4c7"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02065.html#a7d6b29860c56388036edd8a38f26a4c7">unsubscribe</a> (<a class="el" href="a02077.html">Listener</a>&lt; TEvents... &gt; *listener, bool defer=false)</td></tr>
+<tr class="memdesc:a7d6b29860c56388036edd8a38f26a4c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given listener and prevents it from receiving any more events.  <a href="a02065.html#a7d6b29860c56388036edd8a38f26a4c7">More...</a><br /></td></tr>
+<tr class="separator:a7d6b29860c56388036edd8a38f26a4c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e8186fd38d7cf4f57fffaaaf7f8cb80"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a7e8186fd38d7cf4f57fffaaaf7f8cb80"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02065.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">dispatch</a> (const T &amp;event)</td></tr>
+<tr class="memdesc:a7e8186fd38d7cf4f57fffaaaf7f8cb80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispatches the given event to each listener that is subscribed to that type of event.  <a href="a02065.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">More...</a><br /></td></tr>
+<tr class="separator:a7e8186fd38d7cf4f57fffaaaf7f8cb80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7b00210042e2dd107ebbbf3ce7a2c8f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02065.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">syncListeners</a> ()</td></tr>
+<tr class="memdesc:ac7b00210042e2dd107ebbbf3ce7a2c8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronizes the listener buses. Called once per update cycle by the engine.  <a href="a02065.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">More...</a><br /></td></tr>
+<tr class="separator:ac7b00210042e2dd107ebbbf3ce7a2c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34fde267ef1ef9b3bc71d7233556fd5a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02065.html#a34fde267ef1ef9b3bc71d7233556fd5a">clearAllListeners</a> ()</td></tr>
+<tr class="memdesc:a34fde267ef1ef9b3bc71d7233556fd5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all listeners from the subscription queues. Meant mostly for unit test cleanup but may have other applications.  <a href="a02065.html#a34fde267ef1ef9b3bc71d7233556fd5a">More...</a><br /></td></tr>
+<tr class="separator:a34fde267ef1ef9b3bc71d7233556fd5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ab2b6a71a292609980a8839f1e83d14c2"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02065.html#ab2b6a71a292609980a8839f1e83d14c2">priv::ReserveOnStartupHelper</a></td></tr>
+<tr class="separator:ab2b6a71a292609980a8839f1e83d14c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe. If events are dispatched by multiple threads care should be taken to keep the listeners threadsafe as well. Care must also be taken to not subscribe the same listener more than once or it will get notified more than once per event. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a02077.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00194_source.html#l00036">36</a> of file <a class="el" href="a00194_source.html">Dispatcher.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a34fde267ef1ef9b3bc71d7233556fd5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34fde267ef1ef9b3bc71d7233556fd5a">&#9670;&nbsp;</a></span>clearAllListeners()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::event::Dispatcher::clearAllListeners </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes all listeners from the subscription queues. Meant mostly for unit test cleanup but may have other applications. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00023">23</a> of file <a class="el" href="a01043_source.html">Dispatcher.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7e8186fd38d7cf4f57fffaaaf7f8cb80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e8186fd38d7cf4f57fffaaaf7f8cb80">&#9670;&nbsp;</a></span>dispatch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::event::Dispatcher::dispatch </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dispatches the given event to each listener that is subscribed to that type of event. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of event to dispatch </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The event to dispatch </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00194_source.html#l00098">98</a> of file <a class="el" href="a00194_source.html">Dispatcher.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a36b6226eb7a776e0fc9c798689725bdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36b6226eb7a776e0fc9c798689725bdc">&#9670;&nbsp;</a></span>subscribe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... TEvents&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::event::Dispatcher::subscribe </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02077.html">Listener</a>&lt; TEvents... &gt; *&#160;</td>
+          <td class="paramname"><em>listener</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>defer</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Subscribe the given listener to the event stream for the event types given. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TEvents</td><td>The types of events to subscribe to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">listener</td><td>The listener to receive events as they are dispatched </td></tr>
+    <tr><td class="paramname">defer</td><td>True to defer adding until <a class="el" href="a02065.html#ac7b00210042e2dd107ebbbf3ce7a2c8f" title="Synchronizes the listener buses. Called once per update cycle by the engine.">syncListeners()</a> is called. May miss events but can be called from within event listener observe() methods </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00194_source.html#l00092">92</a> of file <a class="el" href="a00194_source.html">Dispatcher.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac7b00210042e2dd107ebbbf3ce7a2c8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7b00210042e2dd107ebbbf3ce7a2c8f">&#9670;&nbsp;</a></span>syncListeners()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::event::Dispatcher::syncListeners </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Synchronizes the listener buses. Called once per update cycle by the engine. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00017">17</a> of file <a class="el" href="a01043_source.html">Dispatcher.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7d6b29860c56388036edd8a38f26a4c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d6b29860c56388036edd8a38f26a4c7">&#9670;&nbsp;</a></span>unsubscribe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... TEvents&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::event::Dispatcher::unsubscribe </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02077.html">Listener</a>&lt; TEvents... &gt; *&#160;</td>
+          <td class="paramname"><em>listener</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>defer</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes the given listener and prevents it from receiving any more events. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TEvents</td><td>The types of events the listener is subscribed to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">listener</td><td>The listener to remove </td></tr>
+    <tr><td class="paramname">defer</td><td>True to defer adding until <a class="el" href="a02065.html#ac7b00210042e2dd107ebbbf3ce7a2c8f" title="Synchronizes the listener buses. Called once per update cycle by the engine.">syncListeners()</a> is called. May receive extra events but can be called from within event listener observe() methods </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00194_source.html#l00103">103</a> of file <a class="el" href="a00194_source.html">Dispatcher.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ab2b6a71a292609980a8839f1e83d14c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2b6a71a292609980a8839f1e83d14c2">&#9670;&nbsp;</a></span>priv::ReserveOnStartupHelper</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend struct <a class="el" href="a03617.html">priv::ReserveOnStartupHelper</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00194_source.html#l00086">86</a> of file <a class="el" href="a00194_source.html">Dispatcher.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Events/<a class="el" href="a00194_source.html">Dispatcher.hpp</a></li>
+<li>src/Events/<a class="el" href="a01043_source.html">Dispatcher.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

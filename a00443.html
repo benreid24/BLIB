@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Buffers/IndexBuffer.hpp File Reference</title>
+<title>BLIB: include/BLIB/Math/Trig.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,56 +66,50 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_77bce416c82938c0e86eeeeb6fb338bb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">IndexBuffer.hpp File Reference</div>  </div>
+<div class="title">Trig.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00599_source.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00602_source.html">BLIB/Render/Primitives/Vertex.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00677_source.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00698_source.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</code><br />
-<code>#include &lt;cstring&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00437_source.html">BLIB/Math/Constants.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00443_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02440.html">bl::gfx::buf::IndexBufferT&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic index buffer class built on top of <a class="el" href="a02876.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">vk::Buffer</a>. Intended for static mesh data.  <a href="a02440.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01623"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01623.html">bl</a></td></tr>
-<tr class="memdesc:a01623"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01628"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01628.html">bl</a></td></tr>
+<tr class="memdesc:a01628"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01646"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01646.html">bl::gfx</a></td></tr>
-<tr class="memdesc:a01646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of graphical utilities and functionality. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01652"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01652.html">bl::gfx::buf</a></td></tr>
-<tr class="memdesc:a01652"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of common buffer classes. <br /></td></tr>
+<tr class="memitem:a01658"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01658.html">bl::math</a></td></tr>
+<tr class="memdesc:a01658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of functions and constants for doing math. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gaadaae63d135ae306ac89350b6c2667d8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01607.html#gaadaae63d135ae306ac89350b6c2667d8">bl::gfx::buf::IndexBuffer</a> = IndexBufferT&lt; prim::Vertex &gt;</td></tr>
-<tr class="memdesc:gaadaae63d135ae306ac89350b6c2667d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias for a standard index buffer.  <a href="a01607.html#gaadaae63d135ae306ac89350b6c2667d8">More...</a><br /></td></tr>
-<tr class="separator:gaadaae63d135ae306ac89350b6c2667d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gae8e482156412ed87dc2d91572ee817ab"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01609.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a> (float degrees)</td></tr>
+<tr class="memdesc:gae8e482156412ed87dc2d91572ee817ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the cosine of the given angle using cached values. Values are cached in quarter degree increments.  <a href="a01609.html#gae8e482156412ed87dc2d91572ee817ab">More...</a><br /></td></tr>
+<tr class="separator:gae8e482156412ed87dc2d91572ee817ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01609.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a> (float degrees)</td></tr>
+<tr class="memdesc:ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the sine of the given angle using cached values. Values are cached in quarter degree increments.  <a href="a01609.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">More...</a><br /></td></tr>
+<tr class="separator:ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2f1f77fa956c6d37dd2761746ed513d7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01609.html#ga2f1f77fa956c6d37dd2761746ed513d7">bl::math::radiansToDegrees</a> (float radians)</td></tr>
+<tr class="memdesc:ga2f1f77fa956c6d37dd2761746ed513d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an angle in radians to degrees.  <a href="a01609.html#ga2f1f77fa956c6d37dd2761746ed513d7">More...</a><br /></td></tr>
+<tr class="separator:ga2f1f77fa956c6d37dd2761746ed513d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ba29ca07fceceb0c2753dccbe5d50db"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01609.html#ga5ba29ca07fceceb0c2753dccbe5d50db">bl::math::degreesToRadians</a> (float degrees)</td></tr>
+<tr class="memdesc:ga5ba29ca07fceceb0c2753dccbe5d50db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an angle in degrees to radians.  <a href="a01609.html#ga5ba29ca07fceceb0c2753dccbe5d50db">More...</a><br /></td></tr>
+<tr class="separator:ga5ba29ca07fceceb0c2753dccbe5d50db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

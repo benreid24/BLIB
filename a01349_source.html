@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Resources/PipelineCache.cpp Source File</title>
+<title>BLIB: src/Render/Primitives/Vertex.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,173 +66,152 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_9db9147e11516848db92abd3a50398f1.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_e8dba1c5a4c510c16da20e13828a9aa1.html">Primitives</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PipelineCache.cpp</div>  </div>
+<div class="title">Vertex.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01349.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00614.html">BLIB/Render/Resources/PipelineCache.hpp</a>&gt;</span></div>
+<a href="a01349.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00614.html">BLIB/Render/Primitives/Vertex.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00356.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04483.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00503.html">BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00509.html">BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00515.html">BLIB/Render/Descriptors/Builtin/PostFXFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00518.html">BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00524.html">BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00530.html">BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04468.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>res</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;PipelineCache::PipelineCache(Renderer&amp; r)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: renderer(r) {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="comment">// TODO - leverage VkPipelineCache?</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">void</span> PipelineCache::cleanup() { cache.clear(); }</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00434.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>prim</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02733.html#ac887a77b73c69a78be50b37e232ba4e9">   11</a></span>&#160;<a class="code" href="a02733.html#ac887a77b73c69a78be50b37e232ba4e9">Vertex::Vertex</a>()</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: pos()</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, color(1.f, 1.f, 1.f, 1.f)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, texCoord() {}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02733.html#a6345f7ed6e608591d2814f3d5e6d87e9">   16</a></span>&#160;<a class="code" href="a02733.html#ac887a77b73c69a78be50b37e232ba4e9">Vertex::Vertex</a>(<span class="keyword">const</span> glm::vec3&amp; pos)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;: pos(pos)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, color(1.f, 1.f, 1.f, 1.f)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, texCoord() {}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02733.html#a3cdea8948de8154fadf0ee94b23d9782">   21</a></span>&#160;<a class="code" href="a02733.html#ac887a77b73c69a78be50b37e232ba4e9">Vertex::Vertex</a>(<span class="keyword">const</span> glm::vec3&amp; position, <span class="keyword">const</span> glm::vec4&amp; color)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: pos(position)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, color(color)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;, texCoord() {}</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02736.html#a5a0bae0f71e5f1aa7a1a211a9e0ce7ff">   26</a></span>&#160;<a class="code" href="a02920.html">vk::Pipeline</a>&amp; PipelineCache::createPipline(std::uint32_t <span class="keywordtype">id</span>, <a class="code" href="a02940.html">vk::PipelineParameters</a>&amp;&amp; params) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> insertResult =</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        cache.try_emplace(<span class="keywordtype">id</span>, renderer, std::forward&lt;vk::PipelineParameters&gt;(params));</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">if</span> (!insertResult.second) { <a class="code" href="a00350.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Pipeline with id &quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot; already exists&quot;</span>; }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> insertResult.first-&gt;second;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02736.html#ac8ca1ae0d96c6914b7d6c8efc4139bb1">   33</a></span>&#160;<a class="code" href="a02920.html">vk::Pipeline</a>&amp; PipelineCache::getPipeline(std::uint32_t <span class="keywordtype">id</span>) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">auto</span> it = cache.find(<span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">if</span> (it == cache.end()) {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <a class="code" href="a00350.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Failed to find pipeline with id: &quot;</span> &lt;&lt; id;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to find pipeline&quot;</span>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> it-&gt;second;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">void</span> PipelineCache::createBuiltins() {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    VkPipelineDepthStencilStateCreateInfo depthStencil{};</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    depthStencil.sType                 = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    depthStencil.depthTestEnable       = VK_TRUE;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    depthStencil.depthWriteEnable      = VK_TRUE;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    depthStencil.depthCompareOp        = VK_COMPARE_OP_LESS_OR_EQUAL;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    depthStencil.depthBoundsTestEnable = VK_FALSE;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    depthStencil.minDepthBounds        = 0.0f; <span class="comment">// Optional</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    depthStencil.maxDepthBounds        = 1.0f; <span class="comment">// Optional</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    depthStencil.stencilTestEnable     = VK_FALSE;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    depthStencil.front                 = {}; <span class="comment">// Optional (Stencil)</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    depthStencil.back                  = {}; <span class="comment">// Optional (Stencil)</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    VkPipelineDepthStencilStateCreateInfo postFxDepth{};</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    postFxDepth.sType             = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    postFxDepth.depthTestEnable   = VK_FALSE;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    postFxDepth.depthWriteEnable  = VK_FALSE;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    postFxDepth.stencilTestEnable = VK_FALSE;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    VkPipelineRasterizationStateCreateInfo rasterizer{};</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    rasterizer.depthClampEnable        = VK_FALSE;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    rasterizer.rasterizerDiscardEnable = VK_FALSE;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    rasterizer.polygonMode             = VK_POLYGON_MODE_FILL;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    rasterizer.lineWidth               = 1.0f;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    rasterizer.cullMode                = VK_CULL_MODE_NONE;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    rasterizer.frontFace               = VK_FRONT_FACE_COUNTER_CLOCKWISE;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    rasterizer.depthBiasEnable         = VK_FALSE;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    rasterizer.depthBiasConstantFactor = 0.0f; <span class="comment">// Optional</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    rasterizer.depthBiasClamp          = 0.0f; <span class="comment">// Optional</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    rasterizer.depthBiasSlopeFactor    = 0.0f; <span class="comment">// Optional</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    createPipline(Config::PipelineIds::SkinnedMeshes,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                  vk::PipelineParameters({Config::RenderPassIds::OffScreenSceneRender,</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                                          Config::RenderPassIds::SwapchainPrimaryRender})</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                      .withShaders(Config::ShaderIds::SkinnedMeshVertex,</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                   Config::ShaderIds::SkinnedMeshFragment)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                      .withRasterizer(rasterizer)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                      .withDepthStencilState(&amp;depthStencil)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                      .addDescriptorSet&lt;ds::TexturePoolFactory&gt;()</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                      .addDescriptorSet&lt;ds::Scene3DFactory&gt;()</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                      .addDescriptorSet&lt;ds::Object3DFactory&gt;()</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                      .build());</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    createPipline(Config::PipelineIds::LitSkinned2DGeometry,</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                  vk::PipelineParameters({Config::RenderPassIds::OffScreenSceneRender,</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                          Config::RenderPassIds::SwapchainPrimaryRender})</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                      .withShaders(Config::ShaderIds::LitSkinned2DVertex,</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                                   Config::ShaderIds::LitSkinned2DFragment)</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                      .withRasterizer(rasterizer)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                      .withDepthStencilState(&amp;depthStencil)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                      .addDescriptorSet&lt;ds::TexturePoolFactory&gt;()</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                      .addDescriptorSet&lt;ds::Scene2DFactory&gt;()</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                      .addDescriptorSet&lt;ds::Object2DFactory&gt;()</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                      .build());</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    createPipline(Config::PipelineIds::UnlitSkinned2DGeometry,</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                  vk::PipelineParameters({Config::RenderPassIds::OffScreenSceneRender,</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                          Config::RenderPassIds::SwapchainPrimaryRender})</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                      .withShaders(Config::ShaderIds::UnlitSkinned2DVertex,</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                   Config::ShaderIds::UnlitSkinned2DFragment)</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                      .withRasterizer(rasterizer)</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                      .withDepthStencilState(&amp;depthStencil)</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                      .addDescriptorSet&lt;ds::TexturePoolFactory&gt;()</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                      .addDescriptorSet&lt;ds::Scene2DFactory&gt;()</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                      .addDescriptorSet&lt;ds::Object2DFactory&gt;()</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                      .build());</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    createPipline(</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        Config::PipelineIds::Text,</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        vk::PipelineParameters({Config::RenderPassIds::OffScreenSceneRender,</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                                Config::RenderPassIds::SwapchainPrimaryRender})</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            .withShaders(Config::ShaderIds::UnlitSkinned2DVertex, Config::ShaderIds::TextFragment)</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            .withRasterizer(rasterizer)</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            .withDepthStencilState(&amp;depthStencil)</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            .addDescriptorSet&lt;ds::TexturePoolFactory&gt;()</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            .addDescriptorSet&lt;ds::Scene2DFactory&gt;()</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            .addDescriptorSet&lt;ds::Object2DFactory&gt;()</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            .build());</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    createPipline(</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        Config::PipelineIds::PostFXBase,</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        vk::PipelineParameters({Config::RenderPassIds::SwapchainPrimaryRender})</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::DefaultPostFXFragment)</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            .withRasterizer(rasterizer)</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            .withDepthStencilState(&amp;postFxDepth)</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            .addDescriptorSet&lt;ds::PostFXFactory&gt;()</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            .build());</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;}</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;} <span class="comment">// namespace res</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00350_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a00350.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00098">Logger.hpp:98</a></div></div>
-<div class="ttc" id="aa00350_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00350.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00104">Logger.hpp:104</a></div></div>
-<div class="ttc" id="aa00356_html"><div class="ttname"><a href="a00356.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa00503_html"><div class="ttname"><a href="a00503.html">Object2DFactory.hpp</a></div></div>
-<div class="ttc" id="aa00509_html"><div class="ttname"><a href="a00509.html">Object3DFactory.hpp</a></div></div>
-<div class="ttc" id="aa00515_html"><div class="ttname"><a href="a00515.html">PostFXFactory.hpp</a></div></div>
-<div class="ttc" id="aa00518_html"><div class="ttname"><a href="a00518.html">Scene2DFactory.hpp</a></div></div>
-<div class="ttc" id="aa00524_html"><div class="ttname"><a href="a00524.html">Scene3DFactory.hpp</a></div></div>
-<div class="ttc" id="aa00530_html"><div class="ttname"><a href="a00530.html">TexturePoolFactory.hpp</a></div></div>
-<div class="ttc" id="aa00614_html"><div class="ttname"><a href="a00614.html">PipelineCache.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02920_html"><div class="ttname"><a href="a02920.html">bl::gfx::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00030">Pipeline.hpp:30</a></div></div>
-<div class="ttc" id="aa02940_html"><div class="ttname"><a href="a02940.html">bl::gfx::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition:</b> <a href="a00728_source.html#l00031">PipelineParameters.hpp:31</a></div></div>
-<div class="ttc" id="aa04468_html"><div class="ttname"><a href="a04468.html">Renderer.hpp</a></div></div>
-<div class="ttc" id="aa04483_html"><div class="ttname"><a href="a04483.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02733.html#a43c29cf7df52c34966e77b1b9f80c9d4">   26</a></span>&#160;<a class="code" href="a02733.html#ac887a77b73c69a78be50b37e232ba4e9">Vertex::Vertex</a>(<span class="keyword">const</span> glm::vec3&amp; position, <span class="keyword">const</span> glm::vec2&amp; texCoord)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;: pos(position)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;, color(1.f, 1.f, 1.f, 1.f)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;, texCoord(texCoord) {}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02733.html#ac3ac0308571b38bc3d21c9391d7b196b">   31</a></span>&#160;<a class="code" href="a02733.html#ac887a77b73c69a78be50b37e232ba4e9">Vertex::Vertex</a>(<span class="keyword">const</span> glm::vec3&amp; position, <span class="keyword">const</span> glm::vec4&amp; color, <span class="keyword">const</span> glm::vec2&amp; texCoord)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;: pos(position)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;, color(color)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;, texCoord(texCoord) {}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02733.html#a3ae882b178abbf2a892c76c4f63cb321">   36</a></span>&#160;<a class="code" href="a02733.html#ac887a77b73c69a78be50b37e232ba4e9">Vertex::Vertex</a>(std::initializer_list&lt;float&gt; fl)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;: <a class="code" href="a02733.html">Vertex</a>() {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">switch</span> (fl.size()) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">case</span> 3: <span class="comment">// position only</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.x = *fl.begin();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.y = *(fl.begin() + 1);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.z = *(fl.begin() + 2);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">case</span> 5: <span class="comment">// position + texture coord</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.x      = *fl.begin();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.y      = *(fl.begin() + 1);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.z      = *(fl.begin() + 2);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="a02733.html#a7231599bd3f51564f5ad4fc58e8fe584">texCoord</a>.x = *(fl.begin() + 3);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="a02733.html#a7231599bd3f51564f5ad4fc58e8fe584">texCoord</a>.y = *(fl.begin() + 4);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">case</span> 7: <span class="comment">// position + color</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.x   = *fl.begin();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.y   = *(fl.begin() + 1);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.z   = *(fl.begin() + 2);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="a02733.html#a16b8a1f1ea8391b3341ad465eb4e1100">color</a>.x = *(fl.begin() + 3);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="a02733.html#a16b8a1f1ea8391b3341ad465eb4e1100">color</a>.y = *(fl.begin() + 4);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="a02733.html#a16b8a1f1ea8391b3341ad465eb4e1100">color</a>.z = *(fl.begin() + 5);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="a02733.html#a16b8a1f1ea8391b3341ad465eb4e1100">color</a>.w = *(fl.begin() + 6);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">case</span> 9: <span class="comment">// position + color + texture coord</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.x      = *fl.begin();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.y      = *(fl.begin() + 1);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>.z      = *(fl.begin() + 2);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <a class="code" href="a02733.html#a16b8a1f1ea8391b3341ad465eb4e1100">color</a>.x    = *(fl.begin() + 3);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <a class="code" href="a02733.html#a16b8a1f1ea8391b3341ad465eb4e1100">color</a>.y    = *(fl.begin() + 4);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <a class="code" href="a02733.html#a16b8a1f1ea8391b3341ad465eb4e1100">color</a>.z    = *(fl.begin() + 5);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <a class="code" href="a02733.html#a16b8a1f1ea8391b3341ad465eb4e1100">color</a>.w    = *(fl.begin() + 6);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <a class="code" href="a02733.html#a7231599bd3f51564f5ad4fc58e8fe584">texCoord</a>.x = *(fl.begin() + 7);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="a02733.html#a7231599bd3f51564f5ad4fc58e8fe584">texCoord</a>.y = *(fl.begin() + 8);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <a class="code" href="a00428.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Invalid number of elements to construct vertex: &quot;</span> &lt;&lt; fl.size();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a02733.html#aa4a13087076c786658466d4633139ca1">   81</a></span>&#160;VkVertexInputBindingDescription <a class="code" href="a02733.html#aa4a13087076c786658466d4633139ca1">Vertex::bindingDescription</a>() {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    VkVertexInputBindingDescription <a class="code" href="a02733.html#aa4a13087076c786658466d4633139ca1">bindingDescription</a>{};</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="a02733.html#aa4a13087076c786658466d4633139ca1">bindingDescription</a>.binding   = 0;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="a02733.html#aa4a13087076c786658466d4633139ca1">bindingDescription</a>.stride    = <span class="keyword">sizeof</span>(<a class="code" href="a02733.html#ac887a77b73c69a78be50b37e232ba4e9">Vertex</a>);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="a02733.html#aa4a13087076c786658466d4633139ca1">bindingDescription</a>.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02733.html#aa4a13087076c786658466d4633139ca1">bindingDescription</a>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">   89</a></span>&#160;std::array&lt;VkVertexInputAttributeDescription, 3&gt; <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">Vertex::attributeDescriptions</a>() {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    std::array&lt;VkVertexInputAttributeDescription, 3&gt; <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>{};</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">    float: VK_FORMAT_R32_SFLOAT</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">    vec2: VK_FORMAT_R32G32_SFLOAT</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">    vec3: VK_FORMAT_R32G32B32_SFLOAT</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">    vec4: VK_FORMAT_R32G32B32A32_SFLOAT</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="comment">// pos attributes</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>[0].binding  = 0;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>[0].location = 0;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>[0].format   = VK_FORMAT_R32G32B32_SFLOAT; <span class="comment">// use colors even for vecs</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>[0].offset   = offsetof(<a class="code" href="a02733.html">Vertex</a>, <a class="code" href="a02733.html#aedd9c74835faffffa3fad63d0220783b">pos</a>);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="comment">// color attributes</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>[1].binding  = 0;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>[1].location = 1;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>[1].format   = VK_FORMAT_R32G32B32A32_SFLOAT;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>[1].offset   = offsetof(<a class="code" href="a02733.html">Vertex</a>, <a class="code" href="a02733.html#a16b8a1f1ea8391b3341ad465eb4e1100">color</a>);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// texCoord</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>[2].binding  = 0;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>[2].location = 2;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>[2].format   = VK_FORMAT_R32G32_SFLOAT;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>[2].offset   = offsetof(<a class="code" href="a02733.html">Vertex</a>, <a class="code" href="a02733.html#a7231599bd3f51564f5ad4fc58e8fe584">texCoord</a>);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02733.html#a4482465b5ceac25eff8c19578ded379c">attributeDescriptions</a>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;} <span class="comment">// namespace prim</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00428_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00428.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00428_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa00434_html"><div class="ttname"><a href="a00434.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa00614_html"><div class="ttname"><a href="a00614.html">Vertex.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02733_html"><div class="ttname"><a href="a02733.html">bl::rc::prim::Vertex</a></div><div class="ttdoc">Base Vertex primitive for the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00614_source.html#l00022">Vertex.hpp:22</a></div></div>
+<div class="ttc" id="aa02733_html_a16b8a1f1ea8391b3341ad465eb4e1100"><div class="ttname"><a href="a02733.html#a16b8a1f1ea8391b3341ad465eb4e1100">bl::rc::prim::Vertex::color</a></div><div class="ttdeci">glm::vec4 color</div><div class="ttdef"><b>Definition:</b> <a href="a00614_source.html#l00024">Vertex.hpp:24</a></div></div>
+<div class="ttc" id="aa02733_html_a4482465b5ceac25eff8c19578ded379c"><div class="ttname"><a href="a02733.html#a4482465b5ceac25eff8c19578ded379c">bl::rc::prim::Vertex::attributeDescriptions</a></div><div class="ttdeci">static std::array&lt; VkVertexInputAttributeDescription, 3 &gt; attributeDescriptions()</div><div class="ttdoc">Returns the attribute descriptions for each vertex attribute.</div><div class="ttdef"><b>Definition:</b> <a href="a01349_source.html#l00089">Vertex.cpp:89</a></div></div>
+<div class="ttc" id="aa02733_html_a7231599bd3f51564f5ad4fc58e8fe584"><div class="ttname"><a href="a02733.html#a7231599bd3f51564f5ad4fc58e8fe584">bl::rc::prim::Vertex::texCoord</a></div><div class="ttdeci">glm::vec2 texCoord</div><div class="ttdef"><b>Definition:</b> <a href="a00614_source.html#l00025">Vertex.hpp:25</a></div></div>
+<div class="ttc" id="aa02733_html_aa4a13087076c786658466d4633139ca1"><div class="ttname"><a href="a02733.html#aa4a13087076c786658466d4633139ca1">bl::rc::prim::Vertex::bindingDescription</a></div><div class="ttdeci">static VkVertexInputBindingDescription bindingDescription()</div><div class="ttdoc">Returns the vertex binding description for the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a01349_source.html#l00081">Vertex.cpp:81</a></div></div>
+<div class="ttc" id="aa02733_html_ac887a77b73c69a78be50b37e232ba4e9"><div class="ttname"><a href="a02733.html#ac887a77b73c69a78be50b37e232ba4e9">bl::rc::prim::Vertex::Vertex</a></div><div class="ttdeci">Vertex()</div><div class="ttdoc">Creates a white vertex.</div><div class="ttdef"><b>Definition:</b> <a href="a01349_source.html#l00011">Vertex.cpp:11</a></div></div>
+<div class="ttc" id="aa02733_html_aedd9c74835faffffa3fad63d0220783b"><div class="ttname"><a href="a02733.html#aedd9c74835faffffa3fad63d0220783b">bl::rc::prim::Vertex::pos</a></div><div class="ttdeci">glm::vec3 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00614_source.html#l00023">Vertex.hpp:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

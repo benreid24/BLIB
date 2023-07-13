@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Scripts/SymbolTable.hpp Source File</title>
+<title>BLIB: include/BLIB/Serialization/Binary/InputFile.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,111 +66,57 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_9fb35b166bb00afcaa31ece623ebed60.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_16181c53270a1447d0a8c102e5a0532b.html">Binary</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SymbolTable.hpp</div>  </div>
+<div class="title">InputFile.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00836.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_SYMBOLTABLE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_SYMBOLTABLE_HPP</span></div>
+<a href="a00836.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SERIALIZATION_BINARY_BINARYINPUTFILE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SERIALIZATION_BINARY_BINARYINPUTFILE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00821.html">BLIB/Scripts/Function.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00839.html">BLIB/Scripts/Value.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00971.html">BLIB/Util/Waiter.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;stack&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Manager;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03168.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03168.html">SymbolTable</a> {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a03168.html#ac8ddbd50a71d0a0e92287161915d08e5">SymbolTable</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a03168.html#ac8ddbd50a71d0a0e92287161915d08e5">SymbolTable</a>(<span class="keyword">const</span> <a class="code" href="a03168.html">SymbolTable</a>&amp; <a class="code" href="a03168.html#afee9f317cfd4c1608fa454fcf9c3bc6e">copy</a>);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03168.html#afee9f317cfd4c1608fa454fcf9c3bc6e">copy</a>(<span class="keyword">const</span> <a class="code" href="a03168.html">SymbolTable</a>&amp; <a class="code" href="a03168.html#afee9f317cfd4c1608fa454fcf9c3bc6e">copy</a>);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a03168.html">SymbolTable</a> <a class="code" href="a03168.html#a7d979b911cfaddd9ac0607702a6f194e">base</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03168.html#a3dbf1b32542bdd1f9d4ccb37cd8aa301">pushFrame</a>();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03168.html#a520e274abd3b02f57c56a94335050a5e">popFrame</a>();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03168.html#a04bc466643795cb4bc89993994da7d32">exists</a>(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="a03156.html">ReferenceValue</a>* <a class="code" href="a03168.html#a4c18178206cd7f712c336515f1481999">get</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">bool</span> create = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03168.html#ae08d79fb72d918aa0842c13a3707253c">set</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code" href="a03172.html">Value</a>&amp; value, <span class="keywordtype">bool</span> forceTop = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03168.html#a06b0fb82c874d64a8b831e35ffaa5ff7">reset</a>();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03168.html#a1b1d88feef9aeb74b79599ee895eff28">kill</a>();</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03168.html#a72e43cbbddf11249fb6b6f2ba7672bce">killed</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03168.html#ae92a2f67c17f0db6248e9bcd2d2a361d">registerManager</a>(<a class="code" href="a03144.html">Manager</a>* <a class="code" href="a03168.html#a6ff7c1f833bc8b7b41d665fded5d1c14">manager</a>);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <a class="code" href="a03144.html">Manager</a>* <a class="code" href="a03168.html#a6ff7c1f833bc8b7b41d665fded5d1c14">manager</a>();</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03168.html#ae6ec33df7bd81f407858b725342e7f12">waitFor</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> milliseconds);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03168.html#a495c91f3ed29f986bcaedc6334419df9">waitOn</a>(<a class="code" href="a03608.html">util::Waiter</a>&amp; waiter);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keyword">using</span> Frame = std::unordered_map&lt;std::string, ReferenceValue&gt;;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    Frame global;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    std::stack&lt;Frame, std::vector&lt;Frame&gt;&gt; stack;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <a class="code" href="a03144.html">Manager</a>* mgr;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    std::atomic&lt;bool&gt; stop;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    std::mutex waitMutex;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    std::condition_variable waitVar;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;};</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00821_html"><div class="ttname"><a href="a00821.html">Function.hpp</a></div></div>
-<div class="ttc" id="aa00839_html"><div class="ttname"><a href="a00839.html">Value.hpp</a></div></div>
-<div class="ttc" id="aa00971_html"><div class="ttname"><a href="a00971.html">Waiter.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl::script::Manager</a></div><div class="ttdoc">Utility class that can manage sets of concurrently running scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00018">Manager.hpp:18</a></div></div>
-<div class="ttc" id="aa03156_html"><div class="ttname"><a href="a03156.html">bl::script::ReferenceValue</a></div><div class="ttdoc">Reference type for values. Wrapper around std::shared_ptr.</div><div class="ttdef"><b>Definition:</b> <a href="a00830_source.html#l00019">ReferenceValue.hpp:19</a></div></div>
-<div class="ttc" id="aa03168_html"><div class="ttname"><a href="a03168.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00836_source.html#l00026">SymbolTable.hpp:26</a></div></div>
-<div class="ttc" id="aa03168_html_a04bc466643795cb4bc89993994da7d32"><div class="ttname"><a href="a03168.html#a04bc466643795cb4bc89993994da7d32">bl::script::SymbolTable::exists</a></div><div class="ttdeci">bool exists(const std::string &amp;name) const</div><div class="ttdoc">Tells whether the given symbol exists or not.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00040">SymbolTable.cpp:40</a></div></div>
-<div class="ttc" id="aa03168_html_a06b0fb82c874d64a8b831e35ffaa5ff7"><div class="ttname"><a href="a03168.html#a06b0fb82c874d64a8b831e35ffaa5ff7">bl::script::SymbolTable::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Resets the table to an empty state with an empty global frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00105">SymbolTable.cpp:105</a></div></div>
-<div class="ttc" id="aa03168_html_a1b1d88feef9aeb74b79599ee895eff28"><div class="ttname"><a href="a03168.html#a1b1d88feef9aeb74b79599ee895eff28">bl::script::SymbolTable::kill</a></div><div class="ttdeci">void kill()</div><div class="ttdoc">Sets the internal kill flag to terminate script execution.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00098">SymbolTable.cpp:98</a></div></div>
-<div class="ttc" id="aa03168_html_a3dbf1b32542bdd1f9d4ccb37cd8aa301"><div class="ttname"><a href="a03168.html#a3dbf1b32542bdd1f9d4ccb37cd8aa301">bl::script::SymbolTable::pushFrame</a></div><div class="ttdeci">void pushFrame()</div><div class="ttdoc">Pushes a new stack frame on.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00031">SymbolTable.cpp:31</a></div></div>
-<div class="ttc" id="aa03168_html_a495c91f3ed29f986bcaedc6334419df9"><div class="ttname"><a href="a03168.html#a495c91f3ed29f986bcaedc6334419df9">bl::script::SymbolTable::waitOn</a></div><div class="ttdeci">void waitOn(util::Waiter &amp;waiter)</div><div class="ttdoc">Blocks script execution on the given Waiter. Unblocks and exits if the script is killed while waiting...</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00119">SymbolTable.cpp:119</a></div></div>
-<div class="ttc" id="aa03168_html_a4c18178206cd7f712c336515f1481999"><div class="ttname"><a href="a03168.html#a4c18178206cd7f712c336515f1481999">bl::script::SymbolTable::get</a></div><div class="ttdeci">ReferenceValue * get(const std::string &amp;name, bool create=false)</div><div class="ttdoc">Returns a Value from the current stack frame or global stack frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00047">SymbolTable.cpp:47</a></div></div>
-<div class="ttc" id="aa03168_html_a520e274abd3b02f57c56a94335050a5e"><div class="ttname"><a href="a03168.html#a520e274abd3b02f57c56a94335050a5e">bl::script::SymbolTable::popFrame</a></div><div class="ttdeci">void popFrame()</div><div class="ttdoc">Pops off the top stack frame. Will never pop the global frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00033">SymbolTable.cpp:33</a></div></div>
-<div class="ttc" id="aa03168_html_a6ff7c1f833bc8b7b41d665fded5d1c14"><div class="ttname"><a href="a03168.html#a6ff7c1f833bc8b7b41d665fded5d1c14">bl::script::SymbolTable::manager</a></div><div class="ttdeci">Manager * manager()</div><div class="ttdoc">Returns the Manager managing this context, nullptr if none.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00112">SymbolTable.cpp:112</a></div></div>
-<div class="ttc" id="aa03168_html_a72e43cbbddf11249fb6b6f2ba7672bce"><div class="ttname"><a href="a03168.html#a72e43cbbddf11249fb6b6f2ba7672bce">bl::script::SymbolTable::killed</a></div><div class="ttdeci">bool killed() const</div><div class="ttdoc">Returns the value of the internal kill flag.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00103">SymbolTable.cpp:103</a></div></div>
-<div class="ttc" id="aa03168_html_a7d979b911cfaddd9ac0607702a6f194e"><div class="ttname"><a href="a03168.html#a7d979b911cfaddd9ac0607702a6f194e">bl::script::SymbolTable::base</a></div><div class="ttdeci">SymbolTable base() const</div><div class="ttdoc">Returns a new SymbolTable that inherits the global scope of this one.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00024">SymbolTable.cpp:24</a></div></div>
-<div class="ttc" id="aa03168_html_ac8ddbd50a71d0a0e92287161915d08e5"><div class="ttname"><a href="a03168.html#ac8ddbd50a71d0a0e92287161915d08e5">bl::script::SymbolTable::SymbolTable</a></div><div class="ttdeci">SymbolTable()</div><div class="ttdoc">Creates the global stack frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00010">SymbolTable.cpp:10</a></div></div>
-<div class="ttc" id="aa03168_html_ae08d79fb72d918aa0842c13a3707253c"><div class="ttname"><a href="a03168.html#ae08d79fb72d918aa0842c13a3707253c">bl::script::SymbolTable::set</a></div><div class="ttdeci">void set(const std::string &amp;name, const Value &amp;value, bool forceTop=false)</div><div class="ttdoc">Sets a Value in the table in the current frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00074">SymbolTable.cpp:74</a></div></div>
-<div class="ttc" id="aa03168_html_ae6ec33df7bd81f407858b725342e7f12"><div class="ttname"><a href="a03168.html#ae6ec33df7bd81f407858b725342e7f12">bl::script::SymbolTable::waitFor</a></div><div class="ttdeci">void waitFor(unsigned long int milliseconds)</div><div class="ttdoc">Pauses the current thread for the given amount of time. Unpauses if the script is terminated during i...</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00114">SymbolTable.cpp:114</a></div></div>
-<div class="ttc" id="aa03168_html_ae92a2f67c17f0db6248e9bcd2d2a361d"><div class="ttname"><a href="a03168.html#ae92a2f67c17f0db6248e9bcd2d2a361d">bl::script::SymbolTable::registerManager</a></div><div class="ttdeci">void registerManager(Manager *manager)</div><div class="ttdoc">Registers the Manager controlling this context.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00110">SymbolTable.cpp:110</a></div></div>
-<div class="ttc" id="aa03168_html_afee9f317cfd4c1608fa454fcf9c3bc6e"><div class="ttname"><a href="a03168.html#afee9f317cfd4c1608fa454fcf9c3bc6e">bl::script::SymbolTable::copy</a></div><div class="ttdeci">void copy(const SymbolTable &amp;copy)</div><div class="ttdoc">Copies the symbol table.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00019">SymbolTable.cpp:19</a></div></div>
-<div class="ttc" id="aa03172_html"><div class="ttname"><a href="a03172.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00022">Value.hpp:22</a></div></div>
-<div class="ttc" id="aa03608_html"><div class="ttname"><a href="a03608.html">bl::util::Waiter</a></div><div class="ttdoc">Basic utility class to pause a thread while waiting for a specific event.</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00020">Waiter.hpp:20</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00839.html">BLIB/Serialization/Binary/InputStream.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00869.html">BLIB/Serialization/Buffers/StreamInputBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>serial</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01678.html">   12</a></span>&#160;<span class="keyword">namespace </span>binary</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03169.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03169.html">InputFile</a> : <span class="keyword">public</span> <a class="code" href="a03173.html">InputStream</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a03169.html#aa6659b98d2fc65579eb58eecc981d01e">InputFile</a>(<span class="keyword">const</span> std::string&amp; path);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a03169.html#a7763b6551d4cef2cc2c5325b94030bb7">filename</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">const</span> std::string file;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    std::ifstream input;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a03305.html">StreamInputBuffer</a> buffer;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace binary</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace serial</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00839_html"><div class="ttname"><a href="a00839.html">InputStream.hpp</a></div></div>
+<div class="ttc" id="aa00869_html"><div class="ttname"><a href="a00869.html">StreamInputBuffer.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03169_html"><div class="ttname"><a href="a03169.html">bl::serial::binary::InputFile</a></div><div class="ttdoc">Convenience wrapper around ifstream, StreamInputBuffer, and BinaryInputStream.</div><div class="ttdef"><b>Definition:</b> <a href="a00836_source.html#l00020">InputFile.hpp:20</a></div></div>
+<div class="ttc" id="aa03169_html_a7763b6551d4cef2cc2c5325b94030bb7"><div class="ttname"><a href="a03169.html#a7763b6551d4cef2cc2c5325b94030bb7">bl::serial::binary::InputFile::filename</a></div><div class="ttdeci">const std::string &amp; filename() const</div><div class="ttdoc">Returns the filename used to open the file.</div><div class="ttdef"><b>Definition:</b> <a href="a01541_source.html#l00015">InputFile.cpp:15</a></div></div>
+<div class="ttc" id="aa03169_html_aa6659b98d2fc65579eb58eecc981d01e"><div class="ttname"><a href="a03169.html#aa6659b98d2fc65579eb58eecc981d01e">bl::serial::binary::InputFile::InputFile</a></div><div class="ttdeci">InputFile(const std::string &amp;path)</div><div class="ttdoc">Construct a new Binary Input File from a file path.</div><div class="ttdef"><b>Definition:</b> <a href="a01541_source.html#l00009">InputFile.cpp:9</a></div></div>
+<div class="ttc" id="aa03173_html"><div class="ttname"><a href="a03173.html">bl::serial::binary::InputStream</a></div><div class="ttdoc">A readable stream for binary deserialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00028">InputStream.hpp:28</a></div></div>
+<div class="ttc" id="aa03305_html"><div class="ttname"><a href="a03305.html">bl::serial::StreamInputBuffer</a></div><div class="ttdoc">Input buffer that operates on C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a00869_source.html#l00017">StreamInputBuffer.hpp:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zoom_5721',['zoom',['../a02456.html#af97e55302b8158d248a6e6d76fde3e2d',1,'bl::gfx::c2d::Camera2D::zoom(float factor)'],['../a02456.html#aeada77ab62ea985affa4b5b10d7f145a',1,'bl::gfx::c2d::Camera2D::zoom(const glm::vec2 &amp;factors)']]]
+  ['zoom_5736',['zoom',['../a01745.html#a76dea61f59e7b90095c672add0da3e9b',1,'bl::cam::Camera2D::zoom(float factor)'],['../a01745.html#a1832b287a33e4abca32299dfb13a26f6',1,'bl::cam::Camera2D::zoom(const glm::vec2 &amp;factors)']]]
 ];

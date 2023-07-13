@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::prim::DrawParameters Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,33 +66,202 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01623.html">bl</a></li><li class="navelem"><a class="el" href="a01646.html">gfx</a></li><li class="navelem"><a class="el" href="a01662.html">res</a></li><li class="navelem"><a class="el" href="a02732.html">MaterialPool</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01628.html">bl</a></li><li class="navelem"><a class="el" href="a01637.html">rc</a></li><li class="navelem"><a class="el" href="a01673.html">prim</a></li><li class="navelem"><a class="el" href="a02729.html">DrawParameters</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a02726.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gfx::res::MaterialPool Member List</div>  </div>
+<div class="title">bl::rc::prim::DrawParameters Struct Reference<div class="ingroups"><a class="el" href="a01613.html">Renderer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02732.html">bl::gfx::res::MaterialPool</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02732.html#a3ef0f7e3cd3049a1ea5d8a2cec6db90a">bindDescriptors</a>(std::uint32_t setIndex)</td><td class="entry"><a class="el" href="a02732.html">bl::gfx::res::MaterialPool</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02732.html#ae956ffb9985af2a5765e566de52eea96">createMaterial</a>(Material &amp;&amp;material)</td><td class="entry"><a class="el" href="a02732.html">bl::gfx::res::MaterialPool</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02732.html#a5145bf36d28f12c12639f7b7af3e3c21">getDescriptorLayout</a>()</td><td class="entry"><a class="el" href="a02732.html">bl::gfx::res::MaterialPool</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02732.html#afee5d25316c47cfffa8fc23952a1bfd8">getOrLoadMaterial</a>(const std::string &amp;materialFile)</td><td class="entry"><a class="el" href="a02732.html">bl::gfx::res::MaterialPool</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02732.html#a87a82493ceb56f90c101658720f5e3fb">getOrLoadMaterialFromTexture</a>(const std::string &amp;textureFile)</td><td class="entry"><a class="el" href="a02732.html">bl::gfx::res::MaterialPool</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02732.html#a3907ffb51ccf53553a68cdcfedb607b2">MaterialPool</a>(vk::VulkanState &amp;vulkanState)</td><td class="entry"><a class="el" href="a02732.html">bl::gfx::res::MaterialPool</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02732.html#a95a115c3d00dfc936512dca8288c60b2">MaxMaterialCount</a></td><td class="entry"><a class="el" href="a02732.html">bl::gfx::res::MaterialPool</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02732.html#adaae44e74204a1e06cfe04b03ddea6f7">retrieveMaterial</a>(std::uint32_t materialId)</td><td class="entry"><a class="el" href="a02732.html">bl::gfx::res::MaterialPool</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02732.html#af8a164de6089ad783314cae92e96100a">syncAll</a>()</td><td class="entry"><a class="el" href="a02732.html">bl::gfx::res::MaterialPool</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02732.html#a02aac1fda185bdc40fff9b5ae259d289">syncMaterial</a>(std::uint32_t materialId)</td><td class="entry"><a class="el" href="a02732.html">bl::gfx::res::MaterialPool</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02732.html#a7efe30fca0b879895ed4e291ea369c02">~MaterialPool</a>()</td><td class="entry"><a class="el" href="a02732.html">bl::gfx::res::MaterialPool</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Collection of the required parameters to issue draw commands per object.  
+ <a href="a02729.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00611_source.html">DrawParameters.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8b5921705d41639a8650608af19324d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02729.html#a8b5921705d41639a8650608af19324d8">DrawParameters</a> ()</td></tr>
+<tr class="memdesc:a8b5921705d41639a8650608af19324d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the draw parameters to reasonable defaults.  <a href="a02729.html#a8b5921705d41639a8650608af19324d8">More...</a><br /></td></tr>
+<tr class="separator:a8b5921705d41639a8650608af19324d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a962d4d5348b4b6e0f9c11413340d3b5b"><td class="memItemLeft" align="right" valign="top">VkBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02729.html#a962d4d5348b4b6e0f9c11413340d3b5b">vertexBuffer</a></td></tr>
+<tr class="separator:a962d4d5348b4b6e0f9c11413340d3b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6218e06fd3bbcd7f2739c53b7581a73"><td class="memItemLeft" align="right" valign="top">VkBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02729.html#ac6218e06fd3bbcd7f2739c53b7581a73">indexBuffer</a></td></tr>
+<tr class="separator:ac6218e06fd3bbcd7f2739c53b7581a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c514a24c6c747266eaae2e87582f999"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02729.html#a6c514a24c6c747266eaae2e87582f999">indexCount</a></td></tr>
+<tr class="separator:a6c514a24c6c747266eaae2e87582f999"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40a1bb84d0856d3d69d3a46efbf260eb"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02729.html#a40a1bb84d0856d3d69d3a46efbf260eb">indexOffset</a></td></tr>
+<tr class="separator:a40a1bb84d0856d3d69d3a46efbf260eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7efd03d865ca379d80d00c1d13a912b"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02729.html#ad7efd03d865ca379d80d00c1d13a912b">vertexOffset</a></td></tr>
+<tr class="separator:ad7efd03d865ca379d80d00c1d13a912b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3946c2a7339aacf2dfb602bd7a471c9b"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02729.html#a3946c2a7339aacf2dfb602bd7a471c9b">firstInstance</a></td></tr>
+<tr class="separator:a3946c2a7339aacf2dfb602bd7a471c9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af69724acb861a73b0a05592001285584"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02729.html#af69724acb861a73b0a05592001285584">instanceCount</a></td></tr>
+<tr class="separator:af69724acb861a73b0a05592001285584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Collection of the required parameters to issue draw commands per object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00611_source.html#l00018">18</a> of file <a class="el" href="a00611_source.html">DrawParameters.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8b5921705d41639a8650608af19324d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b5921705d41639a8650608af19324d8">&#9670;&nbsp;</a></span>DrawParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::prim::DrawParameters::DrawParameters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes the draw parameters to reasonable defaults. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00611_source.html#l00030">30</a> of file <a class="el" href="a00611_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3946c2a7339aacf2dfb602bd7a471c9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3946c2a7339aacf2dfb602bd7a471c9b">&#9670;&nbsp;</a></span>firstInstance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::prim::DrawParameters::firstInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00611_source.html#l00024">24</a> of file <a class="el" href="a00611_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac6218e06fd3bbcd7f2739c53b7581a73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6218e06fd3bbcd7f2739c53b7581a73">&#9670;&nbsp;</a></span>indexBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkBuffer bl::rc::prim::DrawParameters::indexBuffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00611_source.html#l00020">20</a> of file <a class="el" href="a00611_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c514a24c6c747266eaae2e87582f999"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c514a24c6c747266eaae2e87582f999">&#9670;&nbsp;</a></span>indexCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::prim::DrawParameters::indexCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00611_source.html#l00021">21</a> of file <a class="el" href="a00611_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a40a1bb84d0856d3d69d3a46efbf260eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40a1bb84d0856d3d69d3a46efbf260eb">&#9670;&nbsp;</a></span>indexOffset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::prim::DrawParameters::indexOffset</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00611_source.html#l00022">22</a> of file <a class="el" href="a00611_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af69724acb861a73b0a05592001285584"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af69724acb861a73b0a05592001285584">&#9670;&nbsp;</a></span>instanceCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::prim::DrawParameters::instanceCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00611_source.html#l00025">25</a> of file <a class="el" href="a00611_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a962d4d5348b4b6e0f9c11413340d3b5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a962d4d5348b4b6e0f9c11413340d3b5b">&#9670;&nbsp;</a></span>vertexBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkBuffer bl::rc::prim::DrawParameters::vertexBuffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00611_source.html#l00019">19</a> of file <a class="el" href="a00611_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad7efd03d865ca379d80d00c1d13a912b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7efd03d865ca379d80d00c1d13a912b">&#9670;&nbsp;</a></span>vertexOffset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::prim::DrawParameters::vertexOffset</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00611_source.html#l00023">23</a> of file <a class="el" href="a00611_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Render/Primitives/<a class="el" href="a00611_source.html">DrawParameters.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:11 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

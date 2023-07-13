@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Math/Interpolate.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderers/RendererUtil.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,52 +66,55 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_cd30ee9e4ae7d59b03a4595496d1006b.html">Renderers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Interpolate.hpp</div>  </div>
+<div class="title">RendererUtil.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00362.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MATH_INTERPOLATE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MATH_INTERPOLATE_HPP</span></div>
+<a href="a00362.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_RENDERERS_RENDERERUTIL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_RENDERERS_RENDERERUTIL_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>math</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04488.html">BLIB/Interfaces/GUI/Renderers/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01603.html#ga8753daa77ceb8a99501d08876804bd00">   22</a></span>&#160;T <a class="code" href="a01603.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originEnd, T destStart, T destEnd, T value) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> T fr = originEnd - originStart;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">const</span> T dr = destEnd - destStart;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span> (value - originStart) / fr * dr + destStart;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a02353.html">   14</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02353.html">RendererUtil</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">static</span> sf::Vector2f <a class="code" href="a02353.html#a3d9264bbfe63360f617ecf475733149f">calculatePosition</a>(<a class="code" href="a02357.html#aae930cb5781c4d97d0a5c39be0d1f3cc">RenderSettings::Alignment</a> horizontalAlignment,</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                                          <a class="code" href="a02357.html#aae930cb5781c4d97d0a5c39be0d1f3cc">RenderSettings::Alignment</a> verticalAlignment,</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                                          <span class="keyword">const</span> sf::FloatRect&amp; region, <span class="keyword">const</span> sf::Vector2f&amp; size);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a01603.html#ga6830e4fa6ad4c4737f34c0ea10cfa12e">   44</a></span>&#160;T <a class="code" href="a01603.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originMid, T originEnd, T destStart, T destEnd, T value) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">const</span> T destMid = (destEnd + destStart) / <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(2);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> value &lt;= originMid ? <a class="code" href="a01603.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originStart, originMid, destStart, destMid, value) :</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                                <a class="code" href="a01603.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originMid, originEnd, destMid, destEnd, value);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a01603.html#ga51b3900901959abab6d527e6f849fab5">   67</a></span>&#160;T <a class="code" href="a01603.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originMid, T originEnd, T destStart, T destMid, T destEnd, T value) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> value &lt;= originMid ? <a class="code" href="a01603.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originStart, originMid, destStart, destMid, value) :</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                <a class="code" href="a01603.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originMid, originEnd, destMid, destEnd, value);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace math</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01603_html_ga8753daa77ceb8a99501d08876804bd00"><div class="ttname"><a href="a01603.html#ga8753daa77ceb8a99501d08876804bd00">bl::math::interpolate</a></div><div class="ttdeci">T interpolate(T originStart, T originEnd, T destStart, T destEnd, T value)</div><div class="ttdoc">Linearly interpolate a value from one range to another.</div><div class="ttdef"><b>Definition:</b> <a href="a00362_source.html#l00022">Interpolate.hpp:22</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">static</span> sf::Text <a class="code" href="a02353.html#a868c3138e9705c001a83fe5feddcc620">buildRenderText</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="a01184.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a>, <span class="keyword">const</span> sf::FloatRect&amp; acquisition,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                    <span class="keyword">const</span> <a class="code" href="a02357.html">RenderSettings</a>&amp; settings,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                                    <span class="keyword">const</span> <a class="code" href="a02357.html">RenderSettings</a>&amp; defaults = {});</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02353.html#a6215eb312912efed0bcb91753575a849">renderRectangle</a>(sf::RenderTarget&amp; target, sf::RenderStates states,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                <span class="keyword">const</span> sf::FloatRect&amp; area, <span class="keyword">const</span> <a class="code" href="a02357.html">RenderSettings</a>&amp; settings,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                <span class="keyword">const</span> <a class="code" href="a02357.html">RenderSettings</a>&amp; defaults = {}, <span class="keywordtype">bool</span> useSecondary = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;};</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01184_html_a6d372f7ea1f537bfbc73492e24ef8623"><div class="ttname"><a href="a01184.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a></div><div class="ttdeci">sf::Text text</div><div class="ttdef"><b>Definition:</b> <a href="a01184_source.html#l00015">DefaultRenderer.cpp:15</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02353_html"><div class="ttname"><a href="a02353.html">bl::gui::RendererUtil</a></div><div class="ttdoc">Utility struct containing some common useful methods for rendering.</div><div class="ttdef"><b>Definition:</b> <a href="a00362_source.html#l00014">RendererUtil.hpp:14</a></div></div>
+<div class="ttc" id="aa02353_html_a3d9264bbfe63360f617ecf475733149f"><div class="ttname"><a href="a02353.html#a3d9264bbfe63360f617ecf475733149f">bl::gui::RendererUtil::calculatePosition</a></div><div class="ttdeci">static sf::Vector2f calculatePosition(RenderSettings::Alignment horizontalAlignment, RenderSettings::Alignment verticalAlignment, const sf::FloatRect &amp;region, const sf::Vector2f &amp;size)</div><div class="ttdoc">Calculates the position to render an element at given its alignments and size.</div><div class="ttdef"><b>Definition:</b> <a href="a01190_source.html#l00062">RendererUtil.cpp:62</a></div></div>
+<div class="ttc" id="aa02353_html_a6215eb312912efed0bcb91753575a849"><div class="ttname"><a href="a02353.html#a6215eb312912efed0bcb91753575a849">bl::gui::RendererUtil::renderRectangle</a></div><div class="ttdeci">static void renderRectangle(sf::RenderTarget &amp;target, sf::RenderStates states, const sf::FloatRect &amp;area, const RenderSettings &amp;settings, const RenderSettings &amp;defaults={}, bool useSecondary=false)</div><div class="ttdoc">Renders a simple rectangle with the given render settings. Custom elements may use this to implement ...</div><div class="ttdef"><b>Definition:</b> <a href="a01190_source.html#l00041">RendererUtil.cpp:41</a></div></div>
+<div class="ttc" id="aa02353_html_a868c3138e9705c001a83fe5feddcc620"><div class="ttname"><a href="a02353.html#a868c3138e9705c001a83fe5feddcc620">bl::gui::RendererUtil::buildRenderText</a></div><div class="ttdeci">static sf::Text buildRenderText(const std::string &amp;text, const sf::FloatRect &amp;acquisition, const RenderSettings &amp;settings, const RenderSettings &amp;defaults={})</div><div class="ttdoc">Generates an sf::Text object that takes into account all settings.</div><div class="ttdef"><b>Definition:</b> <a href="a01190_source.html#l00011">RendererUtil.cpp:11</a></div></div>
+<div class="ttc" id="aa02357_html"><div class="ttname"><a href="a02357.html">bl::gui::RenderSettings</a></div><div class="ttdoc">Data class to override rendering settings for GUI Elements. Overrides can be done by group or id....</div><div class="ttdef"><b>Definition:</b> <a href="a00365_source.html#l00020">RenderSettings.hpp:20</a></div></div>
+<div class="ttc" id="aa02357_html_aae930cb5781c4d97d0a5c39be0d1f3cc"><div class="ttname"><a href="a02357.html#aae930cb5781c4d97d0a5c39be0d1f3cc">bl::gui::RenderSettings::Alignment</a></div><div class="ttdeci">Alignment</div><div class="ttdoc">Controls where an Element is rendered with respect to its acquisition.</div><div class="ttdef"><b>Definition:</b> <a href="a00365_source.html#l00025">RenderSettings.hpp:25</a></div></div>
+<div class="ttc" id="aa04488_html"><div class="ttname"><a href="a04488.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

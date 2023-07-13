@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS/ViewImpl.hpp Source File</title>
+<title>BLIB: include/BLIB/Containers/ObjectPool.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,191 +66,532 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_32e9a2f6b8be632bf999c595b5284fff.html">Containers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ViewImpl.hpp</div>  </div>
+<div class="title">ObjectPool.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00080.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_VIEWIMPL_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_VIEWIMPL_HPP</span></div>
+<a href="a00080.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_CONTAINERS_OBJECTPOOL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_CONTAINERS_OBJECTPOOL_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_REGISTRY_HPP</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#error &quot;Internal file included out of order&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00074.html">BLIB/ECS/TagsImpl.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>ecs</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TReqComs, <span class="keyword">typename</span>... TOptComs, <span class="keyword">typename</span>... TExcComs&gt;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01900.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01824.html">View</a>&lt;<a class="code" href="a01876.html">Require</a>&lt;TReqComs...&gt;, <a class="code" href="a01880.html">Optional</a>&lt;TOptComs...&gt;, <a class="code" href="a01884.html">Exclude</a>&lt;TExcComs...&gt;&gt;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;: <span class="keyword">public</span> <a class="code" href="a01896.html">priv::ViewBase</a> {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">using</span> <a class="code" href="a01892.html">ViewTags</a> = <a class="code" href="a01888.html">Tags</a>&lt;<a class="code" href="a01876.html">Require</a>&lt;TReqComs...&gt;, <a class="code" href="a01880.html">Optional</a>&lt;TOptComs...&gt;, <a class="code" href="a01884.html">Exclude</a>&lt;TExcComs...&gt;&gt;;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">static</span> constexpr std::size_t InvalidIndex = std::numeric_limits&lt;std::size_t&gt;::max();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a01900.html#ac1d31bec21de0c5776b75b0cb68e7f3b">   33</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a01900.html#ac1d31bec21de0c5776b75b0cb68e7f3b">TRow</a> = <span class="keyword">typename</span> <a class="code" href="a01844.html">ViewTags::TComponentSet</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a01900.html#a3d8ea3fbacb4f113775318832716213d">   39</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01900.html#a3d8ea3fbacb4f113775318832716213d">~View</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00083.html">BLIB/Containers/ObjectWrapper.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00434.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;cstring&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>container</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01833.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01833.html">ObjectPool</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">class </span>Entry;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01833.html#a8f3ba1866f0d59f4c59a71baf65e6a2e">   30</a></span>&#160;    <span class="keyword">enum struct</span> <a class="code" href="a01833.html#a8f3ba1866f0d59f4c59a71baf65e6a2e">GrowthPolicy</a> {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="a01833.html#a8f3ba1866f0d59f4c59a71baf65e6a2ea55d57684e37853782141c970a4df7b3f">ExpandBuffer</a>,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="a01833.html#a8f3ba1866f0d59f4c59a71baf65e6a2ea397f2ef02361db55ac809f6e79ce5c0f">FailContinue</a>,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <a class="code" href="a01833.html#a8f3ba1866f0d59f4c59a71baf65e6a2ea8614c7df46beb12646183fa39e23a92a">FailTerminate</a></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    };</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCallback&gt;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a01900.html#ad22eac79a2b564976f8e3c72aa56c9f4">   48</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01900.html#ad22eac79a2b564976f8e3c72aa56c9f4">forEach</a>(<span class="keyword">const</span> TCallback&amp; cb) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        static_assert(std::is_invocable&lt;TCallback, typename ViewTags::TComponentSet&amp;&gt;::value,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                      <span class="stringliteral">&quot;visitor must have signature void(ComponentSet&lt;...&gt;&amp;)&quot;</span>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        ensureUpdated();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        viewLock.lockRead();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        lockPoolsRead();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; set : results) { cb(set); }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        unlockPoolsRead();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        viewLock.unlockRead();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a01868.html">Registry</a>&amp; registry;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a03552.html">util::ReadWriteLock</a> viewLock;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    std::array&lt;ComponentPoolBase*, ViewTags::NumComponents&gt; pools;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    std::vector&lt;typename ViewTags::TComponentSet&gt; results;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    std::vector&lt;std::size_t&gt; entityToIndex;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    std::mutex queueLock;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    std::vector&lt;Entity&gt; toAdd;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    std::vector&lt;Entity&gt; toRemove;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="a01824.html">View</a>(<a class="code" href="a01868.html">Registry</a>&amp; reg)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    : <a class="code" href="a01896.html#aad663a90cdfb9c7d9f98aaf6ff89a488">ViewBase</a>(ViewTags::createMask(reg), typeid(<a class="code" href="a01824.html">View</a>))</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    , registry(reg)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    , pools({&amp;reg.getPool&lt;TReqComs&gt;()..., &amp;reg.getPool&lt;TOptComs&gt;()...}) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        results.reserve(256);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        entityToIndex.resize(256, InvalidIndex);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        toAdd.reserve(128);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        toRemove.reserve(128);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        reg.populateViewWithLock(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        ensureUpdated();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01896.html#a1b85cace86a9ac96e0709123561754d9">removeEntity</a>(<a class="code" href="a01626.html#a4b70a57ed7e0341145b4320b1f460a62">Entity</a> entity)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        std::unique_lock lock(queueLock);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        toRemove.emplace_back(entity);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01896.html#af34b9807e8e8ee6f2b6e6acf2fa90f27">tryAddEntity</a>(<a class="code" href="a01626.html#a4b70a57ed7e0341145b4320b1f460a62">Entity</a> entity)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        std::unique_lock lock(queueLock);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        toAdd.emplace_back(entity);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> EType&gt;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a01837.html">   48</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="a01837.html">IteratorType</a> {</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a01837.html#a7d56bbbc132259f8ed83f487c2e04527">   53</a></span>&#160;        <a class="code" href="a01837.html#a7d56bbbc132259f8ed83f487c2e04527">IteratorType</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a01837.html#ab6b511092d57ddfb51473af035d3aecf">   60</a></span>&#160;        <a class="code" href="a01837.html#ab6b511092d57ddfb51473af035d3aecf">IteratorType</a>(<span class="keyword">const</span> <a class="code" href="a01837.html">IteratorType</a>&amp; copy) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a01837.html#ab17f8906c005c864efd9fdf5f6634c92">   68</a></span>&#160;        <a class="code" href="a01837.html">IteratorType</a>&amp; <a class="code" href="a01837.html#ab17f8906c005c864efd9fdf5f6634c92">operator=</a>(<span class="keyword">const</span> <a class="code" href="a01837.html">IteratorType</a>&amp; copy) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        constexpr EType&amp; <a class="code" href="a01837.html#a37cb1f0a31b2adc67c5016ed5c485d55">operator*</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        constexpr EType* <a class="code" href="a01837.html#adf6b9d9eec11d64c5510c8ee15b7e11e">operator-&gt;</a>();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        constexpr <span class="keyword">const</span> EType&amp; <a class="code" href="a01837.html#a37cb1f0a31b2adc67c5016ed5c485d55">operator*</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        constexpr <span class="keyword">const</span> EType* <a class="code" href="a01837.html#adf6b9d9eec11d64c5510c8ee15b7e11e">operator-&gt;</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01896.html#a6ce0458f819504dbf9c2b7e5b28401a8">clearAndRefresh</a>()<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        lockWrite();</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        results.clear();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        std::fill(entityToIndex.begin(), entityToIndex.end(), InvalidIndex);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        registry.populateView(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        unlockWrite();</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        ensureUpdated();</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">void</span> ensureUpdated() {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        std::unique_lock lock(queueLock);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        lockWrite();</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a01896.html#a0ce7bc0595b45ad5c8a136c8fdb0df67">needsAddressReload</a>) {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <a class="code" href="a01896.html#a0ce7bc0595b45ad5c8a136c8fdb0df67">needsAddressReload</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; set : results) { set.refresh(registry); }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="a01837.html">IteratorType&lt;EType&gt;</a>&amp; <a class="code" href="a01837.html#a50898290fefcc2773ff40631ec48a9da">operator++</a>();</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <a class="code" href="a01837.html">IteratorType&lt;EType&gt;</a>&amp; <a class="code" href="a01837.html#a50898290fefcc2773ff40631ec48a9da">operator++</a>(<span class="keywordtype">int</span>);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="a01837.html#ac84508e690565aab8b8318c96e060cfa">operator==</a>(<span class="keyword">const</span> <a class="code" href="a01837.html">IteratorType&lt;EType&gt;</a>&amp; iterator) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a01626.html#a4b70a57ed7e0341145b4320b1f460a62">Entity</a> ent : toAdd) {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">if</span> (ent + 1 &gt;= entityToIndex.size()) { entityToIndex.resize(ent + 1, InvalidIndex); }</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="keywordflow">if</span> (entityToIndex[ent] != InvalidIndex) { <span class="keywordflow">continue</span>; }</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="keywordflow">if</span> (!<a class="code" href="a01896.html#aaec4846781fb716ae60bc560bce90dfe">mask</a>.<a class="code" href="a01820.html#a4b1efacf738ba4aa88604046561d1c4e">passes</a>(registry.entityMasks[ent])) { <span class="keywordflow">continue</span>; }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="a01837.html#a2570c724c8fb954b818f93e4c7bfd297">operator!=</a>(<span class="keyword">const</span> <a class="code" href="a01837.html">IteratorType&lt;EType&gt;</a>&amp; iterator) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keyword">const</span> std::size_t ni = results.size();</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            results.emplace_back(registry, ent);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            <span class="keywordflow">if</span> (!results.back().isValid()) { results.pop_back(); }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">else</span> { entityToIndex[ent] = ni; }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        toAdd.clear();</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a01626.html#a4b70a57ed7e0341145b4320b1f460a62">Entity</a> ent : toRemove) {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keywordflow">if</span> (ent + 1 &gt;= entityToIndex.size()) { <span class="keywordflow">continue</span>; }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            std::size_t&amp; index = entityToIndex[ent];</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <span class="keywordflow">if</span> (index == InvalidIndex) { <span class="keywordflow">continue</span>; }</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            <span class="keywordflow">if</span> (index != results.size() - 1) {</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                std::size_t&amp; backIndex = entityToIndex[results.back().entity()];</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                results[index]         = results.back();</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                backIndex              = index;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            }</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            results.pop_back();</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            index = InvalidIndex;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        }</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        toRemove.clear();</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        unlockWrite();</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    }</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">void</span> lockPoolsRead() {</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordflow">for</span> (ComponentPoolBase* pool : pools) { pool-&gt;poolLock.lockRead(); }</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    }</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordtype">void</span> unlockPoolsRead() {</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordflow">for</span> (ComponentPoolBase* pool : pools) { pool-&gt;poolLock.unlockRead(); }</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    }</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordtype">void</span> lockWrite() {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        viewLock.<a class="code" href="a03552.html#ad37b398dbe7861cd2763e20002069263">lockWrite</a>();</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        lockPoolsRead();</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    }</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">void</span> unlockWrite() {</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        viewLock.<a class="code" href="a03552.html#a751259f66b9b1aece13bbf155cdd50c5">unlockWrite</a>();</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        unlockPoolsRead();</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    }</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
-<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="a01900.html#ac7b716e6d41ff508ad2d8e5dad655d72">  161</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a01868.html">Registry</a>;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;};</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keyword">using</span> EP = std::conditional_t&lt;std::is_same_v&lt;EType, T&gt;, Entry*, <span class="keyword">const</span> Entry*&gt;;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <a class="code" href="a01837.html#a7d56bbbc132259f8ed83f487c2e04527">IteratorType</a>(EP e, EP end);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        EP pos;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        EP end;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="a01837.html#ac11347654b8fc761e209cd36a6253c10">  126</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a01833.html">ObjectPool</a>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="a01837.html#a31baa0a500c3b1ad08d3ec74526ea315">  127</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a01841.html">FixedRef</a>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    };</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="a01833.html#afb826650489fc0e7a1d89885edb71f61">  130</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a01837.html">Iterator</a>      = <a class="code" href="a01837.html">IteratorType&lt;T&gt;</a>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="a01833.html#aa2d85368a1aa704a4bbbca444685cc25">  131</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a01837.html">ConstIterator</a> = <a class="code" href="a01837.html">IteratorType&lt;const T&gt;</a>;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="a01841.html">  138</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a01841.html">FixedRef</a> {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <a class="code" href="a01841.html#aa07b6c3b5d78f0874416652e9f0f3ae7">FixedRef</a>();</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        T&amp; <a class="code" href="a01841.html#a47ea2bb4fe7cba2aec5f4a3c7bb1f7cd">operator*</a>();</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keyword">const</span> T&amp; <a class="code" href="a01841.html#a47ea2bb4fe7cba2aec5f4a3c7bb1f7cd">operator*</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        T* <a class="code" href="a01841.html#a845807aaa72a2f27bdb628e50789b5b2">operator-&gt;</a>();</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00074_html"><div class="ttname"><a href="a00074.html">TagsImpl.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01626_html_a4b70a57ed7e0341145b4320b1f460a62"><div class="ttname"><a href="a01626.html#a4b70a57ed7e0341145b4320b1f460a62">bl::ecs::Entity</a></div><div class="ttdeci">std::uint32_t Entity</div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00059_source.html#l00021">Entity.hpp:21</a></div></div>
-<div class="ttc" id="aa01820_html_a4b1efacf738ba4aa88604046561d1c4e"><div class="ttname"><a href="a01820.html#a4b1efacf738ba4aa88604046561d1c4e">bl::ecs::ComponentMask::passes</a></div><div class="ttdeci">bool passes(SimpleMask entityMask) const</div><div class="ttdoc">Returns whether or not the given mask passes the tagged filter for this mask.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00038">ComponentMask.hpp:38</a></div></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl::ecs::View</a></div><div class="ttdoc">Base definition of the View class. Use the tagged specialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00077_source.html#l00064">View.hpp:64</a></div></div>
-<div class="ttc" id="aa01844_html"><div class="ttname"><a href="a01844.html">bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;</a></div><div class="ttdoc">The actual ComponentSet specialization that should be used.</div><div class="ttdef"><b>Definition:</b> <a href="a00056_source.html#l00034">ComponentSetImpl.hpp:36</a></div></div>
-<div class="ttc" id="aa01868_html"><div class="ttname"><a href="a01868.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00029">Registry.hpp:31</a></div></div>
-<div class="ttc" id="aa01876_html"><div class="ttname"><a href="a01876.html">bl::ecs::Require</a></div><div class="ttdef"><b>Definition:</b> <a href="a00071_source.html#l00015">Tags.hpp:15</a></div></div>
-<div class="ttc" id="aa01880_html"><div class="ttname"><a href="a01880.html">bl::ecs::Optional</a></div><div class="ttdef"><b>Definition:</b> <a href="a00071_source.html#l00018">Tags.hpp:18</a></div></div>
-<div class="ttc" id="aa01884_html"><div class="ttname"><a href="a01884.html">bl::ecs::Exclude</a></div><div class="ttdef"><b>Definition:</b> <a href="a00071_source.html#l00021">Tags.hpp:21</a></div></div>
-<div class="ttc" id="aa01888_html"><div class="ttname"><a href="a01888.html">bl::ecs::Tags</a></div><div class="ttdef"><b>Definition:</b> <a href="a00071_source.html#l00024">Tags.hpp:24</a></div></div>
-<div class="ttc" id="aa01892_html"><div class="ttname"><a href="a01892.html">bl::ecs::Tags&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;</a></div><div class="ttdef"><b>Definition:</b> <a href="a00074_source.html#l00016">TagsImpl.hpp:16</a></div></div>
-<div class="ttc" id="aa01896_html"><div class="ttname"><a href="a01896.html">bl::ecs::priv::ViewBase</a></div><div class="ttdoc">Helper class not to be used directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00077_source.html#l00032">View.hpp:32</a></div></div>
-<div class="ttc" id="aa01896_html_a0ce7bc0595b45ad5c8a136c8fdb0df67"><div class="ttname"><a href="a01896.html#a0ce7bc0595b45ad5c8a136c8fdb0df67">bl::ecs::priv::ViewBase::needsAddressReload</a></div><div class="ttdeci">bool needsAddressReload</div><div class="ttdef"><b>Definition:</b> <a href="a00077_source.html#l00040">View.hpp:40</a></div></div>
-<div class="ttc" id="aa01896_html_a1b85cace86a9ac96e0709123561754d9"><div class="ttname"><a href="a01896.html#a1b85cace86a9ac96e0709123561754d9">bl::ecs::priv::ViewBase::removeEntity</a></div><div class="ttdeci">virtual void removeEntity(Entity entity)=0</div></div>
-<div class="ttc" id="aa01896_html_a6ce0458f819504dbf9c2b7e5b28401a8"><div class="ttname"><a href="a01896.html#a6ce0458f819504dbf9c2b7e5b28401a8">bl::ecs::priv::ViewBase::clearAndRefresh</a></div><div class="ttdeci">virtual void clearAndRefresh()=0</div></div>
-<div class="ttc" id="aa01896_html_aad663a90cdfb9c7d9f98aaf6ff89a488"><div class="ttname"><a href="a01896.html#aad663a90cdfb9c7d9f98aaf6ff89a488">bl::ecs::priv::ViewBase::ViewBase</a></div><div class="ttdeci">ViewBase(ComponentMask mask, std::type_index id)</div><div class="ttdef"><b>Definition:</b> <a href="a00077_source.html#l00042">View.hpp:42</a></div></div>
-<div class="ttc" id="aa01896_html_aaec4846781fb716ae60bc560bce90dfe"><div class="ttname"><a href="a01896.html#aaec4846781fb716ae60bc560bce90dfe">bl::ecs::priv::ViewBase::mask</a></div><div class="ttdeci">const ComponentMask mask</div><div class="ttdef"><b>Definition:</b> <a href="a00077_source.html#l00035">View.hpp:35</a></div></div>
-<div class="ttc" id="aa01896_html_af34b9807e8e8ee6f2b6e6acf2fa90f27"><div class="ttname"><a href="a01896.html#af34b9807e8e8ee6f2b6e6acf2fa90f27">bl::ecs::priv::ViewBase::tryAddEntity</a></div><div class="ttdeci">virtual void tryAddEntity(Entity entity)=0</div></div>
-<div class="ttc" id="aa01900_html_a3d8ea3fbacb4f113775318832716213d"><div class="ttname"><a href="a01900.html#a3d8ea3fbacb4f113775318832716213d">bl::ecs::View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;::~View</a></div><div class="ttdeci">virtual ~View()=default</div><div class="ttdoc">Destroy the View object.</div></div>
-<div class="ttc" id="aa01900_html_ac1d31bec21de0c5776b75b0cb68e7f3b"><div class="ttname"><a href="a01900.html#ac1d31bec21de0c5776b75b0cb68e7f3b">bl::ecs::View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;::TRow</a></div><div class="ttdeci">typename ViewTags::TComponentSet TRow</div><div class="ttdoc">The ComponentSet type contained in this View.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00033">ViewImpl.hpp:33</a></div></div>
-<div class="ttc" id="aa01900_html_ad22eac79a2b564976f8e3c72aa56c9f4"><div class="ttname"><a href="a01900.html#ad22eac79a2b564976f8e3c72aa56c9f4">bl::ecs::View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;::forEach</a></div><div class="ttdeci">void forEach(const TCallback &amp;cb)</div><div class="ttdoc">Iterates over all results of the view.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00048">ViewImpl.hpp:48</a></div></div>
-<div class="ttc" id="aa03552_html"><div class="ttname"><a href="a03552.html">bl::util::ReadWriteLock</a></div><div class="ttdoc">Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockR...</div><div class="ttdef"><b>Definition:</b> <a href="a00947_source.html#l00020">ReadWriteLock.hpp:20</a></div></div>
-<div class="ttc" id="aa03552_html_a751259f66b9b1aece13bbf155cdd50c5"><div class="ttname"><a href="a03552.html#a751259f66b9b1aece13bbf155cdd50c5">bl::util::ReadWriteLock::unlockWrite</a></div><div class="ttdeci">void unlockWrite()</div><div class="ttdoc">Releases the write lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00035">ReadWriteLock.cpp:35</a></div></div>
-<div class="ttc" id="aa03552_html_ad37b398dbe7861cd2763e20002069263"><div class="ttname"><a href="a03552.html#ad37b398dbe7861cd2763e20002069263">bl::util::ReadWriteLock::lockWrite</a></div><div class="ttdeci">void lockWrite()</div><div class="ttdoc">Acquires a lock for writing a shared resource. Only one thread may hold this lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00029">ReadWriteLock.cpp:29</a></div></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keyword">const</span> T* <a class="code" href="a01841.html#a845807aaa72a2f27bdb628e50789b5b2">operator-&gt;</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a01841.html#aa94b7ac099fd0e3d29e4d8c5a537d620">erase</a>();</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="a01841.html#a1bc363acf2da44215631ad51478e20bb">valid</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        std::size_t <a class="code" href="a01841.html#a961853e2261f718dbf91c5b789f2062d">id</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a01841.html#ae71c21ba4b07a2cd73436ddc716bf178">release</a>();</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <a class="code" href="a01833.html">ObjectPool</a>* owner;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        std::size_t index;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="a01841.html#a93d7f406d3b0f70778d2acf6bcb44771">  199</a></span>&#160;        <a class="code" href="a01841.html#aa07b6c3b5d78f0874416652e9f0f3ae7">FixedRef</a>(<a class="code" href="a01833.html">ObjectPool</a>* owner, std::size_t index);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a01833.html">ObjectPool</a>&lt;T&gt;;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    };</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <a class="code" href="a01833.html#a27f9907a3e436ee0dafc7153f6aaabc9">ObjectPool</a>(<a class="code" href="a01833.html#a8f3ba1866f0d59f4c59a71baf65e6a2e">GrowthPolicy</a> policy, std::size_t <a class="code" href="a01833.html#ac8bfa220ebcf3a7749984d1856556006">capacity</a>);</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <a class="code" href="a01837.html">Iterator</a> <a class="code" href="a01833.html#a058a31d48e47bf82c5739ba9f83234b0">add</a>(<span class="keyword">const</span> T&amp; obj);</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <a class="code" href="a01837.html">Iterator</a> <a class="code" href="a01833.html#a058a31d48e47bf82c5739ba9f83234b0">add</a>(T&amp;&amp; obj);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <a class="code" href="a01837.html">Iterator</a> <a class="code" href="a01833.html#ab85eaf70662f200632cd6b7898a9522b">emplace</a>(TArgs&amp;&amp;... args);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <a class="code" href="a01841.html">FixedRef</a> <a class="code" href="a01833.html#ae161e91982f4547b1bdf5fef51993e8a">getStableRef</a>(<a class="code" href="a01837.html">Iterator</a> it);</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    T&amp; <a class="code" href="a01833.html#a5d59555f0026df437fb12ceab0953502">getWithId</a>(std::size_t <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01833.html#ab442aaa73233ff5659c828b7cfc9d228">erase</a>(<span class="keyword">const</span> <a class="code" href="a01837.html">Iterator</a>&amp; i);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <a class="code" href="a01837.html">Iterator</a> <a class="code" href="a01833.html#a9c6ccb7e23f8cc309947bfb973b99346">begin</a>();</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <a class="code" href="a01837.html">ConstIterator</a> <a class="code" href="a01833.html#a9c6ccb7e23f8cc309947bfb973b99346">begin</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <a class="code" href="a01837.html">Iterator</a> <a class="code" href="a01833.html#a42a04d62d279882817065d190ff55230">end</a>();</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <a class="code" href="a01837.html">ConstIterator</a> <a class="code" href="a01833.html#a42a04d62d279882817065d190ff55230">end</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    std::size_t <a class="code" href="a01833.html#adb7eba214d944c400844c1be0f0abbc6">size</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    std::size_t <a class="code" href="a01833.html#ac8bfa220ebcf3a7749984d1856556006">capacity</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01833.html#a484ef929991d71701f01893f3afc57d2">reserve</a>(std::size_t <a class="code" href="a01833.html#ac8bfa220ebcf3a7749984d1856556006">capacity</a>);</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160; </div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01833.html#a0da36709ef36559eb01b00879b1c03db">clear</a>(<span class="keywordtype">bool</span> shrinkStorage = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01833.html#a38989822ec7a0ff888b213b3d422c862">shrink</a>();</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01833.html#a7efe5acd0011ff861c7749ccf5efe0ab">empty</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    <span class="keyword">class </span>Entry {</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        <span class="keyword">explicit</span> Entry()</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        : _alive(false)</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        , _next(-1) {}</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160; </div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        Entry(<span class="keyword">const</span> T&amp; data)</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        : _alive(true) {</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;            payload.emplace(data);</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        }</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160; </div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        Entry(T&amp;&amp; data)</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        : _alive(true) {</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;            payload.emplace(std::forward&lt;T&gt;(data));</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        }</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        Entry(TArgs&amp;&amp;... args)</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        : _alive(true) {</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;            payload.emplace(std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        }</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160; </div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        Entry(Entry&amp;&amp; copy)</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;        : _alive(copy._alive) {</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;            <span class="keywordflow">if</span> (copy._alive) { payload.emplace(std::forward&lt;T&gt;(copy.payload.getRValue())); }</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;            <span class="keywordflow">else</span> { _next = copy._next; }</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        }</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        ~Entry() {</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;            <span class="keywordflow">if</span> (_alive) { payload.destroy(); }</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        }</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160; </div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a01833.html#ab85eaf70662f200632cd6b7898a9522b">emplace</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;            <span class="keywordflow">if</span> (_alive) { payload.destroy(); }</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;            <span class="keywordflow">else</span> { _alive = <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;            payload.emplace(std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        }</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        <span class="keywordtype">void</span> destroy() {</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            _alive = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;            payload.destroy();</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;        }</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        constexpr <span class="keywordtype">bool</span> alive()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _alive; }</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        constexpr T&amp; get() { <span class="keywordflow">return</span> payload.get(); }</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        constexpr <span class="keywordtype">long</span>&amp; next() { <span class="keywordflow">return</span> _next; }</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160; </div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        <span class="keywordtype">bool</span> _alive;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        <span class="keyword">union </span>{</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;            ObjectWrapper&lt;T&gt; payload;</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;            <span class="keywordtype">long</span> _next;</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        };</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    };</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160; </div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01833.html#a8f3ba1866f0d59f4c59a71baf65e6a2e">GrowthPolicy</a> policy;</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    std::vector&lt;Entry&gt; pool;</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    std::size_t trackedSize;</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    <span class="keywordtype">long</span> next;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    <span class="keywordtype">long</span> oldest;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    constexpr Entry* endPointer() { <span class="keywordflow">return</span> pool.data() + pool.size(); }</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    constexpr <span class="keyword">const</span> Entry* endPointer()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> pool.data() + pool.size(); }</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    Entry* doAdd();</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;};</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160; </div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160; </div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00404"></a><span class="lineno"><a class="line" href="a01833.html#a27f9907a3e436ee0dafc7153f6aaabc9">  404</a></span>&#160;<a class="code" href="a01833.html#a27f9907a3e436ee0dafc7153f6aaabc9">ObjectPool&lt;T&gt;::ObjectPool</a>(<a class="code" href="a01833.html#a8f3ba1866f0d59f4c59a71baf65e6a2e">GrowthPolicy</a> pl, std::size_t cap)</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;: policy(pl)</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;, trackedSize(0)</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;, next(-1)</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;, oldest(-1) {</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    pool.reserve(cap);</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;}</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160; </div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00413"></a><span class="lineno"><a class="line" href="a01833.html#a058a31d48e47bf82c5739ba9f83234b0">  413</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a01837.html">ObjectPool&lt;T&gt;::Iterator</a> <a class="code" href="a01833.html#a058a31d48e47bf82c5739ba9f83234b0">ObjectPool&lt;T&gt;::add</a>(<span class="keyword">const</span> T&amp; obj) {</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    Entry* e = doAdd();</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="keywordflow">if</span> (e != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        e-&gt;emplace(obj);</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        <span class="keywordflow">return</span> {e, endPointer()};</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    }</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="keywordflow">return</span> end();</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;}</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160; </div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00423"></a><span class="lineno"><a class="line" href="a01833.html#a0cac0543c27daab2bdb6ad94da2cc8d6">  423</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a01837.html">ObjectPool&lt;T&gt;::Iterator</a> <a class="code" href="a01833.html#a058a31d48e47bf82c5739ba9f83234b0">ObjectPool&lt;T&gt;::add</a>(T&amp;&amp; obj) {</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    Entry* e = doAdd();</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    <span class="keywordflow">if</span> (e != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;        e-&gt;emplace(std::forward&lt;T&gt;(obj));</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        <span class="keywordflow">return</span> {e, endPointer()};</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    }</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    <span class="keywordflow">return</span> end();</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;}</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160; </div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00434"></a><span class="lineno"><a class="line" href="a01833.html#ab85eaf70662f200632cd6b7898a9522b">  434</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a01837.html">ObjectPool&lt;T&gt;::Iterator</a> <a class="code" href="a01833.html#ab85eaf70662f200632cd6b7898a9522b">ObjectPool&lt;T&gt;::emplace</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    Entry* e = doAdd();</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <span class="keywordflow">if</span> (e != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        e-&gt;emplace(std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        <span class="keywordflow">return</span> {e, endPointer()};</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    }</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <span class="keywordflow">return</span> end();</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;}</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160; </div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00444"></a><span class="lineno"><a class="line" href="a01833.html#ae161e91982f4547b1bdf5fef51993e8a">  444</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a01841.html">ObjectPool&lt;T&gt;::FixedRef</a> <a class="code" href="a01833.html#ae161e91982f4547b1bdf5fef51993e8a">ObjectPool&lt;T&gt;::getStableRef</a>(<a class="code" href="a01837.html">Iterator</a> it) {</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    <span class="keyword">const</span> std::size_t i = it.pos - pool.data();</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    <span class="keywordflow">return</span> {<span class="keyword">this</span>, i};</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;}</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160; </div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00450"></a><span class="lineno"><a class="line" href="a01833.html#a5d59555f0026df437fb12ceab0953502">  450</a></span>&#160;T&amp; <a class="code" href="a01833.html#a5d59555f0026df437fb12ceab0953502">ObjectPool&lt;T&gt;::getWithId</a>(std::size_t i) {</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    <span class="keywordflow">return</span> pool[i].get();</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;}</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160; </div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;<span class="keyword">typename</span> <a class="code" href="a01833.html">ObjectPool&lt;T&gt;::Entry</a>* <a class="code" href="a01833.html">ObjectPool&lt;T&gt;::doAdd</a>() {</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;    ++trackedSize;</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    <span class="keywordflow">if</span> (next &gt;= 0) {</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;        Entry* e = &amp;pool[next];</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;        next     = e-&gt;next();</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;        <span class="keywordflow">return</span> e;</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    }</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;        <span class="keywordflow">if</span> (pool.size() &lt; pool.capacity() || policy == GrowthPolicy::ExpandBuffer) {</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;            pool.emplace_back();</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;            <span class="keywordflow">return</span> &amp;pool.back();</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        }</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;            <span class="keywordflow">switch</span> (policy) {</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;            <span class="keywordflow">case</span> GrowthPolicy::FailContinue:</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;                <a class="code" href="a00428.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="keyword">typeid</span>(T).name() &lt;&lt; <span class="stringliteral">&quot; pool exceeded capacity (&quot;</span> &lt;&lt; capacity()</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;                            &lt;&lt; <span class="stringliteral">&quot;). Increase allocation&quot;</span>;</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;            <span class="keywordflow">case</span> GrowthPolicy::FailTerminate:</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;                <a class="code" href="a00428.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="keyword">typeid</span>(T).name() &lt;&lt; <span class="stringliteral">&quot; pool exceeded capacity (&quot;</span> &lt;&lt; capacity()</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;                                &lt;&lt; <span class="stringliteral">&quot;). Increase allocation. Terminating&quot;</span>;</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;                std::exit(1);</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;            <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;                <span class="comment">// unreachable</span></div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;            }</div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;        }</div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;    }</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;}</div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160; </div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00487"></a><span class="lineno"><a class="line" href="a01833.html#ab442aaa73233ff5659c828b7cfc9d228">  487</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01833.html#ab442aaa73233ff5659c828b7cfc9d228">ObjectPool&lt;T&gt;::erase</a>(<span class="keyword">const</span> <a class="code" href="a01837.html">Iterator</a>&amp; i) {</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;    --trackedSize;</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;    i.pos-&gt;destroy();</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    i.pos-&gt;next() = -1;</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;    <span class="keywordflow">if</span> (next &gt;= 0) { i.pos-&gt;next() = next; }</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;    next = i.pos - pool.data();</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;}</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160; </div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00496"></a><span class="lineno"><a class="line" href="a01833.html#a9c6ccb7e23f8cc309947bfb973b99346">  496</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a01837.html">ObjectPool&lt;T&gt;::Iterator</a> <a class="code" href="a01833.html#a9c6ccb7e23f8cc309947bfb973b99346">ObjectPool&lt;T&gt;::begin</a>() {</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;    <span class="keywordflow">return</span> {pool.data(), endPointer()};</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;}</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160; </div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00501"></a><span class="lineno"><a class="line" href="a01833.html#a88838fb6e4d2a0e6896c90d55ddd8be6">  501</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a01837.html">ObjectPool&lt;T&gt;::ConstIterator</a> <a class="code" href="a01833.html#a9c6ccb7e23f8cc309947bfb973b99346">ObjectPool&lt;T&gt;::begin</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;    <span class="keywordflow">return</span> {pool.data(), endPointer()};</div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;}</div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160; </div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00506"></a><span class="lineno"><a class="line" href="a01833.html#a42a04d62d279882817065d190ff55230">  506</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a01837.html">ObjectPool&lt;T&gt;::Iterator</a> <a class="code" href="a01833.html#a42a04d62d279882817065d190ff55230">ObjectPool&lt;T&gt;::end</a>() {</div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <span class="keywordflow">return</span> {endPointer(), endPointer()};</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;}</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160; </div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00511"></a><span class="lineno"><a class="line" href="a01833.html#a1870988cd138cfa2f727bc015116c007">  511</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a01837.html">ObjectPool&lt;T&gt;::ConstIterator</a> <a class="code" href="a01833.html#a42a04d62d279882817065d190ff55230">ObjectPool&lt;T&gt;::end</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;    <span class="keywordflow">return</span> {endPointer(), endPointer()};</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;}</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160; </div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00516"></a><span class="lineno"><a class="line" href="a01833.html#adb7eba214d944c400844c1be0f0abbc6">  516</a></span>&#160;std::size_t <a class="code" href="a01833.html#adb7eba214d944c400844c1be0f0abbc6">ObjectPool&lt;T&gt;::size</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;    <span class="keywordflow">return</span> trackedSize;</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;}</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160; </div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00521"></a><span class="lineno"><a class="line" href="a01833.html#ac8bfa220ebcf3a7749984d1856556006">  521</a></span>&#160;std::size_t <a class="code" href="a01833.html#ac8bfa220ebcf3a7749984d1856556006">ObjectPool&lt;T&gt;::capacity</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    <span class="keywordflow">return</span> pool.capacity();</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;}</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160; </div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00526"></a><span class="lineno"><a class="line" href="a01833.html#a484ef929991d71701f01893f3afc57d2">  526</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01833.html#a484ef929991d71701f01893f3afc57d2">ObjectPool&lt;T&gt;::reserve</a>(std::size_t cap) {</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;    pool.reserve(cap);</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;}</div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160; </div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00531"></a><span class="lineno"><a class="line" href="a01833.html#a7efe5acd0011ff861c7749ccf5efe0ab">  531</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01833.html#a7efe5acd0011ff861c7749ccf5efe0ab">ObjectPool&lt;T&gt;::empty</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;    <span class="keywordflow">return</span> trackedSize == 0;</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;}</div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160; </div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00536"></a><span class="lineno"><a class="line" href="a01833.html#a0da36709ef36559eb01b00879b1c03db">  536</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01833.html#a0da36709ef36559eb01b00879b1c03db">ObjectPool&lt;T&gt;::clear</a>(<span class="keywordtype">bool</span> s) {</div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;    trackedSize = 0;</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;    <span class="keywordflow">for</span> (Entry&amp; entry : pool) {</div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;        <span class="keywordflow">if</span> (entry.alive()) { entry.destroy(); }</div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;        <span class="keywordflow">else</span> { entry.next() = -1; }</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;    }</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;    pool.clear();</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;    next = -1;</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;    <span class="keywordflow">if</span> (s) {</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;        std::vector&lt;Entry&gt; newPool;</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;        std::swap(newPool, pool);</div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;    }</div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;}</div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160; </div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00551"></a><span class="lineno"><a class="line" href="a01833.html#a38989822ec7a0ff888b213b3d422c862">  551</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01833.html#a38989822ec7a0ff888b213b3d422c862">ObjectPool&lt;T&gt;::shrink</a>() {</div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;    std::vector&lt;Entry&gt; newPool;</div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;    newPool.reserve(trackedSize);</div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;    <span class="keywordflow">for</span> (Entry&amp; entry : pool) {</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;        <span class="keywordflow">if</span> (entry.alive()) { newPool.emplace_back(std::move(entry)); }</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;    }</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;    std::swap(pool, newPool);</div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;    next = -1;</div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;}</div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160; </div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ET&gt;</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;<a class="code" href="a01833.html">ObjectPool&lt;T&gt;::IteratorType&lt;ET&gt;::IteratorType</a>(EP e, EP end)</div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;: pos(e)</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;, end(end) {}</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160; </div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ET&gt;</div>
+<div class="line"><a name="l00569"></a><span class="lineno"><a class="line" href="a01837.html#a37cb1f0a31b2adc67c5016ed5c485d55">  569</a></span>&#160;constexpr ET&amp; <a class="code" href="a01833.html">ObjectPool&lt;T&gt;::IteratorType&lt;ET&gt;::operator*</a>() {</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    <span class="keywordflow">return</span> pos-&gt;get();</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;}</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160; </div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ET&gt;</div>
+<div class="line"><a name="l00575"></a><span class="lineno"><a class="line" href="a01837.html#adf6b9d9eec11d64c5510c8ee15b7e11e">  575</a></span>&#160;constexpr ET* <a class="code" href="a01833.html">ObjectPool&lt;T&gt;::IteratorType&lt;ET&gt;::operator-&gt;</a>() {</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;    <span class="keywordflow">return</span> &amp;pos-&gt;get();</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;}</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160; </div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ET&gt;</div>
+<div class="line"><a name="l00581"></a><span class="lineno"><a class="line" href="a01837.html#ae9272f8c5c2f46a54b5b4bbf6036b365">  581</a></span>&#160;constexpr <span class="keyword">const</span> ET&amp; <a class="code" href="a01833.html">ObjectPool&lt;T&gt;::IteratorType&lt;ET&gt;::operator*</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    <span class="keywordflow">return</span> pos-&gt;get();</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;}</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160; </div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ET&gt;</div>
+<div class="line"><a name="l00587"></a><span class="lineno"><a class="line" href="a01837.html#a15ff9cc6f2ac55cc54d4dc0c75565cf7">  587</a></span>&#160;constexpr <span class="keyword">const</span> ET* <a class="code" href="a01833.html">ObjectPool&lt;T&gt;::IteratorType&lt;ET&gt;::operator-&gt;</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;    <span class="keywordflow">return</span> &amp;pos-&gt;get();</div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;}</div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160; </div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ET&gt;</div>
+<div class="line"><a name="l00593"></a><span class="lineno"><a class="line" href="a01837.html#a50898290fefcc2773ff40631ec48a9da">  593</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a01833.html">ObjectPool&lt;T&gt;::template</a> <a class="code" href="a01837.html">IteratorType&lt;ET&gt;</a>&amp; <a class="code" href="a01833.html">ObjectPool&lt;T&gt;::IteratorType&lt;ET&gt;::operator++</a>() {</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;    <span class="keywordflow">do</span> { ++pos; } <span class="keywordflow">while</span> (pos != end &amp;&amp; !pos-&gt;alive());</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;}</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160; </div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ET&gt;</div>
+<div class="line"><a name="l00600"></a><span class="lineno"><a class="line" href="a01837.html#ab6df4260289a37820ec9237162226dbc">  600</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a01833.html">ObjectPool&lt;T&gt;::template</a> <a class="code" href="a01837.html">IteratorType&lt;ET&gt;</a>&amp; <a class="code" href="a01833.html">ObjectPool&lt;T&gt;::IteratorType&lt;ET&gt;::operator++</a>(</div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;    <span class="keywordtype">int</span>) {</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> ov = *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    <span class="keywordflow">do</span> { ++pos; } <span class="keywordflow">while</span> (pos != end &amp;&amp; !pos-&gt;alive());</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    <span class="keywordflow">return</span> ov;</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;}</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160; </div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ET&gt;</div>
+<div class="line"><a name="l00609"></a><span class="lineno"><a class="line" href="a01837.html#ac84508e690565aab8b8318c96e060cfa">  609</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a00497.html#a5e0789b19a9a862930b0d3fbd794925f">ObjectPool&lt;T&gt;::IteratorType&lt;ET&gt;::operator==</a>(<span class="keyword">const</span> <a class="code" href="a01837.html">IteratorType&lt;ET&gt;</a>&amp; right)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    <span class="keywordflow">return</span> pos == right.pos;</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;}</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160; </div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> ET&gt;</div>
+<div class="line"><a name="l00615"></a><span class="lineno"><a class="line" href="a01837.html#a2570c724c8fb954b818f93e4c7bfd297">  615</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01833.html">ObjectPool&lt;T&gt;::IteratorType&lt;ET&gt;::operator!=</a>(<span class="keyword">const</span> <a class="code" href="a01837.html">IteratorType&lt;ET&gt;</a>&amp; right)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;    <span class="keywordflow">return</span> pos != right.pos;</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;}</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160; </div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00620"></a><span class="lineno"><a class="line" href="a01841.html#aa07b6c3b5d78f0874416652e9f0f3ae7">  620</a></span>&#160;<a class="code" href="a01841.html#aa07b6c3b5d78f0874416652e9f0f3ae7">ObjectPool&lt;T&gt;::FixedRef::FixedRef</a>()</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;: owner(nullptr)</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;, index(0) {}</div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160; </div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;<a class="code" href="a01841.html#aa07b6c3b5d78f0874416652e9f0f3ae7">ObjectPool&lt;T&gt;::FixedRef::FixedRef</a>(<a class="code" href="a01833.html">ObjectPool&lt;T&gt;</a>* p, std::size_t i)</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;: owner(p)</div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;, index(i) {}</div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160; </div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00630"></a><span class="lineno"><a class="line" href="a01841.html#a47ea2bb4fe7cba2aec5f4a3c7bb1f7cd">  630</a></span>&#160;T&amp; <a class="code" href="a01841.html#a47ea2bb4fe7cba2aec5f4a3c7bb1f7cd">ObjectPool&lt;T&gt;::FixedRef::operator*</a>() {</div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;    <span class="keywordflow">return</span> owner-&gt;pool[index].get();</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;}</div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160; </div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00635"></a><span class="lineno"><a class="line" href="a01841.html#af3e711999016a215db9da8a805024655">  635</a></span>&#160;<span class="keyword">const</span> T&amp; <a class="code" href="a01841.html#a47ea2bb4fe7cba2aec5f4a3c7bb1f7cd">ObjectPool&lt;T&gt;::FixedRef::operator*</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;    <span class="keywordflow">return</span> owner-&gt;pool[index].get();</div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;}</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160; </div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00640"></a><span class="lineno"><a class="line" href="a01841.html#a845807aaa72a2f27bdb628e50789b5b2">  640</a></span>&#160;T* <a class="code" href="a01841.html#a845807aaa72a2f27bdb628e50789b5b2">ObjectPool&lt;T&gt;::FixedRef::operator-&gt;</a>() {</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;    <span class="keywordflow">return</span> &amp;owner-&gt;pool[index].get();</div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;}</div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160; </div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00645"></a><span class="lineno"><a class="line" href="a01841.html#a6fb43482c00fb7c40c45cebfeb7ca465">  645</a></span>&#160;<span class="keyword">const</span> T* <a class="code" href="a01841.html#a845807aaa72a2f27bdb628e50789b5b2">ObjectPool&lt;T&gt;::FixedRef::operator-&gt;</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;    <span class="keywordflow">return</span> &amp;owner-&gt;pool[index].get();</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;}</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160; </div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00650"></a><span class="lineno"><a class="line" href="a01841.html#aa94b7ac099fd0e3d29e4d8c5a537d620">  650</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01841.html#aa94b7ac099fd0e3d29e4d8c5a537d620">ObjectPool&lt;T&gt;::FixedRef::erase</a>() {</div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;    owner-&gt;erase(<a class="code" href="a01837.html">ObjectPool&lt;T&gt;::Iterator</a>{owner-&gt;pool.data() + index, <span class="keyword">nullptr</span>});</div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;}</div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160; </div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00655"></a><span class="lineno"><a class="line" href="a01841.html#a1bc363acf2da44215631ad51478e20bb">  655</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01841.html#a1bc363acf2da44215631ad51478e20bb">ObjectPool&lt;T&gt;::FixedRef::valid</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;    <span class="keywordflow">return</span> owner &amp;&amp; owner-&gt;pool[index].alive();</div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;}</div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160; </div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00660"></a><span class="lineno"><a class="line" href="a01841.html#ae71c21ba4b07a2cd73436ddc716bf178">  660</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01841.html#ae71c21ba4b07a2cd73436ddc716bf178">ObjectPool&lt;T&gt;::FixedRef::release</a>() {</div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;    owner = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;}</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160; </div>
+<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00665"></a><span class="lineno"><a class="line" href="a01841.html#a961853e2261f718dbf91c5b789f2062d">  665</a></span>&#160;std::size_t <a class="code" href="a01841.html#a961853e2261f718dbf91c5b789f2062d">ObjectPool&lt;T&gt;::FixedRef::id</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;    <span class="keywordflow">return</span> index;</div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;}</div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160; </div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;} <span class="comment">// namespace container</span></div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160; </div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00083_html"><div class="ttname"><a href="a00083.html">ObjectWrapper.hpp</a></div></div>
+<div class="ttc" id="aa00428_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a00428.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00428_source.html#l00098">Logger.hpp:98</a></div></div>
+<div class="ttc" id="aa00428_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00428.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00428_source.html#l00104">Logger.hpp:104</a></div></div>
+<div class="ttc" id="aa00434_html"><div class="ttname"><a href="a00434.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa00497_html_a5e0789b19a9a862930b0d3fbd794925f"><div class="ttname"><a href="a00497.html#a5e0789b19a9a862930b0d3fbd794925f">operator==</a></div><div class="ttdeci">bool operator==(const bl::parser::Node::Sequence &amp;rhs, const bl::parser::Node::Sequence &amp;lhs)</div><div class="ttdef"><b>Definition:</b> <a href="a00497_source.html#l00053">Node.hpp:53</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl::container::ObjectPool</a></div><div class="ttdoc">Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1),...</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00025">ObjectPool.hpp:25</a></div></div>
+<div class="ttc" id="aa01833_html_a058a31d48e47bf82c5739ba9f83234b0"><div class="ttname"><a href="a01833.html#a058a31d48e47bf82c5739ba9f83234b0">bl::container::ObjectPool::add</a></div><div class="ttdeci">Iterator add(const T &amp;obj)</div><div class="ttdoc">Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00413">ObjectPool.hpp:413</a></div></div>
+<div class="ttc" id="aa01833_html_a0da36709ef36559eb01b00879b1c03db"><div class="ttname"><a href="a01833.html#a0da36709ef36559eb01b00879b1c03db">bl::container::ObjectPool::clear</a></div><div class="ttdeci">void clear(bool shrinkStorage=false)</div><div class="ttdoc">Removes all objects from the pool. This invalidates all iterators.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00536">ObjectPool.hpp:536</a></div></div>
+<div class="ttc" id="aa01833_html_a27f9907a3e436ee0dafc7153f6aaabc9"><div class="ttname"><a href="a01833.html#a27f9907a3e436ee0dafc7153f6aaabc9">bl::container::ObjectPool::ObjectPool</a></div><div class="ttdeci">ObjectPool(GrowthPolicy policy, std::size_t capacity)</div><div class="ttdoc">Initializes the object pool with the growth policy and initial capacity. Not that,...</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00404">ObjectPool.hpp:404</a></div></div>
+<div class="ttc" id="aa01833_html_a38989822ec7a0ff888b213b3d422c862"><div class="ttname"><a href="a01833.html#a38989822ec7a0ff888b213b3d422c862">bl::container::ObjectPool::shrink</a></div><div class="ttdeci">void shrink()</div><div class="ttdoc">Shrinks the capacity of the pool down to the size.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00551">ObjectPool.hpp:551</a></div></div>
+<div class="ttc" id="aa01833_html_a42a04d62d279882817065d190ff55230"><div class="ttname"><a href="a01833.html#a42a04d62d279882817065d190ff55230">bl::container::ObjectPool::end</a></div><div class="ttdeci">Iterator end()</div><div class="ttdoc">Returns an iterator to the end of the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00506">ObjectPool.hpp:506</a></div></div>
+<div class="ttc" id="aa01833_html_a484ef929991d71701f01893f3afc57d2"><div class="ttname"><a href="a01833.html#a484ef929991d71701f01893f3afc57d2">bl::container::ObjectPool::reserve</a></div><div class="ttdeci">void reserve(std::size_t capacity)</div><div class="ttdoc">Reserve space for the given capacity.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00526">ObjectPool.hpp:526</a></div></div>
+<div class="ttc" id="aa01833_html_a5d59555f0026df437fb12ceab0953502"><div class="ttname"><a href="a01833.html#a5d59555f0026df437fb12ceab0953502">bl::container::ObjectPool::getWithId</a></div><div class="ttdeci">T &amp; getWithId(std::size_t id)</div><div class="ttdoc">Direct accessor used to index into the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00450">ObjectPool.hpp:450</a></div></div>
+<div class="ttc" id="aa01833_html_a7efe5acd0011ff861c7749ccf5efe0ab"><div class="ttname"><a href="a01833.html#a7efe5acd0011ff861c7749ccf5efe0ab">bl::container::ObjectPool::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdoc">Returns whether or not the pool is empty.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00531">ObjectPool.hpp:531</a></div></div>
+<div class="ttc" id="aa01833_html_a8f3ba1866f0d59f4c59a71baf65e6a2e"><div class="ttname"><a href="a01833.html#a8f3ba1866f0d59f4c59a71baf65e6a2e">bl::container::ObjectPool::GrowthPolicy</a></div><div class="ttdeci">GrowthPolicy</div><div class="ttdoc">Policy which dictates how the pool handles adding new objects when it is full.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00030">ObjectPool.hpp:30</a></div></div>
+<div class="ttc" id="aa01833_html_a8f3ba1866f0d59f4c59a71baf65e6a2ea397f2ef02361db55ac809f6e79ce5c0f"><div class="ttname"><a href="a01833.html#a8f3ba1866f0d59f4c59a71baf65e6a2ea397f2ef02361db55ac809f6e79ce5c0f">bl::container::ObjectPool::GrowthPolicy::FailContinue</a></div><div class="ttdeci">@ FailContinue</div><div class="ttdoc">add() will fail and return end() when the pool is full. Addresses are stable</div></div>
+<div class="ttc" id="aa01833_html_a8f3ba1866f0d59f4c59a71baf65e6a2ea55d57684e37853782141c970a4df7b3f"><div class="ttname"><a href="a01833.html#a8f3ba1866f0d59f4c59a71baf65e6a2ea55d57684e37853782141c970a4df7b3f">bl::container::ObjectPool::GrowthPolicy::ExpandBuffer</a></div><div class="ttdeci">@ ExpandBuffer</div><div class="ttdoc">The pool is reallocated to a larger buffer. Addresses are not stable.</div></div>
+<div class="ttc" id="aa01833_html_a8f3ba1866f0d59f4c59a71baf65e6a2ea8614c7df46beb12646183fa39e23a92a"><div class="ttname"><a href="a01833.html#a8f3ba1866f0d59f4c59a71baf65e6a2ea8614c7df46beb12646183fa39e23a92a">bl::container::ObjectPool::GrowthPolicy::FailTerminate</a></div><div class="ttdeci">@ FailTerminate</div><div class="ttdoc">add() will call std::exit() when the pool is full</div></div>
+<div class="ttc" id="aa01833_html_a9c6ccb7e23f8cc309947bfb973b99346"><div class="ttname"><a href="a01833.html#a9c6ccb7e23f8cc309947bfb973b99346">bl::container::ObjectPool::begin</a></div><div class="ttdeci">Iterator begin()</div><div class="ttdoc">Returns an iterator to the beginning of the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00496">ObjectPool.hpp:496</a></div></div>
+<div class="ttc" id="aa01833_html_ab442aaa73233ff5659c828b7cfc9d228"><div class="ttname"><a href="a01833.html#ab442aaa73233ff5659c828b7cfc9d228">bl::container::ObjectPool::erase</a></div><div class="ttdeci">void erase(const Iterator &amp;i)</div><div class="ttdoc">Removes the given iterator from the pool and marks the object slot for reuse. All iterators remain va...</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00487">ObjectPool.hpp:487</a></div></div>
+<div class="ttc" id="aa01833_html_ab85eaf70662f200632cd6b7898a9522b"><div class="ttname"><a href="a01833.html#ab85eaf70662f200632cd6b7898a9522b">bl::container::ObjectPool::emplace</a></div><div class="ttdeci">Iterator emplace(TArgs &amp;&amp;... args)</div><div class="ttdoc">Constructs a new object in-place in the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00434">ObjectPool.hpp:434</a></div></div>
+<div class="ttc" id="aa01833_html_ac8bfa220ebcf3a7749984d1856556006"><div class="ttname"><a href="a01833.html#ac8bfa220ebcf3a7749984d1856556006">bl::container::ObjectPool::capacity</a></div><div class="ttdeci">std::size_t capacity() const</div><div class="ttdoc">Returns the capacity of the pool. This is the size plus the amount of unused slots.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00521">ObjectPool.hpp:521</a></div></div>
+<div class="ttc" id="aa01833_html_adb7eba214d944c400844c1be0f0abbc6"><div class="ttname"><a href="a01833.html#adb7eba214d944c400844c1be0f0abbc6">bl::container::ObjectPool::size</a></div><div class="ttdeci">std::size_t size() const</div><div class="ttdoc">Returns the size of the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00516">ObjectPool.hpp:516</a></div></div>
+<div class="ttc" id="aa01833_html_ae161e91982f4547b1bdf5fef51993e8a"><div class="ttname"><a href="a01833.html#ae161e91982f4547b1bdf5fef51993e8a">bl::container::ObjectPool::getStableRef</a></div><div class="ttdeci">FixedRef getStableRef(Iterator it)</div><div class="ttdoc">Returns a stable reference to an object from its iterator.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00444">ObjectPool.hpp:444</a></div></div>
+<div class="ttc" id="aa01837_html"><div class="ttname"><a href="a01837.html">bl::container::ObjectPool::IteratorType</a></div><div class="ttdoc">Iterator for traversing the object pool. Use Iterator or ConstIterator. Forward iteration only.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00048">ObjectPool.hpp:48</a></div></div>
+<div class="ttc" id="aa01837_html_a2570c724c8fb954b818f93e4c7bfd297"><div class="ttname"><a href="a01837.html#a2570c724c8fb954b818f93e4c7bfd297">bl::container::ObjectPool::IteratorType::operator!=</a></div><div class="ttdeci">bool operator!=(const IteratorType&lt; EType &gt; &amp;iterator) const</div><div class="ttdoc">Compares whether two iterators are not equal.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00615">ObjectPool.hpp:615</a></div></div>
+<div class="ttc" id="aa01837_html_a37cb1f0a31b2adc67c5016ed5c485d55"><div class="ttname"><a href="a01837.html#a37cb1f0a31b2adc67c5016ed5c485d55">bl::container::ObjectPool::IteratorType::operator*</a></div><div class="ttdeci">constexpr EType &amp; operator*()</div><div class="ttdoc">Returns a reference to the underlying object. Undefined behavior if invalid.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00569">ObjectPool.hpp:569</a></div></div>
+<div class="ttc" id="aa01837_html_a50898290fefcc2773ff40631ec48a9da"><div class="ttname"><a href="a01837.html#a50898290fefcc2773ff40631ec48a9da">bl::container::ObjectPool::IteratorType::operator++</a></div><div class="ttdeci">IteratorType&lt; EType &gt; &amp; operator++()</div><div class="ttdoc">Modifies this iterator to point to the next object in the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00593">ObjectPool.hpp:593</a></div></div>
+<div class="ttc" id="aa01837_html_a7d56bbbc132259f8ed83f487c2e04527"><div class="ttname"><a href="a01837.html#a7d56bbbc132259f8ed83f487c2e04527">bl::container::ObjectPool::IteratorType::IteratorType</a></div><div class="ttdeci">IteratorType()=default</div><div class="ttdoc">Creates an empty, invalid iterator.</div></div>
+<div class="ttc" id="aa01837_html_ab17f8906c005c864efd9fdf5f6634c92"><div class="ttname"><a href="a01837.html#ab17f8906c005c864efd9fdf5f6634c92">bl::container::ObjectPool::IteratorType::operator=</a></div><div class="ttdeci">IteratorType &amp; operator=(const IteratorType &amp;copy)=default</div><div class="ttdoc">Copies from the given iterator.</div></div>
+<div class="ttc" id="aa01837_html_ab6b511092d57ddfb51473af035d3aecf"><div class="ttname"><a href="a01837.html#ab6b511092d57ddfb51473af035d3aecf">bl::container::ObjectPool::IteratorType::IteratorType</a></div><div class="ttdeci">IteratorType(const IteratorType &amp;copy)=default</div><div class="ttdoc">Copies from the given iterator.</div></div>
+<div class="ttc" id="aa01837_html_ac84508e690565aab8b8318c96e060cfa"><div class="ttname"><a href="a01837.html#ac84508e690565aab8b8318c96e060cfa">bl::container::ObjectPool::IteratorType::operator==</a></div><div class="ttdeci">bool operator==(const IteratorType&lt; EType &gt; &amp;iterator) const</div><div class="ttdoc">Compares whether two iterators are equal.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00609">ObjectPool.hpp:609</a></div></div>
+<div class="ttc" id="aa01837_html_adf6b9d9eec11d64c5510c8ee15b7e11e"><div class="ttname"><a href="a01837.html#adf6b9d9eec11d64c5510c8ee15b7e11e">bl::container::ObjectPool::IteratorType::operator-&gt;</a></div><div class="ttdeci">constexpr EType * operator-&gt;()</div><div class="ttdoc">Returns a pointer to the underlying object. Undefined behavior if invalid.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00575">ObjectPool.hpp:575</a></div></div>
+<div class="ttc" id="aa01841_html"><div class="ttname"><a href="a01841.html">bl::container::ObjectPool::FixedRef</a></div><div class="ttdoc">Represents a stable reference into the object pool that remains valid even if the pool is resized....</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00138">ObjectPool.hpp:138</a></div></div>
+<div class="ttc" id="aa01841_html_a1bc363acf2da44215631ad51478e20bb"><div class="ttname"><a href="a01841.html#a1bc363acf2da44215631ad51478e20bb">bl::container::ObjectPool::FixedRef::valid</a></div><div class="ttdeci">bool valid() const</div><div class="ttdoc">Returns whether or not the underlying object still exists. This is always safe to call if the underly...</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00655">ObjectPool.hpp:655</a></div></div>
+<div class="ttc" id="aa01841_html_a47ea2bb4fe7cba2aec5f4a3c7bb1f7cd"><div class="ttname"><a href="a01841.html#a47ea2bb4fe7cba2aec5f4a3c7bb1f7cd">bl::container::ObjectPool::FixedRef::operator*</a></div><div class="ttdeci">T &amp; operator*()</div><div class="ttdoc">Returns the underlying object.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00630">ObjectPool.hpp:630</a></div></div>
+<div class="ttc" id="aa01841_html_a845807aaa72a2f27bdb628e50789b5b2"><div class="ttname"><a href="a01841.html#a845807aaa72a2f27bdb628e50789b5b2">bl::container::ObjectPool::FixedRef::operator-&gt;</a></div><div class="ttdeci">T * operator-&gt;()</div><div class="ttdoc">Returns the underlying object.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00640">ObjectPool.hpp:640</a></div></div>
+<div class="ttc" id="aa01841_html_a961853e2261f718dbf91c5b789f2062d"><div class="ttname"><a href="a01841.html#a961853e2261f718dbf91c5b789f2062d">bl::container::ObjectPool::FixedRef::id</a></div><div class="ttdeci">std::size_t id() const</div><div class="ttdoc">Returns the unique id of the underlying object.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00665">ObjectPool.hpp:665</a></div></div>
+<div class="ttc" id="aa01841_html_aa07b6c3b5d78f0874416652e9f0f3ae7"><div class="ttname"><a href="a01841.html#aa07b6c3b5d78f0874416652e9f0f3ae7">bl::container::ObjectPool::FixedRef::FixedRef</a></div><div class="ttdeci">FixedRef()</div><div class="ttdoc">Creates an invalid FixedRef.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00620">ObjectPool.hpp:620</a></div></div>
+<div class="ttc" id="aa01841_html_aa94b7ac099fd0e3d29e4d8c5a537d620"><div class="ttname"><a href="a01841.html#aa94b7ac099fd0e3d29e4d8c5a537d620">bl::container::ObjectPool::FixedRef::erase</a></div><div class="ttdeci">void erase()</div><div class="ttdoc">Erases the underlying object from the pool. Invalidates the reference.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00650">ObjectPool.hpp:650</a></div></div>
+<div class="ttc" id="aa01841_html_ae71c21ba4b07a2cd73436ddc716bf178"><div class="ttname"><a href="a01841.html#ae71c21ba4b07a2cd73436ddc716bf178">bl::container::ObjectPool::FixedRef::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Invalidates this ref entirely. Does not erase the underlying object.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00660">ObjectPool.hpp:660</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

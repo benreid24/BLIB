@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::resource::bundle::DefaultHandler Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,25 +66,139 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01623.html">bl</a></li><li class="navelem"><a class="el" href="a01668.html">resource</a></li><li class="navelem"><a class="el" href="a01669.html">bundle</a></li><li class="navelem"><a class="el" href="a03036.html">AnimationHandler</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01628.html">bl</a></li><li class="navelem"><a class="el" href="a01675.html">resource</a></li><li class="navelem"><a class="el" href="a01676.html">bundle</a></li><li class="navelem"><a class="el" href="a03033.html">DefaultHandler</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a03030.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::resource::bundle::AnimationHandler Member List</div>  </div>
+<div class="title">bl::resource::bundle::DefaultHandler Struct Reference<div class="ingroups"><a class="el" href="a01614.html">Resources</a> &raquo; <a class="el" href="a01626.html">Bundling</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03036.html">bl::resource::bundle::AnimationHandler</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03036.html#adf22a2d2b974daba7cf8ec92a0bdcf89">processFile</a>(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</td><td class="entry"><a class="el" href="a03036.html">bl::resource::bundle::AnimationHandler</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03036.html#adcefa3b148063f71d0748caef2d1bde1">~AnimationHandler</a>()=default</td><td class="entry"><a class="el" href="a03036.html">bl::resource::bundle::AnimationHandler</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03028.html#a02791d492932955f6faae5681d9c78ce">~FileHandler</a>()=default</td><td class="entry"><a class="el" href="a03028.html">bl::resource::bundle::FileHandler</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Default file handler used for all files that do not have a matching handler. Simply copies the file as-is into the bundle.  
+ <a href="a03033.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00776_source.html">DefaultHandler.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::resource::bundle::DefaultHandler:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03033.png" usemap="#bl::resource::bundle::DefaultHandler_map" alt=""/>
+  <map id="bl::resource::bundle::DefaultHandler_map" name="bl::resource::bundle::DefaultHandler_map">
+<area href="a03021.html" title="Base class for file handlers. File handlers process raw files and pack them into bundles...." alt="bl::resource::bundle::FileHandler" shape="rect" coords="0,0,214,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a00e361f6a8d0e181b78e483bc4789db8"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03033.html#a00e361f6a8d0e181b78e483bc4789db8">~DefaultHandler</a> ()=default</td></tr>
+<tr class="separator:a00e361f6a8d0e181b78e483bc4789db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89b9df24d442d31bef0c79d1d012c560"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03033.html#a89b9df24d442d31bef0c79d1d012c560">processFile</a> (const std::string &amp;path, std::ostream &amp;output, <a class="el" href="a03025.html">FileHandlerContext</a> &amp;context) override</td></tr>
+<tr class="memdesc:a89b9df24d442d31bef0c79d1d012c560"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the given file and add its data to the bundle.  <a href="a03033.html#a89b9df24d442d31bef0c79d1d012c560">More...</a><br /></td></tr>
+<tr class="separator:a89b9df24d442d31bef0c79d1d012c560"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Default file handler used for all files that do not have a matching handler. Simply copies the file as-is into the bundle. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00776_source.html#l00019">19</a> of file <a class="el" href="a00776_source.html">DefaultHandler.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a00e361f6a8d0e181b78e483bc4789db8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00e361f6a8d0e181b78e483bc4789db8">&#9670;&nbsp;</a></span>~DefaultHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::resource::bundle::DefaultHandler::~DefaultHandler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a89b9df24d442d31bef0c79d1d012c560"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89b9df24d442d31bef0c79d1d012c560">&#9670;&nbsp;</a></span>processFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::resource::bundle::DefaultHandler::processFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03025.html">FileHandlerContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Process the given file and add its data to the bundle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The file to process </td></tr>
+    <tr><td class="paramname">output</td><td>The stream to output packed data to </td></tr>
+    <tr><td class="paramname">context</td><td>Context to register dependency files and exclude files with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the file was able to be packed, false on error </dd></dl>
+
+<p>Implements <a class="el" href="a03021.html#a900c2270f110d450fc1ad0592fcd59a8">bl::resource::bundle::FileHandler</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01481_source.html#l00010">10</a> of file <a class="el" href="a01481_source.html">DefaultHandler.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/Resources/Bundling/FileHandlers/<a class="el" href="a00776_source.html">DefaultHandler.hpp</a></li>
+<li>src/Resources/Bundling/FileHandlers/<a class="el" href="a01481_source.html">DefaultHandler.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:11 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

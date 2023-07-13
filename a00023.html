@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Containers/ObjectPool.hpp File Reference</title>
+<title>BLIB: include/BLIB/Cameras/2D/Controllers/ConstrainedFollower.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_32e9a2f6b8be632bf999c595b5284fff.html">Containers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c04a943c4d3cd1d05b5d3c5b1d0dd453.html">Cameras</a></li><li class="navelem"><a class="el" href="dir_ce0cefa5b1d3b64155b48c92eb17890c.html">2D</a></li><li class="navelem"><a class="el" href="dir_6d8118606a55f09fb8c43633a428c04c.html">Controllers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,43 +74,39 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">ObjectPool.hpp File Reference</div>  </div>
+<div class="title">ConstrainedFollower.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00026_source.html">BLIB/Containers/ObjectWrapper.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00356_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;cstdlib&gt;</code><br />
-<code>#include &lt;cstring&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00020_source.html">BLIB/Cameras/2D/CameraController2D.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a04434_source.html">BLIB/Components/Transform2D.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00140_source.html">BLIB/ECS.hpp</a>&gt;</code><br />
+<code>#include &lt;SFML/Graphics/Rect.hpp&gt;</code><br />
 </div>
 <p><a href="a00023_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01752.html">bl::container::ObjectPool&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic object pool that may vary in size. Similar to <a class="el" href="a01740.html" title="A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...">FastEraseVector</a> in that erase is O(1), however objects in the pool maintain their indices in the <a class="el" href="a01752.html" title="Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1),...">ObjectPool</a>. Object slots are marked free on <a class="el" href="a01752.html#ab442aaa73233ff5659c828b7cfc9d228" title="Removes the given iterator from the pool and marks the object slot for reuse. All iterators remain va...">erase()</a>, reused on <a class="el" href="a01752.html#a058a31d48e47bf82c5739ba9f83234b0" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a>, and the pool grows in size if no slot is when <a class="el" href="a01752.html#a058a31d48e47bf82c5739ba9f83234b0" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a> is called. Objects must implement a default constructor and copy constructor.  <a href="a01752.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01756.html">bl::container::ObjectPool&lt; T &gt;::IteratorType&lt; EType &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator for traversing the object pool. Use Iterator or ConstIterator. Forward iteration only.  <a href="a01756.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01760.html">bl::container::ObjectPool&lt; T &gt;::FixedRef</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a stable reference into the object pool that remains valid even if the pool is resized. May become invalid if the object pointed to is erased.  <a href="a01760.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01757.html">bl::cam::c2d::ConstrainedFollower</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2d camera controller that centers a camera on an entity while keeping the visible region constrained to a given region. If the camera view is too large it centers on the region  <a href="a01757.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01623"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01623.html">bl</a></td></tr>
-<tr class="memdesc:a01623"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01628"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01628.html">bl</a></td></tr>
+<tr class="memdesc:a01628"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01625"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01625.html">bl::container</a></td></tr>
+<tr class="memitem:a01630"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01630.html">bl::cam</a></td></tr>
+<tr class="memdesc:a01630"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of engine defined cameras. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01631"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01631.html">bl::cam::c2d</a></td></tr>
+<tr class="memdesc:a01631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instances of 2d camera affectors and controllers. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::resource::bundle Namespace Reference</title>
+<title>BLIB: bl::rc::scene Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,93 +66,48 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01623.html">bl</a></li><li class="navelem"><a class="el" href="a01668.html">resource</a></li><li class="navelem"><a class="el" href="a01669.html">bundle</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01628.html">bl</a></li><li class="navelem"><a class="el" href="a01637.html">rc</a></li><li class="navelem"><a class="el" href="a01669.html">scene</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::resource::bundle Namespace Reference</div>  </div>
+<div class="title">bl::rc::scene Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a03116.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> bundling utility for combining external files into bundles.  
+<p>Collection of core rendering functionality for rendering scenes.  
 <a href="a01669.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02996.html">Bundle</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02996.html" title="Bundle to be used at runtime by BundleRuntime. Do not use directly.">Bundle</a> to be used at runtime by <a class="el" href="a03016.html" title="Runtime for bundles used by FileSystem. Do not use directly.">BundleRuntime</a>. Do not use directly.  <a href="a02996.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02785.html">BasicScene</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary scene class for the renderer. Provides batched rendering of objects by pipeline. Renders transparent objects after rendering all opaque objects.  <a href="a02785.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03000.html">BundledFileMetadata</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct containing metadata about a file in a bundle.  <a href="a03000.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02801.html">Key</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02801.html" title="Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...">Key</a> for objects in scenes. Contains update speed and scene id. <a class="el" href="a02813.html" title="Base class for all scene types and overlays. Provides common scene logic and object management....">Scene</a> ids are not unique across update speeds.  <a href="a02801.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03008.html">BundleMetadata</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class containing a file manifest for an individual bundle. Essentially a wrapped map of string -&gt; <a class="el" href="a03000.html" title="Basic struct containing metadata about a file in a bundle.">BundledFileMetadata</a>.  <a href="a03008.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02809.html">PostFX</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for post-processing of rendered scenes. This class simply copies the scene unaffected by default but a different pipeline may be specified to affect the behavior. If more descriptors or push constants are needed then derived classes may override <a class="el" href="a02809.html#a26284366eba3c2b79dae8d27f3dcf9af" title="Does nothing on the base class. Called prior to the draw commands being issued. Bind custom descripto...">onRender()</a> to bind what their pipeline needs.  <a href="a02809.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03016.html">BundleRuntime</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime for bundles used by <a class="el" href="a03056.html" title="File system wrapper which reads data from the underlying filesystem or from the configured bundle set...">FileSystem</a>. Do not use directly.  <a href="a03016.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02821.html">SceneObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base renderable object. Everything that is rendered will reference an instance of this. Exists within the renderer and is batched per pipeline. Other classes reference into the renderer to modify this. The renderer itself will rip through these to render everything.  <a href="a02821.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03020.html">BundleSource</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03024.html" title="Bundler configuration class. This determines the behavior of the bundler.">Config</a> struct defining a top level starting point for a bundle.  <a href="a03020.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02825.html">SceneObjectStorage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage for scene objects. Splits objects by update frequency.  <a href="a02825.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03024.html">Config</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02992.html" title="Top level resource bundler class. Use this to create bundles for release builds.">Bundler</a> configuration class. This determines the behavior of the bundler.  <a href="a03024.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02837.html">SceneRenderContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container class that holds the required parameters to render a scene and provides methods for descriptor set management and object rendering.  <a href="a02837.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03028.html">FileHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for file handlers. File handlers process raw files and pack them into bundles. The purpose of handlers is to register dependency files, exclude sidecar files, and perform conversions (ie json -&gt; binary) before packing data into the bundle.  <a href="a03028.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03032.html">FileHandlerContext</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context data that is provided to <a class="el" href="a03028.html" title="Base class for file handlers. File handlers process raw files and pack them into bundles....">FileHandler</a> objects when processing files.  <a href="a03032.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03036.html">AnimationHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">File handler for animations. Copies the data from disk as-is and adds the spritesheet file to the bundle as well.  <a href="a03036.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03040.html">DefaultHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default file handler used for all files that do not have a matching handler. Simply copies the file as-is into the bundle.  <a href="a03040.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03044.html">PlaylistHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">File handlers for processing playlists. Loads them as json from disk and saves as binary in the bundle. Song files are also added to the bundle.  <a href="a03044.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03048.html">Manifest</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level manifest that maps original file paths to the bundle path they are in. <a class="el" href="a02996.html" title="Bundle to be used at runtime by BundleRuntime. Do not use directly.">Bundle</a> paths in the manifest are relative to the manifest file itself.  <a href="a03048.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03668.html">Stats</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03672.html">BundleCreator</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a8a2a9b32bbe1a4a8091826b7556796c1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01669.html#a8a2a9b32bbe1a4a8091826b7556796c1">Serializer</a> = <a class="el" href="a03192.html">serial::binary::Serializer</a>&lt; <a class="el" href="a03008.html">BundleMetadata</a> &gt;</td></tr>
-<tr class="separator:a8a2a9b32bbe1a4a8091826b7556796c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a03116.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> bundling utility for combining external files into bundles. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a8a2a9b32bbe1a4a8091826b7556796c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a2a9b32bbe1a4a8091826b7556796c1">&#9670;&nbsp;</a></span>Serializer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef <a class="el" href="a03192.html">serial::binary::Serializer</a>&lt; <a class="el" href="a03048.html">Manifest</a> &gt; <a class="el" href="a01669.html#a8a2a9b32bbe1a4a8091826b7556796c1">bl::resource::bundle::Serializer</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01469_source.html#l00009">9</a> of file <a class="el" href="a01469_source.html">BundleMetadata.cpp</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Collection of core rendering functionality for rendering scenes. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:11 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

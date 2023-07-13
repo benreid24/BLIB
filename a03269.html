@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::serial::binary::priv::ReadWriteExistChecker&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,25 +66,95 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01623.html">bl</a></li><li class="navelem"><a class="el" href="a01645.html">serial</a></li><li class="navelem"><a class="el" href="a01671.html">binary</a></li><li class="navelem"><a class="el" href="a03272.html">Serializer&lt; script::Value, false &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01628.html">bl</a></li><li class="navelem"><a class="el" href="a01660.html">serial</a></li><li class="navelem"><a class="el" href="a01678.html">binary</a></li><li class="navelem"><a class="el" href="a01679.html">priv</a></li><li class="navelem"><a class="el" href="a03269.html">ReadWriteExistChecker</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="a03266.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::binary::Serializer&lt; script::Value, false &gt; Member List</div>  </div>
+<div class="title">bl::serial::binary::priv::ReadWriteExistChecker&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03272.html">bl::serial::binary::Serializer&lt; script::Value, false &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03272.html#a958124cb7c65cf40342c1ac66ff4a7f9">deserialize</a>(InputStream &amp;input, script::Value &amp;v)</td><td class="entry"><a class="el" href="a03272.html">bl::serial::binary::Serializer&lt; script::Value, false &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03272.html#a99b26dc8f8b19e3b2e41783d8acd9a73">serialize</a>(OutputStream &amp;output, const script::Value &amp;v)</td><td class="entry"><a class="el" href="a03272.html">bl::serial::binary::Serializer&lt; script::Value, false &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03272.html#a5201896f61fe28fdfaf80c364a5335f0">size</a>(const script::Value &amp;v)</td><td class="entry"><a class="el" href="a03272.html">bl::serial::binary::Serializer&lt; script::Value, false &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-</table></div><!-- contents -->
+<p><code>#include &lt;<a class="el" href="a00851_source.html">VersionedSerializer.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a47e6dd63e4338cb86b60fe1b8c79cd33"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03269.html#a47e6dd63e4338cb86b60fe1b8c79cd33">HasRead</a> = sizeof(testRead&lt;T&gt;(0)) == sizeof(Pass)</td></tr>
+<tr class="separator:a47e6dd63e4338cb86b60fe1b8c79cd33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56f55bebd51525f49a89b44b6e5a2ce0"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03269.html#a56f55bebd51525f49a89b44b6e5a2ce0">HasWrite</a> = sizeof(testWrite&lt;T&gt;(0)) == sizeof(Pass)</td></tr>
+<tr class="separator:a56f55bebd51525f49a89b44b6e5a2ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::serial::binary::priv::ReadWriteExistChecker&lt; T &gt;</h3>
+
+
+<p class="definition">Definition at line <a class="el" href="a00851_source.html#l00028">28</a> of file <a class="el" href="a00851_source.html">VersionedSerializer.hpp</a>.</p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a47e6dd63e4338cb86b60fe1b8c79cd33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47e6dd63e4338cb86b60fe1b8c79cd33">&#9670;&nbsp;</a></span>HasRead</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="a03269.html">bl::serial::binary::priv::ReadWriteExistChecker</a>&lt; T &gt;::HasRead = sizeof(testRead&lt;T&gt;(0)) == sizeof(Pass)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00851_source.html#l00047">47</a> of file <a class="el" href="a00851_source.html">VersionedSerializer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a56f55bebd51525f49a89b44b6e5a2ce0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56f55bebd51525f49a89b44b6e5a2ce0">&#9670;&nbsp;</a></span>HasWrite</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="a03269.html">bl::serial::binary::priv::ReadWriteExistChecker</a>&lt; T &gt;::HasWrite = sizeof(testWrite&lt;T&gt;(0)) == sizeof(Pass)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00851_source.html#l00048">48</a> of file <a class="el" href="a00851_source.html">VersionedSerializer.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Serialization/Binary/<a class="el" href="a00851_source.html">VersionedSerializer.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:12 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

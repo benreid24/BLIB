@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Logging</title>
+<title>BLIB: ECS</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,31 +67,110 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">Logging</div>  </div>
+<div class="title">ECS</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Structured logging with configurable outputs, predefined levels, and timestamps in local machine time or utc.  
+<p>Collection of classes for managing entities via the ECS pattern.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02312.html">bl::logging::Config</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global log config class. Stores the various output streams and their configured log levels. Loggers flush their output here. Logging is threadsafe, however none of the public methods are threadsafe.  <a href="a02312.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01897.html">bl::ecs::Cleaner</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to automatically remove entities using RAII based cleanup. Useful for functions that build entities by adding many components where component creation may fail at arbitrary points.  <a href="a01897.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02316.html">bl::logging::Logger</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actual logging class. Provides several static methods to begin log output. Instances of <a class="el" href="a02316.html" title="Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...">Logger</a> only live long enough to build the log line and flush it via the LoggerConfig singleton instance.  <a href="a02316.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01901.html">bl::ecs::ComponentMask</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for creating masks representing component types on an entity.  <a href="a01901.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01909.html">bl::ecs::ComponentPoolBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for component pools. Not intended to be used directly.  <a href="a01909.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01913.html">bl::ecs::ComponentPool&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides storage and management for components in the ECS. Used internally in the <a class="el" href="a01949.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a>.  <a href="a01913.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01917.html">bl::ecs::priv::ComponentSetMember&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to compose component sets.  <a href="a01917.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01921.html">bl::ecs::ComponentSet&lt; TRequire, TOptional &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a set of components for a single entity. May not always be valid. Does not update if components are added or removed from the entity. Sets from views are always valid.  <a href="a01921.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html">bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual <a class="el" href="a01921.html" title="Contains a set of components for a single entity. May not always be valid. Does not update if compone...">ComponentSet</a> specialization that should be used.  <a href="a01925.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01929.html">bl::ecs::event::EntityCreated</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired after an entity is added to the <a class="el" href="a01949.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a>.  <a href="a01929.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01933.html">bl::ecs::event::EntityDestroyed</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired right before an entity is removed from the registry.  <a href="a01933.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01937.html">bl::ecs::event::ComponentAdded&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a component is added to an entity.  <a href="a01937.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01941.html">bl::ecs::event::ComponentRemoved&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired right before a component is removed from an entity.  <a href="a01941.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01945.html">bl::ecs::event::ComponentPoolResized</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a component pool is resized.  <a href="a01945.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01949.html">bl::ecs::Registry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main interface of the ECS. This class manages all entities and components and views and serves as the primary interface to be used.  <a href="a01949.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01953.html">bl::ecs::StableHandle&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to maintain a stable pointer to a component even if the pool is resizable.  <a href="a01953.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01977.html">bl::ecs::priv::ViewBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class not to be used directly.  <a href="a01977.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01905.html">bl::ecs::View&lt; TRequire, TOptional, TExclude &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base definition of the <a class="el" href="a01905.html" title="Base definition of the View class. Use the tagged specialization.">View</a> class. Use the tagged specialization.  <a href="a01905.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01981.html">bl::ecs::View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A view into the ECS providing fast iteration over entities with the given set of components. <a class="el" href="a01905.html" title="Base definition of the View class. Use the tagged specialization.">View</a> results stay up to date as the component and entity data change.  <a href="a01981.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga01655307bcb32baf2884e18213123917"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01602.html#ga01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a> = std::numeric_limits&lt;<a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">Entity</a>&gt;::max()</td></tr>
+<tr class="memdesc:ga01655307bcb32baf2884e18213123917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special value to indicate that an Entity is not valid.  <a href="a01602.html#ga01655307bcb32baf2884e18213123917">More...</a><br /></td></tr>
+<tr class="separator:ga01655307bcb32baf2884e18213123917"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Structured logging with configurable outputs, predefined levels, and timestamps in local machine time or utc. </p>
+<p>Collection of classes for managing entities via the ECS pattern. </p>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ga01655307bcb32baf2884e18213123917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga01655307bcb32baf2884e18213123917">&#9670;&nbsp;</a></span>InvalidEntity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">Entity</a> bl::ecs::InvalidEntity = std::numeric_limits&lt;<a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">Entity</a>&gt;::max()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Special value to indicate that an Entity is not valid. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00116_source.html#l00029">29</a> of file <a class="el" href="a00116_source.html">Entity.hpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Resources/ScenePool.cpp File Reference</title>
+<title>BLIB: src/Render/Resources/PipelineCache.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,32 +73,39 @@ $(function() {
   <div class="summary">
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">ScenePool.cpp File Reference</div>  </div>
+<div class="title">PipelineCache.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00623_source.html">BLIB/Render/Resources/ScenePool.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00062_source.html">BLIB/Events.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00581_source.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00626_source.html">BLIB/Render/Resources/PipelineCache.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00434_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a04506_source.html">BLIB/Render/Config.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00536_source.html">BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00542_source.html">BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00548_source.html">BLIB/Render/Descriptors/Builtin/PostFXFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00551_source.html">BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00557_source.html">BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00563_source.html">BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a04491_source.html">BLIB/Render/Renderer.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a01358_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01623"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01623.html">bl</a></td></tr>
-<tr class="memdesc:a01623"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01628"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01628.html">bl</a></td></tr>
+<tr class="memdesc:a01628"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01646"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01646.html">bl::gfx</a></td></tr>
-<tr class="memdesc:a01646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of graphical utilities and functionality. <br /></td></tr>
+<tr class="memitem:a01637"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html">bl::rc</a></td></tr>
+<tr class="memdesc:a01637"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02737.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01662"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01662.html">bl::gfx::res</a></td></tr>
-<tr class="memdesc:a01662"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for renderer resource management. <br /></td></tr>
+<tr class="memitem:a01649"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01649.html">bl::rc::res</a></td></tr>
+<tr class="memdesc:a01649"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for renderer resource management. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

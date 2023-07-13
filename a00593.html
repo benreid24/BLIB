@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Overlays/OverlayObject.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/Events/SceneDestroyed.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_f985e6d9d3c728bc93d2b173ef2ebe49.html">Overlays</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_21e584440d30ea68f12ec1da1ab071c9.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,47 +74,35 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">OverlayObject.hpp File Reference</div>  </div>
+<div class="title">SceneDestroyed.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00083_source.html">BLIB/ECS.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04504_source.html">BLIB/Render/Components/OverlayScaler.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04483_source.html">BLIB/Render/Config.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00548_source.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00596_source.html">BLIB/Render/Overlays/Viewport.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00599_source.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00638_source.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00647_source.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00722_source.html">BLIB/Render/Vulkan/Pipeline.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00977_source.html">BLIB/Vulkan.hpp</a>&gt;</code><br />
-<code>#include &lt;array&gt;</code><br />
-<code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-</div>
+
 <p><a href="a00593_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02704.html">bl::gfx::ovy::OverlayObject</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02697.html">bl::rc::event::SceneDestroyed</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a scene is destroyed. Systems should subscribe to this event in order to correctly update objects that were members of the destroyed scene.  <a href="a02697.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01623"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01623.html">bl</a></td></tr>
-<tr class="memdesc:a01623"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01628"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01628.html">bl</a></td></tr>
+<tr class="memdesc:a01628"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01646"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01646.html">bl::gfx</a></td></tr>
-<tr class="memdesc:a01646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of graphical utilities and functionality. <br /></td></tr>
+<tr class="memitem:a01637"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html">bl::rc</a></td></tr>
+<tr class="memdesc:a01637"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02737.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01665"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01665.html">bl::gfx::ovy</a></td></tr>
-<tr class="memdesc:a01665"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classes for <a class="el" href="a02684.html" title="Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...">Observer</a> overlays. <br /></td></tr>
+<tr class="memitem:a01671"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01671.html">bl::rc::event</a></td></tr>
+<tr class="memdesc:a01671"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of events related to the renderer. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

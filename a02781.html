@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::sys::DrawableSystem&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,29 +66,539 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01623.html">bl</a></li><li class="navelem"><a class="el" href="a01646.html">gfx</a></li><li class="navelem"><a class="el" href="a01660.html">scene</a></li><li class="navelem"><a class="el" href="a02784.html">Key</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01628.html">bl</a></li><li class="navelem"><a class="el" href="a01634.html">sys</a></li><li class="navelem"><a class="el" href="a02781.html">DrawableSystem</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="a02778.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gfx::scene::Key Member List</div>  </div>
+<div class="title">bl::sys::DrawableSystem&lt; T &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a01617.html">Systems</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02784.html">bl::gfx::scene::Key</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02784.html#a1869d13538b28d2c38991bca73369cc3">Key</a>()</td><td class="entry"><a class="el" href="a02784.html">bl::gfx::scene::Key</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02784.html#a6f272b30659d3f2d3bb8512f11ac0e7b">Key</a>(UpdateSpeed updateFreq, std::uint32_t sceneId)</td><td class="entry"><a class="el" href="a02784.html">bl::gfx::scene::Key</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02784.html#a16ba075e45e46c85eb1a9a2cec7b814a">operator!=</a>(const Key &amp;right) const</td><td class="entry"><a class="el" href="a02784.html">bl::gfx::scene::Key</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02784.html#a08f7594cce9e9ff5ee6a33f02d00be6d">operator&lt;</a>(const Key &amp;right) const</td><td class="entry"><a class="el" href="a02784.html">bl::gfx::scene::Key</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02784.html#ab3a1dc16a24a5f7870a3bf07c87c8d38">operator==</a>(const Key &amp;right) const</td><td class="entry"><a class="el" href="a02784.html">bl::gfx::scene::Key</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02784.html#a4445e0360b838111bbb0a3740c3eae5c">sceneId</a></td><td class="entry"><a class="el" href="a02784.html">bl::gfx::scene::Key</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02784.html#a6a466e339347a8825f0e76e2ea359c4c">updateFreq</a></td><td class="entry"><a class="el" href="a02784.html">bl::gfx::scene::Key</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should have a system that inherits from this class that manages their membership within scenes. These systems should run in the <a class="el" href="a02021.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d" title="Synchronizes objects from the ECS into the scene-local object buffers.">engine::FrameStage::RenderObjectSync</a> step.  
+ <a href="a02781.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00905_source.html">DrawableSystem.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::sys::DrawableSystem&lt; T &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02781.png" usemap="#bl::sys::DrawableSystem_3C_20T_20_3E_map" alt=""/>
+  <map id="bl::sys::DrawableSystem_3C_20T_20_3E_map" name="bl::sys::DrawableSystem_3C_20T_20_3E_map">
+<area href="a02041.html" title="Base class for Engine systems which can be registered in the Systems registry." alt="bl::engine::System" shape="rect" coords="0,56,501,80"/>
+<area href="a02077.html" alt="bl::event::Listener&lt; ecs::event::ComponentRemoved&lt; T &gt;, rc::event::SceneDestroyed &gt;" shape="rect" coords="511,56,1012,80"/>
+<area href="a02073.html" alt="bl::event::ListenerBase&lt; TEvents &gt;" shape="rect" coords="511,0,1012,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a46e51fe99fcff88a45ebacdc704fa71c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02781.html#a46e51fe99fcff88a45ebacdc704fa71c">DrawableSystem</a> (std::uint32_t defaultPipeline, std::uint32_t overlayPipeline)</td></tr>
+<tr class="memdesc:a46e51fe99fcff88a45ebacdc704fa71c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the system internals.  <a href="a02781.html#a46e51fe99fcff88a45ebacdc704fa71c">More...</a><br /></td></tr>
+<tr class="separator:a46e51fe99fcff88a45ebacdc704fa71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6e5cfc63580a582d5e6919d52eea51c"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02781.html#ac6e5cfc63580a582d5e6919d52eea51c">~DrawableSystem</a> ()=default</td></tr>
+<tr class="memdesc:ac6e5cfc63580a582d5e6919d52eea51c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the system.  <a href="a02781.html#ac6e5cfc63580a582d5e6919d52eea51c">More...</a><br /></td></tr>
+<tr class="separator:ac6e5cfc63580a582d5e6919d52eea51c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd2324b981e5151a19589d4ab793ac18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02781.html#afd2324b981e5151a19589d4ab793ac18">addToScene</a> (<a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a> entity, <a class="el" href="a02813.html">rc::Scene</a> *scene, <a class="el" href="a01613.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> descriptorUpdateFreq)</td></tr>
+<tr class="memdesc:afd2324b981e5151a19589d4ab793ac18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the component for the given entity to the scene using the default pipelines for this type of object. Component must already exist in the ECS.  <a href="a02781.html#afd2324b981e5151a19589d4ab793ac18">More...</a><br /></td></tr>
+<tr class="separator:afd2324b981e5151a19589d4ab793ac18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a100caa593554bb5605a77bcc886d2645"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02781.html#a100caa593554bb5605a77bcc886d2645">addToSceneWithCustomPipeline</a> (<a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a> entity, <a class="el" href="a02813.html">rc::Scene</a> *scene, <a class="el" href="a01613.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> descriptorUpdateFreq, std::uint32_t pipeline)</td></tr>
+<tr class="memdesc:a100caa593554bb5605a77bcc886d2645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the component for the given entity to the scene using custom pipelines for that specific object.  <a href="a02781.html#a100caa593554bb5605a77bcc886d2645">More...</a><br /></td></tr>
+<tr class="separator:a100caa593554bb5605a77bcc886d2645"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43d3374d0a059353e99413972baa680b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02781.html#a43d3374d0a059353e99413972baa680b">addToOverlay</a> (<a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a>, <a class="el" href="a02709.html">rc::Overlay</a> *overlay, <a class="el" href="a01613.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> descriptorUpdateFreq, <a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a> parent=<a class="el" href="a01602.html#ga01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>)</td></tr>
+<tr class="memdesc:a43d3374d0a059353e99413972baa680b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the component for the given entity to the overlay using the default pipelines.  <a href="a02781.html#a43d3374d0a059353e99413972baa680b">More...</a><br /></td></tr>
+<tr class="separator:a43d3374d0a059353e99413972baa680b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3f570511e947ca2b580f214347fcc0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02781.html#aa3f570511e947ca2b580f214347fcc0a">addToOverlayWithCustomPipeline</a> (<a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a>, <a class="el" href="a02709.html">rc::Overlay</a> *overlay, <a class="el" href="a01613.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> descriptorUpdateFreq, std::uint32_t pipeline, <a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a> parent=<a class="el" href="a01602.html#ga01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>)</td></tr>
+<tr class="memdesc:aa3f570511e947ca2b580f214347fcc0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the component for the given entity to the overlay using custom pipelines for that specific object.  <a href="a02781.html#aa3f570511e947ca2b580f214347fcc0a">More...</a><br /></td></tr>
+<tr class="separator:aa3f570511e947ca2b580f214347fcc0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a217fdb1dc3b7830828935ca8ca25505f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02781.html#a217fdb1dc3b7830828935ca8ca25505f">removeFromScene</a> (<a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a> entity)</td></tr>
+<tr class="memdesc:a217fdb1dc3b7830828935ca8ca25505f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the entity from the scene that it is currently in.  <a href="a02781.html#a217fdb1dc3b7830828935ca8ca25505f">More...</a><br /></td></tr>
+<tr class="separator:a217fdb1dc3b7830828935ca8ca25505f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5297276cfbb757ede3391eb9d525832"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02073.html#ae5297276cfbb757ede3391eb9d525832">observe</a> (const TEvents &amp;event)=0</td></tr>
+<tr class="memdesc:ae5297276cfbb757ede3391eb9d525832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observe the given.  <a href="a02073.html#ae5297276cfbb757ede3391eb9d525832">More...</a><br /></td></tr>
+<tr class="separator:ae5297276cfbb757ede3391eb9d525832"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ad19288ea85e14bc1882ea6825078fe23"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02781.html#ad19288ea85e14bc1882ea6825078fe23">doInit</a> (<a class="el" href="a01989.html">engine::Engine</a> &amp;engine)</td></tr>
+<tr class="memdesc:ad19288ea85e14bc1882ea6825078fe23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing. Derived classes should override this if they need custom init logic.  <a href="a02781.html#ad19288ea85e14bc1882ea6825078fe23">More...</a><br /></td></tr>
+<tr class="separator:ad19288ea85e14bc1882ea6825078fe23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3301481a1af1fae12b73aad1d2ce7dc2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02781.html#a3301481a1af1fae12b73aad1d2ce7dc2">doUpdate</a> (std::mutex &amp;mutex, float dt)</td></tr>
+<tr class="memdesc:a3301481a1af1fae12b73aad1d2ce7dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing. Derived classes should override this if they need custom update logic.  <a href="a02781.html#a3301481a1af1fae12b73aad1d2ce7dc2">More...</a><br /></td></tr>
+<tr class="separator:a3301481a1af1fae12b73aad1d2ce7dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::sys::DrawableSystem&lt; T &gt;</h3>
+
+<p>Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should have a system that inherits from this class that manages their membership within scenes. These systems should run in the <a class="el" href="a02021.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d" title="Synchronizes objects from the ECS into the scene-local object buffers.">engine::FrameStage::RenderObjectSync</a> step. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The component type in the ECS that is being managed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00905_source.html#l00031">31</a> of file <a class="el" href="a00905_source.html">DrawableSystem.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a46e51fe99fcff88a45ebacdc704fa71c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46e51fe99fcff88a45ebacdc704fa71c">&#9670;&nbsp;</a></span>DrawableSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02781.html">bl::sys::DrawableSystem</a>&lt; T &gt;::<a class="el" href="a02781.html">DrawableSystem</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>defaultPipeline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>overlayPipeline</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the system internals. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">defaultPipeline</td><td>The pipeline to use by default for rendering these types of objects </td></tr>
+    <tr><td class="paramname">overlayPipeline</td><td>The pipeline to use when rendering in an overlay </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00905_source.html#l00152">152</a> of file <a class="el" href="a00905_source.html">DrawableSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac6e5cfc63580a582d5e6919d52eea51c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6e5cfc63580a582d5e6919d52eea51c">&#9670;&nbsp;</a></span>~DrawableSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a02781.html">bl::sys::DrawableSystem</a>&lt; T &gt;::~<a class="el" href="a02781.html">DrawableSystem</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the system. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a43d3374d0a059353e99413972baa680b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43d3374d0a059353e99413972baa680b">&#9670;&nbsp;</a></span>addToOverlay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a02781.html">bl::sys::DrawableSystem</a>&lt; T &gt;::addToOverlay </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>ent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02709.html">rc::Overlay</a> *&#160;</td>
+          <td class="paramname"><em>overlay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01613.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a>&#160;</td>
+          <td class="paramname"><em>descriptorUpdateFreq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>parent</em> = <code><a class="el" href="a01602.html#ga01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds the component for the given entity to the overlay using the default pipelines. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to add to the scene </td></tr>
+    <tr><td class="paramname">scene</td><td>The scene to add the entity to </td></tr>
+    <tr><td class="paramname">descriptorUpdateFreq</td><td>Expected update frequency of descriptors for this entity </td></tr>
+    <tr><td class="paramname">parent</td><td>The entity to be the parent of the new overlay object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00905_source.html#l00198">198</a> of file <a class="el" href="a00905_source.html">DrawableSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa3f570511e947ca2b580f214347fcc0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3f570511e947ca2b580f214347fcc0a">&#9670;&nbsp;</a></span>addToOverlayWithCustomPipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a02781.html">bl::sys::DrawableSystem</a>&lt; T &gt;::addToOverlayWithCustomPipeline </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02709.html">rc::Overlay</a> *&#160;</td>
+          <td class="paramname"><em>overlay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01613.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a>&#160;</td>
+          <td class="paramname"><em>descriptorUpdateFreq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>pipeline</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>parent</em> = <code><a class="el" href="a01602.html#ga01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds the component for the given entity to the overlay using custom pipelines for that specific object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to add to the scene </td></tr>
+    <tr><td class="paramname">scene</td><td>The scene to add the entity to </td></tr>
+    <tr><td class="paramname">descriptorUpdateFreq</td><td>Expected update frequency of descriptors for this entity </td></tr>
+    <tr><td class="paramname">pipeline</td><td>The pipeline to use for each scene stage when rendering this object </td></tr>
+    <tr><td class="paramname">parent</td><td>The entity to be the parent of the new overlay object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00905_source.html#l00217">217</a> of file <a class="el" href="a00905_source.html">DrawableSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afd2324b981e5151a19589d4ab793ac18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd2324b981e5151a19589d4ab793ac18">&#9670;&nbsp;</a></span>addToScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a02781.html">bl::sys::DrawableSystem</a>&lt; T &gt;::addToScene </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02813.html">rc::Scene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01613.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a>&#160;</td>
+          <td class="paramname"><em>descriptorUpdateFreq</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds the component for the given entity to the scene using the default pipelines for this type of object. Component must already exist in the ECS. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to add to the scene </td></tr>
+    <tr><td class="paramname">scene</td><td>The scene to add the entity to </td></tr>
+    <tr><td class="paramname">descriptorUpdateFreq</td><td>Expected update frequency of descriptors for this entity </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00905_source.html#l00161">161</a> of file <a class="el" href="a00905_source.html">DrawableSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a100caa593554bb5605a77bcc886d2645"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a100caa593554bb5605a77bcc886d2645">&#9670;&nbsp;</a></span>addToSceneWithCustomPipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a02781.html">bl::sys::DrawableSystem</a>&lt; T &gt;::addToSceneWithCustomPipeline </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02813.html">rc::Scene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01613.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a>&#160;</td>
+          <td class="paramname"><em>descriptorUpdateFreq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>pipeline</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds the component for the given entity to the scene using custom pipelines for that specific object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to add to the scene </td></tr>
+    <tr><td class="paramname">scene</td><td>The scene to add the entity to </td></tr>
+    <tr><td class="paramname">descriptorUpdateFreq</td><td>Expected update frequency of descriptors for this entity </td></tr>
+    <tr><td class="paramname">pipeline</td><td>The pipeline to use for each scene stage when rendering this object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00905_source.html#l00179">179</a> of file <a class="el" href="a00905_source.html">DrawableSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad19288ea85e14bc1882ea6825078fe23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad19288ea85e14bc1882ea6825078fe23">&#9670;&nbsp;</a></span>doInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a02781.html">bl::sys::DrawableSystem</a>&lt; T &gt;::doInit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01989.html">engine::Engine</a> &amp;&#160;</td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Does nothing. Derived classes should override this if they need custom init logic. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00905_source.html#l00251">251</a> of file <a class="el" href="a00905_source.html">DrawableSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3301481a1af1fae12b73aad1d2ce7dc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3301481a1af1fae12b73aad1d2ce7dc2">&#9670;&nbsp;</a></span>doUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a02781.html">bl::sys::DrawableSystem</a>&lt; T &gt;::doUpdate </td>
+          <td>(</td>
+          <td class="paramtype">std::mutex &amp;&#160;</td>
+          <td class="paramname"><em>mutex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Does nothing. Derived classes should override this if they need custom update logic. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mutex</td><td>Shared mutex for other systems running in parallel in the same frame stage </td></tr>
+    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00905_source.html#l00254">254</a> of file <a class="el" href="a00905_source.html">DrawableSystem.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae5297276cfbb757ede3391eb9d525832"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5297276cfbb757ede3391eb9d525832">&#9670;&nbsp;</a></span>observe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="a02073.html">bl::event::ListenerBase</a>&lt; TEvents  &gt;::observe </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Observe the given. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a217fdb1dc3b7830828935ca8ca25505f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a217fdb1dc3b7830828935ca8ca25505f">&#9670;&nbsp;</a></span>removeFromScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a02781.html">bl::sys::DrawableSystem</a>&lt; T &gt;::removeFromScene </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01640.html#a4b70a57ed7e0341145b4320b1f460a62">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the entity from the scene that it is currently in. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to remove from the scene </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00905_source.html#l00237">237</a> of file <a class="el" href="a00905_source.html">DrawableSystem.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Scenes/<a class="el" href="a00647_source.html">BasicScene.hpp</a></li>
+<li>include/BLIB/Systems/<a class="el" href="a00905_source.html">DrawableSystem.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:12 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Cameras/2D/CameraAffector2D.cpp Source File</title>
+<title>BLIB: src/Logging/Logger.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,41 +66,68 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_a8b615fc41fa8c34448ea62994d98e17.html">Cameras</a></li><li class="navelem"><a class="el" href="dir_1be64caec3bec1e195e16174df30cfd2.html">2D</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ac55354187c8c6c264902bc62bdefbb0.html">Logging</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">CameraAffector2D.cpp</div>  </div>
+<div class="title">Logger.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01235.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00458.html">BLIB/Render/Cameras/2D/CameraAffector2D.hpp</a>&gt;</span></div>
+<a href="a01235.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00434.html">BLIB/Logging.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00191.html">BLIB/Engine/Worker.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>c2d</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>logging</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02460.html#a7ddc422bc44b366bd85fbf43e80dbc1b">    9</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02460.html#a7ddc422bc44b366bd85fbf43e80dbc1b">CameraAffector2D::update</a>(<span class="keywordtype">float</span>, <span class="keywordtype">bool</span>&amp;, <span class="keywordtype">bool</span>&amp;) {}</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02445.html#a36d91bbd3134b0a9d49d8d77a88cb8b5">    9</a></span>&#160;<a class="code" href="a02445.html">Logger</a> <a class="code" href="a02445.html#a36d91bbd3134b0a9d49d8d77a88cb8b5">Logger::critical</a>() { <span class="keywordflow">return</span> <a class="code" href="a02445.html">Logger</a>(<a class="code" href="a02441.html#a9d96f5c8eb33c589e625f8431fc529d6">Config::Critical</a>); }</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02460.html#a067f198044850503736a10066253a3d1">   11</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02460.html#a067f198044850503736a10066253a3d1">CameraAffector2D::applyOnView</a>(<span class="keywordtype">float</span>&amp;) {}</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02445.html#a6fa6adfe984a64fb906c37591be6caa6">   11</a></span>&#160;<a class="code" href="a02445.html">Logger</a> <a class="code" href="a02445.html#a6fa6adfe984a64fb906c37591be6caa6">Logger::error</a>() { <span class="keywordflow">return</span> <a class="code" href="a02445.html">Logger</a>(<a class="code" href="a02441.html#a250079749bf4d8040898e39d87b88ce1">Config::Error</a>); }</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02460.html#ab79acaa73e7758cc1d55936f2b83c982">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02460.html#ab79acaa73e7758cc1d55936f2b83c982">CameraAffector2D::applyOnProj</a>(glm::vec2&amp;, glm::vec2&amp;) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02445.html#aceeb9b5121a77f94e4c52382ecca0b20">   13</a></span>&#160;<a class="code" href="a02445.html">Logger</a> <a class="code" href="a02445.html#aceeb9b5121a77f94e4c52382ecca0b20">Logger::warn</a>() { <span class="keywordflow">return</span> <a class="code" href="a02445.html">Logger</a>(<a class="code" href="a02441.html#a3ae6ba0bf40434238378e10e2f291804">Config::Warn</a>); }</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace c2d</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00458_html"><div class="ttname"><a href="a00458.html">CameraAffector2D.hpp</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02460_html_a067f198044850503736a10066253a3d1"><div class="ttname"><a href="a02460.html#a067f198044850503736a10066253a3d1">bl::gfx::c2d::CameraAffector2D::applyOnView</a></div><div class="ttdeci">virtual void applyOnView(float &amp;rotation)</div><div class="ttdoc">Base method does nothing. Use this to make changes to the parameters used to construct the camera's v...</div><div class="ttdef"><b>Definition:</b> <a href="a01235_source.html#l00011">CameraAffector2D.cpp:11</a></div></div>
-<div class="ttc" id="aa02460_html_a7ddc422bc44b366bd85fbf43e80dbc1b"><div class="ttname"><a href="a02460.html#a7ddc422bc44b366bd85fbf43e80dbc1b">bl::gfx::c2d::CameraAffector2D::update</a></div><div class="ttdeci">virtual void update(float dt, bool &amp;recomputeView, bool &amp;recomputeProj)</div><div class="ttdoc">Updates the affector.</div><div class="ttdef"><b>Definition:</b> <a href="a01235_source.html#l00009">CameraAffector2D.cpp:9</a></div></div>
-<div class="ttc" id="aa02460_html_ab79acaa73e7758cc1d55936f2b83c982"><div class="ttname"><a href="a02460.html#ab79acaa73e7758cc1d55936f2b83c982">bl::gfx::c2d::CameraAffector2D::applyOnProj</a></div><div class="ttdeci">virtual void applyOnProj(glm::vec2 &amp;center, glm::vec2 &amp;size)</div><div class="ttdoc">Base method does nothing. Use this to make changes to the parameters used to construct the camera's p...</div><div class="ttdef"><b>Definition:</b> <a href="a01235_source.html#l00013">CameraAffector2D.cpp:13</a></div></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02445.html#a9a2a3f45661caa993573918c1facda31">   15</a></span>&#160;<a class="code" href="a02445.html">Logger</a> <a class="code" href="a02445.html#a9a2a3f45661caa993573918c1facda31">Logger::info</a>() { <span class="keywordflow">return</span> <a class="code" href="a02445.html">Logger</a>(<a class="code" href="a02441.html#a745f41edd43beb42056a1616117ee196">Config::Info</a>); }</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02445.html#aed4a225248fd95298110965be134530c">   17</a></span>&#160;<a class="code" href="a02445.html">Logger</a> <a class="code" href="a02445.html#aed4a225248fd95298110965be134530c">Logger::debug</a>() { <span class="keywordflow">return</span> <a class="code" href="a02445.html">Logger</a>(<a class="code" href="a02441.html#a32b0a01f1377244acb18aab50588a515">Config::Debug</a>); }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02445.html#a7df75dafbd91fae955cfe5772963e786">   19</a></span>&#160;<a class="code" href="a02445.html">Logger</a> <a class="code" href="a02445.html#a7df75dafbd91fae955cfe5772963e786">Logger::trace</a>() { <span class="keywordflow">return</span> <a class="code" href="a02445.html">Logger</a>(<a class="code" href="a02441.html#a74e5da1abfb366b222375bf333369421">Config::Trace</a>); }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;Logger::Logger(<span class="keywordtype">int</span> level)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: level(level) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    ss &lt;&lt; Config::get().genPrefix(level);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02445.html#afbe3b6969c9128f05076d5f79c5130bc">   26</a></span>&#160;<a class="code" href="a02445.html#afbe3b6969c9128f05076d5f79c5130bc">Logger::~Logger</a>() {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a02061.html#a2bcafcef59a2e5f33043b9623f16135d">engine::Worker::submit</a>(std::bind(&amp;Config::doWrite, &amp;Config::get(), ss.str(), level));</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace logging</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00191_html"><div class="ttname"><a href="a00191.html">Worker.hpp</a></div></div>
+<div class="ttc" id="aa00434_html"><div class="ttname"><a href="a00434.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02061_html_a2bcafcef59a2e5f33043b9623f16135d"><div class="ttname"><a href="a02061.html#a2bcafcef59a2e5f33043b9623f16135d">bl::engine::Worker::submit</a></div><div class="ttdeci">static void submit(Task &amp;&amp;task)</div><div class="ttdoc">Submit a task to be executed. Submitted tasks should be relatively lightweight. More advanced or inte...</div></div>
+<div class="ttc" id="aa02441_html_a250079749bf4d8040898e39d87b88ce1"><div class="ttname"><a href="a02441.html#a250079749bf4d8040898e39d87b88ce1">bl::logging::Config::Error</a></div><div class="ttdeci">static constexpr int Error</div><div class="ttdef"><b>Definition:</b> <a href="a04503_source.html#l00030">Config.hpp:30</a></div></div>
+<div class="ttc" id="aa02441_html_a32b0a01f1377244acb18aab50588a515"><div class="ttname"><a href="a02441.html#a32b0a01f1377244acb18aab50588a515">bl::logging::Config::Debug</a></div><div class="ttdeci">static constexpr int Debug</div><div class="ttdef"><b>Definition:</b> <a href="a04503_source.html#l00033">Config.hpp:33</a></div></div>
+<div class="ttc" id="aa02441_html_a3ae6ba0bf40434238378e10e2f291804"><div class="ttname"><a href="a02441.html#a3ae6ba0bf40434238378e10e2f291804">bl::logging::Config::Warn</a></div><div class="ttdeci">static constexpr int Warn</div><div class="ttdef"><b>Definition:</b> <a href="a04503_source.html#l00031">Config.hpp:31</a></div></div>
+<div class="ttc" id="aa02441_html_a745f41edd43beb42056a1616117ee196"><div class="ttname"><a href="a02441.html#a745f41edd43beb42056a1616117ee196">bl::logging::Config::Info</a></div><div class="ttdeci">static constexpr int Info</div><div class="ttdef"><b>Definition:</b> <a href="a04503_source.html#l00032">Config.hpp:32</a></div></div>
+<div class="ttc" id="aa02441_html_a74e5da1abfb366b222375bf333369421"><div class="ttname"><a href="a02441.html#a74e5da1abfb366b222375bf333369421">bl::logging::Config::Trace</a></div><div class="ttdeci">static constexpr int Trace</div><div class="ttdef"><b>Definition:</b> <a href="a04503_source.html#l00034">Config.hpp:34</a></div></div>
+<div class="ttc" id="aa02441_html_a9d96f5c8eb33c589e625f8431fc529d6"><div class="ttname"><a href="a02441.html#a9d96f5c8eb33c589e625f8431fc529d6">bl::logging::Config::Critical</a></div><div class="ttdeci">static constexpr int Critical</div><div class="ttdef"><b>Definition:</b> <a href="a04503_source.html#l00029">Config.hpp:29</a></div></div>
+<div class="ttc" id="aa02445_html"><div class="ttname"><a href="a02445.html">bl::logging::Logger</a></div><div class="ttdoc">Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...</div><div class="ttdef"><b>Definition:</b> <a href="a00428_source.html#l00027">Logger.hpp:27</a></div></div>
+<div class="ttc" id="aa02445_html_a36d91bbd3134b0a9d49d8d77a88cb8b5"><div class="ttname"><a href="a02445.html#a36d91bbd3134b0a9d49d8d77a88cb8b5">bl::logging::Logger::critical</a></div><div class="ttdeci">static Logger critical()</div><div class="ttdoc">Create a new Logger for logging a critical error.</div><div class="ttdef"><b>Definition:</b> <a href="a01235_source.html#l00009">Logger.cpp:9</a></div></div>
+<div class="ttc" id="aa02445_html_a6fa6adfe984a64fb906c37591be6caa6"><div class="ttname"><a href="a02445.html#a6fa6adfe984a64fb906c37591be6caa6">bl::logging::Logger::error</a></div><div class="ttdeci">static Logger error()</div><div class="ttdoc">Create a new Logger for logging an error.</div><div class="ttdef"><b>Definition:</b> <a href="a01235_source.html#l00011">Logger.cpp:11</a></div></div>
+<div class="ttc" id="aa02445_html_a7df75dafbd91fae955cfe5772963e786"><div class="ttname"><a href="a02445.html#a7df75dafbd91fae955cfe5772963e786">bl::logging::Logger::trace</a></div><div class="ttdeci">static Logger trace()</div><div class="ttdoc">Create a new Logger for logging high volume low level info.</div><div class="ttdef"><b>Definition:</b> <a href="a01235_source.html#l00019">Logger.cpp:19</a></div></div>
+<div class="ttc" id="aa02445_html_a9a2a3f45661caa993573918c1facda31"><div class="ttname"><a href="a02445.html#a9a2a3f45661caa993573918c1facda31">bl::logging::Logger::info</a></div><div class="ttdeci">static Logger info()</div><div class="ttdoc">Create a new Logger for logging a piece of info.</div><div class="ttdef"><b>Definition:</b> <a href="a01235_source.html#l00015">Logger.cpp:15</a></div></div>
+<div class="ttc" id="aa02445_html_aceeb9b5121a77f94e4c52382ecca0b20"><div class="ttname"><a href="a02445.html#aceeb9b5121a77f94e4c52382ecca0b20">bl::logging::Logger::warn</a></div><div class="ttdeci">static Logger warn()</div><div class="ttdoc">Create a new Logger for logging a warning.</div><div class="ttdef"><b>Definition:</b> <a href="a01235_source.html#l00013">Logger.cpp:13</a></div></div>
+<div class="ttc" id="aa02445_html_aed4a225248fd95298110965be134530c"><div class="ttname"><a href="a02445.html#aed4a225248fd95298110965be134530c">bl::logging::Logger::debug</a></div><div class="ttdeci">static Logger debug()</div><div class="ttdoc">Create a new Logger for logging low level debug info.</div><div class="ttdef"><b>Definition:</b> <a href="a01235_source.html#l00017">Logger.cpp:17</a></div></div>
+<div class="ttc" id="aa02445_html_afbe3b6969c9128f05076d5f79c5130bc"><div class="ttname"><a href="a02445.html#afbe3b6969c9128f05076d5f79c5130bc">bl::logging::Logger::~Logger</a></div><div class="ttdeci">~Logger()</div><div class="ttdoc">Flushes the generated log line.</div><div class="ttdef"><b>Definition:</b> <a href="a01235_source.html#l00026">Logger.cpp:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Drawables/Components/OverlayScalable.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/Builtin/TexturePoolFactory.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,82 +66,46 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2846ec6396444cf25cd496b301435b6d.html">Drawables</a></li><li class="navelem"><a class="el" href="dir_e1812e914cb4ec16a1156402be9efa83.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">OverlayScalable.cpp</div>  </div>
+<div class="title">TexturePoolFactory.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01313.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00557.html">BLIB/Render/Drawables/Components/OverlayScalable.hpp</a>&gt;</span></div>
+<a href="a01313.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00563.html">BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00062.html">BLIB/Events.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00557.html">BLIB/Render/Drawables/Components/OverlayScalable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00587.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04507.html">BLIB/Render/Systems/OverlayScaler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01623.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00566.html">BLIB/Render/Descriptors/Builtin/TexturePoolInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04491.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ds</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>draw</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>base</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02628.html#aab0425e7b19f0ad0d7e8d20f180e1568">   16</a></span>&#160;<a class="code" href="a02628.html#aab0425e7b19f0ad0d7e8d20f180e1568">OverlayScalable::OverlayScalable</a>()</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;: registry(nullptr)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, ecsId(ecs::<a class="code" href="a01597.html#ga01655307bcb32baf2884e18213123917">InvalidEntity</a>) {}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02628.html#a841be88ef10b61d5b30bdc9df0b43fb4">   20</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02628.html#a841be88ef10b61d5b30bdc9df0b43fb4">OverlayScalable::setViewport</a>(<span class="keyword">const</span> <a class="code" href="a02708.html">ovy::Viewport</a>&amp; vp) {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    registry-&gt;<a class="code" href="a01868.html#a3b0edf4bc798fa2f67b442c4d130f8f8">emplaceComponent</a>&lt;<a class="code" href="a02708.html">ovy::Viewport</a>&gt;(ecsId, vp);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02628.html#a8c87524d4a01a9efd602e2bb9977816e">   24</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02628.html#a8c87524d4a01a9efd602e2bb9977816e">OverlayScalable::setViewportToSelf</a>(<span class="keywordtype">bool</span> setToSelf) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    handle.get().setViewportToSelf(setToSelf);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02628.html#a3a95a7cab11e835e73612bde793702c6">   28</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02628.html#a3a95a7cab11e835e73612bde793702c6">OverlayScalable::clearViewport</a>() { registry-&gt;<a class="code" href="a01868.html#a13aedbe896d70f77c9349c85ff22e7cc">removeComponent</a>&lt;<a class="code" href="a02708.html">ovy::Viewport</a>&gt;(ecsId); }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02628.html#a1806dcb7ed245b9497ed63a04960efde">   30</a></span>&#160;glm::vec2 <a class="code" href="a02628.html#a1806dcb7ed245b9497ed63a04960efde">OverlayScalable::getOverlaySize</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">const</span> glm::vec2&amp; ls    = <a class="code" href="a02628.html#a786ae02fabb3810a136716cff7fbf5a4">getLocalSize</a>();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">const</span> glm::vec2&amp; scale = <a class="code" href="a02636.html#af4a49052b1d59cae6a16d5d502c282f2">Transform2D::getTransform</a>().<a class="code" href="a03472.html#a5c4f3231f5bc223cf97e19e4aa1cb9f4">getScale</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> {ls.x * scale.x, ls.y * scale.y};</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02628.html#a3d29c7669edcaa5ed2c75a7d69db10fd">   36</a></span>&#160;glm::vec2 <a class="code" href="a02628.html#a3d29c7669edcaa5ed2c75a7d69db10fd">OverlayScalable::getTargetSize</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02508.html">com::OverlayScaler</a>&amp; c = handle.get();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> {c.cachedTargetRegion.width, c.cachedTargetRegion.height};</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace base</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace draw</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00062_html"><div class="ttname"><a href="a00062.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa00557_html"><div class="ttname"><a href="a00557.html">OverlayScalable.hpp</a></div></div>
-<div class="ttc" id="aa00587_html"><div class="ttname"><a href="a00587.html">Overlay.hpp</a></div></div>
-<div class="ttc" id="aa01597_html_ga01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a01597.html#ga01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00059_source.html#l00029">Entity.hpp:29</a></div></div>
-<div class="ttc" id="aa01623_html"><div class="ttname"><a href="a01623.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01868_html_a13aedbe896d70f77c9349c85ff22e7cc"><div class="ttname"><a href="a01868.html#a13aedbe896d70f77c9349c85ff22e7cc">bl::ecs::Registry::removeComponent</a></div><div class="ttdeci">void removeComponent(Entity entity)</div><div class="ttdoc">Removes the given component from the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00260">Registry.hpp:260</a></div></div>
-<div class="ttc" id="aa01868_html_a3b0edf4bc798fa2f67b442c4d130f8f8"><div class="ttname"><a href="a01868.html#a3b0edf4bc798fa2f67b442c4d130f8f8">bl::ecs::Registry::emplaceComponent</a></div><div class="ttdeci">T * emplaceComponent(Entity entity, TArgs &amp;&amp;... args)</div><div class="ttdoc">Constructs the given component in-place for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00226">Registry.hpp:226</a></div></div>
-<div class="ttc" id="aa02508_html"><div class="ttname"><a href="a02508.html">bl::gfx::com::OverlayScaler</a></div><div class="ttdoc">Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler ensures th...</div><div class="ttdef"><b>Definition:</b> <a href="a04504_source.html#l00036">OverlayScaler.hpp:36</a></div></div>
-<div class="ttc" id="aa02628_html_a1806dcb7ed245b9497ed63a04960efde"><div class="ttname"><a href="a02628.html#a1806dcb7ed245b9497ed63a04960efde">bl::gfx::draw::base::OverlayScalable::getOverlaySize</a></div><div class="ttdeci">glm::vec2 getOverlaySize() const</div><div class="ttdoc">Returns the post-transform size in Overlay space.</div><div class="ttdef"><b>Definition:</b> <a href="a01313_source.html#l00030">OverlayScalable.cpp:30</a></div></div>
-<div class="ttc" id="aa02628_html_a3a95a7cab11e835e73612bde793702c6"><div class="ttname"><a href="a02628.html#a3a95a7cab11e835e73612bde793702c6">bl::gfx::draw::base::OverlayScalable::clearViewport</a></div><div class="ttdeci">void clearViewport()</div><div class="ttdoc">Removes any viewport for this drawable.</div><div class="ttdef"><b>Definition:</b> <a href="a01313_source.html#l00028">OverlayScalable.cpp:28</a></div></div>
-<div class="ttc" id="aa02628_html_a3d29c7669edcaa5ed2c75a7d69db10fd"><div class="ttname"><a href="a02628.html#a3d29c7669edcaa5ed2c75a7d69db10fd">bl::gfx::draw::base::OverlayScalable::getTargetSize</a></div><div class="ttdeci">glm::vec2 getTargetSize() const</div><div class="ttdoc">Returns the post-transform and post-viewport size in target space.</div><div class="ttdef"><b>Definition:</b> <a href="a01313_source.html#l00036">OverlayScalable.cpp:36</a></div></div>
-<div class="ttc" id="aa02628_html_a786ae02fabb3810a136716cff7fbf5a4"><div class="ttname"><a href="a02628.html#a786ae02fabb3810a136716cff7fbf5a4">bl::gfx::draw::base::OverlayScalable::getLocalSize</a></div><div class="ttdeci">const glm::vec2 &amp; getLocalSize() const</div><div class="ttdoc">Returns the pre-transform size of this entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00557_source.html#l00129">OverlayScalable.hpp:129</a></div></div>
-<div class="ttc" id="aa02628_html_a841be88ef10b61d5b30bdc9df0b43fb4"><div class="ttname"><a href="a02628.html#a841be88ef10b61d5b30bdc9df0b43fb4">bl::gfx::draw::base::OverlayScalable::setViewport</a></div><div class="ttdeci">void setViewport(const ovy::Viewport &amp;viewport)</div><div class="ttdoc">Creates or updates the viewport of this drawable.</div><div class="ttdef"><b>Definition:</b> <a href="a01313_source.html#l00020">OverlayScalable.cpp:20</a></div></div>
-<div class="ttc" id="aa02628_html_a8c87524d4a01a9efd602e2bb9977816e"><div class="ttname"><a href="a02628.html#a8c87524d4a01a9efd602e2bb9977816e">bl::gfx::draw::base::OverlayScalable::setViewportToSelf</a></div><div class="ttdeci">void setViewportToSelf(bool setToSelf=true)</div><div class="ttdoc">Helper method to set the viewport to the region the drawable is in.</div><div class="ttdef"><b>Definition:</b> <a href="a01313_source.html#l00024">OverlayScalable.cpp:24</a></div></div>
-<div class="ttc" id="aa02628_html_aab0425e7b19f0ad0d7e8d20f180e1568"><div class="ttname"><a href="a02628.html#aab0425e7b19f0ad0d7e8d20f180e1568">bl::gfx::draw::base::OverlayScalable::OverlayScalable</a></div><div class="ttdeci">OverlayScalable()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01313_source.html#l00016">OverlayScalable.cpp:16</a></div></div>
-<div class="ttc" id="aa02636_html_af4a49052b1d59cae6a16d5d502c282f2"><div class="ttname"><a href="a02636.html#af4a49052b1d59cae6a16d5d502c282f2">bl::gfx::draw::base::Transform2D::getTransform</a></div><div class="ttdeci">t2d::Transform2D &amp; getTransform()</div><div class="ttdoc">Returns the transform. Must only be called after create()</div><div class="ttdef"><b>Definition:</b> <a href="a04522_source.html#l00056">Transform2D.hpp:56</a></div></div>
-<div class="ttc" id="aa02708_html"><div class="ttname"><a href="a02708.html">bl::gfx::ovy::Viewport</a></div><div class="ttdoc">Represents a relative or absolute viewport for overlays. Is defined with respect to the global or par...</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00019">Viewport.hpp:19</a></div></div>
-<div class="ttc" id="aa03472_html_a5c4f3231f5bc223cf97e19e4aa1cb9f4"><div class="ttname"><a href="a03472.html#a5c4f3231f5bc223cf97e19e4aa1cb9f4">bl::t2d::Transform2D::getScale</a></div><div class="ttdeci">constexpr const glm::vec2 &amp; getScale() const</div><div class="ttdoc">Returns the scale factors of the transform.</div><div class="ttdef"><b>Definition:</b> <a href="a04525_source.html#l00163">Transform2D.hpp:163</a></div></div>
-<div class="ttc" id="aa04507_html"><div class="ttname"><a href="a04507.html">OverlayScaler.hpp</a></div></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">void</span> ds::TexturePoolFactory::init(engine::Engine&amp;, Renderer&amp; renderer) {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    texturePool         = &amp;renderer.texturePool();</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    descriptorSetLayout = renderer.texturePool().getDescriptorLayout();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;std::unique_ptr&lt;DescriptorSetInstance&gt; TexturePoolFactory::createDescriptorSet()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">return</span> std::make_unique&lt;TexturePoolInstance&gt;(*texturePool);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00563_html"><div class="ttname"><a href="a00563.html">TexturePoolFactory.hpp</a></div></div>
+<div class="ttc" id="aa00566_html"><div class="ttname"><a href="a00566.html">TexturePoolInstance.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04491_html"><div class="ttname"><a href="a04491.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 11 2023 01:47:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
