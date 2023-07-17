@@ -1,0 +1,15 @@
+target_sources(BLIB PUBLIC
+	Asset.hpp
+	AssetFactory.hpp
+	AssetPool.hpp
+	AssetProvider.hpp
+	AssetRef.hpp
+	AssetSource.hpp
+	AssetTags.hpp
+	ExecutionContext.hpp
+	GraphAsset.hpp
+	GraphAssetPool.hpp
+	RenderGraph.hpp
+	Task.hpp
+	TaskAssetTags.hpp
+)

@@ -58,7 +58,7 @@ class InputStream;
 /**
  * @brief Adaptation of sf::Font for use with Vulkan
  *
- * @ingroup Renderer
+ * @ingroup Graphics
  */
 class VulkanFont {
 public:
