@@ -18,14 +18,14 @@ namespace rg
  *
  * @ingroup Renderer
  */
-class SceneAssetPool {
+class GraphAssetPool {
 public:
     /**
      * @brief Creates the pool
      *
      * @param pool The parent asset pool to get assets from
      */
-    SceneAssetPool(AssetPool& pool);
+    GraphAssetPool(AssetPool& pool);
 
     /**
      * @brief Fetch an existing asset from the pool

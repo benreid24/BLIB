@@ -67,7 +67,7 @@ public:
      * @return A pointer to the newly added asset
      */
     template<typename T, typename... TArgs>
-    T* putAsset(std::string_type tag, TArgs&&... args) {
+    T* putAsset(std::string_view tag, TArgs&&... args) {
         static_assert(std::is_base_of_v<Asset, T>, "T must derive from Asset");
 
         T* asset = new T(std::forward<TArgs>(args)...);
@@ -86,7 +86,7 @@ public:
      * @return A pointer to the newly added asset
      */
     template<typename T, typename... TArgs>
-    T* replaceAsset(std::string_type tag, TArgs&&... args) {
+    T* replaceAsset(std::string_view tag, TArgs&&... args) {
         static_assert(std::is_base_of_v<Asset, T>, "T must derive from Asset");
 
         T* asset      = new T(std::forward<TArgs>(args)...);

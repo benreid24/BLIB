@@ -4,7 +4,6 @@ target_sources(BLIB PUBLIC
 	AssetPool.hpp
 	AssetProvider.hpp
 	AssetRef.hpp
-	AssetSource.hpp
 	AssetTags.hpp
 	ExecutionContext.hpp
 	GraphAsset.hpp

@@ -1,9 +1,9 @@
 #ifndef BLIB_RENDER_GRAPH_ASSET_HPP
 #define BLIB_RENDER_GRAPH_ASSET_HPP
 
-#include <BLIB/Render/Graph/AssetSource.hpp>
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
 #include <string_view>
+#include <vector>
 
 namespace bl
 {
@@ -55,28 +55,21 @@ public:
      */
     constexpr std::string_view getTag() const { return tag; }
 
-    /**
-     * @brief Returns the source of this asset
-     */
-    constexpr AssetSource getSource() const { return source; }
-
 protected:
     /**
      * @brief Initializes the asset
      *
      * @param tag The tag of the asset
-     * @param source The source of the asset
      */
-    Asset(std::string_view tag, AssetSource source);
+    Asset(std::string_view tag);
 
 private:
     std::string_view tag;
-    AssetSource source;
     bool created;
     unsigned int refCount;
     std::vector<GraphAssetPool*> owners;
 
-    void create();
+    void create(engine::Engine& engine, Renderer& renderer);
     bool isOwnedBy(GraphAssetPool* pool);
     void addOwner(GraphAssetPool* pool);
     void removeOwner(GraphAssetPool* pool);
