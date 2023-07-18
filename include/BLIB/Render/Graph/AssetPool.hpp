@@ -67,11 +67,32 @@ public:
      * @return A pointer to the newly added asset
      */
     template<typename T, typename... TArgs>
-    T* putAssetstd::string_type tag, TArgs&&... args) {
+    T* putAsset(std::string_type tag, TArgs&&... args) {
         static_assert(std::is_base_of_v<Asset, T>, "T must derive from Asset");
 
         T* asset = new T(std::forward<TArgs>(args)...);
         assets[tag].emplace_back(asset);
+        return asset;
+    }
+
+    /**
+     * @brief Manually puts an asset into the pool, bypassing the AssetFactory. Replaces the
+     *        existing assets with the same tag
+     *
+     * @tparam T The asset type to add
+     * @tparam ...TArgs Argument types to the asset's constructor
+     * @param tag The asset's tag
+     * @param ...args Arguments to the asset's constructor
+     * @return A pointer to the newly added asset
+     */
+    template<typename T, typename... TArgs>
+    T* replaceAsset(std::string_type tag, TArgs&&... args) {
+        static_assert(std::is_base_of_v<Asset, T>, "T must derive from Asset");
+
+        T* asset      = new T(std::forward<TArgs>(args)...);
+        const auto it = assets.try_emplace(tag).first;
+        it->second.clear();
+        it->second.emplace_back(asset);
         return asset;
     }
 

@@ -2,6 +2,7 @@
 #define BLIB_RENDER_GRAPH_ASSET_HPP
 
 #include <BLIB/Render/Graph/AssetSource.hpp>
+#include <BLIB/Render/Graph/ExecutionContext.hpp>
 #include <string_view>
 
 namespace bl
@@ -40,6 +41,14 @@ public:
      * @param renderer The renderer instance
      */
     virtual void doCreate(engine::Engine& engine, Renderer& renderer) = 0;
+
+    /**
+     * @brief Prepares the asset for being an input. Child classes should insert pipeline barriers
+     *        here if required
+     *
+     * @param context The current execution context
+     */
+    virtual void prepareForInput(ExecutionContext& context) = 0;
 
     /**
      * @brief Returns the tag of this asset

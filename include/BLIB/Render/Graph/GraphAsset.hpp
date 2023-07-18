@@ -19,6 +19,7 @@ class Task;
 struct GraphAsset {
     AssetRef asset;
     Task* outputtedBy;
+    bool preparedForInput;
 };
 
 } // namespace rg
