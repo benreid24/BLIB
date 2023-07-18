@@ -9,12 +9,27 @@ namespace rg
 Asset::Asset(std::string_view tag)
 : tag(tag)
 , created(false)
-, refCount(0) {}
+, refCount(0)
+, mode(InputMode::Unset) {}
 
 void Asset::create(engine::Engine& engine, Renderer& renderer) {
     if (!created) {
         created = true;
         doCreate(engine, renderer);
+    }
+}
+
+void Asset::prepareForInput(const ExecutionContext& ctx) {
+    if (mode != InputMode::Input) {
+        mode = InputMode::Input;
+        doPrepareForInput(ctx);
+    }
+}
+
+void Asset::prepareForOutput(const ExecutionContext& ctx) {
+    if (mode != InputMode::Output) {
+        mode = InputMode::Output;
+        doPrepareForOutput(ctx);
     }
 }
 

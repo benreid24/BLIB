@@ -4,5 +4,5 @@ target_sources(BLIB PRIVATE
 	AssetPool.cpp
 	GraphAssetPool.cpp
 	RenderGraph.cpp
-	Task.cpp
+	TaskAssets.cpp
 )

@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
 #include <BLIB/Render/Graph/TaskAssetTags.hpp>
+#include <BLIB/Render/Graph/TaskAssets.hpp>
 #include <string_view>
 #include <vector>
 
@@ -12,7 +13,7 @@ namespace rc
 {
 namespace rg
 {
-class GraphAsset;
+struct GraphAsset;
 class RenderGraph;
 
 /**
@@ -48,23 +49,13 @@ public:
      *
      * @param ctx The execution context
      */
-    virtual void execute(ExecutionContext& ctx) = 0;
+    virtual void execute(const ExecutionContext& ctx) = 0;
 
 protected:
     TaskAssetTags assetTags;
-
-    /**
-     * @brief Initializes the task
-     */
-    Task();
+    TaskAssets assets;
 
 private:
-    std::vector<GraphAsset*> inputs;
-    GraphAsset* output;
-
-    // Called by RenderGraph
-    void reset();
-
     friend class RenderGraph;
 };
 

@@ -21,6 +21,7 @@ namespace rg
 class AssetRef;
 class AssetPool;
 class GraphAssetPool;
+class RenderGraph;
 
 /**
  * @brief Base class for assets in render graphs
@@ -48,7 +49,15 @@ public:
      *
      * @param context The current execution context
      */
-    virtual void prepareForInput(ExecutionContext& context) = 0;
+    virtual void doPrepareForInput(const ExecutionContext& context) = 0;
+
+    /**
+     * @brief Prepares the asset for being an output. Child classes should insert pipeline barriers
+     *        here if required
+     *
+     * @param context The current execution context
+     */
+    virtual void doPrepareForOutput(const ExecutionContext& context) = 0;
 
     /**
      * @brief Returns the tag of this asset
@@ -64,18 +73,25 @@ protected:
     Asset(std::string_view tag);
 
 private:
+    enum struct InputMode { Unset, Input, Output };
+
     std::string_view tag;
     bool created;
     unsigned int refCount;
     std::vector<GraphAssetPool*> owners;
+    InputMode mode;
 
     void create(engine::Engine& engine, Renderer& renderer);
+    void prepareForInput(const ExecutionContext& ctx);
+    void prepareForOutput(const ExecutionContext& ctx);
+
     bool isOwnedBy(GraphAssetPool* pool);
     void addOwner(GraphAssetPool* pool);
     void removeOwner(GraphAssetPool* pool);
 
     friend class AssetRef;
     friend class AssetPool;
+    friend class RenderGraph;
 };
 
 } // namespace rg

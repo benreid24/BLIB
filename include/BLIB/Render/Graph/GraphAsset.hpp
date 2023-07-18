@@ -19,7 +19,6 @@ class Task;
 struct GraphAsset {
     AssetRef asset;
     Task* outputtedBy;
-    bool preparedForInput;
 
     /**
      * @brief Creates a new graph asset
@@ -28,8 +27,7 @@ struct GraphAsset {
      */
     GraphAsset(Asset* asset)
     : asset(asset)
-    , outputtedBy(nullptr)
-    , preparedForInput(false) {}
+    , outputtedBy(nullptr) {}
 };
 
 } // namespace rg

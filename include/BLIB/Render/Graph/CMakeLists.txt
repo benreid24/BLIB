@@ -10,5 +10,6 @@ target_sources(BLIB PUBLIC
 	GraphAssetPool.hpp
 	RenderGraph.hpp
 	Task.hpp
+	TaskAssets.hpp
 	TaskAssetTags.hpp
 )

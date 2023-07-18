@@ -47,6 +47,11 @@ public:
     GraphAsset* createAsset(std::string_view tag, Task* creator);
 
     /**
+     * @brief Fetches the swap frame asset from the pool
+     */
+    GraphAsset* getFinalOutput();
+
+    /**
      * @brief Releases all held assets to allow rebuilding of the graph
      */
     void reset();

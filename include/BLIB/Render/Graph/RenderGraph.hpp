@@ -5,6 +5,9 @@
 #include <BLIB/Render/Graph/GraphAssetPool.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
 #include <memory>
+#include <queue>
+#include <stdexcept>
+#include <unordered_set>
 #include <vector>
 
 namespace bl
@@ -63,7 +66,11 @@ public:
 private:
     struct TimelineStage {
         std::vector<Task*> tasks;
-        std::vector<GraphAsset*> newInputs;
+    };
+
+    struct VisitorStep {
+        GraphAsset* asset;
+        unsigned int stepsFromEnd;
     };
 
     engine::Engine& engine;
@@ -72,6 +79,34 @@ private:
     std::vector<std::unique_ptr<Task>> tasks;
     std::vector<TimelineStage> timeline;
     bool needsRebuild;
+
+    template<typename T>
+    void traverse(T&& taskVisitor, GraphAsset* start) {
+        std::queue<VisitorStep> toVisit;
+        toVisit.emplace(VisitorStep{start, 0});
+
+#ifdef BLIB_DEBUG
+        std::unordered_set<GraphAsset*> visited;
+#endif
+
+        while (!toVisit.empty()) {
+            const VisitorStep step = toVisit.front();
+            toVisit.pop();
+
+            const unsigned int newSteps = step.stepsFromEnd + 1;
+            taskVisitor(step.asset->outputtedBy, step.stepsFromEnd);
+
+            for (GraphAsset* asset : step.asset->outputtedBy->assets.requiredInputs) {
+#ifdef BLIB_DEBUG
+                if (visited.find(asset) != visited.end()) {
+                    throw std::runtime_error("Cycle detected in render graph");
+                }
+                visited.emplace(asset);
+#endif
+                toVisit.emplace(VisitorStep{asset, newSteps});
+            }
+        }
+    }
 };
 
 } // namespace rg

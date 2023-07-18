@@ -86,22 +86,22 @@ public:
     /**
      * @brief Dereferences the handle
      */
-    constexpr Asset* operator*() { return asset; }
+    constexpr Asset& operator*() { return *asset; }
 
     /**
      * @brief Dereferences the handle
      */
-    constexpr const Asset* operator*() const { return asset; }
+    constexpr const Asset& operator*() const { return *asset; }
 
     /**
      * @brief Dereferences the handle
      */
-    constexpr Asset& operator->() { return *asset; }
+    constexpr Asset* operator->() { return asset; }
 
     /**
      * @brief Dereferences the handle
      */
-    constexpr const Asset& operator->() const { return *asset; }
+    constexpr const Asset* operator->() const { return asset; }
 
     /**
      * @brief Returns whether or not the handle is valid. Only valid handles should be dereferenced
