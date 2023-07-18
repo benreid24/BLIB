@@ -5,6 +5,8 @@
 #include <BLIB/Render/Graph/AssetPool.hpp>
 #include <BLIB/Render/Graph/AssetRef.hpp>
 #include <BLIB/Render/Graph/GraphAsset.hpp>
+#include <list>
+#include <string_view>
 #include <unordered_map>
 
 namespace bl
@@ -51,7 +53,7 @@ public:
 
 private:
     AssetPool& pool;
-    std::unordered_map<std::string_view, std::vector<GraphAsset>> assets;
+    std::unordered_map<std::string_view, std::list<GraphAsset>> assets;
 };
 
 } // namespace rg

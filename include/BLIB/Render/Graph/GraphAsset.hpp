@@ -20,6 +20,16 @@ struct GraphAsset {
     AssetRef asset;
     Task* outputtedBy;
     bool preparedForInput;
+
+    /**
+     * @brief Creates a new graph asset
+     *
+     * @param asset The asset to wrap
+     */
+    GraphAsset(Asset* asset)
+    : asset(asset)
+    , outputtedBy(nullptr)
+    , preparedForInput(false) {}
 };
 
 } // namespace rg

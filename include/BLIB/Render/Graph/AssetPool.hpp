@@ -44,9 +44,10 @@ public:
      * @brief Fetches an existing asset from the pool
      *
      * @param tag The tag of the asset to fetch
+     * @param requester The pool requesting the asset
      * @return A pointer to an asset with the given tag, nullptr if none exist
      */
-    Asset* getAsset(std::string_view tag);
+    Asset* getAsset(std::string_view tag, GraphAssetPool* requester);
 
     /**
      * @brief Gets or creates an asset of the given tag for the given pool

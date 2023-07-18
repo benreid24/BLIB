@@ -18,9 +18,17 @@ void AssetPool::releaseUnused() {
     }
 }
 
-Asset* AssetPool::getAsset(std::string_view tag) {
+Asset* AssetPool::getAsset(std::string_view tag, GraphAssetPool* requester) {
     const auto it = assets.find(tag);
-    return it != assets.end() && !it->second.empty() ? it->second.front().get() : nullptr;
+    if (it != assets.end()) {
+        for (auto& asset : it->second) {
+            if (!asset->isOwnedBy(requester)) {
+                asset->addOwner(requester);
+                return asset.get();
+            }
+        }
+    }
+    return nullptr;
 }
 
 Asset* AssetPool::getOrCreateAsset(std::string_view tag, GraphAssetPool* requester) {
