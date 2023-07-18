@@ -10,7 +10,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 /**
  * @brief Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1),
@@ -666,7 +666,7 @@ std::size_t ObjectPool<T>::FixedRef::id() const {
     return index;
 }
 
-} // namespace container
+} // namespace ctr
 } // namespace bl
 
 #endif

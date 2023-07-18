@@ -6,7 +6,7 @@
 namespace bl
 {
 /// Collection of containers to expand upon the STL
-namespace container
+namespace ctr
 {
 /**
  * @brief Utility class that wraps std::vector, making it indexable in two dimensions
@@ -139,7 +139,7 @@ private:
     unsigned int W, H;
 };
 
-} // namespace container
+} // namespace ctr
 } // namespace bl
 
 #endif

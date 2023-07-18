@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 /**
  * @brief A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector
@@ -52,7 +52,7 @@ void FastEraseVector<T, Alloc>::erase(std::size_t i) {
     std::vector<T, Alloc>::pop_back();
 }
 
-} // namespace container
+} // namespace ctr
 } // namespace bl
 
 #endif

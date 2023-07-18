@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 namespace unittest
 {
@@ -137,5 +137,5 @@ TEST(RingBuffer, ClearDestructor) {
 }
 
 } // namespace unittest
-} // namespace container
+} // namespace ctr
 } // namespace bl

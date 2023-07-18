@@ -188,7 +188,7 @@ bool Playlist::shufflingOnLoop() const { return shuffleOnLoop; }
 
 void Playlist::shuffle() {
     const std::vector<std::string> order(std::move(songs));
-    container::FastEraseVector<std::size_t> indices;
+    ctr::FastEraseVector<std::size_t> indices;
     indices.reserve(songs.size());
     songs.reserve(order.size());
     songs.clear();

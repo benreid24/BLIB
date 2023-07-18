@@ -79,7 +79,7 @@ private:
     T nextId;
     T maxId;
     std::vector<bool> usedIds;
-    container::RingQueue<T> freeIds;
+    ctr::RingQueue<T> freeIds;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

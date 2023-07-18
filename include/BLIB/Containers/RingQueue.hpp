@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 /**
  * @brief Queue that uses a fixed size buffer internally to maintain contiguous storage and avoid
@@ -114,7 +114,7 @@ public:
     void clear();
 
 private:
-    using Buffer        = std::vector<container::ObjectWrapper<T>>;
+    using Buffer        = std::vector<ctr::ObjectWrapper<T>>;
     using Iterator      = typename Buffer::iterator;
     using ConstIterator = typename Buffer::const_iterator;
 
@@ -203,12 +203,8 @@ std::size_t RingQueue<T>::capacity() const {
 template<typename T>
 std::size_t RingQueue<T>::size() const {
     if (frontIter > backIter) { return (ring.end() - frontIter) + (backIter - ring.begin()); }
-    else if (frontIter == backIter) {
-        return notEmpty ? capacity() : 0;
-    }
-    else {
-        return backIter - frontIter;
-    }
+    else if (frontIter == backIter) { return notEmpty ? capacity() : 0; }
+    else { return backIter - frontIter; }
 }
 
 template<typename T>
@@ -232,7 +228,7 @@ typename RingQueue<T>::Iterator RingQueue<T>::incIter(Iterator it) {
     return it;
 }
 
-} // namespace container
+} // namespace ctr
 } // namespace bl
 
 #endif

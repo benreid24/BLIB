@@ -96,7 +96,7 @@ private:
     static constexpr std::size_t DefaultCapacity = 64;
     static constexpr std::size_t InvalidIndex    = std::numeric_limits<std::size_t>::max();
 
-    std::vector<container::ObjectWrapper<T>> pool;
+    std::vector<ctr::ObjectWrapper<T>> pool;
     std::vector<std::size_t> entityToIndex;
     std::vector<Entity> indexToEntity;
     util::IdAllocatorUnbounded<std::size_t> indexAllocator;

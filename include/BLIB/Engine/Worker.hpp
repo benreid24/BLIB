@@ -44,7 +44,7 @@ private:
     static Worker* worker;
 
     std::atomic_bool running;
-    container::RingQueue<QueuedTask> workQueue;
+    ctr::RingQueue<QueuedTask> workQueue;
     std::mutex mutex;
     std::condition_variable cv;
     std::thread runner;

@@ -7,7 +7,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 /**
  * @brief FIFO Container class similar to std::queue but allows promoting an element back to
@@ -172,7 +172,7 @@ void FastQueue<T>::clear() {
     containedValues.clear();
 }
 
-} // namespace container
+} // namespace ctr
 } // namespace bl
 
 #endif

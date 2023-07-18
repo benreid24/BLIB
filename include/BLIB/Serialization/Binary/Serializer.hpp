@@ -248,8 +248,8 @@ struct Serializer<std::vector<U>, false> {
 };
 
 template<typename U>
-struct Serializer<container::Vector2D<U>, false> {
-    static bool serialize(OutputStream& output, const container::Vector2D<U>& val) {
+struct Serializer<ctr::Vector2D<U>, false> {
+    static bool serialize(OutputStream& output, const ctr::Vector2D<U>& val) {
         if (!output.write<std::uint32_t>(val.getWidth())) return false;
         if (!output.write<std::uint32_t>(val.getHeight())) return false;
         for (unsigned int x = 0; x < val.getWidth(); ++x) {
@@ -260,7 +260,7 @@ struct Serializer<container::Vector2D<U>, false> {
         return true;
     }
 
-    static bool deserialize(InputStream& input, container::Vector2D<U>& result) {
+    static bool deserialize(InputStream& input, ctr::Vector2D<U>& result) {
         std::uint32_t w, h;
         if (!input.read<std::uint32_t>(w)) return false;
         if (!input.read<std::uint32_t>(h)) return false;
@@ -273,7 +273,7 @@ struct Serializer<container::Vector2D<U>, false> {
         return true;
     }
 
-    static std::uint32_t size(const container::Vector2D<U>& val) {
+    static std::uint32_t size(const ctr::Vector2D<U>& val) {
         std::uint32_t s = sizeof(std::uint32_t) * 2;
         for (unsigned int x = 0; x < val.getWidth(); ++x) {
             for (unsigned int y = 0; y < val.getHeight(); ++y) {
