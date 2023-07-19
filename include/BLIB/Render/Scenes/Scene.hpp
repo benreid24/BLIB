@@ -142,6 +142,7 @@ private:
     void handleDescriptorSync();
     std::uint32_t registerObserver();
     void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
+    // TODO - virtual hook for updateCam to allow derived scenes to prepare descriptors (ie lights)
 
     template<typename T>
     friend class sys::DrawableSystem;

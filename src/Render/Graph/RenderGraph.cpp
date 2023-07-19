@@ -146,8 +146,80 @@ void RenderGraph::build() {
         },
         swapframe);
 
-    // TODO - create map of asset -> ready step index
-    // then move tasks as far forward as possible
+    // shift tasks forward as much as possible. start by finding leaf inputs
+    std::queue<std::pair<GraphAsset*, Task*>> toVisit;
+
+    for (auto& step : timeline) {
+        for (Task* task : step.tasks) {
+            for (GraphAsset* asset : task->assets.requiredInputs) {
+                if (!asset->outputtedBy) {
+                    toVisit.emplace(asset, task);
+                    asset->firstAvailableStep = 0;
+                }
+            }
+            for (GraphAsset* asset : task->assets.optionalInputs) {
+                if (asset && !asset->outputtedBy) {
+                    toVisit.emplace(asset, task);
+                    asset->firstAvailableStep = 0;
+                }
+            }
+        }
+    }
+
+    const auto isInput = [](GraphAsset* asset, Task* task) -> bool {
+        for (GraphAsset* i : task->assets.requiredInputs) {
+            if (i == asset) { return true; }
+        }
+        for (GraphAsset* i : task->assets.optionalInputs) {
+            if (i == asset) { return true; }
+        }
+        return false;
+    };
+
+    // traverse graph up from leafs and populate firstAvailableStep for each asset
+    while (!toVisit.empty()) {
+        auto node = toVisit.front();
+        toVisit.pop();
+
+        node.second->assets.output->firstAvailableStep = std::max(
+            node.second->assets.output->firstAvailableStep, node.first->firstAvailableStep + 1);
+
+        for (auto& task : tasks) {
+            if (isInput(node.second->assets.output, task.get())) {
+                toVisit.emplace(node.second->assets.output, task.get());
+            }
+        }
+    }
+
+    // for each task now determine soonest step it can run and move it
+    const auto findSoonest = [](Task* task) -> unsigned int {
+        unsigned int soonest = std::numeric_limits<unsigned int>::max();
+
+        for (GraphAsset* asset : task->assets.requiredInputs) {
+            soonest = soonest > asset->firstAvailableStep ? asset->firstAvailableStep : soonest;
+        }
+        for (GraphAsset* asset : task->assets.requiredInputs) {
+            if (!asset) continue;
+            soonest = soonest > asset->firstAvailableStep ? asset->firstAvailableStep : soonest;
+        }
+
+        return soonest;
+    };
+
+    unsigned int i = 0;
+    for (auto& step : timeline) {
+        for (auto it = step.tasks.begin(); it != step.tasks.end();) {
+            Task* task                 = *it;
+            const unsigned int soonest = findSoonest(task);
+            if (soonest != i) {
+                it = step.tasks.erase(it);
+                timeline[soonest].tasks.emplace_back(task);
+            }
+            else { ++it; }
+        }
+
+        ++i;
+    }
 }
 
 } // namespace rg
