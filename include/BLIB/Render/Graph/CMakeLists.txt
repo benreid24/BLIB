@@ -12,4 +12,5 @@ target_sources(BLIB PUBLIC
 	Task.hpp
 	TaskAssets.hpp
 	TaskAssetTags.hpp
+	TaskInput.hpp
 )

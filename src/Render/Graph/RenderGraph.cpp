@@ -10,13 +10,6 @@ namespace rc
 {
 namespace rg
 {
-namespace
-{
-struct TaskData {
-    Task* task;
-    TaskAssetTags tags;
-};
-} // namespace
 
 RenderGraph::RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& pool)
 : engine(engine)
@@ -60,9 +53,12 @@ void RenderGraph::build() {
     };
 
     const auto tryLinkConcreteInput =
-        [this, &addInputTask](Task* task, std::string_view tag, GraphAsset*& input) {
-            input = assets.getAsset(tag);
-            if (!input) { addInputTask(task); }
+        [this, &addInputTask](Task* task, const TaskInput& tags, GraphAsset*& input) {
+            for (auto tag : tags.options) {
+                input = assets.getAssetForInput(tag);
+                if (input) return;
+            }
+            addInputTask(task);
         };
 
     // first link all inputs for concrete assets, mark tasks missing inputs
@@ -78,14 +74,15 @@ void RenderGraph::build() {
     }
 
     const auto findAssetCreator =
-        [this](Task* task, std::string_view tag, GraphAsset*& asset) -> bool {
-        for (auto& ctask : tasks) {
-            if (ctask.get() != task && !ctask->assets.output &&
-                ctask->assetTags.createdOutput == tag) {
-                asset                   = assets.createAsset(tag, ctask.get());
-                ctask->assets.output    = asset;
-                ctask->assets.outputTag = tag;
-                return true;
+        [this](Task* task, const TaskInput& tags, GraphAsset*& asset) -> bool {
+        for (auto tag : tags.options) {
+            for (auto& ctask : tasks) {
+                if (ctask.get() != task && !ctask->assets.output &&
+                    ctask->assetTags.createdOutput == tag) {
+                    asset                = assets.createAsset(tag, ctask.get());
+                    ctask->assets.output = asset;
+                    return true;
+                }
             }
         }
         return false;
@@ -113,11 +110,9 @@ void RenderGraph::build() {
     for (auto& task : tasks) {
         if (!task->assets.output) {
             for (std::string_view tag : task->assetTags.concreteOutputs) {
-                GraphAsset* asset = assets.getAsset(tag);
+                GraphAsset* asset = assets.getAssetForOutput(tag, task.get());
                 if (asset) {
-                    asset->outputtedBy     = task.get();
-                    task->assets.output    = asset;
-                    task->assets.outputTag = tag;
+                    task->assets.output = asset;
                     break;
                 }
             }
@@ -145,8 +140,14 @@ void RenderGraph::build() {
 
     // populate timeline
     traverse(
-        [this](Task* task, unsigned int d) { (timeline.rbegin() + d)->tasks.emplace_back(task); },
+        [this](Task* task, unsigned int d) {
+            (timeline.rbegin() + d)->tasks.emplace_back(task);
+            task->onGraphInit();
+        },
         swapframe);
+
+    // TODO - create map of asset -> ready step index
+    // then move tasks as far forward as possible
 }
 
 } // namespace rg

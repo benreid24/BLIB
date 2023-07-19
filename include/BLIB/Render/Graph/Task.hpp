@@ -38,11 +38,8 @@ public:
 
     /**
      * @brief Called after assets are assigned and created. Called when graph is rebuilt
-     *
-     * @param inputs The inputs to this task
-     * @param output The output to this task
      */
-    virtual void onGraphInit(const std::vector<GraphAsset*>& inputs, GraphAsset* output) = 0;
+    virtual void onGraphInit() = 0;
 
     /**
      * @brief Called once per rendered frame

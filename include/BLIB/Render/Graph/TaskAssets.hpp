@@ -20,7 +20,6 @@ struct GraphAsset;
  * @ingroup Renderer
  */
 struct TaskAssets {
-    std::string_view outputTag;
     GraphAsset* output;
     std::vector<GraphAsset*> requiredInputs;
     std::vector<GraphAsset*> optionalInputs;

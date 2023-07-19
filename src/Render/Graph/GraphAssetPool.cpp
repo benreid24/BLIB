@@ -20,13 +20,24 @@ GraphAsset* GraphAssetPool::getFinalOutput() {
     return &set.front();
 }
 
-GraphAsset* GraphAssetPool::getAsset(std::string_view tag) {
+GraphAsset* GraphAssetPool::getAssetForOutput(std::string_view tag, Task* task) {
     Asset* asset = pool.getAsset(tag, this);
     if (asset) {
-        auto& set = assets[tag];
-        return &set.emplace_back(asset);
+        auto& set       = assets[tag];
+        GraphAsset* ga  = &set.emplace_back(asset);
+        ga->outputtedBy = task;
+        return ga;
     }
     return nullptr;
+}
+
+GraphAsset* GraphAssetPool::getAssetForInput(std::string_view tag) {
+    // search for existing asset before falling back onto pool
+    const auto it = assets.find(tag);
+    if (it != assets.end() && it->second.size() == 1) { return &it->second.front(); }
+
+    // fallback into pool to find external asset
+    return getAssetForOutput(tag, nullptr);
 }
 
 GraphAsset* GraphAssetPool::createAsset(std::string_view tag, Task* creator) {

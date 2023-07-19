@@ -89,14 +89,11 @@ private:
         std::unordered_set<GraphAsset*> visited;
 #endif
 
-        while (!toVisit.empty()) {
-            const VisitorStep step = toVisit.front();
-            toVisit.pop();
+        const auto processInputs = [&toVisit, &visited](std::vector<GraphAsset*>& inputs,
+                                                        unsigned int newSteps) {
+            for (GraphAsset* asset : inputs) {
+                if (!asset || !asset->outputtedBy) continue;
 
-            const unsigned int newSteps = step.stepsFromEnd + 1;
-            taskVisitor(step.asset->outputtedBy, step.stepsFromEnd);
-
-            for (GraphAsset* asset : step.asset->outputtedBy->assets.requiredInputs) {
 #ifdef BLIB_DEBUG
                 if (visited.find(asset) != visited.end()) {
                     throw std::runtime_error("Cycle detected in render graph");
@@ -105,6 +102,17 @@ private:
 #endif
                 toVisit.emplace(VisitorStep{asset, newSteps});
             }
+        };
+
+        while (!toVisit.empty()) {
+            const VisitorStep step = toVisit.front();
+            toVisit.pop();
+
+            const unsigned int newSteps = step.stepsFromEnd + 1;
+            taskVisitor(step.asset->outputtedBy, step.stepsFromEnd);
+
+            processInputs(step.asset->outputtedBy->assets.requiredInputs, newSteps);
+            processInputs(step.asset->outputtedBy->assets.optionalInputs, newSteps);
         }
     }
 };

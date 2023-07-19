@@ -30,12 +30,22 @@ public:
     GraphAssetPool(AssetPool& pool);
 
     /**
-     * @brief Fetch an existing asset from the pool
+     * @brief Fetch an existing asset from the pool to be used as an output
+     *
+     * @param tag The asset tag to fetch
+     * @param task The task that will be outputting to the asset
+     * @return A pointer to the contained asset, or nullptr if none
+     */
+    GraphAsset* getAssetForOutput(std::string_view tag, Task* task);
+
+    /**
+     * @brief Fetch an existing asset from the pool to be used as an input. Only use for external
+     *        assets. Do not call after calls to createAsset
      *
      * @param tag The asset tag to fetch
      * @return A pointer to the contained asset, or nullptr if none
      */
-    GraphAsset* getAsset(std::string_view tag);
+    GraphAsset* getAssetForInput(std::string_view tag);
 
     /**
      * @brief Creates a new asset with the given tag and creator
