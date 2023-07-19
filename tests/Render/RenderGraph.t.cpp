@@ -340,6 +340,33 @@ TEST(RenderGraph, SceneWithPostFXChainAndShadows) {
     EXPECT_TRUE(swapframe->rendered);
 }
 
+TEST(RenderGraph, MultipleGraphsSharedAssets) {
+    AssetFactory factory;
+    setupFactory(factory);
+
+    AssetPool pool(factory);
+    pool.putAsset<SceneObjects>();
+    Swapframe* swapframe = pool.putAsset<Swapframe>();
+
+    engine::Engine engine(engine::Settings{});
+
+    RenderGraph graph1(engine, engine.renderer(), pool);
+    RenderGraph graph2(engine, engine.renderer(), pool);
+
+    graph1.putTask<SceneRenderTask>();
+    graph1.putTask<PostFXTask>();
+
+    graph1.execute(nullptr, 0, false);
+    EXPECT_TRUE(swapframe->rendered);
+
+    graph2.putTask<SceneRenderTask>();
+    graph2.putTask<PostFXTask>();
+
+    swapframe->rendered = false;
+    graph2.execute(nullptr, 0, false);
+    EXPECT_TRUE(swapframe->rendered);
+}
+
 } // namespace unittest
 } // namespace rg
 } // namespace rc
