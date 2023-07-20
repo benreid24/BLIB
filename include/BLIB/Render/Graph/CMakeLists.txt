@@ -14,3 +14,7 @@ target_sources(BLIB PUBLIC
 	TaskAssetTags.hpp
 	TaskInput.hpp
 )
+
+add_subdirectory(Assets)
+add_subdirectory(Strategies)
+add_subdirectory(Tasks)

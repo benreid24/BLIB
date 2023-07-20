@@ -1,3 +1,3 @@
 target_sources(BLIB PUBLIC
-	FinalSwapframe.hpp
+	ForwardRenderStrategy.hpp
 )

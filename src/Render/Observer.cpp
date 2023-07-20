@@ -9,8 +9,10 @@ namespace bl
 {
 namespace rc
 {
-Observer::Observer(Renderer& r)
-: renderer(r)
+Observer::Observer(engine::Engine& e, Renderer& r, rg::AssetFactory& f)
+: engine(e)
+, renderer(r)
+, graphAssets(f)
 , resourcesFreed(false) {
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
@@ -40,7 +42,7 @@ void Observer::updateCamera(float dt) {
 }
 
 void Observer::pushScene(Scene* s) {
-    scenes.emplace_back(renderer, s);
+    scenes.emplace_back(engine, renderer, graphAssets, s);
     onSceneAdd();
 }
 

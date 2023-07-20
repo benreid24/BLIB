@@ -1,6 +1,7 @@
 #include <BLIB/Render/Renderer.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
 #include <BLIB/Systems/BuiltinDescriptorComponentSystems.hpp>
 #include <BLIB/Systems/BuiltinDrawableSystems.hpp>
 #include <BLIB/Systems/CameraUpdateSystem.hpp>
@@ -25,7 +26,7 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , pipelines(*this)
 , scenes(engine)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
-, commonObserver(*this)
+, commonObserver(engine, *this, assetFactory)
 , defaultNear(0.1f)
 , defaultFar(100.f) {
     renderTextures.reserve(16);
@@ -71,6 +72,8 @@ void Renderer::initialize() {
                                                        StateMask,
                                                        Config::PipelineIds::LitSkinned2DGeometry,
                                                        Config::PipelineIds::UnlitSkinned2DGeometry);
+
+    // TODO - add asset providers
 
     // create renderer instance data
     state.init();
@@ -183,7 +186,7 @@ Observer& Renderer::addObserver() {
     }
 #endif
 
-    observers.emplace_back(new Observer(*this));
+    observers.emplace_back(new Observer(engine, *this, assetFactory));
     assignObserverRegions();
     observers.back()->setDefaultNearFar(defaultNear, defaultFar);
     return *observers.back();
@@ -245,6 +248,11 @@ void Renderer::removeRenderTexture(vk::RenderTexture* rt) {
             return;
         }
     }
+}
+
+rg::Strategy& Renderer::getRenderStrategy() {
+    if (!strategy) { useRenderStrategy<rgi::ForwardRenderStrategy>(); }
+    return *strategy;
 }
 
 } // namespace rc

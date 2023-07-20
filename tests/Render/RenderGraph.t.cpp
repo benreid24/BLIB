@@ -334,7 +334,7 @@ TEST(RenderGraph, SceneWithPostFXChainAndShadows) {
     graph.putTask<PostFXTask>();
     graph.putTask<PostFXTask>();
     graph.putTask<PostFXTask>();
-    ShadowMapTask* shadowmap = graph.putTask<ShadowMapTask>();
+    graph.putTask<ShadowMapTask>();
 
     graph.execute(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);

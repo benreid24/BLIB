@@ -6,3 +6,6 @@ target_sources(BLIB PRIVATE
 	RenderGraph.cpp
 	TaskAssets.cpp
 )
+
+add_subdirectory(Assets)
+add_subdirectory(Strategies)
