@@ -3,6 +3,7 @@
 
 #include <BLIB/Cameras/Camera.hpp>
 #include <BLIB/Render/Graph/AssetPool.hpp>
+#include <BLIB/Render/Graph/Assets/FinalSwapframe.hpp>
 #include <BLIB/Render/Graph/RenderGraph.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Overlays/OverlayCamera.hpp>
@@ -182,8 +183,9 @@ private:
     bool resourcesFreed;
     vk::PerFrame<vk::StandardAttachmentBuffers> renderFrames;
     vk::PerFrame<vk::Framebuffer> sceneFramebuffers;
-    VkRect2D scissor;
     VkViewport viewport;
+    VkRect2D scissor;
+    rgi::FinalSwapframe* swapframeAsset;
     std::vector<SceneInstance> scenes;
     std::unique_ptr<scene::PostFX> defaultPostFX;
     float defaultNear, defaultFar;

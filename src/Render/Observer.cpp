@@ -21,6 +21,9 @@ Observer::Observer(engine::Engine& e, Renderer& r, rg::AssetFactory& f)
     clearColors[1].depthStencil = {1.f, 0};
 
     overlayProjView = overlayCamera.getProjectionMatrix(viewport) * overlayCamera.getViewMatrix();
+
+    swapframeAsset =
+        graphAssets.putAsset<rgi::FinalSwapframe>(r.getSwapframeBuffers(), viewport, scissor);
 }
 
 Observer::~Observer() {
@@ -304,6 +307,8 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
         // post fx image descriptors
         for (SceneInstance& scene : scenes) { scene.postfx->bindImages(renderFrames); }
     }
+
+    // TODO - notify size-dependent assets
 }
 
 void Observer::setDefaultNearFar(float n, float f) {

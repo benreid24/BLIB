@@ -197,6 +197,11 @@ public:
      */
     constexpr rg::AssetFactory& getAssetFactory();
 
+    /**
+     * @brief Returns the framebuffers for the swap chain frames
+     */
+    constexpr vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
+
 private:
     engine::Engine& engine;
     engine::EngineWindow& window;
@@ -304,6 +309,10 @@ T* Renderer::useRenderStrategy(TArgs&&... args) {
 }
 
 inline constexpr rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
+
+inline constexpr vk::PerSwapFrame<vk::Framebuffer>& Renderer::getSwapframeBuffers() {
+    return framebuffers;
+}
 
 } // namespace rc
 } // namespace bl

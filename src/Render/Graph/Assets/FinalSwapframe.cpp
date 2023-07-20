@@ -1,16 +1,31 @@
 #include <BLIB/Render/Graph/Assets/FinalSwapframe.hpp>
 
+#include <BLIB/Render/Graph/AssetTags.hpp>
+
 namespace bl
 {
 namespace rc
 {
 namespace rgi
 {
-void FinalSwapframe::doCreate(engine::Engine& engine, Renderer& renderer) {}
+FinalSwapframe::FinalSwapframe(vk::PerSwapFrame<vk::Framebuffer>& framebuffers,
+                               VkViewport& viewport, VkRect2D& scissor)
+: Asset(rg::AssetTags::FinalFrameOutput)
+, framebuffers(framebuffers)
+, viewport(viewport)
+, scissor(scissor) {}
 
-void FinalSwapframe::doPrepareForInput(const rg::ExecutionContext& context) {}
+void FinalSwapframe::doCreate(engine::Engine&, Renderer&) {
+    // noop, managed by swapchain
+}
 
-void FinalSwapframe::doPrepareForOutput(const rg::ExecutionContext& context) {}
+void FinalSwapframe::doPrepareForInput(const rg::ExecutionContext&) {
+    // noop, handled by renderpass
+}
+
+void FinalSwapframe::doPrepareForOutput(const rg::ExecutionContext&) {
+    // noop, handled by renderpass
+}
 
 } // namespace rgi
 } // namespace rc
