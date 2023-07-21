@@ -26,7 +26,7 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , pipelines(*this)
 , scenes(engine)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
-, commonObserver(engine, *this, assetFactory)
+, commonObserver(engine, *this, assetFactory, true)
 , defaultNear(0.1f)
 , defaultFar(100.f) {
     renderTextures.reserve(16);
@@ -144,24 +144,16 @@ void Renderer::renderFrame() {
     for (vk::RenderTexture* rt : renderTextures) { rt->renderScene(commandBuffer); }
 
     // record commands to render scenes
-    if (commonObserver.hasScene()) { commonObserver.renderScene(commandBuffer); }
-    else {
-        // record all before blocking to apply postfx
-        for (auto& o : observers) { o->renderScene(commandBuffer); }
-    }
+    for (auto& o : observers) { o->renderScene(commandBuffer); }
+    // TODO - clear depth buffer? common observer use special render pass? clear color issue
+    commonObserver.renderScene(commandBuffer);
 
-    // begin render pass to composite content into swapchain image
+    // begin render pass to render overlays
     framebuffers.current().beginRender(commandBuffer,
                                        {{0, 0}, currentFrame->renderExtent()},
                                        clearColors,
                                        std::size(clearColors),
                                        false);
-
-    // apply rendered scenes to swap image with postfx
-    if (commonObserver.hasScene()) { commonObserver.compositeSceneWithEffects(commandBuffer); }
-    else {
-        for (auto& o : observers) { o->compositeSceneWithEffects(commandBuffer); }
-    }
 
     // render overlays
     for (auto& o : observers) { o->renderOverlay(commandBuffer); }
@@ -186,7 +178,7 @@ Observer& Renderer::addObserver() {
     }
 #endif
 
-    observers.emplace_back(new Observer(engine, *this, assetFactory));
+    observers.emplace_back(new Observer(engine, *this, assetFactory, false));
     assignObserverRegions();
     observers.back()->setDefaultNearFar(defaultNear, defaultFar);
     return *observers.back();

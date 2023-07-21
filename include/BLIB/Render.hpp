@@ -54,7 +54,7 @@
 #include <BLIB/Render/Resources/ShaderModuleCache.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
-#include <BLIB/Render/Scenes/BasicScene.hpp>
+#include <BLIB/Render/Scenes/BatchedScene.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/PostFX.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>

@@ -106,6 +106,20 @@ void RenderPassCache::addDefaults() {
             .build());
     primaryParams.addSubpassDependency(primaryRenderWaitImage);
     createRenderPass(Config::RenderPassIds::SwapchainPrimaryRender, primaryParams.build());
+
+    // special swapchain render pass for common observer (no color clear, depth clear)
+    swapColorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_LOAD;
+    vk::RenderPassParameters commonSwapParams;
+    commonSwapParams.addAttachment(swapColorAttachment);
+    commonSwapParams.addAttachment(depthAttachment);
+    commonSwapParams.addSubpass(
+        vk::RenderPassParameters::SubPass()
+            .withAttachment(0, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
+            .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
+            .build());
+    commonSwapParams.addSubpassDependency(primaryRenderWaitImage);
+    createRenderPass(Config::RenderPassIds::SwapchainCommonObserverRender,
+                     commonSwapParams.build());
 }
 
 } // namespace res

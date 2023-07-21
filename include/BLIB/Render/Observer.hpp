@@ -3,11 +3,10 @@
 
 #include <BLIB/Cameras/Camera.hpp>
 #include <BLIB/Render/Graph/AssetPool.hpp>
-#include <BLIB/Render/Graph/Assets/FinalSwapframe.hpp>
+#include <BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp>
 #include <BLIB/Render/Graph/RenderGraph.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Overlays/OverlayCamera.hpp>
-#include <BLIB/Render/Scenes/PostFX.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
@@ -132,24 +131,6 @@ public:
     TCamera* setCamera(TArgs&&... args);
 
     /**
-     * @brief Sets the post processing to be used when compositing the rendered scene. PostFX are
-     *        only applied to the current scene. New scenes start with plain PostFX. Popping a scene
-     *        will result in the prior scene using the same postFX it was using before
-     *
-     * @tparam FX Type of post processing to create
-     * @tparam ...TArgs Argument types to create the new object
-     * @param ...args Arguments to the constructor of the postfx object
-     * @return The new post processing object
-     */
-    template<typename FX, typename... TArgs>
-    FX* setPostFX(TArgs&&... args);
-
-    /**
-     * @brief Reverts the current scene's post processing to a standard copy
-     */
-    void removePostFX();
-
-    /**
      * @brief Sets the color to clear the observer's render region to prior to rendering
      *
      * @param color The color to clear with
@@ -164,7 +145,6 @@ private:
         std::uint32_t observerIndex;
         std::uint32_t overlayIndex;
         std::unique_ptr<cam::Camera> camera;
-        std::unique_ptr<scene::PostFX> postfx;
         bool overlayPostFX;
 
         SceneInstance(engine::Engine& e, Renderer& r, rg::AssetPool& pool, Scene* s)
@@ -173,27 +153,24 @@ private:
         , graph(e, r, pool)
         , observerIndex(0)
         , overlayIndex(0)
-        , postfx(std::make_unique<scene::PostFX>(r))
         , overlayPostFX(false) {}
     };
 
+    const bool isCommon;
     engine::Engine& engine;
     Renderer& renderer;
     rg::AssetPool graphAssets;
     bool resourcesFreed;
-    vk::PerFrame<vk::StandardAttachmentBuffers> renderFrames;
-    vk::PerFrame<vk::Framebuffer> sceneFramebuffers;
     VkViewport viewport;
     VkRect2D scissor;
-    rgi::FinalSwapframe* swapframeAsset;
+    rgi::FinalSwapframeAsset* swapframeAsset;
     std::vector<SceneInstance> scenes;
-    std::unique_ptr<scene::PostFX> defaultPostFX;
     float defaultNear, defaultFar;
     VkClearValue clearColors[2];
     ovy::OverlayCamera overlayCamera;
     glm::mat4 overlayProjView;
 
-    Observer(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory);
+    Observer(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory, bool isCommon);
     void handleDescriptorSync();
     void updateCamera(float dt);
     void assignRegion(const sf::Vector2u& windowSize, const sf::Rect<std::uint32_t>& parentRegion,
@@ -204,7 +181,6 @@ private:
 
     // called by Renderer
     void renderScene(VkCommandBuffer commandBuffer);
-    void compositeSceneWithEffects(VkCommandBuffer commandBuffer);
     void renderOverlay(VkCommandBuffer commandBuffer);
 
     friend class bl::rc::Renderer;
@@ -227,13 +203,6 @@ TCamera* Observer::setCamera(TArgs&&... args) {
 
     BL_LOG_ERROR << "Tried to set camera for observer with no current scene";
     return nullptr;
-}
-
-template<typename FX, typename... TArgs>
-FX* Observer::setPostFX(TArgs&&... args) {
-    FX* fx = new FX(std::forward<TArgs>(args)...);
-    scenes.back().postfx.reset(fx);
-    return fx;
 }
 
 } // namespace rc

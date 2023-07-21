@@ -37,7 +37,7 @@ public:
      *
      * @return constexpr VkRenderPass The Vulkan render pass handle
      */
-    constexpr VkRenderPass rawPass();
+    constexpr VkRenderPass rawPass() const;
 
 private:
     VulkanState& vulkanState;
@@ -46,7 +46,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-constexpr VkRenderPass RenderPass::rawPass() { return renderPass; }
+constexpr VkRenderPass RenderPass::rawPass() const { return renderPass; }
 
 } // namespace vk
 } // namespace rc

@@ -281,6 +281,8 @@ TScene* Renderer::pushSceneToAllObservers(TArgs&&... args) {
 
 template<typename TScene, typename... TArgs>
 TScene* Observer::pushScene(TArgs&&... args) {
+    static_assert(std::is_base_of_v<Scene, TScene>, "Scene must derive from Scene");
+
     TScene* s = renderer.scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
     scenes.emplace_back(engine, renderer, graphAssets, s);
     onSceneAdd();

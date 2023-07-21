@@ -1,3 +1,5 @@
 target_sources(BLIB PRIVATE
-	FinalSwapframe.cpp
+	FinalSwapframeAsset.cpp
+	FramebufferAsset.cpp
+	SceneAsset.cpp
 )

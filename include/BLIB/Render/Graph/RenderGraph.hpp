@@ -63,6 +63,11 @@ public:
      */
     void build();
 
+    /**
+     * @brief Notifies the graph to rebuild on next execution
+     */
+    void markDirty();
+
 private:
     struct TimelineStage {
         std::vector<Task*> tasks;

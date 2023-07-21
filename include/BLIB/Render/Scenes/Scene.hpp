@@ -50,6 +50,13 @@ public:
      */
     virtual ~Scene() = default;
 
+    /**
+     * @brief Derived classes should record render commands in here
+     *
+     * @param context Render context containing scene render data
+     */
+    virtual void renderScene(scene::SceneRenderContext& context) = 0;
+
 protected:
     /**
      * @brief POD containing data for when an object needs to be re-batched
@@ -73,13 +80,6 @@ protected:
      */
     Scene(engine::Engine& engine,
           const ds::DescriptorComponentStorageBase::EntityCallback& entityCb);
-
-    /**
-     * @brief Derived classes should record render commands in here
-     *
-     * @param context Render context containing scene render data
-     */
-    virtual void renderScene(scene::SceneRenderContext& context) = 0;
 
     /**
      * @brief Called when an object is added to the scene. Derived should create the SceneObject

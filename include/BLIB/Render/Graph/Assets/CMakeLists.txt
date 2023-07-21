@@ -1,3 +1,5 @@
 target_sources(BLIB PUBLIC
-	FinalSwapframe.hpp
+	FinalSwapframeAsset.hpp
+	FramebufferAsset.hpp
+	SceneAsset.hpp
 )

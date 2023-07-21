@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_RENDERER_BASICSCENE_HPP
-#define BLIB_RENDER_RENDERER_BASICSCENE_HPP
+#ifndef BLIB_RENDER_RENDERER_BATCHEDSCENE_HPP
+#define BLIB_RENDER_RENDERER_BATCHEDSCENE_HPP
 
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
@@ -26,21 +26,20 @@ namespace scene
  *
  * @ingroup Renderer
  */
-class BasicScene : public Scene {
+class BatchedScene : public Scene {
 public:
     /**
-     * @brief Initializes the BasicScene
+     * @brief Initializes the BatchedScene
      *
      * @param engine The engine instance
      */
-    BasicScene(engine::Engine& engine);
+    BatchedScene(engine::Engine& engine);
 
     /**
      * @brief Unlinks allocated objects from ECS descriptor linkages
      */
-    virtual ~BasicScene();
+    virtual ~BatchedScene();
 
-protected:
     /**
      * @brief Derived classes should record render commands in here
      *
@@ -48,6 +47,7 @@ protected:
      */
     virtual void renderScene(scene::SceneRenderContext& context) override;
 
+protected:
     /**
      * @brief Called when an object is added to the scene. Derived should create the SceneObject
      *        here and initialize descriptor sets

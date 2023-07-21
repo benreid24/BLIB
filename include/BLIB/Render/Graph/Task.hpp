@@ -2,6 +2,7 @@
 #define BLIB_RENDER_GRAPH_TASK_HPP
 
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
+#include <BLIB/Render/Graph/GraphAsset.hpp>
 #include <BLIB/Render/Graph/TaskAssetTags.hpp>
 #include <BLIB/Render/Graph/TaskAssets.hpp>
 #include <string_view>

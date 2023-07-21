@@ -56,17 +56,18 @@ public:
     void cleanup();
 
     /**
-     * @brief Begins the render pass, recreating the framebuffer if necessary
+     * @brief Begins the render pass, recreating the framebuffer if necessary. Scissor is set
      *
      * @param commandBuffer The primary command buffer to issue commands into
      * @param region The region of the framebuffer to render to
      * @param clearColors The colors to clear the framebuffer with on render pass begin
      * @param clearColorCount The number of clear colors
-     * @param setViewportAndScissor True to set viewport/scissor to region, false to leave unset
+     * @param setViewport True to set viewport to region, false to leave unset
+     * @param renderPass Optional render pass to use in place of the pass the fb was created with
      */
     void beginRender(VkCommandBuffer commandBuffer, const VkRect2D& region,
-                     VkClearValue* clearColors, std::uint32_t clearColorCount,
-                     bool setViewportAndScissor = true) const;
+                     const VkClearValue* clearColors, std::uint32_t clearColorCount,
+                     bool setViewport = true, VkRenderPass renderPass = nullptr) const;
 
     /**
      * @brief Ends the render pass

@@ -1,5 +1,5 @@
 target_sources(BLIB PUBLIC
-    BasicScene.hpp
+    BatchedScene.hpp
     Key.hpp
     PostFX.hpp
     Scene.hpp

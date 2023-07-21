@@ -49,7 +49,6 @@ public:
      */
     virtual ~Overlay();
 
-protected:
     /**
      * @brief Derived classes should record render commands in here
      *
@@ -57,6 +56,7 @@ protected:
      */
     virtual void renderScene(scene::SceneRenderContext& context) override;
 
+protected:
     /**
      * @brief Called when an object is added to the scene. Derived should create the SceneObject
      *        here and initialize descriptor sets

@@ -222,6 +222,8 @@ void RenderGraph::build() {
     }
 }
 
+void RenderGraph::markDirty() { needsRebuild = true; }
+
 } // namespace rg
 } // namespace rc
 } // namespace bl

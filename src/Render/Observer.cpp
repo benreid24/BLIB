@@ -2,6 +2,7 @@
 
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Cameras/3D/Camera3D.hpp>
+#include <BLIB/Render/Graph/Assets/SceneAsset.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -9,8 +10,9 @@ namespace bl
 {
 namespace rc
 {
-Observer::Observer(engine::Engine& e, Renderer& r, rg::AssetFactory& f)
-: engine(e)
+Observer::Observer(engine::Engine& e, Renderer& r, rg::AssetFactory& f, bool c)
+: isCommon(c)
+, engine(e)
 , renderer(r)
 , graphAssets(f)
 , resourcesFreed(false) {
@@ -22,8 +24,12 @@ Observer::Observer(engine::Engine& e, Renderer& r, rg::AssetFactory& f)
 
     overlayProjView = overlayCamera.getProjectionMatrix(viewport) * overlayCamera.getViewMatrix();
 
-    swapframeAsset =
-        graphAssets.putAsset<rgi::FinalSwapframe>(r.getSwapframeBuffers(), viewport, scissor);
+    swapframeAsset = graphAssets.putAsset<rgi::FinalSwapframeAsset>(renderer.getSwapframeBuffers(),
+                                                                    viewport,
+                                                                    scissor,
+                                                                    isCommon,
+                                                                    clearColors,
+                                                                    std::size(clearColors));
 }
 
 Observer::~Observer() {
@@ -33,9 +39,6 @@ Observer::~Observer() {
 void Observer::cleanup() {
     if (!resourcesFreed) {
         clearScenes();
-        defaultPostFX.reset();
-        sceneFramebuffers.cleanup([](vk::Framebuffer& fb) { fb.cleanup(); });
-        renderFrames.cleanup([](vk::StandardAttachmentBuffers& frame) { frame.destroy(); });
         resourcesFreed = true;
     }
 }
@@ -95,7 +98,7 @@ void Observer::clearScenes() {
         Scene* s = scenes.back().scene;
         if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
         scenes.pop_back();
-        renderer.scenePool().destroyScene(s);
+        renderer.scenePool().destroyScene(s); // TODO - multi free
     }
 }
 
@@ -107,8 +110,8 @@ void Observer::clearScenesNoRelease() {
 }
 
 void Observer::onSceneAdd() {
-    scenes.back().postfx->bindImages(renderFrames);
     scenes.back().observerIndex = scenes.back().scene->registerObserver();
+    // TODO - get default camera from scene
 #if SCENE_DEFAULT_CAMERA == 2
     setCamera<cam::Camera2D>(
         glm::vec2{viewport.x + viewport.width * 0.5f, viewport.y + viewport.height * 0.5f},
@@ -116,9 +119,11 @@ void Observer::onSceneAdd() {
 #else
     setCamera<cam::Camera3D>();
 #endif
-}
 
-void Observer::removePostFX() { setPostFX<scene::PostFX>(renderer); }
+    renderer.getRenderStrategy().populate(scenes.back().graph);
+    graphAssets.putAsset<rgi::SceneAsset>(scenes.back().scene);
+    // TODO - call into scene hook to populate graph
+}
 
 void Observer::handleDescriptorSync() {
     if (hasScene()) {
@@ -135,10 +140,6 @@ void Observer::handleDescriptorSync() {
 }
 
 void Observer::renderScene(VkCommandBuffer commandBuffer) {
-    const VkRect2D renderRegion{{0, 0}, renderFrames.current().bufferSize()};
-    sceneFramebuffers.current().beginRender(
-        commandBuffer, renderRegion, clearColors, std::size(clearColors), true);
-
     if (hasScene()) {
 #ifdef BLIB_DEBUG
         if (!scenes.back().camera) {
@@ -146,39 +147,8 @@ void Observer::renderScene(VkCommandBuffer commandBuffer) {
         }
 #endif
 
-        const VkViewport parentViewport = ovy::Viewport::scissorToViewport(renderRegion);
-        scene::SceneRenderContext ctx(commandBuffer,
-                                      scenes.back().observerIndex,
-                                      parentViewport,
-                                      Config::RenderPassIds::OffScreenSceneRender,
-                                      false);
-        scenes.back().scene->renderScene(ctx);
-
-        if (scenes.back().overlay && scenes.back().overlayPostFX) {
-            scene::SceneRenderContext ctx(commandBuffer,
-                                          scenes.back().overlayIndex,
-                                          parentViewport,
-                                          Config::RenderPassIds::OffScreenSceneRender,
-                                          false);
-            scenes.back().overlay->renderScene(ctx);
-        }
+        scenes.back().graph.execute(commandBuffer, scenes.back().observerIndex, false);
     }
-
-    sceneFramebuffers.current().finishRender(commandBuffer);
-}
-
-void Observer::compositeSceneWithEffects(VkCommandBuffer commandBuffer) {
-    scene::PostFX* fx;
-    if (!hasScene()) {
-        if (!defaultPostFX) { defaultPostFX = std::make_unique<scene::PostFX>(renderer); }
-        defaultPostFX->bindImages(renderFrames);
-        fx = defaultPostFX.get();
-    }
-    else { fx = scenes.back().postfx.get(); }
-
-    vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
-    vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
-    fx->compositeScene(commandBuffer);
 }
 
 void Observer::renderOverlay(VkCommandBuffer commandBuffer) {
@@ -285,6 +255,8 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
     scissor.offset.x += offsetX;
     scissor.offset.y += offsetY;
 
+    // TODO - notify size-dependent assets
+    /*
     if (!renderFrames.valid() ||
         (scissor.extent.width != renderFrames.current().bufferSize().width ||
          scissor.extent.height != renderFrames.current().bufferSize().height)) {
@@ -303,12 +275,7 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
             fb.create(renderer.vulkanState(), scenePass, renderFrames.getRaw(i).attachmentSet());
             ++i;
         });
-
-        // post fx image descriptors
-        for (SceneInstance& scene : scenes) { scene.postfx->bindImages(renderFrames); }
-    }
-
-    // TODO - notify size-dependent assets
+    }*/
 }
 
 void Observer::setDefaultNearFar(float n, float f) {
