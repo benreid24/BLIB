@@ -4,7 +4,6 @@
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
-#include <BLIB/Render/Descriptors/Builtin/PostFXFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp>
@@ -121,16 +120,6 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::TexturePoolFactory>()
             .addDescriptorSet<ds::Scene2DFactory>()
             .addDescriptorSet<ds::Object2DFactory>()
-            .build());
-
-    createPipline(
-        Config::PipelineIds::PostFXBase,
-        vk::PipelineParameters({Config::RenderPassIds::SwapchainDefault})
-            .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::DefaultPostFXFragment)
-            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-            .withRasterizer(rasterizer)
-            .withDepthStencilState(&postFxDepth)
-            .addDescriptorSet<ds::PostFXFactory>()
             .build());
 }
 
