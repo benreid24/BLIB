@@ -14,9 +14,13 @@ namespace bl
 {
 namespace rc
 {
+class Scene;
+
 /// Collection of classes that comprise the render graph
 namespace rg
 {
+class Strategy;
+
 /**
  * @brief The core render graph functionality. Drives rendering for each observer
  *
@@ -50,13 +54,55 @@ public:
     }
 
     /**
-     * @brief Executes the graph to record render commands into the given command buffer
+     * @brief Removes the task with the given type from the graph
+     *
+     * @tparam T The task type to remove
+     * @return True if a task was removed, false if not
+     */
+    template<typename T>
+    bool removeTask() {
+        for (auto it = tasks.begin(); it != tasks.end(); ++it) {
+            if (dynamic_cast<T*>(it->get()) != nullptr) {
+                tasks.erase(it);
+                needsRebuild = true;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @brief Removes all tasks of the given type from the graph
+     *
+     * @tparam T The type of task to remove
+     * @return True if a task or tasks were able to be removed, false otherwise
+     */
+    template<typename T>
+    bool removeTasks() {
+        bool r = false;
+        while (removeTask<T>()) { r = true; }
+        return r;
+    }
+
+    /**
+     * @brief Executes the graph to record render commands into the given command buffer. Does not
+     *        execute the final task
      *
      * @param commandBuffer The command buffer to record into
      * @param observerIndex The observer's index in the current scene
      * @param renderTexture True if the final target is a render texture, false otherwise
      */
     void execute(VkCommandBuffer commandBuffer, std::uint32_t observerIndex, bool renderTexture);
+
+    /**
+     * @brief Executes the final task of the graph
+     *
+     * @param commandBuffer The command buffer to record into
+     * @param observerIndex The observer's index in the current scene
+     * @param renderTexture True if the final target is a render texture, false otherwise
+     */
+    void executeFinal(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,
+                      bool renderTexture);
 
     /**
      * @brief Builds the graph timeline. Called automatically in execute()
@@ -67,6 +113,24 @@ public:
      * @brief Notifies the graph to rebuild on next execution
      */
     void markDirty();
+
+    /**
+     * @brief Returns whether or not the graph needs to be repopulated from scratch
+     */
+    constexpr bool needsRepopulation() const { return needsReset; }
+
+    /**
+     * @brief Clears all tasks from the graph and marks it for re-population
+     */
+    void reset();
+
+    /**
+     * @brief Clears and re-populates the tasks in the graph. Re-builds the graph
+     *
+     * @param strategy The renderer strategy to use
+     * @param scene The scene to get additional tasks from
+     */
+    void populate(Strategy& strategy, Scene& scene);
 
 private:
     struct TimelineStage {
@@ -84,6 +148,7 @@ private:
     std::vector<std::unique_ptr<Task>> tasks;
     std::vector<TimelineStage> timeline;
     bool needsRebuild;
+    bool needsReset;
 
     template<typename T>
     void traverse(T&& taskVisitor, GraphAsset* start) {

@@ -30,12 +30,32 @@ void ForwardRenderTask::onGraphInit() {
 }
 
 void ForwardRenderTask::execute(const rg::ExecutionContext& ctx) {
-    output->currentFramebuffer().beginRender(ctx.commandBuffer,
-                                             output->scissor,
-                                             output->clearColors,
-                                             output->clearColorCount,
-                                             true,
-                                             output->getRenderPass().rawPass());
+    if (!ctx.isFinalStep) {
+        output->currentFramebuffer().beginRender(ctx.commandBuffer,
+                                                 output->scissor,
+                                                 output->clearColors,
+                                                 output->clearColorCount,
+                                                 false,
+                                                 output->getRenderPass().rawPass());
+    }
+    else {
+        VkClearAttachment attachments[2]{};
+        attachments[0].aspectMask      = VK_IMAGE_ASPECT_COLOR_BIT;
+        attachments[0].colorAttachment = 0;
+        attachments[0].clearValue      = output->clearColors[0];
+        attachments[1].aspectMask      = VK_IMAGE_ASPECT_DEPTH_BIT;
+        attachments[1].clearValue      = output->clearColors[1];
+
+        VkClearRect rects[2]{};
+        rects[0].rect           = output->scissor;
+        rects[0].baseArrayLayer = 0;
+        rects[0].layerCount     = 1;
+        rects[1]                = rects[0];
+
+        vkCmdClearAttachments(ctx.commandBuffer, 2, attachments, 2, rects);
+    }
+
+    vkCmdSetScissor(ctx.commandBuffer, 0, 1, &output->scissor);
     vkCmdSetViewport(ctx.commandBuffer, 0, 1, &output->viewport);
 
     scene::SceneRenderContext sceneCtx(ctx.commandBuffer,
@@ -45,7 +65,7 @@ void ForwardRenderTask::execute(const rg::ExecutionContext& ctx) {
                                        ctx.renderingToRenderTexture);
     scene->scene->renderScene(sceneCtx);
 
-    output->currentFramebuffer().finishRender(ctx.commandBuffer);
+    if (!ctx.isFinalStep) { output->currentFramebuffer().finishRender(ctx.commandBuffer); }
 }
 
 } // namespace rgi

@@ -28,6 +28,7 @@ struct ExecutionContext {
     VkCommandBuffer commandBuffer;
     std::uint32_t observerIndex;
     bool renderingToRenderTexture;
+    bool isFinalStep;
 
     /**
      * @brief Creates an execution context
@@ -37,14 +38,16 @@ struct ExecutionContext {
      * @param commandBuffer The command buffer to record to
      * @param observerIndex The index of the active observer
      * @param renderTexture Whether or not the final target is a render texture
+     * @param isFinalStep Whether or not the execution is for the final task
      */
     ExecutionContext(engine::Engine& engine, Renderer& renderer, VkCommandBuffer commandBuffer,
-                     std::uint32_t observerIndex, bool renderTexture)
+                     std::uint32_t observerIndex, bool renderTexture, bool isFinalStep)
     : engine(engine)
     , renderer(renderer)
     , commandBuffer(commandBuffer)
     , observerIndex(observerIndex)
-    , renderingToRenderTexture(renderTexture) {}
+    , renderingToRenderTexture(renderTexture)
+    , isFinalStep(isFinalStep) {}
 };
 
 } // namespace rg

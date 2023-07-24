@@ -24,12 +24,8 @@ Observer::Observer(engine::Engine& e, Renderer& r, rg::AssetFactory& f, bool c)
 
     overlayProjView = overlayCamera.getProjectionMatrix(viewport) * overlayCamera.getViewMatrix();
 
-    swapframeAsset = graphAssets.putAsset<rgi::FinalSwapframeAsset>(renderer.getSwapframeBuffers(),
-                                                                    viewport,
-                                                                    scissor,
-                                                                    isCommon,
-                                                                    clearColors,
-                                                                    std::size(clearColors));
+    swapframeAsset = graphAssets.putAsset<rgi::FinalSwapframeAsset>(
+        renderer.getSwapframeBuffers(), viewport, scissor, clearColors, std::size(clearColors));
 }
 
 Observer::~Observer() {
@@ -75,14 +71,11 @@ Overlay* Observer::getOrCreateSceneOverlay() {
 
 Overlay* Observer::getCurrentOverlay() { return scenes.empty() ? nullptr : scenes.back().overlay; }
 
-void Observer::setApplyPostFXToOverlay(bool apply) {
-    if (!scenes.empty()) { scenes.back().overlayPostFX = apply; }
-}
-
 Scene* Observer::popSceneNoRelease() {
     Scene* s = scenes.back().scene;
     if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
     scenes.pop_back();
+    onSceneChange();
     return s;
 }
 
@@ -91,6 +84,7 @@ void Observer::popScene() {
     renderer.scenePool().destroyScene(s);
     if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
     scenes.pop_back();
+    onSceneChange();
 }
 
 void Observer::clearScenes() {
@@ -111,18 +105,17 @@ void Observer::clearScenesNoRelease() {
 
 void Observer::onSceneAdd() {
     scenes.back().observerIndex = scenes.back().scene->registerObserver();
-    // TODO - get default camera from scene
-#if SCENE_DEFAULT_CAMERA == 2
-    setCamera<cam::Camera2D>(
-        glm::vec2{viewport.x + viewport.width * 0.5f, viewport.y + viewport.height * 0.5f},
-        glm::vec2{viewport.width, viewport.height});
-#else
-    setCamera<cam::Camera3D>();
-#endif
+    scenes.back().camera        = scenes.back().scene->createDefaultCamera();
+    onSceneChange();
+}
 
-    renderer.getRenderStrategy().populate(scenes.back().graph);
-    graphAssets.putAsset<rgi::SceneAsset>(scenes.back().scene);
-    // TODO - call into scene hook to populate graph
+void Observer::onSceneChange() {
+    if (hasScene()) {
+        graphAssets.putAsset<rgi::SceneAsset>(scenes.back().scene);
+        if (scenes.back().graph.needsRepopulation()) {
+            scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
+        }
+    }
 }
 
 void Observer::handleDescriptorSync() {
@@ -147,21 +140,29 @@ void Observer::renderScene(VkCommandBuffer commandBuffer) {
         }
 #endif
 
+        if (scenes.back().graph.needsRepopulation()) {
+            scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
+        }
+
         scenes.back().graph.execute(commandBuffer, scenes.back().observerIndex, false);
     }
 }
 
-void Observer::renderOverlay(VkCommandBuffer commandBuffer) {
-    if (!scenes.empty() && scenes.back().overlay && !scenes.back().overlayPostFX) {
-        vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
-        vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
+void Observer::compositeSceneAndOverlay(VkCommandBuffer commandBuffer) {
+    if (hasScene()) {
+        scenes.back().graph.executeFinal(commandBuffer, scenes.back().observerIndex, false);
 
-        scene::SceneRenderContext ctx(commandBuffer,
-                                      scenes.back().overlayIndex,
-                                      viewport,
-                                      Config::RenderPassIds::SwapchainPrimaryRender,
-                                      false);
-        scenes.back().overlay->renderScene(ctx);
+        if (scenes.back().overlay) {
+            vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
+            vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
+
+            scene::SceneRenderContext ctx(commandBuffer,
+                                          scenes.back().overlayIndex,
+                                          viewport,
+                                          Config::RenderPassIds::SwapchainDefault,
+                                          false);
+            scenes.back().overlay->renderScene(ctx);
+        }
     }
 }
 
@@ -268,7 +269,7 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
 
         // scene frame buffers
         VkRenderPass scenePass = renderer.renderPassCache()
-                                     .getRenderPass(Config::RenderPassIds::OffScreenSceneRender)
+                                     .getRenderPass(Config::RenderPassIds::StandardAttachmentDefault)
                                      .rawPass();
         unsigned int i = 0;
         sceneFramebuffers.init(renderer.vulkanState(), [this, &i, scenePass](vk::Framebuffer& fb) {

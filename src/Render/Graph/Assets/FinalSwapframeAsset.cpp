@@ -12,15 +12,11 @@ namespace rgi
 {
 FinalSwapframeAsset::FinalSwapframeAsset(vk::PerSwapFrame<vk::Framebuffer>& framebuffers,
                                          const VkViewport& viewport, const VkRect2D& scissor,
-                                         bool forCommon, const VkClearValue* clearColors,
+                                         const VkClearValue* clearColors,
                                          const std::uint32_t clearColorCount)
-: FramebufferAsset(rg::AssetTags::FinalFrameOutput,
-                   forCommon ? Config::RenderPassIds::SwapchainCommonObserverRender :
-                               Config::RenderPassIds::SwapchainPrimaryRender,
+: FramebufferAsset(rg::AssetTags::FinalFrameOutput, Config::RenderPassIds::SwapchainDefault,
                    viewport, scissor, clearColors, clearColorCount)
-, framebuffers(framebuffers) {
-    // TODO - select render pass id for common observer based on if overlay or if sole observer
-}
+, framebuffers(framebuffers) {}
 
 void FinalSwapframeAsset::doCreate(engine::Engine&, Renderer& renderer) {
     renderPass = &renderer.renderPassCache().getRenderPass(renderPassId);

@@ -109,7 +109,7 @@ void PostFX::update(float) {
 void PostFX::compositeScene(VkCommandBuffer cb) {
     vkCmdBindPipeline(cb,
                       VK_PIPELINE_BIND_POINT_GRAPHICS,
-                      pipeline->rawPipeline(Config::RenderPassIds::SwapchainPrimaryRender));
+                      pipeline->rawPipeline(Config::RenderPassIds::SwapchainDefault));
     vkCmdBindDescriptorSets(cb,
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             pipeline->pipelineLayout().rawLayout(),

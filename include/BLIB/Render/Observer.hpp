@@ -78,13 +78,6 @@ public:
     Overlay* getCurrentOverlay();
 
     /**
-     * @brief Sets whether or not to apply the current PostFX to the Overlay. Default is false
-     *
-     * @param overlayPostFX True to apply PostFX to overlay, false to render directly
-     */
-    void setApplyPostFXToOverlay(bool overlayPostFX);
-
-    /**
      * @brief Removes the top scene from the observer's scene stack and returns it. Does not release
      *        the scene back into the scene pool
      *
@@ -137,6 +130,11 @@ public:
      */
     void setClearColor(const glm::vec4& color);
 
+    /**
+     * @brief Returns the render graph for the current scene. Can be used to add custom steps
+     */
+    constexpr rg::RenderGraph& getRenderGraph();
+
 private:
     struct SceneInstance {
         Scene* scene;
@@ -145,15 +143,13 @@ private:
         std::uint32_t observerIndex;
         std::uint32_t overlayIndex;
         std::unique_ptr<cam::Camera> camera;
-        bool overlayPostFX;
 
         SceneInstance(engine::Engine& e, Renderer& r, rg::AssetPool& pool, Scene* s)
         : scene(s)
         , overlay(nullptr)
         , graph(e, r, pool)
         , observerIndex(0)
-        , overlayIndex(0)
-        , overlayPostFX(false) {}
+        , overlayIndex(0) {}
     };
 
     const bool isCommon;
@@ -178,10 +174,11 @@ private:
     void setDefaultNearFar(float nearValue, float farValue);
     void cleanup();
     void onSceneAdd();
+    void onSceneChange();
 
     // called by Renderer
     void renderScene(VkCommandBuffer commandBuffer);
-    void renderOverlay(VkCommandBuffer commandBuffer);
+    void compositeSceneAndOverlay(VkCommandBuffer commandBuffer);
 
     friend class bl::rc::Renderer;
 };
@@ -204,6 +201,8 @@ TCamera* Observer::setCamera(TArgs&&... args) {
     BL_LOG_ERROR << "Tried to set camera for observer with no current scene";
     return nullptr;
 }
+
+inline constexpr rg::RenderGraph& Observer::getRenderGraph() { return scenes.back().graph; }
 
 } // namespace rc
 } // namespace bl

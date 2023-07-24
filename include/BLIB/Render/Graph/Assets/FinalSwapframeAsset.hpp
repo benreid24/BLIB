@@ -24,13 +24,12 @@ public:
      * @param framebuffers The swapchain image framebuffers
      * @param viewport The observer's viewport
      * @param scissor The observer's scissor
-     * @param forCommonObserver Whether or not this is for the common observer. Affects render pass
      * @param clearColors Pointer to array of clear colors for attachments
      * @param clearColorCount The number of clear colors
      */
     FinalSwapframeAsset(vk::PerSwapFrame<vk::Framebuffer>& framebuffers, const VkViewport& viewport,
-                        const VkRect2D& scissor, bool forCommonObserver,
-                        const VkClearValue* clearColors, const std::uint32_t clearColorCount);
+                        const VkRect2D& scissor, const VkClearValue* clearColors,
+                        const std::uint32_t clearColorCount);
 
     /**
      * @brief Does nothing

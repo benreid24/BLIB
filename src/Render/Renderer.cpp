@@ -83,7 +83,7 @@ void Renderer::initialize() {
 
     // swapchain framebuffers
     VkRenderPass renderPass =
-        renderPasses.getRenderPass(Config::RenderPassIds::SwapchainPrimaryRender).rawPass();
+        renderPasses.getRenderPass(Config::RenderPassIds::SwapchainDefault).rawPass();
     unsigned int i = 0;
     framebuffers.init(state.swapchain, [this, &i, renderPass](vk::Framebuffer& fb) {
         fb.create(state, renderPass, state.swapchain.swapFrameAtIndex(i));
@@ -145,19 +145,19 @@ void Renderer::renderFrame() {
 
     // record commands to render scenes
     for (auto& o : observers) { o->renderScene(commandBuffer); }
-    // TODO - clear depth buffer? common observer use special render pass? clear color issue
     commonObserver.renderScene(commandBuffer);
 
-    // begin render pass to render overlays
+    // perform render pass for final scene renders and overlays
     framebuffers.current().beginRender(commandBuffer,
                                        {{0, 0}, currentFrame->renderExtent()},
                                        clearColors,
                                        std::size(clearColors),
                                        false);
 
-    // render overlays
-    for (auto& o : observers) { o->renderOverlay(commandBuffer); }
-    commonObserver.renderOverlay(commandBuffer);
+    // render scene outputs
+    for (auto& o : observers) { o->compositeSceneAndOverlay(commandBuffer); }
+    // TODO - clear depth buffer?
+    commonObserver.compositeSceneAndOverlay(commandBuffer);
 
     // complete frame
     framebuffers.current().finishRender(commandBuffer);

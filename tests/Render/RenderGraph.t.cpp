@@ -277,6 +277,7 @@ TEST(RenderGraph, BasicSceneRender) {
     graph.putTask<SceneRenderTask>();
 
     graph.execute(nullptr, 0, false);
+    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 }
 
@@ -295,6 +296,7 @@ TEST(RenderGraph, SceneWithPostFX) {
     graph.putTask<PostFXTask>();
 
     graph.execute(nullptr, 0, false);
+    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 }
 
@@ -315,6 +317,7 @@ TEST(RenderGraph, SceneWithPostFXAndShadows) {
     graph.putTask<ShadowMapTask>();
 
     graph.execute(nullptr, 0, false);
+    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 }
 
@@ -337,6 +340,7 @@ TEST(RenderGraph, SceneWithPostFXChainAndShadows) {
     graph.putTask<ShadowMapTask>();
 
     graph.execute(nullptr, 0, false);
+    graph.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 }
 
@@ -357,6 +361,7 @@ TEST(RenderGraph, MultipleGraphsSharedAssets) {
     graph1.putTask<PostFXTask>();
 
     graph1.execute(nullptr, 0, false);
+    graph1.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 
     graph2.putTask<SceneRenderTask>();
@@ -364,6 +369,7 @@ TEST(RenderGraph, MultipleGraphsSharedAssets) {
 
     swapframe->rendered = false;
     graph2.execute(nullptr, 0, false);
+    graph2.executeFinal(nullptr, 0, false);
     EXPECT_TRUE(swapframe->rendered);
 }
 

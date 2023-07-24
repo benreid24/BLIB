@@ -72,8 +72,8 @@ void PipelineCache::createBuiltins() {
     rasterizer.depthBiasSlopeFactor    = 0.0f; // Optional
 
     createPipline(Config::PipelineIds::SkinnedMeshes,
-                  vk::PipelineParameters({Config::RenderPassIds::OffScreenSceneRender,
-                                          Config::RenderPassIds::SwapchainPrimaryRender})
+                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                          Config::RenderPassIds::SwapchainDefault})
                       .withShaders(Config::ShaderIds::SkinnedMeshVertex,
                                    Config::ShaderIds::SkinnedMeshFragment)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
@@ -85,8 +85,8 @@ void PipelineCache::createBuiltins() {
                       .build());
 
     createPipline(Config::PipelineIds::LitSkinned2DGeometry,
-                  vk::PipelineParameters({Config::RenderPassIds::OffScreenSceneRender,
-                                          Config::RenderPassIds::SwapchainPrimaryRender})
+                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                          Config::RenderPassIds::SwapchainDefault})
                       .withShaders(Config::ShaderIds::LitSkinned2DVertex,
                                    Config::ShaderIds::LitSkinned2DFragment)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
@@ -98,8 +98,8 @@ void PipelineCache::createBuiltins() {
                       .build());
 
     createPipline(Config::PipelineIds::UnlitSkinned2DGeometry,
-                  vk::PipelineParameters({Config::RenderPassIds::OffScreenSceneRender,
-                                          Config::RenderPassIds::SwapchainPrimaryRender})
+                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                          Config::RenderPassIds::SwapchainDefault})
                       .withShaders(Config::ShaderIds::UnlitSkinned2DVertex,
                                    Config::ShaderIds::UnlitSkinned2DFragment)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
@@ -112,8 +112,8 @@ void PipelineCache::createBuiltins() {
 
     createPipline(
         Config::PipelineIds::Text,
-        vk::PipelineParameters({Config::RenderPassIds::OffScreenSceneRender,
-                                Config::RenderPassIds::SwapchainPrimaryRender})
+        vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                Config::RenderPassIds::SwapchainDefault})
             .withShaders(Config::ShaderIds::UnlitSkinned2DVertex, Config::ShaderIds::TextFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
@@ -125,7 +125,7 @@ void PipelineCache::createBuiltins() {
 
     createPipline(
         Config::PipelineIds::PostFXBase,
-        vk::PipelineParameters({Config::RenderPassIds::SwapchainPrimaryRender})
+        vk::PipelineParameters({Config::RenderPassIds::SwapchainDefault})
             .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::DefaultPostFXFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)

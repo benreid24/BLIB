@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_SCENEBASE_HPP
 #define BLIB_RENDER_RENDERER_SCENEBASE_HPP
 
+#include <BLIB/Cameras/Camera.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp>
@@ -35,6 +36,12 @@ namespace res
 {
 class ScenePool;
 }
+
+namespace rg
+{
+class RenderGraph;
+}
+
 /**
  * @brief Base class for all scene types and overlays. Provides common scene logic and object
  *        management. Derived classes must provide storage for SceneObject (or derived)
@@ -56,6 +63,20 @@ public:
      * @param context Render context containing scene render data
      */
     virtual void renderScene(scene::SceneRenderContext& context) = 0;
+
+    /**
+     * @brief Adds scene specific tasks to the render graph. Default adds nothing
+     *
+     * @param graph The graph to populate
+     */
+    virtual void addGraphTasks(rg::RenderGraph& graph);
+
+    /**
+     * @brief Creates a default camera for the scene
+     *
+     * @return The default camera to use
+     */
+    virtual std::unique_ptr<cam::Camera> createDefaultCamera();
 
 protected:
     /**

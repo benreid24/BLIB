@@ -3,6 +3,8 @@
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
 #include <BLIB/Render/Graph/GraphAsset.hpp>
+#include <BLIB/Render/Graph/Strategy.hpp>
+#include <BLIB/Render/Scenes/Scene.hpp>
 
 namespace bl
 {
@@ -15,7 +17,8 @@ RenderGraph::RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& 
 : engine(engine)
 , renderer(renderer)
 , assets(pool)
-, needsRebuild(false) {
+, needsRebuild(false)
+, needsReset(true) {
     tasks.reserve(8);
     timeline.reserve(8);
 }
@@ -23,18 +26,34 @@ RenderGraph::RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& 
 void RenderGraph::execute(VkCommandBuffer commandBuffer, std::uint32_t oi, bool rt) {
     if (needsRebuild) { build(); }
 
-    const ExecutionContext ctx(engine, renderer, commandBuffer, oi, rt);
-    for (auto& step : timeline) {
-        for (Task* task : step.tasks) {
-            for (GraphAsset* input : task->assets.requiredInputs) {
-                input->asset->prepareForInput(ctx);
+    if (timeline.size() > 1) {
+        const ExecutionContext ctx(engine, renderer, commandBuffer, oi, rt, false);
+        for (auto it = timeline.begin(); it != timeline.end() - 1; ++it) {
+            for (Task* task : it->tasks) {
+                for (GraphAsset* input : task->assets.requiredInputs) {
+                    input->asset->prepareForInput(ctx);
+                }
+                for (GraphAsset* input : task->assets.optionalInputs) {
+                    if (input) { input->asset->prepareForInput(ctx); }
+                }
+                task->assets.output->asset->prepareForOutput(ctx);
+                task->execute(ctx);
             }
-            for (GraphAsset* input : task->assets.optionalInputs) {
-                if (input) { input->asset->prepareForInput(ctx); }
-            }
-            task->assets.output->asset->prepareForOutput(ctx);
-            task->execute(ctx);
         }
+    }
+}
+
+void RenderGraph::executeFinal(VkCommandBuffer commandBuffer, std::uint32_t oi, bool rt) {
+    const ExecutionContext ctx(engine, renderer, commandBuffer, oi, rt, true);
+    for (Task* task : timeline.back().tasks) {
+        for (GraphAsset* input : task->assets.requiredInputs) {
+            input->asset->prepareForInput(ctx);
+        }
+        for (GraphAsset* input : task->assets.optionalInputs) {
+            if (input) { input->asset->prepareForInput(ctx); }
+        }
+        task->assets.output->asset->prepareForOutput(ctx);
+        task->execute(ctx);
     }
 }
 
@@ -223,6 +242,16 @@ void RenderGraph::build() {
 }
 
 void RenderGraph::markDirty() { needsRebuild = true; }
+
+void RenderGraph::reset() { needsReset = true; }
+
+void RenderGraph::populate(Strategy& strategy, Scene& scene) {
+    needsReset = false;
+    tasks.clear();
+    strategy.populate(*this);
+    scene.addGraphTasks(*this);
+    build();
+}
 
 } // namespace rg
 } // namespace rc
