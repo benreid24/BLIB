@@ -143,9 +143,28 @@ void Renderer::renderFrame() {
     // begin render texture rendering
     for (vk::RenderTexture* rt : renderTextures) { rt->renderScene(commandBuffer); }
 
+    const auto clearDepthBuffer = [this, commandBuffer]() {
+        VkClearAttachment attachment{};
+        attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
+        attachment.clearValue = clearColors[1];
+
+        VkClearRect rect{};
+        rect.rect.extent.width  = renderRegion.width;
+        rect.rect.extent.height = renderRegion.height;
+        rect.rect.offset.x      = renderRegion.left;
+        rect.rect.offset.y      = renderRegion.top;
+        rect.baseArrayLayer     = 0;
+        rect.layerCount         = 1;
+
+        vkCmdClearAttachments(commandBuffer, 1, &attachment, 1, &rect);
+    };
+
     // record commands to render scenes
     for (auto& o : observers) { o->renderScene(commandBuffer); }
-    commonObserver.renderScene(commandBuffer);
+    if (commonObserver.hasScene()) {
+        clearDepthBuffer();
+        commonObserver.renderScene(commandBuffer);
+    }
 
     // perform render pass for final scene renders and overlays
     framebuffers.current().beginRender(commandBuffer,
@@ -156,8 +175,10 @@ void Renderer::renderFrame() {
 
     // render scene outputs
     for (auto& o : observers) { o->compositeSceneAndOverlay(commandBuffer); }
-    // TODO - clear depth buffer?
-    commonObserver.compositeSceneAndOverlay(commandBuffer);
+    if (commonObserver.hasScene()) {
+        clearDepthBuffer();
+        commonObserver.compositeSceneAndOverlay(commandBuffer);
+    }
 
     // complete frame
     framebuffers.current().finishRender(commandBuffer);

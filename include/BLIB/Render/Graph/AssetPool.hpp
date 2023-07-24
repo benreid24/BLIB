@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Graph/AssetFactory.hpp>
+#include <glm/glm.hpp>
 #include <memory>
 #include <type_traits>
 #include <unordered_map>
@@ -12,6 +13,11 @@ namespace bl
 {
 namespace rc
 {
+namespace rgi
+{
+class FramebufferAsset;
+}
+
 namespace rg
 {
 class GraphAssetPool;
@@ -72,6 +78,7 @@ public:
 
         T* asset = new T(std::forward<TArgs>(args)...);
         assets[asset->getTag()].emplace_back(asset);
+        bucketAsset(asset);
         return asset;
     }
 
@@ -90,14 +97,27 @@ public:
 
         T* asset      = new T(std::forward<TArgs>(args)...);
         const auto it = assets.try_emplace(asset->getTag()).first;
+        for (auto& a : it->second) { unbucketAsset(a.get()); }
         it->second.clear();
         it->second.emplace_back(asset);
+        bucketAsset(asset);
         return asset;
     }
+
+    /**
+     * @brief Intended to be called by observer when it resizes
+     *
+     * @param newSize The new size of the observer render region
+     */
+    void notifyResize(glm::u32vec2 newSize);
 
 private:
     AssetFactory& factory;
     std::unordered_map<std::string_view, std::vector<std::unique_ptr<Asset>>> assets;
+    std::vector<rgi::FramebufferAsset*> framebufferAssets;
+
+    void bucketAsset(Asset* asset);
+    void unbucketAsset(Asset* asset);
 };
 
 } // namespace rg

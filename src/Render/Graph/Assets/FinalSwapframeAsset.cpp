@@ -32,6 +32,10 @@ void FinalSwapframeAsset::doPrepareForOutput(const rg::ExecutionContext&) {
 
 vk::Framebuffer& FinalSwapframeAsset::currentFramebuffer() { return framebuffers.current(); }
 
+void FinalSwapframeAsset::onResize(glm::u32vec2) {
+    // noop
+}
+
 } // namespace rgi
 } // namespace rc
 } // namespace bl

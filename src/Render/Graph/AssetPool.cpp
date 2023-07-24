@@ -1,5 +1,7 @@
 #include <BLIB/Render/Graph/AssetPool.hpp>
 
+#include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
+
 namespace bl
 {
 namespace rc
@@ -13,8 +15,13 @@ void AssetPool::cleanup() { assets.clear(); }
 
 void AssetPool::releaseUnused() {
     for (auto& pair : assets) {
-        std::erase_if(pair.second,
-                      [](std::unique_ptr<Asset>& asset) { return asset->refCount == 0; });
+        std::erase_if(pair.second, [this](std::unique_ptr<Asset>& asset) {
+            if (asset->refCount == 0) {
+                unbucketAsset(asset.get());
+                return true;
+            }
+            return false;
+        });
     }
 }
 
@@ -42,7 +49,23 @@ Asset* AssetPool::getOrCreateAsset(std::string_view tag, GraphAssetPool* request
     Asset* asset = factory.createAsset(tag);
     set.emplace_back(asset);
     asset->addOwner(requester);
+    bucketAsset(asset);
     return asset;
+}
+
+void AssetPool::notifyResize(glm::u32vec2 newSize) {
+    for (rgi::FramebufferAsset* asset : framebufferAssets) { asset->notifyResize(newSize); }
+}
+
+void AssetPool::bucketAsset(Asset* asset) {
+    rgi::FramebufferAsset* fba = dynamic_cast<rgi::FramebufferAsset*>(asset);
+    if (fba) { framebufferAssets.emplace_back(fba); }
+}
+
+void AssetPool::unbucketAsset(Asset* asset) {
+    std::erase_if(framebufferAssets, [asset](rgi::FramebufferAsset* fba) {
+        return static_cast<Asset*>(fba) == asset;
+    });
 }
 
 } // namespace rg

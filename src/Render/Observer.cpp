@@ -115,6 +115,7 @@ void Observer::onSceneChange() {
         if (scenes.back().graph.needsRepopulation()) {
             scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
         }
+        graphAssets.releaseUnused();
     }
 }
 
@@ -176,6 +177,7 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
     const sf::Vector2f fHalf(fSize * 0.5f);
     const sf::Vector2u uHalf(fHalf);
     const sf::Vector2i iHalf(uHalf);
+    const VkExtent2D oldSize = scissor.extent;
 
     switch (count) {
     case 1:
@@ -256,27 +258,10 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
     scissor.offset.x += offsetX;
     scissor.offset.y += offsetY;
 
-    // TODO - notify size-dependent assets
-    /*
-    if (!renderFrames.valid() ||
-        (scissor.extent.width != renderFrames.current().bufferSize().width ||
-         scissor.extent.height != renderFrames.current().bufferSize().height)) {
+    if (scissor.extent.width != oldSize.width || scissor.extent.height != oldSize.height) {
         vkCheck(vkDeviceWaitIdle(renderer.vulkanState().device));
-
-        renderFrames.init(renderer.vulkanState(), [this](vk::StandardAttachmentBuffers& frame) {
-            frame.create(renderer.vulkanState(), scissor.extent);
-        });
-
-        // scene frame buffers
-        VkRenderPass scenePass = renderer.renderPassCache()
-                                     .getRenderPass(Config::RenderPassIds::StandardAttachmentDefault)
-                                     .rawPass();
-        unsigned int i = 0;
-        sceneFramebuffers.init(renderer.vulkanState(), [this, &i, scenePass](vk::Framebuffer& fb) {
-            fb.create(renderer.vulkanState(), scenePass, renderFrames.getRaw(i).attachmentSet());
-            ++i;
-        });
-    }*/
+        graphAssets.notifyResize({scissor.extent.width, scissor.extent.height});
+    }
 }
 
 void Observer::setDefaultNearFar(float n, float f) {

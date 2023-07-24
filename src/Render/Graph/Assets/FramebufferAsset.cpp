@@ -16,7 +16,15 @@ FramebufferAsset::FramebufferAsset(std::string_view tag, std::uint32_t renderPas
 , scissor(scissor)
 , renderPass(nullptr)
 , clearColors(clearColors)
-, clearColorCount(clearColorCount) {}
+, clearColorCount(clearColorCount)
+, cachedSize(0, 0) {}
+
+void FramebufferAsset::notifyResize(glm::u32vec2 newSize) {
+    if (newSize != cachedSize) {
+        cachedSize = newSize;
+        onResize(newSize);
+    }
+}
 
 } // namespace rgi
 } // namespace rc
