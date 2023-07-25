@@ -207,23 +207,18 @@ private:
     template<typename T>
     void traverse(T&& taskVisitor, GraphAsset* start) {
         std::queue<VisitorStep> toVisit;
-        toVisit.emplace(VisitorStep{start, 0});
-
-#ifdef BLIB_DEBUG
         std::unordered_set<GraphAsset*> visited;
-#endif
+        toVisit.emplace(VisitorStep{start, 0});
 
         const auto processInputs = [&toVisit, &visited](std::vector<GraphAsset*>& inputs,
                                                         unsigned int newSteps) {
             for (GraphAsset* asset : inputs) {
                 if (!asset || !asset->outputtedBy) continue;
 
-#ifdef BLIB_DEBUG
                 if (visited.find(asset) != visited.end()) {
                     throw std::runtime_error("Cycle detected in render graph");
                 }
                 visited.emplace(asset);
-#endif
                 toVisit.emplace(VisitorStep{asset, newSteps});
             }
         };

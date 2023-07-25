@@ -12,7 +12,6 @@ Systems::Systems(Engine& e)
 : engine(e) {}
 
 void Systems::init() {
-    // TODO - order init differently in case of dependencies?
     for (auto& set : systems) {
         for (auto& system : set.systems) { system.system->init(engine); }
     }

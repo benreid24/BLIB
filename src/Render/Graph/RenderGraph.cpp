@@ -6,6 +6,8 @@
 #include <BLIB/Render/Graph/Strategy.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 
+#include <BLIB/Render/Renderer.hpp>
+
 namespace bl
 {
 namespace rc
@@ -63,6 +65,7 @@ void RenderGraph::build() {
     needsRebuild = false;
     for (auto& task : tasks) { task->assets.init(task->assetTags); }
     assets.reset();
+    timeline.clear();
 
     std::vector<Task*> missingInputs;
     missingInputs.reserve(tasks.size());

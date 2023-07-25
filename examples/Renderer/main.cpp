@@ -150,7 +150,7 @@ public:
 
     // deprecated
     virtual void render(bl::engine::Engine&, float lag) override {
-        // TODO - render interpolate support
+        // TODO - renderer interpolate support
         spritePosition->setRotation(angle + 180.f * lag);
     }
 
