@@ -33,7 +33,7 @@ struct TestAsset : public Asset {
     , preparedForInput(false)
     , preparedForOutput(false) {}
 
-    virtual void doCreate(engine::Engine&, Renderer&) override { created = true; }
+    virtual void doCreate(engine::Engine&, Renderer&, Observer*) override { created = true; }
 
     virtual void doPrepareForInput(const ExecutionContext&) override {
         EXPECT_TRUE(created);
@@ -267,12 +267,12 @@ TEST(RenderGraph, BasicSceneRender) {
     AssetFactory factory;
     setupFactory(factory);
 
-    AssetPool pool(factory);
+    AssetPool pool(factory, nullptr);
     pool.putAsset<SceneObjects>();
     Swapframe* swapframe = pool.putAsset<Swapframe>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool);
+    RenderGraph graph(engine, engine.renderer(), pool, nullptr);
 
     graph.putTask<SceneRenderTask>();
 
@@ -285,12 +285,12 @@ TEST(RenderGraph, SceneWithPostFX) {
     AssetFactory factory;
     setupFactory(factory);
 
-    AssetPool pool(factory);
+    AssetPool pool(factory, nullptr);
     pool.putAsset<SceneObjects>();
     Swapframe* swapframe = pool.putAsset<Swapframe>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool);
+    RenderGraph graph(engine, engine.renderer(), pool, nullptr);
 
     graph.putTask<SceneRenderTask>();
     graph.putTask<PostFXTask>();
@@ -304,13 +304,13 @@ TEST(RenderGraph, SceneWithPostFXAndShadows) {
     AssetFactory factory;
     setupFactory(factory);
 
-    AssetPool pool(factory);
+    AssetPool pool(factory, nullptr);
     pool.putAsset<SceneObjects>();
     Swapframe* swapframe = pool.putAsset<Swapframe>();
     pool.putAsset<ShadowLights>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool);
+    RenderGraph graph(engine, engine.renderer(), pool, nullptr);
 
     graph.putTask<SceneRenderTask>();
     graph.putTask<PostFXTask>();
@@ -325,13 +325,13 @@ TEST(RenderGraph, SceneWithPostFXChainAndShadows) {
     AssetFactory factory;
     setupFactory(factory);
 
-    AssetPool pool(factory);
+    AssetPool pool(factory, nullptr);
     pool.putAsset<SceneObjects>();
     Swapframe* swapframe = pool.putAsset<Swapframe>();
     pool.putAsset<ShadowLights>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool);
+    RenderGraph graph(engine, engine.renderer(), pool, nullptr);
 
     graph.putTask<SceneRenderTask>();
     graph.putTask<PostFXTask>();
@@ -348,14 +348,14 @@ TEST(RenderGraph, MultipleGraphsSharedAssets) {
     AssetFactory factory;
     setupFactory(factory);
 
-    AssetPool pool(factory);
+    AssetPool pool(factory, nullptr);
     pool.putAsset<SceneObjects>();
     Swapframe* swapframe = pool.putAsset<Swapframe>();
 
     engine::Engine engine(engine::Settings{});
 
-    RenderGraph graph1(engine, engine.renderer(), pool);
-    RenderGraph graph2(engine, engine.renderer(), pool);
+    RenderGraph graph1(engine, engine.renderer(), pool, nullptr);
+    RenderGraph graph2(engine, engine.renderer(), pool, nullptr);
 
     graph1.putTask<SceneRenderTask>();
     graph1.putTask<PostFXTask>();

@@ -56,6 +56,11 @@ public:
     void cleanup();
 
     /**
+     * @brief Queues the framebuffer to be cleaned up later. Invalidates the object immediately
+     */
+    void deferCleanup();
+
+    /**
      * @brief Begins the render pass, recreating the framebuffer if necessary. Scissor is set
      *
      * @param commandBuffer The primary command buffer to issue commands into

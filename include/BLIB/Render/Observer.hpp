@@ -131,9 +131,19 @@ public:
     void setClearColor(const glm::vec4& color);
 
     /**
+     * @brief Returns a raw pointer to the clear values for the observer
+     */
+    constexpr const VkClearValue* getClearColors() const;
+
+    /**
      * @brief Returns the render graph for the current scene. Can be used to add custom steps
      */
     constexpr rg::RenderGraph& getRenderGraph();
+
+    /**
+     * @brief Returns the size of the observers render region in pixels
+     */
+    constexpr glm::u32vec2 getRegionSize() const;
 
 private:
     struct SceneInstance {
@@ -144,10 +154,11 @@ private:
         std::uint32_t overlayIndex;
         std::unique_ptr<cam::Camera> camera;
 
-        SceneInstance(engine::Engine& e, Renderer& r, rg::AssetPool& pool, Scene* s)
+        SceneInstance(engine::Engine& e, Renderer& r, Observer* owner, rg::AssetPool& pool,
+                      Scene* s)
         : scene(s)
         , overlay(nullptr)
-        , graph(e, r, pool)
+        , graph(e, r, pool, owner)
         , observerIndex(0)
         , overlayIndex(0) {}
     };
@@ -168,7 +179,7 @@ private:
 
     Observer(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory, bool isCommon);
     void handleDescriptorSync();
-    void updateCamera(float dt);
+    void update(float dt);
     void assignRegion(const sf::Vector2u& windowSize, const sf::Rect<std::uint32_t>& parentRegion,
                       unsigned int observerCount, unsigned int index, bool topBottomFirst);
     void setDefaultNearFar(float nearValue, float farValue);
@@ -203,6 +214,12 @@ TCamera* Observer::setCamera(TArgs&&... args) {
 }
 
 inline constexpr rg::RenderGraph& Observer::getRenderGraph() { return scenes.back().graph; }
+
+inline constexpr const VkClearValue* Observer::getClearColors() const { return clearColors; }
+
+inline constexpr glm::u32vec2 Observer::getRegionSize() const {
+    return {scissor.extent.width, scissor.extent.height};
+}
 
 } // namespace rc
 } // namespace bl

@@ -49,6 +49,13 @@ public:
      */
     virtual void execute(const ExecutionContext& ctx) = 0;
 
+    /**
+     * @brief Called each frame with the elapsed time
+     *
+     * @param dt The elapsed time in seconds since the last call to update
+     */
+    virtual void update(float dt);
+
 protected:
     TaskAssetTags assetTags;
     TaskAssets assets;

@@ -191,6 +191,22 @@ private:
             case sf::Keyboard::Left:
                 spritePosition->move({-10.f, 0.f});
                 break;
+
+            case sf::Keyboard::F:
+                renderer->getObserver(0)
+                    .getRenderGraph()
+                    .putUniqueTask<bl::rc::rgi::FadeEffectTask>(2.f)
+                    ->fadeTo(2.f, 0.f);
+                break;
+            case sf::Keyboard::G:
+                renderer->getObserver(0)
+                    .getRenderGraph()
+                    .putUniqueTask<bl::rc::rgi::FadeEffectTask>(2.f, 0.f, 1.f)
+                    ->fadeTo(2.f, 1.f);
+                break;
+            case sf::Keyboard::C:
+                renderer->getObserver(0).getRenderGraph().removeTask<bl::rc::rgi::FadeEffectTask>();
+                break;
             }
         }
         else if (event.type == sf::Event::MouseButtonPressed) {

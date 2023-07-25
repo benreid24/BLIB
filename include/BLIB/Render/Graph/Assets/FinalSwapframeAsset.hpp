@@ -44,7 +44,7 @@ public:
 private:
     vk::PerSwapFrame<vk::Framebuffer>& framebuffers;
 
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer) override;
+    virtual void doCreate(engine::Engine& engine, Renderer& renderer, Observer* observer) override;
     virtual void doPrepareForInput(const rg::ExecutionContext& context) override;
     virtual void doPrepareForOutput(const rg::ExecutionContext& context) override;
     virtual void onResize(glm::u32vec2 newSize) override;

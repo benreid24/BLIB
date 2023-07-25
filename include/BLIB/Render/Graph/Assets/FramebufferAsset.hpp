@@ -9,6 +9,8 @@ namespace bl
 {
 namespace rc
 {
+class Observer;
+
 namespace rgi
 {
 /**

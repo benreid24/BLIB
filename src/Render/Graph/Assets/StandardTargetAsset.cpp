@@ -1,5 +1,6 @@
 #include <BLIB/Render/Graph/Assets/StandardTargetAsset.hpp>
 
+#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -9,29 +10,45 @@ namespace rc
 {
 namespace rgi
 {
-StandardTargetAsset::StandardTargetAsset(std::uint32_t renderPassId, const VkViewport& viewport,
-                                         const VkRect2D& scissor, const VkClearValue* clearColors,
-                                         const std::uint32_t clearColorCount)
-: FramebufferAsset(rg::AssetTags::RenderedSceneOutput, renderPassId, viewport, scissor, clearColors,
-                   clearColorCount)
-, renderer(nullptr) {}
+StandardTargetAsset::StandardTargetAsset()
+: FramebufferAsset(rg::AssetTags::RenderedSceneOutput,
+                   Config::RenderPassIds::StandardAttachmentDefault, cachedViewport, cachedScissor,
+                   nullptr, 2)
+, renderer(nullptr)
+, cachedViewport{}
+, cachedScissor{} {
+    cachedViewport.minDepth = 0.f;
+    cachedViewport.maxDepth = 1.f;
+    cachedScissor.offset.x  = 0;
+    cachedScissor.offset.y  = 0;
+    cachedViewport.x        = 0.f;
+    cachedViewport.y        = 0.f;
+}
 
-void StandardTargetAsset::doCreate(engine::Engine&, Renderer& r) {
+void StandardTargetAsset::doCreate(engine::Engine&, Renderer& r, Observer* o) {
     renderer = &r;
+    observer = o;
     images.emptyInit(r.vulkanState());
     framebuffers.emptyInit(r.vulkanState());
     renderPass = &renderer->renderPassCache().getRenderPass(renderPassId);
+    onResize(o->getRegionSize());
 }
 
-void StandardTargetAsset::doPrepareForInput(const rg::ExecutionContext& context) {
+void StandardTargetAsset::doPrepareForInput(const rg::ExecutionContext&) {
     // noop, handled by render pass
 }
 
-void StandardTargetAsset::doPrepareForOutput(const rg::ExecutionContext& context) {
+void StandardTargetAsset::doPrepareForOutput(const rg::ExecutionContext&) {
     // noop, handled by render pass
 }
 
 void StandardTargetAsset::onResize(glm::u32vec2 newSize) {
+    clearColors                 = observer->getClearColors();
+    cachedScissor.extent.width  = newSize.x;
+    cachedScissor.extent.height = newSize.y;
+    cachedViewport.width        = static_cast<float>(newSize.x);
+    cachedViewport.height       = static_cast<float>(newSize.y);
+
     if (renderer) {
         images.init(renderer->vulkanState(), [this, newSize](vk::StandardAttachmentBuffers& image) {
             image.create(renderer->vulkanState(), {newSize.x, newSize.y});

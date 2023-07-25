@@ -16,6 +16,7 @@
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
@@ -48,6 +49,7 @@
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
 #include <BLIB/Render/Graph/GraphAsset.hpp>
 #include <BLIB/Render/Graph/GraphAssetPool.hpp>
+#include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
 #include <BLIB/Render/Graph/RenderGraph.hpp>
 #include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
 #include <BLIB/Render/Graph/Strategy.hpp>
@@ -55,6 +57,7 @@
 #include <BLIB/Render/Graph/TaskAssetTags.hpp>
 #include <BLIB/Render/Graph/TaskAssets.hpp>
 #include <BLIB/Render/Graph/TaskInput.hpp>
+#include <BLIB/Render/Graph/Tasks/FadeEffectTask.hpp>
 #include <BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp>
 #include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>

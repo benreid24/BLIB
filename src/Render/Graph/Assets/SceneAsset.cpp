@@ -12,7 +12,7 @@ SceneAsset::SceneAsset(Scene* s)
 : Asset(rg::AssetTags::SceneObjectsInput)
 , scene(s) {}
 
-void SceneAsset::doCreate(engine::Engine&, Renderer&) {
+void SceneAsset::doCreate(engine::Engine&, Renderer&, Observer*) {
     // noop
 }
 

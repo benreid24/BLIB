@@ -8,8 +8,9 @@ namespace rc
 {
 namespace rg
 {
-AssetPool::AssetPool(AssetFactory& factory)
-: factory(factory) {}
+AssetPool::AssetPool(AssetFactory& factory, Observer* observer)
+: factory(factory)
+, observer(observer) {}
 
 void AssetPool::cleanup() { assets.clear(); }
 
@@ -66,6 +67,12 @@ void AssetPool::unbucketAsset(Asset* asset) {
     std::erase_if(framebufferAssets, [asset](rgi::FramebufferAsset* fba) {
         return static_cast<Asset*>(fba) == asset;
     });
+}
+
+void AssetPool::reset(GraphAssetPool* gp) {
+    for (auto& as : assets) {
+        for (auto& a : as.second) { a->removeOwner(gp); }
+    }
 }
 
 } // namespace rg

@@ -13,9 +13,11 @@ namespace rc
 namespace rg
 {
 
-RenderGraph::RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& pool)
+RenderGraph::RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& pool,
+                         Observer* observer)
 : engine(engine)
 , renderer(renderer)
+, observer(observer)
 , assets(pool)
 , needsRebuild(false)
 , needsReset(true) {
@@ -146,12 +148,12 @@ void RenderGraph::build() {
     traverse(
         [this, &depth](Task* task, unsigned int d) {
             depth = std::max(d, depth);
-            task->assets.output->asset->create(engine, renderer);
+            task->assets.output->asset->create(engine, renderer, observer);
             for (GraphAsset* input : task->assets.requiredInputs) {
-                input->asset->create(engine, renderer);
+                input->asset->create(engine, renderer, observer);
             }
             for (GraphAsset* input : task->assets.optionalInputs) {
-                if (input) { input->asset->create(engine, renderer); }
+                if (input) { input->asset->create(engine, renderer, observer); }
             }
         },
         swapframe);
@@ -251,6 +253,10 @@ void RenderGraph::populate(Strategy& strategy, Scene& scene) {
     strategy.populate(*this);
     scene.addGraphTasks(*this);
     build();
+}
+
+void RenderGraph::update(float dt) {
+    for (auto& task : tasks) { task->update(dt); }
 }
 
 } // namespace rg

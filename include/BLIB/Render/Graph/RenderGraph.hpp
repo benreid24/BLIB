@@ -15,6 +15,7 @@ namespace bl
 namespace rc
 {
 class Scene;
+class Observer;
 
 /// Collection of classes that comprise the render graph
 namespace rg
@@ -34,8 +35,10 @@ public:
      * @param engine The engine instance
      * @param renderer The renderer instance
      * @param assetPool The observer's asset pool
+     * @param observer The observer the graph belongs to
      */
-    RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& assetPool);
+    RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& assetPool,
+                Observer* observer);
 
     /**
      * @brief Adds a new task to the graph to become a part of the render process
@@ -50,7 +53,24 @@ public:
         T* task = new T(std::forward<TArgs>(args)...);
         tasks.emplace_back(task);
         needsRebuild = true;
+        static_cast<Task*>(task)->create(engine, renderer);
         return task;
+    }
+
+    /**
+     * @brief Adds a new task to the graph to become a part of the render process. Only adds the
+     *        task if it would be unique. Prevents duplicate tasks
+     *
+     * @tparam T The type of task to add
+     * @tparam ...TArgs Argument types to the task's constructor
+     * @param ...args Arguments to the task's constructor
+     * @return A pointer to the new task
+     */
+    template<typename T, typename... TArgs>
+    T* putUniqueTask(TArgs&&... args) {
+        T* t = findTask<T>();
+        if (t) return t;
+        return putTask<T, TArgs...>(std::forward<TArgs>(args)...);
     }
 
     /**
@@ -82,6 +102,32 @@ public:
         bool r = false;
         while (removeTask<T>()) { r = true; }
         return r;
+    }
+
+    /**
+     * @brief Finds and returns a pointer to the first task found of the given type
+     *
+     * @tparam T The task to search for
+     * @return A pointer to a found task, nullptr if not found
+     */
+    template<typename T>
+    T* findTask() {
+        for (auto& task : tasks) {
+            T* t = dynamic_cast<T*>(task.get());
+            if (t) { return t; }
+        }
+        return nullptr;
+    }
+
+    /**
+     * @brief Returns whether or not the given task is present in the graph
+     *
+     * @tparam T The task type to check for
+     * @return True if the task is in the graph, false otherwise
+     */
+    template<typename T>
+    bool hasTask() {
+        return findTask<T>() != nullptr;
     }
 
     /**
@@ -132,6 +178,13 @@ public:
      */
     void populate(Strategy& strategy, Scene& scene);
 
+    /**
+     * @brief Calls update on all contained tasks
+     *
+     * @param dt The elapsed time in seconds
+     */
+    void update(float dt);
+
 private:
     struct TimelineStage {
         std::vector<Task*> tasks;
@@ -144,6 +197,7 @@ private:
 
     engine::Engine& engine;
     Renderer& renderer;
+    Observer* observer;
     GraphAssetPool assets;
     std::vector<std::unique_ptr<Task>> tasks;
     std::vector<TimelineStage> timeline;

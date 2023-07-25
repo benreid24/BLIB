@@ -10,12 +10,13 @@ Asset::Asset(std::string_view tag)
 : tag(tag)
 , created(false)
 , refCount(0)
-, mode(InputMode::Unset) {}
+, mode(InputMode::Unset)
+, external(false) {}
 
-void Asset::create(engine::Engine& engine, Renderer& renderer) {
+void Asset::create(engine::Engine& engine, Renderer& renderer, Observer* observer) {
     if (!created) {
         created = true;
-        doCreate(engine, renderer);
+        doCreate(engine, renderer, observer);
     }
 }
 

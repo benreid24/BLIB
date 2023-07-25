@@ -1,5 +1,5 @@
-#ifndef BLIB_SYSTEMS_CAMERAUPDATESYSTEM_HPP
-#define BLIB_SYSTEMS_CAMERAUPDATESYSTEM_HPP
+#ifndef BLIB_SYSTEMS_RENDERERUPDATESYSTEM_HPP
+#define BLIB_SYSTEMS_RENDERERUPDATESYSTEM_HPP
 
 #include <BLIB/Engine/System.hpp>
 
@@ -13,24 +13,24 @@ class Renderer;
 namespace sys
 {
 /**
- * @brief System that updates all observer cameras while the renderer is waiting on the prior
- *        frame to complete
+ * @brief System that updates all observer cameras and task graphs while the renderer is waiting on
+ *        the prior frame to complete
  *
  * @ingroup Systems
  */
-class CameraUpdateSystem : public engine::System {
+class RendererUpdateSystem : public engine::System {
 public:
     /**
      * @brief Creates a new camera update system
      *
      * @param renderer The renderer instance
      */
-    CameraUpdateSystem(rc::Renderer& renderer);
+    RendererUpdateSystem(rc::Renderer& renderer);
 
     /**
      * @brief Destroys the system
      */
-    virtual ~CameraUpdateSystem() = default;
+    virtual ~RendererUpdateSystem() = default;
 
 private:
     rc::Renderer& renderer;

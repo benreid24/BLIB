@@ -30,7 +30,7 @@ public:
     /**
      * @brief Frees resources if not already destroyed
      */
-    ~StandardAttachmentBuffers();
+    ~StandardAttachmentBuffers() = default;
 
     /**
      * @brief Frees prior images, if any, and creates a new color and depth image
@@ -44,6 +44,11 @@ public:
      * @brief Destroys the images, views, sampler, and frees GPU memory
      */
     void destroy();
+
+    /**
+     * @brief Queues destruction for later
+     */
+    void deferDestroy();
 
     /**
      * @brief Returns the attachment set to use to render to this target

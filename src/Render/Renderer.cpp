@@ -1,12 +1,14 @@
 #include <BLIB/Render/Renderer.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
 #include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
 #include <BLIB/Systems/BuiltinDescriptorComponentSystems.hpp>
 #include <BLIB/Systems/BuiltinDrawableSystems.hpp>
-#include <BLIB/Systems/CameraUpdateSystem.hpp>
 #include <BLIB/Systems/OverlayScalerSystem.hpp>
 #include <BLIB/Systems/RenderSystem.hpp>
+#include <BLIB/Systems/RendererUpdateSystem.hpp>
 #include <BLIB/Systems/TextSyncSystem.hpp>
 #include <cmath>
 
@@ -47,7 +49,7 @@ void Renderer::initialize() {
     using engine::FrameStage;
 
     // core renderer systems
-    engine.systems().registerSystem<sys::CameraUpdateSystem>(
+    engine.systems().registerSystem<sys::RendererUpdateSystem>(
         FrameStage::RenderObjectSync, StateMask, *this);
     engine.systems().registerSystem<sys::RenderSystem>(FrameStage::Render, StateMask, *this);
     engine.systems().registerSystem<sys::OverlayScalerSystem>(FrameStage::RenderIntermediateRefresh,
@@ -73,7 +75,9 @@ void Renderer::initialize() {
                                                        Config::PipelineIds::LitSkinned2DGeometry,
                                                        Config::PipelineIds::UnlitSkinned2DGeometry);
 
-    // TODO - add asset providers
+    // asset providers
+    assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);
+    assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::PostFXOutput);
 
     // create renderer instance data
     state.init();
@@ -119,10 +123,10 @@ void Renderer::processResize(const sf::Rect<std::uint32_t>& region) {
     commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);
 }
 
-void Renderer::updateCameras(float dt) {
+void Renderer::update(float dt) {
     for (vk::RenderTexture* rt : renderTextures) { rt->updateCamera(dt); }
-    commonObserver.updateCamera(dt);
-    for (auto& o : observers) { o->updateCamera(dt); }
+    commonObserver.update(dt);
+    for (auto& o : observers) { o->update(dt); }
 }
 
 void Renderer::renderFrame() {

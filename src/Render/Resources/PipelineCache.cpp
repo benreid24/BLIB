@@ -2,6 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
@@ -39,23 +40,21 @@ vk::Pipeline& PipelineCache::getPipeline(std::uint32_t id) {
 }
 
 void PipelineCache::createBuiltins() {
-    VkPipelineDepthStencilStateCreateInfo depthStencil{};
-    depthStencil.sType                 = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-    depthStencil.depthTestEnable       = VK_TRUE;
-    depthStencil.depthWriteEnable      = VK_TRUE;
-    depthStencil.depthCompareOp        = VK_COMPARE_OP_LESS_OR_EQUAL;
-    depthStencil.depthBoundsTestEnable = VK_FALSE;
-    depthStencil.minDepthBounds        = 0.0f; // Optional
-    depthStencil.maxDepthBounds        = 1.0f; // Optional
-    depthStencil.stencilTestEnable     = VK_FALSE;
-    depthStencil.front                 = {}; // Optional (Stencil)
-    depthStencil.back                  = {}; // Optional (Stencil)
+    VkPipelineDepthStencilStateCreateInfo depthStencilDepthEnabled{};
+    depthStencilDepthEnabled.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+    depthStencilDepthEnabled.depthTestEnable       = VK_TRUE;
+    depthStencilDepthEnabled.depthWriteEnable      = VK_TRUE;
+    depthStencilDepthEnabled.depthCompareOp        = VK_COMPARE_OP_LESS_OR_EQUAL;
+    depthStencilDepthEnabled.depthBoundsTestEnable = VK_FALSE;
+    depthStencilDepthEnabled.minDepthBounds        = 0.0f; // Optional
+    depthStencilDepthEnabled.maxDepthBounds        = 1.0f; // Optional
+    depthStencilDepthEnabled.stencilTestEnable     = VK_FALSE;
+    depthStencilDepthEnabled.front                 = {}; // Optional (Stencil)
+    depthStencilDepthEnabled.back                  = {}; // Optional (Stencil)
 
-    VkPipelineDepthStencilStateCreateInfo postFxDepth{};
-    postFxDepth.sType             = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-    postFxDepth.depthTestEnable   = VK_FALSE;
-    postFxDepth.depthWriteEnable  = VK_FALSE;
-    postFxDepth.stencilTestEnable = VK_FALSE;
+    VkPipelineDepthStencilStateCreateInfo depthStencilDepthDisabled = depthStencilDepthEnabled;
+    depthStencilDepthEnabled.depthTestEnable                        = VK_FALSE;
+    depthStencilDepthEnabled.depthWriteEnable                       = VK_FALSE;
 
     VkPipelineRasterizationStateCreateInfo rasterizer{};
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
@@ -77,7 +76,7 @@ void PipelineCache::createBuiltins() {
                                    Config::ShaderIds::SkinnedMeshFragment)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
-                      .withDepthStencilState(&depthStencil)
+                      .withDepthStencilState(&depthStencilDepthEnabled)
                       .addDescriptorSet<ds::TexturePoolFactory>()
                       .addDescriptorSet<ds::Scene3DFactory>()
                       .addDescriptorSet<ds::Object3DFactory>()
@@ -90,7 +89,7 @@ void PipelineCache::createBuiltins() {
                                    Config::ShaderIds::LitSkinned2DFragment)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
-                      .withDepthStencilState(&depthStencil)
+                      .withDepthStencilState(&depthStencilDepthEnabled)
                       .addDescriptorSet<ds::TexturePoolFactory>()
                       .addDescriptorSet<ds::Scene2DFactory>()
                       .addDescriptorSet<ds::Object2DFactory>()
@@ -103,7 +102,7 @@ void PipelineCache::createBuiltins() {
                                    Config::ShaderIds::UnlitSkinned2DFragment)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
-                      .withDepthStencilState(&depthStencil)
+                      .withDepthStencilState(&depthStencilDepthEnabled)
                       .addDescriptorSet<ds::TexturePoolFactory>()
                       .addDescriptorSet<ds::Scene2DFactory>()
                       .addDescriptorSet<ds::Object2DFactory>()
@@ -116,10 +115,22 @@ void PipelineCache::createBuiltins() {
             .withShaders(Config::ShaderIds::UnlitSkinned2DVertex, Config::ShaderIds::TextFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
-            .withDepthStencilState(&depthStencil)
+            .withDepthStencilState(&depthStencilDepthEnabled)
             .addDescriptorSet<ds::TexturePoolFactory>()
             .addDescriptorSet<ds::Scene2DFactory>()
             .addDescriptorSet<ds::Object2DFactory>()
+            .build());
+
+    createPipline(
+        Config::PipelineIds::FadeEffect,
+        vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                Config::RenderPassIds::SwapchainDefault})
+            .withShaders(Config::ShaderIds::EmptyVertex, Config::ShaderIds::FadeEffectFragment)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withRasterizer(rasterizer)
+            .withDepthStencilState(&depthStencilDepthDisabled)
+            .addDescriptorSet<ds::FadeEffectFactory>()
+            .addPushConstantRange(0, sizeof(float), VK_SHADER_STAGE_FRAGMENT_BIT)
             .build());
 }
 

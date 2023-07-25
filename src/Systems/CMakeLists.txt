@@ -1,6 +1,6 @@
 target_sources(BLIB PRIVATE
-	CameraUpdateSystem.cpp
 	OverlayScalerSystem.cpp
+	RendererUpdateSystem.cpp
 	RenderSystem.cpp
 	TextSyncSystem.cpp
 )

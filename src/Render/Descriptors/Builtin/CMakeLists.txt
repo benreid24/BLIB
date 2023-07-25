@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
+	FadeEffectFactory.cpp
 	Object2DFactory.cpp
 	Object2DInstance.cpp
 	Object3DFactory.cpp

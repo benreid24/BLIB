@@ -13,13 +13,13 @@ namespace
 {
 constexpr std::array<unsigned int, DescriptorPool::BindingTypeCount> PoolSizes = {
     20,  // VK_DESCRIPTOR_TYPE_SAMPLER
-    200, // VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER
+    20,  // VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER
     20,  // VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE
     20,  // VK_DESCRIPTOR_TYPE_STORAGE_IMAGE
     20,  // VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER
     20,  // VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER
-    500, // VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER
-    50,  // VK_DESCRIPTOR_TYPE_STORAGE_BUFFER
+    50,  // VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER
+    200, // VK_DESCRIPTOR_TYPE_STORAGE_BUFFER
     50,  // VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC
     50,  // VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC
     50   // VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT
@@ -101,7 +101,7 @@ newPoolNotNeeded:
     return handle;
 }
 
-void DescriptorPool::release(AllocationHandle handle, VkDescriptorSet* sets) {
+void DescriptorPool::release(AllocationHandle handle, const VkDescriptorSet* sets) {
     // find layout info
     const auto lit = layoutMap.find(handle->layout);
     if (lit == layoutMap.end()) {
@@ -212,7 +212,7 @@ void DescriptorPool::Subpool::allocate(const SetBindingInfo& allocInfo,
     }
 }
 
-void DescriptorPool::Subpool::release(const SetBindingInfo& allocInfo, VkDescriptorSet* sets,
+void DescriptorPool::Subpool::release(const SetBindingInfo& allocInfo, const VkDescriptorSet* sets,
                                       std::size_t setCount) {
     // update metadata
     freeSets += setCount;

@@ -16,5 +16,6 @@ target_sources(BLIB PUBLIC
 )
 
 add_subdirectory(Assets)
+add_subdirectory(Providers)
 add_subdirectory(Strategies)
 add_subdirectory(Tasks)

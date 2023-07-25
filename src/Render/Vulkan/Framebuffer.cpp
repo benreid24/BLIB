@@ -15,14 +15,14 @@ Framebuffer::Framebuffer()
 , framebuffer(nullptr) {}
 
 Framebuffer::~Framebuffer() {
-    if (renderPass) { cleanup(); }
+    if (renderPass) { deferCleanup(); }
 }
 
 void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const AttachmentSet& frame) {
     vulkanState = &vs;
 
     // cleanup and block if recreating
-    if (renderPass) { cleanup(); }
+    if (renderPass) { deferCleanup(); }
 
     // copy create params
     renderPass       = rp;
@@ -88,6 +88,15 @@ void Framebuffer::finishRender(VkCommandBuffer commandBuffer) const {
 void Framebuffer::cleanup() {
     vkDestroyFramebuffer(vulkanState->device, framebuffer, nullptr);
     renderPass = nullptr;
+}
+
+void Framebuffer::deferCleanup() {
+    if (renderPass) {
+        vulkanState->cleanupManager.add([device = vulkanState->device, fb = framebuffer]() {
+            vkDestroyFramebuffer(device, fb, nullptr);
+        });
+        renderPass = nullptr;
+    }
 }
 
 } // namespace vk

@@ -15,6 +15,7 @@ class Engine;
 namespace rc
 {
 class Renderer;
+class Observer;
 
 namespace rg
 {
@@ -40,8 +41,9 @@ public:
      *
      * @param engine The engine instance
      * @param renderer The renderer instance
+     * @param observer The observer that the asset belongs to
      */
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer) = 0;
+    virtual void doCreate(engine::Engine& engine, Renderer& renderer, Observer* observer) = 0;
 
     /**
      * @brief Prepares the asset for being an input. Child classes should insert pipeline barriers
@@ -64,6 +66,11 @@ public:
      */
     constexpr std::string_view getTag() const { return tag; }
 
+    /**
+     * @brief Returns true if the asset was manually created, false if created by the factory
+     */
+    constexpr bool isExternal() const { return external; }
+
 protected:
     /**
      * @brief Initializes the asset
@@ -80,8 +87,9 @@ private:
     unsigned int refCount;
     std::vector<GraphAssetPool*> owners;
     InputMode mode;
+    bool external;
 
-    void create(engine::Engine& engine, Renderer& renderer);
+    void create(engine::Engine& engine, Renderer& renderer, Observer* observer);
     void prepareForInput(const ExecutionContext& ctx);
     void prepareForOutput(const ExecutionContext& ctx);
 

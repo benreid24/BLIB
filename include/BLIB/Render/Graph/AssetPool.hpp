@@ -13,6 +13,8 @@ namespace bl
 {
 namespace rc
 {
+class Observer;
+
 namespace rgi
 {
 class FramebufferAsset;
@@ -33,8 +35,9 @@ public:
      * @brief Creates a new asset pool
      *
      * @param factory The AssetFactory to use
+     * @param observer The observer that the pool belongs to
      */
-    AssetPool(AssetFactory& factory);
+    AssetPool(AssetFactory& factory, Observer* observer);
 
     /**
      * @brief Destroys all contained assets
@@ -78,6 +81,7 @@ public:
 
         T* asset = new T(std::forward<TArgs>(args)...);
         assets[asset->getTag()].emplace_back(asset);
+        static_cast<Asset*>(asset)->external = true;
         bucketAsset(asset);
         return asset;
     }
@@ -95,8 +99,9 @@ public:
     T* replaceAsset(TArgs&&... args) {
         static_assert(std::is_base_of_v<Asset, T>, "T must derive from Asset");
 
-        T* asset      = new T(std::forward<TArgs>(args)...);
-        const auto it = assets.try_emplace(asset->getTag()).first;
+        T* asset                             = new T(std::forward<TArgs>(args)...);
+        static_cast<Asset*>(asset)->external = true;
+        const auto it                        = assets.try_emplace(asset->getTag()).first;
         for (auto& a : it->second) { unbucketAsset(a.get()); }
         it->second.clear();
         it->second.emplace_back(asset);
@@ -111,8 +116,16 @@ public:
      */
     void notifyResize(glm::u32vec2 newSize);
 
+    /**
+     * @brief Resets resources used by the given pool
+     *
+     * @param pool The pool to reset resources for
+     */
+    void reset(GraphAssetPool* pool);
+
 private:
     AssetFactory& factory;
+    Observer* observer;
     std::unordered_map<std::string_view, std::vector<std::unique_ptr<Asset>>> assets;
     std::vector<rgi::FramebufferAsset*> framebufferAssets;
 

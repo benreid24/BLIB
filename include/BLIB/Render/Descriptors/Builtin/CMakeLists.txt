@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+	FadeEffectFactory.hpp
 	Object2DFactory.hpp
 	Object2DInstance.hpp
 	Object3DFactory.hpp

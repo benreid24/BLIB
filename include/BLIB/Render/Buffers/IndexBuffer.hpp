@@ -27,6 +27,11 @@ public:
     static constexpr VkIndexType IndexType = VK_INDEX_TYPE_UINT32;
 
     /**
+     * @brief Defers destruction of the buffers
+     */
+    virtual ~IndexBufferT();
+
+    /**
      * @brief Creates the vertex and index buffers
      *
      * @param vulkanState The renderer vulkan state
@@ -39,6 +44,11 @@ public:
      * @brief Frees both the vertex buffer and index buffer
      */
     void destroy();
+
+    /**
+     * @brief Queues the buffer to be erased in a deferred manner
+     */
+    void deferDestruction();
 
     /**
      * @brief Returns the vertex buffer
@@ -98,6 +108,11 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
+inline IndexBufferT<T>::~IndexBufferT() {
+    deferDestruction();
+}
+
+template<typename T>
 void IndexBufferT<T>::create(vk::VulkanState& vs, std::uint32_t vc, std::uint32_t ic) {
     vulkanState = &vs;
     cpuVertexBuffer.resize(vc);
@@ -120,6 +135,14 @@ void IndexBufferT<T>::destroy() {
     cpuIndexBuffer.clear();
     gpuVertexBuffer.destroy();
     gpuIndexBuffer.destroy();
+}
+
+template<typename T>
+inline void IndexBufferT<T>::deferDestruction() {
+    cpuVertexBuffer.clear();
+    cpuIndexBuffer.clear();
+    gpuVertexBuffer.deferDestruction();
+    gpuIndexBuffer.deferDestruction();
 }
 
 template<typename T>

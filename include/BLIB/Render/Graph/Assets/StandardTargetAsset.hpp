@@ -21,17 +21,12 @@ class StandardTargetAsset : public FramebufferAsset {
 public:
     /**
      * @brief Creates a new asset but does not allocate the attachments
-     *
-     * @param renderPassId The render pass to use while rendering
-     * @param viewport The viewport to use
-     * @param scissor The scissor to use
-     * @param clearColors The clear colors to start the render pass with
-     * @param clearColorCount The number of clear colors
      */
-    StandardTargetAsset(std::uint32_t renderPassId, const VkViewport& viewport,
-                        const VkRect2D& scissor, const VkClearValue* clearColors,
-                        const std::uint32_t clearColorCount);
+    StandardTargetAsset();
 
+    /**
+     * @brief Frees resources
+     */
     virtual ~StandardTargetAsset() = default;
 
     /**
@@ -39,12 +34,20 @@ public:
      */
     virtual vk::Framebuffer& currentFramebuffer() override;
 
+    /**
+     * @brief Returns the images that are rendered to
+     */
+    constexpr vk::PerFrame<vk::StandardAttachmentBuffers>& getImages() { return images; }
+
 private:
     Renderer* renderer;
+    Observer* observer;
     vk::PerFrame<vk::StandardAttachmentBuffers> images;
     vk::PerFrame<vk::Framebuffer> framebuffers;
+    VkViewport cachedViewport;
+    VkRect2D cachedScissor;
 
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer) override;
+    virtual void doCreate(engine::Engine& engine, Renderer& renderer, Observer* observer) override;
     virtual void doPrepareForInput(const rg::ExecutionContext& context) override;
     virtual void doPrepareForOutput(const rg::ExecutionContext& context) override;
     virtual void onResize(glm::u32vec2 newSize) override;

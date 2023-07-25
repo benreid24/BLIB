@@ -46,7 +46,7 @@ struct Config {
         static constexpr char UnlitSkinned2DFragment[] = {12};
         static constexpr char TextFragment[]           = {13};
 
-        static constexpr char DefaultPostFXFragment[] = {31};
+        static constexpr char FadeEffectFragment[] = {31};
 
         static constexpr std::uint32_t MaxId = 31;
     };
@@ -65,7 +65,7 @@ struct Config {
         static constexpr std::uint32_t UnlitSkinned2DGeometry = 7;
         static constexpr std::uint32_t Text                   = 8;
 
-        static constexpr std::uint32_t PostFXBase = 100;
+        static constexpr std::uint32_t FadeEffect = 100;
     };
 
     struct RenderPassIds {

@@ -14,7 +14,7 @@ Observer::Observer(engine::Engine& e, Renderer& r, rg::AssetFactory& f, bool c)
 : isCommon(c)
 , engine(e)
 , renderer(r)
-, graphAssets(f)
+, graphAssets(f, this)
 , resourcesFreed(false) {
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
@@ -39,12 +39,15 @@ void Observer::cleanup() {
     }
 }
 
-void Observer::updateCamera(float dt) {
-    if (!scenes.empty()) { scenes.back().camera->update(dt); }
+void Observer::update(float dt) {
+    if (!scenes.empty()) {
+        scenes.back().camera->update(dt);
+        scenes.back().graph.update(dt);
+    }
 }
 
 void Observer::pushScene(Scene* s) {
-    scenes.emplace_back(engine, renderer, graphAssets, s);
+    scenes.emplace_back(engine, renderer, this, graphAssets, s);
     onSceneAdd();
 }
 

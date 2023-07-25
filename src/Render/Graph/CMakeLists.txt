@@ -4,9 +4,11 @@ target_sources(BLIB PRIVATE
 	AssetPool.cpp
 	GraphAssetPool.cpp
 	RenderGraph.cpp
+	Task.cpp
 	TaskAssets.cpp
 )
 
 add_subdirectory(Assets)
+add_subdirectory(Providers)
 add_subdirectory(Strategies)
 add_subdirectory(Tasks)

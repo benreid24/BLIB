@@ -23,7 +23,7 @@ class Engine;
 }
 namespace sys
 {
-class CameraUpdateSystem;
+class RendererUpdateSystem;
 class RenderSystem;
 } // namespace sys
 
@@ -234,14 +234,14 @@ private:
     void removeRenderTexture(vk::RenderTexture* rt);
 
     // render stages
-    void updateCameras(float dt);
+    void update(float dt);
     void renderFrame();
 
     void assignObserverRegions();
 
     friend class engine::Engine;
     friend class Observer;
-    friend class sys::CameraUpdateSystem;
+    friend class sys::RendererUpdateSystem;
     friend class sys::RenderSystem;
     friend class vk::RenderTexture;
 };
@@ -284,7 +284,7 @@ TScene* Observer::pushScene(TArgs&&... args) {
     static_assert(std::is_base_of_v<Scene, TScene>, "Scene must derive from Scene");
 
     TScene* s = renderer.scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
-    scenes.emplace_back(engine, renderer, graphAssets, s);
+    scenes.emplace_back(engine, renderer, this, graphAssets, s);
     onSceneAdd();
     return s;
 }
